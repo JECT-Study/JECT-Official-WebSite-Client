@@ -2,7 +2,7 @@
 name: Bug report
 about: 버그 리포트 이슈 템플릿
 title: 'bug: '
-labels: "\U0001F41Bbug"
+labels: "\U0001F41Bbug, ✨feature"
 assignees: ''
 
 ---
