@@ -88,7 +88,7 @@
 
 /* Label */
 .label-xs {
-  @apply text-size-2xs font-xl leading-normal tracking-normal;
+  @apply text-size-xs font-xl leading-normal tracking-normal;
 }
 
 .label-sm {
