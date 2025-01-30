@@ -43,12 +43,12 @@ StyleDictionary.registerFormat({
 });
 
 const styleDictionary = new StyleDictionary({
-  source: [`src/tokens/**/*.json`],
+  source: [`src/styles/tokens/**/*.json`],
   parsers: ['json-parser'],
   platforms: {
     css: {
       transformGroup: 'css',
-      buildPath: 'src/styles/',
+      buildPath: 'src/styles/tokens/',
       files: [
         {
           destination: 'semantic.css',
