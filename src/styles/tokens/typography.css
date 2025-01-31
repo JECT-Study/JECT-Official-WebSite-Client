@@ -52,7 +52,7 @@
   --tracking-wide: 0.004em;
 }
 
-@layer components {
+@layer utilities {
   /* Display */
   .display-01 {
     @apply font-4xl leading-narrower tracking-narrowest text-size-6xl;
