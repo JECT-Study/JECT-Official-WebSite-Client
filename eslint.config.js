@@ -32,35 +32,35 @@ export default tseslint.config(
           },
         },
       ],
+      '@typescript-eslint/naming-convention': [
+        'error',
+        {
+          selector: 'function',
+          modifiers: ['exported'],
+          format: ['PascalCase'],
+        },
+        {
+          selector: 'variable',
+          modifiers: ['const'],
+          format: ['camelCase', 'UPPER_CASE'],
+        },
+        {
+          selector: 'variable',
+          modifiers: ['let'],
+          format: ['camelCase'],
+        },
+        {
+          selector: 'variable',
+          types: ['boolean'],
+          format: ['camelCase'],
+          prefix: ['is'],
+        },
+        {
+          selector: 'typeAlias',
+          format: ['PascalCase'],
+        },
+      ],
+      eslintConfigPrettier,
     },
-    '@typescript-eslint/naming-convention': [
-      'error',
-      {
-        selector: 'function',
-        modifiers: ['exported'],
-        format: ['PascalCase'],
-      },
-      {
-        selector: 'variable',
-        modifiers: ['const'],
-        format: ['camelCase', 'UPPER_CASE'],
-      },
-      {
-        selector: 'variable',
-        modifiers: ['let'],
-        format: ['camelCase'],
-      },
-      {
-        selector: 'variable',
-        types: ['boolean'],
-        format: ['camelCase'],
-        prefix: ['is'],
-      },
-      {
-        selector: 'typeAlias',
-        format: ['PascalCase'],
-      },
-    ],
-    eslintConfigPrettier,
   },
 );
