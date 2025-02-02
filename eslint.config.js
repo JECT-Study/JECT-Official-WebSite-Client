@@ -1,9 +1,9 @@
-import js from '@eslint/js'
-import globals from 'globals'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
-import tseslint from 'typescript-eslint'
-import eslintConfigPrettier from 'eslint-config-prettier'
+import js from '@eslint/js';
+import globals from 'globals';
+import reactHooks from 'eslint-plugin-react-hooks';
+import reactRefresh from 'eslint-plugin-react-refresh';
+import tseslint from 'typescript-eslint';
+import eslintConfigPrettier from 'eslint-config-prettier';
 
 export default tseslint.config(
   { ignores: ['dist'] },
@@ -33,6 +33,34 @@ export default tseslint.config(
         },
       ],
     },
+    '@typescript-eslint/naming-convention': [
+      'error',
+      {
+        selector: 'function',
+        modifiers: ['exported'],
+        format: ['PascalCase'],
+      },
+      {
+        selector: 'variable',
+        modifiers: ['const'],
+        format: ['camelCase', 'UPPER_CASE'],
+      },
+      {
+        selector: 'variable',
+        modifiers: ['let'],
+        format: ['camelCase'],
+      },
+      {
+        selector: 'variable',
+        types: ['boolean'],
+        format: ['camelCase'],
+        prefix: ['is'],
+      },
+      {
+        selector: 'typeAlias',
+        format: ['PascalCase'],
+      },
+    ],
     eslintConfigPrettier,
   },
-)
+);
