@@ -5,10 +5,10 @@ StyleDictionary.registerParser({
   pattern: /\.json$/,
   parser: ({ filePath, contents }) => {
     const data = contents
-      .replace(/\\n/g, '') // 줄바꿈 제거
-      .replace(/\\t/g, '') // 탭 제거
-      .replace(/\\"/g, '"') // 이중 인용부호 복원
-      .replace(/\\\\/g, '\\') // 백슬래시 복원
+      .replace(/\\n/g, '')
+      .replace(/\\t/g, '')
+      .replace(/\\"/g, '"')
+      .replace(/\\\\/g, '\\')
       .trim()
       .slice(1, -1);
 
