@@ -30,6 +30,7 @@
     "@storybook/react-vite": "^8.5.3",
     "@storybook/test": "^8.5.3",
     "@types/eslint-config-prettier": "^6.11.3",
+    "@types/node": "^22.13.1",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
     "@vitejs/plugin-react": "^4.3.4",
