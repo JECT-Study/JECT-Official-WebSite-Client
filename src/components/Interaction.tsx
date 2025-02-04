@@ -22,7 +22,7 @@ export function Interaction({ children, variant, density, radius }: InteractionP
     return (
       <div>
         <div
-          className={`interaction hover:bg-object-hero-dark focus-visible::bg-object-hero-dark active:bg-object-hero-dark *:hover:opacity-88 *:active:opacity-78 ${radius}`}
+          className={`hover:bg-object-hero-dark focus-visible::bg-object-hero-dark active:bg-object-hero-dark *:focus-visible:outline-interactive-focus-dark *:focus-visible:hover:opacity-visible inline-block *:hover:opacity-88 *:focus-visible:outline-4 *:active:opacity-78 ${radius}`}
         >
           {children}
         </div>
@@ -34,7 +34,7 @@ export function Interaction({ children, variant, density, radius }: InteractionP
     return (
       <div>
         <div
-          className={`interaction hover:bg-object-normal-dark focus-visible:bg-object-normal-dark active:bg-object-normal-dark *:hover:opacity-92 *:active:opacity-84 ${radius}`}
+          className={`hover:bg-object-normal-dark focus-visible:bg-object-normal-dark active:bg-object-normal-dark *:focus-visible:outline-interactive-focus-dark *:focus-visible:hover:opacity-visible inline-block *:hover:opacity-92 *:focus-visible:outline-4 *:active:opacity-84 ${radius}`}
         >
           {children}
         </div>
@@ -46,7 +46,7 @@ export function Interaction({ children, variant, density, radius }: InteractionP
     return (
       <div>
         <div
-          className={`interaction hover:bg-object-neutral-dark active:bg-object-neutral-dark focus-visible:bg-object-neutral-dark *:hover:opacity-95 *:active:opacity-88 ${radius}`}
+          className={`hover:bg-object-neutral-dark active:bg-object-neutral-dark focus-visible:bg-object-neutral-dark *:focus-visible:outline-interactive-focus-dark *:focus-visible:hover:opacity-visible inline-block *:hover:opacity-95 *:focus-visible:outline-4 *:active:opacity-88 ${radius}`}
         >
           {children}
         </div>
@@ -58,7 +58,7 @@ export function Interaction({ children, variant, density, radius }: InteractionP
     return (
       <div>
         <div
-          className={`interaction hover:bg-accent-hero-dark active:bg-accent-hero-dark focus-visible:bg-accent-hero-dark *:hover:opacity-88 *:active:opacity-78 ${radius}`}
+          className={`hover:bg-accent-hero-dark active:bg-accent-hero-dark focus-visible:bg-accent-hero-dark *:focus-visible:outline-interactive-focus-dark *:focus-visible:hover:opacity-visible inline-block *:hover:opacity-88 *:focus-visible:outline-4 *:active:opacity-78 ${radius}`}
         >
           {children}
         </div>
@@ -70,7 +70,7 @@ export function Interaction({ children, variant, density, radius }: InteractionP
     return (
       <div>
         <div
-          className={`interaction hover:bg-accent-normal-dark active:bg-accent-normal-dark focus-visible:bg-accent-normal-dark *:hover:opacity-92 *:active:opacity-84 ${radius}`}
+          className={`hover:bg-accent-normal-dark active:bg-accent-normal-dark focus-visible:bg-accent-normal-dark *:focus:outline-interactive-focus-dark *:focus-visible:hover:opacity-visible inline-block *:hover:opacity-92 *:focus-visible:outline-4 *:active:opacity-84 ${radius}`}
         >
           {children}
         </div>
@@ -82,7 +82,7 @@ export function Interaction({ children, variant, density, radius }: InteractionP
     return (
       <div>
         <div
-          className={`interaction hover:bg-accent-neutral-dark active:bg-accent-neutral-dark focus-visible:bg-accent-neutral-dark *:hover:opacity-95 *:active:opacity-88 ${radius}`}
+          className={`hover:bg-accent-neutral-dark active:bg-accent-neutral-dark focus-visible:bg-accent-neutral-dark *:focus-visible:outline-interactive-focus-dark *:focus-visible:hover:opacity-visible inline-block *:hover:opacity-95 *:focus-visible:outline-4 *:active:opacity-88 ${radius}`}
         >
           {children}
         </div>
