@@ -5,3 +5,9 @@
     font-family: 'Pretendard Variable';
   }
 }
+
+@layer utilities {
+  .interaction {
+    @apply *:focus-visible:outline-interactive-focus-dark *:focus-visible:hover:opacity-visible inline-block *:focus-visible:outline-4;
+  }
+}
