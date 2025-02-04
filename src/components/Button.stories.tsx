@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+
 import Button from './Button';
 
 const meta: Meta<typeof Button> = {
@@ -16,7 +17,7 @@ type Story = StoryObj<{
   onClick?: () => void;
 }>;
 
-export const Primary: Story = {
+export const PRIMARY: Story = {
   args: {
     label: '예시 라벨입니다.',
   },
