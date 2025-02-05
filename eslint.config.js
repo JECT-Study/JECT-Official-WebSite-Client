@@ -5,6 +5,7 @@ import reactRefresh from 'eslint-plugin-react-refresh';
 import tseslint from 'typescript-eslint';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import importPlugin from 'eslint-plugin-import';
+import pluginQuery from '@tanstack/eslint-plugin-query';
 
 export default tseslint.config(
   { ignores: ['dist', '.storybook/**/*'] },
@@ -14,6 +15,7 @@ export default tseslint.config(
       ...tseslint.configs.recommended,
       tseslint.configs.recommendedTypeChecked,
       eslintConfigPrettier,
+      ...pluginQuery.configs['flat/recommended'],
     ],
     files: ['**/*.{ts,tsx}'],
     languageOptions: {
