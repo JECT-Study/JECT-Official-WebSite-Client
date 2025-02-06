@@ -2,7 +2,7 @@ import { Meta, StoryObj } from '@storybook/react';
 
 import Label from './Label';
 
-import { Hierarchy, Weight } from '@/styles/label';
+import { Hierarchy, Weight } from '@/styles/labelStyle';
 
 const meta: Meta<typeof Label> = {
   title: 'Components/Label',
