@@ -1,4 +1,3 @@
-/* eslint-disable */
 import type { Meta, StoryObj } from '@storybook/react';
 
 import Interaction from './Interaction';
@@ -43,7 +42,7 @@ export default meta;
 type Story = StoryObj<typeof Interaction>;
 
 // Default - Normal
-export const Default: Story = {
+export const DEFAULT: Story = {
   args: {
     children: (
       <button
