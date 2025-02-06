@@ -19,32 +19,38 @@ export const interactionStyle: InteractionStyleType = {
     default: {
       density: {
         bold: {
-          bgColor: 'bg-object-hero-dark',
-          opacity: 'opacity-88',
+          bgColor:
+            'hover:bg-object-hero-dark focus-visible:bg-object-hero-dark active:bg-object-hero-dark',
+          opacity: '*:hover:opacity-88 *:active:opacity-88',
         },
         normal: {
-          bgColor: 'bg-object-normal-dark',
-          opacity: 'opacity-92',
+          bgColor:
+            'hover:bg-object-normal-dark focus-visible:bg-object-normal-dark  active:bg-object-normal-dark',
+          opacity: '*:hover:opacity-92 *:active:opacity-92',
         },
         subtle: {
-          bgColor: 'bg-object-neutral-dark',
-          opacity: 'opacity-95',
+          bgColor:
+            'hover:bg-object-neutral-dark focus-visible:bg-object-neutral-dark  active:bg-object-neutral-dark ',
+          opacity: '*:hover:opacity-95 *:active:opacity-95',
         },
       },
     },
     brand: {
       density: {
         bold: {
-          bgColor: 'bg-accent-hero-dark',
-          opacity: 'opacity-88',
+          bgColor:
+            'hover:bg-accent-hero-dark focus-visible:bg-accent-hero-dark  active:bg-accent-hero-dark',
+          opacity: '*:hover:opacity-88 *:active:opacity-88',
         },
         normal: {
-          bgColor: 'bg-accent-normal-dark',
-          opacity: 'opacity-92',
+          bgColor:
+            'hover:bg-accent-normal-dark focus-visible:bg-accent-normal-dark  active:bg-accent-normal-dark',
+          opacity: '*:hover:opacity-92 *:active:opacity-92',
         },
         subtle: {
-          bgColor: 'bg-accent-neutral-dark',
-          opacity: 'opacity-95',
+          bgColor:
+            'hover:bg-accent-neutral-dark focus-visible:bg-accent-neutral-dark  active:bg-accent-neutral-dark',
+          opacity: '*:hover:opacity-95 *:active:opacity-95',
         },
       },
     },
