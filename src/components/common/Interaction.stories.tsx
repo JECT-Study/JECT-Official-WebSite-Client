@@ -42,7 +42,7 @@ export default meta;
 type Story = StoryObj<typeof Interaction>;
 
 // Default - Normal
-export const DEFAULT: Story = {
+export const Default: Story = {
   args: {
     children: (
       <button
