@@ -24,7 +24,7 @@ function Interaction({ children, variant, density, radius }: InteractionProps) {
   return (
     <div>
       <div
-        className={`${background} ${opacity} ${radius} *:focus-visible:outline-interactive-focus-dark *:focus-visible:hover:opacity-visible inline-block *:focus-visible:outline-4`}
+        className={`${background} ${opacity} ${radius || ''} *:focus-visible:outline-interactive-focus-dark *:focus-visible:hover:opacity-visible inline-block *:focus-visible:outline-4`}
       >
         {children}
       </div>
