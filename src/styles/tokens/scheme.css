@@ -43,19 +43,6 @@
 
   /* opacity */
   --opacity-invisible: 0;
-  --opacity-05: 0.05;
-  --opacity-08: 0.08;
-  --opacity-12: 0.12;
-  --opacity-16: 0.16;
-  --opacity-22: 0.22;
-  --opacity-28: 0.28;
-  --opacity-35: 0.35;
-  --opacity-43: 0.43;
-  --opacity-52: 0.52;
-  --opacity-63: 0.63;
-  --opacity-75: 0.75;
-  --opacity-88: 0.88;
-  --opacity-96: 0.96;
   --opacity-visible: 1;
 }
 
