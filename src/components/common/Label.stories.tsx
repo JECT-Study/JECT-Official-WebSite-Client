@@ -41,7 +41,7 @@ type Story = StoryObj<{
   isRequired?: boolean;
 }>;
 
-export const DEFAULT: Story = {
+export const Primary: Story = {
   args: {
     weight: 'normal',
     hierarchy: 'weak',

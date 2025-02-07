@@ -21,7 +21,7 @@ type Story = StoryObj<{
   textColor: string;
 }>;
 
-export const DEFAULT: Story = {
+export const Primary: Story = {
   args: {
     text: '레이블',
     backgroundColor: 'bg-feedback-trans-information-dark',
