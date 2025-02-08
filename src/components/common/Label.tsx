@@ -1,7 +1,9 @@
+import { ReactNode } from 'react';
+
 import { Hierarchy, labelStyle, Weight } from '@/styles/labelStyle';
 
 interface LabelProps {
-  children: React.ReactNode;
+  children: ReactNode;
   hierarchy: Hierarchy;
   weight: Weight;
   textColor: string;

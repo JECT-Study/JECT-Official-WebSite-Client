@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 import { Density, interactionStyle, Variant } from '@/styles/interactionStyle';
 
 type Radius =
@@ -11,7 +13,7 @@ type Radius =
   | 'radius-circle';
 
 interface InteractionProps {
-  children: React.ReactNode;
+  children: ReactNode;
   variant: Variant;
   density: Density;
   childHasBg: boolean;
