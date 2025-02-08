@@ -2,8 +2,6 @@ import { Meta, StoryObj } from '@storybook/react';
 
 import Label from './Label';
 
-import { Hierarchy, Weight } from '@/styles/labelStyle';
-
 const meta: Meta<typeof Label> = {
   title: 'Components/Label',
   component: Label,
@@ -34,13 +32,7 @@ const meta: Meta<typeof Label> = {
 
 export default meta;
 
-type Story = StoryObj<{
-  children: React.ReactNode;
-  hierarchy: Hierarchy;
-  weight: Weight;
-  textColor: string;
-  isRequired?: boolean;
-}>;
+type Story = StoryObj<typeof Label>;
 
 export const Primary: Story = {
   args: {

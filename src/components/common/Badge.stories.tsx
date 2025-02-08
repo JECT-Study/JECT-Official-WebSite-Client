@@ -15,11 +15,7 @@ const meta: Meta<typeof Badge> = {
 
 export default meta;
 
-type Story = StoryObj<{
-  text: string;
-  backgroundColor: string;
-  textColor: string;
-}>;
+type Story = StoryObj<typeof Badge>;
 
 export const Primary: Story = {
   args: {
