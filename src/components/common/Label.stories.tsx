@@ -9,16 +9,17 @@ const meta: Meta<typeof Label> = {
   component: Label,
   tags: ['autodocs'],
   argTypes: {
-    weight: {
-      control: 'radio',
-      options: ['normal', 'bold'],
+    children: {
+      control: 'text',
+      description: 'Label에 들어갈 텍스트입니다.',
     },
     hierarchy: {
       control: 'radio',
       options: ['stronger', 'strong', 'normal', 'weak'],
     },
-    text: {
-      control: 'text',
+    weight: {
+      control: 'radio',
+      options: ['normal', 'bold'],
     },
     textColor: {
       control: 'color',
@@ -34,19 +35,19 @@ const meta: Meta<typeof Label> = {
 export default meta;
 
 type Story = StoryObj<{
+  children: React.ReactNode;
   hierarchy: Hierarchy;
   weight: Weight;
-  text: string;
   textColor: string;
   isRequired?: boolean;
 }>;
 
 export const Primary: Story = {
   args: {
+    children: '레이블',
+    hierarchy: 'stronger',
     weight: 'normal',
-    hierarchy: 'weak',
-    textColor: '#000',
-    text: '레이블',
+    textColor: 'text-object-neutral-dark',
     isRequired: true,
   },
 };
