@@ -9,7 +9,9 @@ interface HeroIndexProps extends HeroProps {
 function HeroIndex({ index, title, badgeText, content }: HeroIndexProps) {
   return (
     <div className='radius-xs border-border-assistive-dark bg-surface-deep-dark gap-4xl flex items-center border px-(--gap-3xl) py-(--gap-2xl)'>
-      <Title hierarchy='stronger'>{index}</Title>
+      <div className='min-w-[33px] text-center'>
+        <Title hierarchy='stronger'>{index}</Title>
+      </div>
       <div className='gap-xs flex flex-col'>
         <div className='gap-sm flex'>
           <Title hierarchy='normal'>{title}</Title>
