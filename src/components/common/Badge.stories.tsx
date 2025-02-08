@@ -7,7 +7,7 @@ const meta: Meta<typeof Badge> = {
   component: Badge,
   tags: ['autodocs'],
   argTypes: {
-    text: { control: 'text', description: 'Badge에 들어갈 텍스트' },
+    children: { control: 'text', description: 'Badge에 들어갈 텍스트' },
     backgroundColor: { control: 'color', description: '배경색' },
     textColor: { control: 'color', description: '폰트 색상' },
   },
@@ -19,7 +19,7 @@ type Story = StoryObj<typeof Badge>;
 
 export const Primary: Story = {
   args: {
-    text: '레이블',
+    children: '레이블',
     backgroundColor: 'bg-feedback-trans-information-dark',
     textColor: 'text-feedback-information-dark',
   },
