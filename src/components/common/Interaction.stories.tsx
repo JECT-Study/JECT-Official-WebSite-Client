@@ -22,6 +22,7 @@ const meta: Meta<typeof Interaction> = {
     },
     childHasBg: {
       control: 'boolean',
+      description: '자식 요소에 배경색이 있다면 true, 없다면 false를 넘겨줍니다.',
     },
     childRadius: {
       control: 'select',
