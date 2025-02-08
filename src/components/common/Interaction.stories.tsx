@@ -11,17 +11,20 @@ const meta: Meta<typeof Interaction> = {
       description: '인터렉션 효과가 필요한 컴포넌트입니다. 해당 요소를 Interaction으로 감쌉니다.',
     },
     variant: {
-      control: { type: 'radio' },
+      control: 'radio',
       description: '피그마에 정의된 variant 속성입니다.',
       options: ['default', 'brand'],
     },
     density: {
-      control: { type: 'radio' },
+      control: 'radio',
       description: '피그마에 정의된 density 속성입니다.',
       options: ['bold', 'normal', 'subtle'],
     },
-    radius: {
-      control: { type: 'select' },
+    childHasBg: {
+      control: 'boolean',
+    },
+    childRadius: {
+      control: 'select',
       description: 'Interaction으로 감싸는 자식요소의 radius와 동일해야합니다.',
       options: [
         'radius-4xs',
@@ -41,18 +44,36 @@ export default meta;
 
 type Story = StoryObj<typeof Interaction>;
 
-// Default - Normal
-export const Default: Story = {
+export const BackgroundColor: Story = {
   args: {
     children: (
       <button
-        className={`radius-circle h-[44px] border border-blue-200 px-(--gap-lg) py-(--gap-2xs) text-black`}
+        className={`radius-circle bg-accent-normal-dark border-border-hero-dark text-object-hero-dark h-[44px] px-(--gap-lg) py-(--gap-2xs)`}
       >
-        레이블
+        배경색 있는 요소
       </button>
     ),
+
+    variant: 'brand',
+    density: 'bold',
+    childHasBg: true,
+    childRadius: 'radius-circle',
+  },
+};
+
+export const NoBackgroundColor: Story = {
+  args: {
+    children: (
+      <button
+        className={`radius-lg text-object-neutral-dark border-border-hero-dark h-[44px] border px-(--gap-lg) py-(--gap-2xs)`}
+      >
+        배경색 없는 요소
+      </button>
+    ),
+
     variant: 'default',
-    density: 'normal',
-    radius: 'radius-circle',
+    density: 'subtle',
+    childHasBg: false,
+    childRadius: 'radius-lg',
   },
 };
