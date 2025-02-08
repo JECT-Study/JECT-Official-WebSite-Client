@@ -9,7 +9,9 @@ interface BadgeProps {
 function Badge({ text, backgroundColor, textColor }: BadgeProps) {
   return (
     <div className={`radius-2xs ${backgroundColor} inline-block px-(--gap-xs) py-(--gap-5xs)`}>
-      <Label hierarchy='stronger' weight='normal' text={text} textColor={textColor} />
+      <Label hierarchy='stronger' weight='normal' textColor={textColor}>
+        {text}
+      </Label>
     </div>
   );
 }
