@@ -14,17 +14,19 @@ interface InteractionProps {
   children: React.ReactNode;
   variant: Variant;
   density: Density;
-  radius?: Radius;
+  childHasBg: boolean;
+  childRadius?: Radius;
 }
 
-function Interaction({ children, variant, density, radius }: InteractionProps) {
-  const background = interactionStyle.variant[variant].density[density].bgColor;
+function Interaction({ children, variant, density, childHasBg, childRadius }: InteractionProps) {
+  const bgColor = interactionStyle.variant[variant].density[density].bgColor;
   const opacity = interactionStyle.variant[variant].density[density].opacity;
+  const bgRgba = interactionStyle.variant[variant].density[density].bgRgba;
 
   return (
     <div>
       <div
-        className={`${background} ${opacity} ${radius || ''} *:focus-visible:outline-interactive-focus-dark *:focus-visible:hover:opacity-visible inline-block *:focus-visible:outline-4`}
+        className={`${childHasBg ? bgColor : bgRgba} ${childHasBg ? opacity : ''} ${childRadius || ''} *:focus-visible:outline-interactive-focus-dark *:focus-visible:hover:opacity-visible inline-block *:focus-visible:outline-4`}
       >
         {children}
       </div>
