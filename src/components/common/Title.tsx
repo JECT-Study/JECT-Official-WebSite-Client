@@ -10,9 +10,8 @@ interface TitleProps {
 
 function Title({ children, hierarchy }: TitleProps) {
   const typo = titleStyle.hierarchy[hierarchy].typo;
-  const lineHeight = titleStyle.hierarchy[hierarchy].lineHeight;
 
-  return <div className={`${typo} ${lineHeight} text-object-hero-dark`}>{children}</div>;
+  return <div className={`${typo} text-object-hero-dark`}>{children}</div>;
 }
 
 export default Title;
