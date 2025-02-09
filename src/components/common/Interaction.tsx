@@ -1,3 +1,5 @@
+import { ReactElement } from 'react';
+
 import { Density, interactionStyle, Variant } from '@/styles/interactionStyle';
 
 type Radius =
@@ -11,20 +13,26 @@ type Radius =
   | 'radius-circle';
 
 interface InteractionProps {
-  children: React.ReactNode;
+  children: ReactElement<HTMLElement>;
   variant: Variant;
   density: Density;
-  radius?: Radius;
 }
 
-function Interaction({ children, variant, density, radius }: InteractionProps) {
-  const background = interactionStyle.variant[variant].density[density].bgColor;
+function Interaction({ children, variant, density }: InteractionProps) {
+  const bgColor = interactionStyle.variant[variant].density[density].bgColor;
   const opacity = interactionStyle.variant[variant].density[density].opacity;
+  const bgRgba = interactionStyle.variant[variant].density[density].bgRgba;
+
+  const classNames = children.props.className.split(' ');
+  const childHasBg = classNames.filter(classname => classname.includes('bg-'))[0];
+  const childRadius = classNames.filter(classname => classname.includes('radius'))[0] as
+    | Radius
+    | undefined;
 
   return (
     <div>
       <div
-        className={`${background} ${opacity} ${radius || ''} *:focus-visible:outline-interactive-focus-dark *:focus-visible:hover:opacity-visible inline-block *:focus-visible:outline-4`}
+        className={`${childHasBg ? bgColor : bgRgba} ${childHasBg ? opacity : ''} ${childRadius || ''} *:focus-visible:outline-interactive-focus-dark *:focus-visible:hover:opacity-visible inline-block *:focus-visible:outline-4`}
       >
         {children}
       </div>
