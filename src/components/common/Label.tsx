@@ -12,10 +12,9 @@ interface LabelProps {
 
 function Label({ children, weight, hierarchy, textColor, isRequired }: LabelProps) {
   const typo = labelStyle.weight[weight].hierarchy[hierarchy].typo;
-  const lineHeight = labelStyle.weight[weight].hierarchy[hierarchy].lineHeight;
 
   return (
-    <div className={`${typo} ${lineHeight} gap-5xs flex`}>
+    <div className={`${typo} gap-5xs flex`}>
       <span className={`${textColor} whitespace-nowrap`}>{children}</span>
       {isRequired && <span className='text-feedback-notification-dark'>*</span>}
     </div>
