@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactElement } from 'react';
 
 import { Density, interactionStyle, Variant } from '@/styles/interactionStyle';
 
@@ -13,17 +13,21 @@ type Radius =
   | 'radius-circle';
 
 interface InteractionProps {
-  children: ReactNode;
+  children: ReactElement<HTMLElement>;
   variant: Variant;
   density: Density;
-  childHasBg: boolean;
-  childRadius?: Radius;
 }
 
-function Interaction({ children, variant, density, childHasBg, childRadius }: InteractionProps) {
+function Interaction({ children, variant, density }: InteractionProps) {
   const bgColor = interactionStyle.variant[variant].density[density].bgColor;
   const opacity = interactionStyle.variant[variant].density[density].opacity;
   const bgRgba = interactionStyle.variant[variant].density[density].bgRgba;
+
+  const classNames = children.props.className.split(' ');
+  const childHasBg = classNames.filter(classname => classname.includes('bg-'))[0];
+  const childRadius = classNames.filter(classname => classname.includes('radius'))[0] as
+    | Radius
+    | undefined;
 
   return (
     <div>
