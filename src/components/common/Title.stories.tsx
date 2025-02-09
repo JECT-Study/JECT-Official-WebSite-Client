@@ -23,10 +23,7 @@ const meta: Meta<typeof Title> = {
 
 export default meta;
 
-type Story = StoryObj<{
-  children: React.ReactNode;
-  hierarchy: Hierarchy;
-}>;
+type Story = StoryObj<typeof Title>;
 
 export const Primary: Story = {
   args: {
