@@ -1,6 +1,7 @@
-import Badge from '../Badge';
-import Title from '../Title';
 import { HeroProps } from './Hero';
+
+import Badge from '@/components/common/badge/Badge';
+import Title from '@/components/common/title/Title';
 
 interface HeroIndexProps extends HeroProps {
   index: number;

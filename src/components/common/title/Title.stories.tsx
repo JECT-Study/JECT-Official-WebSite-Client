@@ -2,8 +2,6 @@ import { Meta, StoryObj } from '@storybook/react';
 
 import Title from './Title';
 
-import { Hierarchy } from '@/styles/labelStyle';
-
 const meta: Meta<typeof Title> = {
   title: 'Components/Title',
   component: Title,

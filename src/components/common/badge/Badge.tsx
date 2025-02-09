@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import Label from './Label';
+import Label from '@/components/common/label/Label';
 
 interface BadgeProps {
   children: ReactNode;
