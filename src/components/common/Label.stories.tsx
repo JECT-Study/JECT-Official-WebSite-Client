@@ -34,12 +34,55 @@ export default meta;
 
 type Story = StoryObj<typeof Label>;
 
-export const Primary: Story = {
+export const Default: Story = {
   args: {
     children: '레이블',
     hierarchy: 'stronger',
     weight: 'normal',
     textColor: 'text-object-neutral-dark',
     isRequired: true,
+  },
+};
+
+export const Labels: Story = {
+  render: () => {
+    return (
+      <div className='gap-lg flex'>
+        <div>
+          <Label
+            hierarchy='stronger'
+            weight='normal'
+            textColor='text-object-neutral-dark'
+            isRequired={true}
+          >
+            레이블
+          </Label>
+          <Label
+            hierarchy='strong'
+            weight='normal'
+            textColor='text-object-neutral-dark'
+            isRequired={false}
+          >
+            레이블
+          </Label>
+          <Label
+            hierarchy='normal'
+            weight='normal'
+            textColor='text-object-neutral-dark'
+            isRequired={true}
+          >
+            레이블
+          </Label>
+          <Label
+            hierarchy='weak'
+            weight='normal'
+            textColor='text-object-neutral-dark'
+            isRequired={false}
+          >
+            레이블
+          </Label>
+        </div>
+      </div>
+    );
   },
 };

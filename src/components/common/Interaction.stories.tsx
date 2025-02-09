@@ -45,36 +45,48 @@ export default meta;
 
 type Story = StoryObj<typeof Interaction>;
 
-export const BackgroundColor: Story = {
+export const Default: Story = {
   args: {
     children: (
       <button
-        className={`radius-circle bg-accent-normal-dark border-border-hero-dark text-object-hero-dark h-[44px] px-(--gap-lg) py-(--gap-2xs)`}
+        className={`radius-circle border-border-hero-dark text-object-hero-dark h-[44px] px-(--gap-lg) py-(--gap-2xs)`}
       >
-        배경색 있는 요소
+        Button
       </button>
     ),
-
     variant: 'brand',
     density: 'bold',
-    childHasBg: true,
+    childHasBg: false,
     childRadius: 'radius-circle',
   },
 };
 
-export const NoBackgroundColor: Story = {
-  args: {
-    children: (
-      <button
-        className={`radius-lg text-object-neutral-dark border-border-hero-dark h-[44px] border px-(--gap-lg) py-(--gap-2xs)`}
-      >
-        배경색 없는 요소
-      </button>
-    ),
+export const BackgroundColor: Story = {
+  name: 'HasBackgroundColor',
+  render: () => {
+    return (
+      <Interaction variant='brand' density='bold' childHasBg={true} childRadius='radius-circle'>
+        <button
+          className={`radius-circle bg-accent-normal-dark border-border-hero-dark text-object-hero-dark h-[44px] px-(--gap-lg) py-(--gap-2xs)`}
+        >
+          배경색 있는 요소
+        </button>
+      </Interaction>
+    );
+  },
+};
 
-    variant: 'default',
-    density: 'subtle',
-    childHasBg: false,
-    childRadius: 'radius-lg',
+export const NoBackgroundColor: Story = {
+  name: 'NoBackgroundColor',
+  render: () => {
+    return (
+      <Interaction variant='default' density='subtle' childHasBg={false} childRadius='radius-lg'>
+        <button
+          className={`radius-lg text-object-neutral-dark border-border-hero-dark h-[44px] border px-(--gap-lg) py-(--gap-2xs)`}
+        >
+          배경색 없는 요소
+        </button>
+      </Interaction>
+    );
   },
 };
