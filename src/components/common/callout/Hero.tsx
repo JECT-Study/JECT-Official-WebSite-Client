@@ -12,11 +12,9 @@ function Hero({ title, badgeText, content }: HeroProps) {
     <div className='gap-xl radius-xs border-border-assistive-dark bg-surface-deep-dark flex flex-col border px-(--gap-3xl) py-(--gap-2xl)'>
       <div className='gap-sm flex'>
         <Title hierarchy='normal'>{title}</Title>
-        <Badge
-          text={badgeText}
-          backgroundColor='bg-fill-assistive-dark'
-          textColor='text-object-normal-dark'
-        />
+        <Badge backgroundColor='bg-fill-assistive-dark' textColor='text-object-normal-dark'>
+          {badgeText}
+        </Badge>
       </div>
       <p className='text-object-normal-dark body-lg'>{content}</p>
     </div>

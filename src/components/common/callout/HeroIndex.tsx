@@ -15,11 +15,9 @@ function HeroIndex({ index, title, badgeText, content }: HeroIndexProps) {
       <div className='gap-xs flex flex-col'>
         <div className='gap-sm flex'>
           <Title hierarchy='normal'>{title}</Title>
-          <Badge
-            text={badgeText}
-            backgroundColor='bg-fill-assistive-dark'
-            textColor='text-object-normal-dark'
-          />
+          <Badge backgroundColor='bg-fill-assistive-dark' textColor='text-object-normal-dark'>
+            {badgeText}
+          </Badge>
         </div>
         <p className='text-object-normal-dark body-lg'>{content}</p>
       </div>

@@ -15,7 +15,7 @@ function Label({ children, weight, hierarchy, textColor, isRequired }: LabelProp
 
   return (
     <div className={`${typo} gap-5xs flex`}>
-      <span className={`${textColor} whitespace-nowrap`}>{text}</span>
+      <span className={`${textColor} whitespace-nowrap`}>{children}</span>
       {isRequired && <span className='text-feedback-notification-dark'>*</span>}
     </div>
   );
