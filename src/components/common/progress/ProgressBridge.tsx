@@ -1,4 +1,4 @@
-interface ProgressBridgeProps {
+export interface ProgressBridgeProps {
   isActive: boolean;
 }
 
