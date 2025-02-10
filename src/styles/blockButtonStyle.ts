@@ -12,10 +12,10 @@ interface BlockButtonStyleType {
 
 export const blockButtonStyle: BlockButtonStyleType = {
   size: {
-    xs: 'py-(--gap-3xs) px-(--gap-xs) rounded-(--radius-xs) label-xs',
-    sm: 'py-(--gap-2xs) px-(--gap-sm) rounded-(--radius-2xs) label-sm',
-    md: 'py-(--gap-xs) px-(--gap-lg) rounded-(--radius-2xs) label-md',
-    lg: 'py-(--gap-sm) px-(--gap-2xl) rounded-(--radius-3xs) label-xs',
+    xs: 'py-(--gap-3xs) px-(--gap-xs) radius-xs label-xs',
+    sm: 'py-(--gap-2xs) px-(--gap-sm) radius-2xs label-sm',
+    md: 'py-(--gap-xs) px-(--gap-lg) radius-2xs label-md',
+    lg: 'py-(--gap-sm) px-(--gap-2xl) radius-3xs label-xs',
   },
   variant: {
     solid: {
