@@ -1,14 +1,14 @@
 import clsx from 'clsx';
 import { forwardRef, ComponentPropsWithoutRef, ReactNode } from 'react';
 
-import { labelButtonStyle, ButtonSize, ButtonHierarchy } from '@/styles/LabelButtonStyle';
+import { labelButtonStyle, Size, Hierarchy } from '@/styles/LabelButtonStyle';
 
 export interface LabelButtonProps extends ComponentPropsWithoutRef<'button'> {
   children: ReactNode;
   leftIcon?: ReactNode;
   rightIcon?: ReactNode;
-  size: ButtonSize;
-  hierarchy: ButtonHierarchy;
+  size: Size;
+  hierarchy: Hierarchy;
 }
 
 export const LabelButton = forwardRef<HTMLButtonElement, LabelButtonProps>(

@@ -1,9 +1,9 @@
-export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg';
-export type ButtonHierarchy = 'accent' | 'primary' | 'secondary' | 'tertiary';
+export type Size = 'xs' | 'sm' | 'md' | 'lg';
+export type Hierarchy = 'accent' | 'primary' | 'secondary' | 'tertiary';
 
 interface LabelButtonStyleType {
-  size: Record<ButtonSize, string>;
-  hierarchy: Record<ButtonHierarchy, string>;
+  size: Record<Size, string>;
+  hierarchy: Record<Hierarchy, string>;
 }
 
 export const labelButtonStyle: LabelButtonStyleType = {

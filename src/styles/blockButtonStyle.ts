@@ -1,12 +1,12 @@
-export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg';
-export type ButtonStyle = 'solid' | 'outlined';
-export type ButtonHierarchy = 'accent' | 'primary' | 'secondary' | 'tertiary';
+export type Size = 'xs' | 'sm' | 'md' | 'lg';
+export type Style = 'solid' | 'outlined';
+export type Hierarchy = 'accent' | 'primary' | 'secondary' | 'tertiary';
 
 interface BlockButtonStyleType {
-  size: Record<ButtonSize, string>;
+  size: Record<Size, string>;
   variant: {
-    solid: Record<ButtonHierarchy, string>;
-    outlined: Record<ButtonHierarchy, string>;
+    solid: Record<Hierarchy, string>;
+    outlined: Record<Hierarchy, string>;
   };
 }
 
