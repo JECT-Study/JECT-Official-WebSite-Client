@@ -22,7 +22,7 @@ export const blockButtonStyle: BlockButtonStyleType = {
       accent: 'bg-accent-normal-dark text-object-inverse-hero-light',
       primary: 'bg-object-hero-dark text-object-inverse-hero-dark',
       secondary: 'bg-object-alternative-dark text-object-static-inverse-hero-dark',
-      tertiary: 'bg-fill-assistive-dark text--object-neutral-dark',
+      tertiary: 'bg-fill-assistive-dark text-object-neutral-dark',
     },
     outlined: {
       accent: 'border border-accent-hero-dark text-accent-hero-dark',
