@@ -7,7 +7,7 @@ import {
   Size,
   Style,
   Hierarchy,
-  interactionMap,
+  blockButtonInteractionMap,
 } from '@/styles/blockButtonStyle';
 import { extractRadius } from '@/utils/extractRadius.ts';
 
@@ -34,7 +34,7 @@ export const BlockButton = forwardRef<HTMLButtonElement, BlockButtonProps>(
     );
 
     const { variant: interactionVariant, density: interactionDensity } =
-      interactionMap[style][hierarchy];
+      blockButtonInteractionMap[style][hierarchy];
 
     return (
       <Interaction variant={interactionVariant} density={interactionDensity} radius={radiusClass}>

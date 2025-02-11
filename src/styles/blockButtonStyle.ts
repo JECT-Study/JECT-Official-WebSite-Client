@@ -35,7 +35,7 @@ export const blockButtonStyle: BlockButtonStyleType = {
   },
 };
 
-export const interactionMap: Record<
+export const blockButtonInteractionMap: Record<
   Style,
   Record<Hierarchy, { variant: Variant; density: Density }>
 > = {
