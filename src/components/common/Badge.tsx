@@ -1,15 +1,19 @@
+import { ReactNode } from 'react';
+
 import Label from './Label';
 
 interface BadgeProps {
-  text: string;
+  children: ReactNode;
   backgroundColor: string;
   textColor: string;
 }
 
-function Badge({ text, backgroundColor, textColor }: BadgeProps) {
+function Badge({ children, backgroundColor, textColor }: BadgeProps) {
   return (
     <div className={`radius-2xs ${backgroundColor} inline-block px-(--gap-xs) py-(--gap-5xs)`}>
-      <Label hierarchy='stronger' weight='normal' text={text} textColor={textColor} />
+      <Label hierarchy='stronger' weight='normal' textColor={textColor}>
+        {children}
+      </Label>
     </div>
   );
 }

@@ -2,23 +2,22 @@ import { Meta, StoryObj } from '@storybook/react';
 
 import Label from './Label';
 
-import { Hierarchy, Weight } from '@/styles/labelStyle';
-
 const meta: Meta<typeof Label> = {
   title: 'Components/Label',
   component: Label,
   tags: ['autodocs'],
   argTypes: {
-    weight: {
-      control: 'radio',
-      options: ['normal', 'bold'],
+    children: {
+      control: 'text',
+      description: 'Label에 들어갈 텍스트입니다.',
     },
     hierarchy: {
       control: 'radio',
       options: ['stronger', 'strong', 'normal', 'weak'],
     },
-    text: {
-      control: 'text',
+    weight: {
+      control: 'radio',
+      options: ['normal', 'bold'],
     },
     textColor: {
       control: 'color',
@@ -33,20 +32,57 @@ const meta: Meta<typeof Label> = {
 
 export default meta;
 
-type Story = StoryObj<{
-  hierarchy: Hierarchy;
-  weight: Weight;
-  text: string;
-  textColor: string;
-  isRequired?: boolean;
-}>;
+type Story = StoryObj<typeof Label>;
 
-export const Primary: Story = {
+export const Default: Story = {
   args: {
+    children: '레이블',
+    hierarchy: 'stronger',
     weight: 'normal',
-    hierarchy: 'weak',
-    textColor: '#000',
-    text: '레이블',
+    textColor: 'text-object-neutral-dark',
     isRequired: true,
+  },
+};
+
+export const Labels: Story = {
+  render: () => {
+    return (
+      <div className='gap-lg flex'>
+        <div>
+          <Label
+            hierarchy='stronger'
+            weight='normal'
+            textColor='text-object-neutral-dark'
+            isRequired={true}
+          >
+            레이블
+          </Label>
+          <Label
+            hierarchy='strong'
+            weight='normal'
+            textColor='text-object-neutral-dark'
+            isRequired={false}
+          >
+            레이블
+          </Label>
+          <Label
+            hierarchy='normal'
+            weight='normal'
+            textColor='text-object-neutral-dark'
+            isRequired={true}
+          >
+            레이블
+          </Label>
+          <Label
+            hierarchy='weak'
+            weight='normal'
+            textColor='text-object-neutral-dark'
+            isRequired={false}
+          >
+            레이블
+          </Label>
+        </div>
+      </div>
+    );
   },
 };

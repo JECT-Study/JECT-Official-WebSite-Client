@@ -105,7 +105,7 @@
   }
 
   .label-bold-xs {
-    @apply text-size-2xs font-2xl tracking-narrow leading-normal;
+    @apply text-size-xs font-2xl tracking-narrow leading-normal;
   }
 
   .label-bold-sm {
