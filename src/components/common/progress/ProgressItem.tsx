@@ -9,10 +9,11 @@ interface ProgressItemProps {
   isActive: boolean;
 }
 
+const ACTIVE_STYLE = 'border-border-alternative-dark bg-accent-trans-normal-dark';
+const INACTIVE_STYLE = 'border-border-assistive-dark bg-surface-deep-dark';
+
 function ProgressItem({ index, title, subTitle, content, isActive }: ProgressItemProps) {
-  const activeStyle = isActive
-    ? 'border-border-alternative-dark bg-accent-trans-normal-dark'
-    : 'border-border-assistive-dark bg-surface-deep-dark';
+  const activeStyle = isActive ? ACTIVE_STYLE : INACTIVE_STYLE;
 
   return (
     <div
