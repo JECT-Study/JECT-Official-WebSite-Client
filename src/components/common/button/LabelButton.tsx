@@ -1,7 +1,13 @@
 import clsx from 'clsx';
 import { forwardRef, ComponentPropsWithoutRef, ReactNode } from 'react';
 
-import { labelButtonStyle, Size, Hierarchy } from '@/styles/labelButtonStyle';
+import Interaction from '@/components/common/Interaction.tsx';
+import {
+  labelButtonStyle,
+  Size,
+  Hierarchy,
+  labelButtonInteractionMap,
+} from '@/styles/labelButtonStyle';
 
 export interface LabelButtonProps extends ComponentPropsWithoutRef<'button'> {
   children: ReactNode;
@@ -23,12 +29,17 @@ export const LabelButton = forwardRef<HTMLButtonElement, LabelButtonProps>(
       className,
     );
 
+    const { variant: interactionVariant, density: interactionDensity } =
+      labelButtonInteractionMap[hierarchy];
+
     return (
-      <button ref={ref} className={combinedClasses} {...props}>
-        {leftIcon && leftIcon}
-        {children}
-        {rightIcon && rightIcon}
-      </button>
+      <Interaction variant={interactionVariant} density={interactionDensity} radius='radius-xs'>
+        <button ref={ref} className={combinedClasses} {...props}>
+          {leftIcon && leftIcon}
+          {children}
+          {rightIcon && rightIcon}
+        </button>
+      </Interaction>
     );
   },
 );
