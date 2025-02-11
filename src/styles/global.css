@@ -5,3 +5,15 @@
     font-family: 'Pretendard Variable';
   }
 }
+
+@layer utilities {
+  .scroll {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    overflow-y: scroll;
+  }
+
+  .scroll::-webkit-scrollbar {
+    display: none;
+  }
+}
