@@ -1,3 +1,5 @@
+import { Density, Variant } from '@/styles/interactionStyle.ts';
+
 export type Size = 'xs' | 'sm' | 'md' | 'lg';
 export type Hierarchy = 'accent' | 'primary' | 'secondary' | 'tertiary';
 
@@ -20,3 +22,11 @@ export const labelButtonStyle: LabelButtonStyleType = {
     tertiary: 'text-object-alternative-dark',
   },
 };
+
+export const labelButtonInteractionMap: Record<Hierarchy, { variant: Variant; density: Density }> =
+  {
+    accent: { variant: 'brand', density: 'subtle' },
+    primary: { variant: 'default', density: 'subtle' },
+    secondary: { variant: 'default', density: 'subtle' },
+    tertiary: { variant: 'brand', density: 'subtle' },
+  };
