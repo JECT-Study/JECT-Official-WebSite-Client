@@ -7,6 +7,7 @@ import {
   Size,
   Hierarchy,
   labelButtonInteractionMap,
+  labelButtonOutlineOffsetMap,
 } from '@/styles/labelButtonStyle';
 
 export interface LabelButtonProps extends ComponentPropsWithoutRef<'button'> {
@@ -32,8 +33,14 @@ export const LabelButton = forwardRef<HTMLButtonElement, LabelButtonProps>(
     const { variant: interactionVariant, density: interactionDensity } =
       labelButtonInteractionMap[hierarchy];
 
+    const outlineOffset = labelButtonOutlineOffsetMap[size];
+
     return (
-      <Interaction variant={interactionVariant} density={interactionDensity}>
+      <Interaction
+        variant={interactionVariant}
+        density={interactionDensity}
+        outlineOffset={outlineOffset}
+      >
         <button ref={ref} className={combinedClasses} {...props}>
           {leftIcon && leftIcon}
           {children}
