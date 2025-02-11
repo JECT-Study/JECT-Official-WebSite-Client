@@ -9,7 +9,6 @@ import {
   Hierarchy,
   blockButtonInteractionMap,
 } from '@/styles/blockButtonStyle';
-import { extractRadius } from '@/utils/extractRadius.ts';
 
 export interface BlockButtonProps extends ComponentPropsWithoutRef<'button'> {
   children: ReactNode;
@@ -23,12 +22,10 @@ export interface BlockButtonProps extends ComponentPropsWithoutRef<'button'> {
 export const BlockButton = forwardRef<HTMLButtonElement, BlockButtonProps>(
   ({ children, leftIcon, rightIcon, size, style, hierarchy, className, ...props }, ref) => {
     const baseClasses = 'inline-flex flex-row justify-center items-center gap-4xs';
-    const sizeClasses = blockButtonStyle.size[size];
-    const radiusClass = extractRadius(sizeClasses);
 
     const combinedClasses = clsx(
       baseClasses,
-      sizeClasses,
+      blockButtonStyle.size[size],
       blockButtonStyle.variant[style][hierarchy],
       className,
     );
@@ -37,7 +34,7 @@ export const BlockButton = forwardRef<HTMLButtonElement, BlockButtonProps>(
       blockButtonInteractionMap[style][hierarchy];
 
     return (
-      <Interaction variant={interactionVariant} density={interactionDensity} radius={radiusClass}>
+      <Interaction variant={interactionVariant} density={interactionDensity}>
         <button ref={ref} className={combinedClasses} {...props}>
           {leftIcon && leftIcon}
           {children}

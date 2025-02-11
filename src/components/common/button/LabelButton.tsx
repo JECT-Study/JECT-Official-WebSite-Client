@@ -33,7 +33,7 @@ export const LabelButton = forwardRef<HTMLButtonElement, LabelButtonProps>(
       labelButtonInteractionMap[hierarchy];
 
     return (
-      <Interaction variant={interactionVariant} density={interactionDensity} radius='radius-xs'>
+      <Interaction variant={interactionVariant} density={interactionDensity}>
         <button ref={ref} className={combinedClasses} {...props}>
           {leftIcon && leftIcon}
           {children}
