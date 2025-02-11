@@ -16,12 +16,15 @@ interface InteractionProps {
   children: ReactElement<HTMLElement>;
   variant: Variant;
   density: Density;
+  outlineOffset?: number;
 }
 
-function Interaction({ children, variant, density }: InteractionProps) {
+function Interaction({ children, variant, density, outlineOffset }: InteractionProps) {
   const bgColor = interactionStyle.variant[variant].density[density].bgColor;
   const opacity = interactionStyle.variant[variant].density[density].opacity;
   const bgRgba = interactionStyle.variant[variant].density[density].bgRgba;
+  const outlineOffsetClass =
+    outlineOffset !== undefined ? `*:focus-visible:outline-offset-${outlineOffset}` : '';
 
   const classNames = children.props.className.split(' ');
   const childHasBg = classNames.filter(classname => classname.includes('bg-'))[0];
@@ -32,7 +35,7 @@ function Interaction({ children, variant, density }: InteractionProps) {
   return (
     <div>
       <div
-        className={`${childHasBg ? bgColor : bgRgba} ${childHasBg ? opacity : ''} ${childRadius || ''} *:focus-visible:outline-interactive-focus-dark *:focus-visible:hover:opacity-visible inline-block *:focus-visible:outline-4`}
+        className={`${childHasBg ? bgColor : bgRgba} ${childHasBg ? opacity : ''} ${childRadius || ''} ${outlineOffsetClass} *:focus-visible:outline-interactive-focus-dark *:focus-visible:hover:opacity-visible inline-block *:focus-visible:outline-4`}
       >
         {children}
       </div>
