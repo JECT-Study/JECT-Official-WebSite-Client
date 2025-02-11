@@ -1,3 +1,5 @@
+import { Variant, Density } from './interactionStyle';
+
 export type Size = 'xs' | 'sm' | 'md' | 'lg';
 export type Style = 'solid' | 'outlined';
 export type Hierarchy = 'accent' | 'primary' | 'secondary' | 'tertiary';
@@ -30,5 +32,23 @@ export const blockButtonStyle: BlockButtonStyleType = {
       secondary: 'border border-neutral-dark text-object-neutral-dark',
       tertiary: 'border border-alternative-dark text-object-alternative-dark',
     },
+  },
+};
+
+export const interactionMap: Record<
+  Style,
+  Record<Hierarchy, { variant: Variant; density: Density }>
+> = {
+  solid: {
+    accent: { variant: 'default', density: 'normal' },
+    primary: { variant: 'default', density: 'normal' },
+    secondary: { variant: 'default', density: 'normal' },
+    tertiary: { variant: 'default', density: 'normal' },
+  },
+  outlined: {
+    accent: { variant: 'brand', density: 'subtle' },
+    primary: { variant: 'default', density: 'subtle' },
+    secondary: { variant: 'default', density: 'subtle' },
+    tertiary: { variant: 'default', density: 'subtle' },
   },
 };
