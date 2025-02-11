@@ -7,7 +7,6 @@ interface ProgressIndicatorProps {
 }
 
 function ProgressIndicator({ totalStep, currentStep }: ProgressIndicatorProps) {
-  console.log(new Array(totalStep).fill(0));
   return (
     <div className='flex'>
       <ProgressIndex isActive={true}>{1}</ProgressIndex>
