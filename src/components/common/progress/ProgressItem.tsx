@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 import Title from '../Title';
 import ProgressIndex from './ProgressIndex';
 
@@ -5,7 +7,7 @@ interface ProgressItemProps {
   index: number;
   title: string;
   subTitle: string;
-  content: string;
+  content: ReactNode;
   isActive: boolean;
 }
 
