@@ -1,7 +1,14 @@
 import clsx from 'clsx';
 import { forwardRef, ComponentPropsWithoutRef, ReactNode } from 'react';
 
-import { blockButtonStyle, Size, Style, Hierarchy } from '@/styles/blockButtonStyle';
+import Interaction from '@/components/common/Interaction.tsx';
+import {
+  blockButtonStyle,
+  Size,
+  Style,
+  Hierarchy,
+  interactionMap,
+} from '@/styles/blockButtonStyle';
 
 export interface BlockButtonProps extends ComponentPropsWithoutRef<'button'> {
   children: ReactNode;
@@ -23,12 +30,17 @@ export const BlockButton = forwardRef<HTMLButtonElement, BlockButtonProps>(
       className,
     );
 
+    const { variant: interactionVariant, density: interactionDensity } =
+      interactionMap[style][hierarchy];
+
     return (
-      <button ref={ref} className={combinedClasses} {...props}>
-        {leftIcon && leftIcon}
-        {children}
-        {rightIcon && rightIcon}
-      </button>
+      <Interaction variant={interactionVariant} density={interactionDensity}>
+        <button ref={ref} className={combinedClasses} {...props}>
+          {leftIcon && leftIcon}
+          {children}
+          {rightIcon && rightIcon}
+        </button>
+      </Interaction>
     );
   },
 );
