@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { forwardRef, ComponentPropsWithoutRef, ReactNode } from 'react';
 
-import Interaction from '@/components/common/Interaction.tsx';
+import Interaction from '@/components/common/interaction/Interaction';
 import {
   labelButtonStyle,
   Size,
