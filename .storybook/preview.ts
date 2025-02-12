@@ -1,6 +1,7 @@
 import type { Preview } from '@storybook/react';
 import '../src/styles/tokens/index';
 import '../src/styles/global.css';
+import '@/styles/storyStyles.css';
 
 const preview: Preview = {
   parameters: {
@@ -14,6 +15,7 @@ const preview: Preview = {
       default: 'dark',
     },
   },
+  tags: ['autodocs'],
 };
 
 export default preview;
