@@ -16,23 +16,23 @@ interface InteractionProps {
   children: ReactElement<HTMLElement>;
   variant: Variant;
   density: Density;
+  isInversed: boolean;
   scale?: string;
-  outlineOffset?: number;
 }
 
-function Interaction({ children, variant, density, outlineOffset, scale }: InteractionProps) {
+function Interaction({ children, variant, density, isInversed, scale }: InteractionProps) {
   const ref = useRef<HTMLDivElement>(null);
-
   const [size, setSize] = useState({
     width: 0,
     height: 0,
   });
-  const interaction = interactionStyle.variant[variant].density[density];
-  const outlineOffsetClass = outlineOffset
-    ? outlineOffsetMap[outlineOffset]
-    : '*:focus-visible:outline-4';
+
+  const interaction = isInversed
+    ? interactionStyle.inverse[variant][density]
+    : interactionStyle.noInverse[variant][density];
 
   const classNames = children.props.className.split(' ');
+
   const childRadius = classNames.filter(classname => classname.includes('radius'))[0] as
     | Radius
     | undefined;
