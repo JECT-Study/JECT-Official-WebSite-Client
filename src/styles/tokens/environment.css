@@ -29,4 +29,15 @@
   /* motion */
   --motion-bounce: cubic-bezier(0.53, 1.7, 0.5, 0.82);
   --motion-fluent: cubic-bezier(0.75, 0.11, 0.31, 1);
+
+  /* duration */
+  --duration-faster: 100ms;
+  --duration-fast: 150ms;
+  --duration-normal: 200ms;
+  --duration-slow: 300ms;
+  --duration-slower: 400ms;
+}
+
+@utility duration-* {
+  transition-duration: --value(--duration- *);
 }
