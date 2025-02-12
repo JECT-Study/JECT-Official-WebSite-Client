@@ -12,14 +12,17 @@ const meta: Meta<typeof Interaction> = {
         '인터렉션 효과가 필요한 컴포넌트입니다. 해당 요소를 Interaction으로 감쌉니다. <br>',
     },
     variant: {
-      control: 'radio',
+      control: { type: 'inline-radio' },
       description: '피그마에 정의된 variant 속성입니다.',
       options: ['default', 'brand'],
     },
     density: {
-      control: 'radio',
+      control: { type: 'inline-radio' },
       description: '피그마에 정의된 density 속성입니다.',
       options: ['bold', 'normal', 'subtle'],
+    },
+    scale: {
+      control: { type: 'text' },
     },
   },
 };
