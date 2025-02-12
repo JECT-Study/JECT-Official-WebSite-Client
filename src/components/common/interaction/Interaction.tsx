@@ -18,9 +18,17 @@ interface InteractionProps {
   density: Density;
   isInversed: boolean;
   scale?: string;
+  className?: string;
 }
 
-function Interaction({ children, variant, density, isInversed, scale }: InteractionProps) {
+function Interaction({
+  children,
+  variant,
+  density,
+  isInversed,
+  scale,
+  className,
+}: InteractionProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState({
     width: 0,
@@ -31,11 +39,11 @@ function Interaction({ children, variant, density, isInversed, scale }: Interact
     ? interactionStyle.inverse[variant][density]
     : interactionStyle.noInverse[variant][density];
 
-  const classNames = children.props.className.split(' ');
+  const classNames = children.props.className ? children.props.className.split(' ') : '';
 
-  const childRadius = classNames.filter(classname => classname.includes('radius'))[0] as
-    | Radius
-    | undefined;
+  const childRadius = classNames
+    ? (classNames.filter(classname => classname.includes('radius'))[0] as Radius | undefined)
+    : '';
 
   useEffect(() => {
     if (ref.current && ref.current.firstElementChild) {
@@ -49,7 +57,7 @@ function Interaction({ children, variant, density, isInversed, scale }: Interact
     <div className={`relative`} ref={ref}>
       {children}
       <div
-        className={`${interaction} ${childRadius || ''} ${scale || ''} peer-focus-visible:shadow-focus-visible pointer-events-none absolute top-0 left-0`}
+        className={`${interaction} ${childRadius || ''} ${scale || ''} ${className || ''} peer-focus-visible:shadow-focus-visible pointer-events-none absolute top-0 left-0`}
         style={{ width: size.width, height: size.height }}
       ></div>
     </div>
