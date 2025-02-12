@@ -1,6 +1,6 @@
 import { ReactElement, useEffect, useRef, useState } from 'react';
 
-import { Density, interactionStyle, outlineOffsetMap, Variant } from '@/styles/interactionStyle';
+import { Density, interactionStyle, Variant } from '@/styles/interactionStyle';
 
 type Radius =
   | 'radius-4xs'
