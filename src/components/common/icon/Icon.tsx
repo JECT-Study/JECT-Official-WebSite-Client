@@ -23,36 +23,25 @@ interface IconProps {
 function Icon({ name, size, fillColor }: IconProps) {
   const iconSize = iconStyle.size[size];
 
-  switch (name) {
-    case 'check':
-      return <Check className={fillColor} width={iconSize} height={iconSize} />;
-    case 'clear':
-      return <Clear className={fillColor} width={iconSize} height={iconSize} />;
-    case 'dropDown':
-      return <DropDown className={fillColor} width={iconSize} height={iconSize} />;
-    case 'error':
-      return <Error className={fillColor} width={iconSize} height={iconSize} />;
-    case 'expand':
-      return <Expand className={fillColor} width={iconSize} height={iconSize} />;
-    case 'file':
-      return <File className={fillColor} width={iconSize} height={iconSize} />;
-    case 'forward':
-      return <Forward className={fillColor} width={iconSize} height={iconSize} />;
-    case 'github':
-      return <Github className={fillColor} width={iconSize} height={iconSize} />;
-    case 'less':
-      return <Less className={fillColor} width={iconSize} height={iconSize} />;
-    case 'northEast':
-      return <NorthEast className={fillColor} width={iconSize} height={iconSize} />;
-    case 'question':
-      return <Question className={fillColor} width={iconSize} height={iconSize} />;
-    case 'upload':
-      return <Upload className={fillColor} width={iconSize} height={iconSize} />;
-    case 'youtube':
-      return <Youtube className={fillColor} width={iconSize} height={iconSize} />;
-    default:
-      return null;
-  }
+  const icons: Record<IconNames, React.FunctionComponent<React.SVGProps<SVGSVGElement>>> = {
+    check: Check,
+    clear: Clear,
+    dropDown: DropDown,
+    error: Error,
+    expand: Expand,
+    file: File,
+    forward: Forward,
+    github: Github,
+    less: Less,
+    northEast: NorthEast,
+    question: Question,
+    upload: Upload,
+    youtube: Youtube,
+  };
+
+  const IconComponent = icons[name];
+
+  return <IconComponent className={fillColor} width={iconSize} height={iconSize} />;
 }
 
 export default Icon;
