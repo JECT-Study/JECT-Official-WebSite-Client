@@ -21,8 +21,15 @@ const meta: Meta<typeof Interaction> = {
       description: '피그마에 정의된 density 속성입니다.',
       options: ['bold', 'normal', 'subtle'],
     },
+    isInversed: {
+      control: { type: 'boolean' },
+      description:
+        '새로 추가된 인터렉션의 isInversed 속성입니다. 대게 true일 경우, 인터렉션이 적용된 요소가 어두워지고 false일 경우 밝아집니다.',
+    },
     scale: {
       control: { type: 'text' },
+      description:
+        '(선택) 인터렉션의 크기를 확장합니다. scale 속성으로 크기를 변경시킵니다. &nbsp; ex) scale-x-120 (좌우 1.2배) scale-y-110 (위아래 1.1배) ',
     },
   },
 };
@@ -31,46 +38,175 @@ export default meta;
 
 type Story = StoryObj<typeof Interaction>;
 
+const ButtonTemp = () => {
+  return (
+    <button
+      className={`peer radius-circle border-border-hero-dark text-object-hero-dark h-[44px] border-1 px-(--gap-lg) py-(--gap-2xs)`}
+    >
+      Button
+    </button>
+  );
+};
+
 export const Default: Story = {
   args: {
     children: (
       <button
-        className={`radius-circle border-border-hero-dark text-object-hero-dark h-[44px] px-(--gap-lg) py-(--gap-2xs)`}
+        className={`peer radius-circle border-border-hero-dark text-object-hero-dark h-[44px] px-(--gap-lg) py-(--gap-2xs)`}
       >
         Button
       </button>
     ),
-    variant: 'brand',
+    variant: 'default',
     density: 'bold',
+    isInversed: false,
   },
 };
 
-export const BackgroundColor: Story = {
-  name: 'HasBackgroundColor',
+export const ChildIsRawReactElement: Story = {
+  name: 'Child Is Raw ReactElement',
   render: () => {
     return (
-      <Interaction variant='brand' density='bold'>
+      <Interaction variant='default' density='bold' isInversed={false}>
         <button
-          className={`radius-circle bg-accent-normal-dark border-border-hero-dark text-object-hero-dark h-[44px] px-(--gap-lg) py-(--gap-2xs)`}
+          className={`peer radius-circle border-border-hero-dark text-object-hero-dark h-[44px] border-1 px-(--gap-lg) py-(--gap-2xs)`}
         >
-          배경색 있는 요소
+          Button
         </button>
       </Interaction>
     );
   },
 };
 
-export const NoBackgroundColor: Story = {
-  name: 'NoBackgroundColor',
+export const ChildIsComponent: Story = {
+  name: 'Child Is Component',
   render: () => {
     return (
-      <Interaction variant='default' density='subtle'>
+      <Interaction variant='default' density='bold' isInversed={false} className='radius-circle'>
+        <ButtonTemp />
+      </Interaction>
+    );
+  },
+};
+
+export const AllNotInverse: Story = {
+  name: 'All not inverse',
+  render: () => {
+    return (
+      <div className='story-container'>
+        <div className='story-inner-container'>
+          <div className='story-inner-row-container'>
+            <Interaction variant='default' density='bold' isInversed={false}>
+              <button className={`peer radius-circle px-(--gap-lg) py-(--gap-2xs) text-white`}>
+                Button
+              </button>
+            </Interaction>
+            <Interaction variant='default' density='normal' isInversed={false}>
+              <button className={`peer radius-circle px-(--gap-lg) py-(--gap-2xs) text-white`}>
+                Button
+              </button>
+            </Interaction>
+            <Interaction variant='default' density='subtle' isInversed={false}>
+              <button className={`peer radius-circle px-(--gap-lg) py-(--gap-2xs) text-white`}>
+                Button
+              </button>
+            </Interaction>
+            <Interaction variant='brand' density='bold' isInversed={false}>
+              <button className={`peer radius-circle px-(--gap-lg) py-(--gap-2xs) text-white`}>
+                Button
+              </button>
+            </Interaction>
+            <Interaction variant='brand' density='normal' isInversed={false}>
+              <button className={`peer radius-circle px-(--gap-lg) py-(--gap-2xs) text-white`}>
+                Button
+              </button>
+            </Interaction>
+            <Interaction variant='brand' density='subtle' isInversed={false}>
+              <button className={`peer radius-circle px-(--gap-lg) py-(--gap-2xs) text-white`}>
+                Button
+              </button>
+            </Interaction>
+          </div>
+        </div>
+      </div>
+    );
+  },
+};
+
+export const AllInverse: Story = {
+  name: 'All inverse',
+  render: () => {
+    return (
+      <div className='story-container'>
+        <div className='story-inner-container'>
+          <div className='story-inner-row-container'>
+            <Interaction variant='default' density='bold' isInversed={true}>
+              <button
+                className={`peer bg-object-hero-dark radius-circle px-(--gap-lg) py-(--gap-2xs)`}
+              >
+                Button
+              </button>
+            </Interaction>
+            <Interaction variant='default' density='normal' isInversed={true}>
+              <button
+                className={`peer bg-object-hero-dark radius-circle px-(--gap-lg) py-(--gap-2xs)`}
+              >
+                Button
+              </button>
+            </Interaction>
+            <Interaction variant='default' density='subtle' isInversed={true}>
+              <button
+                className={`peer bg-object-hero-dark radius-circle px-(--gap-lg) py-(--gap-2xs)`}
+              >
+                Button
+              </button>
+            </Interaction>
+            <Interaction variant='brand' density='bold' isInversed={true}>
+              <button
+                className={`peer bg-object-hero-dark radius-circle px-(--gap-lg) py-(--gap-2xs)`}
+              >
+                Button
+              </button>
+            </Interaction>
+            <Interaction variant='brand' density='normal' isInversed={true}>
+              <button
+                className={`peer bg-object-hero-dark radius-circle px-(--gap-lg) py-(--gap-2xs)`}
+              >
+                Button
+              </button>
+            </Interaction>
+            <Interaction variant='brand' density='subtle' isInversed={true}>
+              <button
+                className={`peer bg-object-hero-dark radius-circle px-(--gap-lg) py-(--gap-2xs)`}
+              >
+                Button
+              </button>
+            </Interaction>
+          </div>
+        </div>
+      </div>
+    );
+  },
+};
+
+export const ExpandInteraction: Story = {
+  name: 'Expand Interaction',
+  render: () => {
+    return (
+      <Interaction
+        variant='default'
+        density='bold'
+        isInversed={false}
+        scale='scale-x-118 scale-y-129'
+      >
         <button
-          className={`radius-lg text-object-neutral-dark border-border-hero-dark h-[44px] border px-(--gap-lg) py-(--gap-2xs)`}
+          className={`peer radius-circle border-border-hero-dark text-object-hero-dark h-[44px] border-1 px-(--gap-lg) py-(--gap-2xs)`}
         >
-          배경색 없는 요소
+          Button
         </button>
       </Interaction>
     );
   },
 };
+
+//
