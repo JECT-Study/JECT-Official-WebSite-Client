@@ -15,13 +15,19 @@ const IMG_CLASS_DEFAULT =
   'border-border-assistive-dark h-[12.0625rem] w-full border-b object-cover';
 const IMG_CLASS_EXPANDED = 'border-border-assistive-dark w-full flex-1 border-b object-cover';
 
+const CONTAINER_CLASS_VISIBLE =
+  'gap-3xs flex flex-col items-start self-stretch px-(--gap-md) py-(--gap-xs)';
+const CONTAINER_CLASS_HIDDEN =
+  'gap-3xs flex flex-col items-start self-stretch px-(--gap-md) pt-(--gap-xs) pb-(--gap-lg)';
+
 export const Card = ({ title, label, children, imgUrl, descriptionVisible = true }: CardProps) => {
   const imgClass = descriptionVisible ? IMG_CLASS_DEFAULT : IMG_CLASS_EXPANDED;
+  const containerClass = descriptionVisible ? CONTAINER_CLASS_VISIBLE : CONTAINER_CLASS_HIDDEN;
 
   return (
     <div className='radius-md stroke-normal border-border-assistive-dark bg-surface-embossed-dark box-border flex h-[21.25rem] w-[17.5rem] flex-col items-start overflow-hidden border'>
       <img src={imgUrl} alt='카드 이미지' className={imgClass} />
-      <div className='gap-3xs flex flex-col items-start self-stretch px-(--gap-md) py-(--gap-xs)'>
+      <div className={containerClass}>
         <div className='gap-4xs flex flex-col items-start self-stretch'>
           <Title hierarchy='weak'>{title}</Title>
           <Label hierarchy='stronger' weight='normal' textColor='text-object-normal-dark'>
