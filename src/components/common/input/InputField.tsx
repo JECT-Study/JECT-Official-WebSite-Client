@@ -10,9 +10,7 @@ interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   InputChildren?: ReactNode;
   children?: ReactNode;
   labelText?: string;
-  buttonText?: string;
   helper?: string;
-  labelButtonText?: string;
   className?: string;
 }
 
