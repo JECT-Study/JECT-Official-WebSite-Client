@@ -19,6 +19,9 @@ const meta: Meta<typeof InputArea> = {
     disabled: {
       control: { type: 'boolean' },
     },
+    required: {
+      control: {type: 'boolean'}
+    }
   },
 };
 
@@ -32,6 +35,7 @@ export const Default: Story = {
     placeholder: '플레이스홀더',
     maxLength: 500,
     disabled: false,
+    required: false
   },
 };
 
