@@ -38,8 +38,12 @@ const InputArea = forwardRef<HTMLTextAreaElement, InputAreaProps>(
           required={required}
         />
         <div
-          className={`${disabled ? 'text-object-disabled-dark' : 'text-object-assistive-dark'} peer-focus:text-object-neutral-dark body-sm cursor-default self-end`}
-        >{`${text.length}/${maxLength || 0}`}</div>
+          className={`
+            ${disabled ? 'text-object-disabled-dark' : 'text-object-assistive-dark'} 
+            peer-focus:text-object-neutral-dark body-sm cursor-default self-end`
+          }>
+          {`${text.length}/${maxLength || 0}`}
+        </div>
       </div>
     );
   },
