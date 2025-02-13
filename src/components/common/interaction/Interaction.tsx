@@ -57,7 +57,12 @@ function Interaction({
     <div className={`relative`} ref={ref}>
       {children}
       <div
-        className={`${interaction} ${childRadius || ''} ${scale || ''} ${className || ''} peer-focus-visible:shadow-focus-visible pointer-events-none absolute top-0 left-0`}
+        className={`
+          ${interaction} 
+          ${childRadius || ''} 
+          ${scale || ''} 
+          ${className || ''} 
+          peer-focus-visible:shadow-focus-visible pointer-events-none absolute top-0 left-0`}
         style={{ width: size.width, height: size.height }}
       ></div>
     </div>
