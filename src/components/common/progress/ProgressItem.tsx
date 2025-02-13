@@ -29,7 +29,7 @@ function ProgressItem({ index, title, subTitle, content, isActive }: ProgressIte
             {subTitle}
           </Title>
         </div>
-        <p className='body-lg text-object-normal-dark'>{content}</p>
+        <div className='body-lg text-object-normal-dark'>{content}</div>
       </div>
     </div>
   );
