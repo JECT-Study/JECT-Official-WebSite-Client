@@ -63,3 +63,10 @@ export const interactionStyle: InteractionStyleType = {
     },
   },
 };
+
+export const outlineOffsetMap: Record<number, string> = {
+  1: '*:focus-visible:outline-offset-1',
+  2: '*:focus-visible:outline-offset-2',
+  3: '*:focus-visible:outline-offset-3',
+  4: '*:focus-visible:outline-offset-4',
+};
