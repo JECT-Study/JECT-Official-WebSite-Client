@@ -1,7 +1,7 @@
 import { ChangeEvent, forwardRef, TextareaHTMLAttributes, useState } from 'react';
 
 import Label from '../Label';
-import TextAreaField from './TextAreaField';
+import TextArea from './TextArea';
 
 interface InputAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   labelText: string;
@@ -27,7 +27,7 @@ const InputArea = forwardRef<HTMLTextAreaElement, InputAreaProps>(
         >
           {labelText}
         </Label>
-        <TextAreaField
+        <TextArea
           {...props}
           ref={ref}
           value={text}

@@ -1,6 +1,6 @@
 import { forwardRef, TextareaHTMLAttributes } from 'react';
 
-const TextAreaField = forwardRef<HTMLTextAreaElement, TextareaHTMLAttributes<HTMLTextAreaElement>>(
+const TextArea = forwardRef<HTMLTextAreaElement, TextareaHTMLAttributes<HTMLTextAreaElement>>(
   ({ disabled, ...props }, ref) => {
     return (
       <textarea
@@ -13,4 +13,4 @@ const TextAreaField = forwardRef<HTMLTextAreaElement, TextareaHTMLAttributes<HTM
   },
 );
 
-export default TextAreaField;
+export default TextArea;
