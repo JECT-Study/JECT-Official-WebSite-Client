@@ -1,3 +1,5 @@
+import BlockButton from '@/components/common/button/BlockButton';
+import Icon from '@/components/common/icon/Icon';
 import ProgressItem from '@/components/common/progress/ProgressItem';
 import ProgressVerticalBridge from '@/components/common/progress/ProgressVerticalBridge';
 import Title from '@/components/common/Title';
@@ -125,6 +127,16 @@ function Apply() {
           </div>
         </div>
       </section>
+        <BlockButton
+          size='lg'
+          style='solid'
+          hierarchy='accent'
+          rightIcon={<Icon name='forward' size='md' fillColor='fill-object-static-inverse-hero-dark'/>}
+          className='min-w-[26.25rem] cursor-pointer'
+        >
+        젝트 3기 지원하기
+        </BlockButton>
+      
     </div>
   );
 }
