@@ -1,14 +1,14 @@
 import { Meta, StoryObj } from '@storybook/react';
 
-import AnswerBox from './AnswerBox';
+import InputArea from './InputArea';
 
-const meta: Meta<typeof AnswerBox> = {
-  title: 'Components/AnswerBox',
-  component: AnswerBox,
+const meta: Meta<typeof InputArea> = {
+  title: 'Components/InputArea',
+  component: InputArea,
   argTypes: {
     labelText: {
       control: { type: 'text' },
-      description: 'AnswerBox의 레이블입니다.',
+      description: 'InputArea의 레이블입니다.',
     },
     placeholder: {
       control: { type: 'text' },
@@ -24,7 +24,7 @@ const meta: Meta<typeof AnswerBox> = {
 
 export default meta;
 
-type Story = StoryObj<typeof AnswerBox>;
+type Story = StoryObj<typeof InputArea>;
 
 export const Default: Story = {
   args: {
@@ -35,11 +35,11 @@ export const Default: Story = {
   },
 };
 
-export const AnswerBoxStory: Story = {
-  name: 'AnswerBoxStory',
+export const InputAreaStory: Story = {
+  name: 'InputAreaStory',
   render: () => {
     return (
-      <AnswerBox
+      <InputArea
         labelText='답변'
         required
         placeholder='어떤 공부를 하셨고, 어떤 일을 하시나요? 자유롭게 작성해 주세요.'

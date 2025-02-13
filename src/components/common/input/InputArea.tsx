@@ -3,11 +3,11 @@ import { ChangeEvent, forwardRef, TextareaHTMLAttributes, useState } from 'react
 import Label from '../Label';
 import TextAreaField from './TextAreaField';
 
-interface AnswerBoxProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+interface InputAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   labelText: string;
 }
 
-const AnswerBox = forwardRef<HTMLTextAreaElement, AnswerBoxProps>(
+const InputArea = forwardRef<HTMLTextAreaElement, InputAreaProps>(
   ({ labelText, maxLength, disabled, required, placeholder, onChange, ...props }, ref) => {
     const [text, setText] = useState('');
 
@@ -45,4 +45,4 @@ const AnswerBox = forwardRef<HTMLTextAreaElement, AnswerBoxProps>(
   },
 );
 
-export default AnswerBox;
+export default InputArea;
