@@ -6,7 +6,14 @@ function Apply() {
   // TODO: 날짜 배열에 맞게 isActive-> true로 바꾸기
   // TODO: 개인정보 맟 이용 동의서, 회비 링크 걸기
   // TODO: 지원하기 버튼 구현
-  // TODO: 지원하기는 어떤 링크인지? 색상 확인, 막대기 색상 확인.
+  // TODO: 지원하기는 어떤 링크인지? 색상 확인, 막대기 색상 확인. => 페이지 하단으로 이동하는 버튼
+
+  const moveToApplyButton = () => {
+    window.scrollTo({ 
+      top: document.body.scrollHeight, // <- 페이지 총 Height
+      behavior: "smooth" 
+    });
+  }
 
   return (
     <div className='bg-surface-standard-dark gap-12xl flex min-h-dvh flex-col items-center py-(--gap-12xl)'>
@@ -20,9 +27,9 @@ function Apply() {
             content={
               <p>
                 젝트 웹사이트의&nbsp;
-                <a className='text-feedback-information-dark decoration-feedback-information-dark underline'>
+                <button onClick={moveToApplyButton} className='cursor-pointer text-feedback-information-dark decoration-feedback-information-dark underline'>
                   지원하기
-                </a>
+                </button>
                 를 통해 접수를 받고 있어요.
               </p>
             }
