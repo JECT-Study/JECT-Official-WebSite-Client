@@ -1,20 +1,48 @@
-import React, { useState, cloneElement, ReactElement } from 'react';
+import React, { createContext, useState, useContext, ReactNode } from 'react';
 
 import Interaction from '@/components/common/interaction/Interaction.tsx';
+import { TabsProps } from '@/components/common/tab/Tab.types.ts';
 
-interface TabItemProps {
+type TabContextType = {
+  activeTabId: string;
+  onTabClick: (id: string) => void;
+};
+
+const TabContext = createContext<TabContextType | undefined>(undefined);
+
+const useTabContext = () => {
+  const context = useContext(TabContext);
+  if (!context) {
+    throw new Error('must be used within a TabProvider');
+  }
+  return context;
+};
+
+type TabHeaderProps = {
+  children: ReactNode;
+};
+
+export const TabHeader = ({ children }: TabHeaderProps) => {
+  return (
+    <div className='tab-header stroke-normal border-border-alternative-dark flex w-[37.3125rem] items-center'>
+      {children}
+    </div>
+  );
+};
+
+type TabItemProps = {
   id: string;
   label: string;
-  isActive?: boolean;
-  onClick?: () => void;
-}
+};
 
-export const TabItem = ({ label, isActive, onClick }: TabItemProps) => {
+export const TabItem = ({ id, label }: TabItemProps) => {
+  const { activeTabId, onTabClick } = useTabContext();
+  const isActive = activeTabId === id;
   return (
     <Interaction variant='default' density='subtle' isInversed='false'>
       <button
-        onClick={onClick}
-        className={`peer gap- py-(--gap-3xs)4xs label-bold-lg inline-flex items-center justify-center px-(--gap-md) text-center ${
+        onClick={() => onTabClick(id)}
+        className={`peer gap-4xs label-bold-lg inline-flex items-center justify-center px-(--gap-md) py-(--gap-3xs) text-center ${
           isActive
             ? 'text-object-hero-dark stroke-bold border-accent-normal-dark relative z-10 -mb-px'
             : 'text-object-alternative-dark'
@@ -26,17 +54,18 @@ export const TabItem = ({ label, isActive, onClick }: TabItemProps) => {
   );
 };
 
-interface TabProps {
-  children: ReactElement<TabItemProps> | ReactElement<TabItemProps>[];
-  defaultActiveTabId?: string;
-  onTabChange?: (activeTabId: string) => void;
-}
+type TabPanelProps = {
+  id: string;
+  children: ReactNode;
+};
 
-export const Tab = ({ children, defaultActiveTabId, onTabChange }: TabProps) => {
-  const tabItems = Array.isArray(children) ? children : [children];
+export const TabPanel = ({ id, children }: TabPanelProps) => {
+  const { activeTabId } = useTabContext();
+  return activeTabId === id ? <div className='tab-panel'>{children}</div> : null;
+};
 
-  const initialActiveId = defaultActiveTabId ?? tabItems[0].props.id;
-  const [activeTabId, setActiveTabId] = useState(initialActiveId);
+export const Tabs = ({ children, defaultActiveTabId, onTabChange }: TabsProps) => {
+  const [activeTabId, setActiveTabId] = useState<string>(defaultActiveTabId ?? '');
 
   const handleTabClick = (id: string) => {
     setActiveTabId(id);
@@ -45,16 +74,9 @@ export const Tab = ({ children, defaultActiveTabId, onTabChange }: TabProps) => 
     }
   };
 
-  const TabItems = tabItems.map(item =>
-    cloneElement(item, {
-      isActive: item.props.id === activeTabId,
-      onClick: () => handleTabClick(item.props.id),
-    }),
-  );
-
   return (
-    <div className='tab-container stroke-normal border-border-alternative-dark flex w-[37.3125rem]'>
-      {TabItems}
-    </div>
+    <TabContext.Provider value={{ activeTabId, onTabClick: handleTabClick }}>
+      <div className='tabs-container flex flex-col'>{children}</div>
+    </TabContext.Provider>
   );
 };
