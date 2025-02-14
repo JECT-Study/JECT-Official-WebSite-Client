@@ -1,5 +1,12 @@
 import StyleDictionary from 'style-dictionary';
 
+/**
+ * 새로운 semantic.css 파일 생성
+ * 1. 기존 semantic.css 파일을 삭제합니다.
+ * 2. json 파일을 src/styles/tokens/에 위치시킵니다
+ * 3. node token.config.js 명령어를 입력합니다.
+ */
+
 StyleDictionary.registerParser({
   name: 'json-parser',
   pattern: /\.json$/,
