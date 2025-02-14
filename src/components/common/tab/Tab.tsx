@@ -1,5 +1,7 @@
 import React, { useState, cloneElement, ReactElement } from 'react';
 
+import Interaction from '@/components/common/interaction/Interaction.tsx';
+
 interface TabItemProps {
   id: string;
   label: string;
@@ -9,7 +11,7 @@ interface TabItemProps {
 
 export const TabItem = ({ label, isActive, onClick }: TabItemProps) => {
   return (
-    <div>
+    <Interaction variant='default' density='subtle' isInversed='false'>
       <button
         onClick={onClick}
         className={`peer gap- py-(--gap-3xs)4xs label-bold-lg inline-flex items-center justify-center px-(--gap-md) text-center ${
@@ -20,7 +22,7 @@ export const TabItem = ({ label, isActive, onClick }: TabItemProps) => {
       >
         {label}
       </button>
-    </div>
+    </Interaction>
   );
 };
 
