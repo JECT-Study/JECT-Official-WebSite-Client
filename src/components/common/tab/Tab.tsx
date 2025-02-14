@@ -16,7 +16,7 @@ export const TabItem = ({ label, isActive, onClick }: TabItemProps) => {
         onClick={onClick}
         className={`peer gap- py-(--gap-3xs)4xs label-bold-lg inline-flex items-center justify-center px-(--gap-md) text-center ${
           isActive
-            ? 'text-object-hero-dark stroke-bold border-accent-normal-dark'
+            ? 'text-object-hero-dark stroke-bold border-accent-normal-dark relative z-10 -mb-px'
             : 'text-object-alternative-dark'
         }`}
       >
