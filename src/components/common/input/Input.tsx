@@ -1,7 +1,7 @@
 import clsx from 'clsx';
-import { forwardRef, InputHTMLAttributes, ReactNode } from 'react';
+import { ComponentPropsWithoutRef, forwardRef, ReactNode } from 'react';
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+interface InputProps extends ComponentPropsWithoutRef<"input"> {
   isError: boolean;
   children?: ReactNode;
   className?: string;

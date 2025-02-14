@@ -1,6 +1,6 @@
-import { forwardRef, TextareaHTMLAttributes } from 'react';
+import { ComponentPropsWithoutRef, forwardRef } from 'react';
 
-const TextArea = forwardRef<HTMLTextAreaElement, TextareaHTMLAttributes<HTMLTextAreaElement>>(
+const TextArea = forwardRef<HTMLTextAreaElement, ComponentPropsWithoutRef<"textarea">>(
   ({ disabled, ...props }, ref) => {
     return (
       <textarea
@@ -10,7 +10,8 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextareaHTMLAttributes<HTMLText
         className={`
           peer scroll border radius-sm body-md box-border h-[10.375rem] w-full px-(--gap-xl) py-(--gap-lg)
           bg-surface-embossed-dark border-border-trans-assistive-dark text-object-hero-dark
-          disabled:placeholder:text-object-disabled-dark placeholder:text-object-assistive-dark 
+          disabled:placeholder:text-object-disabled-dark placeholder:text-object-assistive-dark
+          disabled:hover:border-border-trans-assistive-dark 
           hover:border-border-trans-neutral-dark focus:border-border-trans-hero-dark 
           duration-faster ease-(--motion-fluent) resize-none`}
       />

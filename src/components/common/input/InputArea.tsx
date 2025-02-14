@@ -1,9 +1,9 @@
-import { ChangeEvent, forwardRef, TextareaHTMLAttributes, useState } from 'react';
+import { ChangeEvent, ComponentPropsWithoutRef, forwardRef, useState } from 'react';
 
 import Label from '../Label';
 import TextArea from './TextArea';
 
-interface InputAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+interface InputAreaProps extends ComponentPropsWithoutRef<"textarea"> {
   labelText: string;
 }
 

@@ -1,10 +1,10 @@
 import clsx from "clsx";
-import { forwardRef, InputHTMLAttributes, ReactNode } from "react"
+import { ComponentPropsWithoutRef, forwardRef, ReactNode } from "react"
 
 import Input from "./Input";
 import Label from "../Label";
 
-interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
+interface InputFieldProps extends ComponentPropsWithoutRef<"input"> {
   isError: boolean;
   isSuccess: boolean;
   InputChildren?: ReactNode;
