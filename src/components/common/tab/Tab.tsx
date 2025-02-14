@@ -1,7 +1,7 @@
 import React, { createContext, useState, useContext, ReactNode } from 'react';
 
 import Interaction from '@/components/common/interaction/Interaction.tsx';
-import { TabsProps } from '@/components/common/tab/Tab.types.ts';
+import { TabProps } from '@/components/common/tab/Tab.types.ts';
 
 type TabContextType = {
   activeTabId: string;
@@ -64,7 +64,7 @@ export const TabPanel = ({ id, children }: TabPanelProps) => {
   return activeTabId === id ? <div className='tab-panel'>{children}</div> : null;
 };
 
-export const Tabs = ({ children, defaultActiveTabId, onTabChange }: TabsProps) => {
+export const Tab = ({ children, defaultActiveTabId, onTabChange }: TabProps) => {
   const [activeTabId, setActiveTabId] = useState<string>(defaultActiveTabId ?? '');
 
   const handleTabClick = (id: string) => {
