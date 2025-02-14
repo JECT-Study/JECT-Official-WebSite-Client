@@ -218,4 +218,10 @@
   --color-role-pd-trans-normal-dark: rgba(212, 165, 255, 0.16);
   --color-role-pd-trans-neutral-light: rgba(193, 128, 255, 0.22);
   --color-role-pd-trans-neutral-dark: rgba(193, 128, 255, 0.16);
+  --color-accent-inverse-hero-light: #9193ff;
+  --color-accent-inverse-hero-dark: #302dbe;
+  --color-accent-inverse-normal-light: #7173ff;
+  --color-accent-inverse-normal-dark: #4a4ad6;
+  --color-accent-inverse-neutral-light: #5758e3;
+  --color-accent-inverse-neutral-dark: #6465f1;
 }
