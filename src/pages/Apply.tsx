@@ -16,53 +16,50 @@ function Apply() {
       <section className='gap-8xl flex w-[45rem] flex-col items-center justify-center'>
         <Title hierarchy='strong'>지원 과정</Title>
         <div className='bg-surface-tinted-dark radius-md border-border-trans-assistive-dark flex flex-col items-stretch border p-(--gap-2xl)'>
-          {
-            applyProcedureList.map((item, index) => (
-              <Fragment key={index}>
-                <ProgressItem
-                    index={index + 1}
-                    title={item.period}
-                    subTitle={item.subTitle}
-                    content={item.content}
-                    isActive={new Date(item.startDate) <= now}
-                  />
-                  {
-                    index + 1 <  applyProcedureList.length &&
-                    (<div className='self-center'>
-                      <ProgressVerticalBridge isActive={new Date(item.startDate) <= now} />
-                    </div>)
-                  }
-              </Fragment>
-            ))
-          }
+          {applyProcedureList.map((item, index) => (
+            <Fragment key={index}>
+              <ProgressItem
+                index={index + 1}
+                title={item.period}
+                subTitle={item.subTitle}
+                content={item.content}
+                isActive={new Date(item.startDate) <= now}
+              />
+              {index + 1 < applyProcedureList.length && (
+                <div className='self-center'>
+                  <ProgressVerticalBridge isActive={new Date(item.startDate) <= now} />
+                </div>
+              )}
+            </Fragment>
+          ))}
         </div>
       </section>
       <section className='gap-8xl flex w-[45rem] flex-col'>
         <Title hierarchy='strong'>지원 관련 안내</Title>
         <div className='gap-4xl flex flex-col'>
-          {
-            applyInfoList.map((item, index) => (
-              <div key={index} className='gap-xs flex flex-col'>
-                <Title hierarchy='normal'>{item.title}</Title>
-                <p className='body-lg text-object-normal-dark'>
-                  {item.content}
-                  <br/>
-                  {item.link ? item.link : null}
-                </p>
-              </div>
-            ))
-          }
+          {applyInfoList.map((item, index) => (
+            <div key={index} className='gap-xs flex flex-col'>
+              <Title hierarchy='normal'>{item.title}</Title>
+              <p className='body-lg text-object-normal-dark'>
+                {item.content}
+                <br />
+                {item.link ? item.link : null}
+              </p>
+            </div>
+          ))}
         </div>
       </section>
-        <BlockButton
-          size='lg'
-          style='solid'
-          hierarchy='accent'
-          rightIcon={<Icon name='forward' size='md' fillColor='fill-object-static-inverse-hero-dark'/>}
-          className='min-w-[26.25rem] cursor-pointer'
-        >
+      <BlockButton
+        size='lg'
+        style='solid'
+        hierarchy='accent'
+        rightIcon={
+          <Icon name='forward' size='md' fillColor='fill-object-static-inverse-hero-dark' />
+        }
+        className='min-w-[26.25rem] cursor-pointer'
+      >
         젝트 3기 지원하기
-        </BlockButton> 
+      </BlockButton>
     </div>
   );
 }
