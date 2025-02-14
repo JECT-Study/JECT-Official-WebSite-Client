@@ -7,12 +7,12 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextareaHTMLAttributes<HTMLText
         {...props}
         ref={ref}
         disabled={disabled}
-        className={`${
-          disabled 
-          ? 'placeholder:text-object-disabled-dark' 
-          : 'placeholder:text-object-assistive-dark hover:border-border-trans-neutral-dark'} 
-          peer bg-surface-embossed-dark border-border-trans-assistive-dark radius-sm body-md text-object-hero-dark scroll focus:border-border-trans-hero-dark duration-faster box-border h-[10.375rem] w-full resize-none border px-(--gap-xl) py-(--gap-lg) 
-          ease-(--motion-fluent)`}
+        className={`
+          peer scroll border radius-sm body-md box-border h-[10.375rem] w-full px-(--gap-xl) py-(--gap-lg)
+          bg-surface-embossed-dark border-border-trans-assistive-dark text-object-hero-dark
+          disabled:placeholder:text-object-disabled-dark placeholder:text-object-assistive-dark 
+          hover:border-border-trans-neutral-dark focus:border-border-trans-hero-dark 
+          duration-faster ease-(--motion-fluent) resize-none`}
       />
     );
   },
