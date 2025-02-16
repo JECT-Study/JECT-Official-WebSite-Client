@@ -24,7 +24,7 @@ type TabHeaderProps = {
 
 export const TabHeader = ({ children }: TabHeaderProps) => {
   return (
-    <div className='tab-header stroke-normal border-border-alternative-dark flex w-[37.3125rem] items-center'>
+    <div className='tab-header stroke-normal border-border-alternative-dark flex w-full items-center'>
       {children}
     </div>
   );
