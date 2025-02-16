@@ -57,3 +57,23 @@ export const TabStory: Story = {
     </Tab>
   ),
 };
+
+export const CategoryTabStory: Story = {
+  name: 'Category Tab',
+  render: args => (
+    <Tab defaultActiveTabId={0} {...args}>
+      <TabHeader>
+        <TabItem id={0} label='프로젝트' />
+        <TabItem id={1} label='해커톤' />
+      </TabHeader>
+      <div>
+        <TabPanel id={0}>
+          <div>프로젝트 콘텐츠</div>
+        </TabPanel>
+        <TabPanel id={1}>
+          <div>해커톤 콘텐츠</div>
+        </TabPanel>
+      </div>
+    </Tab>
+  ),
+};
