@@ -9,25 +9,25 @@ import { applyInfoList, applyProcedureList } from '@/constants/applyData';
 
 function Apply() {
   // TODO: 개인정보 맟 이용 동의서, 회비 링크 걸기
-  const now = new Date();
+  const currentDate = new Date();
 
   return (
     <div className='bg-surface-standard-dark gap-12xl flex min-h-dvh flex-col items-center py-(--gap-12xl)'>
       <section className='gap-8xl flex w-[45rem] flex-col items-center justify-center'>
         <Title hierarchy='strong'>지원 과정</Title>
         <div className='bg-surface-tinted-dark radius-md border-border-trans-assistive-dark flex flex-col items-stretch border p-(--gap-2xl)'>
-          {applyProcedureList.map((item, index) => (
-            <Fragment key={index}>
+          {applyProcedureList.map(({ id, period, subTitle, content, startDate }) => (
+            <Fragment key={id}>
               <ProgressItem
-                index={index + 1}
-                title={item.period}
-                subTitle={item.subTitle}
-                content={item.content}
-                isActive={new Date(item.startDate) <= now}
+                index={id}
+                title={period}
+                subTitle={subTitle}
+                content={content}
+                isActive={new Date(startDate) <= currentDate}
               />
-              {index + 1 < applyProcedureList.length && (
+              {id < applyProcedureList.length && (
                 <div className='self-center'>
-                  <ProgressVerticalBridge isActive={new Date(item.startDate) <= now} />
+                  <ProgressVerticalBridge isActive={new Date(startDate) <= currentDate} />
                 </div>
               )}
             </Fragment>
@@ -37,13 +37,13 @@ function Apply() {
       <section className='gap-8xl flex w-[45rem] flex-col'>
         <Title hierarchy='strong'>지원 관련 안내</Title>
         <div className='gap-4xl flex flex-col'>
-          {applyInfoList.map((item, index) => (
-            <div key={index} className='gap-xs flex flex-col'>
-              <Title hierarchy='normal'>{item.title}</Title>
+          {applyInfoList.map(({ id, title, content, link }) => (
+            <div key={id} className='gap-xs flex flex-col'>
+              <Title hierarchy='normal'>{title}</Title>
               <p className='body-lg text-object-normal-dark'>
-                {item.content}
+                {content}
                 <br />
-                {item.link ? item.link : null}
+                {link ? link : null}
               </p>
             </div>
           ))}
