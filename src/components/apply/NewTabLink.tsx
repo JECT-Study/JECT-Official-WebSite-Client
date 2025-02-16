@@ -1,9 +1,9 @@
-interface CreateNewTabProps {
+interface NewTabLinkProps {
   href: string;
   children: string;
 }
 
-function CreateNewTab({ href, children }: CreateNewTabProps) {
+function NewTabLink({ href, children }: NewTabLinkProps) {
   return (
     <a
       href={href}
@@ -16,4 +16,4 @@ function CreateNewTab({ href, children }: CreateNewTabProps) {
   );
 }
 
-export default CreateNewTab;
+export default NewTabLink;

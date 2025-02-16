@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import CreateNewTab from '@/components/apply/CreateNewTab';
+import NewTabLink from '@/components/apply/NewTabLink';
 import { moveToBottom } from '@/utils/scrollFunction';
 
 interface Procedure {
@@ -83,7 +83,7 @@ export const applyInfoList: Info[] = [
     title: '개인정보 수집 및 이용 관련',
     content: `지원자분의 편의를 위해 지원하실 때 작성하시는 내용들은 모두 수집돼요. 젝트 지원부터
           지원 기간 종료까지 지원자분의 소중한 정보를 안전하게 보관할 것을 약속드립니다.`,
-    link: <CreateNewTab href=''>개인정보 수집 및 이용 동의서</CreateNewTab>,
+    link: <NewTabLink href=''>개인정보 수집 및 이용 동의서</NewTabLink>,
   },
   {
     id: 4,
@@ -91,6 +91,6 @@ export const applyInfoList: Info[] = [
     content: `서로 다른 직군들이 모여 진행하는 팀 프로젝트에서는 한 명 한 명의 이탈이 치명적이에요.
           때문에 이로 인한 피해를 방지하는 차원에서 보증금 개념으로 회비를 받고 있어요. 프로젝트
           공식 일정이 종료된 후에 돌려 드려요.`,
-    link: <CreateNewTab href=''>젝트 회비 관련</CreateNewTab>,
+    link: <NewTabLink href=''>젝트 회비 관련</NewTabLink>,
   },
 ];
