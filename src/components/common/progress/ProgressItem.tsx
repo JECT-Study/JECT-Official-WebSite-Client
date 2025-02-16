@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 import Title from '../Title';
 import ProgressIndex from './ProgressIndex';
 
@@ -5,7 +7,7 @@ interface ProgressItemProps {
   index: number;
   title: string;
   subTitle: string;
-  content: string;
+  content: ReactNode;
   isActive: boolean;
 }
 
@@ -27,7 +29,7 @@ function ProgressItem({ index, title, subTitle, content, isActive }: ProgressIte
             {subTitle}
           </Title>
         </div>
-        <p className='body-lg text-object-normal-dark'>{content}</p>
+        <div className='body-lg text-object-normal-dark'>{content}</div>
       </div>
     </div>
   );
