@@ -8,7 +8,7 @@ interface CardProps {
   label: string;
   children: ReactNode;
   imgUrl: string;
-  descriptionVisible?: boolean;
+  isDescriptionVisible?: boolean;
 }
 
 const IMG_CLASS_DEFAULT =
@@ -20,9 +20,15 @@ const CONTAINER_CLASS_VISIBLE =
 const CONTAINER_CLASS_HIDDEN =
   'gap-3xs flex flex-col items-start self-stretch px-(--gap-md) pt-(--gap-xs) pb-(--gap-lg)';
 
-export const Card = ({ title, label, children, imgUrl, descriptionVisible = true }: CardProps) => {
-  const imgClass = descriptionVisible ? IMG_CLASS_DEFAULT : IMG_CLASS_EXPANDED;
-  const containerClass = descriptionVisible ? CONTAINER_CLASS_VISIBLE : CONTAINER_CLASS_HIDDEN;
+export const Card = ({
+  title,
+  label,
+  children,
+  imgUrl,
+  isDescriptionVisible = true,
+}: CardProps) => {
+  const imgClass = isDescriptionVisible ? IMG_CLASS_DEFAULT : IMG_CLASS_EXPANDED;
+  const containerClass = isDescriptionVisible ? CONTAINER_CLASS_VISIBLE : CONTAINER_CLASS_HIDDEN;
 
   return (
     <div className='radius-md stroke-normal border-border-assistive-dark bg-surface-embossed-dark box-border flex h-[21.25rem] w-[17.5rem] flex-col items-start overflow-hidden border'>
@@ -34,7 +40,7 @@ export const Card = ({ title, label, children, imgUrl, descriptionVisible = true
             {label}
           </Label>
         </div>
-        {descriptionVisible && (
+        {isDescriptionVisible && (
           <div className='body-lg text-object-neutral-dark min-h-[3rem] flex-[1_0_0] self-stretch'>
             {children}
           </div>

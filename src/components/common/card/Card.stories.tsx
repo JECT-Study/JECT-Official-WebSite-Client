@@ -24,7 +24,7 @@ const meta: Meta<typeof Card> = {
       control: 'text',
       description: '카드의 내용을 나타냅니다.',
     },
-    descriptionVisible: {
+    isDescriptionVisible: {
       control: 'boolean',
       description: '설명 부분(children) 표시 여부입니다. (기본값: true)',
     },
@@ -57,7 +57,7 @@ export const WithoutDescriptionCardStory: Story = {
           title='카드 타이틀'
           label='카드 레이블'
           imgUrl={cardSampleImage}
-          descriptionVisible={false}
+          isDescriptionVisible={false}
         >
           카드 내용
         </Card>
