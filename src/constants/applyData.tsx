@@ -11,6 +11,9 @@ interface Procedure {
   content: ReactNode;
 }
 
+export const APPLY_PROCESS = '지원 과정';
+export const APPLY_INFO = '지원 관련 안내';
+
 export const applyProcedureList: Procedure[] = [
   {
     id: 1,
