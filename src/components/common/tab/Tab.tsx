@@ -4,8 +4,8 @@ import Interaction from '@/components/common/interaction/Interaction.tsx';
 import { TabProps } from '@/components/common/tab/Tab.types.ts';
 
 type TabContextType = {
-  activeTabId: string;
-  onTabClick: (id: string) => void;
+  activeTabId: number;
+  onTabClick: (id: number) => void;
 };
 
 const TabContext = createContext<TabContextType | undefined>(undefined);
@@ -31,7 +31,7 @@ export const TabHeader = ({ children }: TabHeaderProps) => {
 };
 
 type TabItemProps = {
-  id: string;
+  id: number;
   label: string;
 };
 
@@ -55,7 +55,7 @@ export const TabItem = ({ id, label }: TabItemProps) => {
 };
 
 type TabPanelProps = {
-  id: string;
+  id: number;
   children: ReactNode;
 };
 
@@ -65,9 +65,9 @@ export const TabPanel = ({ id, children }: TabPanelProps) => {
 };
 
 export const Tab = ({ children, defaultActiveTabId, onTabChange }: TabProps) => {
-  const [activeTabId, setActiveTabId] = useState<string>(defaultActiveTabId ?? '');
+  const [activeTabId, setActiveTabId] = useState<number>(defaultActiveTabId ?? 0);
 
-  const handleTabClick = (id: string) => {
+  const handleTabClick = (id: number) => {
     setActiveTabId(id);
     if (onTabChange) {
       onTabChange(id);

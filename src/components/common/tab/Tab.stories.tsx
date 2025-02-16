@@ -16,8 +16,8 @@ const meta: Meta<typeof Tabs> = {
   },
   argTypes: {
     defaultActiveTabId: {
-      control: 'text',
-      description: '초기 활성 탭의 id를 설정합니다. string 형태입니다.',
+      control: { type: 'number' },
+      description: '초기 활성 탭의 id를 설정합니다. number 형태이며, 0부터 시작합니다.',
     },
     onTabChange: {
       action: '탭 변경됨',
@@ -33,24 +33,24 @@ type Story = StoryObj<typeof Tabs>;
 export const TabStory: Story = {
   name: 'Tab',
   render: args => (
-    <Tab defaultActiveTabId='1' {...args}>
+    <Tab defaultActiveTabId={0} {...args}>
       <TabHeader>
-        <TabItem id='1' label='프론트엔드 개발자' />
-        <TabItem id='2' label='백엔드 개발자' />
-        <TabItem id='3' label='프로젝트 매니저' />
-        <TabItem id='4' label='프로덕트 디자이너' />
+        <TabItem id={0} label='프론트엔드 개발자' />
+        <TabItem id={1} label='백엔드 개발자' />
+        <TabItem id={2} label='프로젝트 매니저' />
+        <TabItem id={3} label='프로덕트 디자이너' />
       </TabHeader>
       <div>
-        <TabPanel id='1'>
+        <TabPanel id={0}>
           <div>프론트엔드 개발자 콘텐츠</div>
         </TabPanel>
-        <TabPanel id='2'>
+        <TabPanel id={1}>
           <div>백엔드 개발자 콘텐츠</div>
         </TabPanel>
-        <TabPanel id='3'>
+        <TabPanel id={2}>
           <div>프로젝트 매니저 콘텐츠</div>
         </TabPanel>
-        <TabPanel id='4'>
+        <TabPanel id={3}>
           <div>프로덕트 디자이너 콘텐츠</div>
         </TabPanel>
       </div>
