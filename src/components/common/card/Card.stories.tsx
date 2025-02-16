@@ -29,6 +29,13 @@ const meta: Meta<typeof Card> = {
       description: '설명 부분(children) 표시 여부입니다. (기본값: true)',
     },
   },
+  args: {
+    title: '카드 타이틀',
+    label: '카드 레이블',
+    imgUrl: cardSampleImage,
+    children: '카드 내용',
+    isDescriptionVisible: true,
+  },
 };
 
 export default meta;
@@ -37,12 +44,10 @@ type Story = StoryObj<typeof Card>;
 
 export const DefaultCardStory: Story = {
   name: 'Default Card',
-  render: () => (
+  render: args => (
     <div className='story-container'>
       <div className='story-inner-container'>
-        <Card title='카드 타이틀' label='카드 레이블' imgUrl={cardSampleImage}>
-          카드 내용
-        </Card>
+        <Card {...args} />
       </div>
     </div>
   ),
