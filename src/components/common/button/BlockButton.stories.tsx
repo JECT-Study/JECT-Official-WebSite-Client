@@ -130,6 +130,16 @@ export const IconButtonStory: Story = {
           >
             레이블
           </BlockButton>
+          <BlockButton
+            size='lg'
+            style='solid'
+            hierarchy='accent'
+            leftIcon={<Icon name='check' size='md' fillColor='fill-accent-trans-hero-dark' />}
+            rightIcon={<Icon name='check' size='md' fillColor='fill-accent-trans-hero-dark' />}
+            disabled={true}
+          >
+            레이블
+          </BlockButton>
         </div>
       </div>
     </div>
