@@ -20,7 +20,7 @@ export interface LabelButtonProps extends ComponentPropsWithoutRef<'button'> {
 export const LabelButton = forwardRef<HTMLButtonElement, LabelButtonProps>(
   ({ children, leftIcon, rightIcon, size, hierarchy, className, disabled, ...props }, ref) => {
     const baseClasses =
-      'inline-flex flex-row py-0 px-0 justify-center items-center gap-4xs radius-xs';
+      'peer inline-flex flex-row py-0 px-0 justify-center items-center gap-4xs radius-xs';
 
     const combinedClasses = clsx(
       baseClasses,
