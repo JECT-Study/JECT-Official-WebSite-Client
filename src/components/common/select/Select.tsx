@@ -12,7 +12,12 @@ interface SelectItemProps {
 
 export const SelectItem = ({ label, isSelected, onClick, children }: SelectItemProps) => {
   return (
-    <Interaction variant='default' density='normal' isInversed={false}>
+    <Interaction
+      variant='default'
+      density='normal'
+      isInversed={false}
+      className='peer hover:duration-faster hover:ease-(--motion-fluent)'
+    >
       <button
         onClick={() => onClick(label)}
         className={`peer radius-xs opacity-visible flex w-full cursor-pointer items-start justify-between p-(--gap-sm) ${
