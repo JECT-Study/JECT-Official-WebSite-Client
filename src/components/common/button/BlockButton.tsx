@@ -50,6 +50,7 @@ export const BlockButton = forwardRef<HTMLButtonElement, BlockButtonProps>(
         variant={interactionVariant}
         density={interactionDensity}
         isInversed={isInteractionInversed}
+        className='peer-hover:duration-faster peer-hover:ease-(--motion-fluent)'
       >
         <button ref={ref} className={combinedClasses} disabled={!!disabled} {...props}>
           {leftIcon && leftIcon}
