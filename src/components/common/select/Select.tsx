@@ -1,6 +1,7 @@
 import { ReactNode, useState } from 'react';
 
 import Icon from '@/components/common/icon/Icon';
+import Interaction from '@/components/common/interaction/Interaction';
 
 interface SelectItemProps {
   label: string;
@@ -11,15 +12,17 @@ interface SelectItemProps {
 
 export const SelectItem = ({ label, isSelected, onClick, children }: SelectItemProps) => {
   return (
-    <div
-      onClick={() => onClick(label)}
-      className={`radius-xs opacity-visible flex cursor-pointer items-start justify-between p-(--gap-sm) ${
-        isSelected ? 'text-object-hero-dark' : 'text-object-neutral-dark'
-      }`}
-    >
-      <span className='body-lg self-stretch'>{label}</span>
-      {children}
-    </div>
+    <Interaction variant='default' density='normal' isInversed={false}>
+      <button
+        onClick={() => onClick(label)}
+        className={`peer radius-xs opacity-visible flex w-full cursor-pointer items-start justify-between p-(--gap-sm) ${
+          isSelected ? 'text-object-hero-dark' : 'text-object-neutral-dark'
+        }`}
+      >
+        <span className='body-lg self-stretch'>{label}</span>
+        {children}
+      </button>
+    </Interaction>
   );
 };
 
@@ -38,7 +41,7 @@ export const Select = ({ items, onChange }: SelectProps) => {
   };
 
   return (
-    <div className='gap-5xs radius-md border-border-trans-assistive-dark bg-surface-embossed-dark opacity-visible shadow-overlay flex w-[20rem] flex-col p-(--gap-2xs)'>
+    <div className='gap-5xs radius-md border-border-trans-assistive-dark bg-surface-embossed-dark opacity-visible shadow-overlay flex w-[20rem] flex-col border p-(--gap-2xs)'>
       {items.map(item => (
         <SelectItem
           key={item}
