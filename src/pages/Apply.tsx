@@ -1,4 +1,5 @@
 import { Fragment } from 'react/jsx-runtime';
+import { Link } from 'react-router-dom';
 
 import BlockButton from '@/components/common/button/BlockButton';
 import Icon from '@/components/common/icon/Icon';
@@ -10,7 +11,7 @@ import {
   APPLY_PROCESS,
   applyInfoList,
   applyProcedureList,
-} from '@/constants/applyData';
+} from '@/constants/applyPageData';
 
 function Apply() {
   // TODO: 개인정보 맟 이용 동의서, 회비 링크 걸기
@@ -54,17 +55,19 @@ function Apply() {
           ))}
         </div>
       </section>
-      <BlockButton
-        size='lg'
-        style='solid'
-        hierarchy='accent'
-        rightIcon={
-          <Icon name='forward' size='md' fillColor='fill-object-static-inverse-hero-dark' />
-        }
-        className='min-w-[26.25rem] cursor-pointer'
-      >
-        젝트 3기 지원하기
-      </BlockButton>
+      <Link to='/apply/step1'>
+        <BlockButton
+          size='lg'
+          style='solid'
+          hierarchy='accent'
+          rightIcon={
+            <Icon name='forward' size='md' fillColor='fill-object-static-inverse-hero-dark' />
+          }
+          className='min-w-[26.25rem] cursor-pointer'
+        >
+          젝트 3기 지원하기
+        </BlockButton>
+      </Link>
     </div>
   );
 }
