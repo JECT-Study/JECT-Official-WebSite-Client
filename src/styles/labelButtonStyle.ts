@@ -6,6 +6,7 @@ export type Hierarchy = 'accent' | 'primary' | 'secondary' | 'tertiary';
 interface LabelButtonStyleType {
   size: Record<Size, string>;
   hierarchy: Record<Hierarchy, string>;
+  disabled?: Record<Hierarchy, string>;
 }
 
 export const labelButtonStyle: LabelButtonStyleType = {
@@ -20,6 +21,12 @@ export const labelButtonStyle: LabelButtonStyleType = {
     primary: 'text-object-hero-dark',
     secondary: 'text-object-neutral-dark',
     tertiary: 'text-object-alternative-dark',
+  },
+  disabled: {
+    accent: 'text-accent-trans-hero-dark',
+    primary: 'text-object-disabled-dark',
+    secondary: 'text-object-disabled-dark',
+    tertiary: 'text-object-disabled-dark',
   },
 };
 
