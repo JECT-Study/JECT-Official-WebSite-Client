@@ -30,10 +30,12 @@ export const labelButtonStyle: LabelButtonStyleType = {
   },
 };
 
-export const labelButtonInteractionMap: Record<Hierarchy, { variant: Variant; density: Density }> =
-  {
-    accent: { variant: 'brand', density: 'subtle' },
-    primary: { variant: 'default', density: 'subtle' },
-    secondary: { variant: 'default', density: 'subtle' },
-    tertiary: { variant: 'brand', density: 'subtle' },
-  };
+export const labelButtonInteractionMap: Record<
+  Hierarchy,
+  { variant: Variant; density: Density; isInversed: boolean }
+> = {
+  accent: { variant: 'brand', density: 'subtle', isInversed: false },
+  primary: { variant: 'default', density: 'subtle', isInversed: false },
+  secondary: { variant: 'default', density: 'subtle', isInversed: false },
+  tertiary: { variant: 'brand', density: 'subtle', isInversed: false },
+};
