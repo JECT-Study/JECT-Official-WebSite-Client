@@ -1,16 +1,30 @@
+import clsx from 'clsx';
 import { ReactNode, useState } from 'react';
 
 import Icon from '@/components/common/icon/Icon';
 import Interaction from '@/components/common/interaction/Interaction';
 
-interface SelectItemProps {
+type SelectItemProps = {
   label: string;
   isSelected: boolean;
   onClick: (label: string) => void;
+  disabled?: boolean;
   children?: ReactNode;
-}
+};
 
-export const SelectItem = ({ label, isSelected, onClick, children }: SelectItemProps) => {
+export const SelectItem = ({
+  label,
+  isSelected,
+  onClick,
+  disabled = false,
+  children,
+}: SelectItemProps) => {
+  const buttonClass = clsx('peer radius-xs flex w-full items-start justify-between p-(--gap-sm)', {
+    'text-object-disabled-dark cursor-not-allowed pointer-events-none': disabled,
+    'text-object-hero-dark cursor-pointer pointer-events-auto': !disabled && isSelected,
+    'text-object-neutral-dark cursor-pointer pointer-events-auto': !disabled && !isSelected,
+  });
+
   return (
     <Interaction
       variant='default'
@@ -19,10 +33,9 @@ export const SelectItem = ({ label, isSelected, onClick, children }: SelectItemP
       className='peer hover:duration-faster hover:ease-(--motion-fluent)'
     >
       <button
-        onClick={() => onClick(label)}
-        className={`peer radius-xs opacity-visible flex w-full cursor-pointer items-start justify-between p-(--gap-sm) ${
-          isSelected ? 'text-object-hero-dark' : 'text-object-neutral-dark'
-        }`}
+        onClick={() => !disabled && onClick(label)}
+        disabled={!!disabled}
+        className={buttonClass}
       >
         <span className='body-lg self-stretch'>{label}</span>
         {children}
@@ -31,8 +44,13 @@ export const SelectItem = ({ label, isSelected, onClick, children }: SelectItemP
   );
 };
 
+type SelectOption = {
+  label: string;
+  disabled?: boolean;
+};
+
 interface SelectProps {
-  items: string[];
+  items: SelectOption[];
   onChange?: (label: string | null) => void;
 }
 
@@ -47,14 +65,15 @@ export const Select = ({ items, onChange }: SelectProps) => {
 
   return (
     <div className='gap-5xs radius-md border-border-trans-assistive-dark bg-surface-embossed-dark opacity-visible shadow-overlay flex w-[20rem] flex-col border p-(--gap-2xs)'>
-      {items.map(item => (
+      {items.map(({ label, disabled }) => (
         <SelectItem
-          key={item}
-          label={item}
-          isSelected={selectedValue === item}
+          key={label}
+          label={label}
+          isSelected={selectedValue === label}
           onClick={handleItemClick}
+          disabled={disabled}
         >
-          {selectedValue === item && (
+          {selectedValue === label && (
             <Icon name='check' size='lg' fillColor='fill-object-hero-dark' />
           )}
         </SelectItem>
