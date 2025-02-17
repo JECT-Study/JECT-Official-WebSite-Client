@@ -37,13 +37,15 @@ export const DefaultStory: Story = {
 export const SelectStory: Story = {
   name: 'Select',
   render: () => (
-    <Select
-      items={[
-        { label: '프론트엔드 개발자' },
-        { label: '백엔드 개발자' },
-        { label: '프로젝트 매니저', disabled: true },
-        { label: '프로덕트 디자이너' },
-      ]}
-    />
+    <div className='w-[26.25rem]'>
+      <Select
+        items={[
+          { label: '프론트엔드 개발자' },
+          { label: '백엔드 개발자' },
+          { label: '프로젝트 매니저', disabled: true },
+          { label: '프로덕트 디자이너' },
+        ]}
+      />
+    </div>
   ),
 };
