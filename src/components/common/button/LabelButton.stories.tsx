@@ -124,3 +124,33 @@ export const IconButtonStory: Story = {
     </div>
   ),
 };
+
+export const IconOnlyStory: Story = {
+  name: 'Icon Only LabelButton',
+  render: () => (
+    <div className='story-container'>
+      <div className='story-inner-container'>
+        <div className='story-inner-row-container'>
+          <LabelButton
+            size='large'
+            hierarchy='secondary'
+            leftIcon={<Icon name='clear' size='md' fillColor='fill-accent-hero-dark' />}
+          />
+          <LabelButton
+            size='large'
+            hierarchy='secondary'
+            rightIcon={<Icon name='clear' size='md' fillColor='fill-object-hero-dark' />}
+          />
+
+          <LabelButton
+            size='large'
+            hierarchy='secondary'
+            leftIcon={<Icon name='clear' size='md' fillColor='fill-object-neutral-dark' />}
+            rightIcon={<Icon name='clear' size='md' fillColor='fill-object-neutral-dark' />}
+            disabled={true}
+          />
+        </div>
+      </div>
+    </div>
+  ),
+};
