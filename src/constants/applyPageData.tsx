@@ -3,6 +3,13 @@ import { ReactNode } from 'react';
 import NewTabLink from '@/components/apply/NewTabLink';
 import { moveToBottom } from '@/utils/scrollFunction';
 
+export const APPLY_PROCESS = '지원 과정';
+export const APPLY_INFO = '지원 관련 안내';
+export const APPLY_STEP1 = '지원하시는 분이 누구신가요?';
+export const APPLY_STEP2 = '이메일을 인증해주세요';
+export const APPLY_STEP3 = '지원하려는 직군을 선택해주세요';
+export const APPLY_COMPLETE = '지원이 완료되었어요';
+
 interface Procedure {
   id: number;
   startDate: string;
@@ -10,9 +17,6 @@ interface Procedure {
   subTitle: string;
   content: ReactNode;
 }
-
-export const APPLY_PROCESS = '지원 과정';
-export const APPLY_INFO = '지원 관련 안내';
 
 export const applyProcedureList: Procedure[] = [
   {
