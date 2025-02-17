@@ -37,18 +37,18 @@ export const blockButtonStyle: BlockButtonStyleType = {
 
 export const blockButtonInteractionMap: Record<
   Style,
-  Record<Hierarchy, { variant: Variant; density: Density }>
+  Record<Hierarchy, { variant: Variant; density: Density; isInversed: boolean }>
 > = {
   solid: {
-    accent: { variant: 'default', density: 'normal' },
-    primary: { variant: 'default', density: 'normal' },
-    secondary: { variant: 'default', density: 'normal' },
-    tertiary: { variant: 'default', density: 'normal' },
+    accent: { variant: 'default', density: 'normal', isInversed: false },
+    primary: { variant: 'default', density: 'normal', isInversed: true },
+    secondary: { variant: 'default', density: 'normal', isInversed: true },
+    tertiary: { variant: 'default', density: 'normal', isInversed: false },
   },
   outlined: {
-    accent: { variant: 'brand', density: 'subtle' },
-    primary: { variant: 'default', density: 'subtle' },
-    secondary: { variant: 'default', density: 'subtle' },
-    tertiary: { variant: 'default', density: 'subtle' },
+    accent: { variant: 'brand', density: 'subtle', isInversed: false },
+    primary: { variant: 'default', density: 'subtle', isInversed: false },
+    secondary: { variant: 'default', density: 'subtle', isInversed: false },
+    tertiary: { variant: 'default', density: 'subtle', isInversed: false },
   },
 };

@@ -30,11 +30,18 @@ export const BlockButton = forwardRef<HTMLButtonElement, BlockButtonProps>(
       className,
     );
 
-    const { variant: interactionVariant, density: interactionDensity } =
-      blockButtonInteractionMap[style][hierarchy];
+    const {
+      variant: interactionVariant,
+      density: interactionDensity,
+      isInversed: isInteractionInversed,
+    } = blockButtonInteractionMap[style][hierarchy];
 
     return (
-      <Interaction variant={interactionVariant} density={interactionDensity}>
+      <Interaction
+        variant={interactionVariant}
+        density={interactionDensity}
+        isInversed={isInteractionInversed}
+      >
         <button ref={ref} className={combinedClasses} {...props}>
           {leftIcon && leftIcon}
           {children}
