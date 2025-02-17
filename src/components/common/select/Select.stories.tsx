@@ -7,9 +7,9 @@ const meta: Meta<typeof Select> = {
   component: Select,
   argTypes: {
     items: {
-      control: 'array',
+      control: 'object',
       description:
-        '선택 옵션 이름을 배열 형태로 입력합니다. 배열의 요소에는 label 명이 들어갑니다.',
+        '선택 옵션 객체 배열입니다. 각 객체는 label과 선택적으로 disabled 속성을 가집니다.',
     },
     onChange: {
       action: 'changed',
@@ -17,7 +17,12 @@ const meta: Meta<typeof Select> = {
     },
   },
   args: {
-    items: ['Option 1', 'Option 2', 'Option 3'],
+    items: [
+      { label: '프론트엔드 개발자' },
+      { label: '백엔드 개발자' },
+      { label: '프로젝트 매니저' },
+      { label: '프로덕트 디자이너' },
+    ],
   },
 };
 
@@ -33,7 +38,12 @@ export const SelectStory: Story = {
   name: 'Select',
   render: () => (
     <Select
-      items={['프론트엔드 개발자', '백엔드 개발자', '프로젝트 매니저', '프로덕트 디자이너']}
+      items={[
+        { label: '프론트엔드 개발자' },
+        { label: '백엔드 개발자' },
+        { label: '프로젝트 매니저', disabled: true },
+        { label: '프로덕트 디자이너' },
+      ]}
     />
   ),
 };
