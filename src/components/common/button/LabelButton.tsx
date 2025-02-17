@@ -45,6 +45,7 @@ export const LabelButton = forwardRef<HTMLButtonElement, LabelButtonProps>(
         density={interactionDensity}
         isInversed={isInteractionInversed}
         className='peer-hover:duration-faster peer-hover:ease-(--motion-fluent)'
+        scale='scale-x-118 scale-y-129'
       >
         <button ref={ref} className={combinedClasses} disabled={!!disabled} {...props}>
           {leftIcon && leftIcon}
