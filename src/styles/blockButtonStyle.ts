@@ -12,12 +12,17 @@ interface BlockButtonStyleType {
   };
 }
 
-export const blockButtonStyle: BlockButtonStyleType = {
+export const blockButtonStyle: BlockButtonStyleType & {
+  disabled?: {
+    solid: Record<Hierarchy, string>;
+    outlined: Record<Hierarchy, string>;
+  };
+} = {
   size: {
     xs: 'py-(--gap-3xs) px-(--gap-xs) radius-xs label-xs',
     sm: 'py-(--gap-2xs) px-(--gap-sm) radius-2xs label-sm',
     md: 'py-(--gap-xs) px-(--gap-lg) radius-2xs label-md',
-    lg: 'py-(--gap-sm) px-(--gap-2xl) radius-3xs label-xs',
+    lg: 'py-(--gap-sm) px-(--gap-2xl) radius-3xs label-lg',
   },
   variant: {
     solid: {
@@ -31,6 +36,21 @@ export const blockButtonStyle: BlockButtonStyleType = {
       primary: 'border border-hero-dark text-object-hero-dark',
       secondary: 'border border-neutral-dark text-object-neutral-dark',
       tertiary: 'border border-alternative-dark text-object-alternative-dark',
+    },
+  },
+  disabled: {
+    solid: {
+      accent: 'bg-accent-trans-normal-dark text-accent-trans-hero-dark',
+      primary: 'bg-fill-disabled-dark text-object-disabled-dark',
+      secondary: 'bg-fill-disabled-dark text-object-disabled-dark',
+      tertiary: 'bg-fill-disabled-dark text-object-disabled-dark',
+    },
+    outlined: {
+      accent:
+        'border border-accent-trans-hero-dark bg-accent-trans-neutral-dark text-accent-trans-hero-dark',
+      primary: 'border border-border-assistive-dark text-object-disabled-dark',
+      secondary: 'border border-border-assistive-dark text-object-disabled-dark',
+      tertiary: 'border border-border-assistive-dark text-object-disabled-dark',
     },
   },
 };

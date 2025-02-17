@@ -20,14 +20,23 @@ export interface BlockButtonProps extends ComponentPropsWithoutRef<'button'> {
 }
 
 export const BlockButton = forwardRef<HTMLButtonElement, BlockButtonProps>(
-  ({ children, leftIcon, rightIcon, size, style, hierarchy, className, ...props }, ref) => {
+  (
+    { children, leftIcon, rightIcon, size, style, hierarchy, className, disabled, ...props },
+    ref,
+  ) => {
     const baseClasses = 'peer inline-flex flex-row justify-center items-center gap-4xs';
 
     const combinedClasses = clsx(
       baseClasses,
       blockButtonStyle.size[size],
-      blockButtonStyle.variant[style][hierarchy],
+      disabled
+        ? blockButtonStyle.disabled?.[style][hierarchy]
+        : blockButtonStyle.variant[style][hierarchy],
       className,
+      {
+        'cursor-not-allowed pointer-events-none': disabled,
+        'cursor-pointer pointer-events-auto': !disabled,
+      },
     );
 
     const {
@@ -42,7 +51,7 @@ export const BlockButton = forwardRef<HTMLButtonElement, BlockButtonProps>(
         density={interactionDensity}
         isInversed={isInteractionInversed}
       >
-        <button ref={ref} className={combinedClasses} {...props}>
+        <button ref={ref} className={combinedClasses} disabled={!!disabled} {...props}>
           {leftIcon && leftIcon}
           {children}
           {rightIcon && rightIcon}
