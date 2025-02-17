@@ -21,7 +21,7 @@ export interface BlockButtonProps extends ComponentPropsWithoutRef<'button'> {
 
 export const BlockButton = forwardRef<HTMLButtonElement, BlockButtonProps>(
   ({ children, leftIcon, rightIcon, size, style, hierarchy, className, ...props }, ref) => {
-    const baseClasses = 'inline-flex flex-row justify-center items-center gap-4xs';
+    const baseClasses = 'peer inline-flex flex-row justify-center items-center gap-4xs';
 
     const combinedClasses = clsx(
       baseClasses,
