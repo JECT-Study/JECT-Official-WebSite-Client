@@ -10,7 +10,7 @@ import {
 } from '@/styles/labelButtonStyle';
 
 export interface LabelButtonProps extends ComponentPropsWithoutRef<'button'> {
-  children: ReactNode;
+  children?: ReactNode;
   leftIcon?: ReactNode;
   rightIcon?: ReactNode;
   size: Size;
