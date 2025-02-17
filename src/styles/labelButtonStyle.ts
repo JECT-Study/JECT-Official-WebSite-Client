@@ -37,10 +37,3 @@ export const labelButtonInteractionMap: Record<Hierarchy, { variant: Variant; de
     secondary: { variant: 'default', density: 'subtle' },
     tertiary: { variant: 'brand', density: 'subtle' },
   };
-
-export const labelButtonOutlineOffsetMap: Record<Size, number> = {
-  xs: 1,
-  sm: 2,
-  md: 3,
-  lg: 4,
-};
