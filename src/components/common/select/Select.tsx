@@ -1,16 +1,15 @@
 import clsx from 'clsx';
-import { ReactNode, useState } from 'react';
+import { ComponentPropsWithoutRef, ReactNode, useState } from 'react';
 
 import Icon from '@/components/common/icon/Icon';
 import Interaction from '@/components/common/interaction/Interaction';
 
-type SelectItemProps = {
+interface SelectItemProps extends ComponentPropsWithoutRef<'button'> {
   label: string;
   isSelected: boolean;
   onClick: (label: string) => void;
-  disabled?: boolean;
   children?: ReactNode;
-};
+}
 
 export const SelectItem = ({
   label,
@@ -18,9 +17,10 @@ export const SelectItem = ({
   onClick,
   disabled = false,
   children,
+  ...rest
 }: SelectItemProps) => {
   const buttonClass = clsx('peer radius-xs flex w-full items-start justify-between p-(--gap-sm)', {
-    'text-object-disabled-dark cursor-not-allowed pointer-events-none': disabled,
+    'text-object-disabled-dark cursor-not-allowed pointer-events-none': !!disabled,
     'text-object-hero-dark cursor-pointer pointer-events-auto': !disabled && isSelected,
     'text-object-neutral-dark cursor-pointer pointer-events-auto': !disabled && !isSelected,
   });
@@ -33,9 +33,11 @@ export const SelectItem = ({
       className='peer-hover:duration-faster peer-hover:ease-(--motion-fluent)'
     >
       <button
+        type='button'
         onClick={() => !disabled && onClick(label)}
         disabled={!!disabled}
         className={buttonClass}
+        {...rest}
       >
         <span className='body-lg self-stretch'>{label}</span>
         {children}
@@ -44,10 +46,10 @@ export const SelectItem = ({
   );
 };
 
-type SelectOption = {
+interface SelectOption {
   label: string;
   disabled?: boolean;
-};
+}
 
 interface SelectProps {
   items: SelectOption[];
