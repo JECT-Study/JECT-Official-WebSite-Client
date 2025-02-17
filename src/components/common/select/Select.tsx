@@ -30,7 +30,7 @@ export const SelectItem = ({
       variant='default'
       density='normal'
       isInversed={false}
-      className='peer hover:duration-faster hover:ease-(--motion-fluent)'
+      className='peer-hover:duration-faster peer-hover:ease-(--motion-fluent)'
     >
       <button
         onClick={() => !disabled && onClick(label)}
