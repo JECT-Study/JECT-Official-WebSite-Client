@@ -1,7 +1,8 @@
 import { ReactNode } from 'react';
 
-import Label from '@/components/common/Label.tsx';
-import Title from '@/components/common/Title.tsx';
+import Interaction from '@/components/common/interaction/Interaction';
+import Label from '@/components/common/Label';
+import Title from '@/components/common/Title';
 
 interface CardProps {
   title: string;
@@ -31,24 +32,31 @@ export const Card = ({
   const containerClass = isDescriptionVisible ? CONTAINER_CLASS_VISIBLE : CONTAINER_CLASS_HIDDEN;
 
   return (
-    <button
-      type='button'
-      className='radius-md stroke-normal border-border-assistive-dark bg-surface-embossed-dark box-border flex h-[21.25rem] w-[17.5rem] flex-col items-stretch overflow-hidden border'
+    <Interaction
+      variant='default'
+      density='subtle'
+      isInversed={false}
+      className='peer-hover:duration-slower peer-focus:duration-slower peer-hover:ease-(--motion-fluent) peer-focus:ease-(--motion-fluent)'
     >
-      <img src={imgUrl} alt='카드 이미지' className={imgClass} />
-      <div className={containerClass}>
-        <div className='gap-4xs flex flex-col items-start'>
-          <Title hierarchy='weak'>{title}</Title>
-          <Label hierarchy='stronger' weight='normal' textColor='text-object-normal-dark'>
-            {label}
-          </Label>
-        </div>
-        {isDescriptionVisible && (
-          <div className='body-lg text-object-neutral-dark min-h-[3rem] flex-[1_0_0]'>
-            {children}
+      <button
+        type='button'
+        className='peer radius-md stroke-normal border-border-assistive-dark bg-surface-embossed-dark box-border flex h-[21.25rem] w-[17.5rem] flex-col items-stretch overflow-hidden border'
+      >
+        <img src={imgUrl} alt='카드 이미지' className={imgClass} />
+        <div className={containerClass}>
+          <div className='gap-4xs flex flex-col items-start'>
+            <Title hierarchy='weak'>{title}</Title>
+            <Label hierarchy='stronger' weight='normal' textColor='text-object-normal-dark'>
+              {label}
+            </Label>
           </div>
-        )}
-      </div>
-    </button>
+          {isDescriptionVisible && (
+            <div className='body-lg text-object-neutral-dark min-h-[3rem] flex-[1_0_0]'>
+              {children}
+            </div>
+          )}
+        </div>
+      </button>
+    </Interaction>
   );
 };
