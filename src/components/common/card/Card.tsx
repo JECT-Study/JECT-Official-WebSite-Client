@@ -31,7 +31,10 @@ export const Card = ({
   const containerClass = isDescriptionVisible ? CONTAINER_CLASS_VISIBLE : CONTAINER_CLASS_HIDDEN;
 
   return (
-    <div className='radius-md stroke-normal border-border-assistive-dark bg-surface-embossed-dark box-border flex h-[21.25rem] w-[17.5rem] flex-col items-stretch overflow-hidden border'>
+    <button
+      type='button'
+      className='radius-md stroke-normal border-border-assistive-dark bg-surface-embossed-dark box-border flex h-[21.25rem] w-[17.5rem] flex-col items-stretch overflow-hidden border'
+    >
       <img src={imgUrl} alt='카드 이미지' className={imgClass} />
       <div className={containerClass}>
         <div className='gap-4xs flex flex-col items-start'>
@@ -46,6 +49,6 @@ export const Card = ({
           </div>
         )}
       </div>
-    </div>
+    </button>
   );
 };
