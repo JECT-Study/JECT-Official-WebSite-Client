@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, ReactNode } from 'react';
+import { createContext, useState, useContext, ReactNode } from 'react';
 
 import Interaction from '@/components/common/interaction/Interaction.tsx';
 import { TabProps } from '@/components/common/tab/Tab.types.ts';
