@@ -2,6 +2,8 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import BlockButton from './BlockButton';
 
+import Icon from '@/components/common/icon/Icon';
+
 const meta: Meta<typeof BlockButton> = {
   title: 'Components/BlockButton',
   component: BlockButton,
@@ -21,6 +23,16 @@ const meta: Meta<typeof BlockButton> = {
       options: ['accent', 'primary', 'secondary', 'tertiary'],
       description: '버튼의 색상이 분기되는 위계 요소입니다.',
     },
+    disabled: {
+      control: { type: 'boolean' },
+      description: '버튼 비활성화 여부입니다.',
+    },
+  },
+  args: {
+    size: 'lg',
+    style: 'solid',
+    hierarchy: 'accent',
+    disabled: false,
   },
 };
 
@@ -28,8 +40,21 @@ export default meta;
 
 type Story = StoryObj<typeof BlockButton>;
 
+export const DefaultStory: Story = {
+  name: 'Default BlockButton',
+  render: args => (
+    <div className='story-container'>
+      <div className='story-inner-container'>
+        <div className='story-inner-row-container'>
+          <BlockButton {...args}>레이블</BlockButton>
+        </div>
+      </div>
+    </div>
+  ),
+};
+
 export const ButtonStory: Story = {
-  name: 'Button',
+  name: 'BlockButton',
   render: () => (
     <div className='story-container'>
       <div className='story-inner-container'>
@@ -46,6 +71,9 @@ export const ButtonStory: Story = {
           <BlockButton size='lg' style='solid' hierarchy='tertiary'>
             레이블
           </BlockButton>
+          <BlockButton size='lg' style='solid' hierarchy='accent' disabled={true}>
+            레이블
+          </BlockButton>
         </div>
       </div>
     </div>
@@ -53,7 +81,7 @@ export const ButtonStory: Story = {
 };
 
 export const IconButtonStory: Story = {
-  name: 'Icon Button',
+  name: 'Icon BlockButton',
   render: () => (
     <div className='story-container'>
       <div className='story-inner-container'>
@@ -62,8 +90,12 @@ export const IconButtonStory: Story = {
             size='lg'
             style='solid'
             hierarchy='accent'
-            leftIcon={<span>→</span>}
-            rightIcon={<span>→</span>}
+            leftIcon={
+              <Icon name='check' size='md' fillColor='fill-object-static-inverse-hero-dark' />
+            }
+            rightIcon={
+              <Icon name='check' size='md' fillColor='fill-object-static-inverse-hero-dark' />
+            }
           >
             레이블
           </BlockButton>
@@ -71,8 +103,8 @@ export const IconButtonStory: Story = {
             size='lg'
             style='solid'
             hierarchy='primary'
-            leftIcon={<span>→</span>}
-            rightIcon={<span>→</span>}
+            leftIcon={<Icon name='check' size='md' fillColor='fill-object-inverse-hero-dark' />}
+            rightIcon={<Icon name='check' size='md' fillColor='fill-object-inverse-hero-dark' />}
           >
             레이블
           </BlockButton>
@@ -80,8 +112,12 @@ export const IconButtonStory: Story = {
             size='lg'
             style='solid'
             hierarchy='secondary'
-            leftIcon={<span>→</span>}
-            rightIcon={<span>→</span>}
+            leftIcon={
+              <Icon name='check' size='md' fillColor='fill-object-static-inverse-hero-dark' />
+            }
+            rightIcon={
+              <Icon name='check' size='md' fillColor='fill-object-static-inverse-hero-dark' />
+            }
           >
             레이블
           </BlockButton>
@@ -89,8 +125,18 @@ export const IconButtonStory: Story = {
             size='lg'
             style='solid'
             hierarchy='tertiary'
-            leftIcon={<span>→</span>}
-            rightIcon={<span>→</span>}
+            leftIcon={<Icon name='check' size='md' fillColor='fill-object-neutral-dark' />}
+            rightIcon={<Icon name='check' size='md' fillColor='fill-object-neutral-dark' />}
+          >
+            레이블
+          </BlockButton>
+          <BlockButton
+            size='lg'
+            style='solid'
+            hierarchy='accent'
+            leftIcon={<Icon name='check' size='md' fillColor='fill-accent-trans-hero-dark' />}
+            rightIcon={<Icon name='check' size='md' fillColor='fill-accent-trans-hero-dark' />}
+            disabled={true}
           >
             레이블
           </BlockButton>

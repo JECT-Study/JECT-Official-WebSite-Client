@@ -7,11 +7,10 @@ import {
   Size,
   Hierarchy,
   labelButtonInteractionMap,
-  labelButtonOutlineOffsetMap,
 } from '@/styles/labelButtonStyle';
 
 export interface LabelButtonProps extends ComponentPropsWithoutRef<'button'> {
-  children: ReactNode;
+  children?: ReactNode;
   leftIcon?: ReactNode;
   rightIcon?: ReactNode;
   size: Size;
@@ -19,29 +18,36 @@ export interface LabelButtonProps extends ComponentPropsWithoutRef<'button'> {
 }
 
 export const LabelButton = forwardRef<HTMLButtonElement, LabelButtonProps>(
-  ({ children, leftIcon, rightIcon, size, hierarchy, className, ...props }, ref) => {
+  ({ children, leftIcon, rightIcon, size, hierarchy, className, disabled, ...props }, ref) => {
     const baseClasses =
-      'inline-flex flex-row py-0 px-0 justify-center items-center gap-4xs radius-xs';
+      'peer inline-flex flex-row py-0 px-0 justify-center items-center gap-4xs radius-xs';
 
     const combinedClasses = clsx(
       baseClasses,
       labelButtonStyle.size[size],
-      labelButtonStyle.hierarchy[hierarchy],
+      disabled ? labelButtonStyle.disabled?.[hierarchy] : labelButtonStyle.hierarchy[hierarchy],
+      {
+        'cursor-not-allowed pointer-events-none': disabled,
+        'cursor-pointer pointer-events-auto': !disabled,
+      },
       className,
     );
 
-    const { variant: interactionVariant, density: interactionDensity } =
-      labelButtonInteractionMap[hierarchy];
-
-    const outlineOffset = labelButtonOutlineOffsetMap[size];
+    const {
+      variant: interactionVariant,
+      density: interactionDensity,
+      isInversed: isInteractionInversed,
+    } = labelButtonInteractionMap[hierarchy];
 
     return (
       <Interaction
         variant={interactionVariant}
         density={interactionDensity}
-        outlineOffset={outlineOffset}
+        isInversed={isInteractionInversed}
+        className='peer-hover:duration-faster peer-hover:ease-(--motion-fluent)'
+        scale='scale-x-118 scale-y-129'
       >
-        <button ref={ref} className={combinedClasses} {...props}>
+        <button ref={ref} className={combinedClasses} disabled={!!disabled} {...props}>
           {leftIcon && leftIcon}
           {children}
           {rightIcon && rightIcon}
