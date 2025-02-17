@@ -48,7 +48,7 @@ export const DefaultStory: Story = {
 };
 
 export const ButtonStory: Story = {
-  name: 'Button',
+  name: 'LabelButton',
   render: () => (
     <div className='story-container'>
       <div className='story-inner-container'>

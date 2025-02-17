@@ -41,7 +41,7 @@ export default meta;
 type Story = StoryObj<typeof BlockButton>;
 
 export const DefaultStory: Story = {
-  name: 'Default Button',
+  name: 'Default BlockButton',
   render: args => (
     <div className='story-container'>
       <div className='story-inner-container'>
@@ -54,7 +54,7 @@ export const DefaultStory: Story = {
 };
 
 export const ButtonStory: Story = {
-  name: 'Button',
+  name: 'BlockButton',
   render: () => (
     <div className='story-container'>
       <div className='story-inner-container'>
@@ -81,7 +81,7 @@ export const ButtonStory: Story = {
 };
 
 export const IconButtonStory: Story = {
-  name: 'Icon Button',
+  name: 'Icon BlockButton',
   render: () => (
     <div className='story-container'>
       <div className='story-inner-container'>
