@@ -17,7 +17,7 @@ export const SelectItem = ({
   onClick,
   disabled = false,
   children,
-  ...rest
+  ...restProps
 }: SelectItemProps) => {
   const buttonClass = clsx('peer radius-xs flex w-full items-start justify-between p-(--gap-sm)', {
     'text-object-disabled-dark cursor-not-allowed pointer-events-none': !!disabled,
@@ -37,7 +37,7 @@ export const SelectItem = ({
         onClick={() => !disabled && onClick(label)}
         disabled={!!disabled}
         className={buttonClass}
-        {...rest}
+        {...restProps}
       >
         <span className='body-lg self-stretch'>{label}</span>
         {children}
