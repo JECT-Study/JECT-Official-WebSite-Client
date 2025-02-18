@@ -35,7 +35,7 @@ function QuestionsByPosition({ position, setAnswers }: QuestionsByPositionProps)
       </div>
       <div className='gap-2xl flex flex-col'>
         <Title hierarchy='normal'>6. 포트폴리오가 있으시다면 첨부해주세요. </Title>
-        <InputFile setAnswers={setAnswers} />
+        <InputFile setAnswers={setAnswers} fileExtensions={['.pdf']} />
       </div>
     </form>
   );
