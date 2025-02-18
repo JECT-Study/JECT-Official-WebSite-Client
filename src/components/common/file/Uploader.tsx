@@ -2,14 +2,16 @@ import { ChangeEvent, DragEvent, MouseEvent, useRef, useState } from 'react';
 
 import BlockButton from '@/components/common/button/BlockButton';
 import Icon from '@/components/common/icon/Icon';
+import { FileExtension } from '@/constants/file';
 import { checkFileType } from '@/utils/checkFileType';
 
 interface UploaderProps {
   onChangeFile: (file: FileList | null) => void;
   isDisabled: boolean;
+  fileExtensions: FileExtension[];
 }
 
-function Uploader({ onChangeFile, isDisabled }: UploaderProps) {
+function Uploader({ onChangeFile, isDisabled, fileExtensions }: UploaderProps) {
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -47,7 +49,7 @@ function Uploader({ onChangeFile, isDisabled }: UploaderProps) {
     if (isDisabled) return;
 
     if (e.dataTransfer && e.dataTransfer.files) {
-      if (checkFileType(e.dataTransfer.files, ['.pdf'])) {
+      if (checkFileType(e.dataTransfer.files, fileExtensions)) {
         onChangeFile(e.dataTransfer.files);
       }
       // TODO: 옳지 않은 확장자 예외 처리
@@ -66,10 +68,14 @@ function Uploader({ onChangeFile, isDisabled }: UploaderProps) {
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files;
+
     if (isDisabled) return;
 
-    if (e.target.files && e.target.files.length > 0) {
-      onChangeFile(e.target.files);
+    if (file && file.length > 0) {
+      if (checkFileType(file, fileExtensions)) {
+        onChangeFile(file);
+      }
     }
   };
 
@@ -123,7 +129,6 @@ function Uploader({ onChangeFile, isDisabled }: UploaderProps) {
           className='hidden'
           multiple={true}
           onChange={handleChange}
-          accept='.pdf'
         />
       </div>
     </div>
