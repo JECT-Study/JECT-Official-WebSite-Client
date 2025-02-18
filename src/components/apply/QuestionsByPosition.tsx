@@ -1,17 +1,15 @@
-import { Dispatch, useState } from 'react';
+import { Dispatch } from 'react';
 
-import InputFile from './InputFile';
-import InputArea from '../common/input/InputArea';
-import InputField from '../common/input/InputField';
-import Title from '../common/Title';
+import InputArea from '@/components/common/input/InputArea';
+import InputField from '@/components/common/input/InputField';
+import InputFile from '@/components/common/input/InputFile';
+import Title from '@/components/common/Title';
 
 interface QuestionsByPositionProps {
   position: string;
   setAnswers: Dispatch<React.SetStateAction<string | null>>;
 }
 
-// TODO: file 전체 용량 10MB로 제한 + Uploader isDisabled 설정
-// TODO: pdf 이외의 파일 예외처리
 // TODO: position과 문항 타입에 맞게 UI 렌더링
 
 function QuestionsByPosition({ position, setAnswers }: QuestionsByPositionProps) {

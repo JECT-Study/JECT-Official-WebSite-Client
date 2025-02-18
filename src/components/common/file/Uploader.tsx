@@ -1,8 +1,7 @@
 import { ChangeEvent, DragEvent, useRef, useState } from 'react';
 
-import BlockButton from '../common/button/BlockButton';
-import Icon from '../common/icon/Icon';
-
+import BlockButton from '@/components/common/button/BlockButton';
+import Icon from '@/components/common/icon/Icon';
 import { checkFileType } from '@/utils/checkFileType';
 
 interface UploaderProps {
