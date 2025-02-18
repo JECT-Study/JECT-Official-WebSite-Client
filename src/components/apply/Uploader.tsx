@@ -3,6 +3,8 @@ import { ChangeEvent, DragEvent, useRef, useState } from 'react';
 import BlockButton from '../common/button/BlockButton';
 import Icon from '../common/icon/Icon';
 
+import { checkFileType } from '@/utils/checkFileType';
+
 interface UploaderProps {
   onChangeFile: (file: FileList | null) => void;
   isDisabled: boolean;
@@ -34,10 +36,13 @@ function Uploader({ onChangeFile, isDisabled }: UploaderProps) {
     e.preventDefault();
     e.stopPropagation();
 
-    if (e.dataTransfer) {
-      const file = e.dataTransfer.files;
-      if (file) onChangeFile(file);
+    if (e.dataTransfer && e.dataTransfer.files) {
+      if (checkFileType(e.dataTransfer.files, ['.pdf'])) {
+        onChangeFile(e.dataTransfer.files);
+      }
+      // TODO: 옳지 않은 확장자 예외 처리
     }
+
     setIsDragging(false);
   };
 
@@ -96,6 +101,7 @@ function Uploader({ onChangeFile, isDisabled }: UploaderProps) {
           className='hidden'
           multiple={true}
           onChange={handleChange}
+          accept='.pdf'
         />
       </div>
     </div>
