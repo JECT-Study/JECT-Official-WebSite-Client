@@ -1,3 +1,5 @@
+import { Fragment } from 'react/jsx-runtime';
+
 import ProgressBridge from './ProgressBridge';
 import ProgressIndex from './ProgressIndex';
 
@@ -12,10 +14,10 @@ function ProgressIndicator({ totalStep, currentStep }: ProgressIndicatorProps) {
       <ProgressIndex isActive={true}>{1}</ProgressIndex>
       {totalStep > 1 &&
         Array.from({ length: totalStep - 1 }).map((_, index) => (
-          <>
+          <Fragment key={index}>
             <ProgressBridge isActive={currentStep >= index + 2} />
             <ProgressIndex isActive={currentStep >= index + 2}>{index + 2}</ProgressIndex>
-          </>
+          </Fragment>
         ))}
     </div>
   );
