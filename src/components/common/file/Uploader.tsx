@@ -106,7 +106,7 @@ function Uploader({ onChangeFile, isDisabled }: UploaderProps) {
             파일 첨부하기
           </BlockButton>
         </label>
-        <p className='body-sm text-object-assistive-dark cursor-default text-center'>
+        <p className='body-sm text-object-assistive-dark text-center'>
           {isDisabled ? (
             '첨부할 수 있는 파일의 최대 갯수에 도달했어요.'
           ) : (
