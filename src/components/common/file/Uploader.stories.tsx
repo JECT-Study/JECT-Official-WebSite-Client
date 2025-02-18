@@ -23,6 +23,10 @@ const meta: Meta<typeof Uploader> = {
       control: 'boolean',
       description: 'true일 경우, 파일 업로드가 불가능합니다.',
     },
+    fileExtensions: {
+      control: 'object',
+      description: '업로드 가능한 확장자 파일을 담은 배열입니다.',
+    },
   },
 };
 
@@ -34,6 +38,7 @@ export const Default = {
   args: {
     onChangeFile: () => {},
     isDisabled: false,
+    fileExtensions: ['.pdf', '.png'],
   },
 };
 
@@ -44,6 +49,6 @@ export const UploaderStory: Story = {
       console.log('file을 추가합니다.');
     };
 
-    return <Uploader isDisabled={false} onChangeFile={addFile} />;
+    return <Uploader isDisabled={false} onChangeFile={addFile} fileExtensions={['.pdf']} />;
   },
 };
