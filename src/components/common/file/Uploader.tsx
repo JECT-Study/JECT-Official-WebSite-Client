@@ -117,8 +117,8 @@ function Uploader({ onChangeFile, isDisabled, fileExtensions }: UploaderProps) {
             '첨부할 수 있는 파일의 최대 갯수에 도달했어요.'
           ) : (
             <>
-              파일을 드래그 & 드롭하거나, 버튼을 눌러 첨부해주세요. <br /> 최대 -MB까지의 jpg, png,
-              pdf 파일을 첨부할 수 있어요.
+              파일을 드래그 & 드롭하거나, 버튼을 눌러 첨부해주세요. <br /> 최대 100MB까지의 pdf
+              파일을 첨부할 수 있어요.
             </>
           )}
         </p>
