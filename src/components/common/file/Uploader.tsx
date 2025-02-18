@@ -1,4 +1,4 @@
-import { ChangeEvent, DragEvent, useRef, useState } from 'react';
+import { ChangeEvent, DragEvent, MouseEvent, useRef, useState } from 'react';
 
 import BlockButton from '@/components/common/button/BlockButton';
 import Icon from '@/components/common/icon/Icon';
@@ -16,24 +16,35 @@ function Uploader({ onChangeFile, isDisabled }: UploaderProps) {
   const handleDragStart = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
+
+    if (isDisabled) return;
+
     setIsDragging(true);
   };
 
   const handleDragEnd = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
+
+    if (isDisabled) return;
+
     setIsDragging(false);
   };
 
   const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
+
+    if (isDisabled) return;
+
     setIsDragging(true);
   };
 
   const handleDrop = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
+
+    if (isDisabled) return;
 
     if (e.dataTransfer && e.dataTransfer.files) {
       if (checkFileType(e.dataTransfer.files, ['.pdf'])) {
@@ -45,7 +56,18 @@ function Uploader({ onChangeFile, isDisabled }: UploaderProps) {
     setIsDragging(false);
   };
 
+  const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (isDisabled) return;
+
+    inputRef.current?.click();
+  };
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (isDisabled) return;
+
     if (e.target.files && e.target.files.length > 0) {
       onChangeFile(e.target.files);
     }
@@ -63,7 +85,7 @@ function Uploader({ onChangeFile, isDisabled }: UploaderProps) {
           : isDragging
             ? 'border-accent-inverse-normal-dark'
             : 'border-border-trans-alternative-dark'
-      } ${isDragging ? 'bg-accent-trans-neutral-dark' : 'bg-surface-deep-dark'} radius-sm border-2 border-dashed p-(--gap-2xl)`}
+      } ${isDragging ? 'bg-accent-trans-neutral-dark' : 'bg-surface-deep-dark'} ${isDisabled ? 'cursor-no-drop' : ''} radius-sm border-2 border-dashed p-(--gap-2xl)`}
     >
       <div className='gap-xl flex flex-col items-center px-(--gap-2xl) py-(--gap-4xl)'>
         <label htmlFor='fileUpload'>
@@ -71,7 +93,7 @@ function Uploader({ onChangeFile, isDisabled }: UploaderProps) {
             size='sm'
             style='solid'
             hierarchy='tertiary'
-            onClick={() => inputRef.current?.click()}
+            onClick={handleClick}
             leftIcon={
               <Icon
                 name='upload'
@@ -79,11 +101,12 @@ function Uploader({ onChangeFile, isDisabled }: UploaderProps) {
                 fillColor={`${isDisabled ? 'fill-object-disabled-dark' : 'fill-object-neutral-dark'}`}
               />
             }
+            className={isDisabled ? 'cursor-no-drop' : ''}
           >
             파일 첨부하기
           </BlockButton>
         </label>
-        <p className='body-sm text-object-assistive-dark text-center'>
+        <p className='body-sm text-object-assistive-dark cursor-default text-center'>
           {isDisabled ? (
             '첨부할 수 있는 파일의 최대 갯수에 도달했어요.'
           ) : (
