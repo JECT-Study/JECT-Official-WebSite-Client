@@ -1,7 +1,6 @@
 import { Dispatch, useState } from 'react';
 
-import File from './File';
-import Uploader from './Uploader';
+import InputFile from './InputFile';
 import InputArea from '../common/input/InputArea';
 import InputField from '../common/input/InputField';
 import Title from '../common/Title';
@@ -16,18 +15,6 @@ interface QuestionsByPositionProps {
 // TODO: position과 문항 타입에 맞게 UI 렌더링
 
 function QuestionsByPosition({ position, setAnswers }: QuestionsByPositionProps) {
-  const [fileList, setFileList] = useState<File[]>([]);
-
-  const handleUpload = (file: FileList | null) => {
-    if (file) {
-      setFileList(prev => [...prev, ...Array.from(file)]);
-    }
-  };
-
-  const deleteFile = (lastModified: number) => {
-    setFileList(fileList.filter(file => file.lastModified !== lastModified));
-  };
-
   return (
     <form action='' className='gap-9xl flex w-[37.5rem] flex-col'>
       <div className='gap-2xl flex flex-col'>
@@ -50,12 +37,7 @@ function QuestionsByPosition({ position, setAnswers }: QuestionsByPositionProps)
       </div>
       <div className='gap-2xl flex flex-col'>
         <Title hierarchy='normal'>6. 포트폴리오가 있으시다면 첨부해주세요. </Title>
-        <div className='gap-2xs flex flex-col'>
-          {fileList.map(file => (
-            <File key={file.lastModified} file={file} onClick={deleteFile} />
-          ))}
-        </div>
-        <Uploader isDisabled={false} onChangeFile={handleUpload} />
+        <InputFile setAnswers={setAnswers} />
       </div>
     </form>
   );
