@@ -12,7 +12,7 @@ import { APPLY_STEP3 } from '@/constants/applyPageData';
 // TODO: 직군 선택 후 QuestionsByPosition 렌더링
 // TODO: select UI 구현
 
-function ApplyThirdStep() {
+function ApplyRegistration() {
   const [isReady, setIsReady] = useState<boolean>(false);
   const [answers, setAnswers] = useState<string | null>(null);
 
@@ -67,4 +67,4 @@ function ApplyThirdStep() {
   );
 }
 
-export default ApplyThirdStep;
+export default ApplyRegistration;

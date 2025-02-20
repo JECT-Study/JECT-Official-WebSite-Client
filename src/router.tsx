@@ -1,9 +1,8 @@
-import ApplyComplete from './pages/ApplyComplete';
-import ApplyFirstStep from './pages/ApplyFirstStep';
-import ApplySecondStep from './pages/ApplySecondStep';
-import ApplyThirdStep from './pages/ApplyThirdStep';
-
 import Apply from '@/pages/Apply';
+import ApplyAccount from '@/pages/ApplyAccount';
+import ApplyComplete from '@/pages/ApplyComplete';
+import ApplyRegistration from '@/pages/ApplyRegistration';
+import ApplyVerifyEmail from '@/pages/ApplyVerifyEmail';
 
 const routerList = [
   {
@@ -11,16 +10,16 @@ const routerList = [
     element: <Apply />,
   },
   {
-    path: '/apply/step1',
-    element: <ApplyFirstStep />,
+    path: '/apply/account',
+    element: <ApplyAccount />,
   },
   {
-    path: '/apply/step2',
-    element: <ApplySecondStep />,
+    path: '/apply/verify-email',
+    element: <ApplyVerifyEmail />,
   },
   {
-    path: '/apply/step3',
-    element: <ApplyThirdStep />,
+    path: '/apply/registration',
+    element: <ApplyRegistration />,
   },
   {
     path: '/apply/complete',

@@ -13,7 +13,7 @@ import { APPLY_STEP1 } from '@/constants/applyPageData';
 // TODO: 이름, 전화번호 필수 작성 후 버튼 활성화
 // FIXME: 버튼 disabled 상태 UI (현재 아이콘만 UI 적용)
 
-function ApplyFirstStep() {
+function ApplyAccount() {
   const [isReady, setIsReady] = useState<boolean>(false);
 
   return (
@@ -65,4 +65,4 @@ function ApplyFirstStep() {
   );
 }
 
-export default ApplyFirstStep;
+export default ApplyAccount;
