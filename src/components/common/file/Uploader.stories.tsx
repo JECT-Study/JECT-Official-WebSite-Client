@@ -1,3 +1,4 @@
+import { action } from '@storybook/addon-actions';
 import { Meta, StoryObj } from '@storybook/react';
 
 import Uploader from './Uploader';
@@ -38,17 +39,15 @@ export const Default = {
   args: {
     onChangeFile: () => {},
     isDisabled: false,
-    fileExtensions: ['.pdf', '.png'],
+    fileExtensions: ['pdf', 'png'],
   },
 };
 
 export const UploaderStory: Story = {
   name: 'UploaderStory',
   render: () => {
-    const addFile = (file: FileList | null) => {
-      console.log('file을 추가합니다.');
-    };
-
-    return <Uploader isDisabled={false} onChangeFile={addFile} fileExtensions={['.pdf']} />;
+    return (
+      <Uploader isDisabled={false} onChangeFile={action('add file')} fileExtensions={['pdf']} />
+    );
   },
 };
