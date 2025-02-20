@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { ChangeEvent, DragEvent, MouseEvent, useRef, useState } from 'react';
 
 import BlockButton from '@/components/common/button/BlockButton';
@@ -85,13 +86,14 @@ function Uploader({ onChangeFile, isDisabled, fileExtensions }: UploaderProps) {
       onDragLeave={handleDragEnd}
       onDragOver={handleDragOver}
       onDrop={handleDrop}
-      className={`${
-        isDisabled
-          ? 'border-border-trans-assistive-dark'
-          : isDragging
-            ? 'border-accent-inverse-normal-dark'
-            : 'border-border-trans-alternative-dark'
-      } ${isDragging ? 'bg-accent-trans-neutral-dark' : 'bg-surface-deep-dark'} ${isDisabled ? 'cursor-no-drop' : ''} radius-sm border-2 border-dashed p-(--gap-2xl)`}
+      className={clsx(
+        {
+          'border-border-trans-assistive-dark cursor-no-drop': isDisabled,
+          'border-accent-inverse-normal-dark bg-accent-trans-neutral-dark': isDragging,
+          'border-border-trans-alternative-dark bg-surface-deep-dark': !isDragging,
+        },
+        'radius-sm border-2 border-dashed p-(--gap-2xl)',
+      )}
     >
       <div className='gap-xl flex flex-col items-center px-(--gap-2xl) py-(--gap-4xl)'>
         <label htmlFor='fileUpload'>
@@ -112,16 +114,18 @@ function Uploader({ onChangeFile, isDisabled, fileExtensions }: UploaderProps) {
             파일 첨부하기
           </BlockButton>
         </label>
-        <p className='body-sm text-object-assistive-dark text-center'>
+        <div
+          className={`${isDisabled ? '' : 'cursor-default'} body-sm text-object-assistive-dark text-center`}
+        >
           {isDisabled ? (
-            '첨부할 수 있는 파일의 최대 갯수에 도달했어요.'
+            <p>첨부할 수 있는 파일의 최대 갯수에 도달했어요.</p>
           ) : (
-            <>
-              파일을 드래그 & 드롭하거나, 버튼을 눌러 첨부해주세요. <br /> 최대 100MB까지의 pdf
-              파일을 첨부할 수 있어요.
-            </>
+            <p>
+              파일을 드래그 & 드롭하거나, 버튼을 눌러 첨부해주세요.
+              <br /> 최대 100MB까지의 pdf 파일을 첨부할 수 있어요.
+            </p>
           )}
-        </p>
+        </div>
         <input
           ref={inputRef}
           id='fileUpload'
