@@ -9,9 +9,10 @@ interface AccordionProps {
   title: string;
   label: string;
   children: ReactNode;
+  caption: ReactNode;
 }
 
-function Accordion({ title, label, children }: AccordionProps) {
+function Accordion({ title, label, children, caption }: AccordionProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -37,17 +38,17 @@ function Accordion({ title, label, children }: AccordionProps) {
         className='peer-hover:duration-slower peer-hover:ease(--motion-fluent)'
       >
         <button
-          className='gap-xs radius-3xs peer flex w-full cursor-pointer text-start [&>*:first-child]:grow'
           onClick={toggle}
+          className='gap-xs radius-3xs peer flex w-full text-start [&>*:first-child]:grow'
         >
           <Title hierarchy='weak' textColor={isOpen ? null : 'text-object-neutral-dark'}>
             {title}
           </Title>
-          <Icon
-            name='less'
-            size='xl'
-            fillColor={isOpen ? 'fill-object-hero-dark' : 'fill-object-neutral-dark'}
-          />
+          {isOpen ? (
+            <Icon name='less' size='xl' fillColor={'fill-object-hero-dark'} />
+          ) : (
+            <Icon name='expand' size='xl' fillColor='fill-object-neutral-dark' />
+          )}
         </button>
       </Interaction>
 
@@ -59,6 +60,7 @@ function Accordion({ title, label, children }: AccordionProps) {
           {label}
         </Label>
         <div className='body-md text-object-normal-dark'>{children}</div>
+        {caption && <div className='body-sm text-object-alternative-dark'>{caption}</div>}
       </div>
     </div>
   );
