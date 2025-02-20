@@ -3,7 +3,7 @@ import { ChangeEvent, DragEvent, MouseEvent, useRef, useState } from 'react';
 import BlockButton from '@/components/common/button/BlockButton';
 import Icon from '@/components/common/icon/Icon';
 import { FileExtension } from '@/constants/file';
-import { checkFileType } from '@/utils/checkFileType';
+import { validateFileType } from '@/utils/validateFileType';
 
 interface UploaderProps {
   onChangeFile: (file: FileList | null) => void;
@@ -49,7 +49,7 @@ function Uploader({ onChangeFile, isDisabled, fileExtensions }: UploaderProps) {
     if (isDisabled) return;
 
     if (e.dataTransfer && e.dataTransfer.files) {
-      if (checkFileType(e.dataTransfer.files, fileExtensions)) {
+      if (validateFileType(e.dataTransfer.files, fileExtensions)) {
         onChangeFile(e.dataTransfer.files);
       }
       // TODO: 옳지 않은 확장자 예외 처리
@@ -73,7 +73,7 @@ function Uploader({ onChangeFile, isDisabled, fileExtensions }: UploaderProps) {
     if (isDisabled) return;
 
     if (file && file.length > 0) {
-      if (checkFileType(file, fileExtensions)) {
+      if (validateFileType(file, fileExtensions)) {
         onChangeFile(file);
       }
     }
