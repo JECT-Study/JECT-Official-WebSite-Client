@@ -92,7 +92,7 @@ function Uploader({ onChangeFile, isDisabled, fileExtensions }: UploaderProps) {
           'border-accent-inverse-normal-dark bg-accent-trans-neutral-dark': isDragging,
           'border-border-trans-alternative-dark bg-surface-deep-dark': !isDragging,
         },
-        'radius-sm gap-xl body-sm text-object-assistive-dark flex flex-col items-center border-2 border-dashed px-(--gap-7xl) py-(--gap-8xl) text-center',
+        'radius-sm gap-xl body-sm text-object-assistive-dark flex flex-col items-center border-2 border-dashed px-(--gap-7xl) py-(--gap-8xl) text-center whitespace-pre-wrap',
       )}
     >
       <label htmlFor='fileUpload' className={isDragging ? 'pointer-events-none' : ''}>
@@ -101,6 +101,7 @@ function Uploader({ onChangeFile, isDisabled, fileExtensions }: UploaderProps) {
           style='solid'
           hierarchy='tertiary'
           onClick={handleClick}
+          className={isDisabled ? 'cursor-no-drop' : ''}
           leftIcon={
             <Icon
               name='upload'
@@ -108,19 +109,13 @@ function Uploader({ onChangeFile, isDisabled, fileExtensions }: UploaderProps) {
               fillColor={`${isDisabled ? 'fill-object-disabled-dark' : 'fill-object-neutral-dark'}`}
             />
           }
-          className={isDisabled ? 'cursor-no-drop' : ''}
         >
           파일 첨부하기
         </BlockButton>
       </label>
-      {isDisabled ? (
-        '첨부할 수 있는 파일의 최대 갯수에 도달했어요.'
-      ) : (
-        <>
-          파일을 드래그 & 드롭하거나, 버튼을 눌러 첨부해주세요.
-          <br /> 최대 100MB까지의 pdf 파일을 첨부할 수 있어요.
-        </>
-      )}
+      {isDisabled
+        ? '첨부할 수 있는 파일의 최대 갯수에 도달했어요.'
+        : `파일을 드래그 & 드롭하거나, 버튼을 눌러 첨부해주세요.\n 최대 100MB까지의 ${fileExtensions.join(', ')} 파일을 첨부할 수 있어요.`}
       <input
         ref={inputRef}
         id='fileUpload'
