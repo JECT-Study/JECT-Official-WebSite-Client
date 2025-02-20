@@ -14,7 +14,7 @@ import { APPLY_TITLE } from '@/constants/applyPageData';
 // TODO: 각 inputField 성공/실패 처리 (input, helper, button .. )
 // TODO: 인증 성공 후 다음 단계 버튼 활성화
 
-function ApplyVerifyEmail() {
+function ApplyVerify() {
   const [isReady, setIsReady] = useState<boolean>(false);
 
   return (
@@ -54,7 +54,7 @@ function ApplyVerifyEmail() {
             }
           />
         </form>
-        <Link to={isReady ? '/apply/step3' : ''}>
+        <Link to={isReady ? '/apply/registration' : ''}>
           <BlockButton
             size='lg'
             style='solid'
@@ -76,4 +76,4 @@ function ApplyVerifyEmail() {
   );
 }
 
-export default ApplyVerifyEmail;
+export default ApplyVerify;

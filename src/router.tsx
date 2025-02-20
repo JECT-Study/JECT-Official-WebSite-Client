@@ -1,8 +1,8 @@
 import Apply from '@/pages/Apply';
-import ApplyAccount from '@/pages/ApplyAccount';
 import ApplyComplete from '@/pages/ApplyComplete';
+import ApplyInfo from '@/pages/ApplyInfo';
 import ApplyRegistration from '@/pages/ApplyRegistration';
-import ApplyVerifyEmail from '@/pages/ApplyVerifyEmail';
+import ApplyVerify from '@/pages/ApplyVerify';
 
 const routerList = [
   {
@@ -10,12 +10,12 @@ const routerList = [
     element: <Apply />,
   },
   {
-    path: '/apply/account',
-    element: <ApplyAccount />,
+    path: '/apply/info',
+    element: <ApplyInfo />,
   },
   {
-    path: '/apply/verify-email',
-    element: <ApplyVerifyEmail />,
+    path: '/apply/verify',
+    element: <ApplyVerify />,
   },
   {
     path: '/apply/registration',

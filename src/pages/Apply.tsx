@@ -50,7 +50,7 @@ function Apply() {
           ))}
         </div>
       </section>
-      <Link to='/apply/step1'>
+      <Link to='/apply/info'>
         <BlockButton
           size='lg'
           style='solid'

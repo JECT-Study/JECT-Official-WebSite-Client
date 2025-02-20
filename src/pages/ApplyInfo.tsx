@@ -13,7 +13,7 @@ import { APPLY_TITLE } from '@/constants/applyPageData';
 // TODO: 이름, 전화번호 필수 작성 후 버튼 활성화
 // FIXME: 버튼 disabled 상태 UI (현재 아이콘만 UI 적용)
 
-function ApplyAccount() {
+function ApplyInfo() {
   const [isReady, setIsReady] = useState<boolean>(false);
 
   return (
@@ -41,7 +41,7 @@ function ApplyAccount() {
             required
           />
         </form>
-        <Link to={isReady ? '/apply/step2' : ''}>
+        <Link to={isReady ? '/apply/verify' : ''}>
           <BlockButton
             size='lg'
             style='solid'
@@ -65,4 +65,4 @@ function ApplyAccount() {
   );
 }
 
-export default ApplyAccount;
+export default ApplyInfo;
