@@ -6,12 +6,7 @@ import Icon from '@/components/common/icon/Icon';
 import ProgressItem from '@/components/common/progress/ProgressItem';
 import ProgressVerticalBridge from '@/components/common/progress/ProgressVerticalBridge';
 import Title from '@/components/common/Title';
-import {
-  APPLY_INFO,
-  APPLY_PROCESS,
-  applyInfoList,
-  applyProcedureList,
-} from '@/constants/applyPageData';
+import { APPLY_TITLE, applyInfoList, applyProcedureList } from '@/constants/applyPageData';
 
 function Apply() {
   // TODO: 개인정보 맟 이용 동의서, 회비 링크 걸기
@@ -20,7 +15,7 @@ function Apply() {
   return (
     <div className='bg-surface-standard-dark gap-12xl flex min-h-dvh flex-col items-center py-(--gap-12xl)'>
       <section className='gap-8xl flex w-[45rem] flex-col items-center justify-center'>
-        <Title hierarchy='strong'>{APPLY_PROCESS}</Title>
+        <Title hierarchy='strong'>{APPLY_TITLE.process}</Title>
         <div className='bg-surface-tinted-dark radius-md border-border-trans-assistive-dark flex flex-col items-stretch border p-(--gap-2xl)'>
           {applyProcedureList.map(({ id, period, subTitle, content, startDate }) => (
             <Fragment key={id}>
@@ -41,7 +36,7 @@ function Apply() {
         </div>
       </section>
       <section className='gap-8xl flex w-[45rem] flex-col'>
-        <Title hierarchy='strong'>{APPLY_INFO}</Title>
+        <Title hierarchy='strong'>{APPLY_TITLE.info}</Title>
         <div className='gap-4xl flex flex-col'>
           {applyInfoList.map(({ id, title, content, link }) => (
             <div key={id} className='gap-xs flex flex-col'>

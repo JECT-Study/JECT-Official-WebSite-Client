@@ -7,7 +7,7 @@ import Icon from '@/components/common/icon/Icon';
 import InputField from '@/components/common/input/InputField';
 import ProgressIndicator from '@/components/common/progress/ProgressIndicator';
 import Title from '@/components/common/Title';
-import { APPLY_STEP3 } from '@/constants/applyPageData';
+import { APPLY_TITLE } from '@/constants/applyPageData';
 
 // TODO: 직군 선택 후 QuestionsByPosition 렌더링
 // TODO: select UI 구현
@@ -24,7 +24,7 @@ function ApplyRegistration() {
       <main className='gap-9xl flex flex-col items-stretch'>
         <section id='selectJopGroup' className='gap-9xl flex w-[26.25rem] flex-col self-center'>
           <div className='self-center'>
-            <Title hierarchy='strong'>{APPLY_STEP3}</Title>
+            <Title hierarchy='strong'>{APPLY_TITLE.registration}</Title>
           </div>
           <form action='' className='gap-xs flex flex-col'>
             <InputField

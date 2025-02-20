@@ -6,7 +6,7 @@ import Icon from '@/components/common/icon/Icon';
 import InputField from '@/components/common/input/InputField';
 import ProgressIndicator from '@/components/common/progress/ProgressIndicator';
 import Title from '@/components/common/Title';
-import { APPLY_STEP1 } from '@/constants/applyPageData';
+import { APPLY_TITLE } from '@/constants/applyPageData';
 
 // TODO: 이름 필드 요구사항 - 5글자 이내, 영어 불가
 // TODO: 전화번호 요구사항 - 숫자 11자리 이내, 010으로 시작, 공백 및 하이픈 허용(자동 제거 후 api 요청)
@@ -23,7 +23,7 @@ function ApplyAccount() {
       </div>
       <main className='gap-9xl flex w-[26.25rem] max-w-[26.25rem] flex-col items-stretch'>
         <div className='self-center'>
-          <Title hierarchy='strong'>{APPLY_STEP1}</Title>
+          <Title hierarchy='strong'>{APPLY_TITLE.account}</Title>
         </div>
         <form action='' className='gap-3xl flex flex-col'>
           <InputField

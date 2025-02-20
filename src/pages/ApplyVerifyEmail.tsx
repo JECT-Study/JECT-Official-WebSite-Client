@@ -7,7 +7,7 @@ import Icon from '@/components/common/icon/Icon';
 import InputField from '@/components/common/input/InputField';
 import ProgressIndicator from '@/components/common/progress/ProgressIndicator';
 import Title from '@/components/common/Title';
-import { APPLY_STEP2 } from '@/constants/applyPageData';
+import { APPLY_TITLE } from '@/constants/applyPageData';
 
 // TODO: 이메일 형식 예외처리
 // TODO: 인증 코드 예외처리
@@ -24,7 +24,7 @@ function ApplyVerifyEmail() {
       </div>
       <main className='gap-9xl flex w-[26.25rem] flex-col items-stretch'>
         <div className='self-center'>
-          <Title hierarchy='strong'>{APPLY_STEP2}</Title>
+          <Title hierarchy='strong'>{APPLY_TITLE.verifyEmail}</Title>
         </div>
         <form action='' className='gap-xs flex flex-col'>
           <InputField
