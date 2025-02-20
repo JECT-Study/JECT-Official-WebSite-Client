@@ -1,6 +1,6 @@
 import LabelButton from '@/components/common/button/LabelButton';
 import Icon from '@/components/common/icon/Icon';
-import { getByteSize } from '@/utils/getByteSize';
+import { changeFileSizeUnit } from '@/utils/changeFileSizeUnit';
 
 interface FileProps {
   file: File;
@@ -17,7 +17,7 @@ function File({ file, onClick }: FileProps) {
       <Icon name='file' size='md' fillColor='fill-object-normal-dark' />
       <div className='gap-6xs text-object-normal-dark flex grow flex-col'>
         <span className='label-bold-md break-all'>{name}</span>
-        <span className='body-xs'>{getByteSize(size)}</span>
+        <span className='body-xs'>{changeFileSizeUnit(size)}</span>
       </div>
       <LabelButton
         size='lg'
