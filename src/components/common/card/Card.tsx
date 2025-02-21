@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 
-import Label from '@/components/common/Label.tsx';
-import Title from '@/components/common/Title.tsx';
+import Label from '@/components/common/label/Label';
+import Title from '@/components/common/title/Title';
 
 interface CardProps {
   title: string;

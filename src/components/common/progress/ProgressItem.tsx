@@ -1,7 +1,8 @@
 import { ReactNode } from 'react';
 
-import Title from '../Title';
 import ProgressIndex from './ProgressIndex';
+
+import Title from '@/components/common/title/Title';
 
 interface ProgressItemProps {
   index: number;

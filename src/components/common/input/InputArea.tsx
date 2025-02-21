@@ -1,9 +1,10 @@
 import { ChangeEvent, ComponentPropsWithoutRef, forwardRef, useState } from 'react';
 
-import Label from '../Label';
 import TextArea from './TextArea';
 
-interface InputAreaProps extends ComponentPropsWithoutRef<"textarea"> {
+import Label from '@/components/common/label/Label';
+
+interface InputAreaProps extends ComponentPropsWithoutRef<'textarea'> {
   labelText: string;
 }
 
@@ -38,10 +39,8 @@ const InputArea = forwardRef<HTMLTextAreaElement, InputAreaProps>(
           required={required}
         />
         <div
-          className={`
-            ${disabled ? 'text-object-disabled-dark' : 'text-object-assistive-dark'} 
-            peer-focus:text-object-neutral-dark body-sm cursor-default self-end`
-          }>
+          className={` ${disabled ? 'text-object-disabled-dark' : 'text-object-assistive-dark'} peer-focus:text-object-neutral-dark body-sm cursor-default self-end`}
+        >
           {`${text.length}/${maxLength || 0}`}
         </div>
       </div>
