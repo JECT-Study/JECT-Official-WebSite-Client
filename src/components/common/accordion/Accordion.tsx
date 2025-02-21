@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useRef, useState } from 'react';
+import { ReactNode, useState } from 'react';
 
 import Icon from '../icon/Icon';
 import Interaction from '../interaction/Interaction';
@@ -13,20 +13,11 @@ interface AccordionProps {
 }
 
 function Accordion({ title, label, children, caption }: AccordionProps) {
-  const ref = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const toggle = () => {
     setIsOpen(!isOpen);
   };
-
-  useEffect(() => {
-    if (isOpen) {
-      ref.current?.style.setProperty('max-height', '500px');
-    } else {
-      ref.current?.style.setProperty('max-height', '0px');
-    }
-  }, [ref, isOpen]);
 
   return (
     <div className='gap-xs flex flex-col'>
@@ -53,8 +44,7 @@ function Accordion({ title, label, children, caption }: AccordionProps) {
       </Interaction>
 
       <div
-        ref={ref}
-        className={`${isOpen ? 'border py-(--gap-md)' : ''} bg-surface-deep-dark radius-2xs border-border-trans-assistive-dark gap-xs duration-normal ease(--motion-fluent) flex flex-col overflow-hidden px-(--gap-xs)`}
+        className={`${isOpen ? 'max-h-[500px] border py-(--gap-md)' : 'max-h-0'} bg-surface-deep-dark radius-2xs border-border-trans-assistive-dark gap-xs duration-normal ease(--motion-fluent) flex flex-col overflow-hidden px-(--gap-xs)`}
       >
         <Label hierarchy='stronger' weight='normal' textColor='text-object-hero-dark'>
           {label}
