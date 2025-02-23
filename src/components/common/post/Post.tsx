@@ -17,7 +17,7 @@ export const Post = ({ title, label, date, children, disabled = false }: PostPro
     'peer box-border radius-sm gap-3xs border-x border-border-assistive-dark flex w-full flex-col items-start px-(--gap-lg) py-(--gap-md)',
     disabled
       ? 'bg-surface-deep-dark pointer-events-none cursor-not-allowed'
-      : 'bg-surface-embossed-dark',
+      : 'bg-surface-embossed-dark pointer-events-auto cursor-pointer',
   );
 
   return (
