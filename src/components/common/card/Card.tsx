@@ -27,7 +27,7 @@ export const Card = ({
   children,
   imgUrl,
   isDescriptionVisible = true,
-  disabled,
+  disabled = false,
   ...restProps
 }: CardProps) => {
   const bgClass = disabled ? 'bg-surface-deep-dark' : 'bg-surface-embossed-dark';
