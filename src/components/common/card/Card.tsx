@@ -18,7 +18,8 @@ const BUTTON_BASE_CLASS =
 const CONTENT_CONTAINER_CLASS =
   'gap-3xs flex w-full flex-col px-(--gap-md) pt-(--gap-xs) pb-(--gap-lg)';
 const TITLE_LABEL_CONTAINER_CLASS = 'gap-4xs flex flex-col items-start';
-const IMAGE_CONTAINER_BASE_CLASS = 'flex w-full overflow-hidden';
+const IMAGE_CONTAINER_BASE_CLASS =
+  'flex w-full overflow-hidden border-border-assistive-dark border-b';
 
 export const Card = ({
   title,
