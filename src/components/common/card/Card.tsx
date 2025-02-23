@@ -31,7 +31,10 @@ export const Card = ({
   ...restProps
 }: CardProps) => {
   const bgClass = disabled ? 'bg-surface-deep-dark' : 'bg-surface-embossed-dark';
-  const buttonClass = clsx(BUTTON_BASE_CLASS, bgClass);
+  const pointerEventClass = disabled
+    ? 'pointer-events-none cursor-not-allowed'
+    : 'pointer-events-auto cursor-pointer';
+  const buttonClass = clsx(BUTTON_BASE_CLASS, bgClass, pointerEventClass);
 
   const titleTextColor = disabled ? 'text-object-disabled-dark' : 'text-object-hero-dark';
   const labelTextColor = disabled ? 'text-object-disabled-dark' : 'text-object-normal-dark';
