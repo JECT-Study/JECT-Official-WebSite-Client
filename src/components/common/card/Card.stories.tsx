@@ -46,8 +46,11 @@ export const DefaultCardStory: Story = {
   name: 'Default Card',
   render: args => (
     <div className='story-container'>
-      <div className='story-inner-container'>
+      <div className='h-[21.25rem] w-[18.6875rem]'>
         <Card {...args} />
+      </div>
+      <div className='h-[21.25rem] w-[18.6875rem]'>
+        <Card {...args} disabled={true} />
       </div>
     </div>
   ),
@@ -57,12 +60,23 @@ export const WithoutDescriptionCardStory: Story = {
   name: 'WithoutDescription Card',
   render: () => (
     <div className='story-container'>
-      <div className='story-inner-container'>
+      <div className='h-[21.25rem] w-[18.6875rem]'>
         <Card
           title='카드 타이틀'
           label='카드 레이블'
           imgUrl={cardSampleImage}
           isDescriptionVisible={false}
+        >
+          카드 내용
+        </Card>
+      </div>
+      <div className='h-[21.25rem] w-[18.6875rem]'>
+        <Card
+          title='카드 타이틀'
+          label='카드 레이블'
+          imgUrl={cardSampleImage}
+          isDescriptionVisible={false}
+          disabled={true}
         >
           카드 내용
         </Card>
