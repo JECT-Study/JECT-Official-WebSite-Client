@@ -33,8 +33,14 @@ export const PostStory: Story = {
   name: 'Post',
   render: () => (
     <div className='story-container'>
-      <div className='story-inner-container'>
+      실제 사용되는 PostContainer를 반영합니다.
+      <div className='w-[60rem]'>
         <Post title='포스트 제목' label='레이블' date='2025-02-12'>
+          포스트 바디 텍스트
+        </Post>
+      </div>
+      <div className='w-[60rem]'>
+        <Post title='포스트 제목' label='레이블' date='2025-02-12' disabled={true}>
           포스트 바디 텍스트
         </Post>
       </div>
