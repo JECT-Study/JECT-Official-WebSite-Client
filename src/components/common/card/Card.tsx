@@ -48,7 +48,7 @@ export const Card = ({
       variant='default'
       density='subtle'
       isInversed={false}
-      className='peer-hover:duration-slower peer-focus:duration-slower peer-hover:ease-(--motion-fluent) peer-focus:ease-(--motion-fluent)'
+      className='peer-hover:duration-normal peer-focus:duration-normal peer-hover:ease-(--motion-fluent) peer-focus:ease-(--motion-fluent)'
     >
       <button type='button' disabled={!!disabled} className={buttonClass} {...restProps}>
         <div className={imageContainerClass}>
