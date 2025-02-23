@@ -1,10 +1,11 @@
-import clsx from "clsx";
-import { ComponentPropsWithoutRef, forwardRef, ReactNode } from "react"
+import clsx from 'clsx';
+import { ComponentPropsWithoutRef, forwardRef, ReactNode } from 'react';
 
-import Input from "./Input";
-import Label from "../Label";
+import Input from './Input';
 
-interface InputFieldProps extends ComponentPropsWithoutRef<"input"> {
+import Label from '@/components/common/label/Label';
+
+interface InputFieldProps extends ComponentPropsWithoutRef<'input'> {
   isError: boolean;
   isSuccess: boolean;
   InputChildren?: ReactNode;
@@ -14,29 +15,35 @@ interface InputFieldProps extends ComponentPropsWithoutRef<"input"> {
   className?: string;
 }
 
-const InputField = forwardRef<HTMLInputElement, InputFieldProps>(({ 
-    InputChildren,
-    children,
-    isError, 
-    isSuccess, 
-    labelText, 
-    helper,
-    required, 
-    disabled,
-    className,
-    ...props
-}, ref)=>{
+const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
+  (
+    {
+      InputChildren,
+      children,
+      isError,
+      isSuccess,
+      labelText,
+      helper,
+      required,
+      disabled,
+      className,
+      ...props
+    },
+    ref,
+  ) => {
     return (
-    <div className="flex flex-col gap-2xs">
+      <div className='gap-2xs flex flex-col'>
         {labelText && (
           <Label
             hierarchy='normal'
             weight='normal'
             isRequired={required}
             textColor={`${disabled ? 'text-object-assistive-dark' : 'text-object-neutral-dark'}`}
-          >{labelText}</Label>
+          >
+            {labelText}
+          </Label>
         )}
-        <div className="flex gap-xs">
+        <div className='gap-xs flex'>
           <Input
             {...props}
             ref={ref}
@@ -44,22 +51,30 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(({
             required={required}
             disabled={disabled}
             className={`grow ${className}`}
-          > 
+          >
             {InputChildren}
           </Input>
           {children}
         </div>
-        {helper && <div className={clsx(
-            {
+        {helper && (
+          <div
+            className={clsx(
+              {
                 'text-object-alternative-dark': !isError && !disabled && !isSuccess,
                 'text-feedback-trans-negative-dark': isError && disabled,
                 'text-feedback-negative-dark': isError && !disabled,
                 'text-object-disabled-dark': !isError && disabled,
                 'text-feedback-positive-dark': isSuccess,
-            },
-            'body-sm cursor-default',
-        )}>{helper}</div>}
-    </div>)
-}) 
+              },
+              'body-sm cursor-default',
+            )}
+          >
+            {helper}
+          </div>
+        )}
+      </div>
+    );
+  },
+);
 
-export default InputField
+export default InputField;
