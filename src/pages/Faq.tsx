@@ -5,7 +5,7 @@ import { faqActivity, faqApply, faqJect, faqProject } from '@/constants/faqData'
 
 function Faq() {
   return (
-    <div className='bg-surface-standard-dark flex min-h-dvh flex-col items-center py-(--gap-12xl)'>
+    <div className='flex flex-col items-center py-(--gap-12xl)'>
       <div className='gap-8xl flex flex-col'>
         <div className='text-center'>
           <Title hierarchy='strong'>자주 묻는 질문</Title>
