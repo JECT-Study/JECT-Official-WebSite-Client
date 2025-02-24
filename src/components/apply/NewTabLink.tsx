@@ -1,6 +1,8 @@
+import { ReactNode } from 'react';
+
 interface NewTabLinkProps {
   href: string;
-  children: string;
+  children: ReactNode;
 }
 
 function NewTabLink({ href, children }: NewTabLinkProps) {
