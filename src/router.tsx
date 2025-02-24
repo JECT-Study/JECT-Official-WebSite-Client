@@ -7,6 +7,8 @@ const routerList = [
   {
     element: <Layout />,
     children: [
+      { path: '/project', element: <></> },
+      { path: '/activity', element: <></> },
       { path: '/apply', element: <Apply /> },
       { path: '/faq', element: <Faq /> },
     ],
