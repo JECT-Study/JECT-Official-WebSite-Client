@@ -2,11 +2,11 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import Interaction from '@/components/common/interaction/Interaction';
 
-type PathName = '/project' | '/activity' | '/apply' | '/faq';
+type SlashPath = `/${string}`;
 
 interface NavigationItemProps {
   children: string;
-  pathName: PathName;
+  pathName: SlashPath;
   disabled?: boolean;
 }
 
