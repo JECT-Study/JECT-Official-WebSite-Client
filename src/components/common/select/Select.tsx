@@ -7,14 +7,14 @@ import Interaction from '@/components/common/interaction/Interaction';
 interface SelectItemProps extends ComponentPropsWithoutRef<'button'> {
   label: string;
   isSelected: boolean;
-  onClick: (label: string) => void;
+  clickHandler: (label: string) => void;
   children?: ReactNode;
 }
 
 export const SelectItem = ({
   label,
   isSelected,
-  onClick,
+  clickHandler,
   disabled = false,
   children,
   ...restProps
@@ -34,7 +34,7 @@ export const SelectItem = ({
     >
       <button
         type='button'
-        onClick={() => !disabled && onClick(label)}
+        onClick={() => !disabled && clickHandler(label)}
         disabled={!!disabled}
         className={buttonClass}
         {...restProps}
@@ -72,7 +72,7 @@ export const Select = ({ items, onChange }: SelectProps) => {
           key={label}
           label={label}
           isSelected={selectedValue === label}
-          onClick={handleItemClick}
+          clickHandler={handleItemClick}
           disabled={disabled}
         >
           {selectedValue === label && (
