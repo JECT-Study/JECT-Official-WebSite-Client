@@ -53,11 +53,12 @@ interface SelectOption {
 
 interface SelectProps {
   items: SelectOption[];
+  defaultValue?: string | null;
   onChange?: (label: string | null) => void;
 }
 
-export const Select = ({ items, onChange }: SelectProps) => {
-  const [selectedValue, setSelectedValue] = useState<string | null>(null);
+export const Select = ({ items, defaultValue = null, onChange }: SelectProps) => {
+  const [selectedValue, setSelectedValue] = useState<string | null>(defaultValue);
 
   const handleItemClick = (label: string) => {
     const newValue = selectedValue === label ? null : label;

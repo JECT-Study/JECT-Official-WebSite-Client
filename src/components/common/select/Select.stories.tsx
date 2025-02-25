@@ -49,3 +49,20 @@ export const SelectStory: Story = {
     </div>
   ),
 };
+
+export const SelectWithDefaultValueStory: Story = {
+  name: 'Select with Default Value',
+  render: () => (
+    <div className='w-[26.25rem]'>
+      <Select
+        items={[
+          { label: '프론트엔드 개발자' },
+          { label: '백엔드 개발자' },
+          { label: '프로젝트 매니저' },
+          { label: '프로덕트 디자이너' },
+        ]}
+        defaultValue='백엔드 개발자'
+      />
+    </div>
+  ),
+};
