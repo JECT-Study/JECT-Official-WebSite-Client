@@ -13,14 +13,6 @@ interface CardProps extends ComponentPropsWithoutRef<'button'> {
   isDescriptionVisible?: boolean;
 }
 
-const BUTTON_BASE_CLASS =
-  'peer radius-md stroke-normal border-border-assistive-dark box-border border-x flex w-full h-[21.25rem] flex-col overflow-hidden';
-const CONTENT_CONTAINER_CLASS =
-  'gap-3xs flex w-full flex-col px-(--gap-md) pt-(--gap-xs) pb-(--gap-lg)';
-const TITLE_LABEL_CONTAINER_CLASS = 'gap-4xs flex flex-col items-start';
-const IMAGE_CONTAINER_BASE_CLASS =
-  'flex w-full overflow-hidden border-border-assistive-dark border-b';
-
 export const Card = ({
   title,
   label,
@@ -30,18 +22,16 @@ export const Card = ({
   disabled = false,
   ...restProps
 }: CardProps) => {
-  const bgClass = disabled ? 'bg-surface-deep-dark' : 'bg-surface-embossed-dark';
-  const pointerEventClass = disabled
-    ? 'pointer-events-none cursor-not-allowed'
-    : 'pointer-events-auto cursor-pointer';
-  const buttonClass = clsx(BUTTON_BASE_CLASS, bgClass, pointerEventClass);
-
-  const titleTextColor = disabled ? 'text-object-disabled-dark' : 'text-object-hero-dark';
-  const labelTextColor = disabled ? 'text-object-disabled-dark' : 'text-object-normal-dark';
-  const descriptionTextColor = disabled ? 'text-object-disabled-dark' : 'text-object-neutral-dark';
-
-  const imageHeightClass = isDescriptionVisible ? 'h-[11.6875rem]' : 'h-[15.5625rem]';
-  const imageContainerClass = clsx(IMAGE_CONTAINER_BASE_CLASS, imageHeightClass);
+  const buttonClass = clsx(
+    'peer radius-md stroke-normal border-border-assistive-dark box-border border-x flex w-full h-[21.25rem] flex-col overflow-hidden',
+    disabled
+      ? 'bg-surface-deep-dark pointer-events-none cursor-not-allowed'
+      : 'bg-surface-embossed-dark pointer-events-auto cursor-pointer',
+  );
+  const imageContainerClass = clsx(
+    'flex w-full overflow-hidden border-border-assistive-dark border-b',
+    isDescriptionVisible ? 'h-[11.6875rem]' : 'h-[15.5625rem]',
+  );
 
   return (
     <Interaction
@@ -50,21 +40,33 @@ export const Card = ({
       isInversed={false}
       className='peer-hover:duration-normal peer-focus:duration-normal peer-hover:ease-(--motion-fluent) peer-focus:ease-(--motion-fluent)'
     >
-      <button type='button' disabled={!!disabled} className={buttonClass} {...restProps}>
+      <button type='button' disabled={disabled} className={buttonClass} {...restProps}>
         <div className={imageContainerClass}>
           <img src={imgUrl} alt='카드 이미지' className='block h-full w-full object-cover' />
         </div>
-        <div className={CONTENT_CONTAINER_CLASS}>
-          <div className={TITLE_LABEL_CONTAINER_CLASS}>
-            <Title hierarchy='weak' textColor={titleTextColor}>
+        <div className='gap-3xs flex w-full flex-col px-(--gap-md) pt-(--gap-xs) pb-(--gap-lg)'>
+          <div className='gap-4xs flex flex-col items-start'>
+            <Title
+              hierarchy='weak'
+              textColor={disabled ? 'text-object-disabled-dark' : 'text-object-hero-dark'}
+            >
               {title}
             </Title>
-            <Label hierarchy='stronger' weight='normal' textColor={labelTextColor}>
+            <Label
+              hierarchy='stronger'
+              weight='normal'
+              textColor={disabled ? 'text-object-disabled-dark' : 'text-object-normal-dark'}
+            >
               {label}
             </Label>
           </div>
           {isDescriptionVisible && (
-            <div className={`body-lg flex h-[3.375rem] ${descriptionTextColor} text-left`}>
+            <div
+              className={clsx(
+                'body-lg flex h-[3.375rem] text-left',
+                disabled ? 'text-object-disabled-dark' : 'text-object-neutral-dark',
+              )}
+            >
               {children}
             </div>
           )}
