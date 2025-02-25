@@ -51,24 +51,28 @@ export const Card = ({
         </div>
         <div className='gap-3xs flex w-full flex-col px-(--gap-md) pt-(--gap-xs) pb-(--gap-lg)'>
           <div className='gap-4xs flex flex-col items-start'>
-            <Title
-              hierarchy='weak'
-              textColor={disabled ? 'text-object-disabled-dark' : 'text-object-hero-dark'}
-            >
-              {title}
-            </Title>
-            <Label
-              hierarchy='stronger'
-              weight='normal'
-              textColor={disabled ? 'text-object-disabled-dark' : 'text-object-normal-dark'}
-            >
-              {label}
-            </Label>
+            <div className='w-full truncate'>
+              <Title
+                hierarchy='weak'
+                textColor={disabled ? 'text-object-disabled-dark' : 'text-object-hero-dark'}
+              >
+                {title}
+              </Title>
+            </div>
+            <div className='w-full truncate'>
+              <Label
+                hierarchy='stronger'
+                weight='normal'
+                textColor={disabled ? 'text-object-disabled-dark' : 'text-object-normal-dark'}
+              >
+                {label}
+              </Label>
+            </div>
           </div>
           {isDescriptionVisible && (
             <div
               className={clsx(
-                'body-lg flex h-[3.375rem] text-left',
+                'body-lg line-clamp-2 flex h-[3.375rem] w-full text-left',
                 disabled ? 'text-object-disabled-dark' : 'text-object-neutral-dark',
               )}
             >
