@@ -10,7 +10,7 @@ function Faq() {
         <div className='text-center'>
           <Title hierarchy='strong'>자주 묻는 질문</Title>
         </div>
-        <main className='w-[45rem]'>
+        <section className='w-[45rem]'>
           <Tab defaultActiveTabId={1}>
             <TabHeader>
               <TabItem id={1} label='지원 관련' />
@@ -57,7 +57,7 @@ function Faq() {
               </TabPanel>
             </div>
           </Tab>
-        </main>
+        </section>
       </div>
     </div>
   );
