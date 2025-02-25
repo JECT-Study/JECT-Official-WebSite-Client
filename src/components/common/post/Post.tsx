@@ -39,11 +39,12 @@ export const Post = ({
         {...(disabled ? { 'aria-disabled': true, tabIndex: -1 } : {})}
         {...restProps}
       >
-        <div className='gap-md flex items-center self-stretch'>
-          <div className='gap-xs flex flex-[1_0_0] items-center self-stretch'>
+        <div className='gap-md flex w-full items-center'>
+          <div className='gap-xs flex w-full min-w-0 items-center'>
             <Title
               hierarchy='weak'
               textColor={disabled ? 'text-object-disabled-dark' : 'text-object-hero-dark'}
+              className='truncate'
             >
               {title}
             </Title>
@@ -51,6 +52,7 @@ export const Post = ({
               hierarchy='strong'
               weight='bold'
               textColor={disabled ? 'text-object-disabled-dark' : 'text-object-neutral-dark'}
+              className='truncate'
             >
               {label}
             </Label>
