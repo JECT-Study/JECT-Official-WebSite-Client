@@ -1,5 +1,4 @@
-import Layout from './components/common/layout/Layout';
-
+import Layout from '@/components/layout/Layout';
 import Apply from '@/pages/Apply';
 import Faq from '@/pages/Faq';
 
