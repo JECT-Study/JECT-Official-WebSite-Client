@@ -1,11 +1,11 @@
 import { ReactNode } from 'react';
 
-interface PageContainerProps {
+interface PagesContainerProps {
   children: ReactNode;
 }
 
-function PageContainer({ children }: PageContainerProps) {
+function PagesContainer({ children }: PagesContainerProps) {
   return <main className='bg-surface-standard-dark min-h-[calc(100dvh-8.555rem)]'>{children}</main>;
 }
 
-export default PageContainer;
+export default PagesContainer;
