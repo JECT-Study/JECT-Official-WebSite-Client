@@ -5,12 +5,13 @@ import Interaction from '@/components/common/interaction/Interaction';
 import Label from '@/components/common/Label';
 import Title from '@/components/common/Title';
 
-interface CardProps extends ComponentPropsWithoutRef<'button'> {
+interface CardProps extends ComponentPropsWithoutRef<'a'> {
   title: string;
   label: string;
   children: ReactNode;
   imgUrl: string;
   isDescriptionVisible?: boolean;
+  disabled?: boolean;
 }
 
 export const Card = ({
@@ -22,7 +23,7 @@ export const Card = ({
   disabled = false,
   ...restProps
 }: CardProps) => {
-  const buttonClass = clsx(
+  const cardClass = clsx(
     'peer radius-md stroke-normal border-border-assistive-dark box-border border-x flex w-full h-[21.25rem] flex-col overflow-hidden',
     disabled
       ? 'bg-surface-deep-dark pointer-events-none cursor-not-allowed'
@@ -40,7 +41,11 @@ export const Card = ({
       isInversed={false}
       className='peer-hover:duration-normal peer-focus:duration-normal peer-hover:ease-(--motion-fluent) peer-focus:ease-(--motion-fluent)'
     >
-      <button type='button' disabled={disabled} className={buttonClass} {...restProps}>
+      <a
+        className={cardClass}
+        {...(disabled ? { 'aria-disabled': true, tabIndex: -1 } : {})}
+        {...restProps}
+      >
         <div className={imageContainerClass}>
           <img src={imgUrl} alt='카드 이미지' className='block h-full w-full object-cover' />
         </div>
@@ -71,7 +76,7 @@ export const Card = ({
             </div>
           )}
         </div>
-      </button>
+      </a>
     </Interaction>
   );
 };
