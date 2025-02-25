@@ -1,7 +1,8 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import Interaction from '@/components/common/interaction/Interaction';
-import { PathName } from '@/types/pathname';
+
+type PathName = '/project' | '/activity' | '/apply' | '/faq';
 
 interface NavigationItemProps {
   children: string;
