@@ -23,11 +23,31 @@ const meta: Meta<typeof Post> = {
       description: '포스트의 내용을 나타냅니다.',
     },
   },
+  args: {
+    title: '포스트 제목',
+    label: '레이블',
+    date: '2025-02-12',
+    children: '포스트 바디 텍스트',
+  },
 };
 
 export default meta;
 
 type Story = StoryObj<typeof Post>;
+
+export const DefaultPostStory: Story = {
+  name: 'Default Post',
+  render: args => (
+    <div className='story-container'>
+      <div className='w-[60rem]'>
+        <Post {...args} />
+      </div>
+      <div className='w-[60rem]'>
+        <Post {...args} disabled={true} />
+      </div>
+    </div>
+  ),
+};
 
 export const PostStory: Story = {
   name: 'Post',
