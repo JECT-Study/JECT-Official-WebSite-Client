@@ -37,7 +37,7 @@ type Story = StoryObj<typeof NavigationItem>;
 export const Default: Story = {
   args: {
     children: '아이템 레이블',
-    pathName: '/pathName',
+    pathName: '/project',
     disabled: false,
   },
 };
@@ -47,9 +47,9 @@ export const NavigationItemStory: Story = {
   render: () => {
     return (
       <div className='story-inner-row-container'>
-        <NavigationItem pathName='/first'>아이템 레이블1</NavigationItem>
-        <NavigationItem pathName='/second'>아이템 레이블2</NavigationItem>
-        <NavigationItem pathName='/third'>아이템 레이블3</NavigationItem>
+        <NavigationItem pathName='/project'>아이템 레이블1</NavigationItem>
+        <NavigationItem pathName='/activity'>아이템 레이블2</NavigationItem>
+        <NavigationItem pathName='/apply'>아이템 레이블3</NavigationItem>
       </div>
     );
   },
@@ -60,10 +60,10 @@ export const NavigationItemDisabledStory: Story = {
   render: () => {
     return (
       <div className='story-inner-row-container'>
-        <NavigationItem pathName='/first' disabled>
+        <NavigationItem pathName='/project' disabled>
           아이템 레이블1
         </NavigationItem>
-        <NavigationItem pathName='/second' disabled={true}>
+        <NavigationItem pathName='/activity' disabled={true}>
           아이템 레이블2
         </NavigationItem>
       </div>
