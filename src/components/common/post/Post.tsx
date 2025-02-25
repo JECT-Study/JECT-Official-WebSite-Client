@@ -12,9 +12,16 @@ interface PostProps extends ComponentPropsWithoutRef<'a'> {
   children: ReactNode;
   disabled?: boolean;
 }
-export const Post = ({ title, label, date, children, disabled = false }: PostProps) => {
+export const Post = ({
+  title,
+  label,
+  date,
+  children,
+  disabled = false,
+  ...restProps
+}: PostProps) => {
   const containerClass = clsx(
-    'peer box-border radius-sm gap-3xs border-x border-border-assistive-dark flex w-full flex-col items-start px-(--gap-lg) py-(--gap-md)',
+    'peer box-border radius-sm gap-3xs border border-border-assistive-dark flex w-full flex-col items-start px-(--gap-lg) py-(--gap-md)',
     disabled
       ? 'bg-surface-deep-dark pointer-events-none cursor-not-allowed'
       : 'bg-surface-embossed-dark pointer-events-auto cursor-pointer',
@@ -56,14 +63,22 @@ export const Post = ({ title, label, date, children, disabled = false }: PostPro
             {date}
           </Label>
         </div>
-        <div
+        <span
           className={clsx(
-            'body-lg flex h-[3.375rem] self-stretch text-left',
+            'body-lg block h-[3.375rem] w-full text-left whitespace-normal',
             disabled ? 'text-object-disabled-dark' : 'text-object-neutral-dark',
           )}
+          style={{
+            display: '-webkit-box',
+            WebkitLineClamp: 2,
+            WebkitBoxOrient: 'vertical',
+            overflow: 'hidden',
+            wordBreak: 'break-word',
+            overflowWrap: 'break-word',
+          }}
         >
           {children}
-        </div>
+        </span>
       </a>
     </Interaction>
   );
