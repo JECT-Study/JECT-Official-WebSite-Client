@@ -20,22 +20,39 @@ export interface BlockButtonProps extends ComponentPropsWithoutRef<'button'> {
 }
 
 export const BlockButton = forwardRef<HTMLButtonElement, BlockButtonProps>(
-  ({ children, leftIcon, rightIcon, size, style, hierarchy, className, ...props }, ref) => {
-    const baseClasses = 'inline-flex flex-row justify-center items-center gap-4xs';
+  (
+    { children, leftIcon, rightIcon, size, style, hierarchy, className, disabled, ...props },
+    ref,
+  ) => {
+    const baseClasses = 'peer inline-flex flex-row justify-center items-center gap-4xs';
 
     const combinedClasses = clsx(
       baseClasses,
       blockButtonStyle.size[size],
-      blockButtonStyle.variant[style][hierarchy],
+      disabled
+        ? blockButtonStyle.disabled?.[style][hierarchy]
+        : blockButtonStyle.variant[style][hierarchy],
       className,
+      {
+        'cursor-not-allowed pointer-events-none': disabled,
+        'cursor-pointer pointer-events-auto': !disabled,
+      },
     );
 
-    const { variant: interactionVariant, density: interactionDensity } =
-      blockButtonInteractionMap[style][hierarchy];
+    const {
+      variant: interactionVariant,
+      density: interactionDensity,
+      isInversed: isInteractionInversed,
+    } = blockButtonInteractionMap[style][hierarchy];
 
     return (
-      <Interaction variant={interactionVariant} density={interactionDensity}>
-        <button ref={ref} className={combinedClasses} {...props}>
+      <Interaction
+        variant={interactionVariant}
+        density={interactionDensity}
+        isInversed={isInteractionInversed}
+        className='peer-hover:duration-faster peer-hover:ease-(--motion-fluent)'
+      >
+        <button ref={ref} className={combinedClasses} disabled={!!disabled} {...props}>
           {leftIcon && leftIcon}
           {children}
           {rightIcon && rightIcon}
