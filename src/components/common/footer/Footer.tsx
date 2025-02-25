@@ -2,7 +2,7 @@ import Youtube from '@/assets/svg/footerYoutube.svg?react';
 import NewTabLink from '@/components/apply/NewTabLink';
 import Icon from '@/components/common/icon/Icon';
 import Logo from '@/components/common/logo/Logo';
-import { JECT_EMAIL, JECT_FOOTER_INFO } from '@/constants/ject';
+import { JECT_EMAIL, JECT_FOOTER_INFO } from '@/constants/footer';
 
 function Footer() {
   return (
