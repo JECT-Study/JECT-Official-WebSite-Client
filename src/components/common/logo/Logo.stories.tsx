@@ -1,18 +1,10 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { Link, MemoryRouter } from 'react-router-dom';
 
 import Logo from './Logo';
 
 const meta: Meta<typeof Logo> = {
   title: 'Components/Logo',
   component: Logo,
-  decorators: [
-    Story => (
-      <MemoryRouter>
-        <Story />
-      </MemoryRouter>
-    ),
-  ],
   argTypes: {
     height: {
       control: 'number',
