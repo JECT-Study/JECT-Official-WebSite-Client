@@ -51,33 +51,39 @@ export const Card = ({
         </div>
         <div className='gap-3xs flex w-full flex-col px-(--gap-md) pt-(--gap-xs) pb-(--gap-lg)'>
           <div className='gap-4xs flex flex-col items-start'>
-            <div className='w-full truncate'>
-              <Title
-                hierarchy='weak'
-                textColor={disabled ? 'text-object-disabled-dark' : 'text-object-hero-dark'}
-              >
-                {title}
-              </Title>
-            </div>
-            <div className='w-full truncate'>
-              <Label
-                hierarchy='stronger'
-                weight='normal'
-                textColor={disabled ? 'text-object-disabled-dark' : 'text-object-normal-dark'}
-              >
-                {label}
-              </Label>
-            </div>
+            <Title
+              hierarchy='weak'
+              textColor={disabled ? 'text-object-disabled-dark' : 'text-object-hero-dark'}
+              className='w-full truncate'
+            >
+              {title}
+            </Title>
+            <Label
+              hierarchy='stronger'
+              weight='normal'
+              textColor={disabled ? 'text-object-disabled-dark' : 'text-object-normal-dark'}
+              className='w-full truncate'
+            >
+              {label}
+            </Label>
           </div>
           {isDescriptionVisible && (
-            <div
+            <span
               className={clsx(
-                'body-lg line-clamp-2 flex h-[3.375rem] w-full text-left',
+                'body-lg block h-[3.375rem] w-full text-left whitespace-normal',
                 disabled ? 'text-object-disabled-dark' : 'text-object-neutral-dark',
               )}
+              style={{
+                display: '-webkit-box',
+                WebkitLineClamp: 2,
+                WebkitBoxOrient: 'vertical',
+                overflow: 'hidden',
+                wordBreak: 'break-word',
+                overflowWrap: 'break-word',
+              }}
             >
               {children}
-            </div>
+            </span>
           )}
         </div>
       </a>
