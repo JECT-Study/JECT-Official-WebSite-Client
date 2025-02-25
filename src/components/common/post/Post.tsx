@@ -1,11 +1,11 @@
 import clsx from 'clsx';
-import { ReactNode } from 'react';
+import { ComponentPropsWithoutRef, ReactNode } from 'react';
 
 import Interaction from '@/components/common/interaction/Interaction';
 import Label from '@/components/common/Label';
 import Title from '@/components/common/Title';
 
-interface PostProps {
+interface PostProps extends ComponentPropsWithoutRef<'a'> {
   title: string;
   label: string;
   date: string;
@@ -27,7 +27,11 @@ export const Post = ({ title, label, date, children, disabled = false }: PostPro
       isInversed={false}
       className='peer-hover:duration-normal peer-focus:duration-normal peer-hover:ease-(--motion-fluent) peer-focus:ease-(--motion-fluent)'
     >
-      <div className={containerClass}>
+      <a
+        className={containerClass}
+        {...(disabled ? { 'aria-disabled': true, tabIndex: -1 } : {})}
+        {...restProps}
+      >
         <div className='gap-md flex items-center self-stretch'>
           <div className='gap-xs flex flex-[1_0_0] items-center self-stretch'>
             <Title
@@ -60,7 +64,7 @@ export const Post = ({ title, label, date, children, disabled = false }: PostPro
         >
           {children}
         </div>
-      </div>
+      </a>
     </Interaction>
   );
 };
