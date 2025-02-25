@@ -4,7 +4,7 @@ import BlockButton from '@/components/common/button/BlockButton';
 import Icon from '@/components/common/icon/Icon';
 import ProgressItem from '@/components/common/progress/ProgressItem';
 import ProgressVerticalBridge from '@/components/common/progress/ProgressVerticalBridge';
-import Title from '@/components/common/Title';
+import Title from '@/components/common/title/Title';
 import {
   APPLY_INFO,
   APPLY_PROCESS,

@@ -2,8 +2,9 @@ import clsx from 'clsx';
 import { ComponentPropsWithoutRef, ReactNode } from 'react';
 
 import Interaction from '@/components/common/interaction/Interaction';
-import Label from '@/components/common/Label';
-import Title from '@/components/common/Title';
+import Label from '@/components/common/label/Label';
+import Title from '@/components/common/title/Title';
+
 
 interface PostProps extends ComponentPropsWithoutRef<'a'> {
   title: string;
