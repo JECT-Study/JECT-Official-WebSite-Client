@@ -4,7 +4,7 @@ import Icon from '@/components/common/icon/Icon';
 export interface SnackBarProps {
   message: string;
   buttonLabel: string;
-  onAction?: () => void;
+  onAction: () => void;
 }
 
 export const SnackBar = ({ message, buttonLabel, onAction }: SnackBarProps) => {
