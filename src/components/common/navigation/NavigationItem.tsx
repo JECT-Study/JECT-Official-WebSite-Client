@@ -1,11 +1,11 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import Interaction from '@/components/common/interaction/Interaction';
-import { PathName } from '@/constants/path';
+import { PathValues } from '@/types/path';
 
 interface NavigationItemProps {
   children: string;
-  pathName: PathName;
+  pathName: PathValues;
   disabled?: boolean;
 }
 
