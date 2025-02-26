@@ -1,0 +1,53 @@
+@import 'tailwindcss';
+
+@layer utilities {
+  /* inversed false*/
+  .interaction-default-bold {
+    @apply focus-visible:before:shadow-focus-visible relative outline-none before:absolute before:inset-0 before:rounded-[inherit] hover:before:bg-[rgba(255,255,255,0.12)] active:before:bg-[rgba(255,255,255,0.12)];
+  }
+
+  .interaction-default-normal {
+    @apply focus-visible:before:shadow-focus-visible relative outline-none before:absolute before:inset-0 before:rounded-[inherit] hover:before:bg-[rgba(212,211,222,0.08)] active:before:bg-[rgba(212,211,222,0.08)];
+  }
+
+  .interaction-default-subtle {
+    @apply focus-visible:before:shadow-focus-visible relative outline-none before:absolute before:inset-0 before:rounded-[inherit] hover:before:bg-[rgba(247,245,255,0.033)] active:before:bg-[rgba(247,245,255,0.033)];
+  }
+
+  .interaction-brand-bold {
+    @apply focus-visible:before:shadow-focus-visible relative outline-none before:absolute before:inset-0 before:rounded-[inherit] hover:before:bg-[rgba(145,147,255,0.12)] active:before:bg-[rgba(145,147,255,0.12)];
+  }
+
+  .interaction-brand-normal {
+    @apply focus-visible:before:shadow-focus-visible relative outline-none before:absolute before:inset-0 before:rounded-[inherit] hover:before:bg-[rgba(113,115,255,0.08)] active:before:bg-[rgba(113,115,255,0.08)];
+  }
+
+  .interaction-brand-subtle {
+    @apply focus-visible:before:shadow-focus-visible relative outline-none before:absolute before:inset-0 before:rounded-[inherit] hover:before:bg-[rgba(87,88,227,0.05)] active:before:bg-[rgba(87,88,227,0.05)];
+  }
+
+  /* inversed true */
+  .interaction-default-bold-inverse {
+    @apply focus-visible:before:shadow-focus-visible relative outline-none before:absolute before:inset-0 before:rounded-[inherit] hover:before:bg-[rgba(26,27,35,0.12)] active:before:bg-[rgba(26,27,35,0.12)];
+  }
+
+  .interaction-default-normal-inverse {
+    @apply focus-visible:before:shadow-focus-visible relative outline-none before:absolute before:inset-0 before:rounded-[inherit] hover:before:bg-[rgba(58,59,67,0.08)] active:before:bg-[rgba(58,59,67,0.08)];
+  }
+
+  .interaction-default-subtle-inverse {
+    @apply focus-visible:before:shadow-focus-visible relative outline-none before:absolute before:inset-0 before:rounded-[inherit] hover:before:bg-[rgba(2,3,18,0.032)] active:before:bg-[rgba(2,3,18,0.032)];
+  }
+
+  .interaction-brand-bold-inverse {
+    @apply focus-visible:before:shadow-focus-visible relative outline-none before:absolute before:inset-0 before:rounded-[inherit] hover:before:bg-[rgba(48,45,190,0.12)] active:before:bg-[rgba(48,45,190,0.12)];
+  }
+
+  .interaction-brand-normal-inverse {
+    @apply focus-visible:before:shadow-focus-visible relative outline-none before:absolute before:inset-0 before:rounded-[inherit] hover:before:bg-[rgba(74,74,214,0.08)] active:before:bg-[rgba(74,74,214,0.08)];
+  }
+
+  .interaction-brand-subtle-inverse {
+    @apply focus-visible:before:shadow-focus-visible relative outline-none before:absolute before:inset-0 before:rounded-[inherit] hover:before:bg-[rgba(100,101,241,0.05)] active:before:bg-[rgba(100,101,241,0.05)];
+  }
+}
