@@ -1,3 +1,5 @@
+import { PATH } from './constants/path';
+
 import Layout from '@/components/layout/Layout';
 import Apply from '@/pages/Apply';
 import Faq from '@/pages/Faq';
@@ -6,11 +8,11 @@ const routerList = [
   {
     element: <Layout />,
     children: [
-      { path: '/', element: <></> },
-      { path: '/project', element: <></> },
-      { path: '/activity', element: <></> },
-      { path: '/apply', element: <Apply /> },
-      { path: '/faq', element: <Faq /> },
+      { path: PATH.main, element: <></> },
+      { path: PATH.project, element: <></> },
+      { path: PATH.activity, element: <></> },
+      { path: PATH.apply, element: <Apply /> },
+      { path: PATH.faq, element: <Faq /> },
     ],
   },
 ];
