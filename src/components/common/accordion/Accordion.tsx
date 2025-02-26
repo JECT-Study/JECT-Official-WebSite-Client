@@ -1,7 +1,6 @@
 import { ReactNode, useState } from 'react';
 
 import Icon from '../icon/Icon';
-import Interaction from '../interaction/Interaction';
 import Label from '../label/Label';
 import Title from '../title/Title';
 
@@ -21,27 +20,19 @@ function Accordion({ title, label, children, caption }: AccordionProps) {
 
   return (
     <div className='gap-xs flex flex-col'>
-      <Interaction
-        variant='default'
-        density='subtle'
-        isInversed={false}
-        scale='scale-x-102 scale-y-128'
-        className='peer-hover:duration-slower peer-hover:ease(--motion-fluent)'
+      <button
+        onClick={toggle}
+        className='interaction-default-subtle gap-xs radius-3xs hover:before:ease(--motion-fluent) hover:before:duration-faster flex w-full text-start before:scale-x-102 before:scale-y-128 [&>*:first-child]:grow'
       >
-        <button
-          onClick={toggle}
-          className='gap-xs radius-3xs peer flex w-full text-start [&>*:first-child]:grow'
-        >
-          <Title hierarchy='weak' textColor={isOpen ? null : 'text-object-neutral-dark'}>
-            {title}
-          </Title>
-          {isOpen ? (
-            <Icon name='less' size='xl' fillColor={'fill-object-hero-dark'} />
-          ) : (
-            <Icon name='expand' size='xl' fillColor='fill-object-neutral-dark' />
-          )}
-        </button>
-      </Interaction>
+        <Title hierarchy='weak' textColor={isOpen ? null : 'text-object-neutral-dark'}>
+          {title}
+        </Title>
+        {isOpen ? (
+          <Icon name='less' size='xl' fillColor={'fill-object-hero-dark'} />
+        ) : (
+          <Icon name='expand' size='xl' fillColor='fill-object-neutral-dark' />
+        )}
+      </button>
 
       <div
         className={`${isOpen ? 'max-h-[500px] border py-(--gap-md)' : 'max-h-0'} bg-surface-deep-dark radius-2xs border-border-trans-assistive-dark gap-xs duration-normal ease(--motion-fluent) flex flex-col overflow-hidden px-(--gap-xs)`}

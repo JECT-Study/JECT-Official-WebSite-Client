@@ -2,7 +2,6 @@ import clsx from 'clsx';
 import { ComponentPropsWithoutRef, ReactNode, useState } from 'react';
 
 import Icon from '@/components/common/icon/Icon';
-import Interaction from '@/components/common/interaction/Interaction';
 
 interface SelectItemProps extends ComponentPropsWithoutRef<'button'> {
   label: string;
@@ -19,30 +18,26 @@ export const SelectItem = ({
   children,
   ...restProps
 }: SelectItemProps) => {
-  const buttonClass = clsx('peer radius-xs flex w-full items-start justify-between p-(--gap-sm)', {
-    'text-object-disabled-dark cursor-not-allowed pointer-events-none': !!disabled,
-    'text-object-hero-dark cursor-pointer pointer-events-auto': !disabled && isSelected,
-    'text-object-neutral-dark cursor-pointer pointer-events-auto': !disabled && !isSelected,
-  });
+  const buttonClass = clsx(
+    'interaction-default-normal hover:before:ease(--motion-fluent) hover:before:duration-faster radius-xs flex w-full items-start justify-between p-(--gap-sm)',
+    {
+      'text-object-disabled-dark cursor-not-allowed pointer-events-none': !!disabled,
+      'text-object-hero-dark cursor-pointer pointer-events-auto': !disabled && isSelected,
+      'text-object-neutral-dark cursor-pointer pointer-events-auto': !disabled && !isSelected,
+    },
+  );
 
   return (
-    <Interaction
-      variant='default'
-      density='normal'
-      isInversed={false}
-      className='peer-hover:duration-faster peer-hover:ease-(--motion-fluent)'
+    <button
+      type='button'
+      onClick={() => !disabled && clickHandler(label)}
+      disabled={!!disabled}
+      className={buttonClass}
+      {...restProps}
     >
-      <button
-        type='button'
-        onClick={() => !disabled && clickHandler(label)}
-        disabled={!!disabled}
-        className={buttonClass}
-        {...restProps}
-      >
-        <span className='body-lg self-stretch'>{label}</span>
-        {children}
-      </button>
-    </Interaction>
+      <span className='body-lg self-stretch'>{label}</span>
+      {children}
+    </button>
   );
 };
 

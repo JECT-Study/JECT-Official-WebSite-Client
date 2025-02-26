@@ -1,7 +1,6 @@
 import clsx from 'clsx';
 import { forwardRef, ComponentPropsWithoutRef, ReactNode } from 'react';
 
-import Interaction from '@/components/common/interaction/Interaction';
 import {
   labelButtonStyle,
   Size,
@@ -19,10 +18,15 @@ export interface LabelButtonProps extends ComponentPropsWithoutRef<'button'> {
 
 export const LabelButton = forwardRef<HTMLButtonElement, LabelButtonProps>(
   ({ children, leftIcon, rightIcon, size, hierarchy, className, disabled, ...props }, ref) => {
+    const { variant, density, isInversed } = labelButtonInteractionMap[hierarchy];
+
+    const interaction = `interaction-${variant}-${density}${isInversed ? '-inverse' : ''}`;
+
     const baseClasses =
-      'peer inline-flex flex-row py-0 px-0 justify-center items-center gap-4xs radius-xs';
+      'inline-flex flex-row py-0 px-0 justify-center items-center gap-4xs radius-xs hover:before:ease(--motion-fluent) hover:before:duration-faster before:scale-x-118 before:scale-y-129';
 
     const combinedClasses = clsx(
+      interaction,
       baseClasses,
       labelButtonStyle.size[size],
       disabled ? labelButtonStyle.disabled?.[hierarchy] : labelButtonStyle.hierarchy[hierarchy],
@@ -33,26 +37,12 @@ export const LabelButton = forwardRef<HTMLButtonElement, LabelButtonProps>(
       className,
     );
 
-    const {
-      variant: interactionVariant,
-      density: interactionDensity,
-      isInversed: isInteractionInversed,
-    } = labelButtonInteractionMap[hierarchy];
-
     return (
-      <Interaction
-        variant={interactionVariant}
-        density={interactionDensity}
-        isInversed={isInteractionInversed}
-        className='peer-hover:duration-faster peer-hover:ease-(--motion-fluent)'
-        scale='scale-x-118 scale-y-129'
-      >
-        <button ref={ref} className={combinedClasses} disabled={!!disabled} {...props}>
-          {leftIcon && leftIcon}
-          {children}
-          {rightIcon && rightIcon}
-        </button>
-      </Interaction>
+      <button ref={ref} className={combinedClasses} disabled={!!disabled} {...props}>
+        {leftIcon && leftIcon}
+        {children}
+        {rightIcon && rightIcon}
+      </button>
     );
   },
 );
