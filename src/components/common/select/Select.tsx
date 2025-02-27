@@ -19,7 +19,7 @@ export const SelectItem = ({
   ...restProps
 }: SelectItemProps) => {
   const buttonClass = clsx(
-    'interaction-default-normal hover:before:ease(--motion-fluent) hover:before:duration-faster radius-xs flex w-full items-start justify-between p-(--gap-sm)',
+    'interaction-default-normal transition-faster-fluent radius-xs flex w-full items-start justify-between p-(--gap-sm)',
     {
       'text-object-disabled-dark cursor-not-allowed pointer-events-none': !!disabled,
       'text-object-hero-dark cursor-pointer pointer-events-auto': !disabled && isSelected,

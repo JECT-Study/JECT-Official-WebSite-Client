@@ -28,7 +28,7 @@ export const BlockButton = forwardRef<HTMLButtonElement, BlockButtonProps>(
     const interaction = `interaction-${variant}-${density}${isInversed ? '-inverse' : ''}`;
 
     const baseClasses =
-      'inline-flex flex-row justify-center items-center gap-4xs hover:before:ease(--motion-fluent) hover:before:duration-faster';
+      'inline-flex flex-row justify-center items-center gap-4xs transition-faster-fluent';
 
     const combinedClasses = clsx(
       interaction,

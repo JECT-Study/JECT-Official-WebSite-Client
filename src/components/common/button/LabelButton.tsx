@@ -23,7 +23,7 @@ export const LabelButton = forwardRef<HTMLButtonElement, LabelButtonProps>(
     const interaction = `interaction-${variant}-${density}${isInversed ? '-inverse' : ''}`;
 
     const baseClasses =
-      'inline-flex flex-row py-0 px-0 justify-center items-center gap-4xs radius-xs hover:before:ease(--motion-fluent) hover:before:duration-faster before:scale-x-118 before:scale-y-129';
+      'inline-flex flex-row py-0 px-0 justify-center items-center gap-4xs radius-xs transition-faster-fluent before:scale-x-118 before:scale-y-129';
 
     const combinedClasses = clsx(
       interaction,
