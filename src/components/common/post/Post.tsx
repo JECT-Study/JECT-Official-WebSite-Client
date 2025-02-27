@@ -63,17 +63,9 @@ export const Post = ({
         </div>
         <span
           className={clsx(
-            'body-lg block h-[3.375rem] w-full text-left whitespace-normal',
+            'body-lg line-clamp-2 h-[3.375rem] w-full text-left break-words whitespace-normal',
             disabled ? 'text-object-disabled-dark' : 'text-object-neutral-dark',
           )}
-          style={{
-            display: '-webkit-box',
-            WebkitLineClamp: 2,
-            WebkitBoxOrient: 'vertical',
-            overflow: 'hidden',
-            wordBreak: 'break-word',
-            overflowWrap: 'break-word',
-          }}
         >
           {children}
         </span>
