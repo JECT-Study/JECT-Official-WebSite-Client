@@ -11,7 +11,15 @@ interface PostProps extends ComponentPropsWithoutRef<'a'> {
   children: ReactNode;
   disabled?: boolean;
 }
-export const Post = ({ title, label, children, disabled = false, ...restProps }: PostProps) => {
+export const Post = ({
+  title,
+  label,
+  children,
+  disabled = false,
+  target = '_blank',
+  rel = 'noopener noreferrer',
+  ...restProps
+}: PostProps) => {
   const containerClass = clsx(
     'peer box-border radius-sm gap-3xs border border-border-assistive-dark flex w-full flex-col items-start px-(--gap-lg) py-(--gap-md)',
     disabled
@@ -26,7 +34,7 @@ export const Post = ({ title, label, children, disabled = false, ...restProps }:
       isInversed={false}
       className='peer-hover:duration-normal peer-focus:duration-normal peer-hover:ease-(--motion-fluent) peer-focus:ease-(--motion-fluent)'
     >
-      <a className={containerClass} {...restProps}>
+      <a className={containerClass} target={target} rel={rel} {...restProps}>
         <Title
           hierarchy='weak'
           textColor={disabled ? 'text-object-disabled-dark' : 'text-object-hero-dark'}
