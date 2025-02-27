@@ -1,11 +1,12 @@
 import clsx from 'clsx';
 import { ComponentPropsWithoutRef, ReactNode } from 'react';
+import { Link } from 'react-router-dom';
 
 import Interaction from '@/components/common/interaction/Interaction';
 import Label from '@/components/common/label/Label';
 import Title from '@/components/common/title/Title';
 
-interface CardProps extends ComponentPropsWithoutRef<'a'> {
+interface CardProps extends ComponentPropsWithoutRef<typeof Link> {
   title: string;
   label: string;
   children: ReactNode;
@@ -41,7 +42,7 @@ export const Card = ({
       isInversed={false}
       className='peer-hover:duration-normal peer-focus:duration-normal peer-hover:ease-(--motion-fluent) peer-focus:ease-(--motion-fluent)'
     >
-      <a className={cardClass} {...restProps}>
+      <Link className={cardClass} {...restProps}>
         <div className={imageContainerClass}>
           <img src={imgUrl} alt='카드 이미지' className='block h-full w-full object-cover' />
         </div>
@@ -82,7 +83,7 @@ export const Card = ({
             </span>
           )}
         </div>
-      </a>
+      </Link>
     </Interaction>
   );
 };
