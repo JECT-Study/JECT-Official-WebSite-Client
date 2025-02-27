@@ -5,7 +5,6 @@ import Interaction from '@/components/common/interaction/Interaction';
 import Label from '@/components/common/label/Label';
 import Title from '@/components/common/title/Title';
 
-
 interface PostProps extends ComponentPropsWithoutRef<'a'> {
   title: string;
   label: string;
@@ -35,11 +34,7 @@ export const Post = ({
       isInversed={false}
       className='peer-hover:duration-normal peer-focus:duration-normal peer-hover:ease-(--motion-fluent) peer-focus:ease-(--motion-fluent)'
     >
-      <a
-        className={containerClass}
-        {...(disabled ? { 'aria-disabled': true, tabIndex: -1 } : {})}
-        {...restProps}
-      >
+      <a className={containerClass} {...restProps}>
         <div className='gap-md flex w-full items-center'>
           <div className='gap-xs flex w-full min-w-0 items-center'>
             <Title

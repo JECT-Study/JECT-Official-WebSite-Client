@@ -41,11 +41,7 @@ export const Card = ({
       isInversed={false}
       className='peer-hover:duration-normal peer-focus:duration-normal peer-hover:ease-(--motion-fluent) peer-focus:ease-(--motion-fluent)'
     >
-      <a
-        className={cardClass}
-        {...(disabled ? { 'aria-disabled': true, tabIndex: -1 } : {})}
-        {...restProps}
-      >
+      <a className={cardClass} {...restProps}>
         <div className={imageContainerClass}>
           <img src={imgUrl} alt='카드 이미지' className='block h-full w-full object-cover' />
         </div>
