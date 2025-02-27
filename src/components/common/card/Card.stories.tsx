@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { MemoryRouter } from 'react-router-dom';
 
 import { Card } from './Card.tsx';
 
@@ -45,42 +46,48 @@ type Story = StoryObj<typeof Card>;
 export const DefaultCardStory: Story = {
   name: 'Default Card',
   render: args => (
-    <div className='story-container'>
-      <div className='h-[21.25rem] w-[18.6875rem]'>
-        <Card {...args} />
+    <MemoryRouter>
+      <div className='story-container'>
+        <div className='h-[21.25rem] w-[18.6875rem]'>
+          <Card {...args} to='#' />
+        </div>
+        <div className='h-[21.25rem] w-[18.6875rem]'>
+          <Card {...args} disabled={true} to='#' />
+        </div>
       </div>
-      <div className='h-[21.25rem] w-[18.6875rem]'>
-        <Card {...args} disabled={true} />
-      </div>
-    </div>
+    </MemoryRouter>
   ),
 };
 
 export const WithoutDescriptionCardStory: Story = {
   name: 'WithoutDescription Card',
   render: () => (
-    <div className='story-container'>
-      <div className='h-[21.25rem] w-[18.6875rem]'>
-        <Card
-          title='카드 타이틀'
-          label='카드 레이블'
-          imgUrl={cardSampleImage}
-          isDescriptionVisible={false}
-        >
-          카드 내용
-        </Card>
+    <MemoryRouter>
+      <div className='story-container'>
+        <div className='h-[21.25rem] w-[18.6875rem]'>
+          <Card
+            title='카드 타이틀'
+            label='카드 레이블'
+            imgUrl={cardSampleImage}
+            isDescriptionVisible={false}
+            to='#'
+          >
+            카드 내용
+          </Card>
+        </div>
+        <div className='h-[21.25rem] w-[18.6875rem]'>
+          <Card
+            title='카드 타이틀'
+            label='카드 레이블'
+            imgUrl={cardSampleImage}
+            isDescriptionVisible={false}
+            disabled={true}
+            to='#'
+          >
+            카드 내용
+          </Card>
+        </div>
       </div>
-      <div className='h-[21.25rem] w-[18.6875rem]'>
-        <Card
-          title='카드 타이틀'
-          label='카드 레이블'
-          imgUrl={cardSampleImage}
-          isDescriptionVisible={false}
-          disabled={true}
-        >
-          카드 내용
-        </Card>
-      </div>
-    </div>
+    </MemoryRouter>
   ),
 };
