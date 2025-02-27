@@ -27,25 +27,13 @@ export const Post = ({ title, label, children, disabled = false, ...restProps }:
       className='peer-hover:duration-normal peer-focus:duration-normal peer-hover:ease-(--motion-fluent) peer-focus:ease-(--motion-fluent)'
     >
       <a className={containerClass} {...restProps}>
-        <div className='gap-md flex w-full items-center'>
-          <div className='gap-xs flex w-full min-w-0 items-center'>
-            <Title
-              hierarchy='weak'
-              textColor={disabled ? 'text-object-disabled-dark' : 'text-object-hero-dark'}
-              className='truncate'
-            >
-              {title}
-            </Title>
-            <Label
-              hierarchy='strong'
-              weight='bold'
-              textColor={disabled ? 'text-object-disabled-dark' : 'text-object-neutral-dark'}
-              className='truncate'
-            >
-              {label}
-            </Label>
-          </div>
-        </div>
+        <Title
+          hierarchy='weak'
+          textColor={disabled ? 'text-object-disabled-dark' : 'text-object-hero-dark'}
+          className='w-full truncate'
+        >
+          {title}
+        </Title>
         <span
           className={clsx(
             'body-lg line-clamp-2 h-[3.375rem] w-full text-left break-words whitespace-normal',
@@ -54,6 +42,14 @@ export const Post = ({ title, label, children, disabled = false, ...restProps }:
         >
           {children}
         </span>
+        <Label
+          hierarchy='strong'
+          weight='bold'
+          textColor={disabled ? 'text-object-disabled-dark' : 'text-object-assistive-dark'}
+          className='w-full truncate'
+        >
+          {label}
+        </Label>
       </a>
     </Interaction>
   );
