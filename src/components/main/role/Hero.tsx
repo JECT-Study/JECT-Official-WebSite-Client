@@ -37,12 +37,12 @@ interface HeroProps {
   title: string;
   labels?: string[];
   children: ReactNode;
-  icon: HeroVariant;
+  variant: HeroVariant;
 }
 
-export const Hero = ({ title, labels = [], children, icon }: HeroProps) => {
+export const Hero = ({ title, labels = [], children, variant }: HeroProps) => {
   const displayedLabels = labels.slice(0, 5);
-  const { icon: heroIcon, style } = heroMap[icon];
+  const { icon: heroIcon, style } = heroMap[variant];
 
   return (
     <div
