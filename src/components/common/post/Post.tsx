@@ -8,18 +8,10 @@ import Title from '@/components/common/title/Title';
 interface PostProps extends ComponentPropsWithoutRef<'a'> {
   title: string;
   label: string;
-  date: string;
   children: ReactNode;
   disabled?: boolean;
 }
-export const Post = ({
-  title,
-  label,
-  date,
-  children,
-  disabled = false,
-  ...restProps
-}: PostProps) => {
+export const Post = ({ title, label, children, disabled = false, ...restProps }: PostProps) => {
   const containerClass = clsx(
     'peer box-border radius-sm gap-3xs border border-border-assistive-dark flex w-full flex-col items-start px-(--gap-lg) py-(--gap-md)',
     disabled
@@ -53,13 +45,6 @@ export const Post = ({
               {label}
             </Label>
           </div>
-          <Label
-            hierarchy='normal'
-            weight='normal'
-            textColor={disabled ? 'text-object-disabled-dark' : 'text-object-alternative-dark'}
-          >
-            {date}
-          </Label>
         </div>
         <span
           className={clsx(
