@@ -67,7 +67,7 @@ export const Card = ({
           {isDescriptionVisible && (
             <span
               className={clsx(
-                'body-lg line-clamp-2 w-full text-left break-words whitespace-normal',
+                'body-lg line-clamp-2 h-[3.375rem] w-full text-left break-words whitespace-normal',
                 disabled ? 'text-object-disabled-dark' : 'text-object-neutral-dark',
               )}
             >
