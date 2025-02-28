@@ -1,17 +1,15 @@
 import clsx from 'clsx';
 import { forwardRef, ComponentPropsWithoutRef, ReactNode } from 'react';
 
-import Interaction from '@/components/common/interaction/Interaction';
 import {
   labelButtonStyle,
   Size,
   Hierarchy,
   labelButtonInteractionMap,
-  labelButtonOutlineOffsetMap,
 } from '@/styles/labelButtonStyle';
 
 export interface LabelButtonProps extends ComponentPropsWithoutRef<'button'> {
-  children: ReactNode;
+  children?: ReactNode;
   leftIcon?: ReactNode;
   rightIcon?: ReactNode;
   size: Size;
@@ -19,34 +17,32 @@ export interface LabelButtonProps extends ComponentPropsWithoutRef<'button'> {
 }
 
 export const LabelButton = forwardRef<HTMLButtonElement, LabelButtonProps>(
-  ({ children, leftIcon, rightIcon, size, hierarchy, className, ...props }, ref) => {
+  ({ children, leftIcon, rightIcon, size, hierarchy, className, disabled, ...props }, ref) => {
+    const { variant, density, isInversed } = labelButtonInteractionMap[hierarchy];
+
+    const interaction = `interaction-${variant}-${density}${isInversed ? '-inverse' : ''}`;
+
     const baseClasses =
-      'inline-flex flex-row py-0 px-0 justify-center items-center gap-4xs radius-xs';
+      'inline-flex flex-row py-0 px-0 justify-center items-center gap-4xs radius-xs transition-faster-fluent before:scale-x-118 before:scale-y-129';
 
     const combinedClasses = clsx(
+      interaction,
       baseClasses,
       labelButtonStyle.size[size],
-      labelButtonStyle.hierarchy[hierarchy],
+      disabled ? labelButtonStyle.disabled?.[hierarchy] : labelButtonStyle.hierarchy[hierarchy],
+      {
+        'cursor-not-allowed pointer-events-none': disabled,
+        'cursor-pointer pointer-events-auto': !disabled,
+      },
       className,
     );
 
-    const { variant: interactionVariant, density: interactionDensity } =
-      labelButtonInteractionMap[hierarchy];
-
-    const outlineOffset = labelButtonOutlineOffsetMap[size];
-
     return (
-      <Interaction
-        variant={interactionVariant}
-        density={interactionDensity}
-        outlineOffset={outlineOffset}
-      >
-        <button ref={ref} className={combinedClasses} {...props}>
-          {leftIcon && leftIcon}
-          {children}
-          {rightIcon && rightIcon}
-        </button>
-      </Interaction>
+      <button ref={ref} className={combinedClasses} disabled={!!disabled} {...props}>
+        {leftIcon && leftIcon}
+        {children}
+        {rightIcon && rightIcon}
+      </button>
     );
   },
 );

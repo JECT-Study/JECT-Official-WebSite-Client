@@ -1,6 +1,5 @@
-import React, { createContext, useState, useContext, ReactNode } from 'react';
+import { createContext, useState, useContext, ReactNode } from 'react';
 
-import Interaction from '@/components/common/interaction/Interaction.tsx';
 import { TabProps } from '@/components/common/tab/Tab.types.ts';
 
 type TabContextType = {
@@ -42,18 +41,16 @@ export const TabItem = ({ id, label }: TabItemProps) => {
   const { activeTabId, onTabClick } = useTabContext();
   const isActive = activeTabId === id;
   return (
-    <Interaction variant='default' density='subtle' isInversed='false'>
-      <button
-        onClick={() => onTabClick(id)}
-        className={`peer gap-4xs label-bold-lg inline-flex items-center justify-center px-(--gap-md) py-(--gap-3xs) text-center ${
-          isActive
-            ? 'text-object-hero-dark stroke-bold border-accent-normal-dark relative z-10 -mb-px'
-            : 'text-object-alternative-dark'
-        }`}
-      >
-        {label}
-      </button>
-    </Interaction>
+    <button
+      onClick={() => onTabClick(id)}
+      className={`interaction-default-subtle gap-4xs label-bold-lg inline-flex items-center justify-center px-(--gap-md) py-(--gap-3xs) text-center ${
+        isActive
+          ? 'text-object-hero-dark stroke-bold border-accent-normal-dark relative z-10 -mb-px'
+          : 'text-object-alternative-dark'
+      }`}
+    >
+      {label}
+    </button>
   );
 };
 
