@@ -1,6 +1,5 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
-import Interaction from '@/components/common/interaction/Interaction';
 import { PathValues } from '@/types/path';
 
 interface NavigationItemProps {
@@ -10,9 +9,6 @@ interface NavigationItemProps {
 }
 
 function NavigationItem({ children, pathName, disabled = false }: NavigationItemProps) {
-  const location = useLocation();
-  const navigate = useNavigate();
-
   if (disabled) {
     return (
       <button
@@ -25,18 +21,17 @@ function NavigationItem({ children, pathName, disabled = false }: NavigationItem
   }
 
   return (
-    <Interaction
-      variant={pathName === location.pathname ? 'brand' : 'default'}
-      density='subtle'
-      isInversed={false}
+    <NavLink
+      to={pathName}
+      className={({ isActive }) =>
+        (isActive
+          ? 'text-accent-hero-dark interaction-brand-subtle '
+          : 'text-object-hero-dark interaction-default-subtle') +
+        'radius-2xs label-bold-lg cursor-pointer px-(--gap-xs) py-(--gap-4xs)'
+      }
     >
-      <button
-        onClick={() => void navigate(pathName)}
-        className={`${pathName === location.pathname ? 'text-accent-hero-dark' : 'text-object-hero-dark'} peer radius-2xs label-bold-lg cursor-pointer px-(--gap-xs) py-(--gap-4xs)`}
-      >
-        {children}
-      </button>
-    </Interaction>
+      {children}
+    </NavLink>
   );
 }
 
