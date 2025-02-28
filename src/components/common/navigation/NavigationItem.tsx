@@ -25,9 +25,9 @@ function NavigationItem({ children, pathName, disabled = false }: NavigationItem
       to={pathName}
       className={({ isActive }) =>
         (isActive
-          ? 'text-accent-hero-dark interaction-brand-subtle '
+          ? 'text-accent-hero-dark interaction-brand-subtle'
           : 'text-object-hero-dark interaction-default-subtle') +
-        'radius-2xs label-bold-lg cursor-pointer px-(--gap-xs) py-(--gap-4xs)'
+        ' radius-2xs label-bold-lg cursor-pointer px-(--gap-xs) py-(--gap-4xs)'
       }
     >
       {children}
