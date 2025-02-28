@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, NavLinkRenderProps } from 'react-router-dom';
 
 import { PathValues } from '@/types/path';
 
@@ -9,27 +9,16 @@ interface NavigationItemProps {
 }
 
 function NavigationItem({ children, pathName, disabled = false }: NavigationItemProps) {
-  if (disabled) {
-    return (
-      <button
-        disabled
-        className={`text-object-disabled-dark radius-2xs label-bold-lg px-(--gap-xs) py-(--gap-4xs)`}
-      >
-        {children}
-      </button>
-    );
-  }
-
-  return (
-    <NavLink
-      to={pathName}
-      className={({ isActive }) =>
+  const className = disabled
+    ? 'text-object-disabled-dark radius-2xs label-bold-lg px-(--gap-xs) py-(--gap-4xs) pointer-events-none'
+    : ({ isActive }: NavLinkRenderProps) =>
         (isActive
           ? 'text-accent-hero-dark interaction-brand-subtle'
           : 'text-object-hero-dark interaction-default-subtle') +
-        ' radius-2xs label-bold-lg cursor-pointer px-(--gap-xs) py-(--gap-4xs)'
-      }
-    >
+        ' radius-2xs label-bold-lg cursor-pointer px-(--gap-xs) py-(--gap-4xs)';
+
+  return (
+    <NavLink to={pathName} className={className}>
       {children}
     </NavLink>
   );
