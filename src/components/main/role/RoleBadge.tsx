@@ -1,5 +1,3 @@
-import clsx from 'clsx';
-
 import atom from '@/assets/images/atom.png';
 import clipboard from '@/assets/images/clipboard.png';
 import cursor from '@/assets/images/cursor.png';
