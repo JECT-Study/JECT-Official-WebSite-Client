@@ -3,11 +3,10 @@ import clipboard from '@/assets/images/clipboard.png';
 import cursor from '@/assets/images/cursor.png';
 import mobius from '@/assets/images/mobius.png';
 import stack from '@/assets/images/stack.png';
-
-type BadgeVariant = 'fe' | 'be' | 'do' | 'pm' | 'pd';
+import { RoleVariant } from '@/types/role';
 
 const variantMap: Record<
-  BadgeVariant,
+  RoleVariant,
   {
     text: string;
     icon: string;
@@ -42,7 +41,7 @@ const variantMap: Record<
 };
 
 interface BadgeProps {
-  variant: BadgeVariant;
+  variant: RoleVariant;
 }
 
 export const RoleBadge = ({ variant }: BadgeProps) => {

@@ -6,10 +6,9 @@ import cursor from '@/assets/images/cursor.png';
 import mobius from '@/assets/images/mobius.png';
 import stack from '@/assets/images/stack.png';
 import Badge from '@/components/common/badge/Badge';
+import { RoleVariant } from '@/types/role';
 
-type HeroVariant = 'fe' | 'be' | 'do' | 'pm' | 'pd';
-
-const heroMap: Record<HeroVariant, { icon: string; style: string }> = {
+const heroMap: Record<RoleVariant, { icon: string; style: string }> = {
   fe: {
     icon: atom,
     style: 'bg-gradient-to-r from-role-fe-normal-light to-role-fe-trans-neutral-dark',
@@ -36,7 +35,7 @@ interface HeroProps {
   title: string;
   labels?: string[];
   children: ReactNode;
-  variant: HeroVariant;
+  variant: RoleVariant;
 }
 
 export const RoleHero = ({ title, labels = [], children, variant }: HeroProps) => {
