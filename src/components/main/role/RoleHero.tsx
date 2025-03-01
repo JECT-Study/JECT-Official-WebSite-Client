@@ -44,10 +44,9 @@ export const RoleHero = ({ title, labels = [], children, variant }: HeroProps) =
   const { icon: heroIcon, style } = heroMap[variant];
 
   return (
-    <div
-      className={`${style} radius-sm gap-6xl flex items-center pt-(--gap-3xl) pr-(--gap-3xl) pb-(--gap-3xl) pl-(--gap-6xl)`}
-    >
-      <div className='gap-xl flex min-h-[12.1875rem] shrink-0 grow basis-0 flex-col items-start'>
+    <div className='radius-sm gap-6xl relative flex items-center pt-(--gap-3xl) pr-(--gap-3xl) pb-(--gap-3xl) pl-(--gap-6xl)'>
+      <div className={`${style} radius-sm absolute inset-0 z-0 opacity-[var(--opacity-35,0.35)]`} />
+      <div className='gap-xl relative z-10 flex min-h-[12.1875rem] shrink-0 grow basis-0 flex-col items-start'>
         <div className='gap-sm self-strectch flex flex-col items-start'>
           <span className='text-object-hero-dark title-03'>{title}</span>
           <div className='gap-2xs flex max-h-[5rem] flex-wrap content-start items-start'>
@@ -64,7 +63,11 @@ export const RoleHero = ({ title, labels = [], children, variant }: HeroProps) =
         </div>
         <span className='body-lg text-object-normal-dark'>{children}</span>
       </div>
-      <img src={heroIcon} alt={`${variant} 아이콘`} className='h-24 w-24 object-contain' />
+      <img
+        src={heroIcon}
+        alt={`${variant} 아이콘`}
+        className='relative z-10 h-24 w-24 object-contain'
+      />
     </div>
   );
 };
