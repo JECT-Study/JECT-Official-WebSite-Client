@@ -68,7 +68,7 @@ export const RoleHero = ({ title, labels = [], children, variant }: HeroProps) =
         </div>
         <span className='body-lg text-object-normal-dark'>{children}</span>
       </div>
-      <img src={heroIcon} alt='RoleHero Icon' className='h-24 w-24 object-contain' />
+      <img src={heroIcon} alt={`${variant} 아이콘`} className='h-24 w-24 object-contain' />
     </div>
   );
 };
