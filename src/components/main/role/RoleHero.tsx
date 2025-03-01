@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import { ReactNode } from 'react';
 
 import atom from '@/assets/images/atom.png';
