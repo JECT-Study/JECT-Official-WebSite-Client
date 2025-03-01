@@ -20,7 +20,7 @@ export const Post = ({
   ...restProps
 }: PostProps) => {
   const containerClass = clsx(
-    'peer box-border radius-sm gap-3xs border border-border-assistive-dark flex w-full flex-col items-start px-(--gap-lg) py-(--gap-md) *:first:w-full *:first:truncate *:last:w-full *:last:truncate',
+    'transition-normal-fluent-hover transition-normal-fluent-focus interaction-default-subtle box-border radius-sm gap-3xs border border-border-assistive-dark flex w-full flex-col items-start px-(--gap-lg) py-(--gap-md) *:first:w-full *:first:truncate *:last:w-full *:last:truncate',
     disabled
       ? 'bg-surface-deep-dark pointer-events-none cursor-not-allowed'
       : 'bg-surface-embossed-dark pointer-events-auto cursor-pointer',
