@@ -7,17 +7,12 @@ interface TitleProps {
   children: ReactNode;
   hierarchy: Hierarchy;
   textColor?: string | null;
-  className?: string;
 }
 
-function Title({ children, hierarchy, textColor, className }: TitleProps) {
+function Title({ children, hierarchy, textColor }: TitleProps) {
   const typo = titleStyle.hierarchy[hierarchy].typo;
 
-  return (
-    <div className={`${typo} ${textColor ?? 'text-object-hero-dark'} ${className ?? ''}`}>
-      {children}
-    </div>
-  );
+  return <div className={`${typo} ${textColor ?? 'text-object-hero-dark'}`}>{children}</div>;
 }
 
 export default Title;
