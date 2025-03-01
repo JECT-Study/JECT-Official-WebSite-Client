@@ -46,10 +46,7 @@ export const RoleHero = ({ title, labels = [], children, variant }: HeroProps) =
 
   return (
     <div
-      className={clsx(
-        'radius-sm gap-6xl flex items-center pt-(--gap-3xl) pr-(--gap-3xl) pb-(--gap-3xl) pl-(--gap-6xl)',
-        style,
-      )}
+      className={`${style} radius-sm gap-6xl flex items-center pt-(--gap-3xl) pr-(--gap-3xl) pb-(--gap-3xl) pl-(--gap-6xl)`}
     >
       <div className='gap-xl flex min-h-[12.1875rem] shrink-0 grow basis-0 flex-col items-start'>
         <div className='gap-sm self-strectch flex flex-col items-start'>
