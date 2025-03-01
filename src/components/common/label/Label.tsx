@@ -8,18 +8,16 @@ interface LabelProps {
   weight: Weight;
   textColor: string;
   isRequired?: boolean;
-  className?: string;
 }
 
-function Label({ children, weight, hierarchy, textColor, isRequired, className }: LabelProps) {
+function Label({ children, weight, hierarchy, textColor, isRequired }: LabelProps) {
   const typo = labelStyle.weight[weight].hierarchy[hierarchy].typo;
 
   return (
-    <div className={`${typo} ${className ?? ''} gap-5xs flex`}>
-      <span className={`${textColor} ${className ?? ''} cursor-default whitespace-nowrap`}>
-        {children}
-      </span>
-      {isRequired && <span className='text-feedback-notification-dark'>*</span>}
+    <div
+      className={`${typo} ${textColor} ${isRequired ? "after:text-feedback-notification-dark after:ml-(--gap-5xs) after:content-['*']" : ''} whitespace-nowrap`}
+    >
+      {children}
     </div>
   );
 }
