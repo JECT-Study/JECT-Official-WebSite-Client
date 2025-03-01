@@ -24,7 +24,7 @@ export const Card = ({
   ...restProps
 }: CardProps) => {
   const cardClass = clsx(
-    'peer radius-md stroke-normal border-border-assistive-dark box-border border flex w-full h-[21.25rem] flex-col overflow-hidden',
+    'transition-normal-fluent-hover transition-normal-fluent-focus interaction-default-subtle border border-border-assistive-dark radius-md overflow-hidden box-border flex w-full h-[21.25rem] flex-col',
     disabled
       ? 'bg-surface-deep-dark pointer-events-none cursor-not-allowed'
       : 'bg-surface-embossed-dark pointer-events-auto cursor-pointer',
