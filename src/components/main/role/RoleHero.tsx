@@ -40,7 +40,7 @@ interface HeroProps {
   variant: HeroVariant;
 }
 
-export const Hero = ({ title, labels = [], children, variant }: HeroProps) => {
+export const RoleHero = ({ title, labels = [], children, variant }: HeroProps) => {
   const displayedLabels = labels.slice(0, 5);
   const { icon: heroIcon, style } = heroMap[variant];
 
@@ -68,9 +68,9 @@ export const Hero = ({ title, labels = [], children, variant }: HeroProps) => {
         </div>
         <span className='body-lg text-object-normal-dark'>{children}</span>
       </div>
-      <img src={heroIcon} alt='Hero Icon' className='h-24 w-24 object-contain' />
+      <img src={heroIcon} alt='RoleHero Icon' className='h-24 w-24 object-contain' />
     </div>
   );
 };
 
-export default Hero;
+export default RoleHero;
