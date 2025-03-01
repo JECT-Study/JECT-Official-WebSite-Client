@@ -47,7 +47,7 @@ interface BadgeProps {
   variant: BadgeVariant;
 }
 
-export const Badge = ({ variant }: BadgeProps) => {
+export const RoleBadge = ({ variant }: BadgeProps) => {
   const { text, icon, style } = variantMap[variant];
 
   return (
@@ -60,4 +60,4 @@ export const Badge = ({ variant }: BadgeProps) => {
   );
 };
 
-export default Badge;
+export default RoleBadge;

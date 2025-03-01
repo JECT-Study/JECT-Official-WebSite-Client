@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Badge from './Badge';
+import RoleBadge from './RoleBadge';
 
-const meta: Meta<typeof Badge> = {
-  title: 'Components/Role/Badge',
-  component: Badge,
+const meta: Meta<typeof RoleBadge> = {
+  title: 'Components/Role/RoleBadge',
+  component: RoleBadge,
   argTypes: {
     variant: {
       control: 'select',
@@ -19,7 +19,7 @@ const meta: Meta<typeof Badge> = {
 
 export default meta;
 
-type Story = StoryObj<typeof Badge>;
+type Story = StoryObj<typeof RoleBadge>;
 
 export const DefaultStory: Story = {
   name: 'Default',
@@ -28,24 +28,24 @@ export const DefaultStory: Story = {
   },
 };
 
-export const BadgeStory: Story = {
-  name: 'Badge',
+export const RoleBadgeStory: Story = {
+  name: 'RoleBadge',
   render: () => (
     <div className='story-container'>
       <div className='story-inner-container'>
-        <Badge variant='fe' />
+        <RoleBadge variant='fe' />
       </div>
       <div className='story-inner-container'>
-        <Badge variant='be' />
+        <RoleBadge variant='be' />
       </div>
       <div className='story-inner-container'>
-        <Badge variant='do' />
+        <RoleBadge variant='do' />
       </div>
       <div className='story-inner-container'>
-        <Badge variant='pm' />
+        <RoleBadge variant='pm' />
       </div>
       <div className='story-inner-container'>
-        <Badge variant='pd' />
+        <RoleBadge variant='pd' />
       </div>
     </div>
   ),
