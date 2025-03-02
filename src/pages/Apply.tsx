@@ -17,7 +17,7 @@ function Apply() {
   const currentDate = new Date();
 
   return (
-    <div className='bg-surface-standard-dark gap-12xl flex min-h-dvh flex-col items-center py-(--gap-12xl)'>
+    <div className='gap-12xl flex flex-col items-center py-(--gap-12xl)'>
       <section className='gap-8xl flex w-[45rem] flex-col items-center justify-center'>
         <Title hierarchy='strong'>{APPLY_PROCESS}</Title>
         <div className='bg-surface-tinted-dark radius-md border-border-trans-assistive-dark flex flex-col items-stretch border p-(--gap-2xl)'>
