@@ -51,7 +51,6 @@ export const Card = ({
             hierarchy='stronger'
             weight='normal'
             textColor={disabled ? 'text-object-disabled-dark' : 'text-object-normal-dark'}
-            className='w-full truncate'
           >
             {label}
           </Label>
