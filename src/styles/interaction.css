@@ -6,7 +6,7 @@
     transition-timing-function: var(--motion-fluent);
   }
 
-  .transition-faster-fluent-focus:focus::before {
+  .transition-faster-fluent-focus:focus-visible::before {
     transition-duration: var(--duration-faster);
     transition-timing-function: var(--motion-fluent);
   }
@@ -16,7 +16,7 @@
     transition-timing-function: var(--motion-fluent);
   }
 
-  .transition-normal-fluent-focus:focus::before {
+  .transition-normal-fluent-focus:focus-visible::before {
     transition-duration: var(--duration-normal);
     transition-timing-function: var(--motion-fluent);
   }
