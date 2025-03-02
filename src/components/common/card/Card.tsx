@@ -1,24 +1,18 @@
-import { ReactNode } from 'react';
+import clsx from 'clsx';
+import { ComponentPropsWithoutRef, ReactNode } from 'react';
+import { Link } from 'react-router-dom';
 
 import Label from '@/components/common/label/Label';
 import Title from '@/components/common/title/Title';
 
-interface CardProps {
+interface CardProps extends ComponentPropsWithoutRef<typeof Link> {
   title: string;
   label: string;
   children: ReactNode;
   imgUrl: string;
   isDescriptionVisible?: boolean;
+  disabled?: boolean;
 }
-
-const IMG_CLASS_DEFAULT =
-  'border-border-assistive-dark h-[12.0625rem] w-full border-b object-cover';
-const IMG_CLASS_EXPANDED = 'border-border-assistive-dark w-full flex-1 border-b object-cover';
-
-const CONTAINER_CLASS_VISIBLE =
-  'gap-3xs flex flex-col items-start flex-1  px-(--gap-md) py-(--gap-xs)';
-const CONTAINER_CLASS_HIDDEN =
-  'gap-3xs flex flex-col items-start flex-1  px-(--gap-md) pt-(--gap-xs) pb-(--gap-lg)';
 
 export const Card = ({
   title,
@@ -26,26 +20,52 @@ export const Card = ({
   children,
   imgUrl,
   isDescriptionVisible = true,
+  disabled = false,
+  ...restProps
 }: CardProps) => {
-  const imgClass = isDescriptionVisible ? IMG_CLASS_DEFAULT : IMG_CLASS_EXPANDED;
-  const containerClass = isDescriptionVisible ? CONTAINER_CLASS_VISIBLE : CONTAINER_CLASS_HIDDEN;
+  const cardClass = clsx(
+    'transition-normal-fluent-hover transition-normal-fluent-focus interaction-default-subtle border border-border-assistive-dark radius-md overflow-hidden box-border flex w-full h-[21.25rem] flex-col',
+    disabled
+      ? 'bg-surface-deep-dark pointer-events-none cursor-not-allowed'
+      : 'bg-surface-embossed-dark pointer-events-auto cursor-pointer',
+  );
+  const imageContainerClass = clsx(
+    'flex w-full overflow-hidden border-border-assistive-dark border-b',
+    isDescriptionVisible ? 'h-[11.6875rem]' : 'h-[15.5625rem]',
+  );
 
   return (
-    <div className='radius-md stroke-normal border-border-assistive-dark bg-surface-embossed-dark box-border flex h-[21.25rem] w-[17.5rem] flex-col items-stretch overflow-hidden border'>
-      <img src={imgUrl} alt='카드 이미지' className={imgClass} />
-      <div className={containerClass}>
-        <div className='gap-4xs flex flex-col items-start'>
-          <Title hierarchy='weak'>{title}</Title>
-          <Label hierarchy='stronger' weight='normal' textColor='text-object-normal-dark'>
+    <Link className={cardClass} {...restProps}>
+      <div className={imageContainerClass}>
+        <img src={imgUrl} alt='카드 이미지' className='block h-full w-full object-cover' />
+      </div>
+      <div className='gap-3xs flex w-full flex-col px-(--gap-md) pt-(--gap-xs) pb-(--gap-lg)'>
+        <div className='gap-4xs flex flex-col items-start *:w-full *:truncate'>
+          <Title
+            hierarchy='weak'
+            textColor={disabled ? 'text-object-disabled-dark' : 'text-object-hero-dark'}
+          >
+            {title}
+          </Title>
+          <Label
+            hierarchy='stronger'
+            weight='normal'
+            textColor={disabled ? 'text-object-disabled-dark' : 'text-object-normal-dark'}
+          >
             {label}
           </Label>
         </div>
         {isDescriptionVisible && (
-          <div className='body-lg text-object-neutral-dark min-h-[3rem] flex-[1_0_0]'>
+          <span
+            className={clsx(
+              'body-lg line-clamp-2 h-[3.375rem] w-full text-left break-words whitespace-normal',
+              disabled ? 'text-object-disabled-dark' : 'text-object-neutral-dark',
+            )}
+          >
             {children}
-          </div>
+          </span>
         )}
       </div>
-    </div>
+    </Link>
   );
 };

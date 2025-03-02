@@ -1,8 +1,23 @@
 @import 'tailwindcss';
 
 @layer utilities {
-  .transition-faster-fluent:hover::before {
+  .transition-faster-fluent-hover:hover::before {
     transition-duration: var(--duration-faster);
+    transition-timing-function: var(--motion-fluent);
+  }
+
+  .transition-faster-fluent-focus:focus-visible::before {
+    transition-duration: var(--duration-faster);
+    transition-timing-function: var(--motion-fluent);
+  }
+
+  .transition-normal-fluent-hover:hover::before {
+    transition-duration: var(--duration-normal);
+    transition-timing-function: var(--motion-fluent);
+  }
+
+  .transition-normal-fluent-focus:focus-visible::before {
+    transition-duration: var(--duration-normal);
     transition-timing-function: var(--motion-fluent);
   }
 
