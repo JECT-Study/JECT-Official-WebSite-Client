@@ -44,7 +44,7 @@ export const RoleHero = ({ title, labels = [], children, variant }: HeroProps) =
 
   return (
     <div className='radius-sm gap-6xl relative flex items-center pt-(--gap-3xl) pr-(--gap-3xl) pb-(--gap-3xl) pl-(--gap-6xl)'>
-      <div className={`${style} radius-sm absolute inset-0 z-0 opacity-[var(--opacity-35,0.35)]`} />
+      <div className={`${style} radius-sm absolute inset-0 z-0 opacity-35`} />
       <div className='gap-xl relative z-10 flex min-h-[12.1875rem] shrink-0 grow basis-0 flex-col items-start'>
         <div className='gap-sm self-strectch flex flex-col items-start'>
           <span className='text-object-hero-dark title-03'>{title}</span>
