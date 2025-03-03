@@ -1,7 +1,6 @@
 import clsx from 'clsx';
 import { forwardRef, ComponentPropsWithoutRef, ReactNode } from 'react';
 
-import Interaction from '@/components/common/interaction/Interaction';
 import {
   blockButtonStyle,
   Size,
@@ -24,9 +23,15 @@ export const BlockButton = forwardRef<HTMLButtonElement, BlockButtonProps>(
     { children, leftIcon, rightIcon, size, style, hierarchy, className, disabled, ...props },
     ref,
   ) => {
-    const baseClasses = 'peer inline-flex flex-row justify-center items-center gap-4xs';
+    const { variant, density, isInversed } = blockButtonInteractionMap[style][hierarchy];
+
+    const interaction = `interaction-${variant}-${density}${isInversed ? '-inverse' : ''}`;
+
+    const baseClasses =
+      'inline-flex flex-row justify-center items-center gap-4xs transition-faster-fluent';
 
     const combinedClasses = clsx(
+      interaction,
       baseClasses,
       blockButtonStyle.size[size],
       disabled
@@ -39,25 +44,12 @@ export const BlockButton = forwardRef<HTMLButtonElement, BlockButtonProps>(
       },
     );
 
-    const {
-      variant: interactionVariant,
-      density: interactionDensity,
-      isInversed: isInteractionInversed,
-    } = blockButtonInteractionMap[style][hierarchy];
-
     return (
-      <Interaction
-        variant={interactionVariant}
-        density={interactionDensity}
-        isInversed={isInteractionInversed}
-        className='peer-hover:duration-faster peer-hover:ease-(--motion-fluent)'
-      >
-        <button ref={ref} className={combinedClasses} disabled={!!disabled} {...props}>
-          {leftIcon && leftIcon}
-          {children}
-          {rightIcon && rightIcon}
-        </button>
-      </Interaction>
+      <button ref={ref} className={combinedClasses} disabled={!!disabled} {...props}>
+        {leftIcon && leftIcon}
+        {children}
+        {rightIcon && rightIcon}
+      </button>
     );
   },
 );

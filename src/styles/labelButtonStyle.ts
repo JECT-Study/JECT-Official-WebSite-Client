@@ -1,4 +1,4 @@
-import { Density, Variant } from '@/styles/interactionStyle.ts';
+import { Density, Variant } from '@/types/interaction';
 
 export type Size = 'xs' | 'sm' | 'md' | 'lg';
 export type Hierarchy = 'accent' | 'primary' | 'secondary' | 'tertiary';
