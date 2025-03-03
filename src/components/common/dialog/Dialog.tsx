@@ -34,15 +34,9 @@ function Dialog({
             <p className='body-lg text-object-normal-dark'>{children}</p>
           </div>
           <div
-            className={`gap-xs i flex ${btnLayout === 'vertical' ? 'flex-col' : '*:first:order-2 *:last:order-1'}`}
+            className={`gap-xs i *: flex *:flex-1 ${btnLayout === 'vertical' ? 'flex-col' : '*:first:order-2 *:last:order-1'}`}
           >
-            <BlockButton
-              onClick={onPrimaryBtnClick}
-              size='md'
-              hierarchy='accent'
-              style='solid'
-              className={btnLayout === 'vertical' ? 'w-[22rem]' : 'w-[10.625rem]'}
-            >
+            <BlockButton onClick={onPrimaryBtnClick} size='md' hierarchy='accent' style='solid'>
               {primaryBtnLabel}
             </BlockButton>
             <BlockButton
@@ -50,7 +44,6 @@ function Dialog({
               size='md'
               hierarchy='secondary'
               style='solid'
-              className={btnLayout === 'vertical' ? 'w-[22rem]' : 'w-[10.625rem]'}
             >
               {secondaryBtnLabel}
             </BlockButton>
