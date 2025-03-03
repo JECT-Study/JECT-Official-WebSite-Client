@@ -19,7 +19,7 @@ const meta: Meta<typeof Dialog> = {
     },
   },
   argTypes: {
-    type: {
+    btnLayout: {
       control: 'radio',
       options: ['vertical', 'horizontal'],
       description: '다이얼로그 버튼 배치 방향 (세로: vertical, 가로: horizontal)',
@@ -32,19 +32,19 @@ const meta: Meta<typeof Dialog> = {
       control: 'text',
       description: '다이얼로그 내부의 내용',
     },
-    btnLabel1: {
+    primaryBtnLabel: {
       control: 'text',
       description: '첫 번째 버튼의 텍스트',
     },
-    btnLabel2: {
+    secondaryBtnLabel: {
       control: 'text',
       description: '두 번째 버튼의 텍스트',
     },
-    clickBtn1: {
+    onPrimaryBtnClick: {
       action: '버튼 1 클릭',
       description: '첫 번째 버튼 클릭 시 실행되는 함수',
     },
-    clickBtn2: {
+    onSecondaryBtnClick: {
       action: '버튼 2 클릭',
       description: '두 번째 버튼 클릭 시 실행되는 함수',
     },
@@ -61,10 +61,10 @@ type Story = StoryObj<typeof Dialog>;
 
 export const DialogStory: Story = {
   args: {
-    type: 'vertical',
+    btnLayout: 'vertical',
     title: '다이얼로그 타이틀',
-    btnLabel1: '닫기',
-    btnLabel2: '확인',
+    primaryBtnLabel: '확인',
+    secondaryBtnLabel: '닫기',
     children: '다이얼로그 내용',
     isOpen: false,
   },
@@ -83,8 +83,8 @@ export const DialogStory: Story = {
         <Dialog
           {...args}
           isOpen={isOpen}
-          clickBtn1={() => updateArgs({ isOpen: false })}
-          clickBtn2={action('버튼 2 클릭')}
+          onPrimaryBtnClick={action('버튼 2 클릭')}
+          onSecondaryBtnClick={() => updateArgs({ isOpen: false })}
         />
       </>
     );
@@ -100,13 +100,13 @@ export const DialogWithUseDialogHook = () => {
         임시버튼
       </BlockButton>
       <Dialog
-        type='horizontal'
+        btnLayout='horizontal'
         title='다이얼로그 타이틀'
-        btnLabel1='닫기'
-        btnLabel2='레이블'
+        primaryBtnLabel='primaryBtn 레이블'
+        secondaryBtnLabel='닫기'
         isOpen={isOpen}
-        clickBtn1={closeDialog}
-        clickBtn2={action('클릭')}
+        onPrimaryBtnClick={action('클릭')}
+        onSecondaryBtnClick={closeDialog}
       >
         useDialog 사용 예시
       </Dialog>

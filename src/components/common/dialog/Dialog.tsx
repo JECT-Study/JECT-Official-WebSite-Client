@@ -4,34 +4,26 @@ import { createPortal } from 'react-dom';
 import BlockButton from '@/components/common/button/BlockButton';
 
 export interface DialogProps {
-  type: 'vertical' | 'horizontal';
+  btnLayout: 'vertical' | 'horizontal';
   title: string;
   children: ReactNode;
-  btnLabel1: string;
-  btnLabel2: string;
+  primaryBtnLabel: string;
+  secondaryBtnLabel: string;
   isOpen: boolean;
-  clickBtn1: () => void;
-  clickBtn2: () => void;
+  onPrimaryBtnClick: () => void;
+  onSecondaryBtnClick: () => void;
 }
 
 function Dialog({
-  type,
+  btnLayout,
   title,
   children,
-  btnLabel1,
-  btnLabel2,
+  primaryBtnLabel,
+  secondaryBtnLabel,
   isOpen,
-  clickBtn1,
-  clickBtn2,
+  onPrimaryBtnClick,
+  onSecondaryBtnClick,
 }: DialogProps) {
-  const handleClickBtn1 = () => {
-    clickBtn1();
-  };
-
-  const handleClickBtn2 = () => {
-    clickBtn2();
-  };
-
   return (
     isOpen &&
     createPortal(
@@ -41,24 +33,26 @@ function Dialog({
             <p className='title-01 text-object-hero-dark'>{title}</p>
             <p className='body-lg text-object-normal-dark'>{children}</p>
           </div>
-          <div className={`gap-xs i flex ${type === 'vertical' ? 'flex-col' : ''}`}>
+          <div
+            className={`gap-xs i flex ${btnLayout === 'vertical' ? 'flex-col' : '*:first:order-2 *:last:order-1'}`}
+          >
             <BlockButton
-              onClick={handleClickBtn1}
-              size='md'
-              hierarchy='secondary'
-              style='solid'
-              className={type === 'vertical' ? 'w-[22rem]' : 'w-[10.625rem]'}
-            >
-              {btnLabel1}
-            </BlockButton>
-            <BlockButton
-              onClick={handleClickBtn2}
+              onClick={onPrimaryBtnClick}
               size='md'
               hierarchy='accent'
               style='solid'
-              className={type === 'vertical' ? 'w-[22rem]' : 'w-[10.625rem]'}
+              className={btnLayout === 'vertical' ? 'w-[22rem]' : 'w-[10.625rem]'}
             >
-              {btnLabel2}
+              {primaryBtnLabel}
+            </BlockButton>
+            <BlockButton
+              onClick={onSecondaryBtnClick}
+              size='md'
+              hierarchy='secondary'
+              style='solid'
+              className={btnLayout === 'vertical' ? 'w-[22rem]' : 'w-[10.625rem]'}
+            >
+              {secondaryBtnLabel}
             </BlockButton>
           </div>
         </div>
