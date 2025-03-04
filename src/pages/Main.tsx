@@ -9,7 +9,7 @@ import RoleHero from '@/components/main/role/RoleHero';
 const sectionClassName =
   'flex h-[60.3125rem] py-(--gap-7xl) px-(--gap-4xl) flex-col justify-center items-center gap-7xl w-full';
 
-const frameClassName = 'gap-7xl flex w-full max-w-[45rem] flex-col items-center';
+const wrapperClassName = 'gap-7xl flex w-full max-w-[45rem] flex-col items-center';
 
 const Main = () => {
   return (
@@ -18,7 +18,7 @@ const Main = () => {
         <AnimatedSection />
       </section>
       <section className={sectionClassName}>
-        <div className={frameClassName}>
+        <div className={wrapperClassName}>
           <div className='gap-3xl flex flex-col items-center self-stretch'>
             <Title hierarchy='stronger'>몰입하며 진행하는 즐거운 프로젝트.</Title>
             <div className='gap-2xs flex flex-col items-center'>
@@ -39,7 +39,7 @@ const Main = () => {
         </div>
       </section>
       <section className={sectionClassName}>
-        <div className={frameClassName}>
+        <div className={wrapperClassName}>
           <Title hierarchy='stronger'>젝트 활동 타임라인</Title>
           <div className='gap-4xl flex w-full flex-col items-start'>
             <HeroIndex index={1} title='팀 빌딩' badgeText='온라인'>
@@ -58,7 +58,7 @@ const Main = () => {
         </div>
       </section>
       <section className={sectionClassName}>
-        <div className={frameClassName}>
+        <div className={wrapperClassName}>
           <Title hierarchy='stronger'>참여하는 포지션</Title>
           <div className='flex flex-col items-start'>
             <Tab>
@@ -119,7 +119,7 @@ const Main = () => {
         </div>
       </section>
       <section className={sectionClassName}>
-        <div className={frameClassName}>
+        <div className={wrapperClassName}>
           <Title hierarchy='stronger'>젝트가 지향하는 것</Title>
           <div className='gap-4xl flex flex-wrap content-start items-start'>
             <Hero title='적극적인 참여' badgeText=''>
