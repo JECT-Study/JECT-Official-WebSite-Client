@@ -45,30 +45,18 @@ const Main = () => {
         <div className={frameClassName}>
           <Title hierarchy='stronger'>젝트 활동 타임라인</Title>
           <div className='gap-4xl flex w-full flex-col items-start'>
-            <HeroIndex
-              index={1}
-              title='팀 빌딩'
-              badgeText='온라인'
-              children='젝트 여정의 시작이에요. 프로젝트 진행을 함께할 팀메이트를 탐색해 보세요!'
-            />
-            <HeroIndex
-              index={2}
-              title='MVP 발표'
-              badgeText='온라인'
-              children='서비스의 청사진을 발표해요. 아이디에이션 과정을 모든 팀들과 공유합니다.'
-            />
-            <HeroIndex
-              index={3}
-              title='1차 데모데이'
-              badgeText='온라인'
-              children='발표했던 MVP 모델의 달성, 그리고 서비스 배포를 목표로 해요.'
-            />
-            <HeroIndex
-              index={4}
-              title='2차 데모데이'
-              badgeText='오프라인'
-              children='서비스를 함께 시연해 보고, 피드백을 통해 개선 가능성을 탐색합니다.'
-            />
+            <HeroIndex index={1} title='팀 빌딩' badgeText='온라인'>
+              젝트 여정의 시작이에요. 프로젝트 진행을 함께할 팀메이트를 탐색해 보세요!
+            </HeroIndex>
+            <HeroIndex index={2} title='MVP 발표' badgeText='온라인'>
+              서비스의 청사진을 발표해요. 아이디에이션 과정을 모든 팀들과 공유합니다.
+            </HeroIndex>
+            <HeroIndex index={3} title='1차 데모데이' badgeText='온라인'>
+              발표했던 MVP 모델의 달성, 그리고 서비스 배포를 목표로 해요.
+            </HeroIndex>
+            <HeroIndex index={4} title='2차 데모데이' badgeText='오프라인'>
+              서비스를 함께 시연해 보고, 피드백을 통해 개선 가능성을 탐색합니다.
+            </HeroIndex>
           </div>
         </div>
       </section>
