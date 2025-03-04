@@ -15,7 +15,7 @@ const meta: Meta<typeof InputFile> = {
   },
   argTypes: {
     fileList: {
-      description: `사용자가 업로드하는 파일의 배열입니다.<br/> 한 번의 파일 선택기를 통해 선택된 FileList 타입이 아닌 여러번 파일 선택기를 열어서 쌓인 파일들입니다.`,
+      description: `사용자가 업로드한 파일의 배열입니다. <br/> 이때 배열의 file 요소들은 File 타입의 객체이거나 CDN URL 입니다.`,
     },
     deleteFile: {
       description: '사용자가 File 컴포넌트의 X 버튼 클릭 시 호출되는 함수입니다. ',
