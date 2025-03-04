@@ -18,15 +18,11 @@ function File({ id, file, onDelete, isDisabled = false }: FileProps) {
   const openFile = () => {
     if (isDisabled || !file) return;
 
-    let fileURL = '';
-
-    if (typeof file === 'object') {
-      fileURL = URL.createObjectURL(file);
-    } else {
-      fileURL = file;
-    }
-
-    const newWindow = window.open(fileURL, '_blank', 'noopener,noreferrer');
+    const newWindow = window.open(
+      typeof file === 'object' ? URL.createObjectURL(file) : file,
+      '_blank',
+      'noopener,noreferrer',
+    );
     if (newWindow) newWindow.opener = null;
   };
 
