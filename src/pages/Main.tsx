@@ -1,13 +1,10 @@
-import React from 'react';
-
-import CalloutNumerical from '@/components/common/callout/CalloutNumerical.tsx';
-import Hero from '@/components/common/callout/Hero.tsx';
-import HeroIndex from '@/components/common/callout/HeroIndex.tsx';
-import { Tab, TabHeader, TabItem, TabPanel } from '@/components/common/tab/Tab.tsx';
-import Title from '@/components/common/title/Title.tsx';
-import AnimatedSection from '@/components/main/animatedSection/AnimatedSection.tsx';
-import RoleBadge from '@/components/main/role/RoleBadge.tsx';
-import RoleHero from '@/components/main/role/RoleHero.tsx';
+import CalloutNumerical from '@/components/common/callout/CalloutNumerical';
+import Hero from '@/components/common/callout/Hero';
+import HeroIndex from '@/components/common/callout/HeroIndex';
+import { Tab, TabHeader, TabItem, TabPanel } from '@/components/common/tab/Tab';
+import Title from '@/components/common/title/Title';
+import AnimatedSection from '@/components/main/animatedSection/AnimatedSection';
+import RoleHero from '@/components/main/role/RoleHero';
 
 const sectionClassName =
   'flex h-[60.3125rem] py-(--gap-7xl) px-(--gap-4xl) flex-col justify-center items-center gap-7xl w-full';
