@@ -25,6 +25,7 @@ function File({ id, file, onDelete, isDisabled = false }: FileProps) {
       '_blank',
       'noopener,noreferrer',
     );
+
     if (newWindow) newWindow.opener = null;
   };
 
@@ -56,7 +57,6 @@ function File({ id, file, onDelete, isDisabled = false }: FileProps) {
           hierarchy='secondary'
           onClick={deleteHandler}
           leftIcon={<Icon name='clear' size='md' fillColor='fill-object-neutral-dark' />}
-          className='z-40'
         />
       )}
     </button>
