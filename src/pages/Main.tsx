@@ -20,28 +20,31 @@ const Main = () => {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
-    const sections = document.querySelectorAll('section');
-    sections.forEach((section, index) => {
-      if (index === sections.length - 1) return;
+    const context = gsap.context(() => {
+      const sections = document.querySelectorAll('section');
+      sections.forEach((section, index) => {
+        if (index === sections.length - 1) return;
 
-      let isTriggered = false;
-
-      ScrollTrigger.create({
-        trigger: section,
-        start: 'top top',
-        end: 'bottom top',
-        onUpdate: self => {
-          if (self.progress >= 0.6 && self.direction > 0 && !isTriggered) {
-            isTriggered = true;
-            gsap.to(window, {
-              scrollTo: section.nextElementSibling,
-              duration: 1,
-              ease: 'power2.inOut',
-            });
-          }
-        },
+        let isTriggered = false;
+        ScrollTrigger.create({
+          trigger: section,
+          start: 'top top',
+          end: 'bottom top',
+          onUpdate: self => {
+            if (self.progress >= 0.6 && self.direction > 0 && !isTriggered) {
+              isTriggered = true;
+              gsap.to(window, {
+                scrollTo: section.nextElementSibling,
+                duration: 1,
+                ease: 'power2.inOut',
+              });
+            }
+          },
+        });
       });
     });
+
+    return () => context.revert();
   }, []);
 
   return (
