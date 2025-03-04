@@ -5,7 +5,7 @@ import Title from '@/components/common/title/Title';
 
 export interface HeroProps {
   title: string;
-  badgeText: string;
+  badgeText?: string;
   children: ReactNode;
 }
 
@@ -14,9 +14,11 @@ function Hero({ title, badgeText, children }: HeroProps) {
     <div className='gap-xl radius-xs border-border-assistive-dark bg-surface-deep-dark flex flex-col border px-(--gap-3xl) py-(--gap-2xl)'>
       <div className='gap-sm flex'>
         <Title hierarchy='normal'>{title}</Title>
-        <Badge backgroundColor='bg-fill-assistive-dark' textColor='text-object-normal-dark'>
-          {badgeText}
-        </Badge>
+        {badgeText && (
+          <Badge backgroundColor='bg-fill-assistive-dark' textColor='text-object-normal-dark'>
+            {badgeText}
+          </Badge>
+        )}
       </div>
       <p className='text-object-normal-dark body-lg'>{children}</p>
     </div>
