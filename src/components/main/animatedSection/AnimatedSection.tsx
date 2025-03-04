@@ -4,10 +4,6 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import RoleBadge from '@/components/main/role/RoleBadge';
 import { RoleVariant } from '@/types/role';
 
-interface TypingTween extends gsap.core.Tween<{ char: number }> {
-  targets(): Array<{ char: number }>;
-}
-
 const initialBackground =
   'bg-[radial-gradient(75.39%_50%_at_50%_50%,var(--tw-gradient-stops))] from-accent-normal-dark to-surface-standard-dark';
 
@@ -43,9 +39,6 @@ const AnimatedSection = () => {
     [],
   );
 
-  const topFullText = topTextStates[topTextStates.length - 1];
-  const bottomFullText = bottomTextStates[bottomTextStates.length - 1];
-
   const [roleVariant, setRoleVariant] = useState<RoleVariant>('fe');
   const [isInitial, setIsInitial] = useState(true);
 
@@ -57,20 +50,19 @@ const AnimatedSection = () => {
   useEffect(() => {
     const tl = gsap.timeline();
 
-    tl.to(
-      { char: 0 },
-      {
-        duration: topFullText.length * 0.15,
-        char: topFullText.length,
-        ease: 'none',
-        onUpdate: function (this: TypingTween) {
-          if (topTextRef.current) {
-            const current = Math.floor(this.targets()[0].char);
-            topTextRef.current.textContent = topFullText.substring(0, current);
-          }
-        },
+    // 로컬 상태 객체를 tween 대상로 사용 (상단 텍스트)
+    const topState = { index: 0 };
+    tl.to(topState, {
+      duration: (topTextStates.length - 1) * 0.15,
+      index: topTextStates.length - 1,
+      ease: `steps(${topTextStates.length - 1})`,
+      onUpdate: () => {
+        const current = Math.floor(topState.index);
+        if (topTextRef.current) {
+          topTextRef.current.textContent = topTextStates[current];
+        }
       },
-    );
+    });
     tl.to({}, { duration: 0.5 });
 
     tl.call(() => {
@@ -93,6 +85,7 @@ const AnimatedSection = () => {
         });
       }
     });
+
     tl.to(badgeRef.current, {
       y: 0,
       opacity: 1,
@@ -128,20 +121,18 @@ const AnimatedSection = () => {
       }
     });
 
-    tl.to(
-      { char: 0 },
-      {
-        duration: bottomFullText.length * 0.15,
-        char: bottomFullText.length,
-        ease: 'none',
-        onUpdate: function (this: TypingTween) {
-          if (bottomTextRef.current) {
-            const current = Math.floor(this.targets()[0].char);
-            bottomTextRef.current.textContent = bottomFullText.substring(0, current);
-          }
-        },
+    const bottomState = { index: 0 };
+    tl.to(bottomState, {
+      duration: (bottomTextStates.length - 1) * 0.15,
+      index: bottomTextStates.length - 1,
+      ease: `steps(${bottomTextStates.length - 1})`,
+      onUpdate: () => {
+        const current = Math.floor(bottomState.index);
+        if (bottomTextRef.current) {
+          bottomTextRef.current.textContent = bottomTextStates[current];
+        }
       },
-    );
+    });
     tl.to({}, { duration: 0.5 });
 
     tl.to(badgeRef.current, { scale: 0, duration: 0.3, ease: 'power1.in' });
@@ -159,7 +150,7 @@ const AnimatedSection = () => {
         .to(badgeRef.current, { scale: 1, duration: 0.8 })
         .to(badgeRef.current, { scale: 0, duration: 0.3, ease: 'power1.in' });
     });
-  }, [topFullText, bottomFullText]);
+  }, [topTextStates, bottomTextStates]);
 
   return (
     <div className='relative flex h-full w-full items-center justify-center'>
