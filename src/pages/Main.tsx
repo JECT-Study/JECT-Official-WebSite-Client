@@ -1,7 +1,12 @@
+import React from 'react';
+
 import CalloutNumerical from '@/components/common/callout/CalloutNumerical.tsx';
 import HeroIndex from '@/components/common/callout/HeroIndex.tsx';
+import { Tab, TabHeader, TabItem, TabPanel } from '@/components/common/tab/Tab.tsx';
 import Title from '@/components/common/title/Title.tsx';
 import AnimatedSection from '@/components/main/animatedSection/AnimatedSection.tsx';
+import RoleBadge from '@/components/main/role/RoleBadge.tsx';
+import RoleHero from '@/components/main/role/RoleHero.tsx';
 
 const sectionClassName =
   'flex h-[60.3125rem] py-(--gap-7xl) px-(--gap-4xl) flex-col justify-center items-center gap-7xl w-full';
@@ -66,7 +71,67 @@ const Main = () => {
           </div>
         </div>
       </section>
-      <section className={sectionClassName}>Section 4 content</section>
+      <section className={sectionClassName}>
+        <div className={frameClassName}>
+          <Title hierarchy='stronger'>참여하는 포지션</Title>
+          <div className='flex flex-col items-start'>
+            <Tab>
+              <div className='gap-4xl flex flex-col'>
+                <TabHeader>
+                  <TabItem id={0} label='프론트엔드 개발자' />
+                  <TabItem id={1} label='백엔드 개발자' />
+                  <TabItem id={2} label='프로젝트 매니저' />
+                  <TabItem id={3} label='프로덕트 디자이너' />
+                </TabHeader>
+                <TabPanel id={0}>
+                  <RoleHero
+                    title='프론트엔드 개발자'
+                    variant='fe'
+                    labels={['HTML/CSS/JS', 'TS', 'React.js', '상태 관리', '성능 최적화']}
+                  >
+                    긍정적인 사용자 경험을 위해 서비스에 적합한 기술을 활용하고 성능을 최적화해요.
+                    디자이너, 백엔드와 협업을 통해 데이터 흐름을 최적화해 효율적인 구조로 코드를
+                    작성해요.
+                  </RoleHero>
+                </TabPanel>
+                <TabPanel id={1}>
+                  <RoleHero
+                    title='백엔드 개발자'
+                    variant='be'
+                    labels={['HTML/CSS/JS', 'TS', 'React.js', '상태 관리', '성능 최적화']}
+                  >
+                    긍정적인 사용자 경험을 위해 서비스에 적합한 기술을 활용하고 성능을 최적화해요.
+                    디자이너, 백엔드와 협업을 통해 데이터 흐름을 최적화해 효율적인 구조로 코드를
+                    작성해요.
+                  </RoleHero>
+                </TabPanel>
+                <TabPanel id={2}>
+                  <RoleHero
+                    title='프로젝트 매니저'
+                    variant='pm'
+                    labels={['HTML/CSS/JS', 'TS', 'React.js', '상태 관리', '성능 최적화']}
+                  >
+                    긍정적인 사용자 경험을 위해 서비스에 적합한 기술을 활용하고 성능을 최적화해요.
+                    디자이너, 백엔드와 협업을 통해 데이터 흐름을 최적화해 효율적인 구조로 코드를
+                    작성해요.
+                  </RoleHero>
+                </TabPanel>
+                <TabPanel id={3}>
+                  <RoleHero
+                    title='프로덕트 디자이너'
+                    variant='pd'
+                    labels={['HTML/CSS/JS', 'TS', 'React.js', '상태 관리', '성능 최적화']}
+                  >
+                    긍정적인 사용자 경험을 위해 서비스에 적합한 기술을 활용하고 성능을 최적화해요.
+                    디자이너, 백엔드와 협업을 통해 데이터 흐름을 최적화해 효율적인 구조로 코드를
+                    작성해요.
+                  </RoleHero>
+                </TabPanel>
+              </div>
+            </Tab>
+          </div>
+        </div>
+      </section>
       <section className={sectionClassName}>Section 5 content</section>
     </div>
   );
