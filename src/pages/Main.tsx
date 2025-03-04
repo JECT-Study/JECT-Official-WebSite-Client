@@ -6,6 +6,8 @@ import AnimatedSection from '@/components/main/animatedSection/AnimatedSection.t
 const sectionClassName =
   'flex h-[60.3125rem] py-(--gap-7xl) px-(--gap-4xl) flex-col justify-center items-center gap-7xl w-full';
 
+const frameClassName = 'gap-7xl flex w-full max-w-[45rem] flex-col items-center';
+
 const Main = () => {
   return (
     <div className='flex flex-col'>
@@ -13,7 +15,7 @@ const Main = () => {
         <AnimatedSection />
       </section>
       <section className={sectionClassName}>
-        <div className='gap-7xl flex w-full max-w-[45rem] flex-col items-center'>
+        <div className={frameClassName}>
           <div className='gap-3xl flex flex-col items-center self-stretch'>
             <Title hierarchy='stronger'>몰입하며 진행하는 즐거운 프로젝트.</Title>
             <div className='gap-2xs flex flex-col items-center'>
@@ -34,7 +36,7 @@ const Main = () => {
         </div>
       </section>
       <section className={sectionClassName}>
-        <div className='gap-7xl flex w-full max-w-[45rem] flex-col items-center'>
+        <div className={frameClassName}>
           <Title hierarchy='stronger'>젝트 활동 타임라인</Title>
           <div className='gap-4xl flex w-full flex-col items-start'>
             <HeroIndex
