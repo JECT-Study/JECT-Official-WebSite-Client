@@ -1,6 +1,7 @@
 import React from 'react';
 
 import CalloutNumerical from '@/components/common/callout/CalloutNumerical.tsx';
+import Hero from '@/components/common/callout/Hero.tsx';
 import HeroIndex from '@/components/common/callout/HeroIndex.tsx';
 import { Tab, TabHeader, TabItem, TabPanel } from '@/components/common/tab/Tab.tsx';
 import Title from '@/components/common/title/Title.tsx';
@@ -48,25 +49,25 @@ const Main = () => {
               index={1}
               title='팀 빌딩'
               badgeText='온라인'
-              content='젝트 여정의 시작이에요. 프로젝트 진행을 함께할 팀메이트를 탐색해 보세요!'
+              children='젝트 여정의 시작이에요. 프로젝트 진행을 함께할 팀메이트를 탐색해 보세요!'
             />
             <HeroIndex
               index={2}
               title='MVP 발표'
               badgeText='온라인'
-              content='서비스의 청사진을 발표해요. 아이디에이션 과정을 모든 팀들과 공유합니다.'
+              children='서비스의 청사진을 발표해요. 아이디에이션 과정을 모든 팀들과 공유합니다.'
             />
             <HeroIndex
               index={3}
               title='1차 데모데이'
               badgeText='온라인'
-              content='발표했던 MVP 모델의 달성, 그리고 서비스 배포를 목표로 해요.'
+              children='발표했던 MVP 모델의 달성, 그리고 서비스 배포를 목표로 해요.'
             />
             <HeroIndex
               index={4}
               title='2차 데모데이'
               badgeText='오프라인'
-              content='서비스를 함께 시연해 보고, 피드백을 통해 개선 가능성을 탐색합니다.'
+              children='서비스를 함께 시연해 보고, 피드백을 통해 개선 가능성을 탐색합니다.'
             />
           </div>
         </div>
@@ -132,7 +133,28 @@ const Main = () => {
           </div>
         </div>
       </section>
-      <section className={sectionClassName}>Section 5 content</section>
+      <section className={sectionClassName}>
+        <div className={frameClassName}>
+          <Title hierarchy='stronger'>젝트가 지향하는 것</Title>
+          <div className='gap-4xl flex flex-wrap content-start items-start'>
+            <Hero title='적극적인 참여' badgeText=''>
+              프로젝트에 적극적인 태도와 열정으로 참여
+              <br />
+              하는 것을 지향해요.
+            </Hero>
+            <Hero title='몰입하기' badgeText=''>
+              문제 해결 과정에서 몰입을 통해 재미를 찾<br />는 것을 추구합니다.
+            </Hero>
+            <Hero title='지속가능한 개발' badgeText=''>
+              서비스 출시 완료에서 끝나지 않고, 운영까
+              <br />지 진행해 보세요.
+            </Hero>
+            <Hero title='팀워크 중시' badgeText=''>
+              함께하는 사람들과 긍정적인 협업 경험을 위<br />해 원활한 소통이 필요해요.
+            </Hero>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };
