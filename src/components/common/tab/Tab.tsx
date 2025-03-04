@@ -43,7 +43,7 @@ export const TabItem = ({ id, label }: TabItemProps) => {
   return (
     <button
       onClick={() => onTabClick(id)}
-      className={`interaction-default-subtle gap-4xs label-bold-lg inline-flex items-center justify-center px-(--gap-md) py-(--gap-3xs) text-center ${
+      className={`interaction-default-subtle gap-4xs label-bold-lg inline-flex cursor-pointer items-center justify-center px-(--gap-md) py-(--gap-3xs) text-center ${
         isActive
           ? 'text-object-hero-dark stroke-bold border-accent-normal-dark relative z-10 -mb-px'
           : 'text-object-alternative-dark'
