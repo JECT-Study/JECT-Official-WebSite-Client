@@ -13,4 +13,10 @@ export type IconNames =
   | 'northEast'
   | 'question'
   | 'upload'
-  | 'youtube';
+  | 'youtube'
+  | 'download'
+  | 'edit'
+  | 'invisible'
+  | 'minus'
+  | 'rightChevron'
+  | 'visible';
