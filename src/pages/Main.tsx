@@ -1,4 +1,5 @@
 import CalloutNumerical from '@/components/common/callout/CalloutNumerical.tsx';
+import HeroIndex from '@/components/common/callout/HeroIndex.tsx';
 import Title from '@/components/common/title/Title.tsx';
 import AnimatedSection from '@/components/main/animatedSection/AnimatedSection.tsx';
 
@@ -25,14 +26,44 @@ const Main = () => {
               </Title>
             </div>
           </div>
-          <div className='gap-4xl flex w-full content-center items-start [&>*]:flex-shrink-0 [&>*]:flex-grow [&>*]:basis-0'>
+          <div className='gap-4xl flex w-full content-center items-start'>
             <CalloutNumerical title='60' labelText='참여 동아리원 수' />
             <CalloutNumerical title='6+' labelText='개발 완료 프로젝트' />
             <CalloutNumerical title='8+' labelText='진행한 미니 스터디' />
           </div>
         </div>
       </section>
-      <section className={sectionClassName}>Section 3 content</section>
+      <section className={sectionClassName}>
+        <div className='gap-7xl flex w-full max-w-[45rem] flex-col items-center'>
+          <Title hierarchy='stronger'>젝트 활동 타임라인</Title>
+          <div className='gap-4xl flex w-full flex-col items-start'>
+            <HeroIndex
+              index={1}
+              title='팀 빌딩'
+              badgeText='온라인'
+              content='젝트 여정의 시작이에요. 프로젝트 진행을 함께할 팀메이트를 탐색해 보세요!'
+            />
+            <HeroIndex
+              index={2}
+              title='MVP 발표'
+              badgeText='온라인'
+              content='서비스의 청사진을 발표해요. 아이디에이션 과정을 모든 팀들과 공유합니다.'
+            />
+            <HeroIndex
+              index={3}
+              title='1차 데모데이'
+              badgeText='온라인'
+              content='발표했던 MVP 모델의 달성, 그리고 서비스 배포를 목표로 해요.'
+            />
+            <HeroIndex
+              index={4}
+              title='2차 데모데이'
+              badgeText='오프라인'
+              content='서비스를 함께 시연해 보고, 피드백을 통해 개선 가능성을 탐색합니다.'
+            />
+          </div>
+        </div>
+      </section>
       <section className={sectionClassName}>Section 4 content</section>
       <section className={sectionClassName}>Section 5 content</section>
     </div>
