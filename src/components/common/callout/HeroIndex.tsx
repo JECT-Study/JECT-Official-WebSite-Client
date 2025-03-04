@@ -7,7 +7,7 @@ interface HeroIndexProps extends HeroProps {
   index: number;
 }
 
-function HeroIndex({ index, title, badgeText, content }: HeroIndexProps) {
+function HeroIndex({ index, title, badgeText, children }: HeroIndexProps) {
   return (
     <div className='radius-xs border-border-assistive-dark bg-surface-deep-dark gap-4xl flex w-full items-center border px-(--gap-3xl) py-(--gap-2xl)'>
       <div className='min-w-[33px] text-center'>
@@ -20,7 +20,7 @@ function HeroIndex({ index, title, badgeText, content }: HeroIndexProps) {
             {badgeText}
           </Badge>
         </div>
-        <p className='text-object-normal-dark body-lg'>{content}</p>
+        <p className='text-object-normal-dark body-lg'>{children}</p>
       </div>
     </div>
   );

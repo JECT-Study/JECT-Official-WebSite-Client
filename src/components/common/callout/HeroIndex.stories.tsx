@@ -16,7 +16,7 @@ const meta: Meta<typeof HeroIndex> = {
     badgeText: {
       control: 'text',
     },
-    content: {
+    children: {
       control: 'text',
     },
   },
@@ -31,6 +31,6 @@ export const Primary: Story = {
     index: 1,
     title: '히어로 타이틀',
     badgeText: '레이블',
-    content: '히어로 내용',
+    children: '히어로 내용',
   },
 };
