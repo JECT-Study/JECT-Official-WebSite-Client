@@ -8,6 +8,7 @@ export const APPLY_TITLE = {
   info: '지원 관련 안내',
   account: '지원하시는 분이 누구신가요?',
   verifyEmail: '이메일을 인증해주세요',
+  verifyPIN: '본인 확인용 PIN을 입력해주세요',
   registration: '지원하려는 직군을 선택해주세요',
   complete: '지원이 완료되었어요',
 };
