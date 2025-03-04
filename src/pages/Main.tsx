@@ -122,19 +122,19 @@ const Main = () => {
         <div className={wrapperClassName}>
           <Title hierarchy='stronger'>젝트가 지향하는 것</Title>
           <div className='gap-4xl flex flex-wrap content-start items-start'>
-            <Hero title='적극적인 참여' badgeText=''>
+            <Hero title='적극적인 참여'>
               프로젝트에 적극적인 태도와 열정으로 참여
               <br />
               하는 것을 지향해요.
             </Hero>
-            <Hero title='몰입하기' badgeText=''>
+            <Hero title='몰입하기'>
               문제 해결 과정에서 몰입을 통해 재미를 찾<br />는 것을 추구합니다.
             </Hero>
-            <Hero title='지속가능한 개발' badgeText=''>
+            <Hero title='지속가능한 개발'>
               서비스 출시 완료에서 끝나지 않고, 운영까
               <br />지 진행해 보세요.
             </Hero>
-            <Hero title='팀워크 중시' badgeText=''>
+            <Hero title='팀워크 중시'>
               함께하는 사람들과 긍정적인 협업 경험을 위<br />해 원활한 소통이 필요해요.
             </Hero>
           </div>
