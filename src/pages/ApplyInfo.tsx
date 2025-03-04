@@ -5,7 +5,7 @@ import BlockButton from '@/components/common/button/BlockButton';
 import Icon from '@/components/common/icon/Icon';
 import InputField from '@/components/common/input/InputField';
 import ProgressIndicator from '@/components/common/progress/ProgressIndicator';
-import Title from '@/components/common/Title';
+import Title from '@/components/common/title/Title';
 import { APPLY_TITLE } from '@/constants/applyPageData';
 
 // TODO: 이름 필드 요구사항 - 5글자 이내, 영어 불가

@@ -14,9 +14,10 @@ function Label({ children, weight, hierarchy, textColor, isRequired }: LabelProp
   const typo = labelStyle.weight[weight].hierarchy[hierarchy].typo;
 
   return (
-    <div className={`${typo} gap-5xs flex `}>
-      <span className={`${textColor} whitespace-nowrap cursor-default`}>{children}</span>
-      {isRequired && <span className='text-feedback-notification-dark'>*</span>}
+    <div
+      className={`${typo} ${textColor} ${isRequired ? "after:text-feedback-notification-dark after:ml-(--gap-5xs) after:content-['*']" : ''} whitespace-nowrap`}
+    >
+      {children}
     </div>
   );
 }

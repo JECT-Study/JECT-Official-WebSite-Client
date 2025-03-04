@@ -5,7 +5,7 @@ import BlockButton from '@/components/common/button/BlockButton';
 import Icon from '@/components/common/icon/Icon';
 import ProgressItem from '@/components/common/progress/ProgressItem';
 import ProgressVerticalBridge from '@/components/common/progress/ProgressVerticalBridge';
-import Title from '@/components/common/Title';
+import Title from '@/components/common/title/Title';
 import { APPLY_TITLE, applyInfoList, applyProcedureList } from '@/constants/applyPageData';
 
 function Apply() {
@@ -13,7 +13,7 @@ function Apply() {
   const currentDate = new Date();
 
   return (
-    <div className='bg-surface-standard-dark gap-12xl flex min-h-dvh flex-col items-center py-(--gap-12xl)'>
+    <div className='gap-12xl flex flex-col items-center py-(--gap-12xl)'>
       <section className='gap-8xl flex w-[45rem] flex-col items-center justify-center'>
         <Title hierarchy='strong'>{APPLY_TITLE.process}</Title>
         <div className='bg-surface-tinted-dark radius-md border-border-trans-assistive-dark flex flex-col items-stretch border p-(--gap-2xl)'>

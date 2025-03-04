@@ -6,7 +6,7 @@ import LabelButton from '@/components/common/button/LabelButton';
 import Icon from '@/components/common/icon/Icon';
 import InputField from '@/components/common/input/InputField';
 import ProgressIndicator from '@/components/common/progress/ProgressIndicator';
-import Title from '@/components/common/Title';
+import Title from '@/components/common/title/Title';
 import { APPLY_TITLE } from '@/constants/applyPageData';
 
 // TODO: 이메일 형식 예외처리

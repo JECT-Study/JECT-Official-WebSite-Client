@@ -1,12 +1,9 @@
 @import 'tailwindcss';
+@import './interaction.css';
 
 @layer base {
   html {
     font-family: 'Pretendard Variable';
-  }
-
-  button {
-    outline: none;
   }
 }
 
@@ -23,5 +20,15 @@
 
   .scroll::-webkit-scrollbar {
     display: none;
+  }
+
+  .list-disc-ject li::before {
+    content: '•';
+    margin-left: 8px;
+    margin-right: 8px;
+  }
+
+  .list-decimal li {
+    margin-left: 5px;
   }
 }

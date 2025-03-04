@@ -1,7 +1,6 @@
 import clsx from 'clsx';
 import { forwardRef, ComponentPropsWithoutRef, ReactNode } from 'react';
 
-import Interaction from '@/components/common/interaction/Interaction';
 import {
   blockButtonStyle,
   Size,
@@ -20,27 +19,37 @@ export interface BlockButtonProps extends ComponentPropsWithoutRef<'button'> {
 }
 
 export const BlockButton = forwardRef<HTMLButtonElement, BlockButtonProps>(
-  ({ children, leftIcon, rightIcon, size, style, hierarchy, className, ...props }, ref) => {
-    const baseClasses = 'inline-flex flex-row justify-center items-center gap-4xs';
+  (
+    { children, leftIcon, rightIcon, size, style, hierarchy, className, disabled, ...props },
+    ref,
+  ) => {
+    const { variant, density, isInversed } = blockButtonInteractionMap[style][hierarchy];
+
+    const interaction = `interaction-${variant}-${density}${isInversed ? '-inverse' : ''}`;
+
+    const baseClasses =
+      'inline-flex flex-row justify-center items-center gap-4xs transition-faster-fluent';
 
     const combinedClasses = clsx(
+      interaction,
       baseClasses,
       blockButtonStyle.size[size],
-      blockButtonStyle.variant[style][hierarchy],
+      disabled
+        ? blockButtonStyle.disabled?.[style][hierarchy]
+        : blockButtonStyle.variant[style][hierarchy],
       className,
+      {
+        'cursor-not-allowed pointer-events-none': disabled,
+        'cursor-pointer pointer-events-auto': !disabled,
+      },
     );
 
-    const { variant: interactionVariant, density: interactionDensity } =
-      blockButtonInteractionMap[style][hierarchy];
-
     return (
-      <Interaction variant={interactionVariant} density={interactionDensity}>
-        <button ref={ref} className={combinedClasses} {...props}>
-          {leftIcon && leftIcon}
-          {children}
-          {rightIcon && rightIcon}
-        </button>
-      </Interaction>
+      <button ref={ref} className={combinedClasses} disabled={!!disabled} {...props}>
+        {leftIcon && leftIcon}
+        {children}
+        {rightIcon && rightIcon}
+      </button>
     );
   },
 );

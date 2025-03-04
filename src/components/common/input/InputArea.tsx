@@ -1,7 +1,8 @@
 import { ChangeEvent, ComponentPropsWithoutRef, forwardRef, useState } from 'react';
 
-import Label from '../Label';
 import TextArea from './TextArea';
+
+import Label from '@/components/common/label/Label';
 
 interface InputAreaProps extends ComponentPropsWithoutRef<'textarea'> {
   labelText: string;

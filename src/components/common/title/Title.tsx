@@ -6,7 +6,7 @@ import { titleStyle } from '@/styles/titleStyle';
 interface TitleProps {
   children: ReactNode;
   hierarchy: Hierarchy;
-  textColor?: string;
+  textColor?: string | null;
 }
 
 function Title({ children, hierarchy, textColor }: TitleProps) {

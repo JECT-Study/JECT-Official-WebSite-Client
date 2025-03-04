@@ -1,5 +1,5 @@
-import Badge from '../Badge';
-import Title from '../Title';
+import Badge from '@/components/common/badge/Badge';
+import Title from '@/components/common/title/Title';
 
 export interface HeroProps {
   title: string;
