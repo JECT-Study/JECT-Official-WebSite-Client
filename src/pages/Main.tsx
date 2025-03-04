@@ -13,7 +13,7 @@ const wrapperClassName = 'gap-7xl flex w-full max-w-[45rem] flex-col items-cente
 
 const Main = () => {
   return (
-    <div className='flex flex-col'>
+    <div className='scroll flex flex-col'>
       <section className='flex h-[60.3125rem] w-full flex-col items-center justify-center py-(--gap-7xl)'>
         <AnimatedSection />
       </section>
