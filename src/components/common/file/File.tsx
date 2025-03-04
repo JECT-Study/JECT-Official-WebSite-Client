@@ -1,3 +1,5 @@
+import { MouseEvent } from 'react';
+
 import LabelButton from '@/components/common/button/LabelButton';
 import Icon from '@/components/common/icon/Icon';
 import { changeFileSizeUnit } from '@/utils/changeFileSizeUnit';
@@ -26,7 +28,7 @@ function File({ id, file, onDelete, isDisabled = false }: FileProps) {
     if (newWindow) newWindow.opener = null;
   };
 
-  const deleteHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const deleteHandler = (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     if (onDelete) onDelete(id);
   };
