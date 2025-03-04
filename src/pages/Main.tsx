@@ -1,3 +1,8 @@
+import { gsap } from 'gsap';
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useEffect } from 'react';
+
 import CalloutNumerical from '@/components/common/callout/CalloutNumerical';
 import Hero from '@/components/common/callout/Hero';
 import HeroIndex from '@/components/common/callout/HeroIndex';
@@ -12,6 +17,33 @@ const sectionClassName =
 const wrapperClassName = 'gap-7xl flex w-full max-w-[45rem] flex-col items-center';
 
 const Main = () => {
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+    const sections = document.querySelectorAll('section');
+    sections.forEach((section, index) => {
+      if (index === sections.length - 1) return;
+
+      let isTriggered = false;
+
+      ScrollTrigger.create({
+        trigger: section,
+        start: 'top top',
+        end: 'bottom top',
+        onUpdate: self => {
+          if (self.progress >= 0.6 && self.direction > 0 && !isTriggered) {
+            isTriggered = true;
+            gsap.to(window, {
+              scrollTo: section.nextElementSibling,
+              duration: 1,
+              ease: 'power2.inOut',
+            });
+          }
+        },
+      });
+    });
+  }, []);
+
   return (
     <div className='scroll flex flex-col'>
       <section className='flex h-[60.3125rem] w-full flex-col items-center justify-center py-(--gap-7xl)'>
