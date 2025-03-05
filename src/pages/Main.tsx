@@ -58,7 +58,10 @@ const Main = () => {
           <div className='gap-3xl flex flex-col items-center self-stretch'>
             <Title hierarchy='stronger'>몰입하며 진행하는 즐거운 프로젝트.</Title>
             <div className='gap-2xs flex flex-col items-center'>
-              <Title hierarchy='weak'>젝트(JECT)는 IT 사이드 프로젝트 동아리에요.</Title>
+              <Title hierarchy='weak'>
+                젝트(JECT)는 <span className='text-accent-hero-dark'>IT 사이드 프로젝트</span>{' '}
+                동아리에요.
+              </Title>
               <Title hierarchy='weak'>
                 다양한 포지션의 멤버들과 협업하는 즐거운 프로젝트를 지향하고 있어요.
               </Title>
