@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import BlockButton from '@/components/common/button/BlockButton';
 import Icon from '@/components/common/icon/Icon';
@@ -12,6 +13,7 @@ import { APPLY_TITLE } from '@/constants/applyPageData';
 // TODO: 이름, 전화번호 필수 작성 후 버튼 활성화
 
 function ApplyApplicantInfo() {
+  const navigate = useNavigate();
   const [isReady, setIsReady] = useState(false);
 
   return (
@@ -36,7 +38,6 @@ function ApplyApplicantInfo() {
           />
         </form>
         <BlockButton
-          disabled={!isReady}
           size='lg'
           style='solid'
           hierarchy='accent'
@@ -49,6 +50,8 @@ function ApplyApplicantInfo() {
               }
             />
           }
+          disabled={!isReady}
+          onClick={() => void navigate('/apply/registration')}
         >
           다음 단계로 진행하기
         </BlockButton>
