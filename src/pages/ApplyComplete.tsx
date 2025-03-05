@@ -8,7 +8,7 @@ function ApplyComplete() {
   const navigate = useNavigate();
 
   return (
-    <div className='flex flex-col items-center py-(--gap-12xl)'>
+    <div className='absolute top-1/2 left-1/2 flex -translate-1/2 flex-col'>
       <section className='gap-9xl flex w-[26.25rem] flex-col'>
         <div className='gap-4xl flex flex-col items-center'>
           <Title hierarchy='strong'>{APPLY_TITLE.complete}</Title>
