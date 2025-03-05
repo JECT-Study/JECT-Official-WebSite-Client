@@ -3,6 +3,7 @@ import { PATH } from './constants/path';
 import Layout from '@/components/layout/Layout';
 import Activity from '@/pages/Activity';
 import Apply from '@/pages/Apply';
+import ApplyComplete from '@/pages/ApplyComplete';
 import Faq from '@/pages/Faq';
 
 const routerList = [
@@ -14,6 +15,10 @@ const routerList = [
       { path: PATH.activity, element: <Activity /> },
       { path: PATH.apply, element: <Apply /> },
       { path: PATH.faq, element: <Faq /> },
+      { path: PATH.applyVerify, element: <></> },
+      { path: PATH.applicantInfo, element: <></> },
+      { path: PATH.applyRegistration, element: <></> },
+      { path: PATH.applyComplete, element: <ApplyComplete /> },
     ],
   },
 ];
