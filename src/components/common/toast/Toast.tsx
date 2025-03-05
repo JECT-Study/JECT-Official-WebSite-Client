@@ -28,7 +28,7 @@ const toastStyle: ToastStyleType = {
 };
 
 function Toast() {
-  const [isFadingOut, setIsFadingOut] = useState<boolean>(false);
+  const [isFadingOut, setIsFadingOut] = useState(false);
   const toastItem = useToastItem();
   const { removeToast } = useToastActions();
 
