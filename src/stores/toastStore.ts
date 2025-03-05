@@ -22,15 +22,16 @@ const useToastStore = create<ToastState>(set => ({
   toastItem: null,
   actions: {
     addToast: (message, type = 'normal') => {
-      set({
+      set(state => ({
         toastItem: {
+          ...state.toastItem,
           id: Date.now(),
           type: type,
           message: message,
         },
-      });
+      }));
     },
-    removeToast: () => set({ toastItem: null }),
+    removeToast: () => set(state => ({ ...state, toastItem: null })),
   },
 }));
 
