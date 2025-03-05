@@ -1,5 +1,6 @@
 @import 'tailwindcss';
 @import './interaction.css';
+@import './animation.css';
 
 @layer base {
   html {
