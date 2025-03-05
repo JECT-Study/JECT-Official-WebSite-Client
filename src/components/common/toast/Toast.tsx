@@ -7,22 +7,22 @@ import { ToastType, useToastActions, useToastItem } from '@/stores/toastStore';
 type ToastStyleType = Record<
   ToastType,
   {
-    bg: string;
+    backgroundColor: string;
     textColor: string;
   }
 >;
 
 const toastStyle: ToastStyleType = {
   normal: {
-    bg: 'bg-object-hero-dark',
+    backgroundColor: 'bg-object-hero-dark',
     textColor: 'text-object-inverse-hero-dark',
   },
   negative: {
-    bg: 'bg-feedback-negative-dark',
+    backgroundColor: 'bg-feedback-negative-dark',
     textColor: 'text-object-static-inverse-hero-dark',
   },
   positive: {
-    bg: 'bg-feedback-positive-dark',
+    backgroundColor: 'bg-feedback-positive-dark',
     textColor: 'text-object-static-inverse-hero-dark',
   },
 };
@@ -54,7 +54,7 @@ function Toast() {
   return (
     <div
       key={toastItem.id}
-      className={`${toastStyle[toastItem.type].bg} ${isFadingOut ? 'animate-toast-fade-out' : 'animate-toast-fade-in'} shadow-overlay radius-xs fixed left-1/2 -translate-x-1/2 px-(--gap-lg) py-(--gap-3xs) *:inline`}
+      className={`${toastStyle[toastItem.type].backgroundColor} ${isFadingOut ? 'animate-toast-fade-out' : 'animate-toast-fade-in'} shadow-overlay radius-xs fixed left-1/2 -translate-x-1/2 px-(--gap-lg) py-(--gap-3xs) *:inline`}
       onAnimationEnd={handleAnimationEnd}
     >
       <Label hierarchy='strong' weight='normal' textColor={toastStyle[toastItem.type].textColor}>
