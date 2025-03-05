@@ -1,12 +1,14 @@
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import BlockButton from '@/components/common/button/BlockButton';
 import Title from '@/components/common/title/Title';
 import { APPLY_TITLE } from '@/constants/applyPageData';
 
 function ApplyComplete() {
+  const navigate = useNavigate();
+
   return (
-    <div className='bg-surface-standard-dark flex h-dvh flex-col items-center justify-center'>
+    <div className='flex flex-col items-center py-(--gap-12xl)'>
       <section className='gap-9xl flex w-[26.25rem] flex-col'>
         <div className='gap-4xl flex flex-col items-center'>
           <Title hierarchy='strong'>{APPLY_TITLE.complete}</Title>
@@ -16,11 +18,9 @@ function ApplyComplete() {
             <br /> 지원해 주셔서 감사합니다!
           </p>
         </div>
-        <Link to='/'>
-          <BlockButton size='lg' style='solid' hierarchy='accent' className='w-full'>
-            메인 페이지로
-          </BlockButton>
-        </Link>
+        <BlockButton size='lg' style='solid' hierarchy='accent' onClick={() => void navigate('/')}>
+          메인 페이지로
+        </BlockButton>
       </section>
     </div>
   );
