@@ -5,7 +5,6 @@ import HeroIndex from './HeroIndex';
 const meta: Meta<typeof HeroIndex> = {
   title: 'Components/Hero/HeroIndex',
   component: HeroIndex,
-  tags: ['autodocs'],
   argTypes: {
     index: {
       control: 'number',
@@ -19,6 +18,12 @@ const meta: Meta<typeof HeroIndex> = {
     content: {
       control: 'text',
     },
+    badgeBgColor: {
+      control: 'text',
+    },
+    badgeTextColor: {
+      control: 'text',
+    },
   },
 };
 
@@ -26,11 +31,13 @@ export default meta;
 
 type Story = StoryObj<typeof HeroIndex>;
 
-export const Primary: Story = {
+export const HeroIndexStory: Story = {
   args: {
     index: 1,
     title: '히어로 타이틀',
     badgeText: '레이블',
     content: '히어로 내용',
+    badgeBgColor: 'bg-feedback-trans-information-dark',
+    badgeTextColor: 'text-feedback-information-dark',
   },
 };
