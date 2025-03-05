@@ -98,3 +98,32 @@ export const positionData: PositionItem[] = [
     ),
   },
 ];
+
+interface CorePrincipleItem {
+  id: number;
+  title: string;
+  description: ReactNode;
+}
+
+export const corePrincipleData: CorePrincipleItem[] = [
+  {
+    id: 1,
+    title: '적극적인 참여',
+    description: <>프로젝트에 적극적인 태도와 열정으로 참여하는 것을 지향해요.</>,
+  },
+  {
+    id: 2,
+    title: '몰입하기',
+    description: <>문제 해결 과정에서 몰입을 통해 재미를 찾는 것을 추구합니다.</>,
+  },
+  {
+    id: 3,
+    title: '지속가능한 개발',
+    description: <>서비스 출시 완료에서 끝나지 않고, 운영까지 진행해 보세요.</>,
+  },
+  {
+    id: 4,
+    title: '팀워크 중시',
+    description: <>함께하는 사람들과 긍정적인 협업 경험을 위해 원활한 소통이 필요해요.</>,
+  },
+];
