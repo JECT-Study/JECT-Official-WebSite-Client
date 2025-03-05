@@ -50,7 +50,6 @@ const AnimatedSection = () => {
   useEffect(() => {
     const tl = gsap.timeline();
 
-    // 로컬 상태 객체를 tween 대상로 사용 (상단 텍스트)
     const topState = { index: 0 };
     tl.to(topState, {
       duration: (topTextStates.length - 1) * 0.15,
