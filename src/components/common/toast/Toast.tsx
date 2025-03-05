@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 
 import Label from '../label/Label';
@@ -54,8 +55,15 @@ function Toast() {
   return (
     <div
       key={toastItem.id}
-      className={`${toastStyle[toastItem.type].backgroundColor} ${isFadingOut ? 'animate-toast-fade-out' : 'animate-toast-fade-in'} shadow-overlay radius-xs fixed left-1/2 -translate-x-1/2 px-(--gap-lg) py-(--gap-3xs) *:inline`}
       onAnimationEnd={handleAnimationEnd}
+      className={clsx(
+        {
+          'animate-toast-fade-in': !isFadingOut,
+          'animate-toast-fade-out': isFadingOut,
+        },
+        toastStyle[toastItem.type].backgroundColor,
+        'shadow-overlay radius-xs fixed left-1/2 -translate-x-1/2 px-(--gap-lg) py-(--gap-3xs) *:inline',
+      )}
     >
       <Label hierarchy='strong' weight='normal' textColor={toastStyle[toastItem.type].textColor}>
         {toastItem.message}
