@@ -17,7 +17,7 @@ function ApplyComplete() {
           </p>
         </div>
         <Link to='/'>
-          <BlockButton size='lg' style='solid' hierarchy='accent'>
+          <BlockButton size='lg' style='solid' hierarchy='accent' className='w-full'>
             메인 페이지로
           </BlockButton>
         </Link>
