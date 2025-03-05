@@ -15,14 +15,10 @@ function ApplyApplicantInfo() {
   const [isReady, setIsReady] = useState(false);
 
   return (
-    <div className='bg-surface-standard-dark gap-9xl flex min-h-dvh flex-col items-center pb-(--gap-12xl)'>
-      <div className='mt-(--gap-9xl)'>
-        <ProgressIndicator totalStep={3} currentStep={2} />
-      </div>
-      <main className='gap-9xl flex w-[26.25rem] max-w-[26.25rem] flex-col items-stretch'>
-        <div className='self-center'>
-          <Title hierarchy='strong'>{APPLY_TITLE.applicantInfo}</Title>
-        </div>
+    <div className='gap-9xl flex flex-col items-center pt-(--gap-9xl) pb-(--gap-12xl)'>
+      <ProgressIndicator totalStep={3} currentStep={2} />
+      <section className='gap-9xl flex w-[26.25rem] flex-col items-stretch *:first:self-center'>
+        <Title hierarchy='strong'>{APPLY_TITLE.applicantInfo}</Title>
         <form action='' className='gap-3xl flex flex-col'>
           <InputField
             labelText='이름'
@@ -56,7 +52,7 @@ function ApplyApplicantInfo() {
         >
           다음 단계로 진행하기
         </BlockButton>
-      </main>
+      </section>
     </div>
   );
 }
