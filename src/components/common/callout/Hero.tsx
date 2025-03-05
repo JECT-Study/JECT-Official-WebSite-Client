@@ -11,7 +11,7 @@ export interface HeroProps {
 
 function Hero({ title, badgeText, children }: HeroProps) {
   return (
-    <div className='gap-xl radius-xs border-border-assistive-dark bg-surface-deep-dark flex flex-col border px-(--gap-3xl) py-(--gap-2xl)'>
+    <div className='gap-xs radius-xs border-border-assistive-dark bg-surface-deep-dark flex flex-col border px-(--gap-3xl) py-(--gap-2xl)'>
       <div className='gap-sm flex'>
         <Title hierarchy='normal'>{title}</Title>
         {badgeText && (
