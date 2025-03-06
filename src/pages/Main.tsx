@@ -1,7 +1,6 @@
 import { gsap } from 'gsap';
-import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 import CalloutNumerical from '@/components/common/callout/CalloutNumerical';
 import Hero from '@/components/common/callout/Hero';
@@ -18,8 +17,9 @@ const sectionClassName =
 const wrapperClassName = 'gap-7xl flex w-full max-w-[45rem] flex-col items-center';
 
 const Main = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
     let isScrolling = false;
 
     const disableScroll = () => {
@@ -31,7 +31,9 @@ const Main = () => {
     };
 
     const context = gsap.context(() => {
-      const sections = document.querySelectorAll('section');
+      const sections = containerRef.current?.querySelectorAll('section');
+      if (!sections) return;
+
       sections.forEach((section, index) => {
         if (index < sections.length - 1) {
           ScrollTrigger.create({
@@ -59,7 +61,7 @@ const Main = () => {
           });
         }
       });
-    });
+    }, containerRef);
 
     return () => {
       context.revert();
@@ -68,7 +70,7 @@ const Main = () => {
   }, []);
 
   return (
-    <div className='scroll flex flex-col'>
+    <div ref={containerRef} className='scroll flex flex-col'>
       <section className='flex h-[100dvh] w-full flex-col items-center justify-center py-(--gap-7xl)'>
         <AnimatedSection />
       </section>
