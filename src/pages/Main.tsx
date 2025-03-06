@@ -20,32 +20,51 @@ const wrapperClassName = 'gap-7xl flex w-full max-w-[45rem] flex-col items-cente
 const Main = () => {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+    let isScrolling = false;
+
+    const disableScroll = () => {
+      document.body.style.overflow = 'hidden';
+    };
+
+    const enableScroll = () => {
+      document.body.style.overflow = '';
+    };
 
     const context = gsap.context(() => {
       const sections = document.querySelectorAll('section');
       sections.forEach((section, index) => {
-        if (index === sections.length - 1) return;
-
-        let isTriggered = false;
-        ScrollTrigger.create({
-          trigger: section,
-          start: 'top top',
-          end: 'bottom top',
-          onUpdate: self => {
-            if (self.progress >= 0.6 && self.direction > 0 && !isTriggered) {
-              isTriggered = true;
-              gsap.to(window, {
-                scrollTo: section.nextElementSibling,
-                duration: 1,
-                ease: 'power2.inOut',
-              });
-            }
-          },
-        });
+        if (index < sections.length - 1) {
+          ScrollTrigger.create({
+            trigger: section,
+            start: 'center top',
+            end: 'bottom top',
+            markers: true,
+            onEnter: () => {
+              if (!isScrolling && section.nextElementSibling) {
+                isScrolling = true;
+                disableScroll();
+                gsap.to(window, {
+                  scrollTo: section.nextElementSibling,
+                  duration: 1,
+                  ease: 'power2.inOut',
+                  onComplete: () => {
+                    setTimeout(() => {
+                      isScrolling = false;
+                      enableScroll();
+                    }, 300);
+                  },
+                });
+              }
+            },
+          });
+        }
       });
     });
 
-    return () => context.revert();
+    return () => {
+      context.revert();
+      enableScroll();
+    };
   }, []);
 
   return (
