@@ -2,26 +2,31 @@ import File from '../file/File';
 import Uploader from '../uploader/Uploader';
 
 import { FileExtension } from '@/constants/file';
+import { FileUrl } from '@/types/file';
 
 interface InputFileProps {
-  fileList: File[];
-  deleteFile: (id: number) => void;
-  addFile: (file: FileList | null) => void;
+  fileList: FileUrl[];
+  onDeleteFile: (id: number | string) => void;
+  onAddFile: (file: FileList | null) => void;
   fileExtensions: FileExtension[];
   isDisabled: boolean;
 }
 
-function InputFile({ fileList, deleteFile, addFile, fileExtensions, isDisabled }: InputFileProps) {
+function InputFile({
+  fileList,
+  onDeleteFile,
+  onAddFile,
+  fileExtensions,
+  isDisabled,
+}: InputFileProps) {
   return (
     <>
       <div className='gap-2xs flex flex-col'>
-        {fileList.map((file, index) => {
-          const id = typeof file === 'object' ? file.lastModified : index;
-
-          return <File key={id} id={id} file={file} onDelete={deleteFile} />;
+        {fileList.map(file => {
+          return <File key={file.id} file={file} onDelete={onDeleteFile} />;
         })}
       </div>
-      <Uploader fileExtensions={fileExtensions} isDisabled={isDisabled} onChangeFile={addFile} />
+      <Uploader fileExtensions={fileExtensions} isDisabled={isDisabled} onChangeFile={onAddFile} />
     </>
   );
 }
