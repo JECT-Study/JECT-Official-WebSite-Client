@@ -1,4 +1,4 @@
-export interface fileUrl {
+export interface FileUrl {
   id: string | number;
   name: string;
   url: string;
