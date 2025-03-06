@@ -13,7 +13,7 @@ import RoleHero from '@/components/main/role/RoleHero';
 import { corePrincipleData, positionData, timelineData } from '@/constants/mainPageData';
 
 const sectionClassName =
-  'flex h-[60.3125rem] py-(--gap-7xl) px-(--gap-4xl) flex-col justify-center items-center gap-7xl w-full';
+  'flex h-[100dvh] py-(--gap-7xl) px-(--gap-4xl) flex-col justify-center items-center gap-7xl w-full';
 
 const wrapperClassName = 'gap-7xl flex w-full max-w-[45rem] flex-col items-center';
 
@@ -50,7 +50,7 @@ const Main = () => {
 
   return (
     <div className='scroll flex flex-col'>
-      <section className='flex h-[60.3125rem] w-full flex-col items-center justify-center py-(--gap-7xl)'>
+      <section className='flex h-[100dvh] w-full flex-col items-center justify-center py-(--gap-7xl)'>
         <AnimatedSection />
       </section>
       <section className={sectionClassName}>
