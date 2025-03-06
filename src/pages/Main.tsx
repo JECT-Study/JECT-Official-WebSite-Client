@@ -40,7 +40,6 @@ const Main = () => {
             trigger: section,
             start: 'center top',
             end: 'bottom top',
-            markers: true,
             onEnter: () => {
               if (!isScrolling && section.nextElementSibling) {
                 isScrolling = true;
