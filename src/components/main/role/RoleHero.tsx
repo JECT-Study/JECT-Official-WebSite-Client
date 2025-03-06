@@ -60,7 +60,7 @@ export const RoleHero = ({ title, labels = [], children, variant }: HeroProps) =
             ))}
           </div>
         </div>
-        <span className='label-body-lg text-object-normal-dark'>{children}</span>
+        <span className='label-bold-lg text-object-normal-dark'>{children}</span>
       </div>
       <img
         src={heroIcon}
