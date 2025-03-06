@@ -5,6 +5,7 @@ import Activity from '@/pages/Activity';
 import Apply from '@/pages/Apply';
 import Faq from '@/pages/Faq';
 import Project from '@/pages/Project';
+import ProjectDetail from '@/pages/ProjectDetail';
 
 const routerList = [
   {
@@ -12,6 +13,7 @@ const routerList = [
     children: [
       { path: PATH.main, element: <></> },
       { path: PATH.project, element: <Project /> },
+      { path: `${PATH.project}/:id`, element: <ProjectDetail /> },
       { path: PATH.activity, element: <Activity /> },
       { path: PATH.apply, element: <Apply /> },
       { path: PATH.faq, element: <Faq /> },
