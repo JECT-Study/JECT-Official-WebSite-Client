@@ -2,6 +2,7 @@ import cardSampleImage from '@/assets/CardSample.png';
 import LabelButton from '@/components/common/button/LabelButton';
 import { Card } from '@/components/common/card/Card';
 import Icon from '@/components/common/icon/Icon';
+import { Post } from '@/components/common/post/Post';
 import { Tab, TabHeader, TabItem, TabPanel } from '@/components/common/tab/Tab';
 import Title from '@/components/common/title/Title';
 
@@ -83,10 +84,33 @@ const hackathonCardData = [
   },
 ];
 
+const reviewData = [
+  {
+    linkUrl: 'https://test1.com',
+    title: '제목 1',
+    description: '본문 1...',
+  },
+  {
+    linkUrl: 'https://test2.com',
+    title: '제목 2',
+    description: '본문 2...',
+  },
+  {
+    linkUrl: 'https://test3.com',
+    title: '제목 3',
+    description: '본문 3...',
+  },
+  {
+    linkUrl: 'https://test4.com',
+    title: '제목 4',
+    description: '본문 4...',
+  },
+];
+
 const Project = () => {
   return (
     <div className='gap-12xl flex flex-col items-center px-(--gap-5xl) py-(--gap-12xl)'>
-      <section className='gap-8xl flex max-w-[60rem] flex-col'>
+      <section className='gap-8xl flex w-full max-w-[60rem] flex-col items-center'>
         <Title hierarchy='strong'>프로젝트</Title>
         <div className='flex w-full flex-col'>
           <Tab>
@@ -142,7 +166,16 @@ const Project = () => {
           </Tab>
         </div>
       </section>
-      <section className='gap-8xl flex max-w-[60rem] flex-col'></section>
+      <section className='gap-8xl flex w-full max-w-[60rem] flex-col items-center'>
+        <Title hierarchy='strong'>프로젝트 후기</Title>
+        <div className='gap-2xl flex w-full flex-col'>
+          {reviewData.map((item, index) => (
+            <Post key={index} href={item.linkUrl} title={item.title} label='바로가기'>
+              {item.description}
+            </Post>
+          ))}
+        </div>
+      </section>
     </div>
   );
 };
