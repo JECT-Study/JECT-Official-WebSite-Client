@@ -130,11 +130,20 @@ const Main = () => {
         <div className={wrapperClassName}>
           <Title hierarchy='stronger'>젝트 활동 타임라인</Title>
           <div className='gap-4xl flex w-full flex-col items-start'>
-            {timelineData.map(({ id, title, badgeText, description }) => (
-              <HeroIndex key={id} index={id} title={title} badgeText={badgeText}>
-                {description}
-              </HeroIndex>
-            ))}
+            {timelineData.map(
+              ({ id, title, badgeText, description, badgeBgColor, badgeTextColor }) => (
+                <HeroIndex
+                  key={id}
+                  index={id}
+                  title={title}
+                  badgeText={badgeText}
+                  badgeBgColor={badgeBgColor}
+                  badgeTextColor={badgeTextColor}
+                >
+                  {description}
+                </HeroIndex>
+              ),
+            )}
           </div>
         </div>
       </section>
