@@ -1,5 +1,7 @@
 import { ReactNode } from 'react';
 
+import { RoleVariant } from '@/types/role';
+
 interface TimelineItem {
   id: number;
   title: string;
@@ -37,7 +39,7 @@ export const timelineData: TimelineItem[] = [
 interface PositionItem {
   id: number;
   title: string;
-  variant: string;
+  variant: RoleVariant;
   labels: string[];
   description: ReactNode;
 }
