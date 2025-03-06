@@ -67,7 +67,6 @@ const Main = () => {
             trigger: section,
             start: 'center bottom',
             end: 'top bottom',
-            markers: true,
             onEnterBack: () => {
               if (!isScrolling && section.previousElementSibling) {
                 isScrolling = true;
