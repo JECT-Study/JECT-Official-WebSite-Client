@@ -70,7 +70,7 @@ const Main = () => {
               </Title>
             </div>
           </div>
-          <div className='gap-4xl flex w-full content-center items-start'>
+          <div className='gap-4xl flex w-full'>
             <CalloutNumerical title='60' labelText='참여 동아리원 수' />
             <CalloutNumerical title='6+' labelText='개발 완료 프로젝트' />
             <CalloutNumerical title='8+' labelText='진행한 미니 스터디' />
