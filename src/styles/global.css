@@ -4,8 +4,16 @@
 @layer base {
   html {
     font-family: 'Pretendard Variable';
+
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  html::-webkit-scrollbar {
+    display: none;
   }
 }
+
 
 @theme {
   --shadow-focus-visible: 0 0 0 4px rgba(173, 198, 255, 1);
