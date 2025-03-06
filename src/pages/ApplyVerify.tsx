@@ -17,12 +17,10 @@ function ApplyVerify() {
   return (
     <div className='gap-9xl flex flex-col items-center pt-(--gap-9xl) pb-(--gap-12xl)'>
       <ProgressIndicator totalStep={3} currentStep={1} />
-      <main className='gap-9xl flex w-[26.25rem] flex-col items-stretch'>
-        <div className='self-center'>
-          <Title hierarchy='strong'>
-            {isExist ? APPLY_TITLE.verifyPIN : APPLY_TITLE.verifyEmail}
-          </Title>
-        </div>
+      <main className='gap-9xl flex w-[26.25rem] flex-col items-stretch *:first:self-center'>
+        <Title hierarchy='strong'>
+          {isExist ? '본인 확인용 PIN을 입력해주세요' : '이메일을 인증해주세요'}
+        </Title>
         <div className='gap-7xl flex flex-col'>
           <form action='' className='gap-xs flex flex-col'>
             <InputField
