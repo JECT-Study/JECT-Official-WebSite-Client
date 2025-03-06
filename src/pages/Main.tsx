@@ -61,6 +61,34 @@ const Main = () => {
           });
         }
       });
+
+      sections.forEach((section, index) => {
+        if (index > 0) {
+          ScrollTrigger.create({
+            trigger: section,
+            start: 'center bottom',
+            end: 'top bottom',
+            markers: true,
+            onEnterBack: () => {
+              if (!isScrolling && section.previousElementSibling) {
+                isScrolling = true;
+                disableScroll();
+                gsap.to(window, {
+                  scrollTo: section.previousElementSibling,
+                  duration: 1,
+                  ease: 'power2.inOut',
+                  onComplete: () => {
+                    setTimeout(() => {
+                      isScrolling = false;
+                      enableScroll();
+                    }, 300);
+                  },
+                });
+              }
+            },
+          });
+        }
+      });
     }, containerRef);
 
     return () => {
