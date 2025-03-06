@@ -2,36 +2,30 @@ import { MouseEvent } from 'react';
 
 import LabelButton from '@/components/common/button/LabelButton';
 import Icon from '@/components/common/icon/Icon';
+import { FileUrl } from '@/types/file';
 import { changeFileSizeUnit } from '@/utils/changeFileSizeUnit';
 
 interface FileProps {
-  id: number;
-  file: File | string;
+  file: FileUrl;
   isDisabled?: boolean;
-  onDelete?: (id: number) => void;
+  onDelete?: (id: number | string) => void;
 }
 
 // TODO: CDN URL 형식의 file일 경우, name, size 할당 수정
 
-function File({ id, file, onDelete, isDisabled = false }: FileProps) {
-  const name = typeof file === 'object' ? file.name : '임시.pdf';
-  const size = typeof file === 'object' ? file.size : 0.0;
-
+function File({ file, onDelete, isDisabled = false }: FileProps) {
   const openFile = () => {
     if (isDisabled || !file) return;
 
-    const newWindow = window.open(
-      typeof file === 'object' ? URL.createObjectURL(file) : file,
-      '_blank',
-      'noopener,noreferrer',
-    );
+    const newWindow = window.open(file.url, '_blank', 'noopener,noreferrer');
 
     if (newWindow) newWindow.opener = null;
   };
 
   const deleteHandler = (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-    if (onDelete) onDelete(id);
+
+    onDelete?.(file.id);
   };
 
   return (
@@ -48,8 +42,8 @@ function File({ id, file, onDelete, isDisabled = false }: FileProps) {
       <div
         className={`${isDisabled ? 'text-object-disabled-dark' : 'text-object-normal-dark'} gap-6xs flex grow flex-col text-left`}
       >
-        <span className='label-bold-md break-all'>{name}</span>
-        <span className='body-xs'>{changeFileSizeUnit(size)}</span>
+        <span className='label-bold-md break-all'>{file.name}</span>
+        <span className='body-xs'>{changeFileSizeUnit(file.size)}</span>
       </div>
       {onDelete && (
         <LabelButton
