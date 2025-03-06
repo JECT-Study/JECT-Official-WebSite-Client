@@ -1,0 +1,26 @@
+@theme {
+  --animate-toast-fade-in: toast-fade-in var(--duration-slow) var(--motion-bounce) forwards;
+  --animate-toast-fade-out: toast-fade-out var(--duration-normal) var(--motion-bounce) forwards;
+
+  @keyframes toast-fade-in {
+    0% {
+      bottom: 0;
+      opacity: 0;
+    }
+    100% {
+      bottom: 3rem;
+      opacity: 1;
+    }
+  }
+
+  @keyframes toast-fade-out {
+    0% {
+      bottom: 3rem;
+      opacity: 1;
+    }
+    100% {
+      bottom: 0;
+      opacity: 0;
+    }
+  }
+}

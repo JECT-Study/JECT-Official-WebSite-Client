@@ -7,7 +7,7 @@ const meta: Meta<typeof Icon> = {
   component: Icon,
   argTypes: {
     name: {
-      control: { type: 'text' },
+      control: { type: 'select' },
       options: [
         'check',
         'clear',
@@ -22,11 +22,17 @@ const meta: Meta<typeof Icon> = {
         'question',
         'upload',
         'youtube',
+        'download',
+        'edit',
+        'invisible',
+        'minus',
+        'rightChevron',
+        'visible',
       ],
       description: '아이콘의 종류를 선택합니다. IconNames 타입에 정의되어있는 아이콘 이름입니다.',
     },
     size: {
-      control: { type: 'text' },
+      control: { type: 'select' },
       options: ['4xl', '3xl', '2xl', 'xl', 'lg', 'md', 'sm', 'xs', '2xs'],
       description: 'Icon 사이즈입니다.',
     },
@@ -58,7 +64,7 @@ export const All: Story = {
   name: 'Icon',
   render: () => {
     return (
-      <div className='flex items-center gap-1'>
+      <div className='flex flex-wrap items-center gap-1'>
         <Icon name='dropDown' size='4xl' fillColor='fill-object-static-inverse-hero-dark' />
         <Icon name='northEast' size='4xl' fillColor='fill-object-static-inverse-hero-dark' />
         <Icon name='forward' size='4xl' fillColor='fill-object-static-inverse-hero-dark' />
@@ -72,6 +78,12 @@ export const All: Story = {
         <Icon name='check' size='4xl' fillColor='fill-object-static-inverse-hero-dark' />
         <Icon name='youtube' size='4xl' fillColor='fill-object-static-inverse-hero-dark' />
         <Icon name='github' size='4xl' fillColor='fill-object-static-inverse-hero-dark' />
+        <Icon name='download' size='4xl' fillColor='fill-object-static-inverse-hero-dark' />
+        <Icon name='edit' size='4xl' fillColor='fill-object-static-inverse-hero-dark' />
+        <Icon name='invisible' size='4xl' fillColor='fill-object-static-inverse-hero-dark' />
+        <Icon name='minus' size='4xl' fillColor='fill-object-static-inverse-hero-dark' />
+        <Icon name='rightChevron' size='4xl' fillColor='fill-object-static-inverse-hero-dark' />
+        <Icon name='visible' size='4xl' fillColor='fill-object-static-inverse-hero-dark' />
       </div>
     );
   },

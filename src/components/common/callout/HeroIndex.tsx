@@ -5,9 +5,18 @@ import Title from '@/components/common/title/Title';
 
 interface HeroIndexProps extends HeroProps {
   index: number;
+  badgeBgColor?: string;
+  badgeTextColor?: string;
 }
 
-function HeroIndex({ index, title, badgeText, children }: HeroIndexProps) {
+function HeroIndex({
+  index,
+  title,
+  badgeText,
+  children,
+  badgeBgColor = 'bg-fill-assistive-dark',
+  badgeTextColor = 'text-object-normal-dark',
+}: HeroIndexProps) {
   return (
     <div className='radius-xs border-border-assistive-dark bg-surface-deep-dark gap-4xl flex w-full items-center border px-(--gap-4xl) py-(--gap-xl)'>
       <div className='min-w-[33px] text-center'>
@@ -16,7 +25,7 @@ function HeroIndex({ index, title, badgeText, children }: HeroIndexProps) {
       <div className='gap-xs flex flex-col'>
         <div className='gap-sm flex'>
           <Title hierarchy='normal'>{title}</Title>
-          <Badge backgroundColor='bg-fill-assistive-dark' textColor='text-object-normal-dark'>
+          <Badge backgroundColor={badgeBgColor} textColor={badgeTextColor}>
             {badgeText}
           </Badge>
         </div>
