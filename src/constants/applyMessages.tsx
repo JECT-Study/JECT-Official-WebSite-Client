@@ -3,8 +3,8 @@ export const APPLY_HELPER_MESSAGE = {
   invalidPhoneNumber: '유효하지 않은 전화번호 형식입니다.',
   invalidEmail: '유효하지 않은 이메일 형식입니다.',
   failVerificationCode: '유효하지 않은 인증 번호입니다.',
-  verificationCodeSent: '인증 메일이 발송되었습니다.',
-  verificationSuccess: '인증 완료!',
+  sendVerificationEmail: '인증 메일이 발송되었습니다.',
+  successVerification: '인증 완료!',
 };
 
 export const APPLY_TOAST_MESSAGE = {
