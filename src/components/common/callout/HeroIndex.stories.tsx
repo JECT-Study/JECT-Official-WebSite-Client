@@ -15,7 +15,7 @@ const meta: Meta<typeof HeroIndex> = {
     badgeText: {
       control: 'text',
     },
-    content: {
+    children: {
       control: 'text',
     },
     badgeBgColor: {
@@ -36,7 +36,7 @@ export const HeroIndexStory: Story = {
     index: 1,
     title: '히어로 타이틀',
     badgeText: '레이블',
-    content: '히어로 내용',
+    children: '히어로 내용',
     badgeBgColor: 'bg-feedback-trans-information-dark',
     badgeTextColor: 'text-feedback-information-dark',
   },

@@ -3,6 +3,16 @@ import { ReactNode } from 'react';
 import NewTabLink from '@/components/apply/NewTabLink';
 import { moveToBottom } from '@/utils/scrollFunction';
 
+export const APPLY_TITLE = {
+  process: '지원 과정',
+  info: '지원 관련 안내',
+  verifyEmail: '이메일을 인증해주세요',
+  verifyPIN: '본인 확인용 PIN을 입력해주세요',
+  applicantInfo: '지원자님에 대해 알려주세요',
+  registration: '더 자세하게 알고 싶어요',
+  complete: '지원이 완료되었어요',
+};
+
 interface Procedure {
   id: number;
   startDate: string;
@@ -10,9 +20,6 @@ interface Procedure {
   subTitle: string;
   content: ReactNode;
 }
-
-export const APPLY_PROCESS = '지원 과정';
-export const APPLY_INFO = '지원 관련 안내';
 
 export const applyProcedureList: Procedure[] = [
   {
@@ -94,3 +101,14 @@ export const applyInfoList: Info[] = [
     link: <NewTabLink href=''>젝트 회비 관련</NewTabLink>,
   },
 ];
+
+export const applyComplete = {
+  content: (
+    <>
+      정성스레 작성해 주신 지원서는 성공적으로 제출되었어요.
+      <br /> 함께 몰입할 날들을 기대하며, 꼼꼼히 확인해 볼게요!
+      <br /> 지원해 주셔서 감사합니다!
+    </>
+  ),
+  button: '메인 페이지로',
+} as const;
