@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -70,110 +71,107 @@ function ApplyRegistration() {
   };
 
   return (
-    <div className='bg-surface-standard-dark gap-9xl flex min-h-dvh flex-col items-center pb-(--gap-12xl)'>
-      <div className='mt-(--gap-9xl)'>
-        <ProgressIndicator totalStep={3} currentStep={3} />
-      </div>
-      <main className='gap-9xl flex flex-col items-stretch'>
-        <div className='gap-9xl flex w-[32.5rem] flex-col self-center *:first:text-center'>
-          <Title hierarchy='strong'>{APPLY_TITLE.registration}</Title>
-          <div className={`gap-7xl flex flex-col ${!selectPosition ? '*:nth-2:text-center' : ''}`}>
-            <div className='gap-2xl flex flex-col'>
-              <Title hierarchy='normal'>어떤 포지션으로 지원하시나요?</Title>
-              <div className='relative'>
-                <InputField
-                  onClick={() => setIsSelectOpen(!isSelectOpen)}
-                  value={selectPosition ?? undefined}
-                  required
-                  labelText='포지션'
-                  isError={false}
-                  isSuccess={false}
-                  placeholder='포지션을 선택해주세요'
-                  className='group'
-                  InputChildren={
-                    <Icon
-                      name='dropDown'
-                      size='lg'
-                      fillColor='fill-object-assistive-dark group-focus-within:fill-object-neutral-dark'
-                    />
-                  }
-                />
-                {isSelectOpen && (
-                  <div className='absolute z-40 mt-[8px] w-full'>
-                    <Select
-                      items={[
-                        { label: position.fe },
-                        { label: position.be },
-                        { label: position.pm },
-                        { label: position.pd },
-                      ]}
-                      defaultValue={selectPosition}
-                      onChange={handleSelect}
-                    />
-                  </div>
-                )}
-              </div>
-            </div>
-            {!selectPosition && (
-              <Label hierarchy='normal' weight='normal' textColor='text-object-assistive-dark'>
-                포지션을 선택한 뒤 아래에 추가 질문들이 표시돼요.
-              </Label>
-            )}
-            {selectPosition && (
-              <form action='' className='gap-7xl flex flex-col'>
-                {datas.map(data => {
-                  if (data.type === 'text') {
-                    return (
-                      <fieldset className='gap-2xl flex flex-col'>
-                        <Title hierarchy='normal'>{data.question}</Title>
-                        <InputArea
-                          labelText='답변'
-                          maxLength={data.maxLength ? data.maxLength : 0}
-                          required={data.isRequired ? data.isRequired : false}
-                          placeholder={data.placeholder ? data.placeholder : ''}
-                        />
-                      </fieldset>
-                    );
-                  } else if (data.type === 'url') {
-                    return (
-                      <fieldset className='gap-2xl flex flex-col'>
-                        <Title hierarchy='normal'>{data.question}</Title>
-                        <InputField
-                          labelText='URL'
-                          isError={false}
-                          isSuccess={false}
-                          placeholder={data.placeholder ? data.placeholder : ''}
-                        />
-                      </fieldset>
-                    );
-                  } else if (data.type === 'file') {
-                    return (
-                      <fieldset className='gap-2xl flex flex-col'>
-                        <Title hierarchy='normal'>{data.question}</Title>
-                        {/* <InputFile
-                          fileList={fileList}
-                          addFile={addFile}
-                          deleteFile={deleteFile}
-                          fileExtensions={['pdf']}
-                          isDisabled={false}
-                        /> */}
-                      </fieldset>
-                    );
-                  }
-                })}
-              </form>
-            )}
-            <div aria-label='button-area' className='gap-md flex w-full self-center *:flex-1'>
-              <BlockButton size='lg' style='solid' hierarchy='secondary'>
-                임시 저장하기
-              </BlockButton>
-              <BlockButton size='lg' style='solid' hierarchy='accent' disabled>
-                지원서 제출하기
-              </BlockButton>
+    <div className='gap-9xl flex flex-col items-center pt-(--gap-9xl) pb-(--gap-12xl)'>
+      <ProgressIndicator totalStep={3} currentStep={3} />
+      <section className='gap-9xl flex w-[32.5rem] flex-col items-stretch *:first:text-center'>
+        <Title hierarchy='strong'>{APPLY_TITLE.registration}</Title>
+        <div className={clsx(!selectPosition && '*:nth-2:text-center', 'gap-7xl flex flex-col')}>
+          <div className='gap-2xl flex flex-col'>
+            <Title hierarchy='normal'>어떤 포지션으로 지원하시나요?</Title>
+            <div className='relative'>
+              <InputField
+                onClick={() => setIsSelectOpen(!isSelectOpen)}
+                value={selectPosition ?? undefined}
+                required
+                labelText='포지션'
+                isError={false}
+                isSuccess={false}
+                placeholder='포지션을 선택해주세요'
+                className='group'
+                InputChildren={
+                  <Icon
+                    name='dropDown'
+                    size='lg'
+                    fillColor='fill-object-assistive-dark group-focus-within:fill-object-neutral-dark'
+                  />
+                }
+              />
+              {isSelectOpen && (
+                <div className='absolute z-40 mt-[8px] w-full'>
+                  <Select
+                    items={[
+                      { label: position.fe },
+                      { label: position.be },
+                      { label: position.pm },
+                      { label: position.pd },
+                    ]}
+                    defaultValue={selectPosition}
+                    onChange={handleSelect}
+                  />
+                </div>
+              )}
             </div>
           </div>
+
+          {!selectPosition && (
+            <Label hierarchy='normal' weight='normal' textColor='text-object-assistive-dark'>
+              포지션을 선택한 뒤 아래에 추가 질문들이 표시돼요.
+            </Label>
+          )}
+          {selectPosition && (
+            <form action='' className='gap-7xl flex flex-col'>
+              {datas.map(data => {
+                if (data.type === 'text') {
+                  return (
+                    <fieldset className='gap-2xl flex flex-col'>
+                      <Title hierarchy='normal'>{data.question}</Title>
+                      <InputArea
+                        labelText='답변'
+                        maxLength={data.maxLength ? data.maxLength : 0}
+                        required={data.isRequired ? data.isRequired : false}
+                        placeholder={data.placeholder ? data.placeholder : ''}
+                      />
+                    </fieldset>
+                  );
+                } else if (data.type === 'url') {
+                  return (
+                    <fieldset className='gap-2xl flex flex-col'>
+                      <Title hierarchy='normal'>{data.question}</Title>
+                      <InputField
+                        labelText='URL'
+                        isError={false}
+                        isSuccess={false}
+                        placeholder={data.placeholder ? data.placeholder : ''}
+                      />
+                    </fieldset>
+                  );
+                } else if (data.type === 'file') {
+                  return (
+                    <fieldset className='gap-2xl flex flex-col'>
+                      <Title hierarchy='normal'>{data.question}</Title>
+                      {/* <InputFile
+            fileList={fileList}
+            addFile={addFile}
+            deleteFile={deleteFile}
+            fileExtensions={['pdf']}
+            isDisabled={false}
+          /> */}
+                    </fieldset>
+                  );
+                }
+              })}
+            </form>
+          )}
+          <div aria-label='button-area' className='gap-md flex w-full self-center *:flex-1'>
+            <BlockButton size='lg' style='solid' hierarchy='secondary'>
+              임시 저장하기
+            </BlockButton>
+            <BlockButton size='lg' style='solid' hierarchy='accent' disabled>
+              지원서 제출하기
+            </BlockButton>
+          </div>
         </div>
-      </main>
+      </section>
     </div>
   );
 }
