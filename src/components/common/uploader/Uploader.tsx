@@ -16,70 +16,42 @@ function Uploader({ onChangeFile, isDisabled, fileExtensions }: UploaderProps) {
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleDragStart = (e: DragEvent<HTMLDivElement>) => {
+  const handleDrag = (e: DragEvent<HTMLDivElement>, isDragging: boolean) => {
     e.preventDefault();
-
-    if (isDisabled) return;
-
-    setIsDragging(true);
-  };
-
-  const handleDragEnd = (e: DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-
-    if (isDisabled) return;
-
-    setIsDragging(false);
-  };
-
-  const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-
-    if (isDisabled) return;
-
-    setIsDragging(true);
+    if (!isDisabled) setIsDragging(isDragging);
   };
 
   const handleDrop = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
+    if (!isDisabled) setIsDragging(false);
 
-    if (isDisabled) return;
+    const { files } = e.dataTransfer;
 
-    if (e.dataTransfer && e.dataTransfer.files) {
-      if (validateFileType(e.dataTransfer.files, fileExtensions)) {
-        onChangeFile(e.dataTransfer.files);
-      }
+    if (files && validateFileType(files, fileExtensions)) {
+      onChangeFile(e.dataTransfer.files);
       // TODO: 옳지 않은 확장자 예외 처리
     }
-
-    setIsDragging(false);
   };
 
   const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-
-    if (isDisabled) return;
-
-    inputRef.current?.click();
+    if (!isDisabled) inputRef.current?.click();
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files;
+    const { files } = e.target;
+    if (isDisabled || !files?.length) return;
 
-    if (isDisabled) return;
-
-    if (file && file.length > 0) {
-      if (validateFileType(file, fileExtensions)) {
-        onChangeFile(file);
-      }
+    if (validateFileType(files, fileExtensions)) {
+      onChangeFile(files);
     }
   };
 
   return (
     <div
-      onDragEnter={handleDragStart}
-      onDragLeave={handleDragEnd}
-      onDragOver={handleDragOver}
+      onDragEnter={e => handleDrag(e, true)}
+      onDragLeave={e => handleDrag(e, false)}
+      onDragOver={e => handleDrag(e, true)}
       onDrop={handleDrop}
       className={clsx(
         {
@@ -90,13 +62,17 @@ function Uploader({ onChangeFile, isDisabled, fileExtensions }: UploaderProps) {
         'radius-sm gap-xl body-sm text-object-assistive-dark flex flex-col items-center border-2 border-dashed px-(--gap-7xl) py-(--gap-8xl) text-center whitespace-pre-wrap',
       )}
     >
-      <label htmlFor='fileUpload' className={isDragging ? 'pointer-events-none' : ''}>
+      <label
+        htmlFor='fileUpload'
+        className={isDragging ? 'pointer-events-none' : isDisabled ? 'cursor-no-drop' : ''}
+      >
         <BlockButton
           size='sm'
           style='solid'
           hierarchy='tertiary'
           onClick={handleClick}
-          className={isDisabled ? 'cursor-no-drop' : ''}
+          disabled={isDisabled}
+          className={isDragging ? 'pointer-events-none' : ''}
           leftIcon={
             <Icon
               name='upload'
