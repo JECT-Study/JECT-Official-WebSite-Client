@@ -1,6 +1,5 @@
 import clsx from 'clsx';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
 
 import BlockButton from '@/components/common/button/BlockButton';
 import Icon from '@/components/common/icon/Icon';
@@ -44,6 +43,8 @@ const datas = [
 
 type Position = '프론트엔드 개발자' | '백엔드 개발자' | '프로젝트 매니저' | '프로덕트 디자이너';
 
+const positions = ['프론트엔드 개발자', '백엔드 개발자', '프로젝트 매니저', '프로덕트 디자이너'];
+
 const position: Record<string, Position> = {
   fe: '프론트엔드 개발자',
   be: '백엔드 개발자',
@@ -54,8 +55,10 @@ const position: Record<string, Position> = {
 function ApplyRegistration() {
   const [selectPosition, setSelectPosition] = useState<string | null>(null);
   const [isSelectOpen, setIsSelectOpen] = useState(false);
-  const [isReady, setIsReady] = useState(false);
   const [fileList, setFileList] = useState<File[]>([]);
+
+  const positionRef = useRef<HTMLInputElement>(null);
+  const selectRef = useRef<HTMLDivElement>(null);
 
   const addFile = (file: FileList | null) => {
     if (file) setFileList(prev => [...prev, ...Array.from(file)]);
@@ -70,6 +73,29 @@ function ApplyRegistration() {
     setIsSelectOpen(!isSelectOpen);
   };
 
+  const handleKeyDownPosition = ({ key }: React.KeyboardEvent<HTMLInputElement>) => {
+    if (key === 'Enter') {
+      const value = positionRef.current?.value;
+
+      if (value && positions.includes(value)) {
+        setSelectPosition(value);
+        setIsSelectOpen(!isSelectOpen);
+      }
+    }
+  };
+
+  useEffect(() => {
+    const outsideClick = (e: MouseEvent) => {
+      if (selectRef.current && !selectRef.current.contains(e.target as Node)) {
+        setIsSelectOpen(!isSelectOpen);
+      }
+    };
+
+    document.addEventListener('mousedown', outsideClick);
+
+    return () => document.removeEventListener('mousedown', outsideClick);
+  }, [selectRef, isSelectOpen]);
+
   return (
     <div className='gap-9xl flex flex-col items-center pt-(--gap-9xl) pb-(--gap-12xl)'>
       <ProgressIndicator totalStep={3} currentStep={3} />
@@ -80,7 +106,9 @@ function ApplyRegistration() {
             <Title hierarchy='normal'>어떤 포지션으로 지원하시나요?</Title>
             <div className='relative'>
               <InputField
+                ref={positionRef}
                 onClick={() => setIsSelectOpen(!isSelectOpen)}
+                onKeyDown={handleKeyDownPosition}
                 value={selectPosition ?? undefined}
                 required
                 labelText='포지션'
@@ -97,7 +125,7 @@ function ApplyRegistration() {
                 }
               />
               {isSelectOpen && (
-                <div className='absolute z-40 mt-[8px] w-full'>
+                <div className='absolute z-40 mt-[8px] w-full' ref={selectRef}>
                   <Select
                     items={[
                       { label: position.fe },
