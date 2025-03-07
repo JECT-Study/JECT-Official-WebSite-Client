@@ -43,7 +43,7 @@ const datas = [
 
 type Position = '프론트엔드 개발자' | '백엔드 개발자' | '프로젝트 매니저' | '프로덕트 디자이너';
 
-const positions = ['프론트엔드 개발자', '백엔드 개발자', '프로젝트 매니저', '프로덕트 디자이너'];
+const POSITIONS = ['프론트엔드 개발자', '백엔드 개발자', '프로젝트 매니저', '프로덕트 디자이너'];
 
 const position: Record<string, Position> = {
   fe: '프론트엔드 개발자',
@@ -77,7 +77,7 @@ function ApplyRegistration() {
     if (key === 'Enter') {
       const value = positionRef.current?.value;
 
-      if (value && positions.includes(value)) {
+      if (value && POSITIONS.includes(value)) {
         setSelectPosition(value);
         setIsSelectOpen(!isSelectOpen);
       }
@@ -91,9 +91,11 @@ function ApplyRegistration() {
       }
     };
 
-    document.addEventListener('mousedown', outsideClick);
+    if (isSelectOpen) {
+      document.addEventListener('mousedown', outsideClick);
 
-    return () => document.removeEventListener('mousedown', outsideClick);
+      return () => document.removeEventListener('mousedown', outsideClick);
+    }
   }, [selectRef, isSelectOpen]);
 
   return (
@@ -148,44 +150,45 @@ function ApplyRegistration() {
           )}
           {selectPosition && (
             <form action='' className='gap-7xl flex flex-col'>
-              {datas.map(data => {
-                if (data.type === 'text') {
-                  return (
-                    <fieldset className='gap-2xl flex flex-col'>
-                      <Title hierarchy='normal'>{data.question}</Title>
-                      <InputArea
-                        labelText='답변'
-                        maxLength={data.maxLength ? data.maxLength : 0}
-                        required={data.isRequired ? data.isRequired : false}
-                        placeholder={data.placeholder ? data.placeholder : ''}
-                      />
-                    </fieldset>
-                  );
-                } else if (data.type === 'url') {
-                  return (
-                    <fieldset className='gap-2xl flex flex-col'>
-                      <Title hierarchy='normal'>{data.question}</Title>
-                      <InputField
-                        labelText='URL'
-                        isError={false}
-                        isSuccess={false}
-                        placeholder={data.placeholder ? data.placeholder : ''}
-                      />
-                    </fieldset>
-                  );
-                } else if (data.type === 'file') {
-                  return (
-                    <fieldset className='gap-2xl flex flex-col'>
-                      <Title hierarchy='normal'>{data.question}</Title>
-                      {/* <InputFile
-            fileList={fileList}
-            addFile={addFile}
-            deleteFile={deleteFile}
-            fileExtensions={['pdf']}
-            isDisabled={false}
-          /> */}
-                    </fieldset>
-                  );
+              {datas.map(({ id, type, question, placeholder, maxLength, isRequired }) => {
+                switch (type) {
+                  case 'text':
+                    return (
+                      <fieldset key={id} className='gap-2xl flex flex-col'>
+                        <Title hierarchy='normal'>{question}</Title>
+                        <InputArea
+                          labelText='답변'
+                          maxLength={maxLength || undefined}
+                          required={!!isRequired}
+                          placeholder={placeholder || undefined}
+                        />
+                      </fieldset>
+                    );
+                  case 'url':
+                    return (
+                      <fieldset key={id} className='gap-2xl flex flex-col'>
+                        <Title hierarchy='normal'>{question}</Title>
+                        <InputField
+                          labelText='URL'
+                          isError={false}
+                          isSuccess={false}
+                          placeholder={placeholder || undefined}
+                        />
+                      </fieldset>
+                    );
+                  case 'file':
+                    return (
+                      <fieldset key={id} className='gap-2xl flex flex-col'>
+                        <Title hierarchy='normal'>{question}</Title>
+                        {/* <InputFile
+                            fileList={fileList}
+                            addFile={addFile}
+                            deleteFile={deleteFile}
+                            fileExtensions={['pdf']}
+                            isDisabled={false}
+                          /> */}
+                      </fieldset>
+                    );
                 }
               })}
             </form>
