@@ -19,7 +19,7 @@ const InputArea = forwardRef<HTMLTextAreaElement, InputAreaProps>(
     };
 
     return (
-      <div className='gap-2xs flex w-[35rem] flex-col'>
+      <div className='gap-2xs flex flex-col'>
         <Label
           hierarchy='normal'
           weight='normal'
