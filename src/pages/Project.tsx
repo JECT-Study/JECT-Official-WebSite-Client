@@ -5,6 +5,7 @@ import Icon from '@/components/common/icon/Icon';
 import { Post } from '@/components/common/post/Post';
 import { Tab, TabHeader, TabItem, TabPanel } from '@/components/common/tab/Tab';
 import Title from '@/components/common/title/Title';
+import { PATH } from '@/constants/path';
 
 const projectCardData = [
   {
@@ -135,7 +136,7 @@ const Project = () => {
                   {projectCardData.map(card => (
                     <Card
                       key={card.id}
-                      to={`/project/${card.id}`}
+                      to={`${PATH.project}/${card.id}`}
                       title={card.name}
                       label={card.name}
                       imgUrl={card.thumbnailUrl}
@@ -150,7 +151,7 @@ const Project = () => {
                   {hackathonCardData.map(card => (
                     <Card
                       key={card.id}
-                      to={`/hackathon/${card.id}`}
+                      to={`${PATH.jeckathon}/${card.id}`}
                       title={card.name}
                       label={card.name}
                       imgUrl={card.thumbnailUrl}
