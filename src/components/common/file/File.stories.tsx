@@ -28,6 +28,12 @@ const meta: Meta<typeof File> = {
       description:
         '파일의 X 버튼을 클릭했을 때 호출되는 함수로, 파일 삭제를 위한 함수입니다. onDelete를 생략할 경우 X 버튼은 나타나지 않습니다.',
     },
+    feedback: {
+      control: 'radio',
+      options: ['error', 'unknown'],
+      description:
+        '네트워크 오류일 경우 error 타입의 File, 알 수 없는 형식일 때 unknown 타입의 File을 사용합니다. ',
+    },
   },
 };
 
@@ -84,6 +90,25 @@ export const DisabledFileStory: Story = {
     return (
       <div className='gap-2xl flex flex-col'>
         <File file={file} onDelete={action('delete')} isDisabled={true} />
+      </div>
+    );
+  },
+};
+
+export const FeedbackFileStory: Story = {
+  name: 'Feedback FileStory',
+  render: () => {
+    const file = {
+      id: 1,
+      name: '파일명.pdf',
+      url: 'https://github.com/user-attachments/assets/b79a0212-1c4d-42c7-b3fe-b65231a9759f',
+      size: 4607,
+    };
+
+    return (
+      <div className='gap-2xl flex flex-col'>
+        <File file={file} onDelete={action('delete')} isDisabled={true} feedback='error' />
+        <File file={file} onDelete={action('delete')} isDisabled={true} feedback='unknown' />
       </div>
     );
   },
