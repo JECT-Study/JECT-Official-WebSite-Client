@@ -1,8 +1,12 @@
 import clsx from 'clsx';
 import { ComponentPropsWithoutRef, forwardRef } from 'react';
 
-const TextArea = forwardRef<HTMLTextAreaElement, ComponentPropsWithoutRef<'textarea'>>(
-  ({ disabled, ...props }, ref) => {
+interface TextAreaProps extends ComponentPropsWithoutRef<'textarea'> {
+  isError: boolean;
+}
+
+const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
+  ({ isError, disabled, ...props }, ref) => {
     return (
       <textarea
         {...props}
@@ -10,11 +14,17 @@ const TextArea = forwardRef<HTMLTextAreaElement, ComponentPropsWithoutRef<'texta
         ref={ref}
         disabled={disabled}
         className={clsx(
-          'body-md radius-sm box-border min-h-[10.375rem] w-full px-(--gap-xl) py-(--gap-lg)',
+          {
+            'border-border-trans-assistive-dark hover:border-border-trans-neutral-dark focus:border-border-trans-hero-dark':
+              !disabled,
+            'hover:border-border-trans-assistive-dark': disabled,
+            'border-feedback-negative-dark hover:border-feedback-negative-dark focus:border-feedback-negative-dark':
+              isError && !disabled,
+          },
+          'body-md radius-sm box-border min-h-[10.375rem] w-full border px-(--gap-xl) py-(--gap-lg)',
           'peer scroll resize-none outline-none',
           'duration-faster ease-(--motion-fluent)',
           'bg-surface-embossed-dark',
-          'border-border-trans-assistive-dark hover:border-border-trans-neutral-dark focus:border-border-trans-hero-dark disabled:hover:border-border-trans-assistive-dark border',
           'text-object-hero-dark disabled:text-object-disabled-dark',
           'placeholder:text-object-assistive-dark disabled:placeholder:text-object-disabled-dark',
         )}
