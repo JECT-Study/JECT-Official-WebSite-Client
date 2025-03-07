@@ -107,7 +107,7 @@ const ProjectDetail = () => {
               <TabItem id={1} label='아키텍처' />
             </TabHeader>
             <TabPanel id={0}>
-              <div className='gap-4xl grid grid-cols-1'>
+              <div className='gap-4xl flex flex-col'>
                 {projectDetailData.serviceIntros
                   .sort((a, b) => a.sequence - b.sequence)
                   .map(intro => (
@@ -121,7 +121,7 @@ const ProjectDetail = () => {
               </div>
             </TabPanel>
             <TabPanel id={1}>
-              <div className='gap-4xl grid grid-cols-1'>
+              <div className='gap-4xl flex flex-col'>
                 {projectDetailData.devIntros
                   .sort((a, b) => a.sequence - b.sequence)
                   .map(intro => (
