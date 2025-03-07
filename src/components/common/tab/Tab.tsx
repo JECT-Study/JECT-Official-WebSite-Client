@@ -2,10 +2,10 @@ import { createContext, useState, useContext, ReactNode, ComponentPropsWithoutRe
 
 import { TabProps } from '@/components/common/tab/Tab.types.ts';
 
-type TabContextType = {
+interface TabContextType {
   activeTabId: number;
   onTabClick: (id: number) => void;
-};
+}
 
 const TabContext = createContext<TabContextType | undefined>(undefined);
 
@@ -17,9 +17,9 @@ const useTabContext = () => {
   return context;
 };
 
-type TabHeaderProps = {
+interface TabHeaderProps {
   children: ReactNode;
-};
+}
 
 export const TabHeader = ({ children }: TabHeaderProps) => {
   return (
@@ -56,10 +56,10 @@ export const TabItem = ({ id, label, disabled = false, ...restprops }: TabItemPr
   );
 };
 
-type TabPanelProps = {
+interface TabPanelProps {
   id: number;
   children: ReactNode;
-};
+}
 
 export const TabPanel = ({ id, children }: TabPanelProps) => {
   const { activeTabId } = useTabContext();
