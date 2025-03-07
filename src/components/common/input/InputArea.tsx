@@ -1,4 +1,11 @@
-import { ChangeEvent, ComponentPropsWithoutRef, forwardRef, useState } from 'react';
+import {
+  ChangeEvent,
+  ComponentPropsWithoutRef,
+  forwardRef,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 
 import TextArea from './TextArea';
 
@@ -9,14 +16,22 @@ interface InputAreaProps extends ComponentPropsWithoutRef<'textarea'> {
 }
 
 const InputArea = forwardRef<HTMLTextAreaElement, InputAreaProps>(
-  ({ labelText, maxLength, disabled, required, placeholder, onChange, ...props }, ref) => {
+  ({ labelText, maxLength, disabled, required, placeholder, onChange, ...props }) => {
     const [text, setText] = useState('');
+    const textareaRef = useRef<HTMLTextAreaElement>(null);
 
     const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
       setText(e.target.value);
 
       if (onChange) onChange(e);
     };
+
+    useEffect(() => {
+      if (textareaRef.current) {
+        textareaRef.current.style.height = 'auto';
+        textareaRef.current.style.height = textareaRef.current.scrollHeight + 'px';
+      }
+    }, [text]);
 
     return (
       <div className='gap-2xs flex flex-col'>
@@ -30,7 +45,7 @@ const InputArea = forwardRef<HTMLTextAreaElement, InputAreaProps>(
         </Label>
         <TextArea
           {...props}
-          ref={ref}
+          ref={textareaRef}
           value={text}
           placeholder={placeholder}
           onChange={handleChange}
