@@ -35,7 +35,7 @@ const InputArea = ({
 
     if (onChange) onChange(e);
   };
-  console.log(text);
+
   useEffect(() => {
     if (textareaRef.current) {
       textareaRef.current.style.height = 'auto';
