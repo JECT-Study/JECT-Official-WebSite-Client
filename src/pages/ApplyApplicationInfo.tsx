@@ -14,7 +14,7 @@ import { APPLY_TITLE } from '@/constants/applyPageData';
 
 function ApplyApplicantInfo() {
   const navigate = useNavigate();
-  const [isReady, setIsReady] = useState(false);
+  const [isStepCompleted, setIsStepCompleted] = useState(false);
 
   return (
     <div className='gap-9xl flex flex-col items-center pt-(--gap-9xl) pb-(--gap-12xl)'>
@@ -46,11 +46,13 @@ function ApplyApplicantInfo() {
               name='forward'
               size='md'
               fillColor={
-                isReady ? 'fill-object-static-inverse-hero-dark' : 'fill-accent-trans-hero-dark'
+                isStepCompleted
+                  ? 'fill-object-static-inverse-hero-dark'
+                  : 'fill-accent-trans-hero-dark'
               }
             />
           }
-          disabled={!isReady}
+          disabled={!isStepCompleted}
           onClick={() => void navigate('/apply/registration')}
         >
           다음 단계로 진행하기
