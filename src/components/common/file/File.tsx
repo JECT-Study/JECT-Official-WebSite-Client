@@ -67,7 +67,7 @@ function File({ file, onDelete, isDisabled = false, feedback = null }: FileProps
   if (feedback) {
     return (
       <div
-        className={`${feedbackStyle[feedback].bgColor} ${feedbackStyle[feedback].borderColor} radius-xs gap-md flex cursor-pointer items-center border px-(--gap-lg) py-(--gap-sm)`}
+        className={`${feedbackStyle[feedback].bgColor} ${feedbackStyle[feedback].borderColor} radius-xs gap-md flex items-center border px-(--gap-lg) py-(--gap-sm)`}
       >
         <Icon
           name={feedbackStyle[feedback].icon}
