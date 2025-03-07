@@ -91,9 +91,7 @@ const ProjectDetail = () => {
           style='solid'
           hierarchy='primary'
           onClick={() => window.open(projectDetailData.serviceUrl, '_blank', 'noopener,noreferrer')}
-          rightIcon={
-            <Icon name='northEast' size='md' fillColor='fill-object-static-inverse-hero-dark' />
-          }
+          rightIcon={<Icon name='northEast' size='md' fillColor='fill-object-inverse-hero-dark' />}
         >
           서비스 바로가기
         </BlockButton>
