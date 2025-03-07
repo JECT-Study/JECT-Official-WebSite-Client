@@ -41,16 +41,7 @@ const datas = [
   },
 ];
 
-type Position = '프론트엔드 개발자' | '백엔드 개발자' | '프로젝트 매니저' | '프로덕트 디자이너';
-
 const POSITIONS = ['프론트엔드 개발자', '백엔드 개발자', '프로젝트 매니저', '프로덕트 디자이너'];
-
-const position: Record<string, Position> = {
-  fe: '프론트엔드 개발자',
-  be: '백엔드 개발자',
-  pm: '프로젝트 매니저',
-  pd: '프로덕트 디자이너',
-};
 
 function ApplyRegistration() {
   const [selectPosition, setSelectPosition] = useState<string | null>(null);
@@ -60,13 +51,13 @@ function ApplyRegistration() {
   const positionRef = useRef<HTMLInputElement>(null);
   const selectRef = useRef<HTMLDivElement>(null);
 
-  const addFile = (file: FileList | null) => {
-    if (file) setFileList(prev => [...prev, ...Array.from(file)]);
-  };
+  // const addFile = (file: FileList | null) => {
+  //   if (file) setFileList(prev => [...prev, ...Array.from(file)]);
+  // };
 
-  const deleteFile = (lastModified: number) => {
-    setFileList(fileList.filter(file => file.lastModified !== lastModified));
-  };
+  // const deleteFile = (lastModified: number) => {
+  //   setFileList(fileList.filter(file => file.lastModified !== lastModified));
+  // };
 
   const handleSelect = (label: string | null) => {
     setSelectPosition(label);
@@ -130,10 +121,10 @@ function ApplyRegistration() {
                 <div className='absolute z-40 mt-[8px] w-full' ref={selectRef}>
                   <Select
                     items={[
-                      { label: position.fe },
-                      { label: position.be },
-                      { label: position.pm },
-                      { label: position.pd },
+                      { label: POSITIONS[0] },
+                      { label: POSITIONS[1] },
+                      { label: POSITIONS[2] },
+                      { label: POSITIONS[3] },
                     ]}
                     defaultValue={selectPosition}
                     onChange={handleSelect}
