@@ -5,6 +5,7 @@ import Activity from '@/pages/Activity';
 import Apply from '@/pages/Apply';
 import ApplyApplicantInfo from '@/pages/ApplyApplicationInfo';
 import ApplyComplete from '@/pages/ApplyComplete';
+import ApplyRegistration from '@/pages/ApplyRegistration';
 import Faq from '@/pages/Faq';
 import Main from '@/pages/Main';
 
@@ -19,7 +20,7 @@ const routerList = [
       { path: PATH.faq, element: <Faq /> },
       { path: PATH.applyVerify, element: <></> },
       { path: PATH.applicantInfo, element: <ApplyApplicantInfo /> },
-      { path: PATH.applyRegistration, element: <></> },
+      { path: PATH.applyRegistration, element: <ApplyRegistration /> },
       { path: PATH.applyComplete, element: <ApplyComplete /> },
     ],
   },
