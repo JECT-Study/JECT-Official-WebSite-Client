@@ -34,6 +34,18 @@ const meta: Meta<typeof InputFile> = {
       control: 'object',
       description: '업로드 가능한 파일 확장자를 담은 배열입니다.',
     },
+    maxSize: {
+      control: 'number',
+      description: '총 파일의 최대 용량값을 나타냅니다. 단위는 MB입니다.',
+    },
+    labelText: {
+      control: 'text',
+      description: 'InputFile의 레이블입니다.',
+    },
+    isRequired: {
+      control: 'boolean',
+      description: 'true일 경우 레이블에 *이 표시됩니다.',
+    },
   },
 };
 
@@ -79,6 +91,9 @@ export const InputFilePdfStory: Story = {
           onDeleteFile={deleteFile}
           isDisabled={false}
           fileExtensions={['pdf']}
+          labelText='첨부파일'
+          maxSize={100}
+          isRequired={true}
         />
       </div>
     );
@@ -123,6 +138,9 @@ export const InputFileOtherFileExtensionStory: Story = {
           onDeleteFile={deleteFile}
           isDisabled={false}
           fileExtensions={['pdf', 'jpeg', 'png']}
+          labelText='첨부파일'
+          maxSize={100}
+          isRequired={false}
         />
       </div>
     );
