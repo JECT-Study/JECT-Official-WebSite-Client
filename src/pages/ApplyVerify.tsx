@@ -11,15 +11,15 @@ import { APPLY_TITLE } from '@/constants/applyPageData';
 
 function ApplyVerify() {
   const [isReady, setIsReady] = useState(false);
-  const [isExist, setIsExist] = useState(false);
-  const [step, setStep] = useState(3);
+  const [isNewApplicant, setIsNewApplicant] = useState(true);
+  const [step, setStep] = useState(1);
 
   return (
     <div className='gap-9xl flex flex-col items-center pt-(--gap-9xl) pb-(--gap-12xl)'>
       <ProgressIndicator totalStep={3} currentStep={1} />
       <main className='gap-9xl flex w-[26.25rem] flex-col items-stretch *:first:self-center'>
         <Title hierarchy='strong'>
-          {isExist ? APPLY_TITLE.verifyPIN : APPLY_TITLE.verifyEmail}
+          {isNewApplicant ? APPLY_TITLE.verifyEmail : APPLY_TITLE.verifyPIN}
         </Title>
         <div className='gap-7xl flex flex-col'>
           <form action='' className='gap-xs flex flex-col'>
@@ -28,7 +28,7 @@ function ApplyVerify() {
               labelText='이메일'
               isError={false}
               isSuccess={false}
-              disabled={isExist}
+              disabled={!isNewApplicant}
               helper=''
               placeholder='enjoyject@google.com'
             >
@@ -39,10 +39,10 @@ function ApplyVerify() {
                 className='h-full'
                 disabled={true}
               >
-                {isExist ? '인증 완료됨 ' : step > 1 ? '인증번호 발송됨' : '인증번호 받기'}
+                {!isNewApplicant ? '인증 완료됨 ' : step > 1 ? '인증번호 발송됨' : '인증번호 받기'}
               </BlockButton>
             </InputField>
-            {!isExist && step > 1 && (
+            {isNewApplicant && step > 1 && (
               <InputField
                 labelText='인증번호'
                 isError={false}
@@ -57,7 +57,7 @@ function ApplyVerify() {
                 }
               />
             )}
-            {(isExist || step > 2) && (
+            {(!isNewApplicant || step > 2) && (
               <InputField
                 type='password'
                 labelText='PIN'
@@ -66,7 +66,7 @@ function ApplyVerify() {
                 disabled={false}
                 helper=''
                 placeholder={
-                  isExist
+                  isNewApplicant
                     ? '설정하셨던 6자리 비밀번호를 입력해주세요'
                     : '본인 확인용 6자리 비밀번호를 설정해주세요'
                 }
@@ -76,7 +76,7 @@ function ApplyVerify() {
               />
             )}
           </form>
-          {isExist ? (
+          {!isNewApplicant ? (
             <div className='gap-3xs flex self-center *:last:cursor-pointer *:last:underline'>
               <Label hierarchy='weak' weight='normal' textColor='text-object-alternative-dark'>
                 혹시 PIN을 잊어버리셨나요?
