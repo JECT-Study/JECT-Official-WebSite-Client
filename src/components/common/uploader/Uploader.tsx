@@ -4,7 +4,6 @@ import { ChangeEvent, DragEvent, MouseEvent, useRef, useState } from 'react';
 import BlockButton from '@/components/common/button/BlockButton';
 import Icon from '@/components/common/icon/Icon';
 import { FileExtension } from '@/constants/file';
-import { validateFileType } from '@/utils/validateFileType';
 
 interface UploaderProps {
   onChangeFile: (file: FileList | null) => void;
@@ -18,33 +17,30 @@ function Uploader({ onChangeFile, isDisabled, fileExtensions }: UploaderProps) {
 
   const handleDrag = (e: DragEvent<HTMLDivElement>, isDragging: boolean) => {
     e.preventDefault();
+
     if (!isDisabled) setIsDragging(isDragging);
   };
 
   const handleDrop = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
-    if (!isDisabled) setIsDragging(false);
 
     const { files } = e.dataTransfer;
 
-    if (files && validateFileType(files, fileExtensions)) {
-      onChangeFile(e.dataTransfer.files);
-      // TODO: 옳지 않은 확장자 예외 처리
-    }
+    if (!isDisabled) setIsDragging(false);
+    if (files) onChangeFile(e.dataTransfer.files);
   };
 
   const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+
     if (!isDisabled) inputRef.current?.click();
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target;
-    if (isDisabled || !files?.length) return;
 
-    if (validateFileType(files, fileExtensions)) {
-      onChangeFile(files);
-    }
+    if (isDisabled || !files?.length) return;
+    if (files) onChangeFile(files);
   };
 
   return (
