@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { useState } from 'react';
 
 import BlockButton from '@/components/common/button/BlockButton';
@@ -13,8 +14,6 @@ function ApplyVerify() {
   const [isReady, setIsReady] = useState(false);
   const [isNewApplicant, setIsNewApplicant] = useState(true);
   const [step, setStep] = useState(1);
-
-  const emailButtonName = 
 
   return (
     <div className='gap-9xl flex flex-col items-center pt-(--gap-9xl) pb-(--gap-12xl)'>
@@ -41,9 +40,11 @@ function ApplyVerify() {
                 className='h-full'
                 disabled={true}
               >
-                {isNewApplicant 
-                  ? (step > 1 ? '인증번호 발송됨' : '인증번호 받기') 
-                  : '인증 완료됨'}
+                {clsx({
+                  '인증번호 받기': step === 1,
+                  '인증번호 발송됨': step > 1,
+                  '인증 완료됨': !isNewApplicant,
+                })}
               </BlockButton>
             </InputField>
             {isNewApplicant && step > 1 && (
@@ -101,7 +102,6 @@ function ApplyVerify() {
               </div>
             )
           )}
-
           <BlockButton disabled={!isReady} size='lg' style='solid' hierarchy='accent'>
             다음 단계로 진행하기
           </BlockButton>
