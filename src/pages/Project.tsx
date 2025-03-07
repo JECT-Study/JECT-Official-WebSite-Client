@@ -124,13 +124,11 @@ const Project = () => {
                   size='lg'
                   hierarchy='secondary'
                   rightIcon={
-                    <Icon
-                      name='dropDown'
-                      size='md'
-                      fillColor='fill-object-static-inverse-hero-dark'
-                    />
+                    <Icon name='dropDown' size='md' fillColor='fill-object-neutral-dark' />
                   }
-                />
+                >
+                  기수 선택
+                </LabelButton>
               </div>
               <TabPanel id={0}>
                 <div className='gap-4xl grid grid-cols-3'>
