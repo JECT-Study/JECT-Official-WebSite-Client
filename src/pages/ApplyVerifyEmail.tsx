@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import ApplyVerifyPin from './ApplyVerifyPin';
 
+import NewTabLink from '@/components/apply/NewTabLink';
 import BlockButton from '@/components/common/button/BlockButton';
 import LabelButton from '@/components/common/button/LabelButton';
 import Icon from '@/components/common/icon/Icon';
@@ -18,8 +19,8 @@ interface ApplyVerifyEmailProps {
 function ApplyVerifyEmail({ isResetPin = false }: ApplyVerifyEmailProps) {
   const [isStepCompleted, setIsStepCompleted] = useState(false);
   const [isNewApplicant, setIsNewApplicant] = useState<boolean | null>(null);
-
-  const [step, setStep] = useState(3);
+  const [isReVerification, setIsReVerification] = useState(isResetPin);
+  const [step, setStep] = useState(1);
 
   if (isNewApplicant === false) return <ApplyVerifyPin email={'userEmail@google.com'} />;
 
@@ -27,17 +28,10 @@ function ApplyVerifyEmail({ isResetPin = false }: ApplyVerifyEmailProps) {
     <div
       className={`gap-9xl flex flex-col items-center ${isResetPin ? 'pt-(--gap-12xl)' : 'pt-(--gap-9xl)'} pb-(--gap-12xl)`}
     >
-      {isResetPin ? null : <ProgressIndicator totalStep={3} currentStep={1} />}
+      {!isReVerification && <ProgressIndicator totalStep={3} currentStep={1} />}
       <main className='gap-9xl flex w-[26.25rem] flex-col items-stretch *:first:self-center'>
         <Title hierarchy='strong'>
-          {isResetPin ? (
-            <>
-              PIN을 다시 설정하려면
-              <br /> 이메일을 인증해주세요
-            </>
-          ) : (
-            APPLY_TITLE.verifyEmail
-          )}
+          {isReVerification ? APPLY_TITLE.resetPin : APPLY_TITLE.verifyEmail}
         </Title>
         <div className='gap-7xl flex flex-col'>
           <form action='' className='gap-xs flex flex-col'>
@@ -55,7 +49,6 @@ function ApplyVerifyEmail({ isResetPin = false }: ApplyVerifyEmailProps) {
                 hierarchy='secondary'
                 className='h-full'
                 disabled={false}
-                onClick={() => setIsNewApplicant(false)}
               >
                 {step === 1 ? '인증번호 받기' : '인증번호 발송됨'}
               </BlockButton>
@@ -90,14 +83,16 @@ function ApplyVerifyEmail({ isResetPin = false }: ApplyVerifyEmailProps) {
               />
             )}
           </form>
-          {!isResetPin && step > 1 && (
-            <div className='gap-2xs flex *:last:cursor-pointer'>
+          {!isReVerification && step > 1 && (
+            <div className='gap-2xs flex'>
               <div className='gap-2xs flex flex-1'>
                 <Label hierarchy='strong' weight='normal' textColor='text-object-assistive-dark'>
                   [필수] 젝트 개인정보 수집 및 이용 동의
                 </Label>
               </div>
-              <Icon name='rightChevron' size='lg' fillColor='fill-object-assistive-dark' />
+              <NewTabLink href=''>
+                <Icon name='rightChevron' size='lg' fillColor='fill-object-assistive-dark' />
+              </NewTabLink>
             </div>
           )}
           <BlockButton disabled={!isStepCompleted} size='lg' style='solid' hierarchy='accent'>

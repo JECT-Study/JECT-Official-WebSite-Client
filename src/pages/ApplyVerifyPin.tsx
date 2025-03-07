@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import ApplyVerifyEmail from './ApplyVerifyEmail';
+
 import BlockButton from '@/components/common/button/BlockButton';
 import Icon from '@/components/common/icon/Icon';
 import InputField from '@/components/common/input/InputField';
@@ -15,6 +17,9 @@ interface ApplyVerifyPinProps {
 
 function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
   const [isStepCompleted, setIsStepCompleted] = useState(false);
+  const [isResetPin, setIsResetPin] = useState(false);
+
+  if (isResetPin) return <ApplyVerifyEmail isResetPin={isResetPin} />;
 
   return (
     <div className='gap-9xl flex flex-col items-center pt-(--gap-9xl) pb-(--gap-12xl)'>
@@ -57,11 +62,11 @@ function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
             <Label hierarchy='weak' weight='normal' textColor='text-object-alternative-dark'>
               혹시 PIN을 잊어버리셨나요?
             </Label>
-            <Link to='/apply/verify-reset' className='*:underline'>
+            <button className='*:underline' onClick={() => setIsResetPin(true)}>
               <Label hierarchy='weak' weight='normal' textColor='text-feedback-information-dark'>
                 PIN 다시 설정하기
               </Label>
-            </Link>
+            </button>
           </div>
           <BlockButton disabled={!isStepCompleted} size='lg' style='solid' hierarchy='accent'>
             다음 단계로 진행하기
