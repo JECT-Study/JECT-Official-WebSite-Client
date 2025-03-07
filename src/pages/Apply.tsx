@@ -60,7 +60,7 @@ function Apply() {
           <Icon name='forward' size='md' fillColor='fill-object-static-inverse-hero-dark' />
         }
         className='min-w-[26.25rem] cursor-pointer'
-        onClick={() => void navigate(PATH.applyVerifyEmail)}
+        onClick={() => void navigate(PATH.applyVerify)}
       >
         젝트 3기 지원하기
       </BlockButton>

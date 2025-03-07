@@ -4,7 +4,7 @@ export const PATH = {
   activity: '/activity',
   apply: '/apply',
   faq: '/faq',
-  applyVerifyEmail: '/apply/verify',
+  applyVerify: '/apply/verify',
   applicantInfo: '/apply/applicant-info',
   applyRegistration: '/apply/registration',
   applyComplete: '/apply/complete',

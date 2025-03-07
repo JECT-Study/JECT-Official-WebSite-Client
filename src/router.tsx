@@ -18,7 +18,7 @@ const routerList = [
       { path: PATH.activity, element: <Activity /> },
       { path: PATH.apply, element: <Apply /> },
       { path: PATH.faq, element: <Faq /> },
-      { path: PATH.applyVerifyEmail, element: <ApplyVerifyEmail /> },
+      { path: PATH.applyVerify, element: <ApplyVerifyEmail /> },
       { path: PATH.applicantInfo, element: <ApplyApplicantInfo /> },
       { path: PATH.applyRegistration, element: <></> },
       { path: PATH.applyComplete, element: <ApplyComplete /> },
