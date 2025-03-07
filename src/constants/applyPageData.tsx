@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import NewTabLink from '@/components/apply/NewTabLink';
 import { moveToBottom } from '@/utils/scrollFunction';
 
-export const APPLY_TITLE = {
+export const APPLY_TITLE: Record<string, ReactNode> = {
   process: '지원 과정',
   info: '지원 관련 안내',
   verifyEmail: '이메일을 인증해주세요',
@@ -11,6 +11,12 @@ export const APPLY_TITLE = {
   applicantInfo: '지원자님에 대해 알려주세요',
   registration: '더 자세하게 알고 싶어요',
   complete: '지원이 완료되었어요',
+  resetPin: (
+    <>
+      PIN을 다시 설정하려면
+      <br /> 이메일을 인증해주세요
+    </>
+  ),
 };
 
 interface Procedure {
