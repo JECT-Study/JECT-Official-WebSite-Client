@@ -6,12 +6,13 @@ import Apply from '@/pages/Apply';
 import Faq from '@/pages/Faq';
 import Project from '@/pages/Project';
 import ProjectDetail from '@/pages/ProjectDetail';
+import Main from '@/pages/Main';
 
 const routerList = [
   {
     element: <Layout />,
     children: [
-      { path: PATH.main, element: <></> },
+      { path: PATH.main, element: <Main /> },
       { path: PATH.project, element: <Project /> },
       { path: `${PATH.project}/:id`, element: <ProjectDetail /> },
       { path: PATH.activity, element: <Activity /> },
