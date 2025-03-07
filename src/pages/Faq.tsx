@@ -1,7 +1,7 @@
 import Accordion from '@/components/common/accordion/Accordion';
 import { Tab, TabHeader, TabItem, TabPanel } from '@/components/common/tab/Tab';
 import Title from '@/components/common/title/Title';
-import { faqActivity, faqApply, faqJect, faqProject } from '@/constants/faqData';
+import { faqActivity, faqApply, faqJect, faqProject } from '@/constants/faqPageData';
 
 function Faq() {
   return (
