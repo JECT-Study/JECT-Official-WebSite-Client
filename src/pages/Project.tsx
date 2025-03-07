@@ -118,7 +118,7 @@ const Project = () => {
             <div className='gap-4xl flex w-full flex-col'>
               <TabHeader>
                 <TabItem id={0} label='프로젝트' />
-                <TabItem id={1} label='해커톤' />
+                <TabItem id={1} label='해커톤' disabled />
               </TabHeader>
               <div className='gap-xs flex w-full'>
                 <LabelButton
