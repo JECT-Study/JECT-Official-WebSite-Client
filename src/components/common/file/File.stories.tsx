@@ -6,14 +6,18 @@ import File from './File';
 const meta: Meta<typeof File> = {
   title: 'Components/File',
   component: File,
-  argTypes: {
-    id: {
-      description:
-        '각 file의 고유한 번호입니다. 고유한 id 값 혹은 배열의 index 값 혹은 File 객체의 lastModified값 등이 사용될 수 있습니다.  ',
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'File 컴포넌트는 선택한 파일을 삭제할 수 있으며, 클릭했을 때 새로운 창으로 파일을 열람할 수 있습니다. 아래 스토리들은 임시의 ject 파일(url)을 사용했습니다.',
+      },
     },
+  },
+  argTypes: {
     file: {
       control: 'file',
-      description: 'File 타입의 파일 객체 혹은 CDN URL입니다.',
+      description: 'FileUrl타입으로 id, name, cdn url, size 값이 들어간 객체입니다.',
     },
     isDisabled: {
       control: 'boolean',
@@ -21,7 +25,8 @@ const meta: Meta<typeof File> = {
     },
     onDelete: {
       action: 'clicked',
-      description: '파일의 X 버튼을 클릭했을 때 호출되는 함수로, 파일 삭제를 위한 함수입니다. ',
+      description:
+        '파일의 X 버튼을 클릭했을 때 호출되는 함수로, 파일 삭제를 위한 함수입니다. onDelete를 생략할 경우 X 버튼은 나타나지 않습니다.',
     },
   },
 };
@@ -33,10 +38,16 @@ type Story = StoryObj<typeof File>;
 export const FileStory: Story = {
   name: 'FileStory',
   render: () => {
-    const file = { lastModified: 1, name: '파일 더미.pdf', size: 4607, type: 'application/pdf' };
+    const file = {
+      id: 1,
+      name: '파일명.pdf',
+      url: 'https://github.com/user-attachments/assets/b79a0212-1c4d-42c7-b3fe-b65231a9759f',
+      size: 4607,
+    };
+
     return (
       <div className='gap-2xl flex flex-col'>
-        <File id={1} file={file} />
+        <File file={file} />
       </div>
     );
   },
@@ -45,7 +56,13 @@ export const FileStory: Story = {
 export const RemovableFileStory: Story = {
   name: 'Removable FileStory',
   render: () => {
-    const file = { lastModified: 1, name: '파일 더미.pdf', size: 4607, type: 'application/pdf' };
+    const file = {
+      id: 1,
+      name: '파일명.pdf',
+      url: 'https://github.com/user-attachments/assets/b79a0212-1c4d-42c7-b3fe-b65231a9759f',
+      size: 4607,
+    };
+
     return (
       <div className='gap-2xl flex flex-col'>
         <File file={file} onDelete={action('delete')} />
@@ -57,7 +74,13 @@ export const RemovableFileStory: Story = {
 export const DisabledFileStory: Story = {
   name: 'Disabled FileStory',
   render: () => {
-    const file = { lastModified: 1, name: '파일 더미.pdf', size: 4607, type: 'application/pdf' };
+    const file = {
+      id: 1,
+      name: '파일명.pdf',
+      url: 'https://github.com/user-attachments/assets/b79a0212-1c4d-42c7-b3fe-b65231a9759f',
+      size: 4607,
+    };
+
     return (
       <div className='gap-2xl flex flex-col'>
         <File file={file} onDelete={action('delete')} isDisabled={true} />
