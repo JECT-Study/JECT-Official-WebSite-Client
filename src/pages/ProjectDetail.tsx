@@ -56,7 +56,7 @@ const ProjectDetail = () => {
           alt='프로젝트 이미지'
           className='radius-md border-border-alternative-dark block h-[20.0625rem] w-full border object-cover'
         />
-        <div className='gap-2xl flex h-[28.4375rem] w-full flex-col items-start'>
+        <div className='gap-2xl flex min-h-[28.4375rem] w-full flex-col items-start'>
           <div className='gap-md flex flex-col'>
             <Title hierarchy='stronger'>{projectDetailData.name}</Title>
             <Label hierarchy='stronger' weight='bold' textColor='text-object-normal-dark'>
