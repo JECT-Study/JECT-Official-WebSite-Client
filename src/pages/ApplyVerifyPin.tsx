@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import BlockButton from '@/components/common/button/BlockButton';
 import Icon from '@/components/common/icon/Icon';
@@ -52,13 +53,15 @@ function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
               InputChildren={<Icon name='visible' size='md' fillColor='fill-object-neutral-dark' />}
             />
           </form>
-          <div className='gap-3xs flex self-center *:last:cursor-pointer *:last:underline'>
+          <div className='gap-3xs flex self-center *:last:cursor-pointer'>
             <Label hierarchy='weak' weight='normal' textColor='text-object-alternative-dark'>
               혹시 PIN을 잊어버리셨나요?
             </Label>
-            <Label hierarchy='weak' weight='normal' textColor='text-feedback-information-dark'>
-              PIN 다시 설정하기
-            </Label>
+            <Link to='/apply/verify-reset' className='*:underline'>
+              <Label hierarchy='weak' weight='normal' textColor='text-feedback-information-dark'>
+                PIN 다시 설정하기
+              </Label>
+            </Link>
           </div>
           <BlockButton disabled={!isStepCompleted} size='lg' style='solid' hierarchy='accent'>
             다음 단계로 진행하기
