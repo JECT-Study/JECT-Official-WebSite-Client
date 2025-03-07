@@ -1,8 +1,11 @@
+import { useState } from 'react';
+
 import cardSampleImage from '@/assets/CardSample.png';
 import LabelButton from '@/components/common/button/LabelButton';
 import { Card } from '@/components/common/card/Card';
 import Icon from '@/components/common/icon/Icon';
 import { Post } from '@/components/common/post/Post';
+import { Select } from '@/components/common/select/Select';
 import { Tab, TabHeader, TabItem, TabPanel } from '@/components/common/tab/Tab';
 import Title from '@/components/common/title/Title';
 import { PATH } from '@/constants/path';
@@ -108,7 +111,17 @@ const reviewData = [
   },
 ];
 
+const selectItems = [{ label: '1기' }, { label: '2기' }, { label: '3기' }];
+
 const Project = () => {
+  const [isSelectOpen, setIsSelectOpen] = useState(false);
+  const [selectedOption, setSelectedOption] = useState<string | null>(null);
+
+  const handleSelectChange = (label: string | null) => {
+    setSelectedOption(label);
+    setIsSelectOpen(false);
+  };
+
   return (
     <div className='gap-12xl flex flex-col items-center px-(--gap-5xl) py-(--gap-12xl)'>
       <section className='gap-8xl flex w-full max-w-[60rem] flex-col items-center'>
@@ -120,16 +133,22 @@ const Project = () => {
                 <TabItem id={0} label='프로젝트' />
                 <TabItem id={1} label='해커톤' disabled />
               </TabHeader>
-              <div className='gap-xs flex w-full'>
+              <div className='relative w-fit'>
                 <LabelButton
                   size='lg'
                   hierarchy='secondary'
                   rightIcon={
                     <Icon name='dropDown' size='md' fillColor='fill-object-neutral-dark' />
                   }
+                  onClick={() => setIsSelectOpen(prev => !prev)}
                 >
-                  기수 선택
+                  {selectedOption ? selectedOption : '기수 선택'}
                 </LabelButton>
+                {isSelectOpen && (
+                  <div className='absolute top-full left-[-9%] z-10 mt-3 w-[7.5rem]'>
+                    <Select items={selectItems} onChange={handleSelectChange} />
+                  </div>
+                )}
               </div>
               <TabPanel id={0}>
                 <div className='gap-4xl grid grid-cols-3'>
