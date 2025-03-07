@@ -48,7 +48,7 @@ export const TabItem = ({ id, label, disabled = false, ...restprops }: TabItemPr
         isActive
           ? 'text-object-hero-dark stroke-bold border-accent-normal-dark relative z-10 -mb-px'
           : 'text-object-alternative-dark'
-      } ${disabled ? 'cursor-not-allowed opacity-50' : ''}`}
+      } ${disabled ? 'text-object-disabled-dark pointer-events-none cursor-not-allowed' : ''}`}
       {...restprops}
     >
       {label}
