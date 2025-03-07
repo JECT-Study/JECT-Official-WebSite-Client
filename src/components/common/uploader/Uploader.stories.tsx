@@ -10,7 +10,7 @@ const meta: Meta<typeof Uploader> = {
     docs: {
       description: {
         component:
-          'Uploader 컴포넌트는 드래그 & 드롭 또는 버튼을 통해 파일을 업로드할 수 있습니다. 드래그 상태일 경우 드롭 박스의 디자인이 변경됩니다.',
+          'Uploader 컴포넌트는 드래그 & 드롭 또는 버튼을 통해 파일을 추가할 수 있습니다. 드래그 상태일 경우 드롭 박스의 디자인이 변경됩니다.',
       },
     },
   },
@@ -48,6 +48,15 @@ export const UploaderStory: Story = {
   render: () => {
     return (
       <Uploader isDisabled={false} onChangeFile={action('add file')} fileExtensions={['pdf']} />
+    );
+  },
+};
+
+export const UploaderDisabledStory: Story = {
+  name: 'UploaderDisabledStory',
+  render: () => {
+    return (
+      <Uploader isDisabled={true} onChangeFile={action('add file')} fileExtensions={['pdf']} />
     );
   },
 };
