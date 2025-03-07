@@ -101,3 +101,14 @@ export const applyInfoList: Info[] = [
     link: <NewTabLink href=''>젝트 회비 관련</NewTabLink>,
   },
 ];
+
+export const applyComplete = {
+  content: (
+    <>
+      정성스레 작성해 주신 지원서는 성공적으로 제출되었어요.
+      <br /> 함께 몰입할 날들을 기대하며, 꼼꼼히 확인해 볼게요!
+      <br /> 지원해 주셔서 감사합니다!
+    </>
+  ),
+  button: '메인 페이지로',
+} as const;
