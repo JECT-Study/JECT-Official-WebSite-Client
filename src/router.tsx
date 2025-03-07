@@ -4,9 +4,9 @@ import Layout from '@/components/layout/Layout';
 import Activity from '@/pages/Activity';
 import Apply from '@/pages/Apply';
 import Faq from '@/pages/Faq';
+import Main from '@/pages/Main';
 import Project from '@/pages/Project';
 import ProjectDetail from '@/pages/ProjectDetail';
-import Main from '@/pages/Main';
 
 const routerList = [
   {
