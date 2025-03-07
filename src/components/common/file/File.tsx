@@ -11,8 +11,6 @@ interface FileProps {
   onDelete?: (id: number | string) => void;
 }
 
-// TODO: CDN URL 형식의 file일 경우, name, size 할당 수정
-
 function File({ file, onDelete, isDisabled = false }: FileProps) {
   const openFile = () => {
     if (isDisabled || !file) return;
@@ -32,7 +30,7 @@ function File({ file, onDelete, isDisabled = false }: FileProps) {
     <button
       disabled={isDisabled}
       onClick={openFile}
-      className={`${isDisabled ? '' : 'interaction-default-subtle transition-faster-fluent-hover'} bg-surface-embossed-dark radius-xs gap-md border-border-trans-assistive-dark flex items-center border px-(--gap-lg) py-(--gap-sm)`}
+      className={`${isDisabled ? '' : 'interaction-default-subtle transition-faster-fluent-hover'} bg-surface-embossed-dark radius-xs gap-md border-border-trans-assistive-dark flex cursor-pointer items-center border px-(--gap-lg) py-(--gap-sm)`}
     >
       <Icon
         name='file'
