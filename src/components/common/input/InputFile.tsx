@@ -20,7 +20,7 @@ function InputFile({
   children,
   fileExtensions,
   currentSize = 0,
-  maxSize = 0,
+  maxSize,
   isDisabled,
   onAddFile,
   labelText,
