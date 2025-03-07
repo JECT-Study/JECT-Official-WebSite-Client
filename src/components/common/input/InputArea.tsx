@@ -11,77 +11,85 @@ import {
 import TextArea from './TextArea';
 
 import Label from '@/components/common/label/Label';
+import { mergeRefs } from '@/utils/mergeRefs';
 
 interface InputAreaProps extends ComponentPropsWithoutRef<'textarea'> {
   labelText: string;
   errorHelper?: string;
 }
 
-const InputArea = ({
-  labelText,
-  errorHelper = '',
-  maxLength = 0,
-  disabled,
-  required,
-  placeholder,
-  onChange,
-  ...props
-}: InputAreaProps) => {
-  const [text, setText] = useState('');
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
+const InputArea = forwardRef<HTMLTextAreaElement, InputAreaProps>(
+  (
+    {
+      labelText,
+      errorHelper = '',
+      maxLength = 0,
+      disabled,
+      required,
+      placeholder,
+      onChange,
+      ...props
+    },
+    ref,
+  ) => {
+    const [text, setText] = useState('');
+    const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
-  const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setText(e.target.value);
+    const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+      setText(e.target.value);
 
-    if (onChange) onChange(e);
-  };
+      if (onChange) onChange(e);
+    };
 
-  useEffect(() => {
-    if (textareaRef.current) {
-      textareaRef.current.style.height = 'auto';
-      textareaRef.current.style.height = textareaRef.current.scrollHeight + 'px';
-    }
-  }, [text]);
+    useEffect(() => {
+      const ref = textareaRef.current;
 
-  return (
-    <div className='gap-2xs flex flex-col'>
-      <Label
-        hierarchy='normal'
-        weight='normal'
-        isRequired={required}
-        textColor={`${disabled ? 'text-object-assistive-dark' : 'text-object-neutral-dark'}`}
-      >
-        {labelText}
-      </Label>
-      <TextArea
-        {...props}
-        ref={textareaRef}
-        value={text}
-        placeholder={placeholder}
-        onChange={handleChange}
-        disabled={disabled}
-        required={required}
-        isError={!!errorHelper}
-      />
-      <div className='flex justify-between'>
-        <p
-          className={`${disabled ? 'text-feedback-trans-negative-dark' : 'text-feedback-negative-dark'} body-sm`}
+      if (ref) {
+        ref.style.height = 'auto';
+        ref.style.height = ref.scrollHeight + 'px';
+      }
+    }, [text]);
+
+    return (
+      <div className='gap-2xs flex flex-col'>
+        <Label
+          hierarchy='normal'
+          weight='normal'
+          isRequired={required}
+          textColor={`${disabled ? 'text-object-assistive-dark' : 'text-object-neutral-dark'}`}
         >
-          {errorHelper}
-        </p>
-        <div
-          className={clsx(
-            !!errorHelper && 'text-feedback-negative-dark!',
-            disabled && 'text-object-disabled-dark',
-            !disabled && 'text-object-assistive-dark',
-            'peer-focus:text-object-neutral-dark body-sm cursor-default self-end',
-          )}
-        >
-          {`${text.length}/${maxLength}`}
+          {labelText}
+        </Label>
+        <TextArea
+          {...props}
+          ref={mergeRefs(ref, textareaRef)}
+          value={text}
+          placeholder={placeholder}
+          onChange={handleChange}
+          disabled={disabled}
+          required={required}
+          isError={!!errorHelper}
+        />
+        <div className='flex justify-between'>
+          <p
+            className={`${disabled ? 'text-feedback-trans-negative-dark' : 'text-feedback-negative-dark'} body-sm`}
+          >
+            {errorHelper}
+          </p>
+          <div
+            className={clsx(
+              !!errorHelper && 'text-feedback-negative-dark',
+              disabled && 'text-object-disabled-dark',
+              !disabled && 'text-object-assistive-dark',
+              'peer-focus:text-object-neutral-dark body-sm cursor-default self-end',
+            )}
+          >
+            {`${text.length}/${maxLength}`}
+          </div>
         </div>
       </div>
-    </div>
-  );
-};
+    );
+  },
+);
 
 export default InputArea;
