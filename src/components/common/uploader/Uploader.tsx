@@ -12,7 +12,7 @@ interface UploaderProps {
 }
 
 function Uploader({ onChangeFile, isDisabled, fileExtensions }: UploaderProps) {
-  const [isDragging, setIsDragging] = useState<boolean>(false);
+  const [isDragging, setIsDragging] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleDrag = (e: DragEvent<HTMLDivElement>, isDragging: boolean) => {
