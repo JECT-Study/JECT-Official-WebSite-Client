@@ -14,6 +14,8 @@ function ApplyVerify() {
   const [isNewApplicant, setIsNewApplicant] = useState(true);
   const [step, setStep] = useState(1);
 
+  const emailButtonName = 
+
   return (
     <div className='gap-9xl flex flex-col items-center pt-(--gap-9xl) pb-(--gap-12xl)'>
       <ProgressIndicator totalStep={3} currentStep={1} />
@@ -39,7 +41,9 @@ function ApplyVerify() {
                 className='h-full'
                 disabled={true}
               >
-                {!isNewApplicant ? '인증 완료됨 ' : step > 1 ? '인증번호 발송됨' : '인증번호 받기'}
+                {isNewApplicant 
+                  ? (step > 1 ? '인증번호 발송됨' : '인증번호 받기') 
+                  : '인증 완료됨'}
               </BlockButton>
             </InputField>
             {isNewApplicant && step > 1 && (
