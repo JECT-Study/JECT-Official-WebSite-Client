@@ -23,13 +23,14 @@ const CheckBox = forwardRef<HTMLInputElement, CheckboxProps>(function Checkbox(
       : 'bg-object-static-inverse-disabled-dark border-border-trans-assistive-dark';
 
   return (
-    <div
-      className={clsx(
-        'gap-2xs transition-faster-fluent-hover transition-faster-fluent-active inline-flex items-center',
-        className,
-      )}
-    >
-      <div className={clsx(baseStyles, disabled ? disabledStyles : enabledStyles)}>
+    <div className={clsx('gap-2xs inline-flex items-center', className)}>
+      <div
+        className={clsx(
+          baseStyles,
+          disabled ? disabledStyles : enabledStyles,
+          'transition-faster-fluent-hover transition-faster-fluent-active',
+        )}
+      >
         <div className='relative inline-flex items-center'>
           <CheckboxIcon isIndeterminate={isIndeterminate} disabled={disabled} checked={checked} />
           <input
