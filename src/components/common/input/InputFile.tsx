@@ -42,6 +42,7 @@ function InputFile({
           fileExtensions={fileExtensions}
           isDisabled={isDisabled}
           onChangeFile={onAddFile}
+          maxSize={maxSize}
         />
       </div>
       <div className={`text-object-assistive-dark body-sm cursor-default self-end`}>

@@ -9,9 +9,10 @@ interface UploaderProps {
   onChangeFile: (file: FileList | null) => void;
   isDisabled: boolean;
   fileExtensions: FileExtension[];
+  maxSize: number;
 }
 
-function Uploader({ onChangeFile, isDisabled, fileExtensions }: UploaderProps) {
+function Uploader({ onChangeFile, isDisabled, fileExtensions, maxSize }: UploaderProps) {
   const [isDragging, setIsDragging] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -82,7 +83,7 @@ function Uploader({ onChangeFile, isDisabled, fileExtensions }: UploaderProps) {
       </label>
       {isDisabled
         ? '첨부할 수 있는 파일의 최대 용량에 도달했어요.'
-        : `파일을 드래그 & 드롭하거나, 버튼을 눌러 첨부해주세요.\n 최대 100MB까지의 ${fileExtensions.join(', ')} 파일을 첨부할 수 있어요.`}
+        : `파일을 드래그 & 드롭하거나, 버튼을 눌러 첨부해주세요.\n 최대 ${maxSize}MB까지의 ${fileExtensions.join(', ')} 파일을 첨부할 수 있어요.`}
       <input
         ref={inputRef}
         id='fileUpload'
