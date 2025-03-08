@@ -32,7 +32,7 @@ export const TabHeader = ({ children }: TabHeaderProps) => {
   );
 };
 
-interface TabItemProps extends ComponentPropsWithoutRef<'button'> {
+interface TabItemProps extends Omit<ComponentPropsWithoutRef<'button'>, 'id'> {
   id: number;
   label: string;
 }
