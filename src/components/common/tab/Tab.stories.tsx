@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import React from 'react';
 
 import { Tab, TabHeader, TabItem, TabPanel } from './Tab';
 
