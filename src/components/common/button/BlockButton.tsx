@@ -9,21 +9,21 @@ import {
   blockButtonInteractionMap,
 } from '@/styles/blockButtonStyle';
 
-export interface BlockButtonProps extends ComponentPropsWithoutRef<'button'> {
+export interface BlockButtonProps extends Omit<ComponentPropsWithoutRef<'button'>, 'style'> {
   children: ReactNode;
   leftIcon?: ReactNode;
   rightIcon?: ReactNode;
   size: Size;
-  style: Style;
+  buttonStyle: Style;
   hierarchy: Hierarchy;
 }
 
 export const BlockButton = forwardRef<HTMLButtonElement, BlockButtonProps>(
   (
-    { children, leftIcon, rightIcon, size, style, hierarchy, className, disabled, ...props },
+    { children, leftIcon, rightIcon, size, buttonStyle, hierarchy, className, disabled, ...props },
     ref,
   ) => {
-    const { variant, density, isInversed } = blockButtonInteractionMap[style][hierarchy];
+    const { variant, density, isInversed } = blockButtonInteractionMap[buttonStyle][hierarchy];
 
     const interaction = `interaction-${variant}-${density}${isInversed ? '-inverse' : ''}`;
 
@@ -35,8 +35,8 @@ export const BlockButton = forwardRef<HTMLButtonElement, BlockButtonProps>(
       baseClasses,
       blockButtonStyle.size[size],
       disabled
-        ? blockButtonStyle.disabled?.[style][hierarchy]
-        : blockButtonStyle.variant[style][hierarchy],
+        ? blockButtonStyle.disabled?.[buttonStyle][hierarchy]
+        : blockButtonStyle.variant[buttonStyle][hierarchy],
       className,
       {
         'cursor-not-allowed pointer-events-none': disabled,
