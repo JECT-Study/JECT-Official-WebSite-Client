@@ -17,8 +17,8 @@ const meta: Meta<typeof InputFile> = {
     },
   },
   argTypes: {
-    children: {
-      description: `File 컴포넌트를 위한 위치입니다.`,
+    fileNodes: {
+      description: `File 컴포넌트 배열입니다.`,
     },
     fileExtensions: {
       control: 'object',
@@ -95,15 +95,10 @@ export const InputFilePdfStory: Story = {
           onAddFile={addFile}
           labelText='첨부파일'
           isRequired={true}
-        >
-          {fileList.length > 0 && (
-            <div className='gap-2xs flex flex-col'>
-              {fileList.map(file => {
-                return <File key={file.id} file={file} onDelete={deleteFile} feedback='error' />;
-              })}
-            </div>
-          )}
-        </InputFile>
+          fileNodes={fileList.map(file => {
+            return <File key={file.id} file={file} onDelete={deleteFile} />;
+          })}
+        />
       </div>
     );
   },
@@ -149,15 +144,10 @@ export const InputFileOtherFileExtensionStory: Story = {
           onAddFile={addFile}
           labelText='첨부파일'
           isRequired={true}
-        >
-          {fileList.length > 0 && (
-            <div className='gap-2xs flex flex-col'>
-              {fileList.map(file => {
-                return <File key={file.id} file={file} onDelete={deleteFile} />;
-              })}
-            </div>
-          )}
-        </InputFile>
+          fileNodes={fileList.map(file => {
+            return <File key={file.id} file={file} onDelete={deleteFile} />;
+          })}
+        />
       </div>
     );
   },
