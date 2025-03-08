@@ -6,7 +6,7 @@ import { CheckboxIcon } from './CheckboxIcon';
 
 import Label from '@/components/common/label/Label';
 
-const CheckBox = forwardRef<HTMLInputElement, CheckboxProps>(function Checkbox(
+const CheckBox = forwardRef<HTMLInputElement, CheckboxProps>(function CheckBox(
   { id, isIndeterminate, checked, disabled, className, labelText, ...restProps },
   ref,
 ) {
