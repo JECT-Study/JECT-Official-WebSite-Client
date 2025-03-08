@@ -78,7 +78,7 @@ const InputArea = forwardRef<HTMLTextAreaElement, InputAreaProps>(
           </p>
           <div
             className={clsx(
-              !!errorHelper && 'text-feedback-negative-dark',
+              !!errorHelper && 'text-feedback-negative-dark!',
               disabled && 'text-object-disabled-dark',
               !disabled && 'text-object-assistive-dark',
               'peer-focus:text-object-neutral-dark body-sm cursor-default self-end',
