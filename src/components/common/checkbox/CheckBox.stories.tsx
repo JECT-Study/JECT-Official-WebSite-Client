@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { ChangeEvent, useState } from 'react';
 
 import CheckBox from './CheckBox';
 
@@ -40,11 +41,33 @@ export default meta;
 
 type Story = StoryObj<typeof CheckBox>;
 
-export const Default: Story = {
+export const DefaultStory: Story = {
   name: 'CheckBox',
   render: args => (
     <div className='story-container'>
       <CheckBox {...args} />
     </div>
   ),
+};
+
+export const InteractiveStory: Story = {
+  name: 'Interactive CheckBox',
+  render: args => {
+    const [checked, setChecked] = useState(args.checked);
+
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+      setChecked(e.target.checked);
+    };
+
+    return (
+      <div className='story-container'>
+        <CheckBox
+          {...args}
+          checked={checked}
+          isIndeterminate={isIndeterminate}
+          onChange={handleChange}
+        />
+      </div>
+    );
+  },
 };
