@@ -28,7 +28,7 @@ const CheckBox = forwardRef<HTMLInputElement, CheckboxProps>(function CheckBox(
         className={clsx(
           baseStyles,
           disabled ? disabledStyles : enabledStyles,
-          'transition-faster-fluent-hover transition-faster-fluent-active',
+          'transition-faster-fluent-hover transition-faster-fluent-active transition-faster-fluent-focus',
         )}
       >
         <div className='relative inline-flex items-center'>
