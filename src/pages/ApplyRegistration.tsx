@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import BlockButton from '@/components/common/button/BlockButton';
 import File from '@/components/common/file/File';
@@ -40,11 +40,10 @@ const datas = [
   },
 ];
 
-const POSITIONS = ['프론트엔드 개발자', '백엔드 개발자', '프로젝트 매니저', '프로덕트 디자이너'];
+const POSITIONS = ['프론트엔드 개발자', '백엔드 개발자', '프로덕트 매니저', '프로덕트 디자이너'];
 
 function ApplyRegistration() {
   const [selectPosition, setSelectPosition] = useState<string | null>(null);
-  const [selectInput, setSelectInput] = useState('');
   const [isSelectOpen, setIsSelectOpen] = useState(false);
   const [fileList, setFileList] = useState<FileUrl[]>([]);
   const selectRef = useRef<HTMLDivElement>(null);
@@ -74,26 +73,8 @@ function ApplyRegistration() {
 
   const handleSelect = (label: string | null) => {
     if (label) {
-      setSelectInput(label);
       setSelectPosition(label);
       setIsSelectOpen(!isSelectOpen);
-    }
-  };
-
-  const handleChangeSelectInput = (e: ChangeEvent<HTMLInputElement>) => {
-    setSelectInput(e.target.value);
-  };
-
-  const handleKeyDownPosition = ({ key }: React.KeyboardEvent<HTMLInputElement>) => {
-    if (key === 'Enter') {
-      if (!isSelectOpen) {
-        setIsSelectOpen(!isSelectOpen);
-      }
-
-      if (POSITIONS.includes(selectInput)) {
-        setSelectPosition(selectInput);
-        setIsSelectOpen(!isSelectOpen);
-      }
     }
   };
 
@@ -121,10 +102,10 @@ function ApplyRegistration() {
             <Title hierarchy='normal'>어떤 포지션으로 지원하시나요?</Title>
             <div className='relative'>
               <InputField
+                readOnly
                 onClick={() => setIsSelectOpen(!isSelectOpen)}
-                onChange={handleChangeSelectInput}
-                onKeyDown={handleKeyDownPosition}
-                value={selectInput}
+                onKeyDown={({ key }) => key === 'Enter' && setIsSelectOpen(!isSelectOpen)}
+                value={selectPosition ?? ''}
                 required
                 labelText='포지션'
                 isError={false}
