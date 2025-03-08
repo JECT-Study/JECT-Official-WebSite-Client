@@ -19,6 +19,11 @@
     transition-timing-function: var(--motion-fluent);
   }
 
+  .transition-faster-fluent-active:active::before {
+    transition-duration: var(--duration-faster);
+    transition-timing-function: var(--motion-fluent);
+  }
+
   /* inversed false*/
   .interaction-default-bold {
     @apply focus-visible:before:shadow-focus-visible relative outline-none before:absolute before:inset-0 before:rounded-[inherit] hover:before:bg-[rgba(255,255,255,0.12)] active:before:bg-[rgba(255,255,255,0.12)];
