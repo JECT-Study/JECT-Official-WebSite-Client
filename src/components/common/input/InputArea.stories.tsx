@@ -10,6 +10,10 @@ const meta: Meta<typeof InputArea> = {
       control: { type: 'text' },
       description: 'InputArea의 레이블입니다.',
     },
+    errorHelper: {
+      control: { type: 'text' },
+      description: '에러 헬퍼메시지로, truthy 값이 올 경우 표시됩니다.',
+    },
     placeholder: {
       control: { type: 'text' },
     },
@@ -20,8 +24,8 @@ const meta: Meta<typeof InputArea> = {
       control: { type: 'boolean' },
     },
     required: {
-      control: {type: 'boolean'}
-    }
+      control: { type: 'boolean' },
+    },
   },
 };
 
@@ -32,10 +36,11 @@ type Story = StoryObj<typeof InputArea>;
 export const Default: Story = {
   args: {
     labelText: '레이블',
+    errorHelper: '',
     placeholder: '플레이스홀더',
     maxLength: 500,
     disabled: false,
-    required: false
+    required: false,
   },
 };
 
