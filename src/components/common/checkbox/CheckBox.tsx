@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { forwardRef } from 'react';
+import type { MouseEvent } from 'react';
 
 import { CheckBoxProps } from './CheckBox.types';
 import { CheckBoxIcon } from './CheckBoxIcon';
@@ -10,7 +11,8 @@ const CheckBox = forwardRef<HTMLInputElement, CheckBoxProps>(function CheckBox(
   { id, isIndeterminate, checked, disabled, className, labelText, ...restProps },
   ref,
 ) {
-  const baseStyles = 'group radius-4xs inline-flex items-center justify-center border';
+  const baseStyles =
+    'group relative outline-none radius-4xs before:absolute duration-faster ease-(--motion-fluent) before:inset-0 before:rounded-[inherit] inline-flex items-center justify-center border';
 
   const enabledStyles =
     checked || isIndeterminate
@@ -22,13 +24,20 @@ const CheckBox = forwardRef<HTMLInputElement, CheckBoxProps>(function CheckBox(
       ? 'bg-feedback-trans-information-dark border-border-trans-assistive-dark'
       : 'bg-object-static-inverse-disabled-dark border-border-trans-assistive-dark';
 
+  const handleClick = (e: MouseEvent<HTMLInputElement>) => {
+    e.currentTarget.blur();
+    if (restProps.onClick) {
+      restProps.onClick(e);
+    }
+  };
+
   return (
     <div className={clsx('gap-2xs inline-flex items-center', className)}>
       <div
         className={clsx(
           baseStyles,
           disabled ? disabledStyles : enabledStyles,
-          'transition-faster-fluent-hover transition-faster-fluent-active transition-faster-fluent-focus',
+          'focus-within:before:shadow-focus-visible group-hover:before:bg-[rgba(26,27,35,0.12)] group-active:before:bg-[rgba(26,27,35,0.12)]',
         )}
       >
         <div className='relative inline-flex items-center'>
@@ -36,6 +45,7 @@ const CheckBox = forwardRef<HTMLInputElement, CheckBoxProps>(function CheckBox(
           <input
             id={id}
             ref={ref}
+            onClick={handleClick}
             className={clsx(
               'absolute top-0 left-0 h-full w-full opacity-0',
               !disabled && 'cursor-pointer',
