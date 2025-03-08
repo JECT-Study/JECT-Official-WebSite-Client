@@ -13,7 +13,7 @@ const meta: Meta<typeof BlockButton> = {
       options: ['xs', 'sm', 'md', 'lg'],
       description: '버튼의 크기를 담당하는 요소입니다.',
     },
-    buttonStyle: {
+    style: {
       control: { type: 'select' },
       options: ['solid', 'outlined'],
       description: 'BlockButton에서 분기가 되는 테두리가 있는 버튼, 꽉 찬 버튼입니다.',
@@ -30,7 +30,7 @@ const meta: Meta<typeof BlockButton> = {
   },
   args: {
     size: 'lg',
-    buttonStyle: 'solid',
+    style: 'solid',
     hierarchy: 'accent',
     disabled: false,
   },
@@ -59,19 +59,19 @@ export const ButtonStory: Story = {
     <div className='story-container'>
       <div className='story-inner-container'>
         <div className='story-inner-row-container'>
-          <BlockButton size='lg' buttonStyle='solid' hierarchy='accent'>
+          <BlockButton size='lg' style='solid' hierarchy='accent'>
             레이블
           </BlockButton>
-          <BlockButton size='lg' buttonStyle='solid' hierarchy='primary'>
+          <BlockButton size='lg' style='solid' hierarchy='primary'>
             레이블
           </BlockButton>
-          <BlockButton size='lg' buttonStyle='solid' hierarchy='secondary'>
+          <BlockButton size='lg' style='solid' hierarchy='secondary'>
             레이블
           </BlockButton>
-          <BlockButton size='lg' buttonStyle='solid' hierarchy='tertiary'>
+          <BlockButton size='lg' style='solid' hierarchy='tertiary'>
             레이블
           </BlockButton>
-          <BlockButton size='lg' buttonStyle='solid' hierarchy='accent' disabled={true}>
+          <BlockButton size='lg' style='solid' hierarchy='accent' disabled={true}>
             레이블
           </BlockButton>
         </div>
@@ -88,7 +88,7 @@ export const IconButtonStory: Story = {
         <div className='story-inner-row-container'>
           <BlockButton
             size='lg'
-            buttonStyle='solid'
+            style='solid'
             hierarchy='accent'
             leftIcon={
               <Icon name='check' size='md' fillColor='fill-object-static-inverse-hero-dark' />
@@ -101,7 +101,7 @@ export const IconButtonStory: Story = {
           </BlockButton>
           <BlockButton
             size='lg'
-            buttonStyle='solid'
+            style='solid'
             hierarchy='primary'
             leftIcon={<Icon name='check' size='md' fillColor='fill-object-inverse-hero-dark' />}
             rightIcon={<Icon name='check' size='md' fillColor='fill-object-inverse-hero-dark' />}
@@ -110,7 +110,7 @@ export const IconButtonStory: Story = {
           </BlockButton>
           <BlockButton
             size='lg'
-            buttonStyle='solid'
+            style='solid'
             hierarchy='secondary'
             leftIcon={
               <Icon name='check' size='md' fillColor='fill-object-static-inverse-hero-dark' />
@@ -123,7 +123,7 @@ export const IconButtonStory: Story = {
           </BlockButton>
           <BlockButton
             size='lg'
-            buttonStyle='solid'
+            style='solid'
             hierarchy='tertiary'
             leftIcon={<Icon name='check' size='md' fillColor='fill-object-neutral-dark' />}
             rightIcon={<Icon name='check' size='md' fillColor='fill-object-neutral-dark' />}
@@ -132,7 +132,7 @@ export const IconButtonStory: Story = {
           </BlockButton>
           <BlockButton
             size='lg'
-            buttonStyle='solid'
+            style='solid'
             hierarchy='accent'
             leftIcon={<Icon name='check' size='md' fillColor='fill-accent-trans-hero-dark' />}
             rightIcon={<Icon name='check' size='md' fillColor='fill-accent-trans-hero-dark' />}
