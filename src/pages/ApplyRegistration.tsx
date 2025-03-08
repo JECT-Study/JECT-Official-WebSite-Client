@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { useEffect, useRef, useState } from 'react';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
 
 import BlockButton from '@/components/common/button/BlockButton';
 import File from '@/components/common/file/File';
@@ -44,10 +44,9 @@ const POSITIONS = ['프론트엔드 개발자', '백엔드 개발자', '프로�
 
 function ApplyRegistration() {
   const [selectPosition, setSelectPosition] = useState<string | null>(null);
+  const [selectInput, setSelectInput] = useState('');
   const [isSelectOpen, setIsSelectOpen] = useState(false);
   const [fileList, setFileList] = useState<FileUrl[]>([]);
-
-  const positionRef = useRef<HTMLInputElement>(null);
   const selectRef = useRef<HTMLDivElement>(null);
 
   const addFile = (file: FileList | null) => {
@@ -74,16 +73,21 @@ function ApplyRegistration() {
   };
 
   const handleSelect = (label: string | null) => {
-    setSelectPosition(label);
-    setIsSelectOpen(!isSelectOpen);
+    if (label) {
+      setSelectInput(label);
+      setSelectPosition(label);
+      setIsSelectOpen(!isSelectOpen);
+    }
+  };
+
+  const handleChangeSelectInput = (e: ChangeEvent<HTMLInputElement>) => {
+    setSelectInput(e.target.value);
   };
 
   const handleKeyDownPosition = ({ key }: React.KeyboardEvent<HTMLInputElement>) => {
     if (key === 'Enter') {
-      const value = positionRef.current?.value;
-
-      if (value && POSITIONS.includes(value)) {
-        setSelectPosition(value);
+      if (POSITIONS.includes(selectInput)) {
+        setSelectPosition(selectInput);
         setIsSelectOpen(!isSelectOpen);
       }
     }
@@ -113,10 +117,10 @@ function ApplyRegistration() {
             <Title hierarchy='normal'>어떤 포지션으로 지원하시나요?</Title>
             <div className='relative'>
               <InputField
-                ref={positionRef}
                 onClick={() => setIsSelectOpen(!isSelectOpen)}
+                onChange={handleChangeSelectInput}
                 onKeyDown={handleKeyDownPosition}
-                value={selectPosition ?? undefined}
+                value={selectInput}
                 required
                 labelText='포지션'
                 isError={false}
