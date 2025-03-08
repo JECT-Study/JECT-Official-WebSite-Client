@@ -1,6 +1,6 @@
 import type { ComponentPropsWithoutRef } from 'react';
 
-export type CheckboxProps = ComponentPropsWithoutRef<'input'> & {
+export type CheckBoxProps = ComponentPropsWithoutRef<'input'> & {
   isIndeterminate?: boolean;
   disabled?: boolean;
   checked?: boolean;
@@ -11,7 +11,7 @@ export type CheckboxProps = ComponentPropsWithoutRef<'input'> & {
     | { isIndeterminate?: false; checked?: false }
   );
 
-export type CheckboxIconProps = {
+export type CheckBoxIconProps = {
   checked?: boolean;
   disabled?: boolean;
   isIndeterminate?: boolean;

@@ -1,8 +1,8 @@
-import { CheckboxIconProps } from './CheckBox.types.ts';
+import { CheckBoxIconProps } from './CheckBox.types.ts';
 
 import Icon from '@/components/common/icon/Icon';
 
-export const CheckboxIcon = ({ checked, isIndeterminate, disabled }: CheckboxIconProps) => {
+export const CheckBoxIcon = ({ checked, isIndeterminate, disabled }: CheckBoxIconProps) => {
   if (isIndeterminate) {
     return (
       <Icon

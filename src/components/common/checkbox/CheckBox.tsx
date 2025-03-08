@@ -1,12 +1,12 @@
 import clsx from 'clsx';
 import { forwardRef } from 'react';
 
-import { CheckboxProps } from './Checkbox.types';
-import { CheckboxIcon } from './CheckboxIcon';
+import { CheckBoxProps } from './CheckBox.types';
+import { CheckBoxIcon } from './CheckBoxIcon';
 
 import Label from '@/components/common/label/Label';
 
-const CheckBox = forwardRef<HTMLInputElement, CheckboxProps>(function CheckBox(
+const CheckBox = forwardRef<HTMLInputElement, CheckBoxProps>(function CheckBox(
   { id, isIndeterminate, checked, disabled, className, labelText, ...restProps },
   ref,
 ) {
@@ -32,7 +32,7 @@ const CheckBox = forwardRef<HTMLInputElement, CheckboxProps>(function CheckBox(
         )}
       >
         <div className='relative inline-flex items-center'>
-          <CheckboxIcon isIndeterminate={isIndeterminate} disabled={disabled} checked={checked} />
+          <CheckBoxIcon isIndeterminate={isIndeterminate} disabled={disabled} checked={checked} />
           <input
             id={id}
             ref={ref}
