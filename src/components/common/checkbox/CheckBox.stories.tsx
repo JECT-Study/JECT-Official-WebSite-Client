@@ -53,21 +53,19 @@ export const DefaultStory: Story = {
 export const InteractiveStory: Story = {
   name: 'Interactive CheckBox',
   render: args => {
-    const [checked, setChecked] = useState(args.checked);
+    const Interactive = () => {
+      const [isChecked, setIsChecked] = useState(args.checked);
+      const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setIsChecked(e.target.checked);
+      };
 
-    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-      setChecked(e.target.checked);
+      return (
+        <div className='story-container'>
+          <CheckBox {...args} checked={isChecked} onChange={handleChange} />
+        </div>
+      );
     };
 
-    return (
-      <div className='story-container'>
-        <CheckBox
-          {...args}
-          checked={checked}
-          isIndeterminate={isIndeterminate}
-          onChange={handleChange}
-        />
-      </div>
-    );
+    return <Interactive />;
   },
 };
