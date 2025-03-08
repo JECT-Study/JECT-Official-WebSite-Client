@@ -86,6 +86,10 @@ function ApplyRegistration() {
 
   const handleKeyDownPosition = ({ key }: React.KeyboardEvent<HTMLInputElement>) => {
     if (key === 'Enter') {
+      if (!isSelectOpen) {
+        setIsSelectOpen(!isSelectOpen);
+      }
+
       if (POSITIONS.includes(selectInput)) {
         setSelectPosition(selectInput);
         setIsSelectOpen(!isSelectOpen);
