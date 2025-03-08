@@ -2,18 +2,17 @@ import clsx from 'clsx';
 import { useEffect, useRef, useState } from 'react';
 
 import BlockButton from '@/components/common/button/BlockButton';
+import File from '@/components/common/file/File';
 import Icon from '@/components/common/icon/Icon';
 import InputArea from '@/components/common/input/InputArea';
 import InputField from '@/components/common/input/InputField';
+import InputFile from '@/components/common/input/InputFile';
 import Label from '@/components/common/label/Label';
 import ProgressIndicator from '@/components/common/progress/ProgressIndicator';
 import { Select } from '@/components/common/select/Select';
 import Title from '@/components/common/title/Title';
 import { APPLY_TITLE } from '@/constants/applyPageData';
-
-// TODO: 직군 선택 후 QuestionsByPosition 렌더링
-// TODO: select UI 구현
-// TODO: file 전체 용량 10MB로 제한
+import { FileUrl } from '@/types/file';
 
 const datas = [
   {
@@ -46,18 +45,33 @@ const POSITIONS = ['프론트엔드 개발자', '백엔드 개발자', '프로�
 function ApplyRegistration() {
   const [selectPosition, setSelectPosition] = useState<string | null>(null);
   const [isSelectOpen, setIsSelectOpen] = useState(false);
-  const [fileList, setFileList] = useState<File[]>([]);
+  const [fileList, setFileList] = useState<FileUrl[]>([]);
 
   const positionRef = useRef<HTMLInputElement>(null);
   const selectRef = useRef<HTMLDivElement>(null);
 
-  // const addFile = (file: FileList | null) => {
-  //   if (file) setFileList(prev => [...prev, ...Array.from(file)]);
-  // };
+  const addFile = (file: FileList | null) => {
+    const tempData = [
+      {
+        id: 'b79a0212-1c4d-42c7-b3fe-b65231a9759f',
+        name: '임시 파일입니다.',
+        url: 'https://github.com/user-attachments/assets/b79a0212-1c4d-42c7-b3fe-b65231a9759f',
+        size: 10902,
+      },
+      {
+        id: 'b79a0212-1c4d-42c7-b3fe-b65231a9759f3',
+        name: '임시 파일입니다.',
+        url: 'https://github.com/user-attachments/assets/b79a0212-1c4d-42c7-b3fe-b65231a9759f',
+        size: 10902,
+      },
+    ];
 
-  // const deleteFile = (lastModified: number) => {
-  //   setFileList(fileList.filter(file => file.lastModified !== lastModified));
-  // };
+    if (file) setFileList(prev => [...prev, ...tempData]);
+  };
+
+  const deleteFile = (id: number | string) => {
+    setFileList(fileList.filter(file => file.id !== id));
+  };
 
   const handleSelect = (label: string | null) => {
     setSelectPosition(label);
@@ -171,13 +185,30 @@ function ApplyRegistration() {
                     return (
                       <fieldset key={id} className='gap-2xl flex flex-col'>
                         <Title hierarchy='normal'>{question}</Title>
-                        {/* <InputFile
-                            fileList={fileList}
-                            addFile={addFile}
-                            deleteFile={deleteFile}
-                            fileExtensions={['pdf']}
-                            isDisabled={false}
-                          /> */}
+                        <InputFile
+                          fileExtensions={['pdf']}
+                          currentSize={0}
+                          maxSize={100}
+                          isDisabled={false}
+                          onAddFile={addFile}
+                          labelText='첨부파일'
+                          isRequired={true}
+                        >
+                          {fileList.length > 0 && (
+                            <div className='gap-2xs flex flex-col'>
+                              {fileList.map(file => {
+                                return (
+                                  <File
+                                    key={file.id}
+                                    file={file}
+                                    onDelete={deleteFile}
+                                    feedback=''
+                                  />
+                                );
+                              })}
+                            </div>
+                          )}
+                        </InputFile>
                       </fieldset>
                     );
                 }
