@@ -24,7 +24,5 @@ interface Temp {
 }
 
 export const fetchMiniStudies = async () => {
-  const res = await requestHandler<ApiResponse<Temp>>('get', '/ministudies');
-
-  return res.data;
+  return await requestHandler<ApiResponse<Temp>>('get', '/ministudies');
 };

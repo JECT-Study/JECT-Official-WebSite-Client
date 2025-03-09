@@ -8,7 +8,7 @@ const useMiniStudies = () => {
     queryFn: fetchMiniStudies,
   });
 
-  const miniStudies = data?.content;
+  const miniStudies = data?.data.content;
 
   return { miniStudies };
 };
