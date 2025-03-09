@@ -1,6 +1,5 @@
-import { requestHandler } from './axiosInstance';
-
 import { ApiResponse, Sort } from '@/types/response';
+import { requestHandler } from '@/utils/httpClient';
 
 interface MiniStudy {
   id: number;
