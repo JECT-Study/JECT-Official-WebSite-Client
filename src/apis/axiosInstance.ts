@@ -3,8 +3,8 @@ import axios, { AxiosRequestConfig } from 'axios';
 const BASE_URL = '/api';
 const DEFAULT_TIMEOUT = 30000;
 
-export const createClient = (config?: AxiosRequestConfig) => {
-  const axiosInstance = axios.create({
+export const createClient = (config?: AxiosRequestConfig) =>
+  axios.create({
     baseURL: BASE_URL,
     timeout: DEFAULT_TIMEOUT,
     headers: {
@@ -12,9 +12,6 @@ export const createClient = (config?: AxiosRequestConfig) => {
     },
     ...config,
   });
-
-  return axiosInstance;
-};
 
 export const httpClient = createClient();
 
