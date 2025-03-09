@@ -1,11 +1,11 @@
-import { createContext, useState, useContext, ReactNode } from 'react';
+import { createContext, useState, useContext, ReactNode, ComponentPropsWithoutRef } from 'react';
 
 import { TabProps } from '@/components/common/tab/Tab.types.ts';
 
-type TabContextType = {
+interface TabContextType {
   activeTabId: number;
   onTabClick: (id: number) => void;
-};
+}
 
 const TabContext = createContext<TabContextType | undefined>(undefined);
 
@@ -17,9 +17,9 @@ const useTabContext = () => {
   return context;
 };
 
-type TabHeaderProps = {
+interface TabHeaderProps {
   children: ReactNode;
-};
+}
 
 export const TabHeader = ({ children }: TabHeaderProps) => {
   return (
@@ -32,32 +32,34 @@ export const TabHeader = ({ children }: TabHeaderProps) => {
   );
 };
 
-type TabItemProps = {
+interface TabItemProps extends ComponentPropsWithoutRef<'button'> {
   id: number;
   label: string;
-};
+}
 
-export const TabItem = ({ id, label }: TabItemProps) => {
+export const TabItem = ({ id, label, disabled = false, ...restprops }: TabItemProps) => {
   const { activeTabId, onTabClick } = useTabContext();
   const isActive = activeTabId === id;
   return (
     <button
       onClick={() => onTabClick(id)}
-      className={`interaction-default-subtle gap-4xs label-bold-lg inline-flex items-center justify-center px-(--gap-md) py-(--gap-3xs) text-center ${
+      disabled={!!disabled}
+      className={`interaction-default-subtle gap-4xs label-bold-lg inline-flex cursor-pointer items-center justify-center px-(--gap-md) py-(--gap-3xs) text-center ${
         isActive
           ? 'text-object-hero-dark stroke-bold border-accent-normal-dark relative z-10 -mb-px'
           : 'text-object-alternative-dark'
-      }`}
+      } ${disabled ? 'text-object-disabled-dark pointer-events-none cursor-not-allowed' : ''}`}
+      {...restprops}
     >
       {label}
     </button>
   );
 };
 
-type TabPanelProps = {
+interface TabPanelProps {
   id: number;
   children: ReactNode;
-};
+}
 
 export const TabPanel = ({ id, children }: TabPanelProps) => {
   const { activeTabId } = useTabContext();

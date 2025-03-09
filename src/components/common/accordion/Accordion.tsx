@@ -12,7 +12,7 @@ interface AccordionProps {
 }
 
 function Accordion({ title, label, children, caption }: AccordionProps) {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => {
     setIsOpen(!isOpen);
@@ -22,7 +22,7 @@ function Accordion({ title, label, children, caption }: AccordionProps) {
     <div className='gap-xs flex flex-col'>
       <button
         onClick={toggle}
-        className='interaction-default-subtle transition-faster-fluent-hover gap-xs radius-3xs flex w-full text-start before:scale-x-102 before:scale-y-128 [&>*:first-child]:grow'
+        className='interaction-default-subtle-scale transition-faster-fluent-hover gap-xs radius-3xs flex w-full text-start before:scale-x-102 before:scale-y-128 [&>*:first-child]:grow'
       >
         <Title hierarchy='weak' textColor={isOpen ? null : 'text-object-neutral-dark'}>
           {title}
