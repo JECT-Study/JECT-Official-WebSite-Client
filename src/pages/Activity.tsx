@@ -1,39 +1,7 @@
 import cardSampleImage from '@/assets/CardSample.png';
 import { Card } from '@/components/common/card/Card';
 import Title from '@/components/common/title/Title';
-
-const miniStudyData = [
-  {
-    name: 'Docker & Kubernetes 심화 스터디',
-    linkUrl: 'https://youtube.com/watch?v=docker_k8s_tips789',
-    imageUrl: cardSampleImage,
-  },
-  {
-    name: 'Python 웹 크롤링 실습 스터디',
-    linkUrl: 'https://youtube.com/watch?v=python_scraping456',
-    imageUrl: cardSampleImage,
-  },
-  {
-    name: 'Spring Boot & JPA 스터디',
-    linkUrl: 'https://youtube.com/watch?v=springboot_jpa123',
-    imageUrl: cardSampleImage,
-  },
-  {
-    name: 'Docker & Kubernetes 심화 스터디',
-    linkUrl: 'https://youtube.com/watch?v=docker_k8s_tips789',
-    imageUrl: cardSampleImage,
-  },
-  {
-    name: 'Python 웹 크롤링 실습 스터디',
-    linkUrl: 'https://youtube.com/watch?v=python_scraping456',
-    imageUrl: cardSampleImage,
-  },
-  {
-    name: 'Spring Boot & JPA 스터디',
-    linkUrl: 'https://youtube.com/watch?v=springboot_jpa123',
-    imageUrl: cardSampleImage,
-  },
-];
+import useMiniStudies from '@/hooks/useMiniStudies';
 
 const jecttalkData = [
   {
@@ -74,18 +42,20 @@ const jecttalkData = [
 ];
 
 function Activity() {
+  const { miniStudies } = useMiniStudies();
+
   return (
     <div className='gap-12xl flex flex-col items-center py-(--gap-12xl)'>
       <section className='gap-8xl flex flex-col items-center'>
         <Title hierarchy='strong'>미니 스터디</Title>
         <div className='gap-4xl grid max-w-[60rem] grid-cols-3'>
-          {miniStudyData.map((item, index) => (
+          {miniStudies?.map(study => (
             <Card
-              key={index}
-              to={item.linkUrl}
-              title={item.name}
-              label={item.name}
-              imgUrl={item.imageUrl}
+              key={study.id}
+              to={study.linkUrl}
+              title={study.name}
+              label={study.summary}
+              imgUrl={study.imageUrl}
               isDescriptionVisible={false}
               target='_blank'
               rel='noopener noreferrer'
