@@ -25,12 +25,12 @@ function ApplyVerifyEmail({ isResetPin = false }: ApplyVerifyEmailProps) {
       className={`gap-9xl flex flex-col items-center ${isResetPin ? 'pt-(--gap-12xl)' : 'pt-(--gap-9xl)'} pb-(--gap-12xl)`}
     >
       {!isReVerification && <ProgressIndicator totalStep={3} currentStep={1} />}
-      <main className='gap-9xl flex w-[26.25rem] flex-col items-stretch *:first:self-center'>
+      <section className='gap-9xl flex w-[26.25rem] flex-col items-stretch *:first:self-center'>
         <Title hierarchy='strong'>
           {isReVerification ? APPLY_TITLE.resetPin : APPLY_TITLE.verifyEmail}
         </Title>
         <div className='gap-7xl flex flex-col'>
-          <form action='' className='gap-xs flex flex-col'>
+          <form className='gap-xs flex flex-col'>
             <InputField
               type='email'
               labelText='이메일'
@@ -95,7 +95,7 @@ function ApplyVerifyEmail({ isResetPin = false }: ApplyVerifyEmailProps) {
             다음 단계로 진행하기
           </BlockButton>
         </div>
-      </main>
+      </section>
     </div>
   );
 }

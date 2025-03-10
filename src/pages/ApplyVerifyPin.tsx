@@ -23,10 +23,10 @@ function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
   return (
     <div className='gap-9xl flex flex-col items-center pt-(--gap-9xl) pb-(--gap-12xl)'>
       <ProgressIndicator totalStep={3} currentStep={1} />
-      <main className='gap-9xl flex w-[26.25rem] flex-col items-stretch *:first:self-center'>
+      <section className='gap-9xl flex w-[26.25rem] flex-col items-stretch *:first:self-center'>
         <Title hierarchy='strong'>{APPLY_TITLE.verifyPIN}</Title>
         <div className='gap-7xl flex flex-col'>
-          <form action='' className='gap-xs flex flex-col'>
+          <form className='gap-xs flex flex-col'>
             <InputField
               value={email}
               type='email'
@@ -71,7 +71,7 @@ function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
             다음 단계로 진행하기
           </BlockButton>
         </div>
-      </main>
+      </section>
     </div>
   );
 }

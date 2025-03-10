@@ -21,7 +21,7 @@ function ApplyApplicantInfo() {
       <ProgressIndicator totalStep={3} currentStep={2} />
       <section className='gap-9xl flex w-[26.25rem] flex-col items-stretch *:first:self-center'>
         <Title hierarchy='strong'>{APPLY_TITLE.applicantInfo}</Title>
-        <form action='' className='gap-3xl flex flex-col'>
+        <form className='gap-3xl flex flex-col'>
           <InputField
             labelText='이름'
             isError={false}
