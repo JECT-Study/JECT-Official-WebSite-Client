@@ -16,15 +16,20 @@ const meta: Meta<typeof InputArea> = {
     },
     placeholder: {
       control: { type: 'text' },
+      description: 'textarea의 placeholder를 지정합니다.',
     },
     maxLength: {
       control: { type: 'number' },
+      description:
+        '최대 글자수를 지정합니다. <br/> 실제로 maxLength까지 작성을 제한하진 않으며 왼쪽 하단의 최대글자수를 표기하기 위함입니다 ',
     },
     disabled: {
       control: { type: 'boolean' },
+      description: 'true일 경우, InputArea가 disabled됩니다.',
     },
     required: {
       control: { type: 'boolean' },
+      description: 'true일 경우 레이블에 별(*)이 표기되며 필수로 작성해야함을 알립니다.',
     },
   },
 };
