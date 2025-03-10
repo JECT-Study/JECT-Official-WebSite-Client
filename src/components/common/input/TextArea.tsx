@@ -3,10 +3,11 @@ import { ComponentPropsWithoutRef, forwardRef } from 'react';
 
 interface TextAreaProps extends ComponentPropsWithoutRef<'textarea'> {
   isError: boolean;
+  className?: string;
 }
 
 const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
-  ({ isError, disabled, ...props }, ref) => {
+  ({ isError, disabled, className, ...props }, ref) => {
     return (
       <textarea
         {...props}
@@ -22,11 +23,12 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
               isError && !disabled,
           },
           'body-md radius-sm box-border min-h-[10.375rem] w-full border px-(--gap-xl) py-(--gap-lg)',
-          'peer scroll resize-none outline-none',
+          'scroll resize-none outline-none',
           'duration-faster ease-(--motion-fluent)',
           'bg-surface-embossed-dark',
           'text-object-hero-dark disabled:text-object-disabled-dark',
           'placeholder:text-object-assistive-dark disabled:placeholder:text-object-disabled-dark',
+          className,
         )}
       />
     );
