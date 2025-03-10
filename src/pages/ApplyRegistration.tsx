@@ -74,7 +74,7 @@ function ApplyRegistration() {
   const handleSelect = (label: string | null) => {
     if (label) {
       setSelectPosition(label);
-      setIsSelectOpen(!isSelectOpen);
+      setIsSelectOpen(false);
     }
   };
 
