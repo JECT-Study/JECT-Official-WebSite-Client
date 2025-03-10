@@ -6,7 +6,7 @@ import ApplyVerifyPin from './ApplyVerifyPin';
 function ApplyVerify() {
   const [isNewApplicant, setIsNewApplicant] = useState(true);
 
-  if (isNewApplicant === false) return <ApplyVerifyPin email={''} />;
+  if (!isNewApplicant) return <ApplyVerifyPin email={''} />;
 
   return <ApplyVerifyEmail setIsNewApplicant={setIsNewApplicant} />;
 }
