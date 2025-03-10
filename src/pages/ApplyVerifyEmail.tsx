@@ -17,10 +17,10 @@ interface ApplyVerifyEmailProps {
 }
 
 function ApplyVerifyEmail({ isResetPin = false }: ApplyVerifyEmailProps) {
-  const [isStepCompleted, setIsStepCompleted] = useState(false);
-  const [isNewApplicant, setIsNewApplicant] = useState<boolean | null>(null);
-  const [isReVerification, setIsReVerification] = useState(isResetPin);
-  const [step, setStep] = useState(1);
+  const [isStepCompleted] = useState(false);
+  const [isNewApplicant] = useState<boolean | null>(null);
+  const [isReVerification] = useState(isResetPin);
+  const [step] = useState(1);
 
   if (isNewApplicant === false) return <ApplyVerifyPin email={'userEmail@google.com'} />;
 

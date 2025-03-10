@@ -15,7 +15,7 @@ interface ApplyVerifyPinProps {
 }
 
 function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
-  const [isStepCompleted, setIsStepCompleted] = useState(false);
+  const [isStepCompleted] = useState(false);
   const [isResetPin, setIsResetPin] = useState(false);
 
   if (isResetPin) return <ApplyVerifyEmail isResetPin={isResetPin} />;
