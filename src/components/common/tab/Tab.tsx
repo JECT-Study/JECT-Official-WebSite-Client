@@ -1,6 +1,6 @@
 import { createContext, useState, useContext, ReactNode, ComponentPropsWithoutRef } from 'react';
 
-import { TabProps } from '@/components/common/tab/Tab.types.ts';
+import { TabProps } from './Tab.types';
 
 interface TabContextType {
   activeTabId: number;
@@ -32,7 +32,7 @@ export const TabHeader = ({ children }: TabHeaderProps) => {
   );
 };
 
-interface TabItemProps extends ComponentPropsWithoutRef<'button'> {
+interface TabItemProps extends Omit<ComponentPropsWithoutRef<'button'>, 'id'> {
   id: number;
   label: string;
 }

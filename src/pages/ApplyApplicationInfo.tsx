@@ -14,7 +14,7 @@ import { APPLY_TITLE } from '@/constants/applyPageData';
 
 function ApplyApplicantInfo() {
   const navigate = useNavigate();
-  const [isReady, setIsReady] = useState(false);
+  const [isReady] = useState(false);
 
   return (
     <div className='gap-9xl flex flex-col items-center pt-(--gap-9xl) pb-(--gap-12xl)'>
