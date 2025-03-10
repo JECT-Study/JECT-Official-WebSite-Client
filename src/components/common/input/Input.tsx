@@ -2,13 +2,13 @@ import clsx from 'clsx';
 import { ComponentPropsWithoutRef, forwardRef, ReactNode } from 'react';
 
 interface InputProps extends ComponentPropsWithoutRef<'input'> {
-  isError: boolean;
+  isError?: boolean;
   children?: ReactNode;
   className?: string;
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ children, isError, disabled, className, ...props }, ref) => {
+  ({ children, isError = false, disabled, className, ...props }, ref) => {
     return (
       <div
         className={clsx(

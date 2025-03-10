@@ -2,12 +2,12 @@ import clsx from 'clsx';
 import { ComponentPropsWithoutRef, forwardRef } from 'react';
 
 interface TextAreaProps extends ComponentPropsWithoutRef<'textarea'> {
-  isError: boolean;
+  isError?: boolean;
   className?: string;
 }
 
 const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
-  ({ isError, disabled, className, ...props }, ref) => {
+  ({ isError = false, disabled, className, ...props }, ref) => {
     return (
       <textarea
         {...props}
