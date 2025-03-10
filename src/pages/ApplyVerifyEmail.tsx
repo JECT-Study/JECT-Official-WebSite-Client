@@ -1,7 +1,5 @@
 import { useState } from 'react';
 
-import ApplyVerifyPin from './ApplyVerifyPin';
-
 import NewTabLink from '@/components/apply/NewTabLink';
 import BlockButton from '@/components/common/button/BlockButton';
 import LabelButton from '@/components/common/button/LabelButton';
@@ -14,15 +12,13 @@ import { APPLY_TITLE } from '@/constants/applyPageData';
 
 interface ApplyVerifyEmailProps {
   isResetPin?: boolean;
+  setIsNewApplicant?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 function ApplyVerifyEmail({ isResetPin = false }: ApplyVerifyEmailProps) {
   const [isStepCompleted] = useState(false);
-  const [isNewApplicant] = useState<boolean | null>(null);
   const [isReVerification] = useState(isResetPin);
-  const [step] = useState(1);
-
-  if (isNewApplicant === false) return <ApplyVerifyPin email={'userEmail@google.com'} />;
+  const [step] = useState(3);
 
   return (
     <div
