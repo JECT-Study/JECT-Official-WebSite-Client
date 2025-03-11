@@ -12,7 +12,7 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools />
+      {import.meta.env.MODE !== 'production' && <ReactQueryDevtools />}
       <RouterProvider router={router} />
     </QueryClientProvider>
   );
