@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import NewTabLink from '@/components/apply/NewTabLink';
 import { moveToBottom } from '@/utils/scrollFunction';
 
-export const APPLY_TITLE = {
+export const APPLY_TITLE: Record<string, ReactNode> = {
   process: '지원 과정',
   info: '지원 관련 안내',
   verifyEmail: '이메일을 인증해주세요',
@@ -11,6 +11,12 @@ export const APPLY_TITLE = {
   applicantInfo: '지원자님에 대해 알려주세요',
   registration: '더 자세하게 알고 싶어요',
   complete: '지원이 완료되었어요',
+  resetPin: (
+    <>
+      PIN을 다시 설정하려면
+      <br /> 이메일을 인증해주세요
+    </>
+  ),
 };
 
 interface Procedure {
@@ -90,7 +96,14 @@ export const applyInfoList: Info[] = [
     title: '개인정보 수집 및 이용 관련',
     content: `지원자분의 편의를 위해 지원하실 때 작성하시는 내용들은 모두 수집돼요. 젝트 지원부터
           지원 기간 종료까지 지원자분의 소중한 정보를 안전하게 보관할 것을 약속드립니다.`,
-    link: <NewTabLink href=''>개인정보 수집 및 이용 동의서</NewTabLink>,
+    link: (
+      <NewTabLink
+        href=''
+        className='text-feedback-information-dark decoration-feedback-information-dark underline'
+      >
+        개인정보 수집 및 이용 동의서
+      </NewTabLink>
+    ),
   },
   {
     id: 4,
@@ -98,7 +111,14 @@ export const applyInfoList: Info[] = [
     content: `서로 다른 직군들이 모여 진행하는 팀 프로젝트에서는 한 명 한 명의 이탈이 치명적이에요.
           때문에 이로 인한 피해를 방지하는 차원에서 보증금 개념으로 회비를 받고 있어요. 프로젝트
           공식 일정이 종료된 후에 돌려 드려요.`,
-    link: <NewTabLink href=''>젝트 회비 관련</NewTabLink>,
+    link: (
+      <NewTabLink
+        href=''
+        className='text-feedback-information-dark decoration-feedback-information-dark underline'
+      >
+        젝트 회비 관련
+      </NewTabLink>
+    ),
   },
 ];
 

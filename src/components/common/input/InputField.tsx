@@ -63,7 +63,7 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
                 'text-object-alternative-dark': !isError && !disabled && !isSuccess,
                 'text-feedback-trans-negative-dark': isError && disabled,
                 'text-feedback-negative-dark': isError && !disabled,
-                'text-object-disabled-dark': !isError && disabled,
+                'text-object-disabled-dark': !isError && disabled && !isSuccess,
                 'text-feedback-positive-dark': isSuccess,
               },
               'body-sm cursor-default',
