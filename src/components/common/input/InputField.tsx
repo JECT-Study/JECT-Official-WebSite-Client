@@ -6,7 +6,7 @@ import Input from './Input';
 import Label from '@/components/common/label/Label';
 
 interface InputFieldProps extends ComponentPropsWithoutRef<'input'> {
-  isError: boolean;
+  isError?: boolean;
   isSuccess: boolean;
   InputChildren?: ReactNode;
   children?: ReactNode;
@@ -20,7 +20,7 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
     {
       InputChildren,
       children,
-      isError,
+      isError = false,
       isSuccess,
       labelText,
       helper,
@@ -76,5 +76,7 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
     );
   },
 );
+
+InputField.displayName = 'InputField';
 
 export default InputField;

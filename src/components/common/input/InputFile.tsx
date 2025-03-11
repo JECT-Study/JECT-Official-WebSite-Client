@@ -6,7 +6,7 @@ import Uploader from '../uploader/Uploader';
 import { FileExtension } from '@/constants/file';
 
 interface InputFileProps {
-  children: ReactNode;
+  fileNodes: ReactNode[];
   fileExtensions: FileExtension[];
   currentSize: number;
   maxSize: number;
@@ -17,7 +17,7 @@ interface InputFileProps {
 }
 
 function InputFile({
-  children,
+  fileNodes,
   fileExtensions,
   currentSize = 0,
   maxSize,
@@ -37,11 +37,14 @@ function InputFile({
         {labelText}
       </Label>
       <div className='bg-surface-standard-dark radius-sm border-border-trans-assistive-dark gap-md flex flex-col border px-(--gap-md) py-(--gap-sm)'>
-        {children}
+        {fileNodes.length > 0 && (
+          <div className='gap-2xs flex flex-col'>{fileNodes.map(file => file)}</div>
+        )}
         <Uploader
           fileExtensions={fileExtensions}
           isDisabled={isDisabled}
           onChangeFile={onAddFile}
+          maxSize={maxSize}
         />
       </div>
       <div className={`text-object-assistive-dark body-sm cursor-default self-end`}>

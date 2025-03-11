@@ -1,16 +1,39 @@
-import { ChangeEvent, ComponentPropsWithoutRef, forwardRef, useState } from 'react';
+import clsx from 'clsx';
+import {
+  ChangeEvent,
+  ComponentPropsWithoutRef,
+  forwardRef,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 
 import TextArea from './TextArea';
 
 import Label from '@/components/common/label/Label';
+import { mergeRefs } from '@/utils/mergeRefs';
 
 interface InputAreaProps extends ComponentPropsWithoutRef<'textarea'> {
   labelText: string;
+  errorHelper?: string;
 }
 
 const InputArea = forwardRef<HTMLTextAreaElement, InputAreaProps>(
-  ({ labelText, maxLength, disabled, required, placeholder, onChange, ...props }, ref) => {
+  (
+    {
+      labelText,
+      errorHelper = '',
+      maxLength = 0,
+      disabled,
+      required,
+      placeholder,
+      onChange,
+      ...props
+    },
+    ref,
+  ) => {
     const [text, setText] = useState('');
+    const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
     const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
       setText(e.target.value);
@@ -18,8 +41,17 @@ const InputArea = forwardRef<HTMLTextAreaElement, InputAreaProps>(
       if (onChange) onChange(e);
     };
 
+    useEffect(() => {
+      const ref = textareaRef.current;
+
+      if (ref) {
+        ref.style.height = 'auto';
+        ref.style.height = ref.scrollHeight + 'px';
+      }
+    }, [text]);
+
     return (
-      <div className='gap-2xs flex w-full flex-col'>
+      <div className='gap-2xs flex flex-col'>
         <Label
           hierarchy='normal'
           weight='normal'
@@ -30,22 +62,37 @@ const InputArea = forwardRef<HTMLTextAreaElement, InputAreaProps>(
         </Label>
         <TextArea
           {...props}
-          ref={ref}
+          ref={mergeRefs(ref, textareaRef)}
           value={text}
           placeholder={placeholder}
           onChange={handleChange}
-          maxLength={maxLength}
           disabled={disabled}
           required={required}
+          isError={!!errorHelper}
+          className='peer'
         />
-        <div
-          className={` ${disabled ? 'text-object-disabled-dark' : 'text-object-assistive-dark'} peer-focus:text-object-neutral-dark body-sm cursor-default self-end`}
-        >
-          {`${text.length}/${maxLength || 0}`}
+        <div className='peer-focus:*:last:text-object-neutral-dark flex justify-between'>
+          <p
+            className={`${disabled ? 'text-feedback-trans-negative-dark' : 'text-feedback-negative-dark'} body-sm`}
+          >
+            {errorHelper}
+          </p>
+          <div
+            className={clsx(
+              !!errorHelper && 'text-feedback-negative-dark!',
+              disabled && 'text-object-disabled-dark',
+              !disabled && 'text-object-assistive-dark',
+              'body-sm cursor-default self-end',
+            )}
+          >
+            {`${text.length}/${maxLength}`}
+          </div>
         </div>
       </div>
     );
   },
 );
+
+InputArea.displayName = 'InputArea';
 
 export default InputArea;
