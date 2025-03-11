@@ -9,7 +9,7 @@ import {
   blockButtonInteractionMap,
 } from '@/styles/blockButtonStyle';
 
-export interface BlockButtonProps extends ComponentPropsWithoutRef<'button'> {
+export interface BlockButtonProps extends Omit<ComponentPropsWithoutRef<'button'>, 'style'> {
   children: ReactNode;
   leftIcon?: ReactNode;
   rightIcon?: ReactNode;

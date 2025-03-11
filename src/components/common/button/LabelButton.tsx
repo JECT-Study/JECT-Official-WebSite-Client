@@ -20,7 +20,7 @@ export const LabelButton = forwardRef<HTMLButtonElement, LabelButtonProps>(
   ({ children, leftIcon, rightIcon, size, hierarchy, className, disabled, ...props }, ref) => {
     const { variant, density, isInversed } = labelButtonInteractionMap[hierarchy];
 
-    const interaction = `interaction-${variant}-${density}${isInversed ? '-inverse' : ''}`;
+    const interaction = `interaction-${variant}-${density}${isInversed ? '-inverse-scale' : '-scale'}`;
 
     const baseClasses =
       'inline-flex flex-row py-0 px-0 justify-center items-center gap-4xs radius-xs transition-faster-fluent before:scale-x-118 before:scale-y-129';

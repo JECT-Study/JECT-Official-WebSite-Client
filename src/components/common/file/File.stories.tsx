@@ -45,7 +45,7 @@ export const FileStory: Story = {
   name: 'FileStory',
   render: () => {
     const file = {
-      id: 1,
+      id: '1',
       name: '파일명.pdf',
       url: 'https://github.com/user-attachments/assets/b79a0212-1c4d-42c7-b3fe-b65231a9759f',
       size: 4607,
@@ -63,7 +63,7 @@ export const RemovableFileStory: Story = {
   name: 'Removable FileStory',
   render: () => {
     const file = {
-      id: 1,
+      id: '1',
       name: '파일명.pdf',
       url: 'https://github.com/user-attachments/assets/b79a0212-1c4d-42c7-b3fe-b65231a9759f',
       size: 4607,
@@ -81,7 +81,7 @@ export const DisabledFileStory: Story = {
   name: 'Disabled FileStory',
   render: () => {
     const file = {
-      id: 1,
+      id: '1',
       name: '파일명.pdf',
       url: 'https://github.com/user-attachments/assets/b79a0212-1c4d-42c7-b3fe-b65231a9759f',
       size: 4607,
@@ -99,7 +99,7 @@ export const FeedbackFileStory: Story = {
   name: 'Feedback FileStory',
   render: () => {
     const file = {
-      id: 1,
+      id: '1',
       name: '파일명.pdf',
       url: 'https://github.com/user-attachments/assets/b79a0212-1c4d-42c7-b3fe-b65231a9759f',
       size: 4607,
