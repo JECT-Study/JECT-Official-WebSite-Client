@@ -8,13 +8,16 @@ import ApplyComplete from '@/pages/ApplyComplete';
 import ApplyVerify from '@/pages/ApplyVerify';
 import Faq from '@/pages/Faq';
 import Main from '@/pages/Main';
+import Project from '@/pages/Project';
+import ProjectDetail from '@/pages/ProjectDetail';
 
 const routerList = [
   {
     element: <Layout />,
     children: [
       { path: PATH.main, element: <Main /> },
-      { path: PATH.project, element: <></> },
+      { path: PATH.project, element: <Project /> },
+      { path: `${PATH.project}/:id`, element: <ProjectDetail /> },
       { path: PATH.activity, element: <Activity /> },
       { path: PATH.apply, element: <Apply /> },
       { path: PATH.faq, element: <Faq /> },

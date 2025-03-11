@@ -1,3 +1,4 @@
+import { action } from '@storybook/addon-actions';
 import type { Meta, StoryObj } from '@storybook/react';
 
 import SnackBar from './SnackBar';
@@ -22,6 +23,7 @@ const meta: Meta<typeof SnackBar> = {
   args: {
     message: '스낵바 타이틀',
     buttonLabel: '젝트 3기 지원하기',
+    onAction: action('clicked'),
   },
 };
 
@@ -38,7 +40,11 @@ export const SnackBarStory: Story = {
   name: 'SnackBar',
   render: () => (
     <div className='w-[31.25rem]'>
-      <SnackBar message='지금은 젝트 3기 모집 기간이에요!' buttonLabel='젝트 3기 지원하기' />
+      <SnackBar
+        message='지금은 젝트 3기 모집 기간이에요!'
+        buttonLabel='젝트 3기 지원하기'
+        onAction={action('clicked')}
+      />
     </div>
   ),
 };

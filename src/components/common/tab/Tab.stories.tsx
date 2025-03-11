@@ -1,9 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import React from 'react';
 
 import { Tab, TabHeader, TabItem, TabPanel } from './Tab';
 
-const meta: Meta<typeof Tabs> = {
+const meta: Meta<typeof Tab> = {
   title: 'Components/Tab',
   component: Tab,
   parameters: {
@@ -28,7 +27,7 @@ const meta: Meta<typeof Tabs> = {
 
 export default meta;
 
-type Story = StoryObj<typeof Tabs>;
+type Story = StoryObj<typeof Tab>;
 
 export const TabStory: Story = {
   name: 'Tab',
