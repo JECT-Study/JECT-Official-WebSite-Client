@@ -3,6 +3,6 @@ import { MiniStudies } from '@/types/apis/miniStudy';
 import { ApiResponse } from '@/types/response';
 import { requestHandler } from '@/utils/httpClient';
 
-export const fetchMiniStudies = async () => {
+export const getMiniStudies = async () => {
   return await requestHandler<ApiResponse<MiniStudies>>('get', API_ENDPOINT.miniStudy);
 };
