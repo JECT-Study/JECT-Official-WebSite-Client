@@ -3,7 +3,7 @@ import { ChangeEvent, DragEvent, MouseEvent, useRef, useState } from 'react';
 
 import BlockButton from '@/components/common/button/BlockButton';
 import Icon from '@/components/common/icon/Icon';
-import { FileExtension } from '@/constants/file';
+import { FileExtension } from '@/types/ui/file';
 
 interface UploaderProps {
   onChangeFile: (file: FileList | null) => void;

@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import Label from '../label/Label';
 import Uploader from '../uploader/Uploader';
 
-import { FileExtension } from '@/constants/file';
+import { FileExtension } from '@/types/ui/file';
 
 interface InputFileProps {
   fileNodes: ReactNode[];

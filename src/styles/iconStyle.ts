@@ -1,4 +1,4 @@
-import { IconSize } from '@/types/icon';
+import { IconSize } from '@/types/ui/icon';
 
 interface IconStyleType {
   size: Record<IconSize, number>;

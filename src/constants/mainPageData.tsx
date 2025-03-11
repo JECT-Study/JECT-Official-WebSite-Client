@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import { RoleVariant } from '@/types/role';
+import { RoleVariant } from '@/types/ui/role';
 
 interface TimelineItem {
   id: number;

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import InputFile from './InputFile';
 import File from '../file/File';
 
-import { FileUrl } from '@/types/file';
+import { FileUrl } from '@/types/ui/file';
 
 const meta: Meta<typeof InputFile> = {
   title: 'Components/InputFile',

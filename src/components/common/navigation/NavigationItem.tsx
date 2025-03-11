@@ -1,6 +1,6 @@
 import { NavLink, NavLinkRenderProps } from 'react-router-dom';
 
-import { PathValues } from '@/types/path';
+import { PathValues } from '@/types/ui/path';
 
 interface NavigationItemProps {
   children: string;

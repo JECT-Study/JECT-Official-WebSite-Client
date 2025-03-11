@@ -1,4 +1,4 @@
-export type FileExtension = 'pdf' | 'jpeg' | 'png' | 'zip' | 'ppt';
+import { FileExtension } from '@/types/ui/file';
 
 export const fileMimeType: Record<FileExtension, string> = {
   pdf: 'application/pdf',
