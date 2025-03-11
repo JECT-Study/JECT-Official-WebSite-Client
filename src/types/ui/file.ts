@@ -4,3 +4,5 @@ export interface FileUrl {
   url: string;
   size: number;
 }
+
+export type FileExtension = 'pdf' | 'jpeg' | 'png' | 'zip' | 'ppt';
