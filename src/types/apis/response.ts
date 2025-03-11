@@ -25,9 +25,3 @@ export interface ApiResponse<T> {
   timestamp: string;
   data: T;
 }
-
-export interface Sort {
-  empty: boolean;
-  sorted: boolean;
-  unsorted: boolean;
-}

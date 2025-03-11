@@ -1,4 +1,4 @@
-import { Sort } from './response';
+import { Sort } from './sort';
 
 export interface MiniStudy {
   id: number;
