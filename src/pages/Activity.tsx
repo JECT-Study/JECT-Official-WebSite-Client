@@ -44,6 +44,7 @@ const jecttalkData = [
 function Activity() {
   const { miniStudies } = useMiniStudies();
 
+  // TODO: 데이터가 빈값일 경우 Ui 처리
   return (
     <div className='gap-12xl flex flex-col items-center py-(--gap-12xl)'>
       <section className='gap-8xl flex flex-col items-center'>
