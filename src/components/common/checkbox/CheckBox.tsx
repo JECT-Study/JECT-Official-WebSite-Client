@@ -24,7 +24,7 @@ const CheckBox = forwardRef<HTMLInputElement, CheckBoxProps>(function CheckBox(
       : 'bg-object-static-inverse-disabled-dark border-border-trans-assistive-dark';
 
   return (
-    <div className={clsx('group gap-2xs inline-flex items-center', className)}>
+    <div className={clsx('gap-2xs inline-flex items-center', className)}>
       <div
         tabIndex={0}
         className={clsx(
