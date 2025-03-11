@@ -3,7 +3,7 @@ import clipboard from '@/assets/images/clipboard.png';
 import cursor from '@/assets/images/cursor.png';
 import mobius from '@/assets/images/mobius.png';
 import stack from '@/assets/images/stack.png';
-import { RoleVariant } from '@/types/role';
+import { RoleVariant } from '@/types/ui/role';
 
 const variantMap: Record<
   RoleVariant,

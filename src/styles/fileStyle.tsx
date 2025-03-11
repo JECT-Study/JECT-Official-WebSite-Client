@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import { IconNames } from '@/types/icon';
+import { IconNames } from '@/types/ui/icon';
 
 export type FeedbackType = 'error' | 'unknown';
 

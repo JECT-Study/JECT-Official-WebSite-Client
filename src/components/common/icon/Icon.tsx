@@ -18,7 +18,7 @@ import Upload from '@/assets/svg/upload.svg?react';
 import Visible from '@/assets/svg/visible.svg?react';
 import Youtube from '@/assets/svg/youtube.svg?react';
 import { iconStyle } from '@/styles/iconStyle';
-import { IconNames, IconSize } from '@/types/icon';
+import { IconNames, IconSize } from '@/types/ui/icon';
 
 interface IconProps {
   name: IconNames;

@@ -2,7 +2,7 @@ import { gsap } from 'gsap';
 import { useEffect, useMemo, useRef, useState } from 'react';
 
 import RoleBadge from '@/components/main/role/RoleBadge';
-import { RoleVariant } from '@/types/role';
+import { RoleVariant } from '@/types/ui/role';
 
 const initialBackground =
   'bg-[radial-gradient(75.39%_50%_at_50%_50%,var(--tw-gradient-stops))] from-accent-normal-dark to-surface-standard-dark';

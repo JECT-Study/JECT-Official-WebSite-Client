@@ -1,4 +1,4 @@
-import { Density, Variant } from '@/types/interaction';
+import { Density, Variant } from '@/types/ui/interaction';
 
 export type Size = 'xs' | 'sm' | 'md' | 'lg';
 export type Style = 'solid' | 'outlined';
