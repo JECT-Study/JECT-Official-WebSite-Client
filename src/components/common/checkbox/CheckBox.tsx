@@ -26,28 +26,25 @@ const CheckBox = forwardRef<HTMLInputElement, CheckBoxProps>(function CheckBox(
   return (
     <div className={clsx('gap-2xs inline-flex items-center', className)}>
       <div
-        tabIndex={0}
         className={clsx(
           baseStyles,
           disabled ? disabledStyles : enabledStyles,
-          'interaction-default-bold-inverse active:shadow-focus-visible duration-faster ease-(--motion-fluent)',
+          'focus-within:before:shadow-focus-visible active:shadow-focus-visible duration-faster relative ease-(--motion-fluent) outline-none before:absolute before:inset-0 before:rounded-[inherit] hover:before:bg-[rgba(26,27,35,0.12)] active:before:bg-[rgba(26,27,35,0.12)]',
         )}
       >
-        <div className='relative inline-flex items-center'>
-          <CheckBoxIcon isIndeterminate={isIndeterminate} disabled={disabled} checked={checked} />
-          <input
-            id={id}
-            ref={ref}
-            className={clsx(
-              'absolute top-0 left-0 h-full w-full opacity-0',
-              !disabled && 'cursor-pointer',
-            )}
-            type='checkbox'
-            checked={checked}
-            disabled={disabled}
-            {...restProps}
-          />
-        </div>
+        <CheckBoxIcon isIndeterminate={isIndeterminate} disabled={disabled} checked={checked} />
+        <input
+          id={id}
+          ref={ref}
+          className={clsx(
+            'absolute top-0 left-0 h-full w-full opacity-0',
+            !disabled && 'cursor-pointer',
+          )}
+          type='checkbox'
+          checked={checked}
+          disabled={disabled}
+          {...restProps}
+        />
       </div>
       {!!labelText && (
         <div className={clsx(!!id && !disabled && 'cursor-pointer')}>
