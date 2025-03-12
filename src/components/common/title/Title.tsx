@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 
+import { titleStyle } from '@/components/common/title/title.style';
 import { Hierarchy } from '@/styles/labelStyle';
-import { titleStyle } from '@/styles/titleStyle';
 
 interface TitleProps {
   children: ReactNode;
