@@ -1,3 +1,5 @@
+import { FunctionComponent, SVGProps } from 'react';
+
 import Check from '@/assets/svg/check.svg?react';
 import Clear from '@/assets/svg/clear.svg?react';
 import Download from '@/assets/svg/download.svg?react';
@@ -29,7 +31,7 @@ interface IconProps {
 function Icon({ name, size, fillColor }: IconProps) {
   const iconSize = iconStyle.size[size];
 
-  const icons: Record<IconNames, React.FunctionComponent<React.SVGProps<SVGSVGElement>>> = {
+  const icons: Record<IconNames, FunctionComponent<SVGProps<SVGSVGElement>>> = {
     check: Check,
     clear: Clear,
     dropDown: DropDown,
