@@ -1,4 +1,4 @@
-import { Hierarchy } from '../../../styles/labelStyle';
+import { Hierarchy } from '@/components/common/label/label.style';
 
 interface TitleStyleType {
   hierarchy: {
