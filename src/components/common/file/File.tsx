@@ -1,8 +1,8 @@
 import { MouseEvent } from 'react';
 
 import LabelButton from '@/components/common/button/LabelButton';
+import { feedbackStyle, FeedbackType } from '@/components/common/file/file.style';
 import Icon from '@/components/common/icon/Icon';
-import { feedbackStyle, FeedbackType } from '@/styles/fileStyle';
 import { FileUrl } from '@/types/ui/file';
 import { changeFileSizeUnit } from '@/utils/changeFileSizeUnit';
 
