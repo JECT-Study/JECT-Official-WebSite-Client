@@ -1,5 +1,7 @@
 import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 
+import { ApiResponse } from '@/types/apis/response';
+
 const BASE_URL = '/api';
 const DEFAULT_TIMEOUT = 30000;
 
@@ -17,26 +19,26 @@ export const httpClient = createClient();
 
 type RequestMethod = 'get' | 'post' | 'put' | 'delete';
 
-export const requestHandler = async <T>(
+export const requestHandler = async <TResponse, TPayload = undefined>(
   method: RequestMethod,
   url: string,
-  payload?: T,
-): Promise<T> => {
+  payload?: TPayload,
+): Promise<ApiResponse<TResponse>> => {
   try {
     let response;
 
     switch (method) {
       case 'post':
-        response = await httpClient.post<T>(url, payload);
+        response = await httpClient.post<ApiResponse<TResponse>>(url, payload);
         break;
       case 'get':
-        response = await httpClient.get<T>(url);
+        response = await httpClient.get<ApiResponse<TResponse>>(url);
         break;
       case 'put':
-        response = await httpClient.put<T>(url, payload);
+        response = await httpClient.put<ApiResponse<TResponse>>(url, payload);
         break;
       case 'delete':
-        response = await httpClient.delete<T>(url);
+        response = await httpClient.delete<ApiResponse<TResponse>>(url);
         break;
     }
 
