@@ -7,6 +7,7 @@ const useJectalks = () => {
     queryKey: ['jectalks'],
     queryFn: getJectalks,
   });
+
   const jectalks = data?.data.content;
 
   return { jectalks };
