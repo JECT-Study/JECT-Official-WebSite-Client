@@ -29,7 +29,7 @@ const CheckBox = forwardRef<HTMLInputElement, CheckBoxProps>(function CheckBox(
         className={clsx(
           baseStyles,
           disabled ? disabledStyles : enabledStyles,
-          'focus-within:before:shadow-focus-visible active:shadow-focus-visible duration-faster relative ease-(--motion-fluent) outline-none before:absolute before:inset-0 before:rounded-[inherit] hover:before:bg-[rgba(26,27,35,0.12)] active:before:bg-[rgba(26,27,35,0.12)]',
+          'has-focus-visible:shadow-focus-visible active:shadow-focus-visible duration-faster relative ease-(--motion-fluent) outline-none before:absolute before:inset-0 before:rounded-[inherit] hover:before:bg-[rgba(26,27,35,0.12)] active:before:bg-[rgba(26,27,35,0.12)]',
         )}
       >
         <CheckBoxIcon isIndeterminate={isIndeterminate} disabled={disabled} checked={checked} />
