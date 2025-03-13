@@ -1,4 +1,6 @@
+import AdminLayout from './components/layout/AdminLayout';
 import { PATH } from './constants/path';
+import AdminApply from './pages/admin/AdminApply';
 
 import Layout from '@/components/layout/Layout';
 import Activity from '@/pages/Activity';
@@ -26,6 +28,13 @@ const routerList = [
       { path: PATH.applicantInfo, element: <ApplyApplicantInfo /> },
       { path: PATH.applyRegistration, element: <ApplyRegistration /> },
       { path: PATH.applyComplete, element: <ApplyComplete /> },
+    ],
+  },
+  {
+    element: <AdminLayout />,
+    children: [
+      { path: '/admin/temp', element: <></> },
+      { path: '/admin/apply', element: <AdminApply /> },
     ],
   },
 ];
