@@ -1,5 +1,7 @@
 import { ReactNode } from 'react';
 
+import { JECT_EMAIL } from './footer';
+
 interface Faq {
   id: number;
   title: string;
@@ -256,7 +258,7 @@ export const faqJect: Faq[] = [
     id: 5,
     title: '추가 문의는 어디로 하면 되나요?',
     label: '아래 이메일로 문의해 주세요.',
-    content: 'jectofficial@gmail.com',
+    content: JECT_EMAIL,
     caption: '',
   },
 ];
