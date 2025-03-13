@@ -89,7 +89,7 @@ export const faqProject: Faq[] = [
         <ul className='list-disc-ject'>
           <li>프론트엔드 개발자(FE) 2명</li>
           <li>백엔드 개발자(BE) 2명</li>
-          <li>프로젝트 매니저(PM) 1명</li>
+          <li>프로덕트 매니저(PM) 1명</li>
           <li>프로덕트 디자이너(PD) 1명</li>
         </ul>
       </>

@@ -73,7 +73,7 @@ export const positionData: PositionItem[] = [
   },
   {
     id: 2,
-    title: '프로젝트 매니저',
+    title: '프로덕트 매니저',
     variant: 'pm',
     labels: ['문서 관리', '일정 조율', '커뮤니케이션', '팀 플레잉'],
     description:
