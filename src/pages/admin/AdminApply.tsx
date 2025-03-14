@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 import Chip from '@/components/admin/chip/Chip';
 import TableRow from '@/components/admin/table/TableRow';
 import TabView from '@/components/admin/tabView/TabView';
+import TabViewItem from '@/components/admin/tabView/TabViewItem';
 import BlockButton from '@/components/common/button/BlockButton';
 import CheckBox from '@/components/common/checkbox/CheckBox';
 import Icon from '@/components/common/icon/Icon';
@@ -21,6 +23,7 @@ export interface Data {
 function AdminApply() {
   // TODO: 체크박스 전체 선택 기능
   const [selectItems, setSelectItems] = useState<Data[]>([]);
+  const [searchParams, setSearchParams] = useSearchParams();
   const data: Data[] = [
     {
       id: 1,
@@ -66,11 +69,43 @@ function AdminApply() {
     setSelectItems(items);
   };
 
+  const handleParam = (key: string, value: string) => {
+    setSearchParams(prevParams => {
+      const newSearchParams = new URLSearchParams(prevParams);
+
+      newSearchParams.set(key, value);
+      return newSearchParams;
+    });
+  };
+
+  useEffect(() => {
+    if (!searchParams.get('tabView') && !searchParams.get('position')) {
+      const newSearchParams = new URLSearchParams();
+      newSearchParams.set('tabView', 'complete');
+      newSearchParams.set('position', 'all');
+
+      setSearchParams(newSearchParams);
+    }
+  }, []);
+
   return (
     <div className='bg-surface-standard-dark gap-6xl flex w-[calc(100dvw-13.75rem)] flex-col p-(--gap-7xl)'>
       <section className='gap-4xl flex items-center'>
         <Title hierarchy='stronger'>지원서 관리</Title>
-        <TabView leftText='제출 완료' rightText='임시 저장' />
+        <TabView>
+          <TabViewItem
+            param={{ key: 'tabView', value: 'complete' }}
+            onClick={() => handleParam('tabView', 'complete')}
+          >
+            제출 완료
+          </TabViewItem>
+          <TabViewItem
+            param={{ key: 'tabView', value: 'temp' }}
+            onClick={() => handleParam('tabView', 'temp')}
+          >
+            임시 저장
+          </TabViewItem>
+        </TabView>
       </section>
       <section className='gap-4xl flex flex-col'>
         <div className='flex justify-between'>
@@ -98,11 +133,37 @@ function AdminApply() {
         </div>
         <div className='gap-2xl flex flex-col'>
           <div className='gap-xs flex'>
-            <Chip param='all'>전체</Chip>
-            <Chip param='fe'>프론트엔드 개발자</Chip>
-            <Chip param='be'>백엔드 개발자</Chip>
-            <Chip param='pm'> 프로덕트 매니저</Chip>
-            <Chip param='pd'>프로덕트 디자이너</Chip>
+            <Chip
+              param={{ key: 'position', value: 'all' }}
+              onClick={() => handleParam('position', 'all')}
+            >
+              전체
+            </Chip>
+            <Chip
+              param={{ key: 'position', value: 'fe' }}
+              onClick={() => handleParam('position', 'fe')}
+            >
+              프론트엔드 개발자
+            </Chip>
+            <Chip
+              param={{ key: 'position', value: 'be' }}
+              onClick={() => handleParam('position', 'be')}
+            >
+              백엔드 개발자
+            </Chip>
+            <Chip
+              param={{ key: 'position', value: 'pm' }}
+              onClick={() => handleParam('position', 'pm')}
+            >
+              {' '}
+              프로덕트 매니저
+            </Chip>
+            <Chip
+              param={{ key: 'position', value: 'pd' }}
+              onClick={() => handleParam('position', 'pd')}
+            >
+              프로덕트 디자이너
+            </Chip>
           </div>
           <div>
             <table className='w-full table-auto'>
