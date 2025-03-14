@@ -6,9 +6,7 @@ interface TabViewProps {
 
 function TabView({ children }: TabViewProps) {
   return (
-    <div className='bg-surface-deeper-dark radius-sm *:label-bold-md *:radius-2xs inline-flex p-(--gap-5xs) *:px-(--gap-md) *:py-(--gap-4xs)'>
-      {children}
-    </div>
+    <div className='bg-surface-deeper-dark radius-sm inline-flex p-(--gap-5xs)'>{children}</div>
   );
 }
 

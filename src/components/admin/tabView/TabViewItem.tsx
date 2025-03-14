@@ -17,7 +17,7 @@ function TabViewItem({ children, param, ...props }: TabViewItemProps) {
   return (
     <button
       {...props}
-      className={`${param && searchParams.get(param.key) === param.value ? activeStyle : inactiveStyle} `}
+      className={`${param && searchParams.get(param.key) === param.value ? activeStyle : inactiveStyle} label-bold-md radius-2xs cursor-pointer px-(--gap-md) py-(--gap-4xs)`}
     >
       {children}
     </button>
