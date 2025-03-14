@@ -21,8 +21,7 @@ export interface Data {
 }
 
 function AdminApply() {
-  // TODO: 체크박스 전체 선택 기능
-  const [selectItems, setSelectItems] = useState<Data[]>([]);
+  const [selectItems, setSelectItems] = useState<number[]>([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const data: Data[] = [
     {
@@ -59,14 +58,15 @@ function AdminApply() {
     },
   ];
 
-  const handleAddItem = (id: number) => {
-    const item = data.filter(item => item.id === id);
-    setSelectItems([...selectItems, ...item]);
+  const isAllChecked = selectItems.length === data.length && data.length > 0;
+  const isIndeterminate = selectItems.length > 0 && selectItems.length < data.length;
+
+  const handleToggleItem = (id: number) => {
+    setSelectItems(prev => (prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]));
   };
 
-  const handlerDeleteItem = (id: number) => {
-    const items = selectItems.filter(item => item.id !== id);
-    setSelectItems(items);
+  const handleToggleAll = (checked: boolean) => {
+    setSelectItems(checked ? data.map(item => item.id) : []);
   };
 
   const handleParam = (key: string, value: string) => {
@@ -87,6 +87,10 @@ function AdminApply() {
       setSearchParams(newSearchParams);
     }
   }, []);
+
+  useEffect(() => {
+    console.log(selectItems);
+  }, [selectItems]);
 
   return (
     <div className='bg-surface-standard-dark gap-6xl flex w-[calc(100dvw-13.75rem)] flex-col p-(--gap-7xl)'>
@@ -170,7 +174,11 @@ function AdminApply() {
               <thead>
                 <tr className='text-object-alternative-dark *:not-first:px-(--gap-3xs) *:not-first:py-(--gap-4xs) *:not-first:text-left'>
                   <th className='w-[2.5rem]'>
-                    <CheckBox />
+                    <CheckBox
+                      isIndeterminate={isIndeterminate}
+                      checked={isAllChecked}
+                      onChange={() => handleToggleAll(!isAllChecked)}
+                    />
                   </th>
                   <th className='body-sm'>이름</th>
                   <th className='body-sm'>포지션</th>
@@ -184,8 +192,8 @@ function AdminApply() {
                   <TableRow
                     key={item.id}
                     data={item}
-                    onAdd={handleAddItem}
-                    onDelete={handlerDeleteItem}
+                    isSelected={selectItems.includes(item.id)}
+                    onToggle={handleToggleItem}
                   />
                 ))}
               </tbody>
