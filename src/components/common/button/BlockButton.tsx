@@ -7,7 +7,7 @@ import {
   Style,
   Hierarchy,
   blockButtonInteractionMap,
-} from '@/styles/blockButtonStyle';
+} from '@/components/common/button/blockButton.style';
 
 export interface BlockButtonProps extends Omit<ComponentPropsWithoutRef<'button'>, 'style'> {
   children: ReactNode;

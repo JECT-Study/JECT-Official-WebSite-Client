@@ -19,7 +19,7 @@ import RightChevron from '@/assets/svg/rightChevron.svg?react';
 import Upload from '@/assets/svg/upload.svg?react';
 import Visible from '@/assets/svg/visible.svg?react';
 import Youtube from '@/assets/svg/youtube.svg?react';
-import { iconStyle } from '@/styles/iconStyle';
+import { iconStyle } from '@/components/common/icon/icon.style';
 import { IconNames, IconSize } from '@/types/ui/icon';
 
 interface IconProps {
