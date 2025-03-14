@@ -1,4 +1,4 @@
-import Label from '../label/Label';
+import Label from '@/components/common/label/Label';
 
 function EmptyData() {
   return (
