@@ -3,10 +3,15 @@ import { useQuery } from '@tanstack/react-query';
 import { getMiniStudies } from '@/apis/miniStudy';
 
 const useMiniStudies = () => {
-  const { data } = useQuery({
+  const { data, isError, error } = useQuery({
     queryKey: ['miniStudies'],
     queryFn: getMiniStudies,
   });
+
+  if (isError) {
+    console.error(`Status : ${data?.status} Error : ${error}`);
+  }
+
   const miniStudies = data?.data.content;
 
   return { miniStudies };
