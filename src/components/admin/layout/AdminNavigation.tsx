@@ -16,7 +16,6 @@ function AdminNavigation() {
           프로젝트 상세 관리
         </AdminNavigationItem>
         <AdminNavigationItem to='/admin/temp' disabled>
-          {' '}
           활동 관리
         </AdminNavigationItem>
         <AdminNavigationItem to='/admin/temp' disabled>
