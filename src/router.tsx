@@ -33,8 +33,8 @@ const routerList = [
   {
     element: <AdminLayout />,
     children: [
-      { path: '/admin/temp', element: <></> },
-      { path: '/admin/apply', element: <AdminApply /> },
+      // { path: '/admin/temp', element: <></> },
+      // { path: '/admin/apply', element: <AdminApply /> },
     ],
   },
 ];
