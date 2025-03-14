@@ -88,10 +88,6 @@ function AdminApply() {
     }
   }, []);
 
-  useEffect(() => {
-    console.log(selectItems);
-  }, [selectItems]);
-
   return (
     <div className='bg-surface-standard-dark gap-6xl flex w-[calc(100dvw-13.75rem)] flex-col p-(--gap-7xl)'>
       <section className='gap-4xl flex items-center'>
