@@ -86,7 +86,7 @@ function AdminApply() {
 
       setSearchParams(newSearchParams);
     }
-  }, []);
+  }, [searchParams, setSearchParams]);
 
   return (
     <div className='bg-surface-standard-dark gap-6xl flex w-[calc(100dvw-13.75rem)] flex-col p-(--gap-7xl)'>
