@@ -9,7 +9,7 @@ const useJectalks = () => {
   });
 
   if (isError) {
-    console.error(`Status : ${data?.status} Error : ${error}`);
+    console.error(`Query Error : ${error}`);
   }
 
   const jectalks = data?.data.content;
