@@ -36,7 +36,7 @@ export const TabStory: Story = {
       <TabHeader>
         <TabItem id={0} label='프론트엔드 개발자' />
         <TabItem id={1} label='백엔드 개발자' />
-        <TabItem id={2} label='프로젝트 매니저' />
+        <TabItem id={2} label='프로덕트 매니저' />
         <TabItem id={3} label='프로덕트 디자이너' />
       </TabHeader>
       <div>
@@ -47,7 +47,7 @@ export const TabStory: Story = {
           <div>백엔드 개발자 콘텐츠</div>
         </TabPanel>
         <TabPanel id={2}>
-          <div>프로젝트 매니저 콘텐츠</div>
+          <div>프로덕트 매니저 콘텐츠</div>
         </TabPanel>
         <TabPanel id={3}>
           <div>프로덕트 디자이너 콘텐츠</div>

@@ -1,5 +1,7 @@
 import { ReactNode } from 'react';
 
+import { JECT_EMAIL } from './footer';
+
 interface Faq {
   id: number;
   title: string;
@@ -89,7 +91,7 @@ export const faqProject: Faq[] = [
         <ul className='list-disc-ject'>
           <li>프론트엔드 개발자(FE) 2명</li>
           <li>백엔드 개발자(BE) 2명</li>
-          <li>프로젝트 매니저(PM) 1명</li>
+          <li>프로덕트 매니저(PM) 1명</li>
           <li>프로덕트 디자이너(PD) 1명</li>
         </ul>
       </>
@@ -256,7 +258,7 @@ export const faqJect: Faq[] = [
     id: 5,
     title: '추가 문의는 어디로 하면 되나요?',
     label: '아래 이메일로 문의해 주세요.',
-    content: 'jectofficial@gmail.com',
+    content: JECT_EMAIL,
     caption: '',
   },
 ];

@@ -29,7 +29,7 @@ const variantMap: Record<
     style: 'bg-role-do-trans-neutral-dark text-role-do-normal-dark',
   },
   pm: {
-    text: '프로젝트 매니저',
+    text: '프로덕트 매니저',
     icon: clipboard,
     style: 'bg-role-pm-trans-neutral-dark text-role-pm-normal-dark',
   },
