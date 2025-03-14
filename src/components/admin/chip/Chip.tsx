@@ -15,7 +15,7 @@ function Chip({ param, children, ...props }: ChipProps) {
   return (
     <button
       {...props}
-      className={`${param && searchParams.get(param.key) === param.value ? 'bg-fill-hero-dark label-md text-object-inverse-hero-dark' : 'bg-fill-assistive-dark label-md text-object-neutral-dark'} interaction-default-normal radius-circle px-(--gap-sm) py-(--gap-4xs)`}
+      className={`${param && searchParams.get(param.key) === param.value ? 'bg-fill-hero-dark label-md text-object-inverse-hero-dark' : 'bg-fill-assistive-dark label-md text-object-neutral-dark'} interaction-default-normal radius-circle cursor-pointer px-(--gap-sm) py-(--gap-4xs)`}
     >
       {children}
     </button>
