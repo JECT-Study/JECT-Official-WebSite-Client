@@ -17,10 +17,10 @@ interface FileItemProps {
 }
 
 function FileItem({ file, onDelete, isDisabled = false, feedback = null }: FileItemProps) {
-  const { uploadFileToS3 } = useUploadFileToS3Query();
+  const { mutate, isPending, isError } = useUploadFileToS3Query();
   const fileName = 'fileName' in file ? file.fileName : file.name;
   const fileSize = 'fileSize' in file ? Number(file.fileSize) : file.size;
-  const feedbackType = uploadFileToS3.isError ? 'error' : feedback;
+  const feedbackType = isError ? 'error' : feedback;
 
   const openFile = () => {
     if (isDisabled || !file) return;
@@ -47,9 +47,9 @@ function FileItem({ file, onDelete, isDisabled = false, feedback = null }: FileI
 
   useEffect(() => {
     if ('presignedUrl' in file && file.presignedUrl) {
-      uploadFileToS3.mutate({ url: file.presignedUrl, file: file.file });
+      mutate({ url: file.presignedUrl, file: file.file });
     }
-  }, [file]);
+  }, [file, mutate]);
 
   if (feedbackType) {
     return (
@@ -85,7 +85,7 @@ function FileItem({ file, onDelete, isDisabled = false, feedback = null }: FileI
       onClick={openFile}
       className={`${isDisabled ? 'cursor-default' : 'interaction-default-subtle transition-faster-fluent-hover cursor-pointer'} bg-surface-embossed-dark radius-xs gap-md border-border-trans-assistive-dark flex items-center border px-(--gap-lg) py-(--gap-sm)`}
     >
-      {uploadFileToS3.isPending ? (
+      {isPending ? (
         <Lottie animationData={loadingSpinner} />
       ) : (
         <Icon

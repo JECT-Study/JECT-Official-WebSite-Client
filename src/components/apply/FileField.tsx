@@ -63,10 +63,10 @@ function FileField() {
 
   const deleteFile = (id: number | string) => {
     if (typeof id === 'string') {
-      setPortfolios(portfolios.filter(file => file.id !== id));
-    } else if (typeof id === 'number') {
-      setInvalidFiles(invalidFiles.filter(file => file.lastModified !== id));
+      return setPortfolios(portfolios.filter(file => file.id !== id));
     }
+
+    setInvalidFiles(invalidFiles.filter(file => file.lastModified !== id));
   };
 
   useEffect(() => {

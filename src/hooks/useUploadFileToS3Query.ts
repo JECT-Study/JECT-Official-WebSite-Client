@@ -7,7 +7,7 @@ import { useToastActions } from '@/stores/toastStore';
 const useUploadFileToS3Query = () => {
   const { addToast } = useToastActions();
 
-  const uploadFileToS3 = useMutation({
+  const { mutate, isPending, isError } = useMutation({
     mutationFn: ({ url, file }: { url: string; file: File }) =>
       axios.put(url, file, {
         headers: { 'Content-Type': file.type },
@@ -20,7 +20,7 @@ const useUploadFileToS3Query = () => {
     },
   });
 
-  return { uploadFileToS3 };
+  return { mutate, isPending, isError };
 };
 
 export default useUploadFileToS3Query;
