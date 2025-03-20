@@ -13,10 +13,19 @@ import { Select } from '@/components/common/select/Select';
 import Title from '@/components/common/title/Title';
 import { APPLY_TITLE } from '@/constants/applyPageData';
 import useCloseOutside from '@/hooks/useCloseOutside';
+import useDraftQuery from '@/hooks/useDraftQuery';
 import useQuestionsQuery from '@/hooks/useQuestionsQuery';
 import { Answers, Portfolio } from '@/types/apis/answer';
+import { JobFamily } from '@/types/apis/question';
 
 const POSITIONS = ['프론트엔드 개발자', '백엔드 개발자', '프로덕트 매니저', '프로덕트 디자이너'];
+
+const jobFamily: Record<string, JobFamily> = {
+  '프론트엔드 개발자': 'FE',
+  '백엔드 개발자': 'BE',
+  '프로덕트 매니저': 'PM',
+  '프로덕트 디자이너': 'PD',
+};
 
 function ApplyRegistration() {
   const selectRef = useRef<HTMLDivElement>(null);
@@ -26,7 +35,8 @@ function ApplyRegistration() {
     portfolios: [],
   });
   const { isOpen, setIsOpen } = useCloseOutside(selectRef);
-  const { questions } = useQuestionsQuery(selectPosition);
+  const { questions } = useQuestionsQuery(jobFamily[selectPosition]);
+  const { saveDraftMutate } = useDraftQuery();
 
   const handleChangeAnswer = (id: number, text: string) => {
     setValues({ ...values, answers: { ...values.answers, [id]: text } });
@@ -41,6 +51,20 @@ function ApplyRegistration() {
       setSelectPosition(label);
       setIsOpen(false);
     }
+  };
+
+  const saveDraft = () => {
+    const answers = {
+      ...values,
+      portfolios: values.portfolios.map((portfolio, index) => ({
+        fileUrl: portfolio.fileUrl,
+        fileName: portfolio.fileName,
+        fileSize: portfolio.fileSize,
+        sequence: (index + 1).toString(),
+      })),
+    };
+
+    saveDraftMutate({ param: jobFamily[selectPosition], answers });
   };
 
   return (
@@ -110,7 +134,7 @@ function ApplyRegistration() {
             </form>
           )}
           <div aria-label='button-area' className='gap-md flex w-full self-center *:flex-1'>
-            <BlockButton size='lg' style='solid' hierarchy='secondary'>
+            <BlockButton size='lg' style='solid' hierarchy='secondary' onClick={saveDraft}>
               임시 저장하기
             </BlockButton>
             <BlockButton size='lg' style='solid' hierarchy='accent' disabled>
