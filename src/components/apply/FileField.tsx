@@ -6,9 +6,15 @@ import Title from '@/components/common/title/Title';
 import { APPLY_MESSAGE } from '@/constants/applyMessages';
 import useCreatePresignedUrlsQuery from '@/hooks/useCreatePresignedUrlsQuery';
 import { useToastActions } from '@/stores/toastStore';
-import { NewPortfolio } from '@/types/apis/answer';
+import { NewPortfolio, Portfolio } from '@/types/apis/answer';
+import { Question } from '@/types/apis/question';
 import { PresignedUrl } from '@/types/apis/uploadFile';
 import { validateMaxSize } from '@/utils/validateFileMaxSize';
+
+interface FileFieldProps {
+  data: Question;
+  onChange: (files: Portfolio[]) => void;
+}
 
 const formatNewPortfolios = (data: PresignedUrl[], files: File[]) => {
   return data.map((item, index) => ({
@@ -30,7 +36,7 @@ const formatForPresignedUrl = (files: File[]) => {
   }));
 };
 
-function FileField() {
+function FileField({ data, onChange }: FileFieldProps) {
   const [portfolios, setPortfolios] = useState<NewPortfolio[]>([]);
   const [invalidFiles, setInvalidFiles] = useState<File[]>([]);
   const [totalSize, setTotalSize] = useState(0);
@@ -66,19 +72,20 @@ function FileField() {
   };
 
   useEffect(() => {
+    onChange(portfolios);
     setTotalSize(portfolios.reduce((acc, portfolio) => acc + Number(portfolio.fileSize), 0));
   }, [portfolios]);
 
   return (
     <fieldset className='gap-2xl flex flex-col'>
-      <Title hierarchy='normal'>title</Title>
+      <Title hierarchy='normal'>{data.title}</Title>
       <InputFile
         labelText='첨부파일'
         maxSize={100}
         fileExtensions={['pdf']}
         currentSize={totalSize}
         isDisabled={false}
-        isRequired={false}
+        isRequired={data.isRequired}
         onAddFile={addFile}
       >
         {invalidFiles.length === 0 && portfolios.length === 0 ? null : (

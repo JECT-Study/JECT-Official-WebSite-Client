@@ -13,28 +13,28 @@ import { Select } from '@/components/common/select/Select';
 import Title from '@/components/common/title/Title';
 import { APPLY_TITLE } from '@/constants/applyPageData';
 import useCloseOutside from '@/hooks/useCloseOutside';
-
-const datas = [
-  {
-    id: 1,
-    inputType: 'TEXT',
-  },
-  {
-    id: 2,
-    inputType: 'URL',
-  },
-  {
-    id: 3,
-    inputType: 'FILE',
-  },
-];
+import useQuestionsQuery from '@/hooks/useQuestionsQuery';
+import { Answers, Portfolio } from '@/types/apis/answer';
 
 const POSITIONS = ['프론트엔드 개발자', '백엔드 개발자', '프로덕트 매니저', '프로덕트 디자이너'];
 
 function ApplyRegistration() {
   const selectRef = useRef<HTMLDivElement>(null);
   const [selectPosition, setSelectPosition] = useState('');
+  const [values, setValues] = useState<Answers>({
+    answers: {},
+    portfolios: [],
+  });
   const { isOpen, setIsOpen } = useCloseOutside(selectRef);
+  const { questions } = useQuestionsQuery(selectPosition);
+
+  const handleChangeAnswer = (id: number, text: string) => {
+    setValues({ ...values, answers: { ...values.answers, [id]: text } });
+  };
+
+  const handleChangePortfolios = (files: Portfolio[]) => {
+    setValues({ ...values, portfolios: files });
+  };
 
   const handleSelect = (label: string | null) => {
     if (label) {
@@ -95,14 +95,16 @@ function ApplyRegistration() {
           )}
           {selectPosition && (
             <form action='' className='gap-7xl flex flex-col' encType='multipart/form-data'>
-              {datas?.map(data => {
+              {questions?.map(data => {
                 switch (data.inputType) {
                   case 'TEXT':
-                    return <TextField key={data.id} />;
+                    return <TextField key={data.id} data={data} onChange={handleChangeAnswer} />;
                   case 'URL':
-                    return <UrlField key={data.id} />;
+                    return <UrlField key={data.id} data={data} onChange={handleChangeAnswer} />;
                   case 'FILE':
-                    return <FileField key={data.id} />;
+                    return (
+                      <FileField key={data.id} data={data} onChange={handleChangePortfolios} />
+                    );
                 }
               })}
             </form>

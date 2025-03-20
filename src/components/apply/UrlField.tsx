@@ -1,17 +1,45 @@
+import { ChangeEvent, useState } from 'react';
+
 import InputField from '../common/input/InputField';
 import Title from '../common/title/Title';
 
-function UrlField() {
+import { APPLY_MESSAGE } from '@/constants/applyMessages';
+import { Question } from '@/types/apis/question';
+import { validateUrlDetail, validateUrlStartHttp } from '@/utils/validateUrl';
+
+interface UrlFieldProps {
+  data: Question;
+  onChange: (id: number, text: string) => void;
+}
+
+function UrlField({ data, onChange }: UrlFieldProps) {
+  const [text, setText] = useState('');
+  const [isError, setIsError] = useState(false);
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const url = e.target.value;
+
+    setText(url);
+    setIsError(!validateUrlStartHttp(url));
+    onChange(data.id, url);
+  };
+
+  const handlerBlur = () => {
+    setIsError(!validateUrlDetail(text));
+  };
+
   return (
     <fieldset className='gap-2xl flex flex-col'>
-      <Title hierarchy='normal'>title</Title>
+      <Title hierarchy='normal'>{data.title}</Title>
       <InputField
         labelText='URL'
         isSuccess={false}
-        placeholder=''
-        required={false}
-        isError={false}
-        helper=''
+        placeholder={data.inputHint}
+        required={data.isRequired}
+        isError={isError}
+        helper={isError ? APPLY_MESSAGE.invalid.url : ''}
+        onChange={handleChange}
+        onBlur={handlerBlur}
       />
     </fieldset>
   );
