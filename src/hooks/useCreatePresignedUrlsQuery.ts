@@ -1,14 +1,21 @@
 import { useMutation } from '@tanstack/react-query';
 
 import { postUploadPortfolio } from '@/apis/uploadPortfolio';
-import { FilesForPresignedUrl } from '@/types/apis/uploadFile';
 
 const useCreatePresignedUrlsQuery = () => {
-  const createPresignedUrls = useMutation({
-    mutationFn: (files: FilesForPresignedUrl[]) => postUploadPortfolio(files),
+  const {
+    mutate: createPresignedUrlsMutate,
+    isError,
+    error,
+  } = useMutation({
+    mutationFn: postUploadPortfolio,
   });
 
-  return { createPresignedUrls };
+  if (isError) {
+    console.error(`Query Error : ${error}`);
+  }
+
+  return { createPresignedUrlsMutate };
 };
 
 export default useCreatePresignedUrlsQuery;

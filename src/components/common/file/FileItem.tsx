@@ -17,7 +17,7 @@ interface FileItemProps {
 }
 
 function FileItem({ file, onDelete, isDisabled = false, feedback = null }: FileItemProps) {
-  const { mutate, isPending, isError } = useUploadFileToS3Query();
+  const { uploadFileMutate, isPending, isError } = useUploadFileToS3Query();
   const fileName = 'fileName' in file ? file.fileName : file.name;
   const fileSize = 'fileSize' in file ? Number(file.fileSize) : file.size;
   const feedbackType = isError ? 'error' : feedback;
@@ -47,9 +47,9 @@ function FileItem({ file, onDelete, isDisabled = false, feedback = null }: FileI
 
   useEffect(() => {
     if ('presignedUrl' in file && file.presignedUrl) {
-      mutate({ url: file.presignedUrl, file: file.file });
+      uploadFileMutate({ url: file.presignedUrl, file: file.file });
     }
-  }, [file, mutate]);
+  }, [file, uploadFileMutate]);
 
   if (feedbackType) {
     return (

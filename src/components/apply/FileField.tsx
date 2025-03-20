@@ -34,7 +34,7 @@ function FileField() {
   const [portfolios, setPortfolios] = useState<NewPortfolio[]>([]);
   const [invalidFiles, setInvalidFiles] = useState<File[]>([]);
   const [totalSize, setTotalSize] = useState(0);
-  const { createPresignedUrls } = useCreatePresignedUrlsQuery();
+  const { createPresignedUrlsMutate } = useCreatePresignedUrlsQuery();
   const { addToast } = useToastActions();
 
   const addFile = (newFiles: FileList | null) => {
@@ -55,7 +55,7 @@ function FileField() {
     }
 
     setInvalidFiles([...invalidFiles, ...filteredInvalidFiles]);
-    createPresignedUrls.mutate(formattedFiles, {
+    createPresignedUrlsMutate(formattedFiles, {
       onSuccess: ({ data }) =>
         setPortfolios([...portfolios, ...formatNewPortfolios(data, filteredPdfFiles)]),
     });
