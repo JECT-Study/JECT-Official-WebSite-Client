@@ -1,3 +1,8 @@
+export interface Answers {
+  answers: Record<string, string>;
+  portfolios: Portfolio[];
+}
+
 export interface Portfolio {
   fileUrl: string;
   fileName: string;
