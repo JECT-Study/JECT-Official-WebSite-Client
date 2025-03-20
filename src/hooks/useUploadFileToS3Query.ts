@@ -20,6 +20,7 @@ const useUploadFileToS3Query = () => {
         addToast(APPLY_MESSAGE.fail.uploadFile, 'negative');
       }
     },
+    retry: 3,
   });
 
   return { uploadFileMutate, isPending, isError };
