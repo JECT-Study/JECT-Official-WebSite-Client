@@ -3,4 +3,5 @@ export const API_ENDPOINT = {
   jectalk: '/jectalks',
   uploadPortfolio: '/upload/portfolios',
   question: '/apply/questions',
+  draft: '/apply/temp',
 } as const;
