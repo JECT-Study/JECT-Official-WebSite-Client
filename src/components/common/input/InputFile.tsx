@@ -4,9 +4,10 @@ import Label from '../label/Label';
 import Uploader from '../uploader/Uploader';
 
 import { FileExtension } from '@/types/ui/file';
+import { changeFileSizeUnit } from '@/utils/changeFileSizeUnit';
 
 interface InputFileProps {
-  fileNodes: ReactNode[];
+  children: ReactNode;
   fileExtensions: FileExtension[];
   currentSize: number;
   maxSize: number;
@@ -17,7 +18,7 @@ interface InputFileProps {
 }
 
 function InputFile({
-  fileNodes,
+  children,
   fileExtensions,
   currentSize = 0,
   maxSize,
@@ -26,6 +27,7 @@ function InputFile({
   labelText,
   isRequired = false,
 }: InputFileProps) {
+  const size = changeFileSizeUnit(currentSize, ['MB'], false);
   return (
     <div className='gap-2xs flex flex-col'>
       <Label
@@ -37,9 +39,7 @@ function InputFile({
         {labelText}
       </Label>
       <div className='bg-surface-standard-dark radius-sm border-border-trans-assistive-dark gap-md flex flex-col border px-(--gap-md) py-(--gap-sm)'>
-        {fileNodes.length > 0 && (
-          <div className='gap-2xs flex flex-col'>{fileNodes.map(file => file)}</div>
-        )}
+        {children && <div className='gap-2xs flex flex-col'>{children}</div>}
         <Uploader
           fileExtensions={fileExtensions}
           isDisabled={isDisabled}
@@ -48,7 +48,7 @@ function InputFile({
         />
       </div>
       <div className={`text-object-assistive-dark body-sm cursor-default self-end`}>
-        {`${currentSize}/${maxSize}MB`}
+        {`${size === '0.0' ? '0' : size}/${maxSize}MB`}
       </div>
     </div>
   );
