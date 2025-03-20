@@ -13,6 +13,11 @@ const useUploadFileToS3Query = () => {
         headers: { 'Content-Type': file.type },
       }),
     onSuccess: () => addToast(APPLY_MESSAGE.success.uploadFile, 'positive'),
+    onError: error => {
+      if (axios.isAxiosError(error) && !error.response) {
+        addToast(APPLY_MESSAGE.fail.uploadFile, 'negative');
+      }
+    },
   });
 
   return { uploadFileToS3 };

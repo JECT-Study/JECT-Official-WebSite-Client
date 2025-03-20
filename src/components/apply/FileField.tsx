@@ -50,6 +50,10 @@ function FileField() {
     const filteredInvalidFiles = newFilesArr.filter(file => file.type !== 'application/pdf');
     const formattedFiles = formatForPresignedUrl(filteredPdfFiles);
 
+    if (filteredInvalidFiles.length > 0) {
+      addToast(APPLY_MESSAGE.invalid.fileType, 'negative');
+    }
+
     setInvalidFiles([...invalidFiles, ...filteredInvalidFiles]);
     createPresignedUrls.mutate(formattedFiles, {
       onSuccess: ({ data }) =>

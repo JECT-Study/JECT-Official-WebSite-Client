@@ -6,6 +6,7 @@ export const APPLY_MESSAGE = {
     url: 'URL 형식이 올바르지 않아요. 다시 확인해주세요.',
     fileSize: '첨부 가능한 최대 파일 용량을 다시 확인해주세요',
     answerSize: '작성한 필수 답변들을 다시 확인해주세요',
+    fileType: 'pdf 파일만 업로드 가능합니다.',
   },
   success: {
     sendVerificationEmail: '인증 메일이 발송되었습니다.',
@@ -17,6 +18,7 @@ export const APPLY_MESSAGE = {
     pin: 'PIN이 올바르지 않아요. 다시 확인해주세요.',
     timeoutVerificationCode: '인증번호 유효 시간이 초과되었어요.',
     verificationCode: '인증번호가 올바르지 않아요. 다시 확인해주세요.',
+    uploadFile: '네트워크 연결이 불안정합니다.',
   },
   conflict: {
     email: '이미 지원서 제출을 완료한 이메일이에요',

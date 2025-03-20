@@ -20,6 +20,7 @@ function FileItem({ file, onDelete, isDisabled = false, feedback = null }: FileI
   const { uploadFileToS3 } = useUploadFileToS3Query();
   const fileName = 'fileName' in file ? file.fileName : file.name;
   const fileSize = 'fileSize' in file ? Number(file.fileSize) : file.size;
+  const feedbackType = uploadFileToS3.isError ? 'error' : feedback;
 
   const openFile = () => {
     if (isDisabled || !file) return;
@@ -50,21 +51,21 @@ function FileItem({ file, onDelete, isDisabled = false, feedback = null }: FileI
     }
   }, [file]);
 
-  if (feedback) {
+  if (feedbackType) {
     return (
       <div
-        className={`${feedbackStyle[feedback].bgColor} ${feedbackStyle[feedback].borderColor} radius-xs gap-md flex items-center border px-(--gap-lg) py-(--gap-sm)`}
+        className={`${feedbackStyle[feedbackType].bgColor} ${feedbackStyle[feedbackType].borderColor} radius-xs gap-md flex items-center border px-(--gap-lg) py-(--gap-sm)`}
       >
         <Icon
-          name={feedbackStyle[feedback].icon}
+          name={feedbackStyle[feedbackType].icon}
           size='md'
-          fillColor={feedbackStyle[feedback].fillColor}
+          fillColor={feedbackStyle[feedbackType].fillColor}
         />
         <div className={`text-object-normal-dark gap-6xs flex grow flex-col text-left`}>
           <span className='label-bold-md break-all'>{fileName}</span>
           <span className='body-xs'>{changeFileSizeUnit(fileSize, ['KB', 'MB'], true)}</span>
-          <span className={`body-xs ${feedbackStyle[feedback].textColor}`}>
-            {feedbackStyle[feedback].message}
+          <span className={`body-xs ${feedbackStyle[feedbackType].textColor}`}>
+            {feedbackStyle[feedbackType].message}
           </span>
         </div>
         {onDelete && (
