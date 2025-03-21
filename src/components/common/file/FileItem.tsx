@@ -17,10 +17,10 @@ interface FileItemProps {
 }
 
 function FileItem({ file, onDelete, isDisabled = false, feedback = null }: FileItemProps) {
-  const { uploadFileMutate, isPending, isError } = useUploadFileToS3Query();
+  const { uploadFileMutate, isPending, isNetworkError, source } = useUploadFileToS3Query();
   const fileName = 'fileName' in file ? file.fileName : file.name;
   const fileSize = 'fileSize' in file ? Number(file.fileSize) : file.size;
-  const feedbackType = isError ? 'error' : feedback;
+  const feedbackType = isNetworkError ? 'error' : feedback;
 
   const openFile = () => {
     if (isDisabled || !file) return;
@@ -37,6 +37,7 @@ function FileItem({ file, onDelete, isDisabled = false, feedback = null }: FileI
 
   const deleteHandler = (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
+    source.cancel();
 
     if ('id' in file) {
       onDelete?.(file.id);

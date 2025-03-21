@@ -1,12 +1,8 @@
-import axios from 'axios';
+import axios, { CancelToken } from 'axios';
 
-interface PutUploadFileToS3Props {
-  url: string;
-  file: File;
-}
-
-export const putUploadFileToS3 = async ({ url, file }: PutUploadFileToS3Props) => {
+export const putUploadFileToS3 = async (url: string, file: File, cancelToken: CancelToken) => {
   return axios.put(url, file, {
     headers: { 'Content-Type': file.type },
+    cancelToken,
   });
 };
