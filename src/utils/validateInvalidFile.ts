@@ -1,5 +1,5 @@
 /**
- * 주어진 File 객체가 손상된 PDF 파일인지 검사하는 함수
+ * 주어진 File 객체가 비어있거나 손상된 PDF 파일인지 검사하는 함수
  *
  *
  * @param file 검사할 File 객체
@@ -7,6 +7,7 @@
  */
 export const validateValidFile = async (file: File) => {
   if (!(file instanceof File)) return false;
+  if (file.size === 0) return false;
 
   try {
     const buffer = await file.arrayBuffer();
