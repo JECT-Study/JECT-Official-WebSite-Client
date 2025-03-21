@@ -9,6 +9,7 @@ import { useToastActions } from '@/stores/toastStore';
 import { NewPortfolio } from '@/types/apis/answer';
 import { PresignedUrl } from '@/types/apis/uploadFile';
 import { validateMaxSize } from '@/utils/validateFileMaxSize';
+import { splitValidAndInvalidFiles } from '@/utils/validateInvalidFile';
 
 const formatNewPortfolios = (data: PresignedUrl[], files: File[]) => {
   return data.map((item, index) => ({
@@ -37,7 +38,7 @@ function FileField() {
   const { createPresignedUrlsMutate } = useCreatePresignedUrlsQuery();
   const { addToast } = useToastActions();
 
-  const addFile = (newFiles: FileList | null) => {
+  const addFile = async (newFiles: FileList | null) => {
     if (!newFiles) return;
 
     const newFilesArr = Array.from(newFiles);
@@ -46,19 +47,18 @@ function FileField() {
       return addToast(APPLY_MESSAGE.invalid.fileSize, 'negative');
     }
 
-    const filteredPdfFiles = newFilesArr.filter(file => file.type === 'application/pdf');
-    const filteredInvalidFiles = newFilesArr.filter(file => file.type !== 'application/pdf');
-    const formattedFiles = formatForPresignedUrl(filteredPdfFiles);
+    const PdfFiles = newFilesArr.filter(file => file.type === 'application/pdf');
+    const { validPdfFiles, invalidPdfFiles } = await splitValidAndInvalidFiles(PdfFiles);
+    const formattedFiles = formatForPresignedUrl(validPdfFiles);
 
-    if (filteredInvalidFiles.length > 0) {
-      addToast(APPLY_MESSAGE.invalid.fileType, 'negative');
-    }
-
-    setInvalidFiles([...invalidFiles, ...filteredInvalidFiles]);
     createPresignedUrlsMutate(formattedFiles, {
       onSuccess: ({ data }) =>
-        setPortfolios([...portfolios, ...formatNewPortfolios(data, filteredPdfFiles)]),
+        setPortfolios(prev => [...prev, ...formatNewPortfolios(data, validPdfFiles)]),
     });
+    setInvalidFiles(prev => [...prev, ...invalidPdfFiles]);
+
+    if (invalidPdfFiles.length > 0) addToast(APPLY_MESSAGE.invalid.unknownFile, 'negative');
+    if (PdfFiles.length !== newFiles.length) addToast(APPLY_MESSAGE.invalid.fileType, 'negative');
   };
 
   const deleteFile = (id: number | string) => {
@@ -83,7 +83,7 @@ function FileField() {
         currentSize={totalSize}
         isDisabled={false}
         isRequired={false}
-        onAddFile={addFile}
+        onAddFile={fileList => void addFile(fileList)}
       >
         {invalidFiles.length === 0 && portfolios.length === 0 ? null : (
           <>
