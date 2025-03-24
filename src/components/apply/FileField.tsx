@@ -55,9 +55,11 @@ function FileField() {
       onSuccess: ({ data }) =>
         setPortfolios(prev => [...prev, ...formatNewPortfolios(data, validPdfFiles)]),
     });
+
     setInvalidFiles(prev => [...prev, ...invalidPdfFiles]);
 
     if (invalidPdfFiles.length > 0) addToast(APPLY_MESSAGE.invalid.unknownFile, 'negative');
+
     if (PdfFiles.length !== newFiles.length) addToast(APPLY_MESSAGE.invalid.fileType, 'negative');
   };
 
