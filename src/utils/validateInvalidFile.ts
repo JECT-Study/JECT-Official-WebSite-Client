@@ -7,6 +7,7 @@
  */
 export const validateValidFile = async (file: File) => {
   if (!(file instanceof File)) return false;
+
   if (file.size === 0) return false;
 
   try {
