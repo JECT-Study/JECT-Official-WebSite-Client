@@ -32,12 +32,11 @@ function Uploader({ onChangeFile, isDisabled, fileExtensions, maxSize }: Uploade
   };
 
   const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
+    if (!inputRef.current || isDisabled) return;
 
-    if (inputRef.current && !isDisabled) {
-      inputRef.current.value = '';
-      inputRef.current.click();
-    }
+    e.preventDefault();
+    inputRef.current.value = '';
+    inputRef.current.click();
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
