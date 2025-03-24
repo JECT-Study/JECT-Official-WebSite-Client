@@ -42,8 +42,12 @@ export const splitValidAndInvalidFiles = async (files: File[]): Promise<FileVali
     }),
   );
 
-  const validPdfFiles = results.filter(r => r.isValid).map(r => r.file);
-  const invalidPdfFiles = results.filter(r => !r.isValid).map(r => r.file);
+  return results.reduce<FileValidationResult>(
+    (acc, { file, isValid }) => {
+      if (isValid) return { ...acc, validPdfFiles: [...acc.validPdfFiles, file] };
 
-  return { validPdfFiles, invalidPdfFiles };
+      return { ...acc, invalidPdfFiles: [...acc.invalidPdfFiles, file] };
+    },
+    { validPdfFiles: [], invalidPdfFiles: [] },
+  );
 };
