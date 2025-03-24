@@ -5,7 +5,7 @@ export interface FilesForPresignedUrl {
 }
 
 export interface PresignedUrl {
-  keyName: string;
+  cdnUrl: string;
   presignedUrl: string;
   expiration: string;
 }

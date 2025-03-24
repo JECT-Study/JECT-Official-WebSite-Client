@@ -16,7 +16,7 @@ const formatNewPortfolios = (data: PresignedUrl[], files: File[]) => {
     id: crypto.randomUUID(),
     file: files[index],
     presignedUrl: item.presignedUrl,
-    fileUrl: item.keyName,
+    fileUrl: item.cdnUrl,
     fileName: files[index].name,
     fileSize: files[index].size.toString(),
     sequence: index.toString(),
