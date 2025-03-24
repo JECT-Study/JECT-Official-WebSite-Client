@@ -7,11 +7,11 @@ import { APPLY_MESSAGE } from '@/constants/applyMessages';
 import useCreatePresignedUrlsQuery from '@/hooks/useCreatePresignedUrlsQuery';
 import { useToastActions } from '@/stores/toastStore';
 import { NewPortfolio } from '@/types/apis/answer';
-import { PresignedUrl } from '@/types/apis/uploadFile';
+import { PresignedUrlResponseData } from '@/types/apis/uploadFile';
 import { validateMaxSize } from '@/utils/validateFileMaxSize';
 import { splitValidAndInvalidFiles } from '@/utils/validateInvalidFile';
 
-const formatNewPortfolios = (data: PresignedUrl[], files: File[]) => {
+const formatNewPortfolios = (data: PresignedUrlResponseData[], files: File[]) => {
   return data.map((item, index) => ({
     id: crypto.randomUUID(),
     file: files[index],

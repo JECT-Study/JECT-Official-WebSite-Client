@@ -1,7 +1,7 @@
 import { API_ENDPOINT } from '@/constants/apiEndpoint';
-import { Jectalks } from '@/types/apis/jectalk';
+import { JectalksResponseData } from '@/types/apis/jectalk';
 import { requestHandler } from '@/utils/httpClient';
 
 export const getJectalks = async () => {
-  return await requestHandler<Jectalks>('get', API_ENDPOINT.jectalk);
+  return await requestHandler<JectalksResponseData>('get', API_ENDPOINT.jectalk);
 };

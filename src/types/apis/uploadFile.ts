@@ -4,7 +4,7 @@ export interface FilesForPresignedUrl {
   contentLength: number;
 }
 
-export interface PresignedUrl {
+export interface PresignedUrlResponseData {
   keyName: string;
   presignedUrl: string;
   expiration: string;
