@@ -1,4 +1,5 @@
-import { FileExtension, fileMimeType } from '@/constants/file';
+import { fileMimeType } from '@/constants/file';
+import { FileExtensions } from '@/types/ui/file';
 
 /**
  * 주어진 FileList에서 모든 파일이 types 확장자 목록에 해당하는지 검사하는 함수
@@ -8,7 +9,7 @@ import { FileExtension, fileMimeType } from '@/constants/file';
  * @returns 모든 파일이 허용된 확장자에 해당하면 `true`, 그렇지 않으면 `false`
  *
  */
-export const validateFileType = (files: FileList, types: FileExtension[]) => {
+export const validateFileType = (files: FileList, types: FileExtensions[]) => {
   return Array.from(files).every(file => {
     return types.some(type => fileMimeType[type] === file.type);
   });
