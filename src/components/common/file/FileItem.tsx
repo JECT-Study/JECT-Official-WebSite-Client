@@ -8,6 +8,7 @@ import Icon from '@/components/common/icon/Icon';
 import useUploadFileToS3Query from '@/hooks/useUploadFileToS3Query';
 import { NewPortfolio } from '@/types/apis/answer';
 import { changeFileSizeUnit } from '@/utils/changeFileSizeUnit';
+import { extractFileInfo } from '@/utils/extractFileInfo';
 
 interface FileItemProps {
   file: File | NewPortfolio;
@@ -18,39 +19,30 @@ interface FileItemProps {
 
 function FileItem({ file, onDelete, isDisabled = false, feedback = null }: FileItemProps) {
   const { uploadFileMutate, isPending, isNetworkError, source } = useUploadFileToS3Query();
-  const fileName = 'fileName' in file ? file.fileName : file.name;
-  const fileSize = 'fileSize' in file ? Number(file.fileSize) : file.size;
+  const { fileName, fileSize, id, fileUrl, rawFile, presignedUrl } = extractFileInfo(file);
   const feedbackType = isNetworkError ? 'error' : feedback;
-
+  console.log(file);
   const openFile = () => {
     if (isDisabled || !file) return;
 
-    if ('fileUrl' in file) {
-      return window.open(file.fileUrl, '_blank', 'noopener,noreferrer');
-    }
-
-    const url = URL.createObjectURL(file);
+    const url = fileUrl ?? URL.createObjectURL(rawFile);
 
     window.open(url, '_blank', 'noopener,noreferrer');
-    setTimeout(() => URL.revokeObjectURL(url), 5000);
+
+    if (!fileUrl) setTimeout(() => URL.revokeObjectURL(url), 5000);
   };
 
   const deleteHandler = (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     source.cancel();
-
-    if ('id' in file) {
-      onDelete?.(file.id);
-    } else {
-      onDelete?.(file.lastModified);
-    }
+    onDelete?.(id);
   };
 
   useEffect(() => {
-    if ('presignedUrl' in file && file.presignedUrl) {
-      uploadFileMutate({ url: file.presignedUrl, file: file.file });
+    if (presignedUrl && rawFile) {
+      uploadFileMutate({ url: presignedUrl, file: rawFile });
     }
-  }, [file, uploadFileMutate]);
+  }, [presignedUrl, rawFile, uploadFileMutate]);
 
   if (feedbackType) {
     return (
