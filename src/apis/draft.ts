@@ -1,5 +1,5 @@
 import { API_ENDPOINT } from '@/constants/apiEndpoint';
-import { Answers } from '@/types/apis/answer';
+import { Answers, DraftAnswers } from '@/types/apis/answer';
 import { JobFamily } from '@/types/apis/question';
 import { requestHandler } from '@/utils/httpClient';
 
@@ -16,4 +16,8 @@ export const postDraft = async ({ param, answers }: PostDraftProps) => {
     `${API_ENDPOINT.draft}?jobFamily=${param}`,
     answers,
   );
+};
+
+export const getDraft = async () => {
+  return await requestHandler<DraftAnswers>('get', API_ENDPOINT.draft);
 };
