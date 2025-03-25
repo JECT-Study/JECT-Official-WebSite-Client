@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getQuestions } from '@/apis/question';
 import { JobFamily } from '@/types/apis/question';
 
-const useQuestionsQuery = (param: JobFamily) => {
+const useQuestionsQuery = (param: JobFamily | null) => {
   const { data, isError, error } = useQuery({
     queryKey: ['question', param],
     queryFn: () => getQuestions(param),

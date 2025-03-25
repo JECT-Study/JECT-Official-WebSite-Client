@@ -18,24 +18,24 @@ import useQuestionsQuery from '@/hooks/useQuestionsQuery';
 import { Answers, Portfolio } from '@/types/apis/answer';
 import { JobFamily } from '@/types/apis/question';
 
-const POSITIONS = ['프론트엔드 개발자', '백엔드 개발자', '프로덕트 매니저', '프로덕트 디자이너'];
+const POSITIONS: JobFamily[] = ['FE', 'BE', 'PM', 'PD'];
 
-const jobFamily: Record<string, JobFamily> = {
-  '프론트엔드 개발자': 'FE',
-  '백엔드 개발자': 'BE',
-  '프로덕트 매니저': 'PM',
-  '프로덕트 디자이너': 'PD',
+const jobFamily: Record<JobFamily, string> = {
+  FE: '프론트엔드 개발자',
+  BE: '백엔드 개발자',
+  PM: '프로덕트 매니저',
+  PD: '프로덕트 디자이너',
 };
 
 function ApplyRegistration() {
   const selectRef = useRef<HTMLDivElement>(null);
-  const [selectPosition, setSelectPosition] = useState('');
+  const [selectPosition, setSelectPosition] = useState<JobFamily | null>(null);
   const [values, setValues] = useState<Answers>({
     answers: {},
     portfolios: [],
   });
   const { isOpen, setIsOpen } = useCloseOutside(selectRef);
-  const { questions } = useQuestionsQuery(jobFamily[selectPosition]);
+  const { questions } = useQuestionsQuery(selectPosition);
   const { saveDraftMutate } = useDraftQuery();
 
   const handleChangeAnswer = (id: number, text: string) => {
@@ -47,10 +47,14 @@ function ApplyRegistration() {
   };
 
   const handleSelect = (label: string | null) => {
-    if (label) {
-      setSelectPosition(label);
-      setIsOpen(false);
-    }
+    if (!label) return;
+
+    const position = POSITIONS.find(key => jobFamily[key] === label);
+
+    if (!position) return;
+
+    setSelectPosition(position);
+    setIsOpen(false);
   };
 
   const saveDraft = () => {
@@ -64,7 +68,7 @@ function ApplyRegistration() {
       })),
     };
 
-    saveDraftMutate({ param: jobFamily[selectPosition], answers });
+    saveDraftMutate({ param: selectPosition, answers });
   };
 
   return (
@@ -80,7 +84,7 @@ function ApplyRegistration() {
                 readOnly
                 onClick={() => setIsOpen(!isOpen)}
                 onKeyDown={({ key }) => key === 'Enter' && setIsOpen(!isOpen)}
-                value={selectPosition ?? ''}
+                value={selectPosition ? jobFamily[selectPosition] : ''}
                 required
                 labelText='포지션'
                 isError={false}
@@ -99,10 +103,10 @@ function ApplyRegistration() {
                 <div className='absolute z-40 mt-[8px] w-full' ref={selectRef}>
                   <Select
                     items={[
-                      { label: POSITIONS[0] },
-                      { label: POSITIONS[1] },
-                      { label: POSITIONS[2] },
-                      { label: POSITIONS[3] },
+                      { label: jobFamily.FE },
+                      { label: jobFamily.BE },
+                      { label: jobFamily.PM },
+                      { label: jobFamily.PD },
                     ]}
                     defaultValue={selectPosition}
                     onChange={handleSelect}
