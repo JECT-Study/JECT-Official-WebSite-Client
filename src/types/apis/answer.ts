@@ -18,6 +18,6 @@ export interface Portfolio {
 
 export interface NewPortfolio extends Portfolio {
   id: string;
-  file: File;
-  presignedUrl: string;
+  file: File | null;
+  presignedUrl: string | null;
 }

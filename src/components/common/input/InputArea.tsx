@@ -28,11 +28,12 @@ const InputArea = forwardRef<HTMLTextAreaElement, InputAreaProps>(
       required,
       placeholder,
       onChange,
+      value,
       ...props
     },
     ref,
   ) => {
-    const [text, setText] = useState('');
+    const [text, setText] = useState(value ?? '');
     const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
     const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
