@@ -84,7 +84,7 @@ function FileField({ data, onChange }: FileFieldProps) {
   useEffect(() => {
     onChange(portfolios);
     setTotalSize(portfolios.reduce((acc, portfolio) => acc + Number(portfolio.fileSize), 0));
-  }, [portfolios]);
+  }, [portfolios, onChange]);
 
   return (
     <fieldset className='gap-2xl flex flex-col'>

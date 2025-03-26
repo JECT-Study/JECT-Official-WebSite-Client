@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 
 import FileField from '@/components/apply/FileField';
 import TextField from '@/components/apply/textField';
@@ -38,13 +38,13 @@ function ApplyRegistration() {
   const { questions } = useQuestionsQuery(selectPosition);
   const { saveDraftMutate } = useDraftQuery();
 
-  const handleChangeAnswer = (id: number, text: string) => {
-    setValues({ ...values, answers: { ...values.answers, [id]: text } });
-  };
+  const handleChangeAnswer = useCallback((id: number, text: string) => {
+    setValues(prev => ({ ...prev, answers: { ...prev.answers, [id]: text } }));
+  }, []);
 
-  const handleChangePortfolios = (files: PortfolioResponse[]) => {
-    setValues({ ...values, portfolios: files });
-  };
+  const handleChangePortfolios = useCallback((files: PortfolioResponse[]) => {
+    setValues(prev => ({ ...prev, portfolios: files }));
+  }, []);
 
   const handleSelect = (label: string | null) => {
     if (!label) return;
