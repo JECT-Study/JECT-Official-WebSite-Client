@@ -12,7 +12,7 @@ import { APPLY_TITLE } from '@/constants/applyPageData';
 
 interface ApplyVerifyEmailProps {
   isResetPin?: boolean;
-  setIsNewApplicant?: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsNewApplicant?: (value: boolean | ((isNewApplicant: boolean) => boolean)) => void;
 }
 
 function ApplyVerifyEmail({ isResetPin = false }: ApplyVerifyEmailProps) {
