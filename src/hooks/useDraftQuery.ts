@@ -1,13 +1,18 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 
-import { postDraft } from '@/apis/draft';
+import { getDraft, postDraft } from '@/apis/draft';
 
 const useDraftQuery = () => {
   const { mutate: saveDraftMutate } = useMutation({
     mutationFn: postDraft,
   });
 
-  return { saveDraftMutate };
+  const { data: draft } = useQuery({
+    queryKey: ['draft'],
+    queryFn: getDraft,
+  });
+
+  return { saveDraftMutate, draft };
 };
 
 export default useDraftQuery;

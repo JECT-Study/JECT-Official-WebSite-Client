@@ -1,7 +1,5 @@
-export interface Answers {
-  answers: Record<string, string>;
-  portfolios: PortfolioResponse[];
-}
+import { JobFamily } from './question';
+
 export interface PortfolioResponse {
   fileUrl: string;
   fileName: string;
@@ -11,6 +9,15 @@ export interface PortfolioResponse {
 
 export interface NewPortfolio extends PortfolioResponse {
   id: string;
-  file: File;
-  presignedUrl: string;
+  file: File | null;
+  presignedUrl: string | null;
+}
+
+export interface AnswersRequest {
+  answers: Record<string, string>;
+  portfolios: PortfolioResponse[];
+}
+
+export interface AnswersResponse extends AnswersRequest {
+  jobFamily: JobFamily;
 }
