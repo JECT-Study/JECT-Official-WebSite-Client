@@ -7,5 +7,6 @@
  */
 export const validateMaxSize = (curSize: number, newFiles: File[]) => {
   const newSize = newFiles.reduce((acc, file) => acc + file.size, 0);
+
   return curSize + newSize > 104857600;
 };

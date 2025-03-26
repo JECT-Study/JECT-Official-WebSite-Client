@@ -26,7 +26,7 @@ const meta: Meta<typeof InputFile> = {
   },
   argTypes: {
     children: {
-      description: `children으로 FileItem컴포넌트를받습니다.`,
+      description: `children으로 FileItem 컴포넌트를 받습니다.`,
     },
     fileExtensions: {
       control: 'object',

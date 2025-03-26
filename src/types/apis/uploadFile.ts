@@ -1,11 +1,11 @@
-export interface FilesForPresignedUrl {
+export interface PresignedUrlRequest {
   name: string;
   contentType: string;
   contentLength: number;
 }
 
-export interface PresignedUrl {
-  keyName: string;
+export interface PresignedUrlResponse {
+  cdnUrl: string;
   presignedUrl: string;
   expiration: string;
 }

@@ -4,17 +4,17 @@ const useCloseOutside = <T extends HTMLElement>(ref: RefObject<T>) => {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
+    if (!isOpen) return;
+
     const outsideClick = (e: MouseEvent) => {
       if (ref.current && !ref.current.contains(e.target as Node)) {
         setIsOpen(false);
       }
     };
 
-    if (isOpen) {
-      document.addEventListener('mousedown', outsideClick);
+    document.addEventListener('mousedown', outsideClick);
 
-      return () => document.removeEventListener('mousedown', outsideClick);
-    }
+    return () => document.removeEventListener('mousedown', outsideClick);
   }, [ref, isOpen]);
 
   return { isOpen, setIsOpen };

@@ -6,22 +6,23 @@ import Title from '@/components/common/title/Title';
 import { APPLY_MESSAGE } from '@/constants/applyMessages';
 import useCreatePresignedUrlsQuery from '@/hooks/useCreatePresignedUrlsQuery';
 import { useToastActions } from '@/stores/toastStore';
-import { NewPortfolio, Portfolio } from '@/types/apis/answer';
+import { NewPortfolio, PortfolioResponse } from '@/types/apis/answer';
 import { Question } from '@/types/apis/question';
-import { PresignedUrl } from '@/types/apis/uploadFile';
+import { PresignedUrlResponse } from '@/types/apis/uploadFile';
 import { validateMaxSize } from '@/utils/validateFileMaxSize';
+import { splitValidAndInvalidFiles } from '@/utils/validateInvalidFile';
 
 interface FileFieldProps {
   data: Question;
-  onChange: (files: Portfolio[]) => void;
+  onChange: (files: PortfolioResponse[]) => void;
 }
 
-const formatNewPortfolios = (data: PresignedUrl[], files: File[]) => {
+const formatNewPortfolios = (data: PresignedUrlResponse[], files: File[]) => {
   return data.map((item, index) => ({
     id: crypto.randomUUID(),
     file: files[index],
     presignedUrl: item.presignedUrl,
-    fileUrl: item.keyName,
+    fileUrl: item.cdnUrl,
     fileName: files[index].name,
     fileSize: files[index].size.toString(),
     sequence: index.toString(),
@@ -40,10 +41,10 @@ function FileField({ data, onChange }: FileFieldProps) {
   const [portfolios, setPortfolios] = useState<NewPortfolio[]>([]);
   const [invalidFiles, setInvalidFiles] = useState<File[]>([]);
   const [totalSize, setTotalSize] = useState(0);
-  const { createPresignedUrls } = useCreatePresignedUrlsQuery();
+  const { createPresignedUrlsMutate } = useCreatePresignedUrlsQuery();
   const { addToast } = useToastActions();
 
-  const addFile = (newFiles: FileList | null) => {
+  const addFile = async (newFiles: FileList | null) => {
     if (!newFiles) return;
 
     const newFilesArr = Array.from(newFiles);
@@ -52,23 +53,32 @@ function FileField({ data, onChange }: FileFieldProps) {
       return addToast(APPLY_MESSAGE.invalid.fileSize, 'negative');
     }
 
-    const filteredPdfFiles = newFilesArr.filter(file => file.type === 'application/pdf');
-    const filteredInvalidFiles = newFilesArr.filter(file => file.type !== 'application/pdf');
-    const formattedFiles = formatForPresignedUrl(filteredPdfFiles);
+    const PdfFiles = newFilesArr.filter(file => file.type === 'application/pdf');
+    const { validPdfFiles, invalidPdfFiles } = await splitValidAndInvalidFiles(PdfFiles);
 
-    setInvalidFiles([...invalidFiles, ...filteredInvalidFiles]);
-    createPresignedUrls.mutate(formattedFiles, {
-      onSuccess: ({ data }) =>
-        setPortfolios([...portfolios, ...formatNewPortfolios(data, filteredPdfFiles)]),
-    });
+    if (validPdfFiles.length > 0) {
+      const formattedFiles = formatForPresignedUrl(validPdfFiles);
+
+      createPresignedUrlsMutate(formattedFiles, {
+        onSuccess: ({ data }) =>
+          setPortfolios(prev => [...prev, ...formatNewPortfolios(data, validPdfFiles)]),
+      });
+    }
+
+    if (invalidPdfFiles.length > 0) {
+      setInvalidFiles(prev => [...prev, ...invalidPdfFiles]);
+      addToast(APPLY_MESSAGE.invalid.unknownFile, 'negative');
+    }
+
+    if (PdfFiles.length !== newFiles.length) addToast(APPLY_MESSAGE.invalid.fileType, 'negative');
   };
 
   const deleteFile = (id: number | string) => {
     if (typeof id === 'string') {
-      setPortfolios(portfolios.filter(file => file.id !== id));
-    } else if (typeof id === 'number') {
-      setInvalidFiles(invalidFiles.filter(file => file.lastModified !== id));
+      return setPortfolios(portfolios.filter(file => file.id !== id));
     }
+
+    setInvalidFiles(invalidFiles.filter(file => file.lastModified !== id));
   };
 
   useEffect(() => {
@@ -86,7 +96,7 @@ function FileField({ data, onChange }: FileFieldProps) {
         currentSize={totalSize}
         isDisabled={false}
         isRequired={data.isRequired}
-        onAddFile={addFile}
+        onAddFile={fileList => void addFile(fileList)}
       >
         {invalidFiles.length === 0 && portfolios.length === 0 ? null : (
           <>

@@ -15,7 +15,7 @@ import { APPLY_TITLE } from '@/constants/applyPageData';
 import useCloseOutside from '@/hooks/useCloseOutside';
 import useDraftQuery from '@/hooks/useDraftQuery';
 import useQuestionsQuery from '@/hooks/useQuestionsQuery';
-import { Answers, Portfolio } from '@/types/apis/answer';
+import { Answers, PortfolioResponse } from '@/types/apis/answer';
 import { JobFamily } from '@/types/apis/question';
 
 const POSITIONS: JobFamily[] = ['FE', 'BE', 'PM', 'PD'];
@@ -42,7 +42,7 @@ function ApplyRegistration() {
     setValues({ ...values, answers: { ...values.answers, [id]: text } });
   };
 
-  const handleChangePortfolios = (files: Portfolio[]) => {
+  const handleChangePortfolios = (files: PortfolioResponse[]) => {
     setValues({ ...values, portfolios: files });
   };
 

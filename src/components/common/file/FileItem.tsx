@@ -8,6 +8,7 @@ import Icon from '@/components/common/icon/Icon';
 import useUploadFileToS3Query from '@/hooks/useUploadFileToS3Query';
 import { NewPortfolio } from '@/types/apis/answer';
 import { changeFileSizeUnit } from '@/utils/changeFileSizeUnit';
+import { extractFileInfo } from '@/utils/extractFileInfo';
 
 interface FileItemProps {
   file: File | NewPortfolio;
@@ -17,54 +18,47 @@ interface FileItemProps {
 }
 
 function FileItem({ file, onDelete, isDisabled = false, feedback = null }: FileItemProps) {
-  const { uploadFileToS3 } = useUploadFileToS3Query();
-  const fileName = 'fileName' in file ? file.fileName : file.name;
-  const fileSize = 'fileSize' in file ? Number(file.fileSize) : file.size;
+  const { uploadFileMutate, isPending, isNetworkError, source } = useUploadFileToS3Query();
+  const { fileName, fileSize, id, fileUrl, rawFile, presignedUrl } = extractFileInfo(file);
+  const feedbackType = isNetworkError ? 'error' : feedback;
 
   const openFile = () => {
     if (isDisabled || !file) return;
 
-    if ('fileUrl' in file) {
-      return window.open(file.fileUrl, '_blank', 'noopener,noreferrer');
-    }
-
-    const url = URL.createObjectURL(file);
+    const url = fileUrl ?? URL.createObjectURL(rawFile);
 
     window.open(url, '_blank', 'noopener,noreferrer');
-    setTimeout(() => URL.revokeObjectURL(url), 5000);
+
+    if (!fileUrl) setTimeout(() => URL.revokeObjectURL(url), 5000);
   };
 
   const deleteHandler = (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-
-    if ('id' in file) {
-      onDelete?.(file.id);
-    } else {
-      onDelete?.(file.lastModified);
-    }
+    source.cancel();
+    onDelete?.(id);
   };
 
   useEffect(() => {
-    if ('presignedUrl' in file && file.presignedUrl) {
-      uploadFileToS3.mutate({ url: file.presignedUrl, file: file.file });
+    if (presignedUrl && rawFile) {
+      uploadFileMutate({ url: presignedUrl, file: rawFile });
     }
-  }, [file]);
+  }, [presignedUrl, rawFile, uploadFileMutate]);
 
-  if (feedback) {
+  if (feedbackType) {
     return (
       <div
-        className={`${feedbackStyle[feedback].bgColor} ${feedbackStyle[feedback].borderColor} radius-xs gap-md flex items-center border px-(--gap-lg) py-(--gap-sm)`}
+        className={`${feedbackStyle[feedbackType].bgColor} ${feedbackStyle[feedbackType].borderColor} radius-xs gap-md flex items-center border px-(--gap-lg) py-(--gap-sm)`}
       >
         <Icon
-          name={feedbackStyle[feedback].icon}
+          name={feedbackStyle[feedbackType].icon}
           size='md'
-          fillColor={feedbackStyle[feedback].fillColor}
+          fillColor={feedbackStyle[feedbackType].fillColor}
         />
         <div className={`text-object-normal-dark gap-6xs flex grow flex-col text-left`}>
           <span className='label-bold-md break-all'>{fileName}</span>
           <span className='body-xs'>{changeFileSizeUnit(fileSize, ['KB', 'MB'], true)}</span>
-          <span className={`body-xs ${feedbackStyle[feedback].textColor}`}>
-            {feedbackStyle[feedback].message}
+          <span className={`body-xs ${feedbackStyle[feedbackType].textColor}`}>
+            {feedbackStyle[feedbackType].message}
           </span>
         </div>
         {onDelete && (
@@ -84,7 +78,7 @@ function FileItem({ file, onDelete, isDisabled = false, feedback = null }: FileI
       onClick={openFile}
       className={`${isDisabled ? 'cursor-default' : 'interaction-default-subtle transition-faster-fluent-hover cursor-pointer'} bg-surface-embossed-dark radius-xs gap-md border-border-trans-assistive-dark flex items-center border px-(--gap-lg) py-(--gap-sm)`}
     >
-      {uploadFileToS3.isPending ? (
+      {isPending ? (
         <Lottie animationData={loadingSpinner} />
       ) : (
         <Icon

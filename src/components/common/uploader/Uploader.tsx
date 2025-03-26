@@ -3,12 +3,12 @@ import { ChangeEvent, DragEvent, MouseEvent, useRef, useState } from 'react';
 
 import BlockButton from '@/components/common/button/BlockButton';
 import Icon from '@/components/common/icon/Icon';
-import { FileExtension } from '@/types/ui/file';
+import { FileExtensions } from '@/types/ui/file';
 
 interface UploaderProps {
   onChangeFile: (file: FileList | null) => void;
   isDisabled: boolean;
-  fileExtensions: FileExtension[];
+  fileExtensions: FileExtensions[];
   maxSize: number;
 }
 
@@ -32,12 +32,11 @@ function Uploader({ onChangeFile, isDisabled, fileExtensions, maxSize }: Uploade
   };
 
   const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
+    if (!inputRef.current || isDisabled) return;
 
-    if (inputRef.current && !isDisabled) {
-      inputRef.current.value = '';
-      inputRef.current.click();
-    }
+    e.preventDefault();
+    inputRef.current.value = '';
+    inputRef.current.click();
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {

@@ -9,11 +9,12 @@ import { FileSizeUnits } from '@/types/ui/file';
  * @returns  변환된 파일 크기 (KB or MB 단위, 소수점 1자리까지 표시)
  */
 export const changeFileSizeUnit = (size: number, units: FileSizeUnits[], attachUnit: boolean) => {
-  if (units.includes('KB')) {
-    if (size < 1024 * 1024) {
-      return (size / 1024).toFixed(1) + (attachUnit ? 'KB' : '');
-    }
-  }
+  const sizeInKB = (size / 1024).toFixed(1) + (attachUnit ? 'KB' : '');
+  const sizeInMB = (size / (1024 * 1024)).toFixed(1) + (attachUnit ? 'MB' : '');
 
-  return (size / (1024 * 1024)).toFixed(1) + (attachUnit ? 'MB' : '');
+  if (!units.includes('MB')) return sizeInKB;
+
+  if (!units.includes('KB')) return sizeInMB;
+
+  return size < 1024 * 1024 ? sizeInKB : sizeInMB;
 };

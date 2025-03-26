@@ -3,12 +3,12 @@ import { ReactNode } from 'react';
 import Label from '../label/Label';
 import Uploader from '../uploader/Uploader';
 
-import { FileExtension } from '@/types/ui/file';
+import { FileExtensions } from '@/types/ui/file';
 import { changeFileSizeUnit } from '@/utils/changeFileSizeUnit';
 
 interface InputFileProps {
   children: ReactNode;
-  fileExtensions: FileExtension[];
+  fileExtensions: FileExtensions[];
   currentSize: number;
   maxSize: number;
   isDisabled: boolean;
