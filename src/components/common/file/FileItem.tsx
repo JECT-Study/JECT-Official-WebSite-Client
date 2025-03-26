@@ -21,7 +21,7 @@ function FileItem({ file, onDelete, isDisabled = false, feedback = null }: FileI
   const { uploadFileMutate, isPending, isNetworkError, source } = useUploadFileToS3Query();
   const { fileName, fileSize, id, fileUrl, rawFile, presignedUrl } = extractFileInfo(file);
   const feedbackType = isNetworkError ? 'error' : feedback;
-  console.log(file);
+
   const openFile = () => {
     if (isDisabled || !file) return;
 
