@@ -12,7 +12,7 @@ function Activity() {
     <div className='gap-12xl flex flex-col items-center py-(--gap-12xl)'>
       <section className='gap-8xl flex flex-col items-center'>
         <Title hierarchy='strong'>미니 스터디</Title>
-        {miniStudies ? (
+        {miniStudies && miniStudies.length > 0 ? (
           <div className='gap-4xl grid max-w-[60rem] grid-cols-3'>
             {miniStudies.map(study => (
               <Card
@@ -35,14 +35,14 @@ function Activity() {
       </section>
       <section className='gap-8xl flex flex-col items-center'>
         <Title hierarchy='strong'>JECTALK</Title>
-        {jectalks ? (
+        {jectalks && jectalks.length > 0 ? (
           <div className='gap-4xl grid max-w-[60rem] grid-cols-3'>
             {jectalks.map(jectalk => (
               <Card
                 key={jectalk.id}
                 to={jectalk.youtubeUrl}
                 title={jectalk.name}
-                label={jectalk.name}
+                label={jectalk.summary}
                 imgUrl={jectalk.imageUrl}
                 isDescriptionVisible={false}
                 target='_blank'
