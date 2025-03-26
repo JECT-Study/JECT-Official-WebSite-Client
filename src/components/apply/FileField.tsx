@@ -7,11 +7,11 @@ import { APPLY_MESSAGE } from '@/constants/applyMessages';
 import useCreatePresignedUrlsQuery from '@/hooks/useCreatePresignedUrlsQuery';
 import { useToastActions } from '@/stores/toastStore';
 import { NewPortfolio } from '@/types/apis/answer';
-import { PresignedUrl } from '@/types/apis/uploadFile';
+import { PresignedUrlResponse } from '@/types/apis/uploadFile';
 import { validateMaxSize } from '@/utils/validateFileMaxSize';
 import { splitValidAndInvalidFiles } from '@/utils/validateInvalidFile';
 
-const formatNewPortfolios = (data: PresignedUrl[], files: File[]) => {
+const formatNewPortfolios = (data: PresignedUrlResponse[], files: File[]) => {
   return data.map((item, index) => ({
     id: crypto.randomUUID(),
     file: files[index],
@@ -49,16 +49,20 @@ function FileField() {
 
     const PdfFiles = newFilesArr.filter(file => file.type === 'application/pdf');
     const { validPdfFiles, invalidPdfFiles } = await splitValidAndInvalidFiles(PdfFiles);
-    const formattedFiles = formatForPresignedUrl(validPdfFiles);
 
-    createPresignedUrlsMutate(formattedFiles, {
-      onSuccess: ({ data }) =>
-        setPortfolios(prev => [...prev, ...formatNewPortfolios(data, validPdfFiles)]),
-    });
+    if (validPdfFiles.length > 0) {
+      const formattedFiles = formatForPresignedUrl(validPdfFiles);
 
-    setInvalidFiles(prev => [...prev, ...invalidPdfFiles]);
+      createPresignedUrlsMutate(formattedFiles, {
+        onSuccess: ({ data }) =>
+          setPortfolios(prev => [...prev, ...formatNewPortfolios(data, validPdfFiles)]),
+      });
+    }
 
-    if (invalidPdfFiles.length > 0) addToast(APPLY_MESSAGE.invalid.unknownFile, 'negative');
+    if (invalidPdfFiles.length > 0) {
+      setInvalidFiles(prev => [...prev, ...invalidPdfFiles]);
+      addToast(APPLY_MESSAGE.invalid.unknownFile, 'negative');
+    }
 
     if (PdfFiles.length !== newFiles.length) addToast(APPLY_MESSAGE.invalid.fileType, 'negative');
   };
