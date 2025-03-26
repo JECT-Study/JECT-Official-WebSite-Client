@@ -1,5 +1,6 @@
 import clsx from 'clsx';
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useRef, useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import FileField from '@/components/apply/FileField';
 import TextField from '@/components/apply/textField';
@@ -15,7 +16,7 @@ import { APPLY_TITLE } from '@/constants/applyPageData';
 import useCloseOutside from '@/hooks/useCloseOutside';
 import useDraftQuery from '@/hooks/useDraftQuery';
 import useQuestionsQuery from '@/hooks/useQuestionsQuery';
-import { Answers, PortfolioResponse } from '@/types/apis/answer';
+import { AnswersRequest, PortfolioResponse } from '@/types/apis/answer';
 import { JobFamily } from '@/types/apis/question';
 
 const POSITIONS: JobFamily[] = ['FE', 'BE', 'PM', 'PD'];
@@ -27,16 +28,23 @@ const jobFamily: Record<JobFamily, string> = {
   PD: '프로덕트 디자이너',
 };
 
+const initialValue = {
+  answers: {},
+  portfolios: [],
+};
+
+interface LocationState {
+  continue: boolean;
+}
+
 function ApplyRegistration() {
+  const location = useLocation();
   const selectRef = useRef<HTMLDivElement>(null);
   const [selectPosition, setSelectPosition] = useState<JobFamily | null>(null);
-  const [values, setValues] = useState<Answers>({
-    answers: {},
-    portfolios: [],
-  });
+  const [values, setValues] = useState<AnswersRequest>(initialValue);
   const { isOpen, setIsOpen } = useCloseOutside(selectRef);
   const { questions } = useQuestionsQuery(selectPosition);
-  const { saveDraftMutate } = useDraftQuery();
+  const { saveDraftMutate, draft } = useDraftQuery();
 
   const handleChangeAnswer = useCallback((id: number, text: string) => {
     setValues(prev => ({ ...prev, answers: { ...prev.answers, [id]: text } }));
@@ -70,6 +78,25 @@ function ApplyRegistration() {
 
     saveDraftMutate({ param: selectPosition, answers });
   };
+
+  useEffect(() => {
+    const locationState = location.state as LocationState;
+
+    if (locationState && locationState.continue === false) {
+      window.history.replaceState(null, document.title, window.location.pathname);
+      return;
+    }
+
+    if (draft && draft.status === 'SUCCESS') {
+      const { jobFamily, answers, portfolios } = draft.data;
+
+      if (jobFamily) setSelectPosition(jobFamily);
+
+      if (answers) setValues(prev => ({ ...prev, answers }));
+
+      if (portfolios) setValues(prev => ({ ...prev, portfolios }));
+    }
+  }, [draft, location.state]);
 
   return (
     <div className='gap-9xl flex flex-col items-center pt-(--gap-9xl) pb-(--gap-12xl)'>
@@ -126,12 +153,31 @@ function ApplyRegistration() {
               {questions?.map(data => {
                 switch (data.inputType) {
                   case 'TEXT':
-                    return <TextField key={data.id} data={data} onChange={handleChangeAnswer} />;
+                    return (
+                      <TextField
+                        key={data.id}
+                        data={data}
+                        onChange={handleChangeAnswer}
+                        value={values.answers[data.id]}
+                      />
+                    );
                   case 'URL':
-                    return <UrlField key={data.id} data={data} onChange={handleChangeAnswer} />;
+                    return (
+                      <UrlField
+                        key={data.id}
+                        data={data}
+                        onChange={handleChangeAnswer}
+                        value={values.answers[data.id]}
+                      />
+                    );
                   case 'FILE':
                     return (
-                      <FileField key={data.id} data={data} onChange={handleChangePortfolios} />
+                      <FileField
+                        key={data.id}
+                        data={data}
+                        onChange={handleChangePortfolios}
+                        values={values.portfolios}
+                      />
                     );
                 }
               })}

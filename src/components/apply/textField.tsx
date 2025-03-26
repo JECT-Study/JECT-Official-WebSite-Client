@@ -8,9 +8,10 @@ import { Question } from '@/types/apis/question';
 interface TextFieldProps {
   data: Question;
   onChange: (id: number, text: string) => void;
+  value: string;
 }
 
-function TextField({ data, onChange }: TextFieldProps) {
+function TextField({ data, onChange, value }: TextFieldProps) {
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     onChange(data.id, e.target.value);
   };
@@ -24,6 +25,7 @@ function TextField({ data, onChange }: TextFieldProps) {
         required={data.isRequired}
         placeholder={data.inputHint}
         onChange={handleChange}
+        value={value}
       />
     </fieldset>
   );

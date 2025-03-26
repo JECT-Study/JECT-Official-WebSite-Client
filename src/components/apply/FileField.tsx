@@ -15,9 +15,10 @@ import { splitValidAndInvalidFiles } from '@/utils/validateInvalidFile';
 interface FileFieldProps {
   data: Question;
   onChange: (files: PortfolioResponse[]) => void;
+  values: PortfolioResponse[];
 }
 
-const formatNewPortfolios = (data: PresignedUrlResponse[], files: File[]) => {
+const formatRawFiles = (data: PresignedUrlResponse[], files: File[]) => {
   return data.map((item, index) => ({
     id: crypto.randomUUID(),
     file: files[index],
@@ -37,8 +38,17 @@ const formatForPresignedUrl = (files: File[]) => {
   }));
 };
 
-function FileField({ data, onChange }: FileFieldProps) {
-  const [portfolios, setPortfolios] = useState<NewPortfolio[]>([]);
+const formatDraftValues = (values: PortfolioResponse[]) => {
+  return values.map(file => ({
+    ...file,
+    id: file.fileName.substring(file.fileName.lastIndexOf('_') + 1),
+    file: null,
+    presignedUrl: null,
+  }));
+};
+
+function FileField({ data, onChange, values }: FileFieldProps) {
+  const [portfolios, setPortfolios] = useState<NewPortfolio[]>(formatDraftValues(values) ?? []);
   const [invalidFiles, setInvalidFiles] = useState<File[]>([]);
   const [totalSize, setTotalSize] = useState(0);
   const { createPresignedUrlsMutate } = useCreatePresignedUrlsQuery();
@@ -61,7 +71,7 @@ function FileField({ data, onChange }: FileFieldProps) {
 
       createPresignedUrlsMutate(formattedFiles, {
         onSuccess: ({ data }) =>
-          setPortfolios(prev => [...prev, ...formatNewPortfolios(data, validPdfFiles)]),
+          setPortfolios(prev => [...prev, ...formatRawFiles(data, validPdfFiles)]),
       });
     }
 
