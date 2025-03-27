@@ -4,4 +4,5 @@ export const API_ENDPOINT = {
   uploadPortfolio: '/upload/portfolios',
   question: '/apply/questions',
   draft: '/apply/temp',
+  changeJob: '/apply/job',
 } as const;

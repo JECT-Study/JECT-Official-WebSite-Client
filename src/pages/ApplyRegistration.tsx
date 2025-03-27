@@ -6,6 +6,7 @@ import FileField from '@/components/apply/FileField';
 import TextField from '@/components/apply/textField';
 import UrlField from '@/components/apply/UrlField';
 import BlockButton from '@/components/common/button/BlockButton';
+import Dialog from '@/components/common/dialog/Dialog';
 import Icon from '@/components/common/icon/Icon';
 import InputField from '@/components/common/input/InputField';
 import Label from '@/components/common/label/Label';
@@ -13,7 +14,9 @@ import ProgressIndicator from '@/components/common/progress/ProgressIndicator';
 import { Select } from '@/components/common/select/Select';
 import Title from '@/components/common/title/Title';
 import { APPLY_TITLE } from '@/constants/applyPageData';
+import useChangeJobQuery from '@/hooks/useChangeJobQuery';
 import useCloseOutside from '@/hooks/useCloseOutside';
+import useDialog from '@/hooks/useDialog';
 import useDraftQuery from '@/hooks/useDraftQuery';
 import useQuestionsQuery from '@/hooks/useQuestionsQuery';
 import { AnswersRequest, PortfolioResponse } from '@/types/apis/answer';
@@ -41,10 +44,13 @@ function ApplyRegistration() {
   const location = useLocation();
   const selectRef = useRef<HTMLDivElement>(null);
   const [selectPosition, setSelectPosition] = useState<JobFamily | null>(null);
+  const [selectQuestion, setSelectQuestion] = useState<JobFamily | null>(null);
   const [values, setValues] = useState<AnswersRequest>(initialValue);
   const { isOpen, setIsOpen } = useCloseOutside(selectRef);
-  const { questions } = useQuestionsQuery(selectPosition);
+  const { questions } = useQuestionsQuery(selectQuestion);
   const { saveDraftMutate, draft } = useDraftQuery();
+  const { changeJob } = useChangeJobQuery();
+  const { isDialogOpen, openDialog, closeDialog } = useDialog();
 
   const handleChangeAnswer = useCallback((id: number, text: string) => {
     setValues(prev => ({ ...prev, answers: { ...prev.answers, [id]: text } }));
@@ -61,11 +67,22 @@ function ApplyRegistration() {
 
     if (!position) return;
 
-    setSelectPosition(position);
-    setIsOpen(false);
+    if (selectPosition && selectPosition !== position) {
+      openDialog();
+      setSelectPosition(position);
+      setIsOpen(false);
+    }
+
+    if (!selectPosition) {
+      setSelectPosition(position);
+      setSelectQuestion(position);
+      setIsOpen(false);
+    }
   };
 
   const saveDraft = () => {
+    const locationState = location.state as LocationState;
+
     const answers = {
       ...values,
       portfolios: values.portfolios.map((portfolio, index) => ({
@@ -77,20 +94,24 @@ function ApplyRegistration() {
     };
 
     saveDraftMutate({ param: selectPosition, answers });
+
+    if (locationState && locationState.continue === false) {
+      window.history.replaceState(null, document.title, window.location.pathname);
+    }
   };
 
   useEffect(() => {
     const locationState = location.state as LocationState;
 
-    if (locationState && locationState.continue === false) {
-      window.history.replaceState(null, document.title, window.location.pathname);
-      return;
-    }
+    if (locationState && locationState.continue === false) return;
 
     if (draft && draft.status === 'SUCCESS') {
       const { jobFamily, answers, portfolios } = draft.data;
 
-      if (jobFamily) setSelectPosition(jobFamily);
+      if (jobFamily) {
+        setSelectPosition(jobFamily);
+        setSelectQuestion(jobFamily);
+      }
 
       if (answers) setValues(prev => ({ ...prev, answers }));
 
@@ -193,6 +214,27 @@ function ApplyRegistration() {
           </div>
         </div>
       </section>
+      <Dialog
+        btnLayout='horizontal'
+        title='다른 직군으로 변경하시겠어요?'
+        primaryBtnLabel='변경하기'
+        secondaryBtnLabel='변경하지 말기'
+        isOpen={isDialogOpen}
+        onPrimaryBtnClick={() => {
+          setSelectQuestion(selectPosition);
+          if (selectPosition) changeJob(selectPosition);
+          setValues(initialValue);
+          closeDialog();
+        }}
+        onSecondaryBtnClick={() => {
+          setSelectPosition(selectQuestion);
+          closeDialog();
+        }}
+      >
+        작성된 답변 내용들은 모두초기화되고,
+        <br />
+        다시 되돌릴 수 없어요.
+      </Dialog>
     </div>
   );
 }
