@@ -4,11 +4,12 @@ import { getDraft, postDraft } from '@/apis/draft';
 
 const useDraftQuery = () => {
   const { mutate: saveDraftMutate } = useMutation({
+    mutationKey: ['saveDraft'],
     mutationFn: postDraft,
   });
 
   const { data: draft } = useQuery({
-    queryKey: ['draft'],
+    queryKey: ['getDraft'],
     queryFn: getDraft,
   });
 

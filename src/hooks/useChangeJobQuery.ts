@@ -3,11 +3,12 @@ import { useMutation } from '@tanstack/react-query';
 import { putJob } from '@/apis/changeJob';
 
 const useChangeJobQuery = () => {
-  const { mutate: changeJob } = useMutation({
+  const { mutate: changeJobMutate } = useMutation({
+    mutationKey: ['changeJob'],
     mutationFn: putJob,
   });
 
-  return { changeJob };
+  return { changeJobMutate };
 };
 
 export default useChangeJobQuery;
