@@ -21,6 +21,7 @@ import useDraftQuery from '@/hooks/useDraftQuery';
 import useQuestionsQuery from '@/hooks/useQuestionsQuery';
 import { AnswersRequest, PortfolioResponse } from '@/types/apis/answer';
 import { JobFamily } from '@/types/apis/question';
+import { validateAnswersPayload } from '@/utils/validateAnswersPayload';
 
 const POSITIONS: JobFamily[] = ['FE', 'BE', 'PM', 'PD'];
 
@@ -49,6 +50,7 @@ const notLoadDraft = (location: Location) => {
 function ApplyRegistration() {
   const location = useLocation();
   const selectRef = useRef<HTMLDivElement>(null);
+  const [isStepCompleted, setIsStepCompleted] = useState(false);
   const [selectedPosition, setSelectedPosition] = useState<JobFamily | null>(null);
   const [questionPosition, setQuestionPosition] = useState<JobFamily | null>(null);
   const [answersPayload, setAnswersPayload] = useState<AnswersRequest>(initialAnswer);
@@ -110,6 +112,10 @@ function ApplyRegistration() {
 
     if (portfolios) setAnswersPayload(prev => ({ ...prev, portfolios }));
   }, [draft, location]);
+
+  useEffect(() => {
+    if (questions) setIsStepCompleted(!!validateAnswersPayload(questions, answersPayload));
+  }, [answersPayload, questions]);
 
   return (
     <div className='gap-9xl flex flex-col items-center pt-(--gap-9xl) pb-(--gap-12xl)'>
@@ -200,7 +206,7 @@ function ApplyRegistration() {
             <BlockButton size='lg' style='solid' hierarchy='secondary' onClick={saveDraft}>
               임시 저장하기
             </BlockButton>
-            <BlockButton size='lg' style='solid' hierarchy='accent' disabled>
+            <BlockButton size='lg' style='solid' hierarchy='accent' disabled={!isStepCompleted}>
               지원서 제출하기
             </BlockButton>
           </div>
