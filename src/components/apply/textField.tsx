@@ -3,6 +3,7 @@ import { ChangeEvent } from 'react';
 import InputArea from '../common/input/InputArea';
 import Title from '../common/title/Title';
 
+import { APPLY_MESSAGE } from '@/constants/applyMessages';
 import { Question } from '@/types/apis/question';
 
 interface TextFieldProps {
@@ -21,6 +22,7 @@ function TextField({ data, onChange, value }: TextFieldProps) {
       <Title hierarchy='normal'>{data.title}</Title>
       <InputArea
         labelText='답변'
+        errorHelper={APPLY_MESSAGE.invalid.exceedText}
         maxLength={data.maxLength || undefined}
         required={data.isRequired}
         placeholder={data.inputHint}

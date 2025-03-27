@@ -35,7 +35,7 @@ const InputArea = forwardRef<HTMLTextAreaElement, InputAreaProps>(
   ) => {
     const [text, setText] = useState(value ?? '');
     const textareaRef = useRef<HTMLTextAreaElement | null>(null);
-
+    const textLength = text.toString().length;
     const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
       setText(e.target.value);
 
@@ -69,24 +69,24 @@ const InputArea = forwardRef<HTMLTextAreaElement, InputAreaProps>(
           onChange={handleChange}
           disabled={disabled}
           required={required}
-          isError={!!errorHelper}
+          isError={textLength > maxLength}
           className='peer'
         />
         <div className='peer-focus:*:last:text-object-neutral-dark flex justify-between'>
           <p
             className={`${disabled ? 'text-feedback-trans-negative-dark' : 'text-feedback-negative-dark'} body-sm`}
           >
-            {errorHelper}
+            {textLength > maxLength ? errorHelper : ''}
           </p>
           <div
             className={clsx(
-              !!errorHelper && 'text-feedback-negative-dark!',
+              textLength > maxLength && 'text-feedback-negative-dark!',
               disabled && 'text-object-disabled-dark',
               !disabled && 'text-object-assistive-dark',
               'body-sm cursor-default self-end',
             )}
           >
-            {`${text.toString().length}/${maxLength}`}
+            {`${textLength}/${maxLength}`}
           </div>
         </div>
       </div>
