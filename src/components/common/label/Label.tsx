@@ -14,6 +14,7 @@ function Label({ children, weight, hierarchy, textColor, isRequired }: LabelProp
   const typo = labelStyle.weight[weight].hierarchy[hierarchy].typo;
 
   return (
+    //TODO: 웹 접근성을 개선하기 위해 순수 label 태그 사용 및 htmlFor 속성 연동(Checkbox)
     <div
       className={`${typo} ${textColor} ${isRequired ? "after:text-feedback-notification-dark after:ml-(--gap-5xs) after:content-['*']" : ''} whitespace-nowrap`}
     >
