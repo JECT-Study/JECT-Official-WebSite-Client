@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { useCallback, useRef, useState, useEffect } from 'react';
-import { Location, useLocation } from 'react-router-dom';
+import { Location, useLocation, useNavigate } from 'react-router-dom';
 
 import FileField from '@/components/apply/FileField';
 import TextField from '@/components/apply/textField';
@@ -14,11 +14,13 @@ import ProgressIndicator from '@/components/common/progress/ProgressIndicator';
 import { Select } from '@/components/common/select/Select';
 import Title from '@/components/common/title/Title';
 import { APPLY_TITLE } from '@/constants/applyPageData';
+import { PATH } from '@/constants/path';
 import useChangeJobQuery from '@/hooks/useChangeJobQuery';
 import useCloseOutside from '@/hooks/useCloseOutside';
 import useDialog from '@/hooks/useDialog';
 import useDraftQuery from '@/hooks/useDraftQuery';
 import useQuestionsQuery from '@/hooks/useQuestionsQuery';
+import useSubmitAnswerQuery from '@/hooks/useSubmitAnswerQuery';
 import { AnswersRequest, PortfolioResponse } from '@/types/apis/answer';
 import { JobFamily } from '@/types/apis/question';
 import { validateAnswersPayload } from '@/utils/validateAnswersPayload';
@@ -49,6 +51,7 @@ const notLoadDraft = (location: Location) => {
 
 function ApplyRegistration() {
   const location = useLocation();
+  const navigate = useNavigate();
   const selectRef = useRef<HTMLDivElement>(null);
   const [isStepCompleted, setIsStepCompleted] = useState(false);
   const [selectedPosition, setSelectedPosition] = useState<JobFamily | null>(null);
@@ -56,9 +59,19 @@ function ApplyRegistration() {
   const [answersPayload, setAnswersPayload] = useState<AnswersRequest>(initialAnswer);
   const { questions } = useQuestionsQuery(questionPosition);
   const { saveDraftMutate, draft } = useDraftQuery();
-  const { changeJob } = useChangeJobQuery();
+  const { changeJobMutate } = useChangeJobQuery();
+  const { submitAnswerMutate } = useSubmitAnswerQuery();
   const { isOpen, setIsOpen } = useCloseOutside(selectRef);
-  const { isDialogOpen, openDialog, closeDialog } = useDialog();
+  const {
+    isOpen: isOpenChangePosition,
+    openDialog: openDialogChangePosition,
+    closeDialog: closeDialogChangePosition,
+  } = useDialog();
+  const {
+    isOpen: isOpenSubmitAnswer,
+    openDialog: openDialogSubmitAnswer,
+    closeDialog: closeDialogSubmitAnswer,
+  } = useDialog();
 
   const handleChangeAnswer = useCallback((id: number, text: string) => {
     setAnswersPayload(prev => ({ ...prev, answers: { ...prev.answers, [id]: text } }));
@@ -83,7 +96,7 @@ function ApplyRegistration() {
     }
 
     if (selectedPosition !== position) {
-      openDialog();
+      openDialogChangePosition();
       setSelectedPosition(position);
       setIsOpen(false);
     }
@@ -114,7 +127,11 @@ function ApplyRegistration() {
   }, [draft, location]);
 
   useEffect(() => {
-    if (questions) setIsStepCompleted(!!validateAnswersPayload(questions, answersPayload));
+    if (!questions) return;
+
+    const isCompleted = !!validateAnswersPayload(questions, answersPayload);
+
+    setIsStepCompleted(isCompleted);
   }, [answersPayload, questions]);
 
   return (
@@ -206,7 +223,13 @@ function ApplyRegistration() {
             <BlockButton size='lg' style='solid' hierarchy='secondary' onClick={saveDraft}>
               임시 저장하기
             </BlockButton>
-            <BlockButton size='lg' style='solid' hierarchy='accent' disabled={!isStepCompleted}>
+            <BlockButton
+              size='lg'
+              style='solid'
+              hierarchy='accent'
+              disabled={!isStepCompleted}
+              onClick={openDialogSubmitAnswer}
+            >
               지원서 제출하기
             </BlockButton>
           </div>
@@ -214,19 +237,41 @@ function ApplyRegistration() {
       </section>
       <Dialog
         btnLayout='horizontal'
+        title='지원서를 제출하시겠어요?'
+        primaryBtnLabel='제출하기'
+        secondaryBtnLabel='제출 보류하기'
+        isOpen={isOpenSubmitAnswer}
+        onPrimaryBtnClick={() => {
+          submitAnswerMutate(
+            { param: selectedPosition, answers: answersPayload },
+            {
+              onSuccess: data => {
+                if (data?.status === 'SUCCESS') {
+                  void navigate(PATH.applyComplete);
+                }
+              },
+            },
+          );
+        }}
+        onSecondaryBtnClick={closeDialogSubmitAnswer}
+      >
+        제출한 뒤에는 수정하거나 취소할 수 없어요.
+      </Dialog>
+      <Dialog
+        btnLayout='horizontal'
         title='다른 직군으로 변경하시겠어요?'
         primaryBtnLabel='변경하기'
         secondaryBtnLabel='변경하지 말기'
-        isOpen={isDialogOpen}
+        isOpen={isOpenChangePosition}
         onPrimaryBtnClick={() => {
           setQuestionPosition(selectedPosition);
-          if (selectedPosition) changeJob(selectedPosition);
+          if (selectedPosition) changeJobMutate(selectedPosition);
           setAnswersPayload(initialAnswer);
-          closeDialog();
+          closeDialogChangePosition();
         }}
         onSecondaryBtnClick={() => {
           setSelectedPosition(questionPosition);
-          closeDialog();
+          closeDialogChangePosition();
         }}
       >
         작성된 답변 내용들은 모두초기화되고,

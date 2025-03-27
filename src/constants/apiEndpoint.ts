@@ -5,4 +5,5 @@ export const API_ENDPOINT = {
   question: '/apply/questions',
   draft: '/apply/temp',
   changeJob: '/apply/job',
+  submitAnswer: '/apply/submit',
 } as const;
