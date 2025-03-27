@@ -102,13 +102,13 @@ function ApplyRegistration() {
     }
   };
 
-  const saveDraft = () => {
+  const saveDraft = useCallback(() => {
     saveDraftMutate({ param: selectedPosition, answers: answersPayload });
 
     if (notLoadDraft(location)) {
       window.history.replaceState(null, document.title, window.location.pathname);
     }
-  };
+  }, [answersPayload, location, saveDraftMutate, selectedPosition]);
 
   useEffect(() => {
     if (notLoadDraft(location)) return;
@@ -133,6 +133,12 @@ function ApplyRegistration() {
 
     setIsStepCompleted(isCompleted);
   }, [answersPayload, questions]);
+
+  useEffect(() => {
+    const autosaveDraft = setInterval(saveDraft, 900000);
+
+    return () => clearInterval(autosaveDraft);
+  }, [saveDraft]);
 
   return (
     <div className='gap-9xl flex flex-col items-center pt-(--gap-9xl) pb-(--gap-12xl)'>
