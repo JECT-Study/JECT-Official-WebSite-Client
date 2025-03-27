@@ -118,8 +118,7 @@ function ApplyVerifyEmail({ isResetPin = false }: ApplyVerifyEmailProps) {
         <Title hierarchy='strong'>
           {isReVerification ? APPLY_TITLE.resetPin : APPLY_TITLE.verifyEmail}
         </Title>
-        <div className='gap-7xl flex flex-col'>
-          (
+        <div className='gap-xs flex flex-col'>
           {step >= 1 && (
             <form className='gap-xs flex flex-col' onSubmit={handleEmailFormSubmit}>
               <InputField
@@ -171,7 +170,7 @@ function ApplyVerifyEmail({ isResetPin = false }: ApplyVerifyEmailProps) {
             </form>
           )}
           {step >= 3 && (
-            <form className='gap-xs flex flex-col' onSubmit={handlePinFormSubmit}>
+            <form className='gap-7xl flex flex-col' onSubmit={handlePinFormSubmit}>
               <InputField
                 type={isPinHidden ? 'password' : 'text'}
                 labelText='PIN'
