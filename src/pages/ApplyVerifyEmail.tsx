@@ -1,4 +1,5 @@
 import { ChangeEvent, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import NewTabLink from '@/components/apply/NewTabLink';
 import BlockButton from '@/components/common/button/BlockButton';
@@ -9,6 +10,7 @@ import InputField from '@/components/common/input/InputField';
 import ProgressIndicator from '@/components/common/progress/ProgressIndicator';
 import Title from '@/components/common/title/Title';
 import { APPLY_TITLE } from '@/constants/applyPageData';
+import { PATH } from '@/constants/path';
 import { useApplyEmailForm } from '@/hooks/useApplyEmailForm';
 import { useApplyPinForm } from '@/hooks/useApplyPinForm';
 import { useApplyVerificationEmailCodeForm } from '@/hooks/useApplyVerificationEmailCodeForm';
@@ -24,6 +26,7 @@ interface ApplyVerifyEmailProps {
 }
 
 function ApplyVerifyEmail({ isResetPin = false }: ApplyVerifyEmailProps) {
+  const navigate = useNavigate();
   const [storedEmail, setStoredEmail] = useState('');
   const [isPinHidden, setIsPinHidden] = useState(true);
   const [isStepCompleted, setIsStepCompleted] = useState(false);
@@ -74,8 +77,17 @@ function ApplyVerifyEmail({ isResetPin = false }: ApplyVerifyEmailProps) {
   const onPinSubmit = ({ pin }: PinLoginPayload) => {
     const payload = { email: storedEmail, pin };
     console.log('PIN 유효성 검사 통과, 로그인 API 요청 payload:', payload);
-    pinLoginMutate(payload);
-    setIsStepCompleted(true);
+    pinLoginMutate(payload, {
+      onSuccess: response => {
+        console.log('PIN 로그인 성공:', response);
+        setIsStepCompleted(true);
+
+        void navigate(PATH.applicantInfo);
+      },
+      onError: error => {
+        console.error('PIN 로그인 실패:', error);
+      },
+    });
   };
 
   const handleEmailFormSubmit = CreateSubmitHandler<{ email: string }, Email>(
