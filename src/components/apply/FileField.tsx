@@ -47,6 +47,15 @@ const formatDraftValues = (values: PortfolioResponse[]) => {
   }));
 };
 
+const formatNewPortfolio = (portfolios: NewPortfolio[]): PortfolioResponse[] => {
+  return portfolios.map((portfolio, index) => ({
+    fileUrl: portfolio.fileUrl,
+    fileName: portfolio.fileName,
+    fileSize: portfolio.fileSize,
+    sequence: (index + 1).toString(),
+  }));
+};
+
 function FileField({ data, onChange, values }: FileFieldProps) {
   const [portfolios, setPortfolios] = useState<NewPortfolio[]>(formatDraftValues(values) ?? []);
   const [invalidFiles, setInvalidFiles] = useState<File[]>([]);
@@ -92,7 +101,7 @@ function FileField({ data, onChange, values }: FileFieldProps) {
   };
 
   useEffect(() => {
-    onChange(portfolios);
+    onChange(formatNewPortfolio(portfolios));
     setTotalSize(portfolios.reduce((acc, portfolio) => acc + Number(portfolio.fileSize), 0));
   }, [portfolios, onChange]);
 

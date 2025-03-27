@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { useCallback, useRef, useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Location, useLocation } from 'react-router-dom';
 
 import FileField from '@/components/apply/FileField';
 import TextField from '@/components/apply/textField';
@@ -31,7 +31,7 @@ const jobFamily: Record<JobFamily, string> = {
   PD: '프로덕트 디자이너',
 };
 
-const initialValue = {
+const initialAnswer = {
   answers: {},
   portfolios: [],
 };
@@ -40,24 +40,30 @@ interface LocationState {
   continue: boolean;
 }
 
+const notLoadDraft = (location: Location) => {
+  const locationState = location.state as LocationState;
+
+  return locationState && locationState.continue === false;
+};
+
 function ApplyRegistration() {
   const location = useLocation();
   const selectRef = useRef<HTMLDivElement>(null);
-  const [selectPosition, setSelectPosition] = useState<JobFamily | null>(null);
-  const [selectQuestion, setSelectQuestion] = useState<JobFamily | null>(null);
-  const [values, setValues] = useState<AnswersRequest>(initialValue);
-  const { isOpen, setIsOpen } = useCloseOutside(selectRef);
-  const { questions } = useQuestionsQuery(selectQuestion);
+  const [selectedPosition, setSelectedPosition] = useState<JobFamily | null>(null);
+  const [questionPosition, setQuestionPosition] = useState<JobFamily | null>(null);
+  const [answersPayload, setAnswersPayload] = useState<AnswersRequest>(initialAnswer);
+  const { questions } = useQuestionsQuery(questionPosition);
   const { saveDraftMutate, draft } = useDraftQuery();
   const { changeJob } = useChangeJobQuery();
+  const { isOpen, setIsOpen } = useCloseOutside(selectRef);
   const { isDialogOpen, openDialog, closeDialog } = useDialog();
 
   const handleChangeAnswer = useCallback((id: number, text: string) => {
-    setValues(prev => ({ ...prev, answers: { ...prev.answers, [id]: text } }));
+    setAnswersPayload(prev => ({ ...prev, answers: { ...prev.answers, [id]: text } }));
   }, []);
 
   const handleChangePortfolios = useCallback((files: PortfolioResponse[]) => {
-    setValues(prev => ({ ...prev, portfolios: files }));
+    setAnswersPayload(prev => ({ ...prev, portfolios: files }));
   }, []);
 
   const handleSelect = (label: string | null) => {
@@ -67,64 +73,50 @@ function ApplyRegistration() {
 
     if (!position) return;
 
-    if (selectPosition && selectPosition !== position) {
-      openDialog();
-      setSelectPosition(position);
+    if (!selectedPosition) {
+      setSelectedPosition(position);
+      setQuestionPosition(position);
       setIsOpen(false);
+      return;
     }
 
-    if (!selectPosition) {
-      setSelectPosition(position);
-      setSelectQuestion(position);
+    if (selectedPosition !== position) {
+      openDialog();
+      setSelectedPosition(position);
       setIsOpen(false);
     }
   };
 
   const saveDraft = () => {
-    const locationState = location.state as LocationState;
+    saveDraftMutate({ param: selectedPosition, answers: answersPayload });
 
-    const answers = {
-      ...values,
-      portfolios: values.portfolios.map((portfolio, index) => ({
-        fileUrl: portfolio.fileUrl,
-        fileName: portfolio.fileName,
-        fileSize: portfolio.fileSize,
-        sequence: (index + 1).toString(),
-      })),
-    };
-
-    saveDraftMutate({ param: selectPosition, answers });
-
-    if (locationState && locationState.continue === false) {
+    if (notLoadDraft(location)) {
       window.history.replaceState(null, document.title, window.location.pathname);
     }
   };
 
   useEffect(() => {
-    const locationState = location.state as LocationState;
+    if (notLoadDraft(location)) return;
+    if (!draft || draft.status !== 'SUCCESS') return;
 
-    if (locationState && locationState.continue === false) return;
+    const { jobFamily, answers, portfolios } = draft.data;
 
-    if (draft && draft.status === 'SUCCESS') {
-      const { jobFamily, answers, portfolios } = draft.data;
-
-      if (jobFamily) {
-        setSelectPosition(jobFamily);
-        setSelectQuestion(jobFamily);
-      }
-
-      if (answers) setValues(prev => ({ ...prev, answers }));
-
-      if (portfolios) setValues(prev => ({ ...prev, portfolios }));
+    if (jobFamily) {
+      setSelectedPosition(jobFamily);
+      setQuestionPosition(jobFamily);
     }
-  }, [draft, location.state]);
+
+    if (answers) setAnswersPayload(prev => ({ ...prev, answers }));
+
+    if (portfolios) setAnswersPayload(prev => ({ ...prev, portfolios }));
+  }, [draft, location]);
 
   return (
     <div className='gap-9xl flex flex-col items-center pt-(--gap-9xl) pb-(--gap-12xl)'>
       <ProgressIndicator totalStep={3} currentStep={3} />
       <section className='gap-9xl flex w-[32.5rem] flex-col items-stretch *:first:text-center'>
         <Title hierarchy='strong'>{APPLY_TITLE.registration}</Title>
-        <div className={clsx(!selectPosition && '*:nth-2:text-center', 'gap-7xl flex flex-col')}>
+        <div className={clsx(!selectedPosition && '*:nth-2:text-center', 'gap-7xl flex flex-col')}>
           <div className='gap-2xl flex flex-col'>
             <Title hierarchy='normal'>어떤 포지션으로 지원하시나요?</Title>
             <div className='relative'>
@@ -132,7 +124,7 @@ function ApplyRegistration() {
                 readOnly
                 onClick={() => setIsOpen(!isOpen)}
                 onKeyDown={({ key }) => key === 'Enter' && setIsOpen(!isOpen)}
-                value={selectPosition ? jobFamily[selectPosition] : ''}
+                value={selectedPosition ? jobFamily[selectedPosition] : ''}
                 required
                 labelText='포지션'
                 isError={false}
@@ -156,7 +148,7 @@ function ApplyRegistration() {
                       { label: jobFamily.PM },
                       { label: jobFamily.PD },
                     ]}
-                    defaultValue={selectPosition}
+                    defaultValue={selectedPosition}
                     onChange={handleSelect}
                   />
                 </div>
@@ -164,12 +156,12 @@ function ApplyRegistration() {
             </div>
           </div>
 
-          {!selectPosition && (
+          {!selectedPosition && (
             <Label hierarchy='normal' weight='normal' textColor='text-object-assistive-dark'>
               포지션을 선택한 뒤 아래에 추가 질문들이 표시돼요.
             </Label>
           )}
-          {selectPosition && (
+          {selectedPosition && (
             <form action='' className='gap-7xl flex flex-col' encType='multipart/form-data'>
               {questions?.map(data => {
                 switch (data.inputType) {
@@ -179,7 +171,7 @@ function ApplyRegistration() {
                         key={data.id}
                         data={data}
                         onChange={handleChangeAnswer}
-                        value={values.answers[data.id]}
+                        value={answersPayload.answers[data.id]}
                       />
                     );
                   case 'URL':
@@ -188,7 +180,7 @@ function ApplyRegistration() {
                         key={data.id}
                         data={data}
                         onChange={handleChangeAnswer}
-                        value={values.answers[data.id]}
+                        value={answersPayload.answers[data.id]}
                       />
                     );
                   case 'FILE':
@@ -197,7 +189,7 @@ function ApplyRegistration() {
                         key={data.id}
                         data={data}
                         onChange={handleChangePortfolios}
-                        values={values.portfolios}
+                        values={answersPayload.portfolios}
                       />
                     );
                 }
@@ -221,13 +213,13 @@ function ApplyRegistration() {
         secondaryBtnLabel='변경하지 말기'
         isOpen={isDialogOpen}
         onPrimaryBtnClick={() => {
-          setSelectQuestion(selectPosition);
-          if (selectPosition) changeJob(selectPosition);
-          setValues(initialValue);
+          setQuestionPosition(selectedPosition);
+          if (selectedPosition) changeJob(selectedPosition);
+          setAnswersPayload(initialAnswer);
           closeDialog();
         }}
         onSecondaryBtnClick={() => {
-          setSelectPosition(selectQuestion);
+          setSelectedPosition(questionPosition);
           closeDialog();
         }}
       >
