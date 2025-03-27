@@ -16,7 +16,7 @@ import { useEmailAuthCodeMutation } from '@/hooks/useEmailAuthCodeMutation';
 import { usePinLoginMutation } from '@/hooks/usePinLoginMutation';
 import { useVerificationEmailCodeMutation } from '@/hooks/useVerificationEmailCodeMutation';
 import { Email, PinLoginPayload, VerificationEmailCodePayload } from '@/types/apis/apply';
-import { createSubmitHandler } from '@/utils/formHelpers';
+import { CreateSubmitHandler } from '@/utils/formHelpers';
 
 interface ApplyVerifyEmailProps {
   isResetPin?: boolean;
@@ -49,10 +49,10 @@ function ApplyVerifyEmail({ isResetPin = false }: ApplyVerifyEmailProps) {
     formState: { errors: errorsPin, isValid: isPinValid },
   } = useApplyPinForm();
 
-  const { mutate: emailMutate, isLoading: isEmailLoading } = useEmailAuthCodeMutation();
-  const { mutate: verifyEmailCodeMutate, isLoading: isEmailCodeLoading } =
+  const { mutate: emailMutate, isPending: isEmailLoading } = useEmailAuthCodeMutation();
+  const { mutate: verifyEmailCodeMutate, isPending: isEmailCodeLoading } =
     useVerificationEmailCodeMutation();
-  const { mutate: pinLoginMutate, isLoading: isPinLoginLoading } = usePinLoginMutation();
+  const { mutate: pinLoginMutate, isPending: isPinLoginLoading } = usePinLoginMutation();
 
   const onEmailSubmit = ({ email }: Email) => {
     console.log('이메일 유효성 검사 통과, API 요청 실행', { email });
@@ -77,12 +77,20 @@ function ApplyVerifyEmail({ isResetPin = false }: ApplyVerifyEmailProps) {
     setIsStepCompleted(true);
   };
 
-  const handleEmailFormSubmit = createSubmitHandler(handleSubmitEmail, onEmailSubmit);
-  const handleVerificationFormSubmit = createSubmitHandler(
-    handleSubmitVerification,
-    onVerificationSubmit,
+  const handleEmailFormSubmit = CreateSubmitHandler<{ email: string }, Email>(
+    handleSubmitEmail,
+    onEmailSubmit,
   );
-  const handlePinFormSubmit = createSubmitHandler(handleSubmitPin, onPinSubmit);
+
+  const handleVerificationFormSubmit = CreateSubmitHandler<
+    { verificationEmailCode: string },
+    VerificationEmailCodePayload
+  >(handleSubmitVerification, onVerificationSubmit);
+
+  const handlePinFormSubmit = CreateSubmitHandler<{ pin: string }, PinLoginPayload>(
+    handleSubmitPin,
+    onPinSubmit,
+  );
 
   return (
     <div
@@ -112,7 +120,7 @@ function ApplyVerifyEmail({ isResetPin = false }: ApplyVerifyEmailProps) {
                   style='solid'
                   hierarchy='secondary'
                   className='h-full'
-                  disabled={!isEmailValid || !!isEmailLoading}
+                  disabled={!isEmailValid || isEmailLoading}
                 >
                   인증번호 받기
                 </BlockButton>
@@ -136,7 +144,7 @@ function ApplyVerifyEmail({ isResetPin = false }: ApplyVerifyEmailProps) {
                     type='submit'
                     size='md'
                     hierarchy='accent'
-                    disabled={!isVerificationValid || !!isEmailCodeLoading}
+                    disabled={!isVerificationValid || isEmailCodeLoading}
                   >
                     {step === 3 ? '인증 완료됨' : '인증하기'}
                   </LabelButton>
@@ -180,7 +188,7 @@ function ApplyVerifyEmail({ isResetPin = false }: ApplyVerifyEmailProps) {
               )}
               <BlockButton
                 type='submit'
-                disabled={!isPinValid || !!isPinLoginLoading}
+                disabled={!isPinValid || isPinLoginLoading}
                 size='lg'
                 style='solid'
                 hierarchy='accent'
