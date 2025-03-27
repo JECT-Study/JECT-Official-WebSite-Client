@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 
 import NewTabLink from '@/components/apply/NewTabLink';
 import BlockButton from '@/components/common/button/BlockButton';
 import LabelButton from '@/components/common/button/LabelButton';
+import CheckBox from '@/components/common/checkbox/CheckBox';
 import Icon from '@/components/common/icon/Icon';
 import InputField from '@/components/common/input/InputField';
-import Label from '@/components/common/label/Label';
 import ProgressIndicator from '@/components/common/progress/ProgressIndicator';
 import Title from '@/components/common/title/Title';
 import { APPLY_TITLE } from '@/constants/applyPageData';
@@ -29,6 +29,7 @@ function ApplyVerifyEmail({ isResetPin = false }: ApplyVerifyEmailProps) {
   const [isStepCompleted, setIsStepCompleted] = useState(false);
   const [isReVerification] = useState(isResetPin);
   const [step, setStep] = useState(1);
+  const [isTermsChecked, setIsTermsChecked] = useState(false);
 
   const {
     register: registerEmail,
@@ -91,6 +92,10 @@ function ApplyVerifyEmail({ isResetPin = false }: ApplyVerifyEmailProps) {
     handleSubmitPin,
     onPinSubmit,
   );
+
+  const handleTermsChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setIsTermsChecked(e.target.checked);
+  };
 
   return (
     <div
@@ -173,13 +178,21 @@ function ApplyVerifyEmail({ isResetPin = false }: ApplyVerifyEmailProps) {
               {!isReVerification && step > 1 && (
                 <div className='gap-2xs flex'>
                   <div className='gap-2xs flex flex-1'>
-                    <Label
-                      hierarchy='strong'
-                      weight='normal'
-                      textColor='text-object-assistive-dark'
-                    >
-                      [필수] 젝트 개인정보 수집 및 이용 동의
-                    </Label>
+                    {isTermsChecked ? (
+                      <CheckBox
+                        id='terms-checkbox'
+                        checked={true}
+                        onChange={handleTermsChange}
+                        labelText='[필수] 젝트 개인정보 수집 및 이용 동의'
+                      />
+                    ) : (
+                      <CheckBox
+                        id='terms-checkbox'
+                        checked={false}
+                        onChange={handleTermsChange}
+                        labelText='[필수] 젝트 개인정보 수집 및 이용 동의'
+                      />
+                    )}
                   </div>
                   <NewTabLink href=''>
                     <Icon name='rightChevron' size='lg' fillColor='fill-object-assistive-dark' />
@@ -188,7 +201,9 @@ function ApplyVerifyEmail({ isResetPin = false }: ApplyVerifyEmailProps) {
               )}
               <BlockButton
                 type='submit'
-                disabled={!isPinValid || isPinLoginLoading}
+                disabled={
+                  !isPinValid || isPinLoginLoading || (!isReVerification && !isTermsChecked)
+                }
                 size='lg'
                 style='solid'
                 hierarchy='accent'
