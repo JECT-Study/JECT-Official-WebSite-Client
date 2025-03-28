@@ -14,6 +14,7 @@ import { PATH } from '@/constants/path';
 import { useApplyEmailForm } from '@/hooks/useApplyEmailForm';
 import { useApplyPinForm } from '@/hooks/useApplyPinForm';
 import { useApplyVerificationEmailCodeForm } from '@/hooks/useApplyVerificationEmailCodeForm';
+import { useCheckEmailExistsMutation } from '@/hooks/useCheckEmailExistMutation';
 import { useEmailAuthCodeMutation } from '@/hooks/useEmailAuthCodeMutation';
 import { usePinLoginMutation } from '@/hooks/usePinLoginMutation';
 import { useVerificationEmailCodeMutation } from '@/hooks/useVerificationEmailCodeMutation';
@@ -23,9 +24,14 @@ import { CreateSubmitHandler } from '@/utils/formHelpers';
 interface ApplyVerifyEmailProps {
   isResetPin?: boolean;
   setIsNewApplicant?: (value: boolean | ((isNewApplicant: boolean) => boolean)) => void;
+  setUserEmail?: (email: string) => void;
 }
 
-function ApplyVerifyEmail({ isResetPin = false }: ApplyVerifyEmailProps) {
+function ApplyVerifyEmail({
+  isResetPin = false,
+  setIsNewApplicant,
+  setUserEmail,
+}: ApplyVerifyEmailProps) {
   const navigate = useNavigate();
   const [storedEmail, setStoredEmail] = useState('');
   const [isPinHidden, setIsPinHidden] = useState(true);
@@ -53,16 +59,36 @@ function ApplyVerifyEmail({ isResetPin = false }: ApplyVerifyEmailProps) {
     formState: { errors: errorsPin, isValid: isPinValid },
   } = useApplyPinForm();
 
+  const { mutate: checkEmailMutate, isPending: isCheckingEmail } = useCheckEmailExistsMutation();
   const { mutate: emailMutate, isPending: isEmailLoading } = useEmailAuthCodeMutation();
   const { mutate: verifyEmailCodeMutate, isPending: isEmailCodeLoading } =
     useVerificationEmailCodeMutation();
   const { mutate: pinLoginMutate, isPending: isPinLoginLoading } = usePinLoginMutation();
 
   const onEmailSubmit = ({ email }: Email) => {
-    console.log('이메일 유효성 검사 통과, API 요청 실행', { email });
-    setStoredEmail(email);
-    emailMutate({ email });
-    setStep(2);
+    console.log('이메일 유효성 검사 통과, 회원 존재 여부 확인 API 요청 실행', { email });
+
+    if (setUserEmail) {
+      setUserEmail(email);
+    }
+
+    checkEmailMutate(email, {
+      onSuccess: response => {
+        const isUserExists = response.data;
+        console.log('이메일 존재 여부 확인 결과:', isUserExists);
+
+        if (isUserExists && setIsNewApplicant) {
+          setIsNewApplicant(false);
+          return;
+        }
+        setStoredEmail(email);
+        emailMutate({ email });
+        setStep(2);
+      },
+      onError: error => {
+        console.error('이메일 존재 여부 확인 실패:', error);
+      },
+    });
   };
 
   const onVerificationSubmit = ({ verificationEmailCode }: VerificationEmailCodePayload) => {
