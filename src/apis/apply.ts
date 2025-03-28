@@ -1,12 +1,19 @@
 import { API_ENDPOINT } from '@/constants/apiEndpoint';
 import {
   Email,
+  EmailExistsResponseData,
   PinLoginPayload,
   PinLoginResponseData,
   VerificationEmailCodePayload,
   VerificationEmailCodeResponseData,
 } from '@/types/apis/apply';
 import { requestHandler } from '@/utils/httpClient';
+
+export const checkEmailExists = async (email: string) => {
+  const params = new URLSearchParams({ email });
+  const url = `${API_ENDPOINT.checkEmailExists}?${params.toString()}`;
+  return await requestHandler<EmailExistsResponseData>('get', url);
+};
 
 export const postEmailAuthCode = async (data: Email) => {
   const params = new URLSearchParams({ email: data.email });
