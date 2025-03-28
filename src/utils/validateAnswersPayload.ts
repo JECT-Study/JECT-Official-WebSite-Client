@@ -55,11 +55,7 @@ export const validateAnswersPayload = (questions: Question[], answersPayload: An
     if (question.inputType === 'URL') {
       const url = answersPayload.answers[question.id] || '';
 
-      if (url) return validateUrlDetail(url);
-
-      if (!question.isRequired) return true;
-
-      return false;
+      return url ? validateUrlDetail(url) : !question.isRequired;
     }
 
     return false;
