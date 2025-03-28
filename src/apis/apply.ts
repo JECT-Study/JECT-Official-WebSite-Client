@@ -2,6 +2,8 @@ import { API_ENDPOINT } from '@/constants/apiEndpoint';
 import {
   Email,
   EmailExistsResponseData,
+  MemberProfileInitialPayload,
+  MemberProfileInitialResponseData,
   PinLoginPayload,
   PinLoginResponseData,
   VerificationEmailCodePayload,
@@ -36,5 +38,13 @@ export const postPinLogin = async (data: PinLoginPayload) => {
     'post',
     API_ENDPOINT.pinLogin,
     payload,
+  );
+};
+
+export const putMemberProfileInitial = async (data: MemberProfileInitialPayload) => {
+  return await requestHandler<MemberProfileInitialResponseData, MemberProfileInitialPayload>(
+    'put',
+    API_ENDPOINT.memberProfileInitial,
+    data,
   );
 };
