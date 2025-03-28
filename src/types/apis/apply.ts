@@ -21,3 +21,10 @@ export interface PinLoginResponseData {
 }
 
 export type EmailExistsResponseData = boolean;
+
+export interface MemberProfileInitialPayload {
+  name: string;
+  phoneNumber: string;
+}
+
+export type MemberProfileInitialResponseData = null;
