@@ -49,6 +49,7 @@ function ApplyVerifyEmail({
   const {
     register: registerVerification,
     handleSubmit: handleSubmitVerification,
+    setError: setVerificationError,
     watch: watchVerification,
     formState: { errors: errorsVerification, isValid: isVerificationValid },
   } = useApplyVerificationEmailCodeForm();
@@ -96,8 +97,43 @@ function ApplyVerifyEmail({
       email: storedEmail,
       verificationEmailCode,
     });
-    verifyEmailCodeMutate({ email: storedEmail, verificationEmailCode });
-    setStep(3);
+
+    verifyEmailCodeMutate(
+      { email: storedEmail, verificationEmailCode },
+      {
+        onSuccess: response => {
+          console.log('인증번호 확인 성공:', response);
+
+          if (response.status !== 'SUCCESS') {
+            let errorMessage = '오류가 발생했습니다. 다시 시도해주세요.';
+
+            switch (response.status) {
+              case 'INVALID_AUTH_CODE':
+                errorMessage = '인증번호가 올바르지 않아요. 다시 확인해주세요.';
+                break;
+              case 'NOT_FOUND_AUTH_CODE':
+                errorMessage = '인증번호 유효 시간이 초과되었어요.';
+                break;
+            }
+
+            setVerificationError('verificationEmailCode', {
+              type: 'manual',
+              message: errorMessage,
+            });
+            return;
+          }
+
+          setStep(3);
+        },
+        onError: error => {
+          console.error('인증번호 확인 요청 실패:', error);
+          setVerificationError('verificationEmailCode', {
+            type: 'manual',
+            message: '인증 과정에서 오류가 발생했습니다. 다시 시도해주세요.',
+          });
+        },
+      },
+    );
   };
 
   const onPinSubmit = ({ pin }: PinLoginPayload) => {
@@ -133,6 +169,18 @@ function ApplyVerifyEmail({
 
   const handleTermsChange = (e: ChangeEvent<HTMLInputElement>) => {
     setIsTermsChecked(e.target.checked);
+  };
+
+  const getVerificationHelperText = () => {
+    if (errorsVerification.verificationEmailCode) {
+      return errorsVerification.verificationEmailCode.message;
+    }
+
+    if (step === 3) {
+      return '인증이 완료되었어요';
+    }
+
+    return '';
   };
 
   return (
@@ -179,7 +227,7 @@ function ApplyVerifyEmail({
                   watchVerification('verificationEmailCode')?.length === 6
                 }
                 disabled={false}
-                helper={step === 3 ? '인증이 완료되었어요' : ''}
+                helper={getVerificationHelperText()}
                 placeholder='이메일 주소로 발송된 인증번호 6자리를 입력해주세요'
                 InputChildren={
                   <LabelButton
