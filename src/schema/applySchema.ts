@@ -22,3 +22,22 @@ export const applyPinSchema = z.object({
 });
 
 export type ApplyPinFormData = z.infer<typeof applyPinSchema>;
+
+export const applyApplicantInfoSchema = z.object({
+  name: z
+    .string()
+    .max(5, '이름은 5자 이내로 작성해주세요.')
+    .regex(/^[가-힣ㄱ-ㅎㅏ-ㅣ]+$/, '이름은 한글로 작성해주세요.'),
+
+  phoneNumber: z
+    .string()
+    .transform(val => val.replace(/[\s-]/g, ''))
+    .refine(val => val.startsWith('010'), {
+      message: '"010"으로 시작하는 휴대폰 번호를 입력해주세요.',
+    })
+    .refine(val => val.length === 11, {
+      message: '“010”을 포함해 총 11자리까지만 입력해주세요.',
+    }),
+});
+
+export type ApplyApplicantInfoFormData = z.infer<typeof applyApplicantInfoSchema>;
