@@ -35,7 +35,6 @@ function ApplyVerifyEmail({
   const navigate = useNavigate();
   const [storedEmail, setStoredEmail] = useState('');
   const [isPinHidden, setIsPinHidden] = useState(true);
-  const [isStepCompleted, setIsStepCompleted] = useState(false);
   const [isReVerification] = useState(isResetPin);
   const [step, setStep] = useState(1);
   const [isTermsChecked, setIsTermsChecked] = useState(false);
@@ -60,7 +59,7 @@ function ApplyVerifyEmail({
     formState: { errors: errorsPin, isValid: isPinValid },
   } = useApplyPinForm();
 
-  const { mutate: checkEmailMutate, isPending: isCheckingEmail } = useCheckEmailExistsMutation();
+  const { mutate: checkEmailMutate } = useCheckEmailExistsMutation();
   const { mutate: emailMutate, isPending: isEmailLoading } = useEmailAuthCodeMutation();
   const { mutate: verifyEmailCodeMutate, isPending: isEmailCodeLoading } =
     useVerificationEmailCodeMutation();
@@ -142,8 +141,6 @@ function ApplyVerifyEmail({
     pinLoginMutate(payload, {
       onSuccess: response => {
         console.log('PIN 로그인 성공:', response);
-        setIsStepCompleted(true);
-
         void navigate(PATH.applicantInfo);
       },
       onError: error => {
