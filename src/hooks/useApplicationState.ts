@@ -10,8 +10,8 @@ const initialAnswer = {
 
 const useApplicationState = () => {
   const [isStepCompleted, setIsStepCompleted] = useState(false);
-  const [selectedPosition, setSelectedPosition] = useState<JobFamily | null>(null);
-  const [questionPosition, setQuestionPosition] = useState<JobFamily | null>(null);
+  const [selectedJob, setSelectedJob] = useState<JobFamily | null>(null);
+  const [questionJob, setQuestionJob] = useState<JobFamily | null>(null);
   const [answersPayload, setAnswersPayload] = useState<AnswersRequest>(initialAnswer);
 
   const handleChangeAnswer = useCallback((id: number, text: string) => {
@@ -26,8 +26,8 @@ const useApplicationState = () => {
     const { jobFamily, answers, portfolios } = draft;
 
     if (jobFamily) {
-      setSelectedPosition(jobFamily);
-      setQuestionPosition(jobFamily);
+      setSelectedJob(jobFamily);
+      setQuestionJob(jobFamily);
     }
 
     if (answers) setAnswersPayload(prev => ({ ...prev, answers }));
@@ -36,21 +36,21 @@ const useApplicationState = () => {
   }, []);
 
   const resetAnswers = useCallback(() => {
-    setQuestionPosition(selectedPosition);
+    setQuestionJob(selectedJob);
     setAnswersPayload(initialAnswer);
-  }, [selectedPosition]);
+  }, [selectedJob]);
 
   const revertSelect = useCallback(() => {
-    setSelectedPosition(questionPosition);
-  }, [questionPosition]);
+    setSelectedJob(questionJob);
+  }, [questionJob]);
 
-  const changeSelectAndQuestion = useCallback((position: JobFamily) => {
-    setSelectedPosition(position);
-    setQuestionPosition(position);
+  const changeSelectAndQuestion = useCallback((job: JobFamily) => {
+    setSelectedJob(job);
+    setQuestionJob(job);
   }, []);
 
-  const changeSelect = useCallback((position: JobFamily) => {
-    setSelectedPosition(position);
+  const changeSelect = useCallback((job: JobFamily) => {
+    setSelectedJob(job);
   }, []);
 
   const activeSubmitButton = useCallback((isCompleted: boolean) => {
@@ -59,8 +59,8 @@ const useApplicationState = () => {
 
   return {
     isStepCompleted,
-    selectedPosition,
-    questionPosition,
+    selectedJob,
+    questionJob,
     answersPayload,
     handleChangeAnswer,
     handleChangePortfolios,

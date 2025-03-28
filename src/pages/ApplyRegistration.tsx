@@ -42,8 +42,8 @@ function ApplyRegistration() {
   const navigate = useNavigate();
   const {
     isStepCompleted,
-    selectedPosition,
-    questionPosition,
+    selectedJob,
+    questionJob,
     answersPayload,
     handleChangeAnswer,
     handleChangePortfolios,
@@ -59,9 +59,9 @@ function ApplyRegistration() {
   const { changeJobMutate } = useChangeJobQuery();
   const { submitAnswerMutate } = useSubmitAnswerQuery();
   const {
-    isOpen: isOpenChangePosition,
-    openDialog: openDialogChangePosition,
-    closeDialog: closeDialogChangePosition,
+    isOpen: isOpenChangeJob,
+    openDialog: openDialogChangeJob,
+    closeDialog: closeDialogChangeJob,
   } = useDialog();
   const {
     isOpen: isOpenSubmitAnswer,
@@ -70,24 +70,24 @@ function ApplyRegistration() {
   } = useDialog();
 
   const saveDraft = useCallback(() => {
-    saveDraftMutate({ param: selectedPosition, answers: answersPayload });
+    saveDraftMutate({ param: selectedJob, answers: answersPayload });
     removeLocationState(location);
-  }, [saveDraftMutate, answersPayload, selectedPosition, location]);
+  }, [saveDraftMutate, answersPayload, selectedJob, location]);
 
-  const changePosition = () => {
-    if (!selectedPosition) return;
+  const changeJob = () => {
+    if (!selectedJob) return;
     resetAnswers();
-    changeJobMutate(selectedPosition);
-    closeDialogChangePosition();
+    changeJobMutate(selectedJob);
+    closeDialogChangeJob();
   };
 
-  const notChangePosition = () => {
+  const notChangeJob = () => {
     revertSelect();
-    closeDialogChangePosition();
+    closeDialogChangeJob();
   };
 
   const submitAnswer = () => {
-    const answer = { param: selectedPosition, answers: answersPayload };
+    const answer = { param: selectedJob, answers: answersPayload };
 
     submitAnswerMutate(answer, {
       onSuccess: data => {
@@ -115,21 +115,21 @@ function ApplyRegistration() {
       <ProgressIndicator totalStep={3} currentStep={3} />
       <section className='gap-9xl flex w-[32.5rem] flex-col items-stretch *:first:text-center'>
         <Title hierarchy='strong'>{APPLY_TITLE.registration}</Title>
-        <div className={clsx(!selectedPosition && '*:nth-2:text-center', 'gap-7xl flex flex-col')}>
+        <div className={clsx(!selectedJob && '*:nth-2:text-center', 'gap-7xl flex flex-col')}>
           <div className='gap-2xl flex flex-col'>
             <Title hierarchy='normal'>어떤 포지션으로 지원하시나요?</Title>
             <SelectBox
-              selectedPosition={selectedPosition}
+              selectedJob={selectedJob}
               onLoadQuestion={changeSelectAndQuestion}
-              onOpenDialog={(position: JobFamily) => {
-                openDialogChangePosition();
-                changeSelect(position);
+              onOpenDialog={(job: JobFamily) => {
+                openDialogChangeJob();
+                changeSelect(job);
               }}
             />
           </div>
-          {selectedPosition ? (
+          {selectedJob ? (
             <Answers
-              questionPosition={questionPosition}
+              questionJob={questionJob}
               answersPayload={answersPayload}
               onChangeAnswer={handleChangeAnswer}
               onChangePortfolios={handleChangePortfolios}
@@ -173,9 +173,9 @@ function ApplyRegistration() {
         title='다른 직군으로 변경하시겠어요?'
         primaryBtnLabel='변경하기'
         secondaryBtnLabel='변경하지 말기'
-        isOpen={isOpenChangePosition}
-        onPrimaryBtnClick={changePosition}
-        onSecondaryBtnClick={notChangePosition}
+        isOpen={isOpenChangeJob}
+        onPrimaryBtnClick={changeJob}
+        onSecondaryBtnClick={notChangeJob}
       >
         작성된 답변 내용들은 모두초기화되고,
         <br />

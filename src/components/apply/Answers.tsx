@@ -10,7 +10,7 @@ import { JobFamily } from '@/types/apis/question';
 import { validateAnswersPayload } from '@/utils/validateAnswersPayload';
 
 interface AnswersProps {
-  questionPosition: JobFamily | null;
+  questionJob: JobFamily | null;
   answersPayload: AnswersRequest;
   onChangeAnswer: (id: number, text: string) => void;
   onChangePortfolios: (files: PortfolioResponse[]) => void;
@@ -18,13 +18,13 @@ interface AnswersProps {
 }
 
 function Answers({
-  questionPosition,
+  questionJob,
   answersPayload,
   onChangeAnswer,
   onChangePortfolios,
   onActiveSubmitButton,
 }: AnswersProps) {
-  const { questions } = useQuestionsQuery(questionPosition);
+  const { questions } = useQuestionsQuery(questionJob);
 
   useEffect(() => {
     if (!questions) return;

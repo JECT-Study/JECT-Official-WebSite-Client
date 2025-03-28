@@ -7,12 +7,12 @@ import useCloseOutside from '@/hooks/useCloseOutside';
 import { JobFamily } from '@/types/apis/question';
 
 interface selectBoxProps {
-  selectedPosition: JobFamily | null;
-  onLoadQuestion: (position: JobFamily) => void;
-  onOpenDialog: (position: JobFamily) => void;
+  selectedJob: JobFamily | null;
+  onLoadQuestion: (job: JobFamily) => void;
+  onOpenDialog: (job: JobFamily) => void;
 }
 
-const POSITIONS: JobFamily[] = ['FE', 'BE', 'PM', 'PD'];
+const JOB_FAMILY: JobFamily[] = ['FE', 'BE', 'PM', 'PD'];
 
 const jobFamily: Record<JobFamily, string> = {
   FE: '프론트엔드 개발자',
@@ -21,19 +21,19 @@ const jobFamily: Record<JobFamily, string> = {
   PD: '프로덕트 디자이너',
 };
 
-function SelectBox({ selectedPosition, onLoadQuestion, onOpenDialog }: selectBoxProps) {
+function SelectBox({ selectedJob, onLoadQuestion, onOpenDialog }: selectBoxProps) {
   const selectRef = useRef<HTMLDivElement>(null);
   const { isOpen, setIsOpen } = useCloseOutside(selectRef);
 
   const handleSelect = (label: string | null) => {
-    const position = POSITIONS.find(key => jobFamily[key] === label);
+    const job = JOB_FAMILY.find(key => jobFamily[key] === label);
 
-    if (!position) return setIsOpen(false);
+    if (!job) return setIsOpen(false);
 
-    if (!selectedPosition) {
-      onLoadQuestion(position);
-    } else if (selectedPosition !== position) {
-      onOpenDialog(position);
+    if (!selectedJob) {
+      onLoadQuestion(job);
+    } else if (selectedJob !== job) {
+      onOpenDialog(job);
     }
 
     setIsOpen(false);
@@ -45,7 +45,7 @@ function SelectBox({ selectedPosition, onLoadQuestion, onOpenDialog }: selectBox
         readOnly
         onClick={() => setIsOpen(!isOpen)}
         onKeyDown={({ key }) => key === 'Enter' && setIsOpen(!isOpen)}
-        value={selectedPosition ? jobFamily[selectedPosition] : ''}
+        value={selectedJob ? jobFamily[selectedJob] : ''}
         required
         labelText='포지션'
         isError={false}
@@ -69,7 +69,7 @@ function SelectBox({ selectedPosition, onLoadQuestion, onOpenDialog }: selectBox
               { label: jobFamily.PM },
               { label: jobFamily.PD },
             ]}
-            defaultValue={selectedPosition ? jobFamily[selectedPosition] : ''}
+            defaultValue={selectedJob ? jobFamily[selectedJob] : ''}
             onChange={handleSelect}
           />
         </div>
