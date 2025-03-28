@@ -4,4 +4,5 @@ export const API_ENDPOINT = {
   sendEmailAuthCode: '/email/send/auth',
   verifyEmailCode: '/auth/code',
   pinLogin: '/auth/login/pin',
+  checkEmailExists: '/auth/login/exist',
 } as const;
