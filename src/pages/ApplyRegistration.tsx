@@ -24,11 +24,7 @@ interface LocationState {
 }
 
 const isLoadDraft = (location: Location) => {
-  const locationState = location.state as LocationState;
-
-  if (!locationState) return true;
-
-  return locationState.continue === true;
+  return !location.state || (location.state as LocationState).continue === true;
 };
 
 const removeLocationState = (location: Location) => {
