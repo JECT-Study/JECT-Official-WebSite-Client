@@ -234,7 +234,7 @@ function ApplyVerifyEmail({
                     type='submit'
                     size='md'
                     hierarchy='accent'
-                    disabled={!isVerificationValid || isEmailCodeLoading}
+                    disabled={!isVerificationValid || isEmailCodeLoading || step === 3}
                   >
                     {step === 3 ? '인증 완료됨' : '인증하기'}
                   </LabelButton>
