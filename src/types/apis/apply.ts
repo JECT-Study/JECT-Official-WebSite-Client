@@ -19,3 +19,5 @@ export interface PinLoginPayload {
 export interface PinLoginResponseData {
   verificationToken: string;
 }
+
+export type EmailExistsResponseData = boolean;
