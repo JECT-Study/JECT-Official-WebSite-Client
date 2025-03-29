@@ -39,12 +39,16 @@ const formatForPresignedUrl = (files: File[]) => {
 };
 
 const formatDraftValues = (values: PortfolioResponse[]) => {
-  return values.map(file => ({
-    ...file,
-    id: file.fileName.substring(file.fileName.lastIndexOf('_') + 1),
-    file: null,
-    presignedUrl: null,
-  }));
+  return values.map(file => {
+    const uuid = file.fileUrl.substring(file.fileUrl.lastIndexOf('_') + 1);
+
+    return {
+      ...file,
+      id: uuid,
+      file: null,
+      presignedUrl: null,
+    };
+  });
 };
 
 const formatNewPortfolio = (portfolios: NewPortfolio[]): PortfolioResponse[] => {
