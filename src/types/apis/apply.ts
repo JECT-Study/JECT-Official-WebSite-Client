@@ -17,7 +17,8 @@ export interface PinLoginPayload {
 }
 
 export interface PinLoginResponseData {
-  verificationToken: string;
+  accessToken: string;
+  refreshToken: string;
 }
 
 export type EmailExistsResponseData = boolean;
@@ -28,3 +29,12 @@ export interface MemberProfileInitialPayload {
 }
 
 export type MemberProfileInitialResponseData = null;
+
+export interface RegisterMemberPayload {
+  pin: string;
+}
+
+export interface RegisterMemberResponseData {
+  accessToken: string;
+  refreshToken: string;
+}
