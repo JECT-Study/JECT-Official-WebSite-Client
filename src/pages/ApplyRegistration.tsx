@@ -24,7 +24,7 @@ interface LocationState {
 }
 
 const isLoadDraft = (location: Location) => {
-  return !location.state || (location.state as LocationState).continue === true;
+  return location.state ? (location.state as LocationState).continue : true;
 };
 
 const removeLocationState = (location: Location) => {
