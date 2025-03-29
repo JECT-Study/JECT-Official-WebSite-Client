@@ -16,9 +16,9 @@ import { useApplyPinForm } from '@/hooks/useApplyPinForm';
 import { useApplyVerificationEmailCodeForm } from '@/hooks/useApplyVerificationEmailCodeForm';
 import { useCheckEmailExistsMutation } from '@/hooks/useCheckEmailExistMutation';
 import { useEmailAuthCodeMutation } from '@/hooks/useEmailAuthCodeMutation';
-import { usePinLoginMutation } from '@/hooks/usePinLoginMutation';
+import { useRegisterMemberMutation } from '@/hooks/useRegisterMemberMutation';
 import { useVerificationEmailCodeMutation } from '@/hooks/useVerificationEmailCodeMutation';
-import { Email, PinLoginPayload, VerificationEmailCodePayload } from '@/types/apis/apply';
+import { Email, RegisterMemberPayload, VerificationEmailCodePayload } from '@/types/apis/apply';
 import { CreateSubmitHandler } from '@/utils/formHelpers';
 
 interface ApplyVerifyEmailProps {
@@ -38,6 +38,7 @@ function ApplyVerifyEmail({
   const [isReVerification] = useState(isResetPin);
   const [step, setStep] = useState(1);
   const [isTermsChecked, setIsTermsChecked] = useState(false);
+  const [verificationToken, setVerificationToken] = useState<string | null>(null);
 
   const {
     register: registerEmail,
@@ -63,7 +64,8 @@ function ApplyVerifyEmail({
   const { mutate: emailMutate, isPending: isEmailLoading } = useEmailAuthCodeMutation();
   const { mutate: verifyEmailCodeMutate, isPending: isEmailCodeLoading } =
     useVerificationEmailCodeMutation();
-  const { mutate: pinLoginMutate, isPending: isPinLoginLoading } = usePinLoginMutation();
+  const { mutate: registerMemberMutate, isPending: isRegisteringMember } =
+    useRegisterMemberMutation();
 
   const onEmailSubmit = ({ email }: Email) => {
     console.log('이메일 유효성 검사 통과, 회원 존재 여부 확인 API 요청 실행', { email });
@@ -121,6 +123,9 @@ function ApplyVerifyEmail({
             });
             return;
           }
+          if (response.data?.verificationToken) {
+            setVerificationToken(response.data.verificationToken);
+          }
 
           setStep(3);
         },
@@ -135,18 +140,32 @@ function ApplyVerifyEmail({
     );
   };
 
-  const onPinSubmit = ({ pin }: PinLoginPayload) => {
-    const payload = { email: storedEmail, pin };
-    console.log('PIN 유효성 검사 통과, 로그인 API 요청 payload:', payload);
-    pinLoginMutate(payload, {
-      onSuccess: response => {
-        console.log('PIN 로그인 성공:', response);
-        void navigate(PATH.applicantInfo);
+  const onRegisterMemberSubmit = ({ pin }: RegisterMemberPayload) => {
+    if (!verificationToken) {
+      console.error('인증 토큰이 없습니다. 인증 단계를 다시 진행해주세요.');
+      return;
+    }
+
+    console.log('PIN 유효성 검사 통과, 회원 등록 API 요청 준비:', { pin });
+
+    registerMemberMutate(
+      {
+        pin,
+        verificationToken,
       },
-      onError: error => {
-        console.error('PIN 로그인 실패:', error);
+      {
+        onSuccess: response => {
+          console.log('회원 등록 성공:', response);
+
+          if (response.status === 'SUCCESS') {
+            void navigate(PATH.applicantInfo);
+          }
+        },
+        onError: error => {
+          console.error('회원 등록 실패:', error);
+        },
       },
-    });
+    );
   };
 
   const handleEmailFormSubmit = CreateSubmitHandler<{ email: string }, Email>(
@@ -159,10 +178,10 @@ function ApplyVerifyEmail({
     VerificationEmailCodePayload
   >(handleSubmitVerification, onVerificationSubmit);
 
-  const handlePinFormSubmit = CreateSubmitHandler<{ pin: string }, PinLoginPayload>(
-    handleSubmitPin,
-    onPinSubmit,
-  );
+  const handleRegisterMemberFormSubmit = CreateSubmitHandler<
+    { pin: string },
+    RegisterMemberPayload
+  >(handleSubmitPin, onRegisterMemberSubmit);
 
   const handleTermsChange = (e: ChangeEvent<HTMLInputElement>) => {
     setIsTermsChecked(e.target.checked);
@@ -241,7 +260,7 @@ function ApplyVerifyEmail({
             </form>
           )}
           {step >= 3 && (
-            <form className='gap-7xl flex flex-col' onSubmit={handlePinFormSubmit}>
+            <form className='gap-7xl flex flex-col' onSubmit={handleRegisterMemberFormSubmit}>
               <InputField
                 type={isPinHidden ? 'password' : 'text'}
                 labelText='PIN'
@@ -284,7 +303,7 @@ function ApplyVerifyEmail({
               <BlockButton
                 type='submit'
                 disabled={
-                  !isPinValid || isPinLoginLoading || (!isReVerification && !isTermsChecked)
+                  !isPinValid || isRegisteringMember || (!isReVerification && !isTermsChecked)
                 }
                 size='lg'
                 style='solid'
