@@ -25,6 +25,7 @@ const useUploadFileToS3Query = () => {
         setIsNetworkError(true);
         addToast(APPLY_MESSAGE.fail.uploadFile, 'negative');
       }
+      console.error(`Query Error : ${error}`);
     },
   });
 

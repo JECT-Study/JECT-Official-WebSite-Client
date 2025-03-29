@@ -6,6 +6,7 @@ const useSubmitAnswerQuery = () => {
   const { mutate: submitAnswerMutate } = useMutation({
     mutationKey: ['submitAnswer'],
     mutationFn: postSubmitAnswer,
+    onError: error => console.error(`Query Error : ${error}`),
   });
 
   return { submitAnswerMutate };

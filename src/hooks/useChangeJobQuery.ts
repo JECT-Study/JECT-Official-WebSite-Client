@@ -6,6 +6,7 @@ const useChangeJobQuery = () => {
   const { mutate: changeJobMutate } = useMutation({
     mutationKey: ['changeJob'],
     mutationFn: putJob,
+    onError: error => console.error(`Query Error : ${error}`),
   });
 
   return { changeJobMutate };
