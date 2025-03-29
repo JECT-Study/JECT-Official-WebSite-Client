@@ -27,16 +27,18 @@ function Answers({
   const { questions } = useQuestionsQuery(questionJob);
 
   useEffect(() => {
-    if (!questions) return;
+    if (questions?.status !== 'SUCCESS') return;
 
-    const isCompleted = validateAnswersPayload(questions, answersPayload);
+    const isCompleted = validateAnswersPayload(questions.data, answersPayload);
 
     onActiveSubmitButton(isCompleted);
   }, [answersPayload, questions, onActiveSubmitButton]);
 
+  if (questions?.status !== 'SUCCESS') return;
+
   return (
     <form action='' className='gap-7xl flex flex-col' encType='multipart/form-data'>
-      {questions?.map(data => {
+      {questions.data?.map(data => {
         switch (data.inputType) {
           case 'TEXT':
             return (
