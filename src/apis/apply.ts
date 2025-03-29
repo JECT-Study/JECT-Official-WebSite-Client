@@ -6,6 +6,8 @@ import {
   MemberProfileInitialResponseData,
   PinLoginPayload,
   PinLoginResponseData,
+  RegisterMemberPayload,
+  RegisterMemberResponseData,
   VerificationEmailCodePayload,
   VerificationEmailCodeResponseData,
 } from '@/types/apis/apply';
@@ -46,5 +48,17 @@ export const putMemberProfileInitial = async (data: MemberProfileInitialPayload)
     'put',
     API_ENDPOINT.memberProfileInitial,
     data,
+  );
+};
+
+export const postRegisterMember = async (
+  data: RegisterMemberPayload,
+  options?: { headers: { Authorization: string } },
+) => {
+  return await requestHandler<RegisterMemberResponseData, RegisterMemberPayload>(
+    'post',
+    API_ENDPOINT.registerMember,
+    data,
+    options,
   );
 };
