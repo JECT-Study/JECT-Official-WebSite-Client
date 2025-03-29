@@ -44,7 +44,7 @@ function SelectBox({ selectedJob, onLoadQuestion, onOpenDialog }: selectBoxProps
       <InputField
         readOnly
         onClick={() => setIsOpen(!isOpen)}
-        onKeyDown={({ key }) => key === 'Enter' && setIsOpen(!isOpen)}
+        onKeyUp={({ key }) => key === 'Enter' && setIsOpen(!isOpen)}
         value={selectedJob ? jobFamily[selectedJob] : ''}
         required
         labelText='포지션'
