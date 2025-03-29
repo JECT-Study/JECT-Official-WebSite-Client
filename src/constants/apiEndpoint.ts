@@ -6,4 +6,6 @@ export const API_ENDPOINT = {
   pinLogin: '/auth/login/pin',
   checkEmailExists: '/auth/login/exist',
   memberProfileInitial: '/members/profile/initial',
+  registerMember: '/members',
+  refreshToken: '/auth/refresh',
 } as const;
