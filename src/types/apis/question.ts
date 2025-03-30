@@ -9,3 +9,5 @@ export interface Question {
   maxLength: number | null;
   isRequired: boolean;
 }
+
+export type QuestionResponse = Question[];
