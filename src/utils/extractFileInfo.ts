@@ -13,9 +13,9 @@ type ExtractedFileInfo = {
   id: number | string;
   fileName: string;
   fileSize: number;
-  rawFile: File;
+  rawFile: File | null;
   fileUrl?: string;
-  presignedUrl?: string;
+  presignedUrl?: string | null;
 };
 
 export const extractFileInfo = (file: File | NewPortfolio): ExtractedFileInfo => {
@@ -34,6 +34,6 @@ export const extractFileInfo = (file: File | NewPortfolio): ExtractedFileInfo =>
     fileSize: Number(file.fileSize),
     fileUrl: file.fileUrl,
     presignedUrl: file.presignedUrl,
-    rawFile: file.file,
+    rawFile: file.rawFile,
   };
 };

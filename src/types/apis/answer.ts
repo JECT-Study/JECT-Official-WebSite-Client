@@ -9,7 +9,7 @@ export interface PortfolioResponse {
 
 export interface NewPortfolio extends PortfolioResponse {
   id: string;
-  file: File | null;
+  rawFile: File | null;
   presignedUrl: string | null;
 }
 

@@ -21,7 +21,7 @@ interface FileFieldProps {
 const formatRawFiles = (data: PresignedUrlResponse[], files: File[]) => {
   return data.map((item, index) => ({
     id: crypto.randomUUID(),
-    file: files[index],
+    rawFile: files[index],
     presignedUrl: item.presignedUrl,
     fileUrl: item.cdnUrl,
     fileName: files[index].name,
@@ -45,7 +45,7 @@ const formatDraftValues = (values: PortfolioResponse[]) => {
     return {
       ...file,
       id: uuid,
-      file: null,
+      rawFile: null,
       presignedUrl: null,
     };
   });
