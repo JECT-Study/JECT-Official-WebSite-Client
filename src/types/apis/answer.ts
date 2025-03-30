@@ -21,3 +21,5 @@ export interface AnswersRequest {
 export interface AnswersResponse extends AnswersRequest {
   jobFamily: JobFamily;
 }
+
+export type ChangeJobRequest = JobFamily;
