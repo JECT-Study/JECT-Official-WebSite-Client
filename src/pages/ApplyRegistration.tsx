@@ -66,12 +66,15 @@ function ApplyRegistration() {
   } = useDialog();
 
   const saveDraft = useCallback(() => {
+    if (!selectedJob) return;
+
     saveDraftMutate({ param: selectedJob, answers: answersPayload });
     removeLocationState(location);
   }, [saveDraftMutate, answersPayload, selectedJob, location]);
 
   const changeJob = () => {
     if (!selectedJob) return;
+
     resetAnswers();
     changeJobMutate(selectedJob);
     closeDialogChangeJob();
@@ -83,6 +86,8 @@ function ApplyRegistration() {
   };
 
   const submitAnswer = () => {
+    if (!selectedJob) return;
+
     const answer = { param: selectedJob, answers: answersPayload };
 
     submitAnswerMutate(answer, {

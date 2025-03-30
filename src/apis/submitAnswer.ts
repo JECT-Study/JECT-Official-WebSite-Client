@@ -4,13 +4,11 @@ import { JobFamily } from '@/types/apis/question';
 import { requestHandler } from '@/utils/httpClient';
 
 interface PostSubmitAnswerProps {
-  param: JobFamily | null;
+  param: JobFamily;
   answers: AnswersRequest;
 }
 
 export const postSubmitAnswer = async ({ param, answers }: PostSubmitAnswerProps) => {
-  if (!param) return;
-
   return await requestHandler<null, AnswersRequest>(
     'post',
     `${API_ENDPOINT.submitAnswer}?jobFamily=${param}`,
