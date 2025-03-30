@@ -14,7 +14,7 @@ export interface NewPortfolio extends PortfolioResponse {
 }
 
 export interface AnswersRequest {
-  answers: Record<string, string>;
+  answers: Record<number, string>;
   portfolios: PortfolioResponse[];
 }
 
