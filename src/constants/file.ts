@@ -1,6 +1,6 @@
-import { FileExtension } from '@/types/ui/file';
+import { FileExtensions } from '@/types/ui/file';
 
-export const fileMimeType: Record<FileExtension, string> = {
+export const fileMimeType: Record<FileExtensions, string> = {
   pdf: 'application/pdf',
   jpeg: '.jpg',
   png: 'image/png',

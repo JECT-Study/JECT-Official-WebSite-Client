@@ -8,7 +8,7 @@ export interface Jectalk {
   summary: string;
 }
 
-export interface Jectalks {
+export interface JectalksResponse {
   content: Jectalk[];
   number: number;
   size: number;
