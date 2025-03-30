@@ -53,7 +53,7 @@ const useApplicationState = () => {
     setSelectedJob(job);
   }, []);
 
-  const activeSubmitButton = useCallback((isCompleted: boolean) => {
+  const setSubmitButtonActive = useCallback((isCompleted: boolean) => {
     setIsStepCompleted(isCompleted);
   }, []);
 
@@ -69,7 +69,7 @@ const useApplicationState = () => {
     revertSelect,
     changeSelectAndQuestion,
     changeSelect,
-    activeSubmitButton,
+    setSubmitButtonActive,
   };
 };
 

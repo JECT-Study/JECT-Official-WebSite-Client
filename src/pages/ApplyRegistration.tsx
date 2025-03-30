@@ -48,7 +48,7 @@ function ApplyRegistration() {
     revertSelect,
     changeSelectAndQuestion,
     changeSelect,
-    activeSubmitButton,
+    setSubmitButtonActive,
   } = useApplicationState();
   const { draft } = useDraftQuery();
   const { saveDraftMutate } = useSaveDraftQuery();
@@ -134,7 +134,7 @@ function ApplyRegistration() {
               answersPayload={answersPayload}
               onChangeAnswer={handleChangeAnswer}
               onChangePortfolios={handleChangePortfolios}
-              onActiveSubmitButton={activeSubmitButton}
+              onActiveSubmitButton={setSubmitButtonActive}
             />
           ) : (
             <Label hierarchy='normal' weight='normal' textColor='text-object-assistive-dark'>
