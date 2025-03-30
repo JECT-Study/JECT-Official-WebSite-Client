@@ -317,6 +317,7 @@ function ApplyVerifyEmail({
                 rightIcon={
                   <Icon name='rightChevron' size='2xs' fillColor='fill-object-alternative-dark' />
                 }
+                onClick={() => void navigate(PATH.faq)}
               >
                 이메일이 오지 않았나요?
               </LabelButton>
