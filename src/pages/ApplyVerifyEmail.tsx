@@ -208,111 +208,132 @@ function ApplyVerifyEmail({
         <Title hierarchy='strong'>
           {isReVerification ? APPLY_TITLE.resetPin : APPLY_TITLE.verifyEmail}
         </Title>
-        <div className='gap-xs flex flex-col'>
-          {step >= 1 && (
-            <form className='gap-xs flex flex-col' onSubmit={handleEmailFormSubmit}>
-              <InputField
-                type='email'
-                labelText='이메일'
-                isError={!!errorsEmail.email}
-                isSuccess={!errorsEmail.email}
-                helper={errorsEmail.email ? errorsEmail.email.message : ''}
-                placeholder='enjoyject@google.com'
-                {...registerEmail('email')}
-              >
-                <BlockButton
-                  type='submit'
-                  size='lg'
-                  style='solid'
-                  hierarchy='secondary'
-                  className='h-full'
-                  disabled={!isEmailValid || isEmailLoading}
+        <div className='gap-7xl flex flex-col'>
+          <div className='gap-xs flex flex-col'>
+            {step >= 1 && (
+              <form className='flex flex-col' onSubmit={handleEmailFormSubmit}>
+                <InputField
+                  type='email'
+                  labelText='이메일'
+                  isError={!!errorsEmail.email}
+                  isSuccess={!errorsEmail.email}
+                  helper={errorsEmail.email ? errorsEmail.email.message : ''}
+                  placeholder='enjoyject@google.com'
+                  {...registerEmail('email')}
                 >
-                  인증번호 받기
-                </BlockButton>
-              </InputField>
-            </form>
-          )}
-          {step >= 2 && (
-            <form className='gap-xs flex flex-col' onSubmit={handleVerificationFormSubmit}>
-              <InputField
-                labelText='인증번호'
-                isError={!!errorsVerification.verificationEmailCode}
-                isSuccess={
-                  !errorsVerification.verificationEmailCode &&
-                  watchVerification('verificationEmailCode')?.length === 6
-                }
-                disabled={false}
-                helper={getVerificationHelperText()}
-                placeholder='이메일 주소로 발송된 인증번호 6자리를 입력해주세요'
-                InputChildren={
-                  <LabelButton
+                  <BlockButton
                     type='submit'
-                    size='md'
-                    hierarchy='accent'
-                    disabled={!isVerificationValid || isEmailCodeLoading || step === 3}
+                    size='lg'
+                    style='solid'
+                    hierarchy='secondary'
+                    className='h-full'
+                    disabled={!isEmailValid || isEmailLoading}
                   >
-                    {step === 3 ? '인증 완료됨' : '인증하기'}
-                  </LabelButton>
-                }
-                {...registerVerification('verificationEmailCode')}
-              />
-            </form>
-          )}
-          {step >= 3 && (
-            <form className='gap-7xl flex flex-col' onSubmit={handleRegisterMemberFormSubmit}>
-              <InputField
-                type={isPinHidden ? 'password' : 'text'}
-                labelText='PIN'
-                isError={!!errorsPin.pin}
-                isSuccess={isPinValid}
-                disabled={false}
-                helper={errorsPin.pin ? errorsPin.pin.message : ''}
-                placeholder='본인 확인용 6자리 비밀번호를 설정해주세요'
-                InputChildren={
-                  <span onClick={() => setIsPinHidden(prev => !prev)} className='cursor-pointer'>
-                    <Icon name='visible' size='md' fillColor='fill-object-neutral-dark' />
-                  </span>
-                }
-                {...registerPin('pin')}
-              />
-              {!isReVerification && step > 1 && (
-                <div className='gap-2xs flex'>
-                  <div className='gap-2xs flex flex-1'>
-                    {isTermsChecked ? (
-                      <CheckBox
-                        id='terms-checkbox'
-                        checked={true}
-                        onChange={handleTermsChange}
-                        labelText='[필수] 젝트 개인정보 수집 및 이용 동의'
-                      />
-                    ) : (
-                      <CheckBox
-                        id='terms-checkbox'
-                        checked={false}
-                        onChange={handleTermsChange}
-                        labelText='[필수] 젝트 개인정보 수집 및 이용 동의'
-                      />
-                    )}
-                  </div>
-                  <NewTabLink href=''>
-                    <Icon name='rightChevron' size='lg' fillColor='fill-object-assistive-dark' />
-                  </NewTabLink>
-                </div>
-              )}
-              <BlockButton
-                type='submit'
-                disabled={
-                  !isPinValid || isRegisteringMember || (!isReVerification && !isTermsChecked)
-                }
-                size='lg'
-                style='solid'
-                hierarchy='accent'
+                    인증번호 받기
+                  </BlockButton>
+                </InputField>
+              </form>
+            )}
+            {step >= 2 && (
+              <form className='gap-xs flex flex-col' onSubmit={handleVerificationFormSubmit}>
+                <InputField
+                  labelText='인증번호'
+                  isError={!!errorsVerification.verificationEmailCode}
+                  isSuccess={
+                    !errorsVerification.verificationEmailCode &&
+                    watchVerification('verificationEmailCode')?.length === 6
+                  }
+                  disabled={false}
+                  helper={getVerificationHelperText()}
+                  placeholder='이메일 주소로 발송된 인증번호 6자리를 입력해주세요'
+                  InputChildren={
+                    <LabelButton
+                      type='submit'
+                      size='md'
+                      hierarchy='accent'
+                      disabled={!isVerificationValid || isEmailCodeLoading || step === 3}
+                    >
+                      {step === 3 ? '인증 완료됨' : '인증하기'}
+                    </LabelButton>
+                  }
+                  {...registerVerification('verificationEmailCode')}
+                />
+              </form>
+            )}
+
+            {step >= 3 && (
+              <form
+                id='registerForm'
+                className='gap-7xl flex flex-col'
+                onSubmit={handleRegisterMemberFormSubmit}
               >
-                다음 단계로 진행하기
-              </BlockButton>
-            </form>
+                <InputField
+                  type={isPinHidden ? 'password' : 'text'}
+                  labelText='PIN'
+                  isError={!!errorsPin.pin}
+                  isSuccess={isPinValid}
+                  disabled={false}
+                  helper={errorsPin.pin ? errorsPin.pin.message : ''}
+                  placeholder='본인 확인용 6자리 비밀번호를 설정해주세요'
+                  InputChildren={
+                    <span onClick={() => setIsPinHidden(prev => !prev)} className='cursor-pointer'>
+                      <Icon name='visible' size='md' fillColor='fill-object-neutral-dark' />
+                    </span>
+                  }
+                  {...registerPin('pin')}
+                />
+              </form>
+            )}
+          </div>
+          {!isReVerification && step >= 2 && (
+            <div className='gap-2xs flex'>
+              <div className='gap-2xs flex flex-1'>
+                {isTermsChecked ? (
+                  <CheckBox
+                    id='terms-checkbox'
+                    checked={true}
+                    onChange={handleTermsChange}
+                    labelText='[필수] 젝트 개인정보 수집 및 이용 동의'
+                  />
+                ) : (
+                  <CheckBox
+                    id='terms-checkbox'
+                    checked={false}
+                    onChange={handleTermsChange}
+                    labelText='[필수] 젝트 개인정보 수집 및 이용 동의'
+                  />
+                )}
+              </div>
+              <NewTabLink href=''>
+                <Icon name='rightChevron' size='lg' fillColor='fill-object-assistive-dark' />
+              </NewTabLink>
+            </div>
           )}
+          <div className='gap-md flex flex-col'>
+            {step === 2 && (
+              <LabelButton
+                size='xs'
+                hierarchy='tertiary'
+                rightIcon={
+                  <Icon name='rightChevron' size='2xs' fillColor='fill-object-alternative-dark' />
+                }
+              >
+                이메일이 오지 않았나요?
+              </LabelButton>
+            )}
+            <BlockButton
+              type='submit'
+              form='registerForm'
+              disabled={
+                !isPinValid || isRegisteringMember || (!isReVerification && !isTermsChecked)
+              }
+              size='lg'
+              style='solid'
+              hierarchy='accent'
+            >
+              다음 단계로 진행하기
+            </BlockButton>
+          </div>
         </div>
       </section>
     </div>
