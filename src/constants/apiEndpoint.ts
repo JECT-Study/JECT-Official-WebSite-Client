@@ -8,4 +8,5 @@ export const API_ENDPOINT = {
   memberProfileInitial: '/members/profile/initial',
   registerMember: '/members',
   refreshToken: '/auth/refresh',
+  uploadPortfolio: '/upload/portfolios',
 } as const;
