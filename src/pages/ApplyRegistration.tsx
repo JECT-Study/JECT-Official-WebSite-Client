@@ -36,6 +36,7 @@ const removeLocationState = (location: Location) => {
 function ApplyRegistration() {
   const location = useLocation();
   const navigate = useNavigate();
+
   const {
     isStepCompleted,
     selectedJob,
@@ -50,10 +51,12 @@ function ApplyRegistration() {
     changeSelect,
     setSubmitButtonActive,
   } = useApplicationState();
+
   const { draft } = useDraftQuery();
   const { saveDraftMutate } = useSaveDraftQuery();
   const { changeJobMutate } = useChangeJobQuery();
   const { submitAnswerMutate } = useSubmitAnswerQuery();
+
   const {
     isOpen: isOpenChangeJob,
     openDialog: openDialogChangeJob,
