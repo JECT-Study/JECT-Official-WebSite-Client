@@ -84,7 +84,7 @@ export const createClient = (config?: AxiosRequestConfig): AxiosInstance => {
 
             if (!refreshToken) {
               tokenUtils.removeTokens();
-              return Promise.reject(error instanceof Error ? error : new Error(String(error)));
+              return Promise.reject(error);
             }
 
             const response = await refreshAccessToken({ refreshToken });
@@ -107,7 +107,7 @@ export const createClient = (config?: AxiosRequestConfig): AxiosInstance => {
         }
       }
 
-      return Promise.reject(error instanceof Error ? error : new Error(String(error)));
+      return Promise.reject(error);
     },
   );
 

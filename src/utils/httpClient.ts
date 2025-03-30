@@ -59,6 +59,6 @@ export const requestHandler = async <TResponse, TPayload = undefined>(
       console.error('네트워크 오류가 발생했습니다.');
     }
 
-    throw error instanceof Error ? error : new Error(String(error));
+    throw error;
   }
 };
