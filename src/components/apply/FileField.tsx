@@ -31,10 +31,10 @@ const formatRawFiles = (data: PresignedUrlResponse[], files: File[]) => {
 };
 
 const formatForPresignedUrl = (files: File[]) => {
-  return files.map(file => ({
-    name: file.name,
-    contentType: file.type,
-    contentLength: file.size,
+  return files.map(({ name, type, size }) => ({
+    name,
+    contentType: type,
+    contentLength: size,
   }));
 };
 
@@ -52,10 +52,10 @@ const formatDraftValues = (values: PortfolioResponse[]) => {
 };
 
 const formatNewPortfolio = (portfolios: NewPortfolio[]): PortfolioResponse[] => {
-  return portfolios.map((portfolio, index) => ({
-    fileUrl: portfolio.fileUrl,
-    fileName: portfolio.fileName,
-    fileSize: portfolio.fileSize,
+  return portfolios.map(({ fileUrl, fileName, fileSize }, index) => ({
+    fileUrl,
+    fileName,
+    fileSize,
     sequence: (index + 1).toString(),
   }));
 };
