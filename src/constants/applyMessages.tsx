@@ -8,6 +8,7 @@ export const APPLY_MESSAGE = {
     answerSize: '작성한 필수 답변들을 다시 확인해주세요',
     fileType: '첨부 가능한 파일 형식을 다시 확인해주세요.',
     unknownFile: '정상적인 PDF 파일인지 다시 확인해주세요',
+    exceedText: '최대 글자수를 초과했어요.',
   },
   success: {
     sendVerificationEmail: '인증 메일이 발송되었습니다.',

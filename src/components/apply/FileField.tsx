@@ -6,15 +6,22 @@ import Title from '@/components/common/title/Title';
 import { APPLY_MESSAGE } from '@/constants/applyMessages';
 import useCreatePresignedUrlsQuery from '@/hooks/useCreatePresignedUrlsQuery';
 import { useToastActions } from '@/stores/toastStore';
-import { NewPortfolio } from '@/types/apis/answer';
+import { NewPortfolio, PortfolioResponse } from '@/types/apis/answer';
+import { Question } from '@/types/apis/question';
 import { PresignedUrlResponse } from '@/types/apis/uploadFile';
 import { validateMaxSize } from '@/utils/validateFileMaxSize';
 import { splitValidAndInvalidFiles } from '@/utils/validateInvalidFile';
 
-const formatNewPortfolios = (data: PresignedUrlResponse[], files: File[]) => {
+interface FileFieldProps {
+  data: Question;
+  onChange: (files: PortfolioResponse[]) => void;
+  values: PortfolioResponse[];
+}
+
+const formatRawFiles = (data: PresignedUrlResponse[], files: File[]) => {
   return data.map((item, index) => ({
     id: crypto.randomUUID(),
-    file: files[index],
+    rawFile: files[index],
     presignedUrl: item.presignedUrl,
     fileUrl: item.cdnUrl,
     fileName: files[index].name,
@@ -24,15 +31,37 @@ const formatNewPortfolios = (data: PresignedUrlResponse[], files: File[]) => {
 };
 
 const formatForPresignedUrl = (files: File[]) => {
-  return files.map(file => ({
-    name: file.name,
-    contentType: file.type,
-    contentLength: file.size,
+  return files.map(({ name, type, size }) => ({
+    name,
+    contentType: type,
+    contentLength: size,
   }));
 };
 
-function FileField() {
-  const [portfolios, setPortfolios] = useState<NewPortfolio[]>([]);
+const formatDraftValues = (values: PortfolioResponse[]) => {
+  return values.map(file => {
+    const uuid = file.fileUrl.substring(file.fileUrl.lastIndexOf('_') + 1);
+
+    return {
+      ...file,
+      id: uuid,
+      rawFile: null,
+      presignedUrl: null,
+    };
+  });
+};
+
+const formatNewPortfolio = (portfolios: NewPortfolio[]): PortfolioResponse[] => {
+  return portfolios.map(({ fileUrl, fileName, fileSize }, index) => ({
+    fileUrl,
+    fileName,
+    fileSize,
+    sequence: (index + 1).toString(),
+  }));
+};
+
+function FileField({ data, onChange, values }: FileFieldProps) {
+  const [portfolios, setPortfolios] = useState<NewPortfolio[]>(formatDraftValues(values) ?? []);
   const [invalidFiles, setInvalidFiles] = useState<File[]>([]);
   const [totalSize, setTotalSize] = useState(0);
   const { createPresignedUrlsMutate } = useCreatePresignedUrlsQuery();
@@ -55,7 +84,7 @@ function FileField() {
 
       createPresignedUrlsMutate(formattedFiles, {
         onSuccess: ({ data }) =>
-          setPortfolios(prev => [...prev, ...formatNewPortfolios(data, validPdfFiles)]),
+          setPortfolios(prev => [...prev, ...formatRawFiles(data, validPdfFiles)]),
       });
     }
 
@@ -76,19 +105,20 @@ function FileField() {
   };
 
   useEffect(() => {
+    onChange(formatNewPortfolio(portfolios));
     setTotalSize(portfolios.reduce((acc, portfolio) => acc + Number(portfolio.fileSize), 0));
-  }, [portfolios]);
+  }, [portfolios, onChange]);
 
   return (
     <fieldset className='gap-2xl flex flex-col'>
-      <Title hierarchy='normal'>title</Title>
+      <Title hierarchy='normal'>{data.title}</Title>
       <InputFile
         labelText='첨부파일'
         maxSize={100}
         fileExtensions={['pdf']}
         currentSize={totalSize}
         isDisabled={false}
-        isRequired={false}
+        isRequired={data.isRequired}
         onAddFile={fileList => void addFile(fileList)}
       >
         {invalidFiles.length === 0 && portfolios.length === 0 ? null : (

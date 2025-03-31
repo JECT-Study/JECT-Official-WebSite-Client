@@ -31,7 +31,7 @@ function Dialog({
         <div className='bg-surface-embossed-dark shadow-overlay radius-md gap-5xl absolute top-1/2 left-1/2 flex w-[25rem] -translate-1/2 flex-col p-(--gap-2xl)'>
           <div className='gap-md flex flex-col items-center pt-(--gap-3xs)'>
             <p className='title-01 text-object-hero-dark'>{title}</p>
-            <p className='body-lg text-object-normal-dark'>{children}</p>
+            <div className='body-lg text-object-normal-dark text-center'>{children}</div>
           </div>
           <div
             className={`gap-xs i *: flex *:flex-1 ${btnLayout === 'vertical' ? 'flex-col' : '*:first:order-2 *:last:order-1'}`}

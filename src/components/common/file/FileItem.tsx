@@ -23,7 +23,7 @@ function FileItem({ file, onDelete, isDisabled = false, feedback = null }: FileI
   const feedbackType = isNetworkError ? 'error' : feedback;
 
   const openFile = () => {
-    if (isDisabled || !file) return;
+    if (isDisabled || !file || !rawFile) return;
 
     const url = fileUrl ?? URL.createObjectURL(rawFile);
 
