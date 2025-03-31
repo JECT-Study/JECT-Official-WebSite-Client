@@ -181,7 +181,7 @@ function ApplyRegistration() {
         onPrimaryBtnClick={changeJob}
         onSecondaryBtnClick={notChangeJob}
       >
-        작성된 답변 내용들은 모두초기화되고,
+        작성된 답변 내용들은 모두 초기화되고,
         <br />
         다시 되돌릴 수 없어요.
       </Dialog>
