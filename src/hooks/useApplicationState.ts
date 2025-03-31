@@ -3,7 +3,7 @@ import { useCallback, useState } from 'react';
 import { AnswersRequest, AnswersResponse, PortfolioResponse } from '@/types/apis/answer';
 import { JobFamily } from '@/types/apis/question';
 
-const initialAnswer = {
+const initialAnswer: AnswersRequest = {
   answers: {},
   portfolios: [],
 };
