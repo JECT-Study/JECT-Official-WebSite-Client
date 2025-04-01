@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import cardSampleImage from '@/assets/CardSample.png';
+import ApplySnackBar from '@/components/apply/ApplySnackBar';
 import LabelButton from '@/components/common/button/LabelButton';
 import { Card } from '@/components/common/card/Card';
 import Icon from '@/components/common/icon/Icon';
@@ -8,6 +9,7 @@ import { Post } from '@/components/common/post/Post';
 import { Select } from '@/components/common/select/Select';
 import { Tab, TabHeader, TabItem, TabPanel } from '@/components/common/tab/Tab';
 import Title from '@/components/common/title/Title';
+import { APPLY_SNACKBAR } from '@/constants/applyMessages';
 import { PATH } from '@/constants/path';
 
 const projectCardData = [
@@ -194,6 +196,7 @@ const Project = () => {
           ))}
         </div>
       </section>
+      <ApplySnackBar message={APPLY_SNACKBAR.default} />
     </div>
   );
 };
