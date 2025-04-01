@@ -196,7 +196,7 @@ const Project = () => {
           ))}
         </div>
       </section>
-      <ApplySnackBar message={APPLY_SNACKBAR.default} />
+      <ApplySnackBar message={APPLY_SNACKBAR.default} width='w-[31.25rem]' />
     </div>
   );
 };

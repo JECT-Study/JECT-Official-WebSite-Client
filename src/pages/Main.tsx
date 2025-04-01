@@ -182,7 +182,7 @@ const Main = () => {
           </div>
         </div>
       </section>
-      <ApplySnackBar message={APPLY_SNACKBAR.main} isMain={true} />
+      <ApplySnackBar message={APPLY_SNACKBAR.main} width='w-[33.5rem]' />
     </div>
   );
 };

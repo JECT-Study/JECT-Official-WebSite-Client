@@ -61,7 +61,7 @@ function Faq() {
           </Tab>
         </section>
       </div>
-      <ApplySnackBar message={APPLY_SNACKBAR.default} />
+      <ApplySnackBar message={APPLY_SNACKBAR.default} width='w-[31.25rem]' />
     </div>
   );
 }

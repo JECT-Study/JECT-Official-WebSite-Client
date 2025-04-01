@@ -6,10 +6,10 @@ import { PATH } from '@/constants/path';
 
 interface ApplySnackBarProps {
   message: string;
-  isMain?: boolean;
+  width?: string;
 }
 
-function ApplySnackBar({ message, isMain = false }: ApplySnackBarProps) {
+function ApplySnackBar({ message, width = '' }: ApplySnackBarProps) {
   const navigate = useNavigate();
 
   const handleAction = () => {
@@ -17,9 +17,7 @@ function ApplySnackBar({ message, isMain = false }: ApplySnackBarProps) {
   };
 
   return (
-    <div
-      className={`${isMain ? 'w-[33.5rem]' : 'w-[31.25rem]'} fixed inset-x-0 bottom-[7.875rem] left-1/2 z-50 -translate-x-1/2`}
-    >
+    <div className={`${width} fixed inset-x-0 bottom-[7.875rem] left-1/2 z-50 -translate-x-1/2`}>
       <SnackBar message={message} buttonLabel='젝트 3기 지원하기' onAction={handleAction} />
     </div>
   );
