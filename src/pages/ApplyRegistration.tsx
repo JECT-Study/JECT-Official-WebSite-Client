@@ -18,6 +18,7 @@ import useDraftQuery from '@/hooks/useDraftQuery';
 import useSaveDraftQuery from '@/hooks/useSaveDraftQuery';
 import useSubmitAnswerQuery from '@/hooks/useSubmitAnswerQuery';
 import { JobFamily } from '@/types/apis/question';
+import { getDraftLocal, removeDraftLocal, setDraftLocal } from '@/utils/draftUtils';
 
 interface LocationState {
   continue: boolean;
@@ -52,7 +53,7 @@ function ApplyRegistration() {
     setSubmitButtonActive,
   } = useApplicationState();
 
-  const { draft } = useDraftQuery();
+  const { draft: draftServer } = useDraftQuery();
   const { saveDraftMutate } = useSaveDraftQuery();
   const { changeJobMutate } = useChangeJobQuery();
   const { submitAnswerMutate } = useSubmitAnswerQuery();
@@ -68,10 +69,11 @@ function ApplyRegistration() {
     closeDialog: closeDialogSubmitAnswer,
   } = useDialog();
 
-  const saveDraft = useCallback(() => {
+  const saveDraftServer = useCallback(() => {
     if (!selectedJob) return;
 
     saveDraftMutate({ param: selectedJob, answers: answersPayload });
+    setDraftLocal({ jobFamily: selectedJob, ...answersPayload });
     removeLocationState(location);
   }, [saveDraftMutate, answersPayload, selectedJob, location]);
 
@@ -81,6 +83,7 @@ function ApplyRegistration() {
     resetAnswers();
     changeJobMutate(selectedJob);
     closeDialogChangeJob();
+    removeDraftLocal();
   };
 
   const notChangeJob = () => {
@@ -95,24 +98,48 @@ function ApplyRegistration() {
 
     submitAnswerMutate(answer, {
       onSuccess: data => {
-        if (data?.status === 'SUCCESS') void navigate(PATH.applyComplete);
+        if (data?.status === 'SUCCESS') {
+          void navigate(PATH.applyComplete);
+          removeDraftLocal();
+        }
       },
     });
   };
 
+  // 임시 저장 데이터로 업데이트
   useEffect(() => {
     if (!isLoadDraft(location)) return;
 
-    if (!draft || draft.status !== 'SUCCESS') return;
+    const draftLocal = getDraftLocal();
 
-    updateAnswerByDraft(draft.data);
-  }, [draft, location, updateAnswerByDraft]);
+    if (draftLocal) {
+      return updateAnswerByDraft(draftLocal);
+    }
 
+    if (draftServer && draftServer.status === 'SUCCESS') {
+      return updateAnswerByDraft(draftServer.data);
+    }
+  }, [location, updateAnswerByDraft, draftServer]);
+
+  // 서버 자동 임시 저장 : 15분
   useEffect(() => {
-    const autosaveDraft = setInterval(saveDraft, 900000);
+    const autosaveDraft = setInterval(saveDraftServer, 900000);
 
     return () => clearInterval(autosaveDraft);
-  }, [saveDraft]);
+  }, [saveDraftServer]);
+
+  // 로컬 스토리지 자동 임시 저장: 1분
+  useEffect(() => {
+    if (!selectedJob) return;
+
+    const saveDraftLocal = () => {
+      setDraftLocal({ jobFamily: selectedJob, ...answersPayload });
+    };
+
+    const autoSaveDraftLocal = setInterval(saveDraftLocal, 60000);
+
+    return () => clearInterval(autoSaveDraftLocal);
+  }, [selectedJob, answersPayload]);
 
   return (
     <div className='gap-9xl flex flex-col items-center pt-(--gap-9xl) pb-(--gap-12xl)'>
