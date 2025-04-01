@@ -13,9 +13,7 @@ const getDraftLocal = () => {
 
   if (!data) return null;
 
-  const draft = JSON.parse(data) as AnswersResponse;
-
-  return draft;
+  return JSON.parse(data) as AnswersResponse;
 };
 
 export { setDraftLocal, removeDraftLocal, getDraftLocal };
