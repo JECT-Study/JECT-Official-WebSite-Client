@@ -69,7 +69,7 @@ function ApplyRegistration() {
     closeDialog: closeDialogSubmitAnswer,
   } = useDialog();
 
-  const saveDraftServer = useCallback(() => {
+  const saveDraftServerAndLocal = useCallback(() => {
     if (!selectedJob) return;
 
     saveDraftMutate({ param: selectedJob, answers: answersPayload });
@@ -106,7 +106,7 @@ function ApplyRegistration() {
     });
   };
 
-  // 임시 저장 데이터로 업데이트
+  // 임시 저장 불러오기
   useEffect(() => {
     if (!isLoadDraft(location)) return;
 
@@ -121,21 +121,18 @@ function ApplyRegistration() {
     }
   }, [location, updateAnswerByDraft, draftServer]);
 
-  // 서버 자동 임시 저장 : 15분
+  // 로컬 스토리지 및 서버 임시저장
   useEffect(() => {
-    const autosaveDraft = setInterval(saveDraftServer, 900000);
+    const autosaveDraft = setInterval(saveDraftServerAndLocal, 900000);
 
     return () => clearInterval(autosaveDraft);
-  }, [saveDraftServer]);
+  }, [saveDraftServerAndLocal]);
 
-  // 로컬 스토리지 자동 임시 저장: 1분
+  // 로컬 스토리지 임시 저장
   useEffect(() => {
     if (!selectedJob) return;
 
-    const saveDraftLocal = () => {
-      setDraftLocal({ jobFamily: selectedJob, ...answersPayload });
-    };
-
+    const saveDraftLocal = () => setDraftLocal({ jobFamily: selectedJob, ...answersPayload });
     const autoSaveDraftLocal = setInterval(saveDraftLocal, 60000);
 
     return () => clearInterval(autoSaveDraftLocal);
@@ -173,7 +170,12 @@ function ApplyRegistration() {
           )}
 
           <div aria-label='button-area' className='gap-md flex w-full self-center *:flex-1'>
-            <BlockButton size='lg' style='solid' hierarchy='secondary' onClick={saveDraft}>
+            <BlockButton
+              size='lg'
+              style='solid'
+              hierarchy='secondary'
+              onClick={saveDraftServerAndLocal}
+            >
               임시 저장하기
             </BlockButton>
             <BlockButton
