@@ -1,7 +1,7 @@
 import { API_ENDPOINT } from '@/constants/apiEndpoint';
 import {
   Email,
-  EmailExistsResponseData,
+  EmailExistsResponse,
   MemberProfileInitialPayload,
   MemberProfileInitialResponseData,
   PinLoginPayload,
@@ -13,33 +13,33 @@ import {
 } from '@/types/apis/apply';
 import { requestHandler } from '@/utils/httpClient';
 
-export const checkEmailExists = async (email: string) => {
+export const checkEmailExists = async ({ email }: Email) => {
   const params = new URLSearchParams({ email });
   const url = `${API_ENDPOINT.checkEmailExists}?${params.toString()}`;
-  return await requestHandler<EmailExistsResponseData>('get', url);
+  return await requestHandler<EmailExistsResponse>('get', url);
 };
 
-export const postEmailAuthCode = async (data: Email) => {
-  const params = new URLSearchParams({ email: data.email });
+export const postEmailAuthCode = async ({ email }: Email) => {
+  const params = new URLSearchParams({ email });
   const url = `${API_ENDPOINT.sendEmailAuthCode}?${params.toString()}`;
   return await requestHandler<boolean>('post', url);
 };
 
 export const postVerificationEmailCode = async (data: VerificationEmailCodePayload) => {
-  const payload = { email: data.email, authCode: data.verificationEmailCode };
-  return await requestHandler<VerificationEmailCodeResponseData, typeof payload>(
-    'post',
-    API_ENDPOINT.verifyEmailCode,
-    payload,
-  );
+  return await requestHandler<
+    VerificationEmailCodeResponseData,
+    { email: string; authCode: string }
+  >('post', API_ENDPOINT.verifyEmailCode, {
+    email: data.email,
+    authCode: data.verificationEmailCode,
+  });
 };
 
 export const postPinLogin = async (data: PinLoginPayload) => {
-  const payload = { email: data.email, pin: data.pin };
-  return await requestHandler<PinLoginResponseData, typeof payload>(
+  return await requestHandler<PinLoginResponseData, { email: string; pin: string }>(
     'post',
     API_ENDPOINT.pinLogin,
-    payload,
+    { email: data.email, pin: data.pin },
   );
 };
 
