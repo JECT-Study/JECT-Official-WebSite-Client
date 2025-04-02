@@ -12,9 +12,10 @@ export const useEmailAuthCodeMutation = (): UseMutationResult<
   unknown
 > => {
   return useMutation({
+    mutationKey: ['postEmailAuthCode'],
     mutationFn: postEmailAuthCode,
-    onMutate: variables => {
-      console.log('mutation 시작, variables:', variables);
+    onMutate: email => {
+      console.log('mutation 시작, email:', email);
     },
     onSuccess: data => {
       console.log('mutation 성공:', data);
