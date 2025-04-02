@@ -21,7 +21,7 @@ export interface PinLoginResponseData {
   refreshToken: string;
 }
 
-export type EmailExistsResponseData = boolean;
+export type EmailExistsResponse = boolean;
 
 export interface MemberProfileInitialPayload {
   name: string;
