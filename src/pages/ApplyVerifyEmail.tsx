@@ -74,23 +74,26 @@ function ApplyVerifyEmail({
       setUserEmail(email);
     }
 
-    checkEmailMutate(email, {
-      onSuccess: response => {
-        const isUserExists = response.data;
-        console.log('이메일 존재 여부 확인 결과:', isUserExists);
+    checkEmailMutate(
+      { email },
+      {
+        onSuccess: response => {
+          const isUserExists = response.data;
+          console.log('이메일 존재 여부 확인 결과:', isUserExists);
 
-        if (isUserExists && setIsNewApplicant) {
-          setIsNewApplicant(false);
-          return;
-        }
-        setStoredEmail(email);
-        emailMutate({ email });
-        setStep(2);
+          if (isUserExists && setIsNewApplicant) {
+            setIsNewApplicant(false);
+            return;
+          }
+          setStoredEmail(email);
+          emailMutate({ email });
+          setStep(2);
+        },
+        onError: error => {
+          console.error('이메일 존재 여부 확인 실패:', error);
+        },
       },
-      onError: error => {
-        console.error('이메일 존재 여부 확인 실패:', error);
-      },
-    });
+    );
   };
 
   const onVerificationSubmit = ({ verificationEmailCode }: VerificationEmailCodePayload) => {
