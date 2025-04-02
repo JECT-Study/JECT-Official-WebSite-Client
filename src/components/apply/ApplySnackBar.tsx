@@ -17,7 +17,7 @@ function ApplySnackBar({ message, width = '' }: ApplySnackBarProps) {
   };
 
   return (
-    <div className={`${width} fixed inset-x-0 bottom-[7.875rem] left-1/2 z-50 -translate-x-1/2`}>
+    <div className={`${width} fixed inset-x-0 bottom-[3rem] left-1/2 z-50 -translate-x-1/2`}>
       <SnackBar message={message} buttonLabel='젝트 3기 지원하기' onAction={handleAction} />
     </div>
   );
