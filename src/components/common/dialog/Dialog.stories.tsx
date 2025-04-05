@@ -29,7 +29,7 @@ export const HorizontalDialogStory: Story = {
     const { openDialog } = useDialogActions();
 
     const handleClick = () => {
-      void openDialog({
+      openDialog({
         title: '다이얼로그 타이틀',
         content: '다이얼로그 내용',
         btnLayout: 'horizontal',
@@ -56,20 +56,16 @@ export const VerticalDialogStory: Story = {
   render: function Render() {
     const { openDialog } = useDialogActions();
 
-    const handleClick = async () => {
-      const { isPrimaryClick } = await openDialog({
+    const handleClick = () => {
+      openDialog({
         title: '다이얼로그 타이틀',
         content: '다이얼로그 내용',
         btnLayout: 'vertical',
         primaryBtnLabel: '버튼1',
         secondaryBtnLabel: '버튼2',
+        onPrimaryBtnClick: () => action('버튼1 클릭'),
+        onSecondaryBtnClick: () => action('버튼2 클릭'),
       });
-
-      if (isPrimaryClick) {
-        action('버튼1 클릭');
-      } else {
-        action('버튼2 클릭');
-      }
     };
 
     return (
