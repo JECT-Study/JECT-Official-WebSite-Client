@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import BlockButton from '@/components/common/button/BlockButton';
 import { useDialogActions, useDialogItem } from '@/stores/dialogStore';
 
@@ -29,6 +31,14 @@ function Dialog() {
     }
     closeDialog();
   };
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+  }, [isOpen]);
 
   return (
     isOpen && (
