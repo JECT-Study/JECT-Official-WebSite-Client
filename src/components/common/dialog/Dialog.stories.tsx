@@ -1,11 +1,10 @@
 import { action } from '@storybook/addon-actions';
-import { useArgs } from '@storybook/preview-api';
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Dialog, { DialogProps } from './Dialog';
+import Dialog from './Dialog';
 import BlockButton from '../button/BlockButton';
 
-import useDialog from '@/hooks/useDialog';
+import { useDialogActions } from '@/stores/dialogStore';
 
 const meta: Meta<typeof Dialog> = {
   title: 'Components/Dialog',
@@ -14,43 +13,8 @@ const meta: Meta<typeof Dialog> = {
     docs: {
       description: {
         component:
-          '<strong>Dialog</strong>는 <strong>useDialog 훅</strong>과 사용하면 간단히 제어할 수 있습니다. <br /> useDialog의 isOpen을 Dialog의 isActive props에 할당하고, <br/> useDialog의 closeDialog, openDialog를 이용하여 다이얼로그의 열고 닫음을 설정할 수 있습니다. ',
+          'Dialog 컴포넌트는 Layout 컴포넌트에 포함되어있으며 Dialog를 띄우려면 useDialogActions의 openDialog 메서드를 사용합니다. 필요한 페이지에 Dialog 컴포넌트를 불러와 작성하지 않습니다. <br/> Dialog에 들어가는 내용과 함수는 zustand로 관리됩니다.  <br/> 버튼에 할당되는 함수는 openDialog의 option으로 전달하여 지정할 수 있으며 promise의 resolve를 통해 반환되는 "isPrimaryClick" 값을 받아 지정할 수도 있습니다. ',
       },
-    },
-  },
-  argTypes: {
-    btnLayout: {
-      control: 'radio',
-      options: ['vertical', 'horizontal'],
-      description: '다이얼로그 버튼 배치 방향 (세로: vertical, 가로: horizontal)',
-    },
-    title: {
-      control: 'text',
-      description: '다이얼로그의 제목',
-    },
-    children: {
-      control: 'text',
-      description: '다이얼로그 내부의 내용',
-    },
-    primaryBtnLabel: {
-      control: 'text',
-      description: '첫 번째 버튼의 텍스트',
-    },
-    secondaryBtnLabel: {
-      control: 'text',
-      description: '두 번째 버튼의 텍스트',
-    },
-    onPrimaryBtnClick: {
-      action: '버튼 1 클릭',
-      description: '첫 번째 버튼 클릭 시 실행되는 함수',
-    },
-    onSecondaryBtnClick: {
-      action: '버튼 2 클릭',
-      description: '두 번째 버튼 클릭 시 실행되는 함수',
-    },
-    isOpen: {
-      control: 'boolean',
-      description: '다이얼로그가 열려 있는지 여부 (true: 열림, false: 닫힘)',
     },
   },
 };
@@ -59,57 +23,62 @@ export default meta;
 
 type Story = StoryObj<typeof Dialog>;
 
-export const DialogStory: Story = {
-  args: {
-    btnLayout: 'vertical',
-    title: '다이얼로그 타이틀',
-    primaryBtnLabel: '확인',
-    secondaryBtnLabel: '닫기',
-    children: '다이얼로그 내용',
-    isOpen: false,
-  },
-  render: function Render(args) {
-    const [{ isOpen }, updateArgs] = useArgs<DialogProps>();
+export const HorizontalDialogStory: Story = {
+  name: 'Horizontal Dialog Story',
+  render: function Render() {
+    const { openDialog } = useDialogActions();
+
+    const handleClick = () => {
+      void openDialog({
+        title: '다이얼로그 타이틀',
+        content: '다이얼로그 내용',
+        btnLayout: 'horizontal',
+        primaryBtnLabel: '버튼1',
+        secondaryBtnLabel: '버튼2',
+        onPrimaryBtnClick: () => action('버튼1 클릭'),
+        onSecondaryBtnClick: () => action('버튼2 클릭'),
+      });
+    };
+
     return (
       <>
-        <BlockButton
-          size='md'
-          style='solid'
-          hierarchy='accent'
-          onClick={() => updateArgs({ isOpen: true })}
-        >
-          임시버튼
+        <BlockButton size='md' style='solid' hierarchy='accent' onClick={handleClick}>
+          horizontal 다이얼로그 열기
         </BlockButton>
-        <Dialog
-          {...args}
-          isOpen={isOpen}
-          onPrimaryBtnClick={action('버튼 2 클릭')}
-          onSecondaryBtnClick={() => updateArgs({ isOpen: false })}
-        />
+        <Dialog />
       </>
     );
   },
 };
 
-export const DialogWithUseDialogHook = () => {
-  const { isOpen, closeDialog, openDialog } = useDialog();
+export const VerticalDialogStory: Story = {
+  name: 'Vertical Dialog Story',
+  render: function Render() {
+    const { openDialog } = useDialogActions();
 
-  return (
-    <>
-      <BlockButton size='md' style='solid' hierarchy='accent' onClick={openDialog}>
-        임시버튼
-      </BlockButton>
-      <Dialog
-        btnLayout='horizontal'
-        title='다이얼로그 타이틀'
-        primaryBtnLabel='primaryBtn 레이블'
-        secondaryBtnLabel='닫기'
-        isOpen={isOpen}
-        onPrimaryBtnClick={action('클릭')}
-        onSecondaryBtnClick={closeDialog}
-      >
-        useDialog 사용 예시
-      </Dialog>
-    </>
-  );
+    const handleClick = async () => {
+      const { isPrimaryClick } = await openDialog({
+        title: '다이얼로그 타이틀',
+        content: '다이얼로그 내용',
+        btnLayout: 'vertical',
+        primaryBtnLabel: '버튼1',
+        secondaryBtnLabel: '버튼2',
+      });
+
+      if (isPrimaryClick) {
+        action('버튼1 클릭');
+      } else {
+        action('버튼2 클릭');
+      }
+    };
+
+    return (
+      <>
+        <BlockButton size='md' style='solid' hierarchy='accent' onClick={() => void handleClick()}>
+          Vertical 다이얼로그 열기
+        </BlockButton>
+        <Dialog />
+      </>
+    );
+  },
 };
