@@ -4,18 +4,25 @@ import { AxiosError } from 'axios';
 import { postVerificationEmailCode } from '@/apis/apply';
 import {
   VerificationEmailCodePayload,
-  VerificationEmailCodeResponseData,
+  VerificationEmailCodeQueryParams,
+  VerificationEmailCodeResponse,
 } from '@/types/apis/apply';
 import { ApiResponse } from '@/types/apis/response';
 
+export interface VerificationEmailCodeMutationVariables {
+  payload: VerificationEmailCodePayload;
+  queryParams: VerificationEmailCodeQueryParams;
+}
+
 export const useVerificationEmailCodeMutation = (): UseMutationResult<
-  ApiResponse<VerificationEmailCodeResponseData>,
+  ApiResponse<VerificationEmailCodeResponse>,
   AxiosError,
-  VerificationEmailCodePayload,
+  VerificationEmailCodeMutationVariables,
   unknown
 > => {
   return useMutation({
-    mutationFn: postVerificationEmailCode,
+    mutationKey: ['postVerificationEmailCode'],
+    mutationFn: ({ payload, queryParams }) => postVerificationEmailCode(payload, queryParams),
     onMutate: variables => {
       console.log('useVerificationEmailCodeMutation 시작, variables:', variables);
     },
