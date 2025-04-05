@@ -9,7 +9,8 @@ import {
   RegisterMemberPayload,
   RegisterMemberResponseData,
   VerificationEmailCodePayload,
-  VerificationEmailCodeResponseData,
+  VerificationEmailCodeQueryParams,
+  VerificationEmailCodeResponse,
 } from '@/types/apis/apply';
 import { requestHandler } from '@/utils/httpClient';
 
@@ -25,14 +26,19 @@ export const postEmailAuthCode = async ({ email }: Email) => {
   return await requestHandler<boolean>('post', url);
 };
 
-export const postVerificationEmailCode = async (data: VerificationEmailCodePayload) => {
-  return await requestHandler<
-    VerificationEmailCodeResponseData,
-    { email: string; authCode: string }
-  >('post', API_ENDPOINT.verifyEmailCode, {
-    email: data.email,
-    authCode: data.verificationEmailCode,
+export const postVerificationEmailCode = async (
+  data: VerificationEmailCodePayload,
+  queryParams: VerificationEmailCodeQueryParams,
+) => {
+  const params = new URLSearchParams({
+    template: queryParams.template,
   });
+  const url = `${API_ENDPOINT.verifyEmailCode}?${params.toString()}`;
+  return await requestHandler<VerificationEmailCodeResponse, VerificationEmailCodePayload>(
+    'post',
+    url,
+    data,
+  );
 };
 
 export const postPinLogin = async (data: PinLoginPayload) => {
