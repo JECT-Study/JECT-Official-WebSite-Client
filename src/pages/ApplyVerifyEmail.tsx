@@ -11,9 +11,9 @@ import ProgressIndicator from '@/components/common/progress/ProgressIndicator';
 import Title from '@/components/common/title/Title';
 import { APPLY_TITLE } from '@/constants/applyPageData';
 import { PATH } from '@/constants/path';
+import { useApplyAuthCodeForm } from '@/hooks/useApplyAuthCodeForm.ts';
 import { useApplyEmailForm } from '@/hooks/useApplyEmailForm';
 import { useApplyPinForm } from '@/hooks/useApplyPinForm';
-import { useApplyVerificationEmailCodeForm } from '@/hooks/useApplyVerificationEmailCodeForm';
 import { useCheckEmailExistsMutation } from '@/hooks/useCheckEmailExistMutation';
 import { useEmailAuthCodeMutation } from '@/hooks/useEmailAuthCodeMutation';
 import { useRegisterMemberMutation } from '@/hooks/useRegisterMemberMutation';
@@ -52,7 +52,7 @@ function ApplyVerifyEmail({
     setError: setVerificationError,
     watch: watchVerification,
     formState: { errors: errorsVerification, isValid: isVerificationValid },
-  } = useApplyVerificationEmailCodeForm();
+  } = useApplyAuthCodeForm();
 
   const {
     register: registerPin,
@@ -96,14 +96,17 @@ function ApplyVerifyEmail({
     );
   };
 
-  const onVerificationSubmit = ({ verificationEmailCode }: VerificationEmailCodePayload) => {
+  const onVerificationSubmit = ({ authCode }: VerificationEmailCodePayload) => {
     console.log('인증번호 유효성 검사 통과, API 요청 실행', {
       email: storedEmail,
-      verificationEmailCode,
+      authCode,
     });
 
     verifyEmailCodeMutate(
-      { email: storedEmail, verificationEmailCode },
+      {
+        payload: { email: storedEmail, authCode },
+        queryParams: { template: 'CERTIFIACTE' },
+      },
       {
         onSuccess: response => {
           console.log('인증번호 확인 성공:', response);
@@ -120,21 +123,21 @@ function ApplyVerifyEmail({
                 break;
             }
 
-            setVerificationError('verificationEmailCode', {
+            setVerificationError('authCode', {
               type: 'manual',
               message: errorMessage,
             });
             return;
           }
-          if (response.data?.verificationToken) {
-            setVerificationToken(response.data.verificationToken);
+          if (response.data?.token) {
+            setVerificationToken(response.data.token);
           }
 
           setStep(3);
         },
         onError: error => {
           console.error('인증번호 확인 요청 실패:', error);
-          setVerificationError('verificationEmailCode', {
+          setVerificationError('authCode', {
             type: 'manual',
             message: '인증 과정에서 오류가 발생했습니다. 다시 시도해주세요.',
           });
@@ -177,7 +180,7 @@ function ApplyVerifyEmail({
   );
 
   const handleVerificationFormSubmit = CreateSubmitHandler<
-    { verificationEmailCode: string },
+    { authCode: string },
     VerificationEmailCodePayload
   >(handleSubmitVerification, onVerificationSubmit);
 
@@ -191,8 +194,8 @@ function ApplyVerifyEmail({
   };
 
   const getVerificationHelperText = () => {
-    if (errorsVerification.verificationEmailCode) {
-      return errorsVerification.verificationEmailCode.message;
+    if (errorsVerification.authCode) {
+      return errorsVerification.authCode.message;
     }
 
     if (step === 3) {
@@ -241,10 +244,9 @@ function ApplyVerifyEmail({
               <form className='gap-xs flex flex-col' onSubmit={handleVerificationFormSubmit}>
                 <InputField
                   labelText='인증번호'
-                  isError={!!errorsVerification.verificationEmailCode}
+                  isError={!!errorsVerification.authCode}
                   isSuccess={
-                    !errorsVerification.verificationEmailCode &&
-                    watchVerification('verificationEmailCode')?.length === 6
+                    !errorsVerification.authCode && watchVerification('authCode')?.length === 6
                   }
                   disabled={false}
                   helper={getVerificationHelperText()}
@@ -259,7 +261,7 @@ function ApplyVerifyEmail({
                       {step === 3 ? '인증 완료됨' : '인증하기'}
                     </LabelButton>
                   }
-                  {...registerVerification('verificationEmailCode')}
+                  {...registerVerification('authCode')}
                 />
               </form>
             )}
