@@ -10,12 +10,12 @@ import ProgressIndicator from '@/components/common/progress/ProgressIndicator';
 import Title from '@/components/common/title/Title';
 import { APPLY_TITLE } from '@/constants/applyPageData';
 import { PATH } from '@/constants/path';
-import useApplicationDialog from '@/hooks/useApplicationDialog';
 import useApplicationState from '@/hooks/useApplicationState';
 import useChangeJobQuery from '@/hooks/useChangeJobQuery';
 import useDraftQuery from '@/hooks/useDraftQuery';
 import useSaveDraftQuery from '@/hooks/useSaveDraftQuery';
 import useSubmitAnswerQuery from '@/hooks/useSubmitAnswerQuery';
+import { useDialogActions } from '@/stores/dialogStore';
 import { JobFamily } from '@/types/apis/question';
 
 interface LocationState {
@@ -50,7 +50,7 @@ function ApplyRegistration() {
     changeSelect,
     setSubmitButtonActive,
   } = useApplicationState();
-  const { handleDialogChangeJob, handleDialogSubmitAnswers } = useApplicationDialog();
+  const { openDialog } = useDialogActions();
 
   const { draft } = useDraftQuery();
   const { saveDraftMutate } = useSaveDraftQuery();
@@ -76,24 +76,38 @@ function ApplyRegistration() {
     });
   };
 
-  const openDialogChangeJob = async (job: JobFamily) => {
+  const openDialogChangeJob = (job: JobFamily) => {
     changeSelect(job);
 
-    const { isPrimaryClick } = await handleDialogChangeJob();
-
-    if (isPrimaryClick) {
-      changeJobMutate(job);
-      resetAnswers(job);
-      return;
-    }
-
-    revertSelect();
+    openDialog({
+      title: '다른 직군으로 변경하시겠어요?',
+      content: (
+        <>
+          작성된 답변 내용들은 모두 초기화되고,
+          <br />
+          다시 되돌릴 수 없어요.
+        </>
+      ),
+      btnLayout: 'horizontal',
+      primaryBtnLabel: '변경하기',
+      secondaryBtnLabel: '변경하지 말기',
+      onPrimaryBtnClick: () => {
+        changeJobMutate(job);
+        resetAnswers(job);
+      },
+      onSecondaryBtnClick: revertSelect,
+    });
   };
 
-  const openDialogSubmitAnswer = async () => {
-    const { isPrimaryClick } = await handleDialogSubmitAnswers();
-
-    if (isPrimaryClick) submitAnswer();
+  const openDialogSubmitAnswer = () => {
+    openDialog({
+      title: '지원서를 제출하시겠어요?',
+      content: '제출한 뒤에는 수정하거나 취소할 수 없어요.',
+      btnLayout: 'horizontal',
+      primaryBtnLabel: '제출하기',
+      secondaryBtnLabel: '제출 보류하기',
+      onPrimaryBtnClick: submitAnswer,
+    });
   };
 
   useEffect(() => {

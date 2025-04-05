@@ -21,7 +21,7 @@ type OpenDialogProp = Omit<Dialog, 'isOpen'> & {
 };
 
 interface Actions {
-  openDialog: (option: OpenDialogProp) => Promise<{ isPrimaryClick: boolean }>;
+  openDialog: (option: OpenDialogProp) => void;
   closeDialog: () => void;
   resetDialog: () => void;
 }
@@ -46,29 +46,19 @@ const useDialogStore = create<DialogState>(set => ({
   item: initialDialogState,
   actions: {
     openDialog: option => {
-      return new Promise<{ isPrimaryClick: boolean }>(resolve => {
-        set(state => ({
-          item: {
-            ...state.item,
-            isOpen: true,
-            btnLayout: option.btnLayout,
-            title: option.title,
-            content: option.content,
-            primaryBtnLabel: option.primaryBtnLabel,
-            secondaryBtnLabel: option.secondaryBtnLabel,
-            onPrimaryBtnClick: () => {
-              if (option.onPrimaryBtnClick) option.onPrimaryBtnClick();
-              resolve({ isPrimaryClick: true });
-            },
-            onSecondaryBtnClick: () => {
-              if (option.onSecondaryBtnClick) {
-                option.onSecondaryBtnClick();
-              }
-              resolve({ isPrimaryClick: false });
-            },
-          },
-        }));
-      });
+      set(state => ({
+        item: {
+          ...state.item,
+          isOpen: true,
+          btnLayout: option.btnLayout,
+          title: option.title,
+          content: option.content,
+          primaryBtnLabel: option.primaryBtnLabel,
+          secondaryBtnLabel: option.secondaryBtnLabel,
+          onPrimaryBtnClick: option.onPrimaryBtnClick ?? state.item.onPrimaryBtnClick,
+          onSecondaryBtnClick: option.onSecondaryBtnClick ?? state.item.onSecondaryBtnClick,
+        },
+      }));
     },
     closeDialog: () => set(state => ({ item: { ...state.item, isOpen: false } })),
     resetDialog: () => set(() => ({ item: initialDialogState })),

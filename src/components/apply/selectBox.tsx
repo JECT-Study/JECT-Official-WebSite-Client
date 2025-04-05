@@ -9,7 +9,7 @@ import { JobFamily } from '@/types/apis/question';
 interface selectBoxProps {
   selectedJob: JobFamily | null;
   onLoadQuestion: (job: JobFamily) => void;
-  onOpenDialog: (job: JobFamily) => Promise<void>;
+  onOpenDialog: (job: JobFamily) => void;
 }
 
 const JOB_FAMILY: JobFamily[] = ['FE', 'BE', 'PM', 'PD'];
@@ -33,7 +33,7 @@ function SelectBox({ selectedJob, onLoadQuestion, onOpenDialog }: selectBoxProps
     if (!selectedJob) {
       onLoadQuestion(job);
     } else if (selectedJob !== job) {
-      void onOpenDialog(job);
+      onOpenDialog(job);
     }
 
     setIsOpen(false);
