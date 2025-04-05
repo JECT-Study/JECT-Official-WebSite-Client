@@ -2,13 +2,19 @@ export interface Email {
   email: string;
 }
 
+export type EmailExistsResponse = boolean;
+
 export interface VerificationEmailCodePayload {
   email: string;
-  verificationEmailCode: string;
+  authCode: string;
 }
 
-export interface VerificationEmailCodeResponseData {
-  verificationToken: string;
+export interface VerificationEmailCodeQueryParams {
+  template: 'CERTIFIACTE' | 'PIN_RESET';
+}
+
+export interface VerificationEmailCodeResponse {
+  token: string;
 }
 
 export interface PinLoginPayload {
@@ -20,8 +26,6 @@ export interface PinLoginResponseData {
   accessToken: string;
   refreshToken: string;
 }
-
-export type EmailExistsResponse = boolean;
 
 export interface MemberProfileInitialPayload {
   name: string;
