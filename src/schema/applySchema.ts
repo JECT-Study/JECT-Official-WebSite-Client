@@ -11,11 +11,11 @@ export const applyEmailSchema = z.object({
 
 export type ApplyEmailFormData = z.infer<typeof applyEmailSchema>;
 
-export const applyVerificationEmailCodeSchema = z.object({
-  verificationEmailCode: z.string().regex(/^\d{6}$/, '인증번호는 6자리 숫자여야 합니다.'),
+export const applyAuthCodeSchema = z.object({
+  authCode: z.string().regex(/^\d{6}$/, '인증번호는 6자리 숫자여야 합니다.'),
 });
 
-export type ApplyVerificationEmailCodeFormData = z.infer<typeof applyVerificationEmailCodeSchema>;
+export type ApplyAuthCodeFormData = z.infer<typeof applyAuthCodeSchema>;
 
 export const applyPinSchema = z.object({
   pin: z.string().regex(/^\d{6}$/, 'PIN은 6자리 숫자여야 합니다.'),
