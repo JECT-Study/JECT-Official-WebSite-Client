@@ -2,17 +2,18 @@ import { useMutation, UseMutationResult } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 
 import { postPinLogin } from '@/apis/apply';
-import { PinLoginPayload, PinLoginResponseData } from '@/types/apis/apply';
+import { PinLoginPayload, PinLoginResponse } from '@/types/apis/apply';
 import { ApiResponse } from '@/types/apis/response';
 import { isLocalStorageEnabled, tokenUtils } from '@/utils/interceptor';
 
 export const usePinLoginMutation = (): UseMutationResult<
-  ApiResponse<PinLoginResponseData>,
+  ApiResponse<PinLoginResponse>,
   AxiosError,
   PinLoginPayload,
   unknown
 > => {
   return useMutation({
+    mutationKey: ['postPinLogin'],
     mutationFn: postPinLogin,
     onMutate: variables => {
       console.log('usePinLoginMutation 시작, variables:', variables);
