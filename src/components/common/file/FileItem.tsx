@@ -23,11 +23,17 @@ function FileItem({ file, onDelete, isDisabled = false, feedback = null }: FileI
   const feedbackType = isNetworkError ? 'error' : feedback;
 
   const openFile = () => {
-    if (isDisabled || !file || !rawFile) return;
+    if (isDisabled || (!fileUrl && !rawFile)) return;
 
-    const url = fileUrl ?? URL.createObjectURL(rawFile);
+    let url = '';
 
-    window.open(url, '_blank', 'noopener,noreferrer');
+    if (fileUrl) {
+      url = fileUrl;
+    } else if (rawFile) {
+      url = URL.createObjectURL(rawFile);
+    }
+
+    if (url) window.open(url, '_blank', 'noopener,noreferrer');
 
     if (!fileUrl) setTimeout(() => URL.revokeObjectURL(url), 5000);
   };
