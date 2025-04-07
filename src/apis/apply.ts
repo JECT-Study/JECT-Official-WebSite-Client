@@ -6,7 +6,7 @@ import {
   MemberProfileInitialPayload,
   MemberProfileInitialResponseData,
   PinLoginPayload,
-  PinLoginResponseData,
+  PinLoginResponse,
   RegisterMemberPayload,
   RegisterMemberResponseData,
   VerificationEmailCodePayload,
@@ -43,10 +43,10 @@ export const postVerificationEmailCode = async (
 };
 
 export const postPinLogin = async (data: PinLoginPayload) => {
-  return await requestHandler<PinLoginResponseData, { email: string; pin: string }>(
+  return await requestHandler<PinLoginResponse, PinLoginPayload>(
     'post',
     API_ENDPOINT.pinLogin,
-    { email: data.email, pin: data.pin },
+    data,
   );
 };
 
