@@ -54,14 +54,16 @@ function Dialog() {
             <BlockButton onClick={handleClickPrimaryBtn} size='md' hierarchy='accent' style='solid'>
               {primaryBtnLabel}
             </BlockButton>
-            <BlockButton
-              onClick={handleClickSecondaryBtn}
-              size='md'
-              hierarchy='secondary'
-              style='solid'
-            >
-              {secondaryBtnLabel}
-            </BlockButton>
+            {secondaryBtnLabel && (
+              <BlockButton
+                onClick={handleClickSecondaryBtn}
+                size='md'
+                hierarchy='secondary'
+                style='solid'
+              >
+                {secondaryBtnLabel}
+              </BlockButton>
+            )}
           </div>
         </div>
       </div>

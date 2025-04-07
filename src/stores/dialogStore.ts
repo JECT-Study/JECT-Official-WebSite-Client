@@ -7,7 +7,7 @@ interface Dialog {
   title: string;
   content: ReactNode;
   primaryBtnLabel: string;
-  secondaryBtnLabel: string;
+  secondaryBtnLabel?: string;
 }
 
 type ItemState = Dialog & {
@@ -54,7 +54,7 @@ const useDialogStore = create<DialogState>(set => ({
           title: option.title,
           content: option.content,
           primaryBtnLabel: option.primaryBtnLabel,
-          secondaryBtnLabel: option.secondaryBtnLabel,
+          secondaryBtnLabel: option.secondaryBtnLabel ?? state.item.secondaryBtnLabel,
           onPrimaryBtnClick: option.onPrimaryBtnClick ?? state.item.onPrimaryBtnClick,
           onSecondaryBtnClick: option.onSecondaryBtnClick ?? state.item.onSecondaryBtnClick,
         },
