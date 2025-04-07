@@ -1,6 +1,7 @@
 import { API_ENDPOINT } from '@/constants/apiEndpoint';
 import {
   Email,
+  EmailAuthPayload,
   EmailExistsResponse,
   MemberProfileInitialPayload,
   MemberProfileInitialResponseData,
@@ -20,10 +21,10 @@ export const checkEmailExists = async ({ email }: Email) => {
   return await requestHandler<EmailExistsResponse>('get', url);
 };
 
-export const postEmailAuthCode = async ({ email }: Email) => {
-  const params = new URLSearchParams({ email });
+export const postEmailAuthCode = async ({ email, template }: EmailAuthPayload) => {
+  const params = new URLSearchParams({ email, template });
   const url = `${API_ENDPOINT.sendEmailAuthCode}?${params.toString()}`;
-  return await requestHandler<boolean>('post', url);
+  return await requestHandler<null>('post', url);
 };
 
 export const postVerificationEmailCode = async (
