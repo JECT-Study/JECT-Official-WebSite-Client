@@ -113,7 +113,7 @@ function FileField({ data, onChange, values }: FileFieldProps) {
     <fieldset className='gap-2xl flex flex-col'>
       <Title hierarchy='normal'>{data.title}</Title>
       <InputFile
-        labelText='첨부파일'
+        labelText={data.label}
         maxSize={data.maxFileSize ?? 100}
         fileExtensions={['pdf']}
         currentSize={totalSize}

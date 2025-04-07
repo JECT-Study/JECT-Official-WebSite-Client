@@ -49,7 +49,7 @@ function SelectField({ data, onChange, value }: SelectFieldProps) {
           onKeyUp={({ key }) => key === 'Enter' && setIsOpen(prev => !prev)}
           value={selectedItem}
           required={data.isRequired}
-          labelText='답변'
+          labelText={data.label}
           isError={false}
           isSuccess={false}
           placeholder={data.inputHint}
