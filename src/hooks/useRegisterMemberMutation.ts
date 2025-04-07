@@ -22,6 +22,10 @@ export const useRegisterMemberMutation = (): UseMutationResult<
     mutationFn: variables => {
       const { pin, verificationToken } = variables;
 
+      if (isLocalStorageEnabled) {
+        tokenUtils.removeTokens();
+      }
+
       const payload: RegisterMemberPayload = { pin };
 
       const options = {
