@@ -8,7 +8,7 @@ import {
   PinLoginPayload,
   PinLoginResponse,
   RegisterMemberPayload,
-  RegisterMemberResponseData,
+  RegisterMemberResponse,
   VerificationEmailCodePayload,
   VerificationEmailCodeQueryParams,
   VerificationEmailCodeResponse,
@@ -62,7 +62,7 @@ export const postRegisterMember = async (
   data: RegisterMemberPayload,
   options?: { headers: { Authorization: string } },
 ) => {
-  return await requestHandler<RegisterMemberResponseData, RegisterMemberPayload>(
+  return await requestHandler<RegisterMemberResponse, RegisterMemberPayload>(
     'post',
     API_ENDPOINT.registerMember,
     data,

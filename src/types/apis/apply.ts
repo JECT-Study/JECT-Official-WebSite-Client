@@ -42,7 +42,7 @@ export interface RegisterMemberPayload {
   pin: string;
 }
 
-export interface RegisterMemberResponseData {
+export interface RegisterMemberResponse {
   accessToken: string;
   refreshToken: string;
 }
