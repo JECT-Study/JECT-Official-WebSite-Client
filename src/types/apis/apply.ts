@@ -26,7 +26,7 @@ export interface PinLoginPayload {
   pin: string;
 }
 
-export interface PinLoginResponseData {
+export interface PinLoginResponse {
   accessToken: string;
   refreshToken: string;
 }
