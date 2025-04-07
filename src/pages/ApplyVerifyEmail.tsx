@@ -86,7 +86,7 @@ function ApplyVerifyEmail({
             return;
           }
           setStoredEmail(email);
-          emailMutate({ email });
+          emailMutate({ email, template: 'CERTIFICATE' });
           setStep(2);
         },
         onError: error => {
@@ -105,7 +105,7 @@ function ApplyVerifyEmail({
     verifyEmailCodeMutate(
       {
         payload: { email: storedEmail, authCode },
-        queryParams: { template: 'CERTIFIACTE' },
+        queryParams: { template: 'CERTIFICATE' },
       },
       {
         onSuccess: response => {
