@@ -29,3 +29,8 @@ export const APPLY_MESSAGE = {
     reset: '포지션을 변경해서 답변들이 초기화됐어요. ',
   },
 };
+
+export const APPLY_SNACKBAR = {
+  default: '지금은 젝트 3기 모집 기간이에요!',
+  main: '젝트에서 함께 재밌는 프로젝트 해요!',
+};
