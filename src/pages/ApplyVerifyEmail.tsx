@@ -69,6 +69,8 @@ function ApplyVerifyEmail({
   const { mutate: registerMemberMutate, isPending: isRegisteringMember } =
     useRegisterMemberMutation();
 
+  const authCodeValue = watchVerification('authCode');
+
   useEffect(() => {
     if (step >= 2 && !isAuthCodeExpired) {
       setEmailButtonText('인증번호 발송됨');
@@ -219,6 +221,23 @@ function ApplyVerifyEmail({
     return '';
   };
 
+  const renderVerificationButton = () => {
+    if (!authCodeValue) {
+      return null;
+    }
+
+    return (
+      <LabelButton
+        type='submit'
+        size='md'
+        hierarchy='accent'
+        disabled={!isVerificationValid || isEmailCodeLoading || step === 3}
+      >
+        {step === 3 ? '인증 완료됨' : '인증하기'}
+      </LabelButton>
+    );
+  };
+
   return (
     <div
       className={`gap-9xl flex flex-col items-center ${isResetPin ? 'pt-(--gap-12xl)' : 'pt-(--gap-9xl)'} pb-(--gap-12xl)`}
@@ -269,16 +288,7 @@ function ApplyVerifyEmail({
                   disabled={false}
                   helper={getVerificationHelperText()}
                   placeholder='이메일 주소로 발송된 인증번호 6자리를 입력해주세요'
-                  InputChildren={
-                    <LabelButton
-                      type='submit'
-                      size='md'
-                      hierarchy='accent'
-                      disabled={!isVerificationValid || isEmailCodeLoading || step === 3}
-                    >
-                      {step === 3 ? '인증 완료됨' : '인증하기'}
-                    </LabelButton>
-                  }
+                  InputChildren={renderVerificationButton()}
                   {...registerVerification('authCode')}
                 />
               </form>
