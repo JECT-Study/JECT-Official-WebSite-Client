@@ -161,7 +161,7 @@ function ApplyRegistration() {
               style='solid'
               hierarchy='accent'
               disabled={!isStepCompleted}
-              onClick={() => void openDialogSubmitAnswer()}
+              onClick={openDialogSubmitAnswer}
             >
               지원서 제출하기
             </BlockButton>
