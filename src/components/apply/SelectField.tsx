@@ -33,7 +33,7 @@ function SelectField({ data, onChange, value }: SelectFieldProps) {
 
     if (!item) return setIsOpen(false);
 
-    onChange(data.id, selectedItem);
+    onChange(data.id, item);
     setSelectedItem(item);
     setIsOpen(false);
   };
