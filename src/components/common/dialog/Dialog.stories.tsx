@@ -78,3 +78,29 @@ export const VerticalDialogStory: Story = {
     );
   },
 };
+
+export const OneButtonDialogStory: Story = {
+  name: 'One Button Dialog Story',
+  render: function Render() {
+    const { openDialog } = useDialogActions();
+
+    const handleClick = () => {
+      openDialog({
+        title: '다이얼로그 타이틀',
+        content: '다이얼로그 내용',
+        btnLayout: 'vertical',
+        primaryBtnLabel: '버튼1',
+        onPrimaryBtnClick: () => action('버튼1 클릭'),
+      });
+    };
+
+    return (
+      <>
+        <BlockButton size='md' style='solid' hierarchy='accent' onClick={() => void handleClick()}>
+          버튼 하나인 다이얼로그 열기
+        </BlockButton>
+        <Dialog />
+      </>
+    );
+  },
+};
