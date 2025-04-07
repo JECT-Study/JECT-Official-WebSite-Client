@@ -2,26 +2,26 @@ import { useMutation, UseMutationResult } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 
 import { postEmailAuthCode } from '@/apis/apply';
-import { Email } from '@/types/apis/apply';
+import { EmailAuthPayload } from '@/types/apis/apply';
 import { ApiResponse } from '@/types/apis/response';
 
 export const useEmailAuthCodeMutation = (): UseMutationResult<
-  ApiResponse<boolean>,
+  ApiResponse<null>,
   AxiosError,
-  Email,
+  EmailAuthPayload,
   unknown
 > => {
   return useMutation({
     mutationKey: ['postEmailAuthCode'],
     mutationFn: postEmailAuthCode,
-    onMutate: email => {
-      console.log('mutation 시작, email:', email);
+    onMutate: variables => {
+      console.log('useEmailAuthCodeMutation 시작, variables:', variables);
     },
     onSuccess: data => {
-      console.log('mutation 성공:', data);
+      console.log('useEmailAuthCodeMutation 성공:', data);
     },
     onError: error => {
-      console.error('mutation 에러:', error);
+      console.error('useEmailAuthCodeMutation 에러:', error);
     },
   });
 };
