@@ -4,7 +4,7 @@ import {
   EmailAuthPayload,
   EmailExistsResponse,
   MemberProfileInitialPayload,
-  MemberProfileInitialResponseData,
+  MemberProfileInitialResponse,
   PinLoginPayload,
   PinLoginResponse,
   RegisterMemberPayload,
@@ -51,7 +51,7 @@ export const postPinLogin = async (data: PinLoginPayload) => {
 };
 
 export const putMemberProfileInitial = async (data: MemberProfileInitialPayload) => {
-  return await requestHandler<MemberProfileInitialResponseData, MemberProfileInitialPayload>(
+  return await requestHandler<MemberProfileInitialResponse, MemberProfileInitialPayload>(
     'put',
     API_ENDPOINT.memberProfileInitial,
     data,

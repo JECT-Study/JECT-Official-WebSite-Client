@@ -36,7 +36,7 @@ export interface MemberProfileInitialPayload {
   phoneNumber: string;
 }
 
-export type MemberProfileInitialResponseData = null;
+export type MemberProfileInitialResponse = null;
 
 export interface RegisterMemberPayload {
   pin: string;
