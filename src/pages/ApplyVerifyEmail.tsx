@@ -11,7 +11,7 @@ import ProgressIndicator from '@/components/common/progress/ProgressIndicator';
 import Title from '@/components/common/title/Title';
 import { APPLY_TITLE } from '@/constants/applyPageData';
 import { PATH } from '@/constants/path';
-import { useApplyAuthCodeForm } from '@/hooks/useApplyAuthCodeForm.ts';
+import { useApplyAuthCodeForm } from '@/hooks/useApplyAuthCodeForm';
 import { useApplyEmailForm } from '@/hooks/useApplyEmailForm';
 import { useApplyPinForm } from '@/hooks/useApplyPinForm';
 import { useCheckEmailExistsMutation } from '@/hooks/useCheckEmailExistMutation';
