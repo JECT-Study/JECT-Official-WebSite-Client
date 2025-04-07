@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import NewTabLink from '@/components/apply/NewTabLink';
@@ -39,6 +39,8 @@ function ApplyVerifyEmail({
   const [step, setStep] = useState(1);
   const [isTermsChecked, setIsTermsChecked] = useState(false);
   const [verificationToken, setVerificationToken] = useState<string | null>(null);
+  const [isAuthCodeExpired, setIsAuthCodeExpired] = useState(false);
+  const [emailButtonText, setEmailButtonText] = useState('인증번호 받기');
 
   const {
     register: registerEmail,
@@ -67,6 +69,16 @@ function ApplyVerifyEmail({
   const { mutate: registerMemberMutate, isPending: isRegisteringMember } =
     useRegisterMemberMutation();
 
+  useEffect(() => {
+    if (step >= 2 && !isAuthCodeExpired) {
+      setEmailButtonText('인증번호 발송됨');
+    } else if (isAuthCodeExpired) {
+      setEmailButtonText('인증번호 재발송');
+    } else {
+      setEmailButtonText('인증번호 받기');
+    }
+  }, [step, isAuthCodeExpired]);
+
   const onEmailSubmit = ({ email }: Email) => {
     console.log('이메일 유효성 검사 통과, 회원 존재 여부 확인 API 요청 실행', { email });
 
@@ -88,6 +100,7 @@ function ApplyVerifyEmail({
           setStoredEmail(email);
           emailMutate({ email, template: 'CERTIFICATE' });
           setStep(2);
+          setIsAuthCodeExpired(false);
         },
         onError: error => {
           console.error('이메일 존재 여부 확인 실패:', error);
@@ -120,6 +133,7 @@ function ApplyVerifyEmail({
                 break;
               case 'NOT_FOUND_AUTH_CODE':
                 errorMessage = '인증번호 유효 시간이 초과되었어요.';
+                setIsAuthCodeExpired(true);
                 break;
             }
 
@@ -233,9 +247,13 @@ function ApplyVerifyEmail({
                     style='solid'
                     hierarchy='secondary'
                     className='h-full'
-                    disabled={!isEmailValid || isEmailLoading}
+                    disabled={
+                      (step >= 2 && !isAuthCodeExpired && !isEmailLoading) ||
+                      !isEmailValid ||
+                      isEmailLoading
+                    }
                   >
-                    인증번호 받기
+                    {emailButtonText}
                   </BlockButton>
                 </InputField>
               </form>
