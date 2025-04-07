@@ -141,7 +141,7 @@ function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
             style='solid'
             hierarchy='accent'
           >
-            다음 단계로 진행하기
+            PIN 다시 설정 완료하기
           </BlockButton>
         </div>
       </section>
