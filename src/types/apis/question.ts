@@ -2,12 +2,15 @@ export type JobFamily = 'PM' | 'PD' | 'FE' | 'BE';
 
 export interface Question {
   id: number;
+  sequence: number;
   inputType: 'TEXT' | 'URL' | 'FILE' | 'SELECT';
-  title: string;
-  body: null | string[];
-  inputHint: string;
-  maxLength: number | null;
   isRequired: boolean;
+  title: string;
+  label: string;
+  selectOptions: null | string[];
+  inputHint: string;
+  maxTextLength: number | null;
+  maxFileSize: number | null;
 }
 
 export type QuestionResponse = Question[];

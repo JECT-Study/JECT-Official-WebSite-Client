@@ -24,12 +24,12 @@ function SelectField({ data, onChange, value }: SelectFieldProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [selectedItem, setSelectedItem] = useState(value ?? '');
   const { isOpen, setIsOpen } = useCloseOutside([selectRef, inputRef]);
-  const selectLabels = data.body?.map(item => ({ label: item })) ?? [];
+  const selectLabels = data.selectOptions?.map(item => ({ label: item })) ?? [];
 
   const handleSelect = (label: string | null) => {
-    if (!data.body) return;
+    if (!data.selectOptions) return;
 
-    const item = data.body.find(item => item === label);
+    const item = data.selectOptions.find(item => item === label);
 
     if (!item) return setIsOpen(false);
 

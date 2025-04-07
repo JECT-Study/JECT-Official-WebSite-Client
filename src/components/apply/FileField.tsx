@@ -114,7 +114,7 @@ function FileField({ data, onChange, values }: FileFieldProps) {
       <Title hierarchy='normal'>{data.title}</Title>
       <InputFile
         labelText='첨부파일'
-        maxSize={100}
+        maxSize={data.maxFileSize ?? 100}
         fileExtensions={['pdf']}
         currentSize={totalSize}
         isDisabled={false}

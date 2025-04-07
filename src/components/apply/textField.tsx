@@ -23,7 +23,7 @@ function TextField({ data, onChange, value }: TextFieldProps) {
       <InputArea
         labelText='답변'
         errorHelper={APPLY_MESSAGE.invalid.exceedText}
-        maxLength={data.maxLength || undefined}
+        maxLength={data.maxTextLength || undefined}
         required={data.isRequired}
         placeholder={data.inputHint}
         onChange={handleChange}
