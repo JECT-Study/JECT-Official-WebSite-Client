@@ -52,12 +52,13 @@ export const createClient = (config?: AxiosRequestConfig): AxiosInstance => {
     headers: {
       'content-type': 'application/json',
     },
+    withCredentials: !isLocalEnvironment,
     ...config,
   });
 
   instance.interceptors.request.use(
     config => {
-      if (isLocalStorageEnabled) {
+      if (isLocalStorageEnabled && isLocalEnvironment) {
         const accessToken = tokenUtils.getAccessToken();
         if (accessToken && config.headers) {
           config.headers.Authorization = `Bearer ${accessToken}`;
