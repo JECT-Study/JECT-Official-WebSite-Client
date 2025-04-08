@@ -1,12 +1,8 @@
 import { ReactNode } from 'react';
 
+import { DialogTypes } from '@/types/ui/dialog';
+
 type BtnLayout = 'vertical' | 'horizontal' | 'singleButton';
-export type DialogTypes =
-  | 'example'
-  | 'changeJob'
-  | 'submitAnswer'
-  | 'expiredSession'
-  | 'continueWriting';
 
 interface DialogContent {
   btnLayout: BtnLayout;
@@ -28,7 +24,7 @@ export const dialogTypes: Record<DialogTypes, DialogContent> = {
     btnLayout: 'horizontal',
     title: '다른 직군으로 변경하시겠어요?',
     primaryBtnLabel: '변경하기',
-    secondaryBtnLabel: '변경하지 말기',
+    secondaryBtnLabel: '변경하지 않기',
     content: (
       <>
         작성된 답변 내용들은 모두 초기화되고,
@@ -53,8 +49,8 @@ export const dialogTypes: Record<DialogTypes, DialogContent> = {
   continueWriting: {
     btnLayout: 'horizontal',
     title: '작성 중이던 지원서가 있어요',
-    primaryBtnLabel: '새로 작성하기',
-    secondaryBtnLabel: '이어서 작성하기',
+    primaryBtnLabel: '이어서 작성하기',
+    secondaryBtnLabel: '새로 작성하기',
     content: '이어서 작성하거나 새로 작성할 수도 있어요.',
   },
 };
