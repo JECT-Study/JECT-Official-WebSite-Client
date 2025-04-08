@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-import { DialogTypes } from '@/constants/dialog';
+import { DialogTypes } from '@/types/ui/dialog';
 
 interface Actions {
   openDialog: (option: {
@@ -35,13 +35,7 @@ const useDialogStore = create<DialogState>(set => ({
   actions: {
     openDialog: option => {
       set(state => ({
-        item: {
-          ...state.item,
-          isOpen: true,
-          type: option.type ?? state.item.type,
-          onPrimaryBtnClick: option.onPrimaryBtnClick ?? state.item.onPrimaryBtnClick,
-          onSecondaryBtnClick: option.onSecondaryBtnClick ?? state.item.onSecondaryBtnClick,
-        },
+        item: { ...state.item, ...option, isOpen: true },
       }));
     },
     resetDialog: () => set(() => ({ item: initialDialogState })),
