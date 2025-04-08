@@ -35,10 +35,10 @@ const useApplicationState = () => {
     if (portfolios) setAnswersPayload(prev => ({ ...prev, portfolios }));
   }, []);
 
-  const resetAnswers = useCallback(() => {
-    setQuestionJob(selectedJob);
+  const resetAnswers = useCallback((job: JobFamily) => {
+    setQuestionJob(job);
     setAnswersPayload(initialAnswer);
-  }, [selectedJob]);
+  }, []);
 
   const revertSelect = useCallback(() => {
     setSelectedJob(questionJob);
