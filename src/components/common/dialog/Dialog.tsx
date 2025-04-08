@@ -9,14 +9,12 @@ function Dialog() {
   const { resetDialog } = useDialogActions();
 
   const handleClickPrimaryBtn = () => {
-    if (onPrimaryBtnClick) onPrimaryBtnClick();
-
+    onPrimaryBtnClick?.();
     resetDialog();
   };
 
   const handleClickSecondaryBtn = () => {
-    if (onSecondaryBtnClick) onSecondaryBtnClick();
-
+    onSecondaryBtnClick?.();
     resetDialog();
   };
 
