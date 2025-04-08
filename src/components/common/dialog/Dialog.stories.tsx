@@ -13,7 +13,7 @@ const meta: Meta<typeof Dialog> = {
     docs: {
       description: {
         component:
-          'Dialog 컴포넌트는 Layout 컴포넌트에 포함되어있으며 Dialog를 띄우려면 useDialogActions의 openDialog 메서드를 사용합니다. 필요한 페이지에 Dialog 컴포넌트를 불러와 작성하지 않습니다. <br/> Dialog에 들어가는 내용과 함수는 zustand로 관리됩니다.  <br/> 버튼에 할당되는 함수는 openDialog의 option으로 전달하여 지정할 수 있습니다.',
+          'Dialog 컴포넌트는 Layout 컴포넌트에 포함되어있으며 Dialog를 띄우려면 useDialogActions의 openDialog 메서드를 사용합니다. 필요한 페이지에 Dialog 컴포넌트를 불러와 작성하지 않습니다. <br/> Dialog에 들어가는 내용과 함수는 zustand로 관리됩니다. 버튼에 할당되는 함수는 openDialog의 option으로 전달하여 지정할 수 있습니다.',
       },
     },
   },
@@ -28,7 +28,7 @@ export const HorizontalDialogStory: Story = {
   render: function Render() {
     const { openDialog } = useDialogActions();
 
-    const handleClick = () => {
+    const handleDialogClick = () => {
       openDialog({
         title: '다이얼로그 타이틀',
         content: '다이얼로그 내용',
@@ -42,7 +42,7 @@ export const HorizontalDialogStory: Story = {
 
     return (
       <>
-        <BlockButton size='md' style='solid' hierarchy='accent' onClick={handleClick}>
+        <BlockButton size='md' style='solid' hierarchy='accent' onClick={handleDialogClick}>
           horizontal 다이얼로그 열기
         </BlockButton>
         <Dialog />
@@ -56,7 +56,7 @@ export const VerticalDialogStory: Story = {
   render: function Render() {
     const { openDialog } = useDialogActions();
 
-    const handleClick = () => {
+    const handleDialogClick = () => {
       openDialog({
         title: '다이얼로그 타이틀',
         content: '다이얼로그 내용',
@@ -70,7 +70,7 @@ export const VerticalDialogStory: Story = {
 
     return (
       <>
-        <BlockButton size='md' style='solid' hierarchy='accent' onClick={() => void handleClick()}>
+        <BlockButton size='md' style='solid' hierarchy='accent' onClick={handleDialogClick}>
           Vertical 다이얼로그 열기
         </BlockButton>
         <Dialog />
@@ -84,7 +84,7 @@ export const OneButtonDialogStory: Story = {
   render: function Render() {
     const { openDialog } = useDialogActions();
 
-    const handleClick = () => {
+    const handleDialogClick = () => {
       openDialog({
         title: '다이얼로그 타이틀',
         content: '다이얼로그 내용',
@@ -96,7 +96,7 @@ export const OneButtonDialogStory: Story = {
 
     return (
       <>
-        <BlockButton size='md' style='solid' hierarchy='accent' onClick={() => void handleClick()}>
+        <BlockButton size='md' style='solid' hierarchy='accent' onClick={handleDialogClick}>
           버튼 하나인 다이얼로그 열기
         </BlockButton>
         <Dialog />
