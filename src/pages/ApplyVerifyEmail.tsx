@@ -238,6 +238,13 @@ function ApplyVerifyEmail({
     );
   };
 
+  const isSubmitButtonDisabled =
+    !isPinValid || isRegisteringMember || (!isReVerification && !isTermsChecked);
+
+  const rightIconFillColor = isSubmitButtonDisabled
+    ? 'fill-accent-trans-hero-dark'
+    : 'fill-object-static-inverse-hero-dark';
+
   return (
     <div
       className={`gap-9xl flex flex-col items-center ${isResetPin ? 'pt-(--gap-12xl)' : 'pt-(--gap-9xl)'} pb-(--gap-12xl)`}
@@ -358,12 +365,11 @@ function ApplyVerifyEmail({
             <BlockButton
               type='submit'
               form='registerForm'
-              disabled={
-                !isPinValid || isRegisteringMember || (!isReVerification && !isTermsChecked)
-              }
+              disabled={isSubmitButtonDisabled}
               size='lg'
               style='solid'
               hierarchy='accent'
+              rightIcon={<Icon name='forward' size='md' fillColor={rightIconFillColor} />}
             >
               다음 단계로 진행하기
             </BlockButton>
