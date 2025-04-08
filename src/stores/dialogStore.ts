@@ -1,43 +1,31 @@
-import { ReactNode } from 'react';
 import { create } from 'zustand';
 
-interface Dialog {
-  isOpen: boolean;
-  btnLayout: 'vertical' | 'horizontal';
-  title: string;
-  content: ReactNode;
-  primaryBtnLabel: string;
-  secondaryBtnLabel?: string;
-}
-
-type ItemState = Dialog & {
-  onPrimaryBtnClick: (() => void) | null;
-  onSecondaryBtnClick: (() => void) | null;
-};
-
-type OpenDialogProps = Omit<Dialog, 'isOpen'> & {
-  onPrimaryBtnClick?: () => void;
-  onSecondaryBtnClick?: () => void;
-};
+import { DialogTypes } from '@/constants/dialog';
 
 interface Actions {
-  openDialog: (option: OpenDialogProps) => void;
-  closeDialog: () => void;
+  openDialog: (option: {
+    type: DialogTypes;
+    onPrimaryBtnClick?: () => void;
+    onSecondaryBtnClick?: () => void;
+  }) => void;
   resetDialog: () => void;
 }
 
+interface Item {
+  isOpen: boolean;
+  type: DialogTypes | null;
+  onPrimaryBtnClick: (() => void) | null;
+  onSecondaryBtnClick: (() => void) | null;
+}
+
 interface DialogState {
-  item: ItemState;
+  item: Item;
   actions: Actions;
 }
 
-const initialDialogState: DialogState['item'] = {
+const initialDialogState: Item = {
   isOpen: false,
-  btnLayout: 'vertical',
-  title: '',
-  content: '',
-  primaryBtnLabel: '',
-  secondaryBtnLabel: '',
+  type: null,
   onPrimaryBtnClick: null,
   onSecondaryBtnClick: null,
 };
@@ -50,17 +38,12 @@ const useDialogStore = create<DialogState>(set => ({
         item: {
           ...state.item,
           isOpen: true,
-          btnLayout: option.btnLayout,
-          title: option.title,
-          content: option.content,
-          primaryBtnLabel: option.primaryBtnLabel,
-          secondaryBtnLabel: option.secondaryBtnLabel ?? state.item.secondaryBtnLabel,
+          type: option.type ?? state.item.type,
           onPrimaryBtnClick: option.onPrimaryBtnClick ?? state.item.onPrimaryBtnClick,
           onSecondaryBtnClick: option.onSecondaryBtnClick ?? state.item.onSecondaryBtnClick,
         },
       }));
     },
-    closeDialog: () => set(state => ({ item: { ...state.item, isOpen: false } })),
     resetDialog: () => set(() => ({ item: initialDialogState })),
   },
 }));
