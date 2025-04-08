@@ -15,13 +15,13 @@ type ItemState = Dialog & {
   onSecondaryBtnClick: (() => void) | null;
 };
 
-type OpenDialogProp = Omit<Dialog, 'isOpen'> & {
+type OpenDialogProps = Omit<Dialog, 'isOpen'> & {
   onPrimaryBtnClick?: () => void;
   onSecondaryBtnClick?: () => void;
 };
 
 interface Actions {
-  openDialog: (option: OpenDialogProp) => void;
+  openDialog: (option: OpenDialogProps) => void;
   closeDialog: () => void;
   resetDialog: () => void;
 }
