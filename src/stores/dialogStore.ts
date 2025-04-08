@@ -34,9 +34,7 @@ const useDialogStore = create<DialogState>(set => ({
   item: initialDialogState,
   actions: {
     openDialog: option => {
-      set(state => ({
-        item: { ...state.item, ...option, isOpen: true },
-      }));
+      set(state => ({ item: { ...state.item, ...option, isOpen: true } }));
     },
     resetDialog: () => set(() => ({ item: initialDialogState })),
   },
