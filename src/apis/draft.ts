@@ -19,3 +19,7 @@ export const postDraft = async ({ param, answers }: PostDraftProps) => {
 export const getDraft = async () => {
   return await requestHandler<AnswersResponse>('get', API_ENDPOINT.draft);
 };
+
+export const deleteDraft = async () => {
+  return await requestHandler<null>('delete', API_ENDPOINT.draft);
+};
