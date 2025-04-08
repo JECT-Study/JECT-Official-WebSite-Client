@@ -13,7 +13,7 @@ const meta: Meta<typeof Dialog> = {
     docs: {
       description: {
         component:
-          'Dialog 컴포넌트는 Layout 컴포넌트에 포함되어있으며 Dialog를 띄우려면 useDialogActions의 openDialog 메서드를 사용합니다. 필요한 페이지에 Dialog 컴포넌트를 불러와 작성하지 않습니다. <br/> Dialog에 들어가는 내용과 함수는 zustand로 관리됩니다. 버튼에 할당되는 함수는 openDialog의 option으로 전달하여 지정할 수 있습니다.',
+          'Dialog 컴포넌트는 Layout 컴포넌트에 포함되어있으며 Dialog를 띄우려면 useDialogActions의 openDialog 메서드를 사용합니다. 필요한 페이지에 Dialog 컴포넌트를 불러와 작성하지 않습니다. <br/> Dialog의 정적인 내용은 객체 데이터로 관리되며, Dialog의 열림 닫힘 상태, 다이얼로그 타입(어떤 객체데이터인지), 버튼의 액션은 zustand로 관리됩니다.',
       },
     },
   },
@@ -30,11 +30,7 @@ export const HorizontalDialogStory: Story = {
 
     const handleDialogClick = () => {
       openDialog({
-        title: '다이얼로그 타이틀',
-        content: '다이얼로그 내용',
-        btnLayout: 'horizontal',
-        primaryBtnLabel: '버튼1',
-        secondaryBtnLabel: '버튼2',
+        type: 'changeJob',
         onPrimaryBtnClick: () => action('버튼1 클릭'),
         onSecondaryBtnClick: () => action('버튼2 클릭'),
       });
@@ -58,11 +54,7 @@ export const VerticalDialogStory: Story = {
 
     const handleDialogClick = () => {
       openDialog({
-        title: '다이얼로그 타이틀',
-        content: '다이얼로그 내용',
-        btnLayout: 'vertical',
-        primaryBtnLabel: '버튼1',
-        secondaryBtnLabel: '버튼2',
+        type: 'example',
         onPrimaryBtnClick: () => action('버튼1 클릭'),
         onSecondaryBtnClick: () => action('버튼2 클릭'),
       });
@@ -79,17 +71,14 @@ export const VerticalDialogStory: Story = {
   },
 };
 
-export const OneButtonDialogStory: Story = {
-  name: 'One Button Dialog Story',
+export const SingleButtonDialogStory: Story = {
+  name: 'Single Button Dialog Story',
   render: function Render() {
     const { openDialog } = useDialogActions();
 
     const handleDialogClick = () => {
       openDialog({
-        title: '다이얼로그 타이틀',
-        content: '다이얼로그 내용',
-        btnLayout: 'vertical',
-        primaryBtnLabel: '버튼1',
+        type: 'expiredSession',
         onPrimaryBtnClick: () => action('버튼1 클릭'),
       });
     };
@@ -97,7 +86,7 @@ export const OneButtonDialogStory: Story = {
     return (
       <>
         <BlockButton size='md' style='solid' hierarchy='accent' onClick={handleDialogClick}>
-          버튼 하나인 다이얼로그 열기
+          single Button 다이얼로그 열기
         </BlockButton>
         <Dialog />
       </>
