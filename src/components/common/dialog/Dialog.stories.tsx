@@ -13,7 +13,7 @@ const meta: Meta<typeof Dialog> = {
     docs: {
       description: {
         component:
-          'Dialog 컴포넌트는 Layout 컴포넌트에 포함되어있으며 Dialog를 띄우려면 useDialogActions의 openDialog 메서드를 사용합니다. 필요한 페이지에 Dialog 컴포넌트를 불러와 작성하지 않습니다. <br/> Dialog의 정적인 내용은 객체 데이터로 관리되며, Dialog의 열림 닫힘 상태, 다이얼로그 타입(어떤 객체데이터인지), 버튼의 액션은 zustand로 관리됩니다.',
+          'Dialog 컴포넌트는 Layout 컴포넌트에 포함되어있으며 Dialog를 띄우려면 useDialogActions의 openDialog 메서드를 사용합니다. 필요한 페이지에 Dialog 컴포넌트를 불러와 작성하지 않습니다. <br/> Dialog의 정적인 내용은 객체 데이터로 관리되며, Dialog의 열림 닫힘 상태, 다이얼로그 타입(어떤 객체데이터인지), 버튼의 액션은 zustand로 관리됩니다. <br/> openDialog 메서드 사용 시 버튼 액션을 작성하지 않으면 단순 다이얼로그 닫기 동작과 동일합니다.',
       },
     },
   },
