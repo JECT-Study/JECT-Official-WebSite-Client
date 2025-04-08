@@ -8,7 +8,7 @@ interface InputProps extends ComponentPropsWithoutRef<'input'> {
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ children, isError = false, disabled, className, ...props }, ref) => {
+  ({ children, isError = false, disabled, className = '', ...props }, ref) => {
     return (
       <div
         className={clsx(

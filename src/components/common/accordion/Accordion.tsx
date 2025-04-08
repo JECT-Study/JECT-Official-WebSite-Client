@@ -11,6 +11,7 @@ interface AccordionProps {
   caption: ReactNode;
 }
 
+// TODO : Select 컴포넌트 처럼 기본 펼침 상태(Select 에서는 선택 상태)를 제어할 수 있는 props 필요
 function Accordion({ title, label, children, caption }: AccordionProps) {
   const [isOpen, setIsOpen] = useState(false);
 

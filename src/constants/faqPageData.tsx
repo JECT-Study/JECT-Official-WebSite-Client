@@ -66,6 +66,15 @@ export const faqApply: Faq[] = [
     ),
     caption: '젝트의 지향점에 공감할 수 있는 분이면 더욱 좋아요.',
   },
+  {
+    id: 5,
+    title: '지원하기 중 인증번호 메일이 오지 않았는데, 어떻게 해야 하나요?',
+    label: '스팸 메일함을 우선적으로 확인해 주세요.',
+    content:
+      '만일 스팸 메일함에 인증번호 메일이 없다면, 기입하신 이메일 주소가 정확한지 한번 더 확인해 주세요.',
+    caption:
+      '그럼에도 불구하고, 인증번호 메일을 받지 못하셨다면 jectofficial@ject.kr 로 문의해주세요!',
+  },
 ];
 
 export const faqProject: Faq[] = [
