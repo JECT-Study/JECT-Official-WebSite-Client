@@ -12,7 +12,7 @@ import Title from '@/components/common/title/Title';
 import { APPLY_TITLE } from '@/constants/applyPageData';
 import { PATH } from '@/constants/path';
 import useApplicationState from '@/hooks/useApplicationState';
-import useChangeJobQuery from '@/hooks/useChangeJobQuery';
+import useDeleteDraftQuery from '@/hooks/useDeleteDraftQuery';
 import useDialog from '@/hooks/useDialog';
 import useDraftQuery from '@/hooks/useDraftQuery';
 import useSaveDraftQuery from '@/hooks/useSaveDraftQuery';
@@ -55,7 +55,7 @@ function ApplyRegistration() {
 
   const { draft: draftServer } = useDraftQuery();
   const { saveDraftMutate } = useSaveDraftQuery();
-  const { changeJobMutate } = useChangeJobQuery();
+  const { deleteDraftMutate } = useDeleteDraftQuery();
   const { submitAnswerMutate } = useSubmitAnswerQuery();
 
   const {
@@ -80,10 +80,15 @@ function ApplyRegistration() {
   const changeJob = () => {
     if (!selectedJob) return;
 
-    resetAnswers();
-    changeJobMutate(selectedJob);
-    closeDialogChangeJob();
-    removeDraftLocal();
+    deleteDraftMutate(undefined, {
+      onSuccess: data => {
+        if (data.status === 'SUCCESS') {
+          closeDialogChangeJob();
+          removeDraftLocal();
+          resetAnswers();
+        }
+      },
+    });
   };
 
   const notChangeJob = () => {
