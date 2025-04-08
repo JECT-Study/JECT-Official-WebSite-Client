@@ -57,7 +57,7 @@ function ApplyRegistration() {
   const { saveDraftMutate } = useSaveDraftQuery();
   const { changeJobMutate } = useChangeJobQuery();
   const { submitAnswerMutate } = useSubmitAnswerQuery();
-  
+
   const saveDraftServerAndLocal = useCallback(() => {
     if (!selectedJob) return;
 
@@ -80,22 +80,12 @@ function ApplyRegistration() {
       },
     });
   };
-    
+
   const openDialogChangeJob = (job: JobFamily) => {
     changeSelect(job);
 
     openDialog({
-      title: '다른 직군으로 변경하시겠어요?',
-      content: (
-        <>
-          작성된 답변 내용들은 모두 초기화되고,
-          <br />
-          다시 되돌릴 수 없어요.
-        </>
-      ),
-      btnLayout: 'horizontal',
-      primaryBtnLabel: '변경하기',
-      secondaryBtnLabel: '변경하지 말기',
+      type: 'changeJob',
       onPrimaryBtnClick: () => {
         changeJobMutate(job);
         resetAnswers(job);
@@ -107,11 +97,7 @@ function ApplyRegistration() {
 
   const openDialogSubmitAnswer = () => {
     openDialog({
-      title: '지원서를 제출하시겠어요?',
-      content: '제출한 뒤에는 수정하거나 취소할 수 없어요.',
-      btnLayout: 'horizontal',
-      primaryBtnLabel: '제출하기',
-      secondaryBtnLabel: '제출 보류하기',
+      type: 'submitAnswer',
       onPrimaryBtnClick: submitAnswer,
     });
   };
@@ -135,7 +121,6 @@ function ApplyRegistration() {
 
     return () => clearInterval(autosaveDraft);
   }, [saveDraftServerAndLocal]);
-
 
   useEffect(() => {
     if (!selectedJob) return;
