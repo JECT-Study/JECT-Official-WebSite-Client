@@ -11,7 +11,7 @@ interface MutationProps {
   file: File;
 }
 
-const useUploadFileToS3Query = () => {
+const useUploadFileToS3Mutation = () => {
   const source = axios.CancelToken.source();
   const [isNetworkError, setIsNetworkError] = useState(false);
   const { addToast } = useToastActions();
@@ -32,4 +32,4 @@ const useUploadFileToS3Query = () => {
   return { uploadFileMutate, isPending, isNetworkError, source };
 };
 
-export default useUploadFileToS3Query;
+export default useUploadFileToS3Mutation;

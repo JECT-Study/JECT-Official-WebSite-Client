@@ -11,10 +11,10 @@ import Title from '@/components/common/title/Title';
 import { APPLY_TITLE } from '@/constants/applyPageData';
 import { PATH } from '@/constants/path';
 import useApplicationState from '@/hooks/useApplicationState';
-import useDeleteDraftQuery from '@/hooks/useDeleteDraftQuery';
+import useDeleteDraftMutation from '@/hooks/useDeleteDraftMutation';
 import useDraftQuery from '@/hooks/useDraftQuery';
-import useSaveDraftQuery from '@/hooks/useSaveDraftQuery';
-import useSubmitAnswerQuery from '@/hooks/useSubmitAnswerQuery';
+import useSaveDraftMutation from '@/hooks/useSaveDraftMutation';
+import useSubmitAnswerMutation from '@/hooks/useSubmitAnswerMutation';
 import { useDialogActions } from '@/stores/dialogStore';
 import { JobFamily } from '@/types/apis/question';
 import { getDraftLocal, removeDraftLocal, setDraftLocal } from '@/utils/draftUtils';
@@ -54,9 +54,9 @@ function ApplyRegistration() {
   const { openDialog } = useDialogActions();
 
   const { draft: draftServer } = useDraftQuery();
-  const { saveDraftMutate } = useSaveDraftQuery();
-  const { deleteDraftMutate } = useDeleteDraftQuery();
-  const { submitAnswerMutate } = useSubmitAnswerQuery();
+  const { mutate: saveDraftMutate } = useSaveDraftMutation();
+  const { mutate: deleteDraftMutate } = useDeleteDraftMutation();
+  const { mutate: submitAnswerMutate } = useSubmitAnswerMutation();
 
   const saveDraftServerAndLocal = useCallback(() => {
     if (!selectedJob) return;

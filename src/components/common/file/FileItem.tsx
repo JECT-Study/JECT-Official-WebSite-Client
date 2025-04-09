@@ -5,7 +5,7 @@ import loadingSpinner from '@/assets/lottie/ject-loadingSpinner.json';
 import LabelButton from '@/components/common/button/LabelButton';
 import { feedbackStyle, FeedbackType } from '@/components/common/file/fileItem.style';
 import Icon from '@/components/common/icon/Icon';
-import useUploadFileToS3Query from '@/hooks/useUploadFileToS3Query';
+import useUploadFileToS3Mutation from '@/hooks/useUploadFileToS3Mutation';
 import { NewPortfolio } from '@/types/apis/answer';
 import { changeFileSizeUnit } from '@/utils/changeFileSizeUnit';
 import { extractFileInfo } from '@/utils/extractFileInfo';
@@ -18,7 +18,7 @@ interface FileItemProps {
 }
 
 function FileItem({ file, onDelete, isDisabled = false, feedback = null }: FileItemProps) {
-  const { uploadFileMutate, isPending, isNetworkError, source } = useUploadFileToS3Query();
+  const { uploadFileMutate, isPending, isNetworkError, source } = useUploadFileToS3Mutation();
   const { fileName, fileSize, id, fileUrl, rawFile, presignedUrl } = extractFileInfo(file);
   const feedbackType = isNetworkError ? 'error' : feedback;
 
