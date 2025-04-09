@@ -1,7 +1,9 @@
 import clsx from 'clsx';
+import Lottie from 'lottie-react';
 import { useCallback, useEffect } from 'react';
 import { Location, useLocation, useNavigate } from 'react-router-dom';
 
+import loadingSpinner from '@/assets/lottie/ject-loadingSpinner.json';
 import Answers from '@/components/apply/Answers';
 import SelectBox from '@/components/apply/selectBox';
 import BlockButton from '@/components/common/button/BlockButton';
@@ -56,7 +58,8 @@ function ApplyRegistration() {
   const { data: draftServer } = useDraftQuery();
   const { mutate: saveDraftMutate } = useSaveDraftMutation();
   const { mutate: deleteDraftMutate } = useDeleteDraftMutation();
-  const { mutate: submitAnswerMutate } = useSubmitAnswerMutation();
+  const { mutate: submitAnswerMutate, isPending: isSubmitAnswerPending } =
+    useSubmitAnswerMutation();
 
   const saveDraftServerAndLocal = useCallback(() => {
     if (!selectedJob) return;
@@ -178,7 +181,11 @@ function ApplyRegistration() {
               disabled={!isStepCompleted}
               onClick={openDialogSubmitAnswer}
             >
-              지원서 제출하기
+              {isSubmitAnswerPending ? (
+                <Lottie animationData={loadingSpinner} />
+              ) : (
+                '지원서 제출하기'
+              )}
             </BlockButton>
           </div>
         </div>
