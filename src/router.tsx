@@ -1,4 +1,5 @@
 import { PATH } from './constants/path';
+import NotFoundError from './pages/NotFoundError';
 
 import Layout from '@/components/layout/Layout';
 import Activity from '@/pages/Activity';
@@ -27,6 +28,7 @@ const routerList = [
       { path: PATH.applyRegistration, element: <ApplyRegistration /> },
       { path: PATH.applyComplete, element: <ApplyComplete /> },
     ],
+    errorElement: <NotFoundError />,
   },
 ];
 
