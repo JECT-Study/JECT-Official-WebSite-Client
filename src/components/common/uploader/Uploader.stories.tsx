@@ -47,7 +47,12 @@ export const UploaderStory: Story = {
   name: 'UploaderStory',
   render: () => {
     return (
-      <Uploader isDisabled={false} onChangeFile={action('add file')} fileExtensions={['pdf']} />
+      <Uploader
+        isDisabled={false}
+        onChangeFile={action('add file')}
+        fileExtensions={['pdf']}
+        maxSize={100}
+      />
     );
   },
 };
@@ -56,7 +61,12 @@ export const UploaderDisabledStory: Story = {
   name: 'UploaderDisabledStory',
   render: () => {
     return (
-      <Uploader isDisabled={true} onChangeFile={action('add file')} fileExtensions={['pdf']} />
+      <Uploader
+        isDisabled={true}
+        onChangeFile={action('add file')}
+        fileExtensions={['pdf']}
+        maxSize={100}
+      />
     );
   },
 };
