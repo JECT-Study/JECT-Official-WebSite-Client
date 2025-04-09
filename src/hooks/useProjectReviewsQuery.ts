@@ -1,14 +1,23 @@
-import { useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 
 import { getProjectReviews } from '@/apis/project';
-import { ProjectReviewsResponse } from '@/types/apis/project';
-import { ApiResponse } from '@/types/apis/response';
 
-export const useProjectReviews = (page: number) => {
-  const size = page === 0 ? 4 : 10;
-
-  return useQuery<ApiResponse<ProjectReviewsResponse>>({
-    queryKey: ['getProjectReviews', page, size],
-    queryFn: () => getProjectReviews({ page, size }),
+export const useProjectReviews = () => {
+  return useInfiniteQuery({
+    queryKey: ['getProjectReviews'],
+    queryFn: ({ pageParam = 0 }) => {
+      const size = pageParam === 0 ? 4 : 10;
+      return getProjectReviews({
+        page: pageParam,
+        size,
+      });
+    },
+    initialPageParam: 0,
+    getNextPageParam: lastPage => {
+      if (lastPage.data.hasNext) {
+        return lastPage.data.number + 1;
+      }
+      return undefined;
+    },
   });
 };
