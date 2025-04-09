@@ -13,4 +13,7 @@ export const API_ENDPOINT = {
   draft: '/apply/temp',
   changeJob: '/apply/job',
   submitAnswer: '/apply/submit',
+  projectReview: '/reviews',
+  projectList: '/projects',
+  projectDetail: '/projects/:projectId',
 } as const;
