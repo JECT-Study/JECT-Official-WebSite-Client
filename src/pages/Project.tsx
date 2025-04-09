@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import Lottie from 'lottie-react';
+import { useEffect, useRef, useState } from 'react';
 
 import cardSampleImage from '@/assets/CardSample.png';
+import loadingSpinner from '@/assets/lottie/ject-loadingSpinner.json';
 import ApplySnackBar from '@/components/apply/ApplySnackBar';
 import LabelButton from '@/components/common/button/LabelButton';
 import { Card } from '@/components/common/card/Card';
@@ -11,6 +13,7 @@ import { Tab, TabHeader, TabItem, TabPanel } from '@/components/common/tab/Tab';
 import Title from '@/components/common/title/Title';
 import { APPLY_SNACKBAR } from '@/constants/applyMessages';
 import { PATH } from '@/constants/path';
+import { useProjectReviews } from '@/hooks/useProjectReviewsQuery';
 
 const projectCardData = [
   {
@@ -90,39 +93,50 @@ const hackathonCardData = [
   },
 ];
 
-const reviewData = [
-  {
-    linkUrl: 'https://test1.com',
-    title: '제목 1',
-    description: '본문 1...',
-  },
-  {
-    linkUrl: 'https://test2.com',
-    title: '제목 2',
-    description: '본문 2...',
-  },
-  {
-    linkUrl: 'https://test3.com',
-    title: '제목 3',
-    description: '본문 3...',
-  },
-  {
-    linkUrl: 'https://test4.com',
-    title: '제목 4',
-    description: '본문 4...',
-  },
-];
-
 const selectItems = [{ label: '1기' }, { label: '2기' }, { label: '3기' }];
 
 const Project = () => {
   const [isSelectOpen, setIsSelectOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const observerTarget = useRef<HTMLDivElement>(null);
+
+  const {
+    data: reviewsData,
+    isLoading: isReviewsLoading,
+    isError: isReviewsError,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useProjectReviews();
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      entries => {
+        if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
+          fetchNextPage();
+        }
+      },
+      { threshold: 0.1 },
+    );
+
+    const currentTarget = observerTarget.current;
+    if (currentTarget) {
+      observer.observe(currentTarget);
+    }
+
+    return () => {
+      if (currentTarget) {
+        observer.unobserve(currentTarget);
+      }
+    };
+  }, [hasNextPage, fetchNextPage, isFetchingNextPage]);
 
   const handleSelectChange = (label: string | null) => {
     setSelectedOption(label);
     setIsSelectOpen(false);
   };
+
+  const allReviews = reviewsData?.pages.flatMap(page => page.data.content) || [];
 
   return (
     <div className='gap-12xl flex flex-col items-center px-(--gap-5xl) py-(--gap-12xl)'>
@@ -188,13 +202,42 @@ const Project = () => {
       </section>
       <section className='gap-8xl flex w-full max-w-[60rem] flex-col items-center'>
         <Title hierarchy='strong'>프로젝트 후기</Title>
-        <div className='gap-2xl flex w-full flex-col'>
-          {reviewData.map((item, index) => (
-            <Post key={index} href={item.linkUrl} title={item.title} label='바로가기'>
-              {item.description}
-            </Post>
-          ))}
-        </div>
+
+        {isReviewsError ? (
+          <div className='w-full py-8 text-center text-red-500'>
+            후기를 불러오는 중 오류가 발생했습니다.
+          </div>
+        ) : (
+          <>
+            <div className='gap-2xl flex w-full flex-col'>
+              {allReviews.length === 0 && isReviewsLoading ? (
+                <div className='w-full py-8 text-center'>
+                  <Lottie
+                    animationData={loadingSpinner}
+                    style={{ width: 100, height: 100, margin: '0 auto' }}
+                  />
+                </div>
+              ) : allReviews.length === 0 ? (
+                <div className='w-full py-8 text-center text-gray-500'>
+                  등록된 프로젝트 후기가 없습니다.
+                </div>
+              ) : (
+                allReviews.map(review => (
+                  <Post key={review.id} href={review.linkUrl} title={review.title} label='바로가기'>
+                    {review.summary}
+                  </Post>
+                ))
+              )}
+            </div>
+
+            {/* 무한 스크롤을 위한 observer 타겟 */}
+            <div ref={observerTarget} className='mt-4 flex h-10 w-full items-center justify-center'>
+              {isFetchingNextPage && (
+                <Lottie animationData={loadingSpinner} style={{ width: 50, height: 50 }} />
+              )}
+            </div>
+          </>
+        )}
       </section>
       <ApplySnackBar message={APPLY_SNACKBAR.default} width='w-[31.25rem]' />
     </div>
