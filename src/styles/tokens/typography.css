@@ -1,0 +1,148 @@
+@import 'tailwindcss';
+
+@font-face {
+  font-family: 'Pretendard Variable';
+  font-weight: 45 920;
+  font-style: normal;
+  font-display: swap;
+  src: url('/assets/fonts/PretendardVariable.woff2') format('woff2-variations');
+}
+
+@theme {
+  /* font-family */
+  --font-pretendard: 'Pretendard Variable';
+
+  /* font-size */
+  --text-*: initial;
+  --text-size-3xs: 0.75rem;
+  --text-size-2xs: 0.8125rem;
+  --text-size-xs: 0.875rem;
+  --text-size-sm: 0.9375rem;
+  --text-size-md: 1rem;
+  --text-size-lg: 1.0625rem;
+  --text-size-xl: 1.125rem;
+  --text-size-2xl: 1.25rem;
+  --text-size-3xl: 1.5625rem;
+  --text-size-4xl: 2rem;
+  --text-size-5xl: 2.5rem;
+  --text-size-6xl: 3rem;
+  --text-size-7xl: 3.5rem;
+  --text-size-8xl: 4rem;
+  --text-size-9xl: 4.5rem;
+
+  /* font-weight */
+  --font-weight-md: 400;
+  --font-weight-lg: 450;
+  --font-weight-xl: 510;
+  --font-weight-2xl: 570;
+  --font-weight-3xl: 640;
+  --font-weight-4xl: 740;
+
+  /* line-height */
+  --spacing-narrower: 1.3em;
+  --spacing-narrow: 1.4em;
+  --spacing-normal: 1.5em;
+  --spacing-wide: 1.6em;
+
+  /* letter spacing */
+  --tracking-narrowest: -0.014em;
+  --tracking-narrower: -0.01em;
+  --tracking-normal: 0em;
+  --tracking-narrow: -0.005em;
+  --tracking-wide: 0.004em;
+}
+
+@layer utilities {
+  /* Display */
+  .display-01 {
+    @apply font-4xl leading-narrower tracking-narrowest text-size-6xl;
+  }
+
+  .display-02 {
+    @apply font-4xl leading-narrower tracking-narrowest text-size-7xl;
+  }
+
+  .display-03 {
+    @apply font-4xl leading-narrower tracking-narrowest text-size-8xl;
+  }
+
+  .display-04 {
+    @apply font-4xl leading-narrower tracking-narrowest text-size-9xl;
+  }
+
+  /* Title */
+  .title-01 {
+    @apply font-3xl leading-narrow tracking-narrower text-size-2xl;
+  }
+
+  .title-02 {
+    @apply font-3xl leading-narrow tracking-narrower text-size-3xl;
+  }
+
+  .title-03 {
+    @apply font-3xl leading-narrow tracking-narrower text-size-4xl;
+  }
+
+  .title-04 {
+    @apply font-3xl leading-narrow tracking-narrower text-size-5xl;
+  }
+
+  /* Label */
+  .label-xs {
+    @apply text-size-xs font-xl leading-normal tracking-normal;
+  }
+
+  .label-sm {
+    @apply font-xl text-size-sm leading-normal tracking-normal;
+  }
+
+  .label-md {
+    @apply text-size-md font-xl leading-normal tracking-normal;
+  }
+
+  .label-lg {
+    @apply font-xl text-size-xl leading-normal tracking-normal;
+  }
+
+  .label-bold-xs {
+    @apply text-size-xs font-2xl tracking-narrow leading-normal;
+  }
+
+  .label-bold-sm {
+    @apply font-2xl tracking-narrow text-size-sm leading-normal;
+  }
+
+  .label-bold-md {
+    @apply text-size-md font-2xl tracking-narrow leading-normal;
+  }
+
+  .label-bold-lg {
+    @apply font-2xl tracking-narrow text-size-xl leading-normal;
+  }
+
+  /* Body */
+  .body-2xs {
+    @apply text-size-3xs font-xl leading-wide tracking-wide;
+  }
+
+  .body-xs {
+    @apply text-size-2xs font-lg leading-wide tracking-wide;
+  }
+
+  .body-sm {
+    @apply font-md leading-wide text-size-sm tracking-normal;
+  }
+
+  .body-md {
+    @apply text-size-md font-md leading-wide tracking-normal;
+  }
+
+  .body-lg {
+    @apply font-md leading-wide text-size-lg tracking-normal;
+  }
+
+  /* Syntax */
+  .syntax-xs {
+    @apply font-md leading-wide text-size-xs tracking-wide;
+  }
+}

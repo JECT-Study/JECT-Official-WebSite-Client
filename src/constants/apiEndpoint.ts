@@ -1,0 +1,16 @@
+export const API_ENDPOINT = {
+  miniStudy: '/ministudies',
+  jectalk: '/jectalks',
+  sendEmailAuthCode: '/email/send/auth',
+  verifyEmailCode: '/auth/code',
+  pinLogin: '/auth/login/pin',
+  checkEmailExists: '/auth/login/exist',
+  memberProfileInitial: '/members/profile/initial',
+  registerMember: '/members',
+  refreshToken: '/auth/refresh',
+  uploadPortfolio: '/upload/portfolios',
+  question: '/apply/questions',
+  draft: '/apply/temp',
+  changeJob: '/apply/job',
+  submitAnswer: '/apply/submit',
+} as const;

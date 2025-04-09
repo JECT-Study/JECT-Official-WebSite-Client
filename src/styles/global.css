@@ -1,0 +1,53 @@
+@import 'tailwindcss';
+@import './interaction.css';
+@import './animation.css';
+
+@layer base {
+  html {
+    font-family: 'Pretendard Variable';
+
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  html::-webkit-scrollbar {
+    display: none;
+  }
+
+  body {
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus {
+      -webkit-text-fill-color: var(--color-object-hero-dark);
+      -webkit-box-shadow: 0 0 0px 1000px var(--color-surface-embossed-dark) inset;
+      transition: background-color 5000s ease-in-out 0s;
+    }
+  }
+}
+
+
+@theme {
+  --shadow-focus-visible: 0 0 0 4px rgba(173, 198, 255, 1);
+}
+
+@layer utilities {
+  .scroll {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    overflow-y: scroll;
+  }
+
+  .scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  .list-disc-ject li::before {
+    content: '•';
+    margin-left: 8px;
+    margin-right: 8px;
+  }
+
+  .list-decimal li {
+    margin-left: 5px;
+  }
+}
