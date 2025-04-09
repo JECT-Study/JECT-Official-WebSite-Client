@@ -56,7 +56,7 @@ function ApplyRegistration() {
   const { openDialog } = useDialogActions();
 
   const { data: draftServer } = useDraftQuery();
-  const { mutate: saveDraftMutate } = useSaveDraftMutation();
+  const { mutate: saveDraftMutate, isPending: isSaveDraftPending } = useSaveDraftMutation();
   const { mutate: deleteDraftMutate } = useDeleteDraftMutation();
   const { mutate: submitAnswerMutate, isPending: isSubmitAnswerPending } =
     useSubmitAnswerMutation();
@@ -172,7 +172,7 @@ function ApplyRegistration() {
               hierarchy='secondary'
               onClick={saveDraftServerAndLocal}
             >
-              임시 저장하기
+              {isSaveDraftPending ? <Lottie animationData={loadingSpinner} /> : '임시 저장하기'}
             </BlockButton>
             <BlockButton
               size='lg'
