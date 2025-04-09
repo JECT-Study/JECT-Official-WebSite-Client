@@ -5,13 +5,12 @@ import TextField from './textField';
 import UrlField from './UrlField';
 
 import useQuestionsQuery from '@/hooks/useQuestionsQuery';
-import { AnswersRequest, PortfolioResponse } from '@/types/apis/answer';
-import { JobFamily } from '@/types/apis/question';
+import { AnswersPayload, JobFamily, PortfolioResponse } from '@/types/apis/application';
 import { validateAnswersPayload } from '@/utils/validateAnswersPayload';
 
 interface AnswersProps {
   questionJob: JobFamily | null;
-  answersPayload: AnswersRequest;
+  answersPayload: AnswersPayload;
   onChangeAnswer: (id: number, text: string) => void;
   onChangePortfolios: (files: PortfolioResponse[]) => void;
   onActiveSubmitButton: (isCompleted: boolean) => void;
@@ -24,7 +23,7 @@ function Answers({
   onChangePortfolios,
   onActiveSubmitButton,
 }: AnswersProps) {
-  const { questions } = useQuestionsQuery(questionJob);
+  const { data: questions } = useQuestionsQuery(questionJob);
 
   useEffect(() => {
     if (questions?.status !== 'SUCCESS') return;

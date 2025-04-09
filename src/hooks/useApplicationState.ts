@@ -1,9 +1,13 @@
 import { useCallback, useState } from 'react';
 
-import { AnswersRequest, AnswersResponse, PortfolioResponse } from '@/types/apis/answer';
-import { JobFamily } from '@/types/apis/question';
+import {
+  AnswersPayload,
+  AnswersResponse,
+  JobFamily,
+  PortfolioResponse,
+} from '@/types/apis/application';
 
-const initialAnswer: AnswersRequest = {
+const initialAnswer: AnswersPayload = {
   answers: {},
   portfolios: [],
 };
@@ -12,7 +16,7 @@ const useApplicationState = () => {
   const [isStepCompleted, setIsStepCompleted] = useState(false);
   const [selectedJob, setSelectedJob] = useState<JobFamily | null>(null);
   const [questionJob, setQuestionJob] = useState<JobFamily | null>(null);
-  const [answersPayload, setAnswersPayload] = useState<AnswersRequest>(initialAnswer);
+  const [answersPayload, setAnswersPayload] = useState<AnswersPayload>(initialAnswer);
 
   const handleChangeAnswer = useCallback((id: number, text: string) => {
     setAnswersPayload(prev => ({ ...prev, answers: { ...prev.answers, [id]: text } }));

@@ -75,7 +75,7 @@ function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
             void navigate(PATH.applyRegistration, { state: { continue: true } });
           },
           onSecondaryBtnClick: () => {
-            deleteDraftMutate(undefined, {
+            deleteDraftMutate(null, {
               onSuccess: () => {
                 void navigate(PATH.applyRegistration, { state: { continue: false } });
               },

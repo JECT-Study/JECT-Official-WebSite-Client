@@ -4,7 +4,7 @@ import InputArea from '../common/input/InputArea';
 import Title from '../common/title/Title';
 
 import { APPLY_MESSAGE } from '@/constants/applyMessages';
-import { Question } from '@/types/apis/question';
+import { Question } from '@/types/apis/application';
 
 interface TextFieldProps {
   data: Question;

@@ -16,7 +16,7 @@ import useDraftQuery from '@/hooks/useDraftQuery';
 import useSaveDraftMutation from '@/hooks/useSaveDraftMutation';
 import useSubmitAnswerMutation from '@/hooks/useSubmitAnswerMutation';
 import { useDialogActions } from '@/stores/dialogStore';
-import { JobFamily } from '@/types/apis/question';
+import { JobFamily } from '@/types/apis/application';
 import { getDraftLocal, removeDraftLocal, setDraftLocal } from '@/utils/draftUtils';
 
 interface LocationState {
@@ -61,7 +61,7 @@ function ApplyRegistration() {
   const saveDraftServerAndLocal = useCallback(() => {
     if (!selectedJob) return;
 
-    saveDraftMutate({ param: selectedJob, answers: answersPayload });
+    saveDraftMutate({ jobFamily: selectedJob, answers: answersPayload });
     setDraftLocal({ jobFamily: selectedJob, ...answersPayload });
     removeLocationState(location);
   }, [saveDraftMutate, answersPayload, selectedJob, location]);
@@ -69,7 +69,7 @@ function ApplyRegistration() {
   const submitAnswer = () => {
     if (!selectedJob) return;
 
-    const answer = { param: selectedJob, answers: answersPayload };
+    const answer = { jobFamily: selectedJob, answers: answersPayload };
 
     submitAnswerMutate(answer, {
       onSuccess: data => {
@@ -85,7 +85,7 @@ function ApplyRegistration() {
     openDialog({
       type: 'changeJob',
       onPrimaryBtnClick: () => {
-        deleteDraftMutate(undefined, {
+        deleteDraftMutate(null, {
           onSuccess: data => {
             if (data.status === 'SUCCESS') {
               changeSelect(job);
