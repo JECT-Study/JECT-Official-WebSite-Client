@@ -38,8 +38,7 @@ function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
 
   const { mutate: pinLoginMutate, isPending: isPinLoginLoading } = usePinLoginMutation();
   const { mutate: deleteDraftMutate } = useDeleteDraftMutation();
-  const draftLocal = getDraftLocal();
-  const { draft: draftSever } = useDraftQuery();
+  const { data: draftSever } = useDraftQuery();
   const { openDialog } = useDialogActions();
 
   const onPinSubmit = ({ pin }: PinLoginPayload) => {
@@ -66,20 +65,23 @@ function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
           return;
         }
 
-        if (draftLocal || draftSever?.status === 'SUCCESS') {
-          openDialog({
-            type: 'continueWriting',
-            onPrimaryBtnClick: () => {
-              void navigate(PATH.applyRegistration, { state: { continue: true } });
-            },
-            onSecondaryBtnClick: () => {
-              deleteDraftMutate(undefined, {
-                onSuccess: () =>
-                  void navigate(PATH.applyRegistration, { state: { continue: false } }),
-              });
-            },
-          });
+        if (!getDraftLocal() && draftSever?.status !== 'SUCCESS') {
+          return void navigate(PATH.applyRegistration);
         }
+
+        openDialog({
+          type: 'continueWriting',
+          onPrimaryBtnClick: () => {
+            void navigate(PATH.applyRegistration, { state: { continue: true } });
+          },
+          onSecondaryBtnClick: () => {
+            deleteDraftMutate(undefined, {
+              onSuccess: () => {
+                void navigate(PATH.applyRegistration, { state: { continue: false } });
+              },
+            });
+          },
+        });
       },
       onError: error => {
         console.error('PIN 로그인 실패:', error);

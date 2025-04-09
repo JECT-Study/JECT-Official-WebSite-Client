@@ -53,7 +53,7 @@ function ApplyRegistration() {
   } = useApplicationState();
   const { openDialog } = useDialogActions();
 
-  const { draft: draftServer } = useDraftQuery();
+  const { data: draftServer } = useDraftQuery();
   const { mutate: saveDraftMutate } = useSaveDraftMutation();
   const { mutate: deleteDraftMutate } = useDeleteDraftMutation();
   const { mutate: submitAnswerMutate } = useSubmitAnswerMutation();
@@ -90,7 +90,6 @@ function ApplyRegistration() {
             if (data.status === 'SUCCESS') {
               changeSelect(job);
               resetAnswers(job);
-              removeDraftLocal();
             }
           },
         });
