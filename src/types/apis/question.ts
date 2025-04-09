@@ -7,7 +7,7 @@ export interface Question {
   isRequired: boolean;
   title: string;
   label: string;
-  selectOptions: null | string[];
+  selectOptions: string[] | null;
   inputHint: string;
   maxTextLength: number | null;
   maxFileSize: number | null;
