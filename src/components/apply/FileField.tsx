@@ -4,7 +4,7 @@ import FileItem from '@/components/common/file/FileItem';
 import InputFile from '@/components/common/input/InputFile';
 import Title from '@/components/common/title/Title';
 import { APPLY_MESSAGE } from '@/constants/applyMessages';
-import useCreatePresignedUrlsQuery from '@/hooks/useCreatePresignedUrlsMutation';
+import useCreatePresignedUrlsMutation from '@/hooks/useCreatePresignedUrlsMutation';
 import { useToastActions } from '@/stores/toastStore';
 import {
   NewPortfolio,
@@ -67,7 +67,7 @@ function FileField({ data, onChange, values }: FileFieldProps) {
   const [portfolios, setPortfolios] = useState<NewPortfolio[]>(formatDraftValues(values) ?? []);
   const [invalidFiles, setInvalidFiles] = useState<File[]>([]);
   const [totalSize, setTotalSize] = useState(0);
-  const { mutate: createPresignedUrlsMutate } = useCreatePresignedUrlsQuery();
+  const { mutate: createPresignedUrlsMutate } = useCreatePresignedUrlsMutation();
   const { addToast } = useToastActions();
 
   const addFile = async (newFiles: FileList | null) => {
