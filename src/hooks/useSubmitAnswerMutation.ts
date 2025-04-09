@@ -1,12 +1,25 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, UseMutationResult } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
 
-import { postSubmitAnswer } from '@/apis/submitAnswer';
+import { postSubmitAnswer } from '@/apis/application';
+import { AnswersPayload, JobFamily } from '@/types/apis/application';
+import { ApiResponse } from '@/types/apis/response';
 
-const useSubmitAnswerMutation = () => {
+interface SubmitAnswerMutationVariable {
+  jobFamily: JobFamily;
+  answers: AnswersPayload;
+}
+
+const useSubmitAnswerMutation = (): UseMutationResult<
+  ApiResponse<null>,
+  AxiosError,
+  SubmitAnswerMutationVariable,
+  unknown
+> => {
   return useMutation({
     mutationKey: ['submitAnswer'],
-    mutationFn: postSubmitAnswer,
-    onError: error => console.error(`Query Error : ${error}`),
+    mutationFn: ({ jobFamily, answers }) => postSubmitAnswer(jobFamily, answers),
+    onError: error => console.error('Query Error :', error),
   });
 };
 

@@ -1,12 +1,25 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, UseMutationResult } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
 
-import { postDraft } from '@/apis/draft';
+import { postDraft } from '@/apis/application';
+import { AnswersPayload, JobFamily } from '@/types/apis/application';
+import { ApiResponse } from '@/types/apis/response';
 
-const useSaveDraftMutation = () => {
+interface SaveDraftMutationVariables {
+  jobFamily: JobFamily;
+  answers: AnswersPayload;
+}
+
+const useSaveDraftMutation = (): UseMutationResult<
+  ApiResponse<null>,
+  AxiosError,
+  SaveDraftMutationVariables,
+  unknown
+> => {
   return useMutation({
     mutationKey: ['saveDraft'],
-    mutationFn: postDraft,
-    onError: error => console.error(`Query Error : ${error}`),
+    mutationFn: ({ jobFamily, answers }) => postDraft(jobFamily, answers),
+    onError: error => console.error('Query Error :', error),
   });
 };
 

@@ -1,13 +1,20 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, UseMutationResult } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
 
-import { deleteDraft } from '@/apis/draft';
+import { deleteDraft } from '@/apis/application';
+import { ApiResponse } from '@/types/apis/response';
 import { removeDraftLocal } from '@/utils/draftUtils';
 
-const useDeleteDraftMutation = () => {
+const useDeleteDraftMutation = (): UseMutationResult<
+  ApiResponse<null>,
+  AxiosError,
+  null,
+  unknown
+> => {
   return useMutation({
     mutationKey: ['deleteDraft'],
     mutationFn: deleteDraft,
-    onError: error => console.error(`Query Error : ${error}`),
+    onError: error => console.error('Query Error :', error),
     onSuccess: () => removeDraftLocal(),
   });
 };
