@@ -12,8 +12,12 @@ import Title from '@/components/common/title/Title';
 import { APPLY_TITLE } from '@/constants/applyPageData';
 import { PATH } from '@/constants/path';
 import { useApplyPinForm } from '@/hooks/useApplyPinForm';
+import useDeleteDraftMutation from '@/hooks/useDeleteDraftMutation';
+import useDraftQuery from '@/hooks/useDraftQuery';
 import { usePinLoginMutation } from '@/hooks/usePinLoginMutation';
+import { useDialogActions } from '@/stores/dialogStore';
 import { PinLoginPayload } from '@/types/apis/apply';
+import { getDraftLocal } from '@/utils/draftUtils';
 import { CreateSubmitHandler } from '@/utils/formHelpers';
 
 interface ApplyVerifyPinProps {
@@ -33,6 +37,10 @@ function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
   } = useApplyPinForm();
 
   const { mutate: pinLoginMutate, isPending: isPinLoginLoading } = usePinLoginMutation();
+  const { mutate: deleteDraftMutate } = useDeleteDraftMutation();
+  const draftLocal = getDraftLocal();
+  const { draft: draftSever } = useDraftQuery();
+  const { openDialog } = useDialogActions();
 
   const onPinSubmit = ({ pin }: PinLoginPayload) => {
     const payload = { email, pin };
@@ -58,7 +66,20 @@ function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
           return;
         }
 
-        void navigate(PATH.applicantInfo);
+        if (draftLocal || draftSever?.status === 'SUCCESS') {
+          openDialog({
+            type: 'continueWriting',
+            onPrimaryBtnClick: () => {
+              void navigate(PATH.applyRegistration, { state: { continue: true } });
+            },
+            onSecondaryBtnClick: () => {
+              deleteDraftMutate(undefined, {
+                onSuccess: () =>
+                  void navigate(PATH.applyRegistration, { state: { continue: false } }),
+              });
+            },
+          });
+        }
       },
       onError: error => {
         console.error('PIN 로그인 실패:', error);
