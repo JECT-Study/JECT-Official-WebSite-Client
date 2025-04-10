@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 import { putUploadFileToS3 } from '@/apis/uploadFileToS3';
 import { APPLY_MESSAGE } from '@/constants/applyMessages';
+import { useDialogActions } from '@/stores/dialogStore';
 import { useToastActions } from '@/stores/toastStore';
 
 interface MutationProps {
@@ -15,6 +16,7 @@ const useUploadFileToS3Query = () => {
   const source = axios.CancelToken.source();
   const [isNetworkError, setIsNetworkError] = useState(false);
   const { addToast } = useToastActions();
+  const { openDialog } = useDialogActions();
 
   const { mutate: uploadFileMutate, isPending } = useMutation({
     mutationKey: ['S3'],
@@ -22,10 +24,11 @@ const useUploadFileToS3Query = () => {
     onSuccess: () => addToast(APPLY_MESSAGE.success.uploadFile, 'positive'),
     onError: error => {
       if (axios.isAxiosError(error) && error.code === 'ERR_NETWORK') {
-        setIsNetworkError(true);
         addToast(APPLY_MESSAGE.fail.uploadFile, 'negative');
       }
-      console.error(`Query Error : ${error}`);
+
+      openDialog({ type: 'failedUploadFile' });
+      setIsNetworkError(true);
     },
   });
 
