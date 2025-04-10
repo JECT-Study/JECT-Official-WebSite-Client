@@ -13,6 +13,7 @@ import { PATH } from '@/constants/path';
 import useApplicationState from '@/hooks/useApplicationState';
 import useChangeJobQuery from '@/hooks/useChangeJobQuery';
 import useDraftQuery from '@/hooks/useDraftQuery';
+import { useRedirectIfSubmitted } from '@/hooks/useRedirectIfSubmitted';
 import useSaveDraftQuery from '@/hooks/useSaveDraftQuery';
 import useSubmitAnswerQuery from '@/hooks/useSubmitAnswerQuery';
 import { useDialogActions } from '@/stores/dialogStore';
@@ -58,6 +59,8 @@ function ApplyRegistration() {
   const { changeJobMutate } = useChangeJobQuery();
   const { submitAnswerMutate } = useSubmitAnswerQuery();
 
+  useRedirectIfSubmitted();
+
   const saveDraftServerAndLocal = useCallback(() => {
     if (!selectedJob) return;
 
@@ -102,12 +105,6 @@ function ApplyRegistration() {
       onPrimaryBtnClick: submitAnswer,
     });
   };
-
-  useEffect(() => {
-    const isSuccessSubmit = localStorage.getItem('applicationSubmit');
-
-    if (isSuccessSubmit) void navigate(PATH.applyComplete);
-  }, [navigate]);
 
   useEffect(() => {
     if (!isLoadDraft(location)) return;

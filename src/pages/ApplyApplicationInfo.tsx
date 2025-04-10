@@ -10,6 +10,7 @@ import { APPLY_TITLE } from '@/constants/applyPageData';
 import { PATH } from '@/constants/path';
 import { useApplyApplicantInfoForm } from '@/hooks/useApplyApplicantInfoForm';
 import { useMemberProfileInitialMutation } from '@/hooks/useMemberProfileInitialMutation';
+import { useRedirectIfSubmitted } from '@/hooks/useRedirectIfSubmitted';
 import { ApplyApplicantInfoFormData } from '@/schema/applySchema';
 import { MemberProfileInitialPayload } from '@/types/apis/apply';
 import { CreateSubmitHandler } from '@/utils/formHelpers';
@@ -29,6 +30,8 @@ function ApplyApplicantInfo() {
 
   const name = watch('name');
   const phoneNumber = watch('phoneNumber');
+
+  useRedirectIfSubmitted();
 
   const onSubmit = (data: ApplyApplicantInfoFormData) => {
     console.log('지원자 정보 유효성 검사 통과, 데이터:', data);
@@ -56,12 +59,6 @@ function ApplyApplicantInfo() {
     ApplyApplicantInfoFormData,
     ApplyApplicantInfoFormData
   >(handleSubmit, onSubmit);
-
-  useEffect(() => {
-    const isSuccessSubmit = localStorage.getItem('applicationSubmit');
-
-    if (isSuccessSubmit) void navigate(PATH.applyComplete);
-  }, [navigate]);
 
   return (
     <div className='gap-9xl flex flex-col items-center pt-(--gap-9xl) pb-(--gap-12xl)'>
