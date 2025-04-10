@@ -2,12 +2,15 @@ export type JobFamily = 'PM' | 'PD' | 'FE' | 'BE';
 
 export interface Question {
   id: number;
-  inputType: 'TEXT' | 'URL' | 'FILE';
-  title: string;
-  body: null;
-  inputHint: string;
-  maxLength: number | null;
+  sequence: number;
+  inputType: 'TEXT' | 'URL' | 'FILE' | 'SELECT';
   isRequired: boolean;
+  title: string;
+  label: string;
+  selectOptions: string[] | null;
+  inputHint: string;
+  maxTextLength: number | null;
+  maxFileSize: number | null;
 }
 
 export interface PresignedUrlPayload {

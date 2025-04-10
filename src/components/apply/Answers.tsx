@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 
 import FileField from './FileField';
+import SelectField from './SelectField';
 import TextField from './textField';
 import UrlField from './UrlField';
 
@@ -64,6 +65,15 @@ function Answers({
                 data={data}
                 onChange={onChangePortfolios}
                 values={answersPayload.portfolios}
+              />
+            );
+          case 'SELECT':
+            return (
+              <SelectField
+                key={data.id}
+                data={data}
+                onChange={onChangeAnswer}
+                value={answersPayload.answers[data.id]}
               />
             );
         }

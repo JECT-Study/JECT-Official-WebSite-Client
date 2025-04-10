@@ -21,9 +21,9 @@ function TextField({ data, onChange, value }: TextFieldProps) {
     <fieldset className='gap-2xl flex flex-col'>
       <Title hierarchy='normal'>{data.title}</Title>
       <InputArea
-        labelText='답변'
+        labelText={data.label}
         errorHelper={APPLY_MESSAGE.invalid.exceedText}
-        maxLength={data.maxLength || undefined}
+        maxLength={data.maxTextLength || undefined}
         required={data.isRequired}
         placeholder={data.inputHint}
         onChange={handleChange}

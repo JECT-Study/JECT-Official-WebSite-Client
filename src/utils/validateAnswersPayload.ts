@@ -39,14 +39,14 @@ export const validateAnswersPayload = (questions: Question[], answersPayload: An
       const text = answersPayload.answers[question.id] || '';
 
       if (!question.isRequired) {
-        if (question.maxLength) return text.length <= question.maxLength;
+        if (question.maxTextLength) return text.length <= question.maxTextLength;
 
         return true;
       }
 
       if (text.trim().length === 0) return false;
 
-      if (question.maxLength) return text.length <= question.maxLength;
+      if (question.maxTextLength) return text.length <= question.maxTextLength;
 
       return true;
     }
