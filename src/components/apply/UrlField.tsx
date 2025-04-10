@@ -33,7 +33,7 @@ function UrlField({ data, onChange, value }: UrlFieldProps) {
     <fieldset className='gap-2xl flex flex-col'>
       <Title hierarchy='normal'>{data.title}</Title>
       <InputField
-        labelText='URL'
+        labelText={data.label}
         isSuccess={false}
         placeholder={data.inputHint}
         required={data.isRequired}
