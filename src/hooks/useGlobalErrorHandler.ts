@@ -28,11 +28,6 @@ export const useGlobalErrorHandler = () => {
       }
     } else if (error instanceof ExternalAPIError) {
       switch (error.status) {
-        case 401:
-          return openDialog({
-            type: 'expiredSession',
-            onPrimaryBtnClick: () => void router.navigate(PATH.applyVerify),
-          });
         case 403:
         case 404:
           return void router.navigate(PATH.notFoundError);
