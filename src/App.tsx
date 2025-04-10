@@ -1,14 +1,22 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { useState } from 'react';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { RouterProvider } from 'react-router-dom';
 
-import routerList from './router';
-
-const router = createBrowserRouter(routerList);
+import { useGlobalQueryErrorHandler } from './hooks/useGlobalQueryErrorHandler';
+import router from './router';
 
 function App() {
-  const [queryClient] = useState(() => new QueryClient());
+  const handleGlobalError = useGlobalQueryErrorHandler();
+
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        queryCache: new QueryCache({
+          onError: handleGlobalError,
+        }),
+      }),
+  );
 
   return (
     <QueryClientProvider client={queryClient}>
