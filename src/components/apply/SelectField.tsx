@@ -1,12 +1,11 @@
 import { useRef, useState } from 'react';
 
-import Icon from '../common/icon/Icon';
-import InputField from '../common/input/InputField';
-import { Select } from '../common/select/Select';
-import Title from '../common/title/Title';
-
+import Icon from '@/components/common/icon/Icon';
+import InputField from '@/components/common/input/InputField';
+import { Select } from '@/components/common/select/Select';
+import Title from '@/components/common/title/Title';
 import useCloseOutside from '@/hooks/useCloseOutside';
-import { Question } from '@/types/apis/question';
+import { Question } from '@/types/apis/application';
 
 export interface SelectItem {
   id: number;

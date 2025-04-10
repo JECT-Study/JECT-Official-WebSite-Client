@@ -1,8 +1,7 @@
 import { ChangeEvent, useState } from 'react';
 
-import InputField from '../common/input/InputField';
-import Title from '../common/title/Title';
-
+import InputField from '@/components/common/input/InputField';
+import Title from '@/components/common/title/Title';
 import { APPLY_MESSAGE } from '@/constants/applyMessages';
 import { Question } from '@/types/apis/application';
 import { validateUrlDetail, validateUrlStartHttp } from '@/utils/validateUrl';
