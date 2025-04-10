@@ -1,4 +1,7 @@
+import { createBrowserRouter } from 'react-router-dom';
+
 import { PATH } from './constants/path';
+import NonSpecificError from './pages/NonSpecificError';
 import NotFoundError from './pages/NotFoundError';
 
 import Layout from '@/components/layout/Layout';
@@ -13,7 +16,7 @@ import Main from '@/pages/Main';
 import Project from '@/pages/Project';
 import ProjectDetail from '@/pages/ProjectDetail';
 
-const routerList = [
+const router = createBrowserRouter([
   {
     element: <Layout />,
     children: [
@@ -30,6 +33,8 @@ const routerList = [
     ],
     errorElement: <NotFoundError />,
   },
-];
+  { path: PATH.nonSpecificError, element: <NonSpecificError /> },
+  { path: PATH.notFoundError, element: <NotFoundError /> },
+]);
 
-export default routerList;
+export default router;
