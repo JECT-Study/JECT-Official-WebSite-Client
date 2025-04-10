@@ -5,7 +5,7 @@ export class InternalAPIError extends Error {
 
   constructor(message: string, status: Status) {
     super(message);
-    this.name = 'APIError';
+    this.name = 'InternalAPIError';
     this.status = status;
   }
 }
@@ -15,7 +15,7 @@ export class ExternalAPIError extends Error {
 
   constructor(message: string, status: number) {
     super(message);
-    this.name = 'APIError';
+    this.name = 'ExternalAPIError';
     this.status = status;
   }
 }

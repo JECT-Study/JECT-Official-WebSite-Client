@@ -12,8 +12,8 @@ export const useGlobalQueryErrorHandler = () => {
     if (error instanceof InternalAPIError) {
       switch (error.status) {
         case 'G-10':
-          return void router.navigate(PATH.nonSpecificError);
         case 'G-02':
+          return void router.navigate(PATH.nonSpecificError);
         case 'NOT_FOUND_MEMBER':
         case 'PROJECT_NOT_FOUND':
         case 'QUESTION_NOT_FOUND':
