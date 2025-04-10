@@ -1,7 +1,6 @@
 import { validateUrlDetail } from './validateUrl';
 
-import { AnswersRequest } from '@/types/apis/answer';
-import { Question } from '@/types/apis/question';
+import { AnswersPayload, Question } from '@/types/apis/application';
 
 /**
  * 주어진 질문 목록과 답변을 기반으로 유효성을 검사하는 함수
@@ -28,7 +27,7 @@ import { Question } from '@/types/apis/question';
  * @param answersPayload - 각 질문에 대한 답변과 파일 정보를 담고 있는 객체.
  * @returns 모든 질문의 답변이 유효하면 true를, 그렇지 않으면 false를 반환.
  */
-export const validateAnswersPayload = (questions: Question[], answersPayload: AnswersRequest) => {
+export const validateAnswersPayload = (questions: Question[], answersPayload: AnswersPayload) => {
   return questions.every(question => {
     if (question.inputType === 'FILE') {
       if (!question.isRequired) return true;

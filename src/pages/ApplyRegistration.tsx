@@ -1,7 +1,9 @@
 import clsx from 'clsx';
+import Lottie from 'lottie-react';
 import { useCallback, useEffect } from 'react';
 import { Location, useLocation, useNavigate } from 'react-router-dom';
 
+import loadingSpinner from '@/assets/lottie/ject-loadingSpinner.json';
 import Answers from '@/components/apply/Answers';
 import SelectBox from '@/components/apply/selectBox';
 import BlockButton from '@/components/common/button/BlockButton';
@@ -11,12 +13,12 @@ import Title from '@/components/common/title/Title';
 import { APPLY_TITLE } from '@/constants/applyPageData';
 import { PATH } from '@/constants/path';
 import useApplicationState from '@/hooks/useApplicationState';
-import useChangeJobQuery from '@/hooks/useChangeJobQuery';
+import useDeleteDraftMutation from '@/hooks/useDeleteDraftMutation';
 import useDraftQuery from '@/hooks/useDraftQuery';
-import useSaveDraftQuery from '@/hooks/useSaveDraftQuery';
-import useSubmitAnswerQuery from '@/hooks/useSubmitAnswerQuery';
+import useSaveDraftMutation from '@/hooks/useSaveDraftMutation';
+import useSubmitAnswerMutation from '@/hooks/useSubmitAnswerMutation';
 import { useDialogActions } from '@/stores/dialogStore';
-import { JobFamily } from '@/types/apis/question';
+import { JobFamily } from '@/types/apis/application';
 import { getDraftLocal, removeDraftLocal, setDraftLocal } from '@/utils/draftUtils';
 
 interface LocationState {
@@ -53,15 +55,16 @@ function ApplyRegistration() {
   } = useApplicationState();
   const { openDialog } = useDialogActions();
 
-  const { draft: draftServer } = useDraftQuery();
-  const { saveDraftMutate } = useSaveDraftQuery();
-  const { changeJobMutate } = useChangeJobQuery();
-  const { submitAnswerMutate } = useSubmitAnswerQuery();
+  const { data: draftServer } = useDraftQuery();
+  const { mutate: saveDraftMutate, isPending: isSaveDraftPending } = useSaveDraftMutation();
+  const { mutate: deleteDraftMutate } = useDeleteDraftMutation();
+  const { mutate: submitAnswerMutate, isPending: isSubmitAnswerPending } =
+    useSubmitAnswerMutation();
 
   const saveDraftServerAndLocal = useCallback(() => {
     if (!selectedJob) return;
 
-    saveDraftMutate({ param: selectedJob, answers: answersPayload });
+    saveDraftMutate({ jobFamily: selectedJob, answers: answersPayload });
     setDraftLocal({ jobFamily: selectedJob, ...answersPayload });
     removeLocationState(location);
   }, [saveDraftMutate, answersPayload, selectedJob, location]);
@@ -69,7 +72,7 @@ function ApplyRegistration() {
   const submitAnswer = () => {
     if (!selectedJob) return;
 
-    const answer = { param: selectedJob, answers: answersPayload };
+    const answer = { jobFamily: selectedJob, answers: answersPayload };
 
     submitAnswerMutate(answer, {
       onSuccess: data => {
@@ -82,14 +85,17 @@ function ApplyRegistration() {
   };
 
   const openDialogChangeJob = (job: JobFamily) => {
-    changeSelect(job);
-
     openDialog({
       type: 'changeJob',
       onPrimaryBtnClick: () => {
-        changeJobMutate(job);
-        resetAnswers(job);
-        removeDraftLocal();
+        deleteDraftMutate(null, {
+          onSuccess: data => {
+            if (data.status === 'SUCCESS') {
+              changeSelect(job);
+              resetAnswers(job);
+            }
+          },
+        });
       },
       onSecondaryBtnClick: revertSelect,
     });
@@ -166,7 +172,7 @@ function ApplyRegistration() {
               hierarchy='secondary'
               onClick={saveDraftServerAndLocal}
             >
-              임시 저장하기
+              {isSaveDraftPending ? <Lottie animationData={loadingSpinner} /> : '임시 저장하기'}
             </BlockButton>
             <BlockButton
               size='lg'
@@ -175,7 +181,11 @@ function ApplyRegistration() {
               disabled={!isStepCompleted}
               onClick={openDialogSubmitAnswer}
             >
-              지원서 제출하기
+              {isSubmitAnswerPending ? (
+                <Lottie animationData={loadingSpinner} />
+              ) : (
+                '지원서 제출하기'
+              )}
             </BlockButton>
           </div>
         </div>

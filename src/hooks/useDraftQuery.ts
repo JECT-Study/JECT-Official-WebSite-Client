@@ -1,22 +1,18 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { getDraft } from '@/apis/draft';
+import { getDraft } from '@/apis/application';
 
 const useDraftQuery = () => {
-  const {
-    data: draft,
-    isError,
-    error,
-  } = useQuery({
+  const { data, isError, error } = useQuery({
     queryKey: ['getDraft'],
     queryFn: getDraft,
   });
 
   if (isError) {
-    console.error(`Query Error : ${error}`);
+    console.error('Query Error :', error);
   }
 
-  return { draft };
+  return { data };
 };
 
 export default useDraftQuery;

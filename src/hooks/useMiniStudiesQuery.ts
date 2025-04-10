@@ -9,7 +9,7 @@ const useMiniStudies = () => {
   });
 
   if (isError) {
-    console.error(`Query Error : ${error}`);
+    console.error('Query Error :', error);
   }
 
   const miniStudies = data?.data.content;

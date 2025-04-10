@@ -1,4 +1,5 @@
-import { NewPortfolio } from '@/types/apis/answer';
+import { NewPortfolio } from '@/types/apis/application';
+
 /**
  * 파일 객체(File 또는 NewPortfolio)를 받아 공통된 파일 정보를 추출하는 함수
  *

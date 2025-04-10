@@ -11,6 +11,5 @@ export const API_ENDPOINT = {
   uploadPortfolio: '/upload/portfolios',
   question: '/apply/questions',
   draft: '/apply/temp',
-  changeJob: '/apply/job',
   submitAnswer: '/apply/submit',
 } as const;
