@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import BlockButton from '@/components/common/button/BlockButton';
@@ -55,6 +56,12 @@ function ApplyApplicantInfo() {
     ApplyApplicantInfoFormData,
     ApplyApplicantInfoFormData
   >(handleSubmit, onSubmit);
+
+  useEffect(() => {
+    const isSuccessSubmit = localStorage.getItem('applicationSubmit');
+
+    if (isSuccessSubmit) void navigate(PATH.applyComplete);
+  }, [navigate]);
 
   return (
     <div className='gap-9xl flex flex-col items-center pt-(--gap-9xl) pb-(--gap-12xl)'>
