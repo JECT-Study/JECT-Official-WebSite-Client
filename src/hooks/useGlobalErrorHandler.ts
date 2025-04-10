@@ -4,7 +4,7 @@ import router from '@/router';
 import { useDialogActions } from '@/stores/dialogStore';
 import { useToastActions } from '@/stores/toastStore';
 
-export const useGlobalQueryErrorHandler = () => {
+export const useGlobalErrorHandler = () => {
   const { openDialog } = useDialogActions();
   const { addToast } = useToastActions();
 

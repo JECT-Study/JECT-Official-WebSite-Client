@@ -3,11 +3,11 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { useState } from 'react';
 import { RouterProvider } from 'react-router-dom';
 
-import { useGlobalQueryErrorHandler } from './hooks/useGlobalQueryErrorHandler';
+import { useGlobalErrorHandler } from './hooks/useGlobalErrorHandler';
 import router from './router';
 
 function App() {
-  const handleGlobalError = useGlobalQueryErrorHandler();
+  const handleGlobalError = useGlobalErrorHandler();
 
   const [queryClient] = useState(
     () =>
