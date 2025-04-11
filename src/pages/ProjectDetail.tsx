@@ -8,47 +8,6 @@ import { Tab, TabHeader, TabItem, TabPanel } from '@/components/common/tab/Tab';
 import Title from '@/components/common/title/Title';
 import { APPLY_SNACKBAR } from '@/constants/applyMessages';
 
-const projectDetailData = {
-  thumbnailUrl: cardSampleImage,
-  name: '프로젝트 명',
-  startDate: '2025-03-02',
-  endDate: '2025-06-30',
-  teamMemberNames: {
-    projectManagers: ['member1'],
-    productDesigners: ['member2'],
-    frontendDevelopers: ['member3', 'member4'],
-    backendDevelopers: ['member5', 'member6'],
-  },
-  techStack: ['React', 'Java', 'Spring'],
-  description:
-    '놓아 이러하는 해로 존재할 풀이 까마득하는 아쉬움을 사실 금지를 예술, 덜다. 32초 여공의 중요시는, 일반화할 매체에서 얻어지어도 말다 있으냐. 있고 꽃으로 것 맥락을 가출인데 번개부터 건네다 조사는 말다. 제스처적과 이상을 이어요 긴장되는 이용하다. 것 확신이 이같이 우리에 생활을 뒤로서 잃어버리다. 이 다르어 제출하다 필요하여 나오면서 국왕에 친절하다, 교육계로 꺾이어 있다. 묘하자면 역사로, 영화에 연구는 없이 싱싱하는 따뜻하는 젊음 있는다. 되어야 농경에 있은 교류의 그를 사관이든가 친 뒤따르어서 할까.',
-  serviceUrl: 'https://www.ject.com',
-  serviceIntros: [
-    {
-      imageUrl: cardSampleImage,
-      sequence: 1,
-    },
-    {
-      imageUrl: cardSampleImage,
-      sequence: 2,
-    },
-    {
-      imageUrl: cardSampleImage,
-      sequence: 3,
-    },
-  ],
-  devIntros: [
-    {
-      imageUrl: cardSampleImage,
-      sequence: 1,
-    },
-    {
-      imageUrl: cardSampleImage,
-      sequence: 2,
-    },
-  ],
-};
-
 const ProjectDetail = () => {
   return (
     <div className='gap-11xl flex flex-col items-center px-(--gap-5xl) pt-(--gap-9xl) pb-(--gap-12xl)'>
