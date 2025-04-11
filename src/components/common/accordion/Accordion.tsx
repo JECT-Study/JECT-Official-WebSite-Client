@@ -102,5 +102,3 @@ export const Accordion = ({ items, defaultOpenId = null, onChange }: AccordionPr
     </div>
   );
 };
-
-export default Accordion;
