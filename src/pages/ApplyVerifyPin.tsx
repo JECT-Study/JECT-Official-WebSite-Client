@@ -34,6 +34,11 @@ function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
 
   const { mutate: pinLoginMutate, isPending: isPinLoginLoading } = usePinLoginMutation();
 
+  const rightIconFillColor =
+    !isPinValid || isPinLoginLoading
+      ? 'fill-accent-trans-hero-dark'
+      : 'fill-object-static-inverse-hero-dark';
+
   const onPinSubmit = ({ pin }: PinLoginPayload) => {
     const payload = { email, pin };
     console.log('PIN 유효성 검사 통과, 로그인 API 요청 payload:', payload);
@@ -140,8 +145,9 @@ function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
             size='lg'
             style='solid'
             hierarchy='accent'
+            rightIcon={<Icon name='forward' size='md' fillColor={rightIconFillColor} />}
           >
-            PIN 다시 설정 완료하기
+            다음 단계로 진행하기
           </BlockButton>
         </div>
       </section>
