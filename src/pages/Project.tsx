@@ -16,7 +16,7 @@ import { APPLY_SNACKBAR } from '@/constants/applyMessages';
 import { PATH } from '@/constants/path';
 import { useInfiniteScroll } from '@/hooks/useInfiniteScroll';
 import { useProjectListQuery } from '@/hooks/useProjectListQuery';
-import { useProjectReviews } from '@/hooks/useProjectReviewsQuery';
+import { useProjectReviewsQuery } from '@/hooks/useProjectReviewsQuery';
 
 const selectItems = [{ label: '1기' }, { label: '2기' }, { label: '3기' }];
 
@@ -50,7 +50,7 @@ const Project = () => {
     fetchNextPage: fetchNextReviews,
     hasNextPage: isHasNextReviews,
     isFetchingNextPage: isFetchingNextReviews,
-  } = useProjectReviews();
+  } = useProjectReviewsQuery();
 
   const projectsObserverRef = useInfiniteScroll({
     hasNextPage: isHasNextProjects,
