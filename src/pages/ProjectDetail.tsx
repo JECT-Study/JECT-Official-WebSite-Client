@@ -1,57 +1,66 @@
+import { useParams } from 'react-router-dom';
+
 import cardSampleImage from '@/assets/CardSample.png';
 import ApplySnackBar from '@/components/apply/ApplySnackBar';
 import BlockButton from '@/components/common/button/BlockButton';
 import CalloutInformation from '@/components/common/callout/CalloutInformation';
+import EmptyData from '@/components/common/emptyState/EmptyData';
 import Icon from '@/components/common/icon/Icon';
 import Label from '@/components/common/label/Label';
 import { Tab, TabHeader, TabItem, TabPanel } from '@/components/common/tab/Tab';
 import Title from '@/components/common/title/Title';
 import { APPLY_SNACKBAR } from '@/constants/applyMessages';
+import { useProjectDetailQuery } from '@/hooks/useProjectDetailQuery';
 
 const ProjectDetail = () => {
+  const { id } = useParams<{ id: string }>();
+
+  const { data: projectDetailData, isError } = useProjectDetailQuery(id || '');
+
+  const techStackArray = projectDetailData?.data.techStack
+    ? projectDetailData.data.techStack.split(' ')
+    : [];
+
+  if (isError || !projectDetailData) {
+    return (
+      <div className='flex h-[50vh] w-full items-center justify-center'>
+        <EmptyData />
+      </div>
+    );
+  }
+  const project = projectDetailData.data;
+
   return (
     <div className='gap-11xl flex flex-col items-center px-(--gap-5xl) pt-(--gap-9xl) pb-(--gap-12xl)'>
       <section className='gap-6xl flex w-full max-w-[60rem] flex-col'>
         <img
-          src={projectDetailData.thumbnailUrl}
+          src={project.thumbnailUrl || cardSampleImage}
           alt='프로젝트 이미지'
           className='radius-md border-border-alternative-dark block h-[20.0625rem] w-full border object-cover'
         />
         <div className='gap-2xl flex w-full flex-col items-start'>
           <div className='gap-md flex flex-col'>
-            <Title hierarchy='stronger'>{projectDetailData.name}</Title>
+            <Title hierarchy='stronger'>{project.name}</Title>
             <Label hierarchy='stronger' weight='bold' textColor='text-object-normal-dark'>
-              {projectDetailData.startDate} ~ {projectDetailData.endDate}
+              {project.startDate} ~ {project.endDate}
             </Label>
           </div>
           <div className='gap-md flex w-full flex-col items-start'>
             <div className='gap-md flex w-full content-start items-start'>
-              <CalloutInformation
-                title='FE'
-                labels={projectDetailData.teamMemberNames.frontendDevelopers}
-              />
-              <CalloutInformation
-                title='BE'
-                labels={projectDetailData.teamMemberNames.backendDevelopers}
-              />
-              <CalloutInformation
-                title='PM'
-                labels={projectDetailData.teamMemberNames.projectManagers}
-              />
-              <CalloutInformation
-                title='PD'
-                labels={projectDetailData.teamMemberNames.productDesigners}
-              />
+              <CalloutInformation title='FE' labels={project.teamMemberNames.frontendDevelopers} />
+              <CalloutInformation title='BE' labels={project.teamMemberNames.backendDevelopers} />
+              <CalloutInformation title='PM' labels={project.teamMemberNames.projectManagers} />
+              <CalloutInformation title='PD' labels={project.teamMemberNames.productDesigners} />
             </div>
-            <CalloutInformation title='플랫폼 및 기술' labels={projectDetailData.techStack} />
+            <CalloutInformation title='플랫폼 및 기술' labels={techStackArray} />
           </div>
-          <p className='text-object-normal-dark body-lg'>{projectDetailData.description}</p>
+          <p className='text-object-normal-dark body-lg'>{project.description}</p>
         </div>
         <BlockButton
           size='lg'
           style='solid'
           hierarchy='primary'
-          onClick={() => window.open(projectDetailData.serviceUrl, '_blank', 'noopener,noreferrer')}
+          onClick={() => window.open(project.serviceUrl, '_blank', 'noopener,noreferrer')}
           rightIcon={<Icon name='northEast' size='md' fillColor='fill-object-inverse-hero-dark' />}
         >
           서비스 바로가기
@@ -69,7 +78,7 @@ const ProjectDetail = () => {
             </TabHeader>
             <TabPanel id={0}>
               <div className='gap-4xl flex flex-col'>
-                {projectDetailData.serviceIntros
+                {project.serviceIntros
                   .sort((a, b) => a.sequence - b.sequence)
                   .map(intro => (
                     <img
@@ -83,7 +92,7 @@ const ProjectDetail = () => {
             </TabPanel>
             <TabPanel id={1}>
               <div className='gap-4xl flex flex-col'>
-                {projectDetailData.devIntros
+                {project.devIntros
                   .sort((a, b) => a.sequence - b.sequence)
                   .map(intro => (
                     <img
