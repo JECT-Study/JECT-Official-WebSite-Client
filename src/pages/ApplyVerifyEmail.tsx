@@ -369,9 +369,11 @@ function ApplyVerifyEmail({
               size='lg'
               style='solid'
               hierarchy='accent'
-              rightIcon={<Icon name='forward' size='md' fillColor={rightIconFillColor} />}
+              rightIcon={
+                !isResetPin && <Icon name='forward' size='md' fillColor={rightIconFillColor} />
+              }
             >
-              다음 단계로 진행하기
+              {isResetPin ? 'PIN 다시 설정 완료하기' : '다음 단계로 진행하기'}
             </BlockButton>
           </div>
         </div>
