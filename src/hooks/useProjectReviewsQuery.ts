@@ -2,7 +2,7 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 
 import { getProjectReviews } from '@/apis/project';
 
-export const useProjectReviews = () => {
+export const useProjectReviewsQuery = () => {
   return useInfiniteQuery({
     queryKey: ['getProjectReviews'],
     queryFn: ({ pageParam = 0 }) => {
