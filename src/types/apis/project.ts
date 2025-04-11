@@ -49,3 +49,27 @@ export interface ProjectListQueryParams {
   page: number;
   size: number;
 }
+
+export interface ProjectDetailResponse {
+  thumbnailUrl: string;
+  name: string;
+  startDate: string;
+  endDate: string;
+  teamMemberNames: {
+    projectManagers: string[];
+    productDesigners: string[];
+    frontendDevelopers: string[];
+    backendDevelopers: string[];
+  };
+  techStack: string;
+  description: string;
+  serviceUrl: string;
+  serviceIntros: {
+    imageUrl: string;
+    sequence: number;
+  }[];
+  devIntros: {
+    imageUrl: string;
+    sequence: number;
+  }[];
+}
