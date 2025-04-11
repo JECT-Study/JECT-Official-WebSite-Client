@@ -25,10 +25,11 @@ const useUploadFileToS3Query = () => {
     onError: error => {
       if (axios.isAxiosError(error) && error.code === 'ERR_NETWORK') {
         addToast(APPLY_MESSAGE.fail.uploadFile, 'negative');
+        setIsNetworkError(true);
+        return;
       }
 
       openDialog({ type: 'failedUploadFile' });
-      setIsNetworkError(true);
     },
   });
 
