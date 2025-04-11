@@ -1,5 +1,5 @@
 import Lottie from 'lottie-react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import cardSampleImage from '@/assets/CardSample.png';
 import loadingSpinner from '@/assets/lottie/ject-loadingSpinner.json';
@@ -14,127 +14,67 @@ import { Tab, TabHeader, TabItem, TabPanel } from '@/components/common/tab/Tab';
 import Title from '@/components/common/title/Title';
 import { APPLY_SNACKBAR } from '@/constants/applyMessages';
 import { PATH } from '@/constants/path';
+import { useInfiniteScroll } from '@/hooks/useInfiniteScroll';
+import { useProjectListQuery } from '@/hooks/useProjectListQuery';
 import { useProjectReviews } from '@/hooks/useProjectReviewsQuery';
 
-const projectCardData = [
-  {
-    id: 1,
-    thumbnailUrl: cardSampleImage,
-    name: 'ProjectAName',
-    summary: 'Project A에 대한 간단한 설명입니다.',
-  },
-  {
-    id: 2,
-    thumbnailUrl: cardSampleImage,
-    name: 'ProjectBName',
-    summary: 'Project B에 대한 간단한 설명입니다.',
-  },
-  {
-    id: 3,
-    thumbnailUrl: cardSampleImage,
-    name: 'ProjectCName',
-    summary: 'Project C에 대한 간단한 설명입니다.',
-  },
-  {
-    id: 4,
-    thumbnailUrl: cardSampleImage,
-    name: 'ProjectDName',
-    summary: 'Project D에 대한 간단한 설명입니다.',
-  },
-  {
-    id: 5,
-    thumbnailUrl: cardSampleImage,
-    name: 'ProjectEName',
-    summary: 'Project E에 대한 간단한 설명입니다.',
-  },
-  {
-    id: 6,
-    thumbnailUrl: cardSampleImage,
-    name: 'ProjectFName',
-    summary: 'Project F에 대한 간단한 설명입니다.',
-  },
-];
-
-const hackathonCardData = [
-  {
-    id: 1,
-    thumbnailUrl: cardSampleImage,
-    name: 'HackathonAName',
-    summary: 'Hackathon A에 대한 간단한 설명입니다.',
-  },
-  {
-    id: 2,
-    thumbnailUrl: cardSampleImage,
-    name: 'HackathonBName',
-    summary: 'Hackathon B에 대한 간단한 설명입니다.',
-  },
-  {
-    id: 3,
-    thumbnailUrl: cardSampleImage,
-    name: 'HackathonCName',
-    summary: 'Hackathon C에 대한 간단한 설명입니다.',
-  },
-  {
-    id: 4,
-    thumbnailUrl: cardSampleImage,
-    name: 'HackathonDName',
-    summary: 'Hackathon D에 대한 간단한 설명입니다.',
-  },
-  {
-    id: 5,
-    thumbnailUrl: cardSampleImage,
-    name: 'HackathonEName',
-    summary: 'Hackathon E에 대한 간단한 설명입니다.',
-  },
-  {
-    id: 6,
-    thumbnailUrl: cardSampleImage,
-    name: 'HackathonFName',
-    summary: 'Hackathon F에 대한 간단한 설명입니다.',
-  },
-];
-
 const selectItems = [{ label: '1기' }, { label: '2기' }, { label: '3기' }];
+
+const getSemesterIdFromLabel = (label: string | null): number => {
+  if (!label) return 1;
+
+  const match = label.match(/^(\d+)기$/);
+  if (match && match[1]) {
+    return parseInt(match[1], 10);
+  }
+
+  return 1;
+};
 
 const Project = () => {
   const [isSelectOpen, setIsSelectOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
-  const observerTarget = useRef<HTMLDivElement>(null);
+  const [semesterId, setSemesterId] = useState(1);
+
+  const {
+    data: projectsData,
+    isError: isProjectsError,
+    fetchNextPage: fetchNextProjects,
+    hasNextPage: isHasNextProjects,
+    isFetchingNextPage: isFetchingNextProjects,
+  } = useProjectListQuery(semesterId, 'MAIN');
 
   const {
     data: reviewsData,
     isError: isReviewsError,
-    fetchNextPage,
-    hasNextPage: isHasNextPage,
-    isFetchingNextPage,
+    fetchNextPage: fetchNextReviews,
+    hasNextPage: isHasNextReviews,
+    isFetchingNextPage: isFetchingNextReviews,
   } = useProjectReviews();
 
+  const projectsObserverRef = useInfiniteScroll({
+    hasNextPage: isHasNextProjects,
+    isFetchingNextPage: isFetchingNextProjects,
+    fetchNextPage: fetchNextProjects,
+  });
+
+  const reviewsObserverRef = useInfiniteScroll({
+    hasNextPage: isHasNextReviews,
+    isFetchingNextPage: isFetchingNextReviews,
+    fetchNextPage: fetchNextReviews,
+  });
+
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      entries => {
-        if (entries[0].isIntersecting && isHasNextPage && !isFetchingNextPage) {
-          void fetchNextPage();
-        }
-      },
-      { threshold: 0.1 },
-    );
-
-    const currentTarget = observerTarget.current;
-    if (currentTarget) {
-      observer.observe(currentTarget);
-    }
-
-    return () => {
-      if (currentTarget) {
-        observer.unobserve(currentTarget);
-      }
-    };
-  }, [isHasNextPage, fetchNextPage, isFetchingNextPage]);
+    const newSemesterId = getSemesterIdFromLabel(selectedOption);
+    setSemesterId(newSemesterId);
+  }, [selectedOption]);
 
   const handleSelectChange = (label: string | null) => {
     setSelectedOption(label);
     setIsSelectOpen(false);
   };
+
+  const allProjects = projectsData?.pages.flatMap(page => page.data.content) || [];
 
   const allReviews = reviewsData?.pages.flatMap(page => page.data.content) || [];
 
@@ -166,40 +106,60 @@ const Project = () => {
                   </div>
                 )}
               </div>
+
               <TabPanel id={0}>
-                <div className='gap-4xl grid grid-cols-3'>
-                  {projectCardData.map(card => (
-                    <Card
-                      key={card.id}
-                      to={`${PATH.project}/${card.id}`}
-                      title={card.name}
-                      label={card.name}
-                      imgUrl={card.thumbnailUrl}
-                    >
-                      {card.summary}
-                    </Card>
-                  ))}
-                </div>
+                {isProjectsError || allProjects.length === 0 ? (
+                  <EmptyData />
+                ) : (
+                  <div className='gap-4xl grid grid-cols-3'>
+                    {allProjects.map(project => (
+                      <Card
+                        key={project.id}
+                        to={`${PATH.project}/${project.id}`}
+                        title={project.name}
+                        label={project.name}
+                        imgUrl={project.thumbnailUrl || cardSampleImage}
+                      >
+                        {project.summary}
+                      </Card>
+                    ))}
+                  </div>
+                )}
               </TabPanel>
+
               <TabPanel id={1}>
-                <div className='gap-4xl grid grid-cols-3'>
-                  {hackathonCardData.map(card => (
-                    <Card
-                      key={card.id}
-                      to={`${PATH.jeckathon}/${card.id}`}
-                      title={card.name}
-                      label={card.name}
-                      imgUrl={card.thumbnailUrl}
-                    >
-                      {card.summary}
-                    </Card>
-                  ))}
-                </div>
+                {isProjectsError || allProjects.length === 0 ? (
+                  <EmptyData />
+                ) : (
+                  <div className='gap-4xl grid grid-cols-3'>
+                    {allProjects.map(project => (
+                      <Card
+                        key={project.id}
+                        to={`${PATH.jeckathon}/${project.id}`}
+                        title={project.name}
+                        label={project.name}
+                        imgUrl={project.thumbnailUrl || cardSampleImage}
+                      >
+                        {project.summary}
+                      </Card>
+                    ))}
+                  </div>
+                )}
               </TabPanel>
+
+              {!isProjectsError && allProjects.length > 0 && (
+                <div
+                  ref={projectsObserverRef}
+                  className='mt-(--gap-md) flex h-[2.5rem] w-full items-center justify-center'
+                >
+                  {isFetchingNextProjects && <Lottie animationData={loadingSpinner} />}
+                </div>
+              )}
             </div>
           </Tab>
         </div>
       </section>
+
       <section className='gap-8xl flex w-full max-w-[60rem] flex-col items-center'>
         <Title hierarchy='strong'>프로젝트 후기</Title>
 
@@ -215,10 +175,10 @@ const Project = () => {
               ))}
             </div>
             <div
-              ref={observerTarget}
+              ref={reviewsObserverRef}
               className='mt-(--gap-md) flex h-[2.5rem] w-full items-center justify-center'
             >
-              {isFetchingNextPage && <Lottie animationData={loadingSpinner} />}
+              {isFetchingNextReviews && <Lottie animationData={loadingSpinner} />}
             </div>
           </>
         )}
