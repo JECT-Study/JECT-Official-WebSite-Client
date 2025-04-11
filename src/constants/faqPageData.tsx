@@ -2,17 +2,17 @@ import { ReactNode } from 'react';
 
 import { JECT_EMAIL } from './footer';
 
-interface Faq {
-  id: number;
+interface FaqItemData {
+  id: string;
   title: string;
   label: string;
   content: ReactNode;
-  caption: ReactNode;
+  caption?: ReactNode;
 }
 
-export const faqApply: Faq[] = [
+export const faqApply: FaqItemData[] = [
   {
-    id: 1,
+    id: 'apply-1',
     title: '참여하려면 어느 정도의 실력이 필요한가요?',
     label: '지원자분들의 실력을 직접 평가하는 정량적인 기준은 없어요.',
     content: (
@@ -29,7 +29,7 @@ export const faqApply: Faq[] = [
     caption: '',
   },
   {
-    id: 2,
+    id: 'apply-2',
     title: '다른 IT 동아리에 소속되어 있는데, 젝트에도 지원 가능한가요?',
     label: '다른 IT 동아리 소속 시에는 지원이 어려워요.',
     content: (
@@ -43,7 +43,7 @@ export const faqApply: Faq[] = [
     caption: '',
   },
   {
-    id: 3,
+    id: 'apply-3',
     title: '불합격도 별도로 통지하나요?',
     label: '네. 젝트는 불합격 시에도 이메일로 통지드려요.',
     content:
@@ -51,7 +51,7 @@ export const faqApply: Faq[] = [
     caption: '',
   },
   {
-    id: 4,
+    id: 'apply-4',
     title: '연령이나 신분에 따른 지원 제한이 있나요?',
     label: '특별히 제한을 두고 있지 않아요.',
     content: (
@@ -67,7 +67,7 @@ export const faqApply: Faq[] = [
     caption: '젝트의 지향점에 공감할 수 있는 분이면 더욱 좋아요.',
   },
   {
-    id: 5,
+    id: 'apply-5',
     title: '지원하기 중 인증번호 메일이 오지 않았는데, 어떻게 해야 하나요?',
     label: '스팸 메일함을 우선적으로 확인해 주세요.',
     content:
@@ -77,9 +77,9 @@ export const faqApply: Faq[] = [
   },
 ];
 
-export const faqProject: Faq[] = [
+export const faqProject: FaqItemData[] = [
   {
-    id: 1,
+    id: 'project-1',
     title: '프로젝트 관련 비용은 어떻게 해결하나요?',
     label: '일반적으로 팀원들과 분담해서 해결해요.',
     content: (
@@ -92,7 +92,7 @@ export const faqProject: Faq[] = [
     caption: '',
   },
   {
-    id: 2,
+    id: 'project-2',
     title: '팀 구성은 어떻게 이루어지나요?',
     label: '기본적으로 6인 1팀을 전제로 해요.',
     content: (
@@ -108,7 +108,7 @@ export const faqProject: Faq[] = [
     caption: null,
   },
   {
-    id: 3,
+    id: 'project-3',
     title: '동아리원이 아닌 외부인도 프로젝트에 참여할 수 있나요?',
     label: '일반적으로는 동아리 구성원만 참여 가능해요.',
     content: (
@@ -122,7 +122,7 @@ export const faqProject: Faq[] = [
     caption: '이 경우, 운영진에게 먼저 상황을 충분히 설명해 주셔야 해요.',
   },
   {
-    id: 4,
+    id: 'project-4',
     title: '팀 빌딩은 어떻게 이루어지나요?',
     label: '내가 원하는 팀원을 직접 고를 수 있어요.',
     content: (
@@ -139,7 +139,7 @@ export const faqProject: Faq[] = [
     caption: null,
   },
   {
-    id: 5,
+    id: 'project-5',
     title: 'OT, 데모데이 등의 프로젝트 행사 참여는 필수인가요?',
     label: '기본적으로 온라인 행사에는 필수적으로 참여를 요청드려요.',
     content: (
@@ -152,7 +152,7 @@ export const faqProject: Faq[] = [
     caption: null,
   },
   {
-    id: 6,
+    id: 'project-6',
     title: '프로젝트 후기는 작성 필수인가요?',
     label: '프로젝트 참여 후 후기 작성은 필수예요.',
     content: (
@@ -167,9 +167,9 @@ export const faqProject: Faq[] = [
   },
 ];
 
-export const faqActivity: Faq[] = [
+export const faqActivity: FaqItemData[] = [
   {
-    id: 1,
+    id: 'activity-1',
     title: '미니 스터디 참여는 필수인가요?',
     label: '팀 프로젝트에 참여하고 있다면 필수는 아니지만 권장드려요.',
     content: (
@@ -182,14 +182,14 @@ export const faqActivity: Faq[] = [
     caption: '',
   },
   {
-    id: 2,
+    id: 'activity-2',
     title: '미니 스터디 활동 내용을 외부 플랫폼에 공유해도 되나요?',
     label: '외부 플랫폼 공유 가능 여부는 미니 스터디 리더의 재량에 따라 달라져요.',
     content: '외부 플랫폼 공유를 희망하는 경우 ‘문의하기’ 를 통해 사전 문의해 주세요.',
     caption: '',
   },
   {
-    id: 3,
+    id: 'activity-3',
     title: 'JECTALK은 어떤 활동인가요?',
     label: '내 분야와 관련한 자유 주제를 발표해요.',
     content: (
@@ -204,9 +204,9 @@ export const faqActivity: Faq[] = [
   },
 ];
 
-export const faqJect: Faq[] = [
+export const faqJect: FaqItemData[] = [
   {
-    id: 1,
+    id: 'ject-1',
     title: '젝트에 대해 더 알고 싶어요.',
     label: '젝트는 개발자 취업을 위한 작은 스터디에서 시작됐어요.',
     content: (
@@ -221,7 +221,7 @@ export const faqJect: Faq[] = [
     caption: '',
   },
   {
-    id: 2,
+    id: 'ject-2',
     title: '젝트에서 진행하는 팀 프로젝트가 무엇인가요?',
     label: '젝트는 IT 관련 사이드 프로젝트를 진행해요.',
     content: (
@@ -234,7 +234,7 @@ export const faqJect: Faq[] = [
     caption: '',
   },
   {
-    id: 3,
+    id: 'ject-3',
     title: '주 활동 지역은 어디인가요?',
     label: '정해진 주 활동 지역은 없어요.',
     content: (
@@ -249,7 +249,7 @@ export const faqJect: Faq[] = [
     caption: '',
   },
   {
-    id: 4,
+    id: 'ject-4',
     title: '사용하는 메신저나 공용 플랫폼이 있나요?',
     label: '젝트는 Discord(디스코드)를 주로 사용해요.',
     content: (
@@ -264,7 +264,7 @@ export const faqJect: Faq[] = [
       '*공지 전달의 경우 확실한 전달이 중요하기 때문에 접근성을 위해 카카오톡을 별도로 사용하기도 해요.',
   },
   {
-    id: 5,
+    id: 'ject-5',
     title: '추가 문의는 어디로 하면 되나요?',
     label: '아래 이메일로 문의해 주세요.',
     content: JECT_EMAIL,
