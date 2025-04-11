@@ -19,4 +19,5 @@ export type IconNames =
   | 'invisible'
   | 'minus'
   | 'rightChevron'
-  | 'visible';
+  | 'visible'
+  | 'refresh';

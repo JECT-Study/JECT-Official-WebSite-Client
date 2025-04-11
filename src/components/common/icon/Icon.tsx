@@ -15,6 +15,7 @@ import Less from '@/assets/svg/less.svg?react';
 import Minus from '@/assets/svg/minus.svg?react';
 import NorthEast from '@/assets/svg/northEast.svg?react';
 import Question from '@/assets/svg/question.svg?react';
+import Refresh from '@/assets/svg/refresh.svg?react';
 import RightChevron from '@/assets/svg/rightChevron.svg?react';
 import Upload from '@/assets/svg/upload.svg?react';
 import Visible from '@/assets/svg/visible.svg?react';
@@ -51,6 +52,7 @@ function Icon({ name, size, fillColor }: IconProps) {
     minus: Minus,
     rightChevron: RightChevron,
     visible: Visible,
+    refresh: Refresh,
   };
 
   const IconComponent = icons[name];
