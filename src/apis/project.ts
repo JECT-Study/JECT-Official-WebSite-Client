@@ -1,5 +1,6 @@
 import { API_ENDPOINT } from '@/constants/apiEndpoint';
 import {
+  ProjectDetailResponse,
   ProjectListQueryParams,
   ProjectListResponse,
   ProjectReviewsQueryParams,
@@ -31,4 +32,9 @@ export const getProjectList = async ({
 
   const url = `${API_ENDPOINT.projectList}?${params.toString()}`;
   return await requestHandler<ProjectListResponse>('get', url);
+};
+
+export const getProjectDetail = async (projectId: string) => {
+  const url = `${API_ENDPOINT.projectDetail.replace(':projectId', projectId)}`;
+  return await requestHandler<ProjectDetailResponse>('get', url);
 };
