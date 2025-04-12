@@ -57,7 +57,7 @@ function ApplyRegistration() {
 
   const { data: draftServer } = useDraftQuery();
   const { mutate: saveDraftMutate, isPending: isSaveDraftPending } = useSaveDraftMutation();
-  const { mutate: deleteDraftMutate } = useDeleteDraftMutation();
+  const { mutate: deleteDraftMutate } = useDeleteDraftMutation(); // TODO: 삭제 isPending 추가 여부 및 방식 논의 필요
   const { mutate: submitAnswerMutate, isPending: isSubmitAnswerPending } =
     useSubmitAnswerMutation();
 
