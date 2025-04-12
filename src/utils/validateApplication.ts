@@ -25,7 +25,7 @@ import { Application } from '@/types/ui/application';
  * 만약 예상하지 못한 inputType이 전달되면 기본적으로 false를 반환한다.
  *
  * @param questions - 질문 객체들의 배열.
- * @param Application - 각 질문에 대한 답변과 파일 정보를 담고 있는 객체.
+ * @param application - 각 질문에 대한 답변과 파일 정보를 담고 있는 객체.
  * @returns 모든 질문의 답변이 유효하면 true를, 그렇지 않으면 false를 반환.
  */
 export const validateApplication = (questions: Question[], application: Application) => {
