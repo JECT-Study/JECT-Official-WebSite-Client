@@ -137,7 +137,7 @@ const AnimatedSection = () => {
     tl.to(badgeRef.current, { scale: 0, duration: 0.3, ease: 'power1.in' });
 
     tl.call(() => {
-      const variants: RoleVariant[] = ['fe', 'be', 'do', 'pm', 'pd'];
+      const variants: RoleVariant[] = ['fe', 'be', 'pm', 'pd'];
       let variantIndex = 1;
       gsap
         .timeline({ repeat: -1 })

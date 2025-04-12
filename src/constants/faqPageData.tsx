@@ -1,5 +1,7 @@
 import { ReactNode } from 'react';
 
+import { JECT_EMAIL } from './footer';
+
 interface Faq {
   id: number;
   title: string;
@@ -64,6 +66,15 @@ export const faqApply: Faq[] = [
     ),
     caption: '젝트의 지향점에 공감할 수 있는 분이면 더욱 좋아요.',
   },
+  {
+    id: 5,
+    title: '지원하기 중 인증번호 메일이 오지 않았는데, 어떻게 해야 하나요?',
+    label: '스팸 메일함을 우선적으로 확인해 주세요.',
+    content:
+      '만일 스팸 메일함에 인증번호 메일이 없다면, 기입하신 이메일 주소가 정확한지 한번 더 확인해 주세요.',
+    caption:
+      '그럼에도 불구하고, 인증번호 메일을 받지 못하셨다면 jectofficial@ject.kr 로 문의해주세요!',
+  },
 ];
 
 export const faqProject: Faq[] = [
@@ -89,7 +100,7 @@ export const faqProject: Faq[] = [
         <ul className='list-disc-ject'>
           <li>프론트엔드 개발자(FE) 2명</li>
           <li>백엔드 개발자(BE) 2명</li>
-          <li>프로젝트 매니저(PM) 1명</li>
+          <li>프로덕트 매니저(PM) 1명</li>
           <li>프로덕트 디자이너(PD) 1명</li>
         </ul>
       </>
@@ -256,7 +267,7 @@ export const faqJect: Faq[] = [
     id: 5,
     title: '추가 문의는 어디로 하면 되나요?',
     label: '아래 이메일로 문의해 주세요.',
-    content: 'jectofficial@gmail.com',
+    content: JECT_EMAIL,
     caption: '',
   },
 ];

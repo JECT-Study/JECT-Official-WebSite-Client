@@ -8,7 +8,7 @@ export interface MiniStudy {
   summary: string;
 }
 
-export interface MiniStudies {
+export interface MiniStudiesResponse {
   content: MiniStudy[];
   number: number;
   size: number;

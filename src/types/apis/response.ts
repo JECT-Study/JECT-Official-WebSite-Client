@@ -1,4 +1,4 @@
-type Status =
+export type Status =
   | 'SUCCESS'
   | 'G-01'
   | 'G-02'
@@ -18,7 +18,8 @@ type Status =
   | 'PROJECT_NOT_FOUND'
   | 'QUESTION_NOT_FOUND'
   | 'RECRUIT_NOT_FOUND'
-  | 'TEMP_APPLICATION_NOT_FOUND';
+  | 'TEMP_APPLICATION_NOT_FOUND'
+  | 'INVALID_CREDENTIALS';
 
 export interface ApiResponse<T> {
   status: Status;

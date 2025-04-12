@@ -6,7 +6,7 @@ import {
   Size,
   Hierarchy,
   labelButtonInteractionMap,
-} from '@/styles/labelButtonStyle';
+} from '@/components/common/button/labelButton.style';
 
 export interface LabelButtonProps extends ComponentPropsWithoutRef<'button'> {
   children?: ReactNode;

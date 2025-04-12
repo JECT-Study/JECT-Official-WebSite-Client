@@ -20,7 +20,7 @@ const meta: Meta<typeof Select> = {
     items: [
       { label: '프론트엔드 개발자' },
       { label: '백엔드 개발자' },
-      { label: '프로젝트 매니저' },
+      { label: '프로덕트 매니저' },
       { label: '프로덕트 디자이너' },
     ],
   },
@@ -42,7 +42,7 @@ export const SelectStory: Story = {
         items={[
           { label: '프론트엔드 개발자' },
           { label: '백엔드 개발자' },
-          { label: '프로젝트 매니저', disabled: true },
+          { label: '프로덕트 매니저', disabled: true },
           { label: '프로덕트 디자이너' },
         ]}
       />
@@ -58,7 +58,7 @@ export const SelectWithDefaultValueStory: Story = {
         items={[
           { label: '프론트엔드 개발자' },
           { label: '백엔드 개발자' },
-          { label: '프로젝트 매니저' },
+          { label: '프로덕트 매니저' },
           { label: '프로덕트 디자이너' },
         ]}
         defaultValue='백엔드 개발자'

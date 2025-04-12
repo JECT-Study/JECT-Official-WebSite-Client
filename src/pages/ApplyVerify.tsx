@@ -5,11 +5,12 @@ import ApplyVerifyPin from './ApplyVerifyPin';
 
 function ApplyVerify() {
   const [isNewApplicant, setIsNewApplicant] = useState(true);
+  const [userEmail, setUserEmail] = useState('');
 
   return isNewApplicant ? (
-    <ApplyVerifyEmail setIsNewApplicant={setIsNewApplicant} />
+    <ApplyVerifyEmail setIsNewApplicant={setIsNewApplicant} setUserEmail={setUserEmail} />
   ) : (
-    <ApplyVerifyPin email={''} />
+    <ApplyVerifyPin email={userEmail} />
   );
 }
 
