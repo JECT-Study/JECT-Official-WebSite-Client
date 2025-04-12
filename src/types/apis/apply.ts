@@ -46,3 +46,9 @@ export interface RegisterMemberResponse {
   accessToken: string;
   refreshToken: string;
 }
+
+export interface ResetPinPayload {
+  pin: string;
+}
+
+export type ResetPinResponse = null;
