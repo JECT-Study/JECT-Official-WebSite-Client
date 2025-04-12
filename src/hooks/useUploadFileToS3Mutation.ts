@@ -22,7 +22,7 @@ const useUploadFileToS3Mutation = () => {
     mutate,
     isPending,
   }: UseMutationResult<
-    AxiosResponse<ApiResponse<PresignedUrlResponse[]>>,
+    AxiosResponse<ApiResponse<PresignedUrlResponse>>,
     AxiosError,
     UploadFileToS3MutationVariable,
     unknown

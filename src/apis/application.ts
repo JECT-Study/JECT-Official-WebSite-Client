@@ -19,14 +19,14 @@ export const getQuestions = async (jobFamily: JobFamily) => {
 };
 
 export const putUploadFileToS3 = async (url: string, file: File, cancelToken: CancelToken) => {
-  return axios.put<ApiResponse<PresignedUrlResponse[]>>(url, file, {
+  return axios.put<ApiResponse<PresignedUrlResponse>>(url, file, {
     headers: { 'Content-Type': file.type },
     cancelToken,
   });
 };
 
-export const postUploadPortfolio = async (files: PresignedUrlPayload[]) => {
-  return await requestHandler<PresignedUrlResponse[], PresignedUrlPayload[]>(
+export const postUploadPortfolio = async (files: PresignedUrlPayload) => {
+  return await requestHandler<PresignedUrlResponse, PresignedUrlPayload>(
     'post',
     API_ENDPOINT.uploadPortfolio,
     files,

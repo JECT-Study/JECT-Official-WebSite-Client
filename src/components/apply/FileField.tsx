@@ -9,7 +9,7 @@ import { useToastActions } from '@/stores/toastStore';
 import {
   NewPortfolio,
   PortfolioResponse,
-  PresignedUrlResponse,
+  PresignedFileUrls,
   Question,
 } from '@/types/apis/application';
 import { validateMaxSize } from '@/utils/validateFileMaxSize';
@@ -21,7 +21,7 @@ interface FileFieldProps {
   values: PortfolioResponse[];
 }
 
-const formatRawFiles = (data: PresignedUrlResponse[], files: File[]) => {
+const formatRawFiles = (data: PresignedFileUrls[], files: File[]) => {
   return data.map((item, index) => ({
     id: crypto.randomUUID(),
     rawFile: files[index],

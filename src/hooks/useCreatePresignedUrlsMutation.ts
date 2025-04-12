@@ -6,9 +6,9 @@ import { PresignedUrlPayload, PresignedUrlResponse } from '@/types/apis/applicat
 import { ApiResponse } from '@/types/apis/response';
 
 const useCreatePresignedUrlsMutation = (): UseMutationResult<
-  ApiResponse<PresignedUrlResponse[]>,
+  ApiResponse<PresignedUrlResponse>,
   AxiosError,
-  PresignedUrlPayload[],
+  PresignedUrlPayload,
   unknown
 > => {
   return useMutation({

@@ -13,13 +13,13 @@ export interface Question {
   maxFileSize: number | null;
 }
 
-export interface PresignedUrlPayload {
+export interface UploadFileMeta {
   name: string;
   contentType: string;
   contentLength: number;
 }
 
-export interface PresignedUrlResponse {
+export interface PresignedFileUrls {
   cdnUrl: string;
   presignedUrl: string;
   expiration: string;
@@ -46,6 +46,10 @@ export interface AnswersPayload {
 export interface AnswersResponse extends AnswersPayload {
   jobFamily: JobFamily;
 }
+
+export type PresignedUrlPayload = UploadFileMeta[];
+
+export type PresignedUrlResponse = PresignedFileUrls[];
 
 export type QuestionResponse = Question[];
 
