@@ -43,11 +43,11 @@ function ApplyRegistration() {
     isStepCompleted,
     selectedJob,
     questionJob,
-    answersPayload,
+    application,
     handleChangeAnswer,
     handleChangePortfolios,
     updateAnswerByDraft,
-    resetAnswers,
+    resetApplication,
     revertSelect,
     changeSelectAndQuestion,
     changeSelect,
@@ -64,15 +64,15 @@ function ApplyRegistration() {
   const saveDraftServerAndLocal = useCallback(() => {
     if (!selectedJob) return;
 
-    saveDraftMutate({ jobFamily: selectedJob, answers: answersPayload });
-    setDraftLocal({ jobFamily: selectedJob, ...answersPayload });
+    saveDraftMutate({ jobFamily: selectedJob, answers: application });
+    setDraftLocal({ jobFamily: selectedJob, ...application });
     removeLocationState(location);
-  }, [saveDraftMutate, answersPayload, selectedJob, location]);
+  }, [saveDraftMutate, application, selectedJob, location]);
 
   const submitAnswer = () => {
     if (!selectedJob) return;
 
-    const answer = { jobFamily: selectedJob, answers: answersPayload };
+    const answer = { jobFamily: selectedJob, answers: application };
 
     submitAnswerMutate(answer, {
       onSuccess: data => {
@@ -92,7 +92,7 @@ function ApplyRegistration() {
           onSuccess: data => {
             if (data.status === 'SUCCESS') {
               changeSelect(job);
-              resetAnswers(job);
+              resetApplication(job);
             }
           },
         });
@@ -131,11 +131,11 @@ function ApplyRegistration() {
   useEffect(() => {
     if (!selectedJob) return;
 
-    const saveDraftLocal = () => setDraftLocal({ jobFamily: selectedJob, ...answersPayload });
+    const saveDraftLocal = () => setDraftLocal({ jobFamily: selectedJob, ...application });
     const autoSaveDraftLocal = setInterval(saveDraftLocal, 60000);
 
     return () => clearInterval(autoSaveDraftLocal);
-  }, [selectedJob, answersPayload]);
+  }, [selectedJob, application]);
 
   return (
     <div className='gap-9xl flex flex-col items-center pt-(--gap-9xl) pb-(--gap-12xl)'>
@@ -154,7 +154,7 @@ function ApplyRegistration() {
           {selectedJob ? (
             <Answers
               questionJob={questionJob}
-              answersPayload={answersPayload}
+              application={application}
               onChangeAnswer={handleChangeAnswer}
               onChangePortfolios={handleChangePortfolios}
               onActiveSubmitButton={setSubmitButtonActive}

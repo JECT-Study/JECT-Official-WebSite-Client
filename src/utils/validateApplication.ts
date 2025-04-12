@@ -1,6 +1,7 @@
 import { validateUrlDetail } from './validateUrl';
 
-import { AnswersPayload, Question } from '@/types/apis/application';
+import { Question } from '@/types/apis/application';
+import { Application } from '@/types/ui/application';
 
 /**
  * 주어진 질문 목록과 답변을 기반으로 유효성을 검사하는 함수
@@ -24,19 +25,19 @@ import { AnswersPayload, Question } from '@/types/apis/application';
  * 만약 예상하지 못한 inputType이 전달되면 기본적으로 false를 반환한다.
  *
  * @param questions - 질문 객체들의 배열.
- * @param answersPayload - 각 질문에 대한 답변과 파일 정보를 담고 있는 객체.
+ * @param Application - 각 질문에 대한 답변과 파일 정보를 담고 있는 객체.
  * @returns 모든 질문의 답변이 유효하면 true를, 그렇지 않으면 false를 반환.
  */
-export const validateAnswersPayload = (questions: Question[], answersPayload: AnswersPayload) => {
+export const validateApplication = (questions: Question[], application: Application) => {
   return questions.every(question => {
     if (question.inputType === 'FILE') {
       if (!question.isRequired) return true;
 
-      return answersPayload.portfolios.length > 0;
+      return application.portfolios.length > 0;
     }
 
     if (question.inputType === 'TEXT') {
-      const text = answersPayload.answers[question.id] || '';
+      const text = application.answers[question.id] || '';
 
       if (!question.isRequired) {
         if (question.maxTextLength) return text.length <= question.maxTextLength;
@@ -52,7 +53,7 @@ export const validateAnswersPayload = (questions: Question[], answersPayload: An
     }
 
     if (question.inputType === 'URL') {
-      const url = answersPayload.answers[question.id] || '';
+      const url = application.answers[question.id] || '';
 
       return url ? validateUrlDetail(url) : !question.isRequired;
     }

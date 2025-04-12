@@ -1,13 +1,9 @@
 import { useCallback, useState } from 'react';
 
-import {
-  AnswersPayload,
-  AnswersResponse,
-  JobFamily,
-  PortfolioResponse,
-} from '@/types/apis/application';
+import { AnswersResponse, JobFamily, PortfolioResponse } from '@/types/apis/application';
+import { Application } from '@/types/ui/application';
 
-const initialAnswer: AnswersPayload = {
+const initialAnswer: Application = {
   answers: {},
   portfolios: [],
 };
@@ -16,14 +12,14 @@ const useApplicationState = () => {
   const [isStepCompleted, setIsStepCompleted] = useState(false);
   const [selectedJob, setSelectedJob] = useState<JobFamily | null>(null);
   const [questionJob, setQuestionJob] = useState<JobFamily | null>(null);
-  const [answersPayload, setAnswersPayload] = useState<AnswersPayload>(initialAnswer);
+  const [application, setApplication] = useState<Application>(initialAnswer);
 
   const handleChangeAnswer = useCallback((id: number, text: string) => {
-    setAnswersPayload(prev => ({ ...prev, answers: { ...prev.answers, [id]: text } }));
+    setApplication(prev => ({ ...prev, answers: { ...prev.answers, [id]: text } }));
   }, []);
 
   const handleChangePortfolios = useCallback((files: PortfolioResponse[]) => {
-    setAnswersPayload(prev => ({ ...prev, portfolios: files }));
+    setApplication(prev => ({ ...prev, portfolios: files }));
   }, []);
 
   const updateAnswerByDraft = useCallback((draft: AnswersResponse) => {
@@ -34,14 +30,14 @@ const useApplicationState = () => {
       setQuestionJob(jobFamily);
     }
 
-    if (answers) setAnswersPayload(prev => ({ ...prev, answers }));
+    if (answers) setApplication(prev => ({ ...prev, answers }));
 
-    if (portfolios) setAnswersPayload(prev => ({ ...prev, portfolios }));
+    if (portfolios) setApplication(prev => ({ ...prev, portfolios }));
   }, []);
 
-  const resetAnswers = useCallback((job: JobFamily) => {
+  const resetApplication = useCallback((job: JobFamily) => {
     setQuestionJob(job);
-    setAnswersPayload(initialAnswer);
+    setApplication(initialAnswer);
   }, []);
 
   const revertSelect = useCallback(() => {
@@ -65,11 +61,11 @@ const useApplicationState = () => {
     isStepCompleted,
     selectedJob,
     questionJob,
-    answersPayload,
+    application,
     handleChangeAnswer,
     handleChangePortfolios,
     updateAnswerByDraft,
-    resetAnswers,
+    resetApplication,
     revertSelect,
     changeSelectAndQuestion,
     changeSelect,
