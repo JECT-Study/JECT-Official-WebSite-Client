@@ -12,9 +12,7 @@ import {
 import { ApiResponse } from '@/types/apis/response';
 import { requestHandler } from '@/utils/httpClient';
 
-export const getQuestions = async (jobFamily: JobFamily | null) => {
-  if (!jobFamily) return;
-
+export const getQuestions = async (jobFamily: JobFamily) => {
   const params = new URLSearchParams({ jobFamily });
   const url = `${API_ENDPOINT.question}?${params.toString()}`;
   return await requestHandler<QuestionResponse>('get', url);
