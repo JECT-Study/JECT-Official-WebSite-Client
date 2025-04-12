@@ -17,9 +17,17 @@ import { useApplyPinForm } from '@/hooks/useApplyPinForm';
 import { useCheckEmailExistsMutation } from '@/hooks/useCheckEmailExistMutation';
 import { useEmailAuthCodeMutation } from '@/hooks/useEmailAuthCodeMutation';
 import { useRegisterMemberMutation } from '@/hooks/useRegisterMemberMutation';
+import { useResetPinMutation } from '@/hooks/useResetPinMutation';
 import { useVerificationEmailCodeMutation } from '@/hooks/useVerificationEmailCodeMutation';
-import { Email, RegisterMemberPayload, VerificationEmailCodePayload } from '@/types/apis/apply';
+import { useToastActions } from '@/stores/toastStore';
+import {
+  Email,
+  RegisterMemberPayload,
+  ResetPinPayload,
+  VerificationEmailCodePayload,
+} from '@/types/apis/apply';
 import { CreateSubmitHandler } from '@/utils/formHelpers';
+import { tokenUtils } from '@/utils/interceptor';
 
 interface ApplyVerifyEmailProps {
   isResetPin?: boolean;
@@ -32,6 +40,7 @@ function ApplyVerifyEmail({
   setIsNewApplicant,
   setUserEmail,
 }: ApplyVerifyEmailProps) {
+  const { addToast } = useToastActions();
   const navigate = useNavigate();
   const [storedEmail, setStoredEmail] = useState('');
   const [isPinHidden, setIsPinHidden] = useState(true);
@@ -41,6 +50,8 @@ function ApplyVerifyEmail({
   const [verificationToken, setVerificationToken] = useState<string | null>(null);
   const [isAuthCodeExpired, setIsAuthCodeExpired] = useState(false);
   const [emailButtonText, setEmailButtonText] = useState('인증번호 받기');
+
+  const templateType = isResetPin ? 'PIN_RESET' : 'CERTIFICATE';
 
   const {
     register: registerEmail,
@@ -68,6 +79,7 @@ function ApplyVerifyEmail({
     useVerificationEmailCodeMutation();
   const { mutate: registerMemberMutate, isPending: isRegisteringMember } =
     useRegisterMemberMutation();
+  const { mutate: resetPinMutate, isPending: isResettingPin } = useResetPinMutation();
 
   const authCodeValue = watchVerification('authCode');
 
@@ -100,7 +112,7 @@ function ApplyVerifyEmail({
             return;
           }
           setStoredEmail(email);
-          emailMutate({ email, template: 'CERTIFICATE' });
+          emailMutate({ email, template: templateType });
           setStep(2);
           setIsAuthCodeExpired(false);
         },
@@ -120,7 +132,7 @@ function ApplyVerifyEmail({
     verifyEmailCodeMutate(
       {
         payload: { email: storedEmail, authCode },
-        queryParams: { template: 'CERTIFICATE' },
+        queryParams: { template: templateType },
       },
       {
         onSuccess: response => {
@@ -145,8 +157,13 @@ function ApplyVerifyEmail({
             });
             return;
           }
+
           if (response.data?.token) {
-            setVerificationToken(response.data.token);
+            if (isResetPin) {
+              tokenUtils.setAccessToken(response.data.token);
+            } else {
+              setVerificationToken(response.data.token);
+            }
           }
 
           setStep(3);
@@ -190,6 +207,30 @@ function ApplyVerifyEmail({
     );
   };
 
+  const onResetPinSubmit = ({ pin }: ResetPinPayload) => {
+    console.log('PIN 재설정 API 요청 준비:', { pin });
+
+    resetPinMutate(
+      { pin },
+      {
+        onSuccess: response => {
+          console.log('PIN 재설정 성공:', response);
+
+          if (response.status === 'SUCCESS') {
+            addToast('PIN을 다시 설정했어요', 'positive');
+            setStep(1);
+            setStoredEmail('');
+            setIsAuthCodeExpired(false);
+            setVerificationToken(null);
+          }
+        },
+        onError: error => {
+          console.error('PIN 재설정 실패:', error);
+        },
+      },
+    );
+  };
+
   const handleEmailFormSubmit = CreateSubmitHandler<{ email: string }, Email>(
     handleSubmitEmail,
     onEmailSubmit,
@@ -204,6 +245,11 @@ function ApplyVerifyEmail({
     { pin: string },
     RegisterMemberPayload
   >(handleSubmitPin, onRegisterMemberSubmit);
+
+  const handleResetPinFormSubmit = CreateSubmitHandler<{ pin: string }, ResetPinPayload>(
+    handleSubmitPin,
+    onResetPinSubmit,
+  );
 
   const handleTermsChange = (e: ChangeEvent<HTMLInputElement>) => {
     setIsTermsChecked(e.target.checked);
@@ -239,7 +285,9 @@ function ApplyVerifyEmail({
   };
 
   const isSubmitButtonDisabled =
-    !isPinValid || isRegisteringMember || (!isReVerification && !isTermsChecked);
+    !isPinValid ||
+    (isResetPin ? isResettingPin : isRegisteringMember) ||
+    (!isReVerification && !isTermsChecked);
 
   const rightIconFillColor = isSubmitButtonDisabled
     ? 'fill-accent-trans-hero-dark'
@@ -303,9 +351,9 @@ function ApplyVerifyEmail({
 
             {step >= 3 && (
               <form
-                id='registerForm'
+                id={isResetPin ? 'resetPinForm' : 'registerForm'}
                 className='gap-7xl flex flex-col'
-                onSubmit={handleRegisterMemberFormSubmit}
+                onSubmit={isResetPin ? handleResetPinFormSubmit : handleRegisterMemberFormSubmit}
               >
                 <InputField
                   type={isPinHidden ? 'password' : 'text'}
@@ -350,7 +398,7 @@ function ApplyVerifyEmail({
             </div>
           )}
           <div className='gap-md flex flex-col'>
-            {step === 2 && (
+            {step === 2 && !isResetPin && (
               <LabelButton
                 size='xs'
                 hierarchy='tertiary'
@@ -364,7 +412,7 @@ function ApplyVerifyEmail({
             )}
             <BlockButton
               type='submit'
-              form='registerForm'
+              form={isResetPin ? 'resetPinForm' : 'registerForm'}
               disabled={isSubmitButtonDisabled}
               size='lg'
               style='solid'
