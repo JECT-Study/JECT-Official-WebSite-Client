@@ -18,19 +18,6 @@ import { useInfiniteScroll } from '@/hooks/useInfiniteScroll';
 import { useProjectListQuery } from '@/hooks/useProjectListQuery';
 import { useProjectReviewsQuery } from '@/hooks/useProjectReviewsQuery';
 
-const selectItems = [{ label: '1기' }, { label: '2기' }, { label: '3기' }];
-
-const getSemesterIdFromLabel = (label: string | null): number => {
-  if (!label) return 1;
-
-  const match = label.match(/^(\d+)기$/);
-  if (match && match[1]) {
-    return parseInt(match[1], 10);
-  }
-
-  return 1;
-};
-
 const Project = () => {
   const [isSelectOpen, setIsSelectOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
