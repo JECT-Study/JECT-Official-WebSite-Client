@@ -17,10 +17,6 @@ const ProjectDetail = () => {
 
   const { data: projectDetailData, isError } = useProjectDetailQuery(id || '');
 
-  const techStackArray = projectDetailData?.data.techStack
-    ? projectDetailData.data.techStack.split(' ')
-    : [];
-
   if (isError || !projectDetailData) {
     return (
       <div className='flex h-[50vh] w-full items-center justify-center'>
@@ -52,7 +48,7 @@ const ProjectDetail = () => {
               <CalloutInformation title='PM' labels={project.teamMemberNames.projectManagers} />
               <CalloutInformation title='PD' labels={project.teamMemberNames.productDesigners} />
             </div>
-            <CalloutInformation title='플랫폼 및 기술' labels={techStackArray} />
+            <CalloutInformation title='플랫폼 및 기술' labels={project.techStack} />
           </div>
           <p className='text-object-normal-dark body-lg'>{project.description}</p>
         </div>
