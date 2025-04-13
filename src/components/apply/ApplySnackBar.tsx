@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-import SnackBar from '../common/snackbar/SnackBar';
-
+import SnackBar from '@/components/common/snackbar/SnackBar';
 import { PATH } from '@/constants/path';
 
 interface ApplySnackBarProps {
