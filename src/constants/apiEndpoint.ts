@@ -16,4 +16,5 @@ export const API_ENDPOINT = {
   projectReview: '/reviews',
   projectList: '/projects',
   projectDetail: '/projects/:projectId',
+  semesters: '/semesters',
 } as const;
