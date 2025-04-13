@@ -5,7 +5,7 @@ interface CalloutProps {
   labels: string[];
 }
 
-function CalloutInformation({ title, labels }: CalloutProps) {
+function CalloutInformation({ title, labels = [] }: CalloutProps) {
   return (
     <div className='bg-surface-deep-dark border-border-assistive-dark gap-xs radius-xs flex w-full items-center border px-(--gap-lg) py-(--gap-xs)'>
       <Label hierarchy='stronger' weight='bold' textColor='text-object-hero-dark'>
