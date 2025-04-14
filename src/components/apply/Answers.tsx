@@ -40,7 +40,7 @@ function Answers({
     onActiveSubmitButton(isCompleted);
   }, [answersPayload, questions, onActiveSubmitButton]);
 
-  if (isError || questions?.status !== 'SUCCESS' || questions?.data.length === 0) {
+  if (isError || questions?.status !== 'SUCCESS') {
     addToast('일시적 오류로 추가 질문들을 불러올 수 없었어요.', 'negative');
 
     return (
