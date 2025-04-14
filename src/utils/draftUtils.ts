@@ -1,4 +1,4 @@
-import { AnswersResponse } from '@/types/apis/answer';
+import { AnswersResponse } from '@/types/apis/application';
 
 const setDraftLocal = (answersData: AnswersResponse) => {
   window.localStorage.setItem('draft', JSON.stringify(answersData));

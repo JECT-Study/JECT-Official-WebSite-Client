@@ -10,13 +10,13 @@ import Label from '../common/label/Label';
 
 import useQuestionsQuery from '@/hooks/useQuestionsQuery';
 import { useToastActions } from '@/stores/toastStore';
-import { AnswersRequest, PortfolioResponse } from '@/types/apis/answer';
-import { JobFamily } from '@/types/apis/question';
-import { validateAnswersPayload } from '@/utils/validateAnswersPayload';
+import { JobFamily, PortfolioResponse } from '@/types/apis/application';
+import { Application } from '@/types/ui/application';
+import { validateApplication } from '@/utils/validateApplication';
 
 interface AnswersProps {
   questionJob: JobFamily | null;
-  answersPayload: AnswersRequest;
+  application: Application;
   onChangeAnswer: (id: number, text: string) => void;
   onChangePortfolios: (files: PortfolioResponse[]) => void;
   onActiveSubmitButton: (isCompleted: boolean) => void;
@@ -24,7 +24,7 @@ interface AnswersProps {
 
 function Answers({
   questionJob,
-  answersPayload,
+  application,
   onChangeAnswer,
   onChangePortfolios,
   onActiveSubmitButton,
@@ -35,10 +35,10 @@ function Answers({
   useEffect(() => {
     if (questions?.status !== 'SUCCESS') return;
 
-    const isCompleted = validateAnswersPayload(questions.data, answersPayload);
+    const isCompleted = validateApplication(questions.data, application);
 
     onActiveSubmitButton(isCompleted);
-  }, [answersPayload, questions, onActiveSubmitButton]);
+  }, [application, questions, onActiveSubmitButton]);
 
   if (isError || questions?.status !== 'SUCCESS') {
     addToast('일시적 오류로 추가 질문들을 불러올 수 없었어요.', 'negative');
@@ -72,7 +72,7 @@ function Answers({
                 key={data.id}
                 data={data}
                 onChange={onChangeAnswer}
-                value={answersPayload.answers[data.id]}
+                value={application.answers[data.id]}
               />
             );
           case 'URL':
@@ -81,7 +81,7 @@ function Answers({
                 key={data.id}
                 data={data}
                 onChange={onChangeAnswer}
-                value={answersPayload.answers[data.id]}
+                value={application.answers[data.id]}
               />
             );
           case 'FILE':
@@ -90,7 +90,7 @@ function Answers({
                 key={data.id}
                 data={data}
                 onChange={onChangePortfolios}
-                values={answersPayload.portfolios}
+                values={application.portfolios}
               />
             );
           case 'SELECT':
@@ -99,7 +99,7 @@ function Answers({
                 key={data.id}
                 data={data}
                 onChange={onChangeAnswer}
-                value={answersPayload.answers[data.id]}
+                value={application.answers[data.id]}
               />
             );
         }
