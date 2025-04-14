@@ -42,8 +42,9 @@ export const requestHandler = async <TResponse, TPayload = undefined>(
 
     const status = response.data.status;
 
+
     if (status !== 'SUCCESS') {
-      throw new InternalAPIError(response.data.data as string, status);
+      return Promise.reject(new InternalAPIError(response.data.data as string, status));
     }
 
     return response.data;
