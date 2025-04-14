@@ -1,5 +1,6 @@
 import { PATH } from './constants/path';
 
+import AdminLayout from '@/components/admin/layout/AdminLayout';
 import Layout from '@/components/layout/Layout';
 import Activity from '@/pages/Activity';
 import Apply from '@/pages/Apply';
@@ -27,6 +28,10 @@ const routerList = [
       { path: PATH.applyRegistration, element: <ApplyRegistration /> },
       { path: PATH.applyComplete, element: <ApplyComplete /> },
     ],
+  },
+  {
+    element: <AdminLayout />,
+    children: [],
   },
 ];
 
