@@ -15,7 +15,6 @@ import { PATH } from '@/constants/path';
 import useApplicationState from '@/hooks/useApplicationState';
 import useDeleteDraftMutation from '@/hooks/useDeleteDraftMutation';
 import useDraftQuery from '@/hooks/useDraftQuery';
-import { useRedirectIfSubmitted } from '@/hooks/useRedirectIfSubmitted';
 import useSaveDraftMutation from '@/hooks/useSaveDraftMutation';
 import useSubmitAnswerMutation from '@/hooks/useSubmitAnswerMutation';
 import { useDialogActions } from '@/stores/dialogStore';
