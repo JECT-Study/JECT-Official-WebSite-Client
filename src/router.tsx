@@ -1,7 +1,6 @@
-import { createBrowserRouter } from 'react-router-dom';
-
 import RedirectIfSubmitted from './components/apply/RedirectIfSubmitted';
 import { PATH } from './constants/path';
+import { sentryCreateBrowserRouter } from './instrument';
 import NonSpecificError from './pages/NonSpecificError';
 import NotFoundError from './pages/NotFoundError';
 
@@ -17,7 +16,7 @@ import Main from '@/pages/Main';
 import Project from '@/pages/Project';
 import ProjectDetail from '@/pages/ProjectDetail';
 
-const router = createBrowserRouter([
+const router = sentryCreateBrowserRouter([
   {
     element: <Layout />,
     children: [
