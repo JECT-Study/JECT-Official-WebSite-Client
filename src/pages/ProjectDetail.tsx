@@ -28,6 +28,12 @@ const ProjectDetail = () => {
     );
   }
 
+  const frontendDevelopers = project.teamMemberNames?.frontendDevelopers ?? [];
+  const backendDevelopers = project.teamMemberNames?.backendDevelopers ?? [];
+  const projectManagers = project.teamMemberNames?.projectManagers ?? [];
+  const productDesigners = project.teamMemberNames?.productDesigners ?? [];
+  const techStack = project.techStack ?? [];
+
   return (
     <div className='gap-11xl flex flex-col items-center px-(--gap-5xl) pt-(--gap-9xl) pb-(--gap-12xl)'>
       <section className='gap-6xl flex w-full max-w-[60rem] flex-col'>
@@ -45,12 +51,12 @@ const ProjectDetail = () => {
           </div>
           <div className='gap-md flex w-full flex-col items-start'>
             <div className='gap-md flex w-full content-start items-start'>
-              <CalloutInformation title='FE' labels={project.teamMemberNames?.frontendDevelopers} />
-              <CalloutInformation title='BE' labels={project.teamMemberNames?.backendDevelopers} />
-              <CalloutInformation title='PM' labels={project.teamMemberNames?.projectManagers} />
-              <CalloutInformation title='PD' labels={project.teamMemberNames?.productDesigners} />
+              <CalloutInformation title='FE' labels={frontendDevelopers} />
+              <CalloutInformation title='BE' labels={backendDevelopers} />
+              <CalloutInformation title='PM' labels={projectManagers} />
+              <CalloutInformation title='PD' labels={productDesigners} />
             </div>
-            <CalloutInformation title='플랫폼 및 기술' labels={project.techStack} />
+            <CalloutInformation title='플랫폼 및 기술' labels={techStack} />
           </div>
           <p className='text-object-normal-dark body-lg'>{project.description}</p>
         </div>
