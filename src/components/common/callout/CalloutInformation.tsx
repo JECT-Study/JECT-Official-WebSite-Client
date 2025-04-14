@@ -2,7 +2,7 @@ import Label from '@/components/common/label/Label';
 
 interface CalloutProps {
   title: string;
-  labels: string[];
+  labels?: string[];
 }
 
 function CalloutInformation({ title, labels = [] }: CalloutProps) {
