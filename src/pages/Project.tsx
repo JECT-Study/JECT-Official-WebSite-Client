@@ -25,10 +25,9 @@ const Project = () => {
   const [semesterId, setSemesterId] = useState(1);
 
   const { data: semestersData } = useSemestersQuery();
-  console.log('semestddfsfsfsdsdfersData:', semestersData);
 
   const selectItems =
-    semestersData?.data.map(semester => ({
+    semestersData?.data.semesterResponses.map(semester => ({
       label: semester.name,
     })) ?? [];
 
@@ -63,7 +62,7 @@ const Project = () => {
   useEffect(() => {
     if (!selectedOption || !semestersData) return;
 
-    const semester = semestersData.data.find(s => s.name === selectedOption);
+    const semester = semestersData.data.semesterResponses.find(s => s.name === selectedOption);
     if (semester) {
       setSemesterId(semester.id);
     }
