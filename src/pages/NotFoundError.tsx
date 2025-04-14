@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-import question from '@/assets/images/question.png';
+import questionImage from '@/assets/images/question.png';
 import BlockButton from '@/components/common/button/BlockButton';
 import Icon from '@/components/common/icon/Icon';
 import Header from '@/components/common/navigation/Header';
@@ -13,7 +13,7 @@ function NotFoundError() {
       <Header />
       <PagesContainer>
         <div className='gap-4xl absolute top-1/2 left-1/2 flex -translate-1/2 flex-col items-center'>
-          <img src={question} alt='물음표 이미지' className='w-[9.75rem]' />
+          <img src={questionImage} alt='물음표 이미지' className='w-[9.75rem]' />
           <div className='gap-md flex flex-col text-center'>
             <p className='title-03 text-object-hero-dark'>페이지를 찾을 수 없어요</p>
             <p className='label-lg text-object-neutral-dark'>

@@ -1,4 +1,4 @@
-import question from '@/assets/images/question.png';
+import questionImage from '@/assets/images/question.png';
 import Header from '@/components/common/navigation/Header';
 import PagesContainer from '@/components/layout/PagesContainer';
 
@@ -8,7 +8,7 @@ function NonSpecificError() {
       <Header />
       <PagesContainer>
         <div className='gap-4xl absolute top-1/2 left-1/2 flex -translate-1/2 flex-col items-center'>
-          <img src={question} alt='물음표 이미지' className='w-[9.75rem]' />
+          <img src={questionImage} alt='물음표 이미지' className='w-[9.75rem]' />
           <div className='gap-md flex flex-col text-center'>
             <p className='title-03 text-object-hero-dark'>
               현재 페이지를 불러오는 데 <br />
