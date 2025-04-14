@@ -40,9 +40,17 @@ function Answers({
     onActiveSubmitButton(isCompleted);
   }, [application, questions, onActiveSubmitButton]);
 
-  if (isError || questions?.status !== 'SUCCESS') {
-    addToast('일시적 오류로 추가 질문들을 불러올 수 없었어요.', 'negative');
+  useEffect(() => {
+    if (isError) {
+      return addToast('일시적 오류로 추가 질문들을 불러올 수 없었어요.', 'negative');
+    }
 
+    if (questions && questions.status !== 'SUCCESS') {
+      return addToast('일시적 오류로 추가 질문들을 불러올 수 없었어요.', 'negative');
+    }
+  }, [isError, addToast, questions]);
+
+  if (isError || questions?.status !== 'SUCCESS') {
     return (
       <div className='gap-md flex flex-col text-center'>
         <Label hierarchy='normal' weight='normal' textColor='text-feedback-negative-dark'>
@@ -63,7 +71,7 @@ function Answers({
   }
 
   return (
-    <form action='' className='gap-7xl flex flex-col' encType='multipart/form-data'>
+    <form className='gap-7xl flex flex-col' encType='multipart/form-data'>
       {questions.data?.map(data => {
         switch (data.inputType) {
           case 'TEXT':
