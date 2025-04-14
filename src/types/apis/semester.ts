@@ -3,4 +3,6 @@ export interface SemesterData {
   name: string;
 }
 
-export type SemesterResponse = SemesterData[];
+export interface SemestersResponse {
+  semesterResponses: SemesterData[];
+}
