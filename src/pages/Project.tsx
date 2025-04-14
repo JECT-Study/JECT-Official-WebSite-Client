@@ -17,11 +17,20 @@ import { PATH } from '@/constants/path';
 import { useInfiniteScroll } from '@/hooks/useInfiniteScroll';
 import { useProjectListQuery } from '@/hooks/useProjectListQuery';
 import { useProjectReviewsQuery } from '@/hooks/useProjectReviewsQuery';
+import { useSemestersQuery } from '@/hooks/useSemestersQuery';
 
 const Project = () => {
   const [isSelectOpen, setIsSelectOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [semesterId, setSemesterId] = useState(1);
+
+  const { data: semestersData } = useSemestersQuery();
+  console.log('semestddfsfsfsdsdfersData:', semestersData);
+
+  const selectItems =
+    semestersData?.data.map(semester => ({
+      label: semester.name,
+    })) ?? [];
 
   const {
     data: projectsData,
@@ -52,9 +61,13 @@ const Project = () => {
   });
 
   useEffect(() => {
-    const newSemesterId = getSemesterIdFromLabel(selectedOption);
-    setSemesterId(newSemesterId);
-  }, [selectedOption]);
+    if (!selectedOption || !semestersData) return;
+
+    const semester = semestersData.data.find(s => s.name === selectedOption);
+    if (semester) {
+      setSemesterId(semester.id);
+    }
+  }, [selectedOption, semestersData]);
 
   const handleSelectChange = (label: string | null) => {
     setSelectedOption(label);
