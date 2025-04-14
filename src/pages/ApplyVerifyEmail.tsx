@@ -57,6 +57,7 @@ function ApplyVerifyEmail({
     register: registerEmail,
     handleSubmit: handleSubmitEmail,
     formState: { errors: errorsEmail, isValid: isEmailValid },
+    reset: resetEmailForm,
   } = useApplyEmailForm();
 
   const {
@@ -65,12 +66,14 @@ function ApplyVerifyEmail({
     setError: setVerificationError,
     watch: watchVerification,
     formState: { errors: errorsVerification, isValid: isVerificationValid },
+    reset: resetVerificationForm,
   } = useApplyAuthCodeForm();
 
   const {
     register: registerPin,
     handleSubmit: handleSubmitPin,
     formState: { errors: errorsPin, isValid: isPinValid },
+    reset: resetPinForm,
   } = useApplyPinForm();
 
   const { mutate: checkEmailMutate } = useCheckEmailExistsMutation();
@@ -222,6 +225,10 @@ function ApplyVerifyEmail({
             setStoredEmail('');
             setIsAuthCodeExpired(false);
             setVerificationToken(null);
+
+            resetEmailForm();
+            resetVerificationForm();
+            resetPinForm();
           }
         },
         onError: error => {
