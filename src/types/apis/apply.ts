@@ -5,7 +5,7 @@ export interface Email {
 export type EmailExistsResponse = boolean;
 
 export interface EmailAuthPayload extends Email {
-  template: 'CERTIFICATE' | 'PIN_RESET';
+  template: 'AUTH_CODE' | 'PIN_RESET';
 }
 
 export interface VerificationEmailCodePayload {
@@ -14,7 +14,7 @@ export interface VerificationEmailCodePayload {
 }
 
 export interface VerificationEmailCodeQueryParams {
-  template: 'CERTIFICATE' | 'PIN_RESET';
+  template: 'AUTH_CODE' | 'PIN_RESET';
 }
 
 export interface VerificationEmailCodeResponse {

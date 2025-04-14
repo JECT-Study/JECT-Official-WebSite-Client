@@ -51,7 +51,7 @@ function ApplyVerifyEmail({
   const [isAuthCodeExpired, setIsAuthCodeExpired] = useState(false);
   const [emailButtonText, setEmailButtonText] = useState('인증번호 받기');
 
-  const templateType = isResetPin ? 'PIN_RESET' : 'CERTIFICATE';
+  const templateType = isResetPin ? 'PIN_RESET' : 'AUTH_CODE';
 
   const {
     register: registerEmail,
