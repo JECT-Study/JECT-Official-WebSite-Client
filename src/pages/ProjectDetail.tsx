@@ -19,6 +19,7 @@ const ProjectDetail = () => {
 
   const project = projectDetailData?.data;
 
+  //TODO: 실제 데이터가 없는 url로 접근 시 해당 페이지를 렌더링 하는 것이 아닌 Error Page 로 이동
   if (isError || !project || !projectDetailData) {
     return (
       <div className='flex h-[50vh] w-full items-center justify-center'>
