@@ -62,8 +62,6 @@ function ApplyRegistration() {
   const { mutate: submitAnswerMutate, isPending: isSubmitAnswerPending } =
     useSubmitAnswerMutation();
 
-  useRedirectIfSubmitted();
-
   const saveDraftServerAndLocal = useCallback(() => {
     if (!selectedJob) return;
 

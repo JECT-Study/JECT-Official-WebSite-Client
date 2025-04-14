@@ -1,5 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 
+import RedirectIfSubmitted from './components/apply/RedirectIfSubmitted';
 import { PATH } from './constants/path';
 import NonSpecificError from './pages/NonSpecificError';
 import NotFoundError from './pages/NotFoundError';
@@ -27,8 +28,22 @@ const router = createBrowserRouter([
       { path: PATH.apply, element: <Apply /> },
       { path: PATH.faq, element: <Faq /> },
       { path: PATH.applyVerify, element: <ApplyVerify /> },
-      { path: PATH.applicantInfo, element: <ApplyApplicantInfo /> },
-      { path: PATH.applyRegistration, element: <ApplyRegistration /> },
+      {
+        path: PATH.applicantInfo,
+        element: (
+          <RedirectIfSubmitted>
+            <ApplyApplicantInfo />
+          </RedirectIfSubmitted>
+        ),
+      },
+      {
+        path: PATH.applyRegistration,
+        element: (
+          <RedirectIfSubmitted>
+            <ApplyRegistration />
+          </RedirectIfSubmitted>
+        ),
+      },
       { path: PATH.applyComplete, element: <ApplyComplete /> },
       { path: '*', element: <NotFoundError /> },
     ],
