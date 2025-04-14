@@ -15,16 +15,17 @@ import { useProjectDetailQuery } from '@/hooks/useProjectDetailQuery';
 const ProjectDetail = () => {
   const { id } = useParams<{ id: string }>();
 
-  const { data: projectDetailData, isError } = useProjectDetailQuery(id || '');
+  const { data: projectDetailData, isError } = useProjectDetailQuery(id ?? '');
 
-  if (isError || !projectDetailData) {
+  const project = projectDetailData?.data;
+
+  if (isError || !project || !projectDetailData) {
     return (
       <div className='flex h-[50vh] w-full items-center justify-center'>
         <EmptyData />
       </div>
     );
   }
-  const project = projectDetailData.data;
 
   return (
     <div className='gap-11xl flex flex-col items-center px-(--gap-5xl) pt-(--gap-9xl) pb-(--gap-12xl)'>
@@ -43,10 +44,10 @@ const ProjectDetail = () => {
           </div>
           <div className='gap-md flex w-full flex-col items-start'>
             <div className='gap-md flex w-full content-start items-start'>
-              <CalloutInformation title='FE' labels={project.teamMemberNames.frontendDevelopers} />
-              <CalloutInformation title='BE' labels={project.teamMemberNames.backendDevelopers} />
-              <CalloutInformation title='PM' labels={project.teamMemberNames.projectManagers} />
-              <CalloutInformation title='PD' labels={project.teamMemberNames.productDesigners} />
+              <CalloutInformation title='FE' labels={project.teamMemberNames?.frontendDevelopers} />
+              <CalloutInformation title='BE' labels={project.teamMemberNames?.backendDevelopers} />
+              <CalloutInformation title='PM' labels={project.teamMemberNames?.projectManagers} />
+              <CalloutInformation title='PD' labels={project.teamMemberNames?.productDesigners} />
             </div>
             <CalloutInformation title='플랫폼 및 기술' labels={project.techStack} />
           </div>
@@ -74,7 +75,7 @@ const ProjectDetail = () => {
             </TabHeader>
             <TabPanel id={0}>
               <div className='gap-4xl flex flex-col'>
-                {project.serviceIntros
+                {(project.serviceIntros ?? [])
                   .sort((a, b) => a.sequence - b.sequence)
                   .map(intro => (
                     <img
@@ -88,7 +89,7 @@ const ProjectDetail = () => {
             </TabPanel>
             <TabPanel id={1}>
               <div className='gap-4xl flex flex-col'>
-                {project.devIntros
+                {(project.devIntros ?? [])
                   .sort((a, b) => a.sequence - b.sequence)
                   .map(intro => (
                     <img
