@@ -15,6 +15,7 @@ import Faq from '@/pages/Faq';
 import Main from '@/pages/Main';
 import Project from '@/pages/Project';
 import ProjectDetail from '@/pages/ProjectDetail';
+import RenderErrorFallback from '@/pages/RenderErrorFallback';
 
 const router = sentryCreateBrowserRouter([
   {
@@ -46,6 +47,7 @@ const router = sentryCreateBrowserRouter([
       { path: PATH.applyComplete, element: <ApplyComplete /> },
       { path: '*', element: <NotFoundError /> },
     ],
+    errorElement: <RenderErrorFallback />,
   },
   { path: PATH.nonSpecificError, element: <NonSpecificError /> },
   { path: PATH.notFoundError, element: <NotFoundError /> },
