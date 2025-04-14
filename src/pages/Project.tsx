@@ -26,11 +26,6 @@ const Project = () => {
 
   const { data: semestersData } = useSemestersQuery();
 
-  const selectItems =
-    semestersData?.data.semesterResponses.map(semester => ({
-      label: semester.name,
-    })) ?? [];
-
   const {
     data: projectsData,
     isError: isProjectsError,
@@ -58,6 +53,11 @@ const Project = () => {
     isFetchingNextPage: isFetchingNextReviews,
     fetchNextPage: fetchNextReviews,
   });
+
+  const selectItems =
+    semestersData?.data.semesterResponses.map(semester => ({
+      label: semester.name,
+    })) ?? [];
 
   useEffect(() => {
     if (!selectedOption || !semestersData) return;
