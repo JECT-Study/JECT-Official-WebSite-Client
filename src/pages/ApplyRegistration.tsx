@@ -1,23 +1,24 @@
 import clsx from 'clsx';
+import Lottie from 'lottie-react';
 import { useCallback, useEffect } from 'react';
 import { Location, useLocation, useNavigate } from 'react-router-dom';
 
+import loadingSpinner from '@/assets/lottie/ject-loadingSpinner.json';
 import Answers from '@/components/apply/Answers';
 import SelectBox from '@/components/apply/selectBox';
 import BlockButton from '@/components/common/button/BlockButton';
-import Dialog from '@/components/common/dialog/Dialog';
 import Label from '@/components/common/label/Label';
 import ProgressIndicator from '@/components/common/progress/ProgressIndicator';
 import Title from '@/components/common/title/Title';
 import { APPLY_TITLE } from '@/constants/applyPageData';
 import { PATH } from '@/constants/path';
 import useApplicationState from '@/hooks/useApplicationState';
-import useChangeJobQuery from '@/hooks/useChangeJobQuery';
-import useDialog from '@/hooks/useDialog';
+import useDeleteDraftMutation from '@/hooks/useDeleteDraftMutation';
 import useDraftQuery from '@/hooks/useDraftQuery';
-import useSaveDraftQuery from '@/hooks/useSaveDraftQuery';
-import useSubmitAnswerQuery from '@/hooks/useSubmitAnswerQuery';
-import { JobFamily } from '@/types/apis/question';
+import useSaveDraftMutation from '@/hooks/useSaveDraftMutation';
+import useSubmitAnswerMutation from '@/hooks/useSubmitAnswerMutation';
+import { useDialogActions } from '@/stores/dialogStore';
+import { JobFamily } from '@/types/apis/application';
 import { getDraftLocal, removeDraftLocal, setDraftLocal } from '@/utils/draftUtils';
 
 interface LocationState {
@@ -42,71 +43,72 @@ function ApplyRegistration() {
     isStepCompleted,
     selectedJob,
     questionJob,
-    answersPayload,
+    application,
     handleChangeAnswer,
     handleChangePortfolios,
     updateAnswerByDraft,
-    resetAnswers,
+    resetApplication,
     revertSelect,
     changeSelectAndQuestion,
     changeSelect,
     setSubmitButtonActive,
   } = useApplicationState();
+  const { openDialog } = useDialogActions();
 
-  const { draft: draftServer } = useDraftQuery();
-  const { saveDraftMutate } = useSaveDraftQuery();
-  const { changeJobMutate } = useChangeJobQuery();
-  const { submitAnswerMutate } = useSubmitAnswerQuery();
-
-  const {
-    isOpen: isOpenChangeJob,
-    openDialog: openDialogChangeJob,
-    closeDialog: closeDialogChangeJob,
-  } = useDialog();
-  const {
-    isOpen: isOpenSubmitAnswer,
-    openDialog: openDialogSubmitAnswer,
-    closeDialog: closeDialogSubmitAnswer,
-  } = useDialog();
+  const { data: draftServer } = useDraftQuery();
+  const { mutate: saveDraftMutate, isPending: isSaveDraftPending } = useSaveDraftMutation();
+  const { mutate: deleteDraftMutate } = useDeleteDraftMutation(); // TODO: 삭제 isPending 추가 여부 및 방식 논의 필요
+  const { mutate: submitAnswerMutate, isPending: isSubmitAnswerPending } =
+    useSubmitAnswerMutation();
 
   const saveDraftServerAndLocal = useCallback(() => {
     if (!selectedJob) return;
 
-    saveDraftMutate({ param: selectedJob, answers: answersPayload });
-    setDraftLocal({ jobFamily: selectedJob, ...answersPayload });
+    saveDraftMutate({ jobFamily: selectedJob, answers: application });
+    setDraftLocal({ jobFamily: selectedJob, ...application });
     removeLocationState(location);
-  }, [saveDraftMutate, answersPayload, selectedJob, location]);
-
-  const changeJob = () => {
-    if (!selectedJob) return;
-
-    resetAnswers();
-    changeJobMutate(selectedJob);
-    closeDialogChangeJob();
-    removeDraftLocal();
-  };
-
-  const notChangeJob = () => {
-    revertSelect();
-    closeDialogChangeJob();
-  };
+  }, [saveDraftMutate, application, selectedJob, location]);
 
   const submitAnswer = () => {
     if (!selectedJob) return;
 
-    const answer = { param: selectedJob, answers: answersPayload };
+    const answer = { jobFamily: selectedJob, answers: application };
 
     submitAnswerMutate(answer, {
       onSuccess: data => {
         if (data?.status === 'SUCCESS') {
-          void navigate(PATH.applyComplete);
+          void navigate(PATH.applyComplete, { replace: true });
+          localStorage.setItem('applicationSubmit', 'success');
           removeDraftLocal();
         }
       },
     });
   };
 
-  // 임시 저장 불러오기
+  const openDialogChangeJob = (job: JobFamily) => {
+    openDialog({
+      type: 'changeJob',
+      onPrimaryBtnClick: () => {
+        deleteDraftMutate(null, {
+          onSuccess: data => {
+            if (data.status === 'SUCCESS') {
+              changeSelect(job);
+              resetApplication(job);
+            }
+          },
+        });
+      },
+      onSecondaryBtnClick: revertSelect,
+    });
+  };
+
+  const openDialogSubmitAnswer = () => {
+    openDialog({
+      type: 'submitAnswer',
+      onPrimaryBtnClick: submitAnswer,
+    });
+  };
+
   useEffect(() => {
     if (!isLoadDraft(location)) return;
 
@@ -121,22 +123,20 @@ function ApplyRegistration() {
     }
   }, [location, updateAnswerByDraft, draftServer]);
 
-  // 로컬 스토리지 및 서버 임시저장
   useEffect(() => {
     const autosaveDraft = setInterval(saveDraftServerAndLocal, 900000);
 
     return () => clearInterval(autosaveDraft);
   }, [saveDraftServerAndLocal]);
 
-  // 로컬 스토리지 임시 저장
   useEffect(() => {
     if (!selectedJob) return;
 
-    const saveDraftLocal = () => setDraftLocal({ jobFamily: selectedJob, ...answersPayload });
+    const saveDraftLocal = () => setDraftLocal({ jobFamily: selectedJob, ...application });
     const autoSaveDraftLocal = setInterval(saveDraftLocal, 60000);
 
     return () => clearInterval(autoSaveDraftLocal);
-  }, [selectedJob, answersPayload]);
+  }, [selectedJob, application]);
 
   return (
     <div className='gap-9xl flex flex-col items-center pt-(--gap-9xl) pb-(--gap-12xl)'>
@@ -149,16 +149,13 @@ function ApplyRegistration() {
             <SelectBox
               selectedJob={selectedJob}
               onLoadQuestion={changeSelectAndQuestion}
-              onOpenDialog={(job: JobFamily) => {
-                openDialogChangeJob();
-                changeSelect(job);
-              }}
+              onOpenDialog={openDialogChangeJob}
             />
           </div>
           {selectedJob ? (
             <Answers
               questionJob={questionJob}
-              answersPayload={answersPayload}
+              application={application}
               onChangeAnswer={handleChangeAnswer}
               onChangePortfolios={handleChangePortfolios}
               onActiveSubmitButton={setSubmitButtonActive}
@@ -176,7 +173,7 @@ function ApplyRegistration() {
               hierarchy='secondary'
               onClick={saveDraftServerAndLocal}
             >
-              임시 저장하기
+              {isSaveDraftPending ? <Lottie animationData={loadingSpinner} /> : '임시 저장하기'}
             </BlockButton>
             <BlockButton
               size='lg'
@@ -185,35 +182,15 @@ function ApplyRegistration() {
               disabled={!isStepCompleted}
               onClick={openDialogSubmitAnswer}
             >
-              지원서 제출하기
+              {isSubmitAnswerPending ? (
+                <Lottie animationData={loadingSpinner} />
+              ) : (
+                '지원서 제출하기'
+              )}
             </BlockButton>
           </div>
         </div>
       </section>
-      <Dialog
-        btnLayout='horizontal'
-        title='지원서를 제출하시겠어요?'
-        primaryBtnLabel='제출하기'
-        secondaryBtnLabel='제출 보류하기'
-        isOpen={isOpenSubmitAnswer}
-        onPrimaryBtnClick={submitAnswer}
-        onSecondaryBtnClick={closeDialogSubmitAnswer}
-      >
-        제출한 뒤에는 수정하거나 취소할 수 없어요.
-      </Dialog>
-      <Dialog
-        btnLayout='horizontal'
-        title='다른 직군으로 변경하시겠어요?'
-        primaryBtnLabel='변경하기'
-        secondaryBtnLabel='변경하지 말기'
-        isOpen={isOpenChangeJob}
-        onPrimaryBtnClick={changeJob}
-        onSecondaryBtnClick={notChangeJob}
-      >
-        작성된 답변 내용들은 모두 초기화되고,
-        <br />
-        다시 되돌릴 수 없어요.
-      </Dialog>
     </div>
   );
 }

@@ -1,10 +1,9 @@
 import { ChangeEvent, useState } from 'react';
 
-import InputField from '../common/input/InputField';
-import Title from '../common/title/Title';
-
+import InputField from '@/components/common/input/InputField';
+import Title from '@/components/common/title/Title';
 import { APPLY_MESSAGE } from '@/constants/applyMessages';
-import { Question } from '@/types/apis/question';
+import { Question } from '@/types/apis/application';
 import { validateUrlDetail, validateUrlStartHttp } from '@/utils/validateUrl';
 
 interface UrlFieldProps {
@@ -33,7 +32,7 @@ function UrlField({ data, onChange, value }: UrlFieldProps) {
     <fieldset className='gap-2xl flex flex-col'>
       <Title hierarchy='normal'>{data.title}</Title>
       <InputField
-        labelText='URL'
+        labelText={data.label}
         isSuccess={false}
         placeholder={data.inputHint}
         required={data.isRequired}

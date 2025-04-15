@@ -4,7 +4,7 @@ import Icon from '@/components/common/icon/Icon';
 import InputField from '@/components/common/input/InputField';
 import { Select } from '@/components/common/select/Select';
 import useCloseOutside from '@/hooks/useCloseOutside';
-import { JobFamily } from '@/types/apis/question';
+import { JobFamily } from '@/types/apis/application';
 
 interface selectBoxProps {
   selectedJob: JobFamily | null;
@@ -23,7 +23,8 @@ const jobFamily: Record<JobFamily, string> = {
 
 function SelectBox({ selectedJob, onLoadQuestion, onOpenDialog }: selectBoxProps) {
   const selectRef = useRef<HTMLDivElement>(null);
-  const { isOpen, setIsOpen } = useCloseOutside(selectRef);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const { isOpen, setIsOpen } = useCloseOutside([selectRef, inputRef]);
 
   const handleSelect = (label: string | null) => {
     const job = JOB_FAMILY.find(key => jobFamily[key] === label);
@@ -42,9 +43,10 @@ function SelectBox({ selectedJob, onLoadQuestion, onOpenDialog }: selectBoxProps
   return (
     <div className='relative'>
       <InputField
+        ref={inputRef}
         readOnly
-        onClick={() => setIsOpen(!isOpen)}
-        onKeyUp={({ key }) => key === 'Enter' && setIsOpen(!isOpen)}
+        onClick={() => setIsOpen(prev => !prev)}
+        onKeyUp={({ key }) => key === 'Enter' && setIsOpen(prev => !prev)}
         value={selectedJob ? jobFamily[selectedJob] : ''}
         required
         labelText='포지션'
