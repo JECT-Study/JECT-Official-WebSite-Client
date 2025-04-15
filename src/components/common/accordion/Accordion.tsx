@@ -65,7 +65,7 @@ interface AccordionItemData {
   id: string;
   title: string;
   label: string;
-  children: ReactNode;
+  content: ReactNode;
   caption?: ReactNode;
 }
 
@@ -86,7 +86,7 @@ export const Accordion = ({ items, defaultOpenId = null, onChange }: AccordionPr
 
   return (
     <div className='gap-4xl flex flex-col'>
-      {items.map(({ id, title, label, children, caption }) => (
+      {items.map(({ id, title, label, content, caption }) => (
         <AccordionItem
           key={id}
           id={id}
@@ -96,7 +96,7 @@ export const Accordion = ({ items, defaultOpenId = null, onChange }: AccordionPr
           toggleHandler={handleItemToggle}
           caption={caption}
         >
-          {children}
+          {content}
         </AccordionItem>
       ))}
     </div>
