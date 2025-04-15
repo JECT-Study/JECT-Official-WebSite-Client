@@ -11,28 +11,18 @@ function Faq() {
     useFaqNavigation();
 
   const getActiveFaqData = () => {
-    let data;
     switch (activeTabId) {
       case 1:
-        data = faqApply;
-        break;
+        return faqApply;
       case 2:
-        data = faqProject;
-        break;
+        return faqProject;
       case 3:
-        data = faqActivity;
-        break;
+        return faqActivity;
       case 4:
-        data = faqJect;
-        break;
+        return faqJect;
       default:
-        data = faqApply;
+        return faqApply;
     }
-
-    return data.map(item => ({
-      ...item,
-      children: item.content,
-    }));
   };
 
   return (
