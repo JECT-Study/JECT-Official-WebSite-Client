@@ -1,8 +1,18 @@
+import { captureException } from '@sentry/react';
+import { useEffect } from 'react';
+import { useRouteError } from 'react-router-dom';
+
 import questionImage from '@/assets/images/question.png';
 import Header from '@/components/common/navigation/Header';
 import PagesContainer from '@/components/layout/PagesContainer';
 
 function NonSpecificError() {
+  const error = useRouteError() as Error;
+
+  useEffect(() => {
+    captureException(error);
+  }, [error]);
+
   return (
     <div>
       <Header />
