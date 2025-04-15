@@ -28,14 +28,14 @@ const sampleAccordionItems = [
     id: 'accordion-1',
     title: '아코디언 헤더 타이틀1',
     label: '아코디언 레이블',
-    children: '아코디언 바디 내용',
+    content: '아코디언 바디 내용',
     caption: '아코디언 캡션 내용',
   },
   {
     id: 'accordion-2',
     title: '아코디언 헤더 타이틀2',
     label: '아코디언 레이블',
-    children: '아코디언 바디 내용',
+    content: '아코디언 바디 내용',
     caption: '아코디언 캡션 내용',
   },
 ];

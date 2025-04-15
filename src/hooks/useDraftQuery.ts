@@ -5,11 +5,7 @@ import { getDraft } from '@/apis/application';
 import { AnswersResponse } from '@/types/apis/application';
 import { ApiResponse } from '@/types/apis/response';
 
-interface UseDraftQueryProps {
-  enabled?: boolean;
-}
-
-const useDraftQuery = ({ enabled = true }: UseDraftQueryProps) => {
+const useDraftQuery = (enabled?: boolean) => {
   const { data, isError, error, refetch } = useQuery<
     ApiResponse<AnswersResponse>,
     AxiosError,
@@ -18,7 +14,7 @@ const useDraftQuery = ({ enabled = true }: UseDraftQueryProps) => {
   >({
     queryKey: ['getDraft'],
     queryFn: getDraft,
-    enabled,
+    enabled: enabled ?? true,
   });
 
   if (isError) {
