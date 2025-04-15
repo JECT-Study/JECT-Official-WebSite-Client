@@ -82,30 +82,38 @@ const ProjectDetail = () => {
             </TabHeader>
             <TabPanel id={0}>
               <div className='gap-4xl flex flex-col'>
-                {(project.serviceIntros ?? [])
-                  .sort((a, b) => a.sequence - b.sequence)
-                  .map(intro => (
-                    <img
-                      key={intro.sequence}
-                      src={intro.imageUrl}
-                      alt={`서비스 소개 ${intro.sequence}번`}
-                      className='border-border-alternative-dark block h-[29rem] w-full border object-cover'
-                    />
-                  ))}
+                {(project.serviceIntros ?? []).length > 0 ? (
+                  project.serviceIntros
+                    .sort((a, b) => a.sequence - b.sequence)
+                    .map(intro => (
+                      <img
+                        key={intro.sequence}
+                        src={intro.imageUrl}
+                        alt={`서비스 소개 ${intro.sequence}번`}
+                        className='border-border-alternative-dark block h-[29rem] w-full border object-cover'
+                      />
+                    ))
+                ) : (
+                  <EmptyData />
+                )}
               </div>
             </TabPanel>
             <TabPanel id={1}>
               <div className='gap-4xl flex flex-col'>
-                {(project.devIntros ?? [])
-                  .sort((a, b) => a.sequence - b.sequence)
-                  .map(intro => (
-                    <img
-                      key={intro.sequence}
-                      src={intro.imageUrl}
-                      alt={`개발 소개 ${intro.sequence}번`}
-                      className='border-border-alternative-dark block h-[29rem] w-full border object-cover'
-                    />
-                  ))}
+                {(project.devIntros ?? []).length > 0 ? (
+                  project.devIntros
+                    .sort((a, b) => a.sequence - b.sequence)
+                    .map(intro => (
+                      <img
+                        key={intro.sequence}
+                        src={intro.imageUrl}
+                        alt={`개발 소개 ${intro.sequence}번`}
+                        className='border-border-alternative-dark block h-[29rem] w-full border object-cover'
+                      />
+                    ))
+                ) : (
+                  <EmptyData />
+                )}
               </div>
             </TabPanel>
           </div>
