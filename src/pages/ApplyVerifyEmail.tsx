@@ -114,10 +114,22 @@ function ApplyVerifyEmail({
             setIsNewApplicant(false);
             return;
           }
+
           setStoredEmail(email);
-          emailMutate({ email, template: templateType });
-          setStep(2);
-          setIsAuthCodeExpired(false);
+
+          emailMutate(
+            { email, template: templateType },
+            {
+              onSuccess: () => {
+                setStep(2);
+                setIsAuthCodeExpired(false);
+              },
+              onError: error => {
+                console.error('이메일 인증 코드 발송 실패:', error);
+                //TODO: 이메일 인증 코드 추가 예외처리 필요
+              },
+            },
+          );
         },
         onError: error => {
           console.error('이메일 존재 여부 확인 실패:', error);
