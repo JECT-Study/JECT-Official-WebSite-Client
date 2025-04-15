@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import FileField from './FileField';
 import SelectField from './SelectField';
@@ -8,6 +9,7 @@ import LabelButton from '../common/button/LabelButton';
 import Icon from '../common/icon/Icon';
 import Label from '../common/label/Label';
 
+import { PATH } from '@/constants/path';
 import useQuestionsQuery from '@/hooks/useQuestionsQuery';
 import { useToastActions } from '@/stores/toastStore';
 import { JobFamily, PortfolioResponse } from '@/types/apis/application';
@@ -29,6 +31,7 @@ function Answers({
   onChangePortfolios,
   onActiveSubmitButton,
 }: AnswersProps) {
+  const navigate = useNavigate();
   const { data: questions, isError, refetch } = useQuestionsQuery(questionJob);
   const { addToast } = useToastActions();
 
@@ -68,6 +71,10 @@ function Answers({
         </div>
       </div>
     );
+  }
+
+  if (questions.data.length === 0) {
+    return void navigate(PATH.notFoundError);
   }
 
   return (
