@@ -53,4 +53,16 @@ export const dialogTypes: Record<DialogTypes, DialogContent> = {
     secondaryBtnLabel: '새로 작성하기',
     content: '이어서 작성하거나 새로 작성할 수도 있어요.',
   },
+  failedUploadFile: {
+    btnLayout: 'singleButton',
+    title: '파일 업로드에 실패했어요',
+    content: (
+      <>
+        업로드 중 문제가 발생했어요.
+        <br />
+        파일을 다시 첨부하거나 인터넷 연결을 확인해주세요.
+      </>
+    ),
+    primaryBtnLabel: '확인',
+  },
 };

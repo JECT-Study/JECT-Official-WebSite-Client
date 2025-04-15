@@ -38,7 +38,7 @@ function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
 
   const { mutate: pinLoginMutate, isPending: isPinLoginLoading } = usePinLoginMutation();
   const { mutate: deleteDraftMutate } = useDeleteDraftMutation();
-  const { data: draftSever } = useDraftQuery();
+  const { refetch: refetchDraftServer } = useDraftQuery({ enabled: false });
   const { openDialog } = useDialogActions();
 
   const rightIconFillColor =
@@ -70,22 +70,24 @@ function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
           return;
         }
 
-        if (!getDraftLocal() && draftSever?.status !== 'SUCCESS') {
-          return void navigate(PATH.applyRegistration);
-        }
+        void refetchDraftServer().then(({ data }) => {
+          if (!getDraftLocal() && data?.status !== 'SUCCESS') {
+            return void navigate(PATH.applyRegistration);
+          }
 
-        openDialog({
-          type: 'continueWriting',
-          onPrimaryBtnClick: () => {
-            void navigate(PATH.applyRegistration, { state: { continue: true } });
-          },
-          onSecondaryBtnClick: () => {
-            deleteDraftMutate(null, {
-              onSuccess: () => {
-                void navigate(PATH.applyRegistration, { state: { continue: false } });
-              },
-            });
-          },
+          openDialog({
+            type: 'continueWriting',
+            onPrimaryBtnClick: () => {
+              void navigate(PATH.applyRegistration, { state: { continue: true } });
+            },
+            onSecondaryBtnClick: () => {
+              deleteDraftMutate(null, {
+                onSuccess: () => {
+                  void navigate(PATH.applyRegistration, { state: { continue: false } });
+                },
+              });
+            },
+          });
         });
       },
       onError: error => {

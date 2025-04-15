@@ -4,18 +4,15 @@ import { getQuestions } from '@/apis/application';
 import { JobFamily } from '@/types/apis/application';
 
 const useQuestionsQuery = (jobFamily: JobFamily | null) => {
-  const { data, isError, error } = useQuery({
+  return useQuery({
     queryKey: ['question', jobFamily],
     queryFn: () => {
       if (!jobFamily) throw new Error('jobFamily is null');
       return getQuestions(jobFamily);
     },
     enabled: !!jobFamily,
+    retry: 0,
   });
-
-  if (isError) console.error(`Query Error ${error}`);
-
-  return { data };
 };
 
 export default useQuestionsQuery;

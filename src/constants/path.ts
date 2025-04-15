@@ -1,4 +1,6 @@
 export const PATH = {
+  nonSpecificError: '/non-specific-error',
+  notFoundError: '/not-found',
   main: '/',
   project: '/project',
   jeckathon: '/jeckathon',

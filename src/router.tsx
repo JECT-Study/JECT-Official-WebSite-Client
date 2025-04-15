@@ -1,4 +1,9 @@
+import { createBrowserRouter } from 'react-router-dom';
+
+import RedirectIfSubmitted from './components/apply/RedirectIfSubmitted';
 import { PATH } from './constants/path';
+import NonSpecificError from './pages/NonSpecificError';
+import NotFoundError from './pages/NotFoundError';
 
 import Layout from '@/components/layout/Layout';
 import Activity from '@/pages/Activity';
@@ -12,7 +17,7 @@ import Main from '@/pages/Main';
 import Project from '@/pages/Project';
 import ProjectDetail from '@/pages/ProjectDetail';
 
-const routerList = [
+const router = createBrowserRouter([
   {
     element: <Layout />,
     children: [
@@ -23,11 +28,28 @@ const routerList = [
       { path: PATH.apply, element: <Apply /> },
       { path: `${PATH.faq}/:tabId?/:questionId?`, element: <Faq /> },
       { path: PATH.applyVerify, element: <ApplyVerify /> },
-      { path: PATH.applicantInfo, element: <ApplyApplicantInfo /> },
-      { path: PATH.applyRegistration, element: <ApplyRegistration /> },
+      {
+        path: PATH.applicantInfo,
+        element: (
+          <RedirectIfSubmitted>
+            <ApplyApplicantInfo />
+          </RedirectIfSubmitted>
+        ),
+      },
+      {
+        path: PATH.applyRegistration,
+        element: (
+          <RedirectIfSubmitted>
+            <ApplyRegistration />
+          </RedirectIfSubmitted>
+        ),
+      },
       { path: PATH.applyComplete, element: <ApplyComplete /> },
+      { path: '*', element: <NotFoundError /> },
     ],
   },
-];
+  { path: PATH.nonSpecificError, element: <NonSpecificError /> },
+  { path: PATH.notFoundError, element: <NotFoundError /> },
+]);
 
-export default routerList;
+export default router;
