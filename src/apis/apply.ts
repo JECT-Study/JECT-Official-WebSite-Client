@@ -9,6 +9,8 @@ import {
   PinLoginResponse,
   RegisterMemberPayload,
   RegisterMemberResponse,
+  ResetPinPayload,
+  ResetPinResponse,
   VerificationEmailCodePayload,
   VerificationEmailCodeQueryParams,
   VerificationEmailCodeResponse,
@@ -67,5 +69,13 @@ export const postRegisterMember = async (
     API_ENDPOINT.registerMember,
     data,
     options,
+  );
+};
+
+export const putResetPin = async (data: ResetPinPayload) => {
+  return await requestHandler<ResetPinResponse, ResetPinPayload>(
+    'put',
+    API_ENDPOINT.resetPin,
+    data,
   );
 };

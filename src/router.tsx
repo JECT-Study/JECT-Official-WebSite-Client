@@ -25,7 +25,7 @@ const router = sentryCreateBrowserRouter([
       { path: `${PATH.project}/:id`, element: <ProjectDetail /> },
       { path: PATH.activity, element: <Activity /> },
       { path: PATH.apply, element: <Apply /> },
-      { path: PATH.faq, element: <Faq /> },
+      { path: `${PATH.faq}/:tabId?/:questionId?`, element: <Faq /> },
       { path: PATH.applyVerify, element: <ApplyVerify /> },
       {
         path: PATH.applicantInfo,

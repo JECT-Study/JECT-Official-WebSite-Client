@@ -38,8 +38,13 @@ function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
 
   const { mutate: pinLoginMutate, isPending: isPinLoginLoading } = usePinLoginMutation();
   const { mutate: deleteDraftMutate } = useDeleteDraftMutation();
-  const { data: draftSever } = useDraftQuery();
+  const { refetch: refetchDraftServer } = useDraftQuery({ enabled: false });
   const { openDialog } = useDialogActions();
+
+  const rightIconFillColor =
+    !isPinValid || isPinLoginLoading
+      ? 'fill-accent-trans-hero-dark'
+      : 'fill-object-static-inverse-hero-dark';
 
   const onPinSubmit = ({ pin }: PinLoginPayload) => {
     const payload = { email, pin };
@@ -65,22 +70,24 @@ function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
           return;
         }
 
-        if (!getDraftLocal() && draftSever?.status !== 'SUCCESS') {
-          return void navigate(PATH.applyRegistration);
-        }
+        void refetchDraftServer().then(({ data }) => {
+          if (!getDraftLocal() && data?.status !== 'SUCCESS') {
+            return void navigate(PATH.applyRegistration);
+          }
 
-        openDialog({
-          type: 'continueWriting',
-          onPrimaryBtnClick: () => {
-            void navigate(PATH.applyRegistration, { state: { continue: true } });
-          },
-          onSecondaryBtnClick: () => {
-            deleteDraftMutate(null, {
-              onSuccess: () => {
-                void navigate(PATH.applyRegistration, { state: { continue: false } });
-              },
-            });
-          },
+          openDialog({
+            type: 'continueWriting',
+            onPrimaryBtnClick: () => {
+              void navigate(PATH.applyRegistration, { state: { continue: true } });
+            },
+            onSecondaryBtnClick: () => {
+              deleteDraftMutate(null, {
+                onSuccess: () => {
+                  void navigate(PATH.applyRegistration, { state: { continue: false } });
+                },
+              });
+            },
+          });
         });
       },
       onError: error => {
@@ -163,8 +170,9 @@ function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
             size='lg'
             style='solid'
             hierarchy='accent'
+            rightIcon={<Icon name='forward' size='md' fillColor={rightIconFillColor} />}
           >
-            PIN 다시 설정 완료하기
+            다음 단계로 진행하기
           </BlockButton>
         </div>
       </section>
