@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 
 import cardSampleImage from '@/assets/CardSample.png';
 import ApplySnackBar from '@/components/apply/ApplySnackBar';
@@ -10,6 +10,7 @@ import Label from '@/components/common/label/Label';
 import { Tab, TabHeader, TabItem, TabPanel } from '@/components/common/tab/Tab';
 import Title from '@/components/common/title/Title';
 import { APPLY_SNACKBAR } from '@/constants/applyMessages';
+import { PATH } from '@/constants/path';
 import { useProjectDetailQuery } from '@/hooks/useProjectDetailQuery';
 
 const ProjectDetail = () => {
@@ -19,18 +20,12 @@ const ProjectDetail = () => {
 
   const project = projectDetailData?.data;
 
-  //TODO: 실제 데이터가 없는 url로 접근 시 해당 페이지를 렌더링 하는 것이 아닌 Error Page 로 이동
-  if (
-    isError ||
-    projectDetailData?.status === 'PROJECT_NOT_FOUND' ||
-    !projectDetailData ||
-    !project
-  ) {
-    return (
-      <div className='flex h-[50vh] w-full items-center justify-center'>
-        <EmptyData />
-      </div>
-    );
+  if (isError) {
+    return <Navigate to={PATH.nonSpecificError} replace />;
+  }
+
+  if (projectDetailData?.status === 'PROJECT_NOT_FOUND' || !projectDetailData || !project) {
+    return <Navigate to={PATH.notFoundError} replace />;
   }
 
   const frontendDevelopers = project.teamMemberNames?.frontendDevelopers ?? [];
