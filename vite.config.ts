@@ -18,7 +18,7 @@ export default defineConfig(({ mode }) => {
       tailwindcss(),
       svgr(),
       sentryVitePlugin({
-        authToken: process.env.SENTRY_AUTH_TOKEN,
+        authToken: env.VITE_SENTRY_AUTH_TOKEN,
         org: env.VITE_SENTRY_ORG,
         project: env.VITE_SENTRY_PROJECT,
         sourcemaps: {
