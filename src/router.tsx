@@ -44,12 +44,12 @@ const router = sentryCreateBrowserRouter([
         ),
       },
       { path: PATH.applyComplete, element: <ApplyComplete /> },
-      { path: '*', element: <NotFoundError /> },
     ],
     errorElement: <NonSpecificError />,
   },
   { path: PATH.nonSpecificError, element: <NonSpecificError /> },
   { path: PATH.notFoundError, element: <NotFoundError /> },
+  { path: '*', element: <NotFoundError /> },
 ]);
 
 export default router;
