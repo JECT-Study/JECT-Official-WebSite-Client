@@ -44,7 +44,7 @@ export interface ProjectListResponse {
 }
 
 export interface ProjectListQueryParams {
-  semesterId: number;
+  semesterId?: number;
   category: ProjectCategory;
   page: number;
   size: number;
