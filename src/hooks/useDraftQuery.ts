@@ -15,6 +15,7 @@ const useDraftQuery = (enabled?: boolean) => {
     queryKey: ['getDraft'],
     queryFn: getDraft,
     enabled: enabled ?? true,
+    retry: 0,
   });
 
   if (isError) {
