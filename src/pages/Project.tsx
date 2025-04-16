@@ -8,7 +8,6 @@ import LabelButton from '@/components/common/button/LabelButton';
 import { Card } from '@/components/common/card/Card';
 import EmptyData from '@/components/common/emptyState/EmptyData';
 import Icon from '@/components/common/icon/Icon';
-import { Post } from '@/components/common/post/Post';
 import { Select } from '@/components/common/select/Select';
 import { Tab } from '@/components/common/tab/Tab';
 import Title from '@/components/common/title/Title';
@@ -16,7 +15,6 @@ import { APPLY_SNACKBAR } from '@/constants/applyMessages';
 import { PATH } from '@/constants/path';
 import { useInfiniteScroll } from '@/hooks/useInfiniteScroll';
 import { useProjectListQuery } from '@/hooks/useProjectListQuery';
-import { useProjectReviewsQuery } from '@/hooks/useProjectReviewsQuery';
 import { useSemestersQuery } from '@/hooks/useSemestersQuery';
 
 const Project = () => {
@@ -34,24 +32,10 @@ const Project = () => {
     isFetchingNextPage: isFetchingNextProjects,
   } = useProjectListQuery(semesterId, 'MAIN');
 
-  const {
-    data: reviewsData,
-    isError: isReviewsError,
-    fetchNextPage: fetchNextReviews,
-    hasNextPage: isHasNextReviews,
-    isFetchingNextPage: isFetchingNextReviews,
-  } = useProjectReviewsQuery();
-
   const projectsObserverRef = useInfiniteScroll({
     hasNextPage: isHasNextProjects,
     isFetchingNextPage: isFetchingNextProjects,
     fetchNextPage: fetchNextProjects,
-  });
-
-  const reviewsObserverRef = useInfiniteScroll({
-    hasNextPage: isHasNextReviews,
-    isFetchingNextPage: isFetchingNextReviews,
-    fetchNextPage: fetchNextReviews,
   });
 
   const selectItems =
@@ -74,8 +58,6 @@ const Project = () => {
   };
 
   const allProjects = projectsData?.pages.flatMap(page => page.data.content) || [];
-
-  const allReviews = reviewsData?.pages.flatMap(page => page.data.content) || [];
 
   return (
     <div className='gap-12xl flex flex-col items-center px-(--gap-5xl) py-(--gap-12xl)'>
@@ -131,30 +113,6 @@ const Project = () => {
             </div>
           </Tab>
         </div>
-      </section>
-
-      <section className='gap-8xl flex w-full max-w-[60rem] flex-col items-center'>
-        <Title hierarchy='strong'>프로젝트 후기</Title>
-
-        {isReviewsError || allReviews.length === 0 ? (
-          <EmptyData />
-        ) : (
-          <>
-            <div className='gap-2xl flex w-full flex-col'>
-              {allReviews.map(review => (
-                <Post key={review.id} href={review.linkUrl} title={review.title} label='바로가기'>
-                  {review.summary}
-                </Post>
-              ))}
-            </div>
-            <div
-              ref={reviewsObserverRef}
-              className='mt-(--gap-md) flex h-[2.5rem] w-full items-center justify-center'
-            >
-              {isFetchingNextReviews && <Lottie animationData={loadingSpinner} />}
-            </div>
-          </>
-        )}
       </section>
       <ApplySnackBar message={APPLY_SNACKBAR.default} width='w-[31.25rem]' />
     </div>
