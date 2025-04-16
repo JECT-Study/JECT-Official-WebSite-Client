@@ -20,7 +20,7 @@ import { useSemestersQuery } from '@/hooks/useSemestersQuery';
 const Project = () => {
   const [isSelectOpen, setIsSelectOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
-  const [semesterId, setSemesterId] = useState(1);
+  const [semesterId, setSemesterId] = useState<number | null>(null);
 
   const { data: semestersData } = useSemestersQuery();
 
@@ -38,13 +38,20 @@ const Project = () => {
     fetchNextPage: fetchNextProjects,
   });
 
-  const selectItems =
-    semestersData?.data.semesterResponses.map(semester => ({
+  const selectItems = [
+    { label: '전체' },
+    ...(semestersData?.data.semesterResponses.map(semester => ({
       label: semester.name,
-    })) ?? [];
+    })) ?? []),
+  ];
 
   useEffect(() => {
     if (!selectedOption || !semestersData) return;
+
+    if (selectedOption === '전체') {
+      setSemesterId(null);
+      return;
+    }
 
     const semester = semestersData.data.semesterResponses.find(s => s.name === selectedOption);
     if (semester) {
@@ -72,7 +79,7 @@ const Project = () => {
                 rightIcon={<Icon name='dropDown' size='md' fillColor='fill-object-neutral-dark' />}
                 onClick={() => setIsSelectOpen(prev => !prev)}
               >
-                {selectedOption ? selectedOption : '기수 선택'}
+                {selectedOption ? selectedOption : '기수'}
               </LabelButton>
               {isSelectOpen && (
                 <div className='absolute top-full left-[-9%] z-10 mt-3 w-[7.5rem]'>

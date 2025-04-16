@@ -23,12 +23,15 @@ export const getProjectList = async ({
   page,
   size,
 }: ProjectListQueryParams) => {
-  const params = new URLSearchParams({
-    semesterId: semesterId.toString(),
-    category: category,
-    page: page.toString(),
-    size: size.toString(),
-  });
+  const params = new URLSearchParams();
+
+  if (semesterId !== undefined) {
+    params.append('semesterId', semesterId.toString());
+  }
+
+  params.append('category', category);
+  params.append('page', page.toString());
+  params.append('size', size.toString());
 
   const url = `${API_ENDPOINT.projectList}?${params.toString()}`;
   return await requestHandler<ProjectListResponse>('get', url);
