@@ -60,15 +60,11 @@ export const putMemberProfileInitial = async (data: MemberProfileInitialPayload)
   );
 };
 
-export const postRegisterMember = async (
-  data: RegisterMemberPayload,
-  options?: { headers: { Authorization: string } },
-) => {
+export const postRegisterMember = async (data: RegisterMemberPayload) => {
   return await requestHandler<RegisterMemberResponse, RegisterMemberPayload>(
     'post',
     API_ENDPOINT.registerMember,
     data,
-    options,
   );
 };
 

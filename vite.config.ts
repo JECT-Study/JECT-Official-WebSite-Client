@@ -24,7 +24,6 @@ export default defineConfig(({ mode }) => {
         sourcemaps: {
           filesToDeleteAfterUpload: ['dist/assets/**/*.js.map'],
         },
-        debug: true,
       }),
     ],
     resolve: {
