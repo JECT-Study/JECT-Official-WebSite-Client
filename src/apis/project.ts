@@ -38,9 +38,7 @@ export const getProjectList = async ({
 };
 
 export const getProjectDetail = async (projectId: string) => {
-  const numericId = parseInt(projectId, 10);
-
-  const url = `${API_ENDPOINT.projectDetail.replace(':projectId', String(numericId))}`;
+  const url = `${API_ENDPOINT.projectDetail.replace(':projectId', projectId)}`;
 
   return await requestHandler<ProjectDetailResponse>('get', url);
 };
