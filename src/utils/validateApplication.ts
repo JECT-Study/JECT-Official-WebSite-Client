@@ -22,6 +22,10 @@ import { Application } from '@/types/ui/application';
  *   답변 필수 O : 유효한 url이여야한다.
  *   답변 필수 X : 답변이 있다면 유효한 url이여야한다. 답변이 없으면 통과.
  *
+ * - SELECT 타입
+ *   답변 필수 O : 빈 문자열이 아닌 값이 있어야한다.
+ *   답변 필수 X : 무조건 통과
+ *
  * 만약 예상하지 못한 inputType이 전달되면 기본적으로 false를 반환한다.
  *
  * @param questions - 질문 객체들의 배열.
@@ -37,7 +41,7 @@ export const validateApplication = (questions: Question[], application: Applicat
     }
 
     if (question.inputType === 'TEXT') {
-      const text = application.answers[question.id] || '';
+      const text = application.answers[question.id] ?? '';
 
       if (!question.isRequired) {
         if (question.maxTextLength) return text.length <= question.maxTextLength;
@@ -56,6 +60,14 @@ export const validateApplication = (questions: Question[], application: Applicat
       const url = application.answers[question.id] || '';
 
       return url ? validateUrlDetail(url) : !question.isRequired;
+    }
+
+    if (question.inputType === 'SELECT') {
+      if (!question.isRequired) return true;
+
+      const text = application.answers[question.id] ?? '';
+
+      return text !== '';
     }
 
     return false;
