@@ -10,7 +10,7 @@ import EmptyData from '@/components/common/emptyState/EmptyData';
 import Icon from '@/components/common/icon/Icon';
 import { Post } from '@/components/common/post/Post';
 import { Select } from '@/components/common/select/Select';
-import { Tab, TabHeader, TabItem, TabPanel } from '@/components/common/tab/Tab';
+import { Tab } from '@/components/common/tab/Tab';
 import Title from '@/components/common/title/Title';
 import { APPLY_SNACKBAR } from '@/constants/applyMessages';
 import { PATH } from '@/constants/path';
@@ -84,10 +84,6 @@ const Project = () => {
         <div className='flex w-full flex-col'>
           <Tab>
             <div className='gap-4xl flex w-full flex-col'>
-              <TabHeader>
-                <TabItem id={0} label='프로젝트' />
-                <TabItem id={1} label='해커톤' disabled />
-              </TabHeader>
               <div className='relative w-fit'>
                 <LabelButton
                   size='lg'
@@ -106,45 +102,23 @@ const Project = () => {
                 )}
               </div>
 
-              <TabPanel id={0}>
-                {isProjectsError || allProjects.length === 0 ? (
-                  <EmptyData />
-                ) : (
-                  <div className='gap-4xl grid grid-cols-3'>
-                    {allProjects.map(project => (
-                      <Card
-                        key={project.id}
-                        to={`${PATH.project}/${project.id}`}
-                        title={project.name}
-                        label={project.name}
-                        imgUrl={project.thumbnailUrl || cardSampleImage}
-                      >
-                        {project.summary}
-                      </Card>
-                    ))}
-                  </div>
-                )}
-              </TabPanel>
-
-              <TabPanel id={1}>
-                {isProjectsError || allProjects.length === 0 ? (
-                  <EmptyData />
-                ) : (
-                  <div className='gap-4xl grid grid-cols-3'>
-                    {allProjects.map(project => (
-                      <Card
-                        key={project.id}
-                        to={`${PATH.jeckathon}/${project.id}`}
-                        title={project.name}
-                        label={project.name}
-                        imgUrl={project.thumbnailUrl || cardSampleImage}
-                      >
-                        {project.summary}
-                      </Card>
-                    ))}
-                  </div>
-                )}
-              </TabPanel>
+              {isProjectsError || allProjects.length === 0 ? (
+                <EmptyData />
+              ) : (
+                <div className='gap-4xl grid grid-cols-3'>
+                  {allProjects.map(project => (
+                    <Card
+                      key={project.id}
+                      to={`${PATH.project}/${project.id}`}
+                      title={project.name}
+                      label={project.name}
+                      imgUrl={project.thumbnailUrl || cardSampleImage}
+                    >
+                      {project.summary}
+                    </Card>
+                  ))}
+                </div>
+              )}
 
               {!isProjectsError && allProjects.length > 0 && (
                 <div
