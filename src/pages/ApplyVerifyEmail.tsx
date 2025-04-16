@@ -27,7 +27,6 @@ import {
   VerificationEmailCodePayload,
 } from '@/types/apis/apply';
 import { CreateSubmitHandler } from '@/utils/formHelpers';
-import { tokenUtils } from '@/utils/interceptor';
 
 interface ApplyVerifyEmailProps {
   isResetPin?: boolean;
@@ -47,7 +46,6 @@ function ApplyVerifyEmail({
   const [isReVerification] = useState(isResetPin);
   const [step, setStep] = useState(1);
   const [isTermsChecked, setIsTermsChecked] = useState(false);
-  const [verificationToken, setVerificationToken] = useState<string | null>(null);
   const [isAuthCodeExpired, setIsAuthCodeExpired] = useState(false);
   const [emailButtonText, setEmailButtonText] = useState('인증번호 받기');
 
@@ -172,15 +170,6 @@ function ApplyVerifyEmail({
             });
             return;
           }
-
-          if (response.data?.token) {
-            if (isResetPin) {
-              tokenUtils.setAccessToken(response.data.token);
-            } else {
-              setVerificationToken(response.data.token);
-            }
-          }
-
           setStep(3);
         },
         onError: error => {
@@ -195,11 +184,6 @@ function ApplyVerifyEmail({
   };
 
   const onRegisterMemberSubmit = ({ pin }: RegisterMemberPayload) => {
-    if (!verificationToken) {
-      console.error('인증 토큰이 없습니다. 인증 단계를 다시 진행해주세요.');
-      return;
-    }
-
     console.log('PIN 유효성 검사 통과, 회원 등록 API 요청 준비:', { pin });
 
     registerMemberMutate(
@@ -234,7 +218,6 @@ function ApplyVerifyEmail({
             setStep(1);
             setStoredEmail('');
             setIsAuthCodeExpired(false);
-            setVerificationToken(null);
 
             resetEmailForm();
             resetVerificationForm();
