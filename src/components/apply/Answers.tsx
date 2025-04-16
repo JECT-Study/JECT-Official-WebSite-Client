@@ -50,7 +50,7 @@ function Answers({
       return addToast('일시적 오류로 추가 질문들을 불러올 수 없었어요.', 'negative');
     }
 
-    if (status !== 'SUCCESS') {
+    if (status && status !== 'SUCCESS') {
       return addToast('일시적 오류로 추가 질문들을 불러올 수 없었어요.', 'negative');
     }
   }, [isError, addToast, status]);
