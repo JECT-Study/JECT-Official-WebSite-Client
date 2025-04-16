@@ -77,7 +77,8 @@ function ApplyRegistration() {
     submitAnswerMutate(answer, {
       onSuccess: data => {
         if (data?.status === 'SUCCESS') {
-          void navigate(PATH.applyComplete);
+          void navigate(PATH.applyComplete, { replace: true });
+          localStorage.setItem('applicationSubmit', 'success');
           removeDraftLocal();
         }
       },

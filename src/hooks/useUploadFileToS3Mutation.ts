@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 import { putUploadFileToS3 } from '@/apis/application';
 import { APPLY_MESSAGE } from '@/constants/applyMessages';
+import { useDialogActions } from '@/stores/dialogStore';
 import { useToastActions } from '@/stores/toastStore';
 import { PresignedUrlResponse } from '@/types/apis/application';
 import { ApiResponse } from '@/types/apis/response';
@@ -17,6 +18,7 @@ const useUploadFileToS3Mutation = () => {
   const source = axios.CancelToken.source();
   const [isNetworkError, setIsNetworkError] = useState(false);
   const { addToast } = useToastActions();
+  const { openDialog } = useDialogActions();
 
   const {
     mutate,
@@ -32,10 +34,12 @@ const useUploadFileToS3Mutation = () => {
     onSuccess: () => addToast(APPLY_MESSAGE.success.uploadFile, 'positive'),
     onError: error => {
       if (axios.isAxiosError(error) && error.code === 'ERR_NETWORK') {
-        setIsNetworkError(true);
         addToast(APPLY_MESSAGE.fail.uploadFile, 'negative');
+        setIsNetworkError(true);
+        return;
       }
-      console.error('Query Error :', error);
+
+      openDialog({ type: 'failedUploadFile' });
     },
   });
 
