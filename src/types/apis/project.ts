@@ -56,7 +56,7 @@ export interface ProjectDetailResponse {
   startDate: string;
   endDate: string;
   teamMemberNames: {
-    projectManagers: string[];
+    productManagers: string[];
     productDesigners: string[];
     frontendDevelopers: string[];
     backendDevelopers: string[];

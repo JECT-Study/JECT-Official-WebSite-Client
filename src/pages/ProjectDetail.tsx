@@ -30,7 +30,7 @@ const ProjectDetail = () => {
 
   const frontendDevelopers = project.teamMemberNames?.frontendDevelopers ?? [];
   const backendDevelopers = project.teamMemberNames?.backendDevelopers ?? [];
-  const projectManagers = project.teamMemberNames?.projectManagers ?? [];
+  const productManagers = project.teamMemberNames?.productManagers ?? [];
   const productDesigners = project.teamMemberNames?.productDesigners ?? [];
   const techStack = project.techStack ?? [];
 
@@ -53,7 +53,7 @@ const ProjectDetail = () => {
             <div className='gap-md flex w-full content-start items-start'>
               <CalloutInformation title='FE' labels={frontendDevelopers} />
               <CalloutInformation title='BE' labels={backendDevelopers} />
-              <CalloutInformation title='PM' labels={projectManagers} />
+              <CalloutInformation title='PM' labels={productManagers} />
               <CalloutInformation title='PD' labels={productDesigners} />
             </div>
             <CalloutInformation title='플랫폼 및 기술' labels={techStack} />
