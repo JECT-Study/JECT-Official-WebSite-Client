@@ -38,7 +38,7 @@ function Answers({
   useEffect(() => {
     if (questions?.status !== 'SUCCESS') return;
 
-    const isCompleted = validateApplication(questions.data, application);
+    const isCompleted = validateApplication(questions.data.questionResponses, application);
 
     onActiveSubmitButton(isCompleted);
   }, [application, questions, onActiveSubmitButton]);
@@ -78,8 +78,8 @@ function Answers({
   }
 
   return (
-    <form className='gap-7xl flex flex-col' encType='multipart/form-data'>
-      {questions.data?.map(data => {
+    <form action='' className='gap-7xl flex flex-col' encType='multipart/form-data'>
+      {questions.data.questionResponses?.map(data => {
         switch (data.inputType) {
           case 'TEXT':
             return (

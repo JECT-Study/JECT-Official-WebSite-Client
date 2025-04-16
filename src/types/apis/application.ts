@@ -51,6 +51,8 @@ export type PresignedUrlPayload = UploadFileMeta[];
 
 export type PresignedUrlResponse = PresignedFileUrls[];
 
-export type QuestionResponse = Question[];
+export type QuestionResponse = {
+  questionResponses: Question[];
+};
 
 export type ChangeJobRequest = JobFamily;
