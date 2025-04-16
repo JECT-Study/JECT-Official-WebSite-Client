@@ -12,7 +12,7 @@ function CalloutInformation({ title, labels = [] }: CalloutProps) {
         {title}
       </Label>
       {labels.map(label => (
-        <Label hierarchy='normal' weight='normal' textColor='text-object-neutral-dark'>
+        <Label key={label} hierarchy='normal' weight='normal' textColor='text-object-neutral-dark'>
           {label}
         </Label>
       ))}
