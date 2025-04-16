@@ -98,7 +98,7 @@ export const applyInfoList: Info[] = [
           지원 기간 종료까지 지원자분의 소중한 정보를 안전하게 보관할 것을 약속드립니다.`,
     link: (
       <NewTabLink
-        href=''
+        href='https://www.notion.so/JECT-1cf62a893ac581cba52beb59a1eca908'
         className='text-feedback-information-dark decoration-feedback-information-dark underline'
       >
         개인정보 수집 및 이용 동의서
@@ -113,7 +113,7 @@ export const applyInfoList: Info[] = [
           공식 일정이 종료된 후에 돌려 드려요.`,
     link: (
       <NewTabLink
-        href=''
+        href='https://cultured-phalange-7de.notion.site/JECT-fb43010a5141459ab14f786a19885f0b'
         className='text-feedback-information-dark decoration-feedback-information-dark underline'
       >
         젝트 회비 관련
