@@ -75,6 +75,14 @@ function FileField({ data, onChange, values }: FileFieldProps) {
 
     const newFilesArr = Array.from(newFiles);
 
+    const isSameFile = portfolios.some(portfolio =>
+      newFilesArr.some(file => file.name === portfolio.fileName),
+    );
+
+    if (isSameFile) {
+      return addToast(APPLY_MESSAGE.invalid.sameFile, 'negative');
+    }
+
     if (validateMaxSize(totalSize, newFilesArr)) {
       return addToast(APPLY_MESSAGE.invalid.fileSize, 'negative');
     }
