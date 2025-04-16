@@ -40,10 +40,13 @@ const ProjectDetail = () => {
 
   const project = projectDetailData.data;
 
-  const frontendDevelopers = project.teamMemberNames?.frontendDevelopers ?? [];
-  const backendDevelopers = project.teamMemberNames?.backendDevelopers ?? [];
-  const productManagers = project.teamMemberNames?.productManagers ?? [];
-  const productDesigners = project.teamMemberNames?.productDesigners ?? [];
+  const teamRoles = [
+    { id: 'fe', title: 'FE', members: project.teamMemberNames?.frontendDevelopers ?? [] },
+    { id: 'be', title: 'BE', members: project.teamMemberNames?.backendDevelopers ?? [] },
+    { id: 'pm', title: 'PM', members: project.teamMemberNames?.productManagers ?? [] },
+    { id: 'pd', title: 'PD', members: project.teamMemberNames?.productDesigners ?? [] },
+  ];
+
   const techStack = project.techStack ?? [];
 
   return (
@@ -63,10 +66,11 @@ const ProjectDetail = () => {
           </div>
           <div className='gap-md flex w-full flex-col items-start'>
             <div className='gap-md flex w-full content-start items-start'>
-              <CalloutInformation title='FE' labels={frontendDevelopers} />
-              <CalloutInformation title='BE' labels={backendDevelopers} />
-              <CalloutInformation title='PM' labels={productManagers} />
-              <CalloutInformation title='PD' labels={productDesigners} />
+              {teamRoles
+                .filter(role => role.members.length > 0)
+                .map(role => (
+                  <CalloutInformation key={role.id} title={role.title} labels={role.members} />
+                ))}
             </div>
             <CalloutInformation title='플랫폼 및 기술' labels={techStack} />
           </div>
