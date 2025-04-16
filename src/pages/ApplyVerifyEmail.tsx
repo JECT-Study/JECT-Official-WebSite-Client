@@ -409,7 +409,7 @@ function ApplyVerifyEmail({
                   />
                 )}
               </div>
-              <NewTabLink href=''>
+              <NewTabLink href='https://www.notion.so/JECT-1cf62a893ac581cba52beb59a1eca908'>
                 <Icon name='rightChevron' size='lg' fillColor='fill-object-assistive-dark' />
               </NewTabLink>
             </div>

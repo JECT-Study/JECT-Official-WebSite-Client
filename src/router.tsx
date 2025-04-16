@@ -1,6 +1,7 @@
 import RedirectIfSubmitted from './components/apply/RedirectIfSubmitted';
 import { PATH } from './constants/path';
 import { sentryCreateBrowserRouter } from './instrument';
+import Maintenance from './pages/Maintenance';
 import NonSpecificError from './pages/NonSpecificError';
 import NotFoundError from './pages/NotFoundError';
 
@@ -49,6 +50,7 @@ const router = sentryCreateBrowserRouter([
   },
   { path: PATH.nonSpecificError, element: <NonSpecificError /> },
   { path: PATH.notFoundError, element: <NotFoundError /> },
+  { path: PATH.maintenance, element: <Maintenance /> },
   { path: '*', element: <NotFoundError /> },
 ]);
 

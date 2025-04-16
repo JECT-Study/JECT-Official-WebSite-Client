@@ -14,33 +14,35 @@ interface TimelineItem {
 export const timelineData: TimelineItem[] = [
   {
     id: 1,
-    title: '팀 빌딩',
-    badgeText: '온라인',
-    description: '젝트 여정의 시작이에요. 프로젝트 진행을 함께할 팀메이트를 탐색해 보세요!',
-    badgeBgColor: 'bg-feedback-trans-positive-dark',
-    badgeTextColor: 'text-feedback-positive-dark',
+    title: '온보딩',
+    badgeText: '오프라인',
+    description:
+      '젝트 여정의 시작입니다. 프로젝트를 함께할 팀메이트와 만나 아이디어를 나눠 보세요!',
+    badgeBgColor: 'bg-feedback-trans-notification-dark',
+    badgeTextColor: 'text-feedback-notification-dark',
   },
   {
     id: 2,
-    title: 'MVP 발표',
+    title: '프로젝트 워밍업',
     badgeText: '온라인',
-    description: '서비스의 청사진을 발표해요. 아이디에이션 과정을 모든 팀들과 공유합니다.',
+    description: '아이디어 피드백 및 협업을 돕는 세션을 통해 프로젝트의 출발선을 함께 정리해요.',
     badgeBgColor: 'bg-feedback-trans-positive-dark',
     badgeTextColor: 'text-feedback-positive-dark',
   },
   {
     id: 3,
-    title: '1차 데모데이',
+    title: '리뷰위크',
     badgeText: '온라인',
-    description: '발표했던 MVP 모델의 달성, 그리고 서비스 배포를 목표로 해요.',
+    description: '배포된 서비스를 함께 시연해보고, 피드백을 통해 개선 가능성을 탐색합니다.',
     badgeBgColor: 'bg-feedback-trans-positive-dark',
     badgeTextColor: 'text-feedback-positive-dark',
   },
   {
     id: 4,
-    title: '2차 데모데이',
+    title: '데모데이',
     badgeText: '오프라인',
-    description: '서비스를 함께 시연해 보고, 피드백을 통해 개선 가능성을 탐색합니다.',
+    description:
+      '사용자 피드백을 바탕으로 서비스 품질을 높입니다. 개선 과정에서 배운 점도 공유해요.',
     badgeBgColor: 'bg-feedback-trans-notification-dark',
     badgeTextColor: 'text-feedback-notification-dark',
   },
@@ -75,9 +77,9 @@ export const positionData: PositionItem[] = [
     id: 2,
     title: '프로덕트 매니저',
     variant: 'pm',
-    labels: ['문서 관리', '일정 조율', '커뮤니케이션', '팀 플레잉'],
+    labels: ['BM 설계', '서비스 기획', '커뮤니케이션', '일정 및 문서관리'],
     description:
-      '서비스 기획에 대한 아이디어를 제시하고 유저 경험을 설계합니다. 원활한 팀 플레잉을 위해 서비스 릴리즈까지의 프로젝트 일정 전반을 관리해요.',
+      '서비스의 방향성과 비즈니스 모델을 설계하고, 사용자 경험 중심의 기획을 주도합니다. 팀 내 원활한 커뮤니케이션을 이끌며, 일정과 문서를 체계적으로 관리해 프로젝트의 흐름을 정돈해요.',
   },
   {
     id: 3,
