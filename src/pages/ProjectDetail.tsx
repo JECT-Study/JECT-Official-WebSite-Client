@@ -16,13 +16,25 @@ import { useProjectDetailQuery } from '@/hooks/useProjectDetailQuery';
 const ProjectDetail = () => {
   const { id } = useParams<{ id: string }>();
 
-  const { data: projectDetailData, isError } = useProjectDetailQuery(id ?? '');
+  const {
+    data: projectDetailData,
+    isError,
+    isSuccess,
+    isPending,
+  } = useProjectDetailQuery(id ?? '');
+
+  if (isPending) {
+    return null;
+  }
 
   if (isError) {
     return <Navigate to={PATH.nonSpecificError} replace />;
   }
 
-  if (projectDetailData?.status === 'PROJECT_NOT_FOUND' || !projectDetailData?.data) {
+  if (
+    isSuccess &&
+    (projectDetailData?.status === 'PROJECT_NOT_FOUND' || !projectDetailData?.data)
+  ) {
     return <Navigate to={PATH.notFoundError} replace />;
   }
 
