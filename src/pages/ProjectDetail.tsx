@@ -90,7 +90,7 @@ const ProjectDetail = () => {
                         key={intro.sequence}
                         src={intro.imageUrl}
                         alt={`서비스 소개 ${intro.sequence}번`}
-                        className='border-border-alternative-dark block h-[29rem] w-full border object-cover'
+                        className='border-border-alternative-dark block h-[29rem] w-full border object-contain'
                       />
                     ))
                 ) : (
@@ -108,7 +108,7 @@ const ProjectDetail = () => {
                         key={intro.sequence}
                         src={intro.imageUrl}
                         alt={`개발 소개 ${intro.sequence}번`}
-                        className='border-border-alternative-dark block h-[29rem] w-full border object-cover'
+                        className='border-border-alternative-dark block h-[29rem] w-full border object-contain'
                       />
                     ))
                 ) : (
