@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 import FileField from './FileField';
 import SelectField from './SelectField';
@@ -31,7 +31,6 @@ function Answers({
   onChangePortfolios,
   onActiveSubmitButton,
 }: AnswersProps) {
-  const navigate = useNavigate();
   const { data, isError, refetch } = useQuestionsQuery(questionJob);
   const { addToast } = useToastActions();
   const questions = data?.data.questionResponses;
@@ -76,7 +75,7 @@ function Answers({
   }
 
   if (questions && questions.length === 0) {
-    return void navigate(PATH.notFoundError);
+    return <Navigate to={PATH.notFoundError} replace />;
   }
 
   return (
