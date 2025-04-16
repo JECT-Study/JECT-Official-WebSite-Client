@@ -8,6 +8,7 @@ import LabelButton from '@/components/common/button/LabelButton';
 import { Card } from '@/components/common/card/Card';
 import EmptyData from '@/components/common/emptyState/EmptyData';
 import Icon from '@/components/common/icon/Icon';
+import Label from '@/components/common/label/Label';
 import { Select } from '@/components/common/select/Select';
 import Title from '@/components/common/title/Title';
 import { APPLY_SNACKBAR } from '@/constants/applyMessages';
@@ -80,8 +81,14 @@ const Project = () => {
               )}
             </div>
 
-            {isProjectsError || allProjects.length === 0 ? (
+            {isProjectsError ? (
               <EmptyData />
+            ) : allProjects.length === 0 ? (
+              <div className='flex w-full items-center justify-center py-(--gap-12xl)'>
+                <Label hierarchy='stronger' weight='bold' textColor='text-object-assistive-dark'>
+                  함께할 프로젝트를 기대하고 있어요
+                </Label>
+              </div>
             ) : (
               <div className='gap-4xl grid grid-cols-3'>
                 {allProjects.map(project => (
