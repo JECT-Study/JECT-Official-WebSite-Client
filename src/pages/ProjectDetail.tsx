@@ -18,15 +18,15 @@ const ProjectDetail = () => {
 
   const { data: projectDetailData, isError } = useProjectDetailQuery(id ?? '');
 
-  const project = projectDetailData?.data;
-
   if (isError) {
     return <Navigate to={PATH.nonSpecificError} replace />;
   }
 
-  if (projectDetailData?.status === 'PROJECT_NOT_FOUND' || !projectDetailData || !project) {
+  if (projectDetailData?.status === 'PROJECT_NOT_FOUND' || !projectDetailData?.data) {
     return <Navigate to={PATH.notFoundError} replace />;
   }
+
+  const project = projectDetailData.data;
 
   const frontendDevelopers = project.teamMemberNames?.frontendDevelopers ?? [];
   const backendDevelopers = project.teamMemberNames?.backendDevelopers ?? [];
