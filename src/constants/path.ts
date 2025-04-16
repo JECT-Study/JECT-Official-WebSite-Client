@@ -1,5 +1,6 @@
 export const PATH = {
-  nonSpecificError: '/non-specific-error',
+  maintenance: '/maintenance',
+  nonSpecificError: '/service-unavailable',
   notFoundError: '/not-found',
   main: '/',
   project: '/project',
