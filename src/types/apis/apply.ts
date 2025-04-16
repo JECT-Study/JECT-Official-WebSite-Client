@@ -42,10 +42,7 @@ export interface RegisterMemberPayload {
   pin: string;
 }
 
-export interface RegisterMemberResponse {
-  accessToken: string;
-  refreshToken: string;
-}
+export type RegisterMemberResponse = boolean;
 
 export interface ResetPinPayload {
   pin: string;

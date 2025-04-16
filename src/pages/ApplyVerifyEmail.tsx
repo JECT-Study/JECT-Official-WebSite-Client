@@ -203,10 +203,7 @@ function ApplyVerifyEmail({
     console.log('PIN 유효성 검사 통과, 회원 등록 API 요청 준비:', { pin });
 
     registerMemberMutate(
-      {
-        pin,
-        verificationToken,
-      },
+      { pin },
       {
         onSuccess: response => {
           console.log('회원 등록 성공:', response);
