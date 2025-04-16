@@ -35,9 +35,9 @@ export const useFaqNavigation = (): UseFaqNavigationResult => {
     setOpenAccordionId(null);
 
     if (tabId !== 1) {
-      void navigate(`${PATH.faq}/${tabId}`);
+      void navigate(`${PATH.faq}/${tabId}`, { replace: true });
     } else {
-      void navigate(`${PATH.faq}`);
+      void navigate(`${PATH.faq}`, { replace: true });
     }
   };
 
