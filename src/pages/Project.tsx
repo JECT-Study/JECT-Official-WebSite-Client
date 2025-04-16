@@ -1,5 +1,5 @@
 import Lottie from 'lottie-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import cardSampleImage from '@/assets/CardSample.png';
 import loadingSpinner from '@/assets/lottie/ject-loadingSpinner.json';
@@ -13,12 +13,14 @@ import { Select } from '@/components/common/select/Select';
 import Title from '@/components/common/title/Title';
 import { APPLY_SNACKBAR } from '@/constants/applyMessages';
 import { PATH } from '@/constants/path';
+import useCloseOutside from '@/hooks/useCloseOutside';
 import { useInfiniteScroll } from '@/hooks/useInfiniteScroll';
 import { useProjectListQuery } from '@/hooks/useProjectListQuery';
 import { useSemestersQuery } from '@/hooks/useSemestersQuery';
 
 const Project = () => {
-  const [isSelectOpen, setIsSelectOpen] = useState(false);
+  const selectContainerRef = useRef(null);
+  const { isOpen: isSelectOpen, setIsOpen: setIsSelectOpen } = useCloseOutside(selectContainerRef);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [semesterId, setSemesterId] = useState<number | null>(null);
 
@@ -72,7 +74,7 @@ const Project = () => {
         <Title hierarchy='strong'>프로젝트</Title>
         <div className='flex w-full flex-col'>
           <div className='gap-4xl flex w-full flex-col'>
-            <div className='relative w-fit'>
+            <div className='relative w-fit' ref={selectContainerRef}>
               <LabelButton
                 size='lg'
                 hierarchy='secondary'
