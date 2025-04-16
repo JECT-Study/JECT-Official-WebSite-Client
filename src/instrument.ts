@@ -19,7 +19,8 @@ Sentry.init({
       matchRoutes,
     }),
   ],
-  tracesSampleRate: import.meta.env.MODE === 'production' ? 0.1 : 1.0,
+  tracesSampleRate: 0.1,
+  enabled: import.meta.env.MODE !== 'development',
 });
 
 export const sentryCreateBrowserRouter = Sentry.wrapCreateBrowserRouterV7(createBrowserRouter);
