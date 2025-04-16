@@ -32,28 +32,30 @@ function Answers({
   onActiveSubmitButton,
 }: AnswersProps) {
   const navigate = useNavigate();
-  const { data: questions, isError, refetch } = useQuestionsQuery(questionJob);
+  const { data, isError, refetch } = useQuestionsQuery(questionJob);
   const { addToast } = useToastActions();
+  const questions = data?.data.questionResponses;
+  const status = data?.status;
 
   useEffect(() => {
-    if (questions?.status !== 'SUCCESS') return;
+    if (status !== 'SUCCESS' || !questions) return;
 
-    const isCompleted = validateApplication(questions.data.questionResponses, application);
+    const isCompleted = validateApplication(questions, application);
 
     onActiveSubmitButton(isCompleted);
-  }, [application, questions, onActiveSubmitButton]);
+  }, [application, status, questions, onActiveSubmitButton]);
 
   useEffect(() => {
     if (isError) {
       return addToast('일시적 오류로 추가 질문들을 불러올 수 없었어요.', 'negative');
     }
 
-    if (questions && questions.status !== 'SUCCESS') {
+    if (status !== 'SUCCESS') {
       return addToast('일시적 오류로 추가 질문들을 불러올 수 없었어요.', 'negative');
     }
-  }, [isError, addToast, questions]);
+  }, [isError, addToast, status]);
 
-  if (isError || questions?.status !== 'SUCCESS') {
+  if (isError || status !== 'SUCCESS') {
     return (
       <div className='gap-md flex flex-col text-center'>
         <Label hierarchy='normal' weight='normal' textColor='text-feedback-negative-dark'>
@@ -73,13 +75,13 @@ function Answers({
     );
   }
 
-  if (questions.data.length === 0) {
+  if (questions && questions.length === 0) {
     return void navigate(PATH.notFoundError);
   }
 
   return (
     <form action='' className='gap-7xl flex flex-col' encType='multipart/form-data'>
-      {questions.data.questionResponses?.map(data => {
+      {questions?.map(data => {
         switch (data.inputType) {
           case 'TEXT':
             return (
