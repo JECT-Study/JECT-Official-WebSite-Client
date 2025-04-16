@@ -33,6 +33,7 @@ function Answers({
 }: AnswersProps) {
   const { data, isError, refetch } = useQuestionsQuery(questionJob);
   const { addToast } = useToastActions();
+
   const questions = data?.data.questionResponses;
   const status = data?.status;
 
