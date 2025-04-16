@@ -71,23 +71,25 @@ function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
         }
 
         void refetchDraftServer().then(({ data }) => {
-          if (!getDraftLocal() && data?.status !== 'SUCCESS') {
+          if (!getDraftLocal() && data?.status === 'TEMP_APPLICATION_NOT_FOUND') {
             return void navigate(PATH.applyRegistration);
           }
 
-          openDialog({
-            type: 'continueWriting',
-            onPrimaryBtnClick: () => {
-              void navigate(PATH.applyRegistration, { state: { continue: true } });
-            },
-            onSecondaryBtnClick: () => {
-              deleteDraftMutate(null, {
-                onSuccess: () => {
-                  void navigate(PATH.applyRegistration, { state: { continue: false } });
-                },
-              });
-            },
-          });
+          if (getDraftLocal() || data?.status === 'SUCCESS') {
+            openDialog({
+              type: 'continueWriting',
+              onPrimaryBtnClick: () => {
+                void navigate(PATH.applyRegistration, { state: { continue: true } });
+              },
+              onSecondaryBtnClick: () => {
+                deleteDraftMutate(null, {
+                  onSuccess: () => {
+                    void navigate(PATH.applyRegistration, { state: { continue: false } });
+                  },
+                });
+              },
+            });
+          }
         });
       },
       onError: error => {
