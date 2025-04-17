@@ -14,6 +14,7 @@ import { APPLY_TITLE } from '@/constants/applyPageData';
 import { PATH } from '@/constants/path';
 import useApplicationState from '@/hooks/useApplicationState';
 import useDeleteDraftMutation from '@/hooks/useDeleteDraftMutation';
+import useDirtyCheckDialog from '@/hooks/useDirtyCheckDialog';
 import useDraftQuery from '@/hooks/useDraftQuery';
 import useSaveDraftMutation from '@/hooks/useSaveDraftMutation';
 import useSubmitAnswerMutation from '@/hooks/useSubmitAnswerMutation';
@@ -60,6 +61,8 @@ function ApplyRegistration() {
   const { mutate: deleteDraftMutate } = useDeleteDraftMutation(); // TODO: 삭제 isPending 추가 여부 및 방식 논의 필요
   const { mutate: submitAnswerMutate, isPending: isSubmitAnswerPending } =
     useSubmitAnswerMutation();
+
+  useDirtyCheckDialog(!!selectedJob);
 
   const saveDraftServerAndLocal = useCallback(() => {
     if (!selectedJob) return;

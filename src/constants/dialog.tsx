@@ -65,4 +65,17 @@ export const dialogTypes: Record<DialogTypes, DialogContent> = {
     ),
     primaryBtnLabel: '확인',
   },
+  dirtyCheck: {
+    btnLayout: 'horizontal',
+    title: '다른 페이지로 이동하시겠어요?',
+    content: (
+      <>
+        작성 중인 지원서 내용이 유실될 수 있어요.
+        <br />
+        임시 저장 여부를 한번 더 확인해주세요.
+      </>
+    ),
+    primaryBtnLabel: '이동하기',
+    secondaryBtnLabel: '취소',
+  },
 };
