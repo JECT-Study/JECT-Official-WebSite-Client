@@ -7,7 +7,7 @@ const useCheckApplicationStatus = (enabled?: boolean) => {
     queryKey: ['applicationStatus'],
     queryFn: getApplicationStatus,
     enabled: enabled ?? true,
-    staleTime: 60000,
+    staleTime: 5000,
   });
 };
 

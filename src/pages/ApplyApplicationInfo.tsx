@@ -29,7 +29,7 @@ function ApplyApplicantInfo() {
     useMemberProfileInitialMutation();
 
   if (applicationStatus?.data) {
-    return <Navigate to={PATH.applyComplete} replace />;
+    return <Navigate to={PATH.main} replace />;
   }
 
   const name = watch('name');
