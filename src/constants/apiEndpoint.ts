@@ -17,4 +17,5 @@ export const API_ENDPOINT = {
   projectList: '/projects',
   projectDetail: '/projects/:projectId',
   semesters: '/semesters',
+  applyStatus: '/apply/status',
 } as const;
