@@ -37,7 +37,7 @@ export const createClient = (config?: AxiosRequestConfig): AxiosInstance => {
           try {
             const refreshResponse = await refreshAccessToken();
 
-            if (refreshResponse.status === 'SUCCESS') {
+            if (refreshResponse.status === 'SUCCESS' && refreshResponse.data) {
               return instance(originalRequest);
             }
           } catch (refreshError) {
