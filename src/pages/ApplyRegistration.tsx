@@ -1,13 +1,7 @@
 import clsx from 'clsx';
 import Lottie from 'lottie-react';
 import { useCallback, useEffect } from 'react';
-import {
-  Location,
-  NavigationType,
-  useLocation,
-  useNavigate,
-  useNavigationType,
-} from 'react-router-dom';
+import { Location, useLocation, useNavigate } from 'react-router-dom';
 
 import loadingSpinner from '@/assets/lottie/ject-loadingSpinner.json';
 import Answers from '@/components/apply/Answers';
