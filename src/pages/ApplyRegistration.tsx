@@ -56,7 +56,7 @@ function ApplyRegistration() {
   } = useApplicationState();
   const { openDialog } = useDialogActions();
 
-  const { data: draftServer } = useDraftQuery();
+  const { refetch: refetchDraftServer } = useDraftQuery(false);
   const { mutate: saveDraftMutate, isPending: isSaveDraftPending } = useSaveDraftMutation();
   const { mutate: deleteDraftMutate } = useDeleteDraftMutation(); // TODO: 삭제 isPending 추가 여부 및 방식 논의 필요
   const { mutate: submitAnswerMutate, isPending: isSubmitAnswerPending } =
@@ -120,10 +120,14 @@ function ApplyRegistration() {
       return updateAnswerByDraft(draftLocal);
     }
 
-    if (draftServer && draftServer.status === 'SUCCESS') {
-      return updateAnswerByDraft(draftServer.data);
-    }
-  }, [location, updateAnswerByDraft, draftServer]);
+    void refetchDraftServer().then(data => {
+      console.log('지원서 제출 임시저장조회 refetch: ', data);
+
+      if (data.data?.status === 'SUCCESS') {
+        return updateAnswerByDraft(data.data.data);
+      }
+    });
+  }, [location, updateAnswerByDraft, refetchDraftServer]);
 
   useEffect(() => {
     const autosaveDraft = setInterval(saveDraftServerAndLocal, 900000);

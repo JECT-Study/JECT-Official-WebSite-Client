@@ -71,29 +71,34 @@ function ApplyVerifyPin({ email, onResetPinComplete }: ApplyVerifyPinProps) {
           return;
         }
 
-        void refetchDraftServer().then(({ data }) => {
-          console.log(!getDraftLocal(), data?.status);
-          if (!getDraftLocal() && data?.status === 'TEMP_APPLICATION_NOT_FOUND') {
-            console.log('넘어가야됌');
-            return void navigate(PATH.applyRegistration);
-          }
+        void refetchDraftServer()
+          .then(data => {
+            console.log('비밀번호 입력 후 임시저장 조회: ', data, data.data);
 
-          if (getDraftLocal() || data?.status === 'SUCCESS') {
-            openDialog({
-              type: 'continueWriting',
-              onPrimaryBtnClick: () => {
-                void navigate(PATH.applyRegistration, { state: { continue: true } });
-              },
-              onSecondaryBtnClick: () => {
-                deleteDraftMutate(null, {
-                  onSuccess: () => {
-                    void navigate(PATH.applyRegistration, { state: { continue: false } });
-                  },
-                });
-              },
-            });
-          }
-        });
+            if (!getDraftLocal() && data.data?.status === 'TEMP_APPLICATION_NOT_FOUND') {
+              console.log('넘어가야됌');
+              return void navigate(PATH.applyRegistration);
+            }
+
+            if (getDraftLocal() || data.data?.status === 'SUCCESS') {
+              openDialog({
+                type: 'continueWriting',
+                onPrimaryBtnClick: () => {
+                  void navigate(PATH.applyRegistration, { state: { continue: true } });
+                },
+                onSecondaryBtnClick: () => {
+                  deleteDraftMutate(null, {
+                    onSuccess: () => {
+                      void navigate(PATH.applyRegistration, { state: { continue: false } });
+                    },
+                  });
+                },
+              });
+            }
+          })
+          .catch(error => {
+            console.log('임시저장 refetch catch문: ', error);
+          });
       },
       onError: error => {
         console.error('PIN 로그인 실패:', error);
