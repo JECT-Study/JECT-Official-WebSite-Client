@@ -149,6 +149,7 @@ function ApplyVerifyEmail({
               onSuccess: () => {
                 setStep(2);
                 setIsAuthCodeExpired(false);
+                addToast('인증번호를 발송했어요. 1분 뒤에 다시 요청하실 수 있어요.', 'normal');
                 startCooldown();
               },
               onError: error => {
