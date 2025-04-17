@@ -74,9 +74,11 @@ function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
 
         void refetchCheckApplicationStatus()
           .then(({ data }) => {
-            if (data?.status === 'SUCCESS') {
+            if (data?.status !== 'SUCCESS') return;
+
+            if (data.data) {
               void navigate(PATH.applyComplete);
-              return null;
+              return;
             }
 
             return refetchDraftServer();
