@@ -55,7 +55,7 @@ const ProjectDetail = () => {
         <img
           src={project.thumbnailUrl || cardSampleImage}
           alt='프로젝트 이미지'
-          className='radius-md border-border-alternative-dark block h-[20.0625rem] w-full border object-cover'
+          className='radius-md border-border-alternative-dark block h-[20.0625rem] w-full border object-contain'
         />
         <div className='gap-2xl flex w-full flex-col items-start'>
           <div className='gap-md flex flex-col'>
