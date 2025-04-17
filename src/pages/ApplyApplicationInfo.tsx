@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 
 import BlockButton from '@/components/common/button/BlockButton';
