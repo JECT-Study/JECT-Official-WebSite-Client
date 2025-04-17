@@ -42,7 +42,7 @@ export const requestHandler = async <TResponse, TPayload = undefined>(
 
     const status = response.data.status;
 
-    if (status !== 'SUCCESS') {
+    if (status !== 'SUCCESS' && status !== 'TEMP_APPLICATION_NOT_FOUND') {
       const message = (response.data.data as string) || `Internal API 에러 발생, status: ${status}`;
       return Promise.reject(new InternalAPIError(message, status));
     }

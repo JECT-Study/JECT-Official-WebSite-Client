@@ -14,7 +14,6 @@ import { APPLY_TITLE } from '@/constants/applyPageData';
 import { PATH } from '@/constants/path';
 import useApplicationState from '@/hooks/useApplicationState';
 import useDeleteDraftMutation from '@/hooks/useDeleteDraftMutation';
-import useDirtyCheckDialog from '@/hooks/useDirtyCheckDialog';
 import useDraftQuery from '@/hooks/useDraftQuery';
 import useSaveDraftMutation from '@/hooks/useSaveDraftMutation';
 import useSubmitAnswerMutation from '@/hooks/useSubmitAnswerMutation';
@@ -56,13 +55,11 @@ function ApplyRegistration() {
   } = useApplicationState();
   const { openDialog } = useDialogActions();
 
-  const { data: draftServer } = useDraftQuery();
+  const { refetch: refetchDraftServer } = useDraftQuery(false);
   const { mutate: saveDraftMutate, isPending: isSaveDraftPending } = useSaveDraftMutation();
   const { mutate: deleteDraftMutate } = useDeleteDraftMutation(); // TODO: 삭제 isPending 추가 여부 및 방식 논의 필요
   const { mutate: submitAnswerMutate, isPending: isSubmitAnswerPending } =
     useSubmitAnswerMutation();
-
-  useDirtyCheckDialog(!!selectedJob);
 
   const saveDraftServerAndLocal = useCallback(() => {
     if (!selectedJob) return;
@@ -80,9 +77,8 @@ function ApplyRegistration() {
     submitAnswerMutate(answer, {
       onSuccess: data => {
         if (data?.status === 'SUCCESS') {
-          void navigate(PATH.applyComplete, { replace: true });
-          localStorage.setItem('applicationSubmit', 'success');
           removeDraftLocal();
+          void navigate(PATH.applyComplete, { replace: true });
         }
       },
     });
@@ -121,10 +117,12 @@ function ApplyRegistration() {
       return updateAnswerByDraft(draftLocal);
     }
 
-    if (draftServer && draftServer.status === 'SUCCESS') {
-      return updateAnswerByDraft(draftServer.data);
-    }
-  }, [location, updateAnswerByDraft, draftServer]);
+    void refetchDraftServer().then(({ data }) => {
+      if (data?.status === 'SUCCESS') {
+        return updateAnswerByDraft(data.data);
+      }
+    });
+  }, [location, updateAnswerByDraft, refetchDraftServer]);
 
   useEffect(() => {
     const autosaveDraft = setInterval(saveDraftServerAndLocal, 900000);

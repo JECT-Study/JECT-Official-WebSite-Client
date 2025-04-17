@@ -3,6 +3,7 @@ import './instrument';
 import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { useState } from 'react';
+import { isMobile } from 'react-device-detect';
 import { RouterProvider } from 'react-router-dom';
 
 import { useGlobalErrorHandler } from './hooks/useGlobalErrorHandler';
@@ -11,7 +12,6 @@ import router from './router';
 
 function App() {
   const handleGlobalError = useGlobalErrorHandler();
-  const isMobile = window.innerWidth <= 768;
 
   const [queryClient] = useState(
     () =>

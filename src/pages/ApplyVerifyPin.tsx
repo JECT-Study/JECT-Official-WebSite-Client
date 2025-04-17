@@ -70,29 +70,31 @@ function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
           return;
         }
 
-        void refetchDraftServer().then(({ data }) => {
-          console.log(!getDraftLocal(), data?.status);
-          if (!getDraftLocal() && data?.status === 'TEMP_APPLICATION_NOT_FOUND') {
-            console.log('넘어가야됌');
-            return void navigate(PATH.applyRegistration);
-          }
+        void refetchDraftServer()
+          .then(({ data }) => {
+            if (!getDraftLocal() && data?.status === 'TEMP_APPLICATION_NOT_FOUND') {
+              return void navigate(PATH.applyRegistration);
+            }
 
-          if (getDraftLocal() || data?.status === 'SUCCESS') {
-            openDialog({
-              type: 'continueWriting',
-              onPrimaryBtnClick: () => {
-                void navigate(PATH.applyRegistration, { state: { continue: true } });
-              },
-              onSecondaryBtnClick: () => {
-                deleteDraftMutate(null, {
-                  onSuccess: () => {
-                    void navigate(PATH.applyRegistration, { state: { continue: false } });
-                  },
-                });
-              },
-            });
-          }
-        });
+            if (getDraftLocal() || data?.status === 'SUCCESS') {
+              openDialog({
+                type: 'continueWriting',
+                onPrimaryBtnClick: () => {
+                  void navigate(PATH.applyRegistration, { state: { continue: true } });
+                },
+                onSecondaryBtnClick: () => {
+                  deleteDraftMutate(null, {
+                    onSuccess: () => {
+                      void navigate(PATH.applyRegistration, { state: { continue: false } });
+                    },
+                  });
+                },
+              });
+            }
+          })
+          .catch(error => {
+            console.log('임시저장 refetch catch문: ', error);
+          });
       },
       onError: error => {
         console.error('PIN 로그인 실패:', error);
