@@ -72,8 +72,9 @@ function ApplyVerifyPin({ email, onResetPinComplete }: ApplyVerifyPinProps) {
         }
 
         void refetchDraftServer().then(({ data }) => {
-          console.log(!getDraftLocal(), data?.status);
-          if (!getDraftLocal() && data?.status === 'TEMP_APPLICATION_NOT_FOUND') {
+          console.log(!getDraftLocal(), data?.status, data);
+
+          if (!getDraftLocal()) {
             console.log('넘어가야됌');
             return void navigate(PATH.applyRegistration);
           }
