@@ -14,7 +14,6 @@ const useCreatePresignedUrlsMutation = (): UseMutationResult<
   return useMutation({
     mutationKey: ['create PresignedUrl'],
     mutationFn: postUploadPortfolio,
-    onError: error => console.error('Query Error :', error),
   });
 };
 

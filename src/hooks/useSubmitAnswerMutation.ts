@@ -19,7 +19,6 @@ const useSubmitAnswerMutation = (): UseMutationResult<
   return useMutation({
     mutationKey: ['submitAnswer'],
     mutationFn: ({ jobFamily, answers }) => postSubmitAnswer(jobFamily, answers),
-    onError: error => console.error('Query Error :', error),
   });
 };
 

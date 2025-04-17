@@ -19,7 +19,6 @@ const useSaveDraftMutation = (): UseMutationResult<
   return useMutation({
     mutationKey: ['saveDraft'],
     mutationFn: ({ jobFamily, answers }) => postDraft(jobFamily, answers),
-    onError: error => console.error('Query Error :', error),
   });
 };
 
