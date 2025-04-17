@@ -43,7 +43,7 @@ function ApplyVerifyEmail({
   const navigate = useNavigate();
   const [storedEmail, setStoredEmail] = useState('');
   const [isPinHidden, setIsPinHidden] = useState(true);
-  const [isReVerification] = useState(isResetPin);
+  const [isReVerification, setIsReVerification] = useState(isResetPin);
   const [step, setStep] = useState(1);
   const [isTermsChecked, setIsTermsChecked] = useState(false);
   const [isAuthCodeExpired, setIsAuthCodeExpired] = useState(false);
@@ -246,6 +246,7 @@ function ApplyVerifyEmail({
             setStoredEmail('');
             setIsAuthCodeExpired(false);
             setIsCooldownActive(false);
+            setIsReVerification(false);
 
             if (cooldownTimer !== null) {
               window.clearTimeout(cooldownTimer);
