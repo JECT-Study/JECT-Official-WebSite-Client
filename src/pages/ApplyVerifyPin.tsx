@@ -72,15 +72,12 @@ function ApplyVerifyPin({ email, onResetPinComplete }: ApplyVerifyPinProps) {
         }
 
         void refetchDraftServer()
-          .then(data => {
-            console.log('비밀번호 입력 후 임시저장 조회: ', data, data.data);
-
-            if (!getDraftLocal() && data.data?.status === 'TEMP_APPLICATION_NOT_FOUND') {
-              console.log('넘어가야됌');
+          .then(({ data }) => {
+            if (!getDraftLocal() && data?.status === 'TEMP_APPLICATION_NOT_FOUND') {
               return void navigate(PATH.applyRegistration);
             }
 
-            if (getDraftLocal() || data.data?.status === 'SUCCESS') {
+            if (getDraftLocal() || data?.status === 'SUCCESS') {
               openDialog({
                 type: 'continueWriting',
                 onPrimaryBtnClick: () => {

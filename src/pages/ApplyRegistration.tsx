@@ -120,11 +120,9 @@ function ApplyRegistration() {
       return updateAnswerByDraft(draftLocal);
     }
 
-    void refetchDraftServer().then(data => {
-      console.log('지원서 제출 임시저장조회 refetch: ', data);
-
-      if (data.data?.status === 'SUCCESS') {
-        return updateAnswerByDraft(data.data.data);
+    void refetchDraftServer().then(({ data }) => {
+      if (data?.status === 'SUCCESS') {
+        return updateAnswerByDraft(data.data);
       }
     });
   }, [location, updateAnswerByDraft, refetchDraftServer]);
