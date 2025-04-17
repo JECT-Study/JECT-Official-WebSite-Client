@@ -1,5 +1,7 @@
-import { NavLink, NavLinkRenderProps } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
+import { PATH } from '@/constants/path';
+import { useDialogActions } from '@/stores/dialogStore';
 import { PathValues } from '@/types/ui/path';
 
 interface NavigationItemProps {
@@ -9,18 +11,32 @@ interface NavigationItemProps {
 }
 
 function NavigationItem({ children, pathName, disabled = false }: NavigationItemProps) {
+  const navigate = useNavigate();
+  const { pathname: currentPathname } = useLocation();
+  const { openDialog } = useDialogActions();
+
   const className = disabled
     ? 'text-object-disabled-dark radius-2xs label-bold-lg px-(--gap-xs) py-(--gap-4xs) pointer-events-none'
-    : ({ isActive }: NavLinkRenderProps) =>
-        (isActive
-          ? 'text-accent-hero-dark interaction-brand-subtle'
-          : 'text-object-hero-dark interaction-default-subtle') +
-        ' radius-2xs label-bold-lg cursor-pointer px-(--gap-xs) py-(--gap-4xs)';
+    : (currentPathname === pathName
+        ? 'text-accent-hero-dark interaction-brand-subtle'
+        : 'text-object-hero-dark interaction-default-subtle') +
+      ' radius-2xs label-bold-lg cursor-pointer px-(--gap-xs) py-(--gap-4xs)';
+
+  const handleClick = () => {
+    if (currentPathname === PATH.applyRegistration) {
+      return openDialog({
+        type: 'dirtyCheck',
+        onPrimaryBtnClick: () => void navigate(pathName),
+      });
+    }
+
+    void navigate(pathName);
+  };
 
   return (
-    <NavLink to={pathName} className={className}>
+    <button onClick={handleClick} className={className}>
       {children}
-    </NavLink>
+    </button>
   );
 }
 
