@@ -105,10 +105,10 @@ const Project = () => {
                     key={project.id}
                     to={`${PATH.project}/${project.id}`}
                     title={project.name}
-                    label={project.name}
+                    label={project.summary}
                     imgUrl={project.thumbnailUrl || cardSampleImage}
                   >
-                    {project.summary}
+                    {project.description}
                   </Card>
                 ))}
               </div>
