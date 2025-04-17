@@ -397,7 +397,11 @@ function ApplyVerifyEmail({
                   placeholder='본인 확인용 6자리 비밀번호를 설정해주세요'
                   InputChildren={
                     <span onClick={() => setIsPinHidden(prev => !prev)} className='cursor-pointer'>
-                      <Icon name='visible' size='md' fillColor='fill-object-neutral-dark' />
+                      <Icon
+                        name={isPinHidden ? 'visible' : 'invisible'}
+                        size='md'
+                        fillColor='fill-object-neutral-dark'
+                      />
                     </span>
                   }
                   {...registerPin('pin')}
