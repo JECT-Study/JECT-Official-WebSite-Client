@@ -58,6 +58,7 @@ function ApplyVerifyEmail({
     handleSubmit: handleSubmitEmail,
     formState: { errors: errorsEmail, isValid: isEmailValid },
     reset: resetEmailForm,
+    watch: watchEmail,
   } = useApplyEmailForm();
 
   const {
@@ -85,6 +86,16 @@ function ApplyVerifyEmail({
   const { mutate: resetPinMutate, isPending: isResettingPin } = useResetPinMutation();
 
   const authCodeValue = watchVerification('authCode');
+
+  const currentEmail = watchEmail('email');
+
+  useEffect(() => {
+    if (currentEmail && storedEmail && currentEmail !== storedEmail) {
+      if (step > 1) {
+        setIsAuthCodeExpired(true);
+      }
+    }
+  }, [currentEmail, storedEmail, step]);
 
   useEffect(() => {
     if (step >= 2) {
@@ -361,7 +372,11 @@ function ApplyVerifyEmail({
                     style='solid'
                     hierarchy='secondary'
                     className='h-full'
-                    disabled={!isEmailValid || isEmailLoading || isCooldownActive}
+                    disabled={
+                      !isEmailValid ||
+                      isEmailLoading ||
+                      (isCooldownActive && currentEmail === storedEmail)
+                    }
                   >
                     {emailButtonText}
                   </BlockButton>
