@@ -17,34 +17,6 @@ interface ExtendedAxiosRequestConfig extends InternalAxiosRequestConfig {
   _retry?: boolean;
 }
 
-export const isLocalEnvironment = import.meta.env.DEV;
-export const isLocalStorageEnabled = import.meta.env.VITE_USE_LOCAL_STORAGE === 'true';
-
-export const tokenUtils = {
-  getAccessToken: (): string | null => {
-    return isLocalStorageEnabled ? localStorage.getItem('accessToken') : null;
-  },
-  getRefreshToken: (): string | null => {
-    return isLocalStorageEnabled ? localStorage.getItem('refreshToken') : null;
-  },
-  setAccessToken: (accessToken: string): void => {
-    if (isLocalStorageEnabled) {
-      localStorage.setItem('accessToken', accessToken);
-    }
-  },
-  setRefreshToken: (refreshToken: string): void => {
-    if (isLocalStorageEnabled) {
-      localStorage.setItem('refreshToken', refreshToken);
-    }
-  },
-  removeTokens: (): void => {
-    if (isLocalStorageEnabled) {
-      localStorage.removeItem('accessToken');
-      localStorage.removeItem('refreshToken');
-    }
-  },
-};
-
 export const createClient = (config?: AxiosRequestConfig): AxiosInstance => {
   const instance = axios.create({
     baseURL: BASE_URL,
@@ -52,59 +24,29 @@ export const createClient = (config?: AxiosRequestConfig): AxiosInstance => {
     headers: {
       'content-type': 'application/json',
     },
-    withCredentials: !isLocalEnvironment,
+    withCredentials: true,
     ...config,
   });
-
-  instance.interceptors.request.use(
-    config => {
-      if (isLocalStorageEnabled && isLocalEnvironment) {
-        const accessToken = tokenUtils.getAccessToken();
-        if (accessToken && config.headers) {
-          config.headers.Authorization = `Bearer ${accessToken}`;
-        }
-      }
-      return config;
-    },
-    error => {
-      return Promise.reject(error instanceof Error ? error : new Error(String(error)));
-    },
-  );
 
   instance.interceptors.response.use(
     response => response,
     async (error: AxiosError) => {
-      if (isLocalStorageEnabled) {
-        const originalRequest = error.config as ExtendedAxiosRequestConfig | undefined;
+      const originalRequest = error.config as ExtendedAxiosRequestConfig | undefined;
+      //TODO: API RESPONSE TYPE으로 제어 필요
+      const responseData = error.response?.data as { status?: string } | undefined;
+      const isTokenExpired = responseData?.status === 'G-07';
 
-        if (error.response?.status === 401 && originalRequest && !originalRequest._retry) {
-          originalRequest._retry = true;
+      if (isTokenExpired && originalRequest && !originalRequest._retry) {
+        originalRequest._retry = true;
 
-          try {
-            const refreshToken = tokenUtils.getRefreshToken();
+        try {
+          const response = await refreshAccessToken();
 
-            if (!refreshToken) {
-              tokenUtils.removeTokens();
-              return Promise.reject(error);
-            }
-
-            const response = await refreshAccessToken({ refreshToken });
-
-            if (response.status === 'SUCCESS' && response.data) {
-              const { accessToken } = response.data;
-
-              tokenUtils.setAccessToken(accessToken);
-
-              if (originalRequest.headers) {
-                originalRequest.headers.Authorization = `Bearer ${accessToken}`;
-              }
-
-              return instance(originalRequest);
-            }
-          } catch (refreshError) {
-            console.error('토큰 갱신 실패:', refreshError);
-            tokenUtils.removeTokens();
+          if (response.status === 'SUCCESS' && response.data) {
+            return instance(originalRequest);
           }
+        } catch (refreshError) {
+          console.error('토큰 갱신 실패:', refreshError);
         }
       }
 
