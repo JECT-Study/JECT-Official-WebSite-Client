@@ -136,8 +136,6 @@ function ApplyVerifyEmail({
   };
 
   const onEmailSubmit = ({ email }: Email) => {
-    console.log('이메일 유효성 검사 통과, 회원 존재 여부 확인 API 요청 실행', { email });
-
     if (setUserEmail) {
       setUserEmail(email);
     }
@@ -147,7 +145,6 @@ function ApplyVerifyEmail({
       {
         onSuccess: response => {
           const isUserExists = response.data;
-          console.log('이메일 존재 여부 확인 결과:', isUserExists);
 
           if (isUserExists && setIsNewApplicant) {
             setIsNewApplicant(false);
@@ -184,11 +181,6 @@ function ApplyVerifyEmail({
   };
 
   const onVerificationSubmit = ({ authCode }: VerificationEmailCodePayload) => {
-    console.log('인증번호 유효성 검사 통과, API 요청 실행', {
-      email: storedEmail,
-      authCode,
-    });
-
     verifyEmailCodeMutate(
       {
         payload: { email: storedEmail, authCode },
@@ -196,8 +188,6 @@ function ApplyVerifyEmail({
       },
       {
         onSuccess: response => {
-          console.log('인증번호 확인 성공:', response);
-
           if (response.status !== 'SUCCESS') {
             let errorMessage = '오류가 발생했습니다. 다시 시도해주세요.';
 
@@ -231,14 +221,10 @@ function ApplyVerifyEmail({
   };
 
   const onRegisterMemberSubmit = ({ pin }: RegisterMemberPayload) => {
-    console.log('PIN 유효성 검사 통과, 회원 등록 API 요청 준비:', { pin });
-
     registerMemberMutate(
       { pin },
       {
         onSuccess: response => {
-          console.log('회원 등록 성공:', response);
-
           if (response.status === 'SUCCESS') {
             void navigate(PATH.applicantInfo);
           }
@@ -251,14 +237,10 @@ function ApplyVerifyEmail({
   };
 
   const onResetPinSubmit = ({ pin }: ResetPinPayload) => {
-    console.log('PIN 재설정 API 요청 준비:', { pin });
-
     resetPinMutate(
       { pin },
       {
         onSuccess: response => {
-          console.log('PIN 재설정 성공:', response);
-
           if (response.status === 'SUCCESS') {
             addToast('PIN을 다시 설정했어요', 'positive');
             //TODO: 지원 초기 상태로 state들을 초기화 로직(Zustand, 혹은 외부 함수로)
