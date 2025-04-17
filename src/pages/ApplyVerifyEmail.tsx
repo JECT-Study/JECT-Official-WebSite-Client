@@ -373,7 +373,7 @@ function ApplyVerifyEmail({
                   isSuccess={
                     !errorsVerification.authCode && watchVerification('authCode')?.length === 6
                   }
-                  disabled={false}
+                  disabled={step === 3}
                   helper={getVerificationHelperText()}
                   placeholder='이메일 주소로 발송된 인증번호 6자리를 입력해주세요'
                   InputChildren={renderVerificationButton()}
