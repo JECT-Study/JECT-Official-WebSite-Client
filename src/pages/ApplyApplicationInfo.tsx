@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 import BlockButton from '@/components/common/button/BlockButton';
 import Icon from '@/components/common/icon/Icon';
@@ -28,6 +28,10 @@ function ApplyApplicantInfo() {
 
   const { mutate: updateProfileMutate, isPending: isUpdatingProfile } =
     useMemberProfileInitialMutation();
+
+  if (applicationStatus?.data) {
+    return <Navigate to={PATH.applyComplete} replace />;
+  }
 
   const name = watch('name');
   const phoneNumber = watch('phoneNumber');
@@ -58,12 +62,6 @@ function ApplyApplicantInfo() {
     ApplyApplicantInfoFormData,
     ApplyApplicantInfoFormData
   >(handleSubmit, onSubmit);
-
-  useEffect(() => {
-    if (applicationStatus?.data) {
-      return void navigate(PATH.applyComplete);
-    }
-  }, [applicationStatus, navigate]);
 
   return (
     <div className='gap-9xl flex flex-col items-center pt-(--gap-9xl) pb-(--gap-12xl)'>
