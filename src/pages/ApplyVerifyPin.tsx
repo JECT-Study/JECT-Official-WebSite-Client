@@ -22,10 +22,9 @@ import { CreateSubmitHandler } from '@/utils/formHelpers';
 
 interface ApplyVerifyPinProps {
   email: string;
-  onResetPinComplete?: () => void;
 }
 
-function ApplyVerifyPin({ email, onResetPinComplete }: ApplyVerifyPinProps) {
+function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
   const navigate = useNavigate();
   const [isResetPin, setIsResetPin] = useState(false);
   const [isPinHidden, setIsPinHidden] = useState(true);
@@ -114,8 +113,7 @@ function ApplyVerifyPin({ email, onResetPinComplete }: ApplyVerifyPinProps) {
     setIsPinHidden(prev => !prev);
   };
 
-  if (isResetPin)
-    return <ApplyVerifyEmail isResetPin={isResetPin} onResetPinComplete={onResetPinComplete} />;
+  if (isResetPin) return <ApplyVerifyEmail isResetPin={isResetPin} />;
 
   return (
     <div className='gap-9xl flex flex-col items-center pt-(--gap-9xl) pb-(--gap-12xl)'>
@@ -153,7 +151,11 @@ function ApplyVerifyPin({ email, onResetPinComplete }: ApplyVerifyPinProps) {
               placeholder='설정하셨던 6자리 비밀번호를 입력해주세요'
               InputChildren={
                 <span onClick={togglePinVisibility} className='cursor-pointer'>
-                  <Icon name='visible' size='md' fillColor='fill-object-neutral-dark' />
+                  <Icon
+                    name={isPinHidden ? 'visible' : 'invisible'}
+                    size='md'
+                    fillColor='fill-object-neutral-dark'
+                  />
                 </span>
               }
               {...registerPin('pin')}

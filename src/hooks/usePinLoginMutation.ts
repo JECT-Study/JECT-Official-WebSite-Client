@@ -4,13 +4,11 @@ import { AxiosError } from 'axios';
 import { postPinLogin } from '@/apis/apply';
 import { PinLoginPayload, PinLoginResponse } from '@/types/apis/apply';
 import { ApiResponse } from '@/types/apis/response';
-import { isLocalStorageEnabled, tokenUtils } from '@/utils/interceptor';
 
 export const usePinLoginMutation = (): UseMutationResult<
   ApiResponse<PinLoginResponse>,
   AxiosError,
-  PinLoginPayload,
-  unknown
+  PinLoginPayload
 > => {
   return useMutation({
     mutationKey: ['postPinLogin'],
@@ -20,12 +18,6 @@ export const usePinLoginMutation = (): UseMutationResult<
     },
     onSuccess: data => {
       console.log('usePinLoginMutation 성공:', data);
-
-      if (isLocalStorageEnabled && data.status === 'SUCCESS' && data.data) {
-        const { accessToken, refreshToken } = data.data;
-        tokenUtils.setAccessToken(accessToken);
-        tokenUtils.setRefreshToken(refreshToken);
-      }
     },
     onError: error => {
       console.error('usePinLoginMutation 에러:', error);

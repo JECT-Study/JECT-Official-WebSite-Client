@@ -1,11 +1,7 @@
-import axios, {
-  AxiosError,
-  AxiosInstance,
-  AxiosRequestConfig,
-  InternalAxiosRequestConfig,
-} from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig, InternalAxiosRequestConfig } from 'axios';
 
 import { refreshAccessToken } from '@/apis/auth';
+import { ApiResponse } from '@/types/apis/response';
 
 const BASE_URL = import.meta.env.DEV
   ? import.meta.env.VITE_API_URL_DEV
@@ -17,34 +13,6 @@ interface ExtendedAxiosRequestConfig extends InternalAxiosRequestConfig {
   _retry?: boolean;
 }
 
-export const isLocalEnvironment = import.meta.env.DEV;
-export const isLocalStorageEnabled = import.meta.env.VITE_USE_LOCAL_STORAGE === 'true';
-
-export const tokenUtils = {
-  getAccessToken: (): string | null => {
-    return isLocalStorageEnabled ? localStorage.getItem('accessToken') : null;
-  },
-  getRefreshToken: (): string | null => {
-    return isLocalStorageEnabled ? localStorage.getItem('refreshToken') : null;
-  },
-  setAccessToken: (accessToken: string): void => {
-    if (isLocalStorageEnabled) {
-      localStorage.setItem('accessToken', accessToken);
-    }
-  },
-  setRefreshToken: (refreshToken: string): void => {
-    if (isLocalStorageEnabled) {
-      localStorage.setItem('refreshToken', refreshToken);
-    }
-  },
-  removeTokens: (): void => {
-    if (isLocalStorageEnabled) {
-      localStorage.removeItem('accessToken');
-      localStorage.removeItem('refreshToken');
-    }
-  },
-};
-
 export const createClient = (config?: AxiosRequestConfig): AxiosInstance => {
   const instance = axios.create({
     baseURL: BASE_URL,
@@ -52,63 +20,43 @@ export const createClient = (config?: AxiosRequestConfig): AxiosInstance => {
     headers: {
       'content-type': 'application/json',
     },
-    withCredentials: !isLocalEnvironment,
+    withCredentials: true,
     ...config,
   });
 
-  instance.interceptors.request.use(
-    config => {
-      if (isLocalStorageEnabled && isLocalEnvironment) {
-        const accessToken = tokenUtils.getAccessToken();
-        if (accessToken && config.headers) {
-          config.headers.Authorization = `Bearer ${accessToken}`;
-        }
-      }
-      return config;
-    },
-    error => {
-      return Promise.reject(error instanceof Error ? error : new Error(String(error)));
-    },
-  );
-
   instance.interceptors.response.use(
-    response => response,
-    async (error: AxiosError) => {
-      if (isLocalStorageEnabled) {
-        const originalRequest = error.config as ExtendedAxiosRequestConfig | undefined;
+    async response => {
+      const responseData = response.data as ApiResponse<unknown>;
 
-        if (error.response?.status === 401 && originalRequest && !originalRequest._retry) {
+      if (responseData?.status === 'G-07') {
+        const originalRequest = response.config as ExtendedAxiosRequestConfig;
+
+        if (!originalRequest._retry) {
           originalRequest._retry = true;
 
           try {
-            const refreshToken = tokenUtils.getRefreshToken();
+            const refreshResponse = await refreshAccessToken();
 
-            if (!refreshToken) {
-              tokenUtils.removeTokens();
-              return Promise.reject(error);
-            }
-
-            const response = await refreshAccessToken({ refreshToken });
-
-            if (response.status === 'SUCCESS' && response.data) {
-              const { accessToken } = response.data;
-
-              tokenUtils.setAccessToken(accessToken);
-
-              if (originalRequest.headers) {
-                originalRequest.headers.Authorization = `Bearer ${accessToken}`;
-              }
-
+            if (refreshResponse.status === 'SUCCESS' && refreshResponse.data) {
               return instance(originalRequest);
             }
           } catch (refreshError) {
             console.error('토큰 갱신 실패:', refreshError);
-            tokenUtils.removeTokens();
+            return Promise.reject(
+              new Error(
+                refreshError instanceof Error ? refreshError.message : '토큰 갱신에 실패했습니다.',
+              ),
+            );
           }
         }
       }
-
-      return Promise.reject(error);
+      return response;
+    },
+    error => {
+      if (error instanceof Error) {
+        return Promise.reject(error);
+      }
+      return Promise.reject(new Error('요청 처리 중 오류가 발생했습니다.'));
     },
   );
 
