@@ -3,14 +3,16 @@ import { useBlocker } from 'react-router-dom';
 
 import { useDialogActions } from '@/stores/dialogStore';
 
-const useLeaveConfirmDialog = (when: boolean) => {
-  const blocker = useBlocker(when);
+const useDirtyCheckDialog = (when: boolean) => {
   const { openDialog } = useDialogActions();
+  const blocker = useBlocker(({ currentLocation, nextLocation }) => {
+    return when && currentLocation.pathname !== nextLocation.pathname;
+  });
 
   useEffect(() => {
     if (blocker.state === 'blocked') {
       openDialog({
-        type: 'leaveConfirm',
+        type: 'dirtyCheck',
         onPrimaryBtnClick: () => blocker.proceed(),
         onSecondaryBtnClick: () => blocker.reset(),
       });
@@ -18,4 +20,4 @@ const useLeaveConfirmDialog = (when: boolean) => {
   }, [blocker, openDialog]);
 };
 
-export default useLeaveConfirmDialog;
+export default useDirtyCheckDialog;

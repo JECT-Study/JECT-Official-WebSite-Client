@@ -5,4 +5,4 @@ export type DialogTypes =
   | 'expiredSession'
   | 'continueWriting'
   | 'failedUploadFile'
-  | 'leaveConfirm';
+  | 'dirtyCheck';

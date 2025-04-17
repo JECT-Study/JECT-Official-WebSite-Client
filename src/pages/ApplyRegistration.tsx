@@ -14,8 +14,8 @@ import { APPLY_TITLE } from '@/constants/applyPageData';
 import { PATH } from '@/constants/path';
 import useApplicationState from '@/hooks/useApplicationState';
 import useDeleteDraftMutation from '@/hooks/useDeleteDraftMutation';
+import useDirtyCheckDialog from '@/hooks/useDirtyCheckDialog';
 import useDraftQuery from '@/hooks/useDraftQuery';
-import useLeaveConfirmDialog from '@/hooks/useLeaveConfirmDialog';
 import useSaveDraftMutation from '@/hooks/useSaveDraftMutation';
 import useSubmitAnswerMutation from '@/hooks/useSubmitAnswerMutation';
 import { useDialogActions } from '@/stores/dialogStore';
@@ -62,7 +62,7 @@ function ApplyRegistration() {
   const { mutate: submitAnswerMutate, isPending: isSubmitAnswerPending } =
     useSubmitAnswerMutation();
 
-  useLeaveConfirmDialog(!!selectedJob);
+  useDirtyCheckDialog(!!selectedJob);
 
   const saveDraftServerAndLocal = useCallback(() => {
     if (!selectedJob) return;

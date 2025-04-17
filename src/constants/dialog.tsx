@@ -65,7 +65,7 @@ export const dialogTypes: Record<DialogTypes, DialogContent> = {
     ),
     primaryBtnLabel: '확인',
   },
-  leaveConfirm: {
+  dirtyCheck: {
     btnLayout: 'horizontal',
     title: '다른 페이지로 이동하시겠어요?',
     content: (
