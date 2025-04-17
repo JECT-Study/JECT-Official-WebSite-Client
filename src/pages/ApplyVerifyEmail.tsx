@@ -357,7 +357,8 @@ function ApplyVerifyEmail({
                     disabled={
                       !isEmailValid ||
                       isEmailLoading ||
-                      (isCooldownActive && currentEmail === storedEmail)
+                      (isCooldownActive && currentEmail === storedEmail) ||
+                      step === 3
                     }
                   >
                     {emailButtonText}
