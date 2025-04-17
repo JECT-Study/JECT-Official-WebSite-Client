@@ -15,7 +15,7 @@ const useDraftQuery = (enabled?: boolean) => {
     queryKey: ['getDraft'],
     queryFn: getDraft,
     enabled: enabled ?? true,
-    retry: 1,
+    retry: 0,
   });
 
   return { data, refetch };
