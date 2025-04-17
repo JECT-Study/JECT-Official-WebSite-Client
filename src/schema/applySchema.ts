@@ -34,6 +34,9 @@ export const applyApplicantInfoSchema = z.object({
     .string()
     .min(1, '휴대폰 번호를 입력해주세요.')
     .transform(val => val.replace(/[\s-]/g, ''))
+    .refine(val => /^\d+$/.test(val), {
+      message: '휴대폰 번호는 숫자만 입력해주세요.',
+    })
     .refine(val => val.length <= 2 || val.startsWith('010'), {
       message: '"010"으로 시작하는 휴대폰 번호를 입력해주세요.',
     })
