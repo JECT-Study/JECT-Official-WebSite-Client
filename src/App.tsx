@@ -6,10 +6,12 @@ import { useState } from 'react';
 import { RouterProvider } from 'react-router-dom';
 
 import { useGlobalErrorHandler } from './hooks/useGlobalErrorHandler';
+import TempMobile from './pages/TempMobile';
 import router from './router';
 
 function App() {
   const handleGlobalError = useGlobalErrorHandler();
+  const isMobile = window.innerWidth <= 768;
 
   const [queryClient] = useState(
     () =>
@@ -22,6 +24,10 @@ function App() {
         }),
       }),
   );
+
+  if (isMobile) {
+    return <TempMobile />;
+  }
 
   return (
     <QueryClientProvider client={queryClient}>
