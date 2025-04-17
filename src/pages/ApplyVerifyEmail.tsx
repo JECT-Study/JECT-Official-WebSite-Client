@@ -48,6 +48,8 @@ function ApplyVerifyEmail({
   const [isTermsChecked, setIsTermsChecked] = useState(false);
   const [isAuthCodeExpired, setIsAuthCodeExpired] = useState(false);
   const [emailButtonText, setEmailButtonText] = useState('인증번호 받기');
+  const [isCooldownActive, setIsCooldownActive] = useState(false);
+  const [cooldownTimer, setCooldownTimer] = useState<number | null>(null);
 
   const templateType = isResetPin ? 'PIN_RESET' : 'AUTH_CODE';
 
@@ -85,14 +87,40 @@ function ApplyVerifyEmail({
   const authCodeValue = watchVerification('authCode');
 
   useEffect(() => {
-    if (step >= 2 && !isAuthCodeExpired) {
-      setEmailButtonText('인증번호 발송됨');
-    } else if (isAuthCodeExpired) {
-      setEmailButtonText('인증번호 재발송');
+    if (step >= 2) {
+      if (!isCooldownActive && !isAuthCodeExpired) {
+        setEmailButtonText('인증번호 재발송');
+      } else if (isAuthCodeExpired) {
+        setEmailButtonText('인증번호 재발송');
+      } else {
+        setEmailButtonText('인증번호 발송됨');
+      }
     } else {
       setEmailButtonText('인증번호 받기');
     }
-  }, [step, isAuthCodeExpired]);
+  }, [step, isAuthCodeExpired, isCooldownActive]);
+
+  useEffect(() => {
+    return () => {
+      if (cooldownTimer) {
+        window.clearTimeout(cooldownTimer);
+      }
+    };
+  }, [cooldownTimer]);
+
+  const startCooldown = () => {
+    setIsCooldownActive(true);
+
+    if (cooldownTimer) {
+      window.clearTimeout(cooldownTimer);
+    }
+
+    const timer = setTimeout(() => {
+      setIsCooldownActive(false);
+    }, 60000);
+
+    setCooldownTimer(timer);
+  };
 
   const onEmailSubmit = ({ email }: Email) => {
     console.log('이메일 유효성 검사 통과, 회원 존재 여부 확인 API 요청 실행', { email });
@@ -121,6 +149,7 @@ function ApplyVerifyEmail({
               onSuccess: () => {
                 setStep(2);
                 setIsAuthCodeExpired(false);
+                startCooldown();
               },
               onError: error => {
                 console.error('이메일 인증 코드 발송 실패:', error);
@@ -218,6 +247,12 @@ function ApplyVerifyEmail({
             setStep(1);
             setStoredEmail('');
             setIsAuthCodeExpired(false);
+            setIsCooldownActive(false);
+
+            if (cooldownTimer !== null) {
+              window.clearTimeout(cooldownTimer);
+              setCooldownTimer(null);
+            }
 
             resetEmailForm();
             resetVerificationForm();
@@ -321,11 +356,7 @@ function ApplyVerifyEmail({
                     style='solid'
                     hierarchy='secondary'
                     className='h-full'
-                    disabled={
-                      (step >= 2 && !isAuthCodeExpired && !isEmailLoading) ||
-                      !isEmailValid ||
-                      isEmailLoading
-                    }
+                    disabled={!isEmailValid || isEmailLoading || isCooldownActive}
                   >
                     {emailButtonText}
                   </BlockButton>
