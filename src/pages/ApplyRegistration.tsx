@@ -62,7 +62,7 @@ function ApplyRegistration() {
   const { mutate: submitAnswerMutate, isPending: isSubmitAnswerPending } =
     useSubmitAnswerMutation();
 
-  useGoBackCheckDialog();
+  useGoBackCheckDialog(!!selectedJob);
 
   const saveDraftServerAndLocal = useCallback(() => {
     if (!selectedJob) return;

@@ -3,10 +3,10 @@ import { NavigationType, useBlocker } from 'react-router-dom';
 
 import { useDialogActions } from '@/stores/dialogStore';
 
-const useGoBackCheckDialog = () => {
+const useGoBackCheckDialog = (when: boolean) => {
   const { openDialog } = useDialogActions();
   const blocker = useBlocker(({ historyAction }) => {
-    return historyAction === NavigationType.Pop;
+    return when && historyAction === NavigationType.Pop;
   });
 
   useEffect(() => {
