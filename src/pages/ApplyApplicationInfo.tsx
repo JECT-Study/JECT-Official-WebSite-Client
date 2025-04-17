@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import BlockButton from '@/components/common/button/BlockButton';
@@ -8,6 +9,7 @@ import Title from '@/components/common/title/Title';
 import { APPLY_TITLE } from '@/constants/applyPageData';
 import { PATH } from '@/constants/path';
 import { useApplyApplicantInfoForm } from '@/hooks/useApplyApplicantInfoForm';
+import useCheckApplicationStatus from '@/hooks/useCheckApplicationStatus';
 import { useMemberProfileInitialMutation } from '@/hooks/useMemberProfileInitialMutation';
 import { ApplyApplicantInfoFormData } from '@/schema/applySchema';
 import { MemberProfileInitialPayload } from '@/types/apis/apply';
@@ -15,6 +17,7 @@ import { CreateSubmitHandler } from '@/utils/formHelpers';
 
 function ApplyApplicantInfo() {
   const navigate = useNavigate();
+  const { data: applicationStatus } = useCheckApplicationStatus();
 
   const {
     register,
@@ -55,6 +58,12 @@ function ApplyApplicantInfo() {
     ApplyApplicantInfoFormData,
     ApplyApplicantInfoFormData
   >(handleSubmit, onSubmit);
+
+  useEffect(() => {
+    if (applicationStatus?.data) {
+      return void navigate(PATH.applyComplete);
+    }
+  }, [applicationStatus, navigate]);
 
   return (
     <div className='gap-9xl flex flex-col items-center pt-(--gap-9xl) pb-(--gap-12xl)'>

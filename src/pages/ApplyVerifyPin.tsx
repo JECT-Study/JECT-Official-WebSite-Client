@@ -40,7 +40,7 @@ function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
   const { mutate: pinLoginMutate, isPending: isPinLoginLoading } = usePinLoginMutation();
   const { mutate: deleteDraftMutate } = useDeleteDraftMutation();
   const { refetch: refetchDraftServer } = useDraftQuery(false);
-  const { refetch: refetchCheckApplicationStatus } = useCheckApplicationStatus();
+  const { refetch: refetchCheckApplicationStatus } = useCheckApplicationStatus(false);
   const { openDialog } = useDialogActions();
 
   const rightIconFillColor =
