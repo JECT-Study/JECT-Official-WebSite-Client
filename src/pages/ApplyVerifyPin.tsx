@@ -12,6 +12,7 @@ import Title from '@/components/common/title/Title';
 import { APPLY_TITLE } from '@/constants/applyPageData';
 import { PATH } from '@/constants/path';
 import { useApplyPinForm } from '@/hooks/useApplyPinForm';
+import useCheckApplicationStatus from '@/hooks/useCheckApplicationStatus';
 import useDeleteDraftMutation from '@/hooks/useDeleteDraftMutation';
 import useDraftQuery from '@/hooks/useDraftQuery';
 import { usePinLoginMutation } from '@/hooks/usePinLoginMutation';
@@ -39,6 +40,7 @@ function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
   const { mutate: pinLoginMutate, isPending: isPinLoginLoading } = usePinLoginMutation();
   const { mutate: deleteDraftMutate } = useDeleteDraftMutation();
   const { refetch: refetchDraftServer } = useDraftQuery(false);
+  const { refetch: refetchCheckApplicationStatus } = useCheckApplicationStatus();
   const { openDialog } = useDialogActions();
 
   const rightIconFillColor =
@@ -70,8 +72,21 @@ function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
           return;
         }
 
-        void refetchDraftServer()
+        void refetchCheckApplicationStatus()
           .then(({ data }) => {
+            if (data?.status === 'SUCCESS') {
+              return refetchDraftServer();
+            }
+
+            void navigate(PATH.applyComplete);
+
+            return null;
+          })
+          .then(result => {
+            if (!result) return;
+
+            const { data } = result;
+
             if (!getDraftLocal() && data?.status === 'TEMP_APPLICATION_NOT_FOUND') {
               return void navigate(PATH.applyRegistration);
             }
@@ -91,9 +106,6 @@ function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
                 },
               });
             }
-          })
-          .catch(error => {
-            console.log('임시저장 refetch catch문: ', error);
           });
       },
       onError: error => {
