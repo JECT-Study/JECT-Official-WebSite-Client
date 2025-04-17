@@ -1,4 +1,3 @@
-import RedirectIfSubmitted from './components/apply/RedirectIfSubmitted';
 import { PATH } from './constants/path';
 import { sentryCreateBrowserRouter } from './instrument';
 import Maintenance from './pages/Maintenance';
@@ -28,22 +27,8 @@ const router = sentryCreateBrowserRouter([
       { path: PATH.apply, element: <Apply /> },
       { path: `${PATH.faq}/:tabId?/:questionId?`, element: <Faq /> },
       { path: PATH.applyVerify, element: <ApplyVerify /> },
-      {
-        path: PATH.applicantInfo,
-        element: (
-          <RedirectIfSubmitted>
-            <ApplyApplicantInfo />
-          </RedirectIfSubmitted>
-        ),
-      },
-      {
-        path: PATH.applyRegistration,
-        element: (
-          <RedirectIfSubmitted>
-            <ApplyRegistration />
-          </RedirectIfSubmitted>
-        ),
-      },
+      { path: PATH.applicantInfo, element: <ApplyApplicantInfo /> },
+      { path: PATH.applyRegistration, element: <ApplyRegistration /> },
       { path: PATH.applyComplete, element: <ApplyComplete /> },
     ],
     errorElement: <NonSpecificError />,
