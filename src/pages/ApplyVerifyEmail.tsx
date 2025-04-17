@@ -32,12 +32,14 @@ interface ApplyVerifyEmailProps {
   isResetPin?: boolean;
   setIsNewApplicant?: (value: boolean | ((isNewApplicant: boolean) => boolean)) => void;
   setUserEmail?: (email: string) => void;
+  onResetPinComplete?: () => void;
 }
 
 function ApplyVerifyEmail({
   isResetPin = false,
   setIsNewApplicant,
   setUserEmail,
+  onResetPinComplete,
 }: ApplyVerifyEmailProps) {
   const { addToast } = useToastActions();
   const navigate = useNavigate();
@@ -260,19 +262,24 @@ function ApplyVerifyEmail({
           if (response.status === 'SUCCESS') {
             addToast('PIN을 다시 설정했어요', 'positive');
             //TODO: 지원 초기 상태로 state들을 초기화 로직(Zustand, 혹은 외부 함수로)
-            setStep(1);
-            setStoredEmail('');
-            setIsAuthCodeExpired(false);
-            setIsCooldownActive(false);
 
-            if (cooldownTimer !== null) {
-              window.clearTimeout(cooldownTimer);
-              setCooldownTimer(null);
+            //TODO: 로직 추가 검증 필요
+            if (onResetPinComplete) {
+              onResetPinComplete();
+            } else {
+              setStep(1);
+              setStoredEmail('');
+              setIsAuthCodeExpired(false);
+              setIsCooldownActive(false);
+
+              resetEmailForm();
+              resetVerificationForm();
+              resetPinForm();
+
+              if (setIsNewApplicant) {
+                setIsNewApplicant(true);
+              }
             }
-
-            resetEmailForm();
-            resetVerificationForm();
-            resetPinForm();
           }
         },
         onError: error => {
