@@ -22,9 +22,10 @@ import { CreateSubmitHandler } from '@/utils/formHelpers';
 
 interface ApplyVerifyPinProps {
   email: string;
+  onResetPinComplete?: () => void;
 }
 
-function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
+function ApplyVerifyPin({ email, onResetPinComplete }: ApplyVerifyPinProps) {
   const navigate = useNavigate();
   const [isResetPin, setIsResetPin] = useState(false);
   const [isPinHidden, setIsPinHidden] = useState(true);
@@ -111,7 +112,8 @@ function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
     setIsPinHidden(prev => !prev);
   };
 
-  if (isResetPin) return <ApplyVerifyEmail isResetPin={isResetPin} />;
+  if (isResetPin)
+    return <ApplyVerifyEmail isResetPin={isResetPin} onResetPinComplete={onResetPinComplete} />;
 
   return (
     <div className='gap-9xl flex flex-col items-center pt-(--gap-9xl) pb-(--gap-12xl)'>
