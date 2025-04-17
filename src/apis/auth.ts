@@ -10,6 +10,11 @@ const BASE_URL = import.meta.env.PROD
 
 export const refreshAccessToken = async (): Promise<ApiResponse<RefreshTokenResponse>> => {
   return await axios
-    .post<ApiResponse<RefreshTokenResponse>>(`${BASE_URL}${API_ENDPOINT.refreshToken}`)
+    .post<ApiResponse<RefreshTokenResponse>>(`${BASE_URL}${API_ENDPOINT.refreshToken}`, null, {
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
     .then(response => response.data);
 };
