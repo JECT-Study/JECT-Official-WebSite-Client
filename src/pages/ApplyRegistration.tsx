@@ -1,7 +1,13 @@
 import clsx from 'clsx';
 import Lottie from 'lottie-react';
 import { useCallback, useEffect } from 'react';
-import { Location, useLocation, useNavigate } from 'react-router-dom';
+import {
+  Location,
+  NavigationType,
+  useLocation,
+  useNavigate,
+  useNavigationType,
+} from 'react-router-dom';
 
 import loadingSpinner from '@/assets/lottie/ject-loadingSpinner.json';
 import Answers from '@/components/apply/Answers';
@@ -38,6 +44,7 @@ const removeLocationState = (location: Location) => {
 function ApplyRegistration() {
   const location = useLocation();
   const navigate = useNavigate();
+  const navigationType = useNavigationType();
 
   const {
     isStepCompleted,
@@ -138,6 +145,15 @@ function ApplyRegistration() {
 
     return () => clearInterval(autoSaveDraftLocal);
   }, [selectedJob, application]);
+
+  useEffect(() => {
+    if (navigationType === NavigationType.Pop) {
+      openDialog({
+        type: 'dirtyCheck',
+        onPrimaryBtnClick: () => void navigate(-1),
+      });
+    }
+  }, [navigationType, navigate, openDialog]);
 
   return (
     <div className='gap-9xl flex flex-col items-center pt-(--gap-9xl) pb-(--gap-12xl)'>
