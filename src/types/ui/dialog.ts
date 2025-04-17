@@ -4,4 +4,5 @@ export type DialogTypes =
   | 'submitAnswer'
   | 'expiredSession'
   | 'continueWriting'
-  | 'failedUploadFile';
+  | 'failedUploadFile'
+  | 'leaveConfirm';
