@@ -31,7 +31,7 @@ function Answers({
   onChangePortfolios,
   onActiveSubmitButton,
 }: AnswersProps) {
-  const { data, isError, refetch } = useQuestionsQuery(questionJob);
+  const { data, isPending, isError, refetch } = useQuestionsQuery(questionJob);
   const { addToast } = useToastActions();
 
   const questions = data?.data.questionResponses;
@@ -54,6 +54,10 @@ function Answers({
       return addToast('일시적 오류로 추가 질문들을 불러올 수 없었어요.', 'negative');
     }
   }, [isError, addToast, status]);
+
+  if (isPending) {
+    return null;
+  }
 
   if (isError || status !== 'SUCCESS') {
     return (
