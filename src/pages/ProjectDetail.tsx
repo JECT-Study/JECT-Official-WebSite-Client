@@ -16,22 +16,37 @@ import { useProjectDetailQuery } from '@/hooks/useProjectDetailQuery';
 const ProjectDetail = () => {
   const { id } = useParams<{ id: string }>();
 
-  const { data: projectDetailData, isError } = useProjectDetailQuery(id ?? '');
+  const {
+    data: projectDetailData,
+    isError,
+    isSuccess,
+    isPending,
+  } = useProjectDetailQuery(id ?? '');
 
-  const project = projectDetailData?.data;
+  if (isPending) {
+    return null;
+  }
 
   if (isError) {
     return <Navigate to={PATH.nonSpecificError} replace />;
   }
 
-  if (projectDetailData?.status === 'PROJECT_NOT_FOUND' || !projectDetailData || !project) {
+  if (
+    isSuccess &&
+    (projectDetailData?.status === 'PROJECT_NOT_FOUND' || !projectDetailData?.data)
+  ) {
     return <Navigate to={PATH.notFoundError} replace />;
   }
 
-  const frontendDevelopers = project.teamMemberNames?.frontendDevelopers ?? [];
-  const backendDevelopers = project.teamMemberNames?.backendDevelopers ?? [];
-  const projectManagers = project.teamMemberNames?.projectManagers ?? [];
-  const productDesigners = project.teamMemberNames?.productDesigners ?? [];
+  const project = projectDetailData.data;
+
+  const teamRoles = [
+    { id: 'fe', title: 'FE', members: project.teamMemberNames?.frontendDevelopers ?? [] },
+    { id: 'be', title: 'BE', members: project.teamMemberNames?.backendDevelopers ?? [] },
+    { id: 'pm', title: 'PM', members: project.teamMemberNames?.productManagers ?? [] },
+    { id: 'pd', title: 'PD', members: project.teamMemberNames?.productDesigners ?? [] },
+  ];
+
   const techStack = project.techStack ?? [];
 
   return (
@@ -40,7 +55,7 @@ const ProjectDetail = () => {
         <img
           src={project.thumbnailUrl || cardSampleImage}
           alt='프로젝트 이미지'
-          className='radius-md border-border-alternative-dark block h-[20.0625rem] w-full border object-cover'
+          className='radius-md border-border-alternative-dark block h-[20.0625rem] w-full border object-contain'
         />
         <div className='gap-2xl flex w-full flex-col items-start'>
           <div className='gap-md flex flex-col'>
@@ -51,10 +66,11 @@ const ProjectDetail = () => {
           </div>
           <div className='gap-md flex w-full flex-col items-start'>
             <div className='gap-md flex w-full content-start items-start'>
-              <CalloutInformation title='FE' labels={frontendDevelopers} />
-              <CalloutInformation title='BE' labels={backendDevelopers} />
-              <CalloutInformation title='PM' labels={projectManagers} />
-              <CalloutInformation title='PD' labels={productDesigners} />
+              {teamRoles
+                .filter(role => role.members.length > 0)
+                .map(role => (
+                  <CalloutInformation key={role.id} title={role.title} labels={role.members} />
+                ))}
             </div>
             <CalloutInformation title='플랫폼 및 기술' labels={techStack} />
           </div>
@@ -90,7 +106,7 @@ const ProjectDetail = () => {
                         key={intro.sequence}
                         src={intro.imageUrl}
                         alt={`서비스 소개 ${intro.sequence}번`}
-                        className='border-border-alternative-dark block h-[29rem] w-full border object-cover'
+                        className='border-border-alternative-dark block h-[29rem] w-full border object-contain'
                       />
                     ))
                 ) : (
@@ -108,7 +124,7 @@ const ProjectDetail = () => {
                         key={intro.sequence}
                         src={intro.imageUrl}
                         alt={`개발 소개 ${intro.sequence}번`}
-                        className='border-border-alternative-dark block h-[29rem] w-full border object-cover'
+                        className='border-border-alternative-dark block h-[29rem] w-full border object-contain'
                       />
                     ))
                 ) : (

@@ -44,7 +44,7 @@ export interface ProjectListResponse {
 }
 
 export interface ProjectListQueryParams {
-  semesterId: number;
+  semesterId?: number;
   category: ProjectCategory;
   page: number;
   size: number;
@@ -56,7 +56,7 @@ export interface ProjectDetailResponse {
   startDate: string;
   endDate: string;
   teamMemberNames: {
-    projectManagers: string[];
+    productManagers: string[];
     productDesigners: string[];
     frontendDevelopers: string[];
     backendDevelopers: string[];
