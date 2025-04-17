@@ -9,7 +9,7 @@ interface NavigationProps {
 
 function Navigation({ children }: NavigationProps) {
   return (
-    <header className='bg-surface-standard-dark gap-6xl fixed z-49 flex h-[3.68rem] w-dvw items-center pl-(--gap-5xl)'>
+    <header className='border-border-assistive-dark bg-surface-standard-dark gap-6xl fixed z-49 flex h-[3.68rem] w-dvw items-center border-b pl-(--gap-5xl)'>
       <Link
         to='/'
         className='focus-visible:shadow-focus-visible radius-4xs cursor-pointer p-(--gap-5xs) outline-none'
