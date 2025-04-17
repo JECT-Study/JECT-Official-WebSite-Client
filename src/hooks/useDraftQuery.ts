@@ -6,7 +6,7 @@ import { AnswersResponse } from '@/types/apis/application';
 import { ApiResponse } from '@/types/apis/response';
 
 const useDraftQuery = (enabled?: boolean) => {
-  const { data, isError, error, refetch } = useQuery<
+  const { data, refetch } = useQuery<
     ApiResponse<AnswersResponse>,
     AxiosError,
     ApiResponse<AnswersResponse>,
@@ -17,10 +17,6 @@ const useDraftQuery = (enabled?: boolean) => {
     enabled: enabled ?? true,
     retry: 0,
   });
-
-  if (isError) {
-    console.error('Query Error :', error);
-  }
 
   return { data, refetch };
 };
