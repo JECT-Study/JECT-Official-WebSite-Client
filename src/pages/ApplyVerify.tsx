@@ -12,6 +12,9 @@ function ApplyVerify() {
   const [userEmail, setUserEmail] = useState('');
 
   const handleResetPinComplete = () => {
+    setIsNewApplicant(true);
+    setUserEmail('');
+
     void navigate(PATH.applyVerify);
   };
 

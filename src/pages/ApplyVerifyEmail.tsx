@@ -243,21 +243,19 @@ function ApplyVerifyEmail({
         onSuccess: response => {
           if (response.status === 'SUCCESS') {
             addToast('PIN을 다시 설정했어요', 'positive');
-            //TODO: 지원 초기 상태로 state들을 초기화 로직(Zustand, 혹은 외부 함수로)
 
-            //TODO: 로직 추가 검증 필요
+            setStep(1);
+            setStoredEmail('');
+            setIsAuthCodeExpired(false);
+            setIsCooldownActive(false);
+
+            resetEmailForm();
+            resetVerificationForm();
+            resetPinForm();
+
             if (onResetPinComplete) {
               onResetPinComplete();
             } else {
-              setStep(1);
-              setStoredEmail('');
-              setIsAuthCodeExpired(false);
-              setIsCooldownActive(false);
-
-              resetEmailForm();
-              resetVerificationForm();
-              resetPinForm();
-
               if (setIsNewApplicant) {
                 setIsNewApplicant(true);
               }

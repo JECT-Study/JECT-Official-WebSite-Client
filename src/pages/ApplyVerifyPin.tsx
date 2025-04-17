@@ -113,7 +113,18 @@ function ApplyVerifyPin({ email, onResetPinComplete }: ApplyVerifyPinProps) {
   };
 
   if (isResetPin)
-    return <ApplyVerifyEmail isResetPin={isResetPin} onResetPinComplete={onResetPinComplete} />;
+    return (
+      <ApplyVerifyEmail
+        isResetPin={true}
+        onResetPinComplete={() => {
+          setIsResetPin(false);
+
+          if (onResetPinComplete) {
+            onResetPinComplete();
+          }
+        }}
+      />
+    );
 
   return (
     <div className='gap-9xl flex flex-col items-center pt-(--gap-9xl) pb-(--gap-12xl)'>
