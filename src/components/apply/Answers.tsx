@@ -46,7 +46,6 @@ function Answers({
   }, [application, status, questions, onActiveSubmitButton]);
 
   useEffect(() => {
-    console.log('isError:', isError, 'isPending:', isPending, 'status: ', status);
     if (isPending) return;
 
     if (isError) {
