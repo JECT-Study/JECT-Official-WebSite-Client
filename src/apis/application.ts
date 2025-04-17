@@ -49,6 +49,6 @@ export const deleteDraft = async () => {
 
 export const postSubmitAnswer = async (jobFamily: JobFamily, answers: AnswersPayload) => {
   const params = new URLSearchParams({ jobFamily });
-  const url = `${API_ENDPOINT.draft}?${params.toString()}`;
+  const url = `${API_ENDPOINT.submitAnswer}?${params.toString()}`;
   return await requestHandler<null, AnswersPayload>('post', url, answers);
 };
