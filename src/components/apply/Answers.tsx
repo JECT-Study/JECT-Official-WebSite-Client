@@ -46,6 +46,9 @@ function Answers({
   }, [application, status, questions, onActiveSubmitButton]);
 
   useEffect(() => {
+    console.log('isError:', isError, 'isPending:', isPending, 'status: ', status);
+    if (isPending) return;
+
     if (isError) {
       return addToast('일시적 오류로 추가 질문들을 불러올 수 없었어요.', 'negative');
     }
@@ -53,7 +56,7 @@ function Answers({
     if (status && status !== 'SUCCESS') {
       return addToast('일시적 오류로 추가 질문들을 불러올 수 없었어요.', 'negative');
     }
-  }, [isError, addToast, status]);
+  }, [isError, addToast, status, isPending]);
 
   if (isPending) {
     return null;
