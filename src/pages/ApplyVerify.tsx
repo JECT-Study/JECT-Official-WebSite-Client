@@ -1,17 +1,16 @@
-import { useState } from 'react';
-
 import ApplyVerifyEmail from './ApplyVerifyEmail';
 import ApplyVerifyPin from './ApplyVerifyPin';
 
-function ApplyVerify() {
-  const [isNewApplicant, setIsNewApplicant] = useState(true);
-  const [userEmail, setUserEmail] = useState('');
+import { useApplyVerifyStore } from '@/stores/applyVerifyStore';
 
-  return isNewApplicant ? (
-    <ApplyVerifyEmail setIsNewApplicant={setIsNewApplicant} setUserEmail={setUserEmail} />
-  ) : (
-    <ApplyVerifyPin email={userEmail} />
-  );
+function ApplyVerify() {
+  const { isNewApplicant, isResetPin } = useApplyVerifyStore();
+
+  if (isResetPin) {
+    return <ApplyVerifyEmail />;
+  }
+
+  return isNewApplicant ? <ApplyVerifyEmail /> : <ApplyVerifyPin />;
 }
 
 export default ApplyVerify;
