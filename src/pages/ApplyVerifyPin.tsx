@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import ApplyVerifyEmail from './ApplyVerifyEmail';
-
 import BlockButton from '@/components/common/button/BlockButton';
 import Icon from '@/components/common/icon/Icon';
 import InputField from '@/components/common/input/InputField';
@@ -17,19 +15,17 @@ import useDeleteDraftMutation from '@/hooks/useDeleteDraftMutation';
 import useDraftQuery from '@/hooks/useDraftQuery';
 import { useMemberProfileInitialStatusQuery } from '@/hooks/useMemberProfileInitialStatusQuery';
 import { usePinLoginMutation } from '@/hooks/usePinLoginMutation';
+import { useApplyVerifyStore } from '@/stores/applyVerifyStore';
 import { useDialogActions } from '@/stores/dialogStore';
 import { PinLoginPayload } from '@/types/apis/apply';
 import { hasDraftLocal } from '@/utils/draftUtils';
 import { handleError } from '@/utils/errorLogger';
 import { CreateSubmitHandler } from '@/utils/formHelpers';
 
-interface ApplyVerifyPinProps {
-  email: string;
-}
+function ApplyVerifyPin() {
+  const { userEmail, setIsResetPin } = useApplyVerifyStore();
 
-function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
   const navigate = useNavigate();
-  const [isResetPin, setIsResetPin] = useState(false);
   const [isPinHidden, setIsPinHidden] = useState(true);
 
   const {
@@ -52,7 +48,7 @@ function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
       : 'fill-object-static-inverse-hero-dark';
 
   const onPinSubmit = ({ pin }: PinLoginPayload) => {
-    const payload = { email, pin };
+    const payload = { email: userEmail, pin };
 
     pinLoginMutate(payload, {
       onSuccess: response => {
@@ -145,8 +141,6 @@ function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
     setIsPinHidden(prev => !prev);
   };
 
-  if (isResetPin) return <ApplyVerifyEmail isResetPin={isResetPin} />;
-
   return (
     <div className='gap-9xl flex flex-col items-center pt-(--gap-9xl) pb-(--gap-12xl)'>
       <ProgressIndicator totalStep={3} currentStep={1} />
@@ -155,7 +149,7 @@ function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
         <div className='gap-7xl flex flex-col'>
           <form id='pinForm' className='gap-xs flex flex-col' onSubmit={handlePinFormSubmit}>
             <InputField
-              value={email}
+              value={userEmail}
               type='email'
               labelText='이메일'
               isError={false}
