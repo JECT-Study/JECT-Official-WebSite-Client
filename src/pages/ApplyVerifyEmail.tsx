@@ -452,16 +452,18 @@ function ApplyVerifyEmail({
             )}
             <BlockButton
               type='submit'
-              form={isResetPin ? 'resetPinForm' : 'registerForm'}
+              form={isReVerification ? 'resetPinForm' : 'registerForm'}
               disabled={isSubmitButtonDisabled}
               size='lg'
               style='solid'
               hierarchy='accent'
               rightIcon={
-                !isResetPin && <Icon name='forward' size='md' fillColor={rightIconFillColor} />
+                !isReVerification && (
+                  <Icon name='forward' size='md' fillColor={rightIconFillColor} />
+                )
               }
             >
-              {isResetPin ? 'PIN 다시 설정 완료하기' : '다음 단계로 진행하기'}
+              {isReVerification ? 'PIN 다시 설정 완료하기' : '다음 단계로 진행하기'}
             </BlockButton>
           </div>
         </div>
