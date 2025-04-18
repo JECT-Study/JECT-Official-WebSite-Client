@@ -47,6 +47,11 @@ function ApplyVerifyEmail() {
 
   const templateType = isResetPin ? 'PIN_RESET' : 'AUTH_CODE';
 
+  useEffect(() => {
+    handleError(isReVerification, 'isReVerification State 입니다.');
+    handleError(isResetPin, 'isResetPin State 입니다.');
+  }, [isReVerification, isResetPin]);
+
   const {
     register: registerEmail,
     handleSubmit: handleSubmitEmail,
