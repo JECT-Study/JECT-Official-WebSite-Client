@@ -10,6 +10,8 @@ import { useGlobalErrorHandler } from './hooks/useGlobalErrorHandler';
 import TempMobile from './pages/TempMobile';
 import router from './router';
 
+import { AmplitudeProvider } from '@/lib/amplitude';
+
 function App() {
   const handleGlobalError = useGlobalErrorHandler();
 
@@ -30,10 +32,12 @@ function App() {
   }
 
   return (
-    <QueryClientProvider client={queryClient}>
-      {import.meta.env.MODE !== 'production' && <ReactQueryDevtools />}
-      <RouterProvider router={router} />
-    </QueryClientProvider>
+    <AmplitudeProvider>
+      <QueryClientProvider client={queryClient}>
+        {import.meta.env.MODE !== 'production' && <ReactQueryDevtools />}
+        <RouterProvider router={router} />
+      </QueryClientProvider>
+    </AmplitudeProvider>
   );
 }
 
