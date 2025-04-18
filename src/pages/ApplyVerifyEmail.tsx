@@ -19,6 +19,7 @@ import { useEmailAuthCodeMutation } from '@/hooks/useEmailAuthCodeMutation';
 import { useRegisterMemberMutation } from '@/hooks/useRegisterMemberMutation';
 import { useResetPinMutation } from '@/hooks/useResetPinMutation';
 import { useVerificationEmailCodeMutation } from '@/hooks/useVerificationEmailCodeMutation';
+import { useApplyVerifyStore } from '@/stores/applyVerifyStore';
 import { useToastActions } from '@/stores/toastStore';
 import {
   Email,
@@ -29,17 +30,9 @@ import {
 import { handleError } from '@/utils/errorLogger';
 import { CreateSubmitHandler } from '@/utils/formHelpers';
 
-interface ApplyVerifyEmailProps {
-  isResetPin?: boolean;
-  setIsNewApplicant?: (value: boolean | ((isNewApplicant: boolean) => boolean)) => void;
-  setUserEmail?: (email: string) => void;
-}
+function ApplyVerifyEmail() {
+  const { isResetPin, setEmailVerified, setExistingUserDetected } = useApplyVerifyStore();
 
-function ApplyVerifyEmail({
-  isResetPin = false,
-  setIsNewApplicant,
-  setUserEmail,
-}: ApplyVerifyEmailProps) {
   const { addToast } = useToastActions();
   const navigate = useNavigate();
   const [storedEmail, setStoredEmail] = useState('');
@@ -87,7 +80,6 @@ function ApplyVerifyEmail({
   const { mutate: resetPinMutate, isPending: isResettingPin } = useResetPinMutation();
 
   const authCodeValue = watchVerification('authCode');
-
   const currentEmail = watchEmail('email');
 
   useEffect(() => {
@@ -135,9 +127,7 @@ function ApplyVerifyEmail({
   };
 
   const onEmailSubmit = ({ email }: Email) => {
-    if (setUserEmail) {
-      setUserEmail(email);
-    }
+    setEmailVerified(email);
 
     checkEmailMutate(
       { email },
@@ -145,8 +135,8 @@ function ApplyVerifyEmail({
         onSuccess: response => {
           const isUserExists = response.data;
 
-          if (isUserExists && setIsNewApplicant) {
-            setIsNewApplicant(false);
+          if (isUserExists && !isResetPin) {
+            setExistingUserDetected();
             return;
           }
 
