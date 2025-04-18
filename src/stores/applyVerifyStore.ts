@@ -36,6 +36,5 @@ export const useApplyVerifyStore = create<ApplyVerifyStore>(set => ({
   resetPinMode: () =>
     set({
       isResetPin: false,
-      userEmail: '',
     }),
 }));
