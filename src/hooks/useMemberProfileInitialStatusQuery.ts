@@ -8,5 +8,6 @@ export const useMemberProfileInitialStatusQuery = () => {
   return useQuery<ApiResponse<MemberProfileInitialStatusResponse>>({
     queryKey: ['memberProfileInitialStatus'],
     queryFn: getMemberProfileInitialStatus,
+    enabled: false,
   });
 };

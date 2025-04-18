@@ -14,6 +14,7 @@ import { useApplyPinForm } from '@/hooks/useApplyPinForm';
 import useCheckApplicationStatus from '@/hooks/useCheckApplicationStatus';
 import useDeleteDraftMutation from '@/hooks/useDeleteDraftMutation';
 import useDraftQuery from '@/hooks/useDraftQuery';
+import { useMemberProfileInitialStatusQuery } from '@/hooks/useMemberProfileInitialStatusQuery';
 import { usePinLoginMutation } from '@/hooks/usePinLoginMutation';
 import { useDialogActions } from '@/stores/dialogStore';
 import { PinLoginPayload } from '@/types/apis/apply';
@@ -41,6 +42,7 @@ function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
   const { mutate: deleteDraftMutate } = useDeleteDraftMutation();
   const { refetch: refetchDraftServer } = useDraftQuery(false);
   const { refetch: refetchCheckApplicationStatus } = useCheckApplicationStatus(false);
+  const { refetch: refetchCheckProfileStatus } = useMemberProfileInitialStatusQuery();
   const { openDialog } = useDialogActions();
 
   const rightIconFillColor =
@@ -69,8 +71,22 @@ function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
           return;
         }
 
-        void refetchCheckApplicationStatus()
+        void refetchCheckProfileStatus()
           .then(({ data }) => {
+            if (data?.status !== 'SUCCESS') return;
+
+            if (data.data) {
+              return refetchCheckApplicationStatus();
+            }
+
+            void navigate(PATH.applicantInfo);
+            return;
+          })
+          .then(result => {
+            if (!result) return;
+
+            const { data } = result;
+
             if (data?.status !== 'SUCCESS') return;
 
             if (data.data) {
@@ -106,7 +122,7 @@ function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
             }
           })
           .catch(error => {
-            handleError(error, '임시저장 refetch catch문');
+            handleError(error, '프로필 여부, 제출 여부, 임시저장 여부 refetch catch문');
           });
       },
       onError: error => {
