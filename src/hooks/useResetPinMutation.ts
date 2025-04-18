@@ -8,20 +8,10 @@ import { ApiResponse } from '@/types/apis/response';
 export const useResetPinMutation = (): UseMutationResult<
   ApiResponse<ResetPinResponse>,
   AxiosError,
-  ResetPinPayload,
-  unknown
+  ResetPinPayload
 > => {
   return useMutation({
     mutationKey: ['putResetPin'],
     mutationFn: putResetPin,
-    onMutate: variables => {
-      console.log('useResetPinMutation 시작, variables:', variables);
-    },
-    onSuccess: data => {
-      console.log('useResetPinMutation 성공:', data);
-    },
-    onError: error => {
-      console.error('useResetPinMutation 에러:', error);
-    },
   });
 };

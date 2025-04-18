@@ -17,20 +17,10 @@ export interface VerificationEmailCodeMutationVariables {
 export const useVerificationEmailCodeMutation = (): UseMutationResult<
   ApiResponse<VerificationEmailCodeResponse>,
   AxiosError,
-  VerificationEmailCodeMutationVariables,
-  unknown
+  VerificationEmailCodeMutationVariables
 > => {
   return useMutation({
     mutationKey: ['postVerificationEmailCode'],
     mutationFn: ({ payload, queryParams }) => postVerificationEmailCode(payload, queryParams),
-    onMutate: variables => {
-      console.log('useVerificationEmailCodeMutation 시작, variables:', variables);
-    },
-    onSuccess: data => {
-      console.log('useVerificationEmailCodeMutation 성공:', data);
-    },
-    onError: error => {
-      console.error('useVerificationEmailCodeMutation 에러:', error);
-    },
   });
 };
