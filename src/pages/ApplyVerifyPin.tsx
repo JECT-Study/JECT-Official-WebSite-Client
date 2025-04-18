@@ -18,7 +18,7 @@ import useDraftQuery from '@/hooks/useDraftQuery';
 import { usePinLoginMutation } from '@/hooks/usePinLoginMutation';
 import { useDialogActions } from '@/stores/dialogStore';
 import { PinLoginPayload } from '@/types/apis/apply';
-import { getDraftLocal } from '@/utils/draftUtils';
+import { hasDraftLocal } from '@/utils/draftUtils';
 import { CreateSubmitHandler } from '@/utils/formHelpers';
 
 interface ApplyVerifyPinProps {
@@ -88,11 +88,11 @@ function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
 
             const { data } = result;
 
-            if (!getDraftLocal() && data?.status === 'TEMP_APPLICATION_NOT_FOUND') {
+            if (!hasDraftLocal() && data?.status === 'TEMP_APPLICATION_NOT_FOUND') {
               return void navigate(PATH.applyRegistration);
             }
 
-            if (getDraftLocal() || data?.status === 'SUCCESS') {
+            if (hasDraftLocal() || data?.status === 'SUCCESS') {
               openDialog({
                 type: 'continueWriting',
                 onPrimaryBtnClick: () => {
