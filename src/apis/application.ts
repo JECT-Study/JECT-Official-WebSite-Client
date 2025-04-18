@@ -52,3 +52,8 @@ export const postSubmitAnswer = async (jobFamily: JobFamily, answers: AnswersPay
   const url = `${API_ENDPOINT.submitAnswer}?${params.toString()}`;
   return await requestHandler<null, AnswersPayload>('post', url, answers);
 };
+
+export const getApplicationStatus = async () => {
+  const url = `${API_ENDPOINT.applyStatus}`;
+  return await requestHandler('get', url);
+};

@@ -19,7 +19,7 @@ export const useGlobalErrorHandler = () => {
 
       captureException(error, {
         tags: { type: 'UnhandledInternalAPIError', status: error.status },
-        extra: { message: error.message, name: error.name },
+        extra: { message: error.message, name: error.name, url: error.url },
       });
 
       return;
@@ -30,7 +30,7 @@ export const useGlobalErrorHandler = () => {
 
       captureException(error, {
         tags: { type: 'UnhandledExternalAPIError', status: error.status },
-        extra: { message: error.message, name: error.name },
+        extra: { message: error.message, name: error.name, url: error.url },
       });
 
       return void router.navigate(PATH.nonSpecificError);

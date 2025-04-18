@@ -14,7 +14,6 @@ const useDeleteDraftMutation = (): UseMutationResult<
   return useMutation({
     mutationKey: ['deleteDraft'],
     mutationFn: deleteDraft,
-    onError: error => console.error('Query Error :', error),
     onSuccess: () => removeDraftLocal(),
   });
 };

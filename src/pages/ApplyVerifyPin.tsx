@@ -12,13 +12,15 @@ import Title from '@/components/common/title/Title';
 import { APPLY_TITLE } from '@/constants/applyPageData';
 import { PATH } from '@/constants/path';
 import { useApplyPinForm } from '@/hooks/useApplyPinForm';
+import useCheckApplicationStatus from '@/hooks/useCheckApplicationStatus';
 import useDeleteDraftMutation from '@/hooks/useDeleteDraftMutation';
 import useDraftQuery from '@/hooks/useDraftQuery';
 import { usePinLoginMutation } from '@/hooks/usePinLoginMutation';
 import { useDialogActions } from '@/stores/dialogStore';
 import { PinLoginPayload } from '@/types/apis/apply';
-import { getDraftLocal } from '@/utils/draftUtils';
+import { hasDraftLocal } from '@/utils/draftUtils';
 import { handleError } from '@/utils/errorLogger';
+
 import { CreateSubmitHandler } from '@/utils/formHelpers';
 
 interface ApplyVerifyPinProps {
@@ -40,6 +42,7 @@ function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
   const { mutate: pinLoginMutate, isPending: isPinLoginLoading } = usePinLoginMutation();
   const { mutate: deleteDraftMutate } = useDeleteDraftMutation();
   const { refetch: refetchDraftServer } = useDraftQuery(false);
+  const { refetch: refetchCheckApplicationStatus } = useCheckApplicationStatus(false);
   const { openDialog } = useDialogActions();
 
   const rightIconFillColor =
@@ -68,13 +71,27 @@ function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
           return;
         }
 
-        void refetchDraftServer()
+        void refetchCheckApplicationStatus()
           .then(({ data }) => {
-            if (!getDraftLocal() && data?.status === 'TEMP_APPLICATION_NOT_FOUND') {
+            if (data?.status !== 'SUCCESS') return;
+
+            if (data.data) {
+              void navigate(PATH.applyComplete);
+              return;
+            }
+
+            return refetchDraftServer();
+          })
+          .then(result => {
+            if (!result) return;
+
+            const { data } = result;
+
+            if (!hasDraftLocal() && data?.status === 'TEMP_APPLICATION_NOT_FOUND') {
               return void navigate(PATH.applyRegistration);
             }
 
-            if (getDraftLocal() || data?.status === 'SUCCESS') {
+            if (hasDraftLocal() || data?.status === 'SUCCESS') {
               openDialog({
                 type: 'continueWriting',
                 onPrimaryBtnClick: () => {

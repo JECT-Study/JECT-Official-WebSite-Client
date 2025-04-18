@@ -15,6 +15,7 @@ import { PATH } from '@/constants/path';
 import useApplicationState from '@/hooks/useApplicationState';
 import useDeleteDraftMutation from '@/hooks/useDeleteDraftMutation';
 import useDraftQuery from '@/hooks/useDraftQuery';
+import useGoBackCheckDialog from '@/hooks/useGoBackCheckDialog';
 import useSaveDraftMutation from '@/hooks/useSaveDraftMutation';
 import useSubmitAnswerMutation from '@/hooks/useSubmitAnswerMutation';
 import { useDialogActions } from '@/stores/dialogStore';
@@ -60,6 +61,8 @@ function ApplyRegistration() {
   const { mutate: deleteDraftMutate } = useDeleteDraftMutation(); // TODO: 삭제 isPending 추가 여부 및 방식 논의 필요
   const { mutate: submitAnswerMutate, isPending: isSubmitAnswerPending } =
     useSubmitAnswerMutation();
+
+  useGoBackCheckDialog(!!selectedJob);
 
   const saveDraftServerAndLocal = useCallback(() => {
     if (!selectedJob) return;
