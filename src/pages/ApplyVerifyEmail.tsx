@@ -31,13 +31,13 @@ import { handleError } from '@/utils/errorLogger';
 import { CreateSubmitHandler } from '@/utils/formHelpers';
 
 function ApplyVerifyEmail() {
-  const { isResetPin, setEmailVerified, setExistingUserDetected } = useApplyVerifyStore();
+  const { isResetPin, setEmailVerified, setExistingUserDetected, resetPinMode } =
+    useApplyVerifyStore();
 
   const { addToast } = useToastActions();
   const navigate = useNavigate();
   const [storedEmail, setStoredEmail] = useState('');
   const [isPinHidden, setIsPinHidden] = useState(true);
-  const [isReVerification, setIsReVerification] = useState(isResetPin);
   const [step, setStep] = useState(1);
   const [isTermsChecked, setIsTermsChecked] = useState(false);
   const [isAuthCodeExpired, setIsAuthCodeExpired] = useState(false);
@@ -48,9 +48,8 @@ function ApplyVerifyEmail() {
   const templateType = isResetPin ? 'PIN_RESET' : 'AUTH_CODE';
 
   useEffect(() => {
-    console.log('현재 isReVerification:', isReVerification);
     console.log('현재 isResetPin:', isResetPin);
-  }, [isReVerification, isResetPin]);
+  }, [isResetPin]);
 
   const {
     register: registerEmail,
@@ -238,11 +237,10 @@ function ApplyVerifyEmail() {
           if (response.status === 'SUCCESS') {
             addToast('PIN을 다시 설정했어요', 'positive');
             //TODO: 지원 초기 상태로 state들을 초기화 로직(Zustand, 혹은 외부 함수로)
+
             setStep(1);
             setIsAuthCodeExpired(false);
-
             setIsCooldownActive(false);
-            setIsReVerification(false);
 
             if (cooldownTimer !== null) {
               window.clearTimeout(cooldownTimer);
@@ -252,6 +250,8 @@ function ApplyVerifyEmail() {
             resetEmailForm();
             resetVerificationForm();
             resetPinForm();
+
+            resetPinMode();
           }
         },
         onError: error => {
@@ -316,8 +316,8 @@ function ApplyVerifyEmail() {
 
   const isSubmitButtonDisabled =
     !isPinValid ||
-    (isReVerification ? isResettingPin : isRegisteringMember) ||
-    (!isReVerification && !isTermsChecked);
+    (isResetPin ? isResettingPin : isRegisteringMember) ||
+    (!isResetPin && !isTermsChecked);
 
   const rightIconFillColor = isSubmitButtonDisabled
     ? 'fill-accent-trans-hero-dark'
@@ -325,12 +325,12 @@ function ApplyVerifyEmail() {
 
   return (
     <div
-      className={`gap-9xl flex flex-col items-center ${isReVerification ? 'pt-(--gap-12xl)' : 'pt-(--gap-9xl)'} pb-(--gap-12xl)`}
+      className={`gap-9xl flex flex-col items-center ${isResetPin ? 'pt-(--gap-12xl)' : 'pt-(--gap-9xl)'} pb-(--gap-12xl)`}
     >
-      {!isReVerification && <ProgressIndicator totalStep={3} currentStep={1} />}
+      {!isResetPin && <ProgressIndicator totalStep={3} currentStep={1} />}
       <section className='gap-9xl flex w-[26.25rem] flex-col items-stretch *:first:self-center'>
         <Title hierarchy='strong'>
-          {isReVerification ? APPLY_TITLE.resetPin : APPLY_TITLE.verifyEmail}
+          {isResetPin ? APPLY_TITLE.resetPin : APPLY_TITLE.verifyEmail}
         </Title>
         <div className='gap-7xl flex flex-col'>
           <div className='gap-xs flex flex-col'>
@@ -382,11 +382,9 @@ function ApplyVerifyEmail() {
 
             {step >= 3 && (
               <form
-                id={isReVerification ? 'resetPinForm' : 'registerForm'}
+                id={isResetPin ? 'resetPinForm' : 'registerForm'}
                 className='gap-7xl flex flex-col'
-                onSubmit={
-                  isReVerification ? handleResetPinFormSubmit : handleRegisterMemberFormSubmit
-                }
+                onSubmit={isResetPin ? handleResetPinFormSubmit : handleRegisterMemberFormSubmit}
               >
                 <InputField
                   type={isPinHidden ? 'password' : 'text'}
@@ -410,7 +408,7 @@ function ApplyVerifyEmail() {
               </form>
             )}
           </div>
-          {!isReVerification && step >= 2 && (
+          {!isResetPin && step >= 2 && (
             <div className='gap-2xs flex'>
               <div className='gap-2xs flex flex-1'>
                 {isTermsChecked ? (
@@ -435,7 +433,7 @@ function ApplyVerifyEmail() {
             </div>
           )}
           <div className='gap-md flex flex-col'>
-            {step === 2 && !isReVerification && (
+            {step === 2 && !isResetPin && (
               <LabelButton
                 size='xs'
                 hierarchy='tertiary'
@@ -449,18 +447,16 @@ function ApplyVerifyEmail() {
             )}
             <BlockButton
               type='submit'
-              form={isReVerification ? 'resetPinForm' : 'registerForm'}
+              form={isResetPin ? 'resetPinForm' : 'registerForm'}
               disabled={isSubmitButtonDisabled}
               size='lg'
               style='solid'
               hierarchy='accent'
               rightIcon={
-                !isReVerification && (
-                  <Icon name='forward' size='md' fillColor={rightIconFillColor} />
-                )
+                !isResetPin && <Icon name='forward' size='md' fillColor={rightIconFillColor} />
               }
             >
-              {isReVerification ? 'PIN 다시 설정 완료하기' : '다음 단계로 진행하기'}
+              {isResetPin ? 'PIN 다시 설정 완료하기' : '다음 단계로 진행하기'}
             </BlockButton>
           </div>
         </div>
