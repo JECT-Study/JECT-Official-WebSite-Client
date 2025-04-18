@@ -243,8 +243,9 @@ function ApplyVerifyEmail({
           if (response.status === 'SUCCESS') {
             addToast('PIN을 다시 설정했어요', 'positive');
             //TODO: 지원 초기 상태로 state들을 초기화 로직(Zustand, 혹은 외부 함수로)
-            setStep(2);
-            setIsAuthCodeExpired(false);
+            setStep(3);
+            setIsAuthCodeExpired(true);
+
             setIsCooldownActive(false);
             setIsReVerification(false);
 
