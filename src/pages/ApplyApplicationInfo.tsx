@@ -53,6 +53,8 @@ function ApplyApplicantInfo() {
     ApplyApplicantInfoFormData
   >(handleSubmit, onSubmit);
 
+  const isSubmitButtonDisabled = !isValid || isUpdatingProfile;
+
   return (
     <div className='gap-9xl flex flex-col items-center pt-(--gap-9xl) pb-(--gap-12xl)'>
       <ProgressIndicator totalStep={3} currentStep={2} />
@@ -92,11 +94,13 @@ function ApplyApplicantInfo() {
               name='forward'
               size='md'
               fillColor={
-                isValid ? 'fill-object-static-inverse-hero-dark' : 'fill-accent-trans-hero-dark'
+                isSubmitButtonDisabled
+                  ? 'fill-accent-trans-hero-dark'
+                  : 'fill-object-static-inverse-hero-dark'
               }
             />
           }
-          disabled={!isValid || isUpdatingProfile}
+          disabled={isSubmitButtonDisabled}
         >
           다음 단계로 진행하기
         </BlockButton>
