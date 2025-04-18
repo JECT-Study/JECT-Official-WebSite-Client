@@ -26,6 +26,7 @@ import {
   ResetPinPayload,
   VerificationEmailCodePayload,
 } from '@/types/apis/apply';
+import { handleError } from '@/utils/errorLogger';
 import { CreateSubmitHandler } from '@/utils/formHelpers';
 
 interface ApplyVerifyEmailProps {
@@ -165,14 +166,14 @@ function ApplyVerifyEmail({
                 startCooldown();
               },
               onError: error => {
-                console.error('이메일 인증 코드 발송 실패:', error);
+                handleError(error, '이메일 인증 코드 발송 실패');
                 //TODO: 이메일 인증 코드 추가 예외처리 필요
               },
             },
           );
         },
         onError: error => {
-          console.error('이메일 존재 여부 확인 실패:', error);
+          handleError(error, '이메일 존재 여부 확인 실패');
         },
       },
     );
@@ -208,7 +209,7 @@ function ApplyVerifyEmail({
           setStep(3);
         },
         onError: error => {
-          console.error('인증번호 확인 요청 실패:', error);
+          handleError(error, '인증번호 확인 요청 실패');
           setVerificationError('authCode', {
             type: 'manual',
             message: '인증 과정에서 오류가 발생했습니다. 다시 시도해주세요.',
@@ -228,7 +229,7 @@ function ApplyVerifyEmail({
           }
         },
         onError: error => {
-          console.error('회원 등록 실패:', error);
+          handleError(error, '회원 등록 실패');
         },
       },
     );
@@ -259,7 +260,7 @@ function ApplyVerifyEmail({
           }
         },
         onError: error => {
-          console.error('PIN 재설정 실패:', error);
+          handleError(error, 'PIN 재설정 실패');
         },
       },
     );

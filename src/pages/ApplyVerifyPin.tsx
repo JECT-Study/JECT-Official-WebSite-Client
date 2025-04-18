@@ -18,6 +18,7 @@ import { usePinLoginMutation } from '@/hooks/usePinLoginMutation';
 import { useDialogActions } from '@/stores/dialogStore';
 import { PinLoginPayload } from '@/types/apis/apply';
 import { getDraftLocal } from '@/utils/draftUtils';
+import { handleError } from '@/utils/errorLogger';
 import { CreateSubmitHandler } from '@/utils/formHelpers';
 
 interface ApplyVerifyPinProps {
@@ -48,12 +49,9 @@ function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
 
   const onPinSubmit = ({ pin }: PinLoginPayload) => {
     const payload = { email, pin };
-    console.log('PIN 유효성 검사 통과, 로그인 API 요청 payload:', payload);
 
     pinLoginMutate(payload, {
       onSuccess: response => {
-        console.log('PIN 로그인 성공:', response);
-
         if (response.status !== 'SUCCESS') {
           let errorMessage = '오류가 발생했습니다. 다시 시도해주세요.';
 
@@ -93,11 +91,11 @@ function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
             }
           })
           .catch(error => {
-            console.log('임시저장 refetch catch문: ', error);
+            handleError(error, '임시저장 refetch catch문');
           });
       },
       onError: error => {
-        console.error('PIN 로그인 실패:', error);
+        handleError(error, 'PIN 로그인 실패');
         setPinError('pin', {
           type: 'manual',
           message: '로그인 과정에서 오류가 발생했습니다. 다시 시도해주세요.',

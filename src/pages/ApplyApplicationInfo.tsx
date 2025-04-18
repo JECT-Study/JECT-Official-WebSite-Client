@@ -11,6 +11,7 @@ import { useApplyApplicantInfoForm } from '@/hooks/useApplyApplicantInfoForm';
 import { useMemberProfileInitialMutation } from '@/hooks/useMemberProfileInitialMutation';
 import { ApplyApplicantInfoFormData } from '@/schema/applySchema';
 import { MemberProfileInitialPayload } from '@/types/apis/apply';
+import { handleError } from '@/utils/errorLogger';
 import { CreateSubmitHandler } from '@/utils/formHelpers';
 
 function ApplyApplicantInfo() {
@@ -30,8 +31,6 @@ function ApplyApplicantInfo() {
   const phoneNumber = watch('phoneNumber');
 
   const onSubmit = (data: ApplyApplicantInfoFormData) => {
-    console.log('지원자 정보 유효성 검사 통과, 데이터:', data);
-
     const profileData: MemberProfileInitialPayload = {
       name: data.name,
       phoneNumber: data.phoneNumber,
@@ -39,14 +38,12 @@ function ApplyApplicantInfo() {
 
     updateProfileMutate(profileData, {
       onSuccess: response => {
-        console.log('프로필 업데이트 성공:', response);
-
         if (response.status === 'SUCCESS') {
           void navigate(PATH.applyRegistration);
         }
       },
       onError: error => {
-        console.error('프로필 업데이트 실패:', error);
+        handleError(error, '프로필 업데이트 실패');
       },
     });
   };
