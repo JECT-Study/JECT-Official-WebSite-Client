@@ -15,9 +15,7 @@ const removeDraftLocal = () => {
 const hasDraftLocal = () => {
   const data = window.localStorage.getItem('draft');
 
-  if (!data) return false;
-
-  return true;
+  return !data ? false : true;
 };
 
 const getDraftLocal = () => {
