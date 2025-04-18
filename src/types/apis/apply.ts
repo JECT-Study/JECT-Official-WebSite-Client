@@ -38,7 +38,7 @@ export interface MemberProfileInitialPayload {
 
 export type MemberProfileInitialResponse = null;
 
-export type MemberProfileInitialStatusResponse = null;
+export type MemberProfileInitialStatusResponse = boolean;
 
 export interface RegisterMemberPayload {
   pin: string;
