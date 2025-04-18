@@ -38,6 +38,8 @@ export interface MemberProfileInitialPayload {
 
 export type MemberProfileInitialResponse = null;
 
+export type MemberProfileInitialStatusResponse = null;
+
 export interface RegisterMemberPayload {
   pin: string;
 }
