@@ -1,6 +1,6 @@
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 
 import ApplySnackBar from '@/components/apply/ApplySnackBar';
 import CalloutNumerical from '@/components/common/callout/CalloutNumerical';
@@ -12,6 +12,7 @@ import AnimatedSection from '@/components/main/animatedSection/AnimatedSection';
 import RoleHero from '@/components/main/role/RoleHero';
 import { APPLY_SNACKBAR } from '@/constants/applyMessages';
 import { corePrincipleData, positionData, timelineData } from '@/constants/mainPageData';
+import { useScrollTracking, useTabTracking } from '@/lib/amplitude';
 
 const sectionClassName =
   'flex h-[100dvh] py-(--gap-7xl) px-(--gap-4xl) flex-col justify-center items-center gap-7xl w-full';
@@ -20,6 +21,19 @@ const wrapperClassName = 'gap-7xl flex w-full max-w-[45rem] flex-col items-cente
 
 const Main = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const { trackTabClick } = useTabTracking('support');
+  useScrollTracking('main');
+
+  const handleTabChange = useCallback(
+    (tabId: number) => {
+      const position = positionData.find(position => position.id === tabId);
+      if (position) {
+        trackTabClick(position.title);
+      }
+    },
+    [trackTabClick],
+  );
 
   useEffect(() => {
     let isScrolling = false;
@@ -151,7 +165,7 @@ const Main = () => {
         <div className={wrapperClassName}>
           <Title hierarchy='stronger'>참여하는 포지션</Title>
           <div className='flex w-full flex-col items-start'>
-            <Tab>
+            <Tab onTabChange={handleTabChange}>
               <div className='gap-4xl flex w-[45rem] flex-col'>
                 <TabHeader>
                   {positionData.map(({ id, title }) => (

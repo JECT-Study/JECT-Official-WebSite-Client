@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { PATH } from '@/constants/path';
+import { useGnbTracking } from '@/lib/amplitude';
 import { useDialogActions } from '@/stores/dialogStore';
 import { PathValues } from '@/types/ui/path';
 
@@ -14,6 +15,7 @@ function NavigationItem({ children, pathName, disabled = false }: NavigationItem
   const navigate = useNavigate();
   const { pathname: currentPathname } = useLocation();
   const { openDialog } = useDialogActions();
+  const { trackMenuClick } = useGnbTracking();
 
   const className = disabled
     ? 'text-object-disabled-dark radius-2xs label-bold-lg px-(--gap-xs) py-(--gap-4xs) pointer-events-none'
@@ -23,6 +25,8 @@ function NavigationItem({ children, pathName, disabled = false }: NavigationItem
       ' radius-2xs label-bold-lg cursor-pointer px-(--gap-xs) py-(--gap-4xs)';
 
   const handleClick = () => {
+    trackMenuClick(children);
+
     if (currentPathname === PATH.applyRegistration) {
       return openDialog({
         type: 'dirtyCheck',
