@@ -13,14 +13,5 @@ export const usePinLoginMutation = (): UseMutationResult<
   return useMutation({
     mutationKey: ['postPinLogin'],
     mutationFn: postPinLogin,
-    onMutate: variables => {
-      console.log('usePinLoginMutation 시작, variables:', variables);
-    },
-    onSuccess: data => {
-      console.log('usePinLoginMutation 성공:', data);
-    },
-    onError: error => {
-      console.error('usePinLoginMutation 에러:', error);
-    },
   });
 };

@@ -5,6 +5,7 @@ import {
   EmailExistsResponse,
   MemberProfileInitialPayload,
   MemberProfileInitialResponse,
+  MemberProfileInitialStatusResponse,
   PinLoginPayload,
   PinLoginResponse,
   RegisterMemberPayload,
@@ -57,6 +58,13 @@ export const putMemberProfileInitial = async (data: MemberProfileInitialPayload)
     'put',
     API_ENDPOINT.memberProfileInitial,
     data,
+  );
+};
+
+export const getMemberProfileInitialStatus = async () => {
+  return await requestHandler<MemberProfileInitialStatusResponse>(
+    'get',
+    API_ENDPOINT.memberProfileInitialStatus,
   );
 };
 

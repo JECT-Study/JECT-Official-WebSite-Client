@@ -26,6 +26,7 @@ import {
   ResetPinPayload,
   VerificationEmailCodePayload,
 } from '@/types/apis/apply';
+import { handleError } from '@/utils/errorLogger';
 import { CreateSubmitHandler } from '@/utils/formHelpers';
 
 interface ApplyVerifyEmailProps {
@@ -165,14 +166,14 @@ function ApplyVerifyEmail({
                 startCooldown();
               },
               onError: error => {
-                console.error('이메일 인증 코드 발송 실패:', error);
+                handleError(error, '이메일 인증 코드 발송 실패');
                 //TODO: 이메일 인증 코드 추가 예외처리 필요
               },
             },
           );
         },
         onError: error => {
-          console.error('이메일 존재 여부 확인 실패:', error);
+          handleError(error, '이메일 존재 여부 확인 실패');
         },
       },
     );
@@ -208,7 +209,7 @@ function ApplyVerifyEmail({
           setStep(3);
         },
         onError: error => {
-          console.error('인증번호 확인 요청 실패:', error);
+          handleError(error, '인증번호 확인 요청 실패');
           setVerificationError('authCode', {
             type: 'manual',
             message: '인증 과정에서 오류가 발생했습니다. 다시 시도해주세요.',
@@ -228,7 +229,7 @@ function ApplyVerifyEmail({
           }
         },
         onError: error => {
-          console.error('회원 등록 실패:', error);
+          handleError(error, '회원 등록 실패');
         },
       },
     );
@@ -243,8 +244,8 @@ function ApplyVerifyEmail({
             addToast('PIN을 다시 설정했어요', 'positive');
             //TODO: 지원 초기 상태로 state들을 초기화 로직(Zustand, 혹은 외부 함수로)
             setStep(1);
-            setStoredEmail('');
             setIsAuthCodeExpired(false);
+
             setIsCooldownActive(false);
             setIsReVerification(false);
 
@@ -259,7 +260,7 @@ function ApplyVerifyEmail({
           }
         },
         onError: error => {
-          console.error('PIN 재설정 실패:', error);
+          handleError(error, 'PIN 재설정 실패');
         },
       },
     );
@@ -320,7 +321,7 @@ function ApplyVerifyEmail({
 
   const isSubmitButtonDisabled =
     !isPinValid ||
-    (isResetPin ? isResettingPin : isRegisteringMember) ||
+    (isReVerification ? isResettingPin : isRegisteringMember) ||
     (!isReVerification && !isTermsChecked);
 
   const rightIconFillColor = isSubmitButtonDisabled
@@ -329,7 +330,7 @@ function ApplyVerifyEmail({
 
   return (
     <div
-      className={`gap-9xl flex flex-col items-center ${isResetPin ? 'pt-(--gap-12xl)' : 'pt-(--gap-9xl)'} pb-(--gap-12xl)`}
+      className={`gap-9xl flex flex-col items-center ${isReVerification ? 'pt-(--gap-12xl)' : 'pt-(--gap-9xl)'} pb-(--gap-12xl)`}
     >
       {!isReVerification && <ProgressIndicator totalStep={3} currentStep={1} />}
       <section className='gap-9xl flex w-[26.25rem] flex-col items-stretch *:first:self-center'>
@@ -386,9 +387,11 @@ function ApplyVerifyEmail({
 
             {step >= 3 && (
               <form
-                id={isResetPin ? 'resetPinForm' : 'registerForm'}
+                id={isReVerification ? 'resetPinForm' : 'registerForm'}
                 className='gap-7xl flex flex-col'
-                onSubmit={isResetPin ? handleResetPinFormSubmit : handleRegisterMemberFormSubmit}
+                onSubmit={
+                  isReVerification ? handleResetPinFormSubmit : handleRegisterMemberFormSubmit
+                }
               >
                 <InputField
                   type={isPinHidden ? 'password' : 'text'}
@@ -437,7 +440,7 @@ function ApplyVerifyEmail({
             </div>
           )}
           <div className='gap-md flex flex-col'>
-            {step === 2 && !isResetPin && (
+            {step === 2 && !isReVerification && (
               <LabelButton
                 size='xs'
                 hierarchy='tertiary'
@@ -451,16 +454,18 @@ function ApplyVerifyEmail({
             )}
             <BlockButton
               type='submit'
-              form={isResetPin ? 'resetPinForm' : 'registerForm'}
+              form={isReVerification ? 'resetPinForm' : 'registerForm'}
               disabled={isSubmitButtonDisabled}
               size='lg'
               style='solid'
               hierarchy='accent'
               rightIcon={
-                !isResetPin && <Icon name='forward' size='md' fillColor={rightIconFillColor} />
+                !isReVerification && (
+                  <Icon name='forward' size='md' fillColor={rightIconFillColor} />
+                )
               }
             >
-              {isResetPin ? 'PIN 다시 설정 완료하기' : '다음 단계로 진행하기'}
+              {isReVerification ? 'PIN 다시 설정 완료하기' : '다음 단계로 진행하기'}
             </BlockButton>
           </div>
         </div>

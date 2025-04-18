@@ -6,7 +6,6 @@ import ApplyVerifyEmail from './ApplyVerifyEmail';
 import BlockButton from '@/components/common/button/BlockButton';
 import Icon from '@/components/common/icon/Icon';
 import InputField from '@/components/common/input/InputField';
-import Label from '@/components/common/label/Label';
 import ProgressIndicator from '@/components/common/progress/ProgressIndicator';
 import Title from '@/components/common/title/Title';
 import { APPLY_TITLE } from '@/constants/applyPageData';
@@ -19,6 +18,7 @@ import { usePinLoginMutation } from '@/hooks/usePinLoginMutation';
 import { useDialogActions } from '@/stores/dialogStore';
 import { PinLoginPayload } from '@/types/apis/apply';
 import { hasDraftLocal } from '@/utils/draftUtils';
+import { handleError } from '@/utils/errorLogger';
 import { CreateSubmitHandler } from '@/utils/formHelpers';
 
 interface ApplyVerifyPinProps {
@@ -27,7 +27,7 @@ interface ApplyVerifyPinProps {
 
 function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
   const navigate = useNavigate();
-  const [isResetPin, setIsResetPin] = useState(false);
+  const [isResetPin] = useState(false);
   const [isPinHidden, setIsPinHidden] = useState(true);
 
   const {
@@ -50,12 +50,9 @@ function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
 
   const onPinSubmit = ({ pin }: PinLoginPayload) => {
     const payload = { email, pin };
-    console.log('PIN 유효성 검사 통과, 로그인 API 요청 payload:', payload);
 
     pinLoginMutate(payload, {
       onSuccess: response => {
-        console.log('PIN 로그인 성공:', response);
-
         if (response.status !== 'SUCCESS') {
           let errorMessage = '오류가 발생했습니다. 다시 시도해주세요.';
 
@@ -107,10 +104,13 @@ function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
                 },
               });
             }
+          })
+          .catch(error => {
+            handleError(error, '임시저장 refetch catch문');
           });
       },
       onError: error => {
-        console.error('PIN 로그인 실패:', error);
+        handleError(error, 'PIN 로그인 실패');
         setPinError('pin', {
           type: 'manual',
           message: '로그인 과정에서 오류가 발생했습니다. 다시 시도해주세요.',
@@ -177,14 +177,14 @@ function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
             />
           </form>
           <div className='gap-3xs flex self-center *:last:cursor-pointer'>
-            <Label hierarchy='weak' weight='normal' textColor='text-object-alternative-dark'>
-              혹시 PIN을 잊어버리셨나요?
-            </Label>
-            <button className='*:underline' onClick={() => setIsResetPin(true)}>
-              <Label hierarchy='weak' weight='normal' textColor='text-feedback-information-dark'>
-                PIN 다시 설정하기
-              </Label>
-            </button>
+            {/*<Label hierarchy='weak' weight='normal' textColor='text-object-alternative-dark'>*/}
+            {/*  혹시 PIN을 잊어버리셨나요?*/}
+            {/*</Label>*/}
+            {/*<button disabled className='*:underline' onClick={() => setIsResetPin(true)}>*/}
+            {/*  <Label hierarchy='weak' weight='normal' textColor='text-feedback-information-dark'>*/}
+            {/*    PIN 다시 설정하기*/}
+            {/*  </Label>*/}
+            {/*</button>*/}
           </div>
           <BlockButton
             type='submit'
