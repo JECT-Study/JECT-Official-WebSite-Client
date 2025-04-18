@@ -162,9 +162,9 @@ function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
             />
           </form>
           <div className='gap-3xs flex self-center *:last:cursor-pointer'>
-            <Label hierarchy='weak' weight='normal' textColor='text-object-alternative-dark'>
-              혹시 PIN을 잊어버리셨나요?
-            </Label>
+            {/*<Label hierarchy='weak' weight='normal' textColor='text-object-alternative-dark'>*/}
+            {/*  혹시 PIN을 잊어버리셨나요?*/}
+            {/*</Label>*/}
             {/*<button disabled className='*:underline' onClick={() => setIsResetPin(true)}>*/}
             {/*  <Label hierarchy='weak' weight='normal' textColor='text-feedback-information-dark'>*/}
             {/*    PIN 다시 설정하기*/}
