@@ -1,3 +1,4 @@
+import { captureException } from '@sentry/react';
 import { useMutation, UseMutationResult } from '@tanstack/react-query';
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import { useState } from 'react';
@@ -36,10 +37,28 @@ const useUploadFileToS3Mutation = () => {
       if (axios.isAxiosError(error) && error.code === 'ERR_NETWORK') {
         addToast(APPLY_MESSAGE.fail.uploadFile, 'negative');
         setIsNetworkError(true);
+
+        captureException(error, {
+          tags: { feature: 'upload-file', type: 'network' },
+          extra: {
+            message: 'S3 파일 업로드 네트워크 오류',
+            url: error.config?.url,
+            method: error.config?.method,
+          },
+        });
+
         return;
       }
 
       openDialog({ type: 'failedUploadFile' });
+
+      captureException(error, {
+        tags: { feature: 'upload-file', type: 'unexpected' },
+        extra: {
+          message: 'S3 파일 업로드 실패 (기타)',
+          url: axios.isAxiosError(error) ? error.config?.url : undefined,
+        },
+      });
     },
   });
 

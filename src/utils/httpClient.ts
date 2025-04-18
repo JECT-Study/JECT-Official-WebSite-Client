@@ -44,7 +44,7 @@ export const requestHandler = async <TResponse, TPayload = undefined>(
 
     if (status !== 'SUCCESS' && status !== 'TEMP_APPLICATION_NOT_FOUND') {
       const message = (response.data.data as string) || `Internal API 에러 발생, status: ${status}`;
-      return Promise.reject(new InternalAPIError(message, status));
+      return Promise.reject(new InternalAPIError(message, status, url));
     }
 
     return response.data;
@@ -55,15 +55,15 @@ export const requestHandler = async <TResponse, TPayload = undefined>(
 
     if (error instanceof AxiosError) {
       if (!error.response) {
-        throw new NetworkError(error.message, error.code);
+        throw new NetworkError(error.message, error.code, error.config?.url);
       }
 
       const { status } = error.response;
 
       if (status >= 500) {
-        throw new ExternalAPIError(error.message, status);
+        throw new ExternalAPIError(error.message, status, url);
       } else if (status >= 400) {
-        throw new ExternalAPIError(error.message, status);
+        throw new ExternalAPIError(error.message, status, url);
       }
     }
 
