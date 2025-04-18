@@ -11,6 +11,7 @@ interface ApplyVerifyActions {
   setExistingUserDetected: () => void;
   resetVerification: () => void;
   setIsResetPin: (value: boolean) => void;
+  resetPinMode: () => void;
 }
 
 type ApplyVerifyStore = ApplyVerifyState & ApplyVerifyActions;
@@ -31,4 +32,10 @@ export const useApplyVerifyStore = create<ApplyVerifyStore>(set => ({
     }),
 
   setIsResetPin: (value: boolean) => set({ isResetPin: value }),
+
+  resetPinMode: () =>
+    set({
+      isResetPin: false,
+      userEmail: '',
+    }),
 }));
