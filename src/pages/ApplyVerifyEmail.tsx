@@ -321,7 +321,7 @@ function ApplyVerifyEmail({
 
   const isSubmitButtonDisabled =
     !isPinValid ||
-    (isResetPin ? isResettingPin : isRegisteringMember) ||
+    (isReVerification ? isResettingPin : isRegisteringMember) ||
     (!isReVerification && !isTermsChecked);
 
   const rightIconFillColor = isSubmitButtonDisabled
@@ -330,7 +330,7 @@ function ApplyVerifyEmail({
 
   return (
     <div
-      className={`gap-9xl flex flex-col items-center ${isResetPin ? 'pt-(--gap-12xl)' : 'pt-(--gap-9xl)'} pb-(--gap-12xl)`}
+      className={`gap-9xl flex flex-col items-center ${isReVerification ? 'pt-(--gap-12xl)' : 'pt-(--gap-9xl)'} pb-(--gap-12xl)`}
     >
       {!isReVerification && <ProgressIndicator totalStep={3} currentStep={1} />}
       <section className='gap-9xl flex w-[26.25rem] flex-col items-stretch *:first:self-center'>
@@ -387,9 +387,11 @@ function ApplyVerifyEmail({
 
             {step >= 3 && (
               <form
-                id={isResetPin ? 'resetPinForm' : 'registerForm'}
+                id={isReVerification ? 'resetPinForm' : 'registerForm'}
                 className='gap-7xl flex flex-col'
-                onSubmit={isResetPin ? handleResetPinFormSubmit : handleRegisterMemberFormSubmit}
+                onSubmit={
+                  isReVerification ? handleResetPinFormSubmit : handleRegisterMemberFormSubmit
+                }
               >
                 <InputField
                   type={isPinHidden ? 'password' : 'text'}
@@ -438,7 +440,7 @@ function ApplyVerifyEmail({
             </div>
           )}
           <div className='gap-md flex flex-col'>
-            {step === 2 && !isResetPin && (
+            {step === 2 && !isReVerification && (
               <LabelButton
                 size='xs'
                 hierarchy='tertiary'
