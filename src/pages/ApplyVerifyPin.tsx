@@ -6,7 +6,6 @@ import ApplyVerifyEmail from './ApplyVerifyEmail';
 import BlockButton from '@/components/common/button/BlockButton';
 import Icon from '@/components/common/icon/Icon';
 import InputField from '@/components/common/input/InputField';
-import Label from '@/components/common/label/Label';
 import ProgressIndicator from '@/components/common/progress/ProgressIndicator';
 import Title from '@/components/common/title/Title';
 import { APPLY_TITLE } from '@/constants/applyPageData';
@@ -20,7 +19,6 @@ import { useDialogActions } from '@/stores/dialogStore';
 import { PinLoginPayload } from '@/types/apis/apply';
 import { hasDraftLocal } from '@/utils/draftUtils';
 import { handleError } from '@/utils/errorLogger';
-
 import { CreateSubmitHandler } from '@/utils/formHelpers';
 
 interface ApplyVerifyPinProps {
@@ -29,7 +27,7 @@ interface ApplyVerifyPinProps {
 
 function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
   const navigate = useNavigate();
-  const [isResetPin, setIsResetPin] = useState(false);
+  const [isResetPin] = useState(false);
   const [isPinHidden, setIsPinHidden] = useState(true);
 
   const {
