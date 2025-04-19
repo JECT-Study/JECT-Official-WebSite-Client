@@ -11,13 +11,12 @@ const useRedirectMaintenance = (startHours: number, endHours: number, redirectPa
   useEffect(() => {
     const checkAndRedirect = () => {
       const now = new Date();
+      const nextTime = new Date(now);
       const hours = now.getHours();
 
       if (hours >= startHours && hours < endHours) {
         return router.navigate(redirectPath);
       }
-
-      const nextTime = new Date();
 
       if (hours < startHours) {
         nextTime.setHours(startHours, 0, 0, 0);
@@ -28,7 +27,7 @@ const useRedirectMaintenance = (startHours: number, endHours: number, redirectPa
 
       const delay = nextTime.getTime() - now.getTime();
 
-      const timerTime = TIME_THRESHOLD < delay ? delay / 2 : delay;
+      const timerTime = TIME_THRESHOLD < delay ? delay - TIME_THRESHOLD : delay;
 
       if (timeoutRef.current !== null) clearTimeout(timeoutRef.current);
 
