@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 
+import { PATH } from '@/constants/path';
 import router from '@/router';
 import { PathValues } from '@/types/ui/path';
 
@@ -13,9 +14,19 @@ const useRedirectMaintenance = (startHours: number, endHours: number, redirectPa
       const now = new Date();
       const nextTime = new Date(now);
       const hours = now.getHours();
+      const isInMaintenance = hours >= startHours && hours < endHours;
+      const isOnMaintenancePage = location.pathname === redirectPath;
 
-      if (hours >= startHours && hours < endHours) {
-        return router.navigate(redirectPath);
+      if (!isOnMaintenancePage && isInMaintenance) {
+        const currentPath = location.pathname;
+
+        sessionStorage.setItem('recoverPath', currentPath);
+        void router.navigate(redirectPath);
+      } else if (!isInMaintenance && isOnMaintenancePage) {
+        const recoverPath = sessionStorage.getItem('recoverPath') ?? PATH.main;
+
+        sessionStorage.removeItem('recoverPath');
+        void router.navigate(recoverPath);
       }
 
       if (hours < startHours) {
@@ -23,6 +34,8 @@ const useRedirectMaintenance = (startHours: number, endHours: number, redirectPa
       } else if (hours >= endHours) {
         nextTime.setDate(nextTime.getDate() + 1);
         nextTime.setHours(startHours, 0, 0, 0);
+      } else {
+        nextTime.setHours(endHours, 0, 0, 0);
       }
 
       const delay = nextTime.getTime() - now.getTime();
