@@ -94,13 +94,13 @@ function AdminApply() {
         <Title hierarchy='stronger'>지원서 관리</Title>
         <TabView>
           <TabViewItem
-            param={{ key: 'tabView', value: 'complete' }}
+            isActive={searchParams.get('tabView') === 'complete'}
             onClick={() => handleParam('tabView', 'complete')}
           >
             제출 완료
           </TabViewItem>
           <TabViewItem
-            param={{ key: 'tabView', value: 'temp' }}
+            isActive={searchParams.get('tabView') === 'temp'}
             onClick={() => handleParam('tabView', 'temp')}
           >
             임시 저장
@@ -134,32 +134,31 @@ function AdminApply() {
         <div className='gap-2xl flex flex-col'>
           <div className='gap-xs flex'>
             <Chip
-              param={{ key: 'position', value: 'all' }}
+              isActive={searchParams.get('position') === 'all'}
               onClick={() => handleParam('position', 'all')}
             >
               전체
             </Chip>
             <Chip
-              param={{ key: 'position', value: 'fe' }}
+              isActive={searchParams.get('position') === 'fe'}
               onClick={() => handleParam('position', 'fe')}
             >
               프론트엔드 개발자
             </Chip>
             <Chip
-              param={{ key: 'position', value: 'be' }}
+              isActive={searchParams.get('position') === 'be'}
               onClick={() => handleParam('position', 'be')}
             >
               백엔드 개발자
             </Chip>
             <Chip
-              param={{ key: 'position', value: 'pm' }}
+              isActive={searchParams.get('position') === 'pm'}
               onClick={() => handleParam('position', 'pm')}
             >
-              {' '}
               프로덕트 매니저
             </Chip>
             <Chip
-              param={{ key: 'position', value: 'pd' }}
+              isActive={searchParams.get('position') === 'pd'}
               onClick={() => handleParam('position', 'pd')}
             >
               프로덕트 디자이너
