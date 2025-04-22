@@ -169,11 +169,19 @@ function AdminApply() {
               <thead>
                 <tr className='text-object-alternative-dark *:not-first:px-(--gap-3xs) *:not-first:py-(--gap-4xs) *:not-first:text-left'>
                   <th className='w-[2.5rem]'>
-                    <CheckBox
-                      isIndeterminate={isIndeterminate}
-                      checked={isAllChecked}
-                      onChange={() => handleToggleAll(!isAllChecked)}
-                    />
+                    {isIndeterminate ? (
+                      <CheckBox
+                        isIndeterminate={true}
+                        checked={false}
+                        onChange={() => handleToggleAll(!isAllChecked)}
+                      />
+                    ) : (
+                      <CheckBox
+                        isIndeterminate={false}
+                        checked={isAllChecked}
+                        onChange={() => handleToggleAll(!isAllChecked)}
+                      />
+                    )}
                   </th>
                   <th className='body-sm'>이름</th>
                   <th className='body-sm'>포지션</th>
