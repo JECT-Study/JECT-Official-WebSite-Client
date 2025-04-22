@@ -20,6 +20,16 @@ export interface Data {
   file: string;
 }
 
+const positions = [
+  { key: 'all', label: '전체' },
+  { key: 'fe', label: '프론트엔드 개발자' },
+  { key: 'be', label: '백엔드 개발자' },
+  { key: 'pm', label: '프로덕트 매니저' },
+  { key: 'pd', label: '프로덕트 디자이너' },
+];
+
+const headers = ['이름', '포지션', '휴대폰 번호', '이메일', '첨부파일'];
+
 function AdminApply() {
   const [selectItems, setSelectItems] = useState<number[]>([]);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -79,7 +89,10 @@ function AdminApply() {
   };
 
   useEffect(() => {
-    if (!searchParams.get('tabView') && !searchParams.get('position')) {
+    const tabView = searchParams.get('tabView');
+    const position = searchParams.get('position');
+
+    if (!tabView || !position) {
       const newSearchParams = new URLSearchParams();
       newSearchParams.set('tabView', 'complete');
       newSearchParams.set('position', 'all');
@@ -133,36 +146,15 @@ function AdminApply() {
         </div>
         <div className='gap-2xl flex flex-col'>
           <div className='gap-xs flex'>
-            <Chip
-              isActive={searchParams.get('position') === 'all'}
-              onClick={() => handleParam('position', 'all')}
-            >
-              전체
-            </Chip>
-            <Chip
-              isActive={searchParams.get('position') === 'fe'}
-              onClick={() => handleParam('position', 'fe')}
-            >
-              프론트엔드 개발자
-            </Chip>
-            <Chip
-              isActive={searchParams.get('position') === 'be'}
-              onClick={() => handleParam('position', 'be')}
-            >
-              백엔드 개발자
-            </Chip>
-            <Chip
-              isActive={searchParams.get('position') === 'pm'}
-              onClick={() => handleParam('position', 'pm')}
-            >
-              프로덕트 매니저
-            </Chip>
-            <Chip
-              isActive={searchParams.get('position') === 'pd'}
-              onClick={() => handleParam('position', 'pd')}
-            >
-              프로덕트 디자이너
-            </Chip>
+            {positions.map(({ key, label }) => (
+              <Chip
+                key={key}
+                isActive={searchParams.get('position') === key}
+                onClick={() => handleParam('position', key)}
+              >
+                {label}
+              </Chip>
+            ))}
           </div>
           <div>
             <table className='w-full table-auto'>
@@ -183,11 +175,11 @@ function AdminApply() {
                       />
                     )}
                   </th>
-                  <th className='body-sm'>이름</th>
-                  <th className='body-sm'>포지션</th>
-                  <th className='body-sm'>휴대폰 번호</th>
-                  <th className='body-sm'>이메일</th>
-                  <th className='body-sm'>첨부파일 </th>
+                  {headers.map(header => (
+                    <th key={header} className='body-sm'>
+                      {header}
+                    </th>
+                  ))}
                 </tr>
               </thead>
               <tbody className='body-sm text-object-hero-dark'>
