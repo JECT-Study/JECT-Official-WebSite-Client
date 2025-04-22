@@ -14,10 +14,9 @@ const meta: Meta<typeof Chip> = {
     ),
   ],
   argTypes: {
-    param: {
-      control: 'object',
-      description:
-        'Chip을 통해 쿼리 파라미터를 제어해야할 경우 쿼리의 key, value 값을 전달합니다. 실제 url에 전달된 쿼리파라미터가 존재할 경우 Chip의 색상이 변경됩니다.',
+    isActive: {
+      control: 'boolean',
+      description: 'Chip이 선택된 상태인지를 나타내는 prop입니다.',
     },
     children: {
       control: 'text',
@@ -32,10 +31,7 @@ type Story = StoryObj<typeof Chip>;
 
 export const ChipStory: Story = {
   args: {
-    param: {
-      key: 'test',
-      value: 'active',
-    },
+    isActive: false,
     children: '레이블',
   },
 };
@@ -54,10 +50,10 @@ export const ChipQueryParamStory: Story = {
 
     return (
       <div className='gap-xs flex'>
-        <Chip param={{ key: 'test', value: '1' }} onClick={() => handleParam('test', '1')}>
+        <Chip isActive={searchParams.get('test') === '1'} onClick={() => handleParam('test', '1')}>
           레이블
         </Chip>
-        <Chip param={{ key: 'test', value: '2' }} onClick={() => handleParam('test', '2')}>
+        <Chip isActive={searchParams.get('test') === '2'} onClick={() => handleParam('test', '2')}>
           레이블
         </Chip>
       </div>

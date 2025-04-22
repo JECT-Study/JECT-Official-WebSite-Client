@@ -26,10 +26,9 @@ const meta: Meta<typeof TabViewItem> = {
       control: 'text',
       description: '버튼의 레이블입니다.',
     },
-    param: {
-      control: 'object',
-      description:
-        'TabViewItem을 통해 쿼리 파라미터를 제어해야할 경우 쿼리의 key, value 값을 전달합니다. 실제 url에 전달된 쿼리파라미터가 존재할 경우 TabViewItem의 색상이 변경됩니다.',
+    isActive: {
+      control: 'boolean',
+      description: 'TabViewItem이 선택된 상태인지를 나타내는 prop입니다.',
     },
   },
 };
@@ -41,10 +40,7 @@ type Story = StoryObj<typeof TabViewItem>;
 export const TabViewItemStory: Story = {
   args: {
     children: '레이블',
-    param: {
-      key: 'test',
-      value: '1',
-    },
+    isActive: false,
   },
 };
 
@@ -63,13 +59,13 @@ export const TabViewToggleStory: Story = {
     return (
       <TabView>
         <TabViewItem
-          param={{ key: 'tabView', value: '1' }}
+          isActive={searchParams.get('tabView') === '1'}
           onClick={() => handleParam('tabView', '1')}
         >
           레이블1
         </TabViewItem>
         <TabViewItem
-          param={{ key: 'tabView', value: '2' }}
+          isActive={searchParams.get('tabView') === '2'}
           onClick={() => handleParam('tabView', '2')}
         >
           레이블2
