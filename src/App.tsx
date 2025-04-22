@@ -1,14 +1,37 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import './instrument';
+
+import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { useState } from 'react';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { isMobile } from 'react-device-detect';
+import { RouterProvider } from 'react-router-dom';
 
-import routerList from './router';
-
-const router = createBrowserRouter(routerList);
+import { PATH } from './constants/path';
+import { useGlobalErrorHandler } from './hooks/useGlobalErrorHandler';
+import useRedirectMaintenance from './hooks/useRedirectMaintenance';
+import TempMobile from './pages/TempMobile';
+import router from './router';
 
 function App() {
-  const [queryClient] = useState(() => new QueryClient());
+  const handleGlobalError = useGlobalErrorHandler();
+
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        queryCache: new QueryCache({
+          onError: handleGlobalError,
+        }),
+        mutationCache: new MutationCache({
+          onError: handleGlobalError,
+        }),
+      }),
+  );
+
+  useRedirectMaintenance(5, 7, PATH.maintenance);
+
+  if (isMobile) {
+    return <TempMobile />;
+  }
 
   return (
     <QueryClientProvider client={queryClient}>

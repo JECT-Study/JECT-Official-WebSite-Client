@@ -9,6 +9,7 @@ export const APPLY_MESSAGE = {
     fileType: '첨부 가능한 파일 형식을 다시 확인해주세요.',
     unknownFile: '정상적인 PDF 파일인지 다시 확인해주세요',
     exceedText: '최대 글자수를 초과했어요.',
+    sameFile: '동일한 이름의 파일이 있어요. 파일을 다시 확인해주세요.',
   },
   success: {
     sendVerificationEmail: '인증 메일이 발송되었습니다.',

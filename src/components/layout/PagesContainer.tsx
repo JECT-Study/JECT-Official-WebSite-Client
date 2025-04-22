@@ -5,7 +5,7 @@ interface PagesContainerProps {
 }
 
 function PagesContainer({ children }: PagesContainerProps) {
-  return <main className='bg-surface-standard-dark min-h-[calc(100dvh-8.555rem)]'>{children}</main>;
+  return <main className='bg-surface-standard-dark min-h-dvh pt-[3.75rem]'>{children}</main>;
 }
 
 export default PagesContainer;

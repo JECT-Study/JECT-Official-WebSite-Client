@@ -6,14 +6,20 @@ import ApplyVerifyEmail from './ApplyVerifyEmail';
 import BlockButton from '@/components/common/button/BlockButton';
 import Icon from '@/components/common/icon/Icon';
 import InputField from '@/components/common/input/InputField';
-import Label from '@/components/common/label/Label';
 import ProgressIndicator from '@/components/common/progress/ProgressIndicator';
 import Title from '@/components/common/title/Title';
 import { APPLY_TITLE } from '@/constants/applyPageData';
 import { PATH } from '@/constants/path';
 import { useApplyPinForm } from '@/hooks/useApplyPinForm';
+import useCheckApplicationStatus from '@/hooks/useCheckApplicationStatus';
+import useDeleteDraftMutation from '@/hooks/useDeleteDraftMutation';
+import useDraftQuery from '@/hooks/useDraftQuery';
+import { useMemberProfileInitialStatusQuery } from '@/hooks/useMemberProfileInitialStatusQuery';
 import { usePinLoginMutation } from '@/hooks/usePinLoginMutation';
+import { useDialogActions } from '@/stores/dialogStore';
 import { PinLoginPayload } from '@/types/apis/apply';
+import { hasDraftLocal } from '@/utils/draftUtils';
+import { handleError } from '@/utils/errorLogger';
 import { CreateSubmitHandler } from '@/utils/formHelpers';
 
 interface ApplyVerifyPinProps {
@@ -22,7 +28,7 @@ interface ApplyVerifyPinProps {
 
 function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
   const navigate = useNavigate();
-  const [isResetPin, setIsResetPin] = useState(false);
+  const [isResetPin] = useState(false);
   const [isPinHidden, setIsPinHidden] = useState(true);
 
   const {
@@ -33,15 +39,22 @@ function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
   } = useApplyPinForm();
 
   const { mutate: pinLoginMutate, isPending: isPinLoginLoading } = usePinLoginMutation();
+  const { mutate: deleteDraftMutate } = useDeleteDraftMutation();
+  const { refetch: refetchDraftServer } = useDraftQuery(false);
+  const { refetch: refetchCheckApplicationStatus } = useCheckApplicationStatus(false);
+  const { refetch: refetchCheckProfileStatus } = useMemberProfileInitialStatusQuery();
+  const { openDialog } = useDialogActions();
+
+  const rightIconFillColor =
+    !isPinValid || isPinLoginLoading
+      ? 'fill-accent-trans-hero-dark'
+      : 'fill-object-static-inverse-hero-dark';
 
   const onPinSubmit = ({ pin }: PinLoginPayload) => {
     const payload = { email, pin };
-    console.log('PIN 유효성 검사 통과, 로그인 API 요청 payload:', payload);
 
     pinLoginMutate(payload, {
       onSuccess: response => {
-        console.log('PIN 로그인 성공:', response);
-
         if (response.status !== 'SUCCESS') {
           let errorMessage = '오류가 발생했습니다. 다시 시도해주세요.';
 
@@ -58,10 +71,62 @@ function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
           return;
         }
 
-        void navigate(PATH.applicantInfo);
+        void refetchCheckProfileStatus()
+          .then(({ data }) => {
+            if (data?.status !== 'SUCCESS') return;
+
+            if (data.data) {
+              return refetchCheckApplicationStatus();
+            }
+
+            void navigate(PATH.applicantInfo);
+            return;
+          })
+          .then(result => {
+            if (!result) return;
+
+            const { data } = result;
+
+            if (data?.status !== 'SUCCESS') return;
+
+            if (data.data) {
+              void navigate(PATH.applyComplete);
+              return;
+            }
+
+            return refetchDraftServer();
+          })
+          .then(result => {
+            if (!result) return;
+
+            const { data } = result;
+
+            if (!hasDraftLocal() && data?.status === 'TEMP_APPLICATION_NOT_FOUND') {
+              return void navigate(PATH.applyRegistration);
+            }
+
+            if (hasDraftLocal() || data?.status === 'SUCCESS') {
+              openDialog({
+                type: 'continueWriting',
+                onPrimaryBtnClick: () => {
+                  void navigate(PATH.applyRegistration, { state: { continue: true } });
+                },
+                onSecondaryBtnClick: () => {
+                  deleteDraftMutate(null, {
+                    onSuccess: () => {
+                      void navigate(PATH.applyRegistration, { state: { continue: false } });
+                    },
+                  });
+                },
+              });
+            }
+          })
+          .catch(error => {
+            handleError(error, '프로필 여부, 제출 여부, 임시저장 여부 refetch catch문');
+          });
       },
       onError: error => {
-        console.error('PIN 로그인 실패:', error);
+        handleError(error, 'PIN 로그인 실패');
         setPinError('pin', {
           type: 'manual',
           message: '로그인 과정에서 오류가 발생했습니다. 다시 시도해주세요.',
@@ -117,21 +182,25 @@ function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
               placeholder='설정하셨던 6자리 비밀번호를 입력해주세요'
               InputChildren={
                 <span onClick={togglePinVisibility} className='cursor-pointer'>
-                  <Icon name='visible' size='md' fillColor='fill-object-neutral-dark' />
+                  <Icon
+                    name={isPinHidden ? 'visible' : 'invisible'}
+                    size='md'
+                    fillColor='fill-object-neutral-dark'
+                  />
                 </span>
               }
               {...registerPin('pin')}
             />
           </form>
           <div className='gap-3xs flex self-center *:last:cursor-pointer'>
-            <Label hierarchy='weak' weight='normal' textColor='text-object-alternative-dark'>
-              혹시 PIN을 잊어버리셨나요?
-            </Label>
-            <button className='*:underline' onClick={() => setIsResetPin(true)}>
-              <Label hierarchy='weak' weight='normal' textColor='text-feedback-information-dark'>
-                PIN 다시 설정하기
-              </Label>
-            </button>
+            {/*<Label hierarchy='weak' weight='normal' textColor='text-object-alternative-dark'>*/}
+            {/*  혹시 PIN을 잊어버리셨나요?*/}
+            {/*</Label>*/}
+            {/*<button disabled className='*:underline' onClick={() => setIsResetPin(true)}>*/}
+            {/*  <Label hierarchy='weak' weight='normal' textColor='text-feedback-information-dark'>*/}
+            {/*    PIN 다시 설정하기*/}
+            {/*  </Label>*/}
+            {/*</button>*/}
           </div>
           <BlockButton
             type='submit'
@@ -140,8 +209,9 @@ function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
             size='lg'
             style='solid'
             hierarchy='accent'
+            rightIcon={<Icon name='forward' size='md' fillColor={rightIconFillColor} />}
           >
-            PIN 다시 설정 완료하기
+            다음 단계로 진행하기
           </BlockButton>
         </div>
       </section>

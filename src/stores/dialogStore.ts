@@ -2,12 +2,14 @@ import { create } from 'zustand';
 
 import { DialogTypes } from '@/types/ui/dialog';
 
+export type OpenDialogOption = {
+  type: DialogTypes;
+  onPrimaryBtnClick?: () => void;
+  onSecondaryBtnClick?: () => void;
+};
+
 interface Actions {
-  openDialog: (option: {
-    type: DialogTypes;
-    onPrimaryBtnClick?: () => void;
-    onSecondaryBtnClick?: () => void;
-  }) => void;
+  openDialog: (option: OpenDialogOption) => void;
   resetDialog: () => void;
 }
 

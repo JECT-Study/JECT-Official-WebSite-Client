@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 import BlockButton from '@/components/common/button/BlockButton';
 import Icon from '@/components/common/icon/Icon';
@@ -8,13 +8,16 @@ import Title from '@/components/common/title/Title';
 import { APPLY_TITLE } from '@/constants/applyPageData';
 import { PATH } from '@/constants/path';
 import { useApplyApplicantInfoForm } from '@/hooks/useApplyApplicantInfoForm';
+import useCheckApplicationStatus from '@/hooks/useCheckApplicationStatus';
 import { useMemberProfileInitialMutation } from '@/hooks/useMemberProfileInitialMutation';
 import { ApplyApplicantInfoFormData } from '@/schema/applySchema';
 import { MemberProfileInitialPayload } from '@/types/apis/apply';
+import { handleError } from '@/utils/errorLogger';
 import { CreateSubmitHandler } from '@/utils/formHelpers';
 
 function ApplyApplicantInfo() {
   const navigate = useNavigate();
+  const { data: applicationStatus } = useCheckApplicationStatus();
 
   const {
     register,
@@ -26,12 +29,14 @@ function ApplyApplicantInfo() {
   const { mutate: updateProfileMutate, isPending: isUpdatingProfile } =
     useMemberProfileInitialMutation();
 
+  if (applicationStatus?.data) {
+    return <Navigate to={PATH.main} replace />;
+  }
+
   const name = watch('name');
   const phoneNumber = watch('phoneNumber');
 
   const onSubmit = (data: ApplyApplicantInfoFormData) => {
-    console.log('지원자 정보 유효성 검사 통과, 데이터:', data);
-
     const profileData: MemberProfileInitialPayload = {
       name: data.name,
       phoneNumber: data.phoneNumber,
@@ -39,14 +44,12 @@ function ApplyApplicantInfo() {
 
     updateProfileMutate(profileData, {
       onSuccess: response => {
-        console.log('프로필 업데이트 성공:', response);
-
         if (response.status === 'SUCCESS') {
           void navigate(PATH.applyRegistration);
         }
       },
       onError: error => {
-        console.error('프로필 업데이트 실패:', error);
+        handleError(error, '프로필 업데이트 실패');
       },
     });
   };
@@ -55,6 +58,8 @@ function ApplyApplicantInfo() {
     ApplyApplicantInfoFormData,
     ApplyApplicantInfoFormData
   >(handleSubmit, onSubmit);
+
+  const isSubmitButtonDisabled = !isValid || isUpdatingProfile;
 
   return (
     <div className='gap-9xl flex flex-col items-center pt-(--gap-9xl) pb-(--gap-12xl)'>
@@ -95,11 +100,13 @@ function ApplyApplicantInfo() {
               name='forward'
               size='md'
               fillColor={
-                isValid ? 'fill-object-static-inverse-hero-dark' : 'fill-accent-trans-hero-dark'
+                isSubmitButtonDisabled
+                  ? 'fill-accent-trans-hero-dark'
+                  : 'fill-object-static-inverse-hero-dark'
               }
             />
           }
-          disabled={!isValid || isUpdatingProfile}
+          disabled={isSubmitButtonDisabled}
         >
           다음 단계로 진행하기
         </BlockButton>

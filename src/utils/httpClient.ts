@@ -1,5 +1,6 @@
 import { AxiosError } from 'axios';
 
+import { ExternalAPIError, InternalAPIError, NetworkError } from '@/errors/APIError';
 import { ApiResponse } from '@/types/apis/response';
 import { httpClient } from '@/utils/interceptor';
 
@@ -39,24 +40,31 @@ export const requestHandler = async <TResponse, TPayload = undefined>(
         break;
     }
 
+    const status = response.data.status;
+
+    if (status !== 'SUCCESS' && status !== 'TEMP_APPLICATION_NOT_FOUND') {
+      const message = (response.data.data as string) || `Internal API 에러 발생, status: ${status}`;
+      return Promise.reject(new InternalAPIError(message, status, url));
+    }
+
     return response.data;
-  } catch (error: unknown) {
-    console.error(`API Error: ${method.toUpperCase()} ${url}`, error);
+  } catch (error) {
+    if (error instanceof InternalAPIError) {
+      throw error;
+    }
 
-    // TODO: throw new Error로 처리 변경 후 처리
+    if (error instanceof AxiosError) {
+      if (!error.response) {
+        throw new NetworkError(error.message, error.code, error.config?.url);
+      }
 
-    if (error instanceof AxiosError && error.response) {
       const { status } = error.response;
 
-      if (status === 401) {
-        console.error('인증되지 않았습니다.');
-      } else if (status === 403) {
-        console.error('권한이 없습니다.');
-      } else if (status === 500) {
-        console.error('서버 오류가 발생했습니다.');
+      if (status >= 500) {
+        throw new ExternalAPIError(error.message, status, url);
+      } else if (status >= 400) {
+        throw new ExternalAPIError(error.message, status, url);
       }
-    } else {
-      console.error('네트워크 오류가 발생했습니다.');
     }
 
     throw error;

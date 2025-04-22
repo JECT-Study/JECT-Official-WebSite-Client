@@ -5,7 +5,7 @@ export interface Email {
 export type EmailExistsResponse = boolean;
 
 export interface EmailAuthPayload extends Email {
-  template: 'CERTIFICATE' | 'PIN_RESET';
+  template: 'AUTH_CODE' | 'PIN_RESET';
 }
 
 export interface VerificationEmailCodePayload {
@@ -14,7 +14,7 @@ export interface VerificationEmailCodePayload {
 }
 
 export interface VerificationEmailCodeQueryParams {
-  template: 'CERTIFICATE' | 'PIN_RESET';
+  template: 'AUTH_CODE' | 'PIN_RESET';
 }
 
 export interface VerificationEmailCodeResponse {
@@ -38,11 +38,16 @@ export interface MemberProfileInitialPayload {
 
 export type MemberProfileInitialResponse = null;
 
+export type MemberProfileInitialStatusResponse = boolean;
+
 export interface RegisterMemberPayload {
   pin: string;
 }
 
-export interface RegisterMemberResponse {
-  accessToken: string;
-  refreshToken: string;
+export type RegisterMemberResponse = boolean;
+
+export interface ResetPinPayload {
+  pin: string;
 }
+
+export type ResetPinResponse = null;

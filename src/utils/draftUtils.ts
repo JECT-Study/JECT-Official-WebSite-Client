@@ -1,11 +1,21 @@
-import { AnswersResponse } from '@/types/apis/answer';
+import { decryptData, encryptData } from './cryto';
+
+import { AnswersResponse } from '@/types/apis/application';
 
 const setDraftLocal = (answersData: AnswersResponse) => {
-  window.localStorage.setItem('draft', JSON.stringify(answersData));
+  const encryptedData = encryptData(answersData);
+
+  window.localStorage.setItem('draft', encryptedData);
 };
 
 const removeDraftLocal = () => {
   window.localStorage.removeItem('draft');
+};
+
+const hasDraftLocal = () => {
+  const data = window.localStorage.getItem('draft');
+
+  return !data ? false : true;
 };
 
 const getDraftLocal = () => {
@@ -13,7 +23,7 @@ const getDraftLocal = () => {
 
   if (!data) return null;
 
-  return JSON.parse(data) as AnswersResponse;
+  return decryptData<AnswersResponse>(data);
 };
 
-export { setDraftLocal, removeDraftLocal, getDraftLocal };
+export { setDraftLocal, removeDraftLocal, getDraftLocal, hasDraftLocal };

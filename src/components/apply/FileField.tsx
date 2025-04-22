@@ -4,11 +4,14 @@ import FileItem from '@/components/common/file/FileItem';
 import InputFile from '@/components/common/input/InputFile';
 import Title from '@/components/common/title/Title';
 import { APPLY_MESSAGE } from '@/constants/applyMessages';
-import useCreatePresignedUrlsQuery from '@/hooks/useCreatePresignedUrlsQuery';
+import useCreatePresignedUrlsMutation from '@/hooks/useCreatePresignedUrlsMutation';
 import { useToastActions } from '@/stores/toastStore';
-import { NewPortfolio, PortfolioResponse } from '@/types/apis/answer';
-import { Question } from '@/types/apis/question';
-import { PresignedUrlResponse } from '@/types/apis/uploadFile';
+import {
+  NewPortfolio,
+  PortfolioResponse,
+  PresignedFileUrls,
+  Question,
+} from '@/types/apis/application';
 import { validateMaxSize } from '@/utils/validateFileMaxSize';
 import { splitValidAndInvalidFiles } from '@/utils/validateInvalidFile';
 
@@ -18,7 +21,7 @@ interface FileFieldProps {
   values: PortfolioResponse[];
 }
 
-const formatRawFiles = (data: PresignedUrlResponse[], files: File[]) => {
+const formatRawFiles = (data: PresignedFileUrls[], files: File[]) => {
   return data.map((item, index) => ({
     id: crypto.randomUUID(),
     rawFile: files[index],
@@ -64,13 +67,21 @@ function FileField({ data, onChange, values }: FileFieldProps) {
   const [portfolios, setPortfolios] = useState<NewPortfolio[]>(formatDraftValues(values) ?? []);
   const [invalidFiles, setInvalidFiles] = useState<File[]>([]);
   const [totalSize, setTotalSize] = useState(0);
-  const { createPresignedUrlsMutate } = useCreatePresignedUrlsQuery();
+  const { mutate: createPresignedUrlsMutate } = useCreatePresignedUrlsMutation();
   const { addToast } = useToastActions();
 
   const addFile = async (newFiles: FileList | null) => {
     if (!newFiles) return;
 
     const newFilesArr = Array.from(newFiles);
+
+    const isSameFile = portfolios.some(portfolio =>
+      newFilesArr.some(file => file.name === portfolio.fileName),
+    );
+
+    if (isSameFile) {
+      return addToast(APPLY_MESSAGE.invalid.sameFile, 'negative');
+    }
 
     if (validateMaxSize(totalSize, newFilesArr)) {
       return addToast(APPLY_MESSAGE.invalid.fileSize, 'negative');

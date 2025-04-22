@@ -1,4 +1,7 @@
 export const PATH = {
+  maintenance: '/maintenance',
+  nonSpecificError: '/service-unavailable',
+  notFoundError: '/not-found',
   main: '/',
   project: '/project',
   jeckathon: '/jeckathon',

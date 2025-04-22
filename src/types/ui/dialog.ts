@@ -3,4 +3,6 @@ export type DialogTypes =
   | 'changeJob'
   | 'submitAnswer'
   | 'expiredSession'
-  | 'continueWriting';
+  | 'continueWriting'
+  | 'failedUploadFile'
+  | 'dirtyCheck';

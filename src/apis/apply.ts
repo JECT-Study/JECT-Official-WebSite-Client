@@ -5,10 +5,13 @@ import {
   EmailExistsResponse,
   MemberProfileInitialPayload,
   MemberProfileInitialResponse,
+  MemberProfileInitialStatusResponse,
   PinLoginPayload,
   PinLoginResponse,
   RegisterMemberPayload,
   RegisterMemberResponse,
+  ResetPinPayload,
+  ResetPinResponse,
   VerificationEmailCodePayload,
   VerificationEmailCodeQueryParams,
   VerificationEmailCodeResponse,
@@ -58,14 +61,25 @@ export const putMemberProfileInitial = async (data: MemberProfileInitialPayload)
   );
 };
 
-export const postRegisterMember = async (
-  data: RegisterMemberPayload,
-  options?: { headers: { Authorization: string } },
-) => {
+export const getMemberProfileInitialStatus = async () => {
+  return await requestHandler<MemberProfileInitialStatusResponse>(
+    'get',
+    API_ENDPOINT.memberProfileInitialStatus,
+  );
+};
+
+export const postRegisterMember = async (data: RegisterMemberPayload) => {
   return await requestHandler<RegisterMemberResponse, RegisterMemberPayload>(
     'post',
     API_ENDPOINT.registerMember,
     data,
-    options,
+  );
+};
+
+export const putResetPin = async (data: ResetPinPayload) => {
+  return await requestHandler<ResetPinResponse, ResetPinPayload>(
+    'put',
+    API_ENDPOINT.resetPin,
+    data,
   );
 };
