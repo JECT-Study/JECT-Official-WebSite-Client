@@ -13,10 +13,10 @@ function Footer() {
         <p className='grow'>{JECT_FOOTER_INFO}</p>
         <p>{JECT_EMAIL}</p>
         <div className='gap-xl flex'>
-          <NewTabLink href='https://github.com/JECT-Study'>
+          <NewTabLink href='https://github.com/JECT-Study' ariaLabel='ject github link'>
             <Icon name='github' size='2xl' fillColor='fill-object-alternative-dark' />
           </NewTabLink>
-          <NewTabLink href='https://www.youtube.com/@ject_it_club'>
+          <NewTabLink href='https://www.youtube.com/@ject_it_club' ariaLabel='ject youtube link'>
             <Youtube />
           </NewTabLink>
         </div>

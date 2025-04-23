@@ -94,7 +94,7 @@ export const applyInfoList: Info[] = [
     link: (
       <NewTabLink
         href='https://cultured-phalange-7de.notion.site/JECT-1cf62a893ac581cba52beb59a1eca908'
-        areaLabel='개인정보 수집 및 이용 동의서 링크 이동'
+        ariaLabel='개인정보 수집 및 이용 동의서 링크 이동'
         className='text-feedback-information-dark decoration-feedback-information-dark underline'
       >
         개인정보 수집 및 이용 동의서
@@ -108,7 +108,7 @@ export const applyInfoList: Info[] = [
     link: (
       <NewTabLink
         href='https://cultured-phalange-7de.notion.site/JECT-fb43010a5141459ab14f786a19885f0b'
-        areaLabel='젝트 회칙 링크 이동'
+        ariaLabel='젝트 회칙 링크 이동'
         className='text-feedback-information-dark decoration-feedback-information-dark underline'
       >
         젝트 회칙

@@ -3,15 +3,15 @@ import { ReactNode } from 'react';
 interface NewTabLinkProps {
   href: string;
   className?: string;
-  areaLabel: string;
+  ariaLabel: string;
   children: ReactNode;
 }
 
-function NewTabLink({ href, className = '', areaLabel, children }: NewTabLinkProps) {
+function NewTabLink({ href, className = '', ariaLabel, children }: NewTabLinkProps) {
   return (
     <a
       href={href}
-      aria-label={areaLabel}
+      aria-label={ariaLabel}
       target='_blank'
       rel='noopener noreferrer'
       className={className}
