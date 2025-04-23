@@ -434,7 +434,10 @@ function ApplyVerifyEmail({
                   />
                 )}
               </div>
-              <NewTabLink href='https://cultured-phalange-7de.notion.site/JECT-1cf62a893ac581cba52beb59a1eca908'>
+              <NewTabLink
+                href='https://cultured-phalange-7de.notion.site/JECT-1cf62a893ac581cba52beb59a1eca908'
+                areaLabel='개인정보 수집 및 이용 동의서 링크 이동'
+              >
                 <Icon name='rightChevron' size='lg' fillColor='fill-object-assistive-dark' />
               </NewTabLink>
             </div>
