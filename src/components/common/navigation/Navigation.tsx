@@ -29,6 +29,7 @@ function Navigation({ children }: NavigationProps) {
   return (
     <header className='border-border-assistive-dark bg-surface-standard-dark gap-6xl fixed z-49 flex h-[3.68rem] w-dvw items-center border-b pl-(--gap-5xl)'>
       <button
+        aria-label='메인으로 이동'
         onClick={handleClick}
         className='focus-visible:shadow-focus-visible radius-4xs cursor-pointer p-(--gap-5xs) outline-none'
       >
