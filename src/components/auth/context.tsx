@@ -1,60 +1,24 @@
-// context.tsx
-import {
-  createContext,
-  useContext,
-  useReducer,
-  useEffect,
-  useMemo,
-  ReactNode,
-  useState,
-  Dispatch,
-} from 'react';
+import { createContext, useReducer, useCallback, useMemo, ReactNode, useContext } from 'react';
+import { memo } from 'react';
 
 import { authReducer, initialAuthState } from './reducer';
-import { AuthFlowProps, AuthState, AuthAction } from './types';
+import { AuthFlowContextType, AuthFlowProps } from './types';
 
-const AuthStateContext = createContext<AuthState | null>(null);
+import { useButtonState } from '@/hooks/useButtonState';
+import { useCooldown } from '@/hooks/useCooldown';
+import { useFormId } from '@/hooks/useFormId';
 
-type AuthActionsContextType = {
-  dispatch: Dispatch<AuthAction>;
-  templateType: 'AUTH_CODE' | 'PIN_RESET' | 'PIN_LOGIN';
-  isResetPin: boolean;
-  formId: string;
-  isButtonDisabled: boolean;
-  rightIconFillColor: string;
-  handlePinSubmit: (pin: string) => void;
-  isLoading: boolean;
-  redirectExisting: boolean;
-  onPinLogin?: (pin: string) => void;
-  setPinValid: (isValid: boolean) => void;
-  setIsTermsChecked: (isChecked: boolean) => void;
-};
+const AuthFlowContext = createContext<AuthFlowContextType | undefined>(undefined);
 
-const AuthActionsContext = createContext<AuthActionsContextType | null>(null);
-
-export const useAuthState = (): AuthState => {
-  const context = useContext(AuthStateContext);
+export const useAuthFlow = (): AuthFlowContextType => {
+  const context = useContext(AuthFlowContext);
   if (!context) {
-    throw new Error('useAuthState must be used within an AuthFlowProvider');
+    throw new Error('useAuthFlow must be used within AuthFlowProvider');
   }
   return context;
 };
 
-export const useAuthActions = (): AuthActionsContextType => {
-  const context = useContext(AuthActionsContext);
-  if (!context) {
-    throw new Error('useAuthActions must be used within an AuthFlowProvider');
-  }
-  return context;
-};
-
-export const useAuthFlow = () => {
-  const state = useAuthState();
-  const actions = useAuthActions();
-  return { state, ...actions };
-};
-
-export const AuthFlowProvider = ({
+export const AuthFlowProvider = memo(function AuthFlowProvider({
   children,
   templateType,
   isResetPin,
@@ -63,72 +27,27 @@ export const AuthFlowProvider = ({
   isSubmitting,
   redirectExisting = true,
   email = '',
-}: AuthFlowProps & { children: ReactNode }) => {
-  const [state, dispatch] = useReducer(authReducer, {
-    ...initialAuthState,
-    email,
+}: AuthFlowProps & { children: ReactNode }) {
+  const [state, dispatch] = useReducer(authReducer, { ...initialAuthState, email });
+
+  const { isActive: isCooldownActive, start: startCooldown } = useCooldown(60000);
+  const formId = useFormId(state.step);
+  const { isButtonDisabled, rightIconFillColor } = useButtonState({
+    step: state.step,
+    email: state.email,
+    isCooldownActive: isCooldownActive,
+    verificationComplete: state.verificationComplete,
+    isPinValid: false,
+    isResetPin,
+    isTermsChecked: false,
+    isSubmitting,
   });
 
-  const [isPinValid, setPinValid] = useState(false);
-  const [isTermsChecked, setIsTermsChecked] = useState(false);
+  const handlePinSubmit = useCallback((pin: string) => onPinSubmit(pin), [onPinSubmit]);
 
-  useEffect(() => {
-    return () => {
-      if (state.cooldownTimer) {
-        window.clearTimeout(state.cooldownTimer);
-      }
-    };
-  }, [state.cooldownTimer]);
-
-  const formId = useMemo(() => {
-    switch (state.step) {
-      case 'EMAIL':
-        return 'emailForm';
-      case 'VERIFICATION':
-        return 'verificationForm';
-      case 'PIN':
-        return 'pinForm';
-      default:
-        return '';
-    }
-  }, [state.step]);
-
-  const isButtonDisabled = useMemo(() => {
-    switch (state.step) {
-      case 'EMAIL':
-        return !state.email || state.isCooldownActive;
-      case 'VERIFICATION':
-        return !state.verificationComplete;
-      case 'PIN':
-        return !isPinValid || isSubmitting || (!isResetPin && !isTermsChecked);
-      default:
-        return true;
-    }
-  }, [
-    state.step,
-    state.email,
-    state.isCooldownActive,
-    state.verificationComplete,
-    isPinValid,
-    isSubmitting,
-    isResetPin,
-    isTermsChecked,
-  ]);
-
-  const rightIconFillColor = useMemo(() => {
-    return isButtonDisabled
-      ? 'fill-accent-trans-hero-dark'
-      : 'fill-object-static-inverse-hero-dark';
-  }, [isButtonDisabled]);
-
-  const handlePinSubmit = useMemo(() => {
-    return (pin: string) => {
-      onPinSubmit(pin);
-    };
-  }, [onPinSubmit]);
-
-  const actionsValue = useMemo(
+  const contextValue = useMemo<AuthFlowContextType>(
     () => ({
+      state,
       dispatch,
       templateType,
       isResetPin,
@@ -139,10 +58,11 @@ export const AuthFlowProvider = ({
       isLoading: isSubmitting,
       redirectExisting,
       onPinLogin,
-      setPinValid,
-      setIsTermsChecked,
+      startCooldown,
     }),
     [
+      state,
+      dispatch,
       templateType,
       isResetPin,
       formId,
@@ -152,12 +72,9 @@ export const AuthFlowProvider = ({
       isSubmitting,
       redirectExisting,
       onPinLogin,
+      startCooldown,
     ],
   );
 
-  return (
-    <AuthStateContext.Provider value={state}>
-      <AuthActionsContext.Provider value={actionsValue}>{children}</AuthActionsContext.Provider>
-    </AuthStateContext.Provider>
-  );
-};
+  return <AuthFlowContext.Provider value={contextValue}>{children}</AuthFlowContext.Provider>;
+});
