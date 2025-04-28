@@ -45,8 +45,11 @@ export const VerificationStep = () => {
               setError('authCode', { type: 'manual', message });
               return;
             }
-            dispatch({ type: 'NEXT_STEP' });
             dispatch({ type: 'COMPLETE_VERIFICATION' });
+
+            if (state.step === 'VERIFICATION') {
+              dispatch({ type: 'NEXT_STEP' });
+            }
           },
           onError: err => {
             handleError(err, '인증번호 확인 요청 실패');
@@ -58,7 +61,7 @@ export const VerificationStep = () => {
         },
       );
     },
-    [verifyEmailCode, state.email, templateType, dispatch, setError],
+    [verifyEmailCode, state.email, state.step, templateType, dispatch, setError],
   );
 
   const handleFormSubmit = CreateSubmitHandler(handleSubmit, onVerificationSubmit);
