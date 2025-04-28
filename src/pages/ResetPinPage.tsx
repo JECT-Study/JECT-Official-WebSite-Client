@@ -22,7 +22,7 @@ const ResetPinPage = () => {
           onSuccess: response => {
             if (response.status === 'SUCCESS') {
               addToast('PIN을 다시 설정했어요', 'positive');
-              void navigate(PATH.signup);
+              void navigate(PATH.signup, { replace: true });
             }
           },
           onError: error => {
