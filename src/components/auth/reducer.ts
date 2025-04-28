@@ -1,5 +1,3 @@
-import { Dispatch } from 'react';
-
 import { AuthState, AuthAction } from './types';
 
 export const initialAuthState: AuthState = {
@@ -21,8 +19,6 @@ export const authReducer = (state: AuthState, action: AuthAction): AuthState => 
       return { ...state, isAuthCodeExpired: true };
     case 'SET_COOLDOWN':
       return { ...state, isCooldownActive: action.payload };
-    case 'SET_COOLDOWN_TIMER':
-      return { ...state, cooldownTimer: action.payload };
     case 'NEXT_STEP':
       if (state.step === 'EMAIL') return { ...state, step: 'VERIFICATION' };
       if (state.step === 'VERIFICATION') return { ...state, step: 'PIN' };
@@ -34,16 +30,4 @@ export const authReducer = (state: AuthState, action: AuthAction): AuthState => 
     default:
       return state;
   }
-};
-
-export const startCooldown = (dispatch: Dispatch<AuthAction>): number => {
-  dispatch({ type: 'SET_COOLDOWN', payload: true });
-
-  const timer = window.setTimeout(() => {
-    dispatch({ type: 'SET_COOLDOWN', payload: false });
-  }, 60000);
-
-  dispatch({ type: 'SET_COOLDOWN_TIMER', payload: timer });
-
-  return timer;
 };

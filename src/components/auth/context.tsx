@@ -1,11 +1,19 @@
-import { createContext, useReducer, useCallback, useMemo, ReactNode, useContext } from 'react';
+import {
+  createContext,
+  useReducer,
+  useCallback,
+  useMemo,
+  ReactNode,
+  useContext,
+  useEffect,
+  useRef,
+} from 'react';
 import { memo } from 'react';
 
 import { authReducer, initialAuthState } from './reducer';
 import { AuthFlowContextType, AuthFlowProps } from './types';
 
 import { useButtonState } from '@/hooks/useButtonState';
-import { useCooldown } from '@/hooks/useCooldown';
 import { useFormId } from '@/hooks/useFormId';
 
 const AuthFlowContext = createContext<AuthFlowContextType | undefined>(undefined);
@@ -30,12 +38,33 @@ export const AuthFlowProvider = memo(function AuthFlowProvider({
 }: AuthFlowProps & { children: ReactNode }) {
   const [state, dispatch] = useReducer(authReducer, { ...initialAuthState, email });
 
-  const { isActive: isCooldownActive, start: startCooldown } = useCooldown(60000);
+  const cooldownTimerRef = useRef<number | null>(null);
+
+  const startCooldown = useCallback(() => {
+    if (cooldownTimerRef.current) {
+      window.clearTimeout(cooldownTimerRef.current);
+    }
+
+    dispatch({ type: 'SET_COOLDOWN', payload: true });
+
+    cooldownTimerRef.current = window.setTimeout(() => {
+      dispatch({ type: 'SET_COOLDOWN', payload: false });
+      cooldownTimerRef.current = null;
+    }, 60000);
+  }, [dispatch]);
+
+  useEffect(() => {
+    return () => {
+      if (cooldownTimerRef.current) {
+        window.clearTimeout(cooldownTimerRef.current);
+      }
+    };
+  }, []);
   const formId = useFormId(state.step);
   const { isButtonDisabled, rightIconFillColor } = useButtonState({
     step: state.step,
     email: state.email,
-    isCooldownActive: isCooldownActive,
+    isCooldownActive: state.isCooldownActive,
     verificationComplete: state.verificationComplete,
     isPinValid: false,
     isResetPin,
