@@ -10,11 +10,13 @@ import Apply from '@/pages/Apply';
 import ApplyApplicantInfo from '@/pages/ApplyApplicationInfo';
 import ApplyComplete from '@/pages/ApplyComplete';
 import ApplyRegistration from '@/pages/ApplyRegistration';
-import ApplyVerify from '@/pages/ApplyVerify';
 import Faq from '@/pages/Faq';
+import LoginPage from '@/pages/LoginPage';
 import Main from '@/pages/Main';
 import Project from '@/pages/Project';
 import ProjectDetail from '@/pages/ProjectDetail';
+import ResetPinPage from '@/pages/ResetPinPage';
+import SignupPage from '@/pages/SignupPage';
 
 const router = sentryCreateBrowserRouter([
   {
@@ -26,7 +28,9 @@ const router = sentryCreateBrowserRouter([
       { path: PATH.activity, element: <Activity /> },
       { path: PATH.apply, element: <Apply /> },
       { path: `${PATH.faq}/:tabId?/:questionId?`, element: <Faq /> },
-      { path: PATH.applyVerify, element: <ApplyVerify /> },
+      { path: PATH.signup, element: <SignupPage /> },
+      { path: PATH.login, element: <LoginPage /> },
+      { path: PATH.resetPin, element: <ResetPinPage /> },
       { path: PATH.applicantInfo, element: <ApplyApplicantInfo /> },
       { path: PATH.applyRegistration, element: <ApplyRegistration /> },
       { path: PATH.applyComplete, element: <ApplyComplete /> },
