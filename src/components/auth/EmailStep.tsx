@@ -104,7 +104,9 @@ export const EmailStep = () => {
           hierarchy='secondary'
           className='h-full'
           disabled={
-            !isValid || isEmailLoading || (state.isCooldownActive && currentEmail === state.email)
+            !isValid ||
+            isEmailLoading ||
+            (state.isCooldownActive && (!currentEmail || currentEmail === state.email))
           }
         >
           {emailButtonText}
