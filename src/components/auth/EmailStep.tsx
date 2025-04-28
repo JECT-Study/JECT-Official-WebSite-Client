@@ -77,10 +77,11 @@ export const EmailStep = () => {
     [
       dispatch,
       checkEmail,
+      isRedirectExisting,
+      templateType,
       sendEmailCode,
       navigate,
-      templateType,
-      isRedirectExisting,
+      state.step,
       addToast,
       startCooldown,
     ],
