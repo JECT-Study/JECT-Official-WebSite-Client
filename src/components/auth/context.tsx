@@ -25,7 +25,7 @@ export const AuthFlowProvider = memo(function AuthFlowProvider({
   onPinSubmit,
   onPinLogin,
   isSubmitting,
-  redirectExisting = true,
+  isRedirectExisting = true,
   email = '',
 }: AuthFlowProps & { children: ReactNode }) {
   const [state, dispatch] = useReducer(authReducer, { ...initialAuthState, email });
@@ -56,7 +56,7 @@ export const AuthFlowProvider = memo(function AuthFlowProvider({
       rightIconFillColor,
       handlePinSubmit,
       isLoading: isSubmitting,
-      redirectExisting,
+      isRedirectExisting,
       onPinLogin,
       startCooldown,
     }),
@@ -70,7 +70,7 @@ export const AuthFlowProvider = memo(function AuthFlowProvider({
       rightIconFillColor,
       handlePinSubmit,
       isSubmitting,
-      redirectExisting,
+      isRedirectExisting,
       onPinLogin,
       startCooldown,
     ],
