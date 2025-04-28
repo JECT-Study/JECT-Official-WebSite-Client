@@ -59,7 +59,9 @@ export const EmailStep = () => {
               { email, template: templateType },
               {
                 onSuccess: () => {
-                  dispatch({ type: 'NEXT_STEP' });
+                  if (state.step === 'EMAIL') {
+                    dispatch({ type: 'NEXT_STEP' });
+                  }
                   dispatch({ type: 'SET_AUTH_CODE_EXPIRED', payload: false });
                   addToast('인증번호를 발송했어요. 1분 뒤에 다시 요청하실 수 있어요.', 'normal');
                   startCooldown();
