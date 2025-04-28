@@ -17,6 +17,8 @@ export const authReducer = (state: AuthState, action: AuthAction): AuthState => 
       return { ...state, email: action.payload };
     case 'SET_AUTH_CODE_EXPIRED':
       return { ...state, isAuthCodeExpired: action.payload };
+    case 'INVALIDATE_AUTH_CODE':
+      return { ...state, isAuthCodeExpired: true };
     case 'SET_COOLDOWN':
       return { ...state, isCooldownActive: action.payload };
     case 'SET_COOLDOWN_TIMER':
