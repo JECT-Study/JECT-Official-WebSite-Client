@@ -10,7 +10,7 @@ export const HelpLink = () => {
   const { state } = useAuthFlow();
   const navigate = useNavigate();
 
-  if (state.step === 'PIN') {
+  if (state.step === 'PIN' || state.step === 'EMAIL') {
     return null;
   }
 

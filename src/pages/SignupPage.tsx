@@ -47,9 +47,8 @@ const SignupPage = () => {
               <AuthFlow.Verification />
               <AuthFlow.Pin />
             </div>
-
-            <AuthFlow.SubmitButton />
             <AuthFlow.HelpLink />
+            <AuthFlow.SubmitButton />
           </div>
         </AuthFlow>
       </section>
