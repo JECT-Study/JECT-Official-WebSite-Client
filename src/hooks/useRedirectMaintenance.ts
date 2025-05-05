@@ -1,3 +1,4 @@
+import { toZonedTime } from 'date-fns-tz';
 import { useEffect, useRef } from 'react';
 
 import { PATH } from '@/constants/path';
@@ -12,8 +13,9 @@ const useRedirectMaintenance = (startHours: number, endHours: number, redirectPa
   useEffect(() => {
     const checkAndRedirect = () => {
       const now = new Date();
-      const nextTime = new Date(now);
-      const hours = now.getHours();
+      const kstDate = toZonedTime(now, 'Asia/Seoul');
+      const nextKstTime = new Date(kstDate);
+      const hours = kstDate.getHours();
       const isInMaintenance = hours >= startHours && hours < endHours;
       const isOnMaintenancePage = location.pathname === redirectPath;
 
@@ -30,15 +32,15 @@ const useRedirectMaintenance = (startHours: number, endHours: number, redirectPa
       }
 
       if (hours < startHours) {
-        nextTime.setHours(startHours, 0, 0, 0);
+        nextKstTime.setHours(startHours, 0, 0, 0);
       } else if (hours >= endHours) {
-        nextTime.setDate(nextTime.getDate() + 1);
-        nextTime.setHours(startHours, 0, 0, 0);
+        nextKstTime.setDate(nextKstTime.getDate() + 1);
+        nextKstTime.setHours(startHours, 0, 0, 0);
       } else {
-        nextTime.setHours(endHours, 0, 0, 0);
+        nextKstTime.setHours(endHours, 0, 0, 0);
       }
 
-      const delay = nextTime.getTime() - now.getTime();
+      const delay = nextKstTime.getTime() - kstDate.getTime();
 
       const timerTime = TIME_THRESHOLD < delay ? delay - TIME_THRESHOLD : delay;
 
