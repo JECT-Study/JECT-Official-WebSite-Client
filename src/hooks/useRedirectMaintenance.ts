@@ -14,7 +14,7 @@ const useRedirectMaintenance = (startHours: number, endHours: number, redirectPa
     const checkAndRedirect = () => {
       const now = new Date();
       const kstDate = toZonedTime(now, 'Asia/Seoul');
-      const nextTime = new Date(kstDate);
+      const nextKstTime = new Date(kstDate);
       const hours = kstDate.getHours();
       const isInMaintenance = hours >= startHours && hours < endHours;
       const isOnMaintenancePage = location.pathname === redirectPath;
@@ -32,15 +32,15 @@ const useRedirectMaintenance = (startHours: number, endHours: number, redirectPa
       }
 
       if (hours < startHours) {
-        nextTime.setHours(startHours, 0, 0, 0);
+        nextKstTime.setHours(startHours, 0, 0, 0);
       } else if (hours >= endHours) {
-        nextTime.setDate(nextTime.getDate() + 1);
-        nextTime.setHours(startHours, 0, 0, 0);
+        nextKstTime.setDate(nextKstTime.getDate() + 1);
+        nextKstTime.setHours(startHours, 0, 0, 0);
       } else {
-        nextTime.setHours(endHours, 0, 0, 0);
+        nextKstTime.setHours(endHours, 0, 0, 0);
       }
 
-      const delay = nextTime.getTime() - kstDate.getTime();
+      const delay = nextKstTime.getTime() - kstDate.getTime();
 
       const timerTime = TIME_THRESHOLD < delay ? delay - TIME_THRESHOLD : delay;
 
