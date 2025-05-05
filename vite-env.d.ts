@@ -9,6 +9,7 @@ interface ImportMetaEnv {
   readonly VITE_SENTRY_PROJECT: string;
   readonly VITE_SENTRY_AUTH_TOKEN: string;
   readonly VITE_SECRET_KEY: string;
+  readonly VITE_AMPLITUDE_API_KEY: string;
   readonly DEV: boolean;
   readonly PROD: boolean;
 }
