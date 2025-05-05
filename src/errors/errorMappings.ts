@@ -10,7 +10,7 @@ export const internalApiErrorMapping: Record<
   'G-07': ({ openDialog }) =>
     openDialog({
       type: 'expiredSession',
-      onPrimaryBtnClick: () => void router.navigate(PATH.applyVerify),
+      onPrimaryBtnClick: () => void router.navigate(PATH.signup),
     }),
   NOT_FOUND_MEMBER: () => void router.navigate(PATH.notFoundError),
   PROJECT_NOT_FOUND: () => void router.navigate(PATH.notFoundError),
