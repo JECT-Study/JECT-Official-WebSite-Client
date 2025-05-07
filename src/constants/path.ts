@@ -13,3 +13,10 @@ export const PATH = {
   applyRegistration: '/apply/registration',
   applyComplete: '/apply/complete',
 } as const;
+
+export const disabledPage: string[] = [
+  PATH.applyVerify,
+  PATH.applicantInfo,
+  PATH.applyRegistration,
+  PATH.applyComplete,
+];

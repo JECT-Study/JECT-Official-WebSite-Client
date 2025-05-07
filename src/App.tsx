@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { isMobile } from 'react-device-detect';
 import { RouterProvider } from 'react-router-dom';
 
-import { PATH } from './constants/path';
+import { disabledPage, PATH } from './constants/path';
 import { useGlobalErrorHandler } from './hooks/useGlobalErrorHandler';
 import useRedirectMaintenance from './hooks/useRedirectMaintenance';
 import TempMobile from './pages/TempMobile';
@@ -31,6 +31,10 @@ function App() {
 
   if (isMobile) {
     return <TempMobile />;
+  }
+
+  if (disabledPage.includes(window.location.pathname)) {
+    return void router.navigate(PATH.apply);
   }
 
   return (
