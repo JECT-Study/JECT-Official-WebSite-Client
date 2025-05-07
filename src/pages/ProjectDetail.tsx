@@ -1,7 +1,6 @@
 import { Navigate, useParams } from 'react-router-dom';
 
 import cardSampleImage from '@/assets/CardSample.png';
-import ApplySnackBar from '@/components/apply/ApplySnackBar';
 import BlockButton from '@/components/common/button/BlockButton';
 import CalloutInformation from '@/components/common/callout/CalloutInformation';
 import EmptyData from '@/components/common/emptyState/EmptyData';
@@ -9,7 +8,6 @@ import Icon from '@/components/common/icon/Icon';
 import Label from '@/components/common/label/Label';
 import { Tab, TabHeader, TabItem, TabPanel } from '@/components/common/tab/Tab';
 import Title from '@/components/common/title/Title';
-import { APPLY_SNACKBAR } from '@/constants/applyMessages';
 import { PATH } from '@/constants/path';
 import { useProjectDetailQuery } from '@/hooks/useProjectDetailQuery';
 
@@ -135,7 +133,6 @@ const ProjectDetail = () => {
           </div>
         </Tab>
       </section>
-      <ApplySnackBar message={APPLY_SNACKBAR.default} width='w-[31.25rem]' />
     </div>
   );
 };

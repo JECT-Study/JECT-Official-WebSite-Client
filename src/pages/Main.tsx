@@ -2,7 +2,6 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useEffect, useRef } from 'react';
 
-import ApplySnackBar from '@/components/apply/ApplySnackBar';
 import CalloutNumerical from '@/components/common/callout/CalloutNumerical';
 import Hero from '@/components/common/callout/Hero';
 import HeroIndex from '@/components/common/callout/HeroIndex';
@@ -10,7 +9,6 @@ import { Tab, TabHeader, TabItem, TabPanel } from '@/components/common/tab/Tab';
 import Title from '@/components/common/title/Title';
 import AnimatedSection from '@/components/main/animatedSection/AnimatedSection';
 import RoleHero from '@/components/main/role/RoleHero';
-import { APPLY_SNACKBAR } from '@/constants/applyMessages';
 import { corePrincipleData, positionData, timelineData } from '@/constants/mainPageData';
 
 const sectionClassName =
@@ -182,7 +180,6 @@ const Main = () => {
           </div>
         </div>
       </section>
-      <ApplySnackBar message={APPLY_SNACKBAR.main} width='w-[33.5rem]' />
     </div>
   );
 };

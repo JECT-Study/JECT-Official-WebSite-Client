@@ -3,7 +3,6 @@ import { useEffect, useRef, useState } from 'react';
 
 import cardSampleImage from '@/assets/CardSample.png';
 import loadingSpinner from '@/assets/lottie/ject-loadingSpinner.json';
-import ApplySnackBar from '@/components/apply/ApplySnackBar';
 import LabelButton from '@/components/common/button/LabelButton';
 import { Card } from '@/components/common/card/Card';
 import EmptyData from '@/components/common/emptyState/EmptyData';
@@ -11,7 +10,6 @@ import Icon from '@/components/common/icon/Icon';
 import Label from '@/components/common/label/Label';
 import { Select } from '@/components/common/select/Select';
 import Title from '@/components/common/title/Title';
-import { APPLY_SNACKBAR } from '@/constants/applyMessages';
 import { PATH } from '@/constants/path';
 import useCloseOutside from '@/hooks/useCloseOutside';
 import { useInfiniteScroll } from '@/hooks/useInfiniteScroll';
@@ -125,7 +123,6 @@ const Project = () => {
           </div>
         </div>
       </section>
-      <ApplySnackBar message={APPLY_SNACKBAR.default} width='w-[31.25rem]' />
     </div>
   );
 };
