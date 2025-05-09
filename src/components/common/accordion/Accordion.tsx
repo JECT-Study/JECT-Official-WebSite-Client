@@ -26,7 +26,7 @@ export const AccordionItem = ({
   ...restProps
 }: AccordionItemProps) => {
   const buttonClass = clsx(
-    'interaction-default-subtle-scale transition-faster-fluent-hover gap-xs radius-3xs flex w-full text-start before:scale-x-102 before:scale-y-128 [&>*:first-child]:grow',
+    'interaction-default-subtle-scale transition-faster-fluent-hover gap-xs radius-3xs flex w-full text-start after:scale-x-102 after:scale-y-128 [&>*:first-child]:grow',
   );
 
   const contentClass = clsx(

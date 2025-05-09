@@ -1,10 +1,10 @@
+import { AdminLayout, ClientLayout } from './components/layout/Layout';
 import { PATH } from './constants/path';
 import { sentryCreateBrowserRouter } from './instrument';
 import Maintenance from './pages/Maintenance';
 import NonSpecificError from './pages/NonSpecificError';
 import NotFoundError from './pages/NotFoundError';
 
-import Layout from '@/components/layout/Layout';
 import Activity from '@/pages/Activity';
 import Apply from '@/pages/Apply';
 import ApplyApplicantInfo from '@/pages/ApplyApplicationInfo';
@@ -18,7 +18,7 @@ import ProjectDetail from '@/pages/ProjectDetail';
 
 const router = sentryCreateBrowserRouter([
   {
-    element: <Layout />,
+    element: <ClientLayout />,
     children: [
       { path: PATH.main, element: <Main /> },
       { path: PATH.project, element: <Project /> },
@@ -37,6 +37,10 @@ const router = sentryCreateBrowserRouter([
   { path: PATH.notFoundError, element: <NotFoundError /> },
   { path: PATH.maintenance, element: <Maintenance /> },
   { path: '*', element: <NotFoundError /> },
+  {
+    element: <AdminLayout />,
+    children: [],
+  },
 ]);
 
 export default router;
