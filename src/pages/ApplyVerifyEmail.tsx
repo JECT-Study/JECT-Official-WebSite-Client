@@ -144,8 +144,21 @@ function ApplyVerifyEmail({
       {
         onSuccess: response => {
           const isUserExists = response.data;
-
+          console.log(
+            '이메일 체크 존재하는 이메일인가?',
+            isUserExists,
+            'isResetPin: ',
+            isResetPin,
+            'isReVerification:',
+            isReVerification,
+          );
+          console.log('setIsNewApplicant', setIsNewApplicant);
           if (isUserExists && setIsNewApplicant) {
+            console.log(
+              '왜 일로 안넘어오는거 같지?',
+              '조건문 안 setIsNewApplicant:',
+              setIsNewApplicant,
+            );
             setIsNewApplicant(false);
             return;
           }

@@ -6,6 +6,7 @@ import ApplyVerifyEmail from './ApplyVerifyEmail';
 import BlockButton from '@/components/common/button/BlockButton';
 import Icon from '@/components/common/icon/Icon';
 import InputField from '@/components/common/input/InputField';
+import Label from '@/components/common/label/Label';
 import ProgressIndicator from '@/components/common/progress/ProgressIndicator';
 import Title from '@/components/common/title/Title';
 import { APPLY_TITLE } from '@/constants/applyPageData';
@@ -28,7 +29,7 @@ interface ApplyVerifyPinProps {
 
 function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
   const navigate = useNavigate();
-  const [isResetPin] = useState(false);
+  const [isResetPin, setIsResetPin] = useState(false);
   const [isPinHidden, setIsPinHidden] = useState(true);
 
   const {
@@ -193,14 +194,14 @@ function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
             />
           </form>
           <div className='gap-3xs flex self-center *:last:cursor-pointer'>
-            {/*<Label hierarchy='weak' weight='normal' textColor='text-object-alternative-dark'>*/}
-            {/*  혹시 PIN을 잊어버리셨나요?*/}
-            {/*</Label>*/}
-            {/*<button disabled className='*:underline' onClick={() => setIsResetPin(true)}>*/}
-            {/*  <Label hierarchy='weak' weight='normal' textColor='text-feedback-information-dark'>*/}
-            {/*    PIN 다시 설정하기*/}
-            {/*  </Label>*/}
-            {/*</button>*/}
+            <Label hierarchy='weak' weight='normal' textColor='text-object-alternative-dark'>
+              혹시 PIN을 잊어버리셨나요?
+            </Label>
+            <button className='*:underline' onClick={() => setIsResetPin(true)}>
+              <Label hierarchy='weak' weight='normal' textColor='text-feedback-information-dark'>
+                PIN 다시 설정하기
+              </Label>
+            </button>
           </div>
           <BlockButton
             type='submit'
