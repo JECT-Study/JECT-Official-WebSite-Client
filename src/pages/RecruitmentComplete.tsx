@@ -4,12 +4,14 @@ import Label from '@/components/common/label/Label';
 import Title from '@/components/common/title/Title';
 
 function RecruitmentComplete() {
+  const GENERATION = 3;
+
   return (
     <div className='flex h-dvh translate-y-[-3.75rem] flex-col items-center justify-center'>
       <section className='gap-8xl flex flex-col'>
         <div className='gap-7xl flex flex-col text-center'>
           <Title hierarchy='strong' textColor='text-object-hero-dark'>
-            3기 모집 완료
+            {`${GENERATION}기 모집 완료`}
           </Title>
           <Label hierarchy='stronger' weight='bold' textColor='text-object-neutral-dark'>
             지금은 모집 기간이 아니에요.
@@ -28,7 +30,7 @@ function RecruitmentComplete() {
             window.open('https://forms.gle/NB3bBYYgBVN9cV4M7', '_blank', 'noopener,noreferrer')
           }
         >
-          4기 모집 알림 신청
+          {`${GENERATION + 1}기 모집 알림 신청`}
         </BlockButton>
       </section>
     </div>
