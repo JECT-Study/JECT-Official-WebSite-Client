@@ -60,7 +60,7 @@ function Apply() {
         rightIcon={<Icon name='forward' size='md' fillColor='fill-accent-trans-hero-dark' />}
         className='min-w-[26.25rem] cursor-pointer'
       >
-        젝트 3기 지원하기
+        젝트 3기 모집 마감됨
       </BlockButton>
     </div>
   );
