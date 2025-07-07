@@ -6,7 +6,6 @@ import NotFoundError from './pages/NotFoundError';
 
 import Layout from '@/components/layout/Layout';
 import Activity from '@/pages/Activity';
-import Apply from '@/pages/Apply';
 import ApplyApplicantInfo from '@/pages/ApplyApplicationInfo';
 import ApplyComplete from '@/pages/ApplyComplete';
 import ApplyRegistration from '@/pages/ApplyRegistration';
@@ -15,6 +14,7 @@ import Faq from '@/pages/Faq';
 import Main from '@/pages/Main';
 import Project from '@/pages/Project';
 import ProjectDetail from '@/pages/ProjectDetail';
+import RecruitmentComplete from '@/pages/RecruitmentComplete';
 
 const router = sentryCreateBrowserRouter([
   {
@@ -24,7 +24,7 @@ const router = sentryCreateBrowserRouter([
       { path: PATH.project, element: <Project /> },
       { path: `${PATH.project}/:id`, element: <ProjectDetail /> },
       { path: PATH.activity, element: <Activity /> },
-      { path: PATH.apply, element: <Apply /> },
+      { path: PATH.apply, element: <RecruitmentComplete /> },
       { path: `${PATH.faq}/:tabId?/:questionId?`, element: <Faq /> },
       { path: PATH.applyVerify, element: <ApplyVerify /> },
       { path: PATH.applicantInfo, element: <ApplyApplicantInfo /> },

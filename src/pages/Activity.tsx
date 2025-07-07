@@ -1,8 +1,6 @@
-import ApplySnackBar from '@/components/apply/ApplySnackBar';
 import { Card } from '@/components/common/card/Card';
 import EmptyData from '@/components/common/emptyState/EmptyData';
 import Title from '@/components/common/title/Title';
-import { APPLY_SNACKBAR } from '@/constants/applyMessages';
 import useJectalks from '@/hooks/useJectalksQuery';
 import useMiniStudies from '@/hooks/useMiniStudiesQuery';
 
@@ -58,7 +56,6 @@ function Activity() {
           <EmptyData />
         )}
       </section>
-      <ApplySnackBar message={APPLY_SNACKBAR.default} width='w-[31.25rem]' />
     </div>
   );
 }

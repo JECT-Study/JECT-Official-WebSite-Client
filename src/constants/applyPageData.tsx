@@ -30,7 +30,7 @@ interface Procedure {
 export const applyProcedureList: Procedure[] = [
   {
     id: 1,
-    startDate: '2025-04-18',
+    startDate: '2025-04-18T00:00:00',
     period: '4월 18일(금) ~ 5월 7일(수)',
     subTitle: '지원 접수 기간',
     content: (
@@ -48,21 +48,21 @@ export const applyProcedureList: Procedure[] = [
   },
   {
     id: 2,
-    startDate: '2025-05-08',
+    startDate: '2025-05-08T00:00:00',
     period: '5월 8일(목) ~ 5월 11일(일)',
     subTitle: '지원서 검토 기간',
     content: '소중한 지원자분들의 서류를 검토해요.',
   },
   {
     id: 3,
-    startDate: '2025-05-12',
+    startDate: '2025-05-12T00:00:00',
     period: '5월 12일(월)',
     subTitle: '합격자 발표',
     content: '젝트와 함께 몰입해 프로젝트를 진행할 분들을 최종적으로 발표드려요.',
   },
   {
     id: 4,
-    startDate: '2025-05-18',
+    startDate: '2025-05-18T00:00:00',
     period: '5월 18일(일)',
     subTitle: '온보딩',
     content: '오프라인으로 온보딩 행사를 진행해요. 필수적으로 참여해 주세요. ',

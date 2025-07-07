@@ -1,8 +1,6 @@
-import ApplySnackBar from '@/components/apply/ApplySnackBar';
 import { Accordion } from '@/components/common/accordion/Accordion';
 import { Tab, TabHeader, TabItem, TabPanel } from '@/components/common/tab/Tab';
 import Title from '@/components/common/title/Title';
-import { APPLY_SNACKBAR } from '@/constants/applyMessages';
 import { faqActivity, faqApply, faqJect, faqProject } from '@/constants/faqPageData';
 import { useFaqNavigation } from '@/hooks/useFaqNavigation';
 
@@ -80,7 +78,6 @@ function Faq() {
           </Tab>
         </section>
       </div>
-      <ApplySnackBar message={APPLY_SNACKBAR.default} width='w-[31.25rem]' />
     </div>
   );
 }
