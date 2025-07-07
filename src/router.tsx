@@ -1,5 +1,6 @@
 import { PATH } from './constants/path';
 import { sentryCreateBrowserRouter } from './instrument';
+import CheckSubmit from './pages/CheckSubmit';
 import Maintenance from './pages/Maintenance';
 import NonSpecificError from './pages/NonSpecificError';
 import NotFoundError from './pages/NotFoundError';
@@ -27,8 +28,13 @@ const router = sentryCreateBrowserRouter([
       { path: PATH.apply, element: <RecruitmentComplete /> },
       { path: `${PATH.faq}/:tabId?/:questionId?`, element: <Faq /> },
       { path: PATH.applyVerify, element: <ApplyVerify /> },
-      { path: PATH.applicantInfo, element: <ApplyApplicantInfo /> },
-      { path: PATH.applyRegistration, element: <ApplyRegistration /> },
+      {
+        element: <CheckSubmit />,
+        children: [
+          { path: PATH.applicantInfo, element: <ApplyApplicantInfo /> },
+          { path: PATH.applyRegistration, element: <ApplyRegistration /> },
+        ],
+      },
       { path: PATH.applyComplete, element: <ApplyComplete /> },
     ],
     errorElement: <NonSpecificError />,

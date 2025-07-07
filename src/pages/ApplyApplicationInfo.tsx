@@ -1,4 +1,4 @@
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import BlockButton from '@/components/common/button/BlockButton';
 import Icon from '@/components/common/icon/Icon';
@@ -8,7 +8,6 @@ import Title from '@/components/common/title/Title';
 import { APPLY_TITLE } from '@/constants/applyPageData';
 import { PATH } from '@/constants/path';
 import { useApplyApplicantInfoForm } from '@/hooks/useApplyApplicantInfoForm';
-import useCheckApplicationStatus from '@/hooks/useCheckApplicationStatus';
 import { useMemberProfileInitialMutation } from '@/hooks/useMemberProfileInitialMutation';
 import { ApplyApplicantInfoFormData } from '@/schema/applySchema';
 import { MemberProfileInitialPayload } from '@/types/apis/apply';
@@ -17,7 +16,6 @@ import { CreateSubmitHandler } from '@/utils/formHelpers';
 
 function ApplyApplicantInfo() {
   const navigate = useNavigate();
-  const { data: applicationStatus } = useCheckApplicationStatus();
 
   const {
     register,
@@ -28,10 +26,6 @@ function ApplyApplicantInfo() {
 
   const { mutate: updateProfileMutate, isPending: isUpdatingProfile } =
     useMemberProfileInitialMutation();
-
-  if (applicationStatus?.data) {
-    return <Navigate to={PATH.main} replace />;
-  }
 
   const name = watch('name');
   const phoneNumber = watch('phoneNumber');
