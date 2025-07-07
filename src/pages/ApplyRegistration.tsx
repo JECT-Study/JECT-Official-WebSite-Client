@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import Lottie from 'lottie-react';
 import { useCallback, useEffect } from 'react';
-import { Location, useLocation, useNavigate } from 'react-router-dom';
+import { Location, Navigate, useLocation, useNavigate } from 'react-router-dom';
 
 import loadingSpinner from '@/assets/lottie/ject-loadingSpinner.json';
 import Answers from '@/components/apply/Answers';
@@ -13,6 +13,7 @@ import Title from '@/components/common/title/Title';
 import { APPLY_TITLE } from '@/constants/applyPageData';
 import { PATH } from '@/constants/path';
 import useApplicationState from '@/hooks/useApplicationState';
+import useCheckApplicationStatus from '@/hooks/useCheckApplicationStatus';
 import useDeleteDraftMutation from '@/hooks/useDeleteDraftMutation';
 import useDraftQuery from '@/hooks/useDraftQuery';
 import useGoBackCheckDialog from '@/hooks/useGoBackCheckDialog';
@@ -56,6 +57,7 @@ function ApplyRegistration() {
   } = useApplicationState();
   const { openDialog } = useDialogActions();
 
+  const { data: applicationStatus } = useCheckApplicationStatus();
   const { refetch: refetchDraftServer } = useDraftQuery(false);
   const { mutate: saveDraftMutate, isPending: isSaveDraftPending } = useSaveDraftMutation();
   const { mutate: deleteDraftMutate } = useDeleteDraftMutation(); // TODO: 삭제 isPending 추가 여부 및 방식 논의 필요
@@ -141,6 +143,10 @@ function ApplyRegistration() {
 
     return () => clearInterval(autoSaveDraftLocal);
   }, [selectedJob, application]);
+
+  if (applicationStatus?.data) {
+    return <Navigate to={PATH.main} replace />;
+  }
 
   return (
     <div className='gap-9xl flex flex-col items-center pt-(--gap-9xl) pb-(--gap-12xl)'>
