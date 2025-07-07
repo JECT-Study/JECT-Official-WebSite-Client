@@ -7,7 +7,7 @@ function CheckSubmit() {
   const { data: applicationStatus } = useCheckApplicationStatus();
 
   if (applicationStatus?.data) {
-    return <Navigate to={PATH.main} replace />;
+    return <Navigate to={PATH.main} />;
   }
   return <Outlet />;
 }
