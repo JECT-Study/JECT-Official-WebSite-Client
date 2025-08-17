@@ -27,7 +27,7 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "chromatic": "npx chromatic --project-token=$CHROMATIC_TOKEN",
-    "build:tokens": "style-dictionary build",
+    "build:tokens": "node tokensBuilder.js",
     "clean": "rm -rf dist node_modules .turbo storybook-static"
   },
   "dependencies": {
@@ -69,5 +69,6 @@
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
-  }
+  },
+  "type": "module"
 }
