@@ -1,7 +1,7 @@
 import { Theme } from '@emotion/react';
 import { Depth, Level, Shadow } from 'types';
 
-export function depth(theme: Theme, depthToken: Depth) {
+export function depth(theme: Theme, depthToken: Depth): string {
   if (depthToken === 'shallowest') {
     return `
           background-color: ${theme.color.surface.shallowest}
@@ -31,9 +31,11 @@ export function depth(theme: Theme, depthToken: Depth) {
           background-color: ${theme.color.surface.deepest}
         `;
   }
+
+  return '';
 }
 
-export function level(theme: Theme, levelToken: Level) {
+export function level(theme: Theme, levelToken: Level): string {
   if (levelToken === 'standard') {
     return `
       z-index: auto;
@@ -59,9 +61,11 @@ export function level(theme: Theme, levelToken: Level) {
       ${shadow(theme, 'overlay')}
     `;
   }
+
+  return '';
 }
 
-export function shadow(theme: Theme, shadowToken: Shadow) {
+export function shadow(theme: Theme, shadowToken: Shadow): string {
   if (shadowToken === 'embossed') {
     return `
         box-shadow: 0 0 ${theme.scheme.desktop.radius[2]}px 0 ${theme.colorPrimitive.primitive.shade[2]}, 0 ${theme.scheme.desktop.position[2]}px ${theme.scheme.desktop.radius[4]}px 0 ${theme.colorPrimitive.primitive.shade[4]};
@@ -79,4 +83,6 @@ export function shadow(theme: Theme, shadowToken: Shadow) {
         box-shadow: 0 0 ${theme.scheme.desktop.radius[4]}px 0 ${theme.colorPrimitive.primitive.shade[8]}, 0 ${theme.scheme.desktop.position[3]}px ${theme.scheme.desktop.radius[8]}px 0 ${theme.colorPrimitive.primitive.shade[12]}, 0 ${theme.scheme.desktop.position[8]}px ${theme.scheme.desktop.radius[16]}px 0 ${theme.colorPrimitive.primitive.shade[16]};
     `;
   }
+
+  return '';
 }
