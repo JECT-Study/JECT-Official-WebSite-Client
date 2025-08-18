@@ -1,3 +1,11 @@
+export type HeroScaleKey = '1' | '2' | '3' | '4';
+export type TitleScaleKey = '1' | '2' | '3' | '4';
+export type LabelScaleKey = 'lg' | 'md' | 'sm' | 'xs';
+export type BodyScaleKey = 'lg' | 'md' | 'sm' | 'xs' | '2xs';
+export type SyntaxScaleKey = 'lg' | 'md' | 'sm' | 'xs';
+export type LabelModifierKey = 'bold' | 'normal' | 'subtle';
+export type BodyModifierKey = 'bold' | 'normal';
+
 export type TextStyle =
   | 'hero.4'
   | 'hero.3'
