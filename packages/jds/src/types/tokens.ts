@@ -1,4 +1,4 @@
-import { designTokens } from './tokens';
+import { designTokens } from 'tokens';
 
 export type DesignTokens = typeof designTokens;
 export type ColorPrimitiveTokens = typeof designTokens.colorPrimitive;
