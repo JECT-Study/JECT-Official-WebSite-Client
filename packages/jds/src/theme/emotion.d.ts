@@ -1,19 +1,19 @@
 import '@emotion/react';
 import {
+  ColorPrimitiveTokens,
+  DarkColorSemanticTokens,
   EnvironmentTokens,
+  LightColorSemanticTokens,
   SchemeTokens,
   TypographyTokens,
-  LightColorSemanticTokens,
-  DarkColorSemanticTokens,
-} from '../tokens';
-
-export interface EnvironmentTokensPlus extends EnvironmentTokens {}
+} from 'types';
 
 declare module '@emotion/react' {
   export interface Theme {
+    colorPrimitive: ColorPrimitiveTokens;
     color: LightColorSemanticTokens | DarkColorSemanticTokens;
     scheme: SchemeTokens;
-    environment: EnvironmentTokensPlus;
+    environment: EnvironmentTokens;
     typo: TypographyTokens;
   }
 }
