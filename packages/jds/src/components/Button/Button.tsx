@@ -3,9 +3,9 @@ import styled from '@emotion/styled';
 import { forwardRef } from 'react';
 import type { ButtonHTMLAttributes, ReactNode } from 'react';
 
-import { GlobalStyles } from '../../style/globalStyle';
 import { rem, textStyle } from 'utils';
 import { lightTheme } from 'theme';
+import { GlobalStyles } from 'style';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
