@@ -2,8 +2,8 @@ import { Theme } from '@emotion/react';
 import { em, lh, rem } from './cssUnit';
 import { DeviceType, TextStyle } from 'types';
 
-export function typo(theme: Theme, device: DeviceType, typoToken: TextStyle): string {
-  const [_, element, ...rest] = typoToken.split('.');
+export function textStyle(theme: Theme, device: DeviceType, typoToken: TextStyle): string {
+  const [element, ...rest] = typoToken.split('.');
 
   if (element === 'hero' || element === 'title') {
     const scale = Number(rest[0]);

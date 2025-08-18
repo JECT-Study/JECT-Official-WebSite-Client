@@ -4,7 +4,7 @@ import { forwardRef } from 'react';
 import type { ButtonHTMLAttributes, ReactNode } from 'react';
 
 import { GlobalStyles } from '../../style/globalStyle';
-import { rem, typo } from 'utils';
+import { rem, textStyle } from 'utils';
 import { lightTheme } from 'theme';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -27,7 +27,7 @@ const StyledButton = styled.button(
   text-align: center;
 
   /* textStyle/label/lg/normal */
-  ${typo(jds, 'desktop', 'textStyle.body.2xs.normal')}
+  ${textStyle(jds, 'desktop', 'body.2xs.normal')}
 `,
 );
 //   /*  */

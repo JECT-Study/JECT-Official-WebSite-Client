@@ -1,2 +1,2 @@
 export * from './cssUnit';
-export * from './typo';
+export * from './textStyle';
