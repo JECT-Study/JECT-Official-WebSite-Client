@@ -1,0 +1,82 @@
+import { Theme } from '@emotion/react';
+import { Depth, Level, Shadow } from 'types';
+
+export function depth(theme: Theme, depthToken: Depth) {
+  if (depthToken === 'shallowest') {
+    return `
+          background-color: ${theme.color.surface.shallowest}
+        `;
+  } else if (depthToken === 'shallower') {
+    return `
+          background-color: ${theme.color.surface.shallower}
+        `;
+  } else if (depthToken === 'shallow') {
+    return `
+          background-color: ${theme.color.surface.shallow}
+        `;
+  } else if (depthToken === 'standard') {
+    return `
+          background-color: ${theme.color.surface.standard}
+        `;
+  } else if (depthToken === 'deep') {
+    return `
+          background-color: ${theme.color.surface.deep}
+        `;
+  } else if (depthToken === 'deeper') {
+    return `
+          background-color: ${theme.color.surface.deeper}
+        `;
+  } else if (depthToken === 'deepest') {
+    return `
+          background-color: ${theme.color.surface.deepest}
+        `;
+  }
+}
+
+export function level(theme: Theme, levelToken: Level) {
+  if (levelToken === 'standard') {
+    return `
+      z-index: auto;
+    `;
+  } else if (levelToken === 'embossed') {
+    return `
+      z-index: 100;
+      ${shadow(theme, 'embossed')}
+    `;
+  } else if (levelToken === 'raised') {
+    return `
+      z-index: 200;
+      ${shadow(theme, 'raised')}
+    `;
+  } else if (levelToken === 'floated') {
+    return `
+      z-index: 300;
+      ${shadow(theme, 'floated')}
+    `;
+  } else if (levelToken === 'overlay') {
+    return `
+      z-index: 400;
+      ${shadow(theme, 'overlay')}
+    `;
+  }
+}
+
+export function shadow(theme: Theme, shadowToken: Shadow) {
+  if (shadowToken === 'embossed') {
+    return `
+        box-shadow: 0 0 ${theme.scheme.desktop.radius[2]}px 0 ${theme.colorPrimitive.primitive.shade[2]}, 0 ${theme.scheme.desktop.position[2]}px ${theme.scheme.desktop.radius[4]}px 0 ${theme.colorPrimitive.primitive.shade[4]};
+    `;
+  } else if (shadowToken === 'raised') {
+    return `
+        box-shadow: 0 0 ${theme.scheme.desktop.radius[2]}px 0 ${theme.colorPrimitive.primitive.shade[6]}, 0 ${theme.scheme.desktop.position[3]}px ${theme.scheme.desktop.radius[6]}px  0 ${theme.colorPrimitive.primitive.shade[12]};
+    `;
+  } else if (shadowToken === 'floated') {
+    return `
+        box-shadow: 0 0 ${theme.scheme.desktop.radius[2]}px 0 ${theme.colorPrimitive.primitive.shade[4]}, 0 ${theme.scheme.desktop.position[3]}px ${theme.scheme.desktop.radius[4]}px 0 ${theme.colorPrimitive.primitive.shade[8]}, 0 ${theme.scheme.desktop.position[4]}px ${theme.scheme.desktop.radius[8]}px 0 ${theme.colorPrimitive.primitive.shade[12]};
+    `;
+  } else if (shadowToken === 'overlay') {
+    return `
+        box-shadow: 0 0 ${theme.scheme.desktop.radius[4]}px 0 ${theme.colorPrimitive.primitive.shade[8]}, 0 ${theme.scheme.desktop.position[3]}px ${theme.scheme.desktop.radius[8]}px 0 ${theme.colorPrimitive.primitive.shade[12]}, 0 ${theme.scheme.desktop.position[8]}px ${theme.scheme.desktop.radius[16]}px 0 ${theme.colorPrimitive.primitive.shade[16]};
+    `;
+  }
+}
