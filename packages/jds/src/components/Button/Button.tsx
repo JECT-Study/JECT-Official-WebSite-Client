@@ -4,7 +4,7 @@ import { forwardRef } from 'react';
 import type { ButtonHTMLAttributes, ReactNode } from 'react';
 
 import { GlobalStyles } from '../../style/globalStyle';
-import { rem } from 'utils';
+import { rem, typo } from 'utils';
 import { lightTheme } from 'theme';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -13,7 +13,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const StyledButton = styled.button(
   ({ theme: jds }) => `
-display: inline-flex;
+  display: inline-flex;
   min-width: 28px;
   padding: ${jds.scheme.desktop.spacing[2]}px
     ${jds.scheme.desktop.spacing[6]}px;
@@ -27,15 +27,10 @@ display: inline-flex;
   text-align: center;
 
   /* textStyle/label/lg/normal */
-  font-family: ${jds.typo.desktop.typeface.label};
-  font-size: ${jds.typo.desktop.font.size.label.lg}px;
-  font-style: normal;
-  font-weight: ${jds.typo.desktop.font.weight.label.normal};
-  line-height: ${jds.typo.desktop.font.line.height.label.lg}px;
-  letter-spacing: ${jds.typo.desktop.font.letter.spacing.label.lg}px;
+  ${typo(jds, 'desktop', 'textStyle.body.2xs.normal')}
 `,
 );
-
+//   /*  */
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({ children, ...props }, ref) => {
   return (
     <ThemeProvider theme={lightTheme}>
