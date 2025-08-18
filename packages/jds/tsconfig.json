@@ -27,6 +27,7 @@
       "style": ["style/index"],
       "theme": ["theme/index"],
       "tokens": ["tokens/index"],
+      "types": ["types/index"],
       "utils": ["utils/index"],
       "@/*": ["*"]
     }

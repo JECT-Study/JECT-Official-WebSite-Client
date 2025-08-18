@@ -21,6 +21,7 @@ const config: StorybookConfig = {
       style: resolve(__dirname, '../src/style'),
       theme: resolve(__dirname, '../src/theme'),
       tokens: resolve(__dirname, '../src/tokens'),
+      types: resolve(__dirname, '../src/types'),
       utils: resolve(__dirname, '../src/utils'),
       '@': resolve(__dirname, '../src'),
     };
