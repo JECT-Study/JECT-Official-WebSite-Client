@@ -8,5 +8,5 @@ export function em(fontSize: number, spacing: number): string {
 }
 
 export function lh(fontSize: number, lineHeight: number): string {
-  return `${parseFloat((lineHeight / fontSize).toFixed(1))}`;
+  return `${parseFloat((lineHeight / fontSize).toFixed(2))}`;
 }
