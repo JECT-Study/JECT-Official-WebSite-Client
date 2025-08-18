@@ -9,7 +9,7 @@ export const GlobalStyles = () => (
       @font-face {
         font-family: 'Pretendard Variable';
         src: url(${PretendardVariable}) format('woff2-variations');
-        font-weight: 45 920; /* 변수 폰트 weight 범위 */
+        font-weight: 45 920;
         font-style: normal;
         font-display: swap;
       }
@@ -31,7 +31,7 @@ export const GlobalStyles = () => (
       *::after {
         margin: 0;
         padding: 0;
-        box-sizing: border-box; /* 패딩/보더 포함한 크기 계산 */
+        box-sizing: border-box;
       }
 
       a {
