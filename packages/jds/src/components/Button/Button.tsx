@@ -8,22 +8,22 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const StyledButton = styled.button(
-  ({ theme: jds }) => `
+  ({ theme }) => `
   display: inline-flex;
   min-width: 28px;
-  padding: ${jds.scheme.desktop.spacing[2]}px
-    ${jds.scheme.desktop.spacing[6]}px;
+  padding: ${theme.scheme.desktop.spacing[2]}px
+    ${theme.scheme.desktop.spacing[6]}px;
   justify-content: center;
   align-items: center;
 
-  border-radius: ${rem(jds.scheme.desktop.radius[4])};
-  opacity: ${jds.scheme.desktop.opacity[100]};
-  background-color: ${jds.color.feedback.positive.neutral};
-  color: ${jds.color.object.static.inverse.boldest};
+  border-radius: ${rem(theme.scheme.desktop.radius[4])};
+  opacity: ${theme.scheme.desktop.opacity[100]};
+  background-color: ${theme.color.feedback.positive.neutral};
+  color: ${theme.color.object.static.inverse.boldest};
   text-align: center;
 
   /* textStyle/label/lg/normal */
-  ${textStyle(jds, 'desktop', 'body.2xs.normal')}
+  ${textStyle(theme, 'desktop', 'body.2xs.normal')}
 `,
 );
 
