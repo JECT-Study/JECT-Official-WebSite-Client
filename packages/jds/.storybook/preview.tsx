@@ -1,5 +1,5 @@
 import type { Preview } from '@storybook/react';
-import { lightTheme, ThemeProvider } from '../src/theme';
+import { darkTheme, lightTheme, ThemeProvider } from '../src/theme';
 import { GlobalStyles } from '../src/style';
 
 const preview: Preview = {
@@ -14,13 +14,31 @@ const preview: Preview = {
       default: 'dark',
     },
   },
+  globalTypes: {
+    theme: {
+      name: 'Theme',
+      description: '전역 테마 스위처',
+      defaultValue: 'light',
+      toolbar: {
+        icon: 'circlehellow',
+        items: [
+          { value: 'light', title: 'Light', icon: 'circlehollow' },
+          { value: 'dark', title: 'Dark', icon: 'circle' },
+        ],
+        showName: true,
+      },
+    },
+  },
   decorators: [
-    Story => (
-      <ThemeProvider theme={lightTheme}>
-        <GlobalStyles />
-        <Story />
-      </ThemeProvider>
-    ),
+    (Story, context) => {
+      const theme = context.globals.theme === 'light' ? lightTheme : darkTheme;
+      return (
+        <ThemeProvider theme={theme}>
+          <GlobalStyles />
+          <Story />
+        </ThemeProvider>
+      );
+    },
   ],
   tags: ['autodocs'],
 };
