@@ -1,11 +1,7 @@
-import { ThemeProvider } from '@emotion/react';
 import styled from '@emotion/styled';
 import { forwardRef } from 'react';
 import type { ButtonHTMLAttributes, ReactNode } from 'react';
-
 import { rem, textStyle } from 'utils';
-import { lightTheme } from 'theme';
-import { GlobalStyles } from 'style';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
@@ -30,15 +26,12 @@ const StyledButton = styled.button(
   ${textStyle(jds, 'desktop', 'body.2xs.normal')}
 `,
 );
-//   /*  */
+
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({ children, ...props }, ref) => {
   return (
-    <ThemeProvider theme={lightTheme}>
-      <GlobalStyles />
-      <StyledButton ref={ref} {...props}>
-        {children}
-      </StyledButton>
-    </ThemeProvider>
+    <StyledButton ref={ref} {...props}>
+      {children}
+    </StyledButton>
   );
 });
 

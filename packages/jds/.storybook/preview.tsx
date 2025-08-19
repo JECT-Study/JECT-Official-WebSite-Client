@@ -1,4 +1,6 @@
 import type { Preview } from '@storybook/react';
+import { lightTheme, ThemeProvider } from '../src/theme';
+import { GlobalStyles } from '../src/style';
 
 const preview: Preview = {
   parameters: {
@@ -12,6 +14,14 @@ const preview: Preview = {
       default: 'dark',
     },
   },
+  decorators: [
+    Story => (
+      <ThemeProvider theme={lightTheme}>
+        <GlobalStyles />
+        <Story />
+      </ThemeProvider>
+    ),
+  ],
   tags: ['autodocs'],
 };
 
