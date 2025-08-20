@@ -20,8 +20,18 @@
     "declaration": true,
     "declarationMap": true,
     "outDir": "./dist",
-    "rootDir": "./src"
+    "rootDir": "./src",
+    "baseUrl": "src",
+    "paths": {
+      "components": ["components/index"],
+      "style": ["style/index"],
+      "theme": ["theme/index"],
+      "tokens": ["tokens/index"],
+      "types": ["types/index"],
+      "utils": ["utils/index"],
+      "@/*": ["*"]
+    }
   },
-  "include": ["src"],
+  "include": ["src/**/*", "entire-convert.js", "fonts.d.ts"],
   "exclude": ["dist", "node_modules", "**/*.stories.tsx", "**/*.test.tsx"]
 }
