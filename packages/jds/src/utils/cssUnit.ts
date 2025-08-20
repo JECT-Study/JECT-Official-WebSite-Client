@@ -31,6 +31,6 @@ export function lineHeightRatio(
   lineHeight: number,
   fontSize: number,
   precision: number = 1,
-): string {
-  return `${parseFloat((lineHeight / fontSize).toFixed(precision))}`;
+): number {
+  return parseFloat((lineHeight / fontSize).toFixed(precision));
 }
