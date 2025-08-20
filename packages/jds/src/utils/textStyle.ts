@@ -1,5 +1,5 @@
 import { Theme } from '@emotion/react';
-import { em, lh, rem } from './cssUnit';
+import { pxToRem, spacingToEm, lineHeightRatio } from './cssUnit';
 import {
   BodyModifierKey,
   BodyScaleKey,
@@ -21,21 +21,21 @@ export function textStyle(theme: Theme, device: DeviceType, typoToken: TextStyle
     if (scale === '3' || scale === '4') {
       return `
             font-family: ${theme.typo[device].typeface[element]};
-            font-size: ${rem(fontSize)};
+            font-size: ${pxToRem(fontSize)};
             font-style: normal;
             font-weight: ${theme.typo[device].font.weight[element].bold};
-            line-height: ${lh(fontSize, theme.typo[device].font.line.height[element][scale])};
-            letter-spacing: ${em(fontSize, theme.typo[device].font.letter.spacing[element][scale])};
+            line-height: ${lineHeightRatio(theme.typo[device].font.line.height[element][scale], fontSize, 2)};
+            letter-spacing: ${spacingToEm(theme.typo[device].font.letter.spacing[element][scale], fontSize)};
         `;
     }
 
     return `
             font-family: ${theme.typo[device].typeface[element]};
-            font-size: ${rem(fontSize)};
+            font-size: ${pxToRem(fontSize)};
             font-style: normal;
             font-weight: ${theme.typo[device].font.weight[element].normal};
-            line-height: ${lh(fontSize, theme.typo[device].font.line.height[element][scale])};
-            letter-spacing: ${em(fontSize, theme.typo[device].font.letter.spacing[element][scale])};
+            line-height: ${lineHeightRatio(theme.typo[device].font.line.height[element][scale], fontSize, 2)};
+            letter-spacing: ${spacingToEm(theme.typo[device].font.letter.spacing[element][scale], fontSize)};
     `;
   } else if (element === 'label') {
     const [scale, modifier] = rest as [LabelScaleKey, LabelModifierKey];
@@ -43,11 +43,11 @@ export function textStyle(theme: Theme, device: DeviceType, typoToken: TextStyle
 
     return `
             font-family: ${theme.typo[device].typeface[element]};
-            font-size: ${rem(fontSize)};
+            font-size: ${pxToRem(fontSize)};
             font-style: normal;
             font-weight: ${theme.typo[device].font.weight[element][modifier]};
-            line-height: ${lh(fontSize, theme.typo[device].font.line.height[element][scale])};
-            letter-spacing: ${em(fontSize, theme.typo[device].font.letter.spacing[element][scale])};
+            line-height: ${lineHeightRatio(theme.typo[device].font.line.height[element][scale], fontSize)};
+            letter-spacing: ${spacingToEm(theme.typo[device].font.letter.spacing[element][scale], fontSize)};
     `;
   } else if (element === 'body') {
     const [scale, modifier] = rest as [BodyScaleKey, BodyModifierKey];
@@ -55,11 +55,11 @@ export function textStyle(theme: Theme, device: DeviceType, typoToken: TextStyle
 
     return `
             font-family: ${theme.typo[device].typeface[element]};
-            font-size: ${rem(fontSize)};
+            font-size: ${pxToRem(fontSize)};
             font-style: normal;
             font-weight: ${theme.typo[device].font.weight[element][modifier]};
-            line-height: ${lh(fontSize, theme.typo[device].font.line.height[element][scale])};
-            letter-spacing: ${em(fontSize, theme.typo[device].font.letter.spacing[element][scale])};
+            line-height: ${lineHeightRatio(theme.typo[device].font.line.height[element][scale], fontSize)};
+            letter-spacing: ${spacingToEm(theme.typo[device].font.letter.spacing[element][scale], fontSize)};
     `;
   } else if (element === 'syntax') {
     const scale = rest[0] as SyntaxScaleKey;
@@ -67,10 +67,10 @@ export function textStyle(theme: Theme, device: DeviceType, typoToken: TextStyle
 
     return `
         font-family: ${theme.typo[device].typeface[element]};
-        font-size: ${rem(fontSize)};
+        font-size: ${pxToRem(fontSize)};
         font-style: normal;
         font-weight: ${theme.typo[device].font.weight[element].normal};
-        line-height: ${lh(fontSize, theme.typo[device].font.line.height[element][scale])};
+        line-height: ${lineHeightRatio(theme.typo[device].font.line.height[element][scale], fontSize)};
     `;
   }
 

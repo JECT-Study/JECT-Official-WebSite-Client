@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { forwardRef } from 'react';
 import type { ButtonHTMLAttributes, ReactNode } from 'react';
-import { rem, textStyle } from 'utils';
+import { pxToRem, textStyle } from 'utils';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
@@ -15,15 +15,13 @@ const StyledButton = styled.button(
     ${theme.scheme.desktop.spacing[6]}px;
   justify-content: center;
   align-items: center;
-
-  border-radius: ${rem(theme.scheme.desktop.radius[4])};
+  border-radius: ${pxToRem(theme.scheme.desktop.radius[4])};
   opacity: ${theme.scheme.desktop.opacity[100]};
   background-color: ${theme.color.feedback.positive.neutral};
   color: ${theme.color.object.static.inverse.boldest};
   text-align: center;
 
-  /* textStyle/label/lg/normal */
-  ${textStyle(theme, 'desktop', 'body.2xs.normal')}
+  ${textStyle(theme, 'desktop', 'hero.4')}
 `,
 );
 
