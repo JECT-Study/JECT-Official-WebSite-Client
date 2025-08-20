@@ -3,7 +3,7 @@ import fs from 'fs';
 /**
  * 디자인 토큰 JSON 파일 변환 스크립트
  *
- * tokenFilePath: 변환할 원본 디자인 토큰 JSON 파일 경로
+ * tokenFilePath: 변환할 원본 디자인 토큰 JSON 파일 경로, 새로운 JSON 파일 변환 시 경로 수정 필요
  * outputDir: 변환된 TypeScript 토큰 파일이 저장될 디렉토리
  * outputFile: 최종 생성될 TypeScript 파일의 전체 경로 (outputDir + 파일명)
  *
