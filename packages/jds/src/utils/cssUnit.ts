@@ -13,10 +13,10 @@ export function pxToRem(pixels: number, baseFontSize: number = 16, precision: nu
  * 특정 폰트 크기를 기준으로 스페이싱 값을 em 단위로 변환합니다
  * @param spacing - 변환할 스페이싱 값 (px단위)
  * @param fontSize - 기준이 되는 폰트 크기 (px단위)
- * @param precision - 소수점 자릿수 (기본값: 4)
+ * @param precision - 소수점 자릿수 (기본값: 3)
  * @returns em 값이 포함된 문자열
  */
-export function spacingToEm(spacing: number, fontSize: number, precision: number = 4): string {
+export function spacingToEm(spacing: number, fontSize: number, precision: number = 3): string {
   return `${parseFloat((spacing / fontSize).toFixed(precision))}em`;
 }
 
