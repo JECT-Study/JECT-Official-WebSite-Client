@@ -1,14 +1,12 @@
 import { Theme } from '@emotion/react';
-import { Density, FillColor, Variant } from 'types';
+import { Density, FillColor, InteractionState, Variant } from 'types';
 
 export function interaction(
   theme: Theme,
   variant: Variant,
   density: Density,
   fillColor: FillColor,
-  isReadonly: boolean = false,
-  isDisabled: boolean = false,
-  isLocked: boolean = false,
+  state: InteractionState = 'default',
 ) {
   const createAfter = (backgroundColor: string) => {
     const afterBaseStyle = {
@@ -21,7 +19,7 @@ export function interaction(
       backgroundColor: backgroundColor,
     };
 
-    if (isLocked) {
+    if (state === 'locked') {
       return {
         position: 'relative',
         outline: 'none',
@@ -29,7 +27,7 @@ export function interaction(
       };
     }
 
-    if (isDisabled) {
+    if (state === 'disabled') {
       return {
         position: 'relative',
         outline: 'none',
@@ -37,7 +35,7 @@ export function interaction(
       };
     }
 
-    if (isReadonly) {
+    if (state === 'readonly') {
       return {
         position: 'relative',
         outline: 'none',

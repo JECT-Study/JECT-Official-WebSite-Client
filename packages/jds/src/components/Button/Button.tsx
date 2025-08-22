@@ -19,7 +19,7 @@ const StyledButton = styled.button(({ theme }) => ({
   color: theme.color.object.static.inverse.boldest,
   textAlign: 'center',
   ...textStyle(theme, 'desktop', 'body.2xs.normal'),
-  ...interaction(theme, 'normal', 'bold', 'default', false, false, false),
+  ...interaction(theme, 'normal', 'bold', 'default', 'disabled'),
 }));
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({ children, ...props }, ref) => {
