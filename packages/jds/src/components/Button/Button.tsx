@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { forwardRef } from 'react';
 import type { ButtonHTMLAttributes, ReactNode } from 'react';
-import { pxToRem, textStyle } from 'utils';
+import { interaction, pxToRem, textStyle } from 'utils';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
@@ -19,6 +19,7 @@ const StyledButton = styled.button(({ theme }) => ({
   color: theme.color.object.static.inverse.boldest,
   textAlign: 'center',
   ...textStyle(theme, 'desktop', 'body.2xs.normal'),
+  ...interaction(theme, 'normal', 'bold', 'default', false, false, false),
 }));
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({ children, ...props }, ref) => {
