@@ -36,7 +36,9 @@ export const Test: Story = {
   },
   render: args => (
     <div style={{ width: '500px', border: '1px solid red' }}>
-      <Hero {...args} />
+      <Hero size={args.size} textAlign={args.textAlign}>
+        {args.children}
+      </Hero>
     </div>
   ),
 };

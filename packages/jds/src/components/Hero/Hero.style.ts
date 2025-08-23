@@ -18,10 +18,24 @@ export const StyledHero = styled.div<StyledHeroProps>(({ theme, size, textAlign 
     }
   };
 
+  const getTextAlign = () => {
+    switch (textAlign) {
+      case 'center':
+        return 'center';
+      case 'left':
+        return 'flex-start';
+      case 'right':
+        return 'flex-end';
+      default:
+        return 'center';
+    }
+  };
+
   return {
-    display: 'block',
+    display: 'flex',
+    justifyContent: getTextAlign(),
+    alignItems: 'center',
     color: theme.color.object.boldest,
-    textAlign: textAlign,
     cursor: 'default',
     ...getTextStyle(),
   };
