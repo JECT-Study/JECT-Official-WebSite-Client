@@ -1,20 +1,21 @@
 import styled from '@emotion/styled';
-import { textStyle } from 'utils';
+import { mediaQuery, textStyle } from 'utils';
 import { StyledHeroProps } from './Hero.types';
+import { DeviceType } from 'types';
 
 export const StyledHero = styled.div<StyledHeroProps>(({ theme, size, textAlign }) => {
-  const getTextStyle = () => {
+  const getTextStyle = (deviceType: DeviceType) => {
     switch (size) {
       case 'xs':
-        return textStyle(theme, 'desktop', 'hero.1');
+        return textStyle(theme, deviceType, 'hero.1');
       case 'sm':
-        return textStyle(theme, 'desktop', 'hero.2');
+        return textStyle(theme, deviceType, 'hero.2');
       case 'md':
-        return textStyle(theme, 'desktop', 'hero.3');
+        return textStyle(theme, deviceType, 'hero.3');
       case 'lg':
-        return textStyle(theme, 'desktop', 'hero.4');
+        return textStyle(theme, deviceType, 'hero.4');
       default:
-        return textStyle(theme, 'desktop', 'hero.4');
+        return textStyle(theme, deviceType, 'hero.4');
     }
   };
 
@@ -37,6 +38,8 @@ export const StyledHero = styled.div<StyledHeroProps>(({ theme, size, textAlign 
     alignItems: 'center',
     color: theme.color.object.boldest,
     cursor: 'default',
-    ...getTextStyle(),
+    [mediaQuery.mobile]: { ...getTextStyle('mobile') },
+    [mediaQuery.tablet]: { ...getTextStyle('tablet') },
+    [mediaQuery.desktop]: { ...getTextStyle('desktop') },
   };
 });
