@@ -1,0 +1,3 @@
+import type { SVGProps } from "react";
+const SvgComputerLine = (props: SVGProps<SVGSVGElement>) => <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 24 24" {...props}><path fill="currentColor" d="M4 16.007h16v-11H4zm9 2v2h4v2H7v-2h4v-2H2.992A1 1 0 0 1 2 17V4.015c0-.557.455-1.008.992-1.008h18.016c.548 0 .992.45.992 1.008V17c0 .556-.455 1.007-.992 1.007z" /></svg>;
+export default SvgComputerLine;

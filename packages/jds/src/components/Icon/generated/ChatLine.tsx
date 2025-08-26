@@ -1,0 +1,3 @@
+import type { SVGProps } from "react";
+const SvgChatLine = (props: SVGProps<SVGSVGElement>) => <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 24 24" {...props}><path fill="currentColor" d="m7.291 20.831-4.524 1.006a.5.5 0 0 1-.597-.597l1.006-4.524A9.96 9.96 0 0 1 2 12.007c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10a9.96 9.96 0 0 1-4.709-1.176m.29-2.113.653.35a7.96 7.96 0 0 0 3.766.94 8 8 0 1 0-8-8c0 1.334.325 2.617.94 3.765l.349.653-.655 2.947z" /></svg>;
+export default SvgChatLine;
