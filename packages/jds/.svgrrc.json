@@ -1,0 +1,13 @@
+{
+  "typescript": true,
+  "ext": "tsx",
+  "prettier": false,
+  "svgProps": {
+    "fill": "currentColor"
+  },
+  "icon": true,
+  "replaceAttrValues": {
+    "#191B24": "currentColor"
+  },
+  "jsxRuntime": "automatic"
+}
