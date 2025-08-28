@@ -1,20 +1,7 @@
-export const breakpoints = {
-  mobile: {
-    min: '1px',
-    max: '767px',
-  },
-  tablet: {
-    min: '768px',
-    max: '1199px',
-  },
-  desktop: {
-    min: '1200px',
-    max: 'none',
-  },
-};
+import { Theme } from '@emotion/react';
 
-export const mediaQuery = {
-  mobile: `@media (max-width: ${breakpoints.mobile.max})`,
-  tablet: `@media (min-width: ${breakpoints.tablet.min}) and (max-width: ${breakpoints.tablet.max})`,
-  desktop: `@media (min-width: ${breakpoints.desktop.min})`,
-};
+export const mediaQuery = (theme: Theme) => ({
+  desktop: `@media (min-width: ${theme.scheme.desktop.breakpoint.min}px)`,
+  tablet: `@media (min-width: ${theme.scheme.tablet.breakpoint.min}px) and (max-width: ${theme.scheme.tablet.breakpoint.max}px)`,
+  mobile: `@media (min-width: ${theme.scheme.mobile.breakpoint.min}px) and (max-width: ${theme.scheme.mobile.breakpoint.max}px)`,
+});

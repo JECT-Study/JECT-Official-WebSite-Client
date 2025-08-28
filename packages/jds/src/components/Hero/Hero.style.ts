@@ -38,8 +38,8 @@ export const StyledHero = styled.div<StyledHeroProps>(({ theme, size, textAlign 
     alignItems: 'center',
     color: theme.color.object.boldest,
     cursor: 'default',
-    [mediaQuery.mobile]: { ...getTextStyle('mobile') },
-    [mediaQuery.tablet]: { ...getTextStyle('tablet') },
-    [mediaQuery.desktop]: { ...getTextStyle('desktop') },
+    [mediaQuery(theme).mobile]: { ...getTextStyle('mobile') },
+    [mediaQuery(theme).tablet]: { ...getTextStyle('tablet') },
+    [mediaQuery(theme).desktop]: { ...getTextStyle('desktop') },
   };
 });
