@@ -9,6 +9,11 @@ export function interaction(
   state: InteractionState = 'default',
 ) {
   const createAfter = (backgroundColor: string) => {
+    const baseStyle = {
+      position: 'relative',
+      outline: 'none',
+    };
+
     const afterBaseStyle = {
       content: '""',
       position: 'absolute',
@@ -21,31 +26,27 @@ export function interaction(
 
     if (state === 'locked') {
       return {
-        position: 'relative',
-        outline: 'none',
+        ...baseStyle,
         '::after': { ...afterBaseStyle, opacity: 0.08 },
       };
     }
 
     if (state === 'disabled') {
       return {
-        position: 'relative',
-        outline: 'none',
+        ...baseStyle,
         '::after': { ...afterBaseStyle, opacity: 0.05 },
       };
     }
 
     if (state === 'readonly') {
       return {
-        position: 'relative',
-        outline: 'none',
+        ...baseStyle,
         '::after': { ...afterBaseStyle, opacity: 0 },
       };
     }
 
     return {
-      position: 'relative',
-      outline: 'none',
+      ...baseStyle,
       '::after': { ...afterBaseStyle, opacity: 0 },
       '&:hover::after': { opacity: 0.08 },
       '&:active::after': { opacity: 0.12 },
