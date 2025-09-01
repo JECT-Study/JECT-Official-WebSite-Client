@@ -1,45 +1,41 @@
 import styled from '@emotion/styled';
 import { textStyle } from 'utils';
-import { StyledHeroProps } from './Hero.types';
-import { DeviceType } from 'types';
 
-export const StyledHero = styled.div<StyledHeroProps>(({ theme, size, textAlign }) => {
-  const getTextStyle = (deviceType: DeviceType) => {
-    switch (size) {
-      case 'xs':
-        return textStyle(theme, deviceType, 'hero.1');
-      case 'sm':
-        return textStyle(theme, deviceType, 'hero.2');
-      case 'md':
-        return textStyle(theme, deviceType, 'hero.3');
-      case 'lg':
-        return textStyle(theme, deviceType, 'hero.4');
-      default:
-        return textStyle(theme, deviceType, 'hero.4');
-    }
-  };
+export const SIZE_TO_TEXT_STYLE = {
+  xs: 'hero.1',
+  sm: 'hero.2',
+  md: 'hero.3',
+  lg: 'hero.4',
+} as const;
 
-  const getTextAlign = () => {
-    switch (textAlign) {
-      case 'center':
-        return 'center';
-      case 'left':
-        return 'flex-start';
-      case 'right':
-        return 'flex-end';
-      default:
-        return 'center';
-    }
-  };
+export const TEXT_ALIGN_MAPPING = {
+  center: 'center',
+  left: 'flex-start',
+  right: 'flex-end',
+} as const;
 
-  return {
-    display: 'flex',
-    justifyContent: getTextAlign(),
-    alignItems: 'center',
-    color: theme.color.object.boldest,
-    cursor: 'default',
-    [theme.breakPoint.mobile]: { ...getTextStyle('mobile') },
-    [theme.breakPoint.tablet]: { ...getTextStyle('tablet') },
-    [theme.breakPoint.desktop]: { ...getTextStyle('desktop') },
-  };
-});
+export type HeroSize = keyof typeof SIZE_TO_TEXT_STYLE;
+export type HeroTextAlign = keyof typeof TEXT_ALIGN_MAPPING;
+
+interface StyledHeroProps {
+  size?: HeroSize;
+  textAlign?: HeroTextAlign;
+}
+
+export const StyledHero = styled.div<StyledHeroProps>(
+  ({ theme, size = 'lg', textAlign = 'center' }) => {
+    const textStyleKey = SIZE_TO_TEXT_STYLE[size];
+    const justifyContent = TEXT_ALIGN_MAPPING[textAlign];
+
+    return {
+      display: 'flex',
+      justifyContent,
+      alignItems: 'center',
+      color: theme.color.object.boldest,
+      cursor: 'default',
+      [theme.breakPoint.mobile]: { ...textStyle(theme, 'mobile', textStyleKey) },
+      [theme.breakPoint.tablet]: { ...textStyle(theme, 'tablet', textStyleKey) },
+      [theme.breakPoint.desktop]: { ...textStyle(theme, 'desktop', textStyleKey) },
+    };
+  },
+);

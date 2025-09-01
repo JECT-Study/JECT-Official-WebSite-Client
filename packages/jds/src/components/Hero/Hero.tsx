@@ -1,6 +1,11 @@
 import { forwardRef } from 'react';
-import { HeroProps } from './Hero.types';
-import { StyledHero } from './Hero.style';
+import { HeroSize, HeroTextAlign, StyledHero } from './Hero.style';
+
+interface HeroProps {
+  size: HeroSize;
+  textAlign: HeroTextAlign;
+  children: React.ReactNode;
+}
 
 export const Hero = forwardRef<HTMLDivElement, HeroProps>(
   ({ size, textAlign, children, ...props }, ref) => {
