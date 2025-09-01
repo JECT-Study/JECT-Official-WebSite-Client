@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { mediaQuery, textStyle } from 'utils';
+import { textStyle } from 'utils';
 import { StyledHeroProps } from './Hero.types';
 import { DeviceType } from 'types';
 
@@ -38,8 +38,8 @@ export const StyledHero = styled.div<StyledHeroProps>(({ theme, size, textAlign 
     alignItems: 'center',
     color: theme.color.object.boldest,
     cursor: 'default',
-    [mediaQuery(theme).mobile]: { ...getTextStyle('mobile') },
-    [mediaQuery(theme).tablet]: { ...getTextStyle('tablet') },
-    [mediaQuery(theme).desktop]: { ...getTextStyle('desktop') },
+    [theme.breakPoint.mobile]: { ...getTextStyle('mobile') },
+    [theme.breakPoint.tablet]: { ...getTextStyle('tablet') },
+    [theme.breakPoint.desktop]: { ...getTextStyle('desktop') },
   };
 });
