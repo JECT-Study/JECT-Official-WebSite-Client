@@ -1,3 +1,17 @@
-import type { SVGProps } from "react";
-const SvgSunLine = (props: SVGProps<SVGSVGElement>) => <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 24 24" {...props}><path fill="currentColor" d="M12 18.007a6 6 0 1 1 0-12 6 6 0 0 1 0 12m0-2a4 4 0 1 0 0-8 4 4 0 0 0 0 8m-1-15h2v3h-2zm0 19h2v3h-2zM3.515 4.937l1.414-1.415L7.05 5.643 5.636 7.057zM16.95 18.37l1.414-1.414 2.121 2.121-1.414 1.415zm2.121-14.85 1.414 1.415-2.121 2.121-1.414-1.414zM5.636 16.958 7.05 18.37 4.93 20.493l-1.414-1.415zM23 11.007v2h-3v-2zm-19 0v2H1v-2z" /></svg>;
+import type { SVGProps } from 'react';
+const SvgSunLine = (props: SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns='http://www.w3.org/2000/svg'
+    width='1em'
+    height='1em'
+    fill='currentColor'
+    viewBox='0 0 24 24'
+    {...props}
+  >
+    <path
+      fill='currentColor'
+      d='M12 18.007a6 6 0 1 1 0-12 6 6 0 0 1 0 12m0-2a4 4 0 1 0 0-8 4 4 0 0 0 0 8m-1-15h2v3h-2zm0 19h2v3h-2zM3.515 4.937l1.414-1.415L7.05 5.643 5.636 7.057zM16.95 18.37l1.414-1.414 2.121 2.121-1.414 1.415zm2.121-14.85 1.414 1.415-2.121 2.121-1.414-1.414zM5.636 16.958 7.05 18.37 4.93 20.493l-1.414-1.415zM23 11.007v2h-3v-2zm-19 0v2H1v-2z'
+    />
+  </svg>
+);
 export default SvgSunLine;

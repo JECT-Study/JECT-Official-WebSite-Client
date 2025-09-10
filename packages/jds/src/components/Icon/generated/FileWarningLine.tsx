@@ -1,3 +1,17 @@
-import type { SVGProps } from "react";
-const SvgFileWarningLine = (props: SVGProps<SVGSVGElement>) => <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 24 24" {...props}><path fill="currentColor" d="M15 4.007H5v16h14v-12h-4zM3 3c0-.548.447-.992.999-.992H16l5 5V21a1 1 0 0 1-.993 1.007H3.993A1 1 0 0 1 3 21.015zm8 12.008h2v2h-2zm0-8h2v6h-2z" /></svg>;
+import type { SVGProps } from 'react';
+const SvgFileWarningLine = (props: SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns='http://www.w3.org/2000/svg'
+    width='1em'
+    height='1em'
+    fill='currentColor'
+    viewBox='0 0 24 24'
+    {...props}
+  >
+    <path
+      fill='currentColor'
+      d='M15 4.007H5v16h14v-12h-4zM3 3c0-.548.447-.992.999-.992H16l5 5V21a1 1 0 0 1-.993 1.007H3.993A1 1 0 0 1 3 21.015zm8 12.008h2v2h-2zm0-8h2v6h-2z'
+    />
+  </svg>
+);
 export default SvgFileWarningLine;

@@ -1,3 +1,17 @@
-import type { SVGProps } from "react";
-const SvgPencilLine = (props: SVGProps<SVGSVGElement>) => <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 24 24" {...props}><path fill="currentColor" d="M15.728 9.584 14.314 8.17 5 17.484v1.414h1.414zm1.414-1.414 1.414-1.414-1.414-1.415-1.414 1.415zm-9.9 12.728H3v-4.243L16.435 3.22a1 1 0 0 1 1.414 0l2.829 2.829a1 1 0 0 1 0 1.414z" /></svg>;
+import type { SVGProps } from 'react';
+const SvgPencilLine = (props: SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns='http://www.w3.org/2000/svg'
+    width='1em'
+    height='1em'
+    fill='currentColor'
+    viewBox='0 0 24 24'
+    {...props}
+  >
+    <path
+      fill='currentColor'
+      d='M15.728 9.584 14.314 8.17 5 17.484v1.414h1.414zm1.414-1.414 1.414-1.414-1.414-1.415-1.414 1.415zm-9.9 12.728H3v-4.243L16.435 3.22a1 1 0 0 1 1.414 0l2.829 2.829a1 1 0 0 1 0 1.414z'
+    />
+  </svg>
+);
 export default SvgPencilLine;
