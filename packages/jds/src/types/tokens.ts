@@ -8,3 +8,8 @@ export type DarkColorSemanticTokens = typeof designTokens.colorSemantic.dark;
 export type SchemeTokens = typeof designTokens.scheme;
 export type TypographyTokens = typeof designTokens.typography;
 export type EnvironmentTokens = typeof designTokens.environment;
+export type BreakPoint = {
+  desktop: string;
+  tablet: string;
+  mobile: string;
+};
