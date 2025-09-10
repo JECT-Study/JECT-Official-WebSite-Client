@@ -8,7 +8,7 @@ export const Icon = ({ name, size = 'md', color }: IconProps) => {
 
   const pixelSize = sizeMap[size];
   const theme = useTheme();
-  const BaseColor = color ? color : theme.color.object.boldest;
+  const BaseColor = color ?? theme.color.object.boldest;
 
   return <IconComponent width={pixelSize} height={pixelSize} style={{ color: BaseColor }} />;
 };
