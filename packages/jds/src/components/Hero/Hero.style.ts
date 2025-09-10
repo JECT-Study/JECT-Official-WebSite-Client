@@ -22,7 +22,7 @@ interface StyledHeroProps {
   textAlign?: HeroTextAlign;
 }
 
-export const StyledHero = styled.div<StyledHeroProps>(
+export const HeroDiv = styled.div<StyledHeroProps>(
   ({ theme, size = 'lg', textAlign = 'center' }) => {
     const textStyleKey = SIZE_TO_TEXT_STYLE[size];
     const justifyContent = TEXT_ALIGN_MAPPING[textAlign];
