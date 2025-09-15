@@ -71,6 +71,7 @@ export { default as Heart3Line } from './Heart3Line';
 export { default as Home2Fill } from './Home2Fill';
 export { default as Home2Line } from './Home2Line';
 export { default as ImageLine } from './ImageLine';
+export { default as InformationFill } from './InformationFill';
 export { default as InformationLine } from './InformationLine';
 export { default as Instagram } from './Instagram';
 export { default as Instance } from './Instance';
