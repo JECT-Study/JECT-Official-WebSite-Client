@@ -28,7 +28,8 @@
     "build-storybook": "storybook build",
     "chromatic": "npx chromatic --project-token=$CHROMATIC_TOKEN",
     "build:tokens": "node tokensBuilder.js",
-    "clean": "rm -rf dist node_modules .turbo storybook-static"
+    "clean": "rm -rf dist node_modules .turbo storybook-static",
+    "build:icons": "svgr src/assets/icons --out-dir src/components/Icon/generated --typescript --ext tsx"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -45,6 +46,8 @@
     "@storybook/react": "^8.5.3",
     "@storybook/react-vite": "^8.5.3",
     "@storybook/test": "^8.5.3",
+    "@svgr/cli": "^8.1.0",
+    "@svgr/core": "^8.1.0",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
     "chromatic": "^11.25.2",

@@ -1,0 +1,17 @@
+import type { SVGProps } from 'react';
+const SvgImageLine = (props: SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns='http://www.w3.org/2000/svg'
+    width='1em'
+    height='1em'
+    fill='currentColor'
+    viewBox='0 0 24 24'
+    {...props}
+  >
+    <path
+      fill='currentColor'
+      d='M2.992 21.007A.993.993 0 0 1 2 20.014V4a1 1 0 0 1 .992-.994h18.016c.548 0 .992.445.992.994v16.013a1 1 0 0 1-.992.993zm17.008-6v-10H4v14l10-10zm0 2.829-6-6-7.172 7.171H20zM8 11.007a2 2 0 1 1 0-4 2 2 0 0 1 0 4'
+    />
+  </svg>
+);
+export default SvgImageLine;
