@@ -3,14 +3,14 @@ import { HeroDiv, HeroSize, HeroTextAlign } from './Hero.style';
 import { useTheme } from 'theme';
 
 interface HeroProps {
-  size: HeroSize;
-  textAlign: HeroTextAlign;
-  children: React.ReactNode;
+  size?: HeroSize;
+  textAlign?: HeroTextAlign;
   color?: string;
+  children: React.ReactNode;
 }
 
 export const Hero = forwardRef<HTMLDivElement, HeroProps>(
-  ({ size, textAlign, children, color, ...props }, ref) => {
+  ({ size = 'lg', textAlign = 'center', color, children, ...props }, ref) => {
     const theme = useTheme();
     const BaseColor = color || theme.color.object.boldest;
 
