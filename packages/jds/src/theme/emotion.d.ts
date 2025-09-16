@@ -1,5 +1,6 @@
 import '@emotion/react';
 import {
+  BreakPoint,
   ColorPrimitiveTokens,
   DarkColorSemanticTokens,
   EnvironmentTokens,
@@ -15,5 +16,6 @@ declare module '@emotion/react' {
     scheme: SchemeTokens;
     environment: EnvironmentTokens;
     typo: TypographyTokens;
+    breakPoint: BreakPoint;
   }
 }

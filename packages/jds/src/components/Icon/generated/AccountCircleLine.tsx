@@ -1,0 +1,17 @@
+import type { SVGProps } from 'react';
+const SvgAccountCircleLine = (props: SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns='http://www.w3.org/2000/svg'
+    width='1em'
+    height='1em'
+    fill='currentColor'
+    viewBox='0 0 24 24'
+    {...props}
+  >
+    <path
+      fill='currentColor'
+      d='M12 2.007c5.523 0 10 4.477 10 10s-4.477 10-10 10-10-4.477-10-10 4.477-10 10-10m.16 14a6.98 6.98 0 0 0-5.147 2.256A7.97 7.97 0 0 0 12 20.007c1.97 0 3.773-.712 5.167-1.892a6.98 6.98 0 0 0-5.007-2.108m-.16-12A8 8 0 0 0 5.616 16.83a8.98 8.98 0 0 1 6.544-2.822 8.97 8.97 0 0 1 6.362 2.634A8 8 0 0 0 12 4.007m0 1a4 4 0 1 1 0 8 4 4 0 0 1 0-8m0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4'
+    />
+  </svg>
+);
+export default SvgAccountCircleLine;

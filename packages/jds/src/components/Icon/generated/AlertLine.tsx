@@ -1,0 +1,17 @@
+import type { SVGProps } from 'react';
+const SvgAlertLine = (props: SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns='http://www.w3.org/2000/svg'
+    width='1em'
+    height='1em'
+    fill='currentColor'
+    viewBox='0 0 24 24'
+    {...props}
+  >
+    <path
+      fill='currentColor'
+      d='m12.866 3.007 9.526 16.5a1 1 0 0 1-.866 1.5H2.474a1 1 0 0 1-.866-1.5l9.526-16.5a1 1 0 0 1 1.732 0m-8.66 16h15.588L12 5.507zm6.794-3h2v2h-2zm0-7h2v5h-2z'
+    />
+  </svg>
+);
+export default SvgAlertLine;
