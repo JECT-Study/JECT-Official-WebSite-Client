@@ -22,9 +22,9 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    size: 'lg',
-    textAlign: 'center',
-    weight: 'bold',
+    size: 'md',
+    textAlign: 'left',
+    weight: 'normal',
     children: '레이블',
   },
 };
