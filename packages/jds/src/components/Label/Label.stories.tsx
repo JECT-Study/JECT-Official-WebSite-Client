@@ -39,7 +39,7 @@ export const WithWideParentElement: Story = {
   },
   render: args => (
     <div style={{ width: '500px', border: '1px solid red' }}>
-      <Label size={args.size} textAlign={args.textAlign} weight={args.weight} color={args.color}>
+      <Label size={args.size} textAlign={args.textAlign} weight={args.weight}>
         {args.children}
       </Label>
     </div>
