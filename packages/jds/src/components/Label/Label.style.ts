@@ -1,36 +1,31 @@
 import styled from '@emotion/styled';
-import { mediaQuery, textStyle } from 'utils';
-import { StyledLabelProps } from './Label.types';
-import { DeviceType } from 'types';
+import { textStyle } from 'utils';
+import { TextStyle } from 'types';
+import { TEXT_ALIGN_MAPPING } from '../Hero/Hero.style';
 
-export const StyledLabel = styled.div<StyledLabelProps>(
-  ({ theme, size, textAlign, weight, color }) => {
-    const getTextStyle = (deviceType: DeviceType) => {
-      return textStyle(theme, deviceType, `label.${size}.${weight}`);
-    };
+export type LabelSize = 'lg' | 'md' | 'sm' | 'xs';
+export type LabelTextAlign = keyof typeof TEXT_ALIGN_MAPPING;
+export type LabelWeight = 'bold' | 'normal' | 'subtle';
 
-    const getTextAlign = () => {
-      switch (textAlign) {
-        case 'center':
-          return 'center';
-        case 'left':
-          return 'flex-start';
-        case 'right':
-          return 'flex-end';
-        default:
-          return 'center';
-      }
-    };
+interface LabelDivProps {
+  size: LabelSize;
+  textAlign: LabelTextAlign;
+  weight: LabelWeight;
+  color: string;
+}
 
-    return {
-      display: 'flex',
-      justifyContent: getTextAlign(),
-      alignItems: 'center',
-      color: color,
-      cursor: 'default',
-      // [mediaQuery.mobile]: { ...getTextStyle('mobile') },
-      // [mediaQuery.tablet]: { ...getTextStyle('tablet') },
-      // [mediaQuery.desktop]: { ...getTextStyle('desktop') },
-    };
-  },
-);
+export const LabelDiv = styled.div<LabelDivProps>(({ theme, size, textAlign, weight, color }) => {
+  const textStyleKey = `label.${size}.${weight}` as TextStyle;
+  const justifyContent = TEXT_ALIGN_MAPPING[textAlign];
+
+  return {
+    display: 'flex',
+    justifyContent,
+    alignItems: 'center',
+    color,
+    cursor: 'default',
+    [theme.breakPoint.mobile]: { ...textStyle(theme, 'mobile', textStyleKey) },
+    [theme.breakPoint.tablet]: { ...textStyle(theme, 'tablet', textStyleKey) },
+    [theme.breakPoint.desktop]: { ...textStyle(theme, 'desktop', textStyleKey) },
+  };
+});

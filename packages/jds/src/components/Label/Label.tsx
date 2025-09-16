@@ -1,24 +1,31 @@
-import { forwardRef } from 'react';
-import { StyledLabel } from './Label.style';
-import { LabelProps } from './Label.types';
+import { forwardRef, ReactNode } from 'react';
+import { LabelDiv, LabelSize, LabelTextAlign, LabelWeight } from './Label.style';
 import { useTheme } from 'theme';
+
+interface LabelProps {
+  size: LabelSize;
+  textAlign: LabelTextAlign;
+  weight: LabelWeight;
+  color?: string;
+  children: ReactNode;
+}
 
 export const Label = forwardRef<HTMLDivElement, LabelProps>(
   ({ size, textAlign, weight, color, children, ...props }, ref) => {
     const theme = useTheme();
-    const finalColor = color || theme.color.object.bold;
+    const BaseColor = color || theme.color.object.bold;
 
     return (
-      <StyledLabel
+      <LabelDiv
         ref={ref}
         size={size}
         textAlign={textAlign}
         weight={weight}
-        color={finalColor}
+        color={BaseColor}
         {...props}
       >
         {children}
-      </StyledLabel>
+      </LabelDiv>
     );
   },
 );
