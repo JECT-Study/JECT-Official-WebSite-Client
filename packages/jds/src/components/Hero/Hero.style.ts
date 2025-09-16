@@ -18,12 +18,13 @@ export type HeroSize = keyof typeof SIZE_TO_TEXT_STYLE;
 export type HeroTextAlign = keyof typeof TEXT_ALIGN_MAPPING;
 
 interface StyledHeroProps {
-  size?: HeroSize;
-  textAlign?: HeroTextAlign;
+  size: HeroSize;
+  textAlign: HeroTextAlign;
+  color: string;
 }
 
 export const HeroDiv = styled.div<StyledHeroProps>(
-  ({ theme, size = 'lg', textAlign = 'center' }) => {
+  ({ theme, size = 'lg', textAlign = 'center', color }) => {
     const textStyleKey = SIZE_TO_TEXT_STYLE[size];
     const justifyContent = TEXT_ALIGN_MAPPING[textAlign];
 
@@ -31,7 +32,7 @@ export const HeroDiv = styled.div<StyledHeroProps>(
       display: 'flex',
       justifyContent,
       alignItems: 'center',
-      color: theme.color.object.boldest,
+      color,
       cursor: 'default',
       [theme.breakPoint.mobile]: { ...textStyle(theme, 'mobile', textStyleKey) },
       [theme.breakPoint.tablet]: { ...textStyle(theme, 'tablet', textStyleKey) },
