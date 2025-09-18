@@ -18,24 +18,23 @@ export type HeroSize = keyof typeof SIZE_TO_TEXT_STYLE;
 export type HeroTextAlign = keyof typeof TEXT_ALIGN_MAPPING;
 
 interface StyledHeroProps {
-  size?: HeroSize;
-  textAlign?: HeroTextAlign;
+  size: HeroSize;
+  textAlign: HeroTextAlign;
+  color: string;
 }
 
-export const HeroDiv = styled.div<StyledHeroProps>(
-  ({ theme, size = 'lg', textAlign = 'center' }) => {
-    const textStyleKey = SIZE_TO_TEXT_STYLE[size];
-    const justifyContent = TEXT_ALIGN_MAPPING[textAlign];
+export const HeroDiv = styled.div<StyledHeroProps>(({ theme, size, textAlign, color }) => {
+  const textStyleKey = SIZE_TO_TEXT_STYLE[size];
+  const justifyContent = TEXT_ALIGN_MAPPING[textAlign];
 
-    return {
-      display: 'flex',
-      justifyContent,
-      alignItems: 'center',
-      color: theme.color.object.boldest,
-      cursor: 'default',
-      [theme.breakPoint.mobile]: { ...textStyle(theme, 'mobile', textStyleKey) },
-      [theme.breakPoint.tablet]: { ...textStyle(theme, 'tablet', textStyleKey) },
-      [theme.breakPoint.desktop]: { ...textStyle(theme, 'desktop', textStyleKey) },
-    };
-  },
-);
+  return {
+    display: 'flex',
+    justifyContent,
+    alignItems: 'center',
+    color,
+    cursor: 'default',
+    [theme.breakPoint.mobile]: { ...textStyle(theme, 'mobile', textStyleKey) },
+    [theme.breakPoint.tablet]: { ...textStyle(theme, 'tablet', textStyleKey) },
+    [theme.breakPoint.desktop]: { ...textStyle(theme, 'desktop', textStyleKey) },
+  };
+});
