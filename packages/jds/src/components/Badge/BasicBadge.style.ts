@@ -151,13 +151,3 @@ export const BasicBadgeDiv = styled.div<BasicBadgeDivProps>(
     };
   },
 );
-
-interface BasicBadgeSpanProps {
-  size: BadgeSize;
-}
-
-export const BasicBadgeSpan = styled.span<BasicBadgeSpanProps>(({ theme, size }) => {
-  return {
-    ...textStyle(theme, 'desktop', BASIC_BADGE_SIZE[size].textStyle),
-  };
-});

@@ -1,7 +1,8 @@
 import { ReactNode } from 'react';
-import { BasicBadgeDiv, BasicBadgeSpan } from './BasicBadge.style';
+import { BasicBadgeDiv } from './BasicBadge.style';
 import { Icon, IconSize } from '../Icon';
 import { Theme, useTheme } from '@emotion/react';
+import { Label } from '../Label';
 
 export type BadgeHierarchy = 'accent' | 'primary' | 'secondary' | 'tertiary';
 export type BadgeStyle = 'solid' | 'alpha' | 'outlined';
@@ -64,7 +65,9 @@ export const BasicBadge = ({
       isMuted={isMuted}
       withIcon={withIcon}
     >
-      <BasicBadgeSpan size={size}>{children}</BasicBadgeSpan>
+      <Label size={size} textAlign='center' weight='normal' color='inherit'>
+        {children}
+      </Label>
       {withIcon && <Icon name='close-line' size={iconSize} color={iconColor} />}
     </BasicBadgeDiv>
   );
