@@ -1,9 +1,9 @@
 import { ReactNode } from 'react';
-import { ThemeBadgeDiv } from './ThemeBadge.style';
+import { ContentThemeBadgeDiv } from './ContentThemeBadge.style';
 import { Label } from '../../Label';
 import { BadgeSize, ThemeVariant, BadgeType } from '../badge.types';
 
-interface ThemeBadgeProps {
+interface ContentThemeBadgeProps {
   variant?: ThemeVariant;
   size?: BadgeSize;
   type?: BadgeType;
@@ -11,20 +11,20 @@ interface ThemeBadgeProps {
   children: ReactNode;
 }
 
-export const ThemeBadge = ({
+export const ContentThemeBadge = ({
   variant = 'red',
   size = 'md',
   type = 'solid',
   isMuted = false,
   children,
-}: ThemeBadgeProps) => {
+}: ContentThemeBadgeProps) => {
   return (
-    <ThemeBadgeDiv variant={variant} size={size} type={type} isMuted={isMuted}>
+    <ContentThemeBadgeDiv variant={variant} size={size} type={type} isMuted={isMuted}>
       <Label size={size} textAlign='center' weight='normal' color='inherit'>
         {children}
       </Label>
-    </ThemeBadgeDiv>
+    </ContentThemeBadgeDiv>
   );
 };
 
-ThemeBadge.displayName = 'ThemeBadge';
+ContentThemeBadge.displayName = 'ContentThemeBadge';

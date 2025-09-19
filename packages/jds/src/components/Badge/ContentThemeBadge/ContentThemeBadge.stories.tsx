@@ -1,19 +1,19 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { ThemeBadge } from './ThemeBadge';
+import { ContentThemeBadge } from './ContentThemeBadge';
 
 const meta = {
-  title: 'Components/ThemeBadge',
-  component: ThemeBadge,
+  title: 'Components/ContentThemeBadge',
+  component: ContentThemeBadge,
   parameters: {
     layout: 'centered',
   },
   argTypes: {
     children: {
       control: 'text',
-      defaultValue: 'ThemeBadge',
+      defaultValue: 'ContentThemeBadge',
     },
   },
-} satisfies Meta<typeof ThemeBadge>;
+} satisfies Meta<typeof ContentThemeBadge>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -28,10 +28,10 @@ export const Default: Story = {
   },
 };
 
-export const Component: StoryObj<typeof ThemeBadge> = {
+export const Component: StoryObj<typeof ContentThemeBadge> = {
   render: () => (
-    <ThemeBadge variant='red' size='md' type='solid' isMuted={false}>
+    <ContentThemeBadge variant='red' size='md' type='solid' isMuted={false}>
       Theme Badge
-    </ThemeBadge>
+    </ContentThemeBadge>
   ),
 };
