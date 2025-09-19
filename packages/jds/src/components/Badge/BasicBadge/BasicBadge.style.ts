@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
-import { BadgeHierarchy, BadgeSize, BadgeStyle } from './BasicBadge';
 import { pxToRem, textStyle } from 'utils';
 import { Theme } from '@emotion/react';
 import { TextStyle } from 'types';
+import { BadgeHierarchy, BadgeSize, BadgeStyle } from '../Badge.types';
 
 const BASIC_BADGE_STYLE = (theme: Theme) => ({
   solid: {

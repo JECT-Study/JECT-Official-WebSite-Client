@@ -1,12 +1,9 @@
 import { ReactNode } from 'react';
 import { BasicBadgeDiv } from './BasicBadge.style';
-import { Icon, IconSize } from '../Icon';
+import { Icon, IconSize } from '../../Icon';
 import { Theme, useTheme } from '@emotion/react';
-import { Label } from '../Label';
-
-export type BadgeHierarchy = 'accent' | 'primary' | 'secondary' | 'tertiary';
-export type BadgeStyle = 'solid' | 'alpha' | 'outlined';
-export type BadgeSize = 'lg' | 'md' | 'sm' | 'xs';
+import { Label } from '../../Label';
+import { BadgeHierarchy, BadgeSize, BadgeStyle } from '../Badge.types';
 
 const ICON_SIZE: Record<BadgeSize, IconSize> = {
   lg: 'sm',
