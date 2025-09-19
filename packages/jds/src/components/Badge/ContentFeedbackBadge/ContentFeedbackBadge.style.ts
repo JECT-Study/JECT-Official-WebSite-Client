@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { pxToRem } from 'utils';
 import { BadgeSize, BadgeType, FeedbackVariant } from '../badge.types';
-import { BADGE_SIZE } from '../badge.variants';
+import { CONTENT_BADGE_SIZE } from '../badge.variants';
 import {
   CONTENT_FEEDBACK_BADGE_STYLE,
   CONTENT_FEEDBACK_BADGE_STYLE_MUTED,
@@ -27,8 +27,8 @@ export const ContentFeedbackBadgeDiv = styled.div<ContentFeedbackBadgeDivProps>(
       : CONTENT_FEEDBACK_BADGE_STYLE(theme)[type][variant].border;
 
     return {
-      minWidth: pxToRem(BADGE_SIZE[size].minWidth),
-      padding: BADGE_SIZE[size].padding,
+      minWidth: pxToRem(CONTENT_BADGE_SIZE[size].minWidth),
+      padding: CONTENT_BADGE_SIZE[size].padding,
       display: 'inline-flex',
       justifyContent: 'center',
       alignItems: 'center',
