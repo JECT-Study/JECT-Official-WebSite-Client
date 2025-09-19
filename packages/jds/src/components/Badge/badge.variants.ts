@@ -1,7 +1,7 @@
 import { TextStyle } from 'types';
 import { BadgeSize } from './badge.types';
 
-export const BADGE_SIZE: Record<
+export const CONTENT_BADGE_SIZE: Record<
   BadgeSize,
   { minWidth: number; padding: string; textStyle: TextStyle }
 > = {
@@ -24,5 +24,31 @@ export const BADGE_SIZE: Record<
     minWidth: 20,
     padding: '1px 4px',
     textStyle: 'label.xs.normal',
+  },
+};
+
+export const NUMERIC_BADGE_SIZE: Record<
+  BadgeSize,
+  { minWidth: number; padding: string; textStyle: TextStyle }
+> = {
+  lg: {
+    minWidth: 24,
+    padding: '0px 8px',
+    textStyle: 'label.lg.subtle',
+  },
+  md: {
+    minWidth: 23,
+    padding: '0px 8px',
+    textStyle: 'label.md.subtle',
+  },
+  sm: {
+    minWidth: 20,
+    padding: '0px 6px',
+    textStyle: 'label.sm.subtle',
+  },
+  xs: {
+    minWidth: 18,
+    padding: '0px 6px',
+    textStyle: 'label.xs.subtle',
   },
 };

@@ -5,6 +5,7 @@ export type BadgeStyle = {
 };
 
 export type BadgeType = 'solid' | 'alpha' | 'outlined';
+export type NumericBadgeStyle = 'solid' | 'empty';
 export type BadgeSize = 'lg' | 'md' | 'sm' | 'xs';
 export type BasicHierarchy = 'accent' | 'primary' | 'secondary' | 'tertiary';
 export type FeedbackVariant = 'positive' | 'destructive' | 'notifying';
