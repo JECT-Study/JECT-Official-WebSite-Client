@@ -1,9 +1,9 @@
 import { ReactNode } from 'react';
 import { BasicBadgeDiv } from './BasicBadge.style';
-import { Icon, IconSize } from '../../Icon';
 import { Theme, useTheme } from '@emotion/react';
-import { Label } from '../../Label';
-import { BadgeHierarchy, BadgeSize, BadgeStyle } from '../Badge.types';
+import { BadgeSize, BadgeType, BasicHierarchy } from '../badge.types';
+import { Icon, IconSize } from '@/components/Icon';
+import { Label } from '@/components/Label';
 
 const ICON_SIZE: Record<BadgeSize, IconSize> = {
   lg: 'sm',
@@ -34,9 +34,9 @@ const ICON_COLOR = (theme: Theme) => ({
 });
 
 interface BasicBadgeProps {
-  hierarchy?: BadgeHierarchy;
+  hierarchy?: BasicHierarchy;
   size?: BadgeSize;
-  type?: BadgeStyle;
+  type?: BadgeType;
   isMuted?: boolean;
   withIcon?: boolean;
   children: ReactNode;
