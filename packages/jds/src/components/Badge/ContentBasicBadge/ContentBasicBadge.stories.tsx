@@ -22,7 +22,7 @@ export const Default: Story = {
   args: {
     hierarchy: 'accent',
     size: 'md',
-    type: 'solid',
+    badgeStyle: 'solid',
     isMuted: false,
     withIcon: false,
     children: '레이블',
@@ -34,7 +34,7 @@ export const Component: StoryObj<typeof ContentBasicBadge> = {
     <ContentBasicBadge
       hierarchy='secondary'
       size='md'
-      type='solid'
+      badgeStyle='solid'
       isMuted={false}
       withIcon={false}
     >

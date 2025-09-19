@@ -22,7 +22,7 @@ export const Default: Story = {
   args: {
     variant: 'red',
     size: 'md',
-    type: 'solid',
+    badgeStyle: 'solid',
     isMuted: false,
     children: '레이블',
   },
@@ -30,7 +30,7 @@ export const Default: Story = {
 
 export const Component: StoryObj<typeof ContentThemeBadge> = {
   render: () => (
-    <ContentThemeBadge variant='red' size='md' type='solid' isMuted={false}>
+    <ContentThemeBadge variant='red' size='md' badgeStyle='solid' isMuted={false}>
       Theme Badge
     </ContentThemeBadge>
   ),

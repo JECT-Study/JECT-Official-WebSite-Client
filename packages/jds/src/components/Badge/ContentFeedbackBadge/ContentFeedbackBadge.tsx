@@ -1,12 +1,12 @@
 import { ReactNode } from 'react';
 import { ContentFeedbackBadgeDiv } from './ContentFeedbackBadge.style';
 import { Label } from '../../Label';
-import { BadgeSize, BadgeType, FeedbackVariant } from '../badge.types';
+import { BadgeSize, ContentBadgeStyle, FeedbackVariant } from '../badge.types';
 
 interface ContentFeedbackBadgeProps {
   variant?: FeedbackVariant;
   size?: BadgeSize;
-  type?: BadgeType;
+  badgeStyle?: ContentBadgeStyle;
   isMuted?: boolean;
   children: ReactNode;
 }
@@ -14,12 +14,17 @@ interface ContentFeedbackBadgeProps {
 export const ContentFeedbackBadge = ({
   variant = 'positive',
   size = 'md',
-  type = 'solid',
+  badgeStyle = 'solid',
   isMuted = false,
   children,
 }: ContentFeedbackBadgeProps) => {
   return (
-    <ContentFeedbackBadgeDiv variant={variant} size={size} type={type} isMuted={isMuted}>
+    <ContentFeedbackBadgeDiv
+      variant={variant}
+      size={size}
+      badgeStyle={badgeStyle}
+      isMuted={isMuted}
+    >
       <Label size={size} textAlign='center' weight='normal' color='inherit'>
         {children}
       </Label>

@@ -4,7 +4,7 @@ export type BadgeStyle = {
   border: string;
 };
 
-export type BadgeType = 'solid' | 'alpha' | 'outlined';
+export type ContentBadgeStyle = 'solid' | 'alpha' | 'outlined';
 export type NumericBadgeStyle = 'solid' | 'empty';
 export type BadgeSize = 'lg' | 'md' | 'sm' | 'xs';
 export type BasicHierarchy = 'accent' | 'primary' | 'secondary' | 'tertiary';

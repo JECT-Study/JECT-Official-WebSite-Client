@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { pxToRem } from 'utils';
-import { BadgeSize, BadgeType, FeedbackVariant } from '../badge.types';
+import { BadgeSize, ContentBadgeStyle, FeedbackVariant } from '../badge.types';
 import { CONTENT_BADGE_SIZE } from '../badge.variants';
 import {
   CONTENT_FEEDBACK_BADGE_STYLE,
@@ -10,21 +10,21 @@ import {
 interface ContentFeedbackBadgeDivProps {
   variant: FeedbackVariant;
   size: BadgeSize;
-  type: BadgeType;
+  badgeStyle: ContentBadgeStyle;
   isMuted: boolean;
 }
 
 export const ContentFeedbackBadgeDiv = styled.div<ContentFeedbackBadgeDivProps>(
-  ({ theme, variant, size, type, isMuted }) => {
+  ({ theme, variant, size, badgeStyle, isMuted }) => {
     const backgroundColor = isMuted
-      ? CONTENT_FEEDBACK_BADGE_STYLE_MUTED(theme)[type][variant].bg
-      : CONTENT_FEEDBACK_BADGE_STYLE(theme)[type][variant].bg;
+      ? CONTENT_FEEDBACK_BADGE_STYLE_MUTED(theme)[badgeStyle][variant].bg
+      : CONTENT_FEEDBACK_BADGE_STYLE(theme)[badgeStyle][variant].bg;
     const color = isMuted
-      ? CONTENT_FEEDBACK_BADGE_STYLE_MUTED(theme)[type][variant].color
-      : CONTENT_FEEDBACK_BADGE_STYLE(theme)[type][variant].color;
+      ? CONTENT_FEEDBACK_BADGE_STYLE_MUTED(theme)[badgeStyle][variant].color
+      : CONTENT_FEEDBACK_BADGE_STYLE(theme)[badgeStyle][variant].color;
     const border = isMuted
-      ? CONTENT_FEEDBACK_BADGE_STYLE_MUTED(theme)[type][variant].border
-      : CONTENT_FEEDBACK_BADGE_STYLE(theme)[type][variant].border;
+      ? CONTENT_FEEDBACK_BADGE_STYLE_MUTED(theme)[badgeStyle][variant].border
+      : CONTENT_FEEDBACK_BADGE_STYLE(theme)[badgeStyle][variant].border;
 
     return {
       minWidth: pxToRem(CONTENT_BADGE_SIZE[size].minWidth),

@@ -22,7 +22,7 @@ export const Default: Story = {
   args: {
     variant: 'positive',
     size: 'md',
-    type: 'solid',
+    badgeStyle: 'solid',
     isMuted: false,
     children: '레이블',
   },
@@ -30,7 +30,7 @@ export const Default: Story = {
 
 export const Component: StoryObj<typeof ContentFeedbackBadge> = {
   render: () => (
-    <ContentFeedbackBadge variant='positive' size='md' type='solid' isMuted={false}>
+    <ContentFeedbackBadge variant='positive' size='md' badgeStyle='solid' isMuted={false}>
       Feedback Badge
     </ContentFeedbackBadge>
   ),
