@@ -1,13 +1,13 @@
 import { Theme } from '@emotion/react';
 import { BadgeStyle, FeedbackVariant } from '../badge.types';
 
-type FeedbackBadgeStyle = {
+type ContentFeedbackBadgeStyle = {
   solid: Record<FeedbackVariant, BadgeStyle>;
   alpha: Record<FeedbackVariant, BadgeStyle>;
   outlined: Record<FeedbackVariant, BadgeStyle>;
 };
 
-export const FEEDBACK_BADGE_STYLE = (theme: Theme): FeedbackBadgeStyle => ({
+export const CONTENT_FEEDBACK_BADGE_STYLE = (theme: Theme): ContentFeedbackBadgeStyle => ({
   solid: {
     positive: {
       bg: theme.color.feedback.positive.neutral,
@@ -61,7 +61,7 @@ export const FEEDBACK_BADGE_STYLE = (theme: Theme): FeedbackBadgeStyle => ({
   },
 });
 
-export const FEEDBACK_BADGE_STYLE_MUTED = (theme: Theme) => ({
+export const CONTENT_FEEDBACK_BADGE_STYLE_MUTED = (theme: Theme) => ({
   solid: {
     positive: {
       bg: theme.color.feedback.positive.alpha.subtle,
