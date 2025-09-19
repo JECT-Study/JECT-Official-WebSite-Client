@@ -1,10 +1,13 @@
 import styled from '@emotion/styled';
 import { pxToRem } from 'utils';
 import { BasicHierarchy, BadgeSize, BadgeType } from '../badge.types';
-import { BASIC_BADGE_STYLE, BASIC_BADGE_STYLE_MUTED } from './basicBadge.variants';
 import { BADGE_SIZE } from '../badge.variants';
+import {
+  CONTENT_BASIC_BADGE_STYLE,
+  CONTENT_BASIC_BADGE_STYLE_MUTED,
+} from './contentBasicBadge.variants';
 
-interface BasicBadgeDivProps {
+interface ContentBasicBadgeDivProps {
   hierarchy: BasicHierarchy;
   size: BadgeSize;
   type: BadgeType;
@@ -12,17 +15,17 @@ interface BasicBadgeDivProps {
   withIcon: boolean;
 }
 
-export const BasicBadgeDiv = styled.div<BasicBadgeDivProps>(
+export const ContentBasicBadgeDiv = styled.div<ContentBasicBadgeDivProps>(
   ({ theme, hierarchy, size, type, isMuted, withIcon }) => {
     const backgroundColor = isMuted
-      ? BASIC_BADGE_STYLE_MUTED(theme)[type].bg
-      : BASIC_BADGE_STYLE(theme)[type][hierarchy].bg;
+      ? CONTENT_BASIC_BADGE_STYLE_MUTED(theme)[type].bg
+      : CONTENT_BASIC_BADGE_STYLE(theme)[type][hierarchy].bg;
     const color = isMuted
-      ? BASIC_BADGE_STYLE_MUTED(theme)[type].color
-      : BASIC_BADGE_STYLE(theme)[type][hierarchy].color;
+      ? CONTENT_BASIC_BADGE_STYLE_MUTED(theme)[type].color
+      : CONTENT_BASIC_BADGE_STYLE(theme)[type][hierarchy].color;
     const border = isMuted
-      ? BASIC_BADGE_STYLE_MUTED(theme)[type].border
-      : BASIC_BADGE_STYLE(theme)[type][hierarchy].border;
+      ? CONTENT_BASIC_BADGE_STYLE_MUTED(theme)[type].border
+      : CONTENT_BASIC_BADGE_STYLE(theme)[type][hierarchy].border;
 
     return {
       minWidth: pxToRem(BADGE_SIZE[size].minWidth),

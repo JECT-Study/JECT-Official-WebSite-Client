@@ -1,6 +1,6 @@
 import { Theme } from '@emotion/react';
 
-export const BASIC_BADGE_STYLE = (theme: Theme) => ({
+export const CONTENT_BASIC_BADGE_STYLE = (theme: Theme) => ({
   solid: {
     accent: {
       bg: theme.color.accent.neutral,
@@ -69,7 +69,7 @@ export const BASIC_BADGE_STYLE = (theme: Theme) => ({
   },
 });
 
-export const BASIC_BADGE_STYLE_MUTED = (theme: Theme) => ({
+export const CONTENT_BASIC_BADGE_STYLE_MUTED = (theme: Theme) => ({
   solid: {
     bg: theme.color.fill.subtler,
     color: theme.color.object.subtle,
