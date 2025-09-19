@@ -1,12 +1,12 @@
 import { ReactNode } from 'react';
 import { FeedbackBadgeDiv } from './FeedbackBadge.style';
 import { Label } from '../../Label';
-import { BadgeSize, BadgeStyle, BadgeVariant } from '../Badge.types';
+import { BadgeSize, BadgeType, FeedbackVariant } from '../badge.types';
 
 interface FeedbackBadgeProps {
-  variant?: BadgeVariant;
+  variant?: FeedbackVariant;
   size?: BadgeSize;
-  type?: BadgeStyle;
+  type?: BadgeType;
   isMuted?: boolean;
   children: ReactNode;
 }
