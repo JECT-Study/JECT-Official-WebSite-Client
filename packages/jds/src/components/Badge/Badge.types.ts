@@ -4,6 +4,8 @@ export type BadgeStyle = {
   border: string;
 };
 
+export type BadgeStyleWithoutBorder = Omit<BadgeStyle, 'border'>;
+
 export type ContentBadgeStyle = 'solid' | 'alpha' | 'outlined';
 export type NumericBadgeStyle = 'solid' | 'empty';
 export type BadgeSize = 'lg' | 'md' | 'sm' | 'xs';

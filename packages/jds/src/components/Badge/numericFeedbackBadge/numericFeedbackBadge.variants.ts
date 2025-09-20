@@ -1,6 +1,12 @@
 import { Theme } from '@emotion/react';
+import { BadgeStyle, BadgeStyleWithoutBorder, FeedbackVariant } from '../badge.types';
 
-export const NUMERIC_FEEDBACK_BADGE_STYLE = (theme: Theme) => ({
+type ContentFeedbackBadgeStyle = {
+  solid: Record<FeedbackVariant, BadgeStyleWithoutBorder>;
+  empty: Record<FeedbackVariant, BadgeStyleWithoutBorder>;
+};
+
+export const NUMERIC_FEEDBACK_BADGE_STYLE = (theme: Theme): ContentFeedbackBadgeStyle => ({
   solid: {
     positive: {
       bg: theme.color.feedback.positive.neutral,
@@ -31,7 +37,7 @@ export const NUMERIC_FEEDBACK_BADGE_STYLE = (theme: Theme) => ({
   },
 });
 
-export const NUMERIC_FEEDBACK_BADGE_STYLE_MUTED = (theme: Theme) => ({
+export const NUMERIC_FEEDBACK_BADGE_STYLE_MUTED = (theme: Theme): ContentFeedbackBadgeStyle => ({
   solid: {
     positive: {
       bg: theme.color.feedback.positive.alpha.subtle,

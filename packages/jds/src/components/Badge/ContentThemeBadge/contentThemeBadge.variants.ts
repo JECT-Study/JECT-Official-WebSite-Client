@@ -256,7 +256,7 @@ export const CONTENT_THEME_BADGE_STYLE = (theme: Theme): ContentThemeBadgeStyle 
   },
 });
 
-export const CONTENT_THEME_BADGE_STYLE_MUTED = (theme: Theme) => ({
+export const CONTENT_THEME_BADGE_STYLE_MUTED = (theme: Theme): ContentThemeBadgeStyle => ({
   solid: {
     red: {
       bg: theme.color.theme.red.alpha.subtle,

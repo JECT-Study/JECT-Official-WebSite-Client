@@ -61,7 +61,7 @@ export const CONTENT_FEEDBACK_BADGE_STYLE = (theme: Theme): ContentFeedbackBadge
   },
 });
 
-export const CONTENT_FEEDBACK_BADGE_STYLE_MUTED = (theme: Theme) => ({
+export const CONTENT_FEEDBACK_BADGE_STYLE_MUTED = (theme: Theme): ContentFeedbackBadgeStyle => ({
   solid: {
     positive: {
       bg: theme.color.feedback.positive.alpha.subtle,

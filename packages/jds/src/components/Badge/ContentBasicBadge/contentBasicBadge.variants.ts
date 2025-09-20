@@ -1,6 +1,13 @@
 import { Theme } from '@emotion/react';
+import { BadgeStyle, BasicHierarchy, ContentBadgeStyle } from '../badge.types';
 
-export const CONTENT_BASIC_BADGE_STYLE = (theme: Theme) => ({
+type ContentBasicBadgeStyle = {
+  solid: Record<BasicHierarchy, BadgeStyle>;
+  alpha: Record<BasicHierarchy, BadgeStyle>;
+  outlined: Record<BasicHierarchy, BadgeStyle>;
+};
+
+export const CONTENT_BASIC_BADGE_STYLE = (theme: Theme): ContentBasicBadgeStyle => ({
   solid: {
     accent: {
       bg: theme.color.accent.neutral,
@@ -69,7 +76,9 @@ export const CONTENT_BASIC_BADGE_STYLE = (theme: Theme) => ({
   },
 });
 
-export const CONTENT_BASIC_BADGE_STYLE_MUTED = (theme: Theme) => ({
+export const CONTENT_BASIC_BADGE_STYLE_MUTED = (
+  theme: Theme,
+): Record<ContentBadgeStyle, BadgeStyle> => ({
   solid: {
     bg: theme.color.fill.subtler,
     color: theme.color.object.subtle,
