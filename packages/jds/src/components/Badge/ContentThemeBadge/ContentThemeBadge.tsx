@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { ContentThemeBadgeDiv } from './ContentThemeBadge.style';
-import { Label } from '../../Label';
 import { BadgeSize, ThemeVariant, ContentBadgeStyle } from '../badge.types';
+import { Label } from '@/components/Label';
 
 interface ContentThemeBadgeProps {
   variant?: ThemeVariant;

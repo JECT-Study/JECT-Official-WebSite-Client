@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { ContentFeedbackBadgeDiv } from './ContentFeedbackBadge.style';
-import { Label } from '../../Label';
 import { BadgeSize, ContentBadgeStyle, FeedbackVariant } from '../badge.types';
+import { Label } from '@/components/Label';
 
 interface ContentFeedbackBadgeProps {
   variant?: FeedbackVariant;

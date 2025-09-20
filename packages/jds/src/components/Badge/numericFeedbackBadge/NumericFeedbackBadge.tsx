@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { NumericFeedbackBadgeDiv } from './NumericFeedbackBadge.style';
-import { Label } from '../../Label';
 import { BadgeSize, FeedbackVariant, NumericBadgeStyle } from '../badge.types';
+import { Label } from '@/components/Label';
 
 interface NumericBasicBadgeProps {
   variant?: FeedbackVariant;
