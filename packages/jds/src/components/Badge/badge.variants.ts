@@ -52,3 +52,22 @@ export const NUMERIC_BADGE_SIZE: Record<
     textStyle: 'label.xs.subtle',
   },
 };
+
+export const DOT_BADGE_SIZE: Record<BadgeSize, { width: number; height: number }> = {
+  lg: {
+    width: 16,
+    height: 16,
+  },
+  md: {
+    width: 12,
+    height: 12,
+  },
+  sm: {
+    width: 8,
+    height: 8,
+  },
+  xs: {
+    width: 4,
+    height: 4,
+  },
+};

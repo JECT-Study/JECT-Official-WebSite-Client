@@ -1,0 +1,25 @@
+import { Theme } from '@emotion/react';
+
+export const DOT_FEEDBACK_BADGE_STYLE = (theme: Theme) => ({
+  positive: {
+    bg: theme.color.feedback.positive.neutral,
+  },
+  destructive: {
+    bg: theme.color.feedback.destructive.neutral,
+  },
+  notifying: {
+    bg: theme.color.feedback.notifying.neutral,
+  },
+});
+
+export const DOT_FEEDBACK_BADGE_STYLE_MUTED = (theme: Theme) => ({
+  positive: {
+    bg: theme.color.feedback.positive.alpha.alternative,
+  },
+  destructive: {
+    bg: theme.color.feedback.destructive.alpha.alternative,
+  },
+  notifying: {
+    bg: theme.color.feedback.notifying.alpha.alternative,
+  },
+});
