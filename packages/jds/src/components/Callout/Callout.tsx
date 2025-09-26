@@ -14,20 +14,20 @@ import {
 } from './Callout.types';
 
 interface CalloutProps {
-  type: CalloutType;
-  variant: CalloutVariant;
+  type?: CalloutType;
+  variant?: CalloutVariant;
   hierarchy: BasicHierarchy | FeedbackHierarchy;
-  size: CalloutSize;
-  titleVisible: boolean;
-  extraButtonVisible: boolean;
-  title: string;
+  size?: CalloutSize;
+  titleVisible?: boolean;
+  extraButtonVisible?: boolean;
+  title?: string;
   children: ReactNode;
 }
 
 export const Callout = ({
   type = 'basic',
-  hierarchy,
   variant = 'hero',
+  hierarchy,
   size = 'md',
   titleVisible = false,
   extraButtonVisible = false,
