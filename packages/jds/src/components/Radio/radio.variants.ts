@@ -1,18 +1,18 @@
 export const RADIO_SIZE = {
   lg: {
-    size: 20,
+    radioSize: 20,
     border: 6,
   },
   md: {
-    size: 18,
+    radioSize: 18,
     border: 5,
   },
   sm: {
-    size: 16,
+    radioSize: 16,
     border: 5,
   },
   xs: {
-    size: 14,
+    radioSize: 14,
     border: 4,
   },
 };

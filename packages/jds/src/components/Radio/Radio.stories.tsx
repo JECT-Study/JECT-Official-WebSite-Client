@@ -10,14 +10,10 @@ const meta: Meta<typeof Radio> = {
     layout: 'centered',
   },
   argTypes: {
-    size: {
+    radioSize: {
       control: { type: 'radio' },
       options: ['lg', 'md', 'sm', 'xs'],
     },
-    isChecked: { control: 'boolean' },
-    isDisabled: { control: 'boolean' },
-    name: { control: 'text' },
-    value: { control: 'text' },
   },
 };
 
@@ -27,11 +23,7 @@ type Story = StoryObj<typeof Radio>;
 
 export const Default: Story = {
   args: {
-    size: 'lg',
-    isChecked: false,
-    isDisabled: false,
-    name: 'defaultRadio',
-    value: '1',
+    radioSize: 'lg',
   },
 };
 
@@ -39,18 +31,18 @@ export const Sizes: Story = {
   render: () => {
     const [checkedSize, setCheckedSize] = useState<RadioSize | undefined>('md');
 
-    const sizes: RadioProps['size'][] = ['lg', 'md', 'sm', 'xs'];
+    const sizes: RadioProps['radioSize'][] = ['lg', 'md', 'sm', 'xs'];
 
     return (
       <div style={{ display: 'flex', gap: 20, alignItems: 'center' }}>
-        {sizes.map(size => (
+        {sizes.map(radioSize => (
           <Radio
-            key={size}
-            size={size}
+            key={radioSize}
+            radioSize={radioSize}
             name='sizeGroup'
-            value={size}
-            isChecked={checkedSize === size}
-            onChange={() => setCheckedSize(size)}
+            value={radioSize}
+            checked={checkedSize === radioSize}
+            onChange={() => setCheckedSize(radioSize)}
           />
         ))}
       </div>
@@ -61,8 +53,8 @@ export const Sizes: Story = {
 export const Disabled: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: 20 }}>
-      <Radio size='md' name='disabledGroup' value='2' isChecked={false} isDisabled={true} />
-      <Radio size='md' name='disabledGroup' value='1' isChecked={true} isDisabled={true} />
+      <Radio radioSize='md' name='disabledGroup' value='2' checked={false} disabled={true} />
+      <Radio radioSize='md' name='disabledGroup' value='1' checked={true} disabled={true} />
     </div>
   ),
 };

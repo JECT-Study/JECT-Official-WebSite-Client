@@ -4,17 +4,17 @@ import { RADIO_SIZE } from './radio.variants';
 import { interaction, pxToRem } from 'utils';
 
 interface RadioStyledProps {
-  size: RadioSize;
+  radioSize: RadioSize;
 }
 
-export const RadioLabel = styled.label<RadioStyledProps>(({ theme, size }) => {
+export const RadioLabel = styled.label<RadioStyledProps>(({ theme, radioSize }) => {
   return {
     display: 'inline-flex',
     position: 'relative',
 
     [`input[type="radio"]:checked + .visual`]: {
       backgroundColor: theme.color.surface.static.standard,
-      border: `${RADIO_SIZE[size].border}px solid ${theme.color.accent.neutral}`,
+      border: `${RADIO_SIZE[radioSize].border}px solid ${theme.color.accent.neutral}`,
     },
 
     [`input[type="radio"]:disabled + .visual`]: {
@@ -41,8 +41,8 @@ export const RadioInput = styled.input({
   whiteSpace: 'nowrap',
 });
 
-export const Visual = styled.span<RadioStyledProps>(({ theme, size }) => {
-  const sizeValue = pxToRem(RADIO_SIZE[size].size);
+export const Visual = styled.span<RadioStyledProps>(({ theme, radioSize }) => {
+  const sizeValue = pxToRem(RADIO_SIZE[radioSize].radioSize);
 
   return {
     borderRadius: theme.scheme.desktop.radius.max,
