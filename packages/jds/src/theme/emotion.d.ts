@@ -2,7 +2,6 @@ import '@emotion/react';
 import {
   BreakPoint,
   ColorPrimitiveTokens,
-  DarkColorSemanticTokens,
   EnvironmentTokens,
   LightColorSemanticTokens,
   SchemeTokens,
@@ -12,7 +11,7 @@ import {
 declare module '@emotion/react' {
   export interface Theme {
     colorPrimitive: ColorPrimitiveTokens;
-    color: LightColorSemanticTokens | DarkColorSemanticTokens;
+    color: LightColorSemanticTokens;
     scheme: SchemeTokens;
     environment: EnvironmentTokens;
     typo: TypographyTokens;
