@@ -1,16 +1,13 @@
-import { forwardRef, ReactNode, useEffect, useState } from 'react';
+import { forwardRef, ReactNode } from 'react';
 import { Radio, RadioProps } from '../radioBasic/Radio';
 import { Label } from '@/components/Label';
 import { RadioContainer } from './RadioContent.style';
 import { useTheme } from 'theme';
 
-export type RadioSize = 'lg' | 'md' | 'sm' | 'xs';
-
 export interface RadioContentProps extends RadioProps {
   radioStyle?: 'empty' | 'outline';
   align?: 'left' | 'right';
-  isChecked?: boolean;
-  isDisabled?: boolean;
+  disabled?: boolean;
   subLabelVisible?: boolean;
   subLabel?: ReactNode;
   children: ReactNode;
@@ -22,8 +19,7 @@ export const RadioContent = forwardRef<HTMLInputElement, RadioContentProps>(
       radioSize = 'md',
       radioStyle = 'empty',
       align = 'left',
-      isChecked = false,
-      isDisabled = false,
+      disabled = false,
       subLabelVisible = false,
       subLabel = '',
       children,
@@ -31,28 +27,33 @@ export const RadioContent = forwardRef<HTMLInputElement, RadioContentProps>(
     },
     ref,
   ) => {
-    const [checked, setChecked] = useState(false);
     const theme = useTheme();
-    const labelColor = isDisabled ? theme.color.object.subtle : theme.color.object.bold;
-
-    useEffect(() => {
-      setChecked(isChecked);
-    }, [isChecked]);
+    const labelColor = disabled ? theme.color.object.subtle : theme.color.object.bold;
+    const subLabelColor = disabled ? theme.color.object.subtle : theme.color.object.assistive;
 
     return (
-      <RadioContainer radioSize={radioSize} isDisabled={isDisabled}>
-        <Radio
-          ref={ref}
-          radioSize={radioSize}
-          checked={checked}
-          disabled={isDisabled}
-          onChange={e => setChecked(e.target.checked)}
-          {...props}
-        />
-        <Label size={radioSize} textAlign='left' weight='normal' color={labelColor}>
-          {children}
-        </Label>
-        {/* <Label>{children}</Label> */}
+      <RadioContainer radioSize={radioSize} isDisabled={disabled}>
+        {align === 'right' && (
+          <Label size={radioSize} textAlign='left' weight='normal' color={labelColor}>
+            {children}
+          </Label>
+        )}
+        <Radio ref={ref} radioSize={radioSize} disabled={disabled} {...props} />
+        {align === 'left' && (
+          <Label size={radioSize} textAlign='left' weight='normal' color={labelColor}>
+            {children}
+          </Label>
+        )}
+        {subLabelVisible && (
+          <Label
+            size={SUB_LABEL_SIZE[radioSize]}
+            textAlign='left'
+            weight='subtle'
+            color={subLabelColor}
+          >
+            {subLabel}
+          </Label>
+        )}
       </RadioContainer>
     );
   },

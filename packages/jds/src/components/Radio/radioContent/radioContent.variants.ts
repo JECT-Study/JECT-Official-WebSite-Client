@@ -1,16 +1,33 @@
-import { Theme } from '@emotion/react';
+import { LabelSize } from '@/components/Label/Label.style';
 
-export const RADIO_CONTAINER_SIZE = (theme: Theme) => ({
+export type RadioSize = 'lg' | 'md' | 'sm' | 'xs';
+
+export const RADIO_CONTAINER_SIZE = {
   lg: {
-    gap: theme.scheme.desktop.spacing[12],
+    width: 13,
+    height: 8,
+    gap: 12,
   },
   md: {
-    gap: theme.scheme.desktop.spacing[10],
+    width: 13,
+    height: 8,
+    gap: 10,
   },
   sm: {
-    gap: theme.scheme.desktop.spacing[8],
+    width: 11,
+    height: 6,
+    gap: 8,
   },
   xs: {
-    gap: theme.scheme.desktop.spacing[8],
+    width: 9,
+    height: 6,
+    gap: 8,
   },
-});
+};
+
+export const SUB_LABEL_SIZE: Record<RadioSize, LabelSize> = {
+  lg: 'md',
+  md: 'sm',
+  sm: 'xs',
+  xs: 'sm',
+};
