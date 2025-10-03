@@ -7,21 +7,25 @@ export const RADIO_CONTAINER_SIZE = {
     width: 13,
     height: 8,
     gap: 12,
+    padding: 12,
   },
   md: {
     width: 13,
     height: 8,
     gap: 10,
+    padding: 10,
   },
   sm: {
     width: 11,
     height: 6,
     gap: 8,
+    padding: 8,
   },
   xs: {
     width: 9,
     height: 6,
     gap: 8,
+    padding: 6,
   },
 };
 

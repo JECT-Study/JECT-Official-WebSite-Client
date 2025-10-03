@@ -1,16 +1,18 @@
 import styled from '@emotion/styled';
-import { interaction } from 'utils';
+import { interaction, pxToRem } from 'utils';
 import { RADIO_CONTAINER_SIZE, RadioSize } from './radioContent.variants';
 
 interface RadioContainerProps {
   radioSize: RadioSize;
   isDisabled: boolean;
   isAlignRight: boolean;
+  isStyleOutline: boolean;
 }
 
 export const RadioContainer = styled.label<RadioContainerProps>(
-  ({ theme, radioSize, isDisabled, isAlignRight }) => {
+  ({ theme, radioSize, isDisabled, isAlignRight, isStyleOutline }) => {
     const rowGap = RADIO_CONTAINER_SIZE[radioSize].gap;
+    const padding = RADIO_CONTAINER_SIZE[radioSize].padding;
     const interactionWidth = RADIO_CONTAINER_SIZE[radioSize].width;
     const interactionHeight = RADIO_CONTAINER_SIZE[radioSize].height;
     const checkedInteraction = interaction(
@@ -27,6 +29,15 @@ export const RadioContainer = styled.label<RadioContainerProps>(
       'default',
       isDisabled ? 'readonly' : 'default',
     );
+    const addonInteraction = isStyleOutline
+      ? {
+          border: 'inherit',
+        }
+      : {
+          width: `calc(100% + ${interactionWidth}px)`,
+          height: `calc(100% + ${interactionHeight}px)`,
+          transform: `translate(-${Math.floor(interactionWidth / 2) + 1}px , -${Math.floor(interactionHeight / 2)}px)`,
+        };
 
     return {
       display: 'grid',
@@ -46,16 +57,16 @@ export const RadioContainer = styled.label<RadioContainerProps>(
         gridColumn: isAlignRight ? '1 / span 2' : 2,
         gridRow: 2,
       },
-      borderRadius: theme.scheme.desktop.radius[6],
+      border: isStyleOutline ? `1px solid ${theme.color.stroke.alpha.subtle}` : 'none',
+      borderRadius: pxToRem(theme.scheme.desktop.radius[6]),
+      padding: isStyleOutline ? padding : 'none',
       cursor: isDisabled ? 'default' : 'pointer',
       '& *': { cursor: 'inherit' },
       ...nonCheckedInteraction,
 
       '::after': {
         ...nonCheckedInteraction['::after'],
-        width: `calc(100% + ${interactionWidth}px)`,
-        height: `calc(100% + ${interactionHeight}px)`,
-        transform: `translate(-${Math.floor(interactionWidth / 2) + 1}px , -${Math.floor(interactionHeight / 2)}px)`,
+        ...addonInteraction,
         transition: `all ${theme.environment.duration[100]}ms ${theme.environment.motion.fluent}`,
       },
 
@@ -68,19 +79,16 @@ export const RadioContainer = styled.label<RadioContainerProps>(
         ...checkedInteraction,
         '::after': {
           ...checkedInteraction['::after'],
-          width: `calc(100% + ${interactionWidth}px)`,
-          height: `calc(100% + ${interactionHeight}px)`,
+          ...addonInteraction,
         },
       },
 
       '&:has(input[type="radio"]:focus-visible)::before': {
+        ...addonInteraction,
         boxShadow: `0 0 0 3px ${theme.color.interaction.focus}`,
         content: '""',
         position: 'absolute',
         inset: 0,
-        width: `calc(100% + ${interactionWidth}px)`,
-        height: `calc(100% + ${interactionHeight}px)`,
-        transform: `translate(-${Math.floor(interactionWidth / 2) + 1}px , -${Math.floor(interactionHeight / 2)}px)`,
         borderRadius: theme.scheme.desktop.radius[6],
       },
 

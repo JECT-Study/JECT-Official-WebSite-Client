@@ -33,7 +33,12 @@ export const RadioContent = forwardRef<HTMLInputElement, RadioContentProps>(
     const subLabelColor = disabled ? theme.color.object.subtle : theme.color.object.assistive;
 
     return (
-      <RadioContainer radioSize={radioSize} isDisabled={disabled} isAlignRight={align === 'right'}>
+      <RadioContainer
+        radioSize={radioSize}
+        isDisabled={disabled}
+        isAlignRight={align === 'right'}
+        isStyleOutline={radioStyle === 'outline'}
+      >
         {align === 'right' && (
           <Label size={radioSize} textAlign='left' weight='normal' color={labelColor}>
             {children}
