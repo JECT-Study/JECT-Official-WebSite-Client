@@ -5,10 +5,11 @@ import { RADIO_CONTAINER_SIZE, RadioSize } from './radioContent.variants';
 interface RadioContainerProps {
   radioSize: RadioSize;
   isDisabled: boolean;
+  isAlignRight: boolean;
 }
 
 export const RadioContainer = styled.label<RadioContainerProps>(
-  ({ theme, isDisabled, radioSize }) => {
+  ({ theme, radioSize, isDisabled, isAlignRight }) => {
     const rowGap = RADIO_CONTAINER_SIZE[radioSize].gap;
     const interactionWidth = RADIO_CONTAINER_SIZE[radioSize].width;
     const interactionHeight = RADIO_CONTAINER_SIZE[radioSize].height;
@@ -37,8 +38,14 @@ export const RadioContainer = styled.label<RadioContainerProps>(
         justifyItems: 'center',
         alignItems: 'center',
       },
-      '& > :nth-child(2)': { gridColumn: 2, gridRow: 1 },
-      '& > :nth-child(3)': { gridColumn: 2, gridRow: 2 },
+      '& > :nth-child(2)': {
+        gridColumn: 2,
+        gridRow: 1,
+      },
+      '& > :nth-child(3)': {
+        gridColumn: isAlignRight ? '1 / span 2' : 2,
+        gridRow: 2,
+      },
       borderRadius: theme.scheme.desktop.radius[6],
       cursor: isDisabled ? 'default' : 'pointer',
       '& *': { cursor: 'inherit' },
