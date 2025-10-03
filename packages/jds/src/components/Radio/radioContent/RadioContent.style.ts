@@ -69,8 +69,6 @@ export const RadioContainerLabel = styled.label<RadioContainerProps>(
       border: isStyleOutline ? `1px solid ${borderColor}` : 'none',
       borderRadius: pxToRem(theme.scheme.desktop.radius[borderRadius]),
       padding: isStyleOutline ? pxToRem(theme.scheme.desktop.spacing[padding]) : '0',
-      cursor: isDisabled ? 'default' : 'pointer',
-      '& *': { cursor: 'inherit' },
       ...nonCheckedInteraction,
 
       [theme.breakPoint.tablet]: {
