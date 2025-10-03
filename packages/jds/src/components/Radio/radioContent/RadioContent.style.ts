@@ -13,6 +13,7 @@ export const RadioContainer = styled.label<RadioContainerProps>(
   ({ theme, radioSize, isDisabled, isAlignRight, isStyleOutline }) => {
     const rowGap = RADIO_CONTAINER_SIZE[radioSize].gap;
     const padding = RADIO_CONTAINER_SIZE[radioSize].padding;
+    const borderRadius = RADIO_CONTAINER_SIZE[radioSize].borderRadius;
     const interactionWidth = RADIO_CONTAINER_SIZE[radioSize].width;
     const interactionHeight = RADIO_CONTAINER_SIZE[radioSize].height;
     const checkedInteraction = interaction(
@@ -52,13 +53,15 @@ export const RadioContainer = styled.label<RadioContainerProps>(
       '& > :nth-child(2)': {
         gridColumn: 2,
         gridRow: 1,
+        justifyItems: 'center',
+        alignItems: 'center',
       },
       '& > :nth-child(3)': {
         gridColumn: isAlignRight ? '1 / span 2' : 2,
         gridRow: 2,
       },
       border: isStyleOutline ? `1px solid ${theme.color.stroke.alpha.subtle}` : 'none',
-      borderRadius: pxToRem(theme.scheme.desktop.radius[6]),
+      borderRadius,
       padding: isStyleOutline ? padding : 'none',
       cursor: isDisabled ? 'default' : 'pointer',
       '& *': { cursor: 'inherit' },
@@ -89,7 +92,7 @@ export const RadioContainer = styled.label<RadioContainerProps>(
         content: '""',
         position: 'absolute',
         inset: 0,
-        borderRadius: theme.scheme.desktop.radius[6],
+        borderRadius,
       },
 
       'input[type="radio"]:focus-visible + .visual': {
