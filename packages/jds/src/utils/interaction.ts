@@ -23,6 +23,7 @@ export function interaction(
       height: '100%',
       backgroundColor: backgroundColor,
       borderRadius: 'inherit' as const,
+      pointerEvents: 'none' as const,
     };
 
     if (state === 'locked') {
