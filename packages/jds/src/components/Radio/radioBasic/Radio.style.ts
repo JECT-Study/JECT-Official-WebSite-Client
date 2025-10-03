@@ -12,14 +12,20 @@ export const RadioLabel = styled.label<RadioStyledProps>(({ theme, radioSize }) 
     display: 'inline-flex',
     position: 'relative',
 
-    [`input[type="radio"]:checked + .visual`]: {
+    [`input[type="radio"]:not(:disabled):checked + .visual`]: {
       backgroundColor: theme.color.surface.static.standard,
       border: `${RADIO_SIZE[radioSize].border}px solid ${theme.color.accent.neutral}`,
     },
 
-    [`input[type="radio"]:disabled + .visual`]: {
-      backgroundColor: theme.color.fill.assistive,
-      borderColor: theme.color.stroke.subtle,
+    [`input[type="radio"]:not(:checked):disabled + .visual`]: {
+      backgroundColor: theme.color.surface.standard,
+      borderColor: theme.color.stroke.alpha.subtler,
+      ...interaction(theme, 'normal', 'normal', 'default', 'disabled'),
+    },
+
+    [`input[type="radio"]:checked:disabled + .visual`]: {
+      backgroundColor: theme.color.fill.subtle,
+      border: `${RADIO_SIZE[radioSize].border}px solid ${theme.color.stroke.subtler}`,
       ...interaction(theme, 'normal', 'normal', 'default', 'disabled'),
     },
 
