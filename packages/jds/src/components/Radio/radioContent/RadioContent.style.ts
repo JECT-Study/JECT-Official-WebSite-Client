@@ -16,6 +16,9 @@ export const RadioContainer = styled.label<RadioContainerProps>(
     const borderRadius = RADIO_CONTAINER_SIZE[radioSize].borderRadius;
     const interactionWidth = RADIO_CONTAINER_SIZE[radioSize].width;
     const interactionHeight = RADIO_CONTAINER_SIZE[radioSize].height;
+    const borderColor = isDisabled
+      ? theme.color.stroke.alpha.subtler
+      : theme.color.stroke.alpha.subtle;
     const checkedInteraction = interaction(
       theme,
       'accent',
@@ -60,7 +63,7 @@ export const RadioContainer = styled.label<RadioContainerProps>(
         gridColumn: isAlignRight ? '1 / span 2' : 2,
         gridRow: 2,
       },
-      border: isStyleOutline ? `1px solid ${theme.color.stroke.alpha.subtle}` : 'none',
+      border: isStyleOutline ? `1px solid ${borderColor}` : 'none',
       borderRadius,
       padding: isStyleOutline ? padding : 'none',
       cursor: isDisabled ? 'default' : 'pointer',
