@@ -1,7 +1,7 @@
 import { forwardRef, ReactNode } from 'react';
 import { Radio, RadioProps } from '../radioBasic/Radio';
 import { Label } from '@/components/Label';
-import { RadioContainer } from './RadioContent.style';
+import { RadioContainerLabel } from './RadioContent.style';
 import { useTheme } from 'theme';
 import { SUB_LABEL_SIZE } from './radioContent.variants';
 
@@ -33,7 +33,7 @@ export const RadioContent = forwardRef<HTMLInputElement, RadioContentProps>(
     const subLabelColor = disabled ? theme.color.object.subtle : theme.color.object.assistive;
 
     return (
-      <RadioContainer
+      <RadioContainerLabel
         radioSize={radioSize}
         isDisabled={disabled}
         isAlignRight={align === 'right'}
@@ -60,7 +60,7 @@ export const RadioContent = forwardRef<HTMLInputElement, RadioContentProps>(
             {subLabel}
           </Label>
         )}
-      </RadioContainer>
+      </RadioContainerLabel>
     );
   },
 );

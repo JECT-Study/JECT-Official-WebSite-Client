@@ -47,7 +47,7 @@ export const RadioInput = styled.input({
   whiteSpace: 'nowrap',
 });
 
-export const Visual = styled.span<RadioStyledProps>(({ theme, radioSize }) => {
+export const RadioSpan = styled.span<RadioStyledProps>(({ theme, radioSize }) => {
   const sizeValue = pxToRem(RADIO_SIZE[radioSize].radioSize);
 
   return {

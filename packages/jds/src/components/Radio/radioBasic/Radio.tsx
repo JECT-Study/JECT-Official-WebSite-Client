@@ -1,5 +1,5 @@
 import { ComponentPropsWithoutRef, forwardRef } from 'react';
-import { RadioInput, RadioLabel, Visual } from './Radio.style';
+import { RadioInput, RadioLabel, RadioSpan } from './Radio.style';
 
 export type RadioSize = 'lg' | 'md' | 'sm' | 'xs';
 
@@ -12,7 +12,7 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(
     return (
       <RadioLabel radioSize={radioSize}>
         <RadioInput ref={ref} type='radio' {...props} />
-        <Visual className='visual' aria-hidden='true' radioSize={radioSize} />
+        <RadioSpan className='visual' aria-hidden='true' radioSize={radioSize} />
       </RadioLabel>
     );
   },

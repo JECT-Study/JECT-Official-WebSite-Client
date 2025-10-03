@@ -9,7 +9,7 @@ interface RadioContainerProps {
   isStyleOutline: boolean;
 }
 
-export const RadioContainer = styled.label<RadioContainerProps>(
+export const RadioContainerLabel = styled.label<RadioContainerProps>(
   ({ theme, radioSize, isDisabled, isAlignRight, isStyleOutline }) => {
     const rowGap = RADIO_CONTAINER_SIZE[radioSize].gap;
     const padding = RADIO_CONTAINER_SIZE[radioSize].padding;
