@@ -26,6 +26,19 @@ export const Default: Story = {
   },
 };
 
+export const Checked: Story = {
+  render: () => <Radio radioSize='md' name='disabledGroup' value='1' checked={true} />,
+};
+
+export const Disabled: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: 20 }}>
+      <Radio radioSize='md' name='disabledGroup' value='2' checked={false} disabled={true} />
+      <Radio radioSize='md' name='disabledGroup' value='1' checked={true} disabled={true} />
+    </div>
+  ),
+};
+
 export const Sizes: Story = {
   render: () => {
     const [checkedSize, setCheckedSize] = useState<RadioSize | undefined>('md');
@@ -47,13 +60,4 @@ export const Sizes: Story = {
       </div>
     );
   },
-};
-
-export const Disabled: Story = {
-  render: () => (
-    <div style={{ display: 'flex', gap: 20 }}>
-      <Radio radioSize='md' name='disabledGroup' value='2' checked={false} disabled={true} />
-      <Radio radioSize='md' name='disabledGroup' value='1' checked={true} disabled={true} />
-    </div>
-  ),
 };
