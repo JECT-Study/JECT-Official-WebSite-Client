@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import { Meta, StoryObj } from '@storybook/react';
 import { RadioContent } from './RadioContent';
 
@@ -64,11 +64,32 @@ export const OutlineRadio: Story = {
   ),
 };
 
+export const SubLabelWithHyperlink: Story = {
+  render: () => (
+    <RadioContent
+      radioSize='md'
+      radioStyle='outline'
+      subLabelVisible={true}
+      subLabel={
+        <>
+          하이퍼링크&nbsp;
+          <a href='https://www.naver.com/' style={{ textDecoration: 'underline' }}>
+            (네이버 바로가기)
+          </a>
+        </>
+      }
+      value='1'
+    >
+      레이블
+    </RadioContent>
+  ),
+};
+
 export const controlledRadio: Story = {
   render: () => {
     const [checked, setChecked] = useState('korea');
 
-    const handleGenderChange = e => {
+    const handleGenderChange = (e: ChangeEvent<HTMLInputElement>) => {
       setChecked(e.target.value);
     };
 
@@ -99,9 +120,10 @@ export const uncontrolledRadio: Story = {
     <div>
       <form
         style={{ display: 'flex', gap: 20 }}
-        onSubmit={e => {
+        onSubmit={(e: FormEvent<HTMLFormElement>) => {
           e.preventDefault();
-          alert(`${e.target.groupName.value} 확인!`);
+          const form = e.target as HTMLFormElement;
+          alert(`${form.namedItem('groupName').value} 확인!`);
         }}
       >
         <RadioContent radioSize='md' name='groupName' value='apple' defaultChecked>
