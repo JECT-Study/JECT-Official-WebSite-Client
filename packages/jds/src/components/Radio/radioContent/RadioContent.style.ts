@@ -16,7 +16,7 @@ export const RadioContainer = styled.div<RadioContainerProps>(
       'normal',
       'normal',
       'default',
-      isDisabled ? 'disabled' : 'default',
+      isDisabled ? 'readonly' : 'default',
     );
 
     return {
@@ -24,25 +24,34 @@ export const RadioContainer = styled.div<RadioContainerProps>(
       justifyContent: 'center',
       alignItems: 'center',
       gap,
+      borderRadius: theme.scheme.desktop.radius[6],
       ...interactionStyles,
+
+      [`&:has(input[type="radio"]:checked)`]: {
+        ...interaction(
+          theme,
+          'accent',
+          'assistive',
+          'default',
+          isDisabled ? 'readonly' : 'default',
+        ),
+      },
 
       '::after': {
         ...interactionStyles['::after'],
         transform: 'scale(1.175, 1.33)',
-        borderRadius: theme.scheme.desktop.radius[6],
         pointerEvents: 'none',
       },
 
       '&:not(:active):hover::after': {
         ...interactionStyles['&:hover::after'],
-        transition: `transform ${theme.environment.duration[100]}ms ${theme.environment.motion.fluent}, opacity ${theme.environment.duration[500]}ms ${theme.environment.motion.fluent}`,
+        transition: `transform ${theme.environment.duration[100]}ms ${theme.environment.motion.fluent}, opacity ${theme.environment.duration[100]}ms ${theme.environment.motion.fluent}`,
       },
 
       '&:has(input[type="radio"]:focus-visible)::before': {
         content: '""',
         position: 'absolute',
         inset: 0,
-        borderRadius: theme.scheme.desktop.radius[6],
         transform: 'scale(1.175, 1.33)',
         boxShadow: `0 0 0 3px ${theme.color.interaction.focus}`,
       },
