@@ -34,9 +34,33 @@ export const Default: Story = {
 
 export const OutlineRadio: Story = {
   render: () => (
-    <RadioContent radioSize='md' radioStyle='outline' name='disabledGroup' value='1'>
-      레이블
-    </RadioContent>
+    <div style={{ display: 'flex', gap: 20, alignItems: 'flex-start' }}>
+      <RadioContent radioSize='md' radioStyle='outline' value='1'>
+        레이블
+      </RadioContent>
+      <RadioContent
+        radioSize='md'
+        radioStyle='outline'
+        subLabelVisible={true}
+        subLabel='레이블'
+        value='2'
+      >
+        레이블
+      </RadioContent>
+      <RadioContent radioSize='md' radioStyle='outline' align='right' value='3'>
+        레이블
+      </RadioContent>
+      <RadioContent
+        radioSize='md'
+        radioStyle='outline'
+        align='right'
+        subLabelVisible={true}
+        subLabel='레이블'
+        value='4'
+      >
+        레이블
+      </RadioContent>
+    </div>
   ),
 };
 
