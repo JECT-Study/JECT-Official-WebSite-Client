@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { interaction, pxToRem } from 'utils';
+import { interaction } from 'utils';
 import { RADIO_CONTAINER_SIZE, RadioSize } from './radioContent.variants';
 
 interface RadioContainerProps {
@@ -65,7 +65,7 @@ export const RadioContainerLabel = styled.label<RadioContainerProps>(
       },
       border: isStyleOutline ? `1px solid ${borderColor}` : 'none',
       borderRadius,
-      padding: isStyleOutline ? padding : 'none',
+      padding: isStyleOutline ? padding : '0',
       cursor: isDisabled ? 'default' : 'pointer',
       '& *': { cursor: 'inherit' },
       ...nonCheckedInteraction,
@@ -73,11 +73,10 @@ export const RadioContainerLabel = styled.label<RadioContainerProps>(
       '::after': {
         ...nonCheckedInteraction['::after'],
         ...addonInteraction,
-        transition: `all ${theme.environment.duration[100]}ms ${theme.environment.motion.fluent}`,
+        transition: `all ${theme.environment.duration[500]}ms ${theme.environment.motion.fluent}`,
       },
 
       '&:active::after': {
-        ...nonCheckedInteraction['&:active::after'],
         transition: 'none',
       },
 

@@ -1,4 +1,4 @@
-import { Theme } from '@emotion/react';
+import { CSSObject, Theme } from '@emotion/react';
 import { Density, FillColor, InteractionState, Variant } from 'types';
 
 export function interaction(
@@ -7,22 +7,22 @@ export function interaction(
   density: Density,
   fillColor: FillColor,
   state: InteractionState = 'default',
-) {
+): CSSObject {
   const createAfter = (backgroundColor: string) => {
     const baseStyle = {
-      position: 'relative',
-      outline: 'none',
+      position: 'relative' as const,
+      outline: 'none' as const,
     };
 
     const afterBaseStyle = {
       content: '""',
-      position: 'absolute',
+      position: 'absolute' as const,
       top: 0,
       left: 0,
       width: '100%',
       height: '100%',
       backgroundColor: backgroundColor,
-      borderRadius: 'inherit',
+      borderRadius: 'inherit' as const,
     };
 
     if (state === 'locked') {
