@@ -20,12 +20,14 @@ export const RadioLabel = styled.label<RadioStyledProps>(({ theme, radioSize }) 
     [`input[type="radio"]:not(:checked):disabled + .visual`]: {
       backgroundColor: theme.color.surface.standard,
       borderColor: theme.color.stroke.alpha.subtler,
+      cursor: 'default',
       ...interaction(theme, 'normal', 'normal', 'default', 'disabled'),
     },
 
     [`input[type="radio"]:checked:disabled + .visual`]: {
       backgroundColor: theme.color.fill.subtle,
       border: `${RADIO_SIZE[radioSize].border}px solid ${theme.color.stroke.subtler}`,
+      cursor: 'default',
       ...interaction(theme, 'normal', 'normal', 'default', 'disabled'),
     },
 
@@ -56,6 +58,7 @@ export const RadioSpan = styled.span<RadioStyledProps>(({ theme, radioSize }) =>
     height: sizeValue,
     border: `1px solid ${theme.color.stroke.alpha.assistive}`,
     backgroundColor: theme.color.surface.shallow,
+    cursor: 'pointer',
     ...interaction(theme, 'normal', 'normal', 'default'),
   };
 });
