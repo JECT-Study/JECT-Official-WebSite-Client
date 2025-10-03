@@ -3,6 +3,7 @@ import { Radio, RadioProps } from '../radioBasic/Radio';
 import { Label } from '@/components/Label';
 import { RadioContainer } from './RadioContent.style';
 import { useTheme } from 'theme';
+import { SUB_LABEL_SIZE } from './radioContent.variants';
 
 export interface RadioContentProps extends RadioProps {
   radioStyle?: 'empty' | 'outline';
