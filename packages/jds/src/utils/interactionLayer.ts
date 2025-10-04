@@ -137,7 +137,7 @@ const hasSpecialState = (isReadonly: boolean, isDisabled: boolean, isLocked: boo
  * ::after 의사 요소를 사용하여 hover, active, focus 상태를 시각적으로 표현합니다.
  *
  * @param theme - Emotion 테마 객체
- * @param state - 인터랙션 상태 (rest, hover, active, focus)
+ * @param state - 인터랙션 자체 상태 (rest, hover, active, focus)
  * @param variant - 색상 변형 (normal, accent, positive, destructive)
  * @param density - 색상 강도 (bold, normal, assistive, subtle)
  * @param fillColor - 배경 타입 (default, inverse)
@@ -145,37 +145,6 @@ const hasSpecialState = (isReadonly: boolean, isDisabled: boolean, isLocked: boo
  * @param isDisabled - 비활성화 상태
  * @param isLocked - 잠김 상태
  *
- * @example
- * // 기본 사용
- * InteractionLayer({
- *   theme,
- *   state: 'rest',
- *   variant: 'normal',
- *   density: 'normal',
- *   fillColor: 'default',
- * })
- *
- * @example
- * // accent variant + assistive density
- * InteractionLayer({
- *   theme,
- *   state: 'hover',
- *   variant: 'accent',
- *   density: 'assistive',
- *   fillColor: 'default',
- * })
- * // → theme.color.accent.neutral 색상 사용
- *
- * @example
- * // disabled 상태
- * InteractionLayer({
- *   theme,
- *   state: 'rest',
- *   variant: 'normal',
- *   density: 'normal',
- *   fillColor: 'default',
- *   isDisabled: true,
- * })
  */
 export function InteractionLayer({
   theme,
