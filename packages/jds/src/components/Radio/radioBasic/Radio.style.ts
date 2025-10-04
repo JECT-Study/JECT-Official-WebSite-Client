@@ -8,13 +8,18 @@ interface RadioStyledProps {
 }
 
 export const RadioLabel = styled.label<RadioStyledProps>(({ theme, radioSize }) => {
+  const borderSize = RADIO_SIZE[radioSize]
+    .border as keyof typeof theme.scheme.desktop.stroke.weight;
+
   return {
     display: 'inline-flex',
     position: 'relative',
 
     [`input[type="radio"]:not(:disabled):checked + .visual`]: {
       backgroundColor: theme.color.surface.static.standard,
-      border: `${RADIO_SIZE[radioSize].border}px solid ${theme.color.accent.neutral}`,
+      border: `${pxToRem(theme.scheme.desktop.stroke.weight[borderSize])} solid ${theme.color.accent.neutral}`,
+      [theme.breakPoint.tablet]: { border: pxToRem(theme.scheme.tablet.stroke.weight[borderSize]) },
+      [theme.breakPoint.mobile]: { border: pxToRem(theme.scheme.mobile.stroke.weight[borderSize]) },
     },
 
     [`input[type="radio"]:not(:checked):disabled + .visual`]: {
@@ -26,9 +31,12 @@ export const RadioLabel = styled.label<RadioStyledProps>(({ theme, radioSize }) 
 
     [`input[type="radio"]:checked:disabled + .visual`]: {
       backgroundColor: theme.color.fill.subtle,
-      border: `${RADIO_SIZE[radioSize].border}px solid ${theme.color.stroke.subtler}`,
+      border: `${pxToRem(theme.scheme.desktop.stroke.weight[borderSize])}px solid ${theme.color.stroke.subtler}`,
       cursor: 'default',
       ...interaction(theme, 'normal', 'normal', 'default', 'disabled'),
+
+      [theme.breakPoint.tablet]: { border: pxToRem(theme.scheme.tablet.stroke.weight[borderSize]) },
+      [theme.breakPoint.mobile]: { border: pxToRem(theme.scheme.mobile.stroke.weight[borderSize]) },
     },
 
     [`input[type="radio"]:focus-visible + .visual`]: {
