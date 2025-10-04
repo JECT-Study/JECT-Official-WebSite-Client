@@ -1,9 +1,8 @@
 import type { CSSObject, Theme } from '@emotion/react';
 import styled from '@emotion/styled';
+import type { BlockButtonSize, BlockButtonHierarchy, BlockButtonStyle } from 'components';
 import type { TextStyle } from 'types';
 import { HexToRgba, InteractionLayer, pxToRem, textStyle } from 'utils';
-
-import type { BlockButtonSize, BlockButtonHierarchy, BlockButtonStyle } from './blockButton.types';
 
 const sizeStyles: Record<BlockButtonSize, (theme: Theme) => CSSObject> = {
   lg: (theme: Theme) => ({
@@ -403,7 +402,7 @@ const variantColorStylesMap = {
     const colors = outlinedColors(theme, hierarchy, disabled);
     return {
       ...colors,
-      border: `1px solid ${colors.borderColor}`,
+      border: `${pxToRem(1)} solid ${colors.borderColor}`,
     };
   },
   empty: (theme: Theme, hierarchy: BlockButtonHierarchy, disabled: boolean) =>
