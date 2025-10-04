@@ -1,6 +1,8 @@
 import type { CSSObject, Theme } from '@emotion/react';
 import type { InteractionLayerState, Density, FillColor, Variant } from 'types';
 
+import { pxToRem } from './cssUnit';
+
 export interface InteractionLayerParams {
   theme: Theme;
   state: InteractionLayerState;
@@ -25,7 +27,7 @@ const SPECIAL_STATE_OPACITY = {
   locked: 0.08,
 } as const;
 
-const FOCUS_OUTLINE_WIDTH = 3;
+const FOCUS_OUTLINE_WIDTH = pxToRem(3);
 
 const getBackgroundColor = (
   theme: Theme,
@@ -213,7 +215,7 @@ export function InteractionLayer({
     }
 
     baseStyle['&:focus-visible'] = {
-      boxShadow: `0 0 0 ${FOCUS_OUTLINE_WIDTH}px ${theme.color.interaction.focus}`,
+      boxShadow: `0 0 0 ${FOCUS_OUTLINE_WIDTH} ${theme.color.interaction.focus}`,
     };
   }
 
