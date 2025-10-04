@@ -1,7 +1,7 @@
 import type { CSSObject, Theme } from '@emotion/react';
 import styled from '@emotion/styled';
 import type { TextStyle } from 'types';
-import { HexToRgba, pxToRem, textStyle } from 'utils';
+import { HexToRgba, InteractionLayer, pxToRem, textStyle } from 'utils';
 
 import type { BlockButtonSize, BlockButtonHierarchy, BlockButtonStyle } from './blockButton.types';
 
@@ -218,48 +218,158 @@ const emptyColors = (theme: Theme, hierarchy: BlockButtonHierarchy, disabled: bo
   return disabled ? emptyColorsDisabledMap(theme)[hierarchy] : emptyColorsMap(theme)[hierarchy];
 };
 
-const getBaseInteraction = (theme: Theme, backgroundColor: string) => ({
-  position: 'relative' as const,
-  outline: 'none',
-  '::after': {
-    content: '""',
-    position: 'absolute' as const,
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-    backgroundColor,
-    opacity: 0,
-    transition: 'opacity 0.2s ease-in-out',
-    pointerEvents: 'none' as const,
-  },
-  '&:hover::after': {
-    opacity: 0.08,
-  },
-  '&:active::after': {
-    opacity: 0.12,
-  },
-  '&:focus-visible': {
-    boxShadow: `0 0 0 3px ${theme.color.interaction.focus}`,
-  },
-});
-
 const interactionStyles = (
   theme: Theme,
   hierarchy: BlockButtonHierarchy,
-  variant: BlockButtonStyle,
   disabled: boolean,
-) => {
-  if (disabled) {
-    return {};
-  }
+): CSSObject => {
+  const interactionParams = {
+    accent: {
+      restStyle: InteractionLayer({
+        theme,
+        state: 'rest',
+        variant: 'normal',
+        density: 'bold',
+        fillColor: 'default',
+        isDisabled: disabled,
+      }),
+      hoverStyle: InteractionLayer({
+        theme,
+        state: 'hover',
+        variant: 'normal',
+        density: 'bold',
+        fillColor: 'default',
+        isDisabled: disabled,
+      }),
+      activeStyle: InteractionLayer({
+        theme,
+        state: 'active',
+        variant: 'normal',
+        density: 'bold',
+        fillColor: 'default',
+        isDisabled: disabled,
+      }),
+      focusStyle: InteractionLayer({
+        theme,
+        state: 'focus',
+        variant: 'normal',
+        density: 'bold',
+        fillColor: 'default',
+        isDisabled: disabled,
+      }),
+    },
+    primary: {
+      restStyle: InteractionLayer({
+        theme,
+        state: 'rest',
+        variant: 'normal',
+        density: 'bold',
+        fillColor: 'inverse',
+        isDisabled: disabled,
+      }),
+      hoverStyle: InteractionLayer({
+        theme,
+        state: 'hover',
+        variant: 'normal',
+        density: 'bold',
+        fillColor: 'inverse',
+        isDisabled: disabled,
+      }),
+      activeStyle: InteractionLayer({
+        theme,
+        state: 'active',
+        variant: 'normal',
+        density: 'bold',
+        fillColor: 'inverse',
+        isDisabled: disabled,
+      }),
+      focusStyle: InteractionLayer({
+        theme,
+        state: 'focus',
+        variant: 'normal',
+        density: 'bold',
+        fillColor: 'inverse',
+        isDisabled: disabled,
+      }),
+    },
+    secondary: {
+      restStyle: InteractionLayer({
+        theme,
+        state: 'rest',
+        variant: 'normal',
+        density: 'normal',
+        fillColor: 'inverse',
+        isDisabled: disabled,
+      }),
+      hoverStyle: InteractionLayer({
+        theme,
+        state: 'hover',
+        variant: 'normal',
+        density: 'normal',
+        fillColor: 'inverse',
+        isDisabled: disabled,
+      }),
+      activeStyle: InteractionLayer({
+        theme,
+        state: 'active',
+        variant: 'normal',
+        density: 'normal',
+        fillColor: 'inverse',
+        isDisabled: disabled,
+      }),
+      focusStyle: InteractionLayer({
+        theme,
+        state: 'focus',
+        variant: 'normal',
+        density: 'normal',
+        fillColor: 'inverse',
+        isDisabled: disabled,
+      }),
+    },
+    tertiary: {
+      restStyle: InteractionLayer({
+        theme,
+        state: 'rest',
+        variant: 'normal',
+        density: 'normal',
+        fillColor: 'default',
+        isDisabled: disabled,
+      }),
+      hoverStyle: InteractionLayer({
+        theme,
+        state: 'hover',
+        variant: 'normal',
+        density: 'normal',
+        fillColor: 'default',
+        isDisabled: disabled,
+      }),
+      activeStyle: InteractionLayer({
+        theme,
+        state: 'active',
+        variant: 'normal',
+        density: 'normal',
+        fillColor: 'default',
+        isDisabled: disabled,
+      }),
+      focusStyle: InteractionLayer({
+        theme,
+        state: 'focus',
+        variant: 'normal',
+        density: 'normal',
+        fillColor: 'default',
+        isDisabled: disabled,
+      }),
+    },
+  };
 
-  const isAccentWithStyle = hierarchy === 'accent' && variant !== 'empty';
-  const backgroundColor = isAccentWithStyle
-    ? theme.color.accent.alternative
-    : theme.color.interaction.normal;
+  const { restStyle, hoverStyle, activeStyle, focusStyle } = interactionParams[hierarchy];
 
-  return getBaseInteraction(theme, backgroundColor);
+  return {
+    ...restStyle,
+    '&:hover': hoverStyle,
+    '&:active': activeStyle,
+    '&:focus-visible': focusStyle,
+  };
 };
 
 const typographyStyleMap: Record<
@@ -310,13 +420,13 @@ export function GetBlockButtonStyles(
   const sizeStyle = sizeStyles[size](theme);
   const typoStyle = GetTypographyStyle(theme, size);
   const colorStyle = variantColorStylesMap[variant](theme, hierarchy, disabled);
-  const interaction = interactionStyles(theme, hierarchy, variant, disabled);
+  const interactionStyle = interactionStyles(theme, hierarchy, disabled);
 
   return {
     ...sizeStyle,
     ...typoStyle,
     ...colorStyle,
-    ...interaction,
+    ...interactionStyle,
   };
 }
 
