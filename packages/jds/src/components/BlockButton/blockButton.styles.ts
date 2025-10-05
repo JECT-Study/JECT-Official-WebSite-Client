@@ -2,7 +2,7 @@ import type { CSSObject, Theme } from '@emotion/react';
 import styled from '@emotion/styled';
 import type { BlockButtonSize, BlockButtonHierarchy, BlockButtonStyle } from 'components';
 import type { TextStyle } from 'types';
-import { HexToRgba, InteractionLayer, pxToRem, textStyle } from 'utils';
+import { InteractionLayer, pxToRem, textStyle } from 'utils';
 
 const sizeStyles: Record<BlockButtonSize, (theme: Theme) => CSSObject> = {
   lg: (theme: Theme) => ({
@@ -75,11 +75,11 @@ const solidColorsMap = (
     color: theme.color.object.inverse.boldest,
   },
   secondary: {
-    backgroundColor: HexToRgba(theme.color.fill.neutral, 0.55),
+    backgroundColor: theme.color.fill.neutral,
     color: theme.color.object.static.inverse.boldest,
   },
   tertiary: {
-    backgroundColor: HexToRgba(theme.color.fill.subtle, 0.23),
+    backgroundColor: theme.color.fill.subtle,
     color: theme.color.object.normal,
   },
 });
@@ -88,20 +88,20 @@ const solidColorsDisabledMap = (
   theme: Theme,
 ): Record<BlockButtonHierarchy, { backgroundColor: string; color: string }> => ({
   accent: {
-    backgroundColor: HexToRgba(theme.color.accent.alpha.subtlest, 0.08),
-    color: HexToRgba(theme.color.accent.alpha.subtler, 0.16),
+    backgroundColor: theme.color.accent.alpha.subtlest,
+    color: theme.color.accent.alpha.subtler,
   },
   primary: {
-    backgroundColor: HexToRgba(theme.color.fill.subtlest, 0.03),
-    color: HexToRgba(theme.color.object.assistive, 0.34),
+    backgroundColor: theme.color.fill.subtlest,
+    color: theme.color.object.assistive,
   },
   secondary: {
-    backgroundColor: HexToRgba(theme.color.fill.subtlest, 0.03),
-    color: HexToRgba(theme.color.object.assistive, 0.34),
+    backgroundColor: theme.color.fill.subtlest,
+    color: theme.color.object.assistive,
   },
   tertiary: {
-    backgroundColor: HexToRgba(theme.color.fill.subtlest, 0.03),
-    color: HexToRgba(theme.color.object.assistive, 0.34),
+    backgroundColor: theme.color.fill.subtlest,
+    color: theme.color.object.assistive,
   },
 });
 
@@ -117,23 +117,23 @@ const outlinedColorsMap = (
 > => ({
   accent: {
     backgroundColor: 'transparent',
-    borderColor: HexToRgba(theme.color.accent.alpha.subtlest, 0.05),
+    borderColor: theme.color.accent.alpha.subtlest,
     color: theme.color.accent.normal,
   },
   primary: {
     backgroundColor: 'transparent',
-    borderColor: HexToRgba(theme.color.stroke.alpha.assistive, 0.18),
+    borderColor: theme.color.stroke.alpha.assistive,
     color: theme.color.object.boldest,
   },
   secondary: {
     backgroundColor: 'transparent',
-    borderColor: HexToRgba(theme.color.stroke.alpha.assistive, 0.18),
+    borderColor: theme.color.stroke.alpha.assistive,
     color: theme.color.object.bold,
   },
   tertiary: {
     backgroundColor: 'transparent',
-    borderColor: HexToRgba(theme.color.stroke.alpha.assistive, 0.18),
-    color: HexToRgba(theme.color.object.neutral, 0.55),
+    borderColor: theme.color.stroke.alpha.assistive,
+    color: theme.color.object.neutral,
   },
 });
 
@@ -145,23 +145,23 @@ const outlinedColorsDisabledMap = (
 > => ({
   accent: {
     backgroundColor: 'transparent',
-    borderColor: HexToRgba(theme.color.accent.alpha.subtler, 0.16),
-    color: HexToRgba(theme.color.accent.alpha.subtler, 0.16),
+    borderColor: theme.color.accent.alpha.subtler,
+    color: theme.color.accent.alpha.subtler,
   },
   primary: {
     backgroundColor: 'transparent',
-    borderColor: HexToRgba(theme.color.stroke.alpha.subtler, 0.08),
-    color: HexToRgba(theme.color.object.assistive, 0.34),
+    borderColor: theme.color.stroke.alpha.subtler,
+    color: theme.color.object.assistive,
   },
   secondary: {
     backgroundColor: 'transparent',
-    borderColor: HexToRgba(theme.color.stroke.alpha.subtler, 0.08),
-    color: HexToRgba(theme.color.object.assistive, 0.34),
+    borderColor: theme.color.stroke.alpha.subtler,
+    color: theme.color.object.assistive,
   },
   tertiary: {
     backgroundColor: 'transparent',
-    borderColor: HexToRgba(theme.color.stroke.alpha.subtler, 0.08),
-    color: HexToRgba(theme.color.object.assistive, 0.34),
+    borderColor: theme.color.stroke.alpha.subtler,
+    color: theme.color.object.assistive,
   },
 });
 
@@ -188,7 +188,7 @@ const emptyColorsMap = (
   },
   tertiary: {
     backgroundColor: 'transparent',
-    color: HexToRgba(theme.color.object.neutral, 0.55),
+    color: theme.color.object.neutral,
   },
 });
 
@@ -197,19 +197,19 @@ const emptyColorsDisabledMap = (
 ): Record<BlockButtonHierarchy, { backgroundColor: string; color: string }> => ({
   accent: {
     backgroundColor: 'transparent',
-    color: HexToRgba(theme.color.accent.alpha.subtler, 0.16),
+    color: theme.color.accent.alpha.subtler,
   },
   primary: {
     backgroundColor: 'transparent',
-    color: HexToRgba(theme.color.object.assistive, 0.34),
+    color: theme.color.object.assistive,
   },
   secondary: {
     backgroundColor: 'transparent',
-    color: HexToRgba(theme.color.object.assistive, 0.34),
+    color: theme.color.object.assistive,
   },
   tertiary: {
     backgroundColor: 'transparent',
-    color: HexToRgba(theme.color.object.assistive, 0.34),
+    color: theme.color.object.assistive,
   },
 });
 
@@ -365,9 +365,31 @@ const interactionStyles = (
 
   return {
     ...restStyle,
-    '&:hover': hoverStyle,
-    '&:active': activeStyle,
-    '&:focus-visible': focusStyle,
+    '::after': {
+      ...restStyle['::after'],
+      transition: `opacity ${theme.environment.duration[100]} ${theme.environment.motion.fluent}`,
+    },
+    '&:hover': {
+      ...hoverStyle,
+      '::after': {
+        ...hoverStyle['::after'],
+        transition: `opacity ${theme.environment.duration[100]} ${theme.environment.motion.fluent}`,
+      },
+    },
+    '&:active': {
+      ...activeStyle,
+      '::after': {
+        ...activeStyle['::after'],
+        transition: 'none',
+      },
+    },
+    '&:focus-visible': {
+      ...focusStyle,
+      '::after': {
+        ...focusStyle['::after'],
+        transition: 'none',
+      },
+    },
   };
 };
 
@@ -442,7 +464,6 @@ export const StyledBlockButton = styled.button<{
   border: 'none',
   cursor: $disabled ? 'not-allowed' : 'pointer',
   userSelect: 'none',
-  transition: 'all 0.2s ease-in-out',
   fontFamily: 'inherit',
   ...GetBlockButtonStyles(theme, $hierarchy, $size, $variant, $disabled),
 }));
