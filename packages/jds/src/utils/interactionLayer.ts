@@ -134,10 +134,15 @@ const hasSpecialState = (isReadonly: boolean, isDisabled: boolean, isLocked: boo
  *
  * @description
  * Figma 스펙에 맞춰 variant + density + fillColor 조합으로 색상 토큰을 결정합니다.
- * ::after 의사 요소를 사용하여 hover, active, focus 상태를 시각적으로 표현합니다.
+ * ::after 의사 요소를 사용하여 주어진 state에 대한 스타일만 생성합니다.
+ *
+ * 중요: 컴포넌트의 실제 인터랙션 상태(hover, active, focus)와
+ * InteractionLayer의 state는 독립적으로 설정할 수 있습니다.
+ *
+ * 예: 컴포넌트 hover 시 InteractionLayer state='rest' 사용 가능
  *
  * @param theme - Emotion 테마 객체
- * @param state - 인터랙션 자체 상태 (rest, hover, active, focus)
+ * @param state - InteractionLayer 시각적 상태 (rest, hover, active, focus)
  * @param variant - 색상 변형 (normal, accent, positive, destructive)
  * @param density - 색상 강도 (bold, normal, assistive, subtle)
  * @param fillColor - 배경 타입 (default, inverse)
@@ -145,6 +150,13 @@ const hasSpecialState = (isReadonly: boolean, isDisabled: boolean, isLocked: boo
  * @param isDisabled - 비활성화 상태
  * @param isLocked - 잠김 상태
  *
+ * @example
+ * // 일반적인 사용 (컴포넌트 상태 = InteractionLayer 상태)
+ * '&:hover': InteractionLayer({ theme, state: 'hover', ... })
+ *
+ * @example
+ * // 독립적인 사용 (컴포넌트 hover 시에도 InteractionLayer는 rest)
+ * '&:hover': InteractionLayer({ theme, state: 'rest', ... })
  */
 export function InteractionLayer({
   theme,
@@ -172,20 +184,12 @@ export function InteractionLayer({
       height: '100%',
       backgroundColor,
       opacity,
-      transition: 'opacity 0.2s ease-in-out',
       pointerEvents: 'none',
     },
   };
 
-  if (!isSpecialState) {
-    if (state === 'rest') {
-      baseStyle['&:hover::after'] = { opacity: STATE_OPACITY.hover };
-      baseStyle['&:active::after'] = { opacity: STATE_OPACITY.active };
-    }
-
-    baseStyle['&:focus-visible'] = {
-      boxShadow: `0 0 0 ${FOCUS_OUTLINE_WIDTH} ${theme.color.interaction.focus}`,
-    };
+  if (state === 'focus' && !isSpecialState) {
+    baseStyle.boxShadow = `0 0 0 ${FOCUS_OUTLINE_WIDTH} ${theme.color.interaction.focus}`;
   }
 
   return baseStyle;
