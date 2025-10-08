@@ -21,7 +21,7 @@ export const NUMERIC_BASIC_BADGE_STYLE = (theme: Theme): NumericBasicBadgeStyle 
       color: theme.color.object.static.inverse.boldest,
     },
     tertiary: {
-      bg: theme.color.fill.subtle,
+      bg: theme.color.fill.subtler,
       color: theme.color.object.alternative,
     },
   },

@@ -1,5 +1,5 @@
 import { Theme } from '@emotion/react';
-import { BadgeStyle, BadgeStyleWithoutBorder, FeedbackVariant } from '../badge.types';
+import { BadgeStyleWithoutBorder, FeedbackVariant } from '../badge.types';
 
 type ContentFeedbackBadgeStyle = {
   solid: Record<FeedbackVariant, BadgeStyleWithoutBorder>;
@@ -40,30 +40,30 @@ export const NUMERIC_FEEDBACK_BADGE_STYLE = (theme: Theme): ContentFeedbackBadge
 export const NUMERIC_FEEDBACK_BADGE_STYLE_MUTED = (theme: Theme): ContentFeedbackBadgeStyle => ({
   solid: {
     positive: {
-      bg: theme.color.feedback.positive.alpha.subtle,
-      color: theme.color.feedback.positive.alpha.alternative,
+      bg: theme.color.feedback.positive.alpha.subtler,
+      color: theme.color.feedback.positive.alpha.subtle,
     },
     destructive: {
-      bg: theme.color.feedback.destructive.alpha.subtle,
-      color: theme.color.feedback.destructive.alpha.alternative,
+      bg: theme.color.feedback.destructive.alpha.subtler,
+      color: theme.color.feedback.destructive.alpha.subtle,
     },
     notifying: {
-      bg: theme.color.feedback.notifying.alpha.subtle,
-      color: theme.color.feedback.notifying.alpha.alternative,
+      bg: theme.color.feedback.notifying.alpha.subtler,
+      color: theme.color.feedback.notifying.alpha.subtle,
     },
   },
   empty: {
     positive: {
       bg: 'none',
-      color: theme.color.feedback.positive.alpha.alternative,
+      color: theme.color.feedback.positive.alpha.subtle,
     },
     destructive: {
       bg: 'none',
-      color: theme.color.feedback.destructive.alpha.alternative,
+      color: theme.color.feedback.destructive.alpha.subtle,
     },
     notifying: {
       bg: 'none',
-      color: theme.color.feedback.notifying.alpha.alternative,
+      color: theme.color.feedback.notifying.alpha.subtle,
     },
   },
 });

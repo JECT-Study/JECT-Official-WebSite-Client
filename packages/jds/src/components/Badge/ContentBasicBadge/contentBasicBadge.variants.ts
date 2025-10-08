@@ -32,12 +32,12 @@ export const CONTENT_BASIC_BADGE_STYLE = (theme: Theme): ContentBasicBadgeStyle 
   },
   alpha: {
     accent: {
-      bg: theme.color.accent.alpha.subtle,
+      bg: theme.color.accent.alpha.subtler,
       color: theme.color.accent.normal,
       border: 'none',
     },
     primary: {
-      bg: theme.color.fill.subtle,
+      bg: theme.color.fill.subtler,
       color: theme.color.object.bolder,
       border: 'none',
     },
@@ -61,12 +61,12 @@ export const CONTENT_BASIC_BADGE_STYLE = (theme: Theme): ContentBasicBadgeStyle 
     primary: {
       bg: 'none',
       color: theme.color.object.bolder,
-      border: theme.color.stroke.alpha.neutral,
+      border: theme.color.stroke.alpha.assistive,
     },
     secondary: {
       bg: 'none',
       color: theme.color.object.neutral,
-      border: theme.color.stroke.alpha.alternative,
+      border: theme.color.stroke.alpha.assistive,
     },
     tertiary: {
       bg: 'none',

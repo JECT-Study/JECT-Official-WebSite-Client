@@ -46,17 +46,17 @@ export const CONTENT_FEEDBACK_BADGE_STYLE = (theme: Theme): ContentFeedbackBadge
     positive: {
       bg: 'none',
       color: theme.color.feedback.positive.normal,
-      border: theme.color.feedback.positive.alpha.neutral,
+      border: theme.color.feedback.positive.alpha.subtle,
     },
     destructive: {
       bg: 'none',
       color: theme.color.feedback.destructive.normal,
-      border: theme.color.feedback.destructive.alpha.neutral,
+      border: theme.color.feedback.destructive.alpha.subtle,
     },
     notifying: {
       bg: 'none',
       color: theme.color.feedback.notifying.normal,
-      border: theme.color.feedback.notifying.alpha.neutral,
+      border: theme.color.feedback.notifying.alpha.subtle,
     },
   },
 });
@@ -64,35 +64,35 @@ export const CONTENT_FEEDBACK_BADGE_STYLE = (theme: Theme): ContentFeedbackBadge
 export const CONTENT_FEEDBACK_BADGE_STYLE_MUTED = (theme: Theme): ContentFeedbackBadgeStyle => ({
   solid: {
     positive: {
-      bg: theme.color.feedback.positive.alpha.subtle,
-      color: theme.color.feedback.positive.alpha.alternative,
+      bg: theme.color.feedback.positive.alpha.subtler,
+      color: theme.color.feedback.positive.alpha.subtle,
       border: 'none',
     },
     destructive: {
-      bg: theme.color.feedback.destructive.alpha.subtle,
-      color: theme.color.feedback.destructive.alpha.alternative,
+      bg: theme.color.feedback.destructive.alpha.subtler,
+      color: theme.color.feedback.destructive.alpha.subtle,
       border: 'none',
     },
     notifying: {
-      bg: theme.color.feedback.notifying.alpha.subtle,
-      color: theme.color.feedback.notifying.alpha.alternative,
+      bg: theme.color.feedback.notifying.alpha.subtler,
+      color: theme.color.feedback.notifying.alpha.subtle,
       border: 'none',
     },
   },
   alpha: {
     positive: {
       bg: theme.color.feedback.positive.alpha.subtlest,
-      color: theme.color.feedback.positive.alpha.assistive,
+      color: theme.color.feedback.positive.alpha.subtle,
       border: 'none',
     },
     destructive: {
       bg: theme.color.feedback.destructive.alpha.subtlest,
-      color: theme.color.feedback.destructive.alpha.assistive,
+      color: theme.color.feedback.destructive.alpha.subtle,
       border: 'none',
     },
     notifying: {
       bg: theme.color.feedback.notifying.alpha.subtlest,
-      color: theme.color.feedback.notifying.alpha.assistive,
+      color: theme.color.feedback.notifying.alpha.subtle,
       border: 'none',
     },
   },
@@ -100,17 +100,17 @@ export const CONTENT_FEEDBACK_BADGE_STYLE_MUTED = (theme: Theme): ContentFeedbac
     positive: {
       bg: 'none',
       color: theme.color.feedback.positive.alpha.subtle,
-      border: theme.color.feedback.positive.alpha.assistive,
+      border: theme.color.feedback.positive.alpha.subtler,
     },
     destructive: {
       bg: 'none',
       color: theme.color.feedback.destructive.alpha.subtle,
-      border: theme.color.feedback.destructive.alpha.assistive,
+      border: theme.color.feedback.destructive.alpha.subtler,
     },
     notifying: {
       bg: 'none',
       color: theme.color.feedback.notifying.alpha.subtle,
-      border: theme.color.feedback.notifying.alpha.assistive,
+      border: theme.color.feedback.notifying.alpha.subtler,
     },
   },
 });

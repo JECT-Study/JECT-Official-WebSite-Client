@@ -19,12 +19,12 @@ export const DOT_FEEDBACK_BADGE_STYLE_MUTED = (
   theme: Theme,
 ): Record<FeedbackVariant, { bg: string }> => ({
   positive: {
-    bg: theme.color.feedback.positive.alpha.alternative,
+    bg: theme.color.feedback.positive.alpha.subtle,
   },
   destructive: {
-    bg: theme.color.feedback.destructive.alpha.alternative,
+    bg: theme.color.feedback.destructive.alpha.subtle,
   },
   notifying: {
-    bg: theme.color.feedback.notifying.alpha.alternative,
+    bg: theme.color.feedback.notifying.alpha.subtle,
   },
 });
