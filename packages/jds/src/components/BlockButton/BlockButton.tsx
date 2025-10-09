@@ -2,7 +2,8 @@ import { forwardRef } from 'react';
 import type { ComponentPropsWithoutRef, ReactNode } from 'react';
 
 import { StyledBlockButton } from './blockButton.styles';
-import type { BlockButtonSize, BlockButtonHierarchy, BlockButtonStyle } from './blockButton.types';
+
+import type { BlockButtonSize, BlockButtonHierarchy, BlockButtonStyle } from '@/components';
 
 export interface BlockButtonProps extends ComponentPropsWithoutRef<'button'> {
   children: ReactNode;
