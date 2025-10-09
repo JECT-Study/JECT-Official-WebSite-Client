@@ -32,7 +32,7 @@ export const Image = forwardRef<HTMLButtonElement, ImageProps>(
     ref,
   ) => {
     const theme = useTheme();
-    const imageSrc = src || 'src/assets/images/defaultImage.png';
+    const imageSrc = src || '/images/defaultImage.png';
 
     return (
       <ImageButton
