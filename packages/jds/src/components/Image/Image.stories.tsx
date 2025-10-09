@@ -81,3 +81,11 @@ export const HaveBorderRadius: Story = {
     </div>
   ),
 };
+
+export const WithBadge: Story = {
+  render: () => (
+    <div>
+      <Image alt='이미지' badgeVisible={true} badgeLabel='1' />
+    </div>
+  ),
+};
