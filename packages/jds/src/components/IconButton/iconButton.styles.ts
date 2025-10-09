@@ -109,7 +109,7 @@ const interactionStyles = (
         variant: 'accent',
         density: 'normal',
         fillColor: 'default',
-        isDisabled: disabled,
+        isDisabled: false,
       }),
       activeStyle: InteractionLayer({
         theme,
@@ -117,7 +117,7 @@ const interactionStyles = (
         variant: 'accent',
         density: 'normal',
         fillColor: 'default',
-        isDisabled: disabled,
+        isDisabled: false,
       }),
       focusStyle: InteractionLayer({
         theme,
@@ -125,7 +125,7 @@ const interactionStyles = (
         variant: 'accent',
         density: 'normal',
         fillColor: 'default',
-        isDisabled: disabled,
+        isDisabled: false,
       }),
     },
     primary: {
@@ -143,7 +143,7 @@ const interactionStyles = (
         variant: 'normal',
         density: 'normal',
         fillColor: 'default',
-        isDisabled: disabled,
+        isDisabled: false,
       }),
       activeStyle: InteractionLayer({
         theme,
@@ -151,7 +151,7 @@ const interactionStyles = (
         variant: 'normal',
         density: 'normal',
         fillColor: 'default',
-        isDisabled: disabled,
+        isDisabled: false,
       }),
       focusStyle: InteractionLayer({
         theme,
@@ -159,7 +159,7 @@ const interactionStyles = (
         variant: 'normal',
         density: 'normal',
         fillColor: 'default',
-        isDisabled: disabled,
+        isDisabled: false,
       }),
     },
     secondary: {
@@ -177,7 +177,7 @@ const interactionStyles = (
         variant: 'normal',
         density: 'normal',
         fillColor: 'default',
-        isDisabled: disabled,
+        isDisabled: false,
       }),
       activeStyle: InteractionLayer({
         theme,
@@ -185,7 +185,7 @@ const interactionStyles = (
         variant: 'normal',
         density: 'normal',
         fillColor: 'default',
-        isDisabled: disabled,
+        isDisabled: false,
       }),
       focusStyle: InteractionLayer({
         theme,
@@ -193,7 +193,7 @@ const interactionStyles = (
         variant: 'normal',
         density: 'normal',
         fillColor: 'default',
-        isDisabled: disabled,
+        isDisabled: false,
       }),
     },
     tertiary: {
@@ -211,7 +211,7 @@ const interactionStyles = (
         variant: 'normal',
         density: 'normal',
         fillColor: 'default',
-        isDisabled: disabled,
+        isDisabled: false,
       }),
       activeStyle: InteractionLayer({
         theme,
@@ -219,7 +219,7 @@ const interactionStyles = (
         variant: 'normal',
         density: 'normal',
         fillColor: 'default',
-        isDisabled: disabled,
+        isDisabled: false,
       }),
       focusStyle: InteractionLayer({
         theme,
@@ -227,12 +227,22 @@ const interactionStyles = (
         variant: 'normal',
         density: 'normal',
         fillColor: 'default',
-        isDisabled: disabled,
+        isDisabled: false,
       }),
     },
   };
 
   const { restStyle, hoverStyle, activeStyle, focusStyle } = interactionParams[hierarchy];
+
+  if (disabled) {
+    return {
+      ...restStyle,
+      '::after': {
+        ...restStyle['::after'],
+        transition: `opacity ${theme.environment.duration[100]} ${theme.environment.motion.fluent}`,
+      },
+    };
+  }
 
   return {
     ...restStyle,
