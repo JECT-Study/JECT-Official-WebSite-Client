@@ -44,7 +44,11 @@ export const Image = forwardRef<HTMLButtonElement, ImageProps>(
         <img src={imageSrc} alt={alt} />
         {!isReadonly && (
           <IconDiv className='hoverIcon'>
-            <Icon name='delete-bin-line' size='xl' color={theme.color.object.boldest} />
+            <Icon
+              name='delete-bin-line'
+              size='xl'
+              color={theme.color.object.static.inverse.boldest}
+            />
           </IconDiv>
         )}
       </ImageButton>
