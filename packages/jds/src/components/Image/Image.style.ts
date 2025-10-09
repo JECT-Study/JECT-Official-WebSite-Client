@@ -41,6 +41,7 @@ export const ImageButton = styled.button<ImageButtonProps>(
         height: '100%',
         objectFit: 'cover',
         display: 'block',
+        borderRadius: 'inherit',
       },
 
       ...interactionStyle,
@@ -83,7 +84,7 @@ export const ImageLabelDiv = styled.div(({ theme }) => {
     position: 'absolute',
     top: '8px',
     left: '8px',
-    zIndex: '50',
+    zIndex: 50,
     minWidth: `${pxToRem(18)}`,
     backgroundColor: theme.color.object.static.neutral,
     padding: `0 ${theme.scheme.desktop.spacing[2]}px`,

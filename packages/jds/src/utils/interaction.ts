@@ -22,6 +22,7 @@ export function interaction(
       width: '100%',
       height: '100%',
       backgroundColor: backgroundColor,
+      borderRadius: 'inherit',
     };
 
     if (state === 'locked') {
