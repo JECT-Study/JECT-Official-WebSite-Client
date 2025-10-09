@@ -236,11 +236,8 @@ const interactionStyles = (
 
   if (disabled) {
     return {
-      ...restStyle,
-      '::after': {
-        ...restStyle['::after'],
-        transition: `opacity ${theme.environment.duration[100]} ${theme.environment.motion.fluent}`,
-      },
+      position: 'relative',
+      outline: 'none',
     };
   }
 
