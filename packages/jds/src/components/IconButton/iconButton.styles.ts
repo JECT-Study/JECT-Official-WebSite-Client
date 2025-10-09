@@ -54,9 +54,6 @@ const sizeStyles: Record<IconButtonSize, CSSObject> = {
   },
 };
 
-/**
- * TODO: 실제 디자인에 맞게 색상 토큰 수정 필요
- */
 const colorsMap = (theme: Theme): Record<IconButtonHierarchy, { color: string }> => ({
   accent: {
     color: theme.color.accent.normal,
