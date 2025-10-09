@@ -54,7 +54,7 @@ export const Clickable: Story = {
     const clickHandler = () => {
       alert('클릭');
     };
-    return <Image alt='읽기 전용 이미지' isReadonly={args.isReadonly} onClick={clickHandler} />;
+    return <Image alt='이미지' isReadonly={args.isReadonly} onClick={clickHandler} />;
   },
 };
 
