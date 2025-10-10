@@ -12,6 +12,20 @@ export const iconSizeMap: Record<BlockButtonSize, IconSize> = {
   xs: '2xs',
 };
 
+const offsetMap: Record<BlockButtonSize, { vertical: number; horizontal: number }> = {
+  lg: { vertical: 0, horizontal: 0 },
+  md: { vertical: 0, horizontal: 0 },
+  sm: { vertical: 0, horizontal: 0 },
+  xs: { vertical: 0, horizontal: 0 },
+};
+
+const borderRadiusMap: Record<BlockButtonSize, number> = {
+  lg: 6,
+  md: 6,
+  sm: 4,
+  xs: 4,
+};
+
 const sizeStyles: Record<BlockButtonSize, (theme: Theme) => CSSObject> = {
   lg: (theme: Theme) => ({
     padding: `${pxToRem(theme.scheme.desktop.spacing[10])} ${pxToRem(theme.scheme.desktop.spacing[20])}`,
@@ -228,8 +242,11 @@ const emptyColors = (theme: Theme, hierarchy: BlockButtonHierarchy, disabled: bo
 const interactionStyles = (
   theme: Theme,
   hierarchy: BlockButtonHierarchy,
+  size: BlockButtonSize,
   disabled: boolean,
 ): CSSObject => {
+  const offset = offsetMap[size];
+  const borderRadius = borderRadiusMap[size];
   const interactionParams = {
     accent: {
       restStyle: InteractionLayer({
@@ -239,6 +256,9 @@ const interactionStyles = (
         density: 'bold',
         fillColor: 'default',
         isDisabled: disabled,
+        offsetVertical: offset.vertical,
+        offsetHorizontal: offset.horizontal,
+        borderRadius,
       }),
       hoverStyle: InteractionLayer({
         theme,
@@ -247,6 +267,9 @@ const interactionStyles = (
         density: 'bold',
         fillColor: 'default',
         isDisabled: disabled,
+        offsetVertical: offset.vertical,
+        offsetHorizontal: offset.horizontal,
+        borderRadius,
       }),
       activeStyle: InteractionLayer({
         theme,
@@ -255,6 +278,9 @@ const interactionStyles = (
         density: 'bold',
         fillColor: 'default',
         isDisabled: disabled,
+        offsetVertical: offset.vertical,
+        offsetHorizontal: offset.horizontal,
+        borderRadius,
       }),
       focusStyle: InteractionLayer({
         theme,
@@ -263,6 +289,9 @@ const interactionStyles = (
         density: 'bold',
         fillColor: 'default',
         isDisabled: disabled,
+        offsetVertical: offset.vertical,
+        offsetHorizontal: offset.horizontal,
+        borderRadius,
       }),
     },
     primary: {
@@ -273,6 +302,9 @@ const interactionStyles = (
         density: 'bold',
         fillColor: 'inverse',
         isDisabled: disabled,
+        offsetVertical: offset.vertical,
+        offsetHorizontal: offset.horizontal,
+        borderRadius,
       }),
       hoverStyle: InteractionLayer({
         theme,
@@ -281,6 +313,9 @@ const interactionStyles = (
         density: 'bold',
         fillColor: 'inverse',
         isDisabled: disabled,
+        offsetVertical: offset.vertical,
+        offsetHorizontal: offset.horizontal,
+        borderRadius,
       }),
       activeStyle: InteractionLayer({
         theme,
@@ -289,6 +324,9 @@ const interactionStyles = (
         density: 'bold',
         fillColor: 'inverse',
         isDisabled: disabled,
+        offsetVertical: offset.vertical,
+        offsetHorizontal: offset.horizontal,
+        borderRadius,
       }),
       focusStyle: InteractionLayer({
         theme,
@@ -297,6 +335,9 @@ const interactionStyles = (
         density: 'bold',
         fillColor: 'inverse',
         isDisabled: disabled,
+        offsetVertical: offset.vertical,
+        offsetHorizontal: offset.horizontal,
+        borderRadius,
       }),
     },
     secondary: {
@@ -307,6 +348,9 @@ const interactionStyles = (
         density: 'normal',
         fillColor: 'inverse',
         isDisabled: disabled,
+        offsetVertical: offset.vertical,
+        offsetHorizontal: offset.horizontal,
+        borderRadius,
       }),
       hoverStyle: InteractionLayer({
         theme,
@@ -315,6 +359,9 @@ const interactionStyles = (
         density: 'normal',
         fillColor: 'inverse',
         isDisabled: disabled,
+        offsetVertical: offset.vertical,
+        offsetHorizontal: offset.horizontal,
+        borderRadius,
       }),
       activeStyle: InteractionLayer({
         theme,
@@ -323,6 +370,9 @@ const interactionStyles = (
         density: 'normal',
         fillColor: 'inverse',
         isDisabled: disabled,
+        offsetVertical: offset.vertical,
+        offsetHorizontal: offset.horizontal,
+        borderRadius,
       }),
       focusStyle: InteractionLayer({
         theme,
@@ -331,6 +381,9 @@ const interactionStyles = (
         density: 'normal',
         fillColor: 'inverse',
         isDisabled: disabled,
+        offsetVertical: offset.vertical,
+        offsetHorizontal: offset.horizontal,
+        borderRadius,
       }),
     },
     tertiary: {
@@ -341,6 +394,9 @@ const interactionStyles = (
         density: 'normal',
         fillColor: 'default',
         isDisabled: disabled,
+        offsetVertical: offset.vertical,
+        offsetHorizontal: offset.horizontal,
+        borderRadius,
       }),
       hoverStyle: InteractionLayer({
         theme,
@@ -349,6 +405,9 @@ const interactionStyles = (
         density: 'normal',
         fillColor: 'default',
         isDisabled: disabled,
+        offsetVertical: offset.vertical,
+        offsetHorizontal: offset.horizontal,
+        borderRadius,
       }),
       activeStyle: InteractionLayer({
         theme,
@@ -357,6 +416,9 @@ const interactionStyles = (
         density: 'normal',
         fillColor: 'default',
         isDisabled: disabled,
+        offsetVertical: offset.vertical,
+        offsetHorizontal: offset.horizontal,
+        borderRadius,
       }),
       focusStyle: InteractionLayer({
         theme,
@@ -365,6 +427,9 @@ const interactionStyles = (
         density: 'normal',
         fillColor: 'default',
         isDisabled: disabled,
+        offsetVertical: offset.vertical,
+        offsetHorizontal: offset.horizontal,
+        borderRadius,
       }),
     },
   };
@@ -449,7 +514,7 @@ export function GetBlockButtonStyles(
   const sizeStyle = sizeStyles[size](theme);
   const typoStyle = GetTypographyStyle(theme, size);
   const colorStyle = variantColorStylesMap[variant](theme, hierarchy, disabled);
-  const interactionStyle = interactionStyles(theme, hierarchy, disabled);
+  const interactionStyle = interactionStyles(theme, hierarchy, size, disabled);
 
   return {
     ...sizeStyle,
