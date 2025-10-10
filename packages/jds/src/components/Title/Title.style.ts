@@ -3,12 +3,12 @@ import { textStyle } from 'utils';
 import { TextStyle } from 'types';
 import { TEXT_ALIGN_MAPPING } from '../Hero/Hero.style';
 
-export type LabelSize = 'lg' | 'md' | 'sm' | 'xs';
-export type LabelTextAlign = keyof typeof TEXT_ALIGN_MAPPING;
+export type TitleSize = 'lg' | 'md' | 'sm' | 'xs';
+export type TitleTextAlign = keyof typeof TEXT_ALIGN_MAPPING;
 
 interface TitleDivProps {
-  size: LabelSize;
-  textAlign: LabelTextAlign;
+  size: TitleSize;
+  textAlign: TitleTextAlign;
   color: string;
 }
 

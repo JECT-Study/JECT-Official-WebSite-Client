@@ -1,10 +1,10 @@
 import { forwardRef, ReactNode } from 'react';
-import { TitleDiv, LabelSize, LabelTextAlign } from './Title.style';
+import { TitleDiv, TitleSize, TitleTextAlign } from './Title.style';
 import { useTheme } from 'theme';
 
 interface TitleProps {
-  size?: LabelSize;
-  textAlign?: LabelTextAlign;
+  size?: TitleSize;
+  textAlign?: TitleTextAlign;
   color?: string;
   children: ReactNode;
 }
