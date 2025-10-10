@@ -12,6 +12,9 @@ export interface InteractionLayerParams {
   isReadonly?: boolean;
   isDisabled?: boolean;
   isLocked?: boolean;
+  offsetVertical?: number;
+  offsetHorizontal?: number;
+  borderRadius?: number;
 }
 
 const STATE_OPACITY = {
@@ -149,6 +152,9 @@ const hasSpecialState = (isReadonly: boolean, isDisabled: boolean, isLocked: boo
  * @param isReadonly - 읽기 전용 상태
  * @param isDisabled - 비활성화 상태
  * @param isLocked - 잠김 상태
+ * @param offsetVertical - 상하 방향 오프셋 (px 단위)
+ * @param offsetHorizontal - 좌우 방향 오프셋 (px 단위)
+ * @param borderRadius - 테두리 둥글기 (px 단위)
  *
  * @example
  * // 일반적인 사용 (컴포넌트 상태 = InteractionLayer 상태)
@@ -157,6 +163,10 @@ const hasSpecialState = (isReadonly: boolean, isDisabled: boolean, isLocked: boo
  * @example
  * // 독립적인 사용 (컴포넌트 hover 시에도 InteractionLayer는 rest)
  * '&:hover': InteractionLayer({ theme, state: 'rest', ... })
+ *
+ * @example
+ * // offset과 borderRadius를 사용하여 더 큰 터치 영역과 둥근 모서리 제공
+ * InteractionLayer({ theme, state: 'hover', ..., offsetVertical: 4, offsetHorizontal: 8, borderRadius: 4 })
  */
 export function InteractionLayer({
   theme,
@@ -167,21 +177,34 @@ export function InteractionLayer({
   isReadonly = false,
   isDisabled = false,
   isLocked = false,
+  offsetVertical = 0,
+  offsetHorizontal = 0,
+  borderRadius = 0,
 }: InteractionLayerParams): CSSObject {
   const backgroundColor = getBackgroundColor(theme, variant, density, fillColor);
   const opacity = getOpacity(state, isReadonly, isDisabled, isLocked);
   const isSpecialState = hasSpecialState(isReadonly, isDisabled, isLocked);
 
+  const hasVerticalOffset = offsetVertical > 0;
+  const hasHorizontalOffset = offsetHorizontal > 0;
+
+  const topBottomValue = hasVerticalOffset ? pxToRem(-offsetVertical) : 0;
+  const leftRightValue = hasHorizontalOffset ? pxToRem(-offsetHorizontal) : 0;
+
   const baseStyle: CSSObject = {
     position: 'relative',
     outline: 'none',
+    borderRadius: borderRadius > 0 ? pxToRem(borderRadius) : 0,
     '::after': {
       content: '""',
       position: 'absolute',
-      top: 0,
-      left: 0,
-      width: '100%',
-      height: '100%',
+      top: topBottomValue,
+      right: hasHorizontalOffset ? leftRightValue : undefined,
+      bottom: hasVerticalOffset ? topBottomValue : undefined,
+      left: leftRightValue,
+      width: hasHorizontalOffset ? 'auto' : '100%',
+      height: hasVerticalOffset ? 'auto' : '100%',
+      borderRadius: borderRadius > 0 ? pxToRem(borderRadius) : 0,
       backgroundColor,
       opacity,
       pointerEvents: 'none',
