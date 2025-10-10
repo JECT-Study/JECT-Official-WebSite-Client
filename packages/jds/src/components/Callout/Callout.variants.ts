@@ -86,9 +86,39 @@ export const CALLOUT_FEEDBACK_STYLE = (theme: Theme): FeedbackStyle => ({
 });
 
 export const CALLOUT_SIZE = {
-  lg: { padding: '16px 24px', gap: '16px', title: 'title.2', content: 'body.lg.bold' },
-  md: { padding: '16px 24px', gap: '16px', title: 'title.1', content: 'body.md.bold' },
-  sm: { padding: '16px 24px', gap: '16px', title: 'label.lg.bold', content: 'body.sm.bold' },
-  xs: { padding: '12px 20px', gap: '12px', title: 'label.md.bold', content: 'body.xs.bold' },
-  '2xs': { padding: '12px 20px', gap: '12px', title: 'label.sm.bold', content: 'body.2xs.bold' },
+  lg: {
+    paddingTopBottom: 16,
+    paddingLeftRight: 24,
+    gap: 16,
+    title: 'title.2',
+    content: 'body.lg.bold',
+  },
+  md: {
+    paddingTopBottom: 16,
+    paddingLeftRight: 24,
+    gap: 16,
+    title: 'title.1',
+    content: 'body.md.bold',
+  },
+  sm: {
+    paddingTopBottom: 16,
+    paddingLeftRight: 24,
+    gap: 16,
+    title: 'label.lg.bold',
+    content: 'body.sm.bold',
+  },
+  xs: {
+    paddingTopBottom: 12,
+    paddingLeftRight: 20,
+    gap: 12,
+    title: 'label.md.bold',
+    content: 'body.xs.bold',
+  },
+  '2xs': {
+    paddingTopBottom: 12,
+    paddingLeftRight: 20,
+    gap: 12,
+    title: 'label.sm.bold',
+    content: 'body.2xs.bold',
+  },
 } as const;
