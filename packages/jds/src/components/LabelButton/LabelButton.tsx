@@ -41,7 +41,15 @@ LabelButtonBasic.displayName = 'LabelButton.Basic';
 
 const LabelButtonFeedback = forwardRef<HTMLButtonElement, LabelButtonFeedbackProps>(
   (
-    { children, size = 'md', intent, prefixIcon, suffixIcon, disabled = false, ...restProps },
+    {
+      children,
+      size = 'md',
+      intent = 'destructive',
+      prefixIcon,
+      suffixIcon,
+      disabled = false,
+      ...restProps
+    },
     ref,
   ) => {
     const iconSize = iconSizeMap[size];
