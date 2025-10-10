@@ -102,6 +102,9 @@ const interactionStyles = (
         density: 'normal',
         fillColor: 'default',
         isDisabled: disabled,
+        offsetVertical: 4,
+        offsetHorizontal: 4,
+        borderRadius: theme.scheme.desktop.radius[4],
       }),
       hoverStyle: InteractionLayer({
         theme,
@@ -110,6 +113,9 @@ const interactionStyles = (
         density: 'normal',
         fillColor: 'default',
         isDisabled: false,
+        offsetVertical: 4,
+        offsetHorizontal: 4,
+        borderRadius: theme.scheme.desktop.radius[4],
       }),
       activeStyle: InteractionLayer({
         theme,
@@ -118,6 +124,9 @@ const interactionStyles = (
         density: 'normal',
         fillColor: 'default',
         isDisabled: false,
+        offsetVertical: 4,
+        offsetHorizontal: 4,
+        borderRadius: theme.scheme.desktop.radius[4],
       }),
       focusStyle: InteractionLayer({
         theme,
@@ -126,6 +135,9 @@ const interactionStyles = (
         density: 'normal',
         fillColor: 'default',
         isDisabled: false,
+        offsetVertical: 4,
+        offsetHorizontal: 4,
+        borderRadius: theme.scheme.desktop.radius[4],
       }),
     },
     primary: {
@@ -136,6 +148,9 @@ const interactionStyles = (
         density: 'normal',
         fillColor: 'default',
         isDisabled: disabled,
+        offsetVertical: 4,
+        offsetHorizontal: 4,
+        borderRadius: theme.scheme.desktop.radius[4],
       }),
       hoverStyle: InteractionLayer({
         theme,
@@ -144,6 +159,9 @@ const interactionStyles = (
         density: 'normal',
         fillColor: 'default',
         isDisabled: false,
+        offsetVertical: 4,
+        offsetHorizontal: 4,
+        borderRadius: theme.scheme.desktop.radius[4],
       }),
       activeStyle: InteractionLayer({
         theme,
@@ -152,6 +170,9 @@ const interactionStyles = (
         density: 'normal',
         fillColor: 'default',
         isDisabled: false,
+        offsetVertical: 4,
+        offsetHorizontal: 4,
+        borderRadius: theme.scheme.desktop.radius[4],
       }),
       focusStyle: InteractionLayer({
         theme,
@@ -160,6 +181,9 @@ const interactionStyles = (
         density: 'normal',
         fillColor: 'default',
         isDisabled: false,
+        offsetVertical: 4,
+        offsetHorizontal: 4,
+        borderRadius: theme.scheme.desktop.radius[4],
       }),
     },
     secondary: {
@@ -170,6 +194,9 @@ const interactionStyles = (
         density: 'normal',
         fillColor: 'default',
         isDisabled: disabled,
+        offsetVertical: 4,
+        offsetHorizontal: 4,
+        borderRadius: theme.scheme.desktop.radius[4],
       }),
       hoverStyle: InteractionLayer({
         theme,
@@ -178,6 +205,9 @@ const interactionStyles = (
         density: 'normal',
         fillColor: 'default',
         isDisabled: false,
+        offsetVertical: 4,
+        offsetHorizontal: 4,
+        borderRadius: theme.scheme.desktop.radius[4],
       }),
       activeStyle: InteractionLayer({
         theme,
@@ -186,6 +216,9 @@ const interactionStyles = (
         density: 'normal',
         fillColor: 'default',
         isDisabled: false,
+        offsetVertical: 4,
+        offsetHorizontal: 4,
+        borderRadius: theme.scheme.desktop.radius[4],
       }),
       focusStyle: InteractionLayer({
         theme,
@@ -194,6 +227,9 @@ const interactionStyles = (
         density: 'normal',
         fillColor: 'default',
         isDisabled: false,
+        offsetVertical: 4,
+        offsetHorizontal: 4,
+        borderRadius: theme.scheme.desktop.radius[4],
       }),
     },
     tertiary: {
@@ -204,6 +240,9 @@ const interactionStyles = (
         density: 'normal',
         fillColor: 'default',
         isDisabled: disabled,
+        offsetVertical: 4,
+        offsetHorizontal: 4,
+        borderRadius: theme.scheme.desktop.radius[4],
       }),
       hoverStyle: InteractionLayer({
         theme,
@@ -212,6 +251,9 @@ const interactionStyles = (
         density: 'normal',
         fillColor: 'default',
         isDisabled: false,
+        offsetVertical: 4,
+        offsetHorizontal: 4,
+        borderRadius: theme.scheme.desktop.radius[4],
       }),
       activeStyle: InteractionLayer({
         theme,
@@ -220,6 +262,9 @@ const interactionStyles = (
         density: 'normal',
         fillColor: 'default',
         isDisabled: false,
+        offsetVertical: 4,
+        offsetHorizontal: 4,
+        borderRadius: theme.scheme.desktop.radius[4],
       }),
       focusStyle: InteractionLayer({
         theme,
@@ -228,6 +273,9 @@ const interactionStyles = (
         density: 'normal',
         fillColor: 'default',
         isDisabled: false,
+        offsetVertical: 4,
+        offsetHorizontal: 4,
+        borderRadius: theme.scheme.desktop.radius[4],
       }),
     },
   };
