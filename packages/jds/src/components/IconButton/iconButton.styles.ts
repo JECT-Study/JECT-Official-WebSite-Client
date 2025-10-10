@@ -1,6 +1,7 @@
+import isPropValid from '@emotion/is-prop-valid';
 import type { CSSObject, Theme } from '@emotion/react';
 import styled from '@emotion/styled';
-import type { IconButtonSize, IconButtonHierarchy } from 'components';
+import type { IconButtonSize, IconButtonHierarchy, IconButtonIntent } from 'components';
 import type { IconSize } from 'components';
 import { InteractionLayer, pxToRem } from 'utils';
 
@@ -100,6 +101,170 @@ const colorsDisabledMap = (theme: Theme): Record<IconButtonHierarchy, { color: s
 
 const colors = (theme: Theme, hierarchy: IconButtonHierarchy, disabled: boolean) => {
   return disabled ? colorsDisabledMap(theme)[hierarchy] : colorsMap(theme)[hierarchy];
+};
+
+const feedbackColorsMap = (theme: Theme): Record<IconButtonIntent, { color: string }> => ({
+  positive: {
+    color: theme.color.feedback.positive.normal,
+  },
+  destructive: {
+    color: theme.color.feedback.destructive.normal,
+  },
+});
+
+const feedbackColorsDisabledMap = (theme: Theme): Record<IconButtonIntent, { color: string }> => ({
+  positive: {
+    color: theme.color.feedback.positive.alpha.subtle,
+  },
+  destructive: {
+    color: theme.color.feedback.destructive.alpha.subtle,
+  },
+});
+
+const feedbackColors = (theme: Theme, intent: IconButtonIntent, disabled: boolean) => {
+  return disabled ? feedbackColorsDisabledMap(theme)[intent] : feedbackColorsMap(theme)[intent];
+};
+
+const feedbackInteractionStyles = (
+  theme: Theme,
+  intent: IconButtonIntent,
+  size: IconButtonSize,
+  disabled: boolean,
+): CSSObject => {
+  const offset = offsetMap[size];
+
+  const interactionParams = {
+    positive: {
+      restStyle: InteractionLayer({
+        theme,
+        state: 'rest',
+        variant: 'positive',
+        density: 'normal',
+        fillColor: 'default',
+        isDisabled: disabled,
+        offsetVertical: offset.vertical,
+        offsetHorizontal: offset.horizontal,
+        borderRadius: offset.borderRadius,
+      }),
+      hoverStyle: InteractionLayer({
+        theme,
+        state: 'hover',
+        variant: 'positive',
+        density: 'normal',
+        fillColor: 'default',
+        isDisabled: false,
+        offsetVertical: offset.vertical,
+        offsetHorizontal: offset.horizontal,
+        borderRadius: offset.borderRadius,
+      }),
+      activeStyle: InteractionLayer({
+        theme,
+        state: 'active',
+        variant: 'positive',
+        density: 'normal',
+        fillColor: 'default',
+        isDisabled: false,
+        offsetVertical: offset.vertical,
+        offsetHorizontal: offset.horizontal,
+        borderRadius: offset.borderRadius,
+      }),
+      focusStyle: InteractionLayer({
+        theme,
+        state: 'focus',
+        variant: 'positive',
+        density: 'normal',
+        fillColor: 'default',
+        isDisabled: false,
+        offsetVertical: offset.vertical,
+        offsetHorizontal: offset.horizontal,
+        borderRadius: offset.borderRadius,
+      }),
+    },
+    destructive: {
+      restStyle: InteractionLayer({
+        theme,
+        state: 'rest',
+        variant: 'destructive',
+        density: 'normal',
+        fillColor: 'default',
+        isDisabled: disabled,
+        offsetVertical: offset.vertical,
+        offsetHorizontal: offset.horizontal,
+        borderRadius: offset.borderRadius,
+      }),
+      hoverStyle: InteractionLayer({
+        theme,
+        state: 'hover',
+        variant: 'destructive',
+        density: 'normal',
+        fillColor: 'default',
+        isDisabled: false,
+        offsetVertical: offset.vertical,
+        offsetHorizontal: offset.horizontal,
+        borderRadius: offset.borderRadius,
+      }),
+      activeStyle: InteractionLayer({
+        theme,
+        state: 'active',
+        variant: 'destructive',
+        density: 'normal',
+        fillColor: 'default',
+        isDisabled: false,
+        offsetVertical: offset.vertical,
+        offsetHorizontal: offset.horizontal,
+        borderRadius: offset.borderRadius,
+      }),
+      focusStyle: InteractionLayer({
+        theme,
+        state: 'focus',
+        variant: 'destructive',
+        density: 'normal',
+        fillColor: 'default',
+        isDisabled: false,
+        offsetVertical: offset.vertical,
+        offsetHorizontal: offset.horizontal,
+        borderRadius: offset.borderRadius,
+      }),
+    },
+  };
+
+  const { restStyle, hoverStyle, activeStyle, focusStyle } = interactionParams[intent];
+
+  if (disabled) {
+    return {
+      position: 'relative',
+      outline: 'none',
+    };
+  }
+
+  return {
+    ...restStyle,
+    '::after': {
+      ...restStyle['::after'],
+      transition: `opacity ${theme.environment.duration[100]} ${theme.environment.motion.fluent}`,
+    },
+    '&:hover': {
+      ...hoverStyle,
+      '::after': {
+        ...hoverStyle['::after'],
+        transition: `opacity ${theme.environment.duration[100]} ${theme.environment.motion.fluent}`,
+      },
+    },
+    '&:active': {
+      ...activeStyle,
+      '::after': {
+        ...activeStyle['::after'],
+        transition: 'none',
+      },
+    },
+    '&:focus-visible': {
+      ...focusStyle,
+      '::after': {
+        ...focusStyle['::after'],
+        transition: 'none',
+      },
+    },
+  };
 };
 
 const interactionStyles = (
@@ -352,24 +517,51 @@ export function GetIconButtonStyles(
   };
 }
 
-export const StyledIconButton = styled.button<{
-  $hierarchy: IconButtonHierarchy;
+export function GetFeedbackIconButtonStyles(
+  theme: Theme,
+  intent: IconButtonIntent,
+  size: IconButtonSize,
+  disabled: boolean,
+) {
+  const sizeStyle = sizeStyles[size];
+  const colorStyle = feedbackColors(theme, intent, disabled);
+  const interactionStyle = feedbackInteractionStyles(theme, intent, size, disabled);
+
+  return {
+    ...sizeStyle,
+    ...colorStyle,
+    ...interactionStyle,
+  };
+}
+
+export const StyledIconButton = styled('button', {
+  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
+})<{
+  $intent?: IconButtonIntent;
+  $hierarchy?: IconButtonHierarchy;
   $size: IconButtonSize;
   $disabled: boolean;
-}>(({ theme, $hierarchy, $size, $disabled }) => ({
-  display: 'inline-flex',
-  flexDirection: 'row',
-  justifyContent: 'center',
-  alignItems: 'center',
-  padding: 0,
-  border: 'none',
-  borderRadius: 0,
-  background: 'transparent',
-  cursor: $disabled ? 'not-allowed' : 'pointer',
-  userSelect: 'none',
-  flexShrink: 0,
-  ...GetIconButtonStyles(theme, $hierarchy, $size, $disabled),
-  '& svg': {
-    color: 'inherit',
-  },
-}));
+}>(({ theme, $intent, $hierarchy, $size, $disabled }) => {
+  const modeStyles =
+    $intent !== undefined
+      ? GetFeedbackIconButtonStyles(theme, $intent, $size, $disabled)
+      : GetIconButtonStyles(theme, $hierarchy!, $size, $disabled);
+
+  return {
+    display: 'inline-flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 0,
+    border: 'none',
+    borderRadius: 0,
+    background: 'transparent',
+    cursor: $disabled ? 'not-allowed' : 'pointer',
+    userSelect: 'none',
+    flexShrink: 0,
+    ...modeStyles,
+    '& svg': {
+      color: 'inherit',
+    },
+  };
+});
