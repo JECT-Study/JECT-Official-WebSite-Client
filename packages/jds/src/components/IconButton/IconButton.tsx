@@ -1,21 +1,12 @@
 import { forwardRef } from 'react';
-import type { ComponentPropsWithoutRef } from 'react';
 
 import { Icon } from '../Icon';
 import { StyledIconButton, getIconSizeForButton } from './iconButton.styles';
 
-import type { IconName } from '@/components';
-import type { IconButtonSize, IconButtonHierarchy } from '@/components';
+import type { IconButtonBasicProps, IconButtonFeedbackProps } from '@/components';
 
-export interface IconButtonProps extends ComponentPropsWithoutRef<'button'> {
-  icon: IconName;
-  hierarchy?: IconButtonHierarchy;
-  size?: IconButtonSize;
-  'aria-label'?: string;
-}
-
-export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
-  ({ icon, hierarchy = 'primary', size = 'md', disabled = false, ...props }, ref) => {
+const IconButtonBasic = forwardRef<HTMLButtonElement, IconButtonBasicProps>(
+  ({ icon, size = 'md', hierarchy = 'primary', disabled = false, ...restProps }, ref) => {
     const iconSize = getIconSizeForButton(size);
 
     return (
@@ -23,9 +14,9 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
         ref={ref}
         $hierarchy={hierarchy}
         $size={size}
-        $disabled={!!disabled}
+        $disabled={disabled}
         disabled={disabled}
-        {...props}
+        {...restProps}
       >
         <Icon name={icon} size={iconSize} />
       </StyledIconButton>
@@ -33,4 +24,30 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
   },
 );
 
-IconButton.displayName = 'IconButton';
+IconButtonBasic.displayName = 'IconButton.Basic';
+
+const IconButtonFeedback = forwardRef<HTMLButtonElement, IconButtonFeedbackProps>(
+  ({ icon, size = 'md', intent = 'destructive', disabled = false, ...restProps }, ref) => {
+    const iconSize = getIconSizeForButton(size);
+
+    return (
+      <StyledIconButton
+        ref={ref}
+        $intent={intent}
+        $size={size}
+        $disabled={disabled}
+        disabled={disabled}
+        {...restProps}
+      >
+        <Icon name={icon} size={iconSize} />
+      </StyledIconButton>
+    );
+  },
+);
+
+IconButtonFeedback.displayName = 'IconButton.Feedback';
+
+export const IconButton = {
+  Basic: IconButtonBasic,
+  Feedback: IconButtonFeedback,
+};
