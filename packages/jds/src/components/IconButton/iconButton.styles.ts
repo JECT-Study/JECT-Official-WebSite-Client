@@ -54,6 +54,17 @@ const sizeStyles: Record<IconButtonSize, CSSObject> = {
   },
 };
 
+const offsetMap: Record<IconButtonSize, { vertical: number; horizontal: number }> = {
+  '3xl': { vertical: 4, horizontal: 4 },
+  '2xl': { vertical: 4, horizontal: 4 },
+  xl: { vertical: 3, horizontal: 3 },
+  lg: { vertical: 3, horizontal: 3 },
+  md: { vertical: 2, horizontal: 2 },
+  sm: { vertical: 2, horizontal: 2 },
+  xs: { vertical: 1, horizontal: 1 },
+  '2xs': { vertical: 1, horizontal: 1 },
+};
+
 const colorsMap = (theme: Theme): Record<IconButtonHierarchy, { color: string }> => ({
   accent: {
     color: theme.color.accent.normal,
@@ -91,8 +102,10 @@ const colors = (theme: Theme, hierarchy: IconButtonHierarchy, disabled: boolean)
 const interactionStyles = (
   theme: Theme,
   hierarchy: IconButtonHierarchy,
+  size: IconButtonSize,
   disabled: boolean,
 ): CSSObject => {
+  const offset = offsetMap[size];
   const interactionParams = {
     accent: {
       restStyle: InteractionLayer({
@@ -102,8 +115,8 @@ const interactionStyles = (
         density: 'normal',
         fillColor: 'default',
         isDisabled: disabled,
-        offsetVertical: 4,
-        offsetHorizontal: 4,
+        offsetVertical: offset.vertical,
+        offsetHorizontal: offset.horizontal,
         borderRadius: theme.scheme.desktop.radius[4],
       }),
       hoverStyle: InteractionLayer({
@@ -113,8 +126,8 @@ const interactionStyles = (
         density: 'normal',
         fillColor: 'default',
         isDisabled: false,
-        offsetVertical: 4,
-        offsetHorizontal: 4,
+        offsetVertical: offset.vertical,
+        offsetHorizontal: offset.horizontal,
         borderRadius: theme.scheme.desktop.radius[4],
       }),
       activeStyle: InteractionLayer({
@@ -124,8 +137,8 @@ const interactionStyles = (
         density: 'normal',
         fillColor: 'default',
         isDisabled: false,
-        offsetVertical: 4,
-        offsetHorizontal: 4,
+        offsetVertical: offset.vertical,
+        offsetHorizontal: offset.horizontal,
         borderRadius: theme.scheme.desktop.radius[4],
       }),
       focusStyle: InteractionLayer({
@@ -135,8 +148,8 @@ const interactionStyles = (
         density: 'normal',
         fillColor: 'default',
         isDisabled: false,
-        offsetVertical: 4,
-        offsetHorizontal: 4,
+        offsetVertical: offset.vertical,
+        offsetHorizontal: offset.horizontal,
         borderRadius: theme.scheme.desktop.radius[4],
       }),
     },
@@ -148,8 +161,8 @@ const interactionStyles = (
         density: 'normal',
         fillColor: 'default',
         isDisabled: disabled,
-        offsetVertical: 4,
-        offsetHorizontal: 4,
+        offsetVertical: offset.vertical,
+        offsetHorizontal: offset.horizontal,
         borderRadius: theme.scheme.desktop.radius[4],
       }),
       hoverStyle: InteractionLayer({
@@ -159,8 +172,8 @@ const interactionStyles = (
         density: 'normal',
         fillColor: 'default',
         isDisabled: false,
-        offsetVertical: 4,
-        offsetHorizontal: 4,
+        offsetVertical: offset.vertical,
+        offsetHorizontal: offset.horizontal,
         borderRadius: theme.scheme.desktop.radius[4],
       }),
       activeStyle: InteractionLayer({
@@ -170,8 +183,8 @@ const interactionStyles = (
         density: 'normal',
         fillColor: 'default',
         isDisabled: false,
-        offsetVertical: 4,
-        offsetHorizontal: 4,
+        offsetVertical: offset.vertical,
+        offsetHorizontal: offset.horizontal,
         borderRadius: theme.scheme.desktop.radius[4],
       }),
       focusStyle: InteractionLayer({
@@ -181,8 +194,8 @@ const interactionStyles = (
         density: 'normal',
         fillColor: 'default',
         isDisabled: false,
-        offsetVertical: 4,
-        offsetHorizontal: 4,
+        offsetVertical: offset.vertical,
+        offsetHorizontal: offset.horizontal,
         borderRadius: theme.scheme.desktop.radius[4],
       }),
     },
@@ -194,8 +207,8 @@ const interactionStyles = (
         density: 'normal',
         fillColor: 'default',
         isDisabled: disabled,
-        offsetVertical: 4,
-        offsetHorizontal: 4,
+        offsetVertical: offset.vertical,
+        offsetHorizontal: offset.horizontal,
         borderRadius: theme.scheme.desktop.radius[4],
       }),
       hoverStyle: InteractionLayer({
@@ -205,8 +218,8 @@ const interactionStyles = (
         density: 'normal',
         fillColor: 'default',
         isDisabled: false,
-        offsetVertical: 4,
-        offsetHorizontal: 4,
+        offsetVertical: offset.vertical,
+        offsetHorizontal: offset.horizontal,
         borderRadius: theme.scheme.desktop.radius[4],
       }),
       activeStyle: InteractionLayer({
@@ -216,8 +229,8 @@ const interactionStyles = (
         density: 'normal',
         fillColor: 'default',
         isDisabled: false,
-        offsetVertical: 4,
-        offsetHorizontal: 4,
+        offsetVertical: offset.vertical,
+        offsetHorizontal: offset.horizontal,
         borderRadius: theme.scheme.desktop.radius[4],
       }),
       focusStyle: InteractionLayer({
@@ -227,8 +240,8 @@ const interactionStyles = (
         density: 'normal',
         fillColor: 'default',
         isDisabled: false,
-        offsetVertical: 4,
-        offsetHorizontal: 4,
+        offsetVertical: offset.vertical,
+        offsetHorizontal: offset.horizontal,
         borderRadius: theme.scheme.desktop.radius[4],
       }),
     },
@@ -240,8 +253,8 @@ const interactionStyles = (
         density: 'normal',
         fillColor: 'default',
         isDisabled: disabled,
-        offsetVertical: 4,
-        offsetHorizontal: 4,
+        offsetVertical: offset.vertical,
+        offsetHorizontal: offset.horizontal,
         borderRadius: theme.scheme.desktop.radius[4],
       }),
       hoverStyle: InteractionLayer({
@@ -251,8 +264,8 @@ const interactionStyles = (
         density: 'normal',
         fillColor: 'default',
         isDisabled: false,
-        offsetVertical: 4,
-        offsetHorizontal: 4,
+        offsetVertical: offset.vertical,
+        offsetHorizontal: offset.horizontal,
         borderRadius: theme.scheme.desktop.radius[4],
       }),
       activeStyle: InteractionLayer({
@@ -262,8 +275,8 @@ const interactionStyles = (
         density: 'normal',
         fillColor: 'default',
         isDisabled: false,
-        offsetVertical: 4,
-        offsetHorizontal: 4,
+        offsetVertical: offset.vertical,
+        offsetHorizontal: offset.horizontal,
         borderRadius: theme.scheme.desktop.radius[4],
       }),
       focusStyle: InteractionLayer({
@@ -273,8 +286,8 @@ const interactionStyles = (
         density: 'normal',
         fillColor: 'default',
         isDisabled: false,
-        offsetVertical: 4,
-        offsetHorizontal: 4,
+        offsetVertical: offset.vertical,
+        offsetHorizontal: offset.horizontal,
         borderRadius: theme.scheme.desktop.radius[4],
       }),
     },
@@ -327,7 +340,7 @@ export function GetIconButtonStyles(
 ) {
   const sizeStyle = sizeStyles[size];
   const colorStyle = colors(theme, hierarchy, disabled);
-  const interactionStyle = interactionStyles(theme, hierarchy, disabled);
+  const interactionStyle = interactionStyles(theme, hierarchy, size, disabled);
 
   return {
     ...sizeStyle,
