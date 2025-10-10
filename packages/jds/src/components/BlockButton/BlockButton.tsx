@@ -80,5 +80,3 @@ export const BlockButton = {
   Basic: BlockButtonBasic,
   Feedback: BlockButtonFeedback,
 };
-
-export type { BlockButtonBasicProps, BlockButtonFeedbackProps };
