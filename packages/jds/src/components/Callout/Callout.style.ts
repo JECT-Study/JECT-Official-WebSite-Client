@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { textStyle } from 'utils';
+import { pxToRem, textStyle } from 'utils';
 import { BasicHierarchy, CalloutSize, CalloutVariant, FeedbackHierarchy } from './Callout.types';
 import { CALLOUT_BASIC_STYLE, CALLOUT_FEEDBACK_STYLE, CALLOUT_SIZE } from './Callout.variants';
 
@@ -20,15 +20,15 @@ export const BasicCalloutDiv = styled.div<BasicCalloutDivProps>(
     const style = CALLOUT_BASIC_STYLE(theme)[variant][hierarchy];
     const border = variant === 'hero' ? 'none' : `1px solid ${style.border}`;
     const borderLeft = variant === 'hero' ? `6px solid ${style.border}` : 'none';
-    const borderRadius = variant === 'hero' ? 'none' : '6px';
+    const borderRadius = variant === 'hero' ? 'none' : pxToRem(6);
 
     return {
       width: '300px',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'flex-start',
-      padding: CALLOUT_SIZE[size].padding,
-      gap: CALLOUT_SIZE[size].gap,
+      padding: `${pxToRem(CALLOUT_SIZE[size].paddingTopBottom)} ${pxToRem(CALLOUT_SIZE[size].paddingLeftRight)}`,
+      gap: pxToRem(CALLOUT_SIZE[size].gap),
       border,
       borderLeft,
       borderRadius,
@@ -43,12 +43,12 @@ export const FeedbackCalloutDiv = styled.div<FeedbackCalloutDivProps>(
     const style = CALLOUT_FEEDBACK_STYLE(theme)[variant][hierarchy];
 
     return {
-      width: '300px',
+      width: pxToRem(300),
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'flex-start',
-      padding: CALLOUT_SIZE[size].padding,
-      gap: CALLOUT_SIZE[size].gap,
+      padding: `${pxToRem(CALLOUT_SIZE[size].paddingTopBottom)} ${pxToRem(CALLOUT_SIZE[size].paddingLeftRight)}`,
+      gap: pxToRem(CALLOUT_SIZE[size].gap),
       borderLeft: `6px solid ${style.border}`,
       backgroundColor: style.bg,
       color: style.color,
