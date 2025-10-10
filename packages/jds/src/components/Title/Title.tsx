@@ -1,4 +1,4 @@
-import { forwardRef, ReactNode } from 'react';
+import { ReactNode } from 'react';
 import { TitleDiv, TitleSize, TitleTextAlign } from './Title.style';
 import { useTheme } from 'theme';
 
@@ -9,17 +9,21 @@ interface TitleProps {
   children: ReactNode;
 }
 
-export const Title = forwardRef<HTMLDivElement, TitleProps>(
-  ({ size = 'md', textAlign = 'left', color, children, ...props }, ref) => {
-    const theme = useTheme();
-    const BaseColor = color || theme.color.object.bolder;
+export const Title = ({
+  size = 'md',
+  textAlign = 'left',
+  color,
+  children,
+  ...props
+}: TitleProps) => {
+  const theme = useTheme();
+  const BaseColor = color || theme.color.object.bolder;
 
-    return (
-      <TitleDiv ref={ref} size={size} textAlign={textAlign} color={BaseColor} {...props}>
-        {children}
-      </TitleDiv>
-    );
-  },
-);
+  return (
+    <TitleDiv size={size} textAlign={textAlign} color={BaseColor} {...props}>
+      {children}
+    </TitleDiv>
+  );
+};
 
 Title.displayName = 'Title';
