@@ -7,7 +7,7 @@ export type LabelButtonHierarchy = 'accent' | 'primary' | 'secondary' | 'tertiar
 export type LabelButtonIntent = 'positive' | 'destructive';
 
 export interface BaseLabelButtonProps extends ComponentPropsWithoutRef<'button'> {
-  children?: ReactNode;
+  children: ReactNode;
   size?: LabelButtonSize;
   prefixIcon?: IconName;
   suffixIcon?: IconName;
