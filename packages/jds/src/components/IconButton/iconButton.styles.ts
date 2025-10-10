@@ -54,15 +54,18 @@ const sizeStyles: Record<IconButtonSize, CSSObject> = {
   },
 };
 
-const offsetMap: Record<IconButtonSize, { vertical: number; horizontal: number }> = {
-  '3xl': { vertical: 4, horizontal: 4 },
-  '2xl': { vertical: 4, horizontal: 4 },
-  xl: { vertical: 3, horizontal: 3 },
-  lg: { vertical: 3, horizontal: 3 },
-  md: { vertical: 2, horizontal: 2 },
-  sm: { vertical: 2, horizontal: 2 },
-  xs: { vertical: 1, horizontal: 1 },
-  '2xs': { vertical: 1, horizontal: 1 },
+const offsetMap: Record<
+  IconButtonSize,
+  { vertical: number; horizontal: number; borderRadius: number }
+> = {
+  '3xl': { vertical: 4, horizontal: 4, borderRadius: 4 },
+  '2xl': { vertical: 4, horizontal: 4, borderRadius: 4 },
+  xl: { vertical: 3, horizontal: 3, borderRadius: 4 },
+  lg: { vertical: 3, horizontal: 3, borderRadius: 4 },
+  md: { vertical: 2, horizontal: 2, borderRadius: 2 },
+  sm: { vertical: 2, horizontal: 2, borderRadius: 2 },
+  xs: { vertical: 1, horizontal: 1, borderRadius: 2 },
+  '2xs': { vertical: 1, horizontal: 1, borderRadius: 2 },
 };
 
 const colorsMap = (theme: Theme): Record<IconButtonHierarchy, { color: string }> => ({
@@ -117,7 +120,7 @@ const interactionStyles = (
         isDisabled: disabled,
         offsetVertical: offset.vertical,
         offsetHorizontal: offset.horizontal,
-        borderRadius: theme.scheme.desktop.radius[4],
+        borderRadius: offset.borderRadius,
       }),
       hoverStyle: InteractionLayer({
         theme,
@@ -128,7 +131,7 @@ const interactionStyles = (
         isDisabled: false,
         offsetVertical: offset.vertical,
         offsetHorizontal: offset.horizontal,
-        borderRadius: theme.scheme.desktop.radius[4],
+        borderRadius: offset.borderRadius,
       }),
       activeStyle: InteractionLayer({
         theme,
@@ -139,7 +142,7 @@ const interactionStyles = (
         isDisabled: false,
         offsetVertical: offset.vertical,
         offsetHorizontal: offset.horizontal,
-        borderRadius: theme.scheme.desktop.radius[4],
+        borderRadius: offset.borderRadius,
       }),
       focusStyle: InteractionLayer({
         theme,
@@ -150,7 +153,7 @@ const interactionStyles = (
         isDisabled: false,
         offsetVertical: offset.vertical,
         offsetHorizontal: offset.horizontal,
-        borderRadius: theme.scheme.desktop.radius[4],
+        borderRadius: offset.borderRadius,
       }),
     },
     primary: {
@@ -163,7 +166,7 @@ const interactionStyles = (
         isDisabled: disabled,
         offsetVertical: offset.vertical,
         offsetHorizontal: offset.horizontal,
-        borderRadius: theme.scheme.desktop.radius[4],
+        borderRadius: offset.borderRadius,
       }),
       hoverStyle: InteractionLayer({
         theme,
@@ -174,7 +177,7 @@ const interactionStyles = (
         isDisabled: false,
         offsetVertical: offset.vertical,
         offsetHorizontal: offset.horizontal,
-        borderRadius: theme.scheme.desktop.radius[4],
+        borderRadius: offset.borderRadius,
       }),
       activeStyle: InteractionLayer({
         theme,
@@ -185,7 +188,7 @@ const interactionStyles = (
         isDisabled: false,
         offsetVertical: offset.vertical,
         offsetHorizontal: offset.horizontal,
-        borderRadius: theme.scheme.desktop.radius[4],
+        borderRadius: offset.borderRadius,
       }),
       focusStyle: InteractionLayer({
         theme,
@@ -196,7 +199,7 @@ const interactionStyles = (
         isDisabled: false,
         offsetVertical: offset.vertical,
         offsetHorizontal: offset.horizontal,
-        borderRadius: theme.scheme.desktop.radius[4],
+        borderRadius: offset.borderRadius,
       }),
     },
     secondary: {
@@ -209,7 +212,7 @@ const interactionStyles = (
         isDisabled: disabled,
         offsetVertical: offset.vertical,
         offsetHorizontal: offset.horizontal,
-        borderRadius: theme.scheme.desktop.radius[4],
+        borderRadius: offset.borderRadius,
       }),
       hoverStyle: InteractionLayer({
         theme,
@@ -220,7 +223,7 @@ const interactionStyles = (
         isDisabled: false,
         offsetVertical: offset.vertical,
         offsetHorizontal: offset.horizontal,
-        borderRadius: theme.scheme.desktop.radius[4],
+        borderRadius: offset.borderRadius,
       }),
       activeStyle: InteractionLayer({
         theme,
@@ -231,7 +234,7 @@ const interactionStyles = (
         isDisabled: false,
         offsetVertical: offset.vertical,
         offsetHorizontal: offset.horizontal,
-        borderRadius: theme.scheme.desktop.radius[4],
+        borderRadius: offset.borderRadius,
       }),
       focusStyle: InteractionLayer({
         theme,
@@ -242,7 +245,7 @@ const interactionStyles = (
         isDisabled: false,
         offsetVertical: offset.vertical,
         offsetHorizontal: offset.horizontal,
-        borderRadius: theme.scheme.desktop.radius[4],
+        borderRadius: offset.borderRadius,
       }),
     },
     tertiary: {
@@ -255,7 +258,7 @@ const interactionStyles = (
         isDisabled: disabled,
         offsetVertical: offset.vertical,
         offsetHorizontal: offset.horizontal,
-        borderRadius: theme.scheme.desktop.radius[4],
+        borderRadius: offset.borderRadius,
       }),
       hoverStyle: InteractionLayer({
         theme,
@@ -266,7 +269,7 @@ const interactionStyles = (
         isDisabled: false,
         offsetVertical: offset.vertical,
         offsetHorizontal: offset.horizontal,
-        borderRadius: theme.scheme.desktop.radius[4],
+        borderRadius: offset.borderRadius,
       }),
       activeStyle: InteractionLayer({
         theme,
@@ -277,7 +280,7 @@ const interactionStyles = (
         isDisabled: false,
         offsetVertical: offset.vertical,
         offsetHorizontal: offset.horizontal,
-        borderRadius: theme.scheme.desktop.radius[4],
+        borderRadius: offset.borderRadius,
       }),
       focusStyle: InteractionLayer({
         theme,
@@ -288,7 +291,7 @@ const interactionStyles = (
         isDisabled: false,
         offsetVertical: offset.vertical,
         offsetHorizontal: offset.horizontal,
-        borderRadius: theme.scheme.desktop.radius[4],
+        borderRadius: offset.borderRadius,
       }),
     },
   };
