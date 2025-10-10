@@ -1,16 +1,17 @@
 import { forwardRef } from 'react';
 import type { ComponentPropsWithoutRef, ReactNode } from 'react';
 
-import { StyledLabelButton } from './labelButton.styles';
+import { iconSizeMap, StyledLabelButton } from './labelButton.styles';
 
-import type { LabelButtonSize, LabelButtonHierarchy } from '@/components';
+import { Icon } from '@/components';
+import type { IconName, LabelButtonSize, LabelButtonHierarchy } from '@/components';
 
 export interface LabelButtonProps extends ComponentPropsWithoutRef<'button'> {
   children?: ReactNode;
   hierarchy?: LabelButtonHierarchy;
   size?: LabelButtonSize;
-  prefixIcon?: ReactNode;
-  suffixIcon?: ReactNode;
+  prefixIcon?: IconName;
+  suffixIcon?: IconName;
 }
 
 export const LabelButton = forwardRef<HTMLButtonElement, LabelButtonProps>(
@@ -26,6 +27,8 @@ export const LabelButton = forwardRef<HTMLButtonElement, LabelButtonProps>(
     },
     ref,
   ) => {
+    const iconSize = iconSizeMap[size];
+
     return (
       <StyledLabelButton
         ref={ref}
@@ -35,9 +38,9 @@ export const LabelButton = forwardRef<HTMLButtonElement, LabelButtonProps>(
         disabled={disabled}
         {...props}
       >
-        {prefixIcon && prefixIcon}
+        {prefixIcon && <Icon name={prefixIcon} size={iconSize} />}
         {children}
-        {suffixIcon && suffixIcon}
+        {suffixIcon && <Icon name={suffixIcon} size={iconSize} />}
       </StyledLabelButton>
     );
   },

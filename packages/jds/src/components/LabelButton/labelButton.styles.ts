@@ -1,8 +1,16 @@
 import type { CSSObject, Theme } from '@emotion/react';
 import styled from '@emotion/styled';
 import type { LabelButtonSize, LabelButtonHierarchy } from 'components';
+import type { IconSize } from 'components/Icon/Icon.types';
 import type { TextStyle } from 'types';
 import { InteractionLayer, textStyle } from 'utils';
+
+export const iconSizeMap: Record<LabelButtonSize, IconSize> = {
+  lg: 'md',
+  md: 'sm',
+  sm: 'xs',
+  xs: '2xs',
+};
 
 const hierarchyColorsMap = (theme: Theme): Record<LabelButtonHierarchy, { color: string }> => ({
   accent: {
