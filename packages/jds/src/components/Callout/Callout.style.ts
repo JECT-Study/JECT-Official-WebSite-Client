@@ -62,16 +62,16 @@ interface CalloutPProps {
 
 export const CalloutTitleP = styled.p<CalloutPProps>(({ theme, size }) => {
   return {
-    [theme.breakPoint.mobile]: { ...textStyle(theme, 'mobile', CALLOUT_SIZE[size].title) },
+    ...textStyle(theme, 'desktop', CALLOUT_SIZE[size].title),
     [theme.breakPoint.tablet]: { ...textStyle(theme, 'tablet', CALLOUT_SIZE[size].title) },
-    [theme.breakPoint.desktop]: { ...textStyle(theme, 'desktop', CALLOUT_SIZE[size].title) },
+    [theme.breakPoint.mobile]: { ...textStyle(theme, 'mobile', CALLOUT_SIZE[size].title) },
   };
 });
 
 export const CalloutContentP = styled.p<CalloutPProps>(({ theme, size }) => {
   return {
-    [theme.breakPoint.mobile]: { ...textStyle(theme, 'mobile', CALLOUT_SIZE[size].content) },
+    ...textStyle(theme, 'desktop', CALLOUT_SIZE[size].content),
     [theme.breakPoint.tablet]: { ...textStyle(theme, 'tablet', CALLOUT_SIZE[size].content) },
-    [theme.breakPoint.desktop]: { ...textStyle(theme, 'desktop', CALLOUT_SIZE[size].content) },
+    [theme.breakPoint.mobile]: { ...textStyle(theme, 'mobile', CALLOUT_SIZE[size].content) },
   };
 });
