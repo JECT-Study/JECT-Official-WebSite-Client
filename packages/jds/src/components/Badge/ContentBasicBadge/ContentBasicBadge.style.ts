@@ -29,11 +29,11 @@ export const ContentBasicBadgeDiv = styled.div<ContentBasicBadgeDivProps>(
 
     return {
       minWidth: pxToRem(CONTENT_BADGE_SIZE[size].minWidth),
-      padding: CONTENT_BADGE_SIZE[size].padding,
+      padding: `${pxToRem(CONTENT_BADGE_SIZE[size].paddingTopBottom)} ${pxToRem(CONTENT_BADGE_SIZE[size].paddingLeftRight)}`,
       display: 'inline-flex',
       justifyContent: 'center',
       alignItems: 'center',
-      gap: withIcon ? '0px' : '4px',
+      gap: withIcon ? pxToRem(4) : '0',
       backgroundColor,
       color,
       border: `1px solid ${border}`,

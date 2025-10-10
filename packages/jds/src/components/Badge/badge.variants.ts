@@ -3,52 +3,60 @@ import { BadgeSize } from './badge.types';
 
 export const CONTENT_BADGE_SIZE: Record<
   BadgeSize,
-  { minWidth: number; padding: string; textStyle: TextStyle }
+  { minWidth: number; paddingTopBottom: number; paddingLeftRight: number; textStyle: TextStyle }
 > = {
   lg: {
     minWidth: 28,
-    padding: '2px 6px',
+    paddingTopBottom: 2,
+    paddingLeftRight: 6,
     textStyle: 'label.lg.normal',
   },
   md: {
     minWidth: 27,
-    padding: '2px 6px',
+    paddingTopBottom: 2,
+    paddingLeftRight: 6,
     textStyle: 'label.md.normal',
   },
   sm: {
     minWidth: 24,
-    padding: '2px 6px',
+    paddingTopBottom: 2,
+    paddingLeftRight: 6,
     textStyle: 'label.sm.normal',
   },
   xs: {
     minWidth: 20,
-    padding: '1px 4px',
+    paddingTopBottom: 1,
+    paddingLeftRight: 4,
     textStyle: 'label.xs.normal',
   },
 };
 
 export const NUMERIC_BADGE_SIZE: Record<
   BadgeSize,
-  { minWidth: number; padding: string; textStyle: TextStyle }
+  { minWidth: number; paddingTopBottom: number; paddingLeftRight: number; textStyle: TextStyle }
 > = {
   lg: {
     minWidth: 24,
-    padding: '0px 8px',
+    paddingTopBottom: 0,
+    paddingLeftRight: 8,
     textStyle: 'label.lg.subtle',
   },
   md: {
     minWidth: 23,
-    padding: '0px 8px',
+    paddingTopBottom: 0,
+    paddingLeftRight: 8,
     textStyle: 'label.md.subtle',
   },
   sm: {
     minWidth: 20,
-    padding: '0px 6px',
+    paddingTopBottom: 0,
+    paddingLeftRight: 6,
     textStyle: 'label.sm.subtle',
   },
   xs: {
     minWidth: 18,
-    padding: '0px 6px',
+    paddingTopBottom: 0,
+    paddingLeftRight: 6,
     textStyle: 'label.xs.subtle',
   },
 };

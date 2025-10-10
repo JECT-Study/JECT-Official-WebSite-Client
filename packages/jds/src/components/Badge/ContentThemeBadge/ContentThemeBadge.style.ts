@@ -28,7 +28,7 @@ export const ContentThemeBadgeDiv = styled.div<ContentThemeBadgeDivProps>(
 
     return {
       minWidth: pxToRem(CONTENT_BADGE_SIZE[size].minWidth),
-      padding: CONTENT_BADGE_SIZE[size].padding,
+      padding: `${pxToRem(CONTENT_BADGE_SIZE[size].paddingTopBottom)} ${pxToRem(CONTENT_BADGE_SIZE[size].paddingLeftRight)}`,
       display: 'inline-flex',
       justifyContent: 'center',
       alignItems: 'center',

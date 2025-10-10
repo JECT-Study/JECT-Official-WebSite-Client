@@ -25,7 +25,7 @@ export const NumericFeedbackBadgeDiv = styled.div<NumericFeedbackBadgeDivProps>(
 
     return {
       minWidth: pxToRem(NUMERIC_BADGE_SIZE[size].minWidth),
-      padding: NUMERIC_BADGE_SIZE[size].padding,
+      padding: `${pxToRem(NUMERIC_BADGE_SIZE[size].paddingTopBottom)} ${pxToRem(NUMERIC_BADGE_SIZE[size].paddingLeftRight)}`,
       display: 'inline-flex',
       justifyContent: 'center',
       alignItems: 'center',
