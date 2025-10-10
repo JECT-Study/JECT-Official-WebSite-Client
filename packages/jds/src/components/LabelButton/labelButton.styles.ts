@@ -12,6 +12,16 @@ export const iconSizeMap: Record<LabelButtonSize, IconSize> = {
   xs: '2xs',
 };
 
+const offsetMap: Record<
+  LabelButtonSize,
+  { vertical: number; horizontal: number; borderRadius: number }
+> = {
+  lg: { vertical: 4, horizontal: 8, borderRadius: 6 },
+  md: { vertical: 3, horizontal: 6, borderRadius: 6 },
+  sm: { vertical: 2, horizontal: 4, borderRadius: 4 },
+  xs: { vertical: 1, horizontal: 3, borderRadius: 4 },
+};
+
 const hierarchyColorsMap = (theme: Theme): Record<LabelButtonHierarchy, { color: string }> => ({
   accent: {
     color: theme.color.accent.normal,
@@ -53,8 +63,10 @@ const hierarchyColors = (theme: Theme, hierarchy: LabelButtonHierarchy, disabled
 const interactionStyles = (
   theme: Theme,
   hierarchy: LabelButtonHierarchy,
+  size: LabelButtonSize,
   disabled: boolean,
 ): CSSObject => {
+  const offset = offsetMap[size];
   const interactionParams = {
     accent: {
       restStyle: InteractionLayer({
@@ -64,6 +76,9 @@ const interactionStyles = (
         density: 'bold',
         fillColor: 'default',
         isDisabled: disabled,
+        offsetVertical: offset.vertical,
+        offsetHorizontal: offset.horizontal,
+        borderRadius: offset.borderRadius,
       }),
       hoverStyle: InteractionLayer({
         theme,
@@ -72,6 +87,9 @@ const interactionStyles = (
         density: 'bold',
         fillColor: 'default',
         isDisabled: disabled,
+        offsetVertical: offset.vertical,
+        offsetHorizontal: offset.horizontal,
+        borderRadius: offset.borderRadius,
       }),
       activeStyle: InteractionLayer({
         theme,
@@ -80,6 +98,9 @@ const interactionStyles = (
         density: 'bold',
         fillColor: 'default',
         isDisabled: disabled,
+        offsetVertical: offset.vertical,
+        offsetHorizontal: offset.horizontal,
+        borderRadius: offset.borderRadius,
       }),
       focusStyle: InteractionLayer({
         theme,
@@ -88,6 +109,9 @@ const interactionStyles = (
         density: 'bold',
         fillColor: 'default',
         isDisabled: disabled,
+        offsetVertical: offset.vertical,
+        offsetHorizontal: offset.horizontal,
+        borderRadius: offset.borderRadius,
       }),
     },
     primary: {
@@ -258,7 +282,7 @@ export function GetLabelButtonStyles(
 ) {
   const typoStyle = GetTypographyStyle(theme, size);
   const colorStyle = hierarchyColors(theme, hierarchy, disabled);
-  const interactionStyle = interactionStyles(theme, hierarchy, disabled);
+  const interactionStyle = interactionStyles(theme, hierarchy, size, disabled);
 
   return {
     ...typoStyle,
