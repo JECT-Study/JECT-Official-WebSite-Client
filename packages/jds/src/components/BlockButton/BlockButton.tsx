@@ -1,17 +1,18 @@
 import { forwardRef } from 'react';
 import type { ComponentPropsWithoutRef, ReactNode } from 'react';
 
-import { StyledBlockButton } from './blockButton.styles';
+import { iconSizeMap, StyledBlockButton } from './blockButton.styles';
 
-import type { BlockButtonSize, BlockButtonHierarchy, BlockButtonStyle } from '@/components';
+import { Icon } from '@/components';
+import type { BlockButtonSize, BlockButtonHierarchy, BlockButtonStyle, IconName } from '@/components';
 
 export interface BlockButtonProps extends ComponentPropsWithoutRef<'button'> {
   children: ReactNode;
   hierarchy?: BlockButtonHierarchy;
   size?: BlockButtonSize;
   variant?: BlockButtonStyle;
-  prefixIcon?: ReactNode;
-  suffixIcon?: ReactNode;
+  prefixIcon?: IconName;
+  suffixIcon?: IconName;
 }
 
 export const BlockButton = forwardRef<HTMLButtonElement, BlockButtonProps>(
@@ -28,6 +29,8 @@ export const BlockButton = forwardRef<HTMLButtonElement, BlockButtonProps>(
     },
     ref,
   ) => {
+    const iconSize = iconSizeMap[size];
+
     return (
       <StyledBlockButton
         ref={ref}
@@ -38,9 +41,9 @@ export const BlockButton = forwardRef<HTMLButtonElement, BlockButtonProps>(
         disabled={disabled}
         {...props}
       >
-        {prefixIcon && prefixIcon}
+        {prefixIcon && <Icon name={prefixIcon} size={iconSize} />}
         {children}
-        {suffixIcon && suffixIcon}
+        {suffixIcon && <Icon name={suffixIcon} size={iconSize} />}
       </StyledBlockButton>
     );
   },

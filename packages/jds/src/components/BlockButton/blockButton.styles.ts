@@ -1,8 +1,16 @@
 import type { CSSObject, Theme } from '@emotion/react';
 import styled from '@emotion/styled';
 import type { BlockButtonSize, BlockButtonHierarchy, BlockButtonStyle } from 'components';
+import type { IconSize } from 'components/Icon/Icon.types';
 import type { TextStyle } from 'types';
 import { InteractionLayer, pxToRem, textStyle } from 'utils';
+
+export const iconSizeMap: Record<BlockButtonSize, IconSize> = {
+  lg: 'md',
+  md: 'sm',
+  sm: 'xs',
+  xs: '2xs',
+};
 
 const sizeStyles: Record<BlockButtonSize, (theme: Theme) => CSSObject> = {
   lg: (theme: Theme) => ({
