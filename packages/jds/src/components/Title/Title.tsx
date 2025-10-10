@@ -1,6 +1,5 @@
 import { ReactNode } from 'react';
 import { TitleDiv, TitleSize, TitleTextAlign } from './Title.style';
-import { useTheme } from 'theme';
 
 interface TitleProps {
   size?: TitleSize;
@@ -16,11 +15,8 @@ export const Title = ({
   children,
   ...props
 }: TitleProps) => {
-  const theme = useTheme();
-  const BaseColor = color || theme.color.object.bolder;
-
   return (
-    <TitleDiv size={size} textAlign={textAlign} color={BaseColor} {...props}>
+    <TitleDiv size={size} textAlign={textAlign} color={color} {...props}>
       {children}
     </TitleDiv>
   );

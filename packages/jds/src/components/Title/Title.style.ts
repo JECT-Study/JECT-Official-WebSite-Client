@@ -9,7 +9,7 @@ export type TitleTextAlign = keyof typeof TEXT_ALIGN_MAPPING;
 interface TitleDivProps {
   size: TitleSize;
   textAlign: TitleTextAlign;
-  color: string;
+  color?: string;
 }
 
 export const TITLE_STYLE = {
@@ -22,12 +22,13 @@ export const TITLE_STYLE = {
 export const TitleDiv = styled.div<TitleDivProps>(({ theme, size, textAlign, color }) => {
   const textStyleKey = TITLE_STYLE[size] as TextStyle;
   const justifyContent = TEXT_ALIGN_MAPPING[textAlign];
+  const BaseColor = color || theme.color.object.bolder;
 
   return {
     display: 'flex',
     justifyContent,
     alignItems: 'center',
-    color,
+    color: BaseColor,
     cursor: 'default',
     [theme.breakPoint.mobile]: { ...textStyle(theme, 'mobile', textStyleKey) },
     [theme.breakPoint.tablet]: { ...textStyle(theme, 'tablet', textStyleKey) },
