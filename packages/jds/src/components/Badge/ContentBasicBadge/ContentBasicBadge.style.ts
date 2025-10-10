@@ -5,7 +5,9 @@ import { CONTENT_BADGE_SIZE } from '../badge.variants';
 import {
   CONTENT_BASIC_BADGE_STYLE,
   CONTENT_BASIC_BADGE_STYLE_MUTED,
+  ICON_COLOR,
 } from './contentBasicBadge.variants';
+import { Icon } from '@/components/Icon';
 
 interface ContentBasicBadgeDivProps {
   hierarchy: BasicHierarchy;
@@ -41,3 +43,22 @@ export const ContentBasicBadgeDiv = styled.div<ContentBasicBadgeDivProps>(
     };
   },
 );
+
+interface BadgeIconProps {
+  hierarchy: BasicHierarchy;
+  badgeStyle: ContentBadgeStyle;
+  isMuted: boolean;
+}
+
+export const BadgeIcon = styled(Icon)<BadgeIconProps>(({
+  theme,
+  hierarchy,
+  badgeStyle,
+  isMuted,
+}) => {
+  const iconColor = isMuted ? theme.color.object.subtle : ICON_COLOR(theme)[badgeStyle][hierarchy];
+
+  return {
+    color: iconColor,
+  };
+});

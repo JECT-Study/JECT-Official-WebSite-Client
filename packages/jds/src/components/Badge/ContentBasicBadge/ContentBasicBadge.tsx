@@ -1,10 +1,8 @@
 import { ReactNode } from 'react';
-import { ContentBasicBadgeDiv } from './ContentBasicBadge.style';
-import { useTheme } from '@emotion/react';
+import { BadgeIcon, ContentBasicBadgeDiv } from './ContentBasicBadge.style';
 import { BadgeSize, ContentBadgeStyle, BasicHierarchy } from '../badge.types';
-import { Icon } from '@/components/Icon';
 import { Label } from '@/components/Label';
-import { ICON_COLOR, ICON_SIZE } from './contentBasicBadge.variants';
+import { ICON_SIZE } from './contentBasicBadge.variants';
 
 interface ContentBasicBadgeProps {
   hierarchy?: BasicHierarchy;
@@ -23,9 +21,7 @@ export const ContentBasicBadge = ({
   withIcon = false,
   children,
 }: ContentBasicBadgeProps) => {
-  const theme = useTheme();
   const iconSize = ICON_SIZE[size];
-  const iconColor = isMuted ? theme.color.object.subtle : ICON_COLOR(theme)[badgeStyle][hierarchy];
 
   return (
     <ContentBasicBadgeDiv
@@ -38,7 +34,15 @@ export const ContentBasicBadge = ({
       <Label size={size} textAlign='center' weight='normal' color='inherit'>
         {children}
       </Label>
-      {withIcon && <Icon name='close-line' size={iconSize} color={iconColor} />}
+      {withIcon && (
+        <BadgeIcon
+          name='close-line'
+          size={iconSize}
+          hierarchy={hierarchy}
+          badgeStyle={badgeStyle}
+          isMuted={isMuted}
+        />
+      )}
     </ContentBasicBadgeDiv>
   );
 };
