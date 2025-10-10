@@ -1,9 +1,10 @@
+import isPropValid from '@emotion/is-prop-valid';
 import type { CSSObject, Theme } from '@emotion/react';
 import styled from '@emotion/styled';
-import type { LabelButtonSize, LabelButtonHierarchy } from 'components';
+import type { LabelButtonSize, LabelButtonHierarchy, LabelButtonIntent } from 'components';
 import type { IconSize } from 'components/Icon/Icon.types';
 import type { TextStyle } from 'types';
-import { InteractionLayer, textStyle } from 'utils';
+import { InteractionLayer, pxToRem, textStyle } from 'utils';
 
 export const iconSizeMap: Record<LabelButtonSize, IconSize> = {
   lg: 'md',
@@ -58,6 +59,170 @@ const hierarchyColors = (theme: Theme, hierarchy: LabelButtonHierarchy, disabled
   return disabled
     ? hierarchyColorsDisabledMap(theme)[hierarchy]
     : hierarchyColorsMap(theme)[hierarchy];
+};
+
+const feedbackColorsMap = (theme: Theme): Record<LabelButtonIntent, { color: string }> => ({
+  positive: {
+    color: theme.color.feedback.positive.normal,
+  },
+  destructive: {
+    color: theme.color.feedback.destructive.normal,
+  },
+});
+
+const feedbackColorsDisabledMap = (theme: Theme): Record<LabelButtonIntent, { color: string }> => ({
+  positive: {
+    color: theme.color.feedback.positive.alpha.subtle,
+  },
+  destructive: {
+    color: theme.color.feedback.destructive.alpha.subtle,
+  },
+});
+
+const feedbackColors = (theme: Theme, intent: LabelButtonIntent, disabled: boolean) => {
+  return disabled ? feedbackColorsDisabledMap(theme)[intent] : feedbackColorsMap(theme)[intent];
+};
+
+const feedbackInteractionStyles = (
+  theme: Theme,
+  intent: LabelButtonIntent,
+  size: LabelButtonSize,
+  disabled: boolean,
+): CSSObject => {
+  const offset = offsetMap[size];
+
+  const interactionParams = {
+    positive: {
+      restStyle: InteractionLayer({
+        theme,
+        state: 'rest',
+        variant: 'positive',
+        density: 'bold',
+        fillColor: 'default',
+        isDisabled: disabled,
+        offsetVertical: offset.vertical,
+        offsetHorizontal: offset.horizontal,
+        borderRadius: offset.borderRadius,
+      }),
+      hoverStyle: InteractionLayer({
+        theme,
+        state: 'hover',
+        variant: 'positive',
+        density: 'bold',
+        fillColor: 'default',
+        isDisabled: disabled,
+        offsetVertical: offset.vertical,
+        offsetHorizontal: offset.horizontal,
+        borderRadius: offset.borderRadius,
+      }),
+      activeStyle: InteractionLayer({
+        theme,
+        state: 'active',
+        variant: 'positive',
+        density: 'bold',
+        fillColor: 'default',
+        isDisabled: disabled,
+        offsetVertical: offset.vertical,
+        offsetHorizontal: offset.horizontal,
+        borderRadius: offset.borderRadius,
+      }),
+      focusStyle: InteractionLayer({
+        theme,
+        state: 'focus',
+        variant: 'positive',
+        density: 'bold',
+        fillColor: 'default',
+        isDisabled: disabled,
+        offsetVertical: offset.vertical,
+        offsetHorizontal: offset.horizontal,
+        borderRadius: offset.borderRadius,
+      }),
+    },
+    destructive: {
+      restStyle: InteractionLayer({
+        theme,
+        state: 'rest',
+        variant: 'destructive',
+        density: 'bold',
+        fillColor: 'default',
+        isDisabled: disabled,
+        offsetVertical: offset.vertical,
+        offsetHorizontal: offset.horizontal,
+        borderRadius: offset.borderRadius,
+      }),
+      hoverStyle: InteractionLayer({
+        theme,
+        state: 'hover',
+        variant: 'destructive',
+        density: 'bold',
+        fillColor: 'default',
+        isDisabled: disabled,
+        offsetVertical: offset.vertical,
+        offsetHorizontal: offset.horizontal,
+        borderRadius: offset.borderRadius,
+      }),
+      activeStyle: InteractionLayer({
+        theme,
+        state: 'active',
+        variant: 'destructive',
+        density: 'bold',
+        fillColor: 'default',
+        isDisabled: disabled,
+        offsetVertical: offset.vertical,
+        offsetHorizontal: offset.horizontal,
+        borderRadius: offset.borderRadius,
+      }),
+      focusStyle: InteractionLayer({
+        theme,
+        state: 'focus',
+        variant: 'destructive',
+        density: 'bold',
+        fillColor: 'default',
+        isDisabled: disabled,
+        offsetVertical: offset.vertical,
+        offsetHorizontal: offset.horizontal,
+        borderRadius: offset.borderRadius,
+      }),
+    },
+  };
+
+  const { restStyle, hoverStyle, activeStyle, focusStyle } = interactionParams[intent];
+
+  if (disabled) {
+    return {
+      position: 'relative',
+      outline: 'none',
+    };
+  }
+
+  return {
+    ...restStyle,
+    '::after': {
+      ...restStyle['::after'],
+      transition: `opacity ${theme.environment.duration[100]} ${theme.environment.motion.fluent}`,
+    },
+    '&:hover': {
+      ...hoverStyle,
+      '::after': {
+        ...hoverStyle['::after'],
+        transition: `opacity ${theme.environment.duration[100]} ${theme.environment.motion.fluent}`,
+      },
+    },
+    '&:active': {
+      ...activeStyle,
+      '::after': {
+        ...activeStyle['::after'],
+        transition: 'none',
+      },
+    },
+    '&:focus-visible': {
+      ...focusStyle,
+      '::after': {
+        ...focusStyle['::after'],
+        transition: 'none',
+      },
+    },
+  };
 };
 
 const interactionStyles = (
@@ -220,6 +385,13 @@ const interactionStyles = (
 
   const { restStyle, hoverStyle, activeStyle, focusStyle } = interactionParams[hierarchy];
 
+  if (disabled) {
+    return {
+      position: 'relative',
+      outline: 'none',
+    };
+  }
+
   return {
     ...restStyle,
     '::after': {
@@ -291,21 +463,48 @@ export function GetLabelButtonStyles(
   };
 }
 
-export const StyledLabelButton = styled.button<{
-  $hierarchy: LabelButtonHierarchy;
+export function GetFeedbackLabelButtonStyles(
+  theme: Theme,
+  intent: LabelButtonIntent,
+  size: LabelButtonSize,
+  disabled: boolean,
+) {
+  const typoStyle = GetTypographyStyle(theme, size);
+  const colorStyle = feedbackColors(theme, intent, disabled);
+  const interactionStyle = feedbackInteractionStyles(theme, intent, size, disabled);
+
+  return {
+    ...typoStyle,
+    ...colorStyle,
+    ...interactionStyle,
+  };
+}
+
+export const StyledLabelButton = styled('button', {
+  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
+})<{
+  $intent?: LabelButtonIntent;
+  $hierarchy?: LabelButtonHierarchy;
   $size: LabelButtonSize;
   $disabled: boolean;
-}>(({ theme, $hierarchy, $size, $disabled }) => ({
-  display: 'inline-flex',
-  flexDirection: 'row',
-  justifyContent: 'center',
-  alignItems: 'center',
-  gap: 0,
-  padding: 0,
-  border: 'none',
-  background: 'transparent',
-  cursor: $disabled ? 'not-allowed' : 'pointer',
-  userSelect: 'none',
-  fontFamily: 'inherit',
-  ...GetLabelButtonStyles(theme, $hierarchy, $size, $disabled),
-}));
+}>(({ theme, $intent, $hierarchy, $size, $disabled }) => {
+  const modeStyles =
+    $intent !== undefined
+      ? GetFeedbackLabelButtonStyles(theme, $intent, $size, $disabled)
+      : GetLabelButtonStyles(theme, $hierarchy!, $size, $disabled);
+
+  return {
+    display: 'inline-flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 0,
+    gap: pxToRem(theme.scheme.desktop.spacing[4]),
+    border: 'none',
+    background: 'transparent',
+    cursor: $disabled ? 'not-allowed' : 'pointer',
+    userSelect: 'none',
+    fontFamily: 'inherit',
+    ...modeStyles,
+  };
+});
