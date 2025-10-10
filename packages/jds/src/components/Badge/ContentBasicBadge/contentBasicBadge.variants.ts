@@ -1,5 +1,34 @@
 import { Theme } from '@emotion/react';
-import { BadgeStyle, BasicHierarchy, ContentBadgeStyle } from '../badge.types';
+import { BadgeSize, BadgeStyle, BasicHierarchy, ContentBadgeStyle } from '../badge.types';
+import { IconSize } from '@/components/Icon';
+
+export const ICON_SIZE: Record<BadgeSize, IconSize> = {
+  lg: 'sm',
+  md: 'sm',
+  sm: 'xs',
+  xs: '2xs',
+};
+
+export const ICON_COLOR = (theme: Theme) => ({
+  solid: {
+    accent: theme.color.object.static.inverse.boldest,
+    primary: theme.color.object.inverse.boldest,
+    secondary: theme.color.object.static.inverse.boldest,
+    tertiary: theme.color.object.alternative,
+  },
+  alpha: {
+    accent: theme.color.accent.normal,
+    primary: theme.color.object.boldest,
+    secondary: theme.color.object.neutral,
+    tertiary: theme.color.object.alternative,
+  },
+  outlined: {
+    accent: theme.color.accent.normal,
+    primary: theme.color.object.boldest,
+    secondary: theme.color.object.neutral,
+    tertiary: theme.color.object.alternative,
+  },
+});
 
 type ContentBasicBadgeStyle = {
   solid: Record<BasicHierarchy, BadgeStyle>;
