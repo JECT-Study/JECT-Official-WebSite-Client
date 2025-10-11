@@ -6,7 +6,7 @@ type BasicStyle = Record<
   Record<BasicHierarchy, { bg: string; border: string; color: string }>
 >;
 
-export const CALLOUT_BASIC_STYLE = (theme: Theme): BasicStyle => ({
+export const calloutBasicStylesMap = (theme: Theme): BasicStyle => ({
   hero: {
     accent: {
       bg: theme.color.accent.alpha.subtler,
@@ -48,7 +48,7 @@ type FeedbackStyle = Record<
   Record<FeedbackHierarchy, { bg: string; border: string; color: string }>
 >;
 
-export const CALLOUT_FEEDBACK_STYLE = (theme: Theme): FeedbackStyle => ({
+export const calloutFeedbackStylesMap = (theme: Theme): FeedbackStyle => ({
   hero: {
     positive: {
       bg: theme.color.feedback.positive.alpha.subtler,
@@ -85,7 +85,7 @@ export const CALLOUT_FEEDBACK_STYLE = (theme: Theme): FeedbackStyle => ({
   },
 });
 
-export const CALLOUT_SIZE = {
+export const calloutSizeMap = {
   lg: {
     paddingTopBottom: 16,
     paddingLeftRight: 24,

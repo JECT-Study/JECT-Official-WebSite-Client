@@ -21,3 +21,19 @@ export interface BasicCalloutProps extends BaseCalloutProps {
 export interface FeedbackCalloutProps extends BaseCalloutProps {
   hierarchy: FeedbackHierarchy;
 }
+
+export interface CalloutBasicDivProps {
+  hierarchy: BasicHierarchy;
+  variant: CalloutVariant;
+  size: CalloutSize;
+}
+
+export interface CalloutFeedbackDivProps {
+  hierarchy: FeedbackHierarchy;
+  variant: CalloutVariant;
+  size: CalloutSize;
+}
+
+export interface CalloutPProps {
+  size: CalloutSize;
+}

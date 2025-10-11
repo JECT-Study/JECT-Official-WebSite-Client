@@ -1,23 +1,15 @@
 import styled from '@emotion/styled';
 import { pxToRem, textStyle } from 'utils';
-import { BasicHierarchy, CalloutSize, CalloutVariant, FeedbackHierarchy } from './Callout.types';
-import { CALLOUT_BASIC_STYLE, CALLOUT_FEEDBACK_STYLE, CALLOUT_SIZE } from './Callout.variants';
+import { CalloutBasicDivProps, CalloutFeedbackDivProps, CalloutPProps } from './Callout.types';
+import {
+  calloutBasicStylesMap,
+  calloutFeedbackStylesMap,
+  calloutSizeMap,
+} from './Callout.variants';
 
-interface BasicCalloutDivProps {
-  hierarchy: BasicHierarchy;
-  variant: CalloutVariant;
-  size: CalloutSize;
-}
-
-interface FeedbackCalloutDivProps {
-  hierarchy: FeedbackHierarchy;
-  variant: CalloutVariant;
-  size: CalloutSize;
-}
-
-export const BasicCalloutDiv = styled.div<BasicCalloutDivProps>(
+export const CalloutBasicDiv = styled.div<CalloutBasicDivProps>(
   ({ theme, hierarchy, variant, size }) => {
-    const style = CALLOUT_BASIC_STYLE(theme)[variant][hierarchy];
+    const style = calloutBasicStylesMap(theme)[variant][hierarchy];
     const border = variant === 'hero' ? 'none' : `1px solid ${style.border}`;
     const borderLeft = variant === 'hero' ? `6px solid ${style.border}` : 'none';
     const borderRadius = variant === 'hero' ? 'none' : pxToRem(6);
@@ -27,8 +19,8 @@ export const BasicCalloutDiv = styled.div<BasicCalloutDivProps>(
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'flex-start',
-      padding: `${pxToRem(CALLOUT_SIZE[size].paddingTopBottom)} ${pxToRem(CALLOUT_SIZE[size].paddingLeftRight)}`,
-      gap: pxToRem(CALLOUT_SIZE[size].gap),
+      padding: `${pxToRem(calloutSizeMap[size].paddingTopBottom)} ${pxToRem(calloutSizeMap[size].paddingLeftRight)}`,
+      gap: pxToRem(calloutSizeMap[size].gap),
       border,
       borderLeft,
       borderRadius,
@@ -38,17 +30,17 @@ export const BasicCalloutDiv = styled.div<BasicCalloutDivProps>(
   },
 );
 
-export const FeedbackCalloutDiv = styled.div<FeedbackCalloutDivProps>(
+export const CalloutFeedbackDiv = styled.div<CalloutFeedbackDivProps>(
   ({ theme, hierarchy, variant, size }) => {
-    const style = CALLOUT_FEEDBACK_STYLE(theme)[variant][hierarchy];
+    const style = calloutFeedbackStylesMap(theme)[variant][hierarchy];
 
     return {
       width: pxToRem(300),
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'flex-start',
-      padding: `${pxToRem(CALLOUT_SIZE[size].paddingTopBottom)} ${pxToRem(CALLOUT_SIZE[size].paddingLeftRight)}`,
-      gap: pxToRem(CALLOUT_SIZE[size].gap),
+      padding: `${pxToRem(calloutSizeMap[size].paddingTopBottom)} ${pxToRem(calloutSizeMap[size].paddingLeftRight)}`,
+      gap: pxToRem(calloutSizeMap[size].gap),
       borderLeft: `6px solid ${style.border}`,
       backgroundColor: style.bg,
       color: style.color,
@@ -56,22 +48,18 @@ export const FeedbackCalloutDiv = styled.div<FeedbackCalloutDivProps>(
   },
 );
 
-interface CalloutPProps {
-  size: CalloutSize;
-}
-
 export const CalloutTitleP = styled.p<CalloutPProps>(({ theme, size }) => {
   return {
-    ...textStyle(theme, 'desktop', CALLOUT_SIZE[size].title),
-    [theme.breakPoint.tablet]: { ...textStyle(theme, 'tablet', CALLOUT_SIZE[size].title) },
-    [theme.breakPoint.mobile]: { ...textStyle(theme, 'mobile', CALLOUT_SIZE[size].title) },
+    ...textStyle(theme, 'desktop', calloutSizeMap[size].title),
+    [theme.breakPoint.tablet]: { ...textStyle(theme, 'tablet', calloutSizeMap[size].title) },
+    [theme.breakPoint.mobile]: { ...textStyle(theme, 'mobile', calloutSizeMap[size].title) },
   };
 });
 
 export const CalloutContentP = styled.p<CalloutPProps>(({ theme, size }) => {
   return {
-    ...textStyle(theme, 'desktop', CALLOUT_SIZE[size].content),
-    [theme.breakPoint.tablet]: { ...textStyle(theme, 'tablet', CALLOUT_SIZE[size].content) },
-    [theme.breakPoint.mobile]: { ...textStyle(theme, 'mobile', CALLOUT_SIZE[size].content) },
+    ...textStyle(theme, 'desktop', calloutSizeMap[size].content),
+    [theme.breakPoint.tablet]: { ...textStyle(theme, 'tablet', calloutSizeMap[size].content) },
+    [theme.breakPoint.mobile]: { ...textStyle(theme, 'mobile', calloutSizeMap[size].content) },
   };
 });
