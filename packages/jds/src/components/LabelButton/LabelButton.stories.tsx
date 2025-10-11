@@ -12,28 +12,46 @@ const meta = {
     children: {
       control: 'text',
       description: '버튼 텍스트',
+      table: {
+        defaultValue: { summary: '레이블' },
+      },
     },
     hierarchy: {
       control: 'select',
       options: ['accent', 'primary', 'secondary', 'tertiary'],
       description: '버튼의 시각적 맥락적 위계 구분',
+      table: {
+        defaultValue: { summary: 'primary' },
+      },
     },
     size: {
       control: 'select',
       options: ['xs', 'sm', 'md', 'lg'],
       description: '컴포넌트의 크기',
+      table: {
+        defaultValue: { summary: 'md' },
+      },
     },
     disabled: {
       control: 'boolean',
       description: '비활성화 되었는지의 여부',
+      table: {
+        defaultValue: { summary: 'false' },
+      },
     },
     prefixIcon: {
       control: 'text',
       description: '버튼 텍스트 앞에 표시되는 아이콘 이름 (Icon 컴포넌트)',
+      table: {
+        defaultValue: { summary: 'absolute' },
+      },
     },
     suffixIcon: {
       control: 'text',
       description: '버튼 텍스트 뒤에 표시되는 아이콘 이름 (Icon 컴포넌트)',
+      table: {
+        defaultValue: { summary: 'absolute' },
+      },
     },
   },
 } satisfies Meta<typeof LabelButton.Basic>;
@@ -43,9 +61,11 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    children: 'Label Button',
+    children: '레이블',
     hierarchy: 'primary',
     size: 'md',
+    prefixIcon: 'absolute',
+    suffixIcon: 'absolute',
   },
 };
 

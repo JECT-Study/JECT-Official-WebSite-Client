@@ -9,6 +9,13 @@ const meta = {
     layout: 'centered',
   },
   argTypes: {
+    children: {
+      control: 'text',
+      description: '버튼 텍스트',
+      table: {
+        defaultValue: { summary: '레이블' },
+      },
+    },
     hierarchy: {
       control: 'select',
       options: ['accent', 'primary', 'secondary', 'tertiary'],
@@ -43,10 +50,16 @@ const meta = {
     prefixIcon: {
       control: 'text',
       description: '버튼 텍스트 앞에 표시되는 아이콘 이름 (Icon 컴포넌트)',
+      table: {
+        defaultValue: { summary: 'absolute' },
+      },
     },
     suffixIcon: {
       control: 'text',
       description: '버튼 텍스트 뒤에 표시되는 아이콘 이름 (Icon 컴포넌트)',
+      table: {
+        defaultValue: { summary: 'absolute' },
+      },
     },
   },
 } satisfies Meta<typeof BlockButton.Basic>;
@@ -56,10 +69,12 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    children: 'Button',
+    children: '레이블',
     hierarchy: 'primary',
     size: 'md',
     variant: 'solid',
+    prefixIcon: 'absolute',
+    suffixIcon: 'absolute',
   },
 };
 
