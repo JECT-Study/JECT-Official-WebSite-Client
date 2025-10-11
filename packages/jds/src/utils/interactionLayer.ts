@@ -191,6 +191,8 @@ export function InteractionLayer({
   const topBottomValue = hasVerticalOffset ? pxToRem(-offsetVertical) : 0;
   const leftRightValue = hasHorizontalOffset ? pxToRem(-offsetHorizontal) : 0;
 
+  const hasOffset = hasVerticalOffset || hasHorizontalOffset;
+
   const baseStyle: CSSObject = {
     position: 'relative',
     outline: 'none',
@@ -212,7 +214,23 @@ export function InteractionLayer({
   };
 
   if (state === 'focus' && !isSpecialState) {
-    baseStyle.boxShadow = `0 0 0 ${FOCUS_OUTLINE_WIDTH} ${theme.color.interaction.focus}`;
+    if (hasOffset) {
+      baseStyle['::before'] = {
+        content: '""',
+        position: 'absolute',
+        top: topBottomValue,
+        right: hasHorizontalOffset ? leftRightValue : undefined,
+        bottom: hasVerticalOffset ? topBottomValue : undefined,
+        left: leftRightValue,
+        width: hasHorizontalOffset ? 'auto' : '100%',
+        height: hasVerticalOffset ? 'auto' : '100%',
+        borderRadius: borderRadius > 0 ? pxToRem(borderRadius) : 0,
+        boxShadow: `0 0 0 ${FOCUS_OUTLINE_WIDTH} ${theme.color.interaction.focus}`,
+        pointerEvents: 'none',
+      };
+    } else {
+      baseStyle.boxShadow = `0 0 0 ${FOCUS_OUTLINE_WIDTH} ${theme.color.interaction.focus}`;
+    }
   }
 
   return baseStyle;
