@@ -192,11 +192,26 @@ export function InteractionLayer({
   const leftRightValue = hasHorizontalOffset ? pxToRem(-offsetHorizontal) : 0;
 
   const hasOffset = hasVerticalOffset || hasHorizontalOffset;
+  const isFocusState = state === 'focus' && !isSpecialState;
 
   const baseStyle: CSSObject = {
     position: 'relative',
     outline: 'none',
     borderRadius: borderRadius > 0 ? pxToRem(borderRadius) : 0,
+    '::before': {
+      content: '""',
+      position: 'absolute',
+      top: hasOffset ? topBottomValue : 0,
+      right: hasOffset && hasHorizontalOffset ? leftRightValue : undefined,
+      bottom: hasOffset && hasVerticalOffset ? topBottomValue : undefined,
+      left: hasOffset ? leftRightValue : 0,
+      width: hasOffset && hasHorizontalOffset ? 'auto' : '100%',
+      height: hasOffset && hasVerticalOffset ? 'auto' : '100%',
+      borderRadius: borderRadius > 0 ? pxToRem(borderRadius) : 0,
+      boxShadow: `0 0 0 ${FOCUS_OUTLINE_WIDTH} ${theme.color.interaction.focus}`,
+      opacity: isFocusState && hasOffset ? 1 : 0,
+      pointerEvents: 'none',
+    },
     '::after': {
       content: '""',
       position: 'absolute',
@@ -213,24 +228,8 @@ export function InteractionLayer({
     },
   };
 
-  if (state === 'focus' && !isSpecialState) {
-    if (hasOffset) {
-      baseStyle['::before'] = {
-        content: '""',
-        position: 'absolute',
-        top: topBottomValue,
-        right: hasHorizontalOffset ? leftRightValue : undefined,
-        bottom: hasVerticalOffset ? topBottomValue : undefined,
-        left: leftRightValue,
-        width: hasHorizontalOffset ? 'auto' : '100%',
-        height: hasVerticalOffset ? 'auto' : '100%',
-        borderRadius: borderRadius > 0 ? pxToRem(borderRadius) : 0,
-        boxShadow: `0 0 0 ${FOCUS_OUTLINE_WIDTH} ${theme.color.interaction.focus}`,
-        pointerEvents: 'none',
-      };
-    } else {
-      baseStyle.boxShadow = `0 0 0 ${FOCUS_OUTLINE_WIDTH} ${theme.color.interaction.focus}`;
-    }
+  if (isFocusState && !hasOffset) {
+    baseStyle.boxShadow = `0 0 0 ${FOCUS_OUTLINE_WIDTH} ${theme.color.interaction.focus}`;
   }
 
   return baseStyle;
