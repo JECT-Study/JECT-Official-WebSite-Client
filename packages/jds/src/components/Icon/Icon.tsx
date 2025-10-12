@@ -1,3 +1,4 @@
+import { StyledIconWrapper } from './Icon.styles';
 import type { IconProps } from './Icon.types';
 import { iconMap, sizeMap } from './IconMap';
 
@@ -9,6 +10,8 @@ export const Icon = ({ name, size = 'md', color = 'currentColor', ...props }: Ic
   const pixelSize = sizeMap[size];
 
   return (
-    <IconComponent width={pixelSize} height={pixelSize} color={color} {...props} />
+    <StyledIconWrapper>
+      <IconComponent width={pixelSize} height={pixelSize} color={color} {...props} />
+    </StyledIconWrapper>
   );
 };
