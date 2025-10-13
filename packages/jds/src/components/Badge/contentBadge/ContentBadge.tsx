@@ -15,7 +15,7 @@ import {
 import { Label } from '@/components/Label';
 import { iconSizeMap } from './contentBadge.variants';
 
-interface ContentBadgeBasicProps {
+export interface ContentBadgeBasicProps {
   hierarchy?: BasicHierarchy;
   size?: BadgeSize;
   badgeStyle?: ContentBadgeStyle;
@@ -60,7 +60,7 @@ const ContentBadgeBasic = ({
 
 ContentBadgeBasic.displayName = 'ContentBadge.Basic';
 
-interface ContentFeedbackBadgeProps {
+export interface ContentFeedbackBadgeProps {
   variant?: FeedbackVariant;
   size?: BadgeSize;
   badgeStyle?: ContentBadgeStyle;
@@ -91,7 +91,7 @@ const ContentBadgeFeedback = ({
 
 ContentBadgeFeedback.displayName = 'ContentBadge.Feedback';
 
-interface ContentThemeBadgeProps {
+export interface ContentThemeBadgeProps {
   variant?: ThemeVariant;
   size?: BadgeSize;
   badgeStyle?: ContentBadgeStyle;

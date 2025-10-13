@@ -3,7 +3,7 @@ import { BadgeSize, BasicHierarchy, FeedbackVariant, NumericBadgeStyle } from '.
 import { Label } from '@/components/Label';
 import { NumericBadgeBasicDiv, NumericBadgeFeedbackDiv } from './NumericBadge.style';
 
-interface NumericBadgeBasicProps {
+export interface NumericBadgeBasicProps {
   hierarchy?: BasicHierarchy;
   size?: BadgeSize;
   badgeStyle?: NumericBadgeStyle;
@@ -34,7 +34,7 @@ const NumericBadgeBasic = ({
 
 NumericBadgeBasic.displayName = 'NumericBadge.Basic';
 
-interface NumericBasicBadgeProps {
+export interface NumericBasicBadgeProps {
   variant?: FeedbackVariant;
   size?: BadgeSize;
   badgeStyle?: NumericBadgeStyle;
