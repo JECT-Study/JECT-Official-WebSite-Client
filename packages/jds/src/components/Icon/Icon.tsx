@@ -1,4 +1,3 @@
-import { useTheme } from 'theme';
 import { IconProps } from './Icon.types';
 import { iconMap, sizeMap } from './IconMap';
 
@@ -7,8 +6,7 @@ export const Icon = ({ name, size = 'md', color }: IconProps) => {
   if (!IconComponent) return null;
 
   const pixelSize = sizeMap[size];
-  const theme = useTheme();
-  const BaseColor = color ?? theme.color.object.boldest;
+  const BaseColor = color ?? 'currentColor';
 
   return <IconComponent width={pixelSize} height={pixelSize} color={BaseColor} />;
 };
