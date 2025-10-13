@@ -12,7 +12,7 @@ interface TitleDivProps {
   color?: string;
 }
 
-export const TITLE_STYLE = {
+export const titleStylesMap = {
   lg: 'title.4',
   md: 'title.3',
   sm: 'title.2',
@@ -20,7 +20,7 @@ export const TITLE_STYLE = {
 } as const;
 
 export const TitleDiv = styled.div<TitleDivProps>(({ theme, size, textAlign, color }) => {
-  const textStyleKey = TITLE_STYLE[size] as TextStyle;
+  const textStyleKey = titleStylesMap[size] as TextStyle;
   const justifyContent = TEXT_ALIGN_MAPPING[textAlign];
   const BaseColor = color || theme.color.object.bolder;
 
