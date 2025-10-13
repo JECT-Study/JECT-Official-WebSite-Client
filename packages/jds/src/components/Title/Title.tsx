@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { TitleDiv, TitleSize, TitleTextAlign } from './Title.style';
 
-interface TitleProps {
+export interface TitleProps {
   size?: TitleSize;
   textAlign?: TitleTextAlign;
   color?: string;
