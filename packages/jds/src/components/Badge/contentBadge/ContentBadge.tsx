@@ -1,0 +1,124 @@
+import { ReactNode } from 'react';
+import {
+  BadgeIcon,
+  ContentBadgeBasicDiv,
+  ContentBadgeFeedbackDiv,
+  ContentBadgeThemeDiv,
+} from './ContentBadge.style';
+import {
+  BadgeSize,
+  ContentBadgeStyle,
+  BasicHierarchy,
+  FeedbackVariant,
+  ThemeVariant,
+} from '../badge.types';
+import { Label } from '@/components/Label';
+import { iconSizeMap } from './contentBadge.variants';
+
+interface ContentBadgeBasicProps {
+  hierarchy?: BasicHierarchy;
+  size?: BadgeSize;
+  badgeStyle?: ContentBadgeStyle;
+  isMuted?: boolean;
+  withIcon?: boolean;
+  children: ReactNode;
+}
+
+const ContentBadgeBasic = ({
+  hierarchy = 'secondary',
+  size = 'md',
+  badgeStyle = 'solid',
+  isMuted = false,
+  withIcon = false,
+  children,
+}: ContentBadgeBasicProps) => {
+  const iconSize = iconSizeMap[size];
+
+  return (
+    <ContentBadgeBasicDiv
+      hierarchy={hierarchy}
+      size={size}
+      badgeStyle={badgeStyle}
+      isMuted={isMuted}
+      withIcon={withIcon}
+    >
+      <Label size={size} textAlign='center' weight='normal' color='inherit'>
+        {children}
+      </Label>
+      {withIcon && (
+        <BadgeIcon
+          name='close-line'
+          size={iconSize}
+          hierarchy={hierarchy}
+          badgeStyle={badgeStyle}
+          isMuted={isMuted}
+        />
+      )}
+    </ContentBadgeBasicDiv>
+  );
+};
+
+ContentBadgeBasic.displayName = 'ContentBadge.Basic';
+
+interface ContentFeedbackBadgeProps {
+  variant?: FeedbackVariant;
+  size?: BadgeSize;
+  badgeStyle?: ContentBadgeStyle;
+  isMuted?: boolean;
+  children: ReactNode;
+}
+
+const ContentBadgeFeedback = ({
+  variant = 'positive',
+  size = 'md',
+  badgeStyle = 'solid',
+  isMuted = false,
+  children,
+}: ContentFeedbackBadgeProps) => {
+  return (
+    <ContentBadgeFeedbackDiv
+      variant={variant}
+      size={size}
+      badgeStyle={badgeStyle}
+      isMuted={isMuted}
+    >
+      <Label size={size} textAlign='center' weight='normal' color='inherit'>
+        {children}
+      </Label>
+    </ContentBadgeFeedbackDiv>
+  );
+};
+
+ContentBadgeFeedback.displayName = 'ContentBadge.Feedback';
+
+interface ContentThemeBadgeProps {
+  variant?: ThemeVariant;
+  size?: BadgeSize;
+  badgeStyle?: ContentBadgeStyle;
+  isMuted?: boolean;
+  children: ReactNode;
+}
+
+const ContentBadgeTheme = ({
+  variant = 'red',
+  size = 'md',
+  badgeStyle = 'solid',
+  isMuted = false,
+  children,
+}: ContentThemeBadgeProps) => {
+  return (
+    <ContentBadgeThemeDiv variant={variant} size={size} badgeStyle={badgeStyle} isMuted={isMuted}>
+      <Label size={size} textAlign='center' weight='normal' color='inherit'>
+        {children}
+      </Label>
+    </ContentBadgeThemeDiv>
+  );
+};
+
+ContentBadgeTheme.displayName = 'ContentBadge.Theme';
+
+export const ContentBadge = {
+  Basic: ContentBadgeBasic,
+  Feedback: ContentBadgeFeedback,
+  Theme: ContentBadgeTheme,
+};

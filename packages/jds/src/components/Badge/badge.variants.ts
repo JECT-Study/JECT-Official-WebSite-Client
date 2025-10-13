@@ -1,7 +1,7 @@
 import { TextStyle } from 'types';
 import { BadgeSize } from './badge.types';
 
-export const CONTENT_BADGE_SIZE: Record<
+export const contentBadgeSizeMap: Record<
   BadgeSize,
   { minWidth: number; paddingTopBottom: number; paddingLeftRight: number; textStyle: TextStyle }
 > = {
@@ -31,7 +31,7 @@ export const CONTENT_BADGE_SIZE: Record<
   },
 };
 
-export const NUMERIC_BADGE_SIZE: Record<
+export const numericBadgeSizeMap: Record<
   BadgeSize,
   { minWidth: number; paddingTopBottom: number; paddingLeftRight: number; textStyle: TextStyle }
 > = {
@@ -61,7 +61,7 @@ export const NUMERIC_BADGE_SIZE: Record<
   },
 };
 
-export const DOT_BADGE_SIZE: Record<BadgeSize, { width: number; height: number }> = {
+export const dotBadgeSizeMap: Record<BadgeSize, { width: number; height: number }> = {
   lg: {
     width: 16,
     height: 16,

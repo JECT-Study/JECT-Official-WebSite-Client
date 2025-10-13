@@ -1,7 +1,7 @@
 import { Theme } from '@emotion/react';
 import { FeedbackVariant } from '../badge.types';
 
-export const DOT_FEEDBACK_BADGE_STYLE = (
+export const dotBadgeFeedbackStylesMap = (
   theme: Theme,
 ): Record<FeedbackVariant, { bg: string }> => ({
   positive: {
@@ -15,7 +15,7 @@ export const DOT_FEEDBACK_BADGE_STYLE = (
   },
 });
 
-export const DOT_FEEDBACK_BADGE_STYLE_MUTED = (
+export const dotBadgeFeedbackMutedStylesMap = (
   theme: Theme,
 ): Record<FeedbackVariant, { bg: string }> => ({
   positive: {

@@ -1,0 +1,22 @@
+import { DotBadgeFeedbackDiv } from './DotBadge.style';
+import { BadgeSize, FeedbackVariant } from '../badge.types';
+
+interface DotBadgeFeedbackProps {
+  variant: FeedbackVariant;
+  size?: BadgeSize;
+  isMuted?: boolean;
+}
+
+export const DotBadgeFeedback = ({
+  variant = 'positive',
+  size = 'md',
+  isMuted = false,
+}: DotBadgeFeedbackProps) => {
+  return <DotBadgeFeedbackDiv variant={variant} size={size} isMuted={isMuted} />;
+};
+
+DotBadgeFeedback.displayName = 'DotBadge.Feedback';
+
+export const DotBadge = {
+  Feedback: DotBadgeFeedback,
+};

@@ -1,19 +1,19 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { NumericBasicBadge } from './NumericBasicBadge';
+import { NumericBadge } from './NumericBadge';
 
 const meta = {
-  title: 'Components/NumericBasicBadge',
-  component: NumericBasicBadge,
+  title: 'Components/NumericBadgeBasic',
+  component: NumericBadge.Basic,
   parameters: {
     layout: 'centered',
   },
   argTypes: {
     children: {
       control: 'text',
-      defaultValue: 'NumericBasicBadge',
+      defaultValue: 'NumericBadgeBasic',
     },
   },
-} satisfies Meta<typeof NumericBasicBadge>;
+} satisfies Meta<typeof NumericBadge.Basic>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -28,10 +28,10 @@ export const Default: Story = {
   },
 };
 
-export const Component: StoryObj<typeof NumericBasicBadge> = {
+export const Component: StoryObj<typeof NumericBadge.Basic> = {
   render: () => (
-    <NumericBasicBadge hierarchy='secondary' size='md' badgeStyle='solid' isMuted={false}>
-      100
-    </NumericBasicBadge>
+    <NumericBadge.Basic hierarchy='accent' size='md' badgeStyle='solid' isMuted={false}>
+      99
+    </NumericBadge.Basic>
   ),
 };

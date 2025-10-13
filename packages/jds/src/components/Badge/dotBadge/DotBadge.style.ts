@@ -1,27 +1,24 @@
 import styled from '@emotion/styled';
 import { pxToRem } from 'utils';
 import { BadgeSize, FeedbackVariant } from '../badge.types';
-import { DOT_BADGE_SIZE } from '../badge.variants';
-import {
-  DOT_FEEDBACK_BADGE_STYLE,
-  DOT_FEEDBACK_BADGE_STYLE_MUTED,
-} from './dotFeedbackBadge.variants';
+import { dotBadgeSizeMap } from '../badge.variants';
+import { dotBadgeFeedbackStylesMap, dotBadgeFeedbackMutedStylesMap } from './dotBadge.variants';
 
-interface DotFeedbackBadgeDivProps {
+interface DotBadgeFeedbackDivProps {
   variant: FeedbackVariant;
   size: BadgeSize;
   isMuted: boolean;
 }
 
-export const DotFeedbackBadgeDiv = styled.div<DotFeedbackBadgeDivProps>(
+export const DotBadgeFeedbackDiv = styled.div<DotBadgeFeedbackDivProps>(
   ({ theme, variant, size, isMuted }) => {
     const backgroundColor = isMuted
-      ? DOT_FEEDBACK_BADGE_STYLE_MUTED(theme)[variant].bg
-      : DOT_FEEDBACK_BADGE_STYLE(theme)[variant].bg;
+      ? dotBadgeFeedbackMutedStylesMap(theme)[variant].bg
+      : dotBadgeFeedbackStylesMap(theme)[variant].bg;
 
     return {
-      width: pxToRem(DOT_BADGE_SIZE[size].width),
-      height: pxToRem(DOT_BADGE_SIZE[size].height),
+      width: pxToRem(dotBadgeSizeMap[size].width),
+      height: pxToRem(dotBadgeSizeMap[size].height),
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',

@@ -1,19 +1,19 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { ContentFeedbackBadge } from './ContentFeedbackBadge';
+import { ContentBadge } from './ContentBadge';
 
 const meta = {
-  title: 'Components/ContentFeedbackBadge',
-  component: ContentFeedbackBadge,
+  title: 'Components/ContentBadgeFeedback',
+  component: ContentBadge.Feedback,
   parameters: {
     layout: 'centered',
   },
   argTypes: {
     children: {
       control: 'text',
-      defaultValue: 'ContentFeedbackBadge',
+      defaultValue: 'ContentBadgeFeedback',
     },
   },
-} satisfies Meta<typeof ContentFeedbackBadge>;
+} satisfies Meta<typeof ContentBadge.Feedback>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -28,10 +28,10 @@ export const Default: Story = {
   },
 };
 
-export const Component: StoryObj<typeof ContentFeedbackBadge> = {
+export const Component: StoryObj<typeof ContentBadge.Feedback> = {
   render: () => (
-    <ContentFeedbackBadge variant='positive' size='md' badgeStyle='solid' isMuted={false}>
+    <ContentBadge.Feedback variant='positive' size='md' badgeStyle='solid' isMuted={false}>
       Feedback Badge
-    </ContentFeedbackBadge>
+    </ContentBadge.Feedback>
   ),
 };

@@ -1,13 +1,258 @@
 import { Theme } from '@emotion/react';
-import { BadgeStyle, ThemeVariant } from '../badge.types';
+import {
+  BadgeSize,
+  BadgeStyle,
+  BasicHierarchy,
+  ContentBadgeStyle,
+  FeedbackVariant,
+  ThemeVariant,
+} from '../badge.types';
+import { IconSize } from '@/components/Icon';
 
-type ContentThemeBadgeStyle = {
+export const iconSizeMap: Record<BadgeSize, IconSize> = {
+  lg: 'sm',
+  md: 'sm',
+  sm: 'xs',
+  xs: '2xs',
+};
+
+export const iconColorMap = (theme: Theme) => ({
+  solid: {
+    accent: theme.color.object.static.inverse.boldest,
+    primary: theme.color.object.inverse.boldest,
+    secondary: theme.color.object.static.inverse.boldest,
+    tertiary: theme.color.object.alternative,
+  },
+  alpha: {
+    accent: theme.color.accent.normal,
+    primary: theme.color.object.boldest,
+    secondary: theme.color.object.neutral,
+    tertiary: theme.color.object.alternative,
+  },
+  outlined: {
+    accent: theme.color.accent.normal,
+    primary: theme.color.object.boldest,
+    secondary: theme.color.object.neutral,
+    tertiary: theme.color.object.alternative,
+  },
+});
+
+type ContentBadgeBasicStyle = {
+  solid: Record<BasicHierarchy, BadgeStyle>;
+  alpha: Record<BasicHierarchy, BadgeStyle>;
+  outlined: Record<BasicHierarchy, BadgeStyle>;
+};
+
+export const contentBadgeBasicStylesMap = (theme: Theme): ContentBadgeBasicStyle => ({
+  solid: {
+    accent: {
+      bg: theme.color.accent.neutral,
+      color: theme.color.object.static.inverse.boldest,
+      border: 'none',
+    },
+    primary: {
+      bg: theme.color.fill.bold,
+      color: theme.color.object.inverse.boldest,
+      border: 'none',
+    },
+    secondary: {
+      bg: theme.color.fill.neutral,
+      color: theme.color.object.static.inverse.boldest,
+      border: 'none',
+    },
+    tertiary: {
+      bg: theme.color.fill.subtle,
+      color: theme.color.object.alternative,
+      border: 'none',
+    },
+  },
+  alpha: {
+    accent: {
+      bg: theme.color.accent.alpha.subtler,
+      color: theme.color.accent.normal,
+      border: 'none',
+    },
+    primary: {
+      bg: theme.color.fill.subtler,
+      color: theme.color.object.bolder,
+      border: 'none',
+    },
+    secondary: {
+      bg: theme.color.fill.subtle,
+      color: theme.color.object.neutral,
+      border: 'none',
+    },
+    tertiary: {
+      bg: theme.color.fill.subtler,
+      color: theme.color.object.alternative,
+      border: 'none',
+    },
+  },
+  outlined: {
+    accent: {
+      bg: 'none',
+      color: theme.color.accent.normal,
+      border: theme.color.accent.alpha.neutral,
+    },
+    primary: {
+      bg: 'none',
+      color: theme.color.object.bolder,
+      border: theme.color.stroke.alpha.assistive,
+    },
+    secondary: {
+      bg: 'none',
+      color: theme.color.object.neutral,
+      border: theme.color.stroke.alpha.assistive,
+    },
+    tertiary: {
+      bg: 'none',
+      color: theme.color.object.alternative,
+      border: theme.color.stroke.alpha.assistive,
+    },
+  },
+});
+
+export const contentBadgeBasicMutedStylesMap = (
+  theme: Theme,
+): Record<ContentBadgeStyle, BadgeStyle> => ({
+  solid: {
+    bg: theme.color.fill.subtler,
+    color: theme.color.object.subtle,
+    border: 'none',
+  },
+  alpha: {
+    bg: theme.color.fill.subtlest,
+    color: theme.color.object.subtle,
+    border: 'none',
+  },
+  outlined: {
+    bg: 'none',
+    color: theme.color.object.subtle,
+    border: theme.color.stroke.alpha.subtler,
+  },
+});
+
+type ContentBadgeFeedbackStyle = {
+  solid: Record<FeedbackVariant, BadgeStyle>;
+  alpha: Record<FeedbackVariant, BadgeStyle>;
+  outlined: Record<FeedbackVariant, BadgeStyle>;
+};
+
+export const contentBadgeFeedbackStylesMap = (theme: Theme): ContentBadgeFeedbackStyle => ({
+  solid: {
+    positive: {
+      bg: theme.color.feedback.positive.neutral,
+      color: theme.color.object.static.inverse.boldest,
+      border: 'none',
+    },
+    destructive: {
+      bg: theme.color.feedback.destructive.neutral,
+      color: theme.color.object.static.inverse.boldest,
+      border: 'none',
+    },
+    notifying: {
+      bg: theme.color.feedback.notifying.neutral,
+      color: theme.color.object.static.inverse.boldest,
+      border: 'none',
+    },
+  },
+  alpha: {
+    positive: {
+      bg: theme.color.feedback.positive.alpha.subtle,
+      color: theme.color.feedback.positive.normal,
+      border: 'none',
+    },
+    destructive: {
+      bg: theme.color.feedback.destructive.alpha.subtle,
+      color: theme.color.feedback.destructive.normal,
+      border: 'none',
+    },
+    notifying: {
+      bg: theme.color.feedback.notifying.alpha.subtle,
+      color: theme.color.feedback.notifying.normal,
+      border: 'none',
+    },
+  },
+  outlined: {
+    positive: {
+      bg: 'none',
+      color: theme.color.feedback.positive.normal,
+      border: theme.color.feedback.positive.alpha.subtle,
+    },
+    destructive: {
+      bg: 'none',
+      color: theme.color.feedback.destructive.normal,
+      border: theme.color.feedback.destructive.alpha.subtle,
+    },
+    notifying: {
+      bg: 'none',
+      color: theme.color.feedback.notifying.normal,
+      border: theme.color.feedback.notifying.alpha.subtle,
+    },
+  },
+});
+
+export const contentBadgeFeedbackMutedStylesMap = (theme: Theme): ContentBadgeFeedbackStyle => ({
+  solid: {
+    positive: {
+      bg: theme.color.feedback.positive.alpha.subtler,
+      color: theme.color.feedback.positive.alpha.subtle,
+      border: 'none',
+    },
+    destructive: {
+      bg: theme.color.feedback.destructive.alpha.subtler,
+      color: theme.color.feedback.destructive.alpha.subtle,
+      border: 'none',
+    },
+    notifying: {
+      bg: theme.color.feedback.notifying.alpha.subtler,
+      color: theme.color.feedback.notifying.alpha.subtle,
+      border: 'none',
+    },
+  },
+  alpha: {
+    positive: {
+      bg: theme.color.feedback.positive.alpha.subtlest,
+      color: theme.color.feedback.positive.alpha.subtle,
+      border: 'none',
+    },
+    destructive: {
+      bg: theme.color.feedback.destructive.alpha.subtlest,
+      color: theme.color.feedback.destructive.alpha.subtle,
+      border: 'none',
+    },
+    notifying: {
+      bg: theme.color.feedback.notifying.alpha.subtlest,
+      color: theme.color.feedback.notifying.alpha.subtle,
+      border: 'none',
+    },
+  },
+  outlined: {
+    positive: {
+      bg: 'none',
+      color: theme.color.feedback.positive.alpha.subtle,
+      border: theme.color.feedback.positive.alpha.subtler,
+    },
+    destructive: {
+      bg: 'none',
+      color: theme.color.feedback.destructive.alpha.subtle,
+      border: theme.color.feedback.destructive.alpha.subtler,
+    },
+    notifying: {
+      bg: 'none',
+      color: theme.color.feedback.notifying.alpha.subtle,
+      border: theme.color.feedback.notifying.alpha.subtler,
+    },
+  },
+});
+
+type ContentBadgeThemeStyle = {
   solid: Record<ThemeVariant, BadgeStyle>;
   alpha: Record<ThemeVariant, BadgeStyle>;
   outlined: Record<ThemeVariant, BadgeStyle>;
 };
 
-export const CONTENT_THEME_BADGE_STYLE = (theme: Theme): ContentThemeBadgeStyle => ({
+export const contentBadgeThemeStylesMap = (theme: Theme): ContentBadgeThemeStyle => ({
   solid: {
     red: {
       bg: theme.color.theme.red.neutral,
@@ -256,7 +501,7 @@ export const CONTENT_THEME_BADGE_STYLE = (theme: Theme): ContentThemeBadgeStyle 
   },
 });
 
-export const CONTENT_THEME_BADGE_STYLE_MUTED = (theme: Theme): ContentThemeBadgeStyle => ({
+export const contentBadgeThemeMutedStylesMap = (theme: Theme): ContentBadgeThemeStyle => ({
   solid: {
     red: {
       bg: theme.color.theme.red.alpha.subtler,
