@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, forwardRef } from 'react';
+import { ComponentPropsWithoutRef, forwardRef, SyntheticEvent } from 'react';
 import { IconDiv, ImageButton, ImageLabelDiv } from './Image.style';
 import { Icon } from '../Icon';
 import { useTheme } from 'theme';
@@ -9,6 +9,7 @@ export type ImgOrientation = 'portrait' | 'landscape';
 
 interface ImageProps extends ComponentPropsWithoutRef<'button'> {
   src?: string;
+  fallbackSrc?: string;
   alt: string;
   ratio?: ImgRatio;
   orientation?: ImgOrientation;
@@ -20,19 +21,25 @@ interface ImageProps extends ComponentPropsWithoutRef<'button'> {
 export const Image = forwardRef<HTMLButtonElement, ImageProps>(
   (
     {
+      src,
+      fallbackSrc = '/images/defaultImage.png',
       ratio = '1:1',
       orientation = 'portrait',
       isReadonly = false,
       badgeVisible = false,
       badgeLabel = '1',
-      src,
       alt,
       ...props
     },
     ref,
   ) => {
     const theme = useTheme();
-    const imageSrc = src || '/images/defaultImage.png';
+
+    const imageLoadErrorHandler = (e: SyntheticEvent<HTMLImageElement, Event>) => {
+      if (e.currentTarget.src !== fallbackSrc) {
+        e.currentTarget.src = fallbackSrc;
+      }
+    };
 
     return (
       <ImageButton
@@ -43,7 +50,7 @@ export const Image = forwardRef<HTMLButtonElement, ImageProps>(
         disabled={isReadonly}
         {...props}
       >
-        <img src={imageSrc} alt={alt} />
+        <img src={src || fallbackSrc} alt={alt} onError={imageLoadErrorHandler} />
         {badgeVisible && (
           <ImageLabelDiv>
             <Label
