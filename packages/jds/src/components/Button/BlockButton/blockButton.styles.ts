@@ -7,9 +7,10 @@ import type {
   BlockButtonStyle,
   FeedbackIntent,
 } from 'components';
-import type { IconSize } from 'components/Icon/Icon.types';
 import type { TextStyle } from 'types';
 import { InteractionLayer, pxToRem, textStyle } from 'utils';
+
+import type { IconSize } from '@/components/Icon/Icon.types';
 
 export const iconSizeMap: Record<BlockButtonSize, IconSize> = {
   lg: 'md',

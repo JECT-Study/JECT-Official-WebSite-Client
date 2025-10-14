@@ -1,9 +1,8 @@
+import type { BlockButtonBasicProps, BlockButtonFeedbackProps } from 'components';
+import { Icon } from 'components';
 import { forwardRef } from 'react';
 
 import { iconSizeMap, StyledBlockButton } from './blockButton.styles';
-
-import type { BlockButtonBasicProps, BlockButtonFeedbackProps } from '@/components';
-import { Icon } from '@/components';
 
 const BlockButtonBasic = forwardRef<HTMLButtonElement, BlockButtonBasicProps>(
   (
