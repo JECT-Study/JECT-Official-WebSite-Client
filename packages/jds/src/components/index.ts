@@ -3,4 +3,4 @@ export * from './Hero';
 export * from './Icon';
 export * from './IconButton';
 export * from './Label';
-export * from './LabelButton';
+export * from './Button/LabelButton';

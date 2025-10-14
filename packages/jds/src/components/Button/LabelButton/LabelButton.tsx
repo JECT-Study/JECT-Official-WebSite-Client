@@ -1,9 +1,8 @@
+import type { LabelButtonBasicProps, LabelButtonFeedbackProps } from 'components';
+import { Icon } from 'components';
 import { forwardRef } from 'react';
 
 import { iconSizeMap, StyledLabelButton } from './labelButton.styles';
-
-import type { LabelButtonBasicProps, LabelButtonFeedbackProps } from '@/components';
-import { Icon } from '@/components';
 
 const LabelButtonBasic = forwardRef<HTMLButtonElement, LabelButtonBasicProps>(
   (

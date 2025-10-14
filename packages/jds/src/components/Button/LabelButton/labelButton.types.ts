@@ -1,6 +1,5 @@
+import type { IconName } from 'components';
 import type { ComponentPropsWithoutRef, ReactNode } from 'react';
-
-import type { IconName } from '@/components';
 
 export type LabelButtonSize = 'xs' | 'sm' | 'md' | 'lg';
 export type LabelButtonHierarchy = 'accent' | 'primary' | 'secondary' | 'tertiary';

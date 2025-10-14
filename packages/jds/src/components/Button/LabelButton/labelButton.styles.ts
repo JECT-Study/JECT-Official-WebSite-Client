@@ -2,9 +2,10 @@ import isPropValid from '@emotion/is-prop-valid';
 import type { CSSObject, Theme } from '@emotion/react';
 import styled from '@emotion/styled';
 import type { LabelButtonSize, LabelButtonHierarchy, LabelButtonIntent } from 'components';
-import type { IconSize } from 'components/Icon/Icon.types';
 import type { TextStyle } from 'types';
 import { InteractionLayer, pxToRem, textStyle } from 'utils';
+
+import type { IconSize } from '@/components/Icon/Icon.types';
 
 export const iconSizeMap: Record<LabelButtonSize, IconSize> = {
   lg: 'md',
