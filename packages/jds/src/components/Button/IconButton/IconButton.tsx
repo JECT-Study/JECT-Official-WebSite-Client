@@ -1,9 +1,8 @@
+import type { IconButtonBasicProps, IconButtonFeedbackProps } from 'components';
 import { forwardRef } from 'react';
 
-import { Icon } from '../Icon';
 import { StyledIconButton, getIconSizeForButton } from './iconButton.styles';
-
-import type { IconButtonBasicProps, IconButtonFeedbackProps } from '@/components';
+import { Icon } from '../../Icon';
 
 const IconButtonBasic = forwardRef<HTMLButtonElement, IconButtonBasicProps>(
   ({ icon, size = 'md', hierarchy = 'primary', disabled = false, ...restProps }, ref) => {
