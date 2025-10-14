@@ -7,6 +7,7 @@ export function interaction(
   density: Density,
   fillColor: FillColor,
   state: InteractionState = 'default',
+  borderRadius: string = 'inherit',
 ) {
   const createAfter = (backgroundColor: string) => {
     const baseStyle = {
@@ -22,7 +23,7 @@ export function interaction(
       width: '100%',
       height: '100%',
       backgroundColor: backgroundColor,
-      borderRadius: 'inherit',
+      borderRadius,
     };
 
     if (state === 'locked') {
