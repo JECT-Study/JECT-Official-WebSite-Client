@@ -16,6 +16,7 @@ interface ImageProps extends ComponentPropsWithoutRef<'button'> {
   isReadonly?: boolean;
   badgeVisible?: boolean;
   badgeLabel?: string;
+  loading?: 'lazy' | 'eager';
 }
 
 export const Image = forwardRef<HTMLButtonElement, ImageProps>(
@@ -29,6 +30,7 @@ export const Image = forwardRef<HTMLButtonElement, ImageProps>(
       badgeVisible = false,
       badgeLabel = '1',
       alt,
+      loading = 'eager',
       ...props
     },
     ref,
@@ -50,7 +52,7 @@ export const Image = forwardRef<HTMLButtonElement, ImageProps>(
         disabled={isReadonly}
         {...props}
       >
-        <img src={src || fallbackSrc} alt={alt} onError={imageLoadErrorHandler} />
+        <img src={src || fallbackSrc} alt={alt} onError={imageLoadErrorHandler} loading={loading} />
         {badgeVisible && (
           <ImageLabelDiv>
             <Label
