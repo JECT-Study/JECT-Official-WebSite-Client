@@ -35,58 +35,58 @@ const borderRadiusMap: Record<BlockButtonSize, number> = {
 const sizeStyles: Record<BlockButtonSize, (theme: Theme) => CSSObject> = {
   lg: (theme: Theme) => ({
     padding: `${pxToRem(theme.scheme.desktop.spacing[10])} ${pxToRem(theme.scheme.desktop.spacing[20])}`,
-    borderRadius: pxToRem(theme.scheme.desktop.radius[6]),
+    borderRadius: `${theme.scheme.desktop.radius[6]}px`,
 
     [theme.breakPoint.tablet]: {
       padding: `${pxToRem(theme.scheme.tablet.spacing[10])} ${pxToRem(theme.scheme.tablet.spacing[20])}`,
-      borderRadius: pxToRem(theme.scheme.tablet.radius[6]),
+      borderRadius: `${theme.scheme.tablet.radius[6]}px`,
     },
 
     [theme.breakPoint.mobile]: {
       padding: `${pxToRem(theme.scheme.mobile.spacing[10])} ${pxToRem(theme.scheme.mobile.spacing[20])}`,
-      borderRadius: pxToRem(theme.scheme.mobile.radius[6]),
+      borderRadius: `${theme.scheme.mobile.radius[6]}px`,
     },
   }),
   md: (theme: Theme) => ({
     padding: `${pxToRem(theme.scheme.desktop.spacing[8])} ${pxToRem(theme.scheme.desktop.spacing[16])}`,
-    borderRadius: pxToRem(theme.scheme.desktop.radius[6]),
+    borderRadius: `${theme.scheme.desktop.radius[6]}px`,
 
     [theme.breakPoint.tablet]: {
       padding: `${pxToRem(theme.scheme.tablet.spacing[8])} ${pxToRem(theme.scheme.tablet.spacing[16])}`,
-      borderRadius: pxToRem(theme.scheme.tablet.radius[6]),
+      borderRadius: `${theme.scheme.tablet.radius[6]}px`,
     },
 
     [theme.breakPoint.mobile]: {
       padding: `${pxToRem(theme.scheme.mobile.spacing[8])} ${pxToRem(theme.scheme.mobile.spacing[16])}`,
-      borderRadius: pxToRem(theme.scheme.mobile.radius[6]),
+      borderRadius: `${theme.scheme.mobile.radius[6]}px`,
     },
   }),
   sm: (theme: Theme) => ({
     padding: `${pxToRem(theme.scheme.desktop.spacing[6])} ${pxToRem(theme.scheme.desktop.spacing[12])}`,
-    borderRadius: pxToRem(theme.scheme.desktop.radius[4]),
+    borderRadius: `${theme.scheme.desktop.radius[4]}px`,
 
     [theme.breakPoint.tablet]: {
       padding: `${pxToRem(theme.scheme.tablet.spacing[6])} ${pxToRem(theme.scheme.tablet.spacing[12])}`,
-      borderRadius: pxToRem(theme.scheme.tablet.radius[4]),
+      borderRadius: `${theme.scheme.tablet.radius[4]}px`,
     },
 
     [theme.breakPoint.mobile]: {
       padding: `${pxToRem(theme.scheme.mobile.spacing[6])} ${pxToRem(theme.scheme.mobile.spacing[12])}`,
-      borderRadius: pxToRem(theme.scheme.mobile.radius[4]),
+      borderRadius: `${theme.scheme.mobile.radius[4]}px`,
     },
   }),
   xs: (theme: Theme) => ({
     padding: `${pxToRem(theme.scheme.desktop.spacing[4])} ${pxToRem(theme.scheme.desktop.spacing[8])}`,
-    borderRadius: pxToRem(theme.scheme.desktop.radius[4]),
+    borderRadius: `${theme.scheme.desktop.radius[4]}px`,
 
     [theme.breakPoint.tablet]: {
       padding: `${pxToRem(theme.scheme.tablet.spacing[4])} ${pxToRem(theme.scheme.tablet.spacing[8])}`,
-      borderRadius: pxToRem(theme.scheme.tablet.radius[4]),
+      borderRadius: `${theme.scheme.tablet.radius[4]}px`,
     },
 
     [theme.breakPoint.mobile]: {
       padding: `${pxToRem(theme.scheme.mobile.spacing[4])} ${pxToRem(theme.scheme.mobile.spacing[8])}`,
-      borderRadius: pxToRem(theme.scheme.mobile.radius[4]),
+      borderRadius: `${theme.scheme.mobile.radius[4]}px`,
     },
   }),
 };
@@ -683,7 +683,7 @@ const variantColorStylesMap = {
     const colors = outlinedColors(theme, hierarchy, disabled);
     return {
       ...colors,
-      border: `${pxToRem(1)} solid ${colors.borderColor}`,
+      border: `1px solid ${colors.borderColor}`,
     };
   },
   empty: (theme: Theme, hierarchy: BlockButtonHierarchy, disabled: boolean) =>
