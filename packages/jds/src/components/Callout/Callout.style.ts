@@ -11,7 +11,8 @@ export const CalloutBasicDiv = styled.div<CalloutBasicDivProps>(
   ({ theme, hierarchy, variant, size }) => {
     const style = calloutBasicStylesMap(theme)[variant][hierarchy];
     const border = variant === 'hero' ? 'none' : `1px solid ${style.border}`;
-    const borderLeft = variant === 'hero' ? `6px solid ${style.border}` : 'none';
+    const borderLeft =
+      variant === 'hero' ? `6px solid ${style.border}` : `1px solid ${style.border}`;
     const borderRadius = variant === 'hero' ? 'none' : pxToRem(6);
 
     return {
@@ -33,6 +34,10 @@ export const CalloutBasicDiv = styled.div<CalloutBasicDivProps>(
 export const CalloutFeedbackDiv = styled.div<CalloutFeedbackDivProps>(
   ({ theme, hierarchy, variant, size }) => {
     const style = calloutFeedbackStylesMap(theme)[variant][hierarchy];
+    const border = variant === 'hero' ? 'none' : `1px solid ${style.border}`;
+    const borderLeft =
+      variant === 'hero' ? `6px solid ${style.border}` : `1px solid ${style.border}`;
+    const borderRadius = variant === 'hero' ? 'none' : pxToRem(6);
 
     return {
       width: pxToRem(300),
@@ -41,7 +46,9 @@ export const CalloutFeedbackDiv = styled.div<CalloutFeedbackDivProps>(
       alignItems: 'flex-start',
       padding: `${pxToRem(calloutSizeMap[size].paddingTopBottom)} ${pxToRem(calloutSizeMap[size].paddingLeftRight)}`,
       gap: pxToRem(calloutSizeMap[size].gap),
-      borderLeft: `6px solid ${style.border}`,
+      border,
+      borderLeft,
+      borderRadius,
       backgroundColor: style.bg,
       color: style.color,
     };
