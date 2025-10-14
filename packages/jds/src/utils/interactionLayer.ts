@@ -30,7 +30,11 @@ const SPECIAL_STATE_OPACITY = {
   locked: 0.08,
 } as const;
 
-const FOCUS_OUTLINE_WIDTH = pxToRem(3);
+/**
+ * Focus outline width는 px로 고정
+ * 이유: 접근성을 위해 명확하고 선명한 outline이 필요하므로 서브픽셀 렌더링 방지
+ */
+const FOCUS_OUTLINE_WIDTH = '3px';
 
 const getBackgroundColor = (
   theme: Theme,
@@ -197,7 +201,7 @@ export function InteractionLayer({
   const baseStyle: CSSObject = {
     position: 'relative',
     outline: 'none',
-    borderRadius: borderRadius > 0 ? pxToRem(borderRadius) : 0,
+    borderRadius: borderRadius > 0 ? `${borderRadius}px` : 0,
     '::before': {
       content: '""',
       position: 'absolute',
@@ -207,7 +211,7 @@ export function InteractionLayer({
       left: hasOffset ? leftRightValue : 0,
       width: hasOffset && hasHorizontalOffset ? 'auto' : '100%',
       height: hasOffset && hasVerticalOffset ? 'auto' : '100%',
-      borderRadius: borderRadius > 0 ? pxToRem(borderRadius) : 0,
+      borderRadius: borderRadius > 0 ? `${borderRadius}px` : 0,
       boxShadow: `0 0 0 ${FOCUS_OUTLINE_WIDTH} ${theme.color.interaction.focus}`,
       opacity: isFocusState && hasOffset ? 1 : 0,
       pointerEvents: 'none',
@@ -221,7 +225,7 @@ export function InteractionLayer({
       left: leftRightValue,
       width: hasHorizontalOffset ? 'auto' : '100%',
       height: hasVerticalOffset ? 'auto' : '100%',
-      borderRadius: borderRadius > 0 ? pxToRem(borderRadius) : 0,
+      borderRadius: borderRadius > 0 ? `${borderRadius}px` : 0,
       backgroundColor,
       opacity,
       pointerEvents: 'none',
