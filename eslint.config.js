@@ -50,7 +50,7 @@ export default tseslint.config(
           selector: 'variable',
           types: ['boolean'],
           format: ['PascalCase'],
-          prefix: ['is'],
+          prefix: ['is', 'has'],
         },
         {
           selector: 'typeAlias',

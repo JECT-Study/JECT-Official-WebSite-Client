@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
+
 import { Icon } from './Icon';
-import { IconProps } from './Icon.types';
-import { useTheme } from 'theme';
 
 const meta = {
   title: 'Components/Icon',
@@ -18,18 +17,25 @@ export const Default: Story = {
   args: {
     name: 'absolute',
     size: '5xl',
-    color: '#fff',
   },
 };
 
-export const ThemedIcon: Story = {
+export const WithCustomColor: Story = {
   args: {
-    name: 'absolute',
+    name: 'heart-3-fill',
     size: '3xl',
-    color: '',
+    color: '#ff0000',
   },
-  render: (args: IconProps) => {
-    const theme = useTheme();
-    return <Icon {...args} color={theme.color.theme.red.neutral} />;
+};
+
+export const InheritColor: Story = {
+  args: {
+    name: 'check-line',
+    size: '2xl',
   },
+  render: (args) => (
+    <div style={{ color: '#00ff00' }}>
+      <Icon {...args} />
+    </div>
+  ),
 };
