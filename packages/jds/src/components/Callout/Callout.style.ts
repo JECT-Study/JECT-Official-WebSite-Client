@@ -13,7 +13,7 @@ export const CalloutBasicDiv = styled.div<CalloutBasicDivProps>(
     const border = variant === 'hero' ? 'none' : `1px solid ${style.border}`;
     const borderLeft =
       variant === 'hero' ? `6px solid ${style.border}` : `1px solid ${style.border}`;
-    const borderRadius = variant === 'hero' ? 'none' : pxToRem(6);
+    const borderRadius = variant === 'hero' ? 'none' : `${theme.scheme.desktop.radius[6]}px`;
 
     return {
       width: pxToRem(300),
@@ -37,7 +37,7 @@ export const CalloutFeedbackDiv = styled.div<CalloutFeedbackDivProps>(
     const border = variant === 'hero' ? 'none' : `1px solid ${style.border}`;
     const borderLeft =
       variant === 'hero' ? `6px solid ${style.border}` : `1px solid ${style.border}`;
-    const borderRadius = variant === 'hero' ? 'none' : pxToRem(6);
+    const borderRadius = variant === 'hero' ? 'none' : `${theme.scheme.desktop.radius[6]}px`;
 
     return {
       width: pxToRem(300),
