@@ -13,6 +13,10 @@ const config: StorybookConfig = {
     name: '@storybook/react-vite',
     options: {},
   },
+  typescript: {
+    check: true,
+    reactDocgen: 'react-docgen-typescript',
+  },
   viteFinal: async config => {
     config.resolve = config.resolve || {};
     config.resolve.alias = {
@@ -24,6 +28,7 @@ const config: StorybookConfig = {
       types: resolve(__dirname, '../src/types'),
       utils: resolve(__dirname, '../src/utils'),
       '@': resolve(__dirname, '../src'),
+      '@storybook-utils': resolve(__dirname, './utils'),
     };
 
     return config;

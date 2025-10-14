@@ -33,5 +33,5 @@
     }
   },
   "include": ["src/**/*", "entire-convert.js", "fonts.d.ts"],
-  "exclude": ["dist", "node_modules", "**/*.stories.tsx", "**/*.test.tsx"]
+  "exclude": ["dist", "node_modules"]
 }
