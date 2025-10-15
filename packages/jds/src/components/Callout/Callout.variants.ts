@@ -1,5 +1,14 @@
 import { Theme } from '@emotion/react';
-import { BasicHierarchy, CalloutVariant, FeedbackHierarchy } from './Callout.types';
+import { BasicHierarchy, CalloutSize, CalloutVariant, FeedbackHierarchy } from './Callout.types';
+import { BlockButtonSize } from '../Button/BlockButton';
+
+export const calloutButtonSizeMap: Record<CalloutSize, BlockButtonSize> = {
+  lg: 'sm',
+  md: 'sm',
+  sm: 'sm',
+  xs: 'xs',
+  '2xs': 'xs',
+};
 
 type BasicStyle = Record<
   CalloutVariant,
