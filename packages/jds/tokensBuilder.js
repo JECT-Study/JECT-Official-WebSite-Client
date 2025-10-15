@@ -1,12 +1,14 @@
 import fs from 'fs';
 
 /**
- * <디자인 토큰 JSON 파일 변환 스크립트 사용법 >
+ * 디자인 토큰 JSON 파일 변환 스크립트
  *
- * 1. jds 최상위 경로에 피그마에서 받은 JSON 파일 추가 (JSON 파일은 github에 push X)
- * 2. jds의 tokensBuilder 스크립트 내 tokenFilePath 변수에 변환할 JSON 파일명 작성 ex) jds_tokens_250817.json
- * 3. jds의 npm run build:tokens 명령어로 tokensBuilder 스크립트 실행
- * 4. src/tokens/token.ts 경로에 토큰 파일 생성 완료
+ * 사용법:
+ * 1. jds 최상위 경로에 피그마에서 받은 JSON 파일 추가 (JSON 파일은 Github에 push X)
+ * 2. jds의 tokensBuilder 스크립트 내 tokenFilePath 변수에 변환할 JSON 파일명 작성
+ *    예) jds_tokens_250817.json
+ * 3. 터미널에서 jds의 "npm run build:tokens" 명령어 실행
+ * 4. 변환 완료 후 src/tokens/token.ts 경로에 토큰 파일 생성
  *
  * */
 const tokenFilePath = 'jds_tokens_251003.json';
