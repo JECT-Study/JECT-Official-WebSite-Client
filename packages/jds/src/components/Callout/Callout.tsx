@@ -13,8 +13,8 @@ const CalloutBasic = ({
   hierarchy,
   size = 'md',
   titleVisible = false,
-  extraButtonVisible = false,
   title,
+  extraButtonVisible = false,
   blockButtonProps,
   children,
 }: BasicCalloutProps) => {
@@ -22,17 +22,15 @@ const CalloutBasic = ({
 
   return (
     <CalloutBasicDiv hierarchy={hierarchy} variant={variant} size={size}>
-      {titleVisible && <CalloutTitleP size={size}>{title}</CalloutTitleP>}
+      {titleVisible && title && <CalloutTitleP size={size}>{title}</CalloutTitleP>}
       <CalloutContentP size={size}>{children}</CalloutContentP>
-      {extraButtonVisible && (
+      {extraButtonVisible && blockButtonProps && (
         <BlockButton.Basic
           hierarchy={hierarchy}
           size={buttonSize}
           variant='solid'
           {...blockButtonProps}
-        >
-          {blockButtonProps?.children}
-        </BlockButton.Basic>
+        />
       )}
     </CalloutBasicDiv>
   );
@@ -45,8 +43,8 @@ const CalloutFeedback = ({
   feedback,
   size = 'md',
   titleVisible = false,
-  extraButtonVisible = false,
   title,
+  extraButtonVisible = false,
   blockButtonProps,
   children,
 }: FeedbackCalloutProps) => {
@@ -54,22 +52,19 @@ const CalloutFeedback = ({
 
   return (
     <CalloutFeedbackDiv hierarchy={feedback} variant={variant} size={size}>
-      {titleVisible && <CalloutTitleP size={size}>{title}</CalloutTitleP>}
+      {titleVisible && title && <CalloutTitleP size={size}>{title}</CalloutTitleP>}
       <CalloutContentP size={size}>{children}</CalloutContentP>
       {extraButtonVisible &&
+        blockButtonProps &&
         (feedback === 'notifying' ? (
           <BlockButton.Basic
             hierarchy='primary'
             size={buttonSize}
             variant='solid'
             {...blockButtonProps}
-          >
-            {blockButtonProps?.children}
-          </BlockButton.Basic>
+          />
         ) : (
-          <BlockButton.Feedback intent={feedback} size={buttonSize} {...blockButtonProps}>
-            {blockButtonProps?.children}
-          </BlockButton.Feedback>
+          <BlockButton.Feedback intent={feedback} size={buttonSize} {...blockButtonProps} />
         ))}
     </CalloutFeedbackDiv>
   );
