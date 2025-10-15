@@ -10,20 +10,17 @@ const preview: Preview = {
         date: /Date$/i,
       },
     },
-    backgrounds: {
-      default: 'dark',
-    },
   },
   globalTypes: {
     theme: {
-      name: 'Theme',
-      description: '전역 테마 스위처',
+      name: 'ThemeMode',
+      description: 'Change theme mode',
       defaultValue: 'light',
       toolbar: {
-        icon: 'circlehellow',
+        icon: 'sun',
         items: [
-          { value: 'light', title: 'Light', icon: 'circlehollow' },
-          { value: 'dark', title: 'Dark', icon: 'circle' },
+          { value: 'light', title: 'Light', icon: 'sun' },
+          { value: 'dark', title: 'Dark', icon: 'moon' },
         ],
         showName: true,
       },
@@ -32,6 +29,9 @@ const preview: Preview = {
   decorators: [
     (Story, context) => {
       const theme = context.globals.theme === 'light' ? lightTheme : darkTheme;
+      const backgroundColor = context.globals.theme === 'light' ? '#ffffff' : '#191B24';
+      document.body.style.background = backgroundColor;
+
       return (
         <ThemeProvider theme={theme}>
           <GlobalStyles />
