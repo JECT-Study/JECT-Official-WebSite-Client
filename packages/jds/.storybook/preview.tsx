@@ -32,6 +32,11 @@ const preview: Preview = {
       const backgroundColor = context.globals.theme === 'light' ? '#ffffff' : '#191B24';
       document.body.style.background = backgroundColor;
 
+      const docsStories = document.querySelectorAll('.docs-story');
+      docsStories.forEach(el => {
+        (el as HTMLElement).style.background = backgroundColor;
+      });
+
       return (
         <ThemeProvider theme={theme}>
           <GlobalStyles />
