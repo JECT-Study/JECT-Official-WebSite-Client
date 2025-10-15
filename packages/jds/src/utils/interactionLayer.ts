@@ -45,74 +45,74 @@ const getBackgroundColor = (
   const colorMap = {
     normal: {
       bold: {
-        default: theme.color.interaction.bold,
-        inverse: theme.color.interaction.inverse.bold,
+        default: theme.color.semantic.interaction.bold,
+        inverse: theme.color.semantic.interaction.inverse.bold,
       },
       normal: {
-        default: theme.color.interaction.normal,
-        inverse: theme.color.interaction.inverse.normal,
+        default: theme.color.semantic.interaction.normal,
+        inverse: theme.color.semantic.interaction.inverse.normal,
       },
       assistive: {
-        default: theme.color.interaction.assistive,
-        inverse: theme.color.interaction.inverse.assistive,
+        default: theme.color.semantic.interaction.assistive,
+        inverse: theme.color.semantic.interaction.inverse.assistive,
       },
       subtle: {
-        default: theme.color.interaction.subtle,
-        inverse: theme.color.interaction.inverse.subtle,
+        default: theme.color.semantic.interaction.subtle,
+        inverse: theme.color.semantic.interaction.inverse.subtle,
       },
     },
     accent: {
       bold: {
-        default: theme.color.accent.bold,
-        inverse: theme.color.accent.inverse.bold,
+        default: theme.color.semantic.accent.bold,
+        inverse: theme.color.semantic.accent.inverse.bold,
       },
       normal: {
-        default: theme.color.accent.normal,
-        inverse: theme.color.accent.inverse.normal,
+        default: theme.color.semantic.accent.normal,
+        inverse: theme.color.semantic.accent.inverse.normal,
       },
       assistive: {
-        default: theme.color.accent.neutral,
-        inverse: theme.color.accent.inverse.neutral,
+        default: theme.color.semantic.accent.neutral,
+        inverse: theme.color.semantic.accent.inverse.neutral,
       },
       subtle: {
-        default: theme.color.accent.alternative,
-        inverse: theme.color.accent.inverse.alternative,
+        default: theme.color.semantic.accent.alternative,
+        inverse: theme.color.semantic.accent.inverse.alternative,
       },
     },
     positive: {
       bold: {
-        default: theme.color.feedback.positive.bold,
-        inverse: theme.color.feedback.positive.inverse.bold,
+        default: theme.color.semantic.feedback.positive.bold,
+        inverse: theme.color.semantic.feedback.positive.inverse.bold,
       },
       normal: {
-        default: theme.color.feedback.positive.normal,
-        inverse: theme.color.feedback.positive.inverse.normal,
+        default: theme.color.semantic.feedback.positive.normal,
+        inverse: theme.color.semantic.feedback.positive.inverse.normal,
       },
       assistive: {
-        default: theme.color.feedback.positive.neutral,
-        inverse: theme.color.feedback.positive.inverse.neutral,
+        default: theme.color.semantic.feedback.positive.neutral,
+        inverse: theme.color.semantic.feedback.positive.inverse.neutral,
       },
       subtle: {
-        default: theme.color.feedback.positive.alternative,
-        inverse: theme.color.feedback.positive.inverse.alternative,
+        default: theme.color.semantic.feedback.positive.alternative,
+        inverse: theme.color.semantic.feedback.positive.inverse.alternative,
       },
     },
     destructive: {
       bold: {
-        default: theme.color.feedback.destructive.bold,
-        inverse: theme.color.feedback.destructive.inverse.bold,
+        default: theme.color.semantic.feedback.destructive.bold,
+        inverse: theme.color.semantic.feedback.destructive.inverse.bold,
       },
       normal: {
-        default: theme.color.feedback.destructive.normal,
-        inverse: theme.color.feedback.destructive.inverse.normal,
+        default: theme.color.semantic.feedback.destructive.normal,
+        inverse: theme.color.semantic.feedback.destructive.inverse.normal,
       },
       assistive: {
-        default: theme.color.feedback.destructive.neutral,
-        inverse: theme.color.feedback.destructive.inverse.neutral,
+        default: theme.color.semantic.feedback.destructive.neutral,
+        inverse: theme.color.semantic.feedback.destructive.inverse.neutral,
       },
       subtle: {
-        default: theme.color.feedback.destructive.alternative,
-        inverse: theme.color.feedback.destructive.inverse.alternative,
+        default: theme.color.semantic.feedback.destructive.alternative,
+        inverse: theme.color.semantic.feedback.destructive.inverse.alternative,
       },
     },
   };
@@ -212,7 +212,7 @@ export function InteractionLayer({
       width: hasOffset && hasHorizontalOffset ? 'auto' : '100%',
       height: hasOffset && hasVerticalOffset ? 'auto' : '100%',
       borderRadius: borderRadius > 0 ? `${borderRadius}px` : 0,
-      boxShadow: `0 0 0 ${FOCUS_OUTLINE_WIDTH} ${theme.color.interaction.focus}`,
+      boxShadow: `0 0 0 ${FOCUS_OUTLINE_WIDTH} ${theme.color.semantic.interaction.focus}`,
       opacity: isFocusState && hasOffset ? 1 : 0,
       pointerEvents: 'none',
     },
@@ -233,7 +233,7 @@ export function InteractionLayer({
   };
 
   if (isFocusState && !hasOffset) {
-    baseStyle.boxShadow = `0 0 0 ${FOCUS_OUTLINE_WIDTH} ${theme.color.interaction.focus}`;
+    baseStyle.boxShadow = `0 0 0 ${FOCUS_OUTLINE_WIDTH} ${theme.color.semantic.interaction.focus}`;
   }
 
   return baseStyle;

@@ -67,7 +67,7 @@ export const BadgeIcon = styled(Icon)<BadgeIconProps>(({
   isMuted,
 }) => {
   const iconColor = isMuted
-    ? theme.color.object.subtle
+    ? theme.color.semantic.object.subtle
     : iconColorMap(theme)[badgeStyle][hierarchy];
 
   return {
