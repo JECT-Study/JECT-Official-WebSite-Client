@@ -1,15 +1,15 @@
 import fs from 'fs';
 
 /**
- * 디자인 토큰 JSON 파일 변환 스크립트
+ * <디자인 토큰 JSON 파일 변환 스크립트 사용법 >
  *
- * tokenFilePath: 변환할 원본 디자인 토큰 JSON 파일 경로, 새로운 JSON 파일 변환 시 경로 수정 필요
- * outputDir: 변환된 TypeScript 토큰 파일이 저장될 디렉토리
- * outputFile: 최종 생성될 TypeScript 파일의 전체 경로 (outputDir + 파일명)
+ * 1. jds 최상위 경로에 피그마에서 받은 JSON 파일 추가 (JSON 파일은 github에 push X)
+ * 2. jds의 tokensBuilder 스크립트 내 tokenFilePath 변수에 변환할 JSON 파일명 작성 ex) jds_tokens_250817.json
+ * 3. jds의 npm run build:tokens 명령어로 tokensBuilder 스크립트 실행
+ * 4. src/tokens/token.ts 경로에 토큰 파일 생성 완료
  *
- * 변환된 토큰 사용법: import { designTokens } from './${outputFile.replace('.ts', '')}
  * */
-const tokenFilePath = 'jds_tokens_250817.json';
+const tokenFilePath = 'jds_tokens_251003.json';
 const outputDir = 'src/tokens';
 const outputFile = `${outputDir}/tokens.ts`;
 
