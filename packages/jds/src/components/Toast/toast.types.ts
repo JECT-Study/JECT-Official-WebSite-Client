@@ -1,22 +1,12 @@
 import { ReactNode } from 'react';
-import { BlockButtonBasicProps } from '@/components';
 
-export type ToastVariant = 'toast' | 'snackbar';
 export type ToastFeedback = 'positive' | 'destructive';
 export type ToastStyle = 'basic' | ToastFeedback;
 
-export interface ToastButtonsProps {
-  variant: ToastVariant;
-  prefixButtonProps?: Omit<BlockButtonBasicProps, 'hierarchy' | 'size' | 'variant'>;
-  suffixButtonProps?: Omit<BlockButtonBasicProps, 'hierarchy' | 'size' | 'variant'>;
-}
-
 export interface ToastBaseProps {
-  variant?: ToastVariant;
+  title: ReactNode;
   caption?: ReactNode;
-  prefixButtonProps?: Omit<BlockButtonBasicProps, 'hierarchy' | 'size' | 'variant'>;
-  suffixButtonProps?: Omit<BlockButtonBasicProps, 'hierarchy' | 'size' | 'variant'>;
-  children: ReactNode;
+  closeButtonFn?: () => void;
 }
 
 export interface ToastFeedbackProps extends ToastBaseProps {

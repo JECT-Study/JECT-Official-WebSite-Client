@@ -4,6 +4,19 @@ import { Icon, Label } from '@/components';
 import { toastStylesMap } from './toast.variants';
 import { ToastDivProps, ToastFeedbackIconProps } from './toast.types';
 
+export const ToastStackContainer = styled.div(({ theme }) => {
+  return {
+    position: 'absolute',
+    bottom: '40px',
+    right: '40px',
+    [theme.breakPoint.tablet]: { bottom: '40px', right: '40px' },
+    [theme.breakPoint.mobile]: { bottom: '24px', right: '50%', transform: 'translate(50%, 0)' },
+    display: 'flex',
+    flexDirection: 'column-reverse',
+    gap: pxToRem(16),
+  };
+});
+
 export const ToastDiv = styled.div<ToastDivProps>(({ theme, toastStyle }) => {
   const color = toastStylesMap(theme)[toastStyle].color;
   const borderColor = toastStylesMap(theme)[toastStyle].borderColor;
@@ -16,11 +29,21 @@ export const ToastDiv = styled.div<ToastDivProps>(({ theme, toastStyle }) => {
     width: pxToRem(300),
     minHeight: pxToRem(55),
     padding: `16px 20px`,
-    border: `${theme.scheme.desktop.stroke.weight[1]} solid ${borderColor}`,
+    border: `${theme.scheme.desktop.stroke.weight[1]}px solid ${borderColor}`,
     borderRadius: `${theme.scheme.desktop.radius[10]}px`,
     backgroundColor,
     color,
     ...shadow(theme, 'desktop', 'overlay'),
+
+    position: 'relative',
+    '::before': {
+      content: '""',
+      position: 'absolute',
+      inset: 0,
+      borderRadius: 'inherit',
+      backgroundColor: theme.color.surface.shallow,
+      zIndex: '-10',
+    },
   };
 });
 

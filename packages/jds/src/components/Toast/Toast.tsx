@@ -1,5 +1,4 @@
 import {
-  ButtonContainerDiv,
   ToastCaptionP,
   ToastContentDiv,
   ToastDiv,
@@ -7,56 +6,27 @@ import {
   ToastLabel,
   ToastLabelContainerDiv,
 } from './toast.styles';
-import { BlockButton, IconButton } from '@/components';
-import { ToastBaseProps, ToastButtonsProps, ToastFeedbackProps } from './toast.types';
+import { IconButton } from '@/components';
+import { ToastBaseProps, ToastFeedbackProps } from './toast.types';
 
-const ToastButtons = ({ variant, prefixButtonProps, suffixButtonProps }: ToastButtonsProps) => {
-  if ((!prefixButtonProps && !suffixButtonProps) || variant !== 'snackbar') return;
-
-  return (
-    <ButtonContainerDiv>
-      {prefixButtonProps && (
-        <BlockButton.Basic hierarchy='tertiary' size='xs' variant='solid' {...prefixButtonProps}>
-          {prefixButtonProps.children}
-        </BlockButton.Basic>
-      )}
-      {suffixButtonProps && (
-        <BlockButton.Basic hierarchy='primary' size='xs' variant='solid' {...suffixButtonProps}>
-          {suffixButtonProps.children}
-        </BlockButton.Basic>
-      )}
-    </ButtonContainerDiv>
-  );
-};
-
-const ToastBasic = ({
-  variant = 'toast',
-  caption = undefined,
-  prefixButtonProps = undefined,
-  suffixButtonProps = undefined,
-  children,
-}: ToastBaseProps) => {
+const ToastBasic = ({ caption = undefined, closeButtonFn, title }: ToastBaseProps) => {
   return (
     <ToastDiv toastStyle='basic'>
       <ToastContentDiv>
         <ToastLabelContainerDiv>
           <ToastLabel toastStyle='basic' size='md' textAlign='left' weight='normal'>
-            {children}
+            {title}
           </ToastLabel>
           <IconButton.Basic
             icon='close-line'
             hierarchy='secondary'
             size='md'
             aria-label='toast close button'
+            onClick={closeButtonFn}
           />
         </ToastLabelContainerDiv>
-        <ToastCaptionP>{caption}</ToastCaptionP>
+        {caption && <ToastCaptionP>{caption}</ToastCaptionP>}
       </ToastContentDiv>
-      <ToastButtons
-        variant={variant}
-        prefixButtonProps={prefixButtonProps}
-        suffixButtonProps={suffixButtonProps}
-      />
     </ToastDiv>
   );
 };
@@ -64,12 +34,10 @@ const ToastBasic = ({
 ToastBasic.displayName = 'Toast.Basic';
 
 const ToastFeedback: React.FC<ToastFeedbackProps> = ({
-  variant = 'toast',
   feedback = 'positive',
   caption = undefined,
-  prefixButtonProps = undefined,
-  suffixButtonProps = undefined,
-  children,
+  closeButtonFn,
+  title,
 }) => {
   return (
     <ToastDiv toastStyle={feedback}>
@@ -80,22 +48,18 @@ const ToastFeedback: React.FC<ToastFeedbackProps> = ({
             name={feedback === 'positive' ? 'check-line' : 'error-warning-line'}
           />
           <ToastLabel toastStyle={feedback} size='md' textAlign='left' weight='normal'>
-            {children}
+            {title}
           </ToastLabel>
           <IconButton.Basic
             icon='close-line'
             hierarchy='secondary'
             size='md'
             aria-label='toast close button'
+            onClick={closeButtonFn}
           />
         </ToastLabelContainerDiv>
-        <ToastCaptionP>{caption}</ToastCaptionP>
+        {caption && <ToastCaptionP>{caption}</ToastCaptionP>}
       </ToastContentDiv>
-      <ToastButtons
-        variant={variant}
-        prefixButtonProps={prefixButtonProps}
-        suffixButtonProps={suffixButtonProps}
-      />
     </ToastDiv>
   );
 };
