@@ -2,13 +2,38 @@ import styled from '@emotion/styled';
 import { pxToRem, shadow, textStyle } from 'utils';
 import { Icon, Label } from '@/components';
 import { toastStylesMap } from './toast.variants';
-import { ToastDivProps, ToastFeedbackIconProps } from './toast.types';
+import { ToastDivProps, ToastFeedbackIconProps, ToastStyle } from './toast.types';
+import { keyframes } from '@emotion/react';
+
+const slideIn = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
+const slideOut = keyframes`
+  from {
+    opacity: 1;
+    transform: translateY(0);
+        
+  }
+  to {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+`;
 
 export const ToastStackContainer = styled.div(({ theme }) => {
   return {
     position: 'absolute',
     bottom: '40px',
     right: '40px',
+    zIndex: 9999,
     [theme.breakPoint.tablet]: { bottom: '40px', right: '40px' },
     [theme.breakPoint.mobile]: { bottom: '24px', right: '50%', transform: 'translate(50%, 0)' },
     display: 'flex',
@@ -17,7 +42,7 @@ export const ToastStackContainer = styled.div(({ theme }) => {
   };
 });
 
-export const ToastDiv = styled.div<ToastDivProps>(({ theme, toastStyle }) => {
+export const ToastDiv = styled.div<ToastDivProps>(({ theme, toastStyle, isExiting }) => {
   const color = toastStylesMap(theme)[toastStyle].color;
   const borderColor = toastStylesMap(theme)[toastStyle].borderColor;
   const backgroundColor = toastStylesMap(theme)[toastStyle].backgroundColor;
@@ -44,10 +69,14 @@ export const ToastDiv = styled.div<ToastDivProps>(({ theme, toastStyle }) => {
       backgroundColor: theme.color.surface.shallow,
       zIndex: '-10',
     },
+
+    animation: isExiting
+      ? `${slideOut}  ${theme.environment.duration[250]}ms ${theme.environment.motion.bouncy} forwards`
+      : `${slideIn}  ${theme.environment.duration[250]}ms ${theme.environment.motion.bouncy} forwards`,
   };
 });
 
-export const ToastLabel = styled(Label)<ToastDivProps>(({ theme, toastStyle }) => {
+export const ToastLabel = styled(Label)<{ toastStyle: ToastStyle }>(({ theme, toastStyle }) => {
   const color = toastStylesMap(theme)[toastStyle].color;
   return {
     flex: '1',

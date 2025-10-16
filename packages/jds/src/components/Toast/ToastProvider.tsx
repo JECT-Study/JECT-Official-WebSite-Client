@@ -9,6 +9,7 @@ interface ToastItem {
   type: ToastStyle;
   title: string;
   caption?: string;
+  isExiting: boolean;
 }
 
 interface ToastHandler {
@@ -32,27 +33,40 @@ const ToastContext = createContext<ToastContextType | null>(null);
 
 export const ToastProvider = ({ children }: { children: ReactNode }) => {
   const [toasts, setToasts] = useState<ToastItem[]>([]);
-
-  const addToast = (toast: ToastItem) => {
-    const id = Date.now();
-    const newToast = { id, ...toast };
-
-    if (toasts.length >= 3) removeToast(toasts[0].id!);
-    setToasts(prev => [...prev, newToast]);
-    setTimeout(() => removeToast(id), 3000);
-
-    return id;
-  };
+  const EXIT_ANIMATION_DURATION = 250;
+  const EXPOSURE_DURATION = 3000;
+  const TOAST_LIMITS = 3;
 
   const removeToast = (id: number) => {
     setToasts(prev => prev.filter(toast => toast.id !== id));
   };
 
+  const startExit = (id: number) => {
+    setToasts(prev => prev.map(toast => (toast.id === id ? { ...toast, isExiting: true } : toast)));
+
+    setTimeout(() => {
+      removeToast(id);
+    }, EXIT_ANIMATION_DURATION);
+  };
+
+  const addToast = (toast: ToastItem) => {
+    const id = Date.now();
+    const newToast = { id, ...toast };
+
+    if (toasts.length >= TOAST_LIMITS) startExit(toasts[0].id!);
+    setToasts(prev => [...prev, newToast]);
+    setTimeout(() => startExit(id), EXPOSURE_DURATION);
+
+    return id;
+  };
+
   const handler: ToastHandler = {
-    basic: (title: string, caption?: string) => addToast({ type: 'basic', title, caption }),
-    positive: (title: string, caption?: string) => addToast({ type: 'positive', title, caption }),
+    basic: (title: string, caption?: string) =>
+      addToast({ type: 'basic', title, caption, isExiting: false }),
+    positive: (title: string, caption?: string) =>
+      addToast({ type: 'positive', title, caption, isExiting: false }),
     destructive: (title: string, caption?: string) =>
-      addToast({ type: 'destructive', title, caption }),
+      addToast({ type: 'destructive', title, caption, isExiting: false }),
   };
 
   useEffect(() => {
