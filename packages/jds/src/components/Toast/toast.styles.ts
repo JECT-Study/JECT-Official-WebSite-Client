@@ -56,17 +56,18 @@ export const ToastDiv = styled.div<ToastDivProps>(({ theme, toastStyle, isExitin
     padding: `16px 20px`,
     border: `${theme.scheme.desktop.stroke.weight[1]}px solid ${borderColor}`,
     borderRadius: `${theme.scheme.desktop.radius[10]}px`,
-    backgroundColor,
+    backgroundColor: theme.color.surface.shallow,
     color,
     ...shadow(theme, 'desktop', 'overlay'),
 
     position: 'relative',
-    '::before': {
+    '::after': {
       content: '""',
       position: 'absolute',
       inset: 0,
       borderRadius: 'inherit',
-      backgroundColor: theme.color.surface.shallow,
+      backgroundColor,
+      opacity: `${theme.scheme.desktop.opacity[36]}%`,
       zIndex: '-10',
     },
 
