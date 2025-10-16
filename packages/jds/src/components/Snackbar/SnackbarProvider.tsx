@@ -67,7 +67,7 @@ export const SnackbarProvider = ({ children }: { children: ReactNode }) => {
     const id = Date.now();
     const newToast = { id, ...snackbar };
 
-    if (snackbars.length >= TOAST_LIMITS) startExit(snackbars[0].id!);
+    if (snackbars.length >= TOAST_LIMITS) removeToast(snackbars[0].id!);
     setSnackbars(prev => [...prev, newToast]);
     setTimeout(() => startExit(id), EXPOSURE_DURATION);
 

@@ -53,7 +53,7 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
     const id = Date.now();
     const newToast = { id, ...toast };
 
-    if (toasts.length >= TOAST_LIMITS) startExit(toasts[0].id!);
+    if (toasts.length >= TOAST_LIMITS) removeToast(toasts[0].id!);
     setToasts(prev => [...prev, newToast]);
     setTimeout(() => startExit(id), EXPOSURE_DURATION);
 
