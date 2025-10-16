@@ -9,7 +9,7 @@ interface ToastItem {
   type: ToastStyle;
   title: string;
   caption?: string;
-  isExiting: boolean;
+  isExiting?: boolean;
 }
 
 interface ToastHandler {

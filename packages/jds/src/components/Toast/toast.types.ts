@@ -7,7 +7,7 @@ export interface ToastBaseProps {
   title: ReactNode;
   caption?: ReactNode;
   closeButtonFn?: () => void;
-  isExiting: boolean;
+  isExiting?: boolean;
 }
 
 export interface ToastFeedbackProps extends ToastBaseProps {

@@ -9,7 +9,12 @@ import {
 import { IconButton } from '@/components';
 import { ToastBaseProps, ToastFeedbackProps } from './toast.types';
 
-const ToastBasic = ({ caption = undefined, closeButtonFn, title, isExiting }: ToastBaseProps) => {
+const ToastBasic = ({
+  caption = undefined,
+  closeButtonFn,
+  title,
+  isExiting = false,
+}: ToastBaseProps) => {
   return (
     <ToastDiv toastStyle='basic' isExiting={isExiting}>
       <ToastContentDiv>
@@ -38,7 +43,7 @@ const ToastFeedback: React.FC<ToastFeedbackProps> = ({
   caption = undefined,
   closeButtonFn,
   title,
-  isExiting,
+  isExiting = false,
 }) => {
   return (
     <ToastDiv toastStyle={feedback} isExiting={isExiting}>
