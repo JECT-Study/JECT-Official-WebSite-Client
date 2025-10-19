@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { ImgOrientation, ImgRatio } from './Image';
 import { CSSProperties } from 'react';
 import { interaction, pxToRem } from 'utils';
+import { Label, Icon } from '@/components';
 
 export const getAspectRatioValue = (
   ratio: ImgRatio,
@@ -89,5 +90,17 @@ export const ImageLabelDiv = styled.div(({ theme }) => {
     backgroundColor: theme.color.object.static.neutral,
     padding: `0 ${theme.scheme.desktop.spacing[2]}px`,
     borderRadius: theme.scheme.desktop.radius[2],
+  };
+});
+
+export const StyledLabel = styled(Label)(({ theme }) => {
+  return {
+    color: theme.color.object.static.inverse.boldest,
+  };
+});
+
+export const StyledIcon = styled(Icon)(({ theme }) => {
+  return {
+    color: theme.color.object.static.inverse.boldest,
   };
 });

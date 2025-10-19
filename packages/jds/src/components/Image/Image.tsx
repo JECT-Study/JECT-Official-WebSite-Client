@@ -1,13 +1,10 @@
 import { ComponentPropsWithoutRef, forwardRef, SyntheticEvent } from 'react';
-import { IconDiv, ImageButton, ImageLabelDiv } from './Image.style';
-import { Icon } from '../Icon';
-import { useTheme } from 'theme';
-import { Label } from '../Label';
+import { IconDiv, ImageButton, ImageLabelDiv, StyledIcon, StyledLabel } from './Image.style';
 
 export type ImgRatio = '1:1' | '4:5' | '3:4' | '2:3' | '9:16' | '1:2' | '9:21';
 export type ImgOrientation = 'portrait' | 'landscape';
 
-interface ImageProps extends ComponentPropsWithoutRef<'button'> {
+export interface ImageProps extends ComponentPropsWithoutRef<'button'> {
   src?: string;
   fallbackSrc?: string;
   alt: string;
@@ -35,8 +32,6 @@ export const Image = forwardRef<HTMLButtonElement, ImageProps>(
     },
     ref,
   ) => {
-    const theme = useTheme();
-
     const imageLoadErrorHandler = (e: SyntheticEvent<HTMLImageElement, Event>) => {
       if (e.currentTarget.src !== fallbackSrc) {
         e.currentTarget.src = fallbackSrc;
@@ -55,23 +50,14 @@ export const Image = forwardRef<HTMLButtonElement, ImageProps>(
         <img src={src || fallbackSrc} alt={alt} onError={imageLoadErrorHandler} loading={loading} />
         {badgeVisible && (
           <ImageLabelDiv>
-            <Label
-              size='xs'
-              textAlign='center'
-              weight='normal'
-              color={theme.color.object.static.inverse.boldest}
-            >
+            <StyledLabel size='xs' textAlign='center' weight='normal'>
               {badgeLabel}
-            </Label>
+            </StyledLabel>
           </ImageLabelDiv>
         )}
         {!isReadonly && (
           <IconDiv className='hoverIcon'>
-            <Icon
-              name='delete-bin-line'
-              size='xl'
-              color={theme.color.object.static.inverse.boldest}
-            />
+            <StyledIcon name='delete-bin-line' size='xl' />
           </IconDiv>
         )}
       </ImageButton>
