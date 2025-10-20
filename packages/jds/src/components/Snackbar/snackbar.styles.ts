@@ -8,7 +8,7 @@ import { snackbarStylesMap } from './snackbar.variants';
 const slideIn = keyframes`
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(100%);
   }
   to {
     opacity: 1;
@@ -24,21 +24,23 @@ const slideOut = keyframes`
   }
   to {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(100%);
   }
 `;
 
 export const SnackbarStackContainer = styled.div(({ theme }) => {
   return {
     position: 'absolute',
-    bottom: '40px',
-    right: '40px',
+    bottom: '0',
+    right: '0',
+    padding: '40px',
     zIndex: 9999,
-    [theme.breakPoint.tablet]: { bottom: '40px', right: '40px' },
-    [theme.breakPoint.mobile]: { bottom: '24px', right: '50%', transform: 'translate(50%, 0)' },
+    [theme.breakPoint.tablet]: { padding: '40px' },
+    [theme.breakPoint.mobile]: { padding: '24px', right: '50%', transform: 'translate(50%, 0)' },
     display: 'flex',
     flexDirection: 'column-reverse',
     gap: pxToRem(16),
+    overflow: 'hidden',
   };
 });
 
