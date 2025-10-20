@@ -41,20 +41,30 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
     setToasts(prev => prev.filter(toast => toast.id !== id));
   };
 
-  const startExit = (id: number) => {
-    setToasts(prev => prev.map(toast => (toast.id === id ? { ...toast, isExiting: true } : toast)));
+  const startExit = (id: number): Promise<void> => {
+    return new Promise(resolve => {
+      setToasts(prev =>
+        prev.map(toast => (toast.id === id ? { ...toast, isExiting: true } : toast)),
+      );
 
-    setTimeout(() => {
-      removeToast(id);
-    }, EXIT_ANIMATION_DURATION);
+      setTimeout(() => {
+        removeToast(id);
+        resolve();
+      }, EXIT_ANIMATION_DURATION);
+    });
   };
 
-  const addToast = (toast: ToastItem) => {
+  const addToast = async (toast: ToastItem) => {
     const id = Date.now();
     const newToast = { id, ...toast };
 
-    if (toasts.length >= TOAST_LIMITS) removeToast(toasts[0].id!);
-    setToasts(prev => [...prev, newToast]);
+    if (toasts.length >= TOAST_LIMITS) {
+      await startExit(toasts[0].id!);
+      setToasts(prev => [...prev, newToast]);
+    } else {
+      setToasts(prev => [...prev, newToast]);
+    }
+
     setTimeout(() => startExit(id), EXPOSURE_DURATION);
 
     return id;
@@ -82,12 +92,12 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
         <ToastStackContainer>
           {toasts.map(toast =>
             toast.type === 'basic' ? (
-              <Toast.Basic key={toast.id} closeButtonFn={() => removeToast(toast.id!)} {...toast} />
+              <Toast.Basic key={toast.id} closeButtonFn={() => startExit(toast.id!)} {...toast} />
             ) : (
               <Toast.Feedback
                 key={toast.id}
                 feedback={toast.type}
-                closeButtonFn={() => removeToast(toast.id!)}
+                closeButtonFn={() => startExit(toast.id!)}
                 {...toast}
               />
             ),

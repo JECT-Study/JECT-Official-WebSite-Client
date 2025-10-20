@@ -53,22 +53,30 @@ export const SnackbarProvider = ({ children }: { children: ReactNode }) => {
     setSnackbars(prev => prev.filter(snackbar => snackbar.id !== id));
   };
 
-  const startExit = (id: number) => {
-    setSnackbars(prev =>
-      prev.map(snackbar => (snackbar.id === id ? { ...snackbar, isExiting: true } : snackbar)),
-    );
+  const startExit = (id: number): Promise<void> => {
+    return new Promise(resolve => {
+      setSnackbars(prev =>
+        prev.map(snackbar => (snackbar.id === id ? { ...snackbar, isExiting: true } : snackbar)),
+      );
 
-    setTimeout(() => {
-      removeToast(id);
-    }, EXIT_ANIMATION_DURATION);
+      setTimeout(() => {
+        removeToast(id);
+        resolve();
+      }, EXIT_ANIMATION_DURATION);
+    });
   };
 
-  const addSnackbar = (snackbar: SnackbarItem) => {
+  const addSnackbar = async (snackbar: SnackbarItem) => {
     const id = Date.now();
     const newToast = { id, ...snackbar };
 
-    if (snackbars.length >= TOAST_LIMITS) removeToast(snackbars[0].id!);
-    setSnackbars(prev => [...prev, newToast]);
+    if (snackbars.length >= TOAST_LIMITS) {
+      await startExit(snackbars[0].id!);
+      setSnackbars(prev => [...prev, newToast]);
+    } else {
+      setSnackbars(prev => [...prev, newToast]);
+    }
+
     setTimeout(() => startExit(id), EXPOSURE_DURATION);
 
     return id;
@@ -98,14 +106,14 @@ export const SnackbarProvider = ({ children }: { children: ReactNode }) => {
             snackbar.type === 'basic' ? (
               <Snackbar.Basic
                 key={snackbar.id}
-                closeButtonFn={() => removeToast(snackbar.id!)}
+                closeButtonFn={() => startExit(snackbar.id!)}
                 {...snackbar}
               />
             ) : (
               <Snackbar.Feedback
                 key={snackbar.id}
                 feedback={snackbar.type}
-                closeButtonFn={() => removeToast(snackbar.id!)}
+                closeButtonFn={() => startExit(snackbar.id!)}
                 {...snackbar}
               />
             ),
