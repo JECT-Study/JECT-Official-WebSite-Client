@@ -83,11 +83,7 @@ export const SnackbarLabel = styled(Label)<{ snackbarStyle: SnackbarStyle }>(({
   theme,
   snackbarStyle,
 }) => {
-  const color = snackbarStylesMap(theme)[snackbarStyle].color;
-  return {
-    flex: '1',
-    color,
-  };
+  return { flex: '1', color: snackbarStylesMap(theme)[snackbarStyle].color };
 });
 
 export const SnackbarContentDiv = styled.div(({ theme }) => {
@@ -128,9 +124,5 @@ export const SnackbarFeedbackIcon = styled(Icon)<SnackbarFeedbackIconProps>(({
   theme,
   feedback,
 }) => {
-  const color = snackbarStylesMap(theme)[feedback].color;
-
-  return {
-    color,
-  };
+  return { color: snackbarStylesMap(theme)[feedback].color };
 });

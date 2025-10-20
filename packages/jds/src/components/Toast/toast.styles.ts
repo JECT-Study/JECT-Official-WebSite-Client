@@ -80,11 +80,7 @@ export const ToastDiv = styled.div<ToastDivProps>(({ theme, toastStyle, isExitin
 });
 
 export const ToastLabel = styled(Label)<{ toastStyle: ToastStyle }>(({ theme, toastStyle }) => {
-  const color = toastStylesMap(theme)[toastStyle].color;
-  return {
-    flex: '1',
-    color,
-  };
+  return { flex: '1', color: toastStylesMap(theme)[toastStyle].color };
 });
 
 export const ToastContentDiv = styled.div(({ theme }) => {
@@ -122,9 +118,5 @@ export const ButtonContainerDiv = styled.div(({ theme }) => {
 });
 
 export const ToastFeedbackIcon = styled(Icon)<ToastFeedbackIconProps>(({ theme, feedback }) => {
-  const color = toastStylesMap(theme)[feedback].color;
-
-  return {
-    color,
-  };
+  return { color: toastStylesMap(theme)[feedback].color };
 });
