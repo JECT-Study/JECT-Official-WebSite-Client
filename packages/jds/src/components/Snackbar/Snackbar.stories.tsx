@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Snackbar } from './Snackbar';
 import { snackbar, SnackbarProvider, useSnackbar } from './SnackbarProvider';
 import { BlockButton } from '@/components';
-import { FlexColumn, FlexRow, Label } from '@storybook-utils/layout';
+import { FlexColumn } from '@storybook-utils/layout';
 
 const meta: Meta<typeof Snackbar.Basic> = {
   title: 'Components/Snackbar',
