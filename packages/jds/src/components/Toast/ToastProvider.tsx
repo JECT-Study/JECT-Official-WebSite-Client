@@ -58,13 +58,14 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
     const id = Date.now();
     const newToast = { id, ...toast };
 
-    if (toasts.length >= TOAST_LIMITS) {
-      await startExit(toasts[0].id!);
-      setToasts(prev => [...prev, newToast]);
-    } else {
-      setToasts(prev => [...prev, newToast]);
+    const activeSToasts = toasts.filter(toast => !toast.isExiting);
+
+    if (activeSToasts.length >= TOAST_LIMITS) {
+      const firstActive = activeSToasts[0];
+      await startExit(firstActive.id!);
     }
 
+    setToasts(prev => [...prev, newToast]);
     setTimeout(() => startExit(id), EXPOSURE_DURATION);
 
     return id;

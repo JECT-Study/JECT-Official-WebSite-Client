@@ -68,15 +68,16 @@ export const SnackbarProvider = ({ children }: { children: ReactNode }) => {
 
   const addSnackbar = async (snackbar: SnackbarItem) => {
     const id = Date.now();
-    const newToast = { id, ...snackbar };
+    const newSnackbar = { id, ...snackbar };
 
-    if (snackbars.length >= TOAST_LIMITS) {
-      await startExit(snackbars[0].id!);
-      setSnackbars(prev => [...prev, newToast]);
-    } else {
-      setSnackbars(prev => [...prev, newToast]);
+    const activeSnackbars = snackbars.filter(sb => !sb.isExiting);
+
+    if (activeSnackbars.length >= TOAST_LIMITS) {
+      const firstActive = activeSnackbars[0];
+      await startExit(firstActive.id!);
     }
 
+    setSnackbars(prev => [...prev, newSnackbar]);
     setTimeout(() => startExit(id), EXPOSURE_DURATION);
 
     return id;
