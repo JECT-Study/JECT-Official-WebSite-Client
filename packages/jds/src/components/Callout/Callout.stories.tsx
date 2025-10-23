@@ -11,9 +11,7 @@ const meta = {
     variant: { control: 'radio', options: ['hero', 'hint'] },
     hierarchy: { control: 'radio', options: ['accent', 'primary', 'secondary'] },
     size: { control: 'radio', options: ['lg', 'md', 'sm', 'xs', '2xs'] },
-    titleVisible: { control: 'boolean' },
     title: { control: 'text' },
-    extraButtonVisible: { control: 'boolean' },
     children: { control: 'text' },
   },
 } satisfies Meta<typeof Callout.Basic>;
@@ -29,9 +27,7 @@ export const CalloutBasic: StoryObj<typeof Callout.Basic> = {
     hierarchy: 'accent',
     variant: 'hero',
     size: 'lg',
-    titleVisible: true,
     title: '베이직 콜아웃 타이틀',
-    extraButtonVisible: false,
     blockButtonProps: {
       children: '레이블',
       disabled: false,
@@ -46,9 +42,7 @@ export const CalloutBasic: StoryObj<typeof Callout.Basic> = {
       hierarchy={args.hierarchy}
       variant={args.variant}
       size={args.size}
-      titleVisible={args.titleVisible}
       title={args.title}
-      extraButtonVisible={args.extraButtonVisible}
       blockButtonProps={args.blockButtonProps}
     >
       {args.children}
@@ -65,9 +59,7 @@ export const CalloutFeedback: StoryObj<typeof Callout.Feedback> = {
     feedback: 'positive',
     variant: 'hero',
     size: 'lg',
-    titleVisible: true,
     title: '피드백 콜아웃 타이틀',
-    extraButtonVisible: false,
     blockButtonProps: {
       children: '레이블',
       disabled: false,
@@ -82,9 +74,7 @@ export const CalloutFeedback: StoryObj<typeof Callout.Feedback> = {
       feedback={args.feedback}
       variant={args.variant}
       size={args.size}
-      titleVisible={args.titleVisible}
       title={args.title}
-      extraButtonVisible={args.extraButtonVisible}
       blockButtonProps={args.blockButtonProps}
     >
       {args.children}
