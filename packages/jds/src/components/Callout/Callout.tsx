@@ -1,4 +1,3 @@
-import { BlockButton } from '../Button/BlockButton';
 import {
   CalloutBasicDiv,
   CalloutContentP,
@@ -6,7 +5,11 @@ import {
   CalloutFeedbackDiv,
 } from './Callout.style';
 import { BasicCalloutProps, FeedbackCalloutProps } from './Callout.types';
-import { calloutButtonSizeMap } from './Callout.variants';
+import {
+  calloutBasicButtonStyleMap,
+  calloutButtonSizeMap,
+  calloutFeedbackButtonStyleMap,
+} from './Callout.variants';
 
 const CalloutBasic = ({
   variant = 'hero',
@@ -17,47 +20,19 @@ const CalloutBasic = ({
   children,
 }: BasicCalloutProps) => {
   const buttonSize = calloutButtonSizeMap[size];
+  const button =
+    blockButtonProps && calloutBasicButtonStyleMap(buttonSize, blockButtonProps)[hierarchy];
 
   return (
     <CalloutBasicDiv hierarchy={hierarchy} variant={variant} size={size}>
       {title && <CalloutTitleP size={size}>{title}</CalloutTitleP>}
       <CalloutContentP size={size}>{children}</CalloutContentP>
-      {blockButtonProps && (
-        <BlockButton.Basic
-          hierarchy={hierarchy}
-          size={buttonSize}
-          variant='solid'
-          {...blockButtonProps}
-        />
-      )}
+      {button}
     </CalloutBasicDiv>
   );
 };
 
 CalloutBasic.displayName = 'Callout.Basic';
-
-type CalloutFeedbackButtonProps = Required<
-  Pick<FeedbackCalloutProps, 'feedback' | 'size' | 'blockButtonProps'>
->;
-
-const CalloutFeedbackButton = ({
-  feedback,
-  size,
-  blockButtonProps,
-}: CalloutFeedbackButtonProps) => {
-  const buttonSize = calloutButtonSizeMap[size];
-
-  return feedback === 'notifying' ? (
-    <BlockButton.Basic
-      hierarchy='primary'
-      size={buttonSize}
-      variant='solid'
-      {...blockButtonProps}
-    />
-  ) : (
-    <BlockButton.Feedback intent={feedback} size={buttonSize} {...blockButtonProps} />
-  );
-};
 
 const CalloutFeedback = ({
   variant = 'hero',
@@ -67,17 +42,15 @@ const CalloutFeedback = ({
   blockButtonProps,
   children,
 }: FeedbackCalloutProps) => {
+  const buttonSize = calloutButtonSizeMap[size];
+  const button =
+    blockButtonProps && calloutFeedbackButtonStyleMap(buttonSize, blockButtonProps)[feedback];
+
   return (
     <CalloutFeedbackDiv hierarchy={feedback} variant={variant} size={size}>
       {title && <CalloutTitleP size={size}>{title}</CalloutTitleP>}
       <CalloutContentP size={size}>{children}</CalloutContentP>
-      {blockButtonProps && (
-        <CalloutFeedbackButton
-          feedback={feedback}
-          size={size}
-          blockButtonProps={blockButtonProps}
-        />
-      )}
+      {button}
     </CalloutFeedbackDiv>
   );
 };
