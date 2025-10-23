@@ -12,9 +12,7 @@ const CalloutBasic = ({
   variant = 'hero',
   hierarchy,
   size = 'md',
-  titleVisible = false,
   title,
-  extraButtonVisible = false,
   blockButtonProps,
   children,
 }: BasicCalloutProps) => {
@@ -22,9 +20,9 @@ const CalloutBasic = ({
 
   return (
     <CalloutBasicDiv hierarchy={hierarchy} variant={variant} size={size}>
-      {titleVisible && title && <CalloutTitleP size={size}>{title}</CalloutTitleP>}
+      {title && <CalloutTitleP size={size}>{title}</CalloutTitleP>}
       <CalloutContentP size={size}>{children}</CalloutContentP>
-      {extraButtonVisible && blockButtonProps && (
+      {blockButtonProps && (
         <BlockButton.Basic
           hierarchy={hierarchy}
           size={buttonSize}
@@ -38,34 +36,48 @@ const CalloutBasic = ({
 
 CalloutBasic.displayName = 'Callout.Basic';
 
+type CalloutFeedbackButtonProps = Required<
+  Pick<FeedbackCalloutProps, 'feedback' | 'size' | 'blockButtonProps'>
+>;
+
+const CalloutFeedbackButton = ({
+  feedback,
+  size,
+  blockButtonProps,
+}: CalloutFeedbackButtonProps) => {
+  const buttonSize = calloutButtonSizeMap[size];
+
+  return feedback === 'notifying' ? (
+    <BlockButton.Basic
+      hierarchy='primary'
+      size={buttonSize}
+      variant='solid'
+      {...blockButtonProps}
+    />
+  ) : (
+    <BlockButton.Feedback intent={feedback} size={buttonSize} {...blockButtonProps} />
+  );
+};
+
 const CalloutFeedback = ({
   variant = 'hero',
   feedback,
   size = 'md',
-  titleVisible = false,
   title,
-  extraButtonVisible = false,
   blockButtonProps,
   children,
 }: FeedbackCalloutProps) => {
-  const buttonSize = calloutButtonSizeMap[size];
-
   return (
     <CalloutFeedbackDiv hierarchy={feedback} variant={variant} size={size}>
-      {titleVisible && title && <CalloutTitleP size={size}>{title}</CalloutTitleP>}
+      {title && <CalloutTitleP size={size}>{title}</CalloutTitleP>}
       <CalloutContentP size={size}>{children}</CalloutContentP>
-      {extraButtonVisible &&
-        blockButtonProps &&
-        (feedback === 'notifying' ? (
-          <BlockButton.Basic
-            hierarchy='primary'
-            size={buttonSize}
-            variant='solid'
-            {...blockButtonProps}
-          />
-        ) : (
-          <BlockButton.Feedback intent={feedback} size={buttonSize} {...blockButtonProps} />
-        ))}
+      {blockButtonProps && (
+        <CalloutFeedbackButton
+          feedback={feedback}
+          size={size}
+          blockButtonProps={blockButtonProps}
+        />
+      )}
     </CalloutFeedbackDiv>
   );
 };
