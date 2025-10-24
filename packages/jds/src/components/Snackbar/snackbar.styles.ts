@@ -58,7 +58,7 @@ export const SnackbarDiv = styled.div<SnackbarDivProps>(({ theme, snackbarStyle,
     padding: `16px 20px`,
     border: `${theme.scheme.desktop.stroke.weight[1]}px solid ${borderColor}`,
     borderRadius: `${theme.scheme.desktop.radius[10]}px`,
-    backgroundColor: theme.color.surface.shallow,
+    backgroundColor: theme.color.semantic.surface.shallow,
     color,
     ...shadow(theme, 'desktop', 'overlay'),
 

@@ -5,18 +5,18 @@ export const snackbarStylesMap = (
   theme: Theme,
 ): Record<SnackbarStyle, { color: string; borderColor: string; backgroundColor: string }> => ({
   basic: {
-    color: theme.color.object.bold,
-    borderColor: theme.color.stroke.subtler,
-    backgroundColor: theme.color.surface.shallower,
+    color: theme.color.semantic.object.bold,
+    borderColor: theme.color.semantic.stroke.subtler,
+    backgroundColor: theme.color.semantic.surface.shallower,
   },
   positive: {
-    color: theme.color.feedback.positive.normal,
-    borderColor: theme.color.feedback.positive.alpha.subtle,
-    backgroundColor: theme.color.feedback.positive.alpha.subtlest,
+    color: theme.color.semantic.feedback.positive.normal,
+    borderColor: theme.color.semantic.feedback.positive.alpha.subtle,
+    backgroundColor: theme.color.semantic.feedback.positive.alpha.subtlest,
   },
   destructive: {
-    color: theme.color.feedback.destructive.normal,
-    borderColor: theme.color.feedback.destructive.alpha.subtle,
-    backgroundColor: theme.color.feedback.destructive.alpha.subtlest,
+    color: theme.color.semantic.feedback.destructive.normal,
+    borderColor: theme.color.semantic.feedback.destructive.alpha.subtle,
+    backgroundColor: theme.color.semantic.feedback.destructive.alpha.subtlest,
   },
 });
