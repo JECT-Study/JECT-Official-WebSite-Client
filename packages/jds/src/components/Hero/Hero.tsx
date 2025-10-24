@@ -12,7 +12,7 @@ interface HeroProps {
 export const Hero = forwardRef<HTMLDivElement, HeroProps>(
   ({ size = 'lg', textAlign = 'center', color, children, ...props }, ref) => {
     const theme = useTheme();
-    const BaseColor = color || theme.color.object.boldest;
+    const BaseColor = color || theme.color.semantic.object.boldest;
 
     return (
       <HeroDiv ref={ref} size={size} textAlign={textAlign} color={BaseColor} {...props}>

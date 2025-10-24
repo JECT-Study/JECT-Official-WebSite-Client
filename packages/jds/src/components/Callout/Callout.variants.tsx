@@ -19,36 +19,36 @@ type BasicStyle = Record<
 export const calloutBasicStylesMap = (theme: Theme): BasicStyle => ({
   hero: {
     accent: {
-      bg: theme.color.accent.alpha.subtler,
-      border: theme.color.accent.neutral,
-      color: theme.color.accent.bold,
+      bg: theme.color.semantic.accent.alpha.subtler,
+      border: theme.color.semantic.accent.neutral,
+      color: theme.color.semantic.accent.bold,
     },
     primary: {
-      bg: theme.color.fill.subtler,
-      border: theme.color.stroke.bold,
-      color: theme.color.object.bolder,
+      bg: theme.color.semantic.fill.subtler,
+      border: theme.color.semantic.stroke.bold,
+      color: theme.color.semantic.object.bolder,
     },
     secondary: {
-      bg: theme.color.fill.subtlest,
-      border: theme.color.stroke.neutral,
-      color: theme.color.object.bold,
+      bg: theme.color.semantic.fill.subtlest,
+      border: theme.color.semantic.stroke.neutral,
+      color: theme.color.semantic.object.bold,
     },
   },
   hint: {
     accent: {
-      bg: theme.color.accent.alpha.inverse.subtlest,
-      border: theme.color.accent.alpha.subtle,
-      color: theme.color.accent.normal,
+      bg: theme.color.semantic.accent.alpha.inverse.subtlest,
+      border: theme.color.semantic.accent.alpha.subtle,
+      color: theme.color.semantic.accent.normal,
     },
     primary: {
-      bg: theme.color.surface.deep,
-      border: theme.color.stroke.alpha.assistive,
-      color: theme.color.object.bold,
+      bg: theme.color.semantic.surface.deep,
+      border: theme.color.semantic.stroke.alpha.assistive,
+      color: theme.color.semantic.object.bold,
     },
     secondary: {
-      bg: theme.color.surface.deep,
-      border: theme.color.stroke.alpha.subtler,
-      color: theme.color.object.normal,
+      bg: theme.color.semantic.surface.deep,
+      border: theme.color.semantic.stroke.alpha.subtler,
+      color: theme.color.semantic.object.normal,
     },
   },
 });
@@ -61,36 +61,36 @@ type FeedbackStyle = Record<
 export const calloutFeedbackStylesMap = (theme: Theme): FeedbackStyle => ({
   hero: {
     positive: {
-      bg: theme.color.feedback.positive.alpha.subtler,
-      border: theme.color.feedback.positive.neutral,
-      color: theme.color.feedback.positive.bold,
+      bg: theme.color.semantic.feedback.positive.alpha.subtler,
+      border: theme.color.semantic.feedback.positive.neutral,
+      color: theme.color.semantic.feedback.positive.bold,
     },
     destructive: {
-      bg: theme.color.feedback.destructive.alpha.subtler,
-      border: theme.color.feedback.destructive.neutral,
-      color: theme.color.feedback.destructive.bold,
+      bg: theme.color.semantic.feedback.destructive.alpha.subtler,
+      border: theme.color.semantic.feedback.destructive.neutral,
+      color: theme.color.semantic.feedback.destructive.bold,
     },
     notifying: {
-      bg: theme.color.feedback.notifying.alpha.subtler,
-      border: theme.color.feedback.notifying.neutral,
-      color: theme.color.feedback.notifying.bold,
+      bg: theme.color.semantic.feedback.notifying.alpha.subtler,
+      border: theme.color.semantic.feedback.notifying.neutral,
+      color: theme.color.semantic.feedback.notifying.bold,
     },
   },
   hint: {
     positive: {
-      bg: theme.color.feedback.positive.alpha.subtlest,
-      border: theme.color.feedback.positive.alpha.subtler,
-      color: theme.color.feedback.positive.normal,
+      bg: theme.color.semantic.feedback.positive.alpha.subtlest,
+      border: theme.color.semantic.feedback.positive.alpha.subtler,
+      color: theme.color.semantic.feedback.positive.normal,
     },
     destructive: {
-      bg: theme.color.feedback.destructive.alpha.subtlest,
-      border: theme.color.feedback.destructive.alpha.subtler,
-      color: theme.color.feedback.destructive.normal,
+      bg: theme.color.semantic.feedback.destructive.alpha.subtlest,
+      border: theme.color.semantic.feedback.destructive.alpha.subtler,
+      color: theme.color.semantic.feedback.destructive.normal,
     },
     notifying: {
-      bg: theme.color.feedback.notifying.alpha.subtlest,
-      border: theme.color.feedback.notifying.alpha.subtler,
-      color: theme.color.feedback.notifying.normal,
+      bg: theme.color.semantic.feedback.notifying.alpha.subtlest,
+      border: theme.color.semantic.feedback.notifying.alpha.subtler,
+      color: theme.color.semantic.feedback.notifying.normal,
     },
   },
 });
