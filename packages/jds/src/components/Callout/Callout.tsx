@@ -5,20 +5,29 @@ import {
   CalloutFeedbackDiv,
 } from './Callout.style';
 import { BasicCalloutProps, FeedbackCalloutProps } from './Callout.types';
+import {
+  calloutBasicButtonStyleMap,
+  calloutButtonSizeMap,
+  calloutFeedbackButtonStyleMap,
+} from './Callout.variants';
 
 const CalloutBasic = ({
   variant = 'hero',
   hierarchy,
   size = 'md',
-  titleVisible = false,
-  extraButtonVisible = false,
   title,
+  blockButtonProps,
   children,
 }: BasicCalloutProps) => {
+  const buttonSize = calloutButtonSizeMap[size];
+  const button =
+    blockButtonProps && calloutBasicButtonStyleMap(buttonSize, blockButtonProps)[hierarchy];
+
   return (
     <CalloutBasicDiv hierarchy={hierarchy} variant={variant} size={size}>
-      {titleVisible && <CalloutTitleP size={size}>{title}</CalloutTitleP>}
+      {title && <CalloutTitleP size={size}>{title}</CalloutTitleP>}
       <CalloutContentP size={size}>{children}</CalloutContentP>
+      {button}
     </CalloutBasicDiv>
   );
 };
@@ -27,17 +36,21 @@ CalloutBasic.displayName = 'Callout.Basic';
 
 const CalloutFeedback = ({
   variant = 'hero',
-  hierarchy,
+  feedback,
   size = 'md',
-  titleVisible = false,
-  extraButtonVisible = false,
   title,
+  blockButtonProps,
   children,
 }: FeedbackCalloutProps) => {
+  const buttonSize = calloutButtonSizeMap[size];
+  const button =
+    blockButtonProps && calloutFeedbackButtonStyleMap(buttonSize, blockButtonProps)[feedback];
+
   return (
-    <CalloutFeedbackDiv hierarchy={hierarchy} variant={variant} size={size}>
-      {titleVisible && <CalloutTitleP size={size}>{title}</CalloutTitleP>}
+    <CalloutFeedbackDiv hierarchy={feedback} variant={variant} size={size}>
+      {title && <CalloutTitleP size={size}>{title}</CalloutTitleP>}
       <CalloutContentP size={size}>{children}</CalloutContentP>
+      {button}
     </CalloutFeedbackDiv>
   );
 };

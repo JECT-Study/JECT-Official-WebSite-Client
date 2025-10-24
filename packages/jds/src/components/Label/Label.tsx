@@ -2,7 +2,7 @@ import { forwardRef, ReactNode } from 'react';
 import { LabelDiv, LabelSize, LabelTextAlign, LabelWeight } from './Label.style';
 import { useTheme } from 'theme';
 
-interface LabelProps {
+export interface LabelProps {
   size?: LabelSize;
   textAlign?: LabelTextAlign;
   weight?: LabelWeight;
@@ -13,7 +13,7 @@ interface LabelProps {
 export const Label = forwardRef<HTMLDivElement, LabelProps>(
   ({ size = 'md', textAlign = 'left', weight = 'normal', color, children, ...props }, ref) => {
     const theme = useTheme();
-    const BaseColor = color || theme.color.object.bold;
+    const BaseColor = color || theme.color.semantic.object.bold;
 
     return (
       <LabelDiv
