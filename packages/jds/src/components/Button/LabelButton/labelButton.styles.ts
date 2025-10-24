@@ -26,16 +26,16 @@ const offsetMap: Record<
 
 const hierarchyColorsMap = (theme: Theme): Record<LabelButtonHierarchy, { color: string }> => ({
   accent: {
-    color: theme.color.accent.normal,
+    color: theme.color.semantic.accent.normal,
   },
   primary: {
-    color: theme.color.object.bolder,
+    color: theme.color.semantic.object.bolder,
   },
   secondary: {
-    color: theme.color.object.neutral,
+    color: theme.color.semantic.object.neutral,
   },
   tertiary: {
-    color: theme.color.object.alternative,
+    color: theme.color.semantic.object.alternative,
   },
 });
 
@@ -43,16 +43,16 @@ const hierarchyColorsDisabledMap = (
   theme: Theme,
 ): Record<LabelButtonHierarchy, { color: string }> => ({
   accent: {
-    color: theme.color.accent.alpha.subtle,
+    color: theme.color.semantic.accent.alpha.subtle,
   },
   primary: {
-    color: theme.color.object.subtle,
+    color: theme.color.semantic.object.subtle,
   },
   secondary: {
-    color: theme.color.object.subtle,
+    color: theme.color.semantic.object.subtle,
   },
   tertiary: {
-    color: theme.color.object.subtle,
+    color: theme.color.semantic.object.subtle,
   },
 });
 
@@ -64,19 +64,19 @@ const hierarchyColors = (theme: Theme, hierarchy: LabelButtonHierarchy, disabled
 
 const feedbackColorsMap = (theme: Theme): Record<LabelButtonIntent, { color: string }> => ({
   positive: {
-    color: theme.color.feedback.positive.normal,
+    color: theme.color.semantic.feedback.positive.normal,
   },
   destructive: {
-    color: theme.color.feedback.destructive.normal,
+    color: theme.color.semantic.feedback.destructive.normal,
   },
 });
 
 const feedbackColorsDisabledMap = (theme: Theme): Record<LabelButtonIntent, { color: string }> => ({
   positive: {
-    color: theme.color.feedback.positive.alpha.subtle,
+    color: theme.color.semantic.feedback.positive.alpha.subtle,
   },
   destructive: {
-    color: theme.color.feedback.destructive.alpha.subtle,
+    color: theme.color.semantic.feedback.destructive.alpha.subtle,
   },
 });
 
