@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { BaseBlockButtonProps } from '../Button/BlockButton/blockButton.types';
 
 export type BasicHierarchy = 'accent' | 'primary' | 'secondary';
 export type FeedbackHierarchy = 'positive' | 'destructive' | 'notifying';
@@ -11,6 +12,7 @@ export interface BaseCalloutProps {
   titleVisible?: boolean;
   extraButtonVisible?: boolean;
   title?: string;
+  blockButtonProps?: Omit<BaseBlockButtonProps, 'size'>;
   children: ReactNode;
 }
 
@@ -19,7 +21,7 @@ export interface BasicCalloutProps extends BaseCalloutProps {
 }
 
 export interface FeedbackCalloutProps extends BaseCalloutProps {
-  hierarchy: FeedbackHierarchy;
+  feedback: FeedbackHierarchy;
 }
 
 export interface CalloutBasicDivProps {
