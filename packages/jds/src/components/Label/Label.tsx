@@ -2,7 +2,7 @@ import { forwardRef, ReactNode } from 'react';
 import { LabelDiv, LabelSize, LabelTextAlign, LabelWeight } from './Label.style';
 import { useTheme } from 'theme';
 
-interface LabelProps {
+export interface LabelProps {
   size?: LabelSize;
   textAlign?: LabelTextAlign;
   weight?: LabelWeight;

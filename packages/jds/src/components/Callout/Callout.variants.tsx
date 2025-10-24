@@ -1,5 +1,15 @@
 import { Theme } from '@emotion/react';
-import { BasicHierarchy, CalloutVariant, FeedbackHierarchy } from './Callout.types';
+import { BasicHierarchy, CalloutSize, CalloutVariant, FeedbackHierarchy } from './Callout.types';
+import { BlockButton, BlockButtonSize } from '../Button/BlockButton';
+import { BaseBlockButtonProps } from '../Button/BlockButton/blockButton.types';
+
+export const calloutButtonSizeMap: Record<CalloutSize, BlockButtonSize> = {
+  lg: 'sm',
+  md: 'sm',
+  sm: 'sm',
+  xs: 'xs',
+  '2xs': 'xs',
+};
 
 type BasicStyle = Record<
   CalloutVariant,
@@ -122,3 +132,46 @@ export const calloutSizeMap = {
     content: 'body.2xs.bold',
   },
 } as const;
+
+export const calloutBasicButtonStyleMap = (
+  buttonSize: BlockButtonSize,
+  blockButtonProps: Omit<BaseBlockButtonProps, 'size'>,
+) => ({
+  accent: (
+    <BlockButton.Basic hierarchy='accent' size={buttonSize} variant='solid' {...blockButtonProps} />
+  ),
+  primary: (
+    <BlockButton.Basic
+      hierarchy='primary'
+      size={buttonSize}
+      variant='solid'
+      {...blockButtonProps}
+    />
+  ),
+  secondary: (
+    <BlockButton.Basic
+      hierarchy='secondary'
+      size={buttonSize}
+      variant='solid'
+      {...blockButtonProps}
+    />
+  ),
+});
+
+export const calloutFeedbackButtonStyleMap = (
+  buttonSize: BlockButtonSize,
+  blockButtonProps: Omit<BaseBlockButtonProps, 'size'>,
+) => ({
+  notifying: (
+    <BlockButton.Basic
+      hierarchy='primary'
+      size={buttonSize}
+      variant='solid'
+      {...blockButtonProps}
+    />
+  ),
+  positive: <BlockButton.Feedback intent='positive' size={buttonSize} {...blockButtonProps} />,
+  destructive: (
+    <BlockButton.Feedback intent='destructive' size={buttonSize} {...blockButtonProps} />
+  ),
+});
