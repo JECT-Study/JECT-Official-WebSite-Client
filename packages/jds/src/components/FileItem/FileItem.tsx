@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, forwardRef } from 'react';
+import { forwardRef } from 'react';
 import {
   FileErrorP,
   FileItemDataContainer,
@@ -6,59 +6,67 @@ import {
   FileItemLabel,
   FileItemSectionDiv,
   FileItemWrapButton,
-  FileItemWrapDiv,
   FileSizeLabel,
 } from './fileItem.styles';
-import { Label } from '@/components';
-
-interface FileItemProps extends ComponentPropsWithoutRef<'button'> {
-  isRemovable: boolean;
-  readonly: boolean;
-  disabled: boolean;
-  hasError: boolean;
-}
+import { IconButton } from '../Button/IconButton';
+import { FileItemProps } from './fileItem.types';
 
 export const FileItem = forwardRef<HTMLButtonElement, FileItemProps>(
-  ({ isRemovable, readonly, disabled, hasError }, ref) => {
+  (
+    { fileName, fileSize, readonly = false, disabled = false, errorMessage, buttonProps, ...rest },
+    ref,
+  ) => {
+    const buttonPropsByState =
+      readonly || disabled ? { ...buttonProps, onClick: () => {} } : buttonProps;
+
     return (
-      <FileItemWrapButton disabled={disabled} hasError={hasError}>
+      <FileItemWrapButton
+        ref={ref}
+        $disabled={disabled}
+        $readonly={readonly}
+        hasError={!!errorMessage}
+        {...rest}
+      >
         <FileItemSectionDiv>
           <FileItemIcon
             size='sm'
             name='attachment-line'
-            isReadonly={readonly}
-            isDisabled={disabled}
-            hasError={hasError}
+            $readonly={readonly}
+            $disabled={disabled}
+            hasError={!!errorMessage}
           />
-          <FileItemDataContainer className='dataContainer'>
+          <FileItemDataContainer>
             <FileItemLabel
               size='sm'
               textAlign='left'
               weight='subtle'
-              isReadonly={readonly}
-              isDisabled={disabled}
-              hasError={hasError}
+              $readonly={readonly}
+              $disabled={disabled}
+              hasError={!!errorMessage}
+              className='file-name'
             >
-              파일명.pdf
+              {fileName}
             </FileItemLabel>
             <FileSizeLabel
               size='xs'
               textAlign='right'
               weight='subtle'
-              isDisabled={disabled}
-              hasError={hasError}
+              $disabled={disabled}
+              hasError={!!errorMessage}
             >
-              2.6MB
+              {fileSize}
             </FileSizeLabel>
+            {!readonly && buttonProps && (
+              <IconButton.Basic
+                hierarchy='tertiary'
+                size='lg'
+                icon='close-line'
+                {...buttonPropsByState}
+              />
+            )}
           </FileItemDataContainer>
         </FileItemSectionDiv>
-
-        {hasError && (
-          <FileErrorP>
-            파일 업로드 시 에러 메시지에 대해 작성합니다. 최대 두 줄 까지 작성할 수 있고, 초과할 시
-            말줄임(...) 표시합니다.
-          </FileErrorP>
-        )}
+        {!!errorMessage && <FileErrorP>{errorMessage}</FileErrorP>}
       </FileItemWrapButton>
     );
   },

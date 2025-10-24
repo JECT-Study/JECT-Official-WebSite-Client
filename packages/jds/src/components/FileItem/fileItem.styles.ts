@@ -3,30 +3,14 @@ import { Icon } from '@/components';
 import { InteractionLayer, pxToRem, textStyle } from 'utils';
 import { Label } from '@/components';
 import { CSSObject, Theme } from '@emotion/react';
+import {
+  FileItemIconProps,
+  FileItemLabelProps,
+  FileItemWrapButtonProps,
+  FileSizeProps,
+} from './fileItem.types';
 
-interface FileItemWrapButtonProps {
-  isDisabled: boolean;
-  hasError: boolean;
-}
-
-interface FileItemIconProps {
-  isReadonly: boolean;
-  isDisabled: boolean;
-  hasError: boolean;
-}
-
-interface FileItemLabelProps {
-  isReadonly: boolean;
-  isDisabled: boolean;
-  hasError: boolean;
-}
-
-interface FileSizeProps {
-  isDisabled: boolean;
-  hasError: boolean;
-}
-
-const interactionStyles = (theme: Theme, disabled: boolean): CSSObject => {
+const interactionStyles = (theme: Theme, disabled: boolean, readonly: boolean): CSSObject => {
   const offset = {
     vertical: 6,
     horizontal: 8,
@@ -37,8 +21,8 @@ const interactionStyles = (theme: Theme, disabled: boolean): CSSObject => {
     restStyle: InteractionLayer({
       theme,
       state: 'rest',
-      variant: 'normal',
-      density: 'bold',
+      variant: 'accent',
+      density: 'assistive',
       fillColor: 'default',
       isReadonly: disabled,
       offsetVertical: offset.vertical,
@@ -48,8 +32,8 @@ const interactionStyles = (theme: Theme, disabled: boolean): CSSObject => {
     hoverStyle: InteractionLayer({
       theme,
       state: 'hover',
-      variant: 'normal',
-      density: 'bold',
+      variant: 'accent',
+      density: 'assistive',
       fillColor: 'default',
       isReadonly: disabled,
       offsetVertical: offset.vertical,
@@ -59,8 +43,8 @@ const interactionStyles = (theme: Theme, disabled: boolean): CSSObject => {
     activeStyle: InteractionLayer({
       theme,
       state: 'active',
-      variant: 'normal',
-      density: 'bold',
+      variant: 'accent',
+      density: 'assistive',
       fillColor: 'default',
       isReadonly: disabled,
       offsetVertical: offset.vertical,
@@ -70,8 +54,8 @@ const interactionStyles = (theme: Theme, disabled: boolean): CSSObject => {
     focusStyle: InteractionLayer({
       theme,
       state: 'focus',
-      variant: 'normal',
-      density: 'bold',
+      variant: 'accent',
+      density: 'assistive',
       fillColor: 'default',
       isReadonly: disabled,
       offsetVertical: offset.vertical,
@@ -80,23 +64,45 @@ const interactionStyles = (theme: Theme, disabled: boolean): CSSObject => {
     }),
   };
 
+  const textDecoration = !disabled && {
+    '.file-name': {
+      textDecoration: 'underline',
+      textUnderlineOffset: '2px',
+    },
+  };
+
+  if (readonly) return { ...interactionParams.restStyle };
+
   return {
     ...interactionParams.restStyle,
+    '::after': {
+      ...interactionParams.restStyle['::after'],
+      transition: `opacity ${theme.environment.duration[100]}ms ${theme.environment.motion.fluent}`,
+    },
     '&:hover': {
       ...interactionParams.hoverStyle,
+      ...textDecoration,
     },
     '&:active': {
       ...interactionParams.activeStyle,
+      ...textDecoration,
+
+      '::after': {
+        ...interactionParams.hoverStyle['::after'],
+        transition: 'none',
+      },
     },
     '&:focus-visible': {
       ...interactionParams.focusStyle,
+      ...textDecoration,
+      transition: 'none',
     },
   };
 };
 
 export const FileItemWrapButton = styled.button<FileItemWrapButtonProps>(
-  ({ theme, isDisabled, hasError }) => {
-    const interaction = hasError
+  ({ theme, $disabled, $readonly, hasError }) => {
+    const interaction: CSSObject = hasError
       ? {
           '::after': {
             content: '""',
@@ -107,23 +113,21 @@ export const FileItemWrapButton = styled.button<FileItemWrapButtonProps>(
             right: -8,
             width: 'auto',
             height: 'auto',
-            backgroundColor: theme.color.feedback.destructive.alpha.subtlest,
+            backgroundColor: theme.color.semantic.feedback.destructive.alpha.subtlest,
             borderRadius: 6,
+            pointerEvents: 'none',
           },
         }
-      : interactionStyles(theme, isDisabled);
+      : interactionStyles(theme, $disabled, $readonly);
+
     return {
       position: 'relative',
       width: pxToRem(404),
       display: 'flex',
       flexDirection: 'column',
       gap: pxToRem(theme.scheme.desktop.spacing[8]),
-
-      '.dataContainer': {
-        flex: '1',
-      },
-
       ...interaction,
+      cursor: $disabled ? 'default' : 'pointer',
     };
   },
 );
@@ -138,6 +142,7 @@ export const FileItemSectionDiv = styled.div(({ theme }) => {
 
 export const FileItemDataContainer = styled.div(({ theme }) => {
   return {
+    flex: '1',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -147,51 +152,53 @@ export const FileItemDataContainer = styled.div(({ theme }) => {
 
 export const FileItemIcon = styled(Icon)<FileItemIconProps>(({
   theme,
-  isReadonly,
-  isDisabled,
+  $readonly,
+  $disabled,
   hasError,
 }) => {
   return {
     color: hasError
-      ? theme.color.object.bold
-      : isDisabled
-        ? theme.color.object.subtle
-        : isReadonly
-          ? theme.color.object.bold
-          : theme.color.accent.neutral,
+      ? theme.color.semantic.object.bold
+      : $disabled
+        ? theme.color.semantic.object.subtle
+        : $readonly
+          ? theme.color.semantic.object.bold
+          : theme.color.semantic.accent.neutral,
   };
 });
 
 export const FileItemLabel = styled(Label)<FileItemLabelProps>(({
   theme,
-  isReadonly,
-  isDisabled,
+  $readonly,
+  $disabled,
   hasError,
 }) => {
   return {
+    flex: '1',
+    cursor: $disabled ? 'default' : 'pointer',
     color: hasError
-      ? theme.color.object.bold
-      : isDisabled
-        ? theme.color.object.subtle
-        : isReadonly
-          ? theme.color.object.bold
-          : theme.color.accent.neutral,
+      ? theme.color.semantic.object.bold
+      : $disabled
+        ? theme.color.semantic.object.subtle
+        : $readonly
+          ? theme.color.semantic.object.bold
+          : theme.color.semantic.accent.neutral,
   };
 });
 
-export const FileSizeLabel = styled(Label)<FileSizeProps>(({ theme, isDisabled, hasError }) => {
+export const FileSizeLabel = styled(Label)<FileSizeProps>(({ theme, $disabled, hasError }) => {
   return {
     color: hasError
-      ? theme.color.object.neutral
-      : isDisabled
-        ? theme.color.object.assistive
-        : theme.color.object.neutral,
+      ? theme.color.semantic.object.neutral
+      : $disabled
+        ? theme.color.semantic.object.assistive
+        : theme.color.semantic.object.neutral,
   };
 });
 
 export const FileErrorP = styled.p(({ theme }) => {
   return {
-    color: theme.color.feedback.destructive.neutral,
+    color: theme.color.semantic.feedback.destructive.neutral,
     ...textStyle(theme, 'desktop', 'body.2xs.normal'),
     textAlign: 'left',
   };
