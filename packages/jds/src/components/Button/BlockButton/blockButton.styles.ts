@@ -96,20 +96,20 @@ const solidColorsMap = (
   theme: Theme,
 ): Record<BlockButtonHierarchy, { backgroundColor: string; color: string }> => ({
   accent: {
-    backgroundColor: theme.color.accent.neutral,
-    color: theme.color.object.static.inverse.boldest,
+    backgroundColor: theme.color.semantic.accent.neutral,
+    color: theme.color.semantic.object.static.inverse.boldest,
   },
   primary: {
-    backgroundColor: theme.color.fill.bolder,
-    color: theme.color.object.inverse.boldest,
+    backgroundColor: theme.color.semantic.fill.bolder,
+    color: theme.color.semantic.object.inverse.boldest,
   },
   secondary: {
-    backgroundColor: theme.color.fill.neutral,
-    color: theme.color.object.static.inverse.boldest,
+    backgroundColor: theme.color.semantic.fill.neutral,
+    color: theme.color.semantic.object.static.inverse.boldest,
   },
   tertiary: {
-    backgroundColor: theme.color.fill.subtle,
-    color: theme.color.object.normal,
+    backgroundColor: theme.color.semantic.fill.subtle,
+    color: theme.color.semantic.object.normal,
   },
 });
 
@@ -117,20 +117,20 @@ const solidColorsDisabledMap = (
   theme: Theme,
 ): Record<BlockButtonHierarchy, { backgroundColor: string; color: string }> => ({
   accent: {
-    backgroundColor: theme.color.accent.alpha.subtlest,
-    color: theme.color.accent.alpha.subtler,
+    backgroundColor: theme.color.semantic.accent.alpha.subtlest,
+    color: theme.color.semantic.accent.alpha.subtler,
   },
   primary: {
-    backgroundColor: theme.color.fill.subtlest,
-    color: theme.color.object.assistive,
+    backgroundColor: theme.color.semantic.fill.subtlest,
+    color: theme.color.semantic.object.assistive,
   },
   secondary: {
-    backgroundColor: theme.color.fill.subtlest,
-    color: theme.color.object.assistive,
+    backgroundColor: theme.color.semantic.fill.subtlest,
+    color: theme.color.semantic.object.assistive,
   },
   tertiary: {
-    backgroundColor: theme.color.fill.subtlest,
-    color: theme.color.object.assistive,
+    backgroundColor: theme.color.semantic.fill.subtlest,
+    color: theme.color.semantic.object.assistive,
   },
 });
 
@@ -146,23 +146,23 @@ const outlinedColorsMap = (
 > => ({
   accent: {
     backgroundColor: 'transparent',
-    borderColor: theme.color.accent.alpha.subtlest,
-    color: theme.color.accent.normal,
+    borderColor: theme.color.semantic.accent.alpha.subtlest,
+    color: theme.color.semantic.accent.normal,
   },
   primary: {
     backgroundColor: 'transparent',
-    borderColor: theme.color.stroke.alpha.assistive,
-    color: theme.color.object.boldest,
+    borderColor: theme.color.semantic.stroke.alpha.assistive,
+    color: theme.color.semantic.object.boldest,
   },
   secondary: {
     backgroundColor: 'transparent',
-    borderColor: theme.color.stroke.alpha.assistive,
-    color: theme.color.object.bold,
+    borderColor: theme.color.semantic.stroke.alpha.assistive,
+    color: theme.color.semantic.object.bold,
   },
   tertiary: {
     backgroundColor: 'transparent',
-    borderColor: theme.color.stroke.alpha.assistive,
-    color: theme.color.object.neutral,
+    borderColor: theme.color.semantic.stroke.alpha.assistive,
+    color: theme.color.semantic.object.neutral,
   },
 });
 
@@ -174,23 +174,23 @@ const outlinedColorsDisabledMap = (
 > => ({
   accent: {
     backgroundColor: 'transparent',
-    borderColor: theme.color.accent.alpha.subtler,
-    color: theme.color.accent.alpha.subtler,
+    borderColor: theme.color.semantic.accent.alpha.subtler,
+    color: theme.color.semantic.accent.alpha.subtler,
   },
   primary: {
     backgroundColor: 'transparent',
-    borderColor: theme.color.stroke.alpha.subtler,
-    color: theme.color.object.assistive,
+    borderColor: theme.color.semantic.stroke.alpha.subtler,
+    color: theme.color.semantic.object.assistive,
   },
   secondary: {
     backgroundColor: 'transparent',
-    borderColor: theme.color.stroke.alpha.subtler,
-    color: theme.color.object.assistive,
+    borderColor: theme.color.semantic.stroke.alpha.subtler,
+    color: theme.color.semantic.object.assistive,
   },
   tertiary: {
     backgroundColor: 'transparent',
-    borderColor: theme.color.stroke.alpha.subtler,
-    color: theme.color.object.assistive,
+    borderColor: theme.color.semantic.stroke.alpha.subtler,
+    color: theme.color.semantic.object.assistive,
   },
 });
 
@@ -205,19 +205,19 @@ const emptyColorsMap = (
 ): Record<BlockButtonHierarchy, { backgroundColor: string; color: string }> => ({
   accent: {
     backgroundColor: 'transparent',
-    color: theme.color.accent.normal,
+    color: theme.color.semantic.accent.normal,
   },
   primary: {
     backgroundColor: 'transparent',
-    color: theme.color.object.boldest,
+    color: theme.color.semantic.object.boldest,
   },
   secondary: {
     backgroundColor: 'transparent',
-    color: theme.color.object.bold,
+    color: theme.color.semantic.object.bold,
   },
   tertiary: {
     backgroundColor: 'transparent',
-    color: theme.color.object.neutral,
+    color: theme.color.semantic.object.neutral,
   },
 });
 
@@ -226,19 +226,19 @@ const emptyColorsDisabledMap = (
 ): Record<BlockButtonHierarchy, { backgroundColor: string; color: string }> => ({
   accent: {
     backgroundColor: 'transparent',
-    color: theme.color.accent.alpha.subtler,
+    color: theme.color.semantic.accent.alpha.subtler,
   },
   primary: {
     backgroundColor: 'transparent',
-    color: theme.color.object.assistive,
+    color: theme.color.semantic.object.assistive,
   },
   secondary: {
     backgroundColor: 'transparent',
-    color: theme.color.object.assistive,
+    color: theme.color.semantic.object.assistive,
   },
   tertiary: {
     backgroundColor: 'transparent',
-    color: theme.color.object.assistive,
+    color: theme.color.semantic.object.assistive,
   },
 });
 
@@ -250,12 +250,12 @@ const feedbackColorsMap = (
   theme: Theme,
 ): Record<FeedbackIntent, { backgroundColor: string; color: string }> => ({
   positive: {
-    backgroundColor: theme.color.feedback.positive.neutral,
-    color: theme.color.object.static.inverse.boldest,
+    backgroundColor: theme.color.semantic.feedback.positive.neutral,
+    color: theme.color.semantic.object.static.inverse.boldest,
   },
   destructive: {
-    backgroundColor: theme.color.feedback.destructive.neutral,
-    color: theme.color.object.static.inverse.boldest,
+    backgroundColor: theme.color.semantic.feedback.destructive.neutral,
+    color: theme.color.semantic.object.static.inverse.boldest,
   },
 });
 
@@ -263,12 +263,12 @@ const feedbackColorsDisabledMap = (
   theme: Theme,
 ): Record<FeedbackIntent, { backgroundColor: string; color: string }> => ({
   positive: {
-    backgroundColor: theme.color.feedback.positive.alpha.subtler,
-    color: theme.color.feedback.positive.alpha.subtle,
+    backgroundColor: theme.color.semantic.feedback.positive.alpha.subtler,
+    color: theme.color.semantic.feedback.positive.alpha.subtle,
   },
   destructive: {
-    backgroundColor: theme.color.feedback.destructive.alpha.subtler,
-    color: theme.color.feedback.destructive.alpha.subtle,
+    backgroundColor: theme.color.semantic.feedback.destructive.alpha.subtler,
+    color: theme.color.semantic.feedback.destructive.alpha.subtle,
   },
 });
 

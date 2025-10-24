@@ -13,7 +13,7 @@ export interface LabelProps {
 export const Label = forwardRef<HTMLDivElement, LabelProps>(
   ({ size = 'md', textAlign = 'left', weight = 'normal', color, children, ...props }, ref) => {
     const theme = useTheme();
-    const BaseColor = color || theme.color.object.bold;
+    const BaseColor = color || theme.color.semantic.object.bold;
 
     return (
       <LabelDiv
