@@ -1,6 +1,6 @@
 import { forwardRef } from 'react';
 import {
-  FileErrorP,
+  FileErrorDiv,
   FileItemDataContainer,
   FileItemIcon,
   FileItemLabel,
@@ -13,27 +13,35 @@ import { FileItemProps } from './fileItem.types';
 
 export const FileItem = forwardRef<HTMLButtonElement, FileItemProps>(
   (
-    { fileName, fileSize, readonly = false, disabled = false, errorMessage, buttonProps, ...rest },
+    {
+      fileName,
+      fileSize,
+      readonly = false,
+      downloadDisabled = false,
+      errorMessage,
+      buttonProps,
+      ...buttonRest
+    },
     ref,
   ) => {
-    const buttonPropsByState =
-      readonly || disabled ? { ...buttonProps, onClick: () => {} } : buttonProps;
+    const Component = readonly ? 'div' : 'button';
 
     return (
       <FileItemWrapButton
+        as={Component}
         ref={ref}
-        $disabled={disabled}
+        $disabled={downloadDisabled}
         $readonly={readonly}
-        hasError={!!errorMessage}
-        {...rest}
+        $hasError={!!errorMessage}
+        {...buttonRest}
       >
         <FileItemSectionDiv>
           <FileItemIcon
             size='sm'
             name='attachment-line'
             $readonly={readonly}
-            $disabled={disabled}
-            hasError={!!errorMessage}
+            $disabled={downloadDisabled}
+            $hasError={!!errorMessage}
           />
           <FileItemDataContainer>
             <FileItemLabel
@@ -41,9 +49,10 @@ export const FileItem = forwardRef<HTMLButtonElement, FileItemProps>(
               textAlign='left'
               weight='subtle'
               $readonly={readonly}
-              $disabled={disabled}
-              hasError={!!errorMessage}
+              $disabled={downloadDisabled}
+              $hasError={!!errorMessage}
               className='file-name'
+              aria-label={`파일 이름: ${fileName}`}
             >
               {fileName}
             </FileItemLabel>
@@ -51,22 +60,18 @@ export const FileItem = forwardRef<HTMLButtonElement, FileItemProps>(
               size='xs'
               textAlign='right'
               weight='subtle'
-              $disabled={disabled}
-              hasError={!!errorMessage}
+              $disabled={downloadDisabled}
+              $hasError={!!errorMessage}
+              aria-label={`파일 사이즈: ${fileSize}`}
             >
               {fileSize}
             </FileSizeLabel>
             {!readonly && buttonProps && (
-              <IconButton.Basic
-                hierarchy='tertiary'
-                size='lg'
-                icon='close-line'
-                {...buttonPropsByState}
-              />
+              <IconButton.Basic hierarchy='tertiary' size='lg' icon='close-line' {...buttonProps} />
             )}
           </FileItemDataContainer>
         </FileItemSectionDiv>
-        {!!errorMessage && <FileErrorP>{errorMessage}</FileErrorP>}
+        {!!errorMessage && <FileErrorDiv>{errorMessage}</FileErrorDiv>}
       </FileItemWrapButton>
     );
   },

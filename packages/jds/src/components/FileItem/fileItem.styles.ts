@@ -101,8 +101,8 @@ const interactionStyles = (theme: Theme, disabled: boolean, readonly: boolean): 
 };
 
 export const FileItemWrapButton = styled.button<FileItemWrapButtonProps>(
-  ({ theme, $disabled, $readonly, hasError }) => {
-    const interaction: CSSObject = hasError
+  ({ theme, $disabled, $readonly, $hasError }) => {
+    const interaction: CSSObject = $hasError
       ? {
           '::after': {
             content: '""',
@@ -154,10 +154,10 @@ export const FileItemIcon = styled(Icon)<FileItemIconProps>(({
   theme,
   $readonly,
   $disabled,
-  hasError,
+  $hasError,
 }) => {
   return {
-    color: hasError
+    color: $hasError
       ? theme.color.semantic.object.bold
       : $disabled
         ? theme.color.semantic.object.subtle
@@ -171,12 +171,12 @@ export const FileItemLabel = styled(Label)<FileItemLabelProps>(({
   theme,
   $readonly,
   $disabled,
-  hasError,
+  $hasError,
 }) => {
   return {
     flex: '1',
     cursor: $disabled ? 'default' : 'pointer',
-    color: hasError
+    color: $hasError
       ? theme.color.semantic.object.bold
       : $disabled
         ? theme.color.semantic.object.subtle
@@ -186,9 +186,9 @@ export const FileItemLabel = styled(Label)<FileItemLabelProps>(({
   };
 });
 
-export const FileSizeLabel = styled(Label)<FileSizeProps>(({ theme, $disabled, hasError }) => {
+export const FileSizeLabel = styled(Label)<FileSizeProps>(({ theme, $disabled, $hasError }) => {
   return {
-    color: hasError
+    color: $hasError
       ? theme.color.semantic.object.neutral
       : $disabled
         ? theme.color.semantic.object.assistive
@@ -196,7 +196,7 @@ export const FileSizeLabel = styled(Label)<FileSizeProps>(({ theme, $disabled, h
   };
 });
 
-export const FileErrorP = styled.p(({ theme }) => {
+export const FileErrorDiv = styled.div(({ theme }) => {
   return {
     color: theme.color.semantic.feedback.destructive.neutral,
     ...textStyle(theme, 'desktop', 'body.2xs.normal'),
