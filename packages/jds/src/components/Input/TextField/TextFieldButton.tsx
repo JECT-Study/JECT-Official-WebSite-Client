@@ -9,6 +9,7 @@ import {
   StyledInput,
   StyledHelperText,
   StyledInputRow,
+  StyledInputColumn,
 } from './textField.styles';
 import type { TextFieldButtonProps } from './textField.types';
 
@@ -35,7 +36,7 @@ export const TextFieldButton = forwardRef<HTMLInputElement, TextFieldButtonProps
     return (
       <StyledFieldContainer $layout={layout}>
         {label && (
-          <StyledLabelContainer>
+          <StyledLabelContainer $layout={layout}>
             <StyledFieldLabel
               as='label'
               htmlFor={inputId}
@@ -43,6 +44,7 @@ export const TextFieldButton = forwardRef<HTMLInputElement, TextFieldButtonProps
               weight='bold'
               $disabled={disabled}
               $readOnly={readOnly}
+              $layout={layout}
             >
               {label}
             </StyledFieldLabel>
@@ -50,40 +52,42 @@ export const TextFieldButton = forwardRef<HTMLInputElement, TextFieldButtonProps
           </StyledLabelContainer>
         )}
 
-        <StyledInputRow>
-          <StyledInputWrapper
-            $style={style}
-            $validation={validation}
-            $disabled={disabled}
-            $readOnly={readOnly}
-          >
-            <StyledInput
-              ref={ref}
-              id={inputId}
+        <StyledInputColumn>
+          <StyledInputRow>
+            <StyledInputWrapper
+              $style={style}
+              $validation={validation}
               $disabled={disabled}
               $readOnly={readOnly}
-              value={value}
-              onChange={onChange}
-              disabled={disabled}
-              readOnly={readOnly}
-              {...restProps}
-            />
-          </StyledInputWrapper>
-          {button}
-        </StyledInputRow>
+            >
+              <StyledInput
+                ref={ref}
+                id={inputId}
+                $disabled={disabled}
+                $readOnly={readOnly}
+                value={value}
+                onChange={onChange}
+                disabled={disabled}
+                readOnly={readOnly}
+                {...restProps}
+              />
+            </StyledInputWrapper>
+            {button}
+          </StyledInputRow>
 
-        {helperText && (
-          <StyledHelperText
-            as='span'
-            size='sm'
-            weight='normal'
-            $validation={validation}
-            $disabled={disabled}
-            $readOnly={readOnly}
-          >
-            {helperText}
-          </StyledHelperText>
-        )}
+          {helperText && (
+            <StyledHelperText
+              as='span'
+              size='sm'
+              weight='normal'
+              $validation={validation}
+              $disabled={disabled}
+              $readOnly={readOnly}
+            >
+              {helperText}
+            </StyledHelperText>
+          )}
+        </StyledInputColumn>
       </StyledFieldContainer>
     );
   },
