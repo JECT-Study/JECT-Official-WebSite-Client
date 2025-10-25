@@ -4,11 +4,23 @@ import { InteractionLayer, pxToRem, textStyle } from 'utils';
 import { Label } from '@/components';
 import { CSSObject, Theme } from '@emotion/react';
 import {
+  FileItemColorStateType,
+  FileItemColorType,
   FileItemIconProps,
   FileItemLabelProps,
   FileItemWrapButtonProps,
   FileSizeProps,
 } from './fileItem.types';
+
+const getColor = (
+  { hasError, isDownloadDisabled, readonly }: FileItemColorStateType,
+  { defaultColor, errorColor, disabledColor, readonlyColor }: FileItemColorType,
+) => {
+  if (hasError && errorColor) return errorColor;
+  if (isDownloadDisabled && disabledColor) return disabledColor;
+  if (readonly && readonlyColor) return readonlyColor;
+  return defaultColor;
+};
 
 const interactionStyles = (
   theme: Theme,
@@ -21,51 +33,24 @@ const interactionStyles = (
   };
   const borderRadius = 6;
 
+  const makeLayer = (state: 'rest' | 'hover' | 'active' | 'focus') =>
+    InteractionLayer({
+      theme,
+      state,
+      variant: 'accent',
+      density: 'assistive',
+      fillColor: 'default',
+      isReadonly: isDownloadDisabled,
+      offsetVertical: offset.vertical,
+      offsetHorizontal: offset.horizontal,
+      borderRadius,
+    });
+
   const interactionParams = {
-    restStyle: InteractionLayer({
-      theme,
-      state: 'rest',
-      variant: 'accent',
-      density: 'assistive',
-      fillColor: 'default',
-      isReadonly: isDownloadDisabled,
-      offsetVertical: offset.vertical,
-      offsetHorizontal: offset.horizontal,
-      borderRadius,
-    }),
-    hoverStyle: InteractionLayer({
-      theme,
-      state: 'hover',
-      variant: 'accent',
-      density: 'assistive',
-      fillColor: 'default',
-      isReadonly: isDownloadDisabled,
-      offsetVertical: offset.vertical,
-      offsetHorizontal: offset.horizontal,
-      borderRadius,
-    }),
-    activeStyle: InteractionLayer({
-      theme,
-      state: 'active',
-      variant: 'accent',
-      density: 'assistive',
-      fillColor: 'default',
-      isReadonly: isDownloadDisabled,
-      offsetVertical: offset.vertical,
-      offsetHorizontal: offset.horizontal,
-      borderRadius,
-    }),
-    focusStyle: InteractionLayer({
-      theme,
-      state: 'focus',
-      variant: 'accent',
-      density: 'assistive',
-      fillColor: 'default',
-      isReadonly: isDownloadDisabled,
-      offsetVertical: offset.vertical,
-      offsetHorizontal: offset.horizontal,
-      borderRadius,
-    }),
+    restStyle: makeLayer('rest'),
+    hoverStyle: makeLayer('hover'),
+    activeStyle: makeLayer('active'),
+    focusStyle: makeLayer('focus'),
   };
 
   const textDecoration = !isDownloadDisabled && {
@@ -161,13 +146,19 @@ export const FileItemIcon = styled(Icon)<FileItemIconProps>(({
   $hasError,
 }) => {
   return {
-    color: $hasError
-      ? theme.color.semantic.object.bold
-      : $isDownloadDisabled
-        ? theme.color.semantic.object.subtle
-        : $readonly
-          ? theme.color.semantic.object.bold
-          : theme.color.semantic.accent.neutral,
+    color: getColor(
+      {
+        hasError: $hasError,
+        isDownloadDisabled: $isDownloadDisabled,
+        readonly: $readonly,
+      },
+      {
+        errorColor: theme.color.semantic.object.bold,
+        disabledColor: theme.color.semantic.object.subtle,
+        readonlyColor: theme.color.semantic.object.bold,
+        defaultColor: theme.color.semantic.accent.neutral,
+      },
+    ),
   };
 });
 
@@ -180,13 +171,19 @@ export const FileItemLabel = styled(Label)<FileItemLabelProps>(({
   return {
     flex: '1',
     cursor: $isDownloadDisabled ? 'default' : 'pointer',
-    color: $hasError
-      ? theme.color.semantic.object.bold
-      : $isDownloadDisabled
-        ? theme.color.semantic.object.subtle
-        : $readonly
-          ? theme.color.semantic.object.bold
-          : theme.color.semantic.accent.neutral,
+    color: getColor(
+      {
+        hasError: $hasError,
+        isDownloadDisabled: $isDownloadDisabled,
+        readonly: $readonly,
+      },
+      {
+        errorColor: theme.color.semantic.object.bold,
+        disabledColor: theme.color.semantic.object.subtle,
+        readonlyColor: theme.color.semantic.object.bold,
+        defaultColor: theme.color.semantic.accent.neutral,
+      },
+    ),
   };
 });
 
@@ -196,11 +193,17 @@ export const FileSizeLabel = styled(Label)<FileSizeProps>(({
   $hasError,
 }) => {
   return {
-    color: $hasError
-      ? theme.color.semantic.object.neutral
-      : $isDownloadDisabled
-        ? theme.color.semantic.object.assistive
-        : theme.color.semantic.object.neutral,
+    color: getColor(
+      {
+        hasError: $hasError,
+        isDownloadDisabled: $isDownloadDisabled,
+      },
+      {
+        errorColor: theme.color.semantic.object.neutral,
+        disabledColor: theme.color.semantic.object.assistive,
+        defaultColor: theme.color.semantic.object.neutral,
+      },
+    ),
   };
 });
 

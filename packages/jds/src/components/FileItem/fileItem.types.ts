@@ -1,6 +1,19 @@
 import { ComponentPropsWithoutRef, ReactNode } from 'react';
 import { IconButtonBasicProps } from '../Button/IconButton';
 
+export interface FileItemColorStateType {
+  hasError?: boolean;
+  isDownloadDisabled?: boolean;
+  readonly?: boolean;
+}
+
+export interface FileItemColorType {
+  defaultColor: string;
+  errorColor?: string;
+  disabledColor?: string;
+  readonlyColor?: string;
+}
+
 export interface FileItemWrapButtonProps {
   $isDownloadDisabled: boolean;
   $readonly: boolean;
