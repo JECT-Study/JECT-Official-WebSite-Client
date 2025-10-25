@@ -54,7 +54,6 @@ export const FileItem = forwardRef<HTMLButtonElement, FileItemProps>(
               $isDownloadDisabled={isDownloadDisabled}
               $hasError={!!errorMessage}
               className='file-name'
-              aria-label={`파일 이름: ${fileName}`}
             >
               {fileName}
             </FileItemLabel>
@@ -64,7 +63,6 @@ export const FileItem = forwardRef<HTMLButtonElement, FileItemProps>(
               weight='subtle'
               $isDownloadDisabled={isDownloadDisabled}
               $hasError={!!errorMessage}
-              aria-label={`파일 사이즈: ${fileSize}`}
             >
               {fileSize}
             </FileSizeLabel>
@@ -73,7 +71,7 @@ export const FileItem = forwardRef<HTMLButtonElement, FileItemProps>(
             )}
           </FileItemDataContainer>
         </FileItemSectionDiv>
-        {!!errorMessage && <FileErrorSpan>{errorMessage}</FileErrorSpan>}
+        {!!errorMessage && <FileErrorSpan role='alert'>{errorMessage}</FileErrorSpan>}
       </FileItemWrapButton>
     );
   },
