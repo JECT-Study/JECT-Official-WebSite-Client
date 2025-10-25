@@ -16,7 +16,7 @@ type LabelElement = HTMLLabelElement | HTMLSpanElement | HTMLDivElement | HTMLPa
  * - 'div': 블록 레벨 텍스트
  * - 'p': 문단 텍스트
  */
-interface LabelProps extends ComponentPropsWithoutRef<'label'> {
+export interface LabelProps extends ComponentPropsWithoutRef<'label'> {
   as?: 'label' | 'span' | 'div' | 'p';
   size?: LabelSize;
   textAlign?: LabelTextAlign;
