@@ -25,6 +25,10 @@ export const FileItem = forwardRef<HTMLButtonElement, FileItemProps>(
     ref,
   ) => {
     const Component = readonly ? 'div' : 'button';
+    const closeButton = !readonly && buttonProps && (
+      <IconButton.Basic hierarchy='tertiary' size='lg' icon='close-line' {...buttonProps} />
+    );
+    const hasError = !!errorMessage;
 
     return (
       <FileItemWrapButton
@@ -34,7 +38,7 @@ export const FileItem = forwardRef<HTMLButtonElement, FileItemProps>(
         ref={ref}
         $isDownloadDisabled={isDownloadDisabled}
         $readonly={readonly}
-        $hasError={!!errorMessage}
+        $hasError={hasError}
         {...buttonRest}
       >
         <FileItemSectionDiv>
@@ -43,7 +47,7 @@ export const FileItem = forwardRef<HTMLButtonElement, FileItemProps>(
             name='attachment-line'
             $readonly={readonly}
             $isDownloadDisabled={isDownloadDisabled}
-            $hasError={!!errorMessage}
+            $hasError={hasError}
           />
           <FileItemDataContainer>
             <FileItemLabel
@@ -52,7 +56,7 @@ export const FileItem = forwardRef<HTMLButtonElement, FileItemProps>(
               weight='subtle'
               $readonly={readonly}
               $isDownloadDisabled={isDownloadDisabled}
-              $hasError={!!errorMessage}
+              $hasError={hasError}
               className='file-name'
             >
               {fileName}
@@ -62,16 +66,14 @@ export const FileItem = forwardRef<HTMLButtonElement, FileItemProps>(
               textAlign='right'
               weight='subtle'
               $isDownloadDisabled={isDownloadDisabled}
-              $hasError={!!errorMessage}
+              $hasError={hasError}
             >
               {fileSize}
             </FileSizeLabel>
-            {!readonly && buttonProps && (
-              <IconButton.Basic hierarchy='tertiary' size='lg' icon='close-line' {...buttonProps} />
-            )}
+            {closeButton}
           </FileItemDataContainer>
         </FileItemSectionDiv>
-        {!!errorMessage && <FileErrorSpan role='alert'>{errorMessage}</FileErrorSpan>}
+        {hasError && <FileErrorSpan role='alert'>{errorMessage}</FileErrorSpan>}
       </FileItemWrapButton>
     );
   },
