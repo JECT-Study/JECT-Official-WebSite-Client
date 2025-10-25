@@ -10,7 +10,11 @@ import {
   FileSizeProps,
 } from './fileItem.types';
 
-const interactionStyles = (theme: Theme, disabled: boolean, readonly: boolean): CSSObject => {
+const interactionStyles = (
+  theme: Theme,
+  isDownloadDisabled: boolean,
+  readonly: boolean,
+): CSSObject => {
   const offset = {
     vertical: 6,
     horizontal: 8,
@@ -24,7 +28,7 @@ const interactionStyles = (theme: Theme, disabled: boolean, readonly: boolean): 
       variant: 'accent',
       density: 'assistive',
       fillColor: 'default',
-      isReadonly: disabled,
+      isReadonly: isDownloadDisabled,
       offsetVertical: offset.vertical,
       offsetHorizontal: offset.horizontal,
       borderRadius,
@@ -35,7 +39,7 @@ const interactionStyles = (theme: Theme, disabled: boolean, readonly: boolean): 
       variant: 'accent',
       density: 'assistive',
       fillColor: 'default',
-      isReadonly: disabled,
+      isReadonly: isDownloadDisabled,
       offsetVertical: offset.vertical,
       offsetHorizontal: offset.horizontal,
       borderRadius,
@@ -46,7 +50,7 @@ const interactionStyles = (theme: Theme, disabled: boolean, readonly: boolean): 
       variant: 'accent',
       density: 'assistive',
       fillColor: 'default',
-      isReadonly: disabled,
+      isReadonly: isDownloadDisabled,
       offsetVertical: offset.vertical,
       offsetHorizontal: offset.horizontal,
       borderRadius,
@@ -57,14 +61,14 @@ const interactionStyles = (theme: Theme, disabled: boolean, readonly: boolean): 
       variant: 'accent',
       density: 'assistive',
       fillColor: 'default',
-      isReadonly: disabled,
+      isReadonly: isDownloadDisabled,
       offsetVertical: offset.vertical,
       offsetHorizontal: offset.horizontal,
       borderRadius,
     }),
   };
 
-  const textDecoration = !disabled && {
+  const textDecoration = !isDownloadDisabled && {
     '.file-name': {
       textDecoration: 'underline',
       textUnderlineOffset: '2px',
@@ -101,7 +105,7 @@ const interactionStyles = (theme: Theme, disabled: boolean, readonly: boolean): 
 };
 
 export const FileItemWrapButton = styled.button<FileItemWrapButtonProps>(
-  ({ theme, $disabled, $readonly, $hasError }) => {
+  ({ theme, $isDownloadDisabled, $readonly, $hasError }) => {
     const interaction: CSSObject = $hasError
       ? {
           '::after': {
@@ -118,7 +122,7 @@ export const FileItemWrapButton = styled.button<FileItemWrapButtonProps>(
             pointerEvents: 'none',
           },
         }
-      : interactionStyles(theme, $disabled, $readonly);
+      : interactionStyles(theme, $isDownloadDisabled, $readonly);
 
     return {
       position: 'relative',
@@ -127,7 +131,7 @@ export const FileItemWrapButton = styled.button<FileItemWrapButtonProps>(
       flexDirection: 'column',
       gap: pxToRem(theme.scheme.desktop.spacing[8]),
       ...interaction,
-      cursor: $disabled ? 'default' : 'pointer',
+      cursor: $isDownloadDisabled ? 'default' : 'pointer',
     };
   },
 );
@@ -153,13 +157,13 @@ export const FileItemDataContainer = styled.div(({ theme }) => {
 export const FileItemIcon = styled(Icon)<FileItemIconProps>(({
   theme,
   $readonly,
-  $disabled,
+  $isDownloadDisabled,
   $hasError,
 }) => {
   return {
     color: $hasError
       ? theme.color.semantic.object.bold
-      : $disabled
+      : $isDownloadDisabled
         ? theme.color.semantic.object.subtle
         : $readonly
           ? theme.color.semantic.object.bold
@@ -170,15 +174,15 @@ export const FileItemIcon = styled(Icon)<FileItemIconProps>(({
 export const FileItemLabel = styled(Label)<FileItemLabelProps>(({
   theme,
   $readonly,
-  $disabled,
+  $isDownloadDisabled,
   $hasError,
 }) => {
   return {
     flex: '1',
-    cursor: $disabled ? 'default' : 'pointer',
+    cursor: $isDownloadDisabled ? 'default' : 'pointer',
     color: $hasError
       ? theme.color.semantic.object.bold
-      : $disabled
+      : $isDownloadDisabled
         ? theme.color.semantic.object.subtle
         : $readonly
           ? theme.color.semantic.object.bold
@@ -186,17 +190,21 @@ export const FileItemLabel = styled(Label)<FileItemLabelProps>(({
   };
 });
 
-export const FileSizeLabel = styled(Label)<FileSizeProps>(({ theme, $disabled, $hasError }) => {
+export const FileSizeLabel = styled(Label)<FileSizeProps>(({
+  theme,
+  $isDownloadDisabled,
+  $hasError,
+}) => {
   return {
     color: $hasError
       ? theme.color.semantic.object.neutral
-      : $disabled
+      : $isDownloadDisabled
         ? theme.color.semantic.object.assistive
         : theme.color.semantic.object.neutral,
   };
 });
 
-export const FileErrorDiv = styled.div(({ theme }) => {
+export const FileErrorSpan = styled.span(({ theme }) => {
   return {
     color: theme.color.semantic.feedback.destructive.neutral,
     ...textStyle(theme, 'desktop', 'body.2xs.normal'),

@@ -1,6 +1,6 @@
 import { forwardRef } from 'react';
 import {
-  FileErrorDiv,
+  FileErrorSpan,
   FileItemDataContainer,
   FileItemIcon,
   FileItemLabel,
@@ -17,7 +17,7 @@ export const FileItem = forwardRef<HTMLButtonElement, FileItemProps>(
       fileName,
       fileSize,
       readonly = false,
-      downloadDisabled = false,
+      isDownloadDisabled = false,
       errorMessage,
       buttonProps,
       ...buttonRest
@@ -29,8 +29,10 @@ export const FileItem = forwardRef<HTMLButtonElement, FileItemProps>(
     return (
       <FileItemWrapButton
         as={Component}
+        role={readonly ? 'button' : undefined}
+        aria-disabled={isDownloadDisabled}
         ref={ref}
-        $disabled={downloadDisabled}
+        $isDownloadDisabled={isDownloadDisabled}
         $readonly={readonly}
         $hasError={!!errorMessage}
         {...buttonRest}
@@ -40,7 +42,7 @@ export const FileItem = forwardRef<HTMLButtonElement, FileItemProps>(
             size='sm'
             name='attachment-line'
             $readonly={readonly}
-            $disabled={downloadDisabled}
+            $isDownloadDisabled={isDownloadDisabled}
             $hasError={!!errorMessage}
           />
           <FileItemDataContainer>
@@ -49,7 +51,7 @@ export const FileItem = forwardRef<HTMLButtonElement, FileItemProps>(
               textAlign='left'
               weight='subtle'
               $readonly={readonly}
-              $disabled={downloadDisabled}
+              $isDownloadDisabled={isDownloadDisabled}
               $hasError={!!errorMessage}
               className='file-name'
               aria-label={`파일 이름: ${fileName}`}
@@ -60,7 +62,7 @@ export const FileItem = forwardRef<HTMLButtonElement, FileItemProps>(
               size='xs'
               textAlign='right'
               weight='subtle'
-              $disabled={downloadDisabled}
+              $isDownloadDisabled={isDownloadDisabled}
               $hasError={!!errorMessage}
               aria-label={`파일 사이즈: ${fileSize}`}
             >
@@ -71,7 +73,7 @@ export const FileItem = forwardRef<HTMLButtonElement, FileItemProps>(
             )}
           </FileItemDataContainer>
         </FileItemSectionDiv>
-        {!!errorMessage && <FileErrorDiv>{errorMessage}</FileErrorDiv>}
+        {!!errorMessage && <FileErrorSpan>{errorMessage}</FileErrorSpan>}
       </FileItemWrapButton>
     );
   },

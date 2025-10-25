@@ -2,25 +2,25 @@ import { ComponentPropsWithoutRef, ReactNode } from 'react';
 import { IconButtonBasicProps } from '../Button/IconButton';
 
 export interface FileItemWrapButtonProps {
-  $disabled: boolean;
+  $isDownloadDisabled: boolean;
   $readonly: boolean;
   $hasError: boolean;
 }
 
 export interface FileItemIconProps {
   $readonly: boolean;
-  $disabled: boolean;
+  $isDownloadDisabled: boolean;
   $hasError: boolean;
 }
 
 export interface FileItemLabelProps {
   $readonly: boolean;
-  $disabled: boolean;
+  $isDownloadDisabled: boolean;
   $hasError: boolean;
 }
 
 export interface FileSizeProps {
-  $disabled: boolean;
+  $isDownloadDisabled: boolean;
   $hasError: boolean;
 }
 
@@ -29,6 +29,6 @@ export interface FileItemProps extends ComponentPropsWithoutRef<'button'> {
   fileSize?: ReactNode;
   errorMessage?: ReactNode;
   readonly?: boolean;
-  downloadDisabled?: boolean;
+  isDownloadDisabled?: boolean;
   buttonProps?: Omit<IconButtonBasicProps, 'size' | 'hierarchy' | 'icon'>;
 }
