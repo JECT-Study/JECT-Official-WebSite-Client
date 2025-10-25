@@ -169,19 +169,22 @@ export const StyledInputWrapper = styled('div', {
     borderRadius: BORDER_RADIUS,
   });
 
-  const baseBorderStyle = $style === 'outlined' ? `1px solid ${restBorderColor}` : 'none';
+  const baseBorderStyle = $style === 'outlined' ? `0 0 0 1px ${restBorderColor}` : 'none';
 
   const baseStyles: CSSObject = {
     ...restInteractionStyle,
     display: 'flex',
+    flex: '1 0 0',
     alignItems: 'center',
+    alignSelf: 'stretch',
     gap: pxToRem(theme.scheme.desktop.spacing[16]),
     padding: `${pxToRem(theme.scheme.desktop.spacing[8])} ${pxToRem(theme.scheme.desktop.spacing[12])}`,
     backgroundColor,
-    border: baseBorderStyle,
+    border: 'none',
+    boxShadow: baseBorderStyle,
     borderRadius: `${theme.scheme.desktop.radius[BORDER_RADIUS]}px`,
     cursor: $disabled ? 'not-allowed' : 'text',
-    transition: `border-color ${theme.environment.duration[100]} ${theme.environment.motion.fluent}`,
+    transition: `box-shadow ${theme.environment.duration[100]} ${theme.environment.motion.fluent}`,
 
     [theme.breakPoint.tablet]: {
       gap: pxToRem(theme.scheme.tablet.spacing[16]),
@@ -205,11 +208,13 @@ export const StyledInputWrapper = styled('div', {
     return baseStyles;
   }
 
+  const isFocusOutlineHidden = $validation !== 'none';
+
   return {
     ...baseStyles,
     '&:hover': {
       ...hoverInteractionStyle,
-      border: $style === 'outlined' ? `1px solid ${hoverBorderColor}` : 'none',
+      boxShadow: $style === 'outlined' ? `0 0 0 1px ${hoverBorderColor}` : 'none',
       '::after': {
         ...hoverInteractionStyle['::after'],
         transition: `opacity ${theme.environment.duration[100]} ${theme.environment.motion.fluent}`,
@@ -217,7 +222,7 @@ export const StyledInputWrapper = styled('div', {
     },
     '&:active': {
       ...activeInteractionStyle,
-      border: $style === 'outlined' ? `1px solid ${activeBorderColor}` : 'none',
+      boxShadow: $style === 'outlined' ? `0 0 0 1px ${activeBorderColor}` : 'none',
       '::after': {
         ...activeInteractionStyle['::after'],
         transition: 'none',
@@ -225,10 +230,14 @@ export const StyledInputWrapper = styled('div', {
     },
     '&:focus-within': {
       ...focusInteractionStyle,
-      border: $style === 'outlined' ? `2px solid ${focusBorderColor}` : 'none',
-      '::before': {
-        ...focusInteractionStyle['::before'],
-      },
+      boxShadow: $style === 'outlined' ? `0 0 0 2px ${focusBorderColor}` : 'none',
+      '::before': isFocusOutlineHidden
+        ? {
+            opacity: 0,
+          }
+        : {
+            ...focusInteractionStyle['::before'],
+          },
       '::after': {
         ...restInteractionStyle['::after'],
       },
@@ -302,10 +311,12 @@ export const StyledFieldContainer = styled('div', {
   },
 }));
 
-export const StyledLabelContainer = styled('div')(({ theme }) => ({
+export const StyledLabelContainer = styled('div', {
+  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
+})<{ $layout?: 'vertical' | 'horizontal' }>(({ theme, $layout }) => ({
   display: 'flex',
   padding: 0,
-  alignItems: 'center',
+  alignItems: $layout === 'horizontal' ? 'flex-start' : 'center',
   alignSelf: 'stretch',
   gap: pxToRem(theme.scheme.desktop.spacing[4]),
 
@@ -320,9 +331,16 @@ export const StyledLabelContainer = styled('div')(({ theme }) => ({
 
 export const StyledFieldLabel = styled(Label, {
   shouldForwardProp: prop => !prop.startsWith('$'),
-})<{ $disabled: boolean; $readOnly: boolean }>(({ theme, $disabled, $readOnly }) => ({
-  color: getLabelColor(theme, $disabled, $readOnly),
-}));
+})<{ $disabled: boolean; $readOnly: boolean; $layout?: 'vertical' | 'horizontal' }>(
+  ({ theme, $disabled, $readOnly, $layout }) => ({
+    color: getLabelColor(theme, $disabled, $readOnly),
+    ...($layout === 'horizontal' && {
+      height: pxToRem(40),
+      minWidth: pxToRem(80),
+      maxWidth: pxToRem(120),
+    }),
+  }),
+);
 
 export const StyledHelperText = styled(Label, {
   shouldForwardProp: prop => !prop.startsWith('$'),
@@ -338,6 +356,7 @@ export const StyledInputRow = styled('div')(({ theme }) => ({
   display: 'flex',
   gap: pxToRem(theme.scheme.desktop.spacing[8]),
   alignItems: 'center',
+  alignSelf: 'stretch',
   width: '100%',
 
   [theme.breakPoint.tablet]: {
@@ -346,5 +365,22 @@ export const StyledInputRow = styled('div')(({ theme }) => ({
 
   [theme.breakPoint.mobile]: {
     gap: pxToRem(theme.scheme.mobile.spacing[8]),
+  },
+}));
+
+export const StyledInputColumn = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-start',
+  flex: '1 0 0',
+  alignSelf: 'stretch',
+  gap: pxToRem(theme.scheme.desktop.spacing[6]),
+
+  [theme.breakPoint.tablet]: {
+    gap: pxToRem(theme.scheme.tablet.spacing[6]),
+  },
+
+  [theme.breakPoint.mobile]: {
+    gap: pxToRem(theme.scheme.mobile.spacing[6]),
   },
 }));
