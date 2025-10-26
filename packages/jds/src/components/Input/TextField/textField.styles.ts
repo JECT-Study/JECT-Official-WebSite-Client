@@ -1,9 +1,9 @@
 import isPropValid from '@emotion/is-prop-valid';
 import type { CSSObject, Theme } from '@emotion/react';
 import styled from '@emotion/styled';
-import type { TextFieldStyle, TextFieldValidation } from 'components';
-import { Label } from 'components';
 import { InteractionLayer, pxToRem, textStyle } from 'utils';
+
+import type { TextFieldStyle, TextFieldValidation } from './textField.types';
 
 const getBorderColor = (
   theme: Theme,
@@ -47,51 +47,6 @@ const getTextColor = (theme: Theme, disabled: boolean, readOnly: boolean): strin
     return theme.color.object.subtle;
   }
   return theme.color.object.boldest;
-};
-
-const getLabelColor = (theme: Theme, disabled: boolean, readOnly: boolean): string => {
-  if (disabled) {
-    return theme.color.object.assistive;
-  }
-
-  if (readOnly) {
-    return theme.color.object.normal;
-  }
-
-  return theme.color.object.normal;
-};
-
-const getHelperTextColor = (
-  theme: Theme,
-  validation: TextFieldValidation,
-  disabled: boolean,
-  readOnly: boolean,
-): string => {
-  if (disabled) {
-    const disabledColorMap = {
-      none: theme.color.object.subtle,
-      error: theme.color.feedback.destructive.alpha.assistive,
-      success: theme.color.feedback.positive.alpha.assistive,
-    };
-    return disabledColorMap[validation];
-  }
-
-  if (readOnly) {
-    const readOnlyColorMap = {
-      none: theme.color.object.alternative,
-      error: theme.color.feedback.destructive.alpha.assistive,
-      success: theme.color.feedback.positive.alpha.assistive,
-    };
-    return readOnlyColorMap[validation];
-  }
-
-  const helperColorMap = {
-    none: theme.color.object.alternative,
-    error: theme.color.feedback.destructive.neutral,
-    success: theme.color.feedback.positive.neutral,
-  };
-
-  return helperColorMap[validation];
 };
 
 const getBackgroundColor = (
@@ -264,7 +219,6 @@ export const StyledInput = styled('input', {
     backgroundColor: 'transparent',
     color: textColor,
     ...textStyle(theme, 'desktop', 'body.sm.normal'),
-    //Todo: Select와 비교 후 없애도 될수도
     position: 'relative',
     zIndex: 1,
 
@@ -282,105 +236,11 @@ export const StyledInput = styled('input', {
   };
 });
 
-export const StyledFieldContainer = styled('div', {
-  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
-})<{ $layout: 'vertical' | 'horizontal' }>(({ theme, $layout }) => ({
-  display: 'flex',
-  padding: 0,
-  width: '100%',
-  flexDirection: $layout === 'vertical' ? 'column' : 'row',
-  justifyContent: $layout === 'vertical' ? 'center' : undefined,
-  alignItems: 'flex-start',
-  gap:
-    $layout === 'vertical'
-      ? pxToRem(theme.scheme.desktop.spacing[6])
-      : pxToRem(theme.scheme.desktop.spacing[16]),
-
-  [theme.breakPoint.tablet]: {
-    gap:
-      $layout === 'vertical'
-        ? pxToRem(theme.scheme.tablet.spacing[6])
-        : pxToRem(theme.scheme.tablet.spacing[16]),
-  },
-
-  [theme.breakPoint.mobile]: {
-    gap:
-      $layout === 'vertical'
-        ? pxToRem(theme.scheme.mobile.spacing[6])
-        : pxToRem(theme.scheme.mobile.spacing[16]),
-  },
-}));
-
-export const StyledLabelContainer = styled('div', {
-  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
-})<{ $layout?: 'vertical' | 'horizontal' }>(({ theme, $layout }) => ({
-  display: 'flex',
-  padding: 0,
-  alignItems: $layout === 'horizontal' ? 'flex-start' : 'center',
-  alignSelf: 'stretch',
-  gap: pxToRem(theme.scheme.desktop.spacing[4]),
-
-  [theme.breakPoint.tablet]: {
-    gap: pxToRem(theme.scheme.tablet.spacing[4]),
-  },
-
-  [theme.breakPoint.mobile]: {
-    gap: pxToRem(theme.scheme.mobile.spacing[4]),
-  },
-}));
-
-export const StyledFieldLabel = styled(Label, {
-  shouldForwardProp: prop => !prop.startsWith('$'),
-})<{ $disabled: boolean; $readOnly: boolean; $layout?: 'vertical' | 'horizontal' }>(
-  ({ theme, $disabled, $readOnly, $layout }) => ({
-    color: getLabelColor(theme, $disabled, $readOnly),
-    ...($layout === 'horizontal' && {
-      height: pxToRem(40),
-      minWidth: pxToRem(80),
-      maxWidth: pxToRem(120),
-    }),
-  }),
-);
-
-export const StyledHelperText = styled(Label, {
-  shouldForwardProp: prop => !prop.startsWith('$'),
-})<{
-  $validation: TextFieldValidation;
-  $disabled: boolean;
-  $readOnly: boolean;
-}>(({ theme, $validation, $disabled, $readOnly }) => ({
-  color: getHelperTextColor(theme, $validation, $disabled, $readOnly),
-}));
-
-export const StyledInputRow = styled('div')(({ theme }) => ({
-  display: 'flex',
-  gap: pxToRem(theme.scheme.desktop.spacing[8]),
-  alignItems: 'center',
-  alignSelf: 'stretch',
-  width: '100%',
-
-  [theme.breakPoint.tablet]: {
-    gap: pxToRem(theme.scheme.tablet.spacing[8]),
-  },
-
-  [theme.breakPoint.mobile]: {
-    gap: pxToRem(theme.scheme.mobile.spacing[8]),
-  },
-}));
-
-export const StyledInputColumn = styled('div')(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'flex-start',
-  flex: '1 0 0',
-  alignSelf: 'stretch',
-  gap: pxToRem(theme.scheme.desktop.spacing[6]),
-
-  [theme.breakPoint.tablet]: {
-    gap: pxToRem(theme.scheme.tablet.spacing[6]),
-  },
-
-  [theme.breakPoint.mobile]: {
-    gap: pxToRem(theme.scheme.mobile.spacing[6]),
-  },
-}));
+export {
+  StyledFieldContainer,
+  StyledLabelContainer,
+  StyledFieldLabel,
+  StyledHelperText,
+  StyledInputColumn,
+  StyledInputRow,
+} from '../shared/field.styles';
