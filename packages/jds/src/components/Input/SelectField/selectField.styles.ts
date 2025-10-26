@@ -217,16 +217,18 @@ export const StyledSelectValue = styled('span', {
     : getTextColor(theme, $disabled, $readOnly);
 
   return {
-    display: 'flex',
+    display: '-webkit-box',
+    WebkitBoxOrient: 'vertical',
+    WebkitLineClamp: 1,
     padding: 0,
-    alignItems: 'center',
-    gap: 0,
     flex: '1 0 0',
     color: textColor,
     ...textStyle(theme, 'desktop', 'body.sm.normal'),
     position: 'relative',
     zIndex: 1,
     userSelect: 'none',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
 
     [theme.breakPoint.tablet]: {
       ...textStyle(theme, 'tablet', 'body.sm.normal'),
