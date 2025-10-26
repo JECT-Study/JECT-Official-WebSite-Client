@@ -35,18 +35,12 @@ const meta = {
         defaultValue: { summary: 'none' },
       },
     },
-    disabled: {
-      control: 'boolean',
-      description: '비활성화 여부',
+    interaction: {
+      control: 'select',
+      options: ['enabled', 'disabled', 'readOnly'],
+      description: '인터랙션 상태 (활성화, 비활성화, 읽기 전용)',
       table: {
-        defaultValue: { summary: 'false' },
-      },
-    },
-    readOnly: {
-      control: 'boolean',
-      description: '읽기 전용 여부',
-      table: {
-        defaultValue: { summary: 'false' },
+        defaultValue: { summary: 'enabled' },
       },
     },
     label: {
@@ -216,7 +210,7 @@ export const Disabled: Story = {
         <SelectField
           label='지역 선택'
           placeholder='선택할 수 없습니다'
-          disabled
+          interaction='disabled'
           helperText='현재 선택이 비활성화되어 있습니다'
           value={value}
           isOpen={isOpen}
@@ -239,7 +233,7 @@ export const ReadOnly: Story = {
       <div style={{ width: '20rem' }}>
         <SelectField
           label='지역'
-          readOnly
+          interaction='readOnly'
           helperText='읽기 전용 상태입니다'
           value={value}
           isOpen={isOpen}

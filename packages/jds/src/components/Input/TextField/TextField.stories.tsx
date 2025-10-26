@@ -36,18 +36,12 @@ const meta = {
         defaultValue: { summary: 'none' },
       },
     },
-    disabled: {
-      control: 'boolean',
-      description: '비활성화 여부',
+    interaction: {
+      control: 'select',
+      options: ['enabled', 'disabled', 'readOnly'],
+      description: '인터랙션 상태 (활성화, 비활성화, 읽기 전용)',
       table: {
-        defaultValue: { summary: 'false' },
-      },
-    },
-    readOnly: {
-      control: 'boolean',
-      description: '읽기 전용 여부',
-      table: {
-        defaultValue: { summary: 'false' },
+        defaultValue: { summary: 'enabled' },
       },
     },
     label: {
@@ -204,7 +198,7 @@ export const States: Story = {
           label='Disabled'
           placeholder='비활성화된 입력 필드'
           helperText='이 필드는 비활성화되어 있습니다'
-          disabled
+          interaction='disabled'
           value={value2}
           onChange={e => setValue2(e.target.value)}
         />
@@ -214,7 +208,7 @@ export const States: Story = {
           value={value3}
           onChange={e => setValue3(e.target.value)}
           helperText='이 필드는 읽기 전용 상태입니다'
-          readOnly
+          interaction='readOnly'
         />
       </FlexColumn>
     );

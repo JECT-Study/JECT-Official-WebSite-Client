@@ -12,6 +12,7 @@ import {
 } from './selectField.styles';
 import type { SelectFieldProps } from './selectField.types';
 import { Icon } from '../../Icon';
+import { getInteractionStates } from '../input.types';
 
 export const SelectField = forwardRef<HTMLDivElement, SelectFieldProps>(
   (
@@ -19,8 +20,7 @@ export const SelectField = forwardRef<HTMLDivElement, SelectFieldProps>(
       style = 'outlined',
       layout = 'vertical',
       validation = 'none',
-      disabled = false,
-      readOnly = false,
+      interaction = 'enabled',
       label,
       labelIcon,
       helperText,
@@ -35,11 +35,12 @@ export const SelectField = forwardRef<HTMLDivElement, SelectFieldProps>(
     ref,
   ) => {
     const fieldId = useId();
+    const { disabled, readOnly, isInteractive } = getInteractionStates(interaction);
     const isPlaceholder = !value;
     const displayValue = value || placeholder;
 
     const handleClick = () => {
-      if (!disabled && !readOnly && onClick) {
+      if (isInteractive && onClick) {
         onClick();
       }
     };

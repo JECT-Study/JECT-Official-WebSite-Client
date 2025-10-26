@@ -11,6 +11,7 @@ import {
 } from './textField.styles';
 import type { TextFieldProps } from './textField.types';
 import { Icon } from '../../Icon';
+import { getInteractionStates } from '../input.types';
 
 export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
   (
@@ -18,8 +19,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
       style = 'outlined',
       layout = 'vertical',
       validation = 'none',
-      disabled = false,
-      readOnly = false,
+      interaction = 'enabled',
       label,
       labelIcon,
       helperText,
@@ -30,6 +30,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
     ref,
   ) => {
     const inputId = useId();
+    const { disabled, readOnly } = getInteractionStates(interaction);
 
     return (
       <StyledFieldContainer $layout={layout}>

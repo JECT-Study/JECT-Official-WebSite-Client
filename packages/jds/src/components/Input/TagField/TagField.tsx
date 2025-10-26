@@ -22,6 +22,7 @@ import {
 import type { TagFieldProps, Tag } from './tagField.types';
 import { ContentBadge } from '../../Badge';
 import { Icon } from '../../Icon';
+import { getInteractionStates } from '../input.types';
 
 export const TagField = forwardRef<HTMLInputElement, TagFieldProps>(
   (
@@ -29,8 +30,7 @@ export const TagField = forwardRef<HTMLInputElement, TagFieldProps>(
       style = 'outlined',
       layout = 'vertical',
       validation = 'none',
-      disabled = false,
-      readOnly = false,
+      interaction = 'enabled',
       label,
       labelIcon,
       helperText,
@@ -44,6 +44,7 @@ export const TagField = forwardRef<HTMLInputElement, TagFieldProps>(
     ref,
   ) => {
     const inputId = useId();
+    const { disabled, readOnly, isInteractive } = getInteractionStates(interaction);
     const hasTag = tags.length > 0;
 
     const [inputValue, setInputValue] = useState('');
@@ -143,8 +144,6 @@ export const TagField = forwardRef<HTMLInputElement, TagFieldProps>(
       [removeTag],
     );
 
-    const isInteractive = !disabled && !readOnly;
-
     return (
       <StyledFieldContainer $layout={layout}>
         {label && (
@@ -181,9 +180,9 @@ export const TagField = forwardRef<HTMLInputElement, TagFieldProps>(
                   onClick={isInteractive ? e => handleTagClick(e, tag.id) : undefined}
                 >
                   <ContentBadge.Basic
-                    size='sm'
+                    size='xs'
                     hierarchy='secondary'
-                    badgeStyle='solid'
+                    badgeStyle='alpha'
                     withIcon={isInteractive}
                   >
                     {tag.label}
