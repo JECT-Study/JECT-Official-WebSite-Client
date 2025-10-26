@@ -16,6 +16,7 @@ import {
   StyledHelperText,
   StyledTagInputWrapper,
   StyledTagContainer,
+  StyledTagWrapper,
   StyledTagInput,
 } from './tagField.styles';
 import type { TagFieldProps, Tag } from './tagField.types';
@@ -173,10 +174,11 @@ export const TagField = forwardRef<HTMLInputElement, TagFieldProps>(
           >
             <StyledTagContainer $hasTag={hasTag}>
               {tags.map(tag => (
-                <div
+                <StyledTagWrapper
                   key={tag.id}
+                  $isSelected={selectedTagId === tag.id}
+                  $isInteractive={isInteractive}
                   onClick={isInteractive ? e => handleTagClick(e, tag.id) : undefined}
-                  style={{ cursor: isInteractive ? 'pointer' : 'default' }}
                 >
                   <ContentBadge.Basic
                     size='sm'
@@ -186,7 +188,7 @@ export const TagField = forwardRef<HTMLInputElement, TagFieldProps>(
                   >
                     {tag.label}
                   </ContentBadge.Basic>
-                </div>
+                </StyledTagWrapper>
               ))}
             </StyledTagContainer>
             <StyledTagInput
