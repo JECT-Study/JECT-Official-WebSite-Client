@@ -1,22 +1,7 @@
-import type { ChangeEvent, ComponentPropsWithoutRef, ReactNode } from 'react';
+import type { ChangeEvent, ReactNode } from 'react';
 
 import type { IconName } from '../../Icon/Icon.types';
-
-export type TextFieldStyle = 'outlined' | 'empty';
-export type TextFieldLayout = 'vertical' | 'horizontal';
-export type TextFieldValidation = 'none' | 'error' | 'success';
-
-export interface FieldPublicProps {
-  style?: TextFieldStyle;
-  layout?: TextFieldLayout;
-  validation?: TextFieldValidation;
-  disabled?: boolean;
-  readOnly?: boolean;
-}
-
-export type FieldInputPublicProps = Omit<ComponentPropsWithoutRef<'input'>, 'style'>;
-
-export interface BaseTextFieldProps extends FieldInputPublicProps {}
+import type { FieldPublicProps, FieldInputPublicProps } from '../input.types';
 
 export interface TextFieldPublicProps
   extends FieldPublicProps,

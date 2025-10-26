@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import { pxToRem } from 'utils';
 
 import { Label } from '../../Label';
-import type { TextFieldLayout, TextFieldValidation } from '../TextField/textField.types';
+import type { InputLayout, InputValidation } from '../input.types';
 
 export const getLabelColor = (theme: Theme, disabled: boolean, readOnly: boolean): string => {
   if (disabled) {
@@ -20,7 +20,7 @@ export const getLabelColor = (theme: Theme, disabled: boolean, readOnly: boolean
 
 export const getHelperTextColor = (
   theme: Theme,
-  validation: TextFieldValidation,
+  validation: InputValidation,
   disabled: boolean,
   readOnly: boolean,
 ): string => {
@@ -53,7 +53,7 @@ export const getHelperTextColor = (
 
 export const StyledFieldContainer = styled('div', {
   shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
-})<{ $layout: TextFieldLayout }>(({ theme, $layout }) => ({
+})<{ $layout: InputLayout }>(({ theme, $layout }) => ({
   display: 'flex',
   padding: 0,
   width: '100%',
@@ -82,7 +82,7 @@ export const StyledFieldContainer = styled('div', {
 
 export const StyledLabelContainer = styled('div', {
   shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
-})<{ $layout?: TextFieldLayout }>(({ theme, $layout }) => ({
+})<{ $layout?: InputLayout }>(({ theme, $layout }) => ({
   display: 'flex',
   padding: 0,
   alignItems: $layout === 'horizontal' ? 'flex-start' : 'center',
@@ -100,7 +100,7 @@ export const StyledLabelContainer = styled('div', {
 
 export const StyledFieldLabel = styled(Label, {
   shouldForwardProp: prop => !prop.startsWith('$'),
-})<{ $disabled: boolean; $readOnly: boolean; $layout?: TextFieldLayout }>(
+})<{ $disabled: boolean; $readOnly: boolean; $layout?: InputLayout }>(
   ({ theme, $disabled, $readOnly, $layout }) => ({
     color: getLabelColor(theme, $disabled, $readOnly),
     ...($layout === 'horizontal' && {
@@ -114,7 +114,7 @@ export const StyledFieldLabel = styled(Label, {
 export const StyledHelperText = styled(Label, {
   shouldForwardProp: prop => !prop.startsWith('$'),
 })<{
-  $validation: TextFieldValidation;
+  $validation: InputValidation;
   $disabled: boolean;
   $readOnly: boolean;
 }>(({ theme, $validation, $disabled, $readOnly }) => ({

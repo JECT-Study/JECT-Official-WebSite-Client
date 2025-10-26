@@ -5,13 +5,4 @@ export const TextField = Object.assign(TextFieldBase, {
   Button: TextFieldButton,
 });
 
-export type {
-  FieldPublicProps,
-  FieldInputPublicProps,
-  TextFieldStyle,
-  TextFieldLayout,
-  TextFieldValidation,
-  TextFieldPublicProps,
-  TextFieldProps,
-  TextFieldButtonProps,
-} from './textField.types';
+export type { TextFieldPublicProps, TextFieldProps, TextFieldButtonProps } from './textField.types';

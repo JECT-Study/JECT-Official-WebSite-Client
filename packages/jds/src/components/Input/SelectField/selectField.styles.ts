@@ -3,11 +3,11 @@ import type { CSSObject, Theme } from '@emotion/react';
 import styled from '@emotion/styled';
 import { InteractionLayer, pxToRem, textStyle } from 'utils';
 
-import type { TextFieldStyle, TextFieldValidation } from '../TextField/textField.types';
+import type { InputStyle, InputValidation } from '../input.types';
 
 const getBorderColor = (
   theme: Theme,
-  validation: TextFieldValidation,
+  validation: InputValidation,
   state: 'rest' | 'hover' | 'active' | 'focus',
   disabled: boolean,
 ): string => {
@@ -55,7 +55,7 @@ const getPlaceholderColor = (theme: Theme): string => {
 
 const getBackgroundColor = (
   theme: Theme,
-  style: TextFieldStyle,
+  style: InputStyle,
   disabled: boolean,
   readOnly: boolean,
 ): string => {
@@ -71,8 +71,8 @@ const getBackgroundColor = (
 export const StyledSelectWrapper = styled('div', {
   shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
 })<{
-  $style: TextFieldStyle;
-  $validation: TextFieldValidation;
+  $style: InputStyle;
+  $validation: InputValidation;
   $disabled: boolean;
   $readOnly: boolean;
 }>(({ theme, $style, $validation, $disabled, $readOnly }) => {
