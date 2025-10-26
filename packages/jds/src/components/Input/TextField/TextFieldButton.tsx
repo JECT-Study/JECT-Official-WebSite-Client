@@ -1,4 +1,3 @@
-import { Icon } from 'components';
 import { forwardRef, useId } from 'react';
 
 import {
@@ -12,6 +11,7 @@ import {
   StyledInputColumn,
 } from './textField.styles';
 import type { TextFieldButtonProps } from './textField.types';
+import { Icon } from '../../Icon';
 
 export const TextFieldButton = forwardRef<HTMLInputElement, TextFieldButtonProps>(
   (

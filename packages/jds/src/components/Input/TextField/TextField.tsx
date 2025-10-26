@@ -1,5 +1,3 @@
-import { Icon } from 'components';
-import type { TextFieldProps } from 'components';
 import { forwardRef, useId } from 'react';
 
 import {
@@ -11,6 +9,8 @@ import {
   StyledHelperText,
   StyledInputColumn,
 } from './textField.styles';
+import type { TextFieldProps } from './textField.types';
+import { Icon } from '../../Icon';
 
 export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
   (
@@ -46,7 +46,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
             >
               {label}
             </StyledFieldLabel>
-            {labelIcon && <Icon name={labelIcon} size='sm' />}
+            {labelIcon && <Icon name={labelIcon} size='2xs' />}
           </StyledLabelContainer>
         )}
 
