@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { FlexColumn } from '@storybook-utils/layout';
+import { FlexColumn, FlexRow, Label } from '@storybook-utils/layout';
+import { BlockButton } from 'components';
 import { useState } from 'react';
 
 import { TagField } from './index';
@@ -86,11 +87,49 @@ export const Default: Story = {
     const [tags, setTags] = useState<Tag[]>([
       { id: '1', label: 'React' },
       { id: '2', label: 'TypeScript' },
+    ]);
+
+    return (
+      <div style={{ width: '20rem' }}>
+        <TagField.Button
+          label='기술 스택'
+          placeholder='태그를 입력하세요'
+          helperText='Enter로 추가, Backspace로 삭제'
+          tags={tags}
+          onTagsChange={setTags}
+          button={<BlockButton.Basic size='md'>저장</BlockButton.Basic>}
+        />
+      </div>
+    );
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '**TagField.Button (기본)**\n\n' +
+          '태그를 입력하고 관리할 수 있는 필드에 버튼이 포함된 형태입니다.\n' +
+          '- Enter: 태그 추가\n' +
+          '- Backspace (입력값 비어있을 때): 마지막 태그 삭제\n' +
+          '- Badge 클릭: 해당 태그 삭제',
+      },
+    },
+  },
+};
+
+export const BasicTagField: Story = {
+  args: {
+    tags: [],
+    onTagsChange: () => {},
+  },
+  render: function Render() {
+    const [tags, setTags] = useState<Tag[]>([
+      { id: '1', label: 'React' },
+      { id: '2', label: 'TypeScript' },
       { id: '3', label: 'Design System' },
     ]);
 
     return (
-      <div style={{ width: '24rem' }}>
+      <div style={{ width: '20rem' }}>
         <TagField
           label='관심 기술 스택'
           placeholder='태그를 입력하고 Enter를 누르세요'
@@ -104,70 +143,35 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: `
-**TagField (기본)**
-
-태그를 입력하고 관리할 수 있는 필드입니다.
-
-- Enter: 태그 추가  
-- Backspace (입력값 비어있을 때): 마지막 태그 삭제  
-- Badge 클릭: 해당 태그 삭제
-        `,
+        story:
+          '**기본 TagField**\n\n' +
+          'Label + Tag Input + Helper가 모두 포함된 완전한 TagField입니다.\n' +
+          'Controlled Pattern 전용: tags와 onTagsChange는 필수입니다.',
       },
     },
   },
 };
 
-export const Empty: Story = {
-  args: {
-    tags: [],
-    onTagsChange: () => {},
-  },
-  render: function Render() {
-    const [tags, setTags] = useState<Tag[]>([]);
-
-    return (
-      <div style={{ width: '24rem' }}>
-        <TagField
-          label='태그'
-          placeholder='태그를 입력하세요'
-          helperText='태그를 추가해보세요'
-          tags={tags}
-          onTagsChange={setTags}
-        />
-      </div>
-    );
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: '**빈 상태**\n\n태그가 없는 초기 상태입니다. 태그 컨테이너는 숨겨집니다.',
-      },
-    },
-  },
-};
-
-export const WithMaxTags: Story = {
+export const WithLabelIcon: Story = {
   args: {
     tags: [],
     onTagsChange: () => {},
   },
   render: function Render() {
     const [tags, setTags] = useState<Tag[]>([
-      { id: '1', label: 'React' },
-      { id: '2', label: 'TypeScript' },
+      { id: '1', label: 'Frontend' },
+      { id: '2', label: 'Backend' },
     ]);
 
     return (
-      <div style={{ width: '24rem' }}>
+      <div style={{ width: '20rem' }}>
         <TagField
-          label='기술 스택 (최대 5개)'
+          label='개발 분야'
+          labelIcon='information-line'
           placeholder='태그를 입력하세요'
-          helperText={`${tags.length}/5 - 최대 5개까지 입력 가능`}
+          helperText='관심있는 개발 분야를 태그로 추가하세요'
           tags={tags}
           onTagsChange={setTags}
-          maxTags={5}
-          validation={tags.length >= 5 ? 'error' : 'none'}
         />
       </div>
     );
@@ -176,53 +180,7 @@ export const WithMaxTags: Story = {
     docs: {
       description: {
         story:
-          '**최대 개수 제한**\n\n' +
-          '`maxTags` prop으로 최대 태그 개수를 제한할 수 있습니다.\n' +
-          '최대 개수에 도달하면 자동으로 추가가 차단됩니다.',
-      },
-    },
-  },
-};
-
-export const WithDuplicates: Story = {
-  args: {
-    tags: [],
-    onTagsChange: () => {},
-  },
-  render: function Render() {
-    const [tags1, setTags1] = useState<Tag[]>([{ id: '1', label: 'React' }]);
-    const [tags2, setTags2] = useState<Tag[]>([{ id: '1', label: 'React' }]);
-
-    return (
-      <FlexColumn gap='24px'>
-        <TagField
-          label='중복 불가 (기본)'
-          placeholder='React를 입력해보세요'
-          helperText='동일한 태그를 추가할 수 없습니다'
-          tags={tags1}
-          onTagsChange={setTags1}
-          allowDuplicates={false}
-        />
-
-        <TagField
-          label='중복 허용'
-          placeholder='React를 여러 번 입력해보세요'
-          helperText='동일한 태그를 여러 번 추가할 수 있습니다'
-          tags={tags2}
-          onTagsChange={setTags2}
-          allowDuplicates={true}
-        />
-      </FlexColumn>
-    );
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          '**중복 허용 설정**\n\n' +
-          '`allowDuplicates` prop으로 중복 태그 허용 여부를 제어할 수 있습니다.\n' +
-          '- `false` (기본): 중복 태그 불가\n' +
-          '- `true`: 중복 태그 허용',
+          '**Label Icon 포함**\n\n레이블 옆에 아이콘을 추가할 수 있습니다. 어떤 IconName이든 사용 가능합니다.',
       },
     },
   },
@@ -354,66 +312,55 @@ export const States: Story = {
   },
 };
 
-export const WithLabelIcon: Story = {
+export const ButtonWithValidation: Story = {
   args: {
     tags: [],
     onTagsChange: () => {},
   },
   render: function Render() {
-    const [tags, setTags] = useState<Tag[]>([
-      { id: '1', label: 'Frontend' },
-      { id: '2', label: 'Backend' },
+    const [tags1, setTags1] = useState<Tag[]>([{ id: '1', label: 'React' }]);
+    const [tags2, setTags2] = useState<Tag[]>([
+      { id: '1', label: 'A' },
+      { id: '2', label: 'B' },
+      { id: '3', label: 'C' },
+      { id: '4', label: 'D' },
+      { id: '5', label: 'E' },
+      { id: '6', label: 'F' },
     ]);
-
-    return (
-      <div style={{ width: '24rem' }}>
-        <TagField
-          label='개발 분야'
-          labelIcon='information-line'
-          placeholder='태그를 입력하세요'
-          helperText='관심있는 개발 분야를 태그로 추가하세요'
-          tags={tags}
-          onTagsChange={setTags}
-        />
-      </div>
-    );
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: '**Label Icon 포함**\n\n레이블 옆에 아이콘을 추가할 수 있습니다.',
-      },
-    },
-  },
-};
-
-export const ManyTags: Story = {
-  args: {
-    tags: [],
-    onTagsChange: () => {},
-  },
-  render: function Render() {
-    const [tags, setTags] = useState<Tag[]>([
+    const [tags3, setTags3] = useState<Tag[]>([
       { id: '1', label: 'React' },
-      { id: '2', label: 'TypeScript' },
-      { id: '3', label: 'Next.js' },
-      { id: '4', label: 'TailwindCSS' },
-      { id: '5', label: 'Zustand' },
-      { id: '6', label: 'React Query' },
-      { id: '7', label: 'Storybook' },
-      { id: '8', label: 'Vitest' },
-      { id: '9', label: 'ESLint' },
-      { id: '10', label: 'Prettier' },
+      { id: '2', label: 'Vue' },
     ]);
 
     return (
-      <div style={{ width: '28rem' }}>
-        <TagField
-          label='기술 스택'
+      <div style={{ width: '20rem' }}>
+        <TagField.Button
+          label='기술 스택 (Normal)'
           placeholder='태그를 입력하세요'
-          helperText='사용 가능한 기술들을 모두 추가해주세요'
-          tags={tags}
-          onTagsChange={setTags}
+          tags={tags1}
+          onTagsChange={setTags1}
+          button={<BlockButton.Basic size='md'>저장</BlockButton.Basic>}
+          validation='none'
+        />
+        <TagField.Button
+          label='기술 스택 (Error)'
+          helperText='최대 5개까지만 입력 가능합니다'
+          tags={tags2}
+          onTagsChange={setTags2}
+          button={
+            <BlockButton.Feedback intent='destructive' size='md'>
+              초기화
+            </BlockButton.Feedback>
+          }
+          validation='error'
+        />
+        <TagField.Button
+          label='기술 스택 (Success)'
+          helperText='올바르게 입력되었습니다'
+          tags={tags3}
+          onTagsChange={setTags3}
+          button={<BlockButton.Basic size='md'>확인</BlockButton.Basic>}
+          validation='success'
         />
       </div>
     );
@@ -422,40 +369,248 @@ export const ManyTags: Story = {
     docs: {
       description: {
         story:
-          '**많은 태그**\n\n태그가 많아지면 자동으로 줄바꿈됩니다. flex-wrap을 사용하여 반응형으로 처리됩니다.',
+          '**TagField.Button + Validation**\n\n버튼과 validation 상태를 함께 사용할 수 있습니다.',
       },
     },
   },
 };
 
-export const EmptyStyle: Story = {
+export const AllStyles: Story = {
   args: {
     tags: [],
     onTagsChange: () => {},
   },
   render: function Render() {
-    const [tags, setTags] = useState<Tag[]>([
+    const [tags1, setTags1] = useState<Tag[]>([
       { id: '1', label: 'React' },
       { id: '2', label: 'Vue' },
     ]);
+    const [tags2, setTags2] = useState<Tag[]>([
+      { id: '1', label: 'Angular' },
+      { id: '2', label: 'Svelte' },
+    ]);
+    const [tags3, setTags3] = useState<Tag[]>([
+      { id: '1', label: 'Solid' },
+      { id: '2', label: 'Qwik' },
+    ]);
+    const [tags4, setTags4] = useState<Tag[]>([
+      { id: '1', label: 'Next.js' },
+      { id: '2', label: 'Remix' },
+    ]);
+    const [tags5, setTags5] = useState<Tag[]>([
+      { id: '1', label: 'Gatsby' },
+      { id: '2', label: 'Astro' },
+    ]);
+    const [tags6, setTags6] = useState<Tag[]>([
+      { id: '1', label: 'Nuxt' },
+      { id: '2', label: 'SvelteKit' },
+    ]);
 
     return (
-      <div style={{ width: '24rem' }}>
-        <TagField
-          style='empty'
-          label='기술 스택'
-          placeholder='태그를 입력하세요'
-          helperText='Empty 스타일 (테두리 없음)'
-          tags={tags}
-          onTagsChange={setTags}
-        />
-      </div>
+      <FlexColumn gap='32px'>
+        <FlexColumn gap='16px'>
+          <Label>Outlined Style:</Label>
+          <FlexRow gap='24px'>
+            <TagField
+              style='outlined'
+              validation='none'
+              label='Normal'
+              placeholder='Outlined'
+              tags={tags1}
+              onTagsChange={setTags1}
+            />
+            <TagField
+              style='outlined'
+              validation='error'
+              label='Error'
+              placeholder='Outlined'
+              tags={tags2}
+              onTagsChange={setTags2}
+            />
+            <TagField
+              style='outlined'
+              validation='success'
+              label='Success'
+              placeholder='Outlined'
+              tags={tags3}
+              onTagsChange={setTags3}
+            />
+          </FlexRow>
+        </FlexColumn>
+
+        <FlexColumn gap='16px'>
+          <Label>Empty Style:</Label>
+          <FlexRow gap='24px'>
+            <TagField
+              style='empty'
+              validation='none'
+              label='Normal'
+              placeholder='Empty'
+              tags={tags4}
+              onTagsChange={setTags4}
+            />
+            <TagField
+              style='empty'
+              validation='error'
+              label='Error'
+              placeholder='Empty'
+              tags={tags5}
+              onTagsChange={setTags5}
+            />
+            <TagField
+              style='empty'
+              validation='success'
+              label='Success'
+              placeholder='Empty'
+              tags={tags6}
+              onTagsChange={setTags6}
+            />
+          </FlexRow>
+        </FlexColumn>
+      </FlexColumn>
     );
   },
   parameters: {
     docs: {
       description: {
-        story: '**Empty 스타일**\n\n테두리가 없는 스타일입니다.',
+        story:
+          '**스타일 변형**\n\n' +
+          '- `outlined`: 테두리가 있는 스타일 (기본값)\n' +
+          '- `empty`: 테두리가 없는 스타일',
+      },
+    },
+  },
+};
+
+export const Layouts: Story = {
+  args: {
+    tags: [],
+    onTagsChange: () => {},
+  },
+  render: function Render() {
+    const [tags1, setTags1] = useState<Tag[]>([
+      { id: '1', label: 'React' },
+      { id: '2', label: 'Vue' },
+    ]);
+    const [tags2, setTags2] = useState<Tag[]>([
+      { id: '1', label: 'Angular' },
+      { id: '2', label: 'Svelte' },
+    ]);
+
+    return (
+      <FlexColumn gap='32px'>
+        <div>
+          <Label>Vertical Layout:</Label>
+          <TagField
+            layout='vertical'
+            label='기술 스택'
+            placeholder='태그를 입력하세요'
+            helperText='Enter로 태그를 추가하세요'
+            tags={tags1}
+            onTagsChange={setTags1}
+          />
+        </div>
+        <div>
+          <Label>Horizontal Layout:</Label>
+          <TagField
+            layout='horizontal'
+            label='기술 스택'
+            placeholder='태그를 입력하세요'
+            helperText='Enter로 태그를 추가하세요'
+            tags={tags2}
+            onTagsChange={setTags2}
+          />
+        </div>
+      </FlexColumn>
+    );
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '**레이아웃 방향**\n\n' +
+          '- `vertical`: 세로 방향 (기본값)\n' +
+          '- `horizontal`: 가로 방향',
+      },
+    },
+  },
+};
+
+export const AllVariants: Story = {
+  args: {
+    tags: [],
+    onTagsChange: () => {},
+  },
+  render: function Render() {
+    const [basicTags, setBasicTags] = useState<Tag[]>([
+      { id: '1', label: 'React' },
+      { id: '2', label: 'TypeScript' },
+    ]);
+    const [buttonTags, setButtonTags] = useState<Tag[]>([
+      { id: '1', label: 'Vue' },
+      { id: '2', label: 'Vite' },
+    ]);
+
+    return (
+      <FlexColumn gap='48px'>
+        <FlexColumn gap='16px'>
+          <label>
+            <strong>TagField 기본형</strong>
+          </label>
+          <TagField
+            label='관심 기술'
+            placeholder='태그를 입력하세요'
+            helperText='Enter로 추가, Backspace로 삭제'
+            tags={basicTags}
+            onTagsChange={setBasicTags}
+          />
+        </FlexColumn>
+
+        <FlexColumn gap='16px'>
+          <label>
+            <strong>TagField.Button (BlockButton.Basic 권장)</strong>
+          </label>
+          <TagField.Button
+            label='프로젝트 기술'
+            placeholder='태그를 입력하세요'
+            helperText='사용한 기술을 태그로 추가해주세요'
+            tags={buttonTags}
+            onTagsChange={setButtonTags}
+            button={<BlockButton.Basic size='md'>저장</BlockButton.Basic>}
+          />
+        </FlexColumn>
+      </FlexColumn>
+    );
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '**모든 TagField 변형 (Controlled Pattern)**\n\n' +
+          'Base + Variants 구조로 관심사를 분리하고, Namespace Pattern을 사용합니다:\n\n' +
+          '1. **TagField**: 기본 태그 입력 필드 (TagField.tsx)\n' +
+          '2. **TagField.Button**: 버튼 포함 (TagFieldButton.tsx)\n\n' +
+          '**권장사항:**\n' +
+          '- TagField.Button의 button prop에는 BlockButton.Basic 사용을 권장합니다.\n' +
+          '- size는 "md"로 고정하여 일관성을 유지합니다.\n\n' +
+          '```tsx\n' +
+          'import { TagField, BlockButton } from "@ject/jds";\n' +
+          'import { useState } from "react";\n\n' +
+          'const [tags, setTags] = useState<Tag[]>([]);\n\n' +
+          '// 기본\n' +
+          '<TagField\n' +
+          '  label="기술 스택"\n' +
+          '  tags={tags}\n' +
+          '  onTagsChange={setTags}\n' +
+          '/>\n\n' +
+          '// 버튼 포함 (BlockButton.Basic 권장)\n' +
+          '<TagField.Button\n' +
+          '  label="기술 스택"\n' +
+          '  tags={tags}\n' +
+          '  onTagsChange={setTags}\n' +
+          '  button={<BlockButton.Basic size="md">저장</BlockButton.Basic>}\n' +
+          '/>\n' +
+          '```',
       },
     },
   },
