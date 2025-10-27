@@ -53,7 +53,7 @@ export const TextFieldButton = forwardRef<HTMLInputElement, TextFieldButtonProps
         )}
 
         <StyledInputColumn>
-          <StyledInputRow>
+          <StyledInputRow $style={style} $layout={layout}>
             <StyledInputWrapper
               $style={style}
               $validation={validation}
