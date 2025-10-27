@@ -1,4 +1,4 @@
-import type { ComponentPropsWithoutRef } from 'react';
+import type { ComponentPropsWithoutRef, ReactNode } from 'react';
 
 import type { IconName } from '../../Icon/Icon.types';
 import type { FieldPublicProps } from '../input.types';
@@ -25,3 +25,7 @@ export interface TagFieldPublicProps
 }
 
 export type TagFieldProps = TagFieldPublicProps;
+
+export interface TagFieldButtonProps extends TagFieldPublicProps {
+  button: ReactNode;
+}
