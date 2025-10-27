@@ -16,3 +16,7 @@ export interface SelectFieldPublicProps extends FieldPublicProps {
 }
 
 export type SelectFieldProps = SelectFieldPublicProps;
+
+export interface SelectFieldButtonProps extends SelectFieldPublicProps {
+  button: ReactNode;
+}
