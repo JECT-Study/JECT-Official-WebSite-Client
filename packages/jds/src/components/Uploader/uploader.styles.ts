@@ -1,9 +1,15 @@
-import { Theme } from '@emotion/react';
+import { CSSObject, Theme } from '@emotion/react';
 import styled from '@emotion/styled';
-import { pxToRem, textStyle } from 'utils';
-import { Icon } from '../Icon';
-import { Label } from '../Label';
-import { UploaderFileContainerDivProps, UploaderState } from './uploader.types';
+import { InteractionLayer, pxToRem, textStyle } from 'utils';
+import { Icon } from '@/components';
+import { Label } from '@/components';
+import {
+  UploaderFileContainerDivProps,
+  UploaderImageContainerButtonProps,
+  UploaderImageIconProps,
+  UploaderImageLabelProps,
+  UploaderState,
+} from './uploader.types';
 
 const uploaderFileStylesMap = (
   theme: Theme,
@@ -34,7 +40,58 @@ const uploaderFileStylesMap = (
   return disabled ? disabledStyle : baseStyle;
 };
 
-export const UploaderFileContainerDiv = styled.div<UploaderFileContainerDivProps>(
+const interactionStyles = (theme: Theme, isDisabled: boolean): CSSObject => {
+  const offset = {
+    vertical: 0,
+    horizontal: 0,
+  };
+  const borderRadius = 6;
+
+  const makeLayer = (state: 'rest' | 'hover' | 'active' | 'focus') =>
+    InteractionLayer({
+      theme,
+      state,
+      variant: 'normal',
+      density: 'assistive',
+      fillColor: 'default',
+      isDisabled: isDisabled,
+      offsetVertical: offset.vertical,
+      offsetHorizontal: offset.horizontal,
+      borderRadius,
+    });
+
+  const interactionParams = {
+    restStyle: makeLayer('rest'),
+    hoverStyle: makeLayer('hover'),
+    activeStyle: makeLayer('active'),
+    focusStyle: makeLayer('focus'),
+  };
+
+  return {
+    ...interactionParams.restStyle,
+    '::after': {
+      ...interactionParams.restStyle['::after'],
+      transition: `opacity ${theme.environment.duration[100]}ms ${theme.environment.motion.fluent}`,
+    },
+    '&:hover': {
+      ...interactionParams.hoverStyle,
+    },
+    '&:active': {
+      ...interactionParams.activeStyle,
+
+      '::after': {
+        ...interactionParams.hoverStyle['::after'],
+        transition: 'none',
+      },
+    },
+    '&:focus-visible': {
+      ...interactionParams.focusStyle,
+      transition: 'none',
+    },
+  };
+};
+
+export const FileDropZoneDiv = styled.div<UploaderFileContainerDivProps>(
   ({ theme, $isDisabled, $isLoading, state }) => {
     const { borderColor, textColor, bgColor } = uploaderFileStylesMap(
       theme,
@@ -58,7 +115,7 @@ export const UploaderFileContainerDiv = styled.div<UploaderFileContainerDivProps
   },
 );
 
-export const UploaderFileSpan = styled.span(({ theme }) => {
+export const FileSpan = styled.span(({ theme }) => {
   const textStyleKey = 'body.2xs.bold';
 
   return {
@@ -69,7 +126,7 @@ export const UploaderFileSpan = styled.span(({ theme }) => {
   };
 });
 
-export const UploaderLoadingIcon = styled(Icon)(({ theme }) => {
+export const LoadingIcon = styled(Icon)(({ theme }) => {
   return {
     color: theme.color.semantic.object.alternative,
   };
@@ -84,8 +141,41 @@ export const FlexRowDiv = styled.div(({ theme }) => {
   };
 });
 
-export const HelperLabel = styled(Label)(({ theme }) => {
+export const FileHelperLabel = styled(Label)(({ theme }) => {
   return {
     color: theme.color.semantic.object.assistive,
+  };
+});
+
+export const ImageDropZoneButton = styled.button<UploaderImageContainerButtonProps>(
+  ({ theme, $isDisabled, $isLoading }) => {
+    const interaction = ($isDisabled || !$isLoading) && interactionStyles(theme, $isDisabled);
+    return {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      gap: pxToRem(theme.scheme.desktop.spacing[12]),
+      width: pxToRem(160),
+      padding: theme.scheme.desktop.margin.lg,
+      borderRadius: theme.scheme.desktop.radius[6],
+      border: `1px dashed ${theme.color.semantic.stroke.alpha.assistive}`,
+      backgroundColor: theme.color.semantic.fill.subtlest,
+      ...interaction,
+      cursor: $isDisabled || $isLoading ? 'default' : 'pointer',
+    };
+  },
+);
+
+export const AddIcon = styled(Icon)<UploaderImageIconProps>(({ theme, $isDisabled }) => {
+  return {
+    color: $isDisabled
+      ? theme.color.semantic.object.subtle
+      : theme.color.semantic.object.alternative,
+  };
+});
+
+export const ImageLabel = styled(Label)<UploaderImageLabelProps>(({ theme, $isDisabled }) => {
+  return {
+    color: $isDisabled ? theme.color.semantic.object.subtle : theme.color.semantic.object.neutral,
   };
 });

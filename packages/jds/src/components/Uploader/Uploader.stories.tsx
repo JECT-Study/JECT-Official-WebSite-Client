@@ -29,3 +29,12 @@ export const File: StoryObj<typeof Uploader.File> = {
   },
   render: args => <Uploader.File isLoading={args.isLoading} isDisabled={args.isDisabled} />,
 };
+
+export const Image: StoryObj<typeof Uploader.Image> = {
+  name: 'Image',
+  args: {
+    isLoading: false,
+    isDisabled: false,
+  },
+  render: args => <Uploader.Image isLoading={args.isLoading} isDisabled={args.isDisabled} />,
+};
