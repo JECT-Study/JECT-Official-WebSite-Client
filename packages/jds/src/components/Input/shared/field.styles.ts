@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import { pxToRem } from 'utils';
 
 import { Label } from '../../Label';
-import type { InputLayout, InputValidation } from '../input.types';
+import type { InputLayout, InputStyle, InputValidation } from '../input.types';
 
 export const getLabelColor = (theme: Theme, disabled: boolean, readOnly: boolean): string => {
   if (disabled) {
@@ -138,18 +138,28 @@ export const StyledInputColumn = styled('div')(({ theme }) => ({
   },
 }));
 
-export const StyledInputRow = styled('div')(({ theme }) => ({
-  display: 'flex',
-  gap: pxToRem(theme.scheme.desktop.spacing[8]),
-  alignItems: 'center',
-  alignSelf: 'stretch',
-  width: '100%',
+export const StyledInputRow = styled('div', {
+  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
+})<{
+  $style?: InputStyle;
+  $layout?: InputLayout;
+}>(({ theme, $style, $layout }) => {
+  const isEmptyVertical = $style === 'empty' && $layout === 'vertical';
+  const gapValue = isEmptyVertical ? 20 : 12;
 
-  [theme.breakPoint.tablet]: {
-    gap: pxToRem(theme.scheme.tablet.spacing[8]),
-  },
+  return {
+    display: 'flex',
+    gap: pxToRem(theme.scheme.desktop.spacing[gapValue]),
+    alignItems: 'center',
+    alignSelf: 'stretch',
+    width: '100%',
 
-  [theme.breakPoint.mobile]: {
-    gap: pxToRem(theme.scheme.mobile.spacing[8]),
-  },
-}));
+    [theme.breakPoint.tablet]: {
+      gap: pxToRem(theme.scheme.tablet.spacing[gapValue]),
+    },
+
+    [theme.breakPoint.mobile]: {
+      gap: pxToRem(theme.scheme.mobile.spacing[gapValue]),
+    },
+  };
+});
