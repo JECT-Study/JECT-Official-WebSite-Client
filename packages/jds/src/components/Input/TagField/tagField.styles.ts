@@ -80,60 +80,122 @@ export const StyledTagInputWrapper = styled('div', {
   const focusBorderColor = getBorderColor(theme, $validation, 'focus', $disabled);
   const backgroundColor = getBackgroundColor(theme, $style, $disabled, $readOnly);
 
-  const restInteractionStyle = InteractionLayer({
-    theme,
-    state: 'rest',
-    variant: 'normal',
-    density: 'assistive',
-    fillColor: 'default',
-    isDisabled: $disabled,
-    isReadonly: $readOnly,
-    borderRadius: BORDER_RADIUS,
-  });
+  const interactionParams = {
+    outlined: {
+      restStyle: InteractionLayer({
+        theme,
+        state: 'rest',
+        variant: 'normal',
+        density: 'assistive',
+        fillColor: 'default',
+        isDisabled: $disabled,
+        isReadonly: $readOnly,
+        borderRadius: BORDER_RADIUS,
+      }),
+      hoverStyle: InteractionLayer({
+        theme,
+        state: 'rest',
+        variant: 'normal',
+        density: 'assistive',
+        fillColor: 'default',
+        isDisabled: $disabled,
+        isReadonly: $readOnly,
+        borderRadius: BORDER_RADIUS,
+      }),
+      activeStyle: InteractionLayer({
+        theme,
+        state: 'active',
+        variant: 'normal',
+        density: 'assistive',
+        fillColor: 'default',
+        isDisabled: $disabled,
+        isReadonly: $readOnly,
+        borderRadius: BORDER_RADIUS,
+      }),
+      focusStyle: InteractionLayer({
+        theme,
+        state: 'rest',
+        variant: 'normal',
+        density: 'assistive',
+        fillColor: 'default',
+        isDisabled: $disabled,
+        isReadonly: $readOnly,
+        borderRadius: BORDER_RADIUS,
+      }),
+    },
+    empty: {
+      restStyle: InteractionLayer({
+        theme,
+        state: 'rest',
+        variant: 'normal',
+        density: 'assistive',
+        fillColor: 'default',
+        isDisabled: $disabled,
+        isReadonly: $readOnly,
+        offsetHorizontal: 8,
+        borderRadius: BORDER_RADIUS,
+      }),
+      hoverStyle: InteractionLayer({
+        theme,
+        state: 'hover',
+        variant: 'normal',
+        density: 'assistive',
+        fillColor: 'default',
+        isDisabled: $disabled,
+        isReadonly: $readOnly,
+        offsetHorizontal: 8,
+        borderRadius: BORDER_RADIUS,
+      }),
+      activeStyle: InteractionLayer({
+        theme,
+        state: 'active',
+        variant: 'normal',
+        density: 'assistive',
+        fillColor: 'default',
+        isDisabled: $disabled,
+        isReadonly: $readOnly,
+        offsetHorizontal: 8,
+        borderRadius: BORDER_RADIUS,
+      }),
+      focusStyle: InteractionLayer({
+        theme,
+        state: 'rest',
+        variant: 'normal',
+        density: 'assistive',
+        fillColor: 'default',
+        isDisabled: $disabled,
+        isReadonly: $readOnly,
+        offsetHorizontal: 8,
+        borderRadius: BORDER_RADIUS,
+      }),
+    },
+  };
 
-  const hoverInteractionStyle = InteractionLayer({
-    theme,
-    state: 'rest',
-    variant: 'normal',
-    density: 'assistive',
-    fillColor: 'default',
-    isDisabled: $disabled,
-    isReadonly: $readOnly,
-    borderRadius: BORDER_RADIUS,
-  });
-
-  const activeInteractionStyle = InteractionLayer({
-    theme,
-    state: 'rest',
-    variant: 'normal',
-    density: 'bold',
-    fillColor: 'inverse',
-    isDisabled: $disabled,
-    isReadonly: $readOnly,
-    borderRadius: BORDER_RADIUS,
-  });
-
-  const focusInteractionStyle = InteractionLayer({
-    theme,
-    state: 'focus',
-    variant: 'normal',
-    density: 'bold',
-    fillColor: 'inverse',
-    isDisabled: $disabled,
-    isReadonly: $readOnly,
-    borderRadius: BORDER_RADIUS,
-  });
+  const { restStyle, hoverStyle, activeStyle, focusStyle } = interactionParams[$style];
 
   const baseBorderStyle = $style === 'outlined' ? `0 0 0 1px ${restBorderColor}` : 'none';
 
+  const paddingMap = {
+    outlined: {
+      desktop: `${pxToRem(theme.scheme.desktop.spacing[8])} ${pxToRem(theme.scheme.desktop.spacing[12])}`,
+      tablet: `${pxToRem(theme.scheme.tablet.spacing[8])} ${pxToRem(theme.scheme.tablet.spacing[12])}`,
+      mobile: `${pxToRem(theme.scheme.mobile.spacing[8])} ${pxToRem(theme.scheme.mobile.spacing[12])}`,
+    },
+    empty: {
+      desktop: `${pxToRem(theme.scheme.desktop.spacing[4])} ${pxToRem(theme.scheme.desktop.spacing[0])}`,
+      tablet: `${pxToRem(theme.scheme.tablet.spacing[4])} ${pxToRem(theme.scheme.tablet.spacing[0])}`,
+      mobile: `${pxToRem(theme.scheme.mobile.spacing[4])} ${pxToRem(theme.scheme.mobile.spacing[0])}`,
+    },
+  };
+
   const baseStyles: CSSObject = {
-    ...restInteractionStyle,
+    ...restStyle,
     display: 'flex',
     flexDirection: 'column',
     flex: '1 0 0',
     alignSelf: 'stretch',
     gap: pxToRem(theme.scheme.desktop.spacing[12]),
-    padding: `${pxToRem(theme.scheme.desktop.spacing[8])} ${pxToRem(theme.scheme.desktop.spacing[12])}`,
+    padding: paddingMap[$style].desktop,
     backgroundColor,
     border: 'none',
     boxShadow: baseBorderStyle,
@@ -143,18 +205,18 @@ export const StyledTagInputWrapper = styled('div', {
 
     [theme.breakPoint.tablet]: {
       gap: pxToRem(theme.scheme.tablet.spacing[8]),
-      padding: `${pxToRem(theme.scheme.tablet.spacing[8])} ${pxToRem(theme.scheme.tablet.spacing[12])}`,
+      padding: paddingMap[$style].tablet,
       borderRadius: `${theme.scheme.tablet.radius[BORDER_RADIUS]}px`,
     },
 
     [theme.breakPoint.mobile]: {
       gap: pxToRem(theme.scheme.mobile.spacing[8]),
-      padding: `${pxToRem(theme.scheme.mobile.spacing[8])} ${pxToRem(theme.scheme.mobile.spacing[12])}`,
+      padding: paddingMap[$style].mobile,
       borderRadius: `${theme.scheme.mobile.radius[BORDER_RADIUS]}px`,
     },
 
     '::after': {
-      ...restInteractionStyle['::after'],
+      ...restStyle['::after'],
       transition: `opacity ${theme.environment.duration[100]} ${theme.environment.motion.fluent}`,
     },
   };
@@ -168,33 +230,33 @@ export const StyledTagInputWrapper = styled('div', {
   return {
     ...baseStyles,
     '&:hover': {
-      ...hoverInteractionStyle,
+      ...hoverStyle,
       boxShadow: $style === 'outlined' ? `0 0 0 1px ${hoverBorderColor}` : 'none',
       '::after': {
-        ...hoverInteractionStyle['::after'],
+        ...hoverStyle['::after'],
         transition: `opacity ${theme.environment.duration[100]} ${theme.environment.motion.fluent}`,
       },
     },
     '&:active': {
-      ...activeInteractionStyle,
+      ...activeStyle,
       boxShadow: $style === 'outlined' ? `0 0 0 1px ${activeBorderColor}` : 'none',
       '::after': {
-        ...activeInteractionStyle['::after'],
+        ...activeStyle['::after'],
         transition: 'none',
       },
     },
     '&:focus-within': {
-      ...focusInteractionStyle,
+      ...focusStyle,
       boxShadow: $style === 'outlined' ? `0 0 0 2px ${focusBorderColor}` : 'none',
       '::before': isFocusOutlineHidden
         ? {
             opacity: 0,
           }
         : {
-            ...focusInteractionStyle['::before'],
+            ...focusStyle['::before'],
           },
       '::after': {
-        ...restInteractionStyle['::after'],
+        ...restStyle['::after'],
       },
     },
   };
