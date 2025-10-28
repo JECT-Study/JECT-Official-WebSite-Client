@@ -111,6 +111,10 @@ export const FileDropZoneDiv = styled.div<UploaderFileContainerDivProps>(
       color: textColor,
       border: `1px dashed ${borderColor}`,
       backgroundColor: bgColor,
+
+      '& > span, & > button ': {
+        pointerEvents: $isDragging ? 'none' : 'auto',
+      },
     };
   },
 );
