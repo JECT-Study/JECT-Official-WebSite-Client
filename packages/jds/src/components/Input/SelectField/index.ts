@@ -1,3 +1,8 @@
-export { SelectField } from './SelectField';
+import { SelectField as SelectFieldBase } from './SelectField';
+import { SelectFieldButton } from './SelectFieldButton';
 
-export type { SelectFieldProps } from './selectField.types';
+export const SelectField = Object.assign(SelectFieldBase, {
+  Button: SelectFieldButton,
+});
+
+export type { SelectFieldProps, SelectFieldButtonProps } from './selectField.types';
