@@ -21,7 +21,7 @@ export type FieldTextAreaPublicProps = Omit<ComponentPropsWithoutRef<'textarea'>
 
 //ToDo: 순수 함수 계열의 공용 유틸리티로 변경해도 될듯
 export const getInteractionStates = (interaction: InputInteraction = 'enabled') => ({
-  disabled: interaction === 'disabled',
-  readOnly: interaction === 'readOnly',
+  isDisabled: interaction === 'disabled',
+  isReadOnly: interaction === 'readOnly',
   isInteractive: interaction === 'enabled',
 });

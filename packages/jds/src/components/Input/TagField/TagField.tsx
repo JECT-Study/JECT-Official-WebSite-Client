@@ -44,7 +44,7 @@ export const TagField = forwardRef<HTMLInputElement, TagFieldProps>(
     ref,
   ) => {
     const inputId = useId();
-    const { disabled, readOnly, isInteractive } = getInteractionStates(interaction);
+    const { isDisabled, isReadOnly, isInteractive } = getInteractionStates(interaction);
     const hasTag = tags.length > 0;
 
     const [inputValue, setInputValue] = useState('');
@@ -153,8 +153,8 @@ export const TagField = forwardRef<HTMLInputElement, TagFieldProps>(
               htmlFor={inputId}
               size='sm'
               weight='normal'
-              $disabled={disabled}
-              $readOnly={readOnly}
+              $disabled={isDisabled}
+              $readOnly={isReadOnly}
               $layout={layout}
             >
               {label}
@@ -167,8 +167,8 @@ export const TagField = forwardRef<HTMLInputElement, TagFieldProps>(
           <StyledTagInputWrapper
             $style={style}
             $validation={validation}
-            $disabled={disabled}
-            $readOnly={readOnly}
+            $disabled={isDisabled}
+            $readOnly={isReadOnly}
             onClick={handleWrapperClick}
           >
             <StyledTagContainer $hasTag={hasTag}>
@@ -193,15 +193,15 @@ export const TagField = forwardRef<HTMLInputElement, TagFieldProps>(
             <StyledTagInput
               ref={ref}
               id={inputId}
-              $disabled={disabled}
-              $readOnly={readOnly}
+              $disabled={isDisabled}
+              $readOnly={isReadOnly}
               value={inputValue}
               onChange={handleChange}
               onKeyDown={handleKeyDown}
               onCompositionStart={handleCompositionStart}
               onCompositionEnd={handleCompositionEnd}
-              disabled={disabled}
-              readOnly={readOnly}
+              disabled={isDisabled}
+              readOnly={isReadOnly}
               placeholder={placeholder}
               {...restProps}
             />
@@ -213,8 +213,8 @@ export const TagField = forwardRef<HTMLInputElement, TagFieldProps>(
               size='sm'
               weight='normal'
               $validation={validation}
-              $disabled={disabled}
-              $readOnly={readOnly}
+              $disabled={isDisabled}
+              $readOnly={isReadOnly}
             >
               {helperText}
             </StyledHelperText>

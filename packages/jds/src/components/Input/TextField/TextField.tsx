@@ -30,7 +30,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
     ref,
   ) => {
     const inputId = useId();
-    const { disabled, readOnly } = getInteractionStates(interaction);
+    const { isDisabled, isReadOnly } = getInteractionStates(interaction);
 
     return (
       <StyledFieldContainer $layout={layout}>
@@ -41,8 +41,8 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
               htmlFor={inputId}
               size='sm'
               weight='normal'
-              $disabled={disabled}
-              $readOnly={readOnly}
+              $disabled={isDisabled}
+              $readOnly={isReadOnly}
               $layout={layout}
             >
               {label}
@@ -55,18 +55,18 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
           <StyledInputWrapper
             $style={style}
             $validation={validation}
-            $disabled={disabled}
-            $readOnly={readOnly}
+            $disabled={isDisabled}
+            $readOnly={isReadOnly}
           >
             <StyledInput
               ref={ref}
               id={inputId}
-              $disabled={disabled}
-              $readOnly={readOnly}
+              $disabled={isDisabled}
+              $readOnly={isReadOnly}
               value={value}
               onChange={onChange}
-              disabled={disabled}
-              readOnly={readOnly}
+              disabled={isDisabled}
+              readOnly={isReadOnly}
               {...restProps}
             />
           </StyledInputWrapper>
@@ -77,8 +77,8 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
               size='sm'
               weight='normal'
               $validation={validation}
-              $disabled={disabled}
-              $readOnly={readOnly}
+              $disabled={isDisabled}
+              $readOnly={isReadOnly}
             >
               {helperText}
             </StyledHelperText>

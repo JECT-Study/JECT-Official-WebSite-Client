@@ -35,7 +35,7 @@ export const SelectField = forwardRef<HTMLDivElement, SelectFieldProps>(
     ref,
   ) => {
     const fieldId = useId();
-    const { disabled, readOnly, isInteractive } = getInteractionStates(interaction);
+    const { isDisabled, isReadOnly, isInteractive } = getInteractionStates(interaction);
     const isPlaceholder = !value;
     const displayValue = value || placeholder;
 
@@ -54,8 +54,8 @@ export const SelectField = forwardRef<HTMLDivElement, SelectFieldProps>(
               htmlFor={fieldId}
               size='sm'
               weight='normal'
-              $disabled={disabled}
-              $readOnly={readOnly}
+              $disabled={isDisabled}
+              $readOnly={isReadOnly}
               $layout={layout}
             >
               {label}
@@ -70,25 +70,25 @@ export const SelectField = forwardRef<HTMLDivElement, SelectFieldProps>(
             id={fieldId}
             $style={style}
             $validation={validation}
-            $disabled={disabled}
-            $readOnly={readOnly}
+            $disabled={isDisabled}
+            $readOnly={isReadOnly}
             onClick={handleClick}
             role='button'
-            tabIndex={disabled || readOnly ? -1 : 0}
-            aria-disabled={disabled}
-            aria-readonly={readOnly}
+            tabIndex={isDisabled || isReadOnly ? -1 : 0}
+            aria-disabled={isDisabled}
+            aria-readonly={isReadOnly}
             aria-expanded={isOpen}
             {...restProps}
           >
             <StyledSelectValue
-              $disabled={disabled}
-              $readOnly={readOnly}
+              $disabled={isDisabled}
+              $readOnly={isReadOnly}
               $isPlaceholder={isPlaceholder}
             >
               {displayValue}
             </StyledSelectValue>
 
-            <StyledSelectIconWrapper $disabled={disabled} $isOpen={isOpen}>
+            <StyledSelectIconWrapper $disabled={isDisabled} $readOnly={isReadOnly}>
               <Icon name={dropdownIcon} size='md' />
             </StyledSelectIconWrapper>
           </StyledSelectWrapper>
@@ -99,8 +99,8 @@ export const SelectField = forwardRef<HTMLDivElement, SelectFieldProps>(
               size='sm'
               weight='normal'
               $validation={validation}
-              $disabled={disabled}
-              $readOnly={readOnly}
+              $disabled={isDisabled}
+              $readOnly={isReadOnly}
             >
               {helperText}
             </StyledHelperText>
