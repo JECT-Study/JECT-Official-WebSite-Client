@@ -104,6 +104,8 @@ const UploaderFile = ({
   const baseBodyText = isLoading ? uploaderMessages.loading : uploaderMessages.rest;
   const bodyText = isDisabled ? uploaderMessages.disabled : baseBodyText;
 
+  const handleClick = () => !isDisabled && !isLoading && inputRef.current?.click();
+
   return (
     <FileDropZoneDiv
       onDragOver={handleDragOver}
@@ -117,7 +119,7 @@ const UploaderFile = ({
       <UploaderFileButton
         onCancel={onCancel}
         onIssue={onIssue}
-        onClick={() => !isDisabled && inputRef.current?.click()}
+        onClick={handleClick}
         isLoading={isLoading}
         isDisabled={isDisabled}
       />
@@ -188,12 +190,10 @@ const UploaderImage = ({
     onError,
   });
 
+  const handleClick = () => !isDisabled && !isLoading && inputRef.current?.click();
+
   return (
-    <ImageDropZoneButton
-      $isDisabled={isDisabled}
-      $isLoading={isLoading}
-      onClick={() => !isDisabled && inputRef.current?.click()}
-    >
+    <ImageDropZoneButton $isDisabled={isDisabled} $isLoading={isLoading} onClick={handleClick}>
       <UploaderImageButton isDisabled={isDisabled} isLoading={isLoading} onCancel={onCancel} />
       <HiddenInput
         ref={inputRef}
