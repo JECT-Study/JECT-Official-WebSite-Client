@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Uploader } from './Uploader';
 import { UploadError } from './uploader.types';
+import { FlexColumn } from '@storybook-utils/layout';
 
 const meta = {
   title: 'Components/Uploader',
@@ -76,7 +77,14 @@ export const FileUpload: StoryObj<typeof Uploader.File> = {
     };
 
     return (
-      <Uploader.File onUpload={onUpload} isLoading={args.isLoading} isDisabled={args.isDisabled} />
+      <FlexColumn>
+        <span>*파일을 드래그앤드롭, 버튼 클릭으로 업로드 시 alert창이 나타납니다</span>
+        <Uploader.File
+          onUpload={onUpload}
+          isLoading={args.isLoading}
+          isDisabled={args.isDisabled}
+        />
+      </FlexColumn>
     );
   },
 };
@@ -93,12 +101,15 @@ export const FileOnError: StoryObj<typeof Uploader.File> = {
     };
 
     return (
-      <Uploader.File
-        onError={onError}
-        maxFileSize={1}
-        isLoading={args.isLoading}
-        isDisabled={args.isDisabled}
-      />
+      <FlexColumn>
+        <span>*파일 업로드 시 에러가 발생합니다. (총 파일 용량 제한: 0bytes로 설정)</span>
+        <Uploader.File
+          onError={onError}
+          maxFileSize={1}
+          isLoading={args.isLoading}
+          isDisabled={args.isDisabled}
+        />
+      </FlexColumn>
     );
   },
 };
@@ -119,12 +130,15 @@ export const FileOnCancel: StoryObj<typeof Uploader.File> = {
     };
 
     return (
-      <Uploader.File
-        onIssue={onIssue}
-        onCancel={onCancel}
-        isLoading={args.isLoading}
-        isDisabled={args.isDisabled}
-      />
+      <FlexColumn>
+        <span>*파일 업로드 취소 및 문구 클릭 시 alert창이 나타납니다.</span>
+        <Uploader.File
+          onIssue={onIssue}
+          onCancel={onCancel}
+          isLoading={args.isLoading}
+          isDisabled={args.isDisabled}
+        />
+      </FlexColumn>
     );
   },
 };
@@ -146,13 +160,16 @@ export const FileOnlyPdf: StoryObj<typeof Uploader.File> = {
     };
 
     return (
-      <Uploader.File
-        accept={['.pdf']}
-        onError={onError}
-        onUpload={onUpload}
-        isLoading={args.isLoading}
-        isDisabled={args.isDisabled}
-      />
+      <FlexColumn>
+        <span>*pdf 형식의 파일만 업로드 가능합니다</span>
+        <Uploader.File
+          accept={['.pdf']}
+          onError={onError}
+          onUpload={onUpload}
+          isLoading={args.isLoading}
+          isDisabled={args.isDisabled}
+        />
+      </FlexColumn>
     );
   },
 };
@@ -183,13 +200,16 @@ export const ImageUpload: StoryObj<typeof Uploader.Image> = {
     };
 
     return (
-      <Uploader.Image
-        isLoading={args.isLoading}
-        isDisabled={args.isDisabled}
-        accept={['.jpg']}
-        onUpload={onUpload}
-        onError={onError}
-      />
+      <FlexColumn>
+        <span>* .jpg 형식의 이미지 파일만 업로드 가능합니다.</span>
+        <Uploader.Image
+          isLoading={args.isLoading}
+          isDisabled={args.isDisabled}
+          accept={['.jpg']}
+          onUpload={onUpload}
+          onError={onError}
+        />
+      </FlexColumn>
     );
   },
 };
