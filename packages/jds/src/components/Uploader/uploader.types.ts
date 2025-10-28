@@ -20,11 +20,6 @@ export interface UploaderFileProps extends UseUploaderOptions {
   multiple?: boolean;
 }
 
-export interface UploaderImageProps {
-  isLoading?: boolean;
-  isDisabled?: boolean;
-}
-
 export interface UploaderFileButtonProps {
   isLoading: boolean;
   isDisabled: boolean;
@@ -33,6 +28,21 @@ export interface UploaderFileButtonProps {
   onIssue?: () => void;
 }
 
+export interface UploaderImageProps extends UseUploaderOptions {
+  isLoading?: boolean;
+  isDisabled?: boolean;
+  onCancel?: () => void;
+  onIssue?: () => void;
+  multiple?: boolean;
+}
+
+export interface UploaderImageButtonProps {
+  isDisabled: boolean;
+  isLoading: boolean;
+  onCancel?: () => void;
+}
+
+/* 스타일 */
 export interface UploaderFileContainerDivProps {
   $isDisabled: boolean;
   $isLoading: boolean;

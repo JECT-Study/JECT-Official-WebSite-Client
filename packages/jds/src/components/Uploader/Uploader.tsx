@@ -11,7 +11,12 @@ import {
   LoadingIcon,
 } from './uploader.styles';
 import { BlockButton, LabelButton } from 'components';
-import { UploaderFileButtonProps, UploaderFileProps, UploaderImageProps } from './uploader.types';
+import {
+  UploaderFileButtonProps,
+  UploaderFileProps,
+  UploaderImageButtonProps,
+  UploaderImageProps,
+} from './uploader.types';
 import { useUploader } from './useUploader';
 
 const uploaderMessages = {
@@ -122,12 +127,7 @@ const UploaderFile = ({
 
 UploaderFile.displayName = 'Uploader.File';
 
-export interface UploaderImageButtonProps {
-  isDisabled: boolean;
-  isLoading: boolean;
-}
-
-const UploaderImageButton = ({ isDisabled, isLoading }: UploaderImageButtonProps) => {
+const UploaderImageButton = ({ isDisabled, isLoading, onCancel }: UploaderImageButtonProps) => {
   if (!isDisabled && isLoading) {
     return (
       <>
@@ -136,7 +136,12 @@ const UploaderImageButton = ({ isDisabled, isLoading }: UploaderImageButtonProps
           <ImageLabel size='sm' textAlign='center' weight='normal' $isDisabled={isDisabled}>
             업로드 중...
           </ImageLabel>
-          <LabelButton.Basic hierarchy='tertiary' size='xs' suffixIcon='arrow-go-back-line'>
+          <LabelButton.Basic
+            hierarchy='tertiary'
+            size='xs'
+            suffixIcon='arrow-go-back-line'
+            onClick={onCancel}
+          >
             취소
           </LabelButton.Basic>
         </FlexRowDiv>
@@ -154,10 +159,42 @@ const UploaderImageButton = ({ isDisabled, isLoading }: UploaderImageButtonProps
   );
 };
 
-const UploaderImage = ({ isDisabled = false, isLoading = false }: UploaderImageProps) => {
+const UploaderImage = ({
+  accept,
+  multiple = true,
+  maxFileSize,
+  maxTotalSize,
+  existingFilesSize,
+  onUpload,
+  onError,
+  onCancel,
+  isLoading = false,
+  isDisabled = false,
+}: UploaderImageProps) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const { handleInputChange } = useUploader<HTMLDivElement>({
+    accept,
+    maxFileSize,
+    maxTotalSize,
+    existingFilesSize,
+    onUpload,
+    onError,
+  });
+
   return (
-    <ImageDropZoneButton $isDisabled={isDisabled} $isLoading={isLoading}>
-      <UploaderImageButton isDisabled={isDisabled} isLoading={isLoading} />
+    <ImageDropZoneButton
+      $isDisabled={isDisabled}
+      $isLoading={isLoading}
+      onClick={() => !isDisabled && inputRef.current?.click()}
+    >
+      <UploaderImageButton isDisabled={isDisabled} isLoading={isLoading} onCancel={onCancel} />
+      <HiddenInput
+        ref={inputRef}
+        type='file'
+        accept={accept?.join(',')}
+        multiple={multiple}
+        onChange={handleInputChange}
+      />
     </ImageDropZoneButton>
   );
 };
