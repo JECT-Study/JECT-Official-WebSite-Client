@@ -26,6 +26,12 @@ const uploaderMessages = {
       <br /> 최대 100MB 이하의 PDF 파일을 업로드할 수 있어요.
     </>
   ),
+  loading: (
+    <>
+      파일을 업로드하고 있습니다. <br />
+      잠시만 기다려주세요...
+    </>
+  ),
   disabled: <>가능한 최대 용량에 도달했어요.</>,
 };
 
@@ -95,7 +101,8 @@ const UploaderFile = ({
       onUpload,
       onError,
     });
-  const bodyText = isDisabled ? uploaderMessages.disabled : uploaderMessages.rest;
+  const baseBodyText = isLoading ? uploaderMessages.loading : uploaderMessages.rest;
+  const bodyText = isDisabled ? uploaderMessages.disabled : baseBodyText;
 
   return (
     <FileDropZoneDiv
@@ -172,7 +179,7 @@ const UploaderImage = ({
   isDisabled = false,
 }: UploaderImageProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const { handleInputChange } = useUploader<HTMLDivElement>({
+  const { handleInputChange } = useUploader({
     accept,
     maxFileSize,
     maxTotalSize,
