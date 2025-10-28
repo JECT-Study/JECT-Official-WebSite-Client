@@ -1,2 +1,9 @@
 export { Uploader } from './Uploader';
-export type { UploaderFileContainerDivProps } from './uploader.types';
+export type {
+  UploadErrorType,
+  UseUploaderOptions,
+  UploaderFileProps,
+  UploaderFileButtonProps,
+  UploaderImageProps,
+  UploaderImageButtonProps,
+} from './uploader.types';
