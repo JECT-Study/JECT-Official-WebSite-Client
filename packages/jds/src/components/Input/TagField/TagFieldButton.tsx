@@ -1,7 +1,6 @@
 import {
   forwardRef,
   useId,
-  useState,
   useCallback,
   type KeyboardEvent,
   type ChangeEvent,
@@ -20,10 +19,12 @@ import {
   StyledTagInput,
   StyledInputRow,
 } from './tagField.styles';
-import type { TagFieldButtonProps, Tag } from './tagField.types';
+import type { TagFieldButtonProps } from './tagField.types';
 import { ContentBadge } from '../../Badge';
 import { Icon } from '../../Icon';
 import { getInteractionStates } from '../input.types';
+import { TagFieldUtils } from './tagField.utils';
+import { useTagFieldState } from './useTagFieldState';
 
 export const TagFieldButton = forwardRef<HTMLInputElement, TagFieldButtonProps>(
   (
@@ -49,87 +50,81 @@ export const TagFieldButton = forwardRef<HTMLInputElement, TagFieldButtonProps>(
     const { isDisabled, isReadOnly, isInteractive } = getInteractionStates(interaction);
     const hasTag = tags.length > 0;
 
-    const [inputValue, setInputValue] = useState('');
-
-    const [isComposing, setIsComposing] = useState(false);
-
-    const [selectedTagId, setSelectedTagId] = useState<string | null>(null);
-
-    const handleCompositionStart = useCallback(() => {
-      setIsComposing(true);
-    }, []);
-
-    const handleCompositionEnd = useCallback(() => {
-      setIsComposing(false);
-    }, []);
-
-    const addTag = useCallback(
-      (value: string) => {
-        const trimmedValue = value.trim();
-        if (!trimmedValue) return;
-
-        if (maxTags !== undefined && tags.length >= maxTags) return;
-
-        if (!allowDuplicates && tags.some(tag => tag.label === trimmedValue)) return;
-
-        const newTag: Tag = {
-          id: crypto.randomUUID(),
-          label: trimmedValue,
-        };
-
-        onTagsChange([...tags, newTag]);
-        setInputValue('');
-        setSelectedTagId(null);
-      },
-      [tags, maxTags, allowDuplicates, onTagsChange],
-    );
-
-    const removeTag = useCallback(
-      (tagId: string) => {
-        onTagsChange(tags.filter(tag => tag.id !== tagId));
-        setSelectedTagId(null);
-      },
-      [tags, onTagsChange],
-    );
+    const {
+      inputValue,
+      setInputValue,
+      clearInput,
+      isComposing,
+      handleCompositionStart,
+      handleCompositionEnd,
+      selectedTagId,
+      setSelectedTagId,
+      clearSelection,
+    } = useTagFieldState();
 
     const handleKeyDown = useCallback(
       (e: KeyboardEvent<HTMLInputElement>) => {
-        if (isComposing || e.nativeEvent.isComposing) {
+        if (!TagFieldUtils.shouldHandleKeyEvent(e.key, isComposing || e.nativeEvent.isComposing)) {
           return;
         }
 
         if (e.key === 'Enter') {
           e.preventDefault();
-          addTag(inputValue);
+          const newTags = TagFieldUtils.addTag(tags, inputValue, maxTags, allowDuplicates);
+
+          if (newTags !== tags) {
+            onTagsChange(newTags);
+            clearInput();
+            clearSelection();
+          }
           return;
         }
 
-        if (e.key === 'Backspace' && !inputValue && tags.length > 0) {
+        if (e.key === 'Backspace') {
           e.preventDefault();
+          const action = TagFieldUtils.getBackspaceAction(inputValue, tags, selectedTagId);
 
-          const lastTag = tags[tags.length - 1];
-
-          if (selectedTagId === lastTag.id) {
-            removeTag(lastTag.id);
-          } else {
-            setSelectedTagId(lastTag.id);
+          if (action === 'remove') {
+            const lastTagId = TagFieldUtils.getLastTagId(tags);
+            if (lastTagId) {
+              onTagsChange(TagFieldUtils.removeTag(tags, lastTagId));
+              clearSelection();
+            }
+          } else if (action === 'select') {
+            const lastTagId = TagFieldUtils.getLastTagId(tags);
+            if (lastTagId) {
+              setSelectedTagId(lastTagId);
+            }
           }
+          return;
         }
-        if (e.key !== 'Backspace' && selectedTagId) {
-          setSelectedTagId(null);
+
+        if (selectedTagId) {
+          clearSelection();
         }
       },
-      [isComposing, inputValue, tags, selectedTagId, addTag, removeTag],
+      [
+        isComposing,
+        inputValue,
+        tags,
+        selectedTagId,
+        maxTags,
+        allowDuplicates,
+        onTagsChange,
+        clearInput,
+        clearSelection,
+        setSelectedTagId,
+      ],
     );
 
     const handleChange = useCallback(
       (e: ChangeEvent<HTMLInputElement>) => {
         setInputValue(e.target.value);
         if (selectedTagId) {
-          setSelectedTagId(null);
+          clearSelection();
         }
       },
-      [selectedTagId],
+      [selectedTagId, clearSelection, setInputValue],
     );
 
     const handleWrapperClick = useCallback(() => {
@@ -141,9 +136,9 @@ export const TagFieldButton = forwardRef<HTMLInputElement, TagFieldButtonProps>(
     const handleTagClick = useCallback(
       (e: MouseEvent, tagId: string) => {
         e.stopPropagation();
-        removeTag(tagId);
+        onTagsChange(TagFieldUtils.removeTag(tags, tagId));
       },
-      [removeTag],
+      [tags, onTagsChange],
     );
 
     return (
