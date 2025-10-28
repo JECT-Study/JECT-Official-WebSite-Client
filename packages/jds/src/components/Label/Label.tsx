@@ -1,8 +1,8 @@
-import { forwardRef, ReactNode } from 'react';
+import { ComponentPropsWithoutRef, forwardRef, ReactNode } from 'react';
 import { LabelDiv, LabelSize, LabelTextAlign, LabelWeight } from './Label.style';
 import { useTheme } from 'theme';
 
-export interface LabelProps {
+export interface LabelProps extends ComponentPropsWithoutRef<'div'> {
   size?: LabelSize;
   textAlign?: LabelTextAlign;
   weight?: LabelWeight;

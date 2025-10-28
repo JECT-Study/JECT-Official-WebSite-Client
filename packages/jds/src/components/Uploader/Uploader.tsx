@@ -1,21 +1,18 @@
-import { useState } from 'react';
+import { useRef } from 'react';
 import {
   AddIcon,
   FileDropZoneDiv,
   FileHelperLabel,
   FileSpan,
   FlexRowDiv,
+  HiddenInput,
   ImageDropZoneButton,
   ImageLabel,
   LoadingIcon,
 } from './uploader.styles';
 import { BlockButton, LabelButton } from 'components';
-import {
-  UploaderButtonProps,
-  UploaderFileProps,
-  UploaderImageProps,
-  UploaderState,
-} from './uploader.types';
+import { UploaderFileButtonProps, UploaderFileProps, UploaderImageProps } from './uploader.types';
+import { useUploader } from './useUploader';
 
 const uploaderMessages = {
   rest: (
@@ -27,21 +24,27 @@ const uploaderMessages = {
   disabled: <>가능한 최대 용량에 도달했어요.</>,
 };
 
-const UploaderFileButton = ({ isLoading, isDisabled }: UploaderButtonProps) => {
+const UploaderFileButton = ({
+  isLoading,
+  isDisabled,
+  onClick,
+  onCancel,
+  onIssue,
+}: UploaderFileButtonProps) => {
   if (isLoading && !isDisabled) {
     return (
       <>
         <LoadingIcon name='spinner' size='2xl' />
         <FlexRowDiv>
-          <FileHelperLabel size='xs' textAlign='center' weight='bold'>
+          <FileHelperLabel size='xs' textAlign='center' weight='bold' onClick={onIssue}>
             업로드에 문제가 있나요?
           </FileHelperLabel>
           <LabelButton.Basic
             hierarchy='tertiary'
             size='sm'
-            prefixIcon='blank'
             suffixIcon='arrow-go-back-line'
             disabled={isDisabled}
+            onClick={onCancel}
           >
             업로드 취소
           </LabelButton.Basic>
@@ -55,23 +58,64 @@ const UploaderFileButton = ({ isLoading, isDisabled }: UploaderButtonProps) => {
       hierarchy='tertiary'
       size='sm'
       variant='outlined'
-      prefixIcon='blank'
       suffixIcon='upload-2-line'
       disabled={isDisabled}
+      onClick={onClick}
     >
       파일 업로드
     </BlockButton.Basic>
   );
 };
 
-const UploaderFile = ({ isLoading = false, isDisabled = true }: UploaderFileProps) => {
-  const [uploaderState, useUploaderState] = useState<UploaderState>('rest');
+const UploaderFile = ({
+  accept,
+  multiple = true,
+  maxFileSize,
+  maxTotalSize,
+  existingFilesSize,
+  onUpload,
+  onError,
+  onCancel,
+  onIssue,
+  isLoading = false,
+  isDisabled = false,
+}: UploaderFileProps) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const { isDragging, handleDragOver, handleDragLeave, handleDrop, handleInputChange } =
+    useUploader<HTMLDivElement>({
+      accept,
+      maxFileSize,
+      maxTotalSize,
+      existingFilesSize,
+      onUpload,
+      onError,
+    });
   const bodyText = isDisabled ? uploaderMessages.disabled : uploaderMessages.rest;
 
   return (
-    <FileDropZoneDiv $isDisabled={isDisabled} $isLoading={isLoading} state={uploaderState}>
+    <FileDropZoneDiv
+      onDragOver={handleDragOver}
+      onDragLeave={handleDragLeave}
+      onDrop={handleDrop}
+      $isDragging={isDragging}
+      $isDisabled={isDisabled}
+      $isLoading={isLoading}
+    >
       <FileSpan>{bodyText}</FileSpan>
-      <UploaderFileButton isLoading={isLoading} isDisabled={isDisabled} />
+      <UploaderFileButton
+        onCancel={onCancel}
+        onIssue={onIssue}
+        onClick={() => !isDisabled && inputRef.current?.click()}
+        isLoading={isLoading}
+        isDisabled={isDisabled}
+      />
+      <HiddenInput
+        ref={inputRef}
+        type='file'
+        accept={accept?.join(',')}
+        multiple={multiple}
+        onChange={handleInputChange}
+      />
     </FileDropZoneDiv>
   );
 };

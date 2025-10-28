@@ -8,14 +8,13 @@ import {
   UploaderImageContainerButtonProps,
   UploaderImageIconProps,
   UploaderImageLabelProps,
-  UploaderState,
 } from './uploader.types';
 
 const uploaderFileStylesMap = (
   theme: Theme,
   disabled: boolean,
   isLoading: boolean,
-  state: UploaderState,
+  isDragging: boolean,
 ) => {
   const stylesByState = {
     rest: {
@@ -36,7 +35,8 @@ const uploaderFileStylesMap = (
     bgColor: theme.color.semantic.fill.subtlest,
   };
 
-  const baseStyle = isLoading ? stylesByState.rest : stylesByState[state];
+  const dragStyle = isDragging ? stylesByState['dragover'] : stylesByState['rest'];
+  const baseStyle = isLoading ? stylesByState.rest : dragStyle;
   return disabled ? disabledStyle : baseStyle;
 };
 
@@ -92,12 +92,12 @@ const interactionStyles = (theme: Theme, isDisabled: boolean): CSSObject => {
 };
 
 export const FileDropZoneDiv = styled.div<UploaderFileContainerDivProps>(
-  ({ theme, $isDisabled, $isLoading, state }) => {
+  ({ theme, $isDisabled, $isLoading, $isDragging }) => {
     const { borderColor, textColor, bgColor } = uploaderFileStylesMap(
       theme,
       $isDisabled,
       $isLoading,
-      state,
+      $isDragging,
     );
 
     return {
@@ -177,5 +177,11 @@ export const AddIcon = styled(Icon)<UploaderImageIconProps>(({ theme, $isDisable
 export const ImageLabel = styled(Label)<UploaderImageLabelProps>(({ theme, $isDisabled }) => {
   return {
     color: $isDisabled ? theme.color.semantic.object.subtle : theme.color.semantic.object.neutral,
+  };
+});
+
+export const HiddenInput = styled.input(() => {
+  return {
+    display: 'none',
   };
 });
