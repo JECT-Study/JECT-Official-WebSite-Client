@@ -231,6 +231,7 @@ export const StyledSelectWrapper = styled('div', {
   }
 
   const isFocusOutlineHidden = $validation !== 'none';
+  const focusIconColor = getIconColor(theme, $disabled, $readOnly, true);
 
   return {
     ...baseStyles,
@@ -263,6 +264,9 @@ export const StyledSelectWrapper = styled('div', {
       '::after': {
         ...restStyle['::after'],
       },
+      '& > div:last-child': {
+        color: focusIconColor,
+      },
     },
   };
 });
@@ -286,8 +290,6 @@ export const StyledSelectValue = styled('span', {
     flex: '1 0 0',
     color: textColor,
     ...textStyle(theme, 'desktop', 'body.sm.normal'),
-    position: 'relative',
-    zIndex: 1,
     userSelect: 'none',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -302,21 +304,39 @@ export const StyledSelectValue = styled('span', {
   };
 });
 
+const getIconColor = (
+  theme: Theme,
+  disabled: boolean,
+  readOnly: boolean,
+  isFocus: boolean,
+): string => {
+  if (disabled) {
+    return theme.color.object.subtle;
+  }
+  if (readOnly) {
+    return theme.color.object.subtle;
+  }
+  if (isFocus) {
+    return theme.color.object.boldest;
+  }
+  return theme.color.object.assistive;
+};
+
 export const StyledSelectIconWrapper = styled('div', {
   shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
 })<{
   $disabled: boolean;
-  $isOpen?: boolean;
-}>(({ theme, $disabled, $isOpen }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  position: 'relative',
-  zIndex: 1,
-  transition: `transform ${theme.environment.duration[100]} ${theme.environment.motion.fluent}`,
-  transform: $isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
-  opacity: $disabled ? 0.4 : 1,
-}));
+  $readOnly: boolean;
+}>(({ theme, $disabled, $readOnly }) => {
+  const iconColor = getIconColor(theme, $disabled, $readOnly, false);
+
+  return {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: iconColor,
+  };
+});
 
 export {
   StyledFieldContainer,
