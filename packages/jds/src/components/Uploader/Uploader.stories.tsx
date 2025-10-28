@@ -129,6 +129,34 @@ export const FileOnCancel: StoryObj<typeof Uploader.File> = {
   },
 };
 
+export const FileOnlyPdf: StoryObj<typeof Uploader.File> = {
+  name: 'FileOnlyPdf',
+  args: {
+    isLoading: false,
+    isDisabled: false,
+  },
+  render: args => {
+    const onError = (error: UploadError) => {
+      alert(`${error.type} 에러가 발생했습니다. .pdf 형식 파일만 가능합니다.`);
+    };
+
+    const onUpload = (files: File[]) => {
+      const filesName = files.map(file => file.name);
+      alert(`선택한 ${filesName.join(',')}파일을 업로드합니다.`);
+    };
+
+    return (
+      <Uploader.File
+        accept={['.pdf']}
+        onError={onError}
+        onUpload={onUpload}
+        isLoading={args.isLoading}
+        isDisabled={args.isDisabled}
+      />
+    );
+  },
+};
+
 export const Image: StoryObj<typeof Uploader.Image> = {
   name: 'Image',
   args: {
@@ -136,4 +164,32 @@ export const Image: StoryObj<typeof Uploader.Image> = {
     isDisabled: false,
   },
   render: args => <Uploader.Image isLoading={args.isLoading} isDisabled={args.isDisabled} />,
+};
+
+export const ImageUpload: StoryObj<typeof Uploader.Image> = {
+  name: 'ImageUpload',
+  args: {
+    isLoading: false,
+    isDisabled: false,
+  },
+  render: args => {
+    const onUpload = (files: File[]) => {
+      const filesName = files.map(file => file.name);
+      alert(`선택한 ${filesName.join(',')} 이미지를 업로드합니다.`);
+    };
+
+    const onError = (error: UploadError) => {
+      alert(`${error.type} 에러가 발생했습니다.`);
+    };
+
+    return (
+      <Uploader.Image
+        isLoading={args.isLoading}
+        isDisabled={args.isDisabled}
+        accept={['.jpg']}
+        onUpload={onUpload}
+        onError={onError}
+      />
+    );
+  },
 };
