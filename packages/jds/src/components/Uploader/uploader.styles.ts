@@ -71,7 +71,7 @@ const interactionStyles = (theme: Theme, isDisabled: boolean): CSSObject => {
     ...interactionParams.restStyle,
     '::after': {
       ...interactionParams.restStyle['::after'],
-      transition: `opacity ${theme.environment.duration[100]}ms ${theme.environment.motion.fluent}`,
+      transition: `all ${theme.environment.duration[100]}ms ${theme.environment.motion.fluent}`,
     },
     '&:hover': {
       ...interactionParams.hoverStyle,
@@ -82,11 +82,12 @@ const interactionStyles = (theme: Theme, isDisabled: boolean): CSSObject => {
       '::after': {
         ...interactionParams.hoverStyle['::after'],
         transition: 'none',
+        // TODO: 마우스, 터치 별, entry/exit 별, 액션별 모션을 다르게 적용할 수 있도록 유틸 함수 구현 (js 이벤트 및 애니메이션 이용)
       },
     },
     '&:focus-visible': {
       ...interactionParams.focusStyle,
-      transition: 'none',
+      transitionDuration: '0s',
     },
   };
 };
@@ -111,6 +112,9 @@ export const FileDropZoneDiv = styled.div<UploaderFileContainerDivProps>(
       color: textColor,
       border: `1px dashed ${borderColor}`,
       backgroundColor: bgColor,
+      transition: $isDragging
+        ? `all ${theme.environment.duration[100]}ms ${theme.environment.motion.fluent}`
+        : 'none',
 
       '& > span, & > button ': {
         pointerEvents: $isDragging ? 'none' : 'auto',
