@@ -1,6 +1,5 @@
 import { useState, useCallback } from 'react';
-import { ToastItem } from './ToastProvider';
-import { UseToastProviderProps } from './toast.types';
+import { ToastItem, UseToastProviderProps } from './toast.types';
 
 export const useToastProvider = ({ toastLimit = 3 }: UseToastProviderProps) => {
   const [toasts, setToasts] = useState<ToastItem[]>([]);

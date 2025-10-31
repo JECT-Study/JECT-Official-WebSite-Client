@@ -1,23 +1,9 @@
 import { createContext, useContext, ReactNode, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { Toast } from './Toast';
-import { ToastStyle } from './toast.types';
 import { ToastStackContainer } from './toast.styles';
 import { useToastProvider } from './useToastProvider';
-
-export interface ToastItem {
-  id?: string;
-  type: ToastStyle;
-  title: string;
-  caption?: string;
-  isExiting?: boolean;
-}
-
-interface ToastHandler {
-  basic: (title: string, caption?: string) => void;
-  positive: (title: string, caption?: string) => void;
-  destructive: (title: string, caption?: string) => void;
-}
+import { ToastHandler } from './toast.types';
 
 export const toast: ToastHandler = {
   basic: () => console.warn('ToastProvider가 아직 등록되지 않았습니다.'),

@@ -10,7 +10,7 @@ import { IconButton } from '@/components';
 import { ToastBaseProps, ToastFeedbackProps } from './toast.types';
 import { useState } from 'react';
 
-const ToastBasic = ({ id, caption = undefined, onRemove, title }: ToastBaseProps) => {
+const ToastBasic = ({ id, caption, onRemove, title }: ToastBaseProps) => {
   const [click, setClick] = useState(false);
   const onClose = () => setClick(true);
 
