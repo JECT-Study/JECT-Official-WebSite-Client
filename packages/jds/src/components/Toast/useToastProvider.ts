@@ -42,12 +42,10 @@ export const useToastProvider = ({ toastLimit = 3 }: UseToastProviderProps) => {
   );
 
   const handler = {
-    basic: (title: string, caption?: string) =>
-      addToast({ type: 'basic', title, caption, isExiting: false }),
-    positive: (title: string, caption?: string) =>
-      addToast({ type: 'positive', title, caption, isExiting: false }),
+    basic: (title: string, caption?: string) => addToast({ type: 'basic', title, caption }),
+    positive: (title: string, caption?: string) => addToast({ type: 'positive', title, caption }),
     destructive: (title: string, caption?: string) =>
-      addToast({ type: 'destructive', title, caption, isExiting: false }),
+      addToast({ type: 'destructive', title, caption }),
   };
 
   return { toasts, toast: handler, removeToast };

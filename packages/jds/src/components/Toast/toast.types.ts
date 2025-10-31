@@ -26,13 +26,11 @@ export interface UseToastProviderProps {
   toastLimit?: number;
 }
 
-// Provider props
 export interface ToastItem {
   id?: string;
   type: ToastStyle;
   title: string;
   caption?: string;
-  isExiting?: boolean;
 }
 
 export interface ToastHandler {
