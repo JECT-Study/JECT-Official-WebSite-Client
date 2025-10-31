@@ -42,13 +42,13 @@ const ToastBasic = ({ id, caption, onRemove, title }: ToastBaseProps) => {
 
 ToastBasic.displayName = 'Toast.Basic';
 
-const ToastFeedback: React.FC<ToastFeedbackProps> = ({
+const ToastFeedback = ({
   id,
   feedback = 'positive',
   caption = undefined,
   onRemove,
   title,
-}) => {
+}: ToastFeedbackProps) => {
   const [click, setClick] = useState(false);
   const onClose = () => setClick(true);
 
