@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Toast } from './Toast';
-import { toast, ToastProvider, useToast } from './ToastProvider';
+import { ToastProvider, useToast } from './ToastProvider';
 import { BlockButton } from '../Button/BlockButton';
 import { FlexColumn, FlexRow, Label } from '@storybook-utils/layout';
+import { toastController } from './toastController';
 
 const meta: Meta<typeof Toast.Basic> = {
   title: 'Components/Toast',
@@ -137,13 +138,15 @@ export const UseGlobalToast: StoryObj<typeof Toast.Basic> = {
     const caption =
       '토스트 내용은 최대 다섯 줄 까지 입력 가능하며, 더 많은 내용을 입력해야 하는 상황에서는 별도의 안내 페이지로 유도합니다.';
 
-    const basicToast = () => toast.basic('베이직 토스트');
-    const positiveToast = () => toast.positive('피드백 토스트');
-    const destructiveToast = () => toast.destructive('피드백 토스트');
+    const basicToast = () => toastController.basic('베이직 토스트');
+    const positiveToast = () => toastController.positive('피드백 토스트');
+    const destructiveToast = () => toastController.destructive('피드백 토스트');
 
-    const basicToastCaption = () => toast.basic('베이직 토스트', caption);
-    const positiveToastCaption = () => toast.positive('피드백 토스트 - positive', caption);
-    const destructiveToastCaption = () => toast.destructive('피드백 토스트 - destructive', caption);
+    const basicToastCaption = () => toastController.basic('베이직 토스트', caption);
+    const positiveToastCaption = () =>
+      toastController.positive('피드백 토스트 - positive', caption);
+    const destructiveToastCaption = () =>
+      toastController.destructive('피드백 토스트 - destructive', caption);
 
     return (
       <FlexRow>

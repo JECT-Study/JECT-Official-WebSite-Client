@@ -4,12 +4,7 @@ import { Toast } from './Toast';
 import { ToastStackContainer } from './toast.styles';
 import { useToastProvider } from './useToastProvider';
 import { ToastHandler } from './toast.types';
-
-export const toast: ToastHandler = {
-  basic: () => console.warn('ToastProvider가 아직 등록되지 않았습니다.'),
-  positive: () => console.warn('ToastProvider가 아직 등록되지 않았습니다.'),
-  destructive: () => console.warn('ToastProvider가 아직 등록되지 않았습니다.'),
-};
+import { toastController } from './toastController';
 
 interface ToastContextType {
   toast: ToastHandler;
@@ -22,9 +17,8 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
   const { toasts, toast: handler, removeToast } = useToastProvider({});
 
   useEffect(() => {
-    toast.basic = handler.basic;
-    toast.positive = handler.positive;
-    toast.destructive = handler.destructive;
+    toastController.setHandler(handler);
+    return () => toastController.clearHandler();
   }, [handler]);
 
   return (
