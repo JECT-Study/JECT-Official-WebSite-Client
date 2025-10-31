@@ -11,7 +11,7 @@ export interface ToastBaseProps {
 }
 
 export interface ToastFeedbackProps extends ToastBaseProps {
-  feedback?: ToastFeedback;
+  variant?: ToastFeedback;
 }
 
 export interface ToastDivProps {
@@ -19,7 +19,7 @@ export interface ToastDivProps {
 }
 
 export interface ToastFeedbackIconProps {
-  feedback: ToastFeedback;
+  variant: ToastFeedback;
 }
 
 export interface UseToastProviderProps {

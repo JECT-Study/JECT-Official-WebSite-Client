@@ -35,14 +35,14 @@ export const Basic: StoryObj<typeof Toast.Basic> = {
 
 export const Feedback: StoryObj<typeof Toast.Feedback> = {
   argTypes: {
-    feedback: {
+    variant: {
       description: '토스트 피드백 속성을 지정합니다.',
       control: 'radio',
       options: ['positive', 'destructive'],
     },
   },
   args: {
-    feedback: 'positive',
+    variant: 'positive',
     title: '토스트 제목 레이블',
     caption:
       '토스트 내용은 최대 다섯 줄 까지 입력 가능하며, 더 많은 내용을 입력해야 하는 상황에서는 별도의 안내 페이지로 유도합니다.',
@@ -51,7 +51,7 @@ export const Feedback: StoryObj<typeof Toast.Feedback> = {
     <Toast.Feedback
       id={'toast-1'}
       title={args.title}
-      feedback={args.feedback}
+      variant={args.variant}
       caption={args.caption}
     />
   ),

@@ -44,8 +44,8 @@ ToastBasic.displayName = 'Toast.Basic';
 
 const ToastFeedback = ({
   id,
-  feedback = 'positive',
-  caption = undefined,
+  variant = 'positive',
+  caption,
   onRemove,
   title,
 }: ToastFeedbackProps) => {
@@ -56,16 +56,16 @@ const ToastFeedback = ({
     <ToastDiv
       id={id}
       className={click ? 'delete' : ''}
-      toastStyle={feedback}
+      toastStyle={variant}
       onAnimationEnd={onRemove}
     >
       <ToastContentDiv>
         <ToastLabelContainerDiv>
           <ToastFeedbackIcon
-            feedback={feedback}
-            name={feedback === 'positive' ? 'check-line' : 'error-warning-line'}
+            variant={variant}
+            name={variant === 'positive' ? 'check-line' : 'error-warning-line'}
           />
-          <ToastLabel toastStyle={feedback} size='md' textAlign='left' weight='normal'>
+          <ToastLabel toastStyle={variant} size='md' textAlign='left' weight='normal'>
             {title}
           </ToastLabel>
           <IconButton.Basic

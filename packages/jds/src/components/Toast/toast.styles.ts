@@ -132,6 +132,6 @@ export const ButtonContainerDiv = styled.div(({ theme }) => {
   };
 });
 
-export const ToastFeedbackIcon = styled(Icon)<ToastFeedbackIconProps>(({ theme, feedback }) => {
-  return { color: toastStylesMap(theme)[feedback].color };
+export const ToastFeedbackIcon = styled(Icon)<ToastFeedbackIconProps>(({ theme, variant }) => {
+  return { color: toastStylesMap(theme)[variant].color };
 });

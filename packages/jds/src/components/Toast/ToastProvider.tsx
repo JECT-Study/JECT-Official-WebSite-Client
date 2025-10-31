@@ -44,7 +44,7 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
               <Toast.Feedback
                 id={toast.id!}
                 key={toast.id}
-                feedback={toast.type}
+                variant={toast.type}
                 onRemove={() => removeToast(toast.id!)}
                 {...toast}
               />
