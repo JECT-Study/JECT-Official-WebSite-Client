@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 
-export type ToastFeedback = 'positive' | 'destructive';
-export type ToastStyle = 'basic' | ToastFeedback;
+export type ToastVariant = 'positive' | 'destructive';
+export type ToastStyle = 'basic' | ToastVariant;
 
 export interface ToastBaseProps {
   id: string;
@@ -11,7 +11,7 @@ export interface ToastBaseProps {
 }
 
 export interface ToastFeedbackProps extends ToastBaseProps {
-  variant?: ToastFeedback;
+  variant?: ToastVariant;
 }
 
 export interface ToastDivProps {
@@ -19,7 +19,7 @@ export interface ToastDivProps {
 }
 
 export interface ToastFeedbackIconProps {
-  variant: ToastFeedback;
+  variant: ToastVariant;
 }
 
 export interface UseToastProviderProps {
