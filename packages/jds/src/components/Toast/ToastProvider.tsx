@@ -1,11 +1,12 @@
-import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
+import { createContext, useContext, ReactNode, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { Toast } from './Toast';
 import { ToastStyle } from './toast.types';
 import { ToastStackContainer } from './toast.styles';
+import { useToastProvider } from './useToastProvider';
 
-interface ToastItem {
-  id?: number;
+export interface ToastItem {
+  id?: string;
   type: ToastStyle;
   title: string;
   caption?: string;
@@ -26,59 +27,13 @@ export const toast: ToastHandler = {
 
 interface ToastContextType {
   toast: ToastHandler;
-  removeToast: (id: number) => void;
+  removeToast: (id: string) => void;
 }
 
 const ToastContext = createContext<ToastContextType | null>(null);
 
 export const ToastProvider = ({ children }: { children: ReactNode }) => {
-  const [toasts, setToasts] = useState<ToastItem[]>([]);
-  const EXIT_ANIMATION_DURATION = 250;
-  const EXPOSURE_DURATION = 3000;
-  const TOAST_LIMITS = 3;
-
-  const removeToast = (id: number) => {
-    setToasts(prev => prev.filter(toast => toast.id !== id));
-  };
-
-  const startExit = (id: number): Promise<void> => {
-    return new Promise(resolve => {
-      setToasts(prev =>
-        prev.map(toast => (toast.id === id ? { ...toast, isExiting: true } : toast)),
-      );
-
-      setTimeout(() => {
-        removeToast(id);
-        resolve();
-      }, EXIT_ANIMATION_DURATION);
-    });
-  };
-
-  const addToast = async (toast: ToastItem) => {
-    const id = Date.now();
-    const newToast = { id, ...toast };
-
-    const activeSToasts = toasts.filter(toast => !toast.isExiting);
-
-    if (activeSToasts.length >= TOAST_LIMITS) {
-      const firstActive = activeSToasts[0];
-      await startExit(firstActive.id!);
-    }
-
-    setToasts(prev => [...prev, newToast]);
-    setTimeout(() => startExit(id), EXPOSURE_DURATION);
-
-    return id;
-  };
-
-  const handler: ToastHandler = {
-    basic: (title: string, caption?: string) =>
-      addToast({ type: 'basic', title, caption, isExiting: false }),
-    positive: (title: string, caption?: string) =>
-      addToast({ type: 'positive', title, caption, isExiting: false }),
-    destructive: (title: string, caption?: string) =>
-      addToast({ type: 'destructive', title, caption, isExiting: false }),
-  };
+  const { toasts, toast: handler, removeToast } = useToastProvider({});
 
   useEffect(() => {
     toast.basic = handler.basic;
@@ -93,12 +48,18 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
         <ToastStackContainer>
           {toasts.map(toast =>
             toast.type === 'basic' ? (
-              <Toast.Basic key={toast.id} closeButtonFn={() => startExit(toast.id!)} {...toast} />
+              <Toast.Basic
+                id={toast.id!}
+                key={toast.id}
+                onRemove={() => removeToast(toast.id!)}
+                {...toast}
+              />
             ) : (
               <Toast.Feedback
+                id={toast.id!}
                 key={toast.id}
                 feedback={toast.type}
-                closeButtonFn={() => startExit(toast.id!)}
+                onRemove={() => removeToast(toast.id!)}
                 {...toast}
               />
             ),

@@ -4,10 +4,10 @@ export type ToastFeedback = 'positive' | 'destructive';
 export type ToastStyle = 'basic' | ToastFeedback;
 
 export interface ToastBaseProps {
+  id: string;
   title: ReactNode;
   caption?: ReactNode;
-  closeButtonFn?: () => void;
-  isExiting?: boolean;
+  onRemove?: () => void;
 }
 
 export interface ToastFeedbackProps extends ToastBaseProps {
@@ -16,9 +16,12 @@ export interface ToastFeedbackProps extends ToastBaseProps {
 
 export interface ToastDivProps {
   toastStyle: ToastStyle;
-  isExiting: boolean;
 }
 
 export interface ToastFeedbackIconProps {
   feedback: ToastFeedback;
+}
+
+export interface UseToastProviderProps {
+  toastLimit?: number;
 }

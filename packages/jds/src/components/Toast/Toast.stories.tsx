@@ -30,7 +30,7 @@ export const Basic: StoryObj<typeof Toast.Basic> = {
     caption:
       '토스트 내용은 최대 다섯 줄 까지 입력 가능하며, 더 많은 내용을 입력해야 하는 상황에서는 별도의 안내 페이지로 유도합니다.',
   },
-  render: args => <Toast.Basic title={args.title} caption={args.caption} />,
+  render: args => <Toast.Basic id={'toast-1'} title={args.title} caption={args.caption} />,
 };
 
 export const Feedback: StoryObj<typeof Toast.Feedback> = {
@@ -48,7 +48,12 @@ export const Feedback: StoryObj<typeof Toast.Feedback> = {
       '토스트 내용은 최대 다섯 줄 까지 입력 가능하며, 더 많은 내용을 입력해야 하는 상황에서는 별도의 안내 페이지로 유도합니다.',
   },
   render: args => (
-    <Toast.Feedback title={args.title} feedback={args.feedback} caption={args.caption} />
+    <Toast.Feedback
+      id={'toast-1'}
+      title={args.title}
+      feedback={args.feedback}
+      caption={args.caption}
+    />
   ),
 };
 

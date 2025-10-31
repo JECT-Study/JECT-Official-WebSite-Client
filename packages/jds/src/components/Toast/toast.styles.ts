@@ -5,29 +5,6 @@ import { toastStylesMap } from './toast.variants';
 import { ToastDivProps, ToastFeedbackIconProps, ToastStyle } from './toast.types';
 import { keyframes } from '@emotion/react';
 
-const slideIn = keyframes`
-  from {
-    opacity: 0;
-    transform: translateY(100%);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-`;
-
-const slideOut = keyframes`
-  from {
-    opacity: 1;
-    transform: translateY(0);
-        
-  }
-  to {
-    opacity: 0;
-    transform: translateY(100%);
-  }
-`;
-
 export const ToastStackContainer = styled.div(({ theme }) => {
   return {
     position: 'absolute',
@@ -44,10 +21,46 @@ export const ToastStackContainer = styled.div(({ theme }) => {
   };
 });
 
-export const ToastDiv = styled.div<ToastDivProps>(({ theme, toastStyle, isExiting }) => {
+export const ToastDiv = styled.div<ToastDivProps>(({ theme, toastStyle }) => {
   const color = toastStylesMap(theme)[toastStyle].color;
   const borderColor = toastStylesMap(theme)[toastStyle].borderColor;
   const backgroundColor = toastStylesMap(theme)[toastStyle].backgroundColor;
+  const entryDuration = theme.environment.duration[250];
+  const exitDuration = theme.environment.duration[250];
+  const delayDuration = 3000;
+  const animationDuration = entryDuration + delayDuration + exitDuration;
+  const animationMotion = theme.environment.motion.bouncy;
+
+  const slideOut = keyframes`
+  from {
+    opacity: 1;
+    transform: translateY(0);
+        
+  }
+  to {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+`;
+
+  const slideInOut = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  ${(entryDuration / animationDuration) * 100}% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  ${(1 - exitDuration / animationDuration) * 100}% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+`;
 
   return {
     display: 'flex',
@@ -73,9 +86,11 @@ export const ToastDiv = styled.div<ToastDivProps>(({ theme, toastStyle, isExitin
       zIndex: '-10',
     },
 
-    animation: isExiting
-      ? `${slideOut}  ${theme.environment.duration[250]}ms ${theme.environment.motion.bouncy} forwards`
-      : `${slideIn}  ${theme.environment.duration[250]}ms ${theme.environment.motion.bouncy} forwards`,
+    '&.delete': {
+      animation: `${slideOut} ${exitDuration}ms ${animationMotion} forwards`,
+    },
+
+    animation: `${slideInOut} ${animationDuration}ms ${animationMotion} forwards`,
   };
 });
 

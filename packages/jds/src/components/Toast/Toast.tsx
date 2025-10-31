@@ -8,15 +8,19 @@ import {
 } from './toast.styles';
 import { IconButton } from '@/components';
 import { ToastBaseProps, ToastFeedbackProps } from './toast.types';
+import { useState } from 'react';
 
-const ToastBasic = ({
-  caption = undefined,
-  closeButtonFn,
-  title,
-  isExiting = false,
-}: ToastBaseProps) => {
+const ToastBasic = ({ id, caption = undefined, onRemove, title }: ToastBaseProps) => {
+  const [click, setClick] = useState(false);
+  const onClose = () => setClick(true);
+
   return (
-    <ToastDiv toastStyle='basic' isExiting={isExiting}>
+    <ToastDiv
+      id={id}
+      className={click ? 'delete' : ''}
+      toastStyle='basic'
+      onAnimationEnd={onRemove}
+    >
       <ToastContentDiv>
         <ToastLabelContainerDiv>
           <ToastLabel toastStyle='basic' size='md' textAlign='left' weight='normal'>
@@ -27,7 +31,7 @@ const ToastBasic = ({
             hierarchy='secondary'
             size='md'
             aria-label='toast close button'
-            onClick={closeButtonFn}
+            onClick={onClose}
           />
         </ToastLabelContainerDiv>
         {caption && <ToastCaptionP>{caption}</ToastCaptionP>}
@@ -39,14 +43,22 @@ const ToastBasic = ({
 ToastBasic.displayName = 'Toast.Basic';
 
 const ToastFeedback: React.FC<ToastFeedbackProps> = ({
+  id,
   feedback = 'positive',
   caption = undefined,
-  closeButtonFn,
+  onRemove,
   title,
-  isExiting = false,
 }) => {
+  const [click, setClick] = useState(false);
+  const onClose = () => setClick(true);
+
   return (
-    <ToastDiv toastStyle={feedback} isExiting={isExiting}>
+    <ToastDiv
+      id={id}
+      className={click ? 'delete' : ''}
+      toastStyle={feedback}
+      onAnimationEnd={onRemove}
+    >
       <ToastContentDiv>
         <ToastLabelContainerDiv>
           <ToastFeedbackIcon
@@ -61,7 +73,7 @@ const ToastFeedback: React.FC<ToastFeedbackProps> = ({
             hierarchy='secondary'
             size='md'
             aria-label='toast close button'
-            onClick={closeButtonFn}
+            onClick={onClose}
           />
         </ToastLabelContainerDiv>
         {caption && <ToastCaptionP>{caption}</ToastCaptionP>}
