@@ -138,7 +138,9 @@ export const StyledTextAreaWrapper = styled('div', {
   $validation: InputAreaValidation;
   $disabled: boolean;
   $readOnly: boolean;
-}>(({ theme, $style, $validation, $disabled, $readOnly }) => {
+  $height?: number | string;
+  $minHeight?: number | string;
+}>(({ theme, $style, $validation, $disabled, $readOnly, $height, $minHeight }) => {
   const BORDER_RADIUS = 6;
 
   const restBorderColor = getBorderColor(theme, $validation, 'rest', $disabled, $readOnly);
@@ -259,6 +261,20 @@ export const StyledTextAreaWrapper = styled('div', {
     },
   };
 
+  const heightValue = $height
+    ? typeof $height === 'number'
+      ? pxToRem($height)
+      : $height
+    : undefined;
+
+  const minHeightValue = $minHeight
+    ? typeof $minHeight === 'number'
+      ? pxToRem($minHeight)
+      : $minHeight
+    : undefined;
+
+  const defaultMinHeight = pxToRem(112);
+
   const baseStyles: CSSObject = {
     ...restStyle,
     display: 'flex',
@@ -273,20 +289,24 @@ export const StyledTextAreaWrapper = styled('div', {
     borderRadius: `${theme.scheme.desktop.radius[BORDER_RADIUS]}px`,
     cursor: $disabled ? 'not-allowed' : 'text',
     transition: `box-shadow ${theme.environment.duration[100]} ${theme.environment.motion.fluent}`,
-    minHeight: pxToRem(112),
+    overflow: 'hidden',
+    ...(heightValue && { height: heightValue, minHeight: heightValue }),
+    ...(!heightValue && { minHeight: minHeightValue || defaultMinHeight }),
 
     [theme.breakPoint.tablet]: {
       gap: pxToRem(theme.scheme.tablet.spacing[0]),
       padding: paddingMap[$style].tablet,
       borderRadius: `${theme.scheme.tablet.radius[BORDER_RADIUS]}px`,
-      minHeight: pxToRem(112),
+      ...(heightValue && { height: heightValue, minHeight: heightValue }),
+      ...(!heightValue && { minHeight: minHeightValue || defaultMinHeight }),
     },
 
     [theme.breakPoint.mobile]: {
       gap: pxToRem(theme.scheme.mobile.spacing[0]),
       padding: paddingMap[$style].mobile,
       borderRadius: `${theme.scheme.mobile.radius[BORDER_RADIUS]}px`,
-      minHeight: pxToRem(112),
+      ...(heightValue && { height: heightValue, minHeight: heightValue }),
+      ...(!heightValue && { minHeight: minHeightValue || defaultMinHeight }),
     },
 
     '::after': {
@@ -341,8 +361,22 @@ export const StyledTextArea = styled('textarea', {
 })<{
   $disabled: boolean;
   $readOnly: boolean;
-}>(({ theme, $disabled, $readOnly }) => {
+  $height?: number | string;
+  $minHeight?: number | string;
+}>(({ theme, $disabled, $readOnly, $height, $minHeight }) => {
   const textColor = getTextColor(theme, $disabled, $readOnly);
+
+  const heightValue = $height
+    ? typeof $height === 'number'
+      ? pxToRem($height)
+      : $height
+    : undefined;
+
+  const minHeightValue = $minHeight
+    ? typeof $minHeight === 'number'
+      ? pxToRem($minHeight)
+      : $minHeight
+    : undefined;
 
   return {
     display: 'flex',
@@ -358,7 +392,10 @@ export const StyledTextArea = styled('textarea', {
     ...textStyle(theme, 'desktop', 'body.sm.normal'),
     position: 'relative',
     zIndex: 1,
-    resize: 'vertical',
+    resize: 'none',
+    overflow: 'hidden',
+    ...(heightValue && { height: heightValue, minHeight: heightValue }),
+    ...(minHeightValue && { minHeight: minHeightValue }),
 
     '&::placeholder': {
       color: theme.color.object.assistive,
@@ -374,12 +411,19 @@ export const StyledTextArea = styled('textarea', {
   };
 });
 
-export const StyledHelperContainer = styled('div')(({ theme }) => ({
+export const StyledHelperContainer = styled('div', {
+  shouldForwardProp: prop => !prop.startsWith('$'),
+})<{
+  $validation: InputAreaValidation;
+  $disabled: boolean;
+  $readOnly: boolean;
+}>(({ theme, $validation, $disabled, $readOnly }) => ({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
   alignSelf: 'stretch',
   gap: pxToRem(theme.scheme.desktop.spacing[16]),
+  color: getHelperTextColor(theme, $validation, $disabled, $readOnly),
 
   [theme.breakPoint.tablet]: {
     gap: pxToRem(theme.scheme.tablet.spacing[16]),
@@ -390,47 +434,14 @@ export const StyledHelperContainer = styled('div')(({ theme }) => ({
   },
 }));
 
-export const StyledHelperText = styled(Label, {
-  shouldForwardProp: prop => !prop.startsWith('$'),
-})<{
-  $validation: InputAreaValidation;
-  $disabled: boolean;
-  $readOnly: boolean;
-}>(({ theme, $validation, $disabled, $readOnly }) => ({
-  color: getHelperTextColor(theme, $validation, $disabled, $readOnly),
+export const StyledHelperText = styled(Label)({
+  color: 'inherit',
   flex: '1 0 0',
-}));
+});
 
-export const StyledCountText = styled(Label, {
-  shouldForwardProp: prop => !prop.startsWith('$'),
-})<{
-  $disabled: boolean;
-  $readOnly: boolean;
-}>(({ theme, $disabled, $readOnly }) => {
-  const disabledCountColor = theme.color.object.subtle;
-
-  const readOnlyCountColor = theme.color.object.alternative;
-
-  const normalCountColor = theme.color.object.alternative;
-
-  if ($disabled) {
-    return {
-      color: disabledCountColor,
-      marginLeft: 'auto',
-    };
-  }
-
-  if ($readOnly) {
-    return {
-      color: readOnlyCountColor,
-      marginLeft: 'auto',
-    };
-  }
-
-  return {
-    color: normalCountColor,
-    marginLeft: 'auto',
-  };
+export const StyledCountText = styled(Label)({
+  color: 'inherit',
+  marginLeft: 'auto',
 });
 
 export {
