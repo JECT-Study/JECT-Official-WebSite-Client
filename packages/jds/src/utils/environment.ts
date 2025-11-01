@@ -3,19 +3,19 @@ import { Depth, DeviceType, Level, Shadow } from 'types';
 
 export function depth(theme: Theme, depthToken: Depth) {
   if (depthToken === 'shallowest') {
-    return { backgroundColor: theme.color.surface.shallowest };
+    return { backgroundColor: theme.color.semantic.surface.shallowest };
   } else if (depthToken === 'shallower') {
-    return { backgroundColor: theme.color.surface.shallower };
+    return { backgroundColor: theme.color.semantic.surface.shallower };
   } else if (depthToken === 'shallow') {
-    return { backgroundColor: theme.color.surface.shallow };
+    return { backgroundColor: theme.color.semantic.surface.shallow };
   } else if (depthToken === 'standard') {
-    return { backgroundColor: theme.color.surface.standard };
+    return { backgroundColor: theme.color.semantic.surface.standard };
   } else if (depthToken === 'deep') {
-    return { backgroundColor: theme.color.surface.deep };
+    return { backgroundColor: theme.color.semantic.surface.deep };
   } else if (depthToken === 'deeper') {
-    return { backgroundColor: theme.color.surface.deeper };
+    return { backgroundColor: theme.color.semantic.surface.deeper };
   } else if (depthToken === 'deepest') {
-    return { backgroundColor: theme.color.surface.deepest };
+    return { backgroundColor: theme.color.semantic.surface.deepest };
   }
 
   return {};

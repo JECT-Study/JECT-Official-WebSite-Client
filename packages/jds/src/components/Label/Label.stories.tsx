@@ -57,6 +57,6 @@ export const WithColor: Story = {
   render: args => {
     const theme = useTheme();
 
-    return <Label {...args} color={theme.color.accent.neutral} />;
+    return <Label {...args} color={theme.color.semantic.accent.neutral} />;
   },
 };

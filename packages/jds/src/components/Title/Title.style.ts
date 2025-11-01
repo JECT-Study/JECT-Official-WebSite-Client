@@ -22,7 +22,7 @@ export const titleStylesMap = {
 export const TitleDiv = styled.div<TitleDivProps>(({ theme, size, textAlign, color }) => {
   const textStyleKey = titleStylesMap[size] as TextStyle;
   const justifyContent = TEXT_ALIGN_MAPPING[textAlign];
-  const BaseColor = color || theme.color.object.bolder;
+  const BaseColor = color || theme.color.semantic.object.bolder;
 
   return {
     display: 'flex',
