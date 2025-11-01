@@ -27,6 +27,8 @@ export const InputArea = forwardRef<HTMLTextAreaElement, InputAreaProps>(
       labelVisible = true,
       helperText,
       maxLength,
+      height,
+      minHeight,
       value,
       onChange,
       ...restProps
@@ -64,12 +66,16 @@ export const InputArea = forwardRef<HTMLTextAreaElement, InputAreaProps>(
             $validation={validation}
             $disabled={isDisabled}
             $readOnly={isReadOnly}
+            $height={height}
+            $minHeight={minHeight}
           >
             <StyledTextArea
               ref={ref}
               id={inputId}
               $disabled={isDisabled}
               $readOnly={isReadOnly}
+              $height={height}
+              $minHeight={minHeight}
               value={value}
               onChange={onChange}
               disabled={isDisabled}
@@ -80,29 +86,19 @@ export const InputArea = forwardRef<HTMLTextAreaElement, InputAreaProps>(
           </StyledTextAreaWrapper>
 
           {hasHelperContainer && (
-            <StyledHelperContainer>
+            <StyledHelperContainer
+              $validation={validation}
+              $disabled={isDisabled}
+              $readOnly={isReadOnly}
+            >
               {helperText && (
-                <StyledHelperText
-                  as='span'
-                  size='sm'
-                  weight='normal'
-                  $validation={validation}
-                  $disabled={isDisabled}
-                  $readOnly={isReadOnly}
-                >
+                <StyledHelperText as='span' size='sm' weight='normal'>
                   {helperText}
                 </StyledHelperText>
               )}
 
               {maxLength && (
-                <StyledCountText
-                  as='span'
-                  size='sm'
-                  weight='normal'
-                  textAlign='right'
-                  $disabled={isDisabled}
-                  $readOnly={isReadOnly}
-                >
+                <StyledCountText as='span' size='sm' weight='normal' textAlign='right'>
                   {`${currentLength}/${maxLength}`}
                 </StyledCountText>
               )}

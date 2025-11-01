@@ -19,6 +19,8 @@ export interface InputAreaPublicProps extends Omit<ComponentPropsWithoutRef<'tex
   labelVisible?: boolean;
   helperText?: string;
   maxLength?: number;
+  height?: number | string;
+  minHeight?: number | string;
   value: string;
   onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
 }
