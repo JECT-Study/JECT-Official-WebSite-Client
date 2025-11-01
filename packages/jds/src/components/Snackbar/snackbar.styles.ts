@@ -5,29 +5,6 @@ import { SnackbarDivProps, SnackbarFeedbackIconProps, SnackbarStyle } from './sn
 import { keyframes } from '@emotion/react';
 import { snackbarStylesMap } from './snackbar.variants';
 
-const slideIn = keyframes`
-  from {
-    opacity: 0;
-    transform: translateY(100%);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-`;
-
-const slideOut = keyframes`
-  from {
-    opacity: 1;
-    transform: translateY(0);
-        
-  }
-  to {
-    opacity: 0;
-    transform: translateY(100%);
-  }
-`;
-
 export const SnackbarStackContainer = styled.div(({ theme }) => {
   return {
     position: 'absolute',
@@ -44,10 +21,46 @@ export const SnackbarStackContainer = styled.div(({ theme }) => {
   };
 });
 
-export const SnackbarDiv = styled.div<SnackbarDivProps>(({ theme, snackbarStyle, isExiting }) => {
+export const SnackbarDiv = styled.div<SnackbarDivProps>(({ theme, snackbarStyle }) => {
   const color = snackbarStylesMap(theme)[snackbarStyle].color;
   const borderColor = snackbarStylesMap(theme)[snackbarStyle].borderColor;
   const backgroundColor = snackbarStylesMap(theme)[snackbarStyle].backgroundColor;
+  const entryDuration = theme.environment.duration[250];
+  const exitDuration = theme.environment.duration[250];
+  const delayDuration = 9000;
+  const animationDuration = entryDuration + delayDuration + exitDuration;
+  const animationMotion = theme.environment.motion.bouncy;
+
+  const slideOut = keyframes`
+  from {
+    opacity: 1;
+    transform: translateY(0);
+        
+  }
+  to {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+`;
+
+  const slideInOut = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  ${(entryDuration / animationDuration) * 100}% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  ${(1 - exitDuration / animationDuration) * 100}% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+`;
 
   return {
     display: 'flex',
@@ -73,9 +86,11 @@ export const SnackbarDiv = styled.div<SnackbarDivProps>(({ theme, snackbarStyle,
       zIndex: '-10',
     },
 
-    animation: isExiting
-      ? `${slideOut}  ${theme.environment.duration[250]}ms ${theme.environment.motion.bouncy} forwards`
-      : `${slideIn}  ${theme.environment.duration[250]}ms ${theme.environment.motion.bouncy} forwards`,
+    '&.delete': {
+      animation: `${slideOut} ${exitDuration}ms ${animationMotion} forwards`,
+    },
+
+    animation: `${slideInOut} ${animationDuration}ms ${animationMotion} forwards`,
   };
 });
 
@@ -122,7 +137,7 @@ export const ButtonContainerDiv = styled.div(({ theme }) => {
 
 export const SnackbarFeedbackIcon = styled(Icon)<SnackbarFeedbackIconProps>(({
   theme,
-  feedback,
+  variant,
 }) => {
-  return { color: snackbarStylesMap(theme)[feedback].color };
+  return { color: snackbarStylesMap(theme)[variant].color };
 });

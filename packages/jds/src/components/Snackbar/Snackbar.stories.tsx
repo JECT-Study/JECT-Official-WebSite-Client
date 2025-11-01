@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Snackbar } from './Snackbar';
-import { snackbar, SnackbarProvider, useSnackbar } from './SnackbarProvider';
+import { SnackbarProvider, useSnackbar } from './SnackbarProvider';
 import { BlockButton } from '@/components';
 import { FlexColumn } from '@storybook-utils/layout';
+import { snackbarController } from './snackbarController';
 
 const meta: Meta<typeof Snackbar.Basic> = {
   title: 'Components/Snackbar',
@@ -44,6 +45,7 @@ export const Basic: StoryObj<typeof Snackbar.Basic> = {
   },
   render: args => (
     <Snackbar.Basic
+      id='snackbar-1'
       title={args.title}
       caption={args.caption}
       prefixButtonProps={args.prefixButtonProps}
@@ -54,14 +56,14 @@ export const Basic: StoryObj<typeof Snackbar.Basic> = {
 
 export const Feedback: StoryObj<typeof Snackbar.Feedback> = {
   argTypes: {
-    feedback: {
+    variant: {
       description: '스낵바 피드백 속성을 지정합니다.',
       control: 'radio',
       options: ['positive', 'destructive'],
     },
   },
   args: {
-    feedback: 'positive',
+    variant: 'positive',
     title: '스낵바 제목 레이블',
     caption:
       '스낵바 내용은 최대 다섯 줄 까지 입력 가능하며, 더 많은 내용을 입력해야 하는 상황에서는 별도의 안내 페이지로 유도합니다.',
@@ -74,8 +76,9 @@ export const Feedback: StoryObj<typeof Snackbar.Feedback> = {
   },
   render: args => (
     <Snackbar.Feedback
+      id='snackbar-1'
       title={args.title}
-      feedback={args.feedback}
+      variant={args.variant}
       caption={args.caption}
       prefixButtonProps={args.prefixButtonProps}
       suffixButtonProps={args.suffixButtonProps}
@@ -197,9 +200,10 @@ export const UseGlobalToast: StoryObj<typeof Snackbar.Basic> = {
     const caption =
       '토스트 내용은 최대 다섯 줄 까지 입력 가능하며, 더 많은 내용을 입력해야 하는 상황에서는 별도의 안내 페이지로 유도합니다.';
 
-    const basicSnackbar = () => snackbar.basic({ title: '베이직 스낵바', caption });
-    const positiveSnackbar = () => snackbar.positive({ title: '피드백 스낵바', caption });
-    const destructiveSnackbar = () => snackbar.destructive({ title: '피드백 스낵바', caption });
+    const basicSnackbar = () => snackbarController.basic({ title: '베이직 스낵바', caption });
+    const positiveSnackbar = () => snackbarController.positive({ title: '피드백 스낵바', caption });
+    const destructiveSnackbar = () =>
+      snackbarController.destructive({ title: '피드백 스낵바', caption });
 
     return (
       <FlexColumn>

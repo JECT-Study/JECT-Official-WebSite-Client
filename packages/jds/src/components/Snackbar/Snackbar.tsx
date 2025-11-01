@@ -8,7 +8,8 @@ import {
   SnackbarLabelContainerDiv,
 } from './snackbar.styles';
 import { BlockButton, IconButton } from '@/components';
-import { SnackbarBaseProps, SnackbarButtonsProps, SnackbarFeedbackProps } from './snackbar.types';
+import { SnackbarBaseProps, SnackbarButtonsProps, SnackbarVariantProps } from './snackbar.types';
+import { useState } from 'react';
 
 const SnackbarButtons = ({ prefixButtonProps, suffixButtonProps }: SnackbarButtonsProps) => {
   if (!prefixButtonProps && !suffixButtonProps) return;
@@ -30,15 +31,23 @@ const SnackbarButtons = ({ prefixButtonProps, suffixButtonProps }: SnackbarButto
 };
 
 const SnackbarBasic = ({
-  caption = undefined,
-  prefixButtonProps = undefined,
-  suffixButtonProps = undefined,
+  id,
+  caption,
+  prefixButtonProps,
+  suffixButtonProps,
   title,
-  closeButtonFn,
-  isExiting = false,
+  onRemove,
 }: SnackbarBaseProps) => {
+  const [click, setClick] = useState(false);
+  const onClose = () => setClick(true);
+
   return (
-    <SnackbarDiv snackbarStyle='basic' isExiting={isExiting}>
+    <SnackbarDiv
+      id={id}
+      className={click ? 'delete' : ''}
+      snackbarStyle='basic'
+      onAnimationEnd={onRemove}
+    >
       <SnackbarContentDiv>
         <SnackbarLabelContainerDiv>
           <SnackbarLabel snackbarStyle='basic' size='md' textAlign='left' weight='normal'>
@@ -49,7 +58,7 @@ const SnackbarBasic = ({
             hierarchy='secondary'
             size='md'
             aria-label='toast close button'
-            onClick={closeButtonFn}
+            onClick={onClose}
           />
         </SnackbarLabelContainerDiv>
         {caption && <SnackbarCaptionP>{caption}</SnackbarCaptionP>}
@@ -65,23 +74,31 @@ const SnackbarBasic = ({
 SnackbarBasic.displayName = 'Snackbar.Basic';
 
 const SnackbarFeedback = ({
-  feedback = 'positive',
+  id,
+  variant = 'positive',
   caption = undefined,
   prefixButtonProps = undefined,
   suffixButtonProps = undefined,
   title,
-  closeButtonFn,
-  isExiting = false,
-}: SnackbarFeedbackProps) => {
+  onRemove,
+}: SnackbarVariantProps) => {
+  const [click, setClick] = useState(false);
+  const onClose = () => setClick(true);
+
   return (
-    <SnackbarDiv snackbarStyle={feedback} isExiting={isExiting}>
+    <SnackbarDiv
+      id={id}
+      className={click ? 'delete' : ''}
+      snackbarStyle={variant}
+      onAnimationEnd={onRemove}
+    >
       <SnackbarContentDiv>
         <SnackbarLabelContainerDiv>
           <SnackbarFeedbackIcon
-            feedback={feedback}
-            name={feedback === 'positive' ? 'check-line' : 'error-warning-line'}
+            variant={variant}
+            name={variant === 'positive' ? 'check-line' : 'error-warning-line'}
           />
-          <SnackbarLabel snackbarStyle={feedback} size='md' textAlign='left' weight='normal'>
+          <SnackbarLabel snackbarStyle={variant} size='md' textAlign='left' weight='normal'>
             {title}
           </SnackbarLabel>
           <IconButton.Basic
@@ -89,7 +106,7 @@ const SnackbarFeedback = ({
             hierarchy='secondary'
             size='md'
             aria-label='toast close button'
-            onClick={closeButtonFn}
+            onClick={onClose}
           />
         </SnackbarLabelContainerDiv>
         {caption && <SnackbarCaptionP>{caption}</SnackbarCaptionP>}
