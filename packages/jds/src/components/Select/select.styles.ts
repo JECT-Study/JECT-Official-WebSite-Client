@@ -15,9 +15,9 @@ export const StyledSelectContainer = styled('div')(({ theme }) => ({
   maxHeight: pxToRem(320),
   flexShrink: 0,
   borderRadius: pxToRem(theme.scheme.desktop.radius[8]),
-  border: `1px solid ${theme.color.stroke.subtle}`,
+  border: `1px solid ${theme.color.semantic.stroke.subtle}`,
   opacity: 1,
-  background: theme.color.surface.shallow,
+  background: theme.color.semantic.surface.shallow,
   boxShadow: `0 0 ${pxToRem(theme.scheme.desktop.radius[2])} 0 ${theme.colorPrimitive.primitive.shade['4']}, 0 ${pxToRem(theme.scheme.desktop.spacing[3])} ${pxToRem(theme.scheme.desktop.radius[4])} 0 ${theme.colorPrimitive.primitive.shade['8']}, 0 ${pxToRem(theme.scheme.desktop.spacing[4])} ${pxToRem(theme.scheme.desktop.radius[8])} 0 ${theme.colorPrimitive.primitive.shade['12']}`,
 
   [theme.breakPoint.tablet]: {
@@ -33,7 +33,7 @@ export const StyledSelectContainer = styled('div')(({ theme }) => ({
 
 export const StyledSelectLabelWrapper = styled('div')(({ theme }) => ({
   display: 'flex',
-  color: theme.color.object.assistive,
+  color: theme.color.semantic.object.assistive,
   padding: `${pxToRem(theme.scheme.desktop.spacing[10])} ${pxToRem(theme.scheme.desktop.spacing[12])} ${pxToRem(theme.scheme.desktop.spacing[6])} ${pxToRem(theme.scheme.desktop.spacing[12])}`,
   alignItems: 'center',
   gap: pxToRem(theme.scheme.desktop.spacing[8]),
@@ -141,7 +141,7 @@ export const StyledSelectItem = styled('div', {
     gap: 0,
     padding: getItemPaddingBySize(theme, $size, 'desktop'),
     backgroundColor: 'transparent',
-    borderBottom: `1px solid ${theme.color.stroke.subtler}`,
+    borderBottom: `1px solid ${theme.color.semantic.stroke.subtler}`,
     cursor: $isDisabled ? 'not-allowed' : 'pointer',
     position: 'relative',
     userSelect: 'none',
@@ -238,9 +238,9 @@ export const StyledSelectItemText = styled(Label, {
   $selected: boolean;
 }>(({ theme, $isDisabled, $selected }) => {
   const getColor = () => {
-    if ($isDisabled) return theme.color.object.subtle;
-    if ($selected) return theme.color.accent.normal;
-    return theme.color.object.bold;
+    if ($isDisabled) return theme.color.semantic.object.subtle;
+    if ($selected) return theme.color.semantic.accent.normal;
+    return theme.color.semantic.object.bold;
   };
 
   return {
@@ -251,7 +251,7 @@ export const StyledSelectItemText = styled(Label, {
 export const StyledSelectItemCaption = styled(Label, {
   shouldForwardProp: prop => !prop.startsWith('$'),
 })<{ $isDisabled: boolean }>(({ theme, $isDisabled }) => ({
-  color: $isDisabled ? theme.color.object.subtle : theme.color.object.assistive,
+  color: $isDisabled ? theme.color.semantic.object.subtle : theme.color.semantic.object.assistive,
 }));
 
 export const StyledSelectItemBadge = styled(ContentBadge.Basic)({
