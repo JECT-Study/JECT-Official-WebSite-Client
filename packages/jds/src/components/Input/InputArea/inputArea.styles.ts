@@ -14,27 +14,27 @@ const getBorderColor = (
   readOnly: boolean,
 ): string => {
   const disabledBorderColorMap = {
-    none: theme.color.stroke.alpha.assistive,
-    error: theme.color.feedback.destructive.alpha.assistive,
+    none: theme.color.semantic.stroke.alpha.assistive,
+    error: theme.color.semantic.feedback.destructive.alpha.assistive,
   };
 
   const readOnlyBorderColorMap = {
-    none: theme.color.stroke.alpha.subtle,
-    error: theme.color.stroke.alpha.subtle,
+    none: theme.color.semantic.stroke.alpha.subtle,
+    error: theme.color.semantic.stroke.alpha.subtle,
   };
 
   const normalBorderColorMap = {
     none: {
-      rest: theme.color.stroke.alpha.assistive,
-      hover: theme.color.stroke.alpha.neutral,
-      active: theme.color.stroke.alpha.assistive,
-      focus: theme.color.accent.neutral,
+      rest: theme.color.semantic.stroke.alpha.assistive,
+      hover: theme.color.semantic.stroke.alpha.neutral,
+      active: theme.color.semantic.stroke.alpha.assistive,
+      focus: theme.color.semantic.accent.neutral,
     },
     error: {
-      rest: theme.color.feedback.destructive.alpha.assistive,
-      hover: theme.color.feedback.destructive.neutral,
-      active: theme.color.feedback.destructive.neutral,
-      focus: theme.color.feedback.destructive.neutral,
+      rest: theme.color.semantic.feedback.destructive.alpha.assistive,
+      hover: theme.color.semantic.feedback.destructive.neutral,
+      active: theme.color.semantic.feedback.destructive.neutral,
+      focus: theme.color.semantic.feedback.destructive.neutral,
     },
   };
 
@@ -50,11 +50,11 @@ const getBorderColor = (
 };
 
 const getTextColor = (theme: Theme, disabled: boolean, readOnly: boolean): string => {
-  const disabledTextColor = theme.color.object.subtle;
+  const disabledTextColor = theme.color.semantic.object.subtle;
 
-  const readOnlyTextColor = theme.color.object.assistive;
+  const readOnlyTextColor = theme.color.semantic.object.assistive;
 
-  const normalTextColor = theme.color.object.boldest;
+  const normalTextColor = theme.color.semantic.object.boldest;
 
   if (disabled) {
     return disabledTextColor;
@@ -84,7 +84,7 @@ const getBackgroundColor = (
   } as const;
 
   const normalBackgroundColorMap = {
-    outlined: theme.color.surface.standard,
+    outlined: theme.color.semantic.surface.standard,
     empty: 'transparent',
   } as const;
 
@@ -106,18 +106,18 @@ const getHelperTextColor = (
   readOnly: boolean,
 ): string => {
   const disabledHelperColorMap = {
-    none: theme.color.object.subtle,
-    error: theme.color.feedback.destructive.alpha.assistive,
+    none: theme.color.semantic.object.subtle,
+    error: theme.color.semantic.feedback.destructive.alpha.assistive,
   };
 
   const readOnlyHelperColorMap = {
-    none: theme.color.object.alternative,
-    error: theme.color.feedback.destructive.alpha.assistive,
+    none: theme.color.semantic.object.alternative,
+    error: theme.color.semantic.feedback.destructive.alpha.assistive,
   };
 
   const normalHelperColorMap = {
-    none: theme.color.object.alternative,
-    error: theme.color.feedback.destructive.neutral,
+    none: theme.color.semantic.object.alternative,
+    error: theme.color.semantic.feedback.destructive.neutral,
   };
 
   if (disabled) {
@@ -398,7 +398,7 @@ export const StyledTextArea = styled('textarea', {
     ...(minHeightValue && { minHeight: minHeightValue }),
 
     '&::placeholder': {
-      color: theme.color.object.assistive,
+      color: theme.color.semantic.object.assistive,
     },
 
     [theme.breakPoint.tablet]: {

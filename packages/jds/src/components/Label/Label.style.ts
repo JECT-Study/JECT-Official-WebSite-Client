@@ -32,7 +32,7 @@ export const LabelStyled = styled('label', {
     display: 'flex',
     justifyContent,
     alignItems: 'center',
-    color: $color ?? theme.color.object.bold,
+    color: $color ?? theme.color.semantic.object.bold,
     cursor: 'default',
     ...textStyle(theme, 'desktop', textStyleKey),
     [theme.breakPoint.tablet]: { ...textStyle(theme, 'tablet', textStyleKey) },

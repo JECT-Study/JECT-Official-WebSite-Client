@@ -8,14 +8,14 @@ import type { InputLayout, InputStyle, InputValidation } from '../input.types';
 
 export const getLabelColor = (theme: Theme, disabled: boolean, readOnly: boolean): string => {
   if (disabled) {
-    return theme.color.object.assistive;
+    return theme.color.semantic.object.assistive;
   }
 
   if (readOnly) {
-    return theme.color.object.normal;
+    return theme.color.semantic.object.normal;
   }
 
-  return theme.color.object.normal;
+  return theme.color.semantic.object.normal;
 };
 
 export const getHelperTextColor = (
@@ -26,26 +26,26 @@ export const getHelperTextColor = (
 ): string => {
   if (disabled) {
     const disabledColorMap = {
-      none: theme.color.object.subtle,
-      error: theme.color.feedback.destructive.alpha.assistive,
-      success: theme.color.feedback.positive.alpha.assistive,
+      none: theme.color.semantic.object.subtle,
+      error: theme.color.semantic.feedback.destructive.alpha.assistive,
+      success: theme.color.semantic.feedback.positive.alpha.assistive,
     };
     return disabledColorMap[validation];
   }
 
   if (readOnly) {
     const readOnlyColorMap = {
-      none: theme.color.object.alternative,
-      error: theme.color.feedback.destructive.alpha.assistive,
-      success: theme.color.feedback.positive.alpha.assistive,
+      none: theme.color.semantic.object.alternative,
+      error: theme.color.semantic.feedback.destructive.alpha.assistive,
+      success: theme.color.semantic.feedback.positive.alpha.assistive,
     };
     return readOnlyColorMap[validation];
   }
 
   const helperColorMap = {
-    none: theme.color.object.alternative,
-    error: theme.color.feedback.destructive.neutral,
-    success: theme.color.feedback.positive.neutral,
+    none: theme.color.semantic.object.alternative,
+    error: theme.color.semantic.feedback.destructive.neutral,
+    success: theme.color.semantic.feedback.positive.neutral,
   };
 
   return helperColorMap[validation];

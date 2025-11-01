@@ -12,27 +12,27 @@ const getBorderColor = (
   disabled: boolean,
 ): string => {
   if (disabled) {
-    return theme.color.stroke.alpha.subtle;
+    return theme.color.semantic.stroke.alpha.subtle;
   }
 
   const borderColorMap = {
     none: {
-      rest: theme.color.stroke.alpha.assistive,
-      hover: theme.color.stroke.alpha.normal,
-      active: theme.color.stroke.alpha.assistive,
-      focus: theme.color.accent.neutral,
+      rest: theme.color.semantic.stroke.alpha.assistive,
+      hover: theme.color.semantic.stroke.alpha.normal,
+      active: theme.color.semantic.stroke.alpha.assistive,
+      focus: theme.color.semantic.accent.neutral,
     },
     error: {
-      rest: theme.color.feedback.destructive.alpha.assistive,
-      hover: theme.color.feedback.destructive.neutral,
-      active: theme.color.feedback.destructive.neutral,
-      focus: theme.color.feedback.destructive.neutral,
+      rest: theme.color.semantic.feedback.destructive.alpha.assistive,
+      hover: theme.color.semantic.feedback.destructive.neutral,
+      active: theme.color.semantic.feedback.destructive.neutral,
+      focus: theme.color.semantic.feedback.destructive.neutral,
     },
     success: {
-      rest: theme.color.feedback.positive.alpha.assistive,
-      hover: theme.color.feedback.positive.neutral,
-      active: theme.color.feedback.positive.neutral,
-      focus: theme.color.feedback.positive.neutral,
+      rest: theme.color.semantic.feedback.positive.alpha.assistive,
+      hover: theme.color.semantic.feedback.positive.neutral,
+      active: theme.color.semantic.feedback.positive.neutral,
+      focus: theme.color.semantic.feedback.positive.neutral,
     },
   };
 
@@ -41,16 +41,16 @@ const getBorderColor = (
 
 const getTextColor = (theme: Theme, disabled: boolean, readOnly: boolean): string => {
   if (disabled) {
-    return theme.color.object.assistive;
+    return theme.color.semantic.object.assistive;
   }
   if (readOnly) {
-    return theme.color.object.subtle;
+    return theme.color.semantic.object.subtle;
   }
-  return theme.color.object.boldest;
+  return theme.color.semantic.object.boldest;
 };
 
 const getPlaceholderColor = (theme: Theme): string => {
-  return theme.color.object.assistive;
+  return theme.color.semantic.object.assistive;
 };
 
 const getBackgroundColor = (
@@ -65,7 +65,7 @@ const getBackgroundColor = (
   if (style === 'empty') {
     return 'transparent';
   }
-  return theme.color.surface.standard;
+  return theme.color.semantic.surface.standard;
 };
 
 export const StyledSelectWrapper = styled('div', {
@@ -311,15 +311,15 @@ const getIconColor = (
   isFocus: boolean,
 ): string => {
   if (disabled) {
-    return theme.color.object.subtle;
+    return theme.color.semantic.object.subtle;
   }
   if (readOnly) {
-    return theme.color.object.subtle;
+    return theme.color.semantic.object.subtle;
   }
   if (isFocus) {
-    return theme.color.object.boldest;
+    return theme.color.semantic.object.boldest;
   }
-  return theme.color.object.assistive;
+  return theme.color.semantic.object.assistive;
 };
 
 export const StyledSelectIconWrapper = styled('div', {
