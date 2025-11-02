@@ -1,18 +1,33 @@
+import { LimitedQueueProviderBaseItem } from '@/hooks/useLimitedQueueProvider';
 import { ReactNode } from 'react';
 
 export type ToastVariant = 'positive' | 'destructive';
 export type ToastStyle = 'basic' | ToastVariant;
 
 export interface ToastBaseProps {
-  id: string;
   title: ReactNode;
   caption?: ReactNode;
-  onRemove?: () => void;
-  isClosing?: boolean;
 }
 
-export interface ToastFeedbackProps extends ToastBaseProps {
+export type ToastBase = ToastBaseProps & LimitedQueueProviderBaseItem;
+
+export interface ToastBasicProps extends ToastBase {
+  onRemove?: () => void;
+}
+
+export interface ToastFeedbackProps extends ToastBase {
   variant?: ToastVariant;
+  onRemove?: () => void;
+}
+
+export interface ToastItem extends ToastBase {
+  type: ToastStyle;
+}
+
+export interface ToastHandler {
+  basic: (title: string, caption?: string) => void;
+  positive: (title: string, caption?: string) => void;
+  destructive: (title: string, caption?: string) => void;
 }
 
 export interface ToastDivProps {
@@ -25,18 +40,4 @@ export interface ToastFeedbackIconProps {
 
 export interface UseToastProviderProps {
   toastLimit?: number;
-}
-
-export interface ToastItem {
-  id?: string;
-  type: ToastStyle;
-  title: string;
-  caption?: string;
-  isClosing?: boolean;
-}
-
-export interface ToastHandler {
-  basic: (title: string, caption?: string) => void;
-  positive: (title: string, caption?: string) => void;
-  destructive: (title: string, caption?: string) => void;
 }

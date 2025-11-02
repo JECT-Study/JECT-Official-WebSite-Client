@@ -7,10 +7,10 @@ import {
   ToastLabelContainerDiv,
 } from './toast.styles';
 import { IconButton } from '@/components';
-import { ToastBaseProps, ToastFeedbackProps } from './toast.types';
+import { ToastBasicProps, ToastFeedbackProps } from './toast.types';
 import { useState } from 'react';
 
-const ToastBasic = ({ id, caption, onRemove, title, isClosing }: ToastBaseProps) => {
+const ToastBasic = ({ id, caption, onRemove, title, isClosing }: ToastBasicProps) => {
   const [click, setClick] = useState(false);
   const onClose = () => setClick(true);
 
