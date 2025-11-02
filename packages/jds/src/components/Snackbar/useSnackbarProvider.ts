@@ -1,54 +1,19 @@
-import { useState, useCallback } from 'react';
-import { SnackbarHandlerParam, SnackbarItem, UseSnackbarProviderProps } from './snackbar.types';
+import { SnackbarItem, SnackbarBaseProps, UseSnackbarProviderProps } from './snackbar.types';
+import { useLimitedQueueProvider } from '@/hooks/useLimitedQueueProvider';
 
 export const useSnackbarProvider = ({ snackbarLimit = 3 }: UseSnackbarProviderProps) => {
-  const [snackbars, setSnackbars] = useState<SnackbarItem[]>([]);
-
-  const removeSnackbar = useCallback((id: string) => {
-    setSnackbars(prev => prev.filter(snackbar => snackbar.id !== id));
-  }, []);
-
-  const closeSnackbar = (id: string): Promise<void> => {
-    return new Promise(resolve => {
-      const snackbar = document.getElementById(id);
-      if (!snackbar) return;
-      if (snackbar.classList.contains('delete')) return;
-      snackbar.classList.add('delete');
-
-      snackbar.addEventListener('animationend', e => {
-        if (e.target === snackbar) {
-          removeSnackbar(id);
-          resolve();
-        }
-      });
-    });
-  };
-
-  const addSnackbar = useCallback(
-    async (snackbar: SnackbarItem) => {
-      const id = `snackbar-${Date.now()}`;
-      const newSnackbar = { id, ...snackbar };
-
-      if (snackbars.length >= snackbarLimit) {
-        const firstActive = snackbars[0];
-        await closeSnackbar(firstActive.id!);
-      }
-
-      setSnackbars(prev => [...prev, newSnackbar]);
-
-      return id;
-    },
-    [snackbars, snackbarLimit],
-  );
+  const { items, addItem, removeItem } = useLimitedQueueProvider<SnackbarItem>({
+    limit: snackbarLimit,
+  });
 
   const handler = {
-    basic: (snackbarHandlerParam: SnackbarHandlerParam) =>
-      addSnackbar({ type: 'basic', ...snackbarHandlerParam }),
-    positive: (snackbarHandlerParam: SnackbarHandlerParam) =>
-      addSnackbar({ type: 'positive', ...snackbarHandlerParam }),
-    destructive: (snackbarHandlerParam: SnackbarHandlerParam) =>
-      addSnackbar({ type: 'destructive', ...snackbarHandlerParam }),
+    basic: (snackbarBaseProps: SnackbarBaseProps) =>
+      addItem({ type: 'basic', ...snackbarBaseProps }),
+    positive: (snackbarBaseProps: SnackbarBaseProps) =>
+      addItem({ type: 'positive', ...snackbarBaseProps }),
+    destructive: (snackbarBaseProps: SnackbarBaseProps) =>
+      addItem({ type: 'destructive', ...snackbarBaseProps }),
   };
 
-  return { snackbars, snackbar: handler, removeSnackbar };
+  return { snackbars: items, snackbar: handler, removeSnackbar: removeItem };
 };

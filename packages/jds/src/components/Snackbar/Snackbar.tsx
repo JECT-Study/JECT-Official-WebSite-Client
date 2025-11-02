@@ -8,7 +8,7 @@ import {
   SnackbarLabelContainerDiv,
 } from './snackbar.styles';
 import { BlockButton, IconButton } from '@/components';
-import { SnackbarBaseProps, SnackbarButtonsProps, SnackbarVariantProps } from './snackbar.types';
+import { SnackbarBasicProps, SnackbarButtonsProps, SnackbarFeedbackProps } from './snackbar.types';
 import { useState } from 'react';
 
 const SnackbarButtons = ({ prefixButtonProps, suffixButtonProps }: SnackbarButtonsProps) => {
@@ -37,14 +37,15 @@ const SnackbarBasic = ({
   suffixButtonProps,
   title,
   onRemove,
-}: SnackbarBaseProps) => {
+  isClosing,
+}: SnackbarBasicProps) => {
   const [click, setClick] = useState(false);
   const onClose = () => setClick(true);
 
   return (
     <SnackbarDiv
       id={id}
-      className={click ? 'delete' : ''}
+      className={click || isClosing ? 'delete' : ''}
       snackbarStyle='basic'
       onAnimationEnd={onRemove}
     >
@@ -81,14 +82,15 @@ const SnackbarFeedback = ({
   suffixButtonProps = undefined,
   title,
   onRemove,
-}: SnackbarVariantProps) => {
+  isClosing,
+}: SnackbarFeedbackProps) => {
   const [click, setClick] = useState(false);
   const onClose = () => setClick(true);
 
   return (
     <SnackbarDiv
       id={id}
-      className={click ? 'delete' : ''}
+      className={click || isClosing ? 'delete' : ''}
       snackbarStyle={variant}
       onAnimationEnd={onRemove}
     >

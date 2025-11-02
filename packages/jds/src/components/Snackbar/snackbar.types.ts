@@ -1,25 +1,42 @@
 import { ReactNode } from 'react';
 import { BlockButtonBasicProps } from '../Button/BlockButton';
+import { LimitedQueueProviderBaseItem } from '@/hooks/useLimitedQueueProvider';
 
 export type SnackbarVariant = 'positive' | 'destructive';
 export type SnackbarStyle = 'basic' | SnackbarVariant;
+export type SnackbarButtonProps = Omit<BlockButtonBasicProps, 'hierarchy' | 'size' | 'variants'>;
 
 export interface SnackbarButtonsProps {
-  prefixButtonProps?: Omit<BlockButtonBasicProps, 'hierarchy' | 'size' | 'variants'>;
-  suffixButtonProps?: Omit<BlockButtonBasicProps, 'hierarchy' | 'size' | 'variants'>;
+  prefixButtonProps?: SnackbarButtonProps;
+  suffixButtonProps?: SnackbarButtonProps;
 }
 
 export interface SnackbarBaseProps {
-  id: string;
   title: ReactNode;
   caption?: ReactNode;
-  prefixButtonProps?: Omit<BlockButtonBasicProps, 'hierarchy' | 'size' | 'variants'>;
-  suffixButtonProps?: Omit<BlockButtonBasicProps, 'hierarchy' | 'size' | 'variants'>;
+  prefixButtonProps?: SnackbarButtonProps;
+  suffixButtonProps?: SnackbarButtonProps;
+}
+
+export type SnackbarBase = SnackbarBaseProps & LimitedQueueProviderBaseItem;
+
+export interface SnackbarBasicProps extends SnackbarBase {
   onRemove?: () => void;
 }
 
-export interface SnackbarVariantProps extends SnackbarBaseProps {
+export interface SnackbarFeedbackProps extends SnackbarBase {
   variant?: SnackbarVariant;
+  onRemove?: () => void;
+}
+
+export interface SnackbarItem extends SnackbarBase {
+  type: SnackbarStyle;
+}
+
+export interface SnackbarHandler {
+  basic: (snackbarFnParam: SnackbarBaseProps) => void;
+  positive: (snackbarFnParam: SnackbarBaseProps) => void;
+  destructive: (snackbarFnParam: SnackbarBaseProps) => void;
 }
 
 export interface SnackbarDivProps {
@@ -32,28 +49,4 @@ export interface SnackbarFeedbackIconProps {
 
 export interface UseSnackbarProviderProps {
   snackbarLimit?: number;
-}
-
-type SnackbarButtonProps = Omit<BlockButtonBasicProps, 'hierarchy' | 'size' | 'variants'>;
-
-export interface SnackbarItem {
-  id?: string;
-  type: SnackbarStyle;
-  title: string;
-  caption?: string;
-  prefixButtonProps?: SnackbarButtonProps;
-  suffixButtonProps?: SnackbarButtonProps;
-}
-
-export interface SnackbarHandlerParam {
-  title: string;
-  caption?: string;
-  prefixButtonProps?: SnackbarButtonProps;
-  suffixButtonProps?: SnackbarButtonProps;
-}
-
-export interface SnackbarHandler {
-  basic: (snackbarFnParam: SnackbarHandlerParam) => void;
-  positive: (snackbarFnParam: SnackbarHandlerParam) => void;
-  destructive: (snackbarFnParam: SnackbarHandlerParam) => void;
 }

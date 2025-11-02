@@ -32,6 +32,7 @@ export const SnackbarProvider = ({ children }: { children: ReactNode }) => {
                 id={snackbar.id!}
                 key={snackbar.id}
                 onRemove={() => removeSnackbar(snackbar.id!)}
+                isClosing={snackbar.isClosing}
                 {...snackbar}
               />
             ) : (
@@ -40,6 +41,7 @@ export const SnackbarProvider = ({ children }: { children: ReactNode }) => {
                 key={snackbar.id}
                 variant={snackbar.type}
                 onRemove={() => removeSnackbar(snackbar.id!)}
+                isClosing={snackbar.isClosing}
                 {...snackbar}
               />
             ),

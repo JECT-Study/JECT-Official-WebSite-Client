@@ -27,7 +27,7 @@ export const SnackbarDiv = styled.div<SnackbarDivProps>(({ theme, snackbarStyle 
   const backgroundColor = snackbarStylesMap(theme)[snackbarStyle].backgroundColor;
   const entryDuration = theme.environment.duration[250];
   const exitDuration = theme.environment.duration[250];
-  const delayDuration = 9000;
+  const delayDuration = 3000;
   const animationDuration = entryDuration + delayDuration + exitDuration;
   const animationMotion = theme.environment.motion.bouncy;
 
