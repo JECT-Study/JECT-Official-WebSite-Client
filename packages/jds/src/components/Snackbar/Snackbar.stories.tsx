@@ -145,20 +145,22 @@ export const UseSnackbarProviderWithOptions: StoryObj<typeof Snackbar.Basic> = {
   render: () => {
     const { snackbar } = useSnackbar();
 
+    const onClick = () => alert('클릭되었습니다.');
+
     const title = () => snackbar.basic({ title: '베이직 스낵바' });
     const titleCaption = () => snackbar.basic({ title: '베이직 스낵바', caption: '캡션입니다.' });
     const titleButtons = () =>
       snackbar.basic({
         title: '베이직 스낵바',
-        prefixButtonProps: { children: '레이블' },
-        suffixButtonProps: { children: '레이블' },
+        prefixButtonProps: { children: '레이블', onClick },
+        suffixButtonProps: { children: '레이블', onClick },
       });
     const titleCaptionButtons = () =>
       snackbar.basic({
         title: '베이직 스낵바',
         caption: '캡션입니다.',
-        prefixButtonProps: { children: '레이블' },
-        suffixButtonProps: { children: '레이블' },
+        prefixButtonProps: { children: '레이블', onClick },
+        suffixButtonProps: { children: '레이블', onClick },
       });
 
     return (
