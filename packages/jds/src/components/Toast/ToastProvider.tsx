@@ -32,6 +32,7 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
                 id={toast.id!}
                 key={toast.id}
                 onRemove={() => removeToast(toast.id!)}
+                isClosing={toast.isClosing}
                 {...toast}
               />
             ) : (
@@ -40,6 +41,7 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
                 key={toast.id}
                 variant={toast.type}
                 onRemove={() => removeToast(toast.id!)}
+                isClosing={toast.isClosing}
                 {...toast}
               />
             ),

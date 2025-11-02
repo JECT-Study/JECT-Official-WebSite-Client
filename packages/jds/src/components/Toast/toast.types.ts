@@ -8,6 +8,7 @@ export interface ToastBaseProps {
   title: ReactNode;
   caption?: ReactNode;
   onRemove?: () => void;
+  isClosing?: boolean;
 }
 
 export interface ToastFeedbackProps extends ToastBaseProps {
@@ -31,6 +32,7 @@ export interface ToastItem {
   type: ToastStyle;
   title: string;
   caption?: string;
+  isClosing?: boolean;
 }
 
 export interface ToastHandler {

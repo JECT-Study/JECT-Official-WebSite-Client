@@ -10,14 +10,14 @@ import { IconButton } from '@/components';
 import { ToastBaseProps, ToastFeedbackProps } from './toast.types';
 import { useState } from 'react';
 
-const ToastBasic = ({ id, caption, onRemove, title }: ToastBaseProps) => {
+const ToastBasic = ({ id, caption, onRemove, title, isClosing }: ToastBaseProps) => {
   const [click, setClick] = useState(false);
   const onClose = () => setClick(true);
 
   return (
     <ToastDiv
       id={id}
-      className={click ? 'delete' : ''}
+      className={click || isClosing ? 'delete' : ''}
       toastStyle='basic'
       onAnimationEnd={onRemove}
     >
@@ -48,6 +48,7 @@ const ToastFeedback = ({
   caption,
   onRemove,
   title,
+  isClosing,
 }: ToastFeedbackProps) => {
   const [click, setClick] = useState(false);
   const onClose = () => setClick(true);
@@ -55,7 +56,7 @@ const ToastFeedback = ({
   return (
     <ToastDiv
       id={id}
-      className={click ? 'delete' : ''}
+      className={click || isClosing ? 'delete' : ''}
       toastStyle={variant}
       onAnimationEnd={onRemove}
     >

@@ -1,37 +1,47 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import { ToastItem, UseToastProviderProps } from './toast.types';
 
 export const useToastProvider = ({ toastLimit = 3 }: UseToastProviderProps) => {
   const [toasts, setToasts] = useState<ToastItem[]>([]);
+  const removeResolvers = useRef<Map<string, () => void>>(new Map());
 
   const removeToast = useCallback((id: string) => {
+    const resolver = removeResolvers.current.get(id);
+    if (resolver) {
+      resolver();
+      removeResolvers.current.delete(id);
+    }
+
     setToasts(prev => prev.filter(toast => toast.id !== id));
   }, []);
 
-  const closeToast = (id: string): Promise<void> => {
-    return new Promise(resolve => {
-      const toast = document.getElementById(id);
-      if (!toast) return;
-      if (toast.classList.contains('delete')) return;
-      toast.classList.add('delete');
-
-      toast.addEventListener('animationend', e => {
-        if (e.target === toast) {
-          removeToast(id);
-          resolve();
-        }
-      });
-    });
-  };
+  const closeToast = useCallback((id: string) => {
+    setToasts(prev =>
+      prev.map(toast =>
+        toast.id === id && !toast.isClosing ? { ...toast, isClosing: true } : toast,
+      ),
+    );
+  }, []);
 
   const addToast = useCallback(
     async (toast: ToastItem) => {
-      const id = `toast-${Date.now()}`;
+      const id = `toast-${crypto.randomUUID()}`;
       const newToast = { id, ...toast };
 
       if (toasts.length >= toastLimit) {
         const firstActive = toasts[0];
-        await closeToast(firstActive.id!);
+        closeToast(firstActive.id!);
+
+        await new Promise<void>(resolve => {
+          removeResolvers.current.set(firstActive.id!, resolve);
+
+          setTimeout(() => {
+            if (removeResolvers.current.has(firstActive.id!)) {
+              resolve();
+              removeResolvers.current.delete(firstActive.id!);
+            }
+          }, 1500);
+        });
       }
 
       setToasts(prev => [...prev, newToast]);
