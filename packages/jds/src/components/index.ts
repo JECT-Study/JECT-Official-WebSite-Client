@@ -4,3 +4,4 @@ export * from './Icon';
 export * from './Button/IconButton';
 export * from './Label';
 export * from './Button/LabelButton';
+export * from './Logo';
