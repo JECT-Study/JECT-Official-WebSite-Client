@@ -15,7 +15,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
 
       - name: Cache npm packages
         uses: actions/cache@v4
@@ -32,7 +32,7 @@ jobs:
         run: npm install @octokit/rest
 
       - name: Run reviewer assignment script
-        run: node .github/scripts/assignReviewer.js
+        run: node .github/scripts/assignReviewer.mjs
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
