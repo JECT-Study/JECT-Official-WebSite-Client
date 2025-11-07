@@ -285,7 +285,7 @@ function GetBasicContainerInteractionStyles(
         transition: 'none',
       },
     },
-    '&:focus-visible': {
+    '&:focus-within': {
       ...focusStyle,
       '::after': {
         ...focusStyle['::after'],
@@ -475,7 +475,7 @@ const contentContainerInteractionStyles = (
         transition: 'none',
       },
     },
-    '&:focus-visible': {
+    '&:focus-within': {
       ...focusStyle,
       '::after': {
         ...focusStyle['::after'],
