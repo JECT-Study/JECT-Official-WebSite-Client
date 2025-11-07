@@ -17,6 +17,13 @@ const checkboxSizeMap: Record<CheckboxSize, number> = {
   xs: 14,
 };
 
+const checkboxWrapperHeightMap: Record<CheckboxSize, number> = {
+  lg: 24,
+  md: 23,
+  sm: 20,
+  xs: 18,
+};
+
 const iconComponentSizeMap: Record<CheckboxSize, IconSize> = {
   lg: 'md',
   md: 'sm',
@@ -302,6 +309,19 @@ export const StyledCheckboxBasicContainer = styled('label', {
   justifyContent: 'center',
   cursor: $disabled ? 'not-allowed' : 'pointer',
   userSelect: 'none',
+}));
+
+export const StyledCheckboxBoxWrapper = styled('div', {
+  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
+})<{
+  $size: CheckboxSize;
+}>(({ $size }) => ({
+  display: 'flex',
+  height: pxToRem(checkboxWrapperHeightMap[$size]),
+  padding: 0,
+  justifyContent: 'center',
+  alignItems: 'center',
+  gap: 0,
 }));
 
 export const StyledCheckboxBasicBox = styled('div', {

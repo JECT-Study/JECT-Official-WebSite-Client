@@ -8,6 +8,7 @@ import {
   GetSubLabelSize,
   StyledCheckboxBasicBox,
   StyledCheckboxBasicContainer,
+  StyledCheckboxBoxWrapper,
   StyledCheckboxContentContainer,
   StyledHiddenInput,
   StyledLabelContent,
@@ -150,17 +151,19 @@ const CheckboxContent = forwardRef<HTMLInputElement, CheckboxContentProps>(
   ) => {
     return (
       <StyledCheckboxContentContainer $size={size} $align={align} $disabled={disabled} htmlFor={id}>
-        <CheckboxBox
-          ref={ref}
-          checked={checked}
-          isIndeterminate={isIndeterminate}
-          disabled={disabled}
-          isInvalid={isInvalid}
-          size={size}
-          id={id}
-          onCheckedChange={onCheckedChange}
-          {...restProps}
-        />
+        <StyledCheckboxBoxWrapper $size={size}>
+          <CheckboxBox
+            ref={ref}
+            checked={checked}
+            isIndeterminate={isIndeterminate}
+            disabled={disabled}
+            isInvalid={isInvalid}
+            size={size}
+            id={id}
+            onCheckedChange={onCheckedChange}
+            {...restProps}
+          />
+        </StyledCheckboxBoxWrapper>
         <StyledLabelContent>
           <StyledMainLabel as='div' size={size} weight='normal' $disabled={disabled} $isInvalid={isInvalid}>
             {label}
