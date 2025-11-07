@@ -2,7 +2,7 @@ import isPropValid from '@emotion/is-prop-valid';
 import type { CSSObject, Theme } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import type { CheckboxAlign, CheckboxSize } from './checkbox.types';
+import type { CheckboxAlign, CheckboxSize, CheckboxVariant } from './checkbox.types';
 import type { IconSize } from '../Icon/Icon.types';
 import { Label } from '../Label/Label';
 import type { LabelProps } from '../Label/Label';
@@ -173,7 +173,37 @@ function getCheckboxStatus(checked: boolean, isIndeterminate: boolean) {
   return 'unchecked';
 }
 
-function GetCheckboxInteractionStyles(
+function GetCheckboxBoxStyles(
+  theme: Theme,
+  size: CheckboxSize,
+  checked: boolean,
+  isIndeterminate: boolean,
+  disabled: boolean,
+  isInvalid: boolean,
+): CSSObject {
+  const boxSize = checkboxSizeMap[size];
+  const borderRadius = borderRadiusMap[size];
+
+  const validity = isInvalid ? 'invalid' : 'valid';
+  const availability = disabled ? 'disabled' : 'normal';
+  const status = getCheckboxStatus(checked, isIndeterminate);
+  const colorStyles = checkboxStyleParams[validity][availability][status](theme);
+
+  return {
+    width: pxToRem(boxSize),
+    height: pxToRem(boxSize),
+    borderRadius: pxToRem(borderRadius),
+    ...colorStyles,
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexShrink: 0,
+    cursor: disabled ? 'not-allowed' : 'pointer',
+    userSelect: 'none',
+  };
+}
+
+function GetBasicContainerInteractionStyles(
   theme: Theme,
   size: CheckboxSize,
   disabled: boolean,
@@ -265,51 +295,23 @@ function GetCheckboxInteractionStyles(
   };
 }
 
-function GetCheckboxBoxStyles(
-  theme: Theme,
-  size: CheckboxSize,
-  checked: boolean,
-  isIndeterminate: boolean,
-  disabled: boolean,
-  isInvalid: boolean,
-): CSSObject {
-  const boxSize = checkboxSizeMap[size];
-  const borderRadius = borderRadiusMap[size];
-  const interactionStyles = GetCheckboxInteractionStyles(theme, size, disabled);
-
-  const validity = isInvalid ? 'invalid' : 'valid';
-  const availability = disabled ? 'disabled' : 'normal';
-  const status = getCheckboxStatus(checked, isIndeterminate);
-  const colorStyles = checkboxStyleParams[validity][availability][status](theme);
-
-  return {
-    width: pxToRem(boxSize),
-    height: pxToRem(boxSize),
-    borderRadius: pxToRem(borderRadius),
-    ...colorStyles,
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexShrink: 0,
-    cursor: disabled ? 'not-allowed' : 'pointer',
-    userSelect: 'none',
-    ...interactionStyles,
-  };
-}
-
-export const GetBasicCheckboxStyles = GetCheckboxBoxStyles;
-
 export const StyledCheckboxBasicContainer = styled('label', {
   shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
 })<{
+  $size: CheckboxSize;
   $disabled: boolean;
-}>(({ $disabled }) => ({
-  display: 'inline-flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  cursor: $disabled ? 'not-allowed' : 'pointer',
-  userSelect: 'none',
-}));
+}>(({ theme, $size, $disabled }) => {
+  const interactionStyles = GetBasicContainerInteractionStyles(theme, $size, $disabled);
+
+  return {
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    cursor: $disabled ? 'not-allowed' : 'pointer',
+    userSelect: 'none',
+    ...interactionStyles,
+  };
+});
 
 export const StyledCheckboxBoxWrapper = styled('div', {
   shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
@@ -333,23 +335,231 @@ export const StyledCheckboxBasicBox = styled('div', {
   $disabled: boolean;
   $isInvalid: boolean;
 }>(({ theme, $size, $checked, $isIndeterminate, $disabled, $isInvalid }) => ({
-  ...GetBasicCheckboxStyles(theme, $size, $checked, $isIndeterminate, $disabled, $isInvalid),
+  ...GetCheckboxBoxStyles(theme, $size, $checked, $isIndeterminate, $disabled, $isInvalid),
 }));
+
+//Note: Horizontal의 경우 좌우 수치가 다르지만 InteractionLayer 구조상 단일 수치로 표현(작은 쪽에 맞춤)
+const emptyContentOffsetMap: Record<CheckboxSize, { vertical: number; horizontal: number }> = {
+  lg: { vertical: 4, horizontal: 6 },
+  md: { vertical: 4, horizontal: 6 },
+  sm: { vertical: 3, horizontal: 5 },
+  xs: { vertical: 3, horizontal: 4 },
+};
+
+const contentContainerInteractionStyles = (
+  theme: Theme,
+  variant: CheckboxVariant,
+  size: CheckboxSize,
+  disabled: boolean,
+): CSSObject => {
+  const interactionParams = {
+    empty: {
+      restStyle: InteractionLayer({
+        theme,
+        state: 'rest',
+        variant: 'normal',
+        density: 'assistive',
+        fillColor: 'default',
+        isDisabled: disabled,
+        offsetVertical: emptyContentOffsetMap[size].vertical,
+        offsetHorizontal: emptyContentOffsetMap[size].horizontal,
+        borderRadius: borderRadiusMap[size],
+      }),
+      hoverStyle: InteractionLayer({
+        theme,
+        state: 'hover',
+        variant: 'normal',
+        density: 'assistive',
+        fillColor: 'default',
+        isDisabled: disabled,
+        offsetVertical: emptyContentOffsetMap[size].vertical,
+        offsetHorizontal: emptyContentOffsetMap[size].horizontal,
+        borderRadius: borderRadiusMap[size],
+      }),
+      activeStyle: InteractionLayer({
+        theme,
+        state: 'active',
+        variant: 'normal',
+        density: 'assistive',
+        fillColor: 'default',
+        isDisabled: disabled,
+        offsetVertical: emptyContentOffsetMap[size].vertical,
+        offsetHorizontal: emptyContentOffsetMap[size].horizontal,
+        borderRadius: borderRadiusMap[size],
+      }),
+      focusStyle: InteractionLayer({
+        theme,
+        state: 'focus',
+        variant: 'normal',
+        density: 'assistive',
+        fillColor: 'default',
+        isDisabled: disabled,
+        offsetVertical: emptyContentOffsetMap[size].vertical,
+        offsetHorizontal: emptyContentOffsetMap[size].horizontal,
+        borderRadius: borderRadiusMap[size],
+      }),
+    },
+    outlined: {
+      restStyle: InteractionLayer({
+        theme,
+        state: 'rest',
+        variant: 'normal',
+        density: 'assistive',
+        fillColor: 'default',
+        isDisabled: disabled,
+        offsetVertical: 0,
+        offsetHorizontal: 0,
+        borderRadius: contentContainerBorderRadiusMap[size],
+      }),
+      hoverStyle: InteractionLayer({
+        theme,
+        state: 'hover',
+        variant: 'normal',
+        density: 'assistive',
+        fillColor: 'default',
+        isDisabled: disabled,
+        offsetVertical: 0,
+        offsetHorizontal: 0,
+        borderRadius: contentContainerBorderRadiusMap[size],
+      }),
+      activeStyle: InteractionLayer({
+        theme,
+        state: 'active',
+        variant: 'normal',
+        density: 'assistive',
+        fillColor: 'default',
+        isDisabled: disabled,
+        offsetVertical: 0,
+        offsetHorizontal: 0,
+        borderRadius: contentContainerBorderRadiusMap[size],
+      }),
+      focusStyle: InteractionLayer({
+        theme,
+        state: 'focus',
+        variant: 'normal',
+        density: 'assistive',
+        fillColor: 'default',
+        isDisabled: disabled,
+        offsetVertical: 0,
+        offsetHorizontal: 0,
+        borderRadius: contentContainerBorderRadiusMap[size],
+      }),
+    },
+  };
+
+  const { restStyle, hoverStyle, activeStyle, focusStyle } = interactionParams[variant];
+
+  if (disabled) {
+    return {
+      ...restStyle,
+    };
+  }
+
+  return {
+    ...restStyle,
+    '::after': {
+      ...restStyle['::after'],
+      transition: `opacity ${theme.environment.duration[100]} ${theme.environment.motion.fluent}`,
+    },
+    '&:hover': {
+      ...hoverStyle,
+      '::after': {
+        ...hoverStyle['::after'],
+        transition: `opacity ${theme.environment.duration[100]} ${theme.environment.motion.fluent}`,
+      },
+    },
+    '&:active': {
+      ...activeStyle,
+      '::after': {
+        ...activeStyle['::after'],
+        transition: 'none',
+      },
+    },
+    '&:focus-visible': {
+      ...focusStyle,
+      '::after': {
+        ...focusStyle['::after'],
+        transition: 'none',
+      },
+    },
+  };
+};
+
+const emptyVariantStyle = { border: 'none' as const };
+
+const contentContainerBorderRadiusMap: Record<CheckboxSize, number> = {
+  lg: 6,
+  md: 6,
+  sm: 4,
+  xs: 4,
+};
+
+const contentContainerPaddingMap: Record<CheckboxSize, number> = {
+  lg: 12,
+  md: 10,
+  sm: 8,
+  xs: 6,
+};
+
+const outlinedVariantStyles = {
+  valid: {
+    normal: (theme: Theme, size: CheckboxSize) => ({
+      border: `1px solid ${theme.color.semantic.stroke.alpha.assistive}`,
+      borderRadius: contentContainerBorderRadiusMap[size],
+      padding: pxToRem(contentContainerPaddingMap[size]),
+    }),
+    disabled: (theme: Theme, size: CheckboxSize) => ({
+      border: `1px solid ${theme.color.semantic.stroke.alpha.subtler}`,
+      borderRadius: contentContainerBorderRadiusMap[size],
+      padding: pxToRem(contentContainerPaddingMap[size]),
+    }),
+  },
+  invalid: {
+    normal: (theme: Theme, size: CheckboxSize) => ({
+      border: `1px solid ${theme.color.semantic.feedback.destructive.neutral}`,
+      borderRadius: contentContainerBorderRadiusMap[size],
+      padding: pxToRem(contentContainerPaddingMap[size]),
+    }),
+    disabled: (theme: Theme, size: CheckboxSize) => ({
+      border: `1px solid ${theme.color.semantic.feedback.destructive.alpha.subtler}`,
+      borderRadius: contentContainerBorderRadiusMap[size],
+      padding: pxToRem(contentContainerPaddingMap[size]),
+    }),
+  },
+};
 
 export const StyledCheckboxContentContainer = styled('label', {
   shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
 })<{
   $size: CheckboxSize;
   $align: CheckboxAlign;
+  $variant: CheckboxVariant;
   $disabled: boolean;
-}>(({ theme, $size, $align, $disabled }) => ({
-  display: 'inline-flex',
-  flexDirection: $align === 'left' ? 'row' : 'row-reverse',
-  alignItems: 'flex-start',
-  cursor: $disabled ? 'not-allowed' : 'pointer',
-  userSelect: 'none',
-  ...gapMap[$size](theme),
-}));
+  $isInvalid: boolean;
+}>(({ theme, $size, $align, $variant, $disabled, $isInvalid }) => {
+  const interactionStyles = contentContainerInteractionStyles(theme, $variant, $size, $disabled);
+
+  const getVariantStyles = () => {
+    if ($variant === 'empty') {
+      return emptyVariantStyle;
+    }
+
+    const validity = $isInvalid ? 'invalid' : 'valid';
+    const availability = $disabled ? 'disabled' : 'normal';
+    return outlinedVariantStyles[validity][availability](theme, $size);
+  };
+
+  return {
+    display: 'inline-flex',
+    flexDirection: $align === 'left' ? 'row' : 'row-reverse',
+    alignItems: 'flex-start',
+    cursor: $disabled ? 'not-allowed' : 'pointer',
+    userSelect: 'none',
+    ...gapMap[$size](theme),
+    ...getVariantStyles(),
+    ...interactionStyles,
+  };
+});
 
 export const StyledHiddenInput = styled('input')({
   position: 'absolute',

@@ -1,6 +1,5 @@
-import type { CheckboxBasicProps, CheckboxContentProps } from 'components';
+import type { CheckboxBasicProps, CheckboxBoxProps, CheckboxContentProps } from 'components';
 import { Icon } from 'components';
-import type { ComponentPropsWithoutRef } from 'react';
 import { forwardRef, useCallback, useEffect, useRef } from 'react';
 
 import {
@@ -16,22 +15,13 @@ import {
   StyledSubLabel,
 } from './checkbox.styles';
 
-interface CheckboxBoxProps extends Omit<ComponentPropsWithoutRef<'input'>, 'size'> {
-  checked: boolean;
-  isIndeterminate: boolean;
-  disabled: boolean;
-  isInvalid: boolean;
-  size: CheckboxBasicProps['size'];
-  onCheckedChange?: (checked: boolean) => void;
-}
-
 const CheckboxBox = forwardRef<HTMLInputElement, CheckboxBoxProps>(
   (
     {
       checked,
       isIndeterminate,
-      disabled,
-      isInvalid,
+      disabled = false,
+      isInvalid = false,
       size = 'md',
       id,
       onCheckedChange,
@@ -113,7 +103,7 @@ const CheckboxBasic = forwardRef<HTMLInputElement, CheckboxBasicProps>(
     ref,
   ) => {
     return (
-      <StyledCheckboxBasicContainer $disabled={disabled} htmlFor={id}>
+      <StyledCheckboxBasicContainer $size={size} $disabled={disabled} htmlFor={id}>
         <CheckboxBox
           ref={ref}
           checked={checked}
@@ -137,6 +127,7 @@ const CheckboxContent = forwardRef<HTMLInputElement, CheckboxContentProps>(
     {
       size = 'md',
       align = 'left',
+      variant = 'empty',
       label,
       subLabel,
       checked = false,
@@ -150,7 +141,14 @@ const CheckboxContent = forwardRef<HTMLInputElement, CheckboxContentProps>(
     ref,
   ) => {
     return (
-      <StyledCheckboxContentContainer $size={size} $align={align} $disabled={disabled} htmlFor={id}>
+      <StyledCheckboxContentContainer
+        $size={size}
+        $align={align}
+        $variant={variant}
+        $disabled={disabled}
+        $isInvalid={isInvalid}
+        htmlFor={id}
+      >
         <StyledCheckboxBoxWrapper $size={size}>
           <CheckboxBox
             ref={ref}
@@ -165,11 +163,23 @@ const CheckboxContent = forwardRef<HTMLInputElement, CheckboxContentProps>(
           />
         </StyledCheckboxBoxWrapper>
         <StyledLabelContent>
-          <StyledMainLabel as='div' size={size} weight='normal' $disabled={disabled} $isInvalid={isInvalid}>
+          <StyledMainLabel
+            as='span'
+            size={size}
+            weight='normal'
+            $disabled={disabled}
+            $isInvalid={isInvalid}
+          >
             {label}
           </StyledMainLabel>
           {subLabel && (
-            <StyledSubLabel as='div' size={GetSubLabelSize(size)} weight='normal' $disabled={disabled} $isInvalid={isInvalid}>
+            <StyledSubLabel
+              as='span'
+              size={GetSubLabelSize(size)}
+              weight='normal'
+              $disabled={disabled}
+              $isInvalid={isInvalid}
+            >
               {subLabel}
             </StyledSubLabel>
           )}
