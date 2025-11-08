@@ -8,6 +8,7 @@ import { Label } from '../Label/Label';
 import type { LabelProps } from '../Label/Label';
 import type { LabelSize } from '../Label/Label.style';
 
+import type { Variant } from '@/types';
 import { InteractionLayer, pxToRem } from '@/utils';
 
 const checkboxSizeMap: Record<CheckboxSize, number> = {
@@ -346,105 +347,64 @@ const emptyContentOffsetMap: Record<CheckboxSize, { vertical: number; horizontal
   xs: { vertical: 3, horizontal: 4 },
 };
 
-const contentContainerInteractionStyles = (
-  theme: Theme,
-  variant: CheckboxVariant,
-  size: CheckboxSize,
-  disabled: boolean,
-): CSSObject => {
+interface ContentContainerInteractionParams {
+  theme: Theme;
+  variant: CheckboxVariant;
+  size: CheckboxSize;
+  checked: boolean;
+  isIndeterminate: boolean;
+  disabled: boolean;
+  isInvalid: boolean;
+}
+
+const contentContainerInteractionStyles = ({
+  theme,
+  variant,
+  size,
+  checked,
+  isIndeterminate,
+  disabled,
+  isInvalid,
+}: ContentContainerInteractionParams): CSSObject => {
+  const getInteractionVariant = (): Variant => {
+    if (isInvalid) return 'destructive';
+    if (checked || isIndeterminate) return 'accent';
+    return 'normal';
+  };
+
+  const interactionVariant = getInteractionVariant();
+
+  const baseContentInteractionParams = {
+    theme,
+    variant: interactionVariant,
+    density: 'assistive' as const,
+    fillColor: 'default' as const,
+    isReadonly: disabled,
+    isDisabled: false,
+  };
+
+  const emptyVariantOffset = {
+    offsetVertical: emptyContentOffsetMap[size].vertical,
+    offsetHorizontal: emptyContentOffsetMap[size].horizontal,
+    borderRadius: contentContainerBorderRadiusMap[size],
+  };
+
+  const outlinedVariantOffset = {
+    offsetVertical: 0,
+    offsetHorizontal: 0,
+    borderRadius: contentContainerBorderRadiusMap[size],
+  };
+
+  const createInteractionStyles = (offset: typeof emptyVariantOffset) => ({
+    restStyle: InteractionLayer({ ...baseContentInteractionParams, state: 'rest', ...offset }),
+    hoverStyle: InteractionLayer({ ...baseContentInteractionParams, state: 'hover', ...offset }),
+    activeStyle: InteractionLayer({ ...baseContentInteractionParams, state: 'active', ...offset }),
+    focusStyle: InteractionLayer({ ...baseContentInteractionParams, state: 'focus', ...offset }),
+  });
+
   const interactionParams = {
-    empty: {
-      restStyle: InteractionLayer({
-        theme,
-        state: 'rest',
-        variant: 'normal',
-        density: 'assistive',
-        fillColor: 'default',
-        isDisabled: disabled,
-        offsetVertical: emptyContentOffsetMap[size].vertical,
-        offsetHorizontal: emptyContentOffsetMap[size].horizontal,
-        borderRadius: borderRadiusMap[size],
-      }),
-      hoverStyle: InteractionLayer({
-        theme,
-        state: 'hover',
-        variant: 'normal',
-        density: 'assistive',
-        fillColor: 'default',
-        isDisabled: disabled,
-        offsetVertical: emptyContentOffsetMap[size].vertical,
-        offsetHorizontal: emptyContentOffsetMap[size].horizontal,
-        borderRadius: borderRadiusMap[size],
-      }),
-      activeStyle: InteractionLayer({
-        theme,
-        state: 'active',
-        variant: 'normal',
-        density: 'assistive',
-        fillColor: 'default',
-        isDisabled: disabled,
-        offsetVertical: emptyContentOffsetMap[size].vertical,
-        offsetHorizontal: emptyContentOffsetMap[size].horizontal,
-        borderRadius: borderRadiusMap[size],
-      }),
-      focusStyle: InteractionLayer({
-        theme,
-        state: 'focus',
-        variant: 'normal',
-        density: 'assistive',
-        fillColor: 'default',
-        isDisabled: disabled,
-        offsetVertical: emptyContentOffsetMap[size].vertical,
-        offsetHorizontal: emptyContentOffsetMap[size].horizontal,
-        borderRadius: borderRadiusMap[size],
-      }),
-    },
-    outlined: {
-      restStyle: InteractionLayer({
-        theme,
-        state: 'rest',
-        variant: 'normal',
-        density: 'assistive',
-        fillColor: 'default',
-        isDisabled: disabled,
-        offsetVertical: 0,
-        offsetHorizontal: 0,
-        borderRadius: contentContainerBorderRadiusMap[size],
-      }),
-      hoverStyle: InteractionLayer({
-        theme,
-        state: 'hover',
-        variant: 'normal',
-        density: 'assistive',
-        fillColor: 'default',
-        isDisabled: disabled,
-        offsetVertical: 0,
-        offsetHorizontal: 0,
-        borderRadius: contentContainerBorderRadiusMap[size],
-      }),
-      activeStyle: InteractionLayer({
-        theme,
-        state: 'active',
-        variant: 'normal',
-        density: 'assistive',
-        fillColor: 'default',
-        isDisabled: disabled,
-        offsetVertical: 0,
-        offsetHorizontal: 0,
-        borderRadius: contentContainerBorderRadiusMap[size],
-      }),
-      focusStyle: InteractionLayer({
-        theme,
-        state: 'focus',
-        variant: 'normal',
-        density: 'assistive',
-        fillColor: 'default',
-        isDisabled: disabled,
-        offsetVertical: 0,
-        offsetHorizontal: 0,
-        borderRadius: contentContainerBorderRadiusMap[size],
-      }),
-    },
+    empty: createInteractionStyles(emptyVariantOffset),
+    outlined: createInteractionStyles(outlinedVariantOffset),
   };
 
   const { restStyle, hoverStyle, activeStyle, focusStyle } = interactionParams[variant];
@@ -534,10 +494,20 @@ export const StyledCheckboxContentContainer = styled('label', {
   $size: CheckboxSize;
   $align: CheckboxAlign;
   $variant: CheckboxVariant;
+  $checked: boolean;
+  $isIndeterminate: boolean;
   $disabled: boolean;
   $isInvalid: boolean;
-}>(({ theme, $size, $align, $variant, $disabled, $isInvalid }) => {
-  const interactionStyles = contentContainerInteractionStyles(theme, $variant, $size, $disabled);
+}>(({ theme, $size, $align, $variant, $checked, $isIndeterminate, $disabled, $isInvalid }) => {
+  const interactionStyles = contentContainerInteractionStyles({
+    theme,
+    variant: $variant,
+    size: $size,
+    checked: $checked,
+    isIndeterminate: $isIndeterminate,
+    disabled: $disabled,
+    isInvalid: $isInvalid,
+  });
 
   const getVariantStyles = () => {
     if ($variant === 'empty') {
