@@ -286,7 +286,7 @@ function GetBasicContainerInteractionStyles(
         transition: 'none',
       },
     },
-    '&:focus-within': {
+    '&:has(:focus-visible)': {
       ...focusStyle,
       '::after': {
         ...focusStyle['::after'],
@@ -308,6 +308,7 @@ export const StyledCheckboxBasicContainer = styled('label', {
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
+    width: 'fit-content',
     cursor: $disabled ? 'not-allowed' : 'pointer',
     userSelect: 'none',
     ...interactionStyles,
@@ -435,7 +436,7 @@ const contentContainerInteractionStyles = ({
         transition: 'none',
       },
     },
-    '&:focus-within': {
+    '&:has(:focus-visible)': {
       ...focusStyle,
       '::after': {
         ...focusStyle['::after'],
