@@ -102,6 +102,7 @@ export const FileDropZoneDiv = styled.div<UploaderFileContainerDivProps>(
     );
 
     return {
+      position: 'relative',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
@@ -110,7 +111,6 @@ export const FileDropZoneDiv = styled.div<UploaderFileContainerDivProps>(
       padding: theme.scheme.desktop.margin.lg,
       borderRadius: theme.scheme.desktop.radius[6],
       color: textColor,
-      border: `1px dashed ${borderColor}`,
       backgroundColor: bgColor,
       transition: $isDragging
         ? `all ${theme.environment.duration[100]}ms ${theme.environment.motion.fluent}`
@@ -118,6 +118,29 @@ export const FileDropZoneDiv = styled.div<UploaderFileContainerDivProps>(
 
       '& > span, & > button ': {
         pointerEvents: $isDragging ? 'none' : 'auto',
+      },
+
+      '& > svg': {
+        position: 'absolute',
+        top: 0,
+        bottom: 0,
+        width: '100%',
+        height: '100%',
+        pointerEvents: 'none',
+        overflow: 'visible',
+
+        '& > rect': {
+          fill: 'none',
+          width: '100%',
+          height: '100%',
+          stroke: borderColor,
+          strokeWidth: '1px',
+          strokeDasharray: `16,8`,
+          strokeLinecap: 'round',
+          strokeDashoffset: '8',
+          rx: '6',
+          ry: '6',
+        },
       },
     };
   },
@@ -166,10 +189,33 @@ export const ImageDropZoneButton = styled.button<UploaderImageContainerButtonPro
       width: pxToRem(160),
       padding: theme.scheme.desktop.margin.lg,
       borderRadius: theme.scheme.desktop.radius[6],
-      border: `1px dashed ${theme.color.semantic.stroke.alpha.assistive}`,
       backgroundColor: theme.color.semantic.fill.subtlest,
       ...interaction,
       cursor: $isDisabled || $isLoading ? 'default' : 'pointer',
+      position: 'relative',
+
+      '& > svg': {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        pointerEvents: 'none',
+        overflow: 'visible',
+
+        '& > rect': {
+          fill: 'none',
+          width: '100%',
+          height: '100%',
+          stroke: theme.color.semantic.stroke.alpha.assistive,
+          strokeWidth: '1px',
+          strokeDasharray: `16,8`,
+          strokeLinecap: 'round',
+          strokeDashoffset: '6',
+          rx: '6',
+          ry: '6',
+        },
+      },
     };
   },
 );

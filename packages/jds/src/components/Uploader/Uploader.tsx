@@ -35,6 +35,14 @@ const uploaderMessages = {
   disabled: <>가능한 최대 용량에 도달했어요.</>,
 };
 
+const CustomBorderSVG = () => {
+  return (
+    <svg>
+      <rect />
+    </svg>
+  );
+};
+
 const UploaderFileButton = ({
   isLoading,
   isDisabled,
@@ -115,6 +123,7 @@ const UploaderFile = ({
       $isDisabled={isDisabled}
       $isLoading={isLoading}
     >
+      <CustomBorderSVG />
       <FileSpan>{bodyText}</FileSpan>
       <UploaderFileButton
         onCancel={onCancel}
@@ -194,6 +203,7 @@ const UploaderImage = ({
 
   return (
     <ImageDropZoneButton $isDisabled={isDisabled} $isLoading={isLoading} onClick={handleClick}>
+      <CustomBorderSVG />
       <UploaderImageButton isDisabled={isDisabled} isLoading={isLoading} onCancel={onCancel} />
       <HiddenInput
         ref={inputRef}
