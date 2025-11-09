@@ -7,7 +7,7 @@ export type CheckboxAlign = 'left' | 'right';
 export type CheckedState = boolean | 'indeterminate';
 
 interface CheckboxCommonProps
-  extends Omit<ComponentPropsWithoutRef<'input'>, 'size' | 'onChange'> {
+  extends Omit<ComponentPropsWithoutRef<'input'>, 'size' | 'onChange' | 'checked' | 'defaultChecked'> {
   disabled?: boolean;
   isInvalid?: boolean;
   size?: CheckboxSize;
@@ -19,23 +19,14 @@ export interface CheckboxBoxProps extends CheckboxCommonProps {
   isIndeterminate: boolean;
 }
 
-export type CheckboxBasicProps = CheckboxCommonProps &
-  (
-    | { isIndeterminate?: false; checked: true }
-    | { isIndeterminate: true; checked?: false }
-    | { isIndeterminate?: false; checked?: false }
-  );
+export interface CheckboxBasicProps extends CheckboxCommonProps {
+  checked?: CheckedState;
+}
 
-type CheckboxContentBaseProps = Omit<CheckboxCommonProps, 'checked'> & {
+export interface CheckboxContentProps extends CheckboxCommonProps {
   variant?: CheckboxVariant;
   align?: CheckboxAlign;
   label: ReactNode;
   subLabel?: ReactNode;
-};
-
-export type CheckboxContentProps = CheckboxContentBaseProps &
-  (
-    | { isIndeterminate?: false; checked: true }
-    | { isIndeterminate: true; checked?: false }
-    | { isIndeterminate?: false; checked?: false }
-  );
+  checked?: CheckedState;
+}
