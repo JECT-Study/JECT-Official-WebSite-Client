@@ -1,6 +1,11 @@
-import type { CheckboxBasicProps, CheckboxBoxProps, CheckboxContentProps } from 'components';
+import type {
+  CheckboxBasicProps,
+  CheckboxBoxProps,
+  CheckboxContentProps,
+  CheckedState,
+} from 'components';
 import { Icon } from 'components';
-import { forwardRef, useCallback, useEffect, useRef } from 'react';
+import { forwardRef, useCallback } from 'react';
 
 import {
   GetIconSize,
@@ -29,31 +34,27 @@ const CheckboxBox = forwardRef<HTMLInputElement, CheckboxBoxProps>(
     },
     ref,
   ) => {
-    const internalRef = useRef<HTMLInputElement | null>(null);
     const iconSize = GetIconSize(size);
 
-    useEffect(() => {
-      if (internalRef.current) {
-        internalRef.current.indeterminate = isIndeterminate;
-      }
-    }, [isIndeterminate]);
-
-    const setRefs = useCallback(
+    const refCallback = useCallback(
       (node: HTMLInputElement | null) => {
-        internalRef.current = node;
-
         if (typeof ref === 'function') {
           ref(node);
         } else if (ref) {
           ref.current = node;
         }
+
+        if (node) {
+          node.indeterminate = isIndeterminate;
+        }
       },
-      [ref],
+      [ref, isIndeterminate],
     );
 
     const handleChange = useCallback(
       ({ target }: { target: HTMLInputElement }) => {
-        onCheckedChange?.(target.checked);
+        const newState: CheckedState = target.checked;
+        onCheckedChange?.(newState);
       },
       [onCheckedChange],
     );
@@ -72,7 +73,7 @@ const CheckboxBox = forwardRef<HTMLInputElement, CheckboxBoxProps>(
           <Icon name='check-line' size={iconSize} />
         ) : null}
         <StyledHiddenInput
-          ref={setRefs}
+          ref={refCallback}
           type='checkbox'
           id={id}
           checked={checked}
@@ -92,7 +93,6 @@ const CheckboxBasic = forwardRef<HTMLInputElement, CheckboxBasicProps>(
   (
     {
       checked = false,
-      isIndeterminate = false,
       disabled = false,
       isInvalid = false,
       size = 'md',
@@ -102,11 +102,14 @@ const CheckboxBasic = forwardRef<HTMLInputElement, CheckboxBasicProps>(
     },
     ref,
   ) => {
+    const isIndeterminate = checked === 'indeterminate';
+    const isChecked = checked === true;
+
     return (
       <StyledCheckboxBasicContainer $size={size} $disabled={disabled} htmlFor={id}>
         <CheckboxBox
           ref={ref}
-          checked={checked}
+          checked={isChecked}
           isIndeterminate={isIndeterminate}
           disabled={disabled}
           isInvalid={isInvalid}
@@ -131,7 +134,6 @@ const CheckboxContent = forwardRef<HTMLInputElement, CheckboxContentProps>(
       label,
       subLabel,
       checked = false,
-      isIndeterminate = false,
       disabled = false,
       isInvalid = false,
       id,
@@ -140,12 +142,15 @@ const CheckboxContent = forwardRef<HTMLInputElement, CheckboxContentProps>(
     },
     ref,
   ) => {
+    const isIndeterminate = checked === 'indeterminate';
+    const isChecked = checked === true;
+
     return (
       <StyledCheckboxContentContainer
         $size={size}
         $align={align}
         $variant={variant}
-        $checked={checked}
+        $checked={isChecked}
         $isIndeterminate={isIndeterminate}
         $disabled={disabled}
         $isInvalid={isInvalid}
@@ -154,7 +159,7 @@ const CheckboxContent = forwardRef<HTMLInputElement, CheckboxContentProps>(
         <StyledCheckboxBoxWrapper $size={size}>
           <CheckboxBox
             ref={ref}
-            checked={checked}
+            checked={isChecked}
             isIndeterminate={isIndeterminate}
             disabled={disabled}
             isInvalid={isInvalid}
