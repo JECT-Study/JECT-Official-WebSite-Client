@@ -1,5 +1,4 @@
 import { ComponentPropsWithoutRef, ReactNode } from 'react';
-import { IconButtonBasicProps } from '../Button/IconButton';
 
 export interface FileItemWrapButtonProps {
   $disabled: boolean;
@@ -19,9 +18,9 @@ export interface FileSizeProps {
 export interface FileItemProps extends ComponentPropsWithoutRef<'button'> {
   fileName: ReactNode;
   fileSize?: ReactNode;
-  hasError?: boolean;
-  errorMessage?: ReactNode;
   readonly?: boolean;
   disabled?: boolean;
-  buttonProps?: Omit<IconButtonBasicProps, 'size' | 'hierarchy' | 'icon'>;
+  hasError?: boolean;
+  errorMessage?: ReactNode;
+  suffixButton?: ReactNode;
 }

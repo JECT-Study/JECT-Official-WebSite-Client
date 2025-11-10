@@ -45,7 +45,6 @@ const interactionStyles = (theme: Theme, disabled: boolean, readonly: boolean): 
     ...interactionParams.restStyle,
     '::after': {
       ...interactionParams.restStyle['::after'],
-      transition: `opacity ${theme.environment.duration[100]}ms ${theme.environment.motion.fluent}`,
     },
     '&:hover': {
       ...interactionParams.hoverStyle,

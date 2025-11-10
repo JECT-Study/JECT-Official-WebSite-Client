@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { FileItem } from './FileItem';
+import { IconButton } from '../Button/IconButton';
 
 const meta: Meta<typeof FileItem> = {
   title: 'Components/FileItem',
@@ -24,12 +25,17 @@ const meta: Meta<typeof FileItem> = {
       description: '비활성화 상태 여부',
       defaultValue: false,
     },
+    hasError: {
+      control: 'boolean',
+      description: '에러 여부',
+      defaultValue: false,
+    },
     errorMessage: {
       control: 'text',
       description: '에러 메시지',
     },
-    buttonProps: {
-      description: 'removable 파일에 대한 버튼 아이콘 props',
+    suffixButton: {
+      description: 'removable 파일에 대한 버튼 아이콘 컴포넌트',
     },
   },
 };
@@ -43,10 +49,9 @@ export const Default: Story = {
     fileSize: '1.2MB',
     readonly: false,
     disabled: false,
-    errorMessage: '',
-    buttonProps: {
-      onClick: () => alert('클릭'),
-    },
+    hasError: false,
+    errorMessage:
+      '파일 업로드 시 에러 메시지에 대해 작성합니다. 최대 두 줄 까지 작성할 수 있고, 초과할 시 말줄임(...) 표시합니다.',
   },
   render: args => (
     <FileItem
@@ -54,8 +59,9 @@ export const Default: Story = {
       fileSize={args.fileSize}
       readonly={args.readonly}
       disabled={args.disabled}
+      hasError={args.hasError}
       errorMessage={args.errorMessage}
-      buttonProps={args.buttonProps}
+      suffixButton={<IconButton.Basic hierarchy='tertiary' size='lg' icon='close-line' />}
     />
   ),
 };
@@ -73,8 +79,9 @@ export const NonRemovable: Story = {
     fileSize: '1.2MB',
     readonly: false,
     disabled: false,
-    errorMessage: '',
-    buttonProps: undefined,
+    hasError: false,
+    errorMessage:
+      '파일 업로드 시 에러 메시지에 대해 작성합니다. 최대 두 줄 까지 작성할 수 있고, 초과할 시 말줄임(...) 표시합니다.',
   },
   render: args => (
     <FileItem
@@ -82,8 +89,8 @@ export const NonRemovable: Story = {
       fileSize={args.fileSize}
       readonly={args.readonly}
       disabled={args.disabled}
+      hasError={args.hasError}
       errorMessage={args.errorMessage}
-      buttonProps={args.buttonProps}
     />
   ),
 };
@@ -101,10 +108,9 @@ export const Removable: Story = {
     fileSize: '1.2MB',
     readonly: false,
     disabled: false,
-    errorMessage: '',
-    buttonProps: {
-      onClick: () => alert('클릭'),
-    },
+    hasError: false,
+    errorMessage:
+      '파일 업로드 시 에러 메시지에 대해 작성합니다. 최대 두 줄 까지 작성할 수 있고, 초과할 시 말줄임(...) 표시합니다.',
   },
   render: args => (
     <FileItem
@@ -112,8 +118,16 @@ export const Removable: Story = {
       fileSize={args.fileSize}
       readonly={args.readonly}
       disabled={args.disabled}
+      hasError={args.hasError}
       errorMessage={args.errorMessage}
-      buttonProps={args.buttonProps}
+      suffixButton={
+        <IconButton.Basic
+          hierarchy='tertiary'
+          size='lg'
+          icon='close-line'
+          onClick={() => alert('클릭')}
+        />
+      }
     />
   ),
 };
@@ -132,10 +146,9 @@ export const Readonly: Story = {
     fileSize: '1.2MB',
     readonly: true,
     disabled: false,
-    errorMessage: '',
-    buttonProps: {
-      onClick: () => alert('클릭'),
-    },
+    hasError: false,
+    errorMessage:
+      '파일 업로드 시 에러 메시지에 대해 작성합니다. 최대 두 줄 까지 작성할 수 있고, 초과할 시 말줄임(...) 표시합니다.',
   },
   render: args => (
     <FileItem
@@ -143,8 +156,16 @@ export const Readonly: Story = {
       fileSize={args.fileSize}
       readonly={args.readonly}
       disabled={args.disabled}
+      hasError={args.hasError}
       errorMessage={args.errorMessage}
-      buttonProps={args.buttonProps}
+      suffixButton={
+        <IconButton.Basic
+          hierarchy='tertiary'
+          size='lg'
+          icon='close-line'
+          onClick={() => alert('클릭')}
+        />
+      }
     />
   ),
 };
@@ -163,10 +184,9 @@ export const disabledAndRemovable: Story = {
     fileSize: '1.2MB',
     readonly: false,
     disabled: true,
-    errorMessage: '',
-    buttonProps: {
-      onClick: () => alert('클릭'),
-    },
+    hasError: false,
+    errorMessage:
+      '파일 업로드 시 에러 메시지에 대해 작성합니다. 최대 두 줄 까지 작성할 수 있고, 초과할 시 말줄임(...) 표시합니다.',
   },
   render: args => (
     <FileItem
@@ -174,8 +194,16 @@ export const disabledAndRemovable: Story = {
       fileSize={args.fileSize}
       readonly={args.readonly}
       disabled={args.disabled}
+      hasError={args.hasError}
       errorMessage={args.errorMessage}
-      buttonProps={args.buttonProps}
+      suffixButton={
+        <IconButton.Basic
+          hierarchy='tertiary'
+          size='lg'
+          icon='close-line'
+          onClick={() => alert('클릭')}
+        />
+      }
     />
   ),
 };
@@ -194,11 +222,9 @@ export const disabledAndNonRemovable: Story = {
     fileSize: '1.2MB',
     readonly: false,
     disabled: true,
-    errorMessage: '',
-    buttonProps: {
-      onClick: () => alert('클릭'),
-      disabled: true,
-    },
+    hasError: false,
+    errorMessage:
+      '파일 업로드 시 에러 메시지에 대해 작성합니다. 최대 두 줄 까지 작성할 수 있고, 초과할 시 말줄임(...) 표시합니다.',
   },
   render: args => (
     <FileItem
@@ -206,8 +232,17 @@ export const disabledAndNonRemovable: Story = {
       fileSize={args.fileSize}
       readonly={args.readonly}
       disabled={args.disabled}
+      hasError={args.hasError}
       errorMessage={args.errorMessage}
-      buttonProps={args.buttonProps}
+      suffixButton={
+        <IconButton.Basic
+          hierarchy='tertiary'
+          size='lg'
+          icon='close-line'
+          onClick={() => alert('클릭')}
+          disabled
+        />
+      }
     />
   ),
 };
@@ -226,11 +261,9 @@ export const ErrorFile: Story = {
     fileSize: '1.2MB',
     readonly: false,
     disabled: false,
+    hasError: true,
     errorMessage:
       '파일 업로드 시 에러 메시지에 대해 작성합니다. 최대 두 줄 까지 작성할 수 있고, 초과할 시 말줄임(...) 표시합니다.',
-    buttonProps: {
-      onClick: () => alert('클릭'),
-    },
   },
   render: args => (
     <FileItem
@@ -238,8 +271,16 @@ export const ErrorFile: Story = {
       fileSize={args.fileSize}
       readonly={args.readonly}
       disabled={args.disabled}
+      hasError={args.hasError}
       errorMessage={args.errorMessage}
-      buttonProps={args.buttonProps}
+      suffixButton={
+        <IconButton.Basic
+          hierarchy='tertiary'
+          size='lg'
+          icon='close-line'
+          onClick={() => alert('클릭')}
+        />
+      }
     />
   ),
 };

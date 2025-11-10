@@ -8,7 +8,6 @@ import {
   FileItemWrapButton,
   FileSizeLabel,
 } from './fileItem.styles';
-import { IconButton } from '../Button/IconButton';
 import { FileItemProps } from './fileItem.types';
 
 export const FileItem = forwardRef<HTMLButtonElement, FileItemProps>(
@@ -20,20 +19,15 @@ export const FileItem = forwardRef<HTMLButtonElement, FileItemProps>(
       disabled = false,
       hasError = false,
       errorMessage,
-      buttonProps,
+      suffixButton,
       ...buttonRest
     },
     ref,
   ) => {
-    const Component = readonly ? 'div' : 'button';
-    const closeButton = !readonly && buttonProps && (
-      <IconButton.Basic hierarchy='tertiary' size='lg' icon='close-line' {...buttonProps} />
-    );
-
     return (
       <FileItemWrapButton
         ref={ref}
-        as={Component}
+        as={readonly ? 'div' : 'button'}
         role={readonly ? 'button' : undefined}
         aria-disabled={disabled}
         $disabled={disabled}
@@ -62,10 +56,10 @@ export const FileItem = forwardRef<HTMLButtonElement, FileItemProps>(
             >
               {fileSize}
             </FileSizeLabel>
-            {closeButton}
+            {suffixButton}
           </FileItemDataContainer>
         </FileItemSectionDiv>
-        {hasError && <FileErrorSpan role='alert'>{errorMessage}</FileErrorSpan>}
+        {hasError && errorMessage && <FileErrorSpan role='alert'>{errorMessage}</FileErrorSpan>}
       </FileItemWrapButton>
     );
   },
