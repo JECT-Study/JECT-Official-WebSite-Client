@@ -3,7 +3,7 @@ import { IconButtonBasicProps } from '../Button/IconButton';
 
 export interface FileItemColorStateType {
   hasError?: boolean;
-  isDownloadDisabled?: boolean;
+  disabled?: boolean;
   readonly?: boolean;
 }
 
@@ -15,33 +15,34 @@ export interface FileItemColorType {
 }
 
 export interface FileItemWrapButtonProps {
-  $isDownloadDisabled: boolean;
+  $disabled: boolean;
   $readonly: boolean;
   $hasError: boolean;
 }
 
 export interface FileItemIconProps {
   $readonly: boolean;
-  $isDownloadDisabled: boolean;
+  $disabled: boolean;
   $hasError: boolean;
 }
 
 export interface FileItemLabelProps {
   $readonly: boolean;
-  $isDownloadDisabled: boolean;
+  $disabled: boolean;
   $hasError: boolean;
 }
 
 export interface FileSizeProps {
-  $isDownloadDisabled: boolean;
+  $disabled: boolean;
   $hasError: boolean;
 }
 
 export interface FileItemProps extends ComponentPropsWithoutRef<'button'> {
   fileName: ReactNode;
   fileSize?: ReactNode;
+  hasError?: boolean;
   errorMessage?: ReactNode;
   readonly?: boolean;
-  isDownloadDisabled?: boolean;
+  disabled?: boolean;
   buttonProps?: Omit<IconButtonBasicProps, 'size' | 'hierarchy' | 'icon'>;
 }

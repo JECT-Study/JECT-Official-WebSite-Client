@@ -17,7 +17,8 @@ export const FileItem = forwardRef<HTMLButtonElement, FileItemProps>(
       fileName,
       fileSize,
       readonly = false,
-      isDownloadDisabled = false,
+      disabled = false,
+      hasError = false,
       errorMessage,
       buttonProps,
       ...buttonRest
@@ -28,15 +29,14 @@ export const FileItem = forwardRef<HTMLButtonElement, FileItemProps>(
     const closeButton = !readonly && buttonProps && (
       <IconButton.Basic hierarchy='tertiary' size='lg' icon='close-line' {...buttonProps} />
     );
-    const hasError = !!errorMessage;
 
     return (
       <FileItemWrapButton
+        ref={ref}
         as={Component}
         role={readonly ? 'button' : undefined}
-        aria-disabled={isDownloadDisabled}
-        ref={ref}
-        $isDownloadDisabled={isDownloadDisabled}
+        aria-disabled={disabled}
+        $disabled={disabled}
         $readonly={readonly}
         $hasError={hasError}
         {...buttonRest}
@@ -46,7 +46,7 @@ export const FileItem = forwardRef<HTMLButtonElement, FileItemProps>(
             size='sm'
             name='attachment-line'
             $readonly={readonly}
-            $isDownloadDisabled={isDownloadDisabled}
+            $disabled={disabled}
             $hasError={hasError}
           />
           <FileItemDataContainer>
@@ -55,7 +55,7 @@ export const FileItem = forwardRef<HTMLButtonElement, FileItemProps>(
               textAlign='left'
               weight='subtle'
               $readonly={readonly}
-              $isDownloadDisabled={isDownloadDisabled}
+              $disabled={disabled}
               $hasError={hasError}
               className='file-name'
             >
@@ -65,7 +65,7 @@ export const FileItem = forwardRef<HTMLButtonElement, FileItemProps>(
               size='xs'
               textAlign='right'
               weight='subtle'
-              $isDownloadDisabled={isDownloadDisabled}
+              $disabled={disabled}
               $hasError={hasError}
             >
               {fileSize}

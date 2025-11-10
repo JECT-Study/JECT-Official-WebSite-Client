@@ -19,7 +19,7 @@ const meta: Meta<typeof FileItem> = {
       description: '읽기 전용 모드인지 여부',
       defaultValue: false,
     },
-    isDownloadDisabled: {
+    disabled: {
       control: 'boolean',
       description: '비활성화 상태 여부',
       defaultValue: false,
@@ -42,7 +42,7 @@ export const Default: Story = {
     fileName: '파일명.txt',
     fileSize: '1.2MB',
     readonly: false,
-    isDownloadDisabled: false,
+    disabled: false,
     errorMessage: '',
     buttonProps: {
       onClick: () => alert('클릭'),
@@ -53,7 +53,7 @@ export const Default: Story = {
       fileName={args.fileName}
       fileSize={args.fileSize}
       readonly={args.readonly}
-      isDownloadDisabled={args.isDownloadDisabled}
+      disabled={args.disabled}
       errorMessage={args.errorMessage}
       buttonProps={args.buttonProps}
     />
@@ -72,7 +72,7 @@ export const NonRemovable: Story = {
     fileName: '파일명.txt',
     fileSize: '1.2MB',
     readonly: false,
-    isDownloadDisabled: false,
+    disabled: false,
     errorMessage: '',
     buttonProps: undefined,
   },
@@ -81,7 +81,7 @@ export const NonRemovable: Story = {
       fileName={args.fileName}
       fileSize={args.fileSize}
       readonly={args.readonly}
-      isDownloadDisabled={args.isDownloadDisabled}
+      disabled={args.disabled}
       errorMessage={args.errorMessage}
       buttonProps={args.buttonProps}
     />
@@ -100,7 +100,7 @@ export const Removable: Story = {
     fileName: '파일명.txt',
     fileSize: '1.2MB',
     readonly: false,
-    isDownloadDisabled: false,
+    disabled: false,
     errorMessage: '',
     buttonProps: {
       onClick: () => alert('클릭'),
@@ -111,7 +111,7 @@ export const Removable: Story = {
       fileName={args.fileName}
       fileSize={args.fileSize}
       readonly={args.readonly}
-      isDownloadDisabled={args.isDownloadDisabled}
+      disabled={args.disabled}
       errorMessage={args.errorMessage}
       buttonProps={args.buttonProps}
     />
@@ -131,7 +131,7 @@ export const Readonly: Story = {
     fileName: '파일명.txt',
     fileSize: '1.2MB',
     readonly: true,
-    isDownloadDisabled: false,
+    disabled: false,
     errorMessage: '',
     buttonProps: {
       onClick: () => alert('클릭'),
@@ -142,7 +142,7 @@ export const Readonly: Story = {
       fileName={args.fileName}
       fileSize={args.fileSize}
       readonly={args.readonly}
-      isDownloadDisabled={args.isDownloadDisabled}
+      disabled={args.disabled}
       errorMessage={args.errorMessage}
       buttonProps={args.buttonProps}
     />
@@ -162,7 +162,7 @@ export const disabledAndRemovable: Story = {
     fileName: '파일명.txt',
     fileSize: '1.2MB',
     readonly: false,
-    isDownloadDisabled: true,
+    disabled: true,
     errorMessage: '',
     buttonProps: {
       onClick: () => alert('클릭'),
@@ -173,7 +173,7 @@ export const disabledAndRemovable: Story = {
       fileName={args.fileName}
       fileSize={args.fileSize}
       readonly={args.readonly}
-      isDownloadDisabled={args.isDownloadDisabled}
+      disabled={args.disabled}
       errorMessage={args.errorMessage}
       buttonProps={args.buttonProps}
     />
@@ -193,7 +193,7 @@ export const disabledAndNonRemovable: Story = {
     fileName: '파일명.txt',
     fileSize: '1.2MB',
     readonly: false,
-    isDownloadDisabled: true,
+    disabled: true,
     errorMessage: '',
     buttonProps: {
       onClick: () => alert('클릭'),
@@ -205,7 +205,7 @@ export const disabledAndNonRemovable: Story = {
       fileName={args.fileName}
       fileSize={args.fileSize}
       readonly={args.readonly}
-      isDownloadDisabled={args.isDownloadDisabled}
+      disabled={args.disabled}
       errorMessage={args.errorMessage}
       buttonProps={args.buttonProps}
     />
@@ -225,7 +225,7 @@ export const ErrorFile: Story = {
     fileName: '파일명.txt',
     fileSize: '1.2MB',
     readonly: false,
-    isDownloadDisabled: false,
+    disabled: false,
     errorMessage:
       '파일 업로드 시 에러 메시지에 대해 작성합니다. 최대 두 줄 까지 작성할 수 있고, 초과할 시 말줄임(...) 표시합니다.',
     buttonProps: {
@@ -237,7 +237,7 @@ export const ErrorFile: Story = {
       fileName={args.fileName}
       fileSize={args.fileSize}
       readonly={args.readonly}
-      isDownloadDisabled={args.isDownloadDisabled}
+      disabled={args.disabled}
       errorMessage={args.errorMessage}
       buttonProps={args.buttonProps}
     />
