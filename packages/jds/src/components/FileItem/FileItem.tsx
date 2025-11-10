@@ -42,21 +42,13 @@ export const FileItem = forwardRef<HTMLButtonElement, FileItemProps>(
         {...buttonRest}
       >
         <FileItemSectionDiv>
-          <FileItemIcon
-            size='sm'
-            name='attachment-line'
-            $readonly={readonly}
-            $disabled={disabled}
-            $hasError={hasError}
-          />
+          <FileItemIcon size='sm' name='attachment-line' />
           <FileItemDataContainer>
             <FileItemLabel
               size='sm'
               textAlign='left'
               weight='subtle'
-              $readonly={readonly}
               $disabled={disabled}
-              $hasError={hasError}
               className='file-name'
             >
               {fileName}
