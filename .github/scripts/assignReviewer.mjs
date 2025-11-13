@@ -42,48 +42,55 @@ async function assignReviewer() {
     return;
   }
 
-  // 바로 이전 PR 번호(PR 번호 - 1)
-  const previousPRNumber = prNumber - 1;
+  // 실제 가장 최근 PR 찾기
   let lastReviewerIndex = -1;
   let previousPR = null;
 
-  if (previousPRNumber > 0) {
-    try {
-      console.log(`이전 PR #${previousPRNumber} 상태 확인 중`);
-      const { data: prData } = await octokit.rest.pulls.get({
+  try {
+    console.log('가장 최근 PR 찾는 중...');
+
+    // PR 목록 가져오기 (Issue는 제외됨)
+    const { data: recentPRs } = await octokit.rest.pulls.list({
+      owner,
+      repo,
+      state: 'all',
+      sort: 'created',
+      direction: 'desc',
+      per_page: 20,
+    });
+
+    // 현재 PR보다 번호가 작은 것 중 가장 큰 번호 찾기
+    previousPR = recentPRs
+      .filter(pr => pr.number < prNumber)
+      .sort((a, b) => b.number - a.number)[0];
+
+    if (previousPR) {
+      console.log(`이전 PR #${previousPR.number} 찾음`);
+
+      // 해당 PR의 timeline event
+      const { data: timeline } = await octokit.rest.issues.listEventsForTimeline({
         owner,
         repo,
-        pull_number: previousPRNumber,
+        issue_number: previousPR.number,
       });
-      previousPR = prData;
+      // review_requested이벤트 찾기
+      const reviewRequestEvents = timeline.filter(e => e.event === 'review_requested');
 
-      // 이전 PR의 요청된 리뷰어(없으면 리뷰 내역에서 잡음)
-      if (previousPR.requested_reviewers && previousPR.requested_reviewers.length > 0) {
-        const lastReviewer = previousPR.requested_reviewers[0].login;
-        lastReviewerIndex = eligibleReviewers.indexOf(lastReviewer);
-        console.log(`이전 리뷰어: ${lastReviewer}, 인덱스: ${lastReviewerIndex}`);
-      } else {
-        // 완료된 리뷰 내역에서 마지막 리뷰어 확인
-        const { data: reviews } = await octokit.rest.pulls.listReviews({
-          owner,
-          repo,
-          pull_number: previousPRNumber,
-        });
-
-        if (reviews.length > 0) {
-          const lastReviewer = reviews[0].user.login;
-          lastReviewerIndex = eligibleReviewers.indexOf(lastReviewer);
-          console.log(`(review 내역) 이전 리뷰어: ${lastReviewer}, 인덱스: ${lastReviewerIndex}`);
-        }
+      if (reviewRequestEvents.length > 0) {
+        const firstAssignedReviewer = reviewRequestEvents[0].requested_reviewer.login; //제일 처음 리뷰어로 할당된 사람
+        lastReviewerIndex = eligibleReviewers.indexOf(firstAssignedReviewer);
+        console.log(
+          `이전 PR에 할당된 리뷰어: ${firstAssignedReviewer}, 인덱스: ${lastReviewerIndex}`,
+        );
       }
-    } catch (error) {
-      console.log(`이전 PR #${previousPRNumber} 정보를 가져올 수 없거나 오류 발생:`, error.message);
+    } else {
+      console.log('이전 PR 없음 (첫 PR)');
     }
-  } else {
-    console.log('이 PR이 첫 번째 PR 입니다.');
+  } catch (error) {
+    console.log('이전 PR 찾기 실패:', error.message);
   }
 
-  // round-robin 방식으로 다음 리뷰어 할당 (close만 된 경우 제외)
+  // 다음 리뷰어 할당
   let nextReviewerIndex;
   if (lastReviewerIndex === -1) {
     nextReviewerIndex = 0;
