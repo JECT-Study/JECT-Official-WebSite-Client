@@ -36,6 +36,7 @@ const CheckboxBox = forwardRef<HTMLInputElement, CheckboxBoxProps>(
   ) => {
     const iconSize = GetIconSize(size);
 
+    //NOTE : refCallback으로 처리된 부분을 추후 useComposedRefs(Radix 기준) 등의 커스텀 훅으로 분리 가능성 -ref 관리 용이
     const refCallback = useCallback(
       (node: HTMLInputElement | null) => {
         if (typeof ref === 'function') {
