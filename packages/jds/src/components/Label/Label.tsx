@@ -1,33 +1,33 @@
-import { forwardRef, ReactNode } from 'react';
-import { LabelDiv, LabelSize, LabelTextAlign, LabelWeight } from './Label.style';
-import { useTheme } from 'theme';
+import { ElementType } from 'react';
 
-export interface LabelProps {
-  size?: LabelSize;
-  textAlign?: LabelTextAlign;
-  weight?: LabelWeight;
-  color?: string;
-  children: ReactNode;
-}
+import { LabelStyled } from './Label.style';
+import type { LabelOwnProps } from './label.types';
 
-export const Label = forwardRef<HTMLDivElement, LabelProps>(
-  ({ size = 'md', textAlign = 'left', weight = 'normal', color, children, ...props }, ref) => {
-    const theme = useTheme();
-    const BaseColor = color || theme.color.semantic.object.bold;
+import { PolymorphicForwardRef } from '@/utils/forwardRef';
+
+/**
+ * Label - Polymorphic Label 컴포넌트
+ *
+ * `as` prop을 통해 다양한 HTML 요소로 렌더링할 수 있습니다.
+ * TypeScript가 `as` prop에 따라 올바른 HTML 속성을 자동으로 추론합니다.
+ *
+ *
+ */
+export const Label = PolymorphicForwardRef<'label', LabelOwnProps>(
+  ({ as, size = 'md', textAlign = 'left', weight = 'normal', children, ...restProps }, ref) => {
+    const Component = as || ('label' as ElementType);
 
     return (
-      <LabelDiv
+      <LabelStyled
         ref={ref}
-        size={size}
-        textAlign={textAlign}
-        weight={weight}
-        color={BaseColor}
-        {...props}
+        as={Component}
+        $size={size}
+        $textAlign={textAlign}
+        $weight={weight}
+        {...restProps}
       >
         {children}
-      </LabelDiv>
+      </LabelStyled>
     );
   },
 );
-
-Label.displayName = 'Label';
