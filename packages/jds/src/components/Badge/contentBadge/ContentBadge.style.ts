@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { pxToRem } from 'utils';
+
 import {
   BasicHierarchy,
   BadgeSize,
@@ -17,7 +18,9 @@ import {
   contentBadgeThemeMutedStylesMap,
   iconColorMap,
 } from './contentBadge.variants';
+
 import { Icon } from '@/components/Icon';
+import { Label } from '@/components/Label';
 
 interface ContentBasicBadgeDivProps {
   hierarchy: BasicHierarchy;
@@ -32,9 +35,6 @@ export const ContentBadgeBasicDiv = styled.div<ContentBasicBadgeDivProps>(
     const backgroundColor = isMuted
       ? contentBadgeBasicMutedStylesMap(theme)[badgeStyle].bg
       : contentBadgeBasicStylesMap(theme)[badgeStyle][hierarchy].bg;
-    const color = isMuted
-      ? contentBadgeBasicMutedStylesMap(theme)[badgeStyle].color
-      : contentBadgeBasicStylesMap(theme)[badgeStyle][hierarchy].color;
     const border = isMuted
       ? contentBadgeBasicMutedStylesMap(theme)[badgeStyle].border
       : contentBadgeBasicStylesMap(theme)[badgeStyle][hierarchy].border;
@@ -47,12 +47,32 @@ export const ContentBadgeBasicDiv = styled.div<ContentBasicBadgeDivProps>(
       alignItems: 'center',
       gap: withIcon ? pxToRem(4) : '0',
       backgroundColor,
-      color,
       border: `1px solid ${border}`,
       borderRadius: theme.scheme.desktop.radius[4],
     };
   },
 );
+
+interface ContentBadgeBasicLabelProps {
+  hierarchy: BasicHierarchy;
+  badgeStyle: ContentBadgeStyle;
+  isMuted: boolean;
+}
+
+export const ContentBadgeBasicLabel = styled(Label)<ContentBadgeBasicLabelProps>(({
+  theme,
+  hierarchy,
+  badgeStyle,
+  isMuted,
+}) => {
+  const color = isMuted
+    ? contentBadgeBasicMutedStylesMap(theme)[badgeStyle].color
+    : contentBadgeBasicStylesMap(theme)[badgeStyle][hierarchy].color;
+
+  return {
+    color,
+  };
+});
 
 interface BadgeIconProps {
   hierarchy: BasicHierarchy;
@@ -87,9 +107,6 @@ export const ContentBadgeFeedbackDiv = styled.div<ContentBadgeFeedbackDivProps>(
     const backgroundColor = isMuted
       ? contentBadgeFeedbackMutedStylesMap(theme)[badgeStyle][variant].bg
       : contentBadgeFeedbackStylesMap(theme)[badgeStyle][variant].bg;
-    const color = isMuted
-      ? contentBadgeFeedbackMutedStylesMap(theme)[badgeStyle][variant].color
-      : contentBadgeFeedbackStylesMap(theme)[badgeStyle][variant].color;
     const border = isMuted
       ? contentBadgeFeedbackMutedStylesMap(theme)[badgeStyle][variant].border
       : contentBadgeFeedbackStylesMap(theme)[badgeStyle][variant].border;
@@ -102,12 +119,32 @@ export const ContentBadgeFeedbackDiv = styled.div<ContentBadgeFeedbackDivProps>(
       alignItems: 'center',
       gap: '0px',
       backgroundColor,
-      color,
       border: `1px solid ${border}`,
       borderRadius: theme.scheme.desktop.radius[4],
     };
   },
 );
+
+interface ContentBadgeFeedbackLabelProps {
+  variant: FeedbackVariant;
+  badgeStyle: ContentBadgeStyle;
+  isMuted: boolean;
+}
+
+export const ContentBadgeFeedbackLabel = styled(Label)<ContentBadgeFeedbackLabelProps>(({
+  theme,
+  variant,
+  badgeStyle,
+  isMuted,
+}) => {
+  const color = isMuted
+    ? contentBadgeFeedbackMutedStylesMap(theme)[badgeStyle][variant].color
+    : contentBadgeFeedbackStylesMap(theme)[badgeStyle][variant].color;
+
+  return {
+    color,
+  };
+});
 
 interface ContentBadgeThemeDivProps {
   variant: ThemeVariant;
@@ -121,9 +158,6 @@ export const ContentBadgeThemeDiv = styled.div<ContentBadgeThemeDivProps>(
     const backgroundColor = isMuted
       ? contentBadgeThemeMutedStylesMap(theme)[badgeStyle][variant].bg
       : contentBadgeThemeStylesMap(theme)[badgeStyle][variant].bg;
-    const color = isMuted
-      ? contentBadgeThemeMutedStylesMap(theme)[badgeStyle][variant].color
-      : contentBadgeThemeStylesMap(theme)[badgeStyle][variant].color;
     const border = isMuted
       ? contentBadgeThemeMutedStylesMap(theme)[badgeStyle][variant].border
       : contentBadgeThemeStylesMap(theme)[badgeStyle][variant].border;
@@ -136,9 +170,29 @@ export const ContentBadgeThemeDiv = styled.div<ContentBadgeThemeDivProps>(
       alignItems: 'center',
       gap: '0px',
       backgroundColor,
-      color,
       border: `1px solid ${border}`,
       borderRadius: theme.scheme.desktop.radius[4],
     };
   },
 );
+
+interface ContentBadgeThemeLabelProps {
+  variant: ThemeVariant;
+  badgeStyle: ContentBadgeStyle;
+  isMuted: boolean;
+}
+
+export const ContentBadgeThemeLabel = styled(Label)<ContentBadgeThemeLabelProps>(({
+  theme,
+  variant,
+  badgeStyle,
+  isMuted,
+}) => {
+  const color = isMuted
+    ? contentBadgeThemeMutedStylesMap(theme)[badgeStyle][variant].color
+    : contentBadgeThemeStylesMap(theme)[badgeStyle][variant].color;
+
+  return {
+    color,
+  };
+});

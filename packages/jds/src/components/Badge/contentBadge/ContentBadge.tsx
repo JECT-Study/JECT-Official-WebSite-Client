@@ -1,9 +1,13 @@
 import { ReactNode } from 'react';
+
 import {
   BadgeIcon,
   ContentBadgeBasicDiv,
+  ContentBadgeBasicLabel,
   ContentBadgeFeedbackDiv,
+  ContentBadgeFeedbackLabel,
   ContentBadgeThemeDiv,
+  ContentBadgeThemeLabel,
 } from './ContentBadge.style';
 import {
   BadgeSize,
@@ -12,7 +16,6 @@ import {
   FeedbackVariant,
   ThemeVariant,
 } from '../badge.types';
-import { Label } from '@/components/Label';
 import { iconSizeMap } from './contentBadge.variants';
 
 export interface ContentBadgeBasicProps {
@@ -42,9 +45,16 @@ const ContentBadgeBasic = ({
       isMuted={isMuted}
       withIcon={withIcon}
     >
-      <Label size={size} textAlign='center' weight='normal' color='inherit'>
+      <ContentBadgeBasicLabel
+        size={size}
+        textAlign='center'
+        weight='normal'
+        hierarchy={hierarchy}
+        badgeStyle={badgeStyle}
+        isMuted={isMuted}
+      >
         {children}
-      </Label>
+      </ContentBadgeBasicLabel>
       {withIcon && (
         <BadgeIcon
           name='close-line'
@@ -82,9 +92,16 @@ const ContentBadgeFeedback = ({
       badgeStyle={badgeStyle}
       isMuted={isMuted}
     >
-      <Label size={size} textAlign='center' weight='normal' color='inherit'>
+      <ContentBadgeFeedbackLabel
+        size={size}
+        textAlign='center'
+        weight='normal'
+        variant={variant}
+        badgeStyle={badgeStyle}
+        isMuted={isMuted}
+      >
         {children}
-      </Label>
+      </ContentBadgeFeedbackLabel>
     </ContentBadgeFeedbackDiv>
   );
 };
@@ -108,9 +125,16 @@ const ContentBadgeTheme = ({
 }: ContentThemeBadgeProps) => {
   return (
     <ContentBadgeThemeDiv variant={variant} size={size} badgeStyle={badgeStyle} isMuted={isMuted}>
-      <Label size={size} textAlign='center' weight='normal' color='inherit'>
+      <ContentBadgeThemeLabel
+        size={size}
+        textAlign='center'
+        weight='normal'
+        variant={variant}
+        badgeStyle={badgeStyle}
+        isMuted={isMuted}
+      >
         {children}
-      </Label>
+      </ContentBadgeThemeLabel>
     </ContentBadgeThemeDiv>
   );
 };
