@@ -1,6 +1,7 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { Label } from './Label';
 import { useTheme } from '@emotion/react';
+import type { Meta, StoryObj } from '@storybook/react';
+
+import { Label } from './Label';
 
 const meta = {
   title: 'Components/Label',
