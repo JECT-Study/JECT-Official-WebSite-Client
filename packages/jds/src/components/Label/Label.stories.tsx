@@ -1,6 +1,7 @@
+import styled from '@emotion/styled';
 import type { Meta, StoryObj } from '@storybook/react';
+
 import { Label } from './Label';
-import { useTheme } from '@emotion/react';
 
 const meta = {
   title: 'Components/Label',
@@ -29,8 +30,8 @@ export const Default: Story = {
   },
 };
 
-export const WithWideParentElement: Story = {
-  name: 'With Wide Parent Element',
+export const WithParentElement: Story = {
+  name: 'With Parent Element',
   args: {
     size: 'lg',
     textAlign: 'left',
@@ -46,17 +47,58 @@ export const WithWideParentElement: Story = {
   ),
 };
 
-export const WithColor: Story = {
-  name: 'With Color',
+const AccentLabel = styled(Label)(({ theme }) => ({
+  color: theme.color.semantic.accent.neutral,
+}));
+
+export const WithAccentColor: Story = {
+  name: 'With Accent Color (styled pattern)',
   args: {
     size: 'lg',
     textAlign: 'left',
     weight: 'bold',
-    children: '레이블',
+    children: '강조 레이블',
   },
-  render: args => {
-    const theme = useTheme();
+  render: args => <AccentLabel {...args} />,
+};
 
-    return <Label {...args} color={theme.color.semantic.accent.neutral} />;
-  },
+interface VariantLabelProps {
+  variant?: 'default' | 'accent' | 'muted' | 'success' | 'error';
+}
+
+const VariantLabel = styled(Label)<VariantLabelProps>(({ theme, variant = 'default' }) => {
+  const colorMap = {
+    default: theme.color.semantic.object.bold,
+    accent: theme.color.semantic.accent.neutral,
+    muted: theme.color.semantic.object.subtle,
+    success: theme.color.semantic.feedback.positive.normal,
+    error: theme.color.semantic.feedback.destructive.normal,
+  };
+
+  return {
+    color: colorMap[variant],
+  };
+});
+
+export const WithVariants: Story = {
+  name: 'With Color Variants (styled pattern)',
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+      <VariantLabel variant='default' size='md' weight='normal'>
+        기본 레이블
+      </VariantLabel>
+      <VariantLabel variant='accent' size='md' weight='bold'>
+        강조 레이블
+      </VariantLabel>
+      <VariantLabel variant='muted' size='md' weight='normal'>
+        흐린 레이블
+      </VariantLabel>
+      <VariantLabel variant='success' size='md' weight='normal'>
+        성공 레이블
+      </VariantLabel>
+      <VariantLabel variant='error' size='md' weight='normal'>
+        에러 레이블
+      </VariantLabel>
+    </div>
+  ),
 };
