@@ -1,5 +1,6 @@
-import { Theme } from '@emotion/react';
-import {
+import type { Theme } from '@emotion/react';
+
+import type {
   BadgeStyleWithoutBorder,
   BasicHierarchy,
   FeedbackVariant,

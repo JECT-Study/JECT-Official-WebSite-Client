@@ -1,6 +1,8 @@
 import type { Preview } from '@storybook/react';
-import { darkTheme, lightTheme, ThemeProvider } from '../src/theme';
-import { GlobalStyles } from '../src/style';
+import { ThemeProvider } from '@emotion/react';
+import { Global } from '@emotion/react';
+import { globalStyles } from '../src/tokens/globalStyles';
+import { theme } from '../src/tokens/theme';
 
 const preview: Preview = {
   parameters: {
@@ -28,11 +30,9 @@ const preview: Preview = {
   },
   decorators: [
     (Story, context) => {
-      const theme = context.globals.theme === 'light' ? lightTheme : darkTheme;
       const backgroundColor = context.globals.theme === 'light' ? '#ffffff' : '#191B24';
       document.body.style.background = backgroundColor;
 
-      // TODO: 모드 전환 시 깜박임 현상 해결하기 (Global 요소 활용, 설정 조작 등 방법 이용)
       const docsStories = document.querySelectorAll('.docs-story');
       docsStories.forEach(el => {
         (el as HTMLElement).style.background = backgroundColor;
@@ -40,8 +40,10 @@ const preview: Preview = {
 
       return (
         <ThemeProvider theme={theme}>
-          <GlobalStyles />
-          <Story />
+          <Global styles={globalStyles} />
+          <div data-theme={context.globals.theme}>
+            <Story />
+          </div>
         </ThemeProvider>
       );
     },

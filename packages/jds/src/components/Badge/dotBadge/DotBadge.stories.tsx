@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
+
 import { DotBadge } from './DotBadge';
-import { DotBadgeFeedbackProps } from './DotBadge';
+import type { DotBadgeFeedbackProps } from './DotBadge';
 
 const meta: Meta<typeof DotBadge.Feedback> = {
   title: 'Components/DotBadge',
