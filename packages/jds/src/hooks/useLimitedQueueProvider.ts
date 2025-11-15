@@ -12,6 +12,7 @@ interface UseLimitedQueueProviderProps {
 export const useLimitedQueueProvider = <T extends LimitedQueueProviderBaseItem>({
   limit = 3,
 }: UseLimitedQueueProviderProps) => {
+  const AUTO_RESOLVE_TIME = 1500;
   const [items, setItems] = useState<T[]>([]);
   const removeResolvers = useRef<Map<string, () => void>>(new Map());
 
@@ -48,7 +49,7 @@ export const useLimitedQueueProvider = <T extends LimitedQueueProviderBaseItem>(
               resolve();
               removeResolvers.current.delete(first.id!);
             }
-          }, 1500);
+          }, AUTO_RESOLVE_TIME);
         });
       }
 
