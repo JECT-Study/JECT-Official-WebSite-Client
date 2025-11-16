@@ -1,10 +1,13 @@
-import { ComponentPropsWithoutRef, forwardRef, SyntheticEvent } from 'react';
+import { ElementType, SyntheticEvent } from 'react';
+
 import { IconDiv, ImageButton, ImageLabelDiv, StyledIcon, StyledLabel } from './Image.style';
+
+import { PolymorphicForwardRef } from '@/utils/forwardRef';
 
 export type ImgRatio = '1:1' | '4:5' | '3:4' | '2:3' | '9:16' | '1:2' | '9:21';
 export type ImgOrientation = 'portrait' | 'landscape';
 
-export interface ImageProps extends ComponentPropsWithoutRef<'button'> {
+export interface ImageOwnProps {
   src?: string;
   fallbackSrc?: string;
   alt: string;
@@ -16,9 +19,10 @@ export interface ImageProps extends ComponentPropsWithoutRef<'button'> {
   loading?: 'lazy' | 'eager';
 }
 
-export const Image = forwardRef<HTMLButtonElement, ImageProps>(
+export const Image = PolymorphicForwardRef<'button', ImageOwnProps>(
   (
     {
+      as,
       src,
       fallbackSrc = '/images/defaultImage.png',
       ratio = '1:1',
@@ -32,6 +36,7 @@ export const Image = forwardRef<HTMLButtonElement, ImageProps>(
     },
     ref,
   ) => {
+    const Component = as || ('button' as ElementType);
     const imageLoadErrorHandler = (e: SyntheticEvent<HTMLImageElement, Event>) => {
       if (e.currentTarget.src !== fallbackSrc) {
         e.currentTarget.src = fallbackSrc;
@@ -41,10 +46,11 @@ export const Image = forwardRef<HTMLButtonElement, ImageProps>(
     return (
       <ImageButton
         ref={ref}
+        as={Component}
         ratio={ratio}
         orientation={orientation}
         isReadonly={isReadonly}
-        disabled={isReadonly}
+        disabled={!isReadonly ? undefined : true}
         {...props}
       >
         <img src={src || fallbackSrc} alt={alt} onError={imageLoadErrorHandler} loading={loading} />
