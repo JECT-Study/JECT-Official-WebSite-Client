@@ -14,6 +14,15 @@ type PolymorphicPropsWithRef<E extends ElementType, OwnProps> = OwnProps &
     ref?: ForwardedRef<ElementRef<E>>;
   };
 
+type PolymorphicComponent<
+  DefaultElement extends ElementType,
+  OwnProps = Record<string, never>,
+> = (<E extends ElementType = DefaultElement>(
+  props: PolymorphicPropsWithRef<E, OwnProps>,
+) => ReactElement | null) & {
+  displayName?: string;
+};
+
 /**
  * Polymorphic 컴포넌트를 위한 제네릭 forwardRef 헬퍼
  *
@@ -29,10 +38,8 @@ export function PolymorphicForwardRef<
     props: PolymorphicPropsWithRef<E, OwnProps>,
     ref: ForwardedRef<ElementRef<E>>,
   ) => ReactElement | null,
-) {
+): PolymorphicComponent<DefaultElement, OwnProps> {
   return forwardRef<unknown, PolymorphicPropsWithRef<DefaultElement, OwnProps>>(
     render as never,
-  ) as <E extends ElementType = DefaultElement>(
-    props: PolymorphicPropsWithRef<E, OwnProps>,
-  ) => ReactElement | null;
+  ) as PolymorphicComponent<DefaultElement, OwnProps>;
 }
