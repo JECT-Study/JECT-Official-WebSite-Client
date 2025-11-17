@@ -29,19 +29,15 @@ export const SnackbarProvider = ({ children }: { children: ReactNode }) => {
           {snackbars.map(snackbar =>
             snackbar.type === 'basic' ? (
               <Snackbar.Basic
-                id={snackbar.id!}
                 key={snackbar.id}
                 onRemove={() => removeSnackbar(snackbar.id!)}
-                isClosing={snackbar.isClosing}
                 {...snackbar}
               />
             ) : (
               <Snackbar.Feedback
-                id={snackbar.id!}
                 key={snackbar.id}
                 variant={snackbar.type}
                 onRemove={() => removeSnackbar(snackbar.id!)}
-                isClosing={snackbar.isClosing}
                 {...snackbar}
               />
             ),

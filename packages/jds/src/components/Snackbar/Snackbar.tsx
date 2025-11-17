@@ -9,7 +9,7 @@ import {
 } from './snackbar.styles';
 import { BlockButton, IconButton } from '@/components';
 import { SnackbarBasicProps, SnackbarButtonsProps, SnackbarFeedbackProps } from './snackbar.types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const SnackbarButtons = ({ prefixButtonProps, suffixButtonProps }: SnackbarButtonsProps) => {
   if (!prefixButtonProps && !suffixButtonProps) return;
@@ -39,16 +39,34 @@ const SnackbarBasic = ({
   onRemove,
   isClosing,
 }: SnackbarBasicProps) => {
-  const [click, setClick] = useState(false);
-  const onClose = () => setClick(true);
+  const [phase, setPhase] = useState<'enter' | 'static' | 'exit'>('enter');
+
+  const onAnimationEnd = () => {
+    if (phase === 'enter') {
+      setPhase('static');
+      return;
+    }
+
+    if (phase === 'exit') {
+      onRemove?.();
+    }
+  };
+
+  const onClose = () => setPhase('exit');
+
+  useEffect(() => {
+    if (phase === 'static') {
+      const timer = setTimeout(() => setPhase('exit'), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [phase]);
+
+  useEffect(() => {
+    if (isClosing) setPhase('exit');
+  }, [isClosing]);
 
   return (
-    <SnackbarDiv
-      id={id}
-      className={click || isClosing ? 'delete' : ''}
-      snackbarStyle='basic'
-      onAnimationEnd={onRemove}
-    >
+    <SnackbarDiv id={id} className={phase} snackbarStyle='basic' onAnimationEnd={onAnimationEnd}>
       <SnackbarContentDiv>
         <SnackbarLabelContainerDiv>
           <SnackbarLabel snackbarStyle='basic' size='md' textAlign='left' weight='normal'>
@@ -84,16 +102,34 @@ const SnackbarFeedback = ({
   onRemove,
   isClosing,
 }: SnackbarFeedbackProps) => {
-  const [click, setClick] = useState(false);
-  const onClose = () => setClick(true);
+  const [phase, setPhase] = useState<'enter' | 'static' | 'exit'>('enter');
+
+  const onAnimationEnd = () => {
+    if (phase === 'enter') {
+      setPhase('static');
+      return;
+    }
+
+    if (phase === 'exit') {
+      onRemove?.();
+    }
+  };
+
+  const onClose = () => setPhase('exit');
+
+  useEffect(() => {
+    if (phase === 'static') {
+      const timer = setTimeout(() => setPhase('exit'), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [phase]);
+
+  useEffect(() => {
+    if (isClosing) setPhase('exit');
+  }, [isClosing]);
 
   return (
-    <SnackbarDiv
-      id={id}
-      className={click || isClosing ? 'delete' : ''}
-      snackbarStyle={variant}
-      onAnimationEnd={onRemove}
-    >
+    <SnackbarDiv id={id} className={phase} snackbarStyle={variant} onAnimationEnd={onAnimationEnd}>
       <SnackbarContentDiv>
         <SnackbarLabelContainerDiv>
           <SnackbarFeedbackIcon
