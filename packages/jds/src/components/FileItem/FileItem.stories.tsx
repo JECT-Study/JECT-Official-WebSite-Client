@@ -54,15 +54,16 @@ export const Default: Story = {
       '파일 업로드 시 에러 메시지에 대해 작성합니다. 최대 두 줄 까지 작성할 수 있고, 초과할 시 말줄임(...) 표시합니다.',
   },
   render: args => (
-    <FileItem
-      fileName={args.fileName}
-      fileSize={args.fileSize}
-      readonly={args.readonly}
-      disabled={args.disabled}
-      hasError={args.hasError}
-      errorMessage={args.errorMessage}
-      suffixButton={<IconButton.Basic hierarchy='tertiary' size='lg' icon='close-line' />}
-    />
+    <div style={{ width: '404px' }}>
+      <FileItem
+        fileName={args.fileName}
+        fileSize={args.fileSize}
+        readonly={args.readonly}
+        disabled={args.disabled}
+        hasError={args.hasError}
+        errorMessage={args.errorMessage}
+      />
+    </div>
   ),
 };
 
@@ -70,7 +71,7 @@ export const NonRemovable: Story = {
   parameters: {
     docs: {
       description: {
-        story: '삭제 불가능한 파일 아이템입니다. buttonProps의 여부로 판단합니다.',
+        story: '삭제 불가능한 파일 아이템입니다. suffixButton의 여부로 판단합니다.',
       },
     },
   },
@@ -84,14 +85,16 @@ export const NonRemovable: Story = {
       '파일 업로드 시 에러 메시지에 대해 작성합니다. 최대 두 줄 까지 작성할 수 있고, 초과할 시 말줄임(...) 표시합니다.',
   },
   render: args => (
-    <FileItem
-      fileName={args.fileName}
-      fileSize={args.fileSize}
-      readonly={args.readonly}
-      disabled={args.disabled}
-      hasError={args.hasError}
-      errorMessage={args.errorMessage}
-    />
+    <div style={{ width: '404px' }}>
+      <FileItem
+        fileName={args.fileName}
+        fileSize={args.fileSize}
+        readonly={args.readonly}
+        disabled={args.disabled}
+        hasError={args.hasError}
+        errorMessage={args.errorMessage}
+      />
+    </div>
   ),
 };
 
@@ -99,7 +102,7 @@ export const Removable: Story = {
   parameters: {
     docs: {
       description: {
-        story: '삭제 불가능한 파일 아이템입니다. buttonProps의 여부로 판단합니다.',
+        story: '삭제 불가능한 파일 아이템입니다. suffixButton의 여부로 판단합니다.',
       },
     },
   },
@@ -113,22 +116,24 @@ export const Removable: Story = {
       '파일 업로드 시 에러 메시지에 대해 작성합니다. 최대 두 줄 까지 작성할 수 있고, 초과할 시 말줄임(...) 표시합니다.',
   },
   render: args => (
-    <FileItem
-      fileName={args.fileName}
-      fileSize={args.fileSize}
-      readonly={args.readonly}
-      disabled={args.disabled}
-      hasError={args.hasError}
-      errorMessage={args.errorMessage}
-      suffixButton={
-        <IconButton.Basic
-          hierarchy='tertiary'
-          size='lg'
-          icon='close-line'
-          onClick={() => alert('클릭')}
-        />
-      }
-    />
+    <div style={{ width: '404px' }}>
+      <FileItem
+        fileName={args.fileName}
+        fileSize={args.fileSize}
+        readonly={args.readonly}
+        disabled={args.disabled}
+        hasError={args.hasError}
+        errorMessage={args.errorMessage}
+        suffixButton={
+          <IconButton.Basic
+            hierarchy='tertiary'
+            size='lg'
+            icon='close-line'
+            onClick={() => alert('클릭')}
+          />
+        }
+      />
+    </div>
   ),
 };
 
@@ -151,22 +156,24 @@ export const Readonly: Story = {
       '파일 업로드 시 에러 메시지에 대해 작성합니다. 최대 두 줄 까지 작성할 수 있고, 초과할 시 말줄임(...) 표시합니다.',
   },
   render: args => (
-    <FileItem
-      fileName={args.fileName}
-      fileSize={args.fileSize}
-      readonly={args.readonly}
-      disabled={args.disabled}
-      hasError={args.hasError}
-      errorMessage={args.errorMessage}
-      suffixButton={
-        <IconButton.Basic
-          hierarchy='tertiary'
-          size='lg'
-          icon='close-line'
-          onClick={() => alert('클릭')}
-        />
-      }
-    />
+    <div style={{ width: '404px' }}>
+      <FileItem
+        fileName={args.fileName}
+        fileSize={args.fileSize}
+        readonly={args.readonly}
+        disabled={args.disabled}
+        hasError={args.hasError}
+        errorMessage={args.errorMessage}
+        suffixButton={
+          <IconButton.Basic
+            hierarchy='tertiary'
+            size='lg'
+            icon='close-line'
+            onClick={() => alert('클릭')}
+          />
+        }
+      />
+    </div>
   ),
 };
 
@@ -175,7 +182,7 @@ export const disabledAndRemovable: Story = {
     docs: {
       description: {
         story:
-          '해당 파일 아이템이 비활성화된 경우로 파일 다운로드가 불가합니다. 삭제 여부는 buttonProps의 disabled로 조정합니다.',
+          '해당 파일 아이템이 비활성화된 경우로 파일 다운로드가 불가합니다. 삭제 여부는 suffixButton의 disabled로 조정합니다.',
       },
     },
   },
@@ -189,22 +196,24 @@ export const disabledAndRemovable: Story = {
       '파일 업로드 시 에러 메시지에 대해 작성합니다. 최대 두 줄 까지 작성할 수 있고, 초과할 시 말줄임(...) 표시합니다.',
   },
   render: args => (
-    <FileItem
-      fileName={args.fileName}
-      fileSize={args.fileSize}
-      readonly={args.readonly}
-      disabled={args.disabled}
-      hasError={args.hasError}
-      errorMessage={args.errorMessage}
-      suffixButton={
-        <IconButton.Basic
-          hierarchy='tertiary'
-          size='lg'
-          icon='close-line'
-          onClick={() => alert('클릭')}
-        />
-      }
-    />
+    <div style={{ width: '404px' }}>
+      <FileItem
+        fileName={args.fileName}
+        fileSize={args.fileSize}
+        readonly={args.readonly}
+        disabled={args.disabled}
+        hasError={args.hasError}
+        errorMessage={args.errorMessage}
+        suffixButton={
+          <IconButton.Basic
+            hierarchy='tertiary'
+            size='lg'
+            icon='close-line'
+            onClick={() => alert('클릭')}
+          />
+        }
+      />
+    </div>
   ),
 };
 
@@ -213,7 +222,7 @@ export const disabledAndNonRemovable: Story = {
     docs: {
       description: {
         story:
-          '해당 파일 아이템이 비활성화된 경우로 파일 다운로드가 불가합니다. 삭제 여부는 buttonProps의 disabled로 조정합니다.',
+          '해당 파일 아이템이 비활성화된 경우로 파일 다운로드가 불가합니다. 삭제 여부는 suffixButton의 disabled로 조정합니다.',
       },
     },
   },
@@ -227,23 +236,25 @@ export const disabledAndNonRemovable: Story = {
       '파일 업로드 시 에러 메시지에 대해 작성합니다. 최대 두 줄 까지 작성할 수 있고, 초과할 시 말줄임(...) 표시합니다.',
   },
   render: args => (
-    <FileItem
-      fileName={args.fileName}
-      fileSize={args.fileSize}
-      readonly={args.readonly}
-      disabled={args.disabled}
-      hasError={args.hasError}
-      errorMessage={args.errorMessage}
-      suffixButton={
-        <IconButton.Basic
-          hierarchy='tertiary'
-          size='lg'
-          icon='close-line'
-          onClick={() => alert('클릭')}
-          disabled
-        />
-      }
-    />
+    <div style={{ width: '404px' }}>
+      <FileItem
+        fileName={args.fileName}
+        fileSize={args.fileSize}
+        readonly={args.readonly}
+        disabled={args.disabled}
+        hasError={args.hasError}
+        errorMessage={args.errorMessage}
+        suffixButton={
+          <IconButton.Basic
+            hierarchy='tertiary'
+            size='lg'
+            icon='close-line'
+            onClick={() => alert('클릭')}
+            disabled
+          />
+        }
+      />
+    </div>
   ),
 };
 
@@ -252,7 +263,7 @@ export const ErrorFile: Story = {
     docs: {
       description: {
         story:
-          '해당 파일의 상태나 맥락에 오류가 있는 경우입니다. errorMessage가 빈값이면 false, 내용이 있다면 true로 작용합니다.',
+          '해당 파일의 상태나 맥락에 오류가 있는 경우입니다. hasError의 boolean 값에 따라 상태를 조정합니다',
       },
     },
   },
@@ -266,21 +277,62 @@ export const ErrorFile: Story = {
       '파일 업로드 시 에러 메시지에 대해 작성합니다. 최대 두 줄 까지 작성할 수 있고, 초과할 시 말줄임(...) 표시합니다.',
   },
   render: args => (
-    <FileItem
-      fileName={args.fileName}
-      fileSize={args.fileSize}
-      readonly={args.readonly}
-      disabled={args.disabled}
-      hasError={args.hasError}
-      errorMessage={args.errorMessage}
-      suffixButton={
-        <IconButton.Basic
-          hierarchy='tertiary'
-          size='lg'
-          icon='close-line'
-          onClick={() => alert('클릭')}
-        />
-      }
-    />
+    <div style={{ width: '404px' }}>
+      <FileItem
+        fileName={args.fileName}
+        fileSize={args.fileSize}
+        readonly={args.readonly}
+        disabled={args.disabled}
+        hasError={args.hasError}
+        errorMessage={args.errorMessage}
+        suffixButton={
+          <IconButton.Basic
+            hierarchy='tertiary'
+            size='lg'
+            icon='close-line'
+            onClick={() => alert('클릭')}
+          />
+        }
+      />
+    </div>
+  ),
+};
+
+export const OverflowTwoLines: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: '에러 메시지가 2줄 이상 넘어갈 경우 말줄임 표시를 합니다.',
+      },
+    },
+  },
+  args: {
+    fileName: '파일명.txt',
+    fileSize: '1.2MB',
+    readonly: false,
+    disabled: false,
+    hasError: true,
+    errorMessage:
+      '파일 업로드 시 에러 메시지에 대해 작성합니다. 최대 두 줄 까지 작성할 수 있고, 초과할 시 말줄임(...) 표시합니다. 파일 업로드 시 에러 메시지에 대해 작성합니다. 최대 두 줄 까지 작성할 수 있고, 초과할 시 말줄임(...) 표시합니다. ',
+  },
+  render: args => (
+    <div style={{ width: '404px' }}>
+      <FileItem
+        fileName={args.fileName}
+        fileSize={args.fileSize}
+        readonly={args.readonly}
+        disabled={args.disabled}
+        hasError={args.hasError}
+        errorMessage={args.errorMessage}
+        suffixButton={
+          <IconButton.Basic
+            hierarchy='tertiary'
+            size='lg'
+            icon='close-line'
+            onClick={() => alert('클릭')}
+          />
+        }
+      />
+    </div>
   ),
 };
