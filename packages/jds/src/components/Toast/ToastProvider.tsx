@@ -28,20 +28,12 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
         <ToastStackContainer>
           {toasts.map(toast =>
             toast.type === 'basic' ? (
-              <Toast.Basic
-                id={toast.id!}
-                key={toast.id}
-                onRemove={() => removeToast(toast.id!)}
-                isClosing={toast.isClosing}
-                {...toast}
-              />
+              <Toast.Basic key={toast.id} onRemove={() => removeToast(toast.id!)} {...toast} />
             ) : (
               <Toast.Feedback
-                id={toast.id!}
                 key={toast.id}
                 variant={toast.type}
                 onRemove={() => removeToast(toast.id!)}
-                isClosing={toast.isClosing}
                 {...toast}
               />
             ),

@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { pxToRem, shadow, textStyle } from 'utils';
+import { pxToRem, shadow } from 'utils';
 import { Icon, Label } from '@/components';
 import { toastStylesMap } from './toast.variants';
 import { ToastDivProps, ToastFeedbackIconProps, ToastStyle } from './toast.types';
@@ -25,55 +25,28 @@ export const ToastDiv = styled.div<ToastDivProps>(({ theme, toastStyle }) => {
   const color = toastStylesMap(theme)[toastStyle].color;
   const borderColor = toastStylesMap(theme)[toastStyle].borderColor;
   const backgroundColor = toastStylesMap(theme)[toastStyle].backgroundColor;
-  const entryDuration = theme.environment.duration[250];
-  const exitDuration = theme.environment.duration[250];
-  const delayDuration = 3000;
-  const animationDuration = entryDuration + delayDuration + exitDuration;
-  const animationMotion = theme.environment.motion.bouncy;
+
+  const slideIn = keyframes`
+    from { opacity: 0; transform: translateY(100%); }
+    to { opacity: 1; transform: translateY(0); }
+  `;
 
   const slideOut = keyframes`
-  from {
-    opacity: 1;
-    transform: translateY(0);
-        
-  }
-  to {
-    opacity: 0;
-    transform: translateY(100%);
-  }
-`;
-
-  const slideInOut = keyframes`
-  0% {
-    opacity: 0;
-    transform: translateY(100%);
-  }
-  ${(entryDuration / animationDuration) * 100}% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  ${(1 - exitDuration / animationDuration) * 100}% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(100%);
-  }
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(100%); }
 `;
 
   return {
     display: 'flex',
     flexDirection: 'column',
-    gap: pxToRem(theme.scheme.desktop.spacing[16]),
+    gap: theme.scheme.semantic.spacing[16],
     width: pxToRem(300),
-    minHeight: pxToRem(55),
     padding: `16px 20px`,
-    border: `${theme.scheme.desktop.stroke.weight[1]}px solid ${borderColor}`,
-    borderRadius: `${theme.scheme.desktop.radius[10]}px`,
+    border: `1px solid ${borderColor}`,
+    borderRadius: theme.scheme.semantic.radius[10],
     backgroundColor: theme.color.semantic.surface.shallow,
     color,
-    ...shadow(theme, 'desktop', 'overlay'),
+    ...shadow(theme, 'overlay'),
 
     position: 'relative',
     '::after': {
@@ -82,15 +55,21 @@ export const ToastDiv = styled.div<ToastDivProps>(({ theme, toastStyle }) => {
       inset: 0,
       borderRadius: 'inherit',
       backgroundColor,
-      opacity: `${theme.scheme.desktop.opacity[36]}%`,
+      opacity: 0.36,
       zIndex: '-10',
     },
 
-    '&.delete': {
-      animation: `${slideOut} ${exitDuration}ms ${animationMotion} forwards`,
+    '&.enter': {
+      animation: `${slideIn} ${theme.environment.semantic.duration[250]} ${theme.environment.semantic.motion.bouncy} forwards`,
     },
 
-    animation: `${slideInOut} ${animationDuration}ms ${animationMotion} forwards`,
+    '&.static': {
+      animation: 'none',
+    },
+
+    '&.exit': {
+      animation: `${slideOut} ${theme.environment.semantic.duration[250]} ${theme.environment.semantic.motion.bouncy} forwards`,
+    },
   };
 });
 
@@ -102,14 +81,14 @@ export const ToastContentDiv = styled.div(({ theme }) => {
   return {
     display: 'flex',
     flexDirection: 'column',
-    gap: pxToRem(theme.scheme.desktop.spacing[6]),
+    gap: theme.scheme.semantic.spacing[6],
   };
 });
 
 export const ToastLabelContainerDiv = styled.div(({ theme }) => {
   return {
     display: 'flex',
-    gap: pxToRem(theme.scheme.desktop.spacing[8]),
+    gap: theme.scheme.semantic.spacing[8],
     justifyContent: 'space-between',
     alignItems: 'center',
   };
@@ -117,16 +96,16 @@ export const ToastLabelContainerDiv = styled.div(({ theme }) => {
 
 export const ToastCaptionP = styled.p(({ theme }) => {
   return {
-    ...textStyle(theme, 'desktop', 'body.xs.normal'),
-    [theme.breakPoint.mobile]: { ...textStyle(theme, 'mobile', 'body.xs.normal') },
-    [theme.breakPoint.tablet]: { ...textStyle(theme, 'tablet', 'body.xs.normal') },
+    ...theme.textStyle['semantic-textStyle-body-xs-normal'],
+    [theme.breakPoint.mobile]: { ...theme.textStyle['semantic-textStyle-body-xs-normal'] },
+    [theme.breakPoint.tablet]: { ...theme.textStyle['semantic-textStyle-body-xs-normal'] },
   };
 });
 
 export const ButtonContainerDiv = styled.div(({ theme }) => {
   return {
     display: 'flex',
-    gap: pxToRem(theme.scheme.desktop.spacing[12]),
+    gap: theme.scheme.semantic.spacing[12],
     justifyContent: 'flex-start',
     alignItems: 'center',
   };

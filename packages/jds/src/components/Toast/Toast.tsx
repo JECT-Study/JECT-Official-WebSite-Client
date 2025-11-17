@@ -8,19 +8,37 @@ import {
 } from './toast.styles';
 import { IconButton } from '@/components';
 import { ToastBasicProps, ToastFeedbackProps } from './toast.types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const ToastBasic = ({ id, caption, onRemove, title, isClosing }: ToastBasicProps) => {
-  const [click, setClick] = useState(false);
-  const onClose = () => setClick(true);
+  const [phase, setPhase] = useState<'enter' | 'static' | 'exit'>('enter');
+
+  const onAnimationEnd = () => {
+    if (phase === 'enter') {
+      setPhase('static');
+      return;
+    }
+
+    if (phase === 'exit') {
+      onRemove?.();
+    }
+  };
+
+  const onClose = () => setPhase('exit');
+
+  useEffect(() => {
+    if (phase === 'static') {
+      const timer = setTimeout(() => setPhase('exit'), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [phase]);
+
+  useEffect(() => {
+    if (isClosing) setPhase('exit');
+  }, [isClosing]);
 
   return (
-    <ToastDiv
-      id={id}
-      className={click || isClosing ? 'delete' : ''}
-      toastStyle='basic'
-      onAnimationEnd={onRemove}
-    >
+    <ToastDiv id={id} className={phase} toastStyle='basic' onAnimationEnd={onAnimationEnd}>
       <ToastContentDiv>
         <ToastLabelContainerDiv>
           <ToastLabel toastStyle='basic' size='md' textAlign='left' weight='normal'>
@@ -50,16 +68,34 @@ const ToastFeedback = ({
   title,
   isClosing,
 }: ToastFeedbackProps) => {
-  const [click, setClick] = useState(false);
-  const onClose = () => setClick(true);
+  const [phase, setPhase] = useState<'enter' | 'static' | 'exit'>('enter');
+
+  const onAnimationEnd = () => {
+    if (phase === 'enter') {
+      setPhase('static');
+      return;
+    }
+
+    if (phase === 'exit') {
+      onRemove?.();
+    }
+  };
+
+  const onClose = () => setPhase('exit');
+
+  useEffect(() => {
+    if (phase === 'static') {
+      const timer = setTimeout(() => setPhase('exit'), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [phase]);
+
+  useEffect(() => {
+    if (isClosing) setPhase('exit');
+  }, [isClosing]);
 
   return (
-    <ToastDiv
-      id={id}
-      className={click || isClosing ? 'delete' : ''}
-      toastStyle={variant}
-      onAnimationEnd={onRemove}
-    >
+    <ToastDiv id={id} className={phase} toastStyle={variant} onAnimationEnd={onAnimationEnd}>
       <ToastContentDiv>
         <ToastLabelContainerDiv>
           <ToastFeedbackIcon
