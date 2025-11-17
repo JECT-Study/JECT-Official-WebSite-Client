@@ -1,7 +1,7 @@
 import { useState, useRef, useCallback } from 'react';
 
 export interface LimitedQueueProviderBaseItem {
-  id?: string;
+  id: string;
   isClosing?: boolean;
 }
 
@@ -33,9 +33,9 @@ export const useLimitedQueueProvider = <T extends LimitedQueueProviderBaseItem>(
   }, []);
 
   const addItem = useCallback(
-    async (item: T) => {
+    async (item: Omit<T, 'id'>) => {
       const id = crypto.randomUUID();
-      const newItem = { ...item, id };
+      const newItem = { ...item, id } as T;
 
       if (items.length >= limit) {
         const first = items[0];
