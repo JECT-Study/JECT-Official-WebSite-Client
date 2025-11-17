@@ -3,7 +3,6 @@ import type { CSSObject, Theme } from '@emotion/react';
 import styled from '@emotion/styled';
 import { InteractionLayer, pxToRem, shadow } from 'utils';
 
-import type { CardTitleVariant } from '../Card.context';
 import type { CardLayout, CardVariant, CardStyle } from '../Card.types';
 
 const SHADOW_DEFAULT = '0 1px 2px 0 rgba(0, 0, 0, 0.05)';
@@ -85,24 +84,14 @@ export const StyledCardRoot = styled('div', {
   $variant: CardVariant;
   $cardStyle?: CardStyle;
   $isDisabled: boolean;
-  $titleVariant: CardTitleVariant;
-}>(({ theme, $layout, $variant, $cardStyle, $isDisabled, $titleVariant }) => {
+}>(({ theme, $layout, $variant, $cardStyle, $isDisabled }) => {
   const layoutStyles = getLayoutStyles($layout);
   const { styles: variantStyles, borderRadius } = getVariantStyles(theme, $variant, $cardStyle);
 
-  const offsetMap = {
-    post: {
-      empty: {
-        title: { vertical: 12, horizontal: 12 },
-        label: { vertical: 10, horizontal: 10 },
-        none: { vertical: 0, horizontal: 0 },
-      },
-    },
-  } as const;
-
+  // Todo :post empty의 경우 고정된 offset 사용 문제 (title, label 이 각각 12, 10이어야함)
   const offset =
     $variant === 'post' && $cardStyle === 'empty'
-      ? offsetMap.post.empty[$titleVariant]
+      ? { vertical: 12, horizontal: 12 }
       : { vertical: 0, horizontal: 0 };
 
   const restStyle = InteractionLayer({
