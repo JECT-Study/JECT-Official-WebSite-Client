@@ -1,5 +1,6 @@
-import { Theme } from '@emotion/react';
-import {
+import type { Theme } from '@emotion/react';
+
+import type {
   BadgeSize,
   BadgeStyle,
   BasicHierarchy,
@@ -7,7 +8,8 @@ import {
   FeedbackVariant,
   ThemeVariant,
 } from '../badge.types';
-import { IconSize } from '@/components/Icon';
+
+import type { IconSize } from '@/components/Icon';
 
 export const iconSizeMap: Record<BadgeSize, IconSize> = {
   lg: 'sm',
