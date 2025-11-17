@@ -2,15 +2,11 @@ import { createContext, useContext } from 'react';
 
 import type { CardLayout, CardVariant, CardStyle } from './Card.types';
 
-export type CardTitleVariant = 'title' | 'label' | 'none';
-
 export interface CardContextValue {
   layout: CardLayout;
   variant: CardVariant;
   cardStyle?: CardStyle;
   isDisabled: boolean;
-  titleVariant: CardTitleVariant;
-  setTitleVariant: (variant: CardTitleVariant) => void;
 }
 
 export const CardContext = createContext<CardContextValue | null>(null);
