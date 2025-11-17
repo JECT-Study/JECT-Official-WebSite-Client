@@ -153,5 +153,10 @@ export const FileErrorSpan = styled.span(({ theme }) => {
     color: theme.color.semantic.feedback.destructive.neutral,
     ...theme.textStyle['semantic-textStyle-body-2xs-normal'],
     textAlign: 'left',
+
+    display: '-webkit-box',
+    WebkitLineClamp: 2,
+    WebkitBoxOrient: 'vertical',
+    overflow: 'hidden',
   };
 });
