@@ -1,6 +1,6 @@
 import { CSSObject, Theme } from '@emotion/react';
 import styled from '@emotion/styled';
-import { InteractionLayer, pxToRem, textStyle } from 'utils';
+import { InteractionLayer, pxToRem } from 'utils';
 import { Icon } from '@/components';
 import { Label } from '@/components';
 import {
@@ -71,7 +71,7 @@ const interactionStyles = (theme: Theme, isDisabled: boolean): CSSObject => {
     ...interactionParams.restStyle,
     '::after': {
       ...interactionParams.restStyle['::after'],
-      transition: `all ${theme.environment.duration[100]}ms ${theme.environment.motion.fluent}`,
+      transition: `all ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
     },
     '&:hover': {
       ...interactionParams.hoverStyle,
@@ -106,14 +106,14 @@ export const FileDropZoneDiv = styled.div<UploaderFileContainerDivProps>(
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      gap: pxToRem(theme.scheme.desktop.spacing[20]),
+      gap: theme.scheme.semantic.spacing[20],
       width: pxToRem(400),
-      padding: theme.scheme.desktop.margin.lg,
-      borderRadius: theme.scheme.desktop.radius[6],
+      padding: theme.scheme.semantic.margin.lg,
+      borderRadius: theme.scheme.semantic.radius[6],
       color: textColor,
       backgroundColor: bgColor,
       transition: $isDragging
-        ? `all ${theme.environment.duration[100]}ms ${theme.environment.motion.fluent}`
+        ? `all ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`
         : 'none',
 
       '& > span, & > button ': {
@@ -147,13 +147,9 @@ export const FileDropZoneDiv = styled.div<UploaderFileContainerDivProps>(
 );
 
 export const FileSpan = styled.span(({ theme }) => {
-  const textStyleKey = 'body.2xs.bold';
-
   return {
     textAlign: 'center',
-    ...textStyle(theme, 'desktop', textStyleKey),
-    [theme.breakPoint.tablet]: { ...textStyle(theme, 'tablet', textStyleKey) },
-    [theme.breakPoint.mobile]: { ...textStyle(theme, 'mobile', textStyleKey) },
+    ...theme.textStyle['semantic-textStyle-body-2xs-bold'],
   };
 });
 
@@ -168,7 +164,7 @@ export const FlexRowDiv = styled.div(({ theme }) => {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    gap: pxToRem(theme.scheme.desktop.spacing[8]),
+    gap: theme.scheme.semantic.spacing[8],
   };
 });
 
@@ -185,10 +181,10 @@ export const ImageDropZoneButton = styled.button<UploaderImageContainerButtonPro
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      gap: pxToRem(theme.scheme.desktop.spacing[12]),
+      gap: theme.scheme.semantic.spacing[12],
       width: pxToRem(160),
-      padding: theme.scheme.desktop.margin.lg,
-      borderRadius: theme.scheme.desktop.radius[6],
+      padding: theme.scheme.semantic.margin.lg,
+      borderRadius: theme.scheme.semantic.radius[6],
       backgroundColor: theme.color.semantic.fill.subtlest,
       ...interaction,
       cursor: $isDisabled || $isLoading ? 'default' : 'pointer',
