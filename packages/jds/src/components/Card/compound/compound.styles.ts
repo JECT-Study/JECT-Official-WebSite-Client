@@ -153,9 +153,36 @@ export const StyledCardRoot = styled('div', {
     borderRadius,
   });
 
+  const gapBaseMap = {
+    plate: {
+      vertical: 0,
+      horizontal: 0,
+    },
+    post: {
+      vertical: 0,
+      horizontal: {
+        outlined: pxToRem(theme.scheme.desktop.spacing[20]),
+        empty: pxToRem(theme.scheme.desktop.spacing[24]),
+      },
+    },
+  } as const;
+
+  const gapMap = {
+    plate: {
+      vertical: gapBaseMap.plate.vertical,
+      horizontal: gapBaseMap.plate.horizontal,
+    },
+    post: {
+      vertical: gapBaseMap.post.vertical,
+      horizontal: gapBaseMap.post.horizontal[$cardStyle || 'outlined'],
+    },
+  };
+
+  const gap = gapMap[$variant][$layout];
+
   const baseStyles: CSSObject = {
     display: 'flex',
-    gap: 0,
+    gap,
     ...layoutStyles,
     ...variantStyles,
   };
@@ -250,12 +277,51 @@ export const StyledCardImageContainer = styled.div<{
   };
 });
 
-export const StyledCardContent = styled.div({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: pxToRem(8),
-  flex: 1,
-  minWidth: 0,
+export const StyledCardContent = styled.div<{
+  $variant: CardVariant;
+  $layout: CardLayout;
+}>(({ theme, $variant, $layout }) => {
+  const baseStyles = {
+    display: 'flex',
+    flexDirection: 'column' as const,
+    alignItems: 'flex-start' as const,
+    minWidth: 0,
+  };
+
+  const styleMap = {
+    plate: {
+      vertical: {
+        maxHeight: pxToRem(233),
+        padding: pxToRem(theme.scheme.desktop.spacing[20]),
+        gap: pxToRem(theme.scheme.desktop.spacing[16]),
+        alignSelf: 'stretch' as const,
+      },
+      horizontal: {
+        maxHeight: pxToRem(233),
+        padding: pxToRem(theme.scheme.desktop.spacing[20]),
+        gap: pxToRem(theme.scheme.desktop.spacing[16]),
+        flex: '1 0 0',
+        alignSelf: 'stretch' as const,
+      },
+    },
+    post: {
+      vertical: {
+        padding: 0,
+        gap: pxToRem(theme.scheme.desktop.spacing[16]),
+        flex: '1 0 0',
+      },
+      horizontal: {
+        padding: 0,
+        gap: pxToRem(theme.scheme.desktop.spacing[16]),
+        flex: '1 0 0',
+      },
+    },
+  };
+
+  return {
+    ...baseStyles,
+    ...styleMap[$variant][$layout],
+  };
 });
 
 export const StyledCardMeta = styled.div(({ theme }) => ({
