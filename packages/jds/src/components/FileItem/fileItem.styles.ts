@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { Icon } from '@/components';
-import { InteractionLayer, pxToRem, textStyle } from 'utils';
+import { InteractionLayer } from 'utils';
 import { Label } from '@/components';
 import { CSSObject, Theme } from '@emotion/react';
 import { FileItemLabelProps, FileItemWrapButtonProps, FileSizeProps } from './fileItem.types';
@@ -89,10 +89,10 @@ export const FileItemWrapButton = styled.button<FileItemWrapButtonProps>(
 
     return {
       position: 'relative',
-      width: pxToRem(404),
       display: 'flex',
+      width: '100%',
       flexDirection: 'column',
-      gap: pxToRem(theme.scheme.desktop.spacing[8]),
+      gap: theme.scheme.semantic.spacing[8],
       ...interaction,
       cursor: $disabled ? 'default' : 'pointer',
       color: $hasError
@@ -110,7 +110,7 @@ export const FileItemSectionDiv = styled.div(({ theme }) => {
   return {
     display: 'flex',
     alignItems: 'center',
-    gap: pxToRem(theme.scheme.desktop.spacing[6]),
+    gap: theme.scheme.semantic.spacing[6],
   };
 });
 
@@ -120,7 +120,7 @@ export const FileItemDataContainer = styled.div(({ theme }) => {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    gap: pxToRem(theme.scheme.desktop.spacing[16]),
+    gap: theme.scheme.semantic.spacing[16],
   };
 });
 
@@ -151,7 +151,7 @@ export const FileSizeLabel = styled(Label)<FileSizeProps>(({ theme, $disabled, $
 export const FileErrorSpan = styled.span(({ theme }) => {
   return {
     color: theme.color.semantic.feedback.destructive.neutral,
-    ...textStyle(theme, 'desktop', 'body.2xs.normal'),
+    ...theme.textStyle['semantic-textStyle-body-2xs-normal'],
     textAlign: 'left',
   };
 });
