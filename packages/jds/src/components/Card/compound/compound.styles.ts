@@ -3,6 +3,7 @@ import type { CSSObject, Theme } from '@emotion/react';
 import styled from '@emotion/styled';
 import { InteractionLayer, pxToRem, shadow } from 'utils';
 
+import { createLabelStyles } from '../../Label/createLabelStyles';
 import type { CardLayout, CardVariant, CardStyle } from '../Card.types';
 
 const SHADOW_DEFAULT = '0 1px 2px 0 rgba(0, 0, 0, 0.05)';
@@ -174,6 +175,18 @@ export const StyledCardRoot = styled('div', {
     gap,
     ...layoutStyles,
     ...variantStyles,
+    '--card-title-color': $isDisabled
+      ? theme.color.semantic.object.subtle
+      : theme.color.semantic.object.bolder,
+    '--card-label-color': $isDisabled
+      ? theme.color.semantic.object.subtle
+      : theme.color.semantic.object.neutral,
+    '--card-body-color': $isDisabled
+      ? theme.color.semantic.object.subtle
+      : theme.color.semantic.object.normal,
+    '--card-caption-color': $isDisabled
+      ? theme.color.semantic.object.subtle
+      : theme.color.semantic.object.alternative,
   };
 
   if ($isDisabled) {
@@ -334,4 +347,65 @@ export const StyledCardMetaDivider = styled.span(({ theme }) => ({
   width: '1px',
   height: pxToRem(12),
   backgroundColor: theme.color.semantic.stroke.alpha.subtler,
+}));
+
+export const StyledCardTitle = styled('h3', {
+  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
+})(({ theme }) => ({
+  //Todo: Title에는 weight가 존재하지 않음, 수정된 토큰명으로 변경 필요
+  ...createLabelStyles(theme, { size: 'lg', weight: 'normal' }),
+  color: 'var(--card-title-color)',
+  margin: 0,
+  display: '-webkit-box',
+  WebkitBoxOrient: 'vertical',
+  WebkitLineClamp: 1,
+  alignSelf: 'stretch',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+}));
+
+export const StyledCardLabel = styled('h4', {
+  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
+})(({ theme }) => ({
+  ...createLabelStyles(theme, { size: 'lg', weight: 'bold' }),
+  color: 'var(--card-label-color)',
+  margin: 0,
+  flex: '1 0 0',
+  alignSelf: 'stretch',
+}));
+
+export const StyledCardBody = styled('p', {
+  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
+})(({ theme }) => ({
+  ...createLabelStyles(theme, { size: 'sm', weight: 'normal' }),
+  color: 'var(--card-body-color)',
+  margin: 0,
+  display: '-webkit-box',
+  WebkitBoxOrient: 'vertical',
+  WebkitLineClamp: 2,
+  alignSelf: 'stretch',
+  overflow: 'hidden',
+}));
+
+export const StyledCardCaption = styled('span', {
+  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
+})(({ theme }) => ({
+  ...createLabelStyles(theme, { size: 'xs', weight: 'subtle' }),
+  color: 'var(--card-caption-color)',
+}));
+
+/**
+ * CardMetaItem Styled Component
+ *
+ * Label 스타일을 재사용하면서 span 태그로 고정됩니다.
+ * createLabelStyles 유틸리티를 사용하여 코드 재사용성을 확보합니다.
+ * Semantic color는 명시적으로 지정합니다.
+ *
+ * @see {@link createLabelStyles}
+ */
+export const StyledCardMetaItem = styled('span', {
+  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
+})(({ theme }) => ({
+  ...createLabelStyles(theme, { size: 'sm', weight: 'normal' }),
+  color: 'var(--card-caption-color)', // CSS 변수 사용: disabled 시 subtle, 아니면 assistive
 }));
