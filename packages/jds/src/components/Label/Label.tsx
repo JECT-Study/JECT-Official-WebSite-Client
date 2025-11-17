@@ -1,8 +1,11 @@
-import { ComponentPropsWithoutRef, forwardRef, ReactNode } from 'react';
-import { LabelDiv, LabelSize, LabelTextAlign, LabelWeight } from './Label.style';
+import type { ReactNode } from 'react';
+import { forwardRef } from 'react';
 import { useTheme } from 'theme';
 
-export interface LabelProps extends ComponentPropsWithoutRef<'div'> {
+import type { LabelSize, LabelTextAlign, LabelWeight } from './Label.style';
+import { LabelDiv } from './Label.style';
+
+export interface LabelProps {
   size?: LabelSize;
   textAlign?: LabelTextAlign;
   weight?: LabelWeight;
@@ -14,7 +17,6 @@ export const Label = forwardRef<HTMLDivElement, LabelProps>(
   ({ size = 'md', textAlign = 'left', weight = 'normal', color, children, ...props }, ref) => {
     const theme = useTheme();
     const BaseColor = color || theme.color.semantic.object.bold;
-
     return (
       <LabelDiv
         ref={ref}

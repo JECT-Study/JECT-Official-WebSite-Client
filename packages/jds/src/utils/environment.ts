@@ -1,5 +1,5 @@
-import { Theme } from '@emotion/react';
-import { Depth, DeviceType, Level, Shadow } from 'types';
+import type { Theme } from '@emotion/react';
+import type { Depth, DeviceType, Level, Shadow } from 'types';
 
 export function depth(theme: Theme, depthToken: Depth) {
   if (depthToken === 'shallowest') {
