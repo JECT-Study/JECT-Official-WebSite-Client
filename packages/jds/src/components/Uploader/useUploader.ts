@@ -43,7 +43,7 @@ export const useUploader = <T extends HTMLElement>(options: UseUploaderOptions) 
 
       return validFiles;
     },
-    [accept, maxFileSize, maxTotalSize, existingFilesSize],
+    [accept, maxFileSize, maxTotalSize, existingFilesSize, onError],
   );
 
   const handleDrop = useCallback(
@@ -64,14 +64,19 @@ export const useUploader = <T extends HTMLElement>(options: UseUploaderOptions) 
     [onUpload, onError, handleFiles],
   );
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from(e.target.files ?? []);
-    const validFiles = handleFiles(files);
+  const handleInputChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      const files = Array.from(e.target.files ?? []);
+      const validFiles = handleFiles(files);
 
-    if (validFiles && validFiles.length > 0) {
-      onUpload?.(validFiles);
-    }
-  };
+      if (validFiles && validFiles.length > 0) {
+        onUpload?.(validFiles);
+      }
+
+      e.target.value = '';
+    },
+    [onUpload, handleFiles],
+  );
 
   return {
     isDragging,
@@ -79,7 +84,6 @@ export const useUploader = <T extends HTMLElement>(options: UseUploaderOptions) 
     handleDragOver,
     handleDragLeave,
     handleDrop,
-    handleFiles,
     handleInputChange,
   };
 };
