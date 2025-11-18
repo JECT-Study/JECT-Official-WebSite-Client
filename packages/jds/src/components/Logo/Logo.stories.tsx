@@ -135,17 +135,17 @@ export const InteractionStates: Story = {
     <FlexColumn>
       <FlexRow>
         <Label>Primary</Label>
-        <Logo hierarchy='primary' height={32} />
+        <Logo hierarchy='primary' height={32} href='/' onClick={e => e.preventDefault()} />
         <Label>(Tab을 사용)</Label>
       </FlexRow>
       <FlexRow>
         <Label>Secondary</Label>
-        <Logo hierarchy='secondary' height={32} />
+        <Logo hierarchy='secondary' height={32} href='/' onClick={e => e.preventDefault()} />
         <Label>(Tab을 사용)</Label>
       </FlexRow>
       <FlexRow>
         <Label>Tertiary</Label>
-        <Logo hierarchy='tertiary' height={32} />
+        <Logo hierarchy='tertiary' height={32} href='/' onClick={e => e.preventDefault()} />
         <Label>(Tab을 사용)</Label>
       </FlexRow>
     </FlexColumn>
@@ -189,19 +189,30 @@ export const TabIndexBehavior: Story = {
   render: () => (
     <FlexColumn>
       <FlexRow>
-        <Label>a 태그(href 있음)</Label>
+        <Label>a 태그 + href (기본)</Label>
         <Logo href='/' hierarchy='primary' height={32} onClick={e => e.preventDefault()} />
-        <Label>tabIndex 없음 (기본 포커스 가능)</Label>
+        <Label>암묵적 tabIndex=0, 포커스 가능</Label>
       </FlexRow>
       <FlexRow>
-        <Label>div 태그(href 없음)</Label>
+        <Label>a 태그 + href + tabIndex={-1}</Label>
+        <Logo
+          href='/'
+          hierarchy='primary'
+          height={32}
+          tabIndex={-1}
+          onClick={e => e.preventDefault()}
+        />
+        <Label>명시적 오버라이드, 포커스 불가</Label>
+      </FlexRow>
+      <FlexRow>
+        <Label>div 태그 (기본)</Label>
         <Logo hierarchy='primary' height={32} />
-        <Label>tabIndex={0} (자동 추가)</Label>
+        <Label>tabIndex 없음, 포커스 불가</Label>
       </FlexRow>
       <FlexRow>
-        <Label>명시적 tabIndex:</Label>
-        <Logo hierarchy='primary' height={32} tabIndex={-1} />
-        <Label>포커스 불가</Label>
+        <Label>div 태그 + tabIndex={0}</Label>
+        <Logo hierarchy='primary' height={32} tabIndex={0} />
+        <Label>명시적 설정, 포커스 가능</Label>
       </FlexRow>
     </FlexColumn>
   ),
@@ -209,8 +220,11 @@ export const TabIndexBehavior: Story = {
     docs: {
       description: {
         story:
-          'a 태그는 기본적으로 포커스 가능하므로 tabIndex를 추가하지 않습니다. ' +
-          'div 태그는 InteractionLayer focus 상태를 표현하기 위해 자동으로 tabIndex={0}이 추가됩니다.',
+          'tabIndex는 각 시맨틱 태그의 기본 포커스 정책을 따릅니다:\n\n' +
+          '• a 태그 + href: 암묵적으로 tabIndex=0 (포커스 가능)\n' +
+          '• a 태그 (href 없음): 포커스 불가 (브라우저 기본 동작)\n' +
+          '• div 태그: 기본적으로 포커스 불가\n' +
+          '• 필요한 경우 tabIndex prop을 명시적으로 전달하여 오버라이드 가능',
       },
     },
   },
