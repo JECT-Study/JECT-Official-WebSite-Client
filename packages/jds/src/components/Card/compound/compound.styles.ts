@@ -357,12 +357,12 @@ export const StyledCardMetaNudgeItem = styled.span(({ theme }) => ({
   opacity: 0,
   transition: `opacity ${theme.environment.duration[150]} ${theme.environment.motion.fluent}, transform ${theme.environment.duration[150]} ${theme.environment.motion.fluent}`,
 
-  ':where(a, button, [role="button"], [role="link"]):hover &': {
+  'a:hover &, button:hover &, [role="button"]:hover &, [role="link"]:hover &': {
     opacity: 1,
     transform: 'translateX(2px)',
   },
 
-  ':where(a, button, [role="button"], [role="link"]):active &': {
+  'a:active &, button:active &, [role="button"]:active &, [role="link"]:active &': {
     opacity: 1,
     transform: 'translateX(4px)',
     transition: `opacity ${theme.environment.duration[150]} ${theme.environment.motion.fluent}, transform none`,
