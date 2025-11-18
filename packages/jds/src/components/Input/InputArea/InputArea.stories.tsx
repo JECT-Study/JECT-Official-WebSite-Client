@@ -67,16 +67,18 @@ const meta = {
     },
     height: {
       control: 'text',
-      description: 'Textarea 고정 높이 (number: px 단위, string: CSS 값)',
+      description: 'Wrapper 고정 높이 (설정 시 내부 스크롤, resize 불가)',
       table: {
         type: { summary: 'number | string' },
+        defaultValue: { summary: 'undefined' },
       },
     },
     minHeight: {
       control: 'text',
-      description: 'Textarea 최소 높이 (컨텐츠에 따라 자동으로 늘어남)',
+      description: 'Wrapper 최소 높이 (자동 확장 가능, resize 가능, height 있으면 무시됨)',
       table: {
         type: { summary: 'number | string' },
+        defaultValue: { summary: '112' },
       },
     },
     placeholder: {
@@ -84,8 +86,10 @@ const meta = {
       description: 'Placeholder 텍스트',
     },
     value: {
-      control: 'text',
-      description: 'Textarea 값',
+      table: { disable: true },
+    },
+    onChange: {
+      table: { disable: true },
     },
   },
 } satisfies Meta<typeof InputArea>;
@@ -119,7 +123,7 @@ export const FixedHeight: Story = {
   args: {
     label: '고정 높이',
     height: 200,
-    helperText: '높이가 200px로 고정되어 있습니다',
+    helperText: '높이가 200px로 고정되어 있습니다. 내용 초과 시 스크롤됩니다.',
     value: '',
     onChange: () => {},
   },
@@ -131,7 +135,7 @@ export const FixedHeight: Story = {
           {...args}
           value={value}
           onChange={e => setValue(e.target.value)}
-          placeholder='200px 고정 높이입니다'
+          placeholder='많은 텍스트를 입력해보세요. 스크롤이 생깁니다.'
         />
       </div>
     );
@@ -140,9 +144,9 @@ export const FixedHeight: Story = {
 
 export const DynamicHeight: Story = {
   args: {
-    label: '동적 높이',
+    label: '동적 높이 (Resizable)',
     minHeight: 150,
-    helperText: '최소 150px이며, 내용에 따라 자동으로 늘어납니다',
+    helperText: '최소 150px이며, 내용 입력 또는 우측 하단 핸들로 크기를 조절할 수 있습니다',
     maxLength: 1000,
     value: '',
     onChange: () => {},
@@ -155,7 +159,7 @@ export const DynamicHeight: Story = {
           {...args}
           value={value}
           onChange={e => setValue(e.target.value)}
-          placeholder='여러 줄을 입력해보세요. 자동으로 높이가 늘어납니다.'
+          placeholder='텍스트를 입력하거나 우측 하단을 드래그해보세요!'
         />
       </div>
     );
