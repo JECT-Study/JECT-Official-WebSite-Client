@@ -329,24 +329,49 @@ export const StyledCardContent = styled.div<{
 export const StyledCardMeta = styled.div(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
-  gap: pxToRem(theme.scheme.desktop.spacing[8]),
-  marginTop: pxToRem(theme.scheme.desktop.spacing[8]),
-
+  padding: 0,
+  alignSelf: 'stretch',
+  gap: pxToRem(theme.scheme.desktop.spacing[16]),
   [theme.breakPoint.tablet]: {
-    gap: pxToRem(theme.scheme.tablet.spacing[6]),
-    marginTop: pxToRem(theme.scheme.tablet.spacing[6]),
+    gap: pxToRem(theme.scheme.tablet.spacing[16]),
   },
-
   [theme.breakPoint.mobile]: {
-    gap: pxToRem(theme.scheme.mobile.spacing[4]),
-    marginTop: pxToRem(theme.scheme.mobile.spacing[4]),
+    gap: pxToRem(theme.scheme.mobile.spacing[16]),
   },
 }));
 
-export const StyledCardMetaDivider = styled.span(({ theme }) => ({
-  width: '1px',
-  height: pxToRem(12),
-  backgroundColor: theme.color.semantic.stroke.alpha.subtler,
+export const StyledCardMetaItem = styled('span', {
+  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
+})(({ theme }) => ({
+  ...createLabelStyles(theme, { size: 'sm', weight: 'normal' }),
+  color: 'var(--card-caption-color)',
+}));
+
+export const StyledCardMetaNudgeItem = styled.span(({ theme }) => ({
+  display: 'inline-flex',
+  padding: 0,
+  alignItems: 'center',
+  gap: pxToRem(theme.scheme.desktop.spacing[4]),
+  marginLeft: 'auto',
+  flexShrink: 0,
+  opacity: 0,
+  transition: `opacity ${theme.environment.duration[150]} ${theme.environment.motion.fluent}, transform ${theme.environment.duration[150]} ${theme.environment.motion.fluent}`,
+
+  ':where(a, button, [role="button"], [role="link"]):hover &': {
+    opacity: 1,
+    transform: 'translateX(2px)',
+  },
+
+  ':where(a, button, [role="button"], [role="link"]):active &': {
+    opacity: 1,
+    transform: 'translateX(4px)',
+    transition: `opacity ${theme.environment.duration[150]} ${theme.environment.motion.fluent}, transform none`,
+  },
+}));
+
+export const StyledCardMetaNudgeItemLabel = styled.span(({ theme }) => ({
+  ...createLabelStyles(theme, { size: 'sm', weight: 'normal' }),
+  color: 'var(--card-caption-color)',
 }));
 
 export const StyledCardTitle = styled('h3', {
@@ -392,20 +417,4 @@ export const StyledCardCaption = styled('span', {
 })(({ theme }) => ({
   ...createLabelStyles(theme, { size: 'xs', weight: 'subtle' }),
   color: 'var(--card-caption-color)',
-}));
-
-/**
- * CardMetaItem Styled Component
- *
- * Label 스타일을 재사용하면서 span 태그로 고정됩니다.
- * createLabelStyles 유틸리티를 사용하여 코드 재사용성을 확보합니다.
- * Semantic color는 명시적으로 지정합니다.
- *
- * @see {@link createLabelStyles}
- */
-export const StyledCardMetaItem = styled('span', {
-  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
-})(({ theme }) => ({
-  ...createLabelStyles(theme, { size: 'sm', weight: 'normal' }),
-  color: 'var(--card-caption-color)', // CSS 변수 사용: disabled 시 subtle, 아니면 assistive
 }));
