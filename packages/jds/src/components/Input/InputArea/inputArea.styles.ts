@@ -149,6 +149,7 @@ export const StyledTextAreaWrapper = styled('div', {
   const focusBorderColor = getBorderColor(theme, $validation, 'focus', $disabled, $readOnly);
   const backgroundColor = getBackgroundColor(theme, $style, $disabled, $readOnly);
 
+  //Todo: interactionLayer의 매개변수를 공통 유틸리티로 이관 및 연동
   const interactionParams = {
     outlined: {
       restStyle: InteractionLayer({
@@ -261,9 +262,17 @@ export const StyledTextAreaWrapper = styled('div', {
     },
   };
 
-  const heightValue = $height ? (typeof $height === 'number' ? pxToRem($height) : $height) : undefined;
+  const heightValue = $height
+    ? typeof $height === 'number'
+      ? pxToRem($height)
+      : $height
+    : undefined;
 
-  const minHeightValue = $minHeight ? (typeof $minHeight === 'number' ? pxToRem($minHeight) : $minHeight) : pxToRem(112);
+  const minHeightValue = $minHeight
+    ? typeof $minHeight === 'number'
+      ? pxToRem($minHeight)
+      : $minHeight
+    : pxToRem(112);
 
   const baseStyles: CSSObject = {
     ...restStyle,
