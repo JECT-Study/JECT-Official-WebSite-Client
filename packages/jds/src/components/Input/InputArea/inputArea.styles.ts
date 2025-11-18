@@ -140,7 +140,7 @@ export const StyledTextAreaWrapper = styled('div', {
   $readOnly: boolean;
   $height?: number | string;
   $minHeight?: number | string;
-}>(({ theme, $style, $validation, $disabled, $readOnly, $height, $minHeight }) => {
+}>(({ theme, $style, $validation, $disabled, $readOnly, $height }) => {
   const BORDER_RADIUS = 6;
 
   const restBorderColor = getBorderColor(theme, $validation, 'rest', $disabled, $readOnly);
@@ -261,27 +261,16 @@ export const StyledTextAreaWrapper = styled('div', {
     },
   };
 
-  const heightValue = $height
-    ? typeof $height === 'number'
-      ? pxToRem($height)
-      : $height
-    : undefined;
-
-  const minHeightValue = $minHeight
-    ? typeof $minHeight === 'number'
-      ? pxToRem($minHeight)
-      : $minHeight
-    : undefined;
-
-  const defaultMinHeight = pxToRem(112);
+  const heightValue = $height ? (typeof $height === 'number' ? pxToRem($height) : $height) : undefined;
 
   const baseStyles: CSSObject = {
     ...restStyle,
     display: 'flex',
-    flex: '1 0 0',
-    alignItems: 'flex-start',
-    alignSelf: 'stretch',
-    gap: pxToRem(theme.scheme.desktop.spacing[0]),
+    flexDirection: 'column',
+    alignItems: 'stretch',
+    width: '100%',
+    height: heightValue || 'auto',
+    overflow: heightValue ? 'hidden' : 'visible',
     padding: paddingMap[$style].desktop,
     backgroundColor,
     border: 'none',
@@ -289,24 +278,16 @@ export const StyledTextAreaWrapper = styled('div', {
     borderRadius: `${theme.scheme.desktop.radius[BORDER_RADIUS]}px`,
     cursor: $disabled ? 'not-allowed' : 'text',
     transition: `box-shadow ${theme.environment.duration[100]} ${theme.environment.motion.fluent}`,
-    overflow: 'hidden',
-    ...(heightValue && { height: heightValue, minHeight: heightValue }),
-    ...(!heightValue && { minHeight: minHeightValue || defaultMinHeight }),
+    position: 'relative',
 
     [theme.breakPoint.tablet]: {
-      gap: pxToRem(theme.scheme.tablet.spacing[0]),
       padding: paddingMap[$style].tablet,
       borderRadius: `${theme.scheme.tablet.radius[BORDER_RADIUS]}px`,
-      ...(heightValue && { height: heightValue, minHeight: heightValue }),
-      ...(!heightValue && { minHeight: minHeightValue || defaultMinHeight }),
     },
 
     [theme.breakPoint.mobile]: {
-      gap: pxToRem(theme.scheme.mobile.spacing[0]),
       padding: paddingMap[$style].mobile,
       borderRadius: `${theme.scheme.mobile.radius[BORDER_RADIUS]}px`,
-      ...(heightValue && { height: heightValue, minHeight: heightValue }),
-      ...(!heightValue && { minHeight: minHeightValue || defaultMinHeight }),
     },
 
     '::after': {
@@ -361,30 +342,19 @@ export const StyledTextArea = styled('textarea', {
 })<{
   $disabled: boolean;
   $readOnly: boolean;
-  $height?: number | string;
+  $hasFixedHeight: boolean;
   $minHeight?: number | string;
-}>(({ theme, $disabled, $readOnly, $height, $minHeight }) => {
+}>(({ theme, $disabled, $readOnly, $hasFixedHeight, $minHeight }) => {
   const textColor = getTextColor(theme, $disabled, $readOnly);
 
-  const heightValue = $height
-    ? typeof $height === 'number'
-      ? pxToRem($height)
-      : $height
-    : undefined;
-
-  const minHeightValue = $minHeight
-    ? typeof $minHeight === 'number'
-      ? pxToRem($minHeight)
-      : $minHeight
-    : undefined;
+  const minHeightValue = $minHeight ? (typeof $minHeight === 'number' ? pxToRem($minHeight - 16) : `calc(${$minHeight} - ${pxToRem(16)})`) : pxToRem(96);
 
   return {
-    display: 'flex',
+    display: 'block',
+    width: '100%',
+    height: $hasFixedHeight ? '100%' : undefined,
+    minHeight: $hasFixedHeight ? undefined : minHeightValue,
     padding: 0,
-    alignItems: 'flex-start',
-    gap: 0,
-    flex: '1 0 0',
-    alignSelf: 'stretch',
     border: 'none',
     outline: 'none',
     backgroundColor: 'transparent',
@@ -392,10 +362,10 @@ export const StyledTextArea = styled('textarea', {
     ...textStyle(theme, 'desktop', 'body.sm.normal'),
     position: 'relative',
     zIndex: 1,
-    resize: 'none',
-    overflow: 'hidden',
-    ...(heightValue && { height: heightValue, minHeight: heightValue }),
-    ...(minHeightValue && { minHeight: minHeightValue }),
+    resize: $hasFixedHeight ? 'none' : 'vertical',
+    overflow: 'auto',
+    boxSizing: 'border-box',
+    fieldSizing: 'content',
 
     '&::placeholder': {
       color: theme.color.semantic.object.assistive,
