@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { pxToRem } from 'utils';
-import { BadgeSize, FeedbackVariant } from '../badge.types';
+
+import type { BadgeSize, FeedbackVariant } from '../badge.types';
 import { dotBadgeSizeMap } from '../badge.variants';
 import { dotBadgeFeedbackStylesMap, dotBadgeFeedbackMutedStylesMap } from './dotBadge.variants';
 
@@ -25,7 +26,7 @@ export const DotBadgeFeedbackDiv = styled.div<DotBadgeFeedbackDivProps>(
       flexShrink: 0,
       aspectRatio: '1/1',
       backgroundColor,
-      borderRadius: theme.scheme.desktop.radius.max,
+      borderRadius: theme.scheme.semantic.radius.max,
     };
   },
 );

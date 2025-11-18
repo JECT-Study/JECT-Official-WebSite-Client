@@ -1,6 +1,6 @@
+import type { Theme } from '@emotion/react';
 import styled from '@emotion/styled';
-import { textStyle } from 'utils';
-import { TextStyle } from 'types';
+
 import { TEXT_ALIGN_MAPPING } from '../Hero/Hero.style';
 
 export type LabelSize = 'lg' | 'md' | 'sm' | 'xs';
@@ -14,8 +14,12 @@ interface LabelDivProps {
   color: string;
 }
 
+const getLabelTokenKey = (size: LabelSize, weight: LabelWeight): keyof Theme['textStyle'] => {
+  return `semantic-textStyle-label-${size}-${weight}` as keyof Theme['textStyle'];
+};
+
 export const LabelDiv = styled.div<LabelDivProps>(({ theme, size, textAlign, weight, color }) => {
-  const textStyleKey = `label.${size}.${weight}` as TextStyle;
+  const tokenKey = getLabelTokenKey(size, weight);
   const justifyContent = TEXT_ALIGN_MAPPING[textAlign];
 
   return {
@@ -24,8 +28,6 @@ export const LabelDiv = styled.div<LabelDivProps>(({ theme, size, textAlign, wei
     alignItems: 'center',
     color,
     cursor: 'default',
-    [theme.breakPoint.mobile]: { ...textStyle(theme, 'mobile', textStyleKey) },
-    [theme.breakPoint.tablet]: { ...textStyle(theme, 'tablet', textStyleKey) },
-    [theme.breakPoint.desktop]: { ...textStyle(theme, 'desktop', textStyleKey) },
+    ...theme.textStyle[tokenKey],
   };
 });
