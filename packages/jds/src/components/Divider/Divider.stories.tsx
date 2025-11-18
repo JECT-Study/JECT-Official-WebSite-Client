@@ -133,69 +133,6 @@ export const VerticalDivider: Story = {
   },
 };
 
-export const WithTextCenter: Story = {
-  render: () => (
-    <FlexColumn gap='24px' style={{ width: '400px' }}>
-      <div>로그인 폼</div>
-      <Divider.WithText>OR</Divider.WithText>
-      <div>소셜 로그인 버튼</div>
-    </FlexColumn>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story:
-          '**Namespace Pattern**: `Divider.WithText`로 텍스트가 있는 구분선을 명시적으로 표현합니다. ' +
-          '중앙 정렬이 기본값입니다.',
-      },
-    },
-  },
-};
-
-export const WithTextAlignments: Story = {
-  render: () => (
-    <FlexColumn gap='24px' style={{ width: '500px' }}>
-      <FlexColumn gap='12px'>
-        <Label>Left Aligned:</Label>
-        <Divider.WithText textAlign='left'>섹션 1</Divider.WithText>
-      </FlexColumn>
-      <FlexColumn gap='12px'>
-        <Label>Center Aligned (기본값):</Label>
-        <Divider.WithText textAlign='center'>또는</Divider.WithText>
-      </FlexColumn>
-      <FlexColumn gap='12px'>
-        <Label>Right Aligned:</Label>
-        <Divider.WithText textAlign='right'>더보기</Divider.WithText>
-      </FlexColumn>
-    </FlexColumn>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'textAlign prop으로 텍스트 정렬 위치를 제어할 수 있습니다.',
-      },
-    },
-  },
-};
-
-export const WithTextThicknesses: Story = {
-  render: () => (
-    <FlexColumn gap='24px' style={{ width: '400px' }}>
-      <Divider.WithText thickness='normal'>Normal</Divider.WithText>
-      <Divider.WithText thickness='bold'>Bold</Divider.WithText>
-      <Divider.WithText thickness='bolder'>Bolder</Divider.WithText>
-      <Divider.WithText thickness='boldest'>Boldest</Divider.WithText>
-    </FlexColumn>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'WithText에서도 thickness를 조절할 수 있습니다.',
-      },
-    },
-  },
-};
-
 export const InCard: Story = {
   render: () => (
     <div
@@ -271,7 +208,7 @@ export const StyleGuide: Story = {
         <h3 style={{ margin: '0 0 16px 0' }}>스타일 가이드</h3>
       </div>
 
-      <Divider.WithText>사용 예시</Divider.WithText>
+      <Divider />
 
       <div>
         <h4 style={{ margin: '0 0 12px 0' }}>기본 사용</h4>
@@ -286,22 +223,6 @@ export const StyleGuide: Story = {
           {`<Divider />
 <Divider orientation="vertical" />
 <Divider thickness="bold" />`}
-        </pre>
-      </div>
-
-      <div>
-        <h4 style={{ margin: '0 0 12px 0' }}>텍스트가 있는 구분선</h4>
-        <pre
-          style={{
-            backgroundColor: '#f5f5f5',
-            padding: '12px',
-            borderRadius: '4px',
-            margin: 0,
-          }}
-        >
-          {`<Divider.WithText>OR</Divider.WithText>
-<Divider.WithText textAlign="left">섹션 1</Divider.WithText>
-<Divider.WithText textAlign="right">더보기</Divider.WithText>`}
         </pre>
       </div>
     </FlexColumn>
