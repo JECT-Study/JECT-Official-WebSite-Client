@@ -1,19 +1,56 @@
-import { ChangeEvent, DragEvent, useCallback, useState } from 'react';
+import { ChangeEvent, DragEvent, useCallback, useReducer, useRef } from 'react';
 import { UseUploaderOptions } from './uploader.types';
 import { validateAcceptedFile } from './uploader.utils';
 
+interface State {
+  isDragging: boolean;
+  files: File[];
+}
+
+const initialState: State = {
+  isDragging: false,
+  files: [],
+};
+
+type Action =
+  | { type: 'DRAG_ENTER' }
+  | { type: 'DRAG_LEAVE' }
+  | { type: 'SET_FILES'; files: File[] };
+
+const reducer = (state: State, action: Action) => {
+  switch (action.type) {
+    case 'DRAG_ENTER':
+      return { ...state, isDragging: true };
+    case 'DRAG_LEAVE':
+      return { ...state, isDragging: false };
+    case 'SET_FILES':
+      return { ...state, files: action.files };
+    default:
+      return state;
+  }
+};
+
 export const useUploader = <T extends HTMLElement>(options: UseUploaderOptions) => {
   const { accept, maxFileSize, maxTotalSize, existingFilesSize = 0, onUpload, onError } = options;
-  const [isDragging, setIsDragging] = useState(false);
-  const [files, setFiles] = useState<File[]>([]);
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const enterCounter = useRef(0);
+
+  const handleDragEnter = useCallback((e: DragEvent<T>) => {
+    e.preventDefault();
+
+    enterCounter.current++;
+    if (enterCounter.current === 1) dispatch({ type: 'DRAG_ENTER' });
+  }, []);
 
   const handleDragOver = useCallback((e: DragEvent<T>) => {
     e.preventDefault();
-    setIsDragging(true);
   }, []);
 
-  const handleDragLeave = useCallback(() => {
-    setIsDragging(false);
+  const handleDragLeave = useCallback((e: DragEvent<T>) => {
+    e.preventDefault();
+
+    enterCounter.current--;
+    if (enterCounter.current === 0) dispatch({ type: 'DRAG_LEAVE' });
   }, []);
 
   const handleFiles = useCallback(
@@ -48,20 +85,22 @@ export const useUploader = <T extends HTMLElement>(options: UseUploaderOptions) 
 
   const handleDrop = useCallback(
     (e: DragEvent<T>) => {
-      if (!e.dataTransfer) return;
-
       e.preventDefault();
-      setIsDragging(false);
+
+      enterCounter.current = 0;
+      dispatch({ type: 'DRAG_LEAVE' });
+
+      if (!e.dataTransfer) return;
 
       const droppedFiles = Array.from(e.dataTransfer.files);
       const validFiles = handleFiles(droppedFiles);
 
-      if (validFiles && validFiles.length > 0) {
-        setFiles(validFiles);
+      if (validFiles.length > 0) {
+        dispatch({ type: 'SET_FILES', files: validFiles });
         onUpload?.(validFiles);
       }
     },
-    [onUpload, onError, handleFiles],
+    [handleFiles, onUpload],
   );
 
   const handleInputChange = useCallback(
@@ -79,8 +118,9 @@ export const useUploader = <T extends HTMLElement>(options: UseUploaderOptions) 
   );
 
   return {
-    isDragging,
-    files,
+    isDragging: state.isDragging,
+    files: state.files,
+    handleDragEnter,
     handleDragOver,
     handleDragLeave,
     handleDrop,

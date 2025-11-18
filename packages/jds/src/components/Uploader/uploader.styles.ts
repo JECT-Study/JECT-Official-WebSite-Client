@@ -116,10 +116,6 @@ export const FileDropZoneDiv = styled.div<UploaderFileContainerDivProps>(
         ? `all ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`
         : 'none',
 
-      '& > span, & > button ': {
-        pointerEvents: $isDragging ? 'none' : 'auto',
-      },
-
       '& > svg': {
         position: 'absolute',
         top: 0,

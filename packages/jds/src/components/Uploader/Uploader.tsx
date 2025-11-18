@@ -100,15 +100,21 @@ const UploaderFile = ({
   isDisabled = false,
 }: UploaderFileProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const { isDragging, handleDragOver, handleDragLeave, handleDrop, handleInputChange } =
-    useUploader<HTMLDivElement>({
-      accept,
-      maxFileSize,
-      maxTotalSize,
-      existingFilesSize,
-      onUpload,
-      onError,
-    });
+  const {
+    isDragging,
+    handleDragEnter,
+    handleDragOver,
+    handleDragLeave,
+    handleDrop,
+    handleInputChange,
+  } = useUploader<HTMLDivElement>({
+    accept,
+    maxFileSize,
+    maxTotalSize,
+    existingFilesSize,
+    onUpload,
+    onError,
+  });
   const baseBodyText = isLoading ? uploaderMessages.loading : uploaderMessages.rest;
   const bodyText = isDisabled ? uploaderMessages.disabled : baseBodyText;
 
@@ -116,6 +122,7 @@ const UploaderFile = ({
 
   return (
     <FileDropZoneDiv
+      onDragEnter={handleDragEnter}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
