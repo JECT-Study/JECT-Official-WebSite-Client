@@ -1,7 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { css, Global } from '@emotion/react';
-import PretendardVariable from '../../fonts/PretendardVariable.woff2';
+
 import D2Coding from '../../fonts/D2Coding.woff2';
+import PretendardVariable from '../../fonts/PretendardVariable.woff2';
 
 export const GlobalStyles = () => (
   <Global

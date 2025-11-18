@@ -1,6 +1,8 @@
 import { forwardRef } from 'react';
-import { HeroDiv, HeroSize, HeroTextAlign } from './Hero.style';
 import { useTheme } from 'theme';
+
+import type { HeroSize, HeroTextAlign } from './Hero.style';
+import { HeroDiv } from './Hero.style';
 
 interface HeroProps {
   size?: HeroSize;

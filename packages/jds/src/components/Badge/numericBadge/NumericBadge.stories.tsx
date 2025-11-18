@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
+
 import { NumericBadge } from './NumericBadge';
-import { NumericBadgeBasicProps, NumericBasicBadgeProps } from './NumericBadge';
+import type { NumericBadgeBasicProps, NumericBasicBadgeProps } from './NumericBadge';
 
 const meta: Meta<typeof NumericBadge.Basic> = {
   title: 'Components/NumericBadge',

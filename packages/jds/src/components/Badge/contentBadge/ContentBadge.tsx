@@ -1,19 +1,21 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
+
 import {
   BadgeIcon,
   ContentBadgeBasicDiv,
   ContentBadgeFeedbackDiv,
   ContentBadgeThemeDiv,
 } from './ContentBadge.style';
-import {
+import type {
   BadgeSize,
   ContentBadgeStyle,
   BasicHierarchy,
   FeedbackVariant,
   ThemeVariant,
 } from '../badge.types';
-import { Label } from '@/components/Label';
 import { iconSizeMap } from './contentBadge.variants';
+
+import { Label } from '@/components/Label';
 
 export interface ContentBadgeBasicProps {
   hierarchy?: BasicHierarchy;

@@ -1,5 +1,6 @@
-import { Theme } from '@emotion/react';
-import { FeedbackVariant } from '../badge.types';
+import type { Theme } from '@emotion/react';
+
+import type { FeedbackVariant } from '../badge.types';
 
 export const dotBadgeFeedbackStylesMap = (
   theme: Theme,

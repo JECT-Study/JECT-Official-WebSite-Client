@@ -7,8 +7,7 @@ import type {
   BlockButtonStyle,
   FeedbackIntent,
 } from 'components';
-import type { TextStyle } from 'types';
-import { InteractionLayer, pxToRem, textStyle } from 'utils';
+import { InteractionLayer } from 'utils';
 
 import type { IconSize } from '@/components/Icon/Icon.types';
 
@@ -35,60 +34,20 @@ const borderRadiusMap: Record<BlockButtonSize, number> = {
 
 const sizeStyles: Record<BlockButtonSize, (theme: Theme) => CSSObject> = {
   lg: (theme: Theme) => ({
-    padding: `${pxToRem(theme.scheme.desktop.spacing[10])} ${pxToRem(theme.scheme.desktop.spacing[20])}`,
-    borderRadius: `${theme.scheme.desktop.radius[6]}px`,
-
-    [theme.breakPoint.tablet]: {
-      padding: `${pxToRem(theme.scheme.tablet.spacing[10])} ${pxToRem(theme.scheme.tablet.spacing[20])}`,
-      borderRadius: `${theme.scheme.tablet.radius[6]}px`,
-    },
-
-    [theme.breakPoint.mobile]: {
-      padding: `${pxToRem(theme.scheme.mobile.spacing[10])} ${pxToRem(theme.scheme.mobile.spacing[20])}`,
-      borderRadius: `${theme.scheme.mobile.radius[6]}px`,
-    },
+    padding: `${theme.scheme.semantic.spacing[10]} ${theme.scheme.semantic.spacing[20]}`,
+    borderRadius: `${theme.scheme.semantic.radius[6]}px`,
   }),
   md: (theme: Theme) => ({
-    padding: `${pxToRem(theme.scheme.desktop.spacing[8])} ${pxToRem(theme.scheme.desktop.spacing[16])}`,
-    borderRadius: `${theme.scheme.desktop.radius[6]}px`,
-
-    [theme.breakPoint.tablet]: {
-      padding: `${pxToRem(theme.scheme.tablet.spacing[8])} ${pxToRem(theme.scheme.tablet.spacing[16])}`,
-      borderRadius: `${theme.scheme.tablet.radius[6]}px`,
-    },
-
-    [theme.breakPoint.mobile]: {
-      padding: `${pxToRem(theme.scheme.mobile.spacing[8])} ${pxToRem(theme.scheme.mobile.spacing[16])}`,
-      borderRadius: `${theme.scheme.mobile.radius[6]}px`,
-    },
+    padding: `${theme.scheme.semantic.spacing[8]} ${theme.scheme.semantic.spacing[16]}`,
+    borderRadius: `${theme.scheme.semantic.radius[6]}px`,
   }),
   sm: (theme: Theme) => ({
-    padding: `${pxToRem(theme.scheme.desktop.spacing[6])} ${pxToRem(theme.scheme.desktop.spacing[12])}`,
-    borderRadius: `${theme.scheme.desktop.radius[4]}px`,
-
-    [theme.breakPoint.tablet]: {
-      padding: `${pxToRem(theme.scheme.tablet.spacing[6])} ${pxToRem(theme.scheme.tablet.spacing[12])}`,
-      borderRadius: `${theme.scheme.tablet.radius[4]}px`,
-    },
-
-    [theme.breakPoint.mobile]: {
-      padding: `${pxToRem(theme.scheme.mobile.spacing[6])} ${pxToRem(theme.scheme.mobile.spacing[12])}`,
-      borderRadius: `${theme.scheme.mobile.radius[4]}px`,
-    },
+    padding: `${theme.scheme.semantic.spacing[6]} ${theme.scheme.semantic.spacing[12]}`,
+    borderRadius: `${theme.scheme.semantic.radius[4]}px`,
   }),
   xs: (theme: Theme) => ({
-    padding: `${pxToRem(theme.scheme.desktop.spacing[4])} ${pxToRem(theme.scheme.desktop.spacing[8])}`,
-    borderRadius: `${theme.scheme.desktop.radius[4]}px`,
-
-    [theme.breakPoint.tablet]: {
-      padding: `${pxToRem(theme.scheme.tablet.spacing[4])} ${pxToRem(theme.scheme.tablet.spacing[8])}`,
-      borderRadius: `${theme.scheme.tablet.radius[4]}px`,
-    },
-
-    [theme.breakPoint.mobile]: {
-      padding: `${pxToRem(theme.scheme.mobile.spacing[4])} ${pxToRem(theme.scheme.mobile.spacing[8])}`,
-      borderRadius: `${theme.scheme.mobile.radius[4]}px`,
-    },
+    padding: `${theme.scheme.semantic.spacing[4]} ${theme.scheme.semantic.spacing[8]}`,
+    borderRadius: `${theme.scheme.semantic.radius[4]}px`,
   }),
 };
 
@@ -146,7 +105,7 @@ const outlinedColorsMap = (
 > => ({
   accent: {
     backgroundColor: 'transparent',
-    borderColor: theme.color.semantic.accent.alpha.subtlest,
+    borderColor: theme.color.semantic.accent.alpha.subtle,
     color: theme.color.semantic.accent.normal,
   },
   primary: {
@@ -393,13 +352,13 @@ const feedbackInteractionStyles = (
     ...restStyle,
     '::after': {
       ...restStyle['::after'],
-      transition: `opacity ${theme.environment.duration[100]} ${theme.environment.motion.fluent}`,
+      transition: `opacity ${theme.environment.semantic.duration['100']} ${theme.environment.semantic.motion.fluent}`,
     },
     '&:hover': {
       ...hoverStyle,
       '::after': {
         ...hoverStyle['::after'],
-        transition: `opacity ${theme.environment.duration[100]} ${theme.environment.motion.fluent}`,
+        transition: `opacity ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
       },
     },
     '&:active': {
@@ -479,7 +438,7 @@ const interactionStyles = (
         theme,
         state: 'rest',
         variant: 'normal',
-        density: 'bold',
+        density: 'normal',
         fillColor: 'inverse',
         isDisabled: disabled,
         offsetVertical: offset.vertical,
@@ -490,7 +449,7 @@ const interactionStyles = (
         theme,
         state: 'hover',
         variant: 'normal',
-        density: 'bold',
+        density: 'normal',
         fillColor: 'inverse',
         isDisabled: disabled,
         offsetVertical: offset.vertical,
@@ -501,7 +460,7 @@ const interactionStyles = (
         theme,
         state: 'active',
         variant: 'normal',
-        density: 'bold',
+        density: 'normal',
         fillColor: 'inverse',
         isDisabled: disabled,
         offsetVertical: offset.vertical,
@@ -512,7 +471,7 @@ const interactionStyles = (
         theme,
         state: 'focus',
         variant: 'normal',
-        density: 'bold',
+        density: 'normal',
         fillColor: 'inverse',
         isDisabled: disabled,
         offsetVertical: offset.vertical,
@@ -627,13 +586,13 @@ const interactionStyles = (
     ...restStyle,
     '::after': {
       ...restStyle['::after'],
-      transition: `opacity ${theme.environment.duration[100]} ${theme.environment.motion.fluent}`,
+      transition: `opacity ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
     },
     '&:hover': {
       ...hoverStyle,
       '::after': {
         ...hoverStyle['::after'],
-        transition: `opacity ${theme.environment.duration[100]} ${theme.environment.motion.fluent}`,
+        transition: `opacity ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
       },
     },
     '&:active': {
@@ -653,28 +612,16 @@ const interactionStyles = (
   };
 };
 
-const typographyStyleMap: Record<
-  BlockButtonSize,
-  { desktop: TextStyle; tablet: TextStyle; mobile: TextStyle }
-> = {
-  lg: { desktop: 'label.lg.bold', tablet: 'label.lg.bold', mobile: 'label.lg.bold' },
-  md: { desktop: 'label.md.bold', tablet: 'label.md.bold', mobile: 'label.md.bold' },
-  sm: { desktop: 'label.sm.bold', tablet: 'label.sm.bold', mobile: 'label.sm.bold' },
-  xs: { desktop: 'label.xs.bold', tablet: 'label.xs.bold', mobile: 'label.xs.bold' },
-};
+const typographyStyleMap: Record<BlockButtonSize, keyof Theme['textStyle']> = {
+  lg: 'semantic-textStyle-label-lg-bold',
+  md: 'semantic-textStyle-label-md-bold',
+  sm: 'semantic-textStyle-label-sm-bold',
+  xs: 'semantic-textStyle-label-xs-bold',
+} as const;
 
 const GetTypographyStyle = (theme: Theme, size: BlockButtonSize): CSSObject => {
-  const styles = typographyStyleMap[size];
-
-  return {
-    ...textStyle(theme, 'desktop', styles.desktop),
-    [theme.breakPoint.tablet]: {
-      ...textStyle(theme, 'tablet', styles.tablet),
-    },
-    [theme.breakPoint.mobile]: {
-      ...textStyle(theme, 'mobile', styles.mobile),
-    },
-  };
+  const tokenKey = typographyStyleMap[size];
+  return theme.textStyle[tokenKey];
 };
 
 const variantColorStylesMap = {
@@ -749,7 +696,7 @@ export const StyledBlockButton = styled('button', {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    gap: pxToRem(theme.scheme.desktop.spacing[4]),
+    gap: theme.scheme.semantic.spacing[4],
     border: 'none',
     cursor: $disabled ? 'not-allowed' : 'pointer',
     userSelect: 'none',
