@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Uploader } from './Uploader';
 import { FlexColumn } from '@storybook-utils/layout';
 import { useState } from 'react';
+
+import { Uploader } from './Uploader';
 import { LabelButton } from '../Button/LabelButton';
 
 const meta = {
@@ -95,7 +96,7 @@ export const UncontrolledImageUploader: StoryObj<typeof Uploader.Image> = {
     },
   },
   name: 'Uncontrolled Image Uploader',
-  render: args => {
+  render: function Render(args) {
     const onUpload = (files: File[]) => {
       const filesName = files.map(file => file.name);
       alert(`선택한 ${filesName.join(',')} 이미지를 업로드합니다. `);
@@ -119,7 +120,7 @@ export const ControlledImageUploader: StoryObj<typeof Uploader.Image> = {
     },
   },
   name: 'Controlled Image Uploader',
-  render: args => {
+  render: function Render(args) {
     const [files, setFiles] = useState<File[]>([]);
 
     const handleUpload = (newFiles: File[]) => {

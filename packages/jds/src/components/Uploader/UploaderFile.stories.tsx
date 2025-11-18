@@ -1,12 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Uploader } from './Uploader';
-import { UploadError } from './uploader.types';
 import { FlexColumn } from '@storybook-utils/layout';
 import { useState } from 'react';
-import { LabelButton } from '../Button/LabelButton';
-import { BlockButton } from '../Button/BlockButton';
-import { Label } from '../Label';
 import { useTheme } from 'theme';
+
+import { Uploader } from './Uploader';
+import type { UploadError } from './uploader.types';
+import { BlockButton } from '../Button/BlockButton';
+import { LabelButton } from '../Button/LabelButton';
+import { Label } from '../Label';
 
 const meta = {
   title: 'Components/Uploader/File',
@@ -90,7 +91,7 @@ export default meta;
 
 export const Default: StoryObj<typeof Uploader.File> = {
   name: 'Default',
-  render: args => {
+  render: function Render(args) {
     const theme = useTheme();
 
     const onError = (error: UploadError) => {
@@ -160,7 +161,7 @@ export const UncontrolledFileUploader: StoryObj<typeof Uploader.File> = {
   },
   name: 'Uncontrolled File Uploader',
 
-  render: args => {
+  render: function Render(args) {
     const onUpload = (files: File[]) => {
       const filesName = files.map(file => file.name);
       alert(`선택한 ${filesName.join(',')}파일을 업로드합니다.`);
@@ -189,7 +190,7 @@ export const ControlledFileUploader: StoryObj<typeof Uploader.File> = {
     },
   },
   name: 'Controlled File Uploader',
-  render: args => {
+  render: function Render(args) {
     const [files, setFiles] = useState<File[]>([]);
 
     const handleUpload = (newFiles: File[]) => {
@@ -231,7 +232,7 @@ export const FileOnlyPdf: StoryObj<typeof Uploader.File> = {
     isLoading: false,
     isDisabled: false,
   },
-  render: args => {
+  render: function Render(args) {
     const onError = (error: UploadError) => {
       alert(`${error.type} 에러가 발생했습니다. .pdf 형식 파일만 가능합니다.`);
     };
@@ -260,7 +261,7 @@ export const CustomMessages: StoryObj<typeof Uploader.File> = {
       disabled: <>custom disabled message</>,
     },
   },
-  render: args => {
+  render: function Render(args) {
     return <Uploader.File messages={args.messages} {...args} />;
   },
 };

@@ -1,14 +1,16 @@
-import { CSSObject, Theme } from '@emotion/react';
+import type { CSSObject, Theme } from '@emotion/react';
 import styled from '@emotion/styled';
 import { InteractionLayer, pxToRem } from 'utils';
-import { Icon } from '@/components';
-import { Label } from '@/components';
-import {
+
+import type {
   UploaderFileContainerDivProps,
   UploaderImageContainerButtonProps,
   UploaderImageIconProps,
   UploaderImageLabelProps,
 } from './uploader.types';
+
+import { Icon } from '@/components';
+import { Label } from '@/components';
 
 const uploaderFileStylesMap = (
   theme: Theme,

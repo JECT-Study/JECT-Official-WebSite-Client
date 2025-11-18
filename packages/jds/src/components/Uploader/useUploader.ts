@@ -1,5 +1,7 @@
-import { ChangeEvent, DragEvent, useCallback, useReducer, useRef } from 'react';
-import { UploaderOptions } from './uploader.types';
+import type { ChangeEvent, DragEvent } from 'react';
+import { useCallback, useReducer, useRef } from 'react';
+
+import type { UploaderOptions } from './uploader.types';
 import { validateAcceptedFile } from './uploader.utils';
 
 interface State {
@@ -116,7 +118,7 @@ export const useUploader = <T extends HTMLElement>(options: UploaderOptions) => 
 
       if (validFiles.length > 0) setFiles(validFiles);
     },
-    [handleFiles, onUpload],
+    [handleFiles, setFiles],
   );
 
   const handleInputChange = useCallback(
@@ -128,7 +130,7 @@ export const useUploader = <T extends HTMLElement>(options: UploaderOptions) => 
 
       e.target.value = '';
     },
-    [onUpload, handleFiles],
+    [handleFiles, setFiles],
   );
 
   return {

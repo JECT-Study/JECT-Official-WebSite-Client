@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 export type ByteNumber = number;
 export type UploadError = { type: UploadErrorType; file: File };

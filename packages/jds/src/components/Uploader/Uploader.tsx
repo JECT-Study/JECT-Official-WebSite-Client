@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+
 import {
   AddIcon,
   FileDropZoneDiv,
@@ -9,7 +10,7 @@ import {
   ImageLabel,
   LoadingIcon,
 } from './uploader.styles';
-import {
+import type {
   UploaderFileButtonProps,
   UploaderFileProps,
   UploaderImageButtonProps,
