@@ -1,5 +1,5 @@
 import { ChangeEvent, DragEvent, useCallback, useReducer, useRef } from 'react';
-import { UseUploaderOptions } from './uploader.types';
+import { UploaderOptions } from './uploader.types';
 import { validateAcceptedFile } from './uploader.utils';
 
 interface State {
@@ -30,7 +30,7 @@ const reducer = (state: State, action: Action) => {
   }
 };
 
-export const useUploader = <T extends HTMLElement>(options: UseUploaderOptions) => {
+export const useUploader = <T extends HTMLElement>(options: UploaderOptions) => {
   const {
     accept,
     maxFileSize,

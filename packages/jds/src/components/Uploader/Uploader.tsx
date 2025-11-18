@@ -19,7 +19,7 @@ import {
 } from './uploader.types';
 import { useUploader } from './useUploader';
 
-const uploaderMessages = {
+const defaultMessages = {
   rest: (
     <>
       파일을 드래그&드롭하거나, 직접 선택해 업로드해주세요.
@@ -99,6 +99,7 @@ const UploaderFile = ({
   onIssue,
   isLoading = false,
   isDisabled = false,
+  messages = defaultMessages,
 }: UploaderFileProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const {
@@ -117,8 +118,8 @@ const UploaderFile = ({
     onUpload,
     onError,
   });
-  const baseBodyText = isLoading ? uploaderMessages.loading : uploaderMessages.rest;
-  const bodyText = isDisabled ? uploaderMessages.disabled : baseBodyText;
+  const baseBodyText = isLoading ? messages.loading : messages.rest;
+  const bodyText = isDisabled ? messages.disabled : baseBodyText;
 
   const handleClick = () => !isDisabled && !isLoading && inputRef.current?.click();
 

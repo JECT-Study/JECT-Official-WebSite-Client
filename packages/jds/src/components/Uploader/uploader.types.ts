@@ -3,7 +3,7 @@ export type UploadError = { type: UploadErrorType; file: File };
 
 export type UploadErrorType = 'FILE_TOO_LARGE' | 'INVALID_TYPE' | 'TOTAL_SIZE_EXCEEDED';
 
-export interface UseUploaderOptions {
+export interface UploaderOptions {
   accept?: string[];
   maxFileSize?: ByteNumber;
   maxTotalSize?: ByteNumber;
@@ -13,12 +13,19 @@ export interface UseUploaderOptions {
   files?: File[];
 }
 
-export interface UploaderFileProps extends UseUploaderOptions {
+export interface UploaderMessages {
+  rest: React.ReactNode;
+  loading: React.ReactNode;
+  disabled: React.ReactNode;
+}
+
+export interface UploaderFileProps extends UploaderOptions {
   isLoading?: boolean;
   isDisabled?: boolean;
   onCancel?: () => void;
   onIssue?: () => void;
   multiple?: boolean;
+  messages?: UploaderMessages;
 }
 
 export interface UploaderFileButtonProps {
@@ -29,7 +36,7 @@ export interface UploaderFileButtonProps {
   onIssue?: () => void;
 }
 
-export interface UploaderImageProps extends UseUploaderOptions {
+export interface UploaderImageProps extends UploaderOptions {
   isLoading?: boolean;
   isDisabled?: boolean;
   onCancel?: () => void;
