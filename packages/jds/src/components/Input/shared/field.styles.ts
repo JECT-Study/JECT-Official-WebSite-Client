@@ -82,21 +82,24 @@ export const StyledFieldContainer = styled('div', {
 
 export const StyledLabelContainer = styled('div', {
   shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
-})<{ $layout?: InputLayout }>(({ theme, $layout }) => ({
-  display: 'flex',
-  padding: 0,
-  alignItems: $layout === 'horizontal' ? 'flex-start' : 'center',
-  alignSelf: 'stretch',
-  gap: pxToRem(theme.scheme.desktop.spacing[4]),
+})<{ $layout?: InputLayout; $disabled?: boolean; $readOnly?: boolean }>(
+  ({ theme, $layout, $disabled = false, $readOnly = false }) => ({
+    display: 'flex',
+    padding: 0,
+    alignItems: $layout === 'horizontal' ? 'flex-start' : 'center',
+    alignSelf: 'stretch',
+    gap: pxToRem(theme.scheme.desktop.spacing[4]),
+    color: getLabelColor(theme, $disabled, $readOnly),
 
-  [theme.breakPoint.tablet]: {
-    gap: pxToRem(theme.scheme.tablet.spacing[4]),
-  },
+    [theme.breakPoint.tablet]: {
+      gap: pxToRem(theme.scheme.tablet.spacing[4]),
+    },
 
-  [theme.breakPoint.mobile]: {
-    gap: pxToRem(theme.scheme.mobile.spacing[4]),
-  },
-}));
+    [theme.breakPoint.mobile]: {
+      gap: pxToRem(theme.scheme.mobile.spacing[4]),
+    },
+  }),
+);
 
 export const StyledFieldLabel = styled(Label, {
   shouldForwardProp: prop => !prop.startsWith('$'),

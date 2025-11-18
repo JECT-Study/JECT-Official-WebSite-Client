@@ -44,7 +44,7 @@ export const InputArea = forwardRef<HTMLTextAreaElement, InputAreaProps>(
     return (
       <StyledFieldContainer $layout={layout}>
         {label && labelVisible && (
-          <StyledLabelContainer $layout={layout}>
+          <StyledLabelContainer $layout={layout} $disabled={isDisabled} $readOnly={isReadOnly}>
             <StyledFieldLabel
               as='label'
               htmlFor={inputId}
