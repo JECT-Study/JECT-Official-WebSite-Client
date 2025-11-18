@@ -2,7 +2,6 @@ import { useRef } from 'react';
 import {
   AddIcon,
   FileDropZoneDiv,
-  FileHelperLabel,
   FileSpan,
   FlexRowDiv,
   HiddenInput,
@@ -10,7 +9,6 @@ import {
   ImageLabel,
   LoadingIcon,
 } from './uploader.styles';
-import { BlockButton, LabelButton } from 'components';
 import {
   UploaderFileButtonProps,
   UploaderFileProps,
@@ -46,44 +44,24 @@ const CustomBorderSVG = () => {
 const UploaderFileButton = ({
   isLoading,
   isDisabled,
-  onClick,
-  onCancel,
-  onIssue,
+  triggerUpload,
+  uploadButton,
+  cancelButton,
+  helperLabel,
 }: UploaderFileButtonProps) => {
   if (isLoading && !isDisabled) {
     return (
       <>
         <LoadingIcon name='spinner' size='2xl' />
         <FlexRowDiv>
-          <FileHelperLabel size='xs' textAlign='center' weight='bold' onClick={onIssue}>
-            업로드에 문제가 있나요?
-          </FileHelperLabel>
-          <LabelButton.Basic
-            hierarchy='tertiary'
-            size='sm'
-            suffixIcon='arrow-go-back-line'
-            disabled={isDisabled}
-            onClick={onCancel}
-          >
-            업로드 취소
-          </LabelButton.Basic>
+          {helperLabel}
+          {cancelButton}
         </FlexRowDiv>
       </>
     );
   }
 
-  return (
-    <BlockButton.Basic
-      hierarchy='tertiary'
-      size='sm'
-      variant='outlined'
-      suffixIcon='upload-2-line'
-      disabled={isDisabled}
-      onClick={onClick}
-    >
-      파일 업로드
-    </BlockButton.Basic>
-  );
+  return uploadButton ? uploadButton(triggerUpload) : <></>;
 };
 
 const UploaderFile = ({
@@ -95,11 +73,12 @@ const UploaderFile = ({
   files: controlledFiles,
   onUpload,
   onError,
-  onCancel,
-  onIssue,
   isLoading = false,
   isDisabled = false,
   messages = defaultMessages,
+  uploadButton,
+  cancelButton,
+  helperLabel,
 }: UploaderFileProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const {
@@ -121,7 +100,7 @@ const UploaderFile = ({
   const baseBodyText = isLoading ? messages.loading : messages.rest;
   const bodyText = isDisabled ? messages.disabled : baseBodyText;
 
-  const handleClick = () => !isDisabled && !isLoading && inputRef.current?.click();
+  const triggerUpload = () => !isDisabled && !isLoading && inputRef.current?.click();
 
   return (
     <FileDropZoneDiv
@@ -136,11 +115,12 @@ const UploaderFile = ({
       <CustomBorderSVG />
       <FileSpan>{bodyText}</FileSpan>
       <UploaderFileButton
-        onCancel={onCancel}
-        onIssue={onIssue}
-        onClick={handleClick}
+        triggerUpload={triggerUpload}
         isLoading={isLoading}
         isDisabled={isDisabled}
+        uploadButton={uploadButton}
+        cancelButton={cancelButton}
+        helperLabel={helperLabel}
       />
       <HiddenInput
         ref={inputRef}
@@ -155,23 +135,22 @@ const UploaderFile = ({
 
 UploaderFile.displayName = 'Uploader.File';
 
-const UploaderImageButton = ({ isDisabled, isLoading, onCancel }: UploaderImageButtonProps) => {
+const UploaderImageButton = ({
+  isDisabled = false,
+  isLoading = false,
+  uploadLabel = '이미지 업로드',
+  loadingLabel = '업로드 중...',
+  cancelButton,
+}: UploaderImageButtonProps) => {
   if (!isDisabled && isLoading) {
     return (
       <>
         <LoadingIcon name='spinner' size='xl' />
         <FlexRowDiv>
           <ImageLabel size='sm' textAlign='center' weight='normal' $isDisabled={isDisabled}>
-            업로드 중...
+            {loadingLabel}
           </ImageLabel>
-          <LabelButton.Basic
-            hierarchy='tertiary'
-            size='xs'
-            suffixIcon='arrow-go-back-line'
-            onClick={onCancel}
-          >
-            취소
-          </LabelButton.Basic>
+          {cancelButton}
         </FlexRowDiv>
       </>
     );
@@ -181,7 +160,7 @@ const UploaderImageButton = ({ isDisabled, isLoading, onCancel }: UploaderImageB
     <>
       <AddIcon name='add-line' size='xl' $isDisabled={isDisabled} />
       <ImageLabel size='sm' textAlign='center' weight='normal' $isDisabled={isDisabled}>
-        이미지 업로드
+        {uploadLabel}
       </ImageLabel>
     </>
   );
@@ -196,9 +175,11 @@ const UploaderImage = ({
   files: controlledFiles,
   onUpload,
   onError,
-  onCancel,
   isLoading = false,
   isDisabled = false,
+  uploadLabel,
+  loadingLabel,
+  cancelButton,
 }: UploaderImageProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const { handleInputChange } = useUploader({
@@ -216,7 +197,13 @@ const UploaderImage = ({
   return (
     <ImageDropZoneButton $isDisabled={isDisabled} $isLoading={isLoading} onClick={handleClick}>
       <CustomBorderSVG />
-      <UploaderImageButton isDisabled={isDisabled} isLoading={isLoading} onCancel={onCancel} />
+      <UploaderImageButton
+        isDisabled={isDisabled}
+        isLoading={isLoading}
+        uploadLabel={uploadLabel}
+        loadingLabel={loadingLabel}
+        cancelButton={cancelButton}
+      />
       <HiddenInput
         ref={inputRef}
         type='file'

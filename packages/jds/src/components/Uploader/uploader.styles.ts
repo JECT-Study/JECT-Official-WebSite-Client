@@ -164,12 +164,6 @@ export const FlexRowDiv = styled.div(({ theme }) => {
   };
 });
 
-export const FileHelperLabel = styled(Label)(({ theme }) => {
-  return {
-    color: theme.color.semantic.object.assistive,
-  };
-});
-
 export const ImageDropZoneButton = styled.button<UploaderImageContainerButtonProps>(
   ({ theme, $isDisabled, $isLoading }) => {
     const interaction = ($isDisabled || !$isLoading) && interactionStyles(theme, $isDisabled);

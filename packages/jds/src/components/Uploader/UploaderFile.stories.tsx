@@ -3,6 +3,10 @@ import { Uploader } from './Uploader';
 import { UploadError } from './uploader.types';
 import { FlexColumn } from '@storybook-utils/layout';
 import { useState } from 'react';
+import { LabelButton } from '../Button/LabelButton';
+import { BlockButton } from '../Button/BlockButton';
+import { Label } from '../Label';
+import { useTheme } from 'theme';
 
 const meta = {
   title: 'Components/Uploader/File',
@@ -35,18 +39,6 @@ const meta = {
       control: 'object',
       description: 'controlled 방식을 위한 files',
     },
-    onUpload: {
-      description: '파일 업로드 시, 실행할 함수',
-    },
-    onError: {
-      description: '에러가 났을 경우, 실행할 함수',
-    },
-    onCancel: {
-      description: '업로드 중 취소할 경우 실행할 함수',
-    },
-    onIssue: {
-      description: '"업로드에 문제가 있나요" 문구에 클릭 시 실행할 함수',
-    },
     isLoading: {
       control: 'boolean',
       description: '업로드 로딩 여부',
@@ -55,22 +47,106 @@ const meta = {
       control: 'boolean',
       description: '업로더 비활성화 여부',
     },
+    onUpload: {
+      description: '파일 업로드 시, 실행할 함수',
+    },
+    onError: {
+      description: '에러가 났을 경우, 실행할 함수',
+    },
     messages: {
       control: 'object',
       description: 'rest, loading, disabled 메시지 커스텀',
     },
   },
+  args: {
+    isLoading: false,
+    isDisabled: false,
+    maxFileSize: 5 * 1024 * 1024,
+    helperLabel: (
+      <Label size='xs' textAlign='center' weight='bold'>
+        업로드에 문제가 있나요?
+      </Label>
+    ),
+    uploadButton: triggerUpload => (
+      <BlockButton.Basic
+        hierarchy='tertiary'
+        size='sm'
+        variant='outlined'
+        suffixIcon='upload-2-line'
+        onClick={triggerUpload}
+      >
+        파일 업로드
+      </BlockButton.Basic>
+    ),
+    cancelButton: (
+      <LabelButton.Basic hierarchy='tertiary' size='sm' suffixIcon='arrow-go-back-line'>
+        업로드 취소
+      </LabelButton.Basic>
+    ),
+  },
 } satisfies Meta<typeof Uploader.File>;
 
 export default meta;
 
-export const File: StoryObj<typeof Uploader.File> = {
-  name: 'File',
-  args: {
-    isLoading: false,
-    isDisabled: false,
+export const Default: StoryObj<typeof Uploader.File> = {
+  name: 'Default',
+  render: args => {
+    const theme = useTheme();
+
+    const onError = (error: UploadError) => {
+      alert(`${error.type} 에러가 발생했습니다.`);
+    };
+
+    const onCancel = () => {
+      alert('파일 업로드를 취소합니다.');
+    };
+
+    const onIssue = () => {
+      alert('관리자에게 문의해주세요.');
+    };
+
+    return (
+      <Uploader.File
+        isLoading={args.isLoading}
+        isDisabled={args.isDisabled}
+        onError={onError}
+        maxFileSize={5 * 1024 * 1024} // 5MB
+        helperLabel={
+          <Label
+            size='xs'
+            textAlign='center'
+            weight='bold'
+            onClick={onIssue}
+            color={theme.color.semantic.object.assistive}
+          >
+            업로드에 문제가 있나요?
+          </Label>
+        }
+        uploadButton={triggerUpload => (
+          <BlockButton.Basic
+            hierarchy='tertiary'
+            size='sm'
+            variant='outlined'
+            suffixIcon='upload-2-line'
+            disabled={args.isDisabled}
+            onClick={triggerUpload}
+          >
+            파일 업로드
+          </BlockButton.Basic>
+        )}
+        cancelButton={
+          <LabelButton.Basic
+            hierarchy='tertiary'
+            size='sm'
+            suffixIcon='arrow-go-back-line'
+            onClick={onCancel}
+          >
+            업로드 취소
+          </LabelButton.Basic>
+        }
+      />
+    );
   },
-  render: args => <Uploader.File isLoading={args.isLoading} isDisabled={args.isDisabled} />,
 };
 
 export const UncontrolledFileUploader: StoryObj<typeof Uploader.File> = {
@@ -83,10 +159,7 @@ export const UncontrolledFileUploader: StoryObj<typeof Uploader.File> = {
     },
   },
   name: 'Uncontrolled File Uploader',
-  args: {
-    isLoading: false,
-    isDisabled: false,
-  },
+
   render: args => {
     const onUpload = (files: File[]) => {
       const filesName = files.map(file => file.name);
@@ -99,6 +172,7 @@ export const UncontrolledFileUploader: StoryObj<typeof Uploader.File> = {
           onUpload={onUpload}
           isLoading={args.isLoading}
           isDisabled={args.isDisabled}
+          {...args}
         />
       </FlexColumn>
     );
@@ -115,7 +189,7 @@ export const ControlledFileUploader: StoryObj<typeof Uploader.File> = {
     },
   },
   name: 'Controlled File Uploader',
-  render: () => {
+  render: args => {
     const [files, setFiles] = useState<File[]>([]);
 
     const handleUpload = (newFiles: File[]) => {
@@ -128,7 +202,7 @@ export const ControlledFileUploader: StoryObj<typeof Uploader.File> = {
 
     return (
       <div>
-        <Uploader.File files={files} maxFileSize={5 * 1024 * 1024} onUpload={handleUpload} />
+        <Uploader.File files={files} onUpload={handleUpload} {...args} />
         <div style={{ marginTop: '1rem' }}>
           <h4>Selected Files:</h4>
           <ul>
@@ -140,72 +214,6 @@ export const ControlledFileUploader: StoryObj<typeof Uploader.File> = {
           </ul>
         </div>
       </div>
-    );
-  },
-};
-
-export const FileOnError: StoryObj<typeof Uploader.File> = {
-  parameters: {
-    docs: {
-      description: {
-        story: '파일 업로드 시 에러가 발생합니다. (총 파일 용량 제한: 0bytes로 설정)',
-      },
-    },
-  },
-  name: 'FileOnError',
-  args: {
-    isLoading: false,
-    isDisabled: false,
-  },
-  render: args => {
-    const onError = (error: UploadError) => {
-      alert(`${error.type} 에러가 발생했습니다.`);
-    };
-
-    return (
-      <FlexColumn>
-        <Uploader.File
-          onError={onError}
-          maxFileSize={1}
-          isLoading={args.isLoading}
-          isDisabled={args.isDisabled}
-        />
-      </FlexColumn>
-    );
-  },
-};
-
-export const FileOnCancel: StoryObj<typeof Uploader.File> = {
-  parameters: {
-    docs: {
-      description: {
-        story: '파일 업로드 취소 및 문구 클릭 시 alert창이 나타납니다.',
-      },
-    },
-  },
-  name: 'FileOnCancel',
-  args: {
-    isLoading: true,
-    isDisabled: false,
-  },
-  render: args => {
-    const onCancel = () => {
-      alert('파일 업로드를 취소합니다.');
-    };
-
-    const onIssue = () => {
-      alert('관리자에게 문의해주세요.');
-    };
-
-    return (
-      <FlexColumn>
-        <Uploader.File
-          onIssue={onIssue}
-          onCancel={onCancel}
-          isLoading={args.isLoading}
-          isDisabled={args.isDisabled}
-        />
-      </FlexColumn>
     );
   },
 };
@@ -235,13 +243,7 @@ export const FileOnlyPdf: StoryObj<typeof Uploader.File> = {
 
     return (
       <FlexColumn>
-        <Uploader.File
-          accept={['.pdf']}
-          onError={onError}
-          onUpload={onUpload}
-          isLoading={args.isLoading}
-          isDisabled={args.isDisabled}
-        />
+        <Uploader.File accept={['.pdf']} onError={onError} onUpload={onUpload} {...args} />
       </FlexColumn>
     );
   },
@@ -259,12 +261,6 @@ export const CustomMessages: StoryObj<typeof Uploader.File> = {
     },
   },
   render: args => {
-    return (
-      <Uploader.File
-        isLoading={args.isLoading}
-        isDisabled={args.isDisabled}
-        messages={args.messages}
-      />
-    );
+    return <Uploader.File messages={args.messages} {...args} />;
   },
 };

@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 export type ByteNumber = number;
 export type UploadError = { type: UploadErrorType; file: File };
 
@@ -8,46 +10,43 @@ export interface UploaderOptions {
   maxFileSize?: ByteNumber;
   maxTotalSize?: ByteNumber;
   existingFilesSize?: ByteNumber;
+  files?: File[];
   onUpload?: (files: File[]) => void;
   onError?: (error: UploadError) => void;
-  files?: File[];
 }
 
 export interface UploaderMessages {
-  rest: React.ReactNode;
-  loading: React.ReactNode;
-  disabled: React.ReactNode;
+  rest: ReactNode;
+  loading: ReactNode;
+  disabled: ReactNode;
 }
 
-export interface UploaderFileProps extends UploaderOptions {
+export interface UploaderFileButtonProps {
+  triggerUpload: () => void;
   isLoading?: boolean;
   isDisabled?: boolean;
-  onCancel?: () => void;
-  onIssue?: () => void;
+  uploadButton?: (triggerUpload: () => void) => ReactNode;
+  cancelButton?: ReactNode;
+  helperLabel?: ReactNode;
+}
+
+export interface UploaderFileProps
+  extends UploaderOptions,
+    Omit<UploaderFileButtonProps, 'triggerUpload'> {
   multiple?: boolean;
   messages?: UploaderMessages;
 }
 
-export interface UploaderFileButtonProps {
-  isLoading: boolean;
-  isDisabled: boolean;
-  onClick: () => void;
-  onCancel?: () => void;
-  onIssue?: () => void;
-}
-
-export interface UploaderImageProps extends UploaderOptions {
-  isLoading?: boolean;
-  isDisabled?: boolean;
-  onCancel?: () => void;
-  onIssue?: () => void;
-  multiple?: boolean;
-}
-
 export interface UploaderImageButtonProps {
-  isDisabled: boolean;
-  isLoading: boolean;
-  onCancel?: () => void;
+  isDisabled?: boolean;
+  isLoading?: boolean;
+  uploadLabel?: string;
+  loadingLabel?: string;
+  cancelButton?: ReactNode;
+}
+
+export interface UploaderImageProps extends UploaderOptions, UploaderImageButtonProps {
+  multiple?: boolean;
 }
 
 /* 스타일 */

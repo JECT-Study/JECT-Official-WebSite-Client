@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Uploader } from './Uploader';
 import { FlexColumn } from '@storybook-utils/layout';
 import { useState } from 'react';
+import { LabelButton } from '../Button/LabelButton';
 
 const meta = {
   title: 'Components/Uploader/Image',
@@ -40,12 +41,6 @@ const meta = {
     onError: {
       description: '에러가 났을 경우, 실행할 함수',
     },
-    onCancel: {
-      description: '업로드 중 취소할 경우 실행할 함수',
-    },
-    onIssue: {
-      description: '"업로드에 문제가 있나요" 문구에 클릭 시 실행할 함수',
-    },
     isLoading: {
       control: 'boolean',
       description: '업로드 로딩 여부',
@@ -55,17 +50,39 @@ const meta = {
       description: '업로더 비활성화 여부',
     },
   },
+  args: {
+    isLoading: false,
+    isDisabled: false,
+    maxFileSize: 5 * 1024 * 1024,
+  },
 } satisfies Meta<typeof Uploader.Image>;
 
 export default meta;
 
-export const Image: StoryObj<typeof Uploader.Image> = {
-  name: 'Image',
-  args: {
-    isLoading: false,
-    isDisabled: false,
+export const Default: StoryObj<typeof Uploader.Image> = {
+  name: 'Default',
+  render: args => {
+    const onCancel = () => {
+      alert('파일 업로드를 취소합니다.');
+    };
+
+    return (
+      <Uploader.Image
+        isLoading={args.isLoading}
+        isDisabled={args.isDisabled}
+        cancelButton={
+          <LabelButton.Basic
+            hierarchy='tertiary'
+            size='xs'
+            suffixIcon='arrow-go-back-line'
+            onClick={onCancel}
+          >
+            취소
+          </LabelButton.Basic>
+        }
+      />
+    );
   },
-  render: args => <Uploader.Image isLoading={args.isLoading} isDisabled={args.isDisabled} />,
 };
 
 export const UncontrolledImageUploader: StoryObj<typeof Uploader.Image> = {
@@ -78,10 +95,6 @@ export const UncontrolledImageUploader: StoryObj<typeof Uploader.Image> = {
     },
   },
   name: 'Uncontrolled Image Uploader',
-  args: {
-    isLoading: false,
-    isDisabled: false,
-  },
   render: args => {
     const onUpload = (files: File[]) => {
       const filesName = files.map(file => file.name);
@@ -90,12 +103,7 @@ export const UncontrolledImageUploader: StoryObj<typeof Uploader.Image> = {
 
     return (
       <FlexColumn>
-        <Uploader.Image
-          isLoading={args.isLoading}
-          isDisabled={args.isDisabled}
-          accept={['.png', '.jpg', '.jpeg']}
-          onUpload={onUpload}
-        />
+        <Uploader.Image accept={['.png', '.jpg', '.jpeg']} onUpload={onUpload} {...args} />
       </FlexColumn>
     );
   },
@@ -111,7 +119,7 @@ export const ControlledImageUploader: StoryObj<typeof Uploader.Image> = {
     },
   },
   name: 'Controlled Image Uploader',
-  render: () => {
+  render: args => {
     const [files, setFiles] = useState<File[]>([]);
 
     const handleUpload = (newFiles: File[]) => {
@@ -127,9 +135,8 @@ export const ControlledImageUploader: StoryObj<typeof Uploader.Image> = {
         <Uploader.Image
           files={files}
           accept={['.png', '.jpg', '.jpeg']}
-          multiple
-          maxFileSize={5 * 1024 * 1024}
           onUpload={handleUpload}
+          {...args}
         />
         <div style={{ marginTop: '1rem' }}>
           <h4>Selected Images:</h4>
