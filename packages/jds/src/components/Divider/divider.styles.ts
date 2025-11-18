@@ -26,6 +26,7 @@ const GetDividerStyles = (
       width: '100%',
       height: 0,
       border: 'none',
+      //TODO: 브라우저의 dashed 스타일(border-style : dashed)을 사용, 더 정교한 제어가 필요하다면 svg 패턴을 사용해야함
       borderTop: `${borderWidth}px ${borderStyle} ${borderColor}`,
       margin: 0,
       padding: 0,
