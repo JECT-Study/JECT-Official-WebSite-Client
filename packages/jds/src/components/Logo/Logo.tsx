@@ -7,7 +7,6 @@ import type { LogoProps } from './logo.types';
 export const Logo = forwardRef<HTMLAnchorElement, LogoProps>(
   ({ hierarchy = 'primary', height = 32, href, tabIndex, ...restProps }, ref) => {
     const isLinkElement = !!href;
-    const focusableTabIndex = isLinkElement ? tabIndex : undefined;
 
     return (
       <StyledLogo
@@ -16,7 +15,7 @@ export const Logo = forwardRef<HTMLAnchorElement, LogoProps>(
         href={href}
         $hierarchy={hierarchy}
         $height={height}
-        tabIndex={focusableTabIndex}
+        tabIndex={tabIndex}
         {...restProps}
       >
         <SvgLogo width='100%' height='100%' />
