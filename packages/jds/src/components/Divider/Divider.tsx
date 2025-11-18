@@ -4,7 +4,16 @@ import { StyledDivider, StyledVerticalDivider } from './divider.styles';
 import type { DividerProps } from './divider.types';
 
 export const Divider = forwardRef<HTMLHRElement | HTMLDivElement, DividerProps>(
-  ({ thickness = 'normal', orientation = 'horizontal', decorative = false, ...restProps }, ref) => {
+  (
+    {
+      thickness = 'normal',
+      orientation = 'horizontal',
+      decorative = false,
+      variant = 'solid',
+      ...restProps
+    },
+    ref,
+  ) => {
     if (orientation === 'vertical') {
       return (
         <StyledVerticalDivider
@@ -13,6 +22,7 @@ export const Divider = forwardRef<HTMLHRElement | HTMLDivElement, DividerProps>(
           aria-orientation='vertical'
           aria-hidden={decorative}
           $thickness={thickness}
+          $variant={variant}
           {...restProps}
         />
       );
@@ -24,6 +34,7 @@ export const Divider = forwardRef<HTMLHRElement | HTMLDivElement, DividerProps>(
         aria-hidden={decorative}
         $orientation={orientation}
         $thickness={thickness}
+        $variant={variant}
         {...restProps}
       />
     );

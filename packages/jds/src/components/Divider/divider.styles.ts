@@ -2,7 +2,7 @@ import isPropValid from '@emotion/is-prop-valid';
 import type { CSSObject, Theme } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import type { DividerOrientation, DividerThickness } from './divider.types';
+import type { DividerOrientation, DividerThickness, DividerVariant } from './divider.types';
 
 const thicknessMap: Record<DividerThickness, number> = {
   normal: 1,
@@ -15,16 +15,18 @@ const GetDividerStyles = (
   theme: Theme,
   orientation: DividerOrientation,
   thickness: DividerThickness,
+  variant: DividerVariant,
 ): CSSObject => {
   const borderWidth = thicknessMap[thickness];
   const borderColor = theme.color.semantic.stroke.normal;
+  const borderStyle = variant;
 
   if (orientation === 'horizontal') {
     return {
       width: '100%',
       height: 0,
       border: 'none',
-      borderTop: `${borderWidth}px solid ${borderColor}`,
+      borderTop: `${borderWidth}px ${borderStyle} ${borderColor}`,
       margin: 0,
       padding: 0,
     };
@@ -34,7 +36,7 @@ const GetDividerStyles = (
     width: 0,
     height: '100%',
     border: 'none',
-    borderLeft: `${borderWidth}px solid ${borderColor}`,
+    borderLeft: `${borderWidth}px ${borderStyle} ${borderColor}`,
     margin: 0,
     padding: 0,
     alignSelf: 'stretch',
@@ -46,14 +48,16 @@ export const StyledDivider = styled('hr', {
 })<{
   $orientation: DividerOrientation;
   $thickness: DividerThickness;
-}>(({ theme, $orientation, $thickness }) => ({
-  ...GetDividerStyles(theme, $orientation, $thickness),
+  $variant: DividerVariant;
+}>(({ theme, $orientation, $thickness, $variant }) => ({
+  ...GetDividerStyles(theme, $orientation, $thickness, $variant),
 }));
 
 export const StyledVerticalDivider = styled('div', {
   shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
 })<{
   $thickness: DividerThickness;
-}>(({ theme, $thickness }) => ({
-  ...GetDividerStyles(theme, 'vertical', $thickness),
+  $variant: DividerVariant;
+}>(({ theme, $thickness, $variant }) => ({
+  ...GetDividerStyles(theme, 'vertical', $thickness, $variant),
 }));

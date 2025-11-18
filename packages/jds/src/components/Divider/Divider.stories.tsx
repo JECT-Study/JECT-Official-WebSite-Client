@@ -26,6 +26,14 @@ const meta = {
         defaultValue: { summary: 'horizontal' },
       },
     },
+    variant: {
+      control: 'select',
+      options: ['solid', 'dashed'],
+      description: '디바이더의 선 스타일',
+      table: {
+        defaultValue: { summary: 'solid' },
+      },
+    },
     decorative: {
       control: 'boolean',
       description: '순수 장식용일 때 스크린 리더에서 숨김 처리',
@@ -91,6 +99,28 @@ export const AllThicknesses: Story = {
   },
 };
 
+export const AllVariants: Story = {
+  render: () => (
+    <FlexColumn gap='24px' style={{ width: '300px' }}>
+      <FlexColumn gap='8px'>
+        <Label>Solid (기본값):</Label>
+        <Divider variant='solid' />
+      </FlexColumn>
+      <FlexColumn gap='8px'>
+        <Label>Dashed:</Label>
+        <Divider variant='dashed' />
+      </FlexColumn>
+    </FlexColumn>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: '디바이더의 선 스타일을 solid(실선)과 dashed(점선)로 변경할 수 있습니다.',
+      },
+    },
+  },
+};
+
 export const HorizontalDivider: Story = {
   render: () => (
     <FlexColumn gap='16px' style={{ width: '400px' }}>
@@ -128,6 +158,35 @@ export const VerticalDivider: Story = {
         story:
           'Vertical divider는 `<div role="separator" aria-orientation="vertical">`를 사용하여 ' +
           '콘텐츠를 수직으로 구분합니다. WAI-ARIA 명세를 준수합니다.',
+      },
+    },
+  },
+};
+
+export const DashedDivider: Story = {
+  render: () => (
+    <FlexColumn gap='24px' style={{ width: '400px' }}>
+      <FlexColumn gap='16px'>
+        <h4 style={{ margin: 0 }}>수평 Dashed</h4>
+        <div>섹션 1</div>
+        <Divider variant='dashed' />
+        <div>섹션 2</div>
+        <Divider variant='dashed' thickness='bold' />
+        <div>섹션 3</div>
+      </FlexColumn>
+      <FlexRow gap='16px' style={{ height: '100px', alignItems: 'stretch' }}>
+        <div>좌측</div>
+        <Divider orientation='vertical' variant='dashed' />
+        <div>중앙</div>
+        <Divider orientation='vertical' variant='dashed' thickness='bold' />
+        <div>우측</div>
+      </FlexRow>
+    </FlexColumn>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'variant="dashed"를 사용하여 점선 스타일의 구분선을 만들 수 있습니다.',
       },
     },
   },
@@ -222,7 +281,8 @@ export const StyleGuide: Story = {
         >
           {`<Divider />
 <Divider orientation="vertical" />
-<Divider thickness="bold" />`}
+<Divider thickness="bold" />
+<Divider variant="dashed" />`}
         </pre>
       </div>
     </FlexColumn>
