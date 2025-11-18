@@ -92,6 +92,7 @@ const UploaderFile = ({
   maxFileSize,
   maxTotalSize,
   existingFilesSize,
+  files: controlledFiles,
   onUpload,
   onError,
   onCancel,
@@ -112,6 +113,7 @@ const UploaderFile = ({
     maxFileSize,
     maxTotalSize,
     existingFilesSize,
+    files: controlledFiles,
     onUpload,
     onError,
   });
@@ -190,6 +192,7 @@ const UploaderImage = ({
   maxFileSize,
   maxTotalSize,
   existingFilesSize,
+  files: controlledFiles,
   onUpload,
   onError,
   onCancel,
@@ -202,6 +205,7 @@ const UploaderImage = ({
     maxFileSize,
     maxTotalSize,
     existingFilesSize,
+    files: controlledFiles,
     onUpload,
     onError,
   });

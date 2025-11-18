@@ -31,9 +31,20 @@ const reducer = (state: State, action: Action) => {
 };
 
 export const useUploader = <T extends HTMLElement>(options: UseUploaderOptions) => {
-  const { accept, maxFileSize, maxTotalSize, existingFilesSize = 0, onUpload, onError } = options;
+  const {
+    accept,
+    maxFileSize,
+    maxTotalSize,
+    existingFilesSize = 0,
+    onUpload,
+    onError,
+    files: controlledFiles,
+  } = options;
   const [state, dispatch] = useReducer(reducer, initialState);
   const enterCounter = useRef(0);
+
+  const isControlled = controlledFiles !== undefined;
+  const files = isControlled ? controlledFiles : state.files;
 
   const handleDragEnter = useCallback((e: DragEvent<T>) => {
     e.preventDefault();
@@ -83,6 +94,14 @@ export const useUploader = <T extends HTMLElement>(options: UseUploaderOptions) 
     [accept, maxFileSize, maxTotalSize, existingFilesSize, onError],
   );
 
+  const setFiles = useCallback(
+    (newFiles: File[]) => {
+      if (!isControlled) dispatch({ type: 'SET_FILES', files: newFiles });
+      onUpload?.(newFiles);
+    },
+    [isControlled, onUpload],
+  );
+
   const handleDrop = useCallback(
     (e: DragEvent<T>) => {
       e.preventDefault();
@@ -95,10 +114,7 @@ export const useUploader = <T extends HTMLElement>(options: UseUploaderOptions) 
       const droppedFiles = Array.from(e.dataTransfer.files);
       const validFiles = handleFiles(droppedFiles);
 
-      if (validFiles.length > 0) {
-        dispatch({ type: 'SET_FILES', files: validFiles });
-        onUpload?.(validFiles);
-      }
+      if (validFiles.length > 0) setFiles(validFiles);
     },
     [handleFiles, onUpload],
   );
@@ -108,9 +124,7 @@ export const useUploader = <T extends HTMLElement>(options: UseUploaderOptions) 
       const files = Array.from(e.target.files ?? []);
       const validFiles = handleFiles(files);
 
-      if (validFiles && validFiles.length > 0) {
-        onUpload?.(validFiles);
-      }
+      if (validFiles && validFiles.length > 0) setFiles(validFiles);
 
       e.target.value = '';
     },
@@ -119,7 +133,7 @@ export const useUploader = <T extends HTMLElement>(options: UseUploaderOptions) 
 
   return {
     isDragging: state.isDragging,
-    files: state.files,
+    files,
     handleDragEnter,
     handleDragOver,
     handleDragLeave,

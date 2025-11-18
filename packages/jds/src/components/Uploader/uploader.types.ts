@@ -10,6 +10,7 @@ export interface UseUploaderOptions {
   existingFilesSize?: ByteNumber;
   onUpload?: (files: File[]) => void;
   onError?: (error: UploadError) => void;
+  files?: File[];
 }
 
 export interface UploaderFileProps extends UseUploaderOptions {
