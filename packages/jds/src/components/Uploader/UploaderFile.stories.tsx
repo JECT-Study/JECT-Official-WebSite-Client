@@ -2,9 +2,10 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Uploader } from './Uploader';
 import { UploadError } from './uploader.types';
 import { FlexColumn } from '@storybook-utils/layout';
+import { useState } from 'react';
 
 const meta = {
-  title: 'Components/Uploader',
+  title: 'Components/Uploader/File',
   component: Uploader.File,
   parameters: {
     layout: 'centered',
@@ -64,8 +65,16 @@ export const File: StoryObj<typeof Uploader.File> = {
   render: args => <Uploader.File isLoading={args.isLoading} isDisabled={args.isDisabled} />,
 };
 
-export const FileUpload: StoryObj<typeof Uploader.File> = {
-  name: 'FileOnUpload',
+export const UncontrolledFileUploader: StoryObj<typeof Uploader.File> = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'uncontrolled 업로더로, Uploader 내부에서 useReducer를 통해 files 상태를 관리합니다. 파일을 드래그앤드롭, 버튼 클릭으로 업로드 시 alert창이 나타납니다',
+      },
+    },
+  },
+  name: 'Uncontrolled File Uploader',
   args: {
     isLoading: false,
     isDisabled: false,
@@ -78,7 +87,6 @@ export const FileUpload: StoryObj<typeof Uploader.File> = {
 
     return (
       <FlexColumn>
-        <span>*파일을 드래그앤드롭, 버튼 클릭으로 업로드 시 alert창이 나타납니다</span>
         <Uploader.File
           onUpload={onUpload}
           isLoading={args.isLoading}
@@ -89,7 +97,53 @@ export const FileUpload: StoryObj<typeof Uploader.File> = {
   },
 };
 
+export const ControlledFileUploader: StoryObj<typeof Uploader.File> = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'controlled 업로더로, Uploader 컴포넌트 외부에서 useState를 통해 files 상태를 관리합니다.',
+      },
+    },
+  },
+  name: 'Controlled File Uploader',
+  render: () => {
+    const [files, setFiles] = useState<File[]>([]);
+
+    const handleUpload = (newFiles: File[]) => {
+      setFiles(prev => [...prev, ...newFiles]);
+    };
+
+    const handleRemoveFile = (index: number) => {
+      setFiles(prev => prev.filter((_, i) => i !== index));
+    };
+
+    return (
+      <div>
+        <Uploader.File files={files} maxFileSize={5 * 1024 * 1024} onUpload={handleUpload} />
+        <div style={{ marginTop: '1rem' }}>
+          <h4>Selected Files:</h4>
+          <ul>
+            {files.map((file, index) => (
+              <li key={file.name + index}>
+                {file.name} <button onClick={() => handleRemoveFile(index)}>Remove</button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    );
+  },
+};
+
 export const FileOnError: StoryObj<typeof Uploader.File> = {
+  parameters: {
+    docs: {
+      description: {
+        story: '파일 업로드 시 에러가 발생합니다. (총 파일 용량 제한: 0bytes로 설정)',
+      },
+    },
+  },
   name: 'FileOnError',
   args: {
     isLoading: false,
@@ -102,7 +156,6 @@ export const FileOnError: StoryObj<typeof Uploader.File> = {
 
     return (
       <FlexColumn>
-        <span>*파일 업로드 시 에러가 발생합니다. (총 파일 용량 제한: 0bytes로 설정)</span>
         <Uploader.File
           onError={onError}
           maxFileSize={1}
@@ -115,6 +168,13 @@ export const FileOnError: StoryObj<typeof Uploader.File> = {
 };
 
 export const FileOnCancel: StoryObj<typeof Uploader.File> = {
+  parameters: {
+    docs: {
+      description: {
+        story: '파일 업로드 취소 및 문구 클릭 시 alert창이 나타납니다.',
+      },
+    },
+  },
   name: 'FileOnCancel',
   args: {
     isLoading: true,
@@ -131,7 +191,6 @@ export const FileOnCancel: StoryObj<typeof Uploader.File> = {
 
     return (
       <FlexColumn>
-        <span>*파일 업로드 취소 및 문구 클릭 시 alert창이 나타납니다.</span>
         <Uploader.File
           onIssue={onIssue}
           onCancel={onCancel}
@@ -144,6 +203,13 @@ export const FileOnCancel: StoryObj<typeof Uploader.File> = {
 };
 
 export const FileOnlyPdf: StoryObj<typeof Uploader.File> = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'pdf 형식의 파일만 업로드 가능합니다',
+      },
+    },
+  },
   name: 'FileOnlyPdf',
   args: {
     isLoading: false,
@@ -161,53 +227,12 @@ export const FileOnlyPdf: StoryObj<typeof Uploader.File> = {
 
     return (
       <FlexColumn>
-        <span>*pdf 형식의 파일만 업로드 가능합니다</span>
         <Uploader.File
           accept={['.pdf']}
           onError={onError}
           onUpload={onUpload}
           isLoading={args.isLoading}
           isDisabled={args.isDisabled}
-        />
-      </FlexColumn>
-    );
-  },
-};
-
-export const Image: StoryObj<typeof Uploader.Image> = {
-  name: 'Image',
-  args: {
-    isLoading: false,
-    isDisabled: false,
-  },
-  render: args => <Uploader.Image isLoading={args.isLoading} isDisabled={args.isDisabled} />,
-};
-
-export const ImageUpload: StoryObj<typeof Uploader.Image> = {
-  name: 'ImageUpload',
-  args: {
-    isLoading: false,
-    isDisabled: false,
-  },
-  render: args => {
-    const onUpload = (files: File[]) => {
-      const filesName = files.map(file => file.name);
-      alert(`선택한 ${filesName.join(',')} 이미지를 업로드합니다.`);
-    };
-
-    const onError = (error: UploadError) => {
-      alert(`${error.type} 에러가 발생했습니다.`);
-    };
-
-    return (
-      <FlexColumn>
-        <span>* .jpg 형식의 이미지 파일만 업로드 가능합니다.</span>
-        <Uploader.Image
-          isLoading={args.isLoading}
-          isDisabled={args.isDisabled}
-          accept={['.jpg']}
-          onUpload={onUpload}
-          onError={onError}
         />
       </FlexColumn>
     );
