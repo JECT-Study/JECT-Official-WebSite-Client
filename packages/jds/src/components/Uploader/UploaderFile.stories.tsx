@@ -31,6 +31,10 @@ const meta = {
       control: 'number',
       description: '이미 업로드 된 파일의 총 용량',
     },
+    files: {
+      control: 'object',
+      description: 'controlled 방식을 위한 files',
+    },
     onUpload: {
       description: '파일 업로드 시, 실행할 함수',
     },
@@ -50,6 +54,10 @@ const meta = {
     isDisabled: {
       control: 'boolean',
       description: '업로더 비활성화 여부',
+    },
+    messages: {
+      control: 'object',
+      description: 'rest, loading, disabled 메시지 커스텀',
     },
   },
 } satisfies Meta<typeof Uploader.File>;
@@ -235,6 +243,28 @@ export const FileOnlyPdf: StoryObj<typeof Uploader.File> = {
           isDisabled={args.isDisabled}
         />
       </FlexColumn>
+    );
+  },
+};
+
+export const CustomMessages: StoryObj<typeof Uploader.File> = {
+  name: 'Custom Messages',
+  args: {
+    isLoading: false,
+    isDisabled: false,
+    messages: {
+      rest: <>custom rest message</>,
+      loading: <>custom loading message</>,
+      disabled: <>custom disabled message</>,
+    },
+  },
+  render: args => {
+    return (
+      <Uploader.File
+        isLoading={args.isLoading}
+        isDisabled={args.isDisabled}
+        messages={args.messages}
+      />
     );
   },
 };

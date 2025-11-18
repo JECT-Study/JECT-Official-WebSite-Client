@@ -30,6 +30,10 @@ const meta = {
       control: 'number',
       description: '이미 업로드 된 파일의 총 용량',
     },
+    files: {
+      control: 'object',
+      description: 'controlled 방식을 위한 files',
+    },
     onUpload: {
       description: '파일 업로드 시, 실행할 함수',
     },
