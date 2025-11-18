@@ -140,7 +140,7 @@ export const StyledTextAreaWrapper = styled('div', {
   $readOnly: boolean;
   $height?: number | string;
   $minHeight?: number | string;
-}>(({ theme, $style, $validation, $disabled, $readOnly, $height }) => {
+}>(({ theme, $style, $validation, $disabled, $readOnly, $height, $minHeight }) => {
   const BORDER_RADIUS = 6;
 
   const restBorderColor = getBorderColor(theme, $validation, 'rest', $disabled, $readOnly);
@@ -263,6 +263,8 @@ export const StyledTextAreaWrapper = styled('div', {
 
   const heightValue = $height ? (typeof $height === 'number' ? pxToRem($height) : $height) : undefined;
 
+  const minHeightValue = $minHeight ? (typeof $minHeight === 'number' ? pxToRem($minHeight) : $minHeight) : pxToRem(112);
+
   const baseStyles: CSSObject = {
     ...restStyle,
     display: 'flex',
@@ -270,6 +272,7 @@ export const StyledTextAreaWrapper = styled('div', {
     alignItems: 'stretch',
     width: '100%',
     height: heightValue || 'auto',
+    minHeight: heightValue ? undefined : minHeightValue,
     overflow: heightValue ? 'hidden' : 'visible',
     padding: paddingMap[$style].desktop,
     backgroundColor,
@@ -343,17 +346,13 @@ export const StyledTextArea = styled('textarea', {
   $disabled: boolean;
   $readOnly: boolean;
   $hasFixedHeight: boolean;
-  $minHeight?: number | string;
-}>(({ theme, $disabled, $readOnly, $hasFixedHeight, $minHeight }) => {
+}>(({ theme, $disabled, $readOnly, $hasFixedHeight }) => {
   const textColor = getTextColor(theme, $disabled, $readOnly);
-
-  const minHeightValue = $minHeight ? (typeof $minHeight === 'number' ? pxToRem($minHeight - 16) : `calc(${$minHeight} - ${pxToRem(16)})`) : pxToRem(96);
 
   return {
     display: 'block',
     width: '100%',
-    height: $hasFixedHeight ? '100%' : undefined,
-    minHeight: $hasFixedHeight ? undefined : minHeightValue,
+    height: '100%',
     padding: 0,
     border: 'none',
     outline: 'none',

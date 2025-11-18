@@ -75,7 +75,6 @@ export const InputArea = forwardRef<HTMLTextAreaElement, InputAreaProps>(
               $disabled={isDisabled}
               $readOnly={isReadOnly}
               $hasFixedHeight={Boolean(height)}
-              $minHeight={minHeight}
               value={value}
               onChange={onChange}
               disabled={isDisabled}
