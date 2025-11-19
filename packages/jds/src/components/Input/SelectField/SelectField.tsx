@@ -7,6 +7,7 @@ import {
 } from './selectField.styles';
 import type { SelectFieldProps } from './selectField.types';
 import { Icon } from '../../Icon';
+import type { IconName } from '../../Icon/Icon.types';
 import { FormField } from '../shared/FormField';
 import { useFormField } from '../shared/FormFieldContext';
 
@@ -16,7 +17,7 @@ type SelectFieldInputProps = Omit<
 > & {
   value?: string;
   placeholder?: string;
-  dropdownIcon?: string;
+  dropdownIcon?: IconName;
   isOpen?: boolean;
   onClick?: () => void;
   children?: ReactNode;
