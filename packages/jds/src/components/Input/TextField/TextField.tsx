@@ -1,17 +1,46 @@
-import { forwardRef, useId } from 'react';
+import { forwardRef, type ChangeEvent, type ComponentPropsWithoutRef } from 'react';
 
-import {
-  StyledFieldContainer,
-  StyledLabelContainer,
-  StyledFieldLabel,
-  StyledInputWrapper,
-  StyledInput,
-  StyledHelperText,
-  StyledInputColumn,
-} from './textField.styles';
+import { StyledInputWrapper, StyledInput } from './textField.styles';
 import type { TextFieldProps } from './textField.types';
-import { Icon } from '../../Icon';
-import { getInteractionStates } from '../input.types';
+import { FormField } from '../shared/FormField';
+import { useFormField } from '../shared/FormFieldContext';
+
+type TextFieldInputProps = Omit<
+  ComponentPropsWithoutRef<'input'>,
+  'style' | 'disabled' | 'readOnly'
+> & {
+  value?: string;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+};
+
+const TextFieldInput = forwardRef<HTMLInputElement, TextFieldInputProps>(
+  ({ value, onChange, ...restProps }, ref) => {
+    const { fieldId, style, validation, isDisabled, isReadOnly } = useFormField();
+
+    return (
+      <StyledInputWrapper
+        $style={style}
+        $validation={validation}
+        $disabled={isDisabled}
+        $readOnly={isReadOnly}
+      >
+        <StyledInput
+          ref={ref}
+          id={fieldId}
+          $disabled={isDisabled}
+          $readOnly={isReadOnly}
+          value={value}
+          onChange={onChange}
+          disabled={isDisabled}
+          readOnly={isReadOnly}
+          {...restProps}
+        />
+      </StyledInputWrapper>
+    );
+  },
+);
+
+TextFieldInput.displayName = 'TextFieldInput';
 
 export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
   (
@@ -23,68 +52,22 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
       label,
       labelIcon,
       helperText,
-      value,
-      onChange,
       ...restProps
     },
     ref,
   ) => {
-    const inputId = useId();
-    const { isDisabled, isReadOnly } = getInteractionStates(interaction);
-
     return (
-      <StyledFieldContainer $layout={layout}>
-        {label && (
-          <StyledLabelContainer $layout={layout}>
-            <StyledFieldLabel
-              as='label'
-              htmlFor={inputId}
-              size='sm'
-              weight='normal'
-              $disabled={isDisabled}
-              $readOnly={isReadOnly}
-              $layout={layout}
-            >
-              {label}
-            </StyledFieldLabel>
-            {labelIcon && <Icon name={labelIcon} size='2xs' />}
-          </StyledLabelContainer>
-        )}
-
-        <StyledInputColumn>
-          <StyledInputWrapper
-            $style={style}
-            $validation={validation}
-            $disabled={isDisabled}
-            $readOnly={isReadOnly}
-          >
-            <StyledInput
-              ref={ref}
-              id={inputId}
-              $disabled={isDisabled}
-              $readOnly={isReadOnly}
-              value={value}
-              onChange={onChange}
-              disabled={isDisabled}
-              readOnly={isReadOnly}
-              {...restProps}
-            />
-          </StyledInputWrapper>
-
-          {helperText && (
-            <StyledHelperText
-              as='span'
-              size='sm'
-              weight='normal'
-              $validation={validation}
-              $disabled={isDisabled}
-              $readOnly={isReadOnly}
-            >
-              {helperText}
-            </StyledHelperText>
-          )}
-        </StyledInputColumn>
-      </StyledFieldContainer>
+      <FormField
+        style={style}
+        layout={layout}
+        validation={validation}
+        interaction={interaction}
+        label={label}
+        labelIcon={labelIcon}
+        helperText={helperText}
+      >
+        <TextFieldInput ref={ref} {...restProps} />
+      </FormField>
     );
   },
 );

@@ -1,40 +1,34 @@
 import {
   forwardRef,
-  useId,
   useCallback,
   type KeyboardEvent,
   type ChangeEvent,
   type MouseEvent,
+  type ComponentPropsWithoutRef,
 } from 'react';
 
-import {
-  StyledFieldContainer,
-  StyledLabelContainer,
-  StyledFieldLabel,
-  StyledInputColumn,
-  StyledHelperText,
-  StyledTagInputWrapper,
-  StyledTagContainer,
-  StyledTagWrapper,
-  StyledTagInput,
-} from './tagField.styles';
-import type { TagFieldProps } from './tagField.types';
-import { ContentBadge } from '../../Badge';
-import { Icon } from '../../Icon';
-import { getInteractionStates } from '../input.types';
+import { StyledTagInputWrapper, StyledTagInput } from './tagField.styles';
+import type { Tag, TagFieldProps } from './tagField.types';
 import { TagFieldUtils } from './tagField.utils';
+import { TagList } from './TagList';
 import { useTagFieldState } from './useTagFieldState';
+import { FormField } from '../shared/FormField';
+import { useFormField } from '../shared/FormFieldContext';
 
-export const TagField = forwardRef<HTMLInputElement, TagFieldProps>(
+type TagFieldInputProps = Omit<
+  ComponentPropsWithoutRef<'input'>,
+  'style' | 'value' | 'onChange' | 'disabled' | 'readOnly'
+> & {
+  tags: Tag[];
+  onTagsChange: (tags: Tag[]) => void;
+  maxTags?: number;
+  allowDuplicates?: boolean;
+  placeholder?: string;
+};
+
+const TagFieldInput = forwardRef<HTMLInputElement, TagFieldInputProps>(
   (
     {
-      style = 'outlined',
-      layout = 'vertical',
-      validation = 'none',
-      interaction = 'enabled',
-      label,
-      labelIcon,
-      helperText,
       tags,
       onTagsChange,
       maxTags,
@@ -44,8 +38,7 @@ export const TagField = forwardRef<HTMLInputElement, TagFieldProps>(
     },
     ref,
   ) => {
-    const inputId = useId();
-    const { isDisabled, isReadOnly, isInteractive } = getInteractionStates(interaction);
+    const { fieldId, style, validation, isDisabled, isReadOnly } = useFormField();
     const hasTag = tags.length > 0;
 
     const {
@@ -60,7 +53,7 @@ export const TagField = forwardRef<HTMLInputElement, TagFieldProps>(
       clearSelection,
     } = useTagFieldState();
 
-    //Todo : 비즈니스 로직이 조금 많아서 추가 분리해도 될듯
+    //Todo: 키보드 핸들러의 경우 유틸리티 순수 함수로 분기
     const handleKeyDown = useCallback(
       (e: KeyboardEvent<HTMLInputElement>) => {
         if (!TagFieldUtils.shouldHandleKeyEvent(e.key, isComposing || e.nativeEvent.isComposing)) {
@@ -141,82 +134,67 @@ export const TagField = forwardRef<HTMLInputElement, TagFieldProps>(
     );
 
     return (
-      <StyledFieldContainer $layout={layout}>
-        {label && (
-          <StyledLabelContainer $layout={layout}>
-            <StyledFieldLabel
-              as='label'
-              htmlFor={inputId}
-              size='sm'
-              weight='normal'
-              $disabled={isDisabled}
-              $readOnly={isReadOnly}
-              $layout={layout}
-            >
-              {label}
-            </StyledFieldLabel>
-            {labelIcon && <Icon name={labelIcon} size='2xs' />}
-          </StyledLabelContainer>
-        )}
+      <StyledTagInputWrapper
+        $style={style}
+        $validation={validation}
+        $disabled={isDisabled}
+        $readOnly={isReadOnly}
+        onClick={handleWrapperClick}
+      >
+        <TagList
+          tags={tags}
+          hasTag={hasTag}
+          selectedTagId={selectedTagId}
+          onTagClick={handleTagClick}
+        />
+        <StyledTagInput
+          ref={ref}
+          id={fieldId}
+          $disabled={isDisabled}
+          $readOnly={isReadOnly}
+          value={inputValue}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+          onCompositionStart={handleCompositionStart}
+          onCompositionEnd={handleCompositionEnd}
+          disabled={isDisabled}
+          readOnly={isReadOnly}
+          placeholder={placeholder}
+          {...restProps}
+        />
+      </StyledTagInputWrapper>
+    );
+  },
+);
 
-        <StyledInputColumn>
-          <StyledTagInputWrapper
-            $style={style}
-            $validation={validation}
-            $disabled={isDisabled}
-            $readOnly={isReadOnly}
-            onClick={handleWrapperClick}
-          >
-            <StyledTagContainer $hasTag={hasTag}>
-              {tags.map(tag => (
-                <StyledTagWrapper
-                  key={tag.id}
-                  $isSelected={selectedTagId === tag.id}
-                  $isInteractive={isInteractive}
-                  onClick={isInteractive ? e => handleTagClick(e, tag.id) : undefined}
-                >
-                  <ContentBadge.Basic
-                    size='xs'
-                    hierarchy='secondary'
-                    badgeStyle='alpha'
-                    withIcon={isInteractive}
-                  >
-                    {tag.label}
-                  </ContentBadge.Basic>
-                </StyledTagWrapper>
-              ))}
-            </StyledTagContainer>
-            <StyledTagInput
-              ref={ref}
-              id={inputId}
-              $disabled={isDisabled}
-              $readOnly={isReadOnly}
-              value={inputValue}
-              onChange={handleChange}
-              onKeyDown={handleKeyDown}
-              onCompositionStart={handleCompositionStart}
-              onCompositionEnd={handleCompositionEnd}
-              disabled={isDisabled}
-              readOnly={isReadOnly}
-              placeholder={placeholder}
-              {...restProps}
-            />
-          </StyledTagInputWrapper>
+TagFieldInput.displayName = 'TagFieldInput';
 
-          {helperText && (
-            <StyledHelperText
-              as='span'
-              size='sm'
-              weight='normal'
-              $validation={validation}
-              $disabled={isDisabled}
-              $readOnly={isReadOnly}
-            >
-              {helperText}
-            </StyledHelperText>
-          )}
-        </StyledInputColumn>
-      </StyledFieldContainer>
+export const TagField = forwardRef<HTMLInputElement, TagFieldProps>(
+  (
+    {
+      style = 'outlined',
+      layout = 'vertical',
+      validation = 'none',
+      interaction = 'enabled',
+      label,
+      labelIcon,
+      helperText,
+      ...restProps
+    },
+    ref,
+  ) => {
+    return (
+      <FormField
+        style={style}
+        layout={layout}
+        validation={validation}
+        interaction={interaction}
+        label={label}
+        labelIcon={labelIcon}
+        helperText={helperText}
+      >
+        <TagFieldInput ref={ref} {...restProps} />
+      </FormField>
     );
   },
 );
