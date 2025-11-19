@@ -3,7 +3,7 @@ import type { CSSObject, Theme } from '@emotion/react';
 import styled from '@emotion/styled';
 import type { SelectSize } from 'components';
 import { ContentBadge, Label } from 'components';
-import { InteractionLayer, pxToRem } from 'utils';
+import { InteractionLayer } from 'utils';
 
 export const StyledSelectContainer = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -11,43 +11,23 @@ export const StyledSelectContainer = styled('div')(({ theme }) => ({
   flexDirection: 'column',
   alignItems: 'flex-start',
   gap: 0,
-  maxWidth: pxToRem(320),
-  maxHeight: pxToRem(320),
+  maxWidth: '20rem',
+  maxHeight: '20rem',
   flexShrink: 0,
-  borderRadius: pxToRem(theme.scheme.desktop.radius[8]),
+  borderRadius: theme.scheme.semantic.radius[8],
   border: `1px solid ${theme.color.semantic.stroke.subtle}`,
   opacity: 1,
   background: theme.color.semantic.surface.shallow,
-  boxShadow: `0 0 ${pxToRem(theme.scheme.desktop.radius[2])} 0 ${theme.colorPrimitive.primitive.shade['4']}, 0 ${pxToRem(theme.scheme.desktop.spacing[3])} ${pxToRem(theme.scheme.desktop.radius[4])} 0 ${theme.colorPrimitive.primitive.shade['8']}, 0 ${pxToRem(theme.scheme.desktop.spacing[4])} ${pxToRem(theme.scheme.desktop.radius[8])} 0 ${theme.colorPrimitive.primitive.shade['12']}`,
-
-  [theme.breakPoint.tablet]: {
-    borderRadius: pxToRem(theme.scheme.tablet.radius[8]),
-    boxShadow: `0 0 ${pxToRem(theme.scheme.desktop.radius[2])} 0 ${theme.colorPrimitive.primitive.shade['4']}, 0 ${pxToRem(theme.scheme.desktop.spacing[3])} ${pxToRem(theme.scheme.desktop.radius[4])} 0 ${theme.colorPrimitive.primitive.shade['8']}, 0 ${pxToRem(theme.scheme.desktop.spacing[4])} ${pxToRem(theme.scheme.desktop.radius[8])} 0 ${theme.colorPrimitive.primitive.shade['12']}`,
-  },
-
-  [theme.breakPoint.mobile]: {
-    borderRadius: pxToRem(theme.scheme.mobile.radius[8]),
-    boxShadow: `0 0 ${pxToRem(theme.scheme.desktop.radius[2])} 0 ${theme.colorPrimitive.primitive.shade['4']}, 0 ${pxToRem(theme.scheme.desktop.spacing[3])} ${pxToRem(theme.scheme.desktop.radius[4])} 0 ${theme.colorPrimitive.primitive.shade['8']}, 0 ${pxToRem(theme.scheme.desktop.spacing[4])} ${pxToRem(theme.scheme.desktop.radius[8])} 0 ${theme.colorPrimitive.primitive.shade['12']}`,
-  },
+  boxShadow: `0 0 ${theme.scheme.semantic.radius[2]} 0 ${theme.colorPrimitive.primitive.shade['4']}, 0 ${theme.scheme.semantic.spacing[3]} ${theme.scheme.semantic.radius[4]} 0 ${theme.colorPrimitive.primitive.shade['8']}, 0 ${theme.scheme.semantic.spacing[4]} ${theme.scheme.semantic.radius[8]} 0 ${theme.colorPrimitive.primitive.shade['12']}`,
 }));
 
 export const StyledSelectLabelWrapper = styled('div')(({ theme }) => ({
   display: 'flex',
   color: theme.color.semantic.object.assistive,
-  padding: `${pxToRem(theme.scheme.desktop.spacing[10])} ${pxToRem(theme.scheme.desktop.spacing[12])} ${pxToRem(theme.scheme.desktop.spacing[6])} ${pxToRem(theme.scheme.desktop.spacing[12])}`,
+  padding: `${theme.scheme.semantic.spacing[10]} ${theme.scheme.semantic.spacing[12]} ${theme.scheme.semantic.spacing[6]} ${theme.scheme.semantic.spacing[12]}`,
   alignItems: 'center',
-  gap: pxToRem(theme.scheme.desktop.spacing[8]),
+  gap: theme.scheme.semantic.spacing[8],
   alignSelf: 'stretch',
-
-  [theme.breakPoint.tablet]: {
-    padding: `${pxToRem(theme.scheme.tablet.spacing[10])} ${pxToRem(theme.scheme.tablet.spacing[12])} ${pxToRem(theme.scheme.tablet.spacing[6])} ${pxToRem(theme.scheme.tablet.spacing[12])}`,
-    gap: pxToRem(theme.scheme.tablet.spacing[8]),
-  },
-
-  [theme.breakPoint.mobile]: {
-    padding: `${pxToRem(theme.scheme.mobile.spacing[10])} ${pxToRem(theme.scheme.mobile.spacing[12])} ${pxToRem(theme.scheme.mobile.spacing[6])} ${pxToRem(theme.scheme.mobile.spacing[12])}`,
-    gap: pxToRem(theme.scheme.mobile.spacing[8]),
-  },
 }));
 
 export const StyledSelectItemsWrapper = styled('div')({
@@ -60,25 +40,13 @@ export const StyledSelectItemsWrapper = styled('div')({
   overflow: 'hidden',
 });
 
-const getItemPaddingBySize = (
-  theme: Theme,
-  size: SelectSize,
-  device: 'desktop' | 'tablet' | 'mobile',
-): string => {
+const getItemPaddingBySize = (theme: Theme, size: SelectSize): string => {
   const paddingMap = {
-    md: {
-      desktop: `${pxToRem(theme.scheme.desktop.spacing[10])} ${pxToRem(theme.scheme.desktop.spacing[12])}`,
-      tablet: `${pxToRem(theme.scheme.tablet.spacing[10])} ${pxToRem(theme.scheme.tablet.spacing[12])}`,
-      mobile: `${pxToRem(theme.scheme.mobile.spacing[10])} ${pxToRem(theme.scheme.mobile.spacing[12])}`,
-    },
-    sm: {
-      desktop: `${pxToRem(theme.scheme.desktop.spacing[10])} ${pxToRem(theme.scheme.desktop.spacing[12])}`,
-      tablet: `${pxToRem(theme.scheme.tablet.spacing[10])} ${pxToRem(theme.scheme.tablet.spacing[12])}`,
-      mobile: `${pxToRem(theme.scheme.mobile.spacing[10])} ${pxToRem(theme.scheme.mobile.spacing[12])}`,
-    },
+    md: `${theme.scheme.semantic.spacing[10]} ${theme.scheme.semantic.spacing[12]}`,
+    sm: `${theme.scheme.semantic.spacing[10]} ${theme.scheme.semantic.spacing[12]}`,
   };
 
-  return paddingMap[size][device];
+  return paddingMap[size];
 };
 
 export const StyledSelectItem = styled('div', {
@@ -139,7 +107,7 @@ export const StyledSelectItem = styled('div', {
     justifyContent: 'center',
     alignItems: 'flex-start',
     gap: 0,
-    padding: getItemPaddingBySize(theme, $size, 'desktop'),
+    padding: getItemPaddingBySize(theme, $size),
     backgroundColor: 'transparent',
     borderBottom: `1px solid ${theme.color.semantic.stroke.subtler}`,
     cursor: $isDisabled ? 'not-allowed' : 'pointer',
@@ -152,15 +120,7 @@ export const StyledSelectItem = styled('div', {
 
     '::after': {
       ...restInteractionStyle['::after'],
-      transition: `opacity ${theme.environment.duration[100]} ${theme.environment.motion.fluent}`,
-    },
-
-    [theme.breakPoint.tablet]: {
-      padding: getItemPaddingBySize(theme, $size, 'tablet'),
-    },
-
-    [theme.breakPoint.mobile]: {
-      padding: getItemPaddingBySize(theme, $size, 'mobile'),
+      transition: `opacity ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
     },
   };
 
@@ -174,7 +134,7 @@ export const StyledSelectItem = styled('div', {
       ...hoverInteractionStyle,
       '::after': {
         ...hoverInteractionStyle['::after'],
-        transition: `opacity ${theme.environment.duration[100]} ${theme.environment.motion.fluent}`,
+        transition: `opacity ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
       },
     },
     '&:active': {
@@ -199,18 +159,10 @@ export const StyledSelectItemContent = styled('div')(({ theme }) => ({
   flexDirection: 'column',
   alignSelf: 'stretch',
   padding: 0,
-  gap: pxToRem(theme.scheme.desktop.spacing[2]),
+  gap: theme.scheme.semantic.spacing[2],
   flex: 1,
   position: 'relative',
   zIndex: 1,
-
-  [theme.breakPoint.tablet]: {
-    gap: pxToRem(theme.scheme.tablet.spacing[2]),
-  },
-
-  [theme.breakPoint.mobile]: {
-    gap: pxToRem(theme.scheme.mobile.spacing[2]),
-  },
 }));
 
 export const StyledSelectItemTextRow = styled('div')(({ theme }) => ({
@@ -218,17 +170,9 @@ export const StyledSelectItemTextRow = styled('div')(({ theme }) => ({
   flexDirection: 'row',
   justifyContent: 'space-between',
   alignItems: 'center',
-  gap: pxToRem(theme.scheme.desktop.spacing[16]),
+  gap: theme.scheme.semantic.spacing[16],
   position: 'relative',
   zIndex: 1,
-
-  [theme.breakPoint.tablet]: {
-    gap: pxToRem(theme.scheme.tablet.spacing[16]),
-  },
-
-  [theme.breakPoint.mobile]: {
-    gap: pxToRem(theme.scheme.mobile.spacing[16]),
-  },
 }));
 
 export const StyledSelectItemText = styled(Label, {
