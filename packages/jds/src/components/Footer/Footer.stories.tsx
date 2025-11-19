@@ -48,32 +48,18 @@ const meta: Meta<typeof Footer.Root> = {
   parameters: {
     layout: 'fullscreen',
   },
-  argTypes: {
-    variant: {
-      control: 'radio',
-      options: ['desktop', 'tablet', 'mobile'],
-      description: 'Footer의 레이아웃 variant',
-      table: {
-        defaultValue: { summary: 'desktop' },
-      },
-    },
-  },
 };
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Desktop: Story = {
-  args: {
-    variant: 'desktop',
-    children: null,
-  },
-  render: args => (
-    <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-      <Footer.Root variant={args.variant}>
+export const Default: Story = {
+  render: () => (
+    <Footer.Root>
+      <Footer.Content>
         <Footer.Header>
           <Footer.Logo>
-            <FooterLogoSvg width={72} height={18} />
+            <FooterLogoSvg width={76} height={22} />
           </Footer.Logo>
           <Footer.Social
             github='https://github.com/JECT-Study'
@@ -81,75 +67,14 @@ export const Desktop: Story = {
           />
         </Footer.Header>
         <Footer.Divider />
-        <Footer.Nav sections={mockSections} variant={args.variant} />
+        <Footer.Nav sections={mockSections} />
         <Footer.Divider />
         <Footer.Bottom
           copyright='© 2025 JECT. All rights reserved.'
           email='jectofficial@ject.kr'
           privacyLink='https://privacy.ject.kr'
         />
-      </Footer.Root>
-    </div>
-  ),
-};
-
-export const Tablet: Story = {
-  args: {
-    variant: 'tablet',
-    children: null,
-  },
-  render: args => (
-    <div style={{ maxWidth: '768px', margin: '0 auto' }}>
-      <Footer.Root variant={args.variant}>
-        <Footer.Header>
-          <Footer.Logo>
-            <FooterLogoSvg width={72} height={18} />
-          </Footer.Logo>
-          <Footer.Social
-            github='https://github.com/JECT-Study'
-            instagram='https://www.instagram.com/ject_official'
-          />
-        </Footer.Header>
-        <Footer.Divider />
-        <Footer.Nav sections={mockSections} variant={args.variant} />
-        <Footer.Divider />
-        <Footer.Bottom
-          copyright='© 2025 JECT. All rights reserved.'
-          email='jectofficial@ject.kr'
-          privacyLink='https://privacy.ject.kr'
-        />
-      </Footer.Root>
-    </div>
-  ),
-};
-
-export const Mobile: Story = {
-  args: {
-    variant: 'mobile',
-    children: null,
-  },
-  render: args => (
-    <div style={{ maxWidth: '360px', margin: '0 auto' }}>
-      <Footer.Root variant={args.variant}>
-        <Footer.Header>
-          <Footer.Logo>
-            <FooterLogoSvg width={72} height={18} />
-          </Footer.Logo>
-          <Footer.Social
-            github='https://github.com/JECT-Study'
-            instagram='https://www.instagram.com/ject_official'
-            iconSize='sm'
-          />
-        </Footer.Header>
-        <Footer.Divider />
-        <Footer.Nav sections={mockSections} variant={args.variant} />
-        <Footer.Divider />
-        <Footer.Bottom
-          copyright='© 2025 JECT'
-          email='jectofficial@ject.kr'
-          privacyLink='https://privacy.ject.kr'
-        />
-      </Footer.Root>
-    </div>
+      </Footer.Content>
+    </Footer.Root>
   ),
 };

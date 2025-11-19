@@ -1,6 +1,7 @@
 export { Footer } from './Footer';
 export type {
   FooterBottomProps,
+  FooterContentProps,
   FooterHeaderProps,
   FooterLink,
   FooterLogoProps,
@@ -9,5 +10,4 @@ export type {
   FooterSection,
   FooterSectionProps,
   FooterSocialProps,
-  FooterVariant,
 } from './footer.types';

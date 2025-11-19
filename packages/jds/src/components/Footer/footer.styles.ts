@@ -1,32 +1,40 @@
 import styled from '@emotion/styled';
 
-import type { StyledFooterNavProps, StyledFooterRootProps } from './footer.types';
+export const StyledFooterRoot = styled.footer(({ theme }) => ({
+  backgroundColor: theme.color.semantic.surface.deep,
+  color: theme.color.semantic.object.alternative,
+  paddingTop: theme.scheme.semantic.spacing['40'],
+  paddingBottom: theme.scheme.semantic.spacing['72'],
+  paddingLeft: theme.scheme.semantic.spacing['24'],
+  paddingRight: theme.scheme.semantic.spacing['24'],
+  display: 'flex',
+  justifyContent: 'center',
 
-// 루트 컨테이너
-export const StyledFooterRoot = styled.footer<StyledFooterRootProps>(({ theme, $variant }) => {
-  return {
-    backgroundColor: theme.color.semantic.surface.deep,
-    color: theme.color.semantic.object.alternative,
-    padding:
-      $variant === 'desktop'
-        ? `${theme.scheme.semantic.spacing['48']} ${theme.scheme.semantic.spacing['144']}`
-        : $variant === 'tablet'
-          ? theme.scheme.semantic.spacing['32']
-          : theme.scheme.semantic.spacing['16'],
-    display: 'flex',
-    flexDirection: 'column',
-    gap: theme.scheme.semantic.spacing['24'],
-  };
-});
+  [theme.breakPoint.tablet]: {
+    paddingLeft: theme.scheme.semantic.spacing['20'],
+    paddingRight: theme.scheme.semantic.spacing['20'],
+  },
 
-// 헤더 컨테이너 (로고 + 소셜 아이콘)
+  [theme.breakPoint.mobile]: {
+    paddingLeft: theme.scheme.semantic.spacing['16'],
+    paddingRight: theme.scheme.semantic.spacing['16'],
+  },
+}));
+
+export const StyledFooterContent = styled.div(({ theme }) => ({
+  width: '100%',
+  maxWidth: '922px',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.scheme.semantic.spacing['24'],
+}));
+
 export const StyledFooterHeader = styled.div({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
 });
 
-// 구분선
 export const StyledFooterDivider = styled.hr(({ theme }) => ({
   width: '100%',
   height: '1px',
@@ -35,19 +43,16 @@ export const StyledFooterDivider = styled.hr(({ theme }) => ({
   margin: 0,
 }));
 
-// 로고 컨테이너
 export const StyledFooterLogo = styled.div({
   display: 'flex',
 });
 
-// 소셜 아이콘 컨테이너
 export const StyledFooterSocial = styled.div(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   gap: theme.scheme.semantic.spacing['16'],
 }));
 
-// 소셜 링크
 export const StyledSocialLink = styled.a(({ theme }) => ({
   display: 'inline-flex',
   alignItems: 'center',
@@ -65,45 +70,38 @@ export const StyledSocialLink = styled.a(({ theme }) => ({
   },
 }));
 
-// 네비게이션 컨테이너
-export const StyledFooterNav = styled.nav<StyledFooterNavProps>(({ theme, $variant }) => {
-  return {
-    display: 'grid',
-    gridTemplateColumns: $variant === 'mobile' ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
-    gap:
-      $variant === 'desktop'
-        ? theme.scheme.semantic.spacing['40']
-        : $variant === 'tablet'
-          ? theme.scheme.semantic.spacing['24']
-          : theme.scheme.semantic.spacing['16'],
-  };
-});
+export const StyledFooterNav = styled.nav(({ theme }) => ({
+  display: 'grid',
+  gridTemplateColumns: 'repeat(4, 1fr)',
+  gap: theme.scheme.semantic.spacing['16'],
 
-// 섹션 컨테이너
+  [theme.breakPoint.mobile]: {
+    gridTemplateColumns: 'repeat(2, 1fr)',
+    paddingBottom: theme.scheme.semantic.spacing['128'],
+  },
+}));
+
 export const StyledFooterSection = styled.div(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.scheme.semantic.spacing['12'],
+  gap: theme.scheme.semantic.spacing['20'],
 }));
 
-// 섹션 제목
 export const StyledSectionTitle = styled.h3(({ theme }) => ({
   ...theme.textStyle['semantic-textStyle-label-sm-normal'],
   color: theme.color.semantic.object.alternative,
-  marginBottom: theme.scheme.semantic.spacing['4'],
+  margin: 0,
 }));
 
-// 링크 목록
 export const StyledLinkList = styled.ul(({ theme }) => ({
   listStyle: 'none',
   padding: 0,
   margin: 0,
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.scheme.semantic.spacing['8'],
+  gap: theme.scheme.semantic.spacing['20'],
 }));
 
-// 링크 아이템
 export const StyledLink = styled.a(({ theme }) => ({
   ...theme.textStyle['semantic-textStyle-label-md-normal'],
   color: theme.color.semantic.object.bold,
@@ -118,13 +116,13 @@ export const StyledLink = styled.a(({ theme }) => ({
   },
 }));
 
-// 하단 컨테이너
 export const StyledFooterBottom = styled.div(({ theme }) => ({
   ...theme.textStyle['semantic-textStyle-label-xs-subtle'],
   color: theme.color.semantic.object.alternative,
   display: 'flex',
   alignItems: 'center',
   gap: theme.scheme.semantic.spacing['16'],
+  rowGap: theme.scheme.semantic.spacing['8'],
   flexWrap: 'wrap',
 
   a: {

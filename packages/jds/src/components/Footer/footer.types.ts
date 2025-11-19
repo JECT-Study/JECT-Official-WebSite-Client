@@ -2,8 +2,6 @@ import type { ComponentPropsWithoutRef, ReactNode } from 'react';
 
 import type { IconSize } from '../Icon/Icon.types';
 
-export type FooterVariant = 'desktop' | 'tablet' | 'mobile';
-
 export interface FooterLink {
   label: string;
   href: string;
@@ -16,7 +14,10 @@ export interface FooterSection {
 }
 
 export interface FooterRootProps extends ComponentPropsWithoutRef<'footer'> {
-  variant?: FooterVariant;
+  children: ReactNode;
+}
+
+export interface FooterContentProps extends ComponentPropsWithoutRef<'div'> {
   children: ReactNode;
 }
 
@@ -30,7 +31,6 @@ export interface FooterLogoProps extends ComponentPropsWithoutRef<'div'> {
 
 export interface FooterNavProps extends ComponentPropsWithoutRef<'nav'> {
   sections: FooterSection[];
-  variant?: FooterVariant;
 }
 
 export interface FooterSectionProps extends ComponentPropsWithoutRef<'div'> {
@@ -48,12 +48,4 @@ export interface FooterBottomProps extends ComponentPropsWithoutRef<'div'> {
   copyright: string;
   email?: string;
   privacyLink?: string;
-}
-
-export interface StyledFooterRootProps {
-  $variant: FooterVariant;
-}
-
-export interface StyledFooterNavProps {
-  $variant: FooterVariant;
 }

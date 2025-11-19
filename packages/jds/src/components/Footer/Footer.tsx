@@ -3,6 +3,7 @@ import { forwardRef } from 'react';
 
 import type {
   FooterBottomProps,
+  FooterContentProps,
   FooterHeaderProps,
   FooterLogoProps,
   FooterNavProps,
@@ -13,6 +14,7 @@ import type {
 import { Icon } from '../Icon';
 import {
   StyledFooterBottom,
+  StyledFooterContent,
   StyledFooterDivider,
   StyledFooterHeader,
   StyledFooterLogo,
@@ -26,20 +28,28 @@ import {
   StyledSocialLink,
 } from './footer.styles';
 
-// 루트 컴포넌트
-const FooterRoot = forwardRef<HTMLElement, FooterRootProps>(
-  ({ variant = 'desktop', children, ...rest }, ref) => {
+const FooterRoot = forwardRef<HTMLElement, FooterRootProps>(({ children, ...rest }, ref) => {
+  return (
+    <StyledFooterRoot ref={ref} {...rest}>
+      {children}
+    </StyledFooterRoot>
+  );
+});
+
+FooterRoot.displayName = 'Footer.Root';
+
+const FooterContent = forwardRef<HTMLDivElement, FooterContentProps>(
+  ({ children, ...rest }, ref) => {
     return (
-      <StyledFooterRoot ref={ref} $variant={variant} {...rest}>
+      <StyledFooterContent ref={ref} {...rest}>
         {children}
-      </StyledFooterRoot>
+      </StyledFooterContent>
     );
   },
 );
 
-FooterRoot.displayName = 'Footer.Root';
+FooterContent.displayName = 'Footer.Content';
 
-// 헤더 컴포넌트 (로고 + 소셜 아이콘)
 const FooterHeader = forwardRef<HTMLDivElement, FooterHeaderProps>(({ children, ...rest }, ref) => {
   return (
     <StyledFooterHeader ref={ref} {...rest}>
@@ -50,14 +60,12 @@ const FooterHeader = forwardRef<HTMLDivElement, FooterHeaderProps>(({ children, 
 
 FooterHeader.displayName = 'Footer.Header';
 
-// 구분선 컴포넌트
 const FooterDivider = forwardRef<HTMLHRElement, ComponentPropsWithoutRef<'hr'>>((props, ref) => {
   return <StyledFooterDivider ref={ref} {...props} />;
 });
 
 FooterDivider.displayName = 'Footer.Divider';
 
-// 로고 컴포넌트
 const FooterLogo = forwardRef<HTMLDivElement, FooterLogoProps>(({ children, ...rest }, ref) => {
   return (
     <StyledFooterLogo ref={ref} {...rest}>
@@ -68,7 +76,6 @@ const FooterLogo = forwardRef<HTMLDivElement, FooterLogoProps>(({ children, ...r
 
 FooterLogo.displayName = 'Footer.Logo';
 
-// 소셜 아이콘 컴포넌트
 const FooterSocial = forwardRef<HTMLDivElement, FooterSocialProps>(
   ({ github, instagram, iconSize = 'md', ...rest }, ref) => {
     return (
@@ -100,30 +107,26 @@ const FooterSocial = forwardRef<HTMLDivElement, FooterSocialProps>(
 
 FooterSocial.displayName = 'Footer.Social';
 
-// 네비게이션 컴포넌트
-const FooterNav = forwardRef<HTMLElement, FooterNavProps>(
-  ({ sections, variant = 'desktop', ...rest }, ref) => {
-    return (
-      <StyledFooterNav ref={ref} $variant={variant} {...rest}>
-        {sections.map((section, index) => (
-          <FooterSection key={index} title={section.title} links={section.links} />
-        ))}
-      </StyledFooterNav>
-    );
-  },
-);
+const FooterNav = forwardRef<HTMLElement, FooterNavProps>(({ sections, ...rest }, ref) => {
+  return (
+    <StyledFooterNav ref={ref} {...rest}>
+      {sections.map(section => (
+        <FooterSection key={section.title} title={section.title} links={section.links} />
+      ))}
+    </StyledFooterNav>
+  );
+});
 
 FooterNav.displayName = 'Footer.Nav';
 
-// 섹션 컴포넌트
 const FooterSection = forwardRef<HTMLDivElement, FooterSectionProps>(
   ({ title, links, ...rest }, ref) => {
     return (
       <StyledFooterSection ref={ref} {...rest}>
         <StyledSectionTitle>{title}</StyledSectionTitle>
         <StyledLinkList>
-          {links.map((link, index) => (
-            <li key={index}>
+          {links.map(link => (
+            <li key={`${link.href}-${link.label}`}>
               <StyledLink
                 href={link.href}
                 target={link.external ? '_blank' : undefined}
@@ -142,7 +145,6 @@ const FooterSection = forwardRef<HTMLDivElement, FooterSectionProps>(
 
 FooterSection.displayName = 'Footer.Section';
 
-// 하단 컴포넌트
 const FooterBottom = forwardRef<HTMLDivElement, FooterBottomProps>(
   ({ copyright, email, privacyLink, ...rest }, ref) => {
     return (
@@ -164,6 +166,7 @@ FooterBottom.displayName = 'Footer.Bottom';
 
 export const Footer = {
   Root: FooterRoot,
+  Content: FooterContent,
   Header: FooterHeader,
   Divider: FooterDivider,
   Logo: FooterLogo,
