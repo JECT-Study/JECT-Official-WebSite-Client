@@ -1,6 +1,7 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { Title } from './Title';
 import { useTheme } from '@emotion/react';
+import type { Meta, StoryObj } from '@storybook/react';
+
+import { Title } from './Title';
 
 const meta = {
   title: 'Components/Title',

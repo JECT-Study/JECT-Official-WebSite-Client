@@ -1,6 +1,8 @@
-import { forwardRef, ReactNode, ComponentPropsWithoutRef, type Ref } from 'react';
+import type { ComponentPropsWithoutRef, ReactNode } from 'react';
+import { forwardRef, type Ref } from 'react';
 
-import { LabelStyled, LabelSize, LabelTextAlign, LabelWeight } from './Label.style';
+import type { LabelSize, LabelTextAlign, LabelWeight } from './Label.style';
+import { LabelStyled } from './Label.style';
 
 /**
  * LabelElement - Label 컴포넌트가 렌더링할 수 있는 HTML 요소 타입

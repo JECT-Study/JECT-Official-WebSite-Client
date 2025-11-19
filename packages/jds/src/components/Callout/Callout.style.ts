@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
-import { pxToRem, textStyle } from 'utils';
-import { CalloutBasicDivProps, CalloutFeedbackDivProps, CalloutPProps } from './Callout.types';
+import { pxToRem } from 'utils';
+
+import type { CalloutBasicDivProps, CalloutFeedbackDivProps, CalloutPProps } from './Callout.types';
 import {
   calloutBasicStylesMap,
   calloutFeedbackStylesMap,
@@ -13,7 +14,7 @@ export const CalloutBasicDiv = styled.div<CalloutBasicDivProps>(
     const border = variant === 'hero' ? 'none' : `1px solid ${style.border}`;
     const borderLeft =
       variant === 'hero' ? `6px solid ${style.border}` : `1px solid ${style.border}`;
-    const borderRadius = variant === 'hero' ? 'none' : `${theme.scheme.desktop.radius[6]}px`;
+    const borderRadius = variant === 'hero' ? 'none' : theme.scheme.semantic.radius[6];
 
     return {
       width: pxToRem(300),
@@ -37,7 +38,7 @@ export const CalloutFeedbackDiv = styled.div<CalloutFeedbackDivProps>(
     const border = variant === 'hero' ? 'none' : `1px solid ${style.border}`;
     const borderLeft =
       variant === 'hero' ? `6px solid ${style.border}` : `1px solid ${style.border}`;
-    const borderRadius = variant === 'hero' ? 'none' : `${theme.scheme.desktop.radius[6]}px`;
+    const borderRadius = variant === 'hero' ? 'none' : theme.scheme.semantic.radius[6];
 
     return {
       width: pxToRem(300),
@@ -56,17 +57,11 @@ export const CalloutFeedbackDiv = styled.div<CalloutFeedbackDivProps>(
 );
 
 export const CalloutTitleP = styled.p<CalloutPProps>(({ theme, size }) => {
-  return {
-    ...textStyle(theme, 'desktop', calloutSizeMap[size].title),
-    [theme.breakPoint.tablet]: { ...textStyle(theme, 'tablet', calloutSizeMap[size].title) },
-    [theme.breakPoint.mobile]: { ...textStyle(theme, 'mobile', calloutSizeMap[size].title) },
-  };
+  const tokenKey = calloutSizeMap[size].title;
+  return theme.textStyle[tokenKey];
 });
 
 export const CalloutContentP = styled.p<CalloutPProps>(({ theme, size }) => {
-  return {
-    ...textStyle(theme, 'desktop', calloutSizeMap[size].content),
-    [theme.breakPoint.tablet]: { ...textStyle(theme, 'tablet', calloutSizeMap[size].content) },
-    [theme.breakPoint.mobile]: { ...textStyle(theme, 'mobile', calloutSizeMap[size].content) },
-  };
+  const tokenKey = calloutSizeMap[size].content;
+  return theme.textStyle[tokenKey];
 });
