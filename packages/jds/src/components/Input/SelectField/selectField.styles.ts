@@ -1,7 +1,7 @@
 import isPropValid from '@emotion/is-prop-valid';
 import type { CSSObject, Theme } from '@emotion/react';
 import styled from '@emotion/styled';
-import { InteractionLayer, pxToRem, textStyle } from 'utils';
+import { InteractionLayer } from 'utils';
 
 import type { InputStyle, InputValidation } from '../input.types';
 
@@ -76,8 +76,6 @@ export const StyledSelectWrapper = styled('div', {
   $disabled: boolean;
   $readOnly: boolean;
 }>(({ theme, $style, $validation, $disabled, $readOnly }) => {
-  const BORDER_RADIUS = 6;
-
   const restBorderColor = getBorderColor(theme, $validation, 'rest', $disabled);
   const hoverBorderColor = getBorderColor(theme, $validation, 'hover', $disabled);
   const activeBorderColor = getBorderColor(theme, $validation, 'active', $disabled);
@@ -94,7 +92,7 @@ export const StyledSelectWrapper = styled('div', {
         fillColor: 'default',
         isDisabled: $disabled,
         isReadonly: $readOnly,
-        borderRadius: BORDER_RADIUS,
+        borderRadius: 6,
       }),
       hoverStyle: InteractionLayer({
         theme,
@@ -104,7 +102,7 @@ export const StyledSelectWrapper = styled('div', {
         fillColor: 'default',
         isDisabled: $disabled,
         isReadonly: $readOnly,
-        borderRadius: BORDER_RADIUS,
+        borderRadius: 6,
       }),
       activeStyle: InteractionLayer({
         theme,
@@ -114,7 +112,7 @@ export const StyledSelectWrapper = styled('div', {
         fillColor: 'default',
         isDisabled: $disabled,
         isReadonly: $readOnly,
-        borderRadius: BORDER_RADIUS,
+        borderRadius: 6,
       }),
       focusStyle: InteractionLayer({
         theme,
@@ -124,7 +122,7 @@ export const StyledSelectWrapper = styled('div', {
         fillColor: 'default',
         isDisabled: $disabled,
         isReadonly: $readOnly,
-        borderRadius: BORDER_RADIUS,
+        borderRadius: 6,
       }),
     },
     empty: {
@@ -137,7 +135,7 @@ export const StyledSelectWrapper = styled('div', {
         isDisabled: $disabled,
         isReadonly: $readOnly,
         offsetHorizontal: 8,
-        borderRadius: BORDER_RADIUS,
+        borderRadius: 6,
       }),
       hoverStyle: InteractionLayer({
         theme,
@@ -148,7 +146,7 @@ export const StyledSelectWrapper = styled('div', {
         isDisabled: $disabled,
         isReadonly: $readOnly,
         offsetHorizontal: 8,
-        borderRadius: BORDER_RADIUS,
+        borderRadius: 6,
       }),
       activeStyle: InteractionLayer({
         theme,
@@ -159,7 +157,7 @@ export const StyledSelectWrapper = styled('div', {
         isDisabled: $disabled,
         isReadonly: $readOnly,
         offsetHorizontal: 8,
-        borderRadius: BORDER_RADIUS,
+        borderRadius: 6,
       }),
       focusStyle: InteractionLayer({
         theme,
@@ -170,7 +168,7 @@ export const StyledSelectWrapper = styled('div', {
         isDisabled: $disabled,
         isReadonly: $readOnly,
         offsetHorizontal: 8,
-        borderRadius: BORDER_RADIUS,
+        borderRadius: 6,
       }),
     },
   };
@@ -179,18 +177,10 @@ export const StyledSelectWrapper = styled('div', {
 
   const baseBorderStyle = $style === 'outlined' ? `0 0 0 1px ${restBorderColor}` : 'none';
 
-  const paddingMap = {
-    outlined: {
-      desktop: `${pxToRem(theme.scheme.desktop.spacing[8])} ${pxToRem(theme.scheme.desktop.spacing[12])}`,
-      tablet: `${pxToRem(theme.scheme.tablet.spacing[8])} ${pxToRem(theme.scheme.tablet.spacing[12])}`,
-      mobile: `${pxToRem(theme.scheme.mobile.spacing[8])} ${pxToRem(theme.scheme.mobile.spacing[12])}`,
-    },
-    empty: {
-      desktop: `${pxToRem(theme.scheme.desktop.spacing[4])} ${pxToRem(theme.scheme.desktop.spacing[0])}`,
-      tablet: `${pxToRem(theme.scheme.tablet.spacing[4])} ${pxToRem(theme.scheme.tablet.spacing[0])}`,
-      mobile: `${pxToRem(theme.scheme.mobile.spacing[4])} ${pxToRem(theme.scheme.mobile.spacing[0])}`,
-    },
-  };
+  const padding =
+    $style === 'outlined'
+      ? `${theme.scheme.semantic.spacing[8]} ${theme.scheme.semantic.spacing[12]}`
+      : `${theme.scheme.semantic.spacing[4]} ${theme.scheme.semantic.spacing[0]}`;
 
   const baseStyles: CSSObject = {
     ...restStyle,
@@ -199,30 +189,18 @@ export const StyledSelectWrapper = styled('div', {
     alignItems: 'center',
     alignSelf: 'stretch',
     justifyContent: 'space-between',
-    gap: pxToRem(theme.scheme.desktop.spacing[16]),
-    padding: paddingMap[$style].desktop,
+    gap: theme.scheme.semantic.spacing[16],
+    padding,
     backgroundColor,
     border: 'none',
     boxShadow: baseBorderStyle,
-    borderRadius: `${theme.scheme.desktop.radius[BORDER_RADIUS]}px`,
+    borderRadius: theme.scheme.semantic.radius[6],
     cursor: $disabled ? 'not-allowed' : 'pointer',
-    transition: `box-shadow ${theme.environment.duration[100]} ${theme.environment.motion.fluent}`,
-
-    [theme.breakPoint.tablet]: {
-      gap: pxToRem(theme.scheme.tablet.spacing[16]),
-      padding: paddingMap[$style].tablet,
-      borderRadius: `${theme.scheme.tablet.radius[BORDER_RADIUS]}px`,
-    },
-
-    [theme.breakPoint.mobile]: {
-      gap: pxToRem(theme.scheme.mobile.spacing[16]),
-      padding: paddingMap[$style].mobile,
-      borderRadius: `${theme.scheme.mobile.radius[BORDER_RADIUS]}px`,
-    },
+    transition: `box-shadow ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
 
     '::after': {
       ...restStyle['::after'],
-      transition: `opacity ${theme.environment.duration[100]} ${theme.environment.motion.fluent}`,
+      transition: `opacity ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
     },
   };
 
@@ -240,7 +218,7 @@ export const StyledSelectWrapper = styled('div', {
       boxShadow: $style === 'outlined' ? `0 0 0 1px ${hoverBorderColor}` : 'none',
       '::after': {
         ...hoverStyle['::after'],
-        transition: `opacity ${theme.environment.duration[100]} ${theme.environment.motion.fluent}`,
+        transition: `opacity ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
       },
     },
     '&:active': {
@@ -289,18 +267,10 @@ export const StyledSelectValue = styled('span', {
     padding: 0,
     flex: '1 0 0',
     color: textColor,
-    ...textStyle(theme, 'desktop', 'body.sm.normal'),
+    ...theme.textStyle['semantic-textStyle-body-sm-normal'],
     userSelect: 'none',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-
-    [theme.breakPoint.tablet]: {
-      ...textStyle(theme, 'tablet', 'body.sm.normal'),
-    },
-
-    [theme.breakPoint.mobile]: {
-      ...textStyle(theme, 'mobile', 'body.sm.normal'),
-    },
   };
 });
 

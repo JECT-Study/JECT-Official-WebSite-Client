@@ -1,7 +1,7 @@
 import isPropValid from '@emotion/is-prop-valid';
 import type { CSSObject, Theme } from '@emotion/react';
 import styled from '@emotion/styled';
-import { InteractionLayer, pxToRem, textStyle } from 'utils';
+import { InteractionLayer } from 'utils';
 
 import type { InputStyle, InputValidation } from '../input.types';
 
@@ -72,8 +72,6 @@ export const StyledTagInputWrapper = styled('div', {
   $disabled: boolean;
   $readOnly: boolean;
 }>(({ theme, $style, $validation, $disabled, $readOnly }) => {
-  const BORDER_RADIUS = 6;
-
   const restBorderColor = getBorderColor(theme, $validation, 'rest', $disabled);
   const hoverBorderColor = getBorderColor(theme, $validation, 'hover', $disabled);
   const activeBorderColor = getBorderColor(theme, $validation, 'active', $disabled);
@@ -90,7 +88,7 @@ export const StyledTagInputWrapper = styled('div', {
         fillColor: 'default',
         isDisabled: $disabled,
         isReadonly: $readOnly,
-        borderRadius: BORDER_RADIUS,
+        borderRadius: 6,
       }),
       hoverStyle: InteractionLayer({
         theme,
@@ -100,7 +98,7 @@ export const StyledTagInputWrapper = styled('div', {
         fillColor: 'default',
         isDisabled: $disabled,
         isReadonly: $readOnly,
-        borderRadius: BORDER_RADIUS,
+        borderRadius: 6,
       }),
       activeStyle: InteractionLayer({
         theme,
@@ -110,7 +108,7 @@ export const StyledTagInputWrapper = styled('div', {
         fillColor: 'default',
         isDisabled: $disabled,
         isReadonly: $readOnly,
-        borderRadius: BORDER_RADIUS,
+        borderRadius: 6,
       }),
       focusStyle: InteractionLayer({
         theme,
@@ -120,7 +118,7 @@ export const StyledTagInputWrapper = styled('div', {
         fillColor: 'default',
         isDisabled: $disabled,
         isReadonly: $readOnly,
-        borderRadius: BORDER_RADIUS,
+        borderRadius: 6,
       }),
     },
     empty: {
@@ -133,7 +131,7 @@ export const StyledTagInputWrapper = styled('div', {
         isDisabled: $disabled,
         isReadonly: $readOnly,
         offsetHorizontal: 8,
-        borderRadius: BORDER_RADIUS,
+        borderRadius: 6,
       }),
       hoverStyle: InteractionLayer({
         theme,
@@ -144,7 +142,7 @@ export const StyledTagInputWrapper = styled('div', {
         isDisabled: $disabled,
         isReadonly: $readOnly,
         offsetHorizontal: 8,
-        borderRadius: BORDER_RADIUS,
+        borderRadius: 6,
       }),
       activeStyle: InteractionLayer({
         theme,
@@ -155,7 +153,7 @@ export const StyledTagInputWrapper = styled('div', {
         isDisabled: $disabled,
         isReadonly: $readOnly,
         offsetHorizontal: 8,
-        borderRadius: BORDER_RADIUS,
+        borderRadius: 6,
       }),
       focusStyle: InteractionLayer({
         theme,
@@ -166,7 +164,7 @@ export const StyledTagInputWrapper = styled('div', {
         isDisabled: $disabled,
         isReadonly: $readOnly,
         offsetHorizontal: 8,
-        borderRadius: BORDER_RADIUS,
+        borderRadius: 6,
       }),
     },
   };
@@ -175,18 +173,10 @@ export const StyledTagInputWrapper = styled('div', {
 
   const baseBorderStyle = $style === 'outlined' ? `0 0 0 1px ${restBorderColor}` : 'none';
 
-  const paddingMap = {
-    outlined: {
-      desktop: `${pxToRem(theme.scheme.desktop.spacing[8])} ${pxToRem(theme.scheme.desktop.spacing[12])}`,
-      tablet: `${pxToRem(theme.scheme.tablet.spacing[8])} ${pxToRem(theme.scheme.tablet.spacing[12])}`,
-      mobile: `${pxToRem(theme.scheme.mobile.spacing[8])} ${pxToRem(theme.scheme.mobile.spacing[12])}`,
-    },
-    empty: {
-      desktop: `${pxToRem(theme.scheme.desktop.spacing[4])} ${pxToRem(theme.scheme.desktop.spacing[0])}`,
-      tablet: `${pxToRem(theme.scheme.tablet.spacing[4])} ${pxToRem(theme.scheme.tablet.spacing[0])}`,
-      mobile: `${pxToRem(theme.scheme.mobile.spacing[4])} ${pxToRem(theme.scheme.mobile.spacing[0])}`,
-    },
-  };
+  const padding =
+    $style === 'outlined'
+      ? `${theme.scheme.semantic.spacing[8]} ${theme.scheme.semantic.spacing[12]}`
+      : `${theme.scheme.semantic.spacing[4]} ${theme.scheme.semantic.spacing[0]}`;
 
   const baseStyles: CSSObject = {
     ...restStyle,
@@ -194,30 +184,18 @@ export const StyledTagInputWrapper = styled('div', {
     flexDirection: 'column',
     flex: '1 0 0',
     alignSelf: 'stretch',
-    gap: pxToRem(theme.scheme.desktop.spacing[12]),
-    padding: paddingMap[$style].desktop,
+    gap: theme.scheme.semantic.spacing[12],
+    padding,
     backgroundColor,
     border: 'none',
     boxShadow: baseBorderStyle,
-    borderRadius: `${theme.scheme.desktop.radius[BORDER_RADIUS]}px`,
+    borderRadius: theme.scheme.semantic.radius[6],
     cursor: $disabled ? 'not-allowed' : 'text',
-    transition: `box-shadow ${theme.environment.duration[100]} ${theme.environment.motion.fluent}`,
-
-    [theme.breakPoint.tablet]: {
-      gap: pxToRem(theme.scheme.tablet.spacing[8]),
-      padding: paddingMap[$style].tablet,
-      borderRadius: `${theme.scheme.tablet.radius[BORDER_RADIUS]}px`,
-    },
-
-    [theme.breakPoint.mobile]: {
-      gap: pxToRem(theme.scheme.mobile.spacing[8]),
-      padding: paddingMap[$style].mobile,
-      borderRadius: `${theme.scheme.mobile.radius[BORDER_RADIUS]}px`,
-    },
+    transition: `box-shadow ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
 
     '::after': {
       ...restStyle['::after'],
-      transition: `opacity ${theme.environment.duration[100]} ${theme.environment.motion.fluent}`,
+      transition: `opacity ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
     },
   };
 
@@ -234,7 +212,7 @@ export const StyledTagInputWrapper = styled('div', {
       boxShadow: $style === 'outlined' ? `0 0 0 1px ${hoverBorderColor}` : 'none',
       '::after': {
         ...hoverStyle['::after'],
-        transition: `opacity ${theme.environment.duration[100]} ${theme.environment.motion.fluent}`,
+        transition: `opacity ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
       },
     },
     '&:active': {
@@ -268,23 +246,13 @@ export const StyledTagContainer = styled('div', {
   $hasTag: boolean;
 }>(({ theme, $hasTag }) => ({
   display: $hasTag ? 'flex' : 'none',
-  padding: `${pxToRem(theme.scheme.desktop.spacing[2])} ${pxToRem(theme.scheme.desktop.spacing[0])}`,
+  padding: `${theme.scheme.semantic.spacing[2]} ${theme.scheme.semantic.spacing[0]}`,
   alignItems: 'flex-start',
   alignContent: 'flex-start',
   alignSelf: 'stretch',
-  gap: pxToRem(theme.scheme.desktop.spacing[8]),
+  gap: theme.scheme.semantic.spacing[8],
   flexWrap: 'wrap',
   zIndex: 1,
-
-  [theme.breakPoint.tablet]: {
-    padding: `${pxToRem(theme.scheme.tablet.spacing[2])} ${pxToRem(theme.scheme.tablet.spacing[0])}`,
-    gap: pxToRem(theme.scheme.tablet.spacing[8]),
-  },
-
-  [theme.breakPoint.mobile]: {
-    padding: `${pxToRem(theme.scheme.mobile.spacing[2])} ${pxToRem(theme.scheme.mobile.spacing[0])}`,
-    gap: pxToRem(theme.scheme.mobile.spacing[8]),
-  },
 }));
 
 export const StyledTagWrapper = styled('div', {
@@ -295,7 +263,7 @@ export const StyledTagWrapper = styled('div', {
 }>(({ theme, $isSelected, $isInteractive }) => ({
   display: 'inline-flex',
   cursor: $isInteractive ? 'pointer' : 'default',
-  transition: `opacity ${theme.environment.duration[100]} ${theme.environment.motion.fluent}`,
+  transition: `opacity ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
   opacity: $isSelected ? 0.6 : 1,
 }));
 
@@ -317,20 +285,12 @@ export const StyledTagInput = styled('input', {
     outline: 'none',
     backgroundColor: 'transparent',
     color: textColor,
-    ...textStyle(theme, 'desktop', 'body.sm.normal'),
+    ...theme.textStyle['semantic-textStyle-body-sm-normal'],
     position: 'relative',
     zIndex: 1,
 
     '&::placeholder': {
       color: theme.color.semantic.object.assistive,
-    },
-
-    [theme.breakPoint.tablet]: {
-      ...textStyle(theme, 'tablet', 'body.sm.normal'),
-    },
-
-    [theme.breakPoint.mobile]: {
-      ...textStyle(theme, 'mobile', 'body.sm.normal'),
     },
   };
 });

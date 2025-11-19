@@ -1,7 +1,7 @@
 import isPropValid from '@emotion/is-prop-valid';
 import type { CSSObject, Theme } from '@emotion/react';
 import styled from '@emotion/styled';
-import { InteractionLayer, pxToRem, textStyle } from 'utils';
+import { InteractionLayer } from 'utils';
 
 import type { InputAreaStyle, InputAreaValidation } from './inputArea.types';
 import { Label } from '../../Label';
@@ -141,8 +141,6 @@ export const StyledTextAreaWrapper = styled('div', {
   $height?: number | string;
   $minHeight?: number | string;
 }>(({ theme, $style, $validation, $disabled, $readOnly, $height, $minHeight }) => {
-  const BORDER_RADIUS = 6;
-
   const restBorderColor = getBorderColor(theme, $validation, 'rest', $disabled, $readOnly);
   const hoverBorderColor = getBorderColor(theme, $validation, 'hover', $disabled, $readOnly);
   const activeBorderColor = getBorderColor(theme, $validation, 'active', $disabled, $readOnly);
@@ -160,7 +158,7 @@ export const StyledTextAreaWrapper = styled('div', {
         fillColor: 'default',
         isDisabled: $disabled,
         isReadonly: $readOnly,
-        borderRadius: BORDER_RADIUS,
+        borderRadius: 6,
       }),
       hoverStyle: InteractionLayer({
         theme,
@@ -170,7 +168,7 @@ export const StyledTextAreaWrapper = styled('div', {
         fillColor: 'default',
         isDisabled: $disabled,
         isReadonly: $readOnly,
-        borderRadius: BORDER_RADIUS,
+        borderRadius: 6,
       }),
       activeStyle: InteractionLayer({
         theme,
@@ -180,7 +178,7 @@ export const StyledTextAreaWrapper = styled('div', {
         fillColor: 'default',
         isDisabled: $disabled,
         isReadonly: $readOnly,
-        borderRadius: BORDER_RADIUS,
+        borderRadius: 6,
       }),
       focusStyle: InteractionLayer({
         theme,
@@ -190,7 +188,7 @@ export const StyledTextAreaWrapper = styled('div', {
         fillColor: 'default',
         isDisabled: $disabled,
         isReadonly: $readOnly,
-        borderRadius: BORDER_RADIUS,
+        borderRadius: 6,
       }),
     },
     empty: {
@@ -204,7 +202,7 @@ export const StyledTextAreaWrapper = styled('div', {
         isReadonly: $readOnly,
         offsetVertical: 4,
         offsetHorizontal: 6,
-        borderRadius: BORDER_RADIUS,
+        borderRadius: 6,
       }),
       hoverStyle: InteractionLayer({
         theme,
@@ -216,7 +214,7 @@ export const StyledTextAreaWrapper = styled('div', {
         isReadonly: $readOnly,
         offsetVertical: 4,
         offsetHorizontal: 6,
-        borderRadius: BORDER_RADIUS,
+        borderRadius: 6,
       }),
       activeStyle: InteractionLayer({
         theme,
@@ -228,7 +226,7 @@ export const StyledTextAreaWrapper = styled('div', {
         isReadonly: $readOnly,
         offsetVertical: 4,
         offsetHorizontal: 6,
-        borderRadius: BORDER_RADIUS,
+        borderRadius: 6,
       }),
       focusStyle: InteractionLayer({
         theme,
@@ -240,7 +238,7 @@ export const StyledTextAreaWrapper = styled('div', {
         isReadonly: $readOnly,
         offsetVertical: 4,
         offsetHorizontal: 6,
-        borderRadius: BORDER_RADIUS,
+        borderRadius: 6,
       }),
     },
   };
@@ -249,30 +247,19 @@ export const StyledTextAreaWrapper = styled('div', {
 
   const baseBorderStyle = $style === 'outlined' ? `0 0 0 1px ${restBorderColor}` : 'none';
 
-  const paddingMap = {
-    outlined: {
-      desktop: `${pxToRem(theme.scheme.desktop.spacing[8])} ${pxToRem(theme.scheme.desktop.spacing[8])}`,
-      tablet: `${pxToRem(theme.scheme.tablet.spacing[8])} ${pxToRem(theme.scheme.tablet.spacing[8])}`,
-      mobile: `${pxToRem(theme.scheme.mobile.spacing[8])} ${pxToRem(theme.scheme.mobile.spacing[8])}`,
-    },
-    empty: {
-      desktop: `${pxToRem(theme.scheme.desktop.spacing[0])} ${pxToRem(theme.scheme.desktop.spacing[0])}`,
-      tablet: `${pxToRem(theme.scheme.tablet.spacing[0])} ${pxToRem(theme.scheme.tablet.spacing[0])}`,
-      mobile: `${pxToRem(theme.scheme.mobile.spacing[0])} ${pxToRem(theme.scheme.mobile.spacing[0])}`,
-    },
-  };
+  const padding =
+    $style === 'outlined'
+      ? `${theme.scheme.semantic.spacing[8]} ${theme.scheme.semantic.spacing[8]}`
+      : `${theme.scheme.semantic.spacing[0]} ${theme.scheme.semantic.spacing[0]}`;
 
-  const heightValue = $height
-    ? typeof $height === 'number'
-      ? pxToRem($height)
-      : $height
-    : undefined;
+  const heightValue =
+    $height ? (typeof $height === 'number' ? `${$height / 16}rem` : $height) : undefined;
 
   const minHeightValue = $minHeight
     ? typeof $minHeight === 'number'
-      ? pxToRem($minHeight)
+      ? `${$minHeight / 16}rem`
       : $minHeight
-    : pxToRem(112);
+    : '7rem';
 
   const baseStyles: CSSObject = {
     ...restStyle,
@@ -283,28 +270,18 @@ export const StyledTextAreaWrapper = styled('div', {
     height: heightValue || 'auto',
     minHeight: heightValue ? undefined : minHeightValue,
     overflow: heightValue ? 'hidden' : 'visible',
-    padding: paddingMap[$style].desktop,
+    padding,
     backgroundColor,
     border: 'none',
     boxShadow: baseBorderStyle,
-    borderRadius: `${theme.scheme.desktop.radius[BORDER_RADIUS]}px`,
+    borderRadius: theme.scheme.semantic.radius[6],
     cursor: $disabled ? 'not-allowed' : 'text',
-    transition: `box-shadow ${theme.environment.duration[100]} ${theme.environment.motion.fluent}`,
+    transition: `box-shadow ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
     position: 'relative',
-
-    [theme.breakPoint.tablet]: {
-      padding: paddingMap[$style].tablet,
-      borderRadius: `${theme.scheme.tablet.radius[BORDER_RADIUS]}px`,
-    },
-
-    [theme.breakPoint.mobile]: {
-      padding: paddingMap[$style].mobile,
-      borderRadius: `${theme.scheme.mobile.radius[BORDER_RADIUS]}px`,
-    },
 
     '::after': {
       ...restStyle['::after'],
-      transition: `opacity ${theme.environment.duration[100]} ${theme.environment.motion.fluent}`,
+      transition: `opacity ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
     },
   };
 
@@ -321,7 +298,7 @@ export const StyledTextAreaWrapper = styled('div', {
       boxShadow: $style === 'outlined' ? `0 0 0 1px ${hoverBorderColor}` : 'none',
       '::after': {
         ...hoverStyle['::after'],
-        transition: `opacity ${theme.environment.duration[100]} ${theme.environment.motion.fluent}`,
+        transition: `opacity ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
       },
     },
     '&:active': {
@@ -367,7 +344,7 @@ export const StyledTextArea = styled('textarea', {
     outline: 'none',
     backgroundColor: 'transparent',
     color: textColor,
-    ...textStyle(theme, 'desktop', 'body.sm.normal'),
+    ...theme.textStyle['semantic-textStyle-body-sm-normal'],
     position: 'relative',
     zIndex: 1,
     resize: $hasFixedHeight ? 'none' : 'vertical',
@@ -377,14 +354,6 @@ export const StyledTextArea = styled('textarea', {
 
     '&::placeholder': {
       color: theme.color.semantic.object.assistive,
-    },
-
-    [theme.breakPoint.tablet]: {
-      ...textStyle(theme, 'tablet', 'body.sm.normal'),
-    },
-
-    [theme.breakPoint.mobile]: {
-      ...textStyle(theme, 'mobile', 'body.sm.normal'),
     },
   };
 });
@@ -400,16 +369,8 @@ export const StyledHelperContainer = styled('div', {
   justifyContent: 'space-between',
   alignItems: 'center',
   alignSelf: 'stretch',
-  gap: pxToRem(theme.scheme.desktop.spacing[16]),
+  gap: theme.scheme.semantic.spacing[16],
   color: getHelperTextColor(theme, $validation, $disabled, $readOnly),
-
-  [theme.breakPoint.tablet]: {
-    gap: pxToRem(theme.scheme.tablet.spacing[16]),
-  },
-
-  [theme.breakPoint.mobile]: {
-    gap: pxToRem(theme.scheme.mobile.spacing[16]),
-  },
 }));
 
 export const StyledHelperText = styled(Label)({

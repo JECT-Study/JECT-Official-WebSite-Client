@@ -60,24 +60,7 @@ export const StyledFieldContainer = styled('div', {
   flexDirection: $layout === 'vertical' ? 'column' : 'row',
   justifyContent: $layout === 'vertical' ? 'center' : undefined,
   alignItems: 'flex-start',
-  gap:
-    $layout === 'vertical'
-      ? pxToRem(theme.scheme.desktop.spacing[6])
-      : pxToRem(theme.scheme.desktop.spacing[16]),
-
-  [theme.breakPoint.tablet]: {
-    gap:
-      $layout === 'vertical'
-        ? pxToRem(theme.scheme.tablet.spacing[6])
-        : pxToRem(theme.scheme.tablet.spacing[16]),
-  },
-
-  [theme.breakPoint.mobile]: {
-    gap:
-      $layout === 'vertical'
-        ? pxToRem(theme.scheme.mobile.spacing[6])
-        : pxToRem(theme.scheme.mobile.spacing[16]),
-  },
+  gap: $layout === 'vertical' ? theme.scheme.semantic.spacing[6] : theme.scheme.semantic.spacing[16],
 }));
 
 export const StyledLabelContainer = styled('div', {
@@ -88,16 +71,8 @@ export const StyledLabelContainer = styled('div', {
     padding: 0,
     alignItems: $layout === 'horizontal' ? 'flex-start' : 'center',
     alignSelf: 'stretch',
-    gap: pxToRem(theme.scheme.desktop.spacing[4]),
+    gap: theme.scheme.semantic.spacing[4],
     color: getLabelColor(theme, $disabled, $readOnly),
-
-    [theme.breakPoint.tablet]: {
-      gap: pxToRem(theme.scheme.tablet.spacing[4]),
-    },
-
-    [theme.breakPoint.mobile]: {
-      gap: pxToRem(theme.scheme.mobile.spacing[4]),
-    },
   }),
 );
 
@@ -130,15 +105,7 @@ export const StyledInputColumn = styled('div')(({ theme }) => ({
   alignItems: 'flex-start',
   flex: '1 0 0',
   alignSelf: 'stretch',
-  gap: pxToRem(theme.scheme.desktop.spacing[6]),
-
-  [theme.breakPoint.tablet]: {
-    gap: pxToRem(theme.scheme.tablet.spacing[6]),
-  },
-
-  [theme.breakPoint.mobile]: {
-    gap: pxToRem(theme.scheme.mobile.spacing[6]),
-  },
+  gap: theme.scheme.semantic.spacing[6],
 }));
 
 export const StyledInputRow = styled('div', {
@@ -152,17 +119,9 @@ export const StyledInputRow = styled('div', {
 
   return {
     display: 'flex',
-    gap: pxToRem(theme.scheme.desktop.spacing[gapValue]),
+    gap: theme.scheme.semantic.spacing[gapValue],
     alignItems: 'center',
     alignSelf: 'stretch',
     width: '100%',
-
-    [theme.breakPoint.tablet]: {
-      gap: pxToRem(theme.scheme.tablet.spacing[gapValue]),
-    },
-
-    [theme.breakPoint.mobile]: {
-      gap: pxToRem(theme.scheme.mobile.spacing[gapValue]),
-    },
   };
 });
