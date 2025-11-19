@@ -2,8 +2,11 @@ import isPropValid from '@emotion/is-prop-valid';
 import type { Theme } from '@emotion/react';
 import styled from '@emotion/styled';
 
-//TODO: Hero의 스타일링에서 해당 스타일링을 들고오는 것은 적절하지 않음
-import { TEXT_ALIGN_MAPPING } from '../Hero/Hero.style';
+const TEXT_ALIGN_MAPPING = {
+  center: 'center',
+  left: 'flex-start',
+  right: 'flex-end',
+} as const;
 
 export type LabelSize = 'lg' | 'md' | 'sm' | 'xs';
 export type LabelTextAlign = keyof typeof TEXT_ALIGN_MAPPING;
