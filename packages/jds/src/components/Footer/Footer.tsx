@@ -166,7 +166,7 @@ const FooterBottom = forwardRef<HTMLDivElement, FooterBottomProps>(
     return (
       <StyledFooterBottom ref={ref} {...rest}>
         <span>{copyright}</span>
-        {email && <span>{email}</span>}
+        {email && <address>{email}</address>}
         {privacyLink && (
           <a href={privacyLink} target='_blank' rel='noopener noreferrer'>
             개인정보처리방침

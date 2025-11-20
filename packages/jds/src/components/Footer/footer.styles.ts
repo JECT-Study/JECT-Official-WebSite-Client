@@ -123,6 +123,11 @@ export const StyledFooterBottom = styled.div(({ theme }) => ({
   rowGap: theme.scheme.semantic.spacing['8'],
   flexWrap: 'wrap',
 
+  address: {
+    fontStyle: 'normal',
+    display: 'inline',
+  },
+
   a: {
     color: 'inherit',
     textDecoration: 'none',
