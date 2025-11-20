@@ -1,6 +1,6 @@
-import { useTheme } from '@emotion/react';
 import type { Meta, StoryObj } from '@storybook/react';
 
+import { theme } from '../../tokens/theme';
 import { Label } from './Label';
 
 const meta = {
@@ -56,8 +56,6 @@ export const WithColor: Story = {
     children: '레이블',
   },
   render: args => {
-    const theme = useTheme();
-
     return <Label {...args} color={theme.color.semantic.accent.neutral} />;
   },
 };
