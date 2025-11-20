@@ -5,20 +5,10 @@ export const StyledFooterRoot = styled.footer(({ theme }) => ({
   color: theme.color.semantic.object.alternative,
   paddingTop: theme.scheme.semantic.spacing['40'],
   paddingBottom: theme.scheme.semantic.spacing['72'],
-  paddingLeft: theme.scheme.semantic.spacing['24'],
-  paddingRight: theme.scheme.semantic.spacing['24'],
+  paddingLeft: theme.scheme.semantic.margin.md,
+  paddingRight: theme.scheme.semantic.margin.md,
   display: 'flex',
   justifyContent: 'center',
-
-  [theme.breakPoint.tablet]: {
-    paddingLeft: theme.scheme.semantic.spacing['20'],
-    paddingRight: theme.scheme.semantic.spacing['20'],
-  },
-
-  [theme.breakPoint.mobile]: {
-    paddingLeft: theme.scheme.semantic.spacing['16'],
-    paddingRight: theme.scheme.semantic.spacing['16'],
-  },
 }));
 
 export const StyledFooterContent = styled.div(({ theme }) => ({
