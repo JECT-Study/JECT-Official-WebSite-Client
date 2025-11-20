@@ -37,6 +37,14 @@ export const Default: Story = {
       <SegmentedControl.Item value='option2'>레이블</SegmentedControl.Item>
     </SegmentedControl.Root>
   ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '키보드로 탐색할 수 있습니다. Tab으로 컴포넌트에 포커스하고, 화살표 키(←/→)로 항목 간 이동 및 선택이 가능합니다.',
+      },
+    },
+  },
 };
 
 export const DisabledItem: Story = {
