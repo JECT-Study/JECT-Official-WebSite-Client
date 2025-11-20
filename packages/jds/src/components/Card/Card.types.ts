@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, ReactNode } from 'react';
+import type { ComponentPropsWithoutRef, ReactNode } from 'react';
 
 import type { ImgRatio, ImgOrientation } from '../Image/Image';
 
@@ -58,7 +58,7 @@ export interface CardMetaNudgeItemProps extends ComponentPropsWithoutRef<'span'>
   children: ReactNode;
 }
 
-interface BasePresetProps extends Omit<ComponentPropsWithoutRef<'div'>, 'children'> {
+interface BasePresetOwnProps {
   layout?: CardLayout;
   isDisabled?: boolean;
   image?: {
@@ -67,24 +67,24 @@ interface BasePresetProps extends Omit<ComponentPropsWithoutRef<'div'>, 'childre
   };
 }
 
-export interface PlateWithTitlePresetProps extends BasePresetProps {
+export interface PlateWithTitlePresetProps extends BasePresetOwnProps {
   caption?: string;
   title: string;
   body: ReactNode;
 }
 
-export interface PlateWithLabelPresetProps extends BasePresetProps {
+export interface PlateWithLabelPresetProps extends BasePresetOwnProps {
   caption?: string;
   label: string;
   body: ReactNode;
 }
 
-export interface PlateCompactPresetProps extends BasePresetProps {
+export interface PlateCompactPresetProps extends BasePresetOwnProps {
   caption: string;
   body: ReactNode;
 }
 
-export interface PostPresetProps extends BasePresetProps {
+export interface PostPresetProps extends BasePresetOwnProps {
   cardStyle?: 'outlined' | 'empty';
   title: string;
   body: ReactNode;

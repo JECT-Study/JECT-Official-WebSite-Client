@@ -1,15 +1,12 @@
-import { ElementType, useMemo } from 'react';
+import { forwardRef, useMemo } from 'react';
 
 import { CardContext } from '../Card.context';
 import type { CardRootOwnProps } from '../Card.types';
 import { StyledCardRoot } from './compound.styles';
 
-import { PolymorphicForwardRef } from '@/utils/forwardRef';
-
-export const CardRoot = PolymorphicForwardRef<'div', CardRootOwnProps>(
+export const CardRoot = forwardRef<HTMLElement, CardRootOwnProps>(
   (
     {
-      as,
       layout = 'vertical',
       variant = 'plate',
       cardStyle,
@@ -19,8 +16,6 @@ export const CardRoot = PolymorphicForwardRef<'div', CardRootOwnProps>(
     },
     ref,
   ) => {
-    const Component = as || ('div' as ElementType);
-
     const contextValue = useMemo(
       () => ({ layout, variant, cardStyle, isDisabled }),
       [layout, variant, cardStyle, isDisabled],
@@ -30,7 +25,6 @@ export const CardRoot = PolymorphicForwardRef<'div', CardRootOwnProps>(
       <CardContext.Provider value={contextValue}>
         <StyledCardRoot
           ref={ref}
-          as={Component}
           $layout={layout}
           $variant={variant}
           $cardStyle={cardStyle}

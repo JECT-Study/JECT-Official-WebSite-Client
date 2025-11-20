@@ -78,7 +78,7 @@ const getVariantStyles = (
   };
 };
 
-export const StyledCardRoot = styled('div', {
+export const StyledCardRoot = styled('article', {
   shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
 })<{
   $layout: CardLayout;
