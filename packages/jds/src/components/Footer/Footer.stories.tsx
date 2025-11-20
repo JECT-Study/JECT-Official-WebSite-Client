@@ -48,6 +48,11 @@ const meta: Meta<typeof Footer.Root> = {
   parameters: {
     layout: 'fullscreen',
   },
+  argTypes: {
+    children: {
+      description: 'Footer 내부 콘텐츠',
+    },
+  },
 };
 export default meta;
 
@@ -103,7 +108,53 @@ export const LogoDiv: Story = {
   parameters: {
     docs: {
       description: {
-        story: '링크 기능이 없는 일반 요소 형태의 로고입니다. ',
+        story: '링크 기능이 없는 일반 요소 형태의 로고입니다.',
+      },
+    },
+  },
+};
+
+export const Social: Story = {
+  render: () => (
+    <Footer.Social
+      github='https://github.com/JECT-Study'
+      instagram='https://www.instagram.com/ject_official'
+      iconSize='md'
+    />
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'GitHub와 Instagram 소셜 링크를 표시하는 컴포넌트입니다.',
+      },
+    },
+  },
+};
+
+export const Nav: Story = {
+  render: () => <Footer.Nav sections={mockSections} />,
+  parameters: {
+    docs: {
+      description: {
+        story: 'Footer의 네비게이션 섹션들을 표시하는 컴포넌트입니다. 반응형으로 동작합니다.',
+      },
+    },
+  },
+};
+
+export const Bottom: Story = {
+  render: () => (
+    <Footer.Bottom
+      copyright='© 2025 JECT. All rights reserved.'
+      email='jectofficial@ject.kr'
+      privacyLink='https://privacy.ject.kr'
+    />
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Footer 하단에 표시되는 저작권, 이메일, 개인정보처리방침 링크를 포함하는 컴포넌트입니다.',
       },
     },
   },
