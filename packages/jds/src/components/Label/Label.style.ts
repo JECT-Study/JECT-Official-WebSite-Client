@@ -27,7 +27,7 @@ export const LabelDiv = styled.div<LabelDivProps>(({ theme, size, textAlign, wei
     justifyContent,
     alignItems: 'center',
     color,
-    cursor: 'default',
+    cursor: 'inherit',
     ...theme.textStyle[tokenKey],
   };
 });
