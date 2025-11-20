@@ -252,8 +252,11 @@ export const StyledTextAreaWrapper = styled('div', {
       ? `${theme.scheme.semantic.spacing[8]} ${theme.scheme.semantic.spacing[8]}`
       : `${theme.scheme.semantic.spacing[0]} ${theme.scheme.semantic.spacing[0]}`;
 
-  const heightValue =
-    $height ? (typeof $height === 'number' ? `${$height / 16}rem` : $height) : undefined;
+  const heightValue = $height
+    ? typeof $height === 'number'
+      ? `${$height / 16}rem`
+      : $height
+    : undefined;
 
   const minHeightValue = $minHeight
     ? typeof $minHeight === 'number'
@@ -350,6 +353,7 @@ export const StyledTextArea = styled('textarea', {
     resize: $hasFixedHeight ? 'none' : 'vertical',
     overflow: 'auto',
     boxSizing: 'border-box',
+    //Todo: 사파리나 firefox 같은 곳에서는 지원하진 않는 속성 (리사이징 훅 등 처리 필요)
     fieldSizing: 'content',
 
     '&::placeholder': {
