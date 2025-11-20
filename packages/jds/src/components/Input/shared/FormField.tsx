@@ -2,13 +2,13 @@ import type { ReactNode } from 'react';
 
 import {
   StyledLabelContainer,
+  StyledLabelIcon,
   StyledFieldLabel,
   StyledInputColumn,
   StyledHelperText,
 } from './field.styles';
 import { FormFieldProvider, useFormField } from './FormFieldContext';
 import type { FormFieldProviderProps } from './FormFieldContext';
-import { Icon } from '../../Icon';
 
 interface FormFieldLabelProps {
   children?: ReactNode;
@@ -34,7 +34,9 @@ export const FormFieldLabel = ({ children }: FormFieldLabelProps) => {
       >
         {children || label}
       </StyledFieldLabel>
-      {labelIcon && <Icon name={labelIcon} size='2xs' />}
+      {labelIcon && (
+        <StyledLabelIcon name={labelIcon} size='2xs' $disabled={isDisabled} $readOnly={isReadOnly} />
+      )}
     </StyledLabelContainer>
   );
 };
