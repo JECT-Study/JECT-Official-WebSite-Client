@@ -43,8 +43,8 @@ export interface InteractionStylesConfig {
    *
    */
   transition?: {
-    duration?: keyof Theme['environment']['duration'];
-    motion?: keyof Theme['environment']['motion'];
+    duration?: keyof Theme['environment']['semantic']['duration'];
+    motion?: keyof Theme['environment']['semantic']['motion'];
     properties?: Array<'opacity' | 'background-color' | 'transform' | 'box-shadow'>;
   };
 }
@@ -105,7 +105,7 @@ export const createInteractionStyles = (config: InteractionStylesConfig): CSSObj
     focus: InteractionLayer({ ...baseParams, state: actualStateMapping.focus }),
   };
 
-  const transitionValue = `${actualTransition.properties.join(', ')} ${theme.environment.duration[actualTransition.duration]} ${theme.environment.motion[actualTransition.motion]}`;
+  const transitionValue = `${actualTransition.properties.join(', ')} ${theme.environment.semantic.duration[actualTransition.duration]} ${theme.environment.semantic.motion[actualTransition.motion]}`;
 
   if (isDisabled) {
     const disabledState = InteractionLayer({

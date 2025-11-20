@@ -2,7 +2,7 @@ import isPropValid from '@emotion/is-prop-valid';
 import type { Theme } from '@emotion/react';
 import styled from '@emotion/styled';
 
-const TEXT_ALIGN_MAPPING = {
+export const TEXT_ALIGN_MAPPING = {
   center: 'center',
   left: 'flex-start',
   right: 'flex-end',
@@ -18,7 +18,7 @@ interface LabelStyledProps {
   $weight: LabelWeight;
 }
 
-const getLabelTokenKey = (size: LabelSize, weight: LabelWeight): keyof Theme['textStyle'] => {
+export const getLabelTokenKey = (size: LabelSize, weight: LabelWeight): keyof Theme['textStyle'] => {
   return `semantic-textStyle-label-${size}-${weight}` as keyof Theme['textStyle'];
 };
 

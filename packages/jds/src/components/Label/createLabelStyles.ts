@@ -1,10 +1,13 @@
 import type { Theme } from '@emotion/react';
 import type { CSSObject } from '@emotion/react';
-import { TextStyle } from 'types';
-import { textStyle } from 'utils';
 
-import type { LabelSize, LabelTextAlign, LabelWeight } from './Label.style';
-import { TEXT_ALIGN_MAPPING } from '../Hero/Hero.style';
+import {
+  getLabelTokenKey,
+  TEXT_ALIGN_MAPPING,
+  type LabelSize,
+  type LabelTextAlign,
+  type LabelWeight,
+} from './Label.style';
 
 /**
  * @description
@@ -26,17 +29,15 @@ export const createLabelStyles = (
   },
 ): CSSObject => {
   const { size, weight, textAlign = 'left' } = options;
-  const textStyleKey = `label.${size}.${weight}` as TextStyle;
+  const tokenKey = getLabelTokenKey(size, weight);
   const justifyContent = TEXT_ALIGN_MAPPING[textAlign];
 
-  //NOTE: 이 구현은 Label.style.ts와 동기화(color는 제외 - 각 컴포넌트에서 semantic color를 명시적으로 지정)
+  // NOTE: 이 구현은 Label.style.ts와 동기화(color는 제외 - 각 컴포넌트에서 semantic color를 명시적으로 지정)
   return {
     display: 'flex',
     justifyContent,
     alignItems: 'center',
     cursor: 'default',
-    ...textStyle(theme, 'desktop', textStyleKey),
-    [theme.breakPoint.tablet]: { ...textStyle(theme, 'tablet', textStyleKey) },
-    [theme.breakPoint.mobile]: { ...textStyle(theme, 'mobile', textStyleKey) },
-  };
+    ...theme.textStyle[tokenKey],
+  } as CSSObject;
 };

@@ -27,9 +27,9 @@ const getVariantStyles = (
   style: CardStyle | undefined,
 ): { styles: CSSObject; borderRadius: number } => {
   const borderRadiusParams = {
-    plate: theme.scheme.desktop.radius[12],
+    plate: 12,
     post: {
-      outlined: theme.scheme.desktop.radius[10],
+      outlined: 10,
       empty: 0,
     },
   } as const;
@@ -41,7 +41,7 @@ const getVariantStyles = (
     const styleParams = {
       outlined: {
         border: `1px solid ${theme.color.semantic.stroke.subtle}`,
-        padding: pxToRem(theme.scheme.desktop.spacing[20]),
+        padding: theme.scheme.semantic.spacing[20],
         borderRadius: `${borderRadius}px`,
         backgroundColor: theme.color.semantic.surface.shallow,
         boxShadow: SHADOW_DEFAULT,
@@ -151,8 +151,8 @@ export const StyledCardRoot = styled('div', {
     post: {
       vertical: 0,
       horizontal: {
-        outlined: pxToRem(theme.scheme.desktop.spacing[20]),
-        empty: pxToRem(theme.scheme.desktop.spacing[24]),
+        outlined: theme.scheme.semantic.spacing[20],
+        empty: theme.scheme.semantic.spacing[24],
       },
     },
   } as const;
@@ -211,15 +211,15 @@ export const StyledCardRoot = styled('div', {
       ...restStyle,
       '::after': {
         ...restStyle['::after'],
-        transition: `opacity ${theme.environment.duration[150]} ${theme.environment.motion.fluent}`,
+        transition: `opacity ${theme.environment.semantic.duration[150]} ${theme.environment.semantic.motion.fluent}`,
       },
       '&:hover': {
         ...hoverStyle,
         transform: 'translateY(-2px)',
-        ...shadow(theme, 'desktop', 'raised'),
+        ...shadow(theme, 'raised'),
         '::after': {
           ...hoverStyle['::after'],
-          transition: `opacity ${theme.environment.duration[150]} ${theme.environment.motion.fluent}`,
+          transition: `opacity ${theme.environment.semantic.duration[150]} ${theme.environment.semantic.motion.fluent}`,
         },
       },
       '&:active': {
@@ -232,10 +232,10 @@ export const StyledCardRoot = styled('div', {
       '&:focus-visible': {
         ...focusStyle,
         transform: 'translateY(-2px)',
-        ...shadow(theme, 'desktop', 'raised'),
+        ...shadow(theme, 'raised'),
         '::after': {
           ...focusStyle['::after'],
-          transition: `opacity ${theme.environment.duration[100]} ${theme.environment.motion.fluent}`,
+          transition: `opacity ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
         },
       },
     },
@@ -294,14 +294,14 @@ export const StyledCardContent = styled.div<{
     plate: {
       vertical: {
         maxHeight: pxToRem(233),
-        padding: pxToRem(theme.scheme.desktop.spacing[20]),
-        gap: pxToRem(theme.scheme.desktop.spacing[16]),
+        padding: theme.scheme.semantic.spacing[20],
+        gap: theme.scheme.semantic.spacing[16],
         alignSelf: 'stretch' as const,
       },
       horizontal: {
         maxHeight: pxToRem(233),
-        padding: pxToRem(theme.scheme.desktop.spacing[20]),
-        gap: pxToRem(theme.scheme.desktop.spacing[16]),
+        padding: theme.scheme.semantic.spacing[20],
+        gap: theme.scheme.semantic.spacing[16],
         flex: '1 0 0',
         alignSelf: 'stretch' as const,
       },
@@ -309,12 +309,12 @@ export const StyledCardContent = styled.div<{
     post: {
       vertical: {
         padding: 0,
-        gap: pxToRem(theme.scheme.desktop.spacing[16]),
+        gap: theme.scheme.semantic.spacing[16],
         flex: '1 0 0',
       },
       horizontal: {
         padding: 0,
-        gap: pxToRem(theme.scheme.desktop.spacing[16]),
+        gap: theme.scheme.semantic.spacing[16],
         flex: '1 0 0',
       },
     },
@@ -331,12 +331,12 @@ export const StyledCardMeta = styled.div(({ theme }) => ({
   alignItems: 'center',
   padding: 0,
   alignSelf: 'stretch',
-  gap: pxToRem(theme.scheme.desktop.spacing[16]),
+  gap: theme.scheme.semantic.spacing[16],
   [theme.breakPoint.tablet]: {
-    gap: pxToRem(theme.scheme.tablet.spacing[16]),
+    gap: theme.scheme.semantic.spacing[16],
   },
   [theme.breakPoint.mobile]: {
-    gap: pxToRem(theme.scheme.mobile.spacing[16]),
+    gap: theme.scheme.semantic.spacing[16],
   },
 }));
 
@@ -351,11 +351,11 @@ export const StyledCardMetaNudgeItem = styled.span(({ theme }) => ({
   display: 'inline-flex',
   padding: 0,
   alignItems: 'center',
-  gap: pxToRem(theme.scheme.desktop.spacing[4]),
+  gap: theme.scheme.semantic.spacing[4],
   marginLeft: 'auto',
   flexShrink: 0,
   opacity: 0,
-  transition: `opacity ${theme.environment.duration[150]} ${theme.environment.motion.fluent}, transform ${theme.environment.duration[150]} ${theme.environment.motion.fluent}`,
+  transition: `opacity ${theme.environment.semantic.duration[150]} ${theme.environment.semantic.motion.fluent}, transform ${theme.environment.semantic.duration[150]} ${theme.environment.semantic.motion.fluent}`,
 
   'a:hover &, button:hover &, [role="button"]:hover &, [role="link"]:hover &': {
     opacity: 1,
@@ -365,7 +365,7 @@ export const StyledCardMetaNudgeItem = styled.span(({ theme }) => ({
   'a:active &, button:active &, [role="button"]:active &, [role="link"]:active &': {
     opacity: 1,
     transform: 'translateX(4px)',
-    transition: `opacity ${theme.environment.duration[150]} ${theme.environment.motion.fluent}, transform none`,
+    transition: `opacity ${theme.environment.semantic.duration[150]} ${theme.environment.semantic.motion.fluent}, transform none`,
   },
 }));
 
