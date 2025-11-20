@@ -36,7 +36,7 @@ export const ImageButton = styled.button<ImageButtonProps>(
       width: '100%',
       height: '100%',
       aspectRatio: getAspectRatioValue(ratio, orientation),
-      border: `${theme.scheme.semantic.strokeWeight[1]}px solid ${theme.color.semantic.stroke.alpha.subtler}`,
+      border: `1px solid ${theme.color.semantic.stroke.alpha.subtler}`,
       borderRadius: 'inherit',
 
       '& img': {
@@ -91,7 +91,7 @@ export const ImageLabelDiv = styled.div(({ theme }) => {
     zIndex: 50,
     minWidth: `${pxToRem(18)}`,
     backgroundColor: theme.color.semantic.object.static.neutral,
-    padding: `0 ${theme.scheme.semantic.spacing[2]}px`,
+    padding: `0 ${theme.scheme.semantic.spacing[2]}`,
     borderRadius: theme.scheme.semantic.radius[2],
   };
 });
