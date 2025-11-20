@@ -6,6 +6,7 @@ export * from './Button/IconButton';
 export * from './Input';
 export * from './Label';
 export * from './Button/LabelButton';
+export * from './Logo';
 export * from './Select';
 export * from './Title';
 export * from './Badge';
