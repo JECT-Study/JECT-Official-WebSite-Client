@@ -18,7 +18,7 @@ const GetDividerStyles = (
   variant: DividerVariant,
 ): CSSObject => {
   const borderWidth = thicknessMap[thickness];
-  const borderColor = theme.color.semantic.stroke.normal;
+  const borderColor = theme.color.semantic.stroke.alpha.subtle;
   const borderStyle = variant;
 
   if (orientation === 'horizontal') {
