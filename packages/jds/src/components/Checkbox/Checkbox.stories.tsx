@@ -209,7 +209,7 @@ export const RefCallbackTest: Story = {
             }}
           >
             <h4 style={{ margin: '0 0 8px 0', fontSize: '16px', fontWeight: 'bold' }}>
-              🔍 RefCallback 동작 테스트
+              RefCallback 동작 테스트
             </h4>
             <p style={{ margin: '4px 0', color: '#666' }}>
               <strong>테스트 목적:</strong> isIndeterminate 변경 시 refCallback이 재생성되어 ref
@@ -316,7 +316,7 @@ export const RefCallbackTest: Story = {
               cursor: 'pointer',
             }}
           >
-            🧹 Clear Console
+            콘솔 초기화
           </button>
         </FlexColumn>
       );
@@ -393,30 +393,6 @@ export const ControlledPattern: Story = {
           '// Indeterminate state\n' +
           '<Checkbox.Basic checked="indeterminate" onCheckedChange={setChecked} />\n' +
           '```',
-      },
-    },
-  },
-};
-
-export const InteractionStates: Story = {
-  render: () => {
-    const InteractionDemo = () => {
-      return <FlexColumn gap='16px'></FlexColumn>;
-    };
-
-    return <InteractionDemo />;
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          '**InteractionLayer 기반 인터랙션 시스템**\n\n' +
-          'Checkbox는 다음 인터랙션 상태를 지원합니다:\n\n' +
-          '- **rest**: 기본 상태 (opacity: 0, 투명)\n' +
-          '- **hover**: 마우스 오버 시 (opacity: 0.08, 100ms fluent transition)\n' +
-          '- **active**: 클릭 중 (opacity: 0.12, transition 없음)\n' +
-          '- **focus**: Tab 키 포커스 시 (3px focus outline, 마우스 클릭은 제외)\n\n' +
-          '**주의**: Focus ring은 키보드 내비게이션(Tab)에만 표시되며, 마우스 클릭 시에는 표시되지 않습니다 (`:has(:focus-visible)` 사용).',
       },
     },
   },
