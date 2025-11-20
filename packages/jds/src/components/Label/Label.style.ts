@@ -1,9 +1,12 @@
 import isPropValid from '@emotion/is-prop-valid';
+import type { Theme } from '@emotion/react';
 import styled from '@emotion/styled';
-import { TextStyle } from 'types';
-import { textStyle } from 'utils';
 
-import { TEXT_ALIGN_MAPPING } from '../Hero/Hero.style';
+const TEXT_ALIGN_MAPPING = {
+  center: 'center',
+  left: 'flex-start',
+  right: 'flex-end',
+} as const;
 
 export type LabelSize = 'lg' | 'md' | 'sm' | 'xs';
 export type LabelTextAlign = keyof typeof TEXT_ALIGN_MAPPING;
@@ -15,6 +18,10 @@ interface LabelStyledProps {
   $weight: LabelWeight;
 }
 
+const getLabelTokenKey = (size: LabelSize, weight: LabelWeight): keyof Theme['textStyle'] => {
+  return `semantic-textStyle-label-${size}-${weight}` as keyof Theme['textStyle'];
+};
+
 /**
  * @remarks
  * 이 컴포넌트는 createLabelStyles에 의존하지 않습니다.
@@ -25,7 +32,7 @@ interface LabelStyledProps {
 export const LabelStyled = styled('label', {
   shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
 })<LabelStyledProps>(({ theme, $size, $textAlign, $weight }) => {
-  const textStyleKey = `label.${$size}.${$weight}` as TextStyle;
+  const tokenKey = getLabelTokenKey($size, $weight);
   const justifyContent = TEXT_ALIGN_MAPPING[$textAlign];
 
   return {
@@ -34,8 +41,6 @@ export const LabelStyled = styled('label', {
     alignItems: 'center',
     color: theme.color.semantic.object.bold,
     cursor: 'default',
-    ...textStyle(theme, 'desktop', textStyleKey),
-    [theme.breakPoint.tablet]: { ...textStyle(theme, 'tablet', textStyleKey) },
-    [theme.breakPoint.mobile]: { ...textStyle(theme, 'mobile', textStyleKey) },
+    ...theme.textStyle[tokenKey],
   };
 });

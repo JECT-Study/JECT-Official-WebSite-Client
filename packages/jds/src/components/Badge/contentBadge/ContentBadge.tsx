@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 import {
   BadgeIcon,
@@ -9,7 +9,7 @@ import {
   ContentBadgeThemeDiv,
   ContentBadgeThemeLabel,
 } from './ContentBadge.style';
-import {
+import type {
   BadgeSize,
   ContentBadgeStyle,
   BasicHierarchy,

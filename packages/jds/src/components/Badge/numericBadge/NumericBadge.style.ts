@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { pxToRem } from 'utils';
 
-import { BasicHierarchy, BadgeSize, NumericBadgeStyle, FeedbackVariant } from '../badge.types';
+import type { BasicHierarchy, BadgeSize, NumericBadgeStyle, FeedbackVariant } from '../badge.types';
 import { numericBadgeSizeMap } from '../badge.variants';
 import {
   numericBadgeBasicStylesMap,
@@ -32,7 +32,7 @@ export const NumericBadgeBasicDiv = styled.div<NumericBadgeBasicDivProps>(
       justifyContent: 'center',
       alignItems: 'center',
       backgroundColor,
-      borderRadius: theme.scheme.desktop.radius.max,
+      borderRadius: theme.scheme.semantic.radius.max,
     };
   },
 );
@@ -78,7 +78,7 @@ export const NumericBadgeFeedbackDiv = styled.div<NumericBadgeFeedbackDivProps>(
       justifyContent: 'center',
       alignItems: 'center',
       backgroundColor,
-      borderRadius: theme.scheme.desktop.radius.max,
+      borderRadius: theme.scheme.semantic.radius.max,
     };
   },
 );

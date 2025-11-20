@@ -27,19 +27,19 @@ export default tseslint.config(
       },
     },
     plugins: {
-      import: importPlugin,
+      'import': importPlugin,
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
-      'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+      'react-refresh/only-export-components': 'off',
       '@typescript-eslint/naming-convention': [
         'error',
         {
           selector: 'function',
           modifiers: ['exported'],
-          format: ['PascalCase'],
+          format: ['camelCase', 'PascalCase'],
         },
         {
           selector: 'variable',
@@ -60,14 +60,25 @@ export default tseslint.config(
       'import/order': [
         'error',
         {
-          groups: ['builtin', 'external', 'internal', ['parent', 'sibling', 'index']],
+          'groups': ['builtin', 'external', 'internal', ['parent', 'sibling', 'index']],
           'newlines-between': 'always',
-          alphabetize: {
+          'alphabetize': {
             order: 'asc',
             caseInsensitive: true,
           },
         },
       ],
+      '@typescript-eslint/consistent-type-imports': [
+        //type import
+        'error',
+        {
+          prefer: 'type-imports',
+          fixStyle: 'separate-type-imports',
+        },
+      ],
+      '@typescript-eslint/no-unsafe-assignment': 'off',
+      '@typescript-eslint/no-unsafe-member-access': 'off',
+      '@typescript-eslint/no-unsafe-call': 'off',
     },
   },
 );

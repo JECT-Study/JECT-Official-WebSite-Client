@@ -1,5 +1,5 @@
 import type { CSSObject, Theme } from '@emotion/react';
-import { Density, FillColor, InteractionState, Variant } from 'types';
+import type { Density, FillColor, InteractionState, Variant } from 'types';
 
 export function Interaction(
   theme: Theme,

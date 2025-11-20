@@ -1,4 +1,4 @@
-import { ElementType } from 'react';
+import type { ElementType } from 'react';
 
 import { LabelStyled } from './Label.style';
 import type { LabelOwnProps } from './label.types';

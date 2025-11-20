@@ -1,9 +1,9 @@
 import isPropValid from '@emotion/is-prop-valid';
 import styled from '@emotion/styled';
-import { CSSProperties } from 'react';
+import type { CSSProperties } from 'react';
 import { Interaction, pxToRem } from 'utils';
 
-import { ImgOrientation, ImgRatio } from './Image';
+import type { ImgOrientation, ImgRatio } from './Image';
 
 import { Label, Icon } from '@/components';
 
@@ -38,7 +38,7 @@ export const ImageButton = styled('button', {
     width: '100%',
     height: '100%',
     aspectRatio: getAspectRatioValue(ratio, orientation),
-    border: `${theme.scheme.desktop.stroke.weight[1]}px solid ${theme.color.semantic.stroke.alpha.subtler}`,
+    border: `1px solid ${theme.color.semantic.stroke.alpha.subtler}`,
     borderRadius: 'inherit',
 
     '& img': {
@@ -89,8 +89,8 @@ export const ImageLabelDiv = styled.div(({ theme }) => {
     zIndex: 50,
     minWidth: `${pxToRem(18)}`,
     backgroundColor: theme.color.semantic.object.static.neutral,
-    padding: `0 ${theme.scheme.desktop.spacing[2]}px`,
-    borderRadius: theme.scheme.desktop.radius[2],
+    padding: `0 ${theme.scheme.semantic.spacing[2]}`,
+    borderRadius: theme.scheme.semantic.radius[2],
   };
 });
 
