@@ -5,7 +5,7 @@ import type {
   CheckedState,
 } from 'components';
 import { Icon } from 'components';
-import { forwardRef, useCallback } from 'react';
+import { forwardRef, useCallback, useLayoutEffect, useRef } from 'react';
 
 import {
   GetIconSize,
@@ -35,29 +35,26 @@ const CheckboxBox = forwardRef<HTMLInputElement, CheckboxBoxProps>(
     ref,
   ) => {
     const iconSize = GetIconSize(size);
+    const inputRef = useRef<HTMLInputElement | null>(null);
 
-    //NOTE : refCallback으로 처리된 부분을 추후 useComposedRefs(Radix 기준) 등의 커스텀 훅으로 분리 가능성 -ref 관리 용이
     const refCallback = useCallback(
       (node: HTMLInputElement | null) => {
-        //TEST:  refCallback 호출 로깅
-        console.group('🔍 [Checkbox] refCallback called');
-        console.log('timestamp:', new Date().toISOString());
-        console.log('node:', node ? 'ATTACHED' : 'DETACHED (null)');
-        console.log('isIndeterminate:', isIndeterminate);
-        console.groupEnd();
+        inputRef.current = node;
 
         if (typeof ref === 'function') {
           ref(node);
         } else if (ref) {
           ref.current = node;
         }
-
-        if (node) {
-          node.indeterminate = isIndeterminate;
-        }
       },
-      [ref, isIndeterminate],
+      [ref],
     );
+
+    useLayoutEffect(() => {
+      if (inputRef.current) {
+        inputRef.current.indeterminate = isIndeterminate;
+      }
+    }, [isIndeterminate]);
 
     const handleChange = useCallback(
       ({ target }: { target: HTMLInputElement }) => {
