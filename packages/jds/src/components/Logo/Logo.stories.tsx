@@ -135,17 +135,17 @@ export const InteractionStates: Story = {
     <FlexColumn>
       <FlexRow>
         <Label>Primary</Label>
-        <Logo hierarchy='primary' height={32} href='/' onClick={e => e.preventDefault()} />
+        <Logo hierarchy='primary' height={32} href='#' />
         <Label>(Tab을 사용)</Label>
       </FlexRow>
       <FlexRow>
         <Label>Secondary</Label>
-        <Logo hierarchy='secondary' height={32} href='/' onClick={e => e.preventDefault()} />
+        <Logo hierarchy='secondary' height={32} href='#' />
         <Label>(Tab을 사용)</Label>
       </FlexRow>
       <FlexRow>
         <Label>Tertiary</Label>
-        <Logo hierarchy='tertiary' height={32} href='/' onClick={e => e.preventDefault()} />
+        <Logo hierarchy='tertiary' height={32} href='#' />
         <Label>(Tab을 사용)</Label>
       </FlexRow>
     </FlexColumn>
@@ -166,7 +166,7 @@ export const WithLink: Story = {
     <FlexColumn>
       <FlexRow>
         <Label>로고 (a 태그)</Label>
-        <Logo href='/' hierarchy='primary' height={32} onClick={e => e.preventDefault()} />
+        <Logo href='#' hierarchy='primary' height={32} />
       </FlexRow>
       <FlexRow>
         <Label>로고 (div 태그)</Label>
@@ -190,18 +190,12 @@ export const TabIndexBehavior: Story = {
     <FlexColumn>
       <FlexRow>
         <Label>a 태그 + href (기본)</Label>
-        <Logo href='/' hierarchy='primary' height={32} onClick={e => e.preventDefault()} />
+        <Logo href='#' hierarchy='primary' height={32} />
         <Label>암묵적 tabIndex=0, 포커스 가능</Label>
       </FlexRow>
       <FlexRow>
         <Label>a 태그 + href + tabIndex={-1}</Label>
-        <Logo
-          href='/'
-          hierarchy='primary'
-          height={32}
-          tabIndex={-1}
-          onClick={e => e.preventDefault()}
-        />
+        <Logo href='#' hierarchy='primary' height={32} tabIndex={-1} />
         <Label>명시적 오버라이드, 포커스 불가</Label>
       </FlexRow>
       <FlexRow>
@@ -231,33 +225,19 @@ export const TabIndexBehavior: Story = {
 };
 
 export const WithReactRouter: Story = {
-  render: () => {
-    const handleNavigate = (path: string) => {
-      console.log(`Navigate to: ${path}`);
-      //NOTE: 실제 사용 시: navigate(path)
-    };
-
-    return (
-      <FlexColumn>
-        <FlexRow>
-          <Logo
-            href='/dashboard'
-            hierarchy='primary'
-            height={32}
-            onClick={e => {
-              e.preventDefault();
-              handleNavigate('/dashboard');
-            }}
-          />
-        </FlexRow>
-      </FlexColumn>
-    );
-  },
+  render: () => (
+    <FlexColumn>
+      <FlexRow>
+        <Logo href='#dashboard' hierarchy='primary' height={32} />
+      </FlexRow>
+    </FlexColumn>
+  ),
   parameters: {
     docs: {
       description: {
         story:
-          'React Router와 함께 사용할 때는 href를 설정하고 onClick에서 e.preventDefault()를 호출한 후 navigate()를 실행합니다.',
+          'React Router와 함께 사용할 때는 href 대신 컴포넌트 래퍼를 사용하거나, ' +
+          'onClick 핸들러에서 e.preventDefault()를 호출한 후 navigate()를 실행합니다.',
       },
     },
   },
@@ -291,15 +271,15 @@ export const UsageExample: Story = {
     <FlexColumn>
       <FlexRow>
         <Label>예시 1</Label>
-        <Logo href='/' height={48} hierarchy='primary' onClick={e => e.preventDefault()} />
+        <Logo href='#' height={48} hierarchy='primary' />
       </FlexRow>
       <FlexRow>
         <Label>예시 2</Label>
-        <Logo href='/' height={32} hierarchy='primary' onClick={e => e.preventDefault()} />
+        <Logo href='#' height={32} hierarchy='primary' />
       </FlexRow>
       <FlexRow>
         <Label>예시 3</Label>
-        <Logo href='/' height={24} hierarchy='secondary' onClick={e => e.preventDefault()} />
+        <Logo href='#' height={24} hierarchy='secondary' />
       </FlexRow>
     </FlexColumn>
   ),
