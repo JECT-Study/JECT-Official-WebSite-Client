@@ -3,6 +3,7 @@ import type { Theme } from '@emotion/react';
 import styled from '@emotion/styled';
 import { pxToRem } from 'utils';
 
+import { Icon } from '../../Icon';
 import { Label } from '../../Label';
 import type { InputLayout, InputStyle, InputValidation } from '../input.types';
 
@@ -16,6 +17,22 @@ export const getLabelColor = (theme: Theme, disabled: boolean, readOnly: boolean
   }
 
   return theme.color.semantic.object.normal;
+};
+
+export const getLabelIconColor = (
+  theme: Theme,
+  disabled: boolean,
+  readOnly: boolean,
+): string => {
+  if (disabled) {
+    return theme.color.semantic.object.assistive;
+  }
+
+  if (readOnly) {
+    return theme.color.semantic.object.alternative;
+  }
+
+  return theme.color.semantic.object.alternative;
 };
 
 export const getHelperTextColor = (
@@ -75,6 +92,12 @@ export const StyledLabelContainer = styled('div', {
     color: getLabelColor(theme, $disabled, $readOnly),
   }),
 );
+
+export const StyledLabelIcon = styled(Icon, {
+  shouldForwardProp: prop => !prop.startsWith('$'),
+})<{ $disabled?: boolean; $readOnly?: boolean }>(({ theme, $disabled = false, $readOnly = false }) => ({
+  color: getLabelIconColor(theme, $disabled, $readOnly),
+}));
 
 export const StyledFieldLabel = styled(Label, {
   shouldForwardProp: prop => !prop.startsWith('$'),

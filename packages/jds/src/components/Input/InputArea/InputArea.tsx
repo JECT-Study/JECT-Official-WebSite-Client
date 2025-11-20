@@ -1,7 +1,6 @@
 import { forwardRef, useId } from 'react';
 
 import type { InputAreaProps } from './inputArea.types';
-import { Icon } from '../../Icon';
 import { getInteractionStates } from '../input.types';
 import {
   StyledFieldContainer,
@@ -14,6 +13,7 @@ import {
   StyledHelperText,
   StyledCountText,
 } from './inputArea.styles';
+import { StyledLabelIcon } from '../shared/field.styles';
 
 export const InputArea = forwardRef<HTMLTextAreaElement, InputAreaProps>(
   (
@@ -56,7 +56,9 @@ export const InputArea = forwardRef<HTMLTextAreaElement, InputAreaProps>(
             >
               {label}
             </StyledFieldLabel>
-            {labelIcon && <Icon name={labelIcon} size='2xs' />}
+            {labelIcon && (
+              <StyledLabelIcon name={labelIcon} size='2xs' $disabled={isDisabled} $readOnly={isReadOnly} />
+            )}
           </StyledLabelContainer>
         )}
 
