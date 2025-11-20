@@ -2,8 +2,7 @@ import isPropValid from '@emotion/is-prop-valid';
 import type { CSSObject, Theme } from '@emotion/react';
 import styled from '@emotion/styled';
 import type { LabelButtonSize, LabelButtonHierarchy, LabelButtonIntent } from 'components';
-import type { TextStyle } from 'types';
-import { InteractionLayer, pxToRem, textStyle } from 'utils';
+import { InteractionLayer } from 'utils';
 
 import type { IconSize } from '@/components/Icon/Icon.types';
 
@@ -200,13 +199,13 @@ const feedbackInteractionStyles = (
     ...restStyle,
     '::after': {
       ...restStyle['::after'],
-      transition: `opacity ${theme.environment.duration[100]} ${theme.environment.motion.fluent}`,
+      transition: `opacity ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
     },
     '&:hover': {
       ...hoverStyle,
       '::after': {
         ...hoverStyle['::after'],
-        transition: `opacity ${theme.environment.duration[100]} ${theme.environment.motion.fluent}`,
+        transition: `opacity ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
       },
     },
     '&:active': {
@@ -433,13 +432,13 @@ const interactionStyles = (
     ...restStyle,
     '::after': {
       ...restStyle['::after'],
-      transition: `opacity ${theme.environment.duration[100]} ${theme.environment.motion.fluent}`,
+      transition: `opacity ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
     },
     '&:hover': {
       ...hoverStyle,
       '::after': {
         ...hoverStyle['::after'],
-        transition: `opacity ${theme.environment.duration[100]} ${theme.environment.motion.fluent}`,
+        transition: `opacity ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
       },
     },
     '&:active': {
@@ -459,28 +458,16 @@ const interactionStyles = (
   };
 };
 
-const typographyStyleMap: Record<
-  LabelButtonSize,
-  { desktop: TextStyle; tablet: TextStyle; mobile: TextStyle }
-> = {
-  lg: { desktop: 'label.lg.bold', tablet: 'label.lg.bold', mobile: 'label.lg.bold' },
-  md: { desktop: 'label.md.bold', tablet: 'label.md.bold', mobile: 'label.md.bold' },
-  sm: { desktop: 'label.sm.bold', tablet: 'label.sm.bold', mobile: 'label.sm.bold' },
-  xs: { desktop: 'label.xs.bold', tablet: 'label.xs.bold', mobile: 'label.xs.bold' },
-};
+const typographyStyleMap: Record<LabelButtonSize, keyof Theme['textStyle']> = {
+  lg: 'semantic-textStyle-label-lg-bold',
+  md: 'semantic-textStyle-label-md-bold',
+  sm: 'semantic-textStyle-label-sm-bold',
+  xs: 'semantic-textStyle-label-xs-bold',
+} as const;
 
 const GetTypographyStyle = (theme: Theme, size: LabelButtonSize): CSSObject => {
-  const styles = typographyStyleMap[size];
-
-  return {
-    ...textStyle(theme, 'desktop', styles.desktop),
-    [theme.breakPoint.tablet]: {
-      ...textStyle(theme, 'tablet', styles.tablet),
-    },
-    [theme.breakPoint.mobile]: {
-      ...textStyle(theme, 'mobile', styles.mobile),
-    },
-  };
+  const tokenKey = typographyStyleMap[size];
+  return theme.textStyle[tokenKey];
 };
 
 export function GetLabelButtonStyles(
@@ -536,7 +523,7 @@ export const StyledLabelButton = styled('button', {
     justifyContent: 'center',
     alignItems: 'center',
     padding: 0,
-    gap: pxToRem(theme.scheme.desktop.spacing[4]),
+    gap: theme.scheme.semantic.spacing[4],
     border: 'none',
     background: 'transparent',
     cursor: $disabled ? 'not-allowed' : 'pointer',

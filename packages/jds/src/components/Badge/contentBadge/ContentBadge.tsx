@@ -1,19 +1,21 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
+
 import {
   BadgeIcon,
   ContentBadgeBasicDiv,
   ContentBadgeFeedbackDiv,
   ContentBadgeThemeDiv,
 } from './ContentBadge.style';
-import {
+import type {
   BadgeSize,
   ContentBadgeStyle,
   BasicHierarchy,
   FeedbackVariant,
   ThemeVariant,
 } from '../badge.types';
-import { Label } from '@/components/Label';
 import { iconSizeMap } from './contentBadge.variants';
+
+import { Label } from '@/components/Label';
 
 export interface ContentBadgeBasicProps {
   hierarchy?: BasicHierarchy;
@@ -42,7 +44,7 @@ const ContentBadgeBasic = ({
       isMuted={isMuted}
       withIcon={withIcon}
     >
-      <Label size={size} textAlign='center' weight='normal' color='inherit'>
+      <Label as='span' size={size} textAlign='center' weight='normal' color='inherit'>
         {children}
       </Label>
       {withIcon && (
@@ -82,7 +84,7 @@ const ContentBadgeFeedback = ({
       badgeStyle={badgeStyle}
       isMuted={isMuted}
     >
-      <Label size={size} textAlign='center' weight='normal' color='inherit'>
+      <Label as='span' size={size} textAlign='center' weight='normal' color='inherit'>
         {children}
       </Label>
     </ContentBadgeFeedbackDiv>
@@ -108,7 +110,7 @@ const ContentBadgeTheme = ({
 }: ContentThemeBadgeProps) => {
   return (
     <ContentBadgeThemeDiv variant={variant} size={size} badgeStyle={badgeStyle} isMuted={isMuted}>
-      <Label size={size} textAlign='center' weight='normal' color='inherit'>
+      <Label as='span' size={size} textAlign='center' weight='normal' color='inherit'>
         {children}
       </Label>
     </ContentBadgeThemeDiv>
