@@ -27,7 +27,7 @@ const NumericBadgeBasic = ({
       badgeStyle={badgeStyle}
       isMuted={isMuted}
     >
-      <Label size={size} textAlign='center' weight='normal' color='inherit'>
+      <Label as='span' size={size} textAlign='center' weight='normal' color='inherit'>
         {children}
       </Label>
     </NumericBadgeBasicDiv>
@@ -58,7 +58,7 @@ const NumericBadgeFeedback = ({
       badgeStyle={badgeStyle}
       isMuted={isMuted}
     >
-      <Label size={size} textAlign='center' weight='normal' color='inherit'>
+      <Label as='span' size={size} textAlign='center' weight='normal' color='inherit'>
         {children}
       </Label>
     </NumericBadgeFeedbackDiv>
