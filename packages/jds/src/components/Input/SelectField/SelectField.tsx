@@ -8,6 +8,7 @@ import {
 import type { SelectFieldProps } from './selectField.types';
 import { Icon } from '../../Icon';
 import type { IconName } from '../../Icon/Icon.types';
+import { StyledFieldContainer } from '../shared/field.styles';
 import { FormField } from '../shared/FormField';
 import { useFormField } from '../shared/FormFieldContext';
 
@@ -107,7 +108,13 @@ export const SelectField = forwardRef<HTMLDivElement, SelectFieldProps>(
         labelIcon={labelIcon}
         helperText={helperText}
       >
-        <SelectFieldInput ref={ref} {...restProps} />
+        <StyledFieldContainer $layout={layout}>
+          <FormField.Label />
+          <FormField.Content>
+            <SelectFieldInput ref={ref} {...restProps} />
+            <FormField.HelperText />
+          </FormField.Content>
+        </StyledFieldContainer>
       </FormField>
     );
   },

@@ -1,7 +1,6 @@
 import type { ReactNode } from 'react';
 
 import {
-  StyledFieldContainer,
   StyledLabelContainer,
   StyledFieldLabel,
   StyledInputColumn,
@@ -70,15 +69,10 @@ interface FormFieldContentProps {
 }
 
 export const FormFieldContent = ({ children }: FormFieldContentProps) => {
-  return (
-    <StyledInputColumn>
-      {children}
-      <FormFieldHelperText />
-    </StyledInputColumn>
-  );
+  return <StyledInputColumn>{children}</StyledInputColumn>;
 };
 
-interface FormFieldProps extends FormFieldProviderProps {
+interface FormFieldProps extends Omit<FormFieldProviderProps, 'children'> {
   children: ReactNode;
 }
 
@@ -102,10 +96,7 @@ export const FormField = ({
       labelIcon={labelIcon}
       helperText={helperText}
     >
-      <StyledFieldContainer $layout={layout || 'vertical'}>
-        <FormFieldLabel />
-        <FormFieldContent>{children}</FormFieldContent>
-      </StyledFieldContainer>
+      {children}
     </FormFieldProvider>
   );
 };

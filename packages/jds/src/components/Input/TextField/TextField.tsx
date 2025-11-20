@@ -2,6 +2,7 @@ import { forwardRef, type ChangeEvent, type ComponentPropsWithoutRef } from 'rea
 
 import { StyledInputWrapper, StyledInput } from './textField.styles';
 import type { TextFieldProps } from './textField.types';
+import { StyledFieldContainer } from '../shared/field.styles';
 import { FormField } from '../shared/FormField';
 import { useFormField } from '../shared/FormFieldContext';
 
@@ -66,7 +67,13 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
         labelIcon={labelIcon}
         helperText={helperText}
       >
-        <TextFieldInput ref={ref} {...restProps} />
+        <StyledFieldContainer $layout={layout}>
+          <FormField.Label />
+          <FormField.Content>
+            <TextFieldInput ref={ref} {...restProps} />
+            <FormField.HelperText />
+          </FormField.Content>
+        </StyledFieldContainer>
       </FormField>
     );
   },

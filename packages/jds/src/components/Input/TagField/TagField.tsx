@@ -12,6 +12,7 @@ import type { Tag, TagFieldProps } from './tagField.types';
 import { TagFieldUtils } from './tagField.utils';
 import { TagList } from './TagList';
 import { useTagFieldState } from './useTagFieldState';
+import { StyledFieldContainer } from '../shared/field.styles';
 import { FormField } from '../shared/FormField';
 import { useFormField } from '../shared/FormFieldContext';
 
@@ -193,7 +194,13 @@ export const TagField = forwardRef<HTMLInputElement, TagFieldProps>(
         labelIcon={labelIcon}
         helperText={helperText}
       >
-        <TagFieldInput ref={ref} {...restProps} />
+        <StyledFieldContainer $layout={layout}>
+          <FormField.Label />
+          <FormField.Content>
+            <TagFieldInput ref={ref} {...restProps} />
+            <FormField.HelperText />
+          </FormField.Content>
+        </StyledFieldContainer>
       </FormField>
     );
   },
