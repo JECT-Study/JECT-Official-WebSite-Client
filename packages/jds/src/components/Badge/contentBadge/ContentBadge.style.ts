@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { pxToRem } from 'utils';
-import {
+
+import type {
   BasicHierarchy,
   BadgeSize,
   ContentBadgeStyle,
@@ -17,6 +18,7 @@ import {
   contentBadgeThemeMutedStylesMap,
   iconColorMap,
 } from './contentBadge.variants';
+
 import { Icon } from '@/components/Icon';
 
 interface ContentBasicBadgeDivProps {
@@ -49,7 +51,7 @@ export const ContentBadgeBasicDiv = styled.div<ContentBasicBadgeDivProps>(
       backgroundColor,
       color,
       border: `1px solid ${border}`,
-      borderRadius: theme.scheme.desktop.radius[4],
+      borderRadius: theme.scheme.semantic.radius[4],
     };
   },
 );
@@ -104,7 +106,7 @@ export const ContentBadgeFeedbackDiv = styled.div<ContentBadgeFeedbackDivProps>(
       backgroundColor,
       color,
       border: `1px solid ${border}`,
-      borderRadius: theme.scheme.desktop.radius[4],
+      borderRadius: theme.scheme.semantic.radius['4'],
     };
   },
 );
@@ -138,7 +140,7 @@ export const ContentBadgeThemeDiv = styled.div<ContentBadgeThemeDivProps>(
       backgroundColor,
       color,
       border: `1px solid ${border}`,
-      borderRadius: theme.scheme.desktop.radius[4],
+      borderRadius: theme.scheme.semantic.radius[4],
     };
   },
 );

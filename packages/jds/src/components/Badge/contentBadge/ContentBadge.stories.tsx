@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
+
 import { ContentBadge } from './ContentBadge';
-import {
+import type {
   ContentBadgeBasicProps,
   ContentFeedbackBadgeProps,
   ContentThemeBadgeProps,
