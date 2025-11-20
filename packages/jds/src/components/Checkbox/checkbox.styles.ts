@@ -36,49 +36,18 @@ export function GetIconSize(size: CheckboxSize): IconSize {
   return iconComponentSizeMap[size];
 }
 
-const borderRadiusMap: Record<CheckboxSize, number> = {
-  lg: 4,
-  md: 4,
-  sm: 4,
-  xs: 4,
-};
-
 const gapMap: Record<CheckboxSize, (theme: Theme) => CSSObject> = {
   lg: (theme: Theme) => ({
-    gap: `${pxToRem(theme.scheme.desktop.spacing[12])}`,
-    [theme.breakPoint.tablet]: {
-      gap: `${pxToRem(theme.scheme.tablet.spacing[12])}`,
-    },
-    [theme.breakPoint.mobile]: {
-      gap: `${pxToRem(theme.scheme.mobile.spacing[12])}`,
-    },
+    gap: theme.scheme.semantic.spacing[12],
   }),
   md: (theme: Theme) => ({
-    gap: `${pxToRem(theme.scheme.desktop.spacing[10])}`,
-    [theme.breakPoint.tablet]: {
-      gap: `${pxToRem(theme.scheme.tablet.spacing[10])}`,
-    },
-    [theme.breakPoint.mobile]: {
-      gap: `${pxToRem(theme.scheme.mobile.spacing[10])}`,
-    },
+    gap: theme.scheme.semantic.spacing[10],
   }),
   sm: (theme: Theme) => ({
-    gap: `${pxToRem(theme.scheme.desktop.spacing[8])}`,
-    [theme.breakPoint.tablet]: {
-      gap: `${pxToRem(theme.scheme.tablet.spacing[8])}`,
-    },
-    [theme.breakPoint.mobile]: {
-      gap: `${pxToRem(theme.scheme.mobile.spacing[8])}`,
-    },
+    gap: theme.scheme.semantic.spacing[8],
   }),
   xs: (theme: Theme) => ({
-    gap: `${pxToRem(theme.scheme.desktop.spacing[8])}`,
-    [theme.breakPoint.tablet]: {
-      gap: `${pxToRem(theme.scheme.tablet.spacing[8])}`,
-    },
-    [theme.breakPoint.mobile]: {
-      gap: `${pxToRem(theme.scheme.mobile.spacing[8])}`,
-    },
+    gap: theme.scheme.semantic.spacing[8],
   }),
 };
 
@@ -183,7 +152,6 @@ function GetCheckboxBoxStyles(
   isInvalid: boolean,
 ): CSSObject {
   const boxSize = checkboxSizeMap[size];
-  const borderRadius = borderRadiusMap[size];
 
   const validity = isInvalid ? 'invalid' : 'valid';
   const availability = disabled ? 'disabled' : 'normal';
@@ -193,7 +161,7 @@ function GetCheckboxBoxStyles(
   return {
     width: pxToRem(boxSize),
     height: pxToRem(boxSize),
-    borderRadius: pxToRem(borderRadius),
+    borderRadius: theme.scheme.semantic.radius[4],
     ...colorStyles,
     display: 'inline-flex',
     alignItems: 'center',
@@ -206,11 +174,8 @@ function GetCheckboxBoxStyles(
 
 function GetBasicContainerInteractionStyles(
   theme: Theme,
-  size: CheckboxSize,
   disabled: boolean,
 ): CSSObject {
-  const borderRadius = borderRadiusMap[size];
-
   const interactionParams = {
     restStyle: InteractionLayer({
       theme,
@@ -221,7 +186,7 @@ function GetBasicContainerInteractionStyles(
       isDisabled: disabled,
       offsetVertical: 0,
       offsetHorizontal: 0,
-      borderRadius,
+      borderRadius: 4,
     }),
     hoverStyle: InteractionLayer({
       theme,
@@ -232,7 +197,7 @@ function GetBasicContainerInteractionStyles(
       isDisabled: disabled,
       offsetVertical: 0,
       offsetHorizontal: 0,
-      borderRadius,
+      borderRadius: 4,
     }),
     activeStyle: InteractionLayer({
       theme,
@@ -243,7 +208,7 @@ function GetBasicContainerInteractionStyles(
       isDisabled: disabled,
       offsetVertical: 0,
       offsetHorizontal: 0,
-      borderRadius,
+      borderRadius: 4,
     }),
     focusStyle: InteractionLayer({
       theme,
@@ -254,7 +219,7 @@ function GetBasicContainerInteractionStyles(
       isDisabled: disabled,
       offsetVertical: 0,
       offsetHorizontal: 0,
-      borderRadius,
+      borderRadius: 4,
     }),
   };
 
@@ -270,13 +235,13 @@ function GetBasicContainerInteractionStyles(
     ...restStyle,
     '::after': {
       ...restStyle['::after'],
-      transition: `opacity ${theme.environment.duration[100]} ${theme.environment.motion.fluent}`,
+      transition: `opacity ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
     },
     '&:hover': {
       ...hoverStyle,
       '::after': {
         ...hoverStyle['::after'],
-        transition: `opacity ${theme.environment.duration[100]} ${theme.environment.motion.fluent}`,
+        transition: `opacity ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
       },
     },
     '&:active': {
@@ -299,10 +264,9 @@ function GetBasicContainerInteractionStyles(
 export const StyledCheckboxBasicContainer = styled('label', {
   shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
 })<{
-  $size: CheckboxSize;
   $disabled: boolean;
-}>(({ theme, $size, $disabled }) => {
-  const interactionStyles = GetBasicContainerInteractionStyles(theme, $size, $disabled);
+}>(({ theme, $disabled }) => {
+  const interactionStyles = GetBasicContainerInteractionStyles(theme, $disabled);
 
   return {
     display: 'inline-flex',
@@ -384,16 +348,18 @@ const contentContainerInteractionStyles = ({
     isDisabled: false,
   };
 
+  const borderRadius = size === 'lg' || size === 'md' ? 6 : 4;
+
   const emptyVariantOffset = {
     offsetVertical: emptyContentOffsetMap[size].vertical,
     offsetHorizontal: emptyContentOffsetMap[size].horizontal,
-    borderRadius: contentContainerBorderRadiusMap[size],
+    borderRadius,
   };
 
   const outlinedVariantOffset = {
     offsetVertical: 0,
     offsetHorizontal: 0,
-    borderRadius: contentContainerBorderRadiusMap[size],
+    borderRadius,
   };
 
   const createInteractionStyles = (offset: typeof emptyVariantOffset) => ({
@@ -420,13 +386,13 @@ const contentContainerInteractionStyles = ({
     ...restStyle,
     '::after': {
       ...restStyle['::after'],
-      transition: `opacity ${theme.environment.duration[100]} ${theme.environment.motion.fluent}`,
+      transition: `opacity ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
     },
     '&:hover': {
       ...hoverStyle,
       '::after': {
         ...hoverStyle['::after'],
-        transition: `opacity ${theme.environment.duration[100]} ${theme.environment.motion.fluent}`,
+        transition: `opacity ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
       },
     },
     '&:active': {
@@ -448,44 +414,50 @@ const contentContainerInteractionStyles = ({
 
 const emptyVariantStyle = { border: 'none' as const };
 
-const contentContainerBorderRadiusMap: Record<CheckboxSize, number> = {
-  lg: 6,
-  md: 6,
-  sm: 4,
-  xs: 4,
-};
-
-const contentContainerPaddingMap: Record<CheckboxSize, number> = {
-  lg: 12,
-  md: 10,
-  sm: 8,
-  xs: 6,
-};
-
 const outlinedVariantStyles = {
   valid: {
-    normal: (theme: Theme, size: CheckboxSize) => ({
-      border: `1px solid ${theme.color.semantic.stroke.alpha.assistive}`,
-      borderRadius: contentContainerBorderRadiusMap[size],
-      padding: pxToRem(contentContainerPaddingMap[size]),
-    }),
-    disabled: (theme: Theme, size: CheckboxSize) => ({
-      border: `1px solid ${theme.color.semantic.stroke.alpha.subtler}`,
-      borderRadius: contentContainerBorderRadiusMap[size],
-      padding: pxToRem(contentContainerPaddingMap[size]),
-    }),
+    normal: (theme: Theme, size: CheckboxSize) => {
+      const borderRadius = size === 'lg' || size === 'md' ? theme.scheme.semantic.radius[6] : theme.scheme.semantic.radius[4];
+      const padding = size === 'lg' ? theme.scheme.semantic.spacing[12] : size === 'md' ? theme.scheme.semantic.spacing[10] : size === 'sm' ? theme.scheme.semantic.spacing[8] : theme.scheme.semantic.spacing[6];
+
+      return {
+        border: `1px solid ${theme.color.semantic.stroke.alpha.assistive}`,
+        borderRadius,
+        padding,
+      };
+    },
+    disabled: (theme: Theme, size: CheckboxSize) => {
+      const borderRadius = size === 'lg' || size === 'md' ? theme.scheme.semantic.radius[6] : theme.scheme.semantic.radius[4];
+      const padding = size === 'lg' ? theme.scheme.semantic.spacing[12] : size === 'md' ? theme.scheme.semantic.spacing[10] : size === 'sm' ? theme.scheme.semantic.spacing[8] : theme.scheme.semantic.spacing[6];
+
+      return {
+        border: `1px solid ${theme.color.semantic.stroke.alpha.subtler}`,
+        borderRadius,
+        padding,
+      };
+    },
   },
   invalid: {
-    normal: (theme: Theme, size: CheckboxSize) => ({
-      border: `1px solid ${theme.color.semantic.feedback.destructive.neutral}`,
-      borderRadius: contentContainerBorderRadiusMap[size],
-      padding: pxToRem(contentContainerPaddingMap[size]),
-    }),
-    disabled: (theme: Theme, size: CheckboxSize) => ({
-      border: `1px solid ${theme.color.semantic.feedback.destructive.alpha.subtler}`,
-      borderRadius: contentContainerBorderRadiusMap[size],
-      padding: pxToRem(contentContainerPaddingMap[size]),
-    }),
+    normal: (theme: Theme, size: CheckboxSize) => {
+      const borderRadius = size === 'lg' || size === 'md' ? theme.scheme.semantic.radius[6] : theme.scheme.semantic.radius[4];
+      const padding = size === 'lg' ? theme.scheme.semantic.spacing[12] : size === 'md' ? theme.scheme.semantic.spacing[10] : size === 'sm' ? theme.scheme.semantic.spacing[8] : theme.scheme.semantic.spacing[6];
+
+      return {
+        border: `1px solid ${theme.color.semantic.feedback.destructive.neutral}`,
+        borderRadius,
+        padding,
+      };
+    },
+    disabled: (theme: Theme, size: CheckboxSize) => {
+      const borderRadius = size === 'lg' || size === 'md' ? theme.scheme.semantic.radius[6] : theme.scheme.semantic.radius[4];
+      const padding = size === 'lg' ? theme.scheme.semantic.spacing[12] : size === 'md' ? theme.scheme.semantic.spacing[10] : size === 'sm' ? theme.scheme.semantic.spacing[8] : theme.scheme.semantic.spacing[6];
+
+      return {
+        border: `1px solid ${theme.color.semantic.feedback.destructive.alpha.subtler}`,
+        borderRadius,
+        padding,
+      };
+    },
   },
 };
 
@@ -548,13 +520,7 @@ export const StyledHiddenInput = styled('input')({
 export const StyledLabelContent = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: `${pxToRem(theme.scheme.desktop.spacing[2])}`,
-  [theme.breakPoint.tablet]: {
-    gap: `${pxToRem(theme.scheme.tablet.spacing[2])}`,
-  },
-  [theme.breakPoint.mobile]: {
-    gap: `${pxToRem(theme.scheme.mobile.spacing[2])}`,
-  },
+  gap: theme.scheme.semantic.spacing[2],
 }));
 
 const labelColorParams = {
