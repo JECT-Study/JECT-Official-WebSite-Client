@@ -39,6 +39,13 @@ const CheckboxBox = forwardRef<HTMLInputElement, CheckboxBoxProps>(
     //NOTE : refCallback으로 처리된 부분을 추후 useComposedRefs(Radix 기준) 등의 커스텀 훅으로 분리 가능성 -ref 관리 용이
     const refCallback = useCallback(
       (node: HTMLInputElement | null) => {
+        //TEST:  refCallback 호출 로깅
+        console.group('🔍 [Checkbox] refCallback called');
+        console.log('timestamp:', new Date().toISOString());
+        console.log('node:', node ? 'ATTACHED' : 'DETACHED (null)');
+        console.log('isIndeterminate:', isIndeterminate);
+        console.groupEnd();
+
         if (typeof ref === 'function') {
           ref(node);
         } else if (ref) {
@@ -107,7 +114,7 @@ const CheckboxBasic = forwardRef<HTMLInputElement, CheckboxBasicProps>(
     const isChecked = checked === true;
 
     return (
-      <StyledCheckboxBasicContainer $size={size} $disabled={disabled} htmlFor={id}>
+      <StyledCheckboxBasicContainer $disabled={disabled} htmlFor={id}>
         <CheckboxBox
           ref={ref}
           checked={isChecked}

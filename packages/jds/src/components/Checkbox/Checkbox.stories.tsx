@@ -192,6 +192,162 @@ export const Interactive: Story = {
   },
 };
 
+export const RefCallbackTest: Story = {
+  render: () => {
+    const RefCallbackTestComponent = () => {
+      const [checkedState, setCheckedState] = useState<CheckedState>(false);
+      const [renderCount, setRenderCount] = useState(0);
+
+      return (
+        <FlexColumn gap='16px'>
+          <div
+            style={{
+              padding: '16px',
+              backgroundColor: '#f0f0f0',
+              borderRadius: '8px',
+              fontSize: '14px',
+            }}
+          >
+            <h4 style={{ margin: '0 0 8px 0', fontSize: '16px', fontWeight: 'bold' }}>
+              🔍 RefCallback 동작 테스트
+            </h4>
+            <p style={{ margin: '4px 0', color: '#666' }}>
+              <strong>테스트 목적:</strong> isIndeterminate 변경 시 refCallback이 재생성되어 ref
+              detach/attach가 발생하는지 확인
+            </p>
+            <p style={{ margin: '4px 0', color: '#666' }}>
+              <strong>예상 동작:</strong> isIndeterminate가 변경될 때마다 DETACHED → ATTACHED 로그가
+              콘솔에 출력됨
+            </p>
+            <p style={{ margin: '4px 0', color: '#666' }}>
+              <strong>확인 방법:</strong> 개발자 도구 콘솔을 열고 버튼을 클릭하여 로그를 확인하세요
+            </p>
+          </div>
+
+          <div
+            style={{
+              padding: '12px',
+              backgroundColor: '#e3f2fd',
+              borderRadius: '8px',
+              fontSize: '14px',
+            }}
+          >
+            <div>
+              <strong>현재 상태:</strong>{' '}
+              {checkedState === 'indeterminate'
+                ? '🔶 indeterminate'
+                : checkedState
+                  ? '✅ checked'
+                  : '⬜ unchecked'}
+            </div>
+            <div>
+              <strong>렌더 횟수:</strong> {renderCount}
+            </div>
+          </div>
+
+          <Checkbox.Basic
+            checked={checkedState}
+            onCheckedChange={newState => {
+              setCheckedState(newState);
+              setRenderCount(c => c + 1);
+            }}
+            size='lg'
+          />
+
+          <FlexRow gap='8px'>
+            <button
+              onClick={() => {
+                setCheckedState(false);
+                setRenderCount(c => c + 1);
+              }}
+              style={{
+                padding: '8px 16px',
+                backgroundColor: '#fff',
+                border: '1px solid #ccc',
+                borderRadius: '4px',
+                cursor: 'pointer',
+              }}
+            >
+              ⬜ Unchecked
+            </button>
+            <button
+              onClick={() => {
+                setCheckedState(true);
+                setRenderCount(c => c + 1);
+              }}
+              style={{
+                padding: '8px 16px',
+                backgroundColor: '#fff',
+                border: '1px solid #ccc',
+                borderRadius: '4px',
+                cursor: 'pointer',
+              }}
+            >
+              ✅ Checked
+            </button>
+            <button
+              onClick={() => {
+                setCheckedState('indeterminate');
+                setRenderCount(c => c + 1);
+              }}
+              style={{
+                padding: '8px 16px',
+                backgroundColor: '#fff',
+                border: '1px solid #ccc',
+                borderRadius: '4px',
+                cursor: 'pointer',
+              }}
+            >
+              🔶 Indeterminate
+            </button>
+          </FlexRow>
+
+          <button
+            onClick={() => {
+              console.clear();
+              console.log('🧹 Console cleared - Start testing!');
+            }}
+            style={{
+              padding: '8px 16px',
+              backgroundColor: '#f44336',
+              color: 'white',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: 'pointer',
+            }}
+          >
+            🧹 Clear Console
+          </button>
+        </FlexColumn>
+      );
+    };
+
+    return <RefCallbackTestComponent />;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '**refCallback 동작 테스트용 스토리**\n\n' +
+          '이 스토리는 `isIndeterminate` 상태가 변경될 때 `refCallback`이 어떻게 동작하는지 테스트하기 위한 것입니다.\n\n' +
+          '**현재 구현:**\n' +
+          '- `refCallback`의 의존성: `[ref, isIndeterminate]`\n' +
+          '- `isIndeterminate`가 변경되면 refCallback이 재생성되고, React는 ref detach → attach를 수행합니다.\n\n' +
+          '**테스트 방법:**\n' +
+          '1. 개발자 도구 콘솔을 엽니다\n' +
+          '2. "Clear Console" 버튼을 클릭하여 로그를 정리합니다\n' +
+          '3. 상태 버튼을 클릭하며 콘솔 로그를 관찰합니다\n' +
+          '4. `unchecked ↔ checked` 변경 시: 로그가 출력되지 않음 (isIndeterminate는 false로 동일)\n' +
+          '5. `checked ↔ indeterminate` 변경 시: DETACHED → ATTACHED 로그 출력 (isIndeterminate 변경)\n\n' +
+          '**개선 방향:**\n' +
+          '- `useLayoutEffect`를 사용하여 `indeterminate` 속성 설정을 분리\n' +
+          '- `refCallback`은 ref 연결만 담당하고 의존성을 `[ref]`로 축소\n' +
+          '- 불필요한 ref detach/attach 방지',
+      },
+    },
+  },
+};
+
 export const ControlledPattern: Story = {
   render: () => {
     const ControlledExample = () => {
