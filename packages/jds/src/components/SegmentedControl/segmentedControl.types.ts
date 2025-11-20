@@ -9,9 +9,9 @@ export interface SegmentedControlRootProps extends ComponentPropsWithoutRef<'div
   onValueChange?: (value: string) => void;
 }
 
-export interface SegmentedControlItemProps extends ComponentPropsWithoutRef<'button'> {
+export interface SegmentedControlItemProps extends Omit<ComponentPropsWithoutRef<'button'>, 'disabled'> {
   value: string;
-  isDisabled?: boolean;
+  disabled?: boolean;
 }
 
 export interface StyledRootProps {

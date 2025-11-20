@@ -48,12 +48,12 @@ const SegmentedControlRoot = forwardRef<HTMLDivElement, SegmentedControlRootProp
 SegmentedControlRoot.displayName = 'SegmentedControl.Root';
 
 const SegmentedControlItem = forwardRef<HTMLButtonElement, SegmentedControlItemProps>(
-  ({ value, isDisabled = false, children, ...props }, ref) => {
+  ({ value, disabled = false, children, ...props }, ref) => {
     const { size } = useSegmentedControlContext();
 
     return (
-      <ToggleGroup.Item asChild value={value} disabled={isDisabled} {...props}>
-        <SegmentedControlItemStyled ref={ref} size={size} $isDisabled={isDisabled}>
+      <ToggleGroup.Item asChild value={value} disabled={disabled} {...props}>
+        <SegmentedControlItemStyled ref={ref} size={size} $isDisabled={disabled}>
           <Label size={size} color='inherit'>
             {children}
           </Label>
