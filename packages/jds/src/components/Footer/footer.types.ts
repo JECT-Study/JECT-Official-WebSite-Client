@@ -25,7 +25,11 @@ export interface FooterHeaderProps extends ComponentPropsWithoutRef<'div'> {
   children: ReactNode;
 }
 
-export interface FooterLogoProps extends ComponentPropsWithoutRef<'div'> {
+export interface FooterLogoLinkProps extends ComponentPropsWithoutRef<'a'> {
+  children?: ReactNode;
+}
+
+export interface FooterLogoDivProps extends ComponentPropsWithoutRef<'div'> {
   children?: ReactNode;
 }
 

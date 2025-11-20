@@ -5,7 +5,8 @@ import type {
   FooterBottomProps,
   FooterContentProps,
   FooterHeaderProps,
-  FooterLogoProps,
+  FooterLogoDivProps,
+  FooterLogoLinkProps,
   FooterNavProps,
   FooterRootProps,
   FooterSectionProps,
@@ -18,6 +19,7 @@ import {
   StyledFooterDivider,
   StyledFooterHeader,
   StyledFooterLogo,
+  StyledFooterLogoLink,
   StyledFooterNav,
   StyledFooterRoot,
   StyledFooterSection,
@@ -66,15 +68,29 @@ const FooterDivider = forwardRef<HTMLHRElement, ComponentPropsWithoutRef<'hr'>>(
 
 FooterDivider.displayName = 'Footer.Divider';
 
-const FooterLogo = forwardRef<HTMLDivElement, FooterLogoProps>(({ children, ...rest }, ref) => {
-  return (
-    <StyledFooterLogo ref={ref} {...rest}>
-      {children}
-    </StyledFooterLogo>
-  );
-});
+const FooterLogoLink = forwardRef<HTMLAnchorElement, FooterLogoLinkProps>(
+  ({ children, ...props }, ref) => {
+    return (
+      <StyledFooterLogoLink ref={ref} {...props}>
+        {children}
+      </StyledFooterLogoLink>
+    );
+  },
+);
 
-FooterLogo.displayName = 'Footer.Logo';
+FooterLogoLink.displayName = 'Footer.LogoLink';
+
+const FooterLogoDiv = forwardRef<HTMLDivElement, FooterLogoDivProps>(
+  ({ children, ...props }, ref) => {
+    return (
+      <StyledFooterLogo ref={ref} {...props}>
+        {children}
+      </StyledFooterLogo>
+    );
+  },
+);
+
+FooterLogoDiv.displayName = 'Footer.LogoDiv';
 
 const FooterSocial = forwardRef<HTMLDivElement, FooterSocialProps>(
   ({ github, instagram, iconSize = 'md', ...rest }, ref) => {
@@ -169,7 +185,8 @@ export const Footer = {
   Content: FooterContent,
   Header: FooterHeader,
   Divider: FooterDivider,
-  Logo: FooterLogo,
+  LogoLink: FooterLogoLink,
+  LogoDiv: FooterLogoDiv,
   Social: FooterSocial,
   Nav: FooterNav,
   Section: FooterSection,

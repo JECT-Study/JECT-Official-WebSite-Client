@@ -33,8 +33,16 @@ export const StyledFooterDivider = styled.hr(({ theme }) => ({
   margin: 0,
 }));
 
-export const StyledFooterLogo = styled.div({
+const logoStyles = {
   display: 'flex',
+};
+
+export const StyledFooterLogo = styled.div(logoStyles);
+
+export const StyledFooterLogoLink = styled.a({
+  ...logoStyles,
+  textDecoration: 'none',
+  color: 'inherit',
 });
 
 export const StyledFooterSocial = styled.div(({ theme }) => ({

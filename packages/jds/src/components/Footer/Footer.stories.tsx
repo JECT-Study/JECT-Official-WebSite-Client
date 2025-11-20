@@ -58,9 +58,9 @@ export const Default: Story = {
     <Footer.Root>
       <Footer.Content>
         <Footer.Header>
-          <Footer.Logo>
+          <Footer.LogoLink href='/'>
             <FooterLogoSvg width={76} height={22} />
-          </Footer.Logo>
+          </Footer.LogoLink>
           <Footer.Social
             github='https://github.com/JECT-Study'
             instagram='https://www.instagram.com/ject_official'
@@ -77,4 +77,34 @@ export const Default: Story = {
       </Footer.Content>
     </Footer.Root>
   ),
+};
+
+export const LogoLink: Story = {
+  render: () => (
+    <Footer.LogoLink href='/'>
+      <FooterLogoSvg width={76} height={22} />
+    </Footer.LogoLink>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: '클릭 가능한 링크 형태의 로고입니다. href prop으로 링크 URL을 지정할 수 있습니다.',
+      },
+    },
+  },
+};
+
+export const LogoDiv: Story = {
+  render: () => (
+    <Footer.LogoDiv>
+      <FooterLogoSvg width={76} height={22} />
+    </Footer.LogoDiv>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: '링크 기능이 없는 일반 요소 형태의 로고입니다. ',
+      },
+    },
+  },
 };
