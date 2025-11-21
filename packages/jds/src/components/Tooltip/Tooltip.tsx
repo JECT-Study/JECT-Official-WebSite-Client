@@ -1,4 +1,4 @@
-import * as RadixTooltip from '@radix-ui/react-tooltip';
+import { Tooltip as TooltipPrimitive } from 'radix-ui';
 import { createContext, useContext } from 'react';
 
 import { StyledTooltipContent } from './tooltip.styles';
@@ -12,6 +12,7 @@ import type {
 interface TooltipContextValue {
   side: TooltipSide;
   sideOffset: number;
+  collisionPadding: number;
 }
 
 const TooltipContext = createContext<TooltipContextValue | undefined>(undefined);
@@ -28,19 +29,20 @@ const TooltipRoot = ({
   children,
   side = 'top',
   sideOffset = 8,
+  collisionPadding = 0,
   delayDuration = 0,
+  ...radixProps
 }: TooltipProps) => {
   const contextValue: TooltipContextValue = {
     side,
     sideOffset,
+    collisionPadding,
   };
 
   return (
-    <RadixTooltip.Provider delayDuration={delayDuration}>
-      <RadixTooltip.Root>
-        <TooltipContext.Provider value={contextValue}>{children}</TooltipContext.Provider>
-      </RadixTooltip.Root>
-    </RadixTooltip.Provider>
+    <TooltipPrimitive.Root delayDuration={delayDuration} {...radixProps}>
+      <TooltipContext.Provider value={contextValue}>{children}</TooltipContext.Provider>
+    </TooltipPrimitive.Root>
   );
 };
 
@@ -48,29 +50,35 @@ TooltipRoot.displayName = 'Tooltip.Root';
 
 const TooltipTrigger = ({ children, asChild = true, ...restProps }: TooltipTriggerProps) => {
   return (
-    <RadixTooltip.Trigger asChild={asChild} {...restProps}>
+    <TooltipPrimitive.Trigger asChild={asChild} {...restProps}>
       {children}
-    </RadixTooltip.Trigger>
+    </TooltipPrimitive.Trigger>
   );
 };
 
 TooltipTrigger.displayName = 'Tooltip.Trigger';
 
 const TooltipContent = ({ children, ...restProps }: TooltipContentProps) => {
-  const { side, sideOffset } = useTooltipContext();
+  const { side, sideOffset, collisionPadding } = useTooltipContext();
 
   return (
-    <RadixTooltip.Portal>
-      <StyledTooltipContent side={side} sideOffset={sideOffset} collisionPadding={8} {...restProps}>
+    <TooltipPrimitive.Portal>
+      <StyledTooltipContent
+        side={side}
+        sideOffset={sideOffset}
+        collisionPadding={collisionPadding}
+        {...restProps}
+      >
         {children}
       </StyledTooltipContent>
-    </RadixTooltip.Portal>
+    </TooltipPrimitive.Portal>
   );
 };
 
 TooltipContent.displayName = 'Tooltip.Content';
 
 export const Tooltip = {
+  Provider: TooltipPrimitive.Provider,
   Root: TooltipRoot,
   Trigger: TooltipTrigger,
   Content: TooltipContent,

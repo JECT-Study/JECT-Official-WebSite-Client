@@ -1,19 +1,15 @@
-import type * as RadixTooltip from '@radix-ui/react-tooltip';
+import type { Tooltip } from 'radix-ui';
 import type { ReactNode } from 'react';
 
 export type TooltipSide = 'top' | 'right' | 'bottom' | 'left';
 
-export interface TooltipProps {
+export interface TooltipProps extends Omit<Tooltip.TooltipProps, 'children'> {
   children: ReactNode;
   side?: TooltipSide;
   sideOffset?: number;
-  delayDuration?: number;
+  collisionPadding?: number;
 }
 
-export interface TooltipTriggerProps extends RadixTooltip.TooltipTriggerProps {
-  children: ReactNode;
-}
+export type TooltipTriggerProps = Tooltip.TooltipTriggerProps;
 
-export interface TooltipContentProps extends RadixTooltip.TooltipContentProps {
-  children: ReactNode;
-}
+export type TooltipContentProps = Tooltip.TooltipContentProps;

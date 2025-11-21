@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
-import * as RadixTooltip from '@radix-ui/react-tooltip';
+import { Tooltip as TooltipPrimitive } from 'radix-ui';
 import { pxToRem, shadow } from 'utils';
 
-export const StyledTooltipContent = styled(RadixTooltip.Content)(({ theme }) => ({
+export const StyledTooltipContent = styled(TooltipPrimitive.Content)(({ theme }) => ({
   backgroundColor: theme.color.semantic.fill.boldest,
   color: theme.color.semantic.object.inverse.boldest,
   padding: `${theme.scheme.semantic.spacing[6]} ${theme.scheme.semantic.spacing[10]}`,
