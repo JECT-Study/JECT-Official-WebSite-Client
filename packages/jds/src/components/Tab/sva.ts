@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/naming-convention */
 // emotion-variants.ts
 import { css, type CSSObject, type SerializedStyles } from '@emotion/react';
@@ -226,3 +227,25 @@ export function cva<V extends CvaVariants>(config: CvaConfig<V>): CvaRecipe<V> {
 
   return recipe;
 }
+
+// Matches vanilla-extract's RecipeVariants and PandaCSS's RecipeVariantProps
+export type RecipeVariants<R> = VariantPropsOf<R>;
+export type RecipeVariantProps<R> = VariantPropsOf<R>;
+
+// Extract slot union type from a recipe's raw() return type
+export type RecipeSlots<R> = R extends { raw: (props?: any) => Record<infer S extends string, any> }
+  ? S
+  : never;
+
+// Extract the raw style map type from a recipe
+export type RecipeStyles<R> = R extends { raw: (props?: any) => infer M } ? M : never;
+
+// Generic extraction that accepts either a recipe runtime or a factory returning a recipe runtime
+type RuntimeFrom<T> = T extends (...args: any[]) => infer R
+  ? R extends (...args: any[]) => any
+    ? R
+    : T
+  : never;
+
+// Single entry-point alias (usage: RecipeVariant<typeof tabRecipe>)
+export type RecipeVariant<T> = VariantPropsOf<RuntimeFrom<T>>;
