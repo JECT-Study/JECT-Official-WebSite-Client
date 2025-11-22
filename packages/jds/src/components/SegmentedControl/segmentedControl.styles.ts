@@ -1,5 +1,4 @@
 import type { Theme } from '@emotion/react';
-import type { CSSObject } from '@emotion/styled';
 import styled from '@emotion/styled';
 import { InteractionLayer, shadow } from 'utils';
 
@@ -7,27 +6,24 @@ import type {
   StyledRootProps,
   StyledContentProps,
   StyledItemProps,
-  SegmentedControlSize,
 } from './segmentedControl.types';
 
-const segmentedControlItemSizeMap = (
-  theme: Theme,
-): Record<SegmentedControlSize, { padding: string }> => ({
-  lg: {
+const segmentedControlItemSizeMap = {
+  lg: (theme: Theme) => ({
     padding: `${theme.scheme.semantic.spacing[10]} ${theme.scheme.semantic.spacing[24]}`,
-  },
-  md: {
+  }),
+  md: (theme: Theme) => ({
     padding: `${theme.scheme.semantic.spacing[8]} ${theme.scheme.semantic.spacing[20]}`,
-  },
-  sm: {
+  }),
+  sm: (theme: Theme) => ({
     padding: `${theme.scheme.semantic.spacing[6]} ${theme.scheme.semantic.spacing[16]}`,
-  },
-  xs: {
+  }),
+  xs: (theme: Theme) => ({
     padding: `${theme.scheme.semantic.spacing[4]} ${theme.scheme.semantic.spacing[12]}`,
-  },
-});
+  }),
+};
 
-const interactionStyles = (theme: Theme, isDisabled: boolean): CSSObject => {
+const createInteractionStyles = (theme: Theme, isDisabled: boolean) => {
   const borderRadius = 6;
 
   const makeLayer = (state: 'rest' | 'hover' | 'active' | 'focus') =>
@@ -41,25 +37,11 @@ const interactionStyles = (theme: Theme, isDisabled: boolean): CSSObject => {
       borderRadius,
     });
 
-  const interactionParams = {
+  return {
     restStyle: makeLayer('rest'),
     hoverStyle: makeLayer('hover'),
     activeStyle: makeLayer('active'),
     focusStyle: makeLayer('focus'),
-  };
-
-  return {
-    ...interactionParams.restStyle,
-    '&:hover': {
-      ...interactionParams.hoverStyle,
-    },
-    '&:active': {
-      ...interactionParams.activeStyle,
-    },
-    '&:focus-visible': {
-      ...interactionParams.focusStyle,
-      zIndex: 50,
-    },
   };
 };
 
@@ -86,6 +68,8 @@ export const SegmentedControlContentStyled = styled.div<StyledContentProps>(({ t
 
 export const SegmentedControlItemStyled = styled.button<StyledItemProps>(
   ({ theme, $isDisabled, size }) => {
+    const interactionStyles = createInteractionStyles(theme, $isDisabled);
+
     return {
       position: 'relative',
       display: 'inline-flex',
@@ -96,8 +80,11 @@ export const SegmentedControlItemStyled = styled.button<StyledItemProps>(
       border: 'none',
       borderRadius: theme.scheme.semantic.radius[6],
       background: 'transparent',
-      ...segmentedControlItemSizeMap(theme)[size],
-      ...interactionStyles(theme, $isDisabled),
+      ...segmentedControlItemSizeMap[size](theme),
+      ...interactionStyles.restStyle,
+      '&:hover': interactionStyles.hoverStyle,
+      '&:active': interactionStyles.activeStyle,
+      '&:focus-visible': interactionStyles.focusStyle,
 
       '&[data-state="on"]': {
         border: `1px solid ${theme.color.semantic.stroke.alpha.subtler}`,
