@@ -21,7 +21,7 @@ const meta: Meta<typeof SegmentedControl.Root> = {
       description: '기본 선택된 세그먼티드 컨트롤 아이템',
     },
   },
-};
+} satisfies Meta<typeof SegmentedControl.Root>;
 
 export default meta;
 

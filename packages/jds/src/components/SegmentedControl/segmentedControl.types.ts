@@ -1,18 +1,12 @@
-import type { ComponentPropsWithoutRef } from 'react';
+import type { ToggleGroupItemProps, ToggleGroupSingleProps } from '@radix-ui/react-toggle-group';
 
 export type SegmentedControlSize = 'lg' | 'md' | 'sm' | 'xs';
 
-export interface SegmentedControlRootProps extends ComponentPropsWithoutRef<'div'> {
+export interface SegmentedControlRootProps extends Omit<ToggleGroupSingleProps, 'type'> {
   size?: SegmentedControlSize;
-  value?: string;
-  defaultValue?: string;
-  onValueChange?: (value: string) => void;
 }
 
-export interface SegmentedControlItemProps extends Omit<ComponentPropsWithoutRef<'button'>, 'disabled'> {
-  value: string;
-  disabled?: boolean;
-}
+export type SegmentedControlItemProps = ToggleGroupItemProps;
 
 export interface StyledRootProps {
   size: SegmentedControlSize;
