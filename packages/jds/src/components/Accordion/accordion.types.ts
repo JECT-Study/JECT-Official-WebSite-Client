@@ -46,9 +46,15 @@ export interface AccordionProps extends Omit<ComponentPropsWithoutRef<'button'>,
   labelText: string;
 
   /**
-   * 본문 내용 텍스트
+   * 본문 내용 (텍스트, Element, 컴포넌트 등)
    */
   bodyText?: ReactNode;
+
+  /**
+   * 본문 내용 (children 방식)
+   * bodyText와 동일한 역할
+   */
+  children?: ReactNode;
 
   /**
    * 아코디언 확장/축소 시 호출되는 콜백

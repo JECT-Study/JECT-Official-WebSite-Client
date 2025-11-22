@@ -40,15 +40,17 @@ export const Accordion = forwardRef<HTMLButtonElement, AccordionProps>(
       prefixIcon,
       labelText,
       bodyText,
+      children,
       onToggle,
       ...restProps
     },
     ref,
   ) => {
+    // children element 또는 bodyText 사용함.
+    const content = children ?? bodyText;
     // 내부 상태 관리 (제어되지 않는 경우)
     const [isInternalExpanded, setIsInternalExpanded] = useState(false);
 
-    // 제어 모드인지 확인
     const isControlled = controlledIsExpanded !== undefined;
     const isExpanded = isControlled ? controlledIsExpanded : isInternalExpanded;
 
@@ -59,12 +61,10 @@ export const Accordion = forwardRef<HTMLButtonElement, AccordionProps>(
 
       const isNewExpanded = !isExpanded;
 
-      // 제어되지 않는 경우에만 내부 상태 업데이트
       if (!isControlled) {
         setIsInternalExpanded(isNewExpanded);
       }
 
-      // 콜백 호출
       onToggle?.(isNewExpanded);
     };
 
@@ -97,9 +97,9 @@ export const Accordion = forwardRef<HTMLButtonElement, AccordionProps>(
           </StyledChevronIcon>
         </StyledAccordionHeader>
 
-        {bodyText && (
+        {content && (
           <StyledAccordionBody $size={size} $isExpanded={isExpanded}>
-            <StyledBodyText $size={size}>{bodyText}</StyledBodyText>
+            <StyledBodyText $size={size}>{content}</StyledBodyText>
           </StyledAccordionBody>
         )}
       </StyledAccordionContainer>
