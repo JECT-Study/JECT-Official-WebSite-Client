@@ -18,38 +18,39 @@ export const iconSizeMap: Record<AccordionSize, IconSize> = {
   sm: 'xs',
 };
 
-const sizeStyles: Record<AccordionSize, { padding: string; gap: number; borderRadius: number }> = {
-  lg: {
-    padding: `${pxToRem(16)} ${pxToRem(20)}`,
-    gap: 16,
-    borderRadius: 8,
-  },
-  md: {
-    padding: `${pxToRem(12)} ${pxToRem(16)}`,
-    gap: 12,
-    borderRadius: 6,
-  },
-  sm: {
-    padding: `${pxToRem(8)} ${pxToRem(12)}`,
-    gap: 8,
-    borderRadius: 4,
-  },
+const sizeStyles: Record<AccordionSize, (theme: Theme) => { padding: string; gap: string; borderRadius: string }> = {
+  lg: (theme: Theme) => ({
+    padding: `${theme.scheme.semantic.spacing[16]} ${theme.scheme.semantic.spacing[20]}`,
+    gap: theme.scheme.semantic.spacing[16],
+    borderRadius: `${theme.scheme.semantic.radius[8]}px`,
+  }),
+  md: (theme: Theme) => ({
+    padding: `${theme.scheme.semantic.spacing[12]} ${theme.scheme.semantic.spacing[16]}`,
+    gap: theme.scheme.semantic.spacing[12],
+    borderRadius: `${theme.scheme.semantic.radius[6]}px`,
+  }),
+  sm: (theme: Theme) => ({
+    padding: `${theme.scheme.semantic.spacing[8]} ${theme.scheme.semantic.spacing[12]}`,
+    gap: theme.scheme.semantic.spacing[8],
+    borderRadius: `${theme.scheme.semantic.radius[4]}px`,
+  }),
 };
 
-const headerSizeStyles: Record<AccordionSize, CSSObject> = {
-  lg: {
-    minHeight: pxToRem(56),
-  },
-  md: {
-    minHeight: pxToRem(48),
-  },
-  sm: {
-    minHeight: pxToRem(40),
-  },
+const headerSizeStyles: Record<AccordionSize, (theme: Theme) => CSSObject> = {
+  lg: (theme: Theme) => ({
+    minHeight: theme.scheme.semantic.spacing[56],
+  }),
+  md: (theme: Theme) => ({
+    minHeight: theme.scheme.semantic.spacing[48],
+  }),
+  sm: (theme: Theme) => ({
+    minHeight: theme.scheme.semantic.spacing[40],
+  }),
 };
 
 const interactionStyles = (theme: Theme, size: AccordionSize, disabled: boolean): CSSObject => {
-  const { borderRadius } = sizeStyles[size];
+  const styles = sizeStyles[size](theme);
+  const borderRadiusValue = parseInt(styles.borderRadius);
 
   const makeLayer = (state: 'rest' | 'hover' | 'active' | 'focus') =>
     InteractionLayer({
@@ -61,7 +62,7 @@ const interactionStyles = (theme: Theme, size: AccordionSize, disabled: boolean)
       isDisabled: disabled,
       offsetVertical: 0,
       offsetHorizontal: 0,
-      borderRadius,
+      borderRadius: borderRadiusValue,
     });
 
   if (disabled) {
@@ -88,7 +89,7 @@ const interactionStyles = (theme: Theme, size: AccordionSize, disabled: boolean)
 
 export const StyledAccordionContainer = styled('div', {
   shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
-})<AccordionStyledProps>(({ $isStretched, $disabled }) => {
+})<AccordionStyledProps>(({ theme, $isStretched, $disabled }) => {
   return {
     display: 'flex',
     flexDirection: 'column',
@@ -96,26 +97,26 @@ export const StyledAccordionContainer = styled('div', {
     backgroundColor: 'transparent',
     overflow: 'hidden',
     opacity: $disabled ? 0.5 : 1,
-    transition: 'all 200ms ease-in-out',
+    transition: `all ${theme.environment.semantic.duration[200]} ${theme.environment.semantic.motion.fluent}`,
   };
 });
 
 export const StyledAccordionHeader = styled('button', {
   shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
 })<AccordionHeaderProps>(({ theme, $size, $disabled }) => {
-  const { padding, gap } = sizeStyles[$size];
+  const styles = sizeStyles[$size](theme);
 
   return {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
     width: '100%',
-    padding,
-    gap: pxToRem(gap),
+    padding: styles.padding,
+    gap: styles.gap,
     backgroundColor: 'transparent',
     border: 'none',
     textAlign: 'left',
-    ...headerSizeStyles[$size],
+    ...headerSizeStyles[$size](theme),
     ...interactionStyles(theme, $size, $disabled),
 
     '&:disabled': {
@@ -124,12 +125,12 @@ export const StyledAccordionHeader = styled('button', {
   };
 });
 
-export const StyledHeaderContent = styled.div({
+export const StyledHeaderContent = styled.div(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
-  gap: pxToRem(8),
+  gap: theme.scheme.semantic.spacing[8],
   flex: 1,
-});
+}));
 
 export const StyledLabelText = styled.span<{ $size: AccordionSize; $disabled: boolean }>(
   ({ theme, $size, $disabled }) => {
@@ -155,25 +156,27 @@ export const StyledChevronIcon = styled.div<{
   alignItems: 'center',
   justifyContent: 'center',
   transform: $isExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
-  transition: 'transform 200ms ease-in-out',
+  transition: `transform ${theme.environment.semantic.duration[200]} ${theme.environment.semantic.motion.fluent}`,
   color: $disabled ? theme.color.semantic.object.assistive : theme.color.semantic.object.normal,
 }));
 
 export const StyledAccordionBody = styled('div', {
   shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
-})<AccordionBodyProps>(({ $size, $isExpanded }) => {
-  const { padding } = sizeStyles[$size];
+})<AccordionBodyProps>(({ theme, $size, $isExpanded }) => {
+  const styles = sizeStyles[$size](theme);
+  const duration = theme.environment.semantic.duration[200];
+  const easing = theme.environment.semantic.motion.fluent;
 
   return {
     display: $isExpanded ? 'block' : 'none',
-    padding,
+    padding: styles.padding,
     paddingTop: 0,
-    animation: $isExpanded ? 'slideDown 200ms ease-in-out' : 'slideUp 200ms ease-in-out',
+    animation: $isExpanded ? `slideDown ${duration} ${easing}` : `slideUp ${duration} ${easing}`,
 
     '@keyframes slideDown': {
       from: {
         opacity: 0,
-        transform: 'translateY(-10px)',
+        transform: `translateY(${pxToRem(-10)})`,
       },
       to: {
         opacity: 1,
@@ -188,7 +191,7 @@ export const StyledAccordionBody = styled('div', {
       },
       to: {
         opacity: 0,
-        transform: 'translateY(-10px)',
+        transform: `translateY(${pxToRem(-10)})`,
       },
     },
   };
