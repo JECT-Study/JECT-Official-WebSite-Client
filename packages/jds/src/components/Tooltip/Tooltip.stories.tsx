@@ -171,13 +171,22 @@ export const CustomTrigger: Story = {
   args: { children: undefined },
   render: () => (
     <FlexColumn gap='24px'>
-      <FlexColumn gap='12px'>
-        <Label>텍스트 레이블</Label>
+      <div>
         <Tooltip.Root>
           <Tooltip.Trigger>
-            <LabelComponent as='span'>레이블입니다.</LabelComponent>
+            <LabelComponent as='span'>텍스트 레이블입니다.</LabelComponent>
           </Tooltip.Trigger>
           <Tooltip.Content>레이블</Tooltip.Content>
+        </Tooltip.Root>
+      </div>
+
+      <FlexColumn gap='12px'>
+        <Label>Icon 컴포넌트</Label>
+        <Tooltip.Root>
+          <Tooltip.Trigger>
+            <Icon name='information-line' size='lg' />
+          </Tooltip.Trigger>
+          <Tooltip.Content>아이콘 툴팁</Tooltip.Content>
         </Tooltip.Root>
       </FlexColumn>
 
@@ -193,7 +202,7 @@ export const CustomTrigger: Story = {
 
       <FlexColumn gap='12px'>
         <Label>Input 예시</Label>
-        <Tooltip.Root side='top'>
+        <Tooltip.Root side='top' sideOffset={12}>
           <Tooltip.Trigger>
             <Input.TextField value='레이블 명' onChange={e => e.preventDefault()} />
           </Tooltip.Trigger>
