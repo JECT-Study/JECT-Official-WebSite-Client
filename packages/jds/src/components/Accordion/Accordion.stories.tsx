@@ -176,6 +176,49 @@ export const ControlledExample: Story = {
   render: () => <ControlledExampleComponent />,
 };
 
+export const WithComplexContent: Story = {
+  args: {
+    labelText: '타이틀',
+  },
+  render: () => {
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', width: '600px' }}>
+        <Accordion labelText='복잡한 콘텐츠 예시' isStretched>
+          <div>
+            <p style={{ marginBottom: '8px' }}>아코디언 안에 다양한 요소를 넣을 수 있습니다:</p>
+            <ul style={{ paddingLeft: '20px', margin: '8px 0' }}>
+              <li>리스트 아이템 1</li>
+              <li>리스트 아이템 2</li>
+              <li>리스트 아이템 3</li>
+            </ul>
+            <a href='#' style={{ color: 'blue', textDecoration: 'underline' }}>
+              자세히 보기 →
+            </a>
+          </div>
+        </Accordion>
+
+        <Accordion labelText='버튼이 포함된 콘텐츠' isStretched>
+          <div>
+            <p style={{ marginBottom: '12px' }}>작업을 수행하려면 아래 버튼을 클릭하세요.</p>
+            <button
+              style={{
+                padding: '8px 16px',
+                backgroundColor: '#5B4FFF',
+                color: 'white',
+                border: 'none',
+                borderRadius: '4px',
+                cursor: 'pointer',
+              }}
+            >
+              실행하기
+            </button>
+          </div>
+        </Accordion>
+      </div>
+    );
+  },
+};
+
 export const FAQExample: Story = {
   args: {
     labelText: '타이틀',
@@ -194,11 +237,17 @@ export const FAQExample: Story = {
           bodyText='매 학기 초 모집 기간에 지원서를 제출하실 수 있습니다. 자세한 사항은 공식 웹사이트를 참고해주세요.'
           isStretched
         />
-        <Accordion
-          labelText='어떤 활동을 하나요?'
-          bodyText='프로젝트 개발, 스터디, 세미나, 네트워킹 등 다양한 활동을 진행합니다.'
-          isStretched
-        />
+        <Accordion labelText='어떤 활동을 하나요?' isStretched>
+          <div>
+            <p>다양한 활동을 진행합니다:</p>
+            <ul style={{ paddingLeft: '20px', marginTop: '8px' }}>
+              <li>프로젝트 개발</li>
+              <li>정기 스터디</li>
+              <li>기술 세미나</li>
+              <li>네트워킹 이벤트</li>
+            </ul>
+          </div>
+        </Accordion>
       </div>
     );
   },
