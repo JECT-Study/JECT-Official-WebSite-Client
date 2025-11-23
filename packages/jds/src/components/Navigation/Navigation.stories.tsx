@@ -2,14 +2,13 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { Navigation } from './Navigation';
 import { useNavigationVariant } from './useNavigationVariant';
-import { BlockButton } from '../Button/BlockButton';
 import { Logo } from '../Logo';
 
 const meta = {
   title: 'Components/Navigation',
   component: Navigation.Root,
   parameters: {
-    layout: 'centered',
+    // layout: 'centered',
   },
   argTypes: {
     variant: {
@@ -28,28 +27,20 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   render: args => (
-    <Navigation.Root variant={args.variant}>
-      <Navigation.LogoDiv>
-        <Logo hierarchy='primary' height={16} />
-      </Navigation.LogoDiv>
-      <Navigation.List>
-        <Navigation.Item>
-          <Navigation.Trigger>젝트</Navigation.Trigger>
-        </Navigation.Item>
-        <Navigation.Item>
-          <Navigation.Trigger>프로그램</Navigation.Trigger>
-        </Navigation.Item>
-        <Navigation.Item>
-          <Navigation.Trigger>뉴스</Navigation.Trigger>
-        </Navigation.Item>
-        <Navigation.Item>
-          <Navigation.Trigger>합류 가이드</Navigation.Trigger>
-        </Navigation.Item>
-        <BlockButton.Basic hierarchy='primary' size='sm' variant='solid'>
-          지원하기
-        </BlockButton.Basic>
-      </Navigation.List>
-    </Navigation.Root>
+    <div style={{ position: 'fixed', top: 0, left: 0, right: 0 }}>
+      <Navigation.Root variant={args.variant}>
+        <Navigation.LogoDiv>
+          <Logo hierarchy='primary' height={16} />
+        </Navigation.LogoDiv>
+        <Navigation.List>
+          <Navigation.ToggleItem>젝트</Navigation.ToggleItem>
+          <Navigation.ToggleItem>프로그램</Navigation.ToggleItem>
+          <Navigation.ToggleItem>뉴스</Navigation.ToggleItem>
+          <Navigation.ToggleItem>합류 가이드</Navigation.ToggleItem>
+          <Navigation.BlockItem>지원하기</Navigation.BlockItem>
+        </Navigation.List>
+      </Navigation.Root>
+    </div>
   ),
 };
 
@@ -64,21 +55,11 @@ const ScrollVariantDemo = () => {
             <Logo hierarchy='primary' height={16} />
           </Navigation.LogoDiv>
           <Navigation.List>
-            <Navigation.Item>
-              <Navigation.Trigger>젝트</Navigation.Trigger>
-            </Navigation.Item>
-            <Navigation.Item>
-              <Navigation.Trigger>프로그램</Navigation.Trigger>
-            </Navigation.Item>
-            <Navigation.Item>
-              <Navigation.Trigger>뉴스</Navigation.Trigger>
-            </Navigation.Item>
-            <Navigation.Item>
-              <Navigation.Trigger>합류 가이드</Navigation.Trigger>
-            </Navigation.Item>
-            <BlockButton.Basic hierarchy='primary' size='sm' variant='solid'>
-              지원하기
-            </BlockButton.Basic>
+            <Navigation.ToggleItem>젝트</Navigation.ToggleItem>
+            <Navigation.ToggleItem>프로그램</Navigation.ToggleItem>
+            <Navigation.ToggleItem>뉴스</Navigation.ToggleItem>
+            <Navigation.ToggleItem>합류 가이드</Navigation.ToggleItem>
+            <Navigation.BlockItem>지원하기</Navigation.BlockItem>
           </Navigation.List>
         </Navigation.Root>
       </div>

@@ -10,15 +10,20 @@ import {
   StyledSegmentedControlWrapper,
   StyledNavigationListWrapper,
   StyledDividerWrapper,
+  StyledMobileMenuButton,
+  StyledDesktopTrigger,
+  StyledTabletTrigger,
 } from './navigation.styles';
 import type {
   NavigationRootProps,
   NavigationListProps,
-  NavigationItemProps,
-  NavigationTriggerProps,
+  NavigationToggleItemProps,
+  NavigationBlockItemProps,
   NavigationLogoDivProps,
   NavigationLogoLinkProps,
 } from './navigation.types';
+import { BlockButton } from '../Button/BlockButton';
+import { IconButton } from '../Button/IconButton';
 import { LabelButton } from '../Button/LabelButton';
 import { Divider } from '../Divider';
 import { SegmentedControl } from '../SegmentedControl';
@@ -58,6 +63,9 @@ const NavigationList = forwardRef<HTMLUListElement, NavigationListProps>(
         <NavigationMenu.List asChild {...props}>
           <StyledNavigationList ref={ref}>{children}</StyledNavigationList>
         </NavigationMenu.List>
+        <StyledMobileMenuButton>
+          <IconButton.Basic hierarchy='primary' icon='menu-line' size='lg' />
+        </StyledMobileMenuButton>
       </StyledNavigationListWrapper>
     );
   },
@@ -65,31 +73,51 @@ const NavigationList = forwardRef<HTMLUListElement, NavigationListProps>(
 
 NavigationList.displayName = 'Navigation.List';
 
-const NavigationItem = forwardRef<HTMLLIElement, NavigationItemProps>(
+const NavigationToggleItem = forwardRef<HTMLLIElement, NavigationToggleItemProps>(
   ({ children, ...props }, ref) => {
     return (
       <NavigationMenu.Item ref={ref} {...props}>
-        {children}
+        <StyledDesktopTrigger>
+          <NavigationMenu.Trigger asChild>
+            <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+              {children}
+            </LabelButton.Basic>
+          </NavigationMenu.Trigger>
+        </StyledDesktopTrigger>
+        <StyledTabletTrigger>
+          <NavigationMenu.Trigger asChild>
+            <LabelButton.Basic hierarchy='primary' size='xs' suffixIcon='arrow-down-s-line'>
+              {children}
+            </LabelButton.Basic>
+          </NavigationMenu.Trigger>
+        </StyledTabletTrigger>
       </NavigationMenu.Item>
     );
   },
 );
 
-NavigationItem.displayName = 'Navigation.Item';
+NavigationToggleItem.displayName = 'Navigation.ToggleItem';
 
-const NavigationTrigger = forwardRef<HTMLButtonElement, NavigationTriggerProps>(
+const NavigationBlockItem = forwardRef<HTMLLIElement, NavigationBlockItemProps>(
   ({ children, ...props }, ref) => {
     return (
-      <NavigationMenu.Trigger asChild {...props}>
-        <LabelButton.Basic ref={ref} hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
-          {children}
-        </LabelButton.Basic>
-      </NavigationMenu.Trigger>
+      <NavigationMenu.Item ref={ref} {...props}>
+        <StyledDesktopTrigger>
+          <BlockButton.Basic hierarchy='primary' size='sm' variant='solid'>
+            {children}
+          </BlockButton.Basic>
+        </StyledDesktopTrigger>
+        <StyledTabletTrigger>
+          <BlockButton.Basic hierarchy='primary' size='xs' variant='solid'>
+            {children}
+          </BlockButton.Basic>
+        </StyledTabletTrigger>
+      </NavigationMenu.Item>
     );
   },
 );
 
-NavigationTrigger.displayName = 'Navigation.Trigger';
+NavigationBlockItem.displayName = 'Navigation.BlockItem';
 
 const NavigationLogoLink = forwardRef<HTMLAnchorElement, NavigationLogoLinkProps>(
   ({ children, ...props }, ref) => {
@@ -128,8 +156,8 @@ NavigationLogoDiv.displayName = 'Navigation.LogoDiv';
 export const Navigation = {
   Root: NavigationRoot,
   List: NavigationList,
-  Item: NavigationItem,
-  Trigger: NavigationTrigger,
+  ToggleItem: NavigationToggleItem,
+  BlockItem: NavigationBlockItem,
   LogoDiv: NavigationLogoDiv,
   LogoLink: NavigationLogoLink,
 };

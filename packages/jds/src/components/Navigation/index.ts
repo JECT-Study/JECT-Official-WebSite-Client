@@ -3,7 +3,7 @@ export { useNavigationVariant } from './useNavigationVariant';
 export type {
   NavigationRootProps,
   NavigationListProps,
-  NavigationItemProps,
-  NavigationTriggerProps,
+  NavigationToggleItemProps,
+  NavigationBlockItemProps,
   NavigationVariant,
 } from './navigation.types';

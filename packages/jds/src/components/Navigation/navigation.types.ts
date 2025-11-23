@@ -9,9 +9,9 @@ export interface NavigationRootProps extends ComponentPropsWithoutRef<typeof Nav
 
 export type NavigationListProps = ComponentPropsWithoutRef<typeof NavigationMenu.List>;
 
-export type NavigationItemProps = ComponentPropsWithoutRef<typeof NavigationMenu.Item>;
+export type NavigationToggleItemProps = ComponentPropsWithoutRef<typeof NavigationMenu.Item>;
 
-export type NavigationTriggerProps = ComponentPropsWithoutRef<typeof NavigationMenu.Trigger>;
+export type NavigationBlockItemProps = ComponentPropsWithoutRef<typeof NavigationMenu.Item>;
 
 export interface NavigationLogoDivProps extends ComponentPropsWithoutRef<'div'> {
   children?: ReactNode;
