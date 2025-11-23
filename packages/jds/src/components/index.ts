@@ -17,3 +17,4 @@ export * from './Image';
 export * from './Title';
 export * from './Uploader';
 export * from './FileItem';
+export * from './SegmentedControl';

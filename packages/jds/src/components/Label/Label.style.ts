@@ -39,7 +39,7 @@ export const LabelStyled = styled('label', {
     justifyContent,
     alignItems: 'center',
     color: $color ?? theme.color.semantic.object.bold,
-    cursor: 'default',
+    cursor: 'inherit',
     ...theme.textStyle[tokenKey],
   };
 });
