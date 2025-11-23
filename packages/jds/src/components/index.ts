@@ -1,6 +1,7 @@
 export * from './Badge';
 export * from './Button/BlockButton';
 export * from './Checkbox';
+export * from './Footer';
 export * from './Hero';
 export * from './Icon';
 export * from './Button/IconButton';
