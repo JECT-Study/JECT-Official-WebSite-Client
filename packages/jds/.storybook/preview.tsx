@@ -3,6 +3,7 @@ import { ThemeProvider } from '@emotion/react';
 import { Global } from '@emotion/react';
 import { globalStyles } from '../src/tokens/globalStyles';
 import { theme } from '../src/tokens/theme';
+import { GlobalStyles } from '../src/style/globalStyle';
 
 const preview: Preview = {
   parameters: {
@@ -41,6 +42,7 @@ const preview: Preview = {
       return (
         <ThemeProvider theme={theme}>
           <Global styles={globalStyles} />
+          <GlobalStyles />
           <div data-theme={context.globals.theme}>
             <Story />
           </div>
