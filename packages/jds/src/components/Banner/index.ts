@@ -1,2 +1,2 @@
 export { Banner } from './Banner';
-export type { BannerProps, BannerVariant } from './banner.types';
+export type { BannerBarProps, BannerImageProps, BannerProps, BannerVariant } from './banner.types';
