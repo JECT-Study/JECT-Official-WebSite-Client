@@ -81,6 +81,7 @@ export { default as LinkLine } from './LinkLine';
 export { default as MailFill } from './MailFill';
 export { default as MailLine } from './MailLine';
 export { default as MegaphoneLine } from './MegaphoneLine';
+export { default as MenuLine } from './MenuLine';
 export { default as Message2Line } from './Message2Line';
 export { default as MoonLine } from './MoonLine';
 export { default as MoreHorizontal } from './MoreHorizontal';
