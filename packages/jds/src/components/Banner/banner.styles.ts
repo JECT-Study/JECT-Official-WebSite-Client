@@ -47,6 +47,10 @@ export const StyledBannerBarTitle = styled.span(({ theme }) => ({
   color: theme.color.semantic.object.static.inverse.boldest,
   wordBreak: 'keep-all',
   overflowWrap: 'break-word',
+  display: '-webkit-box',
+  WebkitLineClamp: 1,
+  WebkitBoxOrient: 'vertical',
+  overflow: 'hidden',
 
   [theme.breakPoint.mobile]: {
     ...theme.textStyle['semantic-textStyle-label-sm-bold'],
@@ -58,6 +62,10 @@ export const StyledBannerBarSubtitle = styled.span(({ theme }) => ({
   color: theme.color.semantic.object.static.inverse.bold,
   wordBreak: 'keep-all',
   overflowWrap: 'break-word',
+  display: '-webkit-box',
+  WebkitLineClamp: 1,
+  WebkitBoxOrient: 'vertical',
+  overflow: 'hidden',
 
   [theme.breakPoint.mobile]: {
     ...theme.textStyle['semantic-textStyle-label-xs-normal'],

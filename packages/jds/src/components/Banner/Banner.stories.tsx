@@ -1,11 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Banner } from './Banner';
 import type { BannerBarProps, BannerImageProps } from './banner.types';
+import { Banner } from './index';
 
-const meta: Meta<typeof Banner> = {
+const meta: Meta = {
   title: 'Components/Banner',
-  component: Banner,
   parameters: {
     layout: 'padded',
   },
@@ -17,6 +16,7 @@ type BarStory = StoryObj<BannerBarProps>;
 type ImageStory = StoryObj<BannerImageProps>;
 
 export const Default: BarStory = {
+  render: args => <Banner.Bar {...args} />,
   args: {
     label: '레이블',
     subtitle: '서브타이틀 텍스트',
@@ -26,6 +26,7 @@ export const Default: BarStory = {
 };
 
 export const WithoutLabel: BarStory = {
+  render: args => <Banner.Bar {...args} />,
   args: {
     subtitle: '서브타이틀만 있는 경우',
     title: '메인 타이틀',
@@ -41,6 +42,7 @@ export const WithoutLabel: BarStory = {
 };
 
 export const WithoutSubtitle: BarStory = {
+  render: args => <Banner.Bar {...args} />,
   args: {
     label: '레이블',
     title: '메인 타이틀만 있는 배너',
@@ -56,6 +58,7 @@ export const WithoutSubtitle: BarStory = {
 };
 
 export const TitleOnly: BarStory = {
+  render: args => <Banner.Bar {...args} />,
   args: {
     title: '타이틀만 있는 배너',
     onClose: () => console.log('Banner closed'),
@@ -70,6 +73,7 @@ export const TitleOnly: BarStory = {
 };
 
 export const WithoutCloseButton: BarStory = {
+  render: args => <Banner.Bar {...args} />,
   args: {
     title: '닫기 버튼이 없는 배너',
     subtitle: 'onClose prop을 제공하지 않으면 닫기 버튼이 표시되지 않습니다.',
@@ -86,6 +90,7 @@ export const WithoutCloseButton: BarStory = {
 };
 
 export const LongText: BarStory = {
+  render: args => <Banner.Bar {...args} />,
   args: {
     label: '긴 레이블 텍스트',
     subtitle:
@@ -104,6 +109,7 @@ export const LongText: BarStory = {
 };
 
 export const ImageBanner: ImageStory = {
+  render: args => <Banner.Image {...args} />,
   args: {
     variant: 'image',
     src: '',
@@ -121,6 +127,7 @@ export const ImageBanner: ImageStory = {
 };
 
 export const ImageBannerWithoutSubtitle: ImageStory = {
+  render: args => <Banner.Image {...args} />,
   args: {
     variant: 'image',
     src: '',
@@ -137,6 +144,7 @@ export const ImageBannerWithoutSubtitle: ImageStory = {
 };
 
 export const ImageBannerLongText: ImageStory = {
+  render: args => <Banner.Image {...args} />,
   args: {
     variant: 'image',
     src: '',

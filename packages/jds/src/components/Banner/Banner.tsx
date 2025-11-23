@@ -14,45 +14,12 @@ import {
   StyledBannerRoot,
   StyledBannerTitles,
 } from './banner.styles';
-import type { BannerProps } from './banner.types';
+import type { BannerBarProps, BannerImageProps } from './banner.types';
 import { BlockButton } from '../Button/BlockButton';
 import { IconButton } from '../Button/IconButton';
 import { Image } from '../Image/Image';
 
-export const Banner = forwardRef<HTMLDivElement, BannerProps>((props, ref) => {
-  if (props.variant === 'image') {
-    const { src, alt, title, subtitle, ...restProps } = props;
-
-    return (
-      <StyledBannerImageRoot ref={ref} {...restProps}>
-        <Image
-          src={src}
-          alt={alt}
-          orientation='landscape'
-          isReadonly
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            zIndex: 0,
-            padding: 0,
-          }}
-        />
-
-        <StyledBannerImageGradient />
-
-        <StyledBannerImageContentWrapper>
-          <StyledBannerImageContent>
-            <StyledBannerImageTitle>{title}</StyledBannerImageTitle>
-            {subtitle && <StyledBannerImageSubtitle>{subtitle}</StyledBannerImageSubtitle>}
-          </StyledBannerImageContent>
-        </StyledBannerImageContentWrapper>
-      </StyledBannerImageRoot>
-    );
-  }
-
+const BannerBar = forwardRef<HTMLDivElement, BannerBarProps>((props, ref) => {
   const { title, subtitle, label, onClose, closeAriaLabel = '배너 닫기', ...restProps } = props;
 
   return (
@@ -84,4 +51,44 @@ export const Banner = forwardRef<HTMLDivElement, BannerProps>((props, ref) => {
   );
 });
 
-Banner.displayName = 'Banner';
+BannerBar.displayName = 'Banner.Bar';
+
+const BannerImage = forwardRef<HTMLDivElement, BannerImageProps>((props, ref) => {
+  const { src, alt, title, subtitle, ...restProps } = props;
+
+  return (
+    <StyledBannerImageRoot ref={ref} {...restProps}>
+      <Image
+        src={src}
+        alt={alt}
+        orientation='landscape'
+        isReadonly
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          zIndex: 0,
+          padding: 0,
+        }}
+      />
+
+      <StyledBannerImageGradient />
+
+      <StyledBannerImageContentWrapper>
+        <StyledBannerImageContent>
+          <StyledBannerImageTitle>{title}</StyledBannerImageTitle>
+          {subtitle && <StyledBannerImageSubtitle>{subtitle}</StyledBannerImageSubtitle>}
+        </StyledBannerImageContent>
+      </StyledBannerImageContentWrapper>
+    </StyledBannerImageRoot>
+  );
+});
+
+BannerImage.displayName = 'Banner.Image';
+
+export const Banner = {
+  Bar: BannerBar,
+  Image: BannerImage,
+};
