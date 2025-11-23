@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-export const StyledBannerRoot = styled.div(({ theme }) => ({
+export const StyledBannerBarRoot = styled.div(({ theme }) => ({
   width: '100%',
   display: 'flex',
   alignItems: 'center',
@@ -28,7 +28,7 @@ export const StyledBannerBarContent = styled.div(({ theme }) => ({
   gap: theme.scheme.semantic.spacing[16],
 }));
 
-export const StyledBannerTitles = styled.div(({ theme }) => ({
+export const StyledBannerBarTitles = styled.div(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   gap: theme.scheme.semantic.spacing[16],
@@ -72,7 +72,7 @@ export const StyledBannerBarSubtitle = styled.span(({ theme }) => ({
   },
 }));
 
-export const StyledBannerCloseButton = styled.div(({ theme }) => ({
+export const StyledBannerBarCloseButton = styled.div(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
 

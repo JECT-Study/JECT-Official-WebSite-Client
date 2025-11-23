@@ -1,18 +1,18 @@
 import { forwardRef } from 'react';
 
 import {
+  StyledBannerBarCloseButton,
   StyledBannerBarContent,
+  StyledBannerBarRoot,
   StyledBannerBarSubtitle,
   StyledBannerBarTitle,
-  StyledBannerCloseButton,
+  StyledBannerBarTitles,
   StyledBannerImageContent,
   StyledBannerImageContentWrapper,
   StyledBannerImageGradient,
   StyledBannerImageRoot,
   StyledBannerImageSubtitle,
   StyledBannerImageTitle,
-  StyledBannerRoot,
-  StyledBannerTitles,
 } from './banner.styles';
 import type { BannerBarProps, BannerImageProps } from './banner.types';
 import { BlockButton } from '../Button/BlockButton';
@@ -23,12 +23,12 @@ const BannerBar = forwardRef<HTMLDivElement, BannerBarProps>((props, ref) => {
   const { title, subtitle, label, onClose, closeAriaLabel = '배너 닫기', ...restProps } = props;
 
   return (
-    <StyledBannerRoot ref={ref} {...restProps}>
+    <StyledBannerBarRoot ref={ref} {...restProps}>
       <StyledBannerBarContent>
-        <StyledBannerTitles>
+        <StyledBannerBarTitles>
           <StyledBannerBarTitle>{title}</StyledBannerBarTitle>
           {subtitle && <StyledBannerBarSubtitle>{subtitle}</StyledBannerBarSubtitle>}
-        </StyledBannerTitles>
+        </StyledBannerBarTitles>
 
         {label && (
           <BlockButton.Basic size='xs' hierarchy='primary' variant='solid'>
@@ -38,16 +38,16 @@ const BannerBar = forwardRef<HTMLDivElement, BannerBarProps>((props, ref) => {
       </StyledBannerBarContent>
 
       {onClose && (
-        <StyledBannerCloseButton>
+        <StyledBannerBarCloseButton>
           <IconButton.Basic
             icon='close-line'
             size='lg'
             aria-label={closeAriaLabel}
             onClick={onClose}
           />
-        </StyledBannerCloseButton>
+        </StyledBannerBarCloseButton>
       )}
-    </StyledBannerRoot>
+    </StyledBannerBarRoot>
   );
 });
 
