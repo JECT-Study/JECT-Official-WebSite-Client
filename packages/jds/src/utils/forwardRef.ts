@@ -1,33 +1,38 @@
-import { ComponentPropsWithRef, ElementType, ForwardedRef, ReactElement, forwardRef } from 'react';
+import type {
+  ComponentPropsWithRef,
+  ComponentPropsWithoutRef,
+  ElementType,
+  ReactElement,
+} from 'react';
+import { forwardRef } from 'react';
 
-type ElementRef<E extends ElementType> = ComponentPropsWithRef<E>['ref'] extends
-  | ((instance: infer T | null) => void)
-  | { current: infer T | null }
-  | null
-  | undefined
-  ? T
-  : never;
-
-type PolymorphicPropsWithRef<E extends ElementType, OwnProps> = OwnProps &
-  Omit<ComponentPropsWithRef<E>, keyof OwnProps | 'as'> & {
+/**
+ * Polymorphic Component Prop type (ref 제외)
+ */
+export type PolymorphicProps<E extends ElementType, P> = P &
+  Omit<ComponentPropsWithoutRef<E>, keyof P | 'as'> & {
     as?: E;
-    ref?: ForwardedRef<ElementRef<E>>;
   };
 
-type PolymorphicComponent<
-  DefaultElement extends ElementType,
-  OwnProps = Record<string, never>,
-> = (<E extends ElementType = DefaultElement>(
-  props: PolymorphicPropsWithRef<E, OwnProps>,
+export type PolymorphicRef<E extends ElementType> = ComponentPropsWithRef<E>['ref'];
+
+export type PolymorphicComponentPropsWithRef<E extends ElementType, P> = PolymorphicProps<E, P> & {
+  ref?: PolymorphicRef<E>;
+};
+
+type PolymorphicComponent<DefaultElement extends ElementType, OwnProps = Record<string, never>> = (<
+  E extends ElementType = DefaultElement,
+>(
+  props: PolymorphicComponentPropsWithRef<E, OwnProps>,
 ) => ReactElement | null) & {
   displayName?: string;
 };
 
 /**
- * Polymorphic 컴포넌트를 위한 제네릭 forwardRef 헬퍼
  *
  * @template DefaultElement - 기본 요소 타입
  * @template OwnProps - 컴포넌트 고유 props
+ *
  *
  */
 export function PolymorphicForwardRef<
@@ -35,11 +40,9 @@ export function PolymorphicForwardRef<
   OwnProps = Record<string, never>,
 >(
   render: <E extends ElementType = DefaultElement>(
-    props: PolymorphicPropsWithRef<E, OwnProps>,
-    ref: ForwardedRef<ElementRef<E>>,
+    props: PolymorphicProps<E, OwnProps>,
+    ref: PolymorphicRef<E>,
   ) => ReactElement | null,
 ): PolymorphicComponent<DefaultElement, OwnProps> {
-  return forwardRef<unknown, PolymorphicPropsWithRef<DefaultElement, OwnProps>>(
-    render as never,
-  ) as PolymorphicComponent<DefaultElement, OwnProps>;
+  return forwardRef(render as never) as PolymorphicComponent<DefaultElement, OwnProps>;
 }
