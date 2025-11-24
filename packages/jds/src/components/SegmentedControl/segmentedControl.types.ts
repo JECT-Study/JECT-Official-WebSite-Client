@@ -1,8 +1,8 @@
-import type { ToggleGroupItemProps, ToggleGroupSingleProps } from '@radix-ui/react-toggle-group';
+import type { ToggleGroupItemProps, ToggleGroupSingleProps } from "@radix-ui/react-toggle-group";
 
-export type SegmentedControlSize = 'lg' | 'md' | 'sm' | 'xs';
+export type SegmentedControlSize = "lg" | "md" | "sm" | "xs";
 
-export interface SegmentedControlRootProps extends Omit<ToggleGroupSingleProps, 'type'> {
+export interface SegmentedControlRootProps extends Omit<ToggleGroupSingleProps, "type"> {
   size?: SegmentedControlSize;
 }
 

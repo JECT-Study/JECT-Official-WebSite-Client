@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { z } from 'zod';
+import { z } from "zod";
 
 /**
  *
@@ -31,7 +31,7 @@ function setNestedValue(obj: NestedObject, pathArray: string[], value: any): voi
         current[key] = {};
       }
       const next = current[key];
-      if (typeof next === 'object') {
+      if (typeof next === "object") {
         current = next;
       }
     }
@@ -40,24 +40,22 @@ function setNestedValue(obj: NestedObject, pathArray: string[], value: any): voi
 
 // px이 필요한 CSS 속성 목록
 const pxProperties = [
-  'font-size',
-  'letter-spacing',
-  'paragraph-spacing',
-  'paragraph-indent',
-  'border-radius',
-  'radius',
-  'stroke-weight',
-  'spacing',
-  'width',
-  'height',
-  'padding',
-  'margin',
+  "font-size",
+  "letter-spacing",
+  "paragraph-spacing",
+  "paragraph-indent",
+  "border-radius",
+  "radius",
+  "stroke-weight",
+  "spacing",
+  "width",
+  "height",
+  "padding",
+  "margin",
 ];
 
 // ms이 필요한 CSS 속성 목록
-const msProperties = [
-  'duration',
-];
+const msProperties = ["duration"];
 
 function needsPxUnit(propertyName: string): boolean {
   return pxProperties.some(prop => propertyName.includes(prop));
@@ -71,10 +69,10 @@ function addUnitIfNeeded(propertyName: string, value: string | number): string {
   const strValue = String(value);
   // 이미 단위가 있거나, var() 함수이거나, 숫자가 아니면 그대로 반환
   if (
-    strValue.includes('px') ||
-    strValue.includes('ms') ||
-    strValue.includes('var(') ||
-    strValue.includes('%') ||
+    strValue.includes("px") ||
+    strValue.includes("ms") ||
+    strValue.includes("var(") ||
+    strValue.includes("%") ||
     isNaN(Number(value))
   ) {
     return strValue;
@@ -97,35 +95,35 @@ function addPxIfNeeded(propertyName: string, value: string | number): string {
 
 function toCssPropertyCamelCase(tokenName: string): string {
   return tokenName
-    .replace(/line-height/g, 'lineHeight')
-    .replace(/letter-spacing/g, 'letterSpacing')
-    .replace(/font-size/g, 'fontSize')
-    .replace(/font-weight/g, 'fontWeight')
-    .replace(/font-family/g, 'fontFamily')
-    .replace(/border-radius/g, 'borderRadius')
-    .replace(/stroke-weight/g, 'strokeWeight')
-    .replace(/paragraph-spacing/g, 'paragraphSpacing')
-    .replace(/paragraph-indent/g, 'paragraphIndent');
+    .replace(/line-height/g, "lineHeight")
+    .replace(/letter-spacing/g, "letterSpacing")
+    .replace(/font-size/g, "fontSize")
+    .replace(/font-weight/g, "fontWeight")
+    .replace(/font-family/g, "fontFamily")
+    .replace(/border-radius/g, "borderRadius")
+    .replace(/stroke-weight/g, "strokeWeight")
+    .replace(/paragraph-spacing/g, "paragraphSpacing")
+    .replace(/paragraph-indent/g, "paragraphIndent");
 }
 
 function toCssVariableKebabCase(tokenName: string): string {
   return tokenName
-    .replace(/lineHeight/g, 'line-height')
-    .replace(/letterSpacing/g, 'letter-spacing')
-    .replace(/fontSize/g, 'font-size')
-    .replace(/fontWeight/g, 'font-weight')
-    .replace(/fontFamily/g, 'font-family')
-    .replace(/borderRadius/g, 'border-radius')
-    .replace(/strokeWeight/g, 'stroke-weight')
-    .replace(/paragraphSpacing/g, 'paragraph-spacing')
-    .replace(/paragraphIndent/g, 'paragraph-indent');
+    .replace(/lineHeight/g, "line-height")
+    .replace(/letterSpacing/g, "letter-spacing")
+    .replace(/fontSize/g, "font-size")
+    .replace(/fontWeight/g, "font-weight")
+    .replace(/fontFamily/g, "font-family")
+    .replace(/borderRadius/g, "border-radius")
+    .replace(/strokeWeight/g, "stroke-weight")
+    .replace(/paragraphSpacing/g, "paragraph-spacing")
+    .replace(/paragraphIndent/g, "paragraph-indent");
 }
 
 function convertSimpleToNested(tokens: Record<string, string | number>): NestedObject {
   const result: NestedObject = {};
   Object.keys(tokens).forEach(tokenName => {
     const convertedName = toCssPropertyCamelCase(tokenName);
-    const pathArray = convertedName.split('-');
+    const pathArray = convertedName.split("-");
     setNestedValue(result, pathArray, `var(--${tokenName})`);
   });
   return result;
@@ -140,7 +138,7 @@ function convertThemeToNested(
     const themeTokens = tokens[theme];
     Object.keys(themeTokens).forEach(tokenName => {
       const convertedName = toCssPropertyCamelCase(tokenName);
-      const pathArray = convertedName.split('-');
+      const pathArray = convertedName.split("-");
       setNestedValue(result[theme], pathArray, `var(--${tokenName})`);
     });
   });
@@ -156,7 +154,7 @@ function convertResponsiveToNested(
     const deviceTokens = tokens[device];
     Object.keys(deviceTokens).forEach(tokenName => {
       const convertedName = toCssPropertyCamelCase(tokenName);
-      const pathArray = convertedName.split('-');
+      const pathArray = convertedName.split("-");
       setNestedValue(result[device], pathArray, `var(--${tokenName})`);
     });
   });
@@ -216,58 +214,58 @@ export const textStyleSchema = z
     // globalStyles용 CSS 객체 생성 (kebab-case 속성명)
     const cssStyleObjects: Record<string, Record<string, string>> = {};
     data.forEach(textStyle => {
-      const name = textStyle.name.replaceAll('/', '-');
+      const name = textStyle.name.replaceAll("/", "-");
       cssStyleObjects[name] = {
-        'font-size': textStyle.properties.fontSize.token
-          ? `var(--${toCssVariableKebabCase(textStyle.properties.fontSize.token.name.replaceAll('/', '-'))})`
-          : addPxIfNeeded('font-size', textStyle.properties.fontSize.value),
-        'line-height': textStyle.properties.lineHeight.token
-          ? `var(--${toCssVariableKebabCase(textStyle.properties.lineHeight.token.name.replaceAll('/', '-'))})`
+        "font-size": textStyle.properties.fontSize.token
+          ? `var(--${toCssVariableKebabCase(textStyle.properties.fontSize.token.name.replaceAll("/", "-"))})`
+          : addPxIfNeeded("font-size", textStyle.properties.fontSize.value),
+        "line-height": textStyle.properties.lineHeight.token
+          ? `var(--${toCssVariableKebabCase(textStyle.properties.lineHeight.token.name.replaceAll("/", "-"))})`
           : String(textStyle.properties.lineHeight.value),
-        'font-family': textStyle.properties.fontFamily.token
-          ? `var(--${toCssVariableKebabCase(textStyle.properties.fontFamily.token.name.replaceAll('/', '-'))})`
+        "font-family": textStyle.properties.fontFamily.token
+          ? `var(--${toCssVariableKebabCase(textStyle.properties.fontFamily.token.name.replaceAll("/", "-"))})`
           : String(textStyle.properties.fontFamily.value),
-        'font-weight': textStyle.properties.fontWeight.token
-          ? `var(--${toCssVariableKebabCase(textStyle.properties.fontWeight.token.name.replaceAll('/', '-'))})`
+        "font-weight": textStyle.properties.fontWeight.token
+          ? `var(--${toCssVariableKebabCase(textStyle.properties.fontWeight.token.name.replaceAll("/", "-"))})`
           : String(textStyle.properties.fontWeight.value),
-        'letter-spacing': textStyle.properties.letterSpacing.token
-          ? `var(--${toCssVariableKebabCase(textStyle.properties.letterSpacing.token.name.replaceAll('/', '-'))})`
-          : addPxIfNeeded('letter-spacing', textStyle.properties.letterSpacing.value),
-        'paragraph-spacing': textStyle.properties.paragraphSpacing.token
-          ? `var(--${toCssVariableKebabCase(textStyle.properties.paragraphSpacing.token.name.replaceAll('/', '-'))})`
-          : addPxIfNeeded('paragraph-spacing', textStyle.properties.paragraphSpacing.value) || '0',
-        'paragraph-indent': textStyle.properties.paragraphIndent.token
-          ? `var(--${toCssVariableKebabCase(textStyle.properties.paragraphIndent.token.name.replaceAll('/', '-'))})`
-          : addPxIfNeeded('paragraph-indent', textStyle.properties.paragraphIndent.value) || '0',
+        "letter-spacing": textStyle.properties.letterSpacing.token
+          ? `var(--${toCssVariableKebabCase(textStyle.properties.letterSpacing.token.name.replaceAll("/", "-"))})`
+          : addPxIfNeeded("letter-spacing", textStyle.properties.letterSpacing.value),
+        "paragraph-spacing": textStyle.properties.paragraphSpacing.token
+          ? `var(--${toCssVariableKebabCase(textStyle.properties.paragraphSpacing.token.name.replaceAll("/", "-"))})`
+          : addPxIfNeeded("paragraph-spacing", textStyle.properties.paragraphSpacing.value) || "0",
+        "paragraph-indent": textStyle.properties.paragraphIndent.token
+          ? `var(--${toCssVariableKebabCase(textStyle.properties.paragraphIndent.token.name.replaceAll("/", "-"))})`
+          : addPxIfNeeded("paragraph-indent", textStyle.properties.paragraphIndent.value) || "0",
       };
     });
 
     // theme용 JS 객체 생성 (camelCase 속성명)
     const themeStyleObjects: Record<string, Record<string, string>> = {};
     data.forEach(textStyle => {
-      const name = textStyle.name.replaceAll('/', '-');
+      const name = textStyle.name.replaceAll("/", "-");
       themeStyleObjects[name] = {
         fontSize: textStyle.properties.fontSize.token
-          ? `var(--${toCssVariableKebabCase(textStyle.properties.fontSize.token.name.replaceAll('/', '-'))})`
-          : addPxIfNeeded('font-size', textStyle.properties.fontSize.value),
+          ? `var(--${toCssVariableKebabCase(textStyle.properties.fontSize.token.name.replaceAll("/", "-"))})`
+          : addPxIfNeeded("font-size", textStyle.properties.fontSize.value),
         lineHeight: textStyle.properties.lineHeight.token
-          ? `var(--${toCssVariableKebabCase(textStyle.properties.lineHeight.token.name.replaceAll('/', '-'))})`
+          ? `var(--${toCssVariableKebabCase(textStyle.properties.lineHeight.token.name.replaceAll("/", "-"))})`
           : String(textStyle.properties.lineHeight.value),
         fontFamily: textStyle.properties.fontFamily.token
-          ? `var(--${toCssVariableKebabCase(textStyle.properties.fontFamily.token.name.replaceAll('/', '-'))})`
+          ? `var(--${toCssVariableKebabCase(textStyle.properties.fontFamily.token.name.replaceAll("/", "-"))})`
           : String(textStyle.properties.fontFamily.value),
         fontWeight: textStyle.properties.fontWeight.token
-          ? `var(--${toCssVariableKebabCase(textStyle.properties.fontWeight.token.name.replaceAll('/', '-'))})`
+          ? `var(--${toCssVariableKebabCase(textStyle.properties.fontWeight.token.name.replaceAll("/", "-"))})`
           : String(textStyle.properties.fontWeight.value),
         letterSpacing: textStyle.properties.letterSpacing.token
-          ? `var(--${toCssVariableKebabCase(textStyle.properties.letterSpacing.token.name.replaceAll('/', '-'))})`
-          : addPxIfNeeded('letter-spacing', textStyle.properties.letterSpacing.value),
+          ? `var(--${toCssVariableKebabCase(textStyle.properties.letterSpacing.token.name.replaceAll("/", "-"))})`
+          : addPxIfNeeded("letter-spacing", textStyle.properties.letterSpacing.value),
         paragraphSpacing: textStyle.properties.paragraphSpacing.token
-          ? `var(--${toCssVariableKebabCase(textStyle.properties.paragraphSpacing.token.name.replaceAll('/', '-'))})`
-          : addPxIfNeeded('paragraph-spacing', textStyle.properties.paragraphSpacing.value),
+          ? `var(--${toCssVariableKebabCase(textStyle.properties.paragraphSpacing.token.name.replaceAll("/", "-"))})`
+          : addPxIfNeeded("paragraph-spacing", textStyle.properties.paragraphSpacing.value),
         paragraphIndent: textStyle.properties.paragraphIndent.token
-          ? `var(--${toCssVariableKebabCase(textStyle.properties.paragraphIndent.token.name.replaceAll('/', '-'))})`
-          : addPxIfNeeded('paragraph-indent', textStyle.properties.paragraphIndent.value),
+          ? `var(--${toCssVariableKebabCase(textStyle.properties.paragraphIndent.token.name.replaceAll("/", "-"))})`
+          : addPxIfNeeded("paragraph-indent", textStyle.properties.paragraphIndent.value),
       };
     });
 
@@ -388,9 +386,9 @@ const environmentSchema = z
 
 /* ------------------ 최종 토큰 스키마------------------ */
 export const tokenSchema = z.object({
-  'color-primitive': colorPrimitiveSchema,
+  "color-primitive": colorPrimitiveSchema,
   scheme: deviceTokensSchema,
-  'color-semantic': colorSemanticSchema,
+  "color-semantic": colorSemanticSchema,
   typography: deviceTokensSchema,
   environment: environmentSchema,
 });

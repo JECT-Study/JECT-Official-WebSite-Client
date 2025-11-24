@@ -1,32 +1,32 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { ContentBadge } from './ContentBadge';
+import { ContentBadge } from "./ContentBadge";
 import type {
   ContentBadgeBasicProps,
   ContentFeedbackBadgeProps,
   ContentThemeBadgeProps,
-} from './ContentBadge';
+} from "./ContentBadge";
 
 const meta: Meta<typeof ContentBadge.Basic> = {
-  title: 'Components/ContentBadge',
+  title: "Components/ContentBadge",
   component: ContentBadge.Basic,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
   argTypes: {
     size: {
-      control: 'radio',
-      options: ['lg', 'md', 'sm', 'xs'],
+      control: "radio",
+      options: ["lg", "md", "sm", "xs"],
     },
     badgeStyle: {
-      control: 'radio',
-      options: ['solid', 'alpha', 'outlined'],
+      control: "radio",
+      options: ["solid", "alpha", "outlined"],
     },
     isMuted: {
-      control: 'boolean',
+      control: "boolean",
     },
     children: {
-      control: 'text',
+      control: "text",
     },
   },
 };
@@ -36,20 +36,20 @@ export default meta;
 export const Basic: StoryObj<ContentBadgeBasicProps> = {
   argTypes: {
     hierarchy: {
-      control: 'radio',
-      options: ['accent', 'primary', 'secondary', 'tertiary'],
+      control: "radio",
+      options: ["accent", "primary", "secondary", "tertiary"],
     },
     withIcon: {
-      control: 'boolean',
+      control: "boolean",
     },
   },
   args: {
-    hierarchy: 'accent',
-    size: 'md',
-    badgeStyle: 'solid',
+    hierarchy: "accent",
+    size: "md",
+    badgeStyle: "solid",
     isMuted: false,
     withIcon: false,
-    children: '레이블',
+    children: "레이블",
   },
   render: args => (
     <ContentBadge.Basic
@@ -67,16 +67,16 @@ export const Basic: StoryObj<ContentBadgeBasicProps> = {
 export const Feedback: StoryObj<ContentFeedbackBadgeProps> = {
   argTypes: {
     variant: {
-      control: 'radio',
-      options: ['positive', 'destructive', 'notifying'],
+      control: "radio",
+      options: ["positive", "destructive", "notifying"],
     },
   },
   args: {
-    variant: 'positive',
-    size: 'md',
-    badgeStyle: 'solid',
+    variant: "positive",
+    size: "md",
+    badgeStyle: "solid",
     isMuted: false,
-    children: '레이블',
+    children: "레이블",
   },
   render: args => (
     <ContentBadge.Feedback
@@ -93,33 +93,33 @@ export const Feedback: StoryObj<ContentFeedbackBadgeProps> = {
 export const Theme: StoryObj<ContentThemeBadgeProps> = {
   argTypes: {
     variant: {
-      control: 'select',
+      control: "select",
       options: [
-        'red',
-        'orange',
-        'amber',
-        'yellow',
-        'lime',
-        'green',
-        'emerald',
-        'teal',
-        'cyan',
-        'sky',
-        'blue',
-        'violet',
-        'purple',
-        'fuchsia',
-        'pink',
-        'rose',
+        "red",
+        "orange",
+        "amber",
+        "yellow",
+        "lime",
+        "green",
+        "emerald",
+        "teal",
+        "cyan",
+        "sky",
+        "blue",
+        "violet",
+        "purple",
+        "fuchsia",
+        "pink",
+        "rose",
       ],
     },
   },
   args: {
-    variant: 'red',
-    size: 'md',
-    badgeStyle: 'solid',
+    variant: "red",
+    size: "md",
+    badgeStyle: "solid",
     isMuted: false,
-    children: '레이블',
+    children: "레이블",
   },
   render: args => (
     <ContentBadge.Theme

@@ -1,15 +1,15 @@
-import isPropValid from '@emotion/is-prop-valid';
-import type { CSSObject, Theme } from '@emotion/react';
-import styled from '@emotion/styled';
+import isPropValid from "@emotion/is-prop-valid";
+import type { CSSObject, Theme } from "@emotion/react";
+import styled from "@emotion/styled";
 
-import type { CheckboxAlign, CheckboxSize, CheckboxVariant } from './checkbox.types';
-import type { IconSize } from '../Icon/Icon.types';
-import { Label } from '../Label/Label';
-import type { LabelProps } from '../Label/Label';
-import type { LabelSize } from '../Label/Label.style';
+import type { CheckboxAlign, CheckboxSize, CheckboxVariant } from "./checkbox.types";
+import type { IconSize } from "../Icon/Icon.types";
+import { Label } from "../Label/Label";
+import type { LabelProps } from "../Label/Label";
+import type { LabelSize } from "../Label/Label.style";
 
-import type { Variant } from '@/types';
-import { InteractionLayer, pxToRem } from '@/utils';
+import type { Variant } from "@/types";
+import { InteractionLayer, pxToRem } from "@/utils";
 
 const checkboxSizeMap: Record<CheckboxSize, number> = {
   lg: 20,
@@ -26,10 +26,10 @@ const checkboxWrapperHeightMap: Record<CheckboxSize, number> = {
 };
 
 const iconComponentSizeMap: Record<CheckboxSize, IconSize> = {
-  lg: 'md',
-  md: 'sm',
-  sm: 'xs',
-  xs: '2xs',
+  lg: "md",
+  md: "sm",
+  sm: "xs",
+  xs: "2xs",
 };
 
 export function GetIconSize(size: CheckboxSize): IconSize {
@@ -52,10 +52,10 @@ const gapMap: Record<CheckboxSize, (theme: Theme) => CSSObject> = {
 };
 
 const subLabelSizeMap: Record<CheckboxSize, LabelSize> = {
-  lg: 'md',
-  md: 'sm',
-  sm: 'xs',
-  xs: 'xs',
+  lg: "md",
+  md: "sm",
+  sm: "xs",
+  xs: "xs",
 };
 
 export function GetSubLabelSize(size: CheckboxSize): LabelSize {
@@ -67,35 +67,35 @@ const checkboxStyleParams = {
     normal: {
       unchecked: (theme: Theme) => ({
         backgroundColor: theme.color.semantic.surface.shallow,
-        color: 'transparent' as const,
+        color: "transparent" as const,
         border: `1px solid ${theme.color.semantic.stroke.alpha.assistive}`,
       }),
       checked: (theme: Theme) => ({
         backgroundColor: theme.color.semantic.accent.neutral,
         color: theme.color.semantic.object.static.inverse.boldest,
-        border: 'none' as const,
+        border: "none" as const,
       }),
       indeterminate: (theme: Theme) => ({
         backgroundColor: theme.color.semantic.accent.neutral,
         color: theme.color.semantic.object.static.inverse.boldest,
-        border: 'none' as const,
+        border: "none" as const,
       }),
     },
     disabled: {
       unchecked: (theme: Theme) => ({
         backgroundColor: theme.color.semantic.surface.standard,
-        color: 'transparent' as const,
+        color: "transparent" as const,
         border: `1px solid ${theme.color.semantic.stroke.alpha.subtler}`,
       }),
       checked: (theme: Theme) => ({
         backgroundColor: theme.color.semantic.fill.subtlest,
         color: theme.color.semantic.object.subtle,
-        border: 'none' as const,
+        border: "none" as const,
       }),
       indeterminate: (theme: Theme) => ({
         backgroundColor: theme.color.semantic.fill.subtlest,
         color: theme.color.semantic.object.subtle,
-        border: 'none' as const,
+        border: "none" as const,
       }),
     },
   },
@@ -103,44 +103,44 @@ const checkboxStyleParams = {
     normal: {
       unchecked: (theme: Theme) => ({
         backgroundColor: theme.color.semantic.surface.shallow,
-        color: 'transparent' as const,
+        color: "transparent" as const,
         border: `1px solid ${theme.color.semantic.feedback.destructive.neutral}`,
       }),
       checked: (theme: Theme) => ({
         backgroundColor: theme.color.semantic.feedback.destructive.neutral,
         color: theme.color.semantic.object.static.inverse.boldest,
-        border: 'none' as const,
+        border: "none" as const,
       }),
       indeterminate: (theme: Theme) => ({
         backgroundColor: theme.color.semantic.feedback.destructive.neutral,
         color: theme.color.semantic.object.static.inverse.boldest,
-        border: 'none' as const,
+        border: "none" as const,
       }),
     },
     disabled: {
       unchecked: (theme: Theme) => ({
         backgroundColor: theme.color.semantic.surface.standard,
-        color: 'transparent' as const,
+        color: "transparent" as const,
         border: `1px solid ${theme.color.semantic.feedback.destructive.alpha.subtler}`,
       }),
       checked: (theme: Theme) => ({
         backgroundColor: theme.color.semantic.feedback.destructive.alpha.subtlest,
         color: theme.color.semantic.feedback.destructive.alpha.subtle,
-        border: 'none' as const,
+        border: "none" as const,
       }),
       indeterminate: (theme: Theme) => ({
         backgroundColor: theme.color.semantic.feedback.destructive.alpha.subtlest,
         color: theme.color.semantic.feedback.destructive.alpha.subtle,
-        border: 'none' as const,
+        border: "none" as const,
       }),
     },
   },
 };
 
 function getCheckboxStatus(checked: boolean, isIndeterminate: boolean) {
-  if (isIndeterminate) return 'indeterminate';
-  if (checked) return 'checked';
-  return 'unchecked';
+  if (isIndeterminate) return "indeterminate";
+  if (checked) return "checked";
+  return "unchecked";
 }
 
 function GetCheckboxBoxStyles(
@@ -153,8 +153,8 @@ function GetCheckboxBoxStyles(
 ): CSSObject {
   const boxSize = checkboxSizeMap[size];
 
-  const validity = isInvalid ? 'invalid' : 'valid';
-  const availability = disabled ? 'disabled' : 'normal';
+  const validity = isInvalid ? "invalid" : "valid";
+  const availability = disabled ? "disabled" : "normal";
   const status = getCheckboxStatus(checked, isIndeterminate);
   const colorStyles = checkboxStyleParams[validity][availability][status](theme);
 
@@ -163,26 +163,23 @@ function GetCheckboxBoxStyles(
     height: pxToRem(boxSize),
     borderRadius: theme.scheme.semantic.radius[4],
     ...colorStyles,
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
     flexShrink: 0,
-    cursor: disabled ? 'not-allowed' : 'pointer',
-    userSelect: 'none',
+    cursor: disabled ? "not-allowed" : "pointer",
+    userSelect: "none",
   };
 }
 
-function GetBasicContainerInteractionStyles(
-  theme: Theme,
-  disabled: boolean,
-): CSSObject {
+function GetBasicContainerInteractionStyles(theme: Theme, disabled: boolean): CSSObject {
   const interactionParams = {
     restStyle: InteractionLayer({
       theme,
-      state: 'rest',
-      variant: 'normal',
-      density: 'normal',
-      fillColor: 'default',
+      state: "rest",
+      variant: "normal",
+      density: "normal",
+      fillColor: "default",
       isDisabled: disabled,
       offsetVertical: 0,
       offsetHorizontal: 0,
@@ -190,10 +187,10 @@ function GetBasicContainerInteractionStyles(
     }),
     hoverStyle: InteractionLayer({
       theme,
-      state: 'hover',
-      variant: 'normal',
-      density: 'normal',
-      fillColor: 'default',
+      state: "hover",
+      variant: "normal",
+      density: "normal",
+      fillColor: "default",
       isDisabled: disabled,
       offsetVertical: 0,
       offsetHorizontal: 0,
@@ -201,10 +198,10 @@ function GetBasicContainerInteractionStyles(
     }),
     activeStyle: InteractionLayer({
       theme,
-      state: 'active',
-      variant: 'normal',
-      density: 'normal',
-      fillColor: 'default',
+      state: "active",
+      variant: "normal",
+      density: "normal",
+      fillColor: "default",
       isDisabled: disabled,
       offsetVertical: 0,
       offsetHorizontal: 0,
@@ -212,10 +209,10 @@ function GetBasicContainerInteractionStyles(
     }),
     focusStyle: InteractionLayer({
       theme,
-      state: 'focus',
-      variant: 'normal',
-      density: 'normal',
-      fillColor: 'default',
+      state: "focus",
+      variant: "normal",
+      density: "normal",
+      fillColor: "default",
       isDisabled: disabled,
       offsetVertical: 0,
       offsetHorizontal: 0,
@@ -233,67 +230,67 @@ function GetBasicContainerInteractionStyles(
 
   return {
     ...restStyle,
-    '::after': {
-      ...restStyle['::after'],
+    "::after": {
+      ...restStyle["::after"],
       transition: `opacity ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
     },
-    '&:hover': {
+    "&:hover": {
       ...hoverStyle,
-      '::after': {
-        ...hoverStyle['::after'],
+      "::after": {
+        ...hoverStyle["::after"],
         transition: `opacity ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
       },
     },
-    '&:active': {
+    "&:active": {
       ...activeStyle,
-      '::after': {
-        ...activeStyle['::after'],
-        transition: 'none',
+      "::after": {
+        ...activeStyle["::after"],
+        transition: "none",
       },
     },
-    '&:has(:focus-visible)': {
+    "&:has(:focus-visible)": {
       ...focusStyle,
-      '::after': {
-        ...focusStyle['::after'],
-        transition: 'none',
+      "::after": {
+        ...focusStyle["::after"],
+        transition: "none",
       },
     },
   };
 }
 
-export const StyledCheckboxBasicContainer = styled('label', {
-  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
+export const StyledCheckboxBasicContainer = styled("label", {
+  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith("$"),
 })<{
   $disabled: boolean;
 }>(({ theme, $disabled }) => {
   const interactionStyles = GetBasicContainerInteractionStyles(theme, $disabled);
 
   return {
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: 'fit-content',
-    cursor: $disabled ? 'not-allowed' : 'pointer',
-    userSelect: 'none',
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "fit-content",
+    cursor: $disabled ? "not-allowed" : "pointer",
+    userSelect: "none",
     ...interactionStyles,
   };
 });
 
-export const StyledCheckboxBoxWrapper = styled('div', {
-  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
+export const StyledCheckboxBoxWrapper = styled("div", {
+  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith("$"),
 })<{
   $size: CheckboxSize;
 }>(({ $size }) => ({
-  display: 'flex',
+  display: "flex",
   height: pxToRem(checkboxWrapperHeightMap[$size]),
   padding: 0,
-  justifyContent: 'center',
-  alignItems: 'center',
+  justifyContent: "center",
+  alignItems: "center",
   gap: 0,
 }));
 
-export const StyledCheckboxBasicBox = styled('div', {
-  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
+export const StyledCheckboxBasicBox = styled("div", {
+  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith("$"),
 })<{
   $size: CheckboxSize;
   $checked: boolean;
@@ -332,9 +329,9 @@ const contentContainerInteractionStyles = ({
   isInvalid,
 }: ContentContainerInteractionParams): CSSObject => {
   const getInteractionVariant = (): Variant => {
-    if (isInvalid) return 'destructive';
-    if (checked || isIndeterminate) return 'accent';
-    return 'normal';
+    if (isInvalid) return "destructive";
+    if (checked || isIndeterminate) return "accent";
+    return "normal";
   };
 
   const interactionVariant = getInteractionVariant();
@@ -342,13 +339,13 @@ const contentContainerInteractionStyles = ({
   const baseContentInteractionParams = {
     theme,
     variant: interactionVariant,
-    density: 'assistive' as const,
-    fillColor: 'default' as const,
+    density: "assistive" as const,
+    fillColor: "default" as const,
     isReadonly: disabled,
     isDisabled: false,
   };
 
-  const borderRadius = size === 'lg' || size === 'md' ? 6 : 4;
+  const borderRadius = size === "lg" || size === "md" ? 6 : 4;
 
   const emptyVariantOffset = {
     offsetVertical: emptyContentOffsetMap[size].vertical,
@@ -363,10 +360,10 @@ const contentContainerInteractionStyles = ({
   };
 
   const createInteractionStyles = (offset: typeof emptyVariantOffset) => ({
-    restStyle: InteractionLayer({ ...baseContentInteractionParams, state: 'rest', ...offset }),
-    hoverStyle: InteractionLayer({ ...baseContentInteractionParams, state: 'hover', ...offset }),
-    activeStyle: InteractionLayer({ ...baseContentInteractionParams, state: 'active', ...offset }),
-    focusStyle: InteractionLayer({ ...baseContentInteractionParams, state: 'focus', ...offset }),
+    restStyle: InteractionLayer({ ...baseContentInteractionParams, state: "rest", ...offset }),
+    hoverStyle: InteractionLayer({ ...baseContentInteractionParams, state: "hover", ...offset }),
+    activeStyle: InteractionLayer({ ...baseContentInteractionParams, state: "active", ...offset }),
+    focusStyle: InteractionLayer({ ...baseContentInteractionParams, state: "focus", ...offset }),
   });
 
   const interactionParams = {
@@ -384,41 +381,51 @@ const contentContainerInteractionStyles = ({
 
   return {
     ...restStyle,
-    '::after': {
-      ...restStyle['::after'],
+    "::after": {
+      ...restStyle["::after"],
       transition: `opacity ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
     },
-    '&:hover': {
+    "&:hover": {
       ...hoverStyle,
-      '::after': {
-        ...hoverStyle['::after'],
+      "::after": {
+        ...hoverStyle["::after"],
         transition: `opacity ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
       },
     },
-    '&:active': {
+    "&:active": {
       ...activeStyle,
-      '::after': {
-        ...activeStyle['::after'],
-        transition: 'none',
+      "::after": {
+        ...activeStyle["::after"],
+        transition: "none",
       },
     },
-    '&:has(:focus-visible)': {
+    "&:has(:focus-visible)": {
       ...focusStyle,
-      '::after': {
-        ...focusStyle['::after'],
-        transition: 'none',
+      "::after": {
+        ...focusStyle["::after"],
+        transition: "none",
       },
     },
   };
 };
 
-const emptyVariantStyle = { border: 'none' as const };
+const emptyVariantStyle = { border: "none" as const };
 
 const outlinedVariantStyles = {
   valid: {
     normal: (theme: Theme, size: CheckboxSize) => {
-      const borderRadius = size === 'lg' || size === 'md' ? theme.scheme.semantic.radius[6] : theme.scheme.semantic.radius[4];
-      const padding = size === 'lg' ? theme.scheme.semantic.spacing[12] : size === 'md' ? theme.scheme.semantic.spacing[10] : size === 'sm' ? theme.scheme.semantic.spacing[8] : theme.scheme.semantic.spacing[6];
+      const borderRadius =
+        size === "lg" || size === "md"
+          ? theme.scheme.semantic.radius[6]
+          : theme.scheme.semantic.radius[4];
+      const padding =
+        size === "lg"
+          ? theme.scheme.semantic.spacing[12]
+          : size === "md"
+            ? theme.scheme.semantic.spacing[10]
+            : size === "sm"
+              ? theme.scheme.semantic.spacing[8]
+              : theme.scheme.semantic.spacing[6];
 
       return {
         border: `1px solid ${theme.color.semantic.stroke.alpha.assistive}`,
@@ -427,8 +434,18 @@ const outlinedVariantStyles = {
       };
     },
     disabled: (theme: Theme, size: CheckboxSize) => {
-      const borderRadius = size === 'lg' || size === 'md' ? theme.scheme.semantic.radius[6] : theme.scheme.semantic.radius[4];
-      const padding = size === 'lg' ? theme.scheme.semantic.spacing[12] : size === 'md' ? theme.scheme.semantic.spacing[10] : size === 'sm' ? theme.scheme.semantic.spacing[8] : theme.scheme.semantic.spacing[6];
+      const borderRadius =
+        size === "lg" || size === "md"
+          ? theme.scheme.semantic.radius[6]
+          : theme.scheme.semantic.radius[4];
+      const padding =
+        size === "lg"
+          ? theme.scheme.semantic.spacing[12]
+          : size === "md"
+            ? theme.scheme.semantic.spacing[10]
+            : size === "sm"
+              ? theme.scheme.semantic.spacing[8]
+              : theme.scheme.semantic.spacing[6];
 
       return {
         border: `1px solid ${theme.color.semantic.stroke.alpha.subtler}`,
@@ -439,8 +456,18 @@ const outlinedVariantStyles = {
   },
   invalid: {
     normal: (theme: Theme, size: CheckboxSize) => {
-      const borderRadius = size === 'lg' || size === 'md' ? theme.scheme.semantic.radius[6] : theme.scheme.semantic.radius[4];
-      const padding = size === 'lg' ? theme.scheme.semantic.spacing[12] : size === 'md' ? theme.scheme.semantic.spacing[10] : size === 'sm' ? theme.scheme.semantic.spacing[8] : theme.scheme.semantic.spacing[6];
+      const borderRadius =
+        size === "lg" || size === "md"
+          ? theme.scheme.semantic.radius[6]
+          : theme.scheme.semantic.radius[4];
+      const padding =
+        size === "lg"
+          ? theme.scheme.semantic.spacing[12]
+          : size === "md"
+            ? theme.scheme.semantic.spacing[10]
+            : size === "sm"
+              ? theme.scheme.semantic.spacing[8]
+              : theme.scheme.semantic.spacing[6];
 
       return {
         border: `1px solid ${theme.color.semantic.feedback.destructive.neutral}`,
@@ -449,8 +476,18 @@ const outlinedVariantStyles = {
       };
     },
     disabled: (theme: Theme, size: CheckboxSize) => {
-      const borderRadius = size === 'lg' || size === 'md' ? theme.scheme.semantic.radius[6] : theme.scheme.semantic.radius[4];
-      const padding = size === 'lg' ? theme.scheme.semantic.spacing[12] : size === 'md' ? theme.scheme.semantic.spacing[10] : size === 'sm' ? theme.scheme.semantic.spacing[8] : theme.scheme.semantic.spacing[6];
+      const borderRadius =
+        size === "lg" || size === "md"
+          ? theme.scheme.semantic.radius[6]
+          : theme.scheme.semantic.radius[4];
+      const padding =
+        size === "lg"
+          ? theme.scheme.semantic.spacing[12]
+          : size === "md"
+            ? theme.scheme.semantic.spacing[10]
+            : size === "sm"
+              ? theme.scheme.semantic.spacing[8]
+              : theme.scheme.semantic.spacing[6];
 
       return {
         border: `1px solid ${theme.color.semantic.feedback.destructive.alpha.subtler}`,
@@ -461,8 +498,8 @@ const outlinedVariantStyles = {
   },
 };
 
-export const StyledCheckboxContentContainer = styled('label', {
-  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
+export const StyledCheckboxContentContainer = styled("label", {
+  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith("$"),
 })<{
   $size: CheckboxSize;
   $align: CheckboxAlign;
@@ -483,43 +520,43 @@ export const StyledCheckboxContentContainer = styled('label', {
   });
 
   const getVariantStyles = () => {
-    if ($variant === 'empty') {
+    if ($variant === "empty") {
       return emptyVariantStyle;
     }
 
-    const validity = $isInvalid ? 'invalid' : 'valid';
-    const availability = $disabled ? 'disabled' : 'normal';
+    const validity = $isInvalid ? "invalid" : "valid";
+    const availability = $disabled ? "disabled" : "normal";
     return outlinedVariantStyles[validity][availability](theme, $size);
   };
 
   return {
-    display: 'inline-flex',
-    flexDirection: $align === 'left' ? 'row' : 'row-reverse',
-    alignItems: 'flex-start',
-    cursor: $disabled ? 'not-allowed' : 'pointer',
-    userSelect: 'none',
+    display: "inline-flex",
+    flexDirection: $align === "left" ? "row" : "row-reverse",
+    alignItems: "flex-start",
+    cursor: $disabled ? "not-allowed" : "pointer",
+    userSelect: "none",
     ...gapMap[$size](theme),
     ...getVariantStyles(),
     ...interactionStyles,
   };
 });
 
-export const StyledHiddenInput = styled('input')({
-  position: 'absolute',
-  width: '1px',
-  height: '1px',
+export const StyledHiddenInput = styled("input")({
+  position: "absolute",
+  width: "1px",
+  height: "1px",
   padding: 0,
-  margin: '-1px',
-  overflow: 'hidden',
-  clip: 'rect(0, 0, 0, 0)',
-  whiteSpace: 'nowrap',
+  margin: "-1px",
+  overflow: "hidden",
+  clip: "rect(0, 0, 0, 0)",
+  whiteSpace: "nowrap",
   border: 0,
   opacity: 0,
 });
 
-export const StyledLabelContent = styled('div')(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
+export const StyledLabelContent = styled("div")(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
   gap: theme.scheme.semantic.spacing[2],
 }));
 
@@ -547,15 +584,15 @@ const labelColorParams = {
 };
 
 export const StyledMainLabel = styled(Label, {
-  shouldForwardProp: prop => !prop.startsWith('$'),
+  shouldForwardProp: prop => !prop.startsWith("$"),
 })<
   LabelProps & {
     $disabled: boolean;
     $isInvalid: boolean;
   }
 >(({ theme, $disabled, $isInvalid }) => {
-  const validity = $isInvalid ? 'invalid' : 'valid';
-  const availability = $disabled ? 'disabled' : 'normal';
+  const validity = $isInvalid ? "invalid" : "valid";
+  const availability = $disabled ? "disabled" : "normal";
   const colors = labelColorParams[validity][availability](theme);
   return {
     color: colors.main,
@@ -563,15 +600,15 @@ export const StyledMainLabel = styled(Label, {
 });
 
 export const StyledSubLabel = styled(Label, {
-  shouldForwardProp: prop => !prop.startsWith('$'),
+  shouldForwardProp: prop => !prop.startsWith("$"),
 })<
   LabelProps & {
     $disabled: boolean;
     $isInvalid: boolean;
   }
 >(({ theme, $disabled, $isInvalid }) => {
-  const validity = $isInvalid ? 'invalid' : 'valid';
-  const availability = $disabled ? 'disabled' : 'normal';
+  const validity = $isInvalid ? "invalid" : "valid";
+  const availability = $disabled ? "disabled" : "normal";
   const colors = labelColorParams[validity][availability](theme);
   return {
     color: colors.sub,

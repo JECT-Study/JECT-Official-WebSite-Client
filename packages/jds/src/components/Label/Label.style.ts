@@ -1,16 +1,16 @@
-import isPropValid from '@emotion/is-prop-valid';
-import type { Theme } from '@emotion/react';
-import styled from '@emotion/styled';
+import isPropValid from "@emotion/is-prop-valid";
+import type { Theme } from "@emotion/react";
+import styled from "@emotion/styled";
 
 const TEXT_ALIGN_MAPPING = {
-  center: 'center',
-  left: 'flex-start',
-  right: 'flex-end',
+  center: "center",
+  left: "flex-start",
+  right: "flex-end",
 } as const;
 
-export type LabelSize = 'lg' | 'md' | 'sm' | 'xs';
+export type LabelSize = "lg" | "md" | "sm" | "xs";
 export type LabelTextAlign = keyof typeof TEXT_ALIGN_MAPPING;
-export type LabelWeight = 'bold' | 'normal' | 'subtle';
+export type LabelWeight = "bold" | "normal" | "subtle";
 
 interface LabelStyledProps {
   $size: LabelSize;
@@ -19,8 +19,8 @@ interface LabelStyledProps {
   $color?: string;
 }
 
-const getLabelTokenKey = (size: LabelSize, weight: LabelWeight): keyof Theme['textStyle'] => {
-  return `semantic-textStyle-label-${size}-${weight}` as keyof Theme['textStyle'];
+const getLabelTokenKey = (size: LabelSize, weight: LabelWeight): keyof Theme["textStyle"] => {
+  return `semantic-textStyle-label-${size}-${weight}` as keyof Theme["textStyle"];
 };
 
 /**
@@ -28,18 +28,18 @@ const getLabelTokenKey = (size: LabelSize, weight: LabelWeight): keyof Theme['te
  *
  * styled('label')을 사용하여 Emotion의 polymorphic `as` prop 지원
  */
-export const LabelStyled = styled('label', {
-  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
+export const LabelStyled = styled("label", {
+  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith("$"),
 })<LabelStyledProps>(({ theme, $size, $textAlign, $weight, $color }) => {
   const tokenKey = getLabelTokenKey($size, $weight);
   const justifyContent = TEXT_ALIGN_MAPPING[$textAlign];
 
   return {
-    display: 'flex',
+    display: "flex",
     justifyContent,
-    alignItems: 'center',
+    alignItems: "center",
     color: $color ?? theme.color.semantic.object.bold,
-    cursor: 'inherit',
+    cursor: "inherit",
     ...theme.textStyle[tokenKey],
   };
 });

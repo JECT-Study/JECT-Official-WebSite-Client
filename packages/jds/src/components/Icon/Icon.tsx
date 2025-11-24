@@ -1,8 +1,8 @@
-import { StyledIconWrapper } from './Icon.styles';
-import type { IconProps } from './Icon.types';
-import { iconMap, sizeMap } from './IconMap';
+import { StyledIconWrapper } from "./Icon.styles";
+import type { IconProps } from "./Icon.types";
+import { iconMap, sizeMap } from "./IconMap";
 
-export const Icon = ({ name, size = 'md', color = 'currentColor', ...props }: IconProps) => {
+export const Icon = ({ name, size = "md", color = "currentColor", ...props }: IconProps) => {
   const IconComponent = iconMap[name];
 
   if (!IconComponent) return null;

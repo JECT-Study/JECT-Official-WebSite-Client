@@ -1,14 +1,14 @@
-import styled from '@emotion/styled';
-import { pxToRem } from 'utils';
+import styled from "@emotion/styled";
+import { pxToRem } from "utils";
 
-import type { BasicHierarchy, BadgeSize, NumericBadgeStyle, FeedbackVariant } from '../badge.types';
-import { numericBadgeSizeMap } from '../badge.variants';
+import type { BasicHierarchy, BadgeSize, NumericBadgeStyle, FeedbackVariant } from "../badge.types";
+import { numericBadgeSizeMap } from "../badge.variants";
 import {
   numericBadgeBasicStylesMap,
   numericBadgeBasicMutedStylesMap,
   numericBadgeFeedbackStylesMap,
   numericBadgeFeedbacksMutedStylesMap,
-} from './numericBadge.variants';
+} from "./numericBadge.variants";
 
 interface NumericBadgeBasicDivProps {
   hierarchy: BasicHierarchy;
@@ -29,9 +29,9 @@ export const NumericBadgeBasicDiv = styled.div<NumericBadgeBasicDivProps>(
     return {
       minWidth: pxToRem(numericBadgeSizeMap[size].minWidth),
       padding: `${pxToRem(numericBadgeSizeMap[size].paddingTopBottom)} ${pxToRem(numericBadgeSizeMap[size].paddingLeftRight)}`,
-      display: 'inline-flex',
-      justifyContent: 'center',
-      alignItems: 'center',
+      display: "inline-flex",
+      justifyContent: "center",
+      alignItems: "center",
       backgroundColor,
       color,
       borderRadius: theme.scheme.semantic.radius.max,
@@ -58,9 +58,9 @@ export const NumericBadgeFeedbackDiv = styled.div<NumericBadgeFeedbackDivProps>(
     return {
       minWidth: pxToRem(numericBadgeSizeMap[size].minWidth),
       padding: `${pxToRem(numericBadgeSizeMap[size].paddingTopBottom)} ${pxToRem(numericBadgeSizeMap[size].paddingLeftRight)}`,
-      display: 'inline-flex',
-      justifyContent: 'center',
-      alignItems: 'center',
+      display: "inline-flex",
+      justifyContent: "center",
+      alignItems: "center",
       backgroundColor,
       color,
       borderRadius: theme.scheme.semantic.radius.max,

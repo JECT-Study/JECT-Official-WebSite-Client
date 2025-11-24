@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 import {
   ButtonContainerDiv,
   SnackbarCaptionP,
@@ -6,10 +8,14 @@ import {
   SnackbarFeedbackIcon,
   SnackbarLabel,
   SnackbarLabelContainerDiv,
-} from './snackbar.styles';
-import { BlockButton, IconButton } from '@/components';
-import { SnackbarBasicProps, SnackbarButtonsProps, SnackbarFeedbackProps } from './snackbar.types';
-import { useEffect, useState } from 'react';
+} from "./snackbar.styles";
+import type {
+  SnackbarBasicProps,
+  SnackbarButtonsProps,
+  SnackbarFeedbackProps,
+} from "./snackbar.types";
+
+import { BlockButton, IconButton } from "@/components";
 
 const SnackbarButtons = ({ prefixButtonProps, suffixButtonProps }: SnackbarButtonsProps) => {
   if (!prefixButtonProps && !suffixButtonProps) return;
@@ -17,12 +23,12 @@ const SnackbarButtons = ({ prefixButtonProps, suffixButtonProps }: SnackbarButto
   return (
     <ButtonContainerDiv>
       {prefixButtonProps && (
-        <BlockButton.Basic hierarchy='tertiary' size='xs' variant='solid' {...prefixButtonProps}>
+        <BlockButton.Basic hierarchy="tertiary" size="xs" variant="solid" {...prefixButtonProps}>
           {prefixButtonProps.children}
         </BlockButton.Basic>
       )}
       {suffixButtonProps && (
-        <BlockButton.Basic hierarchy='primary' size='xs' variant='solid' {...suffixButtonProps}>
+        <BlockButton.Basic hierarchy="primary" size="xs" variant="solid" {...suffixButtonProps}>
           {suffixButtonProps.children}
         </BlockButton.Basic>
       )}
@@ -39,44 +45,44 @@ const SnackbarBasic = ({
   onRemove,
   isClosing,
 }: SnackbarBasicProps) => {
-  const [phase, setPhase] = useState<'enter' | 'static' | 'exit'>('enter');
+  const [phase, setPhase] = useState<"enter" | "static" | "exit">("enter");
 
   const onAnimationEnd = () => {
-    if (phase === 'enter') {
-      setPhase('static');
+    if (phase === "enter") {
+      setPhase("static");
       return;
     }
 
-    if (phase === 'exit') {
+    if (phase === "exit") {
       onRemove?.();
     }
   };
 
-  const onClose = () => setPhase('exit');
+  const onClose = () => setPhase("exit");
 
   useEffect(() => {
-    if (phase === 'static') {
-      const timer = setTimeout(() => setPhase('exit'), 3000);
+    if (phase === "static") {
+      const timer = setTimeout(() => setPhase("exit"), 3000);
       return () => clearTimeout(timer);
     }
   }, [phase]);
 
   useEffect(() => {
-    if (isClosing) setPhase('exit');
+    if (isClosing) setPhase("exit");
   }, [isClosing]);
 
   return (
-    <SnackbarDiv id={id} className={phase} snackbarStyle='basic' onAnimationEnd={onAnimationEnd}>
+    <SnackbarDiv id={id} className={phase} snackbarStyle="basic" onAnimationEnd={onAnimationEnd}>
       <SnackbarContentDiv>
         <SnackbarLabelContainerDiv>
-          <SnackbarLabel snackbarStyle='basic' size='md' textAlign='left' weight='normal'>
+          <SnackbarLabel snackbarStyle="basic" size="md" textAlign="left" weight="normal">
             {title}
           </SnackbarLabel>
           <IconButton.Basic
-            icon='close-line'
-            hierarchy='secondary'
-            size='md'
-            aria-label='toast close button'
+            icon="close-line"
+            hierarchy="secondary"
+            size="md"
+            aria-label="toast close button"
             onClick={onClose}
           />
         </SnackbarLabelContainerDiv>
@@ -90,11 +96,11 @@ const SnackbarBasic = ({
   );
 };
 
-SnackbarBasic.displayName = 'Snackbar.Basic';
+SnackbarBasic.displayName = "Snackbar.Basic";
 
 const SnackbarFeedback = ({
   id,
-  variant = 'positive',
+  variant = "positive",
   caption = undefined,
   prefixButtonProps = undefined,
   suffixButtonProps = undefined,
@@ -102,30 +108,30 @@ const SnackbarFeedback = ({
   onRemove,
   isClosing,
 }: SnackbarFeedbackProps) => {
-  const [phase, setPhase] = useState<'enter' | 'static' | 'exit'>('enter');
+  const [phase, setPhase] = useState<"enter" | "static" | "exit">("enter");
 
   const onAnimationEnd = () => {
-    if (phase === 'enter') {
-      setPhase('static');
+    if (phase === "enter") {
+      setPhase("static");
       return;
     }
 
-    if (phase === 'exit') {
+    if (phase === "exit") {
       onRemove?.();
     }
   };
 
-  const onClose = () => setPhase('exit');
+  const onClose = () => setPhase("exit");
 
   useEffect(() => {
-    if (phase === 'static') {
-      const timer = setTimeout(() => setPhase('exit'), 3000);
+    if (phase === "static") {
+      const timer = setTimeout(() => setPhase("exit"), 3000);
       return () => clearTimeout(timer);
     }
   }, [phase]);
 
   useEffect(() => {
-    if (isClosing) setPhase('exit');
+    if (isClosing) setPhase("exit");
   }, [isClosing]);
 
   return (
@@ -134,16 +140,16 @@ const SnackbarFeedback = ({
         <SnackbarLabelContainerDiv>
           <SnackbarFeedbackIcon
             variant={variant}
-            name={variant === 'positive' ? 'check-line' : 'error-warning-line'}
+            name={variant === "positive" ? "check-line" : "error-warning-line"}
           />
-          <SnackbarLabel snackbarStyle={variant} size='md' textAlign='left' weight='normal'>
+          <SnackbarLabel snackbarStyle={variant} size="md" textAlign="left" weight="normal">
             {title}
           </SnackbarLabel>
           <IconButton.Basic
-            icon='close-line'
-            hierarchy='secondary'
-            size='md'
-            aria-label='toast close button'
+            icon="close-line"
+            hierarchy="secondary"
+            size="md"
+            aria-label="toast close button"
             onClick={onClose}
           />
         </SnackbarLabelContainerDiv>
@@ -157,7 +163,7 @@ const SnackbarFeedback = ({
   );
 };
 
-SnackbarFeedback.displayName = 'Snackbar.Feedback';
+SnackbarFeedback.displayName = "Snackbar.Feedback";
 
 export const Snackbar = {
   Basic: SnackbarBasic,

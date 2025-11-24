@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback } from "react";
 
 export interface LimitedQueueProviderBaseItem {
   id: string;
@@ -33,21 +33,21 @@ export const useLimitedQueueProvider = <T extends LimitedQueueProviderBaseItem>(
   }, []);
 
   const addItem = useCallback(
-    async (item: Omit<T, 'id'>) => {
+    async (item: Omit<T, "id">) => {
       const id = crypto.randomUUID();
       const newItem = { ...item, id } as T;
 
       if (items.length >= limit) {
         const first = items[0];
-        closeItem(first.id!);
+        closeItem(first.id);
 
         await new Promise<void>(resolve => {
-          removeResolvers.current.set(first.id!, resolve);
+          removeResolvers.current.set(first.id, resolve);
 
           setTimeout(() => {
-            if (removeResolvers.current.has(first.id!)) {
+            if (removeResolvers.current.has(first.id)) {
               resolve();
-              removeResolvers.current.delete(first.id!);
+              removeResolvers.current.delete(first.id);
             }
           }, AUTO_RESOLVE_TIME);
         });
@@ -56,6 +56,7 @@ export const useLimitedQueueProvider = <T extends LimitedQueueProviderBaseItem>(
       setItems(prev => [...prev, newItem]);
       return id;
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [items, limit],
   );
 

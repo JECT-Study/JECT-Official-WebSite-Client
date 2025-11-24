@@ -1,4 +1,4 @@
-import type { KeyboardEvent } from 'react';
+import type { KeyboardEvent } from "react";
 
 interface CreateSelectItemHandlersParams {
   value: string;
@@ -41,7 +41,7 @@ export const createSelectItemHandlers = ({
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
-    if (!isDisabled && (e.key === 'Enter' || e.key === ' ')) {
+    if (!isDisabled && (e.key === "Enter" || e.key === " ")) {
       e.preventDefault();
       onChange(value);
     }

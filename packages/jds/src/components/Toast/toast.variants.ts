@@ -1,5 +1,6 @@
-import { Theme } from '@emotion/react';
-import { ToastStyle } from './toast.types';
+import type { Theme } from "@emotion/react";
+
+import type { ToastStyle } from "./toast.types";
 
 export const toastStylesMap = (
   theme: Theme,

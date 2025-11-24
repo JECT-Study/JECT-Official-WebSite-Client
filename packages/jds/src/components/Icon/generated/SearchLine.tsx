@@ -1,16 +1,16 @@
-import type { SVGProps } from 'react';
+import type { SVGProps } from "react";
 const SvgSearchLine = (props: SVGProps<SVGSVGElement>) => (
   <svg
-    xmlns='http://www.w3.org/2000/svg'
-    width='1em'
-    height='1em'
-    fill='currentColor'
-    viewBox='0 0 24 24'
+    xmlns="http://www.w3.org/2000/svg"
+    width="1em"
+    height="1em"
+    fill="currentColor"
+    viewBox="0 0 24 24"
     {...props}
   >
     <path
-      fill='currentColor'
-      d='m18.031 16.624 4.283 4.283-1.415 1.414-4.282-4.283A8.96 8.96 0 0 1 11 20.008c-4.968 0-9-4.033-9-9 0-4.969 4.032-9 9-9s9 4.031 9 9a8.96 8.96 0 0 1-1.969 5.616m-2.006-.742A6.98 6.98 0 0 0 18 11.007c0-3.867-3.133-7-7-7s-7 3.133-7 7 3.133 7 7 7a6.98 6.98 0 0 0 4.875-1.975z'
+      fill="currentColor"
+      d="m18.031 16.624 4.283 4.283-1.415 1.414-4.282-4.283A8.96 8.96 0 0 1 11 20.008c-4.968 0-9-4.033-9-9 0-4.969 4.032-9 9-9s9 4.031 9 9a8.96 8.96 0 0 1-1.969 5.616m-2.006-.742A6.98 6.98 0 0 0 18 11.007c0-3.867-3.133-7-7-7s-7 3.133-7 7 3.133 7 7 7a6.98 6.98 0 0 0 4.875-1.975z"
     />
   </svg>
 );

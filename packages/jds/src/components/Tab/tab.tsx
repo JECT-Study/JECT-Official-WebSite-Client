@@ -1,22 +1,22 @@
-import { Tabs as TabPrimitive } from 'radix-ui';
-import { Context } from 'radix-ui/internal';
-import type { ComponentPropsWithoutRef, ElementRef } from 'react';
-import { forwardRef, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { Tabs as TabPrimitive } from "radix-ui";
+import { Context } from "radix-ui/internal";
+import type { ComponentPropsWithoutRef, ElementRef } from "react";
+import { forwardRef, useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-import { tabStyles, type TabVariantProps } from './tab.style';
-import { mergeRefs } from '../../hooks/mergeRefs';
+import { tabStyles, type TabVariantProps } from "./tab.style";
+import { mergeRefs } from "../../hooks/mergeRefs";
 
 type StyleVariantContextValue = Required<TabVariantProps>;
 const [StyleVariantProvider, useStyleVariant] =
-  Context.createContext<StyleVariantContextValue>('TabStyleVariant');
+  Context.createContext<StyleVariantContextValue>("TabStyleVariant");
 
 // ----- Root -----
 type TabRootProps = ComponentPropsWithoutRef<typeof TabPrimitive.Root> & TabVariantProps;
 
 export const Tab = forwardRef<ElementRef<typeof TabPrimitive.Root>, TabRootProps>((props, ref) => {
   const {
-    variant = tabStyles.defaultVariants?.variant || 'content',
-    layout = tabStyles.defaultVariants?.layout || 'hug',
+    variant = tabStyles.defaultVariants?.variant || "content",
+    layout = tabStyles.defaultVariants?.layout || "hug",
     ...rest
   } = props;
 
@@ -31,7 +31,7 @@ export const Tab = forwardRef<ElementRef<typeof TabPrimitive.Root>, TabRootProps
 Tab.displayName = TabPrimitive.Root.displayName;
 
 // ----- Indicator -----
-type TabIndicatorProps = ComponentPropsWithoutRef<'div'>;
+type TabIndicatorProps = ComponentPropsWithoutRef<"div">;
 
 const TabIndicator = (props: TabIndicatorProps) => {
   return (
@@ -48,7 +48,7 @@ type TabListProps = ComponentPropsWithoutRef<typeof TabPrimitive.List>;
 export const TabList = forwardRef<ElementRef<typeof TabPrimitive.List>, TabListProps>(
   (props, ref) => {
     const listRef = useRef<ElementRef<typeof TabPrimitive.List> | null>(null);
-    const { variant, layout } = useStyleVariant('TabList');
+    const { variant, layout } = useStyleVariant("TabList");
 
     const [indicatorStyle, setIndicatorStyle] = useState({
       left: 0,
@@ -84,19 +84,19 @@ export const TabList = forwardRef<ElementRef<typeof TabPrimitive.List>, TabListP
       }
 
       const t = window.setTimeout(updateIndicator, 0);
-      window.addEventListener('resize', updateIndicator);
+      window.addEventListener("resize", updateIndicator);
 
       const observer = new MutationObserver(updateIndicator);
       observer.observe(el, { attributes: true, childList: true, subtree: true });
 
       const handleScroll = () => updateIndicator();
-      el.addEventListener('scroll', handleScroll, { passive: true });
+      el.addEventListener("scroll", handleScroll, { passive: true });
 
       return () => {
         clearTimeout(t);
-        window.removeEventListener('resize', updateIndicator);
+        window.removeEventListener("resize", updateIndicator);
         observer.disconnect();
-        el.removeEventListener('scroll', handleScroll);
+        el.removeEventListener("scroll", handleScroll);
       };
     }, [updateIndicator]);
     return (
@@ -125,7 +125,7 @@ type TabTriggerProps = ComponentPropsWithoutRef<typeof TabPrimitive.Trigger>;
 
 export const TabTrigger = forwardRef<ElementRef<typeof TabPrimitive.Trigger>, TabTriggerProps>(
   (props, ref) => {
-    const { variant, layout } = useStyleVariant('TabTrigger');
+    const { variant, layout } = useStyleVariant("TabTrigger");
     return (
       <TabPrimitive.Trigger
         ref={ref}

@@ -1,28 +1,28 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { NumericBadge } from './NumericBadge';
-import type { NumericBadgeBasicProps, NumericBasicBadgeProps } from './NumericBadge';
+import { NumericBadge } from "./NumericBadge";
+import type { NumericBadgeBasicProps, NumericBasicBadgeProps } from "./NumericBadge";
 
 const meta: Meta<typeof NumericBadge.Basic> = {
-  title: 'Components/NumericBadge',
+  title: "Components/NumericBadge",
   component: NumericBadge.Basic,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
   argTypes: {
     size: {
-      control: 'radio',
-      options: ['lg', 'md', 'sm', 'xs'],
+      control: "radio",
+      options: ["lg", "md", "sm", "xs"],
     },
     badgeStyle: {
-      control: 'radio',
-      options: ['solid', 'empty'],
+      control: "radio",
+      options: ["solid", "empty"],
     },
     isMuted: {
-      control: 'boolean',
+      control: "boolean",
     },
     children: {
-      control: 'text',
+      control: "text",
     },
   },
 };
@@ -32,16 +32,16 @@ export default meta;
 export const Basic: StoryObj<NumericBadgeBasicProps> = {
   argTypes: {
     hierarchy: {
-      control: 'radio',
-      options: ['accent', 'primary', 'secondary', 'tertiary'],
+      control: "radio",
+      options: ["accent", "primary", "secondary", "tertiary"],
     },
   },
   args: {
-    hierarchy: 'secondary',
-    size: 'md',
-    badgeStyle: 'solid',
+    hierarchy: "secondary",
+    size: "md",
+    badgeStyle: "solid",
     isMuted: false,
-    children: '99',
+    children: "99",
   },
   render: args => (
     <NumericBadge.Basic
@@ -58,16 +58,16 @@ export const Basic: StoryObj<NumericBadgeBasicProps> = {
 export const Feedback: StoryObj<NumericBasicBadgeProps> = {
   argTypes: {
     variant: {
-      control: 'radio',
-      options: ['positive', 'destructive', 'notifying'],
+      control: "radio",
+      options: ["positive", "destructive", "notifying"],
     },
   },
   args: {
-    variant: 'positive',
-    size: 'md',
-    badgeStyle: 'solid',
+    variant: "positive",
+    size: "md",
+    badgeStyle: "solid",
     isMuted: false,
-    children: '99',
+    children: "99",
   },
   render: args => (
     <NumericBadge.Feedback
