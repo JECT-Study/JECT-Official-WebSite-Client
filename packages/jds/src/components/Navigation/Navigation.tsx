@@ -7,7 +7,6 @@ import {
   StyledNavigationList,
   StyledNavigationRoot,
   StyledNavigationWrapper,
-  StyledSegmentedControlWrapper,
   StyledNavigationListWrapper,
   StyledDividerWrapper,
   StyledMobileMenuButton,
@@ -26,28 +25,15 @@ import { BlockButton } from '../Button/BlockButton';
 import { IconButton } from '../Button/IconButton';
 import { LabelButton } from '../Button/LabelButton';
 import { Divider } from '../Divider';
-import { SegmentedControl } from '../SegmentedControl';
-
-const ThemeSwitcher = () => {
-  return (
-    <StyledSegmentedControlWrapper>
-      <SegmentedControl.Root defaultValue='light' size='xs'>
-        <SegmentedControl.Item value='light'>라이트</SegmentedControl.Item>
-        <SegmentedControl.Item value='dark'>다크</SegmentedControl.Item>
-      </SegmentedControl.Root>
-    </StyledSegmentedControlWrapper>
-  );
-};
+// TODO: BlockItem 선택했을 때 연동?
+// TODO: 로컬 네비게이션 만들어야됌
 
 const NavigationRoot = forwardRef<HTMLElement, NavigationRootProps>(
   ({ children, variant = 'empty', ...props }, ref) => {
     return (
       <StyledNavigationWrapper $variant={variant}>
         <NavigationMenu.Root asChild {...props}>
-          <StyledNavigationRoot ref={ref}>
-            {children}
-            {variant === 'solid' && <ThemeSwitcher />}
-          </StyledNavigationRoot>
+          <StyledNavigationRoot ref={ref}>{children}</StyledNavigationRoot>
         </NavigationMenu.Root>
       </StyledNavigationWrapper>
     );

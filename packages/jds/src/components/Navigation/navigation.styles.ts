@@ -92,14 +92,6 @@ export const StyledDividerWrapper = styled.div(() => ({
   height: pxToRem(16),
 }));
 
-export const StyledSegmentedControlWrapper = styled.div(({ theme }) => ({
-  width: pxToRem(160),
-
-  [theme.breakPoint.mobile]: {
-    display: 'none',
-  },
-}));
-
 export const StyledDesktopTrigger = styled.span(({ theme }) => ({
   display: 'inline-flex',
 
