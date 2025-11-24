@@ -1,8 +1,10 @@
 import type { Theme } from '@emotion/react';
 import styled from '@emotion/styled';
+import * as NavigationMenu from '@radix-ui/react-navigation-menu';
 import { pxToRem } from 'utils';
 
 import type { StyledNavigationWrapperProps } from './navigation.types';
+import { IconButton } from '../Button/IconButton';
 
 const navigationStyleMap = (theme: Theme) => ({
   empty: {
@@ -39,7 +41,7 @@ export const StyledNavigationWrapper = styled.div<StyledNavigationWrapperProps>(
   },
 );
 
-export const StyledNavigationRoot = styled.nav(({ theme }) => ({
+export const StyledNavigationRoot = styled(NavigationMenu.Root)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'left',
   alignItems: 'center',
@@ -57,7 +59,7 @@ export const StyledNavigationRoot = styled.nav(({ theme }) => ({
   },
 }));
 
-export const StyledNavigationList = styled.ul(({ theme }) => ({
+export const StyledNavigationList = styled(NavigationMenu.List)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   gap: theme.scheme.semantic.spacing[32],
@@ -72,7 +74,7 @@ export const StyledNavigationListWrapper = styled.div(() => ({
   flex: 1,
 }));
 
-export const StyledMobileMenuButton = styled.div(({ theme }) => ({
+export const StyledMobileMenuButton = styled(IconButton.Basic)(({ theme }) => ({
   display: 'none',
 
   [theme.breakPoint.mobile]: {
@@ -81,9 +83,7 @@ export const StyledMobileMenuButton = styled.div(({ theme }) => ({
   },
 }));
 
-export const StyledNavigationLogoDiv = styled.div(() => ({}));
-
-export const StyledNavigationLogoLink = styled.a(() => ({
+export const StyledNavigationLogoLink = styled(NavigationMenu.Link)(() => ({
   textDecoration: 'none',
   color: 'inherit',
 }));
@@ -92,7 +92,7 @@ export const StyledDividerWrapper = styled.div(() => ({
   height: pxToRem(16),
 }));
 
-export const StyledDesktopTrigger = styled.span(({ theme }) => ({
+export const StyledDesktopView = styled.span(({ theme }) => ({
   display: 'inline-flex',
 
   [theme.breakPoint.tablet]: {
@@ -100,7 +100,7 @@ export const StyledDesktopTrigger = styled.span(({ theme }) => ({
   },
 }));
 
-export const StyledTabletTrigger = styled.span(({ theme }) => ({
+export const StyledTabletView = styled.span(({ theme }) => ({
   display: 'none',
 
   [theme.breakPoint.tablet]: {

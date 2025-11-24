@@ -5,5 +5,7 @@ export type {
   NavigationListProps,
   NavigationToggleItemProps,
   NavigationBlockItemProps,
+  NavigationLogoItemProps,
+  NavigationLogoLinkProps,
   NavigationVariant,
 } from './navigation.types';

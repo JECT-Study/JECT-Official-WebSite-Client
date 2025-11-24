@@ -3,38 +3,35 @@ import { forwardRef } from 'react';
 
 import {
   StyledNavigationLogoLink,
-  StyledNavigationLogoDiv,
   StyledNavigationList,
   StyledNavigationRoot,
   StyledNavigationWrapper,
   StyledNavigationListWrapper,
   StyledDividerWrapper,
   StyledMobileMenuButton,
-  StyledDesktopTrigger,
-  StyledTabletTrigger,
+  StyledDesktopView,
+  StyledTabletView,
 } from './navigation.styles';
 import type {
   NavigationRootProps,
   NavigationListProps,
   NavigationToggleItemProps,
   NavigationBlockItemProps,
-  NavigationLogoDivProps,
+  NavigationLogoItemProps,
   NavigationLogoLinkProps,
 } from './navigation.types';
 import { BlockButton } from '../Button/BlockButton';
-import { IconButton } from '../Button/IconButton';
 import { LabelButton } from '../Button/LabelButton';
 import { Divider } from '../Divider';
-// TODO: BlockItem 선택했을 때 연동?
 // TODO: 로컬 네비게이션 만들어야됌
 
 const NavigationRoot = forwardRef<HTMLElement, NavigationRootProps>(
   ({ children, variant = 'empty', ...props }, ref) => {
     return (
       <StyledNavigationWrapper $variant={variant}>
-        <NavigationMenu.Root asChild {...props}>
-          <StyledNavigationRoot ref={ref}>{children}</StyledNavigationRoot>
-        </NavigationMenu.Root>
+        <StyledNavigationRoot ref={ref} {...props}>
+          {children}
+        </StyledNavigationRoot>
       </StyledNavigationWrapper>
     );
   },
@@ -46,12 +43,10 @@ const NavigationList = forwardRef<HTMLUListElement, NavigationListProps>(
   ({ children, ...props }, ref) => {
     return (
       <StyledNavigationListWrapper>
-        <NavigationMenu.List asChild {...props}>
-          <StyledNavigationList ref={ref}>{children}</StyledNavigationList>
-        </NavigationMenu.List>
-        <StyledMobileMenuButton>
-          <IconButton.Basic hierarchy='primary' icon='menu-line' size='lg' />
-        </StyledMobileMenuButton>
+        <StyledNavigationList ref={ref} {...props}>
+          {children}
+        </StyledNavigationList>
+        <StyledMobileMenuButton hierarchy='primary' icon='menu-line' size='lg' />
       </StyledNavigationListWrapper>
     );
   },
@@ -63,20 +58,20 @@ const NavigationToggleItem = forwardRef<HTMLLIElement, NavigationToggleItemProps
   ({ children, ...props }, ref) => {
     return (
       <NavigationMenu.Item ref={ref} {...props}>
-        <StyledDesktopTrigger>
+        <StyledDesktopView>
           <NavigationMenu.Trigger asChild>
             <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
               {children}
             </LabelButton.Basic>
           </NavigationMenu.Trigger>
-        </StyledDesktopTrigger>
-        <StyledTabletTrigger>
+        </StyledDesktopView>
+        <StyledTabletView>
           <NavigationMenu.Trigger asChild>
             <LabelButton.Basic hierarchy='primary' size='xs' suffixIcon='arrow-down-s-line'>
               {children}
             </LabelButton.Basic>
           </NavigationMenu.Trigger>
-        </StyledTabletTrigger>
+        </StyledTabletView>
       </NavigationMenu.Item>
     );
   },
@@ -84,20 +79,24 @@ const NavigationToggleItem = forwardRef<HTMLLIElement, NavigationToggleItemProps
 
 NavigationToggleItem.displayName = 'Navigation.ToggleItem';
 
-const NavigationBlockItem = forwardRef<HTMLLIElement, NavigationBlockItemProps>(
-  ({ children, ...props }, ref) => {
+const NavigationBlockItem = forwardRef<HTMLAnchorElement, NavigationBlockItemProps>(
+  ({ children, href, ...props }, ref) => {
     return (
-      <NavigationMenu.Item ref={ref} {...props}>
-        <StyledDesktopTrigger>
-          <BlockButton.Basic hierarchy='primary' size='sm' variant='solid'>
-            {children}
-          </BlockButton.Basic>
-        </StyledDesktopTrigger>
-        <StyledTabletTrigger>
-          <BlockButton.Basic hierarchy='primary' size='xs' variant='solid'>
-            {children}
-          </BlockButton.Basic>
-        </StyledTabletTrigger>
+      <NavigationMenu.Item>
+        <StyledDesktopView>
+          <NavigationMenu.Link asChild href={href} ref={ref} {...props}>
+            <BlockButton.Basic hierarchy='primary' size='sm' variant='solid'>
+              {children}
+            </BlockButton.Basic>
+          </NavigationMenu.Link>
+        </StyledDesktopView>
+        <StyledTabletView>
+          <NavigationMenu.Link asChild href={href} {...props}>
+            <BlockButton.Basic hierarchy='primary' size='xs' variant='solid'>
+              {children}
+            </BlockButton.Basic>
+          </NavigationMenu.Link>
+        </StyledTabletView>
       </NavigationMenu.Item>
     );
   },
@@ -106,10 +105,10 @@ const NavigationBlockItem = forwardRef<HTMLLIElement, NavigationBlockItemProps>(
 NavigationBlockItem.displayName = 'Navigation.BlockItem';
 
 const NavigationLogoLink = forwardRef<HTMLAnchorElement, NavigationLogoLinkProps>(
-  ({ children, ...props }, ref) => {
+  ({ children, href, ...props }, ref) => {
     return (
       <>
-        <StyledNavigationLogoLink ref={ref} {...props}>
+        <StyledNavigationLogoLink href={href} ref={ref} {...props}>
           {children}
         </StyledNavigationLogoLink>
         <StyledDividerWrapper>
@@ -122,13 +121,13 @@ const NavigationLogoLink = forwardRef<HTMLAnchorElement, NavigationLogoLinkProps
 
 NavigationLogoLink.displayName = 'Navigation.LogoLink';
 
-const NavigationLogoDiv = forwardRef<HTMLDivElement, NavigationLogoDivProps>(
+const NavigationLogoItem = forwardRef<HTMLDivElement, NavigationLogoItemProps>(
   ({ children, ...props }, ref) => {
     return (
       <>
-        <StyledNavigationLogoDiv ref={ref} {...props}>
+        <div ref={ref} {...props}>
           {children}
-        </StyledNavigationLogoDiv>
+        </div>
         <StyledDividerWrapper>
           <Divider thickness='normal' orientation='vertical' variant='solid' />
         </StyledDividerWrapper>
@@ -137,13 +136,13 @@ const NavigationLogoDiv = forwardRef<HTMLDivElement, NavigationLogoDivProps>(
   },
 );
 
-NavigationLogoDiv.displayName = 'Navigation.LogoDiv';
+NavigationLogoItem.displayName = 'Navigation.LogoItem';
 
 export const Navigation = {
   Root: NavigationRoot,
   List: NavigationList,
   ToggleItem: NavigationToggleItem,
   BlockItem: NavigationBlockItem,
-  LogoDiv: NavigationLogoDiv,
+  LogoItem: NavigationLogoItem,
   LogoLink: NavigationLogoLink,
 };

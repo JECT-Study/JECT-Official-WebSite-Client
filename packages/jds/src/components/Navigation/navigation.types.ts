@@ -11,14 +11,17 @@ export type NavigationListProps = ComponentPropsWithoutRef<typeof NavigationMenu
 
 export type NavigationToggleItemProps = ComponentPropsWithoutRef<typeof NavigationMenu.Item>;
 
-export type NavigationBlockItemProps = ComponentPropsWithoutRef<typeof NavigationMenu.Item>;
+export interface NavigationBlockItemProps extends ComponentPropsWithoutRef<typeof NavigationMenu.Link> {
+  href: string;
+}
 
-export interface NavigationLogoDivProps extends ComponentPropsWithoutRef<'div'> {
+export interface NavigationLogoItemProps extends ComponentPropsWithoutRef<'div'> {
   children?: ReactNode;
 }
 
-export interface NavigationLogoLinkProps extends ComponentPropsWithoutRef<'a'> {
+export interface NavigationLogoLinkProps extends ComponentPropsWithoutRef<typeof NavigationMenu.Link> {
   children?: ReactNode;
+  href: string;
 }
 
 export interface StyledNavigationWrapperProps {
