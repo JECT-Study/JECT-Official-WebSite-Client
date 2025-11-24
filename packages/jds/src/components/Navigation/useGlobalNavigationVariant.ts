@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
 
-import type { NavigationVariant } from './navigation.types';
+import type { GlobalNavigationVariant } from './globalNavigation.types';
 
-interface UseNavigationVariantOptions {
+interface UseGlobalNavigationVariantOptions {
   threshold?: number;
 }
 
-export const useNavigationVariant = (
-  options: UseNavigationVariantOptions = {},
-): NavigationVariant => {
+export const useGlobalNavigationVariant = (
+  options: UseGlobalNavigationVariantOptions = {},
+): GlobalNavigationVariant => {
   const { threshold = 0 } = options;
-  const [variant, setVariant] = useState<NavigationVariant>('empty');
+  const [variant, setVariant] = useState<GlobalNavigationVariant>('empty');
 
   useEffect(() => {
     const handleScroll = () => {

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { GlobalNavigation } from './GlobalNavigation';
-import { useNavigationVariant } from './useNavigationVariant';
+import { useGlobalNavigationVariant } from './useGlobalNavigationVariant';
 import { BlockButton } from '../Button/BlockButton';
 import { LabelButton } from '../Button/LabelButton';
 import { Logo } from '../Logo';
@@ -104,7 +104,7 @@ export const Default: Story = {
 
 export const WithScrollVariant: Story = {
   render: function Render() {
-    const variant = useNavigationVariant();
+    const variant = useGlobalNavigationVariant();
 
     return (
       <div style={{ height: '200vh', paddingTop: '100px' }}>
@@ -152,7 +152,7 @@ export const WithScrollVariant: Story = {
           </GlobalNavigation.Root>
         </div>
         <p style={{ textAlign: 'center' }}>
-          useNavigationVariant 훅을 사용하여 스크롤 위치에 따라 variant가 자동으로 변경됩니다.{' '}
+          useGlobalNavigationVariant 훅을 사용하여 스크롤 위치에 따라 variant가 자동으로 변경됩니다.{' '}
           <br /> 스크롤하여 variant 변경을 확인하세요
         </p>
       </div>
@@ -163,7 +163,7 @@ export const WithScrollVariant: Story = {
     docs: {
       description: {
         story:
-          'useNavigationVariant 훅을 사용하여 스크롤 위치에 따라 variant가 자동으로 변경됩니다. 스크롤이 최상단이면 empty, 스크롤하면 solid로 변경됩니다.',
+          'useGlobalNavigationVariant 훅을 사용하여 스크롤 위치에 따라 variant가 자동으로 변경됩니다. 스크롤이 최상단이면 empty, 스크롤하면 solid로 변경됩니다.',
       },
     },
   },
