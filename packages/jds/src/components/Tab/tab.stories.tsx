@@ -40,7 +40,7 @@ const meta = {
           '',
           '스타일 변형(Variants)',
           "- variant: 'header' | 'content' (스타일만 변경합니다. 동작/접근성은 동일)",
-          "- isItemStretched: 'true' | 'false' (트리거를 리스트 너비에 맞춰 균등 분할)",
+          "- layout: 'true' | 'false' (트리거를 리스트 너비에 맞춰 균등 분할)",
           '',
           '제어/비제어: value + onValueChange(제어) 또는 defaultValue(비제어)를 동일하게 지원합니다.',
           '',
@@ -58,7 +58,7 @@ const meta = {
       options: ['header', 'content'],
       description: '시각적 레시피 전환만 담당합니다. 기능/접근성은 Radix UI Tabs와 동일합니다.',
     },
-    isItemStretched: {
+    layout: {
       control: 'radio',
       options: ['false', 'true'],
       description: '트리거를 리스트 너비에 맞춰 균등 분할할지 여부(스타일 전용).',
@@ -66,7 +66,7 @@ const meta = {
   },
   args: {
     variant: 'header',
-    isItemStretched: 'false',
+    layout: 'hug',
   },
 } satisfies Meta<typeof Tab>;
 
@@ -103,7 +103,7 @@ export const Playground: Story = {
 
 export const Stretched: Story = {
   args: {
-    isItemStretched: 'true',
+    layout: 'hug',
   },
   parameters: {
     docs: {
@@ -168,7 +168,7 @@ const overflowItems = Array.from({ length: 10 }).map((_, idx) => ({
 
 export const OverflowScrollable: Story = {
   args: {
-    isItemStretched: 'false',
+    layout: 'hug',
   },
   parameters: {
     docs: {
@@ -191,6 +191,8 @@ export const OverflowScrollable: Story = {
           '&::-webkit-scrollbar': {
             display: 'none',
           },
+          width: '100%',
+          color: 'red',
         }}
       >
         {overflowItems.map(item => (
@@ -212,7 +214,7 @@ export const OverflowScrollable: Story = {
 export const Customize: Story = {
   args: {
     variant: 'header',
-    isItemStretched: 'false',
+    layout: 'hug',
   },
   parameters: {
     docs: {
