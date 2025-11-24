@@ -97,8 +97,10 @@ export function createStyleContext<R extends AnyRecipeInput>(recipeOrFactory: R)
       const theme = useTheme();
       const runtime = useMemo(() => {
         try {
-          const maybe = (recipeOrFactory as AnySlotRecipeFactory)(theme);
-          return typeof maybe === 'function' ? maybe : (recipeOrFactory as AnySlotRecipeRuntime);
+          const factoryRuntime = (recipeOrFactory as AnySlotRecipeFactory)(theme);
+          return typeof factoryRuntime === 'function'
+            ? factoryRuntime
+            : (recipeOrFactory as AnySlotRecipeRuntime);
         } catch {
           return recipeOrFactory as AnySlotRecipeRuntime;
         }
