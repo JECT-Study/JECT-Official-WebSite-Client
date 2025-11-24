@@ -112,6 +112,7 @@ export const StyledBannerImageContentWrapper = styled.div(({ theme }) => ({
   paddingBottom: theme.scheme.semantic.margin.xl,
   paddingLeft: theme.scheme.semantic.margin.md,
   paddingRight: theme.scheme.semantic.margin.md,
+  pointerEvents: 'none',
 }));
 
 export const StyledBannerImageContent = styled.div(({ theme }) => ({

@@ -54,15 +54,13 @@ const BannerBar = forwardRef<HTMLDivElement, BannerBarProps>((props, ref) => {
 BannerBar.displayName = 'Banner.Bar';
 
 const BannerImage = forwardRef<HTMLDivElement, BannerImageProps>((props, ref) => {
-  const { src, alt, title, subtitle, ...restProps } = props;
+  const { title, subtitle, isReadonly = true, ...imgProps } = props;
 
   return (
-    <StyledBannerImageRoot ref={ref} {...restProps}>
+    <StyledBannerImageRoot ref={ref}>
       <Image
-        src={src}
-        alt={alt}
         orientation='landscape'
-        isReadonly
+        isReadonly={isReadonly}
         style={{
           position: 'absolute',
           top: 0,
@@ -72,6 +70,7 @@ const BannerImage = forwardRef<HTMLDivElement, BannerImageProps>((props, ref) =>
           zIndex: 0,
           padding: 0,
         }}
+        {...imgProps}
       />
 
       <StyledBannerImageGradient />

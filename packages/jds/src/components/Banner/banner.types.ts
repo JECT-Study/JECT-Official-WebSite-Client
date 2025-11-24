@@ -1,5 +1,7 @@
 import type { ComponentPropsWithoutRef } from 'react';
 
+import type { ImageProps } from '../Image/Image';
+
 export type BannerVariant = 'bar' | 'image';
 
 interface BaseBannerProps extends ComponentPropsWithoutRef<'div'> {
@@ -14,11 +16,11 @@ export interface BannerBarProps extends BaseBannerProps {
   closeAriaLabel?: string;
 }
 
-export interface BannerImageProps extends BaseBannerProps {
-  variant: 'image';
-  src: string;
-  alt: string;
-  loading?: 'lazy' | 'eager';
+export interface BannerImageProps
+  extends Omit<ImageProps, 'ratio' | 'orientation' | 'badgeVisible' | 'badgeLabel'> {
+  variant?: 'image';
+  title: string;
+  subtitle?: string;
 }
 
 export type BannerProps = BannerBarProps | BannerImageProps;
