@@ -1,17 +1,17 @@
-import { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from "@storybook/react";
 
-import CalloutNumerical from './CalloutNumerical';
+import CalloutNumerical from "./CalloutNumerical";
 
 const meta: Meta<typeof CalloutNumerical> = {
-  title: 'Components/Callout/CalloutNumerical',
+  title: "Components/Callout/CalloutNumerical",
   component: CalloutNumerical,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     title: {
-      control: 'text',
+      control: "text",
     },
     labelText: {
-      control: 'text',
+      control: "text",
     },
   },
 };
@@ -22,7 +22,7 @@ type Story = StoryObj<typeof CalloutNumerical>;
 
 export const Primary: Story = {
   args: {
-    title: '콜아웃 레이블',
-    labelText: '레이블',
+    title: "콜아웃 레이블",
+    labelText: "레이블",
   },
 };

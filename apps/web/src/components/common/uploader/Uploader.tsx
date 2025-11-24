@@ -1,9 +1,10 @@
-import clsx from 'clsx';
-import { ChangeEvent, DragEvent, MouseEvent, useRef, useState } from 'react';
+import clsx from "clsx";
+import type { ChangeEvent, DragEvent, MouseEvent } from "react";
+import { useRef, useState } from "react";
 
-import BlockButton from '@/components/common/button/BlockButton';
-import Icon from '@/components/common/icon/Icon';
-import { FileExtensions } from '@/types/ui/file';
+import BlockButton from "@/components/common/button/BlockButton";
+import Icon from "@/components/common/icon/Icon";
+import type { FileExtensions } from "@/types/ui/file";
 
 interface UploaderProps {
   onChangeFile: (file: FileList | null) => void;
@@ -35,7 +36,7 @@ function Uploader({ onChangeFile, isDisabled, fileExtensions, maxSize }: Uploade
     if (!inputRef.current || isDisabled) return;
 
     e.preventDefault();
-    inputRef.current.value = '';
+    inputRef.current.value = "";
     inputRef.current.click();
   };
 
@@ -54,29 +55,29 @@ function Uploader({ onChangeFile, isDisabled, fileExtensions, maxSize }: Uploade
       onDrop={handleDrop}
       className={clsx(
         {
-          'border-border-trans-assistive-dark cursor-no-drop': isDisabled,
-          'border-accent-inverse-normal-dark bg-accent-trans-neutral-dark': isDragging,
-          'border-border-trans-alternative-dark bg-surface-deep-dark': !isDragging,
+          "border-border-trans-assistive-dark cursor-no-drop": isDisabled,
+          "border-accent-inverse-normal-dark bg-accent-trans-neutral-dark": isDragging,
+          "border-border-trans-alternative-dark bg-surface-deep-dark": !isDragging,
         },
-        'radius-sm gap-xl body-sm text-object-assistive-dark flex flex-col items-center border-2 border-dashed px-(--gap-7xl) py-(--gap-8xl) text-center whitespace-pre-wrap',
+        "radius-sm gap-xl body-sm text-object-assistive-dark flex flex-col items-center border-2 border-dashed px-(--gap-7xl) py-(--gap-8xl) text-center whitespace-pre-wrap",
       )}
     >
       <label
-        htmlFor='fileUpload'
-        className={isDragging ? 'pointer-events-none' : isDisabled ? 'cursor-no-drop' : ''}
+        htmlFor="fileUpload"
+        className={isDragging ? "pointer-events-none" : isDisabled ? "cursor-no-drop" : ""}
       >
         <BlockButton
-          size='sm'
-          style='solid'
-          hierarchy='tertiary'
+          size="sm"
+          style="solid"
+          hierarchy="tertiary"
           onClick={handleClick}
           disabled={isDisabled}
-          className={isDragging ? 'pointer-events-none' : ''}
+          className={isDragging ? "pointer-events-none" : ""}
           leftIcon={
             <Icon
-              name='upload'
-              size='xs'
-              fillColor={`${isDisabled ? 'fill-object-disabled-dark' : 'fill-object-neutral-dark'}`}
+              name="upload"
+              size="xs"
+              fillColor={`${isDisabled ? "fill-object-disabled-dark" : "fill-object-neutral-dark"}`}
             />
           }
         >
@@ -84,13 +85,13 @@ function Uploader({ onChangeFile, isDisabled, fileExtensions, maxSize }: Uploade
         </BlockButton>
       </label>
       {isDisabled
-        ? '첨부할 수 있는 파일의 최대 용량에 도달했어요.'
-        : `파일을 드래그 & 드롭하거나, 버튼을 눌러 첨부해주세요.\n 최대 ${maxSize}MB까지의 ${fileExtensions.join(', ')} 파일을 첨부할 수 있어요.`}
+        ? "첨부할 수 있는 파일의 최대 용량에 도달했어요."
+        : `파일을 드래그 & 드롭하거나, 버튼을 눌러 첨부해주세요.\n 최대 ${maxSize}MB까지의 ${fileExtensions.join(", ")} 파일을 첨부할 수 있어요.`}
       <input
         ref={inputRef}
-        id='fileUpload'
-        type='file'
-        className='hidden'
+        id="fileUpload"
+        type="file"
+        className="hidden"
         multiple={true}
         onChange={handleChange}
       />

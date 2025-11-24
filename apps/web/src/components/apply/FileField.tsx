@@ -1,19 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
-import FileItem from '@/components/common/file/FileItem';
-import InputFile from '@/components/common/input/InputFile';
-import Title from '@/components/common/title/Title';
-import { APPLY_MESSAGE } from '@/constants/applyMessages';
-import useCreatePresignedUrlsMutation from '@/hooks/useCreatePresignedUrlsMutation';
-import { useToastActions } from '@/stores/toastStore';
-import {
+import FileItem from "@/components/common/file/FileItem";
+import InputFile from "@/components/common/input/InputFile";
+import Title from "@/components/common/title/Title";
+import { APPLY_MESSAGE } from "@/constants/applyMessages";
+import useCreatePresignedUrlsMutation from "@/hooks/useCreatePresignedUrlsMutation";
+import { useToastActions } from "@/stores/toastStore";
+import type {
   NewPortfolio,
   PortfolioResponse,
   PresignedFileUrls,
   Question,
-} from '@/types/apis/application';
-import { validateMaxSize } from '@/utils/validateFileMaxSize';
-import { splitValidAndInvalidFiles } from '@/utils/validateInvalidFile';
+} from "@/types/apis/application";
+import { validateMaxSize } from "@/utils/validateFileMaxSize";
+import { splitValidAndInvalidFiles } from "@/utils/validateInvalidFile";
 
 interface FileFieldProps {
   data: Question;
@@ -43,7 +43,7 @@ const formatForPresignedUrl = (files: File[]) => {
 
 const formatDraftValues = (values: PortfolioResponse[]) => {
   return values.map(file => {
-    const uuid = file.fileUrl.substring(file.fileUrl.lastIndexOf('_') + 1);
+    const uuid = file.fileUrl.substring(file.fileUrl.lastIndexOf("_") + 1);
 
     return {
       ...file,
@@ -80,14 +80,14 @@ function FileField({ data, onChange, values }: FileFieldProps) {
     );
 
     if (isSameFile) {
-      return addToast(APPLY_MESSAGE.invalid.sameFile, 'negative');
+      return addToast(APPLY_MESSAGE.invalid.sameFile, "negative");
     }
 
     if (validateMaxSize(totalSize, newFilesArr)) {
-      return addToast(APPLY_MESSAGE.invalid.fileSize, 'negative');
+      return addToast(APPLY_MESSAGE.invalid.fileSize, "negative");
     }
 
-    const PdfFiles = newFilesArr.filter(file => file.type === 'application/pdf');
+    const PdfFiles = newFilesArr.filter(file => file.type === "application/pdf");
     const { validPdfFiles, invalidPdfFiles } = await splitValidAndInvalidFiles(PdfFiles);
 
     if (validPdfFiles.length > 0) {
@@ -101,14 +101,14 @@ function FileField({ data, onChange, values }: FileFieldProps) {
 
     if (invalidPdfFiles.length > 0) {
       setInvalidFiles(prev => [...prev, ...invalidPdfFiles]);
-      addToast(APPLY_MESSAGE.invalid.unknownFile, 'negative');
+      addToast(APPLY_MESSAGE.invalid.unknownFile, "negative");
     }
 
-    if (PdfFiles.length !== newFiles.length) addToast(APPLY_MESSAGE.invalid.fileType, 'negative');
+    if (PdfFiles.length !== newFiles.length) addToast(APPLY_MESSAGE.invalid.fileType, "negative");
   };
 
   const deleteFile = (id: number | string) => {
-    if (typeof id === 'string') {
+    if (typeof id === "string") {
       return setPortfolios(portfolios.filter(file => file.id !== id));
     }
 
@@ -121,12 +121,12 @@ function FileField({ data, onChange, values }: FileFieldProps) {
   }, [portfolios, onChange]);
 
   return (
-    <fieldset className='gap-2xl flex flex-col'>
-      <Title hierarchy='normal'>{data.title}</Title>
+    <fieldset className="gap-2xl flex flex-col">
+      <Title hierarchy="normal">{data.title}</Title>
       <InputFile
         labelText={data.label}
         maxSize={data.maxFileSize ?? 100}
-        fileExtensions={['pdf']}
+        fileExtensions={["pdf"]}
         currentSize={totalSize}
         isDisabled={false}
         isRequired={data.isRequired}
@@ -139,7 +139,7 @@ function FileField({ data, onChange, values }: FileFieldProps) {
                 key={file.lastModified}
                 file={file}
                 onDelete={deleteFile}
-                feedback='unknown'
+                feedback="unknown"
               />
             ))}
             {portfolios.map(portfolio => (

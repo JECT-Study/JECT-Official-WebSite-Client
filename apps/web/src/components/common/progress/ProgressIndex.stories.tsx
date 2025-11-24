@@ -1,13 +1,13 @@
-import { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from "@storybook/react";
 
-import ProgressIndex from './ProgressIndex';
+import ProgressIndex from "./ProgressIndex";
 
 const meta: Meta<typeof ProgressIndex> = {
-  title: 'Components/Progress/ProgressIndex',
+  title: "Components/Progress/ProgressIndex",
   component: ProgressIndex,
   argTypes: {
-    children: { control: 'number' },
-    isActive: { control: 'boolean' },
+    children: { control: "number" },
+    isActive: { control: "boolean" },
   },
 };
 
@@ -23,7 +23,7 @@ export const Default: Story = {
 };
 
 export const Primary: Story = {
-  name: 'ProgressIndex',
+  name: "ProgressIndex",
   render: () => {
     return <ProgressIndex isActive={true}>{1}</ProgressIndex>;
   },

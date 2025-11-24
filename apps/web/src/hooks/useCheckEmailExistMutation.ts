@@ -1,9 +1,10 @@
-import { useMutation, UseMutationResult } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
+import type { UseMutationResult } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
+import type { AxiosError } from "axios";
 
-import { checkEmailExists } from '@/apis/apply';
-import { Email } from '@/types/apis/apply';
-import { ApiResponse } from '@/types/apis/response';
+import { checkEmailExists } from "@/apis/apply";
+import type { Email } from "@/types/apis/apply";
+import type { ApiResponse } from "@/types/apis/response";
 
 export const useCheckEmailExistsMutation = (): UseMutationResult<
   ApiResponse<boolean>,
@@ -11,7 +12,7 @@ export const useCheckEmailExistsMutation = (): UseMutationResult<
   Email
 > => {
   return useMutation({
-    mutationKey: ['checkEmailExists'],
+    mutationKey: ["checkEmailExists"],
     mutationFn: checkEmailExists,
   });
 };

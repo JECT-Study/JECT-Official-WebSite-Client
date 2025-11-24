@@ -1,16 +1,16 @@
-import './instrument';
+import "./instrument";
 
-import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { useState } from 'react';
-import { isMobile } from 'react-device-detect';
-import { RouterProvider } from 'react-router-dom';
+import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { useState } from "react";
+import { isMobile } from "react-device-detect";
+import { RouterProvider } from "react-router-dom";
 
-import { disabledPage, PATH } from './constants/path';
-import { useGlobalErrorHandler } from './hooks/useGlobalErrorHandler';
-import useRedirectMaintenance from './hooks/useRedirectMaintenance';
-import TempMobile from './pages/TempMobile';
-import router from './router';
+import { disabledPage, PATH } from "./constants/path";
+import { useGlobalErrorHandler } from "./hooks/useGlobalErrorHandler";
+import useRedirectMaintenance from "./hooks/useRedirectMaintenance";
+import TempMobile from "./pages/TempMobile";
+import router from "./router";
 
 function App() {
   const handleGlobalError = useGlobalErrorHandler();
@@ -39,7 +39,7 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {import.meta.env.MODE !== 'production' && <ReactQueryDevtools />}
+      {import.meta.env.MODE !== "production" && <ReactQueryDevtools />}
       <RouterProvider router={router} />
     </QueryClientProvider>
   );

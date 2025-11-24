@@ -1,13 +1,14 @@
-import { useMutation, UseMutationResult } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
+import type { UseMutationResult } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
+import type { AxiosError } from "axios";
 
-import { postVerificationEmailCode } from '@/apis/apply';
-import {
+import { postVerificationEmailCode } from "@/apis/apply";
+import type {
   VerificationEmailCodePayload,
   VerificationEmailCodeQueryParams,
   VerificationEmailCodeResponse,
-} from '@/types/apis/apply';
-import { ApiResponse } from '@/types/apis/response';
+} from "@/types/apis/apply";
+import type { ApiResponse } from "@/types/apis/response";
 
 export interface VerificationEmailCodeMutationVariables {
   payload: VerificationEmailCodePayload;
@@ -20,7 +21,7 @@ export const useVerificationEmailCodeMutation = (): UseMutationResult<
   VerificationEmailCodeMutationVariables
 > => {
   return useMutation({
-    mutationKey: ['postVerificationEmailCode'],
+    mutationKey: ["postVerificationEmailCode"],
     mutationFn: ({ payload, queryParams }) => postVerificationEmailCode(payload, queryParams),
   });
 };

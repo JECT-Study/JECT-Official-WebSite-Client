@@ -1,26 +1,27 @@
-import clsx from 'clsx';
-import Lottie from 'lottie-react';
-import { useCallback, useEffect } from 'react';
-import { Location, useLocation, useNavigate } from 'react-router-dom';
+import clsx from "clsx";
+import Lottie from "lottie-react";
+import { useCallback, useEffect } from "react";
+import type { Location } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
-import loadingSpinner from '@/assets/lottie/ject-loadingSpinner.json';
-import Answers from '@/components/apply/Answers';
-import SelectBox from '@/components/apply/selectBox';
-import BlockButton from '@/components/common/button/BlockButton';
-import Label from '@/components/common/label/Label';
-import ProgressIndicator from '@/components/common/progress/ProgressIndicator';
-import Title from '@/components/common/title/Title';
-import { APPLY_TITLE } from '@/constants/applyPageData';
-import { PATH } from '@/constants/path';
-import useApplicationState from '@/hooks/useApplicationState';
-import useDeleteDraftMutation from '@/hooks/useDeleteDraftMutation';
-import useDraftQuery from '@/hooks/useDraftQuery';
-import useGoBackCheckDialog from '@/hooks/useGoBackCheckDialog';
-import useSaveDraftMutation from '@/hooks/useSaveDraftMutation';
-import useSubmitAnswerMutation from '@/hooks/useSubmitAnswerMutation';
-import { useDialogActions } from '@/stores/dialogStore';
-import { JobFamily } from '@/types/apis/application';
-import { getDraftLocal, removeDraftLocal, setDraftLocal } from '@/utils/draftUtils';
+import loadingSpinner from "@/assets/lottie/ject-loadingSpinner.json";
+import Answers from "@/components/apply/Answers";
+import SelectBox from "@/components/apply/selectBox";
+import BlockButton from "@/components/common/button/BlockButton";
+import Label from "@/components/common/label/Label";
+import ProgressIndicator from "@/components/common/progress/ProgressIndicator";
+import Title from "@/components/common/title/Title";
+import { APPLY_TITLE } from "@/constants/applyPageData";
+import { PATH } from "@/constants/path";
+import useApplicationState from "@/hooks/useApplicationState";
+import useDeleteDraftMutation from "@/hooks/useDeleteDraftMutation";
+import useDraftQuery from "@/hooks/useDraftQuery";
+import useGoBackCheckDialog from "@/hooks/useGoBackCheckDialog";
+import useSaveDraftMutation from "@/hooks/useSaveDraftMutation";
+import useSubmitAnswerMutation from "@/hooks/useSubmitAnswerMutation";
+import { useDialogActions } from "@/stores/dialogStore";
+import type { JobFamily } from "@/types/apis/application";
+import { getDraftLocal, removeDraftLocal, setDraftLocal } from "@/utils/draftUtils";
 
 interface LocationState {
   continue: boolean;
@@ -79,7 +80,7 @@ function ApplyRegistration() {
 
     submitAnswerMutate(answer, {
       onSuccess: data => {
-        if (data?.status === 'SUCCESS') {
+        if (data?.status === "SUCCESS") {
           removeDraftLocal();
           void navigate(PATH.applyComplete, { replace: true });
         }
@@ -89,11 +90,11 @@ function ApplyRegistration() {
 
   const openDialogChangeJob = (job: JobFamily) => {
     openDialog({
-      type: 'changeJob',
+      type: "changeJob",
       onPrimaryBtnClick: () => {
         deleteDraftMutate(null, {
           onSuccess: data => {
-            if (data.status === 'SUCCESS') {
+            if (data.status === "SUCCESS") {
               changeSelect(job);
               resetApplication(job);
             }
@@ -106,7 +107,7 @@ function ApplyRegistration() {
 
   const openDialogSubmitAnswer = () => {
     openDialog({
-      type: 'submitAnswer',
+      type: "submitAnswer",
       onPrimaryBtnClick: submitAnswer,
     });
   };
@@ -121,7 +122,7 @@ function ApplyRegistration() {
     }
 
     void refetchDraftServer().then(({ data }) => {
-      if (data?.status === 'SUCCESS') {
+      if (data?.status === "SUCCESS") {
         return updateAnswerByDraft(data.data);
       }
     });
@@ -143,13 +144,13 @@ function ApplyRegistration() {
   }, [selectedJob, application]);
 
   return (
-    <div className='gap-9xl flex flex-col items-center pt-(--gap-9xl) pb-(--gap-12xl)'>
+    <div className="gap-9xl flex flex-col items-center pt-(--gap-9xl) pb-(--gap-12xl)">
       <ProgressIndicator totalStep={3} currentStep={3} />
-      <section className='gap-9xl flex w-[32.5rem] flex-col items-stretch *:first:text-center'>
-        <Title hierarchy='strong'>{APPLY_TITLE.registration}</Title>
-        <div className={clsx(!selectedJob && '*:nth-2:text-center', 'gap-7xl flex flex-col')}>
-          <div className='gap-2xl flex flex-col'>
-            <Title hierarchy='normal'>어떤 포지션으로 지원하시나요?</Title>
+      <section className="gap-9xl flex w-[32.5rem] flex-col items-stretch *:first:text-center">
+        <Title hierarchy="strong">{APPLY_TITLE.registration}</Title>
+        <div className={clsx(!selectedJob && "*:nth-2:text-center", "gap-7xl flex flex-col")}>
+          <div className="gap-2xl flex flex-col">
+            <Title hierarchy="normal">어떤 포지션으로 지원하시나요?</Title>
             <SelectBox
               selectedJob={selectedJob}
               onLoadQuestion={changeSelectAndQuestion}
@@ -165,31 +166,31 @@ function ApplyRegistration() {
               onActiveSubmitButton={setSubmitButtonActive}
             />
           ) : (
-            <Label hierarchy='normal' weight='normal' textColor='text-object-assistive-dark'>
+            <Label hierarchy="normal" weight="normal" textColor="text-object-assistive-dark">
               포지션을 선택한 뒤 아래에 추가 질문들이 표시돼요.
             </Label>
           )}
 
-          <div aria-label='button-area' className='gap-md flex w-full self-center *:flex-1'>
+          <div aria-label="button-area" className="gap-md flex w-full self-center *:flex-1">
             <BlockButton
-              size='lg'
-              style='solid'
-              hierarchy='secondary'
+              size="lg"
+              style="solid"
+              hierarchy="secondary"
               onClick={saveDraftServerAndLocal}
             >
-              {isSaveDraftPending ? <Lottie animationData={loadingSpinner} /> : '임시 저장하기'}
+              {isSaveDraftPending ? <Lottie animationData={loadingSpinner} /> : "임시 저장하기"}
             </BlockButton>
             <BlockButton
-              size='lg'
-              style='solid'
-              hierarchy='accent'
+              size="lg"
+              style="solid"
+              hierarchy="accent"
               disabled={!isStepCompleted}
               onClick={openDialogSubmitAnswer}
             >
               {isSubmitAnswerPending ? (
                 <Lottie animationData={loadingSpinner} />
               ) : (
-                '지원서 제출하기'
+                "지원서 제출하기"
               )}
             </BlockButton>
           </div>

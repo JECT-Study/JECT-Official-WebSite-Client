@@ -1,9 +1,9 @@
-import { toZonedTime } from 'date-fns-tz';
-import { useEffect, useRef } from 'react';
+import { toZonedTime } from "date-fns-tz";
+import { useEffect, useRef } from "react";
 
-import { PATH } from '@/constants/path';
-import router from '@/router';
-import { PathValues } from '@/types/ui/path';
+import { PATH } from "@/constants/path";
+import router from "@/router";
+import type { PathValues } from "@/types/ui/path";
 
 const TIME_THRESHOLD = 10 * 60 * 1000;
 
@@ -13,7 +13,7 @@ const useRedirectMaintenance = (startHours: number, endHours: number, redirectPa
   useEffect(() => {
     const checkAndRedirect = () => {
       const now = new Date();
-      const kstDate = toZonedTime(now, 'Asia/Seoul');
+      const kstDate = toZonedTime(now, "Asia/Seoul");
       const nextKstTime = new Date(kstDate);
       const hours = kstDate.getHours();
       const isInMaintenance = hours >= startHours && hours < endHours;
@@ -22,12 +22,12 @@ const useRedirectMaintenance = (startHours: number, endHours: number, redirectPa
       if (!isOnMaintenancePage && isInMaintenance) {
         const currentPath = location.pathname;
 
-        sessionStorage.setItem('recoverPath', currentPath);
+        sessionStorage.setItem("recoverPath", currentPath);
         void router.navigate(redirectPath);
       } else if (!isInMaintenance && isOnMaintenancePage) {
-        const recoverPath = sessionStorage.getItem('recoverPath') ?? PATH.main;
+        const recoverPath = sessionStorage.getItem("recoverPath") ?? PATH.main;
 
-        sessionStorage.removeItem('recoverPath');
+        sessionStorage.removeItem("recoverPath");
         void router.navigate(recoverPath);
       }
 

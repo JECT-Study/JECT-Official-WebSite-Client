@@ -1,20 +1,20 @@
-import { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from "@storybook/react";
 
-import Hero from './Hero';
+import Hero from "./Hero";
 
 const meta: Meta<typeof Hero> = {
-  title: 'Components/Hero/Hero',
+  title: "Components/Hero/Hero",
   component: Hero,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     title: {
-      control: 'text',
+      control: "text",
     },
     badgeText: {
-      control: 'text',
+      control: "text",
     },
     children: {
-      control: 'text',
+      control: "text",
     },
   },
 };
@@ -25,8 +25,8 @@ type Story = StoryObj<typeof Hero>;
 
 export const Primary: Story = {
   args: {
-    title: '히어로 타이틀',
-    badgeText: '레이블',
-    children: '히어로 내용',
+    title: "히어로 타이틀",
+    badgeText: "레이블",
+    children: "히어로 내용",
   },
 };

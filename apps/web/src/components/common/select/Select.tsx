@@ -1,9 +1,10 @@
-import clsx from 'clsx';
-import { ComponentPropsWithoutRef, ReactNode, useState } from 'react';
+import clsx from "clsx";
+import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import { useState } from "react";
 
-import Icon from '@/components/common/icon/Icon';
+import Icon from "@/components/common/icon/Icon";
 
-interface SelectItemProps extends ComponentPropsWithoutRef<'button'> {
+interface SelectItemProps extends ComponentPropsWithoutRef<"button"> {
   label: string;
   isSelected: boolean;
   clickHandler: (label: string) => void;
@@ -19,23 +20,23 @@ export const SelectItem = ({
   ...restProps
 }: SelectItemProps) => {
   const buttonClass = clsx(
-    'interaction-default-normal transition-faster-fluent radius-xs flex w-full items-start justify-between p-(--gap-sm)',
+    "interaction-default-normal transition-faster-fluent radius-xs flex w-full items-start justify-between p-(--gap-sm)",
     {
-      'text-object-disabled-dark cursor-not-allowed pointer-events-none': !!disabled,
-      'text-object-hero-dark cursor-pointer pointer-events-auto': !disabled && isSelected,
-      'text-object-neutral-dark cursor-pointer pointer-events-auto': !disabled && !isSelected,
+      "text-object-disabled-dark cursor-not-allowed pointer-events-none": !!disabled,
+      "text-object-hero-dark cursor-pointer pointer-events-auto": !disabled && isSelected,
+      "text-object-neutral-dark cursor-pointer pointer-events-auto": !disabled && !isSelected,
     },
   );
 
   return (
     <button
-      type='button'
+      type="button"
       onClick={() => !disabled && clickHandler(label)}
       disabled={!!disabled}
       className={buttonClass}
       {...restProps}
     >
-      <span className='body-lg self-stretch'>{label}</span>
+      <span className="body-lg self-stretch">{label}</span>
       {children}
     </button>
   );
@@ -62,7 +63,7 @@ export const Select = ({ items, defaultValue = null, onChange }: SelectProps) =>
   };
 
   return (
-    <div className='gap-5xs radius-md border-border-trans-assistive-dark bg-surface-embossed-dark opacity-visible shadow-overlay flex w-full flex-col border p-(--gap-2xs)'>
+    <div className="gap-5xs radius-md border-border-trans-assistive-dark bg-surface-embossed-dark opacity-visible shadow-overlay flex w-full flex-col border p-(--gap-2xs)">
       {items.map(({ label, disabled }) => (
         <SelectItem
           key={label}
@@ -72,7 +73,7 @@ export const Select = ({ items, defaultValue = null, onChange }: SelectProps) =>
           disabled={disabled}
         >
           {selectedValue === label && (
-            <Icon name='check' size='lg' fillColor='fill-object-hero-dark' />
+            <Icon name="check" size="lg" fillColor="fill-object-hero-dark" />
           )}
         </SelectItem>
       ))}

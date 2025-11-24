@@ -1,11 +1,11 @@
 @layer utilities {
-    .story-container {
-        @apply flex flex-col gap-[20px];
-    }
-    .story-inner-container {
-        @apply flex flex-col gap-[10px] items-start;
-    }
-    .story-inner-row-container {
-        @apply flex flex-row gap-[10px] items-start;
-    }
+  .story-container {
+    @apply flex flex-col gap-[20px];
+  }
+  .story-inner-container {
+    @apply flex flex-col items-start gap-[10px];
+  }
+  .story-inner-row-container {
+    @apply flex flex-row items-start gap-[10px];
+  }
 }

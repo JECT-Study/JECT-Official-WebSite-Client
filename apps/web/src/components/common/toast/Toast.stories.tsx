@@ -1,12 +1,12 @@
-import { Meta } from '@storybook/react';
+import type { Meta } from "@storybook/react";
 
-import Toast from './Toast';
-import BlockButton from '../button/BlockButton';
+import Toast from "./Toast";
+import BlockButton from "../button/BlockButton";
 
-import { useToastActions } from '@/stores/toastStore';
+import { useToastActions } from "@/stores/toastStore";
 
 const meta: Meta<typeof Toast> = {
-  title: 'Components/Toast',
+  title: "Components/Toast",
   component: Toast,
   parameters: {
     docs: {
@@ -24,26 +24,26 @@ export const All = () => {
   const { addToast } = useToastActions();
 
   const normal = () => {
-    addToast('토스트 레이블');
+    addToast("토스트 레이블");
   };
 
   const negative = () => {
-    addToast('토스트 레이블', 'negative');
+    addToast("토스트 레이블", "negative");
   };
 
   const positive = () => {
-    addToast('토스트 레이블', 'positive');
+    addToast("토스트 레이블", "positive");
   };
 
   return (
-    <div className='story-inner-container'>
-      <BlockButton size='md' style='solid' hierarchy='primary' onClick={normal}>
+    <div className="story-inner-container">
+      <BlockButton size="md" style="solid" hierarchy="primary" onClick={normal}>
         normal type
       </BlockButton>
-      <BlockButton size='md' style='solid' hierarchy='secondary' onClick={negative}>
+      <BlockButton size="md" style="solid" hierarchy="secondary" onClick={negative}>
         negative type
       </BlockButton>
-      <BlockButton size='md' style='solid' hierarchy='tertiary' onClick={positive}>
+      <BlockButton size="md" style="solid" hierarchy="tertiary" onClick={positive}>
         positive type
       </BlockButton>
       <Toast />

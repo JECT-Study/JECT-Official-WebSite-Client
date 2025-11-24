@@ -1,9 +1,10 @@
-import clsx from 'clsx';
-import { useEffect, useState } from 'react';
+import clsx from "clsx";
+import { useEffect, useState } from "react";
 
-import Label from '../label/Label';
+import Label from "../label/Label";
 
-import { ToastType, useToastActions, useToastItem } from '@/stores/toastStore';
+import type { ToastType } from "@/stores/toastStore";
+import { useToastActions, useToastItem } from "@/stores/toastStore";
 
 type ToastStyleType = Record<
   ToastType,
@@ -15,16 +16,16 @@ type ToastStyleType = Record<
 
 const toastStyle: ToastStyleType = {
   normal: {
-    backgroundColor: 'bg-object-hero-dark',
-    textColor: 'text-object-inverse-hero-dark',
+    backgroundColor: "bg-object-hero-dark",
+    textColor: "text-object-inverse-hero-dark",
   },
   negative: {
-    backgroundColor: 'bg-feedback-negative-dark',
-    textColor: 'text-object-static-inverse-hero-dark',
+    backgroundColor: "bg-feedback-negative-dark",
+    textColor: "text-object-static-inverse-hero-dark",
   },
   positive: {
-    backgroundColor: 'bg-feedback-positive-dark',
-    textColor: 'text-object-static-inverse-hero-dark',
+    backgroundColor: "bg-feedback-positive-dark",
+    textColor: "text-object-static-inverse-hero-dark",
   },
 };
 
@@ -58,14 +59,14 @@ function Toast() {
       onAnimationEnd={handleAnimationEnd}
       className={clsx(
         {
-          'animate-toast-fade-in': !isFadingOut,
-          'animate-toast-fade-out': isFadingOut,
+          "animate-toast-fade-in": !isFadingOut,
+          "animate-toast-fade-out": isFadingOut,
         },
         toastStyle[toastItem.type].backgroundColor,
-        'shadow-overlay radius-xs fixed left-1/2 -translate-x-1/2 px-(--gap-lg) py-(--gap-3xs) *:inline',
+        "shadow-overlay radius-xs fixed left-1/2 -translate-x-1/2 px-(--gap-lg) py-(--gap-3xs) *:inline",
       )}
     >
-      <Label hierarchy='strong' weight='normal' textColor={toastStyle[toastItem.type].textColor}>
+      <Label hierarchy="strong" weight="normal" textColor={toastStyle[toastItem.type].textColor}>
         {toastItem.message}
       </Label>
     </div>

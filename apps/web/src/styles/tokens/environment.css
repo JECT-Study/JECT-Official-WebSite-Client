@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @theme {
   --color-alpha-01: rgba(9, 11, 18, 0.01);
@@ -21,9 +21,11 @@
   /* shadow */
   --shadow-embossed: 0 0 0.0625rem var(--color-alpha-04), 0 0.125rem 0.25rem var(--color-alpha-08);
   --shadow-raised: 0 0 0.125rem var(--color-alpha-06), 0 0.1875rem 0.375rem var(--color-alpha-11);
-  --shadow-floated: 0 0 0.125rem var(--color-alpha-06), 0 0.125rem 0.25rem var(--color-alpha-06),
+  --shadow-floated:
+    0 0 0.125rem var(--color-alpha-06), 0 0.125rem 0.25rem var(--color-alpha-06),
     0 0.25rem 0.5rem var(--color-alpha-13);
-  --shadow-overlay: 0 0 0.25rem var(--color-alpha-08), 0 0.1875rem 0.5rem var(--color-alpha-12),
+  --shadow-overlay:
+    0 0 0.25rem var(--color-alpha-08), 0 0.1875rem 0.5rem var(--color-alpha-12),
     0 0.5rem 1rem var(--color-alpha-16);
 
   /* motion */
@@ -39,5 +41,5 @@
 }
 
 @utility duration-* {
-  transition-duration: --value(--duration- *);
+  transition-duration: --value(--duration-*);
 }

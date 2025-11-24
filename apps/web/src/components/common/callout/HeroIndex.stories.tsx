@@ -1,28 +1,28 @@
-import { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from "@storybook/react";
 
-import HeroIndex from './HeroIndex';
+import HeroIndex from "./HeroIndex";
 
 const meta: Meta<typeof HeroIndex> = {
-  title: 'Components/Hero/HeroIndex',
+  title: "Components/Hero/HeroIndex",
   component: HeroIndex,
   argTypes: {
     index: {
-      control: 'number',
+      control: "number",
     },
     title: {
-      control: 'text',
+      control: "text",
     },
     badgeText: {
-      control: 'text',
+      control: "text",
     },
     children: {
-      control: 'text',
+      control: "text",
     },
     badgeBgColor: {
-      control: 'text',
+      control: "text",
     },
     badgeTextColor: {
-      control: 'text',
+      control: "text",
     },
   },
 };
@@ -34,10 +34,10 @@ type Story = StoryObj<typeof HeroIndex>;
 export const HeroIndexStory: Story = {
   args: {
     index: 1,
-    title: '히어로 타이틀',
-    badgeText: '레이블',
-    children: '히어로 내용',
-    badgeBgColor: 'bg-feedback-trans-information-dark',
-    badgeTextColor: 'text-feedback-information-dark',
+    title: "히어로 타이틀",
+    badgeText: "레이블",
+    children: "히어로 내용",
+    badgeBgColor: "bg-feedback-trans-information-dark",
+    badgeTextColor: "text-feedback-information-dark",
   },
 };

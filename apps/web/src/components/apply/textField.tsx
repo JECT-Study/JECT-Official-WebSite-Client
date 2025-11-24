@@ -1,9 +1,9 @@
-import { ChangeEvent } from 'react';
+import type { ChangeEvent } from "react";
 
-import InputArea from '@/components/common/input/InputArea';
-import Title from '@/components/common/title/Title';
-import { APPLY_MESSAGE } from '@/constants/applyMessages';
-import { Question } from '@/types/apis/application';
+import InputArea from "@/components/common/input/InputArea";
+import Title from "@/components/common/title/Title";
+import { APPLY_MESSAGE } from "@/constants/applyMessages";
+import type { Question } from "@/types/apis/application";
 
 interface TextFieldProps {
   data: Question;
@@ -17,8 +17,8 @@ function TextField({ data, onChange, value }: TextFieldProps) {
   };
 
   return (
-    <fieldset className='gap-2xl flex flex-col'>
-      <Title hierarchy='normal'>{data.title}</Title>
+    <fieldset className="gap-2xl flex flex-col">
+      <Title hierarchy="normal">{data.title}</Title>
       <InputArea
         labelText={data.label}
         errorHelper={APPLY_MESSAGE.invalid.exceedText}

@@ -1,9 +1,10 @@
-import { useMutation, UseMutationResult } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
+import type { UseMutationResult } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
+import type { AxiosError } from "axios";
 
-import { postSubmitAnswer } from '@/apis/application';
-import { AnswersPayload, JobFamily } from '@/types/apis/application';
-import { ApiResponse } from '@/types/apis/response';
+import { postSubmitAnswer } from "@/apis/application";
+import type { AnswersPayload, JobFamily } from "@/types/apis/application";
+import type { ApiResponse } from "@/types/apis/response";
 
 interface SubmitAnswerMutationVariable {
   jobFamily: JobFamily;
@@ -17,7 +18,7 @@ const useSubmitAnswerMutation = (): UseMutationResult<
   unknown
 > => {
   return useMutation({
-    mutationKey: ['submitAnswer'],
+    mutationKey: ["submitAnswer"],
     mutationFn: ({ jobFamily, answers }) => postSubmitAnswer(jobFamily, answers),
   });
 };
