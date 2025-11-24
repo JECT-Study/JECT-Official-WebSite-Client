@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import AnimatedSection from "./AnimatedSection";
 
@@ -15,7 +15,6 @@ export default meta;
 type Story = StoryObj<typeof AnimatedSection>;
 
 export const Default: Story = {
-  name: "Default",
   args: {},
 };
 

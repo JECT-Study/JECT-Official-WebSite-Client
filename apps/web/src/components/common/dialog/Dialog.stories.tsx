@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { action } from "@storybook/react-vite";
+import { action } from "storybook/actions";
 
 import Dialog from "./Dialog";
 import BlockButton from "../button/BlockButton";
@@ -24,7 +24,6 @@ export default meta;
 type Story = StoryObj<typeof Dialog>;
 
 export const HorizontalDialogStory: Story = {
-  name: "Horizontal Dialog Story",
   render: function Render() {
     const { openDialog } = useDialogActions();
 
@@ -48,7 +47,6 @@ export const HorizontalDialogStory: Story = {
 };
 
 export const VerticalDialogStory: Story = {
-  name: "Vertical Dialog Story",
   render: function Render() {
     const { openDialog } = useDialogActions();
 
@@ -72,7 +70,6 @@ export const VerticalDialogStory: Story = {
 };
 
 export const SingleButtonDialogStory: Story = {
-  name: "Single Button Dialog Story",
   render: function Render() {
     const { openDialog } = useDialogActions();
 

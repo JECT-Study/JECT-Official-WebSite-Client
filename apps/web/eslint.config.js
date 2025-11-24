@@ -3,4 +3,10 @@ import storybook from "eslint-plugin-storybook";
 
 import appConfig from "@ject/eslint-config/app";
 
-export default [...appConfig, ...storybook.configs["flat/recommended"]];
+export default [
+  {
+    ignores: ["**/.storybook/**"],
+  },
+  ...appConfig,
+  ...storybook.configs["flat/recommended"],
+];
