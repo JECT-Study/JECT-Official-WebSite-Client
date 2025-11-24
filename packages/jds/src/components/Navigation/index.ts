@@ -1,11 +1,11 @@
-export { Navigation } from './Navigation';
+export { GlobalNavigation } from './GlobalNavigation';
 export { useNavigationVariant } from './useNavigationVariant';
 export type {
-  NavigationRootProps,
-  NavigationListProps,
-  NavigationToggleItemProps,
-  NavigationBlockItemProps,
-  NavigationLogoItemProps,
-  NavigationLogoLinkProps,
-  NavigationVariant,
-} from './navigation.types';
+  GlobalNavigationRootProps,
+  GlobalNavigationListProps,
+  GlobalNavigationToggleItemProps,
+  GlobalNavigationBlockItemProps,
+  GlobalNavigationLogoItemProps,
+  GlobalNavigationLogoLinkProps,
+  GlobalNavigationVariant,
+} from './globalNavigation.types';
