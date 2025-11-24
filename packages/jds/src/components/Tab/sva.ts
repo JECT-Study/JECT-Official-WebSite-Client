@@ -1,251 +1,444 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/naming-convention */
-// emotion-variants.ts
-import { css, type CSSObject, type SerializedStyles } from '@emotion/react';
+import type { CSSObject } from '@emotion/react';
 
-/* ----------------- 공통 타입 ----------------- */
+/**
+ * 'true' | 'false' → boolean으로 매핑
+ * 그 외는 그대로 유지
+ */
+type StringToBoolean<T> = T extends 'true' | 'false' ? boolean : T;
 
-type SlotName = string;
+/**
+ * A 또는 A 배열
+ */
+type OneOrMore<T> = T | readonly T[];
 
-// variants shape 공통 베이스
-export type VariantsConfigBase = {
-  [VariantKey: string]: {
-    [VariantValue: string]: unknown;
+/* -----------------------------------------------------------------------------
+ * 공통: variants 모양(스타일 타입 상관없이)
+ * -----------------------------------------------------------------------------*/
+
+/**
+ *
+ *   { [variantName]: { [variantValue]: unknown } }
+ *
+ */
+type VariantRecordLike = {
+  [VariantName in string]: {
+    [VariantValue in string]: unknown;
   };
 };
 
-export type VariantProps<V extends VariantsConfigBase> = {
-  [K in keyof V]?: keyof V[K] & string;
-};
+/* -----------------------------------------------------------------------------
+ * cva(단일 컴포넌트)용 타입
+ * -----------------------------------------------------------------------------*/
 
-export type VariantPropsOf<R> = R extends (props?: infer P) => unknown ? NonNullable<P> : never;
-
-/* ----------------- SVA (multi-slot) ----------------- */
-
-export type SlotStyles<S extends readonly SlotName[]> = {
-  [K in S[number]]?: CSSObject;
-};
-
-export type SvaVariants<S extends readonly SlotName[]> = {
-  [VariantKey: string]: {
-    [VariantValue: string]: SlotStyles<S>;
+/**
+ * cva 스타일 variants:
+ *
+ * {
+ *   size:   { sm: CSSObject; md: CSSObject }
+ *   tone:   { primary: CSSObject; ghost: CSSObject }
+ * }
+ */
+export type RecipeVariantRecord = {
+  [VariantName in string]: {
+    [VariantValue in string]: CSSObject;
   };
 };
 
-export interface SvaConfig<S extends readonly SlotName[], V extends SvaVariants<S>> {
-  slots: S;
-  base?: SlotStyles<S>;
-  variants: V;
-  defaultVariants?: Partial<VariantProps<V>>;
-  compoundVariants?: Array<{
-    variants: Partial<VariantProps<V>>;
-    style: SlotStyles<S>;
-  }>;
-}
-
-export interface SvaRecipe<S extends readonly SlotName[], V extends SvaVariants<S>> {
-  (props?: VariantProps<V>): { [K in S[number]]: SerializedStyles };
-  raw: (props?: VariantProps<V>) => { [K in S[number]]: CSSObject };
-}
-
-const isPlainObject = (value: unknown): value is Record<string, unknown> =>
-  value !== null && typeof value === 'object' && !Array.isArray(value);
-
-const mergeStyles = (target: CSSObject = {}, source: CSSObject = {}) => {
-  const out: CSSObject = { ...target };
-
-  for (const key of Object.keys(source)) {
-    const sourceValue = source[key];
-    const targetValue = out[key];
-
-    if (isPlainObject(sourceValue) && isPlainObject(targetValue)) {
-      out[key] = mergeStyles(targetValue as CSSObject, sourceValue as CSSObject);
-    } else {
-      out[key] = sourceValue;
-    }
-  }
-
-  return out;
+/**
+ * variants 정의 → 컴포넌트에서 받는 variant props 타입
+ *
+ * TVariants = {
+ *   variant: { header: ..., content: ... }
+ *   isItemStretched: { false: ..., true: ... }
+ * }
+ *
+ * => {
+ *   variant?: 'header' | 'content';
+ *   isItemStretched?: boolean;
+ * }
+ */
+export type RecipeSelection<TVariants extends VariantRecordLike> = {
+  [K in keyof TVariants]?: StringToBoolean<keyof TVariants[K]>;
 };
 
-export function sva<S extends readonly SlotName[], V extends SvaVariants<S>>(
-  config: SvaConfig<S, V>,
-): SvaRecipe<S, V> {
-  type Slots = S[number];
-  type Props = VariantProps<V>;
+/**
+ * compoundVariants 에서 사용하는 selection 타입
+ *
+ * TVariants = {
+ *   size: { sm: ..., md: ... }
+ *   tone: { primary: ..., ghost: ... }
+ * }
+ *
+ * => {
+ *   size?: 'sm' | readonly ('sm' | 'md')[];
+ *   tone?: 'primary' | readonly 'primary'[];
+ * }
+ */
+export type RecipeCompoundSelection<TVariants extends VariantRecordLike> = {
+  [K in keyof TVariants]?: OneOrMore<StringToBoolean<keyof TVariants[K]>>;
+};
 
-  const variantKeys = Object.keys(config.variants) as (keyof V)[];
-
-  const resolve = (props?: Props): Props => ({
-    ...(config.defaultVariants ?? ({} as Props)),
-    ...(props ?? ({} as Props)),
-  });
-
-  const computeRaw = (props?: Props): Record<Slots, CSSObject> => {
-    const resolved = resolve(props);
-    const result = {} as Record<Slots, CSSObject>;
-
-    // base
-    for (const slot of config.slots) {
-      const key = slot as Slots;
-      result[key] = { ...(config.base?.[key] ?? {}) };
-    }
-
-    // variants
-    for (const variantName of variantKeys) {
-      const value = resolved[variantName];
-      if (!value) continue;
-
-      const group = config.variants[variantName];
-      const slotStyles = group[value as keyof typeof group];
-      if (!slotStyles) continue;
-
-      for (const slot in slotStyles) {
-        const slotKey = slot as Slots;
-        result[slotKey] = mergeStyles(result[slotKey], slotStyles[slotKey]);
-      }
-    }
-
-    // compoundVariants
-    if (config.compoundVariants) {
-      for (const cv of config.compoundVariants) {
-        let matched = true;
-
-        for (const key in cv.variants) {
-          const expected = cv.variants[key as keyof Props];
-          if (expected === undefined) continue;
-          if (resolved[key as keyof Props] !== expected) {
-            matched = false;
-            break;
-          }
-        }
-
-        if (!matched) continue;
-
-        for (const slot in cv.style) {
-          const slotKey = slot as Slots;
-          result[slotKey] = mergeStyles(result[slotKey], cv.style[slotKey]);
-        }
-      }
-    }
-
-    return result;
+/**
+ * compoundVariants 한 항목
+ *
+ * {
+ *   size?: 'sm' | ['sm', 'md'];
+ *   tone?: 'primary';
+ *   css: CSSObject;
+ * }
+ */
+export type RecipeCompoundVariant<TVariants extends RecipeVariantRecord> =
+  RecipeCompoundSelection<TVariants> & {
+    css: CSSObject;
   };
 
-  const recipe: SvaRecipe<S, V> = ((props?: Props) => {
-    const raw = computeRaw(props);
-    const out = {} as Record<Slots, SerializedStyles>;
-
-    for (const slot of config.slots) {
-      const key = slot as Slots;
-      out[key] = css(raw[key]);
-    }
-
-    return out;
-  }) as SvaRecipe<S, V>;
-
-  recipe.raw = computeRaw;
-
-  return recipe;
+/**
+ * cva용 recipe 정의 타입
+ *
+ * 예시 (정확한 형태):
+ * ```ts
+ * const buttonRecipe = cva({
+ *   base: { display: 'inline-flex' },
+ *   variants: {
+ *     size: {
+ *       sm: { fontSize: 12 },
+ *       md: { fontSize: 14 },
+ *     },
+ *     tone: {
+ *       primary: { color: 'royalblue' },
+ *       ghost: { color: 'gray' },
+ *     },
+ *   },
+ *   defaultVariants: { size: 'sm', tone: 'primary' },
+ *   compoundVariants: [
+ *     { size: 'md', tone: 'primary', css: { fontWeight: 600 } },
+ *   ],
+ * });
+ * // RecipeVariantProps<typeof buttonRecipe>
+ * // => { size?: 'sm' | 'md'; tone?: 'primary' | 'ghost' }
+ * ```
+ */
+export interface RecipeDefinition<TVariants extends RecipeVariantRecord> {
+  base: CSSObject;
+  variants: TVariants;
+  defaultVariants?: RecipeSelection<TVariants>;
+  //아직 compountVariants는 사용안함
+  compoundVariants?: readonly RecipeCompoundVariant<TVariants>[];
 }
 
-/* ----------------- CVA (single slot) ----------------- */
+/**
+ * cva: queryOptions 스타일 헬퍼
+ * - 타입만 체크하고 config 그대로 리턴
+ */
+/**
+ * cva: 단일 컴포넌트 스타일 레시피 정의 헬퍼 (타입 전용)
+ *
+ * 사용 예시
+ * ```ts
+ * // 1) 레시피 정의
+ * const buttonRecipe = cva({
+ *   base: { display: 'inline-flex', alignItems: 'center' },
+ *   variants: {
+ *     size: {
+ *       sm: { fontSize: 12, padding: '4px 8px' },
+ *       md: { fontSize: 14, padding: '6px 12px' },
+ *     },
+ *     tone: {
+ *       primary: { color: 'royalblue' },
+ *       ghost: { color: 'gray' },
+ *     },
+ *   },
+ *   defaultVariants: { size: 'sm', tone: 'primary' },
+ *   compoundVariants: [
+ *     { size: 'md', tone: 'primary', css: { fontWeight: 600 } },
+ *   ],
+ * });
+ *
+ * // 2) variant props 타입 추론
+ * type ButtonVariantProps = RecipeVariantProps<typeof buttonRecipe>;
+ * // => { size?: 'sm' | 'md'; tone?: 'primary' | 'ghost' }
+ *
+ * // 3) 컴포넌트에서 사용 (css prop 병합)
+ * function Button(props: ButtonVariantProps & { children: React.ReactNode }) {
+ *   const size = props.size ?? buttonRecipe.defaultVariants?.size ?? 'sm';
+ *   const tone = props.tone ?? buttonRecipe.defaultVariants?.tone ?? 'primary';
+ *   return (
+ *     <button
+ *       css={[
+ *         buttonRecipe.base,
+ *         buttonRecipe.variants.size[size],
+ *         buttonRecipe.variants.tone[tone],
+ *       ]}
+ *       {...props}
+ *     />
+ *   );
+ * }
+ * ```
+ */
+export function recipe<const TVariants extends RecipeVariantRecord>(
+  config: RecipeDefinition<TVariants>,
+): RecipeDefinition<TVariants> {
+  return config;
+}
 
-export type CvaVariants = {
-  [VariantKey: string]: {
-    [VariantValue: string]: CSSObject;
+/**
+ * cva 별칭 (recipe와 동일)
+ */
+/**
+ *
+ * 타입 헬퍼 함수
+ * ```ts
+ * const button = cva({
+ *   base: { display: 'inline-flex' },
+ *   variants: {
+ *     size: { sm: { fontSize: 12 }, md: { fontSize: 14 } },
+ *     tone: { primary: { color: 'royalblue' }, ghost: { color: 'gray' } },
+ *   },
+ *   defaultVariants: { size: 'sm', tone: 'primary' },
+ * });
+ *
+ * type ButtonVariantProps = RecipeVariantProps<typeof button>;
+ * // => { size?: 'sm' | 'md'; tone?: 'primary' | 'ghost' }
+ * ```
+ */
+export const cva = recipe;
+
+/* -----------------------------------------------------------------------------
+ * sva(slot recipe)용 타입
+ * -----------------------------------------------------------------------------*/
+
+/**
+ * slot별 스타일
+ *
+ * S = 'root' | 'icon' 이면
+ *   { root?: CSSObject; icon?: CSSObject }
+ */
+
+/**
+ * slot recipe variants:
+ *
+ * {
+ *   size: {
+ *     sm: { root: CSSObject; icon: CSSObject }
+ *     md: { ... }
+ *   }
+ *   tone: { ... }
+ * }
+ */
+
+export type SlotBaseStyleRecord<S extends string> = {
+  [Slot in S]: CSSObject; // required
+};
+
+export type SlotVariantStyleRecord<S extends string> = {
+  [Slot in S]?: CSSObject; // optional
+};
+export type SlotRecipeVariantRecord<S extends string> = {
+  [VariantName in string]: {
+    [VariantValue in string]: SlotVariantStyleRecord<S>;
   };
 };
 
-export interface CvaConfig<V extends CvaVariants> {
-  base?: CSSObject;
-  variants: V;
-  defaultVariants?: Partial<VariantProps<V>>;
-  compoundVariants?: Array<{
-    variants: Partial<VariantProps<V>>;
-    style: CSSObject;
-  }>;
+/**
+ * slot recipe용 compoundVariants
+ *
+ * {
+ *   size?: 'sm' | ['sm', 'md'];
+ *   tone?: 'primary';
+ *   css: { root?: CSSObject; icon?: CSSObject; ... }
+ * }
+ */
+export type SlotRecipeCompoundVariant<
+  S extends string,
+  TVariants extends SlotRecipeVariantRecord<S>,
+> = RecipeCompoundSelection<TVariants> & {
+  css: SlotVariantStyleRecord<S>;
+};
+
+/**
+ * sva용 recipe 정의 타입
+ *
+ * slotRecipe({
+ *   slots: ['root', 'list', 'trigger'] as const,
+ *   base: { root: {...}, list: {...}, ... },
+ *   variants: { ... },
+ *   defaultVariants: { ... },
+ *   compoundVariants: [...]
+ * })
+ */
+export interface SlotRecipeDefinition<
+  S extends string,
+  TVariants extends SlotRecipeVariantRecord<S>,
+> {
+  slots: readonly S[];
+  base: SlotBaseStyleRecord<S>;
+  deprecated?: boolean | string;
+  variants: TVariants;
+  defaultVariants?: RecipeSelection<TVariants>;
+  compoundVariants?: readonly SlotRecipeCompoundVariant<S, TVariants>[];
 }
 
-export interface CvaRecipe<V extends CvaVariants> {
-  (props?: VariantProps<V>): SerializedStyles;
-  raw: (props?: VariantProps<V>) => CSSObject;
-}
+/**
+ * sva:
+ * -  타입만 체크하고 config 그대로 리턴
+ */
 
-export function cva<V extends CvaVariants>(config: CvaConfig<V>): CvaRecipe<V> {
-  type Props = VariantProps<V>;
-
-  const variantKeys = Object.keys(config.variants) as (keyof V)[];
-
-  const resolve = (props?: Props): Props => ({
-    ...(config.defaultVariants ?? ({} as Props)),
-    ...(props ?? ({} as Props)),
-  });
-
-  const computeRaw = (props?: Props): CSSObject => {
-    const resolved = resolve(props);
-    let result: CSSObject = { ...(config.base ?? {}) };
-
-    // variants
-    for (const variantName of variantKeys) {
-      const value = resolved[variantName];
-      if (!value) continue;
-
-      const group = config.variants[variantName];
-      const style = group[value as keyof typeof group];
-      if (!style) continue;
-
-      result = mergeStyles(result, style);
-    }
-
-    // compoundVariants
-    if (config.compoundVariants) {
-      for (const cv of config.compoundVariants) {
-        let matched = true;
-
-        for (const key in cv.variants) {
-          const expected = cv.variants[key as keyof Props];
-          if (expected === undefined) continue;
-          if (resolved[key as keyof Props] !== expected) {
-            matched = false;
-            break;
-          }
-        }
-
-        if (!matched) continue;
-
-        result = mergeStyles(result, cv.style);
-      }
-    }
-
-    return result;
+type NormalizeSlotVariants<S extends string, TVariants extends SlotRecipeVariantRecord<S>> = {
+  [VN in keyof TVariants]: {
+    [VV in keyof TVariants[VN]]: SlotVariantStyleRecord<S>;
   };
-
-  const recipe: CvaRecipe<V> = ((props?: Props) => css(computeRaw(props))) as CvaRecipe<V>;
-
-  recipe.raw = computeRaw;
-
-  return recipe;
+};
+/**
+ * sva: 멀티 슬롯 컴포넌트 스타일 레시피 정의 헬퍼 (타입 전용)
+ *
+ * 사용 예시
+ * ```ts
+ * // 1) 레시피 정의
+ * const tabsRecipe = sva({
+ *   slots: ['root', 'list', 'trigger', 'indicator'] as const,
+ *   base: {
+ *     root: { display: 'flex', flexDirection: 'column' },
+ *     list: { display: 'flex', position: 'relative' },
+ *     trigger: { display: 'inline-flex' },
+ *     indicator: { position: 'absolute', borderBottomWidth: 1, borderBottomStyle: 'solid' },
+ *   },
+ *   variants: {
+ *     variant: {
+ *       header: {
+ *         list: { borderBottomWidth: 1, borderBottomStyle: 'solid' },
+ *         trigger: { padding: '6px 12px' },
+ *       },
+ *       content: {
+ *         list: { gap: 8 },
+ *         trigger: { padding: '8px 12px', border: '1px solid', borderRadius: 6 },
+ *         indicator: { display: 'none' },
+ *       },
+ *     },
+ *     isItemStretched: {
+ *       false: { list: { justifyContent: 'flex-start' }, trigger: { flex: 'initial' } },
+ *       true: { list: { justifyContent: 'space-around' }, trigger: { flex: 1 } },
+ *     },
+ *   },
+ *   defaultVariants: { variant: 'header', isItemStretched: false },
+ * });
+ *
+ * // 2) variant props 타입 추론
+ * type TabsVariantProps = RecipeVariantProps<typeof tabsRecipe>;
+ * // => { variant?: 'header' | 'content'; isItemStretched?: boolean }
+ *
+ * // 3) 컴포넌트에서 사용 (css prop 병합)
+ * function TabList(props: TabsVariantProps & React.ComponentProps<'div'>) {
+ *   const variant = props.variant ?? tabsRecipe.defaultVariants?.variant ?? 'header';
+ *   const stretch = (props.isItemStretched ?? tabsRecipe.defaultVariants?.isItemStretched ?? false) ? 'true' : 'false';
+ *   return (
+ *     <div
+ *       css={[
+ *         tabsRecipe.base.list,
+ *         tabsRecipe.variants.variant[variant].list,
+ *         tabsRecipe.variants.isItemStretched[stretch].list,
+ *       ]}
+ *       {...props}
+ *     />
+ *   );
+ * }
+ * ```
+ */
+export function slotRecipe<
+  const S extends string,
+  const TVariants extends SlotRecipeVariantRecord<S>,
+>(config: SlotRecipeDefinition<S, TVariants>) {
+  return config as unknown as SlotRecipeDefinition<S, NormalizeSlotVariants<S, TVariants>>;
 }
 
-// Matches vanilla-extract's RecipeVariants and PandaCSS's RecipeVariantProps
-export type RecipeVariants<R> = VariantPropsOf<R>;
-export type RecipeVariantProps<R> = VariantPropsOf<R>;
+/**
+ * sva: 멀티 슬롯 컴포넌트 스타일 레시피 헬퍼(별칭)
+ *
+ *
+ * 사용 예시
+ * ```ts
+ * const tabs = sva({
+ *   slots: ['root', 'list', 'trigger'] as const,
+ *   base: {
+ *     root: { display: 'flex' },
+ *     list: { display: 'flex', position: 'relative' },
+ *     trigger: { display: 'inline-flex' },
+ *   },
+ *   variants: {
+ *     variant: {
+ *       header: { list: { borderBottomWidth: 1 }, trigger: { padding: '6px 12px' } },
+ *       content: { list: { gap: 8 }, trigger: { padding: '8px 12px', borderRadius: 6 } },
+ *     },
+ *     isItemStretched: {
+ *       false: { list: { justifyContent: 'flex-start' }, trigger: { flex: 'initial' } },
+ *       true: { list: { justifyContent: 'space-around' }, trigger: { flex: 1 } },
+ *     },
+ *   },
+ *   defaultVariants: { variant: 'header', isItemStretched: false },
+ * });
+ *
+ * type TabsVariantProps = RecipeVariantProps<typeof tabs>;
+ * // => { variant?: 'header' | 'content'; isItemStretched?: boolean }
+ * ```
+ */
+export const sva = slotRecipe;
 
-// Extract slot union type from a recipe's raw() return type
-export type RecipeSlots<R> = R extends { raw: (props?: any) => Record<infer S extends string, any> }
-  ? S
+/* -----------------------------------------------------------------------------
+ * 공통: variant props 추론 유틸 (cva / sva 둘 다 지원)
+ * -----------------------------------------------------------------------------*/
+
+/**
+ * RecipeVariantProps
+ *
+ * variants의 타입을 추론하는 유틸리티 타입
+ *
+ * 예시 1) cva (단일 컴포넌트)
+ * ```ts
+ * const buttonRecipe = cva({
+ *   base: {},
+ *   variants: {
+ *     size: { sm: {}, md: {} },
+ *     tone: { primary: {}, ghost: {} },
+ *   },
+ *   defaultVariants: { size: 'sm', tone: 'primary' },
+ * });
+ *
+ * type ButtonVariantProps = RecipeVariantProps<typeof buttonRecipe>;
+ * // => { size?: 'sm' | 'md'; tone?: 'primary' | 'ghost' }
+ * ```
+ *
+ * 예시 2) sva (멀티 슬롯)
+ * ```ts
+ * const tabsRecipe = sva({
+ *   slots: ['root', 'list', 'trigger'] as const,
+ *   base: { root: {}, list: {}, trigger: {} },
+ *   variants: {
+ *     variant: {
+ *       header: { list: {}, trigger: {} },
+ *       content: { list: {}, trigger: {} },
+ *     },
+ *     isItemStretched: {
+ *       false: { list: {} },
+ *       true: { list: {}, trigger: {} },
+ *     },
+ *   },
+ *   defaultVariants: { variant: 'header', isItemStretched: false },
+ * });
+ *
+ * type TabsVariantProps = RecipeVariantProps<typeof tabsRecipe>;
+ * // => { variant?: 'header' | 'content'; isItemStretched?: boolean }
+ * ```
+ */
+export type RecipeVariantProps<T> = T extends { variants: infer TVariants }
+  ? TVariants extends VariantRecordLike
+    ? RecipeSelection<TVariants>
+    : never
   : never;
 
-// Extract the raw style map type from a recipe
-export type RecipeStyles<R> = R extends { raw: (props?: any) => infer M } ? M : never;
-
-// Generic extraction that accepts either a recipe runtime or a factory returning a recipe runtime
-type RuntimeFrom<T> = T extends (...args: any[]) => infer R
-  ? R extends (...args: any[]) => any
-    ? R
-    : T
-  : never;
-
-// Single entry-point alias (usage: RecipeVariant<typeof tabRecipe>)
-export type RecipeVariant<T> = VariantPropsOf<RuntimeFrom<T>>;
+/**
+ * 모든 variant를 required type으로 사용
+ *
+ * ```ts
+ * type ButtonVariant = RecipeVariant<typeof buttonRecipe>;
+ * ```
+ */
+export type RecipeVariant<T> = Required<RecipeVariantProps<T>>;
