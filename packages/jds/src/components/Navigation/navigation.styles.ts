@@ -4,6 +4,7 @@ import * as NavigationMenu from '@radix-ui/react-navigation-menu';
 import { pxToRem } from 'utils';
 
 import type { StyledNavigationWrapperProps } from './navigation.types';
+import { GetBlockButtonStyles } from '../Button/BlockButton/blockButton.styles';
 import { IconButton } from '../Button/IconButton';
 
 const navigationStyleMap = (theme: Theme) => ({
@@ -62,6 +63,7 @@ export const StyledNavigationRoot = styled(NavigationMenu.Root)(({ theme }) => (
 export const StyledNavigationList = styled(NavigationMenu.List)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
+
   gap: theme.scheme.semantic.spacing[32],
 
   [theme.breakPoint.mobile]: {
@@ -111,3 +113,19 @@ export const StyledTabletView = styled.span(({ theme }) => ({
     display: 'none',
   },
 }));
+
+export const StyledNavigationBlockLink = styled(NavigationMenu.Link)<{ $size: 'sm' | 'xs' }>(
+  ({ theme, $size }) => ({
+    textDecoration: 'none',
+    display: 'inline-flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: theme.scheme.semantic.spacing[4],
+    border: 'none',
+    cursor: 'pointer',
+    userSelect: 'none',
+    fontFamily: 'inherit',
+    ...GetBlockButtonStyles(theme, 'primary', $size, 'solid', false),
+  }),
+);

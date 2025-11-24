@@ -11,6 +11,7 @@ import {
   StyledMobileMenuButton,
   StyledDesktopView,
   StyledTabletView,
+  StyledNavigationBlockLink,
 } from './navigation.styles';
 import type {
   NavigationRootProps,
@@ -20,7 +21,6 @@ import type {
   NavigationLogoItemProps,
   NavigationLogoLinkProps,
 } from './navigation.types';
-import { BlockButton } from '../Button/BlockButton';
 import { LabelButton } from '../Button/LabelButton';
 import { Divider } from '../Divider';
 // TODO: 로컬 네비게이션 만들어야됌
@@ -81,21 +81,18 @@ NavigationToggleItem.displayName = 'Navigation.ToggleItem';
 
 const NavigationBlockItem = forwardRef<HTMLAnchorElement, NavigationBlockItemProps>(
   ({ children, href, ...props }, ref) => {
+    // TODO: BlockButton as props 지원과 같이 a 태그로 변환이 가능해지면 대체하기
     return (
       <NavigationMenu.Item>
         <StyledDesktopView>
-          <NavigationMenu.Link asChild href={href} ref={ref} {...props}>
-            <BlockButton.Basic hierarchy='primary' size='sm' variant='solid'>
-              {children}
-            </BlockButton.Basic>
-          </NavigationMenu.Link>
+          <StyledNavigationBlockLink href={href} ref={ref} $size='sm' {...props}>
+            {children}
+          </StyledNavigationBlockLink>
         </StyledDesktopView>
         <StyledTabletView>
-          <NavigationMenu.Link asChild href={href} {...props}>
-            <BlockButton.Basic hierarchy='primary' size='xs' variant='solid'>
-              {children}
-            </BlockButton.Basic>
-          </NavigationMenu.Link>
+          <StyledNavigationBlockLink href={href} $size='xs' {...props}>
+            {children}
+          </StyledNavigationBlockLink>
         </StyledTabletView>
       </NavigationMenu.Item>
     );

@@ -65,7 +65,7 @@ export const Default: Story = {
           <Navigation.ToggleItem>프로그램</Navigation.ToggleItem>
           <Navigation.ToggleItem>뉴스</Navigation.ToggleItem>
           <Navigation.ToggleItem>합류 가이드</Navigation.ToggleItem>
-          <Navigation.BlockItem href='/'>지원하기</Navigation.BlockItem>
+          <Navigation.BlockItem href='/apply'>지원하기</Navigation.BlockItem>
         </Navigation.List>
       </Navigation.Root>
     </div>
