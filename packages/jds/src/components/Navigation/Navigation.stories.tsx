@@ -65,28 +65,28 @@ export const Default: Story = {
         <Navigation.Divider />
         <Navigation.List>
           <Navigation.Item>
-            <Navigation.Trigger asChild>
+            <Navigation.Trigger>
               <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
                 젝트
               </LabelButton.Basic>
             </Navigation.Trigger>
           </Navigation.Item>
           <Navigation.Item>
-            <Navigation.Trigger asChild>
+            <Navigation.Trigger>
               <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
                 프로그램
               </LabelButton.Basic>
             </Navigation.Trigger>
           </Navigation.Item>
           <Navigation.Item>
-            <Navigation.Trigger asChild>
+            <Navigation.Trigger>
               <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
                 뉴스
               </LabelButton.Basic>
             </Navigation.Trigger>
           </Navigation.Item>
           <Navigation.Item>
-            <Navigation.Trigger asChild>
+            <Navigation.Trigger>
               <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
                 합류 가이드
               </LabelButton.Basic>
@@ -117,28 +117,28 @@ export const WithScrollVariant: Story = {
             <Navigation.Divider />
             <Navigation.List>
               <Navigation.Item>
-                <Navigation.Trigger asChild>
+                <Navigation.Trigger>
                   <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
                     젝트
                   </LabelButton.Basic>
                 </Navigation.Trigger>
               </Navigation.Item>
               <Navigation.Item>
-                <Navigation.Trigger asChild>
+                <Navigation.Trigger>
                   <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
                     프로그램
                   </LabelButton.Basic>
                 </Navigation.Trigger>
               </Navigation.Item>
               <Navigation.Item>
-                <Navigation.Trigger asChild>
+                <Navigation.Trigger>
                   <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
                     뉴스
                   </LabelButton.Basic>
                 </Navigation.Trigger>
               </Navigation.Item>
               <Navigation.Item>
-                <Navigation.Trigger asChild>
+                <Navigation.Trigger>
                   <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
                     합류 가이드
                   </LabelButton.Basic>
@@ -152,7 +152,10 @@ export const WithScrollVariant: Story = {
             </Navigation.List>
           </Navigation.Root>
         </div>
-        <p style={{ textAlign: 'center' }}>스크롤하여 variant 변경을 확인하세요</p>
+        <p style={{ textAlign: 'center' }}>
+          useNavigationVariant 훅을 사용하여 스크롤 위치에 따라 variant가 자동으로 변경됩니다.{' '}
+          <br /> 스크롤하여 variant 변경을 확인하세요
+        </p>
       </div>
     );
   },
@@ -176,42 +179,43 @@ export const Viewport: Story = {
         </Navigation.LogoItem>
         <Navigation.List>
           <Navigation.Item>
-            <Navigation.Trigger asChild>
+            <Navigation.Trigger>
               <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
                 젝트
               </LabelButton.Basic>
             </Navigation.Trigger>
           </Navigation.Item>
           <Navigation.Item>
-            <Navigation.Trigger asChild>
+            <Navigation.Trigger>
               <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
                 프로그램
               </LabelButton.Basic>
             </Navigation.Trigger>
           </Navigation.Item>
           <Navigation.Item>
-            <Navigation.Trigger asChild>
+            <Navigation.Trigger>
               <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
                 뉴스
               </LabelButton.Basic>
             </Navigation.Trigger>
           </Navigation.Item>
           <Navigation.Item>
-            <Navigation.Trigger asChild>
+            <Navigation.Trigger>
               <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
                 합류 가이드
               </LabelButton.Basic>
             </Navigation.Trigger>
           </Navigation.Item>
           <Navigation.Item>
-            <Navigation.Link href='/apply' asChild>
-              <BlockButton.Basic hierarchy='primary' size='sm'>
-                지원하기
-              </BlockButton.Basic>
-            </Navigation.Link>
+            <BlockButton.Basic hierarchy='primary' size='sm' onClick={() => alert('hello!')}>
+              지원하기
+            </BlockButton.Basic>
           </Navigation.Item>
         </Navigation.List>
       </Navigation.Root>
+      <p style={{ textAlign: 'center', paddingTop: '100px' }}>
+        viewport를 변경하여 네비게이션 스타일을 확인하세요
+      </p>
     </div>
   ),
   parameters: {
@@ -240,39 +244,37 @@ export const WithThemeSwitcher: Story = {
           </Navigation.LogoItem>
           <Navigation.List>
             <Navigation.Item>
-              <Navigation.Trigger asChild>
+              <Navigation.Trigger>
                 <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
                   젝트
                 </LabelButton.Basic>
               </Navigation.Trigger>
             </Navigation.Item>
             <Navigation.Item>
-              <Navigation.Trigger asChild>
+              <Navigation.Trigger>
                 <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
                   프로그램
                 </LabelButton.Basic>
               </Navigation.Trigger>
             </Navigation.Item>
             <Navigation.Item>
-              <Navigation.Trigger asChild>
+              <Navigation.Trigger>
                 <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
                   뉴스
                 </LabelButton.Basic>
               </Navigation.Trigger>
             </Navigation.Item>
             <Navigation.Item>
-              <Navigation.Trigger asChild>
+              <Navigation.Trigger>
                 <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
                   합류 가이드
                 </LabelButton.Basic>
               </Navigation.Trigger>
             </Navigation.Item>
             <Navigation.Item>
-              <Navigation.Link href='/apply' asChild>
-                <BlockButton.Basic hierarchy='primary' size='sm'>
-                  지원하기
-                </BlockButton.Basic>
-              </Navigation.Link>
+              <BlockButton.Basic hierarchy='primary' size='sm' onClick={() => alert('hello!')}>
+                지원하기
+              </BlockButton.Basic>
             </Navigation.Item>
           </Navigation.List>
           <div style={{ width: '160px' }}>
@@ -282,6 +284,10 @@ export const WithThemeSwitcher: Story = {
             </SegmentedControl.Root>
           </div>
         </Navigation.Root>
+        <p style={{ textAlign: 'center', paddingTop: '100px' }}>
+          SegmentedControl을 조합하여 테마 스위처를 포함한 내비게이션입니다. <br /> 세그먼트를
+          선택하면 실제로 테마가 변경됩니다.
+        </p>
       </div>
     );
   },
@@ -322,7 +328,7 @@ export const WithContent: Story = {
 
         <Navigation.List>
           <Navigation.Item>
-            <Navigation.Trigger asChild>
+            <Navigation.Trigger>
               <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
                 서비스
               </LabelButton.Basic>
@@ -333,7 +339,7 @@ export const WithContent: Story = {
           </Navigation.Item>
 
           <Navigation.Item>
-            <Navigation.Trigger asChild>
+            <Navigation.Trigger>
               <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
                 프로그램
               </LabelButton.Basic>
@@ -344,7 +350,7 @@ export const WithContent: Story = {
           </Navigation.Item>
 
           <Navigation.Item>
-            <Navigation.Trigger asChild>
+            <Navigation.Trigger>
               <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
                 뉴스
               </LabelButton.Basic>
@@ -355,7 +361,7 @@ export const WithContent: Story = {
           </Navigation.Item>
 
           <Navigation.Item>
-            <Navigation.Trigger asChild>
+            <Navigation.Trigger>
               <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
                 합류 가이드
               </LabelButton.Basic>
@@ -366,14 +372,16 @@ export const WithContent: Story = {
           </Navigation.Item>
 
           <Navigation.Item>
-            <Navigation.Link href='/apply' asChild>
-              <BlockButton.Basic hierarchy='primary' size='sm'>
-                지원하기
-              </BlockButton.Basic>
-            </Navigation.Link>
+            <BlockButton.Basic hierarchy='primary' size='sm' onClick={() => alert('hello!')}>
+              지원하기
+            </BlockButton.Basic>
           </Navigation.Item>
         </Navigation.List>
       </Navigation.Root>
+      <p style={{ textAlign: 'center', paddingTop: '100px' }}>
+        `Navigation.Content`를 사용하여 토글 메뉴에 드롭다운 패널을 구성한 예시입니다. <br />
+        Navigation.Content는 드롭다운 패널의 위치를 조정합니다.
+      </p>
     </div>
   ),
   args: {
@@ -382,8 +390,7 @@ export const WithContent: Story = {
   parameters: {
     docs: {
       description: {
-        story:
-          '`Navigation.Content`를 사용하여 토글 메뉴에 드롭다운 패널을 구성한 예시입니다. LabelButton과 BlockButton을 외부에서 조합하여 사용합니다.',
+        story: '`Navigation.Content`를 사용하여 토글 메뉴에 드롭다운 패널을 구성한 예시입니다.',
       },
     },
   },

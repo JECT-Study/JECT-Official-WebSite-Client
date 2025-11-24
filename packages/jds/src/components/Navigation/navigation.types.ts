@@ -3,30 +3,29 @@ import type { ComponentPropsWithoutRef, ReactNode } from 'react';
 
 export type NavigationVariant = 'empty' | 'solid';
 
-export interface NavigationRootProps extends ComponentPropsWithoutRef<typeof NavigationMenu.Root> {
+export interface NavigationRootProps extends NavigationMenu.NavigationMenuProps {
   variant?: NavigationVariant;
 }
 
-export type NavigationListProps = ComponentPropsWithoutRef<typeof NavigationMenu.List>;
+export type NavigationListProps = NavigationMenu.NavigationMenuListProps;
 
-export interface NavigationToggleItemProps
-  extends ComponentPropsWithoutRef<typeof NavigationMenu.Item> {
+export interface NavigationToggleItemProps extends NavigationMenu.NavigationMenuItemProps {
   label?: ReactNode;
 }
 
-export interface NavigationBlockItemProps
-  extends ComponentPropsWithoutRef<typeof NavigationMenu.Link> {
+export interface NavigationBlockItemProps extends NavigationMenu.NavigationMenuLinkProps {
   href: string;
 }
 
-export type NavigationMenuContentProps = ComponentPropsWithoutRef<typeof NavigationMenu.Content>;
+export type NavigationTriggerProps = NavigationMenu.NavigationMenuTriggerProps;
+
+export type NavigationMenuContentProps = NavigationMenu.NavigationMenuContentProps;
 
 export interface NavigationLogoItemProps extends ComponentPropsWithoutRef<'div'> {
   children?: ReactNode;
 }
 
-export interface NavigationLogoLinkProps
-  extends ComponentPropsWithoutRef<typeof NavigationMenu.Link> {
+export interface NavigationLogoLinkProps extends NavigationMenu.NavigationMenuLinkProps {
   children?: ReactNode;
   href: string;
 }

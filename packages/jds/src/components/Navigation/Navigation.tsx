@@ -17,6 +17,7 @@ import type {
   NavigationLogoItemProps,
   NavigationLogoLinkProps,
   NavigationMenuContentProps,
+  NavigationTriggerProps,
 } from './navigation.types';
 import { Divider } from '../Divider';
 
@@ -52,7 +53,12 @@ NavigationList.displayName = 'Navigation.List';
 const NavigationItem = NavigationMenu.Item;
 NavigationItem.displayName = 'Navigation.Item';
 
-const NavigationTrigger = NavigationMenu.Trigger;
+const NavigationTrigger = forwardRef<HTMLButtonElement, NavigationTriggerProps>(
+  ({ asChild = true, ...props }, ref) => {
+    return <NavigationMenu.Trigger ref={ref} asChild={asChild} {...props} />;
+  },
+);
+
 NavigationTrigger.displayName = 'Navigation.Trigger';
 
 const NavigationLink = NavigationMenu.Link;
