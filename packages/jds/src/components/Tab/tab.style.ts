@@ -70,7 +70,7 @@ export const tabStyles = sva({
     content: {},
     indicator: {
       position: 'absolute',
-      borderBottomWidth: theme.scheme.semantic.strokeWeight[1],
+      borderBottomWidth: theme.scheme.semantic.strokeWeight[2],
       borderBottomStyle: 'solid',
       borderBottomColor: theme.color.semantic.stroke.bold,
       zIndex: 10,
