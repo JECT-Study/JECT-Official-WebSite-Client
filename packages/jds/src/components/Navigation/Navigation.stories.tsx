@@ -2,6 +2,8 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { Navigation } from './Navigation';
 import { useNavigationVariant } from './useNavigationVariant';
+import { BlockButton } from '../Button/BlockButton';
+import { LabelButton } from '../Button/LabelButton';
 import { Logo } from '../Logo';
 import { SegmentedControl } from '../SegmentedControl';
 
@@ -60,12 +62,41 @@ export const Default: Story = {
         <Navigation.LogoItem>
           <Logo href='/' hierarchy='primary' height={16} />
         </Navigation.LogoItem>
+        <Navigation.Divider />
         <Navigation.List>
-          <Navigation.ToggleItem>젝트</Navigation.ToggleItem>
-          <Navigation.ToggleItem>프로그램</Navigation.ToggleItem>
-          <Navigation.ToggleItem>뉴스</Navigation.ToggleItem>
-          <Navigation.ToggleItem>합류 가이드</Navigation.ToggleItem>
-          <Navigation.BlockItem href='/apply'>지원하기</Navigation.BlockItem>
+          <Navigation.Item>
+            <Navigation.Trigger asChild>
+              <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+                젝트
+              </LabelButton.Basic>
+            </Navigation.Trigger>
+          </Navigation.Item>
+          <Navigation.Item>
+            <Navigation.Trigger asChild>
+              <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+                프로그램
+              </LabelButton.Basic>
+            </Navigation.Trigger>
+          </Navigation.Item>
+          <Navigation.Item>
+            <Navigation.Trigger asChild>
+              <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+                뉴스
+              </LabelButton.Basic>
+            </Navigation.Trigger>
+          </Navigation.Item>
+          <Navigation.Item>
+            <Navigation.Trigger asChild>
+              <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+                합류 가이드
+              </LabelButton.Basic>
+            </Navigation.Trigger>
+          </Navigation.Item>
+          <Navigation.Item>
+            <BlockButton.Basic hierarchy='primary' size='sm' onClick={() => alert('hello!')}>
+              지원하기
+            </BlockButton.Basic>
+          </Navigation.Item>
         </Navigation.List>
       </Navigation.Root>
     </div>
@@ -83,12 +114,41 @@ export const WithScrollVariant: Story = {
             <Navigation.LogoItem>
               <Logo href='/' hierarchy='primary' height={16} />
             </Navigation.LogoItem>
+            <Navigation.Divider />
             <Navigation.List>
-              <Navigation.ToggleItem>젝트</Navigation.ToggleItem>
-              <Navigation.ToggleItem>프로그램</Navigation.ToggleItem>
-              <Navigation.ToggleItem>뉴스</Navigation.ToggleItem>
-              <Navigation.ToggleItem>합류 가이드</Navigation.ToggleItem>
-              <Navigation.BlockItem href='/apply'>지원하기</Navigation.BlockItem>
+              <Navigation.Item>
+                <Navigation.Trigger asChild>
+                  <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+                    젝트
+                  </LabelButton.Basic>
+                </Navigation.Trigger>
+              </Navigation.Item>
+              <Navigation.Item>
+                <Navigation.Trigger asChild>
+                  <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+                    프로그램
+                  </LabelButton.Basic>
+                </Navigation.Trigger>
+              </Navigation.Item>
+              <Navigation.Item>
+                <Navigation.Trigger asChild>
+                  <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+                    뉴스
+                  </LabelButton.Basic>
+                </Navigation.Trigger>
+              </Navigation.Item>
+              <Navigation.Item>
+                <Navigation.Trigger asChild>
+                  <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+                    합류 가이드
+                  </LabelButton.Basic>
+                </Navigation.Trigger>
+              </Navigation.Item>
+              <Navigation.Item>
+                <BlockButton.Basic hierarchy='primary' size='sm' onClick={() => alert('hello!')}>
+                  지원하기
+                </BlockButton.Basic>
+              </Navigation.Item>
             </Navigation.List>
           </Navigation.Root>
         </div>
@@ -107,7 +167,7 @@ export const WithScrollVariant: Story = {
   },
 };
 
-export const Desktop: Story = {
+export const Viewport: Story = {
   render: args => (
     <div style={{ position: 'fixed', top: 0, left: 0, right: 0 }}>
       <Navigation.Root variant={args.variant}>
@@ -115,41 +175,41 @@ export const Desktop: Story = {
           <Logo href='/' hierarchy='primary' height={16} />
         </Navigation.LogoItem>
         <Navigation.List>
-          <Navigation.ToggleItem>젝트</Navigation.ToggleItem>
-          <Navigation.ToggleItem>프로그램</Navigation.ToggleItem>
-          <Navigation.ToggleItem>뉴스</Navigation.ToggleItem>
-          <Navigation.ToggleItem>합류 가이드</Navigation.ToggleItem>
-          <Navigation.BlockItem href='/apply'>지원하기</Navigation.BlockItem>
-        </Navigation.List>
-      </Navigation.Root>
-    </div>
-  ),
-  parameters: {
-    viewport: {
-      defaultViewport: 'desktop',
-    },
-    docs: {
-      description: {
-        story:
-          '데스크톱 화면에서의 내비게이션입니다. LabelButton size는 md, BlockButton size는 sm입니다.',
-      },
-    },
-  },
-};
-
-export const Tablet: Story = {
-  render: args => (
-    <div style={{ position: 'fixed', top: 0, left: 0, right: 0 }}>
-      <Navigation.Root variant={args.variant}>
-        <Navigation.LogoItem>
-          <Logo href='/' hierarchy='primary' height={16} />
-        </Navigation.LogoItem>
-        <Navigation.List>
-          <Navigation.ToggleItem>젝트</Navigation.ToggleItem>
-          <Navigation.ToggleItem>프로그램</Navigation.ToggleItem>
-          <Navigation.ToggleItem>뉴스</Navigation.ToggleItem>
-          <Navigation.ToggleItem>합류 가이드</Navigation.ToggleItem>
-          <Navigation.BlockItem href='/apply'>지원하기</Navigation.BlockItem>
+          <Navigation.Item>
+            <Navigation.Trigger asChild>
+              <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+                젝트
+              </LabelButton.Basic>
+            </Navigation.Trigger>
+          </Navigation.Item>
+          <Navigation.Item>
+            <Navigation.Trigger asChild>
+              <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+                프로그램
+              </LabelButton.Basic>
+            </Navigation.Trigger>
+          </Navigation.Item>
+          <Navigation.Item>
+            <Navigation.Trigger asChild>
+              <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+                뉴스
+              </LabelButton.Basic>
+            </Navigation.Trigger>
+          </Navigation.Item>
+          <Navigation.Item>
+            <Navigation.Trigger asChild>
+              <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+                합류 가이드
+              </LabelButton.Basic>
+            </Navigation.Trigger>
+          </Navigation.Item>
+          <Navigation.Item>
+            <Navigation.Link href='/apply' asChild>
+              <BlockButton.Basic hierarchy='primary' size='sm'>
+                지원하기
+              </BlockButton.Basic>
+            </Navigation.Link>
+          </Navigation.Item>
         </Navigation.List>
       </Navigation.Root>
     </div>
@@ -160,38 +220,7 @@ export const Tablet: Story = {
     },
     docs: {
       description: {
-        story:
-          '태블릿 화면에서의 내비게이션입니다. LabelButton size는 xs, BlockButton size는 xs입니다.',
-      },
-    },
-  },
-};
-
-export const Mobile: Story = {
-  render: args => (
-    <div style={{ position: 'fixed', top: 0, left: 0, right: 0 }}>
-      <Navigation.Root variant={args.variant}>
-        <Navigation.LogoItem>
-          <Logo href='/' hierarchy='primary' height={16} />
-        </Navigation.LogoItem>
-        <Navigation.List>
-          <Navigation.ToggleItem>젝트</Navigation.ToggleItem>
-          <Navigation.ToggleItem>프로그램</Navigation.ToggleItem>
-          <Navigation.ToggleItem>뉴스</Navigation.ToggleItem>
-          <Navigation.ToggleItem>합류 가이드</Navigation.ToggleItem>
-          <Navigation.BlockItem href='/apply'>지원하기</Navigation.BlockItem>
-        </Navigation.List>
-      </Navigation.Root>
-    </div>
-  ),
-  parameters: {
-    viewport: {
-      defaultViewport: 'mobile',
-    },
-    docs: {
-      description: {
-        story:
-          '모바일 화면에서의 내비게이션입니다. 메뉴 아이템 대신 햄버거 메뉴 아이콘이 표시됩니다.',
+        story: 'desktop, tablet, mobile viewport에 따라 네비게이션의 스타일이 달라집니다.',
       },
     },
   },
@@ -210,11 +239,41 @@ export const WithThemeSwitcher: Story = {
             <Logo href='/' hierarchy='primary' height={16} />
           </Navigation.LogoItem>
           <Navigation.List>
-            <Navigation.ToggleItem>젝트</Navigation.ToggleItem>
-            <Navigation.ToggleItem>프로그램</Navigation.ToggleItem>
-            <Navigation.ToggleItem>뉴스</Navigation.ToggleItem>
-            <Navigation.ToggleItem>합류 가이드</Navigation.ToggleItem>
-            <Navigation.BlockItem href='/apply'>지원하기</Navigation.BlockItem>
+            <Navigation.Item>
+              <Navigation.Trigger asChild>
+                <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+                  젝트
+                </LabelButton.Basic>
+              </Navigation.Trigger>
+            </Navigation.Item>
+            <Navigation.Item>
+              <Navigation.Trigger asChild>
+                <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+                  프로그램
+                </LabelButton.Basic>
+              </Navigation.Trigger>
+            </Navigation.Item>
+            <Navigation.Item>
+              <Navigation.Trigger asChild>
+                <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+                  뉴스
+                </LabelButton.Basic>
+              </Navigation.Trigger>
+            </Navigation.Item>
+            <Navigation.Item>
+              <Navigation.Trigger asChild>
+                <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+                  합류 가이드
+                </LabelButton.Basic>
+              </Navigation.Trigger>
+            </Navigation.Item>
+            <Navigation.Item>
+              <Navigation.Link href='/apply' asChild>
+                <BlockButton.Basic hierarchy='primary' size='sm'>
+                  지원하기
+                </BlockButton.Basic>
+              </Navigation.Link>
+            </Navigation.Item>
           </Navigation.List>
           <div style={{ width: '160px' }}>
             <SegmentedControl.Root defaultValue='light' size='xs' onValueChange={handleThemeChange}>
@@ -239,31 +298,92 @@ export const WithThemeSwitcher: Story = {
   },
 };
 
-export const WithLogoLink: Story = {
+const TempNavigationContent = () => {
+  return (
+    <div
+      style={{
+        width: '922px',
+        height: '424px',
+        border: '1px solid #ECEDF9',
+        borderRadius: '10px',
+        background: '#ECEDF9',
+      }}
+    />
+  );
+};
+
+export const WithContent: Story = {
   render: args => (
     <div style={{ position: 'fixed', top: 0, left: 0, right: 0 }}>
       <Navigation.Root variant={args.variant}>
-        <Navigation.LogoLink href='/'>
-          <Logo hierarchy='primary' height={16} />
-        </Navigation.LogoLink>
+        <Navigation.LogoItem>
+          <Logo href='/' hierarchy='primary' height={16} />
+        </Navigation.LogoItem>
+
         <Navigation.List>
-          <Navigation.ToggleItem>젝트</Navigation.ToggleItem>
-          <Navigation.ToggleItem>프로그램</Navigation.ToggleItem>
-          <Navigation.ToggleItem>뉴스</Navigation.ToggleItem>
-          <Navigation.ToggleItem>합류 가이드</Navigation.ToggleItem>
-          <Navigation.BlockItem href='/apply'>지원하기</Navigation.BlockItem>
+          <Navigation.Item>
+            <Navigation.Trigger asChild>
+              <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+                서비스
+              </LabelButton.Basic>
+            </Navigation.Trigger>
+            <Navigation.Content>
+              <TempNavigationContent />
+            </Navigation.Content>
+          </Navigation.Item>
+
+          <Navigation.Item>
+            <Navigation.Trigger asChild>
+              <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+                프로그램
+              </LabelButton.Basic>
+            </Navigation.Trigger>
+            <Navigation.Content>
+              <TempNavigationContent />
+            </Navigation.Content>
+          </Navigation.Item>
+
+          <Navigation.Item>
+            <Navigation.Trigger asChild>
+              <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+                뉴스
+              </LabelButton.Basic>
+            </Navigation.Trigger>
+            <Navigation.Content>
+              <TempNavigationContent />
+            </Navigation.Content>
+          </Navigation.Item>
+
+          <Navigation.Item>
+            <Navigation.Trigger asChild>
+              <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+                합류 가이드
+              </LabelButton.Basic>
+            </Navigation.Trigger>
+            <Navigation.Content>
+              <TempNavigationContent />
+            </Navigation.Content>
+          </Navigation.Item>
+
+          <Navigation.Item>
+            <Navigation.Link href='/apply' asChild>
+              <BlockButton.Basic hierarchy='primary' size='sm'>
+                지원하기
+              </BlockButton.Basic>
+            </Navigation.Link>
+          </Navigation.Item>
         </Navigation.List>
       </Navigation.Root>
     </div>
   ),
   args: {
-    variant: 'solid',
+    variant: 'empty',
   },
   parameters: {
     docs: {
       description: {
         story:
-          'Navigation.LogoLink를 사용하여 로고(div)를 클릭 가능한 링크로 만든 내비게이션입니다. NavigationMenu.Link를 사용하여 적절한 ARIA 속성을 제공합니다.',
+          '`Navigation.Content`를 사용하여 토글 메뉴에 드롭다운 패널을 구성한 예시입니다. LabelButton과 BlockButton을 외부에서 조합하여 사용합니다.',
       },
     },
   },

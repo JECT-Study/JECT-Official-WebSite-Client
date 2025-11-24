@@ -4,7 +4,6 @@ import * as NavigationMenu from '@radix-ui/react-navigation-menu';
 import { pxToRem } from 'utils';
 
 import type { StyledNavigationWrapperProps } from './navigation.types';
-import { GetBlockButtonStyles } from '../Button/BlockButton/blockButton.styles';
 import { IconButton } from '../Button/IconButton';
 
 const navigationStyleMap = (theme: Theme) => ({
@@ -43,6 +42,7 @@ export const StyledNavigationWrapper = styled.div<StyledNavigationWrapperProps>(
 );
 
 export const StyledNavigationRoot = styled(NavigationMenu.Root)(({ theme }) => ({
+  position: 'relative',
   display: 'flex',
   justifyContent: 'left',
   alignItems: 'center',
@@ -60,10 +60,22 @@ export const StyledNavigationRoot = styled(NavigationMenu.Root)(({ theme }) => (
   },
 }));
 
+export const StyledNavigationListWrapper = styled.div`
+  display: flex;
+  flex: 1;
+
+  & > div {
+    position: static !important;
+  }
+
+  ${props => props.theme.breakPoint.mobile} {
+    justify-content: flex-end;
+  }
+`;
+
 export const StyledNavigationList = styled(NavigationMenu.List)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
-
   gap: theme.scheme.semantic.spacing[32],
 
   [theme.breakPoint.mobile]: {
@@ -72,16 +84,11 @@ export const StyledNavigationList = styled(NavigationMenu.List)(({ theme }) => (
   },
 }));
 
-export const StyledNavigationListWrapper = styled.div(() => ({
-  flex: 1,
-}));
-
 export const StyledMobileMenuButton = styled(IconButton.Basic)(({ theme }) => ({
   display: 'none',
 
   [theme.breakPoint.mobile]: {
-    display: 'flex',
-    justifyContent: 'flex-end',
+    display: 'inline-block',
   },
 }));
 
@@ -94,38 +101,11 @@ export const StyledDividerWrapper = styled.div(() => ({
   height: pxToRem(16),
 }));
 
-export const StyledDesktopView = styled.span(({ theme }) => ({
-  display: 'inline-flex',
-
-  [theme.breakPoint.tablet]: {
-    display: 'none',
-  },
-}));
-
-export const StyledTabletView = styled.span(({ theme }) => ({
-  display: 'none',
-
-  [theme.breakPoint.tablet]: {
-    display: 'inline-flex',
-  },
-
-  [theme.breakPoint.mobile]: {
-    display: 'none',
-  },
-}));
-
-export const StyledNavigationBlockLink = styled(NavigationMenu.Link)<{ $size: 'sm' | 'xs' }>(
-  ({ theme, $size }) => ({
-    textDecoration: 'none',
-    display: 'inline-flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: theme.scheme.semantic.spacing[4],
-    border: 'none',
-    cursor: 'pointer',
-    userSelect: 'none',
-    fontFamily: 'inherit',
-    ...GetBlockButtonStyles(theme, 'primary', $size, 'solid', false),
-  }),
-);
+export const StyledNavigationContent = styled(NavigationMenu.Content)(() => {
+  return {
+    position: 'absolute' as const,
+    top: '100%',
+    left: 0,
+    marginTop: '8px',
+  };
+});

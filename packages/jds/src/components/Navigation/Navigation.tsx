@@ -9,21 +9,16 @@ import {
   StyledNavigationListWrapper,
   StyledDividerWrapper,
   StyledMobileMenuButton,
-  StyledDesktopView,
-  StyledTabletView,
-  StyledNavigationBlockLink,
+  StyledNavigationContent,
 } from './navigation.styles';
 import type {
   NavigationRootProps,
   NavigationListProps,
-  NavigationToggleItemProps,
-  NavigationBlockItemProps,
   NavigationLogoItemProps,
   NavigationLogoLinkProps,
+  NavigationMenuContentProps,
 } from './navigation.types';
-import { LabelButton } from '../Button/LabelButton';
 import { Divider } from '../Divider';
-// TODO: 로컬 네비게이션 만들어야됌
 
 const NavigationRoot = forwardRef<HTMLElement, NavigationRootProps>(
   ({ children, variant = 'empty', ...props }, ref) => {
@@ -54,64 +49,29 @@ const NavigationList = forwardRef<HTMLUListElement, NavigationListProps>(
 
 NavigationList.displayName = 'Navigation.List';
 
-const NavigationToggleItem = forwardRef<HTMLLIElement, NavigationToggleItemProps>(
-  ({ children, ...props }, ref) => {
-    return (
-      <NavigationMenu.Item ref={ref} {...props}>
-        <StyledDesktopView>
-          <NavigationMenu.Trigger asChild>
-            <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
-              {children}
-            </LabelButton.Basic>
-          </NavigationMenu.Trigger>
-        </StyledDesktopView>
-        <StyledTabletView>
-          <NavigationMenu.Trigger asChild>
-            <LabelButton.Basic hierarchy='primary' size='xs' suffixIcon='arrow-down-s-line'>
-              {children}
-            </LabelButton.Basic>
-          </NavigationMenu.Trigger>
-        </StyledTabletView>
-      </NavigationMenu.Item>
-    );
-  },
-);
+const NavigationItem = NavigationMenu.Item;
+NavigationItem.displayName = 'Navigation.Item';
 
-NavigationToggleItem.displayName = 'Navigation.ToggleItem';
+const NavigationTrigger = NavigationMenu.Trigger;
+NavigationTrigger.displayName = 'Navigation.Trigger';
 
-const NavigationBlockItem = forwardRef<HTMLAnchorElement, NavigationBlockItemProps>(
-  ({ children, href, ...props }, ref) => {
-    // TODO: BlockButton as props 지원과 같이 a 태그로 변환이 가능해지면 대체하기
-    return (
-      <NavigationMenu.Item>
-        <StyledDesktopView>
-          <StyledNavigationBlockLink href={href} ref={ref} $size='sm' {...props}>
-            {children}
-          </StyledNavigationBlockLink>
-        </StyledDesktopView>
-        <StyledTabletView>
-          <StyledNavigationBlockLink href={href} $size='xs' {...props}>
-            {children}
-          </StyledNavigationBlockLink>
-        </StyledTabletView>
-      </NavigationMenu.Item>
-    );
-  },
-);
+const NavigationLink = NavigationMenu.Link;
+NavigationLink.displayName = 'Navigation.Link';
 
-NavigationBlockItem.displayName = 'Navigation.BlockItem';
+const NavigationDivider = () => {
+  return (
+    <StyledDividerWrapper>
+      <Divider thickness='normal' orientation='vertical' variant='solid' />
+    </StyledDividerWrapper>
+  );
+};
 
 const NavigationLogoLink = forwardRef<HTMLAnchorElement, NavigationLogoLinkProps>(
   ({ children, href, ...props }, ref) => {
     return (
-      <>
-        <StyledNavigationLogoLink href={href} ref={ref} {...props}>
-          {children}
-        </StyledNavigationLogoLink>
-        <StyledDividerWrapper>
-          <Divider thickness='normal' orientation='vertical' variant='solid' />
-        </StyledDividerWrapper>
-      </>
+      <StyledNavigationLogoLink href={href} ref={ref} {...props}>
+        {children}
+      </StyledNavigationLogoLink>
     );
   },
 );
@@ -121,25 +81,35 @@ NavigationLogoLink.displayName = 'Navigation.LogoLink';
 const NavigationLogoItem = forwardRef<HTMLDivElement, NavigationLogoItemProps>(
   ({ children, ...props }, ref) => {
     return (
-      <>
-        <div ref={ref} {...props}>
-          {children}
-        </div>
-        <StyledDividerWrapper>
-          <Divider thickness='normal' orientation='vertical' variant='solid' />
-        </StyledDividerWrapper>
-      </>
+      <div ref={ref} {...props}>
+        {children}
+      </div>
     );
   },
 );
 
 NavigationLogoItem.displayName = 'Navigation.LogoItem';
 
+const NavigationContent = forwardRef<HTMLDivElement, NavigationMenuContentProps>(
+  ({ children, ...props }, ref) => {
+    return (
+      <StyledNavigationContent ref={ref} {...props}>
+        {children}
+      </StyledNavigationContent>
+    );
+  },
+);
+
+NavigationContent.displayName = 'Navigation.Content';
+
 export const Navigation = {
   Root: NavigationRoot,
   List: NavigationList,
-  ToggleItem: NavigationToggleItem,
-  BlockItem: NavigationBlockItem,
+  Item: NavigationItem,
+  Trigger: NavigationTrigger,
+  Link: NavigationLink,
   LogoItem: NavigationLogoItem,
   LogoLink: NavigationLogoLink,
+  Divider: NavigationDivider,
+  Content: NavigationContent,
 };
