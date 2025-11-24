@@ -1,9 +1,9 @@
-{
+export default {
   "printWidth": 100,
   "tabWidth": 2,
   "trailingComma": "all",
-  "singleQuote": true,
-  "jsxSingleQuote": true,
+  "singleQuote": false,
+  "jsxSingleQuote": false,
   "arrowParens": "avoid",
   "semi": true
 }
