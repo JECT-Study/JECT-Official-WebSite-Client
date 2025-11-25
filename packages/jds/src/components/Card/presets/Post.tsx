@@ -28,7 +28,7 @@ interface PostContentProps {
 
 const PostContent = ({ layout, image, title, body, author, date }: PostContentProps) => (
   <>
-    {image && <CardImage src={image.src} alt={image.alt} />}
+    {layout === 'vertical' && image && <CardImage src={image.src} alt={image.alt} />}
     <CardContent>
       <CardTitle>{title}</CardTitle>
       <CardBody>{body}</CardBody>
@@ -40,6 +40,7 @@ const PostContent = ({ layout, image, title, body, author, date }: PostContentPr
         </CardMetaNudgeItem>
       </CardMeta>
     </CardContent>
+    {layout === 'horizontal' && image && <CardImage src={image.src} alt={image.alt} />}
   </>
 );
 

@@ -188,7 +188,8 @@ export const StyledCardImageContainer = styled.div<{
       flexShrink: 0,
       overflow: 'hidden',
       borderRadius: 0,
-      width: $layout === 'vertical' ? '100%' : 'auto',
+      width: $layout === 'vertical' ? '100%' : pxToRem(80),
+      height: $layout === 'horizontal' ? pxToRem(80) : 'auto',
     };
   }
 
@@ -229,17 +230,17 @@ export const StyledCardContent = styled.div<{
   const styleMap = {
     plate: {
       vertical: {
-        maxHeight: pxToRem(233),
         padding: theme.scheme.semantic.spacing[20],
         gap: theme.scheme.semantic.spacing[16],
         alignSelf: 'stretch' as const,
+        borderTop: `1px solid ${theme.color.semantic.stroke.alpha.subtler}`,
       },
       horizontal: {
-        maxHeight: pxToRem(233),
         padding: theme.scheme.semantic.spacing[20],
         gap: theme.scheme.semantic.spacing[16],
         flex: '1 0 0',
         alignSelf: 'stretch' as const,
+        borderLeft: `1px solid ${theme.color.semantic.stroke.alpha.subtler}`,
       },
     },
     post: {
@@ -249,7 +250,6 @@ export const StyledCardContent = styled.div<{
         flex: '1 0 0',
       },
       horizontal: {
-        padding: theme.scheme.semantic.spacing[20],
         gap: theme.scheme.semantic.spacing[16],
         flex: '1 0 0',
       },
@@ -284,13 +284,14 @@ export const StyledCardMetaItem = styled('span', {
 }));
 
 export const StyledCardMetaNudgeItem = styled.span(({ theme }) => ({
-  display: 'inline-flex',
+  display: 'flex',
   padding: 0,
   alignItems: 'center',
   gap: theme.scheme.semantic.spacing[4],
   marginLeft: 'auto',
   flexShrink: 0,
   opacity: 0,
+  color: 'var(--card-caption-color)',
   transition: `opacity ${theme.environment.semantic.duration[150]} ${theme.environment.semantic.motion.fluent}, transform ${theme.environment.semantic.duration[150]} ${theme.environment.semantic.motion.fluent}`,
 
   '[data-interactive="true"]:hover &': {
