@@ -29,7 +29,9 @@
     "chromatic": "npx chromatic --project-token=$CHROMATIC_TOKEN",
     "build:tokens": "npx tsx tokensBuilder.ts",
     "clean": "rm -rf dist node_modules .turbo storybook-static",
-    "build:icons": "svgr src/assets/icons --out-dir src/components/Icon/generated --typescript --ext tsx"
+    "build:icons": "svgr src/assets/icons --out-dir src/components/Icon/generated --typescript --ext tsx",
+    "type-check": "tsc -b --noEmit",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",

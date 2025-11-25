@@ -10,7 +10,9 @@
     "preview": "vite preview",
     "clean": "rm -rf dist node_modules .turbo",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "type-check": "tsc -b --noEmit",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "@amplitude/analytics-browser": "^2.17.2",
