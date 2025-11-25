@@ -7,6 +7,17 @@ const meta = {
   component: Card.Root,
   parameters: {
     layout: 'centered',
+    docs: {
+      description: {
+        component: `Card 컴포넌트는 부모 컨테이너로부터 명시적인 width와 height를 받아 렌더링됩니다.
+
+**중요:**
+- Card를 사용할 때는 부모 요소에 width를 반드시 지정해야 합니다.
+- horizontal 레이아웃을 사용할 때는 부모 요소에 height도 반드시 지정해야 합니다.
+- vertical 레이아웃은 width만 지정하면 height는 내부 콘텐츠에 따라 자동으로 결정됩니다.
+- Image는 aspect-ratio를 유지하면서 부모 컨테이너의 크기에 맞춰 렌더링됩니다.`,
+      },
+    },
   },
   argTypes: {
     layout: {
@@ -163,7 +174,7 @@ export const CompoundWithOverlay: Story = {
           />
         </Card.Root>
       </div>
-      <div style={{ width: '500px' }}>
+      <div style={{ width: '480px', height: '240px' }}>
         <Card.Root layout='horizontal' variant='plate' interactive>
           <Card.Image alt='가로 레이아웃' />
           <Card.Content>
@@ -194,7 +205,7 @@ export const PresetPlateWithTitle: Story = {
           body='body에 대한 설명입니다. Preset을 사용하면 주로 사용하는 카드 구조를 그대로 사용할 수 있습니다.'
         />
       </div>
-      <div style={{ width: '500px' }}>
+      <div style={{ width: '480px', height: '160px' }}>
         <Card.Preset.PlateWithTitle.Button
           onClick={() => alert('카드가 클릭되었습니다!')}
           layout='horizontal'
