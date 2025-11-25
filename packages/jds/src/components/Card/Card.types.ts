@@ -12,7 +12,7 @@ export interface CardRootOwnProps {
   cardStyle?: CardStyle;
   isDisabled?: boolean;
   interactive?: boolean;
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 export interface CardImageProps extends ComponentPropsWithoutRef<'div'> {
@@ -63,7 +63,7 @@ interface BasePresetOwnProps {
   layout?: CardLayout;
   isDisabled?: boolean;
   image?: {
-    src: string;
+    src?: string;
     alt: string;
   };
 }

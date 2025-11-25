@@ -16,6 +16,7 @@ export const CardImage = forwardRef<HTMLDivElement, CardImageProps>(
       badgeVisible = false,
       badgeLabel,
       loading = 'lazy',
+      style: customStyle,
       ...restProps
     },
     ref,
@@ -42,8 +43,17 @@ export const CardImage = forwardRef<HTMLDivElement, CardImageProps>(
 
     const defaultRatio = defaultRatioMap[variant][layout];
 
+    const imageStyle = variant === 'plate'
+      ? { border: 'none', borderRadius: 0 }
+      : { borderRadius: 0 };
+
     return (
-      <StyledCardImageContainer $layout={layout} $variant={variant} $cardStyle={cardStyle}>
+      <StyledCardImageContainer
+        $layout={layout}
+        $variant={variant}
+        $cardStyle={cardStyle}
+        style={customStyle}
+      >
         <Image
           ref={ref}
           as='div'
@@ -56,7 +66,7 @@ export const CardImage = forwardRef<HTMLDivElement, CardImageProps>(
           badgeVisible={badgeVisible}
           badgeLabel={badgeLabel}
           loading={loading}
-          style={variant === 'plate' ? { border: 'none', borderRadius: 0 } : { borderRadius: 0 }}
+          style={imageStyle}
           {...restProps}
         />
       </StyledCardImageContainer>

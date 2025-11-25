@@ -1,4 +1,5 @@
 import { forwardRef, type ReactNode } from 'react';
+import { pxToRem } from 'utils';
 
 import type { PlateWithLabelPresetProps } from '../Card.types';
 import { CardRoot, CardImage, CardContent, CardCaption, CardLabel, CardBody } from '../compound';
@@ -8,15 +9,28 @@ type PlateWithLabelLinkProps = Omit<Extract<PlateWithLabelPresetProps, { as: 'a'
 type PlateWithLabelButtonProps = Omit<Extract<PlateWithLabelPresetProps, { as: 'button' }>, 'as'>;
 
 interface PlateWithLabelContentProps {
-  image?: { src: string; alt: string };
+  layout: 'vertical' | 'horizontal';
+  image?: { src?: string; alt: string };
   caption?: string;
   label: string;
   body: ReactNode;
 }
 
-const PlateWithLabelContent = ({ image, caption, label, body }: PlateWithLabelContentProps) => (
+const PlateWithLabelContent = ({
+  layout,
+  image,
+  caption,
+  label,
+  body,
+}: PlateWithLabelContentProps) => (
   <>
-    {image && <CardImage src={image.src} alt={image.alt} />}
+    {image && (
+      <CardImage
+        src={image.src}
+        alt={image.alt}
+        style={layout === 'vertical' ? { height: pxToRem(200) } : undefined}
+      />
+    )}
     <CardContent>
       {caption && <CardCaption>{caption}</CardCaption>}
       <CardLabel>{label}</CardLabel>
@@ -28,7 +42,7 @@ const PlateWithLabelContent = ({ image, caption, label, body }: PlateWithLabelCo
 export const PlateWithLabelLink = forwardRef<HTMLDivElement, PlateWithLabelLinkProps>(
   ({ layout = 'vertical', isDisabled = false, href, target, rel, ...contentProps }, ref) => (
     <CardRoot ref={ref} layout={layout} variant='plate' isDisabled={isDisabled} interactive>
-      <PlateWithLabelContent {...contentProps} />
+      <PlateWithLabelContent layout={layout} {...contentProps} />
       <StyledCardOverlay as='a' href={href} target={target} rel={rel} data-overlay />
     </CardRoot>
   ),
@@ -39,7 +53,7 @@ PlateWithLabelLink.displayName = 'Card.Preset.PlateWithLabel.Link';
 export const PlateWithLabelButton = forwardRef<HTMLDivElement, PlateWithLabelButtonProps>(
   ({ layout = 'vertical', isDisabled = false, onClick, type, ...contentProps }, ref) => (
     <CardRoot ref={ref} layout={layout} variant='plate' isDisabled={isDisabled} interactive>
-      <PlateWithLabelContent {...contentProps} />
+      <PlateWithLabelContent layout={layout} {...contentProps} />
       <StyledCardOverlay as='button' onClick={onClick} type={type || 'button'} data-overlay />
     </CardRoot>
   ),
