@@ -1,8 +1,7 @@
 import type { Preview } from '@storybook/react';
-import { ThemeProvider } from '@emotion/react';
-import { Global } from '@emotion/react';
-import { globalStyles } from '../src/tokens/globalStyles';
+import { Global, ThemeProvider } from '@emotion/react';
 import { theme } from '../src/tokens/theme';
+import { globalStyles } from '../src/tokens/globalStyles';
 import { GlobalStyles } from '../src/style/globalStyle';
 
 const preview: Preview = {
