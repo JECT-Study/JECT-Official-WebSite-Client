@@ -1,5 +1,5 @@
+import { useTheme } from "@emotion/react";
 import { forwardRef } from "react";
-import { useTheme } from "theme";
 
 import type { HeroSize, HeroTextAlign } from "./Hero.style";
 import { HeroDiv } from "./Hero.style";

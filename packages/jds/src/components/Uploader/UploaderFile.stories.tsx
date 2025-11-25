@@ -1,7 +1,7 @@
+import { useTheme } from "@emotion/react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexColumn } from "@storybook-utils/layout";
 import { useState } from "react";
-import { useTheme } from "theme";
 
 import { Uploader } from "./Uploader";
 import type { UploadError } from "./uploader.types";
