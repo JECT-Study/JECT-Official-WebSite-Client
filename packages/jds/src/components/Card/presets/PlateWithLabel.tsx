@@ -32,9 +32,9 @@ const PlateWithLabelContent = ({
       />
     )}
     <CardContent>
-      {caption && <CardCaption>{caption}</CardCaption>}
       <CardLabel>{label}</CardLabel>
       <CardBody>{body}</CardBody>
+      {caption && <CardCaption>{caption}</CardCaption>}
     </CardContent>
   </>
 );

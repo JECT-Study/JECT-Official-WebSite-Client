@@ -15,12 +15,7 @@ interface PlateCompactContentProps {
   body: ReactNode;
 }
 
-const PlateCompactContent = ({
-  layout,
-  image,
-  caption,
-  body,
-}: PlateCompactContentProps) => (
+const PlateCompactContent = ({ layout, image, caption, body }: PlateCompactContentProps) => (
   <>
     {image && (
       <CardImage
@@ -30,8 +25,8 @@ const PlateCompactContent = ({
       />
     )}
     <CardContent>
-      <CardCaption>{caption}</CardCaption>
       <CardBody>{body}</CardBody>
+      <CardCaption>{caption}</CardCaption>
     </CardContent>
   </>
 );

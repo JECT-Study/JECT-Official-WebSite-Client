@@ -32,9 +32,9 @@ const PlateWithTitleContent = ({
       />
     )}
     <CardContent>
-      {caption && <CardCaption>{caption}</CardCaption>}
       <CardTitle>{title}</CardTitle>
       <CardBody>{body}</CardBody>
+      {caption && <CardCaption>{caption}</CardCaption>}
     </CardContent>
   </>
 );
