@@ -28,6 +28,7 @@ const TooltipContent = ({
   side = 'top',
   sideOffset = 8,
   collisionPadding = 0,
+  avoidCollisions = true,
   ...restProps
 }: TooltipContentProps) => {
   return (
@@ -36,6 +37,7 @@ const TooltipContent = ({
         side={side}
         sideOffset={sideOffset}
         collisionPadding={collisionPadding}
+        avoidCollisions={avoidCollisions}
         {...restProps}
       >
         {children}
