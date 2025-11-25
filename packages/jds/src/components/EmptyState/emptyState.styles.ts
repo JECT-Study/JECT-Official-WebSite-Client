@@ -33,7 +33,7 @@ const variantStylesMap = {
   }),
 } satisfies Record<EmptyStateStyle, (theme: Theme) => CSSObject>;
 
-export const EmptyStateDiv = styled(
+export const EmptyStateRoot = styled(
   'div',
   styledOptions,
 )<{

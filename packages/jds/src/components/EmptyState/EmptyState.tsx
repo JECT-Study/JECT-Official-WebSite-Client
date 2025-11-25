@@ -2,7 +2,7 @@ import { forwardRef } from 'react';
 import type { EmptyStateProps } from './emptyState.types';
 import {
   EmptyStateLabel,
-  EmptyStateDiv,
+  EmptyStateRoot,
   EmptyStateBodyTextP,
   EmptyStateContentDiv,
   EmptyStateBlockButton,
@@ -51,7 +51,7 @@ export const EmptyState = forwardRef<HTMLDivElement, EmptyStateProps>(function E
   };
 
   return (
-    <EmptyStateDiv ref={ref} $variant={variant} $layout={layout} {...rest}>
+    <EmptyStateRoot ref={ref} $variant={variant} $layout={layout} {...rest}>
       {icon && <Icon name={icon} size='3xl' aria-hidden='true' focusable={false} />}
       <EmptyStateContentDiv $layout={layout}>
         <EmptyStateLabel weight='bold' textAlign='center'>
@@ -60,7 +60,7 @@ export const EmptyState = forwardRef<HTMLDivElement, EmptyStateProps>(function E
         <EmptyStateBodyTextP $layout={layout}>{bodyText}</EmptyStateBodyTextP>
       </EmptyStateContentDiv>
       {renderActions()}
-    </EmptyStateDiv>
+    </EmptyStateRoot>
   );
 });
 
