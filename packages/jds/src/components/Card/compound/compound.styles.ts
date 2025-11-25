@@ -78,7 +78,7 @@ const getVariantStyles = (
   };
 };
 
-export const StyledCardRoot = styled('article', {
+export const StyledCardRoot = styled('div', {
   shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
 })<{
   $layout: CardLayout;
@@ -86,60 +86,23 @@ export const StyledCardRoot = styled('article', {
   $cardStyle?: CardStyle;
   $isDisabled: boolean;
 }>(({ theme, $layout, $variant, $cardStyle, $isDisabled }) => {
+  const positionStyle = {
+    position: 'relative' as const,
+    zIndex: 0,
+  };
+
   const layoutStyles = getLayoutStyles($layout);
   const { styles: variantStyles, borderRadius } = getVariantStyles(theme, $variant, $cardStyle);
 
-  // Todo :post empty의 경우 고정된 offset 사용 문제 (title, label 이 각각 12, 10이어야함)
-  const offset =
-    $variant === 'post' && $cardStyle === 'empty'
-      ? { vertical: 12, horizontal: 12 }
-      : { vertical: 0, horizontal: 0 };
-
-  const restStyle = InteractionLayer({
-    theme,
-    state: 'rest',
-    variant: 'normal',
-    density: 'assistive',
-    fillColor: 'default',
-    isDisabled: $isDisabled,
-    offsetVertical: offset.vertical,
-    offsetHorizontal: offset.horizontal,
-    borderRadius,
-  });
-
-  const hoverStyle = InteractionLayer({
-    theme,
-    state: 'hover',
-    variant: 'normal',
-    density: 'assistive',
-    fillColor: 'default',
-    isDisabled: $isDisabled,
-    offsetVertical: offset.vertical,
-    offsetHorizontal: offset.horizontal,
-    borderRadius,
-  });
-
-  const activeStyle = InteractionLayer({
-    theme,
-    state: 'active',
-    variant: 'normal',
-    density: 'assistive',
-    fillColor: 'default',
-    isDisabled: $isDisabled,
-    offsetVertical: offset.vertical,
-    offsetHorizontal: offset.horizontal,
-    borderRadius,
-  });
-
-  const focusStyle = InteractionLayer({
+  const interactiveFocusStyle = InteractionLayer({
     theme,
     state: 'focus',
     variant: 'normal',
     density: 'assistive',
     fillColor: 'default',
-    isDisabled: $isDisabled,
-    offsetVertical: offset.vertical,
-    offsetHorizontal: offset.horizontal,
+    isDisabled: false,
+    offsetVertical: 0,
+    offsetHorizontal: 0,
     borderRadius,
   });
 
@@ -171,6 +134,7 @@ export const StyledCardRoot = styled('article', {
   const gap = gapMap[$variant][$layout];
 
   const baseStyles: CSSObject = {
+    ...positionStyle,
     display: 'flex',
     gap,
     ...layoutStyles,
@@ -189,52 +153,24 @@ export const StyledCardRoot = styled('article', {
       : theme.color.semantic.object.alternative,
   };
 
-  if ($isDisabled) {
-    return {
-      ...baseStyles,
-      'a&, button&': {
-        cursor: 'not-allowed',
-        textDecoration: 'none',
-        color: 'inherit',
-        position: 'relative',
-        outline: 'none',
-      },
-    };
-  }
-
   return {
     ...baseStyles,
-    'a&, button&': {
-      cursor: 'pointer',
-      textDecoration: 'none',
-      color: 'inherit',
-      ...restStyle,
-      '::after': {
-        ...restStyle['::after'],
-        transition: `opacity ${theme.environment.semantic.duration[150]} ${theme.environment.semantic.motion.fluent}`,
-      },
+    '&[data-interactive="true"]': {
+      transition: `transform ${theme.environment.semantic.duration[150]} ${theme.environment.semantic.motion.fluent}, box-shadow ${theme.environment.semantic.duration[150]} ${theme.environment.semantic.motion.fluent}`,
       '&:hover': {
-        ...hoverStyle,
         transform: 'translateY(-2px)',
         ...shadow(theme, 'raised'),
-        '::after': {
-          ...hoverStyle['::after'],
-          transition: `opacity ${theme.environment.semantic.duration[150]} ${theme.environment.semantic.motion.fluent}`,
-        },
       },
       '&:active': {
-        ...activeStyle,
-        '::after': {
-          ...activeStyle['::after'],
-          transition: 'none',
-        },
+        transform: 'translateY(0)',
+        transition: 'none',
       },
-      '&:focus-visible': {
-        ...focusStyle,
+      '&:has([data-overlay]:focus-visible)': {
         transform: 'translateY(-2px)',
         ...shadow(theme, 'raised'),
+        ...interactiveFocusStyle,
         '::after': {
-          ...focusStyle['::after'],
+          ...interactiveFocusStyle['::after'],
           transition: `opacity ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
         },
       },
@@ -308,12 +244,12 @@ export const StyledCardContent = styled.div<{
     },
     post: {
       vertical: {
-        padding: 0,
+        padding: theme.scheme.semantic.spacing[20],
         gap: theme.scheme.semantic.spacing[16],
         flex: '1 0 0',
       },
       horizontal: {
-        padding: 0,
+        padding: theme.scheme.semantic.spacing[20],
         gap: theme.scheme.semantic.spacing[16],
         flex: '1 0 0',
       },
@@ -357,12 +293,12 @@ export const StyledCardMetaNudgeItem = styled.span(({ theme }) => ({
   opacity: 0,
   transition: `opacity ${theme.environment.semantic.duration[150]} ${theme.environment.semantic.motion.fluent}, transform ${theme.environment.semantic.duration[150]} ${theme.environment.semantic.motion.fluent}`,
 
-  'a:hover &, button:hover &, [role="button"]:hover &, [role="link"]:hover &': {
+  '[data-interactive="true"]:hover &': {
     opacity: 1,
     transform: 'translateX(2px)',
   },
 
-  'a:active &, button:active &, [role="button"]:active &, [role="link"]:active &': {
+  '[data-interactive="true"]:active &': {
     opacity: 1,
     transform: 'translateX(4px)',
     transition: `opacity ${theme.environment.semantic.duration[150]} ${theme.environment.semantic.motion.fluent}, transform none`,
@@ -418,3 +354,21 @@ export const StyledCardCaption = styled('span', {
   ...createLabelStyles(theme, { size: 'xs', weight: 'subtle' }),
   color: 'var(--card-caption-color)',
 }));
+
+export const StyledCardOverlay = styled('a', {
+  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
+})(() => {
+  return {
+    position: 'absolute' as const,
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    zIndex: 1,
+    cursor: 'pointer',
+    textDecoration: 'none',
+    color: 'inherit',
+    borderRadius: 'inherit',
+    outline: 'none',
+  };
+});
