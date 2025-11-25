@@ -338,8 +338,12 @@ export const StyledCardLabel = styled('h4', {
   ...createLabelStyles(theme, { size: 'lg', weight: 'bold' }),
   color: 'var(--card-label-color)',
   margin: 0,
-  flex: '1 0 0',
   alignSelf: 'stretch',
+  display: '-webkit-box',
+  WebkitBoxOrient: 'vertical',
+  WebkitLineClamp: 1,
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
 }));
 
 export const StyledCardBody = styled('p', {
@@ -360,6 +364,11 @@ export const StyledCardCaption = styled('span', {
 })(({ theme }) => ({
   ...createLabelStyles(theme, { size: 'xs', weight: 'subtle' }),
   color: 'var(--card-caption-color)',
+  display: '-webkit-box',
+  WebkitBoxOrient: 'vertical',
+  WebkitLineClamp: 1,
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
 }));
 
 export const StyledCardOverlay = styled('a', {
