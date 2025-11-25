@@ -19,7 +19,7 @@ type PostButtonProps = Omit<Extract<PostPresetProps, { as: 'button' }>, 'as'>;
 
 interface PostContentProps {
   layout: 'vertical' | 'horizontal';
-  image?: { src: string; alt: string };
+  image?: { src?: string; alt: string };
   title: string;
   body: ReactNode;
   author: string;
