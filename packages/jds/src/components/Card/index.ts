@@ -9,6 +9,7 @@ import {
   CardMeta,
   CardMetaItem,
   CardMetaNudgeItem,
+  CardOverlay,
 } from './compound';
 import { PlateWithTitle, PlateWithLabel, PlateCompact, Post } from './presets';
 
@@ -23,6 +24,7 @@ export const Card = {
   Meta: CardMeta,
   MetaItem: CardMetaItem,
   MetaNudgeItem: CardMetaNudgeItem,
+  Overlay: CardOverlay,
 
   Preset: {
     PlateWithTitle,

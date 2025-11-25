@@ -8,3 +8,4 @@ export { CardBody } from './CardBody';
 export { CardMeta } from './CardMeta';
 export { CardMetaItem } from './CardMetaItem';
 export { CardMetaNudgeItem } from './CardMetaNudgeItem';
+export { CardOverlay } from './CardOverlay';
