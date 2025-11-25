@@ -1,5 +1,6 @@
 import "./instrument";
 
+import { JDSThemeProvider } from "@ject/jds/theme";
 import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { useState } from "react";
@@ -40,7 +41,9 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       {import.meta.env.MODE !== "production" && <ReactQueryDevtools />}
-      <RouterProvider router={router} />
+      <JDSThemeProvider>
+        <RouterProvider router={router} />
+      </JDSThemeProvider>
     </QueryClientProvider>
   );
 }
