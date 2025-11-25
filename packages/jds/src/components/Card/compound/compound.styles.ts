@@ -1,7 +1,7 @@
 import isPropValid from '@emotion/is-prop-valid';
 import type { CSSObject, Theme } from '@emotion/react';
 import styled from '@emotion/styled';
-import { InteractionLayer, pxToRem, shadow } from 'utils';
+import { InteractionLayer, shadow } from 'utils';
 
 import { createLabelStyles } from '../../Label/createLabelStyles';
 import type { CardLayout, CardVariant, CardStyle } from '../Card.types';
@@ -139,6 +139,9 @@ export const StyledCardRoot = styled('div', {
     gap,
     ...layoutStyles,
     ...variantStyles,
+    // 부모로부터 명시적인 크기를 받아 렌더링되도록 설정
+    width: '100%',
+    height: '100%',
     '--card-title-color': $isDisabled
       ? theme.color.semantic.object.subtle
       : theme.color.semantic.object.bolder,
@@ -202,21 +205,19 @@ export const StyledCardImageContainer = styled.div<{
     plate: {
       vertical: {
         width: '100%',
-        height: pxToRem(200),
       },
       horizontal: {
-        width: pxToRem(120),
         height: '100%',
+        alignSelf: 'stretch',
       },
     },
     post: {
       vertical: {
         width: '100%',
-        height: pxToRem(200),
       },
       horizontal: {
-        width: pxToRem(80),
-        height: pxToRem(80),
+        height: '100%',
+        alignSelf: 'stretch',
       },
     },
   } as const;
