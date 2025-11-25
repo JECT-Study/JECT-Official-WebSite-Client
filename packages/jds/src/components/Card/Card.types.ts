@@ -11,6 +11,7 @@ export interface CardRootOwnProps {
   variant?: CardVariant;
   cardStyle?: CardStyle;
   isDisabled?: boolean;
+  interactive?: boolean;
   children: ReactNode;
 }
 
@@ -67,27 +68,79 @@ interface BasePresetOwnProps {
   };
 }
 
-export interface PlateWithTitlePresetProps extends BasePresetOwnProps {
+export interface PlateWithTitlePresetBaseProps extends BasePresetOwnProps {
   caption?: string;
   title: string;
   body: ReactNode;
 }
 
-export interface PlateWithLabelPresetProps extends BasePresetOwnProps {
+export type PlateWithTitlePresetProps =
+  | (PlateWithTitlePresetBaseProps & {
+      as: 'a';
+      href: string;
+      target?: string;
+      rel?: string;
+    })
+  | (PlateWithTitlePresetBaseProps & {
+      as: 'button';
+      onClick: () => void;
+      type?: 'button' | 'submit' | 'reset';
+    });
+
+export interface PlateWithLabelPresetBaseProps extends BasePresetOwnProps {
   caption?: string;
   label: string;
   body: ReactNode;
 }
 
-export interface PlateCompactPresetProps extends BasePresetOwnProps {
+export type PlateWithLabelPresetProps =
+  | (PlateWithLabelPresetBaseProps & {
+      as: 'a';
+      href: string;
+      target?: string;
+      rel?: string;
+    })
+  | (PlateWithLabelPresetBaseProps & {
+      as: 'button';
+      onClick: () => void;
+      type?: 'button' | 'submit' | 'reset';
+    });
+
+export interface PlateCompactPresetBaseProps extends BasePresetOwnProps {
   caption: string;
   body: ReactNode;
 }
 
-export interface PostPresetProps extends BasePresetOwnProps {
+export type PlateCompactPresetProps =
+  | (PlateCompactPresetBaseProps & {
+      as: 'a';
+      href: string;
+      target?: string;
+      rel?: string;
+    })
+  | (PlateCompactPresetBaseProps & {
+      as: 'button';
+      onClick: () => void;
+      type?: 'button' | 'submit' | 'reset';
+    });
+
+export interface PostPresetBaseProps extends BasePresetOwnProps {
   cardStyle?: 'outlined' | 'empty';
   title: string;
   body: ReactNode;
   author: string;
   date: string;
 }
+
+export type PostPresetProps =
+  | (PostPresetBaseProps & {
+      as: 'a';
+      href: string;
+      target?: string;
+      rel?: string;
+    })
+  | (PostPresetBaseProps & {
+      as: 'button';
+      onClick: () => void;
+      type?: 'button' | 'submit' | 'reset';
+    });

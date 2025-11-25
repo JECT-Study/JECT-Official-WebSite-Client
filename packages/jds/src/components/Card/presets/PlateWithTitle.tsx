@@ -1,30 +1,53 @@
-import type { ElementType } from 'react';
+import { forwardRef, type ReactNode } from 'react';
 
 import type { PlateWithTitlePresetProps } from '../Card.types';
 import { CardRoot, CardImage, CardContent, CardCaption, CardTitle, CardBody } from '../compound';
+import { StyledCardOverlay } from '../compound/compound.styles';
 
-import { PolymorphicForwardRef } from '@/utils/forwardRef';
+type PlateWithTitleLinkProps = Omit<Extract<PlateWithTitlePresetProps, { as: 'a' }>, 'as'>;
+type PlateWithTitleButtonProps = Omit<Extract<PlateWithTitlePresetProps, { as: 'button' }>, 'as'>;
 
-export const PlateWithTitle = PolymorphicForwardRef<'div', PlateWithTitlePresetProps>(
-  (
-    { as, layout = 'vertical', isDisabled = false, image, caption, title, body, ...restProps },
-    ref,
-  ) => {
-    const Component = as || ('div' as ElementType);
+interface PlateWithTitleContentProps {
+  image?: { src: string; alt: string };
+  caption?: string;
+  title: string;
+  body: ReactNode;
+}
 
-    return (
-      <Component ref={ref} {...restProps}>
-        <CardRoot layout={layout} variant='plate' isDisabled={isDisabled}>
-          {image && <CardImage src={image.src} alt={image.alt} />}
-          <CardContent>
-            {caption && <CardCaption>{caption}</CardCaption>}
-            <CardTitle>{title}</CardTitle>
-            <CardBody>{body}</CardBody>
-          </CardContent>
-        </CardRoot>
-      </Component>
-    );
-  },
+const PlateWithTitleContent = ({ image, caption, title, body }: PlateWithTitleContentProps) => (
+  <>
+    {image && <CardImage src={image.src} alt={image.alt} />}
+    <CardContent>
+      {caption && <CardCaption>{caption}</CardCaption>}
+      <CardTitle>{title}</CardTitle>
+      <CardBody>{body}</CardBody>
+    </CardContent>
+  </>
 );
 
-PlateWithTitle.displayName = 'Card.Preset.PlateWithTitle';
+export const PlateWithTitleLink = forwardRef<HTMLDivElement, PlateWithTitleLinkProps>(
+  ({ layout = 'vertical', isDisabled = false, href, target, rel, ...contentProps }, ref) => (
+    <CardRoot ref={ref} layout={layout} variant='plate' isDisabled={isDisabled} interactive>
+      <PlateWithTitleContent {...contentProps} />
+      <StyledCardOverlay as='a' href={href} target={target} rel={rel} data-overlay />
+    </CardRoot>
+  ),
+);
+
+PlateWithTitleLink.displayName = 'Card.Preset.PlateWithTitle.Link';
+
+export const PlateWithTitleButton = forwardRef<HTMLDivElement, PlateWithTitleButtonProps>(
+  ({ layout = 'vertical', isDisabled = false, onClick, type, ...contentProps }, ref) => (
+    <CardRoot ref={ref} layout={layout} variant='plate' isDisabled={isDisabled} interactive>
+      <PlateWithTitleContent {...contentProps} />
+      <StyledCardOverlay as='button' onClick={onClick} type={type || 'button'} data-overlay />
+    </CardRoot>
+  ),
+);
+
+PlateWithTitleButton.displayName = 'Card.Preset.PlateWithTitle.Button';
+
+export const PlateWithTitle = {
+  Link: PlateWithTitleLink,
+  Button: PlateWithTitleButton,
+};

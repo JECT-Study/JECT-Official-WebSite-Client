@@ -1,4 +1,4 @@
-import type { ElementType } from 'react';
+import { forwardRef, type ReactNode } from 'react';
 
 import { Icon } from '../../Icon';
 import type { PostPresetProps } from '../Card.types';
@@ -12,46 +12,95 @@ import {
   CardMetaItem,
   CardMetaNudgeItem,
 } from '../compound';
+import { StyledCardOverlay } from '../compound/compound.styles';
 
-import { PolymorphicForwardRef } from '@/utils/forwardRef';
+type PostLinkProps = Omit<Extract<PostPresetProps, { as: 'a' }>, 'as'>;
+type PostButtonProps = Omit<Extract<PostPresetProps, { as: 'button' }>, 'as'>;
 
-export const Post = PolymorphicForwardRef<'div', PostPresetProps>(
+interface PostContentProps {
+  layout: 'vertical' | 'horizontal';
+  image?: { src: string; alt: string };
+  title: string;
+  body: ReactNode;
+  author: string;
+  date: string;
+}
+
+const PostContent = ({ layout, image, title, body, author, date }: PostContentProps) => (
+  <>
+    {image && <CardImage src={image.src} alt={image.alt} />}
+    <CardContent>
+      <CardTitle>{title}</CardTitle>
+      <CardBody>{body}</CardBody>
+      <CardMeta>
+        <CardMetaItem>{author}</CardMetaItem>
+        <CardMetaItem>{date}</CardMetaItem>
+        <CardMetaNudgeItem label={layout === 'vertical' ? '더보기' : undefined}>
+          <Icon name='arrow-right-s-line' size='xs' />
+        </CardMetaNudgeItem>
+      </CardMeta>
+    </CardContent>
+  </>
+);
+
+export const PostLink = forwardRef<HTMLDivElement, PostLinkProps>(
   (
     {
-      as,
       layout = 'vertical',
       cardStyle = 'outlined',
       isDisabled = false,
-      image,
-      title,
-      body,
-      author,
-      date,
-      ...restProps
+      href,
+      target,
+      rel,
+      ...contentProps
     },
     ref,
-  ) => {
-    const Component = as || ('div' as ElementType);
-
-    return (
-      <Component ref={ref} {...restProps}>
-        <CardRoot layout={layout} variant='post' cardStyle={cardStyle} isDisabled={isDisabled}>
-          {image && <CardImage src={image.src} alt={image.alt} />}
-          <CardContent>
-            <CardTitle>{title}</CardTitle>
-            <CardBody>{body}</CardBody>
-            <CardMeta>
-              <CardMetaItem>{author}</CardMetaItem>
-              <CardMetaItem>{date}</CardMetaItem>
-              <CardMetaNudgeItem label={layout === 'vertical' ? '더보기' : undefined}>
-                <Icon name='arrow-right-s-line' size='xs' />
-              </CardMetaNudgeItem>
-            </CardMeta>
-          </CardContent>
-        </CardRoot>
-      </Component>
-    );
-  },
+  ) => (
+    <CardRoot
+      ref={ref}
+      layout={layout}
+      variant='post'
+      cardStyle={cardStyle}
+      isDisabled={isDisabled}
+      interactive
+    >
+      <PostContent layout={layout} {...contentProps} />
+      <StyledCardOverlay as='a' href={href} target={target} rel={rel} data-overlay />
+    </CardRoot>
+  ),
 );
 
-Post.displayName = 'Card.Preset.Post';
+PostLink.displayName = 'Card.Preset.Post.Link';
+
+export const PostButton = forwardRef<HTMLDivElement, PostButtonProps>(
+  (
+    {
+      layout = 'vertical',
+      cardStyle = 'outlined',
+      isDisabled = false,
+      onClick,
+      type,
+      ...contentProps
+    },
+    ref,
+  ) => (
+    <CardRoot
+      ref={ref}
+      layout={layout}
+      variant='post'
+      cardStyle={cardStyle}
+      isDisabled={isDisabled}
+      interactive
+    >
+      <PostContent layout={layout} {...contentProps} />
+      <StyledCardOverlay as='button' onClick={onClick} type={type || 'button'} data-overlay />
+    </CardRoot>
+  ),
+);
+
+PostButton.displayName = 'Card.Preset.Post.Button';
+
+export const Post = {
+  Link: PostLink,
+  Button: PostButton,
+};
