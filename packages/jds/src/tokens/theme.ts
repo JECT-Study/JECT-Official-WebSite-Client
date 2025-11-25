@@ -1,5 +1,5 @@
 // 자동 생성된 theme - 수정 금지
-// 생성 시간: 11/14/2025, 5:10:13 PM
+// 생성 시간: 11/21/2025, 5:05:04 PM
 
 export const theme = {
   colorPrimitive: {

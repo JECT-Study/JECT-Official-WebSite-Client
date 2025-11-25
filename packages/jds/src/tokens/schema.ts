@@ -46,6 +46,7 @@ const pxProperties = [
   'paragraph-indent',
   'border-radius',
   'radius',
+  'stroke-weight',
   'spacing',
   'width',
   'height',

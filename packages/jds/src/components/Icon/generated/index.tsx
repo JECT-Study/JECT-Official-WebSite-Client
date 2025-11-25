@@ -61,6 +61,7 @@ export { default as FlagFill } from './FlagFill';
 export { default as FlagLine } from './FlagLine';
 export { default as FlowChart } from './FlowChart';
 export { default as Folder4Line } from './Folder4Line';
+export { default as FooterLogo } from './FooterLogo';
 export { default as Frame } from './Frame';
 export { default as FunctionLine } from './FunctionLine';
 export { default as GithubFill } from './GithubFill';
