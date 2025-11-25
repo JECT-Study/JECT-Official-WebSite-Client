@@ -5,7 +5,7 @@
   "author": "Ject Team",
   "license": "MIT",
   "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist",
@@ -15,8 +15,13 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./theme": {
+      "types": "./dist/theme.d.ts",
+      "import": "./dist/theme.js",
+      "require": "./dist/theme.cjs"
     },
     "./styles": "./dist/styles.css"
   },
@@ -34,9 +39,6 @@
     "format": "prettier --write ."
   },
   "dependencies": {
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.1",
-    "clsx": "^2.1.1",
     "radix-ui": "^1.4.3"
   },
   "devDependencies": {
@@ -58,11 +60,15 @@
     "style-dictionary": "^4.3.2",
     "tsup": "^8.5.0",
     "zod": "^3.25.76",
-    "eslint-plugin-storybook": "9.1.16"
+    "eslint-plugin-storybook": "9.1.16",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1"
   },
   "peerDependencies": {
     "react": ">=18.0.0",
-    "react-dom": ">=18.0.0"
+    "react-dom": ">=18.0.0",
+    "@emotion/react": ">=11",
+    "@emotion/styled": ">=11"
   },
   "publishConfig": {
     "access": "public",
