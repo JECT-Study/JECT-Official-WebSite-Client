@@ -74,5 +74,8 @@
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "4.53.2"
+  },
   "type": "module"
 }
