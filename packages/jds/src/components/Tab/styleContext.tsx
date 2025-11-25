@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-object-type */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Interpolation, Theme } from "@emotion/react";
 import { useTheme } from "@emotion/react";
