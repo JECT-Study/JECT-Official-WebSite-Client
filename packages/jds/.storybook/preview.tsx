@@ -1,10 +1,7 @@
 import "./index.css";
 import type { Preview } from "@storybook/react-vite";
-import { Global, ThemeProvider } from "@emotion/react";
-import { theme } from "../src/tokens/theme";
-import { globalStyles } from "../src/tokens/globalStyles";
-import { GlobalStyles } from "../src/style/globalStyle";
 import React from "react";
+import { JDSThemeProvider } from "../src/theme";
 
 const preview: Preview = {
   parameters: {
@@ -32,7 +29,7 @@ const preview: Preview = {
   },
   decorators: [
     (Story, context) => {
-      const backgroundColor = context.globals.theme === "light" ? "#ffffff" : "#191B24";
+      const backgroundColor = context.globals.theme === "light" ? "#ffffff" : "#21232c";
       document.body.style.background = backgroundColor;
 
       const docsStories = document.querySelectorAll(".docs-story");
@@ -41,13 +38,11 @@ const preview: Preview = {
       });
 
       return (
-        <ThemeProvider theme={theme}>
-          <Global styles={globalStyles} />
-          <GlobalStyles />
+        <JDSThemeProvider>
           <div data-theme={context.globals.theme}>
             <Story />
           </div>
-        </ThemeProvider>
+        </JDSThemeProvider>
       );
     },
   ],
