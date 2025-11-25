@@ -4,7 +4,7 @@ import { useTheme } from "theme";
 import type { HeroSize, HeroTextAlign } from "./Hero.style";
 import { HeroDiv } from "./Hero.style";
 
-interface HeroProps {
+export interface HeroProps {
   size?: HeroSize;
   textAlign?: HeroTextAlign;
   color?: string;

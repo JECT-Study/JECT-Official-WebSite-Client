@@ -51,7 +51,7 @@ function ApplyVerifyEmail({
   const [isAuthCodeExpired, setIsAuthCodeExpired] = useState(false);
   const [emailButtonText, setEmailButtonText] = useState("인증번호 받기");
   const [isCooldownActive, setIsCooldownActive] = useState(false);
-  const [cooldownTimer, setCooldownTimer] = useState<number | null>(null);
+  const [cooldownTimer, setCooldownTimer] = useState<ReturnType<typeof setTimeout> | null>(null);
 
   const templateType = isResetPin ? "PIN_RESET" : "AUTH_CODE";
 

@@ -8,7 +8,7 @@ import type { PathValues } from "@/types/ui/path";
 const TIME_THRESHOLD = 10 * 60 * 1000;
 
 const useRedirectMaintenance = (startHours: number, endHours: number, redirectPath: PathValues) => {
-  const timeoutRef = useRef<number | null>(null);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const checkAndRedirect = () => {
