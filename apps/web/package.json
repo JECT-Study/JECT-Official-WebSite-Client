@@ -15,6 +15,8 @@
     "format": "prettier --write ."
   },
   "dependencies": {
+    "@emotion/react": "^11",
+    "@emotion/styled": "^11",
     "@amplitude/analytics-browser": "^2.17.2",
     "@amplitude/plugin-session-replay-browser": "^1.16.4",
     "@hookform/resolvers": "^4.1.3",
