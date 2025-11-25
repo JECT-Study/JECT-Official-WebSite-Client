@@ -29,11 +29,8 @@ type PolymorphicComponent<DefaultElement extends ElementType, OwnProps = Record<
 };
 
 /**
- *
  * @template DefaultElement - 기본 요소 타입
  * @template OwnProps - 컴포넌트 고유 props
- *
- *
  */
 export function PolymorphicForwardRef<
   DefaultElement extends ElementType,
