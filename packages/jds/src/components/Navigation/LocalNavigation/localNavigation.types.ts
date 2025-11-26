@@ -2,8 +2,6 @@ import type { ElementType, ReactNode } from 'react';
 
 import type { IconButtonBasicProps } from '@/components';
 
-export type LocalNavigationVariant = 'empty' | 'solid';
-
 export interface LocalNavigationRootProps {
   isStretched?: boolean;
   children?: ReactNode;
