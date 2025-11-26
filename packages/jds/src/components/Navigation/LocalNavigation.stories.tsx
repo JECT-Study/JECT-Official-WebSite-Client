@@ -3,6 +3,8 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { LocalNavigation } from './LocalNavigation';
 import { IconButton } from '../Button/IconButton';
 
+import { useMediaQueryFlags } from '@/hooks';
+
 const customViewports = {
   desktop: {
     name: 'Desktop (1200px)',
@@ -98,4 +100,34 @@ export const NoTitle: Story = {
 
 export const OnlyBackButton: Story = {
   render: args => <LocalNavigation {...args} />,
+};
+
+export const Responsive: Story = {
+  render: function Render(args) {
+    const { isMobile } = useMediaQueryFlags();
+    const iconSize = isMobile ? 'lg' : 'xl';
+
+    return (
+      <div style={{ position: 'fixed', left: 0, right: 0 }}>
+        <LocalNavigation isStretched={args.isStretched}>
+          <LocalNavigation.Title>네비게이션 타이틀</LocalNavigation.Title>
+          <LocalNavigation.ButtonGroup extraButtonVisible>
+            <IconButton.Basic hierarchy='tertiary' size={iconSize} icon='blank' />
+            <IconButton.Basic hierarchy='tertiary' size={iconSize} icon='blank' />
+            <IconButton.Basic hierarchy='tertiary' size={iconSize} icon='blank' />
+          </LocalNavigation.ButtonGroup>
+        </LocalNavigation>
+      </div>
+    );
+  },
+  parameters: {
+    viewport: {
+      defaultViewport: 'tablet',
+    },
+    docs: {
+      description: {
+        story: 'desktop, tablet, mobile viewport에 따라 네비게이션의 스타일이 달라집니다.',
+      },
+    },
+  },
 };

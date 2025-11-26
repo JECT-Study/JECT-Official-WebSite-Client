@@ -1,6 +1,6 @@
-import type { ReactNode } from 'react';
+import type { ElementType, ReactNode } from 'react';
 
-import type { IconButtonBasicProps, TitleProps } from '@/components';
+import type { IconButtonBasicProps } from '@/components';
 
 export type LocalNavigationVariant = 'empty' | 'solid';
 
@@ -14,7 +14,10 @@ export type LocalNavigationBackButtonProps = Omit<
   'icon' | 'hierarchy' | 'size'
 >;
 
-export type LocalNavigationTitleProps = Omit<TitleProps, 'size' | 'textAlign'>;
+export interface LocalNavigationTitleProps {
+  as?: ElementType;
+  children?: ReactNode;
+}
 
 export interface LocalNavigationButtonGroupProps {
   extraButtonVisible?: boolean;

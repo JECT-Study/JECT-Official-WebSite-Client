@@ -12,14 +12,18 @@ import type {
   LocalNavigationTitleProps,
 } from './localNavigation.types';
 
-import { IconButton, Title } from '@/components';
+import { IconButton } from '@/components';
+import { useMediaQueryFlags } from '@/hooks';
 
 const LocalNavigationRoot = forwardRef<HTMLDivElement, LocalNavigationRootProps>(
   ({ isStretched = false, children, ...props }, ref) => {
+    const { isMobile } = useMediaQueryFlags();
+    const buttonSize = isMobile ? 'lg' : 'xl';
+
     return (
       <StyledLocalNavigationRoot ref={ref} $isStretched={isStretched} {...props}>
         <StyledLocalNavigationWrapper>
-          <IconButton.Basic icon='arrow-left-line' hierarchy='primary' size='xl' />
+          <IconButton.Basic icon='arrow-left-line' hierarchy='primary' size={buttonSize} />
           {children}
         </StyledLocalNavigationWrapper>
       </StyledLocalNavigationRoot>
@@ -28,12 +32,10 @@ const LocalNavigationRoot = forwardRef<HTMLDivElement, LocalNavigationRootProps>
 );
 
 const LocalNavigationTitle = forwardRef<HTMLDivElement, LocalNavigationTitleProps>(
-  ({ children, ...props }, ref) => {
+  ({ as, children, ...props }, ref) => {
     return (
-      <StyledLocalNavigationTitle ref={ref}>
-        <Title size='xs' textAlign='left' {...props}>
-          {children}
-        </Title>
+      <StyledLocalNavigationTitle as={as} ref={ref} {...props}>
+        {children}
       </StyledLocalNavigationTitle>
     );
   },
