@@ -19,3 +19,5 @@ export * from './Uploader';
 export * from './FileItem';
 export * from './Tooltip';
 export * from './SegmentedControl';
+export * from './Navigation/GlobalNavigation';
+export * from './Navigation/LocalNavigation';
