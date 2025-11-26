@@ -46,10 +46,10 @@ const InputArea = forwardRef<HTMLTextAreaElement, InputAreaProps>(
     }, [text]);
 
     return (
-      <div className="gap-2xs flex flex-col">
+      <div className='gap-2xs flex flex-col'>
         <Label
-          hierarchy="normal"
-          weight="normal"
+          hierarchy='normal'
+          weight='normal'
           isRequired={required}
           textColor={`${disabled ? "text-object-assistive-dark" : "text-object-neutral-dark"}`}
         >
@@ -64,9 +64,9 @@ const InputArea = forwardRef<HTMLTextAreaElement, InputAreaProps>(
           disabled={disabled}
           required={required}
           isError={textLength > maxLength}
-          className="peer"
+          className='peer'
         />
-        <div className="peer-focus:*:last:text-object-neutral-dark flex justify-between">
+        <div className='peer-focus:*:last:text-object-neutral-dark flex justify-between'>
           <p
             className={`${disabled ? "text-feedback-trans-negative-dark" : "text-feedback-negative-dark"} body-sm`}
           >

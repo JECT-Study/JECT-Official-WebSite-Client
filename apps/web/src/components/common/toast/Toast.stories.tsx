@@ -36,14 +36,14 @@ export const All = () => {
   };
 
   return (
-    <div className="story-inner-container">
-      <BlockButton size="md" style="solid" hierarchy="primary" onClick={normal}>
+    <div className='story-inner-container'>
+      <BlockButton size='md' style='solid' hierarchy='primary' onClick={normal}>
         normal type
       </BlockButton>
-      <BlockButton size="md" style="solid" hierarchy="secondary" onClick={negative}>
+      <BlockButton size='md' style='solid' hierarchy='secondary' onClick={negative}>
         negative type
       </BlockButton>
-      <BlockButton size="md" style="solid" hierarchy="tertiary" onClick={positive}>
+      <BlockButton size='md' style='solid' hierarchy='tertiary' onClick={positive}>
         positive type
       </BlockButton>
       <Toast />

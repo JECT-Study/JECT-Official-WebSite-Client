@@ -39,24 +39,24 @@ export const AccordionItem = ({
   );
 
   return (
-    <div className="gap-xs flex flex-col">
+    <div className='gap-xs flex flex-col'>
       <button onClick={() => toggleHandler(id)} className={buttonClass} {...restProps}>
-        <Title hierarchy="weak" textColor={isOpen ? null : "text-object-neutral-dark"}>
+        <Title hierarchy='weak' textColor={isOpen ? null : "text-object-neutral-dark"}>
           {title}
         </Title>
         {isOpen ? (
-          <Icon name="less" size="xl" fillColor={"fill-object-hero-dark"} />
+          <Icon name='less' size='xl' fillColor={"fill-object-hero-dark"} />
         ) : (
-          <Icon name="expand" size="xl" fillColor="fill-object-neutral-dark" />
+          <Icon name='expand' size='xl' fillColor='fill-object-neutral-dark' />
         )}
       </button>
 
       <div className={contentClass}>
-        <Label hierarchy="stronger" weight="normal" textColor="text-object-hero-dark">
+        <Label hierarchy='stronger' weight='normal' textColor='text-object-hero-dark'>
           {label}
         </Label>
-        <div className="body-md text-object-normal-dark">{children}</div>
-        {caption && <div className="body-sm text-object-alternative-dark">{caption}</div>}
+        <div className='body-md text-object-normal-dark'>{children}</div>
+        {caption && <div className='body-sm text-object-alternative-dark'>{caption}</div>}
       </div>
     </div>
   );
@@ -86,7 +86,7 @@ export const Accordion = ({ items, defaultOpenId = null, onChange }: AccordionPr
   };
 
   return (
-    <div className="gap-4xl flex flex-col">
+    <div className='gap-4xl flex flex-col'>
       {items.map(({ id, title, label, content, caption }) => (
         <AccordionItem
           key={id}

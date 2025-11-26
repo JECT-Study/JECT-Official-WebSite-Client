@@ -8,7 +8,7 @@ interface NewTabLinkProps {
 
 function NewTabLink({ href, className = "", children }: NewTabLinkProps) {
   return (
-    <a href={href} target="_blank" rel="noopener noreferrer" className={className}>
+    <a href={href} target='_blank' rel='noopener noreferrer' className={className}>
       {children}
     </a>
   );

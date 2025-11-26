@@ -64,22 +64,22 @@ function FileItem({ file, onDelete, isDisabled = false, feedback = null }: FileI
       >
         <Icon
           name={feedbackStyle[feedbackType].icon}
-          size="md"
+          size='md'
           fillColor={feedbackStyle[feedbackType].fillColor}
         />
         <div className={`text-object-normal-dark gap-6xs flex grow flex-col text-left`}>
-          <span className="label-bold-md break-all">{fileName}</span>
-          <span className="body-xs">{changeFileSizeUnit(fileSize, ["KB", "MB"], true)}</span>
+          <span className='label-bold-md break-all'>{fileName}</span>
+          <span className='body-xs'>{changeFileSizeUnit(fileSize, ["KB", "MB"], true)}</span>
           <span className={`body-xs ${feedbackStyle[feedbackType].textColor}`}>
             {feedbackStyle[feedbackType].message}
           </span>
         </div>
         {onDelete && (
           <LabelButton
-            size="lg"
-            hierarchy="secondary"
+            size='lg'
+            hierarchy='secondary'
             onClick={deleteHandler}
-            leftIcon={<Icon name="clear" size="md" fillColor="fill-object-neutral-dark" />}
+            leftIcon={<Icon name='clear' size='md' fillColor='fill-object-neutral-dark' />}
           />
         )}
       </div>
@@ -95,23 +95,23 @@ function FileItem({ file, onDelete, isDisabled = false, feedback = null }: FileI
         <Lottie animationData={loadingSpinner} />
       ) : (
         <Icon
-          name="file"
-          size="md"
+          name='file'
+          size='md'
           fillColor={isDisabled ? "fill-object-disabled-dark" : "fill-object-normal-dark"}
         />
       )}
       <div
         className={`${isDisabled ? "text-object-disabled-dark" : "text-object-normal-dark"} gap-6xs flex grow flex-col text-left`}
       >
-        <span className="label-bold-md break-all">{fileName}</span>
-        <span className="body-xs">{changeFileSizeUnit(fileSize, ["KB", "MB"], true)}</span>
+        <span className='label-bold-md break-all'>{fileName}</span>
+        <span className='body-xs'>{changeFileSizeUnit(fileSize, ["KB", "MB"], true)}</span>
       </div>
       {onDelete && (
         <LabelButton
-          size="lg"
-          hierarchy="secondary"
+          size='lg'
+          hierarchy='secondary'
           onClick={deleteHandler}
-          leftIcon={<Icon name="clear" size="md" fillColor="fill-object-neutral-dark" />}
+          leftIcon={<Icon name='clear' size='md' fillColor='fill-object-neutral-dark' />}
         />
       )}
     </div>

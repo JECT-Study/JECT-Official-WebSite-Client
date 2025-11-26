@@ -20,7 +20,7 @@ export const faqApply: FaqItemData[] = [
         젝트는 프로젝트 참여 태도와 활동 가능 시간을 더욱 더 중요하게 생각하고 있어요.
         <br />그 밖에 아래와 같은 역량을 갖추고 계시다면 더욱 좋아요!
         <br />
-        <ul className="list-disc-ject">
+        <ul className='list-disc-ject'>
           <li>협업에 필요한 원활한 의사소통 능력</li>
           <li>최소한의 전문성 및 기술적 숙련도</li>
         </ul>
@@ -57,7 +57,7 @@ export const faqApply: FaqItemData[] = [
     content: (
       <>
         젝트는 다음과 같은 분들이면 문제 없이 활동하실 수 있어요.
-        <ul className="list-disc-ject">
+        <ul className='list-disc-ject'>
           <li>대학생(휴학생)</li>
           <li>취준생</li>
           <li>직장인</li>
@@ -97,7 +97,7 @@ export const faqProject: FaqItemData[] = [
     label: "기본적으로 6인 1팀을 전제로 해요.",
     content: (
       <>
-        <ul className="list-disc-ject">
+        <ul className='list-disc-ject'>
           <li>프론트엔드 개발자(FE) 2명</li>
           <li>백엔드 개발자(BE) 2명</li>
           <li>프로덕트 매니저(PM) 1명</li>
@@ -114,7 +114,7 @@ export const faqProject: FaqItemData[] = [
     content: (
       <>
         그렇지만 아래와 같은 상황에 해당한다면 외부인이 참여할 수 있어요.
-        <ul className="list-disc-ject">
+        <ul className='list-disc-ject'>
           <li>팀원들이 프로젝트의 목적 달성을 위해 외부인 영입이 필요하다고 판단했을 때</li>
         </ul>
       </>
@@ -128,7 +128,7 @@ export const faqProject: FaqItemData[] = [
     content: (
       <>
         물론 원하는 팀원과 무조건적으로 함께할 순 없어요. 아래는 팀 빌딩 과정이에요.
-        <ul className="list-inside list-decimal">
+        <ul className='list-inside list-decimal'>
           <li>동아리원들이 자기소개 내용을 작성해요.</li>
           <li>팀 프로젝트에 참여하는 동아리원들은 서로의 자기소개를 자유롭게 열람해요.</li>
           <li>함께하고 싶은 팀원을 3순위까지 결정해서 운영진에게 전달해요.</li>

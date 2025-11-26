@@ -41,7 +41,7 @@ function SelectBox({ selectedJob, onLoadQuestion, onOpenDialog }: selectBoxProps
   };
 
   return (
-    <div className="relative">
+    <div className='relative'>
       <InputField
         ref={inputRef}
         readOnly
@@ -49,21 +49,21 @@ function SelectBox({ selectedJob, onLoadQuestion, onOpenDialog }: selectBoxProps
         onKeyUp={({ key }) => key === "Enter" && setIsOpen(prev => !prev)}
         value={selectedJob ? jobFamily[selectedJob] : ""}
         required
-        labelText="포지션"
+        labelText='포지션'
         isError={false}
         isSuccess={false}
-        placeholder="포지션을 선택해주세요"
-        className="group"
+        placeholder='포지션을 선택해주세요'
+        className='group'
         InputChildren={
           <Icon
-            name="dropDown"
-            size="lg"
-            fillColor="fill-object-assistive-dark group-focus-within:fill-object-neutral-dark"
+            name='dropDown'
+            size='lg'
+            fillColor='fill-object-assistive-dark group-focus-within:fill-object-neutral-dark'
           />
         }
       />
       {isOpen && (
-        <div className="absolute z-40 mt-[8px] w-full" ref={selectRef}>
+        <div className='absolute z-40 mt-[8px] w-full' ref={selectRef}>
           <Select
             items={[
               { label: jobFamily.FE },

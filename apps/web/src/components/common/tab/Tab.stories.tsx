@@ -34,10 +34,10 @@ export const TabStory: Story = {
   render: args => (
     <Tab defaultActiveTabId={0} {...args}>
       <TabHeader>
-        <TabItem id={0} label="프론트엔드 개발자" />
-        <TabItem id={1} label="백엔드 개발자" />
-        <TabItem id={2} label="프로덕트 매니저" />
-        <TabItem id={3} label="프로덕트 디자이너" />
+        <TabItem id={0} label='프론트엔드 개발자' />
+        <TabItem id={1} label='백엔드 개발자' />
+        <TabItem id={2} label='프로덕트 매니저' />
+        <TabItem id={3} label='프로덕트 디자이너' />
       </TabHeader>
       <div>
         <TabPanel id={0}>
@@ -62,8 +62,8 @@ export const CategoryTabStory: Story = {
   render: args => (
     <Tab defaultActiveTabId={0} {...args}>
       <TabHeader>
-        <TabItem id={0} label="프로젝트" />
-        <TabItem id={1} label="해커톤" />
+        <TabItem id={0} label='프로젝트' />
+        <TabItem id={1} label='해커톤' />
       </TabHeader>
       <div>
         <TabPanel id={0}>

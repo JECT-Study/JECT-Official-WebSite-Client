@@ -43,11 +43,11 @@ export const DefaultPostStory: Story = {
   name: "Default Post",
   render: args => (
     <MemoryRouter>
-      <div className="story-container">
-        <div className="w-[60rem]">
+      <div className='story-container'>
+        <div className='w-[60rem]'>
           <Post {...args} />
         </div>
-        <div className="w-[60rem]">
+        <div className='w-[60rem]'>
           <Post {...args} disabled={true} />
         </div>
       </div>
@@ -59,15 +59,15 @@ export const PostStory: Story = {
   name: "Post",
   render: () => (
     <MemoryRouter>
-      <div className="story-container">
+      <div className='story-container'>
         실제 사용되는 PostContainer를 반영합니다.
-        <div className="w-[60rem]">
-          <Post title="포스트 제목" label="레이블" href="#">
+        <div className='w-[60rem]'>
+          <Post title='포스트 제목' label='레이블' href='#'>
             포스트 바디 텍스트
           </Post>
         </div>
-        <div className="w-[60rem]">
-          <Post title="포스트 제목" label="레이블" href="#" disabled={true}>
+        <div className='w-[60rem]'>
+          <Post title='포스트 제목' label='레이블' href='#' disabled={true}>
             포스트 바디 텍스트
           </Post>
         </div>

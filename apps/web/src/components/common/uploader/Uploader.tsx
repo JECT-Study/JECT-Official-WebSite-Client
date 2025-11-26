@@ -63,20 +63,20 @@ function Uploader({ onChangeFile, isDisabled, fileExtensions, maxSize }: Uploade
       )}
     >
       <label
-        htmlFor="fileUpload"
+        htmlFor='fileUpload'
         className={isDragging ? "pointer-events-none" : isDisabled ? "cursor-no-drop" : ""}
       >
         <BlockButton
-          size="sm"
-          style="solid"
-          hierarchy="tertiary"
+          size='sm'
+          style='solid'
+          hierarchy='tertiary'
           onClick={handleClick}
           disabled={isDisabled}
           className={isDragging ? "pointer-events-none" : ""}
           leftIcon={
             <Icon
-              name="upload"
-              size="xs"
+              name='upload'
+              size='xs'
               fillColor={`${isDisabled ? "fill-object-disabled-dark" : "fill-object-neutral-dark"}`}
             />
           }
@@ -89,9 +89,9 @@ function Uploader({ onChangeFile, isDisabled, fileExtensions, maxSize }: Uploade
         : `파일을 드래그 & 드롭하거나, 버튼을 눌러 첨부해주세요.\n 최대 ${maxSize}MB까지의 ${fileExtensions.join(", ")} 파일을 첨부할 수 있어요.`}
       <input
         ref={inputRef}
-        id="fileUpload"
-        type="file"
-        className="hidden"
+        id='fileUpload'
+        type='file'
+        className='hidden'
         multiple={true}
         onChange={handleChange}
       />

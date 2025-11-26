@@ -3,7 +3,7 @@ export default {
   tabWidth: 2,
   trailingComma: "all",
   singleQuote: false,
-  jsxSingleQuote: false,
+  jsxSingleQuote: true,
   arrowParens: "avoid",
   semi: true,
 };

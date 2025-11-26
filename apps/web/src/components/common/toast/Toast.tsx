@@ -66,7 +66,7 @@ function Toast() {
         "shadow-overlay radius-xs fixed left-1/2 -translate-x-1/2 px-(--gap-lg) py-(--gap-3xs) *:inline",
       )}
     >
-      <Label hierarchy="strong" weight="normal" textColor={toastStyle[toastItem.type].textColor}>
+      <Label hierarchy='strong' weight='normal' textColor={toastStyle[toastItem.type].textColor}>
         {toastItem.message}
       </Label>
     </div>

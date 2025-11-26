@@ -47,36 +47,36 @@ export const Default: Story = {
 export const Labels: Story = {
   render: () => {
     return (
-      <div className="gap-lg flex">
+      <div className='gap-lg flex'>
         <div>
           <Label
-            hierarchy="stronger"
-            weight="normal"
-            textColor="text-object-neutral-dark"
+            hierarchy='stronger'
+            weight='normal'
+            textColor='text-object-neutral-dark'
             isRequired={true}
           >
             레이블
           </Label>
           <Label
-            hierarchy="strong"
-            weight="normal"
-            textColor="text-object-neutral-dark"
+            hierarchy='strong'
+            weight='normal'
+            textColor='text-object-neutral-dark'
             isRequired={false}
           >
             레이블
           </Label>
           <Label
-            hierarchy="normal"
-            weight="normal"
-            textColor="text-object-neutral-dark"
+            hierarchy='normal'
+            weight='normal'
+            textColor='text-object-neutral-dark'
             isRequired={true}
           >
             레이블
           </Label>
           <Label
-            hierarchy="weak"
-            weight="normal"
-            textColor="text-object-neutral-dark"
+            hierarchy='weak'
+            weight='normal'
+            textColor='text-object-neutral-dark'
             isRequired={false}
           >
             레이블

@@ -52,7 +52,7 @@ export const RoleBadge = ({ variant }: BadgeProps) => {
       className={`${style} gap-md radius-sm display-04 inline-flex flex-row items-center px-(--gap-2xl) py-(--gap-6xs)`}
     >
       <span>{text}</span>
-      <img src={icon} alt={`${text} 아이콘`} className="h-[4.5rem] w-[4.5rem] object-contain" />
+      <img src={icon} alt={`${text} 아이콘`} className='h-[4.5rem] w-[4.5rem] object-contain' />
     </div>
   );
 };

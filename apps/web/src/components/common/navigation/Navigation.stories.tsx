@@ -31,10 +31,10 @@ export const NavigationStory: Story = {
     return (
       <>
         <Navigation>
-          <NavigationItem pathName="/project">아이템 레이블</NavigationItem>
-          <NavigationItem pathName="/activity">아이템 레이블</NavigationItem>
-          <NavigationItem pathName="/apply">아이템 레이블</NavigationItem>
-          <NavigationItem pathName="/faq" disabled>
+          <NavigationItem pathName='/project'>아이템 레이블</NavigationItem>
+          <NavigationItem pathName='/activity'>아이템 레이블</NavigationItem>
+          <NavigationItem pathName='/apply'>아이템 레이블</NavigationItem>
+          <NavigationItem pathName='/faq' disabled>
             비활성화된 아이템 레이블
           </NavigationItem>
         </Navigation>

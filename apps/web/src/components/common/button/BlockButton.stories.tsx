@@ -43,9 +43,9 @@ type Story = StoryObj<typeof BlockButton>;
 export const DefaultStory: Story = {
   name: "Default BlockButton",
   render: args => (
-    <div className="story-container">
-      <div className="story-inner-container">
-        <div className="story-inner-row-container">
+    <div className='story-container'>
+      <div className='story-inner-container'>
+        <div className='story-inner-row-container'>
           <BlockButton {...args}>레이블</BlockButton>
         </div>
       </div>
@@ -56,22 +56,22 @@ export const DefaultStory: Story = {
 export const ButtonStory: Story = {
   name: "BlockButton",
   render: () => (
-    <div className="story-container">
-      <div className="story-inner-container">
-        <div className="story-inner-row-container">
-          <BlockButton size="lg" style="solid" hierarchy="accent">
+    <div className='story-container'>
+      <div className='story-inner-container'>
+        <div className='story-inner-row-container'>
+          <BlockButton size='lg' style='solid' hierarchy='accent'>
             레이블
           </BlockButton>
-          <BlockButton size="lg" style="solid" hierarchy="primary">
+          <BlockButton size='lg' style='solid' hierarchy='primary'>
             레이블
           </BlockButton>
-          <BlockButton size="lg" style="solid" hierarchy="secondary">
+          <BlockButton size='lg' style='solid' hierarchy='secondary'>
             레이블
           </BlockButton>
-          <BlockButton size="lg" style="solid" hierarchy="tertiary">
+          <BlockButton size='lg' style='solid' hierarchy='tertiary'>
             레이블
           </BlockButton>
-          <BlockButton size="lg" style="solid" hierarchy="accent" disabled={true}>
+          <BlockButton size='lg' style='solid' hierarchy='accent' disabled={true}>
             레이블
           </BlockButton>
         </div>
@@ -83,59 +83,59 @@ export const ButtonStory: Story = {
 export const IconButtonStory: Story = {
   name: "Icon BlockButton",
   render: () => (
-    <div className="story-container">
-      <div className="story-inner-container">
-        <div className="story-inner-row-container">
+    <div className='story-container'>
+      <div className='story-inner-container'>
+        <div className='story-inner-row-container'>
           <BlockButton
-            size="lg"
-            style="solid"
-            hierarchy="accent"
+            size='lg'
+            style='solid'
+            hierarchy='accent'
             leftIcon={
-              <Icon name="check" size="md" fillColor="fill-object-static-inverse-hero-dark" />
+              <Icon name='check' size='md' fillColor='fill-object-static-inverse-hero-dark' />
             }
             rightIcon={
-              <Icon name="check" size="md" fillColor="fill-object-static-inverse-hero-dark" />
+              <Icon name='check' size='md' fillColor='fill-object-static-inverse-hero-dark' />
             }
           >
             레이블
           </BlockButton>
           <BlockButton
-            size="lg"
-            style="solid"
-            hierarchy="primary"
-            leftIcon={<Icon name="check" size="md" fillColor="fill-object-inverse-hero-dark" />}
-            rightIcon={<Icon name="check" size="md" fillColor="fill-object-inverse-hero-dark" />}
+            size='lg'
+            style='solid'
+            hierarchy='primary'
+            leftIcon={<Icon name='check' size='md' fillColor='fill-object-inverse-hero-dark' />}
+            rightIcon={<Icon name='check' size='md' fillColor='fill-object-inverse-hero-dark' />}
           >
             레이블
           </BlockButton>
           <BlockButton
-            size="lg"
-            style="solid"
-            hierarchy="secondary"
+            size='lg'
+            style='solid'
+            hierarchy='secondary'
             leftIcon={
-              <Icon name="check" size="md" fillColor="fill-object-static-inverse-hero-dark" />
+              <Icon name='check' size='md' fillColor='fill-object-static-inverse-hero-dark' />
             }
             rightIcon={
-              <Icon name="check" size="md" fillColor="fill-object-static-inverse-hero-dark" />
+              <Icon name='check' size='md' fillColor='fill-object-static-inverse-hero-dark' />
             }
           >
             레이블
           </BlockButton>
           <BlockButton
-            size="lg"
-            style="solid"
-            hierarchy="tertiary"
-            leftIcon={<Icon name="check" size="md" fillColor="fill-object-neutral-dark" />}
-            rightIcon={<Icon name="check" size="md" fillColor="fill-object-neutral-dark" />}
+            size='lg'
+            style='solid'
+            hierarchy='tertiary'
+            leftIcon={<Icon name='check' size='md' fillColor='fill-object-neutral-dark' />}
+            rightIcon={<Icon name='check' size='md' fillColor='fill-object-neutral-dark' />}
           >
             레이블
           </BlockButton>
           <BlockButton
-            size="lg"
-            style="solid"
-            hierarchy="accent"
-            leftIcon={<Icon name="check" size="md" fillColor="fill-accent-trans-hero-dark" />}
-            rightIcon={<Icon name="check" size="md" fillColor="fill-accent-trans-hero-dark" />}
+            size='lg'
+            style='solid'
+            hierarchy='accent'
+            leftIcon={<Icon name='check' size='md' fillColor='fill-accent-trans-hero-dark' />}
+            rightIcon={<Icon name='check' size='md' fillColor='fill-accent-trans-hero-dark' />}
             disabled={true}
           >
             레이블

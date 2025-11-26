@@ -30,13 +30,13 @@ export const SelectItem = ({
 
   return (
     <button
-      type="button"
+      type='button'
       onClick={() => !disabled && clickHandler(label)}
       disabled={!!disabled}
       className={buttonClass}
       {...restProps}
     >
-      <span className="body-lg self-stretch">{label}</span>
+      <span className='body-lg self-stretch'>{label}</span>
       {children}
     </button>
   );
@@ -63,7 +63,7 @@ export const Select = ({ items, defaultValue = null, onChange }: SelectProps) =>
   };
 
   return (
-    <div className="gap-5xs radius-md border-border-trans-assistive-dark bg-surface-embossed-dark opacity-visible shadow-overlay flex w-full flex-col border p-(--gap-2xs)">
+    <div className='gap-5xs radius-md border-border-trans-assistive-dark bg-surface-embossed-dark opacity-visible shadow-overlay flex w-full flex-col border p-(--gap-2xs)'>
       {items.map(({ label, disabled }) => (
         <SelectItem
           key={label}
@@ -73,7 +73,7 @@ export const Select = ({ items, defaultValue = null, onChange }: SelectProps) =>
           disabled={disabled}
         >
           {selectedValue === label && (
-            <Icon name="check" size="lg" fillColor="fill-object-hero-dark" />
+            <Icon name='check' size='lg' fillColor='fill-object-hero-dark' />
           )}
         </SelectItem>
       ))}

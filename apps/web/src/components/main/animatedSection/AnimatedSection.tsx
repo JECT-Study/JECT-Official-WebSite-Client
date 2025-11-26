@@ -152,7 +152,7 @@ const AnimatedSection = () => {
   }, [topTextStates, bottomTextStates]);
 
   return (
-    <div className="relative flex h-full w-full items-center justify-center">
+    <div className='relative flex h-full w-full items-center justify-center'>
       <div
         className={`absolute inset-0 z-0 opacity-35 transition-colors duration-500 ease-in-out ${
           isInitial ? initialBackground : gradientMap[roleVariant]
@@ -161,15 +161,15 @@ const AnimatedSection = () => {
       <div className="pointer-events-none absolute inset-0 z-0 bg-[url('/src/assets/images/grain.png')] bg-auto bg-center bg-repeat opacity-63 mix-blend-multiply" />
       <div
         ref={contentRef}
-        className="gap-2xl relative z-10 flex h-full w-full flex-col items-center justify-center"
+        className='gap-2xl relative z-10 flex h-full w-full flex-col items-center justify-center'
       >
-        <div ref={topTextRef} className="gap-md display-04 text-object-hero-dark text-center" />
-        <div ref={badgeRef} className="hidden">
+        <div ref={topTextRef} className='gap-md display-04 text-object-hero-dark text-center' />
+        <div ref={badgeRef} className='hidden'>
           <RoleBadge variant={roleVariant} />
         </div>
         <div
           ref={bottomTextRef}
-          className="gap-md display-04 text-object-hero-dark hidden text-center"
+          className='gap-md display-04 text-object-hero-dark hidden text-center'
         />
       </div>
     </div>

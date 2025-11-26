@@ -9,11 +9,11 @@ function Activity() {
   const { jectalks } = useJectalks();
 
   return (
-    <div className="gap-12xl flex flex-col items-center py-(--gap-12xl)">
-      <section className="gap-8xl flex flex-col items-center">
-        <Title hierarchy="strong">미니 스터디</Title>
+    <div className='gap-12xl flex flex-col items-center py-(--gap-12xl)'>
+      <section className='gap-8xl flex flex-col items-center'>
+        <Title hierarchy='strong'>미니 스터디</Title>
         {miniStudies && miniStudies.length > 0 ? (
-          <div className="gap-4xl grid max-w-[60rem] grid-cols-3">
+          <div className='gap-4xl grid max-w-[60rem] grid-cols-3'>
             {miniStudies.map(study => (
               <Card
                 key={study.id}
@@ -22,8 +22,8 @@ function Activity() {
                 label={study.summary}
                 imgUrl={study.imageUrl}
                 isDescriptionVisible={false}
-                target="_blank"
-                rel="noopener noreferrer"
+                target='_blank'
+                rel='noopener noreferrer'
               >
                 ''
               </Card>
@@ -33,10 +33,10 @@ function Activity() {
           <EmptyData />
         )}
       </section>
-      <section className="gap-8xl flex flex-col items-center">
-        <Title hierarchy="strong">JECTALK</Title>
+      <section className='gap-8xl flex flex-col items-center'>
+        <Title hierarchy='strong'>JECTALK</Title>
         {jectalks && jectalks.length > 0 ? (
-          <div className="gap-4xl grid max-w-[60rem] grid-cols-3">
+          <div className='gap-4xl grid max-w-[60rem] grid-cols-3'>
             {jectalks.map(jectalk => (
               <Card
                 key={jectalk.id}
@@ -45,8 +45,8 @@ function Activity() {
                 label={jectalk.summary}
                 imgUrl={jectalk.imageUrl}
                 isDescriptionVisible={false}
-                target="_blank"
-                rel="noopener noreferrer"
+                target='_blank'
+                rel='noopener noreferrer'
               >
                 ''
               </Card>

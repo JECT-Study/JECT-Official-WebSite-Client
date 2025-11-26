@@ -48,54 +48,54 @@ const ProjectDetail = () => {
   const techStack = project.techStack ?? [];
 
   return (
-    <div className="gap-11xl flex flex-col items-center px-(--gap-5xl) pt-(--gap-9xl) pb-(--gap-12xl)">
-      <section className="gap-6xl flex w-full max-w-[60rem] flex-col">
+    <div className='gap-11xl flex flex-col items-center px-(--gap-5xl) pt-(--gap-9xl) pb-(--gap-12xl)'>
+      <section className='gap-6xl flex w-full max-w-[60rem] flex-col'>
         <img
           src={project.thumbnailUrl || cardSampleImage}
-          alt="프로젝트 이미지"
-          className="radius-md border-border-alternative-dark block h-[20.0625rem] w-full border object-contain"
+          alt='프로젝트 이미지'
+          className='radius-md border-border-alternative-dark block h-[20.0625rem] w-full border object-contain'
         />
-        <div className="gap-2xl flex w-full flex-col items-start">
-          <div className="gap-md flex flex-col">
-            <Title hierarchy="stronger">{project.name}</Title>
-            <Label hierarchy="stronger" weight="bold" textColor="text-object-normal-dark">
+        <div className='gap-2xl flex w-full flex-col items-start'>
+          <div className='gap-md flex flex-col'>
+            <Title hierarchy='stronger'>{project.name}</Title>
+            <Label hierarchy='stronger' weight='bold' textColor='text-object-normal-dark'>
               {project.startDate} ~ {project.endDate}
             </Label>
           </div>
-          <div className="gap-md flex w-full flex-col items-start">
-            <div className="gap-md flex w-full content-start items-start">
+          <div className='gap-md flex w-full flex-col items-start'>
+            <div className='gap-md flex w-full content-start items-start'>
               {teamRoles
                 .filter(role => role.members.length > 0)
                 .map(role => (
                   <CalloutInformation key={role.id} title={role.title} labels={role.members} />
                 ))}
             </div>
-            <CalloutInformation title="플랫폼 및 기술" labels={techStack} />
+            <CalloutInformation title='플랫폼 및 기술' labels={techStack} />
           </div>
-          <p className="text-object-normal-dark body-lg">{project.description}</p>
+          <p className='text-object-normal-dark body-lg'>{project.description}</p>
         </div>
         <BlockButton
-          size="lg"
-          style="solid"
-          hierarchy="primary"
+          size='lg'
+          style='solid'
+          hierarchy='primary'
           onClick={() => window.open(project.serviceUrl, "_blank", "noopener,noreferrer")}
-          rightIcon={<Icon name="northEast" size="md" fillColor="fill-object-inverse-hero-dark" />}
+          rightIcon={<Icon name='northEast' size='md' fillColor='fill-object-inverse-hero-dark' />}
         >
           서비스 바로가기
         </BlockButton>
       </section>
-      <section className="gap-8xl flex w-full max-w-[60rem] flex-col">
-        <div className="text-center">
-          <Title hierarchy="strong">서비스 소개서</Title>
+      <section className='gap-8xl flex w-full max-w-[60rem] flex-col'>
+        <div className='text-center'>
+          <Title hierarchy='strong'>서비스 소개서</Title>
         </div>
         <Tab>
-          <div className="gap-4xl flex w-full flex-col">
+          <div className='gap-4xl flex w-full flex-col'>
             <TabHeader>
-              <TabItem id={0} label="서비스 소개" />
-              <TabItem id={1} label="아키텍처" />
+              <TabItem id={0} label='서비스 소개' />
+              <TabItem id={1} label='아키텍처' />
             </TabHeader>
             <TabPanel id={0}>
-              <div className="gap-4xl flex flex-col">
+              <div className='gap-4xl flex flex-col'>
                 {(project.serviceIntros ?? []).length > 0 ? (
                   project.serviceIntros
                     .sort((a, b) => a.sequence - b.sequence)
@@ -104,7 +104,7 @@ const ProjectDetail = () => {
                         key={intro.sequence}
                         src={intro.imageUrl}
                         alt={`서비스 소개 ${intro.sequence}번`}
-                        className="border-border-alternative-dark block h-[29rem] w-full border object-contain"
+                        className='border-border-alternative-dark block h-[29rem] w-full border object-contain'
                       />
                     ))
                 ) : (
@@ -113,7 +113,7 @@ const ProjectDetail = () => {
               </div>
             </TabPanel>
             <TabPanel id={1}>
-              <div className="gap-4xl flex flex-col">
+              <div className='gap-4xl flex flex-col'>
                 {(project.devIntros ?? []).length > 0 ? (
                   project.devIntros
                     .sort((a, b) => a.sequence - b.sequence)
@@ -122,7 +122,7 @@ const ProjectDetail = () => {
                         key={intro.sequence}
                         src={intro.imageUrl}
                         alt={`개발 소개 ${intro.sequence}번`}
-                        className="border-border-alternative-dark block h-[29rem] w-full border object-contain"
+                        className='border-border-alternative-dark block h-[29rem] w-full border object-contain'
                       />
                     ))
                 ) : (

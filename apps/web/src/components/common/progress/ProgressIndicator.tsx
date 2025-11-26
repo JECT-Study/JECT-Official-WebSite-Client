@@ -10,7 +10,7 @@ interface ProgressIndicatorProps {
 
 function ProgressIndicator({ totalStep, currentStep }: ProgressIndicatorProps) {
   return (
-    <div className="flex">
+    <div className='flex'>
       <ProgressIndex isActive={true}>{1}</ProgressIndex>
       {totalStep > 1 &&
         Array.from({ length: totalStep - 1 }).map((_, index) => (

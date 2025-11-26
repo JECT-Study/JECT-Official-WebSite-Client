@@ -21,7 +21,7 @@ export const Default: Story = {
 export const AnimatedStory: Story = {
   name: "AnimatedSection",
   render: () => (
-    <div className="story-container h-[60.3125rem] w-[90rem]">
+    <div className='story-container h-[60.3125rem] w-[90rem]'>
       <AnimatedSection />
     </div>
   ),

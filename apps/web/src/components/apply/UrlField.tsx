@@ -30,8 +30,8 @@ function UrlField({ data, onChange, value }: UrlFieldProps) {
   };
 
   return (
-    <fieldset className="gap-2xl flex flex-col">
-      <Title hierarchy="normal">{data.title}</Title>
+    <fieldset className='gap-2xl flex flex-col'>
+      <Title hierarchy='normal'>{data.title}</Title>
       <InputField
         labelText={data.label}
         isSuccess={false}

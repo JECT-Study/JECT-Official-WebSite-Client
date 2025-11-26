@@ -121,8 +121,8 @@ function FileField({ data, onChange, values }: FileFieldProps) {
   }, [portfolios, onChange]);
 
   return (
-    <fieldset className="gap-2xl flex flex-col">
-      <Title hierarchy="normal">{data.title}</Title>
+    <fieldset className='gap-2xl flex flex-col'>
+      <Title hierarchy='normal'>{data.title}</Title>
       <InputFile
         labelText={data.label}
         maxSize={data.maxFileSize ?? 100}
@@ -139,7 +139,7 @@ function FileField({ data, onChange, values }: FileFieldProps) {
                 key={file.lastModified}
                 file={file}
                 onDelete={deleteFile}
-                feedback="unknown"
+                feedback='unknown'
               />
             ))}
             {portfolios.map(portfolio => (

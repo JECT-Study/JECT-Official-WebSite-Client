@@ -37,9 +37,9 @@ type Story = StoryObj<typeof LabelButton>;
 export const DefaultStory: Story = {
   name: "Default LabelButton",
   render: args => (
-    <div className="story-container">
-      <div className="story-inner-container">
-        <div className="story-inner-row-container">
+    <div className='story-container'>
+      <div className='story-inner-container'>
+        <div className='story-inner-row-container'>
           <LabelButton {...args}>레이블</LabelButton>
         </div>
       </div>
@@ -50,22 +50,22 @@ export const DefaultStory: Story = {
 export const ButtonStory: Story = {
   name: "LabelButton",
   render: () => (
-    <div className="story-container">
-      <div className="story-inner-container">
-        <div className="story-inner-row-container">
-          <LabelButton size="lg" hierarchy="accent">
+    <div className='story-container'>
+      <div className='story-inner-container'>
+        <div className='story-inner-row-container'>
+          <LabelButton size='lg' hierarchy='accent'>
             레이블
           </LabelButton>
-          <LabelButton size="lg" hierarchy="primary">
+          <LabelButton size='lg' hierarchy='primary'>
             레이블
           </LabelButton>
-          <LabelButton size="lg" hierarchy="secondary">
+          <LabelButton size='lg' hierarchy='secondary'>
             레이블
           </LabelButton>
-          <LabelButton size="lg" hierarchy="tertiary">
+          <LabelButton size='lg' hierarchy='tertiary'>
             레이블
           </LabelButton>
-          <LabelButton size="lg" hierarchy="accent" disabled={true}>
+          <LabelButton size='lg' hierarchy='accent' disabled={true}>
             레이블
           </LabelButton>
         </div>
@@ -77,44 +77,44 @@ export const ButtonStory: Story = {
 export const IconButtonStory: Story = {
   name: "Icon LabelButton",
   render: args => (
-    <div className="story-container">
-      <div className="story-inner-container">
-        <div className="story-inner-row-container">
+    <div className='story-container'>
+      <div className='story-inner-container'>
+        <div className='story-inner-row-container'>
           <LabelButton
             {...args}
-            leftIcon={<Icon name="check" size="md" fillColor="fill-accent-hero-dark" />}
-            rightIcon={<Icon name="check" size="md" fillColor="fill-accent-hero-dark" />}
+            leftIcon={<Icon name='check' size='md' fillColor='fill-accent-hero-dark' />}
+            rightIcon={<Icon name='check' size='md' fillColor='fill-accent-hero-dark' />}
           >
             레이블
           </LabelButton>
           <LabelButton
             {...args}
-            hierarchy="primary"
-            leftIcon={<Icon name="check" size="md" fillColor="fill-object-hero-dark" />}
-            rightIcon={<Icon name="check" size="md" fillColor="fill-object-hero-dark" />}
+            hierarchy='primary'
+            leftIcon={<Icon name='check' size='md' fillColor='fill-object-hero-dark' />}
+            rightIcon={<Icon name='check' size='md' fillColor='fill-object-hero-dark' />}
           >
             레이블
           </LabelButton>
           <LabelButton
             {...args}
-            hierarchy="secondary"
-            leftIcon={<Icon name="check" size="md" fillColor="fill-object-neutral-dark" />}
-            rightIcon={<Icon name="check" size="md" fillColor="fill-object-neutral-dark" />}
+            hierarchy='secondary'
+            leftIcon={<Icon name='check' size='md' fillColor='fill-object-neutral-dark' />}
+            rightIcon={<Icon name='check' size='md' fillColor='fill-object-neutral-dark' />}
           >
             레이블
           </LabelButton>
           <LabelButton
             {...args}
-            hierarchy="tertiary"
-            leftIcon={<Icon name="check" size="md" fillColor="fill-object-alternative-dark" />}
-            rightIcon={<Icon name="check" size="md" fillColor="fill-object-alternative-dark" />}
+            hierarchy='tertiary'
+            leftIcon={<Icon name='check' size='md' fillColor='fill-object-alternative-dark' />}
+            rightIcon={<Icon name='check' size='md' fillColor='fill-object-alternative-dark' />}
           >
             레이블
           </LabelButton>
           <LabelButton
             {...args}
-            leftIcon={<Icon name="check" size="md" fillColor="fill-accent-trans-hero-dark" />}
-            rightIcon={<Icon name="check" size="md" fillColor="fill-accent-trans-hero-dark" />}
+            leftIcon={<Icon name='check' size='md' fillColor='fill-accent-trans-hero-dark' />}
+            rightIcon={<Icon name='check' size='md' fillColor='fill-accent-trans-hero-dark' />}
             disabled={true}
           >
             레이블
@@ -128,25 +128,25 @@ export const IconButtonStory: Story = {
 export const IconOnlyStory: Story = {
   name: "Icon Only LabelButton",
   render: () => (
-    <div className="story-container">
-      <div className="story-inner-container">
-        <div className="story-inner-row-container">
+    <div className='story-container'>
+      <div className='story-inner-container'>
+        <div className='story-inner-row-container'>
           <LabelButton
-            size="lg"
-            hierarchy="secondary"
-            leftIcon={<Icon name="clear" size="md" fillColor="fill-accent-hero-dark" />}
+            size='lg'
+            hierarchy='secondary'
+            leftIcon={<Icon name='clear' size='md' fillColor='fill-accent-hero-dark' />}
           />
           <LabelButton
-            size="lg"
-            hierarchy="secondary"
-            rightIcon={<Icon name="clear" size="md" fillColor="fill-object-hero-dark" />}
+            size='lg'
+            hierarchy='secondary'
+            rightIcon={<Icon name='clear' size='md' fillColor='fill-object-hero-dark' />}
           />
 
           <LabelButton
-            size="lg"
-            hierarchy="secondary"
-            leftIcon={<Icon name="clear" size="md" fillColor="fill-object-neutral-dark" />}
-            rightIcon={<Icon name="clear" size="md" fillColor="fill-object-neutral-dark" />}
+            size='lg'
+            hierarchy='secondary'
+            leftIcon={<Icon name='clear' size='md' fillColor='fill-object-neutral-dark' />}
+            rightIcon={<Icon name='clear' size='md' fillColor='fill-object-neutral-dark' />}
             disabled={true}
           />
         </div>

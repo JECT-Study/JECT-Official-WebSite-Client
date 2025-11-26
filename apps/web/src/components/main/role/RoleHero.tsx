@@ -43,29 +43,29 @@ export const RoleHero = ({ title, labels = [], children, variant }: HeroProps) =
   const { icon: heroIcon, style } = heroMap[variant];
 
   return (
-    <div className="radius-sm gap-6xl relative flex items-center pt-(--gap-xl) pr-(--gap-6xl) pb-(--gap-3xl) pl-(--gap-3xl)">
+    <div className='radius-sm gap-6xl relative flex items-center pt-(--gap-xl) pr-(--gap-6xl) pb-(--gap-3xl) pl-(--gap-3xl)'>
       <div className={`${style} radius-sm absolute inset-0 z-0 opacity-35`} />
-      <div className="gap-xl relative z-10 flex min-h-[12.1875rem] w-full shrink-0 grow basis-0 flex-col items-start">
-        <div className="gap-sm flex flex-col items-start self-stretch">
-          <span className="text-object-hero-dark title-03">{title}</span>
-          <div className="gap-2xs flex max-h-[5rem] flex-wrap content-start items-start">
+      <div className='gap-xl relative z-10 flex min-h-[12.1875rem] w-full shrink-0 grow basis-0 flex-col items-start'>
+        <div className='gap-sm flex flex-col items-start self-stretch'>
+          <span className='text-object-hero-dark title-03'>{title}</span>
+          <div className='gap-2xs flex max-h-[5rem] flex-wrap content-start items-start'>
             {displayedLabels.map((label, idx) => (
               <Badge
                 key={idx}
-                backgroundColor="bg-fill-assistive-dark"
-                textColor="text-object-normal-dark"
+                backgroundColor='bg-fill-assistive-dark'
+                textColor='text-object-normal-dark'
               >
                 {label}
               </Badge>
             ))}
           </div>
         </div>
-        <span className="label-bold-lg text-object-normal-dark">{children}</span>
+        <span className='label-bold-lg text-object-normal-dark'>{children}</span>
       </div>
       <img
         src={heroIcon}
         alt={`${variant} 아이콘`}
-        className="relative z-10 h-24 w-24 object-contain"
+        className='relative z-10 h-24 w-24 object-contain'
       />
     </div>
   );

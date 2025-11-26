@@ -29,13 +29,13 @@ export const Primary: Story = {
   name: "Badge",
   render: () => {
     return (
-      <div className="gap-xs flex">
-        <Badge backgroundColor="bg-fill-assistive-dark" textColor="text-object-normal-dark">
+      <div className='gap-xs flex'>
+        <Badge backgroundColor='bg-fill-assistive-dark' textColor='text-object-normal-dark'>
           레이블1
         </Badge>
         <Badge
-          backgroundColor="bg-feedback-trans-information-dark"
-          textColor="text-feedback-information-dark"
+          backgroundColor='bg-feedback-trans-information-dark'
+          textColor='text-feedback-information-dark'
         >
           레이블2
         </Badge>

@@ -9,11 +9,11 @@ function Maintenance() {
   return (
     <div>
       <PagesContainer>
-        <div className="gap-4xl absolute top-1/2 left-1/2 flex -translate-1/2 flex-col items-center">
-          <img src={coneImage} alt="물음표 이미지" className="w-[9.75rem]" />
-          <div className="gap-md flex flex-col text-center">
-            <p className="title-03 text-object-hero-dark">현재 서비스 점검중이에요</p>
-            <p className="label-lg text-object-neutral-dark">예상 점검 시간 : 05:00 ~ 07:00</p>
+        <div className='gap-4xl absolute top-1/2 left-1/2 flex -translate-1/2 flex-col items-center'>
+          <img src={coneImage} alt='물음표 이미지' className='w-[9.75rem]' />
+          <div className='gap-md flex flex-col text-center'>
+            <p className='title-03 text-object-hero-dark'>현재 서비스 점검중이에요</p>
+            <p className='label-lg text-object-neutral-dark'>예상 점검 시간 : 05:00 ~ 07:00</p>
           </div>
         </div>
       </PagesContainer>

@@ -39,7 +39,7 @@ export const InputButtonStory: Story = {
   render: () => {
     return (
       <Input isError={false}>
-        <LabelButton size="lg" hierarchy="accent">
+        <LabelButton size='lg' hierarchy='accent'>
           인증하기
         </LabelButton>
       </Input>
@@ -52,7 +52,7 @@ export const InputIconStory: Story = {
   render: () => {
     return (
       <Input isError={false}>
-        <Icon name="dropDown" size="md" fillColor="fill-object-static-inverse-hero-dark" />
+        <Icon name='dropDown' size='md' fillColor='fill-object-static-inverse-hero-dark' />
       </Input>
     );
   },

@@ -25,8 +25,8 @@ interface TabHeaderProps {
 export const TabHeader = ({ children }: TabHeaderProps) => {
   return (
     <div
-      aria-label="탭 헤더"
-      className="stroke-normal border-border-alternative-dark flex w-full items-center"
+      aria-label='탭 헤더'
+      className='stroke-normal border-border-alternative-dark flex w-full items-center'
     >
       {children}
     </div>
@@ -64,7 +64,7 @@ interface TabPanelProps {
 
 export const TabPanel = ({ id, children }: TabPanelProps) => {
   const { activeTabId } = useTabContext();
-  return activeTabId === id ? <div aria-label="탭 패널">{children}</div> : null;
+  return activeTabId === id ? <div aria-label='탭 패널'>{children}</div> : null;
 };
 
 export const Tab = ({ children, defaultActiveTabId, onTabChange }: TabProps) => {
@@ -79,7 +79,7 @@ export const Tab = ({ children, defaultActiveTabId, onTabChange }: TabProps) => 
 
   return (
     <TabContext.Provider value={{ activeTabId, onTabClick: handleTabClick }}>
-      <div aria-label="탭" className="flex flex-col">
+      <div aria-label='탭' className='flex flex-col'>
         {children}
       </div>
     </TabContext.Provider>

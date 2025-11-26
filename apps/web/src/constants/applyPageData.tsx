@@ -38,7 +38,7 @@ export const applyProcedureList: Procedure[] = [
         젝트 웹사이트의&nbsp;
         <button
           onClick={moveToBottom}
-          className="text-feedback-information-dark decoration-feedback-information-dark cursor-pointer underline"
+          className='text-feedback-information-dark decoration-feedback-information-dark cursor-pointer underline'
         >
           지원하기
         </button>
@@ -93,8 +93,8 @@ export const applyInfoList: Info[] = [
     content: `지원자분의 편의를 위해 지원하실 때 작성하시는 내용들은 모두 수집돼요. 젝트 지원부터 지원 기간 종료까지 지원자분의 소중한 정보를 안전하게 보관할 것을 약속드립니다.`,
     link: (
       <NewTabLink
-        href="https://cultured-phalange-7de.notion.site/JECT-1cf62a893ac581cba52beb59a1eca908"
-        className="text-feedback-information-dark decoration-feedback-information-dark underline"
+        href='https://cultured-phalange-7de.notion.site/JECT-1cf62a893ac581cba52beb59a1eca908'
+        className='text-feedback-information-dark decoration-feedback-information-dark underline'
       >
         개인정보 수집 및 이용 동의서
       </NewTabLink>
@@ -106,8 +106,8 @@ export const applyInfoList: Info[] = [
     content: `서로 다른 포지션들이 모여 진행하는 팀 프로젝트에서는 중도 이탈이 치명적이에요. 때문에 이로 인한 피해를 방지하는 차원에서 회비 5만원을 받고 있어요. 5만원 중 보증금 2만원은 프로젝트 공식 일정이 종료된 후 돌려드리며, 활동비 3만원은 오프라인 행사, 간식, 굿즈 등에 사용돼요.`,
     link: (
       <NewTabLink
-        href="https://cultured-phalange-7de.notion.site/JECT-fb43010a5141459ab14f786a19885f0b"
-        className="text-feedback-information-dark decoration-feedback-information-dark underline"
+        href='https://cultured-phalange-7de.notion.site/JECT-fb43010a5141459ab14f786a19885f0b'
+        className='text-feedback-information-dark decoration-feedback-information-dark underline'
       >
         젝트 회칙
       </NewTabLink>

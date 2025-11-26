@@ -37,7 +37,7 @@ export const HorizontalDialogStory: Story = {
 
     return (
       <>
-        <BlockButton size="md" style="solid" hierarchy="accent" onClick={handleDialogClick}>
+        <BlockButton size='md' style='solid' hierarchy='accent' onClick={handleDialogClick}>
           horizontal 다이얼로그 열기
         </BlockButton>
         <Dialog />
@@ -60,7 +60,7 @@ export const VerticalDialogStory: Story = {
 
     return (
       <>
-        <BlockButton size="md" style="solid" hierarchy="accent" onClick={handleDialogClick}>
+        <BlockButton size='md' style='solid' hierarchy='accent' onClick={handleDialogClick}>
           Vertical 다이얼로그 열기
         </BlockButton>
         <Dialog />
@@ -82,7 +82,7 @@ export const SingleButtonDialogStory: Story = {
 
     return (
       <>
-        <BlockButton size="md" style="solid" hierarchy="accent" onClick={handleDialogClick}>
+        <BlockButton size='md' style='solid' hierarchy='accent' onClick={handleDialogClick}>
           single Button 다이얼로그 열기
         </BlockButton>
         <Dialog />

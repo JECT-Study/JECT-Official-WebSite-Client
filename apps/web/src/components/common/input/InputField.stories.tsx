@@ -78,20 +78,20 @@ export const All: Story = {
         isError={false}
         isSuccess={false}
         required
-        labelText="레이블"
-        helper="헬퍼 메시지"
-        placeholder="플레이스 홀더"
+        labelText='레이블'
+        helper='헬퍼 메시지'
+        placeholder='플레이스 홀더'
         InputChildren={
-          <LabelButton size="md" hierarchy="accent">
+          <LabelButton size='md' hierarchy='accent'>
             인증하기
           </LabelButton>
         }
       >
         <BlockButton
-          size="md"
-          style="solid"
-          hierarchy="accent"
-          className="h-[3.375rem] cursor-pointer"
+          size='md'
+          style='solid'
+          hierarchy='accent'
+          className='h-[3.375rem] cursor-pointer'
         >
           레이블
         </BlockButton>
@@ -108,15 +108,15 @@ export const ExternalButtonStory: Story = {
         isError={false}
         isSuccess={false}
         required
-        labelText="레이블"
-        helper="헬퍼 메시지"
-        placeholder="플레이스 홀더"
+        labelText='레이블'
+        helper='헬퍼 메시지'
+        placeholder='플레이스 홀더'
       >
         <BlockButton
-          size="md"
-          style="solid"
-          hierarchy="accent"
-          className="h-[3.375rem] cursor-pointer"
+          size='md'
+          style='solid'
+          hierarchy='accent'
+          className='h-[3.375rem] cursor-pointer'
         >
           레이블
         </BlockButton>
@@ -133,11 +133,11 @@ export const InternalButtonStory: Story = {
         isError={false}
         isSuccess={false}
         required
-        labelText="레이블"
-        helper="헬퍼 메시지"
-        placeholder="플레이스 홀더"
+        labelText='레이블'
+        helper='헬퍼 메시지'
+        placeholder='플레이스 홀더'
         InputChildren={
-          <LabelButton size="md" hierarchy="accent">
+          <LabelButton size='md' hierarchy='accent'>
             인증하기
           </LabelButton>
         }
@@ -154,15 +154,15 @@ export const InternalIconStory: Story = {
         isError={false}
         isSuccess={false}
         required
-        labelText="레이블"
-        helper="헬퍼 메시지"
-        placeholder="플레이스 홀더"
-        className="group"
+        labelText='레이블'
+        helper='헬퍼 메시지'
+        placeholder='플레이스 홀더'
+        className='group'
         InputChildren={
           <Icon
-            name="dropDown"
-            size="lg"
-            fillColor="fill-object-assistive-dark group-focus-within:fill-object-neutral-dark"
+            name='dropDown'
+            size='lg'
+            fillColor='fill-object-assistive-dark group-focus-within:fill-object-neutral-dark'
           />
         }
       />
@@ -173,7 +173,7 @@ export const InternalIconStory: Story = {
 export const OnlyInputStory: Story = {
   name: "InputField only input",
   render: () => {
-    return <InputField isError={false} isSuccess={false} required placeholder="플레이스 홀더" />;
+    return <InputField isError={false} isSuccess={false} required placeholder='플레이스 홀더' />;
   },
 };
 
@@ -184,8 +184,8 @@ export const InputFieldHasHelperStory: Story = {
       <InputField
         isError={false}
         isSuccess={false}
-        helper="헬퍼 메시지"
-        placeholder="플레이스 홀더"
+        helper='헬퍼 메시지'
+        placeholder='플레이스 홀더'
       />
     );
   },
@@ -198,8 +198,8 @@ export const InputFieldHasLabelStory: Story = {
       <InputField
         isError={false}
         isSuccess={false}
-        labelText="추가된 레이블"
-        placeholder="플레이스 홀더"
+        labelText='추가된 레이블'
+        placeholder='플레이스 홀더'
       />
     );
   },

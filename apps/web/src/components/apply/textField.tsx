@@ -17,8 +17,8 @@ function TextField({ data, onChange, value }: TextFieldProps) {
   };
 
   return (
-    <fieldset className="gap-2xl flex flex-col">
-      <Title hierarchy="normal">{data.title}</Title>
+    <fieldset className='gap-2xl flex flex-col'>
+      <Title hierarchy='normal'>{data.title}</Title>
       <InputArea
         labelText={data.label}
         errorHelper={APPLY_MESSAGE.invalid.exceedText}

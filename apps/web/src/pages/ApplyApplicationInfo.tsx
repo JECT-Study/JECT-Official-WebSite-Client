@@ -62,43 +62,43 @@ function ApplyApplicantInfo() {
   const isSubmitButtonDisabled = !isValid || isUpdatingProfile;
 
   return (
-    <div className="gap-9xl flex flex-col items-center pt-(--gap-9xl) pb-(--gap-12xl)">
+    <div className='gap-9xl flex flex-col items-center pt-(--gap-9xl) pb-(--gap-12xl)'>
       <ProgressIndicator totalStep={3} currentStep={2} />
-      <section className="gap-9xl flex w-[26.25rem] flex-col items-stretch *:first:self-center">
-        <Title hierarchy="strong">{APPLY_TITLE.applicantInfo}</Title>
+      <section className='gap-9xl flex w-[26.25rem] flex-col items-stretch *:first:self-center'>
+        <Title hierarchy='strong'>{APPLY_TITLE.applicantInfo}</Title>
         <form
-          id="applicantForm"
-          className="gap-3xl onSubmit={handleApplicantInfoSubmit} flex flex-col"
+          id='applicantForm'
+          className='gap-3xl onSubmit={handleApplicantInfoSubmit} flex flex-col'
           onSubmit={handleApplicantInfoSubmit}
         >
           <InputField
-            labelText="이름"
+            labelText='이름'
             isError={!!errors.name}
             isSuccess={name?.length > 0 && !errors.name}
-            placeholder="김젝트"
+            placeholder='김젝트'
             helper={errors.name ? errors.name.message : ""}
             {...register("name")}
           />
           <InputField
-            type="tel"
-            labelText="휴대폰 번호"
+            type='tel'
+            labelText='휴대폰 번호'
             isError={!!errors.phoneNumber}
             isSuccess={phoneNumber?.length > 0 && !errors.phoneNumber}
-            placeholder="01012345678"
+            placeholder='01012345678'
             helper={errors.phoneNumber ? errors.phoneNumber.message : ""}
             {...register("phoneNumber")}
           />
         </form>
         <BlockButton
-          type="submit"
-          form="applicantForm"
-          size="lg"
-          style="solid"
-          hierarchy="accent"
+          type='submit'
+          form='applicantForm'
+          size='lg'
+          style='solid'
+          hierarchy='accent'
           rightIcon={
             <Icon
-              name="forward"
-              size="md"
+              name='forward'
+              size='md'
               fillColor={
                 isSubmitButtonDisabled
                   ? "fill-accent-trans-hero-dark"

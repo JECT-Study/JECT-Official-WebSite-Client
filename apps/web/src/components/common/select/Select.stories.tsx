@@ -37,7 +37,7 @@ export const DefaultStory: Story = {
 export const SelectStory: Story = {
   name: "Select",
   render: () => (
-    <div className="w-[26.25rem]">
+    <div className='w-[26.25rem]'>
       <Select
         items={[
           { label: "프론트엔드 개발자" },
@@ -53,7 +53,7 @@ export const SelectStory: Story = {
 export const SelectWithDefaultValueStory: Story = {
   name: "Select with Default Value",
   render: () => (
-    <div className="w-[26.25rem]">
+    <div className='w-[26.25rem]'>
       <Select
         items={[
           { label: "프론트엔드 개발자" },
@@ -61,7 +61,7 @@ export const SelectWithDefaultValueStory: Story = {
           { label: "프로덕트 매니저" },
           { label: "프로덕트 디자이너" },
         ]}
-        defaultValue="백엔드 개발자"
+        defaultValue='백엔드 개발자'
       />
     </div>
   ),

@@ -31,21 +31,21 @@ export const DefaultStory: Story = {
 export const RoleBadgeStory: Story = {
   name: "RoleBadge",
   render: () => (
-    <div className="story-container">
-      <div className="story-inner-container">
-        <RoleBadge variant="fe" />
+    <div className='story-container'>
+      <div className='story-inner-container'>
+        <RoleBadge variant='fe' />
       </div>
-      <div className="story-inner-container">
-        <RoleBadge variant="be" />
+      <div className='story-inner-container'>
+        <RoleBadge variant='be' />
       </div>
-      <div className="story-inner-container">
-        <RoleBadge variant="do" />
+      <div className='story-inner-container'>
+        <RoleBadge variant='do' />
       </div>
-      <div className="story-inner-container">
-        <RoleBadge variant="pm" />
+      <div className='story-inner-container'>
+        <RoleBadge variant='pm' />
       </div>
-      <div className="story-inner-container">
-        <RoleBadge variant="pd" />
+      <div className='story-inner-container'>
+        <RoleBadge variant='pd' />
       </div>
     </div>
   ),

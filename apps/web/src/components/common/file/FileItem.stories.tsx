@@ -59,7 +59,7 @@ export const FileItemStory: Story = {
   name: "FileItemStory",
   render: () => {
     return (
-      <div className="gap-2xl flex flex-col">
+      <div className='gap-2xl flex flex-col'>
         <FileItem file={fileItem} />
       </div>
     );
@@ -70,7 +70,7 @@ export const RemovableFileItemStory: Story = {
   name: "Removable FileItemStory",
   render: () => {
     return (
-      <div className="gap-2xl flex flex-col">
+      <div className='gap-2xl flex flex-col'>
         <FileItem file={fileItem} onDelete={action("delete")} />
       </div>
     );
@@ -81,7 +81,7 @@ export const DisabledFileItemStory: Story = {
   name: "Disabled FileItemStory",
   render: () => {
     return (
-      <div className="gap-2xl flex flex-col">
+      <div className='gap-2xl flex flex-col'>
         <FileItem file={fileItem} onDelete={action("delete")} isDisabled={true} />
       </div>
     );
@@ -92,13 +92,13 @@ export const FeedbackFileItemStory: Story = {
   name: "Feedback FileItemStory",
   render: () => {
     return (
-      <div className="gap-2xl flex flex-col">
-        <FileItem file={fileItem} onDelete={action("delete")} isDisabled={true} feedback="error" />
+      <div className='gap-2xl flex flex-col'>
+        <FileItem file={fileItem} onDelete={action("delete")} isDisabled={true} feedback='error' />
         <FileItem
           file={fileItem}
           onDelete={action("delete")}
           isDisabled={true}
-          feedback="unknown"
+          feedback='unknown'
         />
       </div>
     );

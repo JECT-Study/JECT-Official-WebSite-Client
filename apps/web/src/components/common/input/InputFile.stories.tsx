@@ -81,14 +81,14 @@ export const InputFileStory: Story = {
     };
 
     return (
-      <div className="gap-2xl flex flex-col">
+      <div className='gap-2xl flex flex-col'>
         <InputFile
           fileExtensions={["pdf"]}
           currentSize={0}
           maxSize={100}
           isDisabled={false}
           onAddFile={addFile}
-          labelText="첨부파일"
+          labelText='첨부파일'
           isRequired={true}
         >
           {fileList.length === 0

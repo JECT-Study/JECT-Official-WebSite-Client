@@ -40,7 +40,7 @@ const CheckBox = forwardRef<HTMLInputElement, CheckBoxProps>(function CheckBox(
             "absolute top-0 left-0 h-full w-full opacity-0",
             !disabled && "cursor-pointer",
           )}
-          type="checkbox"
+          type='checkbox'
           checked={checked}
           disabled={disabled}
           {...restProps}
@@ -49,7 +49,7 @@ const CheckBox = forwardRef<HTMLInputElement, CheckBoxProps>(function CheckBox(
       {!!labelText && (
         <div className={clsx(!!id && !disabled && "cursor-pointer")}>
           <label htmlFor={id}>
-            <Label hierarchy="weak" textColor="text-object-neutral-dark" weight="normal">
+            <Label hierarchy='weak' textColor='text-object-neutral-dark' weight='normal'>
               {labelText}
             </Label>
           </label>

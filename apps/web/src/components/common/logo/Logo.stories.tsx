@@ -33,10 +33,10 @@ export const LogoStory: Story = {
   name: "LogoStory",
   render: () => {
     return (
-      <div className="story-inner-row-container">
-        <Logo height={32} fillColor="fill-object-hero-dark" />
-        <Logo height={24} fillColor="fill-object-hero-dark" />
-        <Logo height={20} fillColor="fill-object-hero-dark" />
+      <div className='story-inner-row-container'>
+        <Logo height={32} fillColor='fill-object-hero-dark' />
+        <Logo height={24} fillColor='fill-object-hero-dark' />
+        <Logo height={20} fillColor='fill-object-hero-dark' />
       </div>
     );
   },

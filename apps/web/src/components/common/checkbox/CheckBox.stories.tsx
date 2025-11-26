@@ -43,7 +43,7 @@ type Story = StoryObj<typeof CheckBox>;
 export const DefaultStory: Story = {
   name: "CheckBox",
   render: args => (
-    <div className="story-container">
+    <div className='story-container'>
       <CheckBox {...args} />
     </div>
   ),

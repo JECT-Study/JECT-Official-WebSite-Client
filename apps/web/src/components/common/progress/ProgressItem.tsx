@@ -23,14 +23,14 @@ function ProgressItem({ index, title, subTitle, content, isActive }: ProgressIte
       className={`${activeStyle} radius-xs gap-3xl flex items-center border px-(--gap-3xl) py-(--gap-2xl)`}
     >
       <ProgressIndex isActive={isActive}>{index}</ProgressIndex>
-      <div className="gap-xs flex flex-col">
-        <div className="gap-sm flex items-center">
-          <Title hierarchy="normal">{title}</Title>
-          <Title hierarchy="weak" textColor="text-object-alternative-dark">
+      <div className='gap-xs flex flex-col'>
+        <div className='gap-sm flex items-center'>
+          <Title hierarchy='normal'>{title}</Title>
+          <Title hierarchy='weak' textColor='text-object-alternative-dark'>
             {subTitle}
           </Title>
         </div>
-        <div className="body-lg text-object-normal-dark">{content}</div>
+        <div className='body-lg text-object-normal-dark'>{content}</div>
       </div>
     </div>
   );

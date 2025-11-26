@@ -29,17 +29,17 @@ function InputFile({
 }: InputFileProps) {
   const size = changeFileSizeUnit(currentSize, ["MB"], false);
   return (
-    <div className="gap-2xs flex flex-col">
+    <div className='gap-2xs flex flex-col'>
       <Label
-        hierarchy="normal"
-        weight="normal"
-        textColor="text-object-neutral-dark"
+        hierarchy='normal'
+        weight='normal'
+        textColor='text-object-neutral-dark'
         isRequired={isRequired}
       >
         {labelText}
       </Label>
-      <div className="bg-surface-standard-dark radius-sm border-border-trans-assistive-dark gap-md flex flex-col border px-(--gap-md) py-(--gap-sm)">
-        {children && <div className="gap-2xs flex flex-col">{children}</div>}
+      <div className='bg-surface-standard-dark radius-sm border-border-trans-assistive-dark gap-md flex flex-col border px-(--gap-md) py-(--gap-sm)'>
+        {children && <div className='gap-2xs flex flex-col'>{children}</div>}
         <Uploader
           fileExtensions={fileExtensions}
           isDisabled={isDisabled}

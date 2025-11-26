@@ -37,19 +37,19 @@ export const Card = ({
   return (
     <Link className={cardClass} {...restProps}>
       <div className={imageContainerClass}>
-        <img src={imgUrl} alt="카드 이미지" className="block h-full w-full object-cover" />
+        <img src={imgUrl} alt='카드 이미지' className='block h-full w-full object-cover' />
       </div>
-      <div className="gap-3xs flex w-full flex-col px-(--gap-md) pt-(--gap-xs) pb-(--gap-lg)">
-        <div className="gap-4xs flex flex-col items-start *:w-full *:truncate">
+      <div className='gap-3xs flex w-full flex-col px-(--gap-md) pt-(--gap-xs) pb-(--gap-lg)'>
+        <div className='gap-4xs flex flex-col items-start *:w-full *:truncate'>
           <Title
-            hierarchy="weak"
+            hierarchy='weak'
             textColor={disabled ? "text-object-disabled-dark" : "text-object-hero-dark"}
           >
             {title}
           </Title>
           <Label
-            hierarchy="stronger"
-            weight="normal"
+            hierarchy='stronger'
+            weight='normal'
             textColor={disabled ? "text-object-disabled-dark" : "text-object-normal-dark"}
           >
             {label}

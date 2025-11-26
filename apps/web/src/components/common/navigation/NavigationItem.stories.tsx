@@ -46,10 +46,10 @@ export const NavigationItemStory: Story = {
   name: "NavigationItemStory",
   render: () => {
     return (
-      <div className="story-inner-row-container">
-        <NavigationItem pathName="/project">아이템 레이블1</NavigationItem>
-        <NavigationItem pathName="/activity">아이템 레이블2</NavigationItem>
-        <NavigationItem pathName="/apply">아이템 레이블3</NavigationItem>
+      <div className='story-inner-row-container'>
+        <NavigationItem pathName='/project'>아이템 레이블1</NavigationItem>
+        <NavigationItem pathName='/activity'>아이템 레이블2</NavigationItem>
+        <NavigationItem pathName='/apply'>아이템 레이블3</NavigationItem>
       </div>
     );
   },
@@ -59,11 +59,11 @@ export const NavigationItemDisabledStory: Story = {
   name: "NavigationItem Disabled Story",
   render: () => {
     return (
-      <div className="story-inner-row-container">
-        <NavigationItem pathName="/project" disabled>
+      <div className='story-inner-row-container'>
+        <NavigationItem pathName='/project' disabled>
           아이템 레이블1
         </NavigationItem>
-        <NavigationItem pathName="/activity" disabled={true}>
+        <NavigationItem pathName='/activity' disabled={true}>
           아이템 레이블2
         </NavigationItem>
       </div>

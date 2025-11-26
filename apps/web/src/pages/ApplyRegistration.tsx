@@ -144,13 +144,13 @@ function ApplyRegistration() {
   }, [selectedJob, application]);
 
   return (
-    <div className="gap-9xl flex flex-col items-center pt-(--gap-9xl) pb-(--gap-12xl)">
+    <div className='gap-9xl flex flex-col items-center pt-(--gap-9xl) pb-(--gap-12xl)'>
       <ProgressIndicator totalStep={3} currentStep={3} />
-      <section className="gap-9xl flex w-[32.5rem] flex-col items-stretch *:first:text-center">
-        <Title hierarchy="strong">{APPLY_TITLE.registration}</Title>
+      <section className='gap-9xl flex w-[32.5rem] flex-col items-stretch *:first:text-center'>
+        <Title hierarchy='strong'>{APPLY_TITLE.registration}</Title>
         <div className={clsx(!selectedJob && "*:nth-2:text-center", "gap-7xl flex flex-col")}>
-          <div className="gap-2xl flex flex-col">
-            <Title hierarchy="normal">어떤 포지션으로 지원하시나요?</Title>
+          <div className='gap-2xl flex flex-col'>
+            <Title hierarchy='normal'>어떤 포지션으로 지원하시나요?</Title>
             <SelectBox
               selectedJob={selectedJob}
               onLoadQuestion={changeSelectAndQuestion}
@@ -166,24 +166,24 @@ function ApplyRegistration() {
               onActiveSubmitButton={setSubmitButtonActive}
             />
           ) : (
-            <Label hierarchy="normal" weight="normal" textColor="text-object-assistive-dark">
+            <Label hierarchy='normal' weight='normal' textColor='text-object-assistive-dark'>
               포지션을 선택한 뒤 아래에 추가 질문들이 표시돼요.
             </Label>
           )}
 
-          <div aria-label="button-area" className="gap-md flex w-full self-center *:flex-1">
+          <div aria-label='button-area' className='gap-md flex w-full self-center *:flex-1'>
             <BlockButton
-              size="lg"
-              style="solid"
-              hierarchy="secondary"
+              size='lg'
+              style='solid'
+              hierarchy='secondary'
               onClick={saveDraftServerAndLocal}
             >
               {isSaveDraftPending ? <Lottie animationData={loadingSpinner} /> : "임시 저장하기"}
             </BlockButton>
             <BlockButton
-              size="lg"
-              style="solid"
-              hierarchy="accent"
+              size='lg'
+              style='solid'
+              hierarchy='accent'
               disabled={!isStepCompleted}
               onClick={openDialogSubmitAnswer}
             >

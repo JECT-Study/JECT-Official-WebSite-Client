@@ -38,9 +38,9 @@ function SelectField({ data, onChange, value }: SelectFieldProps) {
   };
 
   return (
-    <fieldset className="gap-2xl flex flex-col">
-      <Title hierarchy="normal">{data.title}</Title>
-      <div className="relative">
+    <fieldset className='gap-2xl flex flex-col'>
+      <Title hierarchy='normal'>{data.title}</Title>
+      <div className='relative'>
         <InputField
           readOnly
           ref={inputRef}
@@ -52,17 +52,17 @@ function SelectField({ data, onChange, value }: SelectFieldProps) {
           isError={false}
           isSuccess={false}
           placeholder={data.inputHint}
-          className="group"
+          className='group'
           InputChildren={
             <Icon
-              name="dropDown"
-              size="lg"
-              fillColor="fill-object-assistive-dark group-focus-within:fill-object-neutral-dark"
+              name='dropDown'
+              size='lg'
+              fillColor='fill-object-assistive-dark group-focus-within:fill-object-neutral-dark'
             />
           }
         />
         {isOpen && (
-          <div className="absolute z-40 mt-[8px] w-full" ref={selectRef}>
+          <div className='absolute z-40 mt-[8px] w-full' ref={selectRef}>
             <Select items={selectLabels} defaultValue={selectedItem} onChange={handleSelect} />
           </div>
         )}

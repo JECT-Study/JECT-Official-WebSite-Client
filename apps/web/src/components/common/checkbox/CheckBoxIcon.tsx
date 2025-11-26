@@ -6,8 +6,8 @@ export const CheckBoxIcon = ({ checked, isIndeterminate, disabled }: CheckBoxIco
   if (isIndeterminate) {
     return (
       <Icon
-        name="minus"
-        size="2xs"
+        name='minus'
+        size='2xs'
         fillColor={
           disabled
             ? "fill-object-static-inverse-assistive-dark"
@@ -19,8 +19,8 @@ export const CheckBoxIcon = ({ checked, isIndeterminate, disabled }: CheckBoxIco
   if (checked) {
     return (
       <Icon
-        name="check"
-        size="2xs"
+        name='check'
+        size='2xs'
         fillColor={
           disabled
             ? "fill-object-static-inverse-assistive-dark"
@@ -29,5 +29,5 @@ export const CheckBoxIcon = ({ checked, isIndeterminate, disabled }: CheckBoxIco
       />
     );
   }
-  return <div className="h-[0.875rem] w-[0.875rem]" />;
+  return <div className='h-[0.875rem] w-[0.875rem]' />;
 };

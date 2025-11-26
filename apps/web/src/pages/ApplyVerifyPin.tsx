@@ -147,26 +147,26 @@ function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
   if (isResetPin) return <ApplyVerifyEmail isResetPin={isResetPin} />;
 
   return (
-    <div className="gap-9xl flex flex-col items-center pt-(--gap-9xl) pb-(--gap-12xl)">
+    <div className='gap-9xl flex flex-col items-center pt-(--gap-9xl) pb-(--gap-12xl)'>
       <ProgressIndicator totalStep={3} currentStep={1} />
-      <section className="gap-9xl flex w-[26.25rem] flex-col items-stretch *:first:self-center">
-        <Title hierarchy="strong">{APPLY_TITLE.verifyPIN}</Title>
-        <div className="gap-7xl flex flex-col">
-          <form id="pinForm" className="gap-xs flex flex-col" onSubmit={handlePinFormSubmit}>
+      <section className='gap-9xl flex w-[26.25rem] flex-col items-stretch *:first:self-center'>
+        <Title hierarchy='strong'>{APPLY_TITLE.verifyPIN}</Title>
+        <div className='gap-7xl flex flex-col'>
+          <form id='pinForm' className='gap-xs flex flex-col' onSubmit={handlePinFormSubmit}>
             <InputField
               value={email}
-              type="email"
-              labelText="이메일"
+              type='email'
+              labelText='이메일'
               isError={false}
               isSuccess={false}
               disabled={true}
-              helper=""
+              helper=''
             >
               <BlockButton
-                size="lg"
-                style="solid"
-                hierarchy="secondary"
-                className="h-full"
+                size='lg'
+                style='solid'
+                hierarchy='secondary'
+                className='h-full'
                 disabled={true}
               >
                 인증 완료됨
@@ -174,25 +174,25 @@ function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
             </InputField>
             <InputField
               type={isPinHidden ? "password" : "text"}
-              labelText="PIN"
+              labelText='PIN'
               isError={!!errorsPin.pin}
               isSuccess={isPinValid}
               disabled={false}
               helper={errorsPin.pin ? errorsPin.pin.message : ""}
-              placeholder="설정하셨던 6자리 비밀번호를 입력해주세요"
+              placeholder='설정하셨던 6자리 비밀번호를 입력해주세요'
               InputChildren={
-                <span onClick={togglePinVisibility} className="cursor-pointer">
+                <span onClick={togglePinVisibility} className='cursor-pointer'>
                   <Icon
                     name={isPinHidden ? "visible" : "invisible"}
-                    size="md"
-                    fillColor="fill-object-neutral-dark"
+                    size='md'
+                    fillColor='fill-object-neutral-dark'
                   />
                 </span>
               }
               {...registerPin("pin")}
             />
           </form>
-          <div className="gap-3xs flex self-center *:last:cursor-pointer">
+          <div className='gap-3xs flex self-center *:last:cursor-pointer'>
             {/*<Label hierarchy='weak' weight='normal' textColor='text-object-alternative-dark'>*/}
             {/*  혹시 PIN을 잊어버리셨나요?*/}
             {/*</Label>*/}
@@ -203,13 +203,13 @@ function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
             {/*</button>*/}
           </div>
           <BlockButton
-            type="submit"
-            form="pinForm"
+            type='submit'
+            form='pinForm'
             disabled={!isPinValid || isPinLoginLoading}
-            size="lg"
-            style="solid"
-            hierarchy="accent"
-            rightIcon={<Icon name="forward" size="md" fillColor={rightIconFillColor} />}
+            size='lg'
+            style='solid'
+            hierarchy='accent'
+            rightIcon={<Icon name='forward' size='md' fillColor={rightIconFillColor} />}
           >
             다음 단계로 진행하기
           </BlockButton>

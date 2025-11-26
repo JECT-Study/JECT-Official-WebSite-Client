@@ -54,9 +54,9 @@ export const InputAreaStory: Story = {
   render: () => {
     return (
       <InputArea
-        labelText="답변"
+        labelText='답변'
         required
-        placeholder="어떤 공부를 하셨고, 어떤 일을 하시나요? 자유롭게 작성해 주세요."
+        placeholder='어떤 공부를 하셨고, 어떤 일을 하시나요? 자유롭게 작성해 주세요.'
         maxLength={20}
       />
     );

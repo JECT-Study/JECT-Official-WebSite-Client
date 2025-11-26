@@ -33,18 +33,18 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
     ref,
   ) => {
     return (
-      <div className="gap-2xs flex flex-col">
+      <div className='gap-2xs flex flex-col'>
         {labelText && (
           <Label
-            hierarchy="normal"
-            weight="normal"
+            hierarchy='normal'
+            weight='normal'
             isRequired={required}
             textColor={`${disabled ? "text-object-assistive-dark" : "text-object-neutral-dark"}`}
           >
             {labelText}
           </Label>
         )}
-        <div className="gap-xs flex">
+        <div className='gap-xs flex'>
           <Input
             {...props}
             ref={ref}

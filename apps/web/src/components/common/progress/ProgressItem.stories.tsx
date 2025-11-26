@@ -44,9 +44,9 @@ export const Primary: Story = {
     return (
       <ProgressItem
         index={1}
-        title="3월 12일(수) ~ 3월 19일(수)"
-        subTitle="지원 접수 기간"
-        content="젝트 웹사이트의 지원하기를 통해 접수를 받고 있어요."
+        title='3월 12일(수) ~ 3월 19일(수)'
+        subTitle='지원 접수 기간'
+        content='젝트 웹사이트의 지원하기를 통해 접수를 받고 있어요.'
         isActive={true}
       />
     );

@@ -29,7 +29,7 @@ export const Post = ({
   return (
     <a className={containerClass} target={target} rel={rel} {...restProps}>
       <Title
-        hierarchy="weak"
+        hierarchy='weak'
         textColor={disabled ? "text-object-disabled-dark" : "text-object-hero-dark"}
       >
         {title}
@@ -43,8 +43,8 @@ export const Post = ({
         {children}
       </span>
       <Label
-        hierarchy="strong"
-        weight="bold"
+        hierarchy='strong'
+        weight='bold'
         textColor={disabled ? "text-object-disabled-dark" : "text-object-assistive-dark"}
       >
         {label}

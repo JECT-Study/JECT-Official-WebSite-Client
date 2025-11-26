@@ -310,9 +310,9 @@ function ApplyVerifyEmail({
 
     return (
       <LabelButton
-        type="submit"
-        size="md"
-        hierarchy="accent"
+        type='submit'
+        size='md'
+        hierarchy='accent'
         disabled={!isVerificationValid || isEmailCodeLoading || step === 3}
       >
         {step === 3 ? "인증 완료됨" : "인증하기"}
@@ -334,29 +334,29 @@ function ApplyVerifyEmail({
       className={`gap-9xl flex flex-col items-center ${isReVerification ? "pt-(--gap-12xl)" : "pt-(--gap-9xl)"} pb-(--gap-12xl)`}
     >
       {!isReVerification && <ProgressIndicator totalStep={3} currentStep={1} />}
-      <section className="gap-9xl flex w-[26.25rem] flex-col items-stretch *:first:self-center">
-        <Title hierarchy="strong">
+      <section className='gap-9xl flex w-[26.25rem] flex-col items-stretch *:first:self-center'>
+        <Title hierarchy='strong'>
           {isReVerification ? APPLY_TITLE.resetPin : APPLY_TITLE.verifyEmail}
         </Title>
-        <div className="gap-7xl flex flex-col">
-          <div className="gap-xs flex flex-col">
+        <div className='gap-7xl flex flex-col'>
+          <div className='gap-xs flex flex-col'>
             {step >= 1 && (
-              <form className="flex flex-col" onSubmit={handleEmailFormSubmit}>
+              <form className='flex flex-col' onSubmit={handleEmailFormSubmit}>
                 <InputField
-                  type="email"
-                  labelText="이메일"
+                  type='email'
+                  labelText='이메일'
                   isError={!!errorsEmail.email}
                   isSuccess={!errorsEmail.email}
                   helper={errorsEmail.email ? errorsEmail.email.message : ""}
-                  placeholder="enjoyject@google.com"
+                  placeholder='enjoyject@google.com'
                   {...registerEmail("email")}
                 >
                   <BlockButton
-                    type="submit"
-                    size="lg"
-                    style="solid"
-                    hierarchy="secondary"
-                    className="h-full"
+                    type='submit'
+                    size='lg'
+                    style='solid'
+                    hierarchy='secondary'
+                    className='h-full'
                     disabled={
                       !isEmailValid ||
                       isEmailLoading ||
@@ -370,16 +370,16 @@ function ApplyVerifyEmail({
               </form>
             )}
             {step >= 2 && (
-              <form className="gap-xs flex flex-col" onSubmit={handleVerificationFormSubmit}>
+              <form className='gap-xs flex flex-col' onSubmit={handleVerificationFormSubmit}>
                 <InputField
-                  labelText="인증번호"
+                  labelText='인증번호'
                   isError={!!errorsVerification.authCode}
                   isSuccess={
                     !errorsVerification.authCode && watchVerification("authCode")?.length === 6
                   }
                   disabled={step === 3}
                   helper={getVerificationHelperText()}
-                  placeholder="이메일 주소로 발송된 인증번호 6자리를 입력해주세요"
+                  placeholder='이메일 주소로 발송된 인증번호 6자리를 입력해주세요'
                   InputChildren={renderVerificationButton()}
                   {...registerVerification("authCode")}
                 />
@@ -389,25 +389,25 @@ function ApplyVerifyEmail({
             {step >= 3 && (
               <form
                 id={isReVerification ? "resetPinForm" : "registerForm"}
-                className="gap-7xl flex flex-col"
+                className='gap-7xl flex flex-col'
                 onSubmit={
                   isReVerification ? handleResetPinFormSubmit : handleRegisterMemberFormSubmit
                 }
               >
                 <InputField
                   type={isPinHidden ? "password" : "text"}
-                  labelText="PIN"
+                  labelText='PIN'
                   isError={!!errorsPin.pin}
                   isSuccess={isPinValid}
                   disabled={false}
                   helper={errorsPin.pin ? errorsPin.pin.message : ""}
-                  placeholder="본인 확인용 6자리 비밀번호를 설정해주세요"
+                  placeholder='본인 확인용 6자리 비밀번호를 설정해주세요'
                   InputChildren={
-                    <span onClick={() => setIsPinHidden(prev => !prev)} className="cursor-pointer">
+                    <span onClick={() => setIsPinHidden(prev => !prev)} className='cursor-pointer'>
                       <Icon
                         name={isPinHidden ? "visible" : "invisible"}
-                        size="md"
-                        fillColor="fill-object-neutral-dark"
+                        size='md'
+                        fillColor='fill-object-neutral-dark'
                       />
                     </span>
                   }
@@ -417,36 +417,36 @@ function ApplyVerifyEmail({
             )}
           </div>
           {!isReVerification && step >= 2 && (
-            <div className="gap-2xs flex">
-              <div className="gap-2xs flex flex-1">
+            <div className='gap-2xs flex'>
+              <div className='gap-2xs flex flex-1'>
                 {isTermsChecked ? (
                   <CheckBox
-                    id="terms-checkbox"
+                    id='terms-checkbox'
                     checked={true}
                     onChange={handleTermsChange}
-                    labelText="[필수] 젝트 개인정보 수집 및 이용 동의"
+                    labelText='[필수] 젝트 개인정보 수집 및 이용 동의'
                   />
                 ) : (
                   <CheckBox
-                    id="terms-checkbox"
+                    id='terms-checkbox'
                     checked={false}
                     onChange={handleTermsChange}
-                    labelText="[필수] 젝트 개인정보 수집 및 이용 동의"
+                    labelText='[필수] 젝트 개인정보 수집 및 이용 동의'
                   />
                 )}
               </div>
-              <NewTabLink href="https://cultured-phalange-7de.notion.site/JECT-1cf62a893ac581cba52beb59a1eca908">
-                <Icon name="rightChevron" size="lg" fillColor="fill-object-assistive-dark" />
+              <NewTabLink href='https://cultured-phalange-7de.notion.site/JECT-1cf62a893ac581cba52beb59a1eca908'>
+                <Icon name='rightChevron' size='lg' fillColor='fill-object-assistive-dark' />
               </NewTabLink>
             </div>
           )}
-          <div className="gap-md flex flex-col">
+          <div className='gap-md flex flex-col'>
             {step === 2 && !isReVerification && (
               <LabelButton
-                size="xs"
-                hierarchy="tertiary"
+                size='xs'
+                hierarchy='tertiary'
                 rightIcon={
-                  <Icon name="rightChevron" size="2xs" fillColor="fill-object-alternative-dark" />
+                  <Icon name='rightChevron' size='2xs' fillColor='fill-object-alternative-dark' />
                 }
                 onClick={() => void navigate(`${PATH.faq}/1/apply-5`)}
               >
@@ -454,15 +454,15 @@ function ApplyVerifyEmail({
               </LabelButton>
             )}
             <BlockButton
-              type="submit"
+              type='submit'
               form={isReVerification ? "resetPinForm" : "registerForm"}
               disabled={isSubmitButtonDisabled}
-              size="lg"
-              style="solid"
-              hierarchy="accent"
+              size='lg'
+              style='solid'
+              hierarchy='accent'
               rightIcon={
                 !isReVerification && (
-                  <Icon name="forward" size="md" fillColor={rightIconFillColor} />
+                  <Icon name='forward' size='md' fillColor={rightIconFillColor} />
                 )
               }
             >
