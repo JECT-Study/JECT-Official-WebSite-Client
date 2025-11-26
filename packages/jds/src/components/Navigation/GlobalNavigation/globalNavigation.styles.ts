@@ -4,7 +4,7 @@ import * as NavigationMenu from '@radix-ui/react-navigation-menu';
 import { pxToRem } from 'utils';
 
 import type { StyledGlobalNavigationWrapperProps } from './globalNavigation.types';
-import { IconButton } from '../Button/IconButton';
+import { IconButton } from '../../Button/IconButton';
 
 const globalNavigationStyleMap = (theme: Theme) => ({
   empty: {

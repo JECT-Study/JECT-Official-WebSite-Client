@@ -2,11 +2,8 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { GlobalNavigation } from './GlobalNavigation';
 import { useGlobalNavigationVariant } from './useGlobalNavigationVariant';
-import { BlockButton } from '../Button/BlockButton';
-import { LabelButton } from '../Button/LabelButton';
-import { Logo } from '../Logo';
-import { SegmentedControl } from '../SegmentedControl';
 
+import { BlockButton, LabelButton, Logo, SegmentedControl } from '@/components';
 import { useMediaQueryFlags } from '@/hooks';
 
 const customViewports = {
