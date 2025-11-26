@@ -78,6 +78,7 @@ export const iconMap = {
   'flag-line': Icons.FlagLine,
   'flow-chart': Icons.FlowChart,
   'folder-4-line': Icons.Folder4Line,
+  'footer-logo': Icons.FooterLogo,
   frame: Icons.Frame,
   'function-line': Icons.FunctionLine,
   'github-fill': Icons.GithubFill,
