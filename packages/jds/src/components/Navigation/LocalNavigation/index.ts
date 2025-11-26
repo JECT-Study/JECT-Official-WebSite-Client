@@ -5,5 +5,4 @@ export type {
   LocalNavigationBackButtonProps,
   LocalNavigationTitleProps,
   LocalNavigationButtonGroupProps,
-  LocalNavigationVariant,
 } from './localNavigation.types';

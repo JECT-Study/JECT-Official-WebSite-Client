@@ -5,6 +5,7 @@ export type GlobalNavigationVariant = 'empty' | 'solid';
 
 export interface GlobalNavigationRootProps extends NavigationMenu.NavigationMenuProps {
   variant?: GlobalNavigationVariant;
+  'aria-label'?: string;
 }
 
 export type GlobalNavigationListProps = NavigationMenu.NavigationMenuListProps;
@@ -28,6 +29,7 @@ export interface GlobalNavigationLogoItemProps extends ComponentPropsWithoutRef<
 export interface GlobalNavigationLogoLinkProps extends NavigationMenu.NavigationMenuLinkProps {
   children?: ReactNode;
   href: string;
+  'aria-label'?: string;
 }
 
 export interface StyledGlobalNavigationWrapperProps {

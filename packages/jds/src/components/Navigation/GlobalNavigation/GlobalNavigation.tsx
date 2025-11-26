@@ -22,10 +22,10 @@ import type {
 import { Divider } from '../../Divider';
 
 const GlobalNavigationRoot = forwardRef<HTMLElement, GlobalNavigationRootProps>(
-  ({ children, variant = 'empty', ...props }, ref) => {
+  ({ children, variant = 'empty', 'aria-label': ariaLabel = '네비게이션', ...props }, ref) => {
     return (
       <StyledGlobalNavigationWrapper $variant={variant}>
-        <StyledGlobalNavigationRoot ref={ref} {...props}>
+        <StyledGlobalNavigationRoot ref={ref} aria-label={ariaLabel} {...props}>
           {children}
         </StyledGlobalNavigationRoot>
       </StyledGlobalNavigationWrapper>
@@ -42,7 +42,12 @@ const GlobalNavigationList = forwardRef<HTMLUListElement, GlobalNavigationListPr
         <StyledGlobalNavigationList ref={ref} {...props}>
           {children}
         </StyledGlobalNavigationList>
-        <StyledMobileMenuButton hierarchy='primary' icon='menu-line' size='lg' />
+        <StyledMobileMenuButton
+          hierarchy='primary'
+          icon='menu-line'
+          size='lg'
+          aria-label='메뉴 열기'
+        />
       </StyledGlobalNavigationListWrapper>
     );
   },
@@ -73,9 +78,9 @@ const GlobalNavigationDivider = () => {
 };
 
 const GlobalNavigationLogoLink = forwardRef<HTMLAnchorElement, GlobalNavigationLogoLinkProps>(
-  ({ children, href, ...props }, ref) => {
+  ({ children, href, 'aria-label': ariaLabel = '홈으로 이동', ...props }, ref) => {
     return (
-      <StyledGlobalNavigationLogoLink href={href} ref={ref} {...props}>
+      <StyledGlobalNavigationLogoLink href={href} ref={ref} aria-label={ariaLabel} {...props}>
         {children}
       </StyledGlobalNavigationLogoLink>
     );

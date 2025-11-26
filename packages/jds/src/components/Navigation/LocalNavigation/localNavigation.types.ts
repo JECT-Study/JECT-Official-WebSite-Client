@@ -5,6 +5,7 @@ import type { IconButtonBasicProps } from '@/components';
 export interface LocalNavigationRootProps {
   isStretched?: boolean;
   children?: ReactNode;
+  backButtonAriaLabel?: string;
 }
 
 export type LocalNavigationBackButtonProps = Omit<
