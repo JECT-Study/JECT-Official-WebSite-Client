@@ -1,10 +1,10 @@
-import type { CSSObject } from '@emotion/react';
+import type { CSSObject } from "@emotion/react";
 
 /**
  * 'true' | 'false' → boolean으로 매핑
  * 그 외는 그대로 유지
  */
-type StringToBoolean<T> = T extends 'true' | 'false' ? boolean : T;
+type StringToBoolean<T> = T extends "true" | "false" ? boolean : T;
 
 /**
  * A 또는 A 배열

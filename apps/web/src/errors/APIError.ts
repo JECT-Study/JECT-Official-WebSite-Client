@@ -1,4 +1,4 @@
-import { Status } from '@/types/apis/response';
+import type { Status } from "@/types/apis/response";
 
 export class InternalAPIError extends Error {
   status: Status;
@@ -6,7 +6,7 @@ export class InternalAPIError extends Error {
 
   constructor(message: string, status: Status, url: string) {
     super(message);
-    this.name = 'InternalAPIError';
+    this.name = "InternalAPIError";
     this.status = status;
     this.url = url;
   }
@@ -18,7 +18,7 @@ export class ExternalAPIError extends Error {
 
   constructor(message: string, status: number, url: string) {
     super(message);
-    this.name = 'ExternalAPIError';
+    this.name = "ExternalAPIError";
     this.status = status;
     this.url = url;
   }
@@ -30,7 +30,7 @@ export class NetworkError extends Error {
 
   constructor(message: string, code?: string, url?: string) {
     super(message);
-    this.name = 'NetworkError';
+    this.name = "NetworkError";
     this.code = code;
     this.url = url;
   }

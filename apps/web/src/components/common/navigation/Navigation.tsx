@@ -1,10 +1,10 @@
-import { ReactNode } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import type { ReactNode } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
-import Logo from '../logo/Logo';
+import Logo from "../logo/Logo";
 
-import { PATH } from '@/constants/path';
-import { useDialogActions } from '@/stores/dialogStore';
+import { PATH } from "@/constants/path";
+import { useDialogActions } from "@/stores/dialogStore";
 
 interface NavigationProps {
   children: ReactNode;
@@ -18,7 +18,7 @@ function Navigation({ children }: NavigationProps) {
   const handleClick = () => {
     if (pathname === PATH.applyRegistration) {
       return openDialog({
-        type: 'dirtyCheck',
+        type: "dirtyCheck",
         onPrimaryBtnClick: () => void navigate(PATH.main),
       });
     }

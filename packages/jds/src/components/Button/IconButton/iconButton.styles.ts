@@ -1,19 +1,19 @@
-import isPropValid from '@emotion/is-prop-valid';
-import type { CSSObject, Theme } from '@emotion/react';
-import styled from '@emotion/styled';
-import type { IconButtonSize, IconButtonHierarchy, IconButtonIntent } from 'components';
-import type { IconSize } from 'components';
-import { InteractionLayer, pxToRem } from 'utils';
+import isPropValid from "@emotion/is-prop-valid";
+import type { CSSObject, Theme } from "@emotion/react";
+import styled from "@emotion/styled";
+import type { IconButtonSize, IconButtonHierarchy, IconButtonIntent } from "components";
+import type { IconSize } from "components";
+import { InteractionLayer, pxToRem } from "utils";
 
 const iconSizeMap: Record<IconButtonSize, IconSize> = {
-  '3xl': '3xl',
-  '2xl': '2xl',
-  xl: 'xl',
-  lg: 'lg',
-  md: 'md',
-  sm: 'sm',
-  xs: 'xs',
-  '2xs': '2xs',
+  "3xl": "3xl",
+  "2xl": "2xl",
+  xl: "xl",
+  lg: "lg",
+  md: "md",
+  sm: "sm",
+  xs: "xs",
+  "2xs": "2xs",
 };
 
 export const getIconSizeForButton = (size: IconButtonSize): IconSize => {
@@ -21,11 +21,11 @@ export const getIconSizeForButton = (size: IconButtonSize): IconSize => {
 };
 
 const sizeStyles: Record<IconButtonSize, CSSObject> = {
-  '3xl': {
+  "3xl": {
     width: pxToRem(32),
     height: pxToRem(32),
   },
-  '2xl': {
+  "2xl": {
     width: pxToRem(28),
     height: pxToRem(28),
   },
@@ -49,7 +49,7 @@ const sizeStyles: Record<IconButtonSize, CSSObject> = {
     width: pxToRem(14),
     height: pxToRem(14),
   },
-  '2xs': {
+  "2xs": {
     width: pxToRem(12),
     height: pxToRem(12),
   },
@@ -59,14 +59,14 @@ const offsetMap: Record<
   IconButtonSize,
   { vertical: number; horizontal: number; borderRadius: number }
 > = {
-  '3xl': { vertical: 4, horizontal: 4, borderRadius: 4 },
-  '2xl': { vertical: 4, horizontal: 4, borderRadius: 4 },
+  "3xl": { vertical: 4, horizontal: 4, borderRadius: 4 },
+  "2xl": { vertical: 4, horizontal: 4, borderRadius: 4 },
   xl: { vertical: 3, horizontal: 3, borderRadius: 4 },
   lg: { vertical: 3, horizontal: 3, borderRadius: 4 },
   md: { vertical: 2, horizontal: 2, borderRadius: 2 },
   sm: { vertical: 2, horizontal: 2, borderRadius: 2 },
   xs: { vertical: 1, horizontal: 1, borderRadius: 2 },
-  '2xs': { vertical: 1, horizontal: 1, borderRadius: 2 },
+  "2xs": { vertical: 1, horizontal: 1, borderRadius: 2 },
 };
 
 const colorsMap = (theme: Theme): Record<IconButtonHierarchy, { color: string }> => ({
@@ -137,10 +137,10 @@ const feedbackInteractionStyles = (
     positive: {
       restStyle: InteractionLayer({
         theme,
-        state: 'rest',
-        variant: 'positive',
-        density: 'normal',
-        fillColor: 'default',
+        state: "rest",
+        variant: "positive",
+        density: "normal",
+        fillColor: "default",
         isDisabled: disabled,
         offsetVertical: offset.vertical,
         offsetHorizontal: offset.horizontal,
@@ -148,10 +148,10 @@ const feedbackInteractionStyles = (
       }),
       hoverStyle: InteractionLayer({
         theme,
-        state: 'hover',
-        variant: 'positive',
-        density: 'normal',
-        fillColor: 'default',
+        state: "hover",
+        variant: "positive",
+        density: "normal",
+        fillColor: "default",
         isDisabled: false,
         offsetVertical: offset.vertical,
         offsetHorizontal: offset.horizontal,
@@ -159,10 +159,10 @@ const feedbackInteractionStyles = (
       }),
       activeStyle: InteractionLayer({
         theme,
-        state: 'active',
-        variant: 'positive',
-        density: 'normal',
-        fillColor: 'default',
+        state: "active",
+        variant: "positive",
+        density: "normal",
+        fillColor: "default",
         isDisabled: false,
         offsetVertical: offset.vertical,
         offsetHorizontal: offset.horizontal,
@@ -170,10 +170,10 @@ const feedbackInteractionStyles = (
       }),
       focusStyle: InteractionLayer({
         theme,
-        state: 'focus',
-        variant: 'positive',
-        density: 'normal',
-        fillColor: 'default',
+        state: "focus",
+        variant: "positive",
+        density: "normal",
+        fillColor: "default",
         isDisabled: false,
         offsetVertical: offset.vertical,
         offsetHorizontal: offset.horizontal,
@@ -183,10 +183,10 @@ const feedbackInteractionStyles = (
     destructive: {
       restStyle: InteractionLayer({
         theme,
-        state: 'rest',
-        variant: 'destructive',
-        density: 'normal',
-        fillColor: 'default',
+        state: "rest",
+        variant: "destructive",
+        density: "normal",
+        fillColor: "default",
         isDisabled: disabled,
         offsetVertical: offset.vertical,
         offsetHorizontal: offset.horizontal,
@@ -194,10 +194,10 @@ const feedbackInteractionStyles = (
       }),
       hoverStyle: InteractionLayer({
         theme,
-        state: 'hover',
-        variant: 'destructive',
-        density: 'normal',
-        fillColor: 'default',
+        state: "hover",
+        variant: "destructive",
+        density: "normal",
+        fillColor: "default",
         isDisabled: false,
         offsetVertical: offset.vertical,
         offsetHorizontal: offset.horizontal,
@@ -205,10 +205,10 @@ const feedbackInteractionStyles = (
       }),
       activeStyle: InteractionLayer({
         theme,
-        state: 'active',
-        variant: 'destructive',
-        density: 'normal',
-        fillColor: 'default',
+        state: "active",
+        variant: "destructive",
+        density: "normal",
+        fillColor: "default",
         isDisabled: false,
         offsetVertical: offset.vertical,
         offsetHorizontal: offset.horizontal,
@@ -216,10 +216,10 @@ const feedbackInteractionStyles = (
       }),
       focusStyle: InteractionLayer({
         theme,
-        state: 'focus',
-        variant: 'destructive',
-        density: 'normal',
-        fillColor: 'default',
+        state: "focus",
+        variant: "destructive",
+        density: "normal",
+        fillColor: "default",
         isDisabled: false,
         offsetVertical: offset.vertical,
         offsetHorizontal: offset.horizontal,
@@ -232,36 +232,36 @@ const feedbackInteractionStyles = (
 
   if (disabled) {
     return {
-      position: 'relative',
-      outline: 'none',
+      position: "relative",
+      outline: "none",
     };
   }
 
   return {
     ...restStyle,
-    '::after': {
-      ...restStyle['::after'],
+    "::after": {
+      ...restStyle["::after"],
       transition: `opacity ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
     },
-    '&:hover': {
+    "&:hover": {
       ...hoverStyle,
-      '::after': {
-        ...hoverStyle['::after'],
+      "::after": {
+        ...hoverStyle["::after"],
         transition: `opacity ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
       },
     },
-    '&:active': {
+    "&:active": {
       ...activeStyle,
-      '::after': {
-        ...activeStyle['::after'],
-        transition: 'none',
+      "::after": {
+        ...activeStyle["::after"],
+        transition: "none",
       },
     },
-    '&:focus-visible': {
+    "&:focus-visible": {
       ...focusStyle,
-      '::after': {
-        ...focusStyle['::after'],
-        transition: 'none',
+      "::after": {
+        ...focusStyle["::after"],
+        transition: "none",
       },
     },
   };
@@ -278,10 +278,10 @@ const interactionStyles = (
     accent: {
       restStyle: InteractionLayer({
         theme,
-        state: 'rest',
-        variant: 'accent',
-        density: 'normal',
-        fillColor: 'default',
+        state: "rest",
+        variant: "accent",
+        density: "normal",
+        fillColor: "default",
         isDisabled: disabled,
         offsetVertical: offset.vertical,
         offsetHorizontal: offset.horizontal,
@@ -289,10 +289,10 @@ const interactionStyles = (
       }),
       hoverStyle: InteractionLayer({
         theme,
-        state: 'hover',
-        variant: 'accent',
-        density: 'normal',
-        fillColor: 'default',
+        state: "hover",
+        variant: "accent",
+        density: "normal",
+        fillColor: "default",
         isDisabled: false,
         offsetVertical: offset.vertical,
         offsetHorizontal: offset.horizontal,
@@ -300,10 +300,10 @@ const interactionStyles = (
       }),
       activeStyle: InteractionLayer({
         theme,
-        state: 'active',
-        variant: 'accent',
-        density: 'normal',
-        fillColor: 'default',
+        state: "active",
+        variant: "accent",
+        density: "normal",
+        fillColor: "default",
         isDisabled: false,
         offsetVertical: offset.vertical,
         offsetHorizontal: offset.horizontal,
@@ -311,10 +311,10 @@ const interactionStyles = (
       }),
       focusStyle: InteractionLayer({
         theme,
-        state: 'focus',
-        variant: 'accent',
-        density: 'normal',
-        fillColor: 'default',
+        state: "focus",
+        variant: "accent",
+        density: "normal",
+        fillColor: "default",
         isDisabled: false,
         offsetVertical: offset.vertical,
         offsetHorizontal: offset.horizontal,
@@ -324,10 +324,10 @@ const interactionStyles = (
     primary: {
       restStyle: InteractionLayer({
         theme,
-        state: 'rest',
-        variant: 'normal',
-        density: 'normal',
-        fillColor: 'default',
+        state: "rest",
+        variant: "normal",
+        density: "normal",
+        fillColor: "default",
         isDisabled: disabled,
         offsetVertical: offset.vertical,
         offsetHorizontal: offset.horizontal,
@@ -335,10 +335,10 @@ const interactionStyles = (
       }),
       hoverStyle: InteractionLayer({
         theme,
-        state: 'hover',
-        variant: 'normal',
-        density: 'normal',
-        fillColor: 'default',
+        state: "hover",
+        variant: "normal",
+        density: "normal",
+        fillColor: "default",
         isDisabled: false,
         offsetVertical: offset.vertical,
         offsetHorizontal: offset.horizontal,
@@ -346,10 +346,10 @@ const interactionStyles = (
       }),
       activeStyle: InteractionLayer({
         theme,
-        state: 'active',
-        variant: 'normal',
-        density: 'normal',
-        fillColor: 'default',
+        state: "active",
+        variant: "normal",
+        density: "normal",
+        fillColor: "default",
         isDisabled: false,
         offsetVertical: offset.vertical,
         offsetHorizontal: offset.horizontal,
@@ -357,10 +357,10 @@ const interactionStyles = (
       }),
       focusStyle: InteractionLayer({
         theme,
-        state: 'focus',
-        variant: 'normal',
-        density: 'normal',
-        fillColor: 'default',
+        state: "focus",
+        variant: "normal",
+        density: "normal",
+        fillColor: "default",
         isDisabled: false,
         offsetVertical: offset.vertical,
         offsetHorizontal: offset.horizontal,
@@ -370,10 +370,10 @@ const interactionStyles = (
     secondary: {
       restStyle: InteractionLayer({
         theme,
-        state: 'rest',
-        variant: 'normal',
-        density: 'normal',
-        fillColor: 'default',
+        state: "rest",
+        variant: "normal",
+        density: "normal",
+        fillColor: "default",
         isDisabled: disabled,
         offsetVertical: offset.vertical,
         offsetHorizontal: offset.horizontal,
@@ -381,10 +381,10 @@ const interactionStyles = (
       }),
       hoverStyle: InteractionLayer({
         theme,
-        state: 'hover',
-        variant: 'normal',
-        density: 'normal',
-        fillColor: 'default',
+        state: "hover",
+        variant: "normal",
+        density: "normal",
+        fillColor: "default",
         isDisabled: false,
         offsetVertical: offset.vertical,
         offsetHorizontal: offset.horizontal,
@@ -392,10 +392,10 @@ const interactionStyles = (
       }),
       activeStyle: InteractionLayer({
         theme,
-        state: 'active',
-        variant: 'normal',
-        density: 'normal',
-        fillColor: 'default',
+        state: "active",
+        variant: "normal",
+        density: "normal",
+        fillColor: "default",
         isDisabled: false,
         offsetVertical: offset.vertical,
         offsetHorizontal: offset.horizontal,
@@ -403,10 +403,10 @@ const interactionStyles = (
       }),
       focusStyle: InteractionLayer({
         theme,
-        state: 'focus',
-        variant: 'normal',
-        density: 'normal',
-        fillColor: 'default',
+        state: "focus",
+        variant: "normal",
+        density: "normal",
+        fillColor: "default",
         isDisabled: false,
         offsetVertical: offset.vertical,
         offsetHorizontal: offset.horizontal,
@@ -416,10 +416,10 @@ const interactionStyles = (
     tertiary: {
       restStyle: InteractionLayer({
         theme,
-        state: 'rest',
-        variant: 'normal',
-        density: 'normal',
-        fillColor: 'default',
+        state: "rest",
+        variant: "normal",
+        density: "normal",
+        fillColor: "default",
         isDisabled: disabled,
         offsetVertical: offset.vertical,
         offsetHorizontal: offset.horizontal,
@@ -427,10 +427,10 @@ const interactionStyles = (
       }),
       hoverStyle: InteractionLayer({
         theme,
-        state: 'hover',
-        variant: 'normal',
-        density: 'normal',
-        fillColor: 'default',
+        state: "hover",
+        variant: "normal",
+        density: "normal",
+        fillColor: "default",
         isDisabled: false,
         offsetVertical: offset.vertical,
         offsetHorizontal: offset.horizontal,
@@ -438,10 +438,10 @@ const interactionStyles = (
       }),
       activeStyle: InteractionLayer({
         theme,
-        state: 'active',
-        variant: 'normal',
-        density: 'normal',
-        fillColor: 'default',
+        state: "active",
+        variant: "normal",
+        density: "normal",
+        fillColor: "default",
         isDisabled: false,
         offsetVertical: offset.vertical,
         offsetHorizontal: offset.horizontal,
@@ -449,10 +449,10 @@ const interactionStyles = (
       }),
       focusStyle: InteractionLayer({
         theme,
-        state: 'focus',
-        variant: 'normal',
-        density: 'normal',
-        fillColor: 'default',
+        state: "focus",
+        variant: "normal",
+        density: "normal",
+        fillColor: "default",
         isDisabled: false,
         offsetVertical: offset.vertical,
         offsetHorizontal: offset.horizontal,
@@ -465,36 +465,36 @@ const interactionStyles = (
 
   if (disabled) {
     return {
-      position: 'relative',
-      outline: 'none',
+      position: "relative",
+      outline: "none",
     };
   }
 
   return {
     ...restStyle,
-    '::after': {
-      ...restStyle['::after'],
+    "::after": {
+      ...restStyle["::after"],
       transition: `opacity ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
     },
-    '&:hover': {
+    "&:hover": {
       ...hoverStyle,
-      '::after': {
-        ...hoverStyle['::after'],
+      "::after": {
+        ...hoverStyle["::after"],
         transition: `opacity ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
       },
     },
-    '&:active': {
+    "&:active": {
       ...activeStyle,
-      '::after': {
-        ...activeStyle['::after'],
-        transition: 'none',
+      "::after": {
+        ...activeStyle["::after"],
+        transition: "none",
       },
     },
-    '&:focus-visible': {
+    "&:focus-visible": {
       ...focusStyle,
-      '::after': {
-        ...focusStyle['::after'],
-        transition: 'none',
+      "::after": {
+        ...focusStyle["::after"],
+        transition: "none",
       },
     },
   };
@@ -534,8 +534,8 @@ export function GetFeedbackIconButtonStyles(
   };
 }
 
-export const StyledIconButton = styled('button', {
-  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
+export const StyledIconButton = styled("button", {
+  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith("$"),
 })<{
   $intent?: IconButtonIntent;
   $hierarchy?: IconButtonHierarchy;
@@ -548,20 +548,20 @@ export const StyledIconButton = styled('button', {
       : GetIconButtonStyles(theme, $hierarchy!, $size, $disabled);
 
   return {
-    display: 'inline-flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    display: "inline-flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
     padding: 0,
-    border: 'none',
+    border: "none",
     borderRadius: 0,
-    background: 'transparent',
-    cursor: $disabled ? 'not-allowed' : 'pointer',
-    userSelect: 'none',
+    background: "transparent",
+    cursor: $disabled ? "not-allowed" : "pointer",
+    userSelect: "none",
     flexShrink: 0,
     ...modeStyles,
-    '& svg': {
-      color: 'inherit',
+    "& svg": {
+      color: "inherit",
     },
   };
 });

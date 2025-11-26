@@ -1,9 +1,10 @@
-import { useMutation, UseMutationResult } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
+import type { UseMutationResult } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
+import type { AxiosError } from "axios";
 
-import { postEmailAuthCode } from '@/apis/apply';
-import { EmailAuthPayload } from '@/types/apis/apply';
-import { ApiResponse } from '@/types/apis/response';
+import { postEmailAuthCode } from "@/apis/apply";
+import type { EmailAuthPayload } from "@/types/apis/apply";
+import type { ApiResponse } from "@/types/apis/response";
 
 export const useEmailAuthCodeMutation = (): UseMutationResult<
   ApiResponse<null>,
@@ -11,7 +12,7 @@ export const useEmailAuthCodeMutation = (): UseMutationResult<
   EmailAuthPayload
 > => {
   return useMutation({
-    mutationKey: ['postEmailAuthCode'],
+    mutationKey: ["postEmailAuthCode"],
     mutationFn: postEmailAuthCode,
   });
 };

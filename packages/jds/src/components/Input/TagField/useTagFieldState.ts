@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback } from "react";
 
 /**
  * TagField의 상태 관리 Hook
@@ -12,7 +12,7 @@ import { useState, useCallback } from 'react';
  *
  */
 export const useTagFieldState = () => {
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState("");
 
   const [isComposing, setIsComposing] = useState(false);
 
@@ -22,7 +22,7 @@ export const useTagFieldState = () => {
    * 입력 값 초기화
    */
   const clearInput = useCallback(() => {
-    setInputValue('');
+    setInputValue("");
   }, []);
 
   /**

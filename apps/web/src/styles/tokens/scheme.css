@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @theme {
   /* gap */
@@ -47,17 +47,17 @@
 }
 
 @utility gap-* {
-  gap: --value(--gap- *);
+  gap: --value(--gap-*);
 }
 
 @utility radius-* {
-  border-radius: --value(--border-radius- *);
+  border-radius: --value(--border-radius-*);
 }
 
 @utility stroke-* {
-  border-bottom-width: --value(--stroke- *);
+  border-bottom-width: --value(--stroke-*);
 }
 
 @utility opacity-* {
-  opacity: --value(--opacity- *);
+  opacity: --value(--opacity-*);
 }

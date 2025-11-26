@@ -1,4 +1,4 @@
-import { Sort } from './sort';
+import type { Sort } from "./sort";
 
 export interface Jectalk {
   id: number;

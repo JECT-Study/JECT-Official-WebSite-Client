@@ -1,6 +1,6 @@
-export * from './contentBadge/ContentBadge';
-export * from './dotBadge/DotBadge';
-export * from './numericBadge/NumericBadge';
+export * from "./contentBadge/ContentBadge";
+export * from "./dotBadge/DotBadge";
+export * from "./numericBadge/NumericBadge";
 
 export type {
   BadgeStyle,
@@ -11,14 +11,14 @@ export type {
   ThemeVariant,
   ContentBadgeStyle,
   NumericBadgeStyle,
-} from './badge.types';
+} from "./badge.types";
 
 export type {
   ContentBadgeBasicProps,
   ContentFeedbackBadgeProps,
   ContentThemeBadgeProps,
-} from './contentBadge/ContentBadge';
+} from "./contentBadge/ContentBadge";
 
-export type { DotBadgeFeedbackProps } from './dotBadge/DotBadge';
+export type { DotBadgeFeedbackProps } from "./dotBadge/DotBadge";
 
-export type { NumericBadgeBasicProps, NumericBasicBadgeProps } from './numericBadge/NumericBadge';
+export type { NumericBadgeBasicProps, NumericBasicBadgeProps } from "./numericBadge/NumericBadge";

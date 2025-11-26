@@ -1,12 +1,12 @@
-import type { Theme } from '@emotion/react';
-import styled from '@emotion/styled';
-import { InteractionLayer, shadow } from 'utils';
+import type { Theme } from "@emotion/react";
+import styled from "@emotion/styled";
+import { InteractionLayer, shadow } from "utils";
 
 import type {
   StyledRootProps,
   StyledContentProps,
   StyledItemProps,
-} from './segmentedControl.types';
+} from "./segmentedControl.types";
 
 const segmentedControlItemSizeMap = {
   lg: (theme: Theme) => ({
@@ -26,30 +26,30 @@ const segmentedControlItemSizeMap = {
 const createInteractionStyles = (theme: Theme, isDisabled: boolean) => {
   const borderRadius = 6;
 
-  const makeLayer = (state: 'rest' | 'hover' | 'active' | 'focus') =>
+  const makeLayer = (state: "rest" | "hover" | "active" | "focus") =>
     InteractionLayer({
       theme,
       state,
-      variant: 'normal',
-      density: 'assistive',
-      fillColor: 'default',
+      variant: "normal",
+      density: "assistive",
+      fillColor: "default",
       isDisabled: isDisabled,
       borderRadius,
     });
 
   return {
-    restStyle: makeLayer('rest'),
-    hoverStyle: makeLayer('hover'),
-    activeStyle: makeLayer('active'),
-    focusStyle: makeLayer('focus'),
+    restStyle: makeLayer("rest"),
+    hoverStyle: makeLayer("hover"),
+    activeStyle: makeLayer("active"),
+    focusStyle: makeLayer("focus"),
   };
 };
 
 export const SegmentedControlRootStyled = styled.div<StyledRootProps>(({ theme }) => {
   return {
-    display: 'flex',
-    alignItems: 'center',
-    width: '100%',
+    display: "flex",
+    alignItems: "center",
+    width: "100%",
     background: theme.color.semantic.surface.deeper,
     border: `1px solid ${theme.color.semantic.stroke.alpha.subtler}`,
     borderRadius: theme.scheme.semantic.radius[8],
@@ -59,9 +59,9 @@ export const SegmentedControlRootStyled = styled.div<StyledRootProps>(({ theme }
 
 export const SegmentedControlContentStyled = styled.div<StyledContentProps>(({ theme }) => {
   return {
-    display: 'flex',
-    alignItems: 'center',
-    width: '100%',
+    display: "flex",
+    alignItems: "center",
+    width: "100%",
     gap: theme.scheme.semantic.spacing[2],
   };
 });
@@ -71,29 +71,29 @@ export const SegmentedControlItemStyled = styled.button<StyledItemProps>(
     const interactionStyles = createInteractionStyles(theme, $isDisabled);
 
     return {
-      position: 'relative',
-      display: 'inline-flex',
-      alignItems: 'center',
-      justifyContent: 'center',
+      position: "relative",
+      display: "inline-flex",
+      alignItems: "center",
+      justifyContent: "center",
       flex: 1,
-      cursor: 'pointer',
-      border: 'none',
+      cursor: "pointer",
+      border: "none",
       borderRadius: theme.scheme.semantic.radius[6],
-      background: 'transparent',
+      background: "transparent",
       ...segmentedControlItemSizeMap[size](theme),
       ...interactionStyles.restStyle,
-      '&:hover': interactionStyles.hoverStyle,
-      '&:active': interactionStyles.activeStyle,
-      '&:focus-visible': interactionStyles.focusStyle,
+      "&:hover": interactionStyles.hoverStyle,
+      "&:active": interactionStyles.activeStyle,
+      "&:focus-visible": interactionStyles.focusStyle,
 
       '&[data-state="on"]': {
         border: `1px solid ${theme.color.semantic.stroke.alpha.subtler}`,
         color: theme.color.semantic.object.normal,
         background: theme.color.semantic.surface.shallowest,
-        ...shadow(theme, 'embossed'),
+        ...shadow(theme, "embossed"),
 
-        '&:focus-visible': {
-          boxShadow: `${shadow(theme, 'embossed').boxShadow}, 0 0 0 3px ${theme.color.semantic.interaction.focus}`,
+        "&:focus-visible": {
+          boxShadow: `${shadow(theme, "embossed").boxShadow}, 0 0 0 3px ${theme.color.semantic.interaction.focus}`,
         },
       },
 
@@ -101,8 +101,8 @@ export const SegmentedControlItemStyled = styled.button<StyledItemProps>(
         color: theme.color.semantic.object.alternative,
       },
 
-      '&:disabled': {
-        cursor: 'not-allowed',
+      "&:disabled": {
+        cursor: "not-allowed",
       },
     };
   },

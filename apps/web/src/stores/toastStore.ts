@@ -1,6 +1,6 @@
-import { create } from 'zustand';
+import { create } from "zustand";
 
-export type ToastType = 'normal' | 'negative' | 'positive';
+export type ToastType = "normal" | "negative" | "positive";
 
 interface Actions {
   addToast: (message: string, type?: ToastType) => void;
@@ -21,7 +21,7 @@ interface ToastState {
 const useToastStore = create<ToastState>(set => ({
   toastItem: null,
   actions: {
-    addToast: (message, type = 'normal') => {
+    addToast: (message, type = "normal") => {
       set(state => ({
         toastItem: {
           ...state.toastItem,

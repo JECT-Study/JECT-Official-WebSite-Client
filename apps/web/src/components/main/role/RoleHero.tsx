@@ -1,33 +1,33 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from "react";
 
-import atom from '@/assets/images/atom.png';
-import clipboard from '@/assets/images/clipboard.png';
-import cursor from '@/assets/images/cursor.png';
-import mobius from '@/assets/images/mobius.png';
-import stack from '@/assets/images/stack.png';
-import Badge from '@/components/common/badge/Badge';
-import { RoleVariant } from '@/types/ui/role';
+import atom from "@/assets/images/atom.png";
+import clipboard from "@/assets/images/clipboard.png";
+import cursor from "@/assets/images/cursor.png";
+import mobius from "@/assets/images/mobius.png";
+import stack from "@/assets/images/stack.png";
+import Badge from "@/components/common/badge/Badge";
+import type { RoleVariant } from "@/types/ui/role";
 
 const heroMap: Record<RoleVariant, { icon: string; style: string }> = {
   fe: {
     icon: atom,
-    style: 'bg-gradient-to-r from-role-fe-normal-dark to-role-fe-trans-neutral-dark',
+    style: "bg-gradient-to-r from-role-fe-normal-dark to-role-fe-trans-neutral-dark",
   },
   be: {
     icon: stack,
-    style: 'bg-gradient-to-r from-role-be-normal-dark to-role-be-trans-neutral-dark',
+    style: "bg-gradient-to-r from-role-be-normal-dark to-role-be-trans-neutral-dark",
   },
   do: {
     icon: mobius,
-    style: 'bg-gradient-to-r from-role-do-normal-dark to-role-do-trans-neutral-dark',
+    style: "bg-gradient-to-r from-role-do-normal-dark to-role-do-trans-neutral-dark",
   },
   pm: {
     icon: clipboard,
-    style: 'bg-gradient-to-r from-role-pm-normal-dark to-role-pm-trans-neutral-dark',
+    style: "bg-gradient-to-r from-role-pm-normal-dark to-role-pm-trans-neutral-dark",
   },
   pd: {
     icon: cursor,
-    style: 'bg-gradient-to-r from-role-pd-normal-dark to-role-pd-trans-neutral-dark',
+    style: "bg-gradient-to-r from-role-pd-normal-dark to-role-pd-trans-neutral-dark",
   },
 };
 

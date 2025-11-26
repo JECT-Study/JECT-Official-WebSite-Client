@@ -1,3 +1,3 @@
-import { AnswersPayload } from '../apis/application';
+import type { AnswersPayload } from "../apis/application";
 
 export type Application = AnswersPayload;

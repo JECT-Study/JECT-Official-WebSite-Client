@@ -1,4 +1,4 @@
-import Label from '@/components/common/label/Label';
+import Label from "@/components/common/label/Label";
 
 interface CalloutProps {
   title: string;

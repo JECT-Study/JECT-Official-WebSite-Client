@@ -1,15 +1,15 @@
-import type { LabelButtonBasicProps, LabelButtonFeedbackProps } from 'components';
-import { Icon } from 'components';
-import { forwardRef } from 'react';
+import type { LabelButtonBasicProps, LabelButtonFeedbackProps } from "components";
+import { Icon } from "components";
+import { forwardRef } from "react";
 
-import { iconSizeMap, StyledLabelButton } from './labelButton.styles';
+import { iconSizeMap, StyledLabelButton } from "./labelButton.styles";
 
 const LabelButtonBasic = forwardRef<HTMLButtonElement, LabelButtonBasicProps>(
   (
     {
       children,
-      size = 'md',
-      hierarchy = 'primary',
+      size = "md",
+      hierarchy = "primary",
       prefixIcon,
       suffixIcon,
       disabled = false,
@@ -36,14 +36,14 @@ const LabelButtonBasic = forwardRef<HTMLButtonElement, LabelButtonBasicProps>(
   },
 );
 
-LabelButtonBasic.displayName = 'LabelButton.Basic';
+LabelButtonBasic.displayName = "LabelButton.Basic";
 
 const LabelButtonFeedback = forwardRef<HTMLButtonElement, LabelButtonFeedbackProps>(
   (
     {
       children,
-      size = 'md',
-      intent = 'destructive',
+      size = "md",
+      intent = "destructive",
       prefixIcon,
       suffixIcon,
       disabled = false,
@@ -70,7 +70,7 @@ const LabelButtonFeedback = forwardRef<HTMLButtonElement, LabelButtonFeedbackPro
   },
 );
 
-LabelButtonFeedback.displayName = 'LabelButton.Feedback';
+LabelButtonFeedback.displayName = "LabelButton.Feedback";
 
 export const LabelButton = {
   Basic: LabelButtonBasic,

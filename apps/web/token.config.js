@@ -1,4 +1,4 @@
-import StyleDictionary from 'style-dictionary';
+import StyleDictionary from "style-dictionary";
 
 /**
  * 새로운 semantic.css 파일 생성
@@ -8,14 +8,14 @@ import StyleDictionary from 'style-dictionary';
  */
 
 StyleDictionary.registerParser({
-  name: 'json-parser',
+  name: "json-parser",
   pattern: /\.json$/,
   parser: ({ filePath, contents }) => {
     const data = contents
-      .replace(/\\n/g, '')
-      .replace(/\\t/g, '')
+      .replace(/\\n/g, "")
+      .replace(/\\t/g, "")
       .replace(/\\"/g, '"')
-      .replace(/\\\\/g, '\\')
+      .replace(/\\\\/g, "\\")
       .trim()
       .slice(1, -1);
 
@@ -26,7 +26,10 @@ StyleDictionary.registerParser({
       for (const key in data) {
         result.color[key] = {};
         for (const subKey in data[key]) {
-          result.color[key][subKey] = { value: data[key][subKey], type: 'color' };
+          result.color[key][subKey] = {
+            value: data[key][subKey],
+            type: "color",
+          };
         }
       }
       return result;
@@ -37,10 +40,10 @@ StyleDictionary.registerParser({
 });
 
 StyleDictionary.registerFormat({
-  name: 'css/custom-variables',
+  name: "css/custom-variables",
   format: ({ dictionary }) => {
     const { allTokens } = dictionary;
-    const cssVariables = allTokens.map(token => `  --${token.name}: ${token.value};`).join('\n');
+    const cssVariables = allTokens.map(token => `  --${token.name}: ${token.value};`).join("\n");
 
     return `
 @import 'tailwindcss';
@@ -51,20 +54,20 @@ StyleDictionary.registerFormat({
 
 const styleDictionary = new StyleDictionary({
   source: [`src/styles/tokens/**/*.json`],
-  parsers: ['json-parser'],
+  parsers: ["json-parser"],
   platforms: {
     css: {
-      transformGroup: 'css',
-      buildPath: 'src/styles/tokens/',
+      transformGroup: "css",
+      buildPath: "src/styles/tokens/",
       files: [
         {
-          destination: 'semantic.css',
-          format: 'css/custom-variables',
+          destination: "semantic.css",
+          format: "css/custom-variables",
         },
       ],
     },
   },
-  logLevel: 'info',
+  logLevel: "info",
 });
 
 await styleDictionary.buildAllPlatforms();

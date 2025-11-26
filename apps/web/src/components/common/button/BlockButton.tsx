@@ -1,15 +1,14 @@
-import clsx from 'clsx';
-import { forwardRef, ComponentPropsWithoutRef, ReactNode } from 'react';
+import clsx from "clsx";
+import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import { forwardRef } from "react";
 
+import type { Size, Style, Hierarchy } from "@/components/common/button/blockButton.style";
 import {
   blockButtonStyle,
-  Size,
-  Style,
-  Hierarchy,
   blockButtonInteractionMap,
-} from '@/components/common/button/blockButton.style';
+} from "@/components/common/button/blockButton.style";
 
-export interface BlockButtonProps extends Omit<ComponentPropsWithoutRef<'button'>, 'style'> {
+export interface BlockButtonProps extends Omit<ComponentPropsWithoutRef<"button">, "style"> {
   children: ReactNode;
   leftIcon?: ReactNode;
   rightIcon?: ReactNode;
@@ -25,10 +24,10 @@ export const BlockButton = forwardRef<HTMLButtonElement, BlockButtonProps>(
   ) => {
     const { variant, density, isInversed } = blockButtonInteractionMap[style][hierarchy];
 
-    const interaction = `interaction-${variant}-${density}${isInversed ? '-inverse' : ''}`;
+    const interaction = `interaction-${variant}-${density}${isInversed ? "-inverse" : ""}`;
 
     const baseClasses =
-      'inline-flex flex-row justify-center items-center gap-4xs transition-faster-fluent';
+      "inline-flex flex-row justify-center items-center gap-4xs transition-faster-fluent";
 
     const combinedClasses = clsx(
       interaction,
@@ -39,8 +38,8 @@ export const BlockButton = forwardRef<HTMLButtonElement, BlockButtonProps>(
         : blockButtonStyle.variant[style][hierarchy],
       className,
       {
-        'cursor-not-allowed pointer-events-none': disabled,
-        'cursor-pointer pointer-events-auto': !disabled,
+        "cursor-not-allowed pointer-events-none": disabled,
+        "cursor-pointer pointer-events-auto": !disabled,
       },
     );
 
@@ -54,6 +53,6 @@ export const BlockButton = forwardRef<HTMLButtonElement, BlockButtonProps>(
   },
 );
 
-BlockButton.displayName = 'BlockButton';
+BlockButton.displayName = "BlockButton";
 
 export default BlockButton;

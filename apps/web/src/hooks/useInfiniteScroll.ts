@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 
 interface UseInfiniteScrollProps {
   hasNextPage: boolean;
@@ -28,7 +28,7 @@ export const useInfiniteScroll = ({
       entries => {
         if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
           void fetchNextPage().catch(error => {
-            console.error('다음 페이지 불러오기 실패:', error);
+            console.error("다음 페이지 불러오기 실패:", error);
           });
         }
       },

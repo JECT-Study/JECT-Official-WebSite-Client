@@ -1,7 +1,7 @@
-import type { ReactNode } from 'react';
+import type { ReactNode } from "react";
 
-import type { IconName } from '../../Icon/Icon.types';
-import type { FieldPublicProps } from '../input.types';
+import type { IconName } from "../../Icon/Icon.types";
+import type { FieldPublicProps } from "../input.types";
 
 export interface SelectFieldPublicProps extends FieldPublicProps {
   label?: string;

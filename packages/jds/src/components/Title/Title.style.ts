@@ -1,8 +1,8 @@
-import styled from '@emotion/styled';
+import styled from "@emotion/styled";
 
-import { TEXT_ALIGN_MAPPING } from '../Hero/Hero.style';
+import { TEXT_ALIGN_MAPPING } from "../Hero/Hero.style";
 
-export type TitleSize = 'lg' | 'md' | 'sm' | 'xs';
+export type TitleSize = "lg" | "md" | "sm" | "xs";
 export type TitleTextAlign = keyof typeof TEXT_ALIGN_MAPPING;
 
 interface StyledTitleProps {
@@ -12,10 +12,10 @@ interface StyledTitleProps {
 }
 
 export const titleStylesMap = {
-  lg: 'semantic-textStyle-title-4',
-  md: 'semantic-textStyle-title-3',
-  sm: 'semantic-textStyle-title-2',
-  xs: 'semantic-textStyle-title-1',
+  lg: "semantic-textStyle-title-4",
+  md: "semantic-textStyle-title-3",
+  sm: "semantic-textStyle-title-2",
+  xs: "semantic-textStyle-title-1",
 } as const;
 
 export const StyledTitle = styled.div<StyledTitleProps>(({ theme, size, textAlign, color }) => {
@@ -24,11 +24,11 @@ export const StyledTitle = styled.div<StyledTitleProps>(({ theme, size, textAlig
   const BaseColor = color || theme.color.semantic.object.bolder;
 
   return {
-    display: 'flex',
+    display: "flex",
     justifyContent,
-    alignItems: 'center',
+    alignItems: "center",
     color: BaseColor,
-    cursor: 'default',
+    cursor: "default",
     ...theme.textStyle[tokenKey],
   };
 });

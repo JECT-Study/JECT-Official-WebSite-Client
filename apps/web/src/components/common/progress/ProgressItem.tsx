@@ -1,8 +1,8 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from "react";
 
-import ProgressIndex from './ProgressIndex';
+import ProgressIndex from "./ProgressIndex";
 
-import Title from '@/components/common/title/Title';
+import Title from "@/components/common/title/Title";
 
 interface ProgressItemProps {
   index: number;
@@ -12,8 +12,8 @@ interface ProgressItemProps {
   isActive: boolean;
 }
 
-const ACTIVE_STYLE = 'border-border-alternative-dark bg-accent-trans-normal-dark';
-const INACTIVE_STYLE = 'border-border-assistive-dark bg-surface-deep-dark';
+const ACTIVE_STYLE = "border-border-alternative-dark bg-accent-trans-normal-dark";
+const INACTIVE_STYLE = "border-border-assistive-dark bg-surface-deep-dark";
 
 function ProgressItem({ index, title, subTitle, content, isActive }: ProgressItemProps) {
   const activeStyle = isActive ? ACTIVE_STYLE : INACTIVE_STYLE;

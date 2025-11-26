@@ -1,7 +1,7 @@
-import { Select as SelectBase } from './Select';
-import { SelectCheckbox } from './SelectCheckbox';
-import { SelectLabel } from './SelectLabel';
-import { SelectRadio } from './SelectRadio';
+import { Select as SelectBase } from "./Select";
+import { SelectCheckbox } from "./SelectCheckbox";
+import { SelectLabel } from "./SelectLabel";
+import { SelectRadio } from "./SelectRadio";
 
 export const Select = Object.assign(SelectBase, {
   Label: SelectLabel,
@@ -18,4 +18,4 @@ export type {
   SelectSize,
   SelectValue,
   SelectContextType,
-} from './select.types';
+} from "./select.types";

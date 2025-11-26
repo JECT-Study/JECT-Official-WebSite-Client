@@ -1,7 +1,7 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from "react";
 
-import Badge from '@/components/common/badge/Badge';
-import Title from '@/components/common/title/Title';
+import Badge from "@/components/common/badge/Badge";
+import Title from "@/components/common/title/Title";
 
 export interface HeroProps {
   title: string;

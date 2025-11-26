@@ -1,9 +1,9 @@
-import type { ReactNode } from 'react';
+import type { ReactNode } from "react";
 
-import type { BadgeSize, BasicHierarchy, FeedbackVariant, NumericBadgeStyle } from '../badge.types';
-import { NumericBadgeBasicDiv, NumericBadgeFeedbackDiv } from './NumericBadge.style';
+import type { BadgeSize, BasicHierarchy, FeedbackVariant, NumericBadgeStyle } from "../badge.types";
+import { NumericBadgeBasicDiv, NumericBadgeFeedbackDiv } from "./NumericBadge.style";
 
-import { Label } from '@/components/Label';
+import { Label } from "@/components/Label";
 
 export interface NumericBadgeBasicProps {
   hierarchy?: BasicHierarchy;
@@ -14,9 +14,9 @@ export interface NumericBadgeBasicProps {
 }
 
 const NumericBadgeBasic = ({
-  hierarchy = 'secondary',
-  size = 'md',
-  badgeStyle = 'solid',
+  hierarchy = "secondary",
+  size = "md",
+  badgeStyle = "solid",
   isMuted = false,
   children,
 }: NumericBadgeBasicProps) => {
@@ -27,14 +27,14 @@ const NumericBadgeBasic = ({
       badgeStyle={badgeStyle}
       isMuted={isMuted}
     >
-      <Label as='span' size={size} textAlign='center' weight='normal' color='inherit'>
+      <Label as="span" size={size} textAlign="center" weight="normal" color="inherit">
         {children}
       </Label>
     </NumericBadgeBasicDiv>
   );
 };
 
-NumericBadgeBasic.displayName = 'NumericBadge.Basic';
+NumericBadgeBasic.displayName = "NumericBadge.Basic";
 
 export interface NumericBasicBadgeProps {
   variant?: FeedbackVariant;
@@ -45,9 +45,9 @@ export interface NumericBasicBadgeProps {
 }
 
 const NumericBadgeFeedback = ({
-  variant = 'positive',
-  size = 'md',
-  badgeStyle = 'solid',
+  variant = "positive",
+  size = "md",
+  badgeStyle = "solid",
   isMuted = false,
   children,
 }: NumericBasicBadgeProps) => {
@@ -58,14 +58,14 @@ const NumericBadgeFeedback = ({
       badgeStyle={badgeStyle}
       isMuted={isMuted}
     >
-      <Label as='span' size={size} textAlign='center' weight='normal' color='inherit'>
+      <Label as="span" size={size} textAlign="center" weight="normal" color="inherit">
         {children}
       </Label>
     </NumericBadgeFeedbackDiv>
   );
 };
 
-NumericBadgeFeedback.displayName = 'NumericBadge.Feedback';
+NumericBadgeFeedback.displayName = "NumericBadge.Feedback";
 
 export const NumericBadge = {
   Basic: NumericBadgeBasic,

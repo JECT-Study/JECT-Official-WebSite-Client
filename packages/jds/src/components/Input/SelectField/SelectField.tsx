@@ -1,21 +1,18 @@
-import { forwardRef, type ReactNode, type ComponentPropsWithoutRef } from 'react';
+import { forwardRef, type ReactNode, type ComponentPropsWithoutRef } from "react";
 
 import {
   StyledSelectWrapper,
   StyledSelectValue,
   StyledSelectIconWrapper,
-} from './selectField.styles';
-import type { SelectFieldProps } from './selectField.types';
-import { Icon } from '../../Icon';
-import type { IconName } from '../../Icon/Icon.types';
-import { StyledFieldContainer } from '../shared/field.styles';
-import { FormField } from '../shared/FormField';
-import { useFormField } from '../shared/FormFieldContext';
+} from "./selectField.styles";
+import type { SelectFieldProps } from "./selectField.types";
+import { Icon } from "../../Icon";
+import type { IconName } from "../../Icon/Icon.types";
+import { StyledFieldContainer } from "../shared/field.styles";
+import { FormField } from "../shared/FormField";
+import { useFormField } from "../shared/FormFieldContext";
 
-type SelectFieldInputProps = Omit<
-  ComponentPropsWithoutRef<'div'>,
-  'style' | 'onClick'
-> & {
+type SelectFieldInputProps = Omit<ComponentPropsWithoutRef<"div">, "style" | "onClick"> & {
   value?: string;
   placeholder?: string;
   dropdownIcon?: IconName;
@@ -28,8 +25,8 @@ const SelectFieldInput = forwardRef<HTMLDivElement, SelectFieldInputProps>(
   (
     {
       value,
-      placeholder = '플레이스 홀더 텍스트',
-      dropdownIcon = 'arrow-down-s-fill',
+      placeholder = "플레이스 홀더 텍스트",
+      dropdownIcon = "arrow-down-s-fill",
       isOpen = false,
       onClick,
       children,
@@ -57,7 +54,7 @@ const SelectFieldInput = forwardRef<HTMLDivElement, SelectFieldInputProps>(
           $disabled={isDisabled}
           $readOnly={isReadOnly}
           onClick={handleClick}
-          role='combobox'
+          role="combobox"
           tabIndex={isDisabled || isReadOnly ? -1 : 0}
           aria-disabled={isDisabled}
           aria-readonly={isReadOnly}
@@ -73,7 +70,7 @@ const SelectFieldInput = forwardRef<HTMLDivElement, SelectFieldInputProps>(
           </StyledSelectValue>
 
           <StyledSelectIconWrapper $disabled={isDisabled} $readOnly={isReadOnly}>
-            <Icon name={dropdownIcon} size='md' />
+            <Icon name={dropdownIcon} size="md" />
           </StyledSelectIconWrapper>
         </StyledSelectWrapper>
         {children}
@@ -82,15 +79,15 @@ const SelectFieldInput = forwardRef<HTMLDivElement, SelectFieldInputProps>(
   },
 );
 
-SelectFieldInput.displayName = 'SelectFieldInput';
+SelectFieldInput.displayName = "SelectFieldInput";
 
 export const SelectField = forwardRef<HTMLDivElement, SelectFieldProps>(
   (
     {
-      style = 'outlined',
-      layout = 'vertical',
-      validation = 'none',
-      interaction = 'enabled',
+      style = "outlined",
+      layout = "vertical",
+      validation = "none",
+      interaction = "enabled",
       label,
       labelIcon,
       helperText,
@@ -120,4 +117,4 @@ export const SelectField = forwardRef<HTMLDivElement, SelectFieldProps>(
   },
 );
 
-SelectField.displayName = 'SelectField';
+SelectField.displayName = "SelectField";

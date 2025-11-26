@@ -1,8 +1,8 @@
-import { Accordion } from '@/components/common/accordion/Accordion';
-import { Tab, TabHeader, TabItem, TabPanel } from '@/components/common/tab/Tab';
-import Title from '@/components/common/title/Title';
-import { faqActivity, faqApply, faqJect, faqProject } from '@/constants/faqPageData';
-import { useFaqNavigation } from '@/hooks/useFaqNavigation';
+import { Accordion } from "@/components/common/accordion/Accordion";
+import { Tab, TabHeader, TabItem, TabPanel } from "@/components/common/tab/Tab";
+import Title from "@/components/common/title/Title";
+import { faqActivity, faqApply, faqJect, faqProject } from "@/constants/faqPageData";
+import { useFaqNavigation } from "@/hooks/useFaqNavigation";
 
 function Faq() {
   const { activeTabId, openAccordionId, handleTabChange, handleAccordionChange } =

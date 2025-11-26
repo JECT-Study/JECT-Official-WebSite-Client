@@ -1,6 +1,5 @@
+@import "tailwindcss";
 
-@import 'tailwindcss';
-      
 @theme {
   --color-accent-trans-hero-light: rgba(100, 101, 241, 0.28);
   --color-accent-trans-hero-dark: rgba(177, 178, 255, 0.28);

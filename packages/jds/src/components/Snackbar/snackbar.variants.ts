@@ -1,5 +1,6 @@
-import { Theme } from '@emotion/react';
-import { SnackbarStyle } from './snackbar.types';
+import type { Theme } from "@emotion/react";
+
+import type { SnackbarStyle } from "./snackbar.types";
 
 export const snackbarStylesMap = (
   theme: Theme,

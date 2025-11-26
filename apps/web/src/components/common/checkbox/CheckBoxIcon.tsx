@@ -1,6 +1,6 @@
-import { CheckBoxIconProps } from './CheckBox.types.ts';
+import type { CheckBoxIconProps } from "./CheckBox.types.ts";
 
-import Icon from '@/components/common/icon/Icon';
+import Icon from "@/components/common/icon/Icon";
 
 export const CheckBoxIcon = ({ checked, isIndeterminate, disabled }: CheckBoxIconProps) => {
   if (isIndeterminate) {
@@ -10,8 +10,8 @@ export const CheckBoxIcon = ({ checked, isIndeterminate, disabled }: CheckBoxIco
         size='2xs'
         fillColor={
           disabled
-            ? 'fill-object-static-inverse-assistive-dark'
-            : 'fill-object-static-inverse-hero-dark'
+            ? "fill-object-static-inverse-assistive-dark"
+            : "fill-object-static-inverse-hero-dark"
         }
       />
     );
@@ -23,8 +23,8 @@ export const CheckBoxIcon = ({ checked, isIndeterminate, disabled }: CheckBoxIco
         size='2xs'
         fillColor={
           disabled
-            ? 'fill-object-static-inverse-assistive-dark'
-            : 'fill-object-static-inverse-hero-dark'
+            ? "fill-object-static-inverse-assistive-dark"
+            : "fill-object-static-inverse-hero-dark"
         }
       />
     );
