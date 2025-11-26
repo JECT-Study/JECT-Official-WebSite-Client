@@ -7,6 +7,8 @@ import { LabelButton } from '../Button/LabelButton';
 import { Logo } from '../Logo';
 import { SegmentedControl } from '../SegmentedControl';
 
+import { useMediaQueryFlags } from '@/hooks';
+
 const customViewports = {
   desktop: {
     name: 'Desktop (1200px)',
@@ -169,55 +171,81 @@ export const WithScrollVariant: Story = {
   },
 };
 
-export const Viewport: Story = {
-  render: args => (
-    <div style={{ position: 'fixed', top: 0, left: 0, right: 0 }}>
-      <GlobalNavigation.Root variant={args.variant}>
-        <GlobalNavigation.LogoItem>
-          <Logo href='/' hierarchy='primary' height={16} />
-        </GlobalNavigation.LogoItem>
-        <GlobalNavigation.Divider />
-        <GlobalNavigation.List>
-          <GlobalNavigation.Item>
-            <GlobalNavigation.Trigger>
-              <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
-                젝트
-              </LabelButton.Basic>
-            </GlobalNavigation.Trigger>
-          </GlobalNavigation.Item>
-          <GlobalNavigation.Item>
-            <GlobalNavigation.Trigger>
-              <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
-                프로그램
-              </LabelButton.Basic>
-            </GlobalNavigation.Trigger>
-          </GlobalNavigation.Item>
-          <GlobalNavigation.Item>
-            <GlobalNavigation.Trigger>
-              <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
-                뉴스
-              </LabelButton.Basic>
-            </GlobalNavigation.Trigger>
-          </GlobalNavigation.Item>
-          <GlobalNavigation.Item>
-            <GlobalNavigation.Trigger>
-              <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
-                합류 가이드
-              </LabelButton.Basic>
-            </GlobalNavigation.Trigger>
-          </GlobalNavigation.Item>
-          <GlobalNavigation.Item>
-            <BlockButton.Basic hierarchy='primary' size='sm' onClick={() => alert('hello!')}>
-              지원하기
-            </BlockButton.Basic>
-          </GlobalNavigation.Item>
-        </GlobalNavigation.List>
-      </GlobalNavigation.Root>
-      <p style={{ textAlign: 'center', paddingTop: '100px' }}>
-        viewport를 변경하여 네비게이션 스타일을 확인하세요
-      </p>
-    </div>
-  ),
+export const Responsive: Story = {
+  render: function Render(args) {
+    const { isTablet } = useMediaQueryFlags();
+    const labelButtonSize = isTablet ? 'sm' : 'md';
+    const blockButtonSize = isTablet ? 'xs' : 'sm';
+
+    return (
+      <div style={{ position: 'fixed', top: 0, left: 0, right: 0 }}>
+        <GlobalNavigation.Root variant={args.variant}>
+          <GlobalNavigation.LogoItem>
+            <Logo href='/' hierarchy='primary' height={16} />
+          </GlobalNavigation.LogoItem>
+          <GlobalNavigation.Divider />
+          <GlobalNavigation.List>
+            <GlobalNavigation.Item>
+              <GlobalNavigation.Trigger>
+                <LabelButton.Basic
+                  hierarchy='primary'
+                  size={labelButtonSize}
+                  suffixIcon='arrow-down-s-line'
+                >
+                  젝트
+                </LabelButton.Basic>
+              </GlobalNavigation.Trigger>
+            </GlobalNavigation.Item>
+            <GlobalNavigation.Item>
+              <GlobalNavigation.Trigger>
+                <LabelButton.Basic
+                  hierarchy='primary'
+                  size={labelButtonSize}
+                  suffixIcon='arrow-down-s-line'
+                >
+                  프로그램
+                </LabelButton.Basic>
+              </GlobalNavigation.Trigger>
+            </GlobalNavigation.Item>
+            <GlobalNavigation.Item>
+              <GlobalNavigation.Trigger>
+                <LabelButton.Basic
+                  hierarchy='primary'
+                  size={labelButtonSize}
+                  suffixIcon='arrow-down-s-line'
+                >
+                  뉴스
+                </LabelButton.Basic>
+              </GlobalNavigation.Trigger>
+            </GlobalNavigation.Item>
+            <GlobalNavigation.Item>
+              <GlobalNavigation.Trigger>
+                <LabelButton.Basic
+                  hierarchy='primary'
+                  size={labelButtonSize}
+                  suffixIcon='arrow-down-s-line'
+                >
+                  합류 가이드
+                </LabelButton.Basic>
+              </GlobalNavigation.Trigger>
+            </GlobalNavigation.Item>
+            <GlobalNavigation.Item>
+              <BlockButton.Basic
+                hierarchy='primary'
+                size={blockButtonSize}
+                onClick={() => alert('hello!')}
+              >
+                지원하기
+              </BlockButton.Basic>
+            </GlobalNavigation.Item>
+          </GlobalNavigation.List>
+        </GlobalNavigation.Root>
+        <p style={{ textAlign: 'center', paddingTop: '100px' }}>
+          viewport를 변경하여 네비게이션 스타일을 확인하세요
+        </p>
+      </div>
+    );
+  },
   parameters: {
     viewport: {
       defaultViewport: 'tablet',
