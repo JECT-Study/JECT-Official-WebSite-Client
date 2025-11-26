@@ -22,10 +22,10 @@ import type {
 import { Divider } from '../../Divider';
 
 const GlobalNavigationRoot = forwardRef<HTMLElement, GlobalNavigationRootProps>(
-  ({ children, variant = 'empty', 'aria-label': ariaLabel = '네비게이션', ...props }, ref) => {
+  ({ children, variant = 'empty', ...props }, ref) => {
     return (
       <StyledGlobalNavigationWrapper $variant={variant}>
-        <StyledGlobalNavigationRoot ref={ref} aria-label={ariaLabel} {...props}>
+        <StyledGlobalNavigationRoot ref={ref} aria-label='Navigation' {...props}>
           {children}
         </StyledGlobalNavigationRoot>
       </StyledGlobalNavigationWrapper>
@@ -46,7 +46,7 @@ const GlobalNavigationList = forwardRef<HTMLUListElement, GlobalNavigationListPr
           hierarchy='primary'
           icon='menu-line'
           size='lg'
-          aria-label='메뉴 열기'
+          aria-label='MenuButton'
         />
       </StyledGlobalNavigationListWrapper>
     );
@@ -78,9 +78,9 @@ const GlobalNavigationDivider = () => {
 };
 
 const GlobalNavigationLogoLink = forwardRef<HTMLAnchorElement, GlobalNavigationLogoLinkProps>(
-  ({ children, href, 'aria-label': ariaLabel = '홈으로 이동', ...props }, ref) => {
+  ({ children, href, ...props }, ref) => {
     return (
-      <StyledGlobalNavigationLogoLink href={href} ref={ref} aria-label={ariaLabel} {...props}>
+      <StyledGlobalNavigationLogoLink href={href} ref={ref} {...props}>
         {children}
       </StyledGlobalNavigationLogoLink>
     );

@@ -16,7 +16,7 @@ import { IconButton } from '@/components';
 import { useMediaQueryFlags } from '@/hooks';
 
 const LocalNavigationRoot = forwardRef<HTMLDivElement, LocalNavigationRootProps>(
-  ({ isStretched = false, backButtonAriaLabel = '이전 페이지로 이동', children, ...props }, ref) => {
+  ({ isStretched = false, children, ...props }, ref) => {
     const { isMobile } = useMediaQueryFlags();
     const buttonSize = isMobile ? 'lg' : 'xl';
 
@@ -27,7 +27,7 @@ const LocalNavigationRoot = forwardRef<HTMLDivElement, LocalNavigationRootProps>
             icon='arrow-left-line'
             hierarchy='primary'
             size={buttonSize}
-            aria-label={backButtonAriaLabel}
+            aria-label='PreviousPage'
           />
           {children}
         </StyledLocalNavigationWrapper>
