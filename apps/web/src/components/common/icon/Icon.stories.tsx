@@ -1,47 +1,47 @@
-import { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import Icon from './Icon';
+import Icon from "./Icon";
 
 const meta: Meta<typeof Icon> = {
-  title: 'Components/Icon',
+  title: "Components/Icon",
   component: Icon,
   argTypes: {
     name: {
-      control: { type: 'select' },
+      control: { type: "select" },
       options: [
-        'check',
-        'clear',
-        'dropDown',
-        'error',
-        'expand',
-        'file',
-        'forward',
-        'github',
-        'less',
-        'northEast',
-        'question',
-        'upload',
-        'youtube',
-        'download',
-        'edit',
-        'invisible',
-        'minus',
-        'rightChevron',
-        'visible',
+        "check",
+        "clear",
+        "dropDown",
+        "error",
+        "expand",
+        "file",
+        "forward",
+        "github",
+        "less",
+        "northEast",
+        "question",
+        "upload",
+        "youtube",
+        "download",
+        "edit",
+        "invisible",
+        "minus",
+        "rightChevron",
+        "visible",
       ],
-      description: '아이콘의 종류를 선택합니다. IconNames 타입에 정의되어있는 아이콘 이름입니다.',
+      description: "아이콘의 종류를 선택합니다. IconNames 타입에 정의되어있는 아이콘 이름입니다.",
     },
     size: {
-      control: { type: 'select' },
-      options: ['4xl', '3xl', '2xl', 'xl', 'lg', 'md', 'sm', 'xs', '2xs'],
-      description: 'Icon 사이즈입니다.',
+      control: { type: "select" },
+      options: ["4xl", "3xl", "2xl", "xl", "lg", "md", "sm", "xs", "2xs"],
+      description: "Icon 사이즈입니다.",
     },
     fillColor: {
-      control: { type: 'text' },
+      control: { type: "text" },
       options: [
-        'fill-object-static-inverse-hero-dark',
-        'fill-object-assistive-dark',
-        'fill-accent-trans-hero-dark',
+        "fill-object-static-inverse-hero-dark",
+        "fill-object-assistive-dark",
+        "fill-accent-trans-hero-dark",
       ],
       description: 'Icon 색상입니다. tailwind의 "fill-*" 유틸리티를 사용하여 작성합니다.',
     },
@@ -54,14 +54,14 @@ type Story = StoryObj<typeof Icon>;
 
 export const Default: Story = {
   args: {
-    name: 'dropDown',
-    size: '4xl',
-    fillColor: 'fill-object-static-inverse-hero-dark',
+    name: "dropDown",
+    size: "4xl",
+    fillColor: "fill-object-static-inverse-hero-dark",
   },
 };
 
 export const All: Story = {
-  name: 'Icon',
+  name: "Icon",
   render: () => {
     return (
       <div className='flex flex-wrap items-center gap-1'>
@@ -90,7 +90,7 @@ export const All: Story = {
 };
 
 export const AllSize: Story = {
-  name: 'IconSize',
+  name: "IconSize",
   render: () => {
     return (
       <div className='flex items-center gap-1'>

@@ -1,16 +1,16 @@
-import type { CSSObject, Theme } from '@emotion/react';
-import styled from '@emotion/styled';
-import { InteractionLayer, pxToRem } from 'utils';
+import type { CSSObject, Theme } from "@emotion/react";
+import styled from "@emotion/styled";
+import { InteractionLayer, pxToRem } from "utils";
 
 import type {
   UploaderFileContainerDivProps,
   UploaderImageContainerButtonProps,
   UploaderImageIconProps,
   UploaderImageLabelProps,
-} from './uploader.types';
+} from "./uploader.types";
 
-import { Icon } from '@/components';
-import { Label } from '@/components';
+import { Icon } from "@/components";
+import { Label } from "@/components";
 
 const uploaderFileStylesMap = (
   theme: Theme,
@@ -37,7 +37,7 @@ const uploaderFileStylesMap = (
     bgColor: theme.color.semantic.fill.subtlest,
   };
 
-  const dragStyle = isDragging ? stylesByState['dragover'] : stylesByState['rest'];
+  const dragStyle = isDragging ? stylesByState["dragover"] : stylesByState["rest"];
   const baseStyle = isLoading ? stylesByState.rest : dragStyle;
   return disabled ? disabledStyle : baseStyle;
 };
@@ -49,13 +49,13 @@ const interactionStyles = (theme: Theme, isDisabled: boolean): CSSObject => {
   };
   const borderRadius = 6;
 
-  const makeLayer = (state: 'rest' | 'hover' | 'active' | 'focus') =>
+  const makeLayer = (state: "rest" | "hover" | "active" | "focus") =>
     InteractionLayer({
       theme,
       state,
-      variant: 'normal',
-      density: 'assistive',
-      fillColor: 'default',
+      variant: "normal",
+      density: "assistive",
+      fillColor: "default",
       isDisabled: isDisabled,
       offsetVertical: offset.vertical,
       offsetHorizontal: offset.horizontal,
@@ -63,33 +63,33 @@ const interactionStyles = (theme: Theme, isDisabled: boolean): CSSObject => {
     });
 
   const interactionParams = {
-    restStyle: makeLayer('rest'),
-    hoverStyle: makeLayer('hover'),
-    activeStyle: makeLayer('active'),
-    focusStyle: makeLayer('focus'),
+    restStyle: makeLayer("rest"),
+    hoverStyle: makeLayer("hover"),
+    activeStyle: makeLayer("active"),
+    focusStyle: makeLayer("focus"),
   };
 
   return {
     ...interactionParams.restStyle,
-    '::after': {
-      ...interactionParams.restStyle['::after'],
+    "::after": {
+      ...interactionParams.restStyle["::after"],
       transition: `all ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
     },
-    '&:hover': {
+    "&:hover": {
       ...interactionParams.hoverStyle,
     },
-    '&:active': {
+    "&:active": {
       ...interactionParams.activeStyle,
 
-      '::after': {
-        ...interactionParams.hoverStyle['::after'],
-        transition: 'none',
+      "::after": {
+        ...interactionParams.hoverStyle["::after"],
+        transition: "none",
         // TODO: 마우스, 터치 별, entry/exit 별, 액션별 모션을 다르게 적용할 수 있도록 유틸 함수 구현 (js 이벤트 및 애니메이션 이용)
       },
     },
-    '&:focus-visible': {
+    "&:focus-visible": {
       ...interactionParams.focusStyle,
-      transitionDuration: '0s',
+      transitionDuration: "0s",
     },
   };
 };
@@ -104,10 +104,10 @@ export const FileDropZoneDiv = styled.div<UploaderFileContainerDivProps>(
     );
 
     return {
-      position: 'relative',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
+      position: "relative",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
       gap: theme.scheme.semantic.spacing[20],
       width: pxToRem(400),
       padding: theme.scheme.semantic.margin.lg,
@@ -116,28 +116,28 @@ export const FileDropZoneDiv = styled.div<UploaderFileContainerDivProps>(
       backgroundColor: bgColor,
       transition: $isDragging
         ? `all ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`
-        : 'none',
+        : "none",
 
-      '& > svg': {
-        position: 'absolute',
+      "& > svg": {
+        position: "absolute",
         top: 0,
         bottom: 0,
-        width: '100%',
-        height: '100%',
-        pointerEvents: 'none',
-        overflow: 'visible',
+        width: "100%",
+        height: "100%",
+        pointerEvents: "none",
+        overflow: "visible",
 
-        '& > rect': {
-          fill: 'none',
-          width: '100%',
-          height: '100%',
+        "& > rect": {
+          fill: "none",
+          width: "100%",
+          height: "100%",
           stroke: borderColor,
-          strokeWidth: '1px',
+          strokeWidth: "1px",
           strokeDasharray: `16,8`,
-          strokeLinecap: 'round',
-          strokeDashoffset: '8',
-          rx: '6',
-          ry: '6',
+          strokeLinecap: "round",
+          strokeDashoffset: "8",
+          rx: "6",
+          ry: "6",
         },
       },
     };
@@ -146,8 +146,8 @@ export const FileDropZoneDiv = styled.div<UploaderFileContainerDivProps>(
 
 export const FileSpan = styled.span(({ theme }) => {
   return {
-    textAlign: 'center',
-    ...theme.textStyle['semantic-textStyle-body-2xs-bold'],
+    textAlign: "center",
+    ...theme.textStyle["semantic-textStyle-body-2xs-bold"],
   };
 });
 
@@ -159,9 +159,9 @@ export const LoadingIcon = styled(Icon)(({ theme }) => {
 
 export const FlexRowDiv = styled.div(({ theme }) => {
   return {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
     gap: theme.scheme.semantic.spacing[8],
   };
 });
@@ -170,38 +170,38 @@ export const ImageDropZoneButton = styled.button<UploaderImageContainerButtonPro
   ({ theme, $isDisabled, $isLoading }) => {
     const interaction = ($isDisabled || !$isLoading) && interactionStyles(theme, $isDisabled);
     return {
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
       gap: theme.scheme.semantic.spacing[12],
       width: pxToRem(160),
       padding: theme.scheme.semantic.margin.lg,
       borderRadius: theme.scheme.semantic.radius[6],
       backgroundColor: theme.color.semantic.fill.subtlest,
       ...interaction,
-      cursor: $isDisabled || $isLoading ? 'default' : 'pointer',
-      position: 'relative',
+      cursor: $isDisabled || $isLoading ? "default" : "pointer",
+      position: "relative",
 
-      '& > svg': {
-        position: 'absolute',
+      "& > svg": {
+        position: "absolute",
         top: 0,
         left: 0,
-        width: '100%',
-        height: '100%',
-        pointerEvents: 'none',
-        overflow: 'visible',
+        width: "100%",
+        height: "100%",
+        pointerEvents: "none",
+        overflow: "visible",
 
-        '& > rect': {
-          fill: 'none',
-          width: '100%',
-          height: '100%',
+        "& > rect": {
+          fill: "none",
+          width: "100%",
+          height: "100%",
           stroke: theme.color.semantic.stroke.alpha.assistive,
-          strokeWidth: '1px',
+          strokeWidth: "1px",
           strokeDasharray: `16,8`,
-          strokeLinecap: 'round',
-          strokeDashoffset: '6',
-          rx: '6',
-          ry: '6',
+          strokeLinecap: "round",
+          strokeDashoffset: "6",
+          rx: "6",
+          ry: "6",
         },
       },
     };
@@ -224,6 +224,6 @@ export const ImageLabel = styled(Label)<UploaderImageLabelProps>(({ theme, $isDi
 
 export const HiddenInput = styled.input(() => {
   return {
-    display: 'none',
+    display: "none",
   };
 });

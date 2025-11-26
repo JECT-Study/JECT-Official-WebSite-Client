@@ -1,6 +1,6 @@
-import type { ComponentPropsWithoutRef } from 'react';
+import type { ComponentPropsWithoutRef } from "react";
 
-export type CheckBoxProps = ComponentPropsWithoutRef<'input'> & {
+export type CheckBoxProps = ComponentPropsWithoutRef<"input"> & {
   isIndeterminate?: boolean;
   disabled?: boolean;
   checked?: boolean;

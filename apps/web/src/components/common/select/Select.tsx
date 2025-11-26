@@ -1,9 +1,10 @@
-import clsx from 'clsx';
-import { ComponentPropsWithoutRef, ReactNode, useState } from 'react';
+import clsx from "clsx";
+import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import { useState } from "react";
 
-import Icon from '@/components/common/icon/Icon';
+import Icon from "@/components/common/icon/Icon";
 
-interface SelectItemProps extends ComponentPropsWithoutRef<'button'> {
+interface SelectItemProps extends ComponentPropsWithoutRef<"button"> {
   label: string;
   isSelected: boolean;
   clickHandler: (label: string) => void;
@@ -19,11 +20,11 @@ export const SelectItem = ({
   ...restProps
 }: SelectItemProps) => {
   const buttonClass = clsx(
-    'interaction-default-normal transition-faster-fluent radius-xs flex w-full items-start justify-between p-(--gap-sm)',
+    "interaction-default-normal transition-faster-fluent radius-xs flex w-full items-start justify-between p-(--gap-sm)",
     {
-      'text-object-disabled-dark cursor-not-allowed pointer-events-none': !!disabled,
-      'text-object-hero-dark cursor-pointer pointer-events-auto': !disabled && isSelected,
-      'text-object-neutral-dark cursor-pointer pointer-events-auto': !disabled && !isSelected,
+      "text-object-disabled-dark cursor-not-allowed pointer-events-none": !!disabled,
+      "text-object-hero-dark cursor-pointer pointer-events-auto": !disabled && isSelected,
+      "text-object-neutral-dark cursor-pointer pointer-events-auto": !disabled && !isSelected,
     },
   );
 

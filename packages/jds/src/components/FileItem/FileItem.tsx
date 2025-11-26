@@ -1,4 +1,5 @@
-import { forwardRef } from 'react';
+import { forwardRef } from "react";
+
 import {
   FileErrorSpan,
   FileItemDataContainer,
@@ -7,8 +8,8 @@ import {
   FileItemSectionDiv,
   FileItemWrapButton,
   FileSizeLabel,
-} from './fileItem.styles';
-import { FileItemProps } from './fileItem.types';
+} from "./fileItem.styles";
+import type { FileItemProps } from "./fileItem.types";
 
 export const FileItem = forwardRef<HTMLButtonElement, FileItemProps>(
   (
@@ -27,8 +28,8 @@ export const FileItem = forwardRef<HTMLButtonElement, FileItemProps>(
     return (
       <FileItemWrapButton
         ref={ref}
-        as={readonly ? 'div' : 'button'}
-        role={readonly ? 'button' : undefined}
+        as={readonly ? "div" : "button"}
+        role={readonly ? "button" : undefined}
         aria-disabled={disabled}
         $disabled={disabled}
         $readonly={readonly}
@@ -36,21 +37,21 @@ export const FileItem = forwardRef<HTMLButtonElement, FileItemProps>(
         {...buttonRest}
       >
         <FileItemSectionDiv>
-          <FileItemIcon size='sm' name='attachment-line' />
+          <FileItemIcon size="sm" name="attachment-line" />
           <FileItemDataContainer>
             <FileItemLabel
-              size='sm'
-              textAlign='left'
-              weight='subtle'
+              size="sm"
+              textAlign="left"
+              weight="subtle"
               $disabled={disabled}
-              className='file-name'
+              className="file-name"
             >
               {fileName}
             </FileItemLabel>
             <FileSizeLabel
-              size='xs'
-              textAlign='right'
-              weight='subtle'
+              size="xs"
+              textAlign="right"
+              weight="subtle"
               $disabled={disabled}
               $hasError={hasError}
             >
@@ -59,10 +60,10 @@ export const FileItem = forwardRef<HTMLButtonElement, FileItemProps>(
             {suffixButton}
           </FileItemDataContainer>
         </FileItemSectionDiv>
-        {hasError && errorMessage && <FileErrorSpan role='alert'>{errorMessage}</FileErrorSpan>}
+        {hasError && errorMessage && <FileErrorSpan role="alert">{errorMessage}</FileErrorSpan>}
       </FileItemWrapButton>
     );
   },
 );
 
-FileItem.displayName = 'FileItem';
+FileItem.displayName = "FileItem";

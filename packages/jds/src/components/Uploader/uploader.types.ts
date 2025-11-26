@@ -1,9 +1,9 @@
-import type { ReactNode } from 'react';
+import type { ReactNode } from "react";
 
 export type ByteNumber = number;
 export type UploadError = { type: UploadErrorType; file: File };
 
-export type UploadErrorType = 'FILE_TOO_LARGE' | 'INVALID_TYPE' | 'TOTAL_SIZE_EXCEEDED';
+export type UploadErrorType = "FILE_TOO_LARGE" | "INVALID_TYPE" | "TOTAL_SIZE_EXCEEDED";
 
 export interface UploaderOptions {
   accept?: string[];
@@ -32,7 +32,7 @@ export interface UploaderFileButtonProps {
 
 export interface UploaderFileProps
   extends UploaderOptions,
-    Omit<UploaderFileButtonProps, 'triggerUpload'> {
+    Omit<UploaderFileButtonProps, "triggerUpload"> {
   multiple?: boolean;
   messages?: UploaderMessages;
 }

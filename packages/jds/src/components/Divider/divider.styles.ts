@@ -1,8 +1,8 @@
-import isPropValid from '@emotion/is-prop-valid';
-import type { CSSObject, Theme } from '@emotion/react';
-import styled from '@emotion/styled';
+import isPropValid from "@emotion/is-prop-valid";
+import type { CSSObject, Theme } from "@emotion/react";
+import styled from "@emotion/styled";
 
-import type { DividerOrientation, DividerThickness, DividerVariant } from './divider.types';
+import type { DividerOrientation, DividerThickness, DividerVariant } from "./divider.types";
 
 const thicknessMap: Record<DividerThickness, number> = {
   normal: 1,
@@ -21,11 +21,11 @@ const GetDividerStyles = (
   const borderColor = theme.color.semantic.stroke.alpha.subtle;
   const borderStyle = variant;
 
-  if (orientation === 'horizontal') {
+  if (orientation === "horizontal") {
     return {
-      width: '100%',
+      width: "100%",
       height: 0,
-      border: 'none',
+      border: "none",
       borderTop: `${borderWidth}px ${borderStyle} ${borderColor}`,
       margin: 0,
       padding: 0,
@@ -34,17 +34,17 @@ const GetDividerStyles = (
 
   return {
     width: 0,
-    height: '100%',
-    border: 'none',
+    height: "100%",
+    border: "none",
     borderLeft: `${borderWidth}px ${borderStyle} ${borderColor}`,
     margin: 0,
     padding: 0,
-    alignSelf: 'stretch',
+    alignSelf: "stretch",
   };
 };
 
-export const StyledDivider = styled('hr', {
-  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
+export const StyledDivider = styled("hr", {
+  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith("$"),
 })<{
   $orientation: DividerOrientation;
   $thickness: DividerThickness;
@@ -53,11 +53,11 @@ export const StyledDivider = styled('hr', {
   ...GetDividerStyles(theme, $orientation, $thickness, $variant),
 }));
 
-export const StyledVerticalDivider = styled('div', {
-  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
+export const StyledVerticalDivider = styled("div", {
+  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith("$"),
 })<{
   $thickness: DividerThickness;
   $variant: DividerVariant;
 }>(({ theme, $thickness, $variant }) => ({
-  ...GetDividerStyles(theme, 'vertical', $thickness, $variant),
+  ...GetDividerStyles(theme, "vertical", $thickness, $variant),
 }));

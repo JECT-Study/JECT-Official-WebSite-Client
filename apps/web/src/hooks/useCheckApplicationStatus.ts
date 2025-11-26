@@ -1,10 +1,10 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery } from "@tanstack/react-query";
 
-import { getApplicationStatus } from '@/apis/application';
+import { getApplicationStatus } from "@/apis/application";
 
 const useCheckApplicationStatus = (enabled?: boolean) => {
   return useQuery({
-    queryKey: ['applicationStatus'],
+    queryKey: ["applicationStatus"],
     queryFn: getApplicationStatus,
     enabled: enabled ?? true,
     staleTime: 5000,

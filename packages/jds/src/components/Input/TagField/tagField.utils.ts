@@ -1,4 +1,4 @@
-import type { Tag } from './tagField.types';
+import type { Tag } from "./tagField.types";
 
 /**
  * TagField의 비즈니스 로직을 처리하는 순수 함수 유틸리티
@@ -12,7 +12,7 @@ import type { Tag } from './tagField.types';
  */
 export interface TagValidationResult {
   isValid: boolean;
-  reason?: 'empty' | 'maxTags' | 'duplicate';
+  reason?: "empty" | "maxTags" | "duplicate";
 }
 
 /**
@@ -21,7 +21,7 @@ export interface TagValidationResult {
  * - 'select': 마지막 태그 선택
  * - 'none': 아무 동작 안 함
  */
-export type BackspaceAction = 'remove' | 'select' | 'none';
+export type BackspaceAction = "remove" | "select" | "none";
 
 /**
  * TagField 유틸리티 함수 모음
@@ -46,15 +46,15 @@ export const TagFieldUtils = {
     const trimmedValue = value.trim();
 
     if (!trimmedValue) {
-      return { isValid: false, reason: 'empty' };
+      return { isValid: false, reason: "empty" };
     }
 
     if (maxTags !== undefined && tags.length >= maxTags) {
-      return { isValid: false, reason: 'maxTags' };
+      return { isValid: false, reason: "maxTags" };
     }
 
     if (!allowDuplicates && tags.some(tag => tag.label === trimmedValue)) {
-      return { isValid: false, reason: 'duplicate' };
+      return { isValid: false, reason: "duplicate" };
     }
 
     return { isValid: true };
@@ -125,7 +125,7 @@ export const TagFieldUtils = {
    */
   shouldHandleKeyEvent: (key: string, isComposing: boolean): boolean => {
     if (isComposing) return false;
-    return ['Enter', 'Backspace'].includes(key);
+    return ["Enter", "Backspace"].includes(key);
   },
 
   /**
@@ -148,15 +148,15 @@ export const TagFieldUtils = {
     selectedTagId: string | null,
   ): BackspaceAction => {
     if (inputValue || tags.length === 0) {
-      return 'none';
+      return "none";
     }
 
     const lastTag = tags[tags.length - 1];
     if (selectedTagId === lastTag.id) {
-      return 'remove';
+      return "remove";
     }
 
-    return 'select';
+    return "select";
   },
 
   /**

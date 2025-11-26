@@ -1,21 +1,21 @@
-import type { ReactNode } from 'react';
+import type { ReactNode } from "react";
 
 import {
   BadgeIcon,
   ContentBadgeBasicDiv,
   ContentBadgeFeedbackDiv,
   ContentBadgeThemeDiv,
-} from './ContentBadge.style';
+} from "./ContentBadge.style";
 import type {
   BadgeSize,
   ContentBadgeStyle,
   BasicHierarchy,
   FeedbackVariant,
   ThemeVariant,
-} from '../badge.types';
-import { iconSizeMap } from './contentBadge.variants';
+} from "../badge.types";
+import { iconSizeMap } from "./contentBadge.variants";
 
-import { Label } from '@/components/Label';
+import { Label } from "@/components/Label";
 
 export interface ContentBadgeBasicProps {
   hierarchy?: BasicHierarchy;
@@ -27,9 +27,9 @@ export interface ContentBadgeBasicProps {
 }
 
 const ContentBadgeBasic = ({
-  hierarchy = 'secondary',
-  size = 'md',
-  badgeStyle = 'solid',
+  hierarchy = "secondary",
+  size = "md",
+  badgeStyle = "solid",
   isMuted = false,
   withIcon = false,
   children,
@@ -44,12 +44,12 @@ const ContentBadgeBasic = ({
       isMuted={isMuted}
       withIcon={withIcon}
     >
-      <Label as='span' size={size} textAlign='center' weight='normal' color='inherit'>
+      <Label as="span" size={size} textAlign="center" weight="normal" color="inherit">
         {children}
       </Label>
       {withIcon && (
         <BadgeIcon
-          name='close-line'
+          name="close-line"
           size={iconSize}
           hierarchy={hierarchy}
           badgeStyle={badgeStyle}
@@ -60,7 +60,7 @@ const ContentBadgeBasic = ({
   );
 };
 
-ContentBadgeBasic.displayName = 'ContentBadge.Basic';
+ContentBadgeBasic.displayName = "ContentBadge.Basic";
 
 export interface ContentFeedbackBadgeProps {
   variant?: FeedbackVariant;
@@ -71,9 +71,9 @@ export interface ContentFeedbackBadgeProps {
 }
 
 const ContentBadgeFeedback = ({
-  variant = 'positive',
-  size = 'md',
-  badgeStyle = 'solid',
+  variant = "positive",
+  size = "md",
+  badgeStyle = "solid",
   isMuted = false,
   children,
 }: ContentFeedbackBadgeProps) => {
@@ -84,14 +84,14 @@ const ContentBadgeFeedback = ({
       badgeStyle={badgeStyle}
       isMuted={isMuted}
     >
-      <Label as='span' size={size} textAlign='center' weight='normal' color='inherit'>
+      <Label as="span" size={size} textAlign="center" weight="normal" color="inherit">
         {children}
       </Label>
     </ContentBadgeFeedbackDiv>
   );
 };
 
-ContentBadgeFeedback.displayName = 'ContentBadge.Feedback';
+ContentBadgeFeedback.displayName = "ContentBadge.Feedback";
 
 export interface ContentThemeBadgeProps {
   variant?: ThemeVariant;
@@ -102,22 +102,22 @@ export interface ContentThemeBadgeProps {
 }
 
 const ContentBadgeTheme = ({
-  variant = 'red',
-  size = 'md',
-  badgeStyle = 'solid',
+  variant = "red",
+  size = "md",
+  badgeStyle = "solid",
   isMuted = false,
   children,
 }: ContentThemeBadgeProps) => {
   return (
     <ContentBadgeThemeDiv variant={variant} size={size} badgeStyle={badgeStyle} isMuted={isMuted}>
-      <Label as='span' size={size} textAlign='center' weight='normal' color='inherit'>
+      <Label as="span" size={size} textAlign="center" weight="normal" color="inherit">
         {children}
       </Label>
     </ContentBadgeThemeDiv>
   );
 };
 
-ContentBadgeTheme.displayName = 'ContentBadge.Theme';
+ContentBadgeTheme.displayName = "ContentBadge.Theme";
 
 export const ContentBadge = {
   Basic: ContentBadgeBasic,

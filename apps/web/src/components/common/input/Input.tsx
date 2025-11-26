@@ -1,28 +1,29 @@
-import clsx from 'clsx';
-import { ComponentPropsWithoutRef, forwardRef, ReactNode } from 'react';
+import clsx from "clsx";
+import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import { forwardRef } from "react";
 
-interface InputProps extends ComponentPropsWithoutRef<'input'> {
+interface InputProps extends ComponentPropsWithoutRef<"input"> {
   isError?: boolean;
   children?: ReactNode;
   className?: string;
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ children, isError = false, disabled, className = '', ...props }, ref) => {
+  ({ children, isError = false, disabled, className = "", ...props }, ref) => {
     return (
       <div
         className={clsx(
           {
-            'bg-surface-standard-dark': disabled,
-            'bg-surface-embossed-dark': !disabled,
-            'border-feedback-trans-negative-dark': isError && disabled,
-            'border-feedback-negative-dark': isError && !disabled,
-            'border-border-trans-assistive-dark': !isError && disabled,
-            'border-border-trans-assistive-dark hover:border-border-trans-neutral-dark focus-within:border-border-trans-hero-dark focus-within:hover:border-border-trans-hero-dark':
+            "bg-surface-standard-dark": disabled,
+            "bg-surface-embossed-dark": !disabled,
+            "border-feedback-trans-negative-dark": isError && disabled,
+            "border-feedback-negative-dark": isError && !disabled,
+            "border-border-trans-assistive-dark": !isError && disabled,
+            "border-border-trans-assistive-dark hover:border-border-trans-neutral-dark focus-within:border-border-trans-hero-dark focus-within:hover:border-border-trans-hero-dark":
               !isError && !disabled,
           },
           className,
-          'duration-faster gap-2xs radius-xs flex items-center border px-(--gap-md) py-(--gap-sm) ease-(--motion-fluent)',
+          "duration-faster gap-2xs radius-xs flex items-center border px-(--gap-md) py-(--gap-sm) ease-(--motion-fluent)",
         )}
       >
         <input
@@ -37,6 +38,6 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
   },
 );
 
-Input.displayName = 'Input';
+Input.displayName = "Input";
 
 export default Input;

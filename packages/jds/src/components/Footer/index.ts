@@ -1,13 +1,13 @@
-export { Footer } from './Footer';
+export { Footer } from "./Footer";
 export type {
   FooterBottomProps,
   FooterContentProps,
   FooterHeaderProps,
   FooterLink,
-  FooterLogoProps,
+  FooterLogoDivProps,
   FooterNavProps,
   FooterRootProps,
   FooterSection,
   FooterSectionProps,
   FooterSocialProps,
-} from './footer.types';
+} from "./footer.types";

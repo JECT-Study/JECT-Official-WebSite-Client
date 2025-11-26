@@ -1,10 +1,10 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery } from "@tanstack/react-query";
 
-import { getMiniStudies } from '@/apis/miniStudy';
+import { getMiniStudies } from "@/apis/miniStudy";
 
 const useMiniStudies = () => {
   const { data } = useQuery({
-    queryKey: ['miniStudies'],
+    queryKey: ["miniStudies"],
     queryFn: getMiniStudies,
   });
 

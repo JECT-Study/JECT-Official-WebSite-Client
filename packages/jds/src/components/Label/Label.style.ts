@@ -1,10 +1,11 @@
-import isPropValid from '@emotion/is-prop-valid';
-import type { Theme } from '@emotion/react';
-import styled from '@emotion/styled';
+import isPropValid from "@emotion/is-prop-valid";
+import type { Theme } from "@emotion/react";
+import styled from "@emotion/styled";
 
-export type LabelSize = 'lg' | 'md' | 'sm' | 'xs';
-export type LabelTextAlign = 'left' | 'center' | 'right';
-export type LabelWeight = 'bold' | 'normal' | 'subtle';
+export type LabelSize = "lg" | "md" | "sm" | "xs";
+export type LabelTextAlign = "left" | "center" | "right";
+
+export type LabelWeight = "bold" | "normal" | "subtle";
 
 interface LabelStyledProps {
   $size: LabelSize;
@@ -13,8 +14,8 @@ interface LabelStyledProps {
   $color?: string;
 }
 
-const getLabelTokenKey = (size: LabelSize, weight: LabelWeight): keyof Theme['textStyle'] => {
-  return `semantic-textStyle-label-${size}-${weight}` as keyof Theme['textStyle'];
+const getLabelTokenKey = (size: LabelSize, weight: LabelWeight): keyof Theme["textStyle"] => {
+  return `semantic-textStyle-label-${size}-${weight}` as keyof Theme["textStyle"];
 };
 
 /**
@@ -22,15 +23,15 @@ const getLabelTokenKey = (size: LabelSize, weight: LabelWeight): keyof Theme['te
  *
  * styled('label')을 사용하여 Emotion의 polymorphic `as` prop 지원
  */
-export const LabelStyled = styled('label', {
-  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
+export const LabelStyled = styled("label", {
+  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith("$"),
 })<LabelStyledProps>(({ theme, $size, $textAlign, $weight, $color }) => {
   const tokenKey = getLabelTokenKey($size, $weight);
 
   return {
     textAlign: $textAlign,
     color: $color ?? theme.color.semantic.object.bold,
-    cursor: 'inherit',
+    cursor: "inherit",
     ...theme.textStyle[tokenKey],
   };
 });

@@ -1,14 +1,15 @@
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 
-import { applyAuthCodeSchema, ApplyAuthCodeFormData } from '@/schema/applySchema';
+import type { ApplyAuthCodeFormData } from "@/schema/applySchema";
+import { applyAuthCodeSchema } from "@/schema/applySchema";
 
 export const useApplyAuthCodeForm = () => {
   return useForm<ApplyAuthCodeFormData>({
     resolver: zodResolver(applyAuthCodeSchema),
-    mode: 'onChange',
+    mode: "onChange",
     defaultValues: {
-      authCode: '',
+      authCode: "",
     },
   });
 };

@@ -1,8 +1,8 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
-import BlockButton from '@/components/common/button/BlockButton';
-import Title from '@/components/common/title/Title';
-import { APPLY_TITLE, applyComplete } from '@/constants/applyPageData';
+import BlockButton from "@/components/common/button/BlockButton";
+import Title from "@/components/common/title/Title";
+import { APPLY_TITLE, applyComplete } from "@/constants/applyPageData";
 
 function ApplyComplete() {
   const navigate = useNavigate();
@@ -14,7 +14,7 @@ function ApplyComplete() {
           <Title hierarchy='strong'>{APPLY_TITLE.complete}</Title>
           <p className='body-lg text-object-normal-dark text-center'>{applyComplete.content}</p>
         </div>
-        <BlockButton size='lg' style='solid' hierarchy='accent' onClick={() => void navigate('/')}>
+        <BlockButton size='lg' style='solid' hierarchy='accent' onClick={() => void navigate("/")}>
           {applyComplete.button}
         </BlockButton>
       </section>

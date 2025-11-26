@@ -1,18 +1,17 @@
 /** @jsxImportSource @emotion/react */
-import { useTheme } from '@emotion/react';
-import { css } from '@emotion/react';
-
-import type { Meta, StoryObj } from '@storybook/react';
+import { useTheme } from "@emotion/react";
+import { css } from "@emotion/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 const TokenShowcase = () => {
   return <div>Token Showcase</div>;
 };
 
 const meta = {
-  title: 'Design Tokens/All Tokens',
+  title: "Design Tokens/Token Usage",
   component: TokenShowcase,
   parameters: {
-    layout: 'padded',
+    layout: "padded",
   },
 } satisfies Meta<typeof TokenShowcase>;
 
@@ -21,7 +20,6 @@ type Story = StoryObj<typeof meta>;
 
 // 토큰 사용 예시
 export const HowToUseTokens: Story = {
-  name: 'How to Use Tokens',
   render: () => {
     const theme = useTheme();
 
@@ -45,7 +43,7 @@ export const HowToUseTokens: Story = {
         >
           <h3
             css={css`
-              ${theme.textStyle['semantic-textStyle-title-2']}
+              ${theme.textStyle["semantic-textStyle-title-2"]}
               margin-bottom: ${theme.scheme.semantic.spacing[3]};
             `}
           >
@@ -53,7 +51,7 @@ export const HowToUseTokens: Story = {
           </h3>
           <p
             css={css`
-              ${theme.textStyle['semantic-textStyle-body-md-normal']}
+              ${theme.textStyle["semantic-textStyle-body-md-normal"]}
               color: ${theme.color.semantic.accent.alpha.assistive};
               margin-bottom: ${theme.scheme.semantic.spacing[4]};
             `}
@@ -62,14 +60,14 @@ export const HowToUseTokens: Story = {
           </p>
           <button
             css={css`
-              ${theme.textStyle['semantic-textStyle-label-md-bold']}
+              ${theme.textStyle["semantic-textStyle-label-md-bold"]}
               padding: ${theme.scheme.semantic.spacing[3]} ${theme.scheme.semantic.spacing[4]};
               background-color: ${theme.color.semantic.accent.normal};
               color: ${theme.color.semantic.accent.inverse.normal};
               border: none;
               border-radius: ${theme.scheme.semantic.radius[2]};
               cursor: pointer;
-              
+
               &:hover {
                 background-color: ${theme.color.semantic.accent.bold};
               }
@@ -89,7 +87,7 @@ export const HowToUseTokens: Story = {
         >
           <div
             css={css`
-              ${theme.textStyle['semantic-textStyle-hero-3']}
+              ${theme.textStyle["semantic-textStyle-hero-3"]}
               margin-bottom: ${theme.scheme.semantic.spacing[2]};
             `}
           >
@@ -97,7 +95,7 @@ export const HowToUseTokens: Story = {
           </div>
           <div
             css={css`
-              ${theme.textStyle['semantic-textStyle-title-1']}
+              ${theme.textStyle["semantic-textStyle-title-1"]}
               margin-bottom: ${theme.scheme.semantic.spacing[2]};
             `}
           >
@@ -105,7 +103,7 @@ export const HowToUseTokens: Story = {
           </div>
           <div
             css={css`
-              ${theme.textStyle['semantic-textStyle-body-lg-normal']}
+              ${theme.textStyle["semantic-textStyle-body-lg-normal"]}
               margin-bottom: ${theme.scheme.semantic.spacing[2]};
             `}
           >
@@ -113,7 +111,7 @@ export const HowToUseTokens: Story = {
           </div>
           <div
             css={css`
-              ${theme.textStyle['semantic-textStyle-label-sm-subtle']}
+              ${theme.textStyle["semantic-textStyle-label-sm-subtle"]}
             `}
           >
             Label Small Subtle 텍스트
@@ -138,7 +136,7 @@ export const HowToUseTokens: Story = {
           >
             <div
               css={css`
-                ${theme.textStyle['semantic-textStyle-label-md-bold']}
+                ${theme.textStyle["semantic-textStyle-label-md-bold"]}
                 color: ${theme.color.semantic.accent.normal};
               `}
             >
@@ -155,7 +153,7 @@ export const HowToUseTokens: Story = {
           >
             <div
               css={css`
-                ${theme.textStyle['semantic-textStyle-label-md-bold']}
+                ${theme.textStyle["semantic-textStyle-label-md-bold"]}
                 color: ${theme.color.semantic.accent.normal};
               `}
             >
@@ -172,7 +170,7 @@ export const HowToUseTokens: Story = {
           >
             <div
               css={css`
-                ${theme.textStyle['semantic-textStyle-label-md-bold']}
+                ${theme.textStyle["semantic-textStyle-label-md-bold"]}
                 color: ${theme.color.semantic.object.inverse.neutral};
               `}
             >
@@ -187,7 +185,6 @@ export const HowToUseTokens: Story = {
 
 // Color Primitive 예시
 export const ColorPrimitive: Story = {
-  name: 'Color Primitive',
   render: () => {
     const theme = useTheme();
 
@@ -253,7 +250,6 @@ export const ColorPrimitive: Story = {
 
 // Color Semantic 예시
 export const ColorSemantic: Story = {
-  name: 'Color Semantic',
   render: () => {
     const theme = useTheme();
 
@@ -302,7 +298,6 @@ export const ColorSemantic: Story = {
 
 // Typography 예시
 export const Typography: Story = {
-  name: 'Typography',
   render: () => {
     const theme = useTheme();
 
@@ -344,7 +339,6 @@ export const Typography: Story = {
 
 // Scheme 예시
 export const Scheme: Story = {
-  name: 'Scheme (Spacing, Border Radius)',
   render: () => {
     const theme = useTheme();
 
@@ -384,7 +378,6 @@ export const Scheme: Story = {
 
 // Environment 예시
 export const Environment: Story = {
-  name: 'Environment',
   render: () => {
     const theme = useTheme();
 
@@ -412,7 +405,6 @@ export const Environment: Story = {
 
 // TextStyle 예시 (가장 중요!)
 export const TextStyle: Story = {
-  name: 'TextStyle (All Properties Applied)',
   render: () => {
     const theme = useTheme();
 
@@ -430,28 +422,28 @@ export const TextStyle: Story = {
             <h3>Hero Styles</h3>
             <div
               css={css`
-                ${theme.textStyle['semantic-textStyle-hero-4']}
+                ${theme.textStyle["semantic-textStyle-hero-4"]}
               `}
             >
               Hero 4 - All text properties applied via theme.textStyle
             </div>
             <div
               css={css`
-                ${theme.textStyle['semantic-textStyle-hero-3']}
+                ${theme.textStyle["semantic-textStyle-hero-3"]}
               `}
             >
               Hero 3 - All text properties applied via theme.textStyle
             </div>
             <div
               css={css`
-                ${theme.textStyle['semantic-textStyle-hero-2']}
+                ${theme.textStyle["semantic-textStyle-hero-2"]}
               `}
             >
               Hero 2 - All text properties applied via theme.textStyle
             </div>
             <div
               css={css`
-                ${theme.textStyle['semantic-textStyle-hero-1']}
+                ${theme.textStyle["semantic-textStyle-hero-1"]}
               `}
             >
               Hero 1 - All text properties applied via theme.textStyle
@@ -462,28 +454,28 @@ export const TextStyle: Story = {
             <h3>Title Styles</h3>
             <div
               css={css`
-                ${theme.textStyle['semantic-textStyle-title-4']}
+                ${theme.textStyle["semantic-textStyle-title-4"]}
               `}
             >
               Title 4 - All text properties applied
             </div>
             <div
               css={css`
-                ${theme.textStyle['semantic-textStyle-title-3']}
+                ${theme.textStyle["semantic-textStyle-title-3"]}
               `}
             >
               Title 3 - All text properties applied
             </div>
             <div
               css={css`
-                ${theme.textStyle['semantic-textStyle-title-2']}
+                ${theme.textStyle["semantic-textStyle-title-2"]}
               `}
             >
               Title 2 - All text properties applied
             </div>
             <div
               css={css`
-                ${theme.textStyle['semantic-textStyle-title-1']}
+                ${theme.textStyle["semantic-textStyle-title-1"]}
               `}
             >
               Title 1 - All text properties applied
@@ -494,28 +486,28 @@ export const TextStyle: Story = {
             <h3>Label Styles</h3>
             <div
               css={css`
-                ${theme.textStyle['semantic-textStyle-label-lg-bold']}
+                ${theme.textStyle["semantic-textStyle-label-lg-bold"]}
               `}
             >
               Label LG Bold - All text properties applied
             </div>
             <div
               css={css`
-                ${theme.textStyle['semantic-textStyle-label-md-normal']}
+                ${theme.textStyle["semantic-textStyle-label-md-normal"]}
               `}
             >
               Label MD Normal - All text properties applied
             </div>
             <div
               css={css`
-                ${theme.textStyle['semantic-textStyle-label-sm-normal']}
+                ${theme.textStyle["semantic-textStyle-label-sm-normal"]}
               `}
             >
               Label SM Normal - All text properties applied
             </div>
             <div
               css={css`
-                ${theme.textStyle['semantic-textStyle-label-xs-normal']}
+                ${theme.textStyle["semantic-textStyle-label-xs-normal"]}
               `}
             >
               Label XS Normal - All text properties applied
@@ -526,35 +518,35 @@ export const TextStyle: Story = {
             <h3>Body Styles</h3>
             <div
               css={css`
-                ${theme.textStyle['semantic-textStyle-body-lg-normal']}
+                ${theme.textStyle["semantic-textStyle-body-lg-normal"]}
               `}
             >
               Body LG - All text properties applied
             </div>
             <div
               css={css`
-                ${theme.textStyle['semantic-textStyle-body-md-normal']}
+                ${theme.textStyle["semantic-textStyle-body-md-normal"]}
               `}
             >
               Body MD - All text properties applied
             </div>
             <div
               css={css`
-                ${theme.textStyle['semantic-textStyle-body-sm-normal']}
+                ${theme.textStyle["semantic-textStyle-body-sm-normal"]}
               `}
             >
               Body SM - All text properties applied
             </div>
             <div
               css={css`
-                ${theme.textStyle['semantic-textStyle-body-xs-normal']}
+                ${theme.textStyle["semantic-textStyle-body-xs-normal"]}
               `}
             >
               Body XS - All text properties applied
             </div>
             <div
               css={css`
-                ${theme.textStyle['semantic-textStyle-body-2xs-normal']}
+                ${theme.textStyle["semantic-textStyle-body-2xs-normal"]}
               `}
             >
               Body 2XS - All text properties applied
@@ -565,28 +557,28 @@ export const TextStyle: Story = {
             <h3>Syntax Styles</h3>
             <div
               css={css`
-                ${theme.textStyle['semantic-textStyle-syntax-lg']}
+                ${theme.textStyle["semantic-textStyle-syntax-lg"]}
               `}
             >
               Syntax LG - All text properties applied
             </div>
             <div
               css={css`
-                ${theme.textStyle['semantic-textStyle-syntax-md']}
+                ${theme.textStyle["semantic-textStyle-syntax-md"]}
               `}
             >
               Syntax MD - All text properties applied
             </div>
             <div
               css={css`
-                ${theme.textStyle['semantic-textStyle-syntax-sm']}
+                ${theme.textStyle["semantic-textStyle-syntax-sm"]}
               `}
             >
               Syntax SM - All text properties applied
             </div>
             <div
               css={css`
-                ${theme.textStyle['semantic-textStyle-syntax-xs']}
+                ${theme.textStyle["semantic-textStyle-syntax-xs"]}
               `}
             >
               Syntax XS - All text properties applied
@@ -600,7 +592,6 @@ export const TextStyle: Story = {
 
 // 모든 토큰 종합 예시
 export const AllTokensCombined: Story = {
-  name: 'All Tokens Combined Example',
   render: () => {
     const theme = useTheme();
 
@@ -613,7 +604,7 @@ export const AllTokensCombined: Story = {
       >
         <h1
           css={css`
-            ${theme.textStyle['semantic-textStyle-hero-4']}
+            ${theme.textStyle["semantic-textStyle-hero-4"]}
           `}
         >
           Design System Showcase
@@ -629,14 +620,14 @@ export const AllTokensCombined: Story = {
         >
           <h2
             css={css`
-              ${theme.textStyle['semantic-textStyle-title-2']}
+              ${theme.textStyle["semantic-textStyle-title-2"]}
             `}
           >
             Card with Multiple Tokens
           </h2>
           <p
             css={css`
-              ${theme.textStyle['semantic-textStyle-body-md-normal']}
+              ${theme.textStyle["semantic-textStyle-body-md-normal"]}
               margin-top: ${theme.scheme.semantic.spacing[3]};
               color: ${theme.color.semantic.accent.alpha.assistive};
             `}
@@ -652,7 +643,7 @@ export const AllTokensCombined: Story = {
               background-color: ${theme.color.semantic.accent.neutral};
               color: white;
               border-radius: ${theme.scheme.semantic.radius[2]};
-              ${theme.textStyle['semantic-textStyle-label-md-normal']}
+              ${theme.textStyle["semantic-textStyle-label-md-normal"]}
             `}
           >
             Button with TextStyle

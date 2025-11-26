@@ -1,8 +1,8 @@
-import type { ComponentPropsWithoutRef, ReactNode } from 'react';
-import { forwardRef, type Ref } from 'react';
+import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import { forwardRef, type Ref } from "react";
 
-import type { LabelSize, LabelTextAlign, LabelWeight } from './Label.style';
-import { LabelStyled } from './Label.style';
+import type { LabelSize, LabelTextAlign, LabelWeight } from "./Label.style";
+import { LabelStyled } from "./Label.style";
 
 /**
  * LabelElement - Label 컴포넌트가 렌더링할 수 있는 HTML 요소 타입
@@ -18,8 +18,8 @@ type LabelElement = HTMLLabelElement | HTMLSpanElement | HTMLDivElement | HTMLPa
  * - 'div': 블록 레벨 텍스트
  * - 'p': 문단 텍스트
  */
-export interface LabelProps extends ComponentPropsWithoutRef<'label'> {
-  as?: 'label' | 'span' | 'div' | 'p';
+export interface LabelProps extends ComponentPropsWithoutRef<"label"> {
+  as?: "label" | "span" | "div" | "p";
   size?: LabelSize;
   textAlign?: LabelTextAlign;
   weight?: LabelWeight;
@@ -45,7 +45,7 @@ export interface LabelProps extends ComponentPropsWithoutRef<'label'> {
  */
 export const Label = forwardRef<LabelElement, LabelProps>(
   (
-    { as = 'label', size = 'md', textAlign = 'left', weight = 'normal', color, children, ...props },
+    { as = "label", size = "md", textAlign = "left", weight = "normal", color, children, ...props },
     ref,
   ) => {
     return (
@@ -68,4 +68,4 @@ export const Label = forwardRef<LabelElement, LabelProps>(
   },
 );
 
-Label.displayName = 'Label';
+Label.displayName = "Label";

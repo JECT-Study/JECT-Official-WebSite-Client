@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
-import { NavigationType, useBlocker } from 'react-router-dom';
+import { useEffect } from "react";
+import { NavigationType, useBlocker } from "react-router-dom";
 
-import { useDialogActions } from '@/stores/dialogStore';
+import { useDialogActions } from "@/stores/dialogStore";
 
 const useGoBackCheckDialog = (when: boolean) => {
   const { openDialog } = useDialogActions();
@@ -10,10 +10,10 @@ const useGoBackCheckDialog = (when: boolean) => {
   });
 
   useEffect(() => {
-    if (blocker.state !== 'blocked') return;
+    if (blocker.state !== "blocked") return;
 
     openDialog({
-      type: 'dirtyCheck',
+      type: "dirtyCheck",
       onPrimaryBtnClick: () => blocker.proceed(),
       onSecondaryBtnClick: () => blocker.reset(),
     });

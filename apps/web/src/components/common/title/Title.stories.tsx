@@ -1,20 +1,20 @@
-import { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import Title from './Title';
+import Title from "./Title";
 
 const meta: Meta<typeof Title> = {
-  title: 'Components/Title',
+  title: "Components/Title",
   component: Title,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     children: {
-      control: 'text',
-      description: 'Title에 들어갈 텍스트입니다.',
+      control: "text",
+      description: "Title에 들어갈 텍스트입니다.",
     },
     hierarchy: {
-      control: 'radio',
-      options: ['stronger', 'strong', 'normal', 'weak'],
-      description: 'Title의 계층을 나타냅니다.',
+      control: "radio",
+      options: ["stronger", "strong", "normal", "weak"],
+      description: "Title의 계층을 나타냅니다.",
     },
   },
 };
@@ -25,7 +25,7 @@ type Story = StoryObj<typeof Title>;
 
 export const Primary: Story = {
   args: {
-    children: '타이틀',
-    hierarchy: 'stronger',
+    children: "타이틀",
+    hierarchy: "stronger",
   },
 };

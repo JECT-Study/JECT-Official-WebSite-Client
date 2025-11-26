@@ -1,16 +1,16 @@
-import type { SVGProps } from 'react';
+import type { SVGProps } from "react";
 const SvgCloudLine = (props: SVGProps<SVGSVGElement>) => (
   <svg
-    xmlns='http://www.w3.org/2000/svg'
-    width='1em'
-    height='1em'
-    fill='currentColor'
-    viewBox='0 0 24 24'
+    xmlns="http://www.w3.org/2000/svg"
+    width="1em"
+    height="1em"
+    fill="currentColor"
+    viewBox="0 0 24 24"
     {...props}
   >
     <path
-      fill='currentColor'
-      d='M12 2.007a7 7 0 0 1 6.992 7.339A6 6 0 0 1 17 21.007H7A6 6 0 0 1 5.008 9.346 7 7 0 0 1 12 2.007m0 2a5 5 0 0 0-4.994 5.244l.07 1.487-1.404.494A4.002 4.002 0 0 0 7 19.007h10a4 4 0 1 0-3.796-5.265l-1.898-.633A6 6 0 0 1 17 9.007a5 5 0 0 0-5-5'
+      fill="currentColor"
+      d="M12 2.007a7 7 0 0 1 6.992 7.339A6 6 0 0 1 17 21.007H7A6 6 0 0 1 5.008 9.346 7 7 0 0 1 12 2.007m0 2a5 5 0 0 0-4.994 5.244l.07 1.487-1.404.494A4.002 4.002 0 0 0 7 19.007h10a4 4 0 1 0-3.796-5.265l-1.898-.633A6 6 0 0 1 17 9.007a5 5 0 0 0-5-5"
     />
   </svg>
 );

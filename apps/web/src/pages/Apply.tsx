@@ -1,11 +1,11 @@
-import { Fragment } from 'react/jsx-runtime';
+import { Fragment } from "react/jsx-runtime";
 
-import BlockButton from '@/components/common/button/BlockButton';
-import Icon from '@/components/common/icon/Icon';
-import ProgressItem from '@/components/common/progress/ProgressItem';
-import ProgressVerticalBridge from '@/components/common/progress/ProgressVerticalBridge';
-import Title from '@/components/common/title/Title';
-import { APPLY_TITLE, applyInfoList, applyProcedureList } from '@/constants/applyPageData';
+import BlockButton from "@/components/common/button/BlockButton";
+import Icon from "@/components/common/icon/Icon";
+import ProgressItem from "@/components/common/progress/ProgressItem";
+import ProgressVerticalBridge from "@/components/common/progress/ProgressVerticalBridge";
+import Title from "@/components/common/title/Title";
+import { APPLY_TITLE, applyInfoList, applyProcedureList } from "@/constants/applyPageData";
 
 function Apply() {
   // TODO: 개인정보 맟 이용 동의서, 회비 링크 걸기

@@ -1,13 +1,16 @@
-import type { ComponentPropsWithoutRef, ReactNode } from 'react';
+import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
-export type CheckboxSize = 'xs' | 'sm' | 'md' | 'lg';
-export type CheckboxVariant = 'empty' | 'outlined';
-export type CheckboxAlign = 'left' | 'right';
+export type CheckboxSize = "xs" | "sm" | "md" | "lg";
+export type CheckboxVariant = "empty" | "outlined";
+export type CheckboxAlign = "left" | "right";
 
-export type CheckedState = boolean | 'indeterminate';
+export type CheckedState = boolean | "indeterminate";
 
 interface CheckboxCommonProps
-  extends Omit<ComponentPropsWithoutRef<'input'>, 'size' | 'onChange' | 'checked' | 'defaultChecked'> {
+  extends Omit<
+    ComponentPropsWithoutRef<"input">,
+    "size" | "onChange" | "checked" | "defaultChecked"
+  > {
   disabled?: boolean;
   isInvalid?: boolean;
   size?: CheckboxSize;

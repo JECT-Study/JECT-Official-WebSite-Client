@@ -5,7 +5,7 @@ import {
   type KeyboardEvent,
   type ChangeEvent,
   type MouseEvent,
-} from 'react';
+} from "react";
 
 import {
   StyledFieldContainer,
@@ -18,21 +18,21 @@ import {
   StyledTagWrapper,
   StyledTagInput,
   StyledInputRow,
-} from './tagField.styles';
-import type { TagFieldButtonProps } from './tagField.types';
-import { ContentBadge } from '../../Badge';
-import { Icon } from '../../Icon';
-import { getInteractionStates } from '../input.types';
-import { TagFieldUtils } from './tagField.utils';
-import { useTagFieldState } from './useTagFieldState';
+} from "./tagField.styles";
+import type { TagFieldButtonProps } from "./tagField.types";
+import { ContentBadge } from "../../Badge";
+import { Icon } from "../../Icon";
+import { getInteractionStates } from "../input.types";
+import { TagFieldUtils } from "./tagField.utils";
+import { useTagFieldState } from "./useTagFieldState";
 
 export const TagFieldButton = forwardRef<HTMLInputElement, TagFieldButtonProps>(
   (
     {
-      style = 'outlined',
-      layout = 'vertical',
-      validation = 'none',
-      interaction = 'enabled',
+      style = "outlined",
+      layout = "vertical",
+      validation = "none",
+      interaction = "enabled",
       label,
       labelIcon,
       helperText,
@@ -41,7 +41,7 @@ export const TagFieldButton = forwardRef<HTMLInputElement, TagFieldButtonProps>(
       onTagsChange,
       maxTags,
       allowDuplicates = false,
-      placeholder = '태그를 입력하세요',
+      placeholder = "태그를 입력하세요",
       ...restProps
     },
     ref,
@@ -68,7 +68,7 @@ export const TagFieldButton = forwardRef<HTMLInputElement, TagFieldButtonProps>(
           return;
         }
 
-        if (e.key === 'Enter') {
+        if (e.key === "Enter") {
           e.preventDefault();
           const newTags = TagFieldUtils.addTag(tags, inputValue, maxTags, allowDuplicates);
 
@@ -80,17 +80,17 @@ export const TagFieldButton = forwardRef<HTMLInputElement, TagFieldButtonProps>(
           return;
         }
 
-        if (e.key === 'Backspace') {
+        if (e.key === "Backspace") {
           e.preventDefault();
           const action = TagFieldUtils.getBackspaceAction(inputValue, tags, selectedTagId);
 
-          if (action === 'remove') {
+          if (action === "remove") {
             const lastTagId = TagFieldUtils.getLastTagId(tags);
             if (lastTagId) {
               onTagsChange(TagFieldUtils.removeTag(tags, lastTagId));
               clearSelection();
             }
-          } else if (action === 'select') {
+          } else if (action === "select") {
             const lastTagId = TagFieldUtils.getLastTagId(tags);
             if (lastTagId) {
               setSelectedTagId(lastTagId);
@@ -128,7 +128,7 @@ export const TagFieldButton = forwardRef<HTMLInputElement, TagFieldButtonProps>(
     );
 
     const handleWrapperClick = useCallback(() => {
-      if (ref && typeof ref !== 'function' && ref.current) {
+      if (ref && typeof ref !== "function" && ref.current) {
         ref.current.focus();
       }
     }, [ref]);
@@ -146,17 +146,17 @@ export const TagFieldButton = forwardRef<HTMLInputElement, TagFieldButtonProps>(
         {label && (
           <StyledLabelContainer $layout={layout}>
             <StyledFieldLabel
-              as='label'
+              as="label"
               htmlFor={inputId}
-              size='sm'
-              weight='normal'
+              size="sm"
+              weight="normal"
               $disabled={isDisabled}
               $readOnly={isReadOnly}
               $layout={layout}
             >
               {label}
             </StyledFieldLabel>
-            {labelIcon && <Icon name={labelIcon} size='2xs' />}
+            {labelIcon && <Icon name={labelIcon} size="2xs" />}
           </StyledLabelContainer>
         )}
 
@@ -178,9 +178,9 @@ export const TagFieldButton = forwardRef<HTMLInputElement, TagFieldButtonProps>(
                     onClick={isInteractive ? e => handleTagClick(e, tag.id) : undefined}
                   >
                     <ContentBadge.Basic
-                      size='xs'
-                      hierarchy='secondary'
-                      badgeStyle='alpha'
+                      size="xs"
+                      hierarchy="secondary"
+                      badgeStyle="alpha"
                       withIcon={isInteractive}
                     >
                       {tag.label}
@@ -209,9 +209,9 @@ export const TagFieldButton = forwardRef<HTMLInputElement, TagFieldButtonProps>(
 
           {helperText && (
             <StyledHelperText
-              as='span'
-              size='sm'
-              weight='normal'
+              as="span"
+              size="sm"
+              weight="normal"
               $validation={validation}
               $disabled={isDisabled}
               $readOnly={isReadOnly}
@@ -225,4 +225,4 @@ export const TagFieldButton = forwardRef<HTMLInputElement, TagFieldButtonProps>(
   },
 );
 
-TagFieldButton.displayName = 'TagField.Button';
+TagFieldButton.displayName = "TagField.Button";

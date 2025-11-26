@@ -1,9 +1,10 @@
-import { useMutation, UseMutationResult } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
+import type { UseMutationResult } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
+import type { AxiosError } from "axios";
 
-import { putResetPin } from '@/apis/apply';
-import { ResetPinPayload, ResetPinResponse } from '@/types/apis/apply';
-import { ApiResponse } from '@/types/apis/response';
+import { putResetPin } from "@/apis/apply";
+import type { ResetPinPayload, ResetPinResponse } from "@/types/apis/apply";
+import type { ApiResponse } from "@/types/apis/response";
 
 export const useResetPinMutation = (): UseMutationResult<
   ApiResponse<ResetPinResponse>,
@@ -11,7 +12,7 @@ export const useResetPinMutation = (): UseMutationResult<
   ResetPinPayload
 > => {
   return useMutation({
-    mutationKey: ['putResetPin'],
+    mutationKey: ["putResetPin"],
     mutationFn: putResetPin,
   });
 };

@@ -1,8 +1,8 @@
-import { Card } from '@/components/common/card/Card';
-import EmptyData from '@/components/common/emptyState/EmptyData';
-import Title from '@/components/common/title/Title';
-import useJectalks from '@/hooks/useJectalksQuery';
-import useMiniStudies from '@/hooks/useMiniStudiesQuery';
+import { Card } from "@/components/common/card/Card";
+import EmptyData from "@/components/common/emptyState/EmptyData";
+import Title from "@/components/common/title/Title";
+import useJectalks from "@/hooks/useJectalksQuery";
+import useMiniStudies from "@/hooks/useMiniStudiesQuery";
 
 function Activity() {
   const { miniStudies } = useMiniStudies();

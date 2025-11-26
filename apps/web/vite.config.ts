@@ -1,10 +1,10 @@
-import path from 'path';
+import path from "path";
 
-import { sentryVitePlugin } from '@sentry/vite-plugin';
-import tailwindcss from '@tailwindcss/vite';
-import react from '@vitejs/plugin-react';
-import { defineConfig, loadEnv } from 'vite';
-import svgr from 'vite-plugin-svgr';
+import { sentryVitePlugin } from "@sentry/vite-plugin";
+import tailwindcss from "@tailwindcss/vite";
+import react from "@vitejs/plugin-react";
+import { defineConfig, loadEnv } from "vite";
+import svgr from "vite-plugin-svgr";
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
@@ -22,25 +22,25 @@ export default defineConfig(({ mode }) => {
         org: env.VITE_SENTRY_ORG,
         project: env.VITE_SENTRY_PROJECT,
         sourcemaps: {
-          filesToDeleteAfterUpload: ['dist/assets/**/*.js.map'],
+          filesToDeleteAfterUpload: ["dist/assets/**/*.js.map"],
         },
       }),
     ],
     resolve: {
       alias: [
         {
-          find: '@',
-          replacement: path.resolve(__dirname, 'src'),
+          find: "@",
+          replacement: path.resolve(__dirname, "src"),
         },
       ],
     },
     server: {
       proxy: {
-        '/api': {
+        "/api": {
           target: env.VITE_API_URL_DEV,
           changeOrigin: true,
           secure: false,
-          rewrite: path => path.replace(/^\/api/, ''),
+          rewrite: path => path.replace(/^\/api/, ""),
         },
       },
     },

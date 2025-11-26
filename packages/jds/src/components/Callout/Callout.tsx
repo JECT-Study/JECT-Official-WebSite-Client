@@ -3,18 +3,18 @@ import {
   CalloutContentP,
   CalloutTitleP,
   CalloutFeedbackDiv,
-} from './Callout.style';
-import { BasicCalloutProps, FeedbackCalloutProps } from './Callout.types';
+} from "./Callout.style";
+import type { BasicCalloutProps, FeedbackCalloutProps } from "./Callout.types";
 import {
   calloutBasicButtonStyleMap,
   calloutButtonSizeMap,
   calloutFeedbackButtonStyleMap,
-} from './Callout.variants';
+} from "./Callout.variants";
 
 const CalloutBasic = ({
-  variant = 'hero',
+  variant = "hero",
   hierarchy,
-  size = 'md',
+  size = "md",
   title,
   blockButtonProps,
   children,
@@ -32,12 +32,12 @@ const CalloutBasic = ({
   );
 };
 
-CalloutBasic.displayName = 'Callout.Basic';
+CalloutBasic.displayName = "Callout.Basic";
 
 const CalloutFeedback = ({
-  variant = 'hero',
+  variant = "hero",
   feedback,
-  size = 'md',
+  size = "md",
   title,
   blockButtonProps,
   children,
@@ -55,7 +55,7 @@ const CalloutFeedback = ({
   );
 };
 
-CalloutFeedback.displayName = 'Callout.Feedback';
+CalloutFeedback.displayName = "Callout.Feedback";
 
 export const Callout = {
   Basic: CalloutBasic,

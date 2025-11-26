@@ -1,7 +1,7 @@
-import { forwardRef, useId } from 'react';
+import { forwardRef, useId } from "react";
 
-import type { InputAreaProps } from './inputArea.types';
-import { getInteractionStates } from '../input.types';
+import type { InputAreaProps } from "./inputArea.types";
+import { getInteractionStates } from "../input.types";
 import {
   StyledFieldContainer,
   StyledLabelContainer,
@@ -12,16 +12,16 @@ import {
   StyledHelperContainer,
   StyledHelperText,
   StyledCountText,
-} from './inputArea.styles';
-import { StyledLabelIcon } from '../shared/field.styles';
+} from "./inputArea.styles";
+import { StyledLabelIcon } from "../shared/field.styles";
 
 export const InputArea = forwardRef<HTMLTextAreaElement, InputAreaProps>(
   (
     {
-      style = 'outlined',
-      layout = 'vertical',
-      validation = 'none',
-      interaction = 'enabled',
+      style = "outlined",
+      layout = "vertical",
+      validation = "none",
+      interaction = "enabled",
       label,
       labelIcon,
       labelVisible = true,
@@ -46,10 +46,10 @@ export const InputArea = forwardRef<HTMLTextAreaElement, InputAreaProps>(
         {label && labelVisible && (
           <StyledLabelContainer $layout={layout} $disabled={isDisabled} $readOnly={isReadOnly}>
             <StyledFieldLabel
-              as='label'
+              as="label"
               htmlFor={inputId}
-              size='sm'
-              weight='normal'
+              size="sm"
+              weight="normal"
               $disabled={isDisabled}
               $readOnly={isReadOnly}
               $layout={layout}
@@ -57,7 +57,12 @@ export const InputArea = forwardRef<HTMLTextAreaElement, InputAreaProps>(
               {label}
             </StyledFieldLabel>
             {labelIcon && (
-              <StyledLabelIcon name={labelIcon} size='2xs' $disabled={isDisabled} $readOnly={isReadOnly} />
+              <StyledLabelIcon
+                name={labelIcon}
+                size="2xs"
+                $disabled={isDisabled}
+                $readOnly={isReadOnly}
+              />
             )}
           </StyledLabelContainer>
         )}
@@ -93,13 +98,13 @@ export const InputArea = forwardRef<HTMLTextAreaElement, InputAreaProps>(
               $readOnly={isReadOnly}
             >
               {helperText && (
-                <StyledHelperText as='span' size='sm' weight='normal'>
+                <StyledHelperText as="span" size="sm" weight="normal">
                   {helperText}
                 </StyledHelperText>
               )}
 
               {maxLength && (
-                <StyledCountText as='span' size='sm' weight='normal' textAlign='right'>
+                <StyledCountText as="span" size="sm" weight="normal" textAlign="right">
                   {`${currentLength}/${maxLength}`}
                 </StyledCountText>
               )}
@@ -111,4 +116,4 @@ export const InputArea = forwardRef<HTMLTextAreaElement, InputAreaProps>(
   },
 );
 
-InputArea.displayName = 'InputArea';
+InputArea.displayName = "InputArea";

@@ -1,8 +1,8 @@
-import type { ChangeEvent, DragEvent } from 'react';
-import { useCallback, useReducer, useRef } from 'react';
+import type { ChangeEvent, DragEvent } from "react";
+import { useCallback, useReducer, useRef } from "react";
 
-import type { UploaderOptions } from './uploader.types';
-import { validateAcceptedFile } from './uploader.utils';
+import type { UploaderOptions } from "./uploader.types";
+import { validateAcceptedFile } from "./uploader.utils";
 
 interface State {
   isDragging: boolean;
@@ -15,17 +15,17 @@ const initialState: State = {
 };
 
 type Action =
-  | { type: 'DRAG_ENTER' }
-  | { type: 'DRAG_LEAVE' }
-  | { type: 'SET_FILES'; files: File[] };
+  | { type: "DRAG_ENTER" }
+  | { type: "DRAG_LEAVE" }
+  | { type: "SET_FILES"; files: File[] };
 
 const reducer = (state: State, action: Action) => {
   switch (action.type) {
-    case 'DRAG_ENTER':
+    case "DRAG_ENTER":
       return { ...state, isDragging: true };
-    case 'DRAG_LEAVE':
+    case "DRAG_LEAVE":
       return { ...state, isDragging: false };
-    case 'SET_FILES':
+    case "SET_FILES":
       return { ...state, files: action.files };
     default:
       return state;
@@ -52,7 +52,7 @@ export const useUploader = <T extends HTMLElement>(options: UploaderOptions) => 
     e.preventDefault();
 
     enterCounter.current++;
-    if (enterCounter.current === 1) dispatch({ type: 'DRAG_ENTER' });
+    if (enterCounter.current === 1) dispatch({ type: "DRAG_ENTER" });
   }, []);
 
   const handleDragOver = useCallback((e: DragEvent<T>) => {
@@ -63,7 +63,7 @@ export const useUploader = <T extends HTMLElement>(options: UploaderOptions) => 
     e.preventDefault();
 
     enterCounter.current--;
-    if (enterCounter.current === 0) dispatch({ type: 'DRAG_LEAVE' });
+    if (enterCounter.current === 0) dispatch({ type: "DRAG_LEAVE" });
   }, []);
 
   const handleFiles = useCallback(
@@ -73,17 +73,17 @@ export const useUploader = <T extends HTMLElement>(options: UploaderOptions) => 
 
       for (const file of droppedFiles) {
         if (maxFileSize && file.size > maxFileSize) {
-          onError?.({ type: 'FILE_TOO_LARGE', file });
+          onError?.({ type: "FILE_TOO_LARGE", file });
           continue;
         }
 
         if (accept && !validateAcceptedFile(accept, file)) {
-          onError?.({ type: 'INVALID_TYPE', file });
+          onError?.({ type: "INVALID_TYPE", file });
           continue;
         }
 
         if (maxTotalSize && newTotalSize + file.size > maxTotalSize) {
-          onError?.({ type: 'TOTAL_SIZE_EXCEEDED', file });
+          onError?.({ type: "TOTAL_SIZE_EXCEEDED", file });
           break;
         }
 
@@ -98,7 +98,7 @@ export const useUploader = <T extends HTMLElement>(options: UploaderOptions) => 
 
   const setFiles = useCallback(
     (newFiles: File[]) => {
-      if (!isControlled) dispatch({ type: 'SET_FILES', files: newFiles });
+      if (!isControlled) dispatch({ type: "SET_FILES", files: newFiles });
       onUpload?.(newFiles);
     },
     [isControlled, onUpload],
@@ -109,7 +109,7 @@ export const useUploader = <T extends HTMLElement>(options: UploaderOptions) => 
       e.preventDefault();
 
       enterCounter.current = 0;
-      dispatch({ type: 'DRAG_LEAVE' });
+      dispatch({ type: "DRAG_LEAVE" });
 
       if (!e.dataTransfer) return;
 
@@ -128,7 +128,7 @@ export const useUploader = <T extends HTMLElement>(options: UploaderOptions) => 
 
       if (validFiles && validFiles.length > 0) setFiles(validFiles);
 
-      e.target.value = '';
+      e.target.value = "";
     },
     [handleFiles, setFiles],
   );
