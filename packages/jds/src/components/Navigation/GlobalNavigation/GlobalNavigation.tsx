@@ -28,6 +28,12 @@ const GlobalNavigationRoot = forwardRef<HTMLElement, GlobalNavigationRootProps>(
       <StyledGlobalNavigationWrapper $variant={variant}>
         <StyledGlobalNavigationRoot ref={ref} aria-label='Navigation' {...props}>
           {children}
+          <StyledMobileMenuButton
+            hierarchy='primary'
+            icon='menu-line'
+            size='lg'
+            aria-label='MenuButton'
+          />
         </StyledGlobalNavigationRoot>
       </StyledGlobalNavigationWrapper>
     );
@@ -37,18 +43,12 @@ const GlobalNavigationRoot = forwardRef<HTMLElement, GlobalNavigationRootProps>(
 GlobalNavigationRoot.displayName = 'GlobalNavigation.Root';
 
 const GlobalNavigationList = forwardRef<HTMLUListElement, GlobalNavigationListProps>(
-  ({ children, ...props }, ref) => {
+  ({ children, align = 'left', ...props }, ref) => {
     return (
-      <StyledGlobalNavigationListWrapper>
+      <StyledGlobalNavigationListWrapper $align={align}>
         <StyledGlobalNavigationList ref={ref} {...props}>
           {children}
         </StyledGlobalNavigationList>
-        <StyledMobileMenuButton
-          hierarchy='primary'
-          icon='menu-line'
-          size='lg'
-          aria-label='MenuButton'
-        />
       </StyledGlobalNavigationListWrapper>
     );
   },

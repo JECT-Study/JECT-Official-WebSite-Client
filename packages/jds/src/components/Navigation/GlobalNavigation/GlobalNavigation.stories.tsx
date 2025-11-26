@@ -90,6 +90,8 @@ export const Default: Story = {
               </LabelButton.Basic>
             </GlobalNavigation.Trigger>
           </GlobalNavigation.Item>
+        </GlobalNavigation.List>
+        <GlobalNavigation.List align='right'>
           <GlobalNavigation.Item>
             <BlockButton.Basic hierarchy='primary' size='sm' onClick={() => alert('hello!')}>
               지원하기
@@ -142,6 +144,8 @@ export const WithScrollVariant: Story = {
                   </LabelButton.Basic>
                 </GlobalNavigation.Trigger>
               </GlobalNavigation.Item>
+            </GlobalNavigation.List>
+            <GlobalNavigation.List align='right'>
               <GlobalNavigation.Item>
                 <BlockButton.Basic hierarchy='primary' size='sm' onClick={() => alert('hello!')}>
                   지원하기
@@ -226,6 +230,8 @@ export const Responsive: Story = {
                 </LabelButton.Basic>
               </GlobalNavigation.Trigger>
             </GlobalNavigation.Item>
+          </GlobalNavigation.List>
+          <GlobalNavigation.List align='right'>
             <GlobalNavigation.Item>
               <BlockButton.Basic
                 hierarchy='primary'
@@ -297,6 +303,8 @@ export const WithThemeSwitcher: Story = {
                 </LabelButton.Basic>
               </GlobalNavigation.Trigger>
             </GlobalNavigation.Item>
+          </GlobalNavigation.List>
+          <GlobalNavigation.List align='right'>
             <GlobalNavigation.Item>
               <BlockButton.Basic hierarchy='primary' size='sm' onClick={() => alert('hello!')}>
                 지원하기
@@ -360,7 +368,6 @@ export const WithContent: Story = {
               <TempNavigationContent />
             </GlobalNavigation.Content>
           </GlobalNavigation.Item>
-
           <GlobalNavigation.Item>
             <GlobalNavigation.Trigger>
               <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
@@ -371,7 +378,6 @@ export const WithContent: Story = {
               <TempNavigationContent />
             </GlobalNavigation.Content>
           </GlobalNavigation.Item>
-
           <GlobalNavigation.Item>
             <GlobalNavigation.Trigger>
               <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
@@ -382,7 +388,6 @@ export const WithContent: Story = {
               <TempNavigationContent />
             </GlobalNavigation.Content>
           </GlobalNavigation.Item>
-
           <GlobalNavigation.Item>
             <GlobalNavigation.Trigger>
               <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
@@ -393,7 +398,8 @@ export const WithContent: Story = {
               <TempNavigationContent />
             </GlobalNavigation.Content>
           </GlobalNavigation.Item>
-
+        </GlobalNavigation.List>
+        <GlobalNavigation.List align='right'>
           <GlobalNavigation.Item>
             <BlockButton.Basic hierarchy='primary' size='sm' onClick={() => alert('hello!')}>
               지원하기

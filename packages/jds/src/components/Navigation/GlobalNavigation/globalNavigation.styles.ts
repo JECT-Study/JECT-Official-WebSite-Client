@@ -3,7 +3,10 @@ import styled from '@emotion/styled';
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
 import { pxToRem } from 'utils';
 
-import type { StyledGlobalNavigationWrapperProps } from './globalNavigation.types';
+import type {
+  StyledGlobalNavigationListWrapperProps,
+  StyledGlobalNavigationWrapperProps,
+} from './globalNavigation.types';
 
 import { IconButton } from '@/components';
 
@@ -61,15 +64,22 @@ export const StyledGlobalNavigationRoot = styled(NavigationMenu.Root)(({ theme }
   },
 }));
 
-export const StyledGlobalNavigationListWrapper = styled.div`
+const AlignMap = {
+  center: 'center',
+  left: 'flex-start',
+  right: 'flex-end',
+} as const;
+
+export const StyledGlobalNavigationListWrapper = styled.div<StyledGlobalNavigationListWrapperProps>`
   display: flex;
+  justify-content: ${({ $align }) => AlignMap[$align]};
   flex: 1;
 
   & > div {
     position: static !important;
   }
 
-  ${props => props.theme.breakPoint.mobile} {
+  ${({ theme }) => theme.breakPoint.mobile} {
     justify-content: flex-end;
   }
 `;
@@ -78,6 +88,7 @@ export const StyledGlobalNavigationList = styled(NavigationMenu.List)(({ theme }
   display: 'flex',
   alignItems: 'center',
   gap: theme.scheme.semantic.spacing[32],
+  whiteSpace: 'nowrap',
 
   [theme.breakPoint.mobile]: {
     display: 'none',
