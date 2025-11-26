@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexColumn, FlexRow, Label } from "@storybook-utils/layout";
 import { Icon, IconButton, Input, Tooltip, BlockButton } from "components";
 import { Label as LabelComponent } from "components";

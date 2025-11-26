@@ -20,7 +20,7 @@ type EmotionStyle = Interpolation<Theme>;
 export type Assign<A, B> = Omit<A, keyof B> & B;
 export type JsxStyleProps = { css?: EmotionStyle };
 export type JsxHTMLProps<Base, Extra = {}> = Assign<Base, Extra>;
-export type UnstyledProps = { unstyled?: boolean };
+export type UnstyledProps = { unstyled: boolean };
 export type ComponentProps<T extends ElementType> = ComponentPropsWithoutRef<T>;
 export type JsxFactoryOptions<P = {}> = { defaultProps?: Partial<P> };
 
