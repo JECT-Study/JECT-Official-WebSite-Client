@@ -5,7 +5,8 @@ import { pxToRem, shadow } from "utils";
 import type { SnackbarDivProps, SnackbarFeedbackIconProps, SnackbarStyle } from "./snackbar.types";
 import { snackbarStylesMap } from "./snackbar.variants";
 
-import { Icon, Label } from "@/components";
+import { Icon } from "../Icon";
+import { Label } from "../Label";
 
 export const SnackbarStackContainer = styled.div(({ theme }) => {
   return {

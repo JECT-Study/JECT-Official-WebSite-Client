@@ -19,7 +19,7 @@ import {
   iconColorMap,
 } from "./contentBadge.variants";
 
-import { Icon } from "@/components/Icon";
+import { Icon } from "../../Icon";
 
 interface ContentBasicBadgeDivProps {
   hierarchy: BasicHierarchy;

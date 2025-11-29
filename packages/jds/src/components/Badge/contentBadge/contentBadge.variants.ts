@@ -9,7 +9,7 @@ import type {
   ThemeVariant,
 } from "../badge.types";
 
-import type { IconSize } from "@/components/Icon";
+import type { IconSize } from "../../Icon";
 
 export const iconSizeMap: Record<BadgeSize, IconSize> = {
   lg: "sm",

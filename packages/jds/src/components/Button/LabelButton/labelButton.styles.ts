@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import type { LabelButtonSize, LabelButtonHierarchy, LabelButtonIntent } from "components";
 import { InteractionLayer } from "utils";
 
-import type { IconSize } from "@/components/Icon/Icon.types";
+import type { IconSize } from "../../Icon/Icon.types";
 
 export const iconSizeMap: Record<LabelButtonSize, IconSize> = {
   lg: "md",

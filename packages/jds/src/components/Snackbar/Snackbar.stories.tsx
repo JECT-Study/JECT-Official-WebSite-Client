@@ -5,7 +5,7 @@ import { Snackbar } from "./Snackbar";
 import { snackbarController } from "./snackbarController";
 import { SnackbarProvider, useSnackbar } from "./SnackbarProvider";
 
-import { BlockButton } from "@/components";
+import { BlockButton } from "../Button/BlockButton";
 
 const meta: Meta<typeof Snackbar.Basic> = {
   title: "Components/Snackbar",

@@ -9,7 +9,7 @@ import type {
 } from "components";
 import { InteractionLayer } from "utils";
 
-import type { IconSize } from "@/components/Icon/Icon.types";
+import type { IconSize } from "../../Icon/Icon.types";
 
 export const iconSizeMap: Record<BlockButtonSize, IconSize> = {
   lg: "md",

@@ -4,7 +4,8 @@ import { interaction, pxToRem } from "utils";
 
 import type { ImgOrientation, ImgRatio } from "./Image";
 
-import { Label, Icon } from "@/components";
+import { Label } from "../Label";
+import { Icon } from "../Icon";
 
 export const getAspectRatioValue = (
   ratio: ImgRatio,

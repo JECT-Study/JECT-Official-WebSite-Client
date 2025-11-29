@@ -9,8 +9,8 @@ import type {
   UploaderImageLabelProps,
 } from "./uploader.types";
 
-import { Icon } from "@/components";
-import { Label } from "@/components";
+import { Icon } from "../Icon";
+import { Label } from "../Label";
 
 const uploaderFileStylesMap = (
   theme: Theme,

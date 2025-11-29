@@ -15,7 +15,8 @@ import type {
   SnackbarFeedbackProps,
 } from "./snackbar.types";
 
-import { BlockButton, IconButton } from "@/components";
+import { BlockButton } from "../Button/BlockButton";
+import { IconButton } from "../Button/IconButton";
 
 const SnackbarButtons = ({ prefixButtonProps, suffixButtonProps }: SnackbarButtonsProps) => {
   if (!prefixButtonProps && !suffixButtonProps) return;
