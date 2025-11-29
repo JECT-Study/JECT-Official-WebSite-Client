@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import type { BannerBarProps } from "./banner.types";
 import { Banner } from "./index";
