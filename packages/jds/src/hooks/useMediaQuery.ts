@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from "react";
 
-export type DeviceType = 'desktop' | 'tablet' | 'mobile';
+export type DeviceType = "desktop" | "tablet" | "mobile";
 
 export interface Breakpoints {
   mobile: { min: number; max: number };
@@ -12,7 +12,7 @@ const DEFAULT_BREAKPOINTS: Breakpoints = {
   mobile: { min: 320, max: 767 },
   tablet: { min: 768, max: 1199 },
   desktop: { min: 1200, max: 2560 },
-} as const;
+};
 
 /**
  * 현재 윈도우 너비를 기반으로 디바이스 타입을 반환합니다
@@ -43,31 +43,31 @@ export const useMediaQuery = (breakpoints: Breakpoints = DEFAULT_BREAKPOINTS): D
   const getDeviceType = useCallback(
     (width: number): DeviceType => {
       if (width >= breakpoints.desktop.min && width <= breakpoints.desktop.max) {
-        return 'desktop';
+        return "desktop";
       }
       if (width >= breakpoints.tablet.min && width <= breakpoints.tablet.max) {
-        return 'tablet';
+        return "tablet";
       }
-      return 'mobile';
+      return "mobile";
     },
     [breakpoints],
   );
 
   const [deviceType, setDeviceType] = useState<DeviceType>(() => {
-    if (typeof window === 'undefined') return 'desktop';
+    if (typeof window === "undefined") return "desktop";
     return getDeviceType(window.innerWidth);
   });
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
+    if (typeof window === "undefined") return;
 
     const handleResize = () => {
       const newDeviceType = getDeviceType(window.innerWidth);
       setDeviceType(newDeviceType);
     };
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, [getDeviceType]);
 
   return deviceType;
@@ -89,8 +89,8 @@ export const useMediaQueryFlags = (breakpoints?: Breakpoints) => {
   const deviceType = useMediaQuery(breakpoints);
 
   return {
-    isMobile: deviceType === 'mobile',
-    isTablet: deviceType === 'tablet',
-    isDesktop: deviceType === 'desktop',
+    isMobile: deviceType === "mobile",
+    isTablet: deviceType === "tablet",
+    isDesktop: deviceType === "desktop",
   };
 };
