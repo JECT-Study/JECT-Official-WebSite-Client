@@ -1,4 +1,3 @@
-import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import { forwardRef } from "react";
 
 import {
@@ -21,6 +20,7 @@ import type {
 } from "./globalNavigation.types";
 
 import { Divider } from "../../Divider";
+import { NavigationMenu } from "radix-ui";
 
 const GlobalNavigationRoot = forwardRef<HTMLElement, GlobalNavigationRootProps>(
   ({ children, variant = "empty", ...props }, ref) => {
