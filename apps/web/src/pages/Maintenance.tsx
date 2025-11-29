@@ -1,9 +1,9 @@
-import { isMobile } from 'react-device-detect';
+import { isMobile } from "react-device-detect";
 
-import coneImage from '@/assets/images/cone.png';
-import Footer from '@/components/common/footer/Footer';
-import MobileFooter from '@/components/common/footer/MobileFooter';
-import PagesContainer from '@/components/layout/PagesContainer';
+import coneImage from "@/assets/images/cone.png";
+import Footer from "@/components/common/footer/Footer";
+import MobileFooter from "@/components/common/footer/MobileFooter";
+import PagesContainer from "@/components/layout/PagesContainer";
 
 function Maintenance() {
   return (

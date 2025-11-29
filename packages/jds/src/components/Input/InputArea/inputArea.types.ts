@@ -1,15 +1,15 @@
-import type { ChangeEvent, ComponentPropsWithoutRef } from 'react';
+import type { ChangeEvent, ComponentPropsWithoutRef } from "react";
 
-import type { IconName } from '../../Icon/Icon.types';
-import type { InputInteraction } from '../input.types';
+import type { IconName } from "../../Icon/Icon.types";
+import type { InputInteraction } from "../input.types";
 
-export type InputAreaStyle = 'outlined' | 'empty';
-export type InputAreaLayout = 'vertical' | 'horizontal';
-export type InputAreaValidation = 'none' | 'error';
+export type InputAreaStyle = "outlined" | "empty";
+export type InputAreaLayout = "vertical" | "horizontal";
+export type InputAreaValidation = "none" | "error";
 
-export type InputAreaStatus = 'placeholder' | 'filled';
+export type InputAreaStatus = "placeholder" | "filled";
 
-export interface InputAreaPublicProps extends Omit<ComponentPropsWithoutRef<'textarea'>, 'style'> {
+export interface InputAreaPublicProps extends Omit<ComponentPropsWithoutRef<"textarea">, "style"> {
   style?: InputAreaStyle;
   layout?: InputAreaLayout;
   validation?: InputAreaValidation;

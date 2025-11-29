@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { ReactNode } from "react";
 
 import {
   StyledLabelContainer,
@@ -6,9 +6,9 @@ import {
   StyledFieldLabel,
   StyledInputColumn,
   StyledHelperText,
-} from './field.styles';
-import { FormFieldProvider, useFormField } from './FormFieldContext';
-import type { FormFieldProviderProps } from './FormFieldContext';
+} from "./field.styles";
+import { FormFieldProvider, useFormField } from "./FormFieldContext";
+import type { FormFieldProviderProps } from "./FormFieldContext";
 
 interface FormFieldLabelProps {
   children?: ReactNode;
@@ -24,10 +24,10 @@ export const FormFieldLabel = ({ children }: FormFieldLabelProps) => {
   return (
     <StyledLabelContainer $layout={layout}>
       <StyledFieldLabel
-        as='label'
+        as="label"
         htmlFor={fieldId}
-        size='sm'
-        weight='normal'
+        size="sm"
+        weight="normal"
         $disabled={isDisabled}
         $readOnly={isReadOnly}
         $layout={layout}
@@ -35,7 +35,12 @@ export const FormFieldLabel = ({ children }: FormFieldLabelProps) => {
         {children || label}
       </StyledFieldLabel>
       {labelIcon && (
-        <StyledLabelIcon name={labelIcon} size='2xs' $disabled={isDisabled} $readOnly={isReadOnly} />
+        <StyledLabelIcon
+          name={labelIcon}
+          size="2xs"
+          $disabled={isDisabled}
+          $readOnly={isReadOnly}
+        />
       )}
     </StyledLabelContainer>
   );
@@ -54,9 +59,9 @@ export const FormFieldHelperText = ({ children }: FormFieldHelperTextProps) => {
 
   return (
     <StyledHelperText
-      as='span'
-      size='sm'
-      weight='normal'
+      as="span"
+      size="sm"
+      weight="normal"
       $validation={validation}
       $disabled={isDisabled}
       $readOnly={isReadOnly}
@@ -74,7 +79,7 @@ export const FormFieldContent = ({ children }: FormFieldContentProps) => {
   return <StyledInputColumn>{children}</StyledInputColumn>;
 };
 
-interface FormFieldProps extends Omit<FormFieldProviderProps, 'children'> {
+interface FormFieldProps extends Omit<FormFieldProviderProps, "children"> {
   children: ReactNode;
 }
 

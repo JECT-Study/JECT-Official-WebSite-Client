@@ -1,8 +1,8 @@
-import isPropValid from '@emotion/is-prop-valid';
-import type { CSSObject, Theme } from '@emotion/react';
-import styled from '@emotion/styled';
-import type { LogoHierarchy } from 'components';
-import { InteractionLayer, pxToRem } from 'utils';
+import isPropValid from "@emotion/is-prop-valid";
+import type { CSSObject, Theme } from "@emotion/react";
+import styled from "@emotion/styled";
+import type { LogoHierarchy } from "components";
+import { InteractionLayer, pxToRem } from "utils";
 
 const LOGO_ASPECT_RATIO = 35 / 8;
 
@@ -26,10 +26,10 @@ const interactionStyles = (theme: Theme, hierarchy: LogoHierarchy): CSSObject =>
     primary: {
       restStyle: InteractionLayer({
         theme,
-        state: 'rest',
-        variant: 'normal',
-        density: 'normal',
-        fillColor: 'default',
+        state: "rest",
+        variant: "normal",
+        density: "normal",
+        fillColor: "default",
         isDisabled: false,
         offsetVertical: offset.vertical,
         offsetHorizontal: offset.horizontal,
@@ -37,10 +37,10 @@ const interactionStyles = (theme: Theme, hierarchy: LogoHierarchy): CSSObject =>
       }),
       focusStyle: InteractionLayer({
         theme,
-        state: 'focus',
-        variant: 'normal',
-        density: 'normal',
-        fillColor: 'default',
+        state: "focus",
+        variant: "normal",
+        density: "normal",
+        fillColor: "default",
         isDisabled: false,
         offsetVertical: offset.vertical,
         offsetHorizontal: offset.horizontal,
@@ -50,10 +50,10 @@ const interactionStyles = (theme: Theme, hierarchy: LogoHierarchy): CSSObject =>
     secondary: {
       restStyle: InteractionLayer({
         theme,
-        state: 'rest',
-        variant: 'normal',
-        density: 'normal',
-        fillColor: 'default',
+        state: "rest",
+        variant: "normal",
+        density: "normal",
+        fillColor: "default",
         isDisabled: false,
         offsetVertical: offset.vertical,
         offsetHorizontal: offset.horizontal,
@@ -61,10 +61,10 @@ const interactionStyles = (theme: Theme, hierarchy: LogoHierarchy): CSSObject =>
       }),
       focusStyle: InteractionLayer({
         theme,
-        state: 'focus',
-        variant: 'normal',
-        density: 'normal',
-        fillColor: 'default',
+        state: "focus",
+        variant: "normal",
+        density: "normal",
+        fillColor: "default",
         isDisabled: false,
         offsetVertical: offset.vertical,
         offsetHorizontal: offset.horizontal,
@@ -74,10 +74,10 @@ const interactionStyles = (theme: Theme, hierarchy: LogoHierarchy): CSSObject =>
     tertiary: {
       restStyle: InteractionLayer({
         theme,
-        state: 'rest',
-        variant: 'normal',
-        density: 'normal',
-        fillColor: 'default',
+        state: "rest",
+        variant: "normal",
+        density: "normal",
+        fillColor: "default",
         isDisabled: false,
         offsetVertical: offset.vertical,
         offsetHorizontal: offset.horizontal,
@@ -85,10 +85,10 @@ const interactionStyles = (theme: Theme, hierarchy: LogoHierarchy): CSSObject =>
       }),
       focusStyle: InteractionLayer({
         theme,
-        state: 'focus',
-        variant: 'normal',
-        density: 'normal',
-        fillColor: 'default',
+        state: "focus",
+        variant: "normal",
+        density: "normal",
+        fillColor: "default",
         isDisabled: false,
         offsetVertical: offset.vertical,
         offsetHorizontal: offset.horizontal,
@@ -101,7 +101,7 @@ const interactionStyles = (theme: Theme, hierarchy: LogoHierarchy): CSSObject =>
 
   return {
     ...restStyle,
-    '&:focus-visible': {
+    "&:focus-visible": {
       ...focusStyle,
     },
   };
@@ -120,20 +120,20 @@ export function GetLogoStyles(theme: Theme, hierarchy: LogoHierarchy, height: nu
   };
 }
 
-export const StyledLogo = styled('a', {
-  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
+export const StyledLogo = styled("a", {
+  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith("$"),
 })<{
   $hierarchy: LogoHierarchy;
   $height: number;
 }>(({ theme, $hierarchy, $height }) => {
   return {
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    textDecoration: 'none',
-    cursor: 'pointer',
-    outline: 'none',
-    userSelect: 'none',
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    textDecoration: "none",
+    cursor: "pointer",
+    outline: "none",
+    userSelect: "none",
     ...GetLogoStyles(theme, $hierarchy, $height),
   };
 });

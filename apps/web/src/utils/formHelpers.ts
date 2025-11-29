@@ -1,5 +1,5 @@
-import { FormEvent } from 'react';
-import { FieldValues, UseFormHandleSubmit } from 'react-hook-form';
+import type { FormEvent } from "react";
+import type { FieldValues, UseFormHandleSubmit } from "react-hook-form";
 
 /**
  * React Hook Form의 handleSubmit과 커스텀 onSubmit 핸들러를 결합하는 유틸리티 함수

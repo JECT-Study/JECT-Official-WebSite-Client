@@ -1,4 +1,5 @@
-import { RefObject, useEffect, useState } from 'react';
+import type { RefObject } from "react";
+import { useEffect, useState } from "react";
 
 const useCloseOutside = <T extends HTMLElement>(refs: RefObject<T>[] | RefObject<T>) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,9 +21,9 @@ const useCloseOutside = <T extends HTMLElement>(refs: RefObject<T>[] | RefObject
       }
     };
 
-    document.addEventListener('mousedown', outsideClick);
+    document.addEventListener("mousedown", outsideClick);
 
-    return () => document.removeEventListener('mousedown', outsideClick);
+    return () => document.removeEventListener("mousedown", outsideClick);
   }, [refs, isOpen]);
 
   return { isOpen, setIsOpen };

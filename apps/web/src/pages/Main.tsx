@@ -1,20 +1,20 @@
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useEffect, useRef } from 'react';
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useEffect, useRef } from "react";
 
-import CalloutNumerical from '@/components/common/callout/CalloutNumerical';
-import Hero from '@/components/common/callout/Hero';
-import HeroIndex from '@/components/common/callout/HeroIndex';
-import { Tab, TabHeader, TabItem, TabPanel } from '@/components/common/tab/Tab';
-import Title from '@/components/common/title/Title';
-import AnimatedSection from '@/components/main/animatedSection/AnimatedSection';
-import RoleHero from '@/components/main/role/RoleHero';
-import { corePrincipleData, positionData, timelineData } from '@/constants/mainPageData';
+import CalloutNumerical from "@/components/common/callout/CalloutNumerical";
+import Hero from "@/components/common/callout/Hero";
+import HeroIndex from "@/components/common/callout/HeroIndex";
+import { Tab, TabHeader, TabItem, TabPanel } from "@/components/common/tab/Tab";
+import Title from "@/components/common/title/Title";
+import AnimatedSection from "@/components/main/animatedSection/AnimatedSection";
+import RoleHero from "@/components/main/role/RoleHero";
+import { corePrincipleData, positionData, timelineData } from "@/constants/mainPageData";
 
 const sectionClassName =
-  'flex h-[100dvh] py-(--gap-7xl) px-(--gap-4xl) flex-col justify-center items-center gap-7xl w-full';
+  "flex h-[100dvh] py-(--gap-7xl) px-(--gap-4xl) flex-col justify-center items-center gap-7xl w-full";
 
-const wrapperClassName = 'gap-7xl flex w-full max-w-[45rem] flex-col items-center';
+const wrapperClassName = "gap-7xl flex w-full max-w-[45rem] flex-col items-center";
 
 const Main = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -23,23 +23,23 @@ const Main = () => {
     let isScrolling = false;
 
     const disableScroll = () => {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     };
 
     const enableScroll = () => {
-      document.body.style.overflow = '';
+      document.body.style.overflow = "";
     };
 
     const context = gsap.context(() => {
-      const sections = containerRef.current?.querySelectorAll('section');
+      const sections = containerRef.current?.querySelectorAll("section");
       if (!sections) return;
 
       sections.forEach((section, index) => {
         if (index < sections.length - 1) {
           ScrollTrigger.create({
             trigger: section,
-            start: 'center top',
-            end: 'bottom top',
+            start: "center top",
+            end: "bottom top",
             onEnter: () => {
               if (!isScrolling && section.nextElementSibling) {
                 isScrolling = true;
@@ -47,7 +47,7 @@ const Main = () => {
                 gsap.to(window, {
                   scrollTo: section.nextElementSibling,
                   duration: 1,
-                  ease: 'power2.inOut',
+                  ease: "power2.inOut",
                   onComplete: () => {
                     setTimeout(() => {
                       isScrolling = false;
@@ -65,8 +65,8 @@ const Main = () => {
         if (index > 0) {
           ScrollTrigger.create({
             trigger: section,
-            start: 'center bottom',
-            end: 'top bottom',
+            start: "center bottom",
+            end: "top bottom",
             onEnterBack: () => {
               if (!isScrolling && section.previousElementSibling) {
                 isScrolling = true;
@@ -74,7 +74,7 @@ const Main = () => {
                 gsap.to(window, {
                   scrollTo: section.previousElementSibling,
                   duration: 1,
-                  ease: 'power2.inOut',
+                  ease: "power2.inOut",
                   onComplete: () => {
                     setTimeout(() => {
                       isScrolling = false;
@@ -106,7 +106,7 @@ const Main = () => {
             <Title hierarchy='stronger'>몰입하며 진행하는 즐거운 프로젝트.</Title>
             <div className='gap-2xs flex flex-col items-center'>
               <Title hierarchy='weak'>
-                젝트(JECT)는 <span className='text-accent-hero-dark'>IT 사이드 프로젝트</span>{' '}
+                젝트(JECT)는 <span className='text-accent-hero-dark'>IT 사이드 프로젝트</span>{" "}
                 동아리에요.
               </Title>
               <Title hierarchy='weak'>

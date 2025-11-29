@@ -1,10 +1,11 @@
-import { ChangeEvent, useState } from 'react';
+import type { ChangeEvent } from "react";
+import { useState } from "react";
 
-import InputField from '@/components/common/input/InputField';
-import Title from '@/components/common/title/Title';
-import { APPLY_MESSAGE } from '@/constants/applyMessages';
-import { Question } from '@/types/apis/application';
-import { validateUrlDetail, validateUrlStartHttp } from '@/utils/validateUrl';
+import InputField from "@/components/common/input/InputField";
+import Title from "@/components/common/title/Title";
+import { APPLY_MESSAGE } from "@/constants/applyMessages";
+import type { Question } from "@/types/apis/application";
+import { validateUrlDetail, validateUrlStartHttp } from "@/utils/validateUrl";
 
 interface UrlFieldProps {
   data: Question;
@@ -13,7 +14,7 @@ interface UrlFieldProps {
 }
 
 function UrlField({ data, onChange, value }: UrlFieldProps) {
-  const [text, setText] = useState(value ?? '');
+  const [text, setText] = useState(value ?? "");
   const [isError, setIsError] = useState(false);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -37,7 +38,7 @@ function UrlField({ data, onChange, value }: UrlFieldProps) {
         placeholder={data.inputHint}
         required={data.isRequired}
         isError={isError}
-        helper={isError ? APPLY_MESSAGE.invalid.url : ''}
+        helper={isError ? APPLY_MESSAGE.invalid.url : ""}
         onChange={handleChange}
         onBlur={handlerBlur}
         value={text}

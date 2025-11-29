@@ -1,4 +1,4 @@
-export { Footer } from './Footer';
+export { Footer } from "./Footer";
 export type {
   FooterBottomProps,
   FooterContentProps,
@@ -11,4 +11,4 @@ export type {
   FooterSection,
   FooterSectionProps,
   FooterSocialProps,
-} from './footer.types';
+} from "./footer.types";

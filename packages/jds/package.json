@@ -5,7 +5,7 @@
   "author": "Ject Team",
   "license": "MIT",
   "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist",
@@ -15,8 +15,13 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./theme": {
+      "types": "./dist/theme.d.ts",
+      "import": "./dist/theme.js",
+      "require": "./dist/theme.cjs"
     },
     "./styles": "./dist/styles.css"
   },
@@ -29,52 +34,48 @@
     "chromatic": "npx chromatic --project-token=$CHROMATIC_TOKEN",
     "build:tokens": "npx tsx tokensBuilder.ts",
     "clean": "rm -rf dist node_modules .turbo storybook-static",
-    "build:icons": "svgr src/assets/icons --out-dir src/components/Icon/generated --typescript --ext tsx"
+    "build:icons": "svgr src/assets/icons --out-dir src/components/Icon/generated --typescript --ext tsx",
+    "type-check": "tsc -b --noEmit",
+    "format": "prettier --write ."
   },
   "dependencies": {
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.1",
-    "clsx": "^2.1.1",
     "radix-ui": "^1.4.3"
   },
   "devDependencies": {
-    "@chromatic-com/storybook": "^3.2.4",
+    "@chromatic-com/storybook": "^4.1.3",
     "@emotion/babel-plugin": "^11.13.5",
-    "@storybook/addon-essentials": "^8.5.3",
-    "@storybook/addon-interactions": "^8.5.3",
-    "@storybook/addon-onboarding": "^8.5.3",
-    "@storybook/blocks": "^8.5.3",
-    "@storybook/react": "^8.5.3",
-    "@storybook/react-vite": "^8.5.3",
-    "@storybook/test": "^8.5.3",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@ject/eslint-config": "*",
+    "@storybook/addon-docs": "10.1.0",
+    "@storybook/addon-onboarding": "^10.1.0",
+    "@storybook/react-vite": "10.1.0",
     "@svgr/cli": "^8.1.0",
     "@svgr/core": "^8.1.0",
     "@types/node": "^22.19.1",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
     "chromatic": "^11.25.2",
-    "eslint-plugin-storybook": "^0.11.2",
+    "eslint-plugin-storybook": "10.1.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "storybook": "^8.5.3",
+    "storybook": "10.1.0",
     "style-dictionary": "^4.3.2",
-    "tailwindcss": "^4.0.0",
     "tsup": "^8.5.0",
-    "typescript": "~5.6.2",
     "zod": "^3.25.76"
   },
   "peerDependencies": {
+    "@emotion/react": ">=11",
+    "@emotion/styled": ">=11",
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0"
-  },
-  "eslintConfig": {
-    "extends": [
-      "plugin:storybook/recommended"
-    ]
   },
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "4.53.2"
   },
   "type": "module"
 }

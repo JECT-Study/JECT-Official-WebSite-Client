@@ -1,8 +1,8 @@
-import type { MouseEvent } from 'react';
+import type { MouseEvent } from "react";
 
-import { StyledTagContainer } from './tagField.styles';
-import type { Tag } from './tagField.types';
-import { TagItem } from './TagItem';
+import { StyledTagContainer } from "./tagField.styles";
+import type { Tag } from "./tagField.types";
+import { TagItem } from "./TagItem";
 
 export interface TagListProps {
   tags: Tag[];

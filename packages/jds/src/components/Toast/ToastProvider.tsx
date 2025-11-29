@@ -1,10 +1,12 @@
-import { createContext, useContext, ReactNode, useEffect } from 'react';
-import { createPortal } from 'react-dom';
-import { Toast } from './Toast';
-import { ToastStackContainer } from './toast.styles';
-import { useToastProvider } from './useToastProvider';
-import { ToastHandler } from './toast.types';
-import { toastController } from './toastController';
+import type { ReactNode } from "react";
+import { createContext, useContext, useEffect } from "react";
+import { createPortal } from "react-dom";
+
+import { Toast } from "./Toast";
+import { ToastStackContainer } from "./toast.styles";
+import type { ToastHandler } from "./toast.types";
+import { toastController } from "./toastController";
+import { useToastProvider } from "./useToastProvider";
 
 interface ToastContextType {
   toast: ToastHandler;
@@ -27,13 +29,13 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
       {createPortal(
         <ToastStackContainer>
           {toasts.map(toast =>
-            toast.type === 'basic' ? (
-              <Toast.Basic key={toast.id} onRemove={() => removeToast(toast.id!)} {...toast} />
+            toast.type === "basic" ? (
+              <Toast.Basic key={toast.id} onRemove={() => removeToast(toast.id)} {...toast} />
             ) : (
               <Toast.Feedback
                 key={toast.id}
                 variant={toast.type}
-                onRemove={() => removeToast(toast.id!)}
+                onRemove={() => removeToast(toast.id)}
                 {...toast}
               />
             ),
@@ -47,7 +49,7 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
 
 export const useToast = () => {
   const context = useContext(ToastContext);
-  if (!context) throw new Error('useToast must be used within ToastProvider');
+  if (!context) throw new Error("useToast must be used within ToastProvider");
 
   return context;
 };

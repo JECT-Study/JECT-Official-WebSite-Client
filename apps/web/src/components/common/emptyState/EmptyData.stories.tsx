@@ -1,9 +1,9 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import EmptyData from './EmptyData';
+import EmptyData from "./EmptyData";
 
 const meta: Meta<typeof EmptyData> = {
-  title: 'Components/EmptyData',
+  title: "Components/EmptyData",
   component: EmptyData,
 };
 
@@ -12,6 +12,6 @@ export default meta;
 type Story = StoryObj<typeof EmptyData>;
 
 export const EmptyDataStory: Story = {
-  name: 'EmptyData Story',
+  name: "EmptyData Story",
   render: () => <EmptyData />,
 };

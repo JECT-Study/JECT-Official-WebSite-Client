@@ -1,10 +1,10 @@
-import { AxiosError } from 'axios';
+import { AxiosError } from "axios";
 
-import { ExternalAPIError, InternalAPIError, NetworkError } from '@/errors/APIError';
-import { ApiResponse } from '@/types/apis/response';
-import { httpClient } from '@/utils/interceptor';
+import { ExternalAPIError, InternalAPIError, NetworkError } from "@/errors/APIError";
+import type { ApiResponse } from "@/types/apis/response";
+import { httpClient } from "@/utils/interceptor";
 
-type RequestMethod = 'get' | 'post' | 'put' | 'delete';
+type RequestMethod = "get" | "post" | "put" | "delete";
 
 export interface RequestOptions {
   headers?: Record<string, string>;
@@ -26,23 +26,23 @@ export const requestHandler = async <TResponse, TPayload = undefined>(
     let response;
 
     switch (method) {
-      case 'post':
+      case "post":
         response = await httpClient.post<ApiResponse<TResponse>>(url, payload, requestConfig);
         break;
-      case 'get':
+      case "get":
         response = await httpClient.get<ApiResponse<TResponse>>(url, requestConfig);
         break;
-      case 'put':
+      case "put":
         response = await httpClient.put<ApiResponse<TResponse>>(url, payload, requestConfig);
         break;
-      case 'delete':
+      case "delete":
         response = await httpClient.delete<ApiResponse<TResponse>>(url, requestConfig);
         break;
     }
 
     const status = response.data.status;
 
-    if (status !== 'SUCCESS' && status !== 'TEMP_APPLICATION_NOT_FOUND') {
+    if (status !== "SUCCESS" && status !== "TEMP_APPLICATION_NOT_FOUND") {
       const message = (response.data.data as string) || `Internal API 에러 발생, status: ${status}`;
       return Promise.reject(new InternalAPIError(message, status, url));
     }

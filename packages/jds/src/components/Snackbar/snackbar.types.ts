@@ -1,10 +1,12 @@
-import { ReactNode } from 'react';
-import { BlockButtonBasicProps } from '../Button/BlockButton';
-import { LimitedQueueProviderBaseItem } from '@/hooks/useLimitedQueueProvider';
+import type { ReactNode } from "react";
 
-export type SnackbarVariant = 'positive' | 'destructive';
-export type SnackbarStyle = 'basic' | SnackbarVariant;
-export type SnackbarButtonProps = Omit<BlockButtonBasicProps, 'hierarchy' | 'size' | 'variants'>;
+import type { BlockButtonBasicProps } from "../Button/BlockButton";
+
+import type { LimitedQueueProviderBaseItem } from "@/hooks/useLimitedQueueProvider";
+
+export type SnackbarVariant = "positive" | "destructive";
+export type SnackbarStyle = "basic" | SnackbarVariant;
+export type SnackbarButtonProps = Omit<BlockButtonBasicProps, "hierarchy" | "size" | "variants">;
 
 export interface SnackbarButtonsProps {
   prefixButtonProps?: SnackbarButtonProps;

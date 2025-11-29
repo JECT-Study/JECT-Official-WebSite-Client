@@ -1,9 +1,9 @@
-import { useQuery } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
+import { useQuery } from "@tanstack/react-query";
+import type { AxiosError } from "axios";
 
-import { getDraft } from '@/apis/application';
-import { AnswersResponse } from '@/types/apis/application';
-import { ApiResponse } from '@/types/apis/response';
+import { getDraft } from "@/apis/application";
+import type { AnswersResponse } from "@/types/apis/application";
+import type { ApiResponse } from "@/types/apis/response";
 
 const useDraftQuery = (enabled?: boolean) => {
   const { data, refetch } = useQuery<
@@ -12,7 +12,7 @@ const useDraftQuery = (enabled?: boolean) => {
     ApiResponse<AnswersResponse>,
     string[]
   >({
-    queryKey: ['getDraft'],
+    queryKey: ["getDraft"],
     queryFn: getDraft,
     enabled: enabled ?? true,
     retry: 0,

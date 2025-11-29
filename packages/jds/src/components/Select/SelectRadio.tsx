@@ -1,15 +1,15 @@
-import { forwardRef } from 'react';
+import { forwardRef } from "react";
 
-import { createSelectItemHandlers } from './createSelectItemHandlers';
-import { useSelectContext } from './Select';
+import { createSelectItemHandlers } from "./createSelectItemHandlers";
+import { useSelectContext } from "./Select";
 import {
   StyledSelectItem,
   StyledSelectItemContent,
   StyledSelectItemText,
   StyledSelectItemCaption,
   StyledSelectItemInputWrapper,
-} from './select.styles';
-import type { SelectRadioProps } from './select.types';
+} from "./select.styles";
+import type { SelectRadioProps } from "./select.types";
 
 export const SelectRadio = forwardRef<HTMLDivElement, SelectRadioProps>(
   ({ value, isDisabled = false, caption, children, ...restProps }, ref) => {
@@ -30,7 +30,7 @@ export const SelectRadio = forwardRef<HTMLDivElement, SelectRadioProps>(
         $selected={isItemSelected}
         onClick={handleClick}
         onKeyDown={handleKeyDown}
-        role='radio'
+        role="radio"
         aria-checked={isItemSelected}
         aria-disabled={isDisabled}
         tabIndex={isDisabled ? -1 : 0}
@@ -39,19 +39,19 @@ export const SelectRadio = forwardRef<HTMLDivElement, SelectRadioProps>(
         <StyledSelectItemInputWrapper>
           {/* TODO: Radio 컴포넌트가 구현되면 여기에 추가 */}
           <input
-            type='radio'
+            type="radio"
             checked={isItemSelected}
             disabled={isDisabled}
             readOnly
             tabIndex={-1}
-            style={{ pointerEvents: 'none' }}
+            style={{ pointerEvents: "none" }}
           />
         </StyledSelectItemInputWrapper>
         <StyledSelectItemContent>
           <StyledSelectItemText
-            as='span'
+            as="span"
             size={size}
-            weight='normal'
+            weight="normal"
             $isDisabled={isDisabled}
             $selected={isItemSelected}
           >
@@ -60,9 +60,9 @@ export const SelectRadio = forwardRef<HTMLDivElement, SelectRadioProps>(
 
           {caption && (
             <StyledSelectItemCaption
-              as='span'
-              size={size === 'md' ? 'sm' : 'xs'}
-              weight='normal'
+              as="span"
+              size={size === "md" ? "sm" : "xs"}
+              weight="normal"
               $isDisabled={isDisabled}
             >
               {caption}
@@ -74,4 +74,4 @@ export const SelectRadio = forwardRef<HTMLDivElement, SelectRadioProps>(
   },
 );
 
-SelectRadio.displayName = 'Select.Radio';
+SelectRadio.displayName = "Select.Radio";

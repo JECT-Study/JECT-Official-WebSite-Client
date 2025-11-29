@@ -1,42 +1,42 @@
-import { sva, type RecipeVariantProps } from './sva';
-import { theme } from '../../tokens/theme';
+import { sva, type RecipeVariantProps } from "./sva";
+import { theme } from "../../tokens/theme";
 
 // TODO: 추후 공통화하기
 const interactiveSelector =
-  '&:not(:is(:disabled, [disabled], [data-disabled], [aria-disabled=true]))';
-const disabledSelector = '&:is(:disabled, [disabled], [data-disabled], [aria-disabled=true])';
+  "&:not(:is(:disabled, [disabled], [data-disabled], [aria-disabled=true]))";
+const disabledSelector = "&:is(:disabled, [disabled], [data-disabled], [aria-disabled=true])";
 
 export const tabStyles = sva({
-  slots: ['root', 'list', 'trigger', 'content', 'indicator'] as const,
+  slots: ["root", "list", "trigger", "content", "indicator"] as const,
   base: {
     root: {
-      display: 'flex',
-      flexDirection: 'column',
-      width: '100%',
+      display: "flex",
+      flexDirection: "column",
+      width: "100%",
     },
     list: {
-      display: 'flex',
-      alignItems: 'center',
+      display: "flex",
+      alignItems: "center",
       gap: theme.scheme.semantic.spacing[0],
-      position: 'relative',
+      position: "relative",
     },
     trigger: {
-      position: 'relative',
-      isolation: 'isolate',
-      display: 'inline-flex',
-      justifyContent: 'center',
-      alignItems: 'center',
+      position: "relative",
+      isolation: "isolate",
+      display: "inline-flex",
+      justifyContent: "center",
+      alignItems: "center",
       gap: theme.scheme.semantic.spacing[4],
       color: theme.color.semantic.object.alternative,
-      cursor: 'pointer',
+      cursor: "pointer",
       '&[data-state="active"]': {
         color: theme.color.semantic.object.bolder,
       },
-      '&::after': {
+      "&::after": {
         content: '""',
-        position: 'absolute',
+        position: "absolute",
         inset: 0,
-        borderRadius: 'inherit',
+        borderRadius: "inherit",
         backgroundColor: theme.color.semantic.interaction.assistive,
         opacity: 0,
         transition: `opacity ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
@@ -51,17 +51,17 @@ export const tabStyles = sva({
       [`${interactiveSelector}[data-state="active"]::after`]: {
         opacity: 0.12,
       },
-      '&:focus': {
-        outline: 'none',
-        boxShadow: 'none',
+      "&:focus": {
+        outline: "none",
+        boxShadow: "none",
       },
-      '&:focus-visible': {
-        outline: 'none',
+      "&:focus-visible": {
+        outline: "none",
         boxShadow: `inset 0 0 0 ${theme.scheme.semantic.strokeWeight[3]} ${theme.color.semantic.interaction.focus}`,
         opacity: theme.scheme.semantic.opacity[100],
       },
       [disabledSelector]: {
-        cursor: 'not-allowed',
+        cursor: "not-allowed",
       },
       [`${disabledSelector}::after`]: {
         opacity: 0.05,
@@ -69,9 +69,9 @@ export const tabStyles = sva({
     },
     content: {},
     indicator: {
-      position: 'absolute',
+      position: "absolute",
       borderBottomWidth: theme.scheme.semantic.strokeWeight[2],
-      borderBottomStyle: 'solid',
+      borderBottomStyle: "solid",
       borderBottomColor: theme.color.semantic.stroke.bold,
       zIndex: 10,
     },
@@ -82,16 +82,16 @@ export const tabStyles = sva({
         list: {
           borderRadius: theme.scheme.semantic.radius[0],
           borderBottomWidth: theme.scheme.semantic.strokeWeight[1],
-          borderBottomStyle: 'solid',
+          borderBottomStyle: "solid",
           borderBottomColor: theme.color.semantic.stroke.assistive,
           opacity: theme.scheme.semantic.opacity[100],
         },
         trigger: {
           padding: `${theme.scheme.semantic.spacing[6]} ${theme.scheme.semantic.spacing[12]}`,
-          minHeight: '39px',
+          minHeight: "39px",
         },
         indicator: {
-          display: 'block',
+          display: "block",
         },
       },
       content: {
@@ -102,10 +102,10 @@ export const tabStyles = sva({
           padding: `${theme.scheme.semantic.spacing[8]} ${theme.scheme.semantic.spacing[12]}`,
           border: `${theme.scheme.semantic.strokeWeight[1]} solid ${theme.color.semantic.stroke.alpha.subtle}`,
           borderRadius: theme.scheme.semantic.radius[6],
-          minHeight: '35px',
+          minHeight: "35px",
         },
         indicator: {
-          display: 'none',
+          display: "none",
           bottom: `calc(-1 * ${theme.scheme.semantic.strokeWeight[1]})`, //list의 borderBottom과 겹치도록 -1로 설정
         },
       },
@@ -113,29 +113,29 @@ export const tabStyles = sva({
     layout: {
       hug: {
         list: {
-          width: 'auto',
-          justifyContent: 'flex-start',
+          width: "auto",
+          justifyContent: "flex-start",
         },
         trigger: {
-          flex: 'initial',
+          flex: "initial",
         },
       },
       fill: {
         list: {
-          width: '100%',
-          alignItems: 'stretch',
-          justifyContent: 'space-around',
+          width: "100%",
+          alignItems: "stretch",
+          justifyContent: "space-around",
         },
         trigger: {
           flex: 1,
-          width: '100%',
+          width: "100%",
         },
       },
     },
   },
   defaultVariants: {
-    variant: 'header',
-    layout: 'hug',
+    variant: "header",
+    layout: "hug",
   },
 });
 

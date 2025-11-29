@@ -3,9 +3,9 @@ import type {
   CheckboxBoxProps,
   CheckboxContentProps,
   CheckedState,
-} from 'components';
-import { Icon } from 'components';
-import { forwardRef, useCallback, useLayoutEffect, useRef } from 'react';
+} from "components";
+import { Icon } from "components";
+import { forwardRef, useCallback, useLayoutEffect, useRef } from "react";
 
 import {
   GetIconSize,
@@ -18,7 +18,7 @@ import {
   StyledLabelContent,
   StyledMainLabel,
   StyledSubLabel,
-} from './checkbox.styles';
+} from "./checkbox.styles";
 
 const CheckboxBox = forwardRef<HTMLInputElement, CheckboxBoxProps>(
   (
@@ -27,7 +27,7 @@ const CheckboxBox = forwardRef<HTMLInputElement, CheckboxBoxProps>(
       isIndeterminate,
       disabled = false,
       isInvalid = false,
-      size = 'md',
+      size = "md",
       id,
       onCheckedChange,
       ...restProps
@@ -41,7 +41,7 @@ const CheckboxBox = forwardRef<HTMLInputElement, CheckboxBoxProps>(
       (node: HTMLInputElement | null) => {
         inputRef.current = node;
 
-        if (typeof ref === 'function') {
+        if (typeof ref === "function") {
           ref(node);
         } else if (ref) {
           ref.current = node;
@@ -73,13 +73,13 @@ const CheckboxBox = forwardRef<HTMLInputElement, CheckboxBoxProps>(
         $isInvalid={isInvalid}
       >
         {isIndeterminate ? (
-          <Icon name='subtract-line' size={iconSize} />
+          <Icon name="subtract-line" size={iconSize} />
         ) : checked ? (
-          <Icon name='check-line' size={iconSize} />
+          <Icon name="check-line" size={iconSize} />
         ) : null}
         <StyledHiddenInput
           ref={refCallback}
-          type='checkbox'
+          type="checkbox"
           id={id}
           checked={checked}
           disabled={disabled}
@@ -92,7 +92,7 @@ const CheckboxBox = forwardRef<HTMLInputElement, CheckboxBoxProps>(
   },
 );
 
-CheckboxBox.displayName = 'CheckboxBox';
+CheckboxBox.displayName = "CheckboxBox";
 
 const CheckboxBasic = forwardRef<HTMLInputElement, CheckboxBasicProps>(
   (
@@ -100,14 +100,14 @@ const CheckboxBasic = forwardRef<HTMLInputElement, CheckboxBasicProps>(
       checked = false,
       disabled = false,
       isInvalid = false,
-      size = 'md',
+      size = "md",
       id,
       onCheckedChange,
       ...restProps
     },
     ref,
   ) => {
-    const isIndeterminate = checked === 'indeterminate';
+    const isIndeterminate = checked === "indeterminate";
     const isChecked = checked === true;
 
     return (
@@ -128,14 +128,14 @@ const CheckboxBasic = forwardRef<HTMLInputElement, CheckboxBasicProps>(
   },
 );
 
-CheckboxBasic.displayName = 'Checkbox.Basic';
+CheckboxBasic.displayName = "Checkbox.Basic";
 
 const CheckboxContent = forwardRef<HTMLInputElement, CheckboxContentProps>(
   (
     {
-      size = 'md',
-      align = 'left',
-      variant = 'empty',
+      size = "md",
+      align = "left",
+      variant = "empty",
       label,
       subLabel,
       checked = false,
@@ -147,7 +147,7 @@ const CheckboxContent = forwardRef<HTMLInputElement, CheckboxContentProps>(
     },
     ref,
   ) => {
-    const isIndeterminate = checked === 'indeterminate';
+    const isIndeterminate = checked === "indeterminate";
     const isChecked = checked === true;
 
     return (
@@ -176,9 +176,9 @@ const CheckboxContent = forwardRef<HTMLInputElement, CheckboxContentProps>(
         </StyledCheckboxBoxWrapper>
         <StyledLabelContent>
           <StyledMainLabel
-            as='span'
+            as="span"
             size={size}
-            weight='normal'
+            weight="normal"
             $disabled={disabled}
             $isInvalid={isInvalid}
           >
@@ -186,9 +186,9 @@ const CheckboxContent = forwardRef<HTMLInputElement, CheckboxContentProps>(
           </StyledMainLabel>
           {subLabel && (
             <StyledSubLabel
-              as='span'
+              as="span"
               size={GetSubLabelSize(size)}
-              weight='normal'
+              weight="normal"
               $disabled={disabled}
               $isInvalid={isInvalid}
             >
@@ -201,7 +201,7 @@ const CheckboxContent = forwardRef<HTMLInputElement, CheckboxContentProps>(
   },
 );
 
-CheckboxContent.displayName = 'Checkbox.Content';
+CheckboxContent.displayName = "Checkbox.Content";
 
 export const Checkbox = {
   Basic: CheckboxBasic,

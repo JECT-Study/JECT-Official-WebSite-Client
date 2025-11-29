@@ -1,6 +1,6 @@
-import coneImage from '@/assets/images/cone.png';
-import MobileFooter from '@/components/common/footer/MobileFooter';
-import Logo from '@/components/common/logo/Logo';
+import coneImage from "@/assets/images/cone.png";
+import MobileFooter from "@/components/common/footer/MobileFooter";
+import Logo from "@/components/common/logo/Logo";
 
 function TempMobile() {
   return (

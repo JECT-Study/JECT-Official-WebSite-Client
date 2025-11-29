@@ -1,5 +1,5 @@
-import type { ComponentPropsWithoutRef } from 'react';
-import { forwardRef } from 'react';
+import type { ComponentPropsWithoutRef } from "react";
+import { forwardRef } from "react";
 
 import type {
   FooterBottomProps,
@@ -11,8 +11,8 @@ import type {
   FooterRootProps,
   FooterSectionProps,
   FooterSocialProps,
-} from './footer.types';
-import { Icon } from '../Icon';
+} from "./footer.types";
+import { Icon } from "../Icon";
 import {
   StyledFooterBottom,
   StyledFooterContent,
@@ -28,7 +28,7 @@ import {
   StyledLinkList,
   StyledSectionTitle,
   StyledSocialLink,
-} from './footer.styles';
+} from "./footer.styles";
 
 const FooterRoot = forwardRef<HTMLElement, FooterRootProps>(({ children, ...rest }, ref) => {
   return (
@@ -38,7 +38,7 @@ const FooterRoot = forwardRef<HTMLElement, FooterRootProps>(({ children, ...rest
   );
 });
 
-FooterRoot.displayName = 'Footer.Root';
+FooterRoot.displayName = "Footer.Root";
 
 const FooterContent = forwardRef<HTMLDivElement, FooterContentProps>(
   ({ children, ...rest }, ref) => {
@@ -50,7 +50,7 @@ const FooterContent = forwardRef<HTMLDivElement, FooterContentProps>(
   },
 );
 
-FooterContent.displayName = 'Footer.Content';
+FooterContent.displayName = "Footer.Content";
 
 const FooterHeader = forwardRef<HTMLDivElement, FooterHeaderProps>(({ children, ...rest }, ref) => {
   return (
@@ -60,13 +60,13 @@ const FooterHeader = forwardRef<HTMLDivElement, FooterHeaderProps>(({ children, 
   );
 });
 
-FooterHeader.displayName = 'Footer.Header';
+FooterHeader.displayName = "Footer.Header";
 
-const FooterDivider = forwardRef<HTMLHRElement, ComponentPropsWithoutRef<'hr'>>((props, ref) => {
+const FooterDivider = forwardRef<HTMLHRElement, ComponentPropsWithoutRef<"hr">>((props, ref) => {
   return <StyledFooterDivider ref={ref} {...props} />;
 });
 
-FooterDivider.displayName = 'Footer.Divider';
+FooterDivider.displayName = "Footer.Divider";
 
 const FooterLogoLink = forwardRef<HTMLAnchorElement, FooterLogoLinkProps>(
   ({ children, ...props }, ref) => {
@@ -78,7 +78,7 @@ const FooterLogoLink = forwardRef<HTMLAnchorElement, FooterLogoLinkProps>(
   },
 );
 
-FooterLogoLink.displayName = 'Footer.LogoLink';
+FooterLogoLink.displayName = "Footer.LogoLink";
 
 const FooterLogoDiv = forwardRef<HTMLDivElement, FooterLogoDivProps>(
   ({ children, ...props }, ref) => {
@@ -90,30 +90,30 @@ const FooterLogoDiv = forwardRef<HTMLDivElement, FooterLogoDivProps>(
   },
 );
 
-FooterLogoDiv.displayName = 'Footer.LogoDiv';
+FooterLogoDiv.displayName = "Footer.LogoDiv";
 
 const FooterSocial = forwardRef<HTMLDivElement, FooterSocialProps>(
-  ({ github, instagram, iconSize = 'md', ...rest }, ref) => {
+  ({ github, instagram, iconSize = "md", ...rest }, ref) => {
     return (
       <StyledFooterSocial ref={ref} {...rest}>
         {github && (
           <StyledSocialLink
             href={github}
-            target='_blank'
-            rel='noopener noreferrer'
-            aria-label='GitHub'
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
           >
-            <Icon name='github-fill' size={iconSize} />
+            <Icon name="github-fill" size={iconSize} />
           </StyledSocialLink>
         )}
         {instagram && (
           <StyledSocialLink
             href={instagram}
-            target='_blank'
-            rel='noopener noreferrer'
-            aria-label='Instagram'
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram"
           >
-            <Icon name='instagram' size={iconSize} />
+            <Icon name="instagram" size={iconSize} />
           </StyledSocialLink>
         )}
       </StyledFooterSocial>
@@ -121,7 +121,7 @@ const FooterSocial = forwardRef<HTMLDivElement, FooterSocialProps>(
   },
 );
 
-FooterSocial.displayName = 'Footer.Social';
+FooterSocial.displayName = "Footer.Social";
 
 const FooterNav = forwardRef<HTMLElement, FooterNavProps>(({ sections, ...rest }, ref) => {
   return (
@@ -133,7 +133,7 @@ const FooterNav = forwardRef<HTMLElement, FooterNavProps>(({ sections, ...rest }
   );
 });
 
-FooterNav.displayName = 'Footer.Nav';
+FooterNav.displayName = "Footer.Nav";
 
 const FooterSection = forwardRef<HTMLDivElement, FooterSectionProps>(
   ({ title, links, ...rest }, ref) => {
@@ -145,11 +145,11 @@ const FooterSection = forwardRef<HTMLDivElement, FooterSectionProps>(
             <li key={`${link.href}-${link.label}`}>
               <StyledLink
                 href={link.href}
-                target={link.external ? '_blank' : undefined}
-                rel={link.external ? 'noopener noreferrer' : undefined}
+                target={link.external ? "_blank" : undefined}
+                rel={link.external ? "noopener noreferrer" : undefined}
               >
                 {link.label}
-                {link.external && <Icon name='external-link-line' size='xs' />}
+                {link.external && <Icon name="external-link-line" size="xs" />}
               </StyledLink>
             </li>
           ))}
@@ -159,7 +159,7 @@ const FooterSection = forwardRef<HTMLDivElement, FooterSectionProps>(
   },
 );
 
-FooterSection.displayName = 'Footer.Section';
+FooterSection.displayName = "Footer.Section";
 
 const FooterBottom = forwardRef<HTMLDivElement, FooterBottomProps>(
   ({ copyright, email, privacyLink, ...rest }, ref) => {
@@ -168,9 +168,9 @@ const FooterBottom = forwardRef<HTMLDivElement, FooterBottomProps>(
         <span>{copyright}</span>
         {email && <address>{email}</address>}
         {privacyLink && (
-          <a href={privacyLink} target='_blank' rel='noopener noreferrer'>
+          <a href={privacyLink} target="_blank" rel="noopener noreferrer">
             개인정보처리방침
-            <Icon name='external-link-line' size='xs' />
+            <Icon name="external-link-line" size="xs" />
           </a>
         )}
       </StyledFooterBottom>
@@ -178,7 +178,7 @@ const FooterBottom = forwardRef<HTMLDivElement, FooterBottomProps>(
   },
 );
 
-FooterBottom.displayName = 'Footer.Bottom';
+FooterBottom.displayName = "Footer.Bottom";
 
 export const Footer = {
   Root: FooterRoot,

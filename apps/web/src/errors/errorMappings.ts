@@ -1,15 +1,15 @@
-import { PATH } from '@/constants/path';
-import router from '@/router';
-import { OpenDialogOption } from '@/stores/dialogStore';
+import { PATH } from "@/constants/path";
+import router from "@/router";
+import type { OpenDialogOption } from "@/stores/dialogStore";
 
 export const internalApiErrorMapping: Record<
   string,
   (handlers: { openDialog: (option: OpenDialogOption) => void }) => void
 > = {
-  'G-10': () => void router.navigate(PATH.nonSpecificError),
-  'G-07': ({ openDialog }) =>
+  "G-10": () => void router.navigate(PATH.nonSpecificError),
+  "G-07": ({ openDialog }) =>
     openDialog({
-      type: 'expiredSession',
+      type: "expiredSession",
       onPrimaryBtnClick: () => void router.navigate(PATH.applyVerify),
     }),
   NOT_FOUND_MEMBER: () => void router.navigate(PATH.notFoundError),

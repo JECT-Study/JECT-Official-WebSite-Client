@@ -1,2 +1,2 @@
-export { Logo } from './Logo';
-export type { LogoProps, LogoHierarchy } from './logo.types';
+export { Logo } from "./Logo";
+export type { LogoProps, LogoHierarchy } from "./logo.types";

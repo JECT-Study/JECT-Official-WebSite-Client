@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, ReactNode } from 'react';
+import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 export interface FileItemWrapButtonProps {
   $disabled: boolean;
@@ -15,7 +15,7 @@ export interface FileSizeProps {
   $hasError: boolean;
 }
 
-export interface FileItemProps extends ComponentPropsWithoutRef<'button'> {
+export interface FileItemProps extends ComponentPropsWithoutRef<"button"> {
   fileName: ReactNode;
   fileSize?: ReactNode;
   readonly?: boolean;

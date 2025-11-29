@@ -1,10 +1,10 @@
-import { forwardRef } from 'react';
-import { useTheme } from 'theme';
+import { useTheme } from "@emotion/react";
+import { forwardRef } from "react";
 
-import type { HeroSize, HeroTextAlign } from './Hero.style';
-import { HeroDiv } from './Hero.style';
+import type { HeroSize, HeroTextAlign } from "./Hero.style";
+import { HeroDiv } from "./Hero.style";
 
-interface HeroProps {
+export interface HeroProps {
   size?: HeroSize;
   textAlign?: HeroTextAlign;
   color?: string;
@@ -12,7 +12,7 @@ interface HeroProps {
 }
 
 export const Hero = forwardRef<HTMLDivElement, HeroProps>(
-  ({ size = 'lg', textAlign = 'center', color, children, ...props }, ref) => {
+  ({ size = "lg", textAlign = "center", color, children, ...props }, ref) => {
     const theme = useTheme();
     const BaseColor = color || theme.color.semantic.object.boldest;
 
@@ -24,4 +24,4 @@ export const Hero = forwardRef<HTMLDivElement, HeroProps>(
   },
 );
 
-Hero.displayName = 'Hero';
+Hero.displayName = "Hero";

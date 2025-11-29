@@ -1,10 +1,11 @@
-import { ReactNode } from 'react';
-import { BaseBlockButtonProps } from '../Button/BlockButton/blockButton.types';
+import type { ReactNode } from "react";
 
-export type BasicHierarchy = 'accent' | 'primary' | 'secondary';
-export type FeedbackHierarchy = 'positive' | 'destructive' | 'notifying';
-export type CalloutVariant = 'hero' | 'hint';
-export type CalloutSize = 'lg' | 'md' | 'sm' | 'xs' | '2xs';
+import type { BaseBlockButtonProps } from "../Button/BlockButton/blockButton.types";
+
+export type BasicHierarchy = "accent" | "primary" | "secondary";
+export type FeedbackHierarchy = "positive" | "destructive" | "notifying";
+export type CalloutVariant = "hero" | "hint";
+export type CalloutSize = "lg" | "md" | "sm" | "xs" | "2xs";
 
 export interface BaseCalloutProps {
   variant?: CalloutVariant;
@@ -12,7 +13,7 @@ export interface BaseCalloutProps {
   titleVisible?: boolean;
   extraButtonVisible?: boolean;
   title?: string;
-  blockButtonProps?: Omit<BaseBlockButtonProps, 'size'>;
+  blockButtonProps?: Omit<BaseBlockButtonProps, "size">;
   children: ReactNode;
 }
 

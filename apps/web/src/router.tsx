@@ -1,20 +1,20 @@
-import { PATH } from './constants/path';
-import { sentryCreateBrowserRouter } from './instrument';
-import Maintenance from './pages/Maintenance';
-import NonSpecificError from './pages/NonSpecificError';
-import NotFoundError from './pages/NotFoundError';
+import { PATH } from "./constants/path";
+import { sentryCreateBrowserRouter } from "./instrument";
+import Maintenance from "./pages/Maintenance";
+import NonSpecificError from "./pages/NonSpecificError";
+import NotFoundError from "./pages/NotFoundError";
 
-import Layout from '@/components/layout/Layout';
-import Activity from '@/pages/Activity';
-import ApplyApplicantInfo from '@/pages/ApplyApplicationInfo';
-import ApplyComplete from '@/pages/ApplyComplete';
-import ApplyRegistration from '@/pages/ApplyRegistration';
-import ApplyVerify from '@/pages/ApplyVerify';
-import Faq from '@/pages/Faq';
-import Main from '@/pages/Main';
-import Project from '@/pages/Project';
-import ProjectDetail from '@/pages/ProjectDetail';
-import RecruitmentComplete from '@/pages/RecruitmentComplete';
+import Layout from "@/components/layout/Layout";
+import Activity from "@/pages/Activity";
+import ApplyApplicantInfo from "@/pages/ApplyApplicationInfo";
+import ApplyComplete from "@/pages/ApplyComplete";
+import ApplyRegistration from "@/pages/ApplyRegistration";
+import ApplyVerify from "@/pages/ApplyVerify";
+import Faq from "@/pages/Faq";
+import Main from "@/pages/Main";
+import Project from "@/pages/Project";
+import ProjectDetail from "@/pages/ProjectDetail";
+import RecruitmentComplete from "@/pages/RecruitmentComplete";
 
 const router = sentryCreateBrowserRouter([
   {
@@ -36,7 +36,7 @@ const router = sentryCreateBrowserRouter([
   { path: PATH.nonSpecificError, element: <NonSpecificError /> },
   { path: PATH.notFoundError, element: <NotFoundError /> },
   { path: PATH.maintenance, element: <Maintenance /> },
-  { path: '*', element: <NotFoundError /> },
+  { path: "*", element: <NotFoundError /> },
 ]);
 
 export default router;

@@ -1,5 +1,5 @@
-import Label from '@/components/common/label/Label';
-import Title from '@/components/common/title/Title';
+import Label from "@/components/common/label/Label";
+import Title from "@/components/common/title/Title";
 
 interface CalloutProps {
   title: string;

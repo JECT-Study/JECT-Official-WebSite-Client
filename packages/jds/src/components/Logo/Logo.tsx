@@ -1,16 +1,16 @@
-import { forwardRef } from 'react';
+import { forwardRef } from "react";
 
-import SvgLogo from './generated/Logo';
-import { StyledLogo } from './logo.styles';
-import type { LogoProps } from './logo.types';
+import SvgLogo from "./generated/Logo";
+import { StyledLogo } from "./logo.styles";
+import type { LogoProps } from "./logo.types";
 
 export const Logo = forwardRef<HTMLAnchorElement, LogoProps>(
-  ({ hierarchy = 'primary', height = 32, href, tabIndex, ...restProps }, ref) => {
+  ({ hierarchy = "primary", height = 32, href, tabIndex, ...restProps }, ref) => {
     const isLinkElement = !!href;
 
     return (
       <StyledLogo
-        as={isLinkElement ? 'a' : 'div'}
+        as={isLinkElement ? "a" : "div"}
         ref={ref}
         href={href}
         $hierarchy={hierarchy}
@@ -18,10 +18,10 @@ export const Logo = forwardRef<HTMLAnchorElement, LogoProps>(
         tabIndex={tabIndex}
         {...restProps}
       >
-        <SvgLogo width='100%' height='100%' />
+        <SvgLogo width="100%" height="100%" />
       </StyledLogo>
     );
   },
 );
 
-Logo.displayName = 'Logo';
+Logo.displayName = "Logo";

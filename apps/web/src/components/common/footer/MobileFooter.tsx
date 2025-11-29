@@ -1,8 +1,8 @@
-import Youtube from '@/assets/svg/footerYoutube.svg?react';
-import Github from '@/assets/svg/github.svg?react';
-import NewTabLink from '@/components/apply/NewTabLink';
-import Logo from '@/components/common/logo/Logo';
-import { JECT_EMAIL } from '@/constants/footer';
+import Youtube from "@/assets/svg/footerYoutube.svg?react";
+import Github from "@/assets/svg/github.svg?react";
+import NewTabLink from "@/components/apply/NewTabLink";
+import Logo from "@/components/common/logo/Logo";
+import { JECT_EMAIL } from "@/constants/footer";
 
 function MobileFooter() {
   return (

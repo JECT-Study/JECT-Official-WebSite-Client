@@ -1,7 +1,7 @@
-import { Meta, Canvas } from '@storybook/addon-docs';
-import * as TokensStories from './Tokens.stories';
+import { Meta, Canvas } from "@storybook/addon-docs/blocks";
+import * as TokensStories from "./Tokens.stories";
 
-<Meta title='Design Tokens/Usage Guide' />
+<Meta title="Design Tokens/Usage Guide" />
 
 # JDS Design Tokens
 
@@ -98,8 +98,8 @@ const MyButton = styled.button`
 ## 🎯 기본 사용법
 
 ```tsx
-import { useTheme } from '@emotion/react';
-import { css } from '@emotion/react';
+import { useTheme } from "@emotion/react";
+import { css } from "@emotion/react";
 
 const MyComponent = () => {
   const theme = useTheme(); // 타입이 자동으로 추론됨
@@ -116,7 +116,7 @@ const MyComponent = () => {
         border-radius: ${theme.scheme.semantic.radius[2]};
 
         /* 타이포그래피 토큰 (한 번에 모든 속성 적용) */
-        ${theme.textStyle['semantic-textStyle-body-md-normal']}
+        ${theme.textStyle["semantic-textStyle-body-md-normal"]}
       `}
     >
       Hello JDS!
@@ -171,8 +171,8 @@ theme.typo.primitive.lineHeight.body.md;
 모든 타이포그래피 속성이 통합된 토큰입니다.반응형 자동 대응됩니다.
 
 ```typescript
-theme.textStyle['semantic-textStyle-body-md-normal'];
-theme.textStyle['semantic-textStyle-hero-4'];
+theme.textStyle["semantic-textStyle-body-md-normal"];
+theme.textStyle["semantic-textStyle-hero-4"];
 ```
 
 ### theme.environment
@@ -280,7 +280,7 @@ theme.typo.primitive.fontWeight.body.bold;
 
 ```typescript
 // Figma: semantic-textStyle-body-md-normal
-theme.textStyle['semantic-textStyle-body-md-normal'];
+theme.textStyle["semantic-textStyle-body-md-normal"];
 
 // ⚠️ textStyle의 경우
 ```
@@ -333,7 +333,7 @@ const ResponsiveComponent = () => {
     <div
       css={css`
         padding: ${theme.scheme.semantic.spacing[4]};
-        ${theme.textStyle['semantic-textStyle-body-md-normal']}
+        ${theme.textStyle["semantic-textStyle-body-md-normal"]}
 
         @media (max-width: 768px) {
           padding: ${theme.scheme.semantic.spacing[2]};

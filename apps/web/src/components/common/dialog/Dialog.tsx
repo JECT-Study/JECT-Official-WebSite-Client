@@ -1,8 +1,8 @@
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
-import BlockButton from '@/components/common/button/BlockButton';
-import { dialogTypes } from '@/constants/dialog';
-import { useDialogActions, useDialogItem } from '@/stores/dialogStore';
+import BlockButton from "@/components/common/button/BlockButton";
+import { dialogTypes } from "@/constants/dialog";
+import { useDialogActions, useDialogItem } from "@/stores/dialogStore";
 
 function Dialog() {
   const { isOpen, type, onPrimaryBtnClick, onSecondaryBtnClick } = useDialogItem();
@@ -20,9 +20,9 @@ function Dialog() {
 
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = '';
+      document.body.style.overflow = "";
     }
   }, [isOpen]);
 
@@ -39,12 +39,12 @@ function Dialog() {
             </div>
           </div>
           <div
-            className={`gap-xs i *: flex *:flex-1 ${dialogTypes[type].btnLayout === 'vertical' ? 'flex-col' : '*:first:order-2 *:last:order-1'}`}
+            className={`gap-xs i *: flex *:flex-1 ${dialogTypes[type].btnLayout === "vertical" ? "flex-col" : "*:first:order-2 *:last:order-1"}`}
           >
             <BlockButton onClick={handleClickPrimaryBtn} size='md' hierarchy='accent' style='solid'>
               {dialogTypes[type].primaryBtnLabel}
             </BlockButton>
-            {dialogTypes[type].btnLayout !== 'singleButton' && (
+            {dialogTypes[type].btnLayout !== "singleButton" && (
               <BlockButton
                 onClick={handleClickSecondaryBtn}
                 size='md'

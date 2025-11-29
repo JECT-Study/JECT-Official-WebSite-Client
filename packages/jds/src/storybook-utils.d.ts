@@ -1,5 +1,5 @@
-declare module '@storybook-utils/layout' {
-  import type { ComponentType, HTMLAttributes } from 'react';
+declare module "@storybook-utils/layout" {
+  import type { ComponentType, HTMLAttributes } from "react";
 
   interface FlexProps extends HTMLAttributes<HTMLDivElement> {
     gap?: string;

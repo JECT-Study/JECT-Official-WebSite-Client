@@ -1,31 +1,31 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import LabelButton from './LabelButton';
+import LabelButton from "./LabelButton";
 
-import Icon from '@/components/common/icon/Icon';
+import Icon from "@/components/common/icon/Icon";
 
 const meta: Meta<typeof LabelButton> = {
-  title: 'Components/LabelButton',
+  title: "Components/LabelButton",
   component: LabelButton,
   argTypes: {
     size: {
-      control: { type: 'select' },
-      options: ['xs', 'sm', 'md', 'lg'],
-      description: '버튼의 크기를 담당하는 요소입니다.',
+      control: { type: "select" },
+      options: ["xs", "sm", "md", "lg"],
+      description: "버튼의 크기를 담당하는 요소입니다.",
     },
     hierarchy: {
-      control: { type: 'select' },
-      options: ['accent', 'primary', 'secondary', 'tertiary'],
-      description: '버튼의 색상이 분기되는 위계 요소입니다.',
+      control: { type: "select" },
+      options: ["accent", "primary", "secondary", "tertiary"],
+      description: "버튼의 색상이 분기되는 위계 요소입니다.",
     },
     disabled: {
-      control: { type: 'boolean' },
-      description: '버튼 비활성화 여부입니다.',
+      control: { type: "boolean" },
+      description: "버튼 비활성화 여부입니다.",
     },
   },
   args: {
-    size: 'lg',
-    hierarchy: 'accent',
+    size: "lg",
+    hierarchy: "accent",
     disabled: false,
   },
 };
@@ -35,7 +35,7 @@ export default meta;
 type Story = StoryObj<typeof LabelButton>;
 
 export const DefaultStory: Story = {
-  name: 'Default LabelButton',
+  name: "Default LabelButton",
   render: args => (
     <div className='story-container'>
       <div className='story-inner-container'>
@@ -48,7 +48,7 @@ export const DefaultStory: Story = {
 };
 
 export const ButtonStory: Story = {
-  name: 'LabelButton',
+  name: "LabelButton",
   render: () => (
     <div className='story-container'>
       <div className='story-inner-container'>
@@ -75,7 +75,7 @@ export const ButtonStory: Story = {
 };
 
 export const IconButtonStory: Story = {
-  name: 'Icon LabelButton',
+  name: "Icon LabelButton",
   render: args => (
     <div className='story-container'>
       <div className='story-inner-container'>
@@ -126,7 +126,7 @@ export const IconButtonStory: Story = {
 };
 
 export const IconOnlyStory: Story = {
-  name: 'Icon Only LabelButton',
+  name: "Icon Only LabelButton",
   render: () => (
     <div className='story-container'>
       <div className='story-inner-container'>

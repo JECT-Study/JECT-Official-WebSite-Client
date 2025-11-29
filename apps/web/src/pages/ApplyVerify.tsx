@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { useState } from "react";
 
-import ApplyVerifyEmail from './ApplyVerifyEmail';
-import ApplyVerifyPin from './ApplyVerifyPin';
+import ApplyVerifyEmail from "./ApplyVerifyEmail";
+import ApplyVerifyPin from "./ApplyVerifyPin";
 
 function ApplyVerify() {
   const [isNewApplicant, setIsNewApplicant] = useState(true);
-  const [userEmail, setUserEmail] = useState('');
+  const [userEmail, setUserEmail] = useState("");
 
   return isNewApplicant ? (
     <ApplyVerifyEmail setIsNewApplicant={setIsNewApplicant} setUserEmail={setUserEmail} />

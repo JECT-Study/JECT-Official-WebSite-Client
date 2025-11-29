@@ -1,10 +1,12 @@
-import { createContext, useContext, ReactNode, useEffect } from 'react';
-import { createPortal } from 'react-dom';
-import { Snackbar } from './Snackbar';
-import { SnackbarHandler } from './snackbar.types';
-import { SnackbarStackContainer } from './snackbar.styles';
-import { useSnackbarProvider } from './useSnackbarProvider';
-import { snackbarController } from './snackbarController';
+import type { ReactNode } from "react";
+import { createContext, useContext, useEffect } from "react";
+import { createPortal } from "react-dom";
+
+import { Snackbar } from "./Snackbar";
+import { SnackbarStackContainer } from "./snackbar.styles";
+import type { SnackbarHandler } from "./snackbar.types";
+import { snackbarController } from "./snackbarController";
+import { useSnackbarProvider } from "./useSnackbarProvider";
 
 interface SnackbarContextType {
   snackbar: SnackbarHandler;
@@ -27,17 +29,17 @@ export const SnackbarProvider = ({ children }: { children: ReactNode }) => {
       {createPortal(
         <SnackbarStackContainer>
           {snackbars.map(snackbar =>
-            snackbar.type === 'basic' ? (
+            snackbar.type === "basic" ? (
               <Snackbar.Basic
                 key={snackbar.id}
-                onRemove={() => removeSnackbar(snackbar.id!)}
+                onRemove={() => removeSnackbar(snackbar.id)}
                 {...snackbar}
               />
             ) : (
               <Snackbar.Feedback
                 key={snackbar.id}
                 variant={snackbar.type}
-                onRemove={() => removeSnackbar(snackbar.id!)}
+                onRemove={() => removeSnackbar(snackbar.id)}
                 {...snackbar}
               />
             ),
@@ -51,7 +53,7 @@ export const SnackbarProvider = ({ children }: { children: ReactNode }) => {
 
 export const useSnackbar = () => {
   const context = useContext(SnackbarContext);
-  if (!context) throw new Error('useSnackbar must be used within SnackbarProvider');
+  if (!context) throw new Error("useSnackbar must be used within SnackbarProvider");
 
   return context;
 };

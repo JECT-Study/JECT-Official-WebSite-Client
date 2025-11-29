@@ -1,14 +1,15 @@
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 
-import { applyPinSchema, ApplyPinFormData } from '@/schema/applySchema';
+import type { ApplyPinFormData } from "@/schema/applySchema";
+import { applyPinSchema } from "@/schema/applySchema";
 
 export const useApplyPinForm = () => {
   return useForm<ApplyPinFormData>({
     resolver: zodResolver(applyPinSchema),
-    mode: 'onChange',
+    mode: "onChange",
     defaultValues: {
-      pin: '',
+      pin: "",
     },
   });
 };

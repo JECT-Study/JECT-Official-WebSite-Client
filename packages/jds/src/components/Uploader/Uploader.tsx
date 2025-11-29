@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef } from "react";
 
 import {
   AddIcon,
@@ -9,14 +9,14 @@ import {
   ImageDropZoneButton,
   ImageLabel,
   LoadingIcon,
-} from './uploader.styles';
+} from "./uploader.styles";
 import type {
   UploaderFileButtonProps,
   UploaderFileProps,
   UploaderImageButtonProps,
   UploaderImageProps,
-} from './uploader.types';
-import { useUploader } from './useUploader';
+} from "./uploader.types";
+import { useUploader } from "./useUploader";
 
 const defaultMessages = {
   rest: (
@@ -53,7 +53,7 @@ const UploaderFileButton = ({
   if (isLoading && !isDisabled) {
     return (
       <>
-        <LoadingIcon name='spinner' size='2xl' />
+        <LoadingIcon name="spinner" size="2xl" />
         <FlexRowDiv>
           {helperLabel}
           {cancelButton}
@@ -125,8 +125,8 @@ const UploaderFile = ({
       />
       <HiddenInput
         ref={inputRef}
-        type='file'
-        accept={accept?.join(',')}
+        type="file"
+        accept={accept?.join(",")}
         multiple={multiple}
         onChange={handleInputChange}
       />
@@ -134,21 +134,21 @@ const UploaderFile = ({
   );
 };
 
-UploaderFile.displayName = 'Uploader.File';
+UploaderFile.displayName = "Uploader.File";
 
 const UploaderImageButton = ({
   isDisabled = false,
   isLoading = false,
-  uploadLabel = '이미지 업로드',
-  loadingLabel = '업로드 중...',
+  uploadLabel = "이미지 업로드",
+  loadingLabel = "업로드 중...",
   cancelButton,
 }: UploaderImageButtonProps) => {
   if (!isDisabled && isLoading) {
     return (
       <>
-        <LoadingIcon name='spinner' size='xl' />
+        <LoadingIcon name="spinner" size="xl" />
         <FlexRowDiv>
-          <ImageLabel size='sm' textAlign='center' weight='normal' $isDisabled={isDisabled}>
+          <ImageLabel size="sm" textAlign="center" weight="normal" $isDisabled={isDisabled}>
             {loadingLabel}
           </ImageLabel>
           {cancelButton}
@@ -159,8 +159,8 @@ const UploaderImageButton = ({
 
   return (
     <>
-      <AddIcon name='add-line' size='xl' $isDisabled={isDisabled} />
-      <ImageLabel size='sm' textAlign='center' weight='normal' $isDisabled={isDisabled}>
+      <AddIcon name="add-line" size="xl" $isDisabled={isDisabled} />
+      <ImageLabel size="sm" textAlign="center" weight="normal" $isDisabled={isDisabled}>
         {uploadLabel}
       </ImageLabel>
     </>
@@ -207,8 +207,8 @@ const UploaderImage = ({
       />
       <HiddenInput
         ref={inputRef}
-        type='file'
-        accept={accept?.join(',')}
+        type="file"
+        accept={accept?.join(",")}
         multiple={multiple}
         onChange={handleInputChange}
       />
@@ -216,7 +216,7 @@ const UploaderImage = ({
   );
 };
 
-UploaderImage.displayName = 'Uploader.Image';
+UploaderImage.displayName = "Uploader.Image";
 
 export const Uploader = {
   File: UploaderFile,
