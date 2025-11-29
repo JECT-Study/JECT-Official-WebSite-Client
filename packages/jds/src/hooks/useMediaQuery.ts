@@ -40,35 +40,41 @@ const DEFAULT_BREAKPOINTS: Breakpoints = {
  * ```
  */
 export const useMediaQuery = (breakpoints: Breakpoints = DEFAULT_BREAKPOINTS): DeviceType => {
-  const getDeviceType = useCallback(
-    (width: number): DeviceType => {
-      if (width >= breakpoints.desktop.min && width <= breakpoints.desktop.max) {
-        return "desktop";
-      }
-      if (width >= breakpoints.tablet.min && width <= breakpoints.tablet.max) {
-        return "tablet";
-      }
-      return "mobile";
-    },
-    [breakpoints],
-  );
-
-  const [deviceType, setDeviceType] = useState<DeviceType>(() => {
+  const getDeviceType = useCallback((): DeviceType => {
     if (typeof window === "undefined") return "desktop";
-    return getDeviceType(window.innerWidth);
-  });
+
+    const desktopQuery = window.matchMedia(`(min-width: ${breakpoints.desktop.min}px)`);
+    const tabletQuery = window.matchMedia(
+      `(min-width: ${breakpoints.tablet.min}px) and (max-width: ${breakpoints.tablet.max}px)`,
+    );
+
+    if (desktopQuery.matches) return "desktop";
+    if (tabletQuery.matches) return "tablet";
+    return "mobile";
+  }, [breakpoints]);
+
+  const [deviceType, setDeviceType] = useState<DeviceType>(getDeviceType);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    const handleResize = () => {
-      const newDeviceType = getDeviceType(window.innerWidth);
-      setDeviceType(newDeviceType);
+    const desktopQuery = window.matchMedia(`(min-width: ${breakpoints.desktop.min}px)`);
+    const tabletQuery = window.matchMedia(
+      `(min-width: ${breakpoints.tablet.min}px) and (max-width: ${breakpoints.tablet.max}px)`,
+    );
+
+    const handleChange = () => {
+      setDeviceType(getDeviceType());
     };
 
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, [getDeviceType]);
+    desktopQuery.addEventListener("change", handleChange);
+    tabletQuery.addEventListener("change", handleChange);
+
+    return () => {
+      desktopQuery.removeEventListener("change", handleChange);
+      tabletQuery.removeEventListener("change", handleChange);
+    };
+  }, [breakpoints, getDeviceType]);
 
   return deviceType;
 };
