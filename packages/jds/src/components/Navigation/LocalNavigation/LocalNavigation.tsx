@@ -1,24 +1,24 @@
-import { forwardRef } from 'react';
+import { forwardRef } from "react";
 
 import {
   StyledLocalNavigationWrapper,
   StyledLocalNavigationRoot,
   StyledLocalNavigationButtonGroup,
   StyledLocalNavigationTitle,
-} from './localNavigation.styles';
+} from "./localNavigation.styles";
 import type {
   LocalNavigationButtonGroupProps,
   LocalNavigationRootProps,
   LocalNavigationTitleProps,
-} from './localNavigation.types';
+} from "./localNavigation.types";
 
-import { IconButton } from '../../Button/IconButton';
-import { useMediaQueryFlags } from '@/hooks';
+import { IconButton } from "../../Button/IconButton";
+import { useMediaQueryFlags } from "@/hooks";
 
 const LocalNavigationRoot = forwardRef<HTMLDivElement, LocalNavigationRootProps>(
   ({ isStretched = false, children, ...props }, ref) => {
     const { isMobile } = useMediaQueryFlags();
-    const buttonSize = isMobile ? 'lg' : 'xl';
+    const buttonSize = isMobile ? "lg" : "xl";
 
     return (
       <StyledLocalNavigationRoot ref={ref} $isStretched={isStretched} {...props}>
@@ -27,7 +27,7 @@ const LocalNavigationRoot = forwardRef<HTMLDivElement, LocalNavigationRootProps>
             icon='arrow-left-line'
             hierarchy='primary'
             size={buttonSize}
-            aria-label='PreviousPage'
+            aria-label='PreviousButton'
           />
           {children}
         </StyledLocalNavigationWrapper>
@@ -46,7 +46,7 @@ const LocalNavigationTitle = forwardRef<HTMLDivElement, LocalNavigationTitleProp
   },
 );
 
-LocalNavigationTitle.displayName = 'LocalNavigation.Title';
+LocalNavigationTitle.displayName = "LocalNavigation.Title";
 
 const LocalNavigationButtonGroup = forwardRef<HTMLDivElement, LocalNavigationButtonGroupProps>(
   ({ extraButtonVisible = false, children, ...props }, ref) => {
@@ -60,7 +60,7 @@ const LocalNavigationButtonGroup = forwardRef<HTMLDivElement, LocalNavigationBut
   },
 );
 
-LocalNavigationButtonGroup.displayName = 'LocalNavigation.ButtonGroup ';
+LocalNavigationButtonGroup.displayName = "LocalNavigation.ButtonGroup ";
 
 export const LocalNavigation = Object.assign(LocalNavigationRoot, {
   Title: LocalNavigationTitle,
