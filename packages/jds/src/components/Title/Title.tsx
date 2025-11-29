@@ -1,14 +1,9 @@
-import type { ElementRef, ElementType, HTMLAttributes, ReactNode } from "react";
+import type { ComponentProps, ElementRef, ReactNode } from "react";
 import { forwardRef } from "react";
 
-import type { TitleSize, TitleTextAlign } from "./Title.style";
 import { StyledTitle } from "./Title.style";
 
-export interface TitleProps extends HTMLAttributes<HTMLElement> {
-  as?: ElementType;
-  size?: TitleSize;
-  textAlign?: TitleTextAlign;
-  color?: string;
+export interface TitleProps extends ComponentProps<typeof StyledTitle> {
   children: ReactNode;
 }
 
