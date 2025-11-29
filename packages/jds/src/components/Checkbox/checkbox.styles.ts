@@ -4,8 +4,8 @@ import styled from "@emotion/styled";
 
 import type { CheckboxAlign, CheckboxSize, CheckboxVariant } from "./checkbox.types";
 import type { IconSize } from "../Icon/Icon.types";
+import type { LabelOwnProps } from "../Label";
 import { Label } from "../Label/Label";
-import type { LabelProps } from "../Label/Label";
 import type { LabelSize } from "../Label/Label.style";
 
 import type { Variant } from "@/types";
@@ -586,7 +586,7 @@ const labelColorParams = {
 export const StyledMainLabel = styled(Label, {
   shouldForwardProp: prop => !prop.startsWith("$"),
 })<
-  LabelProps & {
+  LabelOwnProps & {
     $disabled: boolean;
     $isInvalid: boolean;
   }
@@ -602,7 +602,7 @@ export const StyledMainLabel = styled(Label, {
 export const StyledSubLabel = styled(Label, {
   shouldForwardProp: prop => !prop.startsWith("$"),
 })<
-  LabelProps & {
+  LabelOwnProps & {
     $disabled: boolean;
     $isInvalid: boolean;
   }
