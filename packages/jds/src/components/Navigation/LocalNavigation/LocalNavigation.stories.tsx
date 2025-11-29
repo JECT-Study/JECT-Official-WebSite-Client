@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { LocalNavigation } from './LocalNavigation';
 
-import { IconButton } from '@/components';
+import { IconButton } from '../../Button/IconButton';
 import { useMediaQueryFlags } from '@/hooks';
 
 const customViewports = {

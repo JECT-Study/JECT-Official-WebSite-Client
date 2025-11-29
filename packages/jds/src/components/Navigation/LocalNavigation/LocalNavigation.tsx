@@ -12,7 +12,7 @@ import type {
   LocalNavigationTitleProps,
 } from './localNavigation.types';
 
-import { IconButton } from '@/components';
+import { IconButton } from '../../Button/IconButton';
 import { useMediaQueryFlags } from '@/hooks';
 
 const LocalNavigationRoot = forwardRef<HTMLDivElement, LocalNavigationRootProps>(

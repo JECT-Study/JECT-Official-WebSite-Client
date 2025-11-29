@@ -20,7 +20,7 @@ import type {
   GlobalNavigationTriggerProps,
 } from './globalNavigation.types';
 
-import { Divider } from '@/components';
+import { Divider } from '../../Divider';
 
 const GlobalNavigationRoot = forwardRef<HTMLElement, GlobalNavigationRootProps>(
   ({ children, variant = 'empty', ...props }, ref) => {

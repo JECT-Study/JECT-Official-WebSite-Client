@@ -1,19 +1,19 @@
-import type { Theme } from '@emotion/react';
-import styled from '@emotion/styled';
-import * as NavigationMenu from '@radix-ui/react-navigation-menu';
-import { pxToRem } from 'utils';
+import type { Theme } from "@emotion/react";
+import styled from "@emotion/styled";
+import * as NavigationMenu from "@radix-ui/react-navigation-menu";
+import { pxToRem } from "utils";
 
 import type {
   StyledGlobalNavigationListWrapperProps,
   StyledGlobalNavigationWrapperProps,
-} from './globalNavigation.types';
+} from "./globalNavigation.types";
 
-import { IconButton } from '@/components';
+import { IconButton } from "../../Button/IconButton";
 
 const globalNavigationStyleMap = (theme: Theme) => ({
   empty: {
-    backgroundColor: 'transparent',
-    borderBottom: 'none',
+    backgroundColor: "transparent",
+    borderBottom: "none",
   },
   solid: {
     backgroundColor: theme.color.semantic.surface.shallow,
@@ -26,30 +26,30 @@ export const StyledGlobalNavigationWrapper = styled.div<StyledGlobalNavigationWr
     const globalNavigationStyles = globalNavigationStyleMap(theme)[$variant];
 
     return {
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      width: '100vw',
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      width: "100vw",
       padding: `${theme.scheme.semantic.spacing[12]} ${theme.scheme.semantic.margin.md}`,
       ...globalNavigationStyles,
 
       [theme.breakPoint.tablet]: {
-        justifyContent: 'flex-start',
+        justifyContent: "flex-start",
         padding: `${theme.scheme.semantic.spacing[10]} ${theme.scheme.semantic.margin.md}`,
       },
 
       [theme.breakPoint.mobile]: {
-        justifyContent: 'flex-start',
+        justifyContent: "flex-start",
       },
     };
   },
 );
 
 export const StyledGlobalNavigationRoot = styled(NavigationMenu.Root)(({ theme }) => ({
-  position: 'relative',
-  display: 'flex',
-  justifyContent: 'left',
-  alignItems: 'center',
+  position: "relative",
+  display: "flex",
+  justifyContent: "left",
+  alignItems: "center",
   gap: theme.scheme.semantic.spacing[24],
   width: pxToRem(922),
   height: pxToRem(32),
@@ -60,14 +60,14 @@ export const StyledGlobalNavigationRoot = styled(NavigationMenu.Root)(({ theme }
   },
 
   [theme.breakPoint.mobile]: {
-    gap: 'none',
+    gap: "none",
   },
 }));
 
 const AlignMap = {
-  center: 'center',
-  left: 'flex-start',
-  right: 'flex-end',
+  center: "center",
+  left: "flex-start",
+  right: "flex-end",
 } as const;
 
 export const StyledGlobalNavigationListWrapper = styled.div<StyledGlobalNavigationListWrapperProps>`
@@ -85,28 +85,28 @@ export const StyledGlobalNavigationListWrapper = styled.div<StyledGlobalNavigati
 `;
 
 export const StyledGlobalNavigationList = styled(NavigationMenu.List)(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
+  display: "flex",
+  alignItems: "center",
   gap: theme.scheme.semantic.spacing[32],
-  whiteSpace: 'nowrap',
+  whiteSpace: "nowrap",
 
   [theme.breakPoint.mobile]: {
-    display: 'none',
+    display: "none",
     gap: theme.scheme.semantic.spacing[24],
   },
 }));
 
 export const StyledMobileMenuButton = styled(IconButton.Basic)(({ theme }) => ({
-  display: 'none',
+  display: "none",
 
   [theme.breakPoint.mobile]: {
-    display: 'inline-block',
+    display: "inline-block",
   },
 }));
 
 export const StyledGlobalNavigationLogoLink = styled(NavigationMenu.Link)(() => ({
-  textDecoration: 'none',
-  color: 'inherit',
+  textDecoration: "none",
+  color: "inherit",
 }));
 
 export const StyledDividerWrapper = styled.div(() => ({
@@ -115,9 +115,9 @@ export const StyledDividerWrapper = styled.div(() => ({
 
 export const StyledGlobalNavigationContent = styled(NavigationMenu.Content)(() => {
   return {
-    position: 'absolute' as const,
-    top: '100%',
+    position: "absolute" as const,
+    top: "100%",
     left: 0,
-    marginTop: '8px',
+    marginTop: "8px",
   };
 });
