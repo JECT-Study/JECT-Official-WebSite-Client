@@ -37,7 +37,6 @@ const LocalNavigationBackButton = forwardRef<HTMLButtonElement, LocalNavigationB
         icon='arrow-left-line'
         hierarchy='primary'
         size={buttonSize}
-        aria-label='go to previous page'
         {...props}
       />
     );
