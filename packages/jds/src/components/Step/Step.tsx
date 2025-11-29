@@ -33,7 +33,7 @@ const StepItem = forwardRef<HTMLDivElement, StepItemProps>(
     const labelSize = SIZE_TO_LABEL_SIZE[size];
 
     return (
-      <StyledStepItem ref={ref} $size={size} data-status={status} {...restProps}>
+      <StyledStepItem ref={ref} data-status={status} {...restProps}>
         <Divider orientation='horizontal' thickness='bolder' />
         <StyledStepContent>
           <StyledCounterNumber $size={size} />

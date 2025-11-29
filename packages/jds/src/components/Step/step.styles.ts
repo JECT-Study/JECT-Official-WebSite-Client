@@ -2,12 +2,7 @@ import isPropValid from '@emotion/is-prop-valid';
 import type { Theme } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import type {
-  StepSize,
-  StyledStepContentProps,
-  StyledStepItemProps,
-  StyledStepRootProps,
-} from './step.types';
+import type { StepSize } from './step.types';
 import { Label } from '../Label';
 
 const STEP_STATUS_COLORS = {
@@ -62,7 +57,7 @@ export const StyledCounterNumber = styled('span', {
 
 export const StyledStepRoot = styled('div', {
   shouldForwardProp: prop => isPropValid(prop),
-})<StyledStepRootProps>(({ theme }) => ({
+})(({ theme }) => ({
   display: 'flex',
   alignItems: 'flex-start',
   width: '100%',
@@ -72,7 +67,7 @@ export const StyledStepRoot = styled('div', {
 
 export const StyledStepItem = styled('div', {
   shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
-})<StyledStepItemProps>(({ theme }) => {
+})(({ theme }) => {
   return {
     display: 'flex',
     flexDirection: 'column',
@@ -103,7 +98,7 @@ export const StyledStepItem = styled('div', {
 
 export const StyledStepContent = styled('div', {
   shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
-})<StyledStepContentProps>(({ theme }) => {
+})(({ theme }) => {
   return {
     display: 'flex',
     alignItems: 'center',
