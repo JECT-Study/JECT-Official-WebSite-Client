@@ -148,7 +148,7 @@ const UploaderImageButton = ({
       <>
         <LoadingIcon name='spinner' size='xl' />
         <FlexRowDiv>
-          <ImageLabel size='sm' textAlign='center' weight='normal' $isDisabled={isDisabled}>
+          <ImageLabel as='span' size='sm' textAlign='center' weight='normal' $isDisabled={isDisabled}>
             {loadingLabel}
           </ImageLabel>
           {cancelButton}
@@ -160,7 +160,7 @@ const UploaderImageButton = ({
   return (
     <>
       <AddIcon name='add-line' size='xl' $isDisabled={isDisabled} />
-      <ImageLabel size='sm' textAlign='center' weight='normal' $isDisabled={isDisabled}>
+      <ImageLabel as='span' size='sm' textAlign='center' weight='normal' $isDisabled={isDisabled}>
         {uploadLabel}
       </ImageLabel>
     </>

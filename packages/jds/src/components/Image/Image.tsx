@@ -56,7 +56,7 @@ export const Image = PolymorphicForwardRef<"button", ImageOwnProps>(
         <img src={src || fallbackSrc} alt={alt} onError={imageLoadErrorHandler} loading={loading} />
         {badgeVisible && (
           <ImageLabelDiv>
-            <StyledLabel size='xs' textAlign='center' weight='normal'>
+            <StyledLabel as='span' size='xs' textAlign='center' weight='normal'>
               {badgeLabel}
             </StyledLabel>
           </ImageLabelDiv>

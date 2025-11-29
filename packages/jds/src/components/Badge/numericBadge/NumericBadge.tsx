@@ -31,6 +31,7 @@ const NumericBadgeBasic = ({
       isMuted={isMuted}
     >
       <NumericBadgeBasicLabel
+        as='span'
         size={size}
         textAlign='center'
         weight='normal'
@@ -69,6 +70,7 @@ const NumericBadgeFeedback = ({
       isMuted={isMuted}
     >
       <NumericBadgeFeedbackLabel
+        as='span'
         size={size}
         textAlign='center'
         weight='normal'

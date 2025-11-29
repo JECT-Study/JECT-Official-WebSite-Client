@@ -46,6 +46,7 @@ const ContentBadgeBasic = ({
       withIcon={withIcon}
     >
       <ContentBadgeBasicLabel
+        as='span'
         size={size}
         textAlign='center'
         weight='normal'
@@ -93,6 +94,7 @@ const ContentBadgeFeedback = ({
       isMuted={isMuted}
     >
       <ContentBadgeFeedbackLabel
+        as='span'
         size={size}
         textAlign='center'
         weight='normal'
@@ -126,6 +128,7 @@ const ContentBadgeTheme = ({
   return (
     <ContentBadgeThemeDiv variant={variant} size={size} badgeStyle={badgeStyle} isMuted={isMuted}>
       <ContentBadgeThemeLabel
+        as='span'
         size={size}
         textAlign='center'
         weight='normal'
