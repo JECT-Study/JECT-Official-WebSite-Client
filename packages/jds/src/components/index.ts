@@ -19,3 +19,4 @@ export * from './Uploader';
 export * from './FileItem';
 export * from './Tooltip';
 export * from './SegmentedControl';
+export * from './Step';
