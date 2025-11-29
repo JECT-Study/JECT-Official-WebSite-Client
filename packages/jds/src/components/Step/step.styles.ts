@@ -1,24 +1,8 @@
 import isPropValid from '@emotion/is-prop-valid';
-import type { Theme } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import type { StepSize } from './step.types';
 import { Label } from '../Label';
-
-const STEP_STATUS_COLORS = {
-  completed: {
-    divider: (theme: Theme) => theme.color.semantic.accent.alpha.subtle,
-    content: (theme: Theme) => theme.color.semantic.object.alternative,
-  },
-  ongoing: {
-    divider: (theme: Theme) => theme.color.semantic.accent.neutral,
-    content: (theme: Theme) => theme.color.semantic.object.bolder,
-  },
-  uncompleted: {
-    divider: (theme: Theme) => theme.color.semantic.stroke.assistive,
-    content: (theme: Theme) => theme.color.semantic.object.assistive,
-  },
-} as const;
 
 export const StyledCounterNumber = styled('span', {
   shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
@@ -49,71 +33,56 @@ export const StyledCounterNumber = styled('span', {
     height: textStyle.lineHeight as string,
     color: 'inherit',
     cursor: 'default',
-    '&::before': {
-      content: 'counter(step-counter)',
-    },
   };
 });
 
-export const StyledStepRoot = styled('div', {
-  shouldForwardProp: prop => isPropValid(prop),
-})(({ theme }) => ({
+export const StyledStepRoot = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'flex-start',
   width: '100%',
   gap: theme.scheme.semantic.spacing[8],
-  counterReset: 'step-counter',
 }));
 
-export const StyledStepItem = styled('div', {
-  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
-})(({ theme }) => {
-  return {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    flex: 1,
-    position: 'relative',
-    minWidth: 0,
-    counterIncrement: 'step-counter',
+export const StyledStepItem = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  flex: 1,
+  position: 'relative',
+  minWidth: 0,
+  cursor: 'default',
 
-    '&[data-status="completed"]': {
-      '--step-divider-color': STEP_STATUS_COLORS.completed.divider(theme),
-      '--step-content-color': STEP_STATUS_COLORS.completed.content(theme),
-    },
-    '&[data-status="ongoing"]': {
-      '--step-divider-color': STEP_STATUS_COLORS.ongoing.divider(theme),
-      '--step-content-color': STEP_STATUS_COLORS.ongoing.content(theme),
-    },
-    '&[data-status="uncompleted"]': {
-      '--step-divider-color': STEP_STATUS_COLORS.uncompleted.divider(theme),
-      '--step-content-color': STEP_STATUS_COLORS.uncompleted.content(theme),
-    },
-
+  '&[data-status="completed"]': {
     '& hr': {
-      borderColor: 'var(--step-divider-color)',
+      borderColor: theme.color.semantic.accent.alpha.subtle,
     },
-  };
-});
+    color: theme.color.semantic.object.alternative,
+  },
+  '&[data-status="ongoing"]': {
+    '& hr': {
+      borderColor: theme.color.semantic.accent.neutral,
+    },
+    color: theme.color.semantic.object.bolder,
+  },
+  '&[data-status="uncompleted"]': {
+    '& hr': {
+      borderColor: theme.color.semantic.stroke.assistive,
+    },
+    color: theme.color.semantic.object.assistive,
+  },
+}));
 
-export const StyledStepContent = styled('div', {
-  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
-})(({ theme }) => {
-  return {
-    display: 'flex',
-    alignItems: 'center',
-    alignSelf: 'stretch',
-    gap: theme.scheme.semantic.spacing[4],
-    padding: `${theme.scheme.semantic.spacing[8]} ${theme.scheme.semantic.spacing[16]} ${theme.scheme.semantic.spacing[8]} ${theme.scheme.semantic.spacing[8]}`,
-    width: '100%',
-    color: 'var(--step-content-color)',
-  };
-});
+export const StyledStepContent = styled('div')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'flex-start',
+  alignSelf: 'stretch',
+  gap: theme.scheme.semantic.spacing[4],
+  padding: `${theme.scheme.semantic.spacing[8]} ${theme.scheme.semantic.spacing[16]} ${theme.scheme.semantic.spacing[8]} ${theme.scheme.semantic.spacing[8]}`,
+  width: '100%',
+  color: 'inherit',
+}));
 
 export const StyledStepLabel = styled(Label)(({ theme }) => ({
   flex: '1 0 0',
-  paddingBottom: theme.scheme.semantic.spacing[2],
-  whiteSpace: 'nowrap',
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
+  paddingTop: theme.scheme.semantic.spacing[2],
 }));
