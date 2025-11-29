@@ -128,72 +128,60 @@ export const AllUncompleted: CustomStory = {
 
 export const SizeVariant: CustomStory = {
   render: () => (
-    <FlexColumn style={{ width: '100%', gap: '32px' }}>
-      <FlexRow style={{ width: '100%', gap: '16px' }}>
-        <Label style={{ minWidth: '40px' }}>lg</Label>
-        <div style={{ flex: 1, minWidth: '500px' }}>
-          <Step.Root size='lg'>
-            <Step.Item index={0} status='completed'>
-              단계 1
-            </Step.Item>
-            <Step.Item index={1} status='ongoing'>
-              단계 2
-            </Step.Item>
-            <Step.Item index={2} status='uncompleted'>
-              단계 3
-            </Step.Item>
-          </Step.Root>
-        </div>
-      </FlexRow>
-      <FlexRow style={{ width: '100%', gap: '16px' }}>
-        <Label style={{ minWidth: '40px' }}>md</Label>
-        <div style={{ flex: 1, minWidth: '500px' }}>
-          <Step.Root size='md'>
-            <Step.Item index={0} status='completed'>
-              단계 1
-            </Step.Item>
-            <Step.Item index={1} status='ongoing'>
-              단계 2
-            </Step.Item>
-            <Step.Item index={2} status='uncompleted'>
-              단계 3
-            </Step.Item>
-          </Step.Root>
-        </div>
-      </FlexRow>
-      <FlexRow style={{ width: '100%', gap: '16px' }}>
-        <Label style={{ minWidth: '40px' }}>sm</Label>
-        <div style={{ flex: 1, minWidth: '500px' }}>
-          <Step.Root size='sm'>
-            <Step.Item index={0} status='completed'>
-              단계 1
-            </Step.Item>
-            <Step.Item index={1} status='ongoing'>
-              단계 2
-            </Step.Item>
-            <Step.Item index={2} status='uncompleted'>
-              단계 3
-            </Step.Item>
-          </Step.Root>
-        </div>
-      </FlexRow>
-      <FlexRow style={{ width: '100%', gap: '16px' }}>
-        <Label style={{ minWidth: '40px' }}>xs</Label>
-        <div style={{ flex: 1, minWidth: '500px' }}>
-          <Step.Root size='xs'>
-            <Step.Item index={0} status='completed'>
-              단계 1
-            </Step.Item>
-            <Step.Item index={1} status='ongoing'>
-              단계 2
-            </Step.Item>
-            <Step.Item index={2} status='uncompleted'>
-              단계 3
-            </Step.Item>
-          </Step.Root>
-        </div>
-      </FlexRow>
-    </FlexColumn>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+      <div style={{ width: '600px' }}>
+        <Step.Root size='lg'>
+          <Step.Item index={0} status='completed'>
+            lg - 단계 1
+          </Step.Item>
+          <Step.Item index={1} status='ongoing'>
+            lg - 단계 2
+          </Step.Item>
+          <Step.Item index={2} status='uncompleted'>
+            lg - 단계 3
+          </Step.Item>
+        </Step.Root>
+      </div>
+      <div style={{ width: '600px' }}>
+        <Step.Root size='md'>
+          <Step.Item index={0} status='completed'>
+            md - 단계 1
+          </Step.Item>
+          <Step.Item index={1} status='ongoing'>
+            md - 단계 2
+          </Step.Item>
+          <Step.Item index={2} status='uncompleted'>
+            md - 단계 3
+          </Step.Item>
+        </Step.Root>
+      </div>
+      <div style={{ width: '600px' }}>
+        <Step.Root size='sm'>
+          <Step.Item index={0} status='completed'>
+            sm - 단계 1
+          </Step.Item>
+          <Step.Item index={1} status='ongoing'>
+            sm - 단계 2
+          </Step.Item>
+          <Step.Item index={2} status='uncompleted'>
+            sm - 단계 3
+          </Step.Item>
+        </Step.Root>
+      </div>
+      <div style={{ width: '600px' }}>
+        <Step.Root size='xs'>
+          <Step.Item index={0} status='completed'>
+            xs - 단계 1
+          </Step.Item>
+          <Step.Item index={1} status='ongoing'>
+            xs - 단계 2
+          </Step.Item>
+          <Step.Item index={2} status='uncompleted'>
+            xs - 단계 3
+          </Step.Item>
+        </Step.Root>
+      </div>
+    </div>
   ),
   parameters: {
     docs: {
@@ -206,7 +194,7 @@ export const SizeVariant: CustomStory = {
 
 export const VariousItemCounts: CustomStory = {
   render: () => (
-    <FlexColumn style={{ width: '100%', gap: '32px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
       <div style={{ width: '600px' }}>
         <Step.Root size='md'>
           <Step.Item index={0} status='completed'>
@@ -265,7 +253,7 @@ export const VariousItemCounts: CustomStory = {
           </Step.Item>
         </Step.Root>
       </div>
-    </FlexColumn>
+    </div>
   ),
   parameters: {
     docs: {
