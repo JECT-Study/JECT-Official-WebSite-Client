@@ -1,12 +1,12 @@
-import { StyledCardOverlay } from './compound.styles';
+import { StyledCardOverlay } from "./compound.styles";
 
-import { PolymorphicForwardRef } from '@/utils/forwardRef';
+import { PolymorphicForwardRef } from "@/utils/forwardRef";
 
 type CardOverlayOwnProps = Record<string, never>;
 
-export const CardOverlay = PolymorphicForwardRef<'a', CardOverlayOwnProps>(
+export const CardOverlay = PolymorphicForwardRef<"a", CardOverlayOwnProps>(
   ({ as, children, ...restProps }, ref) => {
-    const Component = as || 'a';
+    const Component = as || "a";
 
     return (
       <StyledCardOverlay as={Component} ref={ref} data-overlay {...restProps}>
@@ -16,4 +16,4 @@ export const CardOverlay = PolymorphicForwardRef<'a', CardOverlayOwnProps>(
   },
 );
 
-CardOverlay.displayName = 'Card.Overlay';
+CardOverlay.displayName = "Card.Overlay";

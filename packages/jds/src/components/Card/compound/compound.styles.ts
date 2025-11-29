@@ -1,20 +1,20 @@
-import isPropValid from '@emotion/is-prop-valid';
-import type { CSSObject, Theme } from '@emotion/react';
-import styled from '@emotion/styled';
-import { InteractionLayer, shadow } from 'utils';
+import isPropValid from "@emotion/is-prop-valid";
+import type { CSSObject, Theme } from "@emotion/react";
+import styled from "@emotion/styled";
+import { InteractionLayer, shadow } from "utils";
 
-import { createLabelStyles } from '../../Label/createLabelStyles';
-import type { CardLayout, CardVariant, CardStyle } from '../Card.types';
+import { createLabelStyles } from "../../Label/createLabelStyles";
+import type { CardLayout, CardVariant, CardStyle } from "../Card.types";
 
-const SHADOW_DEFAULT = '0 1px 2px 0 rgba(0, 0, 0, 0.05)';
+const SHADOW_DEFAULT = "0 1px 2px 0 rgba(0, 0, 0, 0.05)";
 
 const getLayoutStyles = (layout: CardLayout): CSSObject => {
   const layoutMap: Record<CardLayout, CSSObject> = {
     vertical: {
-      flexDirection: 'column',
+      flexDirection: "column",
     },
     horizontal: {
-      flexDirection: 'row',
+      flexDirection: "row",
     },
   };
 
@@ -35,9 +35,9 @@ const getVariantStyles = (
   } as const;
 
   const borderRadius =
-    variant === 'plate' ? borderRadiusParams.plate : borderRadiusParams.post[style || 'outlined'];
+    variant === "plate" ? borderRadiusParams.plate : borderRadiusParams.post[style || "outlined"];
 
-  if (variant === 'post') {
+  if (variant === "post") {
     const styleParams = {
       outlined: {
         border: `1px solid ${theme.color.semantic.stroke.subtle}`,
@@ -47,20 +47,20 @@ const getVariantStyles = (
         boxShadow: SHADOW_DEFAULT,
       },
       empty: {
-        backgroundColor: 'transparent',
-        border: 'none',
-        padding: '0',
-        borderRadius: borderRadius === 0 ? '0' : `${borderRadius}px`,
-        boxShadow: 'none',
+        backgroundColor: "transparent",
+        border: "none",
+        padding: "0",
+        borderRadius: borderRadius === 0 ? "0" : `${borderRadius}px`,
+        boxShadow: "none",
       },
     } as const;
 
-    const selectedStyle = styleParams[style || 'outlined'];
+    const selectedStyle = styleParams[style || "outlined"];
 
     return {
       styles: {
         ...selectedStyle,
-        overflow: 'hidden',
+        overflow: "hidden",
       },
       borderRadius,
     };
@@ -78,8 +78,8 @@ const getVariantStyles = (
   };
 };
 
-export const StyledCardRoot = styled('div', {
-  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
+export const StyledCardRoot = styled("div", {
+  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith("$"),
 })<{
   $layout: CardLayout;
   $variant: CardVariant;
@@ -87,7 +87,7 @@ export const StyledCardRoot = styled('div', {
   $isDisabled: boolean;
 }>(({ theme, $layout, $variant, $cardStyle, $isDisabled }) => {
   const positionStyle = {
-    position: 'relative' as const,
+    position: "relative" as const,
     zIndex: 0,
   };
 
@@ -96,10 +96,10 @@ export const StyledCardRoot = styled('div', {
 
   const interactiveFocusStyle = InteractionLayer({
     theme,
-    state: 'focus',
-    variant: 'normal',
-    density: 'assistive',
-    fillColor: 'default',
+    state: "focus",
+    variant: "normal",
+    density: "assistive",
+    fillColor: "default",
     isDisabled: false,
     offsetVertical: 0,
     offsetHorizontal: 0,
@@ -127,7 +127,7 @@ export const StyledCardRoot = styled('div', {
     },
     post: {
       vertical: gapBaseMap.post.vertical,
-      horizontal: gapBaseMap.post.horizontal[$cardStyle || 'outlined'],
+      horizontal: gapBaseMap.post.horizontal[$cardStyle || "outlined"],
     },
   };
 
@@ -135,23 +135,23 @@ export const StyledCardRoot = styled('div', {
 
   const baseStyles: CSSObject = {
     ...positionStyle,
-    display: 'flex',
+    display: "flex",
     gap,
     ...layoutStyles,
     ...variantStyles,
     // 부모로부터 명시적인 크기를 받아 렌더링되도록 설정
-    width: '100%',
-    height: '100%',
-    '--card-title-color': $isDisabled
+    width: "100%",
+    height: "100%",
+    "--card-title-color": $isDisabled
       ? theme.color.semantic.object.subtle
       : theme.color.semantic.object.bolder,
-    '--card-label-color': $isDisabled
+    "--card-label-color": $isDisabled
       ? theme.color.semantic.object.subtle
       : theme.color.semantic.object.neutral,
-    '--card-body-color': $isDisabled
+    "--card-body-color": $isDisabled
       ? theme.color.semantic.object.subtle
       : theme.color.semantic.object.normal,
-    '--card-caption-color': $isDisabled
+    "--card-caption-color": $isDisabled
       ? theme.color.semantic.object.subtle
       : theme.color.semantic.object.alternative,
   };
@@ -160,20 +160,20 @@ export const StyledCardRoot = styled('div', {
     ...baseStyles,
     '&[data-interactive="true"]': {
       transition: `transform ${theme.environment.semantic.duration[150]} ${theme.environment.semantic.motion.fluent}, box-shadow ${theme.environment.semantic.duration[150]} ${theme.environment.semantic.motion.fluent}`,
-      '&:hover': {
-        transform: 'translateY(-2px)',
-        ...shadow(theme, 'raised'),
+      "&:hover": {
+        transform: "translateY(-2px)",
+        ...shadow(theme, "raised"),
       },
-      '&:active': {
-        transform: 'translateY(0)',
-        transition: 'none',
+      "&:active": {
+        transform: "translateY(0)",
+        transition: "none",
       },
-      '&:has([data-overlay]:focus-visible)': {
-        transform: 'translateY(-2px)',
-        ...shadow(theme, 'raised'),
+      "&:has([data-overlay]:focus-visible)": {
+        transform: "translateY(-2px)",
+        ...shadow(theme, "raised"),
         ...interactiveFocusStyle,
-        '::after': {
-          ...interactiveFocusStyle['::after'],
+        "::after": {
+          ...interactiveFocusStyle["::after"],
           transition: `opacity ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
         },
       },
@@ -188,15 +188,15 @@ export const StyledCardImageContainer = styled.div<{
 }>(({ $layout, $variant }) => {
   const borderRadiusMap = {
     vertical: {
-      borderTopLeftRadius: 'inherit',
-      borderTopRightRadius: 'inherit',
+      borderTopLeftRadius: "inherit",
+      borderTopRightRadius: "inherit",
       borderBottomLeftRadius: 0,
       borderBottomRightRadius: 0,
     },
     horizontal: {
-      borderTopLeftRadius: 'inherit',
+      borderTopLeftRadius: "inherit",
       borderTopRightRadius: 0,
-      borderBottomLeftRadius: 'inherit',
+      borderBottomLeftRadius: "inherit",
       borderBottomRightRadius: 0,
     },
   } as const;
@@ -204,30 +204,30 @@ export const StyledCardImageContainer = styled.div<{
   const sizeMap = {
     plate: {
       vertical: {
-        width: '100%',
+        width: "100%",
       },
       horizontal: {
-        height: '100%',
-        alignSelf: 'stretch',
+        height: "100%",
+        alignSelf: "stretch",
       },
     },
     post: {
       vertical: {
-        width: '100%',
+        width: "100%",
       },
       horizontal: {
-        height: '100%',
-        alignSelf: 'stretch',
+        height: "100%",
+        alignSelf: "stretch",
       },
     },
   } as const;
 
-  const borderRadius = $variant === 'post' ? 0 : borderRadiusMap[$layout];
+  const borderRadius = $variant === "post" ? 0 : borderRadiusMap[$layout];
 
   return {
     flexShrink: 0,
-    overflow: 'hidden',
-    ...(typeof borderRadius === 'number' ? {} : borderRadius),
+    overflow: "hidden",
+    ...(typeof borderRadius === "number" ? {} : borderRadius),
     ...sizeMap[$variant][$layout],
   };
 });
@@ -237,10 +237,10 @@ export const StyledCardContent = styled.div<{
   $layout: CardLayout;
 }>(({ theme, $variant, $layout }) => {
   const baseStyles = {
-    display: 'flex',
-    flexDirection: 'column' as const,
-    alignItems: 'flex-start' as const,
-    flex: '1 0 0',
+    display: "flex",
+    flexDirection: "column" as const,
+    alignItems: "flex-start" as const,
+    flex: "1 0 0",
   };
 
   const styleMap = {
@@ -248,13 +248,13 @@ export const StyledCardContent = styled.div<{
       vertical: {
         padding: theme.scheme.semantic.spacing[20],
         gap: theme.scheme.semantic.spacing[16],
-        alignSelf: 'stretch' as const,
+        alignSelf: "stretch" as const,
         borderTop: `1px solid ${theme.color.semantic.stroke.alpha.subtler}`,
       },
       horizontal: {
         padding: theme.scheme.semantic.spacing[20],
         gap: theme.scheme.semantic.spacing[16],
-        alignSelf: 'stretch' as const,
+        alignSelf: "stretch" as const,
         borderLeft: `1px solid ${theme.color.semantic.stroke.alpha.subtler}`,
       },
     },
@@ -276,10 +276,10 @@ export const StyledCardContent = styled.div<{
 });
 
 export const StyledCardMeta = styled.div(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
+  display: "flex",
+  alignItems: "center",
   padding: 0,
-  alignSelf: 'stretch',
+  alignSelf: "stretch",
   gap: theme.scheme.semantic.spacing[16],
   [theme.breakPoint.tablet]: {
     gap: theme.scheme.semantic.spacing[16],
@@ -289,103 +289,103 @@ export const StyledCardMeta = styled.div(({ theme }) => ({
   },
 }));
 
-export const StyledCardMetaItem = styled('span', {
-  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
+export const StyledCardMetaItem = styled("span", {
+  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith("$"),
 })(({ theme }) => ({
-  ...createLabelStyles(theme, { size: 'sm', weight: 'normal' }),
-  color: 'var(--card-caption-color)',
+  ...createLabelStyles(theme, { size: "sm", weight: "normal" }),
+  color: "var(--card-caption-color)",
 }));
 
 export const StyledCardMetaNudgeItem = styled.span(({ theme }) => ({
-  display: 'flex',
+  display: "flex",
   padding: 0,
-  alignItems: 'center',
+  alignItems: "center",
   gap: theme.scheme.semantic.spacing[4],
-  marginLeft: 'auto',
+  marginLeft: "auto",
   flexShrink: 0,
   opacity: 0,
-  color: 'var(--card-caption-color)',
+  color: "var(--card-caption-color)",
   transition: `opacity ${theme.environment.semantic.duration[150]} ${theme.environment.semantic.motion.fluent}, transform ${theme.environment.semantic.duration[150]} ${theme.environment.semantic.motion.fluent}`,
 
   '[data-interactive="true"]:hover &': {
     opacity: 1,
-    transform: 'translateX(2px)',
+    transform: "translateX(2px)",
   },
 }));
 
 export const StyledCardMetaNudgeItemLabel = styled.span(({ theme }) => ({
-  ...createLabelStyles(theme, { size: 'sm', weight: 'normal' }),
-  color: 'var(--card-caption-color)',
+  ...createLabelStyles(theme, { size: "sm", weight: "normal" }),
+  color: "var(--card-caption-color)",
 }));
 
-export const StyledCardTitle = styled('h3', {
-  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
+export const StyledCardTitle = styled("h3", {
+  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith("$"),
 })(({ theme }) => ({
   //Todo: Title에는 weight가 존재하지 않음, 수정된 토큰명으로 변경 필요
-  ...createLabelStyles(theme, { size: 'lg', weight: 'normal' }),
-  color: 'var(--card-title-color)',
+  ...createLabelStyles(theme, { size: "lg", weight: "normal" }),
+  color: "var(--card-title-color)",
   margin: 0,
-  display: '-webkit-box',
-  WebkitBoxOrient: 'vertical',
+  display: "-webkit-box",
+  WebkitBoxOrient: "vertical",
   WebkitLineClamp: 1,
-  alignSelf: 'stretch',
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
+  alignSelf: "stretch",
+  overflow: "hidden",
+  textOverflow: "ellipsis",
 }));
 
-export const StyledCardLabel = styled('h4', {
-  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
+export const StyledCardLabel = styled("h4", {
+  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith("$"),
 })(({ theme }) => ({
-  ...createLabelStyles(theme, { size: 'lg', weight: 'bold' }),
-  color: 'var(--card-label-color)',
+  ...createLabelStyles(theme, { size: "lg", weight: "bold" }),
+  color: "var(--card-label-color)",
   margin: 0,
-  alignSelf: 'stretch',
-  display: '-webkit-box',
-  WebkitBoxOrient: 'vertical',
+  alignSelf: "stretch",
+  display: "-webkit-box",
+  WebkitBoxOrient: "vertical",
   WebkitLineClamp: 1,
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
+  overflow: "hidden",
+  textOverflow: "ellipsis",
 }));
 
-export const StyledCardBody = styled('p', {
-  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
+export const StyledCardBody = styled("p", {
+  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith("$"),
 })(({ theme }) => ({
-  ...createLabelStyles(theme, { size: 'sm', weight: 'normal' }),
-  color: 'var(--card-body-color)',
+  ...createLabelStyles(theme, { size: "sm", weight: "normal" }),
+  color: "var(--card-body-color)",
   margin: 0,
-  display: '-webkit-box',
-  WebkitBoxOrient: 'vertical',
+  display: "-webkit-box",
+  WebkitBoxOrient: "vertical",
   WebkitLineClamp: 2,
-  alignSelf: 'stretch',
-  overflow: 'hidden',
+  alignSelf: "stretch",
+  overflow: "hidden",
 }));
 
-export const StyledCardCaption = styled('span', {
-  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
+export const StyledCardCaption = styled("span", {
+  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith("$"),
 })(({ theme }) => ({
-  ...createLabelStyles(theme, { size: 'xs', weight: 'subtle' }),
-  color: 'var(--card-caption-color)',
-  display: '-webkit-box',
-  WebkitBoxOrient: 'vertical',
+  ...createLabelStyles(theme, { size: "xs", weight: "subtle" }),
+  color: "var(--card-caption-color)",
+  display: "-webkit-box",
+  WebkitBoxOrient: "vertical",
   WebkitLineClamp: 1,
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
+  overflow: "hidden",
+  textOverflow: "ellipsis",
 }));
 
-export const StyledCardOverlay = styled('a', {
-  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
+export const StyledCardOverlay = styled("a", {
+  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith("$"),
 })(() => {
   return {
-    position: 'absolute' as const,
+    position: "absolute" as const,
     top: 0,
     left: 0,
-    width: '100%',
-    height: '100%',
+    width: "100%",
+    height: "100%",
     zIndex: 1,
-    cursor: 'pointer',
-    textDecoration: 'none',
-    color: 'inherit',
-    borderRadius: 'inherit',
-    outline: 'none',
+    cursor: "pointer",
+    textDecoration: "none",
+    color: "inherit",
+    borderRadius: "inherit",
+    outline: "none",
   };
 });

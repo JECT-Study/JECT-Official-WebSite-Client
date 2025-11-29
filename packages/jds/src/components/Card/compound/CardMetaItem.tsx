@@ -1,7 +1,7 @@
-import { forwardRef } from 'react';
+import { forwardRef } from "react";
 
-import type { CardMetaItemProps } from '../Card.types';
-import { StyledCardMetaItem } from './compound.styles';
+import type { CardMetaItemProps } from "../Card.types";
+import { StyledCardMetaItem } from "./compound.styles";
 
 export const CardMetaItem = forwardRef<HTMLSpanElement, CardMetaItemProps>(
   ({ children, ...restProps }, ref) => {
@@ -13,4 +13,4 @@ export const CardMetaItem = forwardRef<HTMLSpanElement, CardMetaItemProps>(
   },
 );
 
-CardMetaItem.displayName = 'Card.MetaItem';
+CardMetaItem.displayName = "Card.MetaItem";

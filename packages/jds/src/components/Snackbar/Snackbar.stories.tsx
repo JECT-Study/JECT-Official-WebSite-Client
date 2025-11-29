@@ -47,7 +47,7 @@ export const Basic: StoryObj<typeof Snackbar.Basic> = {
   },
   render: args => (
     <Snackbar.Basic
-      id="snackbar-1"
+      id='snackbar-1'
       title={args.title}
       caption={args.caption}
       prefixButtonProps={args.prefixButtonProps}
@@ -78,7 +78,7 @@ export const Feedback: StoryObj<typeof Snackbar.Feedback> = {
   },
   render: args => (
     <Snackbar.Feedback
-      id="snackbar-1"
+      id='snackbar-1'
       title={args.title}
       variant={args.variant}
       caption={args.caption}
@@ -114,13 +114,13 @@ export const UseSnackbarProvider: StoryObj<typeof Snackbar.Basic> = {
 
     return (
       <FlexColumn>
-        <BlockButton.Basic onClick={basicSnackbar} variant="outlined">
+        <BlockButton.Basic onClick={basicSnackbar} variant='outlined'>
           Basic
         </BlockButton.Basic>
-        <BlockButton.Feedback onClick={positiveSnackbar} intent="positive">
+        <BlockButton.Feedback onClick={positiveSnackbar} intent='positive'>
           Feedback
         </BlockButton.Feedback>
-        <BlockButton.Feedback onClick={destructiveSnackbar} intent="destructive">
+        <BlockButton.Feedback onClick={destructiveSnackbar} intent='destructive'>
           Feedback
         </BlockButton.Feedback>
       </FlexColumn>
@@ -167,16 +167,16 @@ export const UseSnackbarProviderWithOptions: StoryObj<typeof Snackbar.Basic> = {
 
     return (
       <FlexColumn>
-        <BlockButton.Basic onClick={title} variant="outlined">
+        <BlockButton.Basic onClick={title} variant='outlined'>
           title
         </BlockButton.Basic>
-        <BlockButton.Basic onClick={titleCaption} variant="outlined">
+        <BlockButton.Basic onClick={titleCaption} variant='outlined'>
           title + caption
         </BlockButton.Basic>
-        <BlockButton.Basic onClick={titleButtons} variant="outlined">
+        <BlockButton.Basic onClick={titleButtons} variant='outlined'>
           title + buttons
         </BlockButton.Basic>
-        <BlockButton.Basic onClick={titleCaptionButtons} variant="outlined">
+        <BlockButton.Basic onClick={titleCaptionButtons} variant='outlined'>
           title + caption + buttons
         </BlockButton.Basic>
       </FlexColumn>
@@ -211,13 +211,13 @@ export const UseGlobalToast: StoryObj<typeof Snackbar.Basic> = {
 
     return (
       <FlexColumn>
-        <BlockButton.Basic onClick={basicSnackbar} variant="outlined">
+        <BlockButton.Basic onClick={basicSnackbar} variant='outlined'>
           Basic
         </BlockButton.Basic>
-        <BlockButton.Feedback onClick={positiveSnackbar} intent="positive">
+        <BlockButton.Feedback onClick={positiveSnackbar} intent='positive'>
           Feedback
         </BlockButton.Feedback>
-        <BlockButton.Feedback onClick={destructiveSnackbar} intent="destructive">
+        <BlockButton.Feedback onClick={destructiveSnackbar} intent='destructive'>
           Feedback
         </BlockButton.Feedback>
       </FlexColumn>

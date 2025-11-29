@@ -3,18 +3,18 @@ import type {
   ComponentPropsWithoutRef,
   ElementType,
   ReactElement,
-} from 'react';
-import { forwardRef } from 'react';
+} from "react";
+import { forwardRef } from "react";
 
 /**
  * Polymorphic Component Prop type (ref 제외)
  */
 export type PolymorphicProps<E extends ElementType, P> = P &
-  Omit<ComponentPropsWithoutRef<E>, keyof P | 'as'> & {
+  Omit<ComponentPropsWithoutRef<E>, keyof P | "as"> & {
     as?: E;
   };
 
-export type PolymorphicRef<E extends ElementType> = ComponentPropsWithRef<E>['ref'];
+export type PolymorphicRef<E extends ElementType> = ComponentPropsWithRef<E>["ref"];
 
 export type PolymorphicComponentPropsWithRef<E extends ElementType, P> = PolymorphicProps<E, P> & {
   ref?: PolymorphicRef<E>;

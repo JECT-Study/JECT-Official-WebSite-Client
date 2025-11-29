@@ -23,12 +23,12 @@ const SnackbarButtons = ({ prefixButtonProps, suffixButtonProps }: SnackbarButto
   return (
     <ButtonContainerDiv>
       {prefixButtonProps && (
-        <BlockButton.Basic hierarchy="tertiary" size="xs" variant="solid" {...prefixButtonProps}>
+        <BlockButton.Basic hierarchy='tertiary' size='xs' variant='solid' {...prefixButtonProps}>
           {prefixButtonProps.children}
         </BlockButton.Basic>
       )}
       {suffixButtonProps && (
-        <BlockButton.Basic hierarchy="primary" size="xs" variant="solid" {...suffixButtonProps}>
+        <BlockButton.Basic hierarchy='primary' size='xs' variant='solid' {...suffixButtonProps}>
           {suffixButtonProps.children}
         </BlockButton.Basic>
       )}
@@ -72,17 +72,17 @@ const SnackbarBasic = ({
   }, [isClosing]);
 
   return (
-    <SnackbarDiv id={id} className={phase} snackbarStyle="basic" onAnimationEnd={onAnimationEnd}>
+    <SnackbarDiv id={id} className={phase} snackbarStyle='basic' onAnimationEnd={onAnimationEnd}>
       <SnackbarContentDiv>
         <SnackbarLabelContainerDiv>
-          <SnackbarLabel snackbarStyle="basic" size="md" textAlign="left" weight="normal">
+          <SnackbarLabel snackbarStyle='basic' size='md' textAlign='left' weight='normal'>
             {title}
           </SnackbarLabel>
           <IconButton.Basic
-            icon="close-line"
-            hierarchy="secondary"
-            size="md"
-            aria-label="toast close button"
+            icon='close-line'
+            hierarchy='secondary'
+            size='md'
+            aria-label='toast close button'
             onClick={onClose}
           />
         </SnackbarLabelContainerDiv>
@@ -142,14 +142,14 @@ const SnackbarFeedback = ({
             variant={variant}
             name={variant === "positive" ? "check-line" : "error-warning-line"}
           />
-          <SnackbarLabel snackbarStyle={variant} size="md" textAlign="left" weight="normal">
+          <SnackbarLabel snackbarStyle={variant} size='md' textAlign='left' weight='normal'>
             {title}
           </SnackbarLabel>
           <IconButton.Basic
-            icon="close-line"
-            hierarchy="secondary"
-            size="md"
-            aria-label="toast close button"
+            icon='close-line'
+            hierarchy='secondary'
+            size='md'
+            aria-label='toast close button'
             onClick={onClose}
           />
         </SnackbarLabelContainerDiv>

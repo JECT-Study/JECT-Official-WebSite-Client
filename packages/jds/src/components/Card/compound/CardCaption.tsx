@@ -1,7 +1,7 @@
-import { forwardRef } from 'react';
+import { forwardRef } from "react";
 
-import type { CardCaptionProps } from '../Card.types';
-import { StyledCardCaption } from './compound.styles';
+import type { CardCaptionProps } from "../Card.types";
+import { StyledCardCaption } from "./compound.styles";
 
 export const CardCaption = forwardRef<HTMLSpanElement, CardCaptionProps>(
   ({ children, ...restProps }, ref) => {
@@ -13,4 +13,4 @@ export const CardCaption = forwardRef<HTMLSpanElement, CardCaptionProps>(
   },
 );
 
-CardCaption.displayName = 'Card.Caption';
+CardCaption.displayName = "Card.Caption";

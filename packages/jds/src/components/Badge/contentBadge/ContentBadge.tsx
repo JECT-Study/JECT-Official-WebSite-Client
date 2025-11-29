@@ -8,15 +8,15 @@ import {
   ContentBadgeFeedbackLabel,
   ContentBadgeThemeDiv,
   ContentBadgeThemeLabel,
-} from './ContentBadge.style';
+} from "./ContentBadge.style";
 import type {
   BadgeSize,
   ContentBadgeStyle,
   BasicHierarchy,
   FeedbackVariant,
   ThemeVariant,
-} from '../badge.types';
-import { iconSizeMap } from './contentBadge.variants';
+} from "../badge.types";
+import { iconSizeMap } from "./contentBadge.variants";
 
 export interface ContentBadgeBasicProps {
   hierarchy?: BasicHierarchy;
@@ -106,7 +106,7 @@ const ContentBadgeFeedback = ({
   );
 };
 
-ContentBadgeFeedback.displayName = 'ContentBadge.Feedback';
+ContentBadgeFeedback.displayName = "ContentBadge.Feedback";
 
 export interface ContentThemeBadgeProps {
   variant?: ThemeVariant;
@@ -117,9 +117,9 @@ export interface ContentThemeBadgeProps {
 }
 
 const ContentBadgeTheme = ({
-  variant = 'red',
-  size = 'md',
-  badgeStyle = 'solid',
+  variant = "red",
+  size = "md",
+  badgeStyle = "solid",
   isMuted = false,
   children,
 }: ContentThemeBadgeProps) => {
@@ -139,7 +139,7 @@ const ContentBadgeTheme = ({
   );
 };
 
-ContentBadgeTheme.displayName = 'ContentBadge.Theme';
+ContentBadgeTheme.displayName = "ContentBadge.Theme";
 
 export const ContentBadge = {
   Basic: ContentBadgeBasic,

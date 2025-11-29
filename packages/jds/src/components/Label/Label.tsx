@@ -1,9 +1,9 @@
-import type { ElementType } from 'react';
+import type { ElementType } from "react";
 
-import { LabelStyled } from './Label.style';
-import type { LabelOwnProps } from './label.types';
+import { LabelStyled } from "./Label.style";
+import type { LabelOwnProps } from "./label.types";
 
-import { PolymorphicForwardRef } from '@/utils/forwardRef';
+import { PolymorphicForwardRef } from "@/utils/forwardRef";
 
 /**
  * Label - Polymorphic Label 컴포넌트
@@ -13,9 +13,9 @@ import { PolymorphicForwardRef } from '@/utils/forwardRef';
  *
  *
  */
-export const Label = PolymorphicForwardRef<'label', LabelOwnProps>(
-  ({ as, size = 'md', textAlign = 'left', weight = 'normal', children, ...restProps }, ref) => {
-    const Component = as || ('label' as ElementType);
+export const Label = PolymorphicForwardRef<"label", LabelOwnProps>(
+  ({ as, size = "md", textAlign = "left", weight = "normal", children, ...restProps }, ref) => {
+    const Component = as || ("label" as ElementType);
 
     return (
       <LabelStyled

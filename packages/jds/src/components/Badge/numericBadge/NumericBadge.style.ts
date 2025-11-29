@@ -10,7 +10,7 @@ import {
   numericBadgeFeedbacksMutedStylesMap,
 } from "./numericBadge.variants";
 
-import { Label } from '@/components/Label';
+import { Label } from "@/components/Label";
 
 interface NumericBadgeBasicDivProps {
   hierarchy: BasicHierarchy;

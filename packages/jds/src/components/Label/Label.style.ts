@@ -3,9 +3,9 @@ import type { Theme } from "@emotion/react";
 import styled from "@emotion/styled";
 
 export const TEXT_ALIGN_MAPPING = {
-  center: 'center',
-  left: 'flex-start',
-  right: 'flex-end',
+  center: "center",
+  left: "flex-start",
+  right: "flex-end",
 } as const;
 
 export type LabelSize = "lg" | "md" | "sm" | "xs";
@@ -18,8 +18,11 @@ interface LabelStyledProps {
   $weight: LabelWeight;
 }
 
-export const getLabelTokenKey = (size: LabelSize, weight: LabelWeight): keyof Theme['textStyle'] => {
-  return `semantic-textStyle-label-${size}-${weight}` as keyof Theme['textStyle'];
+export const getLabelTokenKey = (
+  size: LabelSize,
+  weight: LabelWeight,
+): keyof Theme["textStyle"] => {
+  return `semantic-textStyle-label-${size}-${weight}` as keyof Theme["textStyle"];
 };
 
 /**
@@ -29,18 +32,18 @@ export const getLabelTokenKey = (size: LabelSize, weight: LabelWeight): keyof Th
  *
  * @see {@link createLabelStyles} - 이 스타일을 재사용하기 위한 유틸리티
  */
-export const LabelStyled = styled('label', {
-  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
+export const LabelStyled = styled("label", {
+  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith("$"),
 })<LabelStyledProps>(({ theme, $size, $textAlign, $weight }) => {
   const tokenKey = getLabelTokenKey($size, $weight);
   const justifyContent = TEXT_ALIGN_MAPPING[$textAlign];
 
   return {
-    display: 'flex',
+    display: "flex",
     justifyContent,
-    alignItems: 'center',
+    alignItems: "center",
     color: theme.color.semantic.object.bold,
-    cursor: 'default',
+    cursor: "default",
     ...theme.textStyle[tokenKey],
   };
 });

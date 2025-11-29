@@ -10,8 +10,8 @@ import {
   CardMetaItem,
   CardMetaNudgeItem,
   CardOverlay,
-} from './compound';
-import { PlateWithTitle, PlateWithLabel, PlateCompact, Post } from './presets';
+} from "./compound";
+import { PlateWithTitle, PlateWithLabel, PlateCompact, Post } from "./presets";
 
 export const Card = {
   Root: CardRoot,
@@ -34,7 +34,7 @@ export const Card = {
   },
 };
 
-export type { CardLayout, CardVariant, CardStyle } from './Card.types';
+export type { CardLayout, CardVariant, CardStyle } from "./Card.types";
 
 export type {
   CardRootOwnProps,
@@ -47,11 +47,11 @@ export type {
   CardMetaProps,
   CardMetaItemProps,
   CardMetaNudgeItemProps,
-} from './Card.types';
+} from "./Card.types";
 
 export type {
   PlateWithTitlePresetProps,
   PlateWithLabelPresetProps,
   PlateCompactPresetProps,
   PostPresetProps,
-} from './Card.types';
+} from "./Card.types";

@@ -99,21 +99,21 @@ const FooterSocial = forwardRef<HTMLDivElement, FooterSocialProps>(
         {github && (
           <StyledSocialLink
             href={github}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="GitHub"
+            target='_blank'
+            rel='noopener noreferrer'
+            aria-label='GitHub'
           >
-            <Icon name="github-fill" size={iconSize} />
+            <Icon name='github-fill' size={iconSize} />
           </StyledSocialLink>
         )}
         {instagram && (
           <StyledSocialLink
             href={instagram}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Instagram"
+            target='_blank'
+            rel='noopener noreferrer'
+            aria-label='Instagram'
           >
-            <Icon name="instagram" size={iconSize} />
+            <Icon name='instagram' size={iconSize} />
           </StyledSocialLink>
         )}
       </StyledFooterSocial>
@@ -149,7 +149,7 @@ const FooterSection = forwardRef<HTMLDivElement, FooterSectionProps>(
                 rel={link.external ? "noopener noreferrer" : undefined}
               >
                 {link.label}
-                {link.external && <Icon name="external-link-line" size="xs" />}
+                {link.external && <Icon name='external-link-line' size='xs' />}
               </StyledLink>
             </li>
           ))}
@@ -168,9 +168,9 @@ const FooterBottom = forwardRef<HTMLDivElement, FooterBottomProps>(
         <span>{copyright}</span>
         {email && <address>{email}</address>}
         {privacyLink && (
-          <a href={privacyLink} target="_blank" rel="noopener noreferrer">
+          <a href={privacyLink} target='_blank' rel='noopener noreferrer'>
             개인정보처리방침
-            <Icon name="external-link-line" size="xs" />
+            <Icon name='external-link-line' size='xs' />
           </a>
         )}
       </StyledFooterBottom>

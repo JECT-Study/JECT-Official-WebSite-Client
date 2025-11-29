@@ -1,7 +1,7 @@
-import { forwardRef } from 'react';
+import { forwardRef } from "react";
 
-import type { CardLabelProps } from '../Card.types';
-import { StyledCardLabel } from './compound.styles';
+import type { CardLabelProps } from "../Card.types";
+import { StyledCardLabel } from "./compound.styles";
 
 export const CardLabel = forwardRef<HTMLHeadingElement, CardLabelProps>(
   ({ children, ...restProps }, ref) => {
@@ -13,4 +13,4 @@ export const CardLabel = forwardRef<HTMLHeadingElement, CardLabelProps>(
   },
 );
 
-CardLabel.displayName = 'Card.Label';
+CardLabel.displayName = "Card.Label";

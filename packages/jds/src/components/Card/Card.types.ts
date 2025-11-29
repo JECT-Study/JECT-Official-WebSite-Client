@@ -1,10 +1,10 @@
-import type { ComponentPropsWithoutRef, ReactNode } from 'react';
+import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
-import type { ImgRatio, ImgOrientation } from '../Image/Image';
+import type { ImgRatio, ImgOrientation } from "../Image/Image";
 
-export type CardLayout = 'vertical' | 'horizontal';
-export type CardVariant = 'plate' | 'post';
-export type CardStyle = 'outlined' | 'empty';
+export type CardLayout = "vertical" | "horizontal";
+export type CardVariant = "plate" | "post";
+export type CardStyle = "outlined" | "empty";
 
 export interface CardRootOwnProps {
   layout?: CardLayout;
@@ -15,7 +15,7 @@ export interface CardRootOwnProps {
   children?: ReactNode;
 }
 
-export interface CardImageProps extends ComponentPropsWithoutRef<'div'> {
+export interface CardImageProps extends ComponentPropsWithoutRef<"div"> {
   src?: string;
   alt: string;
   fallbackSrc?: string;
@@ -23,38 +23,38 @@ export interface CardImageProps extends ComponentPropsWithoutRef<'div'> {
   orientation?: ImgOrientation;
   badgeVisible?: boolean;
   badgeLabel?: string;
-  loading?: 'lazy' | 'eager';
+  loading?: "lazy" | "eager";
 }
 
-export interface CardContentProps extends ComponentPropsWithoutRef<'div'> {
+export interface CardContentProps extends ComponentPropsWithoutRef<"div"> {
   children: ReactNode;
 }
 
-export interface CardCaptionProps extends ComponentPropsWithoutRef<'span'> {
+export interface CardCaptionProps extends ComponentPropsWithoutRef<"span"> {
   children: ReactNode;
 }
 
-export interface CardTitleProps extends ComponentPropsWithoutRef<'h3'> {
+export interface CardTitleProps extends ComponentPropsWithoutRef<"h3"> {
   children: ReactNode;
 }
 
-export interface CardLabelProps extends ComponentPropsWithoutRef<'h4'> {
+export interface CardLabelProps extends ComponentPropsWithoutRef<"h4"> {
   children: ReactNode;
 }
 
-export interface CardBodyProps extends ComponentPropsWithoutRef<'p'> {
+export interface CardBodyProps extends ComponentPropsWithoutRef<"p"> {
   children: ReactNode;
 }
 
-export interface CardMetaProps extends ComponentPropsWithoutRef<'div'> {
+export interface CardMetaProps extends ComponentPropsWithoutRef<"div"> {
   children: ReactNode;
 }
 
-export interface CardMetaItemProps extends ComponentPropsWithoutRef<'span'> {
+export interface CardMetaItemProps extends ComponentPropsWithoutRef<"span"> {
   children: ReactNode;
 }
 
-export interface CardMetaNudgeItemProps extends ComponentPropsWithoutRef<'span'> {
+export interface CardMetaNudgeItemProps extends ComponentPropsWithoutRef<"span"> {
   label?: string;
   children: ReactNode;
 }
@@ -76,15 +76,15 @@ export interface PlateWithTitlePresetBaseProps extends BasePresetOwnProps {
 
 export type PlateWithTitlePresetProps =
   | (PlateWithTitlePresetBaseProps & {
-      as: 'a';
+      as: "a";
       href: string;
       target?: string;
       rel?: string;
     })
   | (PlateWithTitlePresetBaseProps & {
-      as: 'button';
+      as: "button";
       onClick: () => void;
-      type?: 'button' | 'submit' | 'reset';
+      type?: "button" | "submit" | "reset";
     });
 
 export interface PlateWithLabelPresetBaseProps extends BasePresetOwnProps {
@@ -95,15 +95,15 @@ export interface PlateWithLabelPresetBaseProps extends BasePresetOwnProps {
 
 export type PlateWithLabelPresetProps =
   | (PlateWithLabelPresetBaseProps & {
-      as: 'a';
+      as: "a";
       href: string;
       target?: string;
       rel?: string;
     })
   | (PlateWithLabelPresetBaseProps & {
-      as: 'button';
+      as: "button";
       onClick: () => void;
-      type?: 'button' | 'submit' | 'reset';
+      type?: "button" | "submit" | "reset";
     });
 
 export interface PlateCompactPresetBaseProps extends BasePresetOwnProps {
@@ -113,19 +113,19 @@ export interface PlateCompactPresetBaseProps extends BasePresetOwnProps {
 
 export type PlateCompactPresetProps =
   | (PlateCompactPresetBaseProps & {
-      as: 'a';
+      as: "a";
       href: string;
       target?: string;
       rel?: string;
     })
   | (PlateCompactPresetBaseProps & {
-      as: 'button';
+      as: "button";
       onClick: () => void;
-      type?: 'button' | 'submit' | 'reset';
+      type?: "button" | "submit" | "reset";
     });
 
 export interface PostPresetBaseProps extends BasePresetOwnProps {
-  cardStyle?: 'outlined' | 'empty';
+  cardStyle?: "outlined" | "empty";
   title: string;
   body: ReactNode;
   author: string;
@@ -134,13 +134,13 @@ export interface PostPresetBaseProps extends BasePresetOwnProps {
 
 export type PostPresetProps =
   | (PostPresetBaseProps & {
-      as: 'a';
+      as: "a";
       href: string;
       target?: string;
       rel?: string;
     })
   | (PostPresetBaseProps & {
-      as: 'button';
+      as: "button";
       onClick: () => void;
-      type?: 'button' | 'submit' | 'reset';
+      type?: "button" | "submit" | "reset";
     });

@@ -1,8 +1,8 @@
-import { forwardRef } from 'react';
+import { forwardRef } from "react";
 
-import { useCardContext } from '../Card.context';
-import type { CardContentProps } from '../Card.types';
-import { StyledCardContent } from './compound.styles';
+import { useCardContext } from "../Card.context";
+import type { CardContentProps } from "../Card.types";
+import { StyledCardContent } from "./compound.styles";
 
 export const CardContent = forwardRef<HTMLDivElement, CardContentProps>(
   ({ children, ...restProps }, ref) => {
@@ -16,4 +16,4 @@ export const CardContent = forwardRef<HTMLDivElement, CardContentProps>(
   },
 );
 
-CardContent.displayName = 'Card.Content';
+CardContent.displayName = "Card.Content";

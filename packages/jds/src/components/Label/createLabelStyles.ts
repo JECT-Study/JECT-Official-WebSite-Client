@@ -1,5 +1,5 @@
-import type { Theme } from '@emotion/react';
-import type { CSSObject } from '@emotion/react';
+import type { Theme } from "@emotion/react";
+import type { CSSObject } from "@emotion/react";
 
 import {
   getLabelTokenKey,
@@ -7,7 +7,7 @@ import {
   type LabelSize,
   type LabelTextAlign,
   type LabelWeight,
-} from './Label.style';
+} from "./Label.style";
 
 /**
  * @description
@@ -28,16 +28,16 @@ export const createLabelStyles = (
     textAlign?: LabelTextAlign;
   },
 ): CSSObject => {
-  const { size, weight, textAlign = 'left' } = options;
+  const { size, weight, textAlign = "left" } = options;
   const tokenKey = getLabelTokenKey(size, weight);
   const justifyContent = TEXT_ALIGN_MAPPING[textAlign];
 
   // NOTE: 이 구현은 Label.style.ts와 동기화(color는 제외 - 각 컴포넌트에서 semantic color를 명시적으로 지정)
   return {
-    display: 'flex',
+    display: "flex",
     justifyContent,
-    alignItems: 'center',
-    cursor: 'default',
+    alignItems: "center",
+    cursor: "default",
     ...theme.textStyle[tokenKey],
   } as CSSObject;
 };

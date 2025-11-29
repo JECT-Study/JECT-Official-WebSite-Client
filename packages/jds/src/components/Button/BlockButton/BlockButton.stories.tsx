@@ -84,10 +84,10 @@ export const AllSizes: Story = {
   },
   render: () => (
     <FlexRow>
-      <BlockButton.Basic size="xs">Extra Small</BlockButton.Basic>
-      <BlockButton.Basic size="sm">Small</BlockButton.Basic>
-      <BlockButton.Basic size="md">Medium</BlockButton.Basic>
-      <BlockButton.Basic size="lg">Large</BlockButton.Basic>
+      <BlockButton.Basic size='xs'>Extra Small</BlockButton.Basic>
+      <BlockButton.Basic size='sm'>Small</BlockButton.Basic>
+      <BlockButton.Basic size='md'>Medium</BlockButton.Basic>
+      <BlockButton.Basic size='lg'>Large</BlockButton.Basic>
     </FlexRow>
   ),
 };
@@ -98,10 +98,10 @@ export const AllHierarchies: Story = {
   },
   render: () => (
     <FlexColumn>
-      <BlockButton.Basic hierarchy="accent">Accent</BlockButton.Basic>
-      <BlockButton.Basic hierarchy="primary">Primary</BlockButton.Basic>
-      <BlockButton.Basic hierarchy="secondary">Secondary</BlockButton.Basic>
-      <BlockButton.Basic hierarchy="tertiary">Tertiary</BlockButton.Basic>
+      <BlockButton.Basic hierarchy='accent'>Accent</BlockButton.Basic>
+      <BlockButton.Basic hierarchy='primary'>Primary</BlockButton.Basic>
+      <BlockButton.Basic hierarchy='secondary'>Secondary</BlockButton.Basic>
+      <BlockButton.Basic hierarchy='tertiary'>Tertiary</BlockButton.Basic>
     </FlexColumn>
   ),
 };
@@ -112,9 +112,9 @@ export const AllVariants: Story = {
   },
   render: () => (
     <FlexColumn>
-      <BlockButton.Basic variant="solid">Solid</BlockButton.Basic>
-      <BlockButton.Basic variant="outlined">Outlined</BlockButton.Basic>
-      <BlockButton.Basic variant="empty">Empty</BlockButton.Basic>
+      <BlockButton.Basic variant='solid'>Solid</BlockButton.Basic>
+      <BlockButton.Basic variant='outlined'>Outlined</BlockButton.Basic>
+      <BlockButton.Basic variant='empty'>Empty</BlockButton.Basic>
     </FlexColumn>
   ),
 };
@@ -125,9 +125,9 @@ export const WithIcons: Story = {
   },
   render: () => (
     <FlexColumn>
-      <BlockButton.Basic prefixIcon="arrow-left-line">With Prefix Icon</BlockButton.Basic>
-      <BlockButton.Basic suffixIcon="arrow-right-line">With Suffix Icon</BlockButton.Basic>
-      <BlockButton.Basic prefixIcon="arrow-left-line" suffixIcon="arrow-right-line">
+      <BlockButton.Basic prefixIcon='arrow-left-line'>With Prefix Icon</BlockButton.Basic>
+      <BlockButton.Basic suffixIcon='arrow-right-line'>With Suffix Icon</BlockButton.Basic>
+      <BlockButton.Basic prefixIcon='arrow-left-line' suffixIcon='arrow-right-line'>
         With Both Icons
       </BlockButton.Basic>
     </FlexColumn>
@@ -164,13 +164,13 @@ export const ComprehensiveMatrix: Story = {
     children: "Button",
   },
   render: () => (
-    <FlexColumn gap="32px">
+    <FlexColumn gap='32px'>
       {(["solid", "outlined", "empty"] as const).map(variant => (
-        <FlexColumn key={variant} gap="12px">
+        <FlexColumn key={variant} gap='12px'>
           <h3 style={{ margin: 0, fontSize: "14px", fontWeight: "bold" }}>
             {variant.charAt(0).toUpperCase() + variant.slice(1)}
           </h3>
-          <FlexRow gap="12px">
+          <FlexRow gap='12px'>
             {(["accent", "primary", "secondary", "tertiary"] as const).map(hierarchy => (
               <BlockButton.Basic key={hierarchy} variant={variant} hierarchy={hierarchy}>
                 {hierarchy}
@@ -197,16 +197,16 @@ export const SizeWithVariants: Story = {
   render: () => (
     <FlexColumn>
       {(["xs", "sm", "md", "lg"] as const).map(size => (
-        <FlexColumn key={size} gap="12px">
+        <FlexColumn key={size} gap='12px'>
           <Label>{size.toUpperCase()}:</Label>
-          <FlexRow gap="12px">
-            <BlockButton.Basic size={size} variant="solid">
+          <FlexRow gap='12px'>
+            <BlockButton.Basic size={size} variant='solid'>
               Solid
             </BlockButton.Basic>
-            <BlockButton.Basic size={size} variant="outlined">
+            <BlockButton.Basic size={size} variant='outlined'>
               Outlined
             </BlockButton.Basic>
-            <BlockButton.Basic size={size} variant="empty">
+            <BlockButton.Basic size={size} variant='empty'>
               Empty
             </BlockButton.Basic>
           </FlexRow>
@@ -223,32 +223,32 @@ export const FeedbackButtons: Story = {
   render: () => (
     <FlexColumn>
       <Label>Positive:</Label>
-      <FlexRow gap="12px">
-        <BlockButton.Feedback intent="positive" size="xs">
+      <FlexRow gap='12px'>
+        <BlockButton.Feedback intent='positive' size='xs'>
           저장
         </BlockButton.Feedback>
-        <BlockButton.Feedback intent="positive" size="sm">
+        <BlockButton.Feedback intent='positive' size='sm'>
           저장
         </BlockButton.Feedback>
-        <BlockButton.Feedback intent="positive" size="md">
+        <BlockButton.Feedback intent='positive' size='md'>
           저장
         </BlockButton.Feedback>
-        <BlockButton.Feedback intent="positive" size="lg">
+        <BlockButton.Feedback intent='positive' size='lg'>
           저장
         </BlockButton.Feedback>
       </FlexRow>
       <Label>Destructive:</Label>
-      <FlexRow gap="12px">
-        <BlockButton.Feedback intent="destructive" size="xs">
+      <FlexRow gap='12px'>
+        <BlockButton.Feedback intent='destructive' size='xs'>
           삭제
         </BlockButton.Feedback>
-        <BlockButton.Feedback intent="destructive" size="sm">
+        <BlockButton.Feedback intent='destructive' size='sm'>
           삭제
         </BlockButton.Feedback>
-        <BlockButton.Feedback intent="destructive" size="md">
+        <BlockButton.Feedback intent='destructive' size='md'>
           삭제
         </BlockButton.Feedback>
-        <BlockButton.Feedback intent="destructive" size="lg">
+        <BlockButton.Feedback intent='destructive' size='lg'>
           삭제
         </BlockButton.Feedback>
       </FlexRow>

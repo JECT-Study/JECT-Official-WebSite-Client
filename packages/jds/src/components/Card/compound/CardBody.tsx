@@ -1,7 +1,7 @@
-import { forwardRef } from 'react';
+import { forwardRef } from "react";
 
-import type { CardBodyProps } from '../Card.types';
-import { StyledCardBody } from './compound.styles';
+import type { CardBodyProps } from "../Card.types";
+import { StyledCardBody } from "./compound.styles";
 
 export const CardBody = forwardRef<HTMLParagraphElement, CardBodyProps>(
   ({ children, ...restProps }, ref) => {
@@ -13,4 +13,4 @@ export const CardBody = forwardRef<HTMLParagraphElement, CardBodyProps>(
   },
 );
 
-CardBody.displayName = 'Card.Body';
+CardBody.displayName = "Card.Body";

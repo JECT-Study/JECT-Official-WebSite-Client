@@ -1,14 +1,14 @@
-import { forwardRef, useMemo } from 'react';
+import { forwardRef, useMemo } from "react";
 
-import { CardContext } from '../Card.context';
-import type { CardRootOwnProps } from '../Card.types';
-import { StyledCardRoot } from './compound.styles';
+import { CardContext } from "../Card.context";
+import type { CardRootOwnProps } from "../Card.types";
+import { StyledCardRoot } from "./compound.styles";
 
 export const CardRoot = forwardRef<HTMLDivElement, CardRootOwnProps>(
   (
     {
-      layout = 'vertical',
-      variant = 'plate',
+      layout = "vertical",
+      variant = "plate",
       cardStyle,
       isDisabled = false,
       interactive = false,
@@ -26,7 +26,7 @@ export const CardRoot = forwardRef<HTMLDivElement, CardRootOwnProps>(
       <CardContext.Provider value={contextValue}>
         <StyledCardRoot
           ref={ref}
-          data-interactive={interactive ? 'true' : 'false'}
+          data-interactive={interactive ? "true" : "false"}
           $layout={layout}
           $variant={variant}
           $cardStyle={cardStyle}

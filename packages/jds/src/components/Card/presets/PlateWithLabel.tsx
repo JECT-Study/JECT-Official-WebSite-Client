@@ -1,15 +1,15 @@
-import { forwardRef, type ReactNode } from 'react';
-import { pxToRem } from 'utils';
+import { forwardRef, type ReactNode } from "react";
+import { pxToRem } from "utils";
 
-import type { PlateWithLabelPresetProps } from '../Card.types';
-import { CardRoot, CardImage, CardContent, CardCaption, CardLabel, CardBody } from '../compound';
-import { StyledCardOverlay } from '../compound/compound.styles';
+import type { PlateWithLabelPresetProps } from "../Card.types";
+import { CardRoot, CardImage, CardContent, CardCaption, CardLabel, CardBody } from "../compound";
+import { StyledCardOverlay } from "../compound/compound.styles";
 
-type PlateWithLabelLinkProps = Omit<Extract<PlateWithLabelPresetProps, { as: 'a' }>, 'as'>;
-type PlateWithLabelButtonProps = Omit<Extract<PlateWithLabelPresetProps, { as: 'button' }>, 'as'>;
+type PlateWithLabelLinkProps = Omit<Extract<PlateWithLabelPresetProps, { as: "a" }>, "as">;
+type PlateWithLabelButtonProps = Omit<Extract<PlateWithLabelPresetProps, { as: "button" }>, "as">;
 
 interface PlateWithLabelContentProps {
-  layout: 'vertical' | 'horizontal';
+  layout: "vertical" | "horizontal";
   image?: { src?: string; alt: string };
   caption?: string;
   label: string;
@@ -28,7 +28,7 @@ const PlateWithLabelContent = ({
       <CardImage
         src={image.src}
         alt={image.alt}
-        style={layout === 'vertical' ? { height: pxToRem(200) } : undefined}
+        style={layout === "vertical" ? { height: pxToRem(200) } : undefined}
       />
     )}
     <CardContent>
@@ -40,7 +40,7 @@ const PlateWithLabelContent = ({
 );
 
 export const PlateWithLabelLink = forwardRef<HTMLDivElement, PlateWithLabelLinkProps>(
-  ({ layout = 'vertical', isDisabled = false, href, target, rel, ...contentProps }, ref) => (
+  ({ layout = "vertical", isDisabled = false, href, target, rel, ...contentProps }, ref) => (
     <CardRoot ref={ref} layout={layout} variant='plate' isDisabled={isDisabled} interactive>
       <PlateWithLabelContent layout={layout} {...contentProps} />
       <StyledCardOverlay as='a' href={href} target={target} rel={rel} data-overlay />
@@ -48,18 +48,18 @@ export const PlateWithLabelLink = forwardRef<HTMLDivElement, PlateWithLabelLinkP
   ),
 );
 
-PlateWithLabelLink.displayName = 'Card.Preset.PlateWithLabel.Link';
+PlateWithLabelLink.displayName = "Card.Preset.PlateWithLabel.Link";
 
 export const PlateWithLabelButton = forwardRef<HTMLDivElement, PlateWithLabelButtonProps>(
-  ({ layout = 'vertical', isDisabled = false, onClick, type, ...contentProps }, ref) => (
+  ({ layout = "vertical", isDisabled = false, onClick, type, ...contentProps }, ref) => (
     <CardRoot ref={ref} layout={layout} variant='plate' isDisabled={isDisabled} interactive>
       <PlateWithLabelContent layout={layout} {...contentProps} />
-      <StyledCardOverlay as='button' onClick={onClick} type={type || 'button'} data-overlay />
+      <StyledCardOverlay as='button' onClick={onClick} type={type || "button"} data-overlay />
     </CardRoot>
   ),
 );
 
-PlateWithLabelButton.displayName = 'Card.Preset.PlateWithLabel.Button';
+PlateWithLabelButton.displayName = "Card.Preset.PlateWithLabel.Button";
 
 export const PlateWithLabel = {
   Link: PlateWithLabelLink,

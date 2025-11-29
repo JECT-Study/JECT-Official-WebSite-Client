@@ -1,12 +1,12 @@
-import type { ReactNode } from 'react';
+import type { ReactNode } from "react";
 
-import type { BadgeSize, BasicHierarchy, FeedbackVariant, NumericBadgeStyle } from '../badge.types';
+import type { BadgeSize, BasicHierarchy, FeedbackVariant, NumericBadgeStyle } from "../badge.types";
 import {
   NumericBadgeBasicDiv,
   NumericBadgeBasicLabel,
   NumericBadgeFeedbackDiv,
   NumericBadgeFeedbackLabel,
-} from './NumericBadge.style';
+} from "./NumericBadge.style";
 
 export interface NumericBadgeBasicProps {
   hierarchy?: BasicHierarchy;
@@ -17,9 +17,9 @@ export interface NumericBadgeBasicProps {
 }
 
 const NumericBadgeBasic = ({
-  hierarchy = 'secondary',
-  size = 'md',
-  badgeStyle = 'solid',
+  hierarchy = "secondary",
+  size = "md",
+  badgeStyle = "solid",
   isMuted = false,
   children,
 }: NumericBadgeBasicProps) => {
@@ -44,7 +44,7 @@ const NumericBadgeBasic = ({
   );
 };
 
-NumericBadgeBasic.displayName = 'NumericBadge.Basic';
+NumericBadgeBasic.displayName = "NumericBadge.Basic";
 
 export interface NumericBasicBadgeProps {
   variant?: FeedbackVariant;
@@ -55,9 +55,9 @@ export interface NumericBasicBadgeProps {
 }
 
 const NumericBadgeFeedback = ({
-  variant = 'positive',
-  size = 'md',
-  badgeStyle = 'solid',
+  variant = "positive",
+  size = "md",
+  badgeStyle = "solid",
   isMuted = false,
   children,
 }: NumericBasicBadgeProps) => {
@@ -82,7 +82,7 @@ const NumericBadgeFeedback = ({
   );
 };
 
-NumericBadgeFeedback.displayName = 'NumericBadge.Feedback';
+NumericBadgeFeedback.displayName = "NumericBadge.Feedback";
 
 export const NumericBadge = {
   Basic: NumericBadgeBasic,

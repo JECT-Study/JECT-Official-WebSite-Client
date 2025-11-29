@@ -1,7 +1,7 @@
-import { forwardRef } from 'react';
+import { forwardRef } from "react";
 
-import type { CardMetaNudgeItemProps } from '../Card.types';
-import { StyledCardMetaNudgeItem, StyledCardMetaNudgeItemLabel } from './compound.styles';
+import type { CardMetaNudgeItemProps } from "../Card.types";
+import { StyledCardMetaNudgeItem, StyledCardMetaNudgeItemLabel } from "./compound.styles";
 
 export const CardMetaNudgeItem = forwardRef<HTMLSpanElement, CardMetaNudgeItemProps>(
   ({ label, children, ...restProps }, ref) => {
@@ -14,4 +14,4 @@ export const CardMetaNudgeItem = forwardRef<HTMLSpanElement, CardMetaNudgeItemPr
   },
 );
 
-CardMetaNudgeItem.displayName = 'Card.MetaNudgeItem';
+CardMetaNudgeItem.displayName = "Card.MetaNudgeItem";

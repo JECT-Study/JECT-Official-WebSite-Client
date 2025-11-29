@@ -1,15 +1,15 @@
-import { forwardRef, type ReactNode } from 'react';
-import { pxToRem } from 'utils';
+import { forwardRef, type ReactNode } from "react";
+import { pxToRem } from "utils";
 
-import type { PlateCompactPresetProps } from '../Card.types';
-import { CardRoot, CardImage, CardContent, CardCaption, CardBody } from '../compound';
-import { StyledCardOverlay } from '../compound/compound.styles';
+import type { PlateCompactPresetProps } from "../Card.types";
+import { CardRoot, CardImage, CardContent, CardCaption, CardBody } from "../compound";
+import { StyledCardOverlay } from "../compound/compound.styles";
 
-type PlateCompactLinkProps = Omit<Extract<PlateCompactPresetProps, { as: 'a' }>, 'as'>;
-type PlateCompactButtonProps = Omit<Extract<PlateCompactPresetProps, { as: 'button' }>, 'as'>;
+type PlateCompactLinkProps = Omit<Extract<PlateCompactPresetProps, { as: "a" }>, "as">;
+type PlateCompactButtonProps = Omit<Extract<PlateCompactPresetProps, { as: "button" }>, "as">;
 
 interface PlateCompactContentProps {
-  layout: 'vertical' | 'horizontal';
+  layout: "vertical" | "horizontal";
   image?: { src?: string; alt: string };
   caption: string;
   body: ReactNode;
@@ -21,7 +21,7 @@ const PlateCompactContent = ({ layout, image, caption, body }: PlateCompactConte
       <CardImage
         src={image.src}
         alt={image.alt}
-        style={layout === 'vertical' ? { height: pxToRem(150) } : undefined}
+        style={layout === "vertical" ? { height: pxToRem(150) } : undefined}
       />
     )}
     <CardContent>
@@ -32,7 +32,7 @@ const PlateCompactContent = ({ layout, image, caption, body }: PlateCompactConte
 );
 
 export const PlateCompactLink = forwardRef<HTMLDivElement, PlateCompactLinkProps>(
-  ({ layout = 'vertical', isDisabled = false, href, target, rel, ...contentProps }, ref) => (
+  ({ layout = "vertical", isDisabled = false, href, target, rel, ...contentProps }, ref) => (
     <CardRoot ref={ref} layout={layout} variant='plate' isDisabled={isDisabled} interactive>
       <PlateCompactContent layout={layout} {...contentProps} />
       <StyledCardOverlay as='a' href={href} target={target} rel={rel} data-overlay />
@@ -40,18 +40,18 @@ export const PlateCompactLink = forwardRef<HTMLDivElement, PlateCompactLinkProps
   ),
 );
 
-PlateCompactLink.displayName = 'Card.Preset.PlateCompact.Link';
+PlateCompactLink.displayName = "Card.Preset.PlateCompact.Link";
 
 export const PlateCompactButton = forwardRef<HTMLDivElement, PlateCompactButtonProps>(
-  ({ layout = 'vertical', isDisabled = false, onClick, type, ...contentProps }, ref) => (
+  ({ layout = "vertical", isDisabled = false, onClick, type, ...contentProps }, ref) => (
     <CardRoot ref={ref} layout={layout} variant='plate' isDisabled={isDisabled} interactive>
       <PlateCompactContent layout={layout} {...contentProps} />
-      <StyledCardOverlay as='button' onClick={onClick} type={type || 'button'} data-overlay />
+      <StyledCardOverlay as='button' onClick={onClick} type={type || "button"} data-overlay />
     </CardRoot>
   ),
 );
 
-PlateCompactButton.displayName = 'Card.Preset.PlateCompact.Button';
+PlateCompactButton.displayName = "Card.Preset.PlateCompact.Button";
 
 export const PlateCompact = {
   Link: PlateCompactLink,

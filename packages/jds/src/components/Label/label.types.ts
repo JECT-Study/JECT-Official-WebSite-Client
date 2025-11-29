@@ -1,4 +1,4 @@
-import { LabelSize, LabelTextAlign, LabelWeight } from './Label.style';
+import type { LabelSize, LabelTextAlign, LabelWeight } from "./Label.style";
 
 /**
  * @remarks

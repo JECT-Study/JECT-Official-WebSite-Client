@@ -1,7 +1,7 @@
-import { forwardRef } from 'react';
+import { forwardRef } from "react";
 
-import type { CardTitleProps } from '../Card.types';
-import { StyledCardTitle } from './compound.styles';
+import type { CardTitleProps } from "../Card.types";
+import { StyledCardTitle } from "./compound.styles";
 
 export const CardTitle = forwardRef<HTMLHeadingElement, CardTitleProps>(
   ({ children, ...restProps }, ref) => {
@@ -13,4 +13,4 @@ export const CardTitle = forwardRef<HTMLHeadingElement, CardTitleProps>(
   },
 );
 
-CardTitle.displayName = 'Card.Title';
+CardTitle.displayName = "Card.Title";

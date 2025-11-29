@@ -1,7 +1,7 @@
-import type { CSSObject, Theme } from '@emotion/react';
-import type { Variant, Density, FillColor, InteractionLayerState } from 'types';
+import type { CSSObject, Theme } from "@emotion/react";
+import type { Variant, Density, FillColor, InteractionLayerState } from "types";
 
-import { InteractionLayer } from './interactionLayer';
+import { InteractionLayer } from "./interactionLayer";
 
 export interface InteractionStylesConfig {
   theme: Theme;
@@ -43,9 +43,9 @@ export interface InteractionStylesConfig {
    *
    */
   transition?: {
-    duration?: keyof Theme['environment']['semantic']['duration'];
-    motion?: keyof Theme['environment']['semantic']['motion'];
-    properties?: Array<'opacity' | 'background-color' | 'transform' | 'box-shadow'>;
+    duration?: keyof Theme["environment"]["semantic"]["duration"];
+    motion?: keyof Theme["environment"]["semantic"]["motion"];
+    properties?: Array<"opacity" | "background-color" | "transform" | "box-shadow">;
   };
 }
 
@@ -74,17 +74,17 @@ export const createInteractionStyles = (config: InteractionStylesConfig): CSSObj
   } = config;
 
   const actualStateMapping = {
-    rest: stateMapping.rest ?? 'rest',
-    hover: stateMapping.hover ?? 'hover',
-    active: stateMapping.active ?? 'active',
-    focus: stateMapping.focus ?? 'focus',
-    disabled: stateMapping.disabled ?? 'rest',
+    rest: stateMapping.rest ?? "rest",
+    hover: stateMapping.hover ?? "hover",
+    active: stateMapping.active ?? "active",
+    focus: stateMapping.focus ?? "focus",
+    disabled: stateMapping.disabled ?? "rest",
   } as const;
 
   const actualTransition = {
-    duration: transition.duration ?? ('100' as const),
-    motion: transition.motion ?? ('fluent' as const),
-    properties: transition.properties ?? ['opacity'],
+    duration: transition.duration ?? ("100" as const),
+    motion: transition.motion ?? ("fluent" as const),
+    properties: transition.properties ?? ["opacity"],
   };
 
   const baseParams = {
@@ -105,7 +105,7 @@ export const createInteractionStyles = (config: InteractionStylesConfig): CSSObj
     focus: InteractionLayer({ ...baseParams, state: actualStateMapping.focus }),
   };
 
-  const transitionValue = `${actualTransition.properties.join(', ')} ${theme.environment.semantic.duration[actualTransition.duration]} ${theme.environment.semantic.motion[actualTransition.motion]}`;
+  const transitionValue = `${actualTransition.properties.join(", ")} ${theme.environment.semantic.duration[actualTransition.duration]} ${theme.environment.semantic.motion[actualTransition.motion]}`;
 
   if (isDisabled) {
     const disabledState = InteractionLayer({
@@ -114,37 +114,37 @@ export const createInteractionStyles = (config: InteractionStylesConfig): CSSObj
     });
 
     return {
-      position: 'relative',
-      outline: 'none',
+      position: "relative",
+      outline: "none",
       ...disabledState,
     };
   }
 
   return {
     ...states.rest,
-    '::after': {
-      ...states.rest['::after'],
+    "::after": {
+      ...states.rest["::after"],
       transition: transitionValue,
     },
-    '&:hover': {
+    "&:hover": {
       ...states.hover,
-      '::after': {
-        ...states.hover['::after'],
+      "::after": {
+        ...states.hover["::after"],
         transition: transitionValue,
       },
     },
-    '&:active': {
+    "&:active": {
       ...states.active,
-      '::after': {
-        ...states.active['::after'],
-        transition: 'none',
+      "::after": {
+        ...states.active["::after"],
+        transition: "none",
       },
     },
-    '&:focus-visible': {
+    "&:focus-visible": {
       ...states.focus,
-      '::after': {
-        ...states.focus['::after'],
-        transition: 'none',
+      "::after": {
+        ...states.focus["::after"],
+        transition: "none",
       },
     },
   };

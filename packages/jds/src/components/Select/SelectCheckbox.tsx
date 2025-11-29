@@ -30,7 +30,7 @@ export const SelectCheckbox = forwardRef<HTMLDivElement, SelectCheckboxProps>(
         $selected={isItemSelected}
         onClick={handleClick}
         onKeyDown={handleKeyDown}
-        role="checkbox"
+        role='checkbox'
         aria-checked={isItemSelected}
         aria-disabled={isDisabled}
         tabIndex={isDisabled ? -1 : 0}
@@ -39,7 +39,7 @@ export const SelectCheckbox = forwardRef<HTMLDivElement, SelectCheckboxProps>(
         <StyledSelectItemInputWrapper>
           {/* TODO: Checkbox 컴포넌트가 구현되면 여기에 추가 */}
           <input
-            type="checkbox"
+            type='checkbox'
             checked={isItemSelected}
             disabled={isDisabled}
             readOnly
@@ -50,9 +50,9 @@ export const SelectCheckbox = forwardRef<HTMLDivElement, SelectCheckboxProps>(
 
         <StyledSelectItemContent>
           <StyledSelectItemText
-            as="span"
+            as='span'
             size={size}
-            weight="normal"
+            weight='normal'
             $isDisabled={isDisabled}
             $selected={isItemSelected}
           >
@@ -60,9 +60,9 @@ export const SelectCheckbox = forwardRef<HTMLDivElement, SelectCheckboxProps>(
           </StyledSelectItemText>
           {caption && (
             <StyledSelectItemCaption
-              as="span"
+              as='span'
               size={size === "md" ? "sm" : "xs"}
-              weight="normal"
+              weight='normal'
               $isDisabled={isDisabled}
             >
               {caption}
