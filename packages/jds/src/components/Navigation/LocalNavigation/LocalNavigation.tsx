@@ -50,7 +50,7 @@ LocalNavigationTitle.displayName = "LocalNavigation.Title";
 
 const LocalNavigationButtonGroup = forwardRef<HTMLDivElement, LocalNavigationButtonGroupProps>(
   ({ extraButtonVisible = false, children, ...props }, ref) => {
-    if (!extraButtonVisible) return <></>;
+    if (!extraButtonVisible) return null;
 
     return (
       <StyledLocalNavigationButtonGroup ref={ref} {...props}>
