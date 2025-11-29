@@ -1,3 +1,2 @@
-export { useLimitedQueueProvider } from './useLimitedQueueProvider';
-export { useMediaQuery, useMediaQueryFlags } from './useMediaQuery';
-export type { DeviceType } from './useMediaQuery';
+export { useMediaQueryFlags } from "./useMediaQuery";
+export type { DeviceType, Breakpoints } from "./useMediaQuery";
