@@ -27,7 +27,7 @@ const LocalNavigationRoot = forwardRef<HTMLDivElement, LocalNavigationRootProps>
             icon='arrow-left-line'
             hierarchy='primary'
             size={buttonSize}
-            aria-label='PreviousButton'
+            aria-label='go to previous page'
           />
           {children}
         </StyledLocalNavigationWrapper>
