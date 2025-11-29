@@ -401,53 +401,157 @@ export const StatusVariants: CustomStory = {
   },
 };
 
-export const UnControlledExample: CustomStory = {
-  render: () => (
-    <FlexColumn style={{ width: '100%', gap: '48px' }}>
-      <div style={{ width: '700px' }}>
-        <Label style={{ marginBottom: '16px', display: 'block' }}>예시 1</Label>
-        <Step.Root size='md'>
-          <Step.Item index={0} status='completed'>
-            계정 생성
-          </Step.Item>
-          <Step.Item index={1} status='completed'>
-            프로필 설정
-          </Step.Item>
-          <Step.Item index={2} status='ongoing'>
-            이메일 인증
-          </Step.Item>
-          <Step.Item index={3} status='uncompleted'>
-            완료
-          </Step.Item>
-        </Step.Root>
-      </div>
-      <div style={{ width: '700px' }}>
-        <Label style={{ marginBottom: '16px', display: 'block' }}>예시 2</Label>
-        <Step.Root size='md'>
-          <Step.Item index={0} status='completed'>
-            기획
-          </Step.Item>
-          <Step.Item index={1} status='completed'>
-            디자인
-          </Step.Item>
-          <Step.Item index={2} status='completed'>
-            개발
-          </Step.Item>
-          <Step.Item index={3} status='ongoing'>
-            테스트
-          </Step.Item>
-          <Step.Item index={4} status='uncompleted'>
-            배포
-          </Step.Item>
-        </Step.Root>
-      </div>
-    </FlexColumn>
-  ),
+export const UncontrolledExample: CustomStory = {
+  render: () => {
+    function StoryComponent() {
+      const [step1Status, setStep1Status] = useState<'completed' | 'ongoing' | 'uncompleted'>(
+        'completed',
+      );
+      const [step2Status, setStep2Status] = useState<'completed' | 'ongoing' | 'uncompleted'>(
+        'completed',
+      );
+      const [step3Status, setStep3Status] = useState<'completed' | 'ongoing' | 'uncompleted'>(
+        'ongoing',
+      );
+      const [step4Status, setStep4Status] = useState<'completed' | 'ongoing' | 'uncompleted'>(
+        'uncompleted',
+      );
+
+      return (
+        <FlexColumn style={{ width: '100%', gap: '32px' }}>
+          <div style={{ width: '700px' }}>
+            <Step.Root size='md'>
+              <Step.Item index={0} status={step1Status}>
+                계정 생성
+              </Step.Item>
+              <Step.Item index={1} status={step2Status}>
+                프로필 설정
+              </Step.Item>
+              <Step.Item index={2} status={step3Status}>
+                이메일 인증
+              </Step.Item>
+              <Step.Item index={3} status={step4Status}>
+                완료
+              </Step.Item>
+            </Step.Root>
+          </div>
+
+          <FlexColumn gap='16px'>
+            <div style={{ width: '100%', marginBottom: '20px' }}>
+              각 단계의 상태를 개별적으로 제어할 수 있습니다
+            </div>
+            <FlexRow gap='8px' style={{ alignItems: 'center' }}>
+              <Label style={{ minWidth: '100px' }}>1단계:</Label>
+              <button
+                onClick={() => setStep1Status('completed')}
+                disabled={step1Status === 'completed'}
+                style={{ padding: '4px 8px', fontSize: '12px' }}
+              >
+                완료
+              </button>
+              <button
+                onClick={() => setStep1Status('ongoing')}
+                disabled={step1Status === 'ongoing'}
+                style={{ padding: '4px 8px', fontSize: '12px' }}
+              >
+                진행중
+              </button>
+              <button
+                onClick={() => setStep1Status('uncompleted')}
+                disabled={step1Status === 'uncompleted'}
+                style={{ padding: '4px 8px', fontSize: '12px' }}
+              >
+                미완료
+              </button>
+            </FlexRow>
+
+            <FlexRow gap='8px' style={{ alignItems: 'center' }}>
+              <Label style={{ minWidth: '100px' }}>2단계:</Label>
+              <button
+                onClick={() => setStep2Status('completed')}
+                disabled={step2Status === 'completed'}
+                style={{ padding: '4px 8px', fontSize: '12px' }}
+              >
+                완료
+              </button>
+              <button
+                onClick={() => setStep2Status('ongoing')}
+                disabled={step2Status === 'ongoing'}
+                style={{ padding: '4px 8px', fontSize: '12px' }}
+              >
+                진행중
+              </button>
+              <button
+                onClick={() => setStep2Status('uncompleted')}
+                disabled={step2Status === 'uncompleted'}
+                style={{ padding: '4px 8px', fontSize: '12px' }}
+              >
+                미완료
+              </button>
+            </FlexRow>
+
+            <FlexRow gap='8px' style={{ alignItems: 'center' }}>
+              <Label style={{ minWidth: '100px' }}>3단계:</Label>
+              <button
+                onClick={() => setStep3Status('completed')}
+                disabled={step3Status === 'completed'}
+                style={{ padding: '4px 8px', fontSize: '12px' }}
+              >
+                완료
+              </button>
+              <button
+                onClick={() => setStep3Status('ongoing')}
+                disabled={step3Status === 'ongoing'}
+                style={{ padding: '4px 8px', fontSize: '12px' }}
+              >
+                진행중
+              </button>
+              <button
+                onClick={() => setStep3Status('uncompleted')}
+                disabled={step3Status === 'uncompleted'}
+                style={{ padding: '4px 8px', fontSize: '12px' }}
+              >
+                미완료
+              </button>
+            </FlexRow>
+
+            <FlexRow gap='8px' style={{ alignItems: 'center' }}>
+              <Label style={{ minWidth: '100px' }}>4단계:</Label>
+              <button
+                onClick={() => setStep4Status('completed')}
+                disabled={step4Status === 'completed'}
+                style={{ padding: '4px 8px', fontSize: '12px' }}
+              >
+                완료
+              </button>
+              <button
+                onClick={() => setStep4Status('ongoing')}
+                disabled={step4Status === 'ongoing'}
+                style={{ padding: '4px 8px', fontSize: '12px' }}
+              >
+                진행중
+              </button>
+              <button
+                onClick={() => setStep4Status('uncompleted')}
+                disabled={step4Status === 'uncompleted'}
+                style={{ padding: '4px 8px', fontSize: '12px' }}
+              >
+                미완료
+              </button>
+            </FlexRow>
+          </FlexColumn>
+        </FlexColumn>
+      );
+    }
+
+    return <StoryComponent />;
+  },
   parameters: {
     docs: {
       description: {
         story:
-          '실제 사용 예시입니다. 회원가입 프로세스나 프로젝트 진행 단계 등 다단계 워크플로우를 시각화하는 데 활용할 수 있습니다.',
+          'Uncontrolled 모드입니다. 각 Step.Item에 status를 직접 전달하여 독립적으로 제어할 수 있습니다. ' +
+          '각 단계의 상태를 개별적으로 변경할 수 있고 순차적이지 않은 상태 조합도 가능합니다.',
       },
     },
   },
@@ -492,7 +596,7 @@ export const ControlledExample: CustomStory = {
       description: {
         story:
           'Controlled 모드입니다. Step.Root에 current를 전달하면 각 Step.Item의 status가 자동으로 계산됩니다. ' +
-          '버튼을 클릭하여 단계를 변경해보세요.',
+          '버튼을 클릭하여 단계를 변경할 수 있습니다.',
       },
     },
   },
