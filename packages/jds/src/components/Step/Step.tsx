@@ -1,6 +1,8 @@
-import { forwardRef } from 'react';
+import { Context } from 'radix-ui/internal';
+import { forwardRef, useMemo } from 'react';
 
 import type { StepItemProps, StepRootProps, StepSize } from './step.types';
+import { useStepItemStatus } from './step.utils';
 import { Divider } from '../Divider';
 import {
   StyledCounterNumber,
@@ -18,25 +20,41 @@ const SIZE_TO_LABEL_SIZE: Record<StepSize, LabelSize> = {
   xs: 'xs',
 };
 
-const StepRoot = forwardRef<HTMLDivElement, StepRootProps>(({ children, ...restProps }, ref) => {
-  return (
-    <StyledStepRoot ref={ref} {...restProps}>
-      {children}
-    </StyledStepRoot>
-  );
-});
+type StepContextValue = {
+  size: StepSize;
+  currentStep?: number;
+};
+
+const [StepProvider, useStepContext] = Context.createContext<StepContextValue>('Step');
+
+const StepRoot = forwardRef<HTMLDivElement, StepRootProps>(
+  ({ size = 'md', current, children, ...restProps }, ref) => {
+    const contextValue = useMemo(() => ({ size, currentStep: current }), [size, current]);
+
+    return (
+      <StepProvider {...contextValue}>
+        <StyledStepRoot ref={ref} {...restProps}>
+          {children}
+        </StyledStepRoot>
+      </StepProvider>
+    );
+  },
+);
 
 StepRoot.displayName = 'Step.Root';
 
 const StepItem = forwardRef<HTMLDivElement, StepItemProps>(
-  ({ status, size = 'md', children, ...restProps }, ref) => {
+  ({ index, status: statusProp, children, ...restProps }, ref) => {
+    const { size, currentStep } = useStepContext('Step.Item');
     const labelSize = SIZE_TO_LABEL_SIZE[size];
+
+    const status = useStepItemStatus({ itemIndex: index, currentStep, statusProp });
 
     return (
       <StyledStepItem ref={ref} data-status={status} {...restProps}>
         <Divider orientation='horizontal' thickness='bolder' />
         <StyledStepContent>
-          <StyledCounterNumber $size={size} />
+          <StyledCounterNumber $size={size}>{index + 1}</StyledCounterNumber>
           <StyledStepLabel as='span' size={labelSize} color='inherit'>
             {children}
           </StyledStepLabel>
