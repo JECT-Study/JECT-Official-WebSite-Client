@@ -1,1 +1,1 @@
-export type RoleVariant = 'fe' | 'be' | 'do' | 'pm' | 'pd';
+export type RoleVariant = "fe" | "be" | "do" | "pm" | "pd";

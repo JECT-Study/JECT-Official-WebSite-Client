@@ -1,14 +1,14 @@
-import { Meta, StoryObj } from '@storybook/react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useState } from 'react';
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useState } from "react";
 
-import InputFile from './InputFile';
-import FileItem from '../file/FileItem';
+import InputFile from "./InputFile";
+import FileItem from "../file/FileItem";
 
 const queryClient = new QueryClient();
 
 const meta: Meta<typeof InputFile> = {
-  title: 'Components/InputFile',
+  title: "Components/InputFile",
   component: InputFile,
   decorators: [
     Story => (
@@ -29,32 +29,32 @@ const meta: Meta<typeof InputFile> = {
       description: `children으로 FileItem 컴포넌트를 받습니다.`,
     },
     fileExtensions: {
-      control: 'object',
-      description: '가능한 파일 타입을 명시하기 위한 prop 입니다.',
+      control: "object",
+      description: "가능한 파일 타입을 명시하기 위한 prop 입니다.",
     },
     currentSize: {
-      control: 'number',
-      description: '사용자가 담은 파일의 총 용량값을 나타냅니다.',
+      control: "number",
+      description: "사용자가 담은 파일의 총 용량값을 나타냅니다.",
     },
     maxSize: {
-      control: 'number',
-      description: '총 파일의 최대 용량값을 나타냅니다. 단위는 MB입니다.',
+      control: "number",
+      description: "총 파일의 최대 용량값을 나타냅니다. 단위는 MB입니다.",
     },
     isDisabled: {
-      control: 'boolean',
-      description: '파일 업로드 가능/불가능을 결정하는 prop 입니다.',
+      control: "boolean",
+      description: "파일 업로드 가능/불가능을 결정하는 prop 입니다.",
     },
     onAddFile: {
       description:
-        '사용자가 드래그 혹은 버튼을 통해 선택된 파일을 업로드할 때마다 호출되는 함수입니다.',
+        "사용자가 드래그 혹은 버튼을 통해 선택된 파일을 업로드할 때마다 호출되는 함수입니다.",
     },
     labelText: {
-      control: 'text',
-      description: 'InputFile의 레이블입니다.',
+      control: "text",
+      description: "InputFile의 레이블입니다.",
     },
     isRequired: {
-      control: 'boolean',
-      description: 'true일 경우 레이블에 *이 표시됩니다.',
+      control: "boolean",
+      description: "true일 경우 레이블에 *이 표시됩니다.",
     },
   },
 };
@@ -64,11 +64,11 @@ export default meta;
 type Story = StoryObj<typeof InputFile>;
 
 export const InputFileStory: Story = {
-  name: 'InputFile Story',
+  name: "InputFile Story",
   render: function Render() {
     const [fileList, setFileList] = useState<File[]>([
-      new File(['foo'], 'foo.txt', {
-        type: 'text/plain',
+      new File(["foo"], "foo.txt", {
+        type: "text/plain",
       }),
     ]);
 
@@ -83,7 +83,7 @@ export const InputFileStory: Story = {
     return (
       <div className='gap-2xl flex flex-col'>
         <InputFile
-          fileExtensions={['pdf']}
+          fileExtensions={["pdf"]}
           currentSize={0}
           maxSize={100}
           isDisabled={false}

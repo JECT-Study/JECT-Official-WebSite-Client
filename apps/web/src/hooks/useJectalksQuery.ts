@@ -1,10 +1,10 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery } from "@tanstack/react-query";
 
-import { getJectalks } from '@/apis/jectalk';
+import { getJectalks } from "@/apis/jectalk";
 
 const useJectalks = () => {
   const { data } = useQuery({
-    queryKey: ['jectalks'],
+    queryKey: ["jectalks"],
     queryFn: getJectalks,
   });
 

@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-empty-object-type */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import type { Interpolation, Theme } from '@emotion/react';
-import { useTheme } from '@emotion/react';
-import { createContext, useContext, forwardRef } from 'react';
-import { useMemo } from 'react';
-import type { ElementType, ComponentPropsWithoutRef, ElementRef, ComponentType } from 'react';
 
-import type { RecipeVariant as RecipeVariantProps } from './sva';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import type { Interpolation, Theme } from "@emotion/react";
+import { useTheme } from "@emotion/react";
+import { createContext, useContext, forwardRef } from "react";
+import { useMemo } from "react";
+import type { ElementType, ComponentPropsWithoutRef, ElementRef, ComponentType } from "react";
+
+import type { RecipeVariant as RecipeVariantProps } from "./sva";
 
 type EmotionStyle = Interpolation<Theme>;
 
@@ -20,7 +20,7 @@ type EmotionStyle = Interpolation<Theme>;
 export type Assign<A, B> = Omit<A, keyof B> & B;
 export type JsxStyleProps = { css?: EmotionStyle };
 export type JsxHTMLProps<Base, Extra = {}> = Assign<Base, Extra>;
-export type UnstyledProps = { unstyled?: boolean };
+export type UnstyledProps = { unstyled: boolean };
 export type ComponentProps<T extends ElementType> = ComponentPropsWithoutRef<T>;
 export type JsxFactoryOptions<P = {}> = { defaultProps?: Partial<P> };
 
@@ -59,7 +59,7 @@ export interface StyleContext<R extends AnyRecipeInput> {
   useSlotStyle: (slot: SlotsOf<R>) => EmotionStyle | undefined;
 }
 
-const getDisplayName = (Component: any) => Component?.displayName || Component?.name || 'Component';
+const getDisplayName = (Component: any) => Component?.displayName || Component?.name || "Component";
 
 export function createStyleContext<R extends AnyRecipeInput>(recipeOrFactory: R): StyleContext<R> {
   type Slots = SlotsOf<R>;
@@ -73,7 +73,7 @@ export function createStyleContext<R extends AnyRecipeInput>(recipeOrFactory: R)
   const useSlotStyles = (): StylesMap => {
     const value = useContext(StylesContext);
     if (!value) {
-      throw new Error('StyleContext Provider 밖에서 useSlotStyles를 호출했습니다.');
+      throw new Error("StyleContext Provider 밖에서 useSlotStyles를 호출했습니다.");
     }
     return value;
   };
@@ -98,7 +98,7 @@ export function createStyleContext<R extends AnyRecipeInput>(recipeOrFactory: R)
       const runtime = useMemo(() => {
         try {
           const factoryRuntime = (recipeOrFactory as AnySlotRecipeFactory)(theme);
-          return typeof factoryRuntime === 'function'
+          return typeof factoryRuntime === "function"
             ? factoryRuntime
             : (recipeOrFactory as AnySlotRecipeRuntime);
         } catch {
@@ -136,7 +136,7 @@ export function createStyleContext<R extends AnyRecipeInput>(recipeOrFactory: R)
       const runtime = useMemo(() => {
         try {
           const maybe = (recipeOrFactory as AnySlotRecipeFactory)(theme);
-          return typeof maybe === 'function' ? maybe : (recipeOrFactory as AnySlotRecipeRuntime);
+          return typeof maybe === "function" ? maybe : (recipeOrFactory as AnySlotRecipeRuntime);
         } catch {
           return recipeOrFactory as AnySlotRecipeRuntime;
         }
@@ -172,7 +172,7 @@ export function createStyleContext<R extends AnyRecipeInput>(recipeOrFactory: R)
       const styles = useContext(StylesContext);
 
       if (!styles) {
-        if (process.env.NODE_ENV !== 'production') {
+        if (process.env.NODE_ENV !== "production") {
           console.error(
             `StyleContext: "${getDisplayName(
               Component,

@@ -1,4 +1,4 @@
-import { Hierarchy } from '@/components/common/label/label.style';
+import type { Hierarchy } from "@/components/common/label/label.style";
 
 interface TitleStyleType {
   hierarchy: {
@@ -11,16 +11,16 @@ interface TitleStyleType {
 export const titleStyle: TitleStyleType = {
   hierarchy: {
     stronger: {
-      typo: 'title-04',
+      typo: "title-04",
     },
     strong: {
-      typo: 'title-03',
+      typo: "title-03",
     },
     normal: {
-      typo: 'title-02',
+      typo: "title-02",
     },
     weak: {
-      typo: 'title-01',
+      typo: "title-01",
     },
   },
 };

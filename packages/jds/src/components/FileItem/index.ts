@@ -1,2 +1,2 @@
-export { FileItem } from './FileItem';
-export type { FileItemProps } from './fileItem.types';
+export { FileItem } from "./FileItem";
+export type { FileItemProps } from "./fileItem.types";

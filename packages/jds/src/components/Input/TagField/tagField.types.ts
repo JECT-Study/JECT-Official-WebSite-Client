@@ -1,7 +1,7 @@
-import type { ComponentPropsWithoutRef, ReactNode } from 'react';
+import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
-import type { IconName } from '../../Icon/Icon.types';
-import type { FieldPublicProps } from '../input.types';
+import type { IconName } from "../../Icon/Icon.types";
+import type { FieldPublicProps } from "../input.types";
 
 export interface Tag {
   id: string;
@@ -11,8 +11,8 @@ export interface Tag {
 export interface TagFieldPublicProps
   extends FieldPublicProps,
     Omit<
-      ComponentPropsWithoutRef<'input'>,
-      'value' | 'onChange' | 'defaultValue' | 'style' | 'type'
+      ComponentPropsWithoutRef<"input">,
+      "value" | "onChange" | "defaultValue" | "style" | "type"
     > {
   label?: string;
   labelIcon?: IconName;

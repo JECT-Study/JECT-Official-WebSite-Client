@@ -1,6 +1,8 @@
 export * from './Badge';
+export * from "./Banner";
 export * from './Button/BlockButton';
 export * from './Card';
+export * from "./Callout";
 export * from './Checkbox';
 export * from './Footer';
 export * from './Hero';
@@ -19,3 +21,4 @@ export * from './Title';
 export * from './Uploader';
 export * from './FileItem';
 export * from './SegmentedControl';
+export * from "./Tooltip";

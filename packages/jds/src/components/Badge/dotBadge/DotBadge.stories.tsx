@@ -1,25 +1,25 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { DotBadge } from './DotBadge';
-import type { DotBadgeFeedbackProps } from './DotBadge';
+import { DotBadge } from "./DotBadge";
+import type { DotBadgeFeedbackProps } from "./DotBadge";
 
 const meta: Meta<typeof DotBadge.Feedback> = {
-  title: 'Components/DotBadge',
+  title: "Components/DotBadge",
   component: DotBadge.Feedback,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
   argTypes: {
     variant: {
-      control: 'radio',
-      options: ['positive', 'destructive', 'notifying'],
+      control: "radio",
+      options: ["positive", "destructive", "notifying"],
     },
     size: {
-      control: 'radio',
-      options: ['lg', 'md', 'sm', 'xs'],
+      control: "radio",
+      options: ["lg", "md", "sm", "xs"],
     },
     isMuted: {
-      control: 'boolean',
+      control: "boolean",
     },
   },
 };
@@ -28,8 +28,8 @@ export default meta;
 
 export const Feedback: StoryObj<DotBadgeFeedbackProps> = {
   args: {
-    variant: 'positive',
-    size: 'md',
+    variant: "positive",
+    size: "md",
     isMuted: false,
   },
   render: args => (

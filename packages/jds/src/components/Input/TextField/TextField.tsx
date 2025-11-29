@@ -1,14 +1,14 @@
-import { forwardRef, type ChangeEvent, type ComponentPropsWithoutRef } from 'react';
+import { forwardRef, type ChangeEvent, type ComponentPropsWithoutRef } from "react";
 
-import { StyledInputWrapper, StyledInput } from './textField.styles';
-import type { TextFieldProps } from './textField.types';
-import { StyledFieldContainer } from '../shared/field.styles';
-import { FormField } from '../shared/FormField';
-import { useFormField } from '../shared/FormFieldContext';
+import { StyledInputWrapper, StyledInput } from "./textField.styles";
+import type { TextFieldProps } from "./textField.types";
+import { StyledFieldContainer } from "../shared/field.styles";
+import { FormField } from "../shared/FormField";
+import { useFormField } from "../shared/FormFieldContext";
 
 type TextFieldInputProps = Omit<
-  ComponentPropsWithoutRef<'input'>,
-  'style' | 'disabled' | 'readOnly'
+  ComponentPropsWithoutRef<"input">,
+  "style" | "disabled" | "readOnly"
 > & {
   value?: string;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -41,15 +41,15 @@ const TextFieldInput = forwardRef<HTMLInputElement, TextFieldInputProps>(
   },
 );
 
-TextFieldInput.displayName = 'TextFieldInput';
+TextFieldInput.displayName = "TextFieldInput";
 
 export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
   (
     {
-      style = 'outlined',
-      layout = 'vertical',
-      validation = 'none',
-      interaction = 'enabled',
+      style = "outlined",
+      layout = "vertical",
+      validation = "none",
+      interaction = "enabled",
       label,
       labelIcon,
       helperText,
@@ -79,4 +79,4 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
   },
 );
 
-TextField.displayName = 'TextField';
+TextField.displayName = "TextField";

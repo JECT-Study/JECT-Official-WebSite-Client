@@ -1,6 +1,6 @@
-import { create } from 'zustand';
+import { create } from "zustand";
 
-import { DialogTypes } from '@/types/ui/dialog';
+import type { DialogTypes } from "@/types/ui/dialog";
 
 export type OpenDialogOption = {
   type: DialogTypes;

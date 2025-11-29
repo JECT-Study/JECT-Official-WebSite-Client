@@ -11,7 +11,7 @@
  * hexToRgba('FF5733', 1) // 'rgba(255, 87, 51, 1)'
  */
 export function HexToRgba(hex: string, alpha: number): string {
-  const cleanedHex = hex.replace('#', '');
+  const cleanedHex = hex.replace("#", "");
 
   const r = parseInt(cleanedHex.slice(0, 2), 16);
   const g = parseInt(cleanedHex.slice(2, 4), 16);

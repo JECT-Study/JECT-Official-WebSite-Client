@@ -1,10 +1,10 @@
-@import 'tailwindcss';
-@import './interaction.css';
-@import './animation.css';
+@import "tailwindcss";
+@import "./interaction.css";
+@import "./animation.css";
 
 @layer base {
   html {
-    font-family: 'Pretendard Variable';
+    font-family: "Pretendard Variable";
 
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -25,7 +25,6 @@
   }
 }
 
-
 @theme {
   --shadow-focus-visible: 0 0 0 4px rgba(173, 198, 255, 1);
 }
@@ -42,7 +41,7 @@
   }
 
   .list-disc-ject li::before {
-    content: '•';
+    content: "•";
     margin-left: 8px;
     margin-right: 8px;
   }

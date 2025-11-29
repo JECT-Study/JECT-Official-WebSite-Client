@@ -1,19 +1,19 @@
-import { useTheme } from '@emotion/react';
-import type { Meta, StoryObj } from '@storybook/react';
+import { useTheme } from "@emotion/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Title } from './Title';
+import { Title } from "./Title";
 
 const meta = {
-  title: 'Components/Title',
+  title: "Components/Title",
   component: Title,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
   argTypes: {
     children: {
-      control: 'text',
-      description: '레이블 텍스트',
-      defaultValue: 'Title',
+      control: "text",
+      description: "레이블 텍스트",
+      defaultValue: "Title",
     },
   },
 } satisfies Meta<typeof Title>;
@@ -23,21 +23,20 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    size: 'md',
-    textAlign: 'left',
-    children: '타이틀',
+    size: "md",
+    textAlign: "left",
+    children: "타이틀",
   },
 };
 
 export const WithWideParentElement: Story = {
-  name: 'With Wide Parent Element',
   args: {
-    size: 'lg',
-    textAlign: 'left',
-    children: '타이틀',
+    size: "lg",
+    textAlign: "left",
+    children: "타이틀",
   },
   render: args => (
-    <div style={{ width: '500px', border: '1px solid red' }}>
+    <div style={{ width: "500px", border: "1px solid red" }}>
       <Title size={args.size} textAlign={args.textAlign}>
         {args.children}
       </Title>
@@ -46,11 +45,10 @@ export const WithWideParentElement: Story = {
 };
 
 export const WithColor: Story = {
-  name: 'With Color',
   args: {
-    size: 'lg',
-    textAlign: 'left',
-    children: '타이틀',
+    size: "lg",
+    textAlign: "left",
+    children: "타이틀",
   },
   render: args => {
     const theme = useTheme();

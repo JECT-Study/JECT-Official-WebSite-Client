@@ -1,16 +1,16 @@
-import type { SVGProps } from 'react';
+import type { SVGProps } from "react";
 const SvgArrowGoForwardLine = (props: SVGProps<SVGSVGElement>) => (
   <svg
-    xmlns='http://www.w3.org/2000/svg'
-    width='1em'
-    height='1em'
-    fill='currentColor'
-    viewBox='0 0 24 24'
+    xmlns="http://www.w3.org/2000/svg"
+    width="1em"
+    height="1em"
+    fill="currentColor"
+    viewBox="0 0 24 24"
     {...props}
   >
     <path
-      fill='currentColor'
-      d='M18.172 7.007H11a6 6 0 0 0 0 12h9v2h-9a8 8 0 0 1 0-16h7.172l-2.536-2.535 1.414-1.415L22 6.007l-4.95 4.95-1.414-1.414z'
+      fill="currentColor"
+      d="M18.172 7.007H11a6 6 0 0 0 0 12h9v2h-9a8 8 0 0 1 0-16h7.172l-2.536-2.535 1.414-1.415L22 6.007l-4.95 4.95-1.414-1.414z"
     />
   </svg>
 );

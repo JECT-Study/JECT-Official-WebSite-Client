@@ -3,9 +3,9 @@ interface ProgressIndexProps {
   isActive: boolean;
 }
 
-const ACTIVE_STYLE = 'border-border-trans-normal-dark bg-accent-normal-dark text-object-hero-dark';
+const ACTIVE_STYLE = "border-border-trans-normal-dark bg-accent-normal-dark text-object-hero-dark";
 const INACTIVE_STYLE =
-  'border-border-trans-assistive-dark bg-fill-assistive-dark text-object-assistive-dark';
+  "border-border-trans-assistive-dark bg-fill-assistive-dark text-object-assistive-dark";
 
 function ProgressIndex({ children, isActive }: ProgressIndexProps) {
   const activeStyle = isActive ? ACTIVE_STYLE : INACTIVE_STYLE;

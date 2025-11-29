@@ -1,10 +1,10 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
-import questionImage from '@/assets/images/question.png';
-import BlockButton from '@/components/common/button/BlockButton';
-import Icon from '@/components/common/icon/Icon';
-import Header from '@/components/common/navigation/Header';
-import PagesContainer from '@/components/layout/PagesContainer';
+import questionImage from "@/assets/images/question.png";
+import BlockButton from "@/components/common/button/BlockButton";
+import Icon from "@/components/common/icon/Icon";
+import Header from "@/components/common/navigation/Header";
+import PagesContainer from "@/components/layout/PagesContainer";
 
 function NotFoundError() {
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ function NotFoundError() {
           </div>
 
           <BlockButton
-            onClick={() => void navigate('/')}
+            onClick={() => void navigate("/")}
             hierarchy='accent'
             size='md'
             style='solid'

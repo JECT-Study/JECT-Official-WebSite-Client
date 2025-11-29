@@ -1,11 +1,11 @@
-import { ElementType, SyntheticEvent } from 'react';
+import type { ElementType, SyntheticEvent } from "react";
 
-import { IconDiv, ImageButton, ImageLabelDiv, StyledIcon, StyledLabel } from './Image.style';
+import { IconDiv, ImageButton, ImageLabelDiv, StyledIcon, StyledLabel } from "./Image.style";
 
-import { PolymorphicForwardRef } from '@/utils/forwardRef';
+import { PolymorphicForwardRef } from "@/utils/forwardRef";
 
-export type ImgRatio = '1:1' | '4:5' | '3:4' | '2:3' | '9:16' | '1:2' | '9:21';
-export type ImgOrientation = 'portrait' | 'landscape';
+export type ImgRatio = "1:1" | "4:5" | "3:4" | "2:3" | "9:16" | "1:2" | "9:21";
+export type ImgOrientation = "portrait" | "landscape";
 
 export interface ImageOwnProps {
   src?: string;
@@ -16,27 +16,27 @@ export interface ImageOwnProps {
   isReadonly?: boolean;
   badgeVisible?: boolean;
   badgeLabel?: string;
-  loading?: 'lazy' | 'eager';
+  loading?: "lazy" | "eager";
 }
 
-export const Image = PolymorphicForwardRef<'button', ImageOwnProps>(
+export const Image = PolymorphicForwardRef<"button", ImageOwnProps>(
   (
     {
       as,
       src,
-      fallbackSrc = '/images/defaultImage.png',
-      ratio = '1:1',
-      orientation = 'portrait',
+      fallbackSrc = "/images/defaultImage.png",
+      ratio = "1:1",
+      orientation = "portrait",
       isReadonly = false,
       badgeVisible = false,
-      badgeLabel = '1',
+      badgeLabel = "1",
       alt,
-      loading = 'eager',
+      loading = "eager",
       ...props
     },
     ref,
   ) => {
-    const Component = as || ('button' as ElementType);
+    const Component = as || ("button" as ElementType);
     const imageLoadErrorHandler = (e: SyntheticEvent<HTMLImageElement, Event>) => {
       if (e.currentTarget.src !== fallbackSrc) {
         e.currentTarget.src = fallbackSrc;
@@ -71,4 +71,4 @@ export const Image = PolymorphicForwardRef<'button', ImageOwnProps>(
   },
 );
 
-Image.displayName = 'Image';
+Image.displayName = "Image";

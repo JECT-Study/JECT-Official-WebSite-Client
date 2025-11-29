@@ -1,7 +1,7 @@
-import type { ComponentPropsWithoutRef, ReactNode } from 'react';
+import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
-export type SelectVariant = 'list' | 'checkbox' | 'radio';
-export type SelectSize = 'md' | 'sm';
+export type SelectVariant = "list" | "checkbox" | "radio";
+export type SelectSize = "md" | "sm";
 
 export type SelectValue = string | string[];
 
@@ -21,24 +21,24 @@ export interface BaseSelectProps {
 
 export interface SelectListProps
   extends BaseSelectProps,
-    Omit<ComponentPropsWithoutRef<'div'>, 'size' | 'onChange'> {
-  variant?: 'list';
+    Omit<ComponentPropsWithoutRef<"div">, "size" | "onChange"> {
+  variant?: "list";
   value: string;
   onChange: (value: string) => void;
 }
 
 export interface SelectRadioVariantProps
   extends BaseSelectProps,
-    Omit<ComponentPropsWithoutRef<'div'>, 'size' | 'onChange'> {
-  variant: 'radio';
+    Omit<ComponentPropsWithoutRef<"div">, "size" | "onChange"> {
+  variant: "radio";
   value: string;
   onChange: (value: string) => void;
 }
 
 export interface SelectCheckboxVariantProps
   extends BaseSelectProps,
-    Omit<ComponentPropsWithoutRef<'div'>, 'size' | 'onChange'> {
-  variant: 'checkbox';
+    Omit<ComponentPropsWithoutRef<"div">, "size" | "onChange"> {
+  variant: "checkbox";
   value: string[];
   onChange: (value: string[]) => void;
 }
@@ -54,14 +54,14 @@ export interface BaseSelectItemProps {
 
 export interface SelectLabelProps
   extends BaseSelectItemProps,
-    Omit<ComponentPropsWithoutRef<'div'>, 'onClick'> {
+    Omit<ComponentPropsWithoutRef<"div">, "onClick"> {
   badge?: ReactNode;
 }
 
 export interface SelectRadioProps
   extends BaseSelectItemProps,
-    Omit<ComponentPropsWithoutRef<'div'>, 'onClick'> {}
+    Omit<ComponentPropsWithoutRef<"div">, "onClick"> {}
 
 export interface SelectCheckboxProps
   extends BaseSelectItemProps,
-    Omit<ComponentPropsWithoutRef<'div'>, 'onClick'> {}
+    Omit<ComponentPropsWithoutRef<"div">, "onClick"> {}

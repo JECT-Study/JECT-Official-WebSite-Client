@@ -5,20 +5,20 @@ import {
   type ChangeEvent,
   type MouseEvent,
   type ComponentPropsWithoutRef,
-} from 'react';
+} from "react";
 
-import { StyledTagInputWrapper, StyledTagInput } from './tagField.styles';
-import type { Tag, TagFieldProps } from './tagField.types';
-import { TagFieldUtils } from './tagField.utils';
-import { TagList } from './TagList';
-import { useTagFieldState } from './useTagFieldState';
-import { StyledFieldContainer } from '../shared/field.styles';
-import { FormField } from '../shared/FormField';
-import { useFormField } from '../shared/FormFieldContext';
+import { StyledTagInputWrapper, StyledTagInput } from "./tagField.styles";
+import type { Tag, TagFieldProps } from "./tagField.types";
+import { TagFieldUtils } from "./tagField.utils";
+import { TagList } from "./TagList";
+import { useTagFieldState } from "./useTagFieldState";
+import { StyledFieldContainer } from "../shared/field.styles";
+import { FormField } from "../shared/FormField";
+import { useFormField } from "../shared/FormFieldContext";
 
 type TagFieldInputProps = Omit<
-  ComponentPropsWithoutRef<'input'>,
-  'style' | 'value' | 'onChange' | 'disabled' | 'readOnly'
+  ComponentPropsWithoutRef<"input">,
+  "style" | "value" | "onChange" | "disabled" | "readOnly"
 > & {
   tags: Tag[];
   onTagsChange: (tags: Tag[]) => void;
@@ -34,7 +34,7 @@ const TagFieldInput = forwardRef<HTMLInputElement, TagFieldInputProps>(
       onTagsChange,
       maxTags,
       allowDuplicates = false,
-      placeholder = '태그를 입력하세요',
+      placeholder = "태그를 입력하세요",
       ...restProps
     },
     ref,
@@ -61,7 +61,7 @@ const TagFieldInput = forwardRef<HTMLInputElement, TagFieldInputProps>(
           return;
         }
 
-        if (e.key === 'Enter') {
+        if (e.key === "Enter") {
           e.preventDefault();
           const newTags = TagFieldUtils.addTag(tags, inputValue, maxTags, allowDuplicates);
 
@@ -73,17 +73,17 @@ const TagFieldInput = forwardRef<HTMLInputElement, TagFieldInputProps>(
           return;
         }
 
-        if (e.key === 'Backspace') {
+        if (e.key === "Backspace") {
           e.preventDefault();
           const action = TagFieldUtils.getBackspaceAction(inputValue, tags, selectedTagId);
 
-          if (action === 'remove') {
+          if (action === "remove") {
             const lastTagId = TagFieldUtils.getLastTagId(tags);
             if (lastTagId) {
               onTagsChange(TagFieldUtils.removeTag(tags, lastTagId));
               clearSelection();
             }
-          } else if (action === 'select') {
+          } else if (action === "select") {
             const lastTagId = TagFieldUtils.getLastTagId(tags);
             if (lastTagId) {
               setSelectedTagId(lastTagId);
@@ -121,7 +121,7 @@ const TagFieldInput = forwardRef<HTMLInputElement, TagFieldInputProps>(
     );
 
     const handleWrapperClick = useCallback(() => {
-      if (ref && typeof ref !== 'function' && ref.current) {
+      if (ref && typeof ref !== "function" && ref.current) {
         ref.current.focus();
       }
     }, [ref]);
@@ -168,15 +168,15 @@ const TagFieldInput = forwardRef<HTMLInputElement, TagFieldInputProps>(
   },
 );
 
-TagFieldInput.displayName = 'TagFieldInput';
+TagFieldInput.displayName = "TagFieldInput";
 
 export const TagField = forwardRef<HTMLInputElement, TagFieldProps>(
   (
     {
-      style = 'outlined',
-      layout = 'vertical',
-      validation = 'none',
-      interaction = 'enabled',
+      style = "outlined",
+      layout = "vertical",
+      validation = "none",
+      interaction = "enabled",
       label,
       labelIcon,
       helperText,
@@ -206,4 +206,4 @@ export const TagField = forwardRef<HTMLInputElement, TagFieldProps>(
   },
 );
 
-TagField.displayName = 'TagField';
+TagField.displayName = "TagField";

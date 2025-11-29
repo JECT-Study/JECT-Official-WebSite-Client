@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 
-import { PATH } from '@/constants/path.ts';
+import { PATH } from "@/constants/path.ts";
 
 interface UseFaqNavigationResult {
   activeTabId: number;

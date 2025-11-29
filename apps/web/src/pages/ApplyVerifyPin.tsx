@@ -1,26 +1,26 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-import ApplyVerifyEmail from './ApplyVerifyEmail';
+import ApplyVerifyEmail from "./ApplyVerifyEmail";
 
-import BlockButton from '@/components/common/button/BlockButton';
-import Icon from '@/components/common/icon/Icon';
-import InputField from '@/components/common/input/InputField';
-import ProgressIndicator from '@/components/common/progress/ProgressIndicator';
-import Title from '@/components/common/title/Title';
-import { APPLY_TITLE } from '@/constants/applyPageData';
-import { PATH } from '@/constants/path';
-import { useApplyPinForm } from '@/hooks/useApplyPinForm';
-import useCheckApplicationStatus from '@/hooks/useCheckApplicationStatus';
-import useDeleteDraftMutation from '@/hooks/useDeleteDraftMutation';
-import useDraftQuery from '@/hooks/useDraftQuery';
-import { useMemberProfileInitialStatusQuery } from '@/hooks/useMemberProfileInitialStatusQuery';
-import { usePinLoginMutation } from '@/hooks/usePinLoginMutation';
-import { useDialogActions } from '@/stores/dialogStore';
-import { PinLoginPayload } from '@/types/apis/apply';
-import { hasDraftLocal } from '@/utils/draftUtils';
-import { handleError } from '@/utils/errorLogger';
-import { CreateSubmitHandler } from '@/utils/formHelpers';
+import BlockButton from "@/components/common/button/BlockButton";
+import Icon from "@/components/common/icon/Icon";
+import InputField from "@/components/common/input/InputField";
+import ProgressIndicator from "@/components/common/progress/ProgressIndicator";
+import Title from "@/components/common/title/Title";
+import { APPLY_TITLE } from "@/constants/applyPageData";
+import { PATH } from "@/constants/path";
+import { useApplyPinForm } from "@/hooks/useApplyPinForm";
+import useCheckApplicationStatus from "@/hooks/useCheckApplicationStatus";
+import useDeleteDraftMutation from "@/hooks/useDeleteDraftMutation";
+import useDraftQuery from "@/hooks/useDraftQuery";
+import { useMemberProfileInitialStatusQuery } from "@/hooks/useMemberProfileInitialStatusQuery";
+import { usePinLoginMutation } from "@/hooks/usePinLoginMutation";
+import { useDialogActions } from "@/stores/dialogStore";
+import type { PinLoginPayload } from "@/types/apis/apply";
+import { hasDraftLocal } from "@/utils/draftUtils";
+import { handleError } from "@/utils/errorLogger";
+import { CreateSubmitHandler } from "@/utils/formHelpers";
 
 interface ApplyVerifyPinProps {
   email: string;
@@ -47,25 +47,25 @@ function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
 
   const rightIconFillColor =
     !isPinValid || isPinLoginLoading
-      ? 'fill-accent-trans-hero-dark'
-      : 'fill-object-static-inverse-hero-dark';
+      ? "fill-accent-trans-hero-dark"
+      : "fill-object-static-inverse-hero-dark";
 
   const onPinSubmit = ({ pin }: PinLoginPayload) => {
     const payload = { email, pin };
 
     pinLoginMutate(payload, {
       onSuccess: response => {
-        if (response.status !== 'SUCCESS') {
-          let errorMessage = '오류가 발생했습니다. 다시 시도해주세요.';
+        if (response.status !== "SUCCESS") {
+          let errorMessage = "오류가 발생했습니다. 다시 시도해주세요.";
 
           switch (response.status) {
-            case 'INVALID_CREDENTIALS':
-              errorMessage = 'PIN이 올바르지 않습니다. 다시 확인해주세요.';
+            case "INVALID_CREDENTIALS":
+              errorMessage = "PIN이 올바르지 않습니다. 다시 확인해주세요.";
               break;
           }
 
-          setPinError('pin', {
-            type: 'manual',
+          setPinError("pin", {
+            type: "manual",
             message: errorMessage,
           });
           return;
@@ -73,7 +73,7 @@ function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
 
         void refetchCheckProfileStatus()
           .then(({ data }) => {
-            if (data?.status !== 'SUCCESS') return;
+            if (data?.status !== "SUCCESS") return;
 
             if (data.data) {
               return refetchCheckApplicationStatus();
@@ -87,7 +87,7 @@ function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
 
             const { data } = result;
 
-            if (data?.status !== 'SUCCESS') return;
+            if (data?.status !== "SUCCESS") return;
 
             if (data.data) {
               void navigate(PATH.applyComplete);
@@ -101,13 +101,13 @@ function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
 
             const { data } = result;
 
-            if (!hasDraftLocal() && data?.status === 'TEMP_APPLICATION_NOT_FOUND') {
+            if (!hasDraftLocal() && data?.status === "TEMP_APPLICATION_NOT_FOUND") {
               return void navigate(PATH.applyRegistration);
             }
 
-            if (hasDraftLocal() || data?.status === 'SUCCESS') {
+            if (hasDraftLocal() || data?.status === "SUCCESS") {
               openDialog({
-                type: 'continueWriting',
+                type: "continueWriting",
                 onPrimaryBtnClick: () => {
                   void navigate(PATH.applyRegistration, { state: { continue: true } });
                 },
@@ -122,14 +122,14 @@ function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
             }
           })
           .catch(error => {
-            handleError(error, '프로필 여부, 제출 여부, 임시저장 여부 refetch catch문');
+            handleError(error, "프로필 여부, 제출 여부, 임시저장 여부 refetch catch문");
           });
       },
       onError: error => {
-        handleError(error, 'PIN 로그인 실패');
-        setPinError('pin', {
-          type: 'manual',
-          message: '로그인 과정에서 오류가 발생했습니다. 다시 시도해주세요.',
+        handleError(error, "PIN 로그인 실패");
+        setPinError("pin", {
+          type: "manual",
+          message: "로그인 과정에서 오류가 발생했습니다. 다시 시도해주세요.",
         });
       },
     });
@@ -173,23 +173,23 @@ function ApplyVerifyPin({ email }: ApplyVerifyPinProps) {
               </BlockButton>
             </InputField>
             <InputField
-              type={isPinHidden ? 'password' : 'text'}
+              type={isPinHidden ? "password" : "text"}
               labelText='PIN'
               isError={!!errorsPin.pin}
               isSuccess={isPinValid}
               disabled={false}
-              helper={errorsPin.pin ? errorsPin.pin.message : ''}
+              helper={errorsPin.pin ? errorsPin.pin.message : ""}
               placeholder='설정하셨던 6자리 비밀번호를 입력해주세요'
               InputChildren={
                 <span onClick={togglePinVisibility} className='cursor-pointer'>
                   <Icon
-                    name={isPinHidden ? 'visible' : 'invisible'}
+                    name={isPinHidden ? "visible" : "invisible"}
                     size='md'
                     fillColor='fill-object-neutral-dark'
                   />
                 </span>
               }
-              {...registerPin('pin')}
+              {...registerPin("pin")}
             />
           </form>
           <div className='gap-3xs flex self-center *:last:cursor-pointer'>

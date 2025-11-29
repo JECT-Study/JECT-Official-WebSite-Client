@@ -6,6 +6,6 @@
 export const moveToBottom = () => {
   window.scrollTo({
     top: document.body.scrollHeight,
-    behavior: 'smooth',
+    behavior: "smooth",
   });
 };

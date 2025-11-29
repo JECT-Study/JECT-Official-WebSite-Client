@@ -1,23 +1,25 @@
-import styled from '@emotion/styled';
-import { pxToRem, shadow } from 'utils';
-import { Icon, Label } from '@/components';
-import { SnackbarDivProps, SnackbarFeedbackIconProps, SnackbarStyle } from './snackbar.types';
-import { keyframes } from '@emotion/react';
-import { snackbarStylesMap } from './snackbar.variants';
+import { keyframes } from "@emotion/react";
+import styled from "@emotion/styled";
+import { pxToRem, shadow } from "utils";
+
+import type { SnackbarDivProps, SnackbarFeedbackIconProps, SnackbarStyle } from "./snackbar.types";
+import { snackbarStylesMap } from "./snackbar.variants";
+
+import { Icon, Label } from "@/components";
 
 export const SnackbarStackContainer = styled.div(({ theme }) => {
   return {
-    position: 'absolute',
-    bottom: '0',
-    right: '0',
-    padding: '40px',
+    position: "absolute",
+    bottom: "0",
+    right: "0",
+    padding: "40px",
     zIndex: 9999,
-    [theme.breakPoint.tablet]: { padding: '40px' },
-    [theme.breakPoint.mobile]: { padding: '24px', right: '50%', transform: 'translate(50%, 0)' },
-    display: 'flex',
-    flexDirection: 'column-reverse',
+    [theme.breakPoint.tablet]: { padding: "40px" },
+    [theme.breakPoint.mobile]: { padding: "24px", right: "50%", transform: "translate(50%, 0)" },
+    display: "flex",
+    flexDirection: "column-reverse",
     gap: pxToRem(16),
-    overflow: 'hidden',
+    overflow: "hidden",
   };
 });
 
@@ -37,8 +39,8 @@ export const SnackbarDiv = styled.div<SnackbarDivProps>(({ theme, snackbarStyle 
 `;
 
   return {
-    display: 'flex',
-    flexDirection: 'column',
+    display: "flex",
+    flexDirection: "column",
     gap: theme.scheme.semantic.spacing[16],
     width: pxToRem(300),
     padding: `16px 20px`,
@@ -46,28 +48,28 @@ export const SnackbarDiv = styled.div<SnackbarDivProps>(({ theme, snackbarStyle 
     borderRadius: theme.scheme.semantic.radius[10],
     backgroundColor: theme.color.semantic.surface.shallow,
     color,
-    ...shadow(theme, 'overlay'),
+    ...shadow(theme, "overlay"),
 
-    position: 'relative',
-    '::before': {
+    position: "relative",
+    "::before": {
       content: '""',
-      position: 'absolute',
+      position: "absolute",
       inset: 0,
-      borderRadius: 'inherit',
+      borderRadius: "inherit",
       backgroundColor,
       opacity: 0.36,
-      zIndex: '-10',
+      zIndex: "-10",
     },
 
-    '&.enter': {
+    "&.enter": {
       animation: `${slideIn} ${theme.environment.semantic.duration[250]} ${theme.environment.semantic.motion.bouncy} forwards`,
     },
 
-    '&.static': {
-      animation: 'none',
+    "&.static": {
+      animation: "none",
     },
 
-    '&.exit': {
+    "&.exit": {
       animation: `${slideOut} ${theme.environment.semantic.duration[250]} ${theme.environment.semantic.motion.bouncy} forwards`,
     },
   };
@@ -77,40 +79,40 @@ export const SnackbarLabel = styled(Label)<{ snackbarStyle: SnackbarStyle }>(({
   theme,
   snackbarStyle,
 }) => {
-  return { flex: '1', color: snackbarStylesMap(theme)[snackbarStyle].color };
+  return { flex: "1", color: snackbarStylesMap(theme)[snackbarStyle].color };
 });
 
 export const SnackbarContentDiv = styled.div(({ theme }) => {
   return {
-    display: 'flex',
-    flexDirection: 'column',
+    display: "flex",
+    flexDirection: "column",
     gap: theme.scheme.semantic.spacing[6],
   };
 });
 
 export const SnackbarLabelContainerDiv = styled.div(({ theme }) => {
   return {
-    display: 'flex',
+    display: "flex",
     gap: theme.scheme.semantic.spacing[8],
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    justifyContent: "space-between",
+    alignItems: "center",
   };
 });
 
 export const SnackbarCaptionP = styled.p(({ theme }) => {
   return {
-    ...theme.textStyle['semantic-textStyle-body-xs-normal'],
-    [theme.breakPoint.mobile]: { ...theme.textStyle['semantic-textStyle-body-xs-normal'] },
-    [theme.breakPoint.tablet]: { ...theme.textStyle['semantic-textStyle-body-xs-normal'] },
+    ...theme.textStyle["semantic-textStyle-body-xs-normal"],
+    [theme.breakPoint.mobile]: { ...theme.textStyle["semantic-textStyle-body-xs-normal"] },
+    [theme.breakPoint.tablet]: { ...theme.textStyle["semantic-textStyle-body-xs-normal"] },
   };
 });
 
 export const ButtonContainerDiv = styled.div(({ theme }) => {
   return {
-    display: 'flex',
+    display: "flex",
     gap: theme.scheme.semantic.spacing[12],
-    justifyContent: 'flex-start',
-    alignItems: 'center',
+    justifyContent: "flex-start",
+    alignItems: "center",
   };
 });
 

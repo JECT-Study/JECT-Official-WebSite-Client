@@ -1,7 +1,7 @@
-import type { CSSObject, Theme } from '@emotion/react';
-import type { InteractionLayerState, Density, FillColor, Variant } from 'types';
+import type { CSSObject, Theme } from "@emotion/react";
+import type { InteractionLayerState, Density, FillColor, Variant } from "types";
 
-import { pxToRem } from './cssUnit';
+import { pxToRem } from "./cssUnit";
 
 export interface InteractionLayerParams {
   theme: Theme;
@@ -34,7 +34,7 @@ const SPECIAL_STATE_OPACITY = {
  * Focus outline width는 px로 고정
  * 이유: 접근성을 위해 명확하고 선명한 outline이 필요하므로 서브픽셀 렌더링 방지
  */
-const FOCUS_OUTLINE_WIDTH = '3px';
+const FOCUS_OUTLINE_WIDTH = "3px";
 
 const getBackgroundColor = (
   theme: Theme,
@@ -196,39 +196,39 @@ export function InteractionLayer({
   const leftRightValue = hasHorizontalOffset ? pxToRem(-offsetHorizontal) : 0;
 
   const hasOffset = hasVerticalOffset || hasHorizontalOffset;
-  const isFocusState = state === 'focus' && !isSpecialState;
+  const isFocusState = state === "focus" && !isSpecialState;
 
   const baseStyle: CSSObject = {
-    position: 'relative',
-    outline: 'none',
+    position: "relative",
+    outline: "none",
     borderRadius: borderRadius > 0 ? `${borderRadius}px` : 0,
-    '::before': {
+    "::before": {
       content: '""',
-      position: 'absolute',
+      position: "absolute",
       top: hasOffset ? topBottomValue : 0,
       right: hasOffset && hasHorizontalOffset ? leftRightValue : undefined,
       bottom: hasOffset && hasVerticalOffset ? topBottomValue : undefined,
       left: hasOffset ? leftRightValue : 0,
-      width: hasOffset && hasHorizontalOffset ? 'auto' : '100%',
-      height: hasOffset && hasVerticalOffset ? 'auto' : '100%',
+      width: hasOffset && hasHorizontalOffset ? "auto" : "100%",
+      height: hasOffset && hasVerticalOffset ? "auto" : "100%",
       borderRadius: borderRadius > 0 ? `${borderRadius}px` : 0,
       boxShadow: `0 0 0 ${FOCUS_OUTLINE_WIDTH} ${theme.color.semantic.interaction.focus}`,
       opacity: isFocusState && hasOffset ? 1 : 0,
-      pointerEvents: 'none',
+      pointerEvents: "none",
     },
-    '::after': {
+    "::after": {
       content: '""',
-      position: 'absolute',
+      position: "absolute",
       top: topBottomValue,
       right: hasHorizontalOffset ? leftRightValue : undefined,
       bottom: hasVerticalOffset ? topBottomValue : undefined,
       left: leftRightValue,
-      width: hasHorizontalOffset ? 'auto' : '100%',
-      height: hasVerticalOffset ? 'auto' : '100%',
+      width: hasHorizontalOffset ? "auto" : "100%",
+      height: hasVerticalOffset ? "auto" : "100%",
       borderRadius: borderRadius > 0 ? `${borderRadius}px` : 0,
       backgroundColor,
       opacity,
-      pointerEvents: 'none',
+      pointerEvents: "none",
     },
   };
 

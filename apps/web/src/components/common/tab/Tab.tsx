@@ -1,6 +1,7 @@
-import { createContext, useState, useContext, ReactNode, ComponentPropsWithoutRef } from 'react';
+import type { ReactNode, ComponentPropsWithoutRef } from "react";
+import { createContext, useState, useContext } from "react";
 
-import { TabProps } from './Tab.types';
+import type { TabProps } from "./Tab.types";
 
 interface TabContextType {
   activeTabId: number;
@@ -12,7 +13,7 @@ const TabContext = createContext<TabContextType | undefined>(undefined);
 const useTabContext = () => {
   const context = useContext(TabContext);
   if (!context) {
-    throw new Error('must be used within a TabProvider');
+    throw new Error("must be used within a TabProvider");
   }
   return context;
 };
@@ -32,7 +33,7 @@ export const TabHeader = ({ children }: TabHeaderProps) => {
   );
 };
 
-interface TabItemProps extends Omit<ComponentPropsWithoutRef<'button'>, 'id'> {
+interface TabItemProps extends Omit<ComponentPropsWithoutRef<"button">, "id"> {
   id: number;
   label: string;
 }
@@ -46,9 +47,9 @@ export const TabItem = ({ id, label, disabled = false, ...restprops }: TabItemPr
       disabled={!!disabled}
       className={`interaction-default-subtle gap-4xs label-bold-lg inline-flex cursor-pointer items-center justify-center px-(--gap-md) py-(--gap-3xs) text-center ${
         isActive
-          ? 'text-object-hero-dark stroke-bold border-accent-normal-dark relative z-10 -mb-px'
-          : 'text-object-alternative-dark'
-      } ${disabled ? 'text-object-disabled-dark pointer-events-none cursor-not-allowed' : ''}`}
+          ? "text-object-hero-dark stroke-bold border-accent-normal-dark relative z-10 -mb-px"
+          : "text-object-alternative-dark"
+      } ${disabled ? "text-object-disabled-dark pointer-events-none cursor-not-allowed" : ""}`}
       {...restprops}
     >
       {label}

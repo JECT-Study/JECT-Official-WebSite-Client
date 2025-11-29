@@ -1,5 +1,5 @@
-import styled from '@emotion/styled';
-import { pxToRem } from 'utils';
+import styled from "@emotion/styled";
+import { pxToRem } from "utils";
 
 import type {
   BasicHierarchy,
@@ -7,8 +7,8 @@ import type {
   ContentBadgeStyle,
   FeedbackVariant,
   ThemeVariant,
-} from '../badge.types';
-import { contentBadgeSizeMap } from '../badge.variants';
+} from "../badge.types";
+import { contentBadgeSizeMap } from "../badge.variants";
 import {
   contentBadgeBasicStylesMap,
   contentBadgeBasicMutedStylesMap,
@@ -17,10 +17,10 @@ import {
   contentBadgeThemeStylesMap,
   contentBadgeThemeMutedStylesMap,
   iconColorMap,
-} from './contentBadge.variants';
+} from "./contentBadge.variants";
 
-import { Icon } from '@/components/Icon';
-import { Label } from '@/components/Label';
+import { Icon } from "@/components/Icon";
+import { Label } from "@/components/Label";
 
 interface ContentBasicBadgeDivProps {
   hierarchy: BasicHierarchy;
@@ -42,10 +42,10 @@ export const ContentBadgeBasicDiv = styled.div<ContentBasicBadgeDivProps>(
     return {
       minWidth: pxToRem(contentBadgeSizeMap[size].minWidth),
       padding: `${pxToRem(contentBadgeSizeMap[size].paddingTopBottom)} ${pxToRem(contentBadgeSizeMap[size].paddingLeftRight)}`,
-      display: 'inline-flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      gap: withIcon ? pxToRem(4) : '0',
+      display: "inline-flex",
+      justifyContent: "center",
+      alignItems: "center",
+      gap: withIcon ? pxToRem(4) : "0",
       backgroundColor,
       border: `1px solid ${border}`,
       borderRadius: theme.scheme.semantic.radius[4],
@@ -114,13 +114,13 @@ export const ContentBadgeFeedbackDiv = styled.div<ContentBadgeFeedbackDivProps>(
     return {
       minWidth: pxToRem(contentBadgeSizeMap[size].minWidth),
       padding: `${pxToRem(contentBadgeSizeMap[size].paddingTopBottom)} ${pxToRem(contentBadgeSizeMap[size].paddingLeftRight)}`,
-      display: 'inline-flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      gap: '0px',
+      display: "inline-flex",
+      justifyContent: "center",
+      alignItems: "center",
+      gap: "0px",
       backgroundColor,
       border: `1px solid ${border}`,
-      borderRadius: theme.scheme.semantic.radius['4'],
+      borderRadius: theme.scheme.semantic.radius["4"],
     };
   },
 );
@@ -165,10 +165,10 @@ export const ContentBadgeThemeDiv = styled.div<ContentBadgeThemeDivProps>(
     return {
       minWidth: pxToRem(contentBadgeSizeMap[size].minWidth),
       padding: `${pxToRem(contentBadgeSizeMap[size].paddingTopBottom)} ${pxToRem(contentBadgeSizeMap[size].paddingLeftRight)}`,
-      display: 'inline-flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      gap: '0px',
+      display: "inline-flex",
+      justifyContent: "center",
+      alignItems: "center",
+      gap: "0px",
       backgroundColor,
       border: `1px solid ${border}`,
       borderRadius: theme.scheme.semantic.radius[4],

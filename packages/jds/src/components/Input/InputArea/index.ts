@@ -1,4 +1,4 @@
-export { InputArea } from './InputArea';
+export { InputArea } from "./InputArea";
 
 export type {
   InputAreaStyle,
@@ -6,4 +6,4 @@ export type {
   InputAreaValidation,
   InputAreaStatus,
   InputAreaProps,
-} from './inputArea.types';
+} from "./inputArea.types";

@@ -1,17 +1,23 @@
-import { StyledIconWrapper } from './Icon.styles';
-import type { IconProps } from './Icon.types';
-import { iconMap, sizeMap } from './IconMap';
+import { type ElementRef, forwardRef } from "react";
 
-export const Icon = ({ name, size = 'md', color = 'currentColor', ...props }: IconProps) => {
-  const IconComponent = iconMap[name];
+import { StyledIconWrapper } from "./Icon.styles";
+import type { IconProps } from "./Icon.types";
+import { iconMap, sizeMap } from "./IconMap";
 
-  if (!IconComponent) return null;
+export const Icon = forwardRef<ElementRef<typeof StyledIconWrapper>, IconProps>(
+  ({ name, size = "md", color = "currentColor", ...props }, ref) => {
+    const IconComponent = iconMap[name];
 
-  const pixelSize = sizeMap[size];
+    if (!IconComponent) return null;
 
-  return (
-    <StyledIconWrapper>
-      <IconComponent width={pixelSize} height={pixelSize} color={color} {...props} />
-    </StyledIconWrapper>
-  );
-};
+    const pixelSize = sizeMap[size];
+
+    return (
+      <StyledIconWrapper ref={ref}>
+        <IconComponent width={pixelSize} height={pixelSize} color={color} {...props} />
+      </StyledIconWrapper>
+    );
+  },
+);
+
+Icon.displayName = "Icon";

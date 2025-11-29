@@ -1,6 +1,6 @@
-import isPropValid from '@emotion/is-prop-valid';
-import type { Theme } from '@emotion/react';
-import styled from '@emotion/styled';
+import isPropValid from "@emotion/is-prop-valid";
+import type { Theme } from "@emotion/react";
+import styled from "@emotion/styled";
 
 export const TEXT_ALIGN_MAPPING = {
   center: 'center',
@@ -8,9 +8,9 @@ export const TEXT_ALIGN_MAPPING = {
   right: 'flex-end',
 } as const;
 
-export type LabelSize = 'lg' | 'md' | 'sm' | 'xs';
+export type LabelSize = "lg" | "md" | "sm" | "xs";
 export type LabelTextAlign = keyof typeof TEXT_ALIGN_MAPPING;
-export type LabelWeight = 'bold' | 'normal' | 'subtle';
+export type LabelWeight = "bold" | "normal" | "subtle";
 
 interface LabelStyledProps {
   $size: LabelSize;

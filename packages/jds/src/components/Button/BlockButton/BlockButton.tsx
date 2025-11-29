@@ -1,16 +1,16 @@
-import type { BlockButtonBasicProps, BlockButtonFeedbackProps } from 'components';
-import { Icon } from 'components';
-import { forwardRef } from 'react';
+import type { BlockButtonBasicProps, BlockButtonFeedbackProps } from "components";
+import { Icon } from "components";
+import { forwardRef } from "react";
 
-import { iconSizeMap, StyledBlockButton } from './blockButton.styles';
+import { iconSizeMap, StyledBlockButton } from "./blockButton.styles";
 
 const BlockButtonBasic = forwardRef<HTMLButtonElement, BlockButtonBasicProps>(
   (
     {
       children,
-      size = 'md',
-      variant = 'solid',
-      hierarchy = 'primary',
+      size = "md",
+      variant = "solid",
+      hierarchy = "primary",
       prefixIcon,
       suffixIcon,
       disabled = false,
@@ -39,14 +39,14 @@ const BlockButtonBasic = forwardRef<HTMLButtonElement, BlockButtonBasicProps>(
   },
 );
 
-BlockButtonBasic.displayName = 'BlockButton.Basic';
+BlockButtonBasic.displayName = "BlockButton.Basic";
 
 const BlockButtonFeedback = forwardRef<HTMLButtonElement, BlockButtonFeedbackProps>(
   (
     {
       children,
-      size = 'md',
-      intent = 'destructive',
+      size = "md",
+      intent = "destructive",
       prefixIcon,
       suffixIcon,
       disabled = false,
@@ -73,7 +73,7 @@ const BlockButtonFeedback = forwardRef<HTMLButtonElement, BlockButtonFeedbackPro
   },
 );
 
-BlockButtonFeedback.displayName = 'BlockButton.Feedback';
+BlockButtonFeedback.displayName = "BlockButton.Feedback";
 
 export const BlockButton = {
   Basic: BlockButtonBasic,

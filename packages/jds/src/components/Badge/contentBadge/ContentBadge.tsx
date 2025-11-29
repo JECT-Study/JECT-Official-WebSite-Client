@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { ReactNode } from "react";
 
 import {
   BadgeIcon,
@@ -28,9 +28,9 @@ export interface ContentBadgeBasicProps {
 }
 
 const ContentBadgeBasic = ({
-  hierarchy = 'secondary',
-  size = 'md',
-  badgeStyle = 'solid',
+  hierarchy = "secondary",
+  size = "md",
+  badgeStyle = "solid",
   isMuted = false,
   withIcon = false,
   children,
@@ -68,7 +68,7 @@ const ContentBadgeBasic = ({
   );
 };
 
-ContentBadgeBasic.displayName = 'ContentBadge.Basic';
+ContentBadgeBasic.displayName = "ContentBadge.Basic";
 
 export interface ContentFeedbackBadgeProps {
   variant?: FeedbackVariant;
@@ -79,9 +79,9 @@ export interface ContentFeedbackBadgeProps {
 }
 
 const ContentBadgeFeedback = ({
-  variant = 'positive',
-  size = 'md',
-  badgeStyle = 'solid',
+  variant = "positive",
+  size = "md",
+  badgeStyle = "solid",
   isMuted = false,
   children,
 }: ContentFeedbackBadgeProps) => {
