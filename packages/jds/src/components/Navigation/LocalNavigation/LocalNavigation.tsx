@@ -7,6 +7,7 @@ import {
   StyledLocalNavigationTitle,
 } from "./localNavigation.styles";
 import type {
+  LocalNavigationBackButtonProps,
   LocalNavigationButtonGroupProps,
   LocalNavigationRootProps,
   LocalNavigationTitleProps,
@@ -17,24 +18,33 @@ import { useMediaQueryFlags } from "@/hooks";
 
 const LocalNavigationRoot = forwardRef<HTMLDivElement, LocalNavigationRootProps>(
   ({ isStretched = false, children, ...props }, ref) => {
-    const { isMobile } = useMediaQueryFlags();
-    const buttonSize = isMobile ? "lg" : "xl";
-
     return (
       <StyledLocalNavigationRoot ref={ref} $isStretched={isStretched} {...props}>
-        <StyledLocalNavigationWrapper>
-          <IconButton.Basic
-            icon='arrow-left-line'
-            hierarchy='primary'
-            size={buttonSize}
-            aria-label='go to previous page'
-          />
-          {children}
-        </StyledLocalNavigationWrapper>
+        <StyledLocalNavigationWrapper>{children}</StyledLocalNavigationWrapper>
       </StyledLocalNavigationRoot>
     );
   },
 );
+
+const LocalNavigationBackButton = forwardRef<HTMLButtonElement, LocalNavigationBackButtonProps>(
+  ({ ...props }, ref) => {
+    const { isMobile } = useMediaQueryFlags();
+    const buttonSize = isMobile ? "lg" : "xl";
+
+    return (
+      <IconButton.Basic
+        ref={ref}
+        icon='arrow-left-line'
+        hierarchy='primary'
+        size={buttonSize}
+        aria-label='go to previous page'
+        {...props}
+      />
+    );
+  },
+);
+
+LocalNavigationBackButton.displayName = "LocalNavigation.BackButton";
 
 const LocalNavigationTitle = forwardRef<HTMLDivElement, LocalNavigationTitleProps>(
   ({ as, children, ...props }, ref) => {
@@ -62,7 +72,9 @@ const LocalNavigationButtonGroup = forwardRef<HTMLDivElement, LocalNavigationBut
 
 LocalNavigationButtonGroup.displayName = "LocalNavigation.ButtonGroup ";
 
-export const LocalNavigation = Object.assign(LocalNavigationRoot, {
+export const LocalNavigation = {
+  Root: LocalNavigationRoot,
+  BackButton: LocalNavigationBackButton,
   Title: LocalNavigationTitle,
   ButtonGroup: LocalNavigationButtonGroup,
-});
+};
