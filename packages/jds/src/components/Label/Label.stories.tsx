@@ -31,7 +31,6 @@ export const Default: Story = {
 };
 
 export const WithParentElement: Story = {
-  name: "With Parent Element",
   args: {
     size: "lg",
     textAlign: "left",
