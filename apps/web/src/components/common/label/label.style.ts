@@ -1,5 +1,5 @@
-export type Hierarchy = 'stronger' | 'strong' | 'normal' | 'weak';
-export type Weight = 'normal' | 'bold';
+export type Hierarchy = "stronger" | "strong" | "normal" | "weak";
+export type Weight = "normal" | "bold";
 
 interface LabelStyleType {
   weight: {
@@ -18,32 +18,32 @@ export const labelStyle: LabelStyleType = {
     normal: {
       hierarchy: {
         stronger: {
-          typo: 'label-lg',
+          typo: "label-lg",
         },
         strong: {
-          typo: 'label-md',
+          typo: "label-md",
         },
         normal: {
-          typo: 'label-sm',
+          typo: "label-sm",
         },
         weak: {
-          typo: 'label-xs',
+          typo: "label-xs",
         },
       },
     },
     bold: {
       hierarchy: {
         stronger: {
-          typo: 'label-bold-lg',
+          typo: "label-bold-lg",
         },
         strong: {
-          typo: 'label-bold-md',
+          typo: "label-bold-md",
         },
         normal: {
-          typo: 'label-bold-sm',
+          typo: "label-bold-sm",
         },
         weak: {
-          typo: 'label-bold-xs',
+          typo: "label-bold-xs",
         },
       },
     },

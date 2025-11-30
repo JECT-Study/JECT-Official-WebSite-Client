@@ -1,4 +1,4 @@
-@import './tokens/semantic.css';
+@import "./tokens/semantic.css";
 
 @layer utilities {
   .transition-faster-fluent-hover:hover::before {

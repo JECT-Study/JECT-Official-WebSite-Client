@@ -1,7 +1,7 @@
-import { forwardRef } from 'react';
+import { forwardRef } from "react";
 
-import { createSelectItemHandlers } from './createSelectItemHandlers';
-import { useSelectContext } from './Select';
+import { createSelectItemHandlers } from "./createSelectItemHandlers";
+import { useSelectContext } from "./Select";
 import {
   StyledSelectItem,
   StyledSelectItemContent,
@@ -9,8 +9,8 @@ import {
   StyledSelectItemText,
   StyledSelectItemCaption,
   StyledSelectItemBadge,
-} from './select.styles';
-import type { SelectLabelProps } from './select.types';
+} from "./select.styles";
+import type { SelectLabelProps } from "./select.types";
 
 export const SelectLabel = forwardRef<HTMLDivElement, SelectLabelProps>(
   ({ value, isDisabled = false, caption, badge, children, ...restProps }, ref) => {
@@ -23,7 +23,7 @@ export const SelectLabel = forwardRef<HTMLDivElement, SelectLabelProps>(
       onChange,
     });
 
-    const captionSize = size === 'md' ? 'sm' : 'xs';
+    const captionSize = size === "md" ? "sm" : "xs";
 
     return (
       <StyledSelectItem
@@ -33,7 +33,7 @@ export const SelectLabel = forwardRef<HTMLDivElement, SelectLabelProps>(
         $selected={isItemSelected}
         onClick={handleClick}
         onKeyDown={handleKeyDown}
-        role='option'
+        role="option"
         aria-selected={isItemSelected}
         aria-disabled={isDisabled}
         tabIndex={isDisabled ? -1 : 0}
@@ -42,25 +42,25 @@ export const SelectLabel = forwardRef<HTMLDivElement, SelectLabelProps>(
         <StyledSelectItemContent>
           <StyledSelectItemTextRow>
             <StyledSelectItemText
-              as='span'
+              as="span"
               size={size}
-              weight='normal'
+              weight="normal"
               $isDisabled={isDisabled}
               $selected={isItemSelected}
             >
               {children}
             </StyledSelectItemText>
             {badge && (
-              <StyledSelectItemBadge hierarchy='tertiary' size='xs' badgeStyle='outlined'>
+              <StyledSelectItemBadge hierarchy="tertiary" size="xs" badgeStyle="outlined">
                 {badge}
               </StyledSelectItemBadge>
             )}
           </StyledSelectItemTextRow>
           {caption && (
             <StyledSelectItemCaption
-              as='span'
+              as="span"
               size={captionSize}
-              weight='subtle'
+              weight="subtle"
               $isDisabled={isDisabled}
             >
               {caption}
@@ -72,4 +72,4 @@ export const SelectLabel = forwardRef<HTMLDivElement, SelectLabelProps>(
   },
 );
 
-SelectLabel.displayName = 'Select.Label';
+SelectLabel.displayName = "Select.Label";

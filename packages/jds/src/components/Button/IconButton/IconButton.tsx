@@ -1,11 +1,11 @@
-import type { IconButtonBasicProps, IconButtonFeedbackProps } from 'components';
-import { forwardRef } from 'react';
+import type { IconButtonBasicProps, IconButtonFeedbackProps } from "components";
+import { forwardRef } from "react";
 
-import { StyledIconButton, getIconSizeForButton } from './iconButton.styles';
-import { Icon } from '../../Icon';
+import { StyledIconButton, getIconSizeForButton } from "./iconButton.styles";
+import { Icon } from "../../Icon";
 
 const IconButtonBasic = forwardRef<HTMLButtonElement, IconButtonBasicProps>(
-  ({ icon, size = 'md', hierarchy = 'primary', disabled = false, ...restProps }, ref) => {
+  ({ icon, size = "md", hierarchy = "primary", disabled = false, ...restProps }, ref) => {
     const iconSize = getIconSizeForButton(size);
 
     return (
@@ -23,10 +23,10 @@ const IconButtonBasic = forwardRef<HTMLButtonElement, IconButtonBasicProps>(
   },
 );
 
-IconButtonBasic.displayName = 'IconButton.Basic';
+IconButtonBasic.displayName = "IconButton.Basic";
 
 const IconButtonFeedback = forwardRef<HTMLButtonElement, IconButtonFeedbackProps>(
-  ({ icon, size = 'md', intent = 'destructive', disabled = false, ...restProps }, ref) => {
+  ({ icon, size = "md", intent = "destructive", disabled = false, ...restProps }, ref) => {
     const iconSize = getIconSizeForButton(size);
 
     return (
@@ -44,7 +44,7 @@ const IconButtonFeedback = forwardRef<HTMLButtonElement, IconButtonFeedbackProps
   },
 );
 
-IconButtonFeedback.displayName = 'IconButton.Feedback';
+IconButtonFeedback.displayName = "IconButton.Feedback";
 
 export const IconButton = {
   Basic: IconButtonBasic,

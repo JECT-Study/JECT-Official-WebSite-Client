@@ -1,10 +1,10 @@
 // 자동 생성된 디자인 토큰 - 수정 금지
-// 생성 시간: 11/14/2025, 5:10:13 PM
+// 생성 시간: 11/21/2025, 5:05:04 PM
 
 export const designTokens = {
-  "colorPrimitive": {
-    "primitive": {
-      "flow": {
+  colorPrimitive: {
+    primitive: {
+      flow: {
         "20": "var(--primitive-flow-20)",
         "40": "var(--primitive-flow-40)",
         "60": "var(--primitive-flow-60)",
@@ -29,8 +29,8 @@ export const designTokens = {
         "860": "var(--primitive-flow-860)",
         "880": "var(--primitive-flow-880)",
         "900": "var(--primitive-flow-900)",
-        "dark": {
-          "alpha": {
+        dark: {
+          alpha: {
             "20": "var(--primitive-flow-dark-alpha-20)",
             "40": "var(--primitive-flow-dark-alpha-40)",
             "60": "var(--primitive-flow-dark-alpha-60)",
@@ -54,11 +54,11 @@ export const designTokens = {
             "840": "var(--primitive-flow-dark-alpha-840)",
             "860": "var(--primitive-flow-dark-alpha-860)",
             "880": "var(--primitive-flow-dark-alpha-880)",
-            "900": "var(--primitive-flow-dark-alpha-900)"
-          }
+            "900": "var(--primitive-flow-dark-alpha-900)",
+          },
         },
-        "light": {
-          "alpha": {
+        light: {
+          alpha: {
             "20": "var(--primitive-flow-light-alpha-20)",
             "40": "var(--primitive-flow-light-alpha-40)",
             "60": "var(--primitive-flow-light-alpha-60)",
@@ -82,11 +82,11 @@ export const designTokens = {
             "840": "var(--primitive-flow-light-alpha-840)",
             "860": "var(--primitive-flow-light-alpha-860)",
             "880": "var(--primitive-flow-light-alpha-880)",
-            "900": "var(--primitive-flow-light-alpha-900)"
-          }
-        }
+            "900": "var(--primitive-flow-light-alpha-900)",
+          },
+        },
       },
-      "red": {
+      red: {
         "20": "var(--primitive-red-20)",
         "40": "var(--primitive-red-40)",
         "60": "var(--primitive-red-60)",
@@ -110,21 +110,21 @@ export const designTokens = {
         "840": "var(--primitive-red-840)",
         "860": "var(--primitive-red-860)",
         "880": "var(--primitive-red-880)",
-        "900": "var(--primitive-red-900)"
+        "900": "var(--primitive-red-900)",
       },
-      "shade": {
+      shade: {
         "2": "var(--primitive-shade-2)",
         "4": "var(--primitive-shade-4)",
         "6": "var(--primitive-shade-6)",
         "8": "var(--primitive-shade-8)",
         "12": "var(--primitive-shade-12)",
-        "16": "var(--primitive-shade-16)"
+        "16": "var(--primitive-shade-16)",
       },
-      "base": {
+      base: {
         "0": "var(--primitive-base-0)",
-        "1000": "var(--primitive-base-1000)"
+        "1000": "var(--primitive-base-1000)",
       },
-      "orange": {
+      orange: {
         "20": "var(--primitive-orange-20)",
         "40": "var(--primitive-orange-40)",
         "60": "var(--primitive-orange-60)",
@@ -148,9 +148,9 @@ export const designTokens = {
         "840": "var(--primitive-orange-840)",
         "860": "var(--primitive-orange-860)",
         "880": "var(--primitive-orange-880)",
-        "900": "var(--primitive-orange-900)"
+        "900": "var(--primitive-orange-900)",
       },
-      "yellow": {
+      yellow: {
         "20": "var(--primitive-yellow-20)",
         "40": "var(--primitive-yellow-40)",
         "60": "var(--primitive-yellow-60)",
@@ -174,9 +174,9 @@ export const designTokens = {
         "840": "var(--primitive-yellow-840)",
         "860": "var(--primitive-yellow-860)",
         "880": "var(--primitive-yellow-880)",
-        "900": "var(--primitive-yellow-900)"
+        "900": "var(--primitive-yellow-900)",
       },
-      "lime": {
+      lime: {
         "20": "var(--primitive-lime-20)",
         "40": "var(--primitive-lime-40)",
         "60": "var(--primitive-lime-60)",
@@ -200,9 +200,9 @@ export const designTokens = {
         "840": "var(--primitive-lime-840)",
         "860": "var(--primitive-lime-860)",
         "880": "var(--primitive-lime-880)",
-        "900": "var(--primitive-lime-900)"
+        "900": "var(--primitive-lime-900)",
       },
-      "green": {
+      green: {
         "20": "var(--primitive-green-20)",
         "40": "var(--primitive-green-40)",
         "60": "var(--primitive-green-60)",
@@ -226,9 +226,9 @@ export const designTokens = {
         "840": "var(--primitive-green-840)",
         "860": "var(--primitive-green-860)",
         "880": "var(--primitive-green-880)",
-        "900": "var(--primitive-green-900)"
+        "900": "var(--primitive-green-900)",
       },
-      "cyan": {
+      cyan: {
         "20": "var(--primitive-cyan-20)",
         "40": "var(--primitive-cyan-40)",
         "60": "var(--primitive-cyan-60)",
@@ -252,9 +252,9 @@ export const designTokens = {
         "840": "var(--primitive-cyan-840)",
         "860": "var(--primitive-cyan-860)",
         "880": "var(--primitive-cyan-880)",
-        "900": "var(--primitive-cyan-900)"
+        "900": "var(--primitive-cyan-900)",
       },
-      "sky": {
+      sky: {
         "20": "var(--primitive-sky-20)",
         "40": "var(--primitive-sky-40)",
         "60": "var(--primitive-sky-60)",
@@ -278,9 +278,9 @@ export const designTokens = {
         "840": "var(--primitive-sky-840)",
         "860": "var(--primitive-sky-860)",
         "880": "var(--primitive-sky-880)",
-        "900": "var(--primitive-sky-900)"
+        "900": "var(--primitive-sky-900)",
       },
-      "blue": {
+      blue: {
         "20": "var(--primitive-blue-20)",
         "40": "var(--primitive-blue-40)",
         "60": "var(--primitive-blue-60)",
@@ -304,10 +304,10 @@ export const designTokens = {
         "840": "var(--primitive-blue-840)",
         "860": "var(--primitive-blue-860)",
         "880": "var(--primitive-blue-880)",
-        "900": "var(--primitive-blue-900)"
+        "900": "var(--primitive-blue-900)",
       },
-      "cerulean": {
-        "blue": {
+      cerulean: {
+        blue: {
           "20": "var(--primitive-cerulean-blue-20)",
           "40": "var(--primitive-cerulean-blue-40)",
           "60": "var(--primitive-cerulean-blue-60)",
@@ -331,10 +331,10 @@ export const designTokens = {
           "840": "var(--primitive-cerulean-blue-840)",
           "860": "var(--primitive-cerulean-blue-860)",
           "880": "var(--primitive-cerulean-blue-880)",
-          "900": "var(--primitive-cerulean-blue-900)"
-        }
+          "900": "var(--primitive-cerulean-blue-900)",
+        },
       },
-      "violet": {
+      violet: {
         "20": "var(--primitive-violet-20)",
         "40": "var(--primitive-violet-40)",
         "60": "var(--primitive-violet-60)",
@@ -358,9 +358,9 @@ export const designTokens = {
         "840": "var(--primitive-violet-840)",
         "860": "var(--primitive-violet-860)",
         "880": "var(--primitive-violet-880)",
-        "900": "var(--primitive-violet-900)"
+        "900": "var(--primitive-violet-900)",
       },
-      "purple": {
+      purple: {
         "20": "var(--primitive-purple-20)",
         "40": "var(--primitive-purple-40)",
         "60": "var(--primitive-purple-60)",
@@ -384,9 +384,9 @@ export const designTokens = {
         "840": "var(--primitive-purple-840)",
         "860": "var(--primitive-purple-860)",
         "880": "var(--primitive-purple-880)",
-        "900": "var(--primitive-purple-900)"
+        "900": "var(--primitive-purple-900)",
       },
-      "fuchsia": {
+      fuchsia: {
         "20": "var(--primitive-fuchsia-20)",
         "40": "var(--primitive-fuchsia-40)",
         "60": "var(--primitive-fuchsia-60)",
@@ -410,9 +410,9 @@ export const designTokens = {
         "840": "var(--primitive-fuchsia-840)",
         "860": "var(--primitive-fuchsia-860)",
         "880": "var(--primitive-fuchsia-880)",
-        "900": "var(--primitive-fuchsia-900)"
+        "900": "var(--primitive-fuchsia-900)",
       },
-      "pink": {
+      pink: {
         "20": "var(--primitive-pink-20)",
         "40": "var(--primitive-pink-40)",
         "60": "var(--primitive-pink-60)",
@@ -436,9 +436,9 @@ export const designTokens = {
         "840": "var(--primitive-pink-840)",
         "860": "var(--primitive-pink-860)",
         "880": "var(--primitive-pink-880)",
-        "900": "var(--primitive-pink-900)"
+        "900": "var(--primitive-pink-900)",
       },
-      "rose": {
+      rose: {
         "20": "var(--primitive-rose-20)",
         "40": "var(--primitive-rose-40)",
         "60": "var(--primitive-rose-60)",
@@ -462,9 +462,9 @@ export const designTokens = {
         "840": "var(--primitive-rose-840)",
         "860": "var(--primitive-rose-860)",
         "880": "var(--primitive-rose-880)",
-        "900": "var(--primitive-rose-900)"
+        "900": "var(--primitive-rose-900)",
       },
-      "engross": {
+      engross: {
         "20": "var(--primitive-engross-20)",
         "40": "var(--primitive-engross-40)",
         "60": "var(--primitive-engross-60)",
@@ -488,9 +488,9 @@ export const designTokens = {
         "840": "var(--primitive-engross-840)",
         "860": "var(--primitive-engross-860)",
         "880": "var(--primitive-engross-880)",
-        "900": "var(--primitive-engross-900)"
+        "900": "var(--primitive-engross-900)",
       },
-      "emerald": {
+      emerald: {
         "20": "var(--primitive-emerald-20)",
         "40": "var(--primitive-emerald-40)",
         "60": "var(--primitive-emerald-60)",
@@ -514,9 +514,9 @@ export const designTokens = {
         "840": "var(--primitive-emerald-840)",
         "860": "var(--primitive-emerald-860)",
         "880": "var(--primitive-emerald-880)",
-        "900": "var(--primitive-emerald-900)"
+        "900": "var(--primitive-emerald-900)",
       },
-      "teal": {
+      teal: {
         "20": "var(--primitive-teal-20)",
         "40": "var(--primitive-teal-40)",
         "60": "var(--primitive-teal-60)",
@@ -540,9 +540,9 @@ export const designTokens = {
         "840": "var(--primitive-teal-840)",
         "860": "var(--primitive-teal-860)",
         "880": "var(--primitive-teal-880)",
-        "900": "var(--primitive-teal-900)"
+        "900": "var(--primitive-teal-900)",
       },
-      "amber": {
+      amber: {
         "20": "var(--primitive-amber-20)",
         "40": "var(--primitive-amber-40)",
         "60": "var(--primitive-amber-60)",
@@ -566,9 +566,9 @@ export const designTokens = {
         "840": "var(--primitive-amber-840)",
         "860": "var(--primitive-amber-860)",
         "880": "var(--primitive-amber-880)",
-        "900": "var(--primitive-amber-900)"
+        "900": "var(--primitive-amber-900)",
       },
-      "immerse": {
+      immerse: {
         "20": "var(--primitive-immerse-20)",
         "40": "var(--primitive-immerse-40)",
         "60": "var(--primitive-immerse-60)",
@@ -592,1138 +592,1138 @@ export const designTokens = {
         "840": "var(--primitive-immerse-840)",
         "860": "var(--primitive-immerse-860)",
         "880": "var(--primitive-immerse-880)",
-        "900": "var(--primitive-immerse-900)"
-      }
-    }
-  },
-  "colorSemantic": {
-    "light": {
-      "semantic": {
-        "accent": {
-          "alpha": {
-            "assistive": "var(--semantic-accent-alpha-assistive)",
-            "subtle": "var(--semantic-accent-alpha-subtle)",
-            "subtler": "var(--semantic-accent-alpha-subtler)",
-            "inverse": {
-              "subtle": "var(--semantic-accent-alpha-inverse-subtle)",
-              "subtler": "var(--semantic-accent-alpha-inverse-subtler)",
-              "subtlest": "var(--semantic-accent-alpha-inverse-subtlest)",
-              "assistive": "var(--semantic-accent-alpha-inverse-assistive)"
-            },
-            "subtlest": "var(--semantic-accent-alpha-subtlest)"
-          },
-          "bold": "var(--semantic-accent-bold)",
-          "normal": "var(--semantic-accent-normal)",
-          "neutral": "var(--semantic-accent-neutral)",
-          "inverse": {
-            "bold": "var(--semantic-accent-inverse-bold)",
-            "normal": "var(--semantic-accent-inverse-normal)",
-            "neutral": "var(--semantic-accent-inverse-neutral)",
-            "alternative": "var(--semantic-accent-inverse-alternative)",
-            "assistive": "var(--semantic-accent-inverse-assistive)",
-            "subtle": "var(--semantic-accent-inverse-subtle)",
-            "bolder": "var(--semantic-accent-inverse-bolder)",
-            "subtler": "var(--semantic-accent-inverse-subtler)",
-            "subtlest": "var(--semantic-accent-inverse-subtlest)"
-          },
-          "alternative": "var(--semantic-accent-alternative)",
-          "assistive": "var(--semantic-accent-assistive)",
-          "subtle": "var(--semantic-accent-subtle)",
-          "subtler": "var(--semantic-accent-subtler)",
-          "bolder": "var(--semantic-accent-bolder)",
-          "subtlest": "var(--semantic-accent-subtlest)"
-        },
-        "object": {
-          "neutral": "var(--semantic-object-neutral)",
-          "alternative": "var(--semantic-object-alternative)",
-          "assistive": "var(--semantic-object-assistive)",
-          "subtle": "var(--semantic-object-subtle)",
-          "inverse": {
-            "neutral": "var(--semantic-object-inverse-neutral)",
-            "alternative": "var(--semantic-object-inverse-alternative)",
-            "assistive": "var(--semantic-object-inverse-assistive)",
-            "subtle": "var(--semantic-object-inverse-subtle)",
-            "boldest": "var(--semantic-object-inverse-boldest)",
-            "bold": "var(--semantic-object-inverse-bold)",
-            "bolder": "var(--semantic-object-inverse-bolder)",
-            "normal": "var(--semantic-object-inverse-normal)",
-            "subtler": "var(--semantic-object-inverse-subtler)",
-            "subtlest": "var(--semantic-object-inverse-subtlest)"
-          },
-          "boldest": "var(--semantic-object-boldest)",
-          "bold": "var(--semantic-object-bold)",
-          "static": {
-            "boldest": "var(--semantic-object-static-boldest)",
-            "bold": "var(--semantic-object-static-bold)",
-            "neutral": "var(--semantic-object-static-neutral)",
-            "alternative": "var(--semantic-object-static-alternative)",
-            "assistive": "var(--semantic-object-static-assistive)",
-            "subtle": "var(--semantic-object-static-subtle)",
-            "inverse": {
-              "boldest": "var(--semantic-object-static-inverse-boldest)",
-              "bold": "var(--semantic-object-static-inverse-bold)",
-              "neutral": "var(--semantic-object-static-inverse-neutral)",
-              "alternative": "var(--semantic-object-static-inverse-alternative)",
-              "assistive": "var(--semantic-object-static-inverse-assistive)",
-              "subtle": "var(--semantic-object-static-inverse-subtle)",
-              "bolder": "var(--semantic-object-static-inverse-bolder)",
-              "normal": "var(--semantic-object-static-inverse-normal)",
-              "subtler": "var(--semantic-object-static-inverse-subtler)",
-              "subtlest": "var(--semantic-object-static-inverse-subtlest)"
-            },
-            "bolder": "var(--semantic-object-static-bolder)",
-            "normal": "var(--semantic-object-static-normal)",
-            "subtler": "var(--semantic-object-static-subtler)",
-            "subtlest": "var(--semantic-object-static-subtlest)"
-          },
-          "bolder": "var(--semantic-object-bolder)",
-          "normal": "var(--semantic-object-normal)",
-          "subtler": "var(--semantic-object-subtler)",
-          "subtlest": "var(--semantic-object-subtlest)"
-        },
-        "surface": {
-          "standard": "var(--semantic-surface-standard)",
-          "deep": "var(--semantic-surface-deep)",
-          "deeper": "var(--semantic-surface-deeper)",
-          "deepest": "var(--semantic-surface-deepest)",
-          "inverse": {
-            "standard": "var(--semantic-surface-inverse-standard)",
-            "deep": "var(--semantic-surface-inverse-deep)",
-            "deeper": "var(--semantic-surface-inverse-deeper)",
-            "deepest": "var(--semantic-surface-inverse-deepest)",
-            "shallow": "var(--semantic-surface-inverse-shallow)",
-            "shallower": "var(--semantic-surface-inverse-shallower)",
-            "shallowest": "var(--semantic-surface-inverse-shallowest)"
-          },
-          "shallow": "var(--semantic-surface-shallow)",
-          "shallower": "var(--semantic-surface-shallower)",
-          "shallowest": "var(--semantic-surface-shallowest)",
-          "static": {
-            "shallowest": "var(--semantic-surface-static-shallowest)",
-            "shallower": "var(--semantic-surface-static-shallower)",
-            "shallow": "var(--semantic-surface-static-shallow)",
-            "standard": "var(--semantic-surface-static-standard)",
-            "deep": "var(--semantic-surface-static-deep)",
-            "deeper": "var(--semantic-surface-static-deeper)",
-            "deepest": "var(--semantic-surface-static-deepest)",
-            "inverse": {
-              "shallowest": "var(--semantic-surface-static-inverse-shallowest)",
-              "shallower": "var(--semantic-surface-static-inverse-shallower)",
-              "shallow": "var(--semantic-surface-static-inverse-shallow)",
-              "standard": "var(--semantic-surface-static-inverse-standard)",
-              "deep": "var(--semantic-surface-static-inverse-deep)",
-              "deeper": "var(--semantic-surface-static-inverse-deeper)",
-              "deepest": "var(--semantic-surface-static-inverse-deepest)"
-            }
-          }
-        },
-        "interaction": {
-          "bold": "var(--semantic-interaction-bold)",
-          "normal": "var(--semantic-interaction-normal)",
-          "inverse": {
-            "focus": "var(--semantic-interaction-inverse-focus)",
-            "bold": "var(--semantic-interaction-inverse-bold)",
-            "normal": "var(--semantic-interaction-inverse-normal)",
-            "assistive": "var(--semantic-interaction-inverse-assistive)",
-            "subtle": "var(--semantic-interaction-inverse-subtle)"
-          },
-          "focus": "var(--semantic-interaction-focus)",
-          "assistive": "var(--semantic-interaction-assistive)",
-          "subtle": "var(--semantic-interaction-subtle)"
-        },
-        "stroke": {
-          "neutral": "var(--semantic-stroke-neutral)",
-          "alternative": "var(--semantic-stroke-alternative)",
-          "assistive": "var(--semantic-stroke-assistive)",
-          "normal": "var(--semantic-stroke-normal)",
-          "bold": "var(--semantic-stroke-bold)",
-          "alpha": {
-            "bold": "var(--semantic-stroke-alpha-bold)",
-            "normal": "var(--semantic-stroke-alpha-normal)",
-            "neutral": "var(--semantic-stroke-alpha-neutral)",
-            "alternative": "var(--semantic-stroke-alpha-alternative)",
-            "assistive": "var(--semantic-stroke-alpha-assistive)",
-            "subtle": "var(--semantic-stroke-alpha-subtle)",
-            "inverse": {
-              "bold": "var(--semantic-stroke-alpha-inverse-bold)",
-              "normal": "var(--semantic-stroke-alpha-inverse-normal)",
-              "neutral": "var(--semantic-stroke-alpha-inverse-neutral)",
-              "alternative": "var(--semantic-stroke-alpha-inverse-alternative)",
-              "assistive": "var(--semantic-stroke-alpha-inverse-assistive)",
-              "subtle": "var(--semantic-stroke-alpha-inverse-subtle)",
-              "subtler": "var(--semantic-stroke-alpha-inverse-subtler)"
-            },
-            "subtler": "var(--semantic-stroke-alpha-subtler)"
-          },
-          "subtle": "var(--semantic-stroke-subtle)",
-          "inverse": {
-            "bold": "var(--semantic-stroke-inverse-bold)",
-            "normal": "var(--semantic-stroke-inverse-normal)",
-            "neutral": "var(--semantic-stroke-inverse-neutral)",
-            "alternative": "var(--semantic-stroke-inverse-alternative)",
-            "assistive": "var(--semantic-stroke-inverse-assistive)",
-            "subtle": "var(--semantic-stroke-inverse-subtle)",
-            "subtler": "var(--semantic-stroke-inverse-subtler)"
-          },
-          "subtler": "var(--semantic-stroke-subtler)"
-        },
-        "fill": {
-          "boldest": "var(--semantic-fill-boldest)",
-          "bold": "var(--semantic-fill-bold)",
-          "neutral": "var(--semantic-fill-neutral)",
-          "alternative": "var(--semantic-fill-alternative)",
-          "assistive": "var(--semantic-fill-assistive)",
-          "inverse": {
-            "boldest": "var(--semantic-fill-inverse-boldest)",
-            "bold": "var(--semantic-fill-inverse-bold)",
-            "neutral": "var(--semantic-fill-inverse-neutral)",
-            "alternative": "var(--semantic-fill-inverse-alternative)",
-            "assistive": "var(--semantic-fill-inverse-assistive)",
-            "subtle": "var(--semantic-fill-inverse-subtle)",
-            "subtler": "var(--semantic-fill-inverse-subtler)",
-            "subtlest": "var(--semantic-fill-inverse-subtlest)",
-            "bolder": "var(--semantic-fill-inverse-bolder)",
-            "normal": "var(--semantic-fill-inverse-normal)"
-          },
-          "subtle": "var(--semantic-fill-subtle)",
-          "subtler": "var(--semantic-fill-subtler)",
-          "subtlest": "var(--semantic-fill-subtlest)",
-          "bolder": "var(--semantic-fill-bolder)",
-          "normal": "var(--semantic-fill-normal)"
-        },
-        "system": {
-          "white": "var(--semantic-system-white)",
-          "black": "var(--semantic-system-black)"
-        },
-        "theme": {
-          "red": {
-            "bold": "var(--semantic-theme-red-bold)",
-            "normal": "var(--semantic-theme-red-normal)",
-            "neutral": "var(--semantic-theme-red-neutral)",
-            "alternative": "var(--semantic-theme-red-alternative)",
-            "assistive": "var(--semantic-theme-red-assistive)",
-            "subtle": "var(--semantic-theme-red-subtle)",
-            "subtler": "var(--semantic-theme-red-subtler)",
-            "alpha": {
-              "assistive": "var(--semantic-theme-red-alpha-assistive)",
-              "subtle": "var(--semantic-theme-red-alpha-subtle)",
-              "subtler": "var(--semantic-theme-red-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-red-alpha-subtlest)"
-            },
-            "bolder": "var(--semantic-theme-red-bolder)"
-          },
-          "orange": {
-            "bold": "var(--semantic-theme-orange-bold)",
-            "normal": "var(--semantic-theme-orange-normal)",
-            "neutral": "var(--semantic-theme-orange-neutral)",
-            "alternative": "var(--semantic-theme-orange-alternative)",
-            "assistive": "var(--semantic-theme-orange-assistive)",
-            "subtle": "var(--semantic-theme-orange-subtle)",
-            "subtler": "var(--semantic-theme-orange-subtler)",
-            "alpha": {
-              "assistive": "var(--semantic-theme-orange-alpha-assistive)",
-              "subtle": "var(--semantic-theme-orange-alpha-subtle)",
-              "subtler": "var(--semantic-theme-orange-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-orange-alpha-subtlest)"
-            },
-            "bolder": "var(--semantic-theme-orange-bolder)"
-          },
-          "amber": {
-            "bold": "var(--semantic-theme-amber-bold)",
-            "normal": "var(--semantic-theme-amber-normal)",
-            "neutral": "var(--semantic-theme-amber-neutral)",
-            "alternative": "var(--semantic-theme-amber-alternative)",
-            "assistive": "var(--semantic-theme-amber-assistive)",
-            "subtle": "var(--semantic-theme-amber-subtle)",
-            "subtler": "var(--semantic-theme-amber-subtler)",
-            "alpha": {
-              "assistive": "var(--semantic-theme-amber-alpha-assistive)",
-              "subtle": "var(--semantic-theme-amber-alpha-subtle)",
-              "subtler": "var(--semantic-theme-amber-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-amber-alpha-subtlest)"
-            },
-            "bolder": "var(--semantic-theme-amber-bolder)"
-          },
-          "yellow": {
-            "bold": "var(--semantic-theme-yellow-bold)",
-            "normal": "var(--semantic-theme-yellow-normal)",
-            "neutral": "var(--semantic-theme-yellow-neutral)",
-            "alternative": "var(--semantic-theme-yellow-alternative)",
-            "assistive": "var(--semantic-theme-yellow-assistive)",
-            "subtle": "var(--semantic-theme-yellow-subtle)",
-            "subtler": "var(--semantic-theme-yellow-subtler)",
-            "alpha": {
-              "assistive": "var(--semantic-theme-yellow-alpha-assistive)",
-              "subtle": "var(--semantic-theme-yellow-alpha-subtle)",
-              "subtler": "var(--semantic-theme-yellow-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-yellow-alpha-subtlest)"
-            },
-            "bolder": "var(--semantic-theme-yellow-bolder)"
-          },
-          "lime": {
-            "bold": "var(--semantic-theme-lime-bold)",
-            "normal": "var(--semantic-theme-lime-normal)",
-            "neutral": "var(--semantic-theme-lime-neutral)",
-            "alternative": "var(--semantic-theme-lime-alternative)",
-            "assistive": "var(--semantic-theme-lime-assistive)",
-            "subtle": "var(--semantic-theme-lime-subtle)",
-            "subtler": "var(--semantic-theme-lime-subtler)",
-            "alpha": {
-              "assistive": "var(--semantic-theme-lime-alpha-assistive)",
-              "subtle": "var(--semantic-theme-lime-alpha-subtle)",
-              "subtler": "var(--semantic-theme-lime-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-lime-alpha-subtlest)"
-            },
-            "bolder": "var(--semantic-theme-lime-bolder)"
-          },
-          "green": {
-            "bold": "var(--semantic-theme-green-bold)",
-            "normal": "var(--semantic-theme-green-normal)",
-            "neutral": "var(--semantic-theme-green-neutral)",
-            "alternative": "var(--semantic-theme-green-alternative)",
-            "assistive": "var(--semantic-theme-green-assistive)",
-            "subtle": "var(--semantic-theme-green-subtle)",
-            "subtler": "var(--semantic-theme-green-subtler)",
-            "alpha": {
-              "assistive": "var(--semantic-theme-green-alpha-assistive)",
-              "subtle": "var(--semantic-theme-green-alpha-subtle)",
-              "subtler": "var(--semantic-theme-green-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-green-alpha-subtlest)"
-            },
-            "bolder": "var(--semantic-theme-green-bolder)"
-          },
-          "emerald": {
-            "bold": "var(--semantic-theme-emerald-bold)",
-            "normal": "var(--semantic-theme-emerald-normal)",
-            "neutral": "var(--semantic-theme-emerald-neutral)",
-            "alternative": "var(--semantic-theme-emerald-alternative)",
-            "assistive": "var(--semantic-theme-emerald-assistive)",
-            "subtle": "var(--semantic-theme-emerald-subtle)",
-            "subtler": "var(--semantic-theme-emerald-subtler)",
-            "alpha": {
-              "assistive": "var(--semantic-theme-emerald-alpha-assistive)",
-              "subtle": "var(--semantic-theme-emerald-alpha-subtle)",
-              "subtler": "var(--semantic-theme-emerald-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-emerald-alpha-subtlest)"
-            },
-            "bolder": "var(--semantic-theme-emerald-bolder)"
-          },
-          "teal": {
-            "bold": "var(--semantic-theme-teal-bold)",
-            "normal": "var(--semantic-theme-teal-normal)",
-            "neutral": "var(--semantic-theme-teal-neutral)",
-            "alternative": "var(--semantic-theme-teal-alternative)",
-            "assistive": "var(--semantic-theme-teal-assistive)",
-            "subtle": "var(--semantic-theme-teal-subtle)",
-            "subtler": "var(--semantic-theme-teal-subtler)",
-            "alpha": {
-              "assistive": "var(--semantic-theme-teal-alpha-assistive)",
-              "subtle": "var(--semantic-theme-teal-alpha-subtle)",
-              "subtler": "var(--semantic-theme-teal-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-teal-alpha-subtlest)"
-            },
-            "bolder": "var(--semantic-theme-teal-bolder)"
-          },
-          "cyan": {
-            "bold": "var(--semantic-theme-cyan-bold)",
-            "normal": "var(--semantic-theme-cyan-normal)",
-            "neutral": "var(--semantic-theme-cyan-neutral)",
-            "alternative": "var(--semantic-theme-cyan-alternative)",
-            "assistive": "var(--semantic-theme-cyan-assistive)",
-            "subtle": "var(--semantic-theme-cyan-subtle)",
-            "subtler": "var(--semantic-theme-cyan-subtler)",
-            "alpha": {
-              "assistive": "var(--semantic-theme-cyan-alpha-assistive)",
-              "subtle": "var(--semantic-theme-cyan-alpha-subtle)",
-              "subtler": "var(--semantic-theme-cyan-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-cyan-alpha-subtlest)"
-            },
-            "bolder": "var(--semantic-theme-cyan-bolder)"
-          },
-          "sky": {
-            "bold": "var(--semantic-theme-sky-bold)",
-            "normal": "var(--semantic-theme-sky-normal)",
-            "neutral": "var(--semantic-theme-sky-neutral)",
-            "alternative": "var(--semantic-theme-sky-alternative)",
-            "assistive": "var(--semantic-theme-sky-assistive)",
-            "subtle": "var(--semantic-theme-sky-subtle)",
-            "subtler": "var(--semantic-theme-sky-subtler)",
-            "alpha": {
-              "assistive": "var(--semantic-theme-sky-alpha-assistive)",
-              "subtle": "var(--semantic-theme-sky-alpha-subtle)",
-              "subtler": "var(--semantic-theme-sky-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-sky-alpha-subtlest)"
-            },
-            "bolder": "var(--semantic-theme-sky-bolder)"
-          },
-          "blue": {
-            "bold": "var(--semantic-theme-blue-bold)",
-            "normal": "var(--semantic-theme-blue-normal)",
-            "neutral": "var(--semantic-theme-blue-neutral)",
-            "alternative": "var(--semantic-theme-blue-alternative)",
-            "assistive": "var(--semantic-theme-blue-assistive)",
-            "subtle": "var(--semantic-theme-blue-subtle)",
-            "subtler": "var(--semantic-theme-blue-subtler)",
-            "alpha": {
-              "assistive": "var(--semantic-theme-blue-alpha-assistive)",
-              "subtle": "var(--semantic-theme-blue-alpha-subtle)",
-              "subtler": "var(--semantic-theme-blue-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-blue-alpha-subtlest)"
-            },
-            "bolder": "var(--semantic-theme-blue-bolder)"
-          },
-          "violet": {
-            "bold": "var(--semantic-theme-violet-bold)",
-            "normal": "var(--semantic-theme-violet-normal)",
-            "neutral": "var(--semantic-theme-violet-neutral)",
-            "alternative": "var(--semantic-theme-violet-alternative)",
-            "assistive": "var(--semantic-theme-violet-assistive)",
-            "subtle": "var(--semantic-theme-violet-subtle)",
-            "subtler": "var(--semantic-theme-violet-subtler)",
-            "alpha": {
-              "assistive": "var(--semantic-theme-violet-alpha-assistive)",
-              "subtle": "var(--semantic-theme-violet-alpha-subtle)",
-              "subtler": "var(--semantic-theme-violet-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-violet-alpha-subtlest)"
-            },
-            "bolder": "var(--semantic-theme-violet-bolder)"
-          },
-          "purple": {
-            "bold": "var(--semantic-theme-purple-bold)",
-            "normal": "var(--semantic-theme-purple-normal)",
-            "neutral": "var(--semantic-theme-purple-neutral)",
-            "alternative": "var(--semantic-theme-purple-alternative)",
-            "assistive": "var(--semantic-theme-purple-assistive)",
-            "subtle": "var(--semantic-theme-purple-subtle)",
-            "subtler": "var(--semantic-theme-purple-subtler)",
-            "alpha": {
-              "assistive": "var(--semantic-theme-purple-alpha-assistive)",
-              "subtle": "var(--semantic-theme-purple-alpha-subtle)",
-              "subtler": "var(--semantic-theme-purple-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-purple-alpha-subtlest)"
-            },
-            "bolder": "var(--semantic-theme-purple-bolder)"
-          },
-          "fuchsia": {
-            "bold": "var(--semantic-theme-fuchsia-bold)",
-            "normal": "var(--semantic-theme-fuchsia-normal)",
-            "neutral": "var(--semantic-theme-fuchsia-neutral)",
-            "alternative": "var(--semantic-theme-fuchsia-alternative)",
-            "assistive": "var(--semantic-theme-fuchsia-assistive)",
-            "subtle": "var(--semantic-theme-fuchsia-subtle)",
-            "subtler": "var(--semantic-theme-fuchsia-subtler)",
-            "alpha": {
-              "assistive": "var(--semantic-theme-fuchsia-alpha-assistive)",
-              "subtle": "var(--semantic-theme-fuchsia-alpha-subtle)",
-              "subtler": "var(--semantic-theme-fuchsia-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-fuchsia-alpha-subtlest)"
-            },
-            "bolder": "var(--semantic-theme-fuchsia-bolder)"
-          },
-          "pink": {
-            "bold": "var(--semantic-theme-pink-bold)",
-            "normal": "var(--semantic-theme-pink-normal)",
-            "neutral": "var(--semantic-theme-pink-neutral)",
-            "alternative": "var(--semantic-theme-pink-alternative)",
-            "assistive": "var(--semantic-theme-pink-assistive)",
-            "subtle": "var(--semantic-theme-pink-subtle)",
-            "subtler": "var(--semantic-theme-pink-subtler)",
-            "alpha": {
-              "assistive": "var(--semantic-theme-pink-alpha-assistive)",
-              "subtle": "var(--semantic-theme-pink-alpha-subtle)",
-              "subtler": "var(--semantic-theme-pink-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-pink-alpha-subtlest)"
-            },
-            "bolder": "var(--semantic-theme-pink-bolder)"
-          },
-          "rose": {
-            "bold": "var(--semantic-theme-rose-bold)",
-            "normal": "var(--semantic-theme-rose-normal)",
-            "neutral": "var(--semantic-theme-rose-neutral)",
-            "alternative": "var(--semantic-theme-rose-alternative)",
-            "assistive": "var(--semantic-theme-rose-assistive)",
-            "subtle": "var(--semantic-theme-rose-subtle)",
-            "subtler": "var(--semantic-theme-rose-subtler)",
-            "alpha": {
-              "assistive": "var(--semantic-theme-rose-alpha-assistive)",
-              "subtle": "var(--semantic-theme-rose-alpha-subtle)",
-              "subtler": "var(--semantic-theme-rose-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-rose-alpha-subtlest)"
-            },
-            "bolder": "var(--semantic-theme-rose-bolder)"
-          }
-        },
-        "curtain": {
-          "bright": "var(--semantic-curtain-bright)",
-          "dim": "var(--semantic-curtain-dim)",
-          "dimmer": "var(--semantic-curtain-dimmer)"
-        },
-        "feedback": {
-          "positive": {
-            "alpha": {
-              "subtle": "var(--semantic-feedback-positive-alpha-subtle)",
-              "assistive": "var(--semantic-feedback-positive-alpha-assistive)",
-              "subtler": "var(--semantic-feedback-positive-alpha-subtler)",
-              "inverse": {
-                "assistive": "var(--semantic-feedback-positive-alpha-inverse-assistive)",
-                "subtle": "var(--semantic-feedback-positive-alpha-inverse-subtle)",
-                "subtler": "var(--semantic-feedback-positive-alpha-inverse-subtler)",
-                "subtlest": "var(--semantic-feedback-positive-alpha-inverse-subtlest)"
-              },
-              "subtlest": "var(--semantic-feedback-positive-alpha-subtlest)"
-            },
-            "normal": "var(--semantic-feedback-positive-normal)",
-            "bold": "var(--semantic-feedback-positive-bold)",
-            "inverse": {
-              "bold": "var(--semantic-feedback-positive-inverse-bold)",
-              "normal": "var(--semantic-feedback-positive-inverse-normal)",
-              "neutral": "var(--semantic-feedback-positive-inverse-neutral)",
-              "alternative": "var(--semantic-feedback-positive-inverse-alternative)",
-              "assistive": "var(--semantic-feedback-positive-inverse-assistive)",
-              "subtle": "var(--semantic-feedback-positive-inverse-subtle)",
-              "subtler": "var(--semantic-feedback-positive-inverse-subtler)",
-              "bolder": "var(--semantic-feedback-positive-inverse-bolder)"
-            },
-            "assistive": "var(--semantic-feedback-positive-assistive)",
-            "subtler": "var(--semantic-feedback-positive-subtler)",
-            "neutral": "var(--semantic-feedback-positive-neutral)",
-            "alternative": "var(--semantic-feedback-positive-alternative)",
-            "subtle": "var(--semantic-feedback-positive-subtle)",
-            "bolder": "var(--semantic-feedback-positive-bolder)"
-          },
-          "destructive": {
-            "bold": "var(--semantic-feedback-destructive-bold)",
-            "inverse": {
-              "bold": "var(--semantic-feedback-destructive-inverse-bold)",
-              "normal": "var(--semantic-feedback-destructive-inverse-normal)",
-              "neutral": "var(--semantic-feedback-destructive-inverse-neutral)",
-              "alternative": "var(--semantic-feedback-destructive-inverse-alternative)",
-              "assistive": "var(--semantic-feedback-destructive-inverse-assistive)",
-              "subtle": "var(--semantic-feedback-destructive-inverse-subtle)",
-              "subtler": "var(--semantic-feedback-destructive-inverse-subtler)",
-              "bolder": "var(--semantic-feedback-destructive-inverse-bolder)"
-            },
-            "normal": "var(--semantic-feedback-destructive-normal)",
-            "alpha": {
-              "assistive": "var(--semantic-feedback-destructive-alpha-assistive)",
-              "subtle": "var(--semantic-feedback-destructive-alpha-subtle)",
-              "subtler": "var(--semantic-feedback-destructive-alpha-subtler)",
-              "inverse": {
-                "assistive": "var(--semantic-feedback-destructive-alpha-inverse-assistive)",
-                "subtle": "var(--semantic-feedback-destructive-alpha-inverse-subtle)",
-                "subtler": "var(--semantic-feedback-destructive-alpha-inverse-subtler)",
-                "subtlest": "var(--semantic-feedback-destructive-alpha-inverse-subtlest)"
-              },
-              "subtlest": "var(--semantic-feedback-destructive-alpha-subtlest)"
-            },
-            "neutral": "var(--semantic-feedback-destructive-neutral)",
-            "alternative": "var(--semantic-feedback-destructive-alternative)",
-            "assistive": "var(--semantic-feedback-destructive-assistive)",
-            "subtle": "var(--semantic-feedback-destructive-subtle)",
-            "subtler": "var(--semantic-feedback-destructive-subtler)",
-            "bolder": "var(--semantic-feedback-destructive-bolder)"
-          },
-          "notifying": {
-            "bold": "var(--semantic-feedback-notifying-bold)",
-            "normal": "var(--semantic-feedback-notifying-normal)",
-            "neutral": "var(--semantic-feedback-notifying-neutral)",
-            "alternative": "var(--semantic-feedback-notifying-alternative)",
-            "assistive": "var(--semantic-feedback-notifying-assistive)",
-            "subtle": "var(--semantic-feedback-notifying-subtle)",
-            "subtler": "var(--semantic-feedback-notifying-subtler)",
-            "inverse": {
-              "bold": "var(--semantic-feedback-notifying-inverse-bold)",
-              "normal": "var(--semantic-feedback-notifying-inverse-normal)",
-              "neutral": "var(--semantic-feedback-notifying-inverse-neutral)",
-              "alternative": "var(--semantic-feedback-notifying-inverse-alternative)",
-              "assistive": "var(--semantic-feedback-notifying-inverse-assistive)",
-              "subtle": "var(--semantic-feedback-notifying-inverse-subtle)",
-              "subtler": "var(--semantic-feedback-notifying-inverse-subtler)",
-              "bolder": "var(--semantic-feedback-notifying-inverse-bolder)"
-            },
-            "alpha": {
-              "assistive": "var(--semantic-feedback-notifying-alpha-assistive)",
-              "subtle": "var(--semantic-feedback-notifying-alpha-subtle)",
-              "subtler": "var(--semantic-feedback-notifying-alpha-subtler)",
-              "inverse": {
-                "assistive": "var(--semantic-feedback-notifying-alpha-inverse-assistive)",
-                "subtle": "var(--semantic-feedback-notifying-alpha-inverse-subtle)",
-                "subtler": "var(--semantic-feedback-notifying-alpha-inverse-subtler)",
-                "subtlest": "var(--semantic-feedback-notifying-alpha-inverse-subtlest)"
-              },
-              "subtlest": "var(--semantic-feedback-notifying-alpha-subtlest)"
-            },
-            "bolder": "var(--semantic-feedback-notifying-bolder)"
-          }
-        }
-      }
+        "900": "var(--primitive-immerse-900)",
+      },
     },
-    "dark": {
-      "semantic": {
-        "accent": {
-          "alpha": {
-            "assistive": "var(--semantic-accent-alpha-assistive)",
-            "subtle": "var(--semantic-accent-alpha-subtle)",
-            "subtler": "var(--semantic-accent-alpha-subtler)",
-            "inverse": {
-              "subtle": "var(--semantic-accent-alpha-inverse-subtle)",
-              "subtler": "var(--semantic-accent-alpha-inverse-subtler)",
-              "subtlest": "var(--semantic-accent-alpha-inverse-subtlest)",
-              "assistive": "var(--semantic-accent-alpha-inverse-assistive)"
-            },
-            "subtlest": "var(--semantic-accent-alpha-subtlest)"
-          },
-          "bold": "var(--semantic-accent-bold)",
-          "normal": "var(--semantic-accent-normal)",
-          "neutral": "var(--semantic-accent-neutral)",
-          "inverse": {
-            "bold": "var(--semantic-accent-inverse-bold)",
-            "normal": "var(--semantic-accent-inverse-normal)",
-            "neutral": "var(--semantic-accent-inverse-neutral)",
-            "alternative": "var(--semantic-accent-inverse-alternative)",
-            "assistive": "var(--semantic-accent-inverse-assistive)",
-            "subtle": "var(--semantic-accent-inverse-subtle)",
-            "bolder": "var(--semantic-accent-inverse-bolder)",
-            "subtler": "var(--semantic-accent-inverse-subtler)",
-            "subtlest": "var(--semantic-accent-inverse-subtlest)"
-          },
-          "alternative": "var(--semantic-accent-alternative)",
-          "assistive": "var(--semantic-accent-assistive)",
-          "subtle": "var(--semantic-accent-subtle)",
-          "subtler": "var(--semantic-accent-subtler)",
-          "bolder": "var(--semantic-accent-bolder)",
-          "subtlest": "var(--semantic-accent-subtlest)"
-        },
-        "object": {
-          "neutral": "var(--semantic-object-neutral)",
-          "alternative": "var(--semantic-object-alternative)",
-          "assistive": "var(--semantic-object-assistive)",
-          "subtle": "var(--semantic-object-subtle)",
-          "inverse": {
-            "neutral": "var(--semantic-object-inverse-neutral)",
-            "alternative": "var(--semantic-object-inverse-alternative)",
-            "assistive": "var(--semantic-object-inverse-assistive)",
-            "subtle": "var(--semantic-object-inverse-subtle)",
-            "boldest": "var(--semantic-object-inverse-boldest)",
-            "bold": "var(--semantic-object-inverse-bold)",
-            "bolder": "var(--semantic-object-inverse-bolder)",
-            "normal": "var(--semantic-object-inverse-normal)",
-            "subtler": "var(--semantic-object-inverse-subtler)",
-            "subtlest": "var(--semantic-object-inverse-subtlest)"
-          },
-          "boldest": "var(--semantic-object-boldest)",
-          "bold": "var(--semantic-object-bold)",
-          "static": {
-            "boldest": "var(--semantic-object-static-boldest)",
-            "bold": "var(--semantic-object-static-bold)",
-            "neutral": "var(--semantic-object-static-neutral)",
-            "alternative": "var(--semantic-object-static-alternative)",
-            "assistive": "var(--semantic-object-static-assistive)",
-            "subtle": "var(--semantic-object-static-subtle)",
-            "inverse": {
-              "boldest": "var(--semantic-object-static-inverse-boldest)",
-              "bold": "var(--semantic-object-static-inverse-bold)",
-              "neutral": "var(--semantic-object-static-inverse-neutral)",
-              "alternative": "var(--semantic-object-static-inverse-alternative)",
-              "assistive": "var(--semantic-object-static-inverse-assistive)",
-              "subtle": "var(--semantic-object-static-inverse-subtle)",
-              "bolder": "var(--semantic-object-static-inverse-bolder)",
-              "normal": "var(--semantic-object-static-inverse-normal)",
-              "subtler": "var(--semantic-object-static-inverse-subtler)",
-              "subtlest": "var(--semantic-object-static-inverse-subtlest)"
-            },
-            "bolder": "var(--semantic-object-static-bolder)",
-            "normal": "var(--semantic-object-static-normal)",
-            "subtler": "var(--semantic-object-static-subtler)",
-            "subtlest": "var(--semantic-object-static-subtlest)"
-          },
-          "bolder": "var(--semantic-object-bolder)",
-          "normal": "var(--semantic-object-normal)",
-          "subtler": "var(--semantic-object-subtler)",
-          "subtlest": "var(--semantic-object-subtlest)"
-        },
-        "surface": {
-          "standard": "var(--semantic-surface-standard)",
-          "deep": "var(--semantic-surface-deep)",
-          "deeper": "var(--semantic-surface-deeper)",
-          "deepest": "var(--semantic-surface-deepest)",
-          "inverse": {
-            "standard": "var(--semantic-surface-inverse-standard)",
-            "deep": "var(--semantic-surface-inverse-deep)",
-            "deeper": "var(--semantic-surface-inverse-deeper)",
-            "deepest": "var(--semantic-surface-inverse-deepest)",
-            "shallow": "var(--semantic-surface-inverse-shallow)",
-            "shallower": "var(--semantic-surface-inverse-shallower)",
-            "shallowest": "var(--semantic-surface-inverse-shallowest)"
-          },
-          "shallow": "var(--semantic-surface-shallow)",
-          "shallower": "var(--semantic-surface-shallower)",
-          "shallowest": "var(--semantic-surface-shallowest)",
-          "static": {
-            "shallowest": "var(--semantic-surface-static-shallowest)",
-            "shallower": "var(--semantic-surface-static-shallower)",
-            "shallow": "var(--semantic-surface-static-shallow)",
-            "standard": "var(--semantic-surface-static-standard)",
-            "deep": "var(--semantic-surface-static-deep)",
-            "deeper": "var(--semantic-surface-static-deeper)",
-            "deepest": "var(--semantic-surface-static-deepest)",
-            "inverse": {
-              "shallowest": "var(--semantic-surface-static-inverse-shallowest)",
-              "shallower": "var(--semantic-surface-static-inverse-shallower)",
-              "shallow": "var(--semantic-surface-static-inverse-shallow)",
-              "standard": "var(--semantic-surface-static-inverse-standard)",
-              "deep": "var(--semantic-surface-static-inverse-deep)",
-              "deeper": "var(--semantic-surface-static-inverse-deeper)",
-              "deepest": "var(--semantic-surface-static-inverse-deepest)"
-            }
-          }
-        },
-        "interaction": {
-          "bold": "var(--semantic-interaction-bold)",
-          "normal": "var(--semantic-interaction-normal)",
-          "inverse": {
-            "focus": "var(--semantic-interaction-inverse-focus)",
-            "bold": "var(--semantic-interaction-inverse-bold)",
-            "normal": "var(--semantic-interaction-inverse-normal)",
-            "assistive": "var(--semantic-interaction-inverse-assistive)",
-            "subtle": "var(--semantic-interaction-inverse-subtle)"
-          },
-          "focus": "var(--semantic-interaction-focus)",
-          "assistive": "var(--semantic-interaction-assistive)",
-          "subtle": "var(--semantic-interaction-subtle)"
-        },
-        "stroke": {
-          "neutral": "var(--semantic-stroke-neutral)",
-          "alternative": "var(--semantic-stroke-alternative)",
-          "assistive": "var(--semantic-stroke-assistive)",
-          "normal": "var(--semantic-stroke-normal)",
-          "bold": "var(--semantic-stroke-bold)",
-          "alpha": {
-            "bold": "var(--semantic-stroke-alpha-bold)",
-            "normal": "var(--semantic-stroke-alpha-normal)",
-            "neutral": "var(--semantic-stroke-alpha-neutral)",
-            "alternative": "var(--semantic-stroke-alpha-alternative)",
-            "assistive": "var(--semantic-stroke-alpha-assistive)",
-            "subtle": "var(--semantic-stroke-alpha-subtle)",
-            "inverse": {
-              "bold": "var(--semantic-stroke-alpha-inverse-bold)",
-              "normal": "var(--semantic-stroke-alpha-inverse-normal)",
-              "neutral": "var(--semantic-stroke-alpha-inverse-neutral)",
-              "alternative": "var(--semantic-stroke-alpha-inverse-alternative)",
-              "assistive": "var(--semantic-stroke-alpha-inverse-assistive)",
-              "subtle": "var(--semantic-stroke-alpha-inverse-subtle)",
-              "subtler": "var(--semantic-stroke-alpha-inverse-subtler)"
-            },
-            "subtler": "var(--semantic-stroke-alpha-subtler)"
-          },
-          "subtle": "var(--semantic-stroke-subtle)",
-          "inverse": {
-            "bold": "var(--semantic-stroke-inverse-bold)",
-            "normal": "var(--semantic-stroke-inverse-normal)",
-            "neutral": "var(--semantic-stroke-inverse-neutral)",
-            "alternative": "var(--semantic-stroke-inverse-alternative)",
-            "assistive": "var(--semantic-stroke-inverse-assistive)",
-            "subtle": "var(--semantic-stroke-inverse-subtle)",
-            "subtler": "var(--semantic-stroke-inverse-subtler)"
-          },
-          "subtler": "var(--semantic-stroke-subtler)"
-        },
-        "fill": {
-          "boldest": "var(--semantic-fill-boldest)",
-          "bold": "var(--semantic-fill-bold)",
-          "neutral": "var(--semantic-fill-neutral)",
-          "alternative": "var(--semantic-fill-alternative)",
-          "assistive": "var(--semantic-fill-assistive)",
-          "inverse": {
-            "boldest": "var(--semantic-fill-inverse-boldest)",
-            "bold": "var(--semantic-fill-inverse-bold)",
-            "neutral": "var(--semantic-fill-inverse-neutral)",
-            "alternative": "var(--semantic-fill-inverse-alternative)",
-            "assistive": "var(--semantic-fill-inverse-assistive)",
-            "subtle": "var(--semantic-fill-inverse-subtle)",
-            "subtler": "var(--semantic-fill-inverse-subtler)",
-            "subtlest": "var(--semantic-fill-inverse-subtlest)",
-            "bolder": "var(--semantic-fill-inverse-bolder)",
-            "normal": "var(--semantic-fill-inverse-normal)"
-          },
-          "subtle": "var(--semantic-fill-subtle)",
-          "subtler": "var(--semantic-fill-subtler)",
-          "subtlest": "var(--semantic-fill-subtlest)",
-          "bolder": "var(--semantic-fill-bolder)",
-          "normal": "var(--semantic-fill-normal)"
-        },
-        "system": {
-          "white": "var(--semantic-system-white)",
-          "black": "var(--semantic-system-black)"
-        },
-        "theme": {
-          "red": {
-            "bold": "var(--semantic-theme-red-bold)",
-            "normal": "var(--semantic-theme-red-normal)",
-            "neutral": "var(--semantic-theme-red-neutral)",
-            "alternative": "var(--semantic-theme-red-alternative)",
-            "assistive": "var(--semantic-theme-red-assistive)",
-            "subtle": "var(--semantic-theme-red-subtle)",
-            "subtler": "var(--semantic-theme-red-subtler)",
-            "alpha": {
-              "assistive": "var(--semantic-theme-red-alpha-assistive)",
-              "subtle": "var(--semantic-theme-red-alpha-subtle)",
-              "subtler": "var(--semantic-theme-red-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-red-alpha-subtlest)"
-            },
-            "bolder": "var(--semantic-theme-red-bolder)"
-          },
-          "orange": {
-            "bold": "var(--semantic-theme-orange-bold)",
-            "normal": "var(--semantic-theme-orange-normal)",
-            "neutral": "var(--semantic-theme-orange-neutral)",
-            "alternative": "var(--semantic-theme-orange-alternative)",
-            "assistive": "var(--semantic-theme-orange-assistive)",
-            "subtle": "var(--semantic-theme-orange-subtle)",
-            "subtler": "var(--semantic-theme-orange-subtler)",
-            "alpha": {
-              "assistive": "var(--semantic-theme-orange-alpha-assistive)",
-              "subtle": "var(--semantic-theme-orange-alpha-subtle)",
-              "subtler": "var(--semantic-theme-orange-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-orange-alpha-subtlest)"
-            },
-            "bolder": "var(--semantic-theme-orange-bolder)"
-          },
-          "amber": {
-            "bold": "var(--semantic-theme-amber-bold)",
-            "normal": "var(--semantic-theme-amber-normal)",
-            "neutral": "var(--semantic-theme-amber-neutral)",
-            "alternative": "var(--semantic-theme-amber-alternative)",
-            "assistive": "var(--semantic-theme-amber-assistive)",
-            "subtle": "var(--semantic-theme-amber-subtle)",
-            "subtler": "var(--semantic-theme-amber-subtler)",
-            "alpha": {
-              "assistive": "var(--semantic-theme-amber-alpha-assistive)",
-              "subtle": "var(--semantic-theme-amber-alpha-subtle)",
-              "subtler": "var(--semantic-theme-amber-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-amber-alpha-subtlest)"
-            },
-            "bolder": "var(--semantic-theme-amber-bolder)"
-          },
-          "yellow": {
-            "bold": "var(--semantic-theme-yellow-bold)",
-            "normal": "var(--semantic-theme-yellow-normal)",
-            "neutral": "var(--semantic-theme-yellow-neutral)",
-            "alternative": "var(--semantic-theme-yellow-alternative)",
-            "assistive": "var(--semantic-theme-yellow-assistive)",
-            "subtle": "var(--semantic-theme-yellow-subtle)",
-            "subtler": "var(--semantic-theme-yellow-subtler)",
-            "alpha": {
-              "assistive": "var(--semantic-theme-yellow-alpha-assistive)",
-              "subtle": "var(--semantic-theme-yellow-alpha-subtle)",
-              "subtler": "var(--semantic-theme-yellow-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-yellow-alpha-subtlest)"
-            },
-            "bolder": "var(--semantic-theme-yellow-bolder)"
-          },
-          "lime": {
-            "bold": "var(--semantic-theme-lime-bold)",
-            "normal": "var(--semantic-theme-lime-normal)",
-            "neutral": "var(--semantic-theme-lime-neutral)",
-            "alternative": "var(--semantic-theme-lime-alternative)",
-            "assistive": "var(--semantic-theme-lime-assistive)",
-            "subtle": "var(--semantic-theme-lime-subtle)",
-            "subtler": "var(--semantic-theme-lime-subtler)",
-            "alpha": {
-              "assistive": "var(--semantic-theme-lime-alpha-assistive)",
-              "subtle": "var(--semantic-theme-lime-alpha-subtle)",
-              "subtler": "var(--semantic-theme-lime-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-lime-alpha-subtlest)"
-            },
-            "bolder": "var(--semantic-theme-lime-bolder)"
-          },
-          "green": {
-            "bold": "var(--semantic-theme-green-bold)",
-            "normal": "var(--semantic-theme-green-normal)",
-            "neutral": "var(--semantic-theme-green-neutral)",
-            "alternative": "var(--semantic-theme-green-alternative)",
-            "assistive": "var(--semantic-theme-green-assistive)",
-            "subtle": "var(--semantic-theme-green-subtle)",
-            "subtler": "var(--semantic-theme-green-subtler)",
-            "alpha": {
-              "assistive": "var(--semantic-theme-green-alpha-assistive)",
-              "subtle": "var(--semantic-theme-green-alpha-subtle)",
-              "subtler": "var(--semantic-theme-green-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-green-alpha-subtlest)"
-            },
-            "bolder": "var(--semantic-theme-green-bolder)"
-          },
-          "emerald": {
-            "bold": "var(--semantic-theme-emerald-bold)",
-            "normal": "var(--semantic-theme-emerald-normal)",
-            "neutral": "var(--semantic-theme-emerald-neutral)",
-            "alternative": "var(--semantic-theme-emerald-alternative)",
-            "assistive": "var(--semantic-theme-emerald-assistive)",
-            "subtle": "var(--semantic-theme-emerald-subtle)",
-            "subtler": "var(--semantic-theme-emerald-subtler)",
-            "alpha": {
-              "assistive": "var(--semantic-theme-emerald-alpha-assistive)",
-              "subtle": "var(--semantic-theme-emerald-alpha-subtle)",
-              "subtler": "var(--semantic-theme-emerald-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-emerald-alpha-subtlest)"
-            },
-            "bolder": "var(--semantic-theme-emerald-bolder)"
-          },
-          "teal": {
-            "bold": "var(--semantic-theme-teal-bold)",
-            "normal": "var(--semantic-theme-teal-normal)",
-            "neutral": "var(--semantic-theme-teal-neutral)",
-            "alternative": "var(--semantic-theme-teal-alternative)",
-            "assistive": "var(--semantic-theme-teal-assistive)",
-            "subtle": "var(--semantic-theme-teal-subtle)",
-            "subtler": "var(--semantic-theme-teal-subtler)",
-            "alpha": {
-              "assistive": "var(--semantic-theme-teal-alpha-assistive)",
-              "subtle": "var(--semantic-theme-teal-alpha-subtle)",
-              "subtler": "var(--semantic-theme-teal-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-teal-alpha-subtlest)"
-            },
-            "bolder": "var(--semantic-theme-teal-bolder)"
-          },
-          "cyan": {
-            "bold": "var(--semantic-theme-cyan-bold)",
-            "normal": "var(--semantic-theme-cyan-normal)",
-            "neutral": "var(--semantic-theme-cyan-neutral)",
-            "alternative": "var(--semantic-theme-cyan-alternative)",
-            "assistive": "var(--semantic-theme-cyan-assistive)",
-            "subtle": "var(--semantic-theme-cyan-subtle)",
-            "subtler": "var(--semantic-theme-cyan-subtler)",
-            "alpha": {
-              "assistive": "var(--semantic-theme-cyan-alpha-assistive)",
-              "subtle": "var(--semantic-theme-cyan-alpha-subtle)",
-              "subtler": "var(--semantic-theme-cyan-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-cyan-alpha-subtlest)"
-            },
-            "bolder": "var(--semantic-theme-cyan-bolder)"
-          },
-          "sky": {
-            "bold": "var(--semantic-theme-sky-bold)",
-            "normal": "var(--semantic-theme-sky-normal)",
-            "neutral": "var(--semantic-theme-sky-neutral)",
-            "alternative": "var(--semantic-theme-sky-alternative)",
-            "assistive": "var(--semantic-theme-sky-assistive)",
-            "subtle": "var(--semantic-theme-sky-subtle)",
-            "subtler": "var(--semantic-theme-sky-subtler)",
-            "alpha": {
-              "assistive": "var(--semantic-theme-sky-alpha-assistive)",
-              "subtle": "var(--semantic-theme-sky-alpha-subtle)",
-              "subtler": "var(--semantic-theme-sky-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-sky-alpha-subtlest)"
-            },
-            "bolder": "var(--semantic-theme-sky-bolder)"
-          },
-          "blue": {
-            "bold": "var(--semantic-theme-blue-bold)",
-            "normal": "var(--semantic-theme-blue-normal)",
-            "neutral": "var(--semantic-theme-blue-neutral)",
-            "alternative": "var(--semantic-theme-blue-alternative)",
-            "assistive": "var(--semantic-theme-blue-assistive)",
-            "subtle": "var(--semantic-theme-blue-subtle)",
-            "subtler": "var(--semantic-theme-blue-subtler)",
-            "alpha": {
-              "assistive": "var(--semantic-theme-blue-alpha-assistive)",
-              "subtle": "var(--semantic-theme-blue-alpha-subtle)",
-              "subtler": "var(--semantic-theme-blue-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-blue-alpha-subtlest)"
-            },
-            "bolder": "var(--semantic-theme-blue-bolder)"
-          },
-          "violet": {
-            "bold": "var(--semantic-theme-violet-bold)",
-            "normal": "var(--semantic-theme-violet-normal)",
-            "neutral": "var(--semantic-theme-violet-neutral)",
-            "alternative": "var(--semantic-theme-violet-alternative)",
-            "assistive": "var(--semantic-theme-violet-assistive)",
-            "subtle": "var(--semantic-theme-violet-subtle)",
-            "subtler": "var(--semantic-theme-violet-subtler)",
-            "alpha": {
-              "assistive": "var(--semantic-theme-violet-alpha-assistive)",
-              "subtle": "var(--semantic-theme-violet-alpha-subtle)",
-              "subtler": "var(--semantic-theme-violet-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-violet-alpha-subtlest)"
-            },
-            "bolder": "var(--semantic-theme-violet-bolder)"
-          },
-          "purple": {
-            "bold": "var(--semantic-theme-purple-bold)",
-            "normal": "var(--semantic-theme-purple-normal)",
-            "neutral": "var(--semantic-theme-purple-neutral)",
-            "alternative": "var(--semantic-theme-purple-alternative)",
-            "assistive": "var(--semantic-theme-purple-assistive)",
-            "subtle": "var(--semantic-theme-purple-subtle)",
-            "subtler": "var(--semantic-theme-purple-subtler)",
-            "alpha": {
-              "assistive": "var(--semantic-theme-purple-alpha-assistive)",
-              "subtle": "var(--semantic-theme-purple-alpha-subtle)",
-              "subtler": "var(--semantic-theme-purple-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-purple-alpha-subtlest)"
-            },
-            "bolder": "var(--semantic-theme-purple-bolder)"
-          },
-          "fuchsia": {
-            "bold": "var(--semantic-theme-fuchsia-bold)",
-            "normal": "var(--semantic-theme-fuchsia-normal)",
-            "neutral": "var(--semantic-theme-fuchsia-neutral)",
-            "alternative": "var(--semantic-theme-fuchsia-alternative)",
-            "assistive": "var(--semantic-theme-fuchsia-assistive)",
-            "subtle": "var(--semantic-theme-fuchsia-subtle)",
-            "subtler": "var(--semantic-theme-fuchsia-subtler)",
-            "alpha": {
-              "assistive": "var(--semantic-theme-fuchsia-alpha-assistive)",
-              "subtle": "var(--semantic-theme-fuchsia-alpha-subtle)",
-              "subtler": "var(--semantic-theme-fuchsia-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-fuchsia-alpha-subtlest)"
-            },
-            "bolder": "var(--semantic-theme-fuchsia-bolder)"
-          },
-          "pink": {
-            "bold": "var(--semantic-theme-pink-bold)",
-            "normal": "var(--semantic-theme-pink-normal)",
-            "neutral": "var(--semantic-theme-pink-neutral)",
-            "alternative": "var(--semantic-theme-pink-alternative)",
-            "assistive": "var(--semantic-theme-pink-assistive)",
-            "subtle": "var(--semantic-theme-pink-subtle)",
-            "subtler": "var(--semantic-theme-pink-subtler)",
-            "alpha": {
-              "assistive": "var(--semantic-theme-pink-alpha-assistive)",
-              "subtle": "var(--semantic-theme-pink-alpha-subtle)",
-              "subtler": "var(--semantic-theme-pink-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-pink-alpha-subtlest)"
-            },
-            "bolder": "var(--semantic-theme-pink-bolder)"
-          },
-          "rose": {
-            "bold": "var(--semantic-theme-rose-bold)",
-            "normal": "var(--semantic-theme-rose-normal)",
-            "neutral": "var(--semantic-theme-rose-neutral)",
-            "alternative": "var(--semantic-theme-rose-alternative)",
-            "assistive": "var(--semantic-theme-rose-assistive)",
-            "subtle": "var(--semantic-theme-rose-subtle)",
-            "subtler": "var(--semantic-theme-rose-subtler)",
-            "alpha": {
-              "assistive": "var(--semantic-theme-rose-alpha-assistive)",
-              "subtle": "var(--semantic-theme-rose-alpha-subtle)",
-              "subtler": "var(--semantic-theme-rose-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-rose-alpha-subtlest)"
-            },
-            "bolder": "var(--semantic-theme-rose-bolder)"
-          }
-        },
-        "curtain": {
-          "bright": "var(--semantic-curtain-bright)",
-          "dim": "var(--semantic-curtain-dim)",
-          "dimmer": "var(--semantic-curtain-dimmer)"
-        },
-        "feedback": {
-          "positive": {
-            "alpha": {
-              "subtle": "var(--semantic-feedback-positive-alpha-subtle)",
-              "assistive": "var(--semantic-feedback-positive-alpha-assistive)",
-              "subtler": "var(--semantic-feedback-positive-alpha-subtler)",
-              "inverse": {
-                "assistive": "var(--semantic-feedback-positive-alpha-inverse-assistive)",
-                "subtle": "var(--semantic-feedback-positive-alpha-inverse-subtle)",
-                "subtler": "var(--semantic-feedback-positive-alpha-inverse-subtler)",
-                "subtlest": "var(--semantic-feedback-positive-alpha-inverse-subtlest)"
-              },
-              "subtlest": "var(--semantic-feedback-positive-alpha-subtlest)"
-            },
-            "normal": "var(--semantic-feedback-positive-normal)",
-            "bold": "var(--semantic-feedback-positive-bold)",
-            "inverse": {
-              "bold": "var(--semantic-feedback-positive-inverse-bold)",
-              "normal": "var(--semantic-feedback-positive-inverse-normal)",
-              "neutral": "var(--semantic-feedback-positive-inverse-neutral)",
-              "alternative": "var(--semantic-feedback-positive-inverse-alternative)",
-              "assistive": "var(--semantic-feedback-positive-inverse-assistive)",
-              "subtle": "var(--semantic-feedback-positive-inverse-subtle)",
-              "subtler": "var(--semantic-feedback-positive-inverse-subtler)",
-              "bolder": "var(--semantic-feedback-positive-inverse-bolder)"
-            },
-            "assistive": "var(--semantic-feedback-positive-assistive)",
-            "subtler": "var(--semantic-feedback-positive-subtler)",
-            "neutral": "var(--semantic-feedback-positive-neutral)",
-            "alternative": "var(--semantic-feedback-positive-alternative)",
-            "subtle": "var(--semantic-feedback-positive-subtle)",
-            "bolder": "var(--semantic-feedback-positive-bolder)"
-          },
-          "destructive": {
-            "bold": "var(--semantic-feedback-destructive-bold)",
-            "inverse": {
-              "bold": "var(--semantic-feedback-destructive-inverse-bold)",
-              "normal": "var(--semantic-feedback-destructive-inverse-normal)",
-              "neutral": "var(--semantic-feedback-destructive-inverse-neutral)",
-              "alternative": "var(--semantic-feedback-destructive-inverse-alternative)",
-              "assistive": "var(--semantic-feedback-destructive-inverse-assistive)",
-              "subtle": "var(--semantic-feedback-destructive-inverse-subtle)",
-              "subtler": "var(--semantic-feedback-destructive-inverse-subtler)",
-              "bolder": "var(--semantic-feedback-destructive-inverse-bolder)"
-            },
-            "normal": "var(--semantic-feedback-destructive-normal)",
-            "alpha": {
-              "assistive": "var(--semantic-feedback-destructive-alpha-assistive)",
-              "subtle": "var(--semantic-feedback-destructive-alpha-subtle)",
-              "subtler": "var(--semantic-feedback-destructive-alpha-subtler)",
-              "inverse": {
-                "assistive": "var(--semantic-feedback-destructive-alpha-inverse-assistive)",
-                "subtle": "var(--semantic-feedback-destructive-alpha-inverse-subtle)",
-                "subtler": "var(--semantic-feedback-destructive-alpha-inverse-subtler)",
-                "subtlest": "var(--semantic-feedback-destructive-alpha-inverse-subtlest)"
-              },
-              "subtlest": "var(--semantic-feedback-destructive-alpha-subtlest)"
-            },
-            "neutral": "var(--semantic-feedback-destructive-neutral)",
-            "alternative": "var(--semantic-feedback-destructive-alternative)",
-            "assistive": "var(--semantic-feedback-destructive-assistive)",
-            "subtle": "var(--semantic-feedback-destructive-subtle)",
-            "subtler": "var(--semantic-feedback-destructive-subtler)",
-            "bolder": "var(--semantic-feedback-destructive-bolder)"
-          },
-          "notifying": {
-            "bold": "var(--semantic-feedback-notifying-bold)",
-            "normal": "var(--semantic-feedback-notifying-normal)",
-            "neutral": "var(--semantic-feedback-notifying-neutral)",
-            "alternative": "var(--semantic-feedback-notifying-alternative)",
-            "assistive": "var(--semantic-feedback-notifying-assistive)",
-            "subtle": "var(--semantic-feedback-notifying-subtle)",
-            "subtler": "var(--semantic-feedback-notifying-subtler)",
-            "inverse": {
-              "bold": "var(--semantic-feedback-notifying-inverse-bold)",
-              "normal": "var(--semantic-feedback-notifying-inverse-normal)",
-              "neutral": "var(--semantic-feedback-notifying-inverse-neutral)",
-              "alternative": "var(--semantic-feedback-notifying-inverse-alternative)",
-              "assistive": "var(--semantic-feedback-notifying-inverse-assistive)",
-              "subtle": "var(--semantic-feedback-notifying-inverse-subtle)",
-              "subtler": "var(--semantic-feedback-notifying-inverse-subtler)",
-              "bolder": "var(--semantic-feedback-notifying-inverse-bolder)"
-            },
-            "alpha": {
-              "assistive": "var(--semantic-feedback-notifying-alpha-assistive)",
-              "subtle": "var(--semantic-feedback-notifying-alpha-subtle)",
-              "subtler": "var(--semantic-feedback-notifying-alpha-subtler)",
-              "inverse": {
-                "assistive": "var(--semantic-feedback-notifying-alpha-inverse-assistive)",
-                "subtle": "var(--semantic-feedback-notifying-alpha-inverse-subtle)",
-                "subtler": "var(--semantic-feedback-notifying-alpha-inverse-subtler)",
-                "subtlest": "var(--semantic-feedback-notifying-alpha-inverse-subtlest)"
-              },
-              "subtlest": "var(--semantic-feedback-notifying-alpha-subtlest)"
-            },
-            "bolder": "var(--semantic-feedback-notifying-bolder)"
-          }
-        }
-      }
-    }
   },
-  "scheme": {
-    "desktop": {
-      "semantic": {
-        "spacing": {
+  colorSemantic: {
+    light: {
+      semantic: {
+        accent: {
+          alpha: {
+            assistive: "var(--semantic-accent-alpha-assistive)",
+            subtle: "var(--semantic-accent-alpha-subtle)",
+            subtler: "var(--semantic-accent-alpha-subtler)",
+            inverse: {
+              subtle: "var(--semantic-accent-alpha-inverse-subtle)",
+              subtler: "var(--semantic-accent-alpha-inverse-subtler)",
+              subtlest: "var(--semantic-accent-alpha-inverse-subtlest)",
+              assistive: "var(--semantic-accent-alpha-inverse-assistive)",
+            },
+            subtlest: "var(--semantic-accent-alpha-subtlest)",
+          },
+          bold: "var(--semantic-accent-bold)",
+          normal: "var(--semantic-accent-normal)",
+          neutral: "var(--semantic-accent-neutral)",
+          inverse: {
+            bold: "var(--semantic-accent-inverse-bold)",
+            normal: "var(--semantic-accent-inverse-normal)",
+            neutral: "var(--semantic-accent-inverse-neutral)",
+            alternative: "var(--semantic-accent-inverse-alternative)",
+            assistive: "var(--semantic-accent-inverse-assistive)",
+            subtle: "var(--semantic-accent-inverse-subtle)",
+            bolder: "var(--semantic-accent-inverse-bolder)",
+            subtler: "var(--semantic-accent-inverse-subtler)",
+            subtlest: "var(--semantic-accent-inverse-subtlest)",
+          },
+          alternative: "var(--semantic-accent-alternative)",
+          assistive: "var(--semantic-accent-assistive)",
+          subtle: "var(--semantic-accent-subtle)",
+          subtler: "var(--semantic-accent-subtler)",
+          bolder: "var(--semantic-accent-bolder)",
+          subtlest: "var(--semantic-accent-subtlest)",
+        },
+        object: {
+          neutral: "var(--semantic-object-neutral)",
+          alternative: "var(--semantic-object-alternative)",
+          assistive: "var(--semantic-object-assistive)",
+          subtle: "var(--semantic-object-subtle)",
+          inverse: {
+            neutral: "var(--semantic-object-inverse-neutral)",
+            alternative: "var(--semantic-object-inverse-alternative)",
+            assistive: "var(--semantic-object-inverse-assistive)",
+            subtle: "var(--semantic-object-inverse-subtle)",
+            boldest: "var(--semantic-object-inverse-boldest)",
+            bold: "var(--semantic-object-inverse-bold)",
+            bolder: "var(--semantic-object-inverse-bolder)",
+            normal: "var(--semantic-object-inverse-normal)",
+            subtler: "var(--semantic-object-inverse-subtler)",
+            subtlest: "var(--semantic-object-inverse-subtlest)",
+          },
+          boldest: "var(--semantic-object-boldest)",
+          bold: "var(--semantic-object-bold)",
+          static: {
+            boldest: "var(--semantic-object-static-boldest)",
+            bold: "var(--semantic-object-static-bold)",
+            neutral: "var(--semantic-object-static-neutral)",
+            alternative: "var(--semantic-object-static-alternative)",
+            assistive: "var(--semantic-object-static-assistive)",
+            subtle: "var(--semantic-object-static-subtle)",
+            inverse: {
+              boldest: "var(--semantic-object-static-inverse-boldest)",
+              bold: "var(--semantic-object-static-inverse-bold)",
+              neutral: "var(--semantic-object-static-inverse-neutral)",
+              alternative: "var(--semantic-object-static-inverse-alternative)",
+              assistive: "var(--semantic-object-static-inverse-assistive)",
+              subtle: "var(--semantic-object-static-inverse-subtle)",
+              bolder: "var(--semantic-object-static-inverse-bolder)",
+              normal: "var(--semantic-object-static-inverse-normal)",
+              subtler: "var(--semantic-object-static-inverse-subtler)",
+              subtlest: "var(--semantic-object-static-inverse-subtlest)",
+            },
+            bolder: "var(--semantic-object-static-bolder)",
+            normal: "var(--semantic-object-static-normal)",
+            subtler: "var(--semantic-object-static-subtler)",
+            subtlest: "var(--semantic-object-static-subtlest)",
+          },
+          bolder: "var(--semantic-object-bolder)",
+          normal: "var(--semantic-object-normal)",
+          subtler: "var(--semantic-object-subtler)",
+          subtlest: "var(--semantic-object-subtlest)",
+        },
+        surface: {
+          standard: "var(--semantic-surface-standard)",
+          deep: "var(--semantic-surface-deep)",
+          deeper: "var(--semantic-surface-deeper)",
+          deepest: "var(--semantic-surface-deepest)",
+          inverse: {
+            standard: "var(--semantic-surface-inverse-standard)",
+            deep: "var(--semantic-surface-inverse-deep)",
+            deeper: "var(--semantic-surface-inverse-deeper)",
+            deepest: "var(--semantic-surface-inverse-deepest)",
+            shallow: "var(--semantic-surface-inverse-shallow)",
+            shallower: "var(--semantic-surface-inverse-shallower)",
+            shallowest: "var(--semantic-surface-inverse-shallowest)",
+          },
+          shallow: "var(--semantic-surface-shallow)",
+          shallower: "var(--semantic-surface-shallower)",
+          shallowest: "var(--semantic-surface-shallowest)",
+          static: {
+            shallowest: "var(--semantic-surface-static-shallowest)",
+            shallower: "var(--semantic-surface-static-shallower)",
+            shallow: "var(--semantic-surface-static-shallow)",
+            standard: "var(--semantic-surface-static-standard)",
+            deep: "var(--semantic-surface-static-deep)",
+            deeper: "var(--semantic-surface-static-deeper)",
+            deepest: "var(--semantic-surface-static-deepest)",
+            inverse: {
+              shallowest: "var(--semantic-surface-static-inverse-shallowest)",
+              shallower: "var(--semantic-surface-static-inverse-shallower)",
+              shallow: "var(--semantic-surface-static-inverse-shallow)",
+              standard: "var(--semantic-surface-static-inverse-standard)",
+              deep: "var(--semantic-surface-static-inverse-deep)",
+              deeper: "var(--semantic-surface-static-inverse-deeper)",
+              deepest: "var(--semantic-surface-static-inverse-deepest)",
+            },
+          },
+        },
+        interaction: {
+          bold: "var(--semantic-interaction-bold)",
+          normal: "var(--semantic-interaction-normal)",
+          inverse: {
+            focus: "var(--semantic-interaction-inverse-focus)",
+            bold: "var(--semantic-interaction-inverse-bold)",
+            normal: "var(--semantic-interaction-inverse-normal)",
+            assistive: "var(--semantic-interaction-inverse-assistive)",
+            subtle: "var(--semantic-interaction-inverse-subtle)",
+          },
+          focus: "var(--semantic-interaction-focus)",
+          assistive: "var(--semantic-interaction-assistive)",
+          subtle: "var(--semantic-interaction-subtle)",
+        },
+        stroke: {
+          neutral: "var(--semantic-stroke-neutral)",
+          alternative: "var(--semantic-stroke-alternative)",
+          assistive: "var(--semantic-stroke-assistive)",
+          normal: "var(--semantic-stroke-normal)",
+          bold: "var(--semantic-stroke-bold)",
+          alpha: {
+            bold: "var(--semantic-stroke-alpha-bold)",
+            normal: "var(--semantic-stroke-alpha-normal)",
+            neutral: "var(--semantic-stroke-alpha-neutral)",
+            alternative: "var(--semantic-stroke-alpha-alternative)",
+            assistive: "var(--semantic-stroke-alpha-assistive)",
+            subtle: "var(--semantic-stroke-alpha-subtle)",
+            inverse: {
+              bold: "var(--semantic-stroke-alpha-inverse-bold)",
+              normal: "var(--semantic-stroke-alpha-inverse-normal)",
+              neutral: "var(--semantic-stroke-alpha-inverse-neutral)",
+              alternative: "var(--semantic-stroke-alpha-inverse-alternative)",
+              assistive: "var(--semantic-stroke-alpha-inverse-assistive)",
+              subtle: "var(--semantic-stroke-alpha-inverse-subtle)",
+              subtler: "var(--semantic-stroke-alpha-inverse-subtler)",
+            },
+            subtler: "var(--semantic-stroke-alpha-subtler)",
+          },
+          subtle: "var(--semantic-stroke-subtle)",
+          inverse: {
+            bold: "var(--semantic-stroke-inverse-bold)",
+            normal: "var(--semantic-stroke-inverse-normal)",
+            neutral: "var(--semantic-stroke-inverse-neutral)",
+            alternative: "var(--semantic-stroke-inverse-alternative)",
+            assistive: "var(--semantic-stroke-inverse-assistive)",
+            subtle: "var(--semantic-stroke-inverse-subtle)",
+            subtler: "var(--semantic-stroke-inverse-subtler)",
+          },
+          subtler: "var(--semantic-stroke-subtler)",
+        },
+        fill: {
+          boldest: "var(--semantic-fill-boldest)",
+          bold: "var(--semantic-fill-bold)",
+          neutral: "var(--semantic-fill-neutral)",
+          alternative: "var(--semantic-fill-alternative)",
+          assistive: "var(--semantic-fill-assistive)",
+          inverse: {
+            boldest: "var(--semantic-fill-inverse-boldest)",
+            bold: "var(--semantic-fill-inverse-bold)",
+            neutral: "var(--semantic-fill-inverse-neutral)",
+            alternative: "var(--semantic-fill-inverse-alternative)",
+            assistive: "var(--semantic-fill-inverse-assistive)",
+            subtle: "var(--semantic-fill-inverse-subtle)",
+            subtler: "var(--semantic-fill-inverse-subtler)",
+            subtlest: "var(--semantic-fill-inverse-subtlest)",
+            bolder: "var(--semantic-fill-inverse-bolder)",
+            normal: "var(--semantic-fill-inverse-normal)",
+          },
+          subtle: "var(--semantic-fill-subtle)",
+          subtler: "var(--semantic-fill-subtler)",
+          subtlest: "var(--semantic-fill-subtlest)",
+          bolder: "var(--semantic-fill-bolder)",
+          normal: "var(--semantic-fill-normal)",
+        },
+        system: {
+          white: "var(--semantic-system-white)",
+          black: "var(--semantic-system-black)",
+        },
+        theme: {
+          red: {
+            bold: "var(--semantic-theme-red-bold)",
+            normal: "var(--semantic-theme-red-normal)",
+            neutral: "var(--semantic-theme-red-neutral)",
+            alternative: "var(--semantic-theme-red-alternative)",
+            assistive: "var(--semantic-theme-red-assistive)",
+            subtle: "var(--semantic-theme-red-subtle)",
+            subtler: "var(--semantic-theme-red-subtler)",
+            alpha: {
+              assistive: "var(--semantic-theme-red-alpha-assistive)",
+              subtle: "var(--semantic-theme-red-alpha-subtle)",
+              subtler: "var(--semantic-theme-red-alpha-subtler)",
+              subtlest: "var(--semantic-theme-red-alpha-subtlest)",
+            },
+            bolder: "var(--semantic-theme-red-bolder)",
+          },
+          orange: {
+            bold: "var(--semantic-theme-orange-bold)",
+            normal: "var(--semantic-theme-orange-normal)",
+            neutral: "var(--semantic-theme-orange-neutral)",
+            alternative: "var(--semantic-theme-orange-alternative)",
+            assistive: "var(--semantic-theme-orange-assistive)",
+            subtle: "var(--semantic-theme-orange-subtle)",
+            subtler: "var(--semantic-theme-orange-subtler)",
+            alpha: {
+              assistive: "var(--semantic-theme-orange-alpha-assistive)",
+              subtle: "var(--semantic-theme-orange-alpha-subtle)",
+              subtler: "var(--semantic-theme-orange-alpha-subtler)",
+              subtlest: "var(--semantic-theme-orange-alpha-subtlest)",
+            },
+            bolder: "var(--semantic-theme-orange-bolder)",
+          },
+          amber: {
+            bold: "var(--semantic-theme-amber-bold)",
+            normal: "var(--semantic-theme-amber-normal)",
+            neutral: "var(--semantic-theme-amber-neutral)",
+            alternative: "var(--semantic-theme-amber-alternative)",
+            assistive: "var(--semantic-theme-amber-assistive)",
+            subtle: "var(--semantic-theme-amber-subtle)",
+            subtler: "var(--semantic-theme-amber-subtler)",
+            alpha: {
+              assistive: "var(--semantic-theme-amber-alpha-assistive)",
+              subtle: "var(--semantic-theme-amber-alpha-subtle)",
+              subtler: "var(--semantic-theme-amber-alpha-subtler)",
+              subtlest: "var(--semantic-theme-amber-alpha-subtlest)",
+            },
+            bolder: "var(--semantic-theme-amber-bolder)",
+          },
+          yellow: {
+            bold: "var(--semantic-theme-yellow-bold)",
+            normal: "var(--semantic-theme-yellow-normal)",
+            neutral: "var(--semantic-theme-yellow-neutral)",
+            alternative: "var(--semantic-theme-yellow-alternative)",
+            assistive: "var(--semantic-theme-yellow-assistive)",
+            subtle: "var(--semantic-theme-yellow-subtle)",
+            subtler: "var(--semantic-theme-yellow-subtler)",
+            alpha: {
+              assistive: "var(--semantic-theme-yellow-alpha-assistive)",
+              subtle: "var(--semantic-theme-yellow-alpha-subtle)",
+              subtler: "var(--semantic-theme-yellow-alpha-subtler)",
+              subtlest: "var(--semantic-theme-yellow-alpha-subtlest)",
+            },
+            bolder: "var(--semantic-theme-yellow-bolder)",
+          },
+          lime: {
+            bold: "var(--semantic-theme-lime-bold)",
+            normal: "var(--semantic-theme-lime-normal)",
+            neutral: "var(--semantic-theme-lime-neutral)",
+            alternative: "var(--semantic-theme-lime-alternative)",
+            assistive: "var(--semantic-theme-lime-assistive)",
+            subtle: "var(--semantic-theme-lime-subtle)",
+            subtler: "var(--semantic-theme-lime-subtler)",
+            alpha: {
+              assistive: "var(--semantic-theme-lime-alpha-assistive)",
+              subtle: "var(--semantic-theme-lime-alpha-subtle)",
+              subtler: "var(--semantic-theme-lime-alpha-subtler)",
+              subtlest: "var(--semantic-theme-lime-alpha-subtlest)",
+            },
+            bolder: "var(--semantic-theme-lime-bolder)",
+          },
+          green: {
+            bold: "var(--semantic-theme-green-bold)",
+            normal: "var(--semantic-theme-green-normal)",
+            neutral: "var(--semantic-theme-green-neutral)",
+            alternative: "var(--semantic-theme-green-alternative)",
+            assistive: "var(--semantic-theme-green-assistive)",
+            subtle: "var(--semantic-theme-green-subtle)",
+            subtler: "var(--semantic-theme-green-subtler)",
+            alpha: {
+              assistive: "var(--semantic-theme-green-alpha-assistive)",
+              subtle: "var(--semantic-theme-green-alpha-subtle)",
+              subtler: "var(--semantic-theme-green-alpha-subtler)",
+              subtlest: "var(--semantic-theme-green-alpha-subtlest)",
+            },
+            bolder: "var(--semantic-theme-green-bolder)",
+          },
+          emerald: {
+            bold: "var(--semantic-theme-emerald-bold)",
+            normal: "var(--semantic-theme-emerald-normal)",
+            neutral: "var(--semantic-theme-emerald-neutral)",
+            alternative: "var(--semantic-theme-emerald-alternative)",
+            assistive: "var(--semantic-theme-emerald-assistive)",
+            subtle: "var(--semantic-theme-emerald-subtle)",
+            subtler: "var(--semantic-theme-emerald-subtler)",
+            alpha: {
+              assistive: "var(--semantic-theme-emerald-alpha-assistive)",
+              subtle: "var(--semantic-theme-emerald-alpha-subtle)",
+              subtler: "var(--semantic-theme-emerald-alpha-subtler)",
+              subtlest: "var(--semantic-theme-emerald-alpha-subtlest)",
+            },
+            bolder: "var(--semantic-theme-emerald-bolder)",
+          },
+          teal: {
+            bold: "var(--semantic-theme-teal-bold)",
+            normal: "var(--semantic-theme-teal-normal)",
+            neutral: "var(--semantic-theme-teal-neutral)",
+            alternative: "var(--semantic-theme-teal-alternative)",
+            assistive: "var(--semantic-theme-teal-assistive)",
+            subtle: "var(--semantic-theme-teal-subtle)",
+            subtler: "var(--semantic-theme-teal-subtler)",
+            alpha: {
+              assistive: "var(--semantic-theme-teal-alpha-assistive)",
+              subtle: "var(--semantic-theme-teal-alpha-subtle)",
+              subtler: "var(--semantic-theme-teal-alpha-subtler)",
+              subtlest: "var(--semantic-theme-teal-alpha-subtlest)",
+            },
+            bolder: "var(--semantic-theme-teal-bolder)",
+          },
+          cyan: {
+            bold: "var(--semantic-theme-cyan-bold)",
+            normal: "var(--semantic-theme-cyan-normal)",
+            neutral: "var(--semantic-theme-cyan-neutral)",
+            alternative: "var(--semantic-theme-cyan-alternative)",
+            assistive: "var(--semantic-theme-cyan-assistive)",
+            subtle: "var(--semantic-theme-cyan-subtle)",
+            subtler: "var(--semantic-theme-cyan-subtler)",
+            alpha: {
+              assistive: "var(--semantic-theme-cyan-alpha-assistive)",
+              subtle: "var(--semantic-theme-cyan-alpha-subtle)",
+              subtler: "var(--semantic-theme-cyan-alpha-subtler)",
+              subtlest: "var(--semantic-theme-cyan-alpha-subtlest)",
+            },
+            bolder: "var(--semantic-theme-cyan-bolder)",
+          },
+          sky: {
+            bold: "var(--semantic-theme-sky-bold)",
+            normal: "var(--semantic-theme-sky-normal)",
+            neutral: "var(--semantic-theme-sky-neutral)",
+            alternative: "var(--semantic-theme-sky-alternative)",
+            assistive: "var(--semantic-theme-sky-assistive)",
+            subtle: "var(--semantic-theme-sky-subtle)",
+            subtler: "var(--semantic-theme-sky-subtler)",
+            alpha: {
+              assistive: "var(--semantic-theme-sky-alpha-assistive)",
+              subtle: "var(--semantic-theme-sky-alpha-subtle)",
+              subtler: "var(--semantic-theme-sky-alpha-subtler)",
+              subtlest: "var(--semantic-theme-sky-alpha-subtlest)",
+            },
+            bolder: "var(--semantic-theme-sky-bolder)",
+          },
+          blue: {
+            bold: "var(--semantic-theme-blue-bold)",
+            normal: "var(--semantic-theme-blue-normal)",
+            neutral: "var(--semantic-theme-blue-neutral)",
+            alternative: "var(--semantic-theme-blue-alternative)",
+            assistive: "var(--semantic-theme-blue-assistive)",
+            subtle: "var(--semantic-theme-blue-subtle)",
+            subtler: "var(--semantic-theme-blue-subtler)",
+            alpha: {
+              assistive: "var(--semantic-theme-blue-alpha-assistive)",
+              subtle: "var(--semantic-theme-blue-alpha-subtle)",
+              subtler: "var(--semantic-theme-blue-alpha-subtler)",
+              subtlest: "var(--semantic-theme-blue-alpha-subtlest)",
+            },
+            bolder: "var(--semantic-theme-blue-bolder)",
+          },
+          violet: {
+            bold: "var(--semantic-theme-violet-bold)",
+            normal: "var(--semantic-theme-violet-normal)",
+            neutral: "var(--semantic-theme-violet-neutral)",
+            alternative: "var(--semantic-theme-violet-alternative)",
+            assistive: "var(--semantic-theme-violet-assistive)",
+            subtle: "var(--semantic-theme-violet-subtle)",
+            subtler: "var(--semantic-theme-violet-subtler)",
+            alpha: {
+              assistive: "var(--semantic-theme-violet-alpha-assistive)",
+              subtle: "var(--semantic-theme-violet-alpha-subtle)",
+              subtler: "var(--semantic-theme-violet-alpha-subtler)",
+              subtlest: "var(--semantic-theme-violet-alpha-subtlest)",
+            },
+            bolder: "var(--semantic-theme-violet-bolder)",
+          },
+          purple: {
+            bold: "var(--semantic-theme-purple-bold)",
+            normal: "var(--semantic-theme-purple-normal)",
+            neutral: "var(--semantic-theme-purple-neutral)",
+            alternative: "var(--semantic-theme-purple-alternative)",
+            assistive: "var(--semantic-theme-purple-assistive)",
+            subtle: "var(--semantic-theme-purple-subtle)",
+            subtler: "var(--semantic-theme-purple-subtler)",
+            alpha: {
+              assistive: "var(--semantic-theme-purple-alpha-assistive)",
+              subtle: "var(--semantic-theme-purple-alpha-subtle)",
+              subtler: "var(--semantic-theme-purple-alpha-subtler)",
+              subtlest: "var(--semantic-theme-purple-alpha-subtlest)",
+            },
+            bolder: "var(--semantic-theme-purple-bolder)",
+          },
+          fuchsia: {
+            bold: "var(--semantic-theme-fuchsia-bold)",
+            normal: "var(--semantic-theme-fuchsia-normal)",
+            neutral: "var(--semantic-theme-fuchsia-neutral)",
+            alternative: "var(--semantic-theme-fuchsia-alternative)",
+            assistive: "var(--semantic-theme-fuchsia-assistive)",
+            subtle: "var(--semantic-theme-fuchsia-subtle)",
+            subtler: "var(--semantic-theme-fuchsia-subtler)",
+            alpha: {
+              assistive: "var(--semantic-theme-fuchsia-alpha-assistive)",
+              subtle: "var(--semantic-theme-fuchsia-alpha-subtle)",
+              subtler: "var(--semantic-theme-fuchsia-alpha-subtler)",
+              subtlest: "var(--semantic-theme-fuchsia-alpha-subtlest)",
+            },
+            bolder: "var(--semantic-theme-fuchsia-bolder)",
+          },
+          pink: {
+            bold: "var(--semantic-theme-pink-bold)",
+            normal: "var(--semantic-theme-pink-normal)",
+            neutral: "var(--semantic-theme-pink-neutral)",
+            alternative: "var(--semantic-theme-pink-alternative)",
+            assistive: "var(--semantic-theme-pink-assistive)",
+            subtle: "var(--semantic-theme-pink-subtle)",
+            subtler: "var(--semantic-theme-pink-subtler)",
+            alpha: {
+              assistive: "var(--semantic-theme-pink-alpha-assistive)",
+              subtle: "var(--semantic-theme-pink-alpha-subtle)",
+              subtler: "var(--semantic-theme-pink-alpha-subtler)",
+              subtlest: "var(--semantic-theme-pink-alpha-subtlest)",
+            },
+            bolder: "var(--semantic-theme-pink-bolder)",
+          },
+          rose: {
+            bold: "var(--semantic-theme-rose-bold)",
+            normal: "var(--semantic-theme-rose-normal)",
+            neutral: "var(--semantic-theme-rose-neutral)",
+            alternative: "var(--semantic-theme-rose-alternative)",
+            assistive: "var(--semantic-theme-rose-assistive)",
+            subtle: "var(--semantic-theme-rose-subtle)",
+            subtler: "var(--semantic-theme-rose-subtler)",
+            alpha: {
+              assistive: "var(--semantic-theme-rose-alpha-assistive)",
+              subtle: "var(--semantic-theme-rose-alpha-subtle)",
+              subtler: "var(--semantic-theme-rose-alpha-subtler)",
+              subtlest: "var(--semantic-theme-rose-alpha-subtlest)",
+            },
+            bolder: "var(--semantic-theme-rose-bolder)",
+          },
+        },
+        curtain: {
+          bright: "var(--semantic-curtain-bright)",
+          dim: "var(--semantic-curtain-dim)",
+          dimmer: "var(--semantic-curtain-dimmer)",
+        },
+        feedback: {
+          positive: {
+            alpha: {
+              subtle: "var(--semantic-feedback-positive-alpha-subtle)",
+              assistive: "var(--semantic-feedback-positive-alpha-assistive)",
+              subtler: "var(--semantic-feedback-positive-alpha-subtler)",
+              inverse: {
+                assistive: "var(--semantic-feedback-positive-alpha-inverse-assistive)",
+                subtle: "var(--semantic-feedback-positive-alpha-inverse-subtle)",
+                subtler: "var(--semantic-feedback-positive-alpha-inverse-subtler)",
+                subtlest: "var(--semantic-feedback-positive-alpha-inverse-subtlest)",
+              },
+              subtlest: "var(--semantic-feedback-positive-alpha-subtlest)",
+            },
+            normal: "var(--semantic-feedback-positive-normal)",
+            bold: "var(--semantic-feedback-positive-bold)",
+            inverse: {
+              bold: "var(--semantic-feedback-positive-inverse-bold)",
+              normal: "var(--semantic-feedback-positive-inverse-normal)",
+              neutral: "var(--semantic-feedback-positive-inverse-neutral)",
+              alternative: "var(--semantic-feedback-positive-inverse-alternative)",
+              assistive: "var(--semantic-feedback-positive-inverse-assistive)",
+              subtle: "var(--semantic-feedback-positive-inverse-subtle)",
+              subtler: "var(--semantic-feedback-positive-inverse-subtler)",
+              bolder: "var(--semantic-feedback-positive-inverse-bolder)",
+            },
+            assistive: "var(--semantic-feedback-positive-assistive)",
+            subtler: "var(--semantic-feedback-positive-subtler)",
+            neutral: "var(--semantic-feedback-positive-neutral)",
+            alternative: "var(--semantic-feedback-positive-alternative)",
+            subtle: "var(--semantic-feedback-positive-subtle)",
+            bolder: "var(--semantic-feedback-positive-bolder)",
+          },
+          destructive: {
+            bold: "var(--semantic-feedback-destructive-bold)",
+            inverse: {
+              bold: "var(--semantic-feedback-destructive-inverse-bold)",
+              normal: "var(--semantic-feedback-destructive-inverse-normal)",
+              neutral: "var(--semantic-feedback-destructive-inverse-neutral)",
+              alternative: "var(--semantic-feedback-destructive-inverse-alternative)",
+              assistive: "var(--semantic-feedback-destructive-inverse-assistive)",
+              subtle: "var(--semantic-feedback-destructive-inverse-subtle)",
+              subtler: "var(--semantic-feedback-destructive-inverse-subtler)",
+              bolder: "var(--semantic-feedback-destructive-inverse-bolder)",
+            },
+            normal: "var(--semantic-feedback-destructive-normal)",
+            alpha: {
+              assistive: "var(--semantic-feedback-destructive-alpha-assistive)",
+              subtle: "var(--semantic-feedback-destructive-alpha-subtle)",
+              subtler: "var(--semantic-feedback-destructive-alpha-subtler)",
+              inverse: {
+                assistive: "var(--semantic-feedback-destructive-alpha-inverse-assistive)",
+                subtle: "var(--semantic-feedback-destructive-alpha-inverse-subtle)",
+                subtler: "var(--semantic-feedback-destructive-alpha-inverse-subtler)",
+                subtlest: "var(--semantic-feedback-destructive-alpha-inverse-subtlest)",
+              },
+              subtlest: "var(--semantic-feedback-destructive-alpha-subtlest)",
+            },
+            neutral: "var(--semantic-feedback-destructive-neutral)",
+            alternative: "var(--semantic-feedback-destructive-alternative)",
+            assistive: "var(--semantic-feedback-destructive-assistive)",
+            subtle: "var(--semantic-feedback-destructive-subtle)",
+            subtler: "var(--semantic-feedback-destructive-subtler)",
+            bolder: "var(--semantic-feedback-destructive-bolder)",
+          },
+          notifying: {
+            bold: "var(--semantic-feedback-notifying-bold)",
+            normal: "var(--semantic-feedback-notifying-normal)",
+            neutral: "var(--semantic-feedback-notifying-neutral)",
+            alternative: "var(--semantic-feedback-notifying-alternative)",
+            assistive: "var(--semantic-feedback-notifying-assistive)",
+            subtle: "var(--semantic-feedback-notifying-subtle)",
+            subtler: "var(--semantic-feedback-notifying-subtler)",
+            inverse: {
+              bold: "var(--semantic-feedback-notifying-inverse-bold)",
+              normal: "var(--semantic-feedback-notifying-inverse-normal)",
+              neutral: "var(--semantic-feedback-notifying-inverse-neutral)",
+              alternative: "var(--semantic-feedback-notifying-inverse-alternative)",
+              assistive: "var(--semantic-feedback-notifying-inverse-assistive)",
+              subtle: "var(--semantic-feedback-notifying-inverse-subtle)",
+              subtler: "var(--semantic-feedback-notifying-inverse-subtler)",
+              bolder: "var(--semantic-feedback-notifying-inverse-bolder)",
+            },
+            alpha: {
+              assistive: "var(--semantic-feedback-notifying-alpha-assistive)",
+              subtle: "var(--semantic-feedback-notifying-alpha-subtle)",
+              subtler: "var(--semantic-feedback-notifying-alpha-subtler)",
+              inverse: {
+                assistive: "var(--semantic-feedback-notifying-alpha-inverse-assistive)",
+                subtle: "var(--semantic-feedback-notifying-alpha-inverse-subtle)",
+                subtler: "var(--semantic-feedback-notifying-alpha-inverse-subtler)",
+                subtlest: "var(--semantic-feedback-notifying-alpha-inverse-subtlest)",
+              },
+              subtlest: "var(--semantic-feedback-notifying-alpha-subtlest)",
+            },
+            bolder: "var(--semantic-feedback-notifying-bolder)",
+          },
+        },
+      },
+    },
+    dark: {
+      semantic: {
+        accent: {
+          alpha: {
+            assistive: "var(--semantic-accent-alpha-assistive)",
+            subtle: "var(--semantic-accent-alpha-subtle)",
+            subtler: "var(--semantic-accent-alpha-subtler)",
+            inverse: {
+              subtle: "var(--semantic-accent-alpha-inverse-subtle)",
+              subtler: "var(--semantic-accent-alpha-inverse-subtler)",
+              subtlest: "var(--semantic-accent-alpha-inverse-subtlest)",
+              assistive: "var(--semantic-accent-alpha-inverse-assistive)",
+            },
+            subtlest: "var(--semantic-accent-alpha-subtlest)",
+          },
+          bold: "var(--semantic-accent-bold)",
+          normal: "var(--semantic-accent-normal)",
+          neutral: "var(--semantic-accent-neutral)",
+          inverse: {
+            bold: "var(--semantic-accent-inverse-bold)",
+            normal: "var(--semantic-accent-inverse-normal)",
+            neutral: "var(--semantic-accent-inverse-neutral)",
+            alternative: "var(--semantic-accent-inverse-alternative)",
+            assistive: "var(--semantic-accent-inverse-assistive)",
+            subtle: "var(--semantic-accent-inverse-subtle)",
+            bolder: "var(--semantic-accent-inverse-bolder)",
+            subtler: "var(--semantic-accent-inverse-subtler)",
+            subtlest: "var(--semantic-accent-inverse-subtlest)",
+          },
+          alternative: "var(--semantic-accent-alternative)",
+          assistive: "var(--semantic-accent-assistive)",
+          subtle: "var(--semantic-accent-subtle)",
+          subtler: "var(--semantic-accent-subtler)",
+          bolder: "var(--semantic-accent-bolder)",
+          subtlest: "var(--semantic-accent-subtlest)",
+        },
+        object: {
+          neutral: "var(--semantic-object-neutral)",
+          alternative: "var(--semantic-object-alternative)",
+          assistive: "var(--semantic-object-assistive)",
+          subtle: "var(--semantic-object-subtle)",
+          inverse: {
+            neutral: "var(--semantic-object-inverse-neutral)",
+            alternative: "var(--semantic-object-inverse-alternative)",
+            assistive: "var(--semantic-object-inverse-assistive)",
+            subtle: "var(--semantic-object-inverse-subtle)",
+            boldest: "var(--semantic-object-inverse-boldest)",
+            bold: "var(--semantic-object-inverse-bold)",
+            bolder: "var(--semantic-object-inverse-bolder)",
+            normal: "var(--semantic-object-inverse-normal)",
+            subtler: "var(--semantic-object-inverse-subtler)",
+            subtlest: "var(--semantic-object-inverse-subtlest)",
+          },
+          boldest: "var(--semantic-object-boldest)",
+          bold: "var(--semantic-object-bold)",
+          static: {
+            boldest: "var(--semantic-object-static-boldest)",
+            bold: "var(--semantic-object-static-bold)",
+            neutral: "var(--semantic-object-static-neutral)",
+            alternative: "var(--semantic-object-static-alternative)",
+            assistive: "var(--semantic-object-static-assistive)",
+            subtle: "var(--semantic-object-static-subtle)",
+            inverse: {
+              boldest: "var(--semantic-object-static-inverse-boldest)",
+              bold: "var(--semantic-object-static-inverse-bold)",
+              neutral: "var(--semantic-object-static-inverse-neutral)",
+              alternative: "var(--semantic-object-static-inverse-alternative)",
+              assistive: "var(--semantic-object-static-inverse-assistive)",
+              subtle: "var(--semantic-object-static-inverse-subtle)",
+              bolder: "var(--semantic-object-static-inverse-bolder)",
+              normal: "var(--semantic-object-static-inverse-normal)",
+              subtler: "var(--semantic-object-static-inverse-subtler)",
+              subtlest: "var(--semantic-object-static-inverse-subtlest)",
+            },
+            bolder: "var(--semantic-object-static-bolder)",
+            normal: "var(--semantic-object-static-normal)",
+            subtler: "var(--semantic-object-static-subtler)",
+            subtlest: "var(--semantic-object-static-subtlest)",
+          },
+          bolder: "var(--semantic-object-bolder)",
+          normal: "var(--semantic-object-normal)",
+          subtler: "var(--semantic-object-subtler)",
+          subtlest: "var(--semantic-object-subtlest)",
+        },
+        surface: {
+          standard: "var(--semantic-surface-standard)",
+          deep: "var(--semantic-surface-deep)",
+          deeper: "var(--semantic-surface-deeper)",
+          deepest: "var(--semantic-surface-deepest)",
+          inverse: {
+            standard: "var(--semantic-surface-inverse-standard)",
+            deep: "var(--semantic-surface-inverse-deep)",
+            deeper: "var(--semantic-surface-inverse-deeper)",
+            deepest: "var(--semantic-surface-inverse-deepest)",
+            shallow: "var(--semantic-surface-inverse-shallow)",
+            shallower: "var(--semantic-surface-inverse-shallower)",
+            shallowest: "var(--semantic-surface-inverse-shallowest)",
+          },
+          shallow: "var(--semantic-surface-shallow)",
+          shallower: "var(--semantic-surface-shallower)",
+          shallowest: "var(--semantic-surface-shallowest)",
+          static: {
+            shallowest: "var(--semantic-surface-static-shallowest)",
+            shallower: "var(--semantic-surface-static-shallower)",
+            shallow: "var(--semantic-surface-static-shallow)",
+            standard: "var(--semantic-surface-static-standard)",
+            deep: "var(--semantic-surface-static-deep)",
+            deeper: "var(--semantic-surface-static-deeper)",
+            deepest: "var(--semantic-surface-static-deepest)",
+            inverse: {
+              shallowest: "var(--semantic-surface-static-inverse-shallowest)",
+              shallower: "var(--semantic-surface-static-inverse-shallower)",
+              shallow: "var(--semantic-surface-static-inverse-shallow)",
+              standard: "var(--semantic-surface-static-inverse-standard)",
+              deep: "var(--semantic-surface-static-inverse-deep)",
+              deeper: "var(--semantic-surface-static-inverse-deeper)",
+              deepest: "var(--semantic-surface-static-inverse-deepest)",
+            },
+          },
+        },
+        interaction: {
+          bold: "var(--semantic-interaction-bold)",
+          normal: "var(--semantic-interaction-normal)",
+          inverse: {
+            focus: "var(--semantic-interaction-inverse-focus)",
+            bold: "var(--semantic-interaction-inverse-bold)",
+            normal: "var(--semantic-interaction-inverse-normal)",
+            assistive: "var(--semantic-interaction-inverse-assistive)",
+            subtle: "var(--semantic-interaction-inverse-subtle)",
+          },
+          focus: "var(--semantic-interaction-focus)",
+          assistive: "var(--semantic-interaction-assistive)",
+          subtle: "var(--semantic-interaction-subtle)",
+        },
+        stroke: {
+          neutral: "var(--semantic-stroke-neutral)",
+          alternative: "var(--semantic-stroke-alternative)",
+          assistive: "var(--semantic-stroke-assistive)",
+          normal: "var(--semantic-stroke-normal)",
+          bold: "var(--semantic-stroke-bold)",
+          alpha: {
+            bold: "var(--semantic-stroke-alpha-bold)",
+            normal: "var(--semantic-stroke-alpha-normal)",
+            neutral: "var(--semantic-stroke-alpha-neutral)",
+            alternative: "var(--semantic-stroke-alpha-alternative)",
+            assistive: "var(--semantic-stroke-alpha-assistive)",
+            subtle: "var(--semantic-stroke-alpha-subtle)",
+            inverse: {
+              bold: "var(--semantic-stroke-alpha-inverse-bold)",
+              normal: "var(--semantic-stroke-alpha-inverse-normal)",
+              neutral: "var(--semantic-stroke-alpha-inverse-neutral)",
+              alternative: "var(--semantic-stroke-alpha-inverse-alternative)",
+              assistive: "var(--semantic-stroke-alpha-inverse-assistive)",
+              subtle: "var(--semantic-stroke-alpha-inverse-subtle)",
+              subtler: "var(--semantic-stroke-alpha-inverse-subtler)",
+            },
+            subtler: "var(--semantic-stroke-alpha-subtler)",
+          },
+          subtle: "var(--semantic-stroke-subtle)",
+          inverse: {
+            bold: "var(--semantic-stroke-inverse-bold)",
+            normal: "var(--semantic-stroke-inverse-normal)",
+            neutral: "var(--semantic-stroke-inverse-neutral)",
+            alternative: "var(--semantic-stroke-inverse-alternative)",
+            assistive: "var(--semantic-stroke-inverse-assistive)",
+            subtle: "var(--semantic-stroke-inverse-subtle)",
+            subtler: "var(--semantic-stroke-inverse-subtler)",
+          },
+          subtler: "var(--semantic-stroke-subtler)",
+        },
+        fill: {
+          boldest: "var(--semantic-fill-boldest)",
+          bold: "var(--semantic-fill-bold)",
+          neutral: "var(--semantic-fill-neutral)",
+          alternative: "var(--semantic-fill-alternative)",
+          assistive: "var(--semantic-fill-assistive)",
+          inverse: {
+            boldest: "var(--semantic-fill-inverse-boldest)",
+            bold: "var(--semantic-fill-inverse-bold)",
+            neutral: "var(--semantic-fill-inverse-neutral)",
+            alternative: "var(--semantic-fill-inverse-alternative)",
+            assistive: "var(--semantic-fill-inverse-assistive)",
+            subtle: "var(--semantic-fill-inverse-subtle)",
+            subtler: "var(--semantic-fill-inverse-subtler)",
+            subtlest: "var(--semantic-fill-inverse-subtlest)",
+            bolder: "var(--semantic-fill-inverse-bolder)",
+            normal: "var(--semantic-fill-inverse-normal)",
+          },
+          subtle: "var(--semantic-fill-subtle)",
+          subtler: "var(--semantic-fill-subtler)",
+          subtlest: "var(--semantic-fill-subtlest)",
+          bolder: "var(--semantic-fill-bolder)",
+          normal: "var(--semantic-fill-normal)",
+        },
+        system: {
+          white: "var(--semantic-system-white)",
+          black: "var(--semantic-system-black)",
+        },
+        theme: {
+          red: {
+            bold: "var(--semantic-theme-red-bold)",
+            normal: "var(--semantic-theme-red-normal)",
+            neutral: "var(--semantic-theme-red-neutral)",
+            alternative: "var(--semantic-theme-red-alternative)",
+            assistive: "var(--semantic-theme-red-assistive)",
+            subtle: "var(--semantic-theme-red-subtle)",
+            subtler: "var(--semantic-theme-red-subtler)",
+            alpha: {
+              assistive: "var(--semantic-theme-red-alpha-assistive)",
+              subtle: "var(--semantic-theme-red-alpha-subtle)",
+              subtler: "var(--semantic-theme-red-alpha-subtler)",
+              subtlest: "var(--semantic-theme-red-alpha-subtlest)",
+            },
+            bolder: "var(--semantic-theme-red-bolder)",
+          },
+          orange: {
+            bold: "var(--semantic-theme-orange-bold)",
+            normal: "var(--semantic-theme-orange-normal)",
+            neutral: "var(--semantic-theme-orange-neutral)",
+            alternative: "var(--semantic-theme-orange-alternative)",
+            assistive: "var(--semantic-theme-orange-assistive)",
+            subtle: "var(--semantic-theme-orange-subtle)",
+            subtler: "var(--semantic-theme-orange-subtler)",
+            alpha: {
+              assistive: "var(--semantic-theme-orange-alpha-assistive)",
+              subtle: "var(--semantic-theme-orange-alpha-subtle)",
+              subtler: "var(--semantic-theme-orange-alpha-subtler)",
+              subtlest: "var(--semantic-theme-orange-alpha-subtlest)",
+            },
+            bolder: "var(--semantic-theme-orange-bolder)",
+          },
+          amber: {
+            bold: "var(--semantic-theme-amber-bold)",
+            normal: "var(--semantic-theme-amber-normal)",
+            neutral: "var(--semantic-theme-amber-neutral)",
+            alternative: "var(--semantic-theme-amber-alternative)",
+            assistive: "var(--semantic-theme-amber-assistive)",
+            subtle: "var(--semantic-theme-amber-subtle)",
+            subtler: "var(--semantic-theme-amber-subtler)",
+            alpha: {
+              assistive: "var(--semantic-theme-amber-alpha-assistive)",
+              subtle: "var(--semantic-theme-amber-alpha-subtle)",
+              subtler: "var(--semantic-theme-amber-alpha-subtler)",
+              subtlest: "var(--semantic-theme-amber-alpha-subtlest)",
+            },
+            bolder: "var(--semantic-theme-amber-bolder)",
+          },
+          yellow: {
+            bold: "var(--semantic-theme-yellow-bold)",
+            normal: "var(--semantic-theme-yellow-normal)",
+            neutral: "var(--semantic-theme-yellow-neutral)",
+            alternative: "var(--semantic-theme-yellow-alternative)",
+            assistive: "var(--semantic-theme-yellow-assistive)",
+            subtle: "var(--semantic-theme-yellow-subtle)",
+            subtler: "var(--semantic-theme-yellow-subtler)",
+            alpha: {
+              assistive: "var(--semantic-theme-yellow-alpha-assistive)",
+              subtle: "var(--semantic-theme-yellow-alpha-subtle)",
+              subtler: "var(--semantic-theme-yellow-alpha-subtler)",
+              subtlest: "var(--semantic-theme-yellow-alpha-subtlest)",
+            },
+            bolder: "var(--semantic-theme-yellow-bolder)",
+          },
+          lime: {
+            bold: "var(--semantic-theme-lime-bold)",
+            normal: "var(--semantic-theme-lime-normal)",
+            neutral: "var(--semantic-theme-lime-neutral)",
+            alternative: "var(--semantic-theme-lime-alternative)",
+            assistive: "var(--semantic-theme-lime-assistive)",
+            subtle: "var(--semantic-theme-lime-subtle)",
+            subtler: "var(--semantic-theme-lime-subtler)",
+            alpha: {
+              assistive: "var(--semantic-theme-lime-alpha-assistive)",
+              subtle: "var(--semantic-theme-lime-alpha-subtle)",
+              subtler: "var(--semantic-theme-lime-alpha-subtler)",
+              subtlest: "var(--semantic-theme-lime-alpha-subtlest)",
+            },
+            bolder: "var(--semantic-theme-lime-bolder)",
+          },
+          green: {
+            bold: "var(--semantic-theme-green-bold)",
+            normal: "var(--semantic-theme-green-normal)",
+            neutral: "var(--semantic-theme-green-neutral)",
+            alternative: "var(--semantic-theme-green-alternative)",
+            assistive: "var(--semantic-theme-green-assistive)",
+            subtle: "var(--semantic-theme-green-subtle)",
+            subtler: "var(--semantic-theme-green-subtler)",
+            alpha: {
+              assistive: "var(--semantic-theme-green-alpha-assistive)",
+              subtle: "var(--semantic-theme-green-alpha-subtle)",
+              subtler: "var(--semantic-theme-green-alpha-subtler)",
+              subtlest: "var(--semantic-theme-green-alpha-subtlest)",
+            },
+            bolder: "var(--semantic-theme-green-bolder)",
+          },
+          emerald: {
+            bold: "var(--semantic-theme-emerald-bold)",
+            normal: "var(--semantic-theme-emerald-normal)",
+            neutral: "var(--semantic-theme-emerald-neutral)",
+            alternative: "var(--semantic-theme-emerald-alternative)",
+            assistive: "var(--semantic-theme-emerald-assistive)",
+            subtle: "var(--semantic-theme-emerald-subtle)",
+            subtler: "var(--semantic-theme-emerald-subtler)",
+            alpha: {
+              assistive: "var(--semantic-theme-emerald-alpha-assistive)",
+              subtle: "var(--semantic-theme-emerald-alpha-subtle)",
+              subtler: "var(--semantic-theme-emerald-alpha-subtler)",
+              subtlest: "var(--semantic-theme-emerald-alpha-subtlest)",
+            },
+            bolder: "var(--semantic-theme-emerald-bolder)",
+          },
+          teal: {
+            bold: "var(--semantic-theme-teal-bold)",
+            normal: "var(--semantic-theme-teal-normal)",
+            neutral: "var(--semantic-theme-teal-neutral)",
+            alternative: "var(--semantic-theme-teal-alternative)",
+            assistive: "var(--semantic-theme-teal-assistive)",
+            subtle: "var(--semantic-theme-teal-subtle)",
+            subtler: "var(--semantic-theme-teal-subtler)",
+            alpha: {
+              assistive: "var(--semantic-theme-teal-alpha-assistive)",
+              subtle: "var(--semantic-theme-teal-alpha-subtle)",
+              subtler: "var(--semantic-theme-teal-alpha-subtler)",
+              subtlest: "var(--semantic-theme-teal-alpha-subtlest)",
+            },
+            bolder: "var(--semantic-theme-teal-bolder)",
+          },
+          cyan: {
+            bold: "var(--semantic-theme-cyan-bold)",
+            normal: "var(--semantic-theme-cyan-normal)",
+            neutral: "var(--semantic-theme-cyan-neutral)",
+            alternative: "var(--semantic-theme-cyan-alternative)",
+            assistive: "var(--semantic-theme-cyan-assistive)",
+            subtle: "var(--semantic-theme-cyan-subtle)",
+            subtler: "var(--semantic-theme-cyan-subtler)",
+            alpha: {
+              assistive: "var(--semantic-theme-cyan-alpha-assistive)",
+              subtle: "var(--semantic-theme-cyan-alpha-subtle)",
+              subtler: "var(--semantic-theme-cyan-alpha-subtler)",
+              subtlest: "var(--semantic-theme-cyan-alpha-subtlest)",
+            },
+            bolder: "var(--semantic-theme-cyan-bolder)",
+          },
+          sky: {
+            bold: "var(--semantic-theme-sky-bold)",
+            normal: "var(--semantic-theme-sky-normal)",
+            neutral: "var(--semantic-theme-sky-neutral)",
+            alternative: "var(--semantic-theme-sky-alternative)",
+            assistive: "var(--semantic-theme-sky-assistive)",
+            subtle: "var(--semantic-theme-sky-subtle)",
+            subtler: "var(--semantic-theme-sky-subtler)",
+            alpha: {
+              assistive: "var(--semantic-theme-sky-alpha-assistive)",
+              subtle: "var(--semantic-theme-sky-alpha-subtle)",
+              subtler: "var(--semantic-theme-sky-alpha-subtler)",
+              subtlest: "var(--semantic-theme-sky-alpha-subtlest)",
+            },
+            bolder: "var(--semantic-theme-sky-bolder)",
+          },
+          blue: {
+            bold: "var(--semantic-theme-blue-bold)",
+            normal: "var(--semantic-theme-blue-normal)",
+            neutral: "var(--semantic-theme-blue-neutral)",
+            alternative: "var(--semantic-theme-blue-alternative)",
+            assistive: "var(--semantic-theme-blue-assistive)",
+            subtle: "var(--semantic-theme-blue-subtle)",
+            subtler: "var(--semantic-theme-blue-subtler)",
+            alpha: {
+              assistive: "var(--semantic-theme-blue-alpha-assistive)",
+              subtle: "var(--semantic-theme-blue-alpha-subtle)",
+              subtler: "var(--semantic-theme-blue-alpha-subtler)",
+              subtlest: "var(--semantic-theme-blue-alpha-subtlest)",
+            },
+            bolder: "var(--semantic-theme-blue-bolder)",
+          },
+          violet: {
+            bold: "var(--semantic-theme-violet-bold)",
+            normal: "var(--semantic-theme-violet-normal)",
+            neutral: "var(--semantic-theme-violet-neutral)",
+            alternative: "var(--semantic-theme-violet-alternative)",
+            assistive: "var(--semantic-theme-violet-assistive)",
+            subtle: "var(--semantic-theme-violet-subtle)",
+            subtler: "var(--semantic-theme-violet-subtler)",
+            alpha: {
+              assistive: "var(--semantic-theme-violet-alpha-assistive)",
+              subtle: "var(--semantic-theme-violet-alpha-subtle)",
+              subtler: "var(--semantic-theme-violet-alpha-subtler)",
+              subtlest: "var(--semantic-theme-violet-alpha-subtlest)",
+            },
+            bolder: "var(--semantic-theme-violet-bolder)",
+          },
+          purple: {
+            bold: "var(--semantic-theme-purple-bold)",
+            normal: "var(--semantic-theme-purple-normal)",
+            neutral: "var(--semantic-theme-purple-neutral)",
+            alternative: "var(--semantic-theme-purple-alternative)",
+            assistive: "var(--semantic-theme-purple-assistive)",
+            subtle: "var(--semantic-theme-purple-subtle)",
+            subtler: "var(--semantic-theme-purple-subtler)",
+            alpha: {
+              assistive: "var(--semantic-theme-purple-alpha-assistive)",
+              subtle: "var(--semantic-theme-purple-alpha-subtle)",
+              subtler: "var(--semantic-theme-purple-alpha-subtler)",
+              subtlest: "var(--semantic-theme-purple-alpha-subtlest)",
+            },
+            bolder: "var(--semantic-theme-purple-bolder)",
+          },
+          fuchsia: {
+            bold: "var(--semantic-theme-fuchsia-bold)",
+            normal: "var(--semantic-theme-fuchsia-normal)",
+            neutral: "var(--semantic-theme-fuchsia-neutral)",
+            alternative: "var(--semantic-theme-fuchsia-alternative)",
+            assistive: "var(--semantic-theme-fuchsia-assistive)",
+            subtle: "var(--semantic-theme-fuchsia-subtle)",
+            subtler: "var(--semantic-theme-fuchsia-subtler)",
+            alpha: {
+              assistive: "var(--semantic-theme-fuchsia-alpha-assistive)",
+              subtle: "var(--semantic-theme-fuchsia-alpha-subtle)",
+              subtler: "var(--semantic-theme-fuchsia-alpha-subtler)",
+              subtlest: "var(--semantic-theme-fuchsia-alpha-subtlest)",
+            },
+            bolder: "var(--semantic-theme-fuchsia-bolder)",
+          },
+          pink: {
+            bold: "var(--semantic-theme-pink-bold)",
+            normal: "var(--semantic-theme-pink-normal)",
+            neutral: "var(--semantic-theme-pink-neutral)",
+            alternative: "var(--semantic-theme-pink-alternative)",
+            assistive: "var(--semantic-theme-pink-assistive)",
+            subtle: "var(--semantic-theme-pink-subtle)",
+            subtler: "var(--semantic-theme-pink-subtler)",
+            alpha: {
+              assistive: "var(--semantic-theme-pink-alpha-assistive)",
+              subtle: "var(--semantic-theme-pink-alpha-subtle)",
+              subtler: "var(--semantic-theme-pink-alpha-subtler)",
+              subtlest: "var(--semantic-theme-pink-alpha-subtlest)",
+            },
+            bolder: "var(--semantic-theme-pink-bolder)",
+          },
+          rose: {
+            bold: "var(--semantic-theme-rose-bold)",
+            normal: "var(--semantic-theme-rose-normal)",
+            neutral: "var(--semantic-theme-rose-neutral)",
+            alternative: "var(--semantic-theme-rose-alternative)",
+            assistive: "var(--semantic-theme-rose-assistive)",
+            subtle: "var(--semantic-theme-rose-subtle)",
+            subtler: "var(--semantic-theme-rose-subtler)",
+            alpha: {
+              assistive: "var(--semantic-theme-rose-alpha-assistive)",
+              subtle: "var(--semantic-theme-rose-alpha-subtle)",
+              subtler: "var(--semantic-theme-rose-alpha-subtler)",
+              subtlest: "var(--semantic-theme-rose-alpha-subtlest)",
+            },
+            bolder: "var(--semantic-theme-rose-bolder)",
+          },
+        },
+        curtain: {
+          bright: "var(--semantic-curtain-bright)",
+          dim: "var(--semantic-curtain-dim)",
+          dimmer: "var(--semantic-curtain-dimmer)",
+        },
+        feedback: {
+          positive: {
+            alpha: {
+              subtle: "var(--semantic-feedback-positive-alpha-subtle)",
+              assistive: "var(--semantic-feedback-positive-alpha-assistive)",
+              subtler: "var(--semantic-feedback-positive-alpha-subtler)",
+              inverse: {
+                assistive: "var(--semantic-feedback-positive-alpha-inverse-assistive)",
+                subtle: "var(--semantic-feedback-positive-alpha-inverse-subtle)",
+                subtler: "var(--semantic-feedback-positive-alpha-inverse-subtler)",
+                subtlest: "var(--semantic-feedback-positive-alpha-inverse-subtlest)",
+              },
+              subtlest: "var(--semantic-feedback-positive-alpha-subtlest)",
+            },
+            normal: "var(--semantic-feedback-positive-normal)",
+            bold: "var(--semantic-feedback-positive-bold)",
+            inverse: {
+              bold: "var(--semantic-feedback-positive-inverse-bold)",
+              normal: "var(--semantic-feedback-positive-inverse-normal)",
+              neutral: "var(--semantic-feedback-positive-inverse-neutral)",
+              alternative: "var(--semantic-feedback-positive-inverse-alternative)",
+              assistive: "var(--semantic-feedback-positive-inverse-assistive)",
+              subtle: "var(--semantic-feedback-positive-inverse-subtle)",
+              subtler: "var(--semantic-feedback-positive-inverse-subtler)",
+              bolder: "var(--semantic-feedback-positive-inverse-bolder)",
+            },
+            assistive: "var(--semantic-feedback-positive-assistive)",
+            subtler: "var(--semantic-feedback-positive-subtler)",
+            neutral: "var(--semantic-feedback-positive-neutral)",
+            alternative: "var(--semantic-feedback-positive-alternative)",
+            subtle: "var(--semantic-feedback-positive-subtle)",
+            bolder: "var(--semantic-feedback-positive-bolder)",
+          },
+          destructive: {
+            bold: "var(--semantic-feedback-destructive-bold)",
+            inverse: {
+              bold: "var(--semantic-feedback-destructive-inverse-bold)",
+              normal: "var(--semantic-feedback-destructive-inverse-normal)",
+              neutral: "var(--semantic-feedback-destructive-inverse-neutral)",
+              alternative: "var(--semantic-feedback-destructive-inverse-alternative)",
+              assistive: "var(--semantic-feedback-destructive-inverse-assistive)",
+              subtle: "var(--semantic-feedback-destructive-inverse-subtle)",
+              subtler: "var(--semantic-feedback-destructive-inverse-subtler)",
+              bolder: "var(--semantic-feedback-destructive-inverse-bolder)",
+            },
+            normal: "var(--semantic-feedback-destructive-normal)",
+            alpha: {
+              assistive: "var(--semantic-feedback-destructive-alpha-assistive)",
+              subtle: "var(--semantic-feedback-destructive-alpha-subtle)",
+              subtler: "var(--semantic-feedback-destructive-alpha-subtler)",
+              inverse: {
+                assistive: "var(--semantic-feedback-destructive-alpha-inverse-assistive)",
+                subtle: "var(--semantic-feedback-destructive-alpha-inverse-subtle)",
+                subtler: "var(--semantic-feedback-destructive-alpha-inverse-subtler)",
+                subtlest: "var(--semantic-feedback-destructive-alpha-inverse-subtlest)",
+              },
+              subtlest: "var(--semantic-feedback-destructive-alpha-subtlest)",
+            },
+            neutral: "var(--semantic-feedback-destructive-neutral)",
+            alternative: "var(--semantic-feedback-destructive-alternative)",
+            assistive: "var(--semantic-feedback-destructive-assistive)",
+            subtle: "var(--semantic-feedback-destructive-subtle)",
+            subtler: "var(--semantic-feedback-destructive-subtler)",
+            bolder: "var(--semantic-feedback-destructive-bolder)",
+          },
+          notifying: {
+            bold: "var(--semantic-feedback-notifying-bold)",
+            normal: "var(--semantic-feedback-notifying-normal)",
+            neutral: "var(--semantic-feedback-notifying-neutral)",
+            alternative: "var(--semantic-feedback-notifying-alternative)",
+            assistive: "var(--semantic-feedback-notifying-assistive)",
+            subtle: "var(--semantic-feedback-notifying-subtle)",
+            subtler: "var(--semantic-feedback-notifying-subtler)",
+            inverse: {
+              bold: "var(--semantic-feedback-notifying-inverse-bold)",
+              normal: "var(--semantic-feedback-notifying-inverse-normal)",
+              neutral: "var(--semantic-feedback-notifying-inverse-neutral)",
+              alternative: "var(--semantic-feedback-notifying-inverse-alternative)",
+              assistive: "var(--semantic-feedback-notifying-inverse-assistive)",
+              subtle: "var(--semantic-feedback-notifying-inverse-subtle)",
+              subtler: "var(--semantic-feedback-notifying-inverse-subtler)",
+              bolder: "var(--semantic-feedback-notifying-inverse-bolder)",
+            },
+            alpha: {
+              assistive: "var(--semantic-feedback-notifying-alpha-assistive)",
+              subtle: "var(--semantic-feedback-notifying-alpha-subtle)",
+              subtler: "var(--semantic-feedback-notifying-alpha-subtler)",
+              inverse: {
+                assistive: "var(--semantic-feedback-notifying-alpha-inverse-assistive)",
+                subtle: "var(--semantic-feedback-notifying-alpha-inverse-subtle)",
+                subtler: "var(--semantic-feedback-notifying-alpha-inverse-subtler)",
+                subtlest: "var(--semantic-feedback-notifying-alpha-inverse-subtlest)",
+              },
+              subtlest: "var(--semantic-feedback-notifying-alpha-subtlest)",
+            },
+            bolder: "var(--semantic-feedback-notifying-bolder)",
+          },
+        },
+      },
+    },
+  },
+  scheme: {
+    desktop: {
+      semantic: {
+        spacing: {
           "0": "var(--semantic-spacing-0)",
           "1": "var(--semantic-spacing-1)",
           "2": "var(--semantic-spacing-2)",
@@ -1747,9 +1747,9 @@ export const designTokens = {
           "96": "var(--semantic-spacing-96)",
           "112": "var(--semantic-spacing-112)",
           "128": "var(--semantic-spacing-128)",
-          "144": "var(--semantic-spacing-144)"
+          "144": "var(--semantic-spacing-144)",
         },
-        "radius": {
+        radius: {
           "0": "var(--semantic-radius-0)",
           "2": "var(--semantic-radius-2)",
           "4": "var(--semantic-radius-4)",
@@ -1759,17 +1759,17 @@ export const designTokens = {
           "12": "var(--semantic-radius-12)",
           "16": "var(--semantic-radius-16)",
           "24": "var(--semantic-radius-24)",
-          "max": "var(--semantic-radius-max)"
+          max: "var(--semantic-radius-max)",
         },
-        "strokeWeight": {
+        strokeWeight: {
           "1": "var(--semantic-stroke-weight-1)",
           "2": "var(--semantic-stroke-weight-2)",
           "3": "var(--semantic-stroke-weight-3)",
           "4": "var(--semantic-stroke-weight-4)",
           "5": "var(--semantic-stroke-weight-5)",
-          "6": "var(--semantic-stroke-weight-6)"
+          "6": "var(--semantic-stroke-weight-6)",
         },
-        "opacity": {
+        opacity: {
           "0": "var(--semantic-opacity-0)",
           "5": "var(--semantic-opacity-5)",
           "8": "var(--semantic-opacity-8)",
@@ -1783,23 +1783,23 @@ export const designTokens = {
           "63": "var(--semantic-opacity-63)",
           "76": "var(--semantic-opacity-76)",
           "91": "var(--semantic-opacity-91)",
-          "100": "var(--semantic-opacity-100)"
+          "100": "var(--semantic-opacity-100)",
         },
-        "breakpoint": {
-          "min": "var(--semantic-breakpoint-min)",
-          "max": "var(--semantic-breakpoint-max)"
+        breakpoint: {
+          min: "var(--semantic-breakpoint-min)",
+          max: "var(--semantic-breakpoint-max)",
         },
-        "margin": {
-          "lg": "var(--semantic-margin-lg)",
-          "md": "var(--semantic-margin-md)",
-          "sm": "var(--semantic-margin-sm)",
-          "xl": "var(--semantic-margin-xl)",
+        margin: {
+          lg: "var(--semantic-margin-lg)",
+          md: "var(--semantic-margin-md)",
+          sm: "var(--semantic-margin-sm)",
+          xl: "var(--semantic-margin-xl)",
           "2xl": "var(--semantic-margin-2xl)",
           "3xl": "var(--semantic-margin-3xl)",
-          "xs": "var(--semantic-margin-xs)",
-          "2xs": "var(--semantic-margin-2xs)"
+          xs: "var(--semantic-margin-xs)",
+          "2xs": "var(--semantic-margin-2xs)",
         },
-        "position": {
+        position: {
           "0": "var(--semantic-position-0)",
           "1": "var(--semantic-position-1)",
           "2": "var(--semantic-position-2)",
@@ -1809,11 +1809,11 @@ export const designTokens = {
           "8": "var(--semantic-position-8)",
           "12": "var(--semantic-position-12)",
           "16": "var(--semantic-position-16)",
-          "24": "var(--semantic-position-24)"
-        }
+          "24": "var(--semantic-position-24)",
+        },
       },
-      "primitive": {
-        "unit": {
+      primitive: {
+        unit: {
           "0": "var(--primitive-unit-0)",
           "1": "var(--primitive-unit-1)",
           "2": "var(--primitive-unit-2)",
@@ -1838,13 +1838,13 @@ export const designTokens = {
           "96": "var(--primitive-unit-96)",
           "112": "var(--primitive-unit-112)",
           "128": "var(--primitive-unit-128)",
-          "144": "var(--primitive-unit-144)"
-        }
-      }
+          "144": "var(--primitive-unit-144)",
+        },
+      },
     },
-    "tablet": {
-      "semantic": {
-        "spacing": {
+    tablet: {
+      semantic: {
+        spacing: {
           "0": "var(--semantic-spacing-0)",
           "1": "var(--semantic-spacing-1)",
           "2": "var(--semantic-spacing-2)",
@@ -1868,9 +1868,9 @@ export const designTokens = {
           "96": "var(--semantic-spacing-96)",
           "112": "var(--semantic-spacing-112)",
           "128": "var(--semantic-spacing-128)",
-          "144": "var(--semantic-spacing-144)"
+          "144": "var(--semantic-spacing-144)",
         },
-        "radius": {
+        radius: {
           "0": "var(--semantic-radius-0)",
           "2": "var(--semantic-radius-2)",
           "4": "var(--semantic-radius-4)",
@@ -1880,17 +1880,17 @@ export const designTokens = {
           "12": "var(--semantic-radius-12)",
           "16": "var(--semantic-radius-16)",
           "24": "var(--semantic-radius-24)",
-          "max": "var(--semantic-radius-max)"
+          max: "var(--semantic-radius-max)",
         },
-        "strokeWeight": {
+        strokeWeight: {
           "1": "var(--semantic-stroke-weight-1)",
           "2": "var(--semantic-stroke-weight-2)",
           "3": "var(--semantic-stroke-weight-3)",
           "4": "var(--semantic-stroke-weight-4)",
           "5": "var(--semantic-stroke-weight-5)",
-          "6": "var(--semantic-stroke-weight-6)"
+          "6": "var(--semantic-stroke-weight-6)",
         },
-        "opacity": {
+        opacity: {
           "0": "var(--semantic-opacity-0)",
           "5": "var(--semantic-opacity-5)",
           "8": "var(--semantic-opacity-8)",
@@ -1904,23 +1904,23 @@ export const designTokens = {
           "63": "var(--semantic-opacity-63)",
           "76": "var(--semantic-opacity-76)",
           "91": "var(--semantic-opacity-91)",
-          "100": "var(--semantic-opacity-100)"
+          "100": "var(--semantic-opacity-100)",
         },
-        "breakpoint": {
-          "min": "var(--semantic-breakpoint-min)",
-          "max": "var(--semantic-breakpoint-max)"
+        breakpoint: {
+          min: "var(--semantic-breakpoint-min)",
+          max: "var(--semantic-breakpoint-max)",
         },
-        "margin": {
-          "lg": "var(--semantic-margin-lg)",
-          "md": "var(--semantic-margin-md)",
-          "sm": "var(--semantic-margin-sm)",
-          "xl": "var(--semantic-margin-xl)",
+        margin: {
+          lg: "var(--semantic-margin-lg)",
+          md: "var(--semantic-margin-md)",
+          sm: "var(--semantic-margin-sm)",
+          xl: "var(--semantic-margin-xl)",
           "2xl": "var(--semantic-margin-2xl)",
           "3xl": "var(--semantic-margin-3xl)",
-          "xs": "var(--semantic-margin-xs)",
-          "2xs": "var(--semantic-margin-2xs)"
+          xs: "var(--semantic-margin-xs)",
+          "2xs": "var(--semantic-margin-2xs)",
         },
-        "position": {
+        position: {
           "0": "var(--semantic-position-0)",
           "1": "var(--semantic-position-1)",
           "2": "var(--semantic-position-2)",
@@ -1930,11 +1930,11 @@ export const designTokens = {
           "8": "var(--semantic-position-8)",
           "12": "var(--semantic-position-12)",
           "16": "var(--semantic-position-16)",
-          "24": "var(--semantic-position-24)"
-        }
+          "24": "var(--semantic-position-24)",
+        },
       },
-      "primitive": {
-        "unit": {
+      primitive: {
+        unit: {
           "0": "var(--primitive-unit-0)",
           "1": "var(--primitive-unit-1)",
           "2": "var(--primitive-unit-2)",
@@ -1959,13 +1959,13 @@ export const designTokens = {
           "96": "var(--primitive-unit-96)",
           "112": "var(--primitive-unit-112)",
           "128": "var(--primitive-unit-128)",
-          "144": "var(--primitive-unit-144)"
-        }
-      }
+          "144": "var(--primitive-unit-144)",
+        },
+      },
     },
-    "mobile": {
-      "semantic": {
-        "spacing": {
+    mobile: {
+      semantic: {
+        spacing: {
           "0": "var(--semantic-spacing-0)",
           "1": "var(--semantic-spacing-1)",
           "2": "var(--semantic-spacing-2)",
@@ -1989,9 +1989,9 @@ export const designTokens = {
           "96": "var(--semantic-spacing-96)",
           "112": "var(--semantic-spacing-112)",
           "128": "var(--semantic-spacing-128)",
-          "144": "var(--semantic-spacing-144)"
+          "144": "var(--semantic-spacing-144)",
         },
-        "radius": {
+        radius: {
           "0": "var(--semantic-radius-0)",
           "2": "var(--semantic-radius-2)",
           "4": "var(--semantic-radius-4)",
@@ -2001,17 +2001,17 @@ export const designTokens = {
           "12": "var(--semantic-radius-12)",
           "16": "var(--semantic-radius-16)",
           "24": "var(--semantic-radius-24)",
-          "max": "var(--semantic-radius-max)"
+          max: "var(--semantic-radius-max)",
         },
-        "strokeWeight": {
+        strokeWeight: {
           "1": "var(--semantic-stroke-weight-1)",
           "2": "var(--semantic-stroke-weight-2)",
           "3": "var(--semantic-stroke-weight-3)",
           "4": "var(--semantic-stroke-weight-4)",
           "5": "var(--semantic-stroke-weight-5)",
-          "6": "var(--semantic-stroke-weight-6)"
+          "6": "var(--semantic-stroke-weight-6)",
         },
-        "opacity": {
+        opacity: {
           "0": "var(--semantic-opacity-0)",
           "5": "var(--semantic-opacity-5)",
           "8": "var(--semantic-opacity-8)",
@@ -2025,23 +2025,23 @@ export const designTokens = {
           "63": "var(--semantic-opacity-63)",
           "76": "var(--semantic-opacity-76)",
           "91": "var(--semantic-opacity-91)",
-          "100": "var(--semantic-opacity-100)"
+          "100": "var(--semantic-opacity-100)",
         },
-        "breakpoint": {
-          "min": "var(--semantic-breakpoint-min)",
-          "max": "var(--semantic-breakpoint-max)"
+        breakpoint: {
+          min: "var(--semantic-breakpoint-min)",
+          max: "var(--semantic-breakpoint-max)",
         },
-        "margin": {
-          "lg": "var(--semantic-margin-lg)",
-          "md": "var(--semantic-margin-md)",
-          "sm": "var(--semantic-margin-sm)",
-          "xl": "var(--semantic-margin-xl)",
+        margin: {
+          lg: "var(--semantic-margin-lg)",
+          md: "var(--semantic-margin-md)",
+          sm: "var(--semantic-margin-sm)",
+          xl: "var(--semantic-margin-xl)",
           "2xl": "var(--semantic-margin-2xl)",
           "3xl": "var(--semantic-margin-3xl)",
-          "xs": "var(--semantic-margin-xs)",
-          "2xs": "var(--semantic-margin-2xs)"
+          xs: "var(--semantic-margin-xs)",
+          "2xs": "var(--semantic-margin-2xs)",
         },
-        "position": {
+        position: {
           "0": "var(--semantic-position-0)",
           "1": "var(--semantic-position-1)",
           "2": "var(--semantic-position-2)",
@@ -2051,11 +2051,11 @@ export const designTokens = {
           "8": "var(--semantic-position-8)",
           "12": "var(--semantic-position-12)",
           "16": "var(--semantic-position-16)",
-          "24": "var(--semantic-position-24)"
-        }
+          "24": "var(--semantic-position-24)",
+        },
       },
-      "primitive": {
-        "unit": {
+      primitive: {
+        unit: {
           "0": "var(--primitive-unit-0)",
           "1": "var(--primitive-unit-1)",
           "2": "var(--primitive-unit-2)",
@@ -2080,400 +2080,400 @@ export const designTokens = {
           "96": "var(--primitive-unit-96)",
           "112": "var(--primitive-unit-112)",
           "128": "var(--primitive-unit-128)",
-          "144": "var(--primitive-unit-144)"
-        }
-      }
-    }
-  },
-  "typography": {
-    "desktop": {
-      "primitive": {
-        "typeface": {
-          "hero": "var(--primitive-typeface-hero)",
-          "syntax": "var(--primitive-typeface-syntax)",
-          "title": "var(--primitive-typeface-title)",
-          "label": "var(--primitive-typeface-label)",
-          "body": "var(--primitive-typeface-body)"
+          "144": "var(--primitive-unit-144)",
         },
-        "fontSize": {
-          "hero": {
-            "1": "var(--primitive-font-size-hero-1)",
-            "2": "var(--primitive-font-size-hero-2)",
-            "3": "var(--primitive-font-size-hero-3)",
-            "4": "var(--primitive-font-size-hero-4)"
-          },
-          "title": {
-            "1": "var(--primitive-font-size-title-1)",
-            "2": "var(--primitive-font-size-title-2)",
-            "3": "var(--primitive-font-size-title-3)",
-            "4": "var(--primitive-font-size-title-4)"
-          },
-          "body": {
-            "lg": "var(--primitive-font-size-body-lg)",
-            "md": "var(--primitive-font-size-body-md)",
-            "sm": "var(--primitive-font-size-body-sm)",
-            "xs": "var(--primitive-font-size-body-xs)",
-            "2xs": "var(--primitive-font-size-body-2xs)"
-          },
-          "label": {
-            "lg": "var(--primitive-font-size-label-lg)",
-            "md": "var(--primitive-font-size-label-md)",
-            "sm": "var(--primitive-font-size-label-sm)",
-            "xs": "var(--primitive-font-size-label-xs)"
-          },
-          "syntax": {
-            "lg": "var(--primitive-font-size-syntax-lg)",
-            "md": "var(--primitive-font-size-syntax-md)",
-            "sm": "var(--primitive-font-size-syntax-sm)",
-            "xs": "var(--primitive-font-size-syntax-xs)"
-          }
-        },
-        "font": {
-          "lineHeight": {
-            "hero": {
-              "1": "var(--primitive-font-line-height-hero-1)",
-              "2": "var(--primitive-font-line-height-hero-2)",
-              "3": "var(--primitive-font-line-height-hero-3)",
-              "4": "var(--primitive-font-line-height-hero-4)"
-            },
-            "title": {
-              "1": "var(--primitive-font-line-height-title-1)",
-              "2": "var(--primitive-font-line-height-title-2)",
-              "3": "var(--primitive-font-line-height-title-3)",
-              "4": "var(--primitive-font-line-height-title-4)"
-            },
-            "label": {
-              "lg": "var(--primitive-font-line-height-label-lg)",
-              "md": "var(--primitive-font-line-height-label-md)",
-              "sm": "var(--primitive-font-line-height-label-sm)",
-              "xs": "var(--primitive-font-line-height-label-xs)"
-            },
-            "body": {
-              "lg": "var(--primitive-font-line-height-body-lg)",
-              "md": "var(--primitive-font-line-height-body-md)",
-              "sm": "var(--primitive-font-line-height-body-sm)",
-              "xs": "var(--primitive-font-line-height-body-xs)",
-              "2xs": "var(--primitive-font-line-height-body-2xs)"
-            },
-            "syntax": {
-              "lg": "var(--primitive-font-line-height-syntax-lg)",
-              "md": "var(--primitive-font-line-height-syntax-md)",
-              "sm": "var(--primitive-font-line-height-syntax-sm)",
-              "xs": "var(--primitive-font-line-height-syntax-xs)"
-            }
-          },
-          "letterSpacing": {
-            "hero": {
-              "1": "var(--primitive-font-letter-spacing-hero-1)",
-              "2": "var(--primitive-font-letter-spacing-hero-2)",
-              "3": "var(--primitive-font-letter-spacing-hero-3)",
-              "4": "var(--primitive-font-letter-spacing-hero-4)"
-            },
-            "title": {
-              "1": "var(--primitive-font-letter-spacing-title-1)",
-              "2": "var(--primitive-font-letter-spacing-title-2)",
-              "3": "var(--primitive-font-letter-spacing-title-3)",
-              "4": "var(--primitive-font-letter-spacing-title-4)"
-            },
-            "label": {
-              "lg": "var(--primitive-font-letter-spacing-label-lg)",
-              "md": "var(--primitive-font-letter-spacing-label-md)",
-              "sm": "var(--primitive-font-letter-spacing-label-sm)",
-              "xs": "var(--primitive-font-letter-spacing-label-xs)"
-            },
-            "body": {
-              "lg": "var(--primitive-font-letter-spacing-body-lg)",
-              "md": "var(--primitive-font-letter-spacing-body-md)",
-              "sm": "var(--primitive-font-letter-spacing-body-sm)",
-              "xs": "var(--primitive-font-letter-spacing-body-xs)",
-              "2xs": "var(--primitive-font-letter-spacing-body-2xs)"
-            }
-          }
-        },
-        "fontWeight": {
-          "hero": {
-            "normal": "var(--primitive-font-weight-hero-normal)",
-            "bold": "var(--primitive-font-weight-hero-bold)"
-          },
-          "title": {
-            "normal": "var(--primitive-font-weight-title-normal)",
-            "bold": "var(--primitive-font-weight-title-bold)"
-          },
-          "label": {
-            "normal": "var(--primitive-font-weight-label-normal)",
-            "bold": "var(--primitive-font-weight-label-bold)",
-            "subtle": "var(--primitive-font-weight-label-subtle)"
-          },
-          "body": {
-            "normal": "var(--primitive-font-weight-body-normal)",
-            "bold": "var(--primitive-font-weight-body-bold)"
-          },
-          "syntax": {
-            "normal": "var(--primitive-font-weight-syntax-normal)"
-          }
-        }
-      }
+      },
     },
-    "tablet": {
-      "primitive": {
-        "typeface": {
-          "hero": "var(--primitive-typeface-hero)",
-          "syntax": "var(--primitive-typeface-syntax)",
-          "title": "var(--primitive-typeface-title)",
-          "label": "var(--primitive-typeface-label)",
-          "body": "var(--primitive-typeface-body)"
-        },
-        "fontSize": {
-          "hero": {
-            "1": "var(--primitive-font-size-hero-1)",
-            "2": "var(--primitive-font-size-hero-2)",
-            "3": "var(--primitive-font-size-hero-3)",
-            "4": "var(--primitive-font-size-hero-4)"
-          },
-          "title": {
-            "1": "var(--primitive-font-size-title-1)",
-            "2": "var(--primitive-font-size-title-2)",
-            "3": "var(--primitive-font-size-title-3)",
-            "4": "var(--primitive-font-size-title-4)"
-          },
-          "body": {
-            "lg": "var(--primitive-font-size-body-lg)",
-            "md": "var(--primitive-font-size-body-md)",
-            "sm": "var(--primitive-font-size-body-sm)",
-            "xs": "var(--primitive-font-size-body-xs)",
-            "2xs": "var(--primitive-font-size-body-2xs)"
-          },
-          "label": {
-            "lg": "var(--primitive-font-size-label-lg)",
-            "md": "var(--primitive-font-size-label-md)",
-            "sm": "var(--primitive-font-size-label-sm)",
-            "xs": "var(--primitive-font-size-label-xs)"
-          },
-          "syntax": {
-            "lg": "var(--primitive-font-size-syntax-lg)",
-            "md": "var(--primitive-font-size-syntax-md)",
-            "sm": "var(--primitive-font-size-syntax-sm)",
-            "xs": "var(--primitive-font-size-syntax-xs)"
-          }
-        },
-        "font": {
-          "lineHeight": {
-            "hero": {
-              "1": "var(--primitive-font-line-height-hero-1)",
-              "2": "var(--primitive-font-line-height-hero-2)",
-              "3": "var(--primitive-font-line-height-hero-3)",
-              "4": "var(--primitive-font-line-height-hero-4)"
-            },
-            "title": {
-              "1": "var(--primitive-font-line-height-title-1)",
-              "2": "var(--primitive-font-line-height-title-2)",
-              "3": "var(--primitive-font-line-height-title-3)",
-              "4": "var(--primitive-font-line-height-title-4)"
-            },
-            "label": {
-              "lg": "var(--primitive-font-line-height-label-lg)",
-              "md": "var(--primitive-font-line-height-label-md)",
-              "sm": "var(--primitive-font-line-height-label-sm)",
-              "xs": "var(--primitive-font-line-height-label-xs)"
-            },
-            "body": {
-              "lg": "var(--primitive-font-line-height-body-lg)",
-              "md": "var(--primitive-font-line-height-body-md)",
-              "sm": "var(--primitive-font-line-height-body-sm)",
-              "xs": "var(--primitive-font-line-height-body-xs)",
-              "2xs": "var(--primitive-font-line-height-body-2xs)"
-            },
-            "syntax": {
-              "lg": "var(--primitive-font-line-height-syntax-lg)",
-              "md": "var(--primitive-font-line-height-syntax-md)",
-              "sm": "var(--primitive-font-line-height-syntax-sm)",
-              "xs": "var(--primitive-font-line-height-syntax-xs)"
-            }
-          },
-          "letterSpacing": {
-            "hero": {
-              "1": "var(--primitive-font-letter-spacing-hero-1)",
-              "2": "var(--primitive-font-letter-spacing-hero-2)",
-              "3": "var(--primitive-font-letter-spacing-hero-3)",
-              "4": "var(--primitive-font-letter-spacing-hero-4)"
-            },
-            "title": {
-              "1": "var(--primitive-font-letter-spacing-title-1)",
-              "2": "var(--primitive-font-letter-spacing-title-2)",
-              "3": "var(--primitive-font-letter-spacing-title-3)",
-              "4": "var(--primitive-font-letter-spacing-title-4)"
-            },
-            "label": {
-              "lg": "var(--primitive-font-letter-spacing-label-lg)",
-              "md": "var(--primitive-font-letter-spacing-label-md)",
-              "sm": "var(--primitive-font-letter-spacing-label-sm)",
-              "xs": "var(--primitive-font-letter-spacing-label-xs)"
-            },
-            "body": {
-              "lg": "var(--primitive-font-letter-spacing-body-lg)",
-              "md": "var(--primitive-font-letter-spacing-body-md)",
-              "sm": "var(--primitive-font-letter-spacing-body-sm)",
-              "xs": "var(--primitive-font-letter-spacing-body-xs)",
-              "2xs": "var(--primitive-font-letter-spacing-body-2xs)"
-            }
-          }
-        },
-        "fontWeight": {
-          "hero": {
-            "normal": "var(--primitive-font-weight-hero-normal)",
-            "bold": "var(--primitive-font-weight-hero-bold)"
-          },
-          "title": {
-            "normal": "var(--primitive-font-weight-title-normal)",
-            "bold": "var(--primitive-font-weight-title-bold)"
-          },
-          "label": {
-            "normal": "var(--primitive-font-weight-label-normal)",
-            "bold": "var(--primitive-font-weight-label-bold)",
-            "subtle": "var(--primitive-font-weight-label-subtle)"
-          },
-          "body": {
-            "normal": "var(--primitive-font-weight-body-normal)",
-            "bold": "var(--primitive-font-weight-body-bold)"
-          },
-          "syntax": {
-            "normal": "var(--primitive-font-weight-syntax-normal)"
-          }
-        }
-      }
-    },
-    "mobile": {
-      "primitive": {
-        "typeface": {
-          "hero": "var(--primitive-typeface-hero)",
-          "syntax": "var(--primitive-typeface-syntax)",
-          "title": "var(--primitive-typeface-title)",
-          "label": "var(--primitive-typeface-label)",
-          "body": "var(--primitive-typeface-body)"
-        },
-        "fontSize": {
-          "hero": {
-            "1": "var(--primitive-font-size-hero-1)",
-            "2": "var(--primitive-font-size-hero-2)",
-            "3": "var(--primitive-font-size-hero-3)",
-            "4": "var(--primitive-font-size-hero-4)"
-          },
-          "title": {
-            "1": "var(--primitive-font-size-title-1)",
-            "2": "var(--primitive-font-size-title-2)",
-            "3": "var(--primitive-font-size-title-3)",
-            "4": "var(--primitive-font-size-title-4)"
-          },
-          "body": {
-            "lg": "var(--primitive-font-size-body-lg)",
-            "md": "var(--primitive-font-size-body-md)",
-            "sm": "var(--primitive-font-size-body-sm)",
-            "xs": "var(--primitive-font-size-body-xs)",
-            "2xs": "var(--primitive-font-size-body-2xs)"
-          },
-          "label": {
-            "lg": "var(--primitive-font-size-label-lg)",
-            "md": "var(--primitive-font-size-label-md)",
-            "sm": "var(--primitive-font-size-label-sm)",
-            "xs": "var(--primitive-font-size-label-xs)"
-          },
-          "syntax": {
-            "lg": "var(--primitive-font-size-syntax-lg)",
-            "md": "var(--primitive-font-size-syntax-md)",
-            "sm": "var(--primitive-font-size-syntax-sm)",
-            "xs": "var(--primitive-font-size-syntax-xs)"
-          }
-        },
-        "font": {
-          "lineHeight": {
-            "hero": {
-              "1": "var(--primitive-font-line-height-hero-1)",
-              "2": "var(--primitive-font-line-height-hero-2)",
-              "3": "var(--primitive-font-line-height-hero-3)",
-              "4": "var(--primitive-font-line-height-hero-4)"
-            },
-            "title": {
-              "1": "var(--primitive-font-line-height-title-1)",
-              "2": "var(--primitive-font-line-height-title-2)",
-              "3": "var(--primitive-font-line-height-title-3)",
-              "4": "var(--primitive-font-line-height-title-4)"
-            },
-            "label": {
-              "lg": "var(--primitive-font-line-height-label-lg)",
-              "md": "var(--primitive-font-line-height-label-md)",
-              "sm": "var(--primitive-font-line-height-label-sm)",
-              "xs": "var(--primitive-font-line-height-label-xs)"
-            },
-            "body": {
-              "lg": "var(--primitive-font-line-height-body-lg)",
-              "md": "var(--primitive-font-line-height-body-md)",
-              "sm": "var(--primitive-font-line-height-body-sm)",
-              "xs": "var(--primitive-font-line-height-body-xs)",
-              "2xs": "var(--primitive-font-line-height-body-2xs)"
-            },
-            "syntax": {
-              "lg": "var(--primitive-font-line-height-syntax-lg)",
-              "md": "var(--primitive-font-line-height-syntax-md)",
-              "sm": "var(--primitive-font-line-height-syntax-sm)",
-              "xs": "var(--primitive-font-line-height-syntax-xs)"
-            }
-          },
-          "letterSpacing": {
-            "hero": {
-              "1": "var(--primitive-font-letter-spacing-hero-1)",
-              "2": "var(--primitive-font-letter-spacing-hero-2)",
-              "3": "var(--primitive-font-letter-spacing-hero-3)",
-              "4": "var(--primitive-font-letter-spacing-hero-4)"
-            },
-            "title": {
-              "1": "var(--primitive-font-letter-spacing-title-1)",
-              "2": "var(--primitive-font-letter-spacing-title-2)",
-              "3": "var(--primitive-font-letter-spacing-title-3)",
-              "4": "var(--primitive-font-letter-spacing-title-4)"
-            },
-            "label": {
-              "lg": "var(--primitive-font-letter-spacing-label-lg)",
-              "md": "var(--primitive-font-letter-spacing-label-md)",
-              "sm": "var(--primitive-font-letter-spacing-label-sm)",
-              "xs": "var(--primitive-font-letter-spacing-label-xs)"
-            },
-            "body": {
-              "lg": "var(--primitive-font-letter-spacing-body-lg)",
-              "md": "var(--primitive-font-letter-spacing-body-md)",
-              "sm": "var(--primitive-font-letter-spacing-body-sm)",
-              "xs": "var(--primitive-font-letter-spacing-body-xs)",
-              "2xs": "var(--primitive-font-letter-spacing-body-2xs)"
-            }
-          }
-        },
-        "fontWeight": {
-          "hero": {
-            "normal": "var(--primitive-font-weight-hero-normal)",
-            "bold": "var(--primitive-font-weight-hero-bold)"
-          },
-          "title": {
-            "normal": "var(--primitive-font-weight-title-normal)",
-            "bold": "var(--primitive-font-weight-title-bold)"
-          },
-          "label": {
-            "normal": "var(--primitive-font-weight-label-normal)",
-            "bold": "var(--primitive-font-weight-label-bold)",
-            "subtle": "var(--primitive-font-weight-label-subtle)"
-          },
-          "body": {
-            "normal": "var(--primitive-font-weight-body-normal)",
-            "bold": "var(--primitive-font-weight-body-bold)"
-          },
-          "syntax": {
-            "normal": "var(--primitive-font-weight-syntax-normal)"
-          }
-        }
-      }
-    }
   },
-  "environment": {
-    "semantic": {
-      "duration": {
+  typography: {
+    desktop: {
+      primitive: {
+        typeface: {
+          hero: "var(--primitive-typeface-hero)",
+          syntax: "var(--primitive-typeface-syntax)",
+          title: "var(--primitive-typeface-title)",
+          label: "var(--primitive-typeface-label)",
+          body: "var(--primitive-typeface-body)",
+        },
+        fontSize: {
+          hero: {
+            "1": "var(--primitive-font-size-hero-1)",
+            "2": "var(--primitive-font-size-hero-2)",
+            "3": "var(--primitive-font-size-hero-3)",
+            "4": "var(--primitive-font-size-hero-4)",
+          },
+          title: {
+            "1": "var(--primitive-font-size-title-1)",
+            "2": "var(--primitive-font-size-title-2)",
+            "3": "var(--primitive-font-size-title-3)",
+            "4": "var(--primitive-font-size-title-4)",
+          },
+          body: {
+            lg: "var(--primitive-font-size-body-lg)",
+            md: "var(--primitive-font-size-body-md)",
+            sm: "var(--primitive-font-size-body-sm)",
+            xs: "var(--primitive-font-size-body-xs)",
+            "2xs": "var(--primitive-font-size-body-2xs)",
+          },
+          label: {
+            lg: "var(--primitive-font-size-label-lg)",
+            md: "var(--primitive-font-size-label-md)",
+            sm: "var(--primitive-font-size-label-sm)",
+            xs: "var(--primitive-font-size-label-xs)",
+          },
+          syntax: {
+            lg: "var(--primitive-font-size-syntax-lg)",
+            md: "var(--primitive-font-size-syntax-md)",
+            sm: "var(--primitive-font-size-syntax-sm)",
+            xs: "var(--primitive-font-size-syntax-xs)",
+          },
+        },
+        font: {
+          lineHeight: {
+            hero: {
+              "1": "var(--primitive-font-line-height-hero-1)",
+              "2": "var(--primitive-font-line-height-hero-2)",
+              "3": "var(--primitive-font-line-height-hero-3)",
+              "4": "var(--primitive-font-line-height-hero-4)",
+            },
+            title: {
+              "1": "var(--primitive-font-line-height-title-1)",
+              "2": "var(--primitive-font-line-height-title-2)",
+              "3": "var(--primitive-font-line-height-title-3)",
+              "4": "var(--primitive-font-line-height-title-4)",
+            },
+            label: {
+              lg: "var(--primitive-font-line-height-label-lg)",
+              md: "var(--primitive-font-line-height-label-md)",
+              sm: "var(--primitive-font-line-height-label-sm)",
+              xs: "var(--primitive-font-line-height-label-xs)",
+            },
+            body: {
+              lg: "var(--primitive-font-line-height-body-lg)",
+              md: "var(--primitive-font-line-height-body-md)",
+              sm: "var(--primitive-font-line-height-body-sm)",
+              xs: "var(--primitive-font-line-height-body-xs)",
+              "2xs": "var(--primitive-font-line-height-body-2xs)",
+            },
+            syntax: {
+              lg: "var(--primitive-font-line-height-syntax-lg)",
+              md: "var(--primitive-font-line-height-syntax-md)",
+              sm: "var(--primitive-font-line-height-syntax-sm)",
+              xs: "var(--primitive-font-line-height-syntax-xs)",
+            },
+          },
+          letterSpacing: {
+            hero: {
+              "1": "var(--primitive-font-letter-spacing-hero-1)",
+              "2": "var(--primitive-font-letter-spacing-hero-2)",
+              "3": "var(--primitive-font-letter-spacing-hero-3)",
+              "4": "var(--primitive-font-letter-spacing-hero-4)",
+            },
+            title: {
+              "1": "var(--primitive-font-letter-spacing-title-1)",
+              "2": "var(--primitive-font-letter-spacing-title-2)",
+              "3": "var(--primitive-font-letter-spacing-title-3)",
+              "4": "var(--primitive-font-letter-spacing-title-4)",
+            },
+            label: {
+              lg: "var(--primitive-font-letter-spacing-label-lg)",
+              md: "var(--primitive-font-letter-spacing-label-md)",
+              sm: "var(--primitive-font-letter-spacing-label-sm)",
+              xs: "var(--primitive-font-letter-spacing-label-xs)",
+            },
+            body: {
+              lg: "var(--primitive-font-letter-spacing-body-lg)",
+              md: "var(--primitive-font-letter-spacing-body-md)",
+              sm: "var(--primitive-font-letter-spacing-body-sm)",
+              xs: "var(--primitive-font-letter-spacing-body-xs)",
+              "2xs": "var(--primitive-font-letter-spacing-body-2xs)",
+            },
+          },
+        },
+        fontWeight: {
+          hero: {
+            normal: "var(--primitive-font-weight-hero-normal)",
+            bold: "var(--primitive-font-weight-hero-bold)",
+          },
+          title: {
+            normal: "var(--primitive-font-weight-title-normal)",
+            bold: "var(--primitive-font-weight-title-bold)",
+          },
+          label: {
+            normal: "var(--primitive-font-weight-label-normal)",
+            bold: "var(--primitive-font-weight-label-bold)",
+            subtle: "var(--primitive-font-weight-label-subtle)",
+          },
+          body: {
+            normal: "var(--primitive-font-weight-body-normal)",
+            bold: "var(--primitive-font-weight-body-bold)",
+          },
+          syntax: {
+            normal: "var(--primitive-font-weight-syntax-normal)",
+          },
+        },
+      },
+    },
+    tablet: {
+      primitive: {
+        typeface: {
+          hero: "var(--primitive-typeface-hero)",
+          syntax: "var(--primitive-typeface-syntax)",
+          title: "var(--primitive-typeface-title)",
+          label: "var(--primitive-typeface-label)",
+          body: "var(--primitive-typeface-body)",
+        },
+        fontSize: {
+          hero: {
+            "1": "var(--primitive-font-size-hero-1)",
+            "2": "var(--primitive-font-size-hero-2)",
+            "3": "var(--primitive-font-size-hero-3)",
+            "4": "var(--primitive-font-size-hero-4)",
+          },
+          title: {
+            "1": "var(--primitive-font-size-title-1)",
+            "2": "var(--primitive-font-size-title-2)",
+            "3": "var(--primitive-font-size-title-3)",
+            "4": "var(--primitive-font-size-title-4)",
+          },
+          body: {
+            lg: "var(--primitive-font-size-body-lg)",
+            md: "var(--primitive-font-size-body-md)",
+            sm: "var(--primitive-font-size-body-sm)",
+            xs: "var(--primitive-font-size-body-xs)",
+            "2xs": "var(--primitive-font-size-body-2xs)",
+          },
+          label: {
+            lg: "var(--primitive-font-size-label-lg)",
+            md: "var(--primitive-font-size-label-md)",
+            sm: "var(--primitive-font-size-label-sm)",
+            xs: "var(--primitive-font-size-label-xs)",
+          },
+          syntax: {
+            lg: "var(--primitive-font-size-syntax-lg)",
+            md: "var(--primitive-font-size-syntax-md)",
+            sm: "var(--primitive-font-size-syntax-sm)",
+            xs: "var(--primitive-font-size-syntax-xs)",
+          },
+        },
+        font: {
+          lineHeight: {
+            hero: {
+              "1": "var(--primitive-font-line-height-hero-1)",
+              "2": "var(--primitive-font-line-height-hero-2)",
+              "3": "var(--primitive-font-line-height-hero-3)",
+              "4": "var(--primitive-font-line-height-hero-4)",
+            },
+            title: {
+              "1": "var(--primitive-font-line-height-title-1)",
+              "2": "var(--primitive-font-line-height-title-2)",
+              "3": "var(--primitive-font-line-height-title-3)",
+              "4": "var(--primitive-font-line-height-title-4)",
+            },
+            label: {
+              lg: "var(--primitive-font-line-height-label-lg)",
+              md: "var(--primitive-font-line-height-label-md)",
+              sm: "var(--primitive-font-line-height-label-sm)",
+              xs: "var(--primitive-font-line-height-label-xs)",
+            },
+            body: {
+              lg: "var(--primitive-font-line-height-body-lg)",
+              md: "var(--primitive-font-line-height-body-md)",
+              sm: "var(--primitive-font-line-height-body-sm)",
+              xs: "var(--primitive-font-line-height-body-xs)",
+              "2xs": "var(--primitive-font-line-height-body-2xs)",
+            },
+            syntax: {
+              lg: "var(--primitive-font-line-height-syntax-lg)",
+              md: "var(--primitive-font-line-height-syntax-md)",
+              sm: "var(--primitive-font-line-height-syntax-sm)",
+              xs: "var(--primitive-font-line-height-syntax-xs)",
+            },
+          },
+          letterSpacing: {
+            hero: {
+              "1": "var(--primitive-font-letter-spacing-hero-1)",
+              "2": "var(--primitive-font-letter-spacing-hero-2)",
+              "3": "var(--primitive-font-letter-spacing-hero-3)",
+              "4": "var(--primitive-font-letter-spacing-hero-4)",
+            },
+            title: {
+              "1": "var(--primitive-font-letter-spacing-title-1)",
+              "2": "var(--primitive-font-letter-spacing-title-2)",
+              "3": "var(--primitive-font-letter-spacing-title-3)",
+              "4": "var(--primitive-font-letter-spacing-title-4)",
+            },
+            label: {
+              lg: "var(--primitive-font-letter-spacing-label-lg)",
+              md: "var(--primitive-font-letter-spacing-label-md)",
+              sm: "var(--primitive-font-letter-spacing-label-sm)",
+              xs: "var(--primitive-font-letter-spacing-label-xs)",
+            },
+            body: {
+              lg: "var(--primitive-font-letter-spacing-body-lg)",
+              md: "var(--primitive-font-letter-spacing-body-md)",
+              sm: "var(--primitive-font-letter-spacing-body-sm)",
+              xs: "var(--primitive-font-letter-spacing-body-xs)",
+              "2xs": "var(--primitive-font-letter-spacing-body-2xs)",
+            },
+          },
+        },
+        fontWeight: {
+          hero: {
+            normal: "var(--primitive-font-weight-hero-normal)",
+            bold: "var(--primitive-font-weight-hero-bold)",
+          },
+          title: {
+            normal: "var(--primitive-font-weight-title-normal)",
+            bold: "var(--primitive-font-weight-title-bold)",
+          },
+          label: {
+            normal: "var(--primitive-font-weight-label-normal)",
+            bold: "var(--primitive-font-weight-label-bold)",
+            subtle: "var(--primitive-font-weight-label-subtle)",
+          },
+          body: {
+            normal: "var(--primitive-font-weight-body-normal)",
+            bold: "var(--primitive-font-weight-body-bold)",
+          },
+          syntax: {
+            normal: "var(--primitive-font-weight-syntax-normal)",
+          },
+        },
+      },
+    },
+    mobile: {
+      primitive: {
+        typeface: {
+          hero: "var(--primitive-typeface-hero)",
+          syntax: "var(--primitive-typeface-syntax)",
+          title: "var(--primitive-typeface-title)",
+          label: "var(--primitive-typeface-label)",
+          body: "var(--primitive-typeface-body)",
+        },
+        fontSize: {
+          hero: {
+            "1": "var(--primitive-font-size-hero-1)",
+            "2": "var(--primitive-font-size-hero-2)",
+            "3": "var(--primitive-font-size-hero-3)",
+            "4": "var(--primitive-font-size-hero-4)",
+          },
+          title: {
+            "1": "var(--primitive-font-size-title-1)",
+            "2": "var(--primitive-font-size-title-2)",
+            "3": "var(--primitive-font-size-title-3)",
+            "4": "var(--primitive-font-size-title-4)",
+          },
+          body: {
+            lg: "var(--primitive-font-size-body-lg)",
+            md: "var(--primitive-font-size-body-md)",
+            sm: "var(--primitive-font-size-body-sm)",
+            xs: "var(--primitive-font-size-body-xs)",
+            "2xs": "var(--primitive-font-size-body-2xs)",
+          },
+          label: {
+            lg: "var(--primitive-font-size-label-lg)",
+            md: "var(--primitive-font-size-label-md)",
+            sm: "var(--primitive-font-size-label-sm)",
+            xs: "var(--primitive-font-size-label-xs)",
+          },
+          syntax: {
+            lg: "var(--primitive-font-size-syntax-lg)",
+            md: "var(--primitive-font-size-syntax-md)",
+            sm: "var(--primitive-font-size-syntax-sm)",
+            xs: "var(--primitive-font-size-syntax-xs)",
+          },
+        },
+        font: {
+          lineHeight: {
+            hero: {
+              "1": "var(--primitive-font-line-height-hero-1)",
+              "2": "var(--primitive-font-line-height-hero-2)",
+              "3": "var(--primitive-font-line-height-hero-3)",
+              "4": "var(--primitive-font-line-height-hero-4)",
+            },
+            title: {
+              "1": "var(--primitive-font-line-height-title-1)",
+              "2": "var(--primitive-font-line-height-title-2)",
+              "3": "var(--primitive-font-line-height-title-3)",
+              "4": "var(--primitive-font-line-height-title-4)",
+            },
+            label: {
+              lg: "var(--primitive-font-line-height-label-lg)",
+              md: "var(--primitive-font-line-height-label-md)",
+              sm: "var(--primitive-font-line-height-label-sm)",
+              xs: "var(--primitive-font-line-height-label-xs)",
+            },
+            body: {
+              lg: "var(--primitive-font-line-height-body-lg)",
+              md: "var(--primitive-font-line-height-body-md)",
+              sm: "var(--primitive-font-line-height-body-sm)",
+              xs: "var(--primitive-font-line-height-body-xs)",
+              "2xs": "var(--primitive-font-line-height-body-2xs)",
+            },
+            syntax: {
+              lg: "var(--primitive-font-line-height-syntax-lg)",
+              md: "var(--primitive-font-line-height-syntax-md)",
+              sm: "var(--primitive-font-line-height-syntax-sm)",
+              xs: "var(--primitive-font-line-height-syntax-xs)",
+            },
+          },
+          letterSpacing: {
+            hero: {
+              "1": "var(--primitive-font-letter-spacing-hero-1)",
+              "2": "var(--primitive-font-letter-spacing-hero-2)",
+              "3": "var(--primitive-font-letter-spacing-hero-3)",
+              "4": "var(--primitive-font-letter-spacing-hero-4)",
+            },
+            title: {
+              "1": "var(--primitive-font-letter-spacing-title-1)",
+              "2": "var(--primitive-font-letter-spacing-title-2)",
+              "3": "var(--primitive-font-letter-spacing-title-3)",
+              "4": "var(--primitive-font-letter-spacing-title-4)",
+            },
+            label: {
+              lg: "var(--primitive-font-letter-spacing-label-lg)",
+              md: "var(--primitive-font-letter-spacing-label-md)",
+              sm: "var(--primitive-font-letter-spacing-label-sm)",
+              xs: "var(--primitive-font-letter-spacing-label-xs)",
+            },
+            body: {
+              lg: "var(--primitive-font-letter-spacing-body-lg)",
+              md: "var(--primitive-font-letter-spacing-body-md)",
+              sm: "var(--primitive-font-letter-spacing-body-sm)",
+              xs: "var(--primitive-font-letter-spacing-body-xs)",
+              "2xs": "var(--primitive-font-letter-spacing-body-2xs)",
+            },
+          },
+        },
+        fontWeight: {
+          hero: {
+            normal: "var(--primitive-font-weight-hero-normal)",
+            bold: "var(--primitive-font-weight-hero-bold)",
+          },
+          title: {
+            normal: "var(--primitive-font-weight-title-normal)",
+            bold: "var(--primitive-font-weight-title-bold)",
+          },
+          label: {
+            normal: "var(--primitive-font-weight-label-normal)",
+            bold: "var(--primitive-font-weight-label-bold)",
+            subtle: "var(--primitive-font-weight-label-subtle)",
+          },
+          body: {
+            normal: "var(--primitive-font-weight-body-normal)",
+            bold: "var(--primitive-font-weight-body-bold)",
+          },
+          syntax: {
+            normal: "var(--primitive-font-weight-syntax-normal)",
+          },
+        },
+      },
+    },
+  },
+  environment: {
+    semantic: {
+      duration: {
         "50": "var(--semantic-duration-50)",
         "100": "var(--semantic-duration-100)",
         "150": "var(--semantic-duration-150)",
@@ -2483,17 +2483,17 @@ export const designTokens = {
         "350": "var(--semantic-duration-350)",
         "400": "var(--semantic-duration-400)",
         "450": "var(--semantic-duration-450)",
-        "500": "var(--semantic-duration-500)"
+        "500": "var(--semantic-duration-500)",
       },
-      "motion": {
-        "bouncy": "var(--semantic-motion-bouncy)",
-        "fluent": "var(--semantic-motion-fluent)",
-        "leave": "var(--semantic-motion-leave)",
-        "entrance": "var(--semantic-motion-entrance)"
-      }
+      motion: {
+        bouncy: "var(--semantic-motion-bouncy)",
+        fluent: "var(--semantic-motion-fluent)",
+        leave: "var(--semantic-motion-leave)",
+        entrance: "var(--semantic-motion-entrance)",
+      },
     },
-    "primitive": {
-      "time": {
+    primitive: {
+      time: {
         "50": "var(--primitive-time-50)",
         "100": "var(--primitive-time-100)",
         "150": "var(--primitive-time-150)",
@@ -2503,316 +2503,316 @@ export const designTokens = {
         "350": "var(--primitive-time-350)",
         "400": "var(--primitive-time-400)",
         "450": "var(--primitive-time-450)",
-        "500": "var(--primitive-time-500)"
-      }
-    }
+        "500": "var(--primitive-time-500)",
+      },
+    },
   },
-  "textStyle": {
+  textStyle: {
     "semantic-textStyle-hero-4": {
-      "fontSize": "var(--primitive-font-size-hero-4)",
-      "lineHeight": "var(--primitive-font-line-height-hero-4)",
-      "fontFamily": "var(--primitive-typeface-hero)",
-      "fontWeight": "var(--primitive-font-weight-hero-bold)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-hero-4)",
-      "paragraphSpacing": "0px",
-      "paragraphIndent": "0px"
+      fontSize: "var(--primitive-font-size-hero-4)",
+      lineHeight: "var(--primitive-font-line-height-hero-4)",
+      fontFamily: "var(--primitive-typeface-hero)",
+      fontWeight: "var(--primitive-font-weight-hero-bold)",
+      letterSpacing: "var(--primitive-font-letter-spacing-hero-4)",
+      paragraphSpacing: "0px",
+      paragraphIndent: "0px",
     },
     "semantic-textStyle-hero-3": {
-      "fontSize": "var(--primitive-font-size-hero-3)",
-      "lineHeight": "var(--primitive-font-line-height-hero-3)",
-      "fontFamily": "var(--primitive-typeface-hero)",
-      "fontWeight": "var(--primitive-font-weight-hero-bold)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-hero-3)",
-      "paragraphSpacing": "0px",
-      "paragraphIndent": "0px"
+      fontSize: "var(--primitive-font-size-hero-3)",
+      lineHeight: "var(--primitive-font-line-height-hero-3)",
+      fontFamily: "var(--primitive-typeface-hero)",
+      fontWeight: "var(--primitive-font-weight-hero-bold)",
+      letterSpacing: "var(--primitive-font-letter-spacing-hero-3)",
+      paragraphSpacing: "0px",
+      paragraphIndent: "0px",
     },
     "semantic-textStyle-hero-2": {
-      "fontSize": "var(--primitive-font-size-hero-2)",
-      "lineHeight": "var(--primitive-font-line-height-hero-2)",
-      "fontFamily": "var(--primitive-typeface-hero)",
-      "fontWeight": "var(--primitive-font-weight-hero-normal)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-hero-2)",
-      "paragraphSpacing": "0px",
-      "paragraphIndent": "0px"
+      fontSize: "var(--primitive-font-size-hero-2)",
+      lineHeight: "var(--primitive-font-line-height-hero-2)",
+      fontFamily: "var(--primitive-typeface-hero)",
+      fontWeight: "var(--primitive-font-weight-hero-normal)",
+      letterSpacing: "var(--primitive-font-letter-spacing-hero-2)",
+      paragraphSpacing: "0px",
+      paragraphIndent: "0px",
     },
     "semantic-textStyle-hero-1": {
-      "fontSize": "var(--primitive-font-size-hero-1)",
-      "lineHeight": "var(--primitive-font-line-height-hero-1)",
-      "fontFamily": "var(--primitive-typeface-hero)",
-      "fontWeight": "var(--primitive-font-weight-hero-normal)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-hero-1)",
-      "paragraphSpacing": "0px",
-      "paragraphIndent": "0px"
+      fontSize: "var(--primitive-font-size-hero-1)",
+      lineHeight: "var(--primitive-font-line-height-hero-1)",
+      fontFamily: "var(--primitive-typeface-hero)",
+      fontWeight: "var(--primitive-font-weight-hero-normal)",
+      letterSpacing: "var(--primitive-font-letter-spacing-hero-1)",
+      paragraphSpacing: "0px",
+      paragraphIndent: "0px",
     },
     "semantic-textStyle-title-4": {
-      "fontSize": "var(--primitive-font-size-title-4)",
-      "lineHeight": "var(--primitive-font-line-height-title-4)",
-      "fontFamily": "var(--primitive-typeface-title)",
-      "fontWeight": "var(--primitive-font-weight-title-bold)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-title-4)",
-      "paragraphSpacing": "0px",
-      "paragraphIndent": "0px"
+      fontSize: "var(--primitive-font-size-title-4)",
+      lineHeight: "var(--primitive-font-line-height-title-4)",
+      fontFamily: "var(--primitive-typeface-title)",
+      fontWeight: "var(--primitive-font-weight-title-bold)",
+      letterSpacing: "var(--primitive-font-letter-spacing-title-4)",
+      paragraphSpacing: "0px",
+      paragraphIndent: "0px",
     },
     "semantic-textStyle-title-3": {
-      "fontSize": "var(--primitive-font-size-title-3)",
-      "lineHeight": "var(--primitive-font-line-height-title-3)",
-      "fontFamily": "var(--primitive-typeface-title)",
-      "fontWeight": "var(--primitive-font-weight-title-bold)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-title-3)",
-      "paragraphSpacing": "0px",
-      "paragraphIndent": "0px"
+      fontSize: "var(--primitive-font-size-title-3)",
+      lineHeight: "var(--primitive-font-line-height-title-3)",
+      fontFamily: "var(--primitive-typeface-title)",
+      fontWeight: "var(--primitive-font-weight-title-bold)",
+      letterSpacing: "var(--primitive-font-letter-spacing-title-3)",
+      paragraphSpacing: "0px",
+      paragraphIndent: "0px",
     },
     "semantic-textStyle-title-2": {
-      "fontSize": "var(--primitive-font-size-title-2)",
-      "lineHeight": "var(--primitive-font-line-height-title-2)",
-      "fontFamily": "var(--primitive-typeface-title)",
-      "fontWeight": "var(--primitive-font-weight-title-normal)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-title-2)",
-      "paragraphSpacing": "0px",
-      "paragraphIndent": "0px"
+      fontSize: "var(--primitive-font-size-title-2)",
+      lineHeight: "var(--primitive-font-line-height-title-2)",
+      fontFamily: "var(--primitive-typeface-title)",
+      fontWeight: "var(--primitive-font-weight-title-normal)",
+      letterSpacing: "var(--primitive-font-letter-spacing-title-2)",
+      paragraphSpacing: "0px",
+      paragraphIndent: "0px",
     },
     "semantic-textStyle-title-1": {
-      "fontSize": "var(--primitive-font-size-title-1)",
-      "lineHeight": "var(--primitive-font-line-height-title-1)",
-      "fontFamily": "var(--primitive-typeface-title)",
-      "fontWeight": "var(--primitive-font-weight-title-normal)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-title-1)",
-      "paragraphSpacing": "0px",
-      "paragraphIndent": "0px"
+      fontSize: "var(--primitive-font-size-title-1)",
+      lineHeight: "var(--primitive-font-line-height-title-1)",
+      fontFamily: "var(--primitive-typeface-title)",
+      fontWeight: "var(--primitive-font-weight-title-normal)",
+      letterSpacing: "var(--primitive-font-letter-spacing-title-1)",
+      paragraphSpacing: "0px",
+      paragraphIndent: "0px",
     },
     "semantic-textStyle-label-lg-bold": {
-      "fontSize": "var(--primitive-font-size-label-lg)",
-      "lineHeight": "var(--primitive-font-line-height-label-lg)",
-      "fontFamily": "var(--primitive-typeface-label)",
-      "fontWeight": "var(--primitive-font-weight-label-bold)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-label-lg)",
-      "paragraphSpacing": "0px",
-      "paragraphIndent": "0px"
+      fontSize: "var(--primitive-font-size-label-lg)",
+      lineHeight: "var(--primitive-font-line-height-label-lg)",
+      fontFamily: "var(--primitive-typeface-label)",
+      fontWeight: "var(--primitive-font-weight-label-bold)",
+      letterSpacing: "var(--primitive-font-letter-spacing-label-lg)",
+      paragraphSpacing: "0px",
+      paragraphIndent: "0px",
     },
     "semantic-textStyle-label-lg-normal": {
-      "fontSize": "var(--primitive-font-size-label-lg)",
-      "lineHeight": "var(--primitive-font-line-height-label-lg)",
-      "fontFamily": "var(--primitive-typeface-label)",
-      "fontWeight": "var(--primitive-font-weight-label-normal)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-label-lg)",
-      "paragraphSpacing": "0px",
-      "paragraphIndent": "0px"
+      fontSize: "var(--primitive-font-size-label-lg)",
+      lineHeight: "var(--primitive-font-line-height-label-lg)",
+      fontFamily: "var(--primitive-typeface-label)",
+      fontWeight: "var(--primitive-font-weight-label-normal)",
+      letterSpacing: "var(--primitive-font-letter-spacing-label-lg)",
+      paragraphSpacing: "0px",
+      paragraphIndent: "0px",
     },
     "semantic-textStyle-label-lg-subtle": {
-      "fontSize": "var(--primitive-font-size-label-lg)",
-      "lineHeight": "var(--primitive-font-line-height-label-lg)",
-      "fontFamily": "var(--primitive-typeface-label)",
-      "fontWeight": "var(--primitive-font-weight-label-subtle)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-label-lg)",
-      "paragraphSpacing": "0px",
-      "paragraphIndent": "0px"
+      fontSize: "var(--primitive-font-size-label-lg)",
+      lineHeight: "var(--primitive-font-line-height-label-lg)",
+      fontFamily: "var(--primitive-typeface-label)",
+      fontWeight: "var(--primitive-font-weight-label-subtle)",
+      letterSpacing: "var(--primitive-font-letter-spacing-label-lg)",
+      paragraphSpacing: "0px",
+      paragraphIndent: "0px",
     },
     "semantic-textStyle-label-md-bold": {
-      "fontSize": "var(--primitive-font-size-label-md)",
-      "lineHeight": "var(--primitive-font-line-height-label-md)",
-      "fontFamily": "var(--primitive-typeface-label)",
-      "fontWeight": "var(--primitive-font-weight-label-bold)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-label-md)",
-      "paragraphSpacing": "0px",
-      "paragraphIndent": "0px"
+      fontSize: "var(--primitive-font-size-label-md)",
+      lineHeight: "var(--primitive-font-line-height-label-md)",
+      fontFamily: "var(--primitive-typeface-label)",
+      fontWeight: "var(--primitive-font-weight-label-bold)",
+      letterSpacing: "var(--primitive-font-letter-spacing-label-md)",
+      paragraphSpacing: "0px",
+      paragraphIndent: "0px",
     },
     "semantic-textStyle-label-md-normal": {
-      "fontSize": "var(--primitive-font-size-label-md)",
-      "lineHeight": "var(--primitive-font-line-height-label-md)",
-      "fontFamily": "var(--primitive-typeface-label)",
-      "fontWeight": "var(--primitive-font-weight-label-normal)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-label-md)",
-      "paragraphSpacing": "0px",
-      "paragraphIndent": "0px"
+      fontSize: "var(--primitive-font-size-label-md)",
+      lineHeight: "var(--primitive-font-line-height-label-md)",
+      fontFamily: "var(--primitive-typeface-label)",
+      fontWeight: "var(--primitive-font-weight-label-normal)",
+      letterSpacing: "var(--primitive-font-letter-spacing-label-md)",
+      paragraphSpacing: "0px",
+      paragraphIndent: "0px",
     },
     "semantic-textStyle-label-md-subtle": {
-      "fontSize": "var(--primitive-font-size-label-md)",
-      "lineHeight": "var(--primitive-font-line-height-label-md)",
-      "fontFamily": "var(--primitive-typeface-label)",
-      "fontWeight": "var(--primitive-font-weight-label-subtle)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-label-md)",
-      "paragraphSpacing": "0px",
-      "paragraphIndent": "0px"
+      fontSize: "var(--primitive-font-size-label-md)",
+      lineHeight: "var(--primitive-font-line-height-label-md)",
+      fontFamily: "var(--primitive-typeface-label)",
+      fontWeight: "var(--primitive-font-weight-label-subtle)",
+      letterSpacing: "var(--primitive-font-letter-spacing-label-md)",
+      paragraphSpacing: "0px",
+      paragraphIndent: "0px",
     },
     "semantic-textStyle-label-sm-bold": {
-      "fontSize": "var(--primitive-font-size-label-sm)",
-      "lineHeight": "var(--primitive-font-line-height-label-sm)",
-      "fontFamily": "var(--primitive-typeface-label)",
-      "fontWeight": "var(--primitive-font-weight-label-bold)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-label-sm)",
-      "paragraphSpacing": "0px",
-      "paragraphIndent": "0px"
+      fontSize: "var(--primitive-font-size-label-sm)",
+      lineHeight: "var(--primitive-font-line-height-label-sm)",
+      fontFamily: "var(--primitive-typeface-label)",
+      fontWeight: "var(--primitive-font-weight-label-bold)",
+      letterSpacing: "var(--primitive-font-letter-spacing-label-sm)",
+      paragraphSpacing: "0px",
+      paragraphIndent: "0px",
     },
     "semantic-textStyle-label-sm-normal": {
-      "fontSize": "var(--primitive-font-size-label-sm)",
-      "lineHeight": "var(--primitive-font-line-height-label-sm)",
-      "fontFamily": "var(--primitive-typeface-label)",
-      "fontWeight": "var(--primitive-font-weight-label-normal)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-label-sm)",
-      "paragraphSpacing": "0px",
-      "paragraphIndent": "0px"
+      fontSize: "var(--primitive-font-size-label-sm)",
+      lineHeight: "var(--primitive-font-line-height-label-sm)",
+      fontFamily: "var(--primitive-typeface-label)",
+      fontWeight: "var(--primitive-font-weight-label-normal)",
+      letterSpacing: "var(--primitive-font-letter-spacing-label-sm)",
+      paragraphSpacing: "0px",
+      paragraphIndent: "0px",
     },
     "semantic-textStyle-label-sm-subtle": {
-      "fontSize": "var(--primitive-font-size-label-sm)",
-      "lineHeight": "var(--primitive-font-line-height-label-sm)",
-      "fontFamily": "var(--primitive-typeface-label)",
-      "fontWeight": "var(--primitive-font-weight-label-subtle)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-label-sm)",
-      "paragraphSpacing": "0px",
-      "paragraphIndent": "0px"
+      fontSize: "var(--primitive-font-size-label-sm)",
+      lineHeight: "var(--primitive-font-line-height-label-sm)",
+      fontFamily: "var(--primitive-typeface-label)",
+      fontWeight: "var(--primitive-font-weight-label-subtle)",
+      letterSpacing: "var(--primitive-font-letter-spacing-label-sm)",
+      paragraphSpacing: "0px",
+      paragraphIndent: "0px",
     },
     "semantic-textStyle-label-xs-bold": {
-      "fontSize": "var(--primitive-font-size-label-xs)",
-      "lineHeight": "var(--primitive-font-line-height-label-xs)",
-      "fontFamily": "var(--primitive-typeface-label)",
-      "fontWeight": "var(--primitive-font-weight-label-bold)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-label-xs)",
-      "paragraphSpacing": "0px",
-      "paragraphIndent": "0px"
+      fontSize: "var(--primitive-font-size-label-xs)",
+      lineHeight: "var(--primitive-font-line-height-label-xs)",
+      fontFamily: "var(--primitive-typeface-label)",
+      fontWeight: "var(--primitive-font-weight-label-bold)",
+      letterSpacing: "var(--primitive-font-letter-spacing-label-xs)",
+      paragraphSpacing: "0px",
+      paragraphIndent: "0px",
     },
     "semantic-textStyle-label-xs-normal": {
-      "fontSize": "var(--primitive-font-size-label-xs)",
-      "lineHeight": "var(--primitive-font-line-height-label-xs)",
-      "fontFamily": "var(--primitive-typeface-label)",
-      "fontWeight": "var(--primitive-font-weight-label-normal)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-label-xs)",
-      "paragraphSpacing": "0px",
-      "paragraphIndent": "0px"
+      fontSize: "var(--primitive-font-size-label-xs)",
+      lineHeight: "var(--primitive-font-line-height-label-xs)",
+      fontFamily: "var(--primitive-typeface-label)",
+      fontWeight: "var(--primitive-font-weight-label-normal)",
+      letterSpacing: "var(--primitive-font-letter-spacing-label-xs)",
+      paragraphSpacing: "0px",
+      paragraphIndent: "0px",
     },
     "semantic-textStyle-label-xs-subtle": {
-      "fontSize": "var(--primitive-font-size-label-xs)",
-      "lineHeight": "var(--primitive-font-line-height-label-xs)",
-      "fontFamily": "var(--primitive-typeface-label)",
-      "fontWeight": "var(--primitive-font-weight-label-subtle)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-label-xs)",
-      "paragraphSpacing": "0px",
-      "paragraphIndent": "0px"
+      fontSize: "var(--primitive-font-size-label-xs)",
+      lineHeight: "var(--primitive-font-line-height-label-xs)",
+      fontFamily: "var(--primitive-typeface-label)",
+      fontWeight: "var(--primitive-font-weight-label-subtle)",
+      letterSpacing: "var(--primitive-font-letter-spacing-label-xs)",
+      paragraphSpacing: "0px",
+      paragraphIndent: "0px",
     },
     "semantic-textStyle-body-lg-bold": {
-      "fontSize": "var(--primitive-font-size-body-lg)",
-      "lineHeight": "var(--primitive-font-line-height-body-lg)",
-      "fontFamily": "var(--primitive-typeface-body)",
-      "fontWeight": "var(--primitive-font-weight-body-bold)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-body-lg)",
-      "paragraphSpacing": "0px",
-      "paragraphIndent": "0px"
+      fontSize: "var(--primitive-font-size-body-lg)",
+      lineHeight: "var(--primitive-font-line-height-body-lg)",
+      fontFamily: "var(--primitive-typeface-body)",
+      fontWeight: "var(--primitive-font-weight-body-bold)",
+      letterSpacing: "var(--primitive-font-letter-spacing-body-lg)",
+      paragraphSpacing: "0px",
+      paragraphIndent: "0px",
     },
     "semantic-textStyle-body-lg-normal": {
-      "fontSize": "var(--primitive-font-size-body-lg)",
-      "lineHeight": "var(--primitive-font-line-height-body-lg)",
-      "fontFamily": "var(--primitive-typeface-body)",
-      "fontWeight": "var(--primitive-font-weight-body-normal)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-body-lg)",
-      "paragraphSpacing": "0px",
-      "paragraphIndent": "0px"
+      fontSize: "var(--primitive-font-size-body-lg)",
+      lineHeight: "var(--primitive-font-line-height-body-lg)",
+      fontFamily: "var(--primitive-typeface-body)",
+      fontWeight: "var(--primitive-font-weight-body-normal)",
+      letterSpacing: "var(--primitive-font-letter-spacing-body-lg)",
+      paragraphSpacing: "0px",
+      paragraphIndent: "0px",
     },
     "semantic-textStyle-body-md-bold": {
-      "fontSize": "var(--primitive-font-size-body-md)",
-      "lineHeight": "var(--primitive-font-line-height-body-md)",
-      "fontFamily": "var(--primitive-typeface-body)",
-      "fontWeight": "var(--primitive-font-weight-body-bold)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-body-md)",
-      "paragraphSpacing": "0px",
-      "paragraphIndent": "0px"
+      fontSize: "var(--primitive-font-size-body-md)",
+      lineHeight: "var(--primitive-font-line-height-body-md)",
+      fontFamily: "var(--primitive-typeface-body)",
+      fontWeight: "var(--primitive-font-weight-body-bold)",
+      letterSpacing: "var(--primitive-font-letter-spacing-body-md)",
+      paragraphSpacing: "0px",
+      paragraphIndent: "0px",
     },
     "semantic-textStyle-body-md-normal": {
-      "fontSize": "var(--primitive-font-size-body-md)",
-      "lineHeight": "var(--primitive-font-line-height-body-md)",
-      "fontFamily": "var(--primitive-typeface-body)",
-      "fontWeight": "var(--primitive-font-weight-body-normal)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-body-md)",
-      "paragraphSpacing": "0px",
-      "paragraphIndent": "0px"
+      fontSize: "var(--primitive-font-size-body-md)",
+      lineHeight: "var(--primitive-font-line-height-body-md)",
+      fontFamily: "var(--primitive-typeface-body)",
+      fontWeight: "var(--primitive-font-weight-body-normal)",
+      letterSpacing: "var(--primitive-font-letter-spacing-body-md)",
+      paragraphSpacing: "0px",
+      paragraphIndent: "0px",
     },
     "semantic-textStyle-body-sm-bold": {
-      "fontSize": "var(--primitive-font-size-body-sm)",
-      "lineHeight": "var(--primitive-font-line-height-body-sm)",
-      "fontFamily": "var(--primitive-typeface-body)",
-      "fontWeight": "var(--primitive-font-weight-body-bold)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-body-sm)",
-      "paragraphSpacing": "0px",
-      "paragraphIndent": "0px"
+      fontSize: "var(--primitive-font-size-body-sm)",
+      lineHeight: "var(--primitive-font-line-height-body-sm)",
+      fontFamily: "var(--primitive-typeface-body)",
+      fontWeight: "var(--primitive-font-weight-body-bold)",
+      letterSpacing: "var(--primitive-font-letter-spacing-body-sm)",
+      paragraphSpacing: "0px",
+      paragraphIndent: "0px",
     },
     "semantic-textStyle-body-sm-normal": {
-      "fontSize": "var(--primitive-font-size-body-sm)",
-      "lineHeight": "var(--primitive-font-line-height-body-sm)",
-      "fontFamily": "var(--primitive-typeface-body)",
-      "fontWeight": "var(--primitive-font-weight-body-normal)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-body-sm)",
-      "paragraphSpacing": "0px",
-      "paragraphIndent": "0px"
+      fontSize: "var(--primitive-font-size-body-sm)",
+      lineHeight: "var(--primitive-font-line-height-body-sm)",
+      fontFamily: "var(--primitive-typeface-body)",
+      fontWeight: "var(--primitive-font-weight-body-normal)",
+      letterSpacing: "var(--primitive-font-letter-spacing-body-sm)",
+      paragraphSpacing: "0px",
+      paragraphIndent: "0px",
     },
     "semantic-textStyle-body-xs-bold": {
-      "fontSize": "var(--primitive-font-size-body-xs)",
-      "lineHeight": "var(--primitive-font-line-height-body-xs)",
-      "fontFamily": "var(--primitive-typeface-body)",
-      "fontWeight": "var(--primitive-font-weight-body-bold)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-body-xs)",
-      "paragraphSpacing": "0px",
-      "paragraphIndent": "0px"
+      fontSize: "var(--primitive-font-size-body-xs)",
+      lineHeight: "var(--primitive-font-line-height-body-xs)",
+      fontFamily: "var(--primitive-typeface-body)",
+      fontWeight: "var(--primitive-font-weight-body-bold)",
+      letterSpacing: "var(--primitive-font-letter-spacing-body-xs)",
+      paragraphSpacing: "0px",
+      paragraphIndent: "0px",
     },
     "semantic-textStyle-body-xs-normal": {
-      "fontSize": "var(--primitive-font-size-body-xs)",
-      "lineHeight": "var(--primitive-font-line-height-body-xs)",
-      "fontFamily": "var(--primitive-typeface-body)",
-      "fontWeight": "var(--primitive-font-weight-body-normal)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-body-xs)",
-      "paragraphSpacing": "0px",
-      "paragraphIndent": "0px"
+      fontSize: "var(--primitive-font-size-body-xs)",
+      lineHeight: "var(--primitive-font-line-height-body-xs)",
+      fontFamily: "var(--primitive-typeface-body)",
+      fontWeight: "var(--primitive-font-weight-body-normal)",
+      letterSpacing: "var(--primitive-font-letter-spacing-body-xs)",
+      paragraphSpacing: "0px",
+      paragraphIndent: "0px",
     },
     "semantic-textStyle-body-2xs-bold": {
-      "fontSize": "var(--primitive-font-size-body-2xs)",
-      "lineHeight": "var(--primitive-font-line-height-body-2xs)",
-      "fontFamily": "var(--primitive-typeface-body)",
-      "fontWeight": "var(--primitive-font-weight-body-bold)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-body-2xs)",
-      "paragraphSpacing": "0px",
-      "paragraphIndent": "0px"
+      fontSize: "var(--primitive-font-size-body-2xs)",
+      lineHeight: "var(--primitive-font-line-height-body-2xs)",
+      fontFamily: "var(--primitive-typeface-body)",
+      fontWeight: "var(--primitive-font-weight-body-bold)",
+      letterSpacing: "var(--primitive-font-letter-spacing-body-2xs)",
+      paragraphSpacing: "0px",
+      paragraphIndent: "0px",
     },
     "semantic-textStyle-body-2xs-normal": {
-      "fontSize": "var(--primitive-font-size-body-2xs)",
-      "lineHeight": "var(--primitive-font-line-height-body-2xs)",
-      "fontFamily": "var(--primitive-typeface-body)",
-      "fontWeight": "var(--primitive-font-weight-body-normal)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-body-2xs)",
-      "paragraphSpacing": "0px",
-      "paragraphIndent": "0px"
+      fontSize: "var(--primitive-font-size-body-2xs)",
+      lineHeight: "var(--primitive-font-line-height-body-2xs)",
+      fontFamily: "var(--primitive-typeface-body)",
+      fontWeight: "var(--primitive-font-weight-body-normal)",
+      letterSpacing: "var(--primitive-font-letter-spacing-body-2xs)",
+      paragraphSpacing: "0px",
+      paragraphIndent: "0px",
     },
     "semantic-textStyle-syntax-lg": {
-      "fontSize": "var(--primitive-font-size-syntax-lg)",
-      "lineHeight": "var(--primitive-font-line-height-syntax-lg)",
-      "fontFamily": "var(--primitive-typeface-syntax)",
-      "fontWeight": "var(--primitive-font-weight-syntax-normal)",
-      "letterSpacing": "0%",
-      "paragraphSpacing": "0px",
-      "paragraphIndent": "0px"
+      fontSize: "var(--primitive-font-size-syntax-lg)",
+      lineHeight: "var(--primitive-font-line-height-syntax-lg)",
+      fontFamily: "var(--primitive-typeface-syntax)",
+      fontWeight: "var(--primitive-font-weight-syntax-normal)",
+      letterSpacing: "0%",
+      paragraphSpacing: "0px",
+      paragraphIndent: "0px",
     },
     "semantic-textStyle-syntax-md": {
-      "fontSize": "var(--primitive-font-size-syntax-md)",
-      "lineHeight": "var(--primitive-font-line-height-syntax-md)",
-      "fontFamily": "var(--primitive-typeface-syntax)",
-      "fontWeight": "var(--primitive-font-weight-syntax-normal)",
-      "letterSpacing": "0%",
-      "paragraphSpacing": "0px",
-      "paragraphIndent": "0px"
+      fontSize: "var(--primitive-font-size-syntax-md)",
+      lineHeight: "var(--primitive-font-line-height-syntax-md)",
+      fontFamily: "var(--primitive-typeface-syntax)",
+      fontWeight: "var(--primitive-font-weight-syntax-normal)",
+      letterSpacing: "0%",
+      paragraphSpacing: "0px",
+      paragraphIndent: "0px",
     },
     "semantic-textStyle-syntax-sm": {
-      "fontSize": "var(--primitive-font-size-syntax-sm)",
-      "lineHeight": "var(--primitive-font-line-height-syntax-sm)",
-      "fontFamily": "var(--primitive-typeface-syntax)",
-      "fontWeight": "var(--primitive-font-weight-syntax-normal)",
-      "letterSpacing": "0%",
-      "paragraphSpacing": "0px",
-      "paragraphIndent": "0px"
+      fontSize: "var(--primitive-font-size-syntax-sm)",
+      lineHeight: "var(--primitive-font-line-height-syntax-sm)",
+      fontFamily: "var(--primitive-typeface-syntax)",
+      fontWeight: "var(--primitive-font-weight-syntax-normal)",
+      letterSpacing: "0%",
+      paragraphSpacing: "0px",
+      paragraphIndent: "0px",
     },
     "semantic-textStyle-syntax-xs": {
-      "fontSize": "var(--primitive-font-size-syntax-xs)",
-      "lineHeight": "var(--primitive-font-line-height-syntax-xs)",
-      "fontFamily": "var(--primitive-typeface-syntax)",
-      "fontWeight": "var(--primitive-font-weight-syntax-normal)",
-      "letterSpacing": "0%",
-      "paragraphSpacing": "0px",
-      "paragraphIndent": "0px"
-    }
-  }
+      fontSize: "var(--primitive-font-size-syntax-xs)",
+      lineHeight: "var(--primitive-font-line-height-syntax-xs)",
+      fontFamily: "var(--primitive-typeface-syntax)",
+      fontWeight: "var(--primitive-font-weight-syntax-normal)",
+      letterSpacing: "0%",
+      paragraphSpacing: "0px",
+      paragraphIndent: "0px",
+    },
+  },
 } as const;

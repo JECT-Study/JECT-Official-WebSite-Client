@@ -1,4 +1,4 @@
-import LogoIcon from '@/assets/svg/logo.svg?react';
+import LogoIcon from "@/assets/svg/logo.svg?react";
 
 interface LogoProps {
   height: number;

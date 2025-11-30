@@ -1,7 +1,7 @@
-import type { ReactNode } from 'react';
+import type { ReactNode } from "react";
 
-import type { TitleSize, TitleTextAlign } from './Title.style';
-import { TitleDiv } from './Title.style';
+import type { TitleSize, TitleTextAlign } from "./Title.style";
+import { TitleDiv } from "./Title.style";
 
 export interface TitleProps {
   size?: TitleSize;
@@ -11,8 +11,8 @@ export interface TitleProps {
 }
 
 export const Title = ({
-  size = 'md',
-  textAlign = 'left',
+  size = "md",
+  textAlign = "left",
   color,
   children,
   ...props
@@ -24,4 +24,4 @@ export const Title = ({
   );
 };
 
-Title.displayName = 'Title';
+Title.displayName = "Title";

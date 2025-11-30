@@ -1,4 +1,4 @@
-export { Uploader } from './Uploader';
+export { Uploader } from "./Uploader";
 export type {
   UploadErrorType,
   UploaderOptions,
@@ -6,4 +6,4 @@ export type {
   UploaderFileButtonProps,
   UploaderImageProps,
   UploaderImageButtonProps,
-} from './uploader.types';
+} from "./uploader.types";

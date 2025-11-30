@@ -1,10 +1,10 @@
-import { useRef } from 'react';
+import { useRef } from "react";
 
-import Icon from '@/components/common/icon/Icon';
-import InputField from '@/components/common/input/InputField';
-import { Select } from '@/components/common/select/Select';
-import useCloseOutside from '@/hooks/useCloseOutside';
-import { JobFamily } from '@/types/apis/application';
+import Icon from "@/components/common/icon/Icon";
+import InputField from "@/components/common/input/InputField";
+import { Select } from "@/components/common/select/Select";
+import useCloseOutside from "@/hooks/useCloseOutside";
+import type { JobFamily } from "@/types/apis/application";
 
 interface selectBoxProps {
   selectedJob: JobFamily | null;
@@ -12,13 +12,13 @@ interface selectBoxProps {
   onOpenDialog: (job: JobFamily) => void;
 }
 
-const JOB_FAMILY: JobFamily[] = ['FE', 'BE', 'PM', 'PD'];
+const JOB_FAMILY: JobFamily[] = ["FE", "BE", "PM", "PD"];
 
 const jobFamily: Record<JobFamily, string> = {
-  FE: '프론트엔드 개발자',
-  BE: '백엔드 개발자',
-  PM: '프로덕트 매니저',
-  PD: '프로덕트 디자이너',
+  FE: "프론트엔드 개발자",
+  BE: "백엔드 개발자",
+  PM: "프로덕트 매니저",
+  PD: "프로덕트 디자이너",
 };
 
 function SelectBox({ selectedJob, onLoadQuestion, onOpenDialog }: selectBoxProps) {
@@ -46,8 +46,8 @@ function SelectBox({ selectedJob, onLoadQuestion, onOpenDialog }: selectBoxProps
         ref={inputRef}
         readOnly
         onClick={() => setIsOpen(prev => !prev)}
-        onKeyUp={({ key }) => key === 'Enter' && setIsOpen(prev => !prev)}
-        value={selectedJob ? jobFamily[selectedJob] : ''}
+        onKeyUp={({ key }) => key === "Enter" && setIsOpen(prev => !prev)}
+        value={selectedJob ? jobFamily[selectedJob] : ""}
         required
         labelText='포지션'
         isError={false}
@@ -71,7 +71,7 @@ function SelectBox({ selectedJob, onLoadQuestion, onOpenDialog }: selectBoxProps
               { label: jobFamily.PM },
               { label: jobFamily.PD },
             ]}
-            defaultValue={selectedJob ? jobFamily[selectedJob] : ''}
+            defaultValue={selectedJob ? jobFamily[selectedJob] : ""}
             onChange={handleSelect}
           />
         </div>

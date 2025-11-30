@@ -1,20 +1,20 @@
-import Lottie from 'lottie-react';
-import { useEffect, useRef, useState } from 'react';
+import Lottie from "lottie-react";
+import { useEffect, useRef, useState } from "react";
 
-import cardSampleImage from '@/assets/CardSample.png';
-import loadingSpinner from '@/assets/lottie/ject-loadingSpinner.json';
-import LabelButton from '@/components/common/button/LabelButton';
-import { Card } from '@/components/common/card/Card';
-import EmptyData from '@/components/common/emptyState/EmptyData';
-import Icon from '@/components/common/icon/Icon';
-import Label from '@/components/common/label/Label';
-import { Select } from '@/components/common/select/Select';
-import Title from '@/components/common/title/Title';
-import { PATH } from '@/constants/path';
-import useCloseOutside from '@/hooks/useCloseOutside';
-import { useInfiniteScroll } from '@/hooks/useInfiniteScroll';
-import { useProjectListQuery } from '@/hooks/useProjectListQuery';
-import { useSemestersQuery } from '@/hooks/useSemestersQuery';
+import cardSampleImage from "@/assets/CardSample.png";
+import loadingSpinner from "@/assets/lottie/ject-loadingSpinner.json";
+import LabelButton from "@/components/common/button/LabelButton";
+import { Card } from "@/components/common/card/Card";
+import EmptyData from "@/components/common/emptyState/EmptyData";
+import Icon from "@/components/common/icon/Icon";
+import Label from "@/components/common/label/Label";
+import { Select } from "@/components/common/select/Select";
+import Title from "@/components/common/title/Title";
+import { PATH } from "@/constants/path";
+import useCloseOutside from "@/hooks/useCloseOutside";
+import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
+import { useProjectListQuery } from "@/hooks/useProjectListQuery";
+import { useSemestersQuery } from "@/hooks/useSemestersQuery";
 
 const Project = () => {
   const selectContainerRef = useRef(null);
@@ -30,7 +30,7 @@ const Project = () => {
     fetchNextPage: fetchNextProjects,
     hasNextPage: isHasNextProjects,
     isFetchingNextPage: isFetchingNextProjects,
-  } = useProjectListQuery(semesterId, 'MAIN');
+  } = useProjectListQuery(semesterId, "MAIN");
 
   const projectsObserverRef = useInfiniteScroll({
     hasNextPage: isHasNextProjects,
@@ -39,7 +39,7 @@ const Project = () => {
   });
 
   const selectItems = [
-    { label: '전체' },
+    { label: "전체" },
     ...(semestersData?.data.semesterResponses.map(semester => ({
       label: semester.name,
     })) ?? []),
@@ -48,7 +48,7 @@ const Project = () => {
   useEffect(() => {
     if (!selectedOption || !semestersData) return;
 
-    if (selectedOption === '전체') {
+    if (selectedOption === "전체") {
       setSemesterId(null);
       return;
     }
@@ -79,7 +79,7 @@ const Project = () => {
                 rightIcon={<Icon name='dropDown' size='md' fillColor='fill-object-neutral-dark' />}
                 onClick={() => setIsSelectOpen(prev => !prev)}
               >
-                {selectedOption ? selectedOption : '기수'}
+                {selectedOption ? selectedOption : "기수"}
               </LabelButton>
               {isSelectOpen && (
                 <div className='absolute top-full left-[-9%] z-10 mt-3 w-[7.5rem]'>

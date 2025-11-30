@@ -1,7 +1,7 @@
-import { HeroProps } from './Hero';
+import type { HeroProps } from "./Hero";
 
-import Badge from '@/components/common/badge/Badge';
-import Title from '@/components/common/title/Title';
+import Badge from "@/components/common/badge/Badge";
+import Title from "@/components/common/title/Title";
 
 interface HeroIndexProps extends HeroProps {
   index: number;
@@ -14,8 +14,8 @@ function HeroIndex({
   title,
   badgeText,
   children,
-  badgeBgColor = 'bg-fill-assistive-dark',
-  badgeTextColor = 'text-object-normal-dark',
+  badgeBgColor = "bg-fill-assistive-dark",
+  badgeTextColor = "text-object-normal-dark",
 }: HeroIndexProps) {
   return (
     <div className='radius-xs border-border-assistive-dark bg-surface-deep-dark gap-4xl flex w-full items-center border px-(--gap-4xl) py-(--gap-xl)'>

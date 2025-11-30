@@ -1,11 +1,11 @@
-import type { Theme } from '@emotion/react';
+import type { Theme } from "@emotion/react";
 
 import type {
   BadgeStyleWithoutBorder,
   BasicHierarchy,
   FeedbackVariant,
   NumericBadgeStyle,
-} from '../badge.types';
+} from "../badge.types";
 
 type NumericBadgeBasicStyle = {
   solid: Record<BasicHierarchy, BadgeStyleWithoutBorder>;
@@ -33,19 +33,19 @@ export const numericBadgeBasicStylesMap = (theme: Theme): NumericBadgeBasicStyle
   },
   empty: {
     accent: {
-      bg: 'none',
+      bg: "none",
       color: theme.color.semantic.accent.normal,
     },
     primary: {
-      bg: 'none',
+      bg: "none",
       color: theme.color.semantic.object.bolder,
     },
     secondary: {
-      bg: 'none',
+      bg: "none",
       color: theme.color.semantic.object.neutral,
     },
     tertiary: {
-      bg: 'none',
+      bg: "none",
       color: theme.color.semantic.object.alternative,
     },
   },
@@ -59,7 +59,7 @@ export const numericBadgeBasicMutedStylesMap = (
     color: theme.color.semantic.object.subtle,
   },
   empty: {
-    bg: 'none',
+    bg: "none",
     color: theme.color.semantic.object.subtle,
   },
 });
@@ -86,15 +86,15 @@ export const numericBadgeFeedbackStylesMap = (theme: Theme): ContentBadgeFeedbac
   },
   empty: {
     positive: {
-      bg: 'none',
+      bg: "none",
       color: theme.color.semantic.feedback.positive.normal,
     },
     destructive: {
-      bg: 'none',
+      bg: "none",
       color: theme.color.semantic.feedback.destructive.normal,
     },
     notifying: {
-      bg: 'none',
+      bg: "none",
       color: theme.color.semantic.feedback.notifying.normal,
     },
   },
@@ -117,15 +117,15 @@ export const numericBadgeFeedbacksMutedStylesMap = (theme: Theme): ContentBadgeF
   },
   empty: {
     positive: {
-      bg: 'none',
+      bg: "none",
       color: theme.color.semantic.feedback.positive.alpha.subtle,
     },
     destructive: {
-      bg: 'none',
+      bg: "none",
       color: theme.color.semantic.feedback.destructive.alpha.subtle,
     },
     notifying: {
-      bg: 'none',
+      bg: "none",
       color: theme.color.semantic.feedback.notifying.alpha.subtle,
     },
   },

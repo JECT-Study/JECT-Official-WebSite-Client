@@ -1,33 +1,34 @@
-import { ChangeEvent, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import type { ChangeEvent } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-import NewTabLink from '@/components/apply/NewTabLink';
-import BlockButton from '@/components/common/button/BlockButton';
-import LabelButton from '@/components/common/button/LabelButton';
-import CheckBox from '@/components/common/checkbox/CheckBox';
-import Icon from '@/components/common/icon/Icon';
-import InputField from '@/components/common/input/InputField';
-import ProgressIndicator from '@/components/common/progress/ProgressIndicator';
-import Title from '@/components/common/title/Title';
-import { APPLY_TITLE } from '@/constants/applyPageData';
-import { PATH } from '@/constants/path';
-import { useApplyAuthCodeForm } from '@/hooks/useApplyAuthCodeForm';
-import { useApplyEmailForm } from '@/hooks/useApplyEmailForm';
-import { useApplyPinForm } from '@/hooks/useApplyPinForm';
-import { useCheckEmailExistsMutation } from '@/hooks/useCheckEmailExistMutation';
-import { useEmailAuthCodeMutation } from '@/hooks/useEmailAuthCodeMutation';
-import { useRegisterMemberMutation } from '@/hooks/useRegisterMemberMutation';
-import { useResetPinMutation } from '@/hooks/useResetPinMutation';
-import { useVerificationEmailCodeMutation } from '@/hooks/useVerificationEmailCodeMutation';
-import { useToastActions } from '@/stores/toastStore';
-import {
+import NewTabLink from "@/components/apply/NewTabLink";
+import BlockButton from "@/components/common/button/BlockButton";
+import LabelButton from "@/components/common/button/LabelButton";
+import CheckBox from "@/components/common/checkbox/CheckBox";
+import Icon from "@/components/common/icon/Icon";
+import InputField from "@/components/common/input/InputField";
+import ProgressIndicator from "@/components/common/progress/ProgressIndicator";
+import Title from "@/components/common/title/Title";
+import { APPLY_TITLE } from "@/constants/applyPageData";
+import { PATH } from "@/constants/path";
+import { useApplyAuthCodeForm } from "@/hooks/useApplyAuthCodeForm";
+import { useApplyEmailForm } from "@/hooks/useApplyEmailForm";
+import { useApplyPinForm } from "@/hooks/useApplyPinForm";
+import { useCheckEmailExistsMutation } from "@/hooks/useCheckEmailExistMutation";
+import { useEmailAuthCodeMutation } from "@/hooks/useEmailAuthCodeMutation";
+import { useRegisterMemberMutation } from "@/hooks/useRegisterMemberMutation";
+import { useResetPinMutation } from "@/hooks/useResetPinMutation";
+import { useVerificationEmailCodeMutation } from "@/hooks/useVerificationEmailCodeMutation";
+import { useToastActions } from "@/stores/toastStore";
+import type {
   Email,
   RegisterMemberPayload,
   ResetPinPayload,
   VerificationEmailCodePayload,
-} from '@/types/apis/apply';
-import { handleError } from '@/utils/errorLogger';
-import { CreateSubmitHandler } from '@/utils/formHelpers';
+} from "@/types/apis/apply";
+import { handleError } from "@/utils/errorLogger";
+import { CreateSubmitHandler } from "@/utils/formHelpers";
 
 interface ApplyVerifyEmailProps {
   isResetPin?: boolean;
@@ -42,17 +43,17 @@ function ApplyVerifyEmail({
 }: ApplyVerifyEmailProps) {
   const { addToast } = useToastActions();
   const navigate = useNavigate();
-  const [storedEmail, setStoredEmail] = useState('');
+  const [storedEmail, setStoredEmail] = useState("");
   const [isPinHidden, setIsPinHidden] = useState(true);
   const [isReVerification, setIsReVerification] = useState(isResetPin);
   const [step, setStep] = useState(1);
   const [isTermsChecked, setIsTermsChecked] = useState(false);
   const [isAuthCodeExpired, setIsAuthCodeExpired] = useState(false);
-  const [emailButtonText, setEmailButtonText] = useState('인증번호 받기');
+  const [emailButtonText, setEmailButtonText] = useState("인증번호 받기");
   const [isCooldownActive, setIsCooldownActive] = useState(false);
-  const [cooldownTimer, setCooldownTimer] = useState<number | null>(null);
+  const [cooldownTimer, setCooldownTimer] = useState<ReturnType<typeof setTimeout> | null>(null);
 
-  const templateType = isResetPin ? 'PIN_RESET' : 'AUTH_CODE';
+  const templateType = isResetPin ? "PIN_RESET" : "AUTH_CODE";
 
   const {
     register: registerEmail,
@@ -86,9 +87,9 @@ function ApplyVerifyEmail({
     useRegisterMemberMutation();
   const { mutate: resetPinMutate, isPending: isResettingPin } = useResetPinMutation();
 
-  const authCodeValue = watchVerification('authCode');
+  const authCodeValue = watchVerification("authCode");
 
-  const currentEmail = watchEmail('email');
+  const currentEmail = watchEmail("email");
 
   useEffect(() => {
     if (currentEmail && storedEmail && currentEmail !== storedEmail) {
@@ -101,14 +102,14 @@ function ApplyVerifyEmail({
   useEffect(() => {
     if (step >= 2) {
       if (!isCooldownActive && !isAuthCodeExpired) {
-        setEmailButtonText('인증번호 재발송');
+        setEmailButtonText("인증번호 재발송");
       } else if (isAuthCodeExpired) {
-        setEmailButtonText('인증번호 재발송');
+        setEmailButtonText("인증번호 재발송");
       } else {
-        setEmailButtonText('인증번호 발송됨');
+        setEmailButtonText("인증번호 발송됨");
       }
     } else {
-      setEmailButtonText('인증번호 받기');
+      setEmailButtonText("인증번호 받기");
     }
   }, [step, isAuthCodeExpired, isCooldownActive]);
 
@@ -162,18 +163,18 @@ function ApplyVerifyEmail({
                 resetVerificationForm();
                 resetPinForm();
 
-                addToast('인증번호를 발송했어요. 1분 뒤에 다시 요청하실 수 있어요.', 'normal');
+                addToast("인증번호를 발송했어요. 1분 뒤에 다시 요청하실 수 있어요.", "normal");
                 startCooldown();
               },
               onError: error => {
-                handleError(error, '이메일 인증 코드 발송 실패');
+                handleError(error, "이메일 인증 코드 발송 실패");
                 //TODO: 이메일 인증 코드 추가 예외처리 필요
               },
             },
           );
         },
         onError: error => {
-          handleError(error, '이메일 존재 여부 확인 실패');
+          handleError(error, "이메일 존재 여부 확인 실패");
         },
       },
     );
@@ -187,21 +188,21 @@ function ApplyVerifyEmail({
       },
       {
         onSuccess: response => {
-          if (response.status !== 'SUCCESS') {
-            let errorMessage = '오류가 발생했습니다. 다시 시도해주세요.';
+          if (response.status !== "SUCCESS") {
+            let errorMessage = "오류가 발생했습니다. 다시 시도해주세요.";
 
             switch (response.status) {
-              case 'INVALID_AUTH_CODE':
-                errorMessage = '인증번호가 올바르지 않아요. 다시 확인해주세요.';
+              case "INVALID_AUTH_CODE":
+                errorMessage = "인증번호가 올바르지 않아요. 다시 확인해주세요.";
                 break;
-              case 'NOT_FOUND_AUTH_CODE':
-                errorMessage = '인증번호 유효 시간이 초과되었어요.';
+              case "NOT_FOUND_AUTH_CODE":
+                errorMessage = "인증번호 유효 시간이 초과되었어요.";
                 setIsAuthCodeExpired(true);
                 break;
             }
 
-            setVerificationError('authCode', {
-              type: 'manual',
+            setVerificationError("authCode", {
+              type: "manual",
               message: errorMessage,
             });
             return;
@@ -209,10 +210,10 @@ function ApplyVerifyEmail({
           setStep(3);
         },
         onError: error => {
-          handleError(error, '인증번호 확인 요청 실패');
-          setVerificationError('authCode', {
-            type: 'manual',
-            message: '인증 과정에서 오류가 발생했습니다. 다시 시도해주세요.',
+          handleError(error, "인증번호 확인 요청 실패");
+          setVerificationError("authCode", {
+            type: "manual",
+            message: "인증 과정에서 오류가 발생했습니다. 다시 시도해주세요.",
           });
         },
       },
@@ -224,12 +225,12 @@ function ApplyVerifyEmail({
       { pin },
       {
         onSuccess: response => {
-          if (response.status === 'SUCCESS') {
+          if (response.status === "SUCCESS") {
             void navigate(PATH.applicantInfo);
           }
         },
         onError: error => {
-          handleError(error, '회원 등록 실패');
+          handleError(error, "회원 등록 실패");
         },
       },
     );
@@ -240,8 +241,8 @@ function ApplyVerifyEmail({
       { pin },
       {
         onSuccess: response => {
-          if (response.status === 'SUCCESS') {
-            addToast('PIN을 다시 설정했어요', 'positive');
+          if (response.status === "SUCCESS") {
+            addToast("PIN을 다시 설정했어요", "positive");
             //TODO: 지원 초기 상태로 state들을 초기화 로직(Zustand, 혹은 외부 함수로)
             setStep(1);
             setIsAuthCodeExpired(false);
@@ -260,7 +261,7 @@ function ApplyVerifyEmail({
           }
         },
         onError: error => {
-          handleError(error, 'PIN 재설정 실패');
+          handleError(error, "PIN 재설정 실패");
         },
       },
     );
@@ -296,10 +297,10 @@ function ApplyVerifyEmail({
     }
 
     if (step === 3) {
-      return '인증이 완료되었어요';
+      return "인증이 완료되었어요";
     }
 
-    return '';
+    return "";
   };
 
   const renderVerificationButton = () => {
@@ -314,7 +315,7 @@ function ApplyVerifyEmail({
         hierarchy='accent'
         disabled={!isVerificationValid || isEmailCodeLoading || step === 3}
       >
-        {step === 3 ? '인증 완료됨' : '인증하기'}
+        {step === 3 ? "인증 완료됨" : "인증하기"}
       </LabelButton>
     );
   };
@@ -325,12 +326,12 @@ function ApplyVerifyEmail({
     (!isReVerification && !isTermsChecked);
 
   const rightIconFillColor = isSubmitButtonDisabled
-    ? 'fill-accent-trans-hero-dark'
-    : 'fill-object-static-inverse-hero-dark';
+    ? "fill-accent-trans-hero-dark"
+    : "fill-object-static-inverse-hero-dark";
 
   return (
     <div
-      className={`gap-9xl flex flex-col items-center ${isReVerification ? 'pt-(--gap-12xl)' : 'pt-(--gap-9xl)'} pb-(--gap-12xl)`}
+      className={`gap-9xl flex flex-col items-center ${isReVerification ? "pt-(--gap-12xl)" : "pt-(--gap-9xl)"} pb-(--gap-12xl)`}
     >
       {!isReVerification && <ProgressIndicator totalStep={3} currentStep={1} />}
       <section className='gap-9xl flex w-[26.25rem] flex-col items-stretch *:first:self-center'>
@@ -346,9 +347,9 @@ function ApplyVerifyEmail({
                   labelText='이메일'
                   isError={!!errorsEmail.email}
                   isSuccess={!errorsEmail.email}
-                  helper={errorsEmail.email ? errorsEmail.email.message : ''}
+                  helper={errorsEmail.email ? errorsEmail.email.message : ""}
                   placeholder='enjoyject@google.com'
-                  {...registerEmail('email')}
+                  {...registerEmail("email")}
                 >
                   <BlockButton
                     type='submit'
@@ -374,43 +375,43 @@ function ApplyVerifyEmail({
                   labelText='인증번호'
                   isError={!!errorsVerification.authCode}
                   isSuccess={
-                    !errorsVerification.authCode && watchVerification('authCode')?.length === 6
+                    !errorsVerification.authCode && watchVerification("authCode")?.length === 6
                   }
                   disabled={step === 3}
                   helper={getVerificationHelperText()}
                   placeholder='이메일 주소로 발송된 인증번호 6자리를 입력해주세요'
                   InputChildren={renderVerificationButton()}
-                  {...registerVerification('authCode')}
+                  {...registerVerification("authCode")}
                 />
               </form>
             )}
 
             {step >= 3 && (
               <form
-                id={isReVerification ? 'resetPinForm' : 'registerForm'}
+                id={isReVerification ? "resetPinForm" : "registerForm"}
                 className='gap-7xl flex flex-col'
                 onSubmit={
                   isReVerification ? handleResetPinFormSubmit : handleRegisterMemberFormSubmit
                 }
               >
                 <InputField
-                  type={isPinHidden ? 'password' : 'text'}
+                  type={isPinHidden ? "password" : "text"}
                   labelText='PIN'
                   isError={!!errorsPin.pin}
                   isSuccess={isPinValid}
                   disabled={false}
-                  helper={errorsPin.pin ? errorsPin.pin.message : ''}
+                  helper={errorsPin.pin ? errorsPin.pin.message : ""}
                   placeholder='본인 확인용 6자리 비밀번호를 설정해주세요'
                   InputChildren={
                     <span onClick={() => setIsPinHidden(prev => !prev)} className='cursor-pointer'>
                       <Icon
-                        name={isPinHidden ? 'visible' : 'invisible'}
+                        name={isPinHidden ? "visible" : "invisible"}
                         size='md'
                         fillColor='fill-object-neutral-dark'
                       />
                     </span>
                   }
-                  {...registerPin('pin')}
+                  {...registerPin("pin")}
                 />
               </form>
             )}
@@ -454,7 +455,7 @@ function ApplyVerifyEmail({
             )}
             <BlockButton
               type='submit'
-              form={isReVerification ? 'resetPinForm' : 'registerForm'}
+              form={isReVerification ? "resetPinForm" : "registerForm"}
               disabled={isSubmitButtonDisabled}
               size='lg'
               style='solid'
@@ -465,7 +466,7 @@ function ApplyVerifyEmail({
                 )
               }
             >
-              {isReVerification ? 'PIN 다시 설정 완료하기' : '다음 단계로 진행하기'}
+              {isReVerification ? "PIN 다시 설정 완료하기" : "다음 단계로 진행하기"}
             </BlockButton>
           </div>
         </div>

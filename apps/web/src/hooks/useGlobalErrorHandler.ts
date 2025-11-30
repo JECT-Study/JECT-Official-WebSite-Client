@@ -1,11 +1,11 @@
-import { captureException } from '@sentry/react';
+import { captureException } from "@sentry/react";
 
-import { PATH } from '@/constants/path';
-import { ExternalAPIError, InternalAPIError, NetworkError } from '@/errors/APIError';
-import { externalApiErrorMapping, internalApiErrorMapping } from '@/errors/errorMappings';
-import router from '@/router';
-import { useDialogActions } from '@/stores/dialogStore';
-import { useToastActions } from '@/stores/toastStore';
+import { PATH } from "@/constants/path";
+import { ExternalAPIError, InternalAPIError, NetworkError } from "@/errors/APIError";
+import { externalApiErrorMapping, internalApiErrorMapping } from "@/errors/errorMappings";
+import router from "@/router";
+import { useDialogActions } from "@/stores/dialogStore";
+import { useToastActions } from "@/stores/toastStore";
 
 export const useGlobalErrorHandler = () => {
   const { openDialog } = useDialogActions();
@@ -18,7 +18,7 @@ export const useGlobalErrorHandler = () => {
       }
 
       captureException(error, {
-        tags: { type: 'UnhandledInternalAPIError', status: error.status },
+        tags: { type: "UnhandledInternalAPIError", status: error.status },
         extra: { message: error.message, name: error.name, url: error.url },
       });
 
@@ -29,17 +29,17 @@ export const useGlobalErrorHandler = () => {
       }
 
       captureException(error, {
-        tags: { type: 'UnhandledExternalAPIError', status: error.status },
+        tags: { type: "UnhandledExternalAPIError", status: error.status },
         extra: { message: error.message, name: error.name, url: error.url },
       });
 
       return void router.navigate(PATH.nonSpecificError);
     } else if (error instanceof NetworkError) {
-      return addToast('네트워크 상태가 불안정해요. 다시 시도해 주세요.', 'negative');
+      return addToast("네트워크 상태가 불안정해요. 다시 시도해 주세요.", "negative");
     }
 
     captureException(error, {
-      tags: { type: 'UnhandledUnknownError' },
+      tags: { type: "UnhandledUnknownError" },
       extra: {
         rawType: typeof error,
         value: error,

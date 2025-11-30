@@ -1,9 +1,9 @@
-import type { MouseEvent } from 'react';
+import type { MouseEvent } from "react";
 
-import { StyledTagWrapper } from './tagField.styles';
-import type { Tag } from './tagField.types';
-import { ContentBadge } from '../../Badge';
-import { useFormField } from '../shared/FormFieldContext';
+import { StyledTagWrapper } from "./tagField.styles";
+import type { Tag } from "./tagField.types";
+import { ContentBadge } from "../../Badge";
+import { useFormField } from "../shared/FormFieldContext";
 
 export interface TagItemProps {
   tag: Tag;
@@ -22,9 +22,9 @@ export const TagItem = ({ tag, isSelected, onClick }: TagItemProps) => {
       onClick={isInteractive && onClick ? e => onClick(e, tag.id) : undefined}
     >
       <ContentBadge.Basic
-        size='xs'
-        hierarchy='secondary'
-        badgeStyle='alpha'
+        size="xs"
+        hierarchy="secondary"
+        badgeStyle="alpha"
         withIcon={isInteractive}
       >
         {tag.label}

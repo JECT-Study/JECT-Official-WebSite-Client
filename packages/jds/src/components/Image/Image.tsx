@@ -1,10 +1,12 @@
-import { ComponentPropsWithoutRef, forwardRef, SyntheticEvent } from 'react';
-import { IconDiv, ImageButton, ImageLabelDiv, StyledIcon, StyledLabel } from './Image.style';
+import type { ComponentPropsWithoutRef, SyntheticEvent } from "react";
+import { forwardRef } from "react";
 
-export type ImgRatio = '1:1' | '4:5' | '3:4' | '2:3' | '9:16' | '1:2' | '9:21';
-export type ImgOrientation = 'portrait' | 'landscape';
+import { IconDiv, ImageButton, ImageLabelDiv, StyledIcon, StyledLabel } from "./Image.style";
 
-export interface ImageProps extends ComponentPropsWithoutRef<'button'> {
+export type ImgRatio = "1:1" | "4:5" | "3:4" | "2:3" | "9:16" | "1:2" | "9:21";
+export type ImgOrientation = "portrait" | "landscape";
+
+export interface ImageProps extends ComponentPropsWithoutRef<"button"> {
   src?: string;
   fallbackSrc?: string;
   alt: string;
@@ -13,21 +15,21 @@ export interface ImageProps extends ComponentPropsWithoutRef<'button'> {
   isReadonly?: boolean;
   badgeVisible?: boolean;
   badgeLabel?: string;
-  loading?: 'lazy' | 'eager';
+  loading?: "lazy" | "eager";
 }
 
 export const Image = forwardRef<HTMLButtonElement, ImageProps>(
   (
     {
       src,
-      fallbackSrc = '/images/defaultImage.png',
-      ratio = '1:1',
-      orientation = 'portrait',
+      fallbackSrc = "/images/defaultImage.png",
+      ratio = "1:1",
+      orientation = "portrait",
       isReadonly = false,
       badgeVisible = false,
-      badgeLabel = '1',
+      badgeLabel = "1",
       alt,
-      loading = 'eager',
+      loading = "eager",
       ...props
     },
     ref,
@@ -50,14 +52,14 @@ export const Image = forwardRef<HTMLButtonElement, ImageProps>(
         <img src={src || fallbackSrc} alt={alt} onError={imageLoadErrorHandler} loading={loading} />
         {badgeVisible && (
           <ImageLabelDiv>
-            <StyledLabel size='xs' textAlign='center' weight='normal'>
+            <StyledLabel size="xs" textAlign="center" weight="normal">
               {badgeLabel}
             </StyledLabel>
           </ImageLabelDiv>
         )}
         {!isReadonly && (
-          <IconDiv className='hoverIcon'>
-            <StyledIcon name='delete-bin-line' size='xl' />
+          <IconDiv className="hoverIcon">
+            <StyledIcon name="delete-bin-line" size="xl" />
           </IconDiv>
         )}
       </ImageButton>
@@ -65,4 +67,4 @@ export const Image = forwardRef<HTMLButtonElement, ImageProps>(
   },
 );
 
-Image.displayName = 'Image';
+Image.displayName = "Image";

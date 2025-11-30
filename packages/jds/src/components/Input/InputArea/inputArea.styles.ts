@@ -1,15 +1,15 @@
-import isPropValid from '@emotion/is-prop-valid';
-import type { CSSObject, Theme } from '@emotion/react';
-import styled from '@emotion/styled';
-import { InteractionLayer } from 'utils';
+import isPropValid from "@emotion/is-prop-valid";
+import type { CSSObject, Theme } from "@emotion/react";
+import styled from "@emotion/styled";
+import { InteractionLayer } from "utils";
 
-import type { InputAreaStyle, InputAreaValidation } from './inputArea.types';
-import { Label } from '../../Label';
+import type { InputAreaStyle, InputAreaValidation } from "./inputArea.types";
+import { Label } from "../../Label";
 
 const getBorderColor = (
   theme: Theme,
   validation: InputAreaValidation,
-  state: 'rest' | 'hover' | 'active' | 'focus',
+  state: "rest" | "hover" | "active" | "focus",
   disabled: boolean,
   readOnly: boolean,
 ): string => {
@@ -74,18 +74,18 @@ const getBackgroundColor = (
   readOnly: boolean,
 ): string => {
   const disabledBackgroundColorMap = {
-    outlined: 'transparent',
-    empty: 'transparent',
+    outlined: "transparent",
+    empty: "transparent",
   } as const;
 
   const readOnlyBackgroundColorMap = {
-    outlined: 'transparent',
-    empty: 'transparent',
+    outlined: "transparent",
+    empty: "transparent",
   } as const;
 
   const normalBackgroundColorMap = {
     outlined: theme.color.semantic.surface.standard,
-    empty: 'transparent',
+    empty: "transparent",
   } as const;
 
   if (disabled) {
@@ -131,8 +131,8 @@ const getHelperTextColor = (
   return normalHelperColorMap[validation];
 };
 
-export const StyledTextAreaWrapper = styled('div', {
-  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
+export const StyledTextAreaWrapper = styled("div", {
+  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith("$"),
 })<{
   $style: InputAreaStyle;
   $validation: InputAreaValidation;
@@ -141,10 +141,10 @@ export const StyledTextAreaWrapper = styled('div', {
   $height?: number | string;
   $minHeight?: number | string;
 }>(({ theme, $style, $validation, $disabled, $readOnly, $height, $minHeight }) => {
-  const restBorderColor = getBorderColor(theme, $validation, 'rest', $disabled, $readOnly);
-  const hoverBorderColor = getBorderColor(theme, $validation, 'hover', $disabled, $readOnly);
-  const activeBorderColor = getBorderColor(theme, $validation, 'active', $disabled, $readOnly);
-  const focusBorderColor = getBorderColor(theme, $validation, 'focus', $disabled, $readOnly);
+  const restBorderColor = getBorderColor(theme, $validation, "rest", $disabled, $readOnly);
+  const hoverBorderColor = getBorderColor(theme, $validation, "hover", $disabled, $readOnly);
+  const activeBorderColor = getBorderColor(theme, $validation, "active", $disabled, $readOnly);
+  const focusBorderColor = getBorderColor(theme, $validation, "focus", $disabled, $readOnly);
   const backgroundColor = getBackgroundColor(theme, $style, $disabled, $readOnly);
 
   //Todo: interactionLayer의 매개변수를 공통 유틸리티로 이관 및 연동
@@ -152,40 +152,40 @@ export const StyledTextAreaWrapper = styled('div', {
     outlined: {
       restStyle: InteractionLayer({
         theme,
-        state: 'rest',
-        variant: 'normal',
-        density: 'assistive',
-        fillColor: 'default',
+        state: "rest",
+        variant: "normal",
+        density: "assistive",
+        fillColor: "default",
         isDisabled: $disabled,
         isReadonly: $readOnly,
         borderRadius: 6,
       }),
       hoverStyle: InteractionLayer({
         theme,
-        state: 'rest',
-        variant: 'normal',
-        density: 'assistive',
-        fillColor: 'default',
+        state: "rest",
+        variant: "normal",
+        density: "assistive",
+        fillColor: "default",
         isDisabled: $disabled,
         isReadonly: $readOnly,
         borderRadius: 6,
       }),
       activeStyle: InteractionLayer({
         theme,
-        state: 'hover',
-        variant: 'normal',
-        density: 'assistive',
-        fillColor: 'default',
+        state: "hover",
+        variant: "normal",
+        density: "assistive",
+        fillColor: "default",
         isDisabled: $disabled,
         isReadonly: $readOnly,
         borderRadius: 6,
       }),
       focusStyle: InteractionLayer({
         theme,
-        state: 'rest',
-        variant: 'normal',
-        density: 'assistive',
-        fillColor: 'default',
+        state: "rest",
+        variant: "normal",
+        density: "assistive",
+        fillColor: "default",
         isDisabled: $disabled,
         isReadonly: $readOnly,
         borderRadius: 6,
@@ -194,10 +194,10 @@ export const StyledTextAreaWrapper = styled('div', {
     empty: {
       restStyle: InteractionLayer({
         theme,
-        state: 'rest',
-        variant: 'normal',
-        density: 'assistive',
-        fillColor: 'default',
+        state: "rest",
+        variant: "normal",
+        density: "assistive",
+        fillColor: "default",
         isDisabled: $disabled,
         isReadonly: $readOnly,
         offsetVertical: 4,
@@ -206,10 +206,10 @@ export const StyledTextAreaWrapper = styled('div', {
       }),
       hoverStyle: InteractionLayer({
         theme,
-        state: 'hover',
-        variant: 'normal',
-        density: 'assistive',
-        fillColor: 'default',
+        state: "hover",
+        variant: "normal",
+        density: "assistive",
+        fillColor: "default",
         isDisabled: $disabled,
         isReadonly: $readOnly,
         offsetVertical: 4,
@@ -218,10 +218,10 @@ export const StyledTextAreaWrapper = styled('div', {
       }),
       activeStyle: InteractionLayer({
         theme,
-        state: 'active',
-        variant: 'normal',
-        density: 'assistive',
-        fillColor: 'default',
+        state: "active",
+        variant: "normal",
+        density: "assistive",
+        fillColor: "default",
         isDisabled: $disabled,
         isReadonly: $readOnly,
         offsetVertical: 4,
@@ -230,10 +230,10 @@ export const StyledTextAreaWrapper = styled('div', {
       }),
       focusStyle: InteractionLayer({
         theme,
-        state: 'rest',
-        variant: 'normal',
-        density: 'assistive',
-        fillColor: 'default',
+        state: "rest",
+        variant: "normal",
+        density: "assistive",
+        fillColor: "default",
         isDisabled: $disabled,
         isReadonly: $readOnly,
         offsetVertical: 4,
@@ -245,45 +245,45 @@ export const StyledTextAreaWrapper = styled('div', {
 
   const { restStyle, hoverStyle, activeStyle, focusStyle } = interactionParams[$style];
 
-  const baseBorderStyle = $style === 'outlined' ? `0 0 0 1px ${restBorderColor}` : 'none';
+  const baseBorderStyle = $style === "outlined" ? `0 0 0 1px ${restBorderColor}` : "none";
 
   const padding =
-    $style === 'outlined'
+    $style === "outlined"
       ? `${theme.scheme.semantic.spacing[8]} ${theme.scheme.semantic.spacing[8]}`
       : `${theme.scheme.semantic.spacing[0]} ${theme.scheme.semantic.spacing[0]}`;
 
   const heightValue = $height
-    ? typeof $height === 'number'
+    ? typeof $height === "number"
       ? `${$height / 16}rem`
       : $height
     : undefined;
 
   const minHeightValue = $minHeight
-    ? typeof $minHeight === 'number'
+    ? typeof $minHeight === "number"
       ? `${$minHeight / 16}rem`
       : $minHeight
-    : '7rem';
+    : "7rem";
 
   const baseStyles: CSSObject = {
     ...restStyle,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'stretch',
-    width: '100%',
-    height: heightValue || 'auto',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "stretch",
+    width: "100%",
+    height: heightValue || "auto",
     minHeight: heightValue ? undefined : minHeightValue,
-    overflow: heightValue ? 'hidden' : 'visible',
+    overflow: heightValue ? "hidden" : "visible",
     padding,
     backgroundColor,
-    border: 'none',
+    border: "none",
     boxShadow: baseBorderStyle,
     borderRadius: theme.scheme.semantic.radius[6],
-    cursor: $disabled ? 'not-allowed' : 'text',
+    cursor: $disabled ? "not-allowed" : "text",
     transition: `box-shadow ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
-    position: 'relative',
+    position: "relative",
 
-    '::after': {
-      ...restStyle['::after'],
+    "::after": {
+      ...restStyle["::after"],
       transition: `opacity ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
     },
   };
@@ -292,45 +292,45 @@ export const StyledTextAreaWrapper = styled('div', {
     return baseStyles;
   }
 
-  const isFocusOutlineHidden = $validation !== 'none';
+  const isFocusOutlineHidden = $validation !== "none";
 
   return {
     ...baseStyles,
-    '&:hover': {
+    "&:hover": {
       ...hoverStyle,
-      boxShadow: $style === 'outlined' ? `0 0 0 1px ${hoverBorderColor}` : 'none',
-      '::after': {
-        ...hoverStyle['::after'],
+      boxShadow: $style === "outlined" ? `0 0 0 1px ${hoverBorderColor}` : "none",
+      "::after": {
+        ...hoverStyle["::after"],
         transition: `opacity ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
       },
     },
-    '&:active': {
+    "&:active": {
       ...activeStyle,
-      boxShadow: $style === 'outlined' ? `0 0 0 1px ${activeBorderColor}` : 'none',
-      '::after': {
-        ...activeStyle['::after'],
-        transition: 'none',
+      boxShadow: $style === "outlined" ? `0 0 0 1px ${activeBorderColor}` : "none",
+      "::after": {
+        ...activeStyle["::after"],
+        transition: "none",
       },
     },
-    '&:focus-within': {
+    "&:focus-within": {
       ...focusStyle,
-      boxShadow: $style === 'outlined' ? `0 0 0 2px ${focusBorderColor}` : 'none',
-      '::before': isFocusOutlineHidden
+      boxShadow: $style === "outlined" ? `0 0 0 2px ${focusBorderColor}` : "none",
+      "::before": isFocusOutlineHidden
         ? {
             opacity: 0,
           }
         : {
-            ...focusStyle['::before'],
+            ...focusStyle["::before"],
           },
-      '::after': {
-        ...restStyle['::after'],
+      "::after": {
+        ...restStyle["::after"],
       },
     },
   };
 });
 
-export const StyledTextArea = styled('textarea', {
-  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
+export const StyledTextArea = styled("textarea", {
+  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith("$"),
 })<{
   $disabled: boolean;
   $readOnly: boolean;
@@ -339,52 +339,52 @@ export const StyledTextArea = styled('textarea', {
   const textColor = getTextColor(theme, $disabled, $readOnly);
 
   return {
-    display: 'block',
-    width: '100%',
-    height: '100%',
+    display: "block",
+    width: "100%",
+    height: "100%",
     padding: 0,
-    border: 'none',
-    outline: 'none',
-    backgroundColor: 'transparent',
+    border: "none",
+    outline: "none",
+    backgroundColor: "transparent",
     color: textColor,
-    ...theme.textStyle['semantic-textStyle-body-sm-normal'],
-    position: 'relative',
+    ...theme.textStyle["semantic-textStyle-body-sm-normal"],
+    position: "relative",
     zIndex: 1,
-    resize: $hasFixedHeight ? 'none' : 'vertical',
-    overflow: 'auto',
-    boxSizing: 'border-box',
+    resize: $hasFixedHeight ? "none" : "vertical",
+    overflow: "auto",
+    boxSizing: "border-box",
     //Todo: 사파리나 firefox 같은 곳에서는 지원하진 않는 속성 (리사이징 훅 등 처리 필요)
-    fieldSizing: 'content',
+    fieldSizing: "content",
 
-    '&::placeholder': {
+    "&::placeholder": {
       color: theme.color.semantic.object.assistive,
     },
   };
 });
 
-export const StyledHelperContainer = styled('div', {
-  shouldForwardProp: prop => !prop.startsWith('$'),
+export const StyledHelperContainer = styled("div", {
+  shouldForwardProp: prop => !prop.startsWith("$"),
 })<{
   $validation: InputAreaValidation;
   $disabled: boolean;
   $readOnly: boolean;
 }>(({ theme, $validation, $disabled, $readOnly }) => ({
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  alignSelf: 'stretch',
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  alignSelf: "stretch",
   gap: theme.scheme.semantic.spacing[16],
   color: getHelperTextColor(theme, $validation, $disabled, $readOnly),
 }));
 
 export const StyledHelperText = styled(Label)({
-  color: 'inherit',
-  flex: '1 0 0',
+  color: "inherit",
+  flex: "1 0 0",
 });
 
 export const StyledCountText = styled(Label)({
-  color: 'inherit',
-  marginLeft: 'auto',
+  color: "inherit",
+  marginLeft: "auto",
 });
 
 export {
@@ -392,4 +392,4 @@ export {
   StyledLabelContainer,
   StyledFieldLabel,
   StyledInputColumn,
-} from '../shared/field.styles';
+} from "../shared/field.styles";

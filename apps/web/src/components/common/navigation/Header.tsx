@@ -1,6 +1,6 @@
-import Navigation from '@/components/common/navigation/Navigation';
-import NavigationItem from '@/components/common/navigation/NavigationItem';
-import { PATH } from '@/constants/path';
+import Navigation from "@/components/common/navigation/Navigation";
+import NavigationItem from "@/components/common/navigation/NavigationItem";
+import { PATH } from "@/constants/path";
 
 function Header() {
   return (

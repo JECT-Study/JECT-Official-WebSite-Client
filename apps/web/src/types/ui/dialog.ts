@@ -1,8 +1,8 @@
 export type DialogTypes =
-  | 'example'
-  | 'changeJob'
-  | 'submitAnswer'
-  | 'expiredSession'
-  | 'continueWriting'
-  | 'failedUploadFile'
-  | 'dirtyCheck';
+  | "example"
+  | "changeJob"
+  | "submitAnswer"
+  | "expiredSession"
+  | "continueWriting"
+  | "failedUploadFile"
+  | "dirtyCheck";

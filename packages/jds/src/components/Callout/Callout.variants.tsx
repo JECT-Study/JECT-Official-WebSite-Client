@@ -1,14 +1,21 @@
-import { Theme } from '@emotion/react';
-import { BasicHierarchy, CalloutSize, CalloutVariant, FeedbackHierarchy } from './Callout.types';
-import { BlockButton, BlockButtonSize } from '../Button/BlockButton';
-import { BaseBlockButtonProps } from '../Button/BlockButton/blockButton.types';
+import type { Theme } from "@emotion/react";
+
+import type {
+  BasicHierarchy,
+  CalloutSize,
+  CalloutVariant,
+  FeedbackHierarchy,
+} from "./Callout.types";
+import type { BlockButtonSize } from "../Button/BlockButton";
+import { BlockButton } from "../Button/BlockButton";
+import type { BaseBlockButtonProps } from "../Button/BlockButton/blockButton.types";
 
 export const calloutButtonSizeMap: Record<CalloutSize, BlockButtonSize> = {
-  lg: 'sm',
-  md: 'sm',
-  sm: 'sm',
-  xs: 'xs',
-  '2xs': 'xs',
+  lg: "sm",
+  md: "sm",
+  sm: "sm",
+  xs: "xs",
+  "2xs": "xs",
 };
 
 type BasicStyle = Record<
@@ -100,59 +107,59 @@ export const calloutSizeMap = {
     paddingTopBottom: 16,
     paddingLeftRight: 24,
     gap: 16,
-    title: 'semantic-textStyle-title-2',
-    content: 'semantic-textStyle-body-lg-bold',
+    title: "semantic-textStyle-title-2",
+    content: "semantic-textStyle-body-lg-bold",
   },
   md: {
     paddingTopBottom: 16,
     paddingLeftRight: 24,
     gap: 16,
-    title: 'semantic-textStyle-title-1',
-    content: 'semantic-textStyle-body-md-bold',
+    title: "semantic-textStyle-title-1",
+    content: "semantic-textStyle-body-md-bold",
   },
   sm: {
     paddingTopBottom: 16,
     paddingLeftRight: 24,
     gap: 16,
-    title: 'semantic-textStyle-label-lg-bold',
-    content: 'semantic-textStyle-body-sm-bold',
+    title: "semantic-textStyle-label-lg-bold",
+    content: "semantic-textStyle-body-sm-bold",
   },
   xs: {
     paddingTopBottom: 12,
     paddingLeftRight: 20,
     gap: 12,
-    title: 'semantic-textStyle-label-md-bold',
-    content: 'semantic-textStyle-body-xs-bold',
+    title: "semantic-textStyle-label-md-bold",
+    content: "semantic-textStyle-body-xs-bold",
   },
-  '2xs': {
+  "2xs": {
     paddingTopBottom: 12,
     paddingLeftRight: 20,
     gap: 12,
-    title: 'semantic-textStyle-label-sm-bold',
-    content: 'semantic-textStyle-body-2xs-bold',
+    title: "semantic-textStyle-label-sm-bold",
+    content: "semantic-textStyle-body-2xs-bold",
   },
 } as const;
 
 export const calloutBasicButtonStyleMap = (
   buttonSize: BlockButtonSize,
-  blockButtonProps: Omit<BaseBlockButtonProps, 'size'>,
+  blockButtonProps: Omit<BaseBlockButtonProps, "size">,
 ) => ({
   accent: (
-    <BlockButton.Basic hierarchy='accent' size={buttonSize} variant='solid' {...blockButtonProps} />
+    <BlockButton.Basic hierarchy="accent" size={buttonSize} variant="solid" {...blockButtonProps} />
   ),
   primary: (
     <BlockButton.Basic
-      hierarchy='primary'
+      hierarchy="primary"
       size={buttonSize}
-      variant='solid'
+      variant="solid"
       {...blockButtonProps}
     />
   ),
   secondary: (
     <BlockButton.Basic
-      hierarchy='secondary'
+      hierarchy="secondary"
       size={buttonSize}
-      variant='solid'
+      variant="solid"
       {...blockButtonProps}
     />
   ),
@@ -160,18 +167,18 @@ export const calloutBasicButtonStyleMap = (
 
 export const calloutFeedbackButtonStyleMap = (
   buttonSize: BlockButtonSize,
-  blockButtonProps: Omit<BaseBlockButtonProps, 'size'>,
+  blockButtonProps: Omit<BaseBlockButtonProps, "size">,
 ) => ({
   notifying: (
     <BlockButton.Basic
-      hierarchy='primary'
+      hierarchy="primary"
       size={buttonSize}
-      variant='solid'
+      variant="solid"
       {...blockButtonProps}
     />
   ),
-  positive: <BlockButton.Feedback intent='positive' size={buttonSize} {...blockButtonProps} />,
+  positive: <BlockButton.Feedback intent="positive" size={buttonSize} {...blockButtonProps} />,
   destructive: (
-    <BlockButton.Feedback intent='destructive' size={buttonSize} {...blockButtonProps} />
+    <BlockButton.Feedback intent="destructive" size={buttonSize} {...blockButtonProps} />
   ),
 });

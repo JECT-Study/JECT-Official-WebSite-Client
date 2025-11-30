@@ -1,4 +1,4 @@
-import { forwardRef, useId } from 'react';
+import { forwardRef, useId } from "react";
 
 import {
   StyledFieldContainer,
@@ -9,16 +9,16 @@ import {
   StyledHelperText,
   StyledInputRow,
   StyledInputColumn,
-} from './textField.styles';
-import type { TextFieldButtonProps } from './textField.types';
-import { Icon } from '../../Icon';
+} from "./textField.styles";
+import type { TextFieldButtonProps } from "./textField.types";
+import { Icon } from "../../Icon";
 
 export const TextFieldButton = forwardRef<HTMLInputElement, TextFieldButtonProps>(
   (
     {
-      style = 'outlined',
-      layout = 'vertical',
-      validation = 'none',
+      style = "outlined",
+      layout = "vertical",
+      validation = "none",
       disabled = false,
       readOnly = false,
       label,
@@ -38,17 +38,17 @@ export const TextFieldButton = forwardRef<HTMLInputElement, TextFieldButtonProps
         {label && (
           <StyledLabelContainer $layout={layout}>
             <StyledFieldLabel
-              as='label'
+              as="label"
               htmlFor={inputId}
-              size='md'
-              weight='bold'
+              size="md"
+              weight="bold"
               $disabled={disabled}
               $readOnly={readOnly}
               $layout={layout}
             >
               {label}
             </StyledFieldLabel>
-            {labelIcon && <Icon name={labelIcon} size='sm' />}
+            {labelIcon && <Icon name={labelIcon} size="sm" />}
           </StyledLabelContainer>
         )}
 
@@ -77,9 +77,9 @@ export const TextFieldButton = forwardRef<HTMLInputElement, TextFieldButtonProps
 
           {helperText && (
             <StyledHelperText
-              as='span'
-              size='sm'
-              weight='normal'
+              as="span"
+              size="sm"
+              weight="normal"
               $validation={validation}
               $disabled={disabled}
               $readOnly={readOnly}
@@ -93,4 +93,4 @@ export const TextFieldButton = forwardRef<HTMLInputElement, TextFieldButtonProps
   },
 );
 
-TextFieldButton.displayName = 'TextField.Button';
+TextFieldButton.displayName = "TextField.Button";

@@ -1,8 +1,9 @@
-import { LimitedQueueProviderBaseItem } from '@/hooks/useLimitedQueueProvider';
-import { ReactNode } from 'react';
+import type { ReactNode } from "react";
 
-export type ToastVariant = 'positive' | 'destructive';
-export type ToastStyle = 'basic' | ToastVariant;
+import type { LimitedQueueProviderBaseItem } from "@/hooks/useLimitedQueueProvider";
+
+export type ToastVariant = "positive" | "destructive";
+export type ToastStyle = "basic" | ToastVariant;
 
 export interface ToastBaseProps {
   title: ReactNode;

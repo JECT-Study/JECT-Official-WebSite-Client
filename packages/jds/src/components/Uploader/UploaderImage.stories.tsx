@@ -1,54 +1,54 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { FlexColumn } from '@storybook-utils/layout';
-import { useState } from 'react';
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { FlexColumn } from "@storybook-utils/layout";
+import { useState } from "react";
 
-import { Uploader } from './Uploader';
-import { LabelButton } from '../Button/LabelButton';
+import { Uploader } from "./Uploader";
+import { LabelButton } from "../Button/LabelButton";
 
 const meta = {
-  title: 'Components/Uploader/Image',
+  title: "Components/Uploader/Image",
   component: Uploader.Image,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
   argTypes: {
     accept: {
-      control: 'object',
-      description: '업로드할 파일 형식 배열',
+      control: "object",
+      description: "업로드할 파일 형식 배열",
     },
     multiple: {
-      control: 'boolean',
-      description: '파일선택기에서 단일/다수 파일 선택 여부',
+      control: "boolean",
+      description: "파일선택기에서 단일/다수 파일 선택 여부",
     },
     maxFileSize: {
-      control: 'number',
-      description: '파일 하나의 최대 용량',
+      control: "number",
+      description: "파일 하나의 최대 용량",
     },
     maxTotalSize: {
-      control: 'number',
-      description: '허용하는 총 파일 용량',
+      control: "number",
+      description: "허용하는 총 파일 용량",
     },
     existingFilesSize: {
-      control: 'number',
-      description: '이미 업로드 된 파일의 총 용량',
+      control: "number",
+      description: "이미 업로드 된 파일의 총 용량",
     },
     files: {
-      control: 'object',
-      description: 'controlled 방식을 위한 files',
+      control: "object",
+      description: "controlled 방식을 위한 files",
     },
     onUpload: {
-      description: '파일 업로드 시, 실행할 함수',
+      description: "파일 업로드 시, 실행할 함수",
     },
     onError: {
-      description: '에러가 났을 경우, 실행할 함수',
+      description: "에러가 났을 경우, 실행할 함수",
     },
     isLoading: {
-      control: 'boolean',
-      description: '업로드 로딩 여부',
+      control: "boolean",
+      description: "업로드 로딩 여부",
     },
     isDisabled: {
-      control: 'boolean',
-      description: '업로더 비활성화 여부',
+      control: "boolean",
+      description: "업로더 비활성화 여부",
     },
   },
   args: {
@@ -61,10 +61,9 @@ const meta = {
 export default meta;
 
 export const Default: StoryObj<typeof Uploader.Image> = {
-  name: 'Default',
   render: args => {
     const onCancel = () => {
-      alert('파일 업로드를 취소합니다.');
+      alert("파일 업로드를 취소합니다.");
     };
 
     return (
@@ -73,9 +72,9 @@ export const Default: StoryObj<typeof Uploader.Image> = {
         isDisabled={args.isDisabled}
         cancelButton={
           <LabelButton.Basic
-            hierarchy='tertiary'
-            size='xs'
-            suffixIcon='arrow-go-back-line'
+            hierarchy="tertiary"
+            size="xs"
+            suffixIcon="arrow-go-back-line"
             onClick={onCancel}
           >
             취소
@@ -91,20 +90,19 @@ export const UncontrolledImageUploader: StoryObj<typeof Uploader.Image> = {
     docs: {
       description: {
         story:
-          'uncontrolled 업로더로, Uploader 내부에서 useReducer를 통해 files 상태를 관리합니다. png, jpg, jpeg 형식의 이미지 파일만 업로드 가능합니다. ',
+          "uncontrolled 업로더로, Uploader 내부에서 useReducer를 통해 files 상태를 관리합니다. png, jpg, jpeg 형식의 이미지 파일만 업로드 가능합니다. ",
       },
     },
   },
-  name: 'Uncontrolled Image Uploader',
   render: function Render(args) {
     const onUpload = (files: File[]) => {
       const filesName = files.map(file => file.name);
-      alert(`선택한 ${filesName.join(',')} 이미지를 업로드합니다. `);
+      alert(`선택한 ${filesName.join(",")} 이미지를 업로드합니다. `);
     };
 
     return (
       <FlexColumn>
-        <Uploader.Image accept={['.png', '.jpg', '.jpeg']} onUpload={onUpload} {...args} />
+        <Uploader.Image accept={[".png", ".jpg", ".jpeg"]} onUpload={onUpload} {...args} />
       </FlexColumn>
     );
   },
@@ -115,11 +113,10 @@ export const ControlledImageUploader: StoryObj<typeof Uploader.Image> = {
     docs: {
       description: {
         story:
-          'controlled 업로더로, Uploader 컴포넌트 외부에서 useState를 통해 files 상태를 관리합니다. png, jpg, jpeg 형식의 이미지 파일만 업로드 가능합니다.',
+          "controlled 업로더로, Uploader 컴포넌트 외부에서 useState를 통해 files 상태를 관리합니다. png, jpg, jpeg 형식의 이미지 파일만 업로드 가능합니다.",
       },
     },
   },
-  name: 'Controlled Image Uploader',
   render: function Render(args) {
     const [files, setFiles] = useState<File[]>([]);
 
@@ -135,11 +132,11 @@ export const ControlledImageUploader: StoryObj<typeof Uploader.Image> = {
       <div>
         <Uploader.Image
           files={files}
-          accept={['.png', '.jpg', '.jpeg']}
+          accept={[".png", ".jpg", ".jpeg"]}
           onUpload={handleUpload}
           {...args}
         />
-        <div style={{ marginTop: '1rem' }}>
+        <div style={{ marginTop: "1rem" }}>
           <h4>Selected Images:</h4>
           <ul>
             {files.map((file, index) => (

@@ -1,11 +1,11 @@
-import isPropValid from '@emotion/is-prop-valid';
-import type { Theme } from '@emotion/react';
-import styled from '@emotion/styled';
-import { pxToRem } from 'utils';
+import isPropValid from "@emotion/is-prop-valid";
+import type { Theme } from "@emotion/react";
+import styled from "@emotion/styled";
+import { pxToRem } from "utils";
 
-import { Icon } from '../../Icon';
-import { Label } from '../../Label';
-import type { InputLayout, InputStyle, InputValidation } from '../input.types';
+import { Icon } from "../../Icon";
+import { Label } from "../../Label";
+import type { InputLayout, InputStyle, InputValidation } from "../input.types";
 
 export const getLabelColor = (theme: Theme, disabled: boolean, readOnly: boolean): string => {
   if (disabled) {
@@ -19,11 +19,7 @@ export const getLabelColor = (theme: Theme, disabled: boolean, readOnly: boolean
   return theme.color.semantic.object.normal;
 };
 
-export const getLabelIconColor = (
-  theme: Theme,
-  disabled: boolean,
-  readOnly: boolean,
-): string => {
+export const getLabelIconColor = (theme: Theme, disabled: boolean, readOnly: boolean): string => {
   if (disabled) {
     return theme.color.semantic.object.assistive;
   }
@@ -68,43 +64,46 @@ export const getHelperTextColor = (
   return helperColorMap[validation];
 };
 
-export const StyledFieldContainer = styled('div', {
-  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
+export const StyledFieldContainer = styled("div", {
+  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith("$"),
 })<{ $layout: InputLayout }>(({ theme, $layout }) => ({
-  display: 'flex',
+  display: "flex",
   padding: 0,
-  width: '100%',
-  flexDirection: $layout === 'vertical' ? 'column' : 'row',
-  justifyContent: $layout === 'vertical' ? 'center' : undefined,
-  alignItems: 'flex-start',
-  gap: $layout === 'vertical' ? theme.scheme.semantic.spacing[6] : theme.scheme.semantic.spacing[16],
+  width: "100%",
+  flexDirection: $layout === "vertical" ? "column" : "row",
+  justifyContent: $layout === "vertical" ? "center" : undefined,
+  alignItems: "flex-start",
+  gap:
+    $layout === "vertical" ? theme.scheme.semantic.spacing[6] : theme.scheme.semantic.spacing[16],
 }));
 
-export const StyledLabelContainer = styled('div', {
-  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
+export const StyledLabelContainer = styled("div", {
+  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith("$"),
 })<{ $layout?: InputLayout; $disabled?: boolean; $readOnly?: boolean }>(
   ({ theme, $layout, $disabled = false, $readOnly = false }) => ({
-    display: 'flex',
+    display: "flex",
     padding: 0,
-    alignItems: $layout === 'horizontal' ? 'flex-start' : 'center',
-    alignSelf: 'stretch',
+    alignItems: $layout === "horizontal" ? "flex-start" : "center",
+    alignSelf: "stretch",
     gap: theme.scheme.semantic.spacing[4],
     color: getLabelColor(theme, $disabled, $readOnly),
   }),
 );
 
 export const StyledLabelIcon = styled(Icon, {
-  shouldForwardProp: prop => !prop.startsWith('$'),
-})<{ $disabled?: boolean; $readOnly?: boolean }>(({ theme, $disabled = false, $readOnly = false }) => ({
-  color: getLabelIconColor(theme, $disabled, $readOnly),
-}));
+  shouldForwardProp: prop => !prop.startsWith("$"),
+})<{ $disabled?: boolean; $readOnly?: boolean }>(
+  ({ theme, $disabled = false, $readOnly = false }) => ({
+    color: getLabelIconColor(theme, $disabled, $readOnly),
+  }),
+);
 
 export const StyledFieldLabel = styled(Label, {
-  shouldForwardProp: prop => !prop.startsWith('$'),
+  shouldForwardProp: prop => !prop.startsWith("$"),
 })<{ $disabled: boolean; $readOnly: boolean; $layout?: InputLayout }>(
   ({ theme, $disabled, $readOnly, $layout }) => ({
     color: getLabelColor(theme, $disabled, $readOnly),
-    ...($layout === 'horizontal' && {
+    ...($layout === "horizontal" && {
       height: pxToRem(40),
       minWidth: pxToRem(80),
       maxWidth: pxToRem(120),
@@ -113,7 +112,7 @@ export const StyledFieldLabel = styled(Label, {
 );
 
 export const StyledHelperText = styled(Label, {
-  shouldForwardProp: prop => !prop.startsWith('$'),
+  shouldForwardProp: prop => !prop.startsWith("$"),
 })<{
   $validation: InputValidation;
   $disabled: boolean;
@@ -122,29 +121,29 @@ export const StyledHelperText = styled(Label, {
   color: getHelperTextColor(theme, $validation, $disabled, $readOnly),
 }));
 
-export const StyledInputColumn = styled('div')(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'flex-start',
-  flex: '1 0 0',
-  alignSelf: 'stretch',
+export const StyledInputColumn = styled("div")(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "flex-start",
+  flex: "1 0 0",
+  alignSelf: "stretch",
   gap: theme.scheme.semantic.spacing[6],
 }));
 
-export const StyledInputRow = styled('div', {
-  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith('$'),
+export const StyledInputRow = styled("div", {
+  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith("$"),
 })<{
   $style?: InputStyle;
   $layout?: InputLayout;
 }>(({ theme, $style, $layout }) => {
-  const isEmptyVertical = $style === 'empty' && $layout === 'vertical';
+  const isEmptyVertical = $style === "empty" && $layout === "vertical";
   const gapValue = isEmptyVertical ? 20 : 12;
 
   return {
-    display: 'flex',
+    display: "flex",
     gap: theme.scheme.semantic.spacing[gapValue],
-    alignItems: 'center',
-    alignSelf: 'stretch',
-    width: '100%',
+    alignItems: "center",
+    alignSelf: "stretch",
+    width: "100%",
   };
 });

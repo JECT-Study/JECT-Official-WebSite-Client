@@ -1,7 +1,7 @@
-import { Fragment } from 'react/jsx-runtime';
+import { Fragment } from "react/jsx-runtime";
 
-import ProgressBridge from './ProgressBridge';
-import ProgressIndex from './ProgressIndex';
+import ProgressBridge from "./ProgressBridge";
+import ProgressIndex from "./ProgressIndex";
 
 interface ProgressIndicatorProps {
   totalStep: number;
