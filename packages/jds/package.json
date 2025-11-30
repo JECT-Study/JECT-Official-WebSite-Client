@@ -23,6 +23,11 @@
       "import": "./dist/theme.js",
       "require": "./dist/theme.cjs"
     },
+    "./hooks": {
+      "types": "./dist/hooks.d.ts",
+      "import": "./dist/hooks.js",
+      "require": "./dist/hooks.cjs"
+    },
     "./styles": "./dist/styles.css"
   },
   "scripts": {
