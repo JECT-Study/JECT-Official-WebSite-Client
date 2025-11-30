@@ -24,14 +24,57 @@ const INTERACTION_OFFSET = {
   },
 } as const;
 
+const isEmptyPostCard = (variant: CardVariant, cardStyle?: CardStyle): boolean =>
+  variant === "post" && cardStyle === "empty";
+
+const isPlateCard = (variant: CardVariant): boolean => variant === "plate";
+
+const isVerticalLayout = (layout: CardLayout): boolean => layout === "vertical";
+
+const isHorizontalLayout = (layout: CardLayout): boolean => layout === "horizontal";
+
 const getLayoutStyles = (layout: CardLayout): CSSObject => ({
-  flexDirection: layout === "vertical" ? "column" : "row",
+  flexDirection: isVerticalLayout(layout) ? "column" : "row",
 });
 
 const getBorderRadius = (variant: CardVariant, cardStyle?: CardStyle): number => {
-  if (variant === "plate") return BORDER_RADIUS.plate;
+  if (isPlateCard(variant)) return BORDER_RADIUS.plate;
   return BORDER_RADIUS.post[cardStyle || "outlined"];
 };
+
+const getPostCardStyles = (
+  theme: Theme,
+  cardStyle: CardStyle | undefined,
+  borderRadius: number,
+): CSSObject => {
+  if (cardStyle === "empty") {
+    return {
+      backgroundColor: "transparent",
+      border: "none",
+      padding: "0",
+      borderRadius: borderRadius === 0 ? "0" : `${borderRadius}px`,
+      boxShadow: "none",
+      overflow: "visible",
+    };
+  }
+
+  return {
+    border: `1px solid ${theme.color.semantic.stroke.subtle}`,
+    padding: theme.scheme.semantic.spacing[20],
+    borderRadius: `${borderRadius}px`,
+    backgroundColor: theme.color.semantic.surface.shallow,
+    boxShadow: SHADOW_DEFAULT,
+    overflow: "visible",
+  };
+};
+
+const getPlateCardStyles = (borderRadius: number, theme: Theme): CSSObject => ({
+  padding: 0,
+  borderRadius: `${borderRadius}px`,
+  backgroundColor: theme.color.semantic.surface.shallow,
+  border: `1px solid ${theme.color.semantic.stroke.alpha.subtler}`,
+  boxShadow: SHADOW_DEFAULT,
+});
 
 const getVariantStyles = (
   theme: Theme,
@@ -40,35 +83,11 @@ const getVariantStyles = (
 ): CSSObject => {
   const borderRadius = getBorderRadius(variant, cardStyle);
 
-  if (variant === "post") {
-    if (cardStyle === "empty") {
-      return {
-        backgroundColor: "transparent",
-        border: "none",
-        padding: "0",
-        borderRadius: borderRadius === 0 ? "0" : `${borderRadius}px`,
-        boxShadow: "none",
-        overflow: "visible",
-      };
-    }
-
-    return {
-      border: `1px solid ${theme.color.semantic.stroke.subtle}`,
-      padding: theme.scheme.semantic.spacing[20],
-      borderRadius: `${borderRadius}px`,
-      backgroundColor: theme.color.semantic.surface.shallow,
-      boxShadow: SHADOW_DEFAULT,
-      overflow: "visible",
-    };
+  if (isPlateCard(variant)) {
+    return getPlateCardStyles(borderRadius, theme);
   }
 
-  return {
-    padding: 0,
-    borderRadius: `${borderRadius}px`,
-    backgroundColor: theme.color.semantic.surface.shallow,
-    border: `1px solid ${theme.color.semantic.stroke.alpha.subtler}`,
-    boxShadow: SHADOW_DEFAULT,
-  };
+  return getPostCardStyles(theme, cardStyle, borderRadius);
 };
 
 const getGap = (
@@ -77,9 +96,8 @@ const getGap = (
   layout: CardLayout,
   cardStyle?: CardStyle,
 ): string | number => {
-  if (variant === "plate") return 0;
-
-  if (layout === "vertical") return 0;
+  if (isPlateCard(variant)) return 0;
+  if (isVerticalLayout(layout)) return 0;
 
   return cardStyle === "empty"
     ? theme.scheme.semantic.spacing[24]
@@ -105,7 +123,8 @@ const createInteractionLayer = (
   theme: Theme,
   state: "rest" | "hover" | "active" | "focus",
   borderRadius: number,
-) =>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+): any =>
   InteractionLayer({
     theme,
     state,
@@ -118,28 +137,30 @@ const createInteractionLayer = (
     borderRadius,
   });
 
+const getImageBorderRadiusForVertical = (): CSSObject => ({
+  borderTopLeftRadius: "inherit",
+  borderTopRightRadius: "inherit",
+  borderBottomLeftRadius: 0,
+  borderBottomRightRadius: 0,
+});
+
+const getImageBorderRadiusForHorizontal = (): CSSObject => ({
+  borderTopLeftRadius: "inherit",
+  borderTopRightRadius: 0,
+  borderBottomLeftRadius: "inherit",
+  borderBottomRightRadius: 0,
+});
+
 const getImageBorderRadius = (layout: CardLayout, variant: CardVariant): CSSObject => {
-  if (variant === "post") return {};
+  if (!isPlateCard(variant)) return {};
 
-  if (layout === "vertical") {
-    return {
-      borderTopLeftRadius: "inherit",
-      borderTopRightRadius: "inherit",
-      borderBottomLeftRadius: 0,
-      borderBottomRightRadius: 0,
-    };
-  }
-
-  return {
-    borderTopLeftRadius: "inherit",
-    borderTopRightRadius: 0,
-    borderBottomLeftRadius: "inherit",
-    borderBottomRightRadius: 0,
-  };
+  return isVerticalLayout(layout)
+    ? getImageBorderRadiusForVertical()
+    : getImageBorderRadiusForHorizontal();
 };
 
 const getImageSize = (layout: CardLayout): CSSObject => {
-  if (layout === "vertical") {
+  if (isVerticalLayout(layout)) {
     return { width: "100%" };
   }
 
@@ -149,27 +170,30 @@ const getImageSize = (layout: CardLayout): CSSObject => {
   };
 };
 
+const getContentBorder = (variant: CardVariant, layout: CardLayout, theme: Theme): CSSObject => {
+  if (!isPlateCard(variant)) return {};
+
+  const borderColor = theme.color.semantic.stroke.alpha.subtler;
+
+  return isVerticalLayout(layout)
+    ? { borderTop: `1px solid ${borderColor}` }
+    : { borderLeft: `1px solid ${borderColor}` };
+};
+
 const getContentStyles = (theme: Theme, variant: CardVariant, layout: CardLayout): CSSObject => {
   const baseStyles: CSSObject = {
     padding: theme.scheme.semantic.spacing[20],
     gap: theme.scheme.semantic.spacing[16],
   };
 
-  if (variant === "post" && layout === "horizontal") {
+  if (variant === "post" && isHorizontalLayout(layout)) {
     return { gap: theme.scheme.semantic.spacing[16] };
   }
-
-  const border =
-    variant === "plate"
-      ? layout === "vertical"
-        ? { borderTop: `1px solid ${theme.color.semantic.stroke.alpha.subtler}` }
-        : { borderLeft: `1px solid ${theme.color.semantic.stroke.alpha.subtler}` }
-      : {};
 
   return {
     ...baseStyles,
     alignSelf: "stretch",
-    ...border,
+    ...getContentBorder(variant, layout, theme),
   };
 };
 
@@ -181,7 +205,57 @@ const getTextEllipsisStyles = (lineClamp: number): CSSObject => ({
   textOverflow: "ellipsis",
 });
 
-// 실제 스타일링 부분
+const getInteractionTransition = (theme: Theme, hasShadow: boolean): string => {
+  const transformTransition = `transform ${theme.environment.semantic.duration[150]} ${theme.environment.semantic.motion.fluent}`;
+
+  if (!hasShadow) return transformTransition;
+
+  const shadowTransition = `box-shadow ${theme.environment.semantic.duration[150]} ${theme.environment.semantic.motion.fluent}`;
+  return `${transformTransition}, ${shadowTransition}`;
+};
+
+const getOverlayPositionStyles = (
+  hasOffset: boolean,
+  offset: { vertical: number; horizontal: number },
+): CSSObject => {
+  if (!hasOffset) {
+    return {
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+    };
+  }
+
+  return {
+    top: `-${offset.vertical}px`,
+    left: `-${offset.horizontal}px`,
+    right: `-${offset.horizontal}px`,
+    bottom: `-${offset.vertical}px`,
+    width: "auto",
+    height: "auto",
+  };
+};
+
+const getFocusVisibleStyles = (
+  theme: Theme,
+  isEmptyPost: boolean,
+  hasOffset: boolean,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  interactionParams: Record<string, any>,
+): CSSObject => {
+  if (isEmptyPost) {
+    return shadow(theme, "raised");
+  }
+
+  if (!hasOffset && interactionParams.focus.boxShadow) {
+    return { boxShadow: interactionParams.focus.boxShadow };
+  }
+
+  return {};
+};
+
+// 실제 스타일 부분
 
 export const StyledCardRoot = styled("div", {
   shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith("$"),
@@ -191,7 +265,8 @@ export const StyledCardRoot = styled("div", {
   $cardStyle?: CardStyle;
   $isDisabled: boolean;
 }>(({ theme, $layout, $variant, $cardStyle, $isDisabled }) => {
-  const hasShadowOnRoot = !($variant === "post" && $cardStyle === "empty");
+  const isEmptyPost = isEmptyPostCard($variant, $cardStyle);
+  const hasShadow = !isEmptyPost;
 
   return {
     position: "relative",
@@ -205,14 +280,10 @@ export const StyledCardRoot = styled("div", {
     ...getColorVariables(theme, $isDisabled),
 
     '&[data-interactive="true"]': {
-      transition: `transform ${theme.environment.semantic.duration[150]} ${theme.environment.semantic.motion.fluent}${
-        hasShadowOnRoot
-          ? `, box-shadow ${theme.environment.semantic.duration[150]} ${theme.environment.semantic.motion.fluent}`
-          : ""
-      }`,
+      transition: getInteractionTransition(theme, hasShadow),
       "&:hover": {
         transform: "translateY(-2px)",
-        ...(hasShadowOnRoot && shadow(theme, "raised")),
+        ...(hasShadow && shadow(theme, "raised")),
       },
       "&:active": {
         transform: "translateY(0)",
@@ -220,7 +291,7 @@ export const StyledCardRoot = styled("div", {
       },
       "&:has([data-overlay]:focus-visible)": {
         transform: "translateY(-2px)",
-        ...(hasShadowOnRoot && shadow(theme, "raised")),
+        ...(hasShadow && shadow(theme, "raised")),
       },
     },
   };
@@ -332,10 +403,10 @@ export const StyledCardOverlay = styled("a", {
   $variant: CardVariant;
   $cardStyle?: CardStyle;
 }>(({ theme, $variant, $cardStyle }) => {
-  const offset =
-    $variant === "plate"
-      ? INTERACTION_OFFSET.plate
-      : INTERACTION_OFFSET.post[$cardStyle || "outlined"];
+  const isEmptyPost = isEmptyPostCard($variant, $cardStyle);
+  const offset = isPlateCard($variant)
+    ? INTERACTION_OFFSET.plate
+    : INTERACTION_OFFSET.post[$cardStyle || "outlined"];
 
   const borderRadius = getBorderRadius($variant, $cardStyle);
 
@@ -346,26 +417,18 @@ export const StyledCardOverlay = styled("a", {
     focus: createInteractionLayer(theme, "focus", borderRadius),
   };
 
-  const hasVerticalOffset = offset.vertical > 0;
-  const hasHorizontalOffset = offset.horizontal > 0;
-  const hasOffset = hasVerticalOffset || hasHorizontalOffset;
-  const hasShadowOnOverlay = $variant === "post" && $cardStyle === "empty";
+  const hasOffset = isEmptyPost;
 
   return {
     position: "absolute",
-    top: hasVerticalOffset ? `-${offset.vertical}px` : 0,
-    left: hasHorizontalOffset ? `-${offset.horizontal}px` : 0,
-    right: hasHorizontalOffset ? `-${offset.horizontal}px` : undefined,
-    bottom: hasVerticalOffset ? `-${offset.vertical}px` : undefined,
-    width: hasHorizontalOffset ? "auto" : "100%",
-    height: hasVerticalOffset ? "auto" : "100%",
+    ...getOverlayPositionStyles(hasOffset, offset),
     zIndex: 100,
     cursor: "pointer",
     textDecoration: "none",
     color: "inherit",
     borderRadius: borderRadius > 0 ? `${borderRadius}px` : 0,
     outline: "none",
-    transition: hasShadowOnOverlay
+    transition: isEmptyPost
       ? `box-shadow ${theme.environment.semantic.duration[150]} ${theme.environment.semantic.motion.fluent}`
       : undefined,
     "::before": {
@@ -377,7 +440,7 @@ export const StyledCardOverlay = styled("a", {
       transition: `opacity ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
     },
     "&:hover": {
-      ...(hasShadowOnOverlay && shadow(theme, "raised")),
+      ...(isEmptyPost && shadow(theme, "raised")),
       "::after": {
         ...interactionParams.hover["::after"],
         transition: `opacity ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
@@ -390,12 +453,7 @@ export const StyledCardOverlay = styled("a", {
       },
     },
     "&:focus-visible": {
-      ...(hasShadowOnOverlay
-        ? shadow(theme, "raised")
-        : !hasOffset &&
-          interactionParams.focus.boxShadow && {
-            boxShadow: interactionParams.focus.boxShadow,
-          }),
+      ...getFocusVisibleStyles(theme, isEmptyPost, hasOffset, interactionParams),
       "::before": {
         ...interactionParams.focus["::before"],
         ...(hasOffset && { opacity: 1 }),
