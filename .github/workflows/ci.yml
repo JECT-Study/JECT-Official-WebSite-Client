@@ -2,7 +2,10 @@ name: CI
 
 on:
   pull_request:
-    types: [opened]
+    types:
+      - opened
+      - reopened
+      - synchronize
 
 jobs:
   deploy:
@@ -29,9 +32,11 @@ jobs:
         run: npm ci
 
       - name: Install @octokit/rest for reviewer assignment
+        if: ${{ github.event.action == 'opened' }}
         run: npm install @octokit/rest
 
       - name: Run reviewer assignment script
+        if: ${{ github.event.action == 'opened' }}
         run: node .github/scripts/assignReviewer.mjs
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
