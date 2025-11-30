@@ -1,78 +1,62 @@
-import isPropValid from '@emotion/is-prop-valid';
-import type { CSSObject, Theme } from '@emotion/react';
-import styled from '@emotion/styled';
+import isPropValid from "@emotion/is-prop-valid";
+import type { CSSObject, Theme } from "@emotion/react";
+import styled from "@emotion/styled";
+import { pxToRem } from "utils";
 
-import { pxToRem } from 'utils';
-import { BlockButton, Label } from '@/components';
-import type { EmptyStateLayout, EmptyStateStyle, EmptyStateButton } from './emptyState.types';
+import type { EmptyStateProps } from "./emptyState.types";
 
-const styledOptions = {
-  shouldForwardProp: (prop: string) => isPropValid(prop) && !prop.startsWith('$'),
-};
-
-const buttonMinWidthMap: Record<EmptyStateButton, number> = {
-  primary: 58,
-  both: 130,
-} as const;
-
-const baseVariantStyle = (theme: Theme): CSSObject => ({
-  borderRadius: theme.scheme.semantic.radius[8],
-});
+import { BlockButton, Label } from "@/components";
 
 const variantStylesMap = {
-  empty: (theme: Theme): CSSObject => ({
-    ...baseVariantStyle(theme),
-  }),
   outlined: (theme: Theme): CSSObject => ({
-    ...baseVariantStyle(theme),
     border: `1px dashed ${theme.color.semantic.stroke.alpha.assistive}`,
   }),
   alpha: (theme: Theme): CSSObject => ({
-    ...baseVariantStyle(theme),
     backgroundColor: theme.color.semantic.fill.subtlest,
   }),
-} satisfies Record<EmptyStateStyle, (theme: Theme) => CSSObject>;
+};
 
-export const EmptyStateRoot = styled(
-  'div',
-  styledOptions,
-)<{
-  $variant: EmptyStateStyle;
-  $layout: EmptyStateLayout;
-}>(({ theme, $variant, $layout }) => ({
-  display: 'flex',
-  flexDirection: $layout === 'vertical' ? 'column' : 'row',
-  justifyContent: 'center',
-  alignItems: 'center',
-  alignSelf: 'stretch',
-  maxWidth: pxToRem(570),
-  gap: theme.scheme.semantic.spacing[24],
-  padding: `${theme.scheme.semantic.margin.lg} ${theme.scheme.semantic.margin.sm}`,
-  ...variantStylesMap[$variant](theme),
-}));
-
-const contentLayoutStyles: Record<EmptyStateLayout, (theme: Theme) => CSSObject> = {
+const contentLayoutStylesMap: Record<
+  NonNullable<EmptyStateProps["layout"]>,
+  (theme: Theme) => CSSObject
+> = {
   vertical: theme => ({
     gap: theme.scheme.semantic.spacing[12],
-    minWidth: pxToRem(360),
   }),
   horizontal: theme => ({
-    alignItems: 'flex-start',
-    maxWidth: pxToRem(560),
+    alignItems: "flex-start",
     gap: theme.scheme.semantic.spacing[10],
   }),
 };
 
-export const EmptyStateContentDiv = styled(
-  'div',
-  styledOptions,
-)<{
-  $layout: EmptyStateLayout;
+export const EmptyStateRoot = styled("div", {
+  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith("$"),
+})<{
+  $variant: NonNullable<EmptyStateProps["variant"]>;
+  $layout: NonNullable<EmptyStateProps["layout"]>;
+}>(({ theme, $variant, $layout }) => ({
+  display: "flex",
+  flexDirection: $layout === "vertical" ? "column" : "row",
+  justifyContent: "center",
+  alignItems: "center",
+  alignSelf: "stretch",
+  maxWidth: pxToRem(590),
+  minWidth: pxToRem(360),
+  gap: theme.scheme.semantic.spacing[24],
+  padding: `${theme.scheme.semantic.margin.lg} ${theme.scheme.semantic.margin.sm}`,
+  borderRadius: theme.scheme.semantic.radius[8],
+  ...($variant !== "empty" ? variantStylesMap[$variant](theme) : {}),
+}));
+
+export const EmptyStateContentDiv = styled("div", {
+  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith("$"),
+})<{
+  $layout: NonNullable<EmptyStateProps["layout"]>;
 }>(({ theme, $layout }) => ({
-  display: 'flex',
-  flexDirection: 'column',
+  display: "flex",
+  flexDirection: "column",
   padding: theme.scheme.semantic.spacing[0],
-  ...contentLayoutStyles[$layout](theme),
+  ...contentLayoutStylesMap[$layout](theme),
 }));
 
 export const EmptyStateLabel = styled(Label)(({ theme }) => ({
@@ -80,35 +64,31 @@ export const EmptyStateLabel = styled(Label)(({ theme }) => ({
   color: theme.color.semantic.object.neutral,
 }));
 
-export const EmptyStateBodyTextP = styled(
-  'div',
-  styledOptions,
-)<{
-  $layout: EmptyStateLayout;
+export const EmptyStateBodyTextP = styled("p", {
+  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith("$"),
+})<{
+  $layout: NonNullable<EmptyStateProps["layout"]>;
 }>(({ theme, $layout }) => ({
-  display: '-webkit-box',
-  WebkitBoxOrient: 'vertical',
+  display: "-webkit-box",
+  WebkitBoxOrient: "vertical",
   WebkitLineClamp: 3,
-  overflow: 'hidden',
+  overflow: "hidden",
   color: theme.color.semantic.object.assistive,
-  textAlign: $layout === 'vertical' ? 'center' : 'left',
-  textOverflow: 'ellipsis',
-  ...theme.textStyle['semantic-textStyle-body-xs-normal'],
+  textAlign: $layout === "vertical" ? "center" : "left",
+  textOverflow: "ellipsis",
+  ...theme.textStyle["semantic-textStyle-body-xs-normal"],
 }));
 
-export const EmptyStateButtonContainerDiv = styled(
-  'div',
-  styledOptions,
-)<{
+export const EmptyStateButtonContainerDiv = styled("div", {
+  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith("$"),
+})<{
   $hasSecondary: boolean;
 }>(({ theme, $hasSecondary }) => {
-  const buttonCombination: EmptyStateButton = $hasSecondary ? 'both' : 'primary';
-
   return {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    minWidth: pxToRem(buttonMinWidthMap[buttonCombination]),
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    minWidth: pxToRem($hasSecondary ? 130 : 58),
     padding: theme.scheme.semantic.spacing[0],
     gap: theme.scheme.semantic.spacing[12],
   };

@@ -1,5 +1,5 @@
-import { forwardRef } from 'react';
-import type { EmptyStateProps } from './emptyState.types';
+import { forwardRef } from "react";
+
 import {
   EmptyStateLabel,
   EmptyStateRoot,
@@ -7,27 +7,26 @@ import {
   EmptyStateContentDiv,
   EmptyStateBlockButton,
   EmptyStateButtonContainerDiv,
-} from './emptyState.styles';
-import { Icon } from '../Icon';
+} from "./emptyState.styles";
+import type { EmptyStateProps } from "./emptyState.types";
+import { Icon } from "../Icon";
 
 export const EmptyState = forwardRef<HTMLDivElement, EmptyStateProps>(
   (
     {
-      variant = 'empty',
-      layout = 'vertical',
-      labelText,
-      bodyText,
-      primaryLabel,
-      secondaryLabel,
-      primaryButtonProps,
-      secondaryButtonProps,
+      variant = "empty",
+      layout = "vertical",
+      header,
+      body,
+      primaryAction,
+      secondaryAction,
       icon,
       ...rest
     },
     ref,
   ) => {
-    const hasPrimary = !!primaryLabel;
-    const hasSecondary = !!secondaryLabel;
+    const hasPrimary = !!primaryAction;
+    const hasSecondary = !!secondaryAction;
 
     const renderActions = () => {
       if (!hasPrimary) return null;
@@ -39,14 +38,10 @@ export const EmptyState = forwardRef<HTMLDivElement, EmptyStateProps>(
               variant='outlined'
               hierarchy='secondary'
               size='sm'
-              {...secondaryButtonProps}
-            >
-              {secondaryLabel}
-            </EmptyStateBlockButton>
+              {...secondaryAction}
+            />
           )}
-          <EmptyStateBlockButton size='sm' {...primaryButtonProps}>
-            {primaryLabel}
-          </EmptyStateBlockButton>
+          <EmptyStateBlockButton size='sm' {...primaryAction} />
         </EmptyStateButtonContainerDiv>
       );
     };
@@ -56,9 +51,9 @@ export const EmptyState = forwardRef<HTMLDivElement, EmptyStateProps>(
         {icon && <Icon name={icon} size='3xl' aria-hidden='true' focusable={false} />}
         <EmptyStateContentDiv $layout={layout}>
           <EmptyStateLabel weight='bold' textAlign='center'>
-            {labelText}
+            {header}
           </EmptyStateLabel>
-          <EmptyStateBodyTextP $layout={layout}>{bodyText}</EmptyStateBodyTextP>
+          <EmptyStateBodyTextP $layout={layout}>{body}</EmptyStateBodyTextP>
         </EmptyStateContentDiv>
         {renderActions()}
       </EmptyStateRoot>
@@ -66,4 +61,4 @@ export const EmptyState = forwardRef<HTMLDivElement, EmptyStateProps>(
   },
 );
 
-EmptyState.displayName = 'EmptyState';
+EmptyState.displayName = "EmptyState";

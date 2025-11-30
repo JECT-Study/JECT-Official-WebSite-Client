@@ -1,32 +1,31 @@
-import type { IconName } from 'components';
-import { BlockButtonBasicProps } from '../Button/BlockButton';
+import type { IconName } from "components";
 
-export type EmptyStateStyle = 'empty' | 'outlined' | 'alpha';
-export type EmptyStateLayout = 'vertical' | 'horizontal';
-export type EmptyStateButton = 'primary' | 'both';
+import type { BlockButtonBasicProps } from "../Button/BlockButton";
 
-type BlockButtonProps = Omit<BlockButtonBasicProps, 'children' | 'size' | 'variant' | 'hierarchy'>;
+type EmptyStateStyleVariant = {
+  variant?: "empty" | "outlined" | "alpha";
+  layout?: "vertical" | "horizontal";
+  button?: "primary" | "both";
+};
+
+type BlockButtonActionProps = Pick<BlockButtonBasicProps, "children" | "onClick" | "disabled">;
 
 type EmptyStateActionOptions =
   | {
-      primaryLabel?: undefined;
-      primaryButtonProps?: never;
-      secondaryLabel?: never;
-      secondaryButtonProps?: never;
+      primaryAction?: undefined;
+      secondaryAction?: never;
     }
   | {
-      primaryLabel: string;
-      primaryButtonProps: BlockButtonProps;
-      secondaryLabel?: string;
-      secondaryButtonProps?: BlockButtonProps;
+      primaryAction: BlockButtonActionProps;
+      secondaryAction?: BlockButtonActionProps;
     };
 
 interface EmptyStateBaseProps {
-  labelText: string;
-  bodyText: string;
-  variant?: EmptyStateStyle;
-  layout?: EmptyStateLayout;
+  header: string;
+  body: string;
   icon?: IconName;
 }
 
-export type EmptyStateProps = EmptyStateBaseProps & EmptyStateActionOptions;
+export type EmptyStateProps = EmptyStateStyleVariant &
+  EmptyStateBaseProps &
+  EmptyStateActionOptions;
