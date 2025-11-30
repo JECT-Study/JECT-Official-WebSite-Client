@@ -1,8 +1,8 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { LocalNavigation } from "./LocalNavigation";
-
 import { IconButton } from "../../Button/IconButton";
+
 import { useMediaQueryFlags } from "@/hooks";
 
 const customViewports = {

@@ -9,7 +9,6 @@ import {
   ToastLabelContainerDiv,
 } from "./toast.styles";
 import type { ToastBasicProps, ToastFeedbackProps } from "./toast.types";
-
 import { IconButton } from "../Button/IconButton";
 
 const ToastBasic = ({ id, caption, onRemove, title, isClosing }: ToastBasicProps) => {

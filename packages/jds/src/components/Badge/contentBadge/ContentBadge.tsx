@@ -14,7 +14,6 @@ import type {
   ThemeVariant,
 } from "../badge.types";
 import { iconSizeMap } from "./contentBadge.variants";
-
 import { Label } from "../../Label";
 
 export interface ContentBadgeBasicProps {

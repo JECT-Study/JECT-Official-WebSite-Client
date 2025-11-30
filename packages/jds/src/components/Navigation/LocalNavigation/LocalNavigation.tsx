@@ -12,8 +12,8 @@ import type {
   LocalNavigationRootProps,
   LocalNavigationTitleProps,
 } from "./localNavigation.types";
-
 import { IconButton } from "../../Button/IconButton";
+
 import { useMediaQueryFlags } from "@/hooks";
 
 const LocalNavigationRoot = forwardRef<HTMLDivElement, LocalNavigationRootProps>(

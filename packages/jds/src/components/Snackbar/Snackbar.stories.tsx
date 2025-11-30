@@ -4,7 +4,6 @@ import { FlexColumn } from "@storybook-utils/layout";
 import { Snackbar } from "./Snackbar";
 import { snackbarController } from "./snackbarController";
 import { SnackbarProvider, useSnackbar } from "./SnackbarProvider";
-
 import { BlockButton } from "../Button/BlockButton";
 
 const meta: Meta<typeof Snackbar.Basic> = {

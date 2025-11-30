@@ -7,7 +7,6 @@ import type {
   StyledGlobalNavigationListWrapperProps,
   StyledGlobalNavigationWrapperProps,
 } from "./globalNavigation.types";
-
 import { IconButton } from "../../Button/IconButton";
 
 const globalNavigationStyleMap = (theme: Theme) => ({

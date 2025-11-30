@@ -14,7 +14,6 @@ import type {
   SnackbarButtonsProps,
   SnackbarFeedbackProps,
 } from "./snackbar.types";
-
 import { BlockButton } from "../Button/BlockButton";
 import { IconButton } from "../Button/IconButton";
 

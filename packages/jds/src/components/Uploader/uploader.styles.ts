@@ -8,7 +8,6 @@ import type {
   UploaderImageIconProps,
   UploaderImageLabelProps,
 } from "./uploader.types";
-
 import { Icon } from "../Icon";
 import { Label } from "../Label";
 

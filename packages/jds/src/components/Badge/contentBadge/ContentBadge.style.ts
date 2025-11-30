@@ -18,7 +18,6 @@ import {
   contentBadgeThemeMutedStylesMap,
   iconColorMap,
 } from "./contentBadge.variants";
-
 import { Icon } from "../../Icon";
 
 interface ContentBasicBadgeDivProps {

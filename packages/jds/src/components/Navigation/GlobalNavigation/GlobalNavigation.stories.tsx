@@ -1,12 +1,13 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { GlobalNavigation } from "./GlobalNavigation";
 import { useGlobalNavigationVariant } from "./useGlobalNavigationVariant";
-import { Logo } from "../../Logo";
-import { LabelButton } from "../../Button/LabelButton";
 import { BlockButton } from "../../Button/BlockButton";
-import { useMediaQueryFlags } from "@/hooks";
+import { LabelButton } from "../../Button/LabelButton";
+import { Logo } from "../../Logo";
 import { SegmentedControl } from "../../SegmentedControl";
+
+import { useMediaQueryFlags } from "@/hooks";
 
 const customViewports = {
   desktop: {

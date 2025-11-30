@@ -4,7 +4,6 @@ import { pxToRem, shadow } from "utils";
 
 import type { ToastDivProps, ToastFeedbackIconProps, ToastStyle } from "./toast.types";
 import { toastStylesMap } from "./toast.variants";
-
 import { Icon } from "../Icon";
 import { Label } from "../Label";
 

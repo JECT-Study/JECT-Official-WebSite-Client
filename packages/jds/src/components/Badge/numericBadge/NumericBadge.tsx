@@ -2,7 +2,6 @@ import type { ReactNode } from "react";
 
 import type { BadgeSize, BasicHierarchy, FeedbackVariant, NumericBadgeStyle } from "../badge.types";
 import { NumericBadgeBasicDiv, NumericBadgeFeedbackDiv } from "./NumericBadge.style";
-
 import { Label } from "../../Label";
 
 export interface NumericBadgeBasicProps {

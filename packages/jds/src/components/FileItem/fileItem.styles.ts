@@ -3,7 +3,6 @@ import styled from "@emotion/styled";
 import { InteractionLayer } from "utils";
 
 import type { FileItemLabelProps, FileItemWrapButtonProps, FileSizeProps } from "./fileItem.types";
-
 import { Icon } from "../Icon";
 import { Label } from "../Label";
 
