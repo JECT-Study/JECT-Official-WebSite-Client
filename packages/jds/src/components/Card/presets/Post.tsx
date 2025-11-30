@@ -1,4 +1,5 @@
 import { forwardRef, type ReactNode } from "react";
+import { pxToRem } from "utils";
 
 import { Icon } from "../../Icon";
 import type { PostPresetProps } from "../Card.types";
@@ -28,7 +29,9 @@ interface PostContentProps {
 
 const PostContent = ({ layout, image, title, body, author, date }: PostContentProps) => (
   <>
-    {layout === "vertical" && image && <CardImage src={image.src} alt={image.alt} />}
+    {layout === "vertical" && image && (
+      <CardImage src={image.src} alt={image.alt} ratio='1:2' />
+    )}
     <CardContent>
       <CardTitle>{title}</CardTitle>
       <CardBody>{body}</CardBody>
@@ -40,7 +43,14 @@ const PostContent = ({ layout, image, title, body, author, date }: PostContentPr
         </CardMetaNudgeItem>
       </CardMeta>
     </CardContent>
-    {layout === "horizontal" && image && <CardImage src={image.src} alt={image.alt} />}
+    {layout === "horizontal" && image && (
+      <CardImage
+        src={image.src}
+        alt={image.alt}
+        ratio='1:1'
+        style={{ width: pxToRem(80), height: pxToRem(80) }}
+      />
+    )}
   </>
 );
 
@@ -66,7 +76,15 @@ export const PostLink = forwardRef<HTMLDivElement, PostLinkProps>(
       interactive
     >
       <PostContent layout={layout} {...contentProps} />
-      <StyledCardOverlay as='a' href={href} target={target} rel={rel} data-overlay />
+      <StyledCardOverlay
+        as='a'
+        href={href}
+        target={target}
+        rel={rel}
+        data-overlay
+        $variant='post'
+        $cardStyle={cardStyle}
+      />
     </CardRoot>
   ),
 );
@@ -94,7 +112,14 @@ export const PostButton = forwardRef<HTMLDivElement, PostButtonProps>(
       interactive
     >
       <PostContent layout={layout} {...contentProps} />
-      <StyledCardOverlay as='button' onClick={onClick} type={type || "button"} data-overlay />
+      <StyledCardOverlay
+        as='button'
+        onClick={onClick}
+        type={type || "button"}
+        data-overlay
+        $variant='post'
+        $cardStyle={cardStyle}
+      />
     </CardRoot>
   ),
 );
