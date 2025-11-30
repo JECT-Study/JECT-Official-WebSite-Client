@@ -29,7 +29,6 @@ export const CardImage = forwardRef<HTMLDivElement, CardImageProps>(
     };
     const defaultOrientation = orientationMap[layout];
 
-    //Todo: plate형태에 vertical일 때 title, label이 없을 경우 1:2 비율로 처리해야함
     const defaultRatioMap = {
       plate: {
         vertical: "2:3" as const,
