@@ -53,7 +53,7 @@ const UploaderFileButton = ({
   if (isLoading && !isDisabled) {
     return (
       <>
-        <LoadingIcon name="spinner" size="2xl" />
+        <LoadingIcon name='spinner' size='2xl' />
         <FlexRowDiv>
           {helperLabel}
           {cancelButton}
@@ -125,7 +125,7 @@ const UploaderFile = ({
       />
       <HiddenInput
         ref={inputRef}
-        type="file"
+        type='file'
         accept={accept?.join(",")}
         multiple={multiple}
         onChange={handleInputChange}
@@ -146,9 +146,9 @@ const UploaderImageButton = ({
   if (!isDisabled && isLoading) {
     return (
       <>
-        <LoadingIcon name="spinner" size="xl" />
+        <LoadingIcon name='spinner' size='xl' />
         <FlexRowDiv>
-          <ImageLabel size="sm" textAlign="center" weight="normal" $isDisabled={isDisabled}>
+          <ImageLabel size='sm' textAlign='center' weight='normal' $isDisabled={isDisabled}>
             {loadingLabel}
           </ImageLabel>
           {cancelButton}
@@ -159,8 +159,8 @@ const UploaderImageButton = ({
 
   return (
     <>
-      <AddIcon name="add-line" size="xl" $isDisabled={isDisabled} />
-      <ImageLabel size="sm" textAlign="center" weight="normal" $isDisabled={isDisabled}>
+      <AddIcon name='add-line' size='xl' $isDisabled={isDisabled} />
+      <ImageLabel size='sm' textAlign='center' weight='normal' $isDisabled={isDisabled}>
         {uploadLabel}
       </ImageLabel>
     </>
@@ -207,7 +207,7 @@ const UploaderImage = ({
       />
       <HiddenInput
         ref={inputRef}
-        type="file"
+        type='file'
         accept={accept?.join(",")}
         multiple={multiple}
         onChange={handleInputChange}

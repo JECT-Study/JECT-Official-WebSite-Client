@@ -73,13 +73,13 @@ const CheckboxBox = forwardRef<HTMLInputElement, CheckboxBoxProps>(
         $isInvalid={isInvalid}
       >
         {isIndeterminate ? (
-          <Icon name="subtract-line" size={iconSize} />
+          <Icon name='subtract-line' size={iconSize} />
         ) : checked ? (
-          <Icon name="check-line" size={iconSize} />
+          <Icon name='check-line' size={iconSize} />
         ) : null}
         <StyledHiddenInput
           ref={refCallback}
-          type="checkbox"
+          type='checkbox'
           id={id}
           checked={checked}
           disabled={disabled}
@@ -176,9 +176,9 @@ const CheckboxContent = forwardRef<HTMLInputElement, CheckboxContentProps>(
         </StyledCheckboxBoxWrapper>
         <StyledLabelContent>
           <StyledMainLabel
-            as="span"
+            as='span'
             size={size}
-            weight="normal"
+            weight='normal'
             $disabled={disabled}
             $isInvalid={isInvalid}
           >
@@ -186,9 +186,9 @@ const CheckboxContent = forwardRef<HTMLInputElement, CheckboxContentProps>(
           </StyledMainLabel>
           {subLabel && (
             <StyledSubLabel
-              as="span"
+              as='span'
               size={GetSubLabelSize(size)}
-              weight="normal"
+              weight='normal'
               $disabled={disabled}
               $isInvalid={isInvalid}
             >

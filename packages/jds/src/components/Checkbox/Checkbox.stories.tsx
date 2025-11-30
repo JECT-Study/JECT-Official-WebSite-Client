@@ -56,10 +56,10 @@ export const Default: Story = {
 export const AllSizes: Story = {
   render: () => (
     <FlexRow>
-      <Checkbox.Basic size="xs" />
-      <Checkbox.Basic size="sm" />
-      <Checkbox.Basic size="md" />
-      <Checkbox.Basic size="lg" />
+      <Checkbox.Basic size='xs' />
+      <Checkbox.Basic size='sm' />
+      <Checkbox.Basic size='md' />
+      <Checkbox.Basic size='lg' />
     </FlexRow>
   ),
 };
@@ -68,25 +68,25 @@ export const AllStates: Story = {
   render: () => (
     <FlexColumn>
       <Label>Unchecked:</Label>
-      <FlexRow gap="12px">
-        <Checkbox.Basic checked={false} size="xs" />
-        <Checkbox.Basic checked={false} size="sm" />
-        <Checkbox.Basic checked={false} size="md" />
-        <Checkbox.Basic checked={false} size="lg" />
+      <FlexRow gap='12px'>
+        <Checkbox.Basic checked={false} size='xs' />
+        <Checkbox.Basic checked={false} size='sm' />
+        <Checkbox.Basic checked={false} size='md' />
+        <Checkbox.Basic checked={false} size='lg' />
       </FlexRow>
       <Label>Checked:</Label>
-      <FlexRow gap="12px">
-        <Checkbox.Basic checked={true} size="xs" />
-        <Checkbox.Basic checked={true} size="sm" />
-        <Checkbox.Basic checked={true} size="md" />
-        <Checkbox.Basic checked={true} size="lg" />
+      <FlexRow gap='12px'>
+        <Checkbox.Basic checked={true} size='xs' />
+        <Checkbox.Basic checked={true} size='sm' />
+        <Checkbox.Basic checked={true} size='md' />
+        <Checkbox.Basic checked={true} size='lg' />
       </FlexRow>
       <Label>Indeterminate:</Label>
-      <FlexRow gap="12px">
-        <Checkbox.Basic checked="indeterminate" size="xs" />
-        <Checkbox.Basic checked="indeterminate" size="sm" />
-        <Checkbox.Basic checked="indeterminate" size="md" />
-        <Checkbox.Basic checked="indeterminate" size="lg" />
+      <FlexRow gap='12px'>
+        <Checkbox.Basic checked='indeterminate' size='xs' />
+        <Checkbox.Basic checked='indeterminate' size='sm' />
+        <Checkbox.Basic checked='indeterminate' size='md' />
+        <Checkbox.Basic checked='indeterminate' size='lg' />
       </FlexRow>
     </FlexColumn>
   ),
@@ -96,25 +96,25 @@ export const DisabledStates: Story = {
   render: () => (
     <FlexColumn>
       <Label>Disabled Unchecked:</Label>
-      <FlexRow gap="12px">
-        <Checkbox.Basic checked={false} disabled size="xs" />
-        <Checkbox.Basic checked={false} disabled size="sm" />
-        <Checkbox.Basic checked={false} disabled size="md" />
-        <Checkbox.Basic checked={false} disabled size="lg" />
+      <FlexRow gap='12px'>
+        <Checkbox.Basic checked={false} disabled size='xs' />
+        <Checkbox.Basic checked={false} disabled size='sm' />
+        <Checkbox.Basic checked={false} disabled size='md' />
+        <Checkbox.Basic checked={false} disabled size='lg' />
       </FlexRow>
       <Label>Disabled Checked:</Label>
-      <FlexRow gap="12px">
-        <Checkbox.Basic checked={true} disabled size="xs" />
-        <Checkbox.Basic checked={true} disabled size="sm" />
-        <Checkbox.Basic checked={true} disabled size="md" />
-        <Checkbox.Basic checked={true} disabled size="lg" />
+      <FlexRow gap='12px'>
+        <Checkbox.Basic checked={true} disabled size='xs' />
+        <Checkbox.Basic checked={true} disabled size='sm' />
+        <Checkbox.Basic checked={true} disabled size='md' />
+        <Checkbox.Basic checked={true} disabled size='lg' />
       </FlexRow>
       <Label>Disabled Indeterminate:</Label>
-      <FlexRow gap="12px">
-        <Checkbox.Basic checked="indeterminate" disabled size="xs" />
-        <Checkbox.Basic checked="indeterminate" disabled size="sm" />
-        <Checkbox.Basic checked="indeterminate" disabled size="md" />
-        <Checkbox.Basic checked="indeterminate" disabled size="lg" />
+      <FlexRow gap='12px'>
+        <Checkbox.Basic checked='indeterminate' disabled size='xs' />
+        <Checkbox.Basic checked='indeterminate' disabled size='sm' />
+        <Checkbox.Basic checked='indeterminate' disabled size='md' />
+        <Checkbox.Basic checked='indeterminate' disabled size='lg' />
       </FlexRow>
     </FlexColumn>
   ),
@@ -124,25 +124,25 @@ export const InvalidStates: Story = {
   render: () => (
     <FlexColumn>
       <Label>Invalid Unchecked:</Label>
-      <FlexRow gap="12px">
-        <Checkbox.Basic checked={false} isInvalid size="xs" />
-        <Checkbox.Basic checked={false} isInvalid size="sm" />
-        <Checkbox.Basic checked={false} isInvalid size="md" />
-        <Checkbox.Basic checked={false} isInvalid size="lg" />
+      <FlexRow gap='12px'>
+        <Checkbox.Basic checked={false} isInvalid size='xs' />
+        <Checkbox.Basic checked={false} isInvalid size='sm' />
+        <Checkbox.Basic checked={false} isInvalid size='md' />
+        <Checkbox.Basic checked={false} isInvalid size='lg' />
       </FlexRow>
       <Label>Invalid Checked:</Label>
-      <FlexRow gap="12px">
-        <Checkbox.Basic checked={true} isInvalid size="xs" />
-        <Checkbox.Basic checked={true} isInvalid size="sm" />
-        <Checkbox.Basic checked={true} isInvalid size="md" />
-        <Checkbox.Basic checked={true} isInvalid size="lg" />
+      <FlexRow gap='12px'>
+        <Checkbox.Basic checked={true} isInvalid size='xs' />
+        <Checkbox.Basic checked={true} isInvalid size='sm' />
+        <Checkbox.Basic checked={true} isInvalid size='md' />
+        <Checkbox.Basic checked={true} isInvalid size='lg' />
       </FlexRow>
       <Label>Invalid Indeterminate:</Label>
-      <FlexRow gap="12px">
-        <Checkbox.Basic checked="indeterminate" isInvalid size="xs" />
-        <Checkbox.Basic checked="indeterminate" isInvalid size="sm" />
-        <Checkbox.Basic checked="indeterminate" isInvalid size="md" />
-        <Checkbox.Basic checked="indeterminate" isInvalid size="lg" />
+      <FlexRow gap='12px'>
+        <Checkbox.Basic checked='indeterminate' isInvalid size='xs' />
+        <Checkbox.Basic checked='indeterminate' isInvalid size='sm' />
+        <Checkbox.Basic checked='indeterminate' isInvalid size='md' />
+        <Checkbox.Basic checked='indeterminate' isInvalid size='lg' />
       </FlexRow>
     </FlexColumn>
   ),
@@ -171,7 +171,7 @@ export const Interactive: Story = {
                 : "unchecked"}
           </label>
           <Checkbox.Basic checked={checkedState} onCheckedChange={setCheckedState} />
-          <FlexRow gap="8px">
+          <FlexRow gap='8px'>
             <button onClick={() => setCheckedState(false)}>UnChecked만들기</button>
             <button onClick={() => setCheckedState(true)}>Checked만들기</button>
             <button onClick={() => setCheckedState("indeterminate")}>Indeterminate만들기</button>
@@ -199,7 +199,7 @@ export const RefCallbackTest: Story = {
       const [renderCount, setRenderCount] = useState(0);
 
       return (
-        <FlexColumn gap="16px">
+        <FlexColumn gap='16px'>
           <div
             style={{
               padding: "16px",
@@ -251,10 +251,10 @@ export const RefCallbackTest: Story = {
               setCheckedState(newState);
               setRenderCount(c => c + 1);
             }}
-            size="lg"
+            size='lg'
           />
 
-          <FlexRow gap="8px">
+          <FlexRow gap='8px'>
             <button
               onClick={() => {
                 setCheckedState(false);
@@ -356,21 +356,21 @@ export const ControlledPattern: Story = {
       const [checked3, setChecked3] = useState<CheckedState>("indeterminate");
 
       return (
-        <FlexColumn gap="12px">
+        <FlexColumn gap='12px'>
           <label>Controlled Pattern</label>
-          <FlexColumn gap="8px">
+          <FlexColumn gap='8px'>
             <Checkbox.Basic checked={checked1} onCheckedChange={setChecked1} />
             <Checkbox.Content
-              label="Checked by default"
-              subLabel="State managed by parent"
-              variant="empty"
+              label='Checked by default'
+              subLabel='State managed by parent'
+              variant='empty'
               checked={checked2}
               onCheckedChange={setChecked2}
             />
             <Checkbox.Content
-              label="Indeterminate state"
-              subLabel="Click to toggle"
-              variant="outlined"
+              label='Indeterminate state'
+              subLabel='Click to toggle'
+              variant='outlined'
               checked={checked3}
               onCheckedChange={setChecked3}
             />
@@ -402,18 +402,18 @@ export const ContentEmpty: Story = {
   render: () => (
     <FlexColumn>
       <Label>Left Aligned:</Label>
-      <FlexColumn gap="12px">
-        <Checkbox.Content size="xs" label="Extra Small Label" variant="empty" align="left" />
-        <Checkbox.Content size="sm" label="Small Label" variant="empty" align="left" />
-        <Checkbox.Content size="md" label="Medium Label" variant="empty" align="left" />
-        <Checkbox.Content size="lg" label="Large Label" variant="empty" align="left" />
+      <FlexColumn gap='12px'>
+        <Checkbox.Content size='xs' label='Extra Small Label' variant='empty' align='left' />
+        <Checkbox.Content size='sm' label='Small Label' variant='empty' align='left' />
+        <Checkbox.Content size='md' label='Medium Label' variant='empty' align='left' />
+        <Checkbox.Content size='lg' label='Large Label' variant='empty' align='left' />
       </FlexColumn>
       <Label>Right Aligned:</Label>
-      <FlexColumn gap="12px">
-        <Checkbox.Content size="xs" label="Extra Small Label" variant="empty" align="right" />
-        <Checkbox.Content size="sm" label="Small Label" variant="empty" align="right" />
-        <Checkbox.Content size="md" label="Medium Label" variant="empty" align="right" />
-        <Checkbox.Content size="lg" label="Large Label" variant="empty" align="right" />
+      <FlexColumn gap='12px'>
+        <Checkbox.Content size='xs' label='Extra Small Label' variant='empty' align='right' />
+        <Checkbox.Content size='sm' label='Small Label' variant='empty' align='right' />
+        <Checkbox.Content size='md' label='Medium Label' variant='empty' align='right' />
+        <Checkbox.Content size='lg' label='Large Label' variant='empty' align='right' />
       </FlexColumn>
     </FlexColumn>
   ),
@@ -423,18 +423,18 @@ export const ContentOutlined: Story = {
   render: () => (
     <FlexColumn>
       <Label>Left Aligned:</Label>
-      <FlexColumn gap="12px">
-        <Checkbox.Content size="xs" label="Extra Small Label" variant="outlined" align="left" />
-        <Checkbox.Content size="sm" label="Small Label" variant="outlined" align="left" />
-        <Checkbox.Content size="md" label="Medium Label" variant="outlined" align="left" />
-        <Checkbox.Content size="lg" label="Large Label" variant="outlined" align="left" />
+      <FlexColumn gap='12px'>
+        <Checkbox.Content size='xs' label='Extra Small Label' variant='outlined' align='left' />
+        <Checkbox.Content size='sm' label='Small Label' variant='outlined' align='left' />
+        <Checkbox.Content size='md' label='Medium Label' variant='outlined' align='left' />
+        <Checkbox.Content size='lg' label='Large Label' variant='outlined' align='left' />
       </FlexColumn>
       <Label>Right Aligned:</Label>
-      <FlexColumn gap="12px">
-        <Checkbox.Content size="xs" label="Extra Small Label" variant="outlined" align="right" />
-        <Checkbox.Content size="sm" label="Small Label" variant="outlined" align="right" />
-        <Checkbox.Content size="md" label="Medium Label" variant="outlined" align="right" />
-        <Checkbox.Content size="lg" label="Large Label" variant="outlined" align="right" />
+      <FlexColumn gap='12px'>
+        <Checkbox.Content size='xs' label='Extra Small Label' variant='outlined' align='right' />
+        <Checkbox.Content size='sm' label='Small Label' variant='outlined' align='right' />
+        <Checkbox.Content size='md' label='Medium Label' variant='outlined' align='right' />
+        <Checkbox.Content size='lg' label='Large Label' variant='outlined' align='right' />
       </FlexColumn>
     </FlexColumn>
   ),
@@ -442,30 +442,30 @@ export const ContentOutlined: Story = {
 
 export const ContentWithSubLabel: Story = {
   render: () => (
-    <FlexColumn gap="12px">
+    <FlexColumn gap='12px'>
       <Checkbox.Content
-        size="xs"
-        label="Main Label"
-        subLabel="This is a sub label"
-        variant="empty"
+        size='xs'
+        label='Main Label'
+        subLabel='This is a sub label'
+        variant='empty'
       />
       <Checkbox.Content
-        size="sm"
-        label="Main Label"
-        subLabel="This is a sub label"
-        variant="empty"
+        size='sm'
+        label='Main Label'
+        subLabel='This is a sub label'
+        variant='empty'
       />
       <Checkbox.Content
-        size="md"
-        label="Main Label"
-        subLabel="This is a sub label"
-        variant="empty"
+        size='md'
+        label='Main Label'
+        subLabel='This is a sub label'
+        variant='empty'
       />
       <Checkbox.Content
-        size="lg"
-        label="Main Label"
-        subLabel="This is a sub label"
-        variant="empty"
+        size='lg'
+        label='Main Label'
+        subLabel='This is a sub label'
+        variant='empty'
       />
     </FlexColumn>
   ),
@@ -473,30 +473,30 @@ export const ContentWithSubLabel: Story = {
 
 export const ContentOutlinedWithSubLabel: Story = {
   render: () => (
-    <FlexColumn gap="12px">
+    <FlexColumn gap='12px'>
       <Checkbox.Content
-        size="xs"
-        label="Main Label"
-        subLabel="This is a sub label"
-        variant="outlined"
+        size='xs'
+        label='Main Label'
+        subLabel='This is a sub label'
+        variant='outlined'
       />
       <Checkbox.Content
-        size="sm"
-        label="Main Label"
-        subLabel="This is a sub label"
-        variant="outlined"
+        size='sm'
+        label='Main Label'
+        subLabel='This is a sub label'
+        variant='outlined'
       />
       <Checkbox.Content
-        size="md"
-        label="Main Label"
-        subLabel="This is a sub label"
-        variant="outlined"
+        size='md'
+        label='Main Label'
+        subLabel='This is a sub label'
+        variant='outlined'
       />
       <Checkbox.Content
-        size="lg"
-        label="Main Label"
-        subLabel="This is a sub label"
-        variant="outlined"
+        size='lg'
+        label='Main Label'
+        subLabel='This is a sub label'
+        variant='outlined'
       />
     </FlexColumn>
   ),
@@ -504,29 +504,29 @@ export const ContentOutlinedWithSubLabel: Story = {
 
 export const ContentInvalidStates: Story = {
   render: () => (
-    <FlexColumn gap="12px">
+    <FlexColumn gap='12px'>
       <Label>Invalid Empty:</Label>
       <Checkbox.Content
-        size="md"
-        label="Invalid Label"
-        subLabel="This field is required"
-        variant="empty"
+        size='md'
+        label='Invalid Label'
+        subLabel='This field is required'
+        variant='empty'
         isInvalid
       />
       <Label>Invalid Outlined:</Label>
       <Checkbox.Content
-        size="md"
-        label="Invalid Label"
-        subLabel="This field is required"
-        variant="outlined"
+        size='md'
+        label='Invalid Label'
+        subLabel='This field is required'
+        variant='outlined'
         isInvalid
       />
       <Label>Invalid Disabled:</Label>
       <Checkbox.Content
-        size="md"
-        label="Invalid Disabled Label"
-        subLabel="This field is required"
-        variant="outlined"
+        size='md'
+        label='Invalid Disabled Label'
+        subLabel='This field is required'
+        variant='outlined'
         isInvalid
         disabled
       />
@@ -544,54 +544,54 @@ export const ContentInvalidStates: Story = {
 
 export const ComprehensiveMatrix: Story = {
   render: () => (
-    <FlexColumn gap="32px">
+    <FlexColumn gap='32px'>
       <h3 style={{ margin: 0, fontSize: "14px", fontWeight: "bold" }}>Checkbox.Basic</h3>
-      <FlexColumn gap="12px">
+      <FlexColumn gap='12px'>
         {(["xs", "sm", "md", "lg"] as const).map(size => (
-          <FlexColumn key={size} gap="12px">
+          <FlexColumn key={size} gap='12px'>
             <Label>{size.toUpperCase()}:</Label>
-            <FlexRow gap="12px">
+            <FlexRow gap='12px'>
               <Checkbox.Basic size={size} checked={false} />
               <Checkbox.Basic size={size} checked={true} />
-              <Checkbox.Basic size={size} checked="indeterminate" />
+              <Checkbox.Basic size={size} checked='indeterminate' />
               <Checkbox.Basic size={size} checked={false} disabled />
               <Checkbox.Basic size={size} checked={true} disabled />
-              <Checkbox.Basic size={size} checked="indeterminate" disabled />
+              <Checkbox.Basic size={size} checked='indeterminate' disabled />
             </FlexRow>
           </FlexColumn>
         ))}
       </FlexColumn>
 
       <h3 style={{ margin: 0, fontSize: "14px", fontWeight: "bold" }}>Checkbox.Content</h3>
-      <FlexColumn gap="12px">
+      <FlexColumn gap='12px'>
         {(["empty", "outlined"] as const).map(variant => (
-          <FlexColumn key={variant} gap="12px">
+          <FlexColumn key={variant} gap='12px'>
             <Label>{variant.charAt(0).toUpperCase() + variant.slice(1)}:</Label>
-            <FlexColumn gap="8px">
+            <FlexColumn gap='8px'>
               <Checkbox.Content
-                size="md"
-                label="Normal"
-                subLabel="Sub label text"
+                size='md'
+                label='Normal'
+                subLabel='Sub label text'
                 variant={variant}
               />
               <Checkbox.Content
-                size="md"
-                label="Checked"
-                subLabel="Sub label text"
+                size='md'
+                label='Checked'
+                subLabel='Sub label text'
                 variant={variant}
                 checked={true}
               />
               <Checkbox.Content
-                size="md"
-                label="Disabled"
-                subLabel="Sub label text"
+                size='md'
+                label='Disabled'
+                subLabel='Sub label text'
                 variant={variant}
                 disabled
               />
               <Checkbox.Content
-                size="md"
-                label="Invalid"
-                subLabel="This field is required"
+                size='md'
+                label='Invalid'
+                subLabel='This field is required'
                 variant={variant}
                 isInvalid
               />

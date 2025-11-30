@@ -54,7 +54,7 @@ const SelectFieldInput = forwardRef<HTMLDivElement, SelectFieldInputProps>(
           $disabled={isDisabled}
           $readOnly={isReadOnly}
           onClick={handleClick}
-          role="combobox"
+          role='combobox'
           tabIndex={isDisabled || isReadOnly ? -1 : 0}
           aria-disabled={isDisabled}
           aria-readonly={isReadOnly}
@@ -70,7 +70,7 @@ const SelectFieldInput = forwardRef<HTMLDivElement, SelectFieldInputProps>(
           </StyledSelectValue>
 
           <StyledSelectIconWrapper $disabled={isDisabled} $readOnly={isReadOnly}>
-            <Icon name={dropdownIcon} size="md" />
+            <Icon name={dropdownIcon} size='md' />
           </StyledSelectIconWrapper>
         </StyledSelectWrapper>
         {children}

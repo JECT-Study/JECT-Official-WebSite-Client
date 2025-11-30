@@ -1,8 +1,8 @@
-import type * as NavigationMenu from '@radix-ui/react-navigation-menu';
-import type { ComponentPropsWithoutRef, ReactNode } from 'react';
+import type * as NavigationMenu from "@radix-ui/react-navigation-menu";
+import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
-export type GlobalNavigationVariant = 'empty' | 'solid';
-export type GlobalNavigationVariantAlign = 'left' | 'center' | 'right';
+export type GlobalNavigationVariant = "empty" | "solid";
+export type GlobalNavigationVariantAlign = "left" | "center" | "right";
 
 export interface GlobalNavigationRootProps extends NavigationMenu.NavigationMenuProps {
   variant?: GlobalNavigationVariant;
@@ -24,7 +24,7 @@ export type GlobalNavigationTriggerProps = NavigationMenu.NavigationMenuTriggerP
 
 export type GlobalNavigationMenuContentProps = NavigationMenu.NavigationMenuContentProps;
 
-export interface GlobalNavigationLogoItemProps extends ComponentPropsWithoutRef<'div'> {
+export interface GlobalNavigationLogoItemProps extends ComponentPropsWithoutRef<"div"> {
   children?: ReactNode;
 }
 

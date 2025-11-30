@@ -52,14 +52,14 @@ export const Image = forwardRef<HTMLButtonElement, ImageProps>(
         <img src={src || fallbackSrc} alt={alt} onError={imageLoadErrorHandler} loading={loading} />
         {badgeVisible && (
           <ImageLabelDiv>
-            <StyledLabel size="xs" textAlign="center" weight="normal">
+            <StyledLabel size='xs' textAlign='center' weight='normal'>
               {badgeLabel}
             </StyledLabel>
           </ImageLabelDiv>
         )}
         {!isReadonly && (
-          <IconDiv className="hoverIcon">
-            <StyledIcon name="delete-bin-line" size="xl" />
+          <IconDiv className='hoverIcon'>
+            <StyledIcon name='delete-bin-line' size='xl' />
           </IconDiv>
         )}
       </ImageButton>

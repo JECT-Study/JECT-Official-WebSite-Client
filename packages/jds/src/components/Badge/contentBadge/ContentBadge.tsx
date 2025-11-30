@@ -43,12 +43,12 @@ const ContentBadgeBasic = ({
       isMuted={isMuted}
       withIcon={withIcon}
     >
-      <Label as="span" size={size} textAlign="center" weight="normal" color="inherit">
+      <Label as='span' size={size} textAlign='center' weight='normal' color='inherit'>
         {children}
       </Label>
       {withIcon && (
         <BadgeIcon
-          name="close-line"
+          name='close-line'
           size={iconSize}
           hierarchy={hierarchy}
           badgeStyle={badgeStyle}
@@ -83,7 +83,7 @@ const ContentBadgeFeedback = ({
       badgeStyle={badgeStyle}
       isMuted={isMuted}
     >
-      <Label as="span" size={size} textAlign="center" weight="normal" color="inherit">
+      <Label as='span' size={size} textAlign='center' weight='normal' color='inherit'>
         {children}
       </Label>
     </ContentBadgeFeedbackDiv>
@@ -109,7 +109,7 @@ const ContentBadgeTheme = ({
 }: ContentThemeBadgeProps) => {
   return (
     <ContentBadgeThemeDiv variant={variant} size={size} badgeStyle={badgeStyle} isMuted={isMuted}>
-      <Label as="span" size={size} textAlign="center" weight="normal" color="inherit">
+      <Label as='span' size={size} textAlign='center' weight='normal' color='inherit'>
         {children}
       </Label>
     </ContentBadgeThemeDiv>

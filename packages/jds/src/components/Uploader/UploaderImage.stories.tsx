@@ -72,9 +72,9 @@ export const Default: StoryObj<typeof Uploader.Image> = {
         isDisabled={args.isDisabled}
         cancelButton={
           <LabelButton.Basic
-            hierarchy="tertiary"
-            size="xs"
-            suffixIcon="arrow-go-back-line"
+            hierarchy='tertiary'
+            size='xs'
+            suffixIcon='arrow-go-back-line'
             onClick={onCancel}
           >
             취소

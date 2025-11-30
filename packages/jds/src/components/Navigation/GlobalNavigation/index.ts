@@ -1,5 +1,5 @@
-export { GlobalNavigation } from './GlobalNavigation';
-export { useGlobalNavigationVariant } from './useGlobalNavigationVariant';
+export { GlobalNavigation } from "./GlobalNavigation";
+export { useGlobalNavigationVariant } from "./useGlobalNavigationVariant";
 export type {
   GlobalNavigationRootProps,
   GlobalNavigationListProps,
@@ -8,4 +8,4 @@ export type {
   GlobalNavigationLogoItemProps,
   GlobalNavigationLogoLinkProps,
   GlobalNavigationVariant,
-} from './globalNavigation.types';
+} from "./globalNavigation.types";

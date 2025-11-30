@@ -10,7 +10,6 @@ import type {
   ThemeVariant,
 } from "../badge.types";
 
-
 export const iconSizeMap: Record<BadgeSize, IconSize> = {
   lg: "sm",
   md: "sm",

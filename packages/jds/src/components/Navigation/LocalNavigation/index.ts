@@ -1,8 +1,8 @@
-export { LocalNavigation } from './LocalNavigation';
+export { LocalNavigation } from "./LocalNavigation";
 
 export type {
   LocalNavigationRootProps,
   LocalNavigationBackButtonProps,
   LocalNavigationTitleProps,
   LocalNavigationButtonGroupProps,
-} from './localNavigation.types';
+} from "./localNavigation.types";

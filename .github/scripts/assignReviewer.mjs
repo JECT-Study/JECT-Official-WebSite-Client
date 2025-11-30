@@ -1,7 +1,7 @@
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import { Octokit } from '@octokit/rest';
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+import { Octokit } from "@octokit/rest";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -10,7 +10,7 @@ async function assignReviewer() {
   // GitHub 환경 변수에서 PR 관련 정보 가져오기
   const token = process.env.GITHUB_TOKEN;
   const repository = process.env.GITHUB_REPOSITORY;
-  const [owner, repo] = repository.split('/');
+  const [owner, repo] = repository.split("/");
   const prNumber = parseInt(process.env.PR_NUMBER);
   const prAuthor = process.env.PR_AUTHOR;
 
@@ -18,27 +18,27 @@ async function assignReviewer() {
   const octokit = new Octokit({ auth: token });
 
   // codeowner.json 파일에서 owners 배열 읽기
-  const jsonPath = path.join(__dirname, 'codeowner.json');
+  const jsonPath = path.join(__dirname, "codeowner.json");
   if (!fs.existsSync(jsonPath)) {
-    console.log('codeowner.json 파일을 찾을 수 없습니다:', jsonPath);
+    console.log("codeowner.json 파일을 찾을 수 없습니다:", jsonPath);
     return;
   }
-  const json = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
+  const json = JSON.parse(fs.readFileSync(jsonPath, "utf8"));
   const reviewers = Array.isArray(json.owners) ? [...json.owners] : [];
 
-  console.log('codeowner.json에서 불러온 리뷰어:', reviewers);
+  console.log("codeowner.json에서 불러온 리뷰어:", reviewers);
 
   if (reviewers.length === 0) {
-    console.log('codeowner.json 파일에 리뷰어가 없습니다.');
+    console.log("codeowner.json 파일에 리뷰어가 없습니다.");
     return;
   }
 
   // PR 작성자를 리뷰 후보에서 제외
   const eligibleReviewers = reviewers.filter(r => r !== prAuthor);
-  console.log('실제 선택 가능한 리뷰어:', eligibleReviewers);
+  console.log("실제 선택 가능한 리뷰어:", eligibleReviewers);
 
   if (eligibleReviewers.length === 0) {
-    console.log('할당 가능한 리뷰어가 없습니다.');
+    console.log("할당 가능한 리뷰어가 없습니다.");
     return;
   }
 
@@ -47,15 +47,15 @@ async function assignReviewer() {
   let previousPR = null;
 
   try {
-    console.log('가장 최근 PR 찾는 중...');
+    console.log("가장 최근 PR 찾는 중...");
 
     // PR 목록 가져오기 (Issue는 제외됨)
     const { data: recentPRs } = await octokit.rest.pulls.list({
       owner,
       repo,
-      state: 'all',
-      sort: 'created',
-      direction: 'desc',
+      state: "all",
+      sort: "created",
+      direction: "desc",
       per_page: 20,
     });
 
@@ -74,7 +74,7 @@ async function assignReviewer() {
         issue_number: previousPR.number,
       });
       // review_requested이벤트 찾기
-      const reviewRequestEvents = timeline.filter(e => e.event === 'review_requested');
+      const reviewRequestEvents = timeline.filter(e => e.event === "review_requested");
 
       if (reviewRequestEvents.length > 0) {
         const firstAssignedReviewer = reviewRequestEvents[0].requested_reviewer.login; //제일 처음 리뷰어로 할당된 사람
@@ -84,20 +84,20 @@ async function assignReviewer() {
         );
       }
     } else {
-      console.log('이전 PR 없음 (첫 PR)');
+      console.log("이전 PR 없음 (첫 PR)");
     }
   } catch (error) {
-    console.log('이전 PR 찾기 실패:', error.message);
+    console.log("이전 PR 찾기 실패:", error.message);
   }
 
   // 다음 리뷰어 할당
   let nextReviewerIndex;
   if (lastReviewerIndex === -1) {
     nextReviewerIndex = 0;
-    console.log('이전 리뷰어가 없어 0번부터 시작합니다.');
+    console.log("이전 리뷰어가 없어 0번부터 시작합니다.");
   } else {
     // 이전 PR이 close만 된 경우 (merge 안됨) → 같은 리뷰어
-    if (previousPR && previousPR.state === 'closed' && !previousPR.merged) {
+    if (previousPR && previousPR.state === "closed" && !previousPR.merged) {
       nextReviewerIndex = lastReviewerIndex;
       console.log(`이전 PR이 merge 없이 close됨 → 같은 리뷰어 인덱스: ${nextReviewerIndex}`);
     } else {
@@ -122,6 +122,6 @@ async function assignReviewer() {
 }
 
 assignReviewer().catch(error => {
-  console.error('실행 중 오류:', error);
+  console.error("실행 중 오류:", error);
   process.exit(1);
 });

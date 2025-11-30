@@ -146,17 +146,17 @@ export const TagFieldButton = forwardRef<HTMLInputElement, TagFieldButtonProps>(
         {label && (
           <StyledLabelContainer $layout={layout}>
             <StyledFieldLabel
-              as="label"
+              as='label'
               htmlFor={inputId}
-              size="sm"
-              weight="normal"
+              size='sm'
+              weight='normal'
               $disabled={isDisabled}
               $readOnly={isReadOnly}
               $layout={layout}
             >
               {label}
             </StyledFieldLabel>
-            {labelIcon && <Icon name={labelIcon} size="2xs" />}
+            {labelIcon && <Icon name={labelIcon} size='2xs' />}
           </StyledLabelContainer>
         )}
 
@@ -178,9 +178,9 @@ export const TagFieldButton = forwardRef<HTMLInputElement, TagFieldButtonProps>(
                     onClick={isInteractive ? e => handleTagClick(e, tag.id) : undefined}
                   >
                     <ContentBadge.Basic
-                      size="xs"
-                      hierarchy="secondary"
-                      badgeStyle="alpha"
+                      size='xs'
+                      hierarchy='secondary'
+                      badgeStyle='alpha'
                       withIcon={isInteractive}
                     >
                       {tag.label}
@@ -209,9 +209,9 @@ export const TagFieldButton = forwardRef<HTMLInputElement, TagFieldButtonProps>(
 
           {helperText && (
             <StyledHelperText
-              as="span"
-              size="sm"
-              weight="normal"
+              as='span'
+              size='sm'
+              weight='normal'
               $validation={validation}
               $disabled={isDisabled}
               $readOnly={isReadOnly}

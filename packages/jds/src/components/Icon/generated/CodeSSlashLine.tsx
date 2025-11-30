@@ -1,16 +1,16 @@
 import type { SVGProps } from "react";
 const SvgCodeSSlashLine = (props: SVGProps<SVGSVGElement>) => (
   <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="1em"
-    height="1em"
-    fill="currentColor"
-    viewBox="0 0 24 24"
+    xmlns='http://www.w3.org/2000/svg'
+    width='1em'
+    height='1em'
+    fill='currentColor'
+    viewBox='0 0 24 24'
     {...props}
   >
     <path
-      fill="currentColor"
-      d="m24 12.007-5.657 5.657-1.414-1.414 4.243-4.243-4.243-4.242 1.414-1.415zm-21.172 0 4.243 4.243-1.414 1.414L0 12.007 5.657 6.35 7.07 7.765zm6.96 9H7.66l6.552-18h2.128z"
+      fill='currentColor'
+      d='m24 12.007-5.657 5.657-1.414-1.414 4.243-4.243-4.243-4.242 1.414-1.415zm-21.172 0 4.243 4.243-1.414 1.414L0 12.007 5.657 6.35 7.07 7.765zm6.96 9H7.66l6.552-18h2.128z'
     />
   </svg>
 );

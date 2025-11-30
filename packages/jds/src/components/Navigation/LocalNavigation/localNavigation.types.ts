@@ -1,6 +1,6 @@
-import type { ElementType, ReactNode } from 'react';
+import type { ElementType, ReactNode } from "react";
 
-import type { IconButtonBasicProps } from '../../Button/IconButton';
+import type { IconButtonBasicProps } from "../../Button/IconButton";
 
 export interface LocalNavigationRootProps {
   isStretched?: boolean;
@@ -9,7 +9,7 @@ export interface LocalNavigationRootProps {
 
 export type LocalNavigationBackButtonProps = Omit<
   IconButtonBasicProps,
-  'icon' | 'hierarchy' | 'size'
+  "icon" | "hierarchy" | "size"
 >;
 
 export interface LocalNavigationTitleProps {
