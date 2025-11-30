@@ -45,6 +45,7 @@ const getVariantStyles = (
         borderRadius: `${borderRadius}px`,
         backgroundColor: theme.color.semantic.surface.shallow,
         boxShadow: SHADOW_DEFAULT,
+        overflow: "visible" as const,
       },
       empty: {
         backgroundColor: "transparent",
@@ -52,6 +53,7 @@ const getVariantStyles = (
         padding: "0",
         borderRadius: borderRadius === 0 ? "0" : `${borderRadius}px`,
         boxShadow: "none",
+        overflow: "visible" as const,
       },
     } as const;
 
@@ -60,7 +62,6 @@ const getVariantStyles = (
     return {
       styles: {
         ...selectedStyle,
-        overflow: "hidden",
       },
       borderRadius,
     };
@@ -92,19 +93,7 @@ export const StyledCardRoot = styled("div", {
   };
 
   const layoutStyles = getLayoutStyles($layout);
-  const { styles: variantStyles, borderRadius } = getVariantStyles(theme, $variant, $cardStyle);
-
-  const interactiveFocusStyle = InteractionLayer({
-    theme,
-    state: "focus",
-    variant: "normal",
-    density: "assistive",
-    fillColor: "default",
-    isDisabled: false,
-    offsetVertical: 0,
-    offsetHorizontal: 0,
-    borderRadius,
-  });
+  const { styles: variantStyles } = getVariantStyles(theme, $variant, $cardStyle);
 
   const gapBaseMap = {
     plate: {
@@ -139,7 +128,6 @@ export const StyledCardRoot = styled("div", {
     gap,
     ...layoutStyles,
     ...variantStyles,
-    // 부모로부터 명시적인 크기를 받아 렌더링되도록 설정
     width: "100%",
     height: "100%",
     "--card-title-color": $isDisabled
@@ -156,13 +144,15 @@ export const StyledCardRoot = styled("div", {
       : theme.color.semantic.object.alternative,
   };
 
+  const hasShadowOnRoot = !($variant === "post" && $cardStyle === "empty");
+
   return {
     ...baseStyles,
     '&[data-interactive="true"]': {
-      transition: `transform ${theme.environment.semantic.duration[150]} ${theme.environment.semantic.motion.fluent}, box-shadow ${theme.environment.semantic.duration[150]} ${theme.environment.semantic.motion.fluent}`,
+      transition: `transform ${theme.environment.semantic.duration[150]} ${theme.environment.semantic.motion.fluent}${hasShadowOnRoot ? `, box-shadow ${theme.environment.semantic.duration[150]} ${theme.environment.semantic.motion.fluent}` : ""}`,
       "&:hover": {
         transform: "translateY(-2px)",
-        ...shadow(theme, "raised"),
+        ...(hasShadowOnRoot && shadow(theme, "raised")),
       },
       "&:active": {
         transform: "translateY(0)",
@@ -170,12 +160,7 @@ export const StyledCardRoot = styled("div", {
       },
       "&:has([data-overlay]:focus-visible)": {
         transform: "translateY(-2px)",
-        ...shadow(theme, "raised"),
-        ...interactiveFocusStyle,
-        "::after": {
-          ...interactiveFocusStyle["::after"],
-          transition: `opacity ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
-        },
+        ...(hasShadowOnRoot && shadow(theme, "raised")),
       },
     },
   };
@@ -374,18 +359,144 @@ export const StyledCardCaption = styled("span", {
 
 export const StyledCardOverlay = styled("a", {
   shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith("$"),
-})(() => {
+})<{
+  $variant: CardVariant;
+  $cardStyle?: CardStyle;
+}>(({ theme, $variant, $cardStyle }) => {
+  const offsetMap = {
+    plate: {
+      vertical: 0,
+      horizontal: 0,
+    },
+    post: {
+      outlined: {
+        vertical: 0,
+        horizontal: 0,
+      },
+      empty: {
+        vertical: 12,
+        horizontal: 12,
+      },
+    },
+  } as const;
+
+  const offset = $variant === "plate" ? offsetMap.plate : offsetMap.post[$cardStyle || "outlined"];
+
+  const borderRadiusMap = {
+    plate: 12,
+    post: {
+      outlined: 10,
+      empty: 10,
+    },
+  } as const;
+
+  const borderRadius =
+    $variant === "plate" ? borderRadiusMap.plate : borderRadiusMap.post[$cardStyle || "outlined"];
+
+  const interactionParams = {
+    rest: InteractionLayer({
+      theme,
+      state: "rest",
+      variant: "normal",
+      density: "assistive",
+      fillColor: "default",
+      isDisabled: false,
+      offsetVertical: 0,
+      offsetHorizontal: 0,
+      borderRadius,
+    }),
+    hover: InteractionLayer({
+      theme,
+      state: "hover",
+      variant: "normal",
+      density: "assistive",
+      fillColor: "default",
+      isDisabled: false,
+      offsetVertical: 0,
+      offsetHorizontal: 0,
+      borderRadius,
+    }),
+    active: InteractionLayer({
+      theme,
+      state: "active",
+      variant: "normal",
+      density: "assistive",
+      fillColor: "default",
+      isDisabled: false,
+      offsetVertical: 0,
+      offsetHorizontal: 0,
+      borderRadius,
+    }),
+    focus: InteractionLayer({
+      theme,
+      state: "focus",
+      variant: "normal",
+      density: "assistive",
+      fillColor: "default",
+      isDisabled: false,
+      offsetVertical: 0,
+      offsetHorizontal: 0,
+      borderRadius,
+    }),
+  };
+
+  const hasVerticalOffset = offset.vertical > 0;
+  const hasHorizontalOffset = offset.horizontal > 0;
+  const hasOffset = hasVerticalOffset || hasHorizontalOffset;
+
+  const hasShadowOnOverlay = $variant === "post" && $cardStyle === "empty";
+
   return {
     position: "absolute" as const,
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "100%",
-    zIndex: 1,
+    top: hasVerticalOffset ? `-${offset.vertical}px` : 0,
+    left: hasHorizontalOffset ? `-${offset.horizontal}px` : 0,
+    right: hasHorizontalOffset ? `-${offset.horizontal}px` : undefined,
+    bottom: hasVerticalOffset ? `-${offset.vertical}px` : undefined,
+    width: hasHorizontalOffset ? "auto" : "100%",
+    height: hasVerticalOffset ? "auto" : "100%",
+    zIndex: 100,
     cursor: "pointer",
     textDecoration: "none",
     color: "inherit",
-    borderRadius: "inherit",
+    borderRadius: borderRadius > 0 ? `${borderRadius}px` : 0,
     outline: "none",
+    transition: hasShadowOnOverlay
+      ? `box-shadow ${theme.environment.semantic.duration[150]} ${theme.environment.semantic.motion.fluent}`
+      : undefined,
+    "::before": {
+      ...interactionParams.rest["::before"],
+      transition: `opacity ${theme.environment.semantic.duration[150]} ${theme.environment.semantic.motion.fluent}`,
+    },
+    "::after": {
+      ...interactionParams.rest["::after"],
+      transition: `opacity ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
+    },
+    "&:hover": {
+      ...(hasShadowOnOverlay && shadow(theme, "raised")),
+      "::after": {
+        ...interactionParams.hover["::after"],
+        transition: `opacity ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
+      },
+    },
+    "&:active": {
+      "::after": {
+        ...interactionParams.active["::after"],
+        transition: "none",
+      },
+    },
+    "&:focus-visible": {
+      ...(hasShadowOnOverlay
+        ? {
+            ...shadow(theme, "raised"),
+          }
+        : !hasOffset &&
+          interactionParams.focus.boxShadow && {
+            boxShadow: interactionParams.focus.boxShadow,
+          }),
+      "::before": {
+        ...interactionParams.focus["::before"],
+        ...(hasOffset && { opacity: 1 }),
+      },
+    },
   };
 });
