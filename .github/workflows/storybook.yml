@@ -8,9 +8,6 @@ on:
 jobs:
   storybook:
     runs-on: ubuntu-22.04
-    defaults:
-      run:
-        working-directory: packages/jds
 
     steps:
       - name: Checkout repository
