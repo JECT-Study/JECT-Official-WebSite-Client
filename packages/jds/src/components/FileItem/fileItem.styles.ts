@@ -3,9 +3,8 @@ import styled from "@emotion/styled";
 import { InteractionLayer } from "utils";
 
 import type { FileItemLabelProps, FileItemWrapButtonProps, FileSizeProps } from "./fileItem.types";
-
-import { Icon } from "@/components";
-import { Label } from "@/components";
+import { Icon } from "../Icon";
+import { Label } from "../Label";
 
 const interactionStyles = (theme: Theme, disabled: boolean, readonly: boolean): CSSObject => {
   const offset = {

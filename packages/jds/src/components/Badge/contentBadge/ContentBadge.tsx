@@ -14,8 +14,7 @@ import type {
   ThemeVariant,
 } from "../badge.types";
 import { iconSizeMap } from "./contentBadge.variants";
-
-import { Label } from "@/components/Label";
+import { Label } from "../../Label";
 
 export interface ContentBadgeBasicProps {
   hierarchy?: BasicHierarchy;

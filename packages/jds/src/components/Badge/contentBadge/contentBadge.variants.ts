@@ -1,5 +1,6 @@
 import type { Theme } from "@emotion/react";
 
+import type { IconSize } from "../../Icon";
 import type {
   BadgeSize,
   BadgeStyle,
@@ -9,7 +10,6 @@ import type {
   ThemeVariant,
 } from "../badge.types";
 
-import type { IconSize } from "@/components/Icon";
 
 export const iconSizeMap: Record<BadgeSize, IconSize> = {
   lg: "sm",

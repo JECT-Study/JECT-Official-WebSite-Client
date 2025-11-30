@@ -4,8 +4,8 @@ import { pxToRem, shadow } from "utils";
 
 import type { ToastDivProps, ToastFeedbackIconProps, ToastStyle } from "./toast.types";
 import { toastStylesMap } from "./toast.variants";
-
-import { Icon, Label } from "@/components";
+import { Icon } from "../Icon";
+import { Label } from "../Label";
 
 export const ToastStackContainer = styled.div(({ theme }) => {
   return {
