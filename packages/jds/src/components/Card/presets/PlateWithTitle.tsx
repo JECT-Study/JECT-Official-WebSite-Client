@@ -1,5 +1,4 @@
 import { forwardRef, type ReactNode } from "react";
-import { pxToRem } from "utils";
 
 import type { PlateWithTitlePresetProps } from "../Card.types";
 import { CardRoot, CardImage, CardContent, CardCaption, CardTitle, CardBody } from "../compound";
@@ -25,11 +24,7 @@ const PlateWithTitleContent = ({
 }: PlateWithTitleContentProps) => (
   <>
     {image && (
-      <CardImage
-        src={image.src}
-        alt={image.alt}
-        style={layout === "vertical" ? { height: pxToRem(200) } : undefined}
-      />
+      <CardImage src={image.src} alt={image.alt} ratio={layout === 'vertical' ? '2:3' : '1:1'} />
     )}
     <CardContent>
       <CardTitle>{title}</CardTitle>
@@ -43,7 +38,14 @@ export const PlateWithTitleLink = forwardRef<HTMLDivElement, PlateWithTitleLinkP
   ({ layout = "vertical", isDisabled = false, href, target, rel, ...contentProps }, ref) => (
     <CardRoot ref={ref} layout={layout} variant='plate' isDisabled={isDisabled} interactive>
       <PlateWithTitleContent layout={layout} {...contentProps} />
-      <StyledCardOverlay as='a' href={href} target={target} rel={rel} data-overlay />
+      <StyledCardOverlay
+        as='a'
+        href={href}
+        target={target}
+        rel={rel}
+        data-overlay
+        $variant='plate'
+      />
     </CardRoot>
   ),
 );
@@ -54,7 +56,13 @@ export const PlateWithTitleButton = forwardRef<HTMLDivElement, PlateWithTitleBut
   ({ layout = "vertical", isDisabled = false, onClick, type, ...contentProps }, ref) => (
     <CardRoot ref={ref} layout={layout} variant='plate' isDisabled={isDisabled} interactive>
       <PlateWithTitleContent layout={layout} {...contentProps} />
-      <StyledCardOverlay as='button' onClick={onClick} type={type || "button"} data-overlay />
+      <StyledCardOverlay
+        as='button'
+        onClick={onClick}
+        type={type || "button"}
+        data-overlay
+        $variant='plate'
+      />
     </CardRoot>
   ),
 );
