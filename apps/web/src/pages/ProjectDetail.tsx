@@ -53,7 +53,7 @@ const ProjectDetail = () => {
         <img
           src={project.thumbnailUrl || cardSampleImage}
           alt='프로젝트 이미지'
-          className='radius-md border-border-alternative-dark block h-[20.0625rem] w-full border object-contain'
+          className='radius-md block h-[20.0625rem] w-full border border-border-alternative-dark object-contain'
         />
         <div className='gap-2xl flex w-full flex-col items-start'>
           <div className='gap-md flex flex-col'>
@@ -72,7 +72,7 @@ const ProjectDetail = () => {
             </div>
             <CalloutInformation title='플랫폼 및 기술' labels={techStack} />
           </div>
-          <p className='text-object-normal-dark body-lg'>{project.description}</p>
+          <p className='body-lg text-object-normal-dark'>{project.description}</p>
         </div>
         <BlockButton
           size='lg'
@@ -104,7 +104,7 @@ const ProjectDetail = () => {
                         key={intro.sequence}
                         src={intro.imageUrl}
                         alt={`서비스 소개 ${intro.sequence}번`}
-                        className='border-border-alternative-dark block h-[29rem] w-full border object-contain'
+                        className='block h-[29rem] w-full border border-border-alternative-dark object-contain'
                       />
                     ))
                 ) : (
@@ -122,7 +122,7 @@ const ProjectDetail = () => {
                         key={intro.sequence}
                         src={intro.imageUrl}
                         alt={`개발 소개 ${intro.sequence}번`}
-                        className='border-border-alternative-dark block h-[29rem] w-full border object-contain'
+                        className='block h-[29rem] w-full border border-border-alternative-dark object-contain'
                       />
                     ))
                 ) : (

@@ -38,7 +38,7 @@ export const applyProcedureList: Procedure[] = [
         젝트 웹사이트의&nbsp;
         <button
           onClick={moveToBottom}
-          className='text-feedback-information-dark decoration-feedback-information-dark cursor-pointer underline'
+          className='cursor-pointer text-feedback-information-dark underline decoration-feedback-information-dark'
         >
           지원하기
         </button>
@@ -94,7 +94,7 @@ export const applyInfoList: Info[] = [
     link: (
       <NewTabLink
         href='https://cultured-phalange-7de.notion.site/JECT-1cf62a893ac581cba52beb59a1eca908'
-        className='text-feedback-information-dark decoration-feedback-information-dark underline'
+        className='text-feedback-information-dark underline decoration-feedback-information-dark'
       >
         개인정보 수집 및 이용 동의서
       </NewTabLink>
@@ -107,7 +107,7 @@ export const applyInfoList: Info[] = [
     link: (
       <NewTabLink
         href='https://cultured-phalange-7de.notion.site/JECT-fb43010a5141459ab14f786a19885f0b'
-        className='text-feedback-information-dark decoration-feedback-information-dark underline'
+        className='text-feedback-information-dark underline decoration-feedback-information-dark'
       >
         젝트 회칙
       </NewTabLink>

@@ -15,7 +15,7 @@ function Apply() {
     <div className='gap-12xl flex flex-col items-center py-(--gap-12xl)'>
       <section className='gap-8xl flex flex-col items-center justify-center'>
         <Title hierarchy='strong'>{APPLY_TITLE.process}</Title>
-        <div className='bg-surface-tinted-dark radius-md border-border-trans-assistive-dark flex w-[45rem] flex-col items-stretch border p-(--gap-2xl)'>
+        <div className='radius-md flex w-[45rem] flex-col items-stretch border border-border-trans-assistive-dark bg-surface-tinted-dark p-(--gap-2xl)'>
           {applyProcedureList.map(({ id, period, subTitle, content, startDate }) => (
             <Fragment key={id}>
               <ProgressItem
@@ -47,7 +47,7 @@ function Apply() {
                   {link ? link : null}
                 </p>
               </div>
-              <div className='border-border-trans-alternative-dark w-full border-t'></div>
+              <div className='w-full border-t border-border-trans-alternative-dark'></div>
             </>
           ))}
         </div>

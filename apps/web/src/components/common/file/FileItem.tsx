@@ -67,7 +67,7 @@ function FileItem({ file, onDelete, isDisabled = false, feedback = null }: FileI
           size='md'
           fillColor={feedbackStyle[feedbackType].fillColor}
         />
-        <div className={`text-object-normal-dark gap-6xs flex grow flex-col text-left`}>
+        <div className={`gap-6xs flex grow flex-col text-left text-object-normal-dark`}>
           <span className='label-bold-md break-all'>{fileName}</span>
           <span className='body-xs'>{changeFileSizeUnit(fileSize, ["KB", "MB"], true)}</span>
           <span className={`body-xs ${feedbackStyle[feedbackType].textColor}`}>
@@ -89,7 +89,7 @@ function FileItem({ file, onDelete, isDisabled = false, feedback = null }: FileI
   return (
     <div
       onClick={openFile}
-      className={`${isDisabled ? "cursor-default" : "interaction-default-subtle transition-faster-fluent-hover cursor-pointer"} bg-surface-embossed-dark radius-xs gap-md border-border-trans-assistive-dark flex items-center border px-(--gap-lg) py-(--gap-sm)`}
+      className={`${isDisabled ? "cursor-default" : "interaction-default-subtle transition-faster-fluent-hover cursor-pointer"} radius-xs gap-md flex items-center border border-border-trans-assistive-dark bg-surface-embossed-dark px-(--gap-lg) py-(--gap-sm)`}
     >
       {isPending ? (
         <Lottie animationData={loadingSpinner} />

@@ -26,7 +26,7 @@ export const TabHeader = ({ children }: TabHeaderProps) => {
   return (
     <div
       aria-label='탭 헤더'
-      className='stroke-normal border-border-alternative-dark flex w-full items-center'
+      className='stroke-normal flex w-full items-center border-border-alternative-dark'
     >
       {children}
     </div>
@@ -47,9 +47,9 @@ export const TabItem = ({ id, label, disabled = false, ...restprops }: TabItemPr
       disabled={!!disabled}
       className={`interaction-default-subtle gap-4xs label-bold-lg inline-flex cursor-pointer items-center justify-center px-(--gap-md) py-(--gap-3xs) text-center ${
         isActive
-          ? "text-object-hero-dark stroke-bold border-accent-normal-dark relative z-10 -mb-px"
+          ? "stroke-bold relative z-10 -mb-px border-accent-normal-dark text-object-hero-dark"
           : "text-object-alternative-dark"
-      } ${disabled ? "text-object-disabled-dark pointer-events-none cursor-not-allowed" : ""}`}
+      } ${disabled ? "pointer-events-none cursor-not-allowed text-object-disabled-dark" : ""}`}
       {...restprops}
     >
       {label}

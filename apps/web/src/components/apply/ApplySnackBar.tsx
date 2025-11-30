@@ -16,7 +16,7 @@ function ApplySnackBar({ message, width = "" }: ApplySnackBarProps) {
   };
 
   return (
-    <div className={`${width} animate-toast-fade-in fixed left-1/2 z-50 -translate-x-1/2`}>
+    <div className={`${width} fixed left-1/2 z-50 -translate-x-1/2 animate-toast-fade-in`}>
       <SnackBar message={message} buttonLabel='젝트 3기 지원하기' onAction={handleAction} />
     </div>
   );

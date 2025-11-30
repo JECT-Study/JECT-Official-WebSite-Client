@@ -63,7 +63,7 @@ export const Select = ({ items, defaultValue = null, onChange }: SelectProps) =>
   };
 
   return (
-    <div className='gap-5xs radius-md border-border-trans-assistive-dark bg-surface-embossed-dark opacity-visible shadow-overlay flex w-full flex-col border p-(--gap-2xs)'>
+    <div className='gap-5xs radius-md opacity-visible shadow-overlay flex w-full flex-col border border-border-trans-assistive-dark bg-surface-embossed-dark p-(--gap-2xs)'>
       {items.map(({ label, disabled }) => (
         <SelectItem
           key={label}

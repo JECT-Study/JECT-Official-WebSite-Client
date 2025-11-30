@@ -7,7 +7,7 @@ import { JECT_EMAIL } from "@/constants/footer";
 function MobileFooter() {
   return (
     <div className='bg-surface-standard-dark'>
-      <footer className='bg-surface-tinted-dark text-object-alternative-dark gap-md flex min-h-[8.875rem] flex-col p-(--gap-md)'>
+      <footer className='gap-md flex min-h-[8.875rem] flex-col bg-surface-tinted-dark p-(--gap-md) text-object-alternative-dark'>
         <div>
           <Logo height={16} fillColor='fill-object-normal-dark' />
         </div>

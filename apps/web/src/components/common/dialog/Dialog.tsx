@@ -30,11 +30,11 @@ function Dialog() {
 
   return (
     isOpen && (
-      <div aria-label='dialog' className='bg-surface-dimmed-dark fixed inset-0 z-50 h-dvh w-dvw'>
-        <div className='bg-surface-embossed-dark shadow-overlay radius-md gap-5xl absolute top-1/2 left-1/2 flex w-[25rem] -translate-1/2 flex-col p-(--gap-2xl)'>
+      <div aria-label='dialog' className='fixed inset-0 z-50 h-dvh w-dvw bg-surface-dimmed-dark'>
+        <div className='shadow-overlay radius-md gap-5xl absolute top-1/2 left-1/2 flex w-[25rem] -translate-1/2 flex-col bg-surface-embossed-dark p-(--gap-2xl)'>
           <div className='gap-md flex flex-col items-center pt-(--gap-3xs)'>
             <p className='title-01 text-object-hero-dark'>{dialogTypes[type].title}</p>
-            <div className='body-lg text-object-normal-dark text-center'>
+            <div className='body-lg text-center text-object-normal-dark'>
               {dialogTypes[type].content}
             </div>
           </div>

@@ -12,7 +12,7 @@ function ApplyComplete() {
       <section className='gap-9xl flex w-[26.25rem] flex-col'>
         <div className='gap-4xl flex flex-col items-center'>
           <Title hierarchy='strong'>{APPLY_TITLE.complete}</Title>
-          <p className='body-lg text-object-normal-dark text-center'>{applyComplete.content}</p>
+          <p className='body-lg text-center text-object-normal-dark'>{applyComplete.content}</p>
         </div>
         <BlockButton size='lg' style='solid' hierarchy='accent' onClick={() => void navigate("/")}>
           {applyComplete.button}

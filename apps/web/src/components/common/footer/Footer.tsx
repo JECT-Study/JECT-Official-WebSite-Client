@@ -7,9 +7,9 @@ import { JECT_EMAIL, JECT_FOOTER_INFO } from "@/constants/footer";
 function Footer() {
   return (
     <div className='bg-surface-standard-dark'>
-      <footer className='bg-surface-tinted-dark text-object-alternative-dark body-2xs gap-xl flex h-[4.875rem] items-center px-(--gap-5xl)'>
+      <footer className='body-2xs gap-xl flex h-[4.875rem] items-center bg-surface-tinted-dark px-(--gap-5xl) text-object-alternative-dark'>
         <Logo height={20} fillColor='fill-object-normal-dark' />
-        <div className='border-border-trans-alternative-dark h-[2rem] border-r'></div>
+        <div className='h-[2rem] border-r border-border-trans-alternative-dark'></div>
         <p className='grow'>{JECT_FOOTER_INFO}</p>
         <p>{JECT_EMAIL}</p>
         <div className='gap-xl flex'>

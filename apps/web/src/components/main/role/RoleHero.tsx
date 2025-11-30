@@ -47,7 +47,7 @@ export const RoleHero = ({ title, labels = [], children, variant }: HeroProps) =
       <div className={`${style} radius-sm absolute inset-0 z-0 opacity-35`} />
       <div className='gap-xl relative z-10 flex min-h-[12.1875rem] w-full shrink-0 grow basis-0 flex-col items-start'>
         <div className='gap-sm flex flex-col items-start self-stretch'>
-          <span className='text-object-hero-dark title-03'>{title}</span>
+          <span className='title-03 text-object-hero-dark'>{title}</span>
           <div className='gap-2xs flex max-h-[5rem] flex-wrap content-start items-start'>
             {displayedLabels.map((label, idx) => (
               <Badge

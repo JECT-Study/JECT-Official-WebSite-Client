@@ -55,11 +55,11 @@ function Uploader({ onChangeFile, isDisabled, fileExtensions, maxSize }: Uploade
       onDrop={handleDrop}
       className={clsx(
         {
-          "border-border-trans-assistive-dark cursor-no-drop": isDisabled,
+          "cursor-no-drop border-border-trans-assistive-dark": isDisabled,
           "border-accent-inverse-normal-dark bg-accent-trans-neutral-dark": isDragging,
           "border-border-trans-alternative-dark bg-surface-deep-dark": !isDragging,
         },
-        "radius-sm gap-xl body-sm text-object-assistive-dark flex flex-col items-center border-2 border-dashed px-(--gap-7xl) py-(--gap-8xl) text-center whitespace-pre-wrap",
+        "radius-sm gap-xl body-sm flex flex-col items-center border-2 border-dashed px-(--gap-7xl) py-(--gap-8xl) text-center whitespace-pre-wrap text-object-assistive-dark",
       )}
     >
       <label
