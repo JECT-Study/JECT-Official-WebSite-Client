@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { FileItem } from "./FileItem";
-
-import { IconButton } from "@/components";
+import { IconButton } from "../Button/IconButton";
 
 const meta: Meta<typeof FileItem> = {
   title: "Components/FileItem",

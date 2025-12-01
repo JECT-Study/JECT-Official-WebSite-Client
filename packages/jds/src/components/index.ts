@@ -18,3 +18,6 @@ export * from "./Select";
 export * from "./Title";
 export * from "./Tooltip";
 export * from "./Uploader";
+export * from "./Navigation/GlobalNavigation";
+export * from "./Navigation/LocalNavigation";
+export * from "./Divider";
