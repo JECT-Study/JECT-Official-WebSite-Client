@@ -73,7 +73,9 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
             <DialogRoot ref={ref}>
               <DialogDiv>
                 <DialogContentDiv>
-                  <DialogTitle size='xs'>{header}</DialogTitle>
+                  <DialogTitle textAlign='left' size='xs'>
+                    {header}
+                  </DialogTitle>
                   <DialogBodyTextP>{body}</DialogBodyTextP>
                   {checkboxAction && <Checkbox.Content {...checkboxAction} />}
                 </DialogContentDiv>
