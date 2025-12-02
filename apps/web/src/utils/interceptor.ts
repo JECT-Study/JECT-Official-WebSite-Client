@@ -36,20 +36,13 @@ export const createClient = (config?: AxiosRequestConfig): AxiosInstance => {
 
         originalRequest._retry = true;
 
-        try {
-          const refreshResponse = await refreshAccessToken();
+        const refreshResponse = await refreshAccessToken();
 
-          if (refreshResponse.status === "SUCCESS" && refreshResponse.data) {
-            return instance(originalRequest);
-          }
-          throw new Error("토큰 갱신 응답이 올바르지 않습니다.");
-        } catch (refreshError) {
-          console.error("토큰 갱신 실패:", refreshError);
-
-          throw refreshError instanceof Error
-            ? refreshError
-            : new Error("토큰 갱신에 실패했습니다.");
+        if (refreshResponse.status === "SUCCESS" && refreshResponse.data) {
+          return instance(originalRequest);
         }
+
+        throw new Error("토큰 갱신 응답이 올바르지 않습니다.");
       }
 
       return response;
