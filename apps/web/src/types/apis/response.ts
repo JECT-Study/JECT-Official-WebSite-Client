@@ -19,7 +19,8 @@ export type Status =
   | "QUESTION_NOT_FOUND"
   | "RECRUIT_NOT_FOUND"
   | "TEMP_APPLICATION_NOT_FOUND"
-  | "INVALID_CREDENTIALS";
+  | "INVALID_CREDENTIALS"
+  | "VALIDATION_ERROR";
 
 export interface ApiResponse<T> {
   status: Status;
