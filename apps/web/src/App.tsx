@@ -3,13 +3,14 @@ import "./instrument";
 import { JDSThemeProvider } from "@ject/jds/theme";
 import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { isMobile } from "react-device-detect";
 import { RouterProvider } from "react-router-dom";
 
+import { ErrorBoundary } from "./components/app/ErrorBoundary";
+import { LoadingFallback } from "./components/app/LoadingFallback";
 import { disabledPage, PATH } from "./constants/path";
 import { useGlobalErrorHandler } from "./hooks/useGlobalErrorHandler";
-import useRedirectMaintenance from "./hooks/useRedirectMaintenance";
 import TempMobile from "./pages/TempMobile";
 import router from "./router";
 
@@ -28,8 +29,6 @@ function App() {
       }),
   );
 
-  useRedirectMaintenance(5, 7, PATH.maintenance);
-
   if (isMobile) {
     return <TempMobile />;
   }
@@ -39,12 +38,16 @@ function App() {
   }
 
   return (
-    <QueryClientProvider client={queryClient}>
-      {import.meta.env.MODE !== "production" && <ReactQueryDevtools />}
-      <JDSThemeProvider>
-        <RouterProvider router={router} />
-      </JDSThemeProvider>
-    </QueryClientProvider>
+    <ErrorBoundary>
+      <QueryClientProvider client={queryClient}>
+        {import.meta.env.MODE !== "production" && <ReactQueryDevtools />}
+        <JDSThemeProvider>
+          <Suspense fallback={<LoadingFallback />}>
+            <RouterProvider router={router} />
+          </Suspense>
+        </JDSThemeProvider>
+      </QueryClientProvider>
+    </ErrorBoundary>
   );
 }
 
