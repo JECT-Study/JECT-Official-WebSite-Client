@@ -3,31 +3,38 @@ import type { z } from "zod";
 import type { ApiResponse } from "@/types/apis/response";
 import { httpClient as axiosInstance } from "@/utils/interceptor";
 
-function validate<T extends z.ZodType>(schema: T, data: unknown): z.infer<T> {
-  return schema.parse(data);
+function validate<T>(schema: z.ZodType<T>, data: unknown): unknown {
+  schema.parse(data);
+
+  return data;
 }
 
-async function request<T extends z.ZodType>(
+async function request<T>(
   url: string,
   method: "get" | "post" | "put" | "delete",
-  schema: T,
   data?: unknown,
-): Promise<z.infer<T>> {
+  schema?: z.ZodType<T>,
+): Promise<unknown> {
   const response = await axiosInstance({ url, method, data });
 
-  return validate(schema, response.data);
+  if (schema) {
+    validate(schema, response.data);
+  }
+
+  return response.data;
 }
 
 export const httpClient = {
-  get: <T extends z.ZodType>(url: string, schema: T) => request(url, "get", schema),
+  get: <T = unknown>(url: string, schema?: z.ZodType<T>) => request(url, "get", undefined, schema),
 
-  post: <T extends z.ZodType>(url: string, schema: T, data?: unknown) =>
-    request(url, "post", schema, data),
+  post: <T = unknown>(url: string, data?: unknown, schema?: z.ZodType<T>) =>
+    request(url, "post", data, schema),
 
-  put: <T extends z.ZodType>(url: string, schema: T, data?: unknown) =>
-    request(url, "put", schema, data),
+  put: <T = unknown>(url: string, data?: unknown, schema?: z.ZodType<T>) =>
+    request(url, "put", data, schema),
 
-  delete: <T extends z.ZodType>(url: string, schema: T) => request(url, "delete", schema),
+  delete: <T = unknown>(url: string, schema?: z.ZodType<T>) =>
+    request(url, "delete", undefined, schema),
 };
 
 /**
