@@ -62,7 +62,7 @@ export const useGlobalErrorHandler = () => {
         extra: { errors: error.errors },
       });
 
-      throw error;
+      return;
     }
 
     if (error instanceof InternalAPIError) {
