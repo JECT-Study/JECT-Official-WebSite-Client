@@ -1,16 +1,16 @@
-import type { SVGProps } from 'react';
+import type { SVGProps } from "react";
 const SvgGuideLine = (props: SVGProps<SVGSVGElement>) => (
   <svg
-    xmlns='http://www.w3.org/2000/svg'
-    width='1em'
-    height='1em'
-    fill='currentColor'
-    viewBox='0 0 24 24'
+    xmlns="http://www.w3.org/2000/svg"
+    width="1em"
+    height="1em"
+    fill="currentColor"
+    viewBox="0 0 24 24"
     {...props}
   >
     <path
-      fill='currentColor'
-      d='M13 8.007v8a3 3 0 0 1-3 3H7.83a3.001 3.001 0 1 1 0-2H10a1 1 0 0 0 1-1v-8a3 3 0 0 1 3-3h3v-3l5 4-5 4v-3h-3a1 1 0 0 0-1 1m-8 11a1 1 0 1 0 0-2 1 1 0 0 0 0 2'
+      fill="currentColor"
+      d="M13 8.007v8a3 3 0 0 1-3 3H7.83a3.001 3.001 0 1 1 0-2H10a1 1 0 0 0 1-1v-8a3 3 0 0 1 3-3h3v-3l5 4-5 4v-3h-3a1 1 0 0 0-1 1m-8 11a1 1 0 1 0 0-2 1 1 0 0 0 0 2"
     />
   </svg>
 );

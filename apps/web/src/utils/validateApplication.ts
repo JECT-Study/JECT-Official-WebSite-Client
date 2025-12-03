@@ -1,7 +1,7 @@
-import { validateUrlDetail } from './validateUrl';
+import { validateUrlDetail } from "./validateUrl";
 
-import { Question } from '@/types/apis/application';
-import { Application } from '@/types/ui/application';
+import type { Question } from "@/types/apis/application";
+import type { Application } from "@/types/ui/application";
 
 /**
  * 주어진 질문 목록과 답변을 기반으로 유효성을 검사하는 함수
@@ -34,14 +34,14 @@ import { Application } from '@/types/ui/application';
  */
 export const validateApplication = (questions: Question[], application: Application) => {
   return questions.every(question => {
-    if (question.inputType === 'FILE') {
+    if (question.inputType === "FILE") {
       if (!question.isRequired) return true;
 
       return application.portfolios.length > 0;
     }
 
-    if (question.inputType === 'TEXT') {
-      const text = application.answers[question.id] ?? '';
+    if (question.inputType === "TEXT") {
+      const text = application.answers[question.id] ?? "";
 
       if (!question.isRequired) {
         if (question.maxTextLength) return text.length <= question.maxTextLength;
@@ -56,18 +56,18 @@ export const validateApplication = (questions: Question[], application: Applicat
       return true;
     }
 
-    if (question.inputType === 'URL') {
-      const url = application.answers[question.id] || '';
+    if (question.inputType === "URL") {
+      const url = application.answers[question.id] || "";
 
       return url ? validateUrlDetail(url) : !question.isRequired;
     }
 
-    if (question.inputType === 'SELECT') {
+    if (question.inputType === "SELECT") {
       if (!question.isRequired) return true;
 
-      const text = application.answers[question.id] ?? '';
+      const text = application.answers[question.id] ?? "";
 
-      return text !== '';
+      return text !== "";
     }
 
     return false;

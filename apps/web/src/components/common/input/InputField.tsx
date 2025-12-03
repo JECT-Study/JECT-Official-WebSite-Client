@@ -1,11 +1,12 @@
-import clsx from 'clsx';
-import { ComponentPropsWithoutRef, forwardRef, ReactNode } from 'react';
+import clsx from "clsx";
+import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import { forwardRef } from "react";
 
-import Input from './Input';
+import Input from "./Input";
 
-import Label from '@/components/common/label/Label';
+import Label from "@/components/common/label/Label";
 
-interface InputFieldProps extends ComponentPropsWithoutRef<'input'> {
+interface InputFieldProps extends ComponentPropsWithoutRef<"input"> {
   isError?: boolean;
   isSuccess: boolean;
   InputChildren?: ReactNode;
@@ -38,7 +39,7 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
             hierarchy='normal'
             weight='normal'
             isRequired={required}
-            textColor={`${disabled ? 'text-object-assistive-dark' : 'text-object-neutral-dark'}`}
+            textColor={`${disabled ? "text-object-assistive-dark" : "text-object-neutral-dark"}`}
           >
             {labelText}
           </Label>
@@ -60,13 +61,13 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
           <div
             className={clsx(
               {
-                'text-object-alternative-dark': !isError && !disabled && !isSuccess,
-                'text-feedback-trans-negative-dark': isError && disabled,
-                'text-feedback-negative-dark': isError && !disabled,
-                'text-object-disabled-dark': !isError && disabled && !isSuccess,
-                'text-feedback-positive-dark': isSuccess,
+                "text-object-alternative-dark": !isError && !disabled && !isSuccess,
+                "text-feedback-trans-negative-dark": isError && disabled,
+                "text-feedback-negative-dark": isError && !disabled,
+                "text-object-disabled-dark": !isError && disabled && !isSuccess,
+                "text-feedback-positive-dark": isSuccess,
               },
-              'body-sm cursor-default',
+              "body-sm cursor-default",
             )}
           >
             {helper}
@@ -77,6 +78,6 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
   },
 );
 
-InputField.displayName = 'InputField';
+InputField.displayName = "InputField";
 
 export default InputField;

@@ -1,9 +1,9 @@
-import atom from '@/assets/images/atom.png';
-import clipboard from '@/assets/images/clipboard.png';
-import cursor from '@/assets/images/cursor.png';
-import mobius from '@/assets/images/mobius.png';
-import stack from '@/assets/images/stack.png';
-import { RoleVariant } from '@/types/ui/role';
+import atom from "@/assets/images/atom.png";
+import clipboard from "@/assets/images/clipboard.png";
+import cursor from "@/assets/images/cursor.png";
+import mobius from "@/assets/images/mobius.png";
+import stack from "@/assets/images/stack.png";
+import type { RoleVariant } from "@/types/ui/role";
 
 const variantMap: Record<
   RoleVariant,
@@ -14,29 +14,29 @@ const variantMap: Record<
   }
 > = {
   fe: {
-    text: '프론트엔드 개발자',
+    text: "프론트엔드 개발자",
     icon: atom,
-    style: 'bg-role-fe-trans-neutral-dark text-role-fe-normal-dark',
+    style: "bg-role-fe-trans-neutral-dark text-role-fe-normal-dark",
   },
   be: {
-    text: '백엔드 개발자',
+    text: "백엔드 개발자",
     icon: stack,
-    style: 'bg-role-be-trans-neutral-dark text-role-be-normal-dark',
+    style: "bg-role-be-trans-neutral-dark text-role-be-normal-dark",
   },
   do: {
-    text: '데브옵스 엔지니어',
+    text: "데브옵스 엔지니어",
     icon: mobius,
-    style: 'bg-role-do-trans-neutral-dark text-role-do-normal-dark',
+    style: "bg-role-do-trans-neutral-dark text-role-do-normal-dark",
   },
   pm: {
-    text: '프로덕트 매니저',
+    text: "프로덕트 매니저",
     icon: clipboard,
-    style: 'bg-role-pm-trans-neutral-dark text-role-pm-normal-dark',
+    style: "bg-role-pm-trans-neutral-dark text-role-pm-normal-dark",
   },
   pd: {
-    text: '프로덕트 디자이너',
+    text: "프로덕트 디자이너",
     icon: cursor,
-    style: 'bg-role-pd-trans-neutral-dark text-role-pd-normal-dark',
+    style: "bg-role-pd-trans-neutral-dark text-role-pd-normal-dark",
   },
 };
 

@@ -1,0 +1,367 @@
+import { Meta, Canvas } from "@storybook/addon-docs/blocks";
+import * as TokensStories from "./Tokens.stories";
+
+<Meta title="Design Tokens/Usage Guide" />
+
+# JDS Design Tokens
+
+JDS의 디자인 토큰은 Figma와 1대1 대응되며, [Emotion 테마 시스템](https://emotion.sh/docs/theming)을 통해 type-safe하게 관리됩니다.
+토큰 자체에 대한 자세한 설명은 Figma를 참고하세요.
+
+## 🔄 토큰 시스템 동작 원리
+
+```
+1. Figma Variables 정의
+        ↓
+2. JSON으로 추출 (Figma Plugin)
+        ↓
+3. 자동 빌드 → CSS 변수 생성 (:root에 주입)
+        ↓
+4. Emotion theme이 CSS 변수를 참조
+        ↓
+5. 컴포넌트에서 theme 사용 (타입 안전 + 자동완성)
+```
+
+### 왜 CSS 변수 + Emotion 조합을 사용하나요?
+
+이 구조는 **두 가지 장점을 동시에** 얻기 위함입니다:
+
+**CSS 변수**
+
+- 역할: 실제 값 저장
+- 장점: 다크모드/반응형을 브라우저가 자동 처리
+
+**Emotion theme**
+
+- 역할: CSS 변수 참조
+- 장점: TypeScript 타입 지원으로 자동완성 및 오타 방지. 성능의 이점
+
+### 실제 코드 예시
+
+```typescript
+// ① CSS 변수가 :root에 자동 등록 (globalStyles.ts에서 생성)
+:root {
+  --semantic-accent-normal: #4361ee;
+  --semantic-spacing-4: 16px; /* desktop 기본값 */
+}
+
+// 다크모드
+[data-theme="dark"] {
+  --semantic-accent-normal: #7b9aff; /* 다크모드에서는 다른 색상을 참조 */
+}
+
+// 반응형 (tablet/mobile에서 자동으로 값이 바뀜)
+@media (min-width: 768px) and (max-width: 1199px) {
+  :root {
+    --semantic-spacing-4: 12px; /* tablet */
+  }
+}
+
+@media (max-width: 767px) {
+  :root {
+    --semantic-spacing-4: 8px; /* mobile */
+  }
+}
+
+// ② Emotion theme이 CSS 변수를 참조 (theme.ts에서 생성)
+theme.color.semantic.accent.normal = 'var(--semantic-accent-normal)'
+theme.scheme.semantic.spacing[4] = 'var(--semantic-spacing-4)'
+
+// ③ 컴포넌트에서 사용하면 타입 지원 + 자동 테마/반응형 전환
+const MyButton = styled.button`
+  color: ${({ theme }) => theme.color.semantic.accent.normal};
+  padding: ${({ theme }) => theme.scheme.semantic.spacing[4]};
+  /* 다크모드, 화면 크기에 따라 CSS 변수가 자동으로 바뀜! */
+`
+```
+
+**핵심**: 토큰의 실제 값(색상, 간격, 폰트 크기 등)은 CSS 변수로, 런타임에 동적으로 처리합니다.
+
+### 어떤 토큰이 반응형인가요?
+
+**다크모드 대응** (light/dark 테마에 따라 값 변경):
+
+- `theme.color` (semantic 색상) ✅
+
+**반응형 대응** (Desktop/Tablet/Mobile 화면 크기에 따라 값 변경):
+
+- `theme.scheme` (spacing, radius 등) ✅
+- `theme.typo` (fontSize, lineHeight 등) ✅
+- `theme.textStyle` (typo 포함하므로 반응형) ✅
+
+**고정 값** (변경 없음):
+
+- `theme.colorPrimitive` (원시 색상 값)
+- `theme.environment` (환경 변수)
+- `theme.breakPoint` (미디어쿼리 문자열)
+
+## 🎯 기본 사용법
+
+```tsx
+import { useTheme } from "@emotion/react";
+import { css } from "@emotion/react";
+
+const MyComponent = () => {
+  const theme = useTheme(); // 타입이 자동으로 추론됨
+
+  return (
+    <div
+      css={css`
+        /* 색상 토큰 */
+        color: ${theme.color.semantic.accent.normal};
+        background-color: ${theme.color.semantic.surface.standard};
+
+        /* 간격 토큰 */
+        padding: ${theme.scheme.semantic.spacing[4]};
+        border-radius: ${theme.scheme.semantic.radius[2]};
+
+        /* 타이포그래피 토큰 (한 번에 모든 속성 적용) */
+        ${theme.textStyle["semantic-textStyle-body-md-normal"]}
+      `}
+    >
+      Hello JDS!
+    </div>
+  );
+};
+```
+
+## 📚 토큰 구조
+
+### theme.color.semantic
+
+다크/라이트 모드에 따라 자동으로 전환되는 semantic 색상 토큰입니다.
+
+```typescript
+theme.color.semantic.accent.normal;
+theme.color.semantic.surface.standard;
+theme.color.semantic.object.subtle;
+```
+
+### theme.colorPrimitive
+
+고정된 원시 색상 값입니다. semantic 색상을 우선 사용하세요.
+
+```typescript
+theme.colorPrimitive.primitive.flow[500];
+theme.colorPrimitive.primitive.gray[800];
+```
+
+### theme.scheme
+
+반응형 레이아웃 토큰입니다 (Desktop/Tablet/Mobile 자동 대응).
+
+```typescript
+theme.scheme.semantic.spacing[4]; // 간격
+theme.scheme.semantic.radius[2]; // radius
+theme.scheme.semantic.opacity[50]; // 투명도
+```
+
+### theme.typo
+
+반응형 타이포그래피 개별 속성 토큰입니다.
+
+```typescript
+theme.typo.primitive.fontSize.body.md;
+theme.typo.primitive.fontWeight.body.bold;
+theme.typo.primitive.lineHeight.body.md;
+```
+
+### theme.textStyle
+
+모든 타이포그래피 속성이 통합된 토큰입니다.반응형 자동 대응됩니다.
+
+```typescript
+theme.textStyle["semantic-textStyle-body-md-normal"];
+theme.textStyle["semantic-textStyle-hero-4"];
+```
+
+### theme.environment
+
+애니메이션 관련 토큰입니다.
+
+```typescript
+theme.environment.semantic.duration[100];
+theme.environment.semantic.motion.fluent;
+```
+
+### theme.breakPoint
+
+미디어쿼리 문자열입니다. media query 조건을 활용해야 할 경우 사용할 수 있습니다
+
+```typescript
+theme.breakPoint.desktop; // "@media (min-width: 1200px) and ..."
+theme.breakPoint.tablet;
+theme.breakPoint.mobile;
+```
+
+## 💡 Figma 변수명 → 코드 매핑 규칙
+
+Figma에 정의된 변수명을 코드에서 사용하는 방법입니다
+
+피그마의 UI를 더블클릭하면, 오른쪽 패널에서 `속성명` : `적용된 토큰명`을 확인할 수 있습니다.
+만약 토큰이 적용되어 있다면, 반드시 해당 토큰을 사용해서 스타일을 정의해야 합니다(하드코딩 금지)
+
+![Figma 토큰 확인 예시](https://github.com/user-attachments/assets/22c05a12-9023-49a3-b3e1-387062f2d17a)
+
+### 📐 기본 변환 규칙
+
+**패턴**: Figma의 `/`를 `.`로 변경, 숫자는 `[숫자]` 형태로
+
+- typescript를 통해 자동완성을 지원하고 있어서, 쉽게 파악할 수 있습니다
+
+```
+Figma: semantic/accent/normal
+  ↓
+Code: theme.color.semantic.accent.normal
+
+Figma: semantic/spacing/4
+  ↓
+Code: theme.scheme.semantic.spacing[4]
+```
+
+### Collection별 매핑 예시
+
+**color-semantic Collection**
+
+- Figma: `semantic/accent/normal` → Code: `theme.color.semantic.accent.normal`
+
+**scheme Collection**
+
+- Figma: `semantic/spacing/4` → Code: `theme.scheme.semantic.spacing[4]`
+- Figma: `semantic/opacity/100` → Code: `theme.scheme.semantic.opacity[100]`
+
+**color-primitive Collection**
+
+- Figma: `primitive/flow/500` → Code: `theme.colorPrimitive.primitive.flow[500]`
+
+**typography Collection**
+
+- Figma: `primitive/font-size/body/md` → Code: `theme.typo.primitive.fontSize.body.md`
+
+**textStyle Collection**
+
+- Figma: `semantic-textStyle-body-md-normal` → Code: `theme.textStyle['semantic-textStyle-body-md-normal']`
+
+### Collection별 상세 예시
+
+**color-semantic** → `theme.color.semantic.*`
+
+```typescript
+// Figma: semantic/accent/normal
+theme.color.semantic.accent.normal;
+
+// Figma: semantic/surface/standard
+theme.color.semantic.surface.standard;
+```
+
+**scheme** → `theme.scheme.semantic.*`
+
+```typescript
+// Figma: semantic/spacing/4
+theme.scheme.semantic.spacing[4];
+
+// Figma: semantic/radius/2
+theme.scheme.semantic.radius[2];
+```
+
+**typography** → `theme.typo.primitive.*`
+
+```typescript
+// Figma: primitive/font-size/body/md
+theme.typo.primitive.fontSize.body.md;
+
+// Figma: primitive/font-weight/body/bold
+theme.typo.primitive.fontWeight.body.bold;
+```
+
+**textStyle** → `theme.textStyle['...']`
+
+- textStyle이 적용된 Figma는 Typograhpy라는 속성명이 표시되고, `name` 이 존재합니다. 이 name을 적용하면 됩니다.
+
+```typescript
+// Figma: semantic-textStyle-body-md-normal
+theme.textStyle["semantic-textStyle-body-md-normal"];
+
+// ⚠️ textStyle의 경우
+```
+
+## ⚠️ 중요한 주의사항
+
+- **자동 생성**: 토큰 파일들은 Figma에서 자동 생성되므로 직접 수정하지 마세요
+- **textStyle 권장**: 일관된 타이포그래피를 위해 textStyle 토큰을 사용하세요
+- **CSS 변수**: 모든 토큰은 CSS 변수로 구현되어 반응형과 테마가 자동 처리됩니다
+
+## 📖 예시
+
+### 기본 사용법
+
+<Canvas of={TokensStories.HowToUseTokens} />
+
+### 다크모드 자동 전환 데모
+
+Storybook의 다크모드 토글을 사용해서 semantic 토큰이 자동으로 전환되는 것을 확인해보세요!
+
+```tsx
+// 같은 토큰이지만 다크모드에서 자동으로 다른 색상 적용
+const Card = () => {
+  const theme = useTheme();
+
+  return (
+    <div
+      css={css`
+        background-color: ${theme.color.semantic.surface.shallow};
+        color: ${theme.color.semantic.accent.normal};
+        border: 1px solid ${theme.color.semantic.object.subtle};
+      `}
+    >
+      다크모드 토글을 눌러보세요!
+    </div>
+  );
+};
+```
+
+### 반응형 자동 처리
+
+토큰은 CSS 변수로 구현되어 있어 반응형도 자동으로 처리됩니다. 브라우저 창 크기를 조절해보세요!
+
+```tsx
+// spacing과 fontSize가 화면 크기에 따라 자동 조절
+const ResponsiveComponent = () => {
+  const theme = useTheme();
+
+  return (
+    <div
+      css={css`
+        padding: ${theme.scheme.semantic.spacing[4]};
+        ${theme.textStyle["semantic-textStyle-body-md-normal"]}
+
+        @media (max-width: 768px) {
+          padding: ${theme.scheme.semantic.spacing[2]};
+        }
+      `}
+    >
+      반응형 컴포넌트
+    </div>
+  );
+};
+```
+
+## 🎨 모든 토큰 보기
+
+### 색상 토큰
+
+<Canvas of={TokensStories.ColorPrimitive} />
+<Canvas of={TokensStories.ColorSemantic} />
+
+### 타이포그래피 토큰
+
+<Canvas of={TokensStories.Typography} />
+<Canvas of={TokensStories.TextStyle} />
+
+### 레이아웃 토큰
+
+<Canvas of={TokensStories.Scheme} />
+
+### 통합 예시
+
+<Canvas of={TokensStories.AllTokensCombined} />

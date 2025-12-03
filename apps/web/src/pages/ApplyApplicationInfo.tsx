@@ -1,19 +1,19 @@
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from "react-router-dom";
 
-import BlockButton from '@/components/common/button/BlockButton';
-import Icon from '@/components/common/icon/Icon';
-import InputField from '@/components/common/input/InputField';
-import ProgressIndicator from '@/components/common/progress/ProgressIndicator';
-import Title from '@/components/common/title/Title';
-import { APPLY_TITLE } from '@/constants/applyPageData';
-import { PATH } from '@/constants/path';
-import { useApplyApplicantInfoForm } from '@/hooks/useApplyApplicantInfoForm';
-import useCheckApplicationStatus from '@/hooks/useCheckApplicationStatus';
-import { useMemberProfileInitialMutation } from '@/hooks/useMemberProfileInitialMutation';
-import { ApplyApplicantInfoFormData } from '@/schema/applySchema';
-import { MemberProfileInitialPayload } from '@/types/apis/apply';
-import { handleError } from '@/utils/errorLogger';
-import { CreateSubmitHandler } from '@/utils/formHelpers';
+import BlockButton from "@/components/common/button/BlockButton";
+import Icon from "@/components/common/icon/Icon";
+import InputField from "@/components/common/input/InputField";
+import ProgressIndicator from "@/components/common/progress/ProgressIndicator";
+import Title from "@/components/common/title/Title";
+import { APPLY_TITLE } from "@/constants/applyPageData";
+import { PATH } from "@/constants/path";
+import { useApplyApplicantInfoForm } from "@/hooks/useApplyApplicantInfoForm";
+import useCheckApplicationStatus from "@/hooks/useCheckApplicationStatus";
+import { useMemberProfileInitialMutation } from "@/hooks/useMemberProfileInitialMutation";
+import type { ApplyApplicantInfoFormData } from "@/schema/applySchema";
+import type { MemberProfileInitialPayload } from "@/types/apis/apply";
+import { handleError } from "@/utils/errorLogger";
+import { CreateSubmitHandler } from "@/utils/formHelpers";
 
 function ApplyApplicantInfo() {
   const navigate = useNavigate();
@@ -33,8 +33,8 @@ function ApplyApplicantInfo() {
     return <Navigate to={PATH.main} replace />;
   }
 
-  const name = watch('name');
-  const phoneNumber = watch('phoneNumber');
+  const name = watch("name");
+  const phoneNumber = watch("phoneNumber");
 
   const onSubmit = (data: ApplyApplicantInfoFormData) => {
     const profileData: MemberProfileInitialPayload = {
@@ -44,12 +44,12 @@ function ApplyApplicantInfo() {
 
     updateProfileMutate(profileData, {
       onSuccess: response => {
-        if (response.status === 'SUCCESS') {
+        if (response.status === "SUCCESS") {
           void navigate(PATH.applyRegistration);
         }
       },
       onError: error => {
-        handleError(error, '프로필 업데이트 실패');
+        handleError(error, "프로필 업데이트 실패");
       },
     });
   };
@@ -76,8 +76,8 @@ function ApplyApplicantInfo() {
             isError={!!errors.name}
             isSuccess={name?.length > 0 && !errors.name}
             placeholder='김젝트'
-            helper={errors.name ? errors.name.message : ''}
-            {...register('name')}
+            helper={errors.name ? errors.name.message : ""}
+            {...register("name")}
           />
           <InputField
             type='tel'
@@ -85,8 +85,8 @@ function ApplyApplicantInfo() {
             isError={!!errors.phoneNumber}
             isSuccess={phoneNumber?.length > 0 && !errors.phoneNumber}
             placeholder='01012345678'
-            helper={errors.phoneNumber ? errors.phoneNumber.message : ''}
-            {...register('phoneNumber')}
+            helper={errors.phoneNumber ? errors.phoneNumber.message : ""}
+            {...register("phoneNumber")}
           />
         </form>
         <BlockButton
@@ -101,8 +101,8 @@ function ApplyApplicantInfo() {
               size='md'
               fillColor={
                 isSubmitButtonDisabled
-                  ? 'fill-accent-trans-hero-dark'
-                  : 'fill-object-static-inverse-hero-dark'
+                  ? "fill-accent-trans-hero-dark"
+                  : "fill-object-static-inverse-hero-dark"
               }
             />
           }

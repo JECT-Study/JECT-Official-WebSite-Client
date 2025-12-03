@@ -1,14 +1,14 @@
-import clsx from 'clsx';
-import { forwardRef, ComponentPropsWithoutRef, ReactNode } from 'react';
+import clsx from "clsx";
+import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import { forwardRef } from "react";
 
+import type { Size, Hierarchy } from "@/components/common/button/labelButton.style";
 import {
   labelButtonStyle,
-  Size,
-  Hierarchy,
   labelButtonInteractionMap,
-} from '@/components/common/button/labelButton.style';
+} from "@/components/common/button/labelButton.style";
 
-export interface LabelButtonProps extends ComponentPropsWithoutRef<'button'> {
+export interface LabelButtonProps extends ComponentPropsWithoutRef<"button"> {
   children?: ReactNode;
   leftIcon?: ReactNode;
   rightIcon?: ReactNode;
@@ -20,10 +20,10 @@ export const LabelButton = forwardRef<HTMLButtonElement, LabelButtonProps>(
   ({ children, leftIcon, rightIcon, size, hierarchy, className, disabled, ...props }, ref) => {
     const { variant, density, isInversed } = labelButtonInteractionMap[hierarchy];
 
-    const interaction = `interaction-${variant}-${density}${isInversed ? '-inverse-scale' : '-scale'}`;
+    const interaction = `interaction-${variant}-${density}${isInversed ? "-inverse-scale" : "-scale"}`;
 
     const baseClasses =
-      'inline-flex flex-row py-0 px-0 justify-center items-center gap-4xs radius-xs transition-faster-fluent before:scale-x-118 before:scale-y-129';
+      "inline-flex flex-row py-0 px-0 justify-center items-center gap-4xs radius-xs transition-faster-fluent before:scale-x-118 before:scale-y-129";
 
     const combinedClasses = clsx(
       interaction,
@@ -31,8 +31,8 @@ export const LabelButton = forwardRef<HTMLButtonElement, LabelButtonProps>(
       labelButtonStyle.size[size],
       disabled ? labelButtonStyle.disabled?.[hierarchy] : labelButtonStyle.hierarchy[hierarchy],
       {
-        'cursor-not-allowed pointer-events-none': disabled,
-        'cursor-pointer pointer-events-auto': !disabled,
+        "cursor-not-allowed pointer-events-none": disabled,
+        "cursor-pointer pointer-events-auto": !disabled,
       },
       className,
     );
@@ -47,6 +47,6 @@ export const LabelButton = forwardRef<HTMLButtonElement, LabelButtonProps>(
   },
 );
 
-LabelButton.displayName = 'LabelButton';
+LabelButton.displayName = "LabelButton";
 
 export default LabelButton;

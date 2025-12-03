@@ -1,7 +1,7 @@
-import BlockButton from '@/components/common/button/BlockButton';
-import Icon from '@/components/common/icon/Icon';
-import Label from '@/components/common/label/Label';
-import Title from '@/components/common/title/Title';
+import BlockButton from "@/components/common/button/BlockButton";
+import Icon from "@/components/common/icon/Icon";
+import Label from "@/components/common/label/Label";
+import Title from "@/components/common/title/Title";
 
 function RecruitmentComplete() {
   const GENERATION = 3;
@@ -27,7 +27,7 @@ function RecruitmentComplete() {
           }
           className='min-w-[26.25rem] cursor-pointer'
           onClick={() =>
-            window.open('https://forms.gle/NB3bBYYgBVN9cV4M7', '_blank', 'noopener,noreferrer')
+            window.open("https://forms.gle/NB3bBYYgBVN9cV4M7", "_blank", "noopener,noreferrer")
           }
         >
           {`${GENERATION + 1}기 모집 알림 신청`}

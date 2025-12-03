@@ -1,4 +1,4 @@
-import { MutableRefObject, Ref } from 'react';
+import type { MutableRefObject, Ref } from "react";
 
 /**
  * 여러 개의 React ref를 하나로 병합하는 유틸리티 함수입니다.
@@ -26,9 +26,9 @@ export const mergeRefs = <T>(...refs: (Ref<T> | undefined)[]) => {
     refs.forEach(ref => {
       if (!ref) return;
 
-      if (typeof ref === 'function') {
+      if (typeof ref === "function") {
         ref(element);
-      } else if ('current' in ref) {
+      } else if ("current" in ref) {
         (ref as MutableRefObject<T | null>).current = element;
       }
     });

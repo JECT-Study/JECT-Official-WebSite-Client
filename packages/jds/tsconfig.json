@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "ES2020",
     "useDefineForClassFields": true,
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "lib": ["ES2021", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
     "moduleResolution": "Bundler",
@@ -12,7 +12,7 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "jsxImportSource": "@emotion/react",
-    "types": ["@emotion/react/types/css-prop"],
+    "types": ["@emotion/react/types/css-prop", "node"],
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -32,6 +32,6 @@
       "@/*": ["*"]
     }
   },
-  "include": ["src/**/*", "entire-convert.js", "fonts.d.ts"],
-  "exclude": ["dist", "node_modules", "**/*.stories.tsx", "**/*.test.tsx"]
+  "include": ["src/**/*", "fonts.d.ts"],
+  "exclude": ["dist", "node_modules"]
 }

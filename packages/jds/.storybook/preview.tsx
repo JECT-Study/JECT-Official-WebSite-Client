@@ -1,6 +1,7 @@
-import type { Preview } from '@storybook/react';
-import { darkTheme, lightTheme, ThemeProvider } from '../src/theme';
-import { GlobalStyles } from '../src/style';
+import "./index.css";
+import type { Preview } from "@storybook/react-vite";
+import React from "react";
+import { JDSThemeProvider } from "../src/theme";
 
 const preview: Preview = {
   parameters: {
@@ -10,20 +11,17 @@ const preview: Preview = {
         date: /Date$/i,
       },
     },
-    backgrounds: {
-      default: 'dark',
-    },
   },
   globalTypes: {
     theme: {
-      name: 'Theme',
-      description: '전역 테마 스위처',
-      defaultValue: 'light',
+      name: "ThemeMode",
+      description: "Change theme mode",
+      defaultValue: "light",
       toolbar: {
-        icon: 'circlehellow',
+        icon: "sun",
         items: [
-          { value: 'light', title: 'Light', icon: 'circlehollow' },
-          { value: 'dark', title: 'Dark', icon: 'circle' },
+          { value: "light", title: "Light", icon: "sun" },
+          { value: "dark", title: "Dark", icon: "moon" },
         ],
         showName: true,
       },
@@ -31,16 +29,24 @@ const preview: Preview = {
   },
   decorators: [
     (Story, context) => {
-      const theme = context.globals.theme === 'light' ? lightTheme : darkTheme;
+      const backgroundColor = context.globals.theme === "light" ? "#ffffff" : "#21232c";
+      document.body.style.background = backgroundColor;
+
+      const docsStories = document.querySelectorAll(".docs-story");
+      docsStories.forEach(el => {
+        (el as HTMLElement).style.background = backgroundColor;
+      });
+
       return (
-        <ThemeProvider theme={theme}>
-          <GlobalStyles />
-          <Story />
-        </ThemeProvider>
+        <JDSThemeProvider>
+          <div data-theme={context.globals.theme}>
+            <Story />
+          </div>
+        </JDSThemeProvider>
       );
     },
   ],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 };
 
 export default preview;

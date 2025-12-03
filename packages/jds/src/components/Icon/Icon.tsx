@@ -1,14 +1,23 @@
-import { useTheme } from 'theme';
-import { IconProps } from './Icon.types';
-import { iconMap, sizeMap } from './IconMap';
+import { type ElementRef, forwardRef } from "react";
 
-export const Icon = ({ name, size = 'md', color }: IconProps) => {
-  const IconComponent = iconMap[name];
-  if (!IconComponent) return null;
+import { StyledIconWrapper } from "./Icon.styles";
+import type { IconProps } from "./Icon.types";
+import { iconMap, sizeMap } from "./IconMap";
 
-  const pixelSize = sizeMap[size];
-  const theme = useTheme();
-  const BaseColor = color ?? theme.color.object.boldest;
+export const Icon = forwardRef<ElementRef<typeof StyledIconWrapper>, IconProps>(
+  ({ name, size = "md", color = "currentColor", ...props }, ref) => {
+    const IconComponent = iconMap[name];
 
-  return <IconComponent width={pixelSize} height={pixelSize} color={BaseColor} />;
-};
+    if (!IconComponent) return null;
+
+    const pixelSize = sizeMap[size];
+
+    return (
+      <StyledIconWrapper ref={ref}>
+        <IconComponent width={pixelSize} height={pixelSize} color={color} {...props} />
+      </StyledIconWrapper>
+    );
+  },
+);
+
+Icon.displayName = "Icon";

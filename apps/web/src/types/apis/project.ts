@@ -22,7 +22,7 @@ export interface ProjectReviewsQueryParams {
   size: number;
 }
 
-export type ProjectCategory = 'MAIN' | 'HACKATHON';
+export type ProjectCategory = "MAIN" | "HACKATHON";
 
 export interface Project {
   id: number;

@@ -1,108 +1,118 @@
-import { CSSObject, Theme } from '@emotion/react';
-import { Density, FillColor, InteractionState, Variant } from 'types';
+import type { Theme } from "@emotion/react";
+import type { Density, FillColor, InteractionState, Variant } from "types";
 
 export function interaction(
   theme: Theme,
   variant: Variant,
   density: Density,
   fillColor: FillColor,
-  state: InteractionState = 'default',
-): CSSObject {
+  state: InteractionState = "default",
+  borderRadius: string = "inherit",
+) {
   const createAfter = (backgroundColor: string) => {
     const baseStyle = {
-      position: 'relative' as const,
-      outline: 'none' as const,
+      position: "relative",
+      outline: "none",
     };
 
     const afterBaseStyle = {
       content: '""',
-      position: 'absolute' as const,
+      position: "absolute",
       top: 0,
       left: 0,
-      width: '100%',
-      height: '100%',
+      width: "100%",
+      height: "100%",
       backgroundColor: backgroundColor,
-      borderRadius: 'inherit' as const,
-      pointerEvents: 'none' as const,
+      borderRadius,
     };
 
-    if (state === 'locked') {
+    if (state === "locked") {
       return {
         ...baseStyle,
-        '::after': { ...afterBaseStyle, opacity: 0.08 },
+        "::after": { ...afterBaseStyle, opacity: 0.08 },
       };
     }
 
-    if (state === 'disabled') {
+    if (state === "disabled") {
       return {
         ...baseStyle,
-        '::after': { ...afterBaseStyle, opacity: 0.05 },
+        "::after": { ...afterBaseStyle, opacity: 0.05 },
       };
     }
 
-    if (state === 'readonly') {
+    if (state === "readonly") {
       return {
         ...baseStyle,
-        '::after': { ...afterBaseStyle, opacity: 0 },
+        "::after": { ...afterBaseStyle, opacity: 0 },
       };
     }
 
     return {
       ...baseStyle,
-      '::after': { ...afterBaseStyle, opacity: 0 },
-      '&:hover::after': { opacity: 0.08 },
-      '&:active::after': { opacity: 0.12 },
-      '&:focus-visible': { boxShadow: `0 0 0 3px ${theme.color.interaction.focus}` },
+      "::after": { ...afterBaseStyle, opacity: 0 },
+      "&:hover::after": { opacity: 0.08 },
+      "&:active::after": { opacity: 0.12 },
+      "&:focus-visible": { boxShadow: `0 0 0 3px ${theme.color.semantic.interaction.focus}` },
     };
   };
 
-  if (fillColor === 'default') {
-    if (variant === 'normal') {
-      if (density === 'bold') return createAfter(theme.color.interaction.bold);
-      if (density === 'normal') return createAfter(theme.color.interaction.normal);
-      if (density === 'assistive') return createAfter(theme.color.interaction.assistive);
-      if (density === 'subtle') return createAfter(theme.color.interaction.subtle);
-    } else if (variant === 'accent') {
-      if (density === 'bold') return createAfter(theme.color.accent.bold);
-      if (density === 'normal') return createAfter(theme.color.accent.normal);
-      if (density === 'assistive') return createAfter(theme.color.accent.neutral);
-      if (density === 'subtle') return createAfter(theme.color.accent.alternative);
-    } else if (variant === 'positive') {
-      if (density === 'bold') return createAfter(theme.color.feedback.positive.bold);
-      if (density === 'normal') return createAfter(theme.color.feedback.positive.normal);
-      if (density === 'assistive') return createAfter(theme.color.feedback.positive.neutral);
-      if (density === 'subtle') return createAfter(theme.color.feedback.positive.alternative);
-    } else if (variant === 'destructive') {
-      if (density === 'bold') return createAfter(theme.color.feedback.destructive.bold);
-      if (density === 'normal') return createAfter(theme.color.feedback.destructive.normal);
-      if (density === 'assistive') return createAfter(theme.color.feedback.destructive.neutral);
-      if (density === 'subtle') return createAfter(theme.color.feedback.destructive.alternative);
+  if (fillColor === "default") {
+    if (variant === "normal") {
+      if (density === "bold") return createAfter(theme.color.semantic.interaction.bold);
+      if (density === "normal") return createAfter(theme.color.semantic.interaction.normal);
+      if (density === "assistive") return createAfter(theme.color.semantic.interaction.assistive);
+      if (density === "subtle") return createAfter(theme.color.semantic.interaction.subtle);
+    } else if (variant === "accent") {
+      if (density === "bold") return createAfter(theme.color.semantic.accent.bold);
+      if (density === "normal") return createAfter(theme.color.semantic.accent.normal);
+      if (density === "assistive") return createAfter(theme.color.semantic.accent.neutral);
+      if (density === "subtle") return createAfter(theme.color.semantic.accent.alternative);
+    } else if (variant === "positive") {
+      if (density === "bold") return createAfter(theme.color.semantic.feedback.positive.bold);
+      if (density === "normal") return createAfter(theme.color.semantic.feedback.positive.normal);
+      if (density === "assistive")
+        return createAfter(theme.color.semantic.feedback.positive.neutral);
+      if (density === "subtle")
+        return createAfter(theme.color.semantic.feedback.positive.alternative);
+    } else if (variant === "destructive") {
+      if (density === "bold") return createAfter(theme.color.semantic.feedback.destructive.bold);
+      if (density === "normal")
+        return createAfter(theme.color.semantic.feedback.destructive.normal);
+      if (density === "assistive")
+        return createAfter(theme.color.semantic.feedback.destructive.neutral);
+      if (density === "subtle")
+        return createAfter(theme.color.semantic.feedback.destructive.alternative);
     }
-  } else if (fillColor === 'inverse') {
-    if (variant === 'normal') {
-      if (density === 'bold') return createAfter(theme.color.interaction.inverse.bold);
-      if (density === 'normal') return createAfter(theme.color.interaction.inverse.normal);
-      if (density === 'assistive') return createAfter(theme.color.interaction.inverse.assistive);
-      if (density === 'subtle') return createAfter(theme.color.interaction.inverse.subtle);
-    } else if (variant === 'accent') {
-      if (density === 'bold') return createAfter(theme.color.accent.inverse.bold);
-      if (density === 'normal') return createAfter(theme.color.accent.inverse.normal);
-      if (density === 'assistive') return createAfter(theme.color.accent.inverse.neutral);
-      if (density === 'subtle') return createAfter(theme.color.accent.inverse.alternative);
-    } else if (variant === 'positive') {
-      if (density === 'bold') return createAfter(theme.color.feedback.positive.inverse.bold);
-      if (density === 'normal') return createAfter(theme.color.feedback.positive.inverse.normal);
-      if (density === 'assistive')
-        return createAfter(theme.color.feedback.positive.inverse.neutral);
-      if (density === 'subtle')
-        return createAfter(theme.color.feedback.positive.inverse.alternative);
-    } else if (variant === 'destructive') {
-      if (density === 'bold') return createAfter(theme.color.feedback.destructive.inverse.bold);
-      if (density === 'normal') return createAfter(theme.color.feedback.destructive.inverse.normal);
-      if (density === 'assistive')
-        return createAfter(theme.color.feedback.destructive.inverse.neutral);
-      if (density === 'subtle')
-        return createAfter(theme.color.feedback.destructive.inverse.alternative);
+  } else if (fillColor === "inverse") {
+    if (variant === "normal") {
+      if (density === "bold") return createAfter(theme.color.semantic.interaction.inverse.bold);
+      if (density === "normal") return createAfter(theme.color.semantic.interaction.inverse.normal);
+      if (density === "assistive")
+        return createAfter(theme.color.semantic.interaction.inverse.assistive);
+      if (density === "subtle") return createAfter(theme.color.semantic.interaction.inverse.subtle);
+    } else if (variant === "accent") {
+      if (density === "bold") return createAfter(theme.color.semantic.accent.inverse.bold);
+      if (density === "normal") return createAfter(theme.color.semantic.accent.inverse.normal);
+      if (density === "assistive") return createAfter(theme.color.semantic.accent.inverse.neutral);
+      if (density === "subtle") return createAfter(theme.color.semantic.accent.inverse.alternative);
+    } else if (variant === "positive") {
+      if (density === "bold")
+        return createAfter(theme.color.semantic.feedback.positive.inverse.bold);
+      if (density === "normal")
+        return createAfter(theme.color.semantic.feedback.positive.inverse.normal);
+      if (density === "assistive")
+        return createAfter(theme.color.semantic.feedback.positive.inverse.neutral);
+      if (density === "subtle")
+        return createAfter(theme.color.semantic.feedback.positive.inverse.alternative);
+    } else if (variant === "destructive") {
+      if (density === "bold")
+        return createAfter(theme.color.semantic.feedback.destructive.inverse.bold);
+      if (density === "normal")
+        return createAfter(theme.color.semantic.feedback.destructive.inverse.normal);
+      if (density === "assistive")
+        return createAfter(theme.color.semantic.feedback.destructive.inverse.neutral);
+      if (density === "subtle")
+        return createAfter(theme.color.semantic.feedback.destructive.inverse.alternative);
     }
   }
 

@@ -1,19 +1,13 @@
-import clsx from 'clsx';
-import {
-  ChangeEvent,
-  ComponentPropsWithoutRef,
-  forwardRef,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import clsx from "clsx";
+import type { ChangeEvent, ComponentPropsWithoutRef } from "react";
+import { forwardRef, useEffect, useRef, useState } from "react";
 
-import TextArea from './TextArea';
+import TextArea from "./TextArea";
 
-import Label from '@/components/common/label/Label';
-import { mergeRefs } from '@/utils/mergeRefs';
+import Label from "@/components/common/label/Label";
+import { mergeRefs } from "@/utils/mergeRefs";
 
-interface InputAreaProps extends ComponentPropsWithoutRef<'textarea'> {
+interface InputAreaProps extends ComponentPropsWithoutRef<"textarea"> {
   labelText: string;
   errorHelper?: string;
 }
@@ -22,7 +16,7 @@ const InputArea = forwardRef<HTMLTextAreaElement, InputAreaProps>(
   (
     {
       labelText,
-      errorHelper = '',
+      errorHelper = "",
       maxLength = 0,
       disabled,
       required,
@@ -33,7 +27,7 @@ const InputArea = forwardRef<HTMLTextAreaElement, InputAreaProps>(
     },
     ref,
   ) => {
-    const [text, setText] = useState(value ?? '');
+    const [text, setText] = useState(value ?? "");
     const textareaRef = useRef<HTMLTextAreaElement | null>(null);
     const textLength = text.toString().length;
     const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -46,8 +40,8 @@ const InputArea = forwardRef<HTMLTextAreaElement, InputAreaProps>(
       const ref = textareaRef.current;
 
       if (ref) {
-        ref.style.height = 'auto';
-        ref.style.height = ref.scrollHeight + 'px';
+        ref.style.height = "auto";
+        ref.style.height = ref.scrollHeight + "px";
       }
     }, [text]);
 
@@ -57,7 +51,7 @@ const InputArea = forwardRef<HTMLTextAreaElement, InputAreaProps>(
           hierarchy='normal'
           weight='normal'
           isRequired={required}
-          textColor={`${disabled ? 'text-object-assistive-dark' : 'text-object-neutral-dark'}`}
+          textColor={`${disabled ? "text-object-assistive-dark" : "text-object-neutral-dark"}`}
         >
           {labelText}
         </Label>
@@ -74,16 +68,16 @@ const InputArea = forwardRef<HTMLTextAreaElement, InputAreaProps>(
         />
         <div className='peer-focus:*:last:text-object-neutral-dark flex justify-between'>
           <p
-            className={`${disabled ? 'text-feedback-trans-negative-dark' : 'text-feedback-negative-dark'} body-sm`}
+            className={`${disabled ? "text-feedback-trans-negative-dark" : "text-feedback-negative-dark"} body-sm`}
           >
-            {textLength > maxLength ? errorHelper : ''}
+            {textLength > maxLength ? errorHelper : ""}
           </p>
           <div
             className={clsx(
-              textLength > maxLength && 'text-feedback-negative-dark!',
-              disabled && 'text-object-disabled-dark',
-              !disabled && 'text-object-assistive-dark',
-              'body-sm cursor-default self-end',
+              textLength > maxLength && "text-feedback-negative-dark!",
+              disabled && "text-object-disabled-dark",
+              !disabled && "text-object-assistive-dark",
+              "body-sm cursor-default self-end",
             )}
           >
             {`${textLength}/${maxLength}`}
@@ -94,6 +88,6 @@ const InputArea = forwardRef<HTMLTextAreaElement, InputAreaProps>(
   },
 );
 
-InputArea.displayName = 'InputArea';
+InputArea.displayName = "InputArea";
 
 export default InputArea;

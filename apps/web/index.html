@@ -15,19 +15,22 @@
 
     <script src="https://cdn.amplitude.com/libs/analytics-browser-2.11.1-min.js.gz"></script>
     <script src="https://cdn.amplitude.com/libs/plugin-session-replay-browser-1.8.0-min.js.gz"></script>
-    
+
     <!-- Google Tag Manager -->
     <script>
-      (function(w,d,s,l,i){
-        w[l]=w[l]||[]; w[l].push({'gtm.start': new Date().getTime(), event:'gtm.js'});
-        var f=d.getElementsByTagName(s)[0],
-          j=d.createElement(s), dl=l!='dataLayer'?'&l='+l:'';
-        j.async=true; j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
-        f.parentNode.insertBefore(j,f);
-      })(window,document,'script','dataLayer','GTM-TMPMTHJ3');
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-TMPMTHJ3");
     </script>
     <!-- End Google Tag Manager -->
-    
+
     <title>젝트</title>
     <meta
       name="description"
@@ -44,15 +47,16 @@
     <meta property="og:url" content="https://ject.kr/" />
   </head>
   <body>
-  <!-- Google Tag Manager (noscript) -->
-  <noscript>
-    <iframe
-      src="https://www.googletagmanager.com/ns.html?id=GTM-TMPMTHJ3"
-      height="0" width="0"
-      style="display:none;visibility:hidden"
-    ></iframe>
-  </noscript>
-  <!-- End Google Tag Manager (noscript) -->
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+      <iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-TMPMTHJ3"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

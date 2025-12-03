@@ -1,13 +1,12 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { Icon } from './Icon';
-import { IconProps } from './Icon.types';
-import { useTheme } from 'theme';
+import type { Meta, StoryObj } from "@storybook/react-vite";
+
+import { Icon } from "./Icon";
 
 const meta = {
-  title: 'Components/Icon',
+  title: "Components/Icon",
   component: Icon,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
 } satisfies Meta<typeof Icon>;
 
@@ -16,20 +15,27 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    name: 'absolute',
-    size: '5xl',
-    color: '#fff',
+    name: "absolute",
+    size: "5xl",
   },
 };
 
-export const ThemedIcon: Story = {
+export const WithCustomColor: Story = {
   args: {
-    name: 'absolute',
-    size: '3xl',
-    color: '',
+    name: "heart-3-fill",
+    size: "3xl",
+    color: "#ff0000",
   },
-  render: (args: IconProps) => {
-    const theme = useTheme();
-    return <Icon {...args} color={theme.color.theme.red.neutral} />;
+};
+
+export const InheritColor: Story = {
+  args: {
+    name: "check-line",
+    size: "2xl",
   },
+  render: args => (
+    <div style={{ color: "#00ff00" }}>
+      <Icon {...args} />
+    </div>
+  ),
 };

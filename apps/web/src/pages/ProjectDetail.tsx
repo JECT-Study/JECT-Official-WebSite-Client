@@ -1,15 +1,15 @@
-import { Navigate, useParams } from 'react-router-dom';
+import { Navigate, useParams } from "react-router-dom";
 
-import cardSampleImage from '@/assets/CardSample.png';
-import BlockButton from '@/components/common/button/BlockButton';
-import CalloutInformation from '@/components/common/callout/CalloutInformation';
-import EmptyData from '@/components/common/emptyState/EmptyData';
-import Icon from '@/components/common/icon/Icon';
-import Label from '@/components/common/label/Label';
-import { Tab, TabHeader, TabItem, TabPanel } from '@/components/common/tab/Tab';
-import Title from '@/components/common/title/Title';
-import { PATH } from '@/constants/path';
-import { useProjectDetailQuery } from '@/hooks/useProjectDetailQuery';
+import cardSampleImage from "@/assets/CardSample.png";
+import BlockButton from "@/components/common/button/BlockButton";
+import CalloutInformation from "@/components/common/callout/CalloutInformation";
+import EmptyData from "@/components/common/emptyState/EmptyData";
+import Icon from "@/components/common/icon/Icon";
+import Label from "@/components/common/label/Label";
+import { Tab, TabHeader, TabItem, TabPanel } from "@/components/common/tab/Tab";
+import Title from "@/components/common/title/Title";
+import { PATH } from "@/constants/path";
+import { useProjectDetailQuery } from "@/hooks/useProjectDetailQuery";
 
 const ProjectDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -19,7 +19,7 @@ const ProjectDetail = () => {
     isError,
     isSuccess,
     isPending,
-  } = useProjectDetailQuery(id ?? '');
+  } = useProjectDetailQuery(id ?? "");
 
   if (isPending) {
     return null;
@@ -31,7 +31,7 @@ const ProjectDetail = () => {
 
   if (
     isSuccess &&
-    (projectDetailData?.status === 'PROJECT_NOT_FOUND' || !projectDetailData?.data)
+    (projectDetailData?.status === "PROJECT_NOT_FOUND" || !projectDetailData?.data)
   ) {
     return <Navigate to={PATH.notFoundError} replace />;
   }
@@ -39,10 +39,10 @@ const ProjectDetail = () => {
   const project = projectDetailData.data;
 
   const teamRoles = [
-    { id: 'fe', title: 'FE', members: project.teamMemberNames?.frontendDevelopers ?? [] },
-    { id: 'be', title: 'BE', members: project.teamMemberNames?.backendDevelopers ?? [] },
-    { id: 'pm', title: 'PM', members: project.teamMemberNames?.productManagers ?? [] },
-    { id: 'pd', title: 'PD', members: project.teamMemberNames?.productDesigners ?? [] },
+    { id: "fe", title: "FE", members: project.teamMemberNames?.frontendDevelopers ?? [] },
+    { id: "be", title: "BE", members: project.teamMemberNames?.backendDevelopers ?? [] },
+    { id: "pm", title: "PM", members: project.teamMemberNames?.productManagers ?? [] },
+    { id: "pd", title: "PD", members: project.teamMemberNames?.productDesigners ?? [] },
   ];
 
   const techStack = project.techStack ?? [];
@@ -78,7 +78,7 @@ const ProjectDetail = () => {
           size='lg'
           style='solid'
           hierarchy='primary'
-          onClick={() => window.open(project.serviceUrl, '_blank', 'noopener,noreferrer')}
+          onClick={() => window.open(project.serviceUrl, "_blank", "noopener,noreferrer")}
           rightIcon={<Icon name='northEast' size='md' fillColor='fill-object-inverse-hero-dark' />}
         >
           서비스 바로가기

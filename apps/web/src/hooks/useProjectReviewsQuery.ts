@@ -1,10 +1,10 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useInfiniteQuery } from "@tanstack/react-query";
 
-import { getProjectReviews } from '@/apis/project';
+import { getProjectReviews } from "@/apis/project";
 
 export const useProjectReviewsQuery = () => {
   return useInfiniteQuery({
-    queryKey: ['getProjectReviews'],
+    queryKey: ["getProjectReviews"],
     queryFn: ({ pageParam = 0 }) => {
       const size = pageParam === 0 ? 4 : 10;
       return getProjectReviews({

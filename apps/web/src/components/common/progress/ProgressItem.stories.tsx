@@ -1,25 +1,25 @@
-import { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import ProgressItem from './ProgressItem';
+import ProgressItem from "./ProgressItem";
 
 const meta: Meta<typeof ProgressItem> = {
-  title: 'Components/Progress/ProgressItem',
+  title: "Components/Progress/ProgressItem",
   component: ProgressItem,
   argTypes: {
     index: {
-      control: 'number',
+      control: "number",
     },
     title: {
-      control: 'text',
+      control: "text",
     },
     subTitle: {
-      control: 'text',
+      control: "text",
     },
     content: {
-      control: 'text',
+      control: "text",
     },
     isActive: {
-      control: 'boolean',
+      control: "boolean",
     },
   },
 };
@@ -31,15 +31,15 @@ type Story = StoryObj<typeof ProgressItem>;
 export const Default: Story = {
   args: {
     index: 1,
-    title: '프로그래스 타이틀',
-    subTitle: '서브타이틀',
-    content: '프로그레스 내용',
+    title: "프로그래스 타이틀",
+    subTitle: "서브타이틀",
+    content: "프로그레스 내용",
     isActive: false,
   },
 };
 
 export const Primary: Story = {
-  name: 'ProgressItem',
+  name: "ProgressItem",
   render: () => {
     return (
       <ProgressItem

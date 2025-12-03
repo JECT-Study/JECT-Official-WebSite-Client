@@ -1,17 +1,16 @@
-import styled from '@emotion/styled';
-import { textStyle } from 'utils';
+import styled from "@emotion/styled";
 
 export const SIZE_TO_TEXT_STYLE = {
-  xs: 'hero.1',
-  sm: 'hero.2',
-  md: 'hero.3',
-  lg: 'hero.4',
+  xs: "semantic-textStyle-hero-1",
+  sm: "semantic-textStyle-hero-2",
+  md: "semantic-textStyle-hero-3",
+  lg: "semantic-textStyle-hero-4",
 } as const;
 
 export const TEXT_ALIGN_MAPPING = {
-  center: 'center',
-  left: 'flex-start',
-  right: 'flex-end',
+  center: "center",
+  left: "flex-start",
+  right: "flex-end",
 } as const;
 
 export type HeroSize = keyof typeof SIZE_TO_TEXT_STYLE;
@@ -28,13 +27,11 @@ export const HeroDiv = styled.div<StyledHeroProps>(({ theme, size, textAlign, co
   const justifyContent = TEXT_ALIGN_MAPPING[textAlign];
 
   return {
-    display: 'flex',
+    display: "flex",
     justifyContent,
-    alignItems: 'center',
+    alignItems: "center",
     color,
-    cursor: 'default',
-    [theme.breakPoint.mobile]: { ...textStyle(theme, 'mobile', textStyleKey) },
-    [theme.breakPoint.tablet]: { ...textStyle(theme, 'tablet', textStyleKey) },
-    [theme.breakPoint.desktop]: { ...textStyle(theme, 'desktop', textStyleKey) },
+    cursor: "default",
+    ...theme.textStyle[textStyleKey],
   };
 });

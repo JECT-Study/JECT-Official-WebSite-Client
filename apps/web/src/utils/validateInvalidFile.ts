@@ -13,7 +13,7 @@ export const validateValidFile = async (file: File) => {
   try {
     const buffer = await file.arrayBuffer();
     const header = new TextDecoder().decode(buffer.slice(0, 4));
-    return header === '%PDF';
+    return header === "%PDF";
   } catch {
     return false;
   }

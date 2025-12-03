@@ -1,20 +1,20 @@
-import { useEffect } from 'react';
-import { Navigate } from 'react-router-dom';
+import { useEffect } from "react";
+import { Navigate } from "react-router-dom";
 
-import FileField from './FileField';
-import SelectField from './SelectField';
-import TextField from './textField';
-import UrlField from './UrlField';
-import LabelButton from '../common/button/LabelButton';
-import Icon from '../common/icon/Icon';
-import Label from '../common/label/Label';
+import FileField from "./FileField";
+import SelectField from "./SelectField";
+import TextField from "./textField";
+import UrlField from "./UrlField";
+import LabelButton from "../common/button/LabelButton";
+import Icon from "../common/icon/Icon";
+import Label from "../common/label/Label";
 
-import { PATH } from '@/constants/path';
-import useQuestionsQuery from '@/hooks/useQuestionsQuery';
-import { useToastActions } from '@/stores/toastStore';
-import { JobFamily, PortfolioResponse } from '@/types/apis/application';
-import { Application } from '@/types/ui/application';
-import { validateApplication } from '@/utils/validateApplication';
+import { PATH } from "@/constants/path";
+import useQuestionsQuery from "@/hooks/useQuestionsQuery";
+import { useToastActions } from "@/stores/toastStore";
+import type { JobFamily, PortfolioResponse } from "@/types/apis/application";
+import type { Application } from "@/types/ui/application";
+import { validateApplication } from "@/utils/validateApplication";
 
 interface AnswersProps {
   questionJob: JobFamily | null;
@@ -38,7 +38,7 @@ function Answers({
   const status = data?.status;
 
   useEffect(() => {
-    if (status !== 'SUCCESS' || !questions) return;
+    if (status !== "SUCCESS" || !questions) return;
 
     const isCompleted = validateApplication(questions, application);
 
@@ -49,11 +49,11 @@ function Answers({
     if (isPending) return;
 
     if (isError) {
-      return addToast('일시적 오류로 추가 질문들을 불러올 수 없었어요.', 'negative');
+      return addToast("일시적 오류로 추가 질문들을 불러올 수 없었어요.", "negative");
     }
 
-    if (status && status !== 'SUCCESS') {
-      return addToast('일시적 오류로 추가 질문들을 불러올 수 없었어요.', 'negative');
+    if (status && status !== "SUCCESS") {
+      return addToast("일시적 오류로 추가 질문들을 불러올 수 없었어요.", "negative");
     }
   }, [isError, addToast, status, isPending]);
 
@@ -61,7 +61,7 @@ function Answers({
     return null;
   }
 
-  if (isError || status !== 'SUCCESS') {
+  if (isError || status !== "SUCCESS") {
     return (
       <div className='gap-md flex flex-col text-center'>
         <Label hierarchy='normal' weight='normal' textColor='text-feedback-negative-dark'>
@@ -89,7 +89,7 @@ function Answers({
     <form action='' className='gap-7xl flex flex-col' encType='multipart/form-data'>
       {questions?.map(data => {
         switch (data.inputType) {
-          case 'TEXT':
+          case "TEXT":
             return (
               <TextField
                 key={data.id}
@@ -98,7 +98,7 @@ function Answers({
                 value={application.answers[data.id]}
               />
             );
-          case 'URL':
+          case "URL":
             return (
               <UrlField
                 key={data.id}
@@ -107,7 +107,7 @@ function Answers({
                 value={application.answers[data.id]}
               />
             );
-          case 'FILE':
+          case "FILE":
             return (
               <FileField
                 key={data.id}
@@ -116,7 +116,7 @@ function Answers({
                 values={application.portfolios}
               />
             );
-          case 'SELECT':
+          case "SELECT":
             return (
               <SelectField
                 key={data.id}

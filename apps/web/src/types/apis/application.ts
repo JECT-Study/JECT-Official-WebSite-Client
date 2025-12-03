@@ -1,9 +1,9 @@
-export type JobFamily = 'PM' | 'PD' | 'FE' | 'BE';
+export type JobFamily = "PM" | "PD" | "FE" | "BE";
 
 export interface Question {
   id: number;
   sequence: number;
-  inputType: 'TEXT' | 'URL' | 'FILE' | 'SELECT';
+  inputType: "TEXT" | "URL" | "FILE" | "SELECT";
   isRequired: boolean;
   title: string;
   label: string;

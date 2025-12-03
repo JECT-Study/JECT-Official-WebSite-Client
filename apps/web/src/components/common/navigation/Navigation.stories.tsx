@@ -1,11 +1,11 @@
-import { Meta, StoryObj } from '@storybook/react';
-import { MemoryRouter } from 'react-router-dom';
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { MemoryRouter } from "react-router-dom";
 
-import Navigation from './Navigation';
-import NavigationItem from './NavigationItem';
+import Navigation from "./Navigation";
+import NavigationItem from "./NavigationItem";
 
 const meta: Meta<typeof Navigation> = {
-  title: 'Components/Navigation',
+  title: "Components/Navigation",
   component: Navigation,
   decorators: [
     Story => (
@@ -16,7 +16,7 @@ const meta: Meta<typeof Navigation> = {
   ],
   argTypes: {
     children: {
-      description: 'NavigationItem 컴포넌트들을 children으로 배치합니다.',
+      description: "NavigationItem 컴포넌트들을 children으로 배치합니다.",
     },
   },
 };
@@ -26,7 +26,7 @@ export default meta;
 type Story = StoryObj<typeof Navigation>;
 
 export const NavigationStory: Story = {
-  name: 'NavigationStory',
+  name: "NavigationStory",
   render: () => {
     return (
       <>

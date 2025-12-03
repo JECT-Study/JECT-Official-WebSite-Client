@@ -1,7 +1,7 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState } from "react";
 
-import { AnswersResponse, JobFamily, PortfolioResponse } from '@/types/apis/application';
-import { Application } from '@/types/ui/application';
+import type { AnswersResponse, JobFamily, PortfolioResponse } from "@/types/apis/application";
+import type { Application } from "@/types/ui/application";
 
 const initialAnswer: Application = {
   answers: {},

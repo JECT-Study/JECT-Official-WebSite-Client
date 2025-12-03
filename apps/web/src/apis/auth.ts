@@ -1,8 +1,8 @@
-import axios from 'axios';
+import axios from "axios";
 
-import { API_ENDPOINT } from '@/constants/apiEndpoint';
-import { RefreshTokenResponse } from '@/types/apis/auth';
-import { ApiResponse } from '@/types/apis/response';
+import { API_ENDPOINT } from "@/constants/apiEndpoint";
+import type { RefreshTokenResponse } from "@/types/apis/auth";
+import type { ApiResponse } from "@/types/apis/response";
 
 const BASE_URL = import.meta.env.PROD
   ? import.meta.env.VITE_API_URL_PROD
@@ -13,7 +13,7 @@ export const refreshAccessToken = async (): Promise<ApiResponse<RefreshTokenResp
     .post<ApiResponse<RefreshTokenResponse>>(`${BASE_URL}${API_ENDPOINT.refreshToken}`, null, {
       withCredentials: true,
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     })
     .then(response => response.data);
