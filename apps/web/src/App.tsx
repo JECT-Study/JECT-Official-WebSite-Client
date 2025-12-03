@@ -1,4 +1,5 @@
 import "./instrument";
+import "./utils/apiTest";
 
 import { JDSThemeProvider } from "@ject/jds/theme";
 import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from "@tanstack/react-query";
