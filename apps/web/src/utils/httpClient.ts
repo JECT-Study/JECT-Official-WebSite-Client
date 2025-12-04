@@ -9,12 +9,12 @@ function validate<T>(schema: z.ZodType<T>, data: unknown): unknown {
   return data;
 }
 
-async function request<T>(
+async function request<T = unknown>(
   url: string,
   method: "get" | "post" | "put" | "delete",
   data?: unknown,
   schema?: z.ZodType<T>,
-): Promise<unknown> {
+): Promise<T> {
   const response = await axiosInstance({ url, method, data });
 
   if (schema) {
