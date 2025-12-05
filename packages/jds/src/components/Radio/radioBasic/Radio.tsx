@@ -1,14 +1,10 @@
-import { ComponentPropsWithoutRef, forwardRef } from 'react';
-import { RadioInput, RadioLabel, RadioSpan } from './Radio.style';
+import { forwardRef } from "react";
 
-export type RadioSize = 'lg' | 'md' | 'sm' | 'xs';
-
-export interface RadioProps extends ComponentPropsWithoutRef<'input'> {
-  radioSize?: RadioSize;
-}
+import { RadioInput, RadioLabel, RadioSpan } from "./Radio.style";
+import type { RadioProps } from "./radio.types";
 
 export const Radio = forwardRef<HTMLInputElement, RadioProps>(
-  ({ radioSize = 'md', ...props }, ref) => {
+  ({ radioSize = "md", ...props }, ref) => {
     return (
       <RadioLabel radioSize={radioSize}>
         <RadioInput ref={ref} type='radio' {...props} />
@@ -18,4 +14,4 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(
   },
 );
 
-Radio.displayName = 'Radio';
+Radio.displayName = "Radio";

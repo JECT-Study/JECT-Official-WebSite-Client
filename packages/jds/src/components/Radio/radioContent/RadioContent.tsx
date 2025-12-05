@@ -1,68 +1,54 @@
-import { forwardRef, ReactNode } from 'react';
-import { Radio, RadioProps } from '../radioBasic/Radio';
-import { Label } from '@/components/Label';
-import { RadioContainerLabel } from './RadioContent.style';
-import { useTheme } from 'theme';
-import { SUB_LABEL_SIZE } from './radioContent.variants';
+import { forwardRef } from "react";
 
-export interface RadioContentProps extends RadioProps {
-  radioStyle?: 'empty' | 'outline';
-  align?: 'left' | 'right';
-  disabled?: boolean;
-  subLabelVisible?: boolean;
-  subLabel?: ReactNode;
-  children: ReactNode;
-}
+import {
+  RadioContainerLabel,
+  StyledLabel,
+  StyledSubLabel,
+  subLabelSizeMap,
+} from "./RadioContent.style";
+import type { RadioContentProps } from "./radioContent.types";
+import { Radio } from "../radioBasic/Radio";
 
 export const RadioContent = forwardRef<HTMLInputElement, RadioContentProps>(
   (
     {
-      radioSize = 'md',
-      radioStyle = 'empty',
-      align = 'left',
+      radioSize = "md",
+      radioStyle = "empty",
+      align = "left",
       disabled = false,
       subLabelVisible = false,
-      subLabel = '',
+      subLabel = "",
       children,
       ...props
     },
     ref,
   ) => {
-    const theme = useTheme();
-    const labelColor = disabled ? theme.color.object.subtle : theme.color.object.bold;
-    const subLabelColor = disabled ? theme.color.object.subtle : theme.color.object.assistive;
-
     return (
       <RadioContainerLabel
         radioSize={radioSize}
         isDisabled={disabled}
-        isAlignRight={align === 'right'}
-        isStyleOutline={radioStyle === 'outline'}
+        isAlignRight={align === "right"}
+        isStyleOutline={radioStyle === "outline"}
       >
-        {align === 'right' && (
-          <Label size={radioSize} textAlign='left' weight='normal' color={labelColor}>
+        {align === "right" && (
+          <StyledLabel $size={radioSize} $isDisabled={disabled}>
             {children}
-          </Label>
+          </StyledLabel>
         )}
         <Radio ref={ref} radioSize={radioSize} disabled={disabled} {...props} />
-        {align === 'left' && (
-          <Label size={radioSize} textAlign='left' weight='normal' color={labelColor}>
+        {align === "left" && (
+          <StyledLabel $size={radioSize} $isDisabled={disabled}>
             {children}
-          </Label>
+          </StyledLabel>
         )}
-        {subLabelVisible && (
-          <Label
-            size={SUB_LABEL_SIZE[radioSize]}
-            textAlign='left'
-            weight='subtle'
-            color={subLabelColor}
-          >
+        {subLabelVisible && ( //TODO: 하이퍼링크 안댐
+          <StyledSubLabel $size={radioSize} $isDisabled={disabled}>
             {subLabel}
-          </Label>
+          </StyledSubLabel>
         )}
       </RadioContainerLabel>
     );
   },
 );
 
-RadioContent.displayName = 'RadioContent';
+RadioContent.displayName = "RadioContent";

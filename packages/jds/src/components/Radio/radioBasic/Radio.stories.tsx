@@ -1,17 +1,19 @@
-import React, { useState } from 'react';
-import { Meta, StoryObj } from '@storybook/react';
-import { Radio, RadioProps, RadioSize } from './Radio';
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { useState } from "react";
+
+import { Radio } from "./Radio";
+import type { RadioProps, RadioSize } from "./radio.types";
 
 const meta: Meta<typeof Radio> = {
-  title: 'Components/Radio',
+  title: "Components/Radio",
   component: Radio,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
   argTypes: {
     radioSize: {
-      control: { type: 'radio' },
-      options: ['lg', 'md', 'sm', 'xs'],
+      control: { type: "radio" },
+      options: ["lg", "md", "sm", "xs"],
     },
   },
 };
@@ -22,7 +24,7 @@ type Story = StoryObj<typeof Radio>;
 
 export const Default: Story = {
   args: {
-    radioSize: 'lg',
+    radioSize: "lg",
   },
 };
 
@@ -32,7 +34,7 @@ export const Checked: Story = {
 
 export const Disabled: Story = {
   render: () => (
-    <div style={{ display: 'flex', gap: 20 }}>
+    <div style={{ display: "flex", gap: 20 }}>
       <Radio radioSize='md' name='disabledGroup' value='2' checked={false} disabled={true} />
       <Radio radioSize='md' name='disabledGroup' value='1' checked={true} disabled={true} />
     </div>
@@ -41,12 +43,12 @@ export const Disabled: Story = {
 
 export const Sizes: Story = {
   render: () => {
-    const [checkedSize, setCheckedSize] = useState<RadioSize | undefined>('md');
+    const [checkedSize, setCheckedSize] = useState<RadioSize | undefined>("md");
 
-    const sizes: RadioProps['radioSize'][] = ['lg', 'md', 'sm', 'xs'];
+    const sizes: RadioProps["radioSize"][] = ["lg", "md", "sm", "xs"];
 
     return (
-      <div style={{ display: 'flex', gap: 20, alignItems: 'center' }}>
+      <div style={{ display: "flex", gap: 20, alignItems: "center" }}>
         {sizes.map(radioSize => (
           <Radio
             key={radioSize}
