@@ -31,3 +31,10 @@ export interface RadioLabelProps {
 export interface RadioSubLabelProps {
   children: ReactNode;
 }
+
+export interface RadioGroupProps {
+  value?: string;
+  onChange?: (value: string) => void;
+  name?: string;
+  children: ReactNode;
+}

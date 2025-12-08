@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexColumn, FlexRow } from "@storybook-utils/layout";
-import type { ChangeEvent, FormEvent } from "react";
+import type { FormEvent } from "react";
 import { useState } from "react";
 
+import { Radio } from "../Radio";
 import { RadioContent } from "./RadioContent";
 
 const meta: Meta<typeof RadioContent.Left> = {
@@ -141,29 +142,20 @@ export const SubLabelWithHyperlink: Story = {
 
 export const ControlledRadio: Story = {
   render: () => {
-    const [checked, setChecked] = useState("korea");
-
-    const handleGenderChange = (e: ChangeEvent<HTMLInputElement>) => {
-      setChecked(e.target.value);
-    };
+    const [selected, setSelected] = useState("korea");
 
     const items = ["korea", "japan", "us", "uk"];
 
     return (
       <div style={{ display: "flex", gap: 20 }}>
-        {items.map(item => (
-          <RadioContent.Left
-            key={item}
-            radioSize='md'
-            name='radioGroup'
-            value={item}
-            checked={checked === item}
-            onChange={handleGenderChange}
-          >
-            {item}
-          </RadioContent.Left>
-        ))}
-        <p>결과: {checked}</p>
+        <Radio.Group value={selected} onChange={setSelected} name='country'>
+          {items.map(item => (
+            <RadioContent.Left key={item} radioSize='md' value={item}>
+              {item}
+            </RadioContent.Left>
+          ))}
+        </Radio.Group>
+        <p>결과: {selected}</p>
       </div>
     );
   },
