@@ -7,10 +7,12 @@ import Header from "@/components/common/navigation/Header";
 import PagesContainer from "@/components/layout/PagesContainer";
 
 function NonSpecificError() {
-  const error = useRouteError() as Error;
+  const error = useRouteError() as Error | undefined;
 
   useEffect(() => {
-    captureException(error);
+    if (error) {
+      captureException(error);
+    }
   }, [error]);
 
   return (
