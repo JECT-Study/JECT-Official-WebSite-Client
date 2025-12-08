@@ -21,6 +21,7 @@ export const TestApi = async (
   method: HttpMethod = "GET",
   body?: unknown,
   params?: Record<string, string>,
+  headers?: Record<string, string>,
 ) => {
   const startTime = performance.now();
   const result: TestResult = {
@@ -37,23 +38,25 @@ export const TestApi = async (
     url = `${endpoint}?${queryString}`;
   }
 
+  const config = headers ? { headers } : undefined;
+
   try {
     let response;
     switch (method) {
       case "GET":
-        response = await httpClient.get(url);
+        response = await httpClient.get(url, config);
         break;
       case "POST":
-        response = await httpClient.post(url, body);
+        response = await httpClient.post(url, body, config);
         break;
       case "PUT":
-        response = await httpClient.put(url, body);
+        response = await httpClient.put(url, body, config);
         break;
       case "PATCH":
-        response = await httpClient.patch(url, body);
+        response = await httpClient.patch(url, body, config);
         break;
       case "DELETE":
-        response = await httpClient.delete(url);
+        response = await httpClient.delete(url, config);
         break;
     }
 
@@ -175,6 +178,9 @@ export const testVerifyEmailCode = (
   template: "AUTH_CODE" | "PIN_RESET" = "AUTH_CODE",
 ) => TestApi(API_ENDPOINT.verifyEmailCode, "POST", { email, authCode }, { template });
 
+export const testApplyMember = (pin: string = "123456") =>
+  TestApi(API_ENDPOINT.applyMember, "POST", { pin });
+
 export const testPinLogin = (email: string = "test@example.com", pin: string = "123456") =>
   TestApi(API_ENDPOINT.pinLogin, "POST", { email, pin });
 
@@ -189,8 +195,27 @@ export const testMemberProfileInitial = (
 export const testResetPin = (pin: string = "654321") =>
   TestApi(API_ENDPOINT.resetPin, "PUT", { pin });
 
+export const testRefreshToken = () => TestApi(API_ENDPOINT.refreshToken, "POST");
+
 export const testGetQuestions = (jobFamily: "PM" | "PD" | "FE" | "BE" = "FE") =>
   TestApi(API_ENDPOINT.question, "GET", undefined, { jobFamily });
+
+export const testApplyProfile = (
+  name: string = "홍길동",
+  phoneNumber: string = "010-1234-5678",
+  jobFamily: "PM" | "PD" | "FE" | "BE" = "PM",
+  careerDetails: "STUDENT" | "EMPLOYED" | "UNEMPLOYED" = "STUDENT",
+  experiencePeriod: "NONE" | "LESS_THAN_1" | "MORE_THAN_1" = "NONE",
+  interestedDomains: string[] = ["Web Development"],
+) =>
+  TestApi(API_ENDPOINT.applyProfile, "POST", {
+    name,
+    phoneNumber,
+    jobFamily,
+    careerDetails,
+    experiencePeriod,
+    interestedDomains,
+  });
 
 export const testSaveDraft = (
   jobFamily: "PM" | "PD" | "FE" | "BE" = "FE",
@@ -225,6 +250,16 @@ export const testUploadPortfolio = (
     },
   ],
 ) => TestApi(API_ENDPOINT.uploadPortfolio, "POST", files);
+
+export const testUploadContent = (
+  files: Array<{ name: string; contentType: string; contentLength: number }> = [
+    {
+      name: "content.pdf",
+      contentType: "application/pdf",
+      contentLength: 1024000,
+    },
+  ],
+) => TestApi(API_ENDPOINT.uploadContent, "POST", files);
 
 export const sampleData = {
   sendGroupCode: {
@@ -281,17 +316,21 @@ if (typeof window !== "undefined") {
     memberProfileStatus: testMemberProfileStatus,
     draft: testDraft,
     getQuestions: testGetQuestions,
+    applyProfile: testApplyProfile,
     checkEmailExists: testCheckEmailExists,
     sendAuthCode: testSendAuthCode,
     verifyEmailCode: testVerifyEmailCode,
+    applyMember: testApplyMember,
     pinLogin: testPinLogin,
     registerMember: testRegisterMember,
     memberProfileInitial: testMemberProfileInitial,
     resetPin: testResetPin,
+    refreshToken: testRefreshToken,
     saveDraft: testSaveDraft,
     deleteDraft: testDeleteDraft,
     submitAnswer: testSubmitAnswer,
     uploadPortfolio: testUploadPortfolio,
+    uploadContent: testUploadContent,
     custom: TestApi,
     samples: sampleData,
   };
