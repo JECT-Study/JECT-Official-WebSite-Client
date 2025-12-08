@@ -23,31 +23,31 @@ export const createClient = (config?: AxiosRequestConfig): AxiosInstance => {
   });
 
   instance.interceptors.response.use(
-    async response => {
-      const responseData = response.data as ApiResponse<unknown>;
+    response => response,
+    async error => {
+      const originalRequest = error.config as ExtendedAxiosRequestConfig;
 
-      //TODO: BE에서 response가 200 + G-07로 오는 경우 (API 변경점 확인 후 제거 혹은 이동)
-      if (responseData?.status === "G-07") {
-        const originalRequest = response.config as ExtendedAxiosRequestConfig;
+      //TODO: 401 체크가 필요한지 검토 (GLOBAL-6는 항상 401에서만 발생하는지 확인)
+      if (error.response?.status === 401) {
+        const responseData = error.response.data as ApiResponse<unknown>;
 
-        if (originalRequest._retry) {
-          return response;
+        if (responseData?.status === "GLOBAL-6") {
+          if (originalRequest._retry) {
+            throw error;
+          }
+
+          originalRequest._retry = true;
+
+          const refreshResponse = await refreshAccessToken();
+
+          if (refreshResponse.status === "SUCCESS" && refreshResponse.data) {
+            return instance(originalRequest);
+          }
+
+          throw new Error("토큰 갱신 응답이 올바르지 않습니다.");
         }
-
-        originalRequest._retry = true;
-
-        const refreshResponse = await refreshAccessToken();
-
-        if (refreshResponse.status === "SUCCESS" && refreshResponse.data) {
-          return instance(originalRequest);
-        }
-
-        throw new Error("토큰 갱신 응답이 올바르지 않습니다.");
       }
 
-      return response;
-    },
-    error => {
       throw error;
     },
   );
