@@ -1,11 +1,6 @@
 import { forwardRef } from "react";
 
-import {
-  RadioContainerLabel,
-  StyledLabel,
-  StyledSubLabel,
-  subLabelSizeMap,
-} from "./RadioContent.style";
+import { RadioContainerLabel, StyledLabel, StyledSubLabel } from "./RadioContent.style";
 import type { RadioContentProps } from "./radioContent.types";
 import { Radio } from "../radioBasic/Radio";
 

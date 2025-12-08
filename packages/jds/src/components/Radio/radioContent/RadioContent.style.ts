@@ -3,7 +3,6 @@ import { interaction } from "utils";
 
 import type { RadioSize, StyledLabelProps } from "./radioContent.types";
 
-import { Label } from "@/components/Label";
 import type { LabelSize } from "@/components/Label/Label.style";
 
 interface RadioContainerProps {
@@ -128,7 +127,7 @@ export const RadioContainerLabel = styled.label<RadioContainerProps>(
         ...nonCheckedInteraction["::after"],
         ...addonInteraction,
         transition: `all ${theme.environment.semantic.duration[100]}ms ${theme.environment.semantic.motion.fluent}`,
-        pointerEvents: "none",
+        pointerEvents: "none" as const,
       },
 
       "&:active::after": {
@@ -140,6 +139,7 @@ export const RadioContainerLabel = styled.label<RadioContainerProps>(
         "::after": {
           ...checkedInteraction["::after"],
           ...addonInteraction,
+          pointerEvents: "none" as const,
         },
       },
 
