@@ -127,6 +127,7 @@ export const RadioContainerLabel = styled.label<RadioContainerProps>(
         ...nonCheckedInteraction["::after"],
         ...addonInteraction,
         transition: `all ${theme.environment.semantic.duration[100]}ms ${theme.environment.semantic.motion.fluent}`,
+        pointerEvents: "none",
       },
 
       "&:active::after": {
@@ -168,9 +169,7 @@ export const StyledSubLabel = styled("div")<StyledLabelProps>(({ theme, $size, $
   return {
     ...theme.textStyle[`semantic-textStyle-label-${subLabelSizeMap[$size]}-subtle`],
     color: $isDisabled ? theme.color.semantic.object.subtle : theme.color.semantic.object.bold,
+    position: "relative",
+    zIndex: 10,
   };
 });
-
-// export const StyledSubLabel = styled(Label)<StyledLabelProps>(({ theme, $isDisabled }) => ({
-//   color: $isDisabled ? theme.color.semantic.object.subtle : theme.color.semantic.object.assistive,
-// }));

@@ -41,7 +41,7 @@ export const RadioContent = forwardRef<HTMLInputElement, RadioContentProps>(
             {children}
           </StyledLabel>
         )}
-        {subLabelVisible && ( //TODO: 하이퍼링크 안댐
+        {subLabelVisible && (
           <StyledSubLabel $size={radioSize} $isDisabled={disabled}>
             {subLabel}
           </StyledSubLabel>
