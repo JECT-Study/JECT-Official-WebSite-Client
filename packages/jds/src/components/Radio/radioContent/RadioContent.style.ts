@@ -98,18 +98,19 @@ export const RadioContainerLabel = styled.label<RadioContainerProps>(
         };
 
     return {
-      display: "grid",
+      display: "inline-grid",
       gridTemplateColumns: "auto 1fr",
+      alignItems: "center",
       "& > :nth-child(1)": {
         gridColumn: 1,
         gridRow: 1,
-        justifyItems: "center",
+        display: "flex",
         alignItems: "center",
       },
       "& > :nth-child(2)": {
         gridColumn: 2,
         gridRow: 1,
-        justifyItems: "center",
+        display: "flex",
         alignItems: "center",
       },
       "& > :nth-child(3)": {
