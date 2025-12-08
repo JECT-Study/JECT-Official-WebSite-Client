@@ -1,4 +1,4 @@
-import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import type { ChangeEventHandler, ComponentPropsWithoutRef, ReactNode } from "react";
 
 import type { RadioSize } from "../radio.types";
 
@@ -9,4 +9,7 @@ export interface RadioContentProps extends Omit<ComponentPropsWithoutRef<"input"
   subLabelVisible?: boolean;
   subLabel?: ReactNode;
   children: ReactNode;
+  checked?: boolean;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
+  defaultChecked?: boolean;
 }
