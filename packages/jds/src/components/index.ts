@@ -15,6 +15,7 @@ export * from "./Button/LabelButton";
 export * from "./Logo";
 export * from "./SegmentedControl";
 export * from "./Select";
+export * from "./Step";
 export * from "./Title";
 export * from "./Tooltip";
 export * from "./Uploader";
