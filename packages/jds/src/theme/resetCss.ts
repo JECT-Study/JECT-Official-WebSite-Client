@@ -26,6 +26,8 @@ export const resetCss = {
   // role=list를 가진 목록의 기본 스타일 제거
   "ul[role='list'], ol[role='list']": {
     listStyle: "none",
+    padding: 0,
+    margin: 0,
   },
 
   // 핵심 body 기본값
@@ -78,5 +80,6 @@ export const resetCss = {
     background: "none",
     cursor: "pointer",
     padding: "0",
+    outline: 0,
   },
 } satisfies GlobalStyleObject;
