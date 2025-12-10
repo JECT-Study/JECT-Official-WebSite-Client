@@ -32,5 +32,3 @@ export const StyledMenuGroup = styled("ul")<StyledMenuGroupProps>(({ $size, them
     ...menuGroupSizeMap(theme)[$size],
   };
 });
-
-export const StyledMenuItem = styled("li")(() => {});
