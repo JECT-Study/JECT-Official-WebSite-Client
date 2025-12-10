@@ -70,7 +70,6 @@ export const resetCss = {
   // 추가: 클래스가 있는 a에 대해서만 기본 장식 제거 (기존 규칙 보완)
   "a[class]": {
     textDecoration: "none",
-    color: "inherit",
   },
 
   // 추가: 버튼 기본 스타일 초기화 및 포인터 커서
@@ -78,5 +77,6 @@ export const resetCss = {
     border: "none",
     background: "none",
     cursor: "pointer",
+    padding: "0",
   },
 } satisfies GlobalStyleObject;
