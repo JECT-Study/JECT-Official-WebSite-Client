@@ -44,7 +44,7 @@ const MenuItemButton = forwardRef<HTMLButtonElement, MenuItemButtonProps>(
             $size={size}
           />
         )}
-        <Label size={size} textAlign='left' weight='normal'>
+        <Label as='span' size={size} textAlign='left' weight='normal'>
           {children}
         </Label>
         {suffixIconVisible && <Icon name={suffixIcon} size={size} />}
@@ -93,7 +93,7 @@ const MenuItemAnchor = forwardRef<HTMLAnchorElement, MenuItemAnchorProps>(
             $size={size}
           />
         )}
-        <Label size={size} textAlign='left' weight='normal'>
+        <Label as='span' size={size} textAlign='left' weight='normal'>
           {children}
         </Label>
         {suffixIconVisible && <Icon name={suffixIcon} size={size} />}
