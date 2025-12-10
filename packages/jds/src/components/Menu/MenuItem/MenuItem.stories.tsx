@@ -4,7 +4,7 @@ import { FlexColumn, FlexRow } from "@storybook-utils/layout";
 import { MenuItem } from ".";
 
 const meta: Meta<typeof MenuItem.Button> = {
-  title: "Components/MenuItem",
+  title: "Components/Menu/MenuItem",
   component: MenuItem.Button,
   parameters: {
     layout: "centered",

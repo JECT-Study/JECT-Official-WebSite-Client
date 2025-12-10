@@ -7,7 +7,7 @@ import { IconButton } from "@/components/Button/IconButton";
 import { Label } from "@/components/Label";
 
 const meta: Meta<typeof Menu.Root> = {
-  title: "Components/Menu",
+  title: "Components/Menu/Menu",
   component: Menu.Root,
   parameters: {
     layout: "centered",
