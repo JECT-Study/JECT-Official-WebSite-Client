@@ -1,2 +1,7 @@
-export type { MenuItemButtonProps, MenuItemAnchorProps } from "./menuItem.types";
+export type {
+  MenuItemVariant,
+  MenuItemSize,
+  MenuItemButtonProps,
+  MenuItemAnchorProps,
+} from "./menuItem.types";
 export { MenuItem } from "./MenuItem";
