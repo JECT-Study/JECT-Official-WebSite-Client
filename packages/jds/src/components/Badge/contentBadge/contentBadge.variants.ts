@@ -10,7 +10,6 @@ import type {
   ThemeVariant,
 } from "../badge.types";
 
-
 export const iconSizeMap: Record<BadgeSize, IconSize> = {
   lg: "sm",
   md: "sm",
@@ -160,17 +159,17 @@ export const contentBadgeFeedbackStylesMap = (theme: Theme): ContentBadgeFeedbac
   },
   alpha: {
     positive: {
-      bg: theme.color.semantic.feedback.positive.alpha.subtle,
+      bg: theme.color.semantic.feedback.positive.alpha.subtler,
       color: theme.color.semantic.feedback.positive.normal,
       border: "none",
     },
     destructive: {
-      bg: theme.color.semantic.feedback.destructive.alpha.subtle,
+      bg: theme.color.semantic.feedback.destructive.alpha.subtler,
       color: theme.color.semantic.feedback.destructive.normal,
       border: "none",
     },
     notifying: {
-      bg: theme.color.semantic.feedback.notifying.alpha.subtle,
+      bg: theme.color.semantic.feedback.notifying.alpha.subtler,
       color: theme.color.semantic.feedback.notifying.normal,
       border: "none",
     },
