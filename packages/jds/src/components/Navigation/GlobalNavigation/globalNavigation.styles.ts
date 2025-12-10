@@ -4,6 +4,7 @@ import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import { pxToRem } from "utils";
 
 import type {
+  StyledGlobalNavigationContentProps,
   StyledGlobalNavigationListWrapperProps,
   StyledGlobalNavigationWrapperProps,
 } from "./globalNavigation.types";
@@ -112,11 +113,13 @@ export const StyledDividerWrapper = styled.div(() => ({
   height: pxToRem(16),
 }));
 
-export const StyledGlobalNavigationContent = styled(NavigationMenu.Content)(() => {
+export const StyledGlobalNavigationContent = styled(
+  NavigationMenu.Content,
+)<StyledGlobalNavigationContentProps>(({ $offset }) => {
   return {
     position: "absolute" as const,
     top: "100%",
     left: 0,
-    marginTop: "8px",
+    marginTop: $offset,
   };
 });
