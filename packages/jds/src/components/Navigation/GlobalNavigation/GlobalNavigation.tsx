@@ -45,7 +45,7 @@ const GlobalNavigationList = forwardRef<HTMLUListElement, GlobalNavigationListPr
   ({ children, align = "left", ...props }, ref) => {
     return (
       <StyledGlobalNavigationListWrapper $align={align}>
-        <StyledGlobalNavigationList ref={ref} {...props}>
+        <StyledGlobalNavigationList ref={ref} role='list' {...props}>
           {children}
         </StyledGlobalNavigationList>
       </StyledGlobalNavigationListWrapper>
