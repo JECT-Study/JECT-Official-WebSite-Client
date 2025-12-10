@@ -30,6 +30,10 @@ export const resetCss = {
     margin: 0,
   },
 
+  li: {
+    outline: "none",
+  },
+
   // 핵심 body 기본값
   body: {
     fontFamily: '"Pretendard Variable", "D2Coding", sans-serif',
@@ -80,6 +84,6 @@ export const resetCss = {
     background: "none",
     cursor: "pointer",
     padding: "0",
-    outline: 0,
+    outline: "none",
   },
 } satisfies GlobalStyleObject;
