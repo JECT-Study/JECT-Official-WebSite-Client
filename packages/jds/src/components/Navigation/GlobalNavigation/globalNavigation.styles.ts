@@ -29,12 +29,12 @@ export const StyledGlobalNavigationWrapper = styled.div<StyledGlobalNavigationWr
       justifyContent: "center",
       alignItems: "center",
       width: "100vw",
-      padding: `${theme.scheme.semantic.spacing[12]} ${theme.scheme.semantic.margin.md}`,
+      padding: `${theme.scheme.semantic.spacing[12]} ${theme.scheme.semantic.margin.lg}`,
       ...globalNavigationStyles,
 
       [theme.breakPoint.tablet]: {
         justifyContent: "flex-start",
-        padding: `${theme.scheme.semantic.spacing[10]} ${theme.scheme.semantic.margin.md}`,
+        padding: `${theme.scheme.semantic.spacing[10]} ${theme.scheme.semantic.margin.lg}`,
       },
 
       [theme.breakPoint.mobile]: {

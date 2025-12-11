@@ -25,10 +25,14 @@ export const NumericBadgeBasicDiv = styled.div<NumericBadgeBasicDivProps>(
     const color = isMuted
       ? numericBadgeBasicMutedStylesMap(theme)[badgeStyle].color
       : numericBadgeBasicStylesMap(theme)[badgeStyle][hierarchy].color;
+    const padding =
+      badgeStyle === "solid"
+        ? `${pxToRem(numericBadgeSizeMap[size].paddingTopBottom)} ${pxToRem(numericBadgeSizeMap[size].paddingLeftRight)}`
+        : 0;
 
     return {
       minWidth: pxToRem(numericBadgeSizeMap[size].minWidth),
-      padding: `${pxToRem(numericBadgeSizeMap[size].paddingTopBottom)} ${pxToRem(numericBadgeSizeMap[size].paddingLeftRight)}`,
+      padding,
       display: "inline-flex",
       justifyContent: "center",
       alignItems: "center",
@@ -54,10 +58,14 @@ export const NumericBadgeFeedbackDiv = styled.div<NumericBadgeFeedbackDivProps>(
     const color = isMuted
       ? numericBadgeFeedbacksMutedStylesMap(theme)[badgeStyle][variant].color
       : numericBadgeFeedbackStylesMap(theme)[badgeStyle][variant].color;
+    const padding =
+      badgeStyle === "solid"
+        ? `${pxToRem(numericBadgeSizeMap[size].paddingTopBottom)} ${pxToRem(numericBadgeSizeMap[size].paddingLeftRight)}`
+        : 0;
 
     return {
       minWidth: pxToRem(numericBadgeSizeMap[size].minWidth),
-      padding: `${pxToRem(numericBadgeSizeMap[size].paddingTopBottom)} ${pxToRem(numericBadgeSizeMap[size].paddingLeftRight)}`,
+      padding,
       display: "inline-flex",
       justifyContent: "center",
       alignItems: "center",
