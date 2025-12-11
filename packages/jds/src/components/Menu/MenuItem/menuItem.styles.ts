@@ -98,6 +98,10 @@ export const StyledMenuItemAnchor = styled("a", {
 
     "&:hover": {
       ...interactionStyles.hoverStyle,
+      "::after": {
+        ...interactionStyles.hoverStyle["::after"],
+        transition: `opacity ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
+      },
     },
 
     "&:active": {
