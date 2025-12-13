@@ -4,9 +4,9 @@ import type { CardCaptionProps } from "../Card.types";
 import { StyledCardCaption } from "./compound.styles";
 
 export const CardCaption = forwardRef<HTMLSpanElement, CardCaptionProps>(
-  ({ children, ...restProps }, ref) => {
+  ({ children, standalone = false, ...restProps }, ref) => {
     return (
-      <StyledCardCaption ref={ref} {...restProps}>
+      <StyledCardCaption ref={ref} $standalone={standalone} {...restProps}>
         {children}
       </StyledCardCaption>
     );

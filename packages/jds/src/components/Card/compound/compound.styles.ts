@@ -392,8 +392,10 @@ export const StyledCardBody = styled("p", {
 
 export const StyledCardCaption = styled("span", {
   shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith("$"),
-})(({ theme }) => ({
-  ...theme.textStyle["semantic-textStyle-label-xs-subtle"],
+})<{ $standalone?: boolean }>(({ theme, $standalone }) => ({
+  ...($standalone
+    ? theme.textStyle["semantic-textStyle-label-sm-subtle"]
+    : theme.textStyle["semantic-textStyle-label-xs-subtle"]),
   color: "var(--card-caption-color)",
   ...getTextEllipsisStyles(1),
 }));
