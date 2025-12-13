@@ -45,6 +45,7 @@ export const PlateWithLabelLink = forwardRef<HTMLDivElement, PlateWithLabelLinkP
         rel={rel}
         data-overlay
         $variant='plate'
+        $isDisabled={isDisabled}
       />
     </CardRoot>
   ),
@@ -62,6 +63,7 @@ export const PlateWithLabelButton = forwardRef<HTMLDivElement, PlateWithLabelBut
         type={type || "button"}
         data-overlay
         $variant='plate'
+        $isDisabled={isDisabled}
       />
     </CardRoot>
   ),

@@ -23,6 +23,7 @@ export const CardOverlay = PolymorphicForwardRef<"a", CardOverlayOwnProps>(
         data-overlay
         $variant={context.variant}
         $cardStyle={context.cardStyle}
+        $isDisabled={context.isDisabled}
         {...restProps}
       >
         {children}

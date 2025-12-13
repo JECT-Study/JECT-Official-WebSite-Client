@@ -84,6 +84,7 @@ export const PostLink = forwardRef<HTMLDivElement, PostLinkProps>(
         data-overlay
         $variant='post'
         $cardStyle={cardStyle}
+        $isDisabled={isDisabled}
       />
     </CardRoot>
   ),
@@ -119,6 +120,7 @@ export const PostButton = forwardRef<HTMLDivElement, PostButtonProps>(
         data-overlay
         $variant='post'
         $cardStyle={cardStyle}
+        $isDisabled={isDisabled}
       />
     </CardRoot>
   ),

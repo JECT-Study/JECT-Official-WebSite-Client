@@ -278,7 +278,7 @@ export const StyledCardRoot = styled("div", {
     height: "100%",
     ...getColorVariables(theme, $isDisabled),
 
-    '&[data-interactive="true"]': {
+    '&[data-interactive="true"]': !$isDisabled && {
       transition: getInteractionTransition(theme, hasShadow),
       "&:hover": {
         transform: "translateY(-2px)",
@@ -405,7 +405,8 @@ export const StyledCardOverlay = styled("a", {
 })<{
   $variant: CardVariant;
   $cardStyle?: CardStyle;
-}>(({ theme, $variant, $cardStyle }) => {
+  $isDisabled: boolean;
+}>(({ theme, $variant, $cardStyle, $isDisabled }) => {
   const isEmptyPost = isEmptyPostCard($variant, $cardStyle);
   const offset = isPlateCard($variant)
     ? INTERACTION_OFFSET.plate
@@ -426,11 +427,12 @@ export const StyledCardOverlay = styled("a", {
     position: "absolute",
     ...getOverlayPositionStyles(hasOffset, offset),
     zIndex: 100,
-    cursor: "pointer",
+    cursor: $isDisabled ? "default" : "pointer",
     textDecoration: "none",
     color: "inherit",
     borderRadius: borderRadius > 0 ? `${borderRadius}px` : 0,
     outline: "none",
+    pointerEvents: $isDisabled ? "none" : "auto",
     transition: isEmptyPost
       ? `box-shadow ${theme.environment.semantic.duration[150]} ${theme.environment.semantic.motion.fluent}`
       : undefined,
@@ -442,25 +444,27 @@ export const StyledCardOverlay = styled("a", {
       ...interactionParams.rest["::after"],
       transition: `opacity ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
     },
-    "&:hover": {
-      ...(isEmptyPost && shadow(theme, "raised")),
-      "::after": {
-        ...interactionParams.hover["::after"],
-        transition: `opacity ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
+    ...(!$isDisabled && {
+      "&:hover": {
+        ...(isEmptyPost && shadow(theme, "raised")),
+        "::after": {
+          ...interactionParams.hover["::after"],
+          transition: `opacity ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
+        },
       },
-    },
-    "&:active": {
-      "::after": {
-        ...interactionParams.active["::after"],
-        transition: "none",
+      "&:active": {
+        "::after": {
+          ...interactionParams.active["::after"],
+          transition: "none",
+        },
       },
-    },
-    "&:focus-visible": {
-      ...getFocusVisibleStyles(theme, isEmptyPost, hasOffset, interactionParams),
-      "::before": {
-        ...interactionParams.focus["::before"],
-        ...(hasOffset && { opacity: 1 }),
+      "&:focus-visible": {
+        ...getFocusVisibleStyles(theme, isEmptyPost, hasOffset, interactionParams),
+        "::before": {
+          ...interactionParams.focus["::before"],
+          ...(hasOffset && { opacity: 1 }),
+        },
       },
-    },
+    }),
   };
 });

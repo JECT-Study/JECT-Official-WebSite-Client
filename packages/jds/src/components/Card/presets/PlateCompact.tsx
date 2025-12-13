@@ -42,6 +42,7 @@ export const PlateCompactLink = forwardRef<HTMLDivElement, PlateCompactLinkProps
         rel={rel}
         data-overlay
         $variant='plate'
+        $isDisabled={isDisabled}
       />
     </CardRoot>
   ),
@@ -59,6 +60,7 @@ export const PlateCompactButton = forwardRef<HTMLDivElement, PlateCompactButtonP
         type={type || "button"}
         data-overlay
         $variant='plate'
+        $isDisabled={isDisabled}
       />
     </CardRoot>
   ),
