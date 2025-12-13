@@ -3,7 +3,6 @@ import type { CSSObject, Theme } from "@emotion/react";
 import styled from "@emotion/styled";
 import { InteractionLayer, shadow } from "utils";
 
-import { createLabelStyles } from "../../Label/createLabelStyles";
 import type { CardLayout, CardVariant, CardStyle } from "../Card.types";
 
 const SHADOW_DEFAULT = "0 1px 2px 0 rgba(0, 0, 0, 0.05)";
@@ -330,7 +329,7 @@ export const StyledCardMeta = styled.div(({ theme }) => ({
 export const StyledCardMetaItem = styled("span", {
   shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith("$"),
 })(({ theme }) => ({
-  ...createLabelStyles(theme, { size: "sm", weight: "normal" }),
+  ...theme.textStyle["semantic-textStyle-label-sm-normal"],
   color: "var(--card-caption-color)",
 }));
 
@@ -352,14 +351,14 @@ export const StyledCardMetaNudgeItem = styled.span(({ theme }) => ({
 }));
 
 export const StyledCardMetaNudgeItemLabel = styled.span(({ theme }) => ({
-  ...createLabelStyles(theme, { size: "sm", weight: "normal" }),
+  ...theme.textStyle["semantic-textStyle-label-sm-normal"],
   color: "var(--card-caption-color)",
 }));
 
 export const StyledCardTitle = styled("h3", {
   shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith("$"),
 })(({ theme }) => ({
-  ...createLabelStyles(theme, { size: "lg", weight: "normal" }),
+  ...theme.textStyle["semantic-textStyle-title-1"],
   color: "var(--card-title-color)",
   margin: 0,
   alignSelf: "stretch",
@@ -369,7 +368,7 @@ export const StyledCardTitle = styled("h3", {
 export const StyledCardLabel = styled("h4", {
   shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith("$"),
 })(({ theme }) => ({
-  ...createLabelStyles(theme, { size: "lg", weight: "bold" }),
+  ...theme.textStyle["semantic-textStyle-label-lg-bold"],
   color: "var(--card-label-color)",
   margin: 0,
   alignSelf: "stretch",
@@ -379,7 +378,7 @@ export const StyledCardLabel = styled("h4", {
 export const StyledCardBody = styled("p", {
   shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith("$"),
 })(({ theme }) => ({
-  ...createLabelStyles(theme, { size: "sm", weight: "normal" }),
+  ...theme.textStyle["semantic-textStyle-body-sm-normal"],
   color: "var(--card-body-color)",
   margin: 0,
   alignSelf: "stretch",
@@ -392,7 +391,7 @@ export const StyledCardBody = styled("p", {
 export const StyledCardCaption = styled("span", {
   shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith("$"),
 })(({ theme }) => ({
-  ...createLabelStyles(theme, { size: "xs", weight: "subtle" }),
+  ...theme.textStyle["semantic-textStyle-label-xs-subtle"],
   color: "var(--card-caption-color)",
   ...getTextEllipsisStyles(1),
 }));
