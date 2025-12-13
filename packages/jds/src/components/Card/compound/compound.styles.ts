@@ -367,8 +367,10 @@ export const StyledCardTitle = styled("h3", {
 
 export const StyledCardLabel = styled("h4", {
   shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith("$"),
-})(({ theme }) => ({
-  ...theme.textStyle["semantic-textStyle-label-lg-bold"],
+})<{ $variant: CardVariant }>(({ theme, $variant }) => ({
+  ...($variant === "plate"
+    ? theme.textStyle["semantic-textStyle-label-sm-normal"]
+    : theme.textStyle["semantic-textStyle-label-lg-bold"]),
   color: "var(--card-label-color)",
   margin: 0,
   alignSelf: "stretch",
