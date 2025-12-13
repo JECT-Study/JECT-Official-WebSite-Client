@@ -9,8 +9,7 @@ import {
   ToastLabelContainerDiv,
 } from "./toast.styles";
 import type { ToastBasicProps, ToastFeedbackProps } from "./toast.types";
-
-import { IconButton } from "@/components";
+import { IconButton } from "../Button/IconButton";
 
 const ToastBasic = ({ id, caption, onRemove, title, isClosing }: ToastBasicProps) => {
   const [phase, setPhase] = useState<"enter" | "static" | "exit">("enter");

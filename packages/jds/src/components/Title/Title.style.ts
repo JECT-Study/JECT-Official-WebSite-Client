@@ -5,7 +5,7 @@ import { TEXT_ALIGN_MAPPING } from "../Hero/Hero.style";
 export type TitleSize = "lg" | "md" | "sm" | "xs";
 export type TitleTextAlign = keyof typeof TEXT_ALIGN_MAPPING;
 
-interface TitleDivProps {
+interface StyledTitleProps {
   size: TitleSize;
   textAlign: TitleTextAlign;
   color?: string;
@@ -18,7 +18,7 @@ export const titleStylesMap = {
   xs: "semantic-textStyle-title-1",
 } as const;
 
-export const TitleDiv = styled.div<TitleDivProps>(({ theme, size, textAlign, color }) => {
+export const StyledTitle = styled.div<StyledTitleProps>(({ theme, size, textAlign, color }) => {
   const tokenKey = titleStylesMap[size];
   const justifyContent = TEXT_ALIGN_MAPPING[textAlign];
   const BaseColor = color || theme.color.semantic.object.bolder;

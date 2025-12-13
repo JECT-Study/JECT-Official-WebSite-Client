@@ -1,5 +1,6 @@
 import type { Theme } from "@emotion/react";
 
+import type { IconSize } from "../../Icon";
 import type {
   BadgeSize,
   BadgeStyle,
@@ -8,8 +9,6 @@ import type {
   FeedbackVariant,
   ThemeVariant,
 } from "../badge.types";
-
-import type { IconSize } from "@/components/Icon";
 
 export const iconSizeMap: Record<BadgeSize, IconSize> = {
   lg: "sm",
@@ -160,17 +159,17 @@ export const contentBadgeFeedbackStylesMap = (theme: Theme): ContentBadgeFeedbac
   },
   alpha: {
     positive: {
-      bg: theme.color.semantic.feedback.positive.alpha.subtle,
+      bg: theme.color.semantic.feedback.positive.alpha.subtler,
       color: theme.color.semantic.feedback.positive.normal,
       border: "none",
     },
     destructive: {
-      bg: theme.color.semantic.feedback.destructive.alpha.subtle,
+      bg: theme.color.semantic.feedback.destructive.alpha.subtler,
       color: theme.color.semantic.feedback.destructive.normal,
       border: "none",
     },
     notifying: {
-      bg: theme.color.semantic.feedback.notifying.alpha.subtle,
+      bg: theme.color.semantic.feedback.notifying.alpha.subtler,
       color: theme.color.semantic.feedback.notifying.normal,
       border: "none",
     },
@@ -589,164 +588,164 @@ export const contentBadgeThemeMutedStylesMap = (theme: Theme): ContentBadgeTheme
   alpha: {
     red: {
       bg: theme.color.semantic.theme.red.alpha.subtlest,
-      color: theme.color.semantic.theme.red.alpha.assistive,
+      color: theme.color.semantic.theme.red.alpha.subtle,
       border: "none",
     },
     orange: {
       bg: theme.color.semantic.theme.orange.alpha.subtlest,
-      color: theme.color.semantic.theme.orange.alpha.assistive,
+      color: theme.color.semantic.theme.orange.alpha.subtle,
       border: "none",
     },
     amber: {
       bg: theme.color.semantic.theme.amber.alpha.subtlest,
-      color: theme.color.semantic.theme.amber.alpha.assistive,
+      color: theme.color.semantic.theme.amber.alpha.subtle,
       border: "none",
     },
     yellow: {
       bg: theme.color.semantic.theme.yellow.alpha.subtlest,
-      color: theme.color.semantic.theme.yellow.alpha.assistive,
+      color: theme.color.semantic.theme.yellow.alpha.subtle,
       border: "none",
     },
     lime: {
       bg: theme.color.semantic.theme.lime.alpha.subtlest,
-      color: theme.color.semantic.theme.lime.alpha.assistive,
+      color: theme.color.semantic.theme.lime.alpha.subtle,
       border: "none",
     },
     green: {
       bg: theme.color.semantic.theme.green.alpha.subtlest,
-      color: theme.color.semantic.theme.green.alpha.assistive,
+      color: theme.color.semantic.theme.green.alpha.subtle,
       border: "none",
     },
     emerald: {
       bg: theme.color.semantic.theme.emerald.alpha.subtlest,
-      color: theme.color.semantic.theme.emerald.alpha.assistive,
+      color: theme.color.semantic.theme.emerald.alpha.subtle,
       border: "none",
     },
     teal: {
       bg: theme.color.semantic.theme.teal.alpha.subtlest,
-      color: theme.color.semantic.theme.teal.alpha.assistive,
+      color: theme.color.semantic.theme.teal.alpha.subtle,
       border: "none",
     },
     cyan: {
       bg: theme.color.semantic.theme.cyan.alpha.subtlest,
-      color: theme.color.semantic.theme.cyan.alpha.assistive,
+      color: theme.color.semantic.theme.cyan.alpha.subtle,
       border: "none",
     },
     sky: {
       bg: theme.color.semantic.theme.sky.alpha.subtlest,
-      color: theme.color.semantic.theme.sky.alpha.assistive,
+      color: theme.color.semantic.theme.sky.alpha.subtle,
       border: "none",
     },
     blue: {
       bg: theme.color.semantic.theme.blue.alpha.subtlest,
-      color: theme.color.semantic.theme.blue.alpha.assistive,
+      color: theme.color.semantic.theme.blue.alpha.subtle,
       border: "none",
     },
     violet: {
       bg: theme.color.semantic.theme.violet.alpha.subtlest,
-      color: theme.color.semantic.theme.violet.alpha.assistive,
+      color: theme.color.semantic.theme.violet.alpha.subtle,
       border: "none",
     },
     purple: {
       bg: theme.color.semantic.theme.purple.alpha.subtlest,
-      color: theme.color.semantic.theme.purple.alpha.assistive,
+      color: theme.color.semantic.theme.purple.alpha.subtle,
       border: "none",
     },
     fuchsia: {
       bg: theme.color.semantic.theme.fuchsia.alpha.subtlest,
-      color: theme.color.semantic.theme.fuchsia.alpha.assistive,
+      color: theme.color.semantic.theme.fuchsia.alpha.subtle,
       border: "none",
     },
     pink: {
       bg: theme.color.semantic.theme.pink.alpha.subtlest,
-      color: theme.color.semantic.theme.pink.alpha.assistive,
+      color: theme.color.semantic.theme.pink.alpha.subtle,
       border: "none",
     },
     rose: {
       bg: theme.color.semantic.theme.rose.alpha.subtlest,
-      color: theme.color.semantic.theme.rose.alpha.assistive,
+      color: theme.color.semantic.theme.rose.alpha.subtle,
       border: "none",
     },
   },
   outlined: {
     red: {
       bg: "none",
-      color: theme.color.semantic.theme.red.alpha.assistive,
+      color: theme.color.semantic.theme.red.alpha.subtle,
       border: theme.color.semantic.theme.red.alpha.subtler,
     },
     orange: {
       bg: "none",
-      color: theme.color.semantic.theme.orange.alpha.assistive,
+      color: theme.color.semantic.theme.orange.alpha.subtle,
       border: theme.color.semantic.theme.orange.alpha.subtler,
     },
     amber: {
       bg: "none",
-      color: theme.color.semantic.theme.amber.alpha.assistive,
+      color: theme.color.semantic.theme.amber.alpha.subtle,
       border: theme.color.semantic.theme.amber.alpha.subtler,
     },
     yellow: {
       bg: "none",
-      color: theme.color.semantic.theme.yellow.alpha.assistive,
+      color: theme.color.semantic.theme.yellow.alpha.subtle,
       border: theme.color.semantic.theme.yellow.alpha.subtler,
     },
     lime: {
       bg: "none",
-      color: theme.color.semantic.theme.lime.alpha.assistive,
+      color: theme.color.semantic.theme.lime.alpha.subtle,
       border: theme.color.semantic.theme.lime.alpha.subtler,
     },
     green: {
       bg: "none",
-      color: theme.color.semantic.theme.green.alpha.assistive,
+      color: theme.color.semantic.theme.green.alpha.subtle,
       border: theme.color.semantic.theme.green.alpha.subtler,
     },
     emerald: {
       bg: "none",
-      color: theme.color.semantic.theme.emerald.alpha.assistive,
+      color: theme.color.semantic.theme.emerald.alpha.subtle,
       border: theme.color.semantic.theme.emerald.alpha.subtler,
     },
     teal: {
       bg: "none",
-      color: theme.color.semantic.theme.teal.alpha.assistive,
+      color: theme.color.semantic.theme.teal.alpha.subtle,
       border: theme.color.semantic.theme.teal.alpha.subtler,
     },
     cyan: {
       bg: "none",
-      color: theme.color.semantic.theme.cyan.alpha.assistive,
+      color: theme.color.semantic.theme.cyan.alpha.subtle,
       border: theme.color.semantic.theme.cyan.alpha.subtler,
     },
     sky: {
       bg: "none",
-      color: theme.color.semantic.theme.sky.alpha.assistive,
+      color: theme.color.semantic.theme.sky.alpha.subtle,
       border: theme.color.semantic.theme.sky.alpha.subtler,
     },
     blue: {
       bg: "none",
-      color: theme.color.semantic.theme.blue.alpha.assistive,
+      color: theme.color.semantic.theme.blue.alpha.subtle,
       border: theme.color.semantic.theme.blue.alpha.subtler,
     },
     violet: {
       bg: "none",
-      color: theme.color.semantic.theme.violet.alpha.assistive,
+      color: theme.color.semantic.theme.violet.alpha.subtle,
       border: theme.color.semantic.theme.violet.alpha.subtler,
     },
     purple: {
       bg: "none",
-      color: theme.color.semantic.theme.purple.alpha.assistive,
+      color: theme.color.semantic.theme.purple.alpha.subtle,
       border: theme.color.semantic.theme.purple.alpha.subtler,
     },
     fuchsia: {
       bg: "none",
-      color: theme.color.semantic.theme.fuchsia.alpha.assistive,
+      color: theme.color.semantic.theme.fuchsia.alpha.subtle,
       border: theme.color.semantic.theme.fuchsia.alpha.subtler,
     },
     pink: {
       bg: "none",
-      color: theme.color.semantic.theme.pink.alpha.assistive,
+      color: theme.color.semantic.theme.pink.alpha.subtle,
       border: theme.color.semantic.theme.pink.alpha.subtler,
     },
     rose: {
       bg: "none",
-      color: theme.color.semantic.theme.rose.alpha.assistive,
+      color: theme.color.semantic.theme.rose.alpha.subtle,
       border: theme.color.semantic.theme.rose.alpha.subtler,
     },
   },

@@ -24,6 +24,10 @@ export const checkEmailExists = async ({ email }: Email) => {
   return await requestHandler<EmailExistsResponse>("get", url);
 };
 
+// TODO: API 스펙 변경 - template 제거, sendGroupCode 추가
+// 변경 전: { email, template: "AUTH_CODE" | "PIN_RESET" }
+// 변경 후: { sendGroupCode: string, email: string }
+// requestHandler는 deprecated
 export const postEmailAuthCode = async ({ email, template }: EmailAuthPayload) => {
   const params = new URLSearchParams({ email, template });
   const url = `${API_ENDPOINT.sendEmailAuthCode}?${params.toString()}`;

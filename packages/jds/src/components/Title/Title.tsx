@@ -1,27 +1,20 @@
-import type { ReactNode } from "react";
+import type { ComponentProps, ElementRef, ReactNode } from "react";
+import { forwardRef } from "react";
 
-import type { TitleSize, TitleTextAlign } from "./Title.style";
-import { TitleDiv } from "./Title.style";
+import { StyledTitle } from "./Title.style";
 
-export interface TitleProps {
-  size?: TitleSize;
-  textAlign?: TitleTextAlign;
-  color?: string;
+export interface TitleProps extends ComponentProps<typeof StyledTitle> {
   children: ReactNode;
 }
 
-export const Title = ({
-  size = "md",
-  textAlign = "left",
-  color,
-  children,
-  ...props
-}: TitleProps) => {
-  return (
-    <TitleDiv size={size} textAlign={textAlign} color={color} {...props}>
-      {children}
-    </TitleDiv>
-  );
-};
+export const Title = forwardRef<ElementRef<typeof StyledTitle>, TitleProps>(
+  ({ as, size = "md", textAlign = "left", color, children, ...props }, ref) => {
+    return (
+      <StyledTitle as={as} ref={ref} size={size} textAlign={textAlign} color={color} {...props}>
+        {children}
+      </StyledTitle>
+    );
+  },
+);
 
 Title.displayName = "Title";

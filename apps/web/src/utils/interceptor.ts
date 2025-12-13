@@ -2,11 +2,8 @@ import type { AxiosInstance, AxiosRequestConfig, InternalAxiosRequestConfig } fr
 import axios from "axios";
 
 import { refreshAccessToken } from "@/apis/auth";
+import { API_BASE_URL } from "@/constants/env";
 import type { ApiResponse } from "@/types/apis/response";
-
-const BASE_URL = import.meta.env.DEV
-  ? import.meta.env.VITE_API_URL_DEV
-  : import.meta.env.VITE_API_URL_PROD;
 
 const DEFAULT_TIMEOUT = 30000;
 
@@ -16,7 +13,7 @@ interface ExtendedAxiosRequestConfig extends InternalAxiosRequestConfig {
 
 export const createClient = (config?: AxiosRequestConfig): AxiosInstance => {
   const instance = axios.create({
-    baseURL: BASE_URL,
+    baseURL: API_BASE_URL,
     timeout: DEFAULT_TIMEOUT,
     headers: {
       "content-type": "application/json",
@@ -26,38 +23,32 @@ export const createClient = (config?: AxiosRequestConfig): AxiosInstance => {
   });
 
   instance.interceptors.response.use(
-    async response => {
-      const responseData = response.data as ApiResponse<unknown>;
+    response => response,
+    async error => {
+      const originalRequest = error.config as ExtendedAxiosRequestConfig;
 
-      if (responseData?.status === "G-07") {
-        const originalRequest = response.config as ExtendedAxiosRequestConfig;
+      //TODO: 401 체크가 필요한지 검토 (GLOBAL-6는 항상 401에서만 발생하는지 확인)
+      if (error.response?.status === 401) {
+        const responseData = error.response.data as ApiResponse<unknown>;
 
-        if (!originalRequest._retry) {
+        if (responseData?.status === "GLOBAL-6") {
+          if (originalRequest._retry) {
+            throw error;
+          }
+
           originalRequest._retry = true;
 
-          try {
-            const refreshResponse = await refreshAccessToken();
+          const refreshResponse = await refreshAccessToken();
 
-            if (refreshResponse.status === "SUCCESS" && refreshResponse.data) {
-              return instance(originalRequest);
-            }
-          } catch (refreshError) {
-            console.error("토큰 갱신 실패:", refreshError);
-            return Promise.reject(
-              new Error(
-                refreshError instanceof Error ? refreshError.message : "토큰 갱신에 실패했습니다.",
-              ),
-            );
+          if (refreshResponse.status === "SUCCESS" && refreshResponse.data) {
+            return instance(originalRequest);
           }
+
+          throw new Error("토큰 갱신 응답이 올바르지 않습니다.");
         }
       }
-      return response;
-    },
-    error => {
-      if (error instanceof Error) {
-        return Promise.reject(error);
-      }
-      return Promise.reject(new Error("요청 처리 중 오류가 발생했습니다."));
+
+      throw error;
     },
   );
 

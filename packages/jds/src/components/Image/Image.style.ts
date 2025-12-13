@@ -4,8 +4,8 @@ import type { CSSProperties } from "react";
 import { Interaction, pxToRem } from "utils";
 
 import type { ImgOrientation, ImgRatio } from "./Image";
-
-import { Label, Icon } from "@/components";
+import { Icon } from "../Icon";
+import { Label } from "../Label";
 
 export const getAspectRatioValue = (
   ratio: ImgRatio,
