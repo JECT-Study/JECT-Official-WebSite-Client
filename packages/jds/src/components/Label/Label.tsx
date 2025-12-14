@@ -45,7 +45,15 @@ export interface LabelProps extends ComponentPropsWithoutRef<"label"> {
  */
 export const Label = forwardRef<LabelElement, LabelProps>(
   (
-    { as = "label", size = "md", textAlign = "left", weight = "normal", color, children, ...props },
+    {
+      as = "label",
+      size = "md",
+      textAlign = "left",
+      weight = "normal",
+      color = "currentColor",
+      children,
+      ...props
+    },
     ref,
   ) => {
     return (

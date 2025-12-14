@@ -102,9 +102,9 @@ const GlobalNavigationLogoItem = forwardRef<HTMLDivElement, GlobalNavigationLogo
 GlobalNavigationLogoItem.displayName = "GlobalNavigation.LogoItem";
 
 const GlobalNavigationContent = forwardRef<HTMLDivElement, GlobalNavigationMenuContentProps>(
-  ({ children, ...props }, ref) => {
+  ({ children, offset = 0, ...props }, ref) => {
     return (
-      <StyledGlobalNavigationContent ref={ref} {...props}>
+      <StyledGlobalNavigationContent ref={ref} $offset={offset} {...props}>
         {children}
       </StyledGlobalNavigationContent>
     );
