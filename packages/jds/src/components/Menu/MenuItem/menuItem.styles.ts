@@ -1,6 +1,6 @@
+import isPropValid from "@emotion/is-prop-valid";
 import type { Theme } from "@emotion/react";
 import styled from "@emotion/styled";
-import { isPropValid } from "storybook/theming";
 import { InteractionLayer } from "utils";
 
 import type { StyledImageProps, StyledMenuItemProps } from "./menuItem.types";
