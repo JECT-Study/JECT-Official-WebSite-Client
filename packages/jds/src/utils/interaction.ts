@@ -1,5 +1,13 @@
 import type { Theme } from "@emotion/react";
+import type { CSSObject } from "@emotion/react";
 import type { Density, FillColor, InteractionState, Variant } from "types";
+
+interface InteractionStyles extends CSSObject {
+  "::after"?: CSSObject;
+  "&:hover::after"?: CSSObject;
+  "&:active::after"?: CSSObject;
+  "&:focus-visible"?: CSSObject;
+}
 
 export function interaction(
   theme: Theme,
@@ -8,16 +16,16 @@ export function interaction(
   fillColor: FillColor,
   state: InteractionState = "default",
   borderRadius: string = "inherit",
-) {
-  const createAfter = (backgroundColor: string) => {
+): InteractionStyles {
+  const createAfter = (backgroundColor: string): InteractionStyles => {
     const baseStyle = {
-      position: "relative",
-      outline: "none",
+      position: "relative" as const,
+      outline: "none" as const,
     };
 
     const afterBaseStyle = {
       content: '""',
-      position: "absolute",
+      position: "absolute" as const,
       top: 0,
       left: 0,
       width: "100%",
