@@ -27,3 +27,6 @@ export * from "./Tooltip";
 export * from "./Navigation/GlobalNavigation";
 export * from "./Navigation/LocalNavigation";
 export * from "./Divider";
+export * from "./Menu/MegaMenu";
+export * from "./Menu/MenuItem";
+export * from "./Menu/Menu";
