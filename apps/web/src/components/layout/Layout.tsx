@@ -5,13 +5,13 @@ import ScrollToTop from "./ScrollToTop";
 
 import Dialog from "@/components/common/dialog/Dialog";
 import Footer from "@/components/common/footer/Footer";
-import Header from "@/components/common/navigation/Header";
+// import Header from "@/components/common/navigation/Header";
 import Toast from "@/components/common/toast/Toast";
 
 function Layout() {
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <PagesContainer>
         <ScrollToTop />
         <Outlet />
