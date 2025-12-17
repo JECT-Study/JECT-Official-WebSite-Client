@@ -24,10 +24,10 @@ export const FormFieldLabel = ({ children }: FormFieldLabelProps) => {
   return (
     <StyledLabelContainer $layout={layout}>
       <StyledFieldLabel
-        as="label"
+        as='label'
         htmlFor={fieldId}
-        size="sm"
-        weight="normal"
+        size='sm'
+        weight='normal'
         $disabled={isDisabled}
         $readOnly={isReadOnly}
         $layout={layout}
@@ -37,7 +37,7 @@ export const FormFieldLabel = ({ children }: FormFieldLabelProps) => {
       {labelIcon && (
         <StyledLabelIcon
           name={labelIcon}
-          size="2xs"
+          size='2xs'
           $disabled={isDisabled}
           $readOnly={isReadOnly}
         />
@@ -59,9 +59,9 @@ export const FormFieldHelperText = ({ children }: FormFieldHelperTextProps) => {
 
   return (
     <StyledHelperText
-      as="span"
-      size="sm"
-      weight="normal"
+      as='span'
+      size='sm'
+      weight='normal'
       $validation={validation}
       $disabled={isDisabled}
       $readOnly={isReadOnly}

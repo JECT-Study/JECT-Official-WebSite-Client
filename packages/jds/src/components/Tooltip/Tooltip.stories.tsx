@@ -49,7 +49,7 @@ export const Default: Story = {
   render: args => (
     <Tooltip.Root>
       <Tooltip.Trigger>
-        <IconButton.Basic icon="information-line" />
+        <IconButton.Basic icon='information-line' />
       </Tooltip.Trigger>
       <Tooltip.Content {...args}>툴팁 테스트 레이블</Tooltip.Content>
     </Tooltip.Root>
@@ -64,45 +64,45 @@ export const Default: Story = {
 export const AllSides: Story = {
   args: { children: undefined },
   render: () => (
-    <FlexColumn gap="60px">
-      <FlexRow gap="24px">
-        <FlexColumn gap="12px">
+    <FlexColumn gap='60px'>
+      <FlexRow gap='24px'>
+        <FlexColumn gap='12px'>
           <Label>Top (기본값)</Label>
           <Tooltip.Root>
             <Tooltip.Trigger>
-              <IconButton.Basic icon="information-line" />
+              <IconButton.Basic icon='information-line' />
             </Tooltip.Trigger>
-            <Tooltip.Content side="top">툴팁 상단</Tooltip.Content>
+            <Tooltip.Content side='top'>툴팁 상단</Tooltip.Content>
           </Tooltip.Root>
         </FlexColumn>
 
-        <FlexColumn gap="12px">
+        <FlexColumn gap='12px'>
           <Label>Right</Label>
           <Tooltip.Root>
             <Tooltip.Trigger>
-              <IconButton.Basic icon="information-line" />
+              <IconButton.Basic icon='information-line' />
             </Tooltip.Trigger>
-            <Tooltip.Content side="right">툴팁 우측</Tooltip.Content>
+            <Tooltip.Content side='right'>툴팁 우측</Tooltip.Content>
           </Tooltip.Root>
         </FlexColumn>
 
-        <FlexColumn gap="12px">
+        <FlexColumn gap='12px'>
           <Label>Bottom</Label>
           <Tooltip.Root>
             <Tooltip.Trigger>
-              <IconButton.Basic icon="information-line" />
+              <IconButton.Basic icon='information-line' />
             </Tooltip.Trigger>
-            <Tooltip.Content side="bottom">툴팁 아래</Tooltip.Content>
+            <Tooltip.Content side='bottom'>툴팁 아래</Tooltip.Content>
           </Tooltip.Root>
         </FlexColumn>
 
-        <FlexColumn gap="12px">
+        <FlexColumn gap='12px'>
           <Label>Left</Label>
           <Tooltip.Root>
             <Tooltip.Trigger>
-              <IconButton.Basic icon="information-line" />
+              <IconButton.Basic icon='information-line' />
             </Tooltip.Trigger>
-            <Tooltip.Content side="left">툴팁 좌측</Tooltip.Content>
+            <Tooltip.Content side='left'>툴팁 좌측</Tooltip.Content>
           </Tooltip.Root>
         </FlexColumn>
       </FlexRow>
@@ -123,7 +123,7 @@ export const LongContent: Story = {
   render: () => (
     <Tooltip.Root>
       <Tooltip.Trigger>
-        <BlockButton.Basic hierarchy="accent">표시되는 요소가 길 경우</BlockButton.Basic>
+        <BlockButton.Basic hierarchy='accent'>표시되는 요소가 길 경우</BlockButton.Basic>
       </Tooltip.Trigger>
       <Tooltip.Content>
         아주 아주 아주 아주 긴 요소입니다. 모바일 환경에서도 정상적인 툴팁 내용이 표시되어야하기
@@ -143,22 +143,22 @@ export const LongContent: Story = {
 export const WithCustomOffset: Story = {
   args: { children: undefined },
   render: () => (
-    <FlexRow gap="24px">
-      <FlexColumn gap="12px">
+    <FlexRow gap='24px'>
+      <FlexColumn gap='12px'>
         <Label>오프셋 기본값(8px)</Label>
         <Tooltip.Root>
           <Tooltip.Trigger>
-            <BlockButton.Basic hierarchy="accent">기본 오프셋</BlockButton.Basic>
+            <BlockButton.Basic hierarchy='accent'>기본 오프셋</BlockButton.Basic>
           </Tooltip.Trigger>
           <Tooltip.Content sideOffset={8}>트리거 요소로 부터 8px</Tooltip.Content>
         </Tooltip.Root>
       </FlexColumn>
 
-      <FlexColumn gap="12px">
+      <FlexColumn gap='12px'>
         <Label>오프셋 커스텀(24px)</Label>
         <Tooltip.Root>
           <Tooltip.Trigger>
-            <BlockButton.Basic hierarchy="accent">커스텀(확장) 오프셋</BlockButton.Basic>
+            <BlockButton.Basic hierarchy='accent'>커스텀(확장) 오프셋</BlockButton.Basic>
           </Tooltip.Trigger>
           <Tooltip.Content sideOffset={24}>트리거 요소로 부터 24px</Tooltip.Content>
         </Tooltip.Root>
@@ -177,43 +177,43 @@ export const WithCustomOffset: Story = {
 export const CustomTrigger: Story = {
   args: { children: undefined },
   render: () => (
-    <FlexColumn gap="24px">
+    <FlexColumn gap='24px'>
       <div>
         <Tooltip.Root>
           <Tooltip.Trigger>
-            <LabelComponent as="span">텍스트 레이블입니다.</LabelComponent>
+            <LabelComponent as='span'>텍스트 레이블입니다.</LabelComponent>
           </Tooltip.Trigger>
           <Tooltip.Content>레이블</Tooltip.Content>
         </Tooltip.Root>
       </div>
 
-      <FlexColumn gap="12px">
+      <FlexColumn gap='12px'>
         <Label>Icon 컴포넌트</Label>
         <Tooltip.Root>
           <Tooltip.Trigger>
-            <Icon name="information-line" size="lg" />
+            <Icon name='information-line' size='lg' />
           </Tooltip.Trigger>
           <Tooltip.Content>아이콘 툴팁</Tooltip.Content>
         </Tooltip.Root>
       </FlexColumn>
 
-      <FlexColumn gap="12px">
+      <FlexColumn gap='12px'>
         <Label>Icon 버튼</Label>
         <Tooltip.Root>
           <Tooltip.Trigger>
-            <IconButton.Basic icon="alert-line" />
+            <IconButton.Basic icon='alert-line' />
           </Tooltip.Trigger>
           <Tooltip.Content>아이콘 버튼 툴팁</Tooltip.Content>
         </Tooltip.Root>
       </FlexColumn>
 
-      <FlexColumn gap="12px">
+      <FlexColumn gap='12px'>
         <Label>Input 예시</Label>
         <Tooltip.Root>
           <Tooltip.Trigger>
-            <Input.TextField value="레이블 명" onChange={e => e.preventDefault()} />
+            <Input.TextField value='레이블 명' onChange={e => e.preventDefault()} />
           </Tooltip.Trigger>
-          <Tooltip.Content side="top" sideOffset={12}>
+          <Tooltip.Content side='top' sideOffset={12}>
             안녕하세요? 툴팁입니다.
           </Tooltip.Content>
         </Tooltip.Root>

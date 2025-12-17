@@ -1,8 +1,12 @@
 import type { ReactNode } from "react";
 
 import type { BadgeSize, BasicHierarchy, FeedbackVariant, NumericBadgeStyle } from "../badge.types";
-import { NumericBadgeBasicDiv, NumericBadgeFeedbackDiv } from "./NumericBadge.style";
-import { Label } from "../../Label";
+import {
+  NumericBadgeBasicDiv,
+  NumericBadgeBasicLabel,
+  NumericBadgeFeedbackDiv,
+  NumericBadgeFeedbackLabel,
+} from "./NumericBadge.style";
 
 export interface NumericBadgeBasicProps {
   hierarchy?: BasicHierarchy;
@@ -26,9 +30,17 @@ const NumericBadgeBasic = ({
       badgeStyle={badgeStyle}
       isMuted={isMuted}
     >
-      <Label as="span" size={size} textAlign="center" weight="normal" color="inherit">
+      <NumericBadgeBasicLabel
+        as='span'
+        size={size}
+        textAlign='center'
+        weight='normal'
+        hierarchy={hierarchy}
+        badgeStyle={badgeStyle}
+        isMuted={isMuted}
+      >
         {children}
-      </Label>
+      </NumericBadgeBasicLabel>
     </NumericBadgeBasicDiv>
   );
 };
@@ -57,9 +69,17 @@ const NumericBadgeFeedback = ({
       badgeStyle={badgeStyle}
       isMuted={isMuted}
     >
-      <Label as="span" size={size} textAlign="center" weight="normal" color="inherit">
+      <NumericBadgeFeedbackLabel
+        as='span'
+        size={size}
+        textAlign='center'
+        weight='normal'
+        variant={variant}
+        badgeStyle={badgeStyle}
+        isMuted={isMuted}
+      >
         {children}
-      </Label>
+      </NumericBadgeFeedbackLabel>
     </NumericBadgeFeedbackDiv>
   );
 };

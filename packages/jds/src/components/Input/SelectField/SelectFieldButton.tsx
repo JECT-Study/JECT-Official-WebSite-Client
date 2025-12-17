@@ -52,17 +52,17 @@ export const SelectFieldButton = forwardRef<HTMLDivElement, SelectFieldButtonPro
         {label && (
           <StyledLabelContainer $layout={layout}>
             <StyledFieldLabel
-              as="label"
+              as='label'
               htmlFor={fieldId}
-              size="sm"
-              weight="normal"
+              size='sm'
+              weight='normal'
               $disabled={isDisabled}
               $readOnly={isReadOnly}
               $layout={layout}
             >
               {label}
             </StyledFieldLabel>
-            {labelIcon && <Icon name={labelIcon} size="2xs" />}
+            {labelIcon && <Icon name={labelIcon} size='2xs' />}
           </StyledLabelContainer>
         )}
 
@@ -76,7 +76,7 @@ export const SelectFieldButton = forwardRef<HTMLDivElement, SelectFieldButtonPro
               $disabled={isDisabled}
               $readOnly={isReadOnly}
               onClick={handleClick}
-              role="button"
+              role='button'
               tabIndex={isDisabled || isReadOnly ? -1 : 0}
               aria-disabled={isDisabled}
               aria-readonly={isReadOnly}
@@ -92,7 +92,7 @@ export const SelectFieldButton = forwardRef<HTMLDivElement, SelectFieldButtonPro
               </StyledSelectValue>
 
               <StyledSelectIconWrapper $disabled={isDisabled} $readOnly={isReadOnly}>
-                <Icon name={dropdownIcon} size="md" />
+                <Icon name={dropdownIcon} size='md' />
               </StyledSelectIconWrapper>
             </StyledSelectWrapper>
             {button}
@@ -100,9 +100,9 @@ export const SelectFieldButton = forwardRef<HTMLDivElement, SelectFieldButtonPro
 
           {helperText && (
             <StyledHelperText
-              as="span"
-              size="sm"
-              weight="normal"
+              as='span'
+              size='sm'
+              weight='normal'
               $validation={validation}
               $disabled={isDisabled}
               $readOnly={isReadOnly}

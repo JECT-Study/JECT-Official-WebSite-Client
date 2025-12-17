@@ -1,6 +1,7 @@
+import isPropValid from "@emotion/is-prop-valid";
 import styled from "@emotion/styled";
 import type { CSSProperties } from "react";
-import { interaction, pxToRem } from "utils";
+import { Interaction, pxToRem } from "utils";
 
 import type { ImgOrientation, ImgRatio } from "./Image";
 import { Icon } from "../Icon";
@@ -22,65 +23,62 @@ interface ImageButtonProps {
   isReadonly: boolean;
 }
 
-export const ImageButton = styled.button<ImageButtonProps>(
-  ({ theme, ratio, orientation, isReadonly }) => {
-    const interactionStyle = interaction(
-      theme,
-      "normal",
-      "assistive",
-      "default",
-      isReadonly ? "readonly" : "default",
-    );
-    return {
-      position: "relative",
+export const ImageButton = styled("button", {
+  shouldForwardProp: prop => isPropValid(prop),
+})<ImageButtonProps>(({ theme, ratio, orientation, isReadonly }) => {
+  const interactionStyle = Interaction(
+    theme,
+    "normal",
+    "assistive",
+    "default",
+    isReadonly ? "readonly" : "default",
+  );
+  return {
+    position: "relative",
+    width: "100%",
+    height: "100%",
+    aspectRatio: getAspectRatioValue(ratio, orientation),
+    border: `1px solid ${theme.color.semantic.stroke.alpha.subtler}`,
+    borderRadius: "inherit",
+
+    "& img": {
       width: "100%",
       height: "100%",
-      aspectRatio: getAspectRatioValue(ratio, orientation),
-      border: `1px solid ${theme.color.semantic.stroke.alpha.subtler}`,
+      objectFit: "cover",
+      display: "block",
       borderRadius: "inherit",
+    },
 
-      "& img": {
-        width: "100%",
-        height: "100%",
-        objectFit: "cover",
-        display: "block",
-        borderRadius: "inherit",
-      },
+    ...interactionStyle,
 
-      ...interactionStyle,
+    "&::after": {
+      ...interactionStyle["::after"],
+      width: "calc(100% + 2px)",
+      height: "calc(100% + 2px)",
+      inset: "-1px",
+    },
 
-      "&::after": {
-        // ...interactionStyle['::after'],
-        width: "calc(100% + 2px)",
-        height: "calc(100% + 2px)",
-        inset: "-1px",
-      },
+    "&:hover::after": {
+      backgroundColor: theme.color.semantic.curtain.dimmer,
+      opacity: isReadonly ? 0 : 1,
+      cursor: isReadonly ? "default" : "pointer",
+    },
 
-      "&:hover::after": {
-        backgroundColor: theme.color.semantic.curtain.dimmer,
-        opacity: isReadonly ? 0 : 1,
-        cursor: isReadonly ? "default" : "pointer",
-      },
+    "&:hover > .hoverIcon": {
+      opacity: 1,
+    },
 
-      "&:hover > .hoverIcon": {
-        opacity: 1,
-      },
-
-      "&:active::after": {},
-    };
-  },
-);
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const IconDiv = styled.div(_ => {
-  return {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    zIndex: 50,
-    opacity: 0,
+    "&:active::after": {},
   };
+});
+
+export const IconDiv = styled.div({
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  zIndex: 50,
+  opacity: 0,
 });
 
 export const ImageLabelDiv = styled.div(({ theme }) => {

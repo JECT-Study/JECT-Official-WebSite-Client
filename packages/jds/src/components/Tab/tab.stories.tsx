@@ -83,7 +83,7 @@ export const Playground: Story = {
   },
   render: args => (
     <Tab defaultValue={tabItems[0].value} {...args} css={{ width: 360 }}>
-      <TabList aria-label="제품 정보">
+      <TabList aria-label='제품 정보'>
         {tabItems.map(item => (
           <TabTrigger key={item.value} value={item.value} disabled={item.value === "reviews"}>
             {item.label}
@@ -111,7 +111,7 @@ export const Stretched: Story = {
   },
   render: args => (
     <Tab defaultValue={tabItems[0].value} {...args} css={{ width: 360 }}>
-      <TabList aria-label="제품 정보">
+      <TabList aria-label='제품 정보'>
         {tabItems.map(item => (
           <TabTrigger key={item.value} value={item.value}>
             {item.label}
@@ -142,7 +142,7 @@ export const ContentVariant: Story = {
   },
   render: args => (
     <Tab defaultValue={tabItems[0].value} {...args} css={{ width: 360 }}>
-      <TabList aria-label="제품 정보">
+      <TabList aria-label='제품 정보'>
         {tabItems.map(item => (
           <TabTrigger key={item.value} value={item.value}>
             {item.label}
@@ -180,7 +180,7 @@ export const OverflowScrollable: Story = {
   render: args => (
     <Tab defaultValue={overflowItems[0].value} {...args} css={{ width: 320 }}>
       <TabList
-        aria-label="스크롤 가능한 탭"
+        aria-label='스크롤 가능한 탭'
         css={{
           overflowX: "auto",
           whiteSpace: "nowrap",
@@ -225,7 +225,7 @@ export const Customize: Story = {
   render: args => (
     <Tab {...args} css={{ width: 420 }}>
       <TabList
-        aria-label="커스텀 탭"
+        aria-label='커스텀 탭'
         css={{
           background: "#f7f7ff",
           boxShadow: "inset 0 -1px rgba(0,0,0,0.08)",
@@ -265,7 +265,7 @@ export const Controlled: Story = {
     const [value, setValue] = useState(tabItems[0].value);
     return (
       <Tab value={value} onValueChange={setValue} {...args} css={{ width: 360 }}>
-        <TabList aria-label="제어 탭">
+        <TabList aria-label='제어 탭'>
           {tabItems.map(item => (
             <TabTrigger key={item.value} value={item.value}>
               {item.label}
@@ -293,7 +293,7 @@ export const Uncontrolled: Story = {
   },
   render: args => (
     <Tab defaultValue={tabItems[0].value} {...args} css={{ width: 360 }}>
-      <TabList aria-label="비제어 탭">
+      <TabList aria-label='비제어 탭'>
         {tabItems.map(item => (
           <TabTrigger key={item.value} value={item.value}>
             {item.label}
@@ -324,7 +324,7 @@ export const ControlledVsUncontrolled: Story = {
         <section>
           <h4 style={{ margin: "0 0 8px" }}>제어(Controlled)</h4>
           <Tab value={value} onValueChange={setValue} {...args} css={{ width: 360 }}>
-            <TabList aria-label="제어 탭">
+            <TabList aria-label='제어 탭'>
               {tabItems.map(item => (
                 <TabTrigger key={item.value} value={item.value}>
                   {item.label}
@@ -342,7 +342,7 @@ export const ControlledVsUncontrolled: Story = {
         <section>
           <h4 style={{ margin: "0 0 8px" }}>비제어(Uncontrolled)</h4>
           <Tab defaultValue={tabItems[0].value} {...args} css={{ width: 360 }}>
-            <TabList aria-label="비제어 탭">
+            <TabList aria-label='비제어 탭'>
               {tabItems.map(item => (
                 <TabTrigger key={item.value} value={item.value}>
                   {item.label}
