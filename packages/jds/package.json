@@ -33,6 +33,11 @@
       "import": "./dist/utils.js",
       "require": "./dist/utils.cjs"
     },
+    "./tokens": {
+      "types": "./dist/tokens.d.ts",
+      "import": "./dist/tokens.js",
+      "require": "./dist/tokens.cjs"
+    },
     "./styles": "./dist/styles.css"
   },
   "scripts": {
