@@ -7,7 +7,7 @@ import Hero from "@/components/common/callout/Hero";
 import HeroIndex from "@/components/common/callout/HeroIndex";
 import { Tab, TabHeader, TabItem, TabPanel } from "@/components/common/tab/Tab";
 import Title from "@/components/common/title/Title";
-import AnimatedSection from "@/components/main/animatedSection/AnimatedSection";
+import HeroSection from "@/components/main/heroSection/HeroSection";
 import RoleHero from "@/components/main/role/RoleHero";
 import { corePrincipleData, positionData, timelineData } from "@/constants/mainPageData";
 
@@ -97,9 +97,10 @@ const Main = () => {
 
   return (
     <div ref={containerRef} className='scroll flex flex-col'>
-      <section className='flex h-[100dvh] w-full flex-col items-center justify-center py-(--gap-7xl)'>
-        <AnimatedSection />
+      <section className='flex h-dvh w-full flex-col items-center justify-center '>
+        <HeroSection />
       </section>
+
       <section className={sectionClassName}>
         <div className={wrapperClassName}>
           <div className='gap-3xl flex flex-col items-center self-stretch'>
@@ -124,6 +125,7 @@ const Main = () => {
           </div>
         </div>
       </section>
+
       <section className={sectionClassName}>
         <div className={wrapperClassName}>
           <Title hierarchy='stronger'>젝트 활동 타임라인</Title>
@@ -145,6 +147,7 @@ const Main = () => {
           </div>
         </div>
       </section>
+
       <section className={sectionClassName}>
         <div className={wrapperClassName}>
           <Title hierarchy='stronger'>참여하는 포지션</Title>
@@ -168,6 +171,7 @@ const Main = () => {
           </div>
         </div>
       </section>
+      
       <section className={sectionClassName}>
         <div className={wrapperClassName}>
           <Title hierarchy='stronger'>젝트가 지향하는 것</Title>
