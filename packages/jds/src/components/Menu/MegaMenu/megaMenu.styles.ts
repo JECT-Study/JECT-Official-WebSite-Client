@@ -1,11 +1,10 @@
 import styled from "@emotion/styled";
-import { pxToRem, shadow } from "utils";
+import { shadow } from "utils";
 
 import { Label } from "@/components/Label";
 
 export const StyledMegaMenuRoot = styled("div")(({ theme }) => ({
   display: "flex",
-  minHeight: pxToRem(480),
   backgroundColor: theme.color.semantic.surface.shallow,
   border: `1px solid ${theme.color.semantic.stroke.subtler}`,
   borderRadius: theme.scheme.semantic.radius[10],
