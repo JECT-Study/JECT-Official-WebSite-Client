@@ -28,6 +28,11 @@
       "import": "./dist/hooks.js",
       "require": "./dist/hooks.cjs"
     },
+    "./utils": {
+      "types": "./dist/utils.d.ts",
+      "import": "./dist/utils.js",
+      "require": "./dist/utils.cjs"
+    },
     "./styles": "./dist/styles.css"
   },
   "scripts": {
