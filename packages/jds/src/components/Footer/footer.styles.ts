@@ -1,12 +1,12 @@
 import styled from "@emotion/styled";
 
 export const StyledFooterRoot = styled.footer(({ theme }) => ({
-  backgroundColor: theme.color.semantic.surface.deep,
-  color: theme.color.semantic.object.alternative,
+  backgroundColor: theme.color.semantic.surface.static.inverse.deep,
+  color: theme.color.semantic.object.static.inverse.alternative,
   paddingTop: theme.scheme.semantic.spacing["40"],
   paddingBottom: theme.scheme.semantic.spacing["72"],
-  paddingLeft: theme.scheme.semantic.margin.md,
-  paddingRight: theme.scheme.semantic.margin.md,
+  paddingLeft: theme.scheme.semantic.margin.lg,
+  paddingRight: theme.scheme.semantic.margin.lg,
   display: "flex",
   justifyContent: "center",
 }));
@@ -29,7 +29,7 @@ export const StyledFooterDivider = styled.hr(({ theme }) => ({
   width: "100%",
   height: "1px",
   border: "none",
-  backgroundColor: theme.color.semantic.stroke.alpha.subtle,
+  backgroundColor: theme.color.semantic.stroke.alpha.inverse.subtle,
   margin: 0,
 }));
 
@@ -55,7 +55,7 @@ export const StyledSocialLink = styled.a(({ theme }) => ({
   display: "inline-flex",
   alignItems: "center",
   justifyContent: "center",
-  color: theme.color.semantic.object.alternative,
+  color: theme.color.semantic.object.static.inverse.alternative,
   textDecoration: "none",
   transition: `opacity ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
 
@@ -87,7 +87,7 @@ export const StyledFooterSection = styled.div(({ theme }) => ({
 
 export const StyledSectionTitle = styled.h3(({ theme }) => ({
   ...theme.textStyle["semantic-textStyle-label-sm-normal"],
-  color: theme.color.semantic.object.alternative,
+  color: theme.color.semantic.object.static.inverse.alternative,
   margin: 0,
 }));
 
@@ -102,7 +102,7 @@ export const StyledLinkList = styled.ul(({ theme }) => ({
 
 export const StyledLink = styled.a(({ theme }) => ({
   ...theme.textStyle["semantic-textStyle-label-md-normal"],
-  color: theme.color.semantic.object.bold,
+  color: theme.color.semantic.object.static.inverse.bold,
   textDecoration: "none",
   transition: `color ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
   display: "inline-flex",
@@ -110,13 +110,13 @@ export const StyledLink = styled.a(({ theme }) => ({
   gap: theme.scheme.semantic.spacing["4"],
 
   "&:hover": {
-    color: theme.color.semantic.object.normal,
+    color: theme.color.semantic.object.static.inverse.normal,
   },
 }));
 
 export const StyledFooterBottom = styled.div(({ theme }) => ({
   ...theme.textStyle["semantic-textStyle-label-xs-subtle"],
-  color: theme.color.semantic.object.alternative,
+  color: theme.color.semantic.object.static.inverse.alternative,
   display: "flex",
   alignItems: "center",
   gap: theme.scheme.semantic.spacing["16"],
