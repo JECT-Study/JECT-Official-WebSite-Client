@@ -91,16 +91,16 @@ export const StyledBannerImageRoot = styled.div({
   aspectRatio: "2 / 1",
 });
 
-export const StyledBannerImageGradient = styled.div({
+export const StyledBannerImageGradient = styled.div(({ theme }) => ({
   position: "absolute",
   top: 0,
   left: 0,
   right: 0,
   bottom: 0,
-  background: "linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.8) 100%)",
+  background: `linear-gradient(180deg, transparent 0%, ${theme.color.semantic.surface.static.inverse.standard} 100%)`,
   zIndex: 0,
   pointerEvents: "none",
-});
+}));
 
 export const StyledBannerImageContentOuter = styled.div(({ theme }) => ({
   position: "absolute",
