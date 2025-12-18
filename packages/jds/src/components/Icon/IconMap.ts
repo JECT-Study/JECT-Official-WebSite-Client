@@ -134,4 +134,8 @@ export const iconMap = {
   vector: Icons.Vector,
   "youtube-fill": Icons.YoutubeFill,
   "menu-line": Icons.MenuLine,
+  frontend: Icons.Frontend,
+  backend: Icons.Backend,
+  product: Icons.Product,
+  design: Icons.Design,
 } as const;
