@@ -2,10 +2,10 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef } from "react";
 
-import CycleSection from "@/components/main/cycleSection/CycleSection";
-import HeroSection from "@/components/main/heroSection/HeroSection";
-import IntroSection from "@/components/main/introSection/IntroSection";
-import JoinSection from "@/components/main/joinSection/JoinSection";
+import CycleSection from "@/components/main/sections/CycleSection";
+import HeroSection from "@/components/main/sections/HeroSection";
+import IntroSection from "@/components/main/sections/IntroSection";
+import JoinSection from "@/components/main/sections/JoinSection";
 
 // 섹션별 스크롤 트리거 설정
 // start: 섹션의 해당 지점이 뷰포트의 해당 지점에 도달하면 트리거
