@@ -1,4 +1,4 @@
-import { NavigationMenu } from "radix-ui";
+import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import { forwardRef } from "react";
 
 import {
