@@ -2,6 +2,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef } from "react";
 
+import CycleSection from "@/components/main/cycleSection/CycleSection";
 import HeroSection from "@/components/main/heroSection/HeroSection";
 import IntroSection from "@/components/main/introSection/IntroSection";
 
@@ -88,6 +89,7 @@ const Main = () => {
     <div ref={containerRef} className='scroll flex flex-col'>
       <HeroSection />
       <IntroSection />
+      <CycleSection />
     </div>
   );
 };
