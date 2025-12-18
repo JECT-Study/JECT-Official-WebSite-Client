@@ -70,7 +70,7 @@ const RotatingText = () => {
 
 const HeroSection = () => {
   return (
-    <div className='relative flex h-full w-full items-center justify-center'>
+    <section className='relative flex h-dvh w-full items-center justify-center'>
       <img
         src={heroBackground}
         alt='젝트 팀원들이 함께 모여 회의하는 모습'
@@ -107,7 +107,7 @@ const HeroSection = () => {
           <Icon name='arrow-down-wide-line' size='md' color='white' />
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
