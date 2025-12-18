@@ -15,7 +15,7 @@ export const StyledMegaMenuSection = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   padding: `${theme.scheme.semantic.margin.lg} ${theme.scheme.semantic.margin.xl}`,
-  gap: theme.scheme.semantic.spacing[24],
+  gap: theme.scheme.semantic.spacing[20],
 }));
 
 export const StyledLabel = styled(Label)(({ theme }) => ({
@@ -27,7 +27,7 @@ export const StyledMegaMenuGroup = styled("ul")(({ theme }) => ({
   flexDirection: "column",
   justifyItems: "flex-start",
   alignItems: "flex-start",
-  gap: theme.scheme.semantic.spacing[24],
+  gap: theme.scheme.semantic.spacing[16],
 }));
 
 export const StyledDivider = styled("hr")(({ theme }) => ({
