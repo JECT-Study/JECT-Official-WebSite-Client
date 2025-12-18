@@ -94,7 +94,7 @@ const GlobalNavigationBar = () => {
           </GlobalNavigation.Item>
         </GlobalNavigation.List>
         <GlobalNavigation.List align='right'>
-          <div style={{ width: "160px" }}>
+          <div className='w-40'>
             {variant === "solid" && (
               <SegmentedControl.Root value={theme} size='xs' onValueChange={handleThemeChange}>
                 <SegmentedControl.Item value='light'>라이트</SegmentedControl.Item>
