@@ -16,6 +16,8 @@ export interface GlobalNavigationToggleItemProps extends NavigationMenu.Navigati
   label?: ReactNode;
 }
 
+export type GlobalNavigationItemProps = NavigationMenu.NavigationMenuItemProps;
+
 export interface GlobalNavigationBlockItemProps extends NavigationMenu.NavigationMenuLinkProps {
   href: string;
 }

@@ -10,6 +10,7 @@ import {
   StyledDividerWrapper,
   StyledMobileMenuButton,
   StyledGlobalNavigationContent,
+  StyledGlobalNavigationItem,
 } from "./globalNavigation.styles";
 import type {
   GlobalNavigationRootProps,
@@ -18,6 +19,7 @@ import type {
   GlobalNavigationLogoLinkProps,
   GlobalNavigationMenuContentProps,
   GlobalNavigationTriggerProps,
+  GlobalNavigationItemProps,
 } from "./globalNavigation.types";
 import { Divider } from "../../Divider";
 
@@ -55,7 +57,15 @@ const GlobalNavigationList = forwardRef<HTMLUListElement, GlobalNavigationListPr
 
 GlobalNavigationList.displayName = "GlobalNavigation.List";
 
-const GlobalNavigationItem = NavigationMenu.Item;
+const GlobalNavigationItem = forwardRef<HTMLLIElement, GlobalNavigationItemProps>(
+  ({ children, ...props }, ref) => {
+    return (
+      <StyledGlobalNavigationItem ref={ref} {...props}>
+        {children}
+      </StyledGlobalNavigationItem>
+    );
+  },
+);
 GlobalNavigationItem.displayName = "GlobalNavigation.Item";
 
 const GlobalNavigationTrigger = forwardRef<HTMLButtonElement, GlobalNavigationTriggerProps>(

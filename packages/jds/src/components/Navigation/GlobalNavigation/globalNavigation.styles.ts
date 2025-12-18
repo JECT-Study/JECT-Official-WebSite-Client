@@ -96,6 +96,10 @@ export const StyledGlobalNavigationList = styled(NavigationMenu.List)(({ theme }
   },
 }));
 
+export const StyledGlobalNavigationItem = styled(NavigationMenu.Item)(() => ({
+  position: "relative" as const,
+}));
+
 export const StyledMobileMenuButton = styled(IconButton.Basic)(({ theme }) => ({
   display: "none",
 
@@ -118,8 +122,8 @@ export const StyledGlobalNavigationContent = styled(
 )<StyledGlobalNavigationContentProps>(({ $offset }) => {
   return {
     position: "absolute" as const,
-    top: "100%",
-    left: 0,
+    left: "50%",
+    transform: "translate(-50%, 0)",
     marginTop: $offset,
   };
 });

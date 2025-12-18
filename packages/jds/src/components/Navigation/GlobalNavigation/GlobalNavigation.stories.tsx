@@ -342,8 +342,8 @@ const TempNavigationContent = () => {
   return (
     <div
       style={{
-        width: "922px",
-        height: "424px",
+        width: "176px",
+        height: "163px",
         border: "1px solid #ECEDF9",
         borderRadius: "10px",
         background: "#ECEDF9",
