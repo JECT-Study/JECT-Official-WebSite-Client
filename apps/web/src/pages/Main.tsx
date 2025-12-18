@@ -7,6 +7,14 @@ import HeroSection from "@/components/main/heroSection/HeroSection";
 import IntroSection from "@/components/main/introSection/IntroSection";
 import JoinSection from "@/components/main/joinSection/JoinSection";
 
+// 섹션별 스크롤 트리거 설정
+// start: 섹션의 해당 지점이 뷰포트의 해당 지점에 도달하면 트리거
+const SECTION_TRIGGERS = [
+  { start: "70% top", startBack: "30% bottom" },  // HeroSection: 70% 스크롤 시 다음으로
+  { start: "90% top", startBack: "10% bottom" },  // IntroSection: 90% 스크롤 시 다음으로
+  { start: "70% top", startBack: "30% bottom" },  // CycleSection: 70% 스크롤 시 다음으로
+];
+
 const Main = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -25,11 +33,13 @@ const Main = () => {
       const sections = containerRef.current?.querySelectorAll("section");
       if (!sections) return;
 
+      // 다음 섹션으로 스크롤 (아래로 스크롤 시)
       sections.forEach((section, index) => {
         if (index < sections.length - 1) {
+          const trigger = SECTION_TRIGGERS[index];
           ScrollTrigger.create({
             trigger: section,
-            start: "center top",
+            start: trigger.start,
             end: "bottom top",
             onEnter: () => {
               if (!isScrolling && section.nextElementSibling) {
@@ -52,11 +62,13 @@ const Main = () => {
         }
       });
 
+      // 이전 섹션으로 스크롤 (위로 스크롤 시)
       sections.forEach((section, index) => {
         if (index > 0) {
+          const trigger = SECTION_TRIGGERS[index - 1];
           ScrollTrigger.create({
             trigger: section,
-            start: "center bottom",
+            start: trigger.startBack,
             end: "top bottom",
             onEnterBack: () => {
               if (!isScrolling && section.previousElementSibling) {
