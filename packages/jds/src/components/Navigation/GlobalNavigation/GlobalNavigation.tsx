@@ -20,6 +20,7 @@ import type {
   GlobalNavigationMenuContentProps,
   GlobalNavigationTriggerProps,
   GlobalNavigationItemProps,
+  GlobalNavigationMobileMenuButtonProps,
 } from "./globalNavigation.types";
 import { Divider } from "../../Divider";
 
@@ -29,12 +30,6 @@ const GlobalNavigationRoot = forwardRef<HTMLElement, GlobalNavigationRootProps>(
       <StyledGlobalNavigationWrapper $variant={variant}>
         <StyledGlobalNavigationRoot ref={ref} {...props}>
           {children}
-          <StyledMobileMenuButton
-            hierarchy='primary'
-            icon='menu-line'
-            size='lg'
-            aria-label='MenuButton'
-          />
         </StyledGlobalNavigationRoot>
       </StyledGlobalNavigationWrapper>
     );
@@ -42,6 +37,24 @@ const GlobalNavigationRoot = forwardRef<HTMLElement, GlobalNavigationRootProps>(
 );
 
 GlobalNavigationRoot.displayName = "GlobalNavigation.Root";
+
+const GlobalNavigationMobileMenuButton = forwardRef<
+  HTMLButtonElement,
+  GlobalNavigationMobileMenuButtonProps
+>(({ ...props }, ref) => {
+  return (
+    <StyledMobileMenuButton
+      ref={ref}
+      hierarchy='primary'
+      icon='menu-line'
+      size='lg'
+      aria-label='MenuButton'
+      {...props}
+    />
+  );
+});
+
+GlobalNavigationMobileMenuButton.displayName = "GlobalNavigation.MobileMenuButton";
 
 const GlobalNavigationList = forwardRef<HTMLUListElement, GlobalNavigationListProps>(
   ({ children, align = "left", ...props }, ref) => {
@@ -133,4 +146,5 @@ export const GlobalNavigation = {
   LogoLink: GlobalNavigationLogoLink,
   Divider: GlobalNavigationDivider,
   Content: GlobalNavigationContent,
+  MobileMenuButton: GlobalNavigationMobileMenuButton,
 };

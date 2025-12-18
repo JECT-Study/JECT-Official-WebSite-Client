@@ -1,6 +1,8 @@
 import type * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
+import type { IconButtonBasicProps } from "@/components/Button/IconButton";
+
 export type GlobalNavigationVariant = "empty" | "solid";
 export type GlobalNavigationVariantAlign = "left" | "center" | "right";
 
@@ -49,3 +51,8 @@ export interface StyledGlobalNavigationListWrapperProps {
 export interface StyledGlobalNavigationContentProps {
   $offset: number;
 }
+
+export type GlobalNavigationMobileMenuButtonProps = Omit<
+  IconButtonBasicProps,
+  "hierarchy" | "icon" | "size" | "aria-label"
+>;
