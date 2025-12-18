@@ -6,16 +6,24 @@ import {
   SegmentedControl,
   useGlobalNavigationVariant,
 } from "@ject/jds";
+import { useMediaQueryFlags } from "@ject/jds/hooks";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { JectMenu, JoinGuideMenu, ProgramMenu } from "./Menus";
+import { Sidebar } from "./Sidebar";
 
 import { useTheme } from "@/hooks/useTheme";
 
-interface GlobalNavigationBarProps {}
-
-const GlobalNavigationBar = ({}: GlobalNavigationBarProps) => {
+const GlobalNavigationBar = () => {
+  const navigation = useNavigate();
   const { theme, setLightTheme, setDarkTheme } = useTheme();
   const variant = useGlobalNavigationVariant();
+  const { isDesktop, isTablet, isMobile } = useMediaQueryFlags();
+  const [isOpenSidebar, setIsOpenSidebar] = useState(false);
+
+  const textColor = variant === "empty" ? "text-white!" : "";
+  const blockButtonColor = variant === "empty" ? "bg-[#E7E7F3]! text-[#191B24]!" : "";
 
   const handleThemeChange = (value: string) => {
     if (value === "light") {
@@ -25,16 +33,19 @@ const GlobalNavigationBar = ({}: GlobalNavigationBarProps) => {
     }
   };
 
-  const textColor = variant === "empty" ? "text-white!" : "";
-  const blockButtonColor = variant === "empty" ? "bg-[#E7E7F3]! text-[#191B24]!" : "";
+  const handleOpenSidebar = () => setIsOpenSidebar(true);
 
   return (
     <div className='fixed inset-0 z-50'>
       <GlobalNavigation.Root variant={variant}>
-        <GlobalNavigation.LogoItem>
-          <Logo href='/' hierarchy='primary' height={16} className={`${textColor}`} />
-        </GlobalNavigation.LogoItem>
-        <GlobalNavigation.Divider />
+        <Logo
+          role='home'
+          href='/'
+          hierarchy='primary'
+          height={isDesktop ? 16 : 14}
+          className={`${textColor}`}
+        />
+        {!isMobile && <GlobalNavigation.Divider />}
         <GlobalNavigation.List>
           <GlobalNavigation.Item>
             <GlobalNavigation.Trigger>
@@ -94,19 +105,22 @@ const GlobalNavigationBar = ({}: GlobalNavigationBarProps) => {
           <GlobalNavigation.Item>
             <BlockButton.Basic
               hierarchy='primary'
-              size='sm'
-              onClick={() => alert("hello!")}
+              size={isTablet ? "xs" : "sm"}
+              onClick={() => void navigation("/")}
               className={`${blockButtonColor}`}
             >
               지원하기
             </BlockButton.Basic>
           </GlobalNavigation.Item>
         </GlobalNavigation.List>
+        <GlobalNavigation.MobileMenuButton
+          className={`z-51 ${textColor}`}
+          onClick={handleOpenSidebar}
+        />
+        <Sidebar isOpenSidebar={isOpenSidebar} setIsOpenSidebar={setIsOpenSidebar} />
       </GlobalNavigation.Root>
     </div>
   );
-  //TODO: 테마 버튼이 variant에 띠리 나오도록 설정해야함.
-  //TODO: 테마 버튼이 제대로 클릭되지 않음.
 };
 
 export default GlobalNavigationBar;
