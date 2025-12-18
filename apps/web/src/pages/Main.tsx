@@ -5,6 +5,7 @@ import { useEffect, useRef } from "react";
 import CycleSection from "@/components/main/cycleSection/CycleSection";
 import HeroSection from "@/components/main/heroSection/HeroSection";
 import IntroSection from "@/components/main/introSection/IntroSection";
+import JoinSection from "@/components/main/joinSection/JoinSection";
 
 const Main = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -90,6 +91,7 @@ const Main = () => {
       <HeroSection />
       <IntroSection />
       <CycleSection />
+      <JoinSection />
     </div>
   );
 };
