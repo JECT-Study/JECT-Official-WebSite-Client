@@ -85,11 +85,11 @@ export const StyledBannerBarCloseButton = styled.div(({ theme }) => ({
   },
 }));
 
-export const StyledBannerImageRoot = styled.div<{ fullScreen?: boolean }>(({ fullScreen }) => ({
+export const StyledBannerImageRoot = styled.div({
   position: "relative",
   width: "100%",
-  ...(fullScreen ? { height: "100dvh" } : { aspectRatio: "2 / 1" }),
-}));
+  aspectRatio: "2 / 1",
+});
 
 export const StyledBannerImageGradient = styled.div(({ theme }) => ({
   position: "absolute",

@@ -23,7 +23,6 @@ export interface BannerImageProps extends Omit<
   variant?: "image";
   title: string;
   subtitle?: string;
-  fullScreen?: boolean;
 }
 
 export type BannerProps = BannerBarProps | BannerImageProps;
