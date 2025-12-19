@@ -55,10 +55,10 @@ const BannerBar = forwardRef<HTMLDivElement, BannerBarProps>((props, ref) => {
 BannerBar.displayName = "Banner.Bar";
 
 const BannerImage = forwardRef<HTMLDivElement, BannerImageProps>((props, ref) => {
-  const { title, subtitle, isReadonly = true, ...imgProps } = props;
+  const { title, subtitle, isReadonly = true, fullScreen, ...imgProps } = props;
 
   return (
-    <StyledBannerImageRoot ref={ref}>
+    <StyledBannerImageRoot ref={ref} fullScreen={fullScreen}>
       <Image
         orientation='landscape'
         isReadonly={isReadonly}
