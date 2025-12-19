@@ -1,4 +1,4 @@
-import { NavigationMenu } from "radix-ui";
+import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import { forwardRef } from "react";
 
 import {
@@ -10,6 +10,7 @@ import {
   StyledDividerWrapper,
   StyledMobileMenuButton,
   StyledGlobalNavigationContent,
+  StyledGlobalNavigationItem,
 } from "./globalNavigation.styles";
 import type {
   GlobalNavigationRootProps,
@@ -18,6 +19,8 @@ import type {
   GlobalNavigationLogoLinkProps,
   GlobalNavigationMenuContentProps,
   GlobalNavigationTriggerProps,
+  GlobalNavigationItemProps,
+  GlobalNavigationMobileMenuButtonProps,
 } from "./globalNavigation.types";
 import { Divider } from "../../Divider";
 
@@ -27,12 +30,6 @@ const GlobalNavigationRoot = forwardRef<HTMLElement, GlobalNavigationRootProps>(
       <StyledGlobalNavigationWrapper $variant={variant}>
         <StyledGlobalNavigationRoot ref={ref} {...props}>
           {children}
-          <StyledMobileMenuButton
-            hierarchy='primary'
-            icon='menu-line'
-            size='lg'
-            aria-label='MenuButton'
-          />
         </StyledGlobalNavigationRoot>
       </StyledGlobalNavigationWrapper>
     );
@@ -40,6 +37,24 @@ const GlobalNavigationRoot = forwardRef<HTMLElement, GlobalNavigationRootProps>(
 );
 
 GlobalNavigationRoot.displayName = "GlobalNavigation.Root";
+
+const GlobalNavigationMobileMenuButton = forwardRef<
+  HTMLButtonElement,
+  GlobalNavigationMobileMenuButtonProps
+>(({ ...props }, ref) => {
+  return (
+    <StyledMobileMenuButton
+      ref={ref}
+      hierarchy='primary'
+      icon='menu-line'
+      size='lg'
+      aria-label='MenuButton'
+      {...props}
+    />
+  );
+});
+
+GlobalNavigationMobileMenuButton.displayName = "GlobalNavigation.MobileMenuButton";
 
 const GlobalNavigationList = forwardRef<HTMLUListElement, GlobalNavigationListProps>(
   ({ children, align = "left", ...props }, ref) => {
@@ -55,7 +70,15 @@ const GlobalNavigationList = forwardRef<HTMLUListElement, GlobalNavigationListPr
 
 GlobalNavigationList.displayName = "GlobalNavigation.List";
 
-const GlobalNavigationItem = NavigationMenu.Item;
+const GlobalNavigationItem = forwardRef<HTMLLIElement, GlobalNavigationItemProps>(
+  ({ children, ...props }, ref) => {
+    return (
+      <StyledGlobalNavigationItem ref={ref} {...props}>
+        {children}
+      </StyledGlobalNavigationItem>
+    );
+  },
+);
 GlobalNavigationItem.displayName = "GlobalNavigation.Item";
 
 const GlobalNavigationTrigger = forwardRef<HTMLButtonElement, GlobalNavigationTriggerProps>(
@@ -123,4 +146,5 @@ export const GlobalNavigation = {
   LogoLink: GlobalNavigationLogoLink,
   Divider: GlobalNavigationDivider,
   Content: GlobalNavigationContent,
+  MobileMenuButton: GlobalNavigationMobileMenuButton,
 };

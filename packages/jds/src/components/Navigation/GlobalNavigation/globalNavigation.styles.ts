@@ -40,6 +40,7 @@ export const StyledGlobalNavigationWrapper = styled.div<StyledGlobalNavigationWr
 
       [theme.breakPoint.mobile]: {
         justifyContent: "flex-start",
+        padding: `${theme.scheme.semantic.margin.sm} ${theme.scheme.semantic.margin.lg}`,
       },
     };
   },
@@ -52,7 +53,6 @@ export const StyledGlobalNavigationRoot = styled(NavigationMenu.Root)(({ theme }
   alignItems: "center",
   gap: theme.scheme.semantic.spacing[24],
   width: pxToRem(922),
-  height: pxToRem(32),
 
   [theme.breakPoint.tablet]: {
     width: pxToRem(728),
@@ -96,6 +96,10 @@ export const StyledGlobalNavigationList = styled(NavigationMenu.List)(({ theme }
   },
 }));
 
+export const StyledGlobalNavigationItem = styled(NavigationMenu.Item)(() => ({
+  position: "relative" as const,
+}));
+
 export const StyledMobileMenuButton = styled(IconButton.Basic)(({ theme }) => ({
   display: "none",
 
@@ -109,8 +113,12 @@ export const StyledGlobalNavigationLogoLink = styled(NavigationMenu.Link)(() => 
   color: "inherit",
 }));
 
-export const StyledDividerWrapper = styled.div(() => ({
-  height: pxToRem(16),
+export const StyledDividerWrapper = styled.div(({ theme }) => ({
+  height: pxToRem(20),
+
+  [theme.breakPoint.tablet]: {
+    height: pxToRem(18),
+  },
 }));
 
 export const StyledGlobalNavigationContent = styled(
@@ -118,8 +126,8 @@ export const StyledGlobalNavigationContent = styled(
 )<StyledGlobalNavigationContentProps>(({ $offset }) => {
   return {
     position: "absolute" as const,
-    top: "100%",
-    left: 0,
+    left: "50%",
+    transform: "translate(-50%, 0)",
     marginTop: $offset,
   };
 });

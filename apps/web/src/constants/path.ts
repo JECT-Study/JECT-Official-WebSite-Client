@@ -12,6 +12,13 @@ export const PATH = {
   applicantInfo: "/apply/applicant-info",
   applyRegistration: "/apply/registration",
   applyComplete: "/apply/complete",
+  // 새로 추가된 페이지 경로입니다.
+  landing: "/",
+  vision: "/vision",
+  teamProject: "/team-projects",
+  miniStudy: "/mini-study",
+  liveSession: "/live-session",
+  applyInfo: "apply-info",
 } as const;
 
 export const disabledPage: string[] = [
