@@ -78,9 +78,9 @@ const HeroSection = () => {
       />
 
       <div
-        className='absolute inset-0 z-2 mix-blend-multiply'
+        className='absolute inset-0 z-2'
         style={{
-          background: "linear-gradient(180deg, #999999 0%, #FFFFFF 34.57%, #191B24 100%)",
+          background: "linear-gradient(180deg, transparent 0%, transparent 50%, var(--semantic-surface-static-inverse-standard) 100%)",
         }}
       />
 
