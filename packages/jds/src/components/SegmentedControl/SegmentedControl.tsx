@@ -27,7 +27,7 @@ const SegmentedControlRoot = forwardRef<
   return (
     <SegmentedControlContext.Provider value={{ size }}>
       <SegmentedControlRootStyled ref={ref} size={size}>
-        <ToggleGroup.Root asChild type="single" {...props}>
+        <ToggleGroup.Root asChild type='single' {...props}>
           <SegmentedControlContentStyled size={size}>{children}</SegmentedControlContentStyled>
         </ToggleGroup.Root>
       </SegmentedControlRootStyled>
@@ -46,7 +46,7 @@ const SegmentedControlItem = forwardRef<
   return (
     <ToggleGroup.Item asChild value={value} disabled={disabled} {...props}>
       <SegmentedControlItemStyled ref={ref} size={size} $isDisabled={disabled}>
-        <Label size={size} color="inherit">
+        <Label size={size} color='inherit'>
           {children}
         </Label>
       </SegmentedControlItemStyled>

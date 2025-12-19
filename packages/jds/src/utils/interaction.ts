@@ -1,23 +1,23 @@
-import type { Theme } from "@emotion/react";
+import type { CSSObject, Theme } from "@emotion/react";
 import type { Density, FillColor, InteractionState, Variant } from "types";
 
-export function interaction(
+export function Interaction(
   theme: Theme,
   variant: Variant,
   density: Density,
   fillColor: FillColor,
   state: InteractionState = "default",
   borderRadius: string = "inherit",
-) {
-  const createAfter = (backgroundColor: string) => {
+): CSSObject {
+  const createAfter = (backgroundColor: string): CSSObject => {
     const baseStyle = {
-      position: "relative",
-      outline: "none",
+      position: "relative" as const,
+      outline: "none" as const,
     };
 
     const afterBaseStyle = {
       content: '""',
-      position: "absolute",
+      position: "absolute" as const,
       top: 0,
       left: 0,
       width: "100%",

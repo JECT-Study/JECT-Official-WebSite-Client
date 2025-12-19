@@ -39,17 +39,17 @@ const ToastBasic = ({ id, caption, onRemove, title, isClosing }: ToastBasicProps
   }, [isClosing]);
 
   return (
-    <ToastDiv id={id} className={phase} toastStyle="basic" onAnimationEnd={onAnimationEnd}>
+    <ToastDiv id={id} className={phase} toastStyle='basic' onAnimationEnd={onAnimationEnd}>
       <ToastContentDiv>
         <ToastLabelContainerDiv>
-          <ToastLabel toastStyle="basic" size="md" textAlign="left" weight="normal">
+          <ToastLabel as='span' toastStyle='basic' size='md' textAlign='left' weight='normal'>
             {title}
           </ToastLabel>
           <IconButton.Basic
-            icon="close-line"
-            hierarchy="secondary"
-            size="md"
-            aria-label="toast close button"
+            icon='close-line'
+            hierarchy='secondary'
+            size='md'
+            aria-label='toast close button'
             onClick={onClose}
           />
         </ToastLabelContainerDiv>
@@ -103,14 +103,14 @@ const ToastFeedback = ({
             variant={variant}
             name={variant === "positive" ? "check-line" : "error-warning-line"}
           />
-          <ToastLabel toastStyle={variant} size="md" textAlign="left" weight="normal">
+          <ToastLabel as='span' toastStyle={variant} size='md' textAlign='left' weight='normal'>
             {title}
           </ToastLabel>
           <IconButton.Basic
-            icon="close-line"
-            hierarchy="secondary"
-            size="md"
-            aria-label="toast close button"
+            icon='close-line'
+            hierarchy='secondary'
+            size='md'
+            aria-label='toast close button'
             onClick={onClose}
           />
         </ToastLabelContainerDiv>

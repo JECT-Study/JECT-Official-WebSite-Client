@@ -112,7 +112,7 @@ export const Default: Story = {
           {...args}
           value={value}
           onChange={e => setValue(e.target.value)}
-          placeholder="여러 줄의 텍스트를 입력하세요"
+          placeholder='여러 줄의 텍스트를 입력하세요'
         />
       </div>
     );
@@ -135,7 +135,7 @@ export const FixedHeight: Story = {
           {...args}
           value={value}
           onChange={e => setValue(e.target.value)}
-          placeholder="많은 텍스트를 입력해보세요. 스크롤이 생깁니다."
+          placeholder='많은 텍스트를 입력해보세요. 스크롤이 생깁니다.'
         />
       </div>
     );
@@ -159,7 +159,7 @@ export const DynamicHeight: Story = {
           {...args}
           value={value}
           onChange={e => setValue(e.target.value)}
-          placeholder="텍스트를 입력하거나 우측 하단을 드래그해보세요!"
+          placeholder='텍스트를 입력하거나 우측 하단을 드래그해보세요!'
         />
       </div>
     );
@@ -182,7 +182,7 @@ export const CSSHeightValue: Story = {
           {...args}
           value={value}
           onChange={e => setValue(e.target.value)}
-          placeholder="CSS 값으로 높이를 설정할 수 있습니다"
+          placeholder='CSS 값으로 높이를 설정할 수 있습니다'
         />
       </div>
     );
@@ -206,7 +206,7 @@ export const WithCount: Story = {
           {...args}
           value={value}
           onChange={e => setValue(e.target.value)}
-          placeholder="최대 500자까지 입력 가능합니다"
+          placeholder='최대 500자까지 입력 가능합니다'
         />
       </div>
     );
@@ -230,7 +230,7 @@ export const Error: Story = {
           {...args}
           value={value}
           onChange={e => setValue(e.target.value)}
-          placeholder="코멘트를 입력하세요"
+          placeholder='코멘트를 입력하세요'
         />
       </div>
     );
@@ -253,7 +253,7 @@ export const Disabled: Story = {
           {...args}
           value={value}
           onChange={e => setValue(e.target.value)}
-          placeholder="입력할 수 없습니다"
+          placeholder='입력할 수 없습니다'
         />
       </div>
     );
@@ -276,7 +276,7 @@ export const ReadOnly: Story = {
           {...args}
           value={value}
           onChange={e => setValue(e.target.value)}
-          placeholder="읽기 전용"
+          placeholder='읽기 전용'
         />
       </div>
     );
@@ -299,7 +299,7 @@ export const EmptyStyle: Story = {
           {...args}
           value={value}
           onChange={e => setValue(e.target.value)}
-          placeholder="테두리가 없는 스타일입니다"
+          placeholder='테두리가 없는 스타일입니다'
         />
       </div>
     );
@@ -322,7 +322,7 @@ export const HorizontalLayout: Story = {
           {...args}
           value={value}
           onChange={e => setValue(e.target.value)}
-          placeholder="가로 레이아웃"
+          placeholder='가로 레이아웃'
         />
       </div>
     );
@@ -345,7 +345,7 @@ export const WithLabelIcon: Story = {
           {...args}
           value={value}
           onChange={e => setValue(e.target.value)}
-          placeholder="정보 아이콘이 있는 InputArea"
+          placeholder='정보 아이콘이 있는 InputArea'
         />
       </div>
     );
@@ -367,7 +367,7 @@ export const HelperOnly: Story = {
           {...args}
           value={value}
           onChange={e => setValue(e.target.value)}
-          placeholder="Helper만 표시"
+          placeholder='Helper만 표시'
         />
       </div>
     );
@@ -389,7 +389,7 @@ export const CountOnly: Story = {
           {...args}
           value={value}
           onChange={e => setValue(e.target.value)}
-          placeholder="Count만 표시"
+          placeholder='Count만 표시'
         />
       </div>
     );
@@ -412,7 +412,7 @@ export const HiddenLabel: Story = {
           {...args}
           value={value}
           onChange={e => setValue(e.target.value)}
-          placeholder="레이블이 숨겨진 상태"
+          placeholder='레이블이 숨겨진 상태'
         />
       </div>
     );
