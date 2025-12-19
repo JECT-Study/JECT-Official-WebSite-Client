@@ -29,7 +29,7 @@ export const StyledFooterDivider = styled.hr(({ theme }) => ({
   width: "100%",
   height: "1px",
   border: "none",
-  backgroundColor: theme.color.semantic.stroke.alpha.inverse.subtle,
+  backgroundColor: theme.color.semantic.object.static.inverse.subtler,
   margin: 0,
 }));
 
