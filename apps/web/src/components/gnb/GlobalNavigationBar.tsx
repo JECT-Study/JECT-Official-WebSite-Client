@@ -94,14 +94,6 @@ const GlobalNavigationBar = () => {
           </GlobalNavigation.Item>
         </GlobalNavigation.List>
         <GlobalNavigation.List align='right'>
-          <div className='w-40'>
-            {variant === "solid" && (
-              <SegmentedControl.Root value={theme} size='xs' onValueChange={handleThemeChange}>
-                <SegmentedControl.Item value='light'>라이트</SegmentedControl.Item>
-                <SegmentedControl.Item value='dark'>다크</SegmentedControl.Item>
-              </SegmentedControl.Root>
-            )}
-          </div>
           <GlobalNavigation.Item>
             <BlockButton.Basic
               hierarchy='primary'
@@ -112,6 +104,14 @@ const GlobalNavigationBar = () => {
               지원하기
             </BlockButton.Basic>
           </GlobalNavigation.Item>
+          <div className='w-[120px]'>
+            {variant === "solid" && (
+              <SegmentedControl.Root value={theme} size='xs' onValueChange={handleThemeChange}>
+                <SegmentedControl.Item value='light'>라이트</SegmentedControl.Item>
+                <SegmentedControl.Item value='dark'>다크</SegmentedControl.Item>
+              </SegmentedControl.Root>
+            )}
+          </div>
         </GlobalNavigation.List>
         <GlobalNavigation.MobileMenuButton
           className={`z-51 ${textColor}`}
