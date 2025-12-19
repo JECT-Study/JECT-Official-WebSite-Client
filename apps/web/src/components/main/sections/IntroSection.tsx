@@ -14,7 +14,7 @@ const positionCardStyles = {
 
 const IntroSection = () => {
   return (
-    <section className='bg-white px-0 py-(--semantic-margin-5xl)'>
+    <section className='bg-(--semantic-surface-standard) px-0 py-(--semantic-margin-5xl)'>
       <div className='flex w-full flex-col items-center gap-(--semantic-spacing-128) px-(--semantic-margin-lg) pt-(--semantic-margin-xl) pb-(--semantic-spacing-80)'>
         {/* IT 동아리 젝트 */}
         <div className={wrapperClassName}>
