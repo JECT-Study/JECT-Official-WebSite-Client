@@ -1,101 +1,95 @@
 import type { JobFamily } from "./apis/application";
+import type { ProfileData } from "./profile";
 
-//지원자 신분 타입
-export type CareerDetails =
-  | "STUDENT_ENROLLED"
-  | "STUDENT_EXPECTED_GRADUATE"
-  | "JOB_SEEKER"
-  | "JOB_CHANGER"
-  | "EMPLOYED";
+export type {
+  CareerDetails,
+  Region,
+  ExperiencePeriod,
+  InterestedDomain,
+  ProfileData,
+} from "./profile";
 
-//지원자 신분 레이블
-export const CAREER_DETAILS_LABELS: Record<CareerDetails, string> = {
-  STUDENT_ENROLLED: "대학생(재학/휴학)",
-  STUDENT_EXPECTED_GRADUATE: "대학 졸업 예정",
-  JOB_SEEKER: "취준생",
-  JOB_CHANGER: "이직 준비 중",
-  EMPLOYED: "재직자",
-};
+export {
+  CAREER_DETAILS_LABELS,
+  REGION_LABELS,
+  EXPERIENCE_PERIOD_LABELS,
+  INTERESTED_DOMAIN_LABELS,
+} from "./profile";
 
-//지원 상태 타입(서버 응답)
-//JOINED 는 지원서 제출 이후 Ject 에 선별된 지원서
-//TEMP_SAVED 반환시 "step": 2 or 3 이렇게 추가 필드가 옴
+//지원 상태(/apply/status) 서버 응답
 export type ApplicationStatus = "JOINED" | "TEMP_SAVED" | "SUBMITTED";
 
-// 메인 지원 Funnel
-export type ApplyFunnelStep =
-  | "이메일인증"
-  | "인증코드입력"
-  | "PIN설정"
-  | "지원상태확인"
-  | "PIN로그인"
-  | "지원자정보"
-  | "지원서작성"
-  | "완료";
+//단계별 Context
 
-//메인 지원 Funnel Context
-export interface ApplyFunnelContext {
+//JobFamily에 대한 공고 이기 때문에 해당 인터페이스를 기본으로 가짐
+interface BaseContext {
   jobFamily: JobFamily;
-
-  // Step 1: 이메일 인증
-  email?: string;
-  isNewMember?: boolean;
-
-  // Step 1-1 (기존 회원): 지원 상태
-  applicationStatus?: ApplicationStatus;
-  hasTempSaved?: boolean; // TEMP_SAVED 여부
-  profileCompleted?: boolean; // 프로필 완료 여부 (이어쓰기 분기용)
-
-  // Step 2: 지원자 정보 (프로필)
-  name?: string;
-  phoneNumber?: string;
-  careerDetails?: CareerDetails; // 지원자 신분
-  residence?: string; // 거주 지역
-  experiencePeriod?: string; // 직무 관련 경험 기간
-  interestedDomains?: string[]; // 관심 도메인 (선택)
-
-  // 프로필 저장 완료 여부 (PUT 중복 호출 방지용-POST 라면 필요없을 수도)
-  isProfileSaved?: boolean;
-
-  // 제출 완료 여부
-  submitted?: boolean;
 }
 
-export type ResetPinFunnelStep = "이메일재인증" | "인증코드입력" | "새PIN설정" | "완료";
+export type ApplyFunnelSteps = {
+  이메일인증: BaseContext & { email?: string };
 
-export interface ResetPinFunnelContext {
-  email?: string;
-  newPin?: string;
-}
+  // 2-A. 신규 회원 경로
+  인증코드입력: BaseContext & { email: string };
+  PIN설정: BaseContext & { email: string };
 
-export interface FunnelStepProps<T = ApplyFunnelContext> {
-  context: T;
-  onNext: (data: Partial<T>) => void;
-  onBack?: () => void;
-}
+  // 2-B. 기존 회원 경로
+  지원상태확인: BaseContext & { email: string };
 
-export const REQUIRED_CONTEXT_BY_STEP: Record<ApplyFunnelStep, (keyof ApplyFunnelContext)[]> = {
-  이메일인증: ["jobFamily"],
-  인증코드입력: ["jobFamily", "email"],
-  PIN설정: ["jobFamily", "email", "isNewMember"],
-  지원상태확인: ["jobFamily", "email", "isNewMember"],
-  PIN로그인: ["jobFamily", "email"],
-  지원자정보: ["jobFamily", "email"],
-  지원서작성: ["jobFamily", "email", "name", "phoneNumber"],
-  완료: ["jobFamily", "email", "submitted"],
+  // 3. 공통 (이후 단계)
+  지원자정보: BaseContext & { email: string };
+
+  // 지원서 작성은 프로필이 이미 등록됨
+  지원서작성: BaseContext & { email: string } & ProfileData;
+
+  완료: BaseContext & { email: string } & ProfileData;
 };
 
-export function hasRequiredContext(context: ApplyFunnelContext, step: ApplyFunnelStep): boolean {
-  const requiredFields = REQUIRED_CONTEXT_BY_STEP[step];
-  return requiredFields.every(field => context[field] !== undefined);
-}
+export type ApplyFunnelStep = keyof ApplyFunnelSteps;
 
+// 이어쓰기 Funnel (기존 회원 전용)
+
+export type ContinueWritingFunnelSteps = {
+  본인확인: BaseContext & {
+    email?: string;
+    // 지원자 상태 조회 시 저장된 상태
+    tempSavedStep: "PROFILE" | "APPLY";
+  };
+
+  지원자정보: BaseContext & { email: string; tempSavedStep: "PROFILE" };
+  지원서작성: BaseContext & { email: string; tempSavedStep: "APPLY" } & ProfileData;
+  완료: BaseContext & { email: string } & ProfileData;
+};
+
+export type ContinueWritingFunnelStep = keyof ContinueWritingFunnelSteps;
+
+// PIN 재설정 Funnel
+
+export type ResetPinFunnelSteps = {
+  이메일인증: {
+    email?: string;
+    returnTo: string;
+  };
+
+  인증코드입력: {
+    email: string;
+    returnTo: string;
+  };
+
+  새PIN설정: {
+    email: string;
+    returnTo: string;
+  };
+};
+
+export type ResetPinFunnelStep = keyof ResetPinFunnelSteps;
+
+//단계별 진행률 Step 컴포넌트 용
 export const STEP_PROGRESS: Record<ApplyFunnelStep, number> = {
   이메일인증: 1,
   인증코드입력: 1,
   PIN설정: 1,
   지원상태확인: 1,
-  PIN로그인: 1,
   지원자정보: 2,
   지원서작성: 3,
   완료: 3,
