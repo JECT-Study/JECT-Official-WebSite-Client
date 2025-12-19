@@ -44,7 +44,7 @@ export const Default: Story = {
 };
 
 export const Readonly: Story = {
-  render: () => <Image alt="읽기 전용 이미지" isReadonly={true} />,
+  render: () => <Image alt='읽기 전용 이미지' isReadonly={true} />,
 };
 
 export const Clickable: Story = {
@@ -55,14 +55,14 @@ export const Clickable: Story = {
     const clickHandler = () => {
       alert("클릭");
     };
-    return <Image alt="이미지" isReadonly={args.isReadonly} onClick={clickHandler} />;
+    return <Image alt='이미지' isReadonly={args.isReadonly} onClick={clickHandler} />;
   },
 };
 
 export const FixedWidth: Story = {
   render: () => (
     <div style={{ width: "300px" }}>
-      <Image ratio="2:3" orientation="landscape" alt="이미지" />
+      <Image ratio='2:3' orientation='landscape' alt='이미지' />
     </div>
   ),
 };
@@ -70,7 +70,7 @@ export const FixedWidth: Story = {
 export const FixedHeight: Story = {
   render: () => (
     <div style={{ height: "200px" }}>
-      <Image ratio="2:3" orientation="landscape" alt="이미지" />
+      <Image ratio='2:3' orientation='landscape' alt='이미지' />
     </div>
   ),
 };
@@ -78,7 +78,7 @@ export const FixedHeight: Story = {
 export const HaveBorderRadius: Story = {
   render: () => (
     <div style={{ height: "200px", borderRadius: "30px 30px 0 0" }}>
-      <Image ratio="2:3" orientation="landscape" alt="이미지" />
+      <Image ratio='2:3' orientation='landscape' alt='이미지' />
     </div>
   ),
 };
@@ -86,7 +86,7 @@ export const HaveBorderRadius: Story = {
 export const WithBadge: Story = {
   render: () => (
     <div>
-      <Image alt="이미지" badgeVisible={true} badgeLabel="1" />
+      <Image alt='이미지' badgeVisible={true} badgeLabel='1' />
     </div>
   ),
 };

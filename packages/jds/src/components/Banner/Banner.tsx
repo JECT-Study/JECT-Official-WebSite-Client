@@ -62,6 +62,7 @@ const BannerImage = forwardRef<HTMLDivElement, BannerImageProps>((props, ref) =>
       <Image
         orientation='landscape'
         isReadonly={isReadonly}
+        alt={title}
         style={{
           position: "absolute",
           top: 0,

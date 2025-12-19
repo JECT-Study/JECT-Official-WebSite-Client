@@ -18,8 +18,8 @@ export const Divider = forwardRef<HTMLHRElement | HTMLDivElement, DividerProps>(
       return (
         <StyledVerticalDivider
           ref={ref as Ref<HTMLDivElement>}
-          role="separator"
-          aria-orientation="vertical"
+          role='separator'
+          aria-orientation='vertical'
           aria-hidden={decorative}
           $thickness={thickness}
           $variant={variant}

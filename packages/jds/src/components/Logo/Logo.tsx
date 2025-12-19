@@ -18,7 +18,7 @@ export const Logo = forwardRef<HTMLAnchorElement, LogoProps>(
         tabIndex={tabIndex}
         {...restProps}
       >
-        <SvgLogo width="100%" height="100%" />
+        <SvgLogo width='100%' height='100%' />
       </StyledLogo>
     );
   },

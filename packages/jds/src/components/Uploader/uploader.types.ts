@@ -31,8 +31,7 @@ export interface UploaderFileButtonProps {
 }
 
 export interface UploaderFileProps
-  extends UploaderOptions,
-    Omit<UploaderFileButtonProps, "triggerUpload"> {
+  extends UploaderOptions, Omit<UploaderFileButtonProps, "triggerUpload"> {
   multiple?: boolean;
   messages?: UploaderMessages;
 }

@@ -46,10 +46,10 @@ export const InputArea = forwardRef<HTMLTextAreaElement, InputAreaProps>(
         {label && labelVisible && (
           <StyledLabelContainer $layout={layout} $disabled={isDisabled} $readOnly={isReadOnly}>
             <StyledFieldLabel
-              as="label"
+              as='label'
               htmlFor={inputId}
-              size="sm"
-              weight="normal"
+              size='sm'
+              weight='normal'
               $disabled={isDisabled}
               $readOnly={isReadOnly}
               $layout={layout}
@@ -59,7 +59,7 @@ export const InputArea = forwardRef<HTMLTextAreaElement, InputAreaProps>(
             {labelIcon && (
               <StyledLabelIcon
                 name={labelIcon}
-                size="2xs"
+                size='2xs'
                 $disabled={isDisabled}
                 $readOnly={isReadOnly}
               />
@@ -98,13 +98,13 @@ export const InputArea = forwardRef<HTMLTextAreaElement, InputAreaProps>(
               $readOnly={isReadOnly}
             >
               {helperText && (
-                <StyledHelperText as="span" size="sm" weight="normal">
+                <StyledHelperText as='span' size='sm' weight='normal'>
                   {helperText}
                 </StyledHelperText>
               )}
 
               {maxLength && (
-                <StyledCountText as="span" size="sm" weight="normal" textAlign="right">
+                <StyledCountText as='span' size='sm' weight='normal' textAlign='right'>
                   {`${currentLength}/${maxLength}`}
                 </StyledCountText>
               )}

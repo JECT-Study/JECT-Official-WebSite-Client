@@ -64,23 +64,23 @@ const meta = {
     isDisabled: false,
     maxFileSize: 5 * 1024 * 1024,
     helperLabel: (
-      <Label size="xs" textAlign="center" weight="bold">
+      <Label size='xs' textAlign='center' weight='bold'>
         업로드에 문제가 있나요?
       </Label>
     ),
     uploadButton: triggerUpload => (
       <BlockButton.Basic
-        hierarchy="tertiary"
-        size="sm"
-        variant="outlined"
-        suffixIcon="upload-2-line"
+        hierarchy='tertiary'
+        size='sm'
+        variant='outlined'
+        suffixIcon='upload-2-line'
         onClick={triggerUpload}
       >
         파일 업로드
       </BlockButton.Basic>
     ),
     cancelButton: (
-      <LabelButton.Basic hierarchy="tertiary" size="sm" suffixIcon="arrow-go-back-line">
+      <LabelButton.Basic hierarchy='tertiary' size='sm' suffixIcon='arrow-go-back-line'>
         업로드 취소
       </LabelButton.Basic>
     ),
@@ -113,9 +113,9 @@ export const Default: StoryObj<typeof Uploader.File> = {
         maxFileSize={5 * 1024 * 1024} // 5MB
         helperLabel={
           <Label
-            size="xs"
-            textAlign="center"
-            weight="bold"
+            size='xs'
+            textAlign='center'
+            weight='bold'
             onClick={onIssue}
             color={theme.color.semantic.object.assistive}
           >
@@ -124,10 +124,10 @@ export const Default: StoryObj<typeof Uploader.File> = {
         }
         uploadButton={triggerUpload => (
           <BlockButton.Basic
-            hierarchy="tertiary"
-            size="sm"
-            variant="outlined"
-            suffixIcon="upload-2-line"
+            hierarchy='tertiary'
+            size='sm'
+            variant='outlined'
+            suffixIcon='upload-2-line'
             disabled={args.isDisabled}
             onClick={triggerUpload}
           >
@@ -136,9 +136,9 @@ export const Default: StoryObj<typeof Uploader.File> = {
         )}
         cancelButton={
           <LabelButton.Basic
-            hierarchy="tertiary"
-            size="sm"
-            suffixIcon="arrow-go-back-line"
+            hierarchy='tertiary'
+            size='sm'
+            suffixIcon='arrow-go-back-line'
             onClick={onCancel}
           >
             업로드 취소
