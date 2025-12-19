@@ -101,7 +101,7 @@ const HeroSection = () => {
         </div>
 
         <div className='absolute bottom-10 flex flex-col items-center gap-2'>
-          <Label as='span' size='md' weight='bold' color='white'>
+          <Label as='span' size='md' weight='bold' className='text-white!'>
             아래로 스크롤해주세요
           </Label>
           <Icon name='arrow-down-wide-line' size='md' color='white' />
