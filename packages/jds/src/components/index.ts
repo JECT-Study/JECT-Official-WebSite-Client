@@ -25,3 +25,4 @@ export * from "./Divider";
 export * from "./Menu/MegaMenu";
 export * from "./Menu/MenuItem";
 export * from "./Menu/Menu";
+export * from "./Dialog";
