@@ -72,9 +72,9 @@ const TeamProject = () => {
           </div>
         </div>
 
-        <div className='grid grid-cols-3 gap-x-5 gap-y-6'>
+        <div className='desktop:grid-cols-3 tablet:grid-cols-2 grid gap-x-5 gap-y-6'>
           {allProjects.map(project => (
-            <div key={project.id} className='w-[294px]'>
+            <div key={project.id} className='desktop:w-[294px] tablet:w-[350px] mobile:w-[320px]'>
               <Card.Preset.PlateWithTitle.Link
                 href={`/project/${project.id}`}
                 layout='vertical'
