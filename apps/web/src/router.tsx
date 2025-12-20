@@ -4,6 +4,7 @@ import Maintenance from "./pages/Maintenance";
 import NonSpecificError from "./pages/NonSpecificError";
 import NotFoundError from "./pages/NotFoundError";
 import TeamProject from "./pages/TeamProject";
+import TeamProjectDetail from "./pages/TeamProjectDetail";
 
 import Layout from "@/components/layout/Layout";
 import Activity from "@/pages/Activity";
@@ -22,8 +23,8 @@ const router = sentryCreateBrowserRouter([
     element: <Layout />,
     children: [
       { path: PATH.main, element: <Main /> },
-      { path: PATH.project, element: <Project /> },
-      { path: `${PATH.project}/:id`, element: <ProjectDetail /> },
+      // { path: PATH.project, element: <Project /> },
+      { path: `${PATH.project}/:id`, element: <TeamProjectDetail /> },
       { path: PATH.activity, element: <Activity /> },
       { path: PATH.apply, element: <RecruitmentComplete /> },
       { path: `${PATH.faq}/:tabId?/:questionId?`, element: <Faq /> },

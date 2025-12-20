@@ -11,6 +11,9 @@ import Title from "@/components/common/title/Title";
 import { PATH } from "@/constants/path";
 import { useProjectDetailQuery } from "@/hooks/useProjectDetailQuery";
 
+/**
+ * @deprecated
+ */
 const ProjectDetail = () => {
   const { id } = useParams<{ id: string }>();
 

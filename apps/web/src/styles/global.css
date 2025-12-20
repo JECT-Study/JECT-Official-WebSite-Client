@@ -54,4 +54,13 @@
   .list-decimal li {
     margin-left: 5px;
   }
+
+  /* Typography utilities */
+  .textStyle-body-sm-normal {
+    font-family: var(--primitive-typeface-body);
+    font-weight: var(--primitive-font-weight-body-normal);
+    font-size: var(--primitive-font-size-body-sm);
+    line-height: var(--primitive-font-line-height-body-sm);
+    letter-spacing: var(--primitive-font-letter-spacing-body-sm);
+  }
 }
