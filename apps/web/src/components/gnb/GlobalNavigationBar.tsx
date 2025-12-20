@@ -36,8 +36,8 @@ const GlobalNavigationBar = () => {
   const handleOpenSidebar = () => setIsOpenSidebar(true);
 
   return (
-    <div className='fixed inset-0 z-50'>
-      <GlobalNavigation.Root variant={variant}>
+    <div className='fixed inset-0 z-50 pointer-events-none'>
+      <GlobalNavigation.Root variant={variant} className='pointer-events-auto'>
         <Logo
           role='home'
           href='/'
