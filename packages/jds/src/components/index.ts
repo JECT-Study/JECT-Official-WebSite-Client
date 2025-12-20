@@ -31,3 +31,4 @@ export * from "./EmptyState";
 export * from "./Menu/MegaMenu";
 export * from "./Menu/MenuItem";
 export * from "./Menu/Menu";
+export * from "./Tab/tab";
