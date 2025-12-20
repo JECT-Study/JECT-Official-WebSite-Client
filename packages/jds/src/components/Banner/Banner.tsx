@@ -8,6 +8,7 @@ import {
   StyledBannerBarTitle,
   StyledBannerBarTitles,
   StyledBannerImageContent,
+  StyledBannerImageContentOuter,
   StyledBannerImageContentWrapper,
   StyledBannerImageGradient,
   StyledBannerImageRoot,
@@ -70,18 +71,21 @@ const BannerImage = forwardRef<HTMLDivElement, BannerImageProps>((props, ref) =>
           height: "100%",
           zIndex: 0,
           padding: 0,
+          border: "none",
         }}
         {...imgProps}
       />
 
       <StyledBannerImageGradient />
 
-      <StyledBannerImageContentWrapper>
-        <StyledBannerImageContent>
-          <StyledBannerImageTitle>{title}</StyledBannerImageTitle>
-          {subtitle && <StyledBannerImageSubtitle>{subtitle}</StyledBannerImageSubtitle>}
-        </StyledBannerImageContent>
-      </StyledBannerImageContentWrapper>
+      <StyledBannerImageContentOuter>
+        <StyledBannerImageContentWrapper>
+          <StyledBannerImageContent>
+            <StyledBannerImageTitle>{title}</StyledBannerImageTitle>
+            {subtitle && <StyledBannerImageSubtitle>{subtitle}</StyledBannerImageSubtitle>}
+          </StyledBannerImageContent>
+        </StyledBannerImageContentWrapper>
+      </StyledBannerImageContentOuter>
     </StyledBannerImageRoot>
   );
 });

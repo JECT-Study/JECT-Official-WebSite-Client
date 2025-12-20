@@ -91,28 +91,37 @@ export const StyledBannerImageRoot = styled.div({
   aspectRatio: "2 / 1",
 });
 
-export const StyledBannerImageGradient = styled.div({
+export const StyledBannerImageGradient = styled.div(({ theme }) => ({
   position: "absolute",
   top: 0,
   left: 0,
   right: 0,
   bottom: 0,
-  background: "linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.8) 100%)",
+  background: `linear-gradient(180deg, transparent 0%, ${theme.color.semantic.surface.static.inverse.standard} 100%)`,
   zIndex: 0,
   pointerEvents: "none",
-});
+}));
 
-export const StyledBannerImageContentWrapper = styled.div(({ theme }) => ({
+export const StyledBannerImageContentOuter = styled.div(({ theme }) => ({
   position: "absolute",
   bottom: 0,
   left: 0,
   right: 0,
   zIndex: 1,
-  paddingTop: theme.scheme.semantic.margin.xl,
-  paddingBottom: theme.scheme.semantic.margin.xl,
+  display: "flex",
+  justifyContent: "center",
   paddingLeft: theme.scheme.semantic.margin.md,
   paddingRight: theme.scheme.semantic.margin.md,
+  boxSizing: "border-box",
   pointerEvents: "none",
+}));
+
+export const StyledBannerImageContentWrapper = styled.div(({ theme }) => ({
+  width: "100%",
+  maxWidth: "922px",
+  paddingTop: theme.scheme.semantic.margin.xl,
+  paddingBottom: theme.scheme.semantic.margin.xl,
+  boxSizing: "border-box",
 }));
 
 export const StyledBannerImageContent = styled.div(({ theme }) => ({
@@ -122,7 +131,7 @@ export const StyledBannerImageContent = styled.div(({ theme }) => ({
   gap: theme.scheme.semantic.spacing[16],
   paddingTop: theme.scheme.semantic.spacing[24],
   paddingBottom: theme.scheme.semantic.spacing[24],
-  width: "50%",
+  width: "100%",
 
   [theme.breakPoint.tablet]: {
     paddingTop: theme.scheme.semantic.spacing[8],
@@ -133,7 +142,6 @@ export const StyledBannerImageContent = styled.div(({ theme }) => ({
     paddingTop: 0,
     paddingBottom: 0,
     gap: theme.scheme.semantic.spacing[8],
-    width: "100%",
   },
 }));
 
@@ -143,10 +151,7 @@ export const StyledBannerImageTitle = styled.div(({ theme }) => ({
   textAlign: "left",
   wordBreak: "keep-all",
   overflowWrap: "break-word",
-  display: "-webkit-box",
-  WebkitLineClamp: 3,
-  WebkitBoxOrient: "vertical",
-  overflow: "hidden",
+  whiteSpace: "pre-line",
 
   [theme.breakPoint.tablet]: {
     ...theme.textStyle["semantic-textStyle-hero-1"],
@@ -154,7 +159,6 @@ export const StyledBannerImageTitle = styled.div(({ theme }) => ({
 
   [theme.breakPoint.mobile]: {
     ...theme.textStyle["semantic-textStyle-title-1"],
-    WebkitLineClamp: 2,
   },
 }));
 
@@ -164,10 +168,7 @@ export const StyledBannerImageSubtitle = styled.div(({ theme }) => ({
   textAlign: "left",
   wordBreak: "keep-all",
   overflowWrap: "break-word",
-  display: "-webkit-box",
-  WebkitLineClamp: 2,
-  WebkitBoxOrient: "vertical",
-  overflow: "hidden",
+  whiteSpace: "pre-line",
 
   [theme.breakPoint.tablet]: {
     ...theme.textStyle["semantic-textStyle-title-1"],
@@ -175,6 +176,5 @@ export const StyledBannerImageSubtitle = styled.div(({ theme }) => ({
 
   [theme.breakPoint.mobile]: {
     ...theme.textStyle["semantic-textStyle-label-lg-bold"],
-    WebkitLineClamp: 1,
   },
 }));
