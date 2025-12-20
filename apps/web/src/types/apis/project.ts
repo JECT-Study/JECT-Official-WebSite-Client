@@ -23,6 +23,7 @@ export interface ProjectReviewsQueryParams {
 }
 
 export type ProjectCategory = "MAIN" | "HACKATHON";
+export type ProjectSort = "empty" | "unsorted" | "sorted";
 
 export interface Project {
   id: number;
@@ -48,6 +49,7 @@ export interface ProjectListQueryParams {
   category: ProjectCategory;
   page: number;
   size: number;
+  sort: ProjectSort;
 }
 
 export interface ProjectDetailResponse {

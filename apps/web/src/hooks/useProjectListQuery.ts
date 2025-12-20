@@ -1,12 +1,20 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, type InfiniteData } from "@tanstack/react-query";
+import type { AxiosError } from "axios";
 
 import { getProjectList } from "@/apis/project";
-import type { ProjectCategory } from "@/types/apis/project";
+import type { ProjectCategory, ProjectListResponse } from "@/types/apis/project";
+import type { ApiResponse } from "@/types/apis/response";
 
 export const useProjectListQuery = (semesterId: number | null, category: ProjectCategory) => {
-  return useInfiniteQuery({
+  return useInfiniteQuery<
+    ApiResponse<ProjectListResponse>,
+    AxiosError,
+    InfiniteData<ApiResponse<ProjectListResponse>, number>,
+    readonly [string, number | null, ProjectCategory],
+    number
+  >({
     queryKey: ["getProjectList", semesterId, category],
-    queryFn: ({ pageParam = 0 }) => {
+    queryFn: ({ pageParam }) => {
       const size = pageParam === 0 ? 6 : 12;
 
       return getProjectList({
@@ -14,6 +22,7 @@ export const useProjectListQuery = (semesterId: number | null, category: Project
         category,
         page: pageParam,
         size,
+        sort: "sorted",
       });
     },
     initialPageParam: 0,

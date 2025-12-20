@@ -3,6 +3,7 @@ import { sentryCreateBrowserRouter } from "./instrument";
 import Maintenance from "./pages/Maintenance";
 import NonSpecificError from "./pages/NonSpecificError";
 import NotFoundError from "./pages/NotFoundError";
+import TeamProject from "./pages/TeamProject";
 
 import Layout from "@/components/layout/Layout";
 import Activity from "@/pages/Activity";
@@ -30,6 +31,7 @@ const router = sentryCreateBrowserRouter([
       { path: PATH.applicantInfo, element: <ApplyApplicantInfo /> },
       { path: PATH.applyRegistration, element: <ApplyRegistration /> },
       { path: PATH.applyComplete, element: <ApplyComplete /> },
+      { path: PATH.teamProject, element: <TeamProject /> },
     ],
     errorElement: <NonSpecificError />,
   },
