@@ -48,7 +48,7 @@ const TeamProject = () => {
   return (
     <div className='mt-14 flex h-full w-full justify-center py-(--semantic-margin-2xl)'>
       <div className='px-(--semantic-margin-lg) pt-(--semantic-spacing-0) pb-(--semantic-spacing-80)'>
-        <div className='flex flex-col gap-(--semantic-spacing-32) pt-(--semantic-margin-xl) pb-(--semantic-margin-3xl)'>
+        <div className='desktop:w-[922px] tablet:w-[720px] mobile:w-[320px] flex flex-col gap-(--semantic-spacing-32) pt-(--semantic-margin-xl) pb-(--semantic-margin-3xl)'>
           <div className='flex flex-col gap-(--semantic-spacing-16)'>
             <Hero size='xs' textAlign='left'>
               팀 프로젝트
