@@ -34,7 +34,11 @@ const TeammateByPosition = ({
   };
 
   return (
-    <div className='rounded-(--semantic-radius-4) border border-(--semantic-stroke-subtle) bg-(--semantic-surface-shallow)'>
+    <div
+      className={
+        "rounded-(--semantic-radius-4) border border-(--semantic-stroke-subtle) bg-(--semantic-surface-shallow)"
+      }
+    >
       <div className='flex items-center gap-(--semantic-spacing-8) border-b border-(--semantic-stroke-subtle) bg-(--semantic-theme-sky-alpha-subtlest) px-(--semantic-spacing-12) py-(--semantic-spacing-8)'>
         <img src={positionIcon[position]} alt={position} width='16' height='16' />
         <Label
@@ -147,11 +151,11 @@ const TeamProjectDetail = () => {
                 <div className='rounded-(--semantic-radius-4) border border-(--semantic-stroke-subtle)'>
                   <div className='flex border-b border-(--semantic-stroke-subtle)'>
                     <div className='border-r border-(--semantic-stroke-subtle) bg-(--semantic-fill-subtlest) p-(--semantic-spacing-12)'>
-                      <Label size='md' textAlign='left' weight='bold'>
+                      <Label size='md' textAlign='left' weight='bold' className='whitespace-nowrap'>
                         진행 기간
                       </Label>
                     </div>
-                    <div className='flex gap-(--semantic-spacing-10) p-(--semantic-spacing-12)'>
+                    <div className='flex flex-wrap gap-(--semantic-spacing-10) p-(--semantic-spacing-12)'>
                       <Label size='md' textAlign='left' weight='bold'>
                         {formatDate(project.startDate)}
                       </Label>
@@ -166,11 +170,11 @@ const TeamProjectDetail = () => {
 
                   <div className='flex border-b border-(--semantic-stroke-subtle)'>
                     <div className='border-r border-(--semantic-stroke-subtle) bg-(--semantic-fill-subtlest) p-(--semantic-spacing-12)'>
-                      <Label size='md' textAlign='left' weight='bold'>
+                      <Label size='md' textAlign='left' weight='bold' className='whitespace-nowrap'>
                         사용 기술
                       </Label>
                     </div>
-                    <div className='flex gap-(--semantic-spacing-10) p-(--semantic-spacing-12)'>
+                    <div className='flex flex-wrap gap-(--semantic-spacing-10) p-(--semantic-spacing-12)'>
                       {project.techStack.map(stack => (
                         <Label key={stack} size='md' textAlign='left' weight='bold'>
                           {stack}
@@ -185,7 +189,7 @@ const TeamProjectDetail = () => {
                 </div>
 
                 {/* 프로젝트 정보 - 팀원 */}
-                <div className='flex justify-between gap-(--semantic-spacing-12) *:flex-1'>
+                <div className='desktop:grid-cols-4 tablet:grid-cols-3 mobile:grid-cols-1 tablet:*:last:col-span-3 desktop:*:last:col-span-1 grid gap-(--semantic-spacing-12)'>
                   <TeammateByPosition
                     position={"프론트엔드 개발자"}
                     teammates={project.teamMemberNames.frontendDevelopers}
