@@ -64,6 +64,7 @@ export interface ProjectDetailResponse {
     backendDevelopers: string[];
   };
   techStack: string[];
+  badges: string[];
   description: string;
   serviceUrl: string;
   serviceIntros: {

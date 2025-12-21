@@ -14,8 +14,6 @@ import ApplyRegistration from "@/pages/ApplyRegistration";
 import ApplyVerify from "@/pages/ApplyVerify";
 import Faq from "@/pages/Faq";
 import Main from "@/pages/Main";
-import Project from "@/pages/Project";
-import ProjectDetail from "@/pages/ProjectDetail";
 import RecruitmentComplete from "@/pages/RecruitmentComplete";
 
 const router = sentryCreateBrowserRouter([
@@ -23,7 +21,6 @@ const router = sentryCreateBrowserRouter([
     element: <Layout />,
     children: [
       { path: PATH.main, element: <Main /> },
-      // { path: PATH.project, element: <Project /> },
       { path: `${PATH.project}/:id`, element: <TeamProjectDetail /> },
       { path: PATH.activity, element: <Activity /> },
       { path: PATH.apply, element: <RecruitmentComplete /> },
