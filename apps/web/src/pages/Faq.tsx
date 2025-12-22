@@ -1,4 +1,5 @@
 import { Accordion, Hero, Tab, Title } from "@ject/jds";
+import { useMediaQueryFlags } from "@ject/jds/hooks";
 
 import { faqActivity, faqApply, faqJect, faqProject } from "@/constants/faqPageData";
 import { useFaqNavigation } from "@/hooks/useFaqNavigation";
@@ -6,10 +7,11 @@ import { useFaqNavigation } from "@/hooks/useFaqNavigation";
 function Faq() {
   const { activeTabId, openAccordionId, handleTabChange, handleAccordionChange } =
     useFaqNavigation();
+  const { isMobile } = useMediaQueryFlags();
 
   return (
     <div className='flex justify-center py-(--semantic-margin-2xl)'>
-      <div className='w-[656px] px-(--semantic-margin-lg) pb-(--semantic-spacing-80)'>
+      <div className='mobile:w-[320px] tablet:w-[656px] desktop:w-[656px] px-(--semantic-margin-lg) pb-(--semantic-spacing-80)'>
         <div className='flex flex-col gap-(--semantic-spacing-16) pt-(--semantic-margin-xl) pb-(--semantic-margin-3xl)'>
           <Hero size='xs' textAlign='left'>
             FAQ
@@ -20,7 +22,11 @@ function Faq() {
         </div>
 
         <div className='flex flex-col gap-(--semantic-spacing-48)'>
-          <Tab.Root value={activeTabId} onValueChange={handleTabChange}>
+          <Tab.Root
+            isItemStretched={isMobile ? true : false}
+            value={activeTabId}
+            onValueChange={handleTabChange}
+          >
             <Tab.List>
               <Tab.Trigger value='1'>지원</Tab.Trigger>
               <Tab.Trigger value='2'>프로젝트</Tab.Trigger>
