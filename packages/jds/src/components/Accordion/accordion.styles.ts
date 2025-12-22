@@ -106,7 +106,7 @@ export const StyledAccordionLabelContainer = styled("div")(({ theme }) => ({
 }));
 
 export const StyledAccordionChevron = styled("div")(({ theme }) => ({
-  transition: `transform ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
+  transition: `transform ${theme.environment.semantic.duration[300]} ${theme.environment.semantic.motion.fluent}`,
 }));
 
 export const StyleLabel = styled(Label)(() => ({
@@ -134,11 +134,11 @@ export const StyledAccordionContent = styled(AccordionPrimitive.Content)(({ them
     },
 
     '&[data-state="open"]': {
-      animation: `${slideDown} ${theme.environment.semantic.duration[300]} cubic-bezier(0.87, 0, 0.13, 1)`,
+      animation: `${slideDown} ${theme.environment.semantic.duration[300]} ${theme.environment.semantic.motion.fluent} `,
     },
 
     '&[data-state="closed"]': {
-      animation: `${slideUp} ${theme.environment.semantic.duration[300]} cubic-bezier(0.87, 0, 0.13, 1)`,
+      animation: `${slideUp} ${theme.environment.semantic.duration[300]} ${theme.environment.semantic.motion.fluent}`,
     },
   };
 });
