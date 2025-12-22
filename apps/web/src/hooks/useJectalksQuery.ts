@@ -1,41 +1,45 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQueries, useQuery } from "@tanstack/react-query";
 
-import { getJectalks, type SemesterFilter } from "@/apis/jectalk";
+import { getJectalks } from "@/apis/jectalk";
+import { useSemestersQuery } from "@/hooks/useSemestersQuery";
 
-const useJectalksQuery = (semester?: SemesterFilter) => {
-  const { data, isError, isPending } = useQuery({
-    queryKey: ["jectalks", semester],
-    queryFn: () => getJectalks(semester),
-  });
+const useJectalksQuery = (semesterName?: string | null) => {
+  const { data: semestersData } = useSemestersQuery();
+  const semesters = semestersData?.data.semesterResponses ?? [];
 
   const { data: allData } = useQuery({
     queryKey: ["jectalks", null],
     queryFn: () => getJectalks(null),
   });
 
-  const { data: semester1Data } = useQuery({
-    queryKey: ["jectalks", "1"],
-    queryFn: () => getJectalks("1"),
+  const semesterQueries = useQueries({
+    queries: semesters.map(semester => ({
+      queryKey: ["jectalks", semester.name],
+      queryFn: () => getJectalks(semester.name),
+    })),
   });
 
-  const { data: semester2Data } = useQuery({
-    queryKey: ["jectalks", "2"],
-    queryFn: () => getJectalks("2"),
-  });
+  const currentSemesterIndex = semesters.findIndex(semester => semester.name === semesterName);
+  const currentData = semesterName ? semesterQueries[currentSemesterIndex] : null;
 
-  const { data: semester3Data } = useQuery({
-    queryKey: ["jectalks", "3"],
-    queryFn: () => getJectalks("3"),
-  });
+  const semesterCounts = semesters.reduce<Record<string, number>>((acc, semester, index) => {
+    acc[semester.name] = semesterQueries[index]?.data?.data.totalElements ?? 0;
+    return acc;
+  }, {});
+
+  const counts: Record<string, number> = {
+    all: allData?.data.totalElements ?? 0,
+    ...semesterCounts,
+  };
+
+  const jectalks = semesterName ? currentData?.data?.data.content : allData?.data.content;
+  const isError = semesterName ? currentData?.isError : false;
+  const isPending = semesterName ? currentData?.isPending : !allData;
 
   return {
-    jectalks: data?.data.content,
-    counts: {
-      all: allData?.data.totalElements ?? 0,
-      "1": semester1Data?.data.totalElements ?? 0,
-      "2": semester2Data?.data.totalElements ?? 0,
-      "3": semester3Data?.data.totalElements ?? 0,
-    },
+    jectalks,
+    semesters,
+    counts,
     isError,
     isPending,
   };

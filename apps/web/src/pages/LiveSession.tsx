@@ -2,17 +2,10 @@ import { Card, Hero, Select, SelectField, Title } from "@ject/jds";
 import { useRef } from "react";
 import { useSearchParams } from "react-router-dom";
 
-import type { SemesterFilter } from "@/apis/jectalk";
 import EmptyData from "@/components/common/emptyState/EmptyData";
 import Label from "@/components/common/label/Label";
 import useCloseOutside from "@/hooks/useCloseOutside";
 import useJectalksQuery from "@/hooks/useJectalksQuery";
-
-type FilterOption = "전체" | "1기" | "2기" | "3기";
-
-const isValidSemester = (value: string | null): value is "1" | "2" | "3" => {
-  return value === "1" || value === "2" || value === "3";
-};
 
 const LiveSession = () => {
   const selectContainerRef = useRef<HTMLDivElement>(null);
@@ -20,35 +13,27 @@ const LiveSession = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
   const semesterParam = searchParams.get("semester");
-  const selectedSemester: FilterOption = isValidSemester(semesterParam)
-    ? (`${semesterParam}기` as FilterOption)
-    : "전체";
-  const semesterFilter: SemesterFilter =
-    selectedSemester === "전체" ? null : (selectedSemester.replace("기", "") as SemesterFilter);
 
-  const { jectalks, counts, isError, isPending } = useJectalksQuery(semesterFilter);
+  const { jectalks, semesters, counts, isError, isPending } = useJectalksQuery(semesterParam);
+
+  const isValidSemester = semesters.some(s => s.name === semesterParam);
+  const selectedSemester = isValidSemester ? semesterParam : "전체";
 
   const handleSemesterChange = (value: string) => {
     if (value === "전체") {
       searchParams.delete("semester");
     } else {
-      searchParams.set("semester", value.replace("기", ""));
+      searchParams.set("semester", value);
     }
     setSearchParams(searchParams);
     setIsSelectOpen(false);
   };
 
   const getDisplayValue = () => {
-    switch (selectedSemester) {
-      case "전체":
-        return `전체(${counts.all})`;
-      case "1기":
-        return `1기(${counts["1"]})`;
-      case "2기":
-        return `2기(${counts["2"]})`;
-      case "3기":
-        return `3기(${counts["3"]})`;
+    if (selectedSemester === "전체" || !selectedSemester) {
+      return `전체(${counts.all})`;
     }
+    return `${selectedSemester}(${counts[selectedSemester] ?? 0})`;
   };
 
   return (
@@ -74,11 +59,13 @@ const LiveSession = () => {
               >
                 {isSelectOpen && (
                   <div className='absolute left-0 top-full z-10 mt-2 w-40'>
-                    <Select value={selectedSemester} onChange={handleSemesterChange}>
+                    <Select value={selectedSemester ?? "전체"} onChange={handleSemesterChange}>
                       <Select.Label value='전체'>{`전체(${counts.all})`}</Select.Label>
-                      <Select.Label value='1기'>{`1기(${counts["1"]})`}</Select.Label>
-                      <Select.Label value='2기'>{`2기(${counts["2"]})`}</Select.Label>
-                      <Select.Label value='3기'>{`3기(${counts["3"]})`}</Select.Label>
+                      {semesters.map(semester => (
+                        <Select.Label key={semester.id} value={semester.name}>
+                          {`${semester.name}(${counts[semester.name] ?? 0})`}
+                        </Select.Label>
+                      ))}
                     </Select>
                   </div>
                 )}
