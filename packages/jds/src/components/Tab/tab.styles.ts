@@ -66,6 +66,7 @@ export const StyledTabPrimitiveTrigger = styled(
         $variant === "content"
           ? `1px solid ${theme.color.semantic.stroke.alpha.subtle}`
           : `2px solid ${theme.color.semantic.stroke.bold}`,
+      marginBottom: $variant === "header" ? "-2px" : 0,
     },
 
     ...interactionStyles.restStyle,
