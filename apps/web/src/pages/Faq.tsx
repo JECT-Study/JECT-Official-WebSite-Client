@@ -1,6 +1,5 @@
-import { Accordion } from "@/components/common/accordion/Accordion";
-import { Tab, TabHeader, TabItem, TabPanel } from "@/components/common/tab/Tab";
-import Title from "@/components/common/title/Title";
+import { Accordion, Hero, Tab, Title } from "@ject/jds";
+
 import { faqActivity, faqApply, faqJect, faqProject } from "@/constants/faqPageData";
 import { useFaqNavigation } from "@/hooks/useFaqNavigation";
 
@@ -8,75 +7,98 @@ function Faq() {
   const { activeTabId, openAccordionId, handleTabChange, handleAccordionChange } =
     useFaqNavigation();
 
-  const getActiveFaqData = () => {
-    switch (activeTabId) {
-      case 1:
-        return faqApply;
-      case 2:
-        return faqProject;
-      case 3:
-        return faqActivity;
-      case 4:
-        return faqJect;
-      default:
-        return faqApply;
-    }
-  };
-
   return (
-    <div className='flex flex-col items-center py-(--gap-12xl)'>
-      <div className='gap-8xl flex flex-col'>
-        <div className='text-center'>
-          <Title hierarchy='strong'>자주 묻는 질문</Title>
+    <div className='flex justify-center py-(--semantic-margin-2xl)'>
+      <div className='w-[656px] px-(--semantic-margin-lg) pb-(--semantic-spacing-80)'>
+        <div className='flex flex-col gap-(--semantic-spacing-16) pt-(--semantic-margin-xl) pb-(--semantic-margin-3xl)'>
+          <Hero size='xs' textAlign='left'>
+            FAQ
+          </Hero>
+          <Title size='xs' textAlign='left'>
+            젝트에 대해 자주 묻는 질문들이 정리되어 있어요.
+          </Title>
         </div>
-        <section className='w-[45rem]'>
-          <Tab defaultActiveTabId={activeTabId} onTabChange={handleTabChange}>
-            <TabHeader>
-              <TabItem id={1} label='지원 관련' />
-              <TabItem id={2} label='프로젝트 관련' />
-              <TabItem id={3} label='활동 관련' />
-              <TabItem id={4} label='젝트 관련' />
-            </TabHeader>
-            <div>
-              <TabPanel id={1}>
-                <div className='mt-(--gap-4xl)'>
-                  <Accordion
-                    items={getActiveFaqData()}
-                    defaultOpenId={openAccordionId}
-                    onChange={handleAccordionChange}
-                  />
-                </div>
-              </TabPanel>
-              <TabPanel id={2}>
-                <div className='mt-(--gap-4xl)'>
-                  <Accordion
-                    items={getActiveFaqData()}
-                    defaultOpenId={openAccordionId}
-                    onChange={handleAccordionChange}
-                  />
-                </div>
-              </TabPanel>
-              <TabPanel id={3}>
-                <div className='mt-(--gap-4xl)'>
-                  <Accordion
-                    items={getActiveFaqData()}
-                    defaultOpenId={openAccordionId}
-                    onChange={handleAccordionChange}
-                  />
-                </div>
-              </TabPanel>
-              <TabPanel id={4}>
-                <div className='mt-(--gap-4xl)'>
-                  <Accordion
-                    items={getActiveFaqData()}
-                    defaultOpenId={openAccordionId}
-                    onChange={handleAccordionChange}
-                  />
-                </div>
-              </TabPanel>
-            </div>
-          </Tab>
-        </section>
+
+        <div className='flex flex-col gap-(--semantic-spacing-48)'>
+          <Tab.Root value={activeTabId} onValueChange={handleTabChange}>
+            <Tab.List>
+              <Tab.Trigger value='1'>지원</Tab.Trigger>
+              <Tab.Trigger value='2'>프로젝트</Tab.Trigger>
+              <Tab.Trigger value='3'>활동</Tab.Trigger>
+              <Tab.Trigger value='4'>젝트</Tab.Trigger>
+            </Tab.List>
+
+            <Tab.Content value='1'>
+              <div className='mt-12'>
+                <Accordion.Root
+                  type='single'
+                  isStretched
+                  collapsible
+                  value={openAccordionId || undefined}
+                  onValueChange={handleAccordionChange}
+                >
+                  {faqApply.map(({ id, title, content }) => (
+                    <Accordion.Item key={id} value={id}>
+                      <Accordion.Trigger>{title}</Accordion.Trigger>
+                      <Accordion.Content>{content}</Accordion.Content>
+                    </Accordion.Item>
+                  ))}
+                </Accordion.Root>
+              </div>
+            </Tab.Content>
+            <Tab.Content value='2'>
+              <div className='mt-12'>
+                <Accordion.Root
+                  type='single'
+                  collapsible
+                  value={openAccordionId || undefined}
+                  onValueChange={handleAccordionChange}
+                >
+                  {faqProject.map(({ id, title, content }) => (
+                    <Accordion.Item key={id} value={id}>
+                      <Accordion.Trigger>{title}</Accordion.Trigger>
+                      <Accordion.Content>{content}</Accordion.Content>
+                    </Accordion.Item>
+                  ))}
+                </Accordion.Root>
+              </div>
+            </Tab.Content>
+            <Tab.Content value='3'>
+              <div className='mt-12'>
+                <Accordion.Root
+                  type='single'
+                  collapsible
+                  value={openAccordionId || undefined}
+                  onValueChange={handleAccordionChange}
+                >
+                  {faqActivity.map(({ id, title, content }) => (
+                    <Accordion.Item key={id} value={id}>
+                      <Accordion.Trigger>{title}</Accordion.Trigger>
+                      <Accordion.Content>{content}</Accordion.Content>
+                    </Accordion.Item>
+                  ))}
+                </Accordion.Root>
+              </div>
+            </Tab.Content>
+            <Tab.Content value='4'>
+              <div className='mt-12'>
+                <Accordion.Root
+                  type='single'
+                  collapsible
+                  value={openAccordionId || undefined}
+                  onValueChange={handleAccordionChange}
+                >
+                  {faqJect.map(({ id, title, content }) => (
+                    <Accordion.Item key={id} value={id}>
+                      <Accordion.Trigger>{title}</Accordion.Trigger>
+                      <Accordion.Content>{content}</Accordion.Content>
+                    </Accordion.Item>
+                  ))}
+                </Accordion.Root>
+              </div>
+            </Tab.Content>
+          </Tab.Root>
+        </div>
       </div>
     </div>
   );
