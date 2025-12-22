@@ -15,13 +15,11 @@ export const useProjectListQuery = (semesterId: number | null, category: Project
   >({
     queryKey: ["getProjectList", semesterId, category],
     queryFn: ({ pageParam }) => {
-      const size = pageParam === 0 ? 6 : 12;
-
       return getProjectList({
         ...(semesterId !== null && { semesterId }),
         category,
         page: pageParam,
-        size,
+        size: 6,
         sort: "sorted",
       });
     },

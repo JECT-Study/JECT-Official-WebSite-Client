@@ -27,23 +27,19 @@ const TeamProject = () => {
 
   const {
     data: projectsData,
-    isError: isProjectsError,
-    fetchNextPage: fetchNextProjects,
-    hasNextPage: isHasNextProjects,
-    isFetchingNextPage: isFetchingNextProjects,
+    isError,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
   } = useProjectListQuery(semesterMap[value], "MAIN");
 
   const projectsObserverRef = useInfiniteScroll({
-    hasNextPage: isHasNextProjects,
-    isFetchingNextPage: isFetchingNextProjects,
-    fetchNextPage: fetchNextProjects,
+    hasNextPage: hasNextPage ?? false,
+    isFetchingNextPage,
+    fetchNextPage,
   });
 
   const allProjects: Project[] = projectsData?.pages.flatMap(page => page.data.content) ?? [];
-
-  useEffect(() => {
-    console.log(projectsData);
-  }, [projectsData]);
 
   return (
     <div className='mt-14 flex h-full w-full justify-center py-(--semantic-margin-2xl)'>
@@ -72,29 +68,31 @@ const TeamProject = () => {
           </div>
         </div>
 
-        <div className='desktop:grid-cols-3 tablet:grid-cols-2 grid gap-x-5 gap-y-6'>
-          {allProjects.map(project => (
-            <div key={project.id} className='desktop:w-[294px] tablet:w-[350px] mobile:w-[320px]'>
-              <Card.Preset.PlateWithTitle.Link
-                href={`/project/${project.id}`}
-                layout='vertical'
-                image={
-                  project.thumbnailUrl
-                    ? { src: project.thumbnailUrl, alt: project.name }
-                    : undefined
-                }
-                title={project.name}
-                body={project.summary}
-              />
-            </div>
-          ))}
+        <div>
+          <div className='desktop:grid-cols-3 tablet:grid-cols-2 grid gap-x-5 gap-y-6'>
+            {allProjects.map(project => (
+              <div key={project.id} className='desktop:w-[294px] tablet:w-[350px] mobile:w-[320px]'>
+                <Card.Preset.PlateWithTitle.Link
+                  href={`/project/${project.id}`}
+                  layout='vertical'
+                  image={
+                    project.thumbnailUrl
+                      ? { src: project.thumbnailUrl, alt: project.name }
+                      : undefined
+                  }
+                  title={project.name}
+                  body={project.summary}
+                />
+              </div>
+            ))}
+          </div>
 
-          {!isProjectsError && allProjects.length > 0 && (
+          {!isError && allProjects.length > 0 && (
             <div
               ref={projectsObserverRef}
-              className='mt-(--gap-md) flex h-10 w-full items-center justify-center'
+              className='mt-6 flex h-10 w-full items-center justify-center'
             >
-              {isFetchingNextProjects && <Lottie animationData={loadingSpinner} />}
+              {isFetchingNextPage && <Lottie animationData={loadingSpinner} />}
             </div>
           )}
         </div>
