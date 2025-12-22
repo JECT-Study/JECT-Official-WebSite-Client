@@ -14,10 +14,10 @@ import { PATH } from "@/constants/path";
 import useCloseOutside from "@/hooks/useCloseOutside";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
 import { useProjectListQuery } from "@/hooks/useProjectListQuery";
-import { useSemestersQuery } from "@/hooks/useSemestersQuery";\
+import { useSemestersQuery } from "@/hooks/useSemestersQuery";
 
 /**
- * 
+ *
  * @deprecated
  */
 const Project = () => {
