@@ -50,7 +50,7 @@ const AccordionTrigger = forwardRef<HTMLButtonElement, AccordionTriggerProps>(
         <StyledAccordionTrigger {...props} ref={ref} $isStretched={isStretched}>
           <StyledAccordionLabelContainer>
             {withPrefixIcon && <Icon size='lg' name={withPrefixIcon} aria-hidden />}
-            <StyleLabel size='lg' textAlign='left' weight='normal'>
+            <StyleLabel as='span' size='lg' textAlign='left' weight='normal'>
               {children}
             </StyleLabel>
           </StyledAccordionLabelContainer>

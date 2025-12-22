@@ -95,4 +95,5 @@ export const StyledTabPrimitiveTrigger = styled(
 export const StyledLabel = styled(Label)(() => ({
   color: "inherit",
   cursor: "inherit",
+  whiteSpace: "nowrap",
 }));

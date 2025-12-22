@@ -109,6 +109,7 @@ export const StyledAccordionChevron = styled("div")(({ theme }) => ({
 
 export const StyleLabel = styled(Label)(() => ({
   color: "inherit",
+  textAlign: "left" as const,
 }));
 
 const slideUp = keyframes`
