@@ -1,6 +1,6 @@
 import { Card, Hero, Select, SelectField, Title } from "@ject/jds";
 import Lottie from "lottie-react";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 
 import loadingSpinner from "@/assets/lottie/ject-loadingSpinner.json";
 import useCloseOutside from "@/hooks/useCloseOutside";
@@ -77,11 +77,12 @@ const TeamProject = () => {
                   layout='vertical'
                   image={
                     project.thumbnailUrl
-                      ? { src: project.thumbnailUrl, alt: project.name }
+                      ? { src: project.thumbnailUrl, alt: project.summary }
                       : undefined
                   }
                   title={project.name}
-                  body={project.summary}
+                  body={project.description}
+                  caption='Web'
                 />
               </div>
             ))}
