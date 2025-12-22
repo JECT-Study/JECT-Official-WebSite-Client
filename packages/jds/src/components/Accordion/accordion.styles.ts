@@ -126,6 +126,7 @@ export const StyledAccordionContent = styled(AccordionPrimitive.Content)(({ them
     overflow: "hidden",
     ...theme.textStyle["semantic-textStyle-body-sm-normal"],
     color: theme.color.semantic.object.bold,
+    ...theme.textStyle["semantic-textStyle-body-sm-normal"],
 
     "&[data-disabled]": {
       color: theme.color.semantic.object.subtle,
