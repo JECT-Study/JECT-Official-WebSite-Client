@@ -49,8 +49,8 @@ export const StyledAccordionTrigger = styled(
     alignItems: "center",
     width: "100%",
     padding: $isStretched
-      ? `${theme.scheme.semantic.spacing[4]} ${theme.scheme.semantic.spacing[16]}`
-      : 0,
+      ? 0
+      : `${theme.scheme.semantic.spacing[4]} ${theme.scheme.semantic.spacing[16]}`,
     ...interactionStyles.restStyle,
 
     "&:active": {
@@ -145,6 +145,6 @@ export const StyledAccordionContent = styled(AccordionPrimitive.Content)(({ them
 export const StyledAccordionContentText = styled("div")<StyledAccordionContentProps>(
   ({ theme, $isStretched }) => ({
     marginTop: theme.scheme.semantic.spacing[12],
-    padding: $isStretched ? `0 ${theme.scheme.semantic.spacing[16]}` : 0,
+    padding: $isStretched ? 0 : `0 ${theme.scheme.semantic.spacing[16]}`,
   }),
 );
