@@ -31,6 +31,12 @@ const createInteractionStyles = (theme: Theme, isStretched: boolean, isReadonly:
   };
 };
 
+export const StyledAccordionRoot = styled("div")(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  gap: theme.scheme.semantic.spacing[24],
+}));
+
 export const StyledAccordionTrigger = styled(
   AccordionPrimitive.Trigger,
 )<StyledAccordionTriggerProps>(({ theme, $isStretched }) => {
@@ -46,14 +52,6 @@ export const StyledAccordionTrigger = styled(
       ? `${theme.scheme.semantic.spacing[4]} ${theme.scheme.semantic.spacing[16]}`
       : 0,
     ...interactionStyles.restStyle,
-
-    "&:hover": {
-      ...interactionStyles.hoverStyle,
-      "::after": {
-        ...interactionStyles.hoverStyle["::after"],
-        transition: `opacity ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
-      },
-    },
 
     "&:active": {
       ...interactionStyles.activeStyle,

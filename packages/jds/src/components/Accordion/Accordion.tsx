@@ -15,13 +15,16 @@ import {
   StyledAccordionTrigger,
   StyledAccordionChevron,
   StyleLabel,
+  StyledAccordionRoot,
 } from "./accordion.styles";
 import { AccordionContext, useAccordionContext } from "./accordionContext";
 
 const AccordionRoot = ({ children, isStretched = true, ...props }: AccordionRootProps) => {
   return (
     <AccordionContext.Provider value={{ isStretched }}>
-      <AccordionPrimitive.Root {...props}>{children}</AccordionPrimitive.Root>
+      <AccordionPrimitive.Root {...props}>
+        <StyledAccordionRoot>{children}</StyledAccordionRoot>
+      </AccordionPrimitive.Root>
     </AccordionContext.Provider>
   );
 };
