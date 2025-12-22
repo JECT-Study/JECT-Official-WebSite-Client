@@ -34,7 +34,7 @@ export const StyledTabList = styled(TabPrimitive.List)<StyledTabPrimitiveListPro
     display: "flex",
     gap: $variant === "header" ? 0 : theme.scheme.semantic.spacing[8],
     borderBottom:
-      $variant === "header" ? `2px solid ${theme.color.semantic.stroke.assistive}` : "none",
+      $variant === "header" ? `1px solid ${theme.color.semantic.stroke.assistive}` : "none",
   };
 });
 
