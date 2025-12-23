@@ -6,13 +6,13 @@ import loadingSpinner from "@/assets/lottie/ject-loadingSpinner.json";
 import useCloseOutside from "@/hooks/useCloseOutside";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
 import { useProjectListQuery } from "@/hooks/useProjectListQuery";
-import type { Project } from "@/types/apis/project";
+import type { Project, ProjectCategory } from "@/types/apis/project";
 
-const semesterMap: Record<string, number | null> = {
+const semesterMap: Record<string, ProjectCategory> = {
   "전체(12)": null,
-  "3기(6)": 3,
-  "2기(2)": 2,
-  "1기(4)": 1,
+  "3기(6)": "SEMESTER_1",
+  "2기(2)": "SEMESTER_2",
+  "1기(4)": "SEMESTER_3",
 };
 
 const TeamProject = () => {
@@ -31,7 +31,7 @@ const TeamProject = () => {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-  } = useProjectListQuery(semesterMap[value], "MAIN");
+  } = useProjectListQuery(semesterMap[value]);
 
   const projectsObserverRef = useInfiniteScroll({
     hasNextPage: hasNextPage ?? false,
@@ -82,7 +82,7 @@ const TeamProject = () => {
                   }
                   title={project.name}
                   body={project.description}
-                  caption='Web'
+                  caption={project.serviceType}
                 />
               </div>
             ))}

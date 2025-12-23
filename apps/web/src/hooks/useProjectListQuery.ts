@@ -5,18 +5,18 @@ import { getProjectList } from "@/apis/project";
 import type { ProjectCategory, ProjectListResponse } from "@/types/apis/project";
 import type { ApiResponse } from "@/types/apis/response";
 
-export const useProjectListQuery = (semesterId: number | null, category: ProjectCategory) => {
+export const useProjectListQuery = (category: ProjectCategory) => {
   return useInfiniteQuery<
     ApiResponse<ProjectListResponse>,
     AxiosError,
     InfiniteData<ApiResponse<ProjectListResponse>, number>,
-    readonly [string, number | null, ProjectCategory],
+    readonly [string, ProjectCategory],
     number
   >({
-    queryKey: ["getProjectList", semesterId, category],
+    queryKey: ["getProjectList", category],
     queryFn: ({ pageParam }) => {
       return getProjectList({
-        ...(semesterId !== null && { semesterId }),
+        ...(category !== null && { category }),
         category,
         page: pageParam,
         size: 6,

@@ -18,20 +18,12 @@ export const getProjectReviews = async ({ page, size }: ProjectReviewsQueryParam
   return await requestHandler<ProjectReviewsResponse>("get", url);
 };
 
-export const getProjectList = async ({
-  semesterId,
-  category,
-  page,
-  size,
-  sort,
-}: ProjectListQueryParams) => {
+export const getProjectList = async ({ category, page, size, sort }: ProjectListQueryParams) => {
   const params = new URLSearchParams();
 
-  if (semesterId !== undefined) {
-    params.append("semesterId", semesterId.toString());
+  if (category !== null) {
+    params.append("category", category.toString());
   }
-
-  params.append("category", category);
   params.append("page", page.toString());
   params.append("size", size.toString());
   params.append("sort", sort.toString());

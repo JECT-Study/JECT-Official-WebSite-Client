@@ -22,15 +22,16 @@ export interface ProjectReviewsQueryParams {
   size: number;
 }
 
-export type ProjectCategory = "MAIN" | "HACKATHON";
+export type ProjectCategory = "SEMESTER_1" | "SEMESTER_2" | "SEMESTER_3" | null;
 export type ProjectSort = "empty" | "unsorted" | "sorted";
 
 export interface Project {
   id: number;
+  thumbnailUrl: string | null;
   name: string;
   summary: string;
   description: string;
-  thumbnailUrl: string | null;
+  serviceType: string;
 }
 
 export interface ProjectListResponse {
