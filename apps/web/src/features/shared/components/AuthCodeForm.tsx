@@ -1,7 +1,9 @@
-import { BlockButton, TextField } from "@ject/jds";
+import { BlockButton, LabelButton, TextField } from "@ject/jds";
 import type { FormEventHandler } from "react";
 import { useState } from "react";
 import { Controller } from "react-hook-form";
+
+import { TermsCheckboxGroup, type TermsAgreement } from "./TermsCheckboxGroup";
 
 import {
   useCheckEmailExistsMutation,
@@ -21,7 +23,7 @@ const formatTime = (seconds: number) => {
 interface AuthCodeFormProps {
   defaultEmail?: string;
   template: "AUTH_CODE" | "PIN_RESET";
-  onVerified: (email: string) => void | Promise<void>;
+  onVerified: (email: string, termsAgreement?: TermsAgreement) => void | Promise<void>;
   onExistingMember?: (email: string) => void;
 }
 
@@ -34,6 +36,12 @@ export function AuthCodeForm({
   const [hasSentCode, setHasSentCode] = useState(false);
   const [emailErrorMessage, setEmailErrorMessage] = useState<string | null>(null);
   const [authCode, setAuthCode] = useState("");
+  const [termsAgreement, setTermsAgreement] = useState<TermsAgreement>({
+    privacy: false,
+    paymentPolicy: false,
+  });
+
+  const isAuthCodeTemplate = template === "AUTH_CODE";
 
   const timer = useCountdownTimer();
 
@@ -46,11 +54,10 @@ export function AuthCodeForm({
   const currentEmail = watchEmail("email") || defaultEmail;
 
   const { mutateAsync: checkEmailMutateAsync } = useCheckEmailExistsMutation();
-  const { mutate: sendCodeMutate, isPending: isSending } = useSendAuthCodeMutation({
+  const { mutate: sendCodeMutate } = useSendAuthCodeMutation({
     showToast: true,
   });
-  const { mutateAsync: verifyCodeMutateAsync, isPending: isVerifying } =
-    useVerifyAuthCodeMutation();
+  const { mutateAsync: verifyCodeMutateAsync } = useVerifyAuthCodeMutation();
 
   const handleSendEmailCode = async () => {
     setEmailErrorMessage(null);
@@ -90,15 +97,19 @@ export function AuthCodeForm({
       payload: { email: currentEmail, authCode },
       queryParams: { template },
     })
-      .then(() => onVerified(currentEmail))
+      .then(() => onVerified(currentEmail, termsAgreement))
       .catch(error => {
         handleError(error, "인증번호 확인 요청 실패");
       });
   };
 
-  //ToDo: 한번에 이해하기 어려움,early return이나 상태 enum or const 객체로
-  const emailValidation =
-    emailErrors.email || emailErrorMessage ? "error" : isEmailValid ? "success" : "none";
+  const hasEmailFormError = Boolean(emailErrors.email) || Boolean(emailErrorMessage);
+
+  const emailValidation: "none" | "success" | "error" = (() => {
+    if (hasEmailFormError) return "error";
+    if (isEmailValid) return "success";
+    return "none";
+  })();
 
   const emailHelperText = emailErrors.email?.message ?? emailErrorMessage ?? "";
 
@@ -106,54 +117,57 @@ export function AuthCodeForm({
 
   return (
     <div className='gap-7xl flex flex-col'>
-      <div className='gap-2xs flex flex-col'>
-        <Controller
-          name='email'
-          control={emailControl}
-          defaultValue={defaultEmail}
-          render={({ field }) => (
-            <TextField
-              type='email'
-              label='이메일'
-              validation={emailValidation}
-              helperText={emailHelperText}
-              placeholder='이메일을 입력해주세요'
-              value={field.value}
-              onChange={field.onChange}
-            />
-          )}
-        />
-        <BlockButton.Basic
-          size='md'
-          variant='solid'
-          hierarchy='primary'
-          disabled={isSending || !isEmailValid}
-          onClick={() => void handleSendEmailCode()}
-        >
-          인증번호 받기
-        </BlockButton.Basic>
-      </div>
-      {hasSentCode && (
-        <form className='gap-xs flex flex-col' onSubmit={handleVerifyCode}>
-          <TextField
-            label='인증번호'
-            helperText={authCodeHelperText}
-            placeholder='인증번호를 입력해주세요'
-            value={authCode}
-            onChange={e => setAuthCode(e.target.value)}
+      <Controller
+        name='email'
+        control={emailControl}
+        defaultValue={defaultEmail}
+        render={({ field }) => (
+          <TextField.Button
+            type='email'
+            label='이메일'
+            validation={emailValidation}
+            helperText={emailHelperText}
+            placeholder='이메일을 입력해주세요'
+            value={field.value}
+            onChange={field.onChange}
+            button={
+              <BlockButton.Basic
+                size='md'
+                variant='solid'
+                hierarchy='primary'
+                disabled={!isEmailValid}
+                onClick={() => void handleSendEmailCode()}
+              >
+                인증번호 받기
+              </BlockButton.Basic>
+            }
           />
-
-          <div className='mt-7xl gap-md flex flex-col'>
-            <BlockButton.Basic
-              type='submit'
-              size='md'
-              variant='solid'
-              hierarchy='primary'
-              disabled={isVerifying}
-            >
-              인증하기
-            </BlockButton.Basic>
+        )}
+      />
+      {hasSentCode && (
+        <form className='gap-5xl flex flex-col' onSubmit={handleVerifyCode}>
+          <div className='gap-2xs flex flex-col'>
+            <TextField.Button
+              label='인증번호'
+              helperText={authCodeHelperText}
+              placeholder='인증번호를 입력해주세요'
+              value={authCode}
+              onChange={e => setAuthCode(e.target.value)}
+              button={
+                <BlockButton.Basic type='submit' size='md' variant='solid' hierarchy='primary'>
+                  인증하기
+                </BlockButton.Basic>
+              }
+            />
+            //Todo: 라우터 확인 후 해당 페이지로 이동
+            <LabelButton.Basic size='sm' hierarchy='secondary'>
+              인증번호를 받지 못하셨나요?
+            </LabelButton.Basic>
           </div>
+
+          {isAuthCodeTemplate && (
+            <TermsCheckboxGroup value={termsAgreement} onChange={setTermsAgreement} />
+          )}
         </form>
       )}
     </div>
