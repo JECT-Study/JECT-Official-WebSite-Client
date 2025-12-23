@@ -10,9 +10,9 @@ import type { Project, ProjectCategory } from "@/types/apis/project";
 
 const semesterMap: Record<string, ProjectCategory> = {
   "전체(12)": null,
-  "3기(6)": "SEMESTER_1",
+  "3기(6)": "SEMESTER_3",
   "2기(2)": "SEMESTER_2",
-  "1기(4)": "SEMESTER_3",
+  "1기(4)": "SEMESTER_1",
 };
 
 const TeamProject = () => {
