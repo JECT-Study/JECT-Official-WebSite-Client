@@ -2,9 +2,14 @@ import { APPLY_TITLE } from "@/constants/applyPageData";
 import { ApplyStepLayout, AuthCodeForm } from "@/features/shared/components";
 import type { ApplyFunnelSteps } from "@/types/funnel";
 
+type TermsAgreement = {
+  privacy: boolean;
+  paymentPolicy: boolean;
+};
+
 interface EmailVerificationStepProps {
   context: ApplyFunnelSteps["이메일인증"];
-  onNext: (email: string) => void;
+  onNext: (email: string, termsAgreement?: TermsAgreement) => void;
   onExistingMember: (email: string) => void;
   onBack: () => void;
 }
