@@ -53,6 +53,11 @@ export interface ProjectListQueryParams {
   sort: ProjectSort;
 }
 
+export interface ProjectImageUrl {
+  imageUrl: string;
+  sequence: number;
+}
+
 export interface ProjectDetailResponse {
   thumbnailUrl: string;
   name: string;
@@ -68,12 +73,7 @@ export interface ProjectDetailResponse {
   badges: string[];
   description: string;
   serviceUrl: string;
-  serviceIntros: {
-    imageUrl: string;
-    sequence: number;
-  }[];
-  devIntros: {
-    imageUrl: string;
-    sequence: number;
-  }[];
+  bannerImageUrl: ProjectImageUrl | null;
+  sampleImageUrls: ProjectImageUrl[];
+  descriptionImageUrls: ProjectImageUrl[];
 }

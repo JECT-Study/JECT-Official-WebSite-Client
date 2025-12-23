@@ -1,3 +1,4 @@
+import type { ImgRatio } from "@ject/jds";
 import {
   BlockButton,
   ContentBadge,
@@ -19,13 +20,14 @@ import { formatDate } from "@/utils/formatDate";
 
 type Position = "프론트엔드 개발자" | "백엔드 개발자" | "프로덕트 디자이너" | "프로덕트 매니저";
 
-const TeammateByPosition = ({
-  position,
-  teammates,
-}: {
+interface TeammateByPositionProps {
   position: Position;
   teammates: string[];
-}) => {
+}
+
+type Semester1 = "PICK-O" | "잔디 일기" | "치즈 마켓" | "HowMeet";
+
+const TeammateByPosition = ({ position, teammates }: TeammateByPositionProps) => {
   const positionIcon = {
     "프론트엔드 개발자": positionFe,
     "백엔드 개발자": positionBe,
@@ -72,6 +74,14 @@ const TeamProjectDetail = () => {
     isPending,
   } = useProjectDetailQuery(id ?? "");
 
+  const semester1 = ["PICK-O", "치즈 마켓", "잔디 일기", "HowMeet"];
+  const bannerRatio: Record<Semester1, ImgRatio> = {
+    "PICK-O": "2:3",
+    "치즈 마켓": "2:3",
+    "잔디 일기": "1:2",
+    HowMeet: "1:2",
+  };
+
   if (isPending) {
     return null;
   }
@@ -88,6 +98,7 @@ const TeamProjectDetail = () => {
   }
 
   const project = projectDetailData.data;
+  const isSemester1 = semester1.includes(project.name);
 
   return (
     <div className='mt-14 flex h-full w-full justify-center py-(--semantic-margin-2xl)'>
@@ -98,30 +109,32 @@ const TeamProjectDetail = () => {
             <LocalNavigation.Title>팀 프로젝트</LocalNavigation.Title>
           </LocalNavigation.Root>
 
-          {/* 썸네일 */}
           <div className='flex flex-col gap-(--semantic-spacing-32) pt-(--semantic-margin-xl) pb-(--semantic-margin-3xl)'>
+            {/* 썸네일 */}
             <Image
-              src={project.thumbnailUrl}
-              ratio='9:21'
+              src={project.bannerImageUrl?.imageUrl}
+              ratio={isSemester1 ? bannerRatio[project.name as Semester1] : "9:16"}
               alt={project.name + "썸네일"}
               orientation='landscape'
               isReadonly={true}
             />
 
             {/* 서비스 샘플 이미지 */}
-            {/* <div className='flex gap-(--semantic-spacing-16)'>
-              {project.devIntros.map(img => (
-                <Image
-                  key={img.sequence}
-                  src={img.imageUrl}
-                  ratio='9:21'
-                  alt={"??"}
-                  orientation='landscape'
-                  isReadonly={true}
-                  className='*:object-contain'
-                />
-              ))}
-            </div> */}
+            {project.sampleImageUrls && (
+              <div className='flex gap-(--semantic-spacing-16)'>
+                {project.sampleImageUrls.map(img => (
+                  <Image
+                    key={img.sequence}
+                    src={img.imageUrl}
+                    ratio='9:16'
+                    alt={project.name + "서비스 샘플 이미지" + img.sequence}
+                    orientation='landscape'
+                    isReadonly={true}
+                    className='*:object-contain'
+                  />
+                ))}
+              </div>
+            )}
 
             {/* 타이틀 정보  */}
             <div className='flex flex-col gap-(--semantic-spacing-24)'>
@@ -141,7 +154,7 @@ const TeamProjectDetail = () => {
                     <IconButton.Basic hierarchy='tertiary' size='2xl' icon='link-line' />
                   </a>
                 </div>
-                <span className='textStyle-body-sm-normal text-(--semantic-textStyle-body-sm-normal)'>
+                <span className='textStyle-body-sm-normal text-(--semantic-object-bold)'>
                   {project.description}
                 </span>
               </div>
@@ -222,30 +235,20 @@ const TeamProjectDetail = () => {
                 </BlockButton.Basic>
               </a>
             </div>
+          </div>
 
-            {/* 서비스 소개 */}
-            <div className='flex flex-col gap-(--semantic-spacing-24)'>
-              {project.serviceIntros.map(img => (
-                <Image
-                  key={img.sequence}
-                  src={img.imageUrl}
-                  ratio='9:16'
-                  alt='콘텐츠 이미지'
-                  orientation='landscape'
-                  isReadonly={true}
-                />
-              ))}
-              {project.devIntros.map(img => (
-                <Image
-                  key={img.sequence}
-                  src={img.imageUrl}
-                  ratio='9:16'
-                  alt='콘텐츠 이미지'
-                  orientation='landscape'
-                  isReadonly={true}
-                />
-              ))}
-            </div>
+          {/* 서비스 소개 */}
+          <div className='flex flex-col gap-(--semantic-spacing-24)'>
+            {project.descriptionImageUrls.map(img => (
+              <Image
+                key={img.sequence}
+                src={img.imageUrl}
+                ratio='9:16'
+                alt={project.name + "서비스 소개 이미지" + img.sequence}
+                orientation='landscape'
+                isReadonly={true}
+              />
+            ))}
           </div>
         </div>
       </div>
