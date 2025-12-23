@@ -19,7 +19,7 @@ export function EmailInputForm({
   const {
     control,
     handleSubmit,
-    formState: { errors, isValid, isSubmitting },
+    formState: { errors, isValid },
   } = useApplyEmailForm();
 
   const handleFormSubmit: FormEventHandler<HTMLFormElement> = e => {
@@ -28,41 +28,43 @@ export function EmailInputForm({
     })(e);
   };
 
-  const getValidation = () => {
-    if (errors.email) return "error";
+  const hasEmailError = Boolean(errors.email);
+
+  const emailValidation: "none" | "success" | "error" = (() => {
+    if (hasEmailError) return "error";
     if (isValid) return "success";
     return "none";
-  };
+  })();
 
   return (
-    <form className='flex flex-col' onSubmit={handleFormSubmit}>
+    <form onSubmit={handleFormSubmit}>
       <Controller
         name='email'
         control={control}
         defaultValue={defaultEmail}
         render={({ field }) => (
-          <TextField
+          <TextField.Button
             type='email'
             label='이메일'
-            validation={getValidation()}
+            validation={emailValidation}
             helperText={errors.email?.message ?? ""}
             placeholder={placeholder}
             value={field.value}
             onChange={field.onChange}
+            button={
+              <BlockButton.Basic
+                type='submit'
+                size='md'
+                variant='solid'
+                hierarchy='primary'
+                disabled={!isValid}
+              >
+                {APPLY_BUTTON_TEXT.email.submit}
+              </BlockButton.Basic>
+            }
           />
         )}
       />
-      <div className='mt-7xl gap-md flex flex-col'>
-        <BlockButton.Basic
-          type='submit'
-          size='md'
-          variant='solid'
-          hierarchy='primary'
-          disabled={!isValid || isSubmitting}
-        >
-          {APPLY_BUTTON_TEXT.email.submit}
-        </BlockButton.Basic>
-      </div>
     </form>
   );
 }
