@@ -51,6 +51,7 @@ export const StyledAccordionTrigger = styled(
     padding: $isStretched
       ? 0
       : `${theme.scheme.semantic.spacing[4]} ${theme.scheme.semantic.spacing[16]}`,
+    color: theme.color.semantic.object.bolder,
     ...interactionStyles.restStyle,
 
     "&:active": {
