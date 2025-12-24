@@ -71,7 +71,10 @@ export const faqApply: FaqItemData[] = [
         <br /> 만약 스팸 메일함에 인증번호 메일이 없다면, 입력하신 이메일 주소가 정확한지 한번 더
         확인 후 진행 부탁드립니다.
         <br /> 그럼에도 인증번호 메일을 받지 못하셨다면{" "}
-        <a href='mailto:jectofficial@ject.kr'>jectofficial@ject.kr</a>로 문의해주세요.
+        <a href='mailto:jectofficial@ject.kr' className='underline! underline-offset-2'>
+          jectofficial@ject.kr
+        </a>
+        로 문의해주세요.
       </>
     ),
   },
@@ -82,7 +85,10 @@ export const faqApply: FaqItemData[] = [
       <>
         이미 제출한 지원서 내용은 자체적으로 수정할 수 없어요.
         <br />꼭 수정해야 하는 내용이 있다면{" "}
-        <a href='mailto:jectofficial@ject.kr'>jectofficial@ject.kr</a>로 문의해주세요.
+        <a href='mailto:jectofficial@ject.kr' className='underline! underline-offset-2'>
+          jectofficial@ject.kr
+        </a>
+        로 문의해주세요.
       </>
     ),
   },
