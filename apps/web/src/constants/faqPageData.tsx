@@ -1,7 +1,5 @@
 import type { ReactNode } from "react";
 
-import { JECT_EMAIL } from "./footer";
-
 interface FaqItemData {
   id: string;
   title: string;
