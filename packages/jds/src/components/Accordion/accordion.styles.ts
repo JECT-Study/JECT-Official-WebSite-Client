@@ -47,6 +47,7 @@ export const StyledAccordionTrigger = styled(
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
+    gap: theme.scheme.semantic.spacing[16],
     width: "100%",
     padding: $isStretched
       ? 0
@@ -111,6 +112,7 @@ export const StyledAccordionChevron = styled("div")(({ theme }) => ({
 export const StyleLabel = styled(Label)(() => ({
   color: "inherit",
   textAlign: "left" as const,
+  textWrap: "wrap" as const,
 }));
 
 const slideUp = keyframes`
