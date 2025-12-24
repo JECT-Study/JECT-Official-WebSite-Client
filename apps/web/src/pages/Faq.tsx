@@ -11,7 +11,7 @@ function Faq() {
 
   return (
     <div className='flex justify-center py-(--semantic-margin-2xl)'>
-      <div className='mobile:w-[320px] tablet:w-[656px] desktop:w-[656px] px-(--semantic-margin-lg) pb-(--semantic-spacing-80)'>
+      <div className='mobile:w-[360px] tablet:w-[656px] desktop:w-[656px] px-(--semantic-margin-lg) pb-(--semantic-spacing-80)'>
         <div className='flex flex-col gap-(--semantic-spacing-16) pt-(--semantic-margin-xl) pb-(--semantic-margin-3xl)'>
           <Hero size='xs' textAlign='left'>
             FAQ
