@@ -1,4 +1,4 @@
-export { Tab } from "./tab";
+export { Tab, TabRoot, TabList, TabTrigger, TabContent } from "./tab";
 export type {
   TabVariant,
   TabRootProps,
