@@ -1,4 +1,4 @@
-import { ContentBadge, Icon, Image, Tab, TabContent, TabList, TabTrigger, Title } from "@ject/jds";
+import { ContentBadge, Icon, Image, Tab, Title } from "@ject/jds";
 import type { IconName, ThemeVariant } from "@ject/jds";
 
 import {
@@ -200,43 +200,43 @@ const MemberSection = () => {
           </Title>
         </div>
 
-        <Tab defaultValue={memberTabs[0].value} variant='header' layout='hug'>
-          <TabList aria-label='구성원 탭'>
+        <Tab.Root defaultValue={memberTabs[0].value} variant='header' className='w-full'>
+          <Tab.List aria-label='구성원 탭'>
             {memberTabs.map((tab) => (
-              <TabTrigger
+              <Tab.Trigger
                 key={tab.value}
                 value={tab.value}
                 className='data-[state=active]:after:opacity-0!'
               >
                 {tab.label}
-              </TabTrigger>
+              </Tab.Trigger>
             ))}
-          </TabList>
+          </Tab.List>
 
-          <TabContent value='supporters'>
-            <div className='grid grid-cols-2 gap-(--semantic-spacing-16) pt-(--semantic-spacing-32) sm:grid-cols-3 lg:grid-cols-4'>
+          <Tab.Content value='supporters'>
+            <div className='grid grid-cols-2 gap-(--semantic-spacing-16) pt-(--semantic-spacing-32) tablet:grid-cols-4'>
               {supportersData.map((member) => (
                 <SupportersCard key={member.id} member={member} />
               ))}
             </div>
-          </TabContent>
+          </Tab.Content>
 
-          <TabContent value='makers1'>
-            <div className='grid grid-cols-1 gap-(--semantic-spacing-16) pt-(--semantic-spacing-32) sm:grid-cols-2'>
+          <Tab.Content value='makers1'>
+            <div className='grid grid-cols-1 gap-(--semantic-spacing-16) pt-(--semantic-spacing-32) tablet:grid-cols-2'>
               {makers1Data.map((member) => (
                 <MakersCard key={member.id} member={member} />
               ))}
             </div>
-          </TabContent>
+          </Tab.Content>
 
-          <TabContent value='makers2'>
-            <div className='grid grid-cols-1 gap-(--semantic-spacing-16) pt-(--semantic-spacing-32) sm:grid-cols-2'>
+          <Tab.Content value='makers2'>
+            <div className='grid grid-cols-1 gap-(--semantic-spacing-16) pt-(--semantic-spacing-32) tablet:grid-cols-2'>
               {makers2Data.map((member) => (
                 <MakersCard key={member.id} member={member} />
               ))}
             </div>
-          </TabContent>
-        </Tab>
+          </Tab.Content>
+        </Tab.Root>
       </div>
     </section>
   );
