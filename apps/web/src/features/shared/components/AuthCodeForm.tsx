@@ -3,8 +3,6 @@ import type { FormEventHandler } from "react";
 import { useState } from "react";
 import { Controller } from "react-hook-form";
 
-import { TermsCheckboxGroup, type TermsAgreement } from "./TermsCheckboxGroup";
-
 import {
   useCheckEmailExistsMutation,
   useSendAuthCodeMutation,
@@ -13,6 +11,7 @@ import {
 import { useApplyEmailForm } from "@/hooks/useApplyEmailForm";
 import { useCountdownTimer } from "@/hooks/useCountdownTimer";
 import { handleError } from "@/utils/errorLogger";
+import { deriveInputValidation } from "@/utils/validationHelpers";
 
 const formatTime = (seconds: number) => {
   const min = Math.floor(seconds / 60);
@@ -23,7 +22,7 @@ const formatTime = (seconds: number) => {
 interface AuthCodeFormProps {
   defaultEmail?: string;
   template: "AUTH_CODE" | "PIN_RESET";
-  onVerified: (email: string, termsAgreement?: TermsAgreement) => void | Promise<void>;
+  onVerified: (email: string, authCode: string) => void | Promise<void>;
   onExistingMember?: (email: string) => void;
 }
 
@@ -36,22 +35,18 @@ export function AuthCodeForm({
   const [hasSentCode, setHasSentCode] = useState(false);
   const [emailErrorMessage, setEmailErrorMessage] = useState<string | null>(null);
   const [authCode, setAuthCode] = useState("");
-  const [termsAgreement, setTermsAgreement] = useState<TermsAgreement>({
-    privacy: false,
-    paymentPolicy: false,
-  });
-
-  const isAuthCodeTemplate = template === "AUTH_CODE";
 
   const timer = useCountdownTimer();
 
   const {
     control: emailControl,
     watch: watchEmail,
-    formState: { errors: emailErrors, isValid: isEmailValid },
+    getFieldState,
+    formState,
   } = useApplyEmailForm();
 
   const currentEmail = watchEmail("email") || defaultEmail;
+  const emailState = getFieldState("email", formState);
 
   const { mutateAsync: checkEmailMutateAsync } = useCheckEmailExistsMutation();
   const { mutate: sendCodeMutate } = useSendAuthCodeMutation({
@@ -97,21 +92,20 @@ export function AuthCodeForm({
       payload: { email: currentEmail, authCode },
       queryParams: { template },
     })
-      .then(() => onVerified(currentEmail, termsAgreement))
+      .then(() => onVerified(currentEmail, authCode))
       .catch(error => {
         handleError(error, "인증번호 확인 요청 실패");
       });
   };
 
-  const hasEmailFormError = Boolean(emailErrors.email) || Boolean(emailErrorMessage);
+  const hasEmailFormError = Boolean(emailState.error) || Boolean(emailErrorMessage);
 
-  const emailValidation: "none" | "success" | "error" = (() => {
-    if (hasEmailFormError) return "error";
-    if (isEmailValid) return "success";
-    return "none";
-  })();
+  const emailValidation = deriveInputValidation({
+    hasError: hasEmailFormError,
+    hasValue: Boolean(currentEmail?.length),
+  });
 
-  const emailHelperText = emailErrors.email?.message ?? emailErrorMessage ?? "";
+  const emailHelperText = emailState.error?.message ?? emailErrorMessage ?? "";
 
   const authCodeHelperText = timer.isActive ? formatTime(timer.seconds) : "";
 
@@ -135,7 +129,7 @@ export function AuthCodeForm({
                 size='md'
                 variant='solid'
                 hierarchy='primary'
-                disabled={!isEmailValid}
+                disabled={!formState.isValid}
                 onClick={() => void handleSendEmailCode()}
               >
                 인증번호 받기
@@ -164,10 +158,6 @@ export function AuthCodeForm({
               인증번호를 받지 못하셨나요?
             </LabelButton.Basic>
           </div>
-
-          {isAuthCodeTemplate && (
-            <TermsCheckboxGroup value={termsAgreement} onChange={setTermsAgreement} />
-          )}
         </form>
       )}
     </div>
