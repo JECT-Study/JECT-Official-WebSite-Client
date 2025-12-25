@@ -1,15 +1,12 @@
+import { BlockButton } from "@ject/jds";
+
 import { APPLY_TITLE } from "@/constants/applyPageData";
 import { ApplyStepLayout, AuthCodeForm } from "@/features/shared/components";
 import type { ApplyFunnelSteps } from "@/types/funnel";
 
-type TermsAgreement = {
-  privacy: boolean;
-  paymentPolicy: boolean;
-};
-
 interface EmailVerificationStepProps {
   context: ApplyFunnelSteps["이메일인증"];
-  onNext: (email: string, termsAgreement?: TermsAgreement) => void;
+  onNext: (email: string, authCode: string) => void;
   onExistingMember: (email: string) => void;
   onBack: () => void;
 }
@@ -34,6 +31,16 @@ export function EmailVerificationStep({
         onVerified={onNext}
         onExistingMember={onExistingMember}
       />
+
+      <BlockButton.Basic
+        size='md'
+        variant='solid'
+        hierarchy='accent'
+        suffixIcon='arrow-right-line'
+        disabled
+      >
+        다음 단계로 진행하기
+      </BlockButton.Basic>
     </ApplyStepLayout>
   );
 }
