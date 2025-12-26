@@ -25,7 +25,16 @@ interface TeammateByPositionProps {
   teammates: string[];
 }
 
-type Semester1 = "PICK-O" | "잔디 일기" | "치즈 마켓" | "HowMeet";
+type ProjectName =
+  | "PICK-O"
+  | "잔디 일기"
+  | "치즈 마켓"
+  | "HowMeet"
+  | "밥버디"
+  | "Re:creation"
+  | "스터디트립"
+  | "마이코드"
+  | "펫핏";
 
 const TeammateByPosition = ({ position, teammates }: TeammateByPositionProps) => {
   const positionIcon = {
@@ -74,12 +83,26 @@ const TeamProjectDetail = () => {
     isPending,
   } = useProjectDetailQuery(id ?? "");
 
-  const semester1 = ["PICK-O", "치즈 마켓", "잔디 일기", "HowMeet"];
-  const bannerRatio: Record<Semester1, ImgRatio> = {
+  const projectName = [
+    "PICK-O",
+    "치즈 마켓",
+    "잔디 일기",
+    "HowMeet",
+    "밥버디",
+    "Re:creation",
+    "스터디트립",
+    "펫핏",
+  ];
+  const bannerRatio: Record<ProjectName, ImgRatio> = {
     "PICK-O": "2:3",
     "치즈 마켓": "2:3",
     "잔디 일기": "1:2",
     HowMeet: "1:2",
+    밥버디: "2:3",
+    "Re:creation": "9:21",
+    스터디트립: "9:21",
+    마이코드: "9:21",
+    펫핏: "9:21",
   };
 
   if (isPending) {
@@ -98,7 +121,7 @@ const TeamProjectDetail = () => {
   }
 
   const project = projectDetailData.data;
-  const isSemester1 = semester1.includes(project.name);
+  const isSemester1 = projectName.includes(project.name);
 
   return (
     <div className='mt-14 flex h-full w-full justify-center py-(--semantic-margin-2xl)'>
@@ -113,7 +136,7 @@ const TeamProjectDetail = () => {
             {/* 썸네일 */}
             <Image
               src={project.bannerImageUrl?.imageUrl}
-              ratio={isSemester1 ? bannerRatio[project.name as Semester1] : "9:16"}
+              ratio={isSemester1 ? bannerRatio[project.name as ProjectName] : "9:16"}
               alt={project.name + "썸네일"}
               orientation='landscape'
               isReadonly={true}
