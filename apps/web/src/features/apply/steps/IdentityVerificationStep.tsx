@@ -67,7 +67,7 @@ export function IdentityVerificationStep({
   const email = watchEmail("email");
   const isFormValid = emailFormState.isValid && pinFormState.isValid;
 
-  const { mutate: pinLoginMutate } = usePinLoginMutation({
+  const { mutate: pinLoginMutate, isPending } = usePinLoginMutation({
     onSuccess: () => {
       void onNext({ email });
     },
@@ -143,11 +143,12 @@ export function IdentityVerificationStep({
 
         <BlockButton.Basic
           type='submit'
-          disabled={!isFormValid}
+          disabled={!isFormValid || isPending}
           size='md'
           variant='solid'
           hierarchy='accent'
-          suffixIcon='arrow-right-line'
+          suffixIcon={isPending ? "spinner" : undefined}
+          className={isPending ? "[&_svg:last-child]:animate-spin" : undefined}
         >
           다음
         </BlockButton.Basic>
