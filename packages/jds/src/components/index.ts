@@ -17,6 +17,7 @@ export * from "./Logo";
 export * from "./SegmentedControl";
 export * from "./Select";
 export * from "./Step";
+export * from "./Tab";
 export * from "./Title";
 export * from "./Tooltip";
 export * from "./Uploader";
