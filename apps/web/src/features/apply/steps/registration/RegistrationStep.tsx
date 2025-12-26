@@ -1,0 +1,180 @@
+import { BlockButton, Dialog, Title } from "@ject/jds";
+import { type ReactNode, useCallback, useMemo, useState } from "react";
+
+import { FileQuestionField, TextQuestionField, UrlQuestionField } from "./components";
+import { useRegistrationFormWithDraft } from "./useRegistrationFormWithDraft";
+import { formatPortfolioResponse } from "./utils";
+
+import { APPLY_TITLE } from "@/constants/applyPageData";
+import { ApplyStepLayout } from "@/features/shared/components";
+import { useSaveDraftMutation, useSubmitAnswerMutation } from "@/hooks/apply";
+import type {
+  AnswersByQuestionId,
+  NewPortfolio,
+  Question,
+  QuestionId,
+} from "@/types/apis/application";
+import type { RegistrationContext } from "@/types/funnel";
+import { validateApplication } from "@/utils/validateApplication";
+
+interface RegistrationStepProps {
+  context: RegistrationContext;
+  onNext: () => void;
+  onBack: () => void;
+}
+
+interface TextBasedQuestionProps {
+  question: Question;
+  value: string;
+  onChange: (id: QuestionId, text: string) => void;
+}
+
+interface FileQuestionProps {
+  question: Question;
+  portfolios: NewPortfolio[];
+  onChangePortfolios: (portfolios: NewPortfolio[]) => void;
+}
+
+const TEXT_BASED_RENDERERS: Record<"TEXT" | "URL", (props: TextBasedQuestionProps) => ReactNode> = {
+  TEXT: props => <TextQuestionField key={props.question.id} {...props} />,
+  URL: props => <UrlQuestionField key={props.question.id} {...props} />,
+};
+
+const renderFileQuestion = (props: FileQuestionProps): ReactNode => (
+  <FileQuestionField key={props.question.id} {...props} />
+);
+
+export function RegistrationStep({ context, onNext, onBack }: RegistrationStepProps) {
+  const { jobFamily } = context;
+
+  const { questions, answers, portfolios, setAnswers, setPortfolios } =
+    useRegistrationFormWithDraft(jobFamily);
+
+  const [isSubmitDialogOpen, setIsSubmitDialogOpen] = useState(false);
+
+  const { mutate: saveDraftMutate } = useSaveDraftMutation();
+  const { mutate: submitAnswerMutate } = useSubmitAnswerMutation({ onSuccess: onNext });
+
+  //포트폴리오 응답 형식(중복 계산 방지-메모이제이션 불필요하면 삭제)
+  const formattedPortfolios = useMemo(() => formatPortfolioResponse(portfolios), [portfolios]);
+
+  //유효성 검증
+  const isStepCompleted = useMemo(
+    () => validateApplication(questions, { answers, portfolios: formattedPortfolios }),
+    [questions, answers, formattedPortfolios],
+  );
+
+  //텍스트 답변 변경 핸들러
+  const handleChangeAnswer = useCallback(
+    (id: QuestionId, text: string) => {
+      setAnswers((prev: AnswersByQuestionId) => ({ ...prev, [id]: text }));
+    },
+    [setAnswers],
+  );
+
+  //포트폴리오 변경 핸들러
+  const handleChangePortfolios = useCallback(
+    (newPortfolios: NewPortfolio[]) => {
+      setPortfolios(newPortfolios);
+    },
+    [setPortfolios],
+  );
+
+  //지원서 임시 저장
+  const handleSaveDraft = useCallback(() => {
+    saveDraftMutate({
+      jobFamily,
+      answers: { answers, portfolios: formattedPortfolios },
+    });
+  }, [saveDraftMutate, answers, formattedPortfolios, jobFamily]);
+
+  //지원서 제출
+  const handleSubmit = useCallback(() => {
+    setIsSubmitDialogOpen(false);
+    submitAnswerMutate({
+      jobFamily,
+      answers: { answers, portfolios: formattedPortfolios },
+    });
+  }, [submitAnswerMutate, jobFamily, answers, formattedPortfolios]);
+
+  const renderQuestion = useCallback(
+    (question: Question): ReactNode => {
+      const { inputType, id } = question;
+
+      if (inputType === "TEXT" || inputType === "URL") {
+        return TEXT_BASED_RENDERERS[inputType]({
+          question,
+          value: answers[id] ?? "",
+          onChange: handleChangeAnswer,
+        });
+      }
+
+      if (inputType === "FILE") {
+        return renderFileQuestion({
+          question,
+          portfolios,
+          onChangePortfolios: handleChangePortfolios,
+        });
+      }
+
+      return null; // 지원하지 않는 type에 대해서 null 처리
+    },
+    [answers, portfolios, handleChangeAnswer, handleChangePortfolios],
+  );
+
+  return (
+    <ApplyStepLayout
+      variant='apply'
+      title={APPLY_TITLE.registration}
+      current={2}
+      jobFamily={jobFamily}
+      onBack={onBack}
+    >
+      <div className='gap-7xl flex flex-col'>
+        <div className='gap-2xl flex flex-col'>
+          <Title size='lg' textAlign='left'>
+            지원서 작성
+          </Title>
+        </div>
+
+        <div className='gap-7xl flex flex-col'>{questions.map(renderQuestion)}</div>
+
+        <div className='gap-md flex w-full self-center *:flex-1'>
+          <BlockButton.Basic
+            size='md'
+            variant='outlined'
+            hierarchy='secondary'
+            onClick={handleSaveDraft}
+          >
+            임시 저장하기
+          </BlockButton.Basic>
+          <BlockButton.Basic
+            size='md'
+            variant='solid'
+            hierarchy='accent'
+            disabled={!isStepCompleted}
+            onClick={() => setIsSubmitDialogOpen(true)}
+          >
+            지원서 제출하기
+          </BlockButton.Basic>
+        </div>
+      </div>
+
+      <Dialog
+        open={isSubmitDialogOpen}
+        onOpenChange={setIsSubmitDialogOpen}
+        header='지원서를 최종 제출합니다'
+        body='제출한 뒤에는 지원서를 수정하거나 지원을 취소할 수 없어요.
+지원 관련 도움이 필요하시다면 jectofficial@ject.kr 로 문의해주세요.'
+        primaryAction={{
+          children: "지원서 제출하기",
+          onClick: handleSubmit,
+        }}
+        secondaryAction={{
+          children: "취소",
+          onClick: () => setIsSubmitDialogOpen(false),
+        }}
+      />
+    </ApplyStepLayout>
+  );
+}
