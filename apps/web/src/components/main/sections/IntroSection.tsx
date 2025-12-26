@@ -44,7 +44,7 @@ const IntroSection = () => {
             </div>
 
             <div className='flex w-full flex-col gap-(--semantic-spacing-10)'>
-              <div className='grid w-full grid-cols-1 gap-(--semantic-spacing-16) sm:grid-cols-2 lg:grid-cols-3'>
+              <div className='grid w-full grid-cols-1 gap-(--semantic-spacing-16) tablet:grid-cols-2 desktop:grid-cols-3'>
                 {statData.map(({ id, title, description, isFullWidth }) => (
                   <Callout.Basic
                     key={id}
@@ -52,7 +52,7 @@ const IntroSection = () => {
                     variant='hint'
                     size='lg'
                     title={title}
-                    className={isFullWidth ? 'sm:col-span-2 lg:col-span-1' : undefined}
+                    className={isFullWidth ? 'tablet:col-span-2 desktop:col-span-1' : undefined}
                   >
                     {description}
                   </Callout.Basic>
@@ -80,7 +80,7 @@ const IntroSection = () => {
             <Hero size='xs' textAlign='left'>젝트와 함께합니다</Hero>
           </div>
 
-          <div className='grid w-full grid-cols-1 gap-(--semantic-spacing-16) sm:grid-cols-2'>
+          <div className='grid w-full grid-cols-1 gap-(--semantic-spacing-16) tablet:grid-cols-2'>
             {positionData.map(({ id, title, icon, description, tags, themeColor }) => (
               <div
                 key={id}
@@ -120,7 +120,7 @@ const IntroSection = () => {
             <Hero size='xs' textAlign='left'>다양한 프로그램들을 운영합니다</Hero>
           </div>
 
-          <div className='grid w-full grid-cols-1 gap-(--semantic-spacing-16) sm:grid-cols-2'>
+          <div className='grid w-full grid-cols-1 gap-(--semantic-spacing-16) tablet:grid-cols-2'>
             {programData.map(({ id, title, description }) => (
               <Callout.Basic
                 key={id}

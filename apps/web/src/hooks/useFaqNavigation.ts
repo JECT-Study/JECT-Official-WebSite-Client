@@ -4,9 +4,9 @@ import { useParams, useNavigate } from "react-router-dom";
 import { PATH } from "@/constants/path.ts";
 
 interface UseFaqNavigationResult {
-  activeTabId: number;
+  activeTabId: string;
   openAccordionId: string | null;
-  handleTabChange: (tabId: number) => void;
+  handleTabChange: (tabId: string) => void;
   handleAccordionChange: (id: string | null) => void;
 }
 
@@ -17,12 +17,12 @@ export const useFaqNavigation = (): UseFaqNavigationResult => {
     questionId?: string;
   }>();
 
-  const [activeTabId, setActiveTabId] = useState<number>(tabIdParam ? parseInt(tabIdParam, 10) : 1);
+  const [activeTabId, setActiveTabId] = useState<string>(tabIdParam || "1");
   const [openAccordionId, setOpenAccordionId] = useState<string | null>(questionIdParam || null);
 
   useEffect(() => {
     if (tabIdParam) {
-      setActiveTabId(parseInt(tabIdParam, 10));
+      setActiveTabId(tabIdParam);
     }
 
     if (questionIdParam) {
@@ -30,11 +30,11 @@ export const useFaqNavigation = (): UseFaqNavigationResult => {
     }
   }, [tabIdParam, questionIdParam]);
 
-  const handleTabChange = (tabId: number): void => {
+  const handleTabChange = (tabId: string): void => {
     setActiveTabId(tabId);
     setOpenAccordionId(null);
 
-    if (tabId !== 1) {
+    if (tabId !== "1") {
       void navigate(`${PATH.faq}/${tabId}`, { replace: true });
     } else {
       void navigate(`${PATH.faq}`, { replace: true });

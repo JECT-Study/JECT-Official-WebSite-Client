@@ -33,7 +33,7 @@ function Layout() {
           <Footer.Bottom
             copyright="© 2025 JECT. All rights reserved."
             email="jectofficial@ject.kr"
-            privacyLink="https://ject.kr/privacy"
+            privacyLink="https://cultured-phalange-7de.notion.site/2cd62a893ac580129760c2b304eacec5"
           />
         </Footer.Content>
       </Footer.Root>

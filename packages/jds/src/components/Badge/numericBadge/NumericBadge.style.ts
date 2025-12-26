@@ -27,7 +27,10 @@ export const NumericBadgeBasicDiv = styled.div<NumericBadgeBasicDivProps>(
 
     return {
       minWidth: pxToRem(numericBadgeSizeMap[size].minWidth),
-      padding: `${pxToRem(numericBadgeSizeMap[size].paddingTopBottom)} ${pxToRem(numericBadgeSizeMap[size].paddingLeftRight)}`,
+      padding:
+        badgeStyle === "empty"
+          ? 0
+          : `${pxToRem(numericBadgeSizeMap[size].paddingTopBottom)} ${pxToRem(numericBadgeSizeMap[size].paddingLeftRight)}`,
       display: "inline-flex",
       justifyContent: "center",
       alignItems: "center",
@@ -73,7 +76,10 @@ export const NumericBadgeFeedbackDiv = styled.div<NumericBadgeFeedbackDivProps>(
 
     return {
       minWidth: pxToRem(numericBadgeSizeMap[size].minWidth),
-      padding: `${pxToRem(numericBadgeSizeMap[size].paddingTopBottom)} ${pxToRem(numericBadgeSizeMap[size].paddingLeftRight)}`,
+      padding:
+        badgeStyle === "empty"
+          ? 0
+          : `${pxToRem(numericBadgeSizeMap[size].paddingTopBottom)} ${pxToRem(numericBadgeSizeMap[size].paddingLeftRight)}`,
       display: "inline-flex",
       justifyContent: "center",
       alignItems: "center",
