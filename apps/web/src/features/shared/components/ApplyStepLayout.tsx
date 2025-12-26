@@ -1,15 +1,9 @@
 import { LocalNavigation, Step, Title } from "@ject/jds";
 import type { ReactNode } from "react";
 
+import { findJobFamilyOption } from "@/constants/applyPageData";
 import type { JobFamily } from "@/types/apis/application";
 import { STEP_LABELS } from "@/types/funnel";
-
-const JOB_FAMILY_LABELS: Record<JobFamily, string> = {
-  PM: "[젝트 4기] 프로덕트 매니저 개발자 모집",
-  PD: "[젝트 4기] 프로덕트 디자이너 개발자 모집",
-  FE: "[젝트 4기] 프론트엔드 개발자 모집",
-  BE: "[젝트 4기] 백엔드 개발자 모집",
-};
 
 type BaseProps = {
   children: ReactNode;
@@ -33,7 +27,9 @@ type ApplyStepLayoutProps = BaseProps &
 export function ApplyStepLayout(props: ApplyStepLayoutProps) {
   const { children, title, onBack, variant } = props;
   const navigationTitle =
-    variant === "apply" ? JOB_FAMILY_LABELS[props.jobFamily] : props.headerTitle;
+    variant === "apply"
+      ? findJobFamilyOption(props.jobFamily).navigationTitle
+      : props.headerTitle;
 
   return (
     <div className='flex min-h-screen flex-col'>
