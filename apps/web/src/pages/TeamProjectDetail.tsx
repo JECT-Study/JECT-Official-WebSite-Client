@@ -124,7 +124,7 @@ const TeamProjectDetail = () => {
   const isSemester1 = projectName.includes(project.name);
 
   return (
-    <div className='mt-14 flex h-full w-full justify-center py-(--semantic-margin-2xl)'>
+    <div className='flex h-full w-full justify-center py-(--semantic-margin-2xl) pt-14'>
       <div className='px-(--semantic-margin-lg) pt-(--semantic-spacing-0) pb-(--semantic-spacing-80)'>
         <div className='desktop:w-[922px]'>
           <LocalNavigation.Root isStretched={true}>
