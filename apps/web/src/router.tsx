@@ -23,7 +23,6 @@ const router = sentryCreateBrowserRouter([
     children: [
       { path: PATH.main, element: <Main /> },
       { path: PATH.vision, element: <Vision /> },
-      { path: PATH.project, element: <Project /> },
       { path: `${PATH.project}/:id`, element: <TeamProjectDetail /> },
       { path: PATH.activity, element: <Activity /> },
       { path: PATH.apply, element: <RecruitmentComplete /> },
