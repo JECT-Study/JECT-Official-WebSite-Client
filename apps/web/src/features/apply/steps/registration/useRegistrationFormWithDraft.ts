@@ -3,13 +3,9 @@ import { useState } from "react";
 
 import { formatDraftPortfolios } from "./utils";
 
+import type { JobFamily, Question } from "@/apis/apply";
 import { useDraftSuspenseQuery, useQuestionsSuspenseQuery } from "@/hooks/apply";
-import type {
-  AnswersByQuestionId,
-  JobFamily,
-  PortfolioFile,
-  Question,
-} from "@/types/apis/application";
+import type { AnswersByQuestionId, PortfolioFile } from "@/types/apis/application";
 
 interface UseRegistrationFormWithDraftReturn {
   questions: Question[];

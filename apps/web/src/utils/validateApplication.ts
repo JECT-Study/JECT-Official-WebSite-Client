@@ -1,6 +1,6 @@
 import { validateUrlDetail } from "./validateUrl";
 
-import type { Question } from "@/types/apis/application";
+import type { Question } from "@/apis/apply";
 import type { Application } from "@/types/ui/application";
 
 /**

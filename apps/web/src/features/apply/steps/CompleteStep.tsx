@@ -1,9 +1,9 @@
 import { BlockButton, Icon, LocalNavigation, Title } from "@ject/jds";
 import { useNavigate } from "react-router-dom";
 
+import type { JobFamily } from "@/apis/apply";
 import { APPLY_TITLE, findJobFamilyOption } from "@/constants/applyPageData";
 import { PATH } from "@/constants/path";
-import type { JobFamily } from "@/types/apis/application";
 
 interface CompleteStepProps {
   jobFamily: JobFamily;

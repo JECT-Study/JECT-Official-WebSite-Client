@@ -1,10 +1,10 @@
 import { useRef } from "react";
 
+import type { JobFamily } from "@/apis/apply";
 import Icon from "@/components/common/icon/Icon";
 import InputField from "@/components/common/input/InputField";
 import { Select } from "@/components/common/select/Select";
 import useCloseOutside from "@/hooks/useCloseOutside";
-import type { JobFamily } from "@/types/apis/application";
 
 interface selectBoxProps {
   selectedJob: JobFamily | null;

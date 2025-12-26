@@ -5,16 +5,12 @@ import { FileQuestionField, TextQuestionField, UrlQuestionField } from "./compon
 import { useRegistrationFormWithDraft } from "./useRegistrationFormWithDraft";
 import { formatPortfolioResponse } from "./utils";
 
+import type { Question } from "@/apis/apply";
 import { APPLY_TITLE } from "@/constants/applyPageData";
 import { DIALOG_CONTENT } from "@/constants/dialog";
 import { ApplyStepLayout } from "@/features/shared/components";
 import { useSaveDraftMutation, useSubmitAnswerMutation } from "@/hooks/apply";
-import type {
-  AnswersByQuestionId,
-  PortfolioFile,
-  Question,
-  QuestionId,
-} from "@/types/apis/application";
+import type { AnswersByQuestionId, PortfolioFile, QuestionId } from "@/types/apis/application";
 import type { RegistrationContext } from "@/types/funnel";
 import { validateApplication } from "@/utils/validateApplication";
 

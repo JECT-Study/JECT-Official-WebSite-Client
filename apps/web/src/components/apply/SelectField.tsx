@@ -1,11 +1,11 @@
 import { useRef, useState } from "react";
 
+import type { Question } from "@/apis/apply";
 import Icon from "@/components/common/icon/Icon";
 import InputField from "@/components/common/input/InputField";
 import { Select } from "@/components/common/select/Select";
 import Title from "@/components/common/title/Title";
 import useCloseOutside from "@/hooks/useCloseOutside";
-import type { Question } from "@/types/apis/application";
 
 export interface SelectItem {
   id: number;

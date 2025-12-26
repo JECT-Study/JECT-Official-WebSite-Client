@@ -9,8 +9,8 @@ import {
   RegistrationStep,
 } from "./steps";
 
+import type { JobFamily } from "@/apis/apply";
 import { APPLY_MESSAGE } from "@/constants/applyMessages";
-import type { JobFamily } from "@/types/apis/application";
 import type { ContinueWritingFunnelSteps } from "@/types/funnel";
 
 interface ContinueWritingFunnelProps {

@@ -10,8 +10,8 @@ import {
   CompleteStep,
 } from "./steps";
 
+import type { JobFamily } from "@/apis/apply";
 import { PATH } from "@/constants/path";
-import type { JobFamily } from "@/types/apis/application";
 import type { ApplyFunnelSteps } from "@/types/funnel";
 
 interface ApplyFunnelProps {

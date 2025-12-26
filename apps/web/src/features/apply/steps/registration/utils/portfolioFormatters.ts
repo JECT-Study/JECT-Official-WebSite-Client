@@ -1,9 +1,5 @@
-import type {
-  NewPortfolio,
-  PortfolioFile,
-  PortfolioResponse,
-  PresignedFileUrls,
-} from "@/types/apis/application";
+import type { PortfolioResponse } from "@/apis/apply";
+import type { NewPortfolio, PortfolioFile, PresignedFileUrls } from "@/types/apis/application";
 
 /**
  * 파일별 고유 ID 생성

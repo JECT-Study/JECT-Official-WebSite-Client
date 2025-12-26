@@ -3,8 +3,8 @@ import type { ChangeEvent } from "react";
 
 import { QuestionFieldWrapper } from "./QuestionFieldWrapper";
 
+import type { Question } from "@/apis/apply";
 import { APPLY_MESSAGE } from "@/constants/applyMessages";
-import type { Question } from "@/types/apis/application";
 
 interface TextQuestionFieldProps {
   question: Question;
