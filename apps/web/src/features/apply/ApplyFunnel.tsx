@@ -85,11 +85,10 @@ export function ApplyFunnel({ jobFamily }: ApplyFunnelProps) {
       지원자정보={({ context, history }) => (
         <ApplicantInfoStep
           context={context}
-          onNext={data => {
+          onNext={() => {
             // 프로필 저장 성공 → 지원서 작성으로
             void history.push("지원서작성", {
               ...context,
-              ...data,
             });
           }}
           onBack={handleBack}

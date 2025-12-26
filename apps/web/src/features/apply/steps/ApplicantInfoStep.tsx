@@ -10,6 +10,7 @@ import {
 import { useState } from "react";
 import { Controller } from "react-hook-form";
 
+import { APPLY_MESSAGE } from "@/constants/applyMessages";
 import { APPLY_TITLE } from "@/constants/applyPageData";
 import { ApplyStepLayout } from "@/features/shared/components";
 import { useMemberProfileMutation } from "@/hooks/apply";
@@ -31,7 +32,7 @@ type SelectFieldName = "careerDetails" | "region" | "experiencePeriod";
 
 interface ApplicantInfoStepProps {
   context: ApplicantInfoContext;
-  onNext: (data: ProfileData) => void;
+  onNext: () => void;
   onBack: () => void;
 }
 
@@ -41,11 +42,11 @@ export function ApplicantInfoStep({ context, onNext, onBack }: ApplicantInfoStep
   const [openSelect, setOpenSelect] = useState<SelectFieldName | null>(null);
 
   const { mutate: saveProfile } = useMemberProfileMutation({
-    onSuccess: (data: ProfileData) => {
-      onNext(data);
+    onSuccess: () => {
+      onNext();
     },
     onError: () => {
-      toastController.destructive("프로필 저장에 실패했습니다. 다시 시도해주세요.");
+      toastController.destructive(APPLY_MESSAGE.fail.saveProfile);
     },
   });
 
