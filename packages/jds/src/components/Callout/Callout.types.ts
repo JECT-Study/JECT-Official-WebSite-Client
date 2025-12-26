@@ -15,6 +15,7 @@ export interface BaseCalloutProps {
   title?: string;
   blockButtonProps?: Omit<BaseBlockButtonProps, "size">;
   children: ReactNode;
+  className?: string;
 }
 
 export interface BasicCalloutProps extends BaseCalloutProps {

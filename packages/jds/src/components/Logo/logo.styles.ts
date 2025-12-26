@@ -18,6 +18,9 @@ const hierarchyColorsMap = (theme: Theme): Record<LogoHierarchy, { color: string
   tertiary: {
     color: theme.color.semantic.object.alternative,
   },
+  inverse: {
+    color: theme.color.semantic.object.static.inverse.alternative,
+  },
 });
 
 const interactionStyles = (theme: Theme, hierarchy: LogoHierarchy): CSSObject => {
@@ -72,6 +75,30 @@ const interactionStyles = (theme: Theme, hierarchy: LogoHierarchy): CSSObject =>
       }),
     },
     tertiary: {
+      restStyle: InteractionLayer({
+        theme,
+        state: "rest",
+        variant: "normal",
+        density: "normal",
+        fillColor: "default",
+        isDisabled: false,
+        offsetVertical: offset.vertical,
+        offsetHorizontal: offset.horizontal,
+        borderRadius: offset.borderRadius,
+      }),
+      focusStyle: InteractionLayer({
+        theme,
+        state: "focus",
+        variant: "normal",
+        density: "normal",
+        fillColor: "default",
+        isDisabled: false,
+        offsetVertical: offset.vertical,
+        offsetHorizontal: offset.horizontal,
+        borderRadius: offset.borderRadius,
+      }),
+    },
+    inverse: {
       restStyle: InteractionLayer({
         theme,
         state: "rest",

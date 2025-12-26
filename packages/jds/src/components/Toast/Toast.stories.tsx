@@ -92,25 +92,25 @@ export const UseToastProvider: StoryObj<typeof Toast.Basic> = {
       <FlexRow>
         <FlexColumn>
           <Label>only Title</Label>
-          <BlockButton.Basic onClick={basicToast} variant="outlined">
+          <BlockButton.Basic onClick={basicToast} variant='outlined'>
             Basic
           </BlockButton.Basic>
-          <BlockButton.Feedback onClick={positiveToast} intent="positive">
+          <BlockButton.Feedback onClick={positiveToast} intent='positive'>
             Feedback
           </BlockButton.Feedback>
-          <BlockButton.Feedback onClick={destructiveToast} intent="destructive">
+          <BlockButton.Feedback onClick={destructiveToast} intent='destructive'>
             Feedback
           </BlockButton.Feedback>
         </FlexColumn>
         <FlexColumn>
           <Label>with caption</Label>
-          <BlockButton.Basic onClick={basicToastCaption} variant="outlined">
+          <BlockButton.Basic onClick={basicToastCaption} variant='outlined'>
             Basic
           </BlockButton.Basic>
-          <BlockButton.Feedback onClick={positiveToastCaption} intent="positive">
+          <BlockButton.Feedback onClick={positiveToastCaption} intent='positive'>
             Feedback
           </BlockButton.Feedback>
-          <BlockButton.Feedback onClick={destructiveToastCaption} intent="destructive">
+          <BlockButton.Feedback onClick={destructiveToastCaption} intent='destructive'>
             Feedback
           </BlockButton.Feedback>
         </FlexColumn>
@@ -153,25 +153,25 @@ export const UseGlobalToast: StoryObj<typeof Toast.Basic> = {
       <FlexRow>
         <FlexColumn>
           <Label>only Title</Label>
-          <BlockButton.Basic onClick={basicToast} variant="outlined">
+          <BlockButton.Basic onClick={basicToast} variant='outlined'>
             Basic
           </BlockButton.Basic>
-          <BlockButton.Feedback onClick={positiveToast} intent="positive">
+          <BlockButton.Feedback onClick={positiveToast} intent='positive'>
             Feedback
           </BlockButton.Feedback>
-          <BlockButton.Feedback onClick={destructiveToast} intent="destructive">
+          <BlockButton.Feedback onClick={destructiveToast} intent='destructive'>
             Feedback
           </BlockButton.Feedback>
         </FlexColumn>
         <FlexColumn>
           <Label>with caption</Label>
-          <BlockButton.Basic onClick={basicToastCaption} variant="outlined">
+          <BlockButton.Basic onClick={basicToastCaption} variant='outlined'>
             Basic
           </BlockButton.Basic>
-          <BlockButton.Feedback onClick={positiveToastCaption} intent="positive">
+          <BlockButton.Feedback onClick={positiveToastCaption} intent='positive'>
             Feedback
           </BlockButton.Feedback>
-          <BlockButton.Feedback onClick={destructiveToastCaption} intent="destructive">
+          <BlockButton.Feedback onClick={destructiveToastCaption} intent='destructive'>
             Feedback
           </BlockButton.Feedback>
         </FlexColumn>

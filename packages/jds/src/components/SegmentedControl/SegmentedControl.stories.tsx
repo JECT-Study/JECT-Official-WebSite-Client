@@ -32,9 +32,9 @@ export const Default: Story = {
     size: "md",
   },
   render: args => (
-    <SegmentedControl.Root defaultValue="option1" size={args.size}>
-      <SegmentedControl.Item value="option1">레이블</SegmentedControl.Item>
-      <SegmentedControl.Item value="option2">레이블</SegmentedControl.Item>
+    <SegmentedControl.Root defaultValue='option1' size={args.size}>
+      <SegmentedControl.Item value='option1'>레이블</SegmentedControl.Item>
+      <SegmentedControl.Item value='option2'>레이블</SegmentedControl.Item>
     </SegmentedControl.Root>
   ),
   parameters: {
@@ -49,12 +49,12 @@ export const Default: Story = {
 
 export const DisabledItem: Story = {
   render: () => (
-    <SegmentedControl.Root defaultValue="option1">
-      <SegmentedControl.Item value="option1">레이블</SegmentedControl.Item>
-      <SegmentedControl.Item value="option2" disabled>
+    <SegmentedControl.Root defaultValue='option1'>
+      <SegmentedControl.Item value='option1'>레이블</SegmentedControl.Item>
+      <SegmentedControl.Item value='option2' disabled>
         Disabled
       </SegmentedControl.Item>
-      <SegmentedControl.Item value="option3">레이블</SegmentedControl.Item>
+      <SegmentedControl.Item value='option3'>레이블</SegmentedControl.Item>
     </SegmentedControl.Root>
   ),
   parameters: {
@@ -71,30 +71,30 @@ export const ItemSizes: Story = {
     <FlexColumn>
       <FlexRow>
         <Label>lg</Label>
-        <SegmentedControl.Root size="lg" defaultValue="option1">
-          <SegmentedControl.Item value="option1">레이블</SegmentedControl.Item>
-          <SegmentedControl.Item value="option2">레이블</SegmentedControl.Item>
+        <SegmentedControl.Root size='lg' defaultValue='option1'>
+          <SegmentedControl.Item value='option1'>레이블</SegmentedControl.Item>
+          <SegmentedControl.Item value='option2'>레이블</SegmentedControl.Item>
         </SegmentedControl.Root>
       </FlexRow>
       <FlexRow>
         <Label>md</Label>
-        <SegmentedControl.Root size="md" defaultValue="option1">
-          <SegmentedControl.Item value="option1">레이블</SegmentedControl.Item>
-          <SegmentedControl.Item value="option2">레이블</SegmentedControl.Item>
+        <SegmentedControl.Root size='md' defaultValue='option1'>
+          <SegmentedControl.Item value='option1'>레이블</SegmentedControl.Item>
+          <SegmentedControl.Item value='option2'>레이블</SegmentedControl.Item>
         </SegmentedControl.Root>
       </FlexRow>
       <FlexRow>
         <Label>sm</Label>
-        <SegmentedControl.Root size="sm" defaultValue="option1">
-          <SegmentedControl.Item value="option1">레이블</SegmentedControl.Item>
-          <SegmentedControl.Item value="option2">레이블</SegmentedControl.Item>
+        <SegmentedControl.Root size='sm' defaultValue='option1'>
+          <SegmentedControl.Item value='option1'>레이블</SegmentedControl.Item>
+          <SegmentedControl.Item value='option2'>레이블</SegmentedControl.Item>
         </SegmentedControl.Root>
       </FlexRow>
       <FlexRow>
         <Label>xs</Label>
-        <SegmentedControl.Root size="xs" defaultValue="option1">
-          <SegmentedControl.Item value="option1">레이블</SegmentedControl.Item>
-          <SegmentedControl.Item value="option2">레이블</SegmentedControl.Item>
+        <SegmentedControl.Root size='xs' defaultValue='option1'>
+          <SegmentedControl.Item value='option1'>레이블</SegmentedControl.Item>
+          <SegmentedControl.Item value='option2'>레이블</SegmentedControl.Item>
         </SegmentedControl.Root>
       </FlexRow>
     </FlexColumn>
@@ -111,20 +111,20 @@ export const ItemSizes: Story = {
 export const ItemCounts: Story = {
   render: () => (
     <FlexColumn>
-      <SegmentedControl.Root defaultValue="option1">
-        <SegmentedControl.Item value="option1">레이블</SegmentedControl.Item>
-        <SegmentedControl.Item value="option2">레이블</SegmentedControl.Item>
+      <SegmentedControl.Root defaultValue='option1'>
+        <SegmentedControl.Item value='option1'>레이블</SegmentedControl.Item>
+        <SegmentedControl.Item value='option2'>레이블</SegmentedControl.Item>
       </SegmentedControl.Root>
-      <SegmentedControl.Root defaultValue="option1">
-        <SegmentedControl.Item value="option1">레이블</SegmentedControl.Item>
-        <SegmentedControl.Item value="option2">레이블</SegmentedControl.Item>
-        <SegmentedControl.Item value="option3">레이블</SegmentedControl.Item>
+      <SegmentedControl.Root defaultValue='option1'>
+        <SegmentedControl.Item value='option1'>레이블</SegmentedControl.Item>
+        <SegmentedControl.Item value='option2'>레이블</SegmentedControl.Item>
+        <SegmentedControl.Item value='option3'>레이블</SegmentedControl.Item>
       </SegmentedControl.Root>
-      <SegmentedControl.Root defaultValue="option1">
-        <SegmentedControl.Item value="option1">레이블</SegmentedControl.Item>
-        <SegmentedControl.Item value="option2">레이블</SegmentedControl.Item>
-        <SegmentedControl.Item value="option3">레이블</SegmentedControl.Item>
-        <SegmentedControl.Item value="option4">레이블</SegmentedControl.Item>
+      <SegmentedControl.Root defaultValue='option1'>
+        <SegmentedControl.Item value='option1'>레이블</SegmentedControl.Item>
+        <SegmentedControl.Item value='option2'>레이블</SegmentedControl.Item>
+        <SegmentedControl.Item value='option3'>레이블</SegmentedControl.Item>
+        <SegmentedControl.Item value='option4'>레이블</SegmentedControl.Item>
       </SegmentedControl.Root>
     </FlexColumn>
   ),
@@ -139,10 +139,10 @@ export const ItemCounts: Story = {
 
 export const Uncontrolled: Story = {
   render: () => (
-    <SegmentedControl.Root defaultValue="option1">
-      <SegmentedControl.Item value="option1">Option 1</SegmentedControl.Item>
-      <SegmentedControl.Item value="option2">Option 2</SegmentedControl.Item>
-      <SegmentedControl.Item value="option3">Option 3</SegmentedControl.Item>
+    <SegmentedControl.Root defaultValue='option1'>
+      <SegmentedControl.Item value='option1'>Option 1</SegmentedControl.Item>
+      <SegmentedControl.Item value='option2'>Option 2</SegmentedControl.Item>
+      <SegmentedControl.Item value='option3'>Option 3</SegmentedControl.Item>
     </SegmentedControl.Root>
   ),
   parameters: {
@@ -160,9 +160,9 @@ const ControlledExample = () => {
   return (
     <FlexColumn>
       <SegmentedControl.Root value={value} onValueChange={setValue}>
-        <SegmentedControl.Item value="option1">Option 1</SegmentedControl.Item>
-        <SegmentedControl.Item value="option2">Option 2</SegmentedControl.Item>
-        <SegmentedControl.Item value="option3">Option 3</SegmentedControl.Item>
+        <SegmentedControl.Item value='option1'>Option 1</SegmentedControl.Item>
+        <SegmentedControl.Item value='option2'>Option 2</SegmentedControl.Item>
+        <SegmentedControl.Item value='option3'>Option 3</SegmentedControl.Item>
       </SegmentedControl.Root>
       <Label>Selected: {value}</Label>
     </FlexColumn>

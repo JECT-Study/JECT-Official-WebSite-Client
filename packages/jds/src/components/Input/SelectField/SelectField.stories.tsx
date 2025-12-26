@@ -94,13 +94,13 @@ export const Default: Story = {
     return (
       <div style={{ width: "20rem" }}>
         <SelectField.Button
-          label="지역 선택"
-          placeholder="거주 지역을 선택하세요"
-          helperText="현재 거주하시는 지역을 선택해주세요"
+          label='지역 선택'
+          placeholder='거주 지역을 선택하세요'
+          helperText='현재 거주하시는 지역을 선택해주세요'
           value={value}
           isOpen={isOpen}
           onClick={() => setIsOpen(!isOpen)}
-          button={<BlockButton.Basic size="md">확인</BlockButton.Basic>}
+          button={<BlockButton.Basic size='md'>확인</BlockButton.Basic>}
         />
       </div>
     );
@@ -128,9 +128,9 @@ export const BasicSelectField: Story = {
     return (
       <div style={{ width: "20rem" }}>
         <SelectField
-          label="지역 선택"
-          placeholder="거주 지역을 선택하세요"
-          helperText="현재 거주하시는 지역을 선택해주세요"
+          label='지역 선택'
+          placeholder='거주 지역을 선택하세요'
+          helperText='현재 거주하시는 지역을 선택해주세요'
           value={value}
           isOpen={isOpen}
           onClick={() => setIsOpen(!isOpen)}
@@ -161,8 +161,8 @@ export const WithValue: Story = {
     return (
       <div style={{ width: "20rem" }}>
         <SelectField
-          label="지역"
-          helperText="선택된 지역: 서울특별시"
+          label='지역'
+          helperText='선택된 지역: 서울특별시'
           value={value}
           isOpen={isOpen}
           onClick={() => setIsOpen(!isOpen)}
@@ -190,10 +190,10 @@ export const WithLabelIcon: Story = {
     return (
       <div style={{ width: "20rem" }}>
         <SelectField
-          label="중요한 선택"
-          labelIcon="information-line"
-          placeholder="옵션을 선택하세요"
-          helperText="중요한 정보이므로 신중히 선택하세요"
+          label='중요한 선택'
+          labelIcon='information-line'
+          placeholder='옵션을 선택하세요'
+          helperText='중요한 정보이므로 신중히 선택하세요'
           value={value}
           isOpen={isOpen}
           onClick={() => setIsOpen(!isOpen)}
@@ -224,31 +224,31 @@ export const WithValidation: Story = {
     const [value3] = useState("경기도");
 
     return (
-      <FlexColumn gap="24px">
+      <FlexColumn gap='24px'>
         <SelectField
-          label="지역 선택 (Normal)"
-          placeholder="지역을 선택하세요"
-          helperText="거주 지역을 선택해주세요"
-          validation="none"
+          label='지역 선택 (Normal)'
+          placeholder='지역을 선택하세요'
+          helperText='거주 지역을 선택해주세요'
+          validation='none'
           value={value1}
           isOpen={isOpen1}
           onClick={() => setIsOpen1(!isOpen1)}
         />
 
         <SelectField
-          label="지역 선택 (Error)"
-          placeholder="지역을 선택하세요"
-          validation="error"
-          helperText="지역을 선택해주세요 (필수)"
+          label='지역 선택 (Error)'
+          placeholder='지역을 선택하세요'
+          validation='error'
+          helperText='지역을 선택해주세요 (필수)'
           value={value2}
           isOpen={isOpen2}
           onClick={() => setIsOpen2(!isOpen2)}
         />
 
         <SelectField
-          label="지역 선택 (Success)"
-          validation="success"
-          helperText="올바르게 선택되었습니다"
+          label='지역 선택 (Success)'
+          validation='success'
+          helperText='올바르게 선택되었습니다'
           value={value3}
           isOpen={isOpen3}
           onClick={() => setIsOpen3(!isOpen3)}
@@ -282,29 +282,29 @@ export const States: Story = {
     const [value3] = useState("인천광역시");
 
     return (
-      <FlexColumn gap="32px">
+      <FlexColumn gap='32px'>
         <SelectField
-          label="Normal"
-          placeholder="마우스를 올리거나 클릭해보세요"
+          label='Normal'
+          placeholder='마우스를 올리거나 클릭해보세요'
           value={value1}
           isOpen={isOpen1}
           onClick={() => setIsOpen1(!isOpen1)}
         />
 
         <SelectField
-          label="Disabled"
-          placeholder="선택할 수 없습니다"
-          interaction="disabled"
-          helperText="현재 선택이 비활성화되어 있습니다"
+          label='Disabled'
+          placeholder='선택할 수 없습니다'
+          interaction='disabled'
+          helperText='현재 선택이 비활성화되어 있습니다'
           value={value2}
           isOpen={isOpen2}
           onClick={() => setIsOpen2(!isOpen2)}
         />
 
         <SelectField
-          label="Read Only"
-          interaction="readOnly"
-          helperText="읽기 전용 상태입니다"
+          label='Read Only'
+          interaction='readOnly'
+          helperText='읽기 전용 상태입니다'
           value={value3}
           isOpen={isOpen3}
           onClick={() => setIsOpen3(!isOpen3)}
@@ -340,36 +340,36 @@ export const ButtonWithValidation: Story = {
     return (
       <div style={{ width: "20rem" }}>
         <SelectField.Button
-          label="지역 (Normal)"
-          placeholder="선택하세요"
+          label='지역 (Normal)'
+          placeholder='선택하세요'
           value={value1}
           isOpen={isOpen1}
           onClick={() => setIsOpen1(!isOpen1)}
-          button={<BlockButton.Basic size="md">확인</BlockButton.Basic>}
-          validation="none"
+          button={<BlockButton.Basic size='md'>확인</BlockButton.Basic>}
+          validation='none'
         />
         <SelectField.Button
-          label="지역 (Error)"
-          placeholder="선택하세요"
-          helperText="지역을 선택해주세요"
+          label='지역 (Error)'
+          placeholder='선택하세요'
+          helperText='지역을 선택해주세요'
           value={value2}
           isOpen={isOpen2}
           onClick={() => setIsOpen2(!isOpen2)}
           button={
-            <BlockButton.Feedback intent="destructive" size="md">
+            <BlockButton.Feedback intent='destructive' size='md'>
               재선택
             </BlockButton.Feedback>
           }
-          validation="error"
+          validation='error'
         />
         <SelectField.Button
-          label="지역 (Success)"
-          helperText="올바르게 선택되었습니다"
+          label='지역 (Success)'
+          helperText='올바르게 선택되었습니다'
           value={value3}
           isOpen={isOpen3}
           onClick={() => setIsOpen3(!isOpen3)}
-          button={<BlockButton.Basic size="md">확인</BlockButton.Basic>}
-          validation="success"
+          button={<BlockButton.Basic size='md'>확인</BlockButton.Basic>}
+          validation='success'
         />
       </div>
     );
@@ -403,33 +403,33 @@ export const AllStyles: Story = {
     const [value6] = useState("대구");
 
     return (
-      <FlexColumn gap="32px">
-        <FlexColumn gap="16px">
+      <FlexColumn gap='32px'>
+        <FlexColumn gap='16px'>
           <Label>Outlined Style:</Label>
-          <FlexRow gap="24px">
+          <FlexRow gap='24px'>
             <SelectField
-              style="outlined"
-              validation="none"
-              label="Normal"
-              placeholder="Outlined"
+              style='outlined'
+              validation='none'
+              label='Normal'
+              placeholder='Outlined'
               value={value1}
               isOpen={isOpen1}
               onClick={() => setIsOpen1(!isOpen1)}
             />
             <SelectField
-              style="outlined"
-              validation="error"
-              label="Error"
-              placeholder="Outlined"
+              style='outlined'
+              validation='error'
+              label='Error'
+              placeholder='Outlined'
               value={value2}
               isOpen={isOpen2}
               onClick={() => setIsOpen2(!isOpen2)}
             />
             <SelectField
-              style="outlined"
-              validation="success"
-              label="Success"
-              placeholder="Outlined"
+              style='outlined'
+              validation='success'
+              label='Success'
+              placeholder='Outlined'
               value={value3}
               isOpen={isOpen3}
               onClick={() => setIsOpen3(!isOpen3)}
@@ -437,32 +437,32 @@ export const AllStyles: Story = {
           </FlexRow>
         </FlexColumn>
 
-        <FlexColumn gap="16px">
+        <FlexColumn gap='16px'>
           <Label>Empty Style:</Label>
-          <FlexRow gap="24px">
+          <FlexRow gap='24px'>
             <SelectField
-              style="empty"
-              validation="none"
-              label="Normal"
-              placeholder="Empty"
+              style='empty'
+              validation='none'
+              label='Normal'
+              placeholder='Empty'
               value={value4}
               isOpen={isOpen4}
               onClick={() => setIsOpen4(!isOpen4)}
             />
             <SelectField
-              style="empty"
-              validation="error"
-              label="Error"
-              placeholder="Empty"
+              style='empty'
+              validation='error'
+              label='Error'
+              placeholder='Empty'
               value={value5}
               isOpen={isOpen5}
               onClick={() => setIsOpen5(!isOpen5)}
             />
             <SelectField
-              style="empty"
-              validation="success"
-              label="Success"
-              placeholder="Empty"
+              style='empty'
+              validation='success'
+              label='Success'
+              placeholder='Empty'
               value={value6}
               isOpen={isOpen6}
               onClick={() => setIsOpen6(!isOpen6)}
@@ -495,14 +495,14 @@ export const Layouts: Story = {
     const [value2] = useState("");
 
     return (
-      <FlexColumn gap="32px">
+      <FlexColumn gap='32px'>
         <div>
           <Label>Vertical Layout:</Label>
           <SelectField
-            layout="vertical"
-            label="지역"
-            placeholder="선택하세요"
-            helperText="세로 방향 레이아웃"
+            layout='vertical'
+            label='지역'
+            placeholder='선택하세요'
+            helperText='세로 방향 레이아웃'
             value={value1}
             isOpen={isOpen1}
             onClick={() => setIsOpen1(!isOpen1)}
@@ -511,10 +511,10 @@ export const Layouts: Story = {
         <div>
           <Label>Horizontal Layout:</Label>
           <SelectField
-            layout="horizontal"
-            label="지역"
-            placeholder="선택하세요"
-            helperText="가로 방향 레이아웃"
+            layout='horizontal'
+            label='지역'
+            placeholder='선택하세요'
+            helperText='가로 방향 레이아웃'
             value={value2}
             isOpen={isOpen2}
             onClick={() => setIsOpen2(!isOpen2)}
@@ -546,33 +546,33 @@ export const AllVariants: Story = {
     const [buttonValue] = useState("경기도");
 
     return (
-      <FlexColumn gap="48px">
-        <FlexColumn gap="16px">
+      <FlexColumn gap='48px'>
+        <FlexColumn gap='16px'>
           <label>
             <strong>SelectField 기본형</strong>
           </label>
           <SelectField
-            label="거주 지역"
-            placeholder="지역을 선택하세요"
-            helperText="현재 거주하시는 지역을 선택해주세요"
+            label='거주 지역'
+            placeholder='지역을 선택하세요'
+            helperText='현재 거주하시는 지역을 선택해주세요'
             value={basicValue}
             isOpen={isBasicOpen}
             onClick={() => setIsBasicOpen(!isBasicOpen)}
           />
         </FlexColumn>
 
-        <FlexColumn gap="16px">
+        <FlexColumn gap='16px'>
           <label>
             <strong>SelectField.Button (BlockButton.Basic 권장)</strong>
           </label>
           <SelectField.Button
-            label="근무 지역"
-            placeholder="지역을 선택하세요"
-            helperText="근무 지역을 선택해주세요"
+            label='근무 지역'
+            placeholder='지역을 선택하세요'
+            helperText='근무 지역을 선택해주세요'
             value={buttonValue}
             isOpen={isButtonOpen}
             onClick={() => setIsButtonOpen(!isButtonOpen)}
-            button={<BlockButton.Basic size="md">확인</BlockButton.Basic>}
+            button={<BlockButton.Basic size='md'>확인</BlockButton.Basic>}
           />
         </FlexColumn>
       </FlexColumn>

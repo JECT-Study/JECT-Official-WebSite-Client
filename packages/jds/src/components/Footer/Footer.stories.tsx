@@ -63,21 +63,21 @@ export const Default: Story = {
     <Footer.Root>
       <Footer.Content>
         <Footer.Header>
-          <Footer.LogoLink href="/">
+          <Footer.LogoLink href='/'>
             <FooterLogoSvg width={76} height={22} />
           </Footer.LogoLink>
           <Footer.Social
-            github="https://github.com/JECT-Study"
-            instagram="https://www.instagram.com/ject_official"
+            github='https://github.com/JECT-Study'
+            instagram='https://www.instagram.com/ject_official'
           />
         </Footer.Header>
         <Footer.Divider />
         <Footer.Nav sections={mockSections} />
         <Footer.Divider />
         <Footer.Bottom
-          copyright="© 2025 JECT. All rights reserved."
-          email="jectofficial@ject.kr"
-          privacyLink="https://privacy.ject.kr"
+          copyright='© 2025 JECT. All rights reserved.'
+          email='jectofficial@ject.kr'
+          privacyLink='https://privacy.ject.kr'
         />
       </Footer.Content>
     </Footer.Root>
@@ -86,7 +86,7 @@ export const Default: Story = {
 
 export const LogoLink: Story = {
   render: () => (
-    <Footer.LogoLink href="/">
+    <Footer.LogoLink href='/'>
       <FooterLogoSvg width={76} height={22} />
     </Footer.LogoLink>
   ),
@@ -117,9 +117,9 @@ export const LogoDiv: Story = {
 export const Social: Story = {
   render: () => (
     <Footer.Social
-      github="https://github.com/JECT-Study"
-      instagram="https://www.instagram.com/ject_official"
-      iconSize="md"
+      github='https://github.com/JECT-Study'
+      instagram='https://www.instagram.com/ject_official'
+      iconSize='md'
     />
   ),
   parameters: {
@@ -145,9 +145,9 @@ export const Nav: Story = {
 export const Bottom: Story = {
   render: () => (
     <Footer.Bottom
-      copyright="© 2025 JECT. All rights reserved."
-      email="jectofficial@ject.kr"
-      privacyLink="https://privacy.ject.kr"
+      copyright='© 2025 JECT. All rights reserved.'
+      email='jectofficial@ject.kr'
+      privacyLink='https://privacy.ject.kr'
     />
   ),
   parameters: {

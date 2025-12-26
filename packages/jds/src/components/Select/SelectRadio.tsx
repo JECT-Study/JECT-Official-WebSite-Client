@@ -30,7 +30,7 @@ export const SelectRadio = forwardRef<HTMLDivElement, SelectRadioProps>(
         $selected={isItemSelected}
         onClick={handleClick}
         onKeyDown={handleKeyDown}
-        role="radio"
+        role='radio'
         aria-checked={isItemSelected}
         aria-disabled={isDisabled}
         tabIndex={isDisabled ? -1 : 0}
@@ -39,7 +39,7 @@ export const SelectRadio = forwardRef<HTMLDivElement, SelectRadioProps>(
         <StyledSelectItemInputWrapper>
           {/* TODO: Radio 컴포넌트가 구현되면 여기에 추가 */}
           <input
-            type="radio"
+            type='radio'
             checked={isItemSelected}
             disabled={isDisabled}
             readOnly
@@ -49,9 +49,9 @@ export const SelectRadio = forwardRef<HTMLDivElement, SelectRadioProps>(
         </StyledSelectItemInputWrapper>
         <StyledSelectItemContent>
           <StyledSelectItemText
-            as="span"
+            as='span'
             size={size}
-            weight="normal"
+            weight='normal'
             $isDisabled={isDisabled}
             $selected={isItemSelected}
           >
@@ -60,9 +60,9 @@ export const SelectRadio = forwardRef<HTMLDivElement, SelectRadioProps>(
 
           {caption && (
             <StyledSelectItemCaption
-              as="span"
+              as='span'
               size={size === "md" ? "sm" : "xs"}
-              weight="normal"
+              weight='normal'
               $isDisabled={isDisabled}
             >
               {caption}

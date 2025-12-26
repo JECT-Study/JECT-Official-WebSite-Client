@@ -18,12 +18,14 @@ import Project from "@/pages/Project";
 import ProjectDetail from "@/pages/ProjectDetail";
 import RecruitmentComplete from "@/pages/RecruitmentComplete";
 import ResetPinPage from "@/pages/ResetPinPage";
+import Vision from "@/pages/Vision";
 
 const router = sentryCreateBrowserRouter([
   {
     element: <Layout />,
     children: [
       { path: PATH.main, element: <Main /> },
+      { path: PATH.vision, element: <Vision /> },
       { path: PATH.project, element: <Project /> },
       { path: `${PATH.project}/:id`, element: <ProjectDetail /> },
       { path: PATH.activity, element: <Activity /> },

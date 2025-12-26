@@ -36,6 +36,7 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
       const primary = (
         <DialogButton key='primary' $isButtonStretched={isButtonStretched} {...primaryAction} />
       );
+
       const secondary = secondaryAction ? (
         <DialogButton
           key='secondary'

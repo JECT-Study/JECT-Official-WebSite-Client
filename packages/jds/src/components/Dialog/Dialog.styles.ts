@@ -14,6 +14,7 @@ const dialogOverlayFadeOut = keyframes`
   from { opacity: 1 }
   to { opacity: 0 }
 `;
+
 const dialogSlideIn = keyframes`
   from {
     opacity: 0;

@@ -76,12 +76,12 @@ export const Default: Story = {
     return (
       <div style={{ width: "20rem" }}>
         <TextField.Button
-          label="인증 코드"
-          placeholder="인증 코드를 입력하세요"
-          helperText="이메일로 전송된 인증 코드를 입력해주세요"
+          label='인증 코드'
+          placeholder='인증 코드를 입력하세요'
+          helperText='이메일로 전송된 인증 코드를 입력해주세요'
           value={value}
           onChange={e => setValue(e.target.value)}
-          button={<BlockButton.Basic size="md">인증</BlockButton.Basic>}
+          button={<BlockButton.Basic size='md'>인증</BlockButton.Basic>}
         />
       </div>
     );
@@ -136,28 +136,28 @@ export const WithValidation: Story = {
     const [value3, setValue3] = useState("user@example.com");
 
     return (
-      <FlexColumn gap="24px">
+      <FlexColumn gap='24px'>
         <TextField
-          label="이메일"
-          placeholder="이메일을 입력하세요"
-          helperText="유효한 이메일 주소를 입력해주세요"
-          validation="none"
+          label='이메일'
+          placeholder='이메일을 입력하세요'
+          helperText='유효한 이메일 주소를 입력해주세요'
+          validation='none'
           value={value1}
           onChange={e => setValue1(e.target.value)}
         />
         <TextField
-          label="이메일"
+          label='이메일'
           value={value2}
           onChange={e => setValue2(e.target.value)}
-          helperText="유효하지 않은 이메일 형식입니다"
-          validation="error"
+          helperText='유효하지 않은 이메일 형식입니다'
+          validation='error'
         />
         <TextField
-          label="이메일"
+          label='이메일'
           value={value3}
           onChange={e => setValue3(e.target.value)}
-          helperText="올바른 이메일 형식입니다"
-          validation="success"
+          helperText='올바른 이메일 형식입니다'
+          validation='success'
         />
       </FlexColumn>
     );
@@ -186,29 +186,29 @@ export const States: Story = {
     const [value3, setValue3] = useState("홍길동");
 
     return (
-      <FlexColumn gap="32px">
+      <FlexColumn gap='32px'>
         <TextField
-          label="Normal"
-          placeholder="마우스를 올리거나 클릭해보세요"
+          label='Normal'
+          placeholder='마우스를 올리거나 클릭해보세요'
           value={value1}
           onChange={e => setValue1(e.target.value)}
         />
 
         <TextField
-          label="Disabled"
-          placeholder="비활성화된 입력 필드"
-          helperText="이 필드는 비활성화되어 있습니다"
-          interaction="disabled"
+          label='Disabled'
+          placeholder='비활성화된 입력 필드'
+          helperText='이 필드는 비활성화되어 있습니다'
+          interaction='disabled'
           value={value2}
           onChange={e => setValue2(e.target.value)}
         />
 
         <TextField
-          label="Read Only"
+          label='Read Only'
           value={value3}
           onChange={e => setValue3(e.target.value)}
-          helperText="이 필드는 읽기 전용 상태입니다"
-          interaction="readOnly"
+          helperText='이 필드는 읽기 전용 상태입니다'
+          interaction='readOnly'
         />
       </FlexColumn>
     );
@@ -267,32 +267,32 @@ export const ButtonWithValidation: Story = {
     return (
       <div style={{ width: "20rem" }}>
         <TextField.Button
-          label="인증 코드 (Normal)"
-          placeholder="인증 코드를 입력하세요"
+          label='인증 코드 (Normal)'
+          placeholder='인증 코드를 입력하세요'
           value={value1}
           onChange={e => setValue1(e.target.value)}
-          button={<BlockButton.Basic size="md">인증</BlockButton.Basic>}
-          validation="none"
+          button={<BlockButton.Basic size='md'>인증</BlockButton.Basic>}
+          validation='none'
         />
         <TextField.Button
-          label="인증 코드 (Error)"
+          label='인증 코드 (Error)'
           value={value2}
           onChange={e => setValue2(e.target.value)}
-          helperText="인증 코드가 일치하지 않습니다"
+          helperText='인증 코드가 일치하지 않습니다'
           button={
-            <BlockButton.Feedback intent="destructive" size="md">
+            <BlockButton.Feedback intent='destructive' size='md'>
               재전송
             </BlockButton.Feedback>
           }
-          validation="error"
+          validation='error'
         />
         <TextField.Button
-          label="인증 코드 (Success)"
+          label='인증 코드 (Success)'
           value={value3}
           onChange={e => setValue3(e.target.value)}
-          helperText="인증이 완료되었습니다"
-          button={<BlockButton.Basic size="md">완료</BlockButton.Basic>}
-          validation="success"
+          helperText='인증이 완료되었습니다'
+          button={<BlockButton.Basic size='md'>완료</BlockButton.Basic>}
+          validation='success'
         />
       </div>
     );
@@ -321,61 +321,61 @@ export const AllStyles: Story = {
     const [value6, setValue6] = useState("");
 
     return (
-      <FlexColumn gap="32px">
-        <FlexColumn gap="16px">
+      <FlexColumn gap='32px'>
+        <FlexColumn gap='16px'>
           <Label>Outlined Style:</Label>
-          <FlexRow gap="24px">
+          <FlexRow gap='24px'>
             <TextField
-              style="outlined"
-              validation="none"
-              label="Normal"
-              placeholder="Outlined"
+              style='outlined'
+              validation='none'
+              label='Normal'
+              placeholder='Outlined'
               value={value1}
               onChange={e => setValue1(e.target.value)}
             />
             <TextField
-              style="outlined"
-              validation="error"
-              label="Error"
-              placeholder="Outlined"
+              style='outlined'
+              validation='error'
+              label='Error'
+              placeholder='Outlined'
               value={value2}
               onChange={e => setValue2(e.target.value)}
             />
             <TextField
-              style="outlined"
-              validation="success"
-              label="Success"
-              placeholder="Outlined"
+              style='outlined'
+              validation='success'
+              label='Success'
+              placeholder='Outlined'
               value={value3}
               onChange={e => setValue3(e.target.value)}
             />
           </FlexRow>
         </FlexColumn>
 
-        <FlexColumn gap="16px">
+        <FlexColumn gap='16px'>
           <Label>Empty Style:</Label>
-          <FlexRow gap="24px">
+          <FlexRow gap='24px'>
             <TextField
-              style="empty"
-              validation="none"
-              label="Normal"
-              placeholder="Empty"
+              style='empty'
+              validation='none'
+              label='Normal'
+              placeholder='Empty'
               value={value4}
               onChange={e => setValue4(e.target.value)}
             />
             <TextField
-              style="empty"
-              validation="error"
-              label="Error"
-              placeholder="Empty"
+              style='empty'
+              validation='error'
+              label='Error'
+              placeholder='Empty'
               value={value5}
               onChange={e => setValue5(e.target.value)}
             />
             <TextField
-              style="empty"
-              validation="success"
-              label="Success"
-              placeholder="Empty"
+              style='empty'
+              validation='success'
+              label='Success'
+              placeholder='Empty'
               value={value6}
               onChange={e => setValue6(e.target.value)}
             />
@@ -406,14 +406,14 @@ export const Layouts: Story = {
     const [value2, setValue2] = useState("");
 
     return (
-      <FlexColumn gap="32px">
+      <FlexColumn gap='32px'>
         <div>
           <Label>Vertical Layout:</Label>
           <TextField
-            layout="vertical"
-            label="이름"
-            placeholder="이름을 입력하세요"
-            helperText="실명을 입력해주세요"
+            layout='vertical'
+            label='이름'
+            placeholder='이름을 입력하세요'
+            helperText='실명을 입력해주세요'
             value={value1}
             onChange={e => setValue1(e.target.value)}
           />
@@ -421,10 +421,10 @@ export const Layouts: Story = {
         <div>
           <Label>Horizontal Layout:</Label>
           <TextField
-            layout="horizontal"
-            label="이름"
-            placeholder="이름을 입력하세요"
-            helperText="실명을 입력해주세요"
+            layout='horizontal'
+            label='이름'
+            placeholder='이름을 입력하세요'
+            helperText='실명을 입력해주세요'
             value={value2}
             onChange={e => setValue2(e.target.value)}
           />
@@ -454,31 +454,31 @@ export const AllVariants: Story = {
     const [buttonValue, setButtonValue] = useState("");
 
     return (
-      <FlexColumn gap="48px">
-        <FlexColumn gap="16px">
+      <FlexColumn gap='48px'>
+        <FlexColumn gap='16px'>
           <label>
             <strong>TextField 기본형</strong>
           </label>
           <TextField
-            label="이메일"
-            placeholder="이메일을 입력하세요"
-            helperText="유효한 이메일 주소를 입력해주세요"
+            label='이메일'
+            placeholder='이메일을 입력하세요'
+            helperText='유효한 이메일 주소를 입력해주세요'
             value={basicValue}
             onChange={e => setBasicValue(e.target.value)}
           />
         </FlexColumn>
 
-        <FlexColumn gap="16px">
+        <FlexColumn gap='16px'>
           <label>
             <strong>TextField.Button (BlockButton.Basic 권장)</strong>
           </label>
           <TextField.Button
-            label="인증 코드"
-            placeholder="인증 코드를 입력하세요"
-            helperText="이메일로 전송된 인증 코드를 입력해주세요"
+            label='인증 코드'
+            placeholder='인증 코드를 입력하세요'
+            helperText='이메일로 전송된 인증 코드를 입력해주세요'
             value={buttonValue}
             onChange={e => setButtonValue(e.target.value)}
-            button={<BlockButton.Basic size="md">인증</BlockButton.Basic>}
+            button={<BlockButton.Basic size='md'>인증</BlockButton.Basic>}
           />
         </FlexColumn>
       </FlexColumn>

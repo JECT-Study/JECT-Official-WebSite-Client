@@ -3,8 +3,11 @@ import type { ReactNode } from "react";
 import {
   BadgeIcon,
   ContentBadgeBasicDiv,
+  ContentBadgeBasicLabel,
   ContentBadgeFeedbackDiv,
+  ContentBadgeFeedbackLabel,
   ContentBadgeThemeDiv,
+  ContentBadgeThemeLabel,
 } from "./ContentBadge.style";
 import type {
   BadgeSize,
@@ -14,7 +17,6 @@ import type {
   ThemeVariant,
 } from "../badge.types";
 import { iconSizeMap } from "./contentBadge.variants";
-import { Label } from "../../Label";
 
 export interface ContentBadgeBasicProps {
   hierarchy?: BasicHierarchy;
@@ -43,12 +45,20 @@ const ContentBadgeBasic = ({
       isMuted={isMuted}
       withIcon={withIcon}
     >
-      <Label as="span" size={size} textAlign="center" weight="normal" color="inherit">
+      <ContentBadgeBasicLabel
+        as='span'
+        size={size}
+        textAlign='center'
+        weight='normal'
+        hierarchy={hierarchy}
+        badgeStyle={badgeStyle}
+        isMuted={isMuted}
+      >
         {children}
-      </Label>
+      </ContentBadgeBasicLabel>
       {withIcon && (
         <BadgeIcon
-          name="close-line"
+          name='close-line'
           size={iconSize}
           hierarchy={hierarchy}
           badgeStyle={badgeStyle}
@@ -83,9 +93,17 @@ const ContentBadgeFeedback = ({
       badgeStyle={badgeStyle}
       isMuted={isMuted}
     >
-      <Label as="span" size={size} textAlign="center" weight="normal" color="inherit">
+      <ContentBadgeFeedbackLabel
+        as='span'
+        size={size}
+        textAlign='center'
+        weight='normal'
+        variant={variant}
+        badgeStyle={badgeStyle}
+        isMuted={isMuted}
+      >
         {children}
-      </Label>
+      </ContentBadgeFeedbackLabel>
     </ContentBadgeFeedbackDiv>
   );
 };
@@ -109,9 +127,17 @@ const ContentBadgeTheme = ({
 }: ContentThemeBadgeProps) => {
   return (
     <ContentBadgeThemeDiv variant={variant} size={size} badgeStyle={badgeStyle} isMuted={isMuted}>
-      <Label as="span" size={size} textAlign="center" weight="normal" color="inherit">
+      <ContentBadgeThemeLabel
+        as='span'
+        size={size}
+        textAlign='center'
+        weight='normal'
+        variant={variant}
+        badgeStyle={badgeStyle}
+        isMuted={isMuted}
+      >
         {children}
-      </Label>
+      </ContentBadgeThemeLabel>
     </ContentBadgeThemeDiv>
   );
 };

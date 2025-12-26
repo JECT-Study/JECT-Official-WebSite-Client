@@ -127,9 +127,9 @@ export const Removable: Story = {
         errorMessage={args.errorMessage}
         suffixButton={
           <IconButton.Basic
-            hierarchy="tertiary"
-            size="lg"
-            icon="close-line"
+            hierarchy='tertiary'
+            size='lg'
+            icon='close-line'
             onClick={() => alert("클릭")}
           />
         }
@@ -167,9 +167,9 @@ export const Readonly: Story = {
         errorMessage={args.errorMessage}
         suffixButton={
           <IconButton.Basic
-            hierarchy="tertiary"
-            size="lg"
-            icon="close-line"
+            hierarchy='tertiary'
+            size='lg'
+            icon='close-line'
             onClick={() => alert("클릭")}
           />
         }
@@ -207,9 +207,9 @@ export const DisabledAndRemovable: Story = {
         errorMessage={args.errorMessage}
         suffixButton={
           <IconButton.Basic
-            hierarchy="tertiary"
-            size="lg"
-            icon="close-line"
+            hierarchy='tertiary'
+            size='lg'
+            icon='close-line'
             onClick={() => alert("클릭")}
           />
         }
@@ -247,9 +247,9 @@ export const DisabledAndNonRemovable: Story = {
         errorMessage={args.errorMessage}
         suffixButton={
           <IconButton.Basic
-            hierarchy="tertiary"
-            size="lg"
-            icon="close-line"
+            hierarchy='tertiary'
+            size='lg'
+            icon='close-line'
             onClick={() => alert("클릭")}
             disabled
           />
@@ -288,9 +288,9 @@ export const ErrorFile: Story = {
         errorMessage={args.errorMessage}
         suffixButton={
           <IconButton.Basic
-            hierarchy="tertiary"
-            size="lg"
-            icon="close-line"
+            hierarchy='tertiary'
+            size='lg'
+            icon='close-line'
             onClick={() => alert("클릭")}
           />
         }
@@ -327,9 +327,9 @@ export const OverflowTwoLines: Story = {
         errorMessage={args.errorMessage}
         suffixButton={
           <IconButton.Basic
-            hierarchy="tertiary"
-            size="lg"
-            icon="close-line"
+            hierarchy='tertiary'
+            size='lg'
+            icon='close-line'
             onClick={() => alert("클릭")}
           />
         }

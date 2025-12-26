@@ -1,4 +1,4 @@
-import { forwardRef } from 'react';
+import { forwardRef } from "react";
 
 import {
   StyledBannerBarCloseButton,
@@ -8,19 +8,20 @@ import {
   StyledBannerBarTitle,
   StyledBannerBarTitles,
   StyledBannerImageContent,
+  StyledBannerImageContentOuter,
   StyledBannerImageContentWrapper,
   StyledBannerImageGradient,
   StyledBannerImageRoot,
   StyledBannerImageSubtitle,
   StyledBannerImageTitle,
-} from './banner.styles';
-import type { BannerBarProps, BannerImageProps } from './banner.types';
-import { BlockButton } from '../Button/BlockButton';
-import { IconButton } from '../Button/IconButton';
-import { Image } from '../Image/Image';
+} from "./banner.styles";
+import type { BannerBarProps, BannerImageProps } from "./banner.types";
+import { BlockButton } from "../Button/BlockButton";
+import { IconButton } from "../Button/IconButton";
+import { Image } from "../Image/Image";
 
 const BannerBar = forwardRef<HTMLDivElement, BannerBarProps>((props, ref) => {
-  const { title, subtitle, label, onClose, closeAriaLabel = '배너 닫기', ...restProps } = props;
+  const { title, subtitle, label, onClose, closeAriaLabel = "배너 닫기", ...restProps } = props;
 
   return (
     <StyledBannerBarRoot ref={ref} {...restProps}>
@@ -51,7 +52,7 @@ const BannerBar = forwardRef<HTMLDivElement, BannerBarProps>((props, ref) => {
   );
 });
 
-BannerBar.displayName = 'Banner.Bar';
+BannerBar.displayName = "Banner.Bar";
 
 const BannerImage = forwardRef<HTMLDivElement, BannerImageProps>((props, ref) => {
   const { title, subtitle, isReadonly = true, ...imgProps } = props;
@@ -61,31 +62,35 @@ const BannerImage = forwardRef<HTMLDivElement, BannerImageProps>((props, ref) =>
       <Image
         orientation='landscape'
         isReadonly={isReadonly}
+        alt={title}
         style={{
-          position: 'absolute',
+          position: "absolute",
           top: 0,
           left: 0,
-          width: '100%',
-          height: '100%',
+          width: "100%",
+          height: "100%",
           zIndex: 0,
           padding: 0,
+          border: "none",
         }}
         {...imgProps}
       />
 
       <StyledBannerImageGradient />
 
-      <StyledBannerImageContentWrapper>
-        <StyledBannerImageContent>
-          <StyledBannerImageTitle>{title}</StyledBannerImageTitle>
-          {subtitle && <StyledBannerImageSubtitle>{subtitle}</StyledBannerImageSubtitle>}
-        </StyledBannerImageContent>
-      </StyledBannerImageContentWrapper>
+      <StyledBannerImageContentOuter>
+        <StyledBannerImageContentWrapper>
+          <StyledBannerImageContent>
+            <StyledBannerImageTitle>{title}</StyledBannerImageTitle>
+            {subtitle && <StyledBannerImageSubtitle>{subtitle}</StyledBannerImageSubtitle>}
+          </StyledBannerImageContent>
+        </StyledBannerImageContentWrapper>
+      </StyledBannerImageContentOuter>
     </StyledBannerImageRoot>
   );
 });
 
-BannerImage.displayName = 'Banner.Image';
+BannerImage.displayName = "Banner.Image";
 
 export const Banner = {
   Bar: BannerBar,

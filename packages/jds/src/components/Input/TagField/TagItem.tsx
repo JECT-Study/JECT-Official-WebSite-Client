@@ -22,9 +22,9 @@ export const TagItem = ({ tag, isSelected, onClick }: TagItemProps) => {
       onClick={isInteractive && onClick ? e => onClick(e, tag.id) : undefined}
     >
       <ContentBadge.Basic
-        size="xs"
-        hierarchy="secondary"
-        badgeStyle="alpha"
+        size='xs'
+        hierarchy='secondary'
+        badgeStyle='alpha'
         withIcon={isInteractive}
       >
         {tag.label}

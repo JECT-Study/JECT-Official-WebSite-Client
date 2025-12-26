@@ -3,7 +3,7 @@ import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 import type { MenuItemAnchorProps, MenuItemButtonProps } from "../MenuItem";
 
-import type { LabelProps } from "@/components/Label";
+import type { LabelOwnProps } from "@/components/Label";
 
 export type MenuStyle = "solid" | "empty";
 export type MenuSize = "lg" | "md" | "sm";
@@ -18,7 +18,7 @@ export interface MenuContentProps extends ComponentPropsWithoutRef<typeof Dropdo
   children: ReactNode;
 }
 
-export interface MenuCategoryProps extends LabelProps {
+export interface MenuCategoryProps extends LabelOwnProps {
   children: ReactNode;
 }
 
