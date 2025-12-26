@@ -11,6 +11,10 @@ export const useApplyApplicantInfoForm = () => {
     defaultValues: {
       name: "",
       phoneNumber: "",
+      careerDetails: "STUDENT",
+      region: undefined,
+      experiencePeriod: "NONE",
+      interestedDomains: [],
     },
   });
 };
