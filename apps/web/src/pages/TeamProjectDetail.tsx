@@ -141,7 +141,7 @@ const TeamProjectDetail = () => {
               <div className='flex flex-col gap-(--semantic-spacing-12)'>
                 <div className='flex gap-(--semantic-spacing-6)'>
                   {project.badges.map(badge => (
-                    <ContentBadge.Basic size='lg' badgeStyle='outlined'>
+                    <ContentBadge.Basic key={badge} size='lg' badgeStyle='outlined'>
                       {badge}
                     </ContentBadge.Basic>
                   ))}
