@@ -86,10 +86,7 @@ export function AuthCodeForm({
   const handleVerifyCode: FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault();
 
-    verifyCodeMutateAsync({
-      payload: { email: currentEmail, authCode },
-      queryParams: { template },
-    })
+    verifyCodeMutateAsync({ email: currentEmail, authCode, template })
       .then(() => onVerified(currentEmail, authCode))
       .catch(error => {
         handleError(error, "인증번호 확인 요청 실패");

@@ -40,7 +40,7 @@ export function FileQuestionField({
   const { mutateAsync: createPresignedUrlsMutateAsync, isPending: isGettingUrls } =
     useCreatePresignedUrlsMutation();
   const { mutateAsync: uploadFileAsync, isPending: isUploadingToS3 } = useUploadFileToS3Mutation({
-    showSuccessToast: false,
+    isSuccessToastEnabled: false,
   });
 
   const isUploading = isGettingUrls || isUploadingToS3;
