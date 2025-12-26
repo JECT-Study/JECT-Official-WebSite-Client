@@ -49,9 +49,7 @@ export function AuthCodeForm({
   const emailState = getFieldState("email", formState);
 
   const { mutateAsync: checkEmailMutateAsync } = useCheckEmailExistsMutation();
-  const { mutate: sendCodeMutate } = useSendAuthCodeMutation({
-    showToast: true,
-  });
+  const { mutate: sendCodeMutate } = useSendAuthCodeMutation();
   const { mutateAsync: verifyCodeMutateAsync } = useVerifyAuthCodeMutation();
 
   const handleSendEmailCode = async () => {
@@ -153,7 +151,7 @@ export function AuthCodeForm({
                 </BlockButton.Basic>
               }
             />
-            //Todo: 라우터 확인 후 해당 페이지로 이동
+            {/* Todo: 라우터 확인 후 해당 페이지로 이동 */}
             <LabelButton.Basic size='sm' hierarchy='secondary'>
               인증번호를 받지 못하셨나요?
             </LabelButton.Basic>
