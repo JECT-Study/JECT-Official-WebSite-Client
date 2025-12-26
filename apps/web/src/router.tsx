@@ -15,12 +15,15 @@ import ApplyVerify from "@/pages/ApplyVerify";
 import Faq from "@/pages/Faq";
 import Main from "@/pages/Main";
 import RecruitmentComplete from "@/pages/RecruitmentComplete";
+import Vision from "@/pages/Vision";
 
 const router = sentryCreateBrowserRouter([
   {
     element: <Layout />,
     children: [
       { path: PATH.main, element: <Main /> },
+      { path: PATH.vision, element: <Vision /> },
+      { path: PATH.project, element: <Project /> },
       { path: `${PATH.project}/:id`, element: <TeamProjectDetail /> },
       { path: PATH.activity, element: <Activity /> },
       { path: PATH.apply, element: <RecruitmentComplete /> },
