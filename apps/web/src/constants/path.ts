@@ -8,15 +8,8 @@ export const PATH = {
   activity: "/activity",
   apply: "/apply",
   faq: "/faq",
-  applyVerify: "/apply/verify",
-  applicantInfo: "/apply/applicant-info",
-  applyRegistration: "/apply/registration",
-  applyComplete: "/apply/complete",
+  applyGuide: "/apply/guide",
+  applyFunnel: "/apply/funnel",
+  applyContinue: "/apply/continue",
+  resetPin: "/auth/reset-pin",
 } as const;
-
-export const disabledPage: string[] = [
-  PATH.applyVerify,
-  PATH.applicantInfo,
-  PATH.applyRegistration,
-  PATH.applyComplete,
-];
