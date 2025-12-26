@@ -4,8 +4,8 @@ import { useState } from "react";
 
 import { QuestionFieldWrapper } from "./QuestionFieldWrapper";
 
+import type { Question } from "@/apis/apply";
 import { APPLY_MESSAGE } from "@/constants/applyMessages";
-import type { Question } from "@/types/apis/application";
 import { validateUrlDetail, validateUrlStartHttp } from "@/utils/validateUrl";
 import { deriveInputValidation } from "@/utils/validationHelpers";
 
