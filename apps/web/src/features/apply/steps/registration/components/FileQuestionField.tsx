@@ -11,9 +11,10 @@ import { createPortfolioFiles, formatForPresignedUrl, markAsUploaded } from "../
 import { PortfolioFileItem } from "./PortfolioFileItem";
 import { QuestionFieldWrapper } from "./QuestionFieldWrapper";
 
+import type { Question } from "@/apis/apply";
 import { APPLY_MESSAGE } from "@/constants/applyMessages";
 import { useCreatePresignedUrlsMutation, useUploadFileToS3Mutation } from "@/hooks/apply";
-import type { PortfolioFile, Question } from "@/types/apis/application";
+import type { PortfolioFile } from "@/types/apis/application";
 
 interface FileQuestionFieldProps {
   question: Question;
