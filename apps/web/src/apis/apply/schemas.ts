@@ -114,9 +114,6 @@ export const answersResponseSchema = z.object({
 
 export type AnswersResponseSchema = z.infer<typeof answersResponseSchema>;
 
-// ============================================
-// 스키마에서 추출한 타입 (Single Source of Truth)
-// ============================================
 export type JobFamily = z.infer<typeof jobFamilySchema>;
 export type Question = z.infer<typeof questionSchema>;
 export type QuestionInputType = z.infer<typeof questionInputTypeSchema>;
