@@ -3,7 +3,7 @@ import { Navigate, useParams } from "react-router-dom";
 import cardSampleImage from "@/assets/CardSample.png";
 import BlockButton from "@/components/common/button/BlockButton";
 import CalloutInformation from "@/components/common/callout/CalloutInformation";
-import EmptyData from "@/components/common/emptyState/EmptyData";
+// import EmptyData from "@/components/common/emptyState/EmptyData";
 import Icon from "@/components/common/icon/Icon";
 import Label from "@/components/common/label/Label";
 import { Tab, TabHeader, TabItem, TabPanel } from "@/components/common/tab/Tab";
@@ -99,7 +99,7 @@ const ProjectDetail = () => {
             </TabHeader>
             <TabPanel id={0}>
               <div className='gap-4xl flex flex-col'>
-                {(project.serviceIntros ?? []).length > 0 ? (
+                {/* {(project.serviceIntros ?? []).length > 0 ? (
                   project.serviceIntros
                     .sort((a, b) => a.sequence - b.sequence)
                     .map(intro => (
@@ -112,12 +112,12 @@ const ProjectDetail = () => {
                     ))
                 ) : (
                   <EmptyData />
-                )}
+                )} */}
               </div>
             </TabPanel>
             <TabPanel id={1}>
               <div className='gap-4xl flex flex-col'>
-                {(project.devIntros ?? []).length > 0 ? (
+                {/* {(project.devIntros ?? []).length > 0 ? (
                   project.devIntros
                     .sort((a, b) => a.sequence - b.sequence)
                     .map(intro => (
@@ -130,7 +130,7 @@ const ProjectDetail = () => {
                     ))
                 ) : (
                   <EmptyData />
-                )}
+                )} */}
               </div>
             </TabPanel>
           </div>
