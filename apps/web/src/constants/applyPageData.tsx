@@ -1,7 +1,45 @@
 import type { ReactNode } from "react";
 
+import type { JobFamily } from "@/apis/apply";
 import NewTabLink from "@/components/apply/NewTabLink";
 import { moveToBottom } from "@/utils/scrollFunction";
+
+export const JOB_FAMILY_OPTIONS = [
+  {
+    value: "PM",
+    short: "PM",
+    english: "Product Manager",
+    navigationTitle: "[젝트 4기] 프로덕트 매니저 모집",
+  },
+  {
+    value: "PD",
+    short: "PD",
+    english: "Product Designer",
+    navigationTitle: "[젝트 4기] 프로덕트 디자이너 모집",
+  },
+  {
+    value: "FE",
+    short: "FE",
+    english: "Frontend Engineer",
+    navigationTitle: "[젝트 4기] 프론트엔드 개발자 모집",
+  },
+  {
+    value: "BE",
+    short: "BE",
+    english: "Backend Engineer",
+    navigationTitle: "[젝트 4기] 백엔드 개발자 모집",
+  },
+] as const;
+
+export type JobFamilyOption = (typeof JOB_FAMILY_OPTIONS)[number];
+
+export const findJobFamilyOption = (jobFamily: JobFamily): JobFamilyOption => {
+  const option = JOB_FAMILY_OPTIONS.find(opt => opt.value === jobFamily);
+  if (!option) {
+    throw new Error(`Unknown jobFamily: ${jobFamily}`);
+  }
+  return option;
+};
 
 export const APPLY_TITLE: Record<string, ReactNode> = {
   process: "지원 과정",
@@ -11,6 +49,7 @@ export const APPLY_TITLE: Record<string, ReactNode> = {
   applicantInfo: "지원자님에 대해 알려주세요",
   registration: "더 자세하게 알고 싶어요",
   complete: "지원이 완료되었어요",
+  continueWriting: "이어서 작성하기",
   resetPin: (
     <>
       PIN을 다시 설정하려면
