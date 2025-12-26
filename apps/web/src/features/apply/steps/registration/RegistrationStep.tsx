@@ -6,11 +6,12 @@ import { useRegistrationFormWithDraft } from "./useRegistrationFormWithDraft";
 import { formatPortfolioResponse } from "./utils";
 
 import { APPLY_TITLE } from "@/constants/applyPageData";
+import { DIALOG_CONTENT } from "@/constants/dialog";
 import { ApplyStepLayout } from "@/features/shared/components";
 import { useSaveDraftMutation, useSubmitAnswerMutation } from "@/hooks/apply";
 import type {
   AnswersByQuestionId,
-  NewPortfolio,
+  PortfolioFile,
   Question,
   QuestionId,
 } from "@/types/apis/application";
@@ -31,8 +32,8 @@ interface TextBasedQuestionProps {
 
 interface FileQuestionProps {
   question: Question;
-  portfolios: NewPortfolio[];
-  onChangePortfolios: (portfolios: NewPortfolio[]) => void;
+  portfolios: PortfolioFile[];
+  onChangePortfolios: (portfolios: PortfolioFile[]) => void;
 }
 
 const TEXT_BASED_RENDERERS: Record<"TEXT" | "URL", (props: TextBasedQuestionProps) => ReactNode> = {
@@ -74,7 +75,7 @@ export function RegistrationStep({ context, onNext, onBack }: RegistrationStepPr
 
   //포트폴리오 변경 핸들러
   const handleChangePortfolios = useCallback(
-    (newPortfolios: NewPortfolio[]) => {
+    (newPortfolios: PortfolioFile[]) => {
       setPortfolios(newPortfolios);
     },
     [setPortfolios],
@@ -163,15 +164,14 @@ export function RegistrationStep({ context, onNext, onBack }: RegistrationStepPr
       <Dialog
         open={isSubmitDialogOpen}
         onOpenChange={setIsSubmitDialogOpen}
-        header='지원서를 최종 제출합니다'
-        body='제출한 뒤에는 지원서를 수정하거나 지원을 취소할 수 없어요.
-지원 관련 도움이 필요하시다면 jectofficial@ject.kr 로 문의해주세요.'
+        header={DIALOG_CONTENT.submitAnswer.header}
+        body={DIALOG_CONTENT.submitAnswer.body}
         primaryAction={{
-          children: "지원서 제출하기",
+          children: DIALOG_CONTENT.submitAnswer.primaryLabel,
           onClick: handleSubmit,
         }}
         secondaryAction={{
-          children: "취소",
+          children: DIALOG_CONTENT.submitAnswer.secondaryLabel,
           onClick: () => setIsSubmitDialogOpen(false),
         }}
       />
