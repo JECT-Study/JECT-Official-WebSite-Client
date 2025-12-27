@@ -84,7 +84,7 @@ export const applyApi = {
     data: VerificationEmailCodePayload,
     queryParams: VerificationEmailCodeQueryParams,
   ) => {
-    const params = new URLSearchParams({ sendGroupCode: queryParams.sendGroupCode });
+    const params = new URLSearchParams({ template: queryParams.template });
     return httpClient.post<{ token: string }>(
       `${API_ENDPOINT.verifyEmailCode}?${params.toString()}`,
       data,

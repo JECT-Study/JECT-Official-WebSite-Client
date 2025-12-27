@@ -18,7 +18,7 @@ export interface VerificationEmailCodePayload {
 }
 
 export interface VerificationEmailCodeQueryParams {
-  sendGroupCode: "AUTH_CODE" | "PIN_RESET";
+  template: "AUTH_CODE" | "PIN_RESET";
 }
 
 export interface VerificationEmailCodeResponse {
