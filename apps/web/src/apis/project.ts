@@ -6,7 +6,8 @@ import type {
   ProjectReviewsQueryParams,
   ProjectReviewsResponse,
 } from "@/types/apis/project";
-import { requestHandler } from "@/utils/httpClient";
+import type { ApiResponse } from "@/types/apis/response";
+import { httpClient, requestHandler } from "@/utils/httpClient";
 
 export const getProjectReviews = async ({ page, size }: ProjectReviewsQueryParams) => {
   const params = new URLSearchParams({
@@ -17,24 +18,18 @@ export const getProjectReviews = async ({ page, size }: ProjectReviewsQueryParam
   return await requestHandler<ProjectReviewsResponse>("get", url);
 };
 
-export const getProjectList = async ({
-  semesterId,
-  category,
-  page,
-  size,
-}: ProjectListQueryParams) => {
+export const getProjectList = async ({ category, page, size, sort }: ProjectListQueryParams) => {
   const params = new URLSearchParams();
 
-  if (semesterId !== undefined) {
-    params.append("semesterId", semesterId.toString());
+  if (category !== null) {
+    params.append("category", category.toString());
   }
-
-  params.append("category", category);
   params.append("page", page.toString());
   params.append("size", size.toString());
+  params.append("sort", sort.toString());
 
   const url = `${API_ENDPOINT.projectList}?${params.toString()}`;
-  return await requestHandler<ProjectListResponse>("get", url);
+  return await httpClient.get<ApiResponse<ProjectListResponse>>(url);
 };
 
 export const getProjectDetail = async (projectId: string) => {
