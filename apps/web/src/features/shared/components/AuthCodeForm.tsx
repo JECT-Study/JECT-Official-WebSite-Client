@@ -2,7 +2,9 @@ import { BlockButton, LabelButton, TextField } from "@ject/jds";
 import type { FormEventHandler } from "react";
 import { useState } from "react";
 import { Controller } from "react-hook-form";
+import { useNavigate, useParams } from "react-router-dom";
 
+import { PATH } from "@/constants/path";
 import {
   useCheckEmailExistsMutation,
   useSendAuthCodeMutation,
@@ -32,6 +34,9 @@ export function AuthCodeForm({
   onVerified,
   onExistingMember,
 }: AuthCodeFormProps) {
+  const navigate = useNavigate();
+  const { jobFamily } = useParams<{ jobFamily: string }>();
+
   const [hasSentCode, setHasSentCode] = useState(false);
   const [emailErrorMessage, setEmailErrorMessage] = useState<string | null>(null);
   const [authCode, setAuthCode] = useState("");
@@ -102,7 +107,7 @@ export function AuthCodeForm({
 
   const emailHelperText = emailState.error?.message ?? emailErrorMessage ?? "";
 
-  const authCodeHelperText = timer.isActive ? formatTime(timer.seconds) : "";
+  const authCodeHelperText = timer.isActive ? `인증번호 유효 시간 ${formatTime(timer.seconds)}` : "";
 
   return (
     <div className='gap-7xl flex flex-col'>
@@ -148,8 +153,17 @@ export function AuthCodeForm({
                 </BlockButton.Basic>
               }
             />
-            {/* Todo: 라우터 확인 후 해당 페이지로 이동 */}
-            <LabelButton.Basic size='sm' hierarchy='secondary'>
+            <LabelButton.Basic
+              className='self-start'
+              size='sm'
+              hierarchy='secondary'
+              suffixIcon='arrow-right-s-line'
+              onClick={() => {
+                if (jobFamily) {
+                  void navigate(`${PATH.applyGuide}/${jobFamily}?tab=faq&faq=faq-5`);
+                }
+              }}
+            >
               인증번호를 받지 못하셨나요?
             </LabelButton.Basic>
           </div>
