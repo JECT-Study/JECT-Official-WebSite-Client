@@ -13,11 +13,13 @@ import {
   toastController,
 } from "@ject/jds";
 import { theme } from "@ject/jds/tokens";
-import { useNavigate, useParams, Navigate } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams, Navigate } from "react-router-dom";
 
 import type { JobFamily } from "@/apis/apply";
 import { findJobFamilyOption, JOB_FAMILY_OPTIONS } from "@/constants/applyPageData";
 import { PATH } from "@/constants/path";
+
+type TabValue = "info" | "notice" | "faq";
 
 const VALID_JOB_FAMILIES = JOB_FAMILY_OPTIONS.map(opt => opt.value);
 
@@ -33,10 +35,36 @@ const bodyTextStyle = css`
 function ApplyGuidePage() {
   const navigate = useNavigate();
   const { jobFamily } = useParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const tabParam = searchParams.get("tab") as TabValue | null;
+  const faqParam = searchParams.get("faq");
+
+  const currentTab = tabParam ?? "info";
+  const currentFaq = faqParam ?? undefined;
 
   if (!isValidJobFamily(jobFamily)) {
     return <Navigate to={PATH.notFoundError} replace />;
   }
+
+  const handleTabChange = (value: string) => {
+    const newParams = new URLSearchParams(searchParams);
+    newParams.set("tab", value);
+    if (value !== "faq") {
+      newParams.delete("faq");
+    }
+    setSearchParams(newParams, { replace: true });
+  };
+
+  const handleFaqChange = (value: string) => {
+    const newParams = new URLSearchParams(searchParams);
+    if (value) {
+      newParams.set("faq", value);
+    } else {
+      newParams.delete("faq");
+    }
+    setSearchParams(newParams, { replace: true });
+  };
 
   const handleApply = () => {
     void navigate(`${PATH.applyFunnel}/${jobFamily}`);
@@ -114,7 +142,8 @@ function ApplyGuidePage() {
       </section>
 
       <Tab.Root
-        defaultValue='info'
+        value={currentTab}
+        onValueChange={handleTabChange}
         className='flex w-full flex-col items-stretch gap-(--semantic-spacing-48) self-stretch'
       >
         <Tab.List className='w-full'>
@@ -364,7 +393,14 @@ function ApplyGuidePage() {
 
         <Tab.Content value='faq' className='w-full'>
           <div className='flex w-full flex-col items-stretch gap-(--semantic-spacing-24) self-stretch'>
-            <Accordion.Root type='single' size='lg' isStretched={true} collapsible>
+            <Accordion.Root
+              type='single'
+              size='lg'
+              isStretched={true}
+              collapsible
+              value={currentFaq}
+              onValueChange={handleFaqChange}
+            >
               <Accordion.Item value='faq-1'>
                 <Accordion.Trigger>실력이 뛰어난 사람을 우선적으로 선발하나요?</Accordion.Trigger>
                 <Accordion.Content>
