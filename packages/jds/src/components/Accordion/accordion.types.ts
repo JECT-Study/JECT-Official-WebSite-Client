@@ -3,9 +3,12 @@ import type { ComponentPropsWithoutRef } from "react";
 
 import type { IconName } from "../Icon";
 
+export type AccordionSize = "lg" | "md" | "sm";
+
 export type AccordionRootProps = ComponentPropsWithoutRef<typeof AccordionPrimitive.Root> & {
   isStretched?: boolean;
   withPrefixIcon?: boolean;
+  size?: AccordionSize;
 };
 
 export type AccordionItemProps = ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>;

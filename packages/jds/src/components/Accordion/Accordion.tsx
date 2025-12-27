@@ -16,12 +16,13 @@ import {
   StyledAccordionChevron,
   StyleLabel,
   StyledAccordionRoot,
+  accordionSizeMap,
 } from "./accordion.styles";
 import { AccordionContext, useAccordionContext } from "./accordionContext";
 
-const AccordionRoot = ({ children, isStretched = true, ...props }: AccordionRootProps) => {
+const AccordionRoot = ({ children, isStretched = true, size = "lg", ...props }: AccordionRootProps) => {
   return (
-    <AccordionContext.Provider value={{ isStretched }}>
+    <AccordionContext.Provider value={{ isStretched, size }}>
       <AccordionPrimitive.Root {...props}>
         <StyledAccordionRoot>{children}</StyledAccordionRoot>
       </AccordionPrimitive.Root>
@@ -43,19 +44,20 @@ AccordionItem.displayName = "Accordion.Item";
 
 const AccordionTrigger = forwardRef<HTMLButtonElement, AccordionTriggerProps>(
   ({ children, withPrefixIcon, ...props }, ref) => {
-    const { isStretched } = useAccordionContext();
+    const { isStretched, size } = useAccordionContext();
+    const sizeConfig = accordionSizeMap[size];
 
     return (
       <AccordionPrimitive.Header>
         <StyledAccordionTrigger {...props} ref={ref} $isStretched={isStretched}>
           <StyledAccordionLabelContainer>
-            {withPrefixIcon && <Icon size='lg' name={withPrefixIcon} aria-hidden />}
-            <StyleLabel as='span' size='lg' textAlign='left' weight='normal'>
+            {withPrefixIcon && <Icon size={sizeConfig.iconSize} name={withPrefixIcon} aria-hidden />}
+            <StyleLabel as='span' size={sizeConfig.labelSize} textAlign='left' weight='normal'>
               {children}
             </StyleLabel>
           </StyledAccordionLabelContainer>
           <StyledAccordionChevron className='arrowIcon'>
-            <Icon size='lg' name='arrow-down-s-line' aria-hidden />
+            <Icon size={sizeConfig.iconSize} name='arrow-down-s-line' aria-hidden />
           </StyledAccordionChevron>
         </StyledAccordionTrigger>
       </AccordionPrimitive.Header>
