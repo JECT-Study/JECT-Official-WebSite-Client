@@ -19,16 +19,10 @@ function NotFoundError() {
                   404
                 </Hero>
               </div>
-              <div>
+              <div className='flex flex-col items-center justify-center gap-(--semantic-spacing-16)'>
                 <div className='flex gap-(--semantic-spacing-6)'>
                   <Title size='lg' textAlign='center'>
-                    페이지를
-                  </Title>
-                  <Title size='lg' textAlign='center'>
-                    찾을 수
-                  </Title>
-                  <Title size='lg' textAlign='center'>
-                    없습니다
+                    페이지를 찾을 수 없습니다
                   </Title>
                 </div>
                 <span className='textStyle-body-md-normal text-(--sematic-object-bold)'>
