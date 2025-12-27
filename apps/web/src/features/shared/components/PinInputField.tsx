@@ -15,7 +15,7 @@ interface PinInputFieldProps {
 }
 
 export function PinInputField({
-  label = "PIN",
+  label = "PIN 설정",
   placeholder = "6자리 비밀번호를 입력해주세요",
   value,
   onChange,
@@ -32,7 +32,7 @@ export function PinInputField({
   const isDisabled = interaction === "disabled";
   const isReadOnly = interaction === "readOnly";
 
-  const buttonLabel = isPinHidden ? "보기" : "숨기기";
+  const buttonLabel = isPinHidden ? "숨겨짐" : "보임";
   const buttonIcon = isPinHidden ? "eye-off-line" : "eye-line";
 
   return (

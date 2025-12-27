@@ -67,7 +67,7 @@ export function PinSetupStep({ context, onNext, onBack }: PinSetupStepProps) {
             control={control}
             render={({ field, fieldState }) => (
               <PinInputField
-                label='PIN'
+                label='PIN 설정'
                 placeholder='본인 확인용 6자리 비밀번호를 설정해주세요'
                 value={field.value ?? ""}
                 onChange={field.onChange}
