@@ -1,7 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import {
+  Accordion,
   BlockButton,
+  Divider,
   Hero,
   IconButton,
   Label,
@@ -252,7 +254,7 @@ function ApplyGuidePage() {
                 <li>활동 기간: 2026년 2월 2일(월) - 7월 11일(토)</li>
               </ul>
             </div>
-            <div className='flex flex-col items-start gap-(--semantic-spacing-16) self-stretch'>
+            <div className='flex flex-col items-stretch gap-(--semantic-spacing-16) self-stretch'>
               <Title size='xs' textAlign='left'>
                 동아리 회비 및 보증금 관련
               </Title>
@@ -274,18 +276,198 @@ function ApplyGuidePage() {
                 <li>회비: 50,000원</li>
                 <li>보증금: 30,000원</li>
               </ul>
+              <Accordion.Root type='single' isStretched={true} size='sm' collapsible>
+                <Accordion.Item value='refund-policy'>
+                  <Accordion.Trigger withPrefixIcon='information-line'>
+                    회비 및 보증금 환불 정책 안내
+                  </Accordion.Trigger>
+                  <Accordion.Content>
+                    <div
+                      css={css`
+                        display: flex;
+                        flex-direction: column;
+                        gap: ${theme.scheme.semantic.spacing[16]};
+                      `}
+                    >
+                      <p css={bodyTextStyle}>
+                        회비는 활동 시작 전(온보딩 전)에는 100% 환불 가능하며, 온보딩 시작 후에는
+                        환불 불가합니다.
+                      </p>
+                      <p css={bodyTextStyle}>
+                        보증금은 다음과 같은 조건을 모두 충족 시 보증금의 환불이 진행됩니다:
+                      </p>
+                      <ul
+                        css={[
+                          bodyTextStyle,
+                          css`
+                            list-style-type: disc;
+                            padding-left: ${theme.scheme.semantic.spacing[20]};
+                          `,
+                        ]}
+                      >
+                        <li>프로젝트를 정상적으로 끝까지 완주하였을 경우</li>
+                        <li>해당 기수 마무리까지 젝트 구성원으로서 소속해 있을 경우</li>
+                        <li>
+                          해당 기수의 필수 참여 행사를 모두 참석하였을 경우(리뷰위크, 활동 리뷰 등)
+                        </li>
+                      </ul>
+                      <p css={bodyTextStyle}>보다 자세한 내용은 젝트 회비 정책을 확인해주세요.</p>
+                    </div>
+                  </Accordion.Content>
+                </Accordion.Item>
+              </Accordion.Root>
+            </div>
+
+            <Divider />
+
+            <Title size='sm' textAlign='left'>
+              유의 사항 및 필수 안내
+            </Title>
+            <div className='flex flex-col items-start gap-(--semantic-spacing-32) self-stretch'>
+              <div className='flex flex-col items-start gap-(--semantic-spacing-16) self-stretch'>
+                <Title size='xs' textAlign='left'>
+                  개인정보 수집 및 이용 관련
+                </Title>
+                <p css={bodyTextStyle}>
+                  개인정보 수집 및 이용과 관련해, 지원자 편의를 위해 지원하실 때 작성하시는 내용들은
+                  모두 수집됩니다. 자세한 내용은 개인정보 수집 및 이용 동의서를 확인해주세요.
+                </p>
+              </div>
+              <div className='flex flex-col items-start gap-(--semantic-spacing-16) self-stretch'>
+                <Title size='xs' textAlign='left'>
+                  오프라인 행사 참여 관련
+                </Title>
+                <p css={bodyTextStyle}>
+                  젝트 4기 활동 기간 동안 다양한 오프라인 행사가 진행될 예정이며, 이 중 일부 행사는
+                  필수 참여 행사로 운영됩니다.
+                  <br />
+                  필수 참여 행사는 완주 조건에 포함됩니다. 대부분 주말, 서울 지역에서 진행될
+                  예정이므로 개인 일정, 거주 지역, 이동 가능 여부 등을 충분히 고려한 후 지원해주시기
+                  바랍니다.
+                </p>
+              </div>
+              <div className='flex flex-col items-start gap-(--semantic-spacing-16) self-stretch'>
+                <Title size='xs' textAlign='left'>
+                  프로젝트 중도 이탈 관련 안내
+                </Title>
+                <p css={bodyTextStyle}>
+                  젝트의 팀 프로젝트는 5개월간 장기적으로 진행되는 활동으로, 생각보다 많은 시간과
+                  책임, 꾸준한 참여가 요구됩니다.
+                  <br />
+                  따라서 활동 기간 중 취업, 인턴, 해외여행 등 기타 중요 개인 일정이 예정되어 있는
+                  경우, 끝까지 참여가 가능한지에 대해 충분한 고민과 판단 후 지원해주시기 바랍니다.
+                </p>
+              </div>
             </div>
           </div>
         </Tab.Content>
 
         <Tab.Content value='faq'>
-          <div className='flex flex-col items-start gap-(--semantic-spacing-32) self-stretch'>
-            <div className='flex flex-col items-start gap-(--semantic-spacing-16) self-stretch'>
-              <Title size='xs' textAlign='left'>
-                자주 묻는 질문
-              </Title>
-              <p css={bodyTextStyle}>FAQ 내용이 여기에 표시됩니다.</p>
-            </div>
+          <div className='flex flex-col items-stretch gap-(--semantic-spacing-24) self-stretch'>
+            <Accordion.Root type='single' size='lg' isStretched={true} collapsible>
+              <Accordion.Item value='faq-1'>
+                <Accordion.Trigger>실력이 뛰어난 사람을 우선적으로 선발하나요?</Accordion.Trigger>
+                <Accordion.Content>
+                  <p css={bodyTextStyle}>
+                    젝트는 전문적 역량보다 팀 프로젝트 참여 태도와 활동 가능 시간을 더욱 더 중요하게
+                    생각하고 있습니다.
+                    <br />
+                    다만, 다음과 같은 전문 역량을 갖추고 계신지를 우선적으로 확인하고 있어요:
+                  </p>
+                  <ul
+                    css={[
+                      bodyTextStyle,
+                      css`
+                        list-style-type: disc;
+                        padding-left: ${theme.scheme.semantic.spacing[20]};
+                      `,
+                    ]}
+                  >
+                    <li>원활한 협업에 필요한 친화적 의사소통 능력</li>
+                    <li>자신의 포지션에 대한 최소한의 기술적 숙련도</li>
+                  </ul>
+                </Accordion.Content>
+              </Accordion.Item>
+              <Accordion.Item value='faq-2'>
+                <Accordion.Trigger>연령이나 신분에 따른 지원 제한이 있나요?</Accordion.Trigger>
+                <Accordion.Content>
+                  <p css={bodyTextStyle}>
+                    법적 성년인 대한민국 국민은 누구나 젝트에 지원할 수 있습니다.
+                    <br />
+                    대학생, 휴학생, 졸업 예정자, 취준생, 재직자, 이직 준비중인 분들 등 다양한 분들이
+                    젝트에 지원하셔서 함께하고 있어요.
+                  </p>
+                </Accordion.Content>
+              </Accordion.Item>
+              <Accordion.Item value='faq-3'>
+                <Accordion.Trigger>
+                  활동 도중 취업/인턴/이직 계획이 있어도 지원이 가능한가요?
+                </Accordion.Trigger>
+                <Accordion.Content>
+                  <p css={bodyTextStyle}>
+                    지원이 가능합니다.
+                    <br />
+                    다만 5개월간 진행되는 팀 프로젝트인 만큼 꾸준한 열정과 시간 투자가 필요합니다.
+                    활동 기간 중 취업/인턴/이직을 하시게 되더라도, 처음 약속한 팀원으로서 끝까지
+                    책임감을 가지고 프로젝트에 성실히 참여해 주시길 바랍니다.
+                    <br />
+                    프로젝트 중도 이탈은 팀원과 젝트 공동체에 큰 부정적 영향을 끼치는 행위이니,
+                    지원자분의 현 상황과 향후 계획 등을 충분히 고려하여 지원 부탁드립니다.
+                  </p>
+                </Accordion.Content>
+              </Accordion.Item>
+              <Accordion.Item value='faq-4'>
+                <Accordion.Trigger>
+                  다른 IT 동아리에 소속되어 있어도 지원이 가능한가요?
+                </Accordion.Trigger>
+                <Accordion.Content>
+                  <p css={bodyTextStyle}>
+                    다른 IT 동아리 소속 시에는 지원이 어렵습니다.
+                    <br />
+                    만약 지원자분이 젝트에서 활동하게 되었을 때에 개인-팀-동아리에 부정적인 영향이
+                    있을 수도 있기 때문이에요.
+                    <br />
+                    그렇지만 타 동아리 소속 여부를 사전에 판단할 수 없기 때문에 개인의 현 상황을
+                    고려해 현명히 지원 부탁드립니다.
+                  </p>
+                </Accordion.Content>
+              </Accordion.Item>
+              <Accordion.Item value='faq-5'>
+                <Accordion.Trigger>
+                  지원서 작성 중 이메일 인증 단계에서 인증번호 메일을 받지 못했습니다.
+                </Accordion.Trigger>
+                <Accordion.Content>
+                  <p css={bodyTextStyle}>
+                    스팸 메일함을 우선적으로 확인해주세요.
+                    <br />
+                    만약 스팸 메일함에 인증번호 메일이 없다면, 입력하신 이메일 주소가 정확한지 한번
+                    더 확인 후 진행 부탁드립니다.
+                    <br />
+                    그럼에도 인증번호 메일을 받지 못하셨다면 jectofficial@ject.kr 로 문의해주세요.
+                  </p>
+                </Accordion.Content>
+              </Accordion.Item>
+              <Accordion.Item value='faq-6'>
+                <Accordion.Trigger>제출한 지원서 내용을 수정하고 싶습니다.</Accordion.Trigger>
+                <Accordion.Content>
+                  <p css={bodyTextStyle}>
+                    이미 제출한 지원서 내용은 자체적으로 수정할 수 없어요.
+                    <br />꼭 수정해야 하는 내용이 있다면 jectofficial@ject.kr 로 문의해주세요.
+                  </p>
+                </Accordion.Content>
+              </Accordion.Item>
+              <Accordion.Item value='faq-7'>
+                <Accordion.Trigger>불합격도 별도로 통지하나요?</Accordion.Trigger>
+                <Accordion.Content>
+                  <p css={bodyTextStyle}>
+                    모집 결과는 합격 여부와 관계없이 이메일로 안내드립니다.
+                    <br />
+                    지원해 주신 모든 분들께 감사드리며, 결과를 기다리며 시간을 소모하시는 일이
+                    없도록 하겠습니다.
+                  </p>
+                </Accordion.Content>
+              </Accordion.Item>
+            </Accordion.Root>
           </div>
         </Tab.Content>
       </Tab.Root>
