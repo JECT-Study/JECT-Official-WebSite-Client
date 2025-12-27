@@ -4,7 +4,7 @@ import type { IconName } from "../../Icon/Icon.types";
 import type { FieldPublicProps } from "../input.types";
 
 export interface SelectFieldPublicProps extends FieldPublicProps {
-  label?: string;
+  label?: ReactNode;
   labelIcon?: IconName;
   helperText?: string;
   value: string;
