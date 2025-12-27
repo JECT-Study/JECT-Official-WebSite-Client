@@ -55,7 +55,7 @@ export const JoinGuideMenu = () => {
       <MegaMenu.Section sectionName='합류 가이드 '>
         <MegaMenu.Group className='w-[120px]'>
           <MegaMenu.GroupItem>
-            <MenuItem.Anchor href={PATH.applyInfo}>지원 안내</MenuItem.Anchor>
+            <MenuItem.Anchor href={PATH.applyList}>지원 안내</MenuItem.Anchor>
           </MegaMenu.GroupItem>
           <MegaMenu.GroupItem>
             <MenuItem.Anchor href={PATH.faq}>FAQ</MenuItem.Anchor>
