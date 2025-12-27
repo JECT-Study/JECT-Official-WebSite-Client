@@ -17,7 +17,7 @@ export function useSendAuthCodeMutation(options?: UseSendAuthCodeMutationOptions
     mutationFn: applyApi.sendAuthCode,
     ...restOptions,
     onSuccess: (data, variables, onMutateResult, mutationContext) => {
-      toastController.basic("인증번호를 발송했어요. 1분 뒤에 다시 요청하실 수 있어요.");
+      toastController.basic("인증번호 발송됨", "재발송 요청은 3분 뒤에 가능합니다.");
       onSuccess?.(data, variables, onMutateResult, mutationContext);
     },
   });
