@@ -97,28 +97,30 @@ export function IdentityVerificationStep({
       jobFamily={context.jobFamily}
       onBack={onBack}
     >
-      <form className='gap-7xl flex flex-col' onSubmit={e => void handleSubmitPin(onSubmit)(e)}>
-        <Controller
-          name='email'
-          control={emailControl}
-          defaultValue={context.email || ""}
-          render={({ field, fieldState }) => (
-            <TextField
-              type='email'
-              label='이메일'
-              validation={deriveInputValidation({
-                hasError: Boolean(fieldState.error),
-                hasValue: Boolean(field.value?.length),
-              })}
-              helperText={fieldState.error?.message ?? ""}
-              placeholder='itclubject@ject.kr'
-              value={field.value ?? ""}
-              onChange={field.onChange}
-            />
-          )}
-        />
-
-        <div className='gap-2xs flex flex-col'>
+      <div className='flex flex-col items-start gap-(--semantic-spacing-24) self-stretch'>
+        <form
+          className='flex flex-col gap-(--semantic-spacing-24) self-stretch'
+          onSubmit={e => void handleSubmitPin(onSubmit)(e)}
+        >
+          <Controller
+            name='email'
+            control={emailControl}
+            defaultValue={context.email || ""}
+            render={({ field, fieldState }) => (
+              <TextField
+                type='email'
+                label='이메일'
+                validation={deriveInputValidation({
+                  hasError: Boolean(fieldState.error),
+                  hasValue: Boolean(field.value?.length),
+                })}
+                helperText={fieldState.error?.message ?? ""}
+                placeholder='itclubject@ject.kr'
+                value={field.value ?? ""}
+                onChange={field.onChange}
+              />
+            )}
+          />
           <Controller
             name='pin'
             control={pinControl}
@@ -136,23 +138,22 @@ export function IdentityVerificationStep({
               />
             )}
           />
-          <LabelButton.Basic size='sm' hierarchy='tertiary' onClick={handleForgotPin}>
-            PIN 번호를 잊어버리셨나요?
-          </LabelButton.Basic>
-        </div>
-
-        <BlockButton.Basic
-          type='submit'
-          disabled={!isFormValid || isPending}
-          size='md'
-          variant='solid'
-          hierarchy='accent'
-          suffixIcon={isPending ? "spinner" : undefined}
-          className={isPending ? "[&_svg:last-child]:animate-spin" : undefined}
-        >
-          다음
-        </BlockButton.Basic>
-      </form>
+        </form>
+        <LabelButton.Basic size='sm' hierarchy='tertiary' onClick={handleForgotPin}>
+          PIN 번호를 잊어버리셨나요?
+        </LabelButton.Basic>
+      </div>
+      <BlockButton.Basic
+        type='submit'
+        disabled={!isFormValid || isPending}
+        size='md'
+        variant='solid'
+        hierarchy='accent'
+        suffixIcon={isPending ? "spinner" : undefined}
+        className={`self-start ${isPending ? "[&_svg:last-child]:animate-spin" : ""}`}
+      >
+        다음
+      </BlockButton.Basic>
     </ApplyStepLayout>
   );
 }

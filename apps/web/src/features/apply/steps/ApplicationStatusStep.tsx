@@ -53,12 +53,10 @@ export function ApplicationStatusStep({
       jobFamily={context.jobFamily}
       onBack={onBack}
     >
-      <div className='gap-7xl flex flex-col items-center'>
-        <div className='gap-md flex flex-col'>
-          <LabelButton.Basic size='md' hierarchy='tertiary' onClick={onBack}>
-            이전 단계로 돌아가기
-          </LabelButton.Basic>
-        </div>
+      <div className='flex flex-col items-start gap-(--semantic-spacing-24) self-stretch'>
+        <LabelButton.Basic size='md' hierarchy='tertiary' onClick={onBack}>
+          이전 단계로 돌아가기
+        </LabelButton.Basic>
 
         <Dialog
           open

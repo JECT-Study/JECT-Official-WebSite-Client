@@ -55,15 +55,9 @@ export function NewPinSetupStep({ context, onBack }: NewPinSetupStepProps) {
       headerTitle='PIN 재설정'
       onBack={onBack}
     >
-      <div className='gap-7xl flex flex-col'>
+      <div className='flex flex-col items-start gap-(--semantic-spacing-24) self-stretch'>
         <VerifiedEmailDisplay email={context.email} authCode={context.authCode} />
-
-        {/* 새 PIN 설정 */}
-        <form
-          id='newPinSetupForm'
-          className='gap-7xl flex flex-col'
-          onSubmit={handleResetPinFormSubmit}
-        >
+        <form id='newPinSetupForm' className='self-stretch' onSubmit={handleResetPinFormSubmit}>
           <Controller
             name='pin'
             control={control}
@@ -82,22 +76,19 @@ export function NewPinSetupStep({ context, onBack }: NewPinSetupStepProps) {
             )}
           />
         </form>
-
-        <div className='gap-md flex flex-col'>
-          <BlockButton.Basic
-            type='submit'
-            form='newPinSetupForm'
-            disabled={!formState.isValid}
-            size='md'
-            variant='solid'
-            hierarchy='accent'
-            suffixIcon={isPending ? "spinner" : undefined}
-            className={isPending ? "[&_svg:last-child]:animate-spin" : undefined}
-          >
-            PIN 재설정 완료하기
-          </BlockButton.Basic>
-        </div>
       </div>
+      <BlockButton.Basic
+        type='submit'
+        form='newPinSetupForm'
+        disabled={!formState.isValid}
+        size='md'
+        variant='solid'
+        hierarchy='accent'
+        suffixIcon={isPending ? "spinner" : undefined}
+        className={`self-start ${isPending ? "[&_svg:last-child]:animate-spin" : ""}`}
+      >
+        PIN 재설정 완료하기
+      </BlockButton.Basic>
     </ApplyStepLayout>
   );
 }

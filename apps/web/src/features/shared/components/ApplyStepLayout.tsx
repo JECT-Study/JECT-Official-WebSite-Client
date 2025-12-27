@@ -27,19 +27,17 @@ type ApplyStepLayoutProps = BaseProps &
 export function ApplyStepLayout(props: ApplyStepLayoutProps) {
   const { children, title, onBack, variant } = props;
   const navigationTitle =
-    variant === "apply"
-      ? findJobFamilyOption(props.jobFamily).navigationTitle
-      : props.headerTitle;
+    variant === "apply" ? findJobFamilyOption(props.jobFamily).navigationTitle : props.headerTitle;
 
   return (
-    <div className='flex min-h-screen flex-col'>
+    <div className='flex w-full max-w-[656px] flex-col items-start gap-(--semantic-spacing-48) px-(--semantic-margin-lg) pb-(--semantic-spacing-80)'>
       <header className='w-full'>
-        <div className='mx-auto w-full max-w-130 px-4'>
-          <LocalNavigation.Root>
-            <LocalNavigation.BackButton onClick={onBack} />
-            <LocalNavigation.Title>{navigationTitle}</LocalNavigation.Title>
-          </LocalNavigation.Root>
-          {variant === "apply" && (
+        <LocalNavigation.Root isStretched={true}>
+          <LocalNavigation.BackButton onClick={onBack} />
+          <LocalNavigation.Title>{navigationTitle}</LocalNavigation.Title>
+        </LocalNavigation.Root>
+        {variant === "apply" && (
+          <div className='pt-(--semantic-spacing-24)'>
             <Step.Root size='md' current={props.current}>
               {STEP_LABELS.map((label, index) => (
                 <Step.Item key={label} index={index}>
@@ -47,17 +45,15 @@ export function ApplyStepLayout(props: ApplyStepLayoutProps) {
                 </Step.Item>
               ))}
             </Step.Root>
-          )}
-        </div>
+          </div>
+        )}
       </header>
-      <div className='flex flex-1 flex-col items-center pt-(--gap-9xl) pb-(--gap-12xl)'>
-        <section className='gap-9xl flex w-full max-w-164 flex-col items-stretch px-(--gap-4xl)'>
-          <Title size='md' textAlign='left'>
-            {title}
-          </Title>
-          {children}
-        </section>
-      </div>
+      <section className='flex w-full flex-col items-stretch gap-(--semantic-margin-3xl)'>
+        <Title size='md' textAlign='left'>
+          {title}
+        </Title>
+        {children}
+      </section>
     </div>
   );
 }

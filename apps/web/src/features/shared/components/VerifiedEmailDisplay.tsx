@@ -7,7 +7,7 @@ interface VerifiedEmailDisplayProps {
 
 export function VerifiedEmailDisplay({ email, authCode }: VerifiedEmailDisplayProps) {
   return (
-    <div className='gap-7xl flex flex-col'>
+    <div className='flex flex-col items-start gap-(--semantic-spacing-24) self-stretch'>
       <TextField.Button
         type='email'
         label='이메일'

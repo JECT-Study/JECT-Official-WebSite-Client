@@ -59,13 +59,9 @@ export function PinSetupStep({ context, onNext, onBack }: PinSetupStepProps) {
       jobFamily={context.jobFamily}
       onBack={onBack}
     >
-      <div className='gap-7xl flex flex-col'>
+      <div className='flex flex-col items-start gap-(--semantic-spacing-24) self-stretch'>
         <VerifiedEmailDisplay email={context.email} authCode={context.authCode} />
-        <form
-          id='pinSetupForm'
-          className='gap-7xl flex flex-col'
-          onSubmit={handleRegisterFormSubmit}
-        >
+        <form id='pinSetupForm' className='self-stretch' onSubmit={handleRegisterFormSubmit}>
           <Controller
             name='pin'
             control={control}
@@ -84,22 +80,20 @@ export function PinSetupStep({ context, onNext, onBack }: PinSetupStepProps) {
             )}
           />
         </form>
-
         <TermsCheckboxGroup value={termsAgreement} onChange={setTermsAgreement} />
-
-        <BlockButton.Basic
-          className='self-start'
-          type='submit'
-          form='pinSetupForm'
-          disabled={isSubmitButtonDisabled}
-          size='md'
-          variant='solid'
-          hierarchy='accent'
-          suffixIcon='arrow-right-line'
-        >
-          다음 단계로 진행하기
-        </BlockButton.Basic>
       </div>
+      <BlockButton.Basic
+        className='self-start'
+        type='submit'
+        form='pinSetupForm'
+        disabled={isSubmitButtonDisabled}
+        size='md'
+        variant='solid'
+        hierarchy='accent'
+        suffixIcon='arrow-right-line'
+      >
+        다음 단계로 진행하기
+      </BlockButton.Basic>
     </ApplyStepLayout>
   );
 }

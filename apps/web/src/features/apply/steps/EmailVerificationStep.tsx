@@ -31,7 +31,6 @@ export function EmailVerificationStep({
         onVerified={onNext}
         onExistingMember={onExistingMember}
       />
-
       <BlockButton.Basic
         className='self-start'
         size='md'

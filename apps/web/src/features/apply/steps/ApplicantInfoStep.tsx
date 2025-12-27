@@ -70,11 +70,12 @@ export function ApplicantInfoStep({ context, onNext, onBack }: ApplicantInfoStep
       jobFamily={context.jobFamily}
       onBack={onBack}
     >
-      <form
-        id='applicantForm'
-        className='gap-5xl flex flex-col'
-        onSubmit={e => void handleSubmit(onSubmit)(e)}
-      >
+      <div className='flex flex-col items-start gap-(--semantic-spacing-24) self-stretch'>
+        <form
+          id='applicantForm'
+          className='flex flex-col gap-(--semantic-spacing-24) self-stretch'
+          onSubmit={e => void handleSubmit(onSubmit)(e)}
+        >
         <Controller
           name='name'
           control={control}
@@ -233,8 +234,8 @@ export function ApplicantInfoStep({ context, onNext, onBack }: ApplicantInfoStep
             </div>
           )}
         />
-      </form>
-
+        </form>
+      </div>
       <BlockButton.Basic
         className='self-start'
         type='submit'
