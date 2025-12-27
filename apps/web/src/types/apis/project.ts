@@ -22,14 +22,16 @@ export interface ProjectReviewsQueryParams {
   size: number;
 }
 
-export type ProjectCategory = "MAIN" | "HACKATHON";
+export type ProjectCategory = "SEMESTER_1" | "SEMESTER_2" | "SEMESTER_3" | null;
+export type ProjectSort = "empty" | "unsorted" | "sorted";
 
 export interface Project {
   id: number;
+  thumbnailUrl: string | null;
   name: string;
   summary: string;
   description: string;
-  thumbnailUrl: string | null;
+  serviceType: string;
 }
 
 export interface ProjectListResponse {
@@ -48,6 +50,12 @@ export interface ProjectListQueryParams {
   category: ProjectCategory;
   page: number;
   size: number;
+  sort: ProjectSort;
+}
+
+export interface ProjectImageUrl {
+  imageUrl: string;
+  sequence: number;
 }
 
 export interface ProjectDetailResponse {
@@ -62,14 +70,10 @@ export interface ProjectDetailResponse {
     backendDevelopers: string[];
   };
   techStack: string[];
+  badges: string[];
   description: string;
   serviceUrl: string;
-  serviceIntros: {
-    imageUrl: string;
-    sequence: number;
-  }[];
-  devIntros: {
-    imageUrl: string;
-    sequence: number;
-  }[];
+  bannerImageUrl: ProjectImageUrl | null;
+  sampleImageUrls: ProjectImageUrl[];
+  descriptionImageUrls: ProjectImageUrl[];
 }

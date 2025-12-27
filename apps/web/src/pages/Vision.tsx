@@ -8,7 +8,7 @@ import VisionHeroSection from "@/components/vision/sections/VisionHeroSection";
 
 const Vision = () => {
   return (
-    <div className='flex flex-col bg-(--semantic-surface-standard) mt-(--semantic-spacing-64)'>
+    <div className='flex flex-col bg-(--semantic-surface-standard) pt-(--semantic-spacing-64)'>
       <div className='px-(--semantic-margin-lg) py-(--semantic-margin-2xl)'>
         <VisionHeroSection />
         <div className='flex flex-col items-center gap-(--semantic-spacing-48) pt-(--semantic-margin-xl) pb-(--semantic-margin-3xl)'>
