@@ -1,4 +1,4 @@
-import { BlockButton, LabelButton, TextField } from "@ject/jds";
+import { BlockButton, LabelButton, TextField, toastController } from "@ject/jds";
 import type { FormEventHandler } from "react";
 import { useState } from "react";
 import { Controller } from "react-hook-form";
@@ -81,8 +81,11 @@ export function AuthCodeForm({
             timer.start(180);
           }
         },
-        onError: error => {
-          handleError(error, "인증번호 발송 실패");
+        onError: () => {
+          toastController.destructive(
+            "인증번호 발송 실패",
+            "일시적 오류일 수 있으니 다시 시도해주세요.",
+          );
         },
       },
     );
@@ -107,10 +110,12 @@ export function AuthCodeForm({
 
   const emailHelperText = emailState.error?.message ?? emailErrorMessage ?? "";
 
-  const authCodeHelperText = timer.isActive ? `인증번호 유효 시간 ${formatTime(timer.seconds)}` : "";
+  const authCodeHelperText = timer.isActive
+    ? `인증번호 유효 시간 ${formatTime(timer.seconds)}`
+    : "";
 
   return (
-    <div className='gap-7xl flex flex-col'>
+    <div className='flex flex-col items-start gap-(--semantic-spacing-24) self-stretch'>
       <Controller
         name='email'
         control={emailControl}
@@ -139,35 +144,34 @@ export function AuthCodeForm({
         )}
       />
       {hasSentCode && (
-        <form className='gap-5xl flex flex-col' onSubmit={handleVerifyCode}>
-          <div className='gap-2xs flex flex-col'>
-            <TextField.Button
-              label='인증번호'
-              helperText={authCodeHelperText}
-              placeholder='인증번호를 입력해주세요'
-              value={authCode}
-              onChange={e => setAuthCode(e.target.value)}
-              button={
-                <BlockButton.Basic type='submit' size='md' variant='solid' hierarchy='primary'>
-                  인증하기
-                </BlockButton.Basic>
-              }
-            />
-            <LabelButton.Basic
-              className='self-start'
-              size='sm'
-              hierarchy='secondary'
-              suffixIcon='arrow-right-s-line'
-              onClick={() => {
-                if (jobFamily) {
-                  void navigate(`${PATH.applyGuide}/${jobFamily}?tab=faq&faq=faq-5`);
-                }
-              }}
-            >
-              인증번호를 받지 못하셨나요?
-            </LabelButton.Basic>
-          </div>
+        <form className='self-stretch' onSubmit={handleVerifyCode}>
+          <TextField.Button
+            label='인증번호'
+            helperText={authCodeHelperText}
+            placeholder='인증번호를 입력해주세요'
+            value={authCode}
+            onChange={e => setAuthCode(e.target.value)}
+            button={
+              <BlockButton.Basic type='submit' size='md' variant='solid' hierarchy='primary'>
+                인증하기
+              </BlockButton.Basic>
+            }
+          />
         </form>
+      )}
+      {hasSentCode && (
+        <LabelButton.Basic
+          size='sm'
+          hierarchy='secondary'
+          suffixIcon='arrow-right-s-line'
+          onClick={() => {
+            if (jobFamily) {
+              void navigate(`${PATH.applyGuide}/${jobFamily}?tab=faq&faq=faq-5`);
+            }
+          }}
+        >
+          인증번호를 받지 못하셨나요?
+        </LabelButton.Basic>
       )}
     </div>
   );
