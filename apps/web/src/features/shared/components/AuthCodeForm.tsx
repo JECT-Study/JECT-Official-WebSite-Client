@@ -12,7 +12,6 @@ import {
 } from "@/hooks/apply";
 import { useApplyEmailForm } from "@/hooks/useApplyEmailForm";
 import { useCountdownTimer } from "@/hooks/useCountdownTimer";
-import { handleError } from "@/utils/errorLogger";
 import { deriveInputValidation } from "@/utils/validationHelpers";
 
 const formatTime = (seconds: number) => {
@@ -94,10 +93,13 @@ export function AuthCodeForm({
   const handleVerifyCode: FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault();
 
-    verifyCodeMutateAsync({ email: currentEmail, authCode, sendGroupCode })
+    verifyCodeMutateAsync({ email: currentEmail, authCode, template: sendGroupCode })
       .then(() => onVerified(currentEmail, authCode))
-      .catch(error => {
-        handleError(error, "인증번호 확인 요청 실패");
+      .catch(() => {
+        toastController.destructive(
+          "인증번호 시도 실패",
+          "일시적 오류일 수 있으니 다시 시도해주세요.",
+        );
       });
   };
 
