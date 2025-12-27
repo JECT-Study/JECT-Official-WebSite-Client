@@ -1,4 +1,4 @@
-import { BlockButton, Hero, Icon, Title } from "@ject/jds";
+import { BlockButton, Icon, Title } from "@ject/jds";
 import { captureException } from "@sentry/react";
 import { useEffect } from "react";
 import { useNavigate, useRouteError } from "react-router-dom";
