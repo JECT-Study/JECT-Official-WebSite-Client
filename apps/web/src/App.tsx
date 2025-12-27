@@ -27,10 +27,6 @@ function App() {
       }),
   );
 
-  if (disabledPage.includes(window.location.pathname)) {
-    return void router.navigate(PATH.apply);
-  }
-
   return (
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
