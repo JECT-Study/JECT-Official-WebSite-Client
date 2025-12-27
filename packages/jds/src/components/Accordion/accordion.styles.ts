@@ -53,6 +53,7 @@ export const StyledAccordionRoot = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   gap: theme.scheme.semantic.spacing[24],
+  width: "100%",
 }));
 
 export const StyledAccordionTrigger = styled(
