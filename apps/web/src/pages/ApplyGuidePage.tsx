@@ -57,7 +57,7 @@ function ApplyGuidePage() {
   };
 
   return (
-    <div className='flex max-w-[656px] flex-col items-start px-(--semantic-margin-lg) pb-(--semantic-spacing-80)'>
+    <div className='flex w-full max-w-[656px] flex-col items-start px-(--semantic-margin-lg) pb-(--semantic-spacing-80)'>
       <LocalNavigation.Root isStretched={true}>
         <LocalNavigation.BackButton onClick={handleBack} />
         <LocalNavigation.Title>지원 안내</LocalNavigation.Title>
@@ -115,7 +115,7 @@ function ApplyGuidePage() {
 
       <Tab.Root
         defaultValue='info'
-        className='flex flex-col items-start gap-(--semantic-spacing-48) self-stretch'
+        className='flex w-full flex-col items-stretch gap-(--semantic-spacing-48) self-stretch'
       >
         <Tab.List className='w-full'>
           <Tab.Trigger value='info'>모집 정보</Tab.Trigger>
@@ -123,7 +123,7 @@ function ApplyGuidePage() {
           <Tab.Trigger value='faq'>FAQ</Tab.Trigger>
         </Tab.List>
 
-        <Tab.Content value='info'>
+        <Tab.Content value='info' className='w-full'>
           <div className='flex flex-col items-start gap-(--semantic-spacing-32) self-stretch'>
             <div className='flex flex-col items-start gap-(--semantic-spacing-16) self-stretch'>
               <Title size='xs' textAlign='left'>
@@ -228,7 +228,7 @@ function ApplyGuidePage() {
           </div>
         </Tab.Content>
 
-        <Tab.Content value='notice'>
+        <Tab.Content value='notice' className='w-full'>
           <div className='flex flex-col items-start gap-(--semantic-spacing-40) self-stretch'>
             <Title size='sm' textAlign='left'>
               모집 관련 안내
@@ -362,8 +362,8 @@ function ApplyGuidePage() {
           </div>
         </Tab.Content>
 
-        <Tab.Content value='faq'>
-          <div className='flex flex-col items-stretch gap-(--semantic-spacing-24) self-stretch'>
+        <Tab.Content value='faq' className='w-full'>
+          <div className='flex w-full flex-col items-stretch gap-(--semantic-spacing-24) self-stretch'>
             <Accordion.Root type='single' size='lg' isStretched={true} collapsible>
               <Accordion.Item value='faq-1'>
                 <Accordion.Trigger>실력이 뛰어난 사람을 우선적으로 선발하나요?</Accordion.Trigger>
@@ -443,7 +443,8 @@ function ApplyGuidePage() {
                     만약 스팸 메일함에 인증번호 메일이 없다면, 입력하신 이메일 주소가 정확한지 한번
                     더 확인 후 진행 부탁드립니다.
                     <br />
-                    그럼에도 인증번호 메일을 받지 못하셨다면 jectofficial@ject.kr 로 문의해주세요.
+                    그럼에도 인증번호 메일을 받지 못하셨다면{" "}
+                    <span className='underline'>jectofficial@ject.kr</span>로 문의해주세요.
                   </p>
                 </Accordion.Content>
               </Accordion.Item>
@@ -452,7 +453,8 @@ function ApplyGuidePage() {
                 <Accordion.Content>
                   <p css={bodyTextStyle}>
                     이미 제출한 지원서 내용은 자체적으로 수정할 수 없어요.
-                    <br />꼭 수정해야 하는 내용이 있다면 jectofficial@ject.kr 로 문의해주세요.
+                    <br />꼭 수정해야 하는 내용이 있다면{" "}
+                    <span className='underline'>jectofficial@ject.kr</span>로 문의해주세요.
                   </p>
                 </Accordion.Content>
               </Accordion.Item>
