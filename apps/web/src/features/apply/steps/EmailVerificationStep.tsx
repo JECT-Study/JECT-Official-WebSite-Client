@@ -33,6 +33,7 @@ export function EmailVerificationStep({
       />
 
       <BlockButton.Basic
+        className='self-start'
         size='md'
         variant='solid'
         hierarchy='accent'

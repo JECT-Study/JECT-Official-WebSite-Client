@@ -88,6 +88,7 @@ export function PinSetupStep({ context, onNext, onBack }: PinSetupStepProps) {
         <TermsCheckboxGroup value={termsAgreement} onChange={setTermsAgreement} />
 
         <BlockButton.Basic
+          className='self-start'
           type='submit'
           form='pinSetupForm'
           disabled={isSubmitButtonDisabled}

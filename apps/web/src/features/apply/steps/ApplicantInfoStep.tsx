@@ -236,6 +236,7 @@ export function ApplicantInfoStep({ context, onNext, onBack }: ApplicantInfoStep
       </form>
 
       <BlockButton.Basic
+        className='self-start'
         type='submit'
         form='applicantForm'
         disabled={!formState.isValid}
