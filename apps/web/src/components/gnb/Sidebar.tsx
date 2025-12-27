@@ -58,7 +58,7 @@ const JoinGuideMenu = () => {
         합류 가이드
       </Label>
       <div className='flex max-w-[120px] flex-col gap-(--semantic-spacing-16)'>
-        <MenuItem.Anchor href={PATH.applyInfo} size='lg'>
+        <MenuItem.Anchor href={PATH.applyList} size='lg'>
           지원 안내
         </MenuItem.Anchor>
         <MenuItem.Anchor href={PATH.faq} size='lg'>
