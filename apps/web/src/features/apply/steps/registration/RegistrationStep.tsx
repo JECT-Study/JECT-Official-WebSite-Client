@@ -1,4 +1,4 @@
-import { BlockButton, Dialog, Title } from "@ject/jds";
+import { BlockButton, Dialog } from "@ject/jds";
 import { type ReactNode, useCallback, useMemo, useState } from "react";
 
 import { FileQuestionField, TextQuestionField, UrlQuestionField } from "./components";
@@ -127,34 +127,28 @@ export function RegistrationStep({ context, onNext, onBack }: RegistrationStepPr
       jobFamily={jobFamily}
       onBack={onBack}
     >
-      <div className='gap-7xl flex flex-col'>
-        <div className='gap-2xl flex flex-col'>
-          <Title size='lg' textAlign='left'>
-            지원서 작성
-          </Title>
-        </div>
+      <div className='flex flex-col items-stretch gap-(--semantic-spacing-24) self-stretch'>
+        {questions.map(renderQuestion)}
+      </div>
 
-        <div className='gap-7xl flex flex-col'>{questions.map(renderQuestion)}</div>
-
-        <div className='gap-md flex w-full self-center *:flex-1'>
-          <BlockButton.Basic
-            size='md'
-            variant='outlined'
-            hierarchy='secondary'
-            onClick={handleSaveDraft}
-          >
-            임시 저장하기
-          </BlockButton.Basic>
-          <BlockButton.Basic
-            size='md'
-            variant='solid'
-            hierarchy='accent'
-            disabled={!isStepCompleted}
-            onClick={() => setIsSubmitDialogOpen(true)}
-          >
-            지원서 제출하기
-          </BlockButton.Basic>
-        </div>
+      <div className='gap-md flex w-full self-start *:flex-1'>
+        <BlockButton.Basic
+          size='md'
+          variant='outlined'
+          hierarchy='secondary'
+          onClick={handleSaveDraft}
+        >
+          임시 저장하기
+        </BlockButton.Basic>
+        <BlockButton.Basic
+          size='md'
+          variant='solid'
+          hierarchy='accent'
+          disabled={!isStepCompleted}
+          onClick={() => setIsSubmitDialogOpen(true)}
+        >
+          지원서 제출하기
+        </BlockButton.Basic>
       </div>
 
       <Dialog
