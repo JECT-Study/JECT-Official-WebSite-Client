@@ -11,6 +11,7 @@ import Layout from "@/components/layout/Layout";
 import Activity from "@/pages/Activity";
 import ApplyFunnelPage from "@/pages/ApplyFunnelPage";
 import ApplyGuidePage from "@/pages/ApplyGuidePage";
+import ApplyListPage from "@/pages/ApplyListPage";
 import ContinueWritingFunnelPage from "@/pages/ContinueWritingFunnelPage";
 import Faq from "@/pages/Faq";
 import Main from "@/pages/Main";
@@ -39,6 +40,7 @@ const router = sentryCreateBrowserRouter([
       {
         element: <ApplyLayout />,
         children: [
+          { path: PATH.applyList, element: <ApplyListPage /> },
           { path: `${PATH.applyGuide}/:jobFamily`, element: <ApplyGuidePage /> },
           { path: `${PATH.applyFunnel}/:jobFamily`, element: <ApplyFunnelPage /> },
           { path: `${PATH.applyContinue}/:jobFamily`, element: <ContinueWritingFunnelPage /> },
