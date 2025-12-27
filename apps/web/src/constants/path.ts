@@ -7,6 +7,7 @@ export const PATH = {
   jeckathon: "/jeckathon",
   activity: "/activity",
   apply: "/apply",
+  applyList: "/apply/list",
   faq: "/faq",
   applyGuide: "/apply/guide",
   applyFunnel: "/apply/funnel",
@@ -18,5 +19,4 @@ export const PATH = {
   teamProject: "/team-projects",
   miniStudy: "/mini-study",
   liveSession: "/live-session",
-  applyInfo: "apply-info",
 } as const;
