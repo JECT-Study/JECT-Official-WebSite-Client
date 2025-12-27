@@ -51,7 +51,7 @@ export function ApplicantInfoStep({ context, onNext, onBack }: ApplicantInfoStep
   });
 
   const onSubmit = (data: ProfileData) => {
-    saveProfile(data);
+    saveProfile({ ...data, jobFamily: context.jobFamily });
   };
 
   const toggleSelect = (name: SelectFieldName) => {

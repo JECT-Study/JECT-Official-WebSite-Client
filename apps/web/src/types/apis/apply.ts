@@ -49,4 +49,6 @@ export type ResetPinResponse = null;
 
 export type MemberProfileResponse = ProfileData;
 
-export type MemberProfilePayload = ProfileData;
+export type MemberProfilePayload = ProfileData & {
+  jobFamily: string;
+};
