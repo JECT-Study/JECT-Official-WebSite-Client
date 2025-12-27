@@ -42,9 +42,8 @@ export function UrlQuestionField({ question, value, onChange }: UrlQuestionField
   const helperText = hasUrlError ? APPLY_MESSAGE.invalid.url : "";
 
   return (
-    <QuestionFieldWrapper title={question.title}>
+    <QuestionFieldWrapper title={question.title} isRequired={question.isRequired}>
       <TextField
-        label={question.label}
         placeholder={question.inputHint}
         value={value}
         onChange={handleChange}

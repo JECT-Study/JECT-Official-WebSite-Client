@@ -104,7 +104,7 @@ export function FileQuestionField({
   };
 
   return (
-    <QuestionFieldWrapper title={question.title}>
+    <QuestionFieldWrapper title={question.title} isRequired={question.isRequired}>
       <div className='gap-md flex flex-col'>
         <Uploader.File
           accept={[...ALLOWED_FILE_EXTENSIONS]}
