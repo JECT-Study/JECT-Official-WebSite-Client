@@ -1,3 +1,5 @@
+import { isAxiosError } from "axios";
+
 import { applyApi } from "./api";
 import type { JobFamily } from "./schemas";
 
@@ -66,7 +68,16 @@ export const applyQueries = {
   draft: {
     current: () => ({
       queryKey: applyQueryKeys.draft.current(),
-      queryFn: applyApi.getDraft,
+      queryFn: async () => {
+        try {
+          return await applyApi.getDraft();
+        } catch (error) {
+          if (isAxiosError(error) && error.response?.status === 404) {
+            return { answers: {}, portfolios: [] };
+          }
+          throw error;
+        }
+      },
     }),
   },
 } as const;
