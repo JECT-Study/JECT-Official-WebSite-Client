@@ -76,164 +76,168 @@ export function ApplicantInfoStep({ context, onNext, onBack }: ApplicantInfoStep
           className='flex flex-col gap-(--semantic-spacing-24) self-stretch'
           onSubmit={e => void handleSubmit(onSubmit)(e)}
         >
-        <Controller
-          name='name'
-          control={control}
-          render={({ field, fieldState }) => (
-            <TextField
-              label='이름'
-              validation={deriveInputValidation({
-                hasError: Boolean(fieldState.error),
-                hasValue: Boolean(field.value?.length),
-              })}
-              placeholder='김젝트'
-              helperText={fieldState.error?.message ?? ""}
-              value={field.value ?? ""}
-              onChange={field.onChange}
-            />
-          )}
-        />
-
-        <Controller
-          name='phoneNumber'
-          control={control}
-          render={({ field, fieldState }) => (
-            <TextField
-              type='tel'
-              label='휴대폰 번호'
-              validation={deriveInputValidation({
-                hasError: Boolean(fieldState.error),
-                hasValue: Boolean(field.value?.length),
-              })}
-              placeholder='01012345678'
-              helperText={fieldState.error?.message ?? ""}
-              value={field.value ?? ""}
-              onChange={field.onChange}
-            />
-          )}
-        />
-        <Controller
-          name='careerDetails'
-          control={control}
-          render={({ field }) => (
-            <div className='flex flex-col'>
-              <SelectField
-                label='지원자 신분'
-                placeholder='선택하세요'
-                value={findLabelByValue(CAREER_DETAILS_OPTIONS, field.value)}
-                isOpen={openSelect === "careerDetails"}
-                onClick={() => toggleSelect("careerDetails")}
+          <Controller
+            name='name'
+            control={control}
+            render={({ field, fieldState }) => (
+              <TextField
+                label={<>이름<span className='text-feedback-notifying-neutral-light dark:text-feedback-notifying-neutral-dark'>*</span></>}
+                validation={deriveInputValidation({
+                  hasError: Boolean(fieldState.error),
+                  hasValue: Boolean(field.value?.length),
+                })}
+                placeholder='김젝트'
+                helperText={fieldState.error?.message ?? ""}
+                value={field.value ?? ""}
+                onChange={field.onChange}
               />
-              {openSelect === "careerDetails" && (
-                <Select
-                  variant='radio'
-                  value={field.value}
-                  onChange={value => {
-                    field.onChange(value as CareerDetails);
-                    closeSelect();
-                  }}
-                >
-                  {CAREER_DETAILS_OPTIONS.map(option => (
-                    <Select.Radio key={option.value} value={option.value}>
-                      {option.label}
-                    </Select.Radio>
-                  ))}
-                </Select>
-              )}
-            </div>
-          )}
-        />
+            )}
+          />
 
-        <Controller
-          name='region'
-          control={control}
-          render={({ field }) => (
-            <div className='flex flex-col'>
-              <SelectField
-                label='거주 지역'
-                placeholder='선택하세요'
-                value={field.value ? findLabelByValue(REGION_OPTIONS, field.value) : ""}
-                isOpen={openSelect === "region"}
-                onClick={() => toggleSelect("region")}
+          <Controller
+            name='phoneNumber'
+            control={control}
+            render={({ field, fieldState }) => (
+              <TextField
+                type='tel'
+                label={<>휴대폰 번호<span className='text-feedback-notifying-neutral-light dark:text-feedback-notifying-neutral-dark'>*</span></>}
+                validation={deriveInputValidation({
+                  hasError: Boolean(fieldState.error),
+                  hasValue: Boolean(field.value?.length),
+                })}
+                placeholder='01012345678'
+                helperText={fieldState.error?.message ?? ""}
+                value={field.value ?? ""}
+                onChange={field.onChange}
               />
-              {openSelect === "region" && (
-                <Select
-                  variant='radio'
-                  value={field.value ?? ""}
-                  onChange={value => {
-                    field.onChange(value as Region);
-                    closeSelect();
-                  }}
-                >
-                  {REGION_OPTIONS.map(option => (
-                    <Select.Radio key={option.value} value={option.value}>
-                      {option.label}
-                    </Select.Radio>
-                  ))}
-                </Select>
-              )}
-            </div>
-          )}
-        />
-
-        <Controller
-          name='experiencePeriod'
-          control={control}
-          render={({ field }) => (
-            <div className='flex flex-col'>
-              <SelectField
-                label='직무 관련 경험 기간'
-                placeholder='선택하세요'
-                value={findLabelByValue(EXPERIENCE_PERIOD_OPTIONS, field.value)}
-                isOpen={openSelect === "experiencePeriod"}
-                onClick={() => toggleSelect("experiencePeriod")}
-              />
-              {openSelect === "experiencePeriod" && (
-                <Select
-                  variant='radio'
-                  value={field.value}
-                  onChange={value => {
-                    field.onChange(value as ExperiencePeriod);
-                    closeSelect();
-                  }}
-                >
-                  {EXPERIENCE_PERIOD_OPTIONS.map(option => (
-                    <Select.Radio key={option.value} value={option.value}>
-                      {option.label}
-                    </Select.Radio>
-                  ))}
-                </Select>
-              )}
-            </div>
-          )}
-        />
-
-        <Controller
-          name='interestedDomains'
-          control={control}
-          render={({ field }) => (
-            <div className='gap-md flex flex-col'>
-              <Label size='md'>관심 도메인 (선택, 복수 선택 가능)</Label>
-              <div className='grid grid-cols-2 gap-2 md:grid-cols-3'>
-                {INTERESTED_DOMAIN_OPTIONS.map(option => (
-                  <Checkbox.Content
-                    key={option.value}
-                    label={option.label}
-                    variant='outlined'
-                    checked={field.value.includes(option.value)}
-                    onCheckedChange={checked => {
-                      if (checked === true) {
-                        field.onChange([...field.value, option.value]);
-                      } else {
-                        field.onChange(field.value.filter(d => d !== option.value));
-                      }
-                    }}
-                  />
-                ))}
+            )}
+          />
+          <Controller
+            name='careerDetails'
+            control={control}
+            render={({ field }) => (
+              <div className='relative flex flex-col'>
+                <SelectField
+                  label={<>지원자 신분<span className='text-feedback-notifying-neutral-light dark:text-feedback-notifying-neutral-dark'>*</span></>}
+                  placeholder='현재 신분을 선택해주세요'
+                  value={findLabelByValue(CAREER_DETAILS_OPTIONS, field.value)}
+                  isOpen={openSelect === "careerDetails"}
+                  onClick={() => toggleSelect("careerDetails")}
+                />
+                {openSelect === "careerDetails" && (
+                  <div className='absolute top-[calc(100%+8px)] right-0 left-0 z-10'>
+                    <Select
+                      value={field.value}
+                      onChange={value => {
+                        field.onChange(value as CareerDetails);
+                        closeSelect();
+                      }}
+                    >
+                      {CAREER_DETAILS_OPTIONS.map(option => (
+                        <Select.Label key={option.value} value={option.value}>
+                          {option.label}
+                        </Select.Label>
+                      ))}
+                    </Select>
+                  </div>
+                )}
               </div>
-            </div>
-          )}
-        />
+            )}
+          />
+
+          <Controller
+            name='region'
+            control={control}
+            render={({ field }) => (
+              <div className='relative flex flex-col'>
+                <SelectField
+                  label={<>거주 지역<span className='text-feedback-notifying-neutral-light dark:text-feedback-notifying-neutral-dark'>*</span></>}
+                  placeholder='현재 거주하는 지역을 선택해주세요'
+                  value={field.value ? findLabelByValue(REGION_OPTIONS, field.value) : ""}
+                  isOpen={openSelect === "region"}
+                  onClick={() => toggleSelect("region")}
+                />
+                {openSelect === "region" && (
+                  <div className='absolute top-[calc(100%+8px)] right-0 left-0 z-10'>
+                    <Select
+                      value={field.value ?? ""}
+                      onChange={value => {
+                        field.onChange(value as Region);
+                        closeSelect();
+                      }}
+                    >
+                      {REGION_OPTIONS.map(option => (
+                        <Select.Label key={option.value} value={option.value}>
+                          {option.label}
+                        </Select.Label>
+                      ))}
+                    </Select>
+                  </div>
+                )}
+              </div>
+            )}
+          />
+
+          <Controller
+            name='experiencePeriod'
+            control={control}
+            render={({ field }) => (
+              <div className='relative flex flex-col'>
+                <SelectField
+                  label='직무 관련 경험 기간'
+                  placeholder='직무 관련 경험 기간을 선택해주세요'
+                  labelIcon='information-line'
+                  value={findLabelByValue(EXPERIENCE_PERIOD_OPTIONS, field.value)}
+                  isOpen={openSelect === "experiencePeriod"}
+                  onClick={() => toggleSelect("experiencePeriod")}
+                />
+                {openSelect === "experiencePeriod" && (
+                  <div className='absolute top-[calc(100%+8px)] right-0 left-0 z-10'>
+                    <Select
+                      value={field.value}
+                      onChange={value => {
+                        field.onChange(value as ExperiencePeriod);
+                        closeSelect();
+                      }}
+                    >
+                      {EXPERIENCE_PERIOD_OPTIONS.map(option => (
+                        <Select.Label key={option.value} value={option.value}>
+                          {option.label}
+                        </Select.Label>
+                      ))}
+                    </Select>
+                  </div>
+                )}
+              </div>
+            )}
+          />
+
+          <Controller
+            name='interestedDomains'
+            control={control}
+            render={({ field }) => (
+              <div className='flex flex-col items-start justify-center gap-(--semantic-spacing-12) self-stretch'>
+                <Label size='md'>관심 도메인(최대 3개)<span className='text-feedback-notifying-neutral-light dark:text-feedback-notifying-neutral-dark'>*</span></Label>
+                <div className='grid h-[298px] grid-cols-3 grid-rows-6 gap-2 self-stretch max-md:h-[400px] max-md:grid-cols-2 max-md:grid-rows-8'>
+                  {INTERESTED_DOMAIN_OPTIONS.map(option => (
+                    <Checkbox.Content
+                      key={option.value}
+                      label={option.label}
+                      variant='outlined'
+                      checked={field.value.includes(option.value)}
+                      onCheckedChange={checked => {
+                        if (checked === true) {
+                          field.onChange([...field.value, option.value]);
+                        } else {
+                          field.onChange(field.value.filter(d => d !== option.value));
+                        }
+                      }}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
+          />
         </form>
       </div>
       <BlockButton.Basic
