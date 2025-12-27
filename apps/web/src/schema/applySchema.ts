@@ -18,7 +18,7 @@ export const applyAuthCodeSchema = z.object({
 export type ApplyAuthCodeFormData = z.infer<typeof applyAuthCodeSchema>;
 
 export const applyPinSchema = z.object({
-  pin: z.string().regex(/^\d{6}$/, "PIN은 6자리 숫자여야 합니다."),
+  pin: z.string().regex(/^\d{6}$/, "올바르지 않은 PIN 형식입니다."),
 });
 
 export type ApplyPinFormData = z.infer<typeof applyPinSchema>;
