@@ -11,6 +11,12 @@ import "@/styles/global.css";
 
 import App from "./App";
 
+// 루트 페이지에서 새로고침 시 항상 최상단으로 이동
+if (window.location.pathname === "/") {
+  window.history.scrollRestoration = "manual";
+  window.scrollTo(0, 0);
+}
+
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 amplitude.init(import.meta.env.VITE_AMPLITUDE_API_KEY, undefined, {
