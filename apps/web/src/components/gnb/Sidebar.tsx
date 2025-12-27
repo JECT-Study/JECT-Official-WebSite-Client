@@ -8,7 +8,12 @@ const JectMenu = () => {
   const JDS = "https://www.figma.com/community/file/1547190026603503566/jds";
   return (
     <div className='flex flex-col gap-(--semantic-spacing-20)'>
-      <Label size='md' textAlign='left' weight='normal' className='text-(--semantic-object-alternative)'>
+      <Label
+        size='md'
+        textAlign='left'
+        weight='normal'
+        className='text-(--semantic-object-alternative)'
+      >
         젝트
       </Label>
       <div className='flex max-w-[120px] flex-col gap-(--semantic-spacing-16)'>
@@ -33,7 +38,12 @@ const JectMenu = () => {
 const ProgramMenu = () => {
   return (
     <div className='flex flex-col gap-(--semantic-spacing-20)'>
-      <Label size='md' textAlign='left' weight='normal' className='text-(--semantic-object-alternative)'>
+      <Label
+        size='md'
+        textAlign='left'
+        weight='normal'
+        className='text-(--semantic-object-alternative)'
+      >
         프로그램
       </Label>
       <div className='flex max-w-[120px] flex-col gap-(--semantic-spacing-16)'>
@@ -54,7 +64,12 @@ const ProgramMenu = () => {
 const JoinGuideMenu = () => {
   return (
     <div className='flex flex-col gap-(--semantic-spacing-20)'>
-      <Label size='md' textAlign='left' weight='normal' className='text-(--semantic-object-alternative)'>
+      <Label
+        size='md'
+        textAlign='left'
+        weight='normal'
+        className='text-(--semantic-object-alternative)'
+      >
         합류 가이드
       </Label>
       <div className='flex max-w-[120px] flex-col gap-(--semantic-spacing-16)'>
@@ -93,7 +108,7 @@ export const Sidebar = ({ isOpenSidebar, setIsOpenSidebar }: SidebarProps) => {
           transform: isOpenSidebar ? "translateX(0)" : "translateX(100%)",
         }}
       >
-        <div className='flex items-center justify-end border-b border-(--semantic-stroke-subtle) py-(--semantic-margin-sm) px-(--semantic-margin-lg)'>
+        <div className='flex items-center justify-end border-b border-(--semantic-stroke-subtle) px-(--semantic-margin-lg) py-(--semantic-margin-sm)'>
           <IconButton.Basic
             hierarchy='primary'
             icon='menu-line'

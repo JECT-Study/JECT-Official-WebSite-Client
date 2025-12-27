@@ -5,14 +5,12 @@ import { JDSThemeProvider } from "@ject/jds/theme";
 import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Suspense, useState } from "react";
-import { isMobile } from "react-device-detect";
 import { RouterProvider } from "react-router-dom";
 
 import { ErrorBoundary } from "./components/app/ErrorBoundary";
 import { LoadingFallback } from "./components/app/LoadingFallback";
 import { disabledPage, PATH } from "./constants/path";
 import { useGlobalErrorHandler } from "./hooks/useGlobalErrorHandler";
-import TempMobile from "./pages/TempMobile";
 import router from "./router";
 
 function App() {
@@ -29,10 +27,6 @@ function App() {
         }),
       }),
   );
-
-  if (isMobile) {
-    return <TempMobile />;
-  }
 
   if (disabledPage.includes(window.location.pathname)) {
     return void router.navigate(PATH.apply);
