@@ -122,6 +122,7 @@ export const StyledAccordionLabelContainer = styled("div")(({ theme }) => ({
   justifyContent: "flex-start",
   alignItems: "center",
   gap: theme.scheme.semantic.spacing[8],
+  flex: 1,
 }));
 
 export const StyledAccordionChevron = styled("div")(({ theme }) => ({
