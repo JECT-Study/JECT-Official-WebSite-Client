@@ -7,7 +7,7 @@ export const API_ENDPOINT = {
   applyMember: "/members/apply",
   memberProfile: "/members/profile",
   pinLogin: "/auth/login/pin",
-  registerMember: "/members",
+  registerMember: "/members/apply",
   resetPin: "/members/pin",
   refreshToken: "/auth/refresh",
   uploadPortfolio: "/upload/portfolios",
