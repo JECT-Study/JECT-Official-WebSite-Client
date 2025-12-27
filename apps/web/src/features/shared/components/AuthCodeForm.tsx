@@ -21,14 +21,14 @@ const formatTime = (seconds: number) => {
 
 interface AuthCodeFormProps {
   defaultEmail?: string;
-  template: "AUTH_CODE" | "PIN_RESET";
+  sendGroupCode: "AUTH_CODE" | "PIN_RESET";
   onVerified: (email: string, authCode: string) => void | Promise<void>;
   onExistingMember?: (email: string) => void;
 }
 
 export function AuthCodeForm({
   defaultEmail = "",
-  template,
+  sendGroupCode,
   onVerified,
   onExistingMember,
 }: AuthCodeFormProps) {
@@ -57,22 +57,22 @@ export function AuthCodeForm({
     //Todo: PIN_RESET 일 때는 checkEmailMutate가 호출되지 않도록
     const isUserExists = await checkEmailMutateAsync(currentEmail);
 
-    if (template === "AUTH_CODE" && isUserExists) {
+    if (sendGroupCode === "AUTH_CODE" && isUserExists) {
       onExistingMember?.(currentEmail);
       return;
     }
 
-    if (template === "PIN_RESET" && !isUserExists) {
+    if (sendGroupCode === "PIN_RESET" && !isUserExists) {
       setEmailErrorMessage("가입되지 않은 이메일입니다. 이메일을 확인해주세요.");
       return;
     }
 
     sendCodeMutate(
-      { email: currentEmail, template },
+      { email: currentEmail, sendGroupCode },
       {
         onSuccess: () => {
           setHasSentCode(true);
-          if (template === "AUTH_CODE") {
+          if (sendGroupCode === "AUTH_CODE") {
             timer.start(180);
           }
         },
@@ -86,7 +86,7 @@ export function AuthCodeForm({
   const handleVerifyCode: FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault();
 
-    verifyCodeMutateAsync({ email: currentEmail, authCode, template })
+    verifyCodeMutateAsync({ email: currentEmail, authCode, sendGroupCode })
       .then(() => onVerified(currentEmail, authCode))
       .catch(error => {
         handleError(error, "인증번호 확인 요청 실패");

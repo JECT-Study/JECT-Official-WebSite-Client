@@ -5,7 +5,7 @@ import { applyApi, applyMutationKeys } from "@/apis/apply";
 interface VerifyAuthCodeVariables {
   email: string;
   authCode: string;
-  template: "AUTH_CODE" | "PIN_RESET";
+  sendGroupCode: "AUTH_CODE" | "PIN_RESET";
 }
 
 type UseVerifyAuthCodeMutationOptions = UseMutationOptions<
@@ -18,8 +18,8 @@ type UseVerifyAuthCodeMutationOptions = UseMutationOptions<
 export function useVerifyAuthCodeMutation(options?: UseVerifyAuthCodeMutationOptions) {
   return useMutation({
     mutationKey: applyMutationKeys.auth.verifyCode,
-    mutationFn: ({ email, authCode, template }: VerifyAuthCodeVariables) =>
-      applyApi.verifyAuthCode({ email, authCode }, { template }),
+    mutationFn: ({ email, authCode, sendGroupCode }: VerifyAuthCodeVariables) =>
+      applyApi.verifyAuthCode({ email, authCode }, { sendGroupCode }),
     ...options,
   });
 }

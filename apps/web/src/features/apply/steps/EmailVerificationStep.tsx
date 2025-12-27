@@ -27,7 +27,7 @@ export function EmailVerificationStep({
     >
       <AuthCodeForm
         defaultEmail={context.email}
-        template='AUTH_CODE'
+        sendGroupCode='AUTH_CODE'
         onVerified={onNext}
         onExistingMember={onExistingMember}
       />

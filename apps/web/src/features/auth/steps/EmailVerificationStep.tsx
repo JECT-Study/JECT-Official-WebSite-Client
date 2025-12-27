@@ -16,7 +16,7 @@ export function EmailVerificationStep({ context, onNext, onBack }: EmailVerifica
       headerTitle='PIN 재설정'
       onBack={onBack}
     >
-      <AuthCodeForm defaultEmail={context.email} template='PIN_RESET' onVerified={onNext} />
+      <AuthCodeForm defaultEmail={context.email} sendGroupCode='PIN_RESET' onVerified={onNext} />
     </ApplyStepLayout>
   );
 }

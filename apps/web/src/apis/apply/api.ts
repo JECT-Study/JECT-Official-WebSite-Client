@@ -75,8 +75,8 @@ export const applyApi = {
     return httpClient.get<boolean>(`${API_ENDPOINT.checkEmailExists}?${params.toString()}`);
   },
 
-  sendAuthCode: ({ email, template }: EmailAuthPayload) => {
-    const params = new URLSearchParams({ email, template });
+  sendAuthCode: ({ email, sendGroupCode }: EmailAuthPayload) => {
+    const params = new URLSearchParams({ email, sendGroupCode });
     return httpClient.post<null>(`${API_ENDPOINT.sendEmailAuthCode}?${params.toString()}`);
   },
 
@@ -84,7 +84,7 @@ export const applyApi = {
     data: VerificationEmailCodePayload,
     queryParams: VerificationEmailCodeQueryParams,
   ) => {
-    const params = new URLSearchParams({ template: queryParams.template });
+    const params = new URLSearchParams({ sendGroupCode: queryParams.sendGroupCode });
     return httpClient.post<{ token: string }>(
       `${API_ENDPOINT.verifyEmailCode}?${params.toString()}`,
       data,
