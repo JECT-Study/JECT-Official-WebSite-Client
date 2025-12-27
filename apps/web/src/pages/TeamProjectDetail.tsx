@@ -126,7 +126,7 @@ const TeamProjectDetail = () => {
   return (
     <div className='flex h-full w-full justify-center py-(--semantic-margin-2xl) pt-14'>
       <div className='px-(--semantic-margin-lg) pt-(--semantic-spacing-0) pb-(--semantic-spacing-80)'>
-        <div className='desktop:w-[922px]'>
+        <div className='desktop:w-[922px] tablet:w-[720px] mobile:w-[320px]'>
           <LocalNavigation.Root isStretched={true}>
             <LocalNavigation.BackButton onClick={() => void navigate(PATH.teamProject)} />
             <LocalNavigation.Title>팀 프로젝트</LocalNavigation.Title>
