@@ -70,7 +70,7 @@ const RotatingText = () => {
 
 const HeroSection = () => {
   return (
-    <section className='relative flex h-dvh w-full items-center justify-center'>
+    <section className='relative flex h-dvh w-full items-center justify-center bg-(--semantic-surface-static-inverse-standard)'>
       <img
         src={heroBackground}
         alt='젝트 팀원들이 함께 모여 회의하는 모습'
