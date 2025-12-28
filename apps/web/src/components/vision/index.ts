@@ -16,3 +16,4 @@ export { default as member15 } from "@/assets/images/member/15.png";
 export { default as member16 } from "@/assets/images/member/16.png";
 export { default as member17 } from "@/assets/images/member/17.png";
 export { default as member18 } from "@/assets/images/member/18.png";
+export { default as member19 } from "@/assets/images/member/19.png";
