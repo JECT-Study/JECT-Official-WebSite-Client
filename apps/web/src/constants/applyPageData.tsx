@@ -60,7 +60,7 @@ export const APPLY_TITLE: Record<string, ReactNode> = {
   verifyPIN: "본인 확인용 PIN을 입력해주세요",
   applicantInfo: "지원자님에 대해 알려주세요",
   registration: "지원서 작성",
-  complete: "지원이 완료되었어요",
+  complete: "지원이 완료되었습니다",
   continueWriting: "이어서 작성하기",
   identityVerification: "지원자 본인 확인",
   emailVerification: "이메일 인증",
