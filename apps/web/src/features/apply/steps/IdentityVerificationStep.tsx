@@ -5,7 +5,7 @@ import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 
 import { APPLY_TITLE } from "@/constants/applyPageData";
 import { PATH } from "@/constants/path";
-import { ApplyStepLayout, PinInputField } from "@/features/shared/components";
+import { ApplyStepLayout } from "@/features/shared/components";
 import { usePinLoginMutation } from "@/hooks/apply";
 import { useApplyEmailForm } from "@/hooks/useApplyEmailForm";
 import { useApplyPinForm } from "@/hooks/useApplyPinForm";
@@ -58,11 +58,12 @@ export function IdentityVerificationStep({
     toastController.basic("PIN 재설정 완료", "새로운 PIN을 입력해 본인 확인을 다시 진행해주세요.");
 
     // 3. URL 파라미터 정리
-    const cleanedParams = new URLSearchParams(searchParams);
-    cleanedParams.delete("pinReset");
-    cleanedParams.delete("email");
-    setSearchParams(cleanedParams, { replace: true });
-  }, [isPinResetSuccess, prefillEmail, setEmailValue, searchParams, setSearchParams]);
+    setSearchParams(prev => {
+      prev.delete("pinReset");
+      prev.delete("email");
+      return prev;
+    }, { replace: true });
+  }, [isPinResetSuccess, prefillEmail, setEmailValue, setSearchParams]);
 
   const email = watchEmail("email");
   const isFormValid = emailFormState.isValid && pinFormState.isValid;
@@ -91,14 +92,14 @@ export function IdentityVerificationStep({
 
   return (
     <ApplyStepLayout
-      variant='apply'
-      title={APPLY_TITLE.continueWriting}
-      current={0}
-      jobFamily={context.jobFamily}
+      variant='auth'
+      headerTitle='이어서 작성하기'
+      title={APPLY_TITLE.identityVerification}
       onBack={onBack}
     >
       <div className='flex flex-col items-start gap-(--semantic-spacing-24) self-stretch'>
         <form
+          id='identityVerificationForm'
           className='flex flex-col gap-(--semantic-spacing-24) self-stretch'
           onSubmit={e => void handleSubmitPin(onSubmit)(e)}
         >
@@ -125,7 +126,11 @@ export function IdentityVerificationStep({
             name='pin'
             control={pinControl}
             render={({ field, fieldState }) => (
-              <PinInputField
+              <TextField
+                type='password'
+                inputMode='numeric'
+                maxLength={6}
+                autoComplete='off'
                 label='PIN'
                 placeholder='설정했던 PIN을 입력해주세요'
                 value={field.value ?? ""}
@@ -145,6 +150,7 @@ export function IdentityVerificationStep({
       </div>
       <BlockButton.Basic
         type='submit'
+        form='identityVerificationForm'
         disabled={!isFormValid || isPending}
         size='md'
         variant='solid'
