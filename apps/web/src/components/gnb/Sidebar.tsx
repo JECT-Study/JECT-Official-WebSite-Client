@@ -1,5 +1,6 @@
 import { Divider, IconButton, Label, MenuItem } from "@ject/jds";
 import type { Dispatch, SetStateAction } from "react";
+import { useEffect } from "react";
 import { createPortal } from "react-dom";
 
 import { PATH } from "@/constants/path";
@@ -91,6 +92,14 @@ interface SidebarProps {
 
 export const Sidebar = ({ isOpenSidebar, setIsOpenSidebar }: SidebarProps) => {
   const closeSidebar = () => setIsOpenSidebar(false);
+
+  useEffect(() => {
+    if (isOpenSidebar) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+  }, [isOpenSidebar]);
 
   return createPortal(
     <>
