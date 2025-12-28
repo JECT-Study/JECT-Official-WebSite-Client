@@ -1,5 +1,6 @@
 import { ContentBadge, Icon, Image, Tab, Title } from "@ject/jds";
 import type { IconName, ThemeVariant } from "@ject/jds";
+import { useState } from "react";
 
 import {
   member1,
@@ -91,34 +92,41 @@ const makers2Data: MakersMember[] = [
   { id: 22, name: "김동영", role: "디자인", imageUrl: member10, description: "젝트 BX 및 디자인 시스템(JDS)을 설계하며 긍정적인 협업 경험을 만들어냅니다." },
 ];
 
+const FallbackAvatar = ({ size = 48 }: { size?: number }) => (
+  <div className='flex h-full w-full items-center justify-center text-(--semantic-object-alternative)'>
+    <svg
+      width={size}
+      height={size}
+      viewBox='0 0 24 24'
+      fill='none'
+      stroke='currentColor'
+      strokeWidth='1.5'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    >
+      <circle cx='12' cy='8' r='4' />
+      <path d='M4 20c0-4 4-6 8-6s8 2 8 6' />
+    </svg>
+  </div>
+);
+
 const SupportersCard = ({ member }: { member: SupporterMember }) => {
+  const [hasImageError, setHasImageError] = useState(false);
+
   return (
     <div className='flex w-full flex-col gap-(--semantic-spacing-20) overflow-hidden rounded-(--semantic-radius-4) border border-(--semantic-stroke-subtle) bg-(--semantic-surface-shallow) p-(--semantic-margin-sm)'>
       <div className='aspect-square w-full overflow-hidden rounded-(--semantic-radius-4) bg-(--semantic-surface-assistive)'>
-        {member.imageUrl ? (
+        {member.imageUrl && !hasImageError ? (
           <Image
             as='div'
             src={member.imageUrl}
             alt={`${member.name} 프로필`}
             ratio='1:1'
             isReadonly
+            onError={() => setHasImageError(true)}
           />
         ) : (
-          <div className='flex h-full w-full items-center justify-center text-(--semantic-object-alternative)'>
-            <svg
-              width='48'
-              height='48'
-              viewBox='0 0 24 24'
-              fill='none'
-              stroke='currentColor'
-              strokeWidth='1.5'
-              strokeLinecap='round'
-              strokeLinejoin='round'
-            >
-              <circle cx='12' cy='8' r='4' />
-              <path d='M4 20c0-4 4-6 8-6s8 2 8 6' />
-            </svg>
-          </div>
+          <FallbackAvatar size={48} />
         )}
       </div>
       <div className='flex items-center gap-(--semantic-spacing-8)'>
@@ -142,33 +150,22 @@ const SupportersCard = ({ member }: { member: SupporterMember }) => {
 };
 
 const MakersCard = ({ member }: { member: MakersMember }) => {
+  const [hasImageError, setHasImageError] = useState(false);
+
   return (
     <div className='flex w-full gap-(--semantic-spacing-16) overflow-hidden rounded-(--semantic-radius-4) border border-(--semantic-stroke-subtle) bg-(--semantic-surface-shallow) p-(--semantic-margin-sm)'>
       <div className='aspect-square w-20 shrink-0 self-start overflow-hidden rounded-(--semantic-radius-4) bg-(--semantic-surface-assistive)'>
-        {member.imageUrl ? (
+        {member.imageUrl && !hasImageError ? (
           <Image
             as='div'
             src={member.imageUrl}
             alt={`${member.name} 프로필`}
             ratio='1:1'
             isReadonly
+            onError={() => setHasImageError(true)}
           />
         ) : (
-          <div className='flex h-full w-full items-center justify-center text-(--semantic-object-alternative)'>
-            <svg
-              width='32'
-              height='32'
-              viewBox='0 0 24 24'
-              fill='none'
-              stroke='currentColor'
-              strokeWidth='1.5'
-              strokeLinecap='round'
-              strokeLinejoin='round'
-            >
-              <circle cx='12' cy='8' r='4' />
-              <path d='M4 20c0-4 4-6 8-6s8 2 8 6' />
-            </svg>
-          </div>
+          <FallbackAvatar size={32} />
         )}
       </div>
       <div className='flex flex-1 flex-col gap-(--semantic-spacing-12)'>
