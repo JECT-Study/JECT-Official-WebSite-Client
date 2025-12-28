@@ -62,12 +62,9 @@ export const APPLY_TITLE: Record<string, ReactNode> = {
   registration: "지원서 작성",
   complete: "지원이 완료되었어요",
   continueWriting: "이어서 작성하기",
-  resetPin: (
-    <>
-      PIN을 다시 설정하려면
-      <br /> 이메일을 인증해주세요
-    </>
-  ),
+  identityVerification: "지원자 본인 확인",
+  emailVerification: "이메일 인증",
+  newPinSetup: "새로운 PIN 설정",
 };
 
 interface Procedure {

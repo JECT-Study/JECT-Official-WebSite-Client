@@ -51,7 +51,7 @@ export function NewPinSetupStep({ context, onBack }: NewPinSetupStepProps) {
   return (
     <ApplyStepLayout
       variant='auth'
-      title={APPLY_TITLE.resetPin}
+      title={APPLY_TITLE.newPinSetup}
       headerTitle='PIN 재설정'
       onBack={onBack}
     >
