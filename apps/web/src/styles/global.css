@@ -63,4 +63,12 @@
     line-height: var(--primitive-font-line-height-body-sm);
     letter-spacing: var(--primitive-font-letter-spacing-body-sm);
   }
+
+  .textStyle-body-md-normal {
+    font-family: var(--primitive-typeface-body);
+    font-weight: var(--primitive-font-weight-body-normal);
+    font-size: var(--primitive-font-size-body-md);
+    line-height: var(--primitive-font-line-height-body-md);
+    letter-spacing: var(--primitive-font-letter-spacing-body-md);
+  }
 }

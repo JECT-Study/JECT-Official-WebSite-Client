@@ -55,9 +55,10 @@ export const dialogTypes: Record<DialogTypes, DialogContent> = {
   },
   expiredSession: {
     btnLayout: "singleButton",
-    title: "로그인 세션이 만료되었어요",
-    primaryBtnLabel: "인증하기",
-    content: "안전한 이용을 위해 인증을 다시 진행해주세요.",
+    title: "자동 로그아웃 안내",
+    primaryBtnLabel: "확인",
+    content:
+      "접속 시간 초과로 자동으로 로그아웃되며 새로고침합니다. 작성 중이던 내용들을 임시 저장하지 않았다면 유실될 수 있어요.",
   },
   continueWriting: {
     btnLayout: "horizontal",
