@@ -111,7 +111,7 @@ const FallbackAvatar = ({ size = 48 }: { size?: number }) => (
 );
 
 const SupportersCard = ({ member }: { member: SupporterMember }) => {
-  const [hasImageError, setHasImageError] = useState<boolean>(false);
+  const [hasImageError, setHasImageError] = useState(false);
 
   return (
     <div className='flex w-full flex-col gap-(--semantic-spacing-20) overflow-hidden rounded-(--semantic-radius-4) border border-(--semantic-stroke-subtle) bg-(--semantic-surface-shallow) p-(--semantic-margin-sm)'>
@@ -150,7 +150,7 @@ const SupportersCard = ({ member }: { member: SupporterMember }) => {
 };
 
 const MakersCard = ({ member }: { member: MakersMember }) => {
-  const [hasImageError, setHasImageError] = useState<boolean>(false);
+  const [hasImageError, setHasImageError] = useState(false);
 
   return (
     <div className='flex w-full gap-(--semantic-spacing-16) overflow-hidden rounded-(--semantic-radius-4) border border-(--semantic-stroke-subtle) bg-(--semantic-surface-shallow) p-(--semantic-margin-sm)'>
