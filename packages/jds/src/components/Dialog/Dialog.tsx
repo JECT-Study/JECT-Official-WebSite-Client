@@ -13,8 +13,7 @@ import {
   DialogContent,
 } from "./Dialog.styles";
 import type { DialogProps } from "./Dialog.types";
-
-import { Checkbox } from "@/components";
+import { Checkbox } from "../Checkbox";
 
 export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
   (

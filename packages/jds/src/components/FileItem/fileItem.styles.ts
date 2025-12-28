@@ -100,9 +100,7 @@ export const FileItemWrapButton = styled.button<FileItemWrapButtonProps>(
         ? theme.color.semantic.object.bold
         : $disabled
           ? theme.color.semantic.object.subtle
-          : $readonly
-            ? theme.color.semantic.object.bold
-            : theme.color.semantic.accent.neutral,
+          : theme.color.semantic.object.bold,
     };
   },
 );

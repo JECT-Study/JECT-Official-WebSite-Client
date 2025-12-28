@@ -108,7 +108,7 @@ export const FileDropZoneDiv = styled.div<UploaderFileContainerDivProps>(
       flexDirection: "column",
       alignItems: "center",
       gap: theme.scheme.semantic.spacing[20],
-      width: pxToRem(400),
+      width: "100%",
       padding: theme.scheme.semantic.margin.lg,
       borderRadius: theme.scheme.semantic.radius[6],
       color: textColor,

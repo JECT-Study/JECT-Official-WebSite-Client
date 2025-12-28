@@ -1,10 +1,10 @@
 import type { ChangeEvent } from "react";
 import { useState } from "react";
 
+import type { Question } from "@/apis/apply";
 import InputField from "@/components/common/input/InputField";
 import Title from "@/components/common/title/Title";
 import { APPLY_MESSAGE } from "@/constants/applyMessages";
-import type { Question } from "@/types/apis/application";
 import { validateUrlDetail, validateUrlStartHttp } from "@/utils/validateUrl";
 
 interface UrlFieldProps {

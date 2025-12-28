@@ -23,7 +23,10 @@ function NavigationItem({ children, pathName, disabled = false }: NavigationItem
       " radius-2xs label-bold-lg cursor-pointer px-(--gap-xs) py-(--gap-4xs)";
 
   const handleClick = () => {
-    if (currentPathname === PATH.applyRegistration) {
+    if (
+      currentPathname.startsWith(PATH.applyFunnel) ||
+      currentPathname.startsWith(PATH.applyContinue)
+    ) {
       return openDialog({
         type: "dirtyCheck",
         onPrimaryBtnClick: () => void navigate(pathName),
