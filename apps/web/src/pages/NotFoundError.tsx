@@ -25,7 +25,7 @@ function NotFoundError() {
                     페이지를 찾을 수 없습니다
                   </Title>
                 </div>
-                <span className='textStyle-body-md-normal text-(--sematic-object-bold)'>
+                <span className='textStyle-body-md-normal text-(--semantic-object-bold)'>
                   잘못된 주소를 입력했거나, 삭제된 페이지예요.
                 </span>
               </div>

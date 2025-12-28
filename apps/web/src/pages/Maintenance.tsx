@@ -20,7 +20,7 @@ function Maintenance() {
                     현재 서비스를 점검 중입니다
                   </Title>
                 </div>
-                <span className='textStyle-body-md-normal text-center text-(--sematic-object-bold)'>
+                <span className='textStyle-body-md-normal text-center text-(--semantic-object-bold)'>
                   서비스 점검은 가능한 빠르게 마무리 될 예정이며,
                   <br />
                   필요 시 jectofficial@ject.kr 로 문의해주세요.

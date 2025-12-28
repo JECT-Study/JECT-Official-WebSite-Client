@@ -35,7 +35,7 @@ function NonSpecificError() {
                     생겼습니다
                   </Title>
                 </div>
-                <span className='textStyle-body-md-normal text-center text-(--sematic-object-bold)'>
+                <span className='textStyle-body-md-normal text-center text-(--semantic-object-bold)'>
                   일시적인 오류일 수 있으니, 잠시 후 다시 시도해주세요.
                   <br />
                   문제가 지속된다면 jectofficial@ject.kr 로 문의해주세요.
