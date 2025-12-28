@@ -2,10 +2,11 @@ import { useQueries, useQuery } from "@tanstack/react-query";
 
 import { getJectalks } from "@/apis/jectalk";
 import { useSemestersQuery } from "@/hooks/useSemestersQuery";
+import type { SemesterData } from "@/types/apis/semester";
 
 const useJectalksQuery = (semesterName?: string | null) => {
   const { data: semestersData } = useSemestersQuery();
-  const semesters = semestersData?.data.semesterResponses ?? [];
+  const semesters: SemesterData[] = semestersData?.semesterResponses ?? [];
 
   const { data: allData } = useQuery({
     queryKey: ["jectalks", null],
@@ -23,16 +24,16 @@ const useJectalksQuery = (semesterName?: string | null) => {
   const currentData = semesterName ? semesterQueries[currentSemesterIndex] : null;
 
   const semesterCounts = semesters.reduce<Record<string, number>>((acc, semester, index) => {
-    acc[semester.name] = semesterQueries[index]?.data?.data.totalElements ?? 0;
+    acc[semester.name] = semesterQueries[index]?.data?.totalElements ?? 0;
     return acc;
   }, {});
 
   const counts: Record<string, number> = {
-    all: allData?.data.totalElements ?? 0,
+    all: allData?.totalElements ?? 0,
     ...semesterCounts,
   };
 
-  const jectalks = semesterName ? currentData?.data?.data.content : allData?.data.content;
+  const jectalks = semesterName ? currentData?.data?.content : allData?.content;
   const isError = semesterName ? currentData?.isError : false;
   const isPending = semesterName ? currentData?.isPending : !allData;
 

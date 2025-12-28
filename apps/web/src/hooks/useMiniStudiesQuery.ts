@@ -24,11 +24,11 @@ const useMiniStudiesQuery = (position?: PositionFilter) => {
   });
 
   return {
-    miniStudies: data?.data.content,
+    miniStudies: data?.content,
     counts: {
-      all: allData?.data.totalElements ?? 0,
-      PM: pmData?.data.totalElements ?? 0,
-      PD: pdData?.data.totalElements ?? 0,
+      all: allData?.totalElements ?? 0,
+      PM: pmData?.totalElements ?? 0,
+      PD: pdData?.totalElements ?? 0,
     },
     isError,
     isPending,
