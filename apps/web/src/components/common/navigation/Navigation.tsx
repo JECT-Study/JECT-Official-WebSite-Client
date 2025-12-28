@@ -16,7 +16,7 @@ function Navigation({ children }: NavigationProps) {
   const { openDialog } = useDialogActions();
 
   const handleClick = () => {
-    if (pathname === PATH.applyRegistration) {
+    if (pathname.startsWith(PATH.applyFunnel) || pathname.startsWith(PATH.applyContinue)) {
       return openDialog({
         type: "dirtyCheck",
         onPrimaryBtnClick: () => void navigate(PATH.main),

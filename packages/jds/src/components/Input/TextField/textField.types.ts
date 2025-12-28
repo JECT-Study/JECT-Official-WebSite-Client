@@ -5,7 +5,7 @@ import type { FieldPublicProps, FieldInputPublicProps } from "../input.types";
 
 export interface TextFieldPublicProps
   extends FieldPublicProps, Omit<FieldInputPublicProps, "value" | "onChange" | "defaultValue"> {
-  label?: string;
+  label?: ReactNode;
   labelIcon?: IconName;
   helperText?: string;
   value: string;

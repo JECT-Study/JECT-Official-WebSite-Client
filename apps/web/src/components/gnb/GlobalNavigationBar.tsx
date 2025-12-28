@@ -14,6 +14,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { JectMenu, JoinGuideMenu, ProgramMenu } from "./Menus";
 import { Sidebar } from "./Sidebar";
 
+import { PATH } from "@/constants/path";
 import { useTheme } from "@/hooks/useTheme";
 
 const GlobalNavigationBar = () => {
@@ -101,7 +102,7 @@ const GlobalNavigationBar = () => {
             <BlockButton.Basic
               hierarchy='primary'
               size={isTablet ? "xs" : "sm"}
-              onClick={() => void navigation("/")}
+              onClick={() => void navigation(PATH.applyList)}
               className={`${blockButtonColor}`}
             >
               지원하기

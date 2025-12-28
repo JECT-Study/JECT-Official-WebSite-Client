@@ -1,0 +1,46 @@
+import { BlockButton } from "@ject/jds";
+
+import { APPLY_TITLE } from "@/constants/applyPageData";
+import { ApplyStepLayout, AuthCodeForm } from "@/features/shared/components";
+import type { ApplyFunnelSteps } from "@/types/funnel";
+
+interface EmailVerificationStepProps {
+  context: ApplyFunnelSteps["이메일인증"];
+  onNext: (email: string, authCode: string) => void;
+  onExistingMember: (email: string) => void;
+  onBack: () => void;
+}
+
+export function EmailVerificationStep({
+  context,
+  onNext,
+  onExistingMember,
+  onBack,
+}: EmailVerificationStepProps) {
+  return (
+    <ApplyStepLayout
+      variant='apply'
+      title={APPLY_TITLE.verifyEmail}
+      current={0}
+      jobFamily={context.jobFamily}
+      onBack={onBack}
+    >
+      <AuthCodeForm
+        defaultEmail={context.email}
+        sendGroupCode='AUTH_CODE'
+        onVerified={onNext}
+        onExistingMember={onExistingMember}
+      />
+      <BlockButton.Basic
+        className='self-start'
+        size='md'
+        variant='solid'
+        hierarchy='accent'
+        suffixIcon='arrow-right-line'
+        disabled
+      >
+        다음 단계로 진행하기
+      </BlockButton.Basic>
+    </ApplyStepLayout>
+  );
+}

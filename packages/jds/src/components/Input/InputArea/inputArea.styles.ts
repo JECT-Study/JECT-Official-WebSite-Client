@@ -353,8 +353,6 @@ export const StyledTextArea = styled("textarea", {
     resize: $hasFixedHeight ? "none" : "vertical",
     overflow: "auto",
     boxSizing: "border-box",
-    //Todo: 사파리나 firefox 같은 곳에서는 지원하진 않는 속성 (리사이징 훅 등 처리 필요)
-    fieldSizing: "content",
 
     "&::placeholder": {
       color: theme.color.semantic.object.assistive,

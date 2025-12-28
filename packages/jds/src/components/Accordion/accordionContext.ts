@@ -1,7 +1,10 @@
 import { createContext, useContext } from "react";
 
+import type { AccordionSize } from "./accordion.types";
+
 export interface AccordionContextValue {
   isStretched: boolean;
+  size: AccordionSize;
 }
 
 export const AccordionContext = createContext<AccordionContextValue | undefined>(undefined);

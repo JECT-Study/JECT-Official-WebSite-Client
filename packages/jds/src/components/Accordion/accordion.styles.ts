@@ -3,8 +3,26 @@ import styled from "@emotion/styled";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
 import { InteractionLayer } from "utils";
 
-import type { StyledAccordionContentProps, StyledAccordionTriggerProps } from "./accordion.types";
+import type {
+  AccordionSize,
+  StyledAccordionContentProps,
+  StyledAccordionTriggerProps,
+} from "./accordion.types";
+import type { IconSize } from "../Icon/Icon.types";
 import { Label } from "../Label";
+import type { LabelSize } from "../Label/Label.style";
+
+export const accordionSizeMap: Record<
+  AccordionSize,
+  {
+    iconSize: IconSize;
+    labelSize: LabelSize;
+  }
+> = {
+  lg: { iconSize: "sm", labelSize: "lg" },
+  md: { iconSize: "xs", labelSize: "md" },
+  sm: { iconSize: "xs", labelSize: "sm" },
+};
 
 const createInteractionStyles = (theme: Theme, isStretched: boolean, isReadonly: boolean) => {
   const borderRadius = 4;
@@ -35,6 +53,7 @@ export const StyledAccordionRoot = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   gap: theme.scheme.semantic.spacing[24],
+  width: "100%",
 }));
 
 export const StyledAccordionTrigger = styled(
@@ -103,6 +122,7 @@ export const StyledAccordionLabelContainer = styled("div")(({ theme }) => ({
   justifyContent: "flex-start",
   alignItems: "center",
   gap: theme.scheme.semantic.spacing[8],
+  flex: 1,
 }));
 
 export const StyledAccordionChevron = styled("div")(({ theme }) => ({

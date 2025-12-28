@@ -13,7 +13,7 @@ export interface FormFieldContextValue {
   isDisabled: boolean;
   isReadOnly: boolean;
   isInteractive: boolean;
-  label?: string;
+  label?: ReactNode;
   labelIcon?: IconName;
   helperText?: string;
 }
@@ -33,7 +33,7 @@ export interface FormFieldProviderProps {
   layout?: InputLayout;
   validation?: InputValidation;
   interaction?: InputInteraction;
-  label?: string;
+  label?: ReactNode;
   labelIcon?: IconName;
   helperText?: string;
   children: ReactNode;

@@ -37,7 +37,7 @@ export const StyledSelectItemsWrapper = styled("div")({
   alignItems: "stretch",
   alignSelf: "stretch",
   gap: 0,
-  overflow: "hidden",
+  overflowY: "auto",
 });
 
 const getItemPaddingBySize = (theme: Theme, size: SelectSize): string => {

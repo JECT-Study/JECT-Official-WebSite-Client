@@ -1,7 +1,57 @@
 import type { ReactNode } from "react";
 
+import type { JobFamily } from "@/apis/apply";
 import NewTabLink from "@/components/apply/NewTabLink";
 import { moveToBottom } from "@/utils/scrollFunction";
+
+export const JOB_FAMILY_OPTIONS = [
+  {
+    value: "PM",
+    short: "PM",
+    korean: "프로덕트 매니저",
+    koreanFirst: "프로덕트",
+    koreanSecond: "매니저",
+    english: "Product Manager",
+    navigationTitle: "[젝트 4기] 프로덕트 매니저 모집",
+  },
+  {
+    value: "PD",
+    short: "PD",
+    korean: "프로덕트 디자이너",
+    koreanFirst: "프로덕트",
+    koreanSecond: "디자이너",
+    english: "Product Designer",
+    navigationTitle: "[젝트 4기] 프로덕트 디자이너 모집",
+  },
+  {
+    value: "FE",
+    short: "FE",
+    korean: "프론트엔드 개발자",
+    koreanFirst: "프론트엔드",
+    koreanSecond: "개발자",
+    english: "Frontend Engineer",
+    navigationTitle: "[젝트 4기] 프론트엔드 개발자 모집",
+  },
+  {
+    value: "BE",
+    short: "BE",
+    korean: "백엔드 개발자",
+    koreanFirst: "백엔드",
+    koreanSecond: "개발자",
+    english: "Backend Engineer",
+    navigationTitle: "[젝트 4기] 백엔드 개발자 모집",
+  },
+] as const;
+
+export type JobFamilyOption = (typeof JOB_FAMILY_OPTIONS)[number];
+
+export const findJobFamilyOption = (jobFamily: JobFamily): JobFamilyOption => {
+  const option = JOB_FAMILY_OPTIONS.find(opt => opt.value === jobFamily);
+  if (!option) {
+    throw new Error(`Unknown jobFamily: ${jobFamily}`);
+  }
+  return option;
+};
 
 export const APPLY_TITLE: Record<string, ReactNode> = {
   process: "지원 과정",
@@ -9,14 +59,12 @@ export const APPLY_TITLE: Record<string, ReactNode> = {
   verifyEmail: "이메일을 인증해주세요",
   verifyPIN: "본인 확인용 PIN을 입력해주세요",
   applicantInfo: "지원자님에 대해 알려주세요",
-  registration: "더 자세하게 알고 싶어요",
-  complete: "지원이 완료되었어요",
-  resetPin: (
-    <>
-      PIN을 다시 설정하려면
-      <br /> 이메일을 인증해주세요
-    </>
-  ),
+  registration: "지원서 작성",
+  complete: "지원이 완료되었습니다",
+  continueWriting: "이어서 작성하기",
+  identityVerification: "지원자 본인 확인",
+  emailVerification: "이메일 인증",
+  newPinSetup: "새로운 PIN 설정",
 };
 
 interface Procedure {

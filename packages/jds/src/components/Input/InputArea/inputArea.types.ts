@@ -1,4 +1,4 @@
-import type { ChangeEvent, ComponentPropsWithoutRef } from "react";
+import type { ChangeEvent, ComponentPropsWithoutRef, ReactNode } from "react";
 
 import type { IconName } from "../../Icon/Icon.types";
 import type { InputInteraction } from "../input.types";
@@ -14,7 +14,7 @@ export interface InputAreaPublicProps extends Omit<ComponentPropsWithoutRef<"tex
   layout?: InputAreaLayout;
   validation?: InputAreaValidation;
   interaction?: InputInteraction;
-  label?: string;
+  label?: ReactNode;
   labelIcon?: IconName;
   labelVisible?: boolean;
   helperText?: string;

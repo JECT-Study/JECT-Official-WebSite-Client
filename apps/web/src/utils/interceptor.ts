@@ -23,7 +23,11 @@ export const createClient = (config?: AxiosRequestConfig): AxiosInstance => {
   });
 
   instance.interceptors.response.use(
-    response => response,
+    response => {
+      // 성공 응답에서 data 필드만 추출하여 반환 (unwrap 하지 않으면 항상 Truthy)
+      const apiResponse = response.data as ApiResponse<unknown>;
+      return { ...response, data: apiResponse.data };
+    },
     async error => {
       const originalRequest = error.config as ExtendedAxiosRequestConfig;
 

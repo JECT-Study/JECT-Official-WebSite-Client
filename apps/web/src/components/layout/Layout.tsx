@@ -6,7 +6,6 @@ import ScrollToTop from "./ScrollToTop";
 import GlobalNavigationBar from "../gnb/GlobalNavigationBar";
 
 import Dialog from "@/components/common/dialog/Dialog";
-import Toast from "@/components/common/toast/Toast";
 
 function Layout() {
   return (
@@ -16,7 +15,6 @@ function Layout() {
         <ScrollToTop />
         <Outlet />
       </PagesContainer>
-      <Toast />
       <Dialog />
       <Footer.Root>
         <Footer.Content>

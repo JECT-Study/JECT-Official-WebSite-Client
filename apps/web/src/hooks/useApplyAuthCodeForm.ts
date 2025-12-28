@@ -7,7 +7,7 @@ import { applyAuthCodeSchema } from "@/schema/applySchema";
 export const useApplyAuthCodeForm = () => {
   return useForm<ApplyAuthCodeFormData>({
     resolver: zodResolver(applyAuthCodeSchema),
-    mode: "onChange",
+    mode: "onSubmit",
     defaultValues: {
       authCode: "",
     },
