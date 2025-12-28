@@ -16,8 +16,6 @@ import Faq from "@/pages/Faq";
 import LiveSession from "@/pages/LiveSession";
 import Main from "@/pages/Main";
 import MiniStudy from "@/pages/MiniStudy";
-import Project from "@/pages/Project";
-import ProjectDetail from "@/pages/ProjectDetail";
 import RecruitmentComplete from "@/pages/RecruitmentComplete";
 import Vision from "@/pages/Vision";
 
