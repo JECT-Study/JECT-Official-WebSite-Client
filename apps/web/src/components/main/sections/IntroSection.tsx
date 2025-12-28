@@ -75,10 +75,7 @@ const IntroSection = () => {
 
         {/* 다양한 포지션들이 젝트와 함께합니다 */}
         <div className={wrapperClassName}>
-          <div className='flex flex-col items-start'>
-            <Hero size='xs' textAlign='left'>다양한 포지션들이</Hero>
-            <Hero size='xs' textAlign='left'>젝트와 함께합니다</Hero>
-          </div>
+          <Hero size='xs' textAlign='left'>다양한 포지션들이 젝트와 함께합니다</Hero>
 
           <div className='grid w-full grid-cols-1 gap-(--semantic-spacing-16) tablet:grid-cols-2'>
             {positionData.map(({ id, title, icon, description, tags, themeColor }) => (
@@ -115,10 +112,7 @@ const IntroSection = () => {
 
         {/* 프로그램들 */}
         <div className={wrapperClassName}>
-          <div className='flex flex-col items-start'>
-            <Hero size='xs' textAlign='left'>구성원들의 몰입과 성장을 위해</Hero>
-            <Hero size='xs' textAlign='left'>다양한 프로그램들을 운영합니다</Hero>
-          </div>
+          <Hero size='xs' textAlign='left'>구성원들의 성장을 돕는 프로그램들을 운영합니다</Hero>
 
           <div className='grid w-full grid-cols-1 gap-(--semantic-spacing-16) tablet:grid-cols-2'>
             {programData.map(({ id, title, description }) => (
