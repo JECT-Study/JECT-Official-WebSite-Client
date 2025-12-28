@@ -77,6 +77,15 @@ const HeroSection = () => {
         className='absolute inset-0 z-0 h-full w-full object-cover opacity-[0.76]'
       />
 
+      {/* 상단 그라디언트 */}
+      <div
+        className='absolute inset-0 z-1'
+        style={{
+          background: "linear-gradient(180deg, #191B2450 0%, #191B2400 20%)",
+        }}
+      />
+
+      {/* 하단 그라디언트 */}
       <div
         className='absolute inset-0 z-2'
         style={{
