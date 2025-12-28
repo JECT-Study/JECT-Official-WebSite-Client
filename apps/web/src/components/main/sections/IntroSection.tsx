@@ -132,11 +132,13 @@ const IntroSection = () => {
                 {description}
               </Callout.Basic>
             ))}
-            <EmptyState
-              variant='outlined'
-              header='그 밖에 더 많은 활동들이 기다리고 있어요...'
-              body='젝트에 합류해서 직접 활동해보세요!'
-            />
+            <div className='col-span-full tablet:col-span-1 [&>div]:max-w-full! [&>div]:w-full [&>div]:h-full'>
+              <EmptyState
+                variant='outlined'
+                header='그 밖에 더 많은 활동들이 기다리고 있어요...'
+                body='젝트에 합류해서 직접 활동해보세요!'
+              />
+            </div>
           </div>
         </div>
       </div>
