@@ -107,7 +107,7 @@ export const portfolioResponseSchema = z.object({
 export const jobFamilySchema = z.enum(["PM", "PD", "FE", "BE"]);
 
 export const answersResponseSchema = z.object({
-  jobFamily: jobFamilySchema,
+  jobFamily: jobFamilySchema.optional(),
   answers: z.record(z.string(), z.string()),
   portfolios: z.array(portfolioResponseSchema),
 });
