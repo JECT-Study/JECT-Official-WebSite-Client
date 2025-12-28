@@ -6,7 +6,7 @@ const JoinSection = () => {
   return (
     <section className='flex justify-center bg-(--semantic-surface-static-inverse-standard) px-(--semantic-margin-lg) py-(--semantic-margin-5xl)'>
       <div className='w-full max-w-[922px] pt-(--semantic-margin-xl) pb-(--semantic-spacing-80)'>
-        <div className='flex flex-col items-start gap-(--semantic-spacing-48) pb-(--semantic-margin-3xl) md:flex-row'>
+        <div className='flex flex-col items-start gap-(--semantic-spacing-48) pb-(--semantic-margin-3xl) tablet:flex-row'>
           <div className='flex flex-col gap-(--semantic-spacing-48)'>
             <div className='flex flex-col gap-(--semantic-spacing-16)'>
               <div className='whitespace-pre-line'>

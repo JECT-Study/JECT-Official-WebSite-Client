@@ -8,7 +8,8 @@ import {
 } from "@ject/jds";
 import { useMediaQueryFlags } from "@ject/jds/hooks";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+
 
 import { JectMenu, JoinGuideMenu, ProgramMenu } from "./Menus";
 import { Sidebar } from "./Sidebar";
@@ -17,13 +18,15 @@ import { useTheme } from "@/hooks/useTheme";
 
 const GlobalNavigationBar = () => {
   const navigation = useNavigate();
+  const location = useLocation();
   const { theme, setLightTheme, setDarkTheme } = useTheme();
   const variant = useGlobalNavigationVariant();
   const { isDesktop, isTablet, isMobile } = useMediaQueryFlags();
   const [isOpenSidebar, setIsOpenSidebar] = useState(false);
 
-  const textColor = variant === "empty" ? "text-white!" : "";
-  const blockButtonColor = variant === "empty" ? "bg-[#E7E7F3]! text-[#191B24]!" : "";
+  const isHomePage = location.pathname === "/";
+  const textColor = variant === "empty" && isHomePage ? "text-white!" : "";
+  const blockButtonColor = variant === "empty" && isHomePage ? "bg-[#E7E7F3]! text-[#191B24]!" : "";
 
   const handleThemeChange = (value: string) => {
     if (value === "light") {
@@ -36,8 +39,8 @@ const GlobalNavigationBar = () => {
   const handleOpenSidebar = () => setIsOpenSidebar(true);
 
   return (
-    <div className='fixed inset-0 z-50'>
-      <GlobalNavigation.Root variant={variant}>
+    <div className='pointer-events-none fixed inset-0 z-50'>
+      <GlobalNavigation.Root variant={variant} className='pointer-events-auto'>
         <Logo
           role='home'
           href='/'

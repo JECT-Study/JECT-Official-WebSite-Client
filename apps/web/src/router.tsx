@@ -3,6 +3,8 @@ import { sentryCreateBrowserRouter } from "./instrument";
 import Maintenance from "./pages/Maintenance";
 import NonSpecificError from "./pages/NonSpecificError";
 import NotFoundError from "./pages/NotFoundError";
+import TeamProject from "./pages/TeamProject";
+import TeamProjectDetail from "./pages/TeamProjectDetail";
 
 import Layout from "@/components/layout/Layout";
 import Activity from "@/pages/Activity";
@@ -17,14 +19,15 @@ import MiniStudy from "@/pages/MiniStudy";
 import Project from "@/pages/Project";
 import ProjectDetail from "@/pages/ProjectDetail";
 import RecruitmentComplete from "@/pages/RecruitmentComplete";
+import Vision from "@/pages/Vision";
 
 const router = sentryCreateBrowserRouter([
   {
     element: <Layout />,
     children: [
       { path: PATH.main, element: <Main /> },
-      { path: PATH.project, element: <Project /> },
-      { path: `${PATH.project}/:id`, element: <ProjectDetail /> },
+      { path: PATH.vision, element: <Vision /> },
+      { path: `${PATH.project}/:id`, element: <TeamProjectDetail /> },
       { path: PATH.activity, element: <Activity /> },
       { path: PATH.miniStudy, element: <MiniStudy /> },
       { path: PATH.liveSession, element: <LiveSession /> },
@@ -34,6 +37,7 @@ const router = sentryCreateBrowserRouter([
       { path: PATH.applicantInfo, element: <ApplyApplicantInfo /> },
       { path: PATH.applyRegistration, element: <ApplyRegistration /> },
       { path: PATH.applyComplete, element: <ApplyComplete /> },
+      { path: PATH.teamProject, element: <TeamProject /> },
     ],
     errorElement: <NonSpecificError />,
   },
