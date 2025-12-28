@@ -13,7 +13,9 @@ import ApplyComplete from "@/pages/ApplyComplete";
 import ApplyRegistration from "@/pages/ApplyRegistration";
 import ApplyVerify from "@/pages/ApplyVerify";
 import Faq from "@/pages/Faq";
+import LiveSession from "@/pages/LiveSession";
 import Main from "@/pages/Main";
+import MiniStudy from "@/pages/MiniStudy";
 import RecruitmentComplete from "@/pages/RecruitmentComplete";
 import Vision from "@/pages/Vision";
 
@@ -25,6 +27,8 @@ const router = sentryCreateBrowserRouter([
       { path: PATH.vision, element: <Vision /> },
       { path: `${PATH.project}/:id`, element: <TeamProjectDetail /> },
       { path: PATH.activity, element: <Activity /> },
+      { path: PATH.miniStudy, element: <MiniStudy /> },
+      { path: PATH.liveSession, element: <LiveSession /> },
       { path: PATH.apply, element: <RecruitmentComplete /> },
       { path: `${PATH.faq}/:tabId?/:questionId?`, element: <Faq /> },
       { path: PATH.applyVerify, element: <ApplyVerify /> },
