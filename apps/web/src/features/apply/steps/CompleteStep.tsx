@@ -24,7 +24,7 @@ export function CompleteStep({ jobFamily }: CompleteStepProps) {
   return (
     <div className='max-w-[656px] px-(--semantic-margin-lg)'>
       <header className='w-full'>
-        <LocalNavigation.Root>
+        <LocalNavigation.Root isStretched={true}>
           <LocalNavigation.BackButton onClick={handleBack} />
           <LocalNavigation.Title>
             {findJobFamilyOption(jobFamily).navigationTitle}
