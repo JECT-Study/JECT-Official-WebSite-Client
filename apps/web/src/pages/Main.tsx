@@ -166,7 +166,7 @@ const Main = () => {
   }, []);
 
   return (
-    <div ref={containerRef} className='scroll flex flex-col'>
+    <div ref={containerRef} className='scroll flex flex-col overflow-x-hidden'>
       <HeroSection />
       <IntroSection />
       <CycleSection />
