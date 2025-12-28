@@ -71,7 +71,7 @@ function ApplyGuidePage() {
   };
 
   const handleContinue = () => {
-    void navigate(`${PATH.applyContinue}/${jobFamily}?step=PROFILE`);
+    void navigate(`${PATH.applyContinue}/${jobFamily}`);
   };
 
   const handleBack = () => {

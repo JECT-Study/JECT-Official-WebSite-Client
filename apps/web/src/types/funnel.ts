@@ -59,8 +59,6 @@ export type ApplyFunnelStep = keyof ApplyFunnelSteps;
 export type ContinueWritingFunnelSteps = {
   본인확인: BaseContext & {
     email?: string;
-    // 지원자 상태 조회 시 저장된 상태
-    tempSavedStep: "PROFILE" | "APPLY";
   };
 
   지원자정보: BaseContext & { email: string; tempSavedStep: "PROFILE" };

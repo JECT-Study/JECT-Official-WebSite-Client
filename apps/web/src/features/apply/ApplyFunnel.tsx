@@ -71,9 +71,9 @@ export function ApplyFunnel({ jobFamily }: ApplyFunnelProps) {
       지원상태확인={({ context }) => (
         <ApplicationStatusStep
           context={context}
-          onContinueWriting={step => {
+          onContinueWriting={() => {
             // 이어쓰기 선택 → ContinueWritingFunnel로 리다이렉트
-            void navigate(`${PATH.applyContinue}/${jobFamily}?step=${step}`);
+            void navigate(`${PATH.applyContinue}/${jobFamily}`);
           }}
           onAlreadySubmitted={() => {
             // 이미 제출 완료 (SUBMITTED/JOINED) → 메인으로 리다이렉트

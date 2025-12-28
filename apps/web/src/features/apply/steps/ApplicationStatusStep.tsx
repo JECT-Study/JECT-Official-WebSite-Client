@@ -16,7 +16,7 @@ const STATUS_TO_DIALOG_TYPE: Record<string, DialogType | undefined> = {
 
 interface ApplicationStatusStepProps {
   context: ApplyFunnelSteps["지원상태확인"];
-  onContinueWriting: (step: "PROFILE" | "APPLY") => void;
+  onContinueWriting: () => void;
   onAlreadySubmitted: () => void;
   onBack: () => void;
 }
@@ -38,8 +38,8 @@ export function ApplicationStatusStep({
   const dialog = APPLY_DIALOG[dialogType];
 
   const handleConfirm = () => {
-    if (isTempSaved && data.step) {
-      onContinueWriting(data.step);
+    if (isTempSaved) {
+      onContinueWriting();
     } else {
       onAlreadySubmitted();
     }
