@@ -21,6 +21,7 @@ import {
   member16,
   member17,
   member18,
+  member19,
 } from "@/components/vision";
 
 type SupportersRole = "대표" | "운영" | "행정" | "BX";
@@ -87,7 +88,7 @@ const makers1Data: MakersMember[] = [
 
 const makers2Data: MakersMember[] = [
   { id: 19, name: "문소희", role: "프론트엔드", imageUrl: member17, description: "디자인 시스템 문서 플랫폼을 구현하며, 사용자가 쉽게 이해하고 활용할 수 있도록 구조와 사용성에 집중합니다." },
-  { id: 20, name: "방재현", role: "프론트엔드", imageUrl: member8, description: "누구나 접근할 수 있는 디자인 시스템 문서 플랫폼을 구축하며, 쉽게 활용할 수 있도록 패키지를 제작합니다." },
+  { id: 20, name: "방재현", role: "프론트엔드", imageUrl: member19, description: "누구나 접근할 수 있는 디자인 시스템 문서 플랫폼을 구축하며, 쉽게 활용할 수 있도록 패키지를 제작합니다." },
   { id: 21, name: "정효림", role: "기획", imageUrl: member18, description: "디자인 시스템의 구조와 기능을 기획하며, 팀이 같은 방향으로 나아갈 수 있도록 이끌어갑니다." },
   { id: 22, name: "김동영", role: "디자인", imageUrl: member10, description: "젝트 BX 및 디자인 시스템(JDS)을 설계하며 긍정적인 협업 경험을 만들어냅니다." },
 ];
