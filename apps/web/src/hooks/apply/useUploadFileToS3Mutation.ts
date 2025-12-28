@@ -17,10 +17,11 @@ type UseUploadFileToS3MutationOptions = Omit<
   "mutationKey" | "mutationFn"
 > & {
   isSuccessToastEnabled?: boolean;
+  isErrorToastEnabled?: boolean;
 };
 
 export function useUploadFileToS3Mutation(options?: UseUploadFileToS3MutationOptions) {
-  const { isSuccessToastEnabled = true, onSuccess, onError, ...restOptions } = options ?? {};
+  const { isSuccessToastEnabled = true, isErrorToastEnabled = true, onSuccess, onError, ...restOptions } = options ?? {};
 
   return useMutation({
     mutationKey: applyMutationKeys.upload.s3,
@@ -33,7 +34,9 @@ export function useUploadFileToS3Mutation(options?: UseUploadFileToS3MutationOpt
       onSuccess?.(data, variables, onMutateResult, mutationContext);
     },
     onError: (error, variables, onMutateResult, mutationContext) => {
-      toastController.destructive(APPLY_MESSAGE.fail.uploadFile);
+      if (isErrorToastEnabled) {
+        toastController.destructive(APPLY_MESSAGE.fail.uploadFile);
+      }
 
       const errorType =
         axios.isAxiosError(error) && error.code === "ERR_NETWORK" ? "network" : "unexpected";
