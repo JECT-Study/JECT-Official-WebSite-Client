@@ -7,7 +7,7 @@ import {
   DEFAULT_MAX_FILE_SIZE_MB,
   MB_TO_BYTES,
 } from "../constants";
-import { createPortfolioFiles, formatForPresignedUrl, markAsUploaded } from "../utils";
+import { formatForPresignedUrl } from "../utils";
 import { PortfolioFileItem } from "./PortfolioFileItem";
 import { QuestionFieldWrapper } from "./QuestionFieldWrapper";
 
@@ -39,13 +39,10 @@ export function FileQuestionField({
 
   const { mutateAsync: createPresignedUrlsMutateAsync, isPending: isGettingUrls } =
     useCreatePresignedUrlsMutation();
-  const { mutateAsync: uploadFileAsync, isPending: isUploadingToS3 } = useUploadFileToS3Mutation({
-    isSuccessToastEnabled: false,
-  });
+  const { mutateAsync: uploadFileToS3Async, isPending: isUploadingToS3 } =
+    useUploadFileToS3Mutation({ isSuccessToastEnabled: false, isErrorToastEnabled: false });
 
   const isUploading = isGettingUrls || isUploadingToS3;
-
-  //파일 업로드 핸들러(컬렉션 단위, validation → presigned URL 요청 → S3 업로드 → portfolios 업데이트)
 
   const handleUpload = async (files: File[]) => {
     // 1. PDF 필터링
@@ -73,26 +70,29 @@ export function FileQuestionField({
     }
 
     try {
-      // 4. presigned URL 요청
+      // 4. Pre-signed URL 요청
       const formattedFiles = formatForPresignedUrl(pdfFiles);
       const presignedData = await createPresignedUrlsMutateAsync(formattedFiles);
 
-      // 5. PortfolioFile 생성 (pendingUpload 포함)
-      const newPortfolioFiles = createPortfolioFiles(presignedData, pdfFiles);
-
-      // 6. S3 업로드 (병렬)
+      // 5. S3에 파일 업로드 (병렬)
       await Promise.all(
-        newPortfolioFiles.map(pf =>
-          uploadFileAsync({
-            url: pf.pendingUpload!.presignedUrl,
-            file: pf.pendingUpload!.rawFile,
+        presignedData.map((data, index) =>
+          uploadFileToS3Async({
+            url: data.presignedUrl,
+            file: pdfFiles[index],
           }),
         ),
       );
 
-      // 7. 업로드 완료 → pendingUpload 제거 후 portfolios 업데이트
-      const uploadedFiles = newPortfolioFiles.map(markAsUploaded);
-      onChangePortfolios([...portfolios, ...uploadedFiles]);
+      // 6. PortfolioFile 생성 및 portfolios 업데이트
+      const newPortfolioFiles: PortfolioFile[] = presignedData.map((data, index) => ({
+        id: `${pdfFiles[index].name}-${pdfFiles[index].size}-${Date.now()}`,
+        fileUrl: data.cdnUrl,
+        fileName: pdfFiles[index].name,
+        fileSize: pdfFiles[index].size.toString(),
+      }));
+
+      onChangePortfolios([...portfolios, ...newPortfolioFiles]);
     } catch {
       toastController.destructive(APPLY_MESSAGE.fail.uploadFile);
     }
@@ -105,7 +105,14 @@ export function FileQuestionField({
 
   return (
     <QuestionFieldWrapper title={question.title} isRequired={question.isRequired}>
-      <div className='gap-md flex flex-col'>
+      <div className='flex flex-col items-start gap-(--semantic-spacing-16) self-stretch rounded-(--semantic-radius-6) border border-(--semantic-stroke-alpha-subtle) bg-(--semantic-surface-standard) p-(--semantic-spacing-12)'>
+        {portfolios.length > 0 && (
+          <div className='flex flex-col gap-(--semantic-spacing-8) self-stretch'>
+            {portfolios.map(portfolio => (
+              <PortfolioFileItem key={portfolio.id} portfolio={portfolio} onDelete={handleDelete} />
+            ))}
+          </div>
+        )}
         <Uploader.File
           accept={[...ALLOWED_FILE_EXTENSIONS]}
           maxFileSize={maxSizeBytes}
@@ -143,14 +150,6 @@ export function FileQuestionField({
             </BlockButton.Basic>
           )}
         />
-
-        {portfolios.length > 0 && (
-          <div className='gap-sm flex flex-col'>
-            {portfolios.map(portfolio => (
-              <PortfolioFileItem key={portfolio.id} portfolio={portfolio} onDelete={handleDelete} />
-            ))}
-          </div>
-        )}
       </div>
     </QuestionFieldWrapper>
   );
