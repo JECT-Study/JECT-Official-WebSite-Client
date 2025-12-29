@@ -8,7 +8,12 @@ import { APPLY_DIALOG, APPLY_MESSAGE } from "@/constants/applyMessages.tsx";
 import { findJobFamilyOption, APPLY_TITLE } from "@/constants/applyPageData";
 import { PATH } from "@/constants/path";
 import { ApplyStepLayout } from "@/features/shared/components";
-import { useCheckApplyStatusMutation, usePinLoginMutation } from "@/hooks/apply";
+import {
+  useCheckApplyStatusMutation,
+  useDeleteDraftMutation,
+  useMemberProfileMutation,
+  usePinLoginMutation,
+} from "@/hooks/apply";
 import { useApplyEmailForm } from "@/hooks/useApplyEmailForm";
 import { useApplyPinForm } from "@/hooks/useApplyPinForm";
 import type { ContinueWritingFunnelSteps } from "@/types/funnel";
@@ -93,7 +98,11 @@ export function IdentityVerificationStep({
   const email = watchEmail("email");
   const isFormValid = emailFormState.isValid && pinFormState.isValid;
 
+  const [isChangingJobFamily, setIsChangingJobFamily] = useState(false);
+
   const { mutate: checkApplyStatusMutate, isPending: isCheckingStatus } = useCheckApplyStatusMutation();
+  const { mutateAsync: deleteDraftAsync } = useDeleteDraftMutation();
+  const { mutateAsync: updateProfileAsync } = useMemberProfileMutation();
 
   const handleCheckApplyStatus = (userEmail: string) => {
     checkApplyStatusMutate(undefined, {
@@ -173,10 +182,37 @@ export function IdentityVerificationStep({
   };
 
   // 파트 불일치 다이얼로그: "새로운 파트로 지원하기" 선택
-  const handleStartNewApplication = () => {
+  const handleStartNewApplication = async () => {
+    setIsChangingJobFamily(true);
     setMismatchDialog({ isOpen: false, savedJobFamily: null });
-    toastController.positive(APPLY_MESSAGE.success.continueWriting);
-    dispatch("goToApply", verifiedEmail);
+
+    try {
+      // 1. 현재 프로필 백업
+      const profile = await applyApi.getMe();
+
+      // 2. 기존 draft + 프로필 삭제
+      await deleteDraftAsync();
+
+      // 3. 프로필 복원 (새로운 jobFamily로)
+      await updateProfileAsync({
+        name: profile.name,
+        phoneNumber: "", // TODO: getMe 응답에 phoneNumber가 없어서 임시 처리
+        careerDetails: profile.careerDetails,
+        region: profile.region,
+        experiencePeriod: profile.experiencePeriod,
+        interestedDomains: profile.interestedDomains,
+        jobFamily: context.jobFamily,
+      });
+
+      // 4. 지원서 작성으로 이동
+      toastController.positive(APPLY_MESSAGE.success.continueWriting);
+      dispatch("goToApply", verifiedEmail);
+    } catch (error) {
+      handleError(error, "파트 변경 실패");
+      toastController.destructive("파트 변경에 실패했습니다. 다시 시도해주세요.");
+    } finally {
+      setIsChangingJobFamily(false);
+    }
   };
 
   // 다이얼로그 메시지 생성
@@ -271,17 +307,19 @@ export function IdentityVerificationStep({
 
       {mismatchDialogContent && (
         <Dialog
-          open={mismatchDialog.isOpen}
-          onOpenChange={open => !open && setMismatchDialog({ isOpen: false, savedJobFamily: null })}
+          open={mismatchDialog.isOpen || isChangingJobFamily}
+          onOpenChange={open => !open && !isChangingJobFamily && setMismatchDialog({ isOpen: false, savedJobFamily: null })}
           header={mismatchDialogContent.header}
           body={mismatchDialogContent.body}
           primaryAction={{
             children: mismatchDialogContent.primaryAction,
             onClick: handleContinueSavedDraft,
+            disabled: isChangingJobFamily,
           }}
           secondaryAction={{
-            children: mismatchDialogContent.secondaryAction,
-            onClick: handleStartNewApplication,
+            children: isChangingJobFamily ? "변경 중..." : mismatchDialogContent.secondaryAction,
+            onClick: () => void handleStartNewApplication(),
+            disabled: isChangingJobFamily,
           }}
         />
       )}
