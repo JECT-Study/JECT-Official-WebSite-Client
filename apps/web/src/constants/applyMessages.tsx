@@ -56,9 +56,15 @@ export const APPLY_DIALOG = {
   },
   submitted: {
     header: "이미 지원서가 접수된 이메일입니다",
-    body: `접수된 지원서는 수정하거나 취소할 수 없어요.
-내용 수정, 지원 취소 등은 다음의 연락처로 문의 부탁드립니다.
-문의: jectofficial@ject.kr`,
+    body: (
+      <>
+        접수된 지원서는 수정하거나 취소할 수 없어요.
+        <br />
+        내용 수정, 지원 취소 등은 다음의 연락처로 문의 부탁드립니다.
+        <br />
+        문의: jectofficial@ject.kr
+      </>
+    ),
     primaryAction: "확인",
   },
 };
