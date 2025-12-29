@@ -1,11 +1,16 @@
 import { Divider, IconButton, Label, MenuItem } from "@ject/jds";
-import type { Dispatch, SetStateAction } from "react";
+import type { Dispatch, MouseEvent, SetStateAction } from "react";
 import { useEffect } from "react";
 import { createPortal } from "react-dom";
+import { useNavigate } from "react-router-dom";
 
 import { PATH } from "@/constants/path";
 
-const JectMenu = () => {
+interface SidebarMenusProps {
+  handleMenuClick: (e: MouseEvent<HTMLAnchorElement>, targetPath: string) => void;
+}
+
+const JectMenu = ({ handleMenuClick }: SidebarMenusProps) => {
   const JDS = "https://www.figma.com/community/file/1547190026603503566/jds";
   return (
     <div className='flex flex-col gap-(--semantic-spacing-20)'>
@@ -18,7 +23,11 @@ const JectMenu = () => {
         젝트
       </Label>
       <div className='flex max-w-[120px] flex-col gap-(--semantic-spacing-16)'>
-        <MenuItem.Anchor href={PATH.vision} size='lg'>
+        <MenuItem.Anchor
+          href={PATH.vision}
+          size='lg'
+          onClick={e => handleMenuClick(e, PATH.vision)}
+        >
           비전과 스토리
         </MenuItem.Anchor>
         <MenuItem.Anchor
@@ -36,7 +45,7 @@ const JectMenu = () => {
   );
 };
 
-const ProgramMenu = () => {
+const ProgramMenu = ({ handleMenuClick }: SidebarMenusProps) => {
   return (
     <div className='flex flex-col gap-(--semantic-spacing-20)'>
       <Label
@@ -48,13 +57,25 @@ const ProgramMenu = () => {
         프로그램
       </Label>
       <div className='flex max-w-[120px] flex-col gap-(--semantic-spacing-16)'>
-        <MenuItem.Anchor href={PATH.teamProject} size='lg'>
+        <MenuItem.Anchor
+          href={PATH.teamProject}
+          size='lg'
+          onClick={e => handleMenuClick(e, PATH.teamProject)}
+        >
           팀 프로젝트
         </MenuItem.Anchor>
-        <MenuItem.Anchor href={PATH.miniStudy} size='lg'>
+        <MenuItem.Anchor
+          href={PATH.miniStudy}
+          size='lg'
+          onClick={e => handleMenuClick(e, PATH.miniStudy)}
+        >
           미니 스터디
         </MenuItem.Anchor>
-        <MenuItem.Anchor href={PATH.liveSession} size='lg'>
+        <MenuItem.Anchor
+          href={PATH.liveSession}
+          size='lg'
+          onClick={e => handleMenuClick(e, PATH.liveSession)}
+        >
           라이브 세션
         </MenuItem.Anchor>
       </div>
@@ -62,7 +83,7 @@ const ProgramMenu = () => {
   );
 };
 
-const JoinGuideMenu = () => {
+const JoinGuideMenu = ({ handleMenuClick }: SidebarMenusProps) => {
   return (
     <div className='flex flex-col gap-(--semantic-spacing-20)'>
       <Label
@@ -74,10 +95,14 @@ const JoinGuideMenu = () => {
         합류 가이드
       </Label>
       <div className='flex max-w-[120px] flex-col gap-(--semantic-spacing-16)'>
-        <MenuItem.Anchor href={PATH.applyList} size='lg'>
+        <MenuItem.Anchor
+          href={PATH.applyList}
+          size='lg'
+          onClick={e => handleMenuClick(e, PATH.applyList)}
+        >
           지원 안내
         </MenuItem.Anchor>
-        <MenuItem.Anchor href={PATH.faq} size='lg'>
+        <MenuItem.Anchor href={PATH.faq} size='lg' onClick={e => handleMenuClick(e, PATH.faq)}>
           FAQ
         </MenuItem.Anchor>
       </div>
@@ -91,7 +116,15 @@ interface SidebarProps {
 }
 
 export const Sidebar = ({ isOpenSidebar, setIsOpenSidebar }: SidebarProps) => {
+  const navigate = useNavigate();
+
   const closeSidebar = () => setIsOpenSidebar(false);
+
+  const handleMenuClick = (e: MouseEvent<HTMLAnchorElement>, targetPath: string) => {
+    e.preventDefault();
+    closeSidebar();
+    void navigate(targetPath);
+  };
 
   useEffect(() => {
     if (isOpenSidebar) {
@@ -127,11 +160,11 @@ export const Sidebar = ({ isOpenSidebar, setIsOpenSidebar }: SidebarProps) => {
           />
         </div>
         <div className='flex flex-col gap-(--semantic-spacing-24) p-(--semantic-margin-lg)'>
-          <JectMenu />
+          <JectMenu handleMenuClick={handleMenuClick} />
           <Divider />
-          <ProgramMenu />
+          <ProgramMenu handleMenuClick={handleMenuClick} />
           <Divider />
-          <JoinGuideMenu />
+          <JoinGuideMenu handleMenuClick={handleMenuClick} />
         </div>
       </div>
     </>,
