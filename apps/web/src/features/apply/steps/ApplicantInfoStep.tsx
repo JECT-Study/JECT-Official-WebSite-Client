@@ -187,14 +187,14 @@ export function ApplicantInfoStep({ context, onNext, onBack }: ApplicantInfoStep
                   label='직무 관련 경험 기간'
                   placeholder='직무 관련 경험 기간을 선택해주세요'
                   labelIcon='information-line'
-                  value={findLabelByValue(EXPERIENCE_PERIOD_OPTIONS, field.value)}
+                  value={field.value ? findLabelByValue(EXPERIENCE_PERIOD_OPTIONS, field.value) : ""}
                   isOpen={openSelect === "experiencePeriod"}
                   onClick={() => toggleSelect("experiencePeriod")}
                 />
                 {openSelect === "experiencePeriod" && (
                   <div className='absolute top-[calc(100%+8px)] right-0 left-0 z-10'>
                     <Select
-                      value={field.value}
+                      value={field.value ?? ""}
                       onChange={value => {
                         field.onChange(value as ExperiencePeriod);
                         closeSelect();

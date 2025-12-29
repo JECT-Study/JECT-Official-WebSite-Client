@@ -67,7 +67,7 @@ export interface ProfileData {
   phoneNumber: string;
   careerDetails: CareerDetails;
   region: Region;
-  experiencePeriod: ExperiencePeriod;
+  experiencePeriod?: ExperiencePeriod;
   interestedDomains: InterestedDomain[];
 }
 

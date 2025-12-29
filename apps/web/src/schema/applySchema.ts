@@ -99,9 +99,9 @@ export const applyApplicantInfoSchema = z.object({
 
   region: regionEnum,
 
-  experiencePeriod: experiencePeriodEnum,
+  experiencePeriod: experiencePeriodEnum.optional(),
 
-  interestedDomains: z.array(interestedDomainEnum).default([]),
+  interestedDomains: z.array(interestedDomainEnum).min(1, "관심 도메인을 최소 1개 이상 선택해주세요."),
 });
 
 export type ApplyApplicantInfoFormData = z.infer<typeof applyApplicantInfoSchema>;
