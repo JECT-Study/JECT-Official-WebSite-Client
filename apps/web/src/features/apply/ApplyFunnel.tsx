@@ -28,12 +28,11 @@ export function ApplyFunnel({ jobFamily }: ApplyFunnelProps) {
     handleCancel,
   } = useNavigationBlock();
 
-  // TODO: 테스트 후 원래대로 복구 필요
   const funnel = useFunnel<ApplyFunnelSteps>({
     id: "apply-funnel",
     initial: {
-      step: "지원서작성",
-      context: { jobFamily, email: "test@test.com" },
+      step: "이메일인증",
+      context: { jobFamily },
     },
   });
 
