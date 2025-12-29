@@ -1,8 +1,11 @@
 import { BlockButton, LabelButton, TextField, toastController } from "@ject/jds";
-import { useEffect } from "react";
+import { isAxiosError } from "axios";
+import { useEffect, useState } from "react";
 import { Controller } from "react-hook-form";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 
+import { applyApi } from "@/apis/apply";
+import { APPLY_MESSAGE } from "@/constants/applyMessages";
 import { APPLY_TITLE } from "@/constants/applyPageData";
 import { PATH } from "@/constants/path";
 import { ApplyStepLayout } from "@/features/shared/components";
@@ -13,20 +16,36 @@ import type { ContinueWritingFunnelSteps } from "@/types/funnel";
 import { handleError } from "@/utils/errorLogger";
 import { deriveInputValidation } from "@/utils/validationHelpers";
 
+export type IdentityVerificationEvents = {
+  /** 404 에러: 지원서 정보 없음 → STEP2 (지원자정보) */
+  goToProfile: string;
+  /** TEMP_SAVED 또는 JOINED → STEP3 (지원서작성) */
+  goToApply: string;
+  /** 이미 제출 완료 (SUBMITTED) */
+  goToSubmitted: undefined;
+  /** 뒤로가기 */
+  goBack: undefined;
+};
+
 interface IdentityVerificationStepProps {
   context: ContinueWritingFunnelSteps["본인확인"];
-  onNext: (data: { email: string }) => void | Promise<void>;
-  onBack: () => void;
+  dispatch: (
+    ...args:
+      | [type: "goToProfile", payload?: string]
+      | [type: "goToApply", payload?: string]
+      | [type: "goToSubmitted", payload?: undefined]
+      | [type: "goBack", payload?: undefined]
+  ) => void;
 }
 
 export function IdentityVerificationStep({
   context,
-  onNext,
-  onBack,
+  dispatch,
 }: IdentityVerificationStepProps) {
   const location = useLocation();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
+  const [isCheckingStatus, setIsCheckingStatus] = useState(false);
 
   //PIN 재설정 후 돌아왔을 때 파라미터
   const isPinResetSuccess = searchParams.get("pinReset") === "success";
@@ -68,9 +87,47 @@ export function IdentityVerificationStep({
   const email = watchEmail("email");
   const isFormValid = emailFormState.isValid && pinFormState.isValid;
 
-  const { mutate: pinLoginMutate, isPending } = usePinLoginMutation({
+  const checkApplyStatus = async (userEmail: string) => {
+    setIsCheckingStatus(true);
+    try {
+      // 1. 프로필 등록 여부 확인 (방어적 체크)
+      const isProfileRegistered = await applyApi.getProfileInitialStatus();
+
+      if (!isProfileRegistered) {
+        // PIN 로그인 성공 후 프로필 미등록 상태는 비정상
+        handleError(new Error("프로필 미등록 상태"), "비정상 접근");
+        toastController.destructive("가입되지 않은 회원입니다. 다시 시도해주세요.");
+        return;
+      }
+
+      // 2. 지원 상태 확인
+      const { status } = await applyApi.getStatus(userEmail);
+
+      if (status === "SUBMITTED") {
+        toastController.basic("이미 지원서를 제출하셨습니다.");
+        dispatch("goToSubmitted");
+        return;
+      }
+
+      // TEMP_SAVED 또는 JOINED → 지원서작성으로 이동
+      toastController.positive(APPLY_MESSAGE.success.continueWriting);
+      dispatch("goToApply", userEmail);
+    } catch (error) {
+      // 404 에러 → 지원서 정보 없음 → STEP2 (지원자정보)
+      if (isAxiosError(error) && error.response?.status === 404) {
+        dispatch("goToProfile", userEmail);
+        return;
+      }
+      handleError(error, "지원 상태 확인 실패");
+      toastController.destructive("지원 상태 확인에 실패했습니다. 다시 시도해주세요.");
+    } finally {
+      setIsCheckingStatus(false);
+    }
+  };
+
+  const { mutate: pinLoginMutate, isPending: isPinLoginPending } = usePinLoginMutation({
     onSuccess: () => {
-      void onNext({ email });
+      void checkApplyStatus(email);
     },
     onError: error => {
       handleError(error, "PIN 로그인 실패");
@@ -80,6 +137,8 @@ export function IdentityVerificationStep({
       });
     },
   });
+
+  const isPending = isPinLoginPending || isCheckingStatus;
 
   const onSubmit = (pinData: { pin: string }) => {
     pinLoginMutate({ email, pin: pinData.pin });
@@ -95,7 +154,7 @@ export function IdentityVerificationStep({
       variant='auth'
       headerTitle='이어서 작성하기'
       title={APPLY_TITLE.identityVerification}
-      onBack={onBack}
+      onBack={() => dispatch("goBack")}
     >
       <div className='flex flex-col items-start gap-(--semantic-spacing-24) self-stretch'>
         <form

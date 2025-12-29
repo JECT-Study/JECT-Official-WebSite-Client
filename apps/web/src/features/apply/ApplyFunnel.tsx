@@ -68,20 +68,19 @@ export function ApplyFunnel({ jobFamily }: ApplyFunnelProps) {
           onBack={handleBack}
         />
       )}
-      지원상태확인={({ context }) => (
-        <ApplicationStatusStep
-          context={context}
-          onContinueWriting={() => {
-            // 이어쓰기 선택 → ContinueWritingFunnel로 리다이렉트
+      지원상태확인={funnel.Render.with({
+        events: {
+          goToContinueWriting: () => {
             void navigate(`${PATH.applyContinue}/${jobFamily}`);
-          }}
-          onAlreadySubmitted={() => {
-            // 이미 제출 완료 (SUBMITTED/JOINED) → 메인으로 리다이렉트
-            void navigate(PATH.main);
-          }}
-          onBack={handleBack}
-        />
-      )}
+          },
+          goBack: () => {
+            handleBack();
+          },
+        },
+        render({ context, dispatch }) {
+          return <ApplicationStatusStep context={context} dispatch={dispatch} />;
+        },
+      })}
       지원자정보={({ context, history }) => (
         <ApplicantInfoStep
           context={context}
