@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import {
   EmailVerificationStep,
   PinSetupStep,
-  ApplicationStatusStep,
   ApplicantInfoStep,
   RegistrationStep,
   CompleteStep,
@@ -35,27 +34,27 @@ export function ApplyFunnel({ jobFamily }: ApplyFunnelProps) {
 
   return (
     <funnel.Render
-      이메일인증={({ context, history }) => (
-        <EmailVerificationStep
-          context={context}
-          onNext={(email, authCode) => {
+      이메일인증={funnel.Render.with({
+        events: {
+          onVerified: (payload: { email: string; authCode: string }, { context, history }) => {
             // 신규 회원: 인증 성공 → PIN 설정으로
             void history.push("PIN설정", {
               ...context,
-              email,
-              authCode,
+              ...payload,
             });
-          }}
-          onExistingMember={email => {
-            // 기존 회원 → 지원 상태 확인으로
-            void history.push("지원상태확인", {
-              ...context,
-              email,
-            });
-          }}
-          onBack={handleBack}
-        />
-      )}
+          },
+          goToContinueWriting: () => {
+            // 기존 회원: 이어서 작성하기로 이동
+            void navigate(`${PATH.applyContinue}/${jobFamily}`);
+          },
+          goBack: () => {
+            handleBack();
+          },
+        },
+        render({ context, dispatch }) {
+          return <EmailVerificationStep context={context} dispatch={dispatch} />;
+        },
+      })}
       PIN설정={({ context, history }) => (
         <PinSetupStep
           context={context}
@@ -68,19 +67,6 @@ export function ApplyFunnel({ jobFamily }: ApplyFunnelProps) {
           onBack={handleBack}
         />
       )}
-      지원상태확인={funnel.Render.with({
-        events: {
-          goToContinueWriting: () => {
-            void navigate(`${PATH.applyContinue}/${jobFamily}`);
-          },
-          goBack: () => {
-            handleBack();
-          },
-        },
-        render({ context, dispatch }) {
-          return <ApplicationStatusStep context={context} dispatch={dispatch} />;
-        },
-      })}
       지원자정보={({ context, history }) => (
         <ApplicantInfoStep
           context={context}

@@ -33,7 +33,7 @@ export type ApplyFunnelSteps = {
   // 1. 이메일 인증 (첫 단계)
   이메일인증: BaseContext & { email?: string };
 
-  // 2-A. 신규 회원 경로
+  // 2. PIN 설정 (신규 회원)
   PIN설정: BaseContext & {
     email: string;
     authCode: string;
@@ -42,9 +42,6 @@ export type ApplyFunnelSteps = {
       paymentPolicy: boolean;
     };
   };
-
-  // 2-B. 기존 회원 경로
-  지원상태확인: BaseContext & { email: string };
 
   // 3. 공통 (이후 단계)
   지원자정보: BaseContext & { email: string };
@@ -87,7 +84,6 @@ export type ResetPinFunnelStep = keyof ResetPinFunnelSteps;
 export const APPLY_STEP_PROGRESS: Record<ApplyFunnelStep, number> = {
   이메일인증: 0,
   PIN설정: 0,
-  지원상태확인: 0,
   지원자정보: 1,
   지원서작성: 2,
   완료: 2,
