@@ -90,6 +90,7 @@ export const iconMap = {
   "home-2-line": Icons.Home2Line,
   "image-line": Icons.ImageLine,
   "information-line": Icons.InformationLine,
+  "information-fill": Icons.InformationFill,
   instagram: Icons.Instagram,
   instance: Icons.Instance,
   layer: Icons.Layer,

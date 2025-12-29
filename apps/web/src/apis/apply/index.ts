@@ -10,13 +10,13 @@ export {
 export {
   // 스키마
   applicationStatusResponseSchema,
-  memberProfileResponseSchema,
+  memberMeResponseSchema,
   memberProfileInitialStatusResponseSchema,
   questionResponseSchema,
   answersResponseSchema,
   // 스키마 타입
   type ApplicationStatusResponseSchema,
-  type MemberProfileResponseSchema,
+  type MemberMeResponseSchema,
   type MemberProfileInitialStatusResponseSchema,
   type QuestionResponseSchema,
   type AnswersResponseSchema,
