@@ -1,11 +1,13 @@
 import {
   BlockButton,
   Checkbox,
+  Icon,
   Label,
   Select,
   SelectField,
   TextField,
   toastController,
+  Tooltip,
 } from "@ject/jds";
 import { useState } from "react";
 import { Controller } from "react-hook-form";
@@ -215,9 +217,20 @@ export function ApplicantInfoStep({ context, onNext, onBack }: ApplicantInfoStep
             render={({ field }) => (
               <div className='relative flex flex-col'>
                 <SelectField
-                  label='직무 관련 경험 기간'
+                  label={
+                    <div className='flex items-center gap-(--semantic-spacing-4) text-(--semantic-object-normal)'>
+                      직무 관련 경험 기간
+                      <Tooltip.Provider>
+                        <Tooltip.Root>
+                          <Tooltip.Trigger className='text-(--semantic-object-alternative)'>
+                            <Icon name='information-fill' size='2xs' color='inherit' />
+                          </Tooltip.Trigger>
+                          <Tooltip.Content>학습과 경력을 모두 포함한 기간</Tooltip.Content>
+                        </Tooltip.Root>
+                      </Tooltip.Provider>
+                    </div>
+                  }
                   placeholder='직무 관련 경험 기간을 선택해주세요'
-                  labelIcon='information-line'
                   value={
                     field.value ? findLabelByValue(EXPERIENCE_PERIOD_OPTIONS, field.value) : ""
                   }
@@ -261,7 +274,7 @@ export function ApplicantInfoStep({ context, onNext, onBack }: ApplicantInfoStep
                       *
                     </span>
                   </Label>
-                  <div className='grid grid-cols-2 gap-2 self-stretch tablet:grid-cols-3'>
+                  <div className='tablet:grid-cols-3 grid grid-cols-2 gap-2 self-stretch'>
                     {INTERESTED_DOMAIN_OPTIONS.map(option => (
                       <Checkbox.Content
                         key={option.value}
