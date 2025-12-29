@@ -3,8 +3,9 @@ import { useEffect, useState } from "react";
 import { Controller } from "react-hook-form";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 
+import { applyApi, type JobFamily } from "@/apis/apply";
 import { APPLY_DIALOG, APPLY_MESSAGE } from "@/constants/applyMessages.tsx";
-import { APPLY_TITLE } from "@/constants/applyPageData";
+import { findJobFamilyOption, APPLY_TITLE } from "@/constants/applyPageData";
 import { PATH } from "@/constants/path";
 import { ApplyStepLayout } from "@/features/shared/components";
 import { useCheckApplyStatusMutation, usePinLoginMutation } from "@/hooks/apply";
@@ -33,6 +34,11 @@ interface IdentityVerificationStepProps {
   ) => void;
 }
 
+interface JobFamilyMismatchDialog {
+  isOpen: boolean;
+  savedJobFamily: JobFamily | null;
+}
+
 export function IdentityVerificationStep({
   context,
   dispatch,
@@ -41,6 +47,11 @@ export function IdentityVerificationStep({
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const [isSubmittedDialogOpen, setIsSubmittedDialogOpen] = useState(false);
+  const [mismatchDialog, setMismatchDialog] = useState<JobFamilyMismatchDialog>({
+    isOpen: false,
+    savedJobFamily: null,
+  });
+  const [verifiedEmail, setVerifiedEmail] = useState<string>("");
 
   //PIN 재설정 후 돌아왔을 때 파라미터
   const isPinResetSuccess = searchParams.get("pinReset") === "success";
@@ -97,9 +108,30 @@ export function IdentityVerificationStep({
           return;
         }
 
-        // CONTINUE (TEMP_SAVED 또는 JOINED)
-        toastController.positive(APPLY_MESSAGE.success.continueWriting);
-        dispatch("goToApply", userEmail);
+        // CONTINUE (TEMP_SAVED 또는 JOINED) → draft 확인
+        void applyApi
+          .getDraft()
+          .then(draft => {
+            // 파트 불일치 체크: draft에 저장된 jobFamily와 현재 접근한 jobFamily가 다른 경우
+            if (draft.jobFamily != null && draft.jobFamily !== context.jobFamily) {
+              setVerifiedEmail(userEmail);
+              setMismatchDialog({
+                isOpen: true,
+                savedJobFamily: draft.jobFamily,
+              });
+              return;
+            }
+
+            // 같은 파트 또는 draft 없음 → 이어서 작성
+            toastController.positive(APPLY_MESSAGE.success.continueWriting);
+            dispatch("goToApply", userEmail);
+          })
+          .catch((error: unknown) => {
+            // draft 조회 실패 시에도 이어서 작성 가능 (빈 폼으로 시작)
+            handleError(error, "임시저장 데이터 조회 실패");
+            toastController.positive(APPLY_MESSAGE.success.continueWriting);
+            dispatch("goToApply", userEmail);
+          });
       },
       onError: error => {
         handleError(error, "지원 상태 확인 실패");
@@ -131,6 +163,29 @@ export function IdentityVerificationStep({
     const returnTo = `${location.pathname}${location.search}`;
     void navigate(`${PATH.resetPin}?returnTo=${encodeURIComponent(returnTo)}`);
   };
+
+  // 파트 불일치 다이얼로그: "기존 파트 지원서 이어서 작성하기" 선택
+  const handleContinueSavedDraft = () => {
+    if (mismatchDialog.savedJobFamily) {
+      void navigate(`${PATH.applyContinue}/${mismatchDialog.savedJobFamily}`);
+    }
+    setMismatchDialog({ isOpen: false, savedJobFamily: null });
+  };
+
+  // 파트 불일치 다이얼로그: "새로운 파트로 지원하기" 선택
+  const handleStartNewApplication = () => {
+    setMismatchDialog({ isOpen: false, savedJobFamily: null });
+    toastController.positive(APPLY_MESSAGE.success.continueWriting);
+    dispatch("goToApply", verifiedEmail);
+  };
+
+  // 다이얼로그 메시지 생성
+  const mismatchDialogContent = mismatchDialog.savedJobFamily
+    ? APPLY_DIALOG.jobFamilyMismatch(
+        findJobFamilyOption(mismatchDialog.savedJobFamily).korean,
+        findJobFamilyOption(context.jobFamily).korean,
+      )
+    : null;
 
   return (
     <ApplyStepLayout
@@ -213,6 +268,23 @@ export function IdentityVerificationStep({
           onClick: () => setIsSubmittedDialogOpen(false),
         }}
       />
+
+      {mismatchDialogContent && (
+        <Dialog
+          open={mismatchDialog.isOpen}
+          onOpenChange={open => !open && setMismatchDialog({ isOpen: false, savedJobFamily: null })}
+          header={mismatchDialogContent.header}
+          body={mismatchDialogContent.body}
+          primaryAction={{
+            children: mismatchDialogContent.primaryAction,
+            onClick: handleContinueSavedDraft,
+          }}
+          secondaryAction={{
+            children: mismatchDialogContent.secondaryAction,
+            onClick: handleStartNewApplication,
+          }}
+        />
+      )}
     </ApplyStepLayout>
   );
 }
