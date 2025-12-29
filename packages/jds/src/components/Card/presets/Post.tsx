@@ -13,7 +13,11 @@ import {
   CardMetaItem,
   CardMetaNudgeItem,
 } from "../compound";
-import { StyledCardOverlay } from "../compound/compound.styles";
+import {
+  StyledCardOverlay,
+  StyledHorizontalCardPostLayout,
+  StyledHorizontalPostContentWrap,
+} from "../compound/compound.styles";
 
 type PostLinkProps = Omit<Extract<PostPresetProps, { as: "a" }>, "as">;
 type PostButtonProps = Omit<Extract<PostPresetProps, { as: "button" }>, "as">;
@@ -27,32 +31,54 @@ interface PostContentProps {
   date: string;
 }
 
-const PostContent = ({ layout, image, title, body, author, date }: PostContentProps) => (
-  <>
-    {layout === "vertical" && image && (
-      <CardImage src={image.src} alt={image.alt} ratio='1:2' />
-    )}
-    <CardContent>
-      <CardTitle>{title}</CardTitle>
-      <CardBody>{body}</CardBody>
-      <CardMeta>
-        <CardMetaItem>{author}</CardMetaItem>
-        <CardMetaItem>{date}</CardMetaItem>
-        <CardMetaNudgeItem label={layout === "vertical" ? "더보기" : undefined}>
-          <Icon name='arrow-right-s-line' size='xs' />
-        </CardMetaNudgeItem>
-      </CardMeta>
-    </CardContent>
-    {layout === "horizontal" && image && (
-      <CardImage
-        src={image.src}
-        alt={image.alt}
-        ratio='1:1'
-        style={{ width: pxToRem(80), height: pxToRem(80) }}
-      />
-    )}
-  </>
-);
+const PostContent = ({ layout, image, title, body, author, date }: PostContentProps) => {
+  if (layout === "vertical") {
+    return (
+      <>
+        <CardContent>
+          {image && <CardImage src={image.src} alt={image.alt} ratio='1:2' />}
+          <CardTitle>{title}</CardTitle>
+          <CardBody>{body}</CardBody>
+          <CardMeta>
+            <CardMetaItem>{author}</CardMetaItem>
+            <CardMetaItem>{date}</CardMetaItem>
+            <CardMetaNudgeItem label={"더보기"}>
+              <Icon name='arrow-right-s-line' size='xs' />
+            </CardMetaNudgeItem>
+          </CardMeta>
+        </CardContent>
+      </>
+    );
+  }
+
+  return (
+    <>
+      <CardContent>
+        <StyledHorizontalCardPostLayout>
+          <StyledHorizontalPostContentWrap>
+            <CardTitle>{title}</CardTitle>
+            <CardBody>{body}</CardBody>
+          </StyledHorizontalPostContentWrap>
+          {image && (
+            <CardImage
+              src={image.src}
+              alt={image.alt}
+              ratio='1:1'
+              style={{ width: pxToRem(80), height: pxToRem(80) }}
+            />
+          )}
+        </StyledHorizontalCardPostLayout>
+        <CardMeta>
+          <CardMetaItem>{author}</CardMetaItem>
+          <CardMetaItem>{date}</CardMetaItem>
+          <CardMetaNudgeItem>
+            <Icon name='arrow-right-s-line' size='xs' />
+          </CardMetaNudgeItem>
+        </CardMeta>
+      </CardContent>
+    </>
+  );
+};
 
 export const PostLink = forwardRef<HTMLDivElement, PostLinkProps>(
   (
