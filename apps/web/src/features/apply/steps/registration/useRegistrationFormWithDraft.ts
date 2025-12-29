@@ -1,10 +1,14 @@
 import type { Dispatch, SetStateAction } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { formatDraftPortfolios } from "./utils";
 
 import type { JobFamily, Question } from "@/apis/apply";
-import { useDraftSuspenseQuery, useQuestionsSuspenseQuery } from "@/hooks/apply";
+import {
+  useDeleteDraftMutation,
+  useDraftSuspenseQuery,
+  useQuestionsSuspenseQuery,
+} from "@/hooks/apply";
 import type { AnswersByQuestionId, PortfolioFile } from "@/types/apis/application";
 
 interface UseRegistrationFormWithDraftReturn {
@@ -38,19 +42,33 @@ export function useRegistrationFormWithDraft(
 ): UseRegistrationFormWithDraftReturn {
   const { data: questionsData } = useQuestionsSuspenseQuery(jobFamily);
   const { data: draftData } = useDraftSuspenseQuery();
+  const { mutate: deleteDraft } = useDeleteDraftMutation();
 
   const questions: Question[] = questionsData.questionResponses;
 
+  // draft의 jobFamily와 현재 선택한 jobFamily가 다르면 draft 무시
+  const isJobFamilyMismatch =
+    draftData?.jobFamily != null && draftData.jobFamily !== jobFamily;
+
   const [answers, setAnswers] = useState<AnswersByQuestionId>(() => {
+    if (isJobFamilyMismatch) return {};
     return parseAnswersFromApi(draftData?.answers);
   });
 
   const [portfolios, setPortfolios] = useState<PortfolioFile[]>(() => {
+    if (isJobFamilyMismatch) return [];
     if (!draftData?.portfolios || draftData.portfolios.length === 0) {
       return [];
     }
     return formatDraftPortfolios(draftData.portfolios);
   });
+
+  // jobFamily 불일치 시 서버의 draft 삭제
+  useEffect(() => {
+    if (isJobFamilyMismatch) {
+      deleteDraft();
+    }
+  }, [isJobFamilyMismatch, deleteDraft]);
 
   return {
     questions,
