@@ -8,7 +8,7 @@ const MiniStudy = () => {
   const { miniStudies, isError, isPending } = useMiniStudiesQuery();
 
   return (
-    <div className='bg-(--semantic-surface-standard) flex min-h-dvh flex-col items-center mt-(--semantic-spacing-64) py-(--semantic-margin-2xl)'>
+    <div className='bg-(--semantic-surface-standard) flex min-h-dvh flex-col items-center pt-(--semantic-spacing-64) py-(--semantic-margin-2xl)'>
       <section className='gap-(--semantic-spacing-32) flex w-full max-w-[922px] flex-col items-center pt-(--semantic-margin-xl) pb-(--semantic-spacing-80) px-(--semantic-margin-lg)'>
         <div className='gap-(--semantic-spacing-16) flex w-full flex-col items-start'>
           <Hero size='xs' textAlign='left'>미니 스터디</Hero>
