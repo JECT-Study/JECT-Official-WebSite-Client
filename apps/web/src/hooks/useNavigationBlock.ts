@@ -7,9 +7,6 @@ import { PATH } from "@/constants/path";
 // 이탈 시 다이얼로그를 표시해야 하는 단계 (작성 중인 내용이 있는 단계)
 const STEPS_REQUIRING_BLOCK = ["지원자정보", "지원서작성"];
 
-// 브라우저 뒤로가기 처리용 전역 상태
-let globalPendingNavigation: number | null = null;
-
 /**
  * 지원서 작성 페이지 이탈 차단 훅
  * - useBlocker: GNB, Sidebar 등에서 navigate() 호출 시 차단
@@ -18,8 +15,10 @@ let globalPendingNavigation: number | null = null;
  */
 export function useNavigationBlock() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  
+
   const isNavigatingRef = useRef(false);
+  // 브라우저 뒤로가기 처리용 상태 (인스턴스별로 독립적으로 관리)
+  const pendingNavigationRef = useRef<number | null>(null);
 
   const location = useLocation();
 
@@ -78,7 +77,7 @@ export function useNavigationBlock() {
 
       // 뒤로가기 감지 시 현재 URL을 다시 pushState로 복원하여 실제 이동을 막음
       window.history.pushState({ blockNavigation: true }, "", currentUrl);
-      globalPendingNavigation = -2; // pushState로 추가된 엔트리 포함해서 2단계 뒤로
+      pendingNavigationRef.current = -2; // pushState로 추가된 엔트리 포함해서 2단계 뒤로
       setIsDialogOpen(true);
     };
 
@@ -87,7 +86,12 @@ export function useNavigationBlock() {
     return () => {
       window.removeEventListener("popstate", handlePopState);
     };
-  }, [isBlockRequired, location.pathname, location.search]);
+  }, [isBlockRequired]); // location 의존성 제거하여 pushState 중복 호출 방지
+
+  // 네비게이션 완료 시 플래그 리셋 (setTimeout 대신 location 변경 감지)
+  useEffect(() => {
+    isNavigatingRef.current = false;
+  }, [location.pathname]);
 
   const handleConfirm = useCallback(() => {
     setIsDialogOpen(false);
@@ -98,14 +102,11 @@ export function useNavigationBlock() {
       blocker.proceed?.();
     }
     // popstate로 차단된 경우 (브라우저 뒤로가기)
-    else if (globalPendingNavigation !== null) {
-      window.history.go(globalPendingNavigation);
-      globalPendingNavigation = null;
+    else if (pendingNavigationRef.current !== null) {
+      window.history.go(pendingNavigationRef.current);
+      pendingNavigationRef.current = null;
     }
-
-    setTimeout(() => {
-      isNavigatingRef.current = false;
-    }, 100);
+    // isNavigatingRef는 location.pathname 변경 감지 useEffect에서 리셋됨
   }, [blocker]);
 
   const handleCancel = useCallback(() => {
@@ -114,7 +115,7 @@ export function useNavigationBlock() {
     if (blocker.state === "blocked") {
       blocker.reset?.();
     }
-    globalPendingNavigation = null;
+    pendingNavigationRef.current = null;
   }, [blocker]);
 
   return {
