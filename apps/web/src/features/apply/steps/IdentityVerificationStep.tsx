@@ -1,14 +1,13 @@
-import { BlockButton, LabelButton, TextField, toastController } from "@ject/jds";
+import { BlockButton, Dialog, LabelButton, TextField, toastController } from "@ject/jds";
 import { useEffect, useState } from "react";
 import { Controller } from "react-hook-form";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 
-import { applyApi } from "@/apis/apply";
-import { APPLY_MESSAGE } from "@/constants/applyMessages";
+import { APPLY_DIALOG, APPLY_MESSAGE } from "@/constants/applyMessages.tsx";
 import { APPLY_TITLE } from "@/constants/applyPageData";
 import { PATH } from "@/constants/path";
 import { ApplyStepLayout } from "@/features/shared/components";
-import { usePinLoginMutation } from "@/hooks/apply";
+import { useCheckApplyStatusMutation, usePinLoginMutation } from "@/hooks/apply";
 import { useApplyEmailForm } from "@/hooks/useApplyEmailForm";
 import { useApplyPinForm } from "@/hooks/useApplyPinForm";
 import type { ContinueWritingFunnelSteps } from "@/types/funnel";
@@ -16,12 +15,10 @@ import { handleError } from "@/utils/errorLogger";
 import { deriveInputValidation } from "@/utils/validationHelpers";
 
 export type IdentityVerificationEvents = {
-  /** 404 에러: 지원서 정보 없음 → STEP2 (지원자정보) */
+  /** 프로필 미작성 → STEP2 (지원자정보) */
   goToProfile: string;
   /** TEMP_SAVED 또는 JOINED → STEP3 (지원서작성) */
   goToApply: string;
-  /** 이미 제출 완료 (SUBMITTED) */
-  goToSubmitted: undefined;
   /** 뒤로가기 */
   goBack: undefined;
 };
@@ -32,7 +29,6 @@ interface IdentityVerificationStepProps {
     ...args:
       | [type: "goToProfile", payload?: string]
       | [type: "goToApply", payload?: string]
-      | [type: "goToSubmitted", payload?: undefined]
       | [type: "goBack", payload?: undefined]
   ) => void;
 }
@@ -44,7 +40,7 @@ export function IdentityVerificationStep({
   const location = useLocation();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-  const [isCheckingStatus, setIsCheckingStatus] = useState(false);
+  const [isSubmittedDialogOpen, setIsSubmittedDialogOpen] = useState(false);
 
   //PIN 재설정 후 돌아왔을 때 파라미터
   const isPinResetSuccess = searchParams.get("pinReset") === "success";
@@ -86,41 +82,35 @@ export function IdentityVerificationStep({
   const email = watchEmail("email");
   const isFormValid = emailFormState.isValid && pinFormState.isValid;
 
-  const checkApplyStatus = async (userEmail: string) => {
-    setIsCheckingStatus(true);
-    try {
-      // 1. 프로필 등록 여부 확인
-      const isProfileRegistered = await applyApi.getProfileInitialStatus();
+  const { mutate: checkApplyStatusMutate, isPending: isCheckingStatus } = useCheckApplyStatusMutation();
 
-      if (!isProfileRegistered) {
-        // 프로필 미작성 → 지원자정보(Step2)로 이동
-        dispatch("goToProfile", userEmail);
-        return;
-      }
+  const handleCheckApplyStatus = (userEmail: string) => {
+    checkApplyStatusMutate(userEmail, {
+      onSuccess: data => {
+        if (data.result === "PROFILE_NOT_REGISTERED") {
+          dispatch("goToProfile", userEmail);
+          return;
+        }
 
-      // 2. 프로필 등록된 경우에만 지원 상태 확인
-      const { status } = await applyApi.getStatus(userEmail);
+        if (data.result === "SUBMITTED") {
+          setIsSubmittedDialogOpen(true);
+          return;
+        }
 
-      if (status === "SUBMITTED") {
-        toastController.basic("이미 지원서를 제출하셨습니다.");
-        dispatch("goToSubmitted");
-        return;
-      }
-
-      // TEMP_SAVED 또는 JOINED → 지원서작성으로 이동
-      toastController.positive(APPLY_MESSAGE.success.continueWriting);
-      dispatch("goToApply", userEmail);
-    } catch (error) {
-      handleError(error, "지원 상태 확인 실패");
-      toastController.destructive("지원 상태 확인에 실패했습니다. 다시 시도해주세요.");
-    } finally {
-      setIsCheckingStatus(false);
-    }
+        // CONTINUE (TEMP_SAVED 또는 JOINED)
+        toastController.positive(APPLY_MESSAGE.success.continueWriting);
+        dispatch("goToApply", userEmail);
+      },
+      onError: error => {
+        handleError(error, "지원 상태 확인 실패");
+        toastController.destructive("지원 상태 확인에 실패했습니다. 다시 시도해주세요.");
+      },
+    });
   };
 
   const { mutate: pinLoginMutate, isPending: isPinLoginPending } = usePinLoginMutation({
     onSuccess: () => {
-      void checkApplyStatus(email);
+      handleCheckApplyStatus(email);
     },
     onError: error => {
       handleError(error, "PIN 로그인 실패");
@@ -212,6 +202,17 @@ export function IdentityVerificationStep({
       >
         다음
       </BlockButton.Basic>
+
+      <Dialog
+        open={isSubmittedDialogOpen}
+        onOpenChange={open => !open && setIsSubmittedDialogOpen(false)}
+        header={APPLY_DIALOG.submitted.header}
+        body={APPLY_DIALOG.submitted.body}
+        primaryAction={{
+          children: APPLY_DIALOG.submitted.primaryAction,
+          onClick: () => setIsSubmittedDialogOpen(false),
+        }}
+      />
     </ApplyStepLayout>
   );
 }

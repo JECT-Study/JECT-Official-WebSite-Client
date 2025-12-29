@@ -26,7 +26,7 @@ export function EmailVerificationStep({
   context,
   dispatch,
 }: EmailVerificationStepProps) {
-  const [showExistingMemberDialog, setShowExistingMemberDialog] = useState(false);
+  const [isExistingMemberDialogOpen, setIsExistingMemberDialogOpen] = useState(false);
 
   const handleBack = () => dispatch("goBack");
 
@@ -35,7 +35,7 @@ export function EmailVerificationStep({
   };
 
   const handleExistingMember = () => {
-    setShowExistingMemberDialog(true);
+    setIsExistingMemberDialogOpen(true);
   };
 
   return (
@@ -64,8 +64,8 @@ export function EmailVerificationStep({
       </BlockButton.Basic>
 
       <Dialog
-        open={showExistingMemberDialog}
-        onOpenChange={open => !open && setShowExistingMemberDialog(false)}
+        open={isExistingMemberDialogOpen}
+        onOpenChange={open => !open && setIsExistingMemberDialogOpen(false)}
         header={APPLY_DIALOG.tempSaved.header}
         body={APPLY_DIALOG.tempSaved.body}
         primaryAction={{
@@ -74,7 +74,7 @@ export function EmailVerificationStep({
         }}
         secondaryAction={{
           children: APPLY_DIALOG.tempSaved.secondaryAction,
-          onClick: () => setShowExistingMemberDialog(false),
+          onClick: () => setIsExistingMemberDialogOpen(false),
         }}
       />
     </ApplyStepLayout>

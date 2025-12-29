@@ -9,7 +9,6 @@ import {
 } from "./steps";
 
 import type { JobFamily } from "@/apis/apply";
-import { PATH } from "@/constants/path";
 import type { ContinueWritingFunnelSteps } from "@/types/funnel";
 
 interface ContinueWritingFunnelProps {
@@ -48,9 +47,6 @@ export function ContinueWritingFunnel({ jobFamily }: ContinueWritingFunnelProps)
               email,
               tempSavedStep: "APPLY" as const,
             });
-          },
-          goToSubmitted: () => {
-            void navigate(PATH.main);
           },
           goBack: () => {
             void navigate(-1);
