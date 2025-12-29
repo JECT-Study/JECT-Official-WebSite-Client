@@ -8,6 +8,7 @@ import {
   Label,
   LocalNavigation,
 } from "@ject/jds";
+import { useEffect } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 
 import positionBe from "@/assets/images/position-be.png";
@@ -105,6 +106,10 @@ const TeamProjectDetail = () => {
     펫핏: "9:21",
   };
 
+  useEffect(() => {
+    console.log(projectDetailData);
+  }, [projectDetailData]);
+
   if (isPending) {
     return null;
   }
@@ -113,15 +118,12 @@ const TeamProjectDetail = () => {
     return <Navigate to={PATH.nonSpecificError} replace />;
   }
 
-  if (
-    isSuccess &&
-    (projectDetailData?.status === "PROJECT_NOT_FOUND" || !projectDetailData?.data)
-  ) {
+  if (isSuccess && !projectDetailData) {
     return <Navigate to={PATH.notFoundError} replace />;
   }
 
-  const project = projectDetailData.data;
-  const isSemester1 = projectName.includes(project.name);
+  const project = projectDetailData;
+  const isSemester1 = project && projectName.includes(project.name);
 
   return (
     <div className='flex h-full w-full justify-center py-(--semantic-margin-2xl) pt-14'>
@@ -216,10 +218,6 @@ const TeamProjectDetail = () => {
                           {stack}
                         </Label>
                       ))}
-
-                      <Label size='md' textAlign='left' weight='bold'>
-                        React Native
-                      </Label>
                     </div>
                   </div>
                 </div>

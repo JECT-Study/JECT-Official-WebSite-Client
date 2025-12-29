@@ -4,8 +4,7 @@ import styled from "@emotion/styled";
 import { pxToRem } from "utils";
 
 import type { EmptyStateProps } from "./emptyState.types";
-
-import { BlockButton, Label } from "@/components";
+import { Label } from "../Label";
 
 const variantStylesMap = {
   outlined: (theme: Theme): CSSObject => ({
@@ -93,5 +92,3 @@ export const EmptyStateButtonContainerDiv = styled("div", {
     gap: theme.scheme.semantic.spacing[12],
   };
 });
-
-export const EmptyStateBlockButton = BlockButton.Basic;

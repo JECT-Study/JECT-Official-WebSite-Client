@@ -53,13 +53,16 @@ export const StyledGlobalNavigationRoot = styled(NavigationMenu.Root)(({ theme }
   alignItems: "center",
   gap: theme.scheme.semantic.spacing[24],
   width: pxToRem(922),
+  height: pxToRem(32),
 
   [theme.breakPoint.tablet]: {
     width: pxToRem(728),
+    height: pxToRem(26),
     gap: theme.scheme.semantic.spacing[20],
   },
 
   [theme.breakPoint.mobile]: {
+    height: pxToRem(20),
     gap: "none",
   },
 }));

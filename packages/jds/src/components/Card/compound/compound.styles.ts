@@ -185,7 +185,7 @@ const getContentStyles = (theme: Theme, variant: CardVariant, layout: CardLayout
     gap: theme.scheme.semantic.spacing[16],
   };
 
-  if (variant === "post" && isHorizontalLayout(layout)) {
+  if (variant === "post") {
     return { gap: theme.scheme.semantic.spacing[16] };
   }
 
@@ -331,6 +331,7 @@ export const StyledCardMetaItem = styled("span", {
 })(({ theme }) => ({
   ...theme.textStyle["semantic-textStyle-label-sm-normal"],
   color: "var(--card-caption-color)",
+  whiteSpace: "nowrap",
 }));
 
 export const StyledCardMetaNudgeItem = styled.span(({ theme }) => ({
@@ -362,7 +363,7 @@ export const StyledCardTitle = styled("h3", {
   color: "var(--card-title-color)",
   margin: 0,
   alignSelf: "stretch",
-  ...getTextEllipsisStyles(1),
+  textWrap: "wrap" as const,
 }));
 
 export const StyledCardLabel = styled("h4", {
@@ -468,3 +469,19 @@ export const StyledCardOverlay = styled("a", {
     }),
   };
 });
+
+export const StyledHorizontalPostContentWrap = styled("div", {
+  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith("$"),
+})(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  gap: theme.scheme.semantic.spacing[8],
+}));
+
+export const StyledHorizontalCardPostLayout = styled("div", {
+  shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith("$"),
+})(({ theme }) => ({
+  display: "flex",
+  gap: theme.scheme.semantic.spacing[24],
+  alignItems: "flex-start",
+}));
