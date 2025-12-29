@@ -9,7 +9,7 @@ type CheckApplyStatusResult =
 
 export function useCheckApplyStatusMutation() {
   return useMutation({
-    mutationFn: async (email: string): Promise<CheckApplyStatusResult> => {
+    mutationFn: async (): Promise<CheckApplyStatusResult> => {
       // 1. 프로필 등록 여부 확인
       const isProfileRegistered = await applyApi.getProfileInitialStatus();
 
@@ -18,7 +18,7 @@ export function useCheckApplyStatusMutation() {
       }
 
       // 2. 프로필 등록된 경우에만 지원 상태 확인
-      const { status } = await applyApi.getStatus(email);
+      const { status } = await applyApi.getStatus();
 
       if (status === "SUBMITTED") {
         return { result: "SUBMITTED" };

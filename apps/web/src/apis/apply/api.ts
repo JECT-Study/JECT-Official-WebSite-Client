@@ -39,13 +39,11 @@ export const applyApi = {
       memberProfileInitialStatusResponseSchema,
     ),
 
-  getStatus: (email: string) => {
-    const params = new URLSearchParams({ email });
-    return httpClient.get<ApplicationStatusResponseSchema>(
-      `${API_ENDPOINT.applyStatus}?${params.toString()}`,
+  getStatus: () =>
+    httpClient.get<ApplicationStatusResponseSchema>(
+      API_ENDPOINT.applyStatus,
       applicationStatusResponseSchema,
-    );
-  },
+    ),
 
   getProfile: () =>
     httpClient.get<MemberProfileResponseSchema>(

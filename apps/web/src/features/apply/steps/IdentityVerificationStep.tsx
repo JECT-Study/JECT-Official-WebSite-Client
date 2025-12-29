@@ -85,7 +85,7 @@ export function IdentityVerificationStep({
   const { mutate: checkApplyStatusMutate, isPending: isCheckingStatus } = useCheckApplyStatusMutation();
 
   const handleCheckApplyStatus = (userEmail: string) => {
-    checkApplyStatusMutate(userEmail, {
+    checkApplyStatusMutate(undefined, {
       onSuccess: data => {
         if (data.result === "PROFILE_NOT_REGISTERED") {
           dispatch("goToProfile", userEmail);
