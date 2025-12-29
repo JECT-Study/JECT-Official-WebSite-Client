@@ -261,7 +261,7 @@ export function ApplicantInfoStep({ context, onNext, onBack }: ApplicantInfoStep
                       *
                     </span>
                   </Label>
-                  <div className='grid h-[298px] grid-cols-3 grid-rows-6 gap-2 self-stretch max-md:h-[400px] max-md:grid-cols-2 max-md:grid-rows-8'>
+                  <div className='grid grid-cols-2 gap-2 self-stretch tablet:grid-cols-3'>
                     {INTERESTED_DOMAIN_OPTIONS.map(option => (
                       <Checkbox.Content
                         key={option.value}
