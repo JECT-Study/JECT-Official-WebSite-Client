@@ -2,7 +2,7 @@ import { BlockButton, LabelButton, TextField, toastController } from "@ject/jds"
 import type { FormEventHandler } from "react";
 import { useState } from "react";
 import { Controller } from "react-hook-form";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import { PATH } from "@/constants/path";
 import {
@@ -33,7 +33,6 @@ export function AuthCodeForm({
   onVerified,
   onExistingMember,
 }: AuthCodeFormProps) {
-  const navigate = useNavigate();
   const { jobFamily } = useParams<{ jobFamily: string }>();
 
   const [hasSentCode, setHasSentCode] = useState(false);
@@ -167,9 +166,7 @@ export function AuthCodeForm({
           hierarchy='secondary'
           suffixIcon='arrow-right-s-line'
           onClick={() => {
-            if (jobFamily) {
-              void navigate(`${PATH.applyGuide}/${jobFamily}?tab=faq&faq=faq-5`);
-            }
+            window.open(`${PATH.faq}/1/apply-5`, "_blank");
           }}
         >
           인증번호를 받지 못하셨나요?
