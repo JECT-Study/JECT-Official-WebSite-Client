@@ -44,10 +44,7 @@ interface JobFamilyMismatchDialog {
   savedJobFamily: JobFamily | null;
 }
 
-export function IdentityVerificationStep({
-  context,
-  dispatch,
-}: IdentityVerificationStepProps) {
+export function IdentityVerificationStep({ context, dispatch }: IdentityVerificationStepProps) {
   const location = useLocation();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -88,11 +85,14 @@ export function IdentityVerificationStep({
     toastController.basic("PIN 재설정 완료", "새로운 PIN을 입력해 본인 확인을 다시 진행해주세요.");
 
     // 3. URL 파라미터 정리
-    setSearchParams(prev => {
-      prev.delete("pinReset");
-      prev.delete("email");
-      return prev;
-    }, { replace: true });
+    setSearchParams(
+      prev => {
+        prev.delete("pinReset");
+        prev.delete("email");
+        return prev;
+      },
+      { replace: true },
+    );
   }, [isPinResetSuccess, prefillEmail, setEmailValue, setSearchParams]);
 
   const email = watchEmail("email");
@@ -100,7 +100,8 @@ export function IdentityVerificationStep({
 
   const [isChangingJobFamily, setIsChangingJobFamily] = useState(false);
 
-  const { mutate: checkApplyStatusMutate, isPending: isCheckingStatus } = useCheckApplyStatusMutation();
+  const { mutate: checkApplyStatusMutate, isPending: isCheckingStatus } =
+    useCheckApplyStatusMutation();
   const { mutateAsync: deleteDraftAsync } = useDeleteDraftMutation();
   const { mutateAsync: updateProfileAsync } = useMemberProfileMutation();
 
@@ -196,7 +197,7 @@ export function IdentityVerificationStep({
       // 3. 프로필 복원 (새로운 jobFamily로)
       await updateProfileAsync({
         name: profile.name,
-        phoneNumber: "", // TODO: getMe 응답에 phoneNumber가 없어서 임시 처리
+        phoneNumber: "01012345678", // TODO: getMe 응답에 phoneNumber가 없어서 임시 처리
         careerDetails: profile.careerDetails,
         region: profile.region,
         experiencePeriod: profile.experiencePeriod,
@@ -308,7 +309,11 @@ export function IdentityVerificationStep({
       {mismatchDialogContent && (
         <Dialog
           open={mismatchDialog.isOpen || isChangingJobFamily}
-          onOpenChange={open => !open && !isChangingJobFamily && setMismatchDialog({ isOpen: false, savedJobFamily: null })}
+          onOpenChange={open =>
+            !open &&
+            !isChangingJobFamily &&
+            setMismatchDialog({ isOpen: false, savedJobFamily: null })
+          }
           header={mismatchDialogContent.header}
           body={mismatchDialogContent.body}
           primaryAction={{
