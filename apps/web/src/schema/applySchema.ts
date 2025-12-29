@@ -101,7 +101,10 @@ export const applyApplicantInfoSchema = z.object({
 
   experiencePeriod: experiencePeriodEnum.optional(),
 
-  interestedDomains: z.array(interestedDomainEnum).min(1, "관심 도메인을 최소 1개 이상 선택해주세요."),
+  interestedDomains: z
+    .array(interestedDomainEnum)
+    .min(1, "관심 도메인을 최소 1개 이상 선택해주세요.")
+    .max(3, "관심 도메인은 최대 3개까지 선택 가능합니다."),
 });
 
 export type ApplyApplicantInfoFormData = z.infer<typeof applyApplicantInfoSchema>;
