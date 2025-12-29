@@ -3,12 +3,12 @@ import axios from "axios";
 
 import {
   applicationStatusResponseSchema,
-  memberProfileResponseSchema,
+  memberMeResponseSchema,
   memberProfileInitialStatusResponseSchema,
   questionResponseSchema,
   answersResponseSchema,
   type ApplicationStatusResponseSchema,
-  type MemberProfileResponseSchema,
+  type MemberMeResponseSchema,
   type MemberProfileInitialStatusResponseSchema,
   type QuestionResponseSchema,
   type AnswersResponseSchema,
@@ -45,10 +45,10 @@ export const applyApi = {
       applicationStatusResponseSchema,
     ),
 
-  getProfile: () =>
-    httpClient.get<MemberProfileResponseSchema>(
-      API_ENDPOINT.memberProfile,
-      memberProfileResponseSchema,
+  getMe: () =>
+    httpClient.get<MemberMeResponseSchema>(
+      API_ENDPOINT.memberMe,
+      memberMeResponseSchema,
     ),
 
   updateProfile: (data: MemberProfilePayload) =>

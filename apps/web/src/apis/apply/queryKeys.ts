@@ -57,7 +57,7 @@ export const applyQueries = {
   profile: {
     me: () => ({
       queryKey: applyQueryKeys.profile.me(),
-      queryFn: applyApi.getProfile,
+      queryFn: applyApi.getMe,
     }),
     initialStatus: () => ({
       queryKey: applyQueryKeys.profile.initialStatus(),

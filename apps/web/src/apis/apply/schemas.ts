@@ -65,16 +65,16 @@ export const interestedDomainSchema = z.enum([
   "HR",
 ]);
 
-export const memberProfileResponseSchema = z.object({
+export const memberMeResponseSchema = z.object({
+  id: z.number(),
   name: z.string(),
-  phoneNumber: z.string(),
   careerDetails: careerDetailsSchema,
   region: regionSchema,
   experiencePeriod: experiencePeriodSchema,
   interestedDomains: z.array(interestedDomainSchema),
 });
 
-export type MemberProfileResponseSchema = z.infer<typeof memberProfileResponseSchema>;
+export type MemberMeResponseSchema = z.infer<typeof memberMeResponseSchema>;
 
 export const questionInputTypeSchema = z.enum(["TEXT", "URL", "FILE", "SELECT"]);
 

@@ -67,4 +67,16 @@ export const APPLY_DIALOG = {
     ),
     primaryAction: "확인",
   },
+  jobFamilyMismatch: (savedJobFamilyKorean: string, currentJobFamilyKorean: string) => ({
+    header: `${savedJobFamilyKorean} 지원서가 임시저장되어 있어요`,
+    body: (
+      <>
+        {currentJobFamilyKorean}로 새로 지원하시면
+        <br />
+        기존 {savedJobFamilyKorean} 지원서는 사라져요.
+      </>
+    ),
+    primaryAction: `${savedJobFamilyKorean} 지원서 이어서 작성하기`,
+    secondaryAction: `${currentJobFamilyKorean}로 새로 지원하기`,
+  }),
 };
