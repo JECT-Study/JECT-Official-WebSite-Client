@@ -1,0 +1,17 @@
+import type { SVGProps } from "react";
+const SvgFlowChart = (props: SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns='http://www.w3.org/2000/svg'
+    width='1em'
+    height='1em'
+    fill='currentColor'
+    viewBox='0 0 24 24'
+    {...props}
+  >
+    <path
+      fill='currentColor'
+      d='M6 21.51a3.5 3.5 0 1 1 3.355-4.501H15v-2h2V9.253L14.757 7.01H9v2H3v-6h6v2h5.757L18 1.767l4.243 4.243L19 9.25v5.758h2v6h-6v-2l-5.645.001A3.5 3.5 0 0 1 6 21.51m0-5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m13 .5h-2v2h2zM18 4.596 16.586 6.01 18 7.424l1.414-1.414zM7 5.01H5v2h2z'
+    />
+  </svg>
+);
+export default SvgFlowChart;

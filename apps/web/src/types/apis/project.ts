@@ -1,0 +1,79 @@
+export interface ProjectReview {
+  id: number;
+  linkUrl: string;
+  title: string;
+  summary: string;
+  description: string;
+}
+
+export interface ProjectReviewsResponse {
+  content: ProjectReview[];
+  number: number;
+  size: number;
+  totalElements: number;
+  last: boolean;
+  totalPages: number;
+  numberOfElements: number;
+  hasNext: boolean;
+}
+
+export interface ProjectReviewsQueryParams {
+  page: number;
+  size: number;
+}
+
+export type ProjectCategory = "SEMESTER_1" | "SEMESTER_2" | "SEMESTER_3" | null;
+export type ProjectSort = "empty" | "unsorted" | "sorted";
+
+export interface Project {
+  id: number;
+  thumbnailUrl: string | null;
+  name: string;
+  summary: string;
+  description: string;
+  serviceType: string;
+}
+
+export interface ProjectListResponse {
+  content: Project[];
+  number: number;
+  size: number;
+  totalElements: number;
+  last: boolean;
+  totalPages: number;
+  numberOfElements: number;
+  hasNext: boolean;
+}
+
+export interface ProjectListQueryParams {
+  semesterId?: number;
+  category: ProjectCategory;
+  page: number;
+  size: number;
+  sort: ProjectSort;
+}
+
+export interface ProjectImageUrl {
+  imageUrl: string;
+  sequence: number;
+}
+
+export interface ProjectDetailResponse {
+  thumbnailUrl: string;
+  name: string;
+  startDate: string;
+  endDate: string;
+  teamMemberNames: {
+    productManagers: string[];
+    productDesigners: string[];
+    frontendDevelopers: string[];
+    backendDevelopers: string[];
+  };
+  techStack: string[];
+  badges: string[];
+  description: string;
+  serviceUrl: string;
+  bannerImageUrl: ProjectImageUrl | null;
+  sampleImageUrls: ProjectImageUrl[];
+  descriptionImageUrls: ProjectImageUrl[];
+}
