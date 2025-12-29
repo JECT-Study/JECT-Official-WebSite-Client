@@ -1,4 +1,4 @@
-import { toastController } from "@ject/jds";
+import { Dialog, toastController } from "@ject/jds";
 import { useFunnel } from "@use-funnel/react-router-dom";
 import { useNavigate } from "react-router-dom";
 
@@ -12,6 +12,7 @@ import {
 import { applyApi, type JobFamily } from "@/apis/apply";
 import { APPLY_MESSAGE } from "@/constants/applyMessages";
 import { PATH } from "@/constants/path";
+import { useNavigationBlock } from "@/hooks/useNavigationBlock";
 import type { ContinueWritingFunnelSteps } from "@/types/funnel";
 import { handleError } from "@/utils/errorLogger";
 
@@ -21,6 +22,11 @@ interface ContinueWritingFunnelProps {
 
 export function ContinueWritingFunnel({ jobFamily }: ContinueWritingFunnelProps) {
   const navigate = useNavigate();
+  const {
+    isDialogOpen,
+    handleConfirm,
+    handleCancel,
+  } = useNavigationBlock();
 
   const funnel = useFunnel<ContinueWritingFunnelSteps>({
     id: "continue-writing-funnel",
@@ -31,10 +37,11 @@ export function ContinueWritingFunnel({ jobFamily }: ContinueWritingFunnelProps)
   });
 
   const handleBackToFirst = () => {
-    void funnel.history.go(0);
+    void navigate(-1);
   };
 
   return (
+    <>
     <funnel.Render
       본인확인={({ context, history }) => (
         <IdentityVerificationStep
@@ -108,5 +115,20 @@ export function ContinueWritingFunnel({ jobFamily }: ContinueWritingFunnelProps)
       )}
       완료={({ context }) => <CompleteStep jobFamily={context.jobFamily} />}
     />
+    <Dialog
+      open={isDialogOpen}
+      onOpenChange={open => !open && handleCancel()}
+      header='작성된 내용이 모두 사라집니다'
+      body='작성을 그만두고 페이지에서 나가시겠어요?'
+      primaryAction={{
+        children: "페이지 나가기",
+        onClick: handleConfirm,
+      }}
+      secondaryAction={{
+        children: "취소",
+        onClick: handleCancel,
+      }}
+    />
+    </>
   );
 }

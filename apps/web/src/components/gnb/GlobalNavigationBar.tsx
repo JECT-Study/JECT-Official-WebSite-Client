@@ -7,9 +7,9 @@ import {
   useGlobalNavigationVariant,
 } from "@ject/jds";
 import { useMediaQueryFlags } from "@ject/jds/hooks";
+import type { MouseEvent } from "react";
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-
 
 import { JectMenu, JoinGuideMenu, ProgramMenu } from "./Menus";
 import { Sidebar } from "./Sidebar";
@@ -29,6 +29,11 @@ const GlobalNavigationBar = () => {
   const textColor = variant === "empty" && isHomePage ? "text-white!" : "";
   const blockButtonColor = variant === "empty" && isHomePage ? "bg-[#E7E7F3]! text-[#191B24]!" : "";
 
+  const handleLogoClick = (e: MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    void navigation("/");
+  };
+
   const handleThemeChange = (value: string) => {
     if (value === "light") {
       setLightTheme();
@@ -39,6 +44,10 @@ const GlobalNavigationBar = () => {
 
   const handleOpenSidebar = () => setIsOpenSidebar(true);
 
+  const handleApplyClick = () => {
+    void navigation(PATH.applyList);
+  };
+
   return (
     <div className='pointer-events-none fixed inset-0 z-50'>
       <GlobalNavigation.Root variant={variant} className='pointer-events-auto'>
@@ -48,6 +57,7 @@ const GlobalNavigationBar = () => {
           hierarchy='primary'
           height={isDesktop ? 16 : 14}
           className={`${textColor}`}
+          onClick={handleLogoClick}
         />
         {!isMobile && <GlobalNavigation.Divider />}
         <GlobalNavigation.List>
@@ -102,7 +112,7 @@ const GlobalNavigationBar = () => {
             <BlockButton.Basic
               hierarchy='primary'
               size={isTablet ? "xs" : "sm"}
-              onClick={() => void navigation(PATH.applyList)}
+              onClick={handleApplyClick}
               className={`${blockButtonColor}`}
             >
               지원하기

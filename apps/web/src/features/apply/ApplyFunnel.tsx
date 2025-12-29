@@ -1,3 +1,4 @@
+import { Dialog } from "@ject/jds";
 import { useFunnel } from "@use-funnel/react-router-dom";
 import { useNavigate } from "react-router-dom";
 
@@ -12,6 +13,7 @@ import {
 
 import type { JobFamily } from "@/apis/apply";
 import { PATH } from "@/constants/path";
+import { useNavigationBlock } from "@/hooks/useNavigationBlock";
 import type { ApplyFunnelSteps } from "@/types/funnel";
 
 interface ApplyFunnelProps {
@@ -20,20 +22,28 @@ interface ApplyFunnelProps {
 
 export function ApplyFunnel({ jobFamily }: ApplyFunnelProps) {
   const navigate = useNavigate();
+  const {
+    isDialogOpen,
+    handleConfirm,
+    handleCancel,
+  } = useNavigationBlock();
 
+  // TODO: 테스트 후 원래대로 복구 필요
   const funnel = useFunnel<ApplyFunnelSteps>({
     id: "apply-funnel",
     initial: {
-      step: "이메일인증",
-      context: { jobFamily },
+      step: "지원서작성",
+      context: { jobFamily, email: "test@test.com" },
     },
   });
 
   const handleBack = () => {
-    void navigate(`${PATH.applyGuide}/${jobFamily}`);
+    const targetPath = `${PATH.applyGuide}/${jobFamily}`;
+    void navigate(targetPath);
   };
 
   return (
+    <>
     <funnel.Render
       이메일인증={({ context, history }) => (
         <EmailVerificationStep
@@ -108,5 +118,20 @@ export function ApplyFunnel({ jobFamily }: ApplyFunnelProps) {
       )}
       완료={({ context }) => <CompleteStep jobFamily={context.jobFamily} />}
     />
+    <Dialog
+      open={isDialogOpen}
+      onOpenChange={open => !open && handleCancel()}
+      header='작성된 내용이 모두 사라집니다'
+      body='작성을 그만두고 페이지에서 나가시겠어요?'
+      primaryAction={{
+        children: "페이지 나가기",
+        onClick: handleConfirm,
+      }}
+      secondaryAction={{
+        children: "취소",
+        onClick: handleCancel,
+      }}
+    />
+  </>
   );
 }
