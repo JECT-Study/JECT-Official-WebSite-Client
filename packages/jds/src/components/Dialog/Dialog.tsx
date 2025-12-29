@@ -3,7 +3,6 @@ import { forwardRef } from "react";
 
 import {
   DialogBodyTextP,
-  DialogButton,
   DialogButtonContainerDiv,
   DialogContentDiv,
   DialogDiv,
@@ -13,6 +12,7 @@ import {
   DialogContent,
 } from "./Dialog.styles";
 import type { DialogProps } from "./Dialog.types";
+import { BlockButton } from "../Button/BlockButton";
 import { Checkbox } from "../Checkbox";
 
 export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
@@ -34,25 +34,29 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
 
     const renderButtons = () => {
       const primary = (
-        <DialogButton key='primary' $isButtonStretched={isButtonStretched} {...primaryAction} />
+        <BlockButton.Basic
+          key='primary'
+          style={{ width: isButtonStretched ? "100%" : "auto" }}
+          {...primaryAction}
+        />
       );
 
       const secondary = secondaryAction ? (
-        <DialogButton
+        <BlockButton.Basic
           key='secondary'
           variant='outlined'
           hierarchy='secondary'
-          $isButtonStretched={isButtonStretched}
+          style={{ width: isButtonStretched ? "100%" : "auto" }}
           {...secondaryAction}
         />
       ) : null;
 
       const tertiary = tertiaryAction ? (
-        <DialogButton
+        <BlockButton.Basic
           key='tertiary'
           variant='empty'
           hierarchy='tertiary'
-          $isButtonStretched={isButtonStretched}
+          style={{ width: isButtonStretched ? "100%" : "auto" }}
           {...tertiaryAction}
         />
       ) : null;

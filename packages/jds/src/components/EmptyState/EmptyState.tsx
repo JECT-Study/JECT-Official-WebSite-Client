@@ -5,10 +5,10 @@ import {
   EmptyStateRoot,
   EmptyStateBodyTextP,
   EmptyStateContentDiv,
-  EmptyStateBlockButton,
   EmptyStateButtonContainerDiv,
 } from "./emptyState.styles";
 import type { EmptyStateProps } from "./emptyState.types";
+import { BlockButton } from "../Button/BlockButton";
 import { Icon } from "../Icon";
 
 export const EmptyState = forwardRef<HTMLDivElement, EmptyStateProps>(
@@ -34,14 +34,14 @@ export const EmptyState = forwardRef<HTMLDivElement, EmptyStateProps>(
       return (
         <EmptyStateButtonContainerDiv $hasSecondary={hasSecondary}>
           {hasSecondary && (
-            <EmptyStateBlockButton
+            <BlockButton.Basic
               variant='outlined'
               hierarchy='secondary'
               size='sm'
               {...secondaryAction}
             />
           )}
-          <EmptyStateBlockButton size='sm' {...primaryAction} />
+          <BlockButton.Basic size='sm' {...primaryAction} />
         </EmptyStateButtonContainerDiv>
       );
     };
