@@ -32,14 +32,11 @@ const ProjectDetail = () => {
     return <Navigate to={PATH.nonSpecificError} replace />;
   }
 
-  if (
-    isSuccess &&
-    (projectDetailData?.status === "PROJECT_NOT_FOUND" || !projectDetailData?.data)
-  ) {
+  if (isSuccess && !projectDetailData) {
     return <Navigate to={PATH.notFoundError} replace />;
   }
 
-  const project = projectDetailData.data;
+  const project = projectDetailData;
 
   const teamRoles = [
     { id: "fe", title: "FE", members: project.teamMemberNames?.frontendDevelopers ?? [] },
