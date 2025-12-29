@@ -1,6 +1,6 @@
 import { Card, Hero, Select, SelectField, Title } from "@ject/jds";
 import Lottie from "lottie-react";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 
 import loadingSpinner from "@/assets/lottie/ject-loadingSpinner.json";
 import useCloseOutside from "@/hooks/useCloseOutside";
@@ -27,6 +27,7 @@ const TeamProject = () => {
 
   const {
     data: projectsData,
+    isLoading,
     isError,
     fetchNextPage,
     hasNextPage,
@@ -39,7 +40,7 @@ const TeamProject = () => {
     fetchNextPage,
   });
 
-  const allProjects: Project[] = projectsData?.pages.flatMap(page => page.data.content) ?? [];
+  const allProjects: Project[] = projectsData?.pages.flatMap(page => page.content) ?? [];
 
   return (
     <div className='flex h-full w-full justify-center py-(--semantic-margin-2xl) pt-14'>
@@ -69,32 +70,45 @@ const TeamProject = () => {
         </div>
 
         <div>
-          <div className='desktop:grid-cols-3 tablet:grid-cols-2 grid gap-x-5 gap-y-6'>
-            {allProjects.map(project => (
-              <div key={project.id} className='desktop:w-[294px] tablet:w-[350px] mobile:w-[320px]'>
-                <Card.Preset.PlateWithTitle.Link
-                  href={`/project/${project.id}`}
-                  layout='vertical'
-                  image={
-                    project.thumbnailUrl
-                      ? { src: project.thumbnailUrl, alt: project.summary }
-                      : undefined
-                  }
-                  title={project.name}
-                  body={project.description}
-                  caption={project.serviceType}
-                />
-              </div>
-            ))}
-          </div>
-
-          {!isError && allProjects.length > 0 && (
-            <div
-              ref={projectsObserverRef}
-              className='mt-6 flex h-10 w-full items-center justify-center'
-            >
-              {isFetchingNextPage && <Lottie animationData={loadingSpinner} />}
+          {isLoading && (
+            <div className='flex h-40 w-full items-center justify-center'>
+              <Lottie animationData={loadingSpinner} />
             </div>
+          )}
+
+          {!isLoading && (
+            <>
+              <div className='desktop:grid-cols-3 tablet:grid-cols-2 grid gap-x-5 gap-y-6'>
+                {allProjects.map(project => (
+                  <div
+                    key={project.id}
+                    className='desktop:w-[294px] tablet:w-[350px] mobile:w-[320px]'
+                  >
+                    <Card.Preset.PlateWithTitle.Link
+                      href={`/project/${project.id}`}
+                      layout='vertical'
+                      image={
+                        project.thumbnailUrl
+                          ? { src: project.thumbnailUrl, alt: project.summary }
+                          : undefined
+                      }
+                      title={project.name}
+                      body={project.description}
+                      caption={project.serviceType}
+                    />
+                  </div>
+                ))}
+              </div>
+
+              {!isError && allProjects.length > 0 && (
+                <div
+                  ref={projectsObserverRef}
+                  className='mt-6 flex h-10 w-full items-center justify-center'
+                >
+                  {isFetchingNextPage && <Lottie animationData={loadingSpinner} />}
+                </div>
+              )}
+            </>
           )}
         </div>
       </div>
