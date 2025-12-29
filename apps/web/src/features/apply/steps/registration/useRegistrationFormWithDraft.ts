@@ -1,14 +1,10 @@
 import type { Dispatch, SetStateAction } from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { formatDraftPortfolios } from "./utils";
 
 import type { JobFamily, Question } from "@/apis/apply";
-import {
-  useDeleteDraftMutation,
-  useDraftSuspenseQuery,
-  useQuestionsSuspenseQuery,
-} from "@/hooks/apply";
+import { useDraftSuspenseQuery, useQuestionsSuspenseQuery } from "@/hooks/apply";
 import type { AnswersByQuestionId, PortfolioFile } from "@/types/apis/application";
 
 interface UseRegistrationFormWithDraftReturn {
@@ -42,11 +38,11 @@ export function useRegistrationFormWithDraft(
 ): UseRegistrationFormWithDraftReturn {
   const { data: questionsData } = useQuestionsSuspenseQuery(jobFamily);
   const { data: draftData } = useDraftSuspenseQuery();
-  const { mutate: deleteDraft } = useDeleteDraftMutation();
 
   const questions: Question[] = questionsData.questionResponses;
 
-  // draft의 jobFamily와 현재 선택한 jobFamily가 다르면 draft 무시
+  // draft의 jobFamily와 현재 선택한 jobFamily가 다르면 클라이언트에서만 초기화
+  // (서버 draft는 유지 - DELETE /apply/temp는 프로필까지 삭제하므로 호출하지 않음)
   const isJobFamilyMismatch =
     draftData?.jobFamily != null && draftData.jobFamily !== jobFamily;
 
@@ -62,13 +58,6 @@ export function useRegistrationFormWithDraft(
     }
     return formatDraftPortfolios(draftData.portfolios);
   });
-
-  // jobFamily 불일치 시 서버의 draft 삭제
-  useEffect(() => {
-    if (isJobFamilyMismatch) {
-      deleteDraft();
-    }
-  }, [isJobFamilyMismatch, deleteDraft]);
 
   return {
     questions,

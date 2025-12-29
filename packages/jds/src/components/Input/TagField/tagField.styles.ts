@@ -292,6 +292,12 @@ export const StyledTagInput = styled("input", {
     "&::placeholder": {
       color: theme.color.semantic.object.assistive,
     },
+
+    "&:-webkit-autofill, &:-webkit-autofill:hover, &:-webkit-autofill:focus, &:-webkit-autofill:active": {
+      WebkitTextFillColor: textColor,
+      WebkitBoxShadow: `0 0 0 1000px ${theme.color.semantic.surface.standard} inset`,
+      transition: "background-color 5000s ease-in-out 0s",
+    },
   };
 });
 
