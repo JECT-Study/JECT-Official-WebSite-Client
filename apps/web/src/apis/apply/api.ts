@@ -4,10 +4,12 @@ import axios from "axios";
 import {
   applicationStatusResponseSchema,
   memberProfileResponseSchema,
+  memberProfileInitialStatusResponseSchema,
   questionResponseSchema,
   answersResponseSchema,
   type ApplicationStatusResponseSchema,
   type MemberProfileResponseSchema,
+  type MemberProfileInitialStatusResponseSchema,
   type QuestionResponseSchema,
   type AnswersResponseSchema,
   type JobFamily,
@@ -31,6 +33,12 @@ import type {
 import { httpClient } from "@/utils/httpClient";
 
 export const applyApi = {
+  getProfileInitialStatus: () =>
+    httpClient.get<MemberProfileInitialStatusResponseSchema>(
+      API_ENDPOINT.memberProfileInitialStatus,
+      memberProfileInitialStatusResponseSchema,
+    ),
+
   getStatus: (email: string) => {
     const params = new URLSearchParams({ email });
     return httpClient.get<ApplicationStatusResponseSchema>(
