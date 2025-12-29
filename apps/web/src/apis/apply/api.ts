@@ -64,10 +64,8 @@ export const applyApi = {
 
   getDraft: () => httpClient.get<AnswersResponseSchema>(API_ENDPOINT.draft, answersResponseSchema),
 
-  saveDraft: (jobFamily: JobFamily, answers: AnswersPayload) => {
-    const params = new URLSearchParams({ jobFamily });
-    return httpClient.post<null>(`${API_ENDPOINT.draft}?${params.toString()}`, answers);
-  },
+  saveDraft: (answers: AnswersPayload) =>
+    httpClient.post<null>(API_ENDPOINT.draft, answers),
 
   deleteDraft: () => httpClient.delete<null>(API_ENDPOINT.draft),
 

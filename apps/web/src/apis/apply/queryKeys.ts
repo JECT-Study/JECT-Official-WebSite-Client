@@ -7,7 +7,7 @@ export const applyQueryKeys = {
   all: ["apply"] as const,
   status: {
     all: () => [...applyQueryKeys.all, "status"] as const,
-    byEmail: (email: string) => [...applyQueryKeys.status.all(), "email", email] as const,
+    current: () => [...applyQueryKeys.status.all(), "current"] as const,
   },
   questions: {
     all: () => [...applyQueryKeys.all, "questions"] as const,
@@ -49,9 +49,9 @@ export const applyMutationKeys = {
 
 export const applyQueries = {
   status: {
-    byEmail: (email: string) => ({
-      queryKey: applyQueryKeys.status.byEmail(email),
-      queryFn: () => applyApi.getStatus(email),
+    current: () => ({
+      queryKey: applyQueryKeys.status.current(),
+      queryFn: () => applyApi.getStatus(),
     }),
   },
   profile: {

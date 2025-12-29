@@ -2,16 +2,11 @@ import { toastController } from "@ject/jds";
 import { captureException } from "@sentry/react";
 import { useMutation, useQueryClient, type UseMutationOptions } from "@tanstack/react-query";
 
-import { applyApi, applyMutationKeys, applyQueryKeys, type JobFamily } from "@/apis/apply";
+import { applyApi, applyMutationKeys, applyQueryKeys } from "@/apis/apply";
 import type { AnswersPayload } from "@/types/apis/application";
 
-interface SaveDraftVariables {
-  jobFamily: JobFamily;
-  answers: AnswersPayload;
-}
-
 type UseSaveDraftMutationOptions = Omit<
-  UseMutationOptions<null, Error, SaveDraftVariables, unknown>,
+  UseMutationOptions<null, Error, AnswersPayload, unknown>,
   "mutationKey" | "mutationFn"
 >;
 
@@ -21,7 +16,7 @@ export function useSaveDraftMutation(options?: UseSaveDraftMutationOptions) {
 
   return useMutation({
     mutationKey: applyMutationKeys.draft.save,
-    mutationFn: ({ jobFamily, answers }: SaveDraftVariables) => applyApi.saveDraft(jobFamily, answers),
+    mutationFn: (answers: AnswersPayload) => applyApi.saveDraft(answers),
     retry: 1,
     ...restOptions,
     onSuccess: (data, variables, onMutateResult, mutationContext) => {
