@@ -76,7 +76,7 @@ export const APPLY_DIALOG = {
         기존 {savedJobFamilyKorean} 지원서는 사라져요.
       </>
     ),
-    primaryAction: `${savedJobFamilyKorean} 지원서 이어서 작성하기`,
-    secondaryAction: `${currentJobFamilyKorean}로 새로 지원하기`,
+    primaryAction: `지원서 이어서 작성하기`,
+    secondaryAction: `새로 지원하기`,
   }),
 };
