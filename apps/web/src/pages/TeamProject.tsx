@@ -1,6 +1,6 @@
 import { Card, Hero, Select, SelectField, Title } from "@ject/jds";
 import Lottie from "lottie-react";
-import { useState, useRef, useEffect, useMemo } from "react";
+import { useState, useRef } from "react";
 
 import loadingSpinner from "@/assets/lottie/ject-loadingSpinner.json";
 import useCloseOutside from "@/hooks/useCloseOutside";
