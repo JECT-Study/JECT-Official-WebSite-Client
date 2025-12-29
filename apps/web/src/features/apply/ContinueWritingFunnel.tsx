@@ -1,4 +1,4 @@
-import { Dialog, toastController } from "@ject/jds";
+import { Dialog } from "@ject/jds";
 import { useFunnel } from "@use-funnel/react-router-dom";
 import { useNavigate } from "react-router-dom";
 
@@ -9,9 +9,7 @@ import {
   RegistrationStep,
 } from "./steps";
 
-import { applyApi, type JobFamily } from "@/apis/apply";
-import { APPLY_MESSAGE } from "@/constants/applyMessages";
-import { PATH } from "@/constants/path";
+import type { JobFamily } from "@/apis/apply";
 import { useNavigationBlock } from "@/hooks/useNavigationBlock";
 import type { ContinueWritingFunnelSteps } from "@/types/funnel";
 
