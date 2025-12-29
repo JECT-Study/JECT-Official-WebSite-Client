@@ -363,7 +363,7 @@ export const StyledCardTitle = styled("h3", {
   color: "var(--card-title-color)",
   margin: 0,
   alignSelf: "stretch",
-  ...getTextEllipsisStyles(1),
+  textWrap: "wrap" as const,
 }));
 
 export const StyledCardLabel = styled("h4", {
