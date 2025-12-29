@@ -20,6 +20,7 @@ export const applyQueryKeys = {
   profile: {
     all: () => [...applyQueryKeys.all, "profile"] as const,
     me: () => [...applyQueryKeys.profile.all(), "me"] as const,
+    initialStatus: () => [...applyQueryKeys.profile.all(), "initialStatus"] as const,
   },
 } as const;
 
@@ -57,6 +58,10 @@ export const applyQueries = {
     me: () => ({
       queryKey: applyQueryKeys.profile.me(),
       queryFn: applyApi.getProfile,
+    }),
+    initialStatus: () => ({
+      queryKey: applyQueryKeys.profile.initialStatus(),
+      queryFn: applyApi.getProfileInitialStatus,
     }),
   },
   questions: {

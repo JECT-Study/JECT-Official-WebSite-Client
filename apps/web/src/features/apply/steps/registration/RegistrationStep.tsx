@@ -158,6 +158,7 @@ export function RegistrationStep({ context, onNext, onBack }: RegistrationStepPr
         body={DIALOG_CONTENT.submitAnswer.body}
         primaryAction={{
           children: DIALOG_CONTENT.submitAnswer.primaryLabel,
+          hierarchy: "accent",
           onClick: handleSubmit,
         }}
         secondaryAction={{

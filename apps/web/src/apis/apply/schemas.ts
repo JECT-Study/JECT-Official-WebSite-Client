@@ -1,18 +1,18 @@
 import { z } from "zod";
 
-export const applicationStatusSchema = z.enum([
-  "NO_APPLICATION",
-  "JOINED",
-  "TEMP_SAVED",
-  "SUBMITTED",
-]);
+export const applicationStatusSchema = z.enum(["JOINED", "TEMP_SAVED", "SUBMITTED"]);
 
 export const applicationStatusResponseSchema = z.object({
   status: applicationStatusSchema,
-  step: z.enum(["PROFILE", "APPLY"]).optional(),
 });
 
 export type ApplicationStatusResponseSchema = z.infer<typeof applicationStatusResponseSchema>;
+
+export const memberProfileInitialStatusResponseSchema = z.boolean();
+
+export type MemberProfileInitialStatusResponseSchema = z.infer<
+  typeof memberProfileInitialStatusResponseSchema
+>;
 
 export const careerDetailsSchema = z.enum([
   "STUDENT",

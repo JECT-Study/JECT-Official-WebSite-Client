@@ -4,7 +4,7 @@ export const APPLY_MESSAGE = {
     nameLang: "이름은 한글로 작성해주세요.",
     phoneNumber: '"010"을 포함해 총 11자리까지만 입력해주세요.',
     url: "URL 형식이 올바르지 않아요. 다시 확인해주세요.",
-    fileSize: "첨부 가능한 최대 파일 용량을 다시 확인해주세요",
+    fileSize: "파일 첨부 시의 총 용량은 최대 100MB 이하로 제한됩니다.",
     answerSize: "작성한 필수 답변들을 다시 확인해주세요",
     fileType: "첨부 가능한 파일 형식을 다시 확인해주세요.",
     unknownFile: "정상적인 PDF 파일인지 다시 확인해주세요",
@@ -56,9 +56,15 @@ export const APPLY_DIALOG = {
   },
   submitted: {
     header: "이미 지원서가 접수된 이메일입니다",
-    body: `접수된 지원서는 수정하거나 취소할 수 없어요.
-내용 수정, 지원 취소 등은 다음의 연락처로 문의 부탁드립니다.
-문의: jectofficial@ject.kr`,
+    body: (
+      <>
+        접수된 지원서는 수정하거나 취소할 수 없어요.
+        <br />
+        내용 수정, 지원 취소 등은 다음의 연락처로 문의 부탁드립니다.
+        <br />
+        문의: jectofficial@ject.kr
+      </>
+    ),
     primaryAction: "확인",
   },
 };

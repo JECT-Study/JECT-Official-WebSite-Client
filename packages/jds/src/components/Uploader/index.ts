@@ -1,5 +1,6 @@
 export { Uploader } from "./Uploader";
 export type {
+  UploadError,
   UploadErrorType,
   UploaderOptions,
   UploaderFileProps,
