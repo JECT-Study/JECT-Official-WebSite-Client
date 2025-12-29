@@ -11,11 +11,13 @@ export {
   // 스키마
   applicationStatusResponseSchema,
   memberProfileResponseSchema,
+  memberProfileInitialStatusResponseSchema,
   questionResponseSchema,
   answersResponseSchema,
   // 스키마 타입
   type ApplicationStatusResponseSchema,
   type MemberProfileResponseSchema,
+  type MemberProfileInitialStatusResponseSchema,
   type QuestionResponseSchema,
   type AnswersResponseSchema,
   // 도메인 타입

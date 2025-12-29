@@ -24,11 +24,14 @@ import {
   findLabelByValue,
   type CareerDetails,
   type ExperiencePeriod,
+  type InterestedDomain,
   type Region,
 } from "@/types/funnel";
 import { deriveInputValidation } from "@/utils/validationHelpers";
 
 type SelectFieldName = "careerDetails" | "region" | "experiencePeriod";
+
+const MAX_SELECTABLE_DOMAINS = 3;
 
 interface ApplicantInfoStepProps {
   context: ApplicantInfoContext;
@@ -81,7 +84,14 @@ export function ApplicantInfoStep({ context, onNext, onBack }: ApplicantInfoStep
             control={control}
             render={({ field, fieldState }) => (
               <TextField
-                label={<>이름<span className='text-feedback-notifying-neutral-light dark:text-feedback-notifying-neutral-dark'>*</span></>}
+                label={
+                  <>
+                    이름
+                    <span className='text-feedback-notifying-neutral-light dark:text-feedback-notifying-neutral-dark'>
+                      *
+                    </span>
+                  </>
+                }
                 validation={deriveInputValidation({
                   hasError: Boolean(fieldState.error),
                   hasValue: Boolean(field.value?.length),
@@ -100,7 +110,14 @@ export function ApplicantInfoStep({ context, onNext, onBack }: ApplicantInfoStep
             render={({ field, fieldState }) => (
               <TextField
                 type='tel'
-                label={<>휴대폰 번호<span className='text-feedback-notifying-neutral-light dark:text-feedback-notifying-neutral-dark'>*</span></>}
+                label={
+                  <>
+                    휴대폰 번호
+                    <span className='text-feedback-notifying-neutral-light dark:text-feedback-notifying-neutral-dark'>
+                      *
+                    </span>
+                  </>
+                }
                 validation={deriveInputValidation({
                   hasError: Boolean(fieldState.error),
                   hasValue: Boolean(field.value?.length),
@@ -118,7 +135,14 @@ export function ApplicantInfoStep({ context, onNext, onBack }: ApplicantInfoStep
             render={({ field }) => (
               <div className='relative flex flex-col'>
                 <SelectField
-                  label={<>지원자 신분<span className='text-feedback-notifying-neutral-light dark:text-feedback-notifying-neutral-dark'>*</span></>}
+                  label={
+                    <>
+                      지원자 신분
+                      <span className='text-feedback-notifying-neutral-light dark:text-feedback-notifying-neutral-dark'>
+                        *
+                      </span>
+                    </>
+                  }
                   placeholder='현재 신분을 선택해주세요'
                   value={findLabelByValue(CAREER_DETAILS_OPTIONS, field.value)}
                   isOpen={openSelect === "careerDetails"}
@@ -151,7 +175,14 @@ export function ApplicantInfoStep({ context, onNext, onBack }: ApplicantInfoStep
             render={({ field }) => (
               <div className='relative flex flex-col'>
                 <SelectField
-                  label={<>거주 지역<span className='text-feedback-notifying-neutral-light dark:text-feedback-notifying-neutral-dark'>*</span></>}
+                  label={
+                    <>
+                      거주 지역
+                      <span className='text-feedback-notifying-neutral-light dark:text-feedback-notifying-neutral-dark'>
+                        *
+                      </span>
+                    </>
+                  }
                   placeholder='현재 거주하는 지역을 선택해주세요'
                   value={field.value ? findLabelByValue(REGION_OPTIONS, field.value) : ""}
                   isOpen={openSelect === "region"}
@@ -187,14 +218,16 @@ export function ApplicantInfoStep({ context, onNext, onBack }: ApplicantInfoStep
                   label='직무 관련 경험 기간'
                   placeholder='직무 관련 경험 기간을 선택해주세요'
                   labelIcon='information-line'
-                  value={findLabelByValue(EXPERIENCE_PERIOD_OPTIONS, field.value)}
+                  value={
+                    field.value ? findLabelByValue(EXPERIENCE_PERIOD_OPTIONS, field.value) : ""
+                  }
                   isOpen={openSelect === "experiencePeriod"}
                   onClick={() => toggleSelect("experiencePeriod")}
                 />
                 {openSelect === "experiencePeriod" && (
                   <div className='absolute top-[calc(100%+8px)] right-0 left-0 z-10'>
                     <Select
-                      value={field.value}
+                      value={field.value ?? ""}
                       onChange={value => {
                         field.onChange(value as ExperiencePeriod);
                         closeSelect();
@@ -215,28 +248,40 @@ export function ApplicantInfoStep({ context, onNext, onBack }: ApplicantInfoStep
           <Controller
             name='interestedDomains'
             control={control}
-            render={({ field }) => (
-              <div className='flex flex-col items-start justify-center gap-(--semantic-spacing-12) self-stretch'>
-                <Label size='md'>관심 도메인(최대 3개)<span className='text-feedback-notifying-neutral-light dark:text-feedback-notifying-neutral-dark'>*</span></Label>
-                <div className='grid h-[298px] grid-cols-3 grid-rows-6 gap-2 self-stretch max-md:h-[400px] max-md:grid-cols-2 max-md:grid-rows-8'>
-                  {INTERESTED_DOMAIN_OPTIONS.map(option => (
-                    <Checkbox.Content
-                      key={option.value}
-                      label={option.label}
-                      variant='outlined'
-                      checked={field.value.includes(option.value)}
-                      onCheckedChange={checked => {
-                        if (checked === true) {
-                          field.onChange([...field.value, option.value]);
-                        } else {
-                          field.onChange(field.value.filter(d => d !== option.value));
-                        }
-                      }}
-                    />
-                  ))}
+            render={({ field }) => {
+              const hasReachedMaxDomains = field.value.length >= MAX_SELECTABLE_DOMAINS;
+              const isOptionDisabled = (optionValue: InterestedDomain) =>
+                hasReachedMaxDomains && !field.value.includes(optionValue);
+
+              return (
+                <div className='flex flex-col items-start justify-center gap-(--semantic-spacing-12) self-stretch'>
+                  <Label size='md'>
+                    관심 도메인(최대 {MAX_SELECTABLE_DOMAINS}개)
+                    <span className='text-feedback-notifying-neutral-light dark:text-feedback-notifying-neutral-dark'>
+                      *
+                    </span>
+                  </Label>
+                  <div className='grid grid-cols-2 gap-2 self-stretch tablet:grid-cols-3'>
+                    {INTERESTED_DOMAIN_OPTIONS.map(option => (
+                      <Checkbox.Content
+                        key={option.value}
+                        label={option.label}
+                        variant='outlined'
+                        checked={field.value.includes(option.value)}
+                        disabled={isOptionDisabled(option.value)}
+                        onCheckedChange={checked => {
+                          if (checked === true) {
+                            field.onChange([...field.value, option.value]);
+                          } else {
+                            field.onChange(field.value.filter(d => d !== option.value));
+                          }
+                        }}
+                      />
+                    ))}
+                  </div>
                 </div>
-              </div>
-            )}
+              );
+            }}
           />
         </form>
       </div>

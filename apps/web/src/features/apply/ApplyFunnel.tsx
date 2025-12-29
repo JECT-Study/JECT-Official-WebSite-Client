@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import {
   EmailVerificationStep,
   PinSetupStep,
-  ApplicationStatusStep,
   ApplicantInfoStep,
   RegistrationStep,
   CompleteStep,
@@ -44,27 +43,27 @@ export function ApplyFunnel({ jobFamily }: ApplyFunnelProps) {
   return (
     <>
     <funnel.Render
-      이메일인증={({ context, history }) => (
-        <EmailVerificationStep
-          context={context}
-          onNext={(email, authCode) => {
+      이메일인증={funnel.Render.with({
+        events: {
+          onVerified: (payload: { email: string; authCode: string }, { context, history }) => {
             // 신규 회원: 인증 성공 → PIN 설정으로
             void history.push("PIN설정", {
               ...context,
-              email,
-              authCode,
+              ...payload,
             });
-          }}
-          onExistingMember={email => {
-            // 기존 회원 → 지원 상태 확인으로
-            void history.push("지원상태확인", {
-              ...context,
-              email,
-            });
-          }}
-          onBack={handleBack}
-        />
-      )}
+          },
+          goToContinueWriting: () => {
+            // 기존 회원: 이어서 작성하기로 이동
+            void navigate(`${PATH.applyContinue}/${jobFamily}`);
+          },
+          goBack: () => {
+            handleBack();
+          },
+        },
+        render({ context, dispatch }) {
+          return <EmailVerificationStep context={context} dispatch={dispatch} />;
+        },
+      })}
       PIN설정={({ context, history }) => (
         <PinSetupStep
           context={context}
@@ -73,20 +72,6 @@ export function ApplyFunnel({ jobFamily }: ApplyFunnelProps) {
             void history.push("지원자정보", {
               ...context,
             });
-          }}
-          onBack={handleBack}
-        />
-      )}
-      지원상태확인={({ context }) => (
-        <ApplicationStatusStep
-          context={context}
-          onContinueWriting={() => {
-            // 이어쓰기 선택 → ContinueWritingFunnel로 리다이렉트
-            void navigate(`${PATH.applyContinue}/${jobFamily}`);
-          }}
-          onAlreadySubmitted={() => {
-            // 이미 제출 완료 (SUBMITTED/JOINED) → 메인으로 리다이렉트
-            void navigate(PATH.main);
           }}
           onBack={handleBack}
         />

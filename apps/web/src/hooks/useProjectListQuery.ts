@@ -3,20 +3,18 @@ import type { AxiosError } from "axios";
 
 import { getProjectList } from "@/apis/project";
 import type { ProjectCategory, ProjectListResponse } from "@/types/apis/project";
-import type { ApiResponse } from "@/types/apis/response";
 
 export const useProjectListQuery = (category: ProjectCategory) => {
   return useInfiniteQuery<
-    ApiResponse<ProjectListResponse>,
+    ProjectListResponse,
     AxiosError,
-    InfiniteData<ApiResponse<ProjectListResponse>, number>,
+    InfiniteData<ProjectListResponse, number>,
     readonly [string, ProjectCategory],
     number
   >({
     queryKey: ["getProjectList", category],
-    queryFn: ({ pageParam }) => {
-      return getProjectList({
-        ...(category !== null && { category }),
+    queryFn: async ({ pageParam }): Promise<ProjectListResponse> => {
+      return await getProjectList({
         category,
         page: pageParam,
         size: 6,
@@ -25,10 +23,12 @@ export const useProjectListQuery = (category: ProjectCategory) => {
     },
     initialPageParam: 0,
     getNextPageParam: lastPage => {
-      if (lastPage.data.hasNext) {
-        return lastPage.data.number + 1;
+      if (lastPage.hasNext) {
+        return lastPage.number + 1;
       }
       return undefined;
     },
+    staleTime: 0,
+    gcTime: 0,
   });
 };

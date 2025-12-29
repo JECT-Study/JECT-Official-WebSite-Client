@@ -1,5 +1,8 @@
 import { BlockButton, toastController, Uploader } from "@ject/jds";
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
+
+type UploadErrorType = "FILE_TOO_LARGE" | "INVALID_TYPE" | "TOTAL_SIZE_EXCEEDED";
+type UploadError = { type: UploadErrorType; file: File };
 
 import {
   ALLOWED_FILE_EXTENSIONS,
@@ -43,6 +46,18 @@ export function FileQuestionField({
     useUploadFileToS3Mutation({ isSuccessToastEnabled: false, isErrorToastEnabled: false });
 
   const isUploading = isGettingUrls || isUploadingToS3;
+
+  const handleError = useCallback((error: UploadError) => {
+    switch (error.type) {
+      case "FILE_TOO_LARGE":
+      case "TOTAL_SIZE_EXCEEDED":
+        toastController.destructive("파일 첨부 최대 용량 초과", APPLY_MESSAGE.invalid.fileSize);
+        break;
+      case "INVALID_TYPE":
+        toastController.destructive("첨부 파일 확장자 오류", APPLY_MESSAGE.invalid.fileType);
+        break;
+    }
+  }, []);
 
   const handleUpload = async (files: File[]) => {
     // 1. PDF 필터링
@@ -120,6 +135,7 @@ export function FileQuestionField({
           isLoading={isUploading}
           isDisabled={isMaxSizeReached}
           onUpload={files => void handleUpload(files)}
+          onError={handleError}
           messages={{
             rest: (
               <>

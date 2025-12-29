@@ -16,7 +16,11 @@ import { theme } from "@ject/jds/tokens";
 import { useNavigate, useParams, useSearchParams, Navigate } from "react-router-dom";
 
 import type { JobFamily } from "@/apis/apply";
-import { findJobFamilyOption, JOB_FAMILY_OPTIONS } from "@/constants/applyPageData";
+import {
+  findJobFamilyOption,
+  JOB_FAMILY_OPTIONS,
+  JOB_FAMILY_RECRUITMENT_INFO,
+} from "@/constants/applyPageData";
 import { PATH } from "@/constants/path";
 
 type TabValue = "info" | "notice" | "faq";
@@ -31,6 +35,72 @@ const bodyTextStyle = css`
   ${theme.textStyle["semantic-textStyle-body-md-normal"]}
   color: ${theme.color.semantic.object.bold};
 `;
+
+const listStyle = css`
+  ${theme.textStyle["semantic-textStyle-body-md-normal"]}
+  color: ${theme.color.semantic.object.bold};
+  list-style-type: disc;
+  padding-left: ${theme.scheme.semantic.spacing[20]};
+`;
+
+function RecruitmentInfoContent({ jobFamily }: { jobFamily: JobFamily }) {
+  const info = JOB_FAMILY_RECRUITMENT_INFO[jobFamily];
+
+  return (
+    <div className='flex flex-col items-start gap-(--semantic-spacing-32) self-stretch'>
+      <div className='flex flex-col items-start gap-(--semantic-spacing-16) self-stretch'>
+        <Title size='xs' textAlign='left'>
+          젝트는 대한민국의 IT 동아리입니다
+        </Title>
+        <p css={bodyTextStyle}>
+          젝트는 개발, 기획(매니지먼트), 디자인 관련 포지션의 팀원들이 한 팀이 되어 실제 사용자에게
+          제공되는 디지털 서비스를 직접 만들고 운영하는 IT 동아리입니다.
+          <br />
+          <br />
+          기획–개발–디자인의 협업 과정 전반을 경험하며, 사용자의 불편함을 해결하는 프로덕트
+          개발-운영, 네트워킹을 통한 관계 구축을 핵심 가치로 삼고 있어요.
+          <br />
+          <br />
+          현재 폭발적인 성장을 거듭하고 있는 젝트는 3기까지 총 100명 이상의 구성원과 함께 12개의
+          프로젝트를 성공적으로 완료했으며, 26년 상반기를 함께할 4기 여러분들을 모집합니다.
+        </p>
+      </div>
+
+      <div className='flex flex-col items-start gap-(--semantic-spacing-16) self-stretch'>
+        <Title size='xs' textAlign='left'>
+          {info.roleDescription.title}
+        </Title>
+        <ul css={listStyle}>
+          {info.roleDescription.items.map((item, index) => (
+            <li key={index}>{item}</li>
+          ))}
+        </ul>
+      </div>
+
+      <div className='flex flex-col items-start gap-(--semantic-spacing-16) self-stretch'>
+        <Title size='xs' textAlign='left'>
+          {info.experiences.title}
+        </Title>
+        <ul css={listStyle}>
+          {info.experiences.items.map((item, index) => (
+            <li key={index}>{item}</li>
+          ))}
+        </ul>
+      </div>
+
+      <div className='flex flex-col items-start gap-(--semantic-spacing-16) self-stretch'>
+        <Title size='xs' textAlign='left'>
+          {info.qualifications.title}
+        </Title>
+        <ul css={listStyle}>
+          {info.qualifications.items.map((item, index) => (
+            <li key={index}>{item}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}
 
 function ApplyGuidePage() {
   const navigate = useNavigate();
@@ -153,108 +223,7 @@ function ApplyGuidePage() {
         </Tab.List>
 
         <Tab.Content value='info' className='w-full'>
-          <div className='flex flex-col items-start gap-(--semantic-spacing-32) self-stretch'>
-            <div className='flex flex-col items-start gap-(--semantic-spacing-16) self-stretch'>
-              <Title size='xs' textAlign='left'>
-                젝트는 대한민국의 IT 동아리입니다
-              </Title>
-              <p css={bodyTextStyle}>
-                젝트는 개발, 기획(매니지먼트), 디자인 관련 포지션의 팀원들이 한 팀이 되어 실제
-                사용자에게 제공되는 디지털 서비스를 직접 만들고 운영하는 IT 동아리입니다.
-                <br />
-                <br />
-                기획–개발–디자인의 협업 과정 전반을 경험하며, 사용자의 불편함을 해결하는 프로덕트
-                개발-운영, 네트워킹을 통한 관계 구축을 핵심 가치로 삼고 있어요.
-                <br />
-                <br />
-                현재 폭발적인 성장을 거듭하고 있는 젝트는 3기까지 총 100명 이상의 구성원과 함께
-                12개의 프로젝트를 성공적으로 완료했으며, 26년 상반기를 함께할 4기 여러분들을
-                모집합니다.
-              </p>
-            </div>
-            <div className='flex flex-col items-start gap-(--semantic-spacing-16) self-stretch'>
-              <Title size='xs' textAlign='left'>
-                프론트엔드 개발자는 사용자와 상호작용하는 화면을 구현합니다:
-              </Title>
-              <ul
-                css={[
-                  bodyTextStyle,
-                  css`
-                    list-style-type: disc;
-                    padding-left: ${theme.scheme.semantic.spacing[20]};
-                  `,
-                ]}
-              >
-                <li>
-                  사용자 경험을 증진시키기 위해 웹 화면을 구현하며 서비스 인터페이스 전반을
-                  책임집니다.
-                </li>
-                <li>PD, BE와 긴밀히 협업하며 데이터 흐름과 화면 설계를 자연스럽게 연결합니다.</li>
-                <li>
-                  React.js와 TypeScript를 활용해 구조적인 컴포넌트를 개발하고, 상태 관리를 통해
-                  일관된 사용자 흐름을 만듭니다.
-                </li>
-                <li>
-                  HTML/CSS/JavaScript 기반 UI 구현과 성능 최적화를 통해 유연한 사용자 경험을
-                  제공합니다.
-                </li>
-              </ul>
-            </div>
-            <div className='flex flex-col items-start gap-(--semantic-spacing-16) self-stretch'>
-              <Title size='xs' textAlign='left'>
-                이런 경험들을 할 수 있어요:
-              </Title>
-              <ul
-                css={[
-                  bodyTextStyle,
-                  css`
-                    list-style-type: disc;
-                    padding-left: ${theme.scheme.semantic.spacing[20]};
-                  `,
-                ]}
-              >
-                <li>
-                  React/TS 컴포넌트 설계, 반응형 UI, 상태 관리 로직 작성 등 실무형 FE 역량을
-                  강화하며 실제 서비스 수준의 웹 화면 개발을 처음부터 끝까지 경험할 수 있습니다.
-                </li>
-                <li>
-                  API 스펙 협의, Figma 디자인과의 매칭, 데이터 흐름 설계를 통틀어 PD, BE와
-                  협업합니다. 이 과정에서 ‘프론트엔드 개발자의 역할’을 명확히 이해할 수 있어요.
-                </li>
-                <li>
-                  렌더링 최적화, 컴포넌트 분리, 불필요한 리렌더링 관리 등 실무 기술들을 습득할 수
-                  있습니다.
-                </li>
-                <li>
-                  팀 프로젝트 협업을 경험하는 과정에서 FE로서 협업에 기여하는 방법을 배울 수
-                  있습니다.
-                </li>
-              </ul>
-            </div>
-            <div className='flex flex-col items-start gap-(--semantic-spacing-16) self-stretch'>
-              <Title size='xs' textAlign='left'>
-                이런 분과 함께 하고 싶어요:
-              </Title>
-              <ul
-                css={[
-                  bodyTextStyle,
-                  css`
-                    list-style-type: disc;
-                    padding-left: ${theme.scheme.semantic.spacing[20]};
-                  `,
-                ]}
-              >
-                <li>HTML/CSS/JS, React.js, TypeScript 등 기본적인 웹 기술에 대한 이해가 있는 분</li>
-                <li>상태 관리, 컴포넌트 설계 등에 관심이 많고 더 많이 성장하고 싶은 분</li>
-                <li>사용자 경험을 고려해 '왜 이렇게 구현해야 하는지'를 고민할 수 있는 분</li>
-                <li>PD, BE와 원활하게 소통하며 더 나은 화면 구조를 함께 만들어갈 수 있는 분</li>
-                <li>주도적으로 문제를 해결하고, 협업 과정에서 열린 태도로 소통할 수 있는 분</li>
-                <li>
-                  최소 5개월 동안 적극적으로 시간을 투자하고 끝까지 책임감 있게 활동할 수 있는 분
-                </li>
-              </ul>
-            </div>
-          </div>
+          <RecruitmentInfoContent jobFamily={jobFamily} />
         </Tab.Content>
 
         <Tab.Content value='notice' className='w-full'>

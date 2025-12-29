@@ -6,7 +6,6 @@ import type {
   ProjectReviewsQueryParams,
   ProjectReviewsResponse,
 } from "@/types/apis/project";
-import type { ApiResponse } from "@/types/apis/response";
 import { httpClient, requestHandler } from "@/utils/httpClient";
 
 export const getProjectReviews = async ({ page, size }: ProjectReviewsQueryParams) => {
@@ -29,11 +28,11 @@ export const getProjectList = async ({ category, page, size, sort }: ProjectList
   params.append("sort", sort.toString());
 
   const url = `${API_ENDPOINT.projectList}?${params.toString()}`;
-  return await httpClient.get<ApiResponse<ProjectListResponse>>(url);
+  return await httpClient.get<ProjectListResponse>(url);
 };
 
 export const getProjectDetail = async (projectId: string) => {
   const url = `${API_ENDPOINT.projectDetail.replace(":projectId", projectId)}`;
 
-  return await requestHandler<ProjectDetailResponse>("get", url);
+  return await httpClient.get<ProjectDetailResponse>(url);
 };

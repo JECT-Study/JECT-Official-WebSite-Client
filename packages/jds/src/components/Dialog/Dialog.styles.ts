@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { pxToRem, shadow } from "utils";
 
-import { BlockButton, Title } from "@/components";
+import { Title } from "../Title";
 
 const dialogOverlayFadeIn = keyframes`
   from { opacity: 0 }
@@ -72,6 +72,7 @@ export const DialogRoot = styled.div(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   alignItems: "flex-start",
+  width: `calc(100vw - ${pxToRem(32)})`,
   maxWidth: pxToRem(500),
   padding: theme.scheme.semantic.spacing[0],
   gap: theme.scheme.semantic.spacing[0],
@@ -99,9 +100,12 @@ export const DialogContentDiv = styled.div(({ theme }) => ({
   gap: theme.scheme.semantic.spacing[16],
 }));
 
-export const DialogTitle = Title;
+export const DialogTitle = styled(Title)({
+  alignSelf: "stretch",
+});
 
 export const DialogBodyTextP = styled.p(({ theme }) => ({
+  alignSelf: "stretch",
   color: theme.color.semantic.object.normal,
   ...theme.textStyle["semantic-textStyle-body-xs-normal"],
 }));
@@ -117,12 +121,4 @@ export const DialogButtonContainerDiv = styled("div", {
   alignSelf: "stretch",
   padding: theme.scheme.semantic.spacing[0],
   gap: theme.scheme.semantic.spacing[12],
-}));
-
-export const DialogButton = styled(BlockButton.Basic, {
-  shouldForwardProp: prop => prop !== "$isButtonStretched",
-})<{
-  $isButtonStretched?: boolean;
-}>(({ $isButtonStretched }) => ({
-  width: $isButtonStretched ? "100%" : "auto",
 }));
