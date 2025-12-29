@@ -1,4 +1,5 @@
 import { Callout, ContentBadge, EmptyState, Hero, Icon, Image, Label, LabelButton, Title as JdsTitle } from "@ject/jds";
+import { useNavigate } from "react-router-dom";
 
 import introTeamMeetingImage from "@/assets/images/intro-team-meeting.png";
 import { positionData, programData, statData } from "@/constants/mainPageData";
@@ -13,6 +14,8 @@ const positionCardStyles = {
 } as const;
 
 const IntroSection = () => {
+  const navigate = useNavigate();
+
   return (
     <section className='bg-(--semantic-surface-standard) px-0 py-(--semantic-margin-5xl)'>
       <div className='flex w-full flex-col items-center gap-(--semantic-spacing-128) px-(--semantic-margin-lg) pt-(--semantic-margin-xl) pb-(--semantic-spacing-80)'>
@@ -67,6 +70,7 @@ const IntroSection = () => {
               hierarchy='accent'
               size='lg'
               suffixIcon='arrow-right-line'
+              onClick={() => void navigate("/vision")}
             >
               젝트의 비전과 스토리에 대해
             </LabelButton.Basic>
