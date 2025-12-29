@@ -2,7 +2,6 @@ import { BlockButton, LabelButton, TextField, toastController } from "@ject/jds"
 import type { FormEventHandler } from "react";
 import { useState } from "react";
 import { Controller } from "react-hook-form";
-import { useParams } from "react-router-dom";
 
 import { PATH } from "@/constants/path";
 import {
@@ -33,8 +32,6 @@ export function AuthCodeForm({
   onVerified,
   onExistingMember,
 }: AuthCodeFormProps) {
-  const { jobFamily } = useParams<{ jobFamily: string }>();
-
   const [hasSentCode, setHasSentCode] = useState(false);
   const [emailErrorMessage, setEmailErrorMessage] = useState<string | null>(null);
   const [authCode, setAuthCode] = useState("");
