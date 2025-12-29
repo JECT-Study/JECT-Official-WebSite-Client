@@ -79,11 +79,8 @@ export function RegistrationStep({ context, onNext, onBack }: RegistrationStepPr
 
   //지원서 임시 저장
   const handleSaveDraft = useCallback(() => {
-    saveDraftMutate({
-      jobFamily,
-      answers: { answers, portfolios: formattedPortfolios },
-    });
-  }, [saveDraftMutate, answers, formattedPortfolios, jobFamily]);
+    saveDraftMutate({ answers, portfolios: formattedPortfolios });
+  }, [saveDraftMutate, answers, formattedPortfolios]);
 
   //지원서 제출
   const handleSubmit = useCallback(() => {

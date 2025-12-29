@@ -3,12 +3,12 @@ import axios from "axios";
 
 import {
   applicationStatusResponseSchema,
-  memberProfileResponseSchema,
+  memberMeResponseSchema,
   memberProfileInitialStatusResponseSchema,
   questionResponseSchema,
   answersResponseSchema,
   type ApplicationStatusResponseSchema,
-  type MemberProfileResponseSchema,
+  type MemberMeResponseSchema,
   type MemberProfileInitialStatusResponseSchema,
   type QuestionResponseSchema,
   type AnswersResponseSchema,
@@ -39,18 +39,16 @@ export const applyApi = {
       memberProfileInitialStatusResponseSchema,
     ),
 
-  getStatus: (email: string) => {
-    const params = new URLSearchParams({ email });
-    return httpClient.get<ApplicationStatusResponseSchema>(
-      `${API_ENDPOINT.applyStatus}?${params.toString()}`,
+  getStatus: () =>
+    httpClient.get<ApplicationStatusResponseSchema>(
+      API_ENDPOINT.applyStatus,
       applicationStatusResponseSchema,
-    );
-  },
+    ),
 
-  getProfile: () =>
-    httpClient.get<MemberProfileResponseSchema>(
-      API_ENDPOINT.memberProfile,
-      memberProfileResponseSchema,
+  getMe: () =>
+    httpClient.get<MemberMeResponseSchema>(
+      API_ENDPOINT.memberMe,
+      memberMeResponseSchema,
     ),
 
   updateProfile: (data: MemberProfilePayload) =>
@@ -66,10 +64,8 @@ export const applyApi = {
 
   getDraft: () => httpClient.get<AnswersResponseSchema>(API_ENDPOINT.draft, answersResponseSchema),
 
-  saveDraft: (jobFamily: JobFamily, answers: AnswersPayload) => {
-    const params = new URLSearchParams({ jobFamily });
-    return httpClient.post<null>(`${API_ENDPOINT.draft}?${params.toString()}`, answers);
-  },
+  saveDraft: (answers: AnswersPayload) =>
+    httpClient.post<null>(API_ENDPOINT.draft, answers),
 
   deleteDraft: () => httpClient.delete<null>(API_ENDPOINT.draft),
 
