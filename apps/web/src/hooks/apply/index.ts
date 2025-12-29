@@ -1,7 +1,6 @@
 // Suspense 쿼리
 export { useDraftSuspenseQuery } from "./useDraftSuspenseQuery";
 export { useMemberProfileSuspenseQuery } from "./useMemberProfileSuspenseQuery";
-export { useProfileInitialStatusSuspenseQuery } from "./useProfileInitialStatusSuspenseQuery";
 export { useQuestionsSuspenseQuery } from "./useQuestionsSuspenseQuery";
 
 // 기본 쿼리

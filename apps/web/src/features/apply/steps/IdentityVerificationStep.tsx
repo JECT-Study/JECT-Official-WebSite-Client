@@ -1,5 +1,4 @@
 import { BlockButton, LabelButton, TextField, toastController } from "@ject/jds";
-import { isAxiosError } from "axios";
 import { useEffect, useState } from "react";
 import { Controller } from "react-hook-form";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
@@ -90,17 +89,16 @@ export function IdentityVerificationStep({
   const checkApplyStatus = async (userEmail: string) => {
     setIsCheckingStatus(true);
     try {
-      // 1. 프로필 등록 여부 확인 (방어적 체크)
+      // 1. 프로필 등록 여부 확인
       const isProfileRegistered = await applyApi.getProfileInitialStatus();
 
       if (!isProfileRegistered) {
-        // PIN 로그인 성공 후 프로필 미등록 상태는 비정상
-        handleError(new Error("프로필 미등록 상태"), "비정상 접근");
-        toastController.destructive("가입되지 않은 회원입니다. 다시 시도해주세요.");
+        // 프로필 미작성 → 지원자정보(Step2)로 이동
+        dispatch("goToProfile", userEmail);
         return;
       }
 
-      // 2. 지원 상태 확인
+      // 2. 프로필 등록된 경우에만 지원 상태 확인
       const { status } = await applyApi.getStatus(userEmail);
 
       if (status === "SUBMITTED") {
@@ -113,11 +111,6 @@ export function IdentityVerificationStep({
       toastController.positive(APPLY_MESSAGE.success.continueWriting);
       dispatch("goToApply", userEmail);
     } catch (error) {
-      // 404 에러 → 지원서 정보 없음 → STEP2 (지원자정보)
-      if (isAxiosError(error) && error.response?.status === 404) {
-        dispatch("goToProfile", userEmail);
-        return;
-      }
       handleError(error, "지원 상태 확인 실패");
       toastController.destructive("지원 상태 확인에 실패했습니다. 다시 시도해주세요.");
     } finally {
