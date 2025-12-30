@@ -11,6 +11,8 @@ import "@/styles/global.css";
 
 import App from "./App";
 
+import { initializeUTMTracking } from "@/utils/analytics";
+
 // 루트 페이지에서 새로고침 시 항상 최상단으로 이동
 if (window.location.pathname === "/") {
   window.history.scrollRestoration = "manual";
@@ -24,6 +26,9 @@ amplitude.init(import.meta.env.VITE_AMPLITUDE_API_KEY, undefined, {
 });
 
 amplitude.add(sessionReplayPlugin({ sampleRate: 1 }));
+
+// UTM 파라미터 추적 초기화 (인스타그램 등 유입 경로 추적)
+initializeUTMTracking();
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

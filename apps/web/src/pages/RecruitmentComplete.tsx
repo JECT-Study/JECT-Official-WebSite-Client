@@ -2,6 +2,7 @@ import BlockButton from "@/components/common/button/BlockButton";
 import Icon from "@/components/common/icon/Icon";
 import Label from "@/components/common/label/Label";
 import Title from "@/components/common/title/Title";
+import { trackRecruitmentAlertClick } from "@/utils/analytics";
 
 function RecruitmentComplete() {
   const GENERATION = 3;
@@ -26,9 +27,10 @@ function RecruitmentComplete() {
             <Icon name='northEast' size='md' fillColor='fill-object-static-inverse-hero-dark' />
           }
           className='min-w-[26.25rem] cursor-pointer'
-          onClick={() =>
-            window.open("https://forms.gle/NB3bBYYgBVN9cV4M7", "_blank", "noopener,noreferrer")
-          }
+          onClick={() => {
+            trackRecruitmentAlertClick(GENERATION + 1);
+            window.open("https://forms.gle/NB3bBYYgBVN9cV4M7", "_blank", "noopener,noreferrer");
+          }}
         >
           {`${GENERATION + 1}기 모집 알림 신청`}
         </BlockButton>

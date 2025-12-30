@@ -3,11 +3,13 @@ import { useNavigate } from "react-router-dom";
 
 import joinTeamMeetingImage from "@/assets/images/join-team-meeting.png";
 import { PATH } from "@/constants/path";
+import { trackApplyStart } from "@/utils/analytics";
 
 const JoinSection = () => {
   const navigate = useNavigate();
 
   const handleApplyClick = () => {
+    trackApplyStart("home_join_section");
     void navigate(PATH.applyList as string);
   };
 

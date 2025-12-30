@@ -1,5 +1,6 @@
 import { Dialog } from "@ject/jds";
 import { useFunnel } from "@use-funnel/react-router-dom";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import {
@@ -12,6 +13,7 @@ import {
 import type { JobFamily } from "@/apis/apply";
 import { useNavigationBlock } from "@/hooks/useNavigationBlock";
 import type { ContinueWritingFunnelSteps } from "@/types/funnel";
+import { trackApplyStepView, trackApplyStepComplete, trackApplyComplete, APPLY_STEPS } from "@/utils/analytics";
 
 interface ContinueWritingFunnelProps {
   jobFamily: JobFamily;
@@ -32,6 +34,11 @@ export function ContinueWritingFunnel({ jobFamily }: ContinueWritingFunnelProps)
       context: { jobFamily },
     },
   });
+
+  // 단계 진입 시 트래킹 (이탈 지점 파악용)
+  useEffect(() => {
+    trackApplyStepView(funnel.step, jobFamily);
+  }, [funnel.step, jobFamily]);
 
   const handleBackToFirst = () => {
     void navigate(-1);
@@ -68,6 +75,7 @@ export function ContinueWritingFunnel({ jobFamily }: ContinueWritingFunnelProps)
         <ApplicantInfoStep
           context={context}
           onNext={() => {
+            trackApplyStepComplete(APPLY_STEPS.APPLICANT_INFO, context.jobFamily);
             void history.push("지원서작성", {
               jobFamily: context.jobFamily,
               email: context.email,
@@ -81,6 +89,8 @@ export function ContinueWritingFunnel({ jobFamily }: ContinueWritingFunnelProps)
         <RegistrationStep
           context={context}
           onNext={() => {
+            trackApplyStepComplete(APPLY_STEPS.REGISTRATION, context.jobFamily);
+            trackApplyComplete(context.jobFamily);
             void history.push("완료", { ...context });
           }}
           onBack={handleBackToFirst}
