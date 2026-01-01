@@ -1,11 +1,33 @@
 import * as amplitude from "@amplitude/analytics-browser";
 
 // GTM dataLayer 및 Meta Pixel 타입 정의
+interface FacebookPixelFunction {
+  (...args: unknown[]): void;
+  callMethod?: (...args: unknown[]) => void;
+  queue: unknown[][];
+  loaded: boolean;
+  version: string;
+  push: (...args: unknown[]) => void;
+}
+
 declare global {
   interface Window {
     dataLayer: Record<string, unknown>[];
-    fbq: (type: string, eventName: string, params?: Record<string, unknown>) => void;
+    fbq: FacebookPixelFunction;
+    _fbq?: FacebookPixelFunction;
   }
+}
+
+const PRODUCTION_HOSTNAME = "ject.kr";
+const META_PIXEL_ID = import.meta.env.VITE_META_PIXEL_ID || "896133299624681";
+const isAnalyticsDebugEnabled = import.meta.env.VITE_ANALYTICS_DEBUG === "true";
+
+export function isProductionEnvironment(): boolean {
+  return window.location.hostname === PRODUCTION_HOSTNAME;
+}
+
+export function isAnalyticsEnabled(): boolean {
+  return isProductionEnvironment() || isAnalyticsDebugEnabled;
 }
 
 export const ANALYTICS_EVENTS = {
@@ -49,12 +71,18 @@ function trackAmplitude(eventName: string, eventProperties: Record<string, unkno
 /**
  * 통합 이벤트 트래킹 함수
  * GTM(dataLayer)과 Amplitude 모두에 이벤트를 전송합니다.
+ * QA 환경에서는 VITE_ANALYTICS_DEBUG=true일 때만 활성화됩니다.
  */
 export function trackEvent(
   eventName: string,
   eventParams: Record<string, unknown> = {},
   options: TrackEventOptions = { isGTMEnabled: true, isAmplitudeEnabled: true },
 ) {
+  // Analytics가 비활성화된 환경에서는 스킵
+  if (!isAnalyticsEnabled()) {
+    return;
+  }
+
   const { isGTMEnabled = true, isAmplitudeEnabled = true } = options;
 
   // UTM 파라미터 추가
@@ -83,7 +111,7 @@ export function trackRecruitmentAlertClick(generation: number) {
   });
 
   // Meta Pixel - Lead 이벤트 (잠재 고객 확보)
-  if (typeof window.fbq === "function") {
+  if (isAnalyticsEnabled() && typeof window.fbq === "function") {
     window.fbq("track", "Lead", {
       content_name: `${generation}기 모집 알림 신청`,
     });
@@ -129,7 +157,7 @@ export function trackApplyComplete(jobFamily: string) {
   });
 
   // Meta Pixel - CompleteRegistration 이벤트 (지원 완료 = 전환)
-  if (typeof window.fbq === "function") {
+  if (isAnalyticsEnabled() && typeof window.fbq === "function") {
     window.fbq("track", "CompleteRegistration", {
       content_name: "지원 완료",
       content_category: jobFamily,
@@ -200,19 +228,72 @@ export function initializeUTMTracking() {
   const utmParams = extractUTMParams();
 
   if (Object.keys(utmParams).length > 0) {
-    // sessionStorage에 저장
+    // sessionStorage에 저장 (항상)
     storeUTMParams(utmParams);
 
-    // Amplitude 사용자 속성에 설정
-    const identify = new amplitude.Identify();
-    Object.entries(utmParams).forEach(([key, value]) => {
-      if (value) {
-        identify.set(key, value);
-      }
-    });
-    amplitude.identify(identify);
+    // Analytics 활성화 시 외부 서비스로 전송
+    if (isAnalyticsEnabled()) {
+      // Amplitude 사용자 속성에 설정
+      const identify = new amplitude.Identify();
+      Object.entries(utmParams).forEach(([key, value]) => {
+        if (value) {
+          identify.set(key, value);
+        }
+      });
+      amplitude.identify(identify);
 
-    // GTM에도 전송
-    pushToDataLayer("utm_captured", utmParams);
+      // GTM에도 전송
+      pushToDataLayer("utm_captured", utmParams);
+    }
   }
+}
+
+// ===== Meta Pixel 관련 =====
+
+/**
+ * Meta Pixel 초기화 (앱 시작 시 호출)
+ * 스크립트를 동적으로 로드하고 PageView 이벤트를 전송합니다.
+ */
+export function initializeMetaPixel() {
+  // Analytics가 비활성화된 환경에서는 초기화하지 않음
+  if (!isAnalyticsEnabled()) {
+    return;
+  }
+
+  // 이미 로드된 경우 스킵
+  if (typeof window.fbq === "function") {
+    return;
+  }
+
+  // fbq 함수 초기화
+  const fbq = function (...args: unknown[]) {
+    if (fbq.callMethod) {
+      fbq.callMethod(...args);
+    } else {
+      fbq.queue.push(args);
+    }
+  } as FacebookPixelFunction;
+
+  if (!window._fbq) {
+    window._fbq = fbq;
+  }
+
+  fbq.push = fbq;
+  fbq.loaded = true;
+  fbq.version = "2.0";
+  fbq.queue = [];
+  window.fbq = fbq;
+
+  // 스크립트 동적 로드
+  const script = document.createElement("script");
+  script.async = true;
+  script.src = "https://connect.facebook.net/en_US/fbevents.js";
+  const firstScript = document.getElementsByTagName("script")[0];
+  if (firstScript?.parentNode) {
+    firstScript.parentNode.insertBefore(script, firstScript);
+  }
+
+  // 초기화 및 PageView 이벤트
+  window.fbq("init", META_PIXEL_ID);
+  window.fbq("track", "PageView");
 }
