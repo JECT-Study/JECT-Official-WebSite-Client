@@ -11,7 +11,7 @@ import "@/styles/global.css";
 
 import App from "./App";
 
-import { initializeUTMTracking } from "@/utils/analytics";
+import { initializeUTMTracking, initializeMetaPixel, isAnalyticsEnabled } from "@/utils/analytics";
 
 // 루트 페이지에서 새로고침 시 항상 최상단으로 이동
 if (window.location.pathname === "/") {
@@ -21,14 +21,19 @@ if (window.location.pathname === "/") {
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
-amplitude.init(import.meta.env.VITE_AMPLITUDE_API_KEY, undefined, {
-  autocapture: { elementInteractions: true },
-});
+// Analytics 초기화 - 운영 환경 또는 VITE_ANALYTICS_DEBUG=true일 때 활성화
+if (isAnalyticsEnabled()) {
+  amplitude.init(import.meta.env.VITE_AMPLITUDE_API_KEY, undefined, {
+    autocapture: { elementInteractions: true },
+  });
+  amplitude.add(sessionReplayPlugin({ sampleRate: 1 }));
 
-amplitude.add(sessionReplayPlugin({ sampleRate: 1 }));
+  // Meta Pixel
+  initializeMetaPixel();
 
-// UTM 파라미터 추적 초기화 (인스타그램 등 유입 경로 추적)
-initializeUTMTracking();
+  // UTM 파라미터 추적 초기화 (인스타그램 등 유입 경로 추적)
+  initializeUTMTracking();
+}
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
