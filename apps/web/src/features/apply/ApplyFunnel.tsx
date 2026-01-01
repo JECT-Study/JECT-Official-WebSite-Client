@@ -1,5 +1,6 @@
 import { Dialog } from "@ject/jds";
 import { useFunnel } from "@use-funnel/react-router-dom";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import {
@@ -14,6 +15,7 @@ import type { JobFamily } from "@/apis/apply";
 import { PATH } from "@/constants/path";
 import { useNavigationBlock } from "@/hooks/useNavigationBlock";
 import type { ApplyFunnelSteps } from "@/types/funnel";
+import { trackApplyStepView, trackApplyStepComplete, trackApplyComplete, APPLY_STEPS } from "@/utils/analytics";
 
 interface ApplyFunnelProps {
   jobFamily: JobFamily;
@@ -35,6 +37,11 @@ export function ApplyFunnel({ jobFamily }: ApplyFunnelProps) {
     },
   });
 
+  // 단계 진입 시 트래킹 (이탈 지점 파악용)
+  useEffect(() => {
+    trackApplyStepView(funnel.step, jobFamily);
+  }, [funnel.step, jobFamily]);
+
   const handleBack = () => {
     const targetPath = `${PATH.applyGuide}/${jobFamily}`;
     void navigate(targetPath);
@@ -47,6 +54,7 @@ export function ApplyFunnel({ jobFamily }: ApplyFunnelProps) {
         events: {
           onVerified: (payload: { email: string; authCode: string }, { context, history }) => {
             // 신규 회원: 인증 성공 → PIN 설정으로
+            trackApplyStepComplete(APPLY_STEPS.EMAIL_VERIFICATION, context.jobFamily);
             void history.push("PIN설정", {
               ...context,
               ...payload,
@@ -69,6 +77,7 @@ export function ApplyFunnel({ jobFamily }: ApplyFunnelProps) {
           context={context}
           onNext={() => {
             // 회원가입 성공 → 지원자 정보 입력으로
+            trackApplyStepComplete(APPLY_STEPS.PIN_SETUP, context.jobFamily);
             void history.push("지원자정보", {
               ...context,
             });
@@ -81,6 +90,7 @@ export function ApplyFunnel({ jobFamily }: ApplyFunnelProps) {
           context={context}
           onNext={() => {
             // 프로필 저장 성공 → 지원서 작성으로
+            trackApplyStepComplete(APPLY_STEPS.APPLICANT_INFO, context.jobFamily);
             void history.push("지원서작성", {
               ...context,
             });
@@ -93,6 +103,8 @@ export function ApplyFunnel({ jobFamily }: ApplyFunnelProps) {
           context={context}
           onNext={() => {
             // 제출 성공 → 완료
+            trackApplyStepComplete(APPLY_STEPS.REGISTRATION, context.jobFamily);
+            trackApplyComplete(context.jobFamily);
             void history.push("완료", {
               ...context,
             });
