@@ -127,36 +127,55 @@ function truncate(value: string, max: number) {
 
 // 핸들러 - Vercel이 Sentry로 부터 HTTP 요청을 받으면 수행됨
 export default async function handler(req: VercelRequest, res: VercelResponse) {
+  console.log("=== Handler Start ===");
+  console.log("Method:", req.method);
+  console.log("Body:", JSON.stringify(req.body));
+  console.log("Sentry Signature:", req.headers["sentry-hook-signature"]);
+
   if (req.method !== "POST") {
+    console.log("Rejected: Not POST method");
     return res.status(405).end();
   }
 
   if (!req.headers["sentry-hook-signature"]) {
+    console.log("Rejected: No sentry-hook-signature");
     return res.status(401).json({ error: "Invalid source" });
   }
 
   const webhookUrl = process.env.DISCORD_WEBHOOK_URL;
+  console.log("Webhook URL exists:", !!webhookUrl);
+
   if (!webhookUrl) {
+    console.log("Rejected: No webhook URL configured");
     return res.status(500).json({ error: "Webhook not configured" });
   }
 
   const payload = req.body as Payload;
+  console.log("Payload parsed:", !!payload);
 
   if (shouldSkip(payload)) {
+    console.log("Skipped: shouldSkip returned true");
     return res.status(200).json({ skipped: true });
   }
 
   const sentryUrl = (req.headers["sentry-hook-resource"] as string) ?? "";
+  console.log("Sentry URL:", sentryUrl);
 
   try {
-    await fetch(webhookUrl, {
+    console.log("Sending to Discord...");
+    const discordPayload = createDiscordPayload(payload, sentryUrl);
+    console.log("Discord payload:", JSON.stringify(discordPayload));
+
+    const response = await fetch(webhookUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(createDiscordPayload(payload, sentryUrl)),
+      body: JSON.stringify(discordPayload),
     });
+    console.log("Discord response status:", response.status);
   } catch (error) {
-    console.error("Discord webhook failed", error);
+    console.error("Discord webhook failed:", error);
   }
 
+  console.log("=== Handler End ===");
   return res.status(200).json({ ok: true });
 }
