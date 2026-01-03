@@ -39,7 +39,7 @@ function isIssuePayload(payload: Payload): payload is SentryIssuePayload {
 }
 
 //필터 기능 - 중요한 알림만 받도록 필터링(노이즈 줄이기)
-const ALLOWED_ACTIONS = new Set(["created", "regressed"]);
+const ALLOWED_ACTIONS = new Set(["created", "regressed", "triggered"]);
 
 function shouldSkip(payload: Payload): boolean {
   if (isIssuePayload(payload)) {
