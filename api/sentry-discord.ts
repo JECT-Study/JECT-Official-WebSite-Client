@@ -127,36 +127,43 @@ function truncate(value: string, max: number) {
 
 // 핸들러 - Vercel이 Sentry로 부터 HTTP 요청을 받으면 수행됨
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  if (req.method !== "POST") {
-    return res.status(405).end();
-  }
-
-  if (!req.headers["sentry-hook-signature"]) {
-    return res.status(401).json({ error: "Invalid source" });
-  }
-
-  const webhookUrl = process.env.DISCORD_WEBHOOK_URL;
-  if (!webhookUrl) {
-    return res.status(500).json({ error: "Webhook not configured" });
-  }
-
-  const payload = req.body as Payload;
-
-  if (shouldSkip(payload)) {
-    return res.status(200).json({ skipped: true });
-  }
-
-  const sentryUrl = (req.headers["sentry-hook-resource"] as string) ?? "";
-
   try {
-    await fetch(webhookUrl, {
+    if (req.method !== "POST") {
+      return res.status(405).end();
+    }
+
+    if (!req.headers["sentry-hook-signature"]) {
+      return res.status(401).json({ error: "Invalid source" });
+    }
+
+    const webhookUrl = process.env.DISCORD_WEBHOOK_URL;
+    if (!webhookUrl) {
+      return res.status(500).json({ error: "Webhook not configured" });
+    }
+
+    const payload = req.body as Payload;
+
+    if (shouldSkip(payload)) {
+      return res.status(200).json({ skipped: true });
+    }
+
+    const sentryUrl = (req.headers["sentry-hook-resource"] as string) ?? "";
+
+    const discordResponse = await fetch(webhookUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(createDiscordPayload(payload, sentryUrl)),
     });
-  } catch (error) {
-    console.error("Discord webhook failed", error);
-  }
 
-  return res.status(200).json({ ok: true });
+    if (!discordResponse.ok) {
+      const errorText = await discordResponse.text();
+      console.error("Discord API error:", errorText);
+      return res.status(200).json({ ok: false, discordError: errorText });
+    }
+
+    return res.status(200).json({ ok: true });
+  } catch (error) {
+    console.error("Handler error:", error);
+    return res.status(500).json({ error: String(error) });
+  }
 }
