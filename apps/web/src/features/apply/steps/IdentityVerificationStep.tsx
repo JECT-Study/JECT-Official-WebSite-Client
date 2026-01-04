@@ -154,7 +154,7 @@ export function IdentityVerificationStep({ context, dispatch }: IdentityVerifica
       },
       onError: error => {
         handleError(error, "지원 상태 확인 실패");
-        //Todo: 요구사항에 있는 form 에러로
+        //Todo: 지원 상태 확인 실패 시 출력되어야 하는 문구 요청한 상태
         toastController.destructive(APPLY_MESSAGE.fail.checkApplyStatus);
       },
     });
@@ -167,8 +167,8 @@ export function IdentityVerificationStep({ context, dispatch }: IdentityVerifica
     onError: error => {
       handleError(error, "PIN 로그인 실패");
       setPinError("pin", {
-        type: "manual",
-        message: "이메일 또는 PIN이 올바르지 않습니다.",
+        type: "apiError",
+        message: "이메일 혹은 PIN이 올바르지 않습니다. 다시 확인 후 입력해주세요.",
       });
     },
   });
