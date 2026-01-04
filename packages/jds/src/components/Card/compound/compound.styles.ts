@@ -30,8 +30,6 @@ const isPlateCard = (variant: CardVariant): boolean => variant === "plate";
 
 const isVerticalLayout = (layout: CardLayout): boolean => layout === "vertical";
 
-const isHorizontalLayout = (layout: CardLayout): boolean => layout === "horizontal";
-
 const getLayoutStyles = (layout: CardLayout): CSSObject => ({
   flexDirection: isVerticalLayout(layout) ? "column" : "row",
 });
