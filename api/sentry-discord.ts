@@ -15,6 +15,7 @@ interface SentryEvent {
   title: string;
   environment?: string;
   tags: Array<[string, string]>;
+  web_url?: string;
 }
 
 interface SentryWebhookPayload {
@@ -73,7 +74,7 @@ function createIssueEmbed(issue: SentryIssue, action: string, actorName: string,
   };
 }
 
-function createEventEmbed(event: SentryEvent, triggeredRule: string, sentryUrl: string) {
+function createEventEmbed(event: SentryEvent, triggeredRule: string) {
   const tags = Object.fromEntries(event.tags);
 
   return {
@@ -82,7 +83,7 @@ function createEventEmbed(event: SentryEvent, triggeredRule: string, sentryUrl: 
         title: `[ERROR] ${event.title}`,
         description: triggeredRule ? `Rule: ${triggeredRule}` : "Sentry Alert",
         color: 0xff0000,
-        url: sentryUrl,
+        ...(event.web_url && { url: event.web_url }),
         fields: [
           { name: "Environment", value: event.environment ?? "Unknown", inline: true },
           { name: "Browser", value: tags.browser ?? "-", inline: true },
@@ -106,7 +107,7 @@ function createDiscordPayload(payload: SentryWebhookPayload, sentryUrl: string) 
   }
 
   if (hasEvent(payload) && payload.data.event) {
-    return createEventEmbed(payload.data.event, payload.triggered_rule ?? "", sentryUrl);
+    return createEventEmbed(payload.data.event, payload.triggered_rule ?? "");
   }
 
   // fallback
