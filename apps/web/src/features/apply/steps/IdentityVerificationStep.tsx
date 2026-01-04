@@ -197,7 +197,7 @@ export function IdentityVerificationStep({ context, dispatch }: IdentityVerifica
       // 3. 프로필 복원 (새로운 jobFamily로)
       await updateProfileAsync({
         name: profile.name,
-        phoneNumber: "01012345678", // TODO: getMe 응답에 phoneNumber가 없어서 임시 처리
+        phoneNumber: profile.phoneNumber,
         careerDetails: profile.careerDetails,
         region: profile.region,
         experiencePeriod: profile.experiencePeriod,
