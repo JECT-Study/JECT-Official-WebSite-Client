@@ -18,6 +18,10 @@ export const APPLY_MESSAGE = {
     resetPin: "PIN을 다시 설정했어요",
     loadProfile: "프로필을 불러왔어요.",
     continueWriting: "본인 확인 완료, 이제 지원서를 이어서 작성할 수 있어요.",
+    pinResetComplete: {
+      title: "PIN 재설정 완료",
+      body: "새로운 PIN을 입력해 본인 확인을 다시 진행해주세요.",
+    },
   },
   fail: {
     pin: "PIN이 올바르지 않아요. 다시 확인해주세요.",
@@ -26,6 +30,9 @@ export const APPLY_MESSAGE = {
     uploadFile: "네트워크 점검 후 파일을 다시 첨부해주세요",
     loadProfile: "프로필을 불러오는데 실패했습니다. 다시 시도해주세요.",
     saveProfile: "프로필 저장에 실패했습니다. 다시 시도해주세요.",
+    loadDraft: "임시저장 데이터를 불러오지 못했습니다. 새로운 지원서를 작성해주세요.",
+    checkApplyStatus: "지원 상태 확인에 실패했습니다. 다시 시도해주세요.",
+    changeJobFamily: "파트 변경에 실패했습니다. 다시 시도해주세요.",
   },
   conflict: {
     email: "이미 지원서 제출을 완료한 이메일이에요",
