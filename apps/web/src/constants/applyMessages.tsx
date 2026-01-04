@@ -37,7 +37,10 @@ export const APPLY_MESSAGE = {
       title: "지원서 불러오기가 실패했습니다",
       body: "데이터베이스 관련 혹은 일시적인 오류로 인해 지원서 내용을 불러올 수 없습니다. 불편을 드려 죄송하고, 재작성 부탁드립니다.",
     },
-    checkApplyStatus: "지원 상태 확인에 실패했습니다. 다시 시도해주세요.",
+    checkApplyStatus: {
+      title: "지원 상태 확인을 실패했습니다",
+      body: "일시적 오류일 수 있으니 다시 시도해주세요. 같은 문제가 계속 발생한다면, jectofficial@ject.kr로 문의해주세요.",
+    },
     changeJobFamily: "파트 변경에 실패했습니다. 다시 시도해주세요.",
   },
   conflict: {

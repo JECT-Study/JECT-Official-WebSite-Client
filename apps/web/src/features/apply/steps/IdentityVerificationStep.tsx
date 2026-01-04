@@ -154,8 +154,10 @@ export function IdentityVerificationStep({ context, dispatch }: IdentityVerifica
       },
       onError: error => {
         handleError(error, "지원 상태 확인 실패");
-        //Todo: 지원 상태 확인 실패 시 출력되어야 하는 문구 요청한 상태
-        toastController.destructive(APPLY_MESSAGE.fail.checkApplyStatus);
+        toastController.destructive(
+          APPLY_MESSAGE.fail.checkApplyStatus.title,
+          APPLY_MESSAGE.fail.checkApplyStatus.body,
+        );
       },
     });
   };
