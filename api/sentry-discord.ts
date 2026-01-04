@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 
-//Sentry 관련 타입
+// Sentry Webhook Payload 타입
 interface SentryIssue {
   title: string;
   culprit: string;
@@ -11,68 +11,60 @@ interface SentryIssue {
   };
 }
 
-interface SentryIssuePayload {
+interface SentryEvent {
+  title: string;
+  environment?: string;
+  tags: Array<[string, string]>;
+}
+
+interface SentryWebhookPayload {
   action: string;
   data: {
-    issue: SentryIssue;
+    issue?: SentryIssue;
+    event?: SentryEvent;
   };
   actor?: {
     name?: string;
   };
+  triggered_rule?: string;
 }
 
-interface SentryEventPayload {
-  event: {
-    title: string;
-    environment?: string;
-    tags: Array<[string, string]>;
-  };
-  project_name: string;
-  url: string;
-}
+// 타입 가드
+const hasIssue = (payload: SentryWebhookPayload): boolean =>
+  payload.data.issue !== undefined;
 
-type Payload = SentryIssuePayload | SentryEventPayload;
+const hasEvent = (payload: SentryWebhookPayload): boolean =>
+  payload.data.event !== undefined;
 
-//타입가드
-function isIssuePayload(payload: Payload): payload is SentryIssuePayload {
-  return "action" in payload;
-}
-
-//필터 기능 - 중요한 알림만 받도록 필터링(노이즈 줄이기)
+// 필터링 - production 환경의 중요한 알림만 허용
 const ALLOWED_ACTIONS = new Set(["created", "regressed", "triggered"]);
 
-function shouldSkip(payload: Payload): boolean {
-  if (isIssuePayload(payload)) {
-    return !ALLOWED_ACTIONS.has(payload.action);
+function shouldSkip(payload: SentryWebhookPayload): boolean {
+  if (!ALLOWED_ACTIONS.has(payload.action)) {
+    return true;
   }
 
-  return payload.event.environment !== "production";
+  if (hasEvent(payload)) {
+    return payload.data.event?.environment !== "production";
+  }
+
+  return false;
 }
 
-//Discord Embed 형식 변환
-function createIssueEmbed(payload: SentryIssuePayload, sentryUrl: string) {
-  const { issue } = payload.data;
-
+// Discord Embed 생성
+function createIssueEmbed(issue: SentryIssue, action: string, actorName: string, sentryUrl: string) {
   return {
     embeds: [
       {
-        title: `[${payload.action.toUpperCase()}] ${issue.title}`,
+        title: `[${action.toUpperCase()}] ${issue.title}`,
         description: issue.culprit || "No culprit information",
-        color: getColorByAction(payload.action),
+        color: getColorByAction(action),
         url: sentryUrl,
         fields: [
           { name: "Issue", value: issue.shortId, inline: true },
           { name: "Type", value: issue.metadata.type ?? "Unknown", inline: true },
-          {
-            name: "Triggered by",
-            value: payload.actor?.name ?? "System",
-            inline: true,
-          },
-          {
-            name: "Message",
-            value: truncate(issue.metadata.value ?? "N/A", 200),
-            inline: false,
-          },
+          { name: "Triggered by", value: actorName, inline: true },
+          { name: "Message", value: truncate(issue.metadata.value ?? "N/A", 200), inline: false },
         ],
         timestamp: new Date().toISOString(),
         footer: { text: "Sentry" },
@@ -81,22 +73,18 @@ function createIssueEmbed(payload: SentryIssuePayload, sentryUrl: string) {
   };
 }
 
-function createEventEmbed(payload: SentryEventPayload) {
-  const tags = Object.fromEntries(payload.event.tags);
+function createEventEmbed(event: SentryEvent, triggeredRule: string, sentryUrl: string) {
+  const tags = Object.fromEntries(event.tags);
 
   return {
     embeds: [
       {
-        title: `[ERROR] ${payload.event.title}`,
-        description: `Project: ${payload.project_name}`,
+        title: `[ERROR] ${event.title}`,
+        description: triggeredRule ? `Rule: ${triggeredRule}` : "Sentry Alert",
         color: 0xff0000,
-        url: payload.url,
+        url: sentryUrl,
         fields: [
-          {
-            name: "Environment",
-            value: payload.event.environment ?? "Unknown",
-            inline: true,
-          },
+          { name: "Environment", value: event.environment ?? "Unknown", inline: true },
           { name: "Browser", value: tags.browser ?? "-", inline: true },
           { name: "OS", value: tags.os ?? "-", inline: true },
         ],
@@ -107,8 +95,31 @@ function createEventEmbed(payload: SentryEventPayload) {
   };
 }
 
-function createDiscordPayload(payload: Payload, sentryUrl: string) {
-  return isIssuePayload(payload) ? createIssueEmbed(payload, sentryUrl) : createEventEmbed(payload);
+function createDiscordPayload(payload: SentryWebhookPayload, sentryUrl: string) {
+  if (hasIssue(payload) && payload.data.issue) {
+    return createIssueEmbed(
+      payload.data.issue,
+      payload.action,
+      payload.actor?.name ?? "System",
+      sentryUrl
+    );
+  }
+
+  if (hasEvent(payload) && payload.data.event) {
+    return createEventEmbed(payload.data.event, payload.triggered_rule ?? "", sentryUrl);
+  }
+
+  // fallback
+  return {
+    embeds: [
+      {
+        title: "[ALERT] Sentry Notification",
+        description: "Unknown payload type",
+        color: 0x9e9e9e,
+        timestamp: new Date().toISOString(),
+      },
+    ],
+  };
 }
 
 //색상 유틸리티
@@ -150,8 +161,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(500).json({ error: "Webhook not configured" });
   }
 
-  const payload = req.body as Payload;
+  const payload = req.body as unknown as SentryWebhookPayload;
   console.log("Payload parsed:", !!payload);
+
+  if (!payload?.data) {
+    console.log("Rejected: Invalid payload structure");
+    return res.status(400).json({ error: "Invalid payload" });
+  }
 
   if (shouldSkip(payload)) {
     console.log("Skipped: shouldSkip returned true");
