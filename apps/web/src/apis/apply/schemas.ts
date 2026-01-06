@@ -68,6 +68,7 @@ export const interestedDomainSchema = z.enum([
 export const memberMeResponseSchema = z.object({
   id: z.number(),
   name: z.string(),
+  phoneNumber: z.string(),
   careerDetails: careerDetailsSchema,
   region: regionSchema,
   experiencePeriod: experiencePeriodSchema,

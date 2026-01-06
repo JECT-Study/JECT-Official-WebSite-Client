@@ -17,7 +17,14 @@ export const APPLY_MESSAGE = {
     uploadFile: "파일을 업로드했어요",
     resetPin: "PIN을 다시 설정했어요",
     loadProfile: "프로필을 불러왔어요.",
-    continueWriting: "본인 확인 완료, 이제 지원서를 이어서 작성할 수 있어요.",
+    continueWriting: {
+      title: "본인 확인 완료",
+      body: "이제 지원서를 이어서 작성할 수 있어요.",
+    },
+    pinResetComplete: {
+      title: "PIN 재설정 완료",
+      body: "새로운 PIN을 입력해 본인 확인을 다시 진행해주세요.",
+    },
   },
   fail: {
     pin: "PIN이 올바르지 않아요. 다시 확인해주세요.",
@@ -26,6 +33,15 @@ export const APPLY_MESSAGE = {
     uploadFile: "네트워크 점검 후 파일을 다시 첨부해주세요",
     loadProfile: "프로필을 불러오는데 실패했습니다. 다시 시도해주세요.",
     saveProfile: "프로필 저장에 실패했습니다. 다시 시도해주세요.",
+    loadDraft: {
+      title: "지원서 불러오기가 실패했습니다",
+      body: "데이터베이스 관련 혹은 일시적인 오류로 인해 지원서 내용을 불러올 수 없습니다. 불편을 드려 죄송하고, 재작성 부탁드립니다.",
+    },
+    checkApplyStatus: {
+      title: "지원 상태 확인을 실패했습니다",
+      body: "일시적 오류일 수 있으니 다시 시도해주세요. 같은 문제가 계속 발생한다면, jectofficial@ject.kr로 문의해주세요.",
+    },
+    changeJobFamily: "파트 변경에 실패했습니다. 다시 시도해주세요.",
   },
   conflict: {
     email: "이미 지원서 제출을 완료한 이메일이에요",
