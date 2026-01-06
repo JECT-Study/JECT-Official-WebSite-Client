@@ -1,0 +1,125 @@
+name: Create Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get latest tag
+        id: get_latest_tag
+        run: |
+          # 가장 최근 태그 가져오기
+          LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
+          echo "latest_tag=$LATEST_TAG" >> $GITHUB_OUTPUT
+          echo "Latest tag: $LATEST_TAG"
+
+      - name: Calculate next version
+        id: next_version
+        run: |
+          LATEST_TAG=${{ steps.get_latest_tag.outputs.latest_tag }}
+
+          # v 접두사 제거
+          VERSION=${LATEST_TAG#v}
+
+          # 버전 파싱 (major.minor.patch)
+          IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION"
+
+          # 커밋 메시지 분석하여 버전 증가 결정
+          COMMITS=$(git log $LATEST_TAG..HEAD --pretty=format:"%s" 2>/dev/null || git log --pretty=format:"%s")
+
+          if echo "$COMMITS" | grep -qiE "^(feat|feature)(\(.+\))?!:|BREAKING CHANGE"; then
+            # Breaking change -> major 버전 증가
+            MAJOR=$((MAJOR + 1))
+            MINOR=0
+            PATCH=0
+          elif echo "$COMMITS" | grep -qiE "^(feat|feature)(\(.+\))?:"; then
+            # 새 기능 -> minor 버전 증가
+            MINOR=$((MINOR + 1))
+            PATCH=0
+          else
+            # 버그 수정, hotfix, 기타 -> patch 버전 증가
+            PATCH=$((PATCH + 1))
+          fi
+
+          NEW_VERSION="v${MAJOR}.${MINOR}.${PATCH}"
+          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+          echo "New version: $NEW_VERSION"
+
+      - name: Generate changelog
+        id: changelog
+        run: |
+          LATEST_TAG=${{ steps.get_latest_tag.outputs.latest_tag }}
+
+          # 이전 태그부터 현재까지의 커밋 로그 생성
+          if [ "$LATEST_TAG" = "v0.0.0" ]; then
+            COMMITS=$(git log --pretty=format:"- %s (%h)" --reverse)
+          else
+            COMMITS=$(git log $LATEST_TAG..HEAD --pretty=format:"- %s (%h)" --reverse)
+          fi
+
+          # 커밋을 카테고리별로 분류
+          FEATURES=""
+          FIXES=""
+          CHORES=""
+          OTHERS=""
+
+          while IFS= read -r line; do
+            if echo "$line" | grep -qiE "^- (feat|feature)(\(.+\))?:"; then
+              FEATURES="$FEATURES$line"$'\n'
+            elif echo "$line" | grep -qiE "^- (fix|hotfix)(\(.+\))?:"; then
+              FIXES="$FIXES$line"$'\n'
+            elif echo "$line" | grep -qiE "^- (chore|docs|style|refactor|perf|test|ci)(\(.+\))?:"; then
+              CHORES="$CHORES$line"$'\n'
+            else
+              OTHERS="$OTHERS$line"$'\n'
+            fi
+          done <<< "$COMMITS"
+
+          # Changelog 생성
+          CHANGELOG=""
+
+          if [ -n "$FEATURES" ]; then
+            CHANGELOG="$CHANGELOG## Features"$'\n'"$FEATURES"$'\n'
+          fi
+
+          if [ -n "$FIXES" ]; then
+            CHANGELOG="$CHANGELOG## Bug Fixes"$'\n'"$FIXES"$'\n'
+          fi
+
+          if [ -n "$CHORES" ]; then
+            CHANGELOG="$CHANGELOG## Chores"$'\n'"$CHORES"$'\n'
+          fi
+
+          if [ -n "$OTHERS" ]; then
+            CHANGELOG="$CHANGELOG## Other Changes"$'\n'"$OTHERS"$'\n'
+          fi
+
+          # 멀티라인 출력을 위한 처리
+          EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+          echo "changelog<<$EOF" >> $GITHUB_OUTPUT
+          echo "$CHANGELOG" >> $GITHUB_OUTPUT
+          echo "$EOF" >> $GITHUB_OUTPUT
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.next_version.outputs.new_version }}
+          name: Release ${{ steps.next_version.outputs.new_version }}
+          body: ${{ steps.changelog.outputs.changelog }}
+          draft: false
+          prerelease: false
+          generate_release_notes: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
