@@ -33,8 +33,8 @@ const PostContent = ({ layout, image, title, body, author, date }: PostContentPr
   if (layout === "vertical") {
     return (
       <>
+        {image && <CardImage src={image.src} alt={image.alt} ratio='1:2' />}
         <CardContent>
-          {image && <CardImage src={image.src} alt={image.alt} ratio='1:2' />}
           <CardTitle>{title}</CardTitle>
           <CardBody>{body}</CardBody>
           <CardMeta>
@@ -53,6 +53,10 @@ const PostContent = ({ layout, image, title, body, author, date }: PostContentPr
           <StyledHorizontalPostContentWrap>
             <CardTitle>{title}</CardTitle>
             <CardBody>{body}</CardBody>
+            <CardMeta>
+              <CardMetaItem>{author}</CardMetaItem>
+              <CardMetaItem>{date}</CardMetaItem>
+            </CardMeta>
           </StyledHorizontalPostContentWrap>
           {image && (
             <CardImage
@@ -63,10 +67,6 @@ const PostContent = ({ layout, image, title, body, author, date }: PostContentPr
             />
           )}
         </StyledHorizontalCardPostLayout>
-        <CardMeta>
-          <CardMetaItem>{author}</CardMetaItem>
-          <CardMetaItem>{date}</CardMetaItem>
-        </CardMeta>
       </CardContent>
     </>
   );
