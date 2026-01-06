@@ -1,7 +1,6 @@
 import { forwardRef, type ReactNode } from "react";
 import { pxToRem } from "utils";
 
-import { Icon } from "../../Icon";
 import type { PostPresetProps } from "../Card.types";
 import {
   CardRoot,
@@ -11,7 +10,6 @@ import {
   CardBody,
   CardMeta,
   CardMetaItem,
-  CardMetaNudgeItem,
 } from "../compound";
 import {
   StyledCardOverlay,
@@ -42,9 +40,6 @@ const PostContent = ({ layout, image, title, body, author, date }: PostContentPr
           <CardMeta>
             <CardMetaItem>{author}</CardMetaItem>
             <CardMetaItem>{date}</CardMetaItem>
-            <CardMetaNudgeItem label={"더보기"}>
-              <Icon name='arrow-right-s-line' size='xs' />
-            </CardMetaNudgeItem>
           </CardMeta>
         </CardContent>
       </>
@@ -71,9 +66,6 @@ const PostContent = ({ layout, image, title, body, author, date }: PostContentPr
         <CardMeta>
           <CardMetaItem>{author}</CardMetaItem>
           <CardMetaItem>{date}</CardMetaItem>
-          <CardMetaNudgeItem>
-            <Icon name='arrow-right-s-line' size='xs' />
-          </CardMetaNudgeItem>
         </CardMeta>
       </CardContent>
     </>
