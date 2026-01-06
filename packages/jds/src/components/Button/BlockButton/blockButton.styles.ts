@@ -701,6 +701,7 @@ export const StyledBlockButton = styled("button", {
     cursor: $disabled ? "not-allowed" : "pointer",
     userSelect: "none",
     fontFamily: "inherit",
+    whiteSpace: "nowrap",
     ...modeStyles,
   };
 });

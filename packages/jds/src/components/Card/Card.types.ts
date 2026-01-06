@@ -55,11 +55,6 @@ export interface CardMetaItemProps extends ComponentPropsWithoutRef<"span"> {
   children: ReactNode;
 }
 
-export interface CardMetaNudgeItemProps extends ComponentPropsWithoutRef<"span"> {
-  label?: string;
-  children: ReactNode;
-}
-
 interface BasePresetOwnProps {
   layout?: CardLayout;
   isDisabled?: boolean;

@@ -8,7 +8,6 @@ import {
   CardBody,
   CardMeta,
   CardMetaItem,
-  CardMetaNudgeItem,
   CardOverlay,
 } from "./compound";
 import { PlateWithTitle, PlateWithLabel, PlateCompact, Post } from "./presets";
@@ -23,7 +22,6 @@ export const Card = {
   Body: CardBody,
   Meta: CardMeta,
   MetaItem: CardMetaItem,
-  MetaNudgeItem: CardMetaNudgeItem,
   Overlay: CardOverlay,
 
   Preset: {
@@ -46,7 +44,6 @@ export type {
   CardBodyProps,
   CardMetaProps,
   CardMetaItemProps,
-  CardMetaNudgeItemProps,
 } from "./Card.types";
 
 export type {

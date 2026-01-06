@@ -19,11 +19,17 @@ interface DialogContent {
 export const DIALOG_CONTENT = {
   submitAnswer: {
     header: "지원서를 최종 제출합니다",
-    body: "제출한 뒤에는 지원서를 수정하거나 지원을 취소할 수 없어요.\n지원 관련 도움이 필요하시다면 jectofficial@ject.kr 로 문의해주세요.",
+    body: (
+      <>
+        제출한 뒤에는 지원서를 수정하거나 지원을 취소할 수 없어요.
+        <br />
+        지원 관련 도움이 필요하시다면 jectofficial@ject.kr 로 문의해주세요.
+      </>
+    ),
     primaryLabel: "지원서 제출하기",
     secondaryLabel: "취소",
   },
-} as const;
+};
 
 export const dialogTypes: Record<DialogTypes, DialogContent> = {
   example: {
