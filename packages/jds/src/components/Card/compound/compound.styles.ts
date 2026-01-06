@@ -94,7 +94,12 @@ const getGap = (
   cardStyle?: CardStyle,
 ): string | number => {
   if (isPlateCard(variant)) return 0;
-  if (isVerticalLayout(layout)) return 0;
+
+  if (isVerticalLayout(layout)) {
+    return cardStyle === "empty"
+      ? theme.scheme.semantic.spacing[16]
+      : theme.scheme.semantic.spacing[20];
+  }
 
   return cardStyle === "empty"
     ? theme.scheme.semantic.spacing[24]
@@ -451,6 +456,7 @@ export const StyledHorizontalPostContentWrap = styled("div", {
 })(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
+  flex: "1 0 0",
   gap: theme.scheme.semantic.spacing[8],
 }));
 
@@ -460,4 +466,5 @@ export const StyledHorizontalCardPostLayout = styled("div", {
   display: "flex",
   gap: theme.scheme.semantic.spacing[24],
   alignItems: "flex-start",
+  alignSelf: "stretch",
 }));
