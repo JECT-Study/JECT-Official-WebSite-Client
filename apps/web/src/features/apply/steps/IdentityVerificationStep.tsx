@@ -82,7 +82,10 @@ export function IdentityVerificationStep({ context, dispatch }: IdentityVerifica
     }
 
     // 2. 토스트 표시
-    toastController.basic("PIN 재설정 완료", "새로운 PIN을 입력해 본인 확인을 다시 진행해주세요.");
+    toastController.basic(
+      APPLY_MESSAGE.success.pinResetComplete.title,
+      APPLY_MESSAGE.success.pinResetComplete.body,
+    );
 
     // 3. URL 파라미터 정리
     setSearchParams(
@@ -133,19 +136,28 @@ export function IdentityVerificationStep({ context, dispatch }: IdentityVerifica
             }
 
             // 같은 파트 또는 draft 없음 → 이어서 작성
-            toastController.positive(APPLY_MESSAGE.success.continueWriting);
+            toastController.positive(
+              APPLY_MESSAGE.success.continueWriting.title,
+              APPLY_MESSAGE.success.continueWriting.body,
+            );
             dispatch("goToApply", userEmail);
           })
           .catch((error: unknown) => {
             // draft 조회 실패 시에도 이어서 작성 가능 (빈 폼으로 시작)
             handleError(error, "임시저장 데이터 조회 실패");
-            toastController.positive(APPLY_MESSAGE.success.continueWriting);
+            toastController.destructive(
+              APPLY_MESSAGE.fail.loadDraft.title,
+              APPLY_MESSAGE.fail.loadDraft.body,
+            );
             dispatch("goToApply", userEmail);
           });
       },
       onError: error => {
         handleError(error, "지원 상태 확인 실패");
-        toastController.destructive("지원 상태 확인에 실패했습니다. 다시 시도해주세요.");
+        toastController.destructive(
+          APPLY_MESSAGE.fail.checkApplyStatus.title,
+          APPLY_MESSAGE.fail.checkApplyStatus.body,
+        );
       },
     });
   };
@@ -157,8 +169,8 @@ export function IdentityVerificationStep({ context, dispatch }: IdentityVerifica
     onError: error => {
       handleError(error, "PIN 로그인 실패");
       setPinError("pin", {
-        type: "manual",
-        message: "이메일 또는 PIN이 올바르지 않습니다.",
+        type: "apiError",
+        message: "이메일 혹은 PIN이 올바르지 않습니다. 다시 확인 후 입력해주세요.",
       });
     },
   });
@@ -197,7 +209,7 @@ export function IdentityVerificationStep({ context, dispatch }: IdentityVerifica
       // 3. 프로필 복원 (새로운 jobFamily로)
       await updateProfileAsync({
         name: profile.name,
-        phoneNumber: "01012345678", // TODO: getMe 응답에 phoneNumber가 없어서 임시 처리
+        phoneNumber: profile.phoneNumber,
         careerDetails: profile.careerDetails,
         region: profile.region,
         experiencePeriod: profile.experiencePeriod,
@@ -206,11 +218,14 @@ export function IdentityVerificationStep({ context, dispatch }: IdentityVerifica
       });
 
       // 4. 지원서 작성으로 이동
-      toastController.positive(APPLY_MESSAGE.success.continueWriting);
+      toastController.positive(
+        APPLY_MESSAGE.success.continueWriting.title,
+        APPLY_MESSAGE.success.continueWriting.body,
+      );
       dispatch("goToApply", verifiedEmail);
     } catch (error) {
       handleError(error, "파트 변경 실패");
-      toastController.destructive("파트 변경에 실패했습니다. 다시 시도해주세요.");
+      toastController.destructive(APPLY_MESSAGE.fail.changeJobFamily);
     } finally {
       setIsChangingJobFamily(false);
     }
