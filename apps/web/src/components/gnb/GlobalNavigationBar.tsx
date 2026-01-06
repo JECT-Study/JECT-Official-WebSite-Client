@@ -118,7 +118,7 @@ const GlobalNavigationBar = () => {
               지원하기
             </BlockButton.Basic>
           </GlobalNavigation.Item>
-          <div className='w-[120px]'>
+          <div className='w-30'>
             {variant === "solid" && (
               <SegmentedControl.Root value={theme} size='xs' onValueChange={handleThemeChange}>
                 <SegmentedControl.Item value='light'>라이트</SegmentedControl.Item>
@@ -127,10 +127,23 @@ const GlobalNavigationBar = () => {
             )}
           </div>
         </GlobalNavigation.List>
-        <GlobalNavigation.MobileMenuButton
-          className={`z-51 ${textColor}`}
-          onClick={handleOpenSidebar}
-        />
+        <div className='flex items-center gap-(--semantic-spacing-16)'>
+          {isMobile && (
+            <BlockButton.Basic
+              hierarchy='primary'
+              size='xs'
+              onClick={handleApplyClick}
+              className={`${blockButtonColor}`}
+            >
+              지원하기
+            </BlockButton.Basic>
+          )}
+          <GlobalNavigation.MobileMenuButton
+            className={`z-51 ${textColor}`}
+            onClick={handleOpenSidebar}
+          />
+        </div>
+
         <Sidebar isOpenSidebar={isOpenSidebar} setIsOpenSidebar={setIsOpenSidebar} />
       </GlobalNavigation.Root>
     </div>
