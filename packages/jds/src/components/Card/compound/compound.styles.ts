@@ -30,8 +30,6 @@ const isPlateCard = (variant: CardVariant): boolean => variant === "plate";
 
 const isVerticalLayout = (layout: CardLayout): boolean => layout === "vertical";
 
-const isHorizontalLayout = (layout: CardLayout): boolean => layout === "horizontal";
-
 const getLayoutStyles = (layout: CardLayout): CSSObject => ({
   flexDirection: isVerticalLayout(layout) ? "column" : "row",
 });
@@ -96,7 +94,12 @@ const getGap = (
   cardStyle?: CardStyle,
 ): string | number => {
   if (isPlateCard(variant)) return 0;
-  if (isVerticalLayout(layout)) return 0;
+
+  if (isVerticalLayout(layout)) {
+    return cardStyle === "empty"
+      ? theme.scheme.semantic.spacing[16]
+      : theme.scheme.semantic.spacing[20];
+  }
 
   return cardStyle === "empty"
     ? theme.scheme.semantic.spacing[24]
@@ -334,28 +337,6 @@ export const StyledCardMetaItem = styled("span", {
   whiteSpace: "nowrap",
 }));
 
-export const StyledCardMetaNudgeItem = styled.span(({ theme }) => ({
-  display: "flex",
-  padding: 0,
-  alignItems: "center",
-  gap: theme.scheme.semantic.spacing[4],
-  marginLeft: "auto",
-  flexShrink: 0,
-  opacity: 0,
-  color: "var(--card-caption-color)",
-  transition: `opacity ${theme.environment.semantic.duration[150]} ${theme.environment.semantic.motion.fluent}, transform ${theme.environment.semantic.duration[150]} ${theme.environment.semantic.motion.fluent}`,
-
-  '[data-interactive="true"]:hover &': {
-    opacity: 1,
-    transform: "translateX(2px)",
-  },
-}));
-
-export const StyledCardMetaNudgeItemLabel = styled.span(({ theme }) => ({
-  ...theme.textStyle["semantic-textStyle-label-sm-normal"],
-  color: "var(--card-caption-color)",
-}));
-
 export const StyledCardTitle = styled("h3", {
   shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith("$"),
 })(({ theme }) => ({
@@ -475,6 +456,7 @@ export const StyledHorizontalPostContentWrap = styled("div", {
 })(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
+  flex: "1 0 0",
   gap: theme.scheme.semantic.spacing[8],
 }));
 
@@ -484,4 +466,5 @@ export const StyledHorizontalCardPostLayout = styled("div", {
   display: "flex",
   gap: theme.scheme.semantic.spacing[24],
   alignItems: "flex-start",
+  alignSelf: "stretch",
 }));

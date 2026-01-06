@@ -145,5 +145,8 @@ export const StyledInputRow = styled("div", {
     alignItems: "center",
     alignSelf: "stretch",
     width: "100%",
+    "& > button": {
+      flexShrink: 0,
+    },
   };
 });

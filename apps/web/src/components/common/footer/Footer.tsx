@@ -10,7 +10,7 @@ function Footer() {
           </FooterJds.LogoDiv>
           <FooterJds.Social
             github='https://github.com/JECT-Study'
-            instagram='https://www.instagram.com/ject_official'
+            instagram='https://www.instagram.com/ject.official'
           />
         </FooterJds.Header>
         <FooterJds.Divider />

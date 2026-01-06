@@ -1,7 +1,6 @@
 import { forwardRef, type ReactNode } from "react";
 import { pxToRem } from "utils";
 
-import { Icon } from "../../Icon";
 import type { PostPresetProps } from "../Card.types";
 import {
   CardRoot,
@@ -11,7 +10,6 @@ import {
   CardBody,
   CardMeta,
   CardMetaItem,
-  CardMetaNudgeItem,
 } from "../compound";
 import {
   StyledCardOverlay,
@@ -35,16 +33,13 @@ const PostContent = ({ layout, image, title, body, author, date }: PostContentPr
   if (layout === "vertical") {
     return (
       <>
+        {image && <CardImage src={image.src} alt={image.alt} ratio='1:2' />}
         <CardContent>
-          {image && <CardImage src={image.src} alt={image.alt} ratio='1:2' />}
           <CardTitle>{title}</CardTitle>
           <CardBody>{body}</CardBody>
           <CardMeta>
             <CardMetaItem>{author}</CardMetaItem>
             <CardMetaItem>{date}</CardMetaItem>
-            <CardMetaNudgeItem label={"더보기"}>
-              <Icon name='arrow-right-s-line' size='xs' />
-            </CardMetaNudgeItem>
           </CardMeta>
         </CardContent>
       </>
@@ -58,6 +53,10 @@ const PostContent = ({ layout, image, title, body, author, date }: PostContentPr
           <StyledHorizontalPostContentWrap>
             <CardTitle>{title}</CardTitle>
             <CardBody>{body}</CardBody>
+            <CardMeta>
+              <CardMetaItem>{author}</CardMetaItem>
+              <CardMetaItem>{date}</CardMetaItem>
+            </CardMeta>
           </StyledHorizontalPostContentWrap>
           {image && (
             <CardImage
@@ -68,13 +67,6 @@ const PostContent = ({ layout, image, title, body, author, date }: PostContentPr
             />
           )}
         </StyledHorizontalCardPostLayout>
-        <CardMeta>
-          <CardMetaItem>{author}</CardMetaItem>
-          <CardMetaItem>{date}</CardMetaItem>
-          <CardMetaNudgeItem>
-            <Icon name='arrow-right-s-line' size='xs' />
-          </CardMetaNudgeItem>
-        </CardMeta>
       </CardContent>
     </>
   );
