@@ -529,6 +529,7 @@ export const StyledLabelButton = styled("button", {
     cursor: $disabled ? "not-allowed" : "pointer",
     userSelect: "none",
     fontFamily: "inherit",
+    whiteSpace: "nowrap",
     ...modeStyles,
   };
 });
