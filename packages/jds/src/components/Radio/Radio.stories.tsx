@@ -3,7 +3,7 @@ import { FlexColumn, FlexRow } from "@storybook-utils/layout";
 import { useState } from "react";
 
 import { Radio } from "./Radio";
-import type { RadioProps, RadioSize } from "./radio.types";
+import type { RadioSize } from "./radio.types";
 
 const meta: Meta<typeof Radio.Basic> = {
   title: "Components/Radio",
@@ -46,7 +46,7 @@ export const RadioBasicSizes: Story = {
   render: () => {
     const [checkedSize, setCheckedSize] = useState<RadioSize | undefined>("md");
 
-    const sizes: RadioProps["radioSize"][] = ["lg", "md", "sm", "xs"];
+    const sizes: RadioSize[] = ["lg", "md", "sm", "xs"];
 
     return (
       <div style={{ display: "flex", gap: 20, alignItems: "center" }}>

@@ -10,16 +10,16 @@ import {
   StyledSubLabel,
 } from "./Radio.style";
 import type {
+  RadioBasicProps,
   RadioGroupProps,
   RadioLabelProps,
-  RadioProps,
   RadioRootProps,
   RadioSubLabelProps,
 } from "./radio.types";
 import { RadioProvider, useRadioContext } from "./RadioContext";
 import { RadioGroupProvider, useRadioGroupContext } from "./RadioGroupContext";
 
-const RadioRoot = forwardRef<HTMLLabelElement, RadioRootProps>(
+const RadioRoot = forwardRef<HTMLDivElement, RadioRootProps>(
   ({ radioSize = "md", radioStyle = "empty", align = "left", disabled = false, children }, ref) => {
     return (
       <RadioProvider value={{ radioSize, isDisabled: disabled }}>
@@ -39,7 +39,7 @@ const RadioRoot = forwardRef<HTMLLabelElement, RadioRootProps>(
 
 RadioRoot.displayName = "Radio.Root";
 
-const RadioBasic = forwardRef<HTMLInputElement, RadioProps>(
+const RadioBasic = forwardRef<HTMLInputElement, RadioBasicProps>(
   ({ radioSize = "md", value, checked, onChange, ...props }, ref) => {
     const groupContext = useRadioGroupContext();
 

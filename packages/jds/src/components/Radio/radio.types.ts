@@ -2,7 +2,7 @@ import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 export type RadioSize = "lg" | "md" | "sm" | "xs";
 
-export interface RadioProps extends ComponentPropsWithoutRef<"input"> {
+export interface RadioBasicProps extends ComponentPropsWithoutRef<"input"> {
   radioSize?: RadioSize;
 }
 
@@ -10,13 +10,12 @@ export interface RadioStyledProps {
   radioSize: RadioSize;
 }
 
-export interface RadioRootProps extends RadioProps {
+export interface RadioRootProps extends ComponentPropsWithoutRef<"div"> {
   radioStyle?: "empty" | "outline";
   align?: "left" | "right";
   disabled?: boolean;
-  subLabelVisible?: boolean;
-  subLabel?: ReactNode;
   children: ReactNode;
+  radioSize?: RadioSize;
 }
 
 export interface StyledLabelProps {
