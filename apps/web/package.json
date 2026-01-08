@@ -15,16 +15,17 @@
     "format": "prettier --write ."
   },
   "dependencies": {
-    "@emotion/react": "^11",
-    "@emotion/styled": "^11",
     "@amplitude/analytics-browser": "^2.17.2",
     "@amplitude/plugin-session-replay-browser": "^1.16.4",
+    "@emotion/react": "^11",
+    "@emotion/styled": "^11",
     "@hookform/resolvers": "^4.1.3",
     "@ject/jds": "*",
     "@sentry/react": "^9.12.0",
     "@sentry/vite-plugin": "^3.3.1",
     "@tailwindcss/vite": "^4.0.0",
     "@tanstack/react-query": "^5.66.0",
+    "@use-funnel/react-router-dom": "^0.0.15",
     "axios": "^1.8.1",
     "clsx": "^2.1.1",
     "crypto-js": "^4.2.0",
@@ -34,6 +35,7 @@
     "react": "^18.3.1",
     "react-device-detect": "^2.2.3",
     "react-dom": "^18.3.1",
+    "react-error-boundary": "^6.0.0",
     "react-hook-form": "^7.54.2",
     "react-router-dom": "^7.1.5",
     "tailwindcss": "^4.0.0",
@@ -54,14 +56,14 @@
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
     "@vitejs/plugin-react": "^4.3.4",
+    "@vitest/browser-playwright": "^4.0.13",
+    "@vitest/coverage-v8": "^4.0.13",
     "eslint-plugin-storybook": "^10.0.8",
+    "playwright": "^1.56.1",
     "prettier-plugin-tailwindcss": "^0.6.10",
     "storybook": "^10.0.8",
     "vite": "^6.0.5",
     "vite-plugin-svgr": "^4.3.0",
-    "vitest": "^4.0.13",
-    "playwright": "^1.56.1",
-    "@vitest/browser-playwright": "^4.0.13",
-    "@vitest/coverage-v8": "^4.0.13"
+    "vitest": "^4.0.13"
   }
 }

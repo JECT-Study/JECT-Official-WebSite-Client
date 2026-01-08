@@ -9,7 +9,8 @@ export interface Tag {
 }
 
 export interface TagFieldPublicProps
-  extends FieldPublicProps,
+  extends
+    FieldPublicProps,
     Omit<
       ComponentPropsWithoutRef<"input">,
       "value" | "onChange" | "defaultValue" | "style" | "type"

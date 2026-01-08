@@ -6,11 +6,10 @@ export type CheckboxAlign = "left" | "right";
 
 export type CheckedState = boolean | "indeterminate";
 
-interface CheckboxCommonProps
-  extends Omit<
-    ComponentPropsWithoutRef<"input">,
-    "size" | "onChange" | "checked" | "defaultChecked"
-  > {
+interface CheckboxCommonProps extends Omit<
+  ComponentPropsWithoutRef<"input">,
+  "size" | "onChange" | "checked" | "defaultChecked"
+> {
   disabled?: boolean;
   isInvalid?: boolean;
   size?: CheckboxSize;

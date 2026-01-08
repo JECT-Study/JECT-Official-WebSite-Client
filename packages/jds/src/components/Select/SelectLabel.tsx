@@ -33,7 +33,7 @@ export const SelectLabel = forwardRef<HTMLDivElement, SelectLabelProps>(
         $selected={isItemSelected}
         onClick={handleClick}
         onKeyDown={handleKeyDown}
-        role="option"
+        role='option'
         aria-selected={isItemSelected}
         aria-disabled={isDisabled}
         tabIndex={isDisabled ? -1 : 0}
@@ -42,25 +42,25 @@ export const SelectLabel = forwardRef<HTMLDivElement, SelectLabelProps>(
         <StyledSelectItemContent>
           <StyledSelectItemTextRow>
             <StyledSelectItemText
-              as="span"
+              as='span'
               size={size}
-              weight="normal"
+              weight='normal'
               $isDisabled={isDisabled}
               $selected={isItemSelected}
             >
               {children}
             </StyledSelectItemText>
             {badge && (
-              <StyledSelectItemBadge hierarchy="tertiary" size="xs" badgeStyle="outlined">
+              <StyledSelectItemBadge hierarchy='tertiary' size='xs' badgeStyle='outlined'>
                 {badge}
               </StyledSelectItemBadge>
             )}
           </StyledSelectItemTextRow>
           {caption && (
             <StyledSelectItemCaption
-              as="span"
+              as='span'
               size={captionSize}
-              weight="subtle"
+              weight='subtle'
               $isDisabled={isDisabled}
             >
               {caption}

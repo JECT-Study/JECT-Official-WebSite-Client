@@ -7,16 +7,16 @@ export const PATH = {
   jeckathon: "/jeckathon",
   activity: "/activity",
   apply: "/apply",
+  applyList: "/apply/list",
   faq: "/faq",
-  applyVerify: "/apply/verify",
-  applicantInfo: "/apply/applicant-info",
-  applyRegistration: "/apply/registration",
-  applyComplete: "/apply/complete",
+  applyGuide: "/apply/guide",
+  applyFunnel: "/apply/funnel",
+  applyContinue: "/apply/continue",
+  resetPin: "/auth/reset-pin",
+  // 새로 추가된 페이지 경로입니다.
+  landing: "/",
+  vision: "/vision",
+  teamProject: "/team-projects",
+  miniStudy: "/mini-study",
+  liveSession: "/live-session",
 } as const;
-
-export const disabledPage: string[] = [
-  PATH.applyVerify,
-  PATH.applicantInfo,
-  PATH.applyRegistration,
-  PATH.applyComplete,
-];

@@ -4,6 +4,7 @@ import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import { pxToRem } from "utils";
 
 import type {
+  StyledGlobalNavigationContentProps,
   StyledGlobalNavigationListWrapperProps,
   StyledGlobalNavigationWrapperProps,
 } from "./globalNavigation.types";
@@ -29,16 +30,17 @@ export const StyledGlobalNavigationWrapper = styled.div<StyledGlobalNavigationWr
       justifyContent: "center",
       alignItems: "center",
       width: "100vw",
-      padding: `${theme.scheme.semantic.spacing[12]} ${theme.scheme.semantic.margin.md}`,
+      padding: `${theme.scheme.semantic.spacing[12]} ${theme.scheme.semantic.margin.lg}`,
       ...globalNavigationStyles,
 
       [theme.breakPoint.tablet]: {
         justifyContent: "flex-start",
-        padding: `${theme.scheme.semantic.spacing[10]} ${theme.scheme.semantic.margin.md}`,
+        padding: `${theme.scheme.semantic.spacing[10]} ${theme.scheme.semantic.margin.lg}`,
       },
 
       [theme.breakPoint.mobile]: {
         justifyContent: "flex-start",
+        padding: `${theme.scheme.semantic.margin.sm} ${theme.scheme.semantic.margin.lg}`,
       },
     };
   },
@@ -55,10 +57,12 @@ export const StyledGlobalNavigationRoot = styled(NavigationMenu.Root)(({ theme }
 
   [theme.breakPoint.tablet]: {
     width: pxToRem(728),
+    height: pxToRem(26),
     gap: theme.scheme.semantic.spacing[20],
   },
 
   [theme.breakPoint.mobile]: {
+    height: pxToRem(20),
     gap: "none",
   },
 }));
@@ -95,6 +99,10 @@ export const StyledGlobalNavigationList = styled(NavigationMenu.List)(({ theme }
   },
 }));
 
+export const StyledGlobalNavigationItem = styled(NavigationMenu.Item)(() => ({
+  position: "relative" as const,
+}));
+
 export const StyledMobileMenuButton = styled(IconButton.Basic)(({ theme }) => ({
   display: "none",
 
@@ -108,15 +116,21 @@ export const StyledGlobalNavigationLogoLink = styled(NavigationMenu.Link)(() => 
   color: "inherit",
 }));
 
-export const StyledDividerWrapper = styled.div(() => ({
-  height: pxToRem(16),
+export const StyledDividerWrapper = styled.div(({ theme }) => ({
+  height: pxToRem(20),
+
+  [theme.breakPoint.tablet]: {
+    height: pxToRem(18),
+  },
 }));
 
-export const StyledGlobalNavigationContent = styled(NavigationMenu.Content)(() => {
+export const StyledGlobalNavigationContent = styled(
+  NavigationMenu.Content,
+)<StyledGlobalNavigationContentProps>(({ $offset }) => {
   return {
     position: "absolute" as const,
-    top: "100%",
-    left: 0,
-    marginTop: "8px",
+    left: "50%",
+    transform: "translate(-50%, 0)",
+    marginTop: $offset,
   };
 });

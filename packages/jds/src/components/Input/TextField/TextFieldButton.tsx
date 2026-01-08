@@ -38,17 +38,17 @@ export const TextFieldButton = forwardRef<HTMLInputElement, TextFieldButtonProps
         {label && (
           <StyledLabelContainer $layout={layout}>
             <StyledFieldLabel
-              as="label"
+              as='label'
               htmlFor={inputId}
-              size="md"
-              weight="bold"
+              size='md'
+              weight='bold'
               $disabled={disabled}
               $readOnly={readOnly}
               $layout={layout}
             >
               {label}
             </StyledFieldLabel>
-            {labelIcon && <Icon name={labelIcon} size="sm" />}
+            {labelIcon && <Icon name={labelIcon} size='sm' />}
           </StyledLabelContainer>
         )}
 
@@ -77,9 +77,9 @@ export const TextFieldButton = forwardRef<HTMLInputElement, TextFieldButtonProps
 
           {helperText && (
             <StyledHelperText
-              as="span"
-              size="sm"
-              weight="normal"
+              as='span'
+              size='sm'
+              weight='normal'
               $validation={validation}
               $disabled={disabled}
               $readOnly={readOnly}

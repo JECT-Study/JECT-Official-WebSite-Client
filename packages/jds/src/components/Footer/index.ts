@@ -4,6 +4,7 @@ export type {
   FooterContentProps,
   FooterHeaderProps,
   FooterLink,
+  FooterLogoLinkProps,
   FooterLogoDivProps,
   FooterNavProps,
   FooterRootProps,

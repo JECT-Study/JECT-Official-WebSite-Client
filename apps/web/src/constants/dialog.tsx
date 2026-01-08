@@ -12,6 +12,25 @@ interface DialogContent {
   content: ReactNode;
 }
 
+/**
+ * @description
+ * JDS Dialog 컴포넌트용 상수 (header, body 형식)
+ */
+export const DIALOG_CONTENT = {
+  submitAnswer: {
+    header: "지원서를 최종 제출합니다",
+    body: (
+      <>
+        제출한 뒤에는 지원서를 수정하거나 지원을 취소할 수 없어요.
+        <br />
+        지원 관련 도움이 필요하시다면 jectofficial@ject.kr 로 문의해주세요.
+      </>
+    ),
+    primaryLabel: "지원서 제출하기",
+    secondaryLabel: "취소",
+  },
+};
+
 export const dialogTypes: Record<DialogTypes, DialogContent> = {
   example: {
     btnLayout: "vertical",
@@ -42,9 +61,10 @@ export const dialogTypes: Record<DialogTypes, DialogContent> = {
   },
   expiredSession: {
     btnLayout: "singleButton",
-    title: "로그인 세션이 만료되었어요",
-    primaryBtnLabel: "인증하기",
-    content: "안전한 이용을 위해 인증을 다시 진행해주세요.",
+    title: "자동 로그아웃 안내",
+    primaryBtnLabel: "확인",
+    content:
+      "접속 시간 초과로 자동으로 로그아웃되며 새로고침합니다. 작성 중이던 내용들을 임시 저장하지 않았다면 유실될 수 있어요.",
   },
   continueWriting: {
     btnLayout: "horizontal",
@@ -77,5 +97,11 @@ export const dialogTypes: Record<DialogTypes, DialogContent> = {
     ),
     primaryBtnLabel: "이동하기",
     secondaryBtnLabel: "취소",
+  },
+  alreadySubmitted: {
+    btnLayout: "singleButton",
+    title: "이미 지원을 완료했어요",
+    content: "동일한 이메일로는 중복 지원이 불가능해요.",
+    primaryBtnLabel: "확인",
   },
 };

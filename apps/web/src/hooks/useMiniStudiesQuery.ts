@@ -2,15 +2,17 @@ import { useQuery } from "@tanstack/react-query";
 
 import { getMiniStudies } from "@/apis/miniStudy";
 
-const useMiniStudies = () => {
-  const { data } = useQuery({
+const useMiniStudiesQuery = () => {
+  const { data, isError, isPending } = useQuery({
     queryKey: ["miniStudies"],
     queryFn: getMiniStudies,
   });
 
-  const miniStudies = data?.data.content;
-
-  return { miniStudies };
+  return {
+    miniStudies: data?.content,
+    isError,
+    isPending,
+  };
 };
 
-export default useMiniStudies;
+export default useMiniStudiesQuery;

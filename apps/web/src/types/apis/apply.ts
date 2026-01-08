@@ -1,3 +1,7 @@
+import type { ProfileData } from "@/types/funnel";
+
+export type { ApplicationStatusResponseSchema as ApplicationStatusResponse } from "@/apis/apply/schemas";
+
 export interface Email {
   email: string;
 }
@@ -5,7 +9,7 @@ export interface Email {
 export type EmailExistsResponse = boolean;
 
 export interface EmailAuthPayload extends Email {
-  template: "AUTH_CODE" | "PIN_RESET";
+  sendGroupCode: "AUTH_CODE" | "PIN_RESET";
 }
 
 export interface VerificationEmailCodePayload {
@@ -31,15 +35,6 @@ export interface PinLoginResponse {
   refreshToken: string;
 }
 
-export interface MemberProfileInitialPayload {
-  name: string;
-  phoneNumber: string;
-}
-
-export type MemberProfileInitialResponse = null;
-
-export type MemberProfileInitialStatusResponse = boolean;
-
 export interface RegisterMemberPayload {
   pin: string;
 }
@@ -51,3 +46,9 @@ export interface ResetPinPayload {
 }
 
 export type ResetPinResponse = null;
+
+export type MemberProfileResponse = ProfileData;
+
+export type MemberProfilePayload = ProfileData & {
+  jobFamily: string;
+};

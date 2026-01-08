@@ -71,22 +71,22 @@ export const Default: Story = {
 
 export const AllThicknesses: Story = {
   render: () => (
-    <FlexColumn gap="24px" style={{ width: "300px" }}>
-      <FlexColumn gap="8px">
+    <FlexColumn gap='24px' style={{ width: "300px" }}>
+      <FlexColumn gap='8px'>
         <Label>Normal (1px):</Label>
-        <Divider thickness="normal" />
+        <Divider thickness='normal' />
       </FlexColumn>
-      <FlexColumn gap="8px">
+      <FlexColumn gap='8px'>
         <Label>Bold (2px):</Label>
-        <Divider thickness="bold" />
+        <Divider thickness='bold' />
       </FlexColumn>
-      <FlexColumn gap="8px">
+      <FlexColumn gap='8px'>
         <Label>Bolder (4px):</Label>
-        <Divider thickness="bolder" />
+        <Divider thickness='bolder' />
       </FlexColumn>
-      <FlexColumn gap="8px">
+      <FlexColumn gap='8px'>
         <Label>Boldest (8px):</Label>
-        <Divider thickness="boldest" />
+        <Divider thickness='boldest' />
       </FlexColumn>
     </FlexColumn>
   ),
@@ -101,14 +101,14 @@ export const AllThicknesses: Story = {
 
 export const AllVariants: Story = {
   render: () => (
-    <FlexColumn gap="24px" style={{ width: "300px" }}>
-      <FlexColumn gap="8px">
+    <FlexColumn gap='24px' style={{ width: "300px" }}>
+      <FlexColumn gap='8px'>
         <Label>Solid (기본값):</Label>
-        <Divider variant="solid" />
+        <Divider variant='solid' />
       </FlexColumn>
-      <FlexColumn gap="8px">
+      <FlexColumn gap='8px'>
         <Label>Dashed:</Label>
-        <Divider variant="dashed" />
+        <Divider variant='dashed' />
       </FlexColumn>
     </FlexColumn>
   ),
@@ -123,11 +123,11 @@ export const AllVariants: Story = {
 
 export const HorizontalDivider: Story = {
   render: () => (
-    <FlexColumn gap="16px" style={{ width: "400px" }}>
+    <FlexColumn gap='16px' style={{ width: "400px" }}>
       <div>섹션 1의 콘텐츠</div>
       <Divider />
       <div>섹션 2의 콘텐츠</div>
-      <Divider thickness="bold" />
+      <Divider thickness='bold' />
       <div>섹션 3의 콘텐츠</div>
     </FlexColumn>
   ),
@@ -144,11 +144,11 @@ export const HorizontalDivider: Story = {
 
 export const VerticalDivider: Story = {
   render: () => (
-    <FlexRow gap="16px" style={{ height: "100px", alignItems: "stretch" }}>
+    <FlexRow gap='16px' style={{ height: "100px", alignItems: "stretch" }}>
       <div>좌측 콘텐츠</div>
-      <Divider orientation="vertical" />
+      <Divider orientation='vertical' />
       <div>중앙 콘텐츠</div>
-      <Divider orientation="vertical" thickness="bold" />
+      <Divider orientation='vertical' thickness='bold' />
       <div>우측 콘텐츠</div>
     </FlexRow>
   ),
@@ -165,20 +165,20 @@ export const VerticalDivider: Story = {
 
 export const DashedDivider: Story = {
   render: () => (
-    <FlexColumn gap="24px" style={{ width: "400px" }}>
-      <FlexColumn gap="16px">
+    <FlexColumn gap='24px' style={{ width: "400px" }}>
+      <FlexColumn gap='16px'>
         <h4 style={{ margin: 0 }}>수평 Dashed</h4>
         <div>섹션 1</div>
-        <Divider variant="dashed" />
+        <Divider variant='dashed' />
         <div>섹션 2</div>
-        <Divider variant="dashed" thickness="bold" />
+        <Divider variant='dashed' thickness='bold' />
         <div>섹션 3</div>
       </FlexColumn>
-      <FlexRow gap="16px" style={{ height: "100px", alignItems: "stretch" }}>
+      <FlexRow gap='16px' style={{ height: "100px", alignItems: "stretch" }}>
         <div>좌측</div>
-        <Divider orientation="vertical" variant="dashed" />
+        <Divider orientation='vertical' variant='dashed' />
         <div>중앙</div>
-        <Divider orientation="vertical" variant="dashed" thickness="bold" />
+        <Divider orientation='vertical' variant='dashed' thickness='bold' />
         <div>우측</div>
       </FlexRow>
     </FlexColumn>
@@ -220,12 +220,12 @@ export const InCard: Story = {
 
 export const InFlexLayout: Story = {
   render: () => (
-    <FlexRow gap="16px" style={{ height: "200px", width: "500px" }}>
+    <FlexRow gap='16px' style={{ height: "200px", width: "500px" }}>
       <FlexColumn style={{ flex: 1, padding: "16px", backgroundColor: "#f5f5f5" }}>
         <h4 style={{ margin: "0 0 8px 0" }}>사이드바</h4>
         <p style={{ margin: 0, fontSize: "14px" }}>사이드바 콘텐츠</p>
       </FlexColumn>
-      <Divider orientation="vertical" thickness="normal" />
+      <Divider orientation='vertical' thickness='normal' />
       <FlexColumn style={{ flex: 2, padding: "16px" }}>
         <h4 style={{ margin: "0 0 8px 0" }}>메인 콘텐츠</h4>
         <p style={{ margin: 0, fontSize: "14px" }}>메인 콘텐츠 영역</p>
@@ -243,7 +243,7 @@ export const InFlexLayout: Story = {
 
 export const DecorativeDivider: Story = {
   render: () => (
-    <FlexColumn gap="16px" style={{ width: "400px" }}>
+    <FlexColumn gap='16px' style={{ width: "400px" }}>
       <div>섹션 1</div>
       <Divider decorative />
       <div>섹션 2 (위 divider는 스크린 리더에서 무시됩니다)</div>
@@ -262,7 +262,7 @@ export const DecorativeDivider: Story = {
 
 export const StyleGuide: Story = {
   render: () => (
-    <FlexColumn gap="32px" style={{ width: "700px", fontSize: "14px" }}>
+    <FlexColumn gap='32px' style={{ width: "700px", fontSize: "14px" }}>
       <div>
         <h3 style={{ margin: "0 0 16px 0" }}>스타일 가이드</h3>
       </div>

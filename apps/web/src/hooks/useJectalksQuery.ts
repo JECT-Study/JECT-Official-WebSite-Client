@@ -2,15 +2,17 @@ import { useQuery } from "@tanstack/react-query";
 
 import { getJectalks } from "@/apis/jectalk";
 
-const useJectalks = () => {
-  const { data } = useQuery({
+const useJectalksQuery = () => {
+  const { data, isError, isPending } = useQuery({
     queryKey: ["jectalks"],
     queryFn: getJectalks,
   });
 
-  const jectalks = data?.data.content;
-
-  return { jectalks };
+  return {
+    jectalks: data?.content,
+    isError,
+    isPending,
+  };
 };
 
-export default useJectalks;
+export default useJectalksQuery;

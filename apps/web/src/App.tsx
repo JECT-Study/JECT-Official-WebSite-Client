@@ -1,16 +1,15 @@
 import "./instrument";
 
+import { ToastProvider } from "@ject/jds";
 import { JDSThemeProvider } from "@ject/jds/theme";
 import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { useState } from "react";
-import { isMobile } from "react-device-detect";
+import { Suspense, useState } from "react";
 import { RouterProvider } from "react-router-dom";
 
-import { disabledPage, PATH } from "./constants/path";
+import { ErrorBoundary } from "./components/app/ErrorBoundary";
+import { LoadingFallback } from "./components/app/LoadingFallback";
 import { useGlobalErrorHandler } from "./hooks/useGlobalErrorHandler";
-import useRedirectMaintenance from "./hooks/useRedirectMaintenance";
-import TempMobile from "./pages/TempMobile";
 import router from "./router";
 
 function App() {
@@ -28,23 +27,19 @@ function App() {
       }),
   );
 
-  useRedirectMaintenance(5, 7, PATH.maintenance);
-
-  if (isMobile) {
-    return <TempMobile />;
-  }
-
-  if (disabledPage.includes(window.location.pathname)) {
-    return void router.navigate(PATH.apply);
-  }
-
   return (
-    <QueryClientProvider client={queryClient}>
-      {import.meta.env.MODE !== "production" && <ReactQueryDevtools />}
-      <JDSThemeProvider>
-        <RouterProvider router={router} />
-      </JDSThemeProvider>
-    </QueryClientProvider>
+    <ErrorBoundary>
+      <QueryClientProvider client={queryClient}>
+        {import.meta.env.MODE !== "production" && <ReactQueryDevtools />}
+        <JDSThemeProvider>
+          <ToastProvider>
+            <Suspense fallback={<LoadingFallback />}>
+              <RouterProvider router={router} />
+            </Suspense>
+          </ToastProvider>
+        </JDSThemeProvider>
+      </QueryClientProvider>
+    </ErrorBoundary>
   );
 }
 

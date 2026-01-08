@@ -49,15 +49,15 @@ export const AllHierarchies: Story = {
     <FlexColumn>
       <FlexRow>
         <Label>Primary:</Label>
-        <Logo hierarchy="primary" height={32} />
+        <Logo hierarchy='primary' height={32} />
       </FlexRow>
       <FlexRow>
         <Label>Secondary:</Label>
-        <Logo hierarchy="secondary" height={32} />
+        <Logo hierarchy='secondary' height={32} />
       </FlexRow>
       <FlexRow>
         <Label>Tertiary:</Label>
-        <Logo hierarchy="tertiary" height={32} />
+        <Logo hierarchy='tertiary' height={32} />
       </FlexRow>
     </FlexColumn>
   ),
@@ -75,19 +75,19 @@ export const DifferentSizes: Story = {
     <FlexColumn>
       <FlexRow>
         <Label>1번 예시 (24px):</Label>
-        <Logo height={24} hierarchy="primary" />
+        <Logo height={24} hierarchy='primary' />
       </FlexRow>
       <FlexRow>
         <Label>기본 값 (32px):</Label>
-        <Logo height={32} hierarchy="primary" />
+        <Logo height={32} hierarchy='primary' />
       </FlexRow>
       <FlexRow>
         <Label>2번 예시 (48px):</Label>
-        <Logo height={48} hierarchy="primary" />
+        <Logo height={48} hierarchy='primary' />
       </FlexRow>
       <FlexRow>
         <Label>3번 예시 (64px):</Label>
-        <Logo height={64} hierarchy="primary" />
+        <Logo height={64} hierarchy='primary' />
       </FlexRow>
     </FlexColumn>
   ),
@@ -105,19 +105,19 @@ export const HierarchyWithSizes: Story = {
   render: () => (
     <FlexColumn>
       <FlexRow>
-        <Logo height={24} hierarchy="primary" />
-        <Logo height={32} hierarchy="primary" />
-        <Logo height={48} hierarchy="primary" />
+        <Logo height={24} hierarchy='primary' />
+        <Logo height={32} hierarchy='primary' />
+        <Logo height={48} hierarchy='primary' />
       </FlexRow>
       <FlexRow>
-        <Logo height={24} hierarchy="secondary" />
-        <Logo height={32} hierarchy="secondary" />
-        <Logo height={48} hierarchy="secondary" />
+        <Logo height={24} hierarchy='secondary' />
+        <Logo height={32} hierarchy='secondary' />
+        <Logo height={48} hierarchy='secondary' />
       </FlexRow>
       <FlexRow>
-        <Logo height={24} hierarchy="tertiary" />
-        <Logo height={32} hierarchy="tertiary" />
-        <Logo height={48} hierarchy="tertiary" />
+        <Logo height={24} hierarchy='tertiary' />
+        <Logo height={32} hierarchy='tertiary' />
+        <Logo height={48} hierarchy='tertiary' />
       </FlexRow>
     </FlexColumn>
   ),
@@ -135,17 +135,17 @@ export const InteractionStates: Story = {
     <FlexColumn>
       <FlexRow>
         <Label>Primary</Label>
-        <Logo hierarchy="primary" height={32} href="#" />
+        <Logo hierarchy='primary' height={32} href='#' />
         <Label>(Tab을 사용)</Label>
       </FlexRow>
       <FlexRow>
         <Label>Secondary</Label>
-        <Logo hierarchy="secondary" height={32} href="#" />
+        <Logo hierarchy='secondary' height={32} href='#' />
         <Label>(Tab을 사용)</Label>
       </FlexRow>
       <FlexRow>
         <Label>Tertiary</Label>
-        <Logo hierarchy="tertiary" height={32} href="#" />
+        <Logo hierarchy='tertiary' height={32} href='#' />
         <Label>(Tab을 사용)</Label>
       </FlexRow>
     </FlexColumn>
@@ -166,11 +166,11 @@ export const WithLink: Story = {
     <FlexColumn>
       <FlexRow>
         <Label>로고 (a 태그)</Label>
-        <Logo href="#" hierarchy="primary" height={32} />
+        <Logo href='#' hierarchy='primary' height={32} />
       </FlexRow>
       <FlexRow>
         <Label>로고 (div 태그)</Label>
-        <Logo hierarchy="primary" height={32} />
+        <Logo hierarchy='primary' height={32} />
       </FlexRow>
     </FlexColumn>
   ),
@@ -190,22 +190,22 @@ export const TabIndexBehavior: Story = {
     <FlexColumn>
       <FlexRow>
         <Label>a 태그 + href (기본)</Label>
-        <Logo href="#" hierarchy="primary" height={32} />
+        <Logo href='#' hierarchy='primary' height={32} />
         <Label>암묵적 tabIndex=0, 포커스 가능</Label>
       </FlexRow>
       <FlexRow>
         <Label>a 태그 + href + tabIndex={-1}</Label>
-        <Logo href="#" hierarchy="primary" height={32} tabIndex={-1} />
+        <Logo href='#' hierarchy='primary' height={32} tabIndex={-1} />
         <Label>명시적 오버라이드, 포커스 불가</Label>
       </FlexRow>
       <FlexRow>
         <Label>div 태그 (기본)</Label>
-        <Logo hierarchy="primary" height={32} />
+        <Logo hierarchy='primary' height={32} />
         <Label>tabIndex 없음, 포커스 불가</Label>
       </FlexRow>
       <FlexRow>
         <Label>div 태그 + tabIndex={0}</Label>
-        <Logo hierarchy="primary" height={32} tabIndex={0} />
+        <Logo hierarchy='primary' height={32} tabIndex={0} />
         <Label>명시적 설정, 포커스 가능</Label>
       </FlexRow>
     </FlexColumn>
@@ -228,7 +228,7 @@ export const WithReactRouter: Story = {
   render: () => (
     <FlexColumn>
       <FlexRow>
-        <Logo href="#dashboard" hierarchy="primary" height={32} />
+        <Logo href='#dashboard' hierarchy='primary' height={32} />
       </FlexRow>
     </FlexColumn>
   ),
@@ -248,10 +248,10 @@ export const ExternalLink: Story = {
     <FlexColumn>
       <FlexRow>
         <Logo
-          href="https://ject.kr"
-          target="_blank"
-          rel="noopener noreferrer"
-          hierarchy="primary"
+          href='https://ject.kr'
+          target='_blank'
+          rel='noopener noreferrer'
+          hierarchy='primary'
           height={32}
         />
       </FlexRow>
@@ -271,15 +271,15 @@ export const UsageExample: Story = {
     <FlexColumn>
       <FlexRow>
         <Label>예시 1</Label>
-        <Logo href="#" height={48} hierarchy="primary" />
+        <Logo href='#' height={48} hierarchy='primary' />
       </FlexRow>
       <FlexRow>
         <Label>예시 2</Label>
-        <Logo href="#" height={32} hierarchy="primary" />
+        <Logo href='#' height={32} hierarchy='primary' />
       </FlexRow>
       <FlexRow>
         <Label>예시 3</Label>
-        <Logo href="#" height={24} hierarchy="secondary" />
+        <Logo href='#' height={24} hierarchy='secondary' />
       </FlexRow>
     </FlexColumn>
   ),

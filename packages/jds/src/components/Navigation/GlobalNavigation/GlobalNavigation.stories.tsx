@@ -101,6 +101,7 @@ export const Default: Story = {
             </BlockButton.Basic>
           </GlobalNavigation.Item>
         </GlobalNavigation.List>
+        <GlobalNavigation.MobileMenuButton />
       </GlobalNavigation.Root>
     </div>
   ),
@@ -155,6 +156,7 @@ export const WithScrollVariant: Story = {
                 </BlockButton.Basic>
               </GlobalNavigation.Item>
             </GlobalNavigation.List>
+            <GlobalNavigation.MobileMenuButton />
           </GlobalNavigation.Root>
         </div>
         <p style={{ textAlign: "center" }}>
@@ -245,6 +247,7 @@ export const Responsive: Story = {
               </BlockButton.Basic>
             </GlobalNavigation.Item>
           </GlobalNavigation.List>
+          <GlobalNavigation.MobileMenuButton />
         </GlobalNavigation.Root>
         <p style={{ textAlign: "center", paddingTop: "100px" }}>
           viewport를 변경하여 네비게이션 스타일을 확인하세요
@@ -320,6 +323,7 @@ export const WithThemeSwitcher: Story = {
               <SegmentedControl.Item value='dark'>다크</SegmentedControl.Item>
             </SegmentedControl.Root>
           </div>
+          <GlobalNavigation.MobileMenuButton />
         </GlobalNavigation.Root>
         <p style={{ textAlign: "center", paddingTop: "100px" }}>테마 스위처를 변경해보세요</p>
       </div>
@@ -342,8 +346,8 @@ const TempNavigationContent = () => {
   return (
     <div
       style={{
-        width: "922px",
-        height: "424px",
+        width: "176px",
+        height: "163px",
         border: "1px solid #ECEDF9",
         borderRadius: "10px",
         background: "#ECEDF9",
@@ -409,6 +413,7 @@ export const WithContent: Story = {
             </BlockButton.Basic>
           </GlobalNavigation.Item>
         </GlobalNavigation.List>
+        <GlobalNavigation.MobileMenuButton />
       </GlobalNavigation.Root>
       <p style={{ textAlign: "center", paddingTop: "100px" }}>토글 버튼을 호버해보세요</p>
     </div>

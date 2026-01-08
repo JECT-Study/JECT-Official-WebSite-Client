@@ -1,0 +1,54 @@
+import {
+  CardRoot,
+  CardImage,
+  CardContent,
+  CardCaption,
+  CardTitle,
+  CardLabel,
+  CardBody,
+  CardMeta,
+  CardMetaItem,
+  CardOverlay,
+} from "./compound";
+import { PlateWithTitle, PlateWithLabel, PlateCompact, Post } from "./presets";
+
+export const Card = {
+  Root: CardRoot,
+  Image: CardImage,
+  Content: CardContent,
+  Caption: CardCaption,
+  Title: CardTitle,
+  Label: CardLabel,
+  Body: CardBody,
+  Meta: CardMeta,
+  MetaItem: CardMetaItem,
+  Overlay: CardOverlay,
+
+  Preset: {
+    PlateWithTitle,
+    PlateWithLabel,
+    PlateCompact,
+    Post,
+  },
+};
+
+export type { CardLayout, CardVariant, CardStyle } from "./Card.types";
+
+export type {
+  CardRootOwnProps,
+  CardImageProps,
+  CardContentProps,
+  CardCaptionProps,
+  CardTitleProps,
+  CardLabelProps,
+  CardBodyProps,
+  CardMetaProps,
+  CardMetaItemProps,
+} from "./Card.types";
+
+export type {
+  PlateWithTitlePresetProps,
+  PlateWithLabelPresetProps,
+  PlateCompactPresetProps,
+  PostPresetProps,
+} from "./Card.types";

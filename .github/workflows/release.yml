@@ -1,0 +1,148 @@
+name: Create Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get latest tag
+        id: get_latest_tag
+        run: |
+          LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
+          echo "latest_tag=$LATEST_TAG" >> $GITHUB_OUTPUT
+          echo "Latest tag: $LATEST_TAG"
+
+      - name: Check for changes
+        id: check_changes
+        run: |
+          LATEST_TAG=${{ steps.get_latest_tag.outputs.latest_tag }}
+
+          if [ "$LATEST_TAG" = "v0.0.0" ]; then
+            COMMIT_COUNT=$(git rev-list --count HEAD)
+          else
+            COMMIT_COUNT=$(git rev-list --count $LATEST_TAG..HEAD)
+          fi
+
+          if [ "$COMMIT_COUNT" -eq 0 ]; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "No changes since last tag"
+          else
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "Found $COMMIT_COUNT commits since last tag"
+          fi
+
+      - name: Calculate next version
+        id: next_version
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: |
+          LATEST_TAG=${{ steps.get_latest_tag.outputs.latest_tag }}
+
+          VERSION=${LATEST_TAG#v}
+          IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION"
+
+          # 커밋 메시지 분석 (release, deploy, merge 커밋 제외)
+          COMMITS=$(git log $LATEST_TAG..HEAD --pretty=format:"%s" 2>/dev/null | grep -viE "^(release|deploy|Merge)" || echo "")
+
+          if echo "$COMMITS" | grep -qiE "^(feat|feature)(\(.+\))?!:|BREAKING CHANGE"; then
+            MAJOR=$((MAJOR + 1))
+            MINOR=0
+            PATCH=0
+          elif echo "$COMMITS" | grep -qiE "^(feat|feature)(\(.+\))?:"; then
+            MINOR=$((MINOR + 1))
+            PATCH=0
+          else
+            PATCH=$((PATCH + 1))
+          fi
+
+          NEW_VERSION="v${MAJOR}.${MINOR}.${PATCH}"
+
+          # 중복 태그 확인
+          if git tag -l | grep -q "^${NEW_VERSION}$"; then
+            echo "Tag $NEW_VERSION already exists, skipping"
+            echo "skip_release=true" >> $GITHUB_OUTPUT
+          else
+            echo "skip_release=false" >> $GITHUB_OUTPUT
+          fi
+
+          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+          echo "New version: $NEW_VERSION"
+
+      - name: Generate changelog
+        id: changelog
+        if: steps.check_changes.outputs.has_changes == 'true' && steps.next_version.outputs.skip_release != 'true'
+        run: |
+          LATEST_TAG=${{ steps.get_latest_tag.outputs.latest_tag }}
+
+          if [ "$LATEST_TAG" = "v0.0.0" ]; then
+            COMMITS=$(git log --pretty=format:"- %s (%h)" --reverse)
+          else
+            COMMITS=$(git log $LATEST_TAG..HEAD --pretty=format:"- %s (%h)" --reverse)
+          fi
+
+          FEATURES=""
+          FIXES=""
+          CHORES=""
+          OTHERS=""
+
+          while IFS= read -r line; do
+            # release, deploy, merge 커밋 제외
+            if echo "$line" | grep -qiE "^- (release|deploy)(\(.+\))?:|^- Merge "; then
+              continue
+            elif echo "$line" | grep -qiE "^- (feat|feature)(\(.+\))?:"; then
+              FEATURES="$FEATURES$line"$'\n'
+            elif echo "$line" | grep -qiE "^- (fix|hotfix)(\(.+\))?:"; then
+              FIXES="$FIXES$line"$'\n'
+            elif echo "$line" | grep -qiE "^- (chore|docs|style|refactor|perf|test|ci)(\(.+\))?:"; then
+              CHORES="$CHORES$line"$'\n'
+            else
+              OTHERS="$OTHERS$line"$'\n'
+            fi
+          done <<< "$COMMITS"
+
+          CHANGELOG=""
+
+          if [ -n "$FEATURES" ]; then
+            CHANGELOG="$CHANGELOG## Features"$'\n'"$FEATURES"$'\n'
+          fi
+
+          if [ -n "$FIXES" ]; then
+            CHANGELOG="$CHANGELOG## Bug Fixes"$'\n'"$FIXES"$'\n'
+          fi
+
+          if [ -n "$CHORES" ]; then
+            CHANGELOG="$CHANGELOG## Chores"$'\n'"$CHORES"$'\n'
+          fi
+
+          if [ -n "$OTHERS" ]; then
+            CHANGELOG="$CHANGELOG## Other Changes"$'\n'"$OTHERS"$'\n'
+          fi
+
+          EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+          echo "changelog<<$EOF" >> $GITHUB_OUTPUT
+          echo "$CHANGELOG" >> $GITHUB_OUTPUT
+          echo "$EOF" >> $GITHUB_OUTPUT
+
+      - name: Create Release
+        if: steps.check_changes.outputs.has_changes == 'true' && steps.next_version.outputs.skip_release != 'true'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.next_version.outputs.new_version }}
+          name: Release ${{ steps.next_version.outputs.new_version }}
+          body: ${{ steps.changelog.outputs.changelog }}
+          draft: false
+          prerelease: false
+          generate_release_notes: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

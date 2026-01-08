@@ -17,7 +17,7 @@ export const CalloutBasicDiv = styled.div<CalloutBasicDivProps>(
     const borderRadius = variant === "hero" ? "none" : theme.scheme.semantic.radius[6];
 
     return {
-      width: pxToRem(300),
+      width: "100%",
       display: "flex",
       flexDirection: "column",
       alignItems: "flex-start",
@@ -41,7 +41,7 @@ export const CalloutFeedbackDiv = styled.div<CalloutFeedbackDivProps>(
     const borderRadius = variant === "hero" ? "none" : theme.scheme.semantic.radius[6];
 
     return {
-      width: pxToRem(300),
+      width: "100%",
       display: "flex",
       flexDirection: "column",
       alignItems: "flex-start",

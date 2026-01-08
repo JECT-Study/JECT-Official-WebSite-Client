@@ -1,39 +1,47 @@
+import { BlockButton, Hero, Title } from "@ject/jds";
 import { useNavigate } from "react-router-dom";
 
-import questionImage from "@/assets/images/question.png";
-import BlockButton from "@/components/common/button/BlockButton";
-import Icon from "@/components/common/icon/Icon";
-import Header from "@/components/common/navigation/Header";
+import Footer from "@/components/common/footer/Footer";
+import GlobalNavigationBar from "@/components/gnb/GlobalNavigationBar";
 import PagesContainer from "@/components/layout/PagesContainer";
 
 function NotFoundError() {
   const navigate = useNavigate();
   return (
     <div>
-      <Header />
+      <GlobalNavigationBar />
       <PagesContainer>
-        <div className='gap-4xl absolute top-1/2 left-1/2 flex -translate-1/2 flex-col items-center'>
-          <img src={questionImage} alt='물음표 이미지' className='w-[9.75rem]' />
-          <div className='gap-md flex flex-col text-center'>
-            <p className='title-03 text-object-hero-dark'>페이지를 찾을 수 없어요</p>
-            <p className='label-lg text-object-neutral-dark'>
-              잘못된 주소를 입력했거나, 삭제된 페이지예요.
-            </p>
+        <div className='flex h-dvh w-full justify-center py-(--semantic-margin-2xl) pt-14'>
+          <div className='h-full px-(--semantic-margin-lg) pt-(--semantic-spacing-0) pb-(--semantic-spacing-80)'>
+            <div className='desktop:w-[600px] tablet:w-[608px] mobile:w-[320px] flex h-full flex-col items-center justify-center gap-(--semantic-spacing-32) pt-(--semantic-margin-xl) pb-(--semantic-margin-3xl)'>
+              <div className='text-(--semantic-feedback-notifying-normal)'>
+                <Hero size='lg' color='inherit'>
+                  404
+                </Hero>
+              </div>
+              <div className='flex flex-col items-center justify-center gap-(--semantic-spacing-16)'>
+                <div className='flex gap-(--semantic-spacing-6)'>
+                  <Title size='lg' textAlign='center'>
+                    페이지를 찾을 수 없습니다
+                  </Title>
+                </div>
+                <span className='textStyle-body-md-normal text-(--semantic-object-bold)'>
+                  잘못된 주소를 입력했거나, 삭제된 페이지예요.
+                </span>
+              </div>
+              <BlockButton.Basic
+                hierarchy='accent'
+                size='lg'
+                suffixIcon='arrow-right-line'
+                onClick={() => void navigate("/")}
+              >
+                메인 페이지로
+              </BlockButton.Basic>
+            </div>
           </div>
-
-          <BlockButton
-            onClick={() => void navigate("/")}
-            hierarchy='accent'
-            size='md'
-            style='solid'
-            rightIcon={
-              <Icon name='forward' size='sm' fillColor='fill-object-static-inverse-hero-dark' />
-            }
-          >
-            메인 페이지로
-          </BlockButton>
         </div>
       </PagesContainer>
+      <Footer />
     </div>
   );
 }

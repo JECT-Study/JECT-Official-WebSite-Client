@@ -1,9 +1,9 @@
 import type { ChangeEvent } from "react";
 
+import type { Question } from "@/apis/apply";
 import InputArea from "@/components/common/input/InputArea";
 import Title from "@/components/common/title/Title";
 import { APPLY_MESSAGE } from "@/constants/applyMessages";
-import type { Question } from "@/types/apis/application";
 
 interface TextFieldProps {
   data: Question;

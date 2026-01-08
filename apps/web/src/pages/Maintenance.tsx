@@ -1,23 +1,36 @@
-import { isMobile } from "react-device-detect";
+import { Icon, Title } from "@ject/jds";
 
-import coneImage from "@/assets/images/cone.png";
 import Footer from "@/components/common/footer/Footer";
-import MobileFooter from "@/components/common/footer/MobileFooter";
 import PagesContainer from "@/components/layout/PagesContainer";
 
 function Maintenance() {
   return (
     <div>
       <PagesContainer>
-        <div className='gap-4xl absolute top-1/2 left-1/2 flex -translate-1/2 flex-col items-center'>
-          <img src={coneImage} alt='물음표 이미지' className='w-[9.75rem]' />
-          <div className='gap-md flex flex-col text-center'>
-            <p className='title-03 text-object-hero-dark'>현재 서비스 점검중이에요</p>
-            <p className='label-lg text-object-neutral-dark'>예상 점검 시간 : 05:00 ~ 07:00</p>
+        <div className='desktop:py-(--semantic-margin-2xl) tablet:py-(--semantic-margin-2xl) flex h-dvh w-full justify-center pt-14'>
+          <div className='h-full px-(--semantic-margin-lg) pt-(--semantic-spacing-0) pb-(--semantic-spacing-80)'>
+            <div className='desktop:w-[600px] tablet:w-[608px] mobile:w-[320px] flex h-full flex-col items-center justify-center gap-(--semantic-spacing-32) pt-(--semantic-margin-xl) pb-(--semantic-margin-3xl)'>
+              <Icon
+                className='h-10 w-10 text-(--semantic-feedback-notifying-normal)'
+                name='error-warning-line'
+              />
+              <div className='flex flex-col items-center justify-center gap-(--semantic-spacing-16)'>
+                <div className='flex items-center justify-center gap-(--semantic-spacing-6)'>
+                  <Title size='lg' textAlign='center' className='text-center'>
+                    현재 서비스를 점검 중입니다
+                  </Title>
+                </div>
+                <span className='textStyle-body-md-normal text-center text-(--semantic-object-bold)'>
+                  서비스 점검은 가능한 빠르게 마무리 될 예정이며,
+                  <br />
+                  필요 시 jectofficial@ject.kr 로 문의해주세요.
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </PagesContainer>
-      {isMobile ? <MobileFooter /> : <Footer />}
+      <Footer />
     </div>
   );
 }

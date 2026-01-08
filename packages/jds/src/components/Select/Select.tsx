@@ -90,7 +90,7 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
       <StyledSelectContainer>
         {label && (
           <StyledSelectLabelWrapper>
-            <Label as="span" size="sm" weight="normal" color="inherit">
+            <Label as='span' size='sm' weight='normal' color='inherit'>
               {label}
             </Label>
           </StyledSelectLabelWrapper>

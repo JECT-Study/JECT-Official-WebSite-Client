@@ -1,72 +1,51 @@
-import { AxiosError } from "axios";
+import type { z } from "zod";
 
-import { ExternalAPIError, InternalAPIError, NetworkError } from "@/errors/APIError";
 import type { ApiResponse } from "@/types/apis/response";
-import { httpClient } from "@/utils/interceptor";
+import { httpClient as axiosInstance } from "@/utils/interceptor";
 
-type RequestMethod = "get" | "post" | "put" | "delete";
+function validate<T>(schema: z.ZodType<T>, data: unknown): unknown {
+  schema.parse(data);
 
-export interface RequestOptions {
-  headers?: Record<string, string>;
+  return data;
 }
 
+async function request<T = unknown>(
+  url: string,
+  method: "get" | "post" | "put" | "delete",
+  data?: unknown,
+  schema?: z.ZodType<T>,
+): Promise<T> {
+  const response = await axiosInstance({ url, method, data });
+
+  if (schema) {
+    validate(schema, response.data);
+  }
+
+  return response.data;
+}
+
+export const httpClient = {
+  get: <T = unknown>(url: string, schema?: z.ZodType<T>) => request(url, "get", undefined, schema),
+
+  post: <T = unknown>(url: string, data?: unknown, schema?: z.ZodType<T>) =>
+    request(url, "post", data, schema),
+
+  put: <T = unknown>(url: string, data?: unknown, schema?: z.ZodType<T>) =>
+    request(url, "put", data, schema),
+
+  delete: <T = unknown>(url: string, schema?: z.ZodType<T>) =>
+    request(url, "delete", undefined, schema),
+};
+
+/**
+ * 기존에 사용한 요청 핸들러 (신규 구현 시 requestHandler을 사용하는 부분의 제거가 완료되면 이 부분 제거)
+ * @deprecated
+ */
 export const requestHandler = async <TResponse, TPayload = undefined>(
-  method: RequestMethod,
+  method: "get" | "post" | "put" | "delete",
   url: string,
   payload?: TPayload,
-  options?: RequestOptions,
 ): Promise<ApiResponse<TResponse>> => {
-  try {
-    const requestConfig = {
-      headers: {
-        ...(options?.headers || {}),
-      },
-    };
-
-    let response;
-
-    switch (method) {
-      case "post":
-        response = await httpClient.post<ApiResponse<TResponse>>(url, payload, requestConfig);
-        break;
-      case "get":
-        response = await httpClient.get<ApiResponse<TResponse>>(url, requestConfig);
-        break;
-      case "put":
-        response = await httpClient.put<ApiResponse<TResponse>>(url, payload, requestConfig);
-        break;
-      case "delete":
-        response = await httpClient.delete<ApiResponse<TResponse>>(url, requestConfig);
-        break;
-    }
-
-    const status = response.data.status;
-
-    if (status !== "SUCCESS" && status !== "TEMP_APPLICATION_NOT_FOUND") {
-      const message = (response.data.data as string) || `Internal API 에러 발생, status: ${status}`;
-      return Promise.reject(new InternalAPIError(message, status, url));
-    }
-
-    return response.data;
-  } catch (error) {
-    if (error instanceof InternalAPIError) {
-      throw error;
-    }
-
-    if (error instanceof AxiosError) {
-      if (!error.response) {
-        throw new NetworkError(error.message, error.code, error.config?.url);
-      }
-
-      const { status } = error.response;
-
-      if (status >= 500) {
-        throw new ExternalAPIError(error.message, status, url);
-      } else if (status >= 400) {
-        throw new ExternalAPIError(error.message, status, url);
-      }
-    }
-
-    throw error;
-  }
+  const response = await axiosInstance({ url, method, data: payload });
+  return response.data;
 };

@@ -1,15 +1,21 @@
 export type Status =
   | "SUCCESS"
-  | "G-01"
-  | "G-02"
-  | "G-03"
-  | "G-04"
-  | "G-05"
-  | "G-06"
-  | "G-07"
-  | "G-08"
-  | "G-09"
-  | "G-10"
+  | "GLOBAL-1"
+  | "GLOBAL-2"
+  | "GLOBAL-3"
+  | "GLOBAL-4"
+  | "GLOBAL-5"
+  | "GLOBAL-6"
+  | "GLOBAL-7"
+  | "GLOBAL-8"
+  | "GLOBAL-9"
+  | "GLOBAL-10"
+  | "GLOBAL-11"
+  | "GLOBAL-12"
+  | "GLOBAL-13"
+  | "GLOBAL-14"
+  | "GLOBAL-15"
+  //TODO: 하단 부 동일하게 수정된 에러코드에 맞춰서 반영해야함
   | "INVALID_AUTH_CODE"
   | "NOT_FOUND_AUTH_CODE"
   | "INVALID_EXTENSION"
@@ -19,7 +25,8 @@ export type Status =
   | "QUESTION_NOT_FOUND"
   | "RECRUIT_NOT_FOUND"
   | "TEMP_APPLICATION_NOT_FOUND"
-  | "INVALID_CREDENTIALS";
+  | "INVALID_CREDENTIALS"
+  | "VALIDATION_ERROR";
 
 export interface ApiResponse<T> {
   status: Status;

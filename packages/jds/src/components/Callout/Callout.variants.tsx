@@ -145,21 +145,21 @@ export const calloutBasicButtonStyleMap = (
   blockButtonProps: Omit<BaseBlockButtonProps, "size">,
 ) => ({
   accent: (
-    <BlockButton.Basic hierarchy="accent" size={buttonSize} variant="solid" {...blockButtonProps} />
+    <BlockButton.Basic hierarchy='accent' size={buttonSize} variant='solid' {...blockButtonProps} />
   ),
   primary: (
     <BlockButton.Basic
-      hierarchy="primary"
+      hierarchy='primary'
       size={buttonSize}
-      variant="solid"
+      variant='solid'
       {...blockButtonProps}
     />
   ),
   secondary: (
     <BlockButton.Basic
-      hierarchy="secondary"
+      hierarchy='secondary'
       size={buttonSize}
-      variant="solid"
+      variant='solid'
       {...blockButtonProps}
     />
   ),
@@ -171,14 +171,14 @@ export const calloutFeedbackButtonStyleMap = (
 ) => ({
   notifying: (
     <BlockButton.Basic
-      hierarchy="primary"
+      hierarchy='primary'
       size={buttonSize}
-      variant="solid"
+      variant='solid'
       {...blockButtonProps}
     />
   ),
-  positive: <BlockButton.Feedback intent="positive" size={buttonSize} {...blockButtonProps} />,
+  positive: <BlockButton.Feedback intent='positive' size={buttonSize} {...blockButtonProps} />,
   destructive: (
-    <BlockButton.Feedback intent="destructive" size={buttonSize} {...blockButtonProps} />
+    <BlockButton.Feedback intent='destructive' size={buttonSize} {...blockButtonProps} />
   ),
 });

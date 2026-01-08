@@ -12,16 +12,67 @@ export const applyEmailSchema = z.object({
 export type ApplyEmailFormData = z.infer<typeof applyEmailSchema>;
 
 export const applyAuthCodeSchema = z.object({
-  authCode: z.string().regex(/^\d{6}$/, "인증번호는 6자리 숫자여야 합니다."),
+  authCode: z.string().min(1),
 });
 
 export type ApplyAuthCodeFormData = z.infer<typeof applyAuthCodeSchema>;
 
 export const applyPinSchema = z.object({
-  pin: z.string().regex(/^\d{6}$/, "PIN은 6자리 숫자여야 합니다."),
+  pin: z.string().regex(/^\d{6}$/, "올바르지 않은 PIN 형식입니다."),
 });
 
 export type ApplyPinFormData = z.infer<typeof applyPinSchema>;
+
+const careerDetailsEnum = z.enum([
+  "STUDENT",
+  "EXPECTED_GRADUATE",
+  "JOB_SEEKER",
+  "BETWEEN_JOBS",
+  "EMPLOYEE",
+]);
+
+const regionEnum = z.enum([
+  "SEOUL",
+  "GYEONGGI",
+  "INCHEON",
+  "BUSAN",
+  "DAEGU",
+  "DAEJEON",
+  "GWANGJU",
+  "ULSAN",
+  "SEJONG",
+  "GANGWON",
+  "CHUNGBUK",
+  "CHUNGNAM",
+  "JEONBUK",
+  "JEONNAM",
+  "GYEONGBUK",
+  "GYEONGNAM",
+  "JEJU",
+  "OVERSEAS",
+]);
+
+const experiencePeriodEnum = z.enum(["NONE", "ONE_TO_TWO", "THREE_TO_FOUR", "FIVE_PLUS"]);
+
+const interestedDomainEnum = z.enum([
+  "GAME",
+  "EDUCATION",
+  "MARKETING",
+  "MOBILITY",
+  "PRODUCTIVITY",
+  "SOCIAL_NETWORK",
+  "UTILITY",
+  "E_COMMERCE",
+  "COMMUNITY",
+  "CONTENTS",
+  "TRAVELTECH",
+  "FASHION_BEAUTY",
+  "FOODTECH",
+  "PROPTECH",
+  "FINTECH",
+  "HEALTHCARE",
+  "HR",
+]);
 
 export const applyApplicantInfoSchema = z.object({
   name: z
@@ -43,6 +94,17 @@ export const applyApplicantInfoSchema = z.object({
     .refine(val => val.length <= 11, {
       message: '"010"을 포함해 총 11자리까지만 입력해주세요.',
     }),
+
+  careerDetails: careerDetailsEnum,
+
+  region: regionEnum,
+
+  experiencePeriod: experiencePeriodEnum.optional(),
+
+  interestedDomains: z
+    .array(interestedDomainEnum)
+    .min(1, "관심 도메인을 최소 1개 이상 선택해주세요.")
+    .max(3, "관심 도메인은 최대 3개까지 선택 가능합니다."),
 });
 
 export type ApplyApplicantInfoFormData = z.infer<typeof applyApplicantInfoSchema>;
