@@ -2,9 +2,7 @@ import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 export type RadioSize = "lg" | "md" | "sm" | "xs";
 
-export interface RadioBasicProps extends ComponentPropsWithoutRef<"input"> {
-  radioSize?: RadioSize;
-}
+export type RadioBasicProps = ComponentPropsWithoutRef<"input">;
 
 export interface RadioStyledProps {
   radioSize: RadioSize;

@@ -5,9 +5,9 @@ import { useState } from "react";
 import { Radio } from "./Radio";
 import type { RadioSize } from "./radio.types";
 
-const meta: Meta<typeof Radio.Basic> = {
+const meta: Meta<typeof Radio.Root> = {
   title: "Components/Radio",
-  component: Radio.Basic,
+  component: Radio.Root,
   parameters: {
     layout: "centered",
   },
@@ -17,27 +17,33 @@ const meta: Meta<typeof Radio.Basic> = {
       options: ["lg", "md", "sm", "xs"],
     },
   },
-};
+} satisfies Meta<typeof Radio.Root>;
 
 export default meta;
 
-type Story = StoryObj<typeof Radio.Basic>;
-
-export const RadioBasicDefault: Story = {
-  args: {
-    radioSize: "lg",
-  },
-};
+type Story = StoryObj<typeof Radio.Root>;
 
 export const RadioBasicChecked: Story = {
-  render: () => <Radio.Basic radioSize='md' name='disabledGroup' value='1' checked={true} />,
+  render: () => (
+    <Radio.Root radioSize='md'>
+      <Radio.Basic name='disabledGroup' value='1' checked={true} />
+    </Radio.Root>
+  ),
 };
 
 export const RadioBasicDisabled: Story = {
   render: () => (
     <div style={{ display: "flex", gap: 20 }}>
-      <Radio.Basic radioSize='md' name='disabledGroup' value='2' checked={false} disabled={true} />
-      <Radio.Basic radioSize='md' name='disabledGroup' value='1' checked={true} disabled={true} />
+      <Radio.Root radioSize='md' radioStyle='outline' disabled>
+        <Radio.Basic value='1' name='disabledGroup' />
+        <Radio.Label>레이블</Radio.Label>
+      </Radio.Root>
+      <Radio.Root radioSize='md'>
+        <Radio.Basic name='disabledGroup' value='2' checked={false} disabled={true} />
+      </Radio.Root>
+      <Radio.Root radioSize='md'>
+        <Radio.Basic name='disabledGroup' value='3' checked={true} disabled={true} />
+      </Radio.Root>
     </div>
   ),
 };
@@ -51,14 +57,15 @@ export const RadioBasicSizes: Story = {
     return (
       <div style={{ display: "flex", gap: 20, alignItems: "center" }}>
         {sizes.map(radioSize => (
-          <Radio.Basic
-            key={radioSize}
-            radioSize={radioSize}
-            name='sizeGroup'
-            value={radioSize}
-            checked={checkedSize === radioSize}
-            onChange={() => setCheckedSize(radioSize)}
-          />
+          <Radio.Root radioSize={radioSize}>
+            <Radio.Basic
+              key={radioSize}
+              name='sizeGroup'
+              value={radioSize}
+              checked={checkedSize === radioSize}
+              onChange={() => setCheckedSize(radioSize)}
+            />
+          </Radio.Root>
         ))}
       </div>
     );

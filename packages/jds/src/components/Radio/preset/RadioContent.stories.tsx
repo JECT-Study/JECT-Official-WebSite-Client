@@ -180,7 +180,7 @@ export const UncontrolledRadio: Story = {
         <RadioContent.Left radioSize='md' name='groupName' value='banana'>
           banana
         </RadioContent.Left>
-        <RadioContent.Left radioSize='md' name='groupName' value='orange'>
+        <RadioContent.Left radioSize='md' name='groupName' value='orange' disabled>
           orange
         </RadioContent.Left>
         <button type='submit'>제출 버튼</button>

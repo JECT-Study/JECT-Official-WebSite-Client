@@ -40,11 +40,13 @@ const RadioRoot = forwardRef<HTMLDivElement, RadioRootProps>(
 RadioRoot.displayName = "Radio.Root";
 
 const RadioBasic = forwardRef<HTMLInputElement, RadioBasicProps>(
-  ({ radioSize = "md", value, checked, onChange, ...props }, ref) => {
+  ({ value, checked, disabled, onChange, ...props }, ref) => {
     const groupContext = useRadioGroupContext();
+    const { radioSize, isDisabled } = useRadioContext();
 
     // RadioGroup이 있으면 그룹의 값 사용, 없으면 개별 props 사용
     const isChecked = groupContext ? groupContext.value === value : checked;
+    const isBasicDisabled = isDisabled ? true : disabled;
     const groupName = groupContext?.name;
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -61,6 +63,7 @@ const RadioBasic = forwardRef<HTMLInputElement, RadioBasicProps>(
           type='radio'
           value={value}
           checked={isChecked}
+          disabled={isBasicDisabled}
           onChange={handleChange}
           name={groupName}
           {...props}
