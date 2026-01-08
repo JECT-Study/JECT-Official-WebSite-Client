@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { interaction, pxToRem } from "utils";
+import { Interaction, pxToRem } from "utils";
 
 import type { RadioSize, RadioStyledProps, StyledLabelProps } from "./radio.types";
 
@@ -45,14 +45,14 @@ export const StyledRadioRootLabel = styled.label<RadioStyledProps>(({ theme, rad
       backgroundColor: theme.color.semantic.surface.standard,
       borderColor: theme.color.semantic.stroke.alpha.subtler,
       cursor: "default",
-      ...interaction(theme, "normal", "normal", "default", "disabled"),
+      ...Interaction(theme, "normal", "normal", "default", "disabled"),
     },
 
     [`input[type="radio"]:checked:disabled + .visual`]: {
       backgroundColor: theme.color.semantic.fill.subtle,
       border: `${theme.scheme.semantic.strokeWeight[borderSize]} solid ${theme.color.semantic.stroke.subtler}`,
       cursor: "default",
-      ...interaction(theme, "normal", "normal", "default", "disabled"),
+      ...Interaction(theme, "normal", "normal", "default", "disabled"),
     },
 
     [`input[type="radio"]:focus-visible + .visual`]: {
@@ -83,7 +83,7 @@ export const StyledRadioRootSpan = styled.span<RadioStyledProps>(({ theme, radio
     border: `1px solid ${theme.color.semantic.stroke.alpha.assistive}`,
     backgroundColor: theme.color.semantic.surface.shallow,
     cursor: "pointer",
-    ...interaction(theme, "normal", "normal", "default"),
+    ...Interaction(theme, "normal", "normal", "default"),
   };
 });
 
@@ -143,7 +143,7 @@ export const subLabelSizeMap: Record<RadioSize, LabelSize> = {
   xs: "xs",
 };
 
-export const StyledRadioRoot = styled.label<RadioContainerProps>(
+export const StyledRadioRoot = styled.div<RadioContainerProps>(
   ({ theme, radioSize, isDisabled, isAlignRight, isStyleOutline }) => {
     const rowGap = radioContainerSizeMap[radioSize]
       .gap as keyof typeof theme.scheme.semantic.spacing;
@@ -156,14 +156,14 @@ export const StyledRadioRoot = styled.label<RadioContainerProps>(
     const borderColor = isDisabled
       ? theme.color.semantic.stroke.alpha.subtler
       : theme.color.semantic.stroke.alpha.subtle;
-    const checkedInteraction = interaction(
+    const checkedInteraction = Interaction(
       theme,
       "accent",
       "assistive",
       "default",
       isDisabled ? "readonly" : "default",
     );
-    const nonCheckedInteraction = interaction(
+    const nonCheckedInteraction = Interaction(
       theme,
       "normal",
       "normal",
