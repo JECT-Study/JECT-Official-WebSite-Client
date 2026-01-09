@@ -2,9 +2,11 @@ import type { Sort } from "./sort";
 
 export interface Jectalk {
   id: number;
-  name: string;
-  youtubeUrl: string;
-  imageUrl: string;
+  title: string;
+  description: string;
+  contentUrl: string;
+  contentType: string;
+  thumbnailUrl: string;
   summary: string;
 }
 
