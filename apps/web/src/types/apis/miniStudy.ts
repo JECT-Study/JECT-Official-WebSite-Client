@@ -6,6 +6,7 @@ export interface MiniStudy {
   linkUrl: string;
   imageUrl: string;
   summary: string;
+  tag: string;
 }
 
 export interface MiniStudiesResponse {
