@@ -6,12 +6,12 @@ import {
   StyledRadioRootLabel,
   StyledRadioRootSpan,
   StyledLabel,
-  StyledRadioRoot,
   StyledSubLabel,
+  StyledRadioItem,
 } from "./Radio.style";
 import type {
   RadioBasicProps,
-  RadioGroupProps,
+  RadioItemProps,
   RadioLabelProps,
   RadioRootProps,
   RadioSubLabelProps,
@@ -19,34 +19,67 @@ import type {
 import { RadioProvider, useRadioContext } from "./RadioContext";
 import { RadioGroupProvider, useRadioGroupContext } from "./RadioGroupContext";
 
-const RadioRoot = forwardRef<HTMLDivElement, RadioRootProps>(
-  ({ radioSize = "md", radioStyle = "empty", align = "left", disabled = false, children }, ref) => {
+const RadioRoot = ({
+  radioSize = "md",
+  radioStyle = "empty",
+  radioAlign = "left",
+  disabled = false,
+  value,
+  onChange,
+  name,
+  children,
+}: RadioRootProps) => {
+  return (
+    <RadioGroupProvider
+      value={{ radioSize, radioStyle, radioAlign, isDisabled: disabled, value, onChange, name }}
+    >
+      {children}
+    </RadioGroupProvider>
+  );
+};
+
+RadioRoot.displayName = "Radio.Root";
+
+const RadioItem = forwardRef<HTMLDivElement, RadioItemProps>(
+  (
+    { radioSize = "md", radioStyle = "empty", radioAlign = "left", disabled = false, children },
+    ref,
+  ) => {
+    const groupContext = useRadioGroupContext();
+    const size = groupContext?.radioSize || radioSize;
+    const isDisabled = groupContext?.isDisabled || disabled;
+    const isAlignRight = groupContext?.radioAlign
+      ? groupContext.radioAlign === "right"
+      : radioAlign === "right";
+    const isStyleOutline = groupContext?.radioStyle
+      ? groupContext?.radioStyle === "outline"
+      : radioStyle === "outline";
+
     return (
-      <RadioProvider value={{ radioSize, isDisabled: disabled }}>
-        <StyledRadioRoot
+      <RadioProvider value={{ radioSize: size, isDisabled }}>
+        <StyledRadioItem
           ref={ref}
-          radioSize={radioSize}
-          isDisabled={disabled}
-          isAlignRight={align === "right"}
-          isStyleOutline={radioStyle === "outline"}
+          radioSize={size}
+          isDisabled={isDisabled}
+          isAlignRight={isAlignRight}
+          isStyleOutline={isStyleOutline}
         >
           {children}
-        </StyledRadioRoot>
+        </StyledRadioItem>
       </RadioProvider>
     );
   },
 );
 
-RadioRoot.displayName = "Radio.Root";
+RadioItem.displayName = "Radio.Item";
 
 const RadioBasic = forwardRef<HTMLInputElement, RadioBasicProps>(
-  ({ value, checked, disabled, onChange, ...props }, ref) => {
+  ({ radioSize = "md", value, checked, disabled, onChange, ...props }, ref) => {
     const groupContext = useRadioGroupContext();
-    const { radioSize, isDisabled } = useRadioContext();
+    const radioContext = useRadioContext();
 
-    // RadioGroup이 있으면 그룹의 값 사용, 없으면 개별 props 사용
-    const isChecked = groupContext ? groupContext.value === value : checked;
-    const isBasicDisabled = isDisabled ? true : disabled;
+    const isChecked = groupContext?.value ? groupContext.value === value : checked;
+    const isBasicDisabled = radioContext?.isDisabled ? radioContext.isDisabled : disabled;
     const groupName = groupContext?.name;
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -57,7 +90,7 @@ const RadioBasic = forwardRef<HTMLInputElement, RadioBasicProps>(
     };
 
     return (
-      <StyledRadioRootLabel radioSize={radioSize}>
+      <StyledRadioRootLabel radioSize={radioContext?.radioSize || radioSize}>
         <StyledRadioRootInput
           ref={ref}
           type='radio'
@@ -77,9 +110,13 @@ const RadioBasic = forwardRef<HTMLInputElement, RadioBasicProps>(
 RadioBasic.displayName = "Radio.Basic";
 
 const RadioLabel = forwardRef<HTMLDivElement, RadioLabelProps>(({ children }, ref) => {
-  const { radioSize, isDisabled } = useRadioContext();
+  const rootContext = useRadioContext();
   return (
-    <StyledLabel ref={ref} $size={radioSize} $isDisabled={isDisabled}>
+    <StyledLabel
+      ref={ref}
+      $size={rootContext?.radioSize || "md"}
+      $isDisabled={rootContext?.isDisabled || false}
+    >
       {children}
     </StyledLabel>
   );
@@ -88,9 +125,13 @@ const RadioLabel = forwardRef<HTMLDivElement, RadioLabelProps>(({ children }, re
 RadioLabel.displayName = "Radio.Label";
 
 const RadioSubLabel = forwardRef<HTMLDivElement, RadioSubLabelProps>(({ children }, ref) => {
-  const { radioSize, isDisabled } = useRadioContext();
+  const rootContext = useRadioContext();
   return (
-    <StyledSubLabel ref={ref} $size={radioSize} $isDisabled={isDisabled}>
+    <StyledSubLabel
+      ref={ref}
+      $size={rootContext?.radioSize || "md"}
+      $isDisabled={rootContext?.isDisabled || false}
+    >
       {children}
     </StyledSubLabel>
   );
@@ -98,16 +139,10 @@ const RadioSubLabel = forwardRef<HTMLDivElement, RadioSubLabelProps>(({ children
 
 RadioSubLabel.displayName = "Radio.SubLabel";
 
-const RadioGroup = ({ value, onChange, name, children }: RadioGroupProps) => {
-  return <RadioGroupProvider value={{ value, onChange, name }}>{children}</RadioGroupProvider>;
-};
-
-RadioGroup.displayName = "Radio.Group";
-
 export const Radio = {
   Root: RadioRoot,
+  Item: RadioItem,
   Basic: RadioBasic,
   Label: RadioLabel,
   SubLabel: RadioSubLabel,
-  Group: RadioGroup,
 };

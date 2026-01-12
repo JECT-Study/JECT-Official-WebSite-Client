@@ -17,11 +17,16 @@ const RadioContentLeft = forwardRef<HTMLInputElement, RadioContentProps>(
     ref,
   ) => {
     return (
-      <Radio.Root radioSize={radioSize} disabled={disabled} align='left' radioStyle={radioStyle}>
+      <Radio.Item
+        radioSize={radioSize}
+        disabled={disabled}
+        radioAlign='left'
+        radioStyle={radioStyle}
+      >
         <Radio.Basic ref={ref} {...props} />
         <Radio.Label>{children}</Radio.Label>
         {subLabelVisible && <Radio.SubLabel>{subLabel}</Radio.SubLabel>}
-      </Radio.Root>
+      </Radio.Item>
     );
   },
 );
@@ -42,11 +47,16 @@ const RadioContentRight = forwardRef<HTMLInputElement, RadioContentProps>(
     ref,
   ) => {
     return (
-      <Radio.Root radioSize={radioSize} disabled={disabled} align='right' radioStyle={radioStyle}>
+      <Radio.Item
+        radioSize={radioSize}
+        disabled={disabled}
+        radioAlign='right'
+        radioStyle={radioStyle}
+      >
         <Radio.Label>{children}</Radio.Label>
         <Radio.Basic ref={ref} {...props} />
         {subLabelVisible && <Radio.SubLabel>{subLabel}</Radio.SubLabel>}
-      </Radio.Root>
+      </Radio.Item>
     );
   },
 );

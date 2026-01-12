@@ -143,7 +143,7 @@ export const subLabelSizeMap: Record<RadioSize, LabelSize> = {
   xs: "xs",
 };
 
-export const StyledRadioRoot = styled.div<RadioContainerProps>(
+export const StyledRadioItem = styled.div<RadioContainerProps>(
   ({ theme, radioSize, isDisabled, isAlignRight, isStyleOutline }) => {
     const rowGap = radioContainerSizeMap[radioSize]
       .gap as keyof typeof theme.scheme.semantic.spacing;
@@ -254,7 +254,7 @@ export const StyledLabel = styled("div")<StyledLabelProps>(({ theme, $size, $isD
 export const StyledSubLabel = styled("div")<StyledLabelProps>(({ theme, $size, $isDisabled }) => {
   return {
     ...theme.textStyle[`semantic-textStyle-label-${subLabelSizeMap[$size]}-subtle`],
-    color: $isDisabled ? theme.color.semantic.object.subtle : theme.color.semantic.object.bold,
+    color: $isDisabled ? theme.color.semantic.object.subtle : theme.color.semantic.object.assistive,
     position: "relative",
     zIndex: 10,
     whiteSpace: "nowrap",

@@ -148,13 +148,13 @@ export const ControlledRadio: Story = {
 
     return (
       <div style={{ display: "flex", gap: 20 }}>
-        <Radio.Group value={selected} onChange={setSelected} name='country'>
+        <Radio.Root value={selected} onChange={setSelected} name='country'>
           {items.map(item => (
             <RadioContent.Left key={item} radioSize='md' value={item}>
               {item}
             </RadioContent.Left>
           ))}
-        </Radio.Group>
+        </Radio.Root>
         <p>결과: {selected}</p>
       </div>
     );
