@@ -247,6 +247,7 @@ export const StyledLabel = styled("div")<StyledLabelProps>(({ theme, $size, $isD
   return {
     ...theme.textStyle[`semantic-textStyle-label-${$size}-subtle`],
     color: $isDisabled ? theme.color.semantic.object.subtle : theme.color.semantic.object.bold,
+    whiteSpace: "nowrap",
   };
 });
 
@@ -256,5 +257,6 @@ export const StyledSubLabel = styled("div")<StyledLabelProps>(({ theme, $size, $
     color: $isDisabled ? theme.color.semantic.object.subtle : theme.color.semantic.object.bold,
     position: "relative",
     zIndex: 10,
+    whiteSpace: "nowrap",
   };
 });
