@@ -33,10 +33,12 @@ export const RadioBasicChecked: Story = {
 export const RadioBasicDisabled: Story = {
   render: () => (
     <FlexColumn>
+      <span>RadioBasic을 비활성화합니다.</span>
       <FlexRow>
         <Radio.Basic name='disabledItem' value='1' disabled />
         <Radio.Basic name='disabledItem' value='2' checked disabled />
       </FlexRow>
+      <span>Radio.Root를 통해 그룹 전체를 비활성화합니다.</span>
       <FlexRow>
         <Radio.Root disabled name='rootControl'>
           <Radio.Item>
@@ -46,6 +48,23 @@ export const RadioBasicDisabled: Story = {
           <Radio.Item>
             <Radio.Basic value='2' checked />
             <Radio.Label>레이블</Radio.Label>
+          </Radio.Item>
+        </Radio.Root>
+      </FlexRow>
+      <span>Radio.Item을 통해 아이템을 개별적으로 비활성화합니다.</span>
+      <FlexRow>
+        <Radio.Root name='itemControl'>
+          <Radio.Item disabled>
+            <Radio.Basic value='1' />
+            <Radio.Label>레이블</Radio.Label>
+          </Radio.Item>
+          <Radio.Item disabled>
+            <Radio.Basic value='2' />
+            <Radio.Label>레이블</Radio.Label>
+          </Radio.Item>
+          <Radio.Item>
+            <Radio.Basic value='3' />
+            <Radio.Label>비활성화X</Radio.Label>
           </Radio.Item>
         </Radio.Root>
       </FlexRow>
