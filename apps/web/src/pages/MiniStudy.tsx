@@ -8,10 +8,12 @@ const MiniStudy = () => {
   const { miniStudies, isError, isPending } = useMiniStudiesQuery();
 
   return (
-    <div className='bg-(--semantic-surface-standard) flex min-h-dvh flex-col items-center pt-(--semantic-spacing-64) py-(--semantic-margin-2xl)'>
-      <section className='gap-(--semantic-spacing-32) flex w-full max-w-[922px] flex-col items-center pt-(--semantic-margin-xl) pb-(--semantic-spacing-80) px-(--semantic-margin-lg)'>
-        <div className='gap-(--semantic-spacing-16) flex w-full flex-col items-start'>
-          <Hero size='xs' textAlign='left'>미니 스터디</Hero>
+    <div className='flex min-h-dvh flex-col items-center bg-(--semantic-surface-standard) px-(--semantic-margin-lg) py-(--semantic-margin-2xl) pt-(--semantic-spacing-64)'>
+      <section className='flex w-full max-w-[922px] flex-col items-center gap-(--semantic-spacing-32) pt-(--semantic-margin-xl) pb-(--semantic-spacing-80)'>
+        <div className='flex w-full flex-col items-start gap-(--semantic-spacing-16)'>
+          <Hero size='xs' textAlign='left'>
+            미니 스터디
+          </Hero>
           <Title size='xs' textAlign='left'>
             활동 중 팀 프로젝트와 병행할 수 있는, 성장을 위한 스터디입니다.
           </Title>
@@ -33,14 +35,14 @@ const MiniStudy = () => {
               </Label>
             </div>
           ) : (
-            <div className='gap-(--semantic-spacing-16) flex w-full flex-col'>
+            <div className='flex w-full flex-col gap-(--semantic-spacing-16)'>
               {miniStudies.map(study => (
                 <Card.Preset.Post.Link
                   key={study.id}
                   layout='horizontal'
                   title={study.name}
-                  body=''
-                  author={study.summary}
+                  body={study.summary}
+                  author={study.tag}
                   date=''
                   href={study.linkUrl}
                   target='_blank'

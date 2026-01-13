@@ -8,8 +8,8 @@ const LiveSession = () => {
   const { jectalks, isError, isPending } = useJectalksQuery();
 
   return (
-    <div className='bg-(--semantic-surface-standard) pt-(--semantic-spacing-64) flex min-h-dvh flex-col items-center py-(--semantic-margin-2xl)'>
-      <section className='flex w-full max-w-[922px] flex-col items-center gap-(--semantic-spacing-32) px-(--semantic-margin-lg) pb-(--semantic-spacing-80) pt-(--semantic-margin-xl)'>
+    <div className='flex min-h-dvh flex-col items-center bg-(--semantic-surface-standard) px-(--semantic-margin-lg) py-(--semantic-margin-2xl) pt-(--semantic-spacing-64)'>
+      <section className='flex w-full max-w-[922px] flex-col items-center gap-(--semantic-spacing-32) pt-(--semantic-margin-xl) pb-(--semantic-spacing-80)'>
         <div className='flex w-full flex-col items-start gap-(--semantic-spacing-16)'>
           <Hero size='xs' textAlign='left'>
             라이브 세션
@@ -48,16 +48,16 @@ const LiveSession = () => {
                 <Card.Preset.Post.Link
                   key={session.id}
                   layout='horizontal'
-                  title={session.name}
-                  body=''
+                  title={session.title}
+                  body={session.description}
                   author={session.summary}
-                  date='YouTube'
-                  href={session.youtubeUrl}
+                  date={session.contentType}
+                  href={session.contentUrl}
                   target='_blank'
                   rel='noopener noreferrer'
                   image={{
-                    src: session.imageUrl,
-                    alt: session.name,
+                    src: session.thumbnailUrl,
+                    alt: session.title,
                   }}
                 />
               ))}

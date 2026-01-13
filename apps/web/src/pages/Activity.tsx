@@ -40,10 +40,10 @@ function Activity() {
             {jectalks.map(jectalk => (
               <Card
                 key={jectalk.id}
-                to={jectalk.youtubeUrl}
-                title={jectalk.name}
+                to={jectalk.contentUrl}
+                title={jectalk.title}
                 label={jectalk.summary}
-                imgUrl={jectalk.imageUrl}
+                imgUrl={jectalk.thumbnailUrl}
                 isDescriptionVisible={false}
                 target='_blank'
                 rel='noopener noreferrer'
