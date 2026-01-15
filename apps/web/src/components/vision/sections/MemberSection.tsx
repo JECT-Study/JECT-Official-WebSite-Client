@@ -42,6 +42,13 @@ interface MakersMember {
   description: string;
 }
 
+interface MemberTabItem {
+  value: string;
+  label: string;
+  gridClassName: string;
+  renderCards: () => React.ReactNode;
+}
+
 const roleBadgeVariantMap: Record<SupportersRole, ThemeVariant> = {
   대표: "lime",
   운영: "lime",
@@ -55,12 +62,6 @@ const roleIconMap: Record<MakersRole, IconName> = {
   디자인: "design",
   기획: "product",
 };
-
-const memberTabs = [
-  { value: "supporters", label: "운영 서포터즈" },
-  { value: "makers1", label: "메이커스 1팀" },
-  { value: "makers2", label: "메이커스 2팀" },
-];
 
 const supportersData: SupporterMember[] = [
   { id: 1, name: "왕효준", role: "대표", imageUrl: 대표_왕효준 },
@@ -262,6 +263,30 @@ const MakersCard = ({ member }: { member: MakersMember }) => {
   );
 };
 
+const memberTabs: MemberTabItem[] = [
+  {
+    value: "supporters",
+    label: "운영 서포터즈",
+    gridClassName: "tablet:grid-cols-4 grid-cols-2",
+    renderCards: () =>
+      supportersData.map(member => <SupportersCard key={member.id} member={member} />),
+  },
+  {
+    value: "makers1",
+    label: "메이커스 1팀",
+    gridClassName: "tablet:grid-cols-2 grid-cols-1",
+    renderCards: () =>
+      makers1Data.map(member => <MakersCard key={member.id} member={member} />),
+  },
+  {
+    value: "makers2",
+    label: "메이커스 2팀",
+    gridClassName: "tablet:grid-cols-2 grid-cols-1",
+    renderCards: () =>
+      makers2Data.map(member => <MakersCard key={member.id} member={member} />),
+  },
+];
+
 const MemberSection = () => {
   return (
     <section className='flex w-full flex-col items-center'>
@@ -289,29 +314,15 @@ const MemberSection = () => {
             ))}
           </Tab.List>
 
-          <Tab.Content value='supporters'>
-            <div className='tablet:grid-cols-4 grid grid-cols-2 gap-(--semantic-spacing-16) pt-(--semantic-spacing-32)'>
-              {supportersData.map(member => (
-                <SupportersCard key={member.id} member={member} />
-              ))}
-            </div>
-          </Tab.Content>
-
-          <Tab.Content value='makers1'>
-            <div className='tablet:grid-cols-2 grid grid-cols-1 gap-(--semantic-spacing-16) pt-(--semantic-spacing-32)'>
-              {makers1Data.map(member => (
-                <MakersCard key={member.id} member={member} />
-              ))}
-            </div>
-          </Tab.Content>
-
-          <Tab.Content value='makers2'>
-            <div className='tablet:grid-cols-2 grid grid-cols-1 gap-(--semantic-spacing-16) pt-(--semantic-spacing-32)'>
-              {makers2Data.map(member => (
-                <MakersCard key={member.id} member={member} />
-              ))}
-            </div>
-          </Tab.Content>
+          {memberTabs.map(tab => (
+            <Tab.Content key={tab.value} value={tab.value}>
+              <div
+                className={`grid gap-(--semantic-spacing-16) pt-(--semantic-spacing-32) ${tab.gridClassName}`}
+              >
+                {tab.renderCards()}
+              </div>
+            </Tab.Content>
+          ))}
         </Tab.Root>
       </div>
     </section>
