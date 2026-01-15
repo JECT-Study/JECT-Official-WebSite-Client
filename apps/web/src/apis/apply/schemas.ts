@@ -85,6 +85,7 @@ export const questionSchema = z.object({
   inputType: questionInputTypeSchema,
   isRequired: z.boolean(),
   title: z.string(),
+  subtitle: z.string().nullable(),
   label: z.string(),
   selectOptions: z.array(z.string()).nullable(),
   inputHint: z.string(),
