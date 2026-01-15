@@ -22,7 +22,7 @@ export function TextQuestionField({ question, value, onChange }: TextQuestionFie
   const helperText = hasError ? APPLY_MESSAGE.invalid.exceedText : "";
 
   return (
-    <QuestionFieldWrapper title={question.title} isRequired={question.isRequired}>
+    <QuestionFieldWrapper title={question.title} subtitle={question.subtitle} isRequired={question.isRequired}>
       <InputArea
         placeholder={question.inputHint}
         maxLength={question.maxTextLength ?? undefined}
