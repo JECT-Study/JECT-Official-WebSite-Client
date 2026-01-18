@@ -136,13 +136,13 @@ function ApplyGuidePage() {
     setSearchParams(newParams, { replace: true });
   };
 
-  const handleApply = () => {
-    void navigate(`${PATH.applyFunnel}/${jobFamily}`);
-  };
+  // const handleApply = () => {
+  //   void navigate(`${PATH.applyFunnel}/${jobFamily}`);
+  // };
 
-  const handleContinue = () => {
-    void navigate(`${PATH.applyContinue}/${jobFamily}`);
-  };
+  // const handleContinue = () => {
+  //   void navigate(`${PATH.applyContinue}/${jobFamily}`);
+  // };
 
   const handleBack = () => {
     void navigate(PATH.applyList);
@@ -194,7 +194,6 @@ function ApplyGuidePage() {
             variant='solid'
             hierarchy='accent'
             size='lg'
-            onClick={handleApply}
             className='flex-1'
             disabled
           >
