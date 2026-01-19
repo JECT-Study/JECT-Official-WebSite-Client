@@ -136,13 +136,13 @@ function ApplyGuidePage() {
     setSearchParams(newParams, { replace: true });
   };
 
-  const handleApply = () => {
-    void navigate(`${PATH.applyFunnel}/${jobFamily}`);
-  };
+  // const handleApply = () => {
+  //   void navigate(`${PATH.applyFunnel}/${jobFamily}`);
+  // };
 
-  const handleContinue = () => {
-    void navigate(`${PATH.applyContinue}/${jobFamily}`);
-  };
+  // const handleContinue = () => {
+  //   void navigate(`${PATH.applyContinue}/${jobFamily}`);
+  // };
 
   const handleBack = () => {
     void navigate(PATH.applyList);
@@ -191,22 +191,13 @@ function ApplyGuidePage() {
 
         <div className='flex gap-3 self-stretch'>
           <BlockButton.Basic
-            variant='outlined'
-            hierarchy='secondary'
-            size='lg'
-            onClick={handleContinue}
-          >
-            이어서 작성하기
-          </BlockButton.Basic>
-          <BlockButton.Basic
             variant='solid'
             hierarchy='accent'
             size='lg'
-            suffixIcon='arrow-right-line'
-            onClick={handleApply}
             className='flex-1'
+            disabled
           >
-            지원서 작성하기
+            모집이 마감되었습니다
           </BlockButton.Basic>
         </div>
       </section>
