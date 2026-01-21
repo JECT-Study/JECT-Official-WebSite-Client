@@ -17,6 +17,7 @@ import { APPLY_TITLE } from "@/constants/applyPageData";
 import { ApplyStepLayout } from "@/features/shared/components";
 import { useMemberProfileMutation } from "@/hooks/apply";
 import { useApplyApplicantInfoForm } from "@/hooks/useApplyApplicantInfoForm";
+import { phoneNumberCompleteSchema } from "@/schema/applySchema";
 import type { ApplicantInfoContext, ProfileData } from "@/types/funnel";
 import {
   CAREER_DETAILS_OPTIONS,
@@ -42,7 +43,7 @@ interface ApplicantInfoStepProps {
 }
 
 export function ApplicantInfoStep({ context, onNext, onBack }: ApplicantInfoStepProps) {
-  const { control, handleSubmit, formState } = useApplyApplicantInfoForm();
+  const { control, handleSubmit, formState, setError } = useApplyApplicantInfoForm();
 
   const [openSelect, setOpenSelect] = useState<SelectFieldName | null>(null);
 
@@ -127,7 +128,21 @@ export function ApplicantInfoStep({ context, onNext, onBack }: ApplicantInfoStep
                 placeholder='01012345678'
                 helperText={fieldState.error?.message ?? ""}
                 value={field.value ?? ""}
-                onChange={field.onChange}
+                onChange={e => {
+                  const filtered = e.target.value.replace(/[^0-9-]/g, "");
+                  field.onChange(filtered);
+                }}
+                onBlur={() => {
+                  field.onBlur();
+
+                  const result = phoneNumberCompleteSchema.safeParse(field.value);
+
+                  if (!result.success) {
+                    setError("phoneNumber", {
+                      message: result.error.issues[0].message,
+                    });
+                  }
+                }}
               />
             )}
           />
