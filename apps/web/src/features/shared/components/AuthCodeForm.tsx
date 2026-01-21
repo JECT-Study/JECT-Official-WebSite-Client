@@ -76,7 +76,14 @@ export function AuthCodeForm({
             timer.start(180);
           }
         },
-        onError: () => {
+        onError: e => {
+          const errorStatus = e.response?.data.status;
+
+          if (errorStatus === "TOO_MANY_EMAIL_REQUESTS") {
+            toastController.destructive("인증번호 발송 실패", "잠시 후 다시 시도해주세요.");
+            return;
+          }
+
           toastController.destructive(
             "인증번호 발송 실패",
             "일시적 오류일 수 있으니 다시 시도해주세요.",
