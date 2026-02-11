@@ -4,6 +4,16 @@
   "description": "Ject Design System",
   "author": "Ject Team",
   "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=10.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JECT-Study/JECT-Official-WebSite-Client.git",
+    "directory": "packages/jds"
+  },
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -42,13 +52,13 @@
   },
   "scripts": {
     "dev": "tsup --watch",
-    "build": "tsup",
+    "build": "tsc --noEmit && tsup",
     "lint": "eslint --fix --max-warnings 0",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "chromatic": "npx chromatic --project-token=$CHROMATIC_TOKEN",
     "build:tokens": "npx tsx tokensBuilder.ts",
-    "clean": "rm -rf dist node_modules .turbo storybook-static",
+    "clean": "rimraf dist node_modules .turbo storybook-static",
     "build:icons": "svgr src/assets/icons --out-dir src/components/Icon/generated --typescript --ext tsx",
     "type-check": "tsc -b --noEmit",
     "format": "prettier --write ."
@@ -91,6 +101,5 @@
   },
   "optionalDependencies": {
     "@rollup/rollup-linux-x64-gnu": "4.53.2"
-  },
-  "type": "module"
+  }
 }
