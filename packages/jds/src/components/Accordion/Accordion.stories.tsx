@@ -1,6 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { Accordion } from "./Accordion";
+import type { AccordionRootProps } from "./accordion.types";
+import type { IconName } from "../Icon";
+
+type AccordionStoryArgs = AccordionRootProps & {
+  withPrefixIcon?: IconName;
+};
 
 const meta = {
   title: "Components/Accordion",
@@ -38,10 +44,7 @@ const meta = {
     },
     defaultValue: {
       control: "text",
-      description: "기본적으로 펼쳐져있는 아코디언아이템",
-      table: {
-        defaultValue: { summary: "false" },
-      },
+      description: "기본적으로 펼쳐져있는 아코디언 아이템 (multiple 모드 전용)",
     },
     collapsible: {
       control: "boolean",
@@ -50,15 +53,55 @@ const meta = {
         defaultValue: { summary: "false" },
       },
     },
+    withPrefixIcon: {
+      control: "text",
+      description: "아이콘",
+    },
+    size: {
+      control: "radio",
+      description: "아코디언 사이즈",
+    },
   },
   args: {
     type: "multiple",
     isStretched: false,
+    withPrefixIcon: "vector",
+    size: "lg",
   },
-} satisfies Meta<typeof Accordion.Root>;
+} satisfies Meta<AccordionStoryArgs>;
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+
+type Story = StoryObj<AccordionStoryArgs>;
+
+export const Default: Story = {
+  render: (args: AccordionStoryArgs) => (
+    <div style={{ width: "500px" }}>
+      <Accordion.Root type={args.type} isStretched={args.isStretched} size={args.size} collapsible>
+        <Accordion.Item value='item-1'>
+          <Accordion.Trigger withPrefixIcon={args.withPrefixIcon}>타이틀</Accordion.Trigger>
+          <Accordion.Content>
+            아코디언 콘텐츠 내용은 타이틀에 대한 상세 내용 및 설명을 포함합니다.
+          </Accordion.Content>
+        </Accordion.Item>
+
+        <Accordion.Item value='item-2'>
+          <Accordion.Trigger withPrefixIcon={args.withPrefixIcon}>타이틀</Accordion.Trigger>
+          <Accordion.Content>
+            아코디언 콘텐츠 내용은 타이틀에 대한 상세 내용 및 설명을 포함합니다.
+          </Accordion.Content>
+        </Accordion.Item>
+
+        <Accordion.Item value='item-3'>
+          <Accordion.Trigger withPrefixIcon={args.withPrefixIcon}>타이틀</Accordion.Trigger>
+          <Accordion.Content>
+            아코디언 콘텐츠 내용은 타이틀에 대한 상세 내용 및 설명을 포함합니다.
+          </Accordion.Content>
+        </Accordion.Item>
+      </Accordion.Root>
+    </div>
+  ),
+};
 
 export const Single: Story = {
   name: "Single 모드",
@@ -69,25 +112,25 @@ export const Single: Story = {
       },
     },
   },
-  render: args => (
+  render: (args: AccordionStoryArgs) => (
     <div style={{ width: "500px" }}>
-      <Accordion.Root isStretched={args.isStretched} type='single' collapsible>
+      <Accordion.Root isStretched={args.isStretched} type='single' size={args.size} collapsible>
         <Accordion.Item value='item-1'>
-          <Accordion.Trigger withPrefixIcon='blank'>타이틀</Accordion.Trigger>
+          <Accordion.Trigger withPrefixIcon={args.withPrefixIcon}>타이틀</Accordion.Trigger>
           <Accordion.Content>
             아코디언 콘텐츠 내용은 타이틀에 대한 상세 내용 및 설명을 포함합니다.
           </Accordion.Content>
         </Accordion.Item>
 
         <Accordion.Item value='item-2'>
-          <Accordion.Trigger withPrefixIcon='blank'>타이틀</Accordion.Trigger>
+          <Accordion.Trigger withPrefixIcon={args.withPrefixIcon}>타이틀</Accordion.Trigger>
           <Accordion.Content>
             아코디언 콘텐츠 내용은 타이틀에 대한 상세 내용 및 설명을 포함합니다.
           </Accordion.Content>
         </Accordion.Item>
 
         <Accordion.Item value='item-3'>
-          <Accordion.Trigger withPrefixIcon='blank'>타이틀</Accordion.Trigger>
+          <Accordion.Trigger withPrefixIcon={args.withPrefixIcon}>타이틀</Accordion.Trigger>
           <Accordion.Content>
             아코디언 콘텐츠 내용은 타이틀에 대한 상세 내용 및 설명을 포함합니다.
           </Accordion.Content>
@@ -106,7 +149,7 @@ export const Multiple: Story = {
       },
     },
   },
-  render: args => (
+  render: (args: AccordionStoryArgs) => (
     <div style={{ width: "500px" }}>
       <Accordion.Root isStretched={args.isStretched} type='multiple'>
         <Accordion.Item value='item-1'>
@@ -136,7 +179,6 @@ export const Multiple: Story = {
 
 export const WithoutDefaultValue: Story = {
   name: "with Default Value",
-  args: {},
   parameters: {
     docs: {
       description: {
@@ -144,7 +186,7 @@ export const WithoutDefaultValue: Story = {
       },
     },
   },
-  render: args => (
+  render: (args: AccordionStoryArgs) => (
     <div style={{ width: "500px" }}>
       <Accordion.Root
         isStretched={args.isStretched}
@@ -186,7 +228,7 @@ export const DisabledItems: Story = {
       },
     },
   },
-  render: args => (
+  render: (args: AccordionStoryArgs) => (
     <div style={{ width: "500px" }}>
       <Accordion.Root
         isStretched={args.isStretched}

@@ -1,24 +1,27 @@
 import type * as AccordionPrimitive from "@radix-ui/react-accordion";
-import type { ComponentPropsWithoutRef } from "react";
 
 import type { IconName } from "../Icon";
 
 export type AccordionSize = "lg" | "md" | "sm";
 
-export type AccordionRootProps = ComponentPropsWithoutRef<typeof AccordionPrimitive.Root> & {
+export interface AccordionRootBaseProps {
   isStretched?: boolean;
-  withPrefixIcon?: boolean;
   size?: AccordionSize;
+}
+
+export type AccordionPrimitiveProps =
+  | AccordionPrimitive.AccordionSingleProps
+  | AccordionPrimitive.AccordionMultipleProps;
+
+export type AccordionRootProps = AccordionRootBaseProps & AccordionPrimitiveProps;
+
+export type AccordionItemProps = AccordionPrimitive.AccordionItemProps;
+
+export type AccordionTriggerProps = AccordionPrimitive.AccordionTriggerProps & {
+  withPrefixIcon?: IconName;
 };
 
-export type AccordionItemProps = ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>;
-
-export type AccordionTriggerProps = ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger> & {
-  isStretched?: boolean;
-  withPrefixIcon?: IconName | null;
-};
-
-export type AccordionContentProps = ComponentPropsWithoutRef<typeof AccordionPrimitive.Content>;
+export type AccordionContentProps = AccordionPrimitive.AccordionContentProps;
 
 export interface StyledAccordionTriggerProps {
   $isStretched: boolean;
