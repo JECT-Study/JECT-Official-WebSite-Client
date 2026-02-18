@@ -130,6 +130,8 @@ export const StyledAccordionLabelContainer = styled("div")(({ theme }) => ({
 }));
 
 export const StyledAccordionChevron = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
   transition: `transform ${theme.environment.semantic.duration[300]} ${theme.environment.semantic.motion.fluent}`,
 }));
 
