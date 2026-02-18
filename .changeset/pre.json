@@ -6,5 +6,7 @@
     "@ject/eslint-config": "0.0.1",
     "@ject/jds": "0.0.1"
   },
-  "changesets": []
+  "changesets": [
+    "bold-pans-sip"
+  ]
 }
