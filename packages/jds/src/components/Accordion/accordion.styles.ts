@@ -139,6 +139,7 @@ export const StyleLabel = styled(Label)(() => ({
   color: "inherit",
   textAlign: "left" as const,
   textWrap: "wrap" as const,
+  cursor: "pointer",
 }));
 
 const slideUp = keyframes`
