@@ -24,9 +24,9 @@ export const accordionSizeMap: Record<
   sm: { iconSize: "xs", labelSize: "sm" },
 };
 
-const createInteractionStyles = (theme: Theme, isStretched: boolean, isReadonly: boolean) => {
+const createInteractionStyles = (theme: Theme, isReadonly: boolean) => {
   const borderRadius = 4;
-  const offset = isStretched ? { vertical: 0, horizontal: 0 } : { vertical: 4, horizontal: 6 };
+  const offset = { vertical: 4, horizontal: 6 };
 
   const makeLayer = (state: "rest" | "hover" | "active" | "focus") =>
     InteractionLayer({
@@ -59,8 +59,8 @@ export const StyledAccordionRoot = styled("div")(({ theme }) => ({
 export const StyledAccordionTrigger = styled(
   AccordionPrimitive.Trigger,
 )<StyledAccordionTriggerProps>(({ theme, $isStretched }) => {
-  const interactionStyles = createInteractionStyles(theme, $isStretched, false);
-  const disabledInteractionStyles = createInteractionStyles(theme, $isStretched, true);
+  const interactionStyles = createInteractionStyles(theme, false);
+  const disabledInteractionStyles = createInteractionStyles(theme, true);
 
   return {
     display: "flex",
