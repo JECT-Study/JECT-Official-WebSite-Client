@@ -5,7 +5,7 @@
 ### Patch Changes
 
 - Updated dependencies [050b727]
-  - @jects/jds@1.0.0
+  - @jects/jds@0.0.1
 
 ## 0.0.1-next.0
 
