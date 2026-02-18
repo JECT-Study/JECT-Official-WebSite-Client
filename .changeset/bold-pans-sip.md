@@ -1,5 +1,5 @@
 ---
-"@ject/jds": major
+"@jects/jds": major
 ---
 
 리팩토링 이전 디자인 시스템 배포 테스트
