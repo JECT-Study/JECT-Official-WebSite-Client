@@ -6,6 +6,7 @@ import type { IconName } from "../Icon";
 
 type AccordionStoryArgs = AccordionRootProps & {
   withPrefixIcon?: IconName;
+  collapsible?: boolean;
 };
 
 const meta = {
@@ -65,6 +66,7 @@ const meta = {
   args: {
     type: "multiple",
     isStretched: false,
+    collapsible: true,
     withPrefixIcon: "vector",
     size: "lg",
   },
@@ -77,7 +79,12 @@ type Story = StoryObj<AccordionStoryArgs>;
 export const Default: Story = {
   render: (args: AccordionStoryArgs) => (
     <div style={{ width: "500px" }}>
-      <Accordion.Root type={args.type} isStretched={args.isStretched} size={args.size} collapsible>
+      <Accordion.Root
+        type={args.type}
+        isStretched={args.isStretched}
+        size={args.size}
+        collapsible={args.collapsible}
+      >
         <Accordion.Item value='item-1'>
           <Accordion.Trigger withPrefixIcon={args.withPrefixIcon}>타이틀</Accordion.Trigger>
           <Accordion.Content>
@@ -114,7 +121,7 @@ export const Single: Story = {
   },
   render: (args: AccordionStoryArgs) => (
     <div style={{ width: "500px" }}>
-      <Accordion.Root isStretched={args.isStretched} type='single' size={args.size} collapsible>
+      <Accordion.Root isStretched={args.isStretched} type='single' size={args.size}>
         <Accordion.Item value='item-1'>
           <Accordion.Trigger withPrefixIcon={args.withPrefixIcon}>타이틀</Accordion.Trigger>
           <Accordion.Content>
