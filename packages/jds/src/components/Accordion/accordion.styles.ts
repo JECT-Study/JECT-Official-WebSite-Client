@@ -74,6 +74,10 @@ export const StyledAccordionTrigger = styled(
     color: theme.color.semantic.object.bolder,
     ...interactionStyles.restStyle,
 
+    "&:hover": {
+      ...interactionStyles.hoverStyle,
+    },
+
     "&:active": {
       ...interactionStyles.activeStyle,
       "::after": {
