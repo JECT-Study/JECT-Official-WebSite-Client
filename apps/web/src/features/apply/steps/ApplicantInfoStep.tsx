@@ -8,7 +8,7 @@ import {
   TextField,
   toastController,
   Tooltip,
-} from "@ject/jds";
+} from "@jects/jds";
 import { useState } from "react";
 import { Controller } from "react-hook-form";
 

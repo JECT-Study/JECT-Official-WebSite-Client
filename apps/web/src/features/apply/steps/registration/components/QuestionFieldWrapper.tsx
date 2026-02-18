@@ -1,4 +1,4 @@
-import { Title } from "@ject/jds";
+import { Title } from "@jects/jds";
 import type { ReactNode } from "react";
 
 interface QuestionFieldWrapperProps {
@@ -26,7 +26,7 @@ export function QuestionFieldWrapper({
           )}
         </Title>
         {subtitle && (
-          <p className='text-(--semantic-object-alternative) text-[0.875rem] font-normal leading-[1.375rem] tracking-[0.0035rem]'>
+          <p className='text-[0.875rem] leading-[1.375rem] font-normal tracking-[0.0035rem] text-(--semantic-object-alternative)'>
             {subtitle}
           </p>
         )}

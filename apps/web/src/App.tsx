@@ -1,7 +1,7 @@
 import "./instrument";
 
-import { ToastProvider } from "@ject/jds";
-import { JDSThemeProvider } from "@ject/jds/theme";
+import { ToastProvider } from "@jects/jds";
+import { JDSThemeProvider } from "@jects/jds/theme";
 import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Suspense, useState } from "react";

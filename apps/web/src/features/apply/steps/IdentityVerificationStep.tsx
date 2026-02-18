@@ -1,4 +1,4 @@
-import { BlockButton, Dialog, LabelButton, TextField, toastController } from "@ject/jds";
+import { BlockButton, Dialog, LabelButton, TextField, toastController } from "@jects/jds";
 import { useEffect, useState } from "react";
 import { Controller } from "react-hook-form";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";

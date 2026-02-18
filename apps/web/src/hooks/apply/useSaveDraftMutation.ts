@@ -1,4 +1,4 @@
-import { toastController } from "@ject/jds";
+import { toastController } from "@jects/jds";
 import { captureException } from "@sentry/react";
 import { useMutation, useQueryClient, type UseMutationOptions } from "@tanstack/react-query";
 

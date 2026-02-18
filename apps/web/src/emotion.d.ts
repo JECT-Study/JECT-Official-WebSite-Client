@@ -1,5 +1,5 @@
 import "@emotion/react";
-import type { theme } from "@ject/jds/tokens";
+import type { theme } from "@jects/jds/tokens";
 
 type DesignToken = typeof theme;
 

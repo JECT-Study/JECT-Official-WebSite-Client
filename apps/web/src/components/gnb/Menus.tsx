@@ -1,4 +1,4 @@
-import { MegaMenu, MenuItem } from "@ject/jds";
+import { MegaMenu, MenuItem } from "@jects/jds";
 import type { MouseEvent } from "react";
 import { useNavigate } from "react-router-dom";
 

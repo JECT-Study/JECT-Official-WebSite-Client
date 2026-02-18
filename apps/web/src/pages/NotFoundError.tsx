@@ -1,4 +1,4 @@
-import { BlockButton, Hero, Title } from "@ject/jds";
+import { BlockButton, Hero, Title } from "@jects/jds";
 import { useNavigate } from "react-router-dom";
 
 import Footer from "@/components/common/footer/Footer";

@@ -1,4 +1,4 @@
-import { Footer as FooterJds, Logo } from "@ject/jds";
+import { Footer as FooterJds, Logo } from "@jects/jds";
 
 function Footer() {
   return (

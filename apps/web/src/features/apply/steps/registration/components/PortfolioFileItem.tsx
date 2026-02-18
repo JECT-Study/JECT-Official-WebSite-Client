@@ -1,4 +1,4 @@
-import { FileItem, IconButton } from "@ject/jds";
+import { FileItem, IconButton } from "@jects/jds";
 import type { MouseEvent } from "react";
 
 import type { PortfolioFile } from "@/types/apis/application";
