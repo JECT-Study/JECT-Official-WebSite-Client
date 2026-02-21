@@ -1,4 +1,4 @@
-import { Checkbox } from "@ject/jds";
+import { Checkbox } from "@jects/jds";
 
 const TERMS = {
   privacy: {

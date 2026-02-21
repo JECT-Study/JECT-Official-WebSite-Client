@@ -1,5 +1,5 @@
-import { ContentBadge, Icon, Image, Tab, Title } from "@ject/jds";
-import type { IconName, ThemeVariant } from "@ject/jds";
+import { ContentBadge, Icon, Image, Tab, Title } from "@jects/jds";
+import type { IconName, ThemeVariant } from "@jects/jds";
 import { useState } from "react";
 
 import {
@@ -275,15 +275,13 @@ const memberTabs: MemberTabItem[] = [
     value: "makers1",
     label: "메이커스 1팀",
     gridClassName: "tablet:grid-cols-2 grid-cols-1",
-    renderCards: () =>
-      makers1Data.map(member => <MakersCard key={member.id} member={member} />),
+    renderCards: () => makers1Data.map(member => <MakersCard key={member.id} member={member} />),
   },
   {
     value: "makers2",
     label: "메이커스 2팀",
     gridClassName: "tablet:grid-cols-2 grid-cols-1",
-    renderCards: () =>
-      makers2Data.map(member => <MakersCard key={member.id} member={member} />),
+    renderCards: () => makers2Data.map(member => <MakersCard key={member.id} member={member} />),
   },
 ];
 

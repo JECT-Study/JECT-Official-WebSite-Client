@@ -1,4 +1,4 @@
-import type { IconName } from "@ject/jds";
+import type { IconName } from "@jects/jds";
 
 interface StatItem {
   id: number;
@@ -42,15 +42,7 @@ export const positionData: PositionItem[] = [
     icon: "frontend",
     description:
       "사용자와 직접 상호작용하는 기능과 화면을 개발합니다. 서비스에 적합한 기술을 활용하고 성능을 최적화해서 사용 경험을 더욱 긍정적으로 만들어요.",
-    tags: [
-      "JavaScript",
-      "TypeScript",
-      "HTML",
-      "CSS",
-      "React.js",
-      "상태 관리",
-      "성능 최적화",
-    ],
+    tags: ["JavaScript", "TypeScript", "HTML", "CSS", "React.js", "상태 관리", "성능 최적화"],
     themeColor: "green",
   },
   {
@@ -59,16 +51,7 @@ export const positionData: PositionItem[] = [
     icon: "backend",
     description:
       "서비스를 더욱 안정적으로 사용할 수 있도록 서버 로직을 개발합니다. 비즈니스 요구사항을 분석하고, API 설계부터 데이터베이스 연동, 보안과 배포까지 전 과정을 책임집니다.",
-    tags: [
-      "Java",
-      "Spring Boot",
-      "Restful API",
-      "DB",
-      "CI/CD",
-      "API 설계",
-      "DB 설계",
-      "서버 운영",
-    ],
+    tags: ["Java", "Spring Boot", "Restful API", "DB", "CI/CD", "API 설계", "DB 설계", "서버 운영"],
     themeColor: "sky",
   },
   {

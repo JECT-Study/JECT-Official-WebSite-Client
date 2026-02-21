@@ -11,8 +11,8 @@ import {
   Tab,
   Title,
   toastController,
-} from "@ject/jds";
-import { theme } from "@ject/jds/tokens";
+} from "@jects/jds";
+import { theme } from "@jects/jds/tokens";
 import { useNavigate, useParams, useSearchParams, Navigate } from "react-router-dom";
 
 import type { JobFamily } from "@/apis/apply";

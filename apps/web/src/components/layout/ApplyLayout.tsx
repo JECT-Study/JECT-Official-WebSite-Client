@@ -1,4 +1,4 @@
-import { BlockButton, LabelButton } from "@ject/jds";
+import { BlockButton, LabelButton } from "@jects/jds";
 import type { FallbackProps } from "react-error-boundary";
 import { Outlet, useNavigate } from "react-router-dom";
 

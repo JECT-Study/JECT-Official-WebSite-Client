@@ -1,4 +1,4 @@
-import { Hero, Icon, Label } from "@ject/jds";
+import { Hero, Icon, Label } from "@jects/jds";
 import { useEffect, useState } from "react";
 
 import heroBackground from "@/assets/images/hero-background.png";
@@ -23,7 +23,7 @@ const RotatingText = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex((prev) => prev + 1);
+      setCurrentIndex(prev => prev + 1);
     }, ANIMATION_CYCLE_MS);
     return () => clearInterval(interval);
   }, []);
@@ -49,17 +49,17 @@ const RotatingText = () => {
   }, [currentIndex, isTransitioning]);
 
   return (
-    <span className="inline-flex h-[1.2em] overflow-hidden align-middle">
+    <span className='inline-flex h-[1.2em] overflow-hidden align-middle'>
       <span
-        className="flex flex-col ease-(--semantic-motion-bouncy)"
+        className='flex flex-col ease-(--semantic-motion-bouncy)'
         style={{
           transform: `translateY(-${currentIndex * 100}%)`,
           transition: isTransitioning ? `transform ${ANIMATION_DURATION_MS}ms` : "none",
         }}
       >
         {extendedItems.map((item, index) => (
-          <span key={index} className="flex h-[1.2em] items-center justify-center gap-2">
-            <Icon name={item.icon} size="4xl" color="currentColor" />
+          <span key={index} className='flex h-[1.2em] items-center justify-center gap-2'>
+            <Icon name={item.icon} size='4xl' color='currentColor' />
             <span>{item.text}</span>
           </span>
         ))}
@@ -89,19 +89,19 @@ const HeroSection = () => {
       <div
         className='absolute inset-0 z-2'
         style={{
-          background: "linear-gradient(180deg, transparent 0%, transparent 50%, var(--semantic-surface-static-inverse-standard) 100%)",
+          background:
+            "linear-gradient(180deg, transparent 0%, transparent 50%, var(--semantic-surface-static-inverse-standard) 100%)",
         }}
       />
 
       <div className='relative z-10 flex h-full flex-col items-center justify-center'>
         <div
           style={{
-            background:
-              "radial-gradient(33.77% 43.9% at 50% 50%, #191B2480 0%, #191B2400 100%)",
+            background: "radial-gradient(33.77% 43.9% at 50% 50%, #191B2480 0%, #191B2400 100%)",
           }}
         >
           <Hero size='xs' textAlign='center' color='white'>
-            <span className="flex flex-col items-center">
+            <span className='flex flex-col items-center'>
               <span>젝트에서</span>
               <RotatingText />
               <span>경험해보세요.</span>

@@ -1,4 +1,4 @@
-import { Divider, IconButton, Label, MenuItem } from "@ject/jds";
+import { Divider, IconButton, Label, MenuItem } from "@jects/jds";
 import type { Dispatch, MouseEvent, SetStateAction } from "react";
 import { useEffect } from "react";
 import { createPortal } from "react-dom";

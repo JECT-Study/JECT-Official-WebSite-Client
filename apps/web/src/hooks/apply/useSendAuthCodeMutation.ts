@@ -1,4 +1,4 @@
-import { toastController } from "@ject/jds";
+import { toastController } from "@jects/jds";
 import { useMutation, type UseMutationOptions } from "@tanstack/react-query";
 
 import { applyApi, applyMutationKeys } from "@/apis/apply";

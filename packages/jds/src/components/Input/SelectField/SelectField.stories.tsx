@@ -590,7 +590,7 @@ export const AllVariants: Story = {
           "- SelectField.Button의 button prop에는 BlockButton.Basic 사용을 권장합니다.\n" +
           '- size는 "md"로 고정하여 일관성을 유지합니다.\n\n' +
           "```tsx\n" +
-          'import { SelectField, BlockButton } from "@ject/jds";\n' +
+          'import { SelectField, BlockButton } from "@jects/jds";\n' +
           'import { useState } from "react";\n\n' +
           "const [isOpen, setIsOpen] = useState(false);\n" +
           'const [value, setValue] = useState("");\n\n' +

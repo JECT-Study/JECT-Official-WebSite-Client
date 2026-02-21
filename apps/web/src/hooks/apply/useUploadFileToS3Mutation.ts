@@ -1,4 +1,4 @@
-import { toastController } from "@ject/jds";
+import { toastController } from "@jects/jds";
 import { captureException } from "@sentry/react";
 import { useMutation, type UseMutationOptions } from "@tanstack/react-query";
 import type { AxiosResponse } from "axios";
@@ -21,7 +21,13 @@ type UseUploadFileToS3MutationOptions = Omit<
 };
 
 export function useUploadFileToS3Mutation(options?: UseUploadFileToS3MutationOptions) {
-  const { isSuccessToastEnabled = true, isErrorToastEnabled = true, onSuccess, onError, ...restOptions } = options ?? {};
+  const {
+    isSuccessToastEnabled = true,
+    isErrorToastEnabled = true,
+    onSuccess,
+    onError,
+    ...restOptions
+  } = options ?? {};
 
   return useMutation({
     mutationKey: applyMutationKeys.upload.s3,

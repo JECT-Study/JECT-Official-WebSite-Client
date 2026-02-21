@@ -1,4 +1,4 @@
-import { LocalNavigation, Step, Title } from "@ject/jds";
+import { LocalNavigation, Step, Title } from "@jects/jds";
 import type { ReactNode } from "react";
 
 import type { JobFamily } from "@/apis/apply";

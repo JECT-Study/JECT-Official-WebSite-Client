@@ -1,4 +1,4 @@
-import { BlockButton, Dialog } from "@ject/jds";
+import { BlockButton, Dialog } from "@jects/jds";
 import { type ReactNode, useCallback, useMemo, useState } from "react";
 
 import { FileQuestionField, TextQuestionField, UrlQuestionField } from "./components";

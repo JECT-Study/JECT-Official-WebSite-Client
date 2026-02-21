@@ -1,4 +1,4 @@
-import { Divider } from "@ject/jds";
+import { Divider } from "@jects/jds";
 
 import GoalSection from "@/components/vision/sections/GoalSection";
 import GrowthStorySection from "@/components/vision/sections/GrowthStorySection";
