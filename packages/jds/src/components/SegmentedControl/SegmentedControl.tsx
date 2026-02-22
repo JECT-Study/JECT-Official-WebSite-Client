@@ -40,11 +40,22 @@ SegmentedControlRoot.displayName = "SegmentedControl.Root";
 const SegmentedControlItem = forwardRef<
   ElementRef<typeof SegmentedControlItemStyled>,
   SegmentedControlItemProps
->(({ value, disabled = false, children, ...props }, ref) => {
+>(({ value, disabled = false, children, onClick, ...props }, ref) => {
   const { size } = useSegmentedControlContext();
 
   return (
-    <ToggleGroup.Item asChild value={value} disabled={disabled} {...props}>
+    <ToggleGroup.Item
+      asChild
+      value={value}
+      disabled={disabled}
+      onClick={e => {
+        if (e.currentTarget.getAttribute("data-state") === "on") {
+          e.preventDefault();
+        }
+        onClick?.(e);
+      }}
+      {...props}
+    >
       <SegmentedControlItemStyled ref={ref} size={size} $isDisabled={disabled}>
         <Label size={size} color='inherit'>
           {children}
