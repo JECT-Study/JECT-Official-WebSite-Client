@@ -71,6 +71,7 @@ export const EmptyStateBodyTextP = styled("p", {
   display: "-webkit-box",
   WebkitBoxOrient: "vertical",
   WebkitLineClamp: 3,
+  margin: theme.scheme.semantic.spacing[0],
   overflow: "hidden",
   color: theme.color.semantic.object.assistive,
   textAlign: $layout === "vertical" ? "center" : "left",
