@@ -24,9 +24,9 @@ export const accordionSizeMap: Record<
   sm: { iconSize: "xs", labelSize: "sm" },
 };
 
-const createInteractionStyles = (theme: Theme, isStretched: boolean, isReadonly: boolean) => {
+const createInteractionStyles = (theme: Theme, isReadonly: boolean) => {
   const borderRadius = 4;
-  const offset = isStretched ? { vertical: 0, horizontal: 0 } : { vertical: 4, horizontal: 6 };
+  const offset = { vertical: 4, horizontal: 6 };
 
   const makeLayer = (state: "rest" | "hover" | "active" | "focus") =>
     InteractionLayer({
@@ -59,8 +59,8 @@ export const StyledAccordionRoot = styled("div")(({ theme }) => ({
 export const StyledAccordionTrigger = styled(
   AccordionPrimitive.Trigger,
 )<StyledAccordionTriggerProps>(({ theme, $isStretched }) => {
-  const interactionStyles = createInteractionStyles(theme, $isStretched, false);
-  const disabledInteractionStyles = createInteractionStyles(theme, $isStretched, true);
+  const interactionStyles = createInteractionStyles(theme, false);
+  const disabledInteractionStyles = createInteractionStyles(theme, true);
 
   return {
     display: "flex",
@@ -73,6 +73,10 @@ export const StyledAccordionTrigger = styled(
       : `${theme.scheme.semantic.spacing[4]} ${theme.scheme.semantic.spacing[16]}`,
     color: theme.color.semantic.object.bolder,
     ...interactionStyles.restStyle,
+
+    "&:hover": {
+      ...interactionStyles.hoverStyle,
+    },
 
     "&:active": {
       ...interactionStyles.activeStyle,
@@ -126,6 +130,8 @@ export const StyledAccordionLabelContainer = styled("div")(({ theme }) => ({
 }));
 
 export const StyledAccordionChevron = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
   transition: `transform ${theme.environment.semantic.duration[300]} ${theme.environment.semantic.motion.fluent}`,
 }));
 
@@ -133,6 +139,7 @@ export const StyleLabel = styled(Label)(() => ({
   color: "inherit",
   textAlign: "left" as const,
   textWrap: "wrap" as const,
+  cursor: "pointer",
 }));
 
 const slideUp = keyframes`
@@ -150,6 +157,7 @@ export const StyledAccordionContent = styled(AccordionPrimitive.Content)(({ them
     overflow: "hidden",
     ...theme.textStyle["semantic-textStyle-body-sm-normal"],
     color: theme.color.semantic.object.bold,
+    willChange: "height",
 
     "&[data-disabled]": {
       color: theme.color.semantic.object.subtle,
