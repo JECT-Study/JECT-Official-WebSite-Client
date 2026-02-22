@@ -20,16 +20,18 @@ export const Label = PolymorphicForwardRef<"label", LabelOwnProps>(
     const Component = as || ("label" as ElementType);
 
     return (
-      <LabelStyled
-        ref={ref}
-        as={Component}
-        $size={size}
-        $textAlign={textAlign}
-        $weight={weight}
-        {...restProps}
-      >
-        {children}
-      </LabelStyled>
+      <div style={{ width: "500px" }}>
+        <LabelStyled
+          ref={ref}
+          as={Component}
+          $size={size}
+          $textAlign={textAlign}
+          $weight={weight}
+          {...restProps}
+        >
+          {children}
+        </LabelStyled>
+      </div>
     );
   },
 );
