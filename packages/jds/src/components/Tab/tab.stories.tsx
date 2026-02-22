@@ -49,6 +49,11 @@ const meta = {
       control: "boolean",
       description: "탭 항목이 늘려져있는지 여부 ",
     },
+    asChild: {
+      table: {
+        disable: true
+      }
+    }
   },
   args: {
     variant: "header",
