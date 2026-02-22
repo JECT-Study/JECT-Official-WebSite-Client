@@ -49,9 +49,9 @@ const meta = {
       control: "text",
       description: "레이블 텍스트",
     },
-    labelIcon: {
-      control: "text",
-      description: "레이블 옆에 표시할 아이콘 (IconName)",
+    isWithInfoIcon: {
+      control: "boolean",
+      description: "info 아이콘 표시 여부",
     },
     helperText: {
       control: "text",
@@ -119,6 +119,7 @@ export const Default: Story = {
     value: "",
     isOpen: false,
     validation: "none",
+    interaction: "enabled",
     style: "outlined",
   },
   render: Template,
@@ -191,38 +192,6 @@ export const WithValue: Story = {
     docs: {
       description: {
         story: "**선택된 값 표시**\n\n값이 선택된 상태를 보여줍니다.",
-      },
-    },
-  },
-};
-
-export const WithLabelIcon: Story = {
-  args: {
-    value: "",
-  },
-  render: function Render() {
-    const [isOpen, setIsOpen] = useState(false);
-    const [value] = useState("");
-
-    return (
-      <div style={{ width: "20rem" }}>
-        <SelectField
-          label='중요한 선택'
-          labelIcon='information-line'
-          placeholder='옵션을 선택하세요'
-          helperText='중요한 정보이므로 신중히 선택하세요'
-          value={value}
-          isOpen={isOpen}
-          onClick={() => setIsOpen(!isOpen)}
-        />
-      </div>
-    );
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "**Label Icon 포함**\n\n레이블 옆에 아이콘을 추가할 수 있습니다. 어떤 IconName이든 사용 가능합니다.",
       },
     },
   },
