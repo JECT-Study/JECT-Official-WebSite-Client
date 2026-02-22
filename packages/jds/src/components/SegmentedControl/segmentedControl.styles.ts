@@ -77,7 +77,7 @@ export const SegmentedControlItemStyled = styled.button<StyledItemProps>(
       justifyContent: "center",
       flex: 1,
       cursor: "pointer",
-      border: "none",
+      border: "1px solid transparent",
       borderRadius: theme.scheme.semantic.radius[6],
       background: "transparent",
       ...segmentedControlItemSizeMap[size](theme),
