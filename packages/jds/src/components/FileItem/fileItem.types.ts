@@ -23,5 +23,5 @@ export interface FileItemProps extends ComponentPropsWithoutRef<"button"> {
   disabled?: boolean;
   hasError?: boolean;
   errorMessage?: ReactNode;
-  suffixButton?: ReactNode;
+  removeable?: boolean;
 }

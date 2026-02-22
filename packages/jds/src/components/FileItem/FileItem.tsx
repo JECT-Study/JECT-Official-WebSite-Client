@@ -1,4 +1,5 @@
 import { forwardRef } from "react";
+import { IconButton } from "../Button/IconButton";
 
 import {
   FileErrorSpan,
@@ -20,7 +21,7 @@ export const FileItem = forwardRef<HTMLButtonElement, FileItemProps>(
       disabled = false,
       hasError = false,
       errorMessage,
-      suffixButton,
+      removeable = false,
       ...buttonRest
     },
     ref,
@@ -58,7 +59,12 @@ export const FileItem = forwardRef<HTMLButtonElement, FileItemProps>(
             >
               {fileSize}
             </FileSizeLabel>
-            {!readonly && suffixButton}
+            {!readonly && removeable && <IconButton.Basic
+              hierarchy='tertiary'
+              size='lg'
+              icon='close-line'
+              onClick={() => alert("클릭")}
+            />}
           </FileItemDataContainer>
         </FileItemSectionDiv>
         {hasError && errorMessage && <FileErrorSpan role='alert'>{errorMessage}</FileErrorSpan>}
