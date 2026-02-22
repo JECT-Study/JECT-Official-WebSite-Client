@@ -1,0 +1,10 @@
+{
+  "mode": "pre",
+  "tag": "next",
+  "initialVersions": {
+    "ject-official-website-client": "0.0.1",
+    "@ject/eslint-config": "0.0.1",
+    "@jects/jds": "0.0.1"
+  },
+  "changesets": []
+}
