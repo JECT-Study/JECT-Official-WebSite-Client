@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexColumn, FlexRow, Label } from "@storybook-utils/layout";
 import { BlockButton } from "components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
+import type { TextFieldPublicProps } from "./index";
 import { TextField } from "./index";
 
 const meta = {
@@ -48,9 +49,9 @@ const meta = {
       control: "text",
       description: "레이블 텍스트",
     },
-    labelIcon: {
-      control: "text",
-      description: "레이블 옆에 표시할 아이콘 (IconName)",
+    isWithInfoIcon: {
+      control: "boolean",
+      description: "레이블 옆 Info 아이콘 표시 여부",
     },
     helperText: {
       control: "text",
@@ -66,26 +67,36 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+const Template = (args: TextFieldPublicProps) => {
+  const [value, setValue] = useState(args.value ?? "");
+
+  useEffect(() => {
+    setValue(args.value);
+  }, [args.value]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
+    args.onChange?.(e);
+  };
+
+  return (
+    <div style={{ width: "20rem" }}>
+      <TextField {...args} value={value} onChange={handleChange} />
+    </div>
+  );
+};
+
 export const Default: Story = {
   args: {
+    label: "레이블",
+    placeholder: "플레이스 홀더 텍스트",
+    helperText: "헬퍼 메시지 레이블",
+    validation: "none",
     value: "",
+    isWithInfoIcon: false,
     onChange: () => {},
   },
-  render: function Render() {
-    const [value, setValue] = useState("");
-    return (
-      <div style={{ width: "20rem" }}>
-        <TextField.Button
-          label='인증 코드'
-          placeholder='인증 코드를 입력하세요'
-          helperText='이메일로 전송된 인증 코드를 입력해주세요'
-          value={value}
-          onChange={e => setValue(e.target.value)}
-          button={<BlockButton.Basic size='md'>인증</BlockButton.Basic>}
-        />
-      </div>
-    );
-  },
+  render: Template,
   parameters: {
     docs: {
       description: {
@@ -93,33 +104,6 @@ export const Default: Story = {
           "**TextField.Button (기본)**\n\n" +
           "Input 오른쪽에 버튼이 포함된 필드입니다.\n" +
           "인증 코드 입력, 검색 등에 사용됩니다.",
-      },
-    },
-  },
-};
-
-export const WithLabelIcon: Story = {
-  args: {
-    label: "이메일",
-    labelIcon: "information-line",
-    placeholder: "example@ject.com",
-    helperText: "유효한 이메일 주소를 입력해주세요",
-    value: "",
-    onChange: () => {},
-  },
-  render: function Render(args) {
-    const [value, setValue] = useState("");
-    return (
-      <div style={{ width: "20rem" }}>
-        <TextField {...args} value={value} onChange={e => setValue(e.target.value)} />
-      </div>
-    );
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "**Label Icon 포함**\n\n레이블 옆에 아이콘을 추가할 수 있습니다. 어떤 IconName이든 사용 가능합니다.",
       },
     },
   },
