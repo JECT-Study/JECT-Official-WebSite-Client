@@ -44,7 +44,7 @@ const MenuItemButton = forwardRef<HTMLButtonElement, MenuItemButtonProps>(
             $size={size}
           />
         )}
-        <Label as='span' size={size} textAlign='left' weight='normal'>
+        <Label as='span' size={size} textAlign='left' weight='normal' cursor={disabled ? 'default' : 'pointer'}>
           {children}
         </Label>
         {suffixIconVisible && <Icon name={suffixIcon} size={size} />}
