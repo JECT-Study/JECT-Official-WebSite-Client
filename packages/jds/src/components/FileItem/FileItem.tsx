@@ -44,6 +44,7 @@ export const FileItem = forwardRef<HTMLButtonElement, FileItemProps>(
               textAlign='left'
               weight='subtle'
               $disabled={disabled}
+              $readonly={readonly}
               className='file-name'
             >
               {fileName}
@@ -57,7 +58,7 @@ export const FileItem = forwardRef<HTMLButtonElement, FileItemProps>(
             >
               {fileSize}
             </FileSizeLabel>
-            {suffixButton}
+            {!readonly && suffixButton}
           </FileItemDataContainer>
         </FileItemSectionDiv>
         {hasError && errorMessage && <FileErrorSpan role='alert'>{errorMessage}</FileErrorSpan>}
