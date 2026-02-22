@@ -22,6 +22,7 @@ export const FileItem = forwardRef<HTMLButtonElement, FileItemProps>(
       hasError = false,
       errorMessage,
       removeable = false,
+      onRemove,
       ...buttonRest
     },
     ref,
@@ -63,7 +64,7 @@ export const FileItem = forwardRef<HTMLButtonElement, FileItemProps>(
               hierarchy='tertiary'
               size='lg'
               icon='close-line'
-              onClick={() => alert("클릭")}
+              onClick={onRemove}
             />}
           </FileItemDataContainer>
         </FileItemSectionDiv>

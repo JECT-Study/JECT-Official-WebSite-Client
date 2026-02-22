@@ -1,4 +1,4 @@
-import { FileItem, IconButton } from "@jects/jds";
+import { FileItem } from "@jects/jds";
 import type { MouseEvent } from "react";
 
 import type { PortfolioFile } from "@/types/apis/application";
@@ -24,11 +24,8 @@ export function PortfolioFileItem({ portfolio, onDelete }: PortfolioFileItemProp
       fileName={portfolio.fileName}
       fileSize={changeFileSizeUnit(Number(portfolio.fileSize), ["KB", "MB"], true)}
       onClick={openFile}
-      suffixButton={
-        <IconButton.Basic size='lg' hierarchy='tertiary' icon='close-line' onClick={handleDelete}>
-          삭제
-        </IconButton.Basic>
-      }
+      removeable
+      onRemove={handleDelete}
     />
   );
 }
