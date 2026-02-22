@@ -79,6 +79,10 @@ export const StyledTabPrimitiveTrigger = styled(
       },
     },
 
+    "&:hover": {
+      ...interactionStyles.hoverStyle,
+    },
+
     "&:focus-visible": {
       ...interactionStyles.focusStyle,
     },
