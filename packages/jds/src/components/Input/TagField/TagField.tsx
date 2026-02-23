@@ -126,14 +126,23 @@ const TagFieldInput = forwardRef<HTMLInputElement, TagFieldInputProps>(
       }
     }, [ref]);
 
-    const handleTagClick = useCallback(
-      (e: MouseEvent, tagId: string) => {
-        e.stopPropagation();
+    const handleTagRemove = useCallback(
+      (tagId: string) => {
         onTagsChange(TagFieldUtils.removeTag(tags, tagId));
+        if (ref && typeof ref !== "function" && ref.current) {
+          ref.current.focus();
+        }
       },
-      [tags, onTagsChange],
+      [tags, onTagsChange, ref],
     );
 
+    const handleTagSelect = useCallback(
+      (e: MouseEvent, tagId: string) => {
+        e.stopPropagation();
+        setSelectedTagId(tagId);
+      },
+      [setSelectedTagId],
+    );
     return (
       <StyledTagInputWrapper
         $style={style}
@@ -146,7 +155,8 @@ const TagFieldInput = forwardRef<HTMLInputElement, TagFieldInputProps>(
           tags={tags}
           hasTag={hasTag}
           selectedTagId={selectedTagId}
-          onTagClick={handleTagClick}
+          onTagSelect={handleTagSelect}
+          onTagRemove={handleTagRemove}
         />
         <StyledTagInput
           ref={ref}
