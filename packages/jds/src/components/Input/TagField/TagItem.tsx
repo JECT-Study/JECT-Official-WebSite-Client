@@ -29,7 +29,6 @@ export const TagItem = ({ tag, isSelected, onSelect, onRemove }: TagItemProps) =
 
   return (
     <StyledTagWrapper
-      key={tag.id}
       $isSelected={isSelected}
       $isInteractive={isInteractive}
       onClick={isInteractive ? handleBodyClick : undefined}
