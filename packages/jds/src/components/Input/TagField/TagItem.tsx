@@ -18,13 +18,13 @@ export const TagItem = ({ tag, isSelected, onSelect, onRemove }: TagItemProps) =
   const handleRemoveIconClick = (e: MouseEvent) => {
     e.stopPropagation();
 
-    if (isInteractive && onRemove) onRemove(tag.id);
+    if (onRemove) onRemove(tag.id);
   };
 
   const handleBodyClick = (e: MouseEvent) => {
     e.stopPropagation();
 
-    if (isInteractive && onSelect) onSelect(e, tag.id);
+    if (onSelect) onSelect(e, tag.id);
   };
 
   return (
