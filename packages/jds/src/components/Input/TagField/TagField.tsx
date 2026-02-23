@@ -177,8 +177,8 @@ export const TagField = forwardRef<HTMLInputElement, TagFieldProps>(
       layout = "vertical",
       validation = "none",
       interaction = "enabled",
+      isWithInfoIcon = false,
       label,
-      labelIcon,
       helperText,
       ...restProps
     },
@@ -191,7 +191,7 @@ export const TagField = forwardRef<HTMLInputElement, TagFieldProps>(
         validation={validation}
         interaction={interaction}
         label={label}
-        labelIcon={labelIcon}
+        isWithInfoIcon={isWithInfoIcon}
         helperText={helperText}
       >
         <StyledFieldContainer $layout={layout}>
