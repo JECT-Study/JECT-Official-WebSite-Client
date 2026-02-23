@@ -56,14 +56,7 @@ export const InputArea = forwardRef<HTMLTextAreaElement, InputAreaProps>(
             >
               {label}
             </StyledFieldLabel>
-            {labelIcon && (
-              <StyledLabelIcon
-                name={labelIcon}
-                size='2xs'
-                $disabled={isDisabled}
-                $readOnly={isReadOnly}
-              />
-            )}
+            {labelIcon && <StyledLabelIcon name={labelIcon} size='2xs' />}
           </StyledLabelContainer>
         )}
 
