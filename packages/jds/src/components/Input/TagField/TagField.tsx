@@ -70,21 +70,27 @@ const TagFieldInput = forwardRef<HTMLInputElement, TagFieldInputProps>(
             clearInput();
             clearSelection();
           }
+
           return;
         }
 
         if (e.key === "Backspace") {
+          if (inputValue.length > 0) return;
+
           e.preventDefault();
+
           const action = TagFieldUtils.getBackspaceAction(inputValue, tags, selectedTagId);
 
           if (action === "remove") {
             const lastTagId = TagFieldUtils.getLastTagId(tags);
+
             if (lastTagId) {
               onTagsChange(TagFieldUtils.removeTag(tags, lastTagId));
               clearSelection();
             }
           } else if (action === "select") {
             const lastTagId = TagFieldUtils.getLastTagId(tags);
+
             if (lastTagId) {
               setSelectedTagId(lastTagId);
             }
@@ -92,9 +98,7 @@ const TagFieldInput = forwardRef<HTMLInputElement, TagFieldInputProps>(
           return;
         }
 
-        if (selectedTagId) {
-          clearSelection();
-        }
+        if (selectedTagId) clearSelection();
       },
       [
         isComposing,
