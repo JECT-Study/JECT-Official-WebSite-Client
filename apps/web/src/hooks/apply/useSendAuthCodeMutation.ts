@@ -1,11 +1,13 @@
 import { toastController } from "@ject/jds";
 import { useMutation, type UseMutationOptions } from "@tanstack/react-query";
+import type { AxiosError } from "axios";
 
 import { applyApi, applyMutationKeys } from "@/apis/apply";
 import type { EmailAuthPayload } from "@/types/apis/apply";
+import type { ApiResponse } from "@/types/apis/response";
 
 type UseSendAuthCodeMutationOptions = Omit<
-  UseMutationOptions<null, Error, EmailAuthPayload, unknown>,
+  UseMutationOptions<null, AxiosError<ApiResponse<string[]>>, EmailAuthPayload, unknown>,
   "mutationKey" | "mutationFn"
 >;
 

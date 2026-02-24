@@ -1,37 +1,23 @@
-import {
-  BlockButton,
-  Checkbox,
-  Icon,
-  Label,
-  Select,
-  SelectField,
-  TextField,
-  toastController,
-  Tooltip,
-} from "@ject/jds";
-import { useState } from "react";
+import { BlockButton, Checkbox, Icon, Label, TextField, toastController, Tooltip } from "@ject/jds";
 import { Controller } from "react-hook-form";
+
+import { SelectController } from "./components/SelectController";
 
 import { APPLY_MESSAGE } from "@/constants/applyMessages";
 import { APPLY_TITLE } from "@/constants/applyPageData";
 import { ApplyStepLayout } from "@/features/shared/components";
 import { useMemberProfileMutation } from "@/hooks/apply";
 import { useApplyApplicantInfoForm } from "@/hooks/useApplyApplicantInfoForm";
+import { phoneNumberCompleteSchema } from "@/schema/applySchema";
 import type { ApplicantInfoContext, ProfileData } from "@/types/funnel";
 import {
   CAREER_DETAILS_OPTIONS,
   EXPERIENCE_PERIOD_OPTIONS,
   INTERESTED_DOMAIN_OPTIONS,
   REGION_OPTIONS,
-  findLabelByValue,
-  type CareerDetails,
-  type ExperiencePeriod,
   type InterestedDomain,
-  type Region,
 } from "@/types/funnel";
 import { deriveInputValidation } from "@/utils/validationHelpers";
-
-type SelectFieldName = "careerDetails" | "region" | "experiencePeriod";
 
 const MAX_SELECTABLE_DOMAINS = 3;
 
@@ -42,9 +28,7 @@ interface ApplicantInfoStepProps {
 }
 
 export function ApplicantInfoStep({ context, onNext, onBack }: ApplicantInfoStepProps) {
-  const { control, handleSubmit, formState } = useApplyApplicantInfoForm();
-
-  const [openSelect, setOpenSelect] = useState<SelectFieldName | null>(null);
+  const { control, handleSubmit, formState, setError } = useApplyApplicantInfoForm();
 
   const { mutate: saveProfile } = useMemberProfileMutation({
     onSuccess: () => {
@@ -57,14 +41,6 @@ export function ApplicantInfoStep({ context, onNext, onBack }: ApplicantInfoStep
 
   const onSubmit = (data: ProfileData) => {
     saveProfile({ ...data, jobFamily: context.jobFamily });
-  };
-
-  const toggleSelect = (name: SelectFieldName) => {
-    setOpenSelect(prev => (prev === name ? null : name));
-  };
-
-  const closeSelect = () => {
-    setOpenSelect(null);
   };
 
   return (
@@ -127,7 +103,21 @@ export function ApplicantInfoStep({ context, onNext, onBack }: ApplicantInfoStep
                 placeholder='01012345678'
                 helperText={fieldState.error?.message ?? ""}
                 value={field.value ?? ""}
-                onChange={field.onChange}
+                onChange={e => {
+                  const filtered = e.target.value.replace(/[^0-9-]/g, "");
+                  field.onChange(filtered);
+                }}
+                onBlur={() => {
+                  field.onBlur();
+
+                  const result = phoneNumberCompleteSchema.safeParse(field.value);
+
+                  if (!result.success) {
+                    setError("phoneNumber", {
+                      message: result.error.issues[0].message,
+                    });
+                  }
+                }}
               />
             )}
           />
@@ -135,39 +125,18 @@ export function ApplicantInfoStep({ context, onNext, onBack }: ApplicantInfoStep
             name='careerDetails'
             control={control}
             render={({ field }) => (
-              <div className='relative flex flex-col'>
-                <SelectField
-                  label={
-                    <>
-                      지원자 신분
-                      <span className='text-feedback-notifying-neutral-light dark:text-feedback-notifying-neutral-dark'>
-                        *
-                      </span>
-                    </>
-                  }
-                  placeholder='현재 신분을 선택해주세요'
-                  value={findLabelByValue(CAREER_DETAILS_OPTIONS, field.value)}
-                  isOpen={openSelect === "careerDetails"}
-                  onClick={() => toggleSelect("careerDetails")}
-                />
-                {openSelect === "careerDetails" && (
-                  <div className='absolute top-[calc(100%+8px)] right-0 left-0 z-10'>
-                    <Select
-                      value={field.value}
-                      onChange={value => {
-                        field.onChange(value as CareerDetails);
-                        closeSelect();
-                      }}
-                    >
-                      {CAREER_DETAILS_OPTIONS.map(option => (
-                        <Select.Label key={option.value} value={option.value}>
-                          {option.label}
-                        </Select.Label>
-                      ))}
-                    </Select>
-                  </div>
-                )}
-              </div>
+              <SelectController
+                label={
+                  <>
+                    지원자 신분
+                    <span className='text-feedback-notifying-neutral-light'>*</span>
+                  </>
+                }
+                placeholder='현재 신분을 선택해주세요'
+                value={field.value}
+                options={CAREER_DETAILS_OPTIONS}
+                onChange={value => field.onChange(value)}
+              />
             )}
           />
 
@@ -175,39 +144,20 @@ export function ApplicantInfoStep({ context, onNext, onBack }: ApplicantInfoStep
             name='region'
             control={control}
             render={({ field }) => (
-              <div className='relative flex flex-col'>
-                <SelectField
-                  label={
-                    <>
-                      거주 지역
-                      <span className='text-feedback-notifying-neutral-light dark:text-feedback-notifying-neutral-dark'>
-                        *
-                      </span>
-                    </>
-                  }
-                  placeholder='현재 거주하는 지역을 선택해주세요'
-                  value={field.value ? findLabelByValue(REGION_OPTIONS, field.value) : ""}
-                  isOpen={openSelect === "region"}
-                  onClick={() => toggleSelect("region")}
-                />
-                {openSelect === "region" && (
-                  <div className='absolute top-[calc(100%+8px)] right-0 left-0 z-10'>
-                    <Select
-                      value={field.value ?? ""}
-                      onChange={value => {
-                        field.onChange(value as Region);
-                        closeSelect();
-                      }}
-                    >
-                      {REGION_OPTIONS.map(option => (
-                        <Select.Label key={option.value} value={option.value}>
-                          {option.label}
-                        </Select.Label>
-                      ))}
-                    </Select>
-                  </div>
-                )}
-              </div>
+              <SelectController
+                label={
+                  <>
+                    거주 지역
+                    <span className='text-feedback-notifying-neutral-light dark:text-feedback-notifying-neutral-dark'>
+                      *
+                    </span>
+                  </>
+                }
+                placeholder='현재 신분을 선택해주세요'
+                value={field.value}
+                options={REGION_OPTIONS}
+                onChange={value => field.onChange(value)}
+              />
             )}
           />
 
@@ -215,46 +165,25 @@ export function ApplicantInfoStep({ context, onNext, onBack }: ApplicantInfoStep
             name='experiencePeriod'
             control={control}
             render={({ field }) => (
-              <div className='relative flex flex-col'>
-                <SelectField
-                  label={
-                    <div className='flex items-center gap-(--semantic-spacing-4) text-(--semantic-object-normal)'>
-                      직무 관련 경험 기간
-                      <Tooltip.Provider>
-                        <Tooltip.Root>
-                          <Tooltip.Trigger className='text-(--semantic-object-alternative)'>
-                            <Icon name='information-fill' size='2xs' color='inherit' />
-                          </Tooltip.Trigger>
-                          <Tooltip.Content>학습과 경력을 모두 포함한 기간</Tooltip.Content>
-                        </Tooltip.Root>
-                      </Tooltip.Provider>
-                    </div>
-                  }
-                  placeholder='직무 관련 경험 기간을 선택해주세요'
-                  value={
-                    field.value ? findLabelByValue(EXPERIENCE_PERIOD_OPTIONS, field.value) : ""
-                  }
-                  isOpen={openSelect === "experiencePeriod"}
-                  onClick={() => toggleSelect("experiencePeriod")}
-                />
-                {openSelect === "experiencePeriod" && (
-                  <div className='absolute top-[calc(100%+8px)] right-0 left-0 z-10'>
-                    <Select
-                      value={field.value ?? ""}
-                      onChange={value => {
-                        field.onChange(value as ExperiencePeriod);
-                        closeSelect();
-                      }}
-                    >
-                      {EXPERIENCE_PERIOD_OPTIONS.map(option => (
-                        <Select.Label key={option.value} value={option.value}>
-                          {option.label}
-                        </Select.Label>
-                      ))}
-                    </Select>
+              <SelectController
+                label={
+                  <div className='flex items-center gap-(--semantic-spacing-4) text-(--semantic-object-normal)'>
+                    직무 관련 경험 기간
+                    <Tooltip.Provider>
+                      <Tooltip.Root>
+                        <Tooltip.Trigger className='text-(--semantic-object-alternative)'>
+                          <Icon name='information-fill' size='2xs' color='inherit' />
+                        </Tooltip.Trigger>
+                        <Tooltip.Content>학습과 경력을 모두 포함한 기간</Tooltip.Content>
+                      </Tooltip.Root>
+                    </Tooltip.Provider>
                   </div>
-                )}
-              </div>
+                }
+                placeholder='현재 신분을 선택해주세요'
+                value={field.value}
+                options={EXPERIENCE_PERIOD_OPTIONS}
+                onChange={value => field.onChange(value)}
+              />
             )}
           />
 
