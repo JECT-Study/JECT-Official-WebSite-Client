@@ -9,9 +9,8 @@ const meta = {
     layout: "centered",
   },
   argTypes: {
-    variant: { control: "radio", options: ["hero", "hint"] },
-    hierarchy: { control: "radio", options: ["accent", "primary", "secondary"] },
-    size: { control: "radio", options: ["lg", "md", "sm", "xs", "2xs"] },
+    hierarchy: { control: "radio", options: ["primary", "secondary"] },
+    size: { control: "radio", options: ["lg", "md", "sm", "xs"] },
     title: { control: "text" },
     children: { control: "text" },
   },
@@ -22,11 +21,10 @@ export default meta;
 export const CalloutBasic: StoryObj<typeof Callout.Basic> = {
   name: "Basic",
   argTypes: {
-    hierarchy: { control: "radio", options: ["accent", "primary", "secondary"] },
+    hierarchy: { control: "radio", options: ["primary", "secondary"] },
   },
   args: {
-    hierarchy: "accent",
-    variant: "hero",
+    hierarchy: "primary",
     size: "lg",
     title: "베이직 콜아웃 타이틀",
     blockButtonProps: {
@@ -41,7 +39,6 @@ export const CalloutBasic: StoryObj<typeof Callout.Basic> = {
   render: args => (
     <Callout.Basic
       hierarchy={args.hierarchy}
-      variant={args.variant}
       size={args.size}
       title={args.title}
       blockButtonProps={args.blockButtonProps}
@@ -58,7 +55,6 @@ export const CalloutFeedback: StoryObj<typeof Callout.Feedback> = {
   },
   args: {
     feedback: "positive",
-    variant: "hero",
     size: "lg",
     title: "피드백 콜아웃 타이틀",
     blockButtonProps: {
@@ -73,7 +69,6 @@ export const CalloutFeedback: StoryObj<typeof Callout.Feedback> = {
   render: args => (
     <Callout.Feedback
       feedback={args.feedback}
-      variant={args.variant}
       size={args.size}
       title={args.title}
       blockButtonProps={args.blockButtonProps}

@@ -8,38 +8,27 @@ import {
   calloutSizeMap,
 } from "./Callout.variants";
 
-export const CalloutBasicDiv = styled.div<CalloutBasicDivProps>(
-  ({ theme, hierarchy, variant, size }) => {
-    const style = calloutBasicStylesMap(theme)[variant][hierarchy];
-    const border = variant === "hero" ? "none" : `1px solid ${style.border}`;
-    const borderLeft =
-      variant === "hero" ? `6px solid ${style.border}` : `1px solid ${style.border}`;
-    const borderRadius = variant === "hero" ? "none" : theme.scheme.semantic.radius[6];
+export const CalloutBasicDiv = styled.div<CalloutBasicDivProps>(({ theme, hierarchy, size }) => {
+  const style = calloutBasicStylesMap(theme)[hierarchy];
 
-    return {
-      width: "100%",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "flex-start",
-      padding: `${pxToRem(calloutSizeMap[size].paddingTopBottom)} ${pxToRem(calloutSizeMap[size].paddingLeftRight)}`,
-      gap: pxToRem(calloutSizeMap[size].gap),
-      border,
-      borderLeft,
-      borderRadius,
-      backgroundColor: style.bg,
-      color: style.color,
-    };
-  },
-);
+  return {
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
+    padding: `${pxToRem(calloutSizeMap[size].paddingTopBottom)} ${pxToRem(calloutSizeMap[size].paddingLeftRight)}`,
+    gap: pxToRem(calloutSizeMap[size].gap),
+    border: `1px solid ${style.border}`,
+    borderLeft: `1px solid ${style.border}`,
+    borderRadius: theme.scheme.semantic.radius[6],
+    backgroundColor: style.bg,
+    color: style.color,
+  };
+});
 
 export const CalloutFeedbackDiv = styled.div<CalloutFeedbackDivProps>(
-  ({ theme, hierarchy, variant, size }) => {
-    const style = calloutFeedbackStylesMap(theme)[variant][hierarchy];
-    const border = variant === "hero" ? "none" : `1px solid ${style.border}`;
-    const borderLeft =
-      variant === "hero" ? `6px solid ${style.border}` : `1px solid ${style.border}`;
-    const borderRadius = variant === "hero" ? "none" : theme.scheme.semantic.radius[6];
-
+  ({ theme, hierarchy, size }) => {
+    const style = calloutFeedbackStylesMap(theme)[hierarchy];
     return {
       width: "100%",
       display: "flex",
@@ -47,9 +36,9 @@ export const CalloutFeedbackDiv = styled.div<CalloutFeedbackDivProps>(
       alignItems: "flex-start",
       padding: `${pxToRem(calloutSizeMap[size].paddingTopBottom)} ${pxToRem(calloutSizeMap[size].paddingLeftRight)}`,
       gap: pxToRem(calloutSizeMap[size].gap),
-      border,
-      borderLeft,
-      borderRadius,
+      border: `1px solid ${style.border}`,
+      borderLeft: `1px solid ${style.border}`,
+      borderRadius: theme.scheme.semantic.radius[6],
       backgroundColor: style.bg,
       color: style.color,
     };

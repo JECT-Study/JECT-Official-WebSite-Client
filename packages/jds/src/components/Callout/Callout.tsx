@@ -12,7 +12,6 @@ import {
 } from "./Callout.variants";
 
 const CalloutBasic = ({
-  variant = "hero",
   hierarchy,
   size = "md",
   title,
@@ -25,7 +24,7 @@ const CalloutBasic = ({
     blockButtonProps && calloutBasicButtonStyleMap(buttonSize, blockButtonProps)[hierarchy];
 
   return (
-    <CalloutBasicDiv hierarchy={hierarchy} variant={variant} size={size} className={className}>
+    <CalloutBasicDiv hierarchy={hierarchy} size={size} className={className}>
       {title && <CalloutTitleP size={size}>{title}</CalloutTitleP>}
       <CalloutContentP size={size}>{children}</CalloutContentP>
       {button}
@@ -36,7 +35,6 @@ const CalloutBasic = ({
 CalloutBasic.displayName = "Callout.Basic";
 
 const CalloutFeedback = ({
-  variant = "hero",
   feedback,
   size = "md",
   title,
@@ -49,7 +47,7 @@ const CalloutFeedback = ({
     blockButtonProps && calloutFeedbackButtonStyleMap(buttonSize, blockButtonProps)[feedback];
 
   return (
-    <CalloutFeedbackDiv hierarchy={feedback} variant={variant} size={size} className={className}>
+    <CalloutFeedbackDiv hierarchy={feedback} size={size} className={className}>
       {title && <CalloutTitleP size={size}>{title}</CalloutTitleP>}
       <CalloutContentP size={size}>{children}</CalloutContentP>
       {button}
