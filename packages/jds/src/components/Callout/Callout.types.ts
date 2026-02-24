@@ -14,24 +14,29 @@ export interface BaseCalloutProps {
   children: ReactNode;
 }
 
-export interface BasicCalloutProps extends BaseCalloutProps {
-  hierarchy: BasicHierarchy;
+export interface BasicCalloutModeProps extends BaseCalloutProps {
+  hierarchy?: BasicHierarchy;
+  feedback?: never;
 }
 
-export interface FeedbackCalloutProps extends BaseCalloutProps {
+export interface FeedbackCalloutModeProps extends BaseCalloutProps {
   feedback: FeedbackHierarchy;
+  hierarchy?: never;
 }
 
-export interface CalloutBasicDivProps {
-  hierarchy: BasicHierarchy;
-  size: CalloutSize;
+export type CalloutProps = BasicCalloutModeProps | FeedbackCalloutModeProps;
+
+export interface CalloutStyleToken {
+  bg: string;
+  border: string;
+  color: string;
 }
 
-export interface CalloutFeedbackDivProps {
-  hierarchy: FeedbackHierarchy;
-  size: CalloutSize;
+export interface CalloutContainerProps {
+  $size: CalloutSize;
+  $styleToken: CalloutStyleToken;
 }
 
-export interface CalloutPProps {
-  size: CalloutSize;
+export interface CalloutTextProps {
+  $size: CalloutSize;
 }

@@ -1,61 +1,48 @@
+import { useTheme } from "@emotion/react";
+
 import {
-  CalloutBasicDiv,
-  CalloutContentP,
-  CalloutTitleP,
-  CalloutFeedbackDiv,
+  CalloutContainer,
   CalloutContentDiv,
+  CalloutTitleP,
+  CalloutContentP,
 } from "./Callout.style";
-import type { BasicCalloutProps, FeedbackCalloutProps } from "./Callout.types";
-import { calloutFeedbackButtonStyleMap, calloutLabelButtonStyleMap } from "./Callout.variants";
+import type { CalloutProps } from "./Callout.types";
+import { getCalloutStyleToken, getButtonConfig } from "./Callout.variants";
+import { LabelButton } from "../Button/LabelButton";
 
-const CalloutBasic = ({
-  hierarchy,
+export const Callout = ({
   size = "md",
   title,
   labelButtonProps,
   children,
   className,
-}: BasicCalloutProps) => {
-  const button = labelButtonProps && calloutLabelButtonStyleMap(size, labelButtonProps)[hierarchy];
+  ...props
+}: CalloutProps) => {
+  const theme = useTheme();
+  const styleToken = getCalloutStyleToken(theme, props);
+  const buttonConfig = labelButtonProps && getButtonConfig(props);
+
+  const renderButton = () => {
+    if (!buttonConfig || !labelButtonProps) return null;
+
+    if (buttonConfig.variant === "feedback") {
+      return (
+        <LabelButton.Feedback intent={buttonConfig.intent!} size={size} {...labelButtonProps} />
+      );
+    }
+
+    return (
+      <LabelButton.Basic hierarchy={buttonConfig.hierarchy} size={size} {...labelButtonProps} />
+    );
+  };
 
   return (
-    <CalloutBasicDiv hierarchy={hierarchy} size={size} className={className}>
-      <CalloutContentDiv size={size}>
-        {title && <CalloutTitleP size={size}>{title}</CalloutTitleP>}
-        <CalloutContentP size={size}>{children}</CalloutContentP>
+    <CalloutContainer $size={size} $styleToken={styleToken} className={className}>
+      <CalloutContentDiv $size={size}>
+        {title && <CalloutTitleP $size={size}>{title}</CalloutTitleP>}
+        <CalloutContentP $size={size}>{children}</CalloutContentP>
       </CalloutContentDiv>
-      {button}
-    </CalloutBasicDiv>
+      {renderButton()}
+    </CalloutContainer>
   );
-};
-
-CalloutBasic.displayName = "Callout.Basic";
-
-const CalloutFeedback = ({
-  feedback,
-  size = "md",
-  title,
-  labelButtonProps,
-  children,
-  className,
-}: FeedbackCalloutProps) => {
-  const button =
-    labelButtonProps && calloutFeedbackButtonStyleMap(size, labelButtonProps)[feedback];
-
-  return (
-    <CalloutFeedbackDiv hierarchy={feedback} size={size} className={className}>
-      <CalloutContentDiv size={size}>
-        {title && <CalloutTitleP size={size}>{title}</CalloutTitleP>}
-        <CalloutContentP size={size}>{children}</CalloutContentP>
-      </CalloutContentDiv>
-      {button}
-    </CalloutFeedbackDiv>
-  );
-};
-
-CalloutFeedback.displayName = "Callout.Feedback";
-
-export const Callout = {
-  Basic: CalloutBasic,
-  Feedback: CalloutFeedback,
 };
