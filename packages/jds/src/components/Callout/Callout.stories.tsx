@@ -27,7 +27,7 @@ export const CalloutBasic: StoryObj<typeof Callout.Basic> = {
     hierarchy: "primary",
     size: "lg",
     title: "베이직 콜아웃 타이틀",
-    blockButtonProps: {
+    labelButtonProps: {
       children: "레이블",
       disabled: false,
       prefixIcon: "blank",
@@ -41,7 +41,7 @@ export const CalloutBasic: StoryObj<typeof Callout.Basic> = {
       hierarchy={args.hierarchy}
       size={args.size}
       title={args.title}
-      blockButtonProps={args.blockButtonProps}
+      labelButtonProps={args.labelButtonProps}
     >
       {args.children}
     </Callout.Basic>
@@ -57,7 +57,7 @@ export const CalloutFeedback: StoryObj<typeof Callout.Feedback> = {
     feedback: "positive",
     size: "lg",
     title: "피드백 콜아웃 타이틀",
-    blockButtonProps: {
+    labelButtonProps: {
       children: "레이블",
       disabled: false,
       prefixIcon: "blank",
@@ -71,7 +71,7 @@ export const CalloutFeedback: StoryObj<typeof Callout.Feedback> = {
       feedback={args.feedback}
       size={args.size}
       title={args.title}
-      blockButtonProps={args.blockButtonProps}
+      labelButtonProps={args.labelButtonProps}
     >
       {args.children}
     </Callout.Feedback>

@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import type { BaseBlockButtonProps } from "../Button/BlockButton/blockButton.types";
+import type { LabelButtonBasicProps } from "../Button/LabelButton";
 
 export type BasicHierarchy = "primary" | "secondary";
 export type FeedbackHierarchy = "positive" | "destructive" | "notifying";
@@ -10,7 +10,7 @@ export interface BaseCalloutProps {
   size?: CalloutSize;
   title?: string;
   className?: string;
-  blockButtonProps?: Omit<BaseBlockButtonProps, "size">;
+  labelButtonProps?: Omit<LabelButtonBasicProps, "size">;
   children: ReactNode;
 }
 

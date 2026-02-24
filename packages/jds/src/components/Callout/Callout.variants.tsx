@@ -1,29 +1,20 @@
 import type { Theme } from "@emotion/react";
 
 import type { BasicHierarchy, CalloutSize, FeedbackHierarchy } from "./Callout.types";
-import type { BlockButtonSize } from "../Button/BlockButton";
-import { BlockButton } from "../Button/BlockButton";
-import type { BaseBlockButtonProps } from "../Button/BlockButton/blockButton.types";
-
-export const calloutButtonSizeMap: Record<CalloutSize, BlockButtonSize> = {
-  lg: "sm",
-  md: "sm",
-  sm: "sm",
-  xs: "xs",
-};
+import { LabelButton, type LabelButtonBasicProps } from "../Button/LabelButton";
 
 type BasicStyle = Record<BasicHierarchy, { bg: string; border: string; color: string }>;
 
 export const calloutBasicStylesMap = (theme: Theme): BasicStyle => ({
   primary: {
-    bg: theme.color.semantic.surface.deep,
+    bg: theme.color.semantic.fill.subtler,
     border: theme.color.semantic.stroke.alpha.assistive,
     color: theme.color.semantic.object.bold,
   },
   secondary: {
-    bg: theme.color.semantic.surface.deep,
-    border: theme.color.semantic.stroke.alpha.subtler,
-    color: theme.color.semantic.object.normal,
+    bg: theme.color.semantic.fill.subtlest,
+    border: theme.color.semantic.stroke.alpha.subtle,
+    color: theme.color.semantic.object.bold,
   },
 });
 
@@ -52,71 +43,60 @@ export const calloutSizeMap = {
     paddingTopBottom: 16,
     paddingLeftRight: 20,
     gap: 16,
-    title: "semantic-textStyle-title-2",
-    content: "semantic-textStyle-body-lg-bold",
   },
   md: {
     paddingTopBottom: 16,
     paddingLeftRight: 20,
     gap: 16,
-    title: "semantic-textStyle-title-1",
-    content: "semantic-textStyle-body-md-bold",
   },
   sm: {
     paddingTopBottom: 16,
     paddingLeftRight: 20,
     gap: 16,
-    title: "semantic-textStyle-label-lg-bold",
-    content: "semantic-textStyle-body-sm-bold",
   },
   xs: {
     paddingTopBottom: 12,
     paddingLeftRight: 16,
     gap: 12,
-    title: "semantic-textStyle-label-md-bold",
-    content: "semantic-textStyle-body-xs-bold",
   },
 } as const;
 
-export const calloutBasicButtonStyleMap = (
-  buttonSize: BlockButtonSize,
-  blockButtonProps: Omit<BaseBlockButtonProps, "size">,
+export const calloutContentSizeMap = {
+  lg: {
+    gap: 10,
+    title: "semantic-textStyle-title-1",
+    content: "semantic-textStyle-body-lg-normal",
+  },
+  md: {
+    gap: 10,
+    title: "semantic-textStyle-label-lg-bold",
+    content: "semantic-textStyle-body-md-normal",
+  },
+  sm: {
+    gap: 6,
+    title: "semantic-textStyle-label-md-bold",
+    content: "semantic-textStyle-body-sm-normal",
+  },
+  xs: {
+    gap: 6,
+    title: "semantic-textStyle-label-sm-bold",
+    content: "semantic-textStyle-body-2xs-normal",
+  },
+} as const;
+
+export const calloutLabelButtonStyleMap = (
+  size: CalloutSize,
+  labelButtonProps: Omit<LabelButtonBasicProps, "size">,
 ) => ({
-  accent: (
-    <BlockButton.Basic hierarchy='accent' size={buttonSize} variant='solid' {...blockButtonProps} />
-  ),
-  primary: (
-    <BlockButton.Basic
-      hierarchy='primary'
-      size={buttonSize}
-      variant='solid'
-      {...blockButtonProps}
-    />
-  ),
-  secondary: (
-    <BlockButton.Basic
-      hierarchy='secondary'
-      size={buttonSize}
-      variant='solid'
-      {...blockButtonProps}
-    />
-  ),
+  primary: <LabelButton.Basic hierarchy='primary' size={size} {...labelButtonProps} />,
+  secondary: <LabelButton.Basic hierarchy='secondary' size={size} {...labelButtonProps} />,
 });
 
 export const calloutFeedbackButtonStyleMap = (
-  buttonSize: BlockButtonSize,
-  blockButtonProps: Omit<BaseBlockButtonProps, "size">,
+  size: CalloutSize,
+  labelButtonProps: Omit<LabelButtonBasicProps, "size">,
 ) => ({
-  notifying: (
-    <BlockButton.Basic
-      hierarchy='primary'
-      size={buttonSize}
-      variant='solid'
-      {...blockButtonProps}
-    />
-  ),
-  positive: <BlockButton.Feedback intent='positive' size={buttonSize} {...blockButtonProps} />,
-  destructive: (
-    <BlockButton.Feedback intent='destructive' size={buttonSize} {...blockButtonProps} />
-  ),
+  notifying: <LabelButton.Basic hierarchy='primary' size={size} {...labelButtonProps} />,
+  positive: <LabelButton.Feedback intent='positive' size={size} {...labelButtonProps} />,
+  destructive: <LabelButton.Feedback intent='destructive' size={size} {...labelButtonProps} />,
 });

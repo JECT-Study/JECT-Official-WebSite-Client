@@ -3,30 +3,27 @@ import {
   CalloutContentP,
   CalloutTitleP,
   CalloutFeedbackDiv,
+  CalloutContentDiv,
 } from "./Callout.style";
 import type { BasicCalloutProps, FeedbackCalloutProps } from "./Callout.types";
-import {
-  calloutBasicButtonStyleMap,
-  calloutButtonSizeMap,
-  calloutFeedbackButtonStyleMap,
-} from "./Callout.variants";
+import { calloutFeedbackButtonStyleMap, calloutLabelButtonStyleMap } from "./Callout.variants";
 
 const CalloutBasic = ({
   hierarchy,
   size = "md",
   title,
-  blockButtonProps,
+  labelButtonProps,
   children,
   className,
 }: BasicCalloutProps) => {
-  const buttonSize = calloutButtonSizeMap[size];
-  const button =
-    blockButtonProps && calloutBasicButtonStyleMap(buttonSize, blockButtonProps)[hierarchy];
+  const button = labelButtonProps && calloutLabelButtonStyleMap(size, labelButtonProps)[hierarchy];
 
   return (
     <CalloutBasicDiv hierarchy={hierarchy} size={size} className={className}>
-      {title && <CalloutTitleP size={size}>{title}</CalloutTitleP>}
-      <CalloutContentP size={size}>{children}</CalloutContentP>
+      <CalloutContentDiv size={size}>
+        {title && <CalloutTitleP size={size}>{title}</CalloutTitleP>}
+        <CalloutContentP size={size}>{children}</CalloutContentP>
+      </CalloutContentDiv>
       {button}
     </CalloutBasicDiv>
   );
@@ -38,18 +35,19 @@ const CalloutFeedback = ({
   feedback,
   size = "md",
   title,
-  blockButtonProps,
+  labelButtonProps,
   children,
   className,
 }: FeedbackCalloutProps) => {
-  const buttonSize = calloutButtonSizeMap[size];
   const button =
-    blockButtonProps && calloutFeedbackButtonStyleMap(buttonSize, blockButtonProps)[feedback];
+    labelButtonProps && calloutFeedbackButtonStyleMap(size, labelButtonProps)[feedback];
 
   return (
     <CalloutFeedbackDiv hierarchy={feedback} size={size} className={className}>
-      {title && <CalloutTitleP size={size}>{title}</CalloutTitleP>}
-      <CalloutContentP size={size}>{children}</CalloutContentP>
+      <CalloutContentDiv size={size}>
+        {title && <CalloutTitleP size={size}>{title}</CalloutTitleP>}
+        <CalloutContentP size={size}>{children}</CalloutContentP>
+      </CalloutContentDiv>
       {button}
     </CalloutFeedbackDiv>
   );
