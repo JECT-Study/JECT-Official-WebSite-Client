@@ -3,7 +3,7 @@ import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 export type LabelButtonSize = "xs" | "sm" | "md" | "lg";
 export type LabelButtonHierarchy = "accent" | "primary" | "secondary" | "tertiary";
-export type LabelButtonIntent = "positive" | "destructive" | "notifying";
+export type LabelButtonIntent = "positive" | "destructive";
 
 export interface BaseLabelButtonProps extends ComponentPropsWithoutRef<"button"> {
   children: ReactNode;
