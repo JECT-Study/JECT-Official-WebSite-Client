@@ -1,4 +1,4 @@
-import { FileItem } from "@jects/jds";
+import { FileItem, IconButton } from "@jects/jds";
 
 import type { PortfolioFile } from "@/types/apis/application";
 import { changeFileSizeUnit } from "@/utils/changeFileSizeUnit";
@@ -22,8 +22,11 @@ export function PortfolioFileItem({ portfolio, onDelete }: PortfolioFileItemProp
       fileName={portfolio.fileName}
       fileSize={changeFileSizeUnit(Number(portfolio.fileSize), ["KB", "MB"], true)}
       onClick={openFile}
-      removeable
-      onRemove={handleDelete}
+      suffixButton={
+        <IconButton.Basic size='lg' hierarchy='tertiary' icon='close-line' onClick={handleDelete}>
+          삭제
+        </IconButton.Basic>
+      }
     />
   );
 }
