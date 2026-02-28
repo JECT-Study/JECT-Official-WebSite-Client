@@ -8,10 +8,25 @@ import { Label } from "../Label";
 
 const variantStylesMap = {
   outlined: (theme: Theme): CSSObject => ({
-    border: `1px dashed ${theme.color.semantic.stroke.alpha.assistive}`,
+    backgroundColor: "transparent",
+    "&::after": {
+      content: '""',
+      position: "absolute",
+      inset: 0,
+      borderRadius: "inherit",
+      border: `1px dashed ${theme.color.semantic.stroke.alpha.assistive}`,
+      pointerEvents: "none",
+    },
   }),
   alpha: (theme: Theme): CSSObject => ({
-    backgroundColor: theme.color.semantic.fill.subtlest,
+    "&::after": {
+      content: '""',
+      position: "absolute",
+      inset: 0,
+      borderRadius: "inherit",
+      backgroundColor: theme.color.semantic.fill.subtlest,
+      pointerEvents: "none",
+    },
   }),
 };
 
@@ -71,6 +86,7 @@ export const EmptyStateBodyTextP = styled("p", {
   display: "-webkit-box",
   WebkitBoxOrient: "vertical",
   WebkitLineClamp: 3,
+  margin: theme.scheme.semantic.spacing[0],
   overflow: "hidden",
   color: theme.color.semantic.object.assistive,
   textAlign: $layout === "vertical" ? "center" : "left",
