@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
+import type { Meta, StoryObj } from "@storybook/react";
 import { FlexColumn } from "@storybook-utils/layout";
 
 import { Snackbar } from "./Snackbar";

@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { useTheme } from "@emotion/react";
 import { css } from "@emotion/react";
-import type { Meta, StoryObj } from "@storybook/react-vite";
+import type { Meta, StoryObj } from "@storybook/react";
 
 const TokenShowcase = () => {
   return <div>Token Showcase</div>;

@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
+import type { Meta, StoryObj } from "@storybook/react";
 import { FlexRow } from "@storybook-utils/layout";
 import { useState } from "react";
 

@@ -1,4 +1,4 @@
-import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import type { ComponentPropsWithoutRef, MouseEvent, ReactNode } from "react";
 
 export interface FileItemWrapButtonProps {
   $disabled: boolean;
@@ -8,6 +8,7 @@ export interface FileItemWrapButtonProps {
 
 export interface FileItemLabelProps {
   $disabled: boolean;
+  $readonly: boolean;
 }
 
 export interface FileSizeProps {
@@ -22,5 +23,6 @@ export interface FileItemProps extends ComponentPropsWithoutRef<"button"> {
   disabled?: boolean;
   hasError?: boolean;
   errorMessage?: ReactNode;
-  suffixButton?: ReactNode;
+  removeable?: boolean;
+  onRemove?: (e: MouseEvent) => void;
 }

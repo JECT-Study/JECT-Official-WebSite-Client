@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
+import type { Meta, StoryObj } from "@storybook/react";
 
 import { Accordion } from "./Accordion";
 import type { AccordionRootProps } from "./accordion.types";
