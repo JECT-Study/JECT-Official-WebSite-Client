@@ -27,10 +27,6 @@ export const FileItem = forwardRef<HTMLButtonElement, FileItemProps>(
     },
     ref,
   ) => {
-    const handleRemoveClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-      e.stopPropagation();
-      removeOnClick?.();
-    };
     return (
       <FileItemWrapButton
         ref={ref}
