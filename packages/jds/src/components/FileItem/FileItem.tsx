@@ -22,7 +22,7 @@ export const FileItem = forwardRef<HTMLButtonElement, FileItemProps>(
       hasError = false,
       errorMessage,
       removeable = false,
-      removeOnClick,
+      onRemove,
       ...buttonRest
     },
     ref,
@@ -68,7 +68,7 @@ export const FileItem = forwardRef<HTMLButtonElement, FileItemProps>(
               hierarchy='tertiary'
               size='lg'
               icon='close-line'
-              onClick={handleRemoveClick}
+              onClick={onRemove}
             />}
           </FileItemDataContainer>
         </FileItemSectionDiv>

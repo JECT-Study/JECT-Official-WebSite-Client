@@ -22,8 +22,8 @@ export function PortfolioFileItem({ portfolio, onDelete }: PortfolioFileItemProp
       fileName={portfolio.fileName}
       fileSize={changeFileSizeUnit(Number(portfolio.fileSize), ["KB", "MB"], true)}
       onClick={openFile}
-      removeOnClick={handleDelete}
       removeable
+      onRemove={handleDelete}
     />
   );
 }
