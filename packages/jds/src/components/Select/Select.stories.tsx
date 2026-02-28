@@ -1,3 +1,4 @@
+// eslint-disable-next-line storybook/no-renderer-packages
 import type { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
 
@@ -54,6 +55,7 @@ export const Default: Story = {
 
     return (
       <div style={{ display: "flex", flexDirection: "column", gap: "16px", width: "20rem" }}>
+        {/* @ts-expect-error: TypeScript cannot infer strict conditional matching of variant and value */}
         <Select {...(args)} value={currentValue} onChange={handleChange}>
           <Item value='seoul'>서울특별시</Item>
           <Item value='gyeonggi'>경기도</Item>
@@ -89,6 +91,7 @@ export const WithLabel: Story = {
 
     return (
       <div style={{ width: "20rem" }}>
+        {/* @ts-expect-error: TypeScript cannot infer strict conditional matching of variant and value */}
         <Select {...(args)} value={currentValue} onChange={handleChange}>
           <Item value='seoul'>서울특별시</Item>
           <Item value='gyeonggi'>경기도</Item>
@@ -119,6 +122,7 @@ export const SmallSize: Story = {
 
     return (
       <div style={{ width: "20rem" }}>
+        {/* @ts-expect-error: TypeScript cannot infer strict conditional matching of variant and value */}
         <Select {...(args)} value={currentValue} onChange={handleChange}>
           <Item value='option1'>Option 1</Item>
           <Item value='option2'>Option 2</Item>
@@ -148,6 +152,7 @@ export const WithCaption: Story = {
 
     return (
       <div style={{ width: "20rem" }}>
+        {/* @ts-expect-error: TypeScript cannot infer strict conditional matching of variant and value */}
         <Select {...(args)} value={currentValue} onChange={handleChange}>
           <Item value='free' caption='무료로 시작하세요'>
             Free
@@ -186,6 +191,7 @@ export const WithBadge: Story = {
 
     return (
       <div style={{ width: "20rem" }}>
+        {/* @ts-expect-error: TypeScript cannot infer strict conditional matching of variant and value */}
         <Select {...(args)} value={currentValue} onChange={handleChange}>
           <Item value='free' caption='무료로 시작하세요' {...(args.variant === 'label' ? { badge: 'Free' } : {})}>
             Free Plan
@@ -221,6 +227,7 @@ export const WithDisabled: Story = {
 
     return (
       <div style={{ width: "20rem" }}>
+        {/* @ts-expect-error: TypeScript cannot infer strict conditional matching of variant and value */}
         <Select {...(args)} value={currentValue} onChange={handleChange}>
           <Item value='available1'>사용 가능 1</Item>
           <Item value='disabled1' isDisabled>
@@ -256,6 +263,7 @@ export const AllFeatures: Story = {
 
     return (
       <div style={{ display: "flex", flexDirection: "column", gap: "16px", width: "20rem" }}>
+        {/* @ts-expect-error: TypeScript cannot infer strict conditional matching of variant and value */}
         <Select {...(args)} value={currentValue} onChange={handleChange}>
           <Item value='free' caption='무료 체험 플랜' {...(args.variant === 'label' ? { badge: '무료' } : {})}>
             Free
