@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { MouseEvent, ReactNode } from "react";
 
 import {
   BadgeIcon,
@@ -24,6 +24,7 @@ export interface ContentBadgeBasicProps {
   badgeStyle?: ContentBadgeStyle;
   isMuted?: boolean;
   withIcon?: boolean;
+  onIconClick?: (e: MouseEvent<Element>) => void;
   children: ReactNode;
 }
 
@@ -33,6 +34,7 @@ const ContentBadgeBasic = ({
   badgeStyle = "solid",
   isMuted = false,
   withIcon = false,
+  onIconClick,
   children,
 }: ContentBadgeBasicProps) => {
   const iconSize = iconSizeMap[size];
@@ -63,6 +65,7 @@ const ContentBadgeBasic = ({
           hierarchy={hierarchy}
           badgeStyle={badgeStyle}
           isMuted={isMuted}
+          onClick={onIconClick}
         />
       )}
     </ContentBadgeBasicDiv>

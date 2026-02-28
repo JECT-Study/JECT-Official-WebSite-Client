@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { FlexColumn, FlexRow, Label } from "@storybook-utils/layout";
 import { BlockButton } from "components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { TagField } from "./index";
-import type { Tag } from "./tagField.types";
+import type { Tag, TagFieldPublicProps } from "./tagField.types";
 
 const meta = {
   title: "Components/Input/TagField",
@@ -49,9 +49,9 @@ const meta = {
       control: "text",
       description: "레이블 텍스트",
     },
-    labelIcon: {
-      control: "text",
-      description: "레이블 옆에 표시할 아이콘 (IconName)",
+    isWithInfoIcon: {
+      control: "boolean",
+      description: "레이블 옆 Info 아이콘 표시 여부",
     },
     helperText: {
       control: "text",
@@ -78,30 +78,42 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+const Template = (args: TagFieldPublicProps) => {
+  const [tags, setTags] = useState<Tag[]>(args.tags || []);
+
+  useEffect(() => {
+    setTags(args.tags || []);
+  }, [args.tags]);
+
+  const handleTagsChange = (newTags: Tag[]) => {
+    setTags(newTags);
+    args.onTagsChange?.(newTags);
+  };
+
+  return (
+    <div style={{ width: "20rem" }}>
+      <TagField {...args} tags={tags} onTagsChange={handleTagsChange} />
+    </div>
+  );
+};
+
 export const Default: Story = {
   args: {
-    tags: [],
-    onTagsChange: () => {},
-  },
-  render: function Render() {
-    const [tags, setTags] = useState<Tag[]>([
+    label: "관심 기술 스택",
+    placeholder: "태그를 입력하고 Enter를 누르세요",
+    helperText: "Enter로 추가, Backspace로 삭제",
+    tags: [
       { id: "1", label: "React" },
       { id: "2", label: "TypeScript" },
-    ]);
-
-    return (
-      <div style={{ width: "20rem" }}>
-        <TagField.Button
-          label='기술 스택'
-          placeholder='태그를 입력하세요'
-          helperText='Enter로 추가, Backspace로 삭제'
-          tags={tags}
-          onTagsChange={setTags}
-          button={<BlockButton.Basic size='md'>저장</BlockButton.Basic>}
-        />
-      </div>
-    );
+      { id: "3", label: "Design System" },
+    ],
+    validation: "none",
+    interaction: "enabled",
+    style: "outlined",
+    isWithInfoIcon: false,
+    onTagsChange: () => {},
   },
+  render: Template,
   parameters: {
     docs: {
       description: {
@@ -147,40 +159,6 @@ export const BasicTagField: Story = {
           "**기본 TagField**\n\n" +
           "Label + Tag Input + Helper가 모두 포함된 완전한 TagField입니다.\n" +
           "Controlled Pattern 전용: tags와 onTagsChange는 필수입니다.",
-      },
-    },
-  },
-};
-
-export const WithLabelIcon: Story = {
-  args: {
-    tags: [],
-    onTagsChange: () => {},
-  },
-  render: function Render() {
-    const [tags, setTags] = useState<Tag[]>([
-      { id: "1", label: "Frontend" },
-      { id: "2", label: "Backend" },
-    ]);
-
-    return (
-      <div style={{ width: "20rem" }}>
-        <TagField
-          label='개발 분야'
-          labelIcon='information-line'
-          placeholder='태그를 입력하세요'
-          helperText='관심있는 개발 분야를 태그로 추가하세요'
-          tags={tags}
-          onTagsChange={setTags}
-        />
-      </div>
-    );
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "**Label Icon 포함**\n\n레이블 옆에 아이콘을 추가할 수 있습니다. 어떤 IconName이든 사용 가능합니다.",
       },
     },
   },

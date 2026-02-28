@@ -1,43 +1,42 @@
 import type { ReactNode } from "react";
 
-import type { BaseBlockButtonProps } from "../Button/BlockButton/blockButton.types";
+import type { LabelButtonBasicProps } from "../Button/LabelButton";
 
-export type BasicHierarchy = "accent" | "primary" | "secondary";
+export type BasicHierarchy = "primary" | "secondary";
 export type FeedbackHierarchy = "positive" | "destructive" | "notifying";
-export type CalloutVariant = "hero" | "hint";
-export type CalloutSize = "lg" | "md" | "sm" | "xs" | "2xs";
+export type CalloutSize = "lg" | "md" | "sm" | "xs";
 
 export interface BaseCalloutProps {
-  variant?: CalloutVariant;
   size?: CalloutSize;
-  titleVisible?: boolean;
-  extraButtonVisible?: boolean;
   title?: string;
-  blockButtonProps?: Omit<BaseBlockButtonProps, "size">;
-  children: ReactNode;
   className?: string;
+  labelButtonProps?: Omit<LabelButtonBasicProps, "size">;
+  children: ReactNode;
 }
 
-export interface BasicCalloutProps extends BaseCalloutProps {
-  hierarchy: BasicHierarchy;
+export interface BasicCalloutModeProps extends BaseCalloutProps {
+  hierarchy?: BasicHierarchy;
+  feedback?: never;
 }
 
-export interface FeedbackCalloutProps extends BaseCalloutProps {
+export interface FeedbackCalloutModeProps extends BaseCalloutProps {
   feedback: FeedbackHierarchy;
+  hierarchy?: never;
 }
 
-export interface CalloutBasicDivProps {
-  hierarchy: BasicHierarchy;
-  variant: CalloutVariant;
-  size: CalloutSize;
+export type CalloutProps = BasicCalloutModeProps | FeedbackCalloutModeProps;
+
+export interface CalloutStyleToken {
+  bg: string;
+  border: string;
+  color: string;
 }
 
-export interface CalloutFeedbackDivProps {
-  hierarchy: FeedbackHierarchy;
-  variant: CalloutVariant;
-  size: CalloutSize;
+export interface CalloutContainerProps {
+  $size: CalloutSize;
+  $styleToken: CalloutStyleToken;
 }
 
-export interface CalloutPProps {
-  size: CalloutSize;
+export interface CalloutTextProps {
+  $size: CalloutSize;
 }
