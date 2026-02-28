@@ -58,7 +58,7 @@ const TeamProject = () => {
             <SelectField value={value} isOpen={isOpen} onClick={() => setIsOpen(!isOpen)} />
             {isOpen && (
               <div className='absolute z-40 w-full translate-y-2'>
-                <Select variant='list' value={value} onChange={handleSelect}>
+                <Select variant='label' value={value} onChange={handleSelect}>
                   <Select.Label value='전체(12)'>전체(12)</Select.Label>
                   <Select.Label value='3기(6)'>3기(6)</Select.Label>
                   <Select.Label value='2기(2)'>2기(2)</Select.Label>

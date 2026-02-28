@@ -103,10 +103,10 @@ export const StyledSelectItem = styled("div", {
   const baseStyles: CSSObject = {
     ...restInteractionStyle,
     display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "flex-start",
-    gap: 0,
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    gap: theme.scheme.semantic.spacing[8],
     padding: getItemPaddingBySize(theme, $size),
     backgroundColor: "transparent",
     borderBottom: `1px solid ${theme.color.semantic.stroke.subtler}`,
@@ -189,6 +189,7 @@ export const StyledSelectItemText = styled(Label, {
 
   return {
     color: getColor(),
+    cursor: "inherit",
   };
 });
 
@@ -196,11 +197,13 @@ export const StyledSelectItemCaption = styled(Label, {
   shouldForwardProp: prop => !prop.startsWith("$"),
 })<{ $isDisabled: boolean }>(({ theme, $isDisabled }) => ({
   color: $isDisabled ? theme.color.semantic.object.subtle : theme.color.semantic.object.assistive,
+  cursor: "inherit",
 }));
 
 export const StyledSelectItemBadge = styled(ContentBadge.Basic)({
   position: "relative",
   zIndex: 1,
+  cursor: "inherit",
 });
 
 //ToDo: CheckBox, Radio를 감싸는 임시 div이므로 직접 스타일링 수정 필요
