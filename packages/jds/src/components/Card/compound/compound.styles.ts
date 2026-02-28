@@ -321,12 +321,22 @@ export const StyledCardContent = styled.div<{
   ...getContentStyles(theme, $variant, $layout),
 }));
 
+export const StyledContentMain = styled.div(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "flex-start",
+  alignSelf: "stretch",
+  width: "100%",
+  gap: theme.scheme.semantic.spacing[8],
+}));
+
 export const StyledCardMeta = styled.div(({ theme }) => ({
   display: "flex",
-  alignItems: "center",
+  flexDirection: "column",
+  justifyContent: "center",
   padding: 0,
   alignSelf: "stretch",
-  gap: theme.scheme.semantic.spacing[16],
+  gap: theme.scheme.semantic.spacing[8],
 }));
 
 export const StyledCardMetaItem = styled("span", {
@@ -457,7 +467,7 @@ export const StyledHorizontalPostContentWrap = styled("div", {
   display: "flex",
   flexDirection: "column",
   flex: "1 0 0",
-  gap: theme.scheme.semantic.spacing[8],
+  gap: theme.scheme.semantic.spacing[16],
 }));
 
 export const StyledHorizontalCardPostLayout = styled("div", {
