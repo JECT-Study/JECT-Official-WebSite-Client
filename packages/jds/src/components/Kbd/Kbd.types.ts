@@ -8,6 +8,7 @@ export interface KbdProps extends HTMLAttributes<HTMLElement> {
   size?: KbdSize;
   type?: KbdType;
   muted?: boolean;
+  "aria-label"?: string;
 }
 
 export interface KbdStyleProps {
