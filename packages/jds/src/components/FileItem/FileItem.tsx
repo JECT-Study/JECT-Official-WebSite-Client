@@ -1,5 +1,4 @@
 import { forwardRef } from "react";
-import { IconButton } from "../Button/IconButton";
 
 import {
   FileErrorSpan,
@@ -11,6 +10,7 @@ import {
   FileSizeLabel,
 } from "./fileItem.styles";
 import type { FileItemProps } from "./fileItem.types";
+import { IconButton } from "../Button/IconButton";
 
 export const FileItem = forwardRef<HTMLButtonElement, FileItemProps>(
   (

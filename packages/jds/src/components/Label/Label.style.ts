@@ -11,11 +11,13 @@ export const TEXT_ALIGN_MAPPING = {
 export type LabelSize = "lg" | "md" | "sm" | "xs";
 export type LabelTextAlign = keyof typeof TEXT_ALIGN_MAPPING;
 export type LabelWeight = "bold" | "normal" | "subtle";
+export type LabelCursor = "pointer" | "default";
 
 interface LabelStyledProps {
   $size: LabelSize;
   $textAlign: LabelTextAlign;
   $weight: LabelWeight;
+  $cursor: LabelCursor;
 }
 
 export const getLabelTokenKey = (
@@ -27,7 +29,7 @@ export const getLabelTokenKey = (
 
 export const LabelStyled = styled("label", {
   shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith("$"),
-})<LabelStyledProps>(({ theme, $size, $textAlign, $weight }) => {
+})<LabelStyledProps>(({ theme, $size, $textAlign, $weight, $cursor = "default" }) => {
   const tokenKey = getLabelTokenKey($size, $weight);
   const justifyContent = TEXT_ALIGN_MAPPING[$textAlign];
 
@@ -36,7 +38,7 @@ export const LabelStyled = styled("label", {
     justifyContent,
     alignItems: "center",
     color: theme.color.semantic.object.bold,
-    cursor: "default",
+    cursor: $cursor,
     ...theme.textStyle[tokenKey],
   };
 });
