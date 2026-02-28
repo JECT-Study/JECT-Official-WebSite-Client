@@ -8,10 +8,17 @@ export interface TagListProps {
   tags: Tag[];
   hasTag: boolean;
   selectedTagId: string | null;
-  onTagClick?: (e: MouseEvent, tagId: string) => void;
+  onTagSelect?: (e: MouseEvent, tagId: string) => void;
+  onTagRemove?: (tagId: string) => void;
 }
 
-export const TagList = ({ tags, hasTag, selectedTagId, onTagClick }: TagListProps) => {
+export const TagList = ({
+  tags,
+  hasTag,
+  selectedTagId,
+  onTagSelect,
+  onTagRemove,
+}: TagListProps) => {
   return (
     <StyledTagContainer $hasTag={hasTag}>
       {tags.map(tag => (
@@ -19,7 +26,8 @@ export const TagList = ({ tags, hasTag, selectedTagId, onTagClick }: TagListProp
           key={tag.id}
           tag={tag}
           isSelected={selectedTagId === tag.id}
-          onClick={onTagClick}
+          onSelect={onTagSelect}
+          onRemove={onTagRemove}
         />
       ))}
     </StyledTagContainer>

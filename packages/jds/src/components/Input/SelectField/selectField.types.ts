@@ -5,7 +5,7 @@ import type { FieldPublicProps } from "../input.types";
 
 export interface SelectFieldPublicProps extends FieldPublicProps {
   label?: ReactNode;
-  labelIcon?: IconName;
+  isWithInfoIcon?: boolean;
   helperText?: string;
   value: string;
   placeholder?: string;
@@ -18,5 +18,6 @@ export interface SelectFieldPublicProps extends FieldPublicProps {
 export type SelectFieldProps = SelectFieldPublicProps;
 
 export interface SelectFieldButtonProps extends SelectFieldPublicProps {
+  labelIcon?: IconName;
   button: ReactNode;
 }

@@ -1,9 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { FlexColumn, FlexRow, Label } from "@storybook-utils/layout";
 import { BlockButton } from "components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { SelectField } from "./index";
+import type { SelectFieldPublicProps } from "./selectField.types";
 
 const meta = {
   title: "Components/Input/SelectField",
@@ -48,9 +49,9 @@ const meta = {
       control: "text",
       description: "레이블 텍스트",
     },
-    labelIcon: {
-      control: "text",
-      description: "레이블 옆에 표시할 아이콘 (IconName)",
+    isWithInfoIcon: {
+      control: "boolean",
+      description: "info 아이콘 표시 여부",
     },
     helperText: {
       control: "text",
@@ -81,30 +82,47 @@ const meta = {
 } satisfies Meta<typeof SelectField>;
 
 export default meta;
+
 type Story = StoryObj<typeof meta>;
+
+const Template = (args: SelectFieldPublicProps) => {
+  const [isOpen, setIsOpen] = useState(args.isOpen ?? false);
+  const [value, setValue] = useState(args.value ?? "");
+
+  useEffect(() => {
+    setIsOpen(args.isOpen!);
+  }, [args.isOpen]);
+
+  useEffect(() => {
+    setValue(args.value);
+  }, [args.value]);
+
+  const handleClick = () => {
+    const isNewState = !isOpen;
+    setIsOpen(isNewState);
+    args.onClick?.();
+  };
+
+  return (
+    <div style={{ width: "20rem" }}>
+      <SelectField {...args} value={value} isOpen={isOpen} onClick={handleClick} />
+    </div>
+  );
+};
 
 export const Default: Story = {
   args: {
+    label: "지역 선택",
+    placeholder: "거주 지역을 선택하세요",
+    helperText: "현재 거주하시는 지역을 선택해주세요",
+    isWithInfoIcon: true,
     value: "",
+    isOpen: false,
+    validation: "none",
+    interaction: "enabled",
+    style: "outlined",
   },
-  render: function Render() {
-    const [isOpen, setIsOpen] = useState(false);
-    const [value] = useState("");
-
-    return (
-      <div style={{ width: "20rem" }}>
-        <SelectField.Button
-          label='지역 선택'
-          placeholder='거주 지역을 선택하세요'
-          helperText='현재 거주하시는 지역을 선택해주세요'
-          value={value}
-          isOpen={isOpen}
-          onClick={() => setIsOpen(!isOpen)}
-          button={<BlockButton.Basic size='md'>확인</BlockButton.Basic>}
-        />
-      </div>
-    );
-  },
+  render: Template,
   parameters: {
     docs: {
       description: {
@@ -174,38 +192,6 @@ export const WithValue: Story = {
     docs: {
       description: {
         story: "**선택된 값 표시**\n\n값이 선택된 상태를 보여줍니다.",
-      },
-    },
-  },
-};
-
-export const WithLabelIcon: Story = {
-  args: {
-    value: "",
-  },
-  render: function Render() {
-    const [isOpen, setIsOpen] = useState(false);
-    const [value] = useState("");
-
-    return (
-      <div style={{ width: "20rem" }}>
-        <SelectField
-          label='중요한 선택'
-          labelIcon='information-line'
-          placeholder='옵션을 선택하세요'
-          helperText='중요한 정보이므로 신중히 선택하세요'
-          value={value}
-          isOpen={isOpen}
-          onClick={() => setIsOpen(!isOpen)}
-        />
-      </div>
-    );
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "**Label Icon 포함**\n\n레이블 옆에 아이콘을 추가할 수 있습니다. 어떤 IconName이든 사용 가능합니다.",
       },
     },
   },
