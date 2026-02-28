@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import type { Meta, StoryObj } from "@storybook/react-vite";
+import type { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
 
 import { Select } from "./index";
@@ -55,7 +54,7 @@ export const Default: Story = {
 
     return (
       <div style={{ display: "flex", flexDirection: "column", gap: "16px", width: "20rem" }}>
-        <Select {...(args as any)} value={currentValue} onChange={handleChange as any}>
+        <Select {...(args)} value={currentValue} onChange={handleChange}>
           <Item value='seoul'>서울특별시</Item>
           <Item value='gyeonggi'>경기도</Item>
           <Item value='incheon'>인천광역시</Item>
@@ -90,7 +89,7 @@ export const WithLabel: Story = {
 
     return (
       <div style={{ width: "20rem" }}>
-        <Select {...(args as any)} value={currentValue} onChange={handleChange as any}>
+        <Select {...(args)} value={currentValue} onChange={handleChange}>
           <Item value='seoul'>서울특별시</Item>
           <Item value='gyeonggi'>경기도</Item>
           <Item value='incheon'>인천광역시</Item>
@@ -120,7 +119,7 @@ export const SmallSize: Story = {
 
     return (
       <div style={{ width: "20rem" }}>
-        <Select {...(args as any)} value={currentValue} onChange={handleChange as any}>
+        <Select {...(args)} value={currentValue} onChange={handleChange}>
           <Item value='option1'>Option 1</Item>
           <Item value='option2'>Option 2</Item>
           <Item value='option3'>Option 3</Item>
@@ -149,7 +148,7 @@ export const WithCaption: Story = {
 
     return (
       <div style={{ width: "20rem" }}>
-        <Select {...(args as any)} value={currentValue} onChange={handleChange as any}>
+        <Select {...(args)} value={currentValue} onChange={handleChange}>
           <Item value='free' caption='무료로 시작하세요'>
             Free
           </Item>
@@ -187,14 +186,14 @@ export const WithBadge: Story = {
 
     return (
       <div style={{ width: "20rem" }}>
-        <Select {...(args as any)} value={currentValue} onChange={handleChange as any}>
-          <Item value='free' caption='무료로 시작하세요' {...(args.variant === 'label' ? { badge: 'Free' } : {}) as any}>
+        <Select {...(args)} value={currentValue} onChange={handleChange}>
+          <Item value='free' caption='무료로 시작하세요' {...(args.variant === 'label' ? { badge: 'Free' } : {})}>
             Free Plan
           </Item>
-          <Item value='pro' caption='개인 사용자에게 추천' {...(args.variant === 'label' ? { badge: '인기' } : {}) as any}>
+          <Item value='pro' caption='개인 사용자에게 추천' {...(args.variant === 'label' ? { badge: '인기' } : {})}>
             Pro Plan
           </Item>
-          <Item value='team' caption='팀 협업을 위한 플랜' {...(args.variant === 'label' ? { badge: 'NEW' } : {}) as any}>
+          <Item value='team' caption='팀 협업을 위한 플랜' {...(args.variant === 'label' ? { badge: 'NEW' } : {})}>
             Team Plan
           </Item>
         </Select>
@@ -222,7 +221,7 @@ export const WithDisabled: Story = {
 
     return (
       <div style={{ width: "20rem" }}>
-        <Select {...(args as any)} value={currentValue} onChange={handleChange as any}>
+        <Select {...(args)} value={currentValue} onChange={handleChange}>
           <Item value='available1'>사용 가능 1</Item>
           <Item value='disabled1' isDisabled>
             비활성화됨 1
@@ -257,14 +256,14 @@ export const AllFeatures: Story = {
 
     return (
       <div style={{ display: "flex", flexDirection: "column", gap: "16px", width: "20rem" }}>
-        <Select {...(args as any)} value={currentValue} onChange={handleChange as any}>
-          <Item value='free' caption='무료 체험 플랜' {...(args.variant === 'label' ? { badge: '무료' } : {}) as any}>
+        <Select {...(args)} value={currentValue} onChange={handleChange}>
+          <Item value='free' caption='무료 체험 플랜' {...(args.variant === 'label' ? { badge: '무료' } : {})}>
             Free
           </Item>
-          <Item value='standard' caption='개인 사용자에게 추천' {...(args.variant === 'label' ? { badge: '인기' } : {}) as any}>
+          <Item value='standard' caption='개인 사용자에게 추천' {...(args.variant === 'label' ? { badge: '인기' } : {})}>
             Standard
           </Item>
-          <Item value='premium' caption='프리미엄 기능 제공' {...(args.variant === 'label' ? { badge: '신규' } : {}) as any}>
+          <Item value='premium' caption='프리미엄 기능 제공' {...(args.variant === 'label' ? { badge: '신규' } : {})}>
             Premium
           </Item>
           <Item value='enterprise' caption='기업용 맞춤 플랜' isDisabled>
