@@ -6,7 +6,7 @@ const meta = {
   title: "Components/Hero",
   component: Hero,
   parameters: {
-    layout: "centered",
+    layout: "padded",
   },
   argTypes: {
     children: {
@@ -34,12 +34,6 @@ export const Test: Story = {
     size: "lg",
     textAlign: "left",
     children: "히어로",
+    style: { width: "500px", border: "1px solid red" },
   },
-  render: args => (
-    <div style={{ width: "500px", border: "1px solid red" }}>
-      <Hero size={args.size} textAlign={args.textAlign}>
-        {args.children}
-      </Hero>
-    </div>
-  ),
 };
