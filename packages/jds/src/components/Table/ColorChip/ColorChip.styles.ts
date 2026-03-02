@@ -6,10 +6,8 @@ export const StyledColorChip = styled("div", {
 })<{ $color: string }>(({ theme, $color }) => {
   return {
     flexShrink: 0,
-
     width: "1rem",
     height: "1rem",
-
     backgroundColor: $color,
     border: `1px solid ${theme.color.semantic.stroke.subtle}`,
   };
