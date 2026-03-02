@@ -1,5 +1,5 @@
-import type { KbdProps } from "./Kbd.types";
 import { StyledKbd } from "./Kbd.style";
+import type { KbdProps } from "./Kbd.types";
 
 export const Kbd = ({
   children,

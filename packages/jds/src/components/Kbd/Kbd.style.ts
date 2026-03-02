@@ -1,6 +1,6 @@
 import isPropValid from "@emotion/is-prop-valid";
+import type { Theme } from "@emotion/react";
 import styled from "@emotion/styled";
-import { Theme } from "@emotion/react";
 import { pxToRem } from "utils";
 
 import type { KbdSize, KbdStyleProps, KbdType } from "./Kbd.types";

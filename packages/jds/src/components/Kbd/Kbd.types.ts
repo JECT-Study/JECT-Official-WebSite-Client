@@ -1,4 +1,4 @@
-import { HTMLAttributes, ReactNode } from "react";
+import type { HTMLAttributes, ReactNode } from "react";
 
 export type KbdSize = "lg" | "md" | "sm" | "xs";
 export type KbdType = "key" | "text" | "function";
