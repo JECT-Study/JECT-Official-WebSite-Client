@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexRow, FlexColumn, Label } from "@storybook-utils/layout";
 import { Checkbox, type CheckedState } from "components";
 import { useState } from "react";
