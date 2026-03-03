@@ -35,7 +35,7 @@ const createCheckboxHandlers = (props: Extract<SelectProps, { variant: "checkbox
   };
 };
 
-const createLabelHandlers = (props: Extract<SelectProps, { variant?: "label" }>) => {
+const createListHandlers = (props: Extract<SelectProps, { variant?: "list" }>) => {
   const { value, onChange } = props;
 
   return {
@@ -61,7 +61,7 @@ const createRadioHandlers = (props: Extract<SelectProps, { variant: "radio" }>) 
 
 export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
   const { size = "md", label, children } = props;
-  const variant = props.variant ?? "label";
+  const variant = props.variant ?? "list";
 
   const getVariantHandlers = () => {
     switch (variant) {
@@ -69,9 +69,9 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
         return createCheckboxHandlers(props as Extract<SelectProps, { variant: "checkbox" }>);
       case "radio":
         return createRadioHandlers(props as Extract<SelectProps, { variant: "radio" }>);
-      case "label":
+      case "list":
       default:
-        return createLabelHandlers(props as Extract<SelectProps, { variant?: "label" }>);
+        return createListHandlers(props as Extract<SelectProps, { variant?: "list" }>);
     }
   };
 

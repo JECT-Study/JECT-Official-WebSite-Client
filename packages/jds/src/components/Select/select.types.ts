@@ -1,6 +1,6 @@
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
-export type SelectVariant = "label" | "checkbox" | "radio";
+export type SelectVariant = "list" | "checkbox" | "radio";
 export type SelectSize = "md" | "sm";
 
 export type SelectValue = string | string[];
@@ -19,9 +19,9 @@ export interface BaseSelectProps {
   children?: ReactNode;
 }
 
-export interface SelectLabelVariantProps
+export interface SelectListVariantProps
   extends BaseSelectProps, Omit<ComponentPropsWithoutRef<"div">, "size" | "onChange"> {
-  variant?: "label";
+  variant?: "list";
   value: string;
   onChange: (value: string) => void;
 }
@@ -41,7 +41,7 @@ export interface SelectCheckboxVariantProps
 }
 
 export type SelectProps =
-  | SelectLabelVariantProps
+  | SelectListVariantProps
   | SelectRadioVariantProps
   | SelectCheckboxVariantProps;
 
@@ -52,7 +52,7 @@ export interface BaseSelectItemProps {
   children?: ReactNode;
 }
 
-export interface SelectLabelProps
+export interface SelectListProps
   extends BaseSelectItemProps, Omit<ComponentPropsWithoutRef<"div">, "onClick"> {
   badge?: ReactNode;
 }

@@ -13,10 +13,10 @@ const meta = {
   argTypes: {
     variant: {
       control: "radio",
-      options: ["label", "checkbox", "radio"],
-      description: "Select의 변형 (label, checkbox, radio)",
+      options: ["list", "checkbox", "radio"],
+      description: "Select의 변형 (list, checkbox, radio)",
       table: {
-        defaultValue: { summary: "label" },
+        defaultValue: { summary: "list" },
       },
     },
     size: {
@@ -39,7 +39,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    variant: "label",
+    variant: "list",
     value: "seoul",
     onChange: () => { },
   },
@@ -51,7 +51,7 @@ export const Default: Story = {
     const currentValue = isMulti ? multiValue : singleValue;
     const handleChange = isMulti ? setMultiValue : setSingleValue;
 
-    const Item = args.variant === "checkbox" ? Select.Checkbox : args.variant === "radio" ? Select.Radio : Select.Label;
+    const Item = args.variant === "checkbox" ? Select.Checkbox : args.variant === "radio" ? Select.Radio : Select.List;
 
     return (
       <div style={{ display: "flex", flexDirection: "column", gap: "16px", width: "20rem" }}>
@@ -74,7 +74,7 @@ export const Default: Story = {
 
 export const WithLabel: Story = {
   args: {
-    variant: "label",
+    variant: "list",
     value: "seoul",
     label: "지역 선택",
     onChange: () => { },
@@ -87,7 +87,7 @@ export const WithLabel: Story = {
     const currentValue = isMulti ? multiValue : singleValue;
     const handleChange = isMulti ? setMultiValue : setSingleValue;
 
-    const Item = args.variant === "checkbox" ? Select.Checkbox : args.variant === "radio" ? Select.Radio : Select.Label;
+    const Item = args.variant === "checkbox" ? Select.Checkbox : args.variant === "radio" ? Select.Radio : Select.List;
 
     return (
       <div style={{ width: "20rem" }}>
@@ -105,7 +105,7 @@ export const WithLabel: Story = {
 
 export const SmallSize: Story = {
   args: {
-    variant: "label",
+    variant: "list",
     value: "option1",
     size: "sm",
     onChange: () => { },
@@ -118,7 +118,7 @@ export const SmallSize: Story = {
     const currentValue = isMulti ? multiValue : singleValue;
     const handleChange = isMulti ? setMultiValue : setSingleValue;
 
-    const Item = args.variant === "checkbox" ? Select.Checkbox : args.variant === "radio" ? Select.Radio : Select.Label;
+    const Item = args.variant === "checkbox" ? Select.Checkbox : args.variant === "radio" ? Select.Radio : Select.List;
 
     return (
       <div style={{ width: "20rem" }}>
@@ -135,7 +135,7 @@ export const SmallSize: Story = {
 
 export const WithCaption: Story = {
   args: {
-    variant: "label",
+    variant: "list",
     value: "pro",
     label: "요금제 선택",
     onChange: () => { },
@@ -148,7 +148,7 @@ export const WithCaption: Story = {
     const currentValue = isMulti ? multiValue : singleValue;
     const handleChange = isMulti ? setMultiValue : setSingleValue;
 
-    const Item = args.variant === "checkbox" ? Select.Checkbox : args.variant === "radio" ? Select.Radio : Select.Label;
+    const Item = args.variant === "checkbox" ? Select.Checkbox : args.variant === "radio" ? Select.Radio : Select.List;
 
     return (
       <div style={{ width: "20rem" }}>
@@ -174,7 +174,7 @@ export const WithCaption: Story = {
 
 export const WithBadge: Story = {
   args: {
-    variant: "label",
+    variant: "list",
     value: "pro",
     label: "요금제 선택",
     onChange: () => { },
@@ -187,19 +187,19 @@ export const WithBadge: Story = {
     const currentValue = isMulti ? multiValue : singleValue;
     const handleChange = isMulti ? setMultiValue : setSingleValue;
 
-    const Item = args.variant === "checkbox" ? Select.Checkbox : args.variant === "radio" ? Select.Radio : Select.Label;
+    const Item = args.variant === "checkbox" ? Select.Checkbox : args.variant === "radio" ? Select.Radio : Select.List;
 
     return (
       <div style={{ width: "20rem" }}>
         {/* @ts-expect-error: TypeScript cannot infer strict conditional matching of variant and value */}
         <Select {...(args)} value={currentValue} onChange={handleChange}>
-          <Item value='free' caption='무료로 시작하세요' {...(args.variant === 'label' ? { badge: 'Free' } : {})}>
+          <Item value='free' caption='무료로 시작하세요' {...(args.variant === 'list' ? { badge: 'Free' } : {})}>
             Free Plan
           </Item>
-          <Item value='pro' caption='개인 사용자에게 추천' {...(args.variant === 'label' ? { badge: '인기' } : {})}>
+          <Item value='pro' caption='개인 사용자에게 추천' {...(args.variant === 'list' ? { badge: '인기' } : {})}>
             Pro Plan
           </Item>
-          <Item value='team' caption='팀 협업을 위한 플랜' {...(args.variant === 'label' ? { badge: 'NEW' } : {})}>
+          <Item value='team' caption='팀 협업을 위한 플랜' {...(args.variant === 'list' ? { badge: 'NEW' } : {})}>
             Team Plan
           </Item>
         </Select>
@@ -210,7 +210,7 @@ export const WithBadge: Story = {
 
 export const WithDisabled: Story = {
   args: {
-    variant: "label",
+    variant: "list",
     value: "available1",
     label: "옵션 선택",
     onChange: () => { },
@@ -223,7 +223,7 @@ export const WithDisabled: Story = {
     const currentValue = isMulti ? multiValue : singleValue;
     const handleChange = isMulti ? setMultiValue : setSingleValue;
 
-    const Item = args.variant === "checkbox" ? Select.Checkbox : args.variant === "radio" ? Select.Radio : Select.Label;
+    const Item = args.variant === "checkbox" ? Select.Checkbox : args.variant === "radio" ? Select.Radio : Select.List;
 
     return (
       <div style={{ width: "20rem" }}>
@@ -245,7 +245,7 @@ export const WithDisabled: Story = {
 
 export const AllFeatures: Story = {
   args: {
-    variant: "label",
+    variant: "list",
     value: "standard",
     label: "서비스 플랜 선택",
     size: "md",
@@ -259,19 +259,19 @@ export const AllFeatures: Story = {
     const currentValue = isMulti ? multiValue : singleValue;
     const handleChange = isMulti ? setMultiValue : setSingleValue;
 
-    const Item = args.variant === "checkbox" ? Select.Checkbox : args.variant === "radio" ? Select.Radio : Select.Label;
+    const Item = args.variant === "checkbox" ? Select.Checkbox : args.variant === "radio" ? Select.Radio : Select.List;
 
     return (
       <div style={{ display: "flex", flexDirection: "column", gap: "16px", width: "20rem" }}>
         {/* @ts-expect-error: TypeScript cannot infer strict conditional matching of variant and value */}
         <Select {...(args)} value={currentValue} onChange={handleChange}>
-          <Item value='free' caption='무료 체험 플랜' {...(args.variant === 'label' ? { badge: '무료' } : {})}>
+          <Item value='free' caption='무료 체험 플랜' {...(args.variant === 'list' ? { badge: '무료' } : {})}>
             Free
           </Item>
-          <Item value='standard' caption='개인 사용자에게 추천' {...(args.variant === 'label' ? { badge: '인기' } : {})}>
+          <Item value='standard' caption='개인 사용자에게 추천' {...(args.variant === 'list' ? { badge: '인기' } : {})}>
             Standard
           </Item>
-          <Item value='premium' caption='프리미엄 기능 제공' {...(args.variant === 'label' ? { badge: '신규' } : {})}>
+          <Item value='premium' caption='프리미엄 기능 제공' {...(args.variant === 'list' ? { badge: '신규' } : {})}>
             Premium
           </Item>
           <Item value='enterprise' caption='기업용 맞춤 플랜' isDisabled>
