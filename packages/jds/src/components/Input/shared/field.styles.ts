@@ -21,14 +21,14 @@ export const getLabelColor = (theme: Theme, disabled: boolean, readOnly: boolean
 
 export const getLabelIconColor = (theme: Theme, disabled: boolean, readOnly: boolean): string => {
   if (disabled) {
-    return theme.color.semantic.object.assistive;
+    return theme.color.semantic.object.neutral;
   }
 
   if (readOnly) {
-    return theme.color.semantic.object.alternative;
+    return theme.color.semantic.object.neutral;
   }
 
-  return theme.color.semantic.object.alternative;
+  return theme.color.semantic.accent.neutral;
 };
 
 export const getHelperTextColor = (
@@ -92,11 +92,9 @@ export const StyledLabelContainer = styled("div", {
 
 export const StyledLabelIcon = styled(Icon, {
   shouldForwardProp: prop => !prop.startsWith("$"),
-})<{ $disabled?: boolean; $readOnly?: boolean }>(
-  ({ theme, $disabled = false, $readOnly = false }) => ({
-    color: getLabelIconColor(theme, $disabled, $readOnly),
-  }),
-);
+})(({ theme }) => ({
+  color: theme.color.semantic.accent.neutral,
+}));
 
 export const StyledFieldLabel = styled(Label, {
   shouldForwardProp: prop => !prop.startsWith("$"),

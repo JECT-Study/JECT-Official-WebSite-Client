@@ -9,24 +9,10 @@ import { Label } from "../Label";
 const variantStylesMap = {
   outlined: (theme: Theme): CSSObject => ({
     backgroundColor: "transparent",
-    "&::after": {
-      content: '""',
-      position: "absolute",
-      inset: 0,
-      borderRadius: "inherit",
-      border: `1px dashed ${theme.color.semantic.stroke.alpha.assistive}`,
-      pointerEvents: "none",
-    },
+    border: `1px dashed ${theme.color.semantic.stroke.alpha.assistive}`,
   }),
   alpha: (theme: Theme): CSSObject => ({
-    "&::after": {
-      content: '""',
-      position: "absolute",
-      inset: 0,
-      borderRadius: "inherit",
-      backgroundColor: theme.color.semantic.fill.subtlest,
-      pointerEvents: "none",
-    },
+    backgroundColor: theme.color.semantic.fill.subtlest,
   }),
 };
 

@@ -1,6 +1,5 @@
 import { createContext, useContext, useId, type ReactNode } from "react";
 
-import type { IconName } from "../../Icon/Icon.types";
 import type { InputStyle, InputLayout, InputValidation, InputInteraction } from "../input.types";
 import { getInteractionStates } from "../input.types";
 
@@ -14,7 +13,7 @@ export interface FormFieldContextValue {
   isReadOnly: boolean;
   isInteractive: boolean;
   label?: ReactNode;
-  labelIcon?: IconName;
+  isWithInfoIcon?: boolean;
   helperText?: string;
 }
 
@@ -34,7 +33,7 @@ export interface FormFieldProviderProps {
   validation?: InputValidation;
   interaction?: InputInteraction;
   label?: ReactNode;
-  labelIcon?: IconName;
+  isWithInfoIcon?: boolean;
   helperText?: string;
   children: ReactNode;
 }
@@ -45,7 +44,7 @@ export const FormFieldProvider = ({
   validation = "none",
   interaction = "enabled",
   label,
-  labelIcon,
+  isWithInfoIcon,
   helperText,
   children,
 }: FormFieldProviderProps) => {
@@ -62,7 +61,7 @@ export const FormFieldProvider = ({
     isReadOnly,
     isInteractive,
     label,
-    labelIcon,
+    isWithInfoIcon,
     helperText,
   };
 

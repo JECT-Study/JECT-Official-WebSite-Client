@@ -50,8 +50,8 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
       layout = "vertical",
       validation = "none",
       interaction = "enabled",
+      isWithInfoIcon = false,
       label,
-      labelIcon,
       helperText,
       ...restProps
     },
@@ -64,7 +64,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
         validation={validation}
         interaction={interaction}
         label={label}
-        labelIcon={labelIcon}
+        isWithInfoIcon={isWithInfoIcon}
         helperText={helperText}
       >
         <StyledFieldContainer $layout={layout}>

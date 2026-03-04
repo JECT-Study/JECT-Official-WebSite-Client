@@ -68,10 +68,15 @@ type Story = StoryObj<typeof meta>;
 
 export const CompoundBasic: Story = {
   name: "Basic 형태의 Compound 사용",
-  args: {},
-  render: () => (
-    <div style={{ width: "400px" }}>
-      <Card.Root layout='vertical' variant='plate'>
+  args: {
+    layout: "vertical",
+    variant: "plate",
+    interactive: false,
+    isDisabled: false,
+  },
+  render: args => (
+    <div>
+      <Card.Root {...args}>
         <Card.Image alt='프로젝트 이미지' />
         <Card.Content>
           <Card.Title>타이틀 레이블</Card.Title>
@@ -81,6 +86,7 @@ export const CompoundBasic: Story = {
           </Card.Body>
           <Card.Caption>캡션 레이블입니다.</Card.Caption>
         </Card.Content>
+        {args.interactive && <Card.Overlay />}
       </Card.Root>
     </div>
   ),
