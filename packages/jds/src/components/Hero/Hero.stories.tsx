@@ -1,13 +1,10 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { Hero } from "./Hero";
 
 const meta = {
   title: "Components/Hero",
   component: Hero,
-  parameters: {
-    layout: "padded",
-  },
   argTypes: {
     children: {
       control: "text",
