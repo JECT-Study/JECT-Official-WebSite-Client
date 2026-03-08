@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexColumn, FlexRow, Label } from "@storybook-utils/layout";
 import { BlockButton } from "components";
 import { useEffect, useState } from "react";
@@ -112,7 +112,7 @@ export const Default: Story = {
 export const WithValidation: Story = {
   args: {
     value: "",
-    onChange: () => {},
+    onChange: () => { },
   },
   render: function Render() {
     const [value1, setValue1] = useState("");
@@ -162,7 +162,7 @@ export const WithValidation: Story = {
 export const States: Story = {
   args: {
     value: "",
-    onChange: () => {},
+    onChange: () => { },
   },
   render: function Render() {
     const [value1, setValue1] = useState("");
@@ -216,7 +216,7 @@ export const BasicTextField: Story = {
     placeholder: "이메일을 입력하세요",
     helperText: "유효한 이메일 주소를 입력해주세요",
     value: "",
-    onChange: () => {},
+    onChange: () => { },
   },
   render: function Render(args) {
     const [value, setValue] = useState("");
@@ -241,7 +241,7 @@ export const BasicTextField: Story = {
 export const ButtonWithValidation: Story = {
   args: {
     value: "",
-    onChange: () => {},
+    onChange: () => { },
   },
   render: function Render() {
     const [value1, setValue1] = useState("");
@@ -294,7 +294,7 @@ export const ButtonWithValidation: Story = {
 export const AllStyles: Story = {
   args: {
     value: "",
-    onChange: () => {},
+    onChange: () => { },
   },
   render: function Render() {
     const [value1, setValue1] = useState("");
@@ -383,7 +383,7 @@ export const AllStyles: Story = {
 export const Layouts: Story = {
   args: {
     value: "",
-    onChange: () => {},
+    onChange: () => { },
   },
   render: function Render() {
     const [value1, setValue1] = useState("");
@@ -431,7 +431,7 @@ export const Layouts: Story = {
 export const AllVariants: Story = {
   args: {
     value: "",
-    onChange: () => {},
+    onChange: () => { },
   },
   render: function Render() {
     const [basicValue, setBasicValue] = useState("");

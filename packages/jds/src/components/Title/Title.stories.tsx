@@ -1,5 +1,5 @@
 import { useTheme } from "@emotion/react";
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { Title } from "./Title";
 

@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import type { Decorator, Meta, StoryObj } from "@storybook/react";
+import type { Decorator, Meta, StoryObj } from "@storybook/react-vite";
 
 import { Label } from "./Label";
 

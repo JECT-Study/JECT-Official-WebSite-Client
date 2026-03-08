@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexColumn, FlexRow, Label } from "@storybook-utils/layout";
 import { BlockButton } from "components";
 import { useEffect, useState } from "react";
@@ -131,7 +131,7 @@ export const Default: Story = {
 export const BasicTagField: Story = {
   args: {
     tags: [],
-    onTagsChange: () => {},
+    onTagsChange: () => { },
   },
   render: function Render() {
     const [tags, setTags] = useState<Tag[]>([
@@ -167,7 +167,7 @@ export const BasicTagField: Story = {
 export const WithValidation: Story = {
   args: {
     tags: [],
-    onTagsChange: () => {},
+    onTagsChange: () => { },
   },
   render: function Render() {
     const [tags1, setTags1] = useState<Tag[]>([{ id: "1", label: "React" }]);
@@ -231,7 +231,7 @@ export const WithValidation: Story = {
 export const States: Story = {
   args: {
     tags: [],
-    onTagsChange: () => {},
+    onTagsChange: () => { },
   },
   render: function Render() {
     const [tags1, setTags1] = useState<Tag[]>([
@@ -264,7 +264,7 @@ export const States: Story = {
           helperText='이 필드는 비활성화되어 있습니다'
           interaction='disabled'
           tags={tags2}
-          onTagsChange={() => {}}
+          onTagsChange={() => { }}
         />
 
         <TagField
@@ -272,7 +272,7 @@ export const States: Story = {
           helperText='이 필드는 읽기 전용 상태입니다'
           interaction='readOnly'
           tags={tags3}
-          onTagsChange={() => {}}
+          onTagsChange={() => { }}
         />
       </FlexColumn>
     );
@@ -293,7 +293,7 @@ export const States: Story = {
 export const ButtonWithValidation: Story = {
   args: {
     tags: [],
-    onTagsChange: () => {},
+    onTagsChange: () => { },
   },
   render: function Render() {
     const [tags1, setTags1] = useState<Tag[]>([{ id: "1", label: "React" }]);
@@ -356,7 +356,7 @@ export const ButtonWithValidation: Story = {
 export const AllStyles: Story = {
   args: {
     tags: [],
-    onTagsChange: () => {},
+    onTagsChange: () => { },
   },
   render: function Render() {
     const [tags1, setTags1] = useState<Tag[]>([
@@ -463,7 +463,7 @@ export const AllStyles: Story = {
 export const Layouts: Story = {
   args: {
     tags: [],
-    onTagsChange: () => {},
+    onTagsChange: () => { },
   },
   render: function Render() {
     const [tags1, setTags1] = useState<Tag[]>([
@@ -517,7 +517,7 @@ export const Layouts: Story = {
 export const AllVariants: Story = {
   args: {
     tags: [],
-    onTagsChange: () => {},
+    onTagsChange: () => { },
   },
   render: function Render() {
     const [basicTags, setBasicTags] = useState<Tag[]>([

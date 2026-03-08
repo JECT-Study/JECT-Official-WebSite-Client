@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { NumericBadge } from "./NumericBadge";
 import type { NumericBadgeBasicProps, NumericBasicBadgeProps } from "./NumericBadge";
