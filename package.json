@@ -19,6 +19,7 @@
     "type-check": "turbo type-check"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.29.8",
     "@vercel/node": "^5.5.16",
     "prettier": "^3.4.2",
     "turbo": "^2.5.5",

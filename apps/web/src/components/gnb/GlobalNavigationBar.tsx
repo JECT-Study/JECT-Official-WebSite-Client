@@ -5,8 +5,8 @@ import {
   Logo,
   SegmentedControl,
   useGlobalNavigationVariant,
-} from "@ject/jds";
-import { useMediaQueryFlags } from "@ject/jds/hooks";
+} from "@jects/jds";
+import { useMediaQueryFlags } from "@jects/jds/hooks";
 import type { MouseEvent } from "react";
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";

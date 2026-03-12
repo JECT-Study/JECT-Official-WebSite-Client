@@ -1,4 +1,4 @@
-import { LabelButton, TextField, type InputValidation } from "@ject/jds";
+import { LabelButton, TextField, type InputValidation } from "@jects/jds";
 import type { ChangeEvent } from "react";
 import { useState } from "react";
 

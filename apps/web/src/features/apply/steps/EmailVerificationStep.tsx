@@ -1,4 +1,4 @@
-import { BlockButton, Dialog } from "@ject/jds";
+import { BlockButton, Dialog } from "@jects/jds";
 import { useState } from "react";
 
 import { APPLY_DIALOG } from "@/constants/applyMessages.tsx";
@@ -22,10 +22,7 @@ interface EmailVerificationStepProps {
   ) => void;
 }
 
-export function EmailVerificationStep({
-  context,
-  dispatch,
-}: EmailVerificationStepProps) {
+export function EmailVerificationStep({ context, dispatch }: EmailVerificationStepProps) {
   const [isExistingMemberDialogOpen, setIsExistingMemberDialogOpen] = useState(false);
 
   const handleBack = () => dispatch("goBack");

@@ -1,9 +1,8 @@
 import { forwardRef } from "react";
 
-import { StyledImage, StyledMenuItemAnchor, StyledMenuItemButton } from "./menuItem.styles";
+import { StyledImage, StyledMenuItemAnchor, StyledMenuItemButton, MenuItemLabel } from "./menuItem.styles";
 import type { MenuItemAnchorProps, MenuItemButtonProps } from "./menuItem.types";
 import { Icon } from "../../Icon";
-import { Label } from "../../Label";
 
 const MenuItemButton = forwardRef<HTMLButtonElement, MenuItemButtonProps>(
   (
@@ -44,9 +43,9 @@ const MenuItemButton = forwardRef<HTMLButtonElement, MenuItemButtonProps>(
             $size={size}
           />
         )}
-        <Label as='span' size={size} textAlign='left' weight='normal'>
+        <MenuItemLabel as='span' size={size} textAlign='left' weight='normal' cursor={disabled ? 'default' : 'pointer'}>
           {children}
-        </Label>
+        </MenuItemLabel>
         {suffixIconVisible && <Icon name={suffixIcon} size={size} />}
       </StyledMenuItemButton>
     );
@@ -93,9 +92,9 @@ const MenuItemAnchor = forwardRef<HTMLAnchorElement, MenuItemAnchorProps>(
             $size={size}
           />
         )}
-        <Label as='span' size={size} textAlign='left' weight='normal'>
+        <MenuItemLabel as='span' size={size} textAlign='left' weight='normal'>
           {children}
-        </Label>
+        </MenuItemLabel>
         {suffixIconVisible && <Icon name={suffixIcon} size={size} />}
       </StyledMenuItemAnchor>
     );

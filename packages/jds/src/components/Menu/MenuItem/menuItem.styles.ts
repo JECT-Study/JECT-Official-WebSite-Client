@@ -6,6 +6,7 @@ import { InteractionLayer } from "utils";
 import type { StyledImageProps, StyledMenuItemProps } from "./menuItem.types";
 import { menuItemColorMap, menuItemImageSizeMap } from "./menuItem.variants";
 import { Image } from "../../Image";
+import { Label } from "../../Label";
 
 const createInteractionStyles = (
   theme: Theme,
@@ -121,3 +122,7 @@ export const StyledImage = styled(Image)<StyledImageProps>(({ $size }) => {
     width,
   };
 });
+
+export const MenuItemLabel = styled(Label)(() => ({
+  color: "inherit",
+}));

@@ -1,4 +1,4 @@
-import { BlockButton } from "@ject/jds";
+import { BlockButton } from "@jects/jds";
 import type { FormEventHandler } from "react";
 import { Controller } from "react-hook-form";
 import { useNavigate } from "react-router-dom";

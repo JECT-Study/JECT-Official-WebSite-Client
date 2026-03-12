@@ -8,24 +8,38 @@ import { useFormField } from "../shared/FormFieldContext";
 export interface TagItemProps {
   tag: Tag;
   isSelected: boolean;
-  onClick?: (e: MouseEvent, tagId: string) => void;
+  onSelect?: (e: MouseEvent, tagId: string) => void;
+  onRemove?: (tagId: string) => void;
 }
 
-export const TagItem = ({ tag, isSelected, onClick }: TagItemProps) => {
+export const TagItem = ({ tag, isSelected, onSelect, onRemove }: TagItemProps) => {
   const { isInteractive } = useFormField();
+
+  const handleRemoveIconClick = (e: MouseEvent) => {
+    e.stopPropagation();
+
+    if (onRemove) onRemove(tag.id);
+  };
+
+  const handleBodyClick = (e: MouseEvent) => {
+    e.stopPropagation();
+
+    if (onSelect) onSelect(e, tag.id);
+  };
 
   return (
     <StyledTagWrapper
-      key={tag.id}
       $isSelected={isSelected}
       $isInteractive={isInteractive}
-      onClick={isInteractive && onClick ? e => onClick(e, tag.id) : undefined}
+      onClick={isInteractive ? handleBodyClick : undefined}
+      onMouseDown={e => e.preventDefault()}
     >
       <ContentBadge.Basic
         size='xs'
         hierarchy='secondary'
         badgeStyle='alpha'
         withIcon={isInteractive}
+        onIconClick={isInteractive ? handleRemoveIconClick : undefined}
       >
         {tag.label}
       </ContentBadge.Basic>

@@ -1,17 +1,17 @@
 import { Select as SelectBase } from "./Select";
 import { SelectCheckbox } from "./SelectCheckbox";
-import { SelectLabel } from "./SelectLabel";
+import { SelectList } from "./SelectList";
 import { SelectRadio } from "./SelectRadio";
 
 export const Select = Object.assign(SelectBase, {
-  Label: SelectLabel,
+  List: SelectList,
   Radio: SelectRadio,
   Checkbox: SelectCheckbox,
 });
 
 export type {
   SelectProps,
-  SelectLabelProps,
+  SelectListProps,
   SelectRadioProps,
   SelectCheckboxProps,
   SelectVariant,

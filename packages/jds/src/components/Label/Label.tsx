@@ -16,7 +16,7 @@ import { PolymorphicForwardRef } from "@/utils/forwardRef";
 
 //ToDo: Label의 기본 속성을 span 태그로 변경
 export const Label = PolymorphicForwardRef<"label", LabelOwnProps>(
-  ({ as, size = "md", textAlign = "left", weight = "normal", children, ...restProps }, ref) => {
+  ({ as, size = "md", textAlign = "left", weight = "normal", cursor = 'default', children, ...restProps }, ref) => {
     const Component = as || ("label" as ElementType);
 
     return (
@@ -26,6 +26,7 @@ export const Label = PolymorphicForwardRef<"label", LabelOwnProps>(
         $size={size}
         $textAlign={textAlign}
         $weight={weight}
+        $cursor={cursor}
         {...restProps}
       >
         {children}

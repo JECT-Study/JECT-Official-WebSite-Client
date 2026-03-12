@@ -1,4 +1,4 @@
-import { Card, Hero, Select, SelectField, Title } from "@ject/jds";
+import { Card, Hero, Select, SelectField, Title } from "@jects/jds";
 import Lottie from "lottie-react";
 import { useState, useRef } from "react";
 

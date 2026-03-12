@@ -23,14 +23,6 @@ const meta = {
       control: "text",
       description: "초기 활성 탭의 value를 설정합니다.",
     },
-    orientation: {
-      control: "radio",
-      options: ["horizontal", "vertical"],
-      description: "탭의 방향을 설정합니다.",
-      table: {
-        defaultValue: { summary: "horizontal" },
-      },
-    },
     activationMode: {
       control: "radio",
       options: ["automatic", "manual"],
@@ -49,6 +41,11 @@ const meta = {
       control: "boolean",
       description: "탭 항목이 늘려져있는지 여부 ",
     },
+    asChild: {
+      table: {
+        disable: true
+      }
+    }
   },
   args: {
     variant: "header",

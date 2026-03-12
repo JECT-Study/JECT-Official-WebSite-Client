@@ -1,4 +1,4 @@
-import type { LabelSize, LabelTextAlign, LabelWeight } from "./Label.style";
+import type { LabelCursor, LabelSize, LabelTextAlign, LabelWeight } from "./Label.style";
 
 /**
  * @remarks
@@ -10,4 +10,5 @@ export type LabelOwnProps = {
   size?: LabelSize;
   textAlign?: LabelTextAlign;
   weight?: LabelWeight;
+  cursor?: LabelCursor;
 };

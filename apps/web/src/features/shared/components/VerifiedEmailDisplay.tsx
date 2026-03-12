@@ -1,4 +1,4 @@
-import { BlockButton, TextField } from "@ject/jds";
+import { BlockButton, TextField } from "@jects/jds";
 
 interface VerifiedEmailDisplayProps {
   email: string;

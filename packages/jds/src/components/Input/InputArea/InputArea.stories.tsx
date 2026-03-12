@@ -102,7 +102,7 @@ export const Default: Story = {
     label: "피드백",
     helperText: "자유롭게 피드백을 작성해주세요",
     value: "",
-    onChange: () => {},
+    onChange: () => { },
   },
   render: function Render(args) {
     const [value, setValue] = useState("");
@@ -125,7 +125,7 @@ export const FixedHeight: Story = {
     height: 200,
     helperText: "높이가 200px로 고정되어 있습니다. 내용 초과 시 스크롤됩니다.",
     value: "",
-    onChange: () => {},
+    onChange: () => { },
   },
   render: function Render(args) {
     const [value, setValue] = useState("");
@@ -149,7 +149,7 @@ export const DynamicHeight: Story = {
     helperText: "최소 150px이며, 내용 입력 또는 우측 하단 핸들로 크기를 조절할 수 있습니다",
     maxLength: 1000,
     value: "",
-    onChange: () => {},
+    onChange: () => { },
   },
   render: function Render(args) {
     const [value, setValue] = useState("");
@@ -172,7 +172,7 @@ export const CSSHeightValue: Story = {
     minHeight: "10rem",
     helperText: "minHeight를 10rem으로 설정했습니다",
     value: "",
-    onChange: () => {},
+    onChange: () => { },
   },
   render: function Render(args) {
     const [value, setValue] = useState("");
@@ -196,7 +196,7 @@ export const WithCount: Story = {
     maxLength: 500,
     minHeight: 180,
     value: "",
-    onChange: () => {},
+    onChange: () => { },
   },
   render: function Render(args) {
     const [value, setValue] = useState("");
@@ -220,7 +220,7 @@ export const Error: Story = {
     helperText: "10자 이상 입력해주세요",
     maxLength: 100,
     value: "",
-    onChange: () => {},
+    onChange: () => { },
   },
   render: function Render(args) {
     const [value, setValue] = useState("짧은 글");
@@ -243,7 +243,7 @@ export const Disabled: Story = {
     interaction: "disabled",
     helperText: "현재 입력이 비활성화되어 있습니다",
     value: "",
-    onChange: () => {},
+    onChange: () => { },
   },
   render: function Render(args) {
     const [value, setValue] = useState("비활성화된 상태입니다");
@@ -266,7 +266,7 @@ export const ReadOnly: Story = {
     interaction: "readOnly",
     helperText: "읽기 전용 모드입니다",
     value: "",
-    onChange: () => {},
+    onChange: () => { },
   },
   render: function Render(args) {
     const [value, setValue] = useState("이 텍스트는 읽기 전용입니다. 수정할 수 없습니다.");
@@ -289,7 +289,7 @@ export const EmptyStyle: Story = {
     style: "empty",
     helperText: "테두리가 없는 깔끔한 스타일",
     value: "",
-    onChange: () => {},
+    onChange: () => { },
   },
   render: function Render(args) {
     const [value, setValue] = useState("");
@@ -312,7 +312,7 @@ export const HorizontalLayout: Story = {
     layout: "horizontal",
     helperText: "레이블이 왼쪽에 위치합니다",
     value: "",
-    onChange: () => {},
+    onChange: () => { },
   },
   render: function Render(args) {
     const [value, setValue] = useState("");
@@ -335,7 +335,7 @@ export const WithLabelIcon: Story = {
     labelIcon: "information-line",
     helperText: "아이콘을 호버하면 추가 정보를 볼 수 있습니다",
     value: "",
-    onChange: () => {},
+    onChange: () => { },
   },
   render: function Render(args) {
     const [value, setValue] = useState("");
@@ -357,7 +357,7 @@ export const HelperOnly: Story = {
     label: "Helper만",
     helperText: "Helper 텍스트만 표시됩니다",
     value: "",
-    onChange: () => {},
+    onChange: () => { },
   },
   render: function Render(args) {
     const [value, setValue] = useState("");
@@ -379,7 +379,7 @@ export const CountOnly: Story = {
     label: "Count만",
     maxLength: 100,
     value: "",
-    onChange: () => {},
+    onChange: () => { },
   },
   render: function Render(args) {
     const [value, setValue] = useState("");
@@ -402,7 +402,7 @@ export const HiddenLabel: Story = {
     labelVisible: false,
     helperText: "레이블이 숨겨진 상태입니다",
     value: "",
-    onChange: () => {},
+    onChange: () => { },
   },
   render: function Render(args) {
     const [value, setValue] = useState("");

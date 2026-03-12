@@ -1,4 +1,4 @@
-import type { InputValidation } from "@ject/jds";
+import type { InputValidation } from "@jects/jds";
 
 /**
  * Validation 상태를 도출하는 유틸리티 함수

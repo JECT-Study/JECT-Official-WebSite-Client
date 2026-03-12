@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexColumn, FlexRow, Label } from "@storybook-utils/layout";
 import { BlockButton } from "components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
+import type { TextFieldPublicProps } from "./index";
 import { TextField } from "./index";
 
 const meta = {
@@ -48,9 +49,9 @@ const meta = {
       control: "text",
       description: "레이블 텍스트",
     },
-    labelIcon: {
-      control: "text",
-      description: "레이블 옆에 표시할 아이콘 (IconName)",
+    isWithInfoIcon: {
+      control: "boolean",
+      description: "레이블 옆 Info 아이콘 표시 여부",
     },
     helperText: {
       control: "text",
@@ -66,26 +67,36 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+const Template = (args: TextFieldPublicProps) => {
+  const [value, setValue] = useState(args.value ?? "");
+
+  useEffect(() => {
+    setValue(args.value);
+  }, [args.value]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
+    args.onChange?.(e);
+  };
+
+  return (
+    <div style={{ width: "20rem" }}>
+      <TextField {...args} value={value} onChange={handleChange} />
+    </div>
+  );
+};
+
 export const Default: Story = {
   args: {
+    label: "레이블",
+    placeholder: "플레이스 홀더 텍스트",
+    helperText: "헬퍼 메시지 레이블",
+    validation: "none",
     value: "",
+    isWithInfoIcon: false,
     onChange: () => {},
   },
-  render: function Render() {
-    const [value, setValue] = useState("");
-    return (
-      <div style={{ width: "20rem" }}>
-        <TextField.Button
-          label='인증 코드'
-          placeholder='인증 코드를 입력하세요'
-          helperText='이메일로 전송된 인증 코드를 입력해주세요'
-          value={value}
-          onChange={e => setValue(e.target.value)}
-          button={<BlockButton.Basic size='md'>인증</BlockButton.Basic>}
-        />
-      </div>
-    );
-  },
+  render: Template,
   parameters: {
     docs: {
       description: {
@@ -98,37 +109,10 @@ export const Default: Story = {
   },
 };
 
-export const WithLabelIcon: Story = {
-  args: {
-    label: "이메일",
-    labelIcon: "information-line",
-    placeholder: "example@ject.com",
-    helperText: "유효한 이메일 주소를 입력해주세요",
-    value: "",
-    onChange: () => {},
-  },
-  render: function Render(args) {
-    const [value, setValue] = useState("");
-    return (
-      <div style={{ width: "20rem" }}>
-        <TextField {...args} value={value} onChange={e => setValue(e.target.value)} />
-      </div>
-    );
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "**Label Icon 포함**\n\n레이블 옆에 아이콘을 추가할 수 있습니다. 어떤 IconName이든 사용 가능합니다.",
-      },
-    },
-  },
-};
-
 export const WithValidation: Story = {
   args: {
     value: "",
-    onChange: () => {},
+    onChange: () => { },
   },
   render: function Render() {
     const [value1, setValue1] = useState("");
@@ -178,7 +162,7 @@ export const WithValidation: Story = {
 export const States: Story = {
   args: {
     value: "",
-    onChange: () => {},
+    onChange: () => { },
   },
   render: function Render() {
     const [value1, setValue1] = useState("");
@@ -232,7 +216,7 @@ export const BasicTextField: Story = {
     placeholder: "이메일을 입력하세요",
     helperText: "유효한 이메일 주소를 입력해주세요",
     value: "",
-    onChange: () => {},
+    onChange: () => { },
   },
   render: function Render(args) {
     const [value, setValue] = useState("");
@@ -257,7 +241,7 @@ export const BasicTextField: Story = {
 export const ButtonWithValidation: Story = {
   args: {
     value: "",
-    onChange: () => {},
+    onChange: () => { },
   },
   render: function Render() {
     const [value1, setValue1] = useState("");
@@ -310,7 +294,7 @@ export const ButtonWithValidation: Story = {
 export const AllStyles: Story = {
   args: {
     value: "",
-    onChange: () => {},
+    onChange: () => { },
   },
   render: function Render() {
     const [value1, setValue1] = useState("");
@@ -399,7 +383,7 @@ export const AllStyles: Story = {
 export const Layouts: Story = {
   args: {
     value: "",
-    onChange: () => {},
+    onChange: () => { },
   },
   render: function Render() {
     const [value1, setValue1] = useState("");
@@ -447,7 +431,7 @@ export const Layouts: Story = {
 export const AllVariants: Story = {
   args: {
     value: "",
-    onChange: () => {},
+    onChange: () => { },
   },
   render: function Render() {
     const [basicValue, setBasicValue] = useState("");
@@ -496,7 +480,7 @@ export const AllVariants: Story = {
           "- TextField.Button의 button prop에는 BlockButton.Basic 사용을 권장합니다.\n" +
           '- size는 "md"로 고정하여 일관성을 유지합니다.\n\n' +
           "```tsx\n" +
-          'import { TextField, BlockButton } from "@ject/jds";\n' +
+          'import { TextField, BlockButton } from "@jects/jds";\n' +
           'import { useState } from "react";\n\n' +
           'const [value, setValue] = useState("");\n\n' +
           "// 기본\n" +

@@ -13,6 +13,7 @@ import {
 } from "../compound";
 import {
   StyledCardOverlay,
+  StyledContentMain,
   StyledHorizontalCardPostLayout,
   StyledHorizontalPostContentWrap,
 } from "../compound/compound.styles";
@@ -51,8 +52,10 @@ const PostContent = ({ layout, image, title, body, author, date }: PostContentPr
       <CardContent>
         <StyledHorizontalCardPostLayout>
           <StyledHorizontalPostContentWrap>
-            <CardTitle>{title}</CardTitle>
-            <CardBody>{body}</CardBody>
+            <StyledContentMain>
+              <CardTitle>{title}</CardTitle>
+              <CardBody>{body}</CardBody>
+            </StyledContentMain>
             <CardMeta>
               <CardMetaItem>{author}</CardMetaItem>
               <CardMetaItem>{date}</CardMetaItem>

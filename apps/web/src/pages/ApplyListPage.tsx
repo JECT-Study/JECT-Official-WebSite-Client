@@ -1,4 +1,4 @@
-import { Card, Divider, Hero, Select, SelectField, Title } from "@ject/jds";
+import { Card, Divider, Hero, Select, SelectField, Title } from "@jects/jds";
 import { Fragment, useState } from "react";
 
 import backendImage from "@/assets/images/backend.png";

@@ -1,4 +1,4 @@
-import { BlockButton, Image, LocalNavigation, Title } from "@ject/jds";
+import { BlockButton, Image, LocalNavigation, Title } from "@jects/jds";
 import { useNavigate } from "react-router-dom";
 
 import type { JobFamily } from "@/apis/apply";

@@ -1,4 +1,4 @@
-import { Card, Hero, Title } from "@ject/jds";
+import { Card, Hero, Title } from "@jects/jds";
 
 import EmptyData from "@/components/common/emptyState/EmptyData";
 import Label from "@/components/common/label/Label";

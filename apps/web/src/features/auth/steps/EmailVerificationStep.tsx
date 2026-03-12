@@ -1,4 +1,4 @@
-import { BlockButton } from "@ject/jds";
+import { BlockButton } from "@jects/jds";
 
 import { APPLY_TITLE } from "@/constants/applyPageData";
 import { ApplyStepLayout, AuthCodeForm } from "@/features/shared/components";

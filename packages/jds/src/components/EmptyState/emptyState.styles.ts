@@ -8,6 +8,7 @@ import { Label } from "../Label";
 
 const variantStylesMap = {
   outlined: (theme: Theme): CSSObject => ({
+    backgroundColor: "transparent",
     border: `1px dashed ${theme.color.semantic.stroke.alpha.assistive}`,
   }),
   alpha: (theme: Theme): CSSObject => ({
@@ -71,6 +72,7 @@ export const EmptyStateBodyTextP = styled("p", {
   display: "-webkit-box",
   WebkitBoxOrient: "vertical",
   WebkitLineClamp: 3,
+  margin: theme.scheme.semantic.spacing[0],
   overflow: "hidden",
   color: theme.color.semantic.object.assistive,
   textAlign: $layout === "vertical" ? "center" : "left",

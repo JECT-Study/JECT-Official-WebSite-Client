@@ -1,4 +1,4 @@
-import { Icon, Title } from "@ject/jds";
+import { Icon, Title } from "@jects/jds";
 
 import Footer from "@/components/common/footer/Footer";
 import PagesContainer from "@/components/layout/PagesContainer";

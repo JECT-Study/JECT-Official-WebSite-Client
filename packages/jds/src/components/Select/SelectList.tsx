@@ -10,9 +10,9 @@ import {
   StyledSelectItemCaption,
   StyledSelectItemBadge,
 } from "./select.styles";
-import type { SelectLabelProps } from "./select.types";
+import type { SelectListProps } from "./select.types";
 
-export const SelectLabel = forwardRef<HTMLDivElement, SelectLabelProps>(
+export const SelectList = forwardRef<HTMLDivElement, SelectListProps>(
   ({ value, isDisabled = false, caption, badge, children, ...restProps }, ref) => {
     const { size, isSelected, onChange } = useSelectContext();
 
@@ -72,4 +72,4 @@ export const SelectLabel = forwardRef<HTMLDivElement, SelectLabelProps>(
   },
 );
 
-SelectLabel.displayName = "Select.Label";
+SelectList.displayName = "Select.List";

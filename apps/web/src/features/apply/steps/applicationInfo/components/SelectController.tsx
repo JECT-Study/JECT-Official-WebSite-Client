@@ -1,4 +1,4 @@
-import { Select, SelectField } from "@ject/jds";
+import { Select, SelectField } from "@jects/jds";
 import type { ReactNode } from "react";
 import { useRef } from "react";
 

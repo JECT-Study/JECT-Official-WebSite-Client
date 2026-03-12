@@ -88,8 +88,8 @@ export const SelectField = forwardRef<HTMLDivElement, SelectFieldProps>(
       layout = "vertical",
       validation = "none",
       interaction = "enabled",
+      isWithInfoIcon = false,
       label,
-      labelIcon,
       helperText,
       ...restProps
     },
@@ -102,7 +102,7 @@ export const SelectField = forwardRef<HTMLDivElement, SelectFieldProps>(
         validation={validation}
         interaction={interaction}
         label={label}
-        labelIcon={labelIcon}
+        isWithInfoIcon={isWithInfoIcon}
         helperText={helperText}
       >
         <StyledFieldContainer $layout={layout}>
