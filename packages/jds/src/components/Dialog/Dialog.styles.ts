@@ -42,7 +42,7 @@ export const DialogOverlay = styled(DialogPrimitive.Overlay)(({ theme }) => {
   return {
     position: "fixed",
     inset: 0,
-    backgroundColor: theme.color.semantic.curtain.dim,
+    backgroundColor: theme.color.semantic.curtain.static.dim,
     '&[data-state="open"]': {
       animation: `${dialogOverlayFadeIn} ${theme.environment.semantic.duration[200]} ${theme.environment.semantic.motion.entrance}`,
     },
