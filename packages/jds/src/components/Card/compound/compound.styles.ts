@@ -240,16 +240,10 @@ const getOverlayPositionStyles = (
 };
 
 const getFocusVisibleStyles = (
-  theme: Theme,
-  isEmptyPost: boolean,
   hasOffset: boolean,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   interactionParams: Record<string, any>,
 ): CSSObject => {
-  if (isEmptyPost) {
-    return shadow(theme, "raised");
-  }
-
   if (!hasOffset && interactionParams.focus.boxShadow) {
     return { boxShadow: interactionParams.focus.boxShadow };
   }
@@ -425,9 +419,6 @@ export const StyledCardOverlay = styled("a", {
     borderRadius: borderRadius > 0 ? `${borderRadius}px` : 0,
     outline: "none",
     pointerEvents: $isDisabled ? "none" : "auto",
-    transition: isEmptyPost
-      ? `box-shadow ${theme.environment.semantic.duration[150]} ${theme.environment.semantic.motion.fluent}`
-      : undefined,
     "::before": {
       ...interactionParams.rest["::before"],
       transition: `opacity ${theme.environment.semantic.duration[150]} ${theme.environment.semantic.motion.fluent}`,
@@ -438,7 +429,6 @@ export const StyledCardOverlay = styled("a", {
     },
     ...(!$isDisabled && {
       "&:hover": {
-        ...(isEmptyPost && shadow(theme, "raised")),
         "::after": {
           ...interactionParams.hover["::after"],
           transition: `opacity ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
@@ -451,7 +441,7 @@ export const StyledCardOverlay = styled("a", {
         },
       },
       "&:focus-visible": {
-        ...getFocusVisibleStyles(theme, isEmptyPost, hasOffset, interactionParams),
+        ...getFocusVisibleStyles(hasOffset, interactionParams),
         "::before": {
           ...interactionParams.focus["::before"],
           ...(hasOffset && { opacity: 1 }),
