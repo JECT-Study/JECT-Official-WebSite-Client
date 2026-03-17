@@ -1,7 +1,6 @@
 import type { Theme } from "@emotion/react";
 
 import type { BasicHierarchy, CalloutStyleToken, FeedbackHierarchy } from "./Callout.types";
-import type { LabelButtonBasicProps } from "../Button/LabelButton";
 
 const basicStyles: Record<BasicHierarchy, (t: Theme) => CalloutStyleToken> = {
   primary: theme => ({
@@ -73,24 +72,3 @@ export const calloutContentSizeMap = {
     content: "semantic-textStyle-body-2xs-normal",
   },
 } as const;
-
-type ButtonConfig = {
-  hierarchy?: LabelButtonBasicProps["hierarchy"];
-  intent?: "positive" | "destructive";
-  variant: "basic" | "feedback";
-};
-
-export const getButtonConfig = (mode: {
-  hierarchy?: BasicHierarchy;
-  feedback?: FeedbackHierarchy;
-}): ButtonConfig => {
-  if (mode.feedback) {
-    if (mode.feedback === "notifying") {
-      return { variant: "basic", hierarchy: "primary" };
-    }
-
-    return { variant: "feedback", intent: mode.feedback };
-  }
-
-  return { variant: "basic", hierarchy: mode.hierarchy || "secondary" };
-};
