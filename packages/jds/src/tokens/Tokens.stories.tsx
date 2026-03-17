@@ -313,23 +313,23 @@ export const Typography: Story = {
         >
           <div
             css={css`
-              font-size: ${theme.typo.primitive.fontSize.hero[4]};
-              line-height: ${theme.typo.primitive.font.lineHeight.hero[4]};
+              font-size: ${theme.typo.primitive.fontSize.hero[1]};
+              line-height: ${theme.typo.primitive.font.lineHeight.hero[1]};
               font-weight: ${theme.typo.primitive.fontWeight.hero.bold};
               font-family: ${theme.typo.primitive.typeface.hero};
             `}
           >
-            Hero 4 Typography (individual properties)
+            Hero 1 Typography (individual properties)
           </div>
           <div
             css={css`
-              font-size: ${theme.typo.primitive.fontSize.hero[3]};
-              line-height: ${theme.typo.primitive.font.lineHeight.hero[3]};
+              font-size: ${theme.typo.primitive.fontSize.hero[2]};
+              line-height: ${theme.typo.primitive.font.lineHeight.hero[2]};
               font-weight: ${theme.typo.primitive.fontWeight.hero.bold};
               font-family: ${theme.typo.primitive.typeface.hero};
             `}
           >
-            Hero 3 Typography (individual properties)
+            Hero 2 Typography (individual properties)
           </div>
         </div>
       </div>

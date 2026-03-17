@@ -7,7 +7,7 @@ import {
   CalloutContentP,
 } from "./Callout.style";
 import type { CalloutProps } from "./Callout.types";
-import { getCalloutStyleToken, getButtonConfig } from "./Callout.variants";
+import { getCalloutStyleToken } from "./Callout.variants";
 import { LabelButton } from "../Button/LabelButton";
 
 export const Callout = ({
@@ -20,19 +20,20 @@ export const Callout = ({
 }: CalloutProps) => {
   const theme = useTheme();
   const styleToken = getCalloutStyleToken(theme, props);
-  const buttonConfig = labelButtonProps && getButtonConfig(props);
 
   const renderButton = () => {
-    if (!buttonConfig || !labelButtonProps) return null;
+    if (!labelButtonProps) return null;
 
-    if (buttonConfig.variant === "feedback") {
-      return (
-        <LabelButton.Feedback intent={buttonConfig.intent!} size={size} {...labelButtonProps} />
-      );
+    if (props.feedback) {
+      return <LabelButton.Basic hierarchy='secondary' size={size} {...labelButtonProps} />;
     }
 
     return (
-      <LabelButton.Basic hierarchy={buttonConfig.hierarchy} size={size} {...labelButtonProps} />
+      <LabelButton.Basic
+        hierarchy={props.hierarchy || "secondary"}
+        size={size}
+        {...labelButtonProps}
+      />
     );
   };
 
