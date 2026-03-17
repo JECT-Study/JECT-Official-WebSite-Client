@@ -47,7 +47,6 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
   (
     {
       style = "outlined",
-      layout = "vertical",
       validation = "none",
       interaction = "enabled",
       isWithInfoIcon = false,
@@ -60,14 +59,13 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
     return (
       <FormField
         style={style}
-        layout={layout}
         validation={validation}
         interaction={interaction}
         label={label}
         isWithInfoIcon={isWithInfoIcon}
         helperText={helperText}
       >
-        <StyledFieldContainer $layout={layout}>
+        <StyledFieldContainer>
           <FormField.Label />
           <FormField.Content>
             <TextFieldInput ref={ref} {...restProps} />

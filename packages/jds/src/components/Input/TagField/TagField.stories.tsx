@@ -21,14 +21,6 @@ const meta = {
         defaultValue: { summary: "outlined" },
       },
     },
-    layout: {
-      control: "select",
-      options: ["vertical", "horizontal"],
-      description: "레이아웃 방향",
-      table: {
-        defaultValue: { summary: "vertical" },
-      },
-    },
     validation: {
       control: "select",
       options: ["none", "error", "success"],
@@ -455,60 +447,6 @@ export const AllStyles: Story = {
           "**스타일 변형**\n\n" +
           "- `outlined`: 테두리가 있는 스타일 (기본값)\n" +
           "- `empty`: 테두리가 없는 스타일",
-      },
-    },
-  },
-};
-
-export const Layouts: Story = {
-  args: {
-    tags: [],
-    onTagsChange: () => { },
-  },
-  render: function Render() {
-    const [tags1, setTags1] = useState<Tag[]>([
-      { id: "1", label: "React" },
-      { id: "2", label: "Vue" },
-    ]);
-    const [tags2, setTags2] = useState<Tag[]>([
-      { id: "1", label: "Angular" },
-      { id: "2", label: "Svelte" },
-    ]);
-
-    return (
-      <FlexColumn gap='32px'>
-        <div>
-          <Label>Vertical Layout:</Label>
-          <TagField
-            layout='vertical'
-            label='기술 스택'
-            placeholder='태그를 입력하세요'
-            helperText='Enter로 태그를 추가하세요'
-            tags={tags1}
-            onTagsChange={setTags1}
-          />
-        </div>
-        <div>
-          <Label>Horizontal Layout:</Label>
-          <TagField
-            layout='horizontal'
-            label='기술 스택'
-            placeholder='태그를 입력하세요'
-            helperText='Enter로 태그를 추가하세요'
-            tags={tags2}
-            onTagsChange={setTags2}
-          />
-        </div>
-      </FlexColumn>
-    );
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "**레이아웃 방향**\n\n" +
-          "- `vertical`: 세로 방향 (기본값)\n" +
-          "- `horizontal`: 가로 방향",
       },
     },
   },

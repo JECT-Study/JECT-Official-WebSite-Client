@@ -1,12 +1,11 @@
 import { createContext, useContext, useId, type ReactNode } from "react";
 
-import type { InputStyle, InputLayout, InputValidation, InputInteraction } from "../input.types";
+import type { InputStyle, InputValidation, InputInteraction } from "../input.types";
 import { getInteractionStates } from "../input.types";
 
 export interface FormFieldContextValue {
   fieldId: string;
   style: InputStyle;
-  layout: InputLayout;
   validation: InputValidation;
   interaction: InputInteraction;
   isDisabled: boolean;
@@ -29,7 +28,6 @@ export const useFormField = (): FormFieldContextValue => {
 
 export interface FormFieldProviderProps {
   style?: InputStyle;
-  layout?: InputLayout;
   validation?: InputValidation;
   interaction?: InputInteraction;
   label?: ReactNode;
@@ -40,7 +38,6 @@ export interface FormFieldProviderProps {
 
 export const FormFieldProvider = ({
   style = "outlined",
-  layout = "vertical",
   validation = "none",
   interaction = "enabled",
   label,
@@ -54,7 +51,6 @@ export const FormFieldProvider = ({
   const value: FormFieldContextValue = {
     fieldId,
     style,
-    layout,
     validation,
     interaction,
     isDisabled,

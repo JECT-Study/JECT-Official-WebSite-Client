@@ -19,7 +19,6 @@ export const SelectFieldButton = forwardRef<HTMLDivElement, SelectFieldButtonPro
   (
     {
       style = "outlined",
-      layout = "vertical",
       validation = "none",
       interaction = "enabled",
       label,
@@ -48,9 +47,9 @@ export const SelectFieldButton = forwardRef<HTMLDivElement, SelectFieldButtonPro
     };
 
     return (
-      <StyledFieldContainer $layout={layout}>
+      <StyledFieldContainer>
         {label && (
-          <StyledLabelContainer $layout={layout}>
+          <StyledLabelContainer>
             <StyledFieldLabel
               as='label'
               htmlFor={fieldId}
@@ -58,7 +57,6 @@ export const SelectFieldButton = forwardRef<HTMLDivElement, SelectFieldButtonPro
               weight='normal'
               $disabled={isDisabled}
               $readOnly={isReadOnly}
-              $layout={layout}
             >
               {label}
             </StyledFieldLabel>
@@ -67,7 +65,7 @@ export const SelectFieldButton = forwardRef<HTMLDivElement, SelectFieldButtonPro
         )}
 
         <StyledInputColumn>
-          <StyledInputRow $style={style} $layout={layout}>
+          <StyledInputRow $style={style}>
             <StyledSelectWrapper
               ref={ref}
               id={fieldId}

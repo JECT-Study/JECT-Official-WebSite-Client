@@ -21,14 +21,6 @@ const meta = {
         defaultValue: { summary: "outlined" },
       },
     },
-    layout: {
-      control: "select",
-      options: ["vertical", "horizontal"],
-      description: "레이아웃 방향",
-      table: {
-        defaultValue: { summary: "vertical" },
-      },
-    },
     validation: {
       control: "select",
       options: ["none", "error", "success"],
@@ -465,57 +457,6 @@ export const AllStyles: Story = {
           "**스타일 변형**\n\n" +
           "- `outlined`: 테두리가 있는 스타일 (기본값)\n" +
           "- `empty`: 테두리가 없는 스타일",
-      },
-    },
-  },
-};
-
-export const Layouts: Story = {
-  args: {
-    value: "",
-  },
-  render: function Render() {
-    const [isOpen1, setIsOpen1] = useState(false);
-    const [isOpen2, setIsOpen2] = useState(false);
-    const [value1] = useState("");
-    const [value2] = useState("");
-
-    return (
-      <FlexColumn gap='32px'>
-        <div>
-          <Label>Vertical Layout:</Label>
-          <SelectField
-            layout='vertical'
-            label='지역'
-            placeholder='선택하세요'
-            helperText='세로 방향 레이아웃'
-            value={value1}
-            isOpen={isOpen1}
-            onClick={() => setIsOpen1(!isOpen1)}
-          />
-        </div>
-        <div>
-          <Label>Horizontal Layout:</Label>
-          <SelectField
-            layout='horizontal'
-            label='지역'
-            placeholder='선택하세요'
-            helperText='가로 방향 레이아웃'
-            value={value2}
-            isOpen={isOpen2}
-            onClick={() => setIsOpen2(!isOpen2)}
-          />
-        </div>
-      </FlexColumn>
-    );
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "**레이아웃 방향**\n\n" +
-          "- `vertical`: 세로 방향 (기본값)\n" +
-          "- `horizontal`: 가로 방향",
       },
     },
   },

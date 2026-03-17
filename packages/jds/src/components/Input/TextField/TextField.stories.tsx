@@ -21,14 +21,6 @@ const meta = {
         defaultValue: { summary: "outlined" },
       },
     },
-    layout: {
-      control: "select",
-      options: ["vertical", "horizontal"],
-      description: "레이아웃 방향",
-      table: {
-        defaultValue: { summary: "vertical" },
-      },
-    },
     validation: {
       control: "select",
       options: ["none", "error", "success"],
@@ -375,54 +367,6 @@ export const AllStyles: Story = {
           "**스타일 변형**\n\n" +
           "- `outlined`: 테두리가 있는 스타일 (기본값)\n" +
           "- `empty`: 테두리가 없는 스타일 (하단 보더만)",
-      },
-    },
-  },
-};
-
-export const Layouts: Story = {
-  args: {
-    value: "",
-    onChange: () => { },
-  },
-  render: function Render() {
-    const [value1, setValue1] = useState("");
-    const [value2, setValue2] = useState("");
-
-    return (
-      <FlexColumn gap='32px'>
-        <div>
-          <Label>Vertical Layout:</Label>
-          <TextField
-            layout='vertical'
-            label='이름'
-            placeholder='이름을 입력하세요'
-            helperText='실명을 입력해주세요'
-            value={value1}
-            onChange={e => setValue1(e.target.value)}
-          />
-        </div>
-        <div>
-          <Label>Horizontal Layout:</Label>
-          <TextField
-            layout='horizontal'
-            label='이름'
-            placeholder='이름을 입력하세요'
-            helperText='실명을 입력해주세요'
-            value={value2}
-            onChange={e => setValue2(e.target.value)}
-          />
-        </div>
-      </FlexColumn>
-    );
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "**레이아웃 방향**\n\n" +
-          "- `vertical`: 세로 방향 (기본값)\n" +
-          "- `horizontal`: 가로 방향",
       },
     },
   },

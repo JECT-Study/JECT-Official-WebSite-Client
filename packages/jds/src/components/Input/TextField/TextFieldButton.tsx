@@ -17,7 +17,6 @@ export const TextFieldButton = forwardRef<HTMLInputElement, TextFieldButtonProps
   (
     {
       style = "outlined",
-      layout = "vertical",
       validation = "none",
       disabled = false,
       readOnly = false,
@@ -34,9 +33,9 @@ export const TextFieldButton = forwardRef<HTMLInputElement, TextFieldButtonProps
     const inputId = useId();
 
     return (
-      <StyledFieldContainer $layout={layout}>
+      <StyledFieldContainer>
         {label && (
-          <StyledLabelContainer $layout={layout}>
+          <StyledLabelContainer>
             <StyledFieldLabel
               as='label'
               htmlFor={inputId}
@@ -44,7 +43,6 @@ export const TextFieldButton = forwardRef<HTMLInputElement, TextFieldButtonProps
               weight='bold'
               $disabled={disabled}
               $readOnly={readOnly}
-              $layout={layout}
             >
               {label}
             </StyledFieldLabel>
@@ -53,7 +51,7 @@ export const TextFieldButton = forwardRef<HTMLInputElement, TextFieldButtonProps
         )}
 
         <StyledInputColumn>
-          <StyledInputRow $style={style} $layout={layout}>
+          <StyledInputRow $style={style}>
             <StyledInputWrapper
               $style={style}
               $validation={validation}

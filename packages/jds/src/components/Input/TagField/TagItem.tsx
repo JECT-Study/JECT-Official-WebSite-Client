@@ -13,7 +13,7 @@ export interface TagItemProps {
 }
 
 export const TagItem = ({ tag, isSelected, onSelect, onRemove }: TagItemProps) => {
-  const { isInteractive } = useFormField();
+  const { isInteractive, isDisabled } = useFormField();
 
   const handleRemoveIconClick = (e: MouseEvent) => {
     e.stopPropagation();
@@ -38,6 +38,7 @@ export const TagItem = ({ tag, isSelected, onSelect, onRemove }: TagItemProps) =
         size='xs'
         hierarchy='secondary'
         badgeStyle='alpha'
+        isMuted={isDisabled}
         withIcon={isInteractive}
         onIconClick={isInteractive ? handleRemoveIconClick : undefined}
       >
