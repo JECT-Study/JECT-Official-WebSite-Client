@@ -92,10 +92,10 @@ AccordionTrigger.displayName = "Accordion.Trigger";
  */
 const AccordionContent = forwardRef<HTMLDivElement, AccordionContentProps>(
   ({ children, ...props }, ref) => {
-    const { isStretched } = useAccordionContext();
+    const { isStretched, size } = useAccordionContext();
 
     return (
-      <StyledAccordionContent {...props} ref={ref}>
+      <StyledAccordionContent {...props} ref={ref} $size={size}>
         <StyledAccordionContentText $isStretched={isStretched}>
           {children}
         </StyledAccordionContentText>
