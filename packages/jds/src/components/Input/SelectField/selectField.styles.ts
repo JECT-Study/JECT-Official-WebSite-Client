@@ -195,7 +195,7 @@ export const StyledSelectWrapper = styled("div", {
     border: "none",
     boxShadow: baseBorderStyle,
     borderRadius: theme.scheme.semantic.radius[6],
-    cursor: $disabled ? "not-allowed" : "pointer",
+    cursor: $disabled ? "not-allowed" : $readOnly ? "text" : "pointer",
     transition: `box-shadow ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
 
     "::after": {
@@ -271,6 +271,7 @@ export const StyledSelectValue = styled("span", {
     userSelect: "none",
     overflow: "hidden",
     textOverflow: "ellipsis",
+    cursor: $readOnly ? "text" : "inherit",
   };
 });
 
