@@ -189,17 +189,16 @@ function ApplyGuidePage() {
           </Label>
         </div>
 
-        <div className='flex gap-3 self-stretch'>
-          <BlockButton.Basic
-            variant='solid'
-            hierarchy='accent'
-            size='lg'
-            className='flex-1'
-            disabled
-          >
-            모집이 마감되었습니다
+        <a
+          href='https://forms.gle/oarw4xzjDezR6mzQA'
+          target='_blank'
+          rel='noopener noreferrer'
+          className='flex gap-3 self-stretch'
+        >
+          <BlockButton.Basic variant='solid' hierarchy='accent' size='lg' className='flex-1'>
+            5기 모집 알림 신청하기
           </BlockButton.Basic>
-        </div>
+        </a>
       </section>
 
       <Tab.Root
