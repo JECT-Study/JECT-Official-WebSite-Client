@@ -10,12 +10,12 @@ interface StatItem {
 export const statData: StatItem[] = [
   {
     id: 1,
-    title: "102",
+    title: "163",
     description: "누적 동아리원",
   },
   {
     id: 2,
-    title: "12",
+    title: "18",
     description: "진행한 프로젝트",
   },
   {
