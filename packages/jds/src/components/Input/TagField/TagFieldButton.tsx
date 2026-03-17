@@ -179,6 +179,7 @@ export const TagFieldButton = forwardRef<HTMLInputElement, TagFieldButtonProps>(
                       size='xs'
                       hierarchy='secondary'
                       badgeStyle='alpha'
+                      isMuted={isDisabled}
                       withIcon={isInteractive}
                     >
                       {tag.label}
