@@ -29,4 +29,5 @@ export interface StyledAccordionTriggerProps {
 
 export interface StyledAccordionContentProps {
   $isStretched: boolean;
+  $size: AccordionSize;
 }
