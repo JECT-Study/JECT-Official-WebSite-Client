@@ -1,11 +1,10 @@
 import isPropValid from "@emotion/is-prop-valid";
 import type { Theme } from "@emotion/react";
 import styled from "@emotion/styled";
-import { pxToRem } from "utils";
 
 import { Icon } from "../../Icon";
 import { Label } from "../../Label";
-import type { InputLayout, InputStyle, InputValidation } from "../input.types";
+import type { InputStyle, InputValidation } from "../input.types";
 
 export const getLabelColor = (theme: Theme, disabled: boolean, readOnly: boolean): string => {
   if (disabled) {
@@ -66,24 +65,23 @@ export const getHelperTextColor = (
 
 export const StyledFieldContainer = styled("div", {
   shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith("$"),
-})<{ $layout: InputLayout }>(({ theme, $layout }) => ({
+})(({ theme }) => ({
   display: "flex",
   padding: 0,
   width: "100%",
-  flexDirection: $layout === "vertical" ? "column" : "row",
-  justifyContent: $layout === "vertical" ? "center" : undefined,
+  flexDirection: "column",
+  justifyContent: "center",
   alignItems: "flex-start",
-  gap:
-    $layout === "vertical" ? theme.scheme.semantic.spacing[6] : theme.scheme.semantic.spacing[16],
+  gap: theme.scheme.semantic.spacing[6],
 }));
 
 export const StyledLabelContainer = styled("div", {
   shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith("$"),
-})<{ $layout?: InputLayout; $disabled?: boolean; $readOnly?: boolean }>(
-  ({ theme, $layout, $disabled = false, $readOnly = false }) => ({
+})<{ $disabled?: boolean; $readOnly?: boolean }>(
+  ({ theme, $disabled = false, $readOnly = false }) => ({
     display: "flex",
     padding: 0,
-    alignItems: $layout === "horizontal" ? "flex-start" : "center",
+    alignItems: "center",
     alignSelf: "stretch",
     gap: theme.scheme.semantic.spacing[4],
     color: getLabelColor(theme, $disabled, $readOnly),
@@ -98,16 +96,9 @@ export const StyledLabelIcon = styled(Icon, {
 
 export const StyledFieldLabel = styled(Label, {
   shouldForwardProp: prop => !prop.startsWith("$"),
-})<{ $disabled: boolean; $readOnly: boolean; $layout?: InputLayout }>(
-  ({ theme, $disabled, $readOnly, $layout }) => ({
-    color: getLabelColor(theme, $disabled, $readOnly),
-    ...($layout === "horizontal" && {
-      height: pxToRem(40),
-      minWidth: pxToRem(80),
-      maxWidth: pxToRem(120),
-    }),
-  }),
-);
+})<{ $disabled: boolean; $readOnly: boolean }>(({ theme, $disabled, $readOnly }) => ({
+  color: getLabelColor(theme, $disabled, $readOnly),
+}));
 
 export const StyledHelperText = styled(Label, {
   shouldForwardProp: prop => !prop.startsWith("$"),
@@ -132,10 +123,8 @@ export const StyledInputRow = styled("div", {
   shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith("$"),
 })<{
   $style?: InputStyle;
-  $layout?: InputLayout;
-}>(({ theme, $style, $layout }) => {
-  const isEmptyVertical = $style === "empty" && $layout === "vertical";
-  const gapValue = isEmptyVertical ? 20 : 12;
+}>(({ theme, $style }) => {
+  const gapValue = $style === "empty" ? 20 : 12;
 
   return {
     display: "flex",

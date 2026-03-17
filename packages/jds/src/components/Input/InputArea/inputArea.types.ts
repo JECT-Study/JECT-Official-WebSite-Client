@@ -11,7 +11,6 @@ export type InputAreaStatus = "placeholder" | "filled";
 
 export interface InputAreaPublicProps extends Omit<ComponentPropsWithoutRef<"textarea">, "style"> {
   style?: InputAreaStyle;
-  layout?: InputAreaLayout;
   validation?: InputAreaValidation;
   interaction?: InputInteraction;
   label?: ReactNode;

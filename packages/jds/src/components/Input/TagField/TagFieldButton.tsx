@@ -30,7 +30,6 @@ export const TagFieldButton = forwardRef<HTMLInputElement, TagFieldButtonProps>(
   (
     {
       style = "outlined",
-      layout = "vertical",
       validation = "none",
       interaction = "enabled",
       label,
@@ -142,9 +141,9 @@ export const TagFieldButton = forwardRef<HTMLInputElement, TagFieldButtonProps>(
     );
 
     return (
-      <StyledFieldContainer $layout={layout}>
+      <StyledFieldContainer>
         {label && (
-          <StyledLabelContainer $layout={layout}>
+          <StyledLabelContainer>
             <StyledFieldLabel
               as='label'
               htmlFor={inputId}
@@ -152,7 +151,6 @@ export const TagFieldButton = forwardRef<HTMLInputElement, TagFieldButtonProps>(
               weight='normal'
               $disabled={isDisabled}
               $readOnly={isReadOnly}
-              $layout={layout}
             >
               {label}
             </StyledFieldLabel>
@@ -161,7 +159,7 @@ export const TagFieldButton = forwardRef<HTMLInputElement, TagFieldButtonProps>(
         )}
 
         <StyledInputColumn>
-          <StyledInputRow $style={style} $layout={layout}>
+          <StyledInputRow $style={style}>
             <StyledTagInputWrapper
               $style={style}
               $validation={validation}
