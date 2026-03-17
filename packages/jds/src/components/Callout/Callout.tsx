@@ -21,15 +21,29 @@ export const Callout = ({
   const theme = useTheme();
   const styleToken = getCalloutStyleToken(theme, props);
 
+  const renderButton = () => {
+    if (!labelButtonProps) return null;
+
+    if (props.feedback) {
+      return <LabelButton.Basic hierarchy='secondary' size={size} {...labelButtonProps} />;
+    }
+
+    return (
+      <LabelButton.Basic
+        hierarchy={props.hierarchy || "secondary"}
+        size={size}
+        {...labelButtonProps}
+      />
+    );
+  };
+
   return (
     <CalloutContainer $size={size} $styleToken={styleToken} className={className}>
       <CalloutContentDiv $size={size}>
         {title && <CalloutTitleP $size={size}>{title}</CalloutTitleP>}
         <CalloutContentP $size={size}>{children}</CalloutContentP>
       </CalloutContentDiv>
-      {labelButtonProps && (
-        <LabelButton.Basic hierarchy='secondary' size={size} {...labelButtonProps} />
-      )}
+      {renderButton()}
     </CalloutContainer>
   );
 };
