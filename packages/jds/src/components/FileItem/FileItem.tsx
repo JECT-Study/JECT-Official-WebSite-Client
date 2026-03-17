@@ -47,6 +47,7 @@ export const FileItem = forwardRef<HTMLButtonElement, FileItemProps>(
               weight='subtle'
               $disabled={disabled}
               $readonly={readonly}
+              $hasError={hasError}
               className='file-name'
             >
               {fileName}
@@ -60,12 +61,14 @@ export const FileItem = forwardRef<HTMLButtonElement, FileItemProps>(
             >
               {fileSize}
             </FileSizeLabel>
-            {!readonly && removeable && <IconButton.Basic
-              hierarchy='tertiary'
-              size='lg'
-              icon='close-line'
-              onClick={onRemove}
-            />}
+            {!readonly && removeable && (
+              <IconButton.Basic
+                hierarchy='tertiary'
+                size='lg'
+                icon='close-line'
+                onClick={onRemove}
+              />
+            )}
           </FileItemDataContainer>
         </FileItemSectionDiv>
         {hasError && errorMessage && <FileErrorSpan role='alert'>{errorMessage}</FileErrorSpan>}
