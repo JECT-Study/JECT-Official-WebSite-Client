@@ -17,7 +17,7 @@ const interactionStyles = (theme: Theme, disabled: boolean, readonly: boolean): 
     InteractionLayer({
       theme,
       state,
-      variant: "accent",
+      variant: "normal",
       density: "assistive",
       fillColor: "default",
       isReadonly: disabled || readonly,
