@@ -43,6 +43,15 @@ const meta: Meta<typeof EmptyState> = {
       control: "text",
       description: "엠티 스테이트에 표시되는 아이콘 이름 (Icon 컴포넌트)",
     },
+    primaryAction: {
+      control: "object",
+      description: "primary 버튼 설정 (children, onClick, disabled)",
+    },
+    secondaryAction: {
+      control: "object",
+      description:
+        "secondary 버튼 설정 (children, onClick, disabled). primaryAction이 있을 때만 유효",
+    },
   },
 } satisfies Meta<typeof EmptyState>;
 
