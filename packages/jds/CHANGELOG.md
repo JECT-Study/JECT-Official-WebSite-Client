@@ -1,5 +1,11 @@
 # @jects/jds
 
+## 0.2.1
+
+### Patch Changes
+
+- 72ccd58: 2차 QA 대응
+
 ## 0.2.0
 
 ### Minor Changes
