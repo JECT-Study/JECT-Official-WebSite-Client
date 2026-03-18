@@ -10,6 +10,7 @@ import {
   StyledSelectItemInputWrapper,
 } from "./select.styles";
 import type { SelectRadioProps } from "./select.types";
+import { Radio } from "../Radio";
 
 export const SelectRadio = forwardRef<HTMLDivElement, SelectRadioProps>(
   ({ value, isDisabled = false, caption, children, ...restProps }, ref) => {
@@ -37,14 +38,11 @@ export const SelectRadio = forwardRef<HTMLDivElement, SelectRadioProps>(
         {...restProps}
       >
         <StyledSelectItemInputWrapper>
-          {/* TODO: Radio 컴포넌트가 구현되면 여기에 추가 */}
-          <input
-            type='radio'
+          <Radio.Basic
+            radioSize={size}
             checked={isItemSelected}
             disabled={isDisabled}
-            readOnly
             tabIndex={-1}
-            style={{ pointerEvents: "none" }}
           />
         </StyledSelectItemInputWrapper>
         <StyledSelectItemContent>
