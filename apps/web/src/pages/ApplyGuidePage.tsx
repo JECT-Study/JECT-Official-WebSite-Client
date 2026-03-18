@@ -161,7 +161,7 @@ function ApplyGuidePage() {
         <LocalNavigation.Title>지원 안내</LocalNavigation.Title>
       </LocalNavigation.Root>
 
-      <section className='flex flex-col gap-(--semantic-spacing-32) pt-(--semantic-margin-xl) pb-(--semantic-margin-3xl)'>
+      <section className='flex w-full flex-col gap-(--semantic-spacing-32) pt-(--semantic-margin-xl) pb-(--semantic-margin-3xl)'>
         <div className='flex flex-col items-start gap-(--semantic-spacing-16) self-stretch'>
           <div className='flex flex-wrap content-center items-center gap-(--semantic-spacing-8) self-stretch'>
             <Hero size='xs' textAlign='left'>
@@ -189,13 +189,8 @@ function ApplyGuidePage() {
           </Label>
         </div>
 
-        <a
-          href='https://forms.gle/oarw4xzjDezR6mzQA'
-          target='_blank'
-          rel='noopener noreferrer'
-          className='flex gap-3 self-stretch'
-        >
-          <BlockButton.Basic variant='solid' hierarchy='accent' size='lg' className='flex-1'>
+        <a href='https://forms.gle/oarw4xzjDezR6mzQA' target='_blank' rel='noopener noreferrer'>
+          <BlockButton.Basic variant='solid' hierarchy='accent' size='lg' className='w-full'>
             5기 모집 알림 신청하기
           </BlockButton.Basic>
         </a>
