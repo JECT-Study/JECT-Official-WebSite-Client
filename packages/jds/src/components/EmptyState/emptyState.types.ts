@@ -5,7 +5,6 @@ import type { BlockButtonBasicProps } from "../Button/BlockButton";
 type EmptyStateStyleVariant = {
   variant?: "empty" | "outlined" | "alpha";
   layout?: "vertical" | "horizontal";
-  button?: "primary" | "both";
 };
 
 type BlockButtonActionProps = Pick<BlockButtonBasicProps, "children" | "onClick" | "disabled">;
