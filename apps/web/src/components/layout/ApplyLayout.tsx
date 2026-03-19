@@ -6,18 +6,19 @@ import {
   AsyncBoundary,
   DefaultLoadingFallback,
 } from "@/components/common/async-boundary/AsyncBoundary";
+import PageBoard from "@/components/layout/PageBoard";
 import { PATH } from "@/constants/path";
 
 function ApplyLayout() {
   return (
-    <div className='flex flex-1 flex-col items-center self-stretch pt-[calc(var(--semantic-spacing-64)+var(--semantic-margin-2xl))] pb-(--semantic-margin-2xl)'>
+    <PageBoard>
       <AsyncBoundary
         pendingFallback={<ApplyLoadingFallback />}
         rejectedFallback={ApplyErrorFallback}
       >
         <Outlet />
       </AsyncBoundary>
-    </div>
+    </PageBoard>
   );
 }
 
