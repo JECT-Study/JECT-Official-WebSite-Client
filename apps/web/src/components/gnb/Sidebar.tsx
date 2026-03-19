@@ -40,6 +40,13 @@ const JectMenu = ({ handleMenuClick }: SidebarMenusProps) => {
         >
           JDS
         </MenuItem.Anchor>
+        <MenuItem.Anchor
+          href={PATH.curriculum}
+          size='lg'
+          onClick={e => handleMenuClick(e, PATH.curriculum)}
+        >
+          활동 커리큘럼
+        </MenuItem.Anchor>
       </div>
     </div>
   );

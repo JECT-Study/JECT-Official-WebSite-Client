@@ -39,6 +39,14 @@ export const JectMenu = () => {
               JDS
             </MenuItem.Anchor>
           </MegaMenu.GroupItem>
+          <MegaMenu.GroupItem>
+            <MenuItem.Anchor
+              href={PATH.curriculum}
+              onClick={e => handleMenuClick(e, PATH.curriculum)}
+            >
+              활동 커리큘럼
+            </MenuItem.Anchor>
+          </MegaMenu.GroupItem>
         </MegaMenu.Group>
       </MegaMenu.Section>
     </MegaMenu.Root>
