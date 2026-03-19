@@ -1,12 +1,19 @@
+import clsx from "clsx";
 import type { ReactNode } from "react";
 
 interface PageModuleProps {
   children: ReactNode;
+  className?: string;
 }
 
-function PageModule({ children }: PageModuleProps) {
+function PageModule({ children, className }: PageModuleProps) {
   return (
-    <div className='w-full max-w-[978px] px-(--semantic-margin-lg) pb-(--semantic-spacing-80)'>
+    <div
+      className={clsx(
+        "w-full max-w-[978px] px-(--semantic-margin-lg) pb-(--semantic-spacing-80)",
+        className,
+      )}
+    >
       {children}
     </div>
   );
