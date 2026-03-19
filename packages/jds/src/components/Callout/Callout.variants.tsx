@@ -1,7 +1,6 @@
 import type { Theme } from "@emotion/react";
 
 import type { BasicHierarchy, CalloutStyleToken, FeedbackHierarchy } from "./Callout.types";
-import type { LabelButtonBasicProps } from "../Button/LabelButton";
 
 const basicStyles: Record<BasicHierarchy, (t: Theme) => CalloutStyleToken> = {
   primary: theme => ({
@@ -19,17 +18,17 @@ const basicStyles: Record<BasicHierarchy, (t: Theme) => CalloutStyleToken> = {
 const feedbackStyles: Record<FeedbackHierarchy, (t: Theme) => CalloutStyleToken> = {
   positive: theme => ({
     bg: theme.color.semantic.feedback.positive.alpha.subtlest,
-    border: theme.color.semantic.feedback.positive.alpha.subtler,
+    border: theme.color.semantic.feedback.positive.alpha.assistive,
     color: theme.color.semantic.feedback.positive.normal,
   }),
   destructive: theme => ({
     bg: theme.color.semantic.feedback.destructive.alpha.subtlest,
-    border: theme.color.semantic.feedback.destructive.alpha.subtler,
+    border: theme.color.semantic.feedback.destructive.alpha.assistive,
     color: theme.color.semantic.feedback.destructive.normal,
   }),
   notifying: theme => ({
     bg: theme.color.semantic.feedback.notifying.alpha.subtlest,
-    border: theme.color.semantic.feedback.notifying.alpha.subtler,
+    border: theme.color.semantic.feedback.notifying.alpha.assistive,
     color: theme.color.semantic.feedback.notifying.normal,
   }),
 };
@@ -73,24 +72,3 @@ export const calloutContentSizeMap = {
     content: "semantic-textStyle-body-2xs-normal",
   },
 } as const;
-
-type ButtonConfig = {
-  hierarchy?: LabelButtonBasicProps["hierarchy"];
-  intent?: "positive" | "destructive";
-  variant: "basic" | "feedback";
-};
-
-export const getButtonConfig = (mode: {
-  hierarchy?: BasicHierarchy;
-  feedback?: FeedbackHierarchy;
-}): ButtonConfig => {
-  if (mode.feedback) {
-    if (mode.feedback === "notifying") {
-      return { variant: "basic", hierarchy: "primary" };
-    }
-
-    return { variant: "feedback", intent: mode.feedback };
-  }
-
-  return { variant: "basic", hierarchy: mode.hierarchy || "secondary" };
-};

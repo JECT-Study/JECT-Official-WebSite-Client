@@ -17,11 +17,12 @@ export const accordionSizeMap: Record<
   {
     iconSize: IconSize;
     labelSize: LabelSize;
+    contentTextStyle: keyof Theme["textStyle"];
   }
 > = {
-  lg: { iconSize: "sm", labelSize: "lg" },
-  md: { iconSize: "xs", labelSize: "md" },
-  sm: { iconSize: "xs", labelSize: "sm" },
+  lg: { iconSize: "sm", labelSize: "lg", contentTextStyle: "semantic-textStyle-body-lg-normal" },
+  md: { iconSize: "xs", labelSize: "md", contentTextStyle: "semantic-textStyle-body-md-normal" },
+  sm: { iconSize: "xs", labelSize: "sm", contentTextStyle: "semantic-textStyle-body-xs-normal" },
 };
 
 const createInteractionStyles = (theme: Theme, isReadonly: boolean) => {
@@ -91,24 +92,9 @@ export const StyledAccordionTrigger = styled(
     },
 
     "&[data-disabled]": {
+      pointerEvents: "none",
       color: theme.color.semantic.object.subtle,
       ...disabledInteractionStyles.restStyle,
-
-      "&:hover": {
-        ...disabledInteractionStyles.hoverStyle,
-        "::after": {
-          ...interactionStyles.hoverStyle["::after"],
-          transition: `opacity ${theme.environment.semantic.duration[100]} ${theme.environment.semantic.motion.fluent}`,
-        },
-      },
-
-      "&:active": {
-        ...disabledInteractionStyles.activeStyle,
-        "::after": {
-          ...disabledInteractionStyles.activeStyle["::after"],
-          transition: "none",
-        },
-      },
 
       "&:focus-visible": {
         ...disabledInteractionStyles.focusStyle,
@@ -152,10 +138,11 @@ const slideDown = keyframes`
     to { height: var(--radix-accordion-content-height); }
   `;
 
-export const StyledAccordionContent = styled(AccordionPrimitive.Content)(({ theme }) => {
+export const StyledAccordionContent = styled(AccordionPrimitive.Content)<
+  Pick<StyledAccordionContentProps, "$size">
+>(({ theme, $size }) => {
   return {
     overflow: "hidden",
-    ...theme.textStyle["semantic-textStyle-body-sm-normal"],
     color: theme.color.semantic.object.bold,
     willChange: "height",
 
@@ -170,12 +157,14 @@ export const StyledAccordionContent = styled(AccordionPrimitive.Content)(({ them
     '&[data-state="closed"]': {
       animation: `${slideUp} ${theme.environment.semantic.duration[300]} ${theme.environment.semantic.motion.fluent}`,
     },
+
+    ...theme.textStyle[accordionSizeMap[$size].contentTextStyle],
   };
 });
 
-export const StyledAccordionContentText = styled("div")<StyledAccordionContentProps>(
-  ({ theme, $isStretched }) => ({
-    marginTop: theme.scheme.semantic.spacing[12],
-    padding: $isStretched ? 0 : `0 ${theme.scheme.semantic.spacing[16]}`,
-  }),
-);
+export const StyledAccordionContentText = styled("div")<
+  Pick<StyledAccordionContentProps, "$isStretched">
+>(({ theme, $isStretched }) => ({
+  marginTop: theme.scheme.semantic.spacing[12],
+  padding: $isStretched ? 0 : `0 ${theme.scheme.semantic.spacing[16]}`,
+}));

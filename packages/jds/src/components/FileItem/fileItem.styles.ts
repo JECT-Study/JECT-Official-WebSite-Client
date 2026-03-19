@@ -17,7 +17,7 @@ const interactionStyles = (theme: Theme, disabled: boolean, readonly: boolean): 
     InteractionLayer({
       theme,
       state,
-      variant: "accent",
+      variant: "normal",
       density: "assistive",
       fillColor: "default",
       isReadonly: disabled || readonly,
@@ -95,7 +95,7 @@ export const FileItemWrapButton = styled.button<FileItemWrapButtonProps>(
       flexDirection: "column",
       gap: theme.scheme.semantic.spacing[8],
       ...interaction,
-      cursor: $disabled || $readonly ? "default" : "pointer",
+      cursor: $disabled || $readonly || $hasError ? "default" : "pointer",
       color: $hasError
         ? theme.color.semantic.object.bold
         : $disabled
@@ -129,10 +129,14 @@ export const FileItemIcon = styled(Icon)(() => {
   };
 });
 
-export const FileItemLabel = styled(Label)<FileItemLabelProps>(({ $disabled, $readonly }) => {
+export const FileItemLabel = styled(Label)<FileItemLabelProps>(({
+  $disabled,
+  $readonly,
+  $hasError,
+}) => {
   return {
     flex: "1",
-    cursor: $disabled || $readonly ? "default" : "pointer",
+    cursor: $disabled || $readonly || $hasError ? "default" : "pointer",
     color: "inherit",
   };
 });

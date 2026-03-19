@@ -85,7 +85,6 @@ export const SelectField = forwardRef<HTMLDivElement, SelectFieldProps>(
   (
     {
       style = "outlined",
-      layout = "vertical",
       validation = "none",
       interaction = "enabled",
       isWithInfoIcon = false,
@@ -98,14 +97,13 @@ export const SelectField = forwardRef<HTMLDivElement, SelectFieldProps>(
     return (
       <FormField
         style={style}
-        layout={layout}
         validation={validation}
         interaction={interaction}
         label={label}
         isWithInfoIcon={isWithInfoIcon}
         helperText={helperText}
       >
-        <StyledFieldContainer $layout={layout}>
+        <StyledFieldContainer>
           <FormField.Label />
           <FormField.Content>
             <SelectFieldInput ref={ref} {...restProps} />

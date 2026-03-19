@@ -15,14 +15,14 @@ interface FormFieldLabelProps {
 }
 
 export const FormFieldLabel = ({ children }: FormFieldLabelProps) => {
-  const { fieldId, label, isWithInfoIcon, layout, isDisabled, isReadOnly } = useFormField();
+  const { fieldId, label, isWithInfoIcon, isDisabled, isReadOnly } = useFormField();
 
   if (!label && !children) {
     return null;
   }
 
   return (
-    <StyledLabelContainer $layout={layout}>
+    <StyledLabelContainer>
       <StyledFieldLabel
         as='label'
         htmlFor={fieldId}
@@ -30,7 +30,6 @@ export const FormFieldLabel = ({ children }: FormFieldLabelProps) => {
         weight='normal'
         $disabled={isDisabled}
         $readOnly={isReadOnly}
-        $layout={layout}
       >
         {children || label}
       </StyledFieldLabel>
@@ -78,7 +77,6 @@ interface FormFieldProps extends Omit<FormFieldProviderProps, "children"> {
 
 export const FormField = ({
   style,
-  layout,
   validation,
   interaction,
   label,
@@ -89,7 +87,6 @@ export const FormField = ({
   return (
     <FormFieldProvider
       style={style}
-      layout={layout}
       validation={validation}
       interaction={interaction}
       label={label}

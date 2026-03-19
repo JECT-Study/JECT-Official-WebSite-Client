@@ -188,7 +188,6 @@ export const TagField = forwardRef<HTMLInputElement, TagFieldProps>(
   (
     {
       style = "outlined",
-      layout = "vertical",
       validation = "none",
       interaction = "enabled",
       isWithInfoIcon = false,
@@ -201,14 +200,13 @@ export const TagField = forwardRef<HTMLInputElement, TagFieldProps>(
     return (
       <FormField
         style={style}
-        layout={layout}
         validation={validation}
         interaction={interaction}
         label={label}
         isWithInfoIcon={isWithInfoIcon}
         helperText={helperText}
       >
-        <StyledFieldContainer $layout={layout}>
+        <StyledFieldContainer>
           <FormField.Label />
           <FormField.Content>
             <TagFieldInput ref={ref} {...restProps} />

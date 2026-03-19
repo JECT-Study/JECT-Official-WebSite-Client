@@ -5,7 +5,6 @@ import { TextField } from "./TextField";
 
 export type {
   InputStyle,
-  InputLayout,
   InputValidation,
   FieldPublicProps,
   FieldInputPublicProps,
