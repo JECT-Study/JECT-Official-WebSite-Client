@@ -2,22 +2,27 @@ import { Card, Hero, Title } from "@jects/jds";
 
 import EmptyData from "@/components/common/emptyState/EmptyData";
 import Label from "@/components/common/label/Label";
+import PageBoard from "@/components/layout/PageBoard";
+import PageHeroContainer from "@/components/layout/PageHeroContainer";
+import PageModule from "@/components/layout/PageModule";
 import useMiniStudiesQuery from "@/hooks/useMiniStudiesQuery";
 
 const MiniStudy = () => {
   const { miniStudies, isError, isPending } = useMiniStudiesQuery();
 
   return (
-    <div className='flex min-h-dvh flex-col items-center bg-(--semantic-surface-standard) px-(--semantic-margin-lg) py-(--semantic-margin-2xl) pt-(--semantic-spacing-64)'>
-      <section className='flex w-full max-w-[922px] flex-col items-center gap-(--semantic-spacing-32) pt-(--semantic-margin-xl) pb-(--semantic-spacing-80)'>
-        <div className='flex w-full flex-col items-start gap-(--semantic-spacing-16)'>
-          <Hero size='xs' textAlign='left'>
-            미니 스터디
-          </Hero>
-          <Title size='xs' textAlign='left'>
-            활동 중 팀 프로젝트와 병행할 수 있는, 성장을 위한 스터디입니다.
-          </Title>
-        </div>
+    <PageBoard>
+      <PageModule>
+        <PageHeroContainer>
+          <div className='flex flex-col items-start gap-(--semantic-spacing-16)'>
+            <Hero size='xs' textAlign='left'>
+              미니 스터디
+            </Hero>
+            <Title size='xs' textAlign='left'>
+              활동 중 팀 프로젝트와 병행할 수 있는, 성장을 위한 스터디입니다.
+            </Title>
+          </div>
+        </PageHeroContainer>
 
         <div className='flex w-full flex-col gap-(--semantic-spacing-48)'>
           {isError ? (
@@ -56,8 +61,8 @@ const MiniStudy = () => {
             </div>
           )}
         </div>
-      </section>
-    </div>
+      </PageModule>
+    </PageBoard>
   );
 };
 
