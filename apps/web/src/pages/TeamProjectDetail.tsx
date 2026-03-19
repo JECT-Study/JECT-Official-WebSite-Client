@@ -15,6 +15,8 @@ import positionBe from "@/assets/images/position-be.png";
 import positionFe from "@/assets/images/position-fe.png";
 import positionPd from "@/assets/images/position-pd.png";
 import positionPm from "@/assets/images/position-pm.png";
+import PageBoard from "@/components/layout/PageBoard";
+import PageModule from "@/components/layout/PageModule";
 import { PATH } from "@/constants/path";
 import { useProjectDetailQuery } from "@/hooks/useProjectDetailQuery";
 import { formatDate } from "@/utils/formatDate";
@@ -126,8 +128,8 @@ const TeamProjectDetail = () => {
   const isSemester1 = project && projectName.includes(project.name);
 
   return (
-    <div className='flex h-full w-full justify-center py-(--semantic-margin-2xl) pt-14'>
-      <div className='px-(--semantic-margin-lg) pt-(--semantic-spacing-0) pb-(--semantic-spacing-80)'>
+    <PageBoard>
+      <PageModule>
         <div className='desktop:w-[922px] tablet:w-[720px] mobile:w-[320px]'>
           <LocalNavigation.Root isStretched={true}>
             <LocalNavigation.BackButton onClick={() => void navigate(PATH.teamProject)} />
@@ -272,8 +274,8 @@ const TeamProjectDetail = () => {
             ))}
           </div>
         </div>
-      </div>
-    </div>
+      </PageModule>
+    </PageBoard>
   );
 };
 
