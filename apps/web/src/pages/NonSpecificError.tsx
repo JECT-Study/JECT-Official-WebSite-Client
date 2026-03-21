@@ -5,6 +5,8 @@ import { useNavigate, useRouteError } from "react-router-dom";
 
 import Footer from "@/components/common/footer/Footer";
 import GlobalNavigationBar from "@/components/gnb/GlobalNavigationBar";
+import PageBoard from "@/components/layout/PageBoard";
+import PageModule from "@/components/layout/PageModule";
 import PagesContainer from "@/components/layout/PagesContainer";
 
 function NonSpecificError() {
@@ -21,39 +23,37 @@ function NonSpecificError() {
     <div>
       <GlobalNavigationBar />
       <PagesContainer>
-        <div className='tablet:pt-[46px] desktop:pt-[56px] flex h-dvh w-full justify-center pt-[44px]'>
-          <div className='h-full py-(--semantic-margin-2xl)'>
-            <div className='h-full px-(--semantic-margin-lg) pb-(--semantic-spacing-80)'>
-              <div className='flex h-full w-full flex-col items-center justify-center gap-(--semantic-spacing-32) pt-(--semantic-margin-xl) pb-(--semantic-margin-3xl)'>
-                <Icon
-                  className='h-10 w-10 text-(--semantic-feedback-notifying-normal)'
-                  name='error-warning-line'
-                />
-                <div className='flex flex-col items-center justify-center gap-(--semantic-spacing-16)'>
-                  <div className='flex items-center justify-center gap-(--semantic-spacing-6)'>
-                    <Title size='lg' textAlign='center' className='text-center'>
-                      현재 페이지를 불러오는 중 <br className='desktop:hidden tablet:hidden' />{" "}
-                      문제가 생겼습니다
-                    </Title>
-                  </div>
-                  <span className='textStyle-body-md-normal text-center text-(--semantic-object-bold)'>
-                    일시적인 오류일 수 있으니, 잠시 후 다시 시도해주세요.
-                    <br />
-                    문제가 지속된다면 jectofficial@ject.kr 로 문의해주세요.
-                  </span>
+        <PageBoard>
+          <PageModule className='h-dvh'>
+            <div className='flex h-full w-full flex-col items-center justify-center gap-(--semantic-spacing-32) pt-(--semantic-margin-xl) pb-(--semantic-margin-3xl)'>
+              <Icon
+                className='h-10 w-10 text-(--semantic-feedback-notifying-normal)'
+                name='error-warning-line'
+              />
+              <div className='flex flex-col items-center justify-center gap-(--semantic-spacing-16)'>
+                <div className='flex items-center justify-center gap-(--semantic-spacing-6)'>
+                  <Title size='lg' textAlign='center' className='text-center'>
+                    현재 페이지를 불러오는 중 <br className='desktop:hidden tablet:hidden' /> 문제가
+                    생겼습니다
+                  </Title>
                 </div>
-                <BlockButton.Basic
-                  hierarchy='accent'
-                  size='lg'
-                  suffixIcon='arrow-right-line'
-                  onClick={() => void navigate("/")}
-                >
-                  메인 페이지로
-                </BlockButton.Basic>
+                <span className='textStyle-body-md-normal text-center text-(--semantic-object-bold)'>
+                  일시적인 오류일 수 있으니, 잠시 후 다시 시도해주세요.
+                  <br />
+                  문제가 지속된다면 jectofficial@ject.kr 로 문의해주세요.
+                </span>
               </div>
+              <BlockButton.Basic
+                hierarchy='accent'
+                size='lg'
+                suffixIcon='arrow-right-line'
+                onClick={() => void navigate("/")}
+              >
+                메인 페이지로
+              </BlockButton.Basic>
             </div>
-          </div>
-        </div>
+          </PageModule>
+        </PageBoard>
       </PagesContainer>
       <Footer />
     </div>
