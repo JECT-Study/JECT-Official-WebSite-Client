@@ -130,149 +130,147 @@ const TeamProjectDetail = () => {
   return (
     <PageBoard>
       <PageModule>
-        <div className='desktop:w-[922px] tablet:w-[720px] mobile:w-[320px]'>
-          <LocalNavigation.Root isStretched={true}>
-            <LocalNavigation.BackButton onClick={() => void navigate(PATH.teamProject)} />
-            <LocalNavigation.Title>팀 프로젝트</LocalNavigation.Title>
-          </LocalNavigation.Root>
+        <LocalNavigation.Root isStretched={true}>
+          <LocalNavigation.BackButton onClick={() => void navigate(PATH.teamProject)} />
+          <LocalNavigation.Title>팀 프로젝트</LocalNavigation.Title>
+        </LocalNavigation.Root>
 
-          <div className='flex flex-col gap-(--semantic-spacing-32) pt-(--semantic-margin-xl) pb-(--semantic-margin-3xl)'>
-            {/* 썸네일 */}
+        <div className='flex flex-col gap-(--semantic-spacing-32) pt-(--semantic-margin-xl) pb-(--semantic-margin-3xl)'>
+          {/* 썸네일 */}
+          <Image
+            src={project.bannerImageUrl?.imageUrl}
+            ratio={isSemester1 ? bannerRatio[project.name as ProjectName] : "9:16"}
+            alt={project.name + "썸네일"}
+            orientation='landscape'
+            isReadonly={true}
+          />
+
+          {/* 서비스 샘플 이미지 */}
+          {project.sampleImageUrls && (
+            <div className='flex gap-(--semantic-spacing-16)'>
+              {project.sampleImageUrls.map(img => (
+                <Image
+                  key={img.sequence}
+                  src={img.imageUrl}
+                  ratio='9:16'
+                  alt={project.name + "서비스 샘플 이미지" + img.sequence}
+                  orientation='landscape'
+                  isReadonly={true}
+                  className='*:object-contain'
+                />
+              ))}
+            </div>
+          )}
+
+          {/* 타이틀 정보  */}
+          <div className='flex flex-col gap-(--semantic-spacing-24)'>
+            <div className='flex flex-col gap-(--semantic-spacing-12)'>
+              <div className='flex gap-(--semantic-spacing-6)'>
+                {project.badges.map(badge => (
+                  <ContentBadge.Basic key={badge} size='lg' badgeStyle='outlined'>
+                    {badge}
+                  </ContentBadge.Basic>
+                ))}
+              </div>
+              <div className='flex items-center gap-(--semantic-spacing-8)'>
+                <Hero size='xs' textAlign='left'>
+                  {project.name}
+                </Hero>
+                <a href={project.serviceUrl} target='_blank' rel='noopener noreferrer'>
+                  <IconButton.Basic hierarchy='tertiary' size='2xl' icon='link-line' />
+                </a>
+              </div>
+              <span className='textStyle-body-sm-normal text-(--semantic-object-bold)'>
+                {project.description}
+              </span>
+            </div>
+
+            {/* 프로젝트 정보 - 진행 기간 및 사용 기술 */}
+            <div className='flex flex-col gap-(--semantic-spacing-12)'>
+              <div className='rounded-(--semantic-radius-4) border border-(--semantic-stroke-subtle)'>
+                <div className='flex border-b border-(--semantic-stroke-subtle)'>
+                  <div className='border-r border-(--semantic-stroke-subtle) bg-(--semantic-fill-subtlest) p-(--semantic-spacing-12)'>
+                    <Label size='md' textAlign='left' weight='bold' className='whitespace-nowrap'>
+                      진행 기간
+                    </Label>
+                  </div>
+                  <div className='flex flex-wrap gap-(--semantic-spacing-10) p-(--semantic-spacing-12)'>
+                    <Label size='md' textAlign='left' weight='bold'>
+                      {formatDate(project.startDate)}
+                    </Label>
+                    <Label size='md' textAlign='left' weight='bold'>
+                      -
+                    </Label>
+                    <Label size='md' textAlign='left' weight='bold'>
+                      {formatDate(project.endDate)}
+                    </Label>
+                  </div>
+                </div>
+
+                <div className='flex border-b border-(--semantic-stroke-subtle)'>
+                  <div className='border-r border-(--semantic-stroke-subtle) bg-(--semantic-fill-subtlest) p-(--semantic-spacing-12)'>
+                    <Label size='md' textAlign='left' weight='bold' className='whitespace-nowrap'>
+                      사용 기술
+                    </Label>
+                  </div>
+                  <div className='flex flex-wrap gap-(--semantic-spacing-10) p-(--semantic-spacing-12)'>
+                    {project.techStack.map(stack => (
+                      <Label key={stack} size='md' textAlign='left' weight='bold'>
+                        {stack}
+                      </Label>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* 프로젝트 정보 - 팀원 */}
+              <div className='desktop:grid-cols-4 tablet:grid-cols-3 mobile:grid-cols-1 tablet:*:last:col-span-3 desktop:*:last:col-span-1 grid gap-(--semantic-spacing-12)'>
+                <TeammateByPosition
+                  position={"프론트엔드 개발자"}
+                  teammates={project.teamMemberNames.frontendDevelopers}
+                />
+                <TeammateByPosition
+                  position={"백엔드 개발자"}
+                  teammates={project.teamMemberNames.backendDevelopers}
+                />
+                <TeammateByPosition
+                  position={"프로덕트 매니저"}
+                  teammates={project.teamMemberNames.productManagers}
+                />
+                <TeammateByPosition
+                  position={"프로덕트 디자이너"}
+                  teammates={project.teamMemberNames.productDesigners}
+                />
+              </div>
+            </div>
+
+            {/* 버튼 */}
+            <a href={project.serviceUrl} target='_blank' rel='noopener noreferrer'>
+              <BlockButton.Basic
+                hierarchy='accent'
+                size='lg'
+                variant='solid'
+                suffixIcon='external-link-line'
+                className='w-full'
+              >
+                서비스 바로가기
+              </BlockButton.Basic>
+            </a>
+          </div>
+        </div>
+
+        {/* 서비스 소개 */}
+        <div className='flex flex-col gap-(--semantic-spacing-24)'>
+          {project.descriptionImageUrls.map(img => (
             <Image
-              src={project.bannerImageUrl?.imageUrl}
-              ratio={isSemester1 ? bannerRatio[project.name as ProjectName] : "9:16"}
-              alt={project.name + "썸네일"}
+              key={img.sequence}
+              src={img.imageUrl}
+              ratio='9:16'
+              alt={project.name + "서비스 소개 이미지" + img.sequence}
               orientation='landscape'
               isReadonly={true}
             />
-
-            {/* 서비스 샘플 이미지 */}
-            {project.sampleImageUrls && (
-              <div className='flex gap-(--semantic-spacing-16)'>
-                {project.sampleImageUrls.map(img => (
-                  <Image
-                    key={img.sequence}
-                    src={img.imageUrl}
-                    ratio='9:16'
-                    alt={project.name + "서비스 샘플 이미지" + img.sequence}
-                    orientation='landscape'
-                    isReadonly={true}
-                    className='*:object-contain'
-                  />
-                ))}
-              </div>
-            )}
-
-            {/* 타이틀 정보  */}
-            <div className='flex flex-col gap-(--semantic-spacing-24)'>
-              <div className='flex flex-col gap-(--semantic-spacing-12)'>
-                <div className='flex gap-(--semantic-spacing-6)'>
-                  {project.badges.map(badge => (
-                    <ContentBadge.Basic key={badge} size='lg' badgeStyle='outlined'>
-                      {badge}
-                    </ContentBadge.Basic>
-                  ))}
-                </div>
-                <div className='flex items-center gap-(--semantic-spacing-8)'>
-                  <Hero size='xs' textAlign='left'>
-                    {project.name}
-                  </Hero>
-                  <a href={project.serviceUrl} target='_blank' rel='noopener noreferrer'>
-                    <IconButton.Basic hierarchy='tertiary' size='2xl' icon='link-line' />
-                  </a>
-                </div>
-                <span className='textStyle-body-sm-normal text-(--semantic-object-bold)'>
-                  {project.description}
-                </span>
-              </div>
-
-              {/* 프로젝트 정보 - 진행 기간 및 사용 기술 */}
-              <div className='flex flex-col gap-(--semantic-spacing-12)'>
-                <div className='rounded-(--semantic-radius-4) border border-(--semantic-stroke-subtle)'>
-                  <div className='flex border-b border-(--semantic-stroke-subtle)'>
-                    <div className='border-r border-(--semantic-stroke-subtle) bg-(--semantic-fill-subtlest) p-(--semantic-spacing-12)'>
-                      <Label size='md' textAlign='left' weight='bold' className='whitespace-nowrap'>
-                        진행 기간
-                      </Label>
-                    </div>
-                    <div className='flex flex-wrap gap-(--semantic-spacing-10) p-(--semantic-spacing-12)'>
-                      <Label size='md' textAlign='left' weight='bold'>
-                        {formatDate(project.startDate)}
-                      </Label>
-                      <Label size='md' textAlign='left' weight='bold'>
-                        -
-                      </Label>
-                      <Label size='md' textAlign='left' weight='bold'>
-                        {formatDate(project.endDate)}
-                      </Label>
-                    </div>
-                  </div>
-
-                  <div className='flex border-b border-(--semantic-stroke-subtle)'>
-                    <div className='border-r border-(--semantic-stroke-subtle) bg-(--semantic-fill-subtlest) p-(--semantic-spacing-12)'>
-                      <Label size='md' textAlign='left' weight='bold' className='whitespace-nowrap'>
-                        사용 기술
-                      </Label>
-                    </div>
-                    <div className='flex flex-wrap gap-(--semantic-spacing-10) p-(--semantic-spacing-12)'>
-                      {project.techStack.map(stack => (
-                        <Label key={stack} size='md' textAlign='left' weight='bold'>
-                          {stack}
-                        </Label>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                {/* 프로젝트 정보 - 팀원 */}
-                <div className='desktop:grid-cols-4 tablet:grid-cols-3 mobile:grid-cols-1 tablet:*:last:col-span-3 desktop:*:last:col-span-1 grid gap-(--semantic-spacing-12)'>
-                  <TeammateByPosition
-                    position={"프론트엔드 개발자"}
-                    teammates={project.teamMemberNames.frontendDevelopers}
-                  />
-                  <TeammateByPosition
-                    position={"백엔드 개발자"}
-                    teammates={project.teamMemberNames.backendDevelopers}
-                  />
-                  <TeammateByPosition
-                    position={"프로덕트 매니저"}
-                    teammates={project.teamMemberNames.productManagers}
-                  />
-                  <TeammateByPosition
-                    position={"프로덕트 디자이너"}
-                    teammates={project.teamMemberNames.productDesigners}
-                  />
-                </div>
-              </div>
-
-              {/* 버튼 */}
-              <a href={project.serviceUrl} target='_blank' rel='noopener noreferrer'>
-                <BlockButton.Basic
-                  hierarchy='accent'
-                  size='lg'
-                  variant='solid'
-                  suffixIcon='external-link-line'
-                  className='w-full'
-                >
-                  서비스 바로가기
-                </BlockButton.Basic>
-              </a>
-            </div>
-          </div>
-
-          {/* 서비스 소개 */}
-          <div className='flex flex-col gap-(--semantic-spacing-24)'>
-            {project.descriptionImageUrls.map(img => (
-              <Image
-                key={img.sequence}
-                src={img.imageUrl}
-                ratio='9:16'
-                alt={project.name + "서비스 소개 이미지" + img.sequence}
-                orientation='landscape'
-                isReadonly={true}
-              />
-            ))}
-          </div>
+          ))}
         </div>
       </PageModule>
     </PageBoard>
