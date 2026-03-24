@@ -2,15 +2,12 @@ import type { ComponentPropsWithoutRef } from "react";
 
 export type InputStyle = "outlined" | "empty";
 
-export type InputLayout = "vertical" | "horizontal";
-
 export type InputValidation = "none" | "error" | "success";
 
 export type InputInteraction = "enabled" | "disabled" | "readOnly";
 
 export interface FieldPublicProps {
   style?: InputStyle;
-  layout?: InputLayout;
   validation?: InputValidation;
   interaction?: InputInteraction;
 }

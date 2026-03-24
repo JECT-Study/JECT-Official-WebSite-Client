@@ -74,6 +74,21 @@ const interestedDomainEnum = z.enum([
   "HR",
 ]);
 
+export const phoneNumberSchema = z
+  .string()
+  .min(1, "휴대폰 번호를 입력해주세요.")
+  .transform(val => val.replace(/[\s-]/g, ""))
+  .refine(val => val.length <= 2 || val.startsWith("010"), {
+    message: '"010"으로 시작하는 휴대폰 번호를 입력해주세요.',
+  })
+  .refine(val => val.length <= 11, {
+    message: '"010"을 포함해 총 11자리까지만 입력해주세요.',
+  });
+
+export const phoneNumberCompleteSchema = phoneNumberSchema.refine(val => val.length === 11, {
+  message: "휴대폰 번호를 끝까지 입력해주세요.",
+});
+
 export const applyApplicantInfoSchema = z.object({
   name: z
     .string()
@@ -81,19 +96,7 @@ export const applyApplicantInfoSchema = z.object({
     .max(5, "이름은 5자 이내로 작성해주세요.")
     .regex(/^[가-힣ㄱ-ㅎㅏ-ㅣ]+$/, "이름은 한글로 작성해주세요."),
 
-  phoneNumber: z
-    .string()
-    .min(1, "휴대폰 번호를 입력해주세요.")
-    .transform(val => val.replace(/[\s-]/g, ""))
-    .refine(val => /^\d+$/.test(val), {
-      message: "휴대폰 번호는 숫자만 입력해주세요.",
-    })
-    .refine(val => val.length <= 2 || val.startsWith("010"), {
-      message: '"010"으로 시작하는 휴대폰 번호를 입력해주세요.',
-    })
-    .refine(val => val.length <= 11, {
-      message: '"010"을 포함해 총 11자리까지만 입력해주세요.',
-    }),
+  phoneNumber: phoneNumberSchema,
 
   careerDetails: careerDetailsEnum,
 

@@ -1,5 +1,5 @@
-import { Accordion, Hero, Tab, Title } from "@ject/jds";
-import { useMediaQueryFlags } from "@ject/jds/hooks";
+import { Accordion, Hero, Tab, Title } from "@jects/jds";
+import { useMediaQueryFlags } from "@jects/jds/hooks";
 
 import { faqActivity, faqApply, faqJect, faqProject } from "@/constants/faqPageData";
 import { useFaqNavigation } from "@/hooks/useFaqNavigation";

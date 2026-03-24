@@ -1,4 +1,4 @@
-import { Icon, Title } from "@ject/jds";
+import { Icon, Title } from "@jects/jds";
 
 import Footer from "@/components/common/footer/Footer";
 import PagesContainer from "@/components/layout/PagesContainer";
@@ -7,9 +7,9 @@ function Maintenance() {
   return (
     <div>
       <PagesContainer>
-        <div className='desktop:py-(--semantic-margin-2xl) tablet:py-(--semantic-margin-2xl) flex h-dvh w-full justify-center pt-14'>
+        <div className='flex h-dvh w-full justify-center py-(--semantic-margin-2xl)'>
           <div className='h-full px-(--semantic-margin-lg) pt-(--semantic-spacing-0) pb-(--semantic-spacing-80)'>
-            <div className='desktop:w-[600px] tablet:w-[608px] mobile:w-[320px] flex h-full flex-col items-center justify-center gap-(--semantic-spacing-32) pt-(--semantic-margin-xl) pb-(--semantic-margin-3xl)'>
+            <div className='flex h-full w-full flex-col items-center justify-center gap-(--semantic-spacing-32) pt-(--semantic-margin-xl) pb-(--semantic-margin-3xl)'>
               <Icon
                 className='h-10 w-10 text-(--semantic-feedback-notifying-normal)'
                 name='error-warning-line'

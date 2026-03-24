@@ -70,21 +70,27 @@ const TagFieldInput = forwardRef<HTMLInputElement, TagFieldInputProps>(
             clearInput();
             clearSelection();
           }
+
           return;
         }
 
         if (e.key === "Backspace") {
+          if (inputValue.length > 0) return;
+
           e.preventDefault();
+
           const action = TagFieldUtils.getBackspaceAction(inputValue, tags, selectedTagId);
 
           if (action === "remove") {
             const lastTagId = TagFieldUtils.getLastTagId(tags);
+
             if (lastTagId) {
               onTagsChange(TagFieldUtils.removeTag(tags, lastTagId));
               clearSelection();
             }
           } else if (action === "select") {
             const lastTagId = TagFieldUtils.getLastTagId(tags);
+
             if (lastTagId) {
               setSelectedTagId(lastTagId);
             }
@@ -92,9 +98,7 @@ const TagFieldInput = forwardRef<HTMLInputElement, TagFieldInputProps>(
           return;
         }
 
-        if (selectedTagId) {
-          clearSelection();
-        }
+        if (selectedTagId) clearSelection();
       },
       [
         isComposing,
@@ -126,14 +130,23 @@ const TagFieldInput = forwardRef<HTMLInputElement, TagFieldInputProps>(
       }
     }, [ref]);
 
-    const handleTagClick = useCallback(
-      (e: MouseEvent, tagId: string) => {
-        e.stopPropagation();
+    const handleTagRemove = useCallback(
+      (tagId: string) => {
         onTagsChange(TagFieldUtils.removeTag(tags, tagId));
+        if (ref && typeof ref !== "function" && ref.current) {
+          ref.current.focus();
+        }
       },
-      [tags, onTagsChange],
+      [tags, onTagsChange, ref],
     );
 
+    const handleTagSelect = useCallback(
+      (e: MouseEvent, tagId: string) => {
+        e.stopPropagation();
+        setSelectedTagId(tagId);
+      },
+      [setSelectedTagId],
+    );
     return (
       <StyledTagInputWrapper
         $style={style}
@@ -146,7 +159,8 @@ const TagFieldInput = forwardRef<HTMLInputElement, TagFieldInputProps>(
           tags={tags}
           hasTag={hasTag}
           selectedTagId={selectedTagId}
-          onTagClick={handleTagClick}
+          onTagSelect={handleTagSelect}
+          onTagRemove={handleTagRemove}
         />
         <StyledTagInput
           ref={ref}
@@ -174,11 +188,10 @@ export const TagField = forwardRef<HTMLInputElement, TagFieldProps>(
   (
     {
       style = "outlined",
-      layout = "vertical",
       validation = "none",
       interaction = "enabled",
+      isWithInfoIcon = false,
       label,
-      labelIcon,
       helperText,
       ...restProps
     },
@@ -187,14 +200,13 @@ export const TagField = forwardRef<HTMLInputElement, TagFieldProps>(
     return (
       <FormField
         style={style}
-        layout={layout}
         validation={validation}
         interaction={interaction}
         label={label}
-        labelIcon={labelIcon}
+        isWithInfoIcon={isWithInfoIcon}
         helperText={helperText}
       >
-        <StyledFieldContainer $layout={layout}>
+        <StyledFieldContainer>
           <FormField.Label />
           <FormField.Content>
             <TagFieldInput ref={ref} {...restProps} />

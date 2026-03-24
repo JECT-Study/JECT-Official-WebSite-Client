@@ -1,4 +1,4 @@
-import type { ImgRatio } from "@ject/jds";
+import type { ImgRatio } from "@jects/jds";
 import {
   BlockButton,
   ContentBadge,
@@ -7,7 +7,7 @@ import {
   Image,
   Label,
   LocalNavigation,
-} from "@ject/jds";
+} from "@jects/jds";
 import { useEffect } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 

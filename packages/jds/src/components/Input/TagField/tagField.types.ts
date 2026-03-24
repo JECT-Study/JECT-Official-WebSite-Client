@@ -10,13 +10,13 @@ export interface Tag {
 
 export interface TagFieldPublicProps
   extends
-    FieldPublicProps,
+    Omit<FieldPublicProps, "layout">,
     Omit<
       ComponentPropsWithoutRef<"input">,
       "value" | "onChange" | "defaultValue" | "style" | "type"
     > {
   label?: string;
-  labelIcon?: IconName;
+  isWithInfoIcon?: boolean;
   helperText?: string;
   tags: Tag[];
   onTagsChange: (tags: Tag[]) => void;
@@ -28,5 +28,6 @@ export interface TagFieldPublicProps
 export type TagFieldProps = TagFieldPublicProps;
 
 export interface TagFieldButtonProps extends TagFieldPublicProps {
+  labelIcon?: IconName;
   button: ReactNode;
 }

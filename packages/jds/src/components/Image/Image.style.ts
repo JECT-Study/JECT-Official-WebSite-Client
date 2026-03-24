@@ -59,7 +59,7 @@ export const ImageButton = styled("button", {
     },
 
     "&:hover::after": {
-      backgroundColor: theme.color.semantic.curtain.dimmer,
+      backgroundColor: theme.color.semantic.curtain.static.dimmer,
       opacity: isReadonly ? 0 : 1,
       cursor: isReadonly ? "default" : "pointer",
     },

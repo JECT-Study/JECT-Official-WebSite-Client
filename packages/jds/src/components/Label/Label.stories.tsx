@@ -1,11 +1,18 @@
 import styled from "@emotion/styled";
-import type { Meta, StoryObj } from "@storybook/react-vite";
+import type { Decorator, Meta, StoryObj } from "@storybook/react-vite";
 
 import { Label } from "./Label";
+
+const withWidthDecorator: Decorator = Story => (
+  <div style={{ width: "500px" }}>
+    <Story />
+  </div>
+);
 
 const meta = {
   title: "Components/Label",
   component: Label,
+  decorators: [withWidthDecorator],
   parameters: {
     layout: "centered",
   },

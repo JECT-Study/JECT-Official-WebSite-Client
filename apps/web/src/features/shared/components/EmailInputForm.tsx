@@ -1,4 +1,4 @@
-import { BlockButton, TextField } from "@ject/jds";
+import { BlockButton, TextField } from "@jects/jds";
 import type { FormEventHandler } from "react";
 import { Controller } from "react-hook-form";
 

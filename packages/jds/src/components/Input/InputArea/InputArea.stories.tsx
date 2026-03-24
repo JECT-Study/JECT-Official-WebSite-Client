@@ -18,14 +18,6 @@ const meta = {
         defaultValue: { summary: "outlined" },
       },
     },
-    layout: {
-      control: "select",
-      options: ["vertical", "horizontal"],
-      description: "레이블과 필드의 레이아웃 관계",
-      table: {
-        defaultValue: { summary: "vertical" },
-      },
-    },
     validation: {
       control: "select",
       options: ["none", "error"],
@@ -300,29 +292,6 @@ export const EmptyStyle: Story = {
           value={value}
           onChange={e => setValue(e.target.value)}
           placeholder='테두리가 없는 스타일입니다'
-        />
-      </div>
-    );
-  },
-};
-
-export const HorizontalLayout: Story = {
-  args: {
-    label: "가로 레이아웃",
-    layout: "horizontal",
-    helperText: "레이블이 왼쪽에 위치합니다",
-    value: "",
-    onChange: () => {},
-  },
-  render: function Render(args) {
-    const [value, setValue] = useState("");
-    return (
-      <div style={{ width: "560px" }}>
-        <InputArea
-          {...args}
-          value={value}
-          onChange={e => setValue(e.target.value)}
-          placeholder='가로 레이아웃'
         />
       </div>
     );

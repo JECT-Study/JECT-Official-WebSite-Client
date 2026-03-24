@@ -1,4 +1,4 @@
-import { BlockButton, LabelButton, TextField, toastController } from "@ject/jds";
+import { BlockButton, LabelButton, TextField, toastController } from "@jects/jds";
 import type { FormEventHandler } from "react";
 import { useState } from "react";
 import { Controller } from "react-hook-form";
@@ -11,6 +11,7 @@ import {
 } from "@/hooks/apply";
 import { useApplyEmailForm } from "@/hooks/useApplyEmailForm";
 import { useCountdownTimer } from "@/hooks/useCountdownTimer";
+import { handleError } from "@/utils/errorLogger";
 import { deriveInputValidation } from "@/utils/validationHelpers";
 
 const formatTime = (seconds: number) => {
@@ -76,9 +77,18 @@ export function AuthCodeForm({
             timer.start(180);
           }
         },
-        onError: () => {
+        onError: error => {
+          const errorStatus = error.response?.data.status;
+
+          if (errorStatus === "TOO_MANY_EMAIL_REQUESTS") {
+            handleError(error, "인증번호 발송 제한");
+            toastController.destructive("인증번호 발송 제한", "잠시 후 다시 시도해주세요.");
+            return;
+          }
+
+          handleError(error, "인증 시도 실패");
           toastController.destructive(
-            "인증번호 발송 실패",
+            "인증 시도 실패",
             "일시적 오류일 수 있으니 다시 시도해주세요.",
           );
         },

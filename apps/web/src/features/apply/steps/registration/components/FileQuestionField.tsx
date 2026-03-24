@@ -1,4 +1,4 @@
-import { BlockButton, toastController, Uploader } from "@ject/jds";
+import { BlockButton, toastController, Uploader } from "@jects/jds";
 import { useCallback, useMemo } from "react";
 
 type UploadErrorType = "FILE_TOO_LARGE" | "INVALID_TYPE" | "TOTAL_SIZE_EXCEEDED";
@@ -119,7 +119,11 @@ export function FileQuestionField({
   };
 
   return (
-    <QuestionFieldWrapper title={question.title} isRequired={question.isRequired}>
+    <QuestionFieldWrapper
+      title={question.title}
+      subtitle={question.subtitle}
+      isRequired={question.isRequired}
+    >
       <div className='flex flex-col items-start gap-(--semantic-spacing-16) self-stretch rounded-(--semantic-radius-6) border border-(--semantic-stroke-alpha-subtle) bg-(--semantic-surface-standard) p-(--semantic-spacing-12)'>
         {portfolios.length > 0 && (
           <div className='flex flex-col gap-(--semantic-spacing-8) self-stretch'>

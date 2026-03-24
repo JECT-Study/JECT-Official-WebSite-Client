@@ -4,7 +4,7 @@ import { forwardRef } from "react";
 import type { HeroSize, HeroTextAlign } from "./Hero.style";
 import { HeroDiv } from "./Hero.style";
 
-export interface HeroProps {
+export interface HeroProps extends React.HTMLAttributes<HTMLDivElement> {
   size?: HeroSize;
   textAlign?: HeroTextAlign;
   color?: string;

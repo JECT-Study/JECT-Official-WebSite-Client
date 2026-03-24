@@ -10,6 +10,7 @@ import {
   StyledSelectItemInputWrapper,
 } from "./select.styles";
 import type { SelectCheckboxProps } from "./select.types";
+import { Checkbox } from "../Checkbox";
 
 export const SelectCheckbox = forwardRef<HTMLDivElement, SelectCheckboxProps>(
   ({ value, isDisabled = false, caption, children, ...restProps }, ref) => {
@@ -37,17 +38,13 @@ export const SelectCheckbox = forwardRef<HTMLDivElement, SelectCheckboxProps>(
         {...restProps}
       >
         <StyledSelectItemInputWrapper>
-          {/* TODO: Checkbox 컴포넌트가 구현되면 여기에 추가 */}
-          <input
-            type='checkbox'
+          <Checkbox.Basic
+            size={size}
             checked={isItemSelected}
             disabled={isDisabled}
-            readOnly
             tabIndex={-1}
-            style={{ pointerEvents: "none" }}
           />
         </StyledSelectItemInputWrapper>
-
         <StyledSelectItemContent>
           <StyledSelectItemText
             as='span'

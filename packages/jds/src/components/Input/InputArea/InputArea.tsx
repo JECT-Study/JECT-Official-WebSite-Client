@@ -19,7 +19,6 @@ export const InputArea = forwardRef<HTMLTextAreaElement, InputAreaProps>(
   (
     {
       style = "outlined",
-      layout = "vertical",
       validation = "none",
       interaction = "enabled",
       label,
@@ -42,9 +41,9 @@ export const InputArea = forwardRef<HTMLTextAreaElement, InputAreaProps>(
     const hasHelperContainer = Boolean(helperText) || Boolean(maxLength);
 
     return (
-      <StyledFieldContainer $layout={layout}>
+      <StyledFieldContainer>
         {label && labelVisible && (
-          <StyledLabelContainer $layout={layout} $disabled={isDisabled} $readOnly={isReadOnly}>
+          <StyledLabelContainer $disabled={isDisabled} $readOnly={isReadOnly}>
             <StyledFieldLabel
               as='label'
               htmlFor={inputId}
@@ -52,18 +51,10 @@ export const InputArea = forwardRef<HTMLTextAreaElement, InputAreaProps>(
               weight='normal'
               $disabled={isDisabled}
               $readOnly={isReadOnly}
-              $layout={layout}
             >
               {label}
             </StyledFieldLabel>
-            {labelIcon && (
-              <StyledLabelIcon
-                name={labelIcon}
-                size='2xs'
-                $disabled={isDisabled}
-                $readOnly={isReadOnly}
-              />
-            )}
+            {labelIcon && <StyledLabelIcon name={labelIcon} size='2xs' />}
           </StyledLabelContainer>
         )}
 

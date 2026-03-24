@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface UseCountdownTimerReturn {
   seconds: number;
@@ -8,18 +8,24 @@ interface UseCountdownTimerReturn {
 
 export function useCountdownTimer(): UseCountdownTimerReturn {
   const [seconds, setSeconds] = useState(0);
+  const endTimeRef = useRef<number | null>(null);
 
   useEffect(() => {
-    if (seconds <= 0) return;
+    if (!endTimeRef.current) return;
 
     const timer = setTimeout(() => {
-      setSeconds(prev => prev - 1);
+      const remainingSeconds = Math.max(0, Math.ceil((endTimeRef.current! - Date.now()) / 1000));
+
+      setSeconds(remainingSeconds);
     }, 1000);
 
     return () => clearTimeout(timer);
   }, [seconds]);
 
-  const start = (s: number) => setSeconds(s);
+  const start = (s: number) => {
+    endTimeRef.current = Date.now() + s * 1000;
+    setSeconds(s);
+  };
 
   return { seconds, isActive: seconds > 0, start };
 }

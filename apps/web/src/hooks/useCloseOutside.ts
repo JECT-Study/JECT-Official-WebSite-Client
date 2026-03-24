@@ -4,6 +4,14 @@ import { useEffect, useState } from "react";
 const useCloseOutside = <T extends HTMLElement>(refs: RefObject<T>[] | RefObject<T>) => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const onClose = () => {
+    setIsOpen(false);
+  };
+
+  const onToggle = () => {
+    setIsOpen(prev => !prev);
+  };
+
   useEffect(() => {
     if (!isOpen) return;
 
@@ -26,7 +34,7 @@ const useCloseOutside = <T extends HTMLElement>(refs: RefObject<T>[] | RefObject
     return () => document.removeEventListener("mousedown", outsideClick);
   }, [refs, isOpen]);
 
-  return { isOpen, setIsOpen };
+  return { isOpen, setIsOpen, onClose, onToggle };
 };
 
 export default useCloseOutside;
