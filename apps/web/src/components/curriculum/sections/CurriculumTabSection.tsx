@@ -26,7 +26,7 @@ const teamProjectScheduleData: TeamProjectItem[] = [
     stepLabel: "2026년 1월 31일(토)",
     badges: [
       { label: "오프라인", variant: "orange" },
-      { label: "필수참여", variant: "pink" },
+      { label: "필수 참여", variant: "pink" },
     ],
     title: "온보딩",
     description: "프로젝트 시작 및 팀 소개, 네트워킹 진행",
@@ -36,7 +36,7 @@ const teamProjectScheduleData: TeamProjectItem[] = [
     stepLabel: "2026년 2월 21일(토)",
     badges: [
       { label: "오프라인", variant: "orange" },
-      { label: "필수참여", variant: "blue" },
+      { label: "선택 참여", variant: "blue" },
     ],
     title: "모각작",
     description: "함께 모여 작업하며 팀원 및 운영진과 소통",
@@ -46,7 +46,7 @@ const teamProjectScheduleData: TeamProjectItem[] = [
     stepLabel: "2026년 3월 14일(토)",
     badges: [
       { label: "오프라인", variant: "orange" },
-      { label: "필수참여", variant: "pink" },
+      { label: "필수 참여", variant: "pink" },
     ],
     title: "젝트 기획 발표 세션",
     description: "초기 서비스 기획 마무리 및 발표 진행",
@@ -56,7 +56,7 @@ const teamProjectScheduleData: TeamProjectItem[] = [
     stepLabel: "2026년 4월 4일(토)",
     badges: [
       { label: "오프라인", variant: "orange" },
-      { label: "필수참여", variant: "pink" },
+      { label: "필수 참여", variant: "pink" },
     ],
     title: "전문가 초청 강연",
     description: "실무 관점의 인사이트 강연 및 Q&A",
@@ -66,7 +66,7 @@ const teamProjectScheduleData: TeamProjectItem[] = [
     stepLabel: "2026년 5월 2일(토)",
     badges: [
       { label: "오프라인", variant: "orange" },
-      { label: "필수참여", variant: "pink" },
+      { label: "필수 참여", variant: "pink" },
     ],
     title: "젝-트게더",
     description: "팀별 성과 공유 및 네트워킹 진행",
@@ -83,7 +83,7 @@ const teamProjectScheduleData: TeamProjectItem[] = [
     stepLabel: "2026년 5월 30일(토)",
     badges: [
       { label: "오프라인", variant: "orange" },
-      { label: "필수참여", variant: "pink" },
+      { label: "필수 참여", variant: "pink" },
     ],
     title: "젝러닝",
     description: "각 팀 서비스 체험 및 피드백 수집",
@@ -100,7 +100,7 @@ const teamProjectScheduleData: TeamProjectItem[] = [
     stepLabel: "2026년 7월 4일(토)",
     badges: [
       { label: "오프라인", variant: "orange" },
-      { label: "필수참여", variant: "pink" },
+      { label: "필수 참여", variant: "pink" },
     ],
     title: "최종 릴리즈 및 데모데이",
     description: "최종 결과 발표 및 운영 성과 공유",
@@ -200,39 +200,35 @@ const FigmaGuideCard = ({ item }: { item: FigmaGuideItem }) => {
 
 const CurriculumTabSection = () => {
   return (
-    <section className='flex w-full flex-col items-center self-stretch'>
-      <div className='flex w-full max-w-[922px] flex-col items-start gap-(--semantic-spacing-32)'>
-        <Tab.Root defaultValue='team-project-schedule' variant='header' className='w-full'>
-          <Tab.List aria-label='커리큘럼 탭'>
-            <Tab.Trigger value='team-project-schedule'>팀 프로젝트 일정</Tab.Trigger>
-            <Tab.Trigger value='figma-guide-curriculum'>피그마 가이드 커리큘럼</Tab.Trigger>
-          </Tab.List>
+    <Tab.Root defaultValue='team-project-schedule' variant='header' className='w-full'>
+      <Tab.List aria-label='커리큘럼 탭'>
+        <Tab.Trigger value='team-project-schedule'>팀 프로젝트 일정</Tab.Trigger>
+        <Tab.Trigger value='figma-guide-curriculum'>피그마 가이드 커리큘럼</Tab.Trigger>
+      </Tab.List>
 
-          <Tab.Content value='team-project-schedule'>
-            <div className='tablet:grid-cols-2 grid w-full grid-cols-1 gap-(--semantic-spacing-16) pt-(--semantic-spacing-48)'>
-              {teamProjectScheduleData.map(item => (
-                <TeamProjectCard key={item.id} item={item} />
-              ))}
-              <div className='[&>div]:h-full [&>div]:w-full [&>div]:max-w-full!'>
-                <EmptyState
-                  variant='outlined'
-                  header='그 밖에 더 많은 활동들이 기다리고 있어요...'
-                  body='젝트에 합류해서 직접 활동해보세요!'
-                />
-              </div>
-            </div>
-          </Tab.Content>
+      <Tab.Content value='team-project-schedule'>
+        <div className='grid w-full grid-cols-1 gap-(--semantic-spacing-16) pt-(--semantic-spacing-48) tablet:grid-cols-2'>
+          {teamProjectScheduleData.map(item => (
+            <TeamProjectCard key={item.id} item={item} />
+          ))}
+          <div className='[&>div]:h-full [&>div]:w-full [&>div]:max-w-full!'>
+            <EmptyState
+              variant='outlined'
+              header='그 밖에 더 많은 활동들이 기다리고 있어요...'
+              body='젝트에 합류해서 직접 활동해보세요!'
+            />
+          </div>
+        </div>
+      </Tab.Content>
 
-          <Tab.Content value='figma-guide-curriculum'>
-            <div className='tablet:grid-cols-2 grid w-full grid-cols-1 gap-(--semantic-spacing-16) pt-(--semantic-spacing-48)'>
-              {figmaGuideCurriculumData.map(item => (
-                <FigmaGuideCard key={item.id} item={item} />
-              ))}
-            </div>
-          </Tab.Content>
-        </Tab.Root>
-      </div>
-    </section>
+      <Tab.Content value='figma-guide-curriculum'>
+        <div className='grid w-full grid-cols-1 gap-(--semantic-spacing-16) pt-(--semantic-spacing-48) tablet:grid-cols-2'>
+          {figmaGuideCurriculumData.map(item => (
+            <FigmaGuideCard key={item.id} item={item} />
+          ))}
+        </div>
+      </Tab.Content>
+    </Tab.Root>
   );
 };
 
