@@ -2,22 +2,25 @@ import { Card, Hero, Title } from "@jects/jds";
 
 import EmptyData from "@/components/common/emptyState/EmptyData";
 import Label from "@/components/common/label/Label";
+import PageHeroContainer from "@/components/layout/PageHeroContainer";
+import PageModule from "@/components/layout/PageModule";
 import useJectalksQuery from "@/hooks/useJectalksQuery";
 
 const LiveSession = () => {
   const { jectalks, isError, isPending } = useJectalksQuery();
 
   return (
-    <div className='flex min-h-dvh flex-col items-center bg-(--semantic-surface-standard) px-(--semantic-margin-lg) py-(--semantic-margin-2xl) pt-(--semantic-spacing-64)'>
-      <section className='flex w-full max-w-[922px] flex-col items-center gap-(--semantic-spacing-32) pt-(--semantic-margin-xl) pb-(--semantic-spacing-80)'>
-        <div className='flex w-full flex-col items-start gap-(--semantic-spacing-16)'>
-          <Hero size='xs' textAlign='left'>
-            라이브 세션
-          </Hero>
-          <Title size='xs' textAlign='left'>
-            온/오프라인에서 구성원이 자신의 경험과 기술에 대해 발표하는 콘텐츠입니다.
-          </Title>
-        </div>
+    <PageModule>
+        <PageHeroContainer>
+          <div className='flex flex-col items-start gap-(--semantic-spacing-16)'>
+            <Hero size='xs' textAlign='left'>
+              라이브 세션
+            </Hero>
+            <Title size='xs' textAlign='left'>
+              온/오프라인에서 구성원이 자신의 경험과 기술에 대해 발표하는 콘텐츠입니다.
+            </Title>
+          </div>
+        </PageHeroContainer>
 
         <div className='flex w-full flex-col gap-(--semantic-spacing-48)'>
           {isError ? (
@@ -64,8 +67,7 @@ const LiveSession = () => {
             </div>
           )}
         </div>
-      </section>
-    </div>
+      </PageModule>
   );
 };
 

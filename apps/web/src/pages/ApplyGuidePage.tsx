@@ -16,6 +16,7 @@ import { theme } from "@jects/jds/tokens";
 import { useNavigate, useParams, useSearchParams, Navigate } from "react-router-dom";
 
 import type { JobFamily } from "@/apis/apply";
+import PageModule from "@/components/layout/PageModule";
 import {
   findJobFamilyOption,
   JOB_FAMILY_OPTIONS,
@@ -155,7 +156,7 @@ function ApplyGuidePage() {
   };
 
   return (
-    <div className='flex w-full max-w-[656px] flex-col items-start px-(--semantic-margin-lg) pb-(--semantic-spacing-80)'>
+    <PageModule className='!max-w-[656px]'>
       <LocalNavigation.Root isStretched={true}>
         <LocalNavigation.BackButton onClick={handleBack} />
         <LocalNavigation.Title>지원 안내</LocalNavigation.Title>
@@ -463,7 +464,7 @@ function ApplyGuidePage() {
           </div>
         </Tab.Content>
       </Tab.Root>
-    </div>
+    </PageModule>
   );
 }
 
