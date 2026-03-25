@@ -2,7 +2,6 @@ import { Card, Hero, Title } from "@jects/jds";
 
 import EmptyData from "@/components/common/emptyState/EmptyData";
 import Label from "@/components/common/label/Label";
-import PageBoard from "@/components/layout/PageBoard";
 import PageHeroContainer from "@/components/layout/PageHeroContainer";
 import PageModule from "@/components/layout/PageModule";
 import useJectalksQuery from "@/hooks/useJectalksQuery";
@@ -11,8 +10,7 @@ const LiveSession = () => {
   const { jectalks, isError, isPending } = useJectalksQuery();
 
   return (
-    <PageBoard>
-      <PageModule>
+    <PageModule>
         <PageHeroContainer>
           <div className='flex flex-col items-start gap-(--semantic-spacing-16)'>
             <Hero size='xs' textAlign='left'>
@@ -70,7 +68,6 @@ const LiveSession = () => {
           )}
         </div>
       </PageModule>
-    </PageBoard>
   );
 };
 

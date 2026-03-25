@@ -3,7 +3,6 @@ import Lottie from "lottie-react";
 import { useState, useRef } from "react";
 
 import loadingSpinner from "@/assets/lottie/ject-loadingSpinner.json";
-import PageBoard from "@/components/layout/PageBoard";
 import PageHeroContainer from "@/components/layout/PageHeroContainer";
 import PageModule from "@/components/layout/PageModule";
 import useCloseOutside from "@/hooks/useCloseOutside";
@@ -46,8 +45,7 @@ const TeamProject = () => {
   const allProjects: Project[] = projectsData?.pages.flatMap(page => page.content) ?? [];
 
   return (
-    <PageBoard>
-      <PageModule>
+    <PageModule>
         <PageHeroContainer>
           <div className='flex flex-col items-start gap-(--semantic-spacing-16)'>
             <Hero size='xs' textAlign='left'>
@@ -112,7 +110,6 @@ const TeamProject = () => {
           )}
         </div>
       </PageModule>
-    </PageBoard>
   );
 };
 

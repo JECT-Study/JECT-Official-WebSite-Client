@@ -1,7 +1,6 @@
 import { Accordion, Hero, Tab, Title } from "@jects/jds";
 import { useMediaQueryFlags } from "@jects/jds/hooks";
 
-import PageBoard from "@/components/layout/PageBoard";
 import PageHeroContainer from "@/components/layout/PageHeroContainer";
 import PageModule from "@/components/layout/PageModule";
 import { faqActivity, faqApply, faqJect, faqProject } from "@/constants/faqPageData";
@@ -13,8 +12,7 @@ function Faq() {
   const { isMobile } = useMediaQueryFlags();
 
   return (
-    <PageBoard>
-      <PageModule>
+    <PageModule>
         <PageHeroContainer>
           <div className='flex flex-col items-start gap-(--semantic-spacing-16)'>
             <Hero size='xs' textAlign='left'>
@@ -111,7 +109,6 @@ function Faq() {
           </Tab.Root>
         </div>
       </PageModule>
-    </PageBoard>
   );
 }
 
