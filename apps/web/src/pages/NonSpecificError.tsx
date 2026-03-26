@@ -5,6 +5,8 @@ import { useNavigate, useRouteError } from "react-router-dom";
 
 import Footer from "@/components/common/footer/Footer";
 import GlobalNavigationBar from "@/components/gnb/GlobalNavigationBar";
+import PageBoard from "@/components/layout/PageBoard";
+import PageModule from "@/components/layout/PageModule";
 import PagesContainer from "@/components/layout/PagesContainer";
 
 function NonSpecificError() {
@@ -21,9 +23,9 @@ function NonSpecificError() {
     <div>
       <GlobalNavigationBar />
       <PagesContainer>
-        <div className='desktop:py-(--semantic-margin-2xl) tablet:py-(--semantic-margin-2xl) flex h-dvh w-full justify-center pt-14'>
-          <div className='h-full px-(--semantic-margin-lg) pt-(--semantic-spacing-0) pb-(--semantic-spacing-80)'>
-            <div className='desktop:w-[600px] tablet:w-[608px] mobile:w-[320px] flex h-full flex-col items-center justify-center gap-(--semantic-spacing-32) pt-(--semantic-margin-xl) pb-(--semantic-margin-3xl)'>
+        <PageBoard>
+          <PageModule className='h-dvh'>
+            <div className='flex h-full w-full flex-col items-center justify-center gap-(--semantic-spacing-32) pt-(--semantic-margin-xl) pb-(--semantic-margin-3xl)'>
               <Icon
                 className='h-10 w-10 text-(--semantic-feedback-notifying-normal)'
                 name='error-warning-line'
@@ -50,8 +52,8 @@ function NonSpecificError() {
                 메인 페이지로
               </BlockButton.Basic>
             </div>
-          </div>
-        </div>
+          </PageModule>
+        </PageBoard>
       </PagesContainer>
       <Footer />
     </div>

@@ -5,6 +5,8 @@ import backendImage from "@/assets/images/backend.png";
 import frontendImage from "@/assets/images/frontend.png";
 import productDesignerImage from "@/assets/images/product-designer.png";
 import productManagerImage from "@/assets/images/product-manager.png";
+import PageHeroContainer from "@/components/layout/PageHeroContainer";
+import PageModule from "@/components/layout/PageModule";
 import { PATH } from "@/constants/path";
 
 type FilterValue = "all" | "PM" | "PD" | "FE" | "BE";
@@ -90,9 +92,9 @@ function ApplyListPage() {
   const selectedFilterLabel = FILTER_OPTIONS.find(opt => opt.value === filter)?.label ?? "전체";
 
   return (
-    <div className='flex max-w-[978px] flex-col items-start px-(--semantic-margin-lg) pb-(--semantic-spacing-80)'>
-      <section className='flex flex-col items-start gap-(--semantic-spacing-32) self-stretch pt-(--semantic-margin-xl) pb-(--semantic-margin-3xl)'>
-        <div className='flex flex-col items-start gap-(--semantic-spacing-16) self-stretch'>
+    <PageModule>
+      <PageHeroContainer>
+        <div className='flex flex-col items-start gap-(--semantic-spacing-16)'>
           <Hero size='xs' textAlign='left'>
             지원 안내
           </Hero>
@@ -118,7 +120,7 @@ function ApplyListPage() {
             </div>
           )}
         </div>
-      </section>
+      </PageHeroContainer>
 
       <div className='flex flex-col items-start gap-(--semantic-spacing-24) self-stretch'>
         {filteredList.map((item, index) => (
@@ -138,7 +140,7 @@ function ApplyListPage() {
           </Fragment>
         ))}
       </div>
-    </div>
+    </PageModule>
   );
 }
 

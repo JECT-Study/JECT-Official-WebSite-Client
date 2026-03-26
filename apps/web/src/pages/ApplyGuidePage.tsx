@@ -16,6 +16,7 @@ import { theme } from "@jects/jds/tokens";
 import { useNavigate, useParams, useSearchParams, Navigate } from "react-router-dom";
 
 import type { JobFamily } from "@/apis/apply";
+import PageModule from "@/components/layout/PageModule";
 import {
   findJobFamilyOption,
   JOB_FAMILY_OPTIONS,
@@ -155,13 +156,13 @@ function ApplyGuidePage() {
   };
 
   return (
-    <div className='flex w-full max-w-[656px] flex-col items-start px-(--semantic-margin-lg) pb-(--semantic-spacing-80)'>
+    <PageModule className='!max-w-[656px]'>
       <LocalNavigation.Root isStretched={true}>
         <LocalNavigation.BackButton onClick={handleBack} />
         <LocalNavigation.Title>지원 안내</LocalNavigation.Title>
       </LocalNavigation.Root>
 
-      <section className='flex flex-col gap-(--semantic-spacing-32) pt-(--semantic-margin-xl) pb-(--semantic-margin-3xl)'>
+      <section className='flex w-full flex-col gap-(--semantic-spacing-32) pt-(--semantic-margin-xl) pb-(--semantic-margin-3xl)'>
         <div className='flex flex-col items-start gap-(--semantic-spacing-16) self-stretch'>
           <div className='flex flex-wrap content-center items-center gap-(--semantic-spacing-8) self-stretch'>
             <Hero size='xs' textAlign='left'>
@@ -189,17 +190,11 @@ function ApplyGuidePage() {
           </Label>
         </div>
 
-        <div className='flex gap-3 self-stretch'>
-          <BlockButton.Basic
-            variant='solid'
-            hierarchy='accent'
-            size='lg'
-            className='flex-1'
-            disabled
-          >
-            모집이 마감되었습니다
+        <a href='https://forms.gle/oarw4xzjDezR6mzQA' target='_blank' rel='noopener noreferrer'>
+          <BlockButton.Basic variant='solid' hierarchy='accent' size='lg' className='w-full'>
+            5기 모집 알림 신청하기
           </BlockButton.Basic>
-        </div>
+        </a>
       </section>
 
       <Tab.Root
@@ -469,7 +464,7 @@ function ApplyGuidePage() {
           </div>
         </Tab.Content>
       </Tab.Root>
-    </div>
+    </PageModule>
   );
 }
 
