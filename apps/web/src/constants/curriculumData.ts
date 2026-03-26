@@ -1,23 +1,4 @@
-import type { ThemeVariant } from "@jects/jds";
-
-interface BadgeItem {
-  label: string;
-  variant: ThemeVariant;
-}
-
-export interface TeamProjectItem {
-  id: number;
-  stepLabel: string;
-  badges: BadgeItem[];
-  title: string;
-  description: string;
-}
-
-export interface FigmaGuideItem {
-  id: number;
-  title: string;
-  descriptions: string[];
-}
+import type { FigmaGuideItem, TeamProjectItem } from "@/types/ui/curriculum";
 
 export const teamProjectScheduleData: TeamProjectItem[] = [
   {

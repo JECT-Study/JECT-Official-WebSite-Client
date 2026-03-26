@@ -1,7 +1,7 @@
 import { ContentBadge, EmptyState, Tab, Title } from "@jects/jds";
 
-import type { FigmaGuideItem, TeamProjectItem } from "@/constants/curriculumData";
 import { figmaGuideCurriculumData, teamProjectScheduleData } from "@/constants/curriculumData";
+import type { FigmaGuideItem, TeamProjectItem } from "@/types/ui/curriculum";
 
 const TeamProjectCard = ({ item }: { item: TeamProjectItem }) => {
   return (
