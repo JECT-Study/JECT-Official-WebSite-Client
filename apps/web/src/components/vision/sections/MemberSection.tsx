@@ -279,7 +279,7 @@ const MakersCard = ({ member }: { member: MakersMember }) => {
           </Title>
         </div>
         {member.description && (
-          <p className='desktop:h-10.5 not-desktop:h-15.75 font-(family-name:--primitive-typeface-body) text-(length:--primitive-font-size-body-xs) leading-(--primitive-font-line-height-body-xs) font-(--primitive-font-weight-body-bold) tracking-(--primitive-font-letter-spacing-body-xs) text-(--semantic-object-neutral)'>
+          <p className='desktop:h-[42px] not-desktop:h-[63px] font-(family-name:--primitive-typeface-body) text-(length:--primitive-font-size-body-xs) leading-(--primitive-font-line-height-body-xs) font-(--primitive-font-weight-body-bold) tracking-(--primitive-font-letter-spacing-body-xs) text-(--semantic-object-neutral)'>
             {member.description}
           </p>
         )}
