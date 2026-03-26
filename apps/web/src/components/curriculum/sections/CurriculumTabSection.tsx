@@ -67,7 +67,7 @@ const CurriculumTabSection = () => {
           {teamProjectScheduleData.map(item => (
             <TeamProjectCard key={item.id} item={item} />
           ))}
-          <div className='[&>div]:h-full [&>div]:w-full [&>div]:max-w-full!'>
+          <div className='[&>div]:h-full [&>div]:min-w-0! [&>div]:max-w-full!'>
             <EmptyState
               variant='outlined'
               header='그 밖에 더 많은 활동들이 기다리고 있어요...'
