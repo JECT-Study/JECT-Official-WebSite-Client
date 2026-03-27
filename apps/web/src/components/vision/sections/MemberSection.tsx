@@ -7,10 +7,8 @@ import {
   supportersData,
   makers1Data,
   makers2Data,
-  type SupporterMember,
-  type MakersMember,
-  type MemberTabItem,
 } from "@/constants/memberData";
+import type { SupporterMember, MakersMember, MemberTabItem } from "@/types/ui/member";
 
 const FallbackAvatar = ({ size = 48 }: { size?: number }) => (
   <div className='flex h-full w-full items-center justify-center text-(--semantic-object-alternative)'>
