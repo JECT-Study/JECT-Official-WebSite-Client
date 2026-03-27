@@ -1,172 +1,14 @@
 import { ContentBadge, Icon, Image, Tab, Title } from "@jects/jds";
-import type { IconName, ThemeVariant } from "@jects/jds";
 import { useState } from "react";
 
 import {
-  대표_왕효준,
-  운영_강채연,
-  운영_김경욱,
-  운영_홍지호,
-  행정_강석준,
-  행정_김민진,
-  행정_김원준,
-  행정_오창민,
-  BX_김동영,
-  BX_신현지,
-  BX_홍승민,
-  메이커스_김동구,
-  메이커스_공희상,
-  메이커스_오준용,
-  메이커스_최원준,
-  메이커스_문소희,
-  메이커스_정효림,
-  메이커스_방재현,
-  메이커스_이재호,
-} from "@/components/vision";
-
-type SupportersRole = "대표" | "운영" | "행정" | "BX";
-type MakersRole = "프론트엔드" | "백엔드" | "디자인" | "기획";
-
-interface SupporterMember {
-  id: number;
-  name: string;
-  role: SupportersRole;
-  imageUrl: string;
-}
-
-interface MakersMember {
-  id: number;
-  name: string;
-  role: MakersRole;
-  imageUrl: string;
-  description: string;
-}
-
-interface MemberTabItem {
-  value: string;
-  label: string;
-  gridClassName: string;
-  renderCards: () => React.ReactNode;
-}
-
-const roleBadgeVariantMap: Record<SupportersRole, ThemeVariant> = {
-  대표: "lime",
-  운영: "lime",
-  행정: "blue",
-  BX: "fuchsia",
-};
-
-const roleIconMap: Record<MakersRole, IconName> = {
-  프론트엔드: "frontend",
-  백엔드: "backend",
-  디자인: "design",
-  기획: "product",
-};
-
-const supportersData: SupporterMember[] = [
-  { id: 1, name: "왕효준", role: "대표", imageUrl: 대표_왕효준 },
-  { id: 2, name: "강채연", role: "운영", imageUrl: 운영_강채연 },
-  { id: 3, name: "김경욱", role: "운영", imageUrl: 운영_김경욱 },
-  { id: 4, name: "홍지호", role: "운영", imageUrl: 운영_홍지호 },
-  { id: 5, name: "강석준", role: "행정", imageUrl: 행정_강석준 },
-  { id: 6, name: "김민진", role: "행정", imageUrl: 행정_김민진 },
-  { id: 7, name: "김원준", role: "행정", imageUrl: 행정_김원준 },
-  { id: 8, name: "오창민", role: "행정", imageUrl: 행정_오창민 },
-  { id: 9, name: "김동영", role: "BX", imageUrl: BX_김동영 },
-  { id: 10, name: "신현지", role: "BX", imageUrl: BX_신현지 },
-  { id: 11, name: "홍승민", role: "BX", imageUrl: BX_홍승민 },
-];
-
-const makers1Data: MakersMember[] = [
-  {
-    id: 12,
-    name: "강채연",
-    role: "프론트엔드",
-    imageUrl: 운영_강채연,
-    description:
-      "디자인 시스템을 기반으로 공식 홈페이지를 구현하며 요구사항에 따른 안정적인 UX/UI를 개발합니다.",
-  },
-  {
-    id: 13,
-    name: "김원준",
-    role: "프론트엔드",
-    imageUrl: 행정_김원준,
-    description: "홈페이지 운영과 유지 보수 및 전반적인 시스템을 개선합니다.",
-  },
-  {
-    id: 14,
-    name: "김동구",
-    role: "프론트엔드",
-    imageUrl: 메이커스_김동구,
-    description:
-      "디자인 시스템 기반의 일관된 UX/UI를 다듬고 확장하며, 서비스의 사용성을 개선합니다.",
-  },
-  {
-    id: 15,
-    name: "공희상",
-    role: "백엔드",
-    imageUrl: 메이커스_공희상,
-    description: "사용자에게 필요한 기능을 실용적으로 구현하고자 고민하며 몰입하고 있습니다.",
-  },
-  {
-    id: 16,
-    name: "오준용",
-    role: "백엔드",
-    imageUrl: 메이커스_오준용,
-    description:
-      "효율적이고 견고한 백엔드 시스템을 구축하며, 안정성과 확장성을 갖춘 아키텍처를 설계하고 구현합니다.",
-  },
-  {
-    id: 17,
-    name: "이재호",
-    role: "기획",
-    imageUrl: 메이커스_이재호,
-    description:
-      "개발, 디자인팀과 협업해 공식 홈페이지와 백오피스 개발을 조율하며, 프로젝트 목표 달성을 이끌어갑니다.",
-  },
-  {
-    id: 18,
-    name: "최원준",
-    role: "디자인",
-    imageUrl: 메이커스_최원준,
-    description:
-      "프로덕트 관점에서 사용자 흐름과 경험을 설계하며, 서비스 전반의 품질과 일관된 경험을 만들어갑니다.",
-  },
-];
-
-const makers2Data: MakersMember[] = [
-  {
-    id: 19,
-    name: "문소희",
-    role: "프론트엔드",
-    imageUrl: 메이커스_문소희,
-    description:
-      "디자인 시스템 문서 플랫폼을 구현하며, 사용자가 쉽게 이해하고 활용할 수 있도록 구조와 사용성에 집중합니다.",
-  },
-  {
-    id: 20,
-    name: "방재현",
-    role: "프론트엔드",
-    imageUrl: 메이커스_방재현,
-    description:
-      "누구나 접근할 수 있는 디자인 시스템 문서 플랫폼을 구축하며, 쉽게 활용할 수 있도록 패키지를 제작합니다.",
-  },
-  {
-    id: 21,
-    name: "정효림",
-    role: "기획",
-    imageUrl: 메이커스_정효림,
-    description:
-      "디자인 시스템의 구조와 기능을 기획하며, 팀이 같은 방향으로 나아갈 수 있도록 이끌어갑니다.",
-  },
-  {
-    id: 22,
-    name: "김동영",
-    role: "디자인",
-    imageUrl: BX_김동영,
-    description: "젝트 BX 및 디자인 시스템(JDS)을 설계하며 긍정적인 협업 경험을 만들어냅니다.",
-  },
-];
+  roleBadgeVariantMap,
+  roleIconMap,
+  supportersData,
+  makers1Data,
+  makers2Data,
+} from "@/constants/memberData";
+import type { SupporterMember, MakersMember, MemberTabItem } from "@/types/ui/member";
 
 const FallbackAvatar = ({ size = 48 }: { size?: number }) => (
   <div className='flex h-full w-full items-center justify-center text-(--semantic-object-alternative)'>
@@ -253,11 +95,10 @@ const MakersCard = ({ member }: { member: MakersMember }) => {
             {member.name}
           </Title>
         </div>
-        {member.description && (
-          <p className='pb-(--semantic-spacing-24) font-(family-name:--primitive-typeface-body) text-(length:--primitive-font-size-body-xs) leading-(--primitive-font-line-height-body-xs) font-(--primitive-font-weight-body-bold) tracking-(--primitive-font-letter-spacing-body-xs) text-(--semantic-object-neutral)'>
-            {member.description}
-          </p>
-        )}
+
+        <p className='desktop:h-[42px] not-desktop:h-[63px] font-(family-name:--primitive-typeface-body) text-(length:--primitive-font-size-body-xs) leading-(--primitive-font-line-height-body-xs) font-(--primitive-font-weight-body-bold) tracking-(--primitive-font-letter-spacing-body-xs) text-(--semantic-object-neutral)'>
+          {member.description}
+        </p>
       </div>
     </div>
   );
