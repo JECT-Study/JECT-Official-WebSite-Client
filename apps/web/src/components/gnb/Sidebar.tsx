@@ -31,6 +31,13 @@ const JectMenu = ({ handleMenuClick }: SidebarMenusProps) => {
           비전과 스토리
         </MenuItem.Anchor>
         <MenuItem.Anchor
+          href={PATH.curriculum}
+          size='lg'
+          onClick={e => handleMenuClick(e, PATH.curriculum)}
+        >
+          활동 커리큘럼
+        </MenuItem.Anchor>
+        <MenuItem.Anchor
           href={JDS}
           target='_blank'
           rel='noopener noreferrer'

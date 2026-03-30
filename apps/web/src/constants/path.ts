@@ -19,4 +19,5 @@ export const PATH = {
   teamProject: "/team-projects",
   miniStudy: "/mini-study",
   liveSession: "/live-session",
+  curriculum: "/curriculum",
 } as const;
