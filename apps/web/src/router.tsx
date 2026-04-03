@@ -10,11 +10,13 @@ import TeamProjectDetail from "./pages/TeamProjectDetail";
 
 import ApplyLayout from "@/components/layout/ApplyLayout";
 import Layout from "@/components/layout/Layout";
+import StandardLayout from "@/components/layout/StandardLayout";
 import Activity from "@/pages/Activity";
 import ApplyFunnelPage from "@/pages/ApplyFunnelPage";
 import ApplyGuidePage from "@/pages/ApplyGuidePage";
 import ApplyListPage from "@/pages/ApplyListPage";
 import ContinueWritingFunnelPage from "@/pages/ContinueWritingFunnelPage";
+import Curriculum from "@/pages/Curriculum";
 import Faq from "@/pages/Faq";
 import LiveSession from "@/pages/LiveSession";
 import Main from "@/pages/Main";
@@ -29,13 +31,19 @@ const router = sentryCreateBrowserRouter([
     children: [
       { path: PATH.main, element: <Main /> },
       { path: PATH.vision, element: <Vision /> },
-      { path: `${PATH.project}/:id`, element: <TeamProjectDetail /> },
       { path: PATH.activity, element: <Activity /> },
-      { path: PATH.miniStudy, element: <MiniStudy /> },
-      { path: PATH.liveSession, element: <LiveSession /> },
       { path: PATH.apply, element: <RecruitmentComplete /> },
-      { path: `${PATH.faq}/:tabId?/:questionId?`, element: <Faq /> },
-      { path: PATH.teamProject, element: <TeamProject /> },
+      {
+        element: <StandardLayout />,
+        children: [
+          { path: PATH.miniStudy, element: <MiniStudy /> },
+          { path: PATH.liveSession, element: <LiveSession /> },
+          { path: PATH.curriculum, element: <Curriculum /> },
+          { path: `${PATH.faq}/:tabId?/:questionId?`, element: <Faq /> },
+          { path: PATH.teamProject, element: <TeamProject /> },
+          { path: `${PATH.project}/:id`, element: <TeamProjectDetail /> },
+        ],
+      },
       // 레거시 라우트 → /apply로 리다이렉트
       { path: "/apply/verify", element: <Navigate to={PATH.apply} replace /> },
       { path: "/apply/applicant-info", element: <Navigate to={PATH.apply} replace /> },

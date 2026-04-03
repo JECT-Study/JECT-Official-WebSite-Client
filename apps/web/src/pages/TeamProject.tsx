@@ -3,6 +3,8 @@ import Lottie from "lottie-react";
 import { useState, useRef } from "react";
 
 import loadingSpinner from "@/assets/lottie/ject-loadingSpinner.json";
+import PageHeroContainer from "@/components/layout/PageHeroContainer";
+import PageModule from "@/components/layout/PageModule";
 import useCloseOutside from "@/hooks/useCloseOutside";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
 import { useProjectListQuery } from "@/hooks/useProjectListQuery";
@@ -43,10 +45,9 @@ const TeamProject = () => {
   const allProjects: Project[] = projectsData?.pages.flatMap(page => page.content) ?? [];
 
   return (
-    <div className='flex h-full w-full justify-center py-(--semantic-margin-2xl) pt-14'>
-      <div className='px-(--semantic-margin-lg) pt-(--semantic-spacing-0) pb-(--semantic-spacing-80)'>
-        <div className='desktop:w-[922px] tablet:w-[720px] mobile:w-[320px] flex flex-col gap-(--semantic-spacing-32) pt-(--semantic-margin-xl) pb-(--semantic-margin-3xl)'>
-          <div className='flex flex-col gap-(--semantic-spacing-16)'>
+    <PageModule>
+        <PageHeroContainer>
+          <div className='flex flex-col items-start gap-(--semantic-spacing-16)'>
             <Hero size='xs' textAlign='left'>
               팀 프로젝트
             </Hero>
@@ -67,7 +68,7 @@ const TeamProject = () => {
               </div>
             )}
           </div>
-        </div>
+        </PageHeroContainer>
 
         <div>
           {isLoading && (
@@ -80,10 +81,7 @@ const TeamProject = () => {
             <>
               <div className='desktop:grid-cols-3 tablet:grid-cols-2 grid gap-x-5 gap-y-6'>
                 {allProjects.map(project => (
-                  <div
-                    key={project.id}
-                    className='desktop:w-[294px] tablet:w-[350px] mobile:w-[320px]'
-                  >
+                  <div key={project.id} className='w-full'>
                     <Card.Preset.PlateWithTitle.Link
                       href={`/project/${project.id}`}
                       layout='vertical'
@@ -111,8 +109,7 @@ const TeamProject = () => {
             </>
           )}
         </div>
-      </div>
-    </div>
+      </PageModule>
   );
 };
 

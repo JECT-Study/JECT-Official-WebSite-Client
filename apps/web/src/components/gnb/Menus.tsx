@@ -30,6 +30,14 @@ export const JectMenu = () => {
           </MegaMenu.GroupItem>
           <MegaMenu.GroupItem>
             <MenuItem.Anchor
+              href={PATH.curriculum}
+              onClick={e => handleMenuClick(e, PATH.curriculum)}
+            >
+              활동 커리큘럼
+            </MenuItem.Anchor>
+          </MegaMenu.GroupItem>
+          <MegaMenu.GroupItem>
+            <MenuItem.Anchor
               href={JDS}
               suffixIcon='external-link-line'
               suffixIconVisible

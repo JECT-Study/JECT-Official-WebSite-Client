@@ -1,6 +1,8 @@
 import { Accordion, Hero, Tab, Title } from "@jects/jds";
 import { useMediaQueryFlags } from "@jects/jds/hooks";
 
+import PageHeroContainer from "@/components/layout/PageHeroContainer";
+import PageModule from "@/components/layout/PageModule";
 import { faqActivity, faqApply, faqJect, faqProject } from "@/constants/faqPageData";
 import { useFaqNavigation } from "@/hooks/useFaqNavigation";
 
@@ -10,16 +12,17 @@ function Faq() {
   const { isMobile } = useMediaQueryFlags();
 
   return (
-    <div className='flex justify-center py-(--semantic-margin-2xl)'>
-      <div className='mobile:w-[360px] tablet:w-[656px] desktop:w-[656px] mt-10 px-(--semantic-margin-lg) pb-(--semantic-spacing-80)'>
-        <div className='flex flex-col gap-(--semantic-spacing-16) pt-(--semantic-margin-xl) pb-(--semantic-margin-3xl)'>
-          <Hero size='xs' textAlign='left'>
-            FAQ
-          </Hero>
-          <Title size='xs' textAlign='left'>
-            젝트에 대해 자주 묻는 질문들이 정리되어 있어요.
-          </Title>
-        </div>
+    <PageModule>
+        <PageHeroContainer>
+          <div className='flex flex-col items-start gap-(--semantic-spacing-16)'>
+            <Hero size='xs' textAlign='left'>
+              FAQ
+            </Hero>
+            <Title size='xs' textAlign='left'>
+              젝트에 대해 자주 묻는 질문들이 정리되어 있어요.
+            </Title>
+          </div>
+        </PageHeroContainer>
 
         <div className='flex flex-col gap-(--semantic-spacing-48)'>
           <Tab.Root
@@ -105,8 +108,7 @@ function Faq() {
             </Tab.Content>
           </Tab.Root>
         </div>
-      </div>
-    </div>
+      </PageModule>
   );
 }
 
