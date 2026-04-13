@@ -1,4 +1,5 @@
 import { defineConfig } from "tsup";
+import { vanillaExtractPlugin } from "@vanilla-extract/esbuild-plugin";
 
 export default defineConfig({
   entry: {
@@ -12,9 +13,8 @@ export default defineConfig({
   dts: true,
   sourcemap: true,
   clean: true,
+  // TODO: vanilla-extract 마이그레이션 작업 완료 후 @emotion 제거 필요
   external: ["react", "react-dom", "@emotion/react", "@emotion/styled"],
+  esbuildPlugins: [vanillaExtractPlugin()],
   minify: process.env.NODE_ENV === "production",
-  banner: {
-    js: '"use client";',
-  },
 });
