@@ -14,4 +14,7 @@ export default defineConfig({
   clean: true,
   external: ["react", "react-dom", "@emotion/react", "@emotion/styled"],
   minify: process.env.NODE_ENV === "production",
+  banner: {
+    js: '"use client";',
+  },
 });
