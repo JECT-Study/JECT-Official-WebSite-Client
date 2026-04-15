@@ -87,14 +87,6 @@ export const HowToUseTokens: Story = {
         >
           <div
             css={css`
-              ${theme.textStyle["semantic-textStyle-hero-3"]}
-              margin-bottom: ${theme.scheme.semantic.spacing[2]};
-            `}
-          >
-            Hero 텍스트
-          </div>
-          <div
-            css={css`
               ${theme.textStyle["semantic-textStyle-title-1"]}
               margin-bottom: ${theme.scheme.semantic.spacing[2]};
             `}
@@ -299,8 +291,6 @@ export const ColorSemantic: Story = {
 // Typography 예시
 export const Typography: Story = {
   render: () => {
-    const theme = useTheme();
-
     return (
       <div>
         <h2>Typography Tokens</h2>
@@ -311,26 +301,6 @@ export const Typography: Story = {
             gap: 16px;
           `}
         >
-          <div
-            css={css`
-              font-size: ${theme.typo.primitive.fontSize.hero[1]};
-              line-height: ${theme.typo.primitive.font.lineHeight.hero[1]};
-              font-weight: ${theme.typo.primitive.fontWeight.hero.bold};
-              font-family: ${theme.typo.primitive.typeface.hero};
-            `}
-          >
-            Hero 1 Typography (individual properties)
-          </div>
-          <div
-            css={css`
-              font-size: ${theme.typo.primitive.fontSize.hero[2]};
-              line-height: ${theme.typo.primitive.font.lineHeight.hero[2]};
-              font-weight: ${theme.typo.primitive.fontWeight.hero.bold};
-              font-family: ${theme.typo.primitive.typeface.hero};
-            `}
-          >
-            Hero 2 Typography (individual properties)
-          </div>
         </div>
       </div>
     );
@@ -418,38 +388,6 @@ export const TextStyle: Story = {
             gap: 24px;
           `}
         >
-          <div>
-            <h3>Hero Styles</h3>
-            <div
-              css={css`
-                ${theme.textStyle["semantic-textStyle-hero-4"]}
-              `}
-            >
-              Hero 4 - All text properties applied via theme.textStyle
-            </div>
-            <div
-              css={css`
-                ${theme.textStyle["semantic-textStyle-hero-3"]}
-              `}
-            >
-              Hero 3 - All text properties applied via theme.textStyle
-            </div>
-            <div
-              css={css`
-                ${theme.textStyle["semantic-textStyle-hero-2"]}
-              `}
-            >
-              Hero 2 - All text properties applied via theme.textStyle
-            </div>
-            <div
-              css={css`
-                ${theme.textStyle["semantic-textStyle-hero-1"]}
-              `}
-            >
-              Hero 1 - All text properties applied via theme.textStyle
-            </div>
-          </div>
-
           <div>
             <h3>Title Styles</h3>
             <div
