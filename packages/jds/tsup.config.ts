@@ -13,7 +13,7 @@ export default defineConfig({
   dts: true,
   sourcemap: true,
   clean: true,
-  // TODO: vanilla-extract 마이그레이션 작업 완료 후 @emotion 제거 필요
+  // TODO(Emotion 제거): external에서 "@emotion/react", "@emotion/styled" 제거
   external: ["react", "react-dom", "@emotion/react", "@emotion/styled"],
   esbuildPlugins: [vanillaExtractPlugin()],
   minify: process.env.NODE_ENV === "production",

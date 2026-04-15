@@ -183,6 +183,7 @@ const theme = {
   },
 };
 
+// TODO(Emotion 제거): globalStyles 생성 블록 전체 삭제 (globalStyles.ts 파일도 함께 삭제)
 // globalStyles 파일 생성
 const globalStylesContent = `// 자동 생성된 globalStyles - 수정 금지
 // 생성 시간: ${new Date().toLocaleString()}
@@ -192,6 +193,7 @@ export const globalStyles = ${JSON.stringify(globalStyles, null, 2)} as const;
 
 const globalStylesPath = join(outputDir, "globalStyles.ts");
 
+// TODO(Emotion 제거): theme 생성 블록 전체 삭제 (theme.ts 파일도 함께 삭제)
 // theme 파일 생성
 const themeContent = `// 자동 생성된 theme - 수정 금지
 // 생성 시간: ${new Date().toLocaleString()}
@@ -211,11 +213,11 @@ if (!fs.existsSync(outputDir)) {
   fs.mkdirSync(outputDir, { recursive: true });
 }
 
-fs.writeFileSync(globalStylesPath, globalStylesContent);
-fs.writeFileSync(themePath, themeContent);
+fs.writeFileSync(globalStylesPath, globalStylesContent); // TODO(Emotion 제거): 이 줄 삭제
+fs.writeFileSync(themePath, themeContent); // TODO(Emotion 제거): 이 줄 삭제
 fs.writeFileSync(outputFile, tsContent);
-console.log(`\n✅ globalStyles 파일이 생성되었습니다: ${globalStylesPath}`);
-console.log(`✅ theme 파일이 생성되었습니다: ${themePath}`);
+console.log(`\n✅ globalStyles 파일이 생성되었습니다: ${globalStylesPath}`); // TODO(Emotion 제거): 이 줄 삭제
+console.log(`✅ theme 파일이 생성되었습니다: ${themePath}`); // TODO(Emotion 제거): 이 줄 삭제
 console.log(`✅ tokens 파일이 생성되었습니다: ${outputFile}`);
 
 // ===== VE vars.css.ts 생성 =====
