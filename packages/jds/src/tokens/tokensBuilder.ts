@@ -4,10 +4,65 @@ import fs from "fs";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 
-import { tokenSchema, textStyleSchema } from "./schema";
+import { tokenSchema, textStyleSchema, type NestedObject } from "./schema";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+
+type ContractShape = { [key: string]: null | ContractShape };
+type DeviceResponsiveCssVariables = Record<string, Record<string, string | number>>;
+
+function toContractShape(nestedObject: NestedObject): ContractShape {
+  const result: ContractShape = {};
+
+  for (const [key, value] of Object.entries(nestedObject)) {
+    result[key] = typeof value === "string" ? null : toContractShape(value);
+  }
+
+  return result;
+}
+
+function extractDeviceFlatMap(
+  responsiveCssVariables: DeviceResponsiveCssVariables,
+  device: "desktop" | "tablet" | "mobile",
+): Record<string, string> {
+  return Object.fromEntries(
+    Object.entries(responsiveCssVariables)
+      .filter(([, deviceValues]) => device in deviceValues)
+      .map(([cssVariableName, deviceValues]) => [cssVariableName, String(deviceValues[device])]),
+  );
+}
+
+/**
+ * NestedObject를 재귀 순회해 `[vars.path.to.leaf]: "actualValue"` 형식의 할당 라인을 lines 배열에 수집
+ *
+ * @param nestedObject   - 순회할 중첩 객체 (leaf = "var(--xxx)" 형식 문자열)
+ * @param varAccessPath  - 현재까지 누적된 vars 접근 경로 (예: "vars.colorPrimitive.primitive.flow")
+ * @param cssVariableMap - CSS 변수명 → 실제 값 매핑 (예: "--primitive-flow-20" → "#faf8ff")
+ * @param lines          - 생성된 라인을 추가할 배열
+ */
+function collectVarsAssignment(
+  nestedObject: NestedObject,
+  varAccessPath: string,
+  cssVariableMap: Record<string, string>,
+  lines: string[],
+): void {
+  for (const [key, value] of Object.entries(nestedObject)) {
+    const accessor = /^\d/.test(key) ? `["${key}"]` : `.${key}`;
+    const nextPath = `${varAccessPath}${accessor}`;
+
+    if (typeof value === "string") {
+      const cssVariableName = value.slice(4, -1);
+      const actualValue = cssVariableMap[cssVariableName];
+
+      if (actualValue !== undefined) {
+        lines.push(`    [${nextPath}]: ${JSON.stringify(actualValue)},`);
+      }
+    } else {
+      collectVarsAssignment(value, nextPath, cssVariableMap, lines);
+    }
+  }
+}
 
 // ===== 메인 실행 로직 =====
 const tokenFilePath = join(__dirname, "input/token.json");
@@ -162,4 +217,179 @@ fs.writeFileSync(outputFile, tsContent);
 console.log(`\n✅ globalStyles 파일이 생성되었습니다: ${globalStylesPath}`);
 console.log(`✅ theme 파일이 생성되었습니다: ${themePath}`);
 console.log(`✅ tokens 파일이 생성되었습니다: ${outputFile}`);
+
+// ===== VE vars.css.ts 생성 =====
+
+const contractShape: ContractShape = {
+  colorPrimitive: toContractShape(processedTokens.colorPrimitive),
+  color: toContractShape(processedTokens.colorSemantic["light"]),
+  scheme: toContractShape(processedTokens.scheme["desktop"]),
+  environment: toContractShape(processedTokens.environment),
+  typo: toContractShape(processedTokens.typography["desktop"]),
+};
+
+const varsCssFileContent = `// 자동 생성된 VE 토큰 계약 - 수정 금지
+// 생성 시간: ${new Date().toLocaleString()}
+import { createGlobalThemeContract } from "@vanilla-extract/css";
+
+export const vars = createGlobalThemeContract(
+  ${JSON.stringify(contractShape, null, 2)},
+  (_, path) => \`--\${path.join("-")}\`
+);
+`;
+
+const varsCssFilePath = join(outputDir, "vars.css.ts");
+fs.writeFileSync(varsCssFilePath, varsCssFileContent);
+console.log(`✅ vars.css.ts 파일이 생성되었습니다: ${varsCssFilePath}`);
+
+// ===== VE globalTokens.css.ts 생성 =====
+
+const desktopSchemeFlatMap: Record<string, string> = extractDeviceFlatMap(
+  cssVariables.scheme,
+  "desktop",
+);
+
+const desktopTypographyFlatMap: Record<string, string> = extractDeviceFlatMap(
+  cssVariables.typography,
+  "desktop",
+);
+
+const tabletSchemeFlatMap: Record<string, string> = extractDeviceFlatMap(
+  cssVariables.scheme,
+  "tablet",
+);
+
+const tabletTypographyFlatMap: Record<string, string> = extractDeviceFlatMap(
+  cssVariables.typography,
+  "tablet",
+);
+
+const mobileSchemeFlatMap: Record<string, string> = extractDeviceFlatMap(
+  cssVariables.scheme,
+  "mobile",
+);
+
+const mobileTypographyFlatMap: Record<string, string> = extractDeviceFlatMap(
+  cssVariables.typography,
+  "mobile",
+);
+
+// :root 기본값 라인 수집 (light + desktop 기준)
+const rootAssignmentLines: string[] = [];
+collectVarsAssignment(
+  processedTokens.colorPrimitive,
+  "vars.colorPrimitive",
+  cssVariables.colorPrimitive,
+  rootAssignmentLines,
+);
+
+collectVarsAssignment(
+  processedTokens.colorSemantic["light"],
+  "vars.color",
+  cssVariables.colorSemantic["light"],
+  rootAssignmentLines,
+);
+
+collectVarsAssignment(
+  processedTokens.scheme["desktop"],
+  "vars.scheme",
+  desktopSchemeFlatMap,
+  rootAssignmentLines,
+);
+
+collectVarsAssignment(
+  processedTokens.typography["desktop"],
+  "vars.typo",
+  desktopTypographyFlatMap,
+  rootAssignmentLines,
+);
+
+collectVarsAssignment(
+  processedTokens.environment,
+  "vars.environment",
+  cssVariables.environment,
+  rootAssignmentLines,
+);
+
+// 다크 테마 라인 수집
+const darkAssignmentLines: string[] = [];
+collectVarsAssignment(
+  processedTokens.colorSemantic["dark"],
+  "vars.color",
+  cssVariables.colorSemantic["dark"],
+  darkAssignmentLines,
+);
+
+// 태블릿 반응형 라인 수집
+const tabletAssignmentLines: string[] = [];
+collectVarsAssignment(
+  processedTokens.scheme["tablet"],
+  "vars.scheme",
+  tabletSchemeFlatMap,
+  tabletAssignmentLines,
+);
+
+collectVarsAssignment(
+  processedTokens.typography["tablet"],
+  "vars.typo",
+  tabletTypographyFlatMap,
+  tabletAssignmentLines,
+);
+
+// 모바일 반응형 라인 수집
+const mobileAssignmentLines: string[] = [];
+collectVarsAssignment(
+  processedTokens.scheme["mobile"],
+  "vars.scheme",
+  mobileSchemeFlatMap,
+  mobileAssignmentLines,
+);
+
+collectVarsAssignment(
+  processedTokens.typography["mobile"],
+  "vars.typo",
+  mobileTypographyFlatMap,
+  mobileAssignmentLines,
+);
+
+const tabletMinBreakpoint = Number(parsedTokens.scheme.tokens["tablet"]["semantic-breakpoint-min"]);
+const tabletMaxBreakpoint = Number(parsedTokens.scheme.tokens["tablet"]["semantic-breakpoint-max"]);
+const mobileMinBreakpoint = Number(parsedTokens.scheme.tokens["mobile"]["semantic-breakpoint-min"]);
+const mobileMaxBreakpoint = Number(parsedTokens.scheme.tokens["mobile"]["semantic-breakpoint-max"]);
+
+const globalTokensCssFileContent = `// 자동 생성된 VE 전역 토큰 스타일 - 수정 금지
+// 생성 시간: ${new Date().toLocaleString()}
+import { globalStyle } from "@vanilla-extract/css";
+
+import { vars } from "./vars.css";
+
+globalStyle(":root", {
+  vars: {
+${rootAssignmentLines.join("\n")}
+  },
+  "@media": {
+    "screen and (min-width: ${tabletMinBreakpoint}px) and (max-width: ${tabletMaxBreakpoint}px)": {
+      vars: {
+${tabletAssignmentLines.join("\n")}
+      },
+    },
+    "screen and (min-width: ${mobileMinBreakpoint}px) and (max-width: ${mobileMaxBreakpoint}px)": {
+      vars: {
+${mobileAssignmentLines.join("\n")}
+      },
+    },
+  },
+});
+
+globalStyle('[data-theme="dark"]', {
+  vars: {
+${darkAssignmentLines.join("\n")}
+  },
+});
+`;
+
+const globalTokensCssFilePath = join(outputDir, "globalTokens.css.ts");
+fs.writeFileSync(globalTokensCssFilePath, globalTokensCssFileContent);
+console.log(`✅ globalTokens.css.ts 파일이 생성되었습니다: ${globalTokensCssFilePath}`);
+
 console.log("\n🚀 토큰 변환 완료!");
