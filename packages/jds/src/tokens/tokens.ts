@@ -1,5 +1,5 @@
 // 자동 생성된 디자인 토큰 - 수정 금지
-// 생성 시간: 2026. 3. 17. 오후 9:51:04
+// 생성 시간: 2026. 4. 14. 오후 2:49:26
 
 export const designTokens = {
   "colorPrimitive": {
@@ -1793,13 +1793,7 @@ export const designTokens = {
         },
         "breakpoint": {
           "min": "var(--semantic-breakpoint-min)",
-          "max": "var(--semantic-breakpoint-max)",
-          "grid": {
-            "container": {
-              "min": "var(--semantic-breakpoint-grid-container-min)",
-              "max": "var(--semantic-breakpoint-grid-container-max)"
-            }
-          }
+          "max": "var(--semantic-breakpoint-max)"
         },
         "margin": {
           "lg": "var(--semantic-margin-lg)",
@@ -1923,13 +1917,7 @@ export const designTokens = {
         },
         "breakpoint": {
           "min": "var(--semantic-breakpoint-min)",
-          "max": "var(--semantic-breakpoint-max)",
-          "grid": {
-            "container": {
-              "min": "var(--semantic-breakpoint-grid-container-min)",
-              "max": "var(--semantic-breakpoint-grid-container-max)"
-            }
-          }
+          "max": "var(--semantic-breakpoint-max)"
         },
         "margin": {
           "lg": "var(--semantic-margin-lg)",
@@ -2053,13 +2041,7 @@ export const designTokens = {
         },
         "breakpoint": {
           "min": "var(--semantic-breakpoint-min)",
-          "max": "var(--semantic-breakpoint-max)",
-          "grid": {
-            "container": {
-              "min": "var(--semantic-breakpoint-grid-container-min)",
-              "max": "var(--semantic-breakpoint-grid-container-max)"
-            }
-          }
+          "max": "var(--semantic-breakpoint-max)"
         },
         "margin": {
           "lg": "var(--semantic-margin-lg)",
@@ -2122,22 +2104,19 @@ export const designTokens = {
     "desktop": {
       "primitive": {
         "typeface": {
-          "hero": "var(--primitive-typeface-hero)",
           "syntax": "var(--primitive-typeface-syntax)",
           "title": "var(--primitive-typeface-title)",
           "label": "var(--primitive-typeface-label)",
           "body": "var(--primitive-typeface-body)"
         },
         "fontSize": {
-          "hero": {
-            "1": "var(--primitive-font-size-hero-1)",
-            "2": "var(--primitive-font-size-hero-2)"
-          },
           "title": {
             "1": "var(--primitive-font-size-title-1)",
             "2": "var(--primitive-font-size-title-2)",
             "3": "var(--primitive-font-size-title-3)",
-            "4": "var(--primitive-font-size-title-4)"
+            "4": "var(--primitive-font-size-title-4)",
+            "5": "var(--primitive-font-size-title-5)",
+            "6": "var(--primitive-font-size-title-6)"
           },
           "body": {
             "lg": "var(--primitive-font-size-body-lg)",
@@ -2161,15 +2140,13 @@ export const designTokens = {
         },
         "font": {
           "lineHeight": {
-            "hero": {
-              "1": "var(--primitive-font-line-height-hero-1)",
-              "2": "var(--primitive-font-line-height-hero-2)"
-            },
             "title": {
               "1": "var(--primitive-font-line-height-title-1)",
               "2": "var(--primitive-font-line-height-title-2)",
               "3": "var(--primitive-font-line-height-title-3)",
-              "4": "var(--primitive-font-line-height-title-4)"
+              "4": "var(--primitive-font-line-height-title-4)",
+              "5": "var(--primitive-font-line-height-title-5)",
+              "6": "var(--primitive-font-line-height-title-6)"
             },
             "label": {
               "lg": "var(--primitive-font-line-height-label-lg)",
@@ -2192,15 +2169,13 @@ export const designTokens = {
             }
           },
           "letterSpacing": {
-            "hero": {
-              "1": "var(--primitive-font-letter-spacing-hero-1)",
-              "2": "var(--primitive-font-letter-spacing-hero-2)"
-            },
             "title": {
               "1": "var(--primitive-font-letter-spacing-title-1)",
               "2": "var(--primitive-font-letter-spacing-title-2)",
               "3": "var(--primitive-font-letter-spacing-title-3)",
-              "4": "var(--primitive-font-letter-spacing-title-4)"
+              "4": "var(--primitive-font-letter-spacing-title-4)",
+              "5": "var(--primitive-font-letter-spacing-title-5)",
+              "6": "var(--primitive-font-letter-spacing-title-6)"
             },
             "label": {
               "lg": "var(--primitive-font-letter-spacing-label-lg)",
@@ -2218,13 +2193,10 @@ export const designTokens = {
           }
         },
         "fontWeight": {
-          "hero": {
-            "normal": "var(--primitive-font-weight-hero-normal)",
-            "bold": "var(--primitive-font-weight-hero-bold)"
-          },
           "title": {
             "normal": "var(--primitive-font-weight-title-normal)",
-            "bold": "var(--primitive-font-weight-title-bold)"
+            "bold": "var(--primitive-font-weight-title-bold)",
+            "subtle": "var(--primitive-font-weight-title-subtle)"
           },
           "label": {
             "normal": "var(--primitive-font-weight-label-normal)",
@@ -2244,22 +2216,19 @@ export const designTokens = {
     "tablet": {
       "primitive": {
         "typeface": {
-          "hero": "var(--primitive-typeface-hero)",
           "syntax": "var(--primitive-typeface-syntax)",
           "title": "var(--primitive-typeface-title)",
           "label": "var(--primitive-typeface-label)",
           "body": "var(--primitive-typeface-body)"
         },
         "fontSize": {
-          "hero": {
-            "1": "var(--primitive-font-size-hero-1)",
-            "2": "var(--primitive-font-size-hero-2)"
-          },
           "title": {
             "1": "var(--primitive-font-size-title-1)",
             "2": "var(--primitive-font-size-title-2)",
             "3": "var(--primitive-font-size-title-3)",
-            "4": "var(--primitive-font-size-title-4)"
+            "4": "var(--primitive-font-size-title-4)",
+            "5": "var(--primitive-font-size-title-5)",
+            "6": "var(--primitive-font-size-title-6)"
           },
           "body": {
             "lg": "var(--primitive-font-size-body-lg)",
@@ -2283,15 +2252,13 @@ export const designTokens = {
         },
         "font": {
           "lineHeight": {
-            "hero": {
-              "1": "var(--primitive-font-line-height-hero-1)",
-              "2": "var(--primitive-font-line-height-hero-2)"
-            },
             "title": {
               "1": "var(--primitive-font-line-height-title-1)",
               "2": "var(--primitive-font-line-height-title-2)",
               "3": "var(--primitive-font-line-height-title-3)",
-              "4": "var(--primitive-font-line-height-title-4)"
+              "4": "var(--primitive-font-line-height-title-4)",
+              "5": "var(--primitive-font-line-height-title-5)",
+              "6": "var(--primitive-font-line-height-title-6)"
             },
             "label": {
               "lg": "var(--primitive-font-line-height-label-lg)",
@@ -2314,15 +2281,13 @@ export const designTokens = {
             }
           },
           "letterSpacing": {
-            "hero": {
-              "1": "var(--primitive-font-letter-spacing-hero-1)",
-              "2": "var(--primitive-font-letter-spacing-hero-2)"
-            },
             "title": {
               "1": "var(--primitive-font-letter-spacing-title-1)",
               "2": "var(--primitive-font-letter-spacing-title-2)",
               "3": "var(--primitive-font-letter-spacing-title-3)",
-              "4": "var(--primitive-font-letter-spacing-title-4)"
+              "4": "var(--primitive-font-letter-spacing-title-4)",
+              "5": "var(--primitive-font-letter-spacing-title-5)",
+              "6": "var(--primitive-font-letter-spacing-title-6)"
             },
             "label": {
               "lg": "var(--primitive-font-letter-spacing-label-lg)",
@@ -2340,13 +2305,10 @@ export const designTokens = {
           }
         },
         "fontWeight": {
-          "hero": {
-            "normal": "var(--primitive-font-weight-hero-normal)",
-            "bold": "var(--primitive-font-weight-hero-bold)"
-          },
           "title": {
             "normal": "var(--primitive-font-weight-title-normal)",
-            "bold": "var(--primitive-font-weight-title-bold)"
+            "bold": "var(--primitive-font-weight-title-bold)",
+            "subtle": "var(--primitive-font-weight-title-subtle)"
           },
           "label": {
             "normal": "var(--primitive-font-weight-label-normal)",
@@ -2366,22 +2328,19 @@ export const designTokens = {
     "mobile": {
       "primitive": {
         "typeface": {
-          "hero": "var(--primitive-typeface-hero)",
           "syntax": "var(--primitive-typeface-syntax)",
           "title": "var(--primitive-typeface-title)",
           "label": "var(--primitive-typeface-label)",
           "body": "var(--primitive-typeface-body)"
         },
         "fontSize": {
-          "hero": {
-            "1": "var(--primitive-font-size-hero-1)",
-            "2": "var(--primitive-font-size-hero-2)"
-          },
           "title": {
             "1": "var(--primitive-font-size-title-1)",
             "2": "var(--primitive-font-size-title-2)",
             "3": "var(--primitive-font-size-title-3)",
-            "4": "var(--primitive-font-size-title-4)"
+            "4": "var(--primitive-font-size-title-4)",
+            "5": "var(--primitive-font-size-title-5)",
+            "6": "var(--primitive-font-size-title-6)"
           },
           "body": {
             "lg": "var(--primitive-font-size-body-lg)",
@@ -2405,15 +2364,13 @@ export const designTokens = {
         },
         "font": {
           "lineHeight": {
-            "hero": {
-              "1": "var(--primitive-font-line-height-hero-1)",
-              "2": "var(--primitive-font-line-height-hero-2)"
-            },
             "title": {
               "1": "var(--primitive-font-line-height-title-1)",
               "2": "var(--primitive-font-line-height-title-2)",
               "3": "var(--primitive-font-line-height-title-3)",
-              "4": "var(--primitive-font-line-height-title-4)"
+              "4": "var(--primitive-font-line-height-title-4)",
+              "5": "var(--primitive-font-line-height-title-5)",
+              "6": "var(--primitive-font-line-height-title-6)"
             },
             "label": {
               "lg": "var(--primitive-font-line-height-label-lg)",
@@ -2436,15 +2393,13 @@ export const designTokens = {
             }
           },
           "letterSpacing": {
-            "hero": {
-              "1": "var(--primitive-font-letter-spacing-hero-1)",
-              "2": "var(--primitive-font-letter-spacing-hero-2)"
-            },
             "title": {
               "1": "var(--primitive-font-letter-spacing-title-1)",
               "2": "var(--primitive-font-letter-spacing-title-2)",
               "3": "var(--primitive-font-letter-spacing-title-3)",
-              "4": "var(--primitive-font-letter-spacing-title-4)"
+              "4": "var(--primitive-font-letter-spacing-title-4)",
+              "5": "var(--primitive-font-letter-spacing-title-5)",
+              "6": "var(--primitive-font-letter-spacing-title-6)"
             },
             "label": {
               "lg": "var(--primitive-font-letter-spacing-label-lg)",
@@ -2462,13 +2417,10 @@ export const designTokens = {
           }
         },
         "fontWeight": {
-          "hero": {
-            "normal": "var(--primitive-font-weight-hero-normal)",
-            "bold": "var(--primitive-font-weight-hero-bold)"
-          },
           "title": {
             "normal": "var(--primitive-font-weight-title-normal)",
-            "bold": "var(--primitive-font-weight-title-bold)"
+            "bold": "var(--primitive-font-weight-title-bold)",
+            "subtle": "var(--primitive-font-weight-title-subtle)"
           },
           "label": {
             "normal": "var(--primitive-font-weight-label-normal)",
