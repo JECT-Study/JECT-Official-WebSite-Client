@@ -1,5 +1,5 @@
 // 자동 생성된 globalStyles - 수정 금지
-// 생성 시간: 2026. 4. 18. 오후 3:36:59
+// 생성 시간: 2026. 4. 18. 오후 4:15:54
 
 export const globalStyles = {
   ":root": {

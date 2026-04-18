@@ -354,6 +354,12 @@ collectVarsAssignment(
   mobileAssignmentLines,
 );
 
+const desktopMinBreakpoint = Number(
+  parsedTokens.scheme.tokens["desktop"]["semantic-breakpoint-min"],
+);
+const desktopMaxBreakpoint = Number(
+  parsedTokens.scheme.tokens["desktop"]["semantic-breakpoint-max"],
+);
 const tabletMinBreakpoint = Number(parsedTokens.scheme.tokens["tablet"]["semantic-breakpoint-min"]);
 const tabletMaxBreakpoint = Number(parsedTokens.scheme.tokens["tablet"]["semantic-breakpoint-max"]);
 const mobileMinBreakpoint = Number(parsedTokens.scheme.tokens["mobile"]["semantic-breakpoint-min"]);
@@ -424,5 +430,21 @@ ${textStyleGlobalStyleBlocks}
 const textStylesCssFilePath = join(outputDir, "textStyles.css.ts");
 fs.writeFileSync(textStylesCssFilePath, textStylesCssFileContent);
 console.log(`✅ textStyles.css.ts 파일이 생성되었습니다: ${textStylesCssFilePath}`);
+
+// ===== breakpoints.ts 생성 =====
+
+const breakpointsFileContent = `// 자동 생성된 브레이크포인트 - 수정 금지
+// 생성 시간: ${new Date().toLocaleString()}
+
+export const breakpoints = {
+  desktop: { min: ${desktopMinBreakpoint}, max: ${desktopMaxBreakpoint} },
+  tablet: { min: ${tabletMinBreakpoint}, max: ${tabletMaxBreakpoint} },
+  mobile: { min: ${mobileMinBreakpoint}, max: ${mobileMaxBreakpoint} },
+} as const;
+`;
+
+const breakpointsFilePath = join(outputDir, "breakpoints.ts");
+fs.writeFileSync(breakpointsFilePath, breakpointsFileContent);
+console.log(`✅ breakpoints.ts 파일이 생성되었습니다: ${breakpointsFilePath}`);
 
 console.log("\n🚀 토큰 변환 완료!");
