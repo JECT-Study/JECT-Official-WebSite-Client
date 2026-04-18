@@ -146,7 +146,7 @@ export const StyledBannerImageContent = styled.div(({ theme }) => ({
 }));
 
 export const StyledBannerImageTitle = styled.div(({ theme }) => ({
-  ...theme.textStyle["semantic-textStyle-hero-2"],
+  ...theme.textStyle["semantic-textStyle-title-4"],
   color: theme.color.semantic.object.static.inverse.boldest,
   textAlign: "left",
   wordBreak: "keep-all",
@@ -154,7 +154,7 @@ export const StyledBannerImageTitle = styled.div(({ theme }) => ({
   whiteSpace: "pre-line",
 
   [theme.breakPoint.tablet]: {
-    ...theme.textStyle["semantic-textStyle-hero-1"],
+    ...theme.textStyle["semantic-textStyle-title-3"],
   },
 
   [theme.breakPoint.mobile]: {

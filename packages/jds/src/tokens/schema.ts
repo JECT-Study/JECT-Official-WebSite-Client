@@ -106,19 +106,6 @@ function toCssPropertyCamelCase(tokenName: string): string {
     .replace(/paragraph-indent/g, "paragraphIndent");
 }
 
-function toCssVariableKebabCase(tokenName: string): string {
-  return tokenName
-    .replace(/lineHeight/g, "line-height")
-    .replace(/letterSpacing/g, "letter-spacing")
-    .replace(/fontSize/g, "font-size")
-    .replace(/fontWeight/g, "font-weight")
-    .replace(/fontFamily/g, "font-family")
-    .replace(/borderRadius/g, "border-radius")
-    .replace(/strokeWeight/g, "stroke-weight")
-    .replace(/paragraphSpacing/g, "paragraph-spacing")
-    .replace(/paragraphIndent/g, "paragraph-indent");
-}
-
 function convertSimpleToNested(tokens: Record<string, string | number>): NestedObject {
   const result: NestedObject = {};
   Object.keys(tokens).forEach(tokenName => {
@@ -211,60 +198,67 @@ export const textStyleSchema = z
   .transform(data => {
     const tokens = data;
 
-    // globalStyles용 CSS 객체 생성 (kebab-case 속성명)
+    // VE path 기반 CSS 변수 참조 생성
+    // token.name("primitive/font/size/hero/4") → "primitive-font-size-hero-4" → toCssPropertyCamelCase → "primitive-fontSize-hero-4"
+    // → var(--typo-primitive-fontSize-hero-4) : VE contractShape의 typo 카테고리 경로와 일치
+    function toVeTypoVar(tokenName: string): string {
+      return `var(--typo-${toCssPropertyCamelCase(tokenName.replaceAll("/", "-"))})`;
+    }
+
+    // globalStyles용 CSS 객체 생성 (kebab-case 속성명) TODO(Emotion 제거): 이 블록 삭제
     const cssStyleObjects: Record<string, Record<string, string>> = {};
     data.forEach(textStyle => {
       const name = textStyle.name.replaceAll("/", "-");
       cssStyleObjects[name] = {
         "font-size": textStyle.properties.fontSize.token
-          ? `var(--${toCssVariableKebabCase(textStyle.properties.fontSize.token.name.replaceAll("/", "-"))})`
+          ? toVeTypoVar(textStyle.properties.fontSize.token.name)
           : addPxIfNeeded("font-size", textStyle.properties.fontSize.value),
         "line-height": textStyle.properties.lineHeight.token
-          ? `var(--${toCssVariableKebabCase(textStyle.properties.lineHeight.token.name.replaceAll("/", "-"))})`
+          ? toVeTypoVar(textStyle.properties.lineHeight.token.name)
           : String(textStyle.properties.lineHeight.value),
         "font-family": textStyle.properties.fontFamily.token
-          ? `var(--${toCssVariableKebabCase(textStyle.properties.fontFamily.token.name.replaceAll("/", "-"))})`
+          ? toVeTypoVar(textStyle.properties.fontFamily.token.name)
           : String(textStyle.properties.fontFamily.value),
         "font-weight": textStyle.properties.fontWeight.token
-          ? `var(--${toCssVariableKebabCase(textStyle.properties.fontWeight.token.name.replaceAll("/", "-"))})`
+          ? toVeTypoVar(textStyle.properties.fontWeight.token.name)
           : String(textStyle.properties.fontWeight.value),
         "letter-spacing": textStyle.properties.letterSpacing.token
-          ? `var(--${toCssVariableKebabCase(textStyle.properties.letterSpacing.token.name.replaceAll("/", "-"))})`
+          ? toVeTypoVar(textStyle.properties.letterSpacing.token.name)
           : addPxIfNeeded("letter-spacing", textStyle.properties.letterSpacing.value),
         "paragraph-spacing": textStyle.properties.paragraphSpacing.token
-          ? `var(--${toCssVariableKebabCase(textStyle.properties.paragraphSpacing.token.name.replaceAll("/", "-"))})`
+          ? toVeTypoVar(textStyle.properties.paragraphSpacing.token.name)
           : addPxIfNeeded("paragraph-spacing", textStyle.properties.paragraphSpacing.value) || "0",
         "paragraph-indent": textStyle.properties.paragraphIndent.token
-          ? `var(--${toCssVariableKebabCase(textStyle.properties.paragraphIndent.token.name.replaceAll("/", "-"))})`
+          ? toVeTypoVar(textStyle.properties.paragraphIndent.token.name)
           : addPxIfNeeded("paragraph-indent", textStyle.properties.paragraphIndent.value) || "0",
       };
     });
 
-    // theme용 JS 객체 생성 (camelCase 속성명)
+    // theme / VE textStyles.css.ts용 JS 객체 생성 (camelCase 속성명)
     const themeStyleObjects: Record<string, Record<string, string>> = {};
     data.forEach(textStyle => {
       const name = textStyle.name.replaceAll("/", "-");
       themeStyleObjects[name] = {
         fontSize: textStyle.properties.fontSize.token
-          ? `var(--${toCssVariableKebabCase(textStyle.properties.fontSize.token.name.replaceAll("/", "-"))})`
+          ? toVeTypoVar(textStyle.properties.fontSize.token.name)
           : addPxIfNeeded("font-size", textStyle.properties.fontSize.value),
         lineHeight: textStyle.properties.lineHeight.token
-          ? `var(--${toCssVariableKebabCase(textStyle.properties.lineHeight.token.name.replaceAll("/", "-"))})`
+          ? toVeTypoVar(textStyle.properties.lineHeight.token.name)
           : String(textStyle.properties.lineHeight.value),
         fontFamily: textStyle.properties.fontFamily.token
-          ? `var(--${toCssVariableKebabCase(textStyle.properties.fontFamily.token.name.replaceAll("/", "-"))})`
+          ? toVeTypoVar(textStyle.properties.fontFamily.token.name)
           : String(textStyle.properties.fontFamily.value),
         fontWeight: textStyle.properties.fontWeight.token
-          ? `var(--${toCssVariableKebabCase(textStyle.properties.fontWeight.token.name.replaceAll("/", "-"))})`
+          ? toVeTypoVar(textStyle.properties.fontWeight.token.name)
           : String(textStyle.properties.fontWeight.value),
         letterSpacing: textStyle.properties.letterSpacing.token
-          ? `var(--${toCssVariableKebabCase(textStyle.properties.letterSpacing.token.name.replaceAll("/", "-"))})`
+          ? toVeTypoVar(textStyle.properties.letterSpacing.token.name)
           : addPxIfNeeded("letter-spacing", textStyle.properties.letterSpacing.value),
         paragraphSpacing: textStyle.properties.paragraphSpacing.token
-          ? `var(--${toCssVariableKebabCase(textStyle.properties.paragraphSpacing.token.name.replaceAll("/", "-"))})`
+          ? toVeTypoVar(textStyle.properties.paragraphSpacing.token.name)
           : addPxIfNeeded("paragraph-spacing", textStyle.properties.paragraphSpacing.value),
         paragraphIndent: textStyle.properties.paragraphIndent.token
-          ? `var(--${toCssVariableKebabCase(textStyle.properties.paragraphIndent.token.name.replaceAll("/", "-"))})`
+          ? toVeTypoVar(textStyle.properties.paragraphIndent.token.name)
           : addPxIfNeeded("paragraph-indent", textStyle.properties.paragraphIndent.value),
       };
     });

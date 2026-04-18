@@ -1,5 +1,5 @@
 // 자동 생성된 theme - 수정 금지
-// 생성 시간: 2026. 3. 17. 오후 9:51:04
+// 생성 시간: 2026. 4. 18. 오후 4:15:54
 
 export const theme = {
   "colorPrimitive": {
@@ -1226,13 +1226,7 @@ export const theme = {
       },
       "breakpoint": {
         "min": "var(--semantic-breakpoint-min)",
-        "max": "var(--semantic-breakpoint-max)",
-        "grid": {
-          "container": {
-            "min": "var(--semantic-breakpoint-grid-container-min)",
-            "max": "var(--semantic-breakpoint-grid-container-max)"
-          }
-        }
+        "max": "var(--semantic-breakpoint-max)"
       },
       "margin": {
         "lg": "var(--semantic-margin-lg)",
@@ -1329,22 +1323,19 @@ export const theme = {
   "typo": {
     "primitive": {
       "typeface": {
-        "hero": "var(--primitive-typeface-hero)",
         "syntax": "var(--primitive-typeface-syntax)",
         "title": "var(--primitive-typeface-title)",
         "label": "var(--primitive-typeface-label)",
         "body": "var(--primitive-typeface-body)"
       },
       "fontSize": {
-        "hero": {
-          "1": "var(--primitive-font-size-hero-1)",
-          "2": "var(--primitive-font-size-hero-2)"
-        },
         "title": {
           "1": "var(--primitive-font-size-title-1)",
           "2": "var(--primitive-font-size-title-2)",
           "3": "var(--primitive-font-size-title-3)",
-          "4": "var(--primitive-font-size-title-4)"
+          "4": "var(--primitive-font-size-title-4)",
+          "5": "var(--primitive-font-size-title-5)",
+          "6": "var(--primitive-font-size-title-6)"
         },
         "body": {
           "lg": "var(--primitive-font-size-body-lg)",
@@ -1368,15 +1359,13 @@ export const theme = {
       },
       "font": {
         "lineHeight": {
-          "hero": {
-            "1": "var(--primitive-font-line-height-hero-1)",
-            "2": "var(--primitive-font-line-height-hero-2)"
-          },
           "title": {
             "1": "var(--primitive-font-line-height-title-1)",
             "2": "var(--primitive-font-line-height-title-2)",
             "3": "var(--primitive-font-line-height-title-3)",
-            "4": "var(--primitive-font-line-height-title-4)"
+            "4": "var(--primitive-font-line-height-title-4)",
+            "5": "var(--primitive-font-line-height-title-5)",
+            "6": "var(--primitive-font-line-height-title-6)"
           },
           "label": {
             "lg": "var(--primitive-font-line-height-label-lg)",
@@ -1399,15 +1388,13 @@ export const theme = {
           }
         },
         "letterSpacing": {
-          "hero": {
-            "1": "var(--primitive-font-letter-spacing-hero-1)",
-            "2": "var(--primitive-font-letter-spacing-hero-2)"
-          },
           "title": {
             "1": "var(--primitive-font-letter-spacing-title-1)",
             "2": "var(--primitive-font-letter-spacing-title-2)",
             "3": "var(--primitive-font-letter-spacing-title-3)",
-            "4": "var(--primitive-font-letter-spacing-title-4)"
+            "4": "var(--primitive-font-letter-spacing-title-4)",
+            "5": "var(--primitive-font-letter-spacing-title-5)",
+            "6": "var(--primitive-font-letter-spacing-title-6)"
           },
           "label": {
             "lg": "var(--primitive-font-letter-spacing-label-lg)",
@@ -1425,13 +1412,10 @@ export const theme = {
         }
       },
       "fontWeight": {
-        "hero": {
-          "normal": "var(--primitive-font-weight-hero-normal)",
-          "bold": "var(--primitive-font-weight-hero-bold)"
-        },
         "title": {
           "normal": "var(--primitive-font-weight-title-normal)",
-          "bold": "var(--primitive-font-weight-title-bold)"
+          "bold": "var(--primitive-font-weight-title-bold)",
+          "subtle": "var(--primitive-font-weight-title-subtle)"
         },
         "label": {
           "normal": "var(--primitive-font-weight-label-normal)",
@@ -1449,308 +1433,272 @@ export const theme = {
     }
   },
   "textStyle": {
-    "semantic-textStyle-hero-4": {
-      "fontSize": "var(--primitive-font-size-hero-4)",
-      "lineHeight": "var(--primitive-font-line-height-hero-4)",
-      "fontFamily": "var(--primitive-typeface-hero)",
-      "fontWeight": "var(--primitive-font-weight-hero-bold)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-hero-4)",
-      "paragraphSpacing": "0px",
-      "paragraphIndent": "0px"
-    },
-    "semantic-textStyle-hero-3": {
-      "fontSize": "var(--primitive-font-size-hero-3)",
-      "lineHeight": "var(--primitive-font-line-height-hero-3)",
-      "fontFamily": "var(--primitive-typeface-hero)",
-      "fontWeight": "var(--primitive-font-weight-hero-bold)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-hero-3)",
-      "paragraphSpacing": "0px",
-      "paragraphIndent": "0px"
-    },
-    "semantic-textStyle-hero-2": {
-      "fontSize": "var(--primitive-font-size-hero-2)",
-      "lineHeight": "var(--primitive-font-line-height-hero-2)",
-      "fontFamily": "var(--primitive-typeface-hero)",
-      "fontWeight": "var(--primitive-font-weight-hero-normal)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-hero-2)",
-      "paragraphSpacing": "0px",
-      "paragraphIndent": "0px"
-    },
-    "semantic-textStyle-hero-1": {
-      "fontSize": "var(--primitive-font-size-hero-1)",
-      "lineHeight": "var(--primitive-font-line-height-hero-1)",
-      "fontFamily": "var(--primitive-typeface-hero)",
-      "fontWeight": "var(--primitive-font-weight-hero-normal)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-hero-1)",
-      "paragraphSpacing": "0px",
-      "paragraphIndent": "0px"
-    },
     "semantic-textStyle-title-4": {
-      "fontSize": "var(--primitive-font-size-title-4)",
-      "lineHeight": "var(--primitive-font-line-height-title-4)",
-      "fontFamily": "var(--primitive-typeface-title)",
-      "fontWeight": "var(--primitive-font-weight-title-bold)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-title-4)",
+      "fontSize": "var(--typo-primitive-fontSize-title-4)",
+      "lineHeight": "var(--typo-primitive-font-lineHeight-title-4)",
+      "fontFamily": "var(--typo-primitive-typeface-title)",
+      "fontWeight": "var(--typo-primitive-fontWeight-title-bold)",
+      "letterSpacing": "var(--typo-primitive-font-letterSpacing-title-4)",
       "paragraphSpacing": "0px",
       "paragraphIndent": "0px"
     },
     "semantic-textStyle-title-3": {
-      "fontSize": "var(--primitive-font-size-title-3)",
-      "lineHeight": "var(--primitive-font-line-height-title-3)",
-      "fontFamily": "var(--primitive-typeface-title)",
-      "fontWeight": "var(--primitive-font-weight-title-bold)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-title-3)",
+      "fontSize": "var(--typo-primitive-fontSize-title-3)",
+      "lineHeight": "var(--typo-primitive-font-lineHeight-title-3)",
+      "fontFamily": "var(--typo-primitive-typeface-title)",
+      "fontWeight": "var(--typo-primitive-fontWeight-title-bold)",
+      "letterSpacing": "var(--typo-primitive-font-letterSpacing-title-3)",
       "paragraphSpacing": "0px",
       "paragraphIndent": "0px"
     },
     "semantic-textStyle-title-2": {
-      "fontSize": "var(--primitive-font-size-title-2)",
-      "lineHeight": "var(--primitive-font-line-height-title-2)",
-      "fontFamily": "var(--primitive-typeface-title)",
-      "fontWeight": "var(--primitive-font-weight-title-normal)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-title-2)",
+      "fontSize": "var(--typo-primitive-fontSize-title-2)",
+      "lineHeight": "var(--typo-primitive-font-lineHeight-title-2)",
+      "fontFamily": "var(--typo-primitive-typeface-title)",
+      "fontWeight": "var(--typo-primitive-fontWeight-title-normal)",
+      "letterSpacing": "var(--typo-primitive-font-letterSpacing-title-2)",
       "paragraphSpacing": "0px",
       "paragraphIndent": "0px"
     },
     "semantic-textStyle-title-1": {
-      "fontSize": "var(--primitive-font-size-title-1)",
-      "lineHeight": "var(--primitive-font-line-height-title-1)",
-      "fontFamily": "var(--primitive-typeface-title)",
-      "fontWeight": "var(--primitive-font-weight-title-normal)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-title-1)",
+      "fontSize": "var(--typo-primitive-fontSize-title-1)",
+      "lineHeight": "var(--typo-primitive-font-lineHeight-title-1)",
+      "fontFamily": "var(--typo-primitive-typeface-title)",
+      "fontWeight": "var(--typo-primitive-fontWeight-title-normal)",
+      "letterSpacing": "var(--typo-primitive-font-letterSpacing-title-1)",
       "paragraphSpacing": "0px",
       "paragraphIndent": "0px"
     },
     "semantic-textStyle-label-lg-bold": {
-      "fontSize": "var(--primitive-font-size-label-lg)",
-      "lineHeight": "var(--primitive-font-line-height-label-lg)",
-      "fontFamily": "var(--primitive-typeface-label)",
-      "fontWeight": "var(--primitive-font-weight-label-bold)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-label-lg)",
+      "fontSize": "var(--typo-primitive-fontSize-label-lg)",
+      "lineHeight": "var(--typo-primitive-font-lineHeight-label-lg)",
+      "fontFamily": "var(--typo-primitive-typeface-label)",
+      "fontWeight": "var(--typo-primitive-fontWeight-label-bold)",
+      "letterSpacing": "var(--typo-primitive-font-letterSpacing-label-lg)",
       "paragraphSpacing": "0px",
       "paragraphIndent": "0px"
     },
     "semantic-textStyle-label-lg-normal": {
-      "fontSize": "var(--primitive-font-size-label-lg)",
-      "lineHeight": "var(--primitive-font-line-height-label-lg)",
-      "fontFamily": "var(--primitive-typeface-label)",
-      "fontWeight": "var(--primitive-font-weight-label-normal)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-label-lg)",
+      "fontSize": "var(--typo-primitive-fontSize-label-lg)",
+      "lineHeight": "var(--typo-primitive-font-lineHeight-label-lg)",
+      "fontFamily": "var(--typo-primitive-typeface-label)",
+      "fontWeight": "var(--typo-primitive-fontWeight-label-normal)",
+      "letterSpacing": "var(--typo-primitive-font-letterSpacing-label-lg)",
       "paragraphSpacing": "0px",
       "paragraphIndent": "0px"
     },
     "semantic-textStyle-label-lg-subtle": {
-      "fontSize": "var(--primitive-font-size-label-lg)",
-      "lineHeight": "var(--primitive-font-line-height-label-lg)",
-      "fontFamily": "var(--primitive-typeface-label)",
-      "fontWeight": "var(--primitive-font-weight-label-subtle)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-label-lg)",
+      "fontSize": "var(--typo-primitive-fontSize-label-lg)",
+      "lineHeight": "var(--typo-primitive-font-lineHeight-label-lg)",
+      "fontFamily": "var(--typo-primitive-typeface-label)",
+      "fontWeight": "var(--typo-primitive-fontWeight-label-subtle)",
+      "letterSpacing": "var(--typo-primitive-font-letterSpacing-label-lg)",
       "paragraphSpacing": "0px",
       "paragraphIndent": "0px"
     },
     "semantic-textStyle-label-md-bold": {
-      "fontSize": "var(--primitive-font-size-label-md)",
-      "lineHeight": "var(--primitive-font-line-height-label-md)",
-      "fontFamily": "var(--primitive-typeface-label)",
-      "fontWeight": "var(--primitive-font-weight-label-bold)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-label-md)",
+      "fontSize": "var(--typo-primitive-fontSize-label-md)",
+      "lineHeight": "var(--typo-primitive-font-lineHeight-label-md)",
+      "fontFamily": "var(--typo-primitive-typeface-label)",
+      "fontWeight": "var(--typo-primitive-fontWeight-label-bold)",
+      "letterSpacing": "var(--typo-primitive-font-letterSpacing-label-md)",
       "paragraphSpacing": "0px",
       "paragraphIndent": "0px"
     },
     "semantic-textStyle-label-md-normal": {
-      "fontSize": "var(--primitive-font-size-label-md)",
-      "lineHeight": "var(--primitive-font-line-height-label-md)",
-      "fontFamily": "var(--primitive-typeface-label)",
-      "fontWeight": "var(--primitive-font-weight-label-normal)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-label-md)",
+      "fontSize": "var(--typo-primitive-fontSize-label-md)",
+      "lineHeight": "var(--typo-primitive-font-lineHeight-label-md)",
+      "fontFamily": "var(--typo-primitive-typeface-label)",
+      "fontWeight": "var(--typo-primitive-fontWeight-label-normal)",
+      "letterSpacing": "var(--typo-primitive-font-letterSpacing-label-md)",
       "paragraphSpacing": "0px",
       "paragraphIndent": "0px"
     },
     "semantic-textStyle-label-md-subtle": {
-      "fontSize": "var(--primitive-font-size-label-md)",
-      "lineHeight": "var(--primitive-font-line-height-label-md)",
-      "fontFamily": "var(--primitive-typeface-label)",
-      "fontWeight": "var(--primitive-font-weight-label-subtle)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-label-md)",
+      "fontSize": "var(--typo-primitive-fontSize-label-md)",
+      "lineHeight": "var(--typo-primitive-font-lineHeight-label-md)",
+      "fontFamily": "var(--typo-primitive-typeface-label)",
+      "fontWeight": "var(--typo-primitive-fontWeight-label-subtle)",
+      "letterSpacing": "var(--typo-primitive-font-letterSpacing-label-md)",
       "paragraphSpacing": "0px",
       "paragraphIndent": "0px"
     },
     "semantic-textStyle-label-sm-bold": {
-      "fontSize": "var(--primitive-font-size-label-sm)",
-      "lineHeight": "var(--primitive-font-line-height-label-sm)",
-      "fontFamily": "var(--primitive-typeface-label)",
-      "fontWeight": "var(--primitive-font-weight-label-bold)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-label-sm)",
+      "fontSize": "var(--typo-primitive-fontSize-label-sm)",
+      "lineHeight": "var(--typo-primitive-font-lineHeight-label-sm)",
+      "fontFamily": "var(--typo-primitive-typeface-label)",
+      "fontWeight": "var(--typo-primitive-fontWeight-label-bold)",
+      "letterSpacing": "var(--typo-primitive-font-letterSpacing-label-sm)",
       "paragraphSpacing": "0px",
       "paragraphIndent": "0px"
     },
     "semantic-textStyle-label-sm-normal": {
-      "fontSize": "var(--primitive-font-size-label-sm)",
-      "lineHeight": "var(--primitive-font-line-height-label-sm)",
-      "fontFamily": "var(--primitive-typeface-label)",
-      "fontWeight": "var(--primitive-font-weight-label-normal)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-label-sm)",
+      "fontSize": "var(--typo-primitive-fontSize-label-sm)",
+      "lineHeight": "var(--typo-primitive-font-lineHeight-label-sm)",
+      "fontFamily": "var(--typo-primitive-typeface-label)",
+      "fontWeight": "var(--typo-primitive-fontWeight-label-normal)",
+      "letterSpacing": "var(--typo-primitive-font-letterSpacing-label-sm)",
       "paragraphSpacing": "0px",
       "paragraphIndent": "0px"
     },
     "semantic-textStyle-label-sm-subtle": {
-      "fontSize": "var(--primitive-font-size-label-sm)",
-      "lineHeight": "var(--primitive-font-line-height-label-sm)",
-      "fontFamily": "var(--primitive-typeface-label)",
-      "fontWeight": "var(--primitive-font-weight-label-subtle)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-label-sm)",
+      "fontSize": "var(--typo-primitive-fontSize-label-sm)",
+      "lineHeight": "var(--typo-primitive-font-lineHeight-label-sm)",
+      "fontFamily": "var(--typo-primitive-typeface-label)",
+      "fontWeight": "var(--typo-primitive-fontWeight-label-subtle)",
+      "letterSpacing": "var(--typo-primitive-font-letterSpacing-label-sm)",
       "paragraphSpacing": "0px",
       "paragraphIndent": "0px"
     },
     "semantic-textStyle-label-xs-bold": {
-      "fontSize": "var(--primitive-font-size-label-xs)",
-      "lineHeight": "var(--primitive-font-line-height-label-xs)",
-      "fontFamily": "var(--primitive-typeface-label)",
-      "fontWeight": "var(--primitive-font-weight-label-bold)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-label-xs)",
+      "fontSize": "var(--typo-primitive-fontSize-label-xs)",
+      "lineHeight": "var(--typo-primitive-font-lineHeight-label-xs)",
+      "fontFamily": "var(--typo-primitive-typeface-label)",
+      "fontWeight": "var(--typo-primitive-fontWeight-label-bold)",
+      "letterSpacing": "var(--typo-primitive-font-letterSpacing-label-xs)",
       "paragraphSpacing": "0px",
       "paragraphIndent": "0px"
     },
     "semantic-textStyle-label-xs-normal": {
-      "fontSize": "var(--primitive-font-size-label-xs)",
-      "lineHeight": "var(--primitive-font-line-height-label-xs)",
-      "fontFamily": "var(--primitive-typeface-label)",
-      "fontWeight": "var(--primitive-font-weight-label-normal)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-label-xs)",
+      "fontSize": "var(--typo-primitive-fontSize-label-xs)",
+      "lineHeight": "var(--typo-primitive-font-lineHeight-label-xs)",
+      "fontFamily": "var(--typo-primitive-typeface-label)",
+      "fontWeight": "var(--typo-primitive-fontWeight-label-normal)",
+      "letterSpacing": "var(--typo-primitive-font-letterSpacing-label-xs)",
       "paragraphSpacing": "0px",
       "paragraphIndent": "0px"
     },
     "semantic-textStyle-label-xs-subtle": {
-      "fontSize": "var(--primitive-font-size-label-xs)",
-      "lineHeight": "var(--primitive-font-line-height-label-xs)",
-      "fontFamily": "var(--primitive-typeface-label)",
-      "fontWeight": "var(--primitive-font-weight-label-subtle)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-label-xs)",
+      "fontSize": "var(--typo-primitive-fontSize-label-xs)",
+      "lineHeight": "var(--typo-primitive-font-lineHeight-label-xs)",
+      "fontFamily": "var(--typo-primitive-typeface-label)",
+      "fontWeight": "var(--typo-primitive-fontWeight-label-subtle)",
+      "letterSpacing": "var(--typo-primitive-font-letterSpacing-label-xs)",
       "paragraphSpacing": "0px",
       "paragraphIndent": "0px"
     },
     "semantic-textStyle-body-lg-bold": {
-      "fontSize": "var(--primitive-font-size-body-lg)",
-      "lineHeight": "var(--primitive-font-line-height-body-lg)",
-      "fontFamily": "var(--primitive-typeface-body)",
-      "fontWeight": "var(--primitive-font-weight-body-bold)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-body-lg)",
+      "fontSize": "var(--typo-primitive-fontSize-body-lg)",
+      "lineHeight": "var(--typo-primitive-font-lineHeight-body-lg)",
+      "fontFamily": "var(--typo-primitive-typeface-body)",
+      "fontWeight": "var(--typo-primitive-fontWeight-body-bold)",
+      "letterSpacing": "var(--typo-primitive-font-letterSpacing-body-lg)",
       "paragraphSpacing": "0px",
       "paragraphIndent": "0px"
     },
     "semantic-textStyle-body-lg-normal": {
-      "fontSize": "var(--primitive-font-size-body-lg)",
-      "lineHeight": "var(--primitive-font-line-height-body-lg)",
-      "fontFamily": "var(--primitive-typeface-body)",
-      "fontWeight": "var(--primitive-font-weight-body-normal)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-body-lg)",
+      "fontSize": "var(--typo-primitive-fontSize-body-lg)",
+      "lineHeight": "var(--typo-primitive-font-lineHeight-body-lg)",
+      "fontFamily": "var(--typo-primitive-typeface-body)",
+      "fontWeight": "var(--typo-primitive-fontWeight-body-normal)",
+      "letterSpacing": "var(--typo-primitive-font-letterSpacing-body-lg)",
       "paragraphSpacing": "0px",
       "paragraphIndent": "0px"
     },
     "semantic-textStyle-body-md-bold": {
-      "fontSize": "var(--primitive-font-size-body-md)",
-      "lineHeight": "var(--primitive-font-line-height-body-md)",
-      "fontFamily": "var(--primitive-typeface-body)",
-      "fontWeight": "var(--primitive-font-weight-body-bold)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-body-md)",
+      "fontSize": "var(--typo-primitive-fontSize-body-md)",
+      "lineHeight": "var(--typo-primitive-font-lineHeight-body-md)",
+      "fontFamily": "var(--typo-primitive-typeface-body)",
+      "fontWeight": "var(--typo-primitive-fontWeight-body-bold)",
+      "letterSpacing": "var(--typo-primitive-font-letterSpacing-body-md)",
       "paragraphSpacing": "0px",
       "paragraphIndent": "0px"
     },
     "semantic-textStyle-body-md-normal": {
-      "fontSize": "var(--primitive-font-size-body-md)",
-      "lineHeight": "var(--primitive-font-line-height-body-md)",
-      "fontFamily": "var(--primitive-typeface-body)",
-      "fontWeight": "var(--primitive-font-weight-body-normal)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-body-md)",
+      "fontSize": "var(--typo-primitive-fontSize-body-md)",
+      "lineHeight": "var(--typo-primitive-font-lineHeight-body-md)",
+      "fontFamily": "var(--typo-primitive-typeface-body)",
+      "fontWeight": "var(--typo-primitive-fontWeight-body-normal)",
+      "letterSpacing": "var(--typo-primitive-font-letterSpacing-body-md)",
       "paragraphSpacing": "0px",
       "paragraphIndent": "0px"
     },
     "semantic-textStyle-body-sm-bold": {
-      "fontSize": "var(--primitive-font-size-body-sm)",
-      "lineHeight": "var(--primitive-font-line-height-body-sm)",
-      "fontFamily": "var(--primitive-typeface-body)",
-      "fontWeight": "var(--primitive-font-weight-body-bold)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-body-sm)",
+      "fontSize": "var(--typo-primitive-fontSize-body-sm)",
+      "lineHeight": "var(--typo-primitive-font-lineHeight-body-sm)",
+      "fontFamily": "var(--typo-primitive-typeface-body)",
+      "fontWeight": "var(--typo-primitive-fontWeight-body-bold)",
+      "letterSpacing": "var(--typo-primitive-font-letterSpacing-body-sm)",
       "paragraphSpacing": "0px",
       "paragraphIndent": "0px"
     },
     "semantic-textStyle-body-sm-normal": {
-      "fontSize": "var(--primitive-font-size-body-sm)",
-      "lineHeight": "var(--primitive-font-line-height-body-sm)",
-      "fontFamily": "var(--primitive-typeface-body)",
-      "fontWeight": "var(--primitive-font-weight-body-normal)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-body-sm)",
+      "fontSize": "var(--typo-primitive-fontSize-body-sm)",
+      "lineHeight": "var(--typo-primitive-font-lineHeight-body-sm)",
+      "fontFamily": "var(--typo-primitive-typeface-body)",
+      "fontWeight": "var(--typo-primitive-fontWeight-body-normal)",
+      "letterSpacing": "var(--typo-primitive-font-letterSpacing-body-sm)",
       "paragraphSpacing": "0px",
       "paragraphIndent": "0px"
     },
     "semantic-textStyle-body-xs-bold": {
-      "fontSize": "var(--primitive-font-size-body-xs)",
-      "lineHeight": "var(--primitive-font-line-height-body-xs)",
-      "fontFamily": "var(--primitive-typeface-body)",
-      "fontWeight": "var(--primitive-font-weight-body-bold)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-body-xs)",
+      "fontSize": "var(--typo-primitive-fontSize-body-xs)",
+      "lineHeight": "var(--typo-primitive-font-lineHeight-body-xs)",
+      "fontFamily": "var(--typo-primitive-typeface-body)",
+      "fontWeight": "var(--typo-primitive-fontWeight-body-bold)",
+      "letterSpacing": "var(--typo-primitive-font-letterSpacing-body-xs)",
       "paragraphSpacing": "0px",
       "paragraphIndent": "0px"
     },
     "semantic-textStyle-body-xs-normal": {
-      "fontSize": "var(--primitive-font-size-body-xs)",
-      "lineHeight": "var(--primitive-font-line-height-body-xs)",
-      "fontFamily": "var(--primitive-typeface-body)",
-      "fontWeight": "var(--primitive-font-weight-body-normal)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-body-xs)",
+      "fontSize": "var(--typo-primitive-fontSize-body-xs)",
+      "lineHeight": "var(--typo-primitive-font-lineHeight-body-xs)",
+      "fontFamily": "var(--typo-primitive-typeface-body)",
+      "fontWeight": "var(--typo-primitive-fontWeight-body-normal)",
+      "letterSpacing": "var(--typo-primitive-font-letterSpacing-body-xs)",
       "paragraphSpacing": "0px",
       "paragraphIndent": "0px"
     },
     "semantic-textStyle-body-2xs-bold": {
-      "fontSize": "var(--primitive-font-size-body-2xs)",
-      "lineHeight": "var(--primitive-font-line-height-body-2xs)",
-      "fontFamily": "var(--primitive-typeface-body)",
-      "fontWeight": "var(--primitive-font-weight-body-bold)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-body-2xs)",
+      "fontSize": "var(--typo-primitive-fontSize-body-2xs)",
+      "lineHeight": "var(--typo-primitive-font-lineHeight-body-2xs)",
+      "fontFamily": "var(--typo-primitive-typeface-body)",
+      "fontWeight": "var(--typo-primitive-fontWeight-body-bold)",
+      "letterSpacing": "var(--typo-primitive-font-letterSpacing-body-2xs)",
       "paragraphSpacing": "0px",
       "paragraphIndent": "0px"
     },
     "semantic-textStyle-body-2xs-normal": {
-      "fontSize": "var(--primitive-font-size-body-2xs)",
-      "lineHeight": "var(--primitive-font-line-height-body-2xs)",
-      "fontFamily": "var(--primitive-typeface-body)",
-      "fontWeight": "var(--primitive-font-weight-body-normal)",
-      "letterSpacing": "var(--primitive-font-letter-spacing-body-2xs)",
+      "fontSize": "var(--typo-primitive-fontSize-body-2xs)",
+      "lineHeight": "var(--typo-primitive-font-lineHeight-body-2xs)",
+      "fontFamily": "var(--typo-primitive-typeface-body)",
+      "fontWeight": "var(--typo-primitive-fontWeight-body-normal)",
+      "letterSpacing": "var(--typo-primitive-font-letterSpacing-body-2xs)",
       "paragraphSpacing": "0px",
       "paragraphIndent": "0px"
     },
     "semantic-textStyle-syntax-lg": {
-      "fontSize": "var(--primitive-font-size-syntax-lg)",
-      "lineHeight": "var(--primitive-font-line-height-syntax-lg)",
-      "fontFamily": "var(--primitive-typeface-syntax)",
-      "fontWeight": "var(--primitive-font-weight-syntax-normal)",
+      "fontSize": "var(--typo-primitive-fontSize-syntax-lg)",
+      "lineHeight": "var(--typo-primitive-font-lineHeight-syntax-lg)",
+      "fontFamily": "var(--typo-primitive-typeface-syntax)",
+      "fontWeight": "var(--typo-primitive-fontWeight-syntax-normal)",
       "letterSpacing": "0%",
       "paragraphSpacing": "0px",
       "paragraphIndent": "0px"
     },
     "semantic-textStyle-syntax-md": {
-      "fontSize": "var(--primitive-font-size-syntax-md)",
-      "lineHeight": "var(--primitive-font-line-height-syntax-md)",
-      "fontFamily": "var(--primitive-typeface-syntax)",
-      "fontWeight": "var(--primitive-font-weight-syntax-normal)",
+      "fontSize": "var(--typo-primitive-fontSize-syntax-md)",
+      "lineHeight": "var(--typo-primitive-font-lineHeight-syntax-md)",
+      "fontFamily": "var(--typo-primitive-typeface-syntax)",
+      "fontWeight": "var(--typo-primitive-fontWeight-syntax-normal)",
       "letterSpacing": "0%",
       "paragraphSpacing": "0px",
       "paragraphIndent": "0px"
     },
     "semantic-textStyle-syntax-sm": {
-      "fontSize": "var(--primitive-font-size-syntax-sm)",
-      "lineHeight": "var(--primitive-font-line-height-syntax-sm)",
-      "fontFamily": "var(--primitive-typeface-syntax)",
-      "fontWeight": "var(--primitive-font-weight-syntax-normal)",
+      "fontSize": "var(--typo-primitive-fontSize-syntax-sm)",
+      "lineHeight": "var(--typo-primitive-font-lineHeight-syntax-sm)",
+      "fontFamily": "var(--typo-primitive-typeface-syntax)",
+      "fontWeight": "var(--typo-primitive-fontWeight-syntax-normal)",
       "letterSpacing": "0%",
       "paragraphSpacing": "0px",
       "paragraphIndent": "0px"
     },
     "semantic-textStyle-syntax-xs": {
-      "fontSize": "var(--primitive-font-size-syntax-xs)",
-      "lineHeight": "var(--primitive-font-line-height-syntax-xs)",
-      "fontFamily": "var(--primitive-typeface-syntax)",
-      "fontWeight": "var(--primitive-font-weight-syntax-normal)",
+      "fontSize": "var(--typo-primitive-fontSize-syntax-xs)",
+      "lineHeight": "var(--typo-primitive-font-lineHeight-syntax-xs)",
+      "fontFamily": "var(--typo-primitive-typeface-syntax)",
+      "fontWeight": "var(--typo-primitive-fontWeight-syntax-normal)",
       "letterSpacing": "0%",
       "paragraphSpacing": "0px",
       "paragraphIndent": "0px"

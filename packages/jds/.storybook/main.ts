@@ -4,6 +4,8 @@ import { createRequire } from "node:module";
 import type { StorybookConfig } from "@storybook/react-vite";
 import { resolve, dirname, join } from "path";
 
+import { vanillaExtractPlugin } from "@vanilla-extract/vite-plugin";
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -37,6 +39,8 @@ const config: StorybookConfig = {
       "@": resolve(__dirname, "../src"),
       "@storybook-utils": resolve(__dirname, "./utils"),
     };
+
+    config.plugins = [...(config.plugins || []), vanillaExtractPlugin()];
 
     return config;
   },

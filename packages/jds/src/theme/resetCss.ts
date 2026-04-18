@@ -1,3 +1,4 @@
+// TODO(Emotion 제거): 이 파일 전체 삭제 — resetCss.css.ts(VE 버전)로 대체됨
 import type { CSSObject } from "@emotion/react";
 
 export interface GlobalStyleObject {
