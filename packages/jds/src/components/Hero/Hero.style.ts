@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
 
 export const SIZE_TO_TEXT_STYLE = {
-  xs: "semantic-textStyle-hero-1",
-  sm: "semantic-textStyle-hero-2",
-  md: "semantic-textStyle-hero-3",
-  lg: "semantic-textStyle-hero-4",
+  xs: "semantic-textStyle-title-1",
+  sm: "semantic-textStyle-title-2",
+  md: "semantic-textStyle-title-3",
+  lg: "semantic-textStyle-title-4",
 } as const;
 
 export const TEXT_ALIGN_MAPPING = {

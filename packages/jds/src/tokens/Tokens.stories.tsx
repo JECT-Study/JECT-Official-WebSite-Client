@@ -300,8 +300,7 @@ export const Typography: Story = {
             flex-direction: column;
             gap: 16px;
           `}
-        >
-        </div>
+        ></div>
       </div>
     );
   },
@@ -540,14 +539,6 @@ export const AllTokensCombined: Story = {
           background-color: ${theme.color.semantic.surface.standard};
         `}
       >
-        <h1
-          css={css`
-            ${theme.textStyle["semantic-textStyle-hero-4"]}
-          `}
-        >
-          Design System Showcase
-        </h1>
-
         <div
           css={css`
             margin-top: ${theme.scheme.semantic.spacing[6]};
