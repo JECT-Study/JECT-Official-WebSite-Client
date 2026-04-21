@@ -220,6 +220,40 @@ console.log(`\n✅ globalStyles 파일이 생성되었습니다: ${globalStylesP
 console.log(`✅ theme 파일이 생성되었습니다: ${themePath}`); // TODO(Emotion 제거): 이 줄 삭제
 console.log(`✅ tokens 파일이 생성되었습니다: ${outputFile}`);
 
+// ===== 합성 environment 토큰 (shadow, zIndex) 주입 =====
+const radiusVar = (step: number): string => `var(--scheme-semantic-radius-${step})`;
+const shadeVar = (step: number): string => `var(--colorPrimitive-primitive-shade-${step})`;
+
+const shadowCssValues: Record<string, string> = {
+  embossed: `0 0 ${radiusVar(2)} 0 ${shadeVar(2)}, 0 2px ${radiusVar(4)} 0 ${shadeVar(4)}`,
+  raised: `0 0 ${radiusVar(2)} 0 ${shadeVar(6)}, 0 3px ${radiusVar(6)} 0 ${shadeVar(12)}`,
+  floated: `0 0 ${radiusVar(2)} 0 ${shadeVar(4)}, 0 3px ${radiusVar(4)} 0 ${shadeVar(8)}, 0 4px ${radiusVar(8)} 0 ${shadeVar(12)}`,
+  overlay: `0 0 ${radiusVar(4)} 0 ${shadeVar(8)}, 0 3px ${radiusVar(8)} 0 ${shadeVar(12)}, 0 8px ${radiusVar(16)} 0 ${shadeVar(16)}`,
+};
+
+const zIndexCssValues: Record<string, string> = {
+  standard: "auto",
+  embossed: "100",
+  raised: "200",
+  floated: "300",
+  overlay: "400",
+};
+
+const environmentSemantic = processedTokens.environment["semantic"] as NestedObject;
+environmentSemantic["shadow"] = Object.fromEntries(
+  Object.keys(shadowCssValues).map(key => [key, `var(--semantic-shadow-${key})`]),
+);
+environmentSemantic["zIndex"] = Object.fromEntries(
+  Object.keys(zIndexCssValues).map(key => [key, `var(--semantic-zIndex-${key})`]),
+);
+
+Object.entries(shadowCssValues).forEach(([key, value]) => {
+  cssVariables.environment[`--semantic-shadow-${key}`] = value;
+});
+Object.entries(zIndexCssValues).forEach(([key, value]) => {
+  cssVariables.environment[`--semantic-zIndex-${key}`] = value;
+});
+
 // ===== VE vars.css.ts 생성 =====
 
 const contractShape: ContractShape = {

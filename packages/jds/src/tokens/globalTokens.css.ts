@@ -1,5 +1,5 @@
 // 자동 생성된 VE 전역 토큰 스타일 - 수정 금지
-// 생성 시간: 2026. 4. 18. 오후 4:15:54
+// 생성 시간: 4/21/2026, 3:41:45 PM
 import { globalStyle } from "@vanilla-extract/css";
 
 import { vars } from "./vars.css";
@@ -1146,6 +1146,15 @@ globalStyle(":root", {
     [vars.environment.semantic.motion.fluent]: "cubic-bezier(0.25, 0.1, 0.25, 1)",
     [vars.environment.semantic.motion.leave]: "cubic-bezier(0.42, 0, 0.1, 1)\t",
     [vars.environment.semantic.motion.entrance]: "cubic-bezier(0.19, 0.91, 0.38, 1)\t",
+    [vars.environment.semantic.shadow.embossed]: "0 0 var(--scheme-semantic-radius-2) 0 var(--colorPrimitive-primitive-shade-2), 0 2px var(--scheme-semantic-radius-4) 0 var(--colorPrimitive-primitive-shade-4)",
+    [vars.environment.semantic.shadow.raised]: "0 0 var(--scheme-semantic-radius-2) 0 var(--colorPrimitive-primitive-shade-6), 0 3px var(--scheme-semantic-radius-6) 0 var(--colorPrimitive-primitive-shade-12)",
+    [vars.environment.semantic.shadow.floated]: "0 0 var(--scheme-semantic-radius-2) 0 var(--colorPrimitive-primitive-shade-4), 0 3px var(--scheme-semantic-radius-4) 0 var(--colorPrimitive-primitive-shade-8), 0 4px var(--scheme-semantic-radius-8) 0 var(--colorPrimitive-primitive-shade-12)",
+    [vars.environment.semantic.shadow.overlay]: "0 0 var(--scheme-semantic-radius-4) 0 var(--colorPrimitive-primitive-shade-8), 0 3px var(--scheme-semantic-radius-8) 0 var(--colorPrimitive-primitive-shade-12), 0 8px var(--scheme-semantic-radius-16) 0 var(--colorPrimitive-primitive-shade-16)",
+    [vars.environment.semantic.zIndex.standard]: "auto",
+    [vars.environment.semantic.zIndex.embossed]: "100",
+    [vars.environment.semantic.zIndex.raised]: "200",
+    [vars.environment.semantic.zIndex.floated]: "300",
+    [vars.environment.semantic.zIndex.overlay]: "400",
     [vars.environment.primitive.time["50"]]: "50",
     [vars.environment.primitive.time["100"]]: "100",
     [vars.environment.primitive.time["150"]]: "150",
