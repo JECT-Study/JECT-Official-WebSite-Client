@@ -62,64 +62,64 @@ export const iconButton = recipe({
         width: pxToRem(32),
         height: pxToRem(32),
         selectors: {
-          "&::before": { inset: "-4px", borderRadius: pxToRem(4) },
-          "&::after": { inset: "-4px", borderRadius: pxToRem(4) },
+          "&::before": { inset: pxToRem(-4), borderRadius: "4px" },
+          "&::after": { inset: pxToRem(-4), borderRadius: "4px" },
         },
       },
       "2xl": {
         width: pxToRem(28),
         height: pxToRem(28),
         selectors: {
-          "&::before": { inset: "-4px", borderRadius: pxToRem(4) },
-          "&::after": { inset: "-4px", borderRadius: pxToRem(4) },
+          "&::before": { inset: pxToRem(-4), borderRadius: "4px" },
+          "&::after": { inset: pxToRem(-4), borderRadius: "4px" },
         },
       },
       xl: {
         width: pxToRem(24),
         height: pxToRem(24),
         selectors: {
-          "&::before": { inset: "-3px", borderRadius: pxToRem(4) },
-          "&::after": { inset: "-3px", borderRadius: pxToRem(4) },
+          "&::before": { inset: pxToRem(-3), borderRadius: "4px" },
+          "&::after": { inset: pxToRem(-3), borderRadius: "4px" },
         },
       },
       lg: {
         width: pxToRem(20),
         height: pxToRem(20),
         selectors: {
-          "&::before": { inset: "-3px", borderRadius: pxToRem(4) },
-          "&::after": { inset: "-3px", borderRadius: pxToRem(4) },
+          "&::before": { inset: pxToRem(-3), borderRadius: "4px" },
+          "&::after": { inset: pxToRem(-3), borderRadius: "4px" },
         },
       },
       md: {
         width: pxToRem(18),
         height: pxToRem(18),
         selectors: {
-          "&::before": { inset: "-2px", borderRadius: pxToRem(2) },
-          "&::after": { inset: "-2px", borderRadius: pxToRem(2) },
+          "&::before": { inset: pxToRem(-2), borderRadius: "2px" },
+          "&::after": { inset: pxToRem(-2), borderRadius: "2px" },
         },
       },
       sm: {
         width: pxToRem(16),
         height: pxToRem(16),
         selectors: {
-          "&::before": { inset: "-2px", borderRadius: pxToRem(2) },
-          "&::after": { inset: "-2px", borderRadius: pxToRem(2) },
+          "&::before": { inset: pxToRem(-2), borderRadius: "2px" },
+          "&::after": { inset: pxToRem(-2), borderRadius: "2px" },
         },
       },
       xs: {
         width: pxToRem(14),
         height: pxToRem(14),
         selectors: {
-          "&::before": { inset: "-1px", borderRadius: pxToRem(2) },
-          "&::after": { inset: "-1px", borderRadius: pxToRem(2) },
+          "&::before": { inset: pxToRem(-1), borderRadius: "2px" },
+          "&::after": { inset: pxToRem(-1), borderRadius: "2px" },
         },
       },
       "2xs": {
         width: pxToRem(12),
         height: pxToRem(12),
         selectors: {
-          "&::before": { inset: "-1px", borderRadius: pxToRem(2) },
-          "&::after": { inset: "-1px", borderRadius: pxToRem(2) },
+          "&::before": { inset: pxToRem(-1), borderRadius: "2px" },
+          "&::after": { inset: pxToRem(-1), borderRadius: "2px" },
         },
       },
     },
