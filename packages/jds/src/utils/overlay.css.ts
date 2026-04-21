@@ -19,7 +19,6 @@ export const overlay = style({
       transition: `opacity ${vars.environment.semantic.duration[100]} ${vars.environment.semantic.motion.fluent}`,
     },
     "&[data-hovered]::after": { opacity: 0.08 },
-    "&[data-pressed]::after": { opacity: 0.12 },
-    "&[data-disabled]::after": { opacity: 0.05, transition: "none" },
+    "&[data-pressed]::after": { opacity: 0.12, transition: "none" },
   },
 });
