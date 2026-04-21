@@ -66,6 +66,10 @@
     "format": "prettier --write ."
   },
   "dependencies": {
+    "@react-aria/button": "^3.15.0",
+    "@react-aria/focus": "^3.22.0",
+    "@react-aria/interactions": "^3.28.0",
+    "@react-aria/utils": "^3.34.0",
     "radix-ui": "^1.4.3"
   },
   "devDependencies": {
@@ -76,16 +80,16 @@
     "@ject/eslint-config": "*",
     "@storybook/addon-docs": "^10.1.0",
     "@storybook/addon-onboarding": "^10.1.0",
-    "@vanilla-extract/css": "^1.20.1",
-    "@vanilla-extract/esbuild-plugin": "^2.3.22",
-    "@vanilla-extract/recipes": "^0.5.7",
-    "@vanilla-extract/vite-plugin": "^5.2.2",
     "@storybook/react-vite": "^10.1.0",
     "@svgr/cli": "^8.1.0",
     "@svgr/core": "^8.1.0",
     "@types/node": "^22.19.1",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
+    "@vanilla-extract/css": "^1.20.1",
+    "@vanilla-extract/esbuild-plugin": "^2.3.22",
+    "@vanilla-extract/recipes": "^0.5.7",
+    "@vanilla-extract/vite-plugin": "^5.2.2",
     "chromatic": "^11.25.2",
     "eslint-plugin-storybook": "^10.1.0",
     "react": "^18.3.1",
