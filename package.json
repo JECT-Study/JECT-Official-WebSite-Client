@@ -12,6 +12,8 @@
     "lint": "turbo lint",
     "preview": "turbo preview",
     "storybook": "turbo storybook",
+    "storybook:jds": "turbo storybook --filter=@jects/jds",
+    "storybook:web": "turbo storybook --filter=ject-official-website-client",
     "build-storybook": "turbo build-storybook",
     "chromatic": "turbo chromatic",
     "clean": "turbo clean && rm -rf node_modules",
