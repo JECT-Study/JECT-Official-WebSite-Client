@@ -45,7 +45,7 @@ const ToastBasic = ({ id, caption, onRemove, title, isClosing }: ToastBasicProps
           <ToastLabel as='span' toastStyle='basic' size='md' textAlign='left' weight='normal'>
             {title}
           </ToastLabel>
-          <IconButton.Basic
+          <IconButton
             icon='close-line'
             hierarchy='secondary'
             size='md'
@@ -106,7 +106,7 @@ const ToastFeedback = ({
           <ToastLabel as='span' toastStyle={variant} size='md' textAlign='left' weight='normal'>
             {title}
           </ToastLabel>
-          <IconButton.Basic
+          <IconButton
             icon='close-line'
             hierarchy='secondary'
             size='md'

@@ -62,7 +62,7 @@ export const FileItem = forwardRef<HTMLButtonElement, FileItemProps>(
               {fileSize}
             </FileSizeLabel>
             {!readonly && removeable && (
-              <IconButton.Basic
+              <IconButton
                 hierarchy='tertiary'
                 size='lg'
                 icon='close-line'

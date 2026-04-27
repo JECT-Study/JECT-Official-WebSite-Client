@@ -49,7 +49,7 @@ export const Default: Story = {
   render: args => (
     <Tooltip.Root>
       <Tooltip.Trigger>
-        <IconButton.Basic icon='information-line' />
+        <IconButton icon='information-line' />
       </Tooltip.Trigger>
       <Tooltip.Content {...args}>툴팁 테스트 레이블</Tooltip.Content>
     </Tooltip.Root>
@@ -70,7 +70,7 @@ export const AllSides: Story = {
           <Label>Top (기본값)</Label>
           <Tooltip.Root>
             <Tooltip.Trigger>
-              <IconButton.Basic icon='information-line' />
+              <IconButton icon='information-line' />
             </Tooltip.Trigger>
             <Tooltip.Content side='top'>툴팁 상단</Tooltip.Content>
           </Tooltip.Root>
@@ -80,7 +80,7 @@ export const AllSides: Story = {
           <Label>Right</Label>
           <Tooltip.Root>
             <Tooltip.Trigger>
-              <IconButton.Basic icon='information-line' />
+              <IconButton icon='information-line' />
             </Tooltip.Trigger>
             <Tooltip.Content side='right'>툴팁 우측</Tooltip.Content>
           </Tooltip.Root>
@@ -90,7 +90,7 @@ export const AllSides: Story = {
           <Label>Bottom</Label>
           <Tooltip.Root>
             <Tooltip.Trigger>
-              <IconButton.Basic icon='information-line' />
+              <IconButton icon='information-line' />
             </Tooltip.Trigger>
             <Tooltip.Content side='bottom'>툴팁 아래</Tooltip.Content>
           </Tooltip.Root>
@@ -100,7 +100,7 @@ export const AllSides: Story = {
           <Label>Left</Label>
           <Tooltip.Root>
             <Tooltip.Trigger>
-              <IconButton.Basic icon='information-line' />
+              <IconButton icon='information-line' />
             </Tooltip.Trigger>
             <Tooltip.Content side='left'>툴팁 좌측</Tooltip.Content>
           </Tooltip.Root>
@@ -201,7 +201,7 @@ export const CustomTrigger: Story = {
         <Label>Icon 버튼</Label>
         <Tooltip.Root>
           <Tooltip.Trigger>
-            <IconButton.Basic icon='alert-line' />
+            <IconButton icon='alert-line' />
           </Tooltip.Trigger>
           <Tooltip.Content>아이콘 버튼 툴팁</Tooltip.Content>
         </Tooltip.Root>
