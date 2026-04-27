@@ -1,3 +1,4 @@
+import { clsx } from "clsx";
 import { forwardRef, type Ref } from "react";
 
 import { divider } from "./divider.css";
@@ -15,7 +16,7 @@ export const Divider = forwardRef<HTMLHRElement | HTMLDivElement, DividerProps>(
     },
     ref,
   ) => {
-    const classes = [divider({ orientation, thickness, variant }), className].filter(Boolean).join(" ");
+    const classes = clsx(divider({ orientation, thickness, variant }), className);
 
     if (orientation === "vertical") {
       return (
