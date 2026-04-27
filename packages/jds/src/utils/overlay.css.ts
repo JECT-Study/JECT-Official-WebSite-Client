@@ -22,6 +22,12 @@ export const overlayPressedOpacity = createVar();
  * @description
  * hover / pressed 상태에서 ::after에 색상 overlay를 표시한다.
  *
+ * 이 유틸은 ::after를 hover / pressed overlay 전용으로 점유한다. 인터랙티브
+ * 컴포넌트의 ::after에 다른 용도(divider/arrow/shimmer 등)를 추가 점유하면
+ * overlay가 가려진다. 비인터랙티브 시각 효과는 별도 element로 표현해야 한다.
+ *
+ * @see ./PSEUDO_ELEMENT_POLICY.md — pseudo-element 자원 할당 정책
+ *
  * @requires
  * - 호출자는 element에 `position: relative`(또는 다른 positioned 값)를 부여해야 한다.
  *   ::after가 position: absolute이므로 positioned ancestor가 없으면 viewport 기준으로 잡힌다.
