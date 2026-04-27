@@ -7,7 +7,6 @@ import { focusRing } from "../../../utils/focusRing.css";
 import { overlay, overlayColor } from "../../../utils/overlay.css";
 
 /**
- * @description
  * hierarchy="accent"일 때 색상을 외부에서 덮어쓰기 위한 CSS variable
  *
  * `feedback` (positive / destructive) 같은 사용처별 프리셋은 DS 안에 두지 않고,
@@ -22,11 +21,7 @@ import { overlay, overlayColor } from "../../../utils/overlay.css";
 export const iconButtonAccentColor = createVar();
 export const iconButtonAccentDisabledColor = createVar();
 
-// `as const`로 literal narrowing 필요 — vanilla-extract의 StyleRule은
-// boxSizing/cursor 등이 literal union 타입이라 widened string은 거부됨
 const baseStyles = {
-  // overlay/focusRing의 ::before/::after를 absolute로 위치시키기 위해 호출자(여기)가 명시
-  // (outline: none은 focusRing 유틸이 자체 책임)
   position: "relative",
   display: "inline-flex",
   flexDirection: "row",
@@ -43,10 +38,6 @@ const baseStyles = {
   },
 } as const;
 
-/**
- * accent를 제외한 hierarchy(primary / secondary / tertiary)는 글자 색만 다르고
- * overlay 색상과 disabled 색상은 모두 공유한다
- */
 const neutralHierarchy = (color: string) => ({
   color,
   vars: { [overlayColor]: vars.color.semantic.interaction.normal },
@@ -70,10 +61,6 @@ type SizeKey = keyof typeof sizeVariants;
 type TapAreaShape = { inset: string; borderRadius: string };
 type PaddingGeometry = { padding: string; borderRadius: string };
 
-/**
- * condensed=true: 시각적 버튼 외경 = 아이콘 크기, ::before/::after로 탭 영역만 외부로 확장
- * (시각적 직관성 보강용)
- */
 const tapAreaInsetBySize: Record<SizeKey, TapAreaShape> = {
   "2xs": { inset: pxToRem(-1), borderRadius: vars.scheme.semantic.radius["2"] },
   xs: { inset: pxToRem(-1), borderRadius: vars.scheme.semantic.radius["2"] },
@@ -85,10 +72,6 @@ const tapAreaInsetBySize: Record<SizeKey, TapAreaShape> = {
   "3xl": { inset: pxToRem(-4), borderRadius: vars.scheme.semantic.radius["4"] },
 };
 
-/**
- * condensed=false: 아이콘 주위에 padding을 두어 버튼 외경 자체가 커짐
- * (::before/::after는 compoundVariants의 elementMatchingPseudoShape로 element 외경에 정렬)
- */
 const paddingGeometryBySize: Record<SizeKey, PaddingGeometry> = {
   "2xs": {
     padding: vars.scheme.semantic.spacing["4"],
@@ -126,43 +109,25 @@ const paddingGeometryBySize: Record<SizeKey, PaddingGeometry> = {
 
 const sizeKeys = Object.keys(sizeVariants) as SizeKey[];
 
-/**
- * condensed=false에서 ::before/::after는 element 외경(=탭 영역)을 따라간다 (size 무관)
- */
-const elementMatchingPseudoShape = { inset: 0, borderRadius: "inherit" } as const;
-
-/**
- * size × condensed 매트릭스 스타일
- * - condensed=true: padding 0 + ::before/::after에 같은 음수 inset (focus ring과 overlay 둘 다 탭 영역 공유)
- * - condensed=false: 사이즈별 padding + radius로 element 자체를 확장. ::before/::after는 element 외경을 따라감
- *
- * focus ring과 overlay가 모두 같은 shape를 공유하므로 condensed 모드에서도
- * focus ring이 *탭 영역*에 정확히 그려진다 (a11y 정합성)
- */
 const sizeCondensedCompoundVariants = [
   {
     variants: { condensed: false } as const,
     style: {
       selectors: {
-        "&::before": elementMatchingPseudoShape,
-        "&::after": elementMatchingPseudoShape,
+        "&::before, &::after": { inset: 0, borderRadius: "inherit" },
       },
     },
   },
-  ...sizeKeys.map(size => {
-    const overlayShape = tapAreaInsetBySize[size];
-    return {
-      variants: { size, condensed: true } as const,
-      style: {
-        padding: 0,
-        borderRadius: 0,
-        selectors: {
-          "&::before": overlayShape,
-          "&::after": overlayShape,
-        },
+  ...sizeKeys.map(size => ({
+    variants: { size, condensed: true } as const,
+    style: {
+      padding: 0,
+      borderRadius: 0,
+      selectors: {
+        "&::before, &::after": tapAreaInsetBySize[size],
       },
-    };
-  }),
+    },
+  })),
   ...sizeKeys.map(size => ({
     variants: { size, condensed: false } as const,
     style: paddingGeometryBySize[size],
@@ -170,6 +135,7 @@ const sizeCondensedCompoundVariants = [
 ];
 
 export const iconButton = recipe({
+  // pseudo-element 정책: ::before=focusRing, ::after=overlay (../../../utils/PSEUDO_ELEMENT_POLICY.md)
   base: [overlay, focusRing, baseStyles],
   variants: {
     hierarchy: {
@@ -193,7 +159,6 @@ export const iconButton = recipe({
     },
     size: sizeVariants,
     // size × condensed 매트릭스를 compoundVariants로 표현하기 위한 placeholder
-    // 실제 스타일은 sizeCondensedCompoundVariants에서 결정된다
     condensed: {
       true: {},
       false: {},
@@ -204,7 +169,6 @@ export const iconButton = recipe({
     hierarchy: "primary",
     size: "md",
     // TODO: Figma에 명시된 default가 없어 현재 동작(condensed=true)을 그대로 유지
-    // 디자인 결정이 내려지면 이 값을 갱신
     condensed: true,
   },
 });
