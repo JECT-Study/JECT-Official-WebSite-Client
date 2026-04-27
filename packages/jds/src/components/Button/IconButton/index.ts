@@ -1,8 +1,3 @@
 export { IconButton } from "./IconButton";
-export type {
-  IconButtonBasicProps,
-  IconButtonFeedbackProps,
-  IconButtonSize,
-  IconButtonHierarchy,
-  IconButtonIntent,
-} from "./iconButton.types";
+export { iconButtonAccentColor, iconButtonAccentDisabledColor } from "./iconButton.css";
+export type { IconButtonProps, IconButtonSize, IconButtonHierarchy } from "./iconButton.types";
