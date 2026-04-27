@@ -1,9 +1,7 @@
-import { useButton } from "@react-aria/button";
-import { useFocusRing } from "@react-aria/focus";
-import { useHover } from "@react-aria/interactions";
-import { mergeProps, useObjectRef } from "@react-aria/utils";
+import { mergeProps } from "@react-aria/utils";
 import { clsx } from "clsx";
 import type { IconButtonProps } from "components";
+import { useButtonInteractions } from "hooks";
 import { forwardRef } from "react";
 
 import { iconButton } from "./iconButton.css";
@@ -22,20 +20,13 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
     },
     forwardedRef,
   ) => {
-    const ref = useObjectRef(forwardedRef);
-    const { buttonProps, isPressed } = useButton({ isDisabled: disabled }, ref);
-    const { hoverProps, isHovered } = useHover({ isDisabled: disabled });
-    const { focusProps, isFocusVisible } = useFocusRing();
+    const { ref, buttonProps } = useButtonInteractions(forwardedRef, { isDisabled: disabled });
 
     return (
       <button
         ref={ref}
-        {...mergeProps(buttonProps, hoverProps, focusProps, restProps)}
+        {...mergeProps(buttonProps, restProps)}
         className={clsx(iconButton({ hierarchy, size, condensed }), className)}
-        data-hovered={isHovered || undefined}
-        data-pressed={isPressed || undefined}
-        data-focus-visible={isFocusVisible || undefined}
-        data-disabled={disabled || undefined}
       >
         <Icon name={icon} size={size} />
       </button>
