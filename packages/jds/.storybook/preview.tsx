@@ -1,6 +1,5 @@
 import "./index.css";
 import type { Preview } from "@storybook/react-vite";
-import React from "react";
 import { JDSThemeProvider } from "../src/theme";
 
 const preview: Preview = {
