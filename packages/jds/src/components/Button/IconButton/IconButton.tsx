@@ -15,7 +15,7 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
       size = "md",
       hierarchy = "primary",
       condensed = true,
-      disabled,
+      disabled = false,
       className,
       ...restProps
     },
