@@ -22,7 +22,12 @@ import { overlay, overlayColor } from "../../../utils/overlay.css";
 export const iconButtonAccentColor = createVar();
 export const iconButtonAccentDisabledColor = createVar();
 
+// `as const`로 literal narrowing 필요 — vanilla-extract의 StyleRule은
+// boxSizing/cursor 등이 literal union 타입이라 widened string은 거부됨
 const baseStyles = {
+  // overlay/focusRing의 ::before/::after를 absolute로 위치시키기 위해 호출자(여기)가 명시
+  // (outline: none은 focusRing 유틸이 자체 책임)
+  position: "relative",
   display: "inline-flex",
   flexDirection: "row",
   justifyContent: "center",
@@ -38,48 +43,62 @@ const baseStyles = {
   },
 } as const;
 
-const sizeVariants = {
-  "3xl": { width: pxToRem(32), height: pxToRem(32) },
-  "2xl": { width: pxToRem(28), height: pxToRem(28) },
-  xl: { width: pxToRem(24), height: pxToRem(24) },
-  lg: { width: pxToRem(20), height: pxToRem(20) },
-  md: { width: pxToRem(18), height: pxToRem(18) },
-  sm: { width: pxToRem(16), height: pxToRem(16) },
-  xs: { width: pxToRem(14), height: pxToRem(14) },
-  "2xs": { width: pxToRem(12), height: pxToRem(12) },
-} as const;
+/**
+ * accent를 제외한 hierarchy(primary / secondary / tertiary)는 글자 색만 다르고
+ * overlay 색상과 disabled 색상은 모두 공유한다
+ */
+const neutralHierarchy = (color: string) => ({
+  color,
+  vars: { [overlayColor]: vars.color.semantic.interaction.normal },
+  selectors: {
+    "&[data-disabled]": { color: vars.color.semantic.object.subtle },
+  },
+});
 
-const condensedTrueOffset: Record<
-  keyof typeof sizeVariants,
-  { inset: string; borderRadius: string }
-> = {
-  "3xl": { inset: pxToRem(-4), borderRadius: "4px" },
-  "2xl": { inset: pxToRem(-4), borderRadius: "4px" },
-  xl: { inset: pxToRem(-3), borderRadius: "4px" },
-  lg: { inset: pxToRem(-3), borderRadius: "4px" },
-  md: { inset: pxToRem(-2), borderRadius: "2px" },
-  sm: { inset: pxToRem(-2), borderRadius: "2px" },
-  xs: { inset: pxToRem(-1), borderRadius: "2px" },
-  "2xs": { inset: pxToRem(-1), borderRadius: "2px" },
+const sizeVariants = {
+  "2xs": { width: pxToRem(12), height: pxToRem(12) },
+  xs: { width: pxToRem(14), height: pxToRem(14) },
+  sm: { width: pxToRem(16), height: pxToRem(16) },
+  md: { width: pxToRem(18), height: pxToRem(18) },
+  lg: { width: pxToRem(20), height: pxToRem(20) },
+  xl: { width: pxToRem(24), height: pxToRem(24) },
+  "2xl": { width: pxToRem(28), height: pxToRem(28) },
+  "3xl": { width: pxToRem(32), height: pxToRem(32) },
 };
 
-const condensedFalseGeometry: Record<
-  keyof typeof sizeVariants,
-  { padding: string; borderRadius: string }
-> = {
-  "3xl": {
-    padding: vars.scheme.semantic.spacing["8"],
-    borderRadius: vars.scheme.semantic.radius["6"],
+type SizeKey = keyof typeof sizeVariants;
+type OverlayShape = { inset: string; borderRadius: string };
+type PaddingGeometry = { padding: string; borderRadius: string };
+
+/**
+ * condensed=true: 시각적 버튼 외경 = 아이콘 크기, ::before/::after로 탭 영역만 외부로 확장
+ * (시각적 직관성 보강용)
+ */
+const tapAreaInsetBySize: Record<SizeKey, OverlayShape> = {
+  "2xs": { inset: pxToRem(-1), borderRadius: vars.scheme.semantic.radius["2"] },
+  xs: { inset: pxToRem(-1), borderRadius: vars.scheme.semantic.radius["2"] },
+  sm: { inset: pxToRem(-2), borderRadius: vars.scheme.semantic.radius["2"] },
+  md: { inset: pxToRem(-2), borderRadius: vars.scheme.semantic.radius["2"] },
+  lg: { inset: pxToRem(-3), borderRadius: vars.scheme.semantic.radius["4"] },
+  xl: { inset: pxToRem(-3), borderRadius: vars.scheme.semantic.radius["4"] },
+  "2xl": { inset: pxToRem(-4), borderRadius: vars.scheme.semantic.radius["4"] },
+  "3xl": { inset: pxToRem(-4), borderRadius: vars.scheme.semantic.radius["4"] },
+};
+
+/**
+ * condensed=false: 아이콘 주위에 padding을 두어 버튼 외경 자체가 커짐
+ * 인터랙션은 버튼 외경에 맞춤 (overlay/focusRing이 borderRadius: inherit로 자동 매칭)
+ */
+const paddingGeometryBySize: Record<SizeKey, PaddingGeometry> = {
+  "2xs": {
+    padding: vars.scheme.semantic.spacing["4"],
+    borderRadius: vars.scheme.semantic.radius["4"],
   },
-  "2xl": {
-    padding: vars.scheme.semantic.spacing["8"],
-    borderRadius: vars.scheme.semantic.radius["6"],
+  xs: {
+    padding: vars.scheme.semantic.spacing["4"],
+    borderRadius: vars.scheme.semantic.radius["4"],
   },
-  xl: {
-    padding: vars.scheme.semantic.spacing["6"],
-    borderRadius: vars.scheme.semantic.radius["6"],
-  },
-  lg: {
+  sm: {
     padding: vars.scheme.semantic.spacing["6"],
     borderRadius: vars.scheme.semantic.radius["4"],
   },
@@ -87,46 +106,66 @@ const condensedFalseGeometry: Record<
     padding: vars.scheme.semantic.spacing["6"],
     borderRadius: vars.scheme.semantic.radius["4"],
   },
-  sm: {
+  lg: {
     padding: vars.scheme.semantic.spacing["6"],
     borderRadius: vars.scheme.semantic.radius["4"],
   },
-  xs: {
-    padding: vars.scheme.semantic.spacing["4"],
-    borderRadius: vars.scheme.semantic.radius["4"],
+  xl: {
+    padding: vars.scheme.semantic.spacing["6"],
+    borderRadius: vars.scheme.semantic.radius["6"],
   },
-  "2xs": {
-    padding: vars.scheme.semantic.spacing["4"],
-    borderRadius: vars.scheme.semantic.radius["4"],
+  "2xl": {
+    padding: vars.scheme.semantic.spacing["8"],
+    borderRadius: vars.scheme.semantic.radius["6"],
+  },
+  "3xl": {
+    padding: vars.scheme.semantic.spacing["8"],
+    borderRadius: vars.scheme.semantic.radius["6"],
   },
 };
 
-const sizeKeys = Object.keys(sizeVariants) as (keyof typeof sizeVariants)[];
+const sizeKeys = Object.keys(sizeVariants) as SizeKey[];
 
-const condensedCompoundVariants = [
-  ...sizeKeys.map(size => ({
-    variants: { size, condensed: true } as const,
+/**
+ * condensed=false에서 ::before/::after는 element 외경(=탭 영역)을 따라간다 (size 무관)
+ */
+const elementMatchingPseudoShape = { inset: 0, borderRadius: "inherit" } as const;
+
+/**
+ * size × condensed 매트릭스 스타일
+ * - condensed=true: padding 0 + ::before/::after에 같은 음수 inset (focus ring과 overlay 둘 다 탭 영역 공유)
+ * - condensed=false: 사이즈별 padding + radius로 element 자체를 확장. ::before/::after는 element 외경을 따라감
+ *
+ * focus ring과 overlay가 모두 같은 shape를 공유하므로 condensed 모드에서도
+ * focus ring이 *탭 영역*에 정확히 그려진다 (a11y 정합성)
+ */
+const sizeCondensedCompoundVariants = [
+  {
+    variants: { condensed: false } as const,
     style: {
-      padding: 0,
-      borderRadius: 0,
       selectors: {
-        "&::before": {
-          inset: condensedTrueOffset[size].inset,
-          borderRadius: condensedTrueOffset[size].borderRadius,
-        },
-        "&::after": {
-          inset: condensedTrueOffset[size].inset,
-          borderRadius: condensedTrueOffset[size].borderRadius,
-        },
+        "&::before": elementMatchingPseudoShape,
+        "&::after": elementMatchingPseudoShape,
       },
     },
-  })),
+  },
+  ...sizeKeys.map(size => {
+    const overlayShape = tapAreaInsetBySize[size];
+    return {
+      variants: { size, condensed: true } as const,
+      style: {
+        padding: 0,
+        borderRadius: 0,
+        selectors: {
+          "&::before": overlayShape,
+          "&::after": overlayShape,
+        },
+      },
+    };
+  }),
   ...sizeKeys.map(size => ({
     variants: { size, condensed: false } as const,
-    style: {
-      padding: condensedFalseGeometry[size].padding,
-      borderRadius: condensedFalseGeometry[size].borderRadius,
-    },
+    style: paddingGeometryBySize[size],
   })),
 ];
 
@@ -148,35 +187,19 @@ export const iconButton = recipe({
           },
         },
       },
-      primary: {
-        color: vars.color.semantic.object.boldest,
-        vars: { [overlayColor]: vars.color.semantic.interaction.normal },
-        selectors: {
-          "&[data-disabled]": { color: vars.color.semantic.object.subtle },
-        },
-      },
-      secondary: {
-        color: vars.color.semantic.object.neutral,
-        vars: { [overlayColor]: vars.color.semantic.interaction.normal },
-        selectors: {
-          "&[data-disabled]": { color: vars.color.semantic.object.subtle },
-        },
-      },
-      tertiary: {
-        color: vars.color.semantic.object.alternative,
-        vars: { [overlayColor]: vars.color.semantic.interaction.normal },
-        selectors: {
-          "&[data-disabled]": { color: vars.color.semantic.object.subtle },
-        },
-      },
+      primary: neutralHierarchy(vars.color.semantic.object.boldest),
+      secondary: neutralHierarchy(vars.color.semantic.object.neutral),
+      tertiary: neutralHierarchy(vars.color.semantic.object.alternative),
     },
     size: sizeVariants,
+    // size × condensed 매트릭스를 compoundVariants로 표현하기 위한 placeholder
+    // 실제 스타일은 sizeCondensedCompoundVariants에서 결정된다
     condensed: {
       true: {},
       false: {},
     },
   },
-  compoundVariants: condensedCompoundVariants,
+  compoundVariants: sizeCondensedCompoundVariants,
   defaultVariants: {
     hierarchy: "primary",
     size: "md",
