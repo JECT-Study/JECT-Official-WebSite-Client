@@ -67,14 +67,14 @@ const sizeVariants = {
 };
 
 type SizeKey = keyof typeof sizeVariants;
-type OverlayShape = { inset: string; borderRadius: string };
+type TapAreaShape = { inset: string; borderRadius: string };
 type PaddingGeometry = { padding: string; borderRadius: string };
 
 /**
  * condensed=true: 시각적 버튼 외경 = 아이콘 크기, ::before/::after로 탭 영역만 외부로 확장
  * (시각적 직관성 보강용)
  */
-const tapAreaInsetBySize: Record<SizeKey, OverlayShape> = {
+const tapAreaInsetBySize: Record<SizeKey, TapAreaShape> = {
   "2xs": { inset: pxToRem(-1), borderRadius: vars.scheme.semantic.radius["2"] },
   xs: { inset: pxToRem(-1), borderRadius: vars.scheme.semantic.radius["2"] },
   sm: { inset: pxToRem(-2), borderRadius: vars.scheme.semantic.radius["2"] },
@@ -87,7 +87,7 @@ const tapAreaInsetBySize: Record<SizeKey, OverlayShape> = {
 
 /**
  * condensed=false: 아이콘 주위에 padding을 두어 버튼 외경 자체가 커짐
- * 인터랙션은 버튼 외경에 맞춤 (overlay/focusRing이 borderRadius: inherit로 자동 매칭)
+ * (::before/::after는 compoundVariants의 elementMatchingPseudoShape로 element 외경에 정렬)
  */
 const paddingGeometryBySize: Record<SizeKey, PaddingGeometry> = {
   "2xs": {
