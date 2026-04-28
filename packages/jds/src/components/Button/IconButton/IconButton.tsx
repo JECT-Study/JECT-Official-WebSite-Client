@@ -4,7 +4,7 @@ import type { IconButtonProps } from "components";
 import { useButtonInteractions } from "hooks";
 import { forwardRef } from "react";
 
-import { iconButton } from "./iconButton.css";
+import * as styles from "./iconButton.css";
 import { Icon } from "../../Icon";
 
 export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
@@ -16,19 +16,22 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
       condensed = true,
       disabled = false,
       className,
+      style,
       ...restProps
     },
     forwardedRef,
   ) => {
-    const { ref, buttonProps } = useButtonInteractions(forwardedRef, { isDisabled: disabled });
+    const { ref, buttonProps } = useButtonInteractions(forwardedRef, { disabled });
 
     return (
       <button
         ref={ref}
         {...mergeProps(buttonProps, restProps)}
-        className={clsx(iconButton({ hierarchy, size, condensed }), className)}
+        data-part='root'
+        style={style}
+        className={clsx(styles.root({ hierarchy, size, condensed }), className)}
       >
-        <Icon name={icon} size={size} />
+        <Icon name={icon} size={size} className={styles.icon} />
       </button>
     );
   },
