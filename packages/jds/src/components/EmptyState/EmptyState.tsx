@@ -48,7 +48,7 @@ export const EmptyState = forwardRef<HTMLDivElement, EmptyStateProps>(
 
     return (
       <EmptyStateRoot ref={ref} $variant={variant} $layout={layout} {...rest}>
-        {icon && <Icon name={icon} size='3xl' aria-hidden='true' focusable={false} />}
+        {icon && <Icon name={icon} size='3xl' aria-hidden='true' />}
         <EmptyStateContentDiv $layout={layout}>
           <EmptyStateLabel weight='bold' textAlign='center'>
             {header}

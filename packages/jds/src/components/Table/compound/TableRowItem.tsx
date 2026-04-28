@@ -42,7 +42,7 @@ const CodeContent = ({ children }: Pick<TableRowItemBaseProps, "children">) => (
 
 const LabelContent = ({ children, prefixIcon, color }: Omit<TableRowItemLabelProps, "variant">) => (
   <StyledTableItemTitle>
-    {prefixIcon && <Icon name={prefixIcon} size='sm' aria-hidden='true' focusable={false} />}
+    {prefixIcon && <Icon name={prefixIcon} size='sm' aria-hidden='true' />}
     {color && <ColorChip color={color} />}
     <Label weight='bold'>{children}</Label>
   </StyledTableItemTitle>
