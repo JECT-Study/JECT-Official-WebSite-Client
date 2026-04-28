@@ -5,16 +5,16 @@ import { mergeProps, useObjectRef } from "@react-aria/utils";
 import type { ForwardedRef } from "react";
 
 interface UseButtonInteractionsOptions {
-  isDisabled?: boolean;
+  disabled?: boolean;
 }
 
 export function useButtonInteractions<T extends HTMLElement>(
   forwardedRef: ForwardedRef<T>,
-  { isDisabled = false }: UseButtonInteractionsOptions = {},
+  { disabled = false }: UseButtonInteractionsOptions = {},
 ) {
   const ref = useObjectRef(forwardedRef);
-  const { buttonProps, isPressed } = useButton({ isDisabled }, ref);
-  const { hoverProps, isHovered } = useHover({ isDisabled });
+  const { buttonProps, isPressed } = useButton({ isDisabled: disabled }, ref);
+  const { hoverProps, isHovered } = useHover({ isDisabled: disabled });
   const { focusProps, isFocusVisible } = useFocusRing();
 
   return {
@@ -24,7 +24,7 @@ export function useButtonInteractions<T extends HTMLElement>(
       "data-hovered": isHovered || undefined,
       "data-pressed": isPressed || undefined,
       "data-focus-visible": isFocusVisible || undefined,
-      "data-disabled": isDisabled || undefined,
+      "data-disabled": disabled || undefined,
     },
   };
 }
