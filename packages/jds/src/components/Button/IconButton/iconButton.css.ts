@@ -1,10 +1,12 @@
-import { createVar, fallbackVar } from "@vanilla-extract/css";
+import { createVar, fallbackVar, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
 import { vars } from "../../../tokens/vars.css";
 import { pxToRem } from "../../../utils/cssUnit";
 import { focusRing } from "../../../utils/focusRing.css";
 import { overlay, overlayColor } from "../../../utils/overlay.css";
+
+const iconButtonIconColor = createVar();
 
 /**
  * hierarchy="accent"일 때 색상을 외부에서 덮어쓰기 위한 CSS variable
@@ -39,10 +41,14 @@ const baseStyles = {
 } as const;
 
 const neutralHierarchy = (color: string) => ({
-  color,
-  vars: { [overlayColor]: vars.color.semantic.interaction.normal },
+  vars: {
+    [iconButtonIconColor]: color,
+    [overlayColor]: vars.color.semantic.interaction.normal,
+  },
   selectors: {
-    "&[data-disabled]": { color: vars.color.semantic.object.subtle },
+    "&[data-disabled]": {
+      vars: { [iconButtonIconColor]: vars.color.semantic.object.subtle },
+    },
   },
 });
 
@@ -107,18 +113,12 @@ const paddingGeometryBySize: Record<SizeKey, PaddingGeometry> = {
   },
 };
 
+const elementMatchingPseudoShape = { inset: 0, borderRadius: "inherit" } as const;
+
 const sizeKeys = Object.keys(sizeVariants) as SizeKey[];
 
-const sizeCondensedCompoundVariants = [
+const sizeCondensedCompoundVariants = sizeKeys.flatMap(size => [
   {
-    variants: { condensed: false } as const,
-    style: {
-      selectors: {
-        "&::before, &::after": { inset: 0, borderRadius: "inherit" },
-      },
-    },
-  },
-  ...sizeKeys.map(size => ({
     variants: { size, condensed: true } as const,
     style: {
       padding: 0,
@@ -127,29 +127,39 @@ const sizeCondensedCompoundVariants = [
         "&::before, &::after": tapAreaInsetBySize[size],
       },
     },
-  })),
-  ...sizeKeys.map(size => ({
+  },
+  {
     variants: { size, condensed: false } as const,
-    style: paddingGeometryBySize[size],
-  })),
-];
+    style: {
+      ...paddingGeometryBySize[size],
+      selectors: {
+        "&::before, &::after": elementMatchingPseudoShape,
+      },
+    },
+  },
+]);
 
-export const iconButton = recipe({
+export const root = recipe({
   // pseudo-element 정책: ::before=focusRing, ::after=overlay (../../../utils/PSEUDO_ELEMENT_POLICY.md)
   base: [overlay, focusRing, baseStyles],
   variants: {
     hierarchy: {
       accent: {
-        color: fallbackVar(iconButtonAccentColor, vars.color.semantic.accent.normal),
         vars: {
+          [iconButtonIconColor]: fallbackVar(
+            iconButtonAccentColor,
+            vars.color.semantic.accent.normal,
+          ),
           [overlayColor]: fallbackVar(iconButtonAccentColor, vars.color.semantic.accent.normal),
         },
         selectors: {
           "&[data-disabled]": {
-            color: fallbackVar(
-              iconButtonAccentDisabledColor,
-              vars.color.semantic.accent.alpha.subtle,
-            ),
+            vars: {
+              [iconButtonIconColor]: fallbackVar(
+                iconButtonAccentDisabledColor,
+                vars.color.semantic.accent.alpha.subtle,
+              ),
+            },
           },
         },
       },
@@ -158,7 +168,8 @@ export const iconButton = recipe({
       tertiary: neutralHierarchy(vars.color.semantic.object.alternative),
     },
     size: sizeVariants,
-    // size × condensed 매트릭스를 compoundVariants로 표현하기 위한 placeholder
+    // recipe API 한계: variant를 선언해야 compoundVariants에서 매치 가능
+    // 실제 스타일은 sizeCondensedCompoundVariants에서 size × condensed로 결정
     condensed: {
       true: {},
       false: {},
@@ -171,4 +182,8 @@ export const iconButton = recipe({
     // TODO: Figma에 명시된 default가 없어 현재 동작(condensed=true)을 그대로 유지
     condensed: true,
   },
+});
+
+export const icon = style({
+  color: iconButtonIconColor,
 });
