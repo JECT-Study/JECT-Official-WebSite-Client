@@ -11,12 +11,7 @@ export const Icon = forwardRef<HTMLSpanElement, IconProps>(
     const pixelSize = sizeMap[size];
 
     return (
-      <span
-        ref={ref}
-        {...props}
-        data-part='icon'
-        className={clsx(iconWrapper, className)}
-      >
+      <span ref={ref} {...props} data-part='icon' className={clsx(iconWrapper, className)}>
         <IconComponent width={pixelSize} height={pixelSize} />
       </span>
     );
