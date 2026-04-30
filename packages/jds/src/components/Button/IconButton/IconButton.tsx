@@ -16,7 +16,6 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
       condensed = true,
       disabled = false,
       className,
-      style,
       ...restProps
     },
     forwardedRef,
@@ -28,7 +27,6 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
         ref={ref}
         {...mergeProps(buttonProps, restProps)}
         data-part='root'
-        style={style}
         className={clsx(styles.root({ hierarchy, size, condensed }), className)}
       >
         <Icon name={icon} size={size} className={styles.icon} />
