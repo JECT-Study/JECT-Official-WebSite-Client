@@ -1,6 +1,11 @@
 import { createVar, fallbackVar, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
+import {
+  ICON_BUTTON_SIZE_OPTIONS,
+  type IconButtonHierarchy,
+  type IconButtonSize,
+} from "./iconButton.types";
 import { vars } from "../../../tokens/vars.css";
 import { pxToRem } from "../../../utils/cssUnit";
 import { focusRing } from "../../../utils/focusRing.css";
@@ -52,7 +57,7 @@ const neutralHierarchy = (color: string) => ({
   },
 });
 
-const sizeVariants = {
+const sizeVariants: Record<IconButtonSize, { width: string; height: string }> = {
   "2xs": { width: pxToRem(12), height: pxToRem(12) },
   xs: { width: pxToRem(14), height: pxToRem(14) },
   sm: { width: pxToRem(16), height: pxToRem(16) },
@@ -63,11 +68,10 @@ const sizeVariants = {
   "3xl": { width: pxToRem(32), height: pxToRem(32) },
 };
 
-type SizeKey = keyof typeof sizeVariants;
 type TapAreaShape = { inset: string; borderRadius: string };
 type PaddingGeometry = { padding: string; borderRadius: string };
 
-const tapAreaInsetBySize: Record<SizeKey, TapAreaShape> = {
+const tapAreaInsetBySize: Record<IconButtonSize, TapAreaShape> = {
   "2xs": { inset: pxToRem(-1), borderRadius: vars.scheme.semantic.radius["2"] },
   xs: { inset: pxToRem(-1), borderRadius: vars.scheme.semantic.radius["2"] },
   sm: { inset: pxToRem(-2), borderRadius: vars.scheme.semantic.radius["2"] },
@@ -78,7 +82,7 @@ const tapAreaInsetBySize: Record<SizeKey, TapAreaShape> = {
   "3xl": { inset: pxToRem(-4), borderRadius: vars.scheme.semantic.radius["4"] },
 };
 
-const paddingGeometryBySize: Record<SizeKey, PaddingGeometry> = {
+const paddingGeometryBySize: Record<IconButtonSize, PaddingGeometry> = {
   "2xs": {
     padding: vars.scheme.semantic.spacing["4"],
     borderRadius: vars.scheme.semantic.radius["4"],
@@ -115,9 +119,7 @@ const paddingGeometryBySize: Record<SizeKey, PaddingGeometry> = {
 
 const elementMatchingPseudoShape = { inset: 0, borderRadius: "inherit" } as const;
 
-const sizeKeys = Object.keys(sizeVariants) as SizeKey[];
-
-const sizeCondensedCompoundVariants = sizeKeys.flatMap(size => [
+const sizeCondensedCompoundVariants = ICON_BUTTON_SIZE_OPTIONS.flatMap(size => [
   {
     variants: { size, condensed: true } as const,
     style: {
@@ -166,7 +168,7 @@ export const root = recipe({
       primary: neutralHierarchy(vars.color.semantic.object.boldest),
       secondary: neutralHierarchy(vars.color.semantic.object.neutral),
       tertiary: neutralHierarchy(vars.color.semantic.object.alternative),
-    },
+    } satisfies Record<IconButtonHierarchy, unknown>,
     size: sizeVariants,
     // recipe API 한계: variant를 선언해야 compoundVariants에서 매치 가능
     // 실제 스타일은 sizeCondensedCompoundVariants에서 size × condensed로 결정

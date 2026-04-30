@@ -1,6 +1,13 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexRow, FlexColumn, Label } from "@storybook-utils/layout";
-import { IconButton } from "components";
+import {
+  ICON_BUTTON_HIERARCHY_OPTIONS,
+  ICON_BUTTON_SIZE_OPTIONS,
+  IconButton,
+  type IconButtonSize,
+} from "components";
+
+const MATRIX_SIZE_OPTIONS = ["sm", "md", "xl"] as const satisfies readonly IconButtonSize[];
 
 const meta = {
   title: "Components/IconButton",
@@ -15,12 +22,12 @@ const meta = {
     },
     hierarchy: {
       control: "select",
-      options: ["accent", "primary", "secondary", "tertiary"],
+      options: ICON_BUTTON_HIERARCHY_OPTIONS,
       description: "버튼의 시각적 맥락적 위계 구분",
     },
     size: {
       control: "select",
-      options: ["2xs", "xs", "sm", "md", "lg", "xl", "2xl", "3xl"],
+      options: ICON_BUTTON_SIZE_OPTIONS,
       description: "컴포넌트의 크기",
     },
     condensed: {
@@ -111,10 +118,10 @@ export const HierarchyWithSizes: Story = {
   args: { icon: "check-line" },
   render: () => (
     <FlexColumn>
-      {(["accent", "primary", "secondary", "tertiary"] as const).map(hierarchy => (
+      {ICON_BUTTON_HIERARCHY_OPTIONS.map(hierarchy => (
         <FlexRow key={hierarchy}>
           <Label>{hierarchy}:</Label>
-          {(["sm", "md", "xl"] as const).map(size => (
+          {MATRIX_SIZE_OPTIONS.map(size => (
             <IconButton
               key={size}
               icon='check-line'
