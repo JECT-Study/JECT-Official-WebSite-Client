@@ -1,7 +1,7 @@
 import { mergeProps } from "@react-aria/utils";
 import { clsx } from "clsx";
 import type { IconButtonProps } from "components";
-import { useButtonInteractions } from "hooks";
+import { usePressable } from "hooks";
 import { forwardRef } from "react";
 
 import * as styles from "./iconButton.css";
@@ -20,7 +20,7 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
     },
     forwardedRef,
   ) => {
-    const { ref, buttonProps } = useButtonInteractions(forwardedRef, { disabled });
+    const { ref, buttonProps } = usePressable(forwardedRef, { disabled });
 
     return (
       <button

@@ -4,13 +4,13 @@ import { useHover } from "@react-aria/interactions";
 import { mergeProps, useObjectRef } from "@react-aria/utils";
 import type { ForwardedRef } from "react";
 
-interface UseButtonInteractionsOptions {
+interface UsePressableOptions {
   disabled?: boolean;
 }
 
-export function useButtonInteractions<T extends HTMLElement>(
+export function usePressable<T extends HTMLElement>(
   forwardedRef: ForwardedRef<T>,
-  { disabled = false }: UseButtonInteractionsOptions = {},
+  { disabled = false }: UsePressableOptions = {},
 ) {
   const ref = useObjectRef(forwardedRef);
   const { buttonProps, isPressed } = useButton({ isDisabled: disabled }, ref);
