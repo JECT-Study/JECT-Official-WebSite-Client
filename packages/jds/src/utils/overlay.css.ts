@@ -26,6 +26,10 @@ export const overlayPressedOpacity = createVar();
  * 컴포넌트의 ::after에 다른 용도(divider/arrow/shimmer 등)를 추가 점유하면
  * overlay가 가려진다. 비인터랙티브 시각 효과는 별도 element로 표현해야 한다.
  *
+ * `data-disabled`가 있으면 overlay는 표시되지 않는다. 정책의 구현체로서 utility가
+ * 직접 강제 — 호출자가 `usePressable`을 안 쓰는 경로에서도 disabled element에
+ * overlay가 새지 않는다.
+ *
  * @see ./PSEUDO_ELEMENT_POLICY.md — pseudo-element 자원 할당 정책
  *
  * @requires
@@ -33,6 +37,8 @@ export const overlayPressedOpacity = createVar();
  *   ::after가 position: absolute이므로 positioned ancestor가 없으면 viewport 기준으로 잡힌다.
  * - 호출자는 `&::after`에 inset과 borderRadius를 직접 지정해야 한다.
  *   shape는 컴포넌트 컨텍스트에 따라 다르므로 이 유틸이 가정하지 않는다.
+ * - disabled 상태를 표시할 때는 element에 `data-disabled` 속성을 부여한다 — utility가
+ *   이 속성을 보고 overlay를 차단한다 (`usePressable`은 자동으로 부여).
  *
  * @example
  *   // 케이스 1: 시각 영역 = 탭 영역인 일반 컴포넌트
@@ -56,10 +62,10 @@ export const overlay = style({
       opacity: 0,
       transition: `opacity ${vars.environment.semantic.duration[100]} ${vars.environment.semantic.motion.fluent}`,
     },
-    "&[data-hovered]::after": {
+    "&[data-hovered]:not([data-disabled])::after": {
       opacity: fallbackVar(overlayHoverOpacity, "0.08"),
     },
-    "&[data-pressed]::after": {
+    "&[data-pressed]:not([data-disabled])::after": {
       opacity: fallbackVar(overlayPressedOpacity, "0.12"),
       // pressed는 즉각 반응이 자연스러워 transition을 끈다
       transition: "none",

@@ -104,13 +104,16 @@ export const focusRing = style({
 export const overlay = style({
   selectors: {
     "&::after": { content: '""', position: "absolute", pointerEvents: "none", ... },
-    "&[data-hovered]::after": { ... },
-    "&[data-pressed]::after": { ... },
+    // disabled 상태는 utility가 직접 차단 — 호출자가 잊어도 새지 않음
+    "&[data-hovered]:not([data-disabled])::after": { ... },
+    "&[data-pressed]:not([data-disabled])::after": { ... },
   },
 });
 ```
 
 컴포넌트 작성자가 같은 element의 ::before에 다른 용도를 추가하려 하면 시각적 버그가 즉시 드러난다. 컴파일 타임 검출은 아니지만, 런타임에 빠르게 보인다.
+
+**disabled 상태도 utility 책임이다.** `usePressable`이 `data-disabled`를 자동 부여하지만, hook 없이 `overlay`만 합성하는 경로에서도 disabled element에 overlay가 새지 않도록 utility 자체가 `:not([data-disabled])`로 차단한다. 호출자가 `data-disabled`만 element에 부여하면 끝 — overlay 차단 로직은 사용처마다 반복할 필요 없다.
 
 ## 호출자가 책임지는 것
 
