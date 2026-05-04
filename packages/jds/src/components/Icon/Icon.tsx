@@ -1,21 +1,19 @@
-import { type ElementRef, forwardRef } from "react";
+import { clsx } from "clsx";
+import { forwardRef } from "react";
 
-import { StyledIconWrapper } from "./Icon.styles";
+import { iconWrapper } from "./Icon.css";
 import type { IconProps } from "./Icon.types";
 import { iconMap, sizeMap } from "./IconMap";
 
-export const Icon = forwardRef<ElementRef<typeof StyledIconWrapper>, IconProps>(
-  ({ name, size = "md", color = "currentColor", ...props }, ref) => {
+export const Icon = forwardRef<HTMLSpanElement, IconProps>(
+  ({ name, size = "md", className, ...props }, ref) => {
     const IconComponent = iconMap[name];
-
-    if (!IconComponent) return null;
-
     const pixelSize = sizeMap[size];
 
     return (
-      <StyledIconWrapper ref={ref}>
-        <IconComponent width={pixelSize} height={pixelSize} color={color} {...props} />
-      </StyledIconWrapper>
+      <span ref={ref} {...props} data-part='icon' className={clsx(iconWrapper, className)}>
+        <IconComponent width={pixelSize} height={pixelSize} />
+      </span>
     );
   },
 );

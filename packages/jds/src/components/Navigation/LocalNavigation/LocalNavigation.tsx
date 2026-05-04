@@ -32,7 +32,7 @@ const LocalNavigationBackButton = forwardRef<HTMLButtonElement, LocalNavigationB
     const buttonSize = isMobile ? "lg" : "xl";
 
     return (
-      <IconButton.Basic
+      <IconButton
         ref={ref}
         icon='arrow-left-line'
         hierarchy='primary'

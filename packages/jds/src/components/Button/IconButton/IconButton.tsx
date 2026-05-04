@@ -1,52 +1,38 @@
-import type { IconButtonBasicProps, IconButtonFeedbackProps } from "components";
+import { mergeProps } from "@react-aria/utils";
+import { clsx } from "clsx";
+import type { IconButtonProps } from "components";
+import { usePressable } from "hooks";
 import { forwardRef } from "react";
 
-import { StyledIconButton, getIconSizeForButton } from "./iconButton.styles";
+import * as styles from "./iconButton.css";
 import { Icon } from "../../Icon";
 
-const IconButtonBasic = forwardRef<HTMLButtonElement, IconButtonBasicProps>(
-  ({ icon, size = "md", hierarchy = "primary", disabled = false, ...restProps }, ref) => {
-    const iconSize = getIconSizeForButton(size);
+export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
+  (
+    {
+      icon,
+      size = "md",
+      hierarchy = "primary",
+      condensed = true,
+      disabled = false,
+      className,
+      ...restProps
+    },
+    forwardedRef,
+  ) => {
+    const { ref, pressableProps } = usePressable(forwardedRef, { disabled });
 
     return (
-      <StyledIconButton
+      <button
         ref={ref}
-        $hierarchy={hierarchy}
-        $size={size}
-        $disabled={disabled}
-        disabled={disabled}
-        {...restProps}
+        {...mergeProps(pressableProps, restProps)}
+        data-part='root'
+        className={clsx(styles.root({ hierarchy, size, condensed }), className)}
       >
-        <Icon name={icon} size={iconSize} />
-      </StyledIconButton>
+        <Icon name={icon} size={size} className={styles.icon} />
+      </button>
     );
   },
 );
 
-IconButtonBasic.displayName = "IconButton.Basic";
-
-const IconButtonFeedback = forwardRef<HTMLButtonElement, IconButtonFeedbackProps>(
-  ({ icon, size = "md", intent = "destructive", disabled = false, ...restProps }, ref) => {
-    const iconSize = getIconSizeForButton(size);
-
-    return (
-      <StyledIconButton
-        ref={ref}
-        $intent={intent}
-        $size={size}
-        $disabled={disabled}
-        disabled={disabled}
-        {...restProps}
-      >
-        <Icon name={icon} size={iconSize} />
-      </StyledIconButton>
-    );
-  },
-);
-
-IconButtonFeedback.displayName = "IconButton.Feedback";
-
-export const IconButton = {
-  Basic: IconButtonBasic,
-  Feedback: IconButtonFeedback,
-};
+IconButton.displayName = "IconButton";

@@ -24,7 +24,7 @@ export const WithCustomColor: Story = {
   args: {
     name: "heart-3-fill",
     size: "3xl",
-    color: "#ff0000",
+    style: { color: "#ff0000" },
   },
 };
 

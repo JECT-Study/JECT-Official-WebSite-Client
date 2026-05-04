@@ -78,7 +78,7 @@ const SnackbarBasic = ({
           <SnackbarLabel snackbarStyle='basic' size='md' textAlign='left' weight='normal'>
             {title}
           </SnackbarLabel>
-          <IconButton.Basic
+          <IconButton
             icon='close-line'
             hierarchy='secondary'
             size='md'
@@ -145,7 +145,7 @@ const SnackbarFeedback = ({
           <SnackbarLabel snackbarStyle={variant} size='md' textAlign='left' weight='normal'>
             {title}
           </SnackbarLabel>
-          <IconButton.Basic
+          <IconButton
             icon='close-line'
             hierarchy='secondary'
             size='md'

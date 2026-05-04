@@ -35,7 +35,7 @@ export const Default: Story = {
   render: args => (
     <Menu.Root {...args}>
       <Menu.Trigger>
-        <IconButton.Basic icon='menu-line' />
+        <IconButton icon='menu-line' />
       </Menu.Trigger>
       <Menu.Content side='right' align='start' sideOffset={10}>
         <Menu.Category>카테고리</Menu.Category>
@@ -67,7 +67,7 @@ export const MenuStyles: Story = {
       <Label>solid style</Label>
       <Menu.Root menuStyle='solid'>
         <Menu.Trigger>
-          <IconButton.Basic icon='menu-line' />
+          <IconButton icon='menu-line' />
         </Menu.Trigger>
         <Menu.Content align='end'>
           <Menu.Category>카테고리</Menu.Category>
@@ -84,7 +84,7 @@ export const MenuStyles: Story = {
       <Label>empty style</Label>
       <Menu.Root menuStyle='empty'>
         <Menu.Trigger>
-          <IconButton.Basic icon='menu-line' />
+          <IconButton icon='menu-line' />
         </Menu.Trigger>
         <Menu.Content align='start' sideOffset={10}>
           <Menu.Category>카테고리</Menu.Category>

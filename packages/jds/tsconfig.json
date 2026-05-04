@@ -24,6 +24,7 @@
     "baseUrl": "src",
     "paths": {
       "components": ["components/index"],
+      "hooks": ["hooks/index"],
       "style": ["style/index"],
       "theme": ["theme/index"],
       "tokens": ["tokens/index"],

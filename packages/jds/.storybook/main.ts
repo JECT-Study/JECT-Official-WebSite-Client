@@ -1,15 +1,15 @@
-// This file has been automatically migrated to valid ESM format by Storybook.
-import { fileURLToPath } from "node:url";
 import { createRequire } from "node:module";
+import { fileURLToPath } from "node:url";
 import type { StorybookConfig } from "@storybook/react-vite";
-import { resolve, dirname, join } from "path";
+import { dirname, join, resolve } from "path";
 
 import { vanillaExtractPlugin } from "@vanilla-extract/vite-plugin";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
+const __dirname = dirname(fileURLToPath(import.meta.url));
 const require = createRequire(import.meta.url);
+
+const getAbsolutePath = (value: string): string =>
+  dirname(require.resolve(join(value, "package.json")));
 
 const config: StorybookConfig = {
   stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
@@ -31,6 +31,7 @@ const config: StorybookConfig = {
     config.resolve.alias = {
       ...config.resolve.alias,
       components: resolve(__dirname, "../src/components"),
+      hooks: resolve(__dirname, "../src/hooks"),
       style: resolve(__dirname, "../src/style"),
       theme: resolve(__dirname, "../src/theme"),
       tokens: resolve(__dirname, "../src/tokens"),
@@ -40,13 +41,10 @@ const config: StorybookConfig = {
       "@storybook-utils": resolve(__dirname, "./utils"),
     };
 
-    config.plugins = [...(config.plugins || []), vanillaExtractPlugin()];
+    config.plugins = [...(config.plugins ?? []), vanillaExtractPlugin()];
 
     return config;
   },
 };
-export default config;
 
-function getAbsolutePath(value: string): any {
-  return dirname(require.resolve(join(value, "package.json")));
-}
+export default config;

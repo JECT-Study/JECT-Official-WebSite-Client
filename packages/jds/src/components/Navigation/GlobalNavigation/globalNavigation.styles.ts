@@ -103,7 +103,7 @@ export const StyledGlobalNavigationItem = styled(NavigationMenu.Item)(() => ({
   position: "relative" as const,
 }));
 
-export const StyledMobileMenuButton = styled(IconButton.Basic)(({ theme }) => ({
+export const StyledMobileMenuButton = styled(IconButton)(({ theme }) => ({
   display: "none",
 
   [theme.breakPoint.mobile]: {

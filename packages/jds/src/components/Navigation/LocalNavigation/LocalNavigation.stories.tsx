@@ -58,9 +58,9 @@ export const Default: Story = {
       <LocalNavigation.BackButton />
       <LocalNavigation.Title>네비게이션 타이틀</LocalNavigation.Title>
       <LocalNavigation.ButtonGroup>
-        <IconButton.Basic hierarchy='tertiary' size='xl' icon='blank' />
-        <IconButton.Basic hierarchy='tertiary' size='xl' icon='blank' />
-        <IconButton.Basic hierarchy='tertiary' size='xl' icon='blank' />
+        <IconButton hierarchy='tertiary' size='xl' icon='blank' />
+        <IconButton hierarchy='tertiary' size='xl' icon='blank' />
+        <IconButton hierarchy='tertiary' size='xl' icon='blank' />
       </LocalNavigation.ButtonGroup>
     </LocalNavigation.Root>
   ),
@@ -72,9 +72,9 @@ export const ButtonVisible: Story = {
       <LocalNavigation.BackButton />
       <LocalNavigation.Title>네비게이션 타이틀</LocalNavigation.Title>
       <LocalNavigation.ButtonGroup extraButtonVisible>
-        <IconButton.Basic hierarchy='tertiary' size='xl' icon='blank' />
-        <IconButton.Basic hierarchy='tertiary' size='xl' icon='blank' />
-        <IconButton.Basic hierarchy='tertiary' size='xl' icon='blank' />
+        <IconButton hierarchy='tertiary' size='xl' icon='blank' />
+        <IconButton hierarchy='tertiary' size='xl' icon='blank' />
+        <IconButton hierarchy='tertiary' size='xl' icon='blank' />
       </LocalNavigation.ButtonGroup>
     </LocalNavigation.Root>
   ),
@@ -93,9 +93,9 @@ export const NoTitle: Story = {
     <LocalNavigation.Root {...args}>
       <LocalNavigation.BackButton />
       <LocalNavigation.ButtonGroup extraButtonVisible>
-        <IconButton.Basic hierarchy='tertiary' size='xl' icon='blank' />
-        <IconButton.Basic hierarchy='tertiary' size='xl' icon='blank' />
-        <IconButton.Basic hierarchy='tertiary' size='xl' icon='blank' />
+        <IconButton hierarchy='tertiary' size='xl' icon='blank' />
+        <IconButton hierarchy='tertiary' size='xl' icon='blank' />
+        <IconButton hierarchy='tertiary' size='xl' icon='blank' />
       </LocalNavigation.ButtonGroup>
     </LocalNavigation.Root>
   ),
@@ -119,7 +119,7 @@ export const WithBackAction: Story = {
       />
       <LocalNavigation.Title>네비게이션 타이틀</LocalNavigation.Title>
       <LocalNavigation.ButtonGroup extraButtonVisible>
-        <IconButton.Basic hierarchy='tertiary' size='xl' icon='blank' />
+        <IconButton hierarchy='tertiary' size='xl' icon='blank' />
       </LocalNavigation.ButtonGroup>
     </LocalNavigation.Root>
   ),
@@ -144,9 +144,9 @@ export const Responsive: Story = {
           <LocalNavigation.BackButton />
           <LocalNavigation.Title>네비게이션 타이틀</LocalNavigation.Title>
           <LocalNavigation.ButtonGroup extraButtonVisible>
-            <IconButton.Basic hierarchy='tertiary' size={iconSize} icon='blank' />
-            <IconButton.Basic hierarchy='tertiary' size={iconSize} icon='blank' />
-            <IconButton.Basic hierarchy='tertiary' size={iconSize} icon='blank' />
+            <IconButton hierarchy='tertiary' size={iconSize} icon='blank' />
+            <IconButton hierarchy='tertiary' size={iconSize} icon='blank' />
+            <IconButton hierarchy='tertiary' size={iconSize} icon='blank' />
           </LocalNavigation.ButtonGroup>
         </LocalNavigation.Root>
       </div>

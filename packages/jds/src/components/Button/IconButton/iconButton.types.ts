@@ -1,20 +1,17 @@
 import type { IconName } from "components";
 import type { ComponentPropsWithoutRef } from "react";
 
-export type IconButtonSize = "2xs" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl";
-export type IconButtonHierarchy = "accent" | "primary" | "secondary" | "tertiary";
-export type IconButtonIntent = "positive" | "destructive";
+export const ICON_BUTTON_SIZE_OPTIONS = ["2xs", "xs", "sm", "md", "lg", "xl", "2xl", "3xl"] as const;
+export const ICON_BUTTON_HIERARCHY_OPTIONS = ["accent", "primary", "secondary", "tertiary"] as const;
 
-export interface BaseIconButtonProps extends ComponentPropsWithoutRef<"button"> {
+export type IconButtonSize = (typeof ICON_BUTTON_SIZE_OPTIONS)[number];
+export type IconButtonHierarchy = (typeof ICON_BUTTON_HIERARCHY_OPTIONS)[number];
+
+// TODO(a11y): 이후 작업에서 aria-label / aria-labelledby 중 하나를 required로 강제
+//             현재는 호출부 마이그레이션 작업 중심이기 때문에 native button props 그대로 optional 유지
+export interface IconButtonProps extends ComponentPropsWithoutRef<"button"> {
   icon: IconName;
   size?: IconButtonSize;
-  "aria-label"?: string;
-}
-
-export interface IconButtonBasicProps extends BaseIconButtonProps {
   hierarchy?: IconButtonHierarchy;
-}
-
-export interface IconButtonFeedbackProps extends BaseIconButtonProps {
-  intent: IconButtonIntent;
+  condensed?: boolean;
 }

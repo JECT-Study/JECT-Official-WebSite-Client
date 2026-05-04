@@ -40,7 +40,7 @@ const BannerBar = forwardRef<HTMLDivElement, BannerBarProps>((props, ref) => {
 
       {onClose && (
         <StyledBannerBarCloseButton>
-          <IconButton.Basic
+          <IconButton
             icon='close-line'
             size='lg'
             aria-label={closeAriaLabel}
