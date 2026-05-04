@@ -7,7 +7,6 @@ import {
   type IconButtonSize,
 } from "./iconButton.types";
 import { vars } from "../../../tokens/vars.css";
-import { pxToRem } from "../../../utils/cssUnit";
 import { focusRing } from "../../../utils/focusRing.css";
 import { overlay, overlayColor } from "../../../utils/overlay.css";
 
@@ -58,28 +57,28 @@ const neutralHierarchy = (color: string) => ({
 });
 
 const sizeVariants: Record<IconButtonSize, { width: string; height: string }> = {
-  "2xs": { width: pxToRem(12), height: pxToRem(12) },
-  xs: { width: pxToRem(14), height: pxToRem(14) },
-  sm: { width: pxToRem(16), height: pxToRem(16) },
-  md: { width: pxToRem(18), height: pxToRem(18) },
-  lg: { width: pxToRem(20), height: pxToRem(20) },
-  xl: { width: pxToRem(24), height: pxToRem(24) },
-  "2xl": { width: pxToRem(28), height: pxToRem(28) },
-  "3xl": { width: pxToRem(32), height: pxToRem(32) },
+  "2xs": { width: "12px", height: "12px" },
+  xs: { width: "14px", height: "14px" },
+  sm: { width: "16px", height: "16px" },
+  md: { width: "18px", height: "18px" },
+  lg: { width: "20px", height: "20px" },
+  xl: { width: "24px", height: "24px" },
+  "2xl": { width: "28px", height: "28px" },
+  "3xl": { width: "32px", height: "32px" },
 };
 
 type TapAreaShape = { inset: string; borderRadius: string };
 type PaddingGeometry = { padding: string; borderRadius: string };
 
 const tapAreaInsetBySize: Record<IconButtonSize, TapAreaShape> = {
-  "2xs": { inset: pxToRem(-1), borderRadius: vars.scheme.semantic.radius["2"] },
-  xs: { inset: pxToRem(-1), borderRadius: vars.scheme.semantic.radius["2"] },
-  sm: { inset: pxToRem(-2), borderRadius: vars.scheme.semantic.radius["2"] },
-  md: { inset: pxToRem(-2), borderRadius: vars.scheme.semantic.radius["2"] },
-  lg: { inset: pxToRem(-3), borderRadius: vars.scheme.semantic.radius["4"] },
-  xl: { inset: pxToRem(-3), borderRadius: vars.scheme.semantic.radius["4"] },
-  "2xl": { inset: pxToRem(-4), borderRadius: vars.scheme.semantic.radius["4"] },
-  "3xl": { inset: pxToRem(-4), borderRadius: vars.scheme.semantic.radius["4"] },
+  "2xs": { inset: "-1px", borderRadius: vars.scheme.semantic.radius["2"] },
+  xs: { inset: "-1px", borderRadius: vars.scheme.semantic.radius["2"] },
+  sm: { inset: "-2px", borderRadius: vars.scheme.semantic.radius["2"] },
+  md: { inset: "-2px", borderRadius: vars.scheme.semantic.radius["2"] },
+  lg: { inset: "-3px", borderRadius: vars.scheme.semantic.radius["4"] },
+  xl: { inset: "-3px", borderRadius: vars.scheme.semantic.radius["4"] },
+  "2xl": { inset: "-4px", borderRadius: vars.scheme.semantic.radius["4"] },
+  "3xl": { inset: "-4px", borderRadius: vars.scheme.semantic.radius["4"] },
 };
 
 const paddingGeometryBySize: Record<IconButtonSize, PaddingGeometry> = {
