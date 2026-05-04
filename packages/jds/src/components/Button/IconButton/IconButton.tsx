@@ -20,12 +20,12 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
     },
     forwardedRef,
   ) => {
-    const { ref, buttonProps } = usePressable(forwardedRef, { disabled });
+    const { ref, pressableProps } = usePressable(forwardedRef, { disabled });
 
     return (
       <button
         ref={ref}
-        {...mergeProps(buttonProps, restProps)}
+        {...mergeProps(pressableProps, restProps)}
         data-part='root'
         className={clsx(styles.root({ hierarchy, size, condensed }), className)}
       >
