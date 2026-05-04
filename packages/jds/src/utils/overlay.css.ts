@@ -65,6 +65,8 @@ export const overlay = style({
     "&[data-hovered]:not([data-disabled])::after": {
       opacity: fallbackVar(overlayHoverOpacity, "0.08"),
     },
+    // hover + pressed 동시 상태(마우스 클릭 holding)는 specificity 동등 →
+    // 후행 선언인 pressed 스타일이 적용된다. 의도된 동작 — pressed가 hover 위에
     "&[data-pressed]:not([data-disabled])::after": {
       opacity: fallbackVar(overlayPressedOpacity, "0.12"),
       // pressed는 즉각 반응이 자연스러워 transition을 끈다
