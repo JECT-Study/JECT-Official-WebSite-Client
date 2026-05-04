@@ -115,6 +115,21 @@ export const overlay = style({
 
 **disabled 상태도 utility 책임이다.** `usePressable`이 `data-disabled`를 자동 부여하지만, hook 없이 `overlay`만 합성하는 경로에서도 disabled element에 overlay가 새지 않도록 utility 자체가 `:not([data-disabled])`로 차단한다. 호출자가 `data-disabled`만 element에 부여하면 끝 — overlay 차단 로직은 사용처마다 반복할 필요 없다.
 
+#### `overlay`는 disabled에서 차단, `focusRing`은 그대로 — 의도된 비대칭
+
+| utility | disabled 시 | 이유 |
+|---|---|---|
+| `overlay` | ✅ 차단 (`:not([data-disabled])`) | hover/press는 *상호작용 가능*을 암시하는 신호. disabled element에서 보이면 "누를 수 있다"는 거짓 피드백 |
+| `focusRing` | ❌ 표시 유지 | focus 위치는 *사실 신호*. 키보드 사용자가 자기 위치를 알아야 하므로 가리면 a11y 후퇴 |
+
+JDS의 disabled 정책은 **host element 종류에 따라 다르다** (`usePressable`이 `useButton`에 위임):
+- **단독 native `<button>`**: native `disabled` 부여 → 브라우저가 focus 자체를 차단. 이 경우 focus ring은 *애초에 등장 못 함*이라 utility의 차단 로직은 무관.
+- **비-button host (`<a>`, `<div role="button">`, 컬렉션 항목 등)**: `aria-disabled` + focusable 유지 → focused 상태가 발생할 수 있음. 이때 [APG](https://www.w3.org/WAI/ARIA/apg/patterns/button/) 권장에 따라 ring이 *보여야* 키보드 사용자가 위치를 인지.
+
+`focusRing` utility는 두 케이스를 *동시에* 만족시키기 위해 disabled 게이팅을 *하지 않는다*. 차단해야 하는 경우(native button)는 host attribute가 이미 차단했고, 차단하면 안 되는 경우(non-button)는 utility가 막으면 a11y 후퇴.
+
+`overlay`는 반대 — hover/press가 *상호작용 가능을 암시*하는 신호이므로 어떤 host에서든 disabled에서 보이면 거짓 피드백. 따라서 일률 차단.
+
 ## 호출자가 책임지는 것
 
 유틸은 *상태 전환 룰*만 책임진다. **shape(inset, borderRadius)와 layout(positioned ancestor)** 은 호출자가 결정한다.
