@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { FlexRow, FlexColumn, Label } from "@storybook-utils/layout";
-import { BlockButton } from "components";
+import { FlexRow, FlexColumn } from "@storybook-utils/layout";
+
+import { BlockButton } from "./BlockButton";
 
 const meta = {
   title: "Components/BlockButton",
@@ -149,11 +150,11 @@ export const InteractionStates: Story = {
     docs: {
       description: {
         story:
-          "InteractionLayer 기반 인터랙션 시스템:\n\n" +
+          "VE overlay 유틸 기반 인터랙션 시스템 (data attribute 방식):\n\n" +
           "- **rest**: 기본 상태 (opacity: 0)\n" +
-          "- **hover**: 마우스 오버 시 (opacity: 0.08, fluent motion 100ms)\n" +
-          "- **active**: 클릭 중 (opacity: 0.12, transition 없음)\n" +
-          "- **focus**: 키보드 포커스 시 (focus outline 표시, transition 없음)",
+          "- **data-hovered**: 마우스 오버 시 (opacity: 0.08, fluent motion 100ms)\n" +
+          "- **data-pressed**: 클릭 중 (opacity: 0.12, transition 없음)\n" +
+          "- **data-focus-visible**: 키보드 포커스 시 (focus ring 표시)",
       },
     },
   },
@@ -167,7 +168,7 @@ export const ComprehensiveMatrix: Story = {
     <FlexColumn gap='32px'>
       {(["solid", "outlined", "empty"] as const).map(variant => (
         <FlexColumn key={variant} gap='12px'>
-          <h3 style={{ margin: 0, fontSize: "14px", fontWeight: "bold" }}>
+          <h3 className='semantic-textStyle-label-lg-bold'>
             {variant.charAt(0).toUpperCase() + variant.slice(1)}
           </h3>
           <FlexRow gap='12px'>
@@ -198,7 +199,7 @@ export const SizeWithVariants: Story = {
     <FlexColumn>
       {(["xs", "sm", "md", "lg"] as const).map(size => (
         <FlexColumn key={size} gap='12px'>
-          <Label>{size.toUpperCase()}:</Label>
+          <h3 className='semantic-textStyle-label-lg-bold'>{size.toUpperCase()}:</h3>
           <FlexRow gap='12px'>
             <BlockButton.Basic size={size} variant='solid'>
               Solid
@@ -222,36 +223,20 @@ export const FeedbackButtons: Story = {
   },
   render: () => (
     <FlexColumn>
-      <Label>Positive:</Label>
-      <FlexRow gap='12px'>
-        <BlockButton.Feedback intent='positive' size='xs'>
-          저장
-        </BlockButton.Feedback>
-        <BlockButton.Feedback intent='positive' size='sm'>
-          저장
-        </BlockButton.Feedback>
-        <BlockButton.Feedback intent='positive' size='md'>
-          저장
-        </BlockButton.Feedback>
-        <BlockButton.Feedback intent='positive' size='lg'>
-          저장
-        </BlockButton.Feedback>
-      </FlexRow>
-      <Label>Destructive:</Label>
-      <FlexRow gap='12px'>
-        <BlockButton.Feedback intent='destructive' size='xs'>
-          삭제
-        </BlockButton.Feedback>
-        <BlockButton.Feedback intent='destructive' size='sm'>
-          삭제
-        </BlockButton.Feedback>
-        <BlockButton.Feedback intent='destructive' size='md'>
-          삭제
-        </BlockButton.Feedback>
-        <BlockButton.Feedback intent='destructive' size='lg'>
-          삭제
-        </BlockButton.Feedback>
-      </FlexRow>
+      {(["positive", "destructive"] as const).map(intent => (
+        <FlexColumn key={intent} gap='12px'>
+          <h3 className='semantic-textStyle-label-lg-bold'>
+            {intent.charAt(0).toUpperCase() + intent.slice(1)}:
+          </h3>
+          <FlexRow gap='12px'>
+            {(["xs", "sm", "md", "lg"] as const).map(size => (
+              <BlockButton.Feedback key={size} intent={intent} size={size}>
+                {intent === "positive" ? "저장" : "삭제"}
+              </BlockButton.Feedback>
+            ))}
+          </FlexRow>
+        </FlexColumn>
+      ))}
     </FlexColumn>
   ),
   parameters: {
