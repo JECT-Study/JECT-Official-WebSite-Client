@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { FlexRow, FlexColumn } from "@storybook-utils/layout";
+import { FlexRow, FlexColumn, Label } from "@storybook-utils/layout";
 
 import { LabelButton } from "./LabelButton";
 
@@ -146,9 +146,7 @@ export const HierarchyWithSizes: Story = {
     <FlexColumn>
       {(["accent", "primary", "secondary", "tertiary"] as const).map(hierarchy => (
         <FlexColumn key={hierarchy} gap='12px'>
-          <h3 className='semantic-textStyle-label-lg-bold'>
-            {hierarchy.charAt(0).toUpperCase() + hierarchy.slice(1)}:
-          </h3>
+          <Label>{hierarchy.charAt(0).toUpperCase() + hierarchy.slice(1)}:</Label>
           <FlexRow gap='12px'>
             {(["xs", "sm", "md", "lg"] as const).map(size => (
               <LabelButton.Basic key={size} size={size} hierarchy={hierarchy}>
@@ -170,9 +168,7 @@ export const DisabledStates: Story = {
     <FlexColumn gap='32px'>
       {(["accent", "primary", "secondary", "tertiary"] as const).map(hierarchy => (
         <FlexColumn key={hierarchy} gap='12px'>
-          <h3 className='semantic-textStyle-label-lg-bold'>
-            {hierarchy.charAt(0).toUpperCase() + hierarchy.slice(1)}:
-          </h3>
+          <Label>{hierarchy.charAt(0).toUpperCase() + hierarchy.slice(1)}:</Label>
           <FlexRow gap='12px'>
             {(["xs", "sm", "md", "lg"] as const).map(size => (
               <LabelButton.Basic key={size} hierarchy={hierarchy} size={size} disabled>
@@ -194,9 +190,7 @@ export const FeedbackButtons: Story = {
     <FlexColumn>
       {(["positive", "destructive"] as const).map(intent => (
         <FlexColumn key={intent} gap='12px'>
-          <h3 className='semantic-textStyle-label-lg-bold'>
-            {intent.charAt(0).toUpperCase() + intent.slice(1)}:
-          </h3>
+          <Label>{intent.charAt(0).toUpperCase() + intent.slice(1)}:</Label>
           <FlexRow gap='12px'>
             {(["xs", "sm", "md", "lg"] as const).map(size => (
               <LabelButton.Feedback key={size} intent={intent} size={size}>
@@ -225,7 +219,7 @@ export const FeedbackWithIcons: Story = {
   render: () => (
     <FlexColumn>
       <FlexColumn gap='12px'>
-        <h3 className='semantic-textStyle-label-lg-bold'>Positive:</h3>
+        <Label>Positive:</Label>
         <FlexRow gap='12px'>
           <LabelButton.Feedback intent='positive' prefixIcon='check-line'>
             저장 완료
@@ -236,7 +230,7 @@ export const FeedbackWithIcons: Story = {
         </FlexRow>
       </FlexColumn>
       <FlexColumn gap='12px'>
-        <h3 className='semantic-textStyle-label-lg-bold'>Destructive:</h3>
+        <Label>Destructive:</Label>
         <FlexRow gap='12px'>
           <LabelButton.Feedback intent='destructive' prefixIcon='delete-bin-line'>
             삭제하기
@@ -265,9 +259,7 @@ export const FeedbackDisabled: Story = {
     <FlexColumn>
       {(["positive", "destructive"] as const).map(intent => (
         <FlexColumn key={intent} gap='12px'>
-          <h3 className='semantic-textStyle-label-lg-bold'>
-            {intent.charAt(0).toUpperCase() + intent.slice(1)} Disabled:
-          </h3>
+          <Label>{intent.charAt(0).toUpperCase() + intent.slice(1)} Disabled:</Label>
           <FlexRow gap='12px'>
             {(["sm", "md", "lg"] as const).map(size => (
               <LabelButton.Feedback key={size} intent={intent} size={size} disabled>
@@ -296,9 +288,7 @@ export const FeedbackInteractionStates: Story = {
     <FlexColumn>
       {(["positive", "destructive"] as const).map(intent => (
         <FlexColumn key={intent} gap='12px'>
-          <h3 className='semantic-textStyle-label-lg-bold'>
-            {intent.charAt(0).toUpperCase() + intent.slice(1)}:
-          </h3>
+          <Label>{intent.charAt(0).toUpperCase() + intent.slice(1)}:</Label>
           <FlexRow gap='12px'>
             <LabelButton.Feedback intent={intent}>Hover me</LabelButton.Feedback>
             <LabelButton.Feedback intent={intent}>Click me</LabelButton.Feedback>

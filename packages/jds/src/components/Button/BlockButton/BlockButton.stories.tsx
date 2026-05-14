@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { FlexRow, FlexColumn } from "@storybook-utils/layout";
+import { FlexRow, FlexColumn, Label } from "@storybook-utils/layout";
 
 import { BlockButton } from "./BlockButton";
 
@@ -168,9 +168,7 @@ export const ComprehensiveMatrix: Story = {
     <FlexColumn gap='32px'>
       {(["solid", "outlined", "empty"] as const).map(variant => (
         <FlexColumn key={variant} gap='12px'>
-          <h3 className='semantic-textStyle-label-lg-bold'>
-            {variant.charAt(0).toUpperCase() + variant.slice(1)}
-          </h3>
+          <Label>{variant.charAt(0).toUpperCase() + variant.slice(1)}</Label>
           <FlexRow gap='12px'>
             {(["accent", "primary", "secondary", "tertiary"] as const).map(hierarchy => (
               <BlockButton.Basic key={hierarchy} variant={variant} hierarchy={hierarchy}>
@@ -199,7 +197,7 @@ export const SizeWithVariants: Story = {
     <FlexColumn>
       {(["xs", "sm", "md", "lg"] as const).map(size => (
         <FlexColumn key={size} gap='12px'>
-          <h3 className='semantic-textStyle-label-lg-bold'>{size.toUpperCase()}:</h3>
+          <Label>{size.toUpperCase()}:</Label>
           <FlexRow gap='12px'>
             <BlockButton.Basic size={size} variant='solid'>
               Solid
@@ -225,9 +223,7 @@ export const FeedbackButtons: Story = {
     <FlexColumn>
       {(["positive", "destructive"] as const).map(intent => (
         <FlexColumn key={intent} gap='12px'>
-          <h3 className='semantic-textStyle-label-lg-bold'>
-            {intent.charAt(0).toUpperCase() + intent.slice(1)}:
-          </h3>
+          <Label>{intent.charAt(0).toUpperCase() + intent.slice(1)}:</Label>
           <FlexRow gap='12px'>
             {(["xs", "sm", "md", "lg"] as const).map(size => (
               <BlockButton.Feedback key={size} intent={intent} size={size}>
