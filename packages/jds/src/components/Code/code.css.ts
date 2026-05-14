@@ -1,5 +1,5 @@
 import { recipe } from "@vanilla-extract/recipes";
-import { vars } from "tokens";
+import { vars } from "../../tokens/vars.css";
 import type { CodeSize } from "./code.types";
 
 export const codeTypographyClassName: Record<CodeSize, string> = {
