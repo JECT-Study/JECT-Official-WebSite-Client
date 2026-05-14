@@ -6,7 +6,3 @@ export interface CodeProps extends HTMLAttributes<HTMLElement> {
   children: ReactNode;
   size?: CodeSize;
 }
-
-export interface CodeStyleProps {
-  $size: CodeSize;
-}
