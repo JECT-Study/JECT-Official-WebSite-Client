@@ -10,6 +10,7 @@ export interface RadioRootProps {
   radioAlign?: RadioAlign;
   disabled?: boolean;
   value?: string;
+  defaultValue?: string;
   onChange?: (value: string) => void;
   name?: string;
   children: ReactNode;
@@ -19,21 +20,12 @@ export interface RadioBasicProps extends ComponentPropsWithoutRef<"input"> {
   radioSize?: RadioSize;
 }
 
-export interface RadioStyledProps {
-  radioSize: RadioSize;
-}
-
 export interface RadioItemProps extends ComponentPropsWithoutRef<"div"> {
   radioSize?: RadioSize;
   radioStyle?: RadioStyle;
   radioAlign?: RadioAlign;
   disabled?: boolean;
   children: ReactNode;
-}
-
-export interface StyledLabelProps {
-  $size: RadioSize;
-  $isDisabled: boolean;
 }
 
 export interface RadioLabelProps {

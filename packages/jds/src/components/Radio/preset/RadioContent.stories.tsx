@@ -12,12 +12,6 @@ const meta: Meta<typeof RadioContent.Left> = {
   parameters: {
     layout: "centered",
   },
-  argTypes: {
-    radioSize: {
-      control: { type: "radio" },
-      options: ["lg", "md", "sm", "xs"],
-    },
-  },
 };
 
 export default meta;
@@ -147,7 +141,7 @@ export const ControlledRadio: Story = {
     const items = ["korea", "japan", "us", "uk"];
 
     return (
-      <div style={{ display: "flex", gap: 20 }}>
+      <FlexRow>
         <Radio.Root value={selected} onChange={setSelected} name='country'>
           {items.map(item => (
             <RadioContent.Left key={item} radioSize='md' value={item}>
@@ -155,8 +149,8 @@ export const ControlledRadio: Story = {
             </RadioContent.Left>
           ))}
         </Radio.Root>
-        <p>결과: {selected}</p>
-      </div>
+        <span>결과: {selected}</span>
+      </FlexRow>
     );
   },
 };
