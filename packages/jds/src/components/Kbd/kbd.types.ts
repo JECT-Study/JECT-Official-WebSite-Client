@@ -10,9 +10,3 @@ export interface KbdProps extends HTMLAttributes<HTMLElement> {
   muted?: boolean;
   "aria-label"?: string;
 }
-
-export interface KbdStyleProps {
-  $size: KbdSize;
-  $type: KbdType;
-  $isMuted: boolean;
-}

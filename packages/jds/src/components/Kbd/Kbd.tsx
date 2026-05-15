@@ -1,5 +1,7 @@
-import { StyledKbd } from "./Kbd.style";
-import type { KbdProps } from "./Kbd.types";
+import { clsx } from "clsx";
+
+import { kbd } from "./kbd.css";
+import type { KbdProps } from "./kbd.types";
 
 export const Kbd = ({
   children,
@@ -10,9 +12,9 @@ export const Kbd = ({
   ...restProps
 }: KbdProps) => {
   return (
-    <StyledKbd $size={size} $type={type} $isMuted={muted} className={className} {...restProps}>
+    <kbd className={clsx(kbd({ size, type, muted }), className)} {...restProps}>
       {children}
-    </StyledKbd>
+    </kbd>
   );
 };
 
