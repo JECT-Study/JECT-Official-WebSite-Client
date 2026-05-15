@@ -205,11 +205,11 @@ const itemSizeVariants = {
 } satisfies Record<RadioSize, object>;
 
 // empty 모드에서 ::after / ::before를 element 경계 밖으로 확장하는 크기
-const itemExpansionBySize: Record<RadioSize, { w: number; h: number }> = {
-  lg: { w: 13, h: 8 },
-  md: { w: 13, h: 8 },
-  sm: { w: 11, h: 6 },
-  xs: { w: 9, h: 6 },
+const itemInsetBySize: Record<RadioSize, string> = {
+  lg: "-4px -6.5px",
+  md: "-4px -6.5px",
+  sm: "-3px -5.5px",
+  xs: "-3px -4.5px",
 };
 
 // outline 모드 size별 padding
@@ -221,25 +221,15 @@ const itemOutlinePaddingBySize = {
 } satisfies Record<RadioSize, string>;
 
 // Compound variants
-const expansionCompoundVariants = sizeKeys.map(size => {
-  const { w, h } = itemExpansionBySize[size];
-  const tx = Math.floor(w / 2) + 1;
-  const ty = Math.floor(h / 2);
-  const expansion = {
-    width: `calc(100% + ${w}px)`,
-    height: `calc(100% + ${h}px)`,
-    transform: `translate(-${tx}px, -${ty}px)`,
-  };
-  return {
-    variants: { size, styleOutline: "empty" as const },
-    style: {
-      selectors: {
-        "&::after": expansion,
-        "&::before": expansion,
-      },
+const expansionCompoundVariants = sizeKeys.map(size => ({
+  variants: { size, styleOutline: "empty" as const },
+  style: {
+    selectors: {
+      "&::after": { inset: itemInsetBySize[size] },
+      "&::before": { inset: itemInsetBySize[size] },
     },
-  };
-});
+  },
+}));
 
 const outlinePaddingCompoundVariants = sizeKeys.map(size => ({
   variants: { size, styleOutline: "outline" as const },
@@ -293,9 +283,9 @@ const itemBaseStyles = style([
         vars: { [overlayColor]: vars.color.semantic.accent.neutral },
       },
       // overlay shape: element 경계와 동일. empty 모드에서는 compoundVariants로 확장
-      "&::after": { top: 0, left: 0, width: "100%", height: "100%", borderRadius: "inherit" },
+      "&::after": { inset: 0, borderRadius: "inherit" },
       // focus ring shape: element 경계와 동일. empty 모드에서는 compoundVariants로 확장
-      "&::before": { top: 0, left: 0, width: "100%", height: "100%", borderRadius: "inherit" },
+      "&::before": { inset: 0, borderRadius: "inherit" },
     },
   },
 ]);
