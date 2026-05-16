@@ -306,6 +306,42 @@ generated key: semantic-textStyle-body-md-normal
 theme.textStyle["semantic-textStyle-body-md-normal"];
 ```
 
+#### typography 유틸 size API와 textStyle 토큰
+
+Figma와 토큰 파일에서는 textStyle을 `semantic-textStyle-title-6`처럼 토큰명 그대로 관리합니다. 반면 typography 유틸에서는 사용성을 위해 `2xl`, `xl`, `lg`, `md`, `sm`, `xs` 같은 size 값을 사용합니다.
+
+예를 들어 Title 계열 유틸은 아래처럼 유틸 size를 Figma textStyle 토큰으로 매핑합니다.
+
+```typescript
+const titleStylesMap = {
+  "2xl": "semantic-textStyle-title-6",
+  xl: "semantic-textStyle-title-5",
+  lg: "semantic-textStyle-title-4",
+  md: "semantic-textStyle-title-3",
+  sm: "semantic-textStyle-title-2",
+  xs: "semantic-textStyle-title-1",
+} as const;
+```
+
+JDS 내부에서 제목 스타일을 조합할 때는 `getTitleStyles` 같은 typography 유틸의 size API를 사용합니다.
+
+```typescript
+const DialogTitle = styled.h2(({ theme }) => ({
+  alignSelf: "stretch",
+  ...getTitleStyles(theme, { size: "xs", textAlign: "left" }),
+}));
+```
+
+스타일 파일에서 토큰을 직접 적용해야 할 때는 Figma와 동일한 `semantic-textStyle-*` key를 사용합니다.
+
+```typescript
+const TitleText = styled.h1(({ theme }) => ({
+  ...theme.textStyle["semantic-textStyle-title-6"],
+}));
+```
+
+정리하면, typography 유틸을 사용하는 레이어에서는 `size: "2xl"` 같은 유틸 API를 사용하고, 토큰을 직접 다루는 스타일 레이어에서는 `theme.textStyle["semantic-textStyle-title-6"]`처럼 토큰명을 그대로 사용합니다.
+
 빌더는 가능한 경우 typography primitive 토큰을 CSS 변수로 연결합니다.
 
 ```typescript
