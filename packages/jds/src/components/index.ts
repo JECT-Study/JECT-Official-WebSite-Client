@@ -31,7 +31,6 @@ export * from "./Snackbar";
 export * from "./Step";
 export * from "./Tab";
 export * from "./Table";
-export * from "./Title";
 export * from "./Toast";
 export * from "./Tooltip";
 export * from "./Uploader";
