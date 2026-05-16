@@ -1,6 +1,6 @@
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
-import type { ImgRatio, ImgOrientation } from "../Image/Image";
+import type { ThumbnailOrientation, ThumbnailRatio } from "../Thumbnail";
 
 export type CardLayout = "vertical" | "horizontal";
 export type CardVariant = "plate" | "post";
@@ -18,9 +18,9 @@ export interface CardRootOwnProps {
 export interface CardImageProps extends ComponentPropsWithoutRef<"div"> {
   src?: string;
   alt: string;
-  fallbackSrc?: string;
-  ratio?: ImgRatio;
-  orientation?: ImgOrientation;
+  fallback?: ReactNode;
+  ratio?: ThumbnailRatio;
+  orientation?: ThumbnailOrientation;
   badgeVisible?: boolean;
   badgeLabel?: string;
   loading?: "lazy" | "eager";

@@ -39,7 +39,7 @@ const MenuItemButton = forwardRef<HTMLButtonElement, MenuItemButtonProps>(
             alt={imageAlt}
             ratio='1:1'
             orientation='portrait'
-            isReadonly
+            cornerStyle='angular'
             $size={size}
           />
         )}
@@ -88,7 +88,7 @@ const MenuItemAnchor = forwardRef<HTMLAnchorElement, MenuItemAnchorProps>(
             alt={imageAlt}
             ratio='1:1'
             orientation='portrait'
-            isReadonly
+            cornerStyle='angular'
             $size={size}
           />
         )}

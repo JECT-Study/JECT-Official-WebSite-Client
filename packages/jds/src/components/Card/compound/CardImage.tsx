@@ -1,16 +1,16 @@
 import { forwardRef } from "react";
 
-import { Image } from "../../Image/Image";
+import { StyledCardImageContainer } from "./compound.styles";
+import { Thumbnail, type ThumbnailShapeProps } from "../../Thumbnail";
 import { useCardContext } from "../Card.context";
 import type { CardImageProps } from "../Card.types";
-import { StyledCardImageContainer } from "./compound.styles";
 
 export const CardImage = forwardRef<HTMLDivElement, CardImageProps>(
   (
     {
       src,
       alt,
-      fallbackSrc = "/images/defaultImage.png",
+      fallback,
       ratio,
       orientation,
       badgeVisible = false,
@@ -31,7 +31,7 @@ export const CardImage = forwardRef<HTMLDivElement, CardImageProps>(
 
     const defaultRatioMap = {
       plate: {
-        vertical: "2:3" as const,
+        vertical: "3:4" as const,
         horizontal: "1:1" as const,
       },
       post: {
@@ -41,32 +41,54 @@ export const CardImage = forwardRef<HTMLDivElement, CardImageProps>(
     };
 
     const defaultRatio = defaultRatioMap[variant][layout];
+    const finalRatio = ratio ?? defaultRatio;
+    const finalOrientation = orientation ?? defaultOrientation;
 
-    const imageStyle =
-      variant === "plate" ? { border: "none", borderRadius: 0 } : { borderRadius: 0 };
+    // SPEC 불변식 정합: ratio="1:1"이면 orientation은 portrait로 고정(landscape 의미 없음)
+    // Note: 해당 부분은 thumbnail의 원칙을 따른 것이며 Card 구현 시 제거 가능성 높음
+    const shape: ThumbnailShapeProps =
+      finalRatio === "1:1"
+        ? { ratio: "1:1", orientation: "portrait", cornerStyle: "angular" }
+        : { ratio: finalRatio, orientation: finalOrientation, cornerStyle: "angular" };
 
     return (
       <StyledCardImageContainer
+        ref={ref}
         $layout={layout}
         $variant={variant}
         $cardStyle={cardStyle}
         style={customStyle}
       >
-        <Image
-          ref={ref}
-          as='div'
-          isReadonly={true}
+        <Thumbnail
           src={src}
           alt={alt}
-          fallbackSrc={fallbackSrc}
-          ratio={ratio ?? defaultRatio}
-          orientation={orientation ?? defaultOrientation}
-          badgeVisible={badgeVisible}
-          badgeLabel={badgeLabel}
+          fallback={fallback}
+          appearance={variant === "plate" ? "hollow" : "outlined"}
           loading={loading}
-          style={imageStyle}
           {...restProps}
+          {...shape}
         />
+        {badgeVisible && badgeLabel && (
+          <span
+            aria-hidden='true'
+            style={{
+              position: "absolute",
+              top: "8px",
+              left: "8px",
+              zIndex: 1,
+              minWidth: "18px",
+              padding: "0 6px",
+              borderRadius: "2px",
+              backgroundColor: "rgba(0, 0, 0, 0.6)",
+              color: "#fff",
+              fontSize: "12px",
+              lineHeight: "18px",
+              textAlign: "center",
+            }}
+          >
+            {badgeLabel}
+          </span>
+        )}
       </StyledCardImageContainer>
     );
   },

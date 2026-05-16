@@ -15,7 +15,7 @@ export * from "./FileItem";
 export * from "./Footer";
 export * from "./Hero";
 export * from "./Icon";
-export * from "./Image";
+export * from "./Thumbnail";
 export * from "./Input";
 export * from "./Kbd";
 export * from "./Label";
