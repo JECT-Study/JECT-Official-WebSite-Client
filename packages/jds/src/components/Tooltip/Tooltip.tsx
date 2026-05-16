@@ -1,6 +1,7 @@
+import { clsx } from "clsx";
 import { Tooltip as TooltipPrimitive } from "radix-ui";
 
-import { StyledTooltipContent } from "./tooltip.styles";
+import * as styles from "./tooltip.css";
 import type { TooltipContentProps, TooltipProps, TooltipTriggerProps } from "./tooltip.types";
 
 const TooltipRoot = ({ children, delayDuration = 0, ...radixProps }: TooltipProps) => {
@@ -30,19 +31,21 @@ const TooltipContent = ({
   sideOffset = 8,
   collisionPadding = 0,
   avoidCollisions = true,
+  className,
   ...restProps
 }: TooltipContentProps) => {
   return (
     <TooltipPrimitive.Portal>
-      <StyledTooltipContent
+      <TooltipPrimitive.Content
         side={side}
         sideOffset={sideOffset}
         collisionPadding={collisionPadding}
         avoidCollisions={avoidCollisions}
+        className={clsx(styles.content, styles.contentTextStyle, className)}
         {...restProps}
       >
         {children}
-      </StyledTooltipContent>
+      </TooltipPrimitive.Content>
     </TooltipPrimitive.Portal>
   );
 };
