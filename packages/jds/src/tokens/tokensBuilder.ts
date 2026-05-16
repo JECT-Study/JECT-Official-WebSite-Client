@@ -11,6 +11,49 @@ const __dirname = dirname(__filename);
 
 type ContractShape = { [key: string]: null | ContractShape };
 type DeviceResponsiveCssVariables = Record<string, Record<string, string | number>>;
+type TextStyleProperty = {
+  value: string | number;
+  token: {
+    name: string;
+    value: string | number;
+  } | null;
+};
+
+type CanonicalTextStyle = {
+  name: string;
+  id?: string;
+  properties: {
+    fontSize: TextStyleProperty;
+    lineHeight: TextStyleProperty;
+    fontFamily: TextStyleProperty;
+    fontWeight: TextStyleProperty;
+    letterSpacing: TextStyleProperty;
+    paragraphSpacing: TextStyleProperty;
+    paragraphIndent: TextStyleProperty;
+  };
+};
+
+type ExtractedTextStyle = {
+  token: string;
+  fontFamily: string;
+  fontWeight: string;
+  fontSize: string | number;
+  lineHeight?: string | number;
+  letterSpacing?:
+    | string
+    | number
+    | {
+        unit: string;
+        value: number;
+      };
+};
+
+type ParsedTextStyleToken = {
+  name: string;
+  category: string;
+  size: string;
+  weight?: string;
+};
 
 function toContractShape(nestedObject: NestedObject): ContractShape {
   const result: ContractShape = {};
@@ -31,6 +74,152 @@ function extractDeviceFlatMap(
       .filter(([, deviceValues]) => device in deviceValues)
       .map(([cssVariableName, deviceValues]) => [cssVariableName, String(deviceValues[device])]),
   );
+}
+
+function hasTypographyToken(
+  tokens: Record<string, string | number>,
+  tokenName: string,
+): boolean {
+  const normalizedTokenName = tokenName
+    .replaceAll("/", "-")
+    .replaceAll("lineHeight", "line-height")
+    .replaceAll("letterSpacing", "letter-spacing");
+
+  return normalizedTokenName in tokens;
+}
+
+function getTextStyleProperty(
+  tokens: Record<string, string | number>,
+  tokenName: string,
+  fallbackValue: string | number,
+): TextStyleProperty {
+  if (!hasTypographyToken(tokens, tokenName)) {
+    return {
+      value: fallbackValue,
+      token: null,
+    };
+  }
+
+  return {
+    value: fallbackValue,
+    token: {
+      name: tokenName,
+      value: fallbackValue,
+    },
+  };
+}
+
+function getTextStyleWeightTokenPath(
+  category: string,
+  semanticWeight: string | undefined,
+  fontWeight: string,
+): string {
+  if (category === "title") {
+    return fontWeight === "Bold" || fontWeight === "700"
+      ? "primitive/font/weight/title/bold"
+      : "primitive/font/weight/title/normal";
+  }
+
+  if (category === "label") {
+    return `primitive/font/weight/label/${semanticWeight}`;
+  }
+
+  if (category === "body") {
+    return `primitive/font/weight/body/${semanticWeight}`;
+  }
+
+  return "primitive/font/weight/syntax/normal";
+}
+
+function parseTextStyleToken(token: string): ParsedTextStyleToken {
+  const [, textStyleSegment, category, size, weight] = token.split("-");
+
+  if (textStyleSegment !== "textstyle" || !category || !size) {
+    throw new Error(`Invalid text style token: ${token}`);
+  }
+
+  return {
+    name: token.replace("textstyle", "textStyle"),
+    category,
+    size,
+    weight,
+  };
+}
+
+function toCssLength(value: string | number, unit = "px"): string {
+  return typeof value === "number" ? `${value}${unit}` : value;
+}
+
+function toLetterSpacingValue(letterSpacing: ExtractedTextStyle["letterSpacing"]): string {
+  if (letterSpacing === undefined) {
+    return "0px";
+  }
+
+  if (typeof letterSpacing === "string") {
+    return letterSpacing;
+  }
+
+  if (typeof letterSpacing === "number") {
+    return `${letterSpacing}px`;
+  }
+
+  return letterSpacing.unit === "PERCENT" ? `${letterSpacing.value}%` : `${letterSpacing.value}px`;
+}
+
+function normalizeExtractedTextStyles(
+  textStyleData: unknown,
+  typographyTokens: Record<string, string | number>,
+): unknown {
+  if (
+    !textStyleData ||
+    typeof textStyleData !== "object" ||
+    !("textStyles" in textStyleData) ||
+    !Array.isArray(textStyleData.textStyles)
+  ) {
+    return textStyleData;
+  }
+
+  return textStyleData.textStyles.map((textStyle: ExtractedTextStyle): CanonicalTextStyle => {
+    const { name, category, size, weight } = parseTextStyleToken(textStyle.token);
+    const fontSizeTokenName = `primitive/font/size/${category}/${size}`;
+    const lineHeightTokenName = `primitive/font/lineHeight/${category}/${size}`;
+    const typefaceTokenName = `primitive/typeface/${category}`;
+    const letterSpacingTokenName = `primitive/font/letterSpacing/${category}/${size}`;
+    const lineHeightValue =
+      textStyle.lineHeight === undefined ? "normal" : toCssLength(textStyle.lineHeight);
+    const letterSpacingValue = toLetterSpacingValue(textStyle.letterSpacing);
+
+    return {
+      name,
+      properties: {
+        fontSize: getTextStyleProperty(
+          typographyTokens,
+          fontSizeTokenName,
+          toCssLength(textStyle.fontSize),
+        ),
+        lineHeight: getTextStyleProperty(typographyTokens, lineHeightTokenName, lineHeightValue),
+        fontFamily: getTextStyleProperty(typographyTokens, typefaceTokenName, textStyle.fontFamily),
+        fontWeight: getTextStyleProperty(
+          typographyTokens,
+          getTextStyleWeightTokenPath(category, weight, textStyle.fontWeight),
+          textStyle.fontWeight,
+        ),
+        letterSpacing: getTextStyleProperty(
+          typographyTokens,
+          letterSpacingTokenName,
+          letterSpacingValue,
+        ),
+        paragraphSpacing: {
+          value: 0,
+          token: null,
+        },
+        paragraphIndent: {
+          value: 0,
+          token: null,
+        },
+      },
+    };
+  });
 }
 
 /**
@@ -98,10 +287,15 @@ try {
 
 const parsedTokens = tokenSchema.parse(tokens);
 
-// textStyle.json 읽기 및 처리
-const textStyleFilePath = join(__dirname, "input/textStyle.json");
+// textStyles.json 읽기 및 처리
+const textStyleFilePath = join(__dirname, "input/textStyles.json");
 const textStyleData = JSON.parse(fs.readFileSync(textStyleFilePath, "utf8"));
-const parsedTextStyle = textStyleSchema.parse(textStyleData);
+const normalizedTextStyleData = normalizeExtractedTextStyles(
+  textStyleData,
+  parsedTokens.typography.tokens.desktop,
+);
+
+const parsedTextStyle = textStyleSchema.parse(normalizedTextStyleData);
 
 const cssVariables = {
   colorPrimitive: parsedTokens["color-primitive"].cssVariables,

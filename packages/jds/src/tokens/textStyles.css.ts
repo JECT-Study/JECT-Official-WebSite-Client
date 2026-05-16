@@ -1,8 +1,10 @@
 // 자동 생성된 VE textStyles - 수정 금지
-// 생성 시간: 4/21/2026, 3:41:45 PM
+// 생성 시간: 5/16/2026, 3:01:40 PM
 import { globalStyle } from "@vanilla-extract/css";
 
 export const textStyleClassNames = [
+  "semantic-textStyle-title-6",
+  "semantic-textStyle-title-5",
   "semantic-textStyle-title-4",
   "semantic-textStyle-title-3",
   "semantic-textStyle-title-2",
@@ -34,6 +36,22 @@ export const textStyleClassNames = [
   "semantic-textStyle-syntax-sm",
   "semantic-textStyle-syntax-xs"
 ] as const;
+
+globalStyle(".semantic-textStyle-title-6", {
+  "fontSize": "var(--typo-primitive-fontSize-title-6)",
+  "lineHeight": "var(--typo-primitive-font-lineHeight-title-6)",
+  "fontFamily": "var(--typo-primitive-typeface-title)",
+  "fontWeight": "var(--typo-primitive-fontWeight-title-normal)",
+  "letterSpacing": "var(--typo-primitive-font-letterSpacing-title-6)"
+});
+
+globalStyle(".semantic-textStyle-title-5", {
+  "fontSize": "var(--typo-primitive-fontSize-title-5)",
+  "lineHeight": "var(--typo-primitive-font-lineHeight-title-5)",
+  "fontFamily": "var(--typo-primitive-typeface-title)",
+  "fontWeight": "var(--typo-primitive-fontWeight-title-normal)",
+  "letterSpacing": "var(--typo-primitive-font-letterSpacing-title-5)"
+});
 
 globalStyle(".semantic-textStyle-title-4", {
   "fontSize": "var(--typo-primitive-fontSize-title-4)",

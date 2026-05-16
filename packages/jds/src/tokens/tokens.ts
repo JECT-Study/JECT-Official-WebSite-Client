@@ -1,5 +1,5 @@
 // 자동 생성된 디자인 토큰 - 수정 금지
-// 생성 시간: 4/21/2026, 3:41:45 PM
+// 생성 시간: 5/16/2026, 3:01:40 PM
 
 export const designTokens = {
   "colorPrimitive": {
@@ -2475,6 +2475,24 @@ export const designTokens = {
     }
   },
   "textStyle": {
+    "semantic-textStyle-title-6": {
+      "fontSize": "var(--typo-primitive-fontSize-title-6)",
+      "lineHeight": "var(--typo-primitive-font-lineHeight-title-6)",
+      "fontFamily": "var(--typo-primitive-typeface-title)",
+      "fontWeight": "var(--typo-primitive-fontWeight-title-normal)",
+      "letterSpacing": "var(--typo-primitive-font-letterSpacing-title-6)",
+      "paragraphSpacing": "0px",
+      "paragraphIndent": "0px"
+    },
+    "semantic-textStyle-title-5": {
+      "fontSize": "var(--typo-primitive-fontSize-title-5)",
+      "lineHeight": "var(--typo-primitive-font-lineHeight-title-5)",
+      "fontFamily": "var(--typo-primitive-typeface-title)",
+      "fontWeight": "var(--typo-primitive-fontWeight-title-normal)",
+      "letterSpacing": "var(--typo-primitive-font-letterSpacing-title-5)",
+      "paragraphSpacing": "0px",
+      "paragraphIndent": "0px"
+    },
     "semantic-textStyle-title-4": {
       "fontSize": "var(--typo-primitive-fontSize-title-4)",
       "lineHeight": "var(--typo-primitive-font-lineHeight-title-4)",
