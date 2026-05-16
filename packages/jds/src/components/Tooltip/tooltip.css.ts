@@ -22,8 +22,9 @@ export const content = style({
   color: vars.color.semantic.object.inverse.boldest,
   padding: `${vars.scheme.semantic.spacing["6"]} ${vars.scheme.semantic.spacing["10"]}`,
   borderRadius: vars.scheme.semantic.radius["8"],
-  maxWidth: pxToRem(320),
+  maxWidth: pxToRem(280),
   overflowWrap: "break-word",
+  textAlign: "center",
   zIndex: 9999,
   boxShadow: vars.environment.semantic.shadow.overlay,
 

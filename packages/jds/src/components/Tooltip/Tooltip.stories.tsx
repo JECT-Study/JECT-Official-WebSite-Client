@@ -126,15 +126,15 @@ export const LongContent: Story = {
         <BlockButton.Basic hierarchy='accent'>표시되는 요소가 길 경우</BlockButton.Basic>
       </Tooltip.Trigger>
       <Tooltip.Content>
-        아주 아주 아주 아주 긴 요소입니다. 모바일 환경에서도 정상적인 툴팁 내용이 표시되어야하기
-        때문에 이러한 처리를 하였습니다. 최대 길이는 320px이며 이 후 자동으로 줄바꿈 됩니다.
+        내부 텍스트가 아주 길 경우 컴포넌트의 최대 길이 280px 기준으로 줄바꿈되며 텍스트가 중앙
+        정렬됩니다.
       </Tooltip.Content>
     </Tooltip.Root>
   ),
   parameters: {
     docs: {
       description: {
-        story: "긴 텍스트는 자동으로 줄바꿈되며, 최대 너비는 320px입니다.",
+        story: "긴 텍스트는 최대 너비 280px 기준으로 자동 줄바꿈되며 중앙 정렬됩니다.",
       },
     },
   },
