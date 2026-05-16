@@ -26,7 +26,7 @@ export const Thumbnail = forwardRef<HTMLElement, ThumbnailProps>(
       asChild = false,
       src,
       alt,
-      loading = "eager",
+      loading = "lazy",
       fallback = <ThumbnailFallback />,
       ratio = "1:1",
       orientation = "portrait",
