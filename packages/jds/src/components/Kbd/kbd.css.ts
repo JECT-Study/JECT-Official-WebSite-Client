@@ -37,9 +37,8 @@ export const kbd = recipe({
     paddingTop: vars.scheme.semantic.spacing["1"],
 
     borderRadius: vars.scheme.semantic.radius["4"],
-    backgroundColor: vars.color.semantic.fill.subtlest,
     border: `1px solid ${vars.color.semantic.stroke.alpha.subtle}`,
-    color: vars.color.semantic.object.alternative,
+    color: vars.color.semantic.object.neutral,
   },
   variants: {
     type: typeVariants,
