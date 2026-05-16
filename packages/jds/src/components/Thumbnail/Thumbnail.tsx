@@ -33,35 +33,42 @@ export const Thumbnail = forwardRef<HTMLElement, ThumbnailProps>(
       cornerStyle = "curved",
       appearance = "outlined",
       className,
+      children,
       ...restProps
     },
     forwardedRef,
   ) => {
-    const Comp = asChild ? Slot.Root : "div";
     const { isFallbackVisible, onError } = useImageStatus(src);
+
+    const content = isFallbackVisible ? (
+      fallback
+    ) : (
+      <img
+        data-part='image'
+        src={src}
+        alt={alt}
+        loading={loading}
+        onError={onError}
+        className={thumbnailStyles.image}
+      />
+    );
+
+    const rootClassName = clsx(
+      thumbnailStyles.root({ ratio, orientation, cornerStyle, appearance }),
+      className,
+    );
+
+    const Comp = asChild ? Slot.Root : "div";
 
     return (
       <Comp
         ref={forwardedRef as Ref<HTMLDivElement>}
         {...restProps}
         data-part='root'
-        className={clsx(
-          thumbnailStyles.root({ ratio, orientation, cornerStyle, appearance }),
-          className,
-        )}
+        className={rootClassName}
       >
-        {isFallbackVisible ? (
-          fallback
-        ) : (
-          <img
-            data-part='image'
-            src={src}
-            alt={alt}
-            loading={loading}
-            onError={onError}
-            className={thumbnailStyles.image}
-          />
-        )}
+        {asChild && <Slot.Slottable>{children}</Slot.Slottable>}
+        {content}
       </Comp>
     );
   },

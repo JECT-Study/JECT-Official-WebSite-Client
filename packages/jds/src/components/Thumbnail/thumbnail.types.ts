@@ -26,7 +26,6 @@ export type ThumbnailShapeProps =
     };
 
 interface ThumbnailBaseProps extends ComponentPropsWithoutRef<"div"> {
-  asChild?: boolean;
   src?: string;
   alt: string;
   loading?: "lazy" | "eager";
@@ -34,4 +33,10 @@ interface ThumbnailBaseProps extends ComponentPropsWithoutRef<"div"> {
   fallback?: ReactNode;
 }
 
-export type ThumbnailProps = ThumbnailBaseProps & ThumbnailShapeProps;
+type ThumbnailContentProps =
+  | { asChild?: false; children?: never }
+  | { asChild: true; children: ReactNode };
+
+export type ThumbnailProps = Omit<ThumbnailBaseProps, "children"> &
+  ThumbnailShapeProps &
+  ThumbnailContentProps;
