@@ -143,12 +143,6 @@ const root = recipe({
     appearance: appearanceVariants,
   },
   compoundVariants: [...aspectRatioCompoundVariants, ...roundedOnlyOnSquareCompoundVariants],
-  defaultVariants: {
-    ratio: "1:1",
-    orientation: "portrait",
-    cornerStyle: "curved",
-    appearance: "outlined",
-  },
 });
 
 const image = style({
@@ -157,6 +151,17 @@ const image = style({
   objectFit: "cover",
   display: "block",
   borderRadius: "inherit",
+});
+
+const fallback = style({
+  width: "100%",
+  height: "100%",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  borderRadius: "inherit",
+  backgroundColor: vars.color.semantic.fill.subtler,
+  color: vars.color.semantic.object.assistive,
 });
 
 /**
@@ -171,4 +176,5 @@ const image = style({
 export const thumbnailStyles = {
   root,
   image,
+  fallback,
 } as const;
