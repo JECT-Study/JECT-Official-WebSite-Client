@@ -17,7 +17,6 @@ export * from "./Icon";
 export * from "./Image";
 export * from "./Input";
 export * from "./Kbd";
-export * from "./Label";
 export * from "./Logo";
 export * from "./Menu/MegaMenu";
 export * from "./Menu/MenuItem";
