@@ -66,7 +66,7 @@ const roundedOnlyOnSquareCompoundVariants = THUMBNAIL_RATIO_OPTIONS.filter(r => 
   }),
 );
 
-export const root = recipe({
+const root = recipe({
   base: {
     position: "relative",
     display: "block",
@@ -151,10 +151,24 @@ export const root = recipe({
   },
 });
 
-export const image = style({
+const image = style({
   width: "100%",
   height: "100%",
   objectFit: "cover",
   display: "block",
   borderRadius: "inherit",
 });
+
+/**
+ * @description
+ * slot 단위 스타일 묶음, 합성 컴포넌트의 part 분리 기준과 동일하게 선언한다.
+ *   - root  : <Comp>(div | button | a)에 적용되는 recipe (variant 보유)
+ *   - image : 내부 <img> 고정 스타일
+ *
+ * slot이 늘어나는 컴포넌트(Card/Banner 등)도 같은 형태로 묶어 "어느 part에 어떤
+ * 스타일이 적용되는가"를 한 객체에서 즉시 파악할 수 있게 한다.
+ */
+export const thumbnailStyles = {
+  root,
+  image,
+} as const;

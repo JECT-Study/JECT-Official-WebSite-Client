@@ -2,7 +2,7 @@ import { clsx } from "clsx";
 import { Slot } from "radix-ui";
 import { type Ref, type SyntheticEvent, forwardRef } from "react";
 
-import * as styles from "./thumbnail.css";
+import { thumbnailStyles } from "./thumbnail.css";
 import type { ThumbnailProps } from "./thumbnail.types";
 
 const DEFAULT_FALLBACK_SRC = "/images/defaultImage.png";
@@ -39,7 +39,10 @@ export const Thumbnail = forwardRef<HTMLElement, ThumbnailProps>(
         ref={forwardedRef as Ref<HTMLDivElement>}
         {...restProps}
         data-part='root'
-        className={clsx(styles.root({ ratio, orientation, cornerStyle, appearance }), className)}
+        className={clsx(
+          thumbnailStyles.root({ ratio, orientation, cornerStyle, appearance }),
+          className,
+        )}
       >
         <img
           data-part='image'
@@ -47,7 +50,7 @@ export const Thumbnail = forwardRef<HTMLElement, ThumbnailProps>(
           alt={alt}
           loading={loading}
           onError={handleError}
-          className={styles.image}
+          className={thumbnailStyles.image}
         />
       </Comp>
     );
