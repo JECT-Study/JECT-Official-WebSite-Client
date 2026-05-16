@@ -13,7 +13,6 @@ export * from "./Divider";
 export * from "./EmptyState";
 export * from "./FileItem";
 export * from "./Footer";
-export * from "./Hero";
 export * from "./Icon";
 export * from "./Image";
 export * from "./Input";
