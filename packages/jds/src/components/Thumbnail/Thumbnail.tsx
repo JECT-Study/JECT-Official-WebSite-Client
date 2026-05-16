@@ -53,11 +53,6 @@ export const Thumbnail = forwardRef<HTMLElement, ThumbnailProps>(
       />
     );
 
-    const rootClassName = clsx(
-      thumbnailStyles.root({ ratio, orientation, cornerStyle, appearance }),
-      className,
-    );
-
     const Comp = asChild ? Slot.Root : "div";
 
     return (
@@ -65,7 +60,10 @@ export const Thumbnail = forwardRef<HTMLElement, ThumbnailProps>(
         ref={forwardedRef as Ref<HTMLDivElement>}
         {...restProps}
         data-part='root'
-        className={rootClassName}
+        className={clsx(
+          thumbnailStyles.root({ ratio, orientation, cornerStyle, appearance }),
+          className,
+        )}
       >
         {asChild && <Slot.Slottable>{children}</Slot.Slottable>}
         {content}
