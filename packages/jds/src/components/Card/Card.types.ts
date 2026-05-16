@@ -15,7 +15,7 @@ export interface CardRootOwnProps {
   children?: ReactNode;
 }
 
-export interface CardImageProps extends ComponentPropsWithoutRef<"div"> {
+export interface CardImageProps extends Omit<ComponentPropsWithoutRef<"div">, "children"> {
   src?: string;
   alt: string;
   fallback?: ReactNode;

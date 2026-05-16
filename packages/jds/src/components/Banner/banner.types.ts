@@ -16,8 +16,10 @@ export interface BannerBarProps extends BaseBannerProps {
   closeAriaLabel?: string;
 }
 
-export interface BannerImageProps
-  extends Omit<ThumbnailProps, "ratio" | "orientation" | "cornerStyle" | "alt" | "asChild"> {
+export interface BannerImageProps extends Omit<
+  ThumbnailProps,
+  "ratio" | "orientation" | "cornerStyle" | "alt" | "asChild" | "children"
+> {
   variant?: "image";
   title: string;
   subtitle?: string;
