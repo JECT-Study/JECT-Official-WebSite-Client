@@ -15,7 +15,7 @@ const tooltipFadeOut = keyframes({
 
 const tooltipTransition = `${vars.environment.semantic.duration["200"]} ${vars.environment.semantic.motion.fluent}`;
 
-export const contentTextStyle = "semantic-textStyle-body-sm-normal";
+export const contentTextStyle = "semantic-textStyle-label-sm-normal";
 
 export const content = style({
   backgroundColor: vars.color.semantic.fill.boldest,
