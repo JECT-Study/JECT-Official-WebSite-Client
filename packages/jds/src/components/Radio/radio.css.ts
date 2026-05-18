@@ -204,10 +204,10 @@ const itemSizeVariants = {
 
 // empty 모드에서 ::after / ::before를 element 경계 밖으로 확장하는 크기
 const itemInsetBySize: Record<RadioSize, string> = {
-  lg: "-4px -6px",
-  md: "-4px -6px",
-  sm: "-3px -5px",
-  xs: "-3px -4px",
+  lg: `${pxToRem(-4)} ${pxToRem(-6)}`,
+  md: `${pxToRem(-4)} ${pxToRem(-6)}`,
+  sm: `${pxToRem(-3)} ${pxToRem(-5)}`,
+  xs: `${pxToRem(-3)} ${pxToRem(-4)}`,
 };
 
 // outline 모드 size별 padding
