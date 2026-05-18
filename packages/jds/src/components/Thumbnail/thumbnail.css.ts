@@ -11,13 +11,18 @@ import {
 } from "./thumbnail.types";
 import { vars } from "../../tokens/vars.css";
 
-const HOVER_DIM_OPACITY = 0.4;
-const PRESSED_DIM_OPACITY = 0.6;
-const DISABLED_OPACITY = 0.4;
-const FOCUS_RING_WIDTH = "3px";
+// TODO: 임시 하드코딩 — 디자인 토큰 마이그레이션(별도 작업) 완료 후 토큰으로 교체할 것
+//   hover dim        = fill.normal               (rgba(1,1,9,0.54), 알파 내장)
+//   active 추가 레이어 = fill.normal @ opacity-8 (0.08) — hover 레이어 위에 스택
+//                       아래 값은 그 스택 레이어를 합성(0.54 × 0.08 ≈ 0.043)한 단일 색 임시 표현
+const HOVER_DIM_COLOR = "rgba(1, 1, 9, 0.54)";
+const PRESS_DIM_LAYER_COLOR = "rgba(1, 1, 9, 0.043)";
+// TODO: 임시 하드코딩 — 디자인 토큰 마이그레이션 완료 후 토큰으로 교체할 것
+//   color = accent.alpha.alternative (rgba(6,87,254,0.56)),  width = stroke-weight-2 (2px)
+const FOCUS_RING_WIDTH = "2px";
+const FOCUS_RING_COLOR = "rgba(6, 87, 254, 0.56)";
 
 const thumbnailBorderColor = createVar();
-const thumbnailDimColor = createVar();
 
 const ratioBase: Record<ThumbnailRatio, [number, number]> = {
   "1:1": [1, 1],
@@ -84,7 +89,6 @@ const root = recipe({
 
     vars: {
       [thumbnailBorderColor]: vars.color.semantic.stroke.alpha.subtler,
-      [thumbnailDimColor]: vars.color.semantic.curtain.static.dimmer,
     },
 
     selectors: {
@@ -98,12 +102,13 @@ const root = recipe({
         boxShadow: "none",
         transition: `box-shadow ${vars.environment.semantic.duration[100]} ${vars.environment.semantic.motion.fluent}`,
       },
+      // dim 레이어 — rest=투명, hover=fill.normal 단일, active=hover 위 press 레이어 스택
       "&::after": {
         content: '""',
         position: "absolute",
         inset: 0,
         pointerEvents: "none",
-        backgroundColor: thumbnailDimColor,
+        backgroundColor: HOVER_DIM_COLOR,
         opacity: 0,
         transition: `opacity ${vars.environment.semantic.duration[100]} ${vars.environment.semantic.motion.fluent}`,
       },
@@ -113,26 +118,20 @@ const root = recipe({
         cursor: "pointer",
       },
       "&:is(button, a):hover::after": {
-        opacity: HOVER_DIM_OPACITY,
+        opacity: 1,
       },
+      // active: hover dim(backgroundColor) 유지 + press 레이어(backgroundImage)를 위에 스택
       "&:is(button, a):active::after": {
-        opacity: PRESSED_DIM_OPACITY,
+        opacity: 1,
+        backgroundImage: `linear-gradient(${PRESS_DIM_LAYER_COLOR}, ${PRESS_DIM_LAYER_COLOR})`,
         transition: "none",
       },
       "&:is(button, a):focus-visible": {
         outline: "none",
       },
       "&:is(button, a):focus-visible::before": {
-        boxShadow: `0 0 0 ${FOCUS_RING_WIDTH} ${vars.color.semantic.interaction.focus}`,
+        boxShadow: `0 0 0 ${FOCUS_RING_WIDTH} ${FOCUS_RING_COLOR}`,
         zIndex: 1,
-      },
-      "&:is(button, a):disabled": {
-        cursor: "default",
-        opacity: DISABLED_OPACITY,
-      },
-      "&:is(button, a)[aria-disabled='true']": {
-        cursor: "default",
-        opacity: DISABLED_OPACITY,
       },
     },
   },
@@ -166,12 +165,12 @@ const fallback = style({
 
 /**
  * @description
- * slot 단위 스타일 묶음, 합성 컴포넌트의 part 분리 기준과 동일하게 선언한다.
+ * slot 단위 스타일 묶음, 합성 컴포넌트의 part 분리 기준과 동일하게 선언한다
  *   - root  : <Comp>(div | button | a)에 적용되는 recipe (variant 보유)
  *   - image : 내부 <img> 고정 스타일
  *
  * slot이 늘어나는 컴포넌트(Card/Banner 등)도 같은 형태로 묶어 "어느 part에 어떤
- * 스타일이 적용되는가"를 한 객체에서 즉시 파악할 수 있게 한다.
+ * 스타일이 적용되는가"를 한 객체에서 즉시 파악할 수 있게 한다
  */
 export const thumbnailStyles = {
   root,
