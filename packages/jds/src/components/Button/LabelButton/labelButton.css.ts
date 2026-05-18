@@ -2,8 +2,10 @@ import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import type { IconSize } from "components";
 import { vars } from "tokens";
+import { pxToRem } from "utils";
 
 import type { LabelButtonHierarchy, LabelButtonIntent, LabelButtonSize } from "./labelButton.types";
+
 
 import { focusRing } from "@/utils/focusRing.css";
 import { overlay, overlayColor } from "@/utils/overlay.css";
@@ -90,10 +92,10 @@ const typographyBySize = {
 // LabelButton은 padding이 0이고 탭 영역이 시각 영역을 초과한다.
 // ::before(focusRing)와 ::after(overlay)를 size별로 음수 inset으로 확장한다.
 const tapAreaBySize = {
-  lg: { inset: "-0.25rem -0.5rem", borderRadius: vars.scheme.semantic.radius["6"] },
-  md: { inset: "-0.1875rem -0.375rem", borderRadius: vars.scheme.semantic.radius["6"] },
-  sm: { inset: "-0.125rem -0.25rem", borderRadius: vars.scheme.semantic.radius["4"] },
-  xs: { inset: "-0.0625rem -0.1875rem", borderRadius: vars.scheme.semantic.radius["4"] },
+  lg: { inset: `${pxToRem(-4)} ${pxToRem(-8)}`, borderRadius: vars.scheme.semantic.radius["6"] },
+  md: { inset: `${pxToRem(-3)} ${pxToRem(-6)}`, borderRadius: vars.scheme.semantic.radius["6"] },
+  sm: { inset: `${pxToRem(-2)} ${pxToRem(-4)}`, borderRadius: vars.scheme.semantic.radius["4"] },
+  xs: { inset: `${pxToRem(-1)} ${pxToRem(-3)}`, borderRadius: vars.scheme.semantic.radius["4"] },
 } satisfies Record<LabelButtonSize, { inset: string; borderRadius: string }>;
 
 // Size variants (typography + ::before/::after 확장 영역을 함께 결정)
