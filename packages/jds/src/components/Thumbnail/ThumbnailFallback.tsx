@@ -4,7 +4,7 @@ import { Icon } from "../Icon";
 export function ThumbnailFallback() {
   return (
     <div data-part='fallback' className={thumbnailStyles.fallback}>
-      <Icon name='image-line' size='xl' aria-hidden='true' />
+      <Icon name='image-line' size='3xl' aria-hidden='true' />
     </div>
   );
 }

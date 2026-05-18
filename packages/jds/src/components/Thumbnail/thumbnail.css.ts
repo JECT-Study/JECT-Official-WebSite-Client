@@ -160,8 +160,8 @@ const fallback = style({
   alignItems: "center",
   justifyContent: "center",
   borderRadius: "inherit",
-  backgroundColor: vars.color.semantic.fill.subtler,
-  color: vars.color.semantic.object.assistive,
+  backgroundColor: vars.color.semantic.surface.deeper,
+  color: vars.color.semantic.object.subtlest,
 });
 
 /**
