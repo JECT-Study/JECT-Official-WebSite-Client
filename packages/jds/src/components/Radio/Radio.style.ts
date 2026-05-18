@@ -87,7 +87,7 @@ export const StyledRadioRootSpan = styled.span<RadioStyledProps>(({ theme, radio
   };
 });
 
-import type { LabelSize } from "@/components/Label/Label.style";
+import type { LabelSize } from "@/utils/typography";
 
 interface RadioContainerProps {
   radioSize: RadioSize;

@@ -3,6 +3,7 @@ import type { ElementType, SyntheticEvent } from "react";
 import { IconDiv, ImageButton, ImageLabelDiv, StyledIcon, StyledLabel } from "./Image.style";
 
 import { PolymorphicForwardRef } from "@/utils/forwardRef";
+import { getLabelClassName } from "@/utils/typography";
 
 export type ImgRatio = "1:1" | "4:5" | "3:4" | "2:3" | "9:16" | "1:2" | "9:21";
 export type ImgOrientation = "portrait" | "landscape";
@@ -56,7 +57,7 @@ export const Image = PolymorphicForwardRef<"button", ImageOwnProps>(
         <img src={src || fallbackSrc} alt={alt} onError={imageLoadErrorHandler} loading={loading} />
         {badgeVisible && (
           <ImageLabelDiv>
-            <StyledLabel as='span' size='xs' textAlign='center' weight='normal'>
+            <StyledLabel className={getLabelClassName({ size: "xs", textAlign: "center" })}>
               {badgeLabel}
             </StyledLabel>
           </ImageLabelDiv>

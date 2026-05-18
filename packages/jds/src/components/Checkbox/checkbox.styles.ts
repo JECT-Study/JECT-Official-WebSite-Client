@@ -4,12 +4,14 @@ import styled from "@emotion/styled";
 
 import type { CheckboxAlign, CheckboxSize, CheckboxVariant } from "./checkbox.types";
 import type { IconSize } from "../Icon/Icon.types";
-import type { LabelOwnProps } from "../Label";
-import { Label } from "../Label/Label";
-import type { LabelSize } from "../Label/Label.style";
 
 import type { Variant } from "@/types";
 import { InteractionLayer, pxToRem } from "@/utils";
+import {
+  shouldForwardTypographyProp,
+  type LabelOwnProps,
+  type LabelSize,
+} from "@/utils/typography";
 
 const checkboxSizeMap: Record<CheckboxSize, number> = {
   lg: 20,
@@ -583,8 +585,8 @@ const labelColorParams = {
   },
 };
 
-export const StyledMainLabel = styled(Label, {
-  shouldForwardProp: prop => !prop.startsWith("$"),
+export const StyledMainLabel = styled("span", {
+  shouldForwardProp: shouldForwardTypographyProp,
 })<
   LabelOwnProps & {
     $disabled: boolean;
@@ -599,8 +601,8 @@ export const StyledMainLabel = styled(Label, {
   };
 });
 
-export const StyledSubLabel = styled(Label, {
-  shouldForwardProp: prop => !prop.startsWith("$"),
+export const StyledSubLabel = styled("span", {
+  shouldForwardProp: shouldForwardTypographyProp,
 })<
   LabelOwnProps & {
     $disabled: boolean;

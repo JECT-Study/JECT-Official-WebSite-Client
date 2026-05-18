@@ -26,6 +26,8 @@ import { getInteractionStates } from "../input.types";
 import { TagFieldUtils } from "./tagField.utils";
 import { useTagFieldState } from "./useTagFieldState";
 
+import { getLabelClassName } from "@/utils/typography";
+
 export const TagFieldButton = forwardRef<HTMLInputElement, TagFieldButtonProps>(
   (
     {
@@ -145,10 +147,8 @@ export const TagFieldButton = forwardRef<HTMLInputElement, TagFieldButtonProps>(
         {label && (
           <StyledLabelContainer>
             <StyledFieldLabel
-              as='label'
               htmlFor={inputId}
-              size='sm'
-              weight='normal'
+              className={getLabelClassName({ size: "sm" })}
               $disabled={isDisabled}
               $readOnly={isReadOnly}
             >
@@ -208,9 +208,7 @@ export const TagFieldButton = forwardRef<HTMLInputElement, TagFieldButtonProps>(
 
           {helperText && (
             <StyledHelperText
-              as='span'
-              size='sm'
-              weight='normal'
+              className={getLabelClassName({ size: "sm" })}
               $validation={validation}
               $disabled={isDisabled}
               $readOnly={isReadOnly}

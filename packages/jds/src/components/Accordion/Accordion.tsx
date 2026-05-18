@@ -20,6 +20,8 @@ import type {
 } from "./accordion.types";
 import { AccordionContext, useAccordionContext } from "./accordionContext";
 
+import { getLabelClassName } from "@/utils/typography";
+
 /**
  * Accordion.Root
  * - Radix UI Accordion의 루트 컨테이너입니다.
@@ -70,9 +72,7 @@ const AccordionTrigger = forwardRef<HTMLButtonElement, AccordionTriggerProps>(
         <StyledAccordionTrigger {...props} ref={ref} $isStretched={isStretched}>
           <StyledAccordionLabelContainer>
             {withPrefixIcon && <Icon size={iconSize} name={withPrefixIcon} aria-hidden />}
-            <StyleLabel as='span' size={labelSize} textAlign='left' weight='normal'>
-              {children}
-            </StyleLabel>
+            <StyleLabel className={getLabelClassName({ size: labelSize })}>{children}</StyleLabel>
           </StyledAccordionLabelContainer>
 
           <StyledAccordionChevron className='arrowIcon'>

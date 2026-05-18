@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { shadow } from "utils";
 
-import { Label } from "@/components/Label";
+import { shouldForwardTypographyProp } from "@/utils/typography";
 
 export const StyledMegaMenuRoot = styled("div")(({ theme }) => ({
   display: "flex",
@@ -18,9 +18,11 @@ export const StyledMegaMenuSection = styled("div")(({ theme }) => ({
   gap: theme.scheme.semantic.spacing[20],
 }));
 
-export const StyledLabel = styled(Label)(({ theme }) => ({
-  color: theme.color.semantic.object.alternative,
-}));
+export const StyledLabel = styled("span", { shouldForwardProp: shouldForwardTypographyProp })(
+  ({ theme }) => ({
+    color: theme.color.semantic.object.alternative,
+  }),
+);
 
 export const StyledMegaMenuGroup = styled("ul")(({ theme }) => ({
   display: "flex",

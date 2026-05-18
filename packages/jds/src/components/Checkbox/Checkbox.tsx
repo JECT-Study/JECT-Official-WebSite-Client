@@ -20,6 +20,8 @@ import {
   StyledSubLabel,
 } from "./checkbox.styles";
 
+import { getLabelClassName } from "@/utils/typography";
+
 const CheckboxBox = forwardRef<HTMLInputElement, CheckboxBoxProps>(
   (
     {
@@ -176,9 +178,7 @@ const CheckboxContent = forwardRef<HTMLInputElement, CheckboxContentProps>(
         </StyledCheckboxBoxWrapper>
         <StyledLabelContent>
           <StyledMainLabel
-            as='span'
-            size={size}
-            weight='normal'
+            className={getLabelClassName({ size })}
             $disabled={disabled}
             $isInvalid={isInvalid}
           >
@@ -186,9 +186,7 @@ const CheckboxContent = forwardRef<HTMLInputElement, CheckboxContentProps>(
           </StyledMainLabel>
           {subLabel && (
             <StyledSubLabel
-              as='span'
-              size={GetSubLabelSize(size)}
-              weight='normal'
+              className={getLabelClassName({ size: GetSubLabelSize(size) })}
               $disabled={disabled}
               $isInvalid={isInvalid}
             >

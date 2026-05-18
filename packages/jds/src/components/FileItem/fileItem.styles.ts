@@ -4,7 +4,8 @@ import { InteractionLayer } from "utils";
 
 import type { FileItemLabelProps, FileItemWrapButtonProps, FileSizeProps } from "./fileItem.types";
 import { Icon } from "../Icon";
-import { Label } from "../Label";
+
+import { shouldForwardTypographyProp } from "@/utils/typography";
 
 const interactionStyles = (theme: Theme, disabled: boolean, readonly: boolean): CSSObject => {
   const offset = {
@@ -129,11 +130,9 @@ export const FileItemIcon = styled(Icon)(() => {
   };
 });
 
-export const FileItemLabel = styled(Label)<FileItemLabelProps>(({
-  $disabled,
-  $readonly,
-  $hasError,
-}) => {
+export const FileItemLabel = styled("span", {
+  shouldForwardProp: shouldForwardTypographyProp,
+})<FileItemLabelProps>(({ $disabled, $readonly, $hasError }) => {
   return {
     flex: "1",
     cursor: $disabled || $readonly || $hasError ? "default" : "pointer",
@@ -141,7 +140,9 @@ export const FileItemLabel = styled(Label)<FileItemLabelProps>(({
   };
 });
 
-export const FileSizeLabel = styled(Label)<FileSizeProps>(({ theme, $disabled, $hasError }) => {
+export const FileSizeLabel = styled("span", {
+  shouldForwardProp: shouldForwardTypographyProp,
+})<FileSizeProps>(({ theme, $disabled, $hasError }) => {
   return {
     color: $hasError
       ? theme.color.semantic.object.neutral

@@ -4,7 +4,8 @@ import styled from "@emotion/styled";
 import { pxToRem } from "utils";
 
 import type { EmptyStateProps } from "./emptyState.types";
-import { Label } from "../Label";
+
+import { shouldForwardTypographyProp } from "@/utils/typography";
 
 const variantStylesMap = {
   outlined: (theme: Theme): CSSObject => ({
@@ -59,10 +60,12 @@ export const EmptyStateContentDiv = styled("div", {
   ...contentLayoutStylesMap[$layout](theme),
 }));
 
-export const EmptyStateLabel = styled(Label)(({ theme }) => ({
-  flex: 1,
-  color: theme.color.semantic.object.neutral,
-}));
+export const EmptyStateLabel = styled("span", { shouldForwardProp: shouldForwardTypographyProp })(
+  ({ theme }) => ({
+    flex: 1,
+    color: theme.color.semantic.object.neutral,
+  }),
+);
 
 export const EmptyStateBodyTextP = styled("p", {
   shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith("$"),

@@ -9,7 +9,8 @@ import type {
   UploaderImageLabelProps,
 } from "./uploader.types";
 import { Icon } from "../Icon";
-import { Label } from "../Label";
+
+import { shouldForwardTypographyProp } from "@/utils/typography";
 
 const uploaderFileStylesMap = (
   theme: Theme,
@@ -215,11 +216,17 @@ export const AddIcon = styled(Icon)<UploaderImageIconProps>(({ theme, $isDisable
   };
 });
 
-export const ImageLabel = styled(Label)<UploaderImageLabelProps>(({ theme, $isDisabled }) => {
+export const ImageLabel = styled("span", {
+  shouldForwardProp: shouldForwardTypographyProp,
+})<UploaderImageLabelProps>(({ theme, $isDisabled }) => {
   return {
     color: $isDisabled ? theme.color.semantic.object.subtle : theme.color.semantic.object.neutral,
   };
 });
+
+export const AssistiveLabel = styled("span")(({ theme }) => ({
+  color: theme.color.semantic.object.assistive,
+}));
 
 export const HiddenInput = styled.input(() => {
   return {

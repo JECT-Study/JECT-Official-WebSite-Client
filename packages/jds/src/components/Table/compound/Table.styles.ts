@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 
 import type { TableRowItemProps } from "../Table.types";
 
-import { Label } from "@/components/Label";
+import { shouldForwardTypographyProp } from "@/utils/typography";
 
 export const StyledTableRoot = styled.table(({ theme }) => ({
   width: "100%",
@@ -66,9 +66,11 @@ export const StyledTableItemTitle = styled.div(({ theme }) => ({
   gap: theme.scheme.semantic.spacing[6],
 }));
 
-export const StyledDescription = styled(Label)(({ theme }) => ({
-  color: theme.color.semantic.object.alternative,
-}));
+export const StyledDescription = styled("span", { shouldForwardProp: shouldForwardTypographyProp })(
+  ({ theme }) => ({
+    color: theme.color.semantic.object.alternative,
+  }),
+);
 
 export const StyledCodeWrapper = styled.div(({ theme }) => ({
   display: "flex",

@@ -3,7 +3,7 @@ import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 import type { MenuItemAnchorProps, MenuItemButtonProps } from "../MenuItem";
 
-import type { LabelOwnProps } from "@/components/Label";
+import type { LabelOwnProps } from "@/utils/typography";
 
 export type MenuStyle = "solid" | "empty";
 export type MenuSize = "lg" | "md" | "sm";

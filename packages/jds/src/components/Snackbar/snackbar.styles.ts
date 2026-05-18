@@ -5,7 +5,8 @@ import { pxToRem, shadow } from "utils";
 import type { SnackbarDivProps, SnackbarFeedbackIconProps, SnackbarStyle } from "./snackbar.types";
 import { snackbarStylesMap } from "./snackbar.variants";
 import { Icon } from "../Icon";
-import { Label } from "../Label";
+
+import { shouldForwardTypographyProp } from "@/utils/typography";
 
 export const SnackbarStackContainer = styled.div(({ theme }) => {
   return {
@@ -75,10 +76,9 @@ export const SnackbarDiv = styled.div<SnackbarDivProps>(({ theme, snackbarStyle 
   };
 });
 
-export const SnackbarLabel = styled(Label)<{ snackbarStyle: SnackbarStyle }>(({
-  theme,
-  snackbarStyle,
-}) => {
+export const SnackbarLabel = styled("span", { shouldForwardProp: shouldForwardTypographyProp })<{
+  snackbarStyle: SnackbarStyle;
+}>(({ theme, snackbarStyle }) => {
   return { flex: "1", color: snackbarStylesMap(theme)[snackbarStyle].color };
 });
 

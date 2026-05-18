@@ -5,7 +5,8 @@ import { Interaction, pxToRem } from "utils";
 
 import type { ImgOrientation, ImgRatio } from "./Image";
 import { Icon } from "../Icon";
-import { Label } from "../Label";
+
+import { shouldForwardTypographyProp } from "@/utils/typography";
 
 export const getAspectRatioValue = (
   ratio: ImgRatio,
@@ -94,7 +95,9 @@ export const ImageLabelDiv = styled.div(({ theme }) => {
   };
 });
 
-export const StyledLabel = styled(Label)(({ theme }) => {
+export const StyledLabel = styled("span", { shouldForwardProp: shouldForwardTypographyProp })(({
+  theme,
+}) => {
   return {
     color: theme.color.semantic.object.static.inverse.boldest,
   };

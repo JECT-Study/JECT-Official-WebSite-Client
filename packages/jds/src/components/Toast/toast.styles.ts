@@ -5,7 +5,8 @@ import { pxToRem, shadow } from "utils";
 import type { ToastDivProps, ToastFeedbackIconProps, ToastStyle } from "./toast.types";
 import { toastStylesMap } from "./toast.variants";
 import { Icon } from "../Icon";
-import { Label } from "../Label";
+
+import { shouldForwardTypographyProp } from "@/utils/typography";
 
 export const ToastStackContainer = styled.div(({ theme }) => {
   return {
@@ -75,7 +76,9 @@ export const ToastDiv = styled.div<ToastDivProps>(({ theme, toastStyle }) => {
   };
 });
 
-export const ToastLabel = styled(Label)<{ toastStyle: ToastStyle }>(({ theme, toastStyle }) => {
+export const ToastLabel = styled("span", { shouldForwardProp: shouldForwardTypographyProp })<{
+  toastStyle: ToastStyle;
+}>(({ theme, toastStyle }) => {
   return { flex: "1", color: toastStylesMap(theme)[toastStyle].color };
 });
 

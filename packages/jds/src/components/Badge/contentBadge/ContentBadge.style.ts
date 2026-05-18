@@ -20,7 +20,7 @@ import {
 } from "./contentBadge.variants";
 
 import { Icon } from "@/components/Icon";
-import { Label } from "@/components/Label";
+import { shouldForwardTypographyProp } from "@/utils/typography";
 
 interface ContentBasicBadgeDivProps {
   hierarchy: BasicHierarchy;
@@ -59,12 +59,9 @@ interface ContentBadgeBasicLabelProps {
   isMuted: boolean;
 }
 
-export const ContentBadgeBasicLabel = styled(Label)<ContentBadgeBasicLabelProps>(({
-  theme,
-  hierarchy,
-  badgeStyle,
-  isMuted,
-}) => {
+export const ContentBadgeBasicLabel = styled("span", {
+  shouldForwardProp: shouldForwardTypographyProp,
+})<ContentBadgeBasicLabelProps>(({ theme, hierarchy, badgeStyle, isMuted }) => {
   const color = isMuted
     ? contentBadgeBasicMutedStylesMap(theme)[badgeStyle].color
     : contentBadgeBasicStylesMap(theme)[badgeStyle][hierarchy].color;
@@ -131,12 +128,9 @@ interface ContentBadgeFeedbackLabelProps {
   isMuted: boolean;
 }
 
-export const ContentBadgeFeedbackLabel = styled(Label)<ContentBadgeFeedbackLabelProps>(({
-  theme,
-  variant,
-  badgeStyle,
-  isMuted,
-}) => {
+export const ContentBadgeFeedbackLabel = styled("span", {
+  shouldForwardProp: shouldForwardTypographyProp,
+})<ContentBadgeFeedbackLabelProps>(({ theme, variant, badgeStyle, isMuted }) => {
   const color = isMuted
     ? contentBadgeFeedbackMutedStylesMap(theme)[badgeStyle][variant].color
     : contentBadgeFeedbackStylesMap(theme)[badgeStyle][variant].color;
@@ -182,12 +176,9 @@ interface ContentBadgeThemeLabelProps {
   isMuted: boolean;
 }
 
-export const ContentBadgeThemeLabel = styled(Label)<ContentBadgeThemeLabelProps>(({
-  theme,
-  variant,
-  badgeStyle,
-  isMuted,
-}) => {
+export const ContentBadgeThemeLabel = styled("span", {
+  shouldForwardProp: shouldForwardTypographyProp,
+})<ContentBadgeThemeLabelProps>(({ theme, variant, badgeStyle, isMuted }) => {
   const color = isMuted
     ? contentBadgeThemeMutedStylesMap(theme)[badgeStyle][variant].color
     : contentBadgeThemeStylesMap(theme)[badgeStyle][variant].color;

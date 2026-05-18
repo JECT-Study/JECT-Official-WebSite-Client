@@ -4,7 +4,7 @@ import { FlexRow } from "@storybook-utils/layout";
 import { Menu } from "./Menu";
 
 import { IconButton } from "@/components/Button/IconButton";
-import { Label } from "@/components/Label";
+import { getLabelClassName } from "@/utils/typography";
 
 const meta: Meta<typeof Menu.Root> = {
   title: "Components/Menu/Menu",
@@ -64,7 +64,7 @@ export const Default: Story = {
 export const MenuStyles: Story = {
   render: () => (
     <FlexRow>
-      <Label>solid style</Label>
+      <span className={getLabelClassName()}>solid style</span>
       <Menu.Root menuStyle='solid'>
         <Menu.Trigger>
           <IconButton icon='menu-line' />
@@ -81,7 +81,7 @@ export const MenuStyles: Story = {
           </Menu.Group>
         </Menu.Content>
       </Menu.Root>
-      <Label>empty style</Label>
+      <span className={getLabelClassName()}>empty style</span>
       <Menu.Root menuStyle='empty'>
         <Menu.Trigger>
           <IconButton icon='menu-line' />

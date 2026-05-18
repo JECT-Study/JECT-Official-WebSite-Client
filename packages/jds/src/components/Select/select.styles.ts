@@ -2,8 +2,10 @@ import isPropValid from "@emotion/is-prop-valid";
 import type { CSSObject, Theme } from "@emotion/react";
 import styled from "@emotion/styled";
 import type { SelectSize } from "components";
-import { ContentBadge, Label } from "components";
+import { ContentBadge } from "components";
 import { InteractionLayer } from "utils";
+
+import { shouldForwardTypographyProp } from "@/utils/typography";
 
 export const StyledSelectContainer = styled("div")(({ theme }) => ({
   display: "flex",
@@ -175,8 +177,8 @@ export const StyledSelectItemTextRow = styled("div")(({ theme }) => ({
   zIndex: 1,
 }));
 
-export const StyledSelectItemText = styled(Label, {
-  shouldForwardProp: prop => !prop.startsWith("$"),
+export const StyledSelectItemText = styled("span", {
+  shouldForwardProp: shouldForwardTypographyProp,
 })<{
   $isDisabled: boolean;
   $selected: boolean;
@@ -193,8 +195,8 @@ export const StyledSelectItemText = styled(Label, {
   };
 });
 
-export const StyledSelectItemCaption = styled(Label, {
-  shouldForwardProp: prop => !prop.startsWith("$"),
+export const StyledSelectItemCaption = styled("span", {
+  shouldForwardProp: shouldForwardTypographyProp,
 })<{ $isDisabled: boolean }>(({ theme, $isDisabled }) => ({
   color: $isDisabled ? theme.color.semantic.object.subtle : theme.color.semantic.object.assistive,
   cursor: "inherit",

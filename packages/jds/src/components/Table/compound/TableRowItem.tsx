@@ -20,7 +20,7 @@ import { ColorChip } from "../ColorChip/ColorChip";
 import { ContentBadge } from "@/components/Badge";
 import { Code } from "@/components/Code/Code";
 import { Icon } from "@/components/Icon";
-import { Label } from "@/components/Label";
+import { getLabelClassName } from "@/utils/typography";
 
 const BadgeContent = ({ children }: Pick<TableRowItemBaseProps, "children">) => (
   <StyledBadgeWrapper>
@@ -44,7 +44,7 @@ const LabelContent = ({ children, prefixIcon, color }: Omit<TableRowItemLabelPro
   <StyledTableItemTitle>
     {prefixIcon && <Icon name={prefixIcon} size='sm' aria-hidden='true' />}
     {color && <ColorChip color={color} />}
-    <Label weight='bold'>{children}</Label>
+    <span className={getLabelClassName({ weight: "bold" })}>{children}</span>
   </StyledTableItemTitle>
 );
 
@@ -55,7 +55,11 @@ const BadgeRowItem = ({ children }: TableRowItemBadgeProps) => (
 const CodeRowItem = ({ children, description }: TableRowItemCodeProps) => (
   <>
     <CodeContent>{children}</CodeContent>
-    {description && <StyledDescription size='sm'>{description}</StyledDescription>}
+    {description && (
+      <StyledDescription className={getLabelClassName({ size: "sm" })}>
+        {description}
+      </StyledDescription>
+    )}
   </>
 );
 
@@ -64,7 +68,11 @@ const LabelRowItem = ({ children, description, prefixIcon, color }: TableRowItem
     <LabelContent prefixIcon={prefixIcon} color={color}>
       {children}
     </LabelContent>
-    {description && <StyledDescription size='sm'>{description}</StyledDescription>}
+    {description && (
+      <StyledDescription className={getLabelClassName({ size: "sm" })}>
+        {description}
+      </StyledDescription>
+    )}
   </>
 );
 

@@ -10,7 +10,7 @@ import {
   numericBadgeFeedbacksMutedStylesMap,
 } from "./numericBadge.variants";
 
-import { Label } from "@/components/Label";
+import { shouldForwardTypographyProp } from "@/utils/typography";
 
 interface NumericBadgeBasicDivProps {
   hierarchy: BasicHierarchy;
@@ -46,12 +46,9 @@ interface NumericBadgeBasicLabelProps {
   isMuted: boolean;
 }
 
-export const NumericBadgeBasicLabel = styled(Label)<NumericBadgeBasicLabelProps>(({
-  theme,
-  hierarchy,
-  badgeStyle,
-  isMuted,
-}) => {
+export const NumericBadgeBasicLabel = styled("span", {
+  shouldForwardProp: shouldForwardTypographyProp,
+})<NumericBadgeBasicLabelProps>(({ theme, hierarchy, badgeStyle, isMuted }) => {
   const color = isMuted
     ? numericBadgeBasicMutedStylesMap(theme)[badgeStyle].color
     : numericBadgeBasicStylesMap(theme)[badgeStyle][hierarchy].color;
@@ -95,12 +92,9 @@ interface NumericBadgeFeedbackLabelProps {
   isMuted: boolean;
 }
 
-export const NumericBadgeFeedbackLabel = styled(Label)<NumericBadgeFeedbackLabelProps>(({
-  theme,
-  variant,
-  badgeStyle,
-  isMuted,
-}) => {
+export const NumericBadgeFeedbackLabel = styled("span", {
+  shouldForwardProp: shouldForwardTypographyProp,
+})<NumericBadgeFeedbackLabelProps>(({ theme, variant, badgeStyle, isMuted }) => {
   const color = isMuted
     ? numericBadgeFeedbacksMutedStylesMap(theme)[badgeStyle][variant].color
     : numericBadgeFeedbackStylesMap(theme)[badgeStyle][variant].color;
