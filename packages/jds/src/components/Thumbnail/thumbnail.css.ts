@@ -159,6 +159,8 @@ const fallback = style({
   alignItems: "center",
   justifyContent: "center",
   borderRadius: "inherit",
+  // TODO: 토큰 마이그레이션(별도 작업) 후 배경을 primitive/flow/alpha/50 으로 교체할 것
+  //       현행 토큰셋에 해당 토큰 미존재로 보류 — 임시로 surface.deeper 유지
   backgroundColor: vars.color.semantic.surface.deeper,
   color: vars.color.semantic.object.subtlest,
 });
