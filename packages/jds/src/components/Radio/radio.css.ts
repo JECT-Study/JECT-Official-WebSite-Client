@@ -3,6 +3,7 @@ import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
 import { pxToRem, focusRing, overlay, overlayColor } from "utils";
 
+import { RADIO_SIZE_OPTIONS } from "./radio.types";
 import type { RadioSize } from "./radio.types";
 
 // Token key types
@@ -181,8 +182,6 @@ export const radioVisual = recipe({
 
 // Radio.Item
 
-const sizeKeys: RadioSize[] = ["lg", "md", "sm", "xs"];
-
 // Size variants
 const itemSizeVariants = {
   lg: {
@@ -220,7 +219,7 @@ const itemOutlinePaddingBySize = {
 } satisfies Record<RadioSize, string>;
 
 // Compound variants
-const expansionCompoundVariants = sizeKeys.map(size => ({
+const expansionCompoundVariants = RADIO_SIZE_OPTIONS.map(size => ({
   variants: { size, styleOutline: "empty" as const },
   style: {
     selectors: {
@@ -230,7 +229,7 @@ const expansionCompoundVariants = sizeKeys.map(size => ({
   },
 }));
 
-const outlinePaddingCompoundVariants = sizeKeys.map(size => ({
+const outlinePaddingCompoundVariants = RADIO_SIZE_OPTIONS.map(size => ({
   variants: { size, styleOutline: "outline" as const },
   style: { padding: itemOutlinePaddingBySize[size] },
 }));

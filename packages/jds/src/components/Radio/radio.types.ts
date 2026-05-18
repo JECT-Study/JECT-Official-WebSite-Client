@@ -1,8 +1,12 @@
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
-export type RadioSize = "lg" | "md" | "sm" | "xs";
-export type RadioStyle = "empty" | "outline";
-export type RadioAlign = "left" | "right";
+export const RADIO_SIZE_OPTIONS = ["lg", "md", "sm", "xs"] as const;
+export const RADIO_STYLE_OPTIONS = ["empty", "outline"] as const;
+export const RADIO_ALIGN_OPTIONS = ["left", "right"] as const;
+
+export type RadioSize = (typeof RADIO_SIZE_OPTIONS)[number];
+export type RadioStyle = (typeof RADIO_STYLE_OPTIONS)[number];
+export type RadioAlign = (typeof RADIO_ALIGN_OPTIONS)[number];
 
 export interface RadioRootProps {
   radioSize?: RadioSize;
