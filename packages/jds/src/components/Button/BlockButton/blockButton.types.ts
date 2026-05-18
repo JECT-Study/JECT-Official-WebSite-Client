@@ -1,9 +1,18 @@
 import type { IconName } from "components";
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
-export type BlockButtonSize = "xs" | "sm" | "md" | "lg";
-export type BlockButtonHierarchy = "accent" | "primary" | "secondary" | "tertiary";
-export type BlockButtonStyle = "solid" | "outlined" | "empty";
+export const BLOCK_BUTTON_SIZE_OPTIONS = ["xs", "sm", "md", "lg"] as const;
+export const BLOCK_BUTTON_HIERARCHY_OPTIONS = [
+  "accent",
+  "primary",
+  "secondary",
+  "tertiary",
+] as const;
+export const BLOCK_BUTTON_STYLE_OPTIONS = ["solid", "outlined", "empty"] as const;
+
+export type BlockButtonSize = (typeof BLOCK_BUTTON_SIZE_OPTIONS)[number];
+export type BlockButtonHierarchy = (typeof BLOCK_BUTTON_HIERARCHY_OPTIONS)[number];
+export type BlockButtonStyle = (typeof BLOCK_BUTTON_STYLE_OPTIONS)[number];
 export type FeedbackIntent = "positive" | "destructive";
 
 export interface BaseBlockButtonProps extends ComponentPropsWithoutRef<"button"> {

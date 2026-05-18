@@ -184,7 +184,6 @@ export const root = recipe({
   compoundVariants: sizeCondensedCompoundVariants,
 });
 
-
 export const icon = style({
   color: iconButtonIconColor,
 });

@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexRow, FlexColumn, Label } from "@storybook-utils/layout";
 
 import { LabelButton } from "./LabelButton";
+import { LABEL_BUTTON_HIERARCHY_OPTIONS } from "./labelButton.types";
 
 const meta = {
   title: "Components/LabelButton",
@@ -19,7 +20,7 @@ const meta = {
     },
     hierarchy: {
       control: "select",
-      options: ["accent", "primary", "secondary", "tertiary"],
+      options: LABEL_BUTTON_HIERARCHY_OPTIONS,
       description: "버튼의 시각적 맥락적 위계 구분",
       table: {
         defaultValue: { summary: "primary" },

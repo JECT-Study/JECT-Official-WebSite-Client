@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexRow, FlexColumn, Label } from "@storybook-utils/layout";
 
 import { BlockButton } from "./BlockButton";
+import { BLOCK_BUTTON_HIERARCHY_OPTIONS, BLOCK_BUTTON_STYLE_OPTIONS } from "./blockButton.types";
 
 const meta = {
   title: "Components/BlockButton",
@@ -19,7 +20,7 @@ const meta = {
     },
     hierarchy: {
       control: "select",
-      options: ["accent", "primary", "secondary", "tertiary"],
+      options: BLOCK_BUTTON_HIERARCHY_OPTIONS,
       description: "버튼의 시각적 위계",
       table: {
         defaultValue: { summary: "primary" },
@@ -166,11 +167,11 @@ export const ComprehensiveMatrix: Story = {
   },
   render: () => (
     <FlexColumn gap='32px'>
-      {(["solid", "outlined", "empty"] as const).map(variant => (
+      {BLOCK_BUTTON_STYLE_OPTIONS.map(variant => (
         <FlexColumn key={variant} gap='12px'>
           <Label>{variant.charAt(0).toUpperCase() + variant.slice(1)}</Label>
           <FlexRow gap='12px'>
-            {(["accent", "primary", "secondary", "tertiary"] as const).map(hierarchy => (
+            {BLOCK_BUTTON_HIERARCHY_OPTIONS.map(hierarchy => (
               <BlockButton.Basic key={hierarchy} variant={variant} hierarchy={hierarchy}>
                 {hierarchy}
               </BlockButton.Basic>

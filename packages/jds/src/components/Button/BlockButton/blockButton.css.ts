@@ -3,6 +3,7 @@ import { recipe } from "@vanilla-extract/recipes";
 import type { IconSize } from "components";
 import { vars } from "tokens";
 
+import { BLOCK_BUTTON_HIERARCHY_OPTIONS } from "./blockButton.types";
 import type {
   BlockButtonHierarchy,
   BlockButtonSize,
@@ -249,41 +250,29 @@ const baseStyles = style({
 });
 
 // Compound variants
-// keyof typeof <map> 이 satisfies Record<BlockButtonHierarchy, ...> 에 의해
-// BlockButtonHierarchy로 좁혀지므로 Object.keys 단언이 안전하다.
-type SolidKey = keyof typeof solidColorsByHierarchy;
-type OutlinedKey = keyof typeof outlinedColorsByHierarchy;
-type EmptyKey = keyof typeof emptyColorsByHierarchy;
+const solidCompoundVariants = BLOCK_BUTTON_HIERARCHY_OPTIONS.map(hierarchy => ({
+  variants: { hierarchy, variant: "solid" as const },
+  style: {
+    ...solidColorsByHierarchy[hierarchy].enabled,
+    selectors: { "&[data-disabled]": solidColorsByHierarchy[hierarchy].disabled },
+  },
+}));
 
-const solidCompoundVariants = (Object.keys(solidColorsByHierarchy) as SolidKey[]).map(
-  hierarchy => ({
-    variants: { hierarchy, variant: "solid" as const },
-    style: {
-      ...solidColorsByHierarchy[hierarchy].enabled,
-      selectors: { "&[data-disabled]": solidColorsByHierarchy[hierarchy].disabled },
-    },
-  }),
-);
+const outlinedCompoundVariants = BLOCK_BUTTON_HIERARCHY_OPTIONS.map(hierarchy => ({
+  variants: { hierarchy, variant: "outlined" as const },
+  style: {
+    ...outlinedColorsByHierarchy[hierarchy].enabled,
+    selectors: { "&[data-disabled]": outlinedColorsByHierarchy[hierarchy].disabled },
+  },
+}));
 
-const outlinedCompoundVariants = (Object.keys(outlinedColorsByHierarchy) as OutlinedKey[]).map(
-  hierarchy => ({
-    variants: { hierarchy, variant: "outlined" as const },
-    style: {
-      ...outlinedColorsByHierarchy[hierarchy].enabled,
-      selectors: { "&[data-disabled]": outlinedColorsByHierarchy[hierarchy].disabled },
-    },
-  }),
-);
-
-const emptyCompoundVariants = (Object.keys(emptyColorsByHierarchy) as EmptyKey[]).map(
-  hierarchy => ({
-    variants: { hierarchy, variant: "empty" as const },
-    style: {
-      ...emptyColorsByHierarchy[hierarchy].enabled,
-      selectors: { "&[data-disabled]": emptyColorsByHierarchy[hierarchy].disabled },
-    },
-  }),
-);
+const emptyCompoundVariants = BLOCK_BUTTON_HIERARCHY_OPTIONS.map(hierarchy => ({
+  variants: { hierarchy, variant: "empty" as const },
+  style: {
+    ...emptyColorsByHierarchy[hierarchy].enabled,
+    selectors: { "&[data-disabled]": emptyColorsByHierarchy[hierarchy].disabled },
+  },
+}));
 
 /**
  * `BlockButton.Basic`용 VE recipe.
@@ -328,7 +317,6 @@ export const basicRoot = recipe({
   ],
 });
 
-
 /**
  * `BlockButton.Feedback`용 VE recipe.
  *
@@ -357,4 +345,3 @@ export const feedbackRoot = recipe({
     size: sizeVariants satisfies Record<BlockButtonSize, unknown>,
   },
 });
-

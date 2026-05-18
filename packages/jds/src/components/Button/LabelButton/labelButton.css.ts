@@ -205,7 +205,6 @@ export const basicRoot = recipe({
   },
 });
 
-
 /**
  * `LabelButton.Feedback`용 VE recipe.
  *
@@ -220,4 +219,3 @@ export const feedbackRoot = recipe({
     size: sizeVariants satisfies Record<LabelButtonSize, unknown>,
   },
 });
-
