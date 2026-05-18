@@ -182,13 +182,8 @@ export const root = recipe({
     },
   },
   compoundVariants: sizeCondensedCompoundVariants,
-  defaultVariants: {
-    hierarchy: "primary",
-    size: "md",
-    // TODO: Figma에 명시된 default가 없어 현재 동작(condensed=true)을 그대로 유지
-    condensed: true,
-  },
 });
+
 
 export const icon = style({
   color: iconButtonIconColor,

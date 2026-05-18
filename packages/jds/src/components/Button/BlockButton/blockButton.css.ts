@@ -326,12 +326,8 @@ export const basicRoot = recipe({
     ...outlinedCompoundVariants,
     ...emptyCompoundVariants,
   ],
-  defaultVariants: {
-    hierarchy: "primary",
-    variant: "solid",
-    size: "md",
-  },
 });
+
 
 /**
  * `BlockButton.Feedback`용 VE recipe.
@@ -360,8 +356,5 @@ export const feedbackRoot = recipe({
     } satisfies Record<FeedbackIntent, unknown>,
     size: sizeVariants satisfies Record<BlockButtonSize, unknown>,
   },
-  defaultVariants: {
-    intent: "destructive",
-    size: "md",
-  },
 });
+

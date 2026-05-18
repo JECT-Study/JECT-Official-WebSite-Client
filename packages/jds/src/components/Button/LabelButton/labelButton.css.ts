@@ -203,11 +203,8 @@ export const basicRoot = recipe({
     hierarchy: hierarchyVariants satisfies Record<LabelButtonHierarchy, unknown>,
     size: sizeVariants satisfies Record<LabelButtonSize, unknown>,
   },
-  defaultVariants: {
-    hierarchy: "primary",
-    size: "md",
-  },
 });
+
 
 /**
  * `LabelButton.Feedback`용 VE recipe.
@@ -222,8 +219,5 @@ export const feedbackRoot = recipe({
     intent: intentVariants satisfies Record<LabelButtonIntent, unknown>,
     size: sizeVariants satisfies Record<LabelButtonSize, unknown>,
   },
-  defaultVariants: {
-    intent: "destructive",
-    size: "md",
-  },
 });
+
