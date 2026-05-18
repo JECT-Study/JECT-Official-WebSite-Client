@@ -19,5 +19,5 @@ export interface BlockButtonBasicProps extends BaseBlockButtonProps {
 }
 
 export interface BlockButtonFeedbackProps extends BaseBlockButtonProps {
-  intent: FeedbackIntent;
+  intent?: FeedbackIntent;
 }
