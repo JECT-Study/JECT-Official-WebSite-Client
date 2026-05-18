@@ -21,32 +21,32 @@ const radioSizeMap: Record<RadioSize, { sizeRem: string; borderKey: StrokeWeight
 // Typography per size
 const typographyBySize = {
   lg: {
-    fontSize: "var(--typo-primitive-fontSize-label-lg)",
-    lineHeight: "var(--typo-primitive-font-lineHeight-label-lg)",
-    fontFamily: "var(--typo-primitive-typeface-label)",
-    fontWeight: "var(--typo-primitive-fontWeight-label-subtle)",
-    letterSpacing: "var(--typo-primitive-font-letterSpacing-label-lg)",
+    fontSize: vars.typo.primitive.fontSize.label.lg,
+    lineHeight: vars.typo.primitive.font.lineHeight.label.lg,
+    fontFamily: vars.typo.primitive.typeface.label,
+    fontWeight: vars.typo.primitive.fontWeight.label.subtle,
+    letterSpacing: vars.typo.primitive.font.letterSpacing.label.lg,
   },
   md: {
-    fontSize: "var(--typo-primitive-fontSize-label-md)",
-    lineHeight: "var(--typo-primitive-font-lineHeight-label-md)",
-    fontFamily: "var(--typo-primitive-typeface-label)",
-    fontWeight: "var(--typo-primitive-fontWeight-label-subtle)",
-    letterSpacing: "var(--typo-primitive-font-letterSpacing-label-md)",
+    fontSize: vars.typo.primitive.fontSize.label.md,
+    lineHeight: vars.typo.primitive.font.lineHeight.label.md,
+    fontFamily: vars.typo.primitive.typeface.label,
+    fontWeight: vars.typo.primitive.fontWeight.label.subtle,
+    letterSpacing: vars.typo.primitive.font.letterSpacing.label.md,
   },
   sm: {
-    fontSize: "var(--typo-primitive-fontSize-label-sm)",
-    lineHeight: "var(--typo-primitive-font-lineHeight-label-sm)",
-    fontFamily: "var(--typo-primitive-typeface-label)",
-    fontWeight: "var(--typo-primitive-fontWeight-label-subtle)",
-    letterSpacing: "var(--typo-primitive-font-letterSpacing-label-sm)",
+    fontSize: vars.typo.primitive.fontSize.label.sm,
+    lineHeight: vars.typo.primitive.font.lineHeight.label.sm,
+    fontFamily: vars.typo.primitive.typeface.label,
+    fontWeight: vars.typo.primitive.fontWeight.label.subtle,
+    letterSpacing: vars.typo.primitive.font.letterSpacing.label.sm,
   },
   xs: {
-    fontSize: "var(--typo-primitive-fontSize-label-xs)",
-    lineHeight: "var(--typo-primitive-font-lineHeight-label-xs)",
-    fontFamily: "var(--typo-primitive-typeface-label)",
-    fontWeight: "var(--typo-primitive-fontWeight-label-subtle)",
-    letterSpacing: "var(--typo-primitive-font-letterSpacing-label-xs)",
+    fontSize: vars.typo.primitive.fontSize.label.xs,
+    lineHeight: vars.typo.primitive.font.lineHeight.label.xs,
+    fontFamily: vars.typo.primitive.typeface.label,
+    fontWeight: vars.typo.primitive.fontWeight.label.subtle,
+    letterSpacing: vars.typo.primitive.font.letterSpacing.label.xs,
   },
 } satisfies Record<RadioSize, object>;
 
@@ -177,7 +177,6 @@ export const radioVisual = recipe({
       },
     } satisfies Record<RadioSize, unknown>,
   },
-  defaultVariants: { size: "md" },
 });
 
 // Radio.Item
@@ -329,11 +328,6 @@ export const radioItem = recipe({
     },
   },
   compoundVariants: [...expansionCompoundVariants, ...outlinePaddingCompoundVariants],
-  defaultVariants: {
-    size: "md",
-    styleOutline: "empty",
-    alignRight: "left",
-  },
 });
 
 // Radio.Label / Radio.SubLabel
@@ -356,7 +350,6 @@ export const radioTextLabel = recipe({
       xs: typographyBySize.xs,
     } satisfies Record<RadioSize, unknown>,
   },
-  defaultVariants: { size: "md" },
 });
 
 export const radioSubLabel = recipe({
@@ -377,5 +370,4 @@ export const radioSubLabel = recipe({
       xs: typographyBySize.xs,
     } satisfies Record<RadioSize, unknown>,
   },
-  defaultVariants: { size: "md" },
 });
