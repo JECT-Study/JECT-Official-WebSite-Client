@@ -99,7 +99,9 @@ export const StyledLabel = styled("span", { shouldForwardProp: shouldForwardTypo
   theme,
 }) => {
   return {
-    color: theme.color.semantic.object.static.inverse.boldest,
+    "&&": {
+      color: theme.color.semantic.object.static.inverse.boldest,
+    },
   };
 });
 

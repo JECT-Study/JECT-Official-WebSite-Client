@@ -79,7 +79,12 @@ export const ToastDiv = styled.div<ToastDivProps>(({ theme, toastStyle }) => {
 export const ToastLabel = styled("span", { shouldForwardProp: shouldForwardTypographyProp })<{
   toastStyle: ToastStyle;
 }>(({ theme, toastStyle }) => {
-  return { flex: "1", color: toastStylesMap(theme)[toastStyle].color };
+  return {
+    flex: "1",
+    "&&": {
+      color: toastStylesMap(theme)[toastStyle].color,
+    },
+  };
 });
 
 export const ToastContentDiv = styled.div(({ theme }) => {

@@ -99,8 +99,10 @@ export const StyledTabPrimitiveTrigger = styled(
 
 export const StyledLabel = styled("span", { shouldForwardProp: shouldForwardTypographyProp })(
   () => ({
-    color: "inherit",
-    cursor: "inherit",
+    "&&": {
+      color: "inherit",
+      cursor: "inherit",
+    },
     whiteSpace: "nowrap",
   }),
 );

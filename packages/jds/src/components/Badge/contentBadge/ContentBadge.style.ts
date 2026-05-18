@@ -67,7 +67,10 @@ export const ContentBadgeBasicLabel = styled("span", {
     : contentBadgeBasicStylesMap(theme)[badgeStyle][hierarchy].color;
 
   return {
-    color,
+    "&&": {
+      color,
+      cursor: "inherit",
+    },
   };
 });
 
@@ -136,7 +139,10 @@ export const ContentBadgeFeedbackLabel = styled("span", {
     : contentBadgeFeedbackStylesMap(theme)[badgeStyle][variant].color;
 
   return {
-    color,
+    "&&": {
+      color,
+      cursor: "inherit",
+    },
   };
 });
 
@@ -184,6 +190,9 @@ export const ContentBadgeThemeLabel = styled("span", {
     : contentBadgeThemeStylesMap(theme)[badgeStyle][variant].color;
 
   return {
-    color,
+    "&&": {
+      color,
+      cursor: "inherit",
+    },
   };
 });

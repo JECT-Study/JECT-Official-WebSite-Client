@@ -124,10 +124,12 @@ export const StyledAccordionChevron = styled("div")(({ theme }) => ({
 
 export const StyleLabel = styled("span", { shouldForwardProp: shouldForwardTypographyProp })(
   () => ({
-    color: "inherit",
+    "&&": {
+      color: "inherit",
+      cursor: "pointer",
+    },
     textAlign: "left" as const,
     textWrap: "wrap" as const,
-    cursor: "pointer",
   }),
 );
 

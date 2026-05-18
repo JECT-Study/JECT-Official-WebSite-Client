@@ -597,7 +597,10 @@ export const StyledMainLabel = styled("span", {
   const availability = $disabled ? "disabled" : "normal";
   const colors = labelColorParams[validity][availability](theme);
   return {
-    color: colors.main,
+    "&&": {
+      color: colors.main,
+      cursor: "inherit",
+    },
   };
 });
 
@@ -613,6 +616,9 @@ export const StyledSubLabel = styled("span", {
   const availability = $disabled ? "disabled" : "normal";
   const colors = labelColorParams[validity][availability](theme);
   return {
-    color: colors.sub,
+    "&&": {
+      color: colors.sub,
+      cursor: "inherit",
+    },
   };
 });

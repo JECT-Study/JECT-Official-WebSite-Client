@@ -68,7 +68,9 @@ export const StyledTableItemTitle = styled.div(({ theme }) => ({
 
 export const StyledDescription = styled("span", { shouldForwardProp: shouldForwardTypographyProp })(
   ({ theme }) => ({
-    color: theme.color.semantic.object.alternative,
+    "&&": {
+      color: theme.color.semantic.object.alternative,
+    },
   }),
 );
 

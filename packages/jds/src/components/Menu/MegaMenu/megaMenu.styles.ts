@@ -20,7 +20,9 @@ export const StyledMegaMenuSection = styled("div")(({ theme }) => ({
 
 export const StyledLabel = styled("span", { shouldForwardProp: shouldForwardTypographyProp })(
   ({ theme }) => ({
-    color: theme.color.semantic.object.alternative,
+    "&&": {
+      color: theme.color.semantic.object.alternative,
+    },
   }),
 );
 

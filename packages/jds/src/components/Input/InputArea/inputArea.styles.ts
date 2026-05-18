@@ -377,12 +377,16 @@ export const StyledHelperContainer = styled("div", {
 }));
 
 export const StyledHelperText = styled("span", { shouldForwardProp: shouldForwardTypographyProp })({
-  color: "inherit",
+  "&&": {
+    color: "inherit",
+  },
   flex: "1 0 0",
 });
 
 export const StyledCountText = styled("span", { shouldForwardProp: shouldForwardTypographyProp })({
-  color: "inherit",
+  "&&": {
+    color: "inherit",
+  },
   marginLeft: "auto",
 });
 

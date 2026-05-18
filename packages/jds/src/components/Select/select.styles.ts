@@ -30,6 +30,9 @@ export const StyledSelectLabelWrapper = styled("div")(({ theme }) => ({
   alignItems: "center",
   gap: theme.scheme.semantic.spacing[8],
   alignSelf: "stretch",
+  "& > span": {
+    color: "inherit",
+  },
 }));
 
 export const StyledSelectItemsWrapper = styled("div")({
@@ -190,16 +193,20 @@ export const StyledSelectItemText = styled("span", {
   };
 
   return {
-    color: getColor(),
-    cursor: "inherit",
+    "&&": {
+      color: getColor(),
+      cursor: "inherit",
+    },
   };
 });
 
 export const StyledSelectItemCaption = styled("span", {
   shouldForwardProp: shouldForwardTypographyProp,
 })<{ $isDisabled: boolean }>(({ theme, $isDisabled }) => ({
-  color: $isDisabled ? theme.color.semantic.object.subtle : theme.color.semantic.object.assistive,
-  cursor: "inherit",
+  "&&": {
+    color: $isDisabled ? theme.color.semantic.object.subtle : theme.color.semantic.object.assistive,
+    cursor: "inherit",
+  },
 }));
 
 export const StyledSelectItemBadge = styled(ContentBadge.Basic)({

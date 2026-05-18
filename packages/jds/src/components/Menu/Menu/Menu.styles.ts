@@ -23,7 +23,9 @@ export const StyledMenuCategory = styled("span", {
   shouldForwardProp: shouldForwardTypographyProp,
 })(({ theme }) => {
   return {
-    color: theme.color.semantic.object.alternative,
+    "&&": {
+      color: theme.color.semantic.object.alternative,
+    },
   };
 });
 

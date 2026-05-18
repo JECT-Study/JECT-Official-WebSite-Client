@@ -63,7 +63,9 @@ export const EmptyStateContentDiv = styled("div", {
 export const EmptyStateLabel = styled("span", { shouldForwardProp: shouldForwardTypographyProp })(
   ({ theme }) => ({
     flex: 1,
-    color: theme.color.semantic.object.neutral,
+    "&&": {
+      color: theme.color.semantic.object.neutral,
+    },
   }),
 );
 

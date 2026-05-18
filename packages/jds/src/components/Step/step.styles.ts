@@ -86,6 +86,9 @@ export const StyledStepContent = styled("div")(({ theme }) => ({
 export const StyledStepLabel = styled("span", { shouldForwardProp: shouldForwardTypographyProp })(
   ({ theme }) => ({
     flex: "1 0 0",
+    "&&": {
+      color: "inherit",
+    },
     paddingTop: theme.scheme.semantic.spacing[2],
     whiteSpace: "nowrap",
   }),

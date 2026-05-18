@@ -79,7 +79,12 @@ export const SnackbarDiv = styled.div<SnackbarDivProps>(({ theme, snackbarStyle 
 export const SnackbarLabel = styled("span", { shouldForwardProp: shouldForwardTypographyProp })<{
   snackbarStyle: SnackbarStyle;
 }>(({ theme, snackbarStyle }) => {
-  return { flex: "1", color: snackbarStylesMap(theme)[snackbarStyle].color };
+  return {
+    flex: "1",
+    "&&": {
+      color: snackbarStylesMap(theme)[snackbarStyle].color,
+    },
+  };
 });
 
 export const SnackbarContentDiv = styled.div(({ theme }) => {

@@ -54,7 +54,10 @@ export const NumericBadgeBasicLabel = styled("span", {
     : numericBadgeBasicStylesMap(theme)[badgeStyle][hierarchy].color;
 
   return {
-    color,
+    "&&": {
+      color,
+      cursor: "inherit",
+    },
   };
 });
 
@@ -100,6 +103,9 @@ export const NumericBadgeFeedbackLabel = styled("span", {
     : numericBadgeFeedbackStylesMap(theme)[badgeStyle][variant].color;
 
   return {
-    color,
+    "&&": {
+      color,
+      cursor: "inherit",
+    },
   };
 });

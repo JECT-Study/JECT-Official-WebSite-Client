@@ -126,6 +126,9 @@ export const StyledImage = styled(Image)<StyledImageProps>(({ $size }) => {
 
 export const MenuItemLabel = styled("span", { shouldForwardProp: shouldForwardTypographyProp })(
   () => ({
-    color: "inherit",
+    "&&": {
+      color: "inherit",
+      cursor: "inherit",
+    },
   }),
 );

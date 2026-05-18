@@ -98,7 +98,9 @@ export const StyledLabelIcon = styled(Icon, {
 export const StyledFieldLabel = styled("label", {
   shouldForwardProp: shouldForwardTypographyProp,
 })<{ $disabled: boolean; $readOnly: boolean }>(({ theme, $disabled, $readOnly }) => ({
-  color: getLabelColor(theme, $disabled, $readOnly),
+  "&&": {
+    color: getLabelColor(theme, $disabled, $readOnly),
+  },
 }));
 
 export const StyledHelperText = styled("span", {
@@ -108,7 +110,9 @@ export const StyledHelperText = styled("span", {
   $disabled: boolean;
   $readOnly: boolean;
 }>(({ theme, $validation, $disabled, $readOnly }) => ({
-  color: getHelperTextColor(theme, $validation, $disabled, $readOnly),
+  "&&": {
+    color: getHelperTextColor(theme, $validation, $disabled, $readOnly),
+  },
 }));
 
 export const StyledInputColumn = styled("div")(({ theme }) => ({
