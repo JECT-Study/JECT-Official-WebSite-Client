@@ -2,13 +2,9 @@ import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import type { IconSize } from "components";
 import { vars } from "tokens";
-import { pxToRem } from "utils";
+import { pxToRem, focusRing, overlay, overlayColor } from "utils";
 
 import type { LabelButtonHierarchy, LabelButtonIntent, LabelButtonSize } from "./labelButton.types";
-
-
-import { focusRing } from "@/utils/focusRing.css";
-import { overlay, overlayColor } from "@/utils/overlay.css";
 
 export const iconSizeMap: Record<LabelButtonSize, IconSize> = {
   lg: "md",
