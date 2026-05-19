@@ -1,7 +1,7 @@
 import { useRadio, useRadioGroup } from "@react-aria/radio";
 import { mergeProps, useObjectRef } from "@react-aria/utils";
 import { clsx } from "clsx";
-import type { ForwardedRef, InputHTMLAttributes } from "react";
+import type { ChangeEventHandler, ForwardedRef, InputHTMLAttributes } from "react";
 import { forwardRef } from "react";
 import { useRadioGroupState } from "react-stately";
 import type { RadioGroupState } from "react-stately";
@@ -93,6 +93,7 @@ interface RadioBasicGroupedProps {
   state: RadioGroupState;
   forwardedRef: ForwardedRef<HTMLInputElement>;
   restProps: InputHTMLAttributes<HTMLInputElement>;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
 }
 
 const RadioBasicGrouped = ({
@@ -102,13 +103,14 @@ const RadioBasicGrouped = ({
   state,
   forwardedRef,
   restProps,
+  onChange,
 }: RadioBasicGroupedProps) => {
   const ref = useObjectRef(forwardedRef);
   const { labelProps, inputProps } = useRadio({ value, isDisabled }, state, ref);
 
   return (
     <label {...labelProps} className={radioRootLabel}>
-      <input {...mergeProps(inputProps, restProps)} className={radioInput} />
+      <input {...mergeProps(inputProps, restProps, { onChange })} className={radioInput} />
       <span className={clsx(radioVisual({ size }), "visual")} aria-hidden='true' />
     </label>
   );
@@ -129,6 +131,7 @@ const RadioBasic = forwardRef<HTMLInputElement, RadioBasicProps>(
           state={context.state}
           forwardedRef={forwardedRef}
           restProps={restProps}
+          onChange={onChange}
         />
       );
     }
