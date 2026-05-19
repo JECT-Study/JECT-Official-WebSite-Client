@@ -6,7 +6,7 @@ import type {
   BadgeSize,
   ContentBadgeStyle,
   BasicHierarchy,
-  ContentBadgeFeedbackVariant,
+  BadgeFeedbackVariant,
   ThemeVariant,
 } from "../badge.types";
 import { iconSizeMap } from "./contentBadge.variants";
@@ -47,7 +47,7 @@ const ContentBadgeBasic = ({
 ContentBadgeBasic.displayName = "ContentBadge.Basic";
 
 export interface ContentFeedbackBadgeProps {
-  variant?: ContentBadgeFeedbackVariant;
+  variant?: BadgeFeedbackVariant;
   size?: BadgeSize;
   badgeStyle?: ContentBadgeStyle;
   isMuted?: boolean;

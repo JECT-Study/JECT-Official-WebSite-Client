@@ -12,7 +12,7 @@ const meta: Meta<typeof DotBadge.Feedback> = {
   argTypes: {
     variant: {
       control: "radio",
-      options: ["positive", "destructive", "notifying"],
+      options: ["positive", "destructive"],
     },
     size: {
       control: "radio",

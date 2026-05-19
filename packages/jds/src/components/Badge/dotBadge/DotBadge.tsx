@@ -1,8 +1,8 @@
-import { DotBadgeFeedbackDiv } from "./DotBadge.style";
-import type { BadgeSize, FeedbackVariant } from "../badge.types";
+import * as styles from "./dotBadge.css";
+import type { BadgeFeedbackVariant, BadgeSize } from "../badge.types";
 
 export interface DotBadgeFeedbackProps {
-  variant: FeedbackVariant;
+  variant: BadgeFeedbackVariant;
   size?: BadgeSize;
   isMuted?: boolean;
 }
@@ -12,7 +12,7 @@ export const DotBadgeFeedback = ({
   size = "md",
   isMuted = false,
 }: DotBadgeFeedbackProps) => {
-  return <DotBadgeFeedbackDiv variant={variant} size={size} isMuted={isMuted} />;
+  return <div className={styles.feedbackRoot({ variant, size, isMuted })} />;
 };
 
 DotBadgeFeedback.displayName = "DotBadge.Feedback";
