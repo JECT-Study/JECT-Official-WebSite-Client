@@ -120,7 +120,7 @@ const RadioBasic = forwardRef<HTMLInputElement, RadioBasicProps>(
   ({ radioSize, value, checked, disabled, onChange, name, ...restProps }, forwardedRef) => {
     const context = useRadioContext();
     const size = context?.size ?? radioSize ?? "md";
-    const isDisabled = disabled ?? context?.disabled ?? false;
+    const isDisabled = disabled || (context?.disabled ?? false);
 
     if (context?.state) {
       return (
