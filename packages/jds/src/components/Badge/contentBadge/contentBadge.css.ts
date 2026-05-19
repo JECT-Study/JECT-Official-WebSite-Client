@@ -6,7 +6,7 @@ import { vars } from "../../../tokens/vars.css";
 import type {
   BadgeSize,
   BasicHierarchy,
-  BadgeFeedbackVariant,
+  FeedbackVariant,
   ContentBadgeStyle,
   ThemeVariant,
 } from "../badge.types";
@@ -208,7 +208,7 @@ const feedbackStyles = {
       border: vars.color.semantic.feedback.destructive.alpha.subtle,
     },
   },
-} satisfies Record<ContentBadgeStyle, Record<BadgeFeedbackVariant, BadgeVisualStyle>>;
+} satisfies Record<ContentBadgeStyle, Record<FeedbackVariant, BadgeVisualStyle>>;
 
 const themeStyles = {
   solid: {
@@ -437,7 +437,7 @@ export const feedbackRoot = recipe({
     variant: {
       positive: {},
       destructive: {},
-    } satisfies Record<BadgeFeedbackVariant, object>,
+    } satisfies Record<FeedbackVariant, object>,
     size: sizeVariants,
     badgeStyle: badgeStyleVariants,
     isMuted: {

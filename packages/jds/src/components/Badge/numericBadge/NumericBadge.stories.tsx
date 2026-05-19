@@ -16,7 +16,7 @@ const meta: Meta<typeof NumericBadge.Basic> = {
     },
     badgeStyle: {
       control: "radio",
-      options: ["solid", "empty"],
+      options: ["solid", "hollow"],
     },
     isMuted: {
       control: "boolean",
@@ -59,7 +59,7 @@ export const Feedback: StoryObj<NumericBasicBadgeProps> = {
   argTypes: {
     variant: {
       control: "radio",
-      options: ["positive", "destructive", "notifying"],
+      options: ["positive", "destructive"],
     },
   },
   args: {

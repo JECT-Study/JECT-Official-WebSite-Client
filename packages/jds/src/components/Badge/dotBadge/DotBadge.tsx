@@ -1,8 +1,8 @@
 import * as styles from "./dotBadge.css";
-import type { BadgeFeedbackVariant, BadgeSize } from "../badge.types";
+import type { FeedbackVariant, BadgeSize } from "../badge.types";
 
 export interface DotBadgeFeedbackProps {
-  variant: BadgeFeedbackVariant;
+  variant: FeedbackVariant;
   size?: BadgeSize;
   isMuted?: boolean;
 }

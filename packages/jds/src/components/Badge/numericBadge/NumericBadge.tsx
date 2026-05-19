@@ -1,12 +1,13 @@
+import { clsx } from "clsx";
 import type { ReactNode } from "react";
 
-import type { BadgeSize, BasicHierarchy, FeedbackVariant, NumericBadgeStyle } from "../badge.types";
-import {
-  NumericBadgeBasicDiv,
-  NumericBadgeBasicLabel,
-  NumericBadgeFeedbackDiv,
-  NumericBadgeFeedbackLabel,
-} from "./NumericBadge.style";
+import * as styles from "./numericBadge.css";
+import type {
+  FeedbackVariant,
+  BadgeSize,
+  BasicHierarchy,
+  NumericBadgeStyle,
+} from "../badge.types";
 
 export interface NumericBadgeBasicProps {
   hierarchy?: BasicHierarchy;
@@ -24,24 +25,9 @@ const NumericBadgeBasic = ({
   children,
 }: NumericBadgeBasicProps) => {
   return (
-    <NumericBadgeBasicDiv
-      hierarchy={hierarchy}
-      size={size}
-      badgeStyle={badgeStyle}
-      isMuted={isMuted}
-    >
-      <NumericBadgeBasicLabel
-        as='span'
-        size={size}
-        textAlign='center'
-        weight='normal'
-        hierarchy={hierarchy}
-        badgeStyle={badgeStyle}
-        isMuted={isMuted}
-      >
-        {children}
-      </NumericBadgeBasicLabel>
-    </NumericBadgeBasicDiv>
+    <div className={styles.basicRoot({ hierarchy, size, badgeStyle, isMuted })}>
+      <span className={clsx(styles.label, styles.labelTextStyle[size])}>{children}</span>
+    </div>
   );
 };
 
@@ -63,24 +49,9 @@ const NumericBadgeFeedback = ({
   children,
 }: NumericBasicBadgeProps) => {
   return (
-    <NumericBadgeFeedbackDiv
-      variant={variant}
-      size={size}
-      badgeStyle={badgeStyle}
-      isMuted={isMuted}
-    >
-      <NumericBadgeFeedbackLabel
-        as='span'
-        size={size}
-        textAlign='center'
-        weight='normal'
-        variant={variant}
-        badgeStyle={badgeStyle}
-        isMuted={isMuted}
-      >
-        {children}
-      </NumericBadgeFeedbackLabel>
-    </NumericBadgeFeedbackDiv>
+    <div className={styles.feedbackRoot({ variant, size, badgeStyle, isMuted })}>
+      <span className={clsx(styles.label, styles.labelTextStyle[size])}>{children}</span>
+    </div>
   );
 };
 

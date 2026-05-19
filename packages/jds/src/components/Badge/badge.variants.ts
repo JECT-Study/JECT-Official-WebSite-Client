@@ -46,26 +46,26 @@ export const numericBadgeSizeMap: Record<
 > = {
   lg: {
     minWidth: 24,
-    paddingTopBottom: 0,
-    paddingLeftRight: 8,
+    paddingTopBottom: 1,
+    paddingLeftRight: 4,
     textStyle: "semantic-textStyle-label-lg-subtle",
   },
   md: {
     minWidth: 23,
-    paddingTopBottom: 0,
-    paddingLeftRight: 8,
+    paddingTopBottom: 1,
+    paddingLeftRight: 4,
     textStyle: "semantic-textStyle-label-md-subtle",
   },
   sm: {
     minWidth: 20,
-    paddingTopBottom: 0,
-    paddingLeftRight: 6,
+    paddingTopBottom: 1,
+    paddingLeftRight: 4,
     textStyle: "semantic-textStyle-label-sm-subtle",
   },
   xs: {
     minWidth: 18,
-    paddingTopBottom: 0,
-    paddingLeftRight: 6,
+    paddingTopBottom: 1,
+    paddingLeftRight: 4,
     textStyle: "semantic-textStyle-label-xs-subtle",
   },
 };
