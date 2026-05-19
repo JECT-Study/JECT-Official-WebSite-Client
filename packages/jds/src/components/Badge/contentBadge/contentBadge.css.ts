@@ -3,6 +3,7 @@ import { recipe } from "@vanilla-extract/recipes";
 import { objectKeys, pxToRem } from "utils";
 
 import { vars } from "../../../tokens/vars.css";
+import type { IconSize } from "../../Icon";
 import type {
   BadgeSize,
   BasicHierarchy,
@@ -496,6 +497,13 @@ export const labelTextStyle: Record<BadgeSize, string> = {
   md: "semantic-textStyle-label-md-normal",
   sm: "semantic-textStyle-label-sm-normal",
   xs: "semantic-textStyle-label-xs-normal",
+};
+
+export const iconSizeMap: Record<BadgeSize, IconSize> = {
+  lg: "sm",
+  md: "sm",
+  sm: "xs",
+  xs: "2xs",
 };
 
 export const icon = style({

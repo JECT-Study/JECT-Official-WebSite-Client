@@ -9,7 +9,6 @@ import type {
   FeedbackVariant,
   ThemeVariant,
 } from "../badge.types";
-import { iconSizeMap } from "./contentBadge.variants";
 
 import { Icon } from "@/components/Icon";
 
@@ -32,7 +31,7 @@ const ContentBadgeBasic = ({
   onIconClick,
   children,
 }: ContentBadgeBasicProps) => {
-  const iconSize = iconSizeMap[size];
+  const iconSize = styles.iconSizeMap[size];
 
   return (
     <div className={styles.basicRoot({ hierarchy, size, badgeStyle, isMuted, withIcon })}>
