@@ -23,7 +23,4 @@ export const code = recipe({
   variants: {
     size: codeTypographyClassName,
   },
-  defaultVariants: {
-    size: "md",
-  },
 });
