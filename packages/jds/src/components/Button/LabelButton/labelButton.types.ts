@@ -25,5 +25,5 @@ export interface LabelButtonBasicProps extends BaseLabelButtonProps {
 }
 
 export interface LabelButtonFeedbackProps extends BaseLabelButtonProps {
-  intent: LabelButtonIntent;
+  intent?: LabelButtonIntent;
 }
