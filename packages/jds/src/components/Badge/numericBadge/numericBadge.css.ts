@@ -1,10 +1,16 @@
 import { createVar, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
-import { objectKeys, pxToRem } from "utils";
+import { pxToRem } from "utils";
 
 import { vars } from "../../../tokens/vars.css";
-import type { FeedbackVariant, BadgeSize, BasicHierarchy, NumericBadgeStyle } from "../badge.types";
+import {
+  BADGE_SIZE_OPTIONS,
+  BASIC_HIERARCHY_OPTIONS,
+  FEEDBACK_VARIANT_OPTIONS,
+} from "../badge.types";
+import type { FeedbackVariant, BadgeSize, BasicHierarchy } from "../badge.types";
 import { numericBadgeSizeMap } from "../badge.variants";
+import { NUMERIC_BADGE_STYLE_OPTIONS, type NumericBadgeStyle } from "./numericBadge.types";
 
 type BadgeStyle = { bg: string; color: string };
 
@@ -21,7 +27,7 @@ const createBadgeVars = ({ bg, color }: BadgeStyle) => ({
 });
 
 const sizeVariants = Object.fromEntries(
-  objectKeys(numericBadgeSizeMap).map(size => [
+  BADGE_SIZE_OPTIONS.map(size => [
     size,
     {
       minWidth: pxToRem(numericBadgeSizeMap[size].minWidth),
@@ -92,20 +98,20 @@ const feedbackStyles = {
   },
 } satisfies Record<NumericBadgeStyle, Record<FeedbackVariant, BadgeStyle>>;
 
-const basicCompoundVariants = objectKeys(basicStyles).flatMap(badgeStyle =>
-  objectKeys(basicStyles[badgeStyle]).map(hierarchy => ({
+const basicCompoundVariants = NUMERIC_BADGE_STYLE_OPTIONS.flatMap(badgeStyle =>
+  BASIC_HIERARCHY_OPTIONS.map(hierarchy => ({
     variants: { badgeStyle, hierarchy },
     style: createBadgeVars(basicStyles[badgeStyle][hierarchy]),
   })),
 );
 
-const basicMutedCompoundVariants = objectKeys(basicMutedStyles).map(badgeStyle => ({
+const basicMutedCompoundVariants = NUMERIC_BADGE_STYLE_OPTIONS.map(badgeStyle => ({
   variants: { badgeStyle, isMuted: true },
   style: createBadgeVars(basicMutedStyles[badgeStyle]),
 }));
 
-const feedbackCompoundVariants = objectKeys(feedbackStyles).flatMap(badgeStyle =>
-  objectKeys(feedbackStyles[badgeStyle]).map(variant => ({
+const feedbackCompoundVariants = NUMERIC_BADGE_STYLE_OPTIONS.flatMap(badgeStyle =>
+  FEEDBACK_VARIANT_OPTIONS.map(variant => ({
     variants: { badgeStyle, variant },
     style: createBadgeVars(feedbackStyles[badgeStyle][variant]),
   })),

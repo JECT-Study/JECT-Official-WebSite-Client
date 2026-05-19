@@ -1,17 +1,14 @@
 import { createVar, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
-import { objectKeys, pxToRem } from "utils";
+import { pxToRem } from "utils";
 
 import { vars } from "../../../tokens/vars.css";
 import type { IconSize } from "../../Icon";
-import type {
-  BadgeSize,
-  BasicHierarchy,
-  FeedbackVariant,
-  ContentBadgeStyle,
-  ThemeVariant,
-} from "../badge.types";
 import { contentBadgeSizeMap } from "../badge.variants";
+import { BASIC_HIERARCHY_OPTIONS, FEEDBACK_VARIANT_OPTIONS } from "../badge.types";
+import type { BadgeSize, BasicHierarchy, FeedbackVariant } from "../badge.types";
+import { CONTENT_BADGE_STYLE_OPTIONS, THEME_VARIANT_OPTIONS } from "./contentBadge.types";
+import type { ContentBadgeStyle, ThemeVariant } from "./contentBadge.types";
 
 type BadgeStyle = {
   bg: string;
@@ -369,27 +366,27 @@ const themeStyles = {
   },
 } satisfies Record<ContentBadgeStyle, Record<ThemeVariant, BadgeStyle>>;
 
-const basicCompoundVariants = objectKeys(basicStyles).flatMap(badgeStyle =>
-  objectKeys(basicStyles[badgeStyle]).map(hierarchy => ({
+const basicCompoundVariants = CONTENT_BADGE_STYLE_OPTIONS.flatMap(badgeStyle =>
+  BASIC_HIERARCHY_OPTIONS.map(hierarchy => ({
     variants: { badgeStyle, hierarchy },
     style: createBadgeVars(basicStyles[badgeStyle][hierarchy]),
   })),
 );
 
-const basicMutedCompoundVariants = objectKeys(basicMutedStyles).map(badgeStyle => ({
+const basicMutedCompoundVariants = CONTENT_BADGE_STYLE_OPTIONS.map(badgeStyle => ({
   variants: { badgeStyle, isMuted: true },
   style: createBadgeVars(basicMutedStyles[badgeStyle]),
 }));
 
-const feedbackCompoundVariants = objectKeys(feedbackStyles).flatMap(badgeStyle =>
-  objectKeys(feedbackStyles[badgeStyle]).map(variant => ({
+const feedbackCompoundVariants = CONTENT_BADGE_STYLE_OPTIONS.flatMap(badgeStyle =>
+  FEEDBACK_VARIANT_OPTIONS.map(variant => ({
     variants: { badgeStyle, variant },
     style: createBadgeVars(feedbackStyles[badgeStyle][variant]),
   })),
 );
 
-const themeCompoundVariants = objectKeys(themeStyles).flatMap(badgeStyle =>
-  objectKeys(themeStyles[badgeStyle]).map(variant => ({
+const themeCompoundVariants = CONTENT_BADGE_STYLE_OPTIONS.flatMap(badgeStyle =>
+  THEME_VARIANT_OPTIONS.map(variant => ({
     variants: { badgeStyle, variant },
     style: createBadgeVars(themeStyles[badgeStyle][variant]),
   })),

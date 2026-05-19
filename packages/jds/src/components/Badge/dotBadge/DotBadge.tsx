@@ -1,11 +1,5 @@
+import { DotBadgeFeedbackProps } from "components";
 import * as styles from "./dotBadge.css";
-import type { FeedbackVariant, BadgeSize } from "../badge.types";
-
-export interface DotBadgeFeedbackProps {
-  variant: FeedbackVariant;
-  size?: BadgeSize;
-  isMuted?: boolean;
-}
 
 export const DotBadgeFeedback = ({
   variant = "positive",

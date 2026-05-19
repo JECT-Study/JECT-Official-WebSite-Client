@@ -1,26 +1,12 @@
 import { clsx } from "clsx";
-import type { MouseEvent, ReactNode } from "react";
+import type {
+  ContentBadgeBasicProps,
+  ContentFeedbackBadgeProps,
+  ContentThemeBadgeProps,
+} from "components";
 
 import * as styles from "./contentBadge.css";
-import type {
-  BadgeSize,
-  ContentBadgeStyle,
-  BasicHierarchy,
-  FeedbackVariant,
-  ThemeVariant,
-} from "../badge.types";
-
 import { Icon } from "@/components/Icon";
-
-export interface ContentBadgeBasicProps {
-  hierarchy?: BasicHierarchy;
-  size?: BadgeSize;
-  badgeStyle?: ContentBadgeStyle;
-  isMuted?: boolean;
-  withIcon?: boolean;
-  onIconClick?: (e: MouseEvent<Element>) => void;
-  children: ReactNode;
-}
 
 const ContentBadgeBasic = ({
   hierarchy = "secondary",
@@ -45,14 +31,6 @@ const ContentBadgeBasic = ({
 
 ContentBadgeBasic.displayName = "ContentBadge.Basic";
 
-export interface ContentFeedbackBadgeProps {
-  variant?: FeedbackVariant;
-  size?: BadgeSize;
-  badgeStyle?: ContentBadgeStyle;
-  isMuted?: boolean;
-  children: ReactNode;
-}
-
 const ContentBadgeFeedback = ({
   variant = "positive",
   size = "md",
@@ -68,14 +46,6 @@ const ContentBadgeFeedback = ({
 };
 
 ContentBadgeFeedback.displayName = "ContentBadge.Feedback";
-
-export interface ContentThemeBadgeProps {
-  variant?: ThemeVariant;
-  size?: BadgeSize;
-  badgeStyle?: ContentBadgeStyle;
-  isMuted?: boolean;
-  children: ReactNode;
-}
 
 const ContentBadgeTheme = ({
   variant = "red",

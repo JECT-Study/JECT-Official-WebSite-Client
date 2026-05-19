@@ -1,9 +1,14 @@
 import { recipe } from "@vanilla-extract/recipes";
-import { objectKeys, pxToRem } from "utils";
+import { pxToRem } from "utils";
 
 import { vars } from "../../../tokens/vars.css";
-import type { FeedbackVariant, BadgeSize } from "../badge.types";
 import { dotBadgeSizeMap } from "../badge.variants";
+import {
+  BADGE_SIZE_OPTIONS,
+  FEEDBACK_VARIANT_OPTIONS,
+  type BadgeSize,
+  type FeedbackVariant,
+} from "./dotBadge.types";
 
 const variantBg = {
   positive: {
@@ -17,7 +22,7 @@ const variantBg = {
 } satisfies Record<FeedbackVariant, { normal: string; muted: string }>;
 
 const sizeVariants = Object.fromEntries(
-  objectKeys(dotBadgeSizeMap).map(size => [
+  BADGE_SIZE_OPTIONS.map(size => [
     size,
     {
       width: pxToRem(dotBadgeSizeMap[size].width),
@@ -26,7 +31,7 @@ const sizeVariants = Object.fromEntries(
   ]),
 ) as Record<BadgeSize, { width: string; height: string }>;
 
-const feedbackCompoundVariants = objectKeys(variantBg).flatMap(variant => [
+const feedbackCompoundVariants = FEEDBACK_VARIANT_OPTIONS.flatMap(variant => [
   {
     variants: { variant, isMuted: false },
     style: { backgroundColor: variantBg[variant].normal },

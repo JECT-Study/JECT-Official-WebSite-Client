@@ -5,7 +5,13 @@ import type {
   ContentBadgeBasicProps,
   ContentFeedbackBadgeProps,
   ContentThemeBadgeProps,
-} from "./ContentBadge";
+} from "components";
+import { CONTENT_BADGE_STYLE_OPTIONS, THEME_VARIANT_OPTIONS } from "./contentBadge.types";
+import {
+  BADGE_SIZE_OPTIONS,
+  BASIC_HIERARCHY_OPTIONS,
+  FEEDBACK_VARIANT_OPTIONS,
+} from "../badge.types";
 
 const meta: Meta<typeof ContentBadge.Basic> = {
   title: "Components/ContentBadge",
@@ -16,11 +22,11 @@ const meta: Meta<typeof ContentBadge.Basic> = {
   argTypes: {
     size: {
       control: "radio",
-      options: ["lg", "md", "sm", "xs"],
+      options: BADGE_SIZE_OPTIONS,
     },
     badgeStyle: {
       control: "radio",
-      options: ["solid", "alpha", "outlined"],
+      options: CONTENT_BADGE_STYLE_OPTIONS,
     },
     isMuted: {
       control: "boolean",
@@ -37,7 +43,7 @@ export const Basic: StoryObj<ContentBadgeBasicProps> = {
   argTypes: {
     hierarchy: {
       control: "radio",
-      options: ["accent", "primary", "secondary", "tertiary"],
+      options: BASIC_HIERARCHY_OPTIONS,
     },
     withIcon: {
       control: "boolean",
@@ -68,7 +74,7 @@ export const Feedback: StoryObj<ContentFeedbackBadgeProps> = {
   argTypes: {
     variant: {
       control: "radio",
-      options: ["positive", "destructive"],
+      options: FEEDBACK_VARIANT_OPTIONS,
     },
   },
   args: {
@@ -94,18 +100,7 @@ export const Theme: StoryObj<ContentThemeBadgeProps> = {
   argTypes: {
     variant: {
       control: "select",
-      options: [
-        "red",
-        "orange",
-        "yellow",
-        "lime",
-        "green",
-        "teal",
-        "sky",
-        "indigo",
-        "purple",
-        "pink",
-      ],
+      options: THEME_VARIANT_OPTIONS,
     },
   },
   args: {

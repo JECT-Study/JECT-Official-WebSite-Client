@@ -1,21 +1,7 @@
 import { clsx } from "clsx";
-import type { ReactNode } from "react";
 
+import type { NumericBadgeBasicProps, NumericBasicBadgeProps } from "components";
 import * as styles from "./numericBadge.css";
-import type {
-  FeedbackVariant,
-  BadgeSize,
-  BasicHierarchy,
-  NumericBadgeStyle,
-} from "../badge.types";
-
-export interface NumericBadgeBasicProps {
-  hierarchy?: BasicHierarchy;
-  size?: BadgeSize;
-  badgeStyle?: NumericBadgeStyle;
-  isMuted?: boolean;
-  children: ReactNode;
-}
 
 const NumericBadgeBasic = ({
   hierarchy = "secondary",
@@ -32,14 +18,6 @@ const NumericBadgeBasic = ({
 };
 
 NumericBadgeBasic.displayName = "NumericBadge.Basic";
-
-export interface NumericBasicBadgeProps {
-  variant?: FeedbackVariant;
-  size?: BadgeSize;
-  badgeStyle?: NumericBadgeStyle;
-  isMuted?: boolean;
-  children: ReactNode;
-}
 
 const NumericBadgeFeedback = ({
   variant = "positive",
