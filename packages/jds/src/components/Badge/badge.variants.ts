@@ -1,5 +1,3 @@
-import type { Theme } from "@emotion/react";
-
 import type { BadgeSize } from "./badge.types";
 
 export const contentBadgeSizeMap: Record<
@@ -8,7 +6,7 @@ export const contentBadgeSizeMap: Record<
     minWidth: number;
     paddingTopBottom: number;
     paddingLeftRight: number;
-    textStyle: keyof Theme["textStyle"];
+    textStyle: string;
   }
 > = {
   lg: {
@@ -43,7 +41,7 @@ export const numericBadgeSizeMap: Record<
     minWidth: number;
     paddingTopBottom: number;
     paddingLeftRight: number;
-    textStyle: keyof Theme["textStyle"];
+    textStyle: string;
   }
 > = {
   lg: {

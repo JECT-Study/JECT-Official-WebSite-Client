@@ -68,7 +68,7 @@ export const Feedback: StoryObj<ContentFeedbackBadgeProps> = {
   argTypes: {
     variant: {
       control: "radio",
-      options: ["positive", "destructive", "notifying"],
+      options: ["positive", "destructive"],
     },
   },
   args: {
@@ -97,20 +97,14 @@ export const Theme: StoryObj<ContentThemeBadgeProps> = {
       options: [
         "red",
         "orange",
-        "amber",
         "yellow",
         "lime",
         "green",
-        "emerald",
         "teal",
-        "cyan",
         "sky",
-        "blue",
-        "violet",
+        "indigo",
         "purple",
-        "fuchsia",
         "pink",
-        "rose",
       ],
     },
   },

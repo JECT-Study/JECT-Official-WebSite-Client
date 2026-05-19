@@ -7,24 +7,20 @@ export type BadgeStyle = {
 export type BadgeStyleWithoutBorder = Omit<BadgeStyle, "border">;
 
 export type ContentBadgeStyle = "solid" | "alpha" | "outlined";
-export type NumericBadgeStyle = "solid" | "empty";
+export type NumericBadgeStyle = "solid" | "empty"; // empty -> hollow
 export type BadgeSize = "lg" | "md" | "sm" | "xs";
 export type BasicHierarchy = "accent" | "primary" | "secondary" | "tertiary";
 export type FeedbackVariant = "positive" | "destructive" | "notifying";
+export type ContentBadgeFeedbackVariant = "positive" | "destructive";
+
 export type ThemeVariant =
   | "red"
   | "orange"
-  | "amber"
   | "yellow"
   | "lime"
   | "green"
-  | "emerald"
   | "teal"
-  | "cyan"
   | "sky"
-  | "blue"
-  | "violet"
+  | "indigo"
   | "purple"
-  | "fuchsia"
-  | "pink"
-  | "rose";
+  | "pink";

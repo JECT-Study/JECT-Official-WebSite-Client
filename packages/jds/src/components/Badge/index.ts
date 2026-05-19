@@ -8,6 +8,7 @@ export type {
   BadgeSize,
   BasicHierarchy,
   FeedbackVariant,
+  ContentBadgeFeedbackVariant,
   ThemeVariant,
   ContentBadgeStyle,
   NumericBadgeStyle,
