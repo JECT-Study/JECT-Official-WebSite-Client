@@ -91,7 +91,7 @@ export const Types: Story = {
   ),
 };
 
-export const isMuted: Story = {
+export const IsMuted: Story = {
   args: {
     children: "kbd",
   },
