@@ -1,6 +1,7 @@
 import { recipe } from "@vanilla-extract/recipes";
-import { vars } from "../../tokens/vars.css";
+
 import type { CodeSize } from "./code.types";
+import { vars } from "../../tokens/vars.css";
 
 export const codeTypographyClassName: Record<CodeSize, string> = {
   lg: "semantic-textStyle-syntax-lg",
