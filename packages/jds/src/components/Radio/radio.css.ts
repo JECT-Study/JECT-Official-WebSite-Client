@@ -51,6 +51,8 @@ const typographyBySize = {
   },
 } satisfies Record<RadioSize, object>;
 
+export const radioGroupWrapper = style({ display: "contents" });
+
 // Radio.Basic
 
 export const radioInput = style({

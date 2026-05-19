@@ -7,6 +7,7 @@ import { useRadioGroupState } from "react-stately";
 import type { RadioGroupState } from "react-stately";
 
 import {
+  radioGroupWrapper,
   radioInput,
   radioItem,
   radioRootLabel,
@@ -44,7 +45,7 @@ const RadioRoot = ({
     <RadioProvider
       value={{ size: radioSize, style: radioStyle, align: radioAlign, disabled, state }}
     >
-      <div {...radioGroupProps} style={{ display: "contents" }}>
+      <div {...radioGroupProps} className={radioGroupWrapper}>
         {children}
       </div>
     </RadioProvider>
