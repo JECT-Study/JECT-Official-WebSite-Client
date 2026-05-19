@@ -22,30 +22,30 @@ export const RadioContentLeftStyles: Story = {
   render: () => (
     <FlexColumn>
       <FlexRow>
-        <RadioContent.Left radioSize='lg' radioStyle='empty'>
+        <RadioContent.Left radioSize='lg' radioStyle='empty' value='lg-empty'>
           레이블
         </RadioContent.Left>
-        <RadioContent.Left radioSize='md' radioStyle='empty'>
+        <RadioContent.Left radioSize='md' radioStyle='empty' value='md-empty'>
           레이블
         </RadioContent.Left>
-        <RadioContent.Left radioSize='sm' radioStyle='empty'>
+        <RadioContent.Left radioSize='sm' radioStyle='empty' value='sm-empty'>
           레이블
         </RadioContent.Left>
-        <RadioContent.Left radioSize='xs' radioStyle='empty'>
+        <RadioContent.Left radioSize='xs' radioStyle='empty' value='xs-empty'>
           레이블
         </RadioContent.Left>
       </FlexRow>
       <FlexRow>
-        <RadioContent.Left radioSize='lg' radioStyle='outline'>
+        <RadioContent.Left radioSize='lg' radioStyle='outline' value='lg-outline'>
           레이블
         </RadioContent.Left>
-        <RadioContent.Left radioSize='md' radioStyle='outline'>
+        <RadioContent.Left radioSize='md' radioStyle='outline' value='md-outline'>
           레이블
         </RadioContent.Left>
-        <RadioContent.Left radioSize='sm' radioStyle='outline'>
+        <RadioContent.Left radioSize='sm' radioStyle='outline' value='sm-outline'>
           레이블
         </RadioContent.Left>
-        <RadioContent.Left radioSize='xs' radioStyle='outline'>
+        <RadioContent.Left radioSize='xs' radioStyle='outline' value='xs-outline'>
           레이블
         </RadioContent.Left>
       </FlexRow>
@@ -56,10 +56,22 @@ export const RadioContentLeftStyles: Story = {
 export const RadioContentLeftSubLabel: Story = {
   render: () => (
     <FlexRow>
-      <RadioContent.Left radioSize='lg' radioStyle='empty' subLabel='레이블' subLabelVisible>
+      <RadioContent.Left
+        radioSize='lg'
+        radioStyle='empty'
+        subLabel='레이블'
+        subLabelVisible
+        value='empty'
+      >
         레이블
       </RadioContent.Left>
-      <RadioContent.Left radioSize='lg' radioStyle='outline' subLabel='레이블' subLabelVisible>
+      <RadioContent.Left
+        radioSize='lg'
+        radioStyle='outline'
+        subLabel='레이블'
+        subLabelVisible
+        value='outline'
+      >
         레이블
       </RadioContent.Left>
     </FlexRow>
@@ -70,30 +82,30 @@ export const RadioContentRightStyles: Story = {
   render: () => (
     <FlexColumn>
       <FlexRow>
-        <RadioContent.Right radioSize='lg' radioStyle='empty'>
+        <RadioContent.Right radioSize='lg' radioStyle='empty' value='lg-empty'>
           레이블
         </RadioContent.Right>
-        <RadioContent.Right radioSize='md' radioStyle='empty'>
+        <RadioContent.Right radioSize='md' radioStyle='empty' value='md-empty'>
           레이블
         </RadioContent.Right>
-        <RadioContent.Right radioSize='sm' radioStyle='empty'>
+        <RadioContent.Right radioSize='sm' radioStyle='empty' value='sm-empty'>
           레이블
         </RadioContent.Right>
-        <RadioContent.Right radioSize='xs' radioStyle='empty'>
+        <RadioContent.Right radioSize='xs' radioStyle='empty' value='xs-empty'>
           레이블
         </RadioContent.Right>
       </FlexRow>
       <FlexRow>
-        <RadioContent.Right radioSize='lg' radioStyle='outline'>
+        <RadioContent.Right radioSize='lg' radioStyle='outline' value='lg-outline'>
           레이블
         </RadioContent.Right>
-        <RadioContent.Right radioSize='md' radioStyle='outline'>
+        <RadioContent.Right radioSize='md' radioStyle='outline' value='md-outline'>
           레이블
         </RadioContent.Right>
-        <RadioContent.Right radioSize='sm' radioStyle='outline'>
+        <RadioContent.Right radioSize='sm' radioStyle='outline' value='sm-outline'>
           레이블
         </RadioContent.Right>
-        <RadioContent.Right radioSize='xs' radioStyle='outline'>
+        <RadioContent.Right radioSize='xs' radioStyle='outline' value='xs-outline'>
           레이블
         </RadioContent.Right>
       </FlexRow>
@@ -104,10 +116,22 @@ export const RadioContentRightStyles: Story = {
 export const RadioContentRightSubLabel: Story = {
   render: () => (
     <FlexRow>
-      <RadioContent.Right radioSize='lg' radioStyle='empty' subLabel='레이블' subLabelVisible>
+      <RadioContent.Right
+        radioSize='lg'
+        radioStyle='empty'
+        subLabel='레이블'
+        subLabelVisible
+        value='empty'
+      >
         레이블
       </RadioContent.Right>
-      <RadioContent.Right radioSize='lg' radioStyle='outline' subLabel='레이블' subLabelVisible>
+      <RadioContent.Right
+        radioSize='lg'
+        radioStyle='outline'
+        subLabel='레이블'
+        subLabelVisible
+        value='outline'
+      >
         레이블
       </RadioContent.Right>
     </FlexRow>
@@ -120,6 +144,7 @@ export const SubLabelWithHyperlink: Story = {
       radioSize='md'
       radioStyle='outline'
       subLabelVisible={true}
+      value='hyperlink'
       subLabel={
         <>
           하이퍼링크&nbsp;

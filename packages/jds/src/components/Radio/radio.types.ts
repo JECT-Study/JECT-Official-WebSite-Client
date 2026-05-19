@@ -29,10 +29,12 @@ type RadioRootBaseProps = {
   children: ReactNode;
 };
 
-export type RadioRootProps = RadioRootBaseProps & (RadioRootControlledProps | RadioRootUncontrolledProps);
+export type RadioRootProps = RadioRootBaseProps &
+  (RadioRootControlledProps | RadioRootUncontrolledProps);
 
-export interface RadioBasicProps extends ComponentPropsWithoutRef<"input"> {
+export interface RadioBasicProps extends Omit<ComponentPropsWithoutRef<"input">, "value"> {
   radioSize?: RadioSize;
+  value: string;
 }
 
 export interface RadioItemProps extends ComponentPropsWithoutRef<"div"> {

@@ -126,7 +126,7 @@ const RadioBasic = forwardRef<HTMLInputElement, RadioBasicProps>(
       return (
         <RadioBasicGrouped
           size={size}
-          value={String(value ?? "")}
+          value={value}
           isDisabled={isDisabled}
           state={context.state}
           forwardedRef={forwardedRef}
