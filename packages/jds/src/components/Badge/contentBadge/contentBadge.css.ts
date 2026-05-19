@@ -1,6 +1,6 @@
 import { createVar, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
-import { pxToRem } from "utils";
+import { objectKeys, pxToRem } from "utils";
 
 import { vars } from "../../../tokens/vars.css";
 import type {
@@ -12,7 +12,7 @@ import type {
 } from "../badge.types";
 import { contentBadgeSizeMap } from "../badge.variants";
 
-type BadgeVisualStyle = {
+type BadgeStyle = {
   bg: string;
   color: string;
   border: string;
@@ -25,10 +25,9 @@ const badgeBorderWidth = createVar();
 const badgeBorderColor = createVar();
 const badgeIconColor = createVar();
 
-const keysOf = <T extends string>(obj: Record<T, unknown>) => Object.keys(obj) as T[];
 const contentBadgeMutedOpacity = `calc(${vars.scheme.semantic.opacity["36"]} / 100)`;
 
-const createBadgeVars = ({ bg, color, border, iconColor }: BadgeVisualStyle) => ({
+const createBadgeVars = ({ bg, color, border, iconColor }: BadgeStyle) => ({
   vars: {
     [badgeBackgroundColor]: bg === "none" ? "transparent" : bg,
     [badgeTextColor]: color,
@@ -90,8 +89,8 @@ const basicStyles = {
       iconColor: vars.color.semantic.object.static.inverse.boldest,
     },
     tertiary: {
-      bg: vars.color.semantic.fill.alternative,
-      color: vars.color.semantic.object.normal,
+      bg: vars.color.semantic.fill.subtler,
+      color: vars.color.semantic.object.alternative,
       border: "none",
       iconColor: vars.color.semantic.object.alternative,
     },
@@ -101,13 +100,13 @@ const basicStyles = {
       bg: vars.color.semantic.accent.alpha.subtler,
       color: vars.color.semantic.accent.bold,
       border: "none",
-      iconColor: vars.color.semantic.accent.normal,
+      iconColor: vars.color.semantic.accent.bold,
     },
     primary: {
       bg: vars.color.semantic.fill.subtler,
       color: vars.color.semantic.object.bolder,
       border: "none",
-      iconColor: vars.color.semantic.object.boldest,
+      iconColor: vars.color.semantic.object.bolder,
     },
     secondary: {
       bg: vars.color.semantic.fill.subtler,
@@ -127,13 +126,13 @@ const basicStyles = {
       bg: "none",
       color: vars.color.semantic.accent.bold,
       border: vars.color.semantic.accent.alpha.subtle,
-      iconColor: vars.color.semantic.accent.normal,
+      iconColor: vars.color.semantic.accent.bold,
     },
     primary: {
       bg: "none",
       color: vars.color.semantic.object.bolder,
       border: vars.color.semantic.stroke.alpha.assistive,
-      iconColor: vars.color.semantic.object.boldest,
+      iconColor: vars.color.semantic.object.bolder,
     },
     secondary: {
       bg: "none",
@@ -148,7 +147,7 @@ const basicStyles = {
       iconColor: vars.color.semantic.object.alternative,
     },
   },
-} satisfies Record<ContentBadgeStyle, Record<BasicHierarchy, BadgeVisualStyle>>;
+} satisfies Record<ContentBadgeStyle, Record<BasicHierarchy, BadgeStyle>>;
 
 const basicMutedStyles = {
   solid: {
@@ -169,7 +168,7 @@ const basicMutedStyles = {
     border: vars.color.semantic.stroke.alpha.subtler,
     iconColor: vars.color.semantic.object.subtle,
   },
-} satisfies Record<ContentBadgeStyle, BadgeVisualStyle>;
+} satisfies Record<ContentBadgeStyle, BadgeStyle>;
 
 const feedbackStyles = {
   solid: {
@@ -208,7 +207,7 @@ const feedbackStyles = {
       border: vars.color.semantic.feedback.destructive.alpha.subtle,
     },
   },
-} satisfies Record<ContentBadgeStyle, Record<FeedbackVariant, BadgeVisualStyle>>;
+} satisfies Record<ContentBadgeStyle, Record<FeedbackVariant, BadgeStyle>>;
 
 const themeStyles = {
   solid: {
@@ -367,29 +366,29 @@ const themeStyles = {
       border: vars.color.semantic.theme.pink.alpha.subtle,
     },
   },
-} satisfies Record<ContentBadgeStyle, Record<ThemeVariant, BadgeVisualStyle>>;
+} satisfies Record<ContentBadgeStyle, Record<ThemeVariant, BadgeStyle>>;
 
-const basicCompoundVariants = keysOf(basicStyles).flatMap(badgeStyle =>
-  keysOf(basicStyles[badgeStyle]).map(hierarchy => ({
+const basicCompoundVariants = objectKeys(basicStyles).flatMap(badgeStyle =>
+  objectKeys(basicStyles[badgeStyle]).map(hierarchy => ({
     variants: { badgeStyle, hierarchy },
     style: createBadgeVars(basicStyles[badgeStyle][hierarchy]),
   })),
 );
 
-const basicMutedCompoundVariants = keysOf(basicMutedStyles).map(badgeStyle => ({
+const basicMutedCompoundVariants = objectKeys(basicMutedStyles).map(badgeStyle => ({
   variants: { badgeStyle, isMuted: true },
   style: createBadgeVars(basicMutedStyles[badgeStyle]),
 }));
 
-const feedbackCompoundVariants = keysOf(feedbackStyles).flatMap(badgeStyle =>
-  keysOf(feedbackStyles[badgeStyle]).map(variant => ({
+const feedbackCompoundVariants = objectKeys(feedbackStyles).flatMap(badgeStyle =>
+  objectKeys(feedbackStyles[badgeStyle]).map(variant => ({
     variants: { badgeStyle, variant },
     style: createBadgeVars(feedbackStyles[badgeStyle][variant]),
   })),
 );
 
-const themeCompoundVariants = keysOf(themeStyles).flatMap(badgeStyle =>
-  keysOf(themeStyles[badgeStyle]).map(variant => ({
+const themeCompoundVariants = objectKeys(themeStyles).flatMap(badgeStyle =>
+  objectKeys(themeStyles[badgeStyle]).map(variant => ({
     variants: { badgeStyle, variant },
     style: createBadgeVars(themeStyles[badgeStyle][variant]),
   })),

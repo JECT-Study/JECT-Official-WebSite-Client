@@ -1,26 +1,19 @@
 import { createVar, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
-import { pxToRem } from "utils";
+import { objectKeys, pxToRem } from "utils";
 
 import { vars } from "../../../tokens/vars.css";
-import type {
-  FeedbackVariant,
-  BadgeSize,
-  BasicHierarchy,
-  NumericBadgeStyle,
-} from "../badge.types";
+import type { FeedbackVariant, BadgeSize, BasicHierarchy, NumericBadgeStyle } from "../badge.types";
 import { numericBadgeSizeMap } from "../badge.variants";
 
-type BadgeVisualStyle = { bg: string; color: string };
-
-const keysOf = <T extends string>(obj: Record<T, unknown>) => Object.keys(obj) as T[];
+type BadgeStyle = { bg: string; color: string };
 
 const badgeBackgroundColor = createVar();
 const badgeTextColor = createVar();
 
 const numericBadgeMutedOpacity = `calc(${vars.scheme.semantic.opacity["36"]} / 100)`;
 
-const createBadgeVars = ({ bg, color }: BadgeVisualStyle) => ({
+const createBadgeVars = ({ bg, color }: BadgeStyle) => ({
   vars: {
     [badgeBackgroundColor]: bg === "none" ? "transparent" : bg,
     [badgeTextColor]: color,
@@ -28,7 +21,7 @@ const createBadgeVars = ({ bg, color }: BadgeVisualStyle) => ({
 });
 
 const sizeVariants = Object.fromEntries(
-  keysOf(numericBadgeSizeMap).map(size => [
+  objectKeys(numericBadgeSizeMap).map(size => [
     size,
     {
       minWidth: pxToRem(numericBadgeSizeMap[size].minWidth),
@@ -75,12 +68,12 @@ const basicStyles = {
     secondary: { bg: "none", color: vars.color.semantic.object.neutral },
     tertiary: { bg: "none", color: vars.color.semantic.object.alternative },
   },
-} satisfies Record<NumericBadgeStyle, Record<BasicHierarchy, BadgeVisualStyle>>;
+} satisfies Record<NumericBadgeStyle, Record<BasicHierarchy, BadgeStyle>>;
 
 const basicMutedStyles = {
   solid: { bg: vars.color.semantic.fill.subtler, color: vars.color.semantic.object.subtle },
   hollow: { bg: "none", color: vars.color.semantic.object.subtle },
-} satisfies Record<NumericBadgeStyle, BadgeVisualStyle>;
+} satisfies Record<NumericBadgeStyle, BadgeStyle>;
 
 const feedbackStyles = {
   solid: {
@@ -97,22 +90,22 @@ const feedbackStyles = {
     positive: { bg: "none", color: vars.color.semantic.feedback.positive.bold },
     destructive: { bg: "none", color: vars.color.semantic.feedback.destructive.bold },
   },
-} satisfies Record<NumericBadgeStyle, Record<FeedbackVariant, BadgeVisualStyle>>;
+} satisfies Record<NumericBadgeStyle, Record<FeedbackVariant, BadgeStyle>>;
 
-const basicCompoundVariants = keysOf(basicStyles).flatMap(badgeStyle =>
-  keysOf(basicStyles[badgeStyle]).map(hierarchy => ({
+const basicCompoundVariants = objectKeys(basicStyles).flatMap(badgeStyle =>
+  objectKeys(basicStyles[badgeStyle]).map(hierarchy => ({
     variants: { badgeStyle, hierarchy },
     style: createBadgeVars(basicStyles[badgeStyle][hierarchy]),
   })),
 );
 
-const basicMutedCompoundVariants = keysOf(basicMutedStyles).map(badgeStyle => ({
+const basicMutedCompoundVariants = objectKeys(basicMutedStyles).map(badgeStyle => ({
   variants: { badgeStyle, isMuted: true },
   style: createBadgeVars(basicMutedStyles[badgeStyle]),
 }));
 
-const feedbackCompoundVariants = keysOf(feedbackStyles).flatMap(badgeStyle =>
-  keysOf(feedbackStyles[badgeStyle]).map(variant => ({
+const feedbackCompoundVariants = objectKeys(feedbackStyles).flatMap(badgeStyle =>
+  objectKeys(feedbackStyles[badgeStyle]).map(variant => ({
     variants: { badgeStyle, variant },
     style: createBadgeVars(feedbackStyles[badgeStyle][variant]),
   })),
