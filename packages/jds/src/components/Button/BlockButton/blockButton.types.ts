@@ -16,6 +16,7 @@ export type BlockButtonStyle = (typeof BLOCK_BUTTON_STYLE_OPTIONS)[number];
 export type FeedbackIntent = "positive" | "destructive";
 
 export interface BaseBlockButtonProps extends ComponentPropsWithoutRef<"button"> {
+  'data-part'?: never;
   children: ReactNode;
   size?: BlockButtonSize;
   prefixIcon?: IconName;

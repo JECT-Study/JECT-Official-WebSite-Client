@@ -14,6 +14,7 @@ export type LabelButtonHierarchy = (typeof LABEL_BUTTON_HIERARCHY_OPTIONS)[numbe
 export type LabelButtonIntent = "positive" | "destructive";
 
 export interface BaseLabelButtonProps extends ComponentPropsWithoutRef<"button"> {
+  'data-part'?: never;
   children: ReactNode;
   size?: LabelButtonSize;
   prefixIcon?: IconName;
