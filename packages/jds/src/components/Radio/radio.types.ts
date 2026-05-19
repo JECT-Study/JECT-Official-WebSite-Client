@@ -8,17 +8,28 @@ export type RadioSize = (typeof RADIO_SIZE_OPTIONS)[number];
 export type RadioStyle = (typeof RADIO_STYLE_OPTIONS)[number];
 export type RadioAlign = (typeof RADIO_ALIGN_OPTIONS)[number];
 
-export interface RadioRootProps {
+type RadioRootControlledProps = {
+  value: string;
+  defaultValue?: never;
+  onChange: (value: string) => void;
+};
+
+type RadioRootUncontrolledProps = {
+  value?: never;
+  defaultValue?: string;
+  onChange?: (value: string) => void;
+};
+
+type RadioRootBaseProps = {
   radioSize?: RadioSize;
   radioStyle?: RadioStyle;
   radioAlign?: RadioAlign;
   disabled?: boolean;
-  value?: string;
-  defaultValue?: string;
-  onChange?: (value: string) => void;
   name?: string;
   children: ReactNode;
-}
+};
+
+export type RadioRootProps = RadioRootBaseProps & (RadioRootControlledProps | RadioRootUncontrolledProps);
 
 export interface RadioBasicProps extends ComponentPropsWithoutRef<"input"> {
   radioSize?: RadioSize;
