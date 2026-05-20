@@ -56,9 +56,4 @@ export const feedbackRoot = recipe({
     isMuted: { true: {}, false: {} },
   },
   compoundVariants: feedbackCompoundVariants,
-  defaultVariants: {
-    variant: "positive",
-    size: "md",
-    isMuted: false,
-  },
 });

@@ -191,12 +191,6 @@ export const feedbackRoot = recipe({
     },
   },
   compoundVariants: feedbackCompoundVariants,
-  defaultVariants: {
-    variant: "positive",
-    size: "md",
-    badgeStyle: "solid",
-    isMuted: false,
-  },
 });
 
 export const label = style({

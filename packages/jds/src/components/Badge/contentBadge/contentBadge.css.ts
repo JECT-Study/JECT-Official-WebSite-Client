@@ -422,13 +422,6 @@ export const basicRoot = recipe({
     },
   },
   compoundVariants: [...basicCompoundVariants, ...basicMutedCompoundVariants],
-  defaultVariants: {
-    hierarchy: "secondary",
-    size: "md",
-    badgeStyle: "solid",
-    isMuted: false,
-    withIcon: false,
-  },
 });
 
 export const feedbackRoot = recipe({
@@ -446,12 +439,6 @@ export const feedbackRoot = recipe({
     },
   },
   compoundVariants: feedbackCompoundVariants,
-  defaultVariants: {
-    variant: "positive",
-    size: "md",
-    badgeStyle: "solid",
-    isMuted: false,
-  },
 });
 
 export const themeRoot = recipe({
@@ -477,12 +464,6 @@ export const themeRoot = recipe({
     },
   },
   compoundVariants: themeCompoundVariants,
-  defaultVariants: {
-    variant: "red",
-    size: "md",
-    badgeStyle: "solid",
-    isMuted: false,
-  },
 });
 
 export const label = style({
