@@ -90,8 +90,8 @@ const basicStyles = {
       iconColor: vars.color.semantic.object.static.inverse.boldest,
     },
     tertiary: {
-      bg: vars.color.semantic.fill.subtler,
-      color: vars.color.semantic.object.alternative,
+      bg: vars.color.semantic.fill.assistive,
+      color: vars.color.semantic.object.neutral,
       border: "none",
       iconColor: vars.color.semantic.object.alternative,
     },
@@ -101,13 +101,13 @@ const basicStyles = {
       bg: vars.color.semantic.accent.alpha.subtler,
       color: vars.color.semantic.accent.bold,
       border: "none",
-      iconColor: vars.color.semantic.accent.bold,
+      iconColor: vars.color.semantic.accent.bolder,
     },
     primary: {
       bg: vars.color.semantic.fill.subtler,
       color: vars.color.semantic.object.bolder,
       border: "none",
-      iconColor: vars.color.semantic.object.bolder,
+      iconColor: vars.color.semantic.object.boldest,
     },
     secondary: {
       bg: vars.color.semantic.fill.subtler,
@@ -127,13 +127,13 @@ const basicStyles = {
       bg: "none",
       color: vars.color.semantic.accent.bold,
       border: vars.color.semantic.accent.alpha.subtle,
-      iconColor: vars.color.semantic.accent.bold,
+      iconColor: vars.color.semantic.accent.bolder,
     },
     primary: {
       bg: "none",
       color: vars.color.semantic.object.bolder,
       border: vars.color.semantic.stroke.alpha.assistive,
-      iconColor: vars.color.semantic.object.bolder,
+      iconColor: vars.color.semantic.object.boldest,
     },
     secondary: {
       bg: "none",
@@ -155,19 +155,19 @@ const basicMutedStyles = {
     bg: vars.color.semantic.fill.subtler,
     color: vars.color.semantic.object.subtle,
     border: "none",
-    iconColor: vars.color.semantic.object.subtle,
+    iconColor: vars.color.semantic.object.subtler,
   },
   alpha: {
     bg: vars.color.semantic.fill.subtlest,
     color: vars.color.semantic.object.subtle,
     border: "none",
-    iconColor: vars.color.semantic.object.subtle,
+    iconColor: vars.color.semantic.object.subtler,
   },
   outlined: {
     bg: "none",
     color: vars.color.semantic.object.subtle,
     border: vars.color.semantic.stroke.alpha.subtler,
-    iconColor: vars.color.semantic.object.subtle,
+    iconColor: vars.color.semantic.object.subtler,
   },
 } satisfies Record<ContentBadgeStyle, BadgeStyle>;
 
