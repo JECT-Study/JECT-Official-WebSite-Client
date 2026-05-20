@@ -1,9 +1,10 @@
 import type { BadgeSize } from "./badge.types";
+import { vars } from "../../tokens/vars.css";
 
 type BadgeSizeConfig = {
   minWidth: number;
-  paddingTopBottom: number;
-  paddingLeftRight: number;
+  paddingTopBottom: string;
+  paddingLeftRight: string;
 };
 
 type DotBadgeSizeConfig = {
@@ -14,46 +15,46 @@ type DotBadgeSizeConfig = {
 export const contentBadgeSizeMap = {
   lg: {
     minWidth: 28,
-    paddingTopBottom: 2,
-    paddingLeftRight: 6,
+    paddingTopBottom: vars.scheme.semantic.spacing["2"],
+    paddingLeftRight: vars.scheme.semantic.spacing["6"],
   },
   md: {
     minWidth: 27,
-    paddingTopBottom: 2,
-    paddingLeftRight: 6,
+    paddingTopBottom: vars.scheme.semantic.spacing["2"],
+    paddingLeftRight: vars.scheme.semantic.spacing["6"],
   },
   sm: {
     minWidth: 24,
-    paddingTopBottom: 2,
-    paddingLeftRight: 6,
+    paddingTopBottom: vars.scheme.semantic.spacing["2"],
+    paddingLeftRight: vars.scheme.semantic.spacing["6"],
   },
   xs: {
     minWidth: 20,
-    paddingTopBottom: 1,
-    paddingLeftRight: 4,
+    paddingTopBottom: vars.scheme.semantic.spacing["1"],
+    paddingLeftRight: vars.scheme.semantic.spacing["4"],
   },
 } satisfies Record<BadgeSize, BadgeSizeConfig>;
 
 export const numericBadgeSizeMap = {
   lg: {
     minWidth: 24,
-    paddingTopBottom: 1,
-    paddingLeftRight: 4,
+    paddingTopBottom: vars.scheme.semantic.spacing["1"],
+    paddingLeftRight: vars.scheme.semantic.spacing["4"],
   },
   md: {
     minWidth: 23,
-    paddingTopBottom: 1,
-    paddingLeftRight: 4,
+    paddingTopBottom: vars.scheme.semantic.spacing["1"],
+    paddingLeftRight: vars.scheme.semantic.spacing["4"],
   },
   sm: {
     minWidth: 20,
-    paddingTopBottom: 1,
-    paddingLeftRight: 4,
+    paddingTopBottom: vars.scheme.semantic.spacing["1"],
+    paddingLeftRight: vars.scheme.semantic.spacing["4"],
   },
   xs: {
     minWidth: 18,
-    paddingTopBottom: 1,
-    paddingLeftRight: 4,
+    paddingTopBottom: vars.scheme.semantic.spacing["1"],
+    paddingLeftRight: vars.scheme.semantic.spacing["4"],
   },
 } satisfies Record<BadgeSize, BadgeSizeConfig>;
 

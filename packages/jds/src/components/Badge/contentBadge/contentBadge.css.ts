@@ -41,19 +41,19 @@ const createBadgeVars = ({ bg, color, border, iconColor }: BadgeStyle) => ({
 const sizeVariants: Record<BadgeSize, { minWidth: string; padding: string }> = {
   lg: {
     minWidth: pxToRem(contentBadgeSizeMap.lg.minWidth),
-    padding: `${pxToRem(contentBadgeSizeMap.lg.paddingTopBottom)} ${pxToRem(contentBadgeSizeMap.lg.paddingLeftRight)}`,
+    padding: `${contentBadgeSizeMap.lg.paddingTopBottom} ${contentBadgeSizeMap.lg.paddingLeftRight}`,
   },
   md: {
     minWidth: pxToRem(contentBadgeSizeMap.md.minWidth),
-    padding: `${pxToRem(contentBadgeSizeMap.md.paddingTopBottom)} ${pxToRem(contentBadgeSizeMap.md.paddingLeftRight)}`,
+    padding: `${contentBadgeSizeMap.md.paddingTopBottom} ${contentBadgeSizeMap.md.paddingLeftRight}`,
   },
   sm: {
     minWidth: pxToRem(contentBadgeSizeMap.sm.minWidth),
-    padding: `${pxToRem(contentBadgeSizeMap.sm.paddingTopBottom)} ${pxToRem(contentBadgeSizeMap.sm.paddingLeftRight)}`,
+    padding: `${contentBadgeSizeMap.sm.paddingTopBottom} ${contentBadgeSizeMap.sm.paddingLeftRight}`,
   },
   xs: {
     minWidth: pxToRem(contentBadgeSizeMap.xs.minWidth),
-    padding: `${pxToRem(contentBadgeSizeMap.xs.paddingTopBottom)} ${pxToRem(contentBadgeSizeMap.xs.paddingLeftRight)}`,
+    padding: `${contentBadgeSizeMap.xs.paddingTopBottom} ${contentBadgeSizeMap.xs.paddingLeftRight}`,
   },
 };
 

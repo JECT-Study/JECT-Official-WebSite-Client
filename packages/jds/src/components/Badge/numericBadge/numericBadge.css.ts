@@ -34,7 +34,7 @@ const sizeVariants = Object.fromEntries(
     size,
     {
       minWidth: pxToRem(numericBadgeSizeMap[size].minWidth),
-      padding: `${pxToRem(numericBadgeSizeMap[size].paddingTopBottom)} ${pxToRem(numericBadgeSizeMap[size].paddingLeftRight)}`,
+      padding: `${numericBadgeSizeMap[size].paddingTopBottom} ${numericBadgeSizeMap[size].paddingLeftRight}`,
     },
   ]),
 ) as Record<BadgeSize, { minWidth: string; padding: string }>;
@@ -49,7 +49,7 @@ const rootBase = {
 
 const badgeStyleVariants = {
   solid: {},
-  hollow: { padding: 0 },
+  hollow: { padding: vars.scheme.semantic.spacing["0"] },
 } satisfies Record<NumericBadgeStyle, object>;
 
 const basicStyles = {
@@ -114,17 +114,29 @@ const basicMutedCompoundVariants = NUMERIC_BADGE_STYLE_OPTIONS.map(badgeStyle =>
 }));
 
 const basicSolidTertiaryLayoutMap = {
-  lg: { borderRadius: vars.scheme.semantic.radius["8"], paddingLeftRight: 8 },
-  md: { borderRadius: vars.scheme.semantic.radius["8"], paddingLeftRight: 8 },
-  sm: { borderRadius: vars.scheme.semantic.radius["6"], paddingLeftRight: 6 },
-  xs: { borderRadius: vars.scheme.semantic.radius["6"], paddingLeftRight: 6 },
-} satisfies Record<BadgeSize, { borderRadius: string; paddingLeftRight: number }>;
+  lg: {
+    borderRadius: vars.scheme.semantic.radius["8"],
+    paddingLeftRight: vars.scheme.semantic.spacing["8"],
+  },
+  md: {
+    borderRadius: vars.scheme.semantic.radius["8"],
+    paddingLeftRight: vars.scheme.semantic.spacing["8"],
+  },
+  sm: {
+    borderRadius: vars.scheme.semantic.radius["6"],
+    paddingLeftRight: vars.scheme.semantic.spacing["6"],
+  },
+  xs: {
+    borderRadius: vars.scheme.semantic.radius["6"],
+    paddingLeftRight: vars.scheme.semantic.spacing["6"],
+  },
+} satisfies Record<BadgeSize, { borderRadius: string; paddingLeftRight: string }>;
 
 const basicSolidTertiaryCompoundVariants = BADGE_SIZE_OPTIONS.map(size => ({
   variants: { badgeStyle: "solid", hierarchy: "tertiary", size },
   style: {
     borderRadius: basicSolidTertiaryLayoutMap[size].borderRadius,
-    padding: `${pxToRem(1)} ${pxToRem(basicSolidTertiaryLayoutMap[size].paddingLeftRight)}`,
+    padding: `${vars.scheme.semantic.spacing["1"]} ${basicSolidTertiaryLayoutMap[size].paddingLeftRight}`,
   },
 })) satisfies Array<{
   variants: { badgeStyle: "solid"; hierarchy: "tertiary"; size: BadgeSize };
