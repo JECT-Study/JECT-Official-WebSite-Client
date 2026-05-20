@@ -110,6 +110,24 @@ const basicMutedCompoundVariants = NUMERIC_BADGE_STYLE_OPTIONS.map(badgeStyle =>
   style: createBadgeVars(basicMutedStyles[badgeStyle]),
 }));
 
+const basicSolidTertiaryLayoutMap = {
+  lg: { borderRadius: vars.scheme.semantic.radius["8"], paddingLeftRight: 8 },
+  md: { borderRadius: vars.scheme.semantic.radius["8"], paddingLeftRight: 8 },
+  sm: { borderRadius: vars.scheme.semantic.radius["6"], paddingLeftRight: 6 },
+  xs: { borderRadius: vars.scheme.semantic.radius["6"], paddingLeftRight: 6 },
+} satisfies Record<BadgeSize, { borderRadius: string; paddingLeftRight: number }>;
+
+const basicSolidTertiaryCompoundVariants = BADGE_SIZE_OPTIONS.map(size => ({
+  variants: { badgeStyle: "solid", hierarchy: "tertiary", size },
+  style: {
+    borderRadius: basicSolidTertiaryLayoutMap[size].borderRadius,
+    padding: `${pxToRem(1)} ${pxToRem(basicSolidTertiaryLayoutMap[size].paddingLeftRight)}`,
+  },
+})) satisfies Array<{
+  variants: { badgeStyle: "solid"; hierarchy: "tertiary"; size: BadgeSize };
+  style: { borderRadius: string; padding: string };
+}>;
+
 const feedbackCompoundVariants = NUMERIC_BADGE_STYLE_OPTIONS.flatMap(badgeStyle =>
   FEEDBACK_VARIANT_OPTIONS.map(variant => ({
     variants: { badgeStyle, variant },
@@ -130,7 +148,11 @@ export const basicRoot = recipe({
     badgeStyle: badgeStyleVariants,
     isMuted: { true: {}, false: {} },
   },
-  compoundVariants: [...basicCompoundVariants, ...basicMutedCompoundVariants],
+  compoundVariants: [
+    ...basicCompoundVariants,
+    ...basicMutedCompoundVariants,
+    ...basicSolidTertiaryCompoundVariants,
+  ],
   defaultVariants: {
     hierarchy: "secondary",
     size: "md",
