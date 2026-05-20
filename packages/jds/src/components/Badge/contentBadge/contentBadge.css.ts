@@ -2,6 +2,7 @@ import { createVar, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { pxToRem } from "utils";
 
+import type { textStyleClassNames } from "../../../tokens/textStyles.css";
 import { vars } from "../../../tokens/vars.css";
 import type { IconSize } from "../../Icon";
 import { BASIC_HIERARCHY_OPTIONS, FEEDBACK_VARIANT_OPTIONS } from "../badge.types";
@@ -9,6 +10,8 @@ import type { BadgeSize, BasicHierarchy, FeedbackVariant } from "../badge.types"
 import { contentBadgeSizeMap } from "../badge.variants";
 import { CONTENT_BADGE_STYLE_OPTIONS, THEME_VARIANT_OPTIONS } from "./contentBadge.types";
 import type { ContentBadgeStyle, ThemeVariant } from "./contentBadge.types";
+
+type TextStyleClassName = (typeof textStyleClassNames)[number];
 
 type BadgeStyle = {
   bg: string;
@@ -489,12 +492,12 @@ export const label = style({
   color: badgeTextColor,
 });
 
-export const labelTextStyle: Record<BadgeSize, string> = {
+export const labelTextStyle = {
   lg: "semantic-textStyle-label-lg-normal",
   md: "semantic-textStyle-label-md-normal",
   sm: "semantic-textStyle-label-sm-normal",
   xs: "semantic-textStyle-label-xs-normal",
-};
+} satisfies Record<BadgeSize, TextStyleClassName>;
 
 export const iconSizeMap: Record<BadgeSize, IconSize> = {
   lg: "sm",

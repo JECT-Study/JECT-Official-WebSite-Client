@@ -2,6 +2,7 @@ import { createVar, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { pxToRem } from "utils";
 
+import type { textStyleClassNames } from "../../../tokens/textStyles.css";
 import { vars } from "../../../tokens/vars.css";
 import {
   BADGE_SIZE_OPTIONS,
@@ -11,6 +12,8 @@ import {
 import type { FeedbackVariant, BadgeSize, BasicHierarchy } from "../badge.types";
 import { numericBadgeSizeMap } from "../badge.variants";
 import { NUMERIC_BADGE_STYLE_OPTIONS, type NumericBadgeStyle } from "./numericBadge.types";
+
+type TextStyleClassName = (typeof textStyleClassNames)[number];
 
 type BadgeStyle = { bg: string; color: string };
 
@@ -191,9 +194,9 @@ export const label = style({
   color: badgeTextColor,
 });
 
-export const labelTextStyle: Record<BadgeSize, string> = {
-  lg: "semantic-textStyle-label-lg-normal",
-  md: "semantic-textStyle-label-md-normal",
-  sm: "semantic-textStyle-label-sm-normal",
-  xs: "semantic-textStyle-label-xs-normal",
-};
+export const labelTextStyle = {
+  lg: "semantic-textStyle-label-lg-subtle",
+  md: "semantic-textStyle-label-md-subtle",
+  sm: "semantic-textStyle-label-sm-subtle",
+  xs: "semantic-textStyle-label-xs-subtle",
+} satisfies Record<BadgeSize, TextStyleClassName>;
