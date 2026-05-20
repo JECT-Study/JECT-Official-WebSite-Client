@@ -1,37 +1,60 @@
 import { clsx } from "clsx";
-import type { NumericBadgeBasicProps, NumericBasicBadgeProps } from "components";
+import type { NumericBadgeBasicProps, NumericBadgeFeedbackProps } from "components";
+import { forwardRef } from "react";
 
 import * as styles from "./numericBadge.css";
 
-const NumericBadgeBasic = ({
-  hierarchy = "secondary",
-  size = "md",
-  badgeStyle = "solid",
-  isMuted = false,
-  children,
-}: NumericBadgeBasicProps) => {
-  return (
-    <div className={styles.basicRoot({ hierarchy, size, badgeStyle, isMuted })}>
-      <span className={clsx(styles.label, styles.labelTextStyle[size])}>{children}</span>
-    </div>
-  );
-};
+const NumericBadgeBasic = forwardRef<HTMLSpanElement, NumericBadgeBasicProps>(
+  (
+    {
+      hierarchy = "secondary",
+      size = "md",
+      badgeStyle = "solid",
+      isMuted = false,
+      className,
+      children,
+      ...restProps
+    },
+    ref,
+  ) => {
+    return (
+      <span
+        ref={ref}
+        className={clsx(styles.basicRoot({ hierarchy, size, badgeStyle, isMuted }), className)}
+        {...restProps}
+      >
+        <span className={clsx(styles.label, styles.labelTextStyle[size])}>{children}</span>
+      </span>
+    );
+  },
+);
 
 NumericBadgeBasic.displayName = "NumericBadge.Basic";
 
-const NumericBadgeFeedback = ({
-  variant = "positive",
-  size = "md",
-  badgeStyle = "solid",
-  isMuted = false,
-  children,
-}: NumericBasicBadgeProps) => {
-  return (
-    <div className={styles.feedbackRoot({ variant, size, badgeStyle, isMuted })}>
-      <span className={clsx(styles.label, styles.labelTextStyle[size])}>{children}</span>
-    </div>
-  );
-};
+const NumericBadgeFeedback = forwardRef<HTMLSpanElement, NumericBadgeFeedbackProps>(
+  (
+    {
+      variant = "positive",
+      size = "md",
+      badgeStyle = "solid",
+      isMuted = false,
+      className,
+      children,
+      ...restProps
+    },
+    ref,
+  ) => {
+    return (
+      <span
+        ref={ref}
+        className={clsx(styles.feedbackRoot({ variant, size, badgeStyle, isMuted }), className)}
+        {...restProps}
+      >
+        <span className={clsx(styles.label, styles.labelTextStyle[size])}>{children}</span>
+      </span>
+    );
+  },
+);
 
 NumericBadgeFeedback.displayName = "NumericBadge.Feedback";
 

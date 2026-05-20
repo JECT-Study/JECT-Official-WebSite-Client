@@ -1,4 +1,4 @@
-import type { MouseEvent, ReactNode } from "react";
+import type { ComponentPropsWithoutRef, MouseEvent, ReactNode } from "react";
 
 import type { BadgeSize, BasicHierarchy, FeedbackVariant } from "../badge.types";
 
@@ -19,7 +19,7 @@ export const THEME_VARIANT_OPTIONS = [
 ] as const;
 export type ThemeVariant = (typeof THEME_VARIANT_OPTIONS)[number];
 
-export interface ContentBadgeBasicProps {
+export interface ContentBadgeBasicProps extends Omit<ComponentPropsWithoutRef<"span">, "children"> {
   hierarchy?: BasicHierarchy;
   size?: BadgeSize;
   badgeStyle?: ContentBadgeStyle;
@@ -29,7 +29,7 @@ export interface ContentBadgeBasicProps {
   children: ReactNode;
 }
 
-export interface ContentFeedbackBadgeProps {
+export interface ContentBadgeFeedbackProps extends Omit<ComponentPropsWithoutRef<"span">, "children"> {
   variant?: FeedbackVariant;
   size?: BadgeSize;
   badgeStyle?: ContentBadgeStyle;
@@ -37,7 +37,7 @@ export interface ContentFeedbackBadgeProps {
   children: ReactNode;
 }
 
-export interface ContentThemeBadgeProps {
+export interface ContentBadgeThemeProps extends Omit<ComponentPropsWithoutRef<"span">, "children"> {
   variant?: ThemeVariant;
   size?: BadgeSize;
   badgeStyle?: ContentBadgeStyle;
