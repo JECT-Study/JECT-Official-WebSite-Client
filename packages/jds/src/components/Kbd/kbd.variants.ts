@@ -1,4 +1,7 @@
 import type { KbdSize, KbdType } from "./kbd.types";
+import type { textStyleClassNames } from "../../tokens/textStyles.css";
+
+type TextStyleClassName = (typeof textStyleClassNames)[number];
 
 interface KbdSizeConfig {
   height: number;
@@ -18,7 +21,7 @@ export const kbdPaddingXMap: Record<KbdType, number> = {
   text: 6,
 };
 
-export const typographyMap: Record<KbdType, Record<KbdSize, string>> = {
+export const typographyMap = {
   function: {
     lg: "semantic-textStyle-label-lg-normal",
     md: "semantic-textStyle-label-md-normal",
@@ -37,4 +40,4 @@ export const typographyMap: Record<KbdType, Record<KbdSize, string>> = {
     sm: "semantic-textStyle-syntax-sm",
     xs: "semantic-textStyle-syntax-xs",
   },
-};
+} satisfies Record<KbdType, Record<KbdSize, TextStyleClassName>>;
