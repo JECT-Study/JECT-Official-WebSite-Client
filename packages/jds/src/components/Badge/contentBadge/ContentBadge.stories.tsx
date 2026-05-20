@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-
-import { ContentBadge } from "./ContentBadge";
 import type {
   ContentBadgeBasicProps,
   ContentFeedbackBadgeProps,
   ContentThemeBadgeProps,
 } from "components";
+
+import { ContentBadge } from "./ContentBadge";
 import { CONTENT_BADGE_STYLE_OPTIONS, THEME_VARIANT_OPTIONS } from "./contentBadge.types";
 import {
   BADGE_SIZE_OPTIONS,

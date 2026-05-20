@@ -6,6 +6,7 @@ import type {
 } from "components";
 
 import * as styles from "./contentBadge.css";
+
 import { Icon } from "@/components/Icon";
 
 const ContentBadgeBasic = ({

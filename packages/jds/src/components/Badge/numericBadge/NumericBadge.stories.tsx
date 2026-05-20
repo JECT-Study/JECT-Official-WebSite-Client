@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import type { NumericBadgeBasicProps, NumericBasicBadgeProps } from "components";
 
 import { NumericBadge } from "./NumericBadge";
-import type { NumericBadgeBasicProps, NumericBasicBadgeProps } from "components";
 import { NUMERIC_BADGE_STYLE_OPTIONS } from "./numericBadge.types";
 import {
   BADGE_SIZE_OPTIONS,

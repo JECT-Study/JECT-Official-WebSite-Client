@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import type { DotBadgeFeedbackProps } from "components";
 
 import { DotBadge } from "./DotBadge";
-import type { DotBadgeFeedbackProps } from "components";
-import { BADGE_SIZE_OPTIONS, FEEDBACK_VARIANT_OPTIONS } from "./dotBadge.types";
+import { BADGE_SIZE_OPTIONS, FEEDBACK_VARIANT_OPTIONS } from "../badge.types";
 
 const meta: Meta<typeof DotBadge.Feedback> = {
   title: "Components/DotBadge",

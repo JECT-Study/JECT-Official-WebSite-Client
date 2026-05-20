@@ -1,4 +1,5 @@
-import { DotBadgeFeedbackProps } from "components";
+import type { DotBadgeFeedbackProps } from "components";
+
 import * as styles from "./dotBadge.css";
 
 export const DotBadgeFeedback = ({

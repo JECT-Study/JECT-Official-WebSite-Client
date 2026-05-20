@@ -1,4 +1,5 @@
 import type { MouseEvent, ReactNode } from "react";
+
 import type { BadgeSize, BasicHierarchy, FeedbackVariant } from "../badge.types";
 
 export const CONTENT_BADGE_STYLE_OPTIONS = ["solid", "alpha", "outlined"] as const;

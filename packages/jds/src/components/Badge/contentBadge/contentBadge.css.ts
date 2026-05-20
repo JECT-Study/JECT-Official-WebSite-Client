@@ -4,9 +4,9 @@ import { pxToRem } from "utils";
 
 import { vars } from "../../../tokens/vars.css";
 import type { IconSize } from "../../Icon";
-import { contentBadgeSizeMap } from "../badge.variants";
 import { BASIC_HIERARCHY_OPTIONS, FEEDBACK_VARIANT_OPTIONS } from "../badge.types";
 import type { BadgeSize, BasicHierarchy, FeedbackVariant } from "../badge.types";
+import { contentBadgeSizeMap } from "../badge.variants";
 import { CONTENT_BADGE_STYLE_OPTIONS, THEME_VARIANT_OPTIONS } from "./contentBadge.types";
 import type { ContentBadgeStyle, ThemeVariant } from "./contentBadge.types";
 

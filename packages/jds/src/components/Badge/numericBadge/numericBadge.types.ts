@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+
 import type { FeedbackVariant, BadgeSize, BasicHierarchy } from "../badge.types";
 
 export const NUMERIC_BADGE_STYLE_OPTIONS = ["solid", "hollow"] as const;

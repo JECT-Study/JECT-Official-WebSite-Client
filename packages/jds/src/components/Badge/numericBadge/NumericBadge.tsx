@@ -1,6 +1,6 @@
 import { clsx } from "clsx";
-
 import type { NumericBadgeBasicProps, NumericBasicBadgeProps } from "components";
+
 import * as styles from "./numericBadge.css";
 
 const NumericBadgeBasic = ({

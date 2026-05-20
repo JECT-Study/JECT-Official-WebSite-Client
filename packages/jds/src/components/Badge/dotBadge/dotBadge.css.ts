@@ -2,13 +2,9 @@ import { recipe } from "@vanilla-extract/recipes";
 import { pxToRem } from "utils";
 
 import { vars } from "../../../tokens/vars.css";
+import { BADGE_SIZE_OPTIONS, FEEDBACK_VARIANT_OPTIONS } from "../badge.types";
+import type { BadgeSize, FeedbackVariant } from "../badge.types";
 import { dotBadgeSizeMap } from "../badge.variants";
-import {
-  BADGE_SIZE_OPTIONS,
-  FEEDBACK_VARIANT_OPTIONS,
-  type BadgeSize,
-  type FeedbackVariant,
-} from "./dotBadge.types";
 
 const variantBg = {
   positive: {
