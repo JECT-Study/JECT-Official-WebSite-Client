@@ -28,13 +28,12 @@ const typographyCompoundVariants = Object.entries(typographyMap).flatMap(([type,
 
 export const kbd = recipe({
   base: {
-    boxSizing: "initial",
-
     display: "inline-flex",
     alignItems: "center",
     justifyContent: "center",
 
-    paddingTop: vars.scheme.semantic.spacing["1"],
+    paddingTop: vars.scheme.semantic.spacing["2"],
+    paddingBottom: vars.scheme.semantic.spacing["2"],
 
     borderRadius: vars.scheme.semantic.radius["4"],
     border: `1px solid ${vars.color.semantic.stroke.alpha.subtle}`,
@@ -52,9 +51,4 @@ export const kbd = recipe({
     },
   },
   compoundVariants: typographyCompoundVariants,
-  defaultVariants: {
-    type: "key",
-    size: "md",
-    muted: false,
-  },
 });
