@@ -1,14 +1,21 @@
 import type { BadgeSize } from "./badge.types";
+import type { textStyleClassNames } from "../../tokens/textStyles.css";
 
-export const contentBadgeSizeMap: Record<
-  BadgeSize,
-  {
-    minWidth: number;
-    paddingTopBottom: number;
-    paddingLeftRight: number;
-    textStyle: string;
-  }
-> = {
+type TextStyleClassName = (typeof textStyleClassNames)[number];
+
+type BadgeSizeConfig = {
+  minWidth: number;
+  paddingTopBottom: number;
+  paddingLeftRight: number;
+  textStyle: TextStyleClassName;
+};
+
+type DotBadgeSizeConfig = {
+  width: number;
+  height: number;
+};
+
+export const contentBadgeSizeMap = {
   lg: {
     minWidth: 28,
     paddingTopBottom: 2,
@@ -33,17 +40,9 @@ export const contentBadgeSizeMap: Record<
     paddingLeftRight: 4,
     textStyle: "semantic-textStyle-label-xs-normal",
   },
-};
+} satisfies Record<BadgeSize, BadgeSizeConfig>;
 
-export const numericBadgeSizeMap: Record<
-  BadgeSize,
-  {
-    minWidth: number;
-    paddingTopBottom: number;
-    paddingLeftRight: number;
-    textStyle: string;
-  }
-> = {
+export const numericBadgeSizeMap = {
   lg: {
     minWidth: 24,
     paddingTopBottom: 1,
@@ -68,9 +67,9 @@ export const numericBadgeSizeMap: Record<
     paddingLeftRight: 4,
     textStyle: "semantic-textStyle-label-xs-subtle",
   },
-};
+} satisfies Record<BadgeSize, BadgeSizeConfig>;
 
-export const dotBadgeSizeMap: Record<BadgeSize, { width: number; height: number }> = {
+export const dotBadgeSizeMap = {
   lg: {
     width: 16,
     height: 16,
@@ -87,4 +86,4 @@ export const dotBadgeSizeMap: Record<BadgeSize, { width: number; height: number 
     width: 4,
     height: 4,
   },
-};
+} satisfies Record<BadgeSize, DotBadgeSizeConfig>;
