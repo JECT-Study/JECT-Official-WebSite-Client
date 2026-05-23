@@ -36,15 +36,17 @@ const TooltipContent = forwardRef<ElementRef<typeof TooltipPrimitive.Content>, T
       sideOffset = 8,
       collisionPadding = 0,
       avoidCollisions = true,
+      forceMount,
       className,
       ...restProps
     },
     ref,
   ) => {
     return (
-      <TooltipPrimitive.Portal>
+      <TooltipPrimitive.Portal forceMount={forceMount}>
         <TooltipPrimitive.Content
           ref={ref}
+          forceMount={forceMount}
           side={side}
           sideOffset={sideOffset}
           collisionPadding={collisionPadding}
