@@ -9,12 +9,6 @@ const meta: Meta<typeof Radio.Item> = {
   parameters: {
     layout: "centered",
   },
-  argTypes: {
-    radioSize: {
-      control: { type: "radio" },
-      options: ["lg", "md", "sm", "xs"],
-    },
-  },
 } satisfies Meta<typeof Radio.Item>;
 
 export default meta;
@@ -40,13 +34,13 @@ export const RadioBasicDisabled: Story = {
       </FlexRow>
       <span>Radio.Root를 통해 그룹 전체를 비활성화합니다.</span>
       <FlexRow>
-        <Radio.Root disabled name='rootControl'>
+        <Radio.Root disabled defaultValue='2' name='rootControl'>
           <Radio.Item>
             <Radio.Basic value='1' />
             <Radio.Label>레이블</Radio.Label>
           </Radio.Item>
           <Radio.Item>
-            <Radio.Basic value='2' checked />
+            <Radio.Basic value='2' />
             <Radio.Label>레이블</Radio.Label>
           </Radio.Item>
         </Radio.Root>
@@ -140,7 +134,7 @@ export const RadioAlign: Story = {
   render: () => (
     <FlexColumn>
       <FlexRow style={{ alignItems: "flex-start" }}>
-        <Radio.Root radioStyle='empty' radioSize='lg' radioAlign='right' name='emptyStyle'>
+        <Radio.Root radioStyle='empty' radioSize='lg' radioAlign='right' name='emptyRight'>
           <Radio.Item>
             <Radio.Label>레이블</Radio.Label>
             <Radio.Basic value='1' />
@@ -162,7 +156,7 @@ export const RadioAlign: Story = {
         </Radio.Root>
       </FlexRow>
       <FlexRow style={{ alignItems: "flex-start" }}>
-        <Radio.Root radioStyle='outline' radioSize='lg' radioAlign='right' name='outlineStyle'>
+        <Radio.Root radioStyle='outline' radioSize='lg' radioAlign='right' name='outlineRight'>
           <Radio.Item>
             <Radio.Label>레이블</Radio.Label>
             <Radio.Basic value='1' />
