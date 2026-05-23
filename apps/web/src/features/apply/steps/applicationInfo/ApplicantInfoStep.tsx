@@ -179,7 +179,10 @@ export function ApplicantInfoStep({ context, onNext, onBack }: ApplicantInfoStep
                     직무 관련 경험 기간
                     <Tooltip.Provider>
                       <Tooltip.Root>
-                        <Tooltip.Trigger className='text-(--semantic-object-alternative)'>
+                        <Tooltip.Trigger
+                          className='text-(--semantic-object-alternative)'
+                          aria-label='직무 관련 경험 기간 안내'
+                        >
                           <Icon name='information-fill' size='2xs' color='inherit' />
                         </Tooltip.Trigger>
                         <Tooltip.Content>학습과 경력을 모두 포함한 기간</Tooltip.Content>
