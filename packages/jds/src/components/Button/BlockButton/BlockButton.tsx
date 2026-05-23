@@ -1,8 +1,11 @@
+import { mergeProps } from "@react-aria/utils";
+import { clsx } from "clsx";
 import type { BlockButtonBasicProps, BlockButtonFeedbackProps } from "components";
 import { Icon } from "components";
+import { usePressable } from "hooks";
 import { forwardRef } from "react";
 
-import { iconSizeMap, StyledBlockButton } from "./blockButton.styles";
+import { basicRoot, feedbackRoot, iconSizeMap } from "./blockButton.css";
 
 const BlockButtonBasic = forwardRef<HTMLButtonElement, BlockButtonBasicProps>(
   (
@@ -14,27 +17,25 @@ const BlockButtonBasic = forwardRef<HTMLButtonElement, BlockButtonBasicProps>(
       prefixIcon,
       suffixIcon,
       disabled = false,
+      className,
       ...restProps
     },
-    ref,
+    forwardedRef,
   ) => {
-    //Todo: 아이콘 사이즈도 전부 스타일의 theme 단위에서 해결하면 좋을듯(Theme 구조 추가 필요)
+    const { ref, pressableProps } = usePressable(forwardedRef, { disabled });
     const iconSize = iconSizeMap[size];
 
     return (
-      <StyledBlockButton
+      <button
         ref={ref}
-        $hierarchy={hierarchy}
-        $variant={variant}
-        $size={size}
-        $disabled={disabled}
-        disabled={disabled}
-        {...restProps}
+        {...mergeProps(pressableProps, restProps)}
+        data-part='root'
+        className={clsx(basicRoot({ hierarchy, variant, size }), className)}
       >
         {prefixIcon && <Icon name={prefixIcon} size={iconSize} />}
         {children}
         {suffixIcon && <Icon name={suffixIcon} size={iconSize} />}
-      </StyledBlockButton>
+      </button>
     );
   },
 );
@@ -50,25 +51,25 @@ const BlockButtonFeedback = forwardRef<HTMLButtonElement, BlockButtonFeedbackPro
       prefixIcon,
       suffixIcon,
       disabled = false,
+      className,
       ...restProps
     },
-    ref,
+    forwardedRef,
   ) => {
+    const { ref, pressableProps } = usePressable(forwardedRef, { disabled });
     const iconSize = iconSizeMap[size];
 
     return (
-      <StyledBlockButton
+      <button
         ref={ref}
-        $intent={intent}
-        $size={size}
-        $disabled={disabled}
-        disabled={disabled}
-        {...restProps}
+        {...mergeProps(pressableProps, restProps)}
+        data-part='root'
+        className={clsx(feedbackRoot({ intent, size }), className)}
       >
         {prefixIcon && <Icon name={prefixIcon} size={iconSize} />}
         {children}
         {suffixIcon && <Icon name={suffixIcon} size={iconSize} />}
-      </StyledBlockButton>
+      </button>
     );
   },
 );
