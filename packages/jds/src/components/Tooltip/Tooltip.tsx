@@ -4,9 +4,9 @@ import { Tooltip as TooltipPrimitive } from "radix-ui";
 import * as styles from "./tooltip.css";
 import type { TooltipContentProps, TooltipProps, TooltipTriggerProps } from "./tooltip.types";
 
-const TooltipRoot = ({ children, delayDuration = 0, ...radixProps }: TooltipProps) => {
+const TooltipRoot = ({ children, ...radixProps }: TooltipProps) => {
   return (
-    <TooltipPrimitive.Root delayDuration={delayDuration} {...radixProps}>
+    <TooltipPrimitive.Root {...radixProps}>
       {children}
     </TooltipPrimitive.Root>
   );
