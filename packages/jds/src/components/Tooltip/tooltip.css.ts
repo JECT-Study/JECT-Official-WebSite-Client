@@ -29,10 +29,7 @@ export const content = style({
   boxShadow: vars.environment.semantic.shadow.overlay,
 
   selectors: {
-    '&[data-state="delayed-open"]': {
-      animation: `${tooltipFadeIn} ${tooltipTransition}`,
-    },
-    '&[data-state="instant-open"]': {
+    '&[data-state="delayed-open"], &[data-state="instant-open"]': {
       animation: `${tooltipFadeIn} ${tooltipTransition}`,
     },
     '&[data-state="closed"]': {
