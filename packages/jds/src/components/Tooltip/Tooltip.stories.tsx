@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexColumn, FlexRow, Label } from "@storybook-utils/layout";
 import { Icon, IconButton, Input, Tooltip, BlockButton } from "components";
-import { Label as LabelComponent } from "components";
 
 const meta = {
   title: "Components/Tooltip",
@@ -48,7 +47,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   render: args => (
     <Tooltip.Root>
-      <Tooltip.Trigger>
+      <Tooltip.Trigger asChild>
         <IconButton icon='information-line' />
       </Tooltip.Trigger>
       <Tooltip.Content {...args}>툴팁 테스트 레이블</Tooltip.Content>
@@ -69,7 +68,7 @@ export const AllSides: Story = {
         <FlexColumn gap='12px'>
           <Label>Top (기본값)</Label>
           <Tooltip.Root>
-            <Tooltip.Trigger>
+            <Tooltip.Trigger asChild>
               <IconButton icon='information-line' />
             </Tooltip.Trigger>
             <Tooltip.Content side='top'>툴팁 상단</Tooltip.Content>
@@ -79,7 +78,7 @@ export const AllSides: Story = {
         <FlexColumn gap='12px'>
           <Label>Right</Label>
           <Tooltip.Root>
-            <Tooltip.Trigger>
+            <Tooltip.Trigger asChild>
               <IconButton icon='information-line' />
             </Tooltip.Trigger>
             <Tooltip.Content side='right'>툴팁 우측</Tooltip.Content>
@@ -89,7 +88,7 @@ export const AllSides: Story = {
         <FlexColumn gap='12px'>
           <Label>Bottom</Label>
           <Tooltip.Root>
-            <Tooltip.Trigger>
+            <Tooltip.Trigger asChild>
               <IconButton icon='information-line' />
             </Tooltip.Trigger>
             <Tooltip.Content side='bottom'>툴팁 아래</Tooltip.Content>
@@ -99,7 +98,7 @@ export const AllSides: Story = {
         <FlexColumn gap='12px'>
           <Label>Left</Label>
           <Tooltip.Root>
-            <Tooltip.Trigger>
+            <Tooltip.Trigger asChild>
               <IconButton icon='information-line' />
             </Tooltip.Trigger>
             <Tooltip.Content side='left'>툴팁 좌측</Tooltip.Content>
@@ -122,7 +121,7 @@ export const LongContent: Story = {
   args: { children: undefined },
   render: () => (
     <Tooltip.Root>
-      <Tooltip.Trigger>
+      <Tooltip.Trigger asChild>
         <BlockButton.Basic hierarchy='accent'>표시되는 요소가 길 경우</BlockButton.Basic>
       </Tooltip.Trigger>
       <Tooltip.Content>
@@ -147,7 +146,7 @@ export const WithCustomOffset: Story = {
       <FlexColumn gap='12px'>
         <Label>오프셋 기본값(8px)</Label>
         <Tooltip.Root>
-          <Tooltip.Trigger>
+          <Tooltip.Trigger asChild>
             <BlockButton.Basic hierarchy='accent'>기본 오프셋</BlockButton.Basic>
           </Tooltip.Trigger>
           <Tooltip.Content sideOffset={8}>트리거 요소로 부터 8px</Tooltip.Content>
@@ -157,7 +156,7 @@ export const WithCustomOffset: Story = {
       <FlexColumn gap='12px'>
         <Label>오프셋 커스텀(24px)</Label>
         <Tooltip.Root>
-          <Tooltip.Trigger>
+          <Tooltip.Trigger asChild>
             <BlockButton.Basic hierarchy='accent'>커스텀(확장) 오프셋</BlockButton.Basic>
           </Tooltip.Trigger>
           <Tooltip.Content sideOffset={24}>트리거 요소로 부터 24px</Tooltip.Content>
@@ -181,7 +180,7 @@ export const CustomTrigger: Story = {
       <div>
         <Tooltip.Root>
           <Tooltip.Trigger>
-            <LabelComponent as='span'>텍스트 레이블입니다.</LabelComponent>
+            <span>텍스트 레이블</span>
           </Tooltip.Trigger>
           <Tooltip.Content>레이블</Tooltip.Content>
         </Tooltip.Root>
@@ -200,7 +199,7 @@ export const CustomTrigger: Story = {
       <FlexColumn gap='12px'>
         <Label>Icon 버튼</Label>
         <Tooltip.Root>
-          <Tooltip.Trigger>
+          <Tooltip.Trigger asChild>
             <IconButton icon='alert-line' />
           </Tooltip.Trigger>
           <Tooltip.Content>아이콘 버튼 툴팁</Tooltip.Content>
@@ -210,7 +209,7 @@ export const CustomTrigger: Story = {
       <FlexColumn gap='12px'>
         <Label>Input 예시</Label>
         <Tooltip.Root>
-          <Tooltip.Trigger>
+          <Tooltip.Trigger asChild>
             <Input.TextField value='레이블 명' onChange={e => e.preventDefault()} />
           </Tooltip.Trigger>
           <Tooltip.Content side='top' sideOffset={12}>

@@ -17,7 +17,7 @@ TooltipRoot.displayName = "Tooltip.Root";
 
 //Todo: avoidCollisions로 제어되고 있는 위치 감지를 디자인 에셋에서 요구하는 감지 플로우로 변경 시 내부 Context 활용 필요 가능성
 const TooltipTrigger = forwardRef<ElementRef<typeof TooltipPrimitive.Trigger>, TooltipTriggerProps>(
-  ({ children, asChild = true, ...restProps }, ref) => {
+  ({ children, asChild = false, ...restProps }, ref) => {
     return (
       <TooltipPrimitive.Trigger ref={ref} asChild={asChild} {...restProps}>
         {children}
