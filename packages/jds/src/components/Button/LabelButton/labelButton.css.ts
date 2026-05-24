@@ -18,22 +18,22 @@ type ColorEntry = { overlayColor: string; color: string; disabledColor: string }
 // Overlay colors per hierarchy
 const hierarchyColorsByHierarchy = {
   accent: {
-    overlayColor: vars.color.semantic.accent.bold,
+    overlayColor: vars.color.semantic.accent.normal,
     color: vars.color.semantic.accent.normal,
     disabledColor: vars.color.semantic.accent.alpha.subtle,
   },
   primary: {
-    overlayColor: vars.color.semantic.interaction.bold,
-    color: vars.color.semantic.object.bolder,
+    overlayColor: vars.color.semantic.fill.boldest,
+    color: vars.color.semantic.object.boldest,
     disabledColor: vars.color.semantic.object.subtle,
   },
   secondary: {
-    overlayColor: vars.color.semantic.interaction.bold,
+    overlayColor: vars.color.semantic.object.boldest,
     color: vars.color.semantic.object.neutral,
     disabledColor: vars.color.semantic.object.subtle,
   },
   tertiary: {
-    overlayColor: vars.color.semantic.interaction.bold,
+    overlayColor: vars.color.semantic.object.boldest,
     color: vars.color.semantic.object.alternative,
     disabledColor: vars.color.semantic.object.subtle,
   },
@@ -42,12 +42,12 @@ const hierarchyColorsByHierarchy = {
 // Feedback colors per intent
 const feedbackColorsByIntent = {
   positive: {
-    overlayColor: vars.color.semantic.feedback.positive.bold,
+    overlayColor: vars.color.semantic.feedback.positive.normal,
     color: vars.color.semantic.feedback.positive.normal,
     disabledColor: vars.color.semantic.feedback.positive.alpha.subtle,
   },
   destructive: {
-    overlayColor: vars.color.semantic.feedback.destructive.bold,
+    overlayColor: vars.color.semantic.feedback.destructive.normal,
     color: vars.color.semantic.feedback.destructive.normal,
     disabledColor: vars.color.semantic.feedback.destructive.alpha.subtle,
   },

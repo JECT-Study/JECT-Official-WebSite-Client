@@ -44,7 +44,7 @@ export const focusRing = style({
       pointerEvents: "none",
     },
     "&[data-focus-visible]::before": {
-      boxShadow: `0 0 0 ${FOCUS_RING_WIDTH} ${vars.color.semantic.interaction.focus}`,
+      boxShadow: `0 0 0 ${FOCUS_RING_WIDTH} ${vars.color.semantic.accent.alpha.alternative}`,
       // overlay(::after)는 ::before 다음에 그려지므로 기본 stacking에서 위에 온다.
       // condensed 모드에서 ::before/::after가 같은 영역을 점유할 때 hover+focus 동시 발생 시
       // overlay가 focus ring 가장자리를 덮는 시각 버그를 방지하기 위해 ::before를 위로 올린다.

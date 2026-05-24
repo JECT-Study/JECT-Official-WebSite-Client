@@ -45,20 +45,20 @@ const getBackgroundColor = (
   const colorMap = {
     normal: {
       bold: {
-        default: theme.color.semantic.interaction.bold,
-        inverse: theme.color.semantic.interaction.inverse.bold,
+        default: theme.color.semantic.object.bold,
+        inverse: theme.color.semantic.object.inverse.bold,
       },
       normal: {
-        default: theme.color.semantic.interaction.normal,
-        inverse: theme.color.semantic.interaction.inverse.normal,
+        default: theme.color.semantic.object.neutral,
+        inverse: theme.color.semantic.object.inverse.neutral,
       },
       assistive: {
-        default: theme.color.semantic.interaction.assistive,
-        inverse: theme.color.semantic.interaction.inverse.assistive,
+        default: theme.color.semantic.object.assistive,
+        inverse: theme.color.semantic.object.inverse.assistive,
       },
       subtle: {
-        default: theme.color.semantic.interaction.subtle,
-        inverse: theme.color.semantic.interaction.inverse.subtle,
+        default: theme.color.semantic.object.subtle,
+        inverse: theme.color.semantic.object.inverse.subtle,
       },
     },
     accent: {
@@ -212,7 +212,7 @@ export function InteractionLayer({
       width: hasOffset && hasHorizontalOffset ? "auto" : "100%",
       height: hasOffset && hasVerticalOffset ? "auto" : "100%",
       borderRadius: borderRadius > 0 ? `${borderRadius}px` : 0,
-      boxShadow: `0 0 0 ${FOCUS_OUTLINE_WIDTH} ${theme.color.semantic.interaction.focus}`,
+      boxShadow: `0 0 0 ${FOCUS_OUTLINE_WIDTH} ${theme.color.semantic.accent.normal}`,
       opacity: isFocusState && hasOffset ? 1 : 0,
       pointerEvents: "none",
     },
@@ -233,7 +233,7 @@ export function InteractionLayer({
   };
 
   if (isFocusState && !hasOffset) {
-    baseStyle.boxShadow = `0 0 0 ${FOCUS_OUTLINE_WIDTH} ${theme.color.semantic.interaction.focus}`;
+    baseStyle.boxShadow = `0 0 0 ${FOCUS_OUTLINE_WIDTH} ${theme.color.semantic.accent.normal}`;
   }
 
   return baseStyle;

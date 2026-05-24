@@ -108,7 +108,7 @@ export const radioVisual = recipe({
         cursor: "default",
       },
       'input[type="radio"]:focus-visible + &': {
-        boxShadow: `0 0 0 3px ${vars.color.semantic.interaction.focus}`,
+        boxShadow: `0 0 0 3px ${vars.color.semantic.accent.alpha.alternative}`,
       },
       // hover / active overlay
       "&::after": {
@@ -118,7 +118,6 @@ export const radioVisual = recipe({
         left: 0,
         width: "100%",
         height: "100%",
-        backgroundColor: vars.color.semantic.interaction.normal,
         borderRadius: "inherit",
         opacity: 0,
         pointerEvents: "none",
@@ -276,11 +275,11 @@ const itemBaseStyles = style([
   focusRing,
   {
     position: "relative",
-    vars: { [overlayColor]: vars.color.semantic.interaction.normal },
+    vars: { [overlayColor]: vars.color.semantic.fill.bold },
     selectors: {
       // checked 상태에서 overlay 색상을 accent으로 전환
       '&:has(input[type="radio"]:checked)': {
-        vars: { [overlayColor]: vars.color.semantic.accent.neutral },
+        vars: { [overlayColor]: vars.color.semantic.accent.alternative },
       },
       // overlay shape: element 경계와 동일. empty 모드에서는 compoundVariants로 확장
       "&::after": { inset: 0, borderRadius: "inherit" },

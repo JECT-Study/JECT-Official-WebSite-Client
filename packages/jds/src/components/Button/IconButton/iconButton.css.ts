@@ -52,7 +52,7 @@ const baseStyles = {
 const neutralHierarchy = (color: string) => ({
   vars: {
     [iconButtonIconColor]: color,
-    [overlayColor]: vars.color.semantic.interaction.normal,
+    [overlayColor]: vars.color.semantic.object.neutral,
   },
   selectors: {
     "&[data-disabled]": {

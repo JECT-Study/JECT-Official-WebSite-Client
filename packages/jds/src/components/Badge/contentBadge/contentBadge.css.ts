@@ -232,7 +232,7 @@ const themeStyles = {
       border: "none",
     },
     indigo: {
-      bg: vars.color.semantic.theme.violet.neutral,
+      bg: vars.color.semantic.theme.indigo.neutral,
       color: vars.color.semantic.object.static.inverse.boldest,
       border: "none",
     },
@@ -284,8 +284,8 @@ const themeStyles = {
       border: "none",
     },
     indigo: {
-      bg: vars.color.semantic.theme.violet.alpha.subtler,
-      color: vars.color.semantic.theme.violet.normal,
+      bg: vars.color.semantic.theme.indigo.alpha.subtler,
+      color: vars.color.semantic.theme.indigo.normal,
       border: "none",
     },
     purple: {
@@ -337,8 +337,8 @@ const themeStyles = {
     },
     indigo: {
       bg: "none",
-      color: vars.color.semantic.theme.violet.normal,
-      border: vars.color.semantic.theme.violet.alpha.subtle,
+      color: vars.color.semantic.theme.indigo.normal,
+      border: vars.color.semantic.theme.indigo.alpha.subtle,
     },
     purple: {
       bg: "none",
