@@ -7,7 +7,7 @@ const meta = {
   component: Tooltip.Content,
   decorators: [
     Story => (
-      <Tooltip.Provider delayDuration={0} skipDelayDuration={0}>
+      <Tooltip.Provider>
         <Story />
       </Tooltip.Provider>
     ),
