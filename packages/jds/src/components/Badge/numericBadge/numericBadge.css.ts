@@ -49,6 +49,7 @@ const rootBase = {
 
 const badgeStyleVariants = {
   solid: {},
+  alpha: {},
   hollow: { padding: vars.scheme.semantic.spacing["0"] },
 } satisfies Record<NumericBadgeStyle, object>;
 
@@ -71,6 +72,24 @@ const basicStyles = {
       color: vars.color.semantic.object.alternative,
     },
   },
+  alpha: {
+    accent: {
+      bg: vars.color.semantic.accent.alpha.subtler,
+      color: vars.color.semantic.accent.normal,
+    },
+    primary: {
+      bg: vars.color.semantic.fill.subtle,
+      color: vars.color.semantic.object.bold,
+    },
+    secondary: {
+      bg: vars.color.semantic.fill.subtler,
+      color: vars.color.semantic.object.neutral,
+    },
+    tertiary: {
+      bg: vars.color.semantic.fill.subtlest,
+      color: vars.color.semantic.object.alternative,
+    },
+  },
   hollow: {
     accent: { bg: "none", color: vars.color.semantic.accent.bold },
     primary: { bg: "none", color: vars.color.semantic.object.bolder },
@@ -78,11 +97,6 @@ const basicStyles = {
     tertiary: { bg: "none", color: vars.color.semantic.object.alternative },
   },
 } satisfies Record<NumericBadgeStyle, Record<BasicHierarchy, BadgeStyle>>;
-
-const basicMutedStyles = {
-  solid: { bg: vars.color.semantic.fill.subtler, color: vars.color.semantic.object.subtle },
-  hollow: { bg: "none", color: vars.color.semantic.object.subtle },
-} satisfies Record<NumericBadgeStyle, BadgeStyle>;
 
 const feedbackStyles = {
   solid: {
@@ -92,12 +106,22 @@ const feedbackStyles = {
     },
     destructive: {
       bg: vars.color.semantic.feedback.destructive.neutral,
-      color: vars.color.semantic.object.inverse.boldest,
+      color: vars.color.semantic.object.static.inverse.boldest,
+    },
+  },
+  alpha: {
+    positive: {
+      bg: vars.color.semantic.feedback.positive.alpha.subtler,
+      color: vars.color.semantic.feedback.positive.normal,
+    },
+    destructive: {
+      bg: vars.color.semantic.feedback.destructive.alpha.subtler,
+      color: vars.color.semantic.feedback.destructive.normal,
     },
   },
   hollow: {
-    positive: { bg: "none", color: vars.color.semantic.feedback.positive.bold },
-    destructive: { bg: "none", color: vars.color.semantic.feedback.destructive.bold },
+    positive: { bg: "none", color: vars.color.semantic.feedback.positive.normal },
+    destructive: { bg: "none", color: vars.color.semantic.feedback.destructive.normal },
   },
 } satisfies Record<NumericBadgeStyle, Record<FeedbackVariant, BadgeStyle>>;
 
@@ -110,38 +134,8 @@ const basicCompoundVariants = NUMERIC_BADGE_STYLE_OPTIONS.flatMap(badgeStyle =>
 
 const basicMutedCompoundVariants = NUMERIC_BADGE_STYLE_OPTIONS.map(badgeStyle => ({
   variants: { badgeStyle, isMuted: true },
-  style: createBadgeVars(basicMutedStyles[badgeStyle]),
+  style: createBadgeVars(basicStyles[badgeStyle].tertiary),
 }));
-
-const basicSolidTertiaryLayoutMap = {
-  lg: {
-    borderRadius: vars.scheme.semantic.radius["8"],
-    paddingLeftRight: vars.scheme.semantic.spacing["8"],
-  },
-  md: {
-    borderRadius: vars.scheme.semantic.radius["8"],
-    paddingLeftRight: vars.scheme.semantic.spacing["8"],
-  },
-  sm: {
-    borderRadius: vars.scheme.semantic.radius["6"],
-    paddingLeftRight: vars.scheme.semantic.spacing["6"],
-  },
-  xs: {
-    borderRadius: vars.scheme.semantic.radius["6"],
-    paddingLeftRight: vars.scheme.semantic.spacing["6"],
-  },
-} satisfies Record<BadgeSize, { borderRadius: string; paddingLeftRight: string }>;
-
-const basicSolidTertiaryCompoundVariants = BADGE_SIZE_OPTIONS.map(size => ({
-  variants: { badgeStyle: "solid", hierarchy: "tertiary", size },
-  style: {
-    borderRadius: basicSolidTertiaryLayoutMap[size].borderRadius,
-    padding: `${vars.scheme.semantic.spacing["1"]} ${basicSolidTertiaryLayoutMap[size].paddingLeftRight}`,
-  },
-})) satisfies Array<{
-  variants: { badgeStyle: "solid"; hierarchy: "tertiary"; size: BadgeSize };
-  style: { borderRadius: string; padding: string };
-}>;
 
 const feedbackCompoundVariants = NUMERIC_BADGE_STYLE_OPTIONS.flatMap(badgeStyle =>
   FEEDBACK_VARIANT_OPTIONS.map(variant => ({
@@ -161,19 +155,12 @@ export const basicRoot = recipe({
     } satisfies Record<BasicHierarchy, object>,
     size: sizeVariants,
     badgeStyle: badgeStyleVariants,
-    isMuted: { true: {}, false: {} },
+    isMuted: {
+      true: { opacity: numericBadgeMutedOpacity },
+      false: { opacity: 1 },
+    },
   },
-  compoundVariants: [
-    ...basicCompoundVariants,
-    ...basicMutedCompoundVariants,
-    ...basicSolidTertiaryCompoundVariants,
-  ],
-  defaultVariants: {
-    hierarchy: "secondary",
-    size: "md",
-    badgeStyle: "solid",
-    isMuted: false,
-  },
+  compoundVariants: [...basicCompoundVariants, ...basicMutedCompoundVariants],
 });
 
 export const feedbackRoot = recipe({
