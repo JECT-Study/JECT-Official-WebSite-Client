@@ -1,21 +1,21 @@
 import { recipe } from "@vanilla-extract/recipes";
 import { pxToRem } from "utils";
 
-import { vars } from "../../../tokens/vars.css";
+import { vars } from "tokens";
 import { BADGE_SIZE_OPTIONS, FEEDBACK_VARIANT_OPTIONS } from "../badge.types";
 import type { BadgeSize, FeedbackVariant } from "../badge.types";
 import { dotBadgeSizeMap } from "../badge.variants";
 
+const dotBadgeMutedOpacity = `calc(${vars.scheme.semantic.opacity["36"]} / 100)`;
+
 const variantBg = {
   positive: {
-    normal: vars.color.semantic.feedback.positive.neutral,
-    muted: vars.color.semantic.feedback.positive.alpha.subtle,
+    solid: vars.color.semantic.feedback.positive.neutral,
   },
   destructive: {
-    normal: vars.color.semantic.feedback.destructive.neutral,
-    muted: vars.color.semantic.feedback.destructive.alpha.subtle,
+    solid: vars.color.semantic.feedback.destructive.neutral,
   },
-} satisfies Record<FeedbackVariant, { normal: string; muted: string }>;
+} satisfies Record<FeedbackVariant, { solid: string }>;
 
 const sizeVariants = Object.fromEntries(
   BADGE_SIZE_OPTIONS.map(size => [
@@ -27,16 +27,10 @@ const sizeVariants = Object.fromEntries(
   ]),
 ) as Record<BadgeSize, { width: string; height: string }>;
 
-const feedbackCompoundVariants = FEEDBACK_VARIANT_OPTIONS.flatMap(variant => [
-  {
-    variants: { variant, isMuted: false },
-    style: { backgroundColor: variantBg[variant].normal },
-  },
-  {
-    variants: { variant, isMuted: true },
-    style: { backgroundColor: variantBg[variant].muted },
-  },
-]);
+const feedbackCompoundVariants = FEEDBACK_VARIANT_OPTIONS.map(variant => ({
+  variants: { variant },
+  style: { backgroundColor: variantBg[variant].solid },
+}));
 
 export const feedbackRoot = recipe({
   base: {
@@ -53,7 +47,10 @@ export const feedbackRoot = recipe({
       destructive: {},
     } satisfies Record<FeedbackVariant, object>,
     size: sizeVariants,
-    isMuted: { true: {}, false: {} },
+    isMuted: {
+      true: { opacity: dotBadgeMutedOpacity },
+      false: { opacity: 1 },
+    },
   },
   compoundVariants: feedbackCompoundVariants,
 });
