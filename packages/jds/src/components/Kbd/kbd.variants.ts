@@ -1,5 +1,6 @@
+import type { textStyleClassNames } from "tokens";
+
 import type { KbdSize, KbdType } from "./kbd.types";
-import type { textStyleClassNames } from "../../tokens/textStyles.css";
 
 type TextStyleClassName = (typeof textStyleClassNames)[number];
 

@@ -1,10 +1,10 @@
 import { styleVariants } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
+import { vars } from "tokens";
+import { pxToRem } from "utils";
 
 import type { KbdSize, KbdType } from "./kbd.types";
 import { kbdPaddingXMap, kbdSizeMap, typographyMap } from "./kbd.variants";
-import { vars } from "../../tokens/vars.css";
-import { pxToRem } from "../../utils/cssUnit";
 
 const sizeVariants = styleVariants(kbdSizeMap, ({ height, minWidth }) => ({
   height: pxToRem(height),
