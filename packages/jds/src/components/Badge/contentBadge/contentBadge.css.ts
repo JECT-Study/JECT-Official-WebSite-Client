@@ -2,8 +2,7 @@ import { createVar, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { pxToRem } from "utils";
 
-import type { textStyleClassNames } from "../../../tokens/textStyles.css";
-import { vars } from "../../../tokens/vars.css";
+import { vars, type textStyleClassNames } from "tokens";
 import type { IconSize } from "../../Icon";
 import { BASIC_HIERARCHY_OPTIONS, FEEDBACK_VARIANT_OPTIONS } from "../badge.types";
 import type { BadgeSize, BasicHierarchy, FeedbackVariant } from "../badge.types";
@@ -78,7 +77,7 @@ const basicStyles = {
       iconColor: vars.color.semantic.object.static.inverse.boldest,
     },
     primary: {
-      bg: vars.color.semantic.fill.boldest,
+      bg: vars.color.semantic.fill.bolder,
       color: vars.color.semantic.object.inverse.boldest,
       border: "none",
       iconColor: vars.color.semantic.object.inverse.boldest,
@@ -90,8 +89,8 @@ const basicStyles = {
       iconColor: vars.color.semantic.object.static.inverse.boldest,
     },
     tertiary: {
-      bg: vars.color.semantic.fill.assistive,
-      color: vars.color.semantic.object.neutral,
+      bg: vars.color.semantic.fill.subtler,
+      color: vars.color.semantic.object.alternative,
       border: "none",
       iconColor: vars.color.semantic.object.alternative,
     },
@@ -99,15 +98,15 @@ const basicStyles = {
   alpha: {
     accent: {
       bg: vars.color.semantic.accent.alpha.subtler,
-      color: vars.color.semantic.accent.bold,
+      color: vars.color.semantic.accent.normal,
       border: "none",
-      iconColor: vars.color.semantic.accent.bolder,
+      iconColor: vars.color.semantic.accent.normal,
     },
     primary: {
-      bg: vars.color.semantic.fill.subtler,
-      color: vars.color.semantic.object.bolder,
+      bg: vars.color.semantic.fill.subtle,
+      color: vars.color.semantic.object.bold,
       border: "none",
-      iconColor: vars.color.semantic.object.boldest,
+      iconColor: vars.color.semantic.object.bold,
     },
     secondary: {
       bg: vars.color.semantic.fill.subtler,
@@ -125,15 +124,15 @@ const basicStyles = {
   outlined: {
     accent: {
       bg: "none",
-      color: vars.color.semantic.accent.bold,
+      color: vars.color.semantic.accent.normal,
       border: vars.color.semantic.accent.alpha.subtle,
-      iconColor: vars.color.semantic.accent.bolder,
+      iconColor: vars.color.semantic.accent.normal,
     },
     primary: {
       bg: "none",
-      color: vars.color.semantic.object.bolder,
+      color: vars.color.semantic.object.bold,
       border: vars.color.semantic.stroke.alpha.assistive,
-      iconColor: vars.color.semantic.object.boldest,
+      iconColor: vars.color.semantic.object.bold,
     },
     secondary: {
       bg: "none",
@@ -149,27 +148,6 @@ const basicStyles = {
     },
   },
 } satisfies Record<ContentBadgeStyle, Record<BasicHierarchy, BadgeStyle>>;
-
-const basicMutedStyles = {
-  solid: {
-    bg: vars.color.semantic.fill.subtler,
-    color: vars.color.semantic.object.subtle,
-    border: "none",
-    iconColor: vars.color.semantic.object.subtler,
-  },
-  alpha: {
-    bg: vars.color.semantic.fill.subtlest,
-    color: vars.color.semantic.object.subtle,
-    border: "none",
-    iconColor: vars.color.semantic.object.subtler,
-  },
-  outlined: {
-    bg: "none",
-    color: vars.color.semantic.object.subtle,
-    border: vars.color.semantic.stroke.alpha.subtler,
-    iconColor: vars.color.semantic.object.subtler,
-  },
-} satisfies Record<ContentBadgeStyle, BadgeStyle>;
 
 const feedbackStyles = {
   solid: {
@@ -187,28 +165,34 @@ const feedbackStyles = {
   alpha: {
     positive: {
       bg: vars.color.semantic.feedback.positive.alpha.subtler,
-      color: vars.color.semantic.feedback.positive.bold,
+      color: vars.color.semantic.feedback.positive.normal,
       border: "none",
     },
     destructive: {
       bg: vars.color.semantic.feedback.destructive.alpha.subtler,
-      color: vars.color.semantic.feedback.destructive.bold,
+      color: vars.color.semantic.feedback.destructive.normal,
       border: "none",
     },
   },
   outlined: {
     positive: {
       bg: "none",
-      color: vars.color.semantic.feedback.positive.bold,
+      color: vars.color.semantic.feedback.positive.normal,
       border: vars.color.semantic.feedback.positive.alpha.subtle,
     },
     destructive: {
       bg: "none",
-      color: vars.color.semantic.feedback.destructive.bold,
+      color: vars.color.semantic.feedback.destructive.normal,
       border: vars.color.semantic.feedback.destructive.alpha.subtle,
     },
   },
 } satisfies Record<ContentBadgeStyle, Record<FeedbackVariant, BadgeStyle>>;
+
+const feedbackMutedIconColors = {
+  solid: vars.color.semantic.object.static.inverse.subtle,
+  alpha: vars.color.semantic.object.subtler,
+  outlined: vars.color.semantic.object.subtler,
+} satisfies Record<ContentBadgeStyle, string>;
 
 const themeStyles = {
   solid: {
@@ -266,104 +250,104 @@ const themeStyles = {
   alpha: {
     red: {
       bg: vars.color.semantic.theme.red.alpha.subtler,
-      color: vars.color.semantic.theme.red.bold,
+      color: vars.color.semantic.theme.red.normal,
       border: "none",
     },
     orange: {
       bg: vars.color.semantic.theme.orange.alpha.subtler,
-      color: vars.color.semantic.theme.orange.bold,
+      color: vars.color.semantic.theme.orange.normal,
       border: "none",
     },
     yellow: {
       bg: vars.color.semantic.theme.yellow.alpha.subtler,
-      color: vars.color.semantic.theme.yellow.bold,
+      color: vars.color.semantic.theme.yellow.normal,
       border: "none",
     },
     lime: {
       bg: vars.color.semantic.theme.lime.alpha.subtler,
-      color: vars.color.semantic.theme.lime.bold,
+      color: vars.color.semantic.theme.lime.normal,
       border: "none",
     },
     green: {
       bg: vars.color.semantic.theme.green.alpha.subtler,
-      color: vars.color.semantic.theme.green.bold,
+      color: vars.color.semantic.theme.green.normal,
       border: "none",
     },
     teal: {
       bg: vars.color.semantic.theme.teal.alpha.subtler,
-      color: vars.color.semantic.theme.teal.bold,
+      color: vars.color.semantic.theme.teal.normal,
       border: "none",
     },
     sky: {
       bg: vars.color.semantic.theme.sky.alpha.subtler,
-      color: vars.color.semantic.theme.sky.bold,
+      color: vars.color.semantic.theme.sky.normal,
       border: "none",
     },
     indigo: {
       bg: vars.color.semantic.theme.violet.alpha.subtler,
-      color: vars.color.semantic.theme.violet.bold,
+      color: vars.color.semantic.theme.violet.normal,
       border: "none",
     },
     purple: {
       bg: vars.color.semantic.theme.purple.alpha.subtler,
-      color: vars.color.semantic.theme.purple.bold,
+      color: vars.color.semantic.theme.purple.normal,
       border: "none",
     },
     pink: {
       bg: vars.color.semantic.theme.pink.alpha.subtler,
-      color: vars.color.semantic.theme.pink.bold,
+      color: vars.color.semantic.theme.pink.normal,
       border: "none",
     },
   },
   outlined: {
     red: {
       bg: "none",
-      color: vars.color.semantic.theme.red.bold,
+      color: vars.color.semantic.theme.red.normal,
       border: vars.color.semantic.theme.red.alpha.subtle,
     },
     orange: {
       bg: "none",
-      color: vars.color.semantic.theme.orange.bold,
+      color: vars.color.semantic.theme.orange.normal,
       border: vars.color.semantic.theme.orange.alpha.subtle,
     },
     yellow: {
       bg: "none",
-      color: vars.color.semantic.theme.yellow.bold,
+      color: vars.color.semantic.theme.yellow.normal,
       border: vars.color.semantic.theme.yellow.alpha.subtle,
     },
     lime: {
       bg: "none",
-      color: vars.color.semantic.theme.lime.bold,
+      color: vars.color.semantic.theme.lime.normal,
       border: vars.color.semantic.theme.lime.alpha.subtle,
     },
     green: {
       bg: "none",
-      color: vars.color.semantic.theme.green.bold,
+      color: vars.color.semantic.theme.green.normal,
       border: vars.color.semantic.theme.green.alpha.subtle,
     },
     teal: {
       bg: "none",
-      color: vars.color.semantic.theme.teal.bold,
+      color: vars.color.semantic.theme.teal.normal,
       border: vars.color.semantic.theme.teal.alpha.subtle,
     },
     sky: {
       bg: "none",
-      color: vars.color.semantic.theme.sky.bold,
+      color: vars.color.semantic.theme.sky.normal,
       border: vars.color.semantic.theme.sky.alpha.subtle,
     },
     indigo: {
       bg: "none",
-      color: vars.color.semantic.theme.violet.bold,
+      color: vars.color.semantic.theme.violet.normal,
       border: vars.color.semantic.theme.violet.alpha.subtle,
     },
     purple: {
       bg: "none",
-      color: vars.color.semantic.theme.purple.bold,
+      color: vars.color.semantic.theme.purple.normal,
       border: vars.color.semantic.theme.purple.alpha.subtle,
     },
     pink: {
       bg: "none",
-      color: vars.color.semantic.theme.pink.bold,
+      color: vars.color.semantic.theme.pink.normal,
       border: vars.color.semantic.theme.pink.alpha.subtle,
     },
   },
@@ -378,7 +362,7 @@ const basicCompoundVariants = CONTENT_BADGE_STYLE_OPTIONS.flatMap(badgeStyle =>
 
 const basicMutedCompoundVariants = CONTENT_BADGE_STYLE_OPTIONS.map(badgeStyle => ({
   variants: { badgeStyle, isMuted: true },
-  style: createBadgeVars(basicMutedStyles[badgeStyle]),
+  style: createBadgeVars(basicStyles[badgeStyle].tertiary),
 }));
 
 const feedbackCompoundVariants = CONTENT_BADGE_STYLE_OPTIONS.flatMap(badgeStyle =>
@@ -387,6 +371,15 @@ const feedbackCompoundVariants = CONTENT_BADGE_STYLE_OPTIONS.flatMap(badgeStyle 
     style: createBadgeVars(feedbackStyles[badgeStyle][variant]),
   })),
 );
+
+const feedbackMutedCompoundVariants = CONTENT_BADGE_STYLE_OPTIONS.map(badgeStyle => ({
+  variants: { badgeStyle, isMuted: true },
+  style: {
+    vars: {
+      [badgeIconColor]: feedbackMutedIconColors[badgeStyle],
+    },
+  },
+}));
 
 const themeCompoundVariants = CONTENT_BADGE_STYLE_OPTIONS.flatMap(badgeStyle =>
   THEME_VARIANT_OPTIONS.map(variant => ({
@@ -413,8 +406,8 @@ export const basicRoot = recipe({
     size: sizeVariants,
     badgeStyle: badgeStyleVariants,
     isMuted: {
-      true: {},
-      false: {},
+      true: { opacity: contentBadgeMutedOpacity },
+      false: { opacity: 1 },
     },
     withIcon: {
       true: { gap: pxToRem(4) },
@@ -437,8 +430,12 @@ export const feedbackRoot = recipe({
       true: { opacity: contentBadgeMutedOpacity },
       false: { opacity: 1 },
     },
+    withIcon: {
+      true: { gap: pxToRem(4) },
+      false: { gap: 0 },
+    },
   },
-  compoundVariants: feedbackCompoundVariants,
+  compoundVariants: [...feedbackCompoundVariants, ...feedbackMutedCompoundVariants],
 });
 
 export const themeRoot = recipe({

@@ -54,19 +54,29 @@ const ContentBadgeFeedback = forwardRef<HTMLSpanElement, ContentBadgeFeedbackPro
       size = "md",
       badgeStyle = "solid",
       isMuted = false,
+      withIcon = false,
+      onIconClick,
       className,
       children,
       ...restProps
     },
     ref,
   ) => {
+    const iconSize = styles.iconSizeMap[size];
+
     return (
       <span
         ref={ref}
-        className={clsx(styles.feedbackRoot({ variant, size, badgeStyle, isMuted }), className)}
+        className={clsx(
+          styles.feedbackRoot({ variant, size, badgeStyle, isMuted, withIcon }),
+          className,
+        )}
         {...restProps}
       >
         <span className={clsx(styles.label, styles.labelTextStyle[size])}>{children}</span>
+        {withIcon && (
+          <Icon name='close-line' size={iconSize} className={styles.icon} onClick={onIconClick} />
+        )}
       </span>
     );
   },

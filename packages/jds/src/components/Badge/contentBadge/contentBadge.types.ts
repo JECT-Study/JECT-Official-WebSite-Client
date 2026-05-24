@@ -34,6 +34,8 @@ export interface ContentBadgeFeedbackProps extends Omit<ComponentPropsWithoutRef
   size?: BadgeSize;
   badgeStyle?: ContentBadgeStyle;
   isMuted?: boolean;
+  withIcon?: boolean;
+  onIconClick?: (e: MouseEvent<Element>) => void;
   children: ReactNode;
 }
 

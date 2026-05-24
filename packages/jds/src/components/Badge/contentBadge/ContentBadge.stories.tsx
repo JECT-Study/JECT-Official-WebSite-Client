@@ -76,12 +76,16 @@ export const Feedback: StoryObj<ContentBadgeFeedbackProps> = {
       control: "radio",
       options: FEEDBACK_VARIANT_OPTIONS,
     },
+    withIcon: {
+      control: "boolean",
+    },
   },
   args: {
     variant: "positive",
     size: "md",
     badgeStyle: "solid",
     isMuted: false,
+    withIcon: false,
     children: "레이블",
   },
   render: args => (
@@ -90,6 +94,7 @@ export const Feedback: StoryObj<ContentBadgeFeedbackProps> = {
       size={args.size}
       badgeStyle={args.badgeStyle}
       isMuted={args.isMuted}
+      withIcon={args.withIcon}
     >
       {args.children}
     </ContentBadge.Feedback>
