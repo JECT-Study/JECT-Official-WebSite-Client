@@ -1,5 +1,5 @@
 import type { BadgeSize } from "./badge.types";
-import { vars } from "../../tokens/vars.css";
+import { vars } from "tokens";
 
 type BadgeSizeConfig = {
   minWidth: number;

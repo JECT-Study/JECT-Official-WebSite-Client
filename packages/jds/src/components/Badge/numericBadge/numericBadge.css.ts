@@ -2,8 +2,7 @@ import { createVar, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { pxToRem } from "utils";
 
-import type { textStyleClassNames } from "../../../tokens/textStyles.css";
-import { vars } from "../../../tokens/vars.css";
+import { vars, type textStyleClassNames } from "tokens";
 import {
   BADGE_SIZE_OPTIONS,
   BASIC_HIERARCHY_OPTIONS,
