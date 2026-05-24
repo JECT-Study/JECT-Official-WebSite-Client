@@ -1,7 +1,6 @@
 import { keyframes, style } from "@vanilla-extract/css";
-
-import { vars } from "../../tokens/vars.css";
-import { pxToRem } from "../../utils/cssUnit";
+import { vars } from "tokens";
+import { pxToRem } from "utils";
 
 const tooltipFadeIn = keyframes({
   from: { opacity: 0 },
