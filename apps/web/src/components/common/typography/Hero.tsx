@@ -19,9 +19,9 @@ const sizeClassName: Record<HeroSize, string> = {
 };
 
 const alignClassName: Record<HeroAlign, string> = {
-  center: "justify-center",
-  left: "justify-start",
-  right: "justify-end",
+  center: "justify-center text-center",
+  left: "justify-start text-left",
+  right: "justify-end text-right",
 };
 
 function Hero({
