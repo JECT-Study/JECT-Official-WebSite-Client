@@ -31,19 +31,6 @@ export interface TitleStyleOptions {
   color?: string;
 }
 
-export const titleStylesMap = {
-  "2xl": "semantic-textStyle-title-6",
-  xl: "semantic-textStyle-title-5",
-  lg: "semantic-textStyle-title-4",
-  md: "semantic-textStyle-title-3",
-  sm: "semantic-textStyle-title-2",
-  xs: "semantic-textStyle-title-1",
-} as const satisfies Record<TitleSize, string>;
-
-export const getLabelTokenKey = (size: LabelSize, weight: LabelWeight): string => {
-  return `semantic-textStyle-label-${size}-${weight}`;
-};
-
 export const getLabelClassName = ({
   size = "md",
   textAlign = "left",
