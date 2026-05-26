@@ -18,7 +18,6 @@ export type LabelOwnProps = {
   textAlign?: LabelTextAlign;
   weight?: LabelWeight;
   cursor?: LabelCursor;
-  color?: string;
   htmlFor?: string;
 };
 
@@ -28,7 +27,6 @@ export type TitleTextAlign = keyof typeof TEXT_ALIGN_MAPPING;
 export interface TitleStyleOptions {
   size?: TitleSize;
   textAlign?: TitleTextAlign;
-  color?: string;
 }
 
 export const getLabelClassName = ({
