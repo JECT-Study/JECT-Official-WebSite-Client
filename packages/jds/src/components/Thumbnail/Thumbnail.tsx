@@ -53,21 +53,32 @@ export const Thumbnail = forwardRef<HTMLElement, ThumbnailProps>(
       />
     );
 
-    const Comp = asChild ? Slot.Root : "div";
+    const sharedProps = {
+      "data-part": "root" as const,
+      className: clsx(
+        thumbnailStyles.root({ ratio, orientation, cornerStyle, appearance }),
+        className,
+      ),
+    };
+
+    if (asChild) {
+      return (
+        <Slot.Root ref={forwardedRef} {...sharedProps} {...restProps}>
+          <Slot.Slottable>{children}</Slot.Slottable>
+          {content}
+        </Slot.Root>
+      );
+    }
 
     return (
-      <Comp
+      <div
         ref={forwardedRef as Ref<HTMLDivElement>}
+        {...sharedProps}
+        {...(isFallbackVisible && { role: "img", "aria-label": alt })}
         {...restProps}
-        data-part='root'
-        className={clsx(
-          thumbnailStyles.root({ ratio, orientation, cornerStyle, appearance }),
-          className,
-        )}
       >
-        {asChild && <Slot.Slottable>{children}</Slot.Slottable>}
         {content}
-      </Comp>
+      </div>
     );
   },
 );
