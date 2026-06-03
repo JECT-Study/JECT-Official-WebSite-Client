@@ -15,6 +15,8 @@ export * from "./FileItem";
 export * from "./Footer";
 export * from "./Hero";
 export * from "./Icon";
+/** @deprecated `Image`는 `Thumbnail`로 대체되었습니다. 하위 호환을 위해 한시적으로 유지합니다. */
+export * from "./Image";
 export * from "./Thumbnail";
 export * from "./Input";
 export * from "./Kbd";
