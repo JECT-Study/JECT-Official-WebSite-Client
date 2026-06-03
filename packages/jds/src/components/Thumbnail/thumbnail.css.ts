@@ -129,8 +129,9 @@ const root = recipe({
       "&:is(button, a):focus-visible": {
         outline: "none",
       },
+      // root가 overflow: hidden이라 바깥 box-shadow는 잘려 보이지 않으므로 inset 링으로 그린다
       "&:is(button, a):focus-visible::before": {
-        boxShadow: `0 0 0 ${FOCUS_RING_WIDTH} ${FOCUS_RING_COLOR}`,
+        boxShadow: `inset 0 0 0 ${FOCUS_RING_WIDTH} ${FOCUS_RING_COLOR}`,
         zIndex: 1,
       },
     },

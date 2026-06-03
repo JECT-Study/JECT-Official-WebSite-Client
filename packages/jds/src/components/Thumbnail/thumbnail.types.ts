@@ -1,4 +1,4 @@
-import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import type { ComponentPropsWithoutRef, ReactElement, ReactNode } from "react";
 
 export const THUMBNAIL_RATIO_OPTIONS = ["1:1", "4:5", "3:4", "9:16", "1:2", "9:21"] as const;
 export const THUMBNAIL_ORIENTATION_OPTIONS = ["portrait", "landscape"] as const;
@@ -35,7 +35,7 @@ interface ThumbnailBaseProps extends ComponentPropsWithoutRef<"div"> {
 
 type ThumbnailContentProps =
   | { asChild?: false; children?: never }
-  | { asChild: true; children: ReactNode };
+  | { asChild: true; children: ReactElement };
 
 export type ThumbnailProps = Omit<ThumbnailBaseProps, "children"> &
   ThumbnailShapeProps &

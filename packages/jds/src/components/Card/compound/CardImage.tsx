@@ -70,7 +70,6 @@ export const CardImage = forwardRef<HTMLDivElement, CardImageProps>(
         />
         {badgeVisible && badgeLabel && (
           <span
-            aria-hidden='true'
             style={{
               position: "absolute",
               top: "8px",

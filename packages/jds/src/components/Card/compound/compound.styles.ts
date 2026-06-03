@@ -298,6 +298,7 @@ export const StyledCardImageContainer = styled.div<{
   $variant: CardVariant;
   $cardStyle?: CardStyle;
 }>(({ $layout, $variant }) => ({
+  position: "relative",
   flexShrink: 0,
   overflow: "hidden",
   ...getImageBorderRadius($layout, $variant),
