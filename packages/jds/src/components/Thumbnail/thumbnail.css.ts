@@ -79,7 +79,6 @@ const root = recipe({
     overflow: "hidden",
     width: "100%",
 
-    // asChild로 button/a가 root가 되었을 때 브라우저 기본 스타일 리셋
     appearance: "none",
     background: "none",
     padding: 0,
@@ -92,7 +91,6 @@ const root = recipe({
     },
 
     selectors: {
-      // pseudo-element 정책 점유 — 시각 효과는 인터랙티브 root에서만 발동
       "&::before": {
         content: '""',
         position: "absolute",
@@ -102,7 +100,6 @@ const root = recipe({
         boxShadow: "none",
         transition: `box-shadow ${vars.environment.semantic.duration[100]} ${vars.environment.semantic.motion.fluent}`,
       },
-      // dim 레이어 — rest=투명, hover=fill.normal 단일, active=hover 위 press 레이어 스택
       "&::after": {
         content: '""',
         position: "absolute",
@@ -113,14 +110,12 @@ const root = recipe({
         transition: `opacity ${vars.environment.semantic.duration[100]} ${vars.environment.semantic.motion.fluent}`,
       },
 
-      // root가 button 또는 a일 때만 인터랙션 상태가 의미를 가진다
       "&:is(button, a)": {
         cursor: "pointer",
       },
       "&:is(button, a):hover::after": {
         opacity: 1,
       },
-      // active: hover dim(backgroundColor) 유지 + press 레이어(backgroundImage)를 위에 스택
       "&:is(button, a):active::after": {
         opacity: 1,
         backgroundImage: `linear-gradient(${PRESS_DIM_LAYER_COLOR}, ${PRESS_DIM_LAYER_COLOR})`,
@@ -129,7 +124,6 @@ const root = recipe({
       "&:is(button, a):focus-visible": {
         outline: "none",
       },
-      // root가 overflow: hidden이라 바깥 box-shadow는 잘려 보이지 않으므로 inset 링으로 그린다
       "&:is(button, a):focus-visible::before": {
         boxShadow: `inset 0 0 0 ${FOCUS_RING_WIDTH} ${FOCUS_RING_COLOR}`,
         zIndex: 1,
@@ -166,15 +160,6 @@ const fallback = style({
   color: vars.color.semantic.object.subtlest,
 });
 
-/**
- * @description
- * slot 단위 스타일 묶음, 합성 컴포넌트의 part 분리 기준과 동일하게 선언한다
- *   - root  : <Comp>(div | button | a)에 적용되는 recipe (variant 보유)
- *   - image : 내부 <img> 고정 스타일
- *
- * slot이 늘어나는 컴포넌트(Card/Banner 등)도 같은 형태로 묶어 "어느 part에 어떤
- * 스타일이 적용되는가"를 한 객체에서 즉시 파악할 수 있게 한다
- */
 export const thumbnailStyles = {
   root,
   image,

@@ -6,12 +6,7 @@ import { thumbnailStyles } from "./thumbnail.css";
 import type { ThumbnailProps } from "./thumbnail.types";
 import { ThumbnailFallback } from "./ThumbnailFallback";
 
-/**
- *@Todo 썸네일이나 이미지 사용하는 합성 컴포넌트 사용 시 해당 부분 커스텀 훅으로 분리
- * src 로드 실패를 추적해 fallback 노출 여부를 알려줌
- * src가 새 값으로 바뀌면 erroredSrc !== src 가 되어 자동 재시도(파생, useEffect 불필요)
- * 컴포넌트 본문에서 useState 메커니즘을 숨기고 의도(isFallbackVisible/onError)만 노출한다.
- */
+// @todo 썸네일/이미지 합성 컴포넌트에서 재사용 시 공용 커스텀 훅으로 분리
 function useImageStatus(src: string | undefined) {
   const [erroredSrc, setErroredSrc] = useState<string | null>(null);
   return {
