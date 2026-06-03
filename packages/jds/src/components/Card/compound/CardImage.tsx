@@ -5,6 +5,11 @@ import { Thumbnail, type ThumbnailShapeProps } from "../../Thumbnail";
 import { useCardContext } from "../Card.context";
 import type { CardImageProps } from "../Card.types";
 
+/**
+ * @deprecated `CardImage`는 레거시 컴포넌트입니다. Card 컴파운드 재구성 시 제거/대체될 예정이며,
+ * 새 구현에서는 `Thumbnail`을 직접 사용하세요. 하위 호환을 위해 한시적으로 유지됩니다.
+ * @see Thumbnail
+ */
 export const CardImage = forwardRef<HTMLDivElement, CardImageProps>(
   (
     {
@@ -44,8 +49,6 @@ export const CardImage = forwardRef<HTMLDivElement, CardImageProps>(
     const finalRatio = ratio ?? defaultRatio;
     const finalOrientation = orientation ?? defaultOrientation;
 
-    // SPEC 불변식 정합: ratio="1:1"이면 orientation은 portrait로 고정(landscape 의미 없음)
-    // Note: 해당 부분은 thumbnail의 원칙을 따른 것이며 Card 구현 시 제거 가능성 높음
     const shape: ThumbnailShapeProps =
       finalRatio === "1:1"
         ? { ratio: "1:1", orientation: "portrait", cornerStyle: "angular" }
