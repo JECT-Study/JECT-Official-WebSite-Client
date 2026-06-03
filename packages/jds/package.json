@@ -22,7 +22,8 @@
     "README.md"
   ],
   "sideEffects": [
-    "**/*.css"
+    "**/*.css",
+    "**/*.css.ts"
   ],
   "exports": {
     ".": {

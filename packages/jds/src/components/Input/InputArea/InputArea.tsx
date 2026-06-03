@@ -15,6 +15,8 @@ import {
 } from "./inputArea.styles";
 import { StyledLabelIcon } from "../shared/field.styles";
 
+import { getLabelClassName } from "@/utils/typography";
+
 export const InputArea = forwardRef<HTMLTextAreaElement, InputAreaProps>(
   (
     {
@@ -45,10 +47,8 @@ export const InputArea = forwardRef<HTMLTextAreaElement, InputAreaProps>(
         {label && labelVisible && (
           <StyledLabelContainer $disabled={isDisabled} $readOnly={isReadOnly}>
             <StyledFieldLabel
-              as='label'
               htmlFor={inputId}
-              size='sm'
-              weight='normal'
+              className={getLabelClassName({ size: "sm" })}
               $disabled={isDisabled}
               $readOnly={isReadOnly}
             >
@@ -89,13 +89,18 @@ export const InputArea = forwardRef<HTMLTextAreaElement, InputAreaProps>(
               $readOnly={isReadOnly}
             >
               {helperText && (
-                <StyledHelperText as='span' size='sm' weight='normal'>
+                <StyledHelperText className={getLabelClassName({ size: "sm" })}>
                   {helperText}
                 </StyledHelperText>
               )}
 
               {maxLength && (
-                <StyledCountText as='span' size='sm' weight='normal' textAlign='right'>
+                <StyledCountText
+                  className={getLabelClassName({
+                    size: "sm",
+                    textAlign: "right",
+                  })}
+                >
                   {`${currentLength}/${maxLength}`}
                 </StyledCountText>
               )}

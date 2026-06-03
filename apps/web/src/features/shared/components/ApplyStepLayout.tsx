@@ -1,7 +1,8 @@
-import { LocalNavigation, Step, Title } from "@jects/jds";
+import { LocalNavigation, Step } from "@jects/jds";
 import type { ReactNode } from "react";
 
 import type { JobFamily } from "@/apis/apply";
+import { Title } from "@/components/common/typography";
 import { findJobFamilyOption } from "@/constants/applyPageData";
 import { STEP_LABELS } from "@/types/funnel";
 

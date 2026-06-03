@@ -1,8 +1,15 @@
 import { forwardRef } from "react";
 
-import { StyledImage, StyledMenuItemAnchor, StyledMenuItemButton, MenuItemLabel } from "./menuItem.styles";
+import {
+  StyledImage,
+  StyledMenuItemAnchor,
+  StyledMenuItemButton,
+  MenuItemLabel,
+} from "./menuItem.styles";
 import type { MenuItemAnchorProps, MenuItemButtonProps } from "./menuItem.types";
 import { Icon } from "../../Icon";
+
+import { getLabelClassName } from "@/utils/typography";
 
 const MenuItemButton = forwardRef<HTMLButtonElement, MenuItemButtonProps>(
   (
@@ -43,7 +50,12 @@ const MenuItemButton = forwardRef<HTMLButtonElement, MenuItemButtonProps>(
             $size={size}
           />
         )}
-        <MenuItemLabel as='span' size={size} textAlign='left' weight='normal' cursor={disabled ? 'default' : 'pointer'}>
+        <MenuItemLabel
+          className={getLabelClassName({
+            size,
+            cursor: disabled ? undefined : "pointer",
+          })}
+        >
           {children}
         </MenuItemLabel>
         {suffixIconVisible && <Icon name={suffixIcon} size={size} />}
@@ -92,9 +104,7 @@ const MenuItemAnchor = forwardRef<HTMLAnchorElement, MenuItemAnchorProps>(
             $size={size}
           />
         )}
-        <MenuItemLabel as='span' size={size} textAlign='left' weight='normal'>
-          {children}
-        </MenuItemLabel>
+        <MenuItemLabel className={getLabelClassName({ size })}>{children}</MenuItemLabel>
         {suffixIconVisible && <Icon name={suffixIcon} size={size} />}
       </StyledMenuItemAnchor>
     );

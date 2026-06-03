@@ -1,13 +1,14 @@
-import { useTheme } from "@emotion/react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexColumn } from "@storybook-utils/layout";
 import { useState } from "react";
 
 import { Uploader } from "./Uploader";
+import { AssistiveLabel } from "./uploader.styles";
 import type { UploadError } from "./uploader.types";
 import { BlockButton } from "../Button/BlockButton";
 import { LabelButton } from "../Button/LabelButton";
-import { Label } from "../Label";
+
+import { getLabelClassName } from "@/utils/typography";
 
 const meta = {
   title: "Components/Uploader/File",
@@ -64,9 +65,9 @@ const meta = {
     isDisabled: false,
     maxFileSize: 5 * 1024 * 1024,
     helperLabel: (
-      <Label size='xs' textAlign='center' weight='bold'>
+      <span className={getLabelClassName({ size: "xs", textAlign: "center", weight: "bold" })}>
         업로드에 문제가 있나요?
-      </Label>
+      </span>
     ),
     uploadButton: triggerUpload => (
       <BlockButton.Basic
@@ -91,8 +92,6 @@ export default meta;
 
 export const Default: StoryObj<typeof Uploader.File> = {
   render: function Render(args) {
-    const theme = useTheme();
-
     const onError = (error: UploadError) => {
       alert(`${error.type} 에러가 발생했습니다.`);
     };
@@ -112,15 +111,12 @@ export const Default: StoryObj<typeof Uploader.File> = {
         onError={onError}
         maxFileSize={5 * 1024 * 1024} // 5MB
         helperLabel={
-          <Label
-            size='xs'
-            textAlign='center'
-            weight='bold'
+          <AssistiveLabel
+            className={getLabelClassName({ size: "xs", textAlign: "center", weight: "bold" })}
             onClick={onIssue}
-            color={theme.color.semantic.object.assistive}
           >
             업로드에 문제가 있나요?
-          </Label>
+          </AssistiveLabel>
         }
         uploadButton={triggerUpload => (
           <BlockButton.Basic

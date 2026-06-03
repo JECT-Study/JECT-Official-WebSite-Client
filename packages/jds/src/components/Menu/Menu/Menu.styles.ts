@@ -5,7 +5,7 @@ import { shadow } from "utils";
 import type { StyledDropdownMenuContentProps, StyledMenuGroupProps } from "./menu.types";
 import { menuContentMap, menuGroupSizeMap } from "./menu.variants";
 
-import { Label } from "@/components/Label";
+import { shouldForwardTypographyProp } from "@/utils/typography";
 
 export const StyledDropdownMenuContent = styled(
   DropdownMenu.Content,
@@ -19,9 +19,13 @@ export const StyledDropdownMenuContent = styled(
   };
 });
 
-export const StyledMenuCategory = styled(Label)(({ theme }) => {
+export const StyledMenuCategory = styled("span", {
+  shouldForwardProp: shouldForwardTypographyProp,
+})(({ theme }) => {
   return {
-    color: theme.color.semantic.object.alternative,
+    "&&": {
+      color: theme.color.semantic.object.alternative,
+    },
   };
 });
 

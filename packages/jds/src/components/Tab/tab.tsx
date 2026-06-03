@@ -5,6 +5,8 @@ import { StyledLabel, StyledTabList, StyledTabPrimitiveTrigger } from "./tab.sty
 import type { TabContentProps, TabListProps, TabRootProps, TabTriggerProps } from "./tab.types";
 import { TabContext, useTabContext } from "./tabContext";
 
+import { getLabelClassName } from "@/utils/typography";
+
 export const TabRoot = forwardRef<HTMLDivElement, TabRootProps>(
   ({ children, variant = "header", isItemStretched = false, ...rest }, ref) => {
     return (
@@ -44,13 +46,9 @@ export const TabTrigger = forwardRef<HTMLButtonElement, TabTriggerProps>(
         ref={ref}
         {...rest}
       >
-        <StyledLabel size='md' weight='bold'>
-          {children}
-        </StyledLabel>
+        <StyledLabel className={getLabelClassName({ weight: "bold" })}>{children}</StyledLabel>
         {badge && (
-          <StyledLabel size='md' weight='subtle'>
-            {badge}
-          </StyledLabel>
+          <StyledLabel className={getLabelClassName({ weight: "subtle" })}>{badge}</StyledLabel>
         )}
       </StyledTabPrimitiveTrigger>
     );

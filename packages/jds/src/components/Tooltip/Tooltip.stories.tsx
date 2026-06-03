@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexColumn, FlexRow, Label } from "@storybook-utils/layout";
 import { Icon, IconButton, Input, Tooltip, BlockButton } from "components";
-import { Label as LabelComponent } from "components";
+
+import { getLabelClassName } from "@/utils/typography";
 
 const meta = {
   title: "Components/Tooltip",
@@ -181,7 +182,7 @@ export const CustomTrigger: Story = {
       <div>
         <Tooltip.Root>
           <Tooltip.Trigger>
-            <LabelComponent as='span'>텍스트 레이블입니다.</LabelComponent>
+            <span className={getLabelClassName()}>텍스트 레이블입니다.</span>
           </Tooltip.Trigger>
           <Tooltip.Content>레이블</Tooltip.Content>
         </Tooltip.Root>

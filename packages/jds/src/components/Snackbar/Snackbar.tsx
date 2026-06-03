@@ -17,6 +17,8 @@ import type {
 import { BlockButton } from "../Button/BlockButton";
 import { IconButton } from "../Button/IconButton";
 
+import { getLabelClassName } from "@/utils/typography";
+
 const SnackbarButtons = ({ prefixButtonProps, suffixButtonProps }: SnackbarButtonsProps) => {
   if (!prefixButtonProps && !suffixButtonProps) return;
 
@@ -75,7 +77,7 @@ const SnackbarBasic = ({
     <SnackbarDiv id={id} className={phase} snackbarStyle='basic' onAnimationEnd={onAnimationEnd}>
       <SnackbarContentDiv>
         <SnackbarLabelContainerDiv>
-          <SnackbarLabel snackbarStyle='basic' size='md' textAlign='left' weight='normal'>
+          <SnackbarLabel snackbarStyle='basic' className={getLabelClassName()}>
             {title}
           </SnackbarLabel>
           <IconButton
@@ -142,7 +144,7 @@ const SnackbarFeedback = ({
             variant={variant}
             name={variant === "positive" ? "check-line" : "error-warning-line"}
           />
-          <SnackbarLabel snackbarStyle={variant} size='md' textAlign='left' weight='normal'>
+          <SnackbarLabel snackbarStyle={variant} className={getLabelClassName()}>
             {title}
           </SnackbarLabel>
           <IconButton
