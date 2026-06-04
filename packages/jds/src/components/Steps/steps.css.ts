@@ -45,10 +45,47 @@ export const stepsItem = recipe({
   },
 });
 
+export const stepsListItem = recipe({
+  base: {
+    display: "flex",
+    listStyle: "none",
+    minWidth: 0,
+  },
+  variants: {
+    layout: {
+      horizontal: {
+        flexDirection: "row",
+        alignItems: "center",
+      },
+      vertical: {
+        flexDirection: "column",
+        alignItems: "flex-start",
+      },
+    },
+    size: {
+      lg: {},
+      md: {},
+    },
+  },
+  compoundVariants: [
+    {
+      variants: { layout: "horizontal", size: "lg" },
+      style: { gap: vars.scheme.semantic.spacing["10"] },
+    },
+    {
+      variants: { layout: "horizontal", size: "md" },
+      style: { gap: vars.scheme.semantic.spacing["8"] },
+    },
+  ],
+});
+
 export const stepsRoot = recipe({
   base: {
     display: "flex",
     width: "100%",
+    margin: 0,
+    padding: 0,
+    listStyle: "none",
   },
   variants: {
     layout: {

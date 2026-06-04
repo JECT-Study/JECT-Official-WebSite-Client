@@ -1,7 +1,14 @@
 import { clsx } from "clsx";
-import { Children, Fragment, forwardRef, useMemo } from "react";
+import { Children, forwardRef, useMemo } from "react";
 
-import { stepsItem, stepsLabel, stepsRoot, stepsSeparatorIcon, stepsSeparatorLine } from "./steps.css";
+import {
+  stepsItem,
+  stepsLabel,
+  stepsListItem,
+  stepsRoot,
+  stepsSeparatorIcon,
+  stepsSeparatorLine,
+} from "./steps.css";
 import type { StepsItemProps, StepsRootProps } from "./steps.types";
 import { useStepsItemActivated } from "./steps.utils";
 import { StepsContext, useStepsContext } from "./stepsContext";
@@ -20,6 +27,7 @@ const StepsSeparator = () => {
   if (layout === "horizontal") {
     return (
       <Icon
+        aria-hidden
         name='arrow-right-s-line'
         size={size === "lg" ? "sm" : "xs"}
         className={stepsSeparatorIcon}
@@ -28,13 +36,13 @@ const StepsSeparator = () => {
   }
 
   return (
-    <div className={stepsSeparatorLine({ size })}>
+    <div className={stepsSeparatorLine({ size })} aria-hidden>
       <Divider orientation='vertical' thickness='bold' />
     </div>
   );
 };
 
-const StepsRoot = forwardRef<HTMLDivElement, StepsRootProps>(
+const StepsRoot = forwardRef<HTMLOListElement, StepsRootProps>(
   ({ size = "md", layout = "horizontal", current, children, className, ...restProps }, ref) => {
     const contextValue = useMemo(
       () => ({ size, layout, currentStep: current }),
@@ -44,20 +52,19 @@ const StepsRoot = forwardRef<HTMLDivElement, StepsRootProps>(
 
     return (
       <StepsContext.Provider value={contextValue}>
-        <div
+        <ol
           ref={ref}
           role='list'
-          aria-orientation={layout}
           className={clsx(stepsRoot({ size, layout }), className)}
           {...restProps}
         >
           {childList.map((child, childIndex) => (
-            <Fragment key={childIndex}>
+            <li className={stepsListItem({ size, layout })} key={childIndex}>
               {childIndex > 0 && <StepsSeparator />}
               {child}
-            </Fragment>
+            </li>
           ))}
-        </div>
+        </ol>
       </StepsContext.Provider>
     );
   },
@@ -75,7 +82,6 @@ const StepsItem = forwardRef<HTMLDivElement, StepsItemProps>(
     return (
       <div
         ref={ref}
-        role='listitem'
         aria-current={isCurrentStep ? "step" : undefined}
         data-activated={isActivated}
         className={clsx(stepsItem({ layout }), className)}

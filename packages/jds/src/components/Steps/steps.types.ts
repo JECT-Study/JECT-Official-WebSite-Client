@@ -3,7 +3,7 @@ import type { ComponentPropsWithoutRef, ReactNode } from "react";
 export type StepsSize = "lg" | "md";
 export type StepsLayout = "horizontal" | "vertical";
 
-export interface StepsRootProps extends ComponentPropsWithoutRef<"div"> {
+export interface StepsRootProps extends ComponentPropsWithoutRef<"ol"> {
   size?: StepsSize;
   layout?: StepsLayout;
   current?: number;
