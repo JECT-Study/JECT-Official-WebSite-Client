@@ -44,7 +44,13 @@ const StepRoot = forwardRef<HTMLDivElement, StepRootProps>(
 
     return (
       <StepContext.Provider value={contextValue}>
-        <div ref={ref} className={clsx(stepRoot({ size, layout }), className)} {...restProps}>
+        <div
+          ref={ref}
+          role='list'
+          aria-orientation={layout}
+          className={clsx(stepRoot({ size, layout }), className)}
+          {...restProps}
+        >
           {childList.map((child, childIndex) => (
             <Fragment key={childIndex}>
               {childIndex > 0 && <StepSeparator />}
@@ -63,22 +69,25 @@ const StepItem = forwardRef<HTMLDivElement, StepItemProps>(
   ({ index, activated: activatedProp, children, className, ...restProps }, ref) => {
     const { size, layout, currentStep } = useStepContext("Step.Item");
 
-    const activated = useStepItemActivated({ itemIndex: index, currentStep, activatedProp });
+    const isActivated = useStepItemActivated({ itemIndex: index, currentStep, activatedProp });
+    const isCurrentStep = currentStep === index;
 
     return (
       <div
         ref={ref}
-        data-activated={activated}
+        role='listitem'
+        aria-current={isCurrentStep ? "step" : undefined}
+        data-activated={isActivated}
         className={clsx(stepItem({ layout }), className)}
         {...restProps}
       >
         <NumericBadge.Basic
-          hierarchy={activated ? "accent" : "tertiary"}
+          hierarchy={isActivated ? "accent" : "tertiary"}
           size={stepNumericBadgeSizeMap[size]}
         >
           {index + 1}
         </NumericBadge.Basic>
-        <span className={stepLabel({ size, activated })}>{children}</span>
+        <span className={stepLabel({ size, activated: isActivated })}>{children}</span>
       </div>
     );
   },
