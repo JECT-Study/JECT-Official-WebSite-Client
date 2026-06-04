@@ -62,6 +62,7 @@ export const CardImage = forwardRef<HTMLDivElement, CardImageProps>(
         $cardStyle={cardStyle}
         style={customStyle}
       >
+        {/* 임시 브릿지: 레거시 Card가 걷힐 때 이 Thumbnail 주입도 함께 제거 예정 */}
         <Thumbnail
           src={src}
           alt={alt}
