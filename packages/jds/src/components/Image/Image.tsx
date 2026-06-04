@@ -20,6 +20,11 @@ export interface ImageOwnProps {
   loading?: "lazy" | "eager";
 }
 
+/**
+ * @deprecated `Image`는 더 이상 권장되지 않습니다. 대신 `Thumbnail`을 사용하세요.
+ * 하위 호환을 위해 한시적으로 유지되며 다음 메이저 버전에서 제거될 예정입니다.
+ * @see Thumbnail
+ */
 export const Image = PolymorphicForwardRef<"button", ImageOwnProps>(
   (
     {
