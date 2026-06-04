@@ -40,11 +40,12 @@ const StepRoot = forwardRef<HTMLDivElement, StepRootProps>(
       () => ({ size, layout, currentStep: current }),
       [size, layout, current],
     );
+    const childList = Children.toArray(children);
 
     return (
       <StepContext.Provider value={contextValue}>
         <div ref={ref} className={clsx(stepRoot({ size, layout }), className)} {...restProps}>
-          {Children.map(children, (child, childIndex) => (
+          {childList.map((child, childIndex) => (
             <Fragment key={childIndex}>
               {childIndex > 0 && <StepSeparator />}
               {child}
