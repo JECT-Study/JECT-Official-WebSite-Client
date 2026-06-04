@@ -1,42 +1,70 @@
+import { clsx } from "clsx";
 import { Context } from "radix-ui/internal";
-import { forwardRef, useMemo } from "react";
+import { Children, Fragment, forwardRef, useMemo } from "react";
 
-import type { StepItemProps, StepRootProps, StepSize } from "./step.types";
-import { useStepItemStatus } from "./step.utils";
-import { Divider } from "../Divider";
 import {
-  StyledCounterNumber,
-  StyledStepContent,
-  StyledStepItem,
-  StyledStepLabel,
-  StyledStepRoot,
-} from "./step.styles";
-
-import { getLabelClassName, type LabelSize } from "@/utils/typography";
-
-const SIZE_TO_LABEL_SIZE: Record<StepSize, LabelSize> = {
-  lg: "lg",
-  md: "md",
-  sm: "sm",
-  xs: "xs",
-};
+  stepItem,
+  stepLabel,
+  stepRoot,
+  stepSeparatorIcon,
+  stepSeparatorLine,
+} from "./step.css";
+import type { StepItemProps, StepLayout, StepRootProps, StepSize } from "./step.types";
+import { useStepItemActivated } from "./step.utils";
+import { NumericBadge } from "../Badge";
+import { Divider } from "../Divider";
+import { Icon } from "../Icon";
 
 type StepContextValue = {
   size: StepSize;
+  layout: StepLayout;
   currentStep?: number;
 };
 
 const [StepProvider, useStepContext] = Context.createContext<StepContextValue>("Step");
 
+const stepNumericBadgeSizeMap = {
+  lg: "sm",
+  md: "xs",
+} as const;
+
+const StepSeparator = () => {
+  const { size, layout } = useStepContext("Step.Separator");
+
+  if (layout === "horizontal") {
+    return (
+      <Icon
+        name="arrow-right-s-line"
+        size={size === "lg" ? "sm" : "xs"}
+        className={stepSeparatorIcon}
+      />
+    );
+  }
+
+  return (
+    <div className={stepSeparatorLine({ size })}>
+      <Divider orientation="vertical" thickness="bold" />
+    </div>
+  );
+};
+
 const StepRoot = forwardRef<HTMLDivElement, StepRootProps>(
-  ({ size = "md", current, children, ...restProps }, ref) => {
-    const contextValue = useMemo(() => ({ size, currentStep: current }), [size, current]);
+  ({ size = "md", layout = "horizontal", current, children, className, ...restProps }, ref) => {
+    const contextValue = useMemo(
+      () => ({ size, layout, currentStep: current }),
+      [size, layout, current],
+    );
 
     return (
       <StepProvider {...contextValue}>
-        <StyledStepRoot ref={ref} {...restProps}>
-          {children}
-        </StyledStepRoot>
+        <div ref={ref} className={clsx(stepRoot({ size, layout }), className)} {...restProps}>
+          {Children.map(children, (child, childIndex) => (
+            <Fragment key={childIndex}>
+              {childIndex > 0 && <StepSeparator />}
+              {child}
+            </Fragment>
+          ))}
+        </div>
       </StepProvider>
     );
   },
@@ -45,22 +73,26 @@ const StepRoot = forwardRef<HTMLDivElement, StepRootProps>(
 StepRoot.displayName = "Step.Root";
 
 const StepItem = forwardRef<HTMLDivElement, StepItemProps>(
-  ({ index, status: statusProp, children, ...restProps }, ref) => {
-    const { size, currentStep } = useStepContext("Step.Item");
-    const labelSize = SIZE_TO_LABEL_SIZE[size];
+  ({ index, activated: activatedProp, children, className, ...restProps }, ref) => {
+    const { size, layout, currentStep } = useStepContext("Step.Item");
 
-    const status = useStepItemStatus({ itemIndex: index, currentStep, statusProp });
+    const activated = useStepItemActivated({ itemIndex: index, currentStep, activatedProp });
 
     return (
-      <StyledStepItem ref={ref} data-status={status} {...restProps}>
-        <Divider orientation='horizontal' thickness='bolder' />
-        <StyledStepContent>
-          <StyledCounterNumber $size={size}>{index + 1}</StyledCounterNumber>
-          <StyledStepLabel className={getLabelClassName({ size: labelSize })}>
-            {children}
-          </StyledStepLabel>
-        </StyledStepContent>
-      </StyledStepItem>
+      <div
+        ref={ref}
+        data-activated={activated}
+        className={clsx(stepItem({ layout }), className)}
+        {...restProps}
+      >
+        <NumericBadge.Basic
+          hierarchy={activated ? "accent" : "tertiary"}
+          size={stepNumericBadgeSizeMap[size]}
+        >
+          {index + 1}
+        </NumericBadge.Basic>
+        <span className={stepLabel({ size, activated })}>{children}</span>
+      </div>
     );
   },
 );

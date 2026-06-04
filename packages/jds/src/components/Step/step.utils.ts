@@ -1,23 +1,19 @@
-import type { StepStatus } from './step.types';
-
-function calculateStepStatus(itemIndex: number, currentStep: number): StepStatus {
-  if (itemIndex < currentStep) return 'completed';
-  if (itemIndex === currentStep) return 'ongoing';
-  return 'uncompleted';
+function calculateStepActivated(itemIndex: number, currentStep: number): boolean {
+  return itemIndex <= currentStep;
 }
 
-export function useStepItemStatus({
+export function useStepItemActivated({
   itemIndex,
   currentStep,
-  statusProp,
+  activatedProp,
 }: {
   itemIndex?: number;
   currentStep?: number;
-  statusProp?: StepStatus;
-}): StepStatus {
+  activatedProp?: boolean;
+}): boolean {
   if (currentStep !== undefined && itemIndex !== undefined) {
-    return calculateStepStatus(itemIndex, currentStep);
+    return calculateStepActivated(itemIndex, currentStep);
   }
 
-  return statusProp ?? 'uncompleted';
+  return activatedProp ?? false;
 }

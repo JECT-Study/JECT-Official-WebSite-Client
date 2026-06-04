@@ -1,16 +1,17 @@
-import type { ComponentPropsWithoutRef, ReactNode } from 'react';
+import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
-export type StepSize = 'lg' | 'md' | 'sm' | 'xs';
-export type StepStatus = 'completed' | 'ongoing' | 'uncompleted';
+export type StepSize = "lg" | "md";
+export type StepLayout = "horizontal" | "vertical";
 
-export interface StepRootProps extends ComponentPropsWithoutRef<'div'> {
+export interface StepRootProps extends ComponentPropsWithoutRef<"div"> {
   size?: StepSize;
+  layout?: StepLayout;
   current?: number;
   children: ReactNode;
 }
 
-export interface StepItemProps extends ComponentPropsWithoutRef<'div'> {
+export interface StepItemProps extends ComponentPropsWithoutRef<"div"> {
   index: number;
-  status?: StepStatus;
+  activated?: boolean;
   children: ReactNode;
 }

@@ -3,10 +3,27 @@ import { FlexColumn, FlexRow, Label } from "@storybook-utils/layout";
 import { useState } from "react";
 
 import { Step } from "./Step";
+import type { StepLayout, StepSize } from "./step.types";
+
+interface StepStoryArgs {
+  size: StepSize;
+  layout: StepLayout;
+  mode: "controlled" | "uncontrolled";
+  current: number;
+  activated?: boolean;
+  firstLabel: string;
+  secondLabel: string;
+  thirdLabel: string;
+  firstActivated: boolean;
+  secondActivated: boolean;
+  thirdActivated: boolean;
+}
+
+const StepPreview: (props: StepStoryArgs) => null = () => null;
 
 const meta = {
   title: "Components/Step",
-  component: Step.Item,
+  component: StepPreview,
   parameters: {
     layout: "centered",
     docs: {
@@ -16,29 +33,108 @@ const meta = {
           "Step.Root로 컨테이너를 구성하고, 각 단계는 Step.Item으로 표현합니다. " +
           "모든 Step.Item은 명시적으로 index prop을 제공해야 합니다.\n\n" +
           "**두 가지 모드 지원:**\n" +
-          "- **Controlled 모드**: Step.Root에 current를 전달하면 각 Step.Item의 status가 자동 계산됩니다.\n" +
-          "- **Uncontrolled 모드**: 각 Step.Item에 status를 직접 전달하여 제어가 가능합니다.",
+          "- **Controlled 모드**: Step.Root에 current를 전달하면 각 Step.Item의 activated가 자동 계산됩니다.\n" +
+          "- **Uncontrolled 모드**: 각 Step.Item에 activated를 직접 전달하여 제어가 가능합니다.",
       },
     },
   },
   argTypes: {
-    status: {
-      control: "select",
-      options: ["completed", "ongoing", "uncompleted"],
-      description: "스텝의 진행 상태",
+    size: {
+      control: "radio",
+      options: ["lg", "md"],
+      description: "스텝의 크기",
       table: {
-        type: { summary: "'completed' | 'ongoing' | 'uncompleted'" },
+        type: { summary: "'lg' | 'md'" },
       },
     },
-    children: {
-      control: "text",
-      description: "스텝의 레이블 텍스트",
+    layout: {
+      control: "radio",
+      options: ["horizontal", "vertical"],
+      description: "스텝의 배치 방향",
       table: {
-        type: { summary: "ReactNode" },
+        type: { summary: "'horizontal' | 'vertical'" },
       },
+    },
+    mode: {
+      control: "radio",
+      options: ["controlled", "uncontrolled"],
+      description: "Step.Root current 기반 제어 여부",
+      table: {
+        category: "Preview",
+        type: { summary: "'controlled' | 'uncontrolled'" },
+      },
+    },
+    current: {
+      control: { type: "number", min: 0, max: 2, step: 1 },
+      description: "Controlled 모드에서 현재 단계의 index",
+      table: {
+        category: "Step.Root",
+        type: { summary: "number" },
+      },
+      if: { arg: "mode", eq: "controlled" },
+    },
+    activated: {
+      control: false,
+      description:
+        "Step.Item의 활성 여부입니다. Step.Root에 current가 전달되면 current 기반으로 자동 계산되고, current가 없을 때 직접 제어할 수 있습니다.",
+      table: {
+        category: "Step.Item",
+        type: { summary: "boolean" },
+      },
+    },
+    firstLabel: {
+      control: "text",
+      description: "첫 번째 스텝의 레이블 텍스트",
+      table: {
+        category: "Preview",
+        type: { summary: "string" },
+      },
+    },
+    secondLabel: {
+      control: "text",
+      description: "두 번째 스텝의 레이블 텍스트",
+      table: {
+        category: "Preview",
+        type: { summary: "string" },
+      },
+    },
+    thirdLabel: {
+      control: "text",
+      description: "세 번째 스텝의 레이블 텍스트",
+      table: {
+        category: "Preview",
+        type: { summary: "string" },
+      },
+    },
+    firstActivated: {
+      control: "boolean",
+      description: "Uncontrolled 모드에서 첫 번째 스텝의 활성 여부",
+      table: {
+        category: "Preview",
+        type: { summary: "boolean" },
+      },
+      if: { arg: "mode", eq: "uncontrolled" },
+    },
+    secondActivated: {
+      control: "boolean",
+      description: "Uncontrolled 모드에서 두 번째 스텝의 활성 여부",
+      table: {
+        category: "Preview",
+        type: { summary: "boolean" },
+      },
+      if: { arg: "mode", eq: "uncontrolled" },
+    },
+    thirdActivated: {
+      control: "boolean",
+      description: "Uncontrolled 모드에서 세 번째 스텝의 활성 여부",
+      table: {
+        category: "Preview",
+        type: { summary: "boolean" },
+      },
+      if: { arg: "mode", eq: "uncontrolled" },
     },
   },
-} satisfies Meta<typeof Step.Item>;
+} satisfies Meta<typeof StepPreview>;
 
 export default meta;
 
@@ -47,30 +143,46 @@ type CustomStory = Omit<Story, "args">;
 
 export const Default: Story = {
   args: {
-    index: 1,
-    status: "ongoing",
-    children: "정보 입력",
+    size: "md",
+    layout: "horizontal",
+    mode: "controlled",
+    current: 1,
+    firstLabel: "회원가입",
+    secondLabel: "정보 입력",
+    thirdLabel: "완료",
+    firstActivated: true,
+    secondActivated: true,
+    thirdActivated: false,
   },
-  render: args => (
-    <div style={{ width: "600px" }}>
-      <Step.Root size='md'>
-        <Step.Item index={0} status='completed'>
-          회원가입
-        </Step.Item>
-        <Step.Item index={1} status={args.status}>
-          {args.children}
-        </Step.Item>
-        <Step.Item index={2} status='uncompleted'>
-          완료
-        </Step.Item>
-      </Step.Root>
-    </div>
-  ),
+  render: args => {
+    const isControlled = args.mode === "controlled";
+    const previewWidth = args.layout === "vertical" ? "200px" : "600px";
+
+    return (
+      <div style={{ width: previewWidth }}>
+        <Step.Root
+          size={args.size}
+          layout={args.layout}
+          current={isControlled ? args.current : undefined}
+        >
+          <Step.Item index={0} activated={isControlled ? undefined : args.firstActivated}>
+            {args.firstLabel}
+          </Step.Item>
+          <Step.Item index={1} activated={isControlled ? undefined : args.secondActivated}>
+            {args.secondLabel}
+          </Step.Item>
+          <Step.Item index={2} activated={isControlled ? undefined : args.thirdActivated}>
+            {args.thirdLabel}
+          </Step.Item>
+        </Step.Root>
+      </div>
+    );
+  },
   parameters: {
     docs: {
       description: {
         story:
-          "기본 스텝 컴포넌트입니다. Controls 패널에서 Step.Root 내부의 단일 Step.Item에 대한 status, size, children을 조정하여 실시간으로 변경 사항을 확인할 수 있습니다.",
+          "기본 스텝 컴포넌트입니다. Controls 패널에서 Step.Root의 size, layout, current와 각 Step.Item의 레이블 및 활성 여부를 조정하여 실시간으로 변경 사항을 확인할 수 있습니다.",
       },
     },
   },
@@ -80,13 +192,13 @@ export const AllCompleted: CustomStory = {
   render: () => (
     <div style={{ width: "600px" }}>
       <Step.Root size='md'>
-        <Step.Item index={0} status='completed'>
+        <Step.Item index={0} activated>
           회원가입
         </Step.Item>
-        <Step.Item index={1} status='completed'>
+        <Step.Item index={1} activated>
           정보 입력
         </Step.Item>
-        <Step.Item index={2} status='completed'>
+        <Step.Item index={2} activated>
           완료
         </Step.Item>
       </Step.Root>
@@ -105,13 +217,13 @@ export const AllUncompleted: CustomStory = {
   render: () => (
     <div style={{ width: "600px" }}>
       <Step.Root size='md'>
-        <Step.Item index={0} status='uncompleted'>
+        <Step.Item index={0} activated={false}>
           회원가입
         </Step.Item>
-        <Step.Item index={1} status='uncompleted'>
+        <Step.Item index={1} activated={false}>
           정보 입력
         </Step.Item>
-        <Step.Item index={2} status='uncompleted'>
+        <Step.Item index={2} activated={false}>
           완료
         </Step.Item>
       </Step.Root>
@@ -131,53 +243,27 @@ export const SizeVariant: CustomStory = {
     <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
       <div style={{ width: "600px" }}>
         <Step.Root size='lg'>
-          <Step.Item index={0} status='completed'>
+          <Step.Item index={0} activated>
             lg - 단계 1
           </Step.Item>
-          <Step.Item index={1} status='ongoing'>
+          <Step.Item index={1} activated>
             lg - 단계 2
           </Step.Item>
-          <Step.Item index={2} status='uncompleted'>
+          <Step.Item index={2} activated={false}>
             lg - 단계 3
           </Step.Item>
         </Step.Root>
       </div>
       <div style={{ width: "600px" }}>
         <Step.Root size='md'>
-          <Step.Item index={0} status='completed'>
+          <Step.Item index={0} activated>
             md - 단계 1
           </Step.Item>
-          <Step.Item index={1} status='ongoing'>
+          <Step.Item index={1} activated>
             md - 단계 2
           </Step.Item>
-          <Step.Item index={2} status='uncompleted'>
+          <Step.Item index={2} activated={false}>
             md - 단계 3
-          </Step.Item>
-        </Step.Root>
-      </div>
-      <div style={{ width: "600px" }}>
-        <Step.Root size='sm'>
-          <Step.Item index={0} status='completed'>
-            sm - 단계 1
-          </Step.Item>
-          <Step.Item index={1} status='ongoing'>
-            sm - 단계 2
-          </Step.Item>
-          <Step.Item index={2} status='uncompleted'>
-            sm - 단계 3
-          </Step.Item>
-        </Step.Root>
-      </div>
-      <div style={{ width: "600px" }}>
-        <Step.Root size='xs'>
-          <Step.Item index={0} status='completed'>
-            xs - 단계 1
-          </Step.Item>
-          <Step.Item index={1} status='ongoing'>
-            xs - 단계 2
-          </Step.Item>
-          <Step.Item index={2} status='uncompleted'>
-            xs - 단계 3
           </Step.Item>
         </Step.Root>
       </div>
@@ -186,7 +272,50 @@ export const SizeVariant: CustomStory = {
   parameters: {
     docs: {
       description: {
-        story: "Step 컴포넌트는 lg, md, sm, xs 4가지 크기를 제공합니다.",
+        story: "Step 컴포넌트는 lg, md 2가지 크기를 제공합니다.",
+      },
+    },
+  },
+};
+
+export const LayoutVariant: CustomStory = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "48px" }}>
+      <div style={{ width: "600px" }}>
+        <div style={{ marginBottom: "12px" }}>수평 (horizontal, 기본값)</div>
+        <Step.Root size='lg' layout='horizontal'>
+          <Step.Item index={0} activated>
+            단계 1
+          </Step.Item>
+          <Step.Item index={1} activated>
+            단계 2
+          </Step.Item>
+          <Step.Item index={2} activated={false}>
+            단계 3
+          </Step.Item>
+        </Step.Root>
+      </div>
+      <div style={{ width: "200px" }}>
+        <div style={{ marginBottom: "12px" }}>수직 (vertical)</div>
+        <Step.Root size='lg' layout='vertical'>
+          <Step.Item index={0} activated>
+            단계 1
+          </Step.Item>
+          <Step.Item index={1} activated>
+            단계 2
+          </Step.Item>
+          <Step.Item index={2} activated={false}>
+            단계 3
+          </Step.Item>
+        </Step.Root>
+      </div>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "layout prop으로 수평(horizontal)과 수직(vertical) 레이아웃을 선택할 수 있습니다. 기본값은 horizontal입니다.",
       },
     },
   },
@@ -197,58 +326,58 @@ export const VariousItemCounts: CustomStory = {
     <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
       <div style={{ width: "600px" }}>
         <Step.Root size='md'>
-          <Step.Item index={0} status='completed'>
+          <Step.Item index={0} activated>
             단계 1
           </Step.Item>
-          <Step.Item index={1} status='ongoing'>
+          <Step.Item index={1} activated>
             단계 2
           </Step.Item>
         </Step.Root>
       </div>
       <div style={{ width: "600px" }}>
         <Step.Root size='md'>
-          <Step.Item index={0} status='completed'>
+          <Step.Item index={0} activated>
             단계 1
           </Step.Item>
-          <Step.Item index={1} status='completed'>
+          <Step.Item index={1} activated>
             단계 2
           </Step.Item>
-          <Step.Item index={2} status='ongoing'>
+          <Step.Item index={2} activated>
             단계 3
           </Step.Item>
         </Step.Root>
       </div>
       <div style={{ width: "600px" }}>
         <Step.Root size='md'>
-          <Step.Item index={0} status='completed'>
+          <Step.Item index={0} activated>
             단계 1
           </Step.Item>
-          <Step.Item index={1} status='completed'>
+          <Step.Item index={1} activated>
             단계 2
           </Step.Item>
-          <Step.Item index={2} status='ongoing'>
+          <Step.Item index={2} activated>
             단계 3
           </Step.Item>
-          <Step.Item index={3} status='uncompleted'>
+          <Step.Item index={3} activated={false}>
             단계 4
           </Step.Item>
         </Step.Root>
       </div>
       <div style={{ width: "600px" }}>
         <Step.Root size='md'>
-          <Step.Item index={0} status='completed'>
+          <Step.Item index={0} activated>
             단계 1
           </Step.Item>
-          <Step.Item index={1} status='completed'>
+          <Step.Item index={1} activated>
             단계 2
           </Step.Item>
-          <Step.Item index={2} status='completed'>
+          <Step.Item index={2} activated>
             단계 3
           </Step.Item>
-          <Step.Item index={3} status='ongoing'>
+          <Step.Item index={3} activated>
             단계 4
           </Step.Item>
-          <Step.Item index={4} status='uncompleted'>
+          <Step.Item index={4} activated={false}>
             단계 5
           </Step.Item>
         </Step.Root>
@@ -258,69 +387,7 @@ export const VariousItemCounts: CustomStory = {
   parameters: {
     docs: {
       description: {
-        story:
-          "스텝 컴포넌트는 2개부터 5개 이상까지 다양한 개수의 항목을 지원합니다. 각 항목의 너비는 자동으로 균등 분배됩니다.",
-      },
-    },
-  },
-};
-
-export const LongLabels: CustomStory = {
-  render: () => (
-    <FlexColumn style={{ width: "100%", gap: "48px" }}>
-      <div style={{ width: "600px" }}>
-        <div style={{ width: "100%", marginBottom: "20px" }}>단일 레이블 한 줄 바꿈</div>
-        <Step.Root size='md'>
-          <Step.Item index={0} status='completed'>
-            회원가입 및 약관 동의
-          </Step.Item>
-          <Step.Item index={1} status='ongoing'>
-            개인정보 입력 및 이메일 인증 절차를 진행합니다
-          </Step.Item>
-          <Step.Item index={2} status='uncompleted'>
-            완료
-          </Step.Item>
-        </Step.Root>
-      </div>
-
-      <div style={{ width: "600px" }}>
-        <div style={{ width: "100%", marginBottom: "20px" }}>단일 레이블 여러 줄 바꿈</div>
-        <Step.Root size='md'>
-          <Step.Item index={0} status='completed'>
-            계정 생성
-          </Step.Item>
-          <Step.Item index={1} status='ongoing'>
-            개인정보 및 프로필 사진 업로드, 관심사 선택, 알림 설정 등 상세 정보를 입력하는
-            단계입니다
-          </Step.Item>
-          <Step.Item index={2} status='uncompleted'>
-            완료
-          </Step.Item>
-        </Step.Root>
-      </div>
-
-      <div style={{ width: "600px" }}>
-        <div style={{ width: "100%", marginBottom: "20px" }}>여러 레이블에 줄 바꿈</div>
-        <Step.Root size='md'>
-          <Step.Item index={0} status='completed'>
-            이용 약관 및 개인정보 처리 방침에 동의하고 회원가입을 진행합니다
-          </Step.Item>
-          <Step.Item index={1} status='ongoing'>
-            프로필 설정
-          </Step.Item>
-          <Step.Item index={2} status='uncompleted'>
-            이메일 인증 링크를 클릭하여 계정을 활성화하는 마지막 단계입니다
-          </Step.Item>
-        </Step.Root>
-      </div>
-    </FlexColumn>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "긴 레이블은 자동으로 줄바꿈됩니다. 해당 Step.Item만 높이가 늘어나고, 다른 Step.Item들의 높이는 영향을 받지 않습니다. " +
-          "각 Step.Item은 독립적으로 높이를 관리하므로, 하나의 레이블이 길어져도 다른 Step.Item들은 원래 높이를 유지합니다.",
+        story: "스텝 컴포넌트는 2개부터 5개 이상까지 다양한 개수의 항목을 지원합니다.",
       },
     },
   },
@@ -330,48 +397,48 @@ export const StatusVariants: CustomStory = {
   render: () => (
     <FlexColumn style={{ width: "100%", gap: "32px" }}>
       <FlexColumn gap='8px'>
-        <div style={{ width: "100%", marginBottom: "20px" }}>Completed (완료됨)</div>
+        <div style={{ width: "100%", marginBottom: "20px" }}>Activated (활성)</div>
         <div style={{ width: "600px" }}>
           <Step.Root size='md'>
-            <Step.Item index={0} status='completed'>
+            <Step.Item index={0} activated>
               단계 1
             </Step.Item>
-            <Step.Item index={1} status='completed'>
+            <Step.Item index={1} activated>
               단계 2
             </Step.Item>
-            <Step.Item index={2} status='completed'>
+            <Step.Item index={2} activated>
               단계 3
             </Step.Item>
           </Step.Root>
         </div>
       </FlexColumn>
       <FlexColumn gap='8px'>
-        <div style={{ width: "100%", marginBottom: "20px" }}>Ongoing (진행 중)</div>
+        <div style={{ width: "100%", marginBottom: "20px" }}>Mixed (혼합)</div>
         <div style={{ width: "600px" }}>
           <Step.Root size='md'>
-            <Step.Item index={0} status='ongoing'>
+            <Step.Item index={0} activated>
               단계 1
             </Step.Item>
-            <Step.Item index={1} status='ongoing'>
+            <Step.Item index={1} activated>
               단계 2
             </Step.Item>
-            <Step.Item index={2} status='ongoing'>
+            <Step.Item index={2} activated={false}>
               단계 3
             </Step.Item>
           </Step.Root>
         </div>
       </FlexColumn>
       <FlexColumn gap='8px'>
-        <div style={{ width: "100%", marginBottom: "20px" }}>Uncompleted (미완료)</div>
+        <div style={{ width: "100%", marginBottom: "20px" }}>Inactivated (비활성)</div>
         <div style={{ width: "600px" }}>
           <Step.Root size='md'>
-            <Step.Item index={0} status='uncompleted'>
+            <Step.Item index={0} activated={false}>
               단계 1
             </Step.Item>
-            <Step.Item index={1} status='uncompleted'>
+            <Step.Item index={1} activated={false}>
               단계 2
             </Step.Item>
-            <Step.Item index={2} status='uncompleted'>
+            <Step.Item index={2} activated={false}>
               단계 3
             </Step.Item>
           </Step.Root>
@@ -382,8 +449,7 @@ export const StatusVariants: CustomStory = {
   parameters: {
     docs: {
       description: {
-        story:
-          "스텝의 3가지 상태를 보여줍니다. completed(완료), ongoing(진행 중), uncompleted(미완료) 상태에 따라 Divider와 텍스트 색상이 변경됩니다.",
+        story: "스텝의 activated true/false 상태를 보여줍니다.",
       },
     },
   },
@@ -392,33 +458,30 @@ export const StatusVariants: CustomStory = {
 export const UncontrolledExample: CustomStory = {
   render: () => {
     function StoryComponent() {
-      const [step1Status, setStep1Status] = useState<"completed" | "ongoing" | "uncompleted">(
-        "completed",
-      );
-      const [step2Status, setStep2Status] = useState<"completed" | "ongoing" | "uncompleted">(
-        "completed",
-      );
-      const [step3Status, setStep3Status] = useState<"completed" | "ongoing" | "uncompleted">(
-        "ongoing",
-      );
-      const [step4Status, setStep4Status] = useState<"completed" | "ongoing" | "uncompleted">(
-        "uncompleted",
-      );
+      const [stepActivatedList, setStepActivatedList] = useState([true, true, true, false]);
+
+      const updateStepActivated = (index: number, activated: boolean) => {
+        setStepActivatedList(prevActivatedList =>
+          prevActivatedList.map((prevActivated, prevIndex) =>
+            prevIndex === index ? activated : prevActivated,
+          ),
+        );
+      };
 
       return (
         <FlexColumn style={{ width: "100%", gap: "32px" }}>
           <div style={{ width: "700px" }}>
             <Step.Root size='md'>
-              <Step.Item index={0} status={step1Status}>
+              <Step.Item index={0} activated={stepActivatedList[0]}>
                 계정 생성
               </Step.Item>
-              <Step.Item index={1} status={step2Status}>
+              <Step.Item index={1} activated={stepActivatedList[1]}>
                 프로필 설정
               </Step.Item>
-              <Step.Item index={2} status={step3Status}>
+              <Step.Item index={2} activated={stepActivatedList[2]}>
                 이메일 인증
               </Step.Item>
-              <Step.Item index={3} status={step4Status}>
+              <Step.Item index={3} activated={stepActivatedList[3]}>
                 완료
               </Step.Item>
             </Step.Root>
@@ -426,105 +489,77 @@ export const UncontrolledExample: CustomStory = {
 
           <FlexColumn gap='16px'>
             <div style={{ width: "100%", marginBottom: "20px" }}>
-              각 단계의 상태를 개별적으로 제어할 수 있습니다
+              각 단계의 활성 여부를 개별적으로 제어할 수 있습니다
             </div>
             <FlexRow gap='8px' style={{ alignItems: "center" }}>
               <Label style={{ minWidth: "100px" }}>1단계:</Label>
               <button
-                onClick={() => setStep1Status("completed")}
-                disabled={step1Status === "completed"}
+                onClick={() => updateStepActivated(0, true)}
+                disabled={stepActivatedList[0]}
                 style={{ padding: "4px 8px", fontSize: "12px" }}
               >
-                완료
+                활성
               </button>
               <button
-                onClick={() => setStep1Status("ongoing")}
-                disabled={step1Status === "ongoing"}
+                onClick={() => updateStepActivated(0, false)}
+                disabled={!stepActivatedList[0]}
                 style={{ padding: "4px 8px", fontSize: "12px" }}
               >
-                진행중
-              </button>
-              <button
-                onClick={() => setStep1Status("uncompleted")}
-                disabled={step1Status === "uncompleted"}
-                style={{ padding: "4px 8px", fontSize: "12px" }}
-              >
-                미완료
+                비활성
               </button>
             </FlexRow>
 
             <FlexRow gap='8px' style={{ alignItems: "center" }}>
               <Label style={{ minWidth: "100px" }}>2단계:</Label>
               <button
-                onClick={() => setStep2Status("completed")}
-                disabled={step2Status === "completed"}
+                onClick={() => updateStepActivated(1, true)}
+                disabled={stepActivatedList[1]}
                 style={{ padding: "4px 8px", fontSize: "12px" }}
               >
-                완료
+                활성
               </button>
               <button
-                onClick={() => setStep2Status("ongoing")}
-                disabled={step2Status === "ongoing"}
+                onClick={() => updateStepActivated(1, false)}
+                disabled={!stepActivatedList[1]}
                 style={{ padding: "4px 8px", fontSize: "12px" }}
               >
-                진행중
-              </button>
-              <button
-                onClick={() => setStep2Status("uncompleted")}
-                disabled={step2Status === "uncompleted"}
-                style={{ padding: "4px 8px", fontSize: "12px" }}
-              >
-                미완료
+                비활성
               </button>
             </FlexRow>
 
             <FlexRow gap='8px' style={{ alignItems: "center" }}>
               <Label style={{ minWidth: "100px" }}>3단계:</Label>
               <button
-                onClick={() => setStep3Status("completed")}
-                disabled={step3Status === "completed"}
+                onClick={() => updateStepActivated(2, true)}
+                disabled={stepActivatedList[2]}
                 style={{ padding: "4px 8px", fontSize: "12px" }}
               >
-                완료
+                활성
               </button>
               <button
-                onClick={() => setStep3Status("ongoing")}
-                disabled={step3Status === "ongoing"}
+                onClick={() => updateStepActivated(2, false)}
+                disabled={!stepActivatedList[2]}
                 style={{ padding: "4px 8px", fontSize: "12px" }}
               >
-                진행중
-              </button>
-              <button
-                onClick={() => setStep3Status("uncompleted")}
-                disabled={step3Status === "uncompleted"}
-                style={{ padding: "4px 8px", fontSize: "12px" }}
-              >
-                미완료
+                비활성
               </button>
             </FlexRow>
 
             <FlexRow gap='8px' style={{ alignItems: "center" }}>
               <Label style={{ minWidth: "100px" }}>4단계:</Label>
               <button
-                onClick={() => setStep4Status("completed")}
-                disabled={step4Status === "completed"}
+                onClick={() => updateStepActivated(3, true)}
+                disabled={stepActivatedList[3]}
                 style={{ padding: "4px 8px", fontSize: "12px" }}
               >
-                완료
+                활성
               </button>
               <button
-                onClick={() => setStep4Status("ongoing")}
-                disabled={step4Status === "ongoing"}
+                onClick={() => updateStepActivated(3, false)}
+                disabled={!stepActivatedList[3]}
                 style={{ padding: "4px 8px", fontSize: "12px" }}
               >
-                진행중
-              </button>
-              <button
-                onClick={() => setStep4Status("uncompleted")}
-                disabled={step4Status === "uncompleted"}
-                style={{ padding: "4px 8px", fontSize: "12px" }}
-              >
-                미완료
+                비활성
               </button>
             </FlexRow>
           </FlexColumn>
@@ -538,8 +573,8 @@ export const UncontrolledExample: CustomStory = {
     docs: {
       description: {
         story:
-          "Uncontrolled 모드입니다. 각 Step.Item에 status를 직접 전달하여 독립적으로 제어할 수 있습니다. " +
-          "각 단계의 상태를 개별적으로 변경할 수 있고 순차적이지 않은 상태 조합도 가능합니다.",
+          "Uncontrolled 모드입니다. 각 Step.Item에 activated를 직접 전달하여 독립적으로 제어할 수 있습니다. " +
+          "각 단계의 활성 여부를 개별적으로 변경할 수 있고 순차적이지 않은 조합도 가능합니다.",
       },
     },
   },
@@ -583,7 +618,7 @@ export const ControlledExample: CustomStory = {
     docs: {
       description: {
         story:
-          "Controlled 모드입니다. Step.Root에 current를 전달하면 각 Step.Item의 status가 자동으로 계산됩니다. " +
+          "Controlled 모드입니다. Step.Root에 current를 전달하면 각 Step.Item의 activated가 자동으로 계산됩니다. " +
           "버튼을 클릭하여 단계를 변경할 수 있습니다.",
       },
     },
