@@ -4,7 +4,8 @@ import styled from "@emotion/styled";
 import { InteractionLayer } from "utils";
 
 import type { InputAreaStyle, InputAreaValidation } from "./inputArea.types";
-import { Label } from "../../Label";
+
+import { shouldForwardTypographyProp } from "@/utils/typography";
 
 const getBorderColor = (
   theme: Theme,
@@ -375,13 +376,17 @@ export const StyledHelperContainer = styled("div", {
   color: getHelperTextColor(theme, $validation, $disabled, $readOnly),
 }));
 
-export const StyledHelperText = styled(Label)({
-  color: "inherit",
+export const StyledHelperText = styled("span", { shouldForwardProp: shouldForwardTypographyProp })({
+  "&&": {
+    color: "inherit",
+  },
   flex: "1 0 0",
 });
 
-export const StyledCountText = styled(Label)({
-  color: "inherit",
+export const StyledCountText = styled("span", { shouldForwardProp: shouldForwardTypographyProp })({
+  "&&": {
+    color: "inherit",
+  },
   marginLeft: "auto",
 });
 

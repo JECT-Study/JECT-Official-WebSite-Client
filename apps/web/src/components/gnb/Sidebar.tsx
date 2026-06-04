@@ -1,9 +1,10 @@
-import { Divider, IconButton, Label, MenuItem } from "@jects/jds";
+import { Divider, IconButton, MenuItem } from "@jects/jds";
 import type { Dispatch, MouseEvent, SetStateAction } from "react";
 import { useEffect } from "react";
 import { createPortal } from "react-dom";
 import { useNavigate } from "react-router-dom";
 
+import { Label } from "@/components/common/typography";
 import { PATH } from "@/constants/path";
 
 interface SidebarMenusProps {

@@ -1,5 +1,5 @@
 // 자동 생성된 VE 전역 토큰 스타일 - 수정 금지
-// 생성 시간: 4/21/2026, 3:41:45 PM
+// 생성 시간: 5/16/2026, 3:01:40 PM
 import { globalStyle } from "@vanilla-extract/css";
 
 import { vars } from "./vars.css";

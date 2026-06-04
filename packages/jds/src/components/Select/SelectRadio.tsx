@@ -12,6 +12,8 @@ import {
 import type { SelectRadioProps } from "./select.types";
 import { Radio } from "../Radio";
 
+import { getLabelClassName } from "@/utils/typography";
+
 export const SelectRadio = forwardRef<HTMLDivElement, SelectRadioProps>(
   ({ value, isDisabled = false, caption, children, ...restProps }, ref) => {
     const { size, isSelected, onChange } = useSelectContext();
@@ -40,6 +42,7 @@ export const SelectRadio = forwardRef<HTMLDivElement, SelectRadioProps>(
         <StyledSelectItemInputWrapper>
           <Radio.Basic
             radioSize={size}
+            value={value}
             checked={isItemSelected}
             disabled={isDisabled}
             tabIndex={-1}
@@ -47,9 +50,7 @@ export const SelectRadio = forwardRef<HTMLDivElement, SelectRadioProps>(
         </StyledSelectItemInputWrapper>
         <StyledSelectItemContent>
           <StyledSelectItemText
-            as='span'
-            size={size}
-            weight='normal'
+            className={getLabelClassName({ size })}
             $isDisabled={isDisabled}
             $selected={isItemSelected}
           >
@@ -58,9 +59,9 @@ export const SelectRadio = forwardRef<HTMLDivElement, SelectRadioProps>(
 
           {caption && (
             <StyledSelectItemCaption
-              as='span'
-              size={size === "md" ? "sm" : "xs"}
-              weight='normal'
+              className={getLabelClassName({
+                size: size === "md" ? "sm" : "xs",
+              })}
               $isDisabled={isDisabled}
             >
               {caption}

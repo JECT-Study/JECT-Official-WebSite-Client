@@ -3,8 +3,9 @@ import type { Theme } from "@emotion/react";
 import styled from "@emotion/styled";
 
 import { Icon } from "../../Icon";
-import { Label } from "../../Label";
 import type { InputStyle, InputValidation } from "../input.types";
+
+import { shouldForwardTypographyProp } from "@/utils/typography";
 
 export const getLabelColor = (theme: Theme, disabled: boolean, readOnly: boolean): string => {
   if (disabled) {
@@ -94,20 +95,24 @@ export const StyledLabelIcon = styled(Icon, {
   color: theme.color.semantic.accent.neutral,
 }));
 
-export const StyledFieldLabel = styled(Label, {
-  shouldForwardProp: prop => !prop.startsWith("$"),
+export const StyledFieldLabel = styled("label", {
+  shouldForwardProp: shouldForwardTypographyProp,
 })<{ $disabled: boolean; $readOnly: boolean }>(({ theme, $disabled, $readOnly }) => ({
-  color: getLabelColor(theme, $disabled, $readOnly),
+  "&&": {
+    color: getLabelColor(theme, $disabled, $readOnly),
+  },
 }));
 
-export const StyledHelperText = styled(Label, {
-  shouldForwardProp: prop => !prop.startsWith("$"),
+export const StyledHelperText = styled("span", {
+  shouldForwardProp: shouldForwardTypographyProp,
 })<{
   $validation: InputValidation;
   $disabled: boolean;
   $readOnly: boolean;
 }>(({ theme, $validation, $disabled, $readOnly }) => ({
-  color: getHelperTextColor(theme, $validation, $disabled, $readOnly),
+  "&&": {
+    color: getHelperTextColor(theme, $validation, $disabled, $readOnly),
+  },
 }));
 
 export const StyledInputColumn = styled("div")(({ theme }) => ({

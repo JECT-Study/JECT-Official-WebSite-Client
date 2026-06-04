@@ -1,6 +1,7 @@
-import { ContentBadge, Icon, Image, Tab, Title } from "@jects/jds";
+import { ContentBadge, Icon, Image, Tab } from "@jects/jds";
 import { useState } from "react";
 
+import { Title } from "@/components/common/typography";
 import {
   roleBadgeVariantMap,
   roleIconMap,
@@ -135,7 +136,7 @@ const MemberSection = () => {
             <span className='text-(--semantic-accent-normal)'>젝트</span>를 만드는 사람들
           </Title>
 
-          <Title size='md' textAlign='left' color='var(--semantic-object-boldest)'>
+          <Title size='md' textAlign='left' className='text-(--semantic-object-boldest)'>
             열정 넘치는 구성원들이 젝트에 직접 기여하며 많은 가치를 창출하고 있습니다.
           </Title>
         </div>

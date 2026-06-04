@@ -3,8 +3,9 @@ import styled from "@emotion/styled";
 import { Tabs as TabPrimitive } from "radix-ui";
 import { InteractionLayer } from "utils";
 
-import { Label } from "../Label";
 import type { StyledTabPrimitiveListProps, StyledTabPrimitiveTriggerProps } from "./tab.types";
+
+import { shouldForwardTypographyProp } from "@/utils/typography";
 
 const createInteractionStyles = (theme: Theme, borderRadius: number, isReadonly: boolean) => {
   const makeLayer = (state: "rest" | "hover" | "active" | "focus") =>
@@ -96,8 +97,12 @@ export const StyledTabPrimitiveTrigger = styled(
   };
 });
 
-export const StyledLabel = styled(Label)(() => ({
-  color: "inherit",
-  cursor: "inherit",
-  whiteSpace: "nowrap",
-}));
+export const StyledLabel = styled("span", { shouldForwardProp: shouldForwardTypographyProp })(
+  () => ({
+    "&&": {
+      color: "inherit",
+      cursor: "inherit",
+    },
+    whiteSpace: "nowrap",
+  }),
+);

@@ -15,6 +15,8 @@ import { menuCategorySizeMap } from "./menu.variants";
 import { MenuContext, useMenuContext } from "./menuContext";
 import { MenuItem } from "../MenuItem";
 
+import { getLabelClassName } from "@/utils/typography";
+
 const MenuRoot = ({ children, menuStyle = "solid", size = "md", ...rest }: MenuRootProps) => {
   return (
     <MenuContext.Provider value={{ menuStyle, size }}>
@@ -42,14 +44,7 @@ const MenuCategory = forwardRef<HTMLDivElement, MenuCategoryProps>(({ children, 
   const labelSize = menuCategorySizeMap[size];
 
   return (
-    <StyledMenuCategory
-      ref={ref}
-      as='span'
-      textAlign='left'
-      size={labelSize}
-      weight='normal'
-      {...rest}
-    >
+    <StyledMenuCategory ref={ref} className={getLabelClassName({ size: labelSize })} {...rest}>
       {children}
     </StyledMenuCategory>
   );

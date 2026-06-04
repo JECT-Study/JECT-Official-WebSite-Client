@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { pxToRem, shadow } from "utils";
 
-import { Title } from "../Title";
+import { shouldForwardTypographyProp } from "@/utils/typography";
 
 const dialogOverlayFadeIn = keyframes`
   from { opacity: 0 }
@@ -100,7 +100,7 @@ export const DialogContentDiv = styled.div(({ theme }) => ({
   gap: theme.scheme.semantic.spacing[16],
 }));
 
-export const DialogTitle = styled(Title)({
+export const DialogTitle = styled("h2", { shouldForwardProp: shouldForwardTypographyProp })({
   alignSelf: "stretch",
 });
 

@@ -12,6 +12,8 @@ import {
 import type { FileItemProps } from "./fileItem.types";
 import { IconButton } from "../Button/IconButton";
 
+import { getLabelClassName } from "@/utils/typography";
+
 export const FileItem = forwardRef<HTMLButtonElement, FileItemProps>(
   (
     {
@@ -42,32 +44,22 @@ export const FileItem = forwardRef<HTMLButtonElement, FileItemProps>(
           <FileItemIcon size='sm' name='attachment-line' />
           <FileItemDataContainer>
             <FileItemLabel
-              size='sm'
-              textAlign='left'
-              weight='subtle'
+              className={`${getLabelClassName({ size: "sm", weight: "subtle" })} file-name`}
               $disabled={disabled}
               $readonly={readonly}
               $hasError={hasError}
-              className='file-name'
             >
               {fileName}
             </FileItemLabel>
             <FileSizeLabel
-              size='xs'
-              textAlign='right'
-              weight='subtle'
+              className={getLabelClassName({ size: "xs", textAlign: "right", weight: "subtle" })}
               $disabled={disabled}
               $hasError={hasError}
             >
               {fileSize}
             </FileSizeLabel>
             {!readonly && removeable && (
-              <IconButton
-                hierarchy='tertiary'
-                size='lg'
-                icon='close-line'
-                onClick={onRemove}
-              />
+              <IconButton hierarchy='tertiary' size='lg' icon='close-line' onClick={onRemove} />
             )}
           </FileItemDataContainer>
         </FileItemSectionDiv>

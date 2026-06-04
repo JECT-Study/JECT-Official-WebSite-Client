@@ -2,7 +2,6 @@ import { ToggleGroup } from "radix-ui";
 import type { ElementRef } from "react";
 import { createContext, forwardRef, useContext } from "react";
 
-import { Label } from "../Label";
 import {
   SegmentedControlRootStyled,
   SegmentedControlContentStyled,
@@ -13,6 +12,8 @@ import type {
   SegmentedControlRootProps,
   SegmentedControlItemProps,
 } from "./segmentedControl.types";
+
+import { getLabelClassName } from "@/utils/typography";
 
 const SegmentedControlContext = createContext<{ size: SegmentedControlSize }>({
   size: "md",
@@ -46,9 +47,7 @@ const SegmentedControlItem = forwardRef<
   return (
     <ToggleGroup.Item asChild value={value} disabled={disabled} {...props}>
       <SegmentedControlItemStyled ref={ref} size={size} $isDisabled={disabled}>
-        <Label size={size} color='inherit'>
-          {children}
-        </Label>
+        <span className={getLabelClassName({ size })}>{children}</span>
       </SegmentedControlItemStyled>
     </ToggleGroup.Item>
   );

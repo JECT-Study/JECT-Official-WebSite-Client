@@ -1,11 +1,11 @@
 import { StyledTableHeaderItem } from "./Table.styles";
 import type { TableHeaderProps } from "../Table.types";
 
-import { Label } from "@/components/Label";
+import { getLabelClassName } from "@/utils/typography";
 
 export const TableHeaderItem = ({ children }: TableHeaderProps) => (
   <StyledTableHeaderItem>
-    <Label weight='bold'>{children}</Label>
+    <span className={getLabelClassName({ weight: "bold" })}>{children}</span>
   </StyledTableHeaderItem>
 );
 

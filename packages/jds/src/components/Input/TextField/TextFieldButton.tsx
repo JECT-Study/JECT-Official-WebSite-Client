@@ -13,6 +13,8 @@ import {
 import type { TextFieldButtonProps } from "./textField.types";
 import { Icon } from "../../Icon";
 
+import { getLabelClassName } from "@/utils/typography";
+
 export const TextFieldButton = forwardRef<HTMLInputElement, TextFieldButtonProps>(
   (
     {
@@ -37,10 +39,8 @@ export const TextFieldButton = forwardRef<HTMLInputElement, TextFieldButtonProps
         {label && (
           <StyledLabelContainer>
             <StyledFieldLabel
-              as='label'
               htmlFor={inputId}
-              size='md'
-              weight='bold'
+              className={getLabelClassName({ weight: "bold" })}
               $disabled={disabled}
               $readOnly={readOnly}
             >
@@ -75,9 +75,7 @@ export const TextFieldButton = forwardRef<HTMLInputElement, TextFieldButtonProps
 
           {helperText && (
             <StyledHelperText
-              as='span'
-              size='sm'
-              weight='normal'
+              className={getLabelClassName({ size: "sm" })}
               $validation={validation}
               $disabled={disabled}
               $readOnly={readOnly}

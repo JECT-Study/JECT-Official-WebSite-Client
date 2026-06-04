@@ -15,6 +15,8 @@ import type { SelectFieldButtonProps } from "./selectField.types";
 import { Icon } from "../../Icon";
 import { getInteractionStates } from "../input.types";
 
+import { getLabelClassName } from "@/utils/typography";
+
 export const SelectFieldButton = forwardRef<HTMLDivElement, SelectFieldButtonProps>(
   (
     {
@@ -51,10 +53,8 @@ export const SelectFieldButton = forwardRef<HTMLDivElement, SelectFieldButtonPro
         {label && (
           <StyledLabelContainer>
             <StyledFieldLabel
-              as='label'
               htmlFor={fieldId}
-              size='sm'
-              weight='normal'
+              className={getLabelClassName({ size: "sm" })}
               $disabled={isDisabled}
               $readOnly={isReadOnly}
             >
@@ -98,9 +98,7 @@ export const SelectFieldButton = forwardRef<HTMLDivElement, SelectFieldButtonPro
 
           {helperText && (
             <StyledHelperText
-              as='span'
-              size='sm'
-              weight='normal'
+              className={getLabelClassName({ size: "sm" })}
               $validation={validation}
               $disabled={isDisabled}
               $readOnly={isReadOnly}

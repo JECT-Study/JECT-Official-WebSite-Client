@@ -1,5 +1,4 @@
 import type { SelectProps, SelectContextType } from "components";
-import { Label } from "components";
 import { createContext, forwardRef, useContext } from "react";
 
 import {
@@ -7,6 +6,8 @@ import {
   StyledSelectLabelWrapper,
   StyledSelectItemsWrapper,
 } from "./select.styles";
+
+import { getLabelClassName } from "@/utils/typography";
 
 export const SelectContext = createContext<SelectContextType | undefined>(undefined);
 
@@ -90,9 +91,7 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
       <StyledSelectContainer>
         {label && (
           <StyledSelectLabelWrapper>
-            <Label as='span' size='sm' weight='normal' color='inherit'>
-              {label}
-            </Label>
+            <span className={getLabelClassName({ size: "sm" })}>{label}</span>
           </StyledSelectLabelWrapper>
         )}
         <StyledSelectItemsWrapper ref={ref} role={role} aria-multiselectable={isMultiselectable}>

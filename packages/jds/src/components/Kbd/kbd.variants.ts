@@ -1,19 +1,28 @@
-import type { KbdSize, KbdType } from "./Kbd.types";
+import type { textStyleClassNames } from "tokens";
+
+import type { KbdSize, KbdType } from "./kbd.types";
+
+type TextStyleClassName = (typeof textStyleClassNames)[number];
 
 interface KbdSizeConfig {
   height: number;
   minWidth: number;
-  paddingX: number;
 }
 
 export const kbdSizeMap: Record<KbdSize, KbdSizeConfig> = {
-  lg: { height: 26, minWidth: 16, paddingX: 6 },
-  md: { height: 24, minWidth: 14, paddingX: 6 },
-  sm: { height: 22, minWidth: 11, paddingX: 6 },
-  xs: { height: 20, minWidth: 9, paddingX: 6 },
+  lg: { height: 26, minWidth: 16 },
+  md: { height: 24, minWidth: 14 },
+  sm: { height: 22, minWidth: 11 },
+  xs: { height: 20, minWidth: 9 },
 };
 
-export const typographyMap: Record<KbdType, Record<KbdSize, string>> = {
+export const kbdPaddingXMap: Record<KbdType, number> = {
+  function: 4,
+  key: 6,
+  text: 6,
+};
+
+export const typographyMap = {
   function: {
     lg: "semantic-textStyle-label-lg-normal",
     md: "semantic-textStyle-label-md-normal",
@@ -32,4 +41,4 @@ export const typographyMap: Record<KbdType, Record<KbdSize, string>> = {
     sm: "semantic-textStyle-syntax-sm",
     xs: "semantic-textStyle-syntax-xs",
   },
-};
+} satisfies Record<KbdType, Record<KbdSize, TextStyleClassName>>;

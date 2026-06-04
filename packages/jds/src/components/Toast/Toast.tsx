@@ -11,6 +11,8 @@ import {
 import type { ToastBasicProps, ToastFeedbackProps } from "./toast.types";
 import { IconButton } from "../Button/IconButton";
 
+import { getLabelClassName } from "@/utils/typography";
+
 const ToastBasic = ({ id, caption, onRemove, title, isClosing }: ToastBasicProps) => {
   const [phase, setPhase] = useState<"enter" | "static" | "exit">("enter");
 
@@ -42,7 +44,7 @@ const ToastBasic = ({ id, caption, onRemove, title, isClosing }: ToastBasicProps
     <ToastDiv id={id} className={phase} toastStyle='basic' onAnimationEnd={onAnimationEnd}>
       <ToastContentDiv>
         <ToastLabelContainerDiv>
-          <ToastLabel as='span' toastStyle='basic' size='md' textAlign='left' weight='normal'>
+          <ToastLabel toastStyle='basic' className={getLabelClassName()}>
             {title}
           </ToastLabel>
           <IconButton
@@ -103,7 +105,7 @@ const ToastFeedback = ({
             variant={variant}
             name={variant === "positive" ? "check-line" : "error-warning-line"}
           />
-          <ToastLabel as='span' toastStyle={variant} size='md' textAlign='left' weight='normal'>
+          <ToastLabel toastStyle={variant} className={getLabelClassName()}>
             {title}
           </ToastLabel>
           <IconButton

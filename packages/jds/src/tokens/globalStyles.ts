@@ -1,5 +1,5 @@
 // 자동 생성된 globalStyles - 수정 금지
-// 생성 시간: 4/21/2026, 3:41:45 PM
+// 생성 시간: 5/16/2026, 3:01:40 PM
 
 export const globalStyles = {
   ":root": {
@@ -1153,6 +1153,24 @@ export const globalStyles = {
     "--primitive-font-weight-title-subtle": "590",
     "--primitive-font-letter-spacing-title-5": "-0.9200000166893005px",
     "--primitive-font-letter-spacing-title-6": "-1.25px"
+  },
+  "semantic-textStyle-title-6": {
+    "fontSize": "var(--typo-primitive-fontSize-title-6)",
+    "lineHeight": "var(--typo-primitive-font-lineHeight-title-6)",
+    "fontFamily": "var(--typo-primitive-typeface-title)",
+    "fontWeight": "var(--typo-primitive-fontWeight-title-normal)",
+    "letterSpacing": "var(--typo-primitive-font-letterSpacing-title-6)",
+    "paragraphSpacing": "0px",
+    "paragraphIndent": "0px"
+  },
+  "semantic-textStyle-title-5": {
+    "fontSize": "var(--typo-primitive-fontSize-title-5)",
+    "lineHeight": "var(--typo-primitive-font-lineHeight-title-5)",
+    "fontFamily": "var(--typo-primitive-typeface-title)",
+    "fontWeight": "var(--typo-primitive-fontWeight-title-normal)",
+    "letterSpacing": "var(--typo-primitive-font-letterSpacing-title-5)",
+    "paragraphSpacing": "0px",
+    "paragraphIndent": "0px"
   },
   "semantic-textStyle-title-4": {
     "fontSize": "var(--typo-primitive-fontSize-title-4)",

@@ -15,6 +15,8 @@ import type { DialogProps } from "./Dialog.types";
 import { BlockButton } from "../Button/BlockButton";
 import { Checkbox } from "../Checkbox";
 
+import { getTitleClassName } from "@/utils/typography";
+
 export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
   (
     {
@@ -76,9 +78,7 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
             <DialogRoot ref={ref}>
               <DialogDiv>
                 <DialogContentDiv>
-                  <DialogTitle textAlign='left' size='xs'>
-                    {header}
-                  </DialogTitle>
+                  <DialogTitle className={getTitleClassName({ size: "xs" })}>{header}</DialogTitle>
                   <DialogBodyTextP>{body}</DialogBodyTextP>
                   {checkboxAction && <Checkbox.Content {...checkboxAction} />}
                 </DialogContentDiv>

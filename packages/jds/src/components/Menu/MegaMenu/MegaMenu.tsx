@@ -14,6 +14,8 @@ import type {
   MegaMenuSectionProps,
 } from "./megaMenu.types";
 
+import { getLabelClassName } from "@/utils/typography";
+
 const MegaMenuRoot = forwardRef<HTMLDivElement, MegaMenuProps>(({ children, ...rest }, ref) => {
   return (
     <StyledMegaMenuRoot ref={ref} {...rest}>
@@ -34,9 +36,7 @@ const MegaMenuSection = forwardRef<HTMLDivElement, MegaMenuSectionProps>(
   ({ children, sectionName = "", ...rest }, ref) => {
     return (
       <StyledMegaMenuSection ref={ref} {...rest}>
-        <StyledLabel as='span' textAlign='left' size='sm' weight='normal'>
-          {sectionName}
-        </StyledLabel>
+        <StyledLabel className={getLabelClassName({ size: "sm" })}>{sectionName}</StyledLabel>
         {children}
       </StyledMegaMenuSection>
     );
