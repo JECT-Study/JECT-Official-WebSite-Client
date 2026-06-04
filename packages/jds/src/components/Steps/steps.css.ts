@@ -1,5 +1,6 @@
 import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
+import { pxToRem } from "utils";
 
 import { vars } from "../../tokens/vars.css";
 
@@ -129,8 +130,8 @@ export const stepsSeparatorLine = recipe({
   },
   variants: {
     size: {
-      lg: { width: "20px", height: "20px" },
-      md: { width: "18px", height: "18px" },
+      lg: { width: pxToRem(20), height: pxToRem(20) },
+      md: { width: pxToRem(18), height: pxToRem(18) },
     },
   },
 });
