@@ -1,27 +1,13 @@
 import { clsx } from "clsx";
-import { Context } from "radix-ui/internal";
 import { Children, Fragment, forwardRef, useMemo } from "react";
 
-import {
-  stepItem,
-  stepLabel,
-  stepRoot,
-  stepSeparatorIcon,
-  stepSeparatorLine,
-} from "./step.css";
-import type { StepItemProps, StepLayout, StepRootProps, StepSize } from "./step.types";
+import { stepItem, stepLabel, stepRoot, stepSeparatorIcon, stepSeparatorLine } from "./step.css";
+import type { StepItemProps, StepRootProps } from "./step.types";
 import { useStepItemActivated } from "./step.utils";
+import { StepContext, useStepContext } from "./stepContext";
 import { NumericBadge } from "../Badge";
 import { Divider } from "../Divider";
 import { Icon } from "../Icon";
-
-type StepContextValue = {
-  size: StepSize;
-  layout: StepLayout;
-  currentStep?: number;
-};
-
-const [StepProvider, useStepContext] = Context.createContext<StepContextValue>("Step");
 
 const stepNumericBadgeSizeMap = {
   lg: "sm",
@@ -34,7 +20,7 @@ const StepSeparator = () => {
   if (layout === "horizontal") {
     return (
       <Icon
-        name="arrow-right-s-line"
+        name='arrow-right-s-line'
         size={size === "lg" ? "sm" : "xs"}
         className={stepSeparatorIcon}
       />
@@ -43,7 +29,7 @@ const StepSeparator = () => {
 
   return (
     <div className={stepSeparatorLine({ size })}>
-      <Divider orientation="vertical" thickness="bold" />
+      <Divider orientation='vertical' thickness='bold' />
     </div>
   );
 };
@@ -56,7 +42,7 @@ const StepRoot = forwardRef<HTMLDivElement, StepRootProps>(
     );
 
     return (
-      <StepProvider {...contextValue}>
+      <StepContext.Provider value={contextValue}>
         <div ref={ref} className={clsx(stepRoot({ size, layout }), className)} {...restProps}>
           {Children.map(children, (child, childIndex) => (
             <Fragment key={childIndex}>
@@ -65,7 +51,7 @@ const StepRoot = forwardRef<HTMLDivElement, StepRootProps>(
             </Fragment>
           ))}
         </div>
-      </StepProvider>
+      </StepContext.Provider>
     );
   },
 );
