@@ -53,10 +53,10 @@ const StepsRoot = forwardRef<HTMLOListElement, StepsRootProps>(
     return (
       <StepsContext.Provider value={contextValue}>
         <ol
+          {...restProps}
           ref={ref}
           role='list'
           className={clsx(stepsRoot({ size, layout }), className)}
-          {...restProps}
         >
           {childList.map((child, childIndex) => (
             <li className={stepsListItem({ size, layout })} key={childIndex}>
@@ -81,11 +81,11 @@ const StepsItem = forwardRef<HTMLDivElement, StepsItemProps>(
 
     return (
       <div
+        {...restProps}
         ref={ref}
         aria-current={isCurrentStep ? "step" : undefined}
         data-activated={isActivated}
         className={clsx(stepsItem({ layout }), className)}
-        {...restProps}
       >
         <NumericBadge.Basic
           hierarchy={isActivated ? "accent" : "tertiary"}
