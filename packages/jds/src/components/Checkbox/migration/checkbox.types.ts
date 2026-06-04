@@ -1,12 +1,10 @@
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 export const CHECKBOX_SIZE_OPTIONS = ["xs", "sm", "md", "lg"] as const;
-export const CHECKBOX_STYLE_OPTIONS = ["empty", "outlined"] as const;
-export const CHECKBOX_ALIGN_OPTIONS = ["left", "right"] as const;
+export const CHECKBOX_STYLE_OPTIONS = ["hollow", "outlined"] as const;
 
 export type CheckboxSize = (typeof CHECKBOX_SIZE_OPTIONS)[number];
 export type CheckboxStyle = (typeof CHECKBOX_STYLE_OPTIONS)[number];
-export type CheckboxAlign = (typeof CHECKBOX_ALIGN_OPTIONS)[number];
 export type CheckState = boolean | "indeterminate";
 
 // Checkbox.Root
@@ -26,7 +24,6 @@ type CheckboxRootUncontrolledProps = {
 type CheckboxRootBaseProps = {
   checkboxSize?: CheckboxSize;
   checkboxStyle?: CheckboxStyle;
-  checkboxAlign?: CheckboxAlign;
   disabled?: boolean;
   isInvalid?: boolean;
   name?: string;
@@ -41,7 +38,6 @@ export type CheckboxRootProps = CheckboxRootBaseProps &
 export interface CheckboxItemProps extends ComponentPropsWithoutRef<"div"> {
   checkboxSize?: CheckboxSize;
   checkboxStyle?: CheckboxStyle;
-  checkboxAlign?: CheckboxAlign;
   disabled?: boolean;
   isInvalid?: boolean;
   children: ReactNode;
@@ -81,8 +77,8 @@ export interface CheckboxLabelProps {
   children: ReactNode;
 }
 
-// Checkbox.SubLabel
+// Checkbox.Helper
 
-export interface CheckboxSubLabelProps {
+export interface CheckboxHelperProps {
   children: ReactNode;
 }
