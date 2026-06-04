@@ -1,12 +1,11 @@
 import { createContext, useContext } from "react";
 import type { CheckboxGroupState } from "react-stately";
 
-import type { CheckboxAlign, CheckboxSize, CheckboxStyle } from "./checkbox.types";
+import type { CheckboxSize, CheckboxStyle } from "./checkbox.types";
 
 export interface CheckboxContextValue {
   size: CheckboxSize;
   style: CheckboxStyle;
-  align: CheckboxAlign;
   disabled: boolean;
   isInvalid: boolean;
   state?: CheckboxGroupState;
