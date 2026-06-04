@@ -2,12 +2,12 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexColumn, FlexRow, Label } from "@storybook-utils/layout";
 import { useState } from "react";
 
-import { Step } from "./Step";
-import type { StepLayout, StepSize } from "./step.types";
+import { Steps } from "./Steps";
+import type { StepsLayout, StepsSize } from "./steps.types";
 
-interface StepStoryArgs {
-  size: StepSize;
-  layout: StepLayout;
+interface StepsStoryArgs {
+  size: StepsSize;
+  layout: StepsLayout;
   mode: "controlled" | "uncontrolled";
   current: number;
   activated?: boolean;
@@ -19,22 +19,22 @@ interface StepStoryArgs {
   thirdActivated: boolean;
 }
 
-const StepPreview: (props: StepStoryArgs) => null = () => null;
+const StepsPreview: (props: StepsStoryArgs) => null = () => null;
 
 const meta = {
-  title: "Components/Step",
-  component: StepPreview,
+  title: "Components/Steps",
+  component: StepsPreview,
   parameters: {
     layout: "centered",
     docs: {
       description: {
         component:
           "스텝 컴포넌트는 사용자가 따라야 할 절차나 진행 단계를 시각적으로 나타냅니다. " +
-          "Step.Root로 컨테이너를 구성하고, 각 단계는 Step.Item으로 표현합니다. " +
-          "모든 Step.Item은 명시적으로 index prop을 제공해야 합니다.\n\n" +
+          "Steps.Root로 컨테이너를 구성하고, 각 단계는 Steps.Item으로 표현합니다. " +
+          "모든 Steps.Item은 명시적으로 index prop을 제공해야 합니다.\n\n" +
           "**두 가지 모드 지원:**\n" +
-          "- **Controlled 모드**: Step.Root에 current를 전달하면 각 Step.Item의 activated가 자동 계산됩니다.\n" +
-          "- **Uncontrolled 모드**: 각 Step.Item에 activated를 직접 전달하여 제어가 가능합니다.",
+          "- **Controlled 모드**: Steps.Root에 current를 전달하면 각 Steps.Item의 activated가 자동 계산됩니다.\n" +
+          "- **Uncontrolled 모드**: 각 Steps.Item에 activated를 직접 전달하여 제어가 가능합니다.",
       },
     },
   },
@@ -58,7 +58,7 @@ const meta = {
     mode: {
       control: "radio",
       options: ["controlled", "uncontrolled"],
-      description: "Step.Root current 기반 제어 여부",
+      description: "Steps.Root current 기반 제어 여부",
       table: {
         category: "Preview",
         type: { summary: "'controlled' | 'uncontrolled'" },
@@ -68,7 +68,7 @@ const meta = {
       control: { type: "number", min: 0, max: 2, step: 1 },
       description: "Controlled 모드에서 현재 단계의 index",
       table: {
-        category: "Step.Root",
+        category: "Steps.Root",
         type: { summary: "number" },
       },
       if: { arg: "mode", eq: "controlled" },
@@ -76,9 +76,9 @@ const meta = {
     activated: {
       control: false,
       description:
-        "Step.Item의 활성 여부입니다. Step.Root에 current가 전달되면 current 기반으로 자동 계산되고, current가 없을 때 직접 제어할 수 있습니다.",
+        "Steps.Item의 활성 여부입니다. Steps.Root에 current가 전달되면 current 기반으로 자동 계산되고, current가 없을 때 직접 제어할 수 있습니다.",
       table: {
-        category: "Step.Item",
+        category: "Steps.Item",
         type: { summary: "boolean" },
       },
     },
@@ -134,7 +134,7 @@ const meta = {
       if: { arg: "mode", eq: "uncontrolled" },
     },
   },
-} satisfies Meta<typeof StepPreview>;
+} satisfies Meta<typeof StepsPreview>;
 
 export default meta;
 
@@ -160,21 +160,21 @@ export const Default: Story = {
 
     return (
       <div style={{ width: previewWidth }}>
-        <Step.Root
+        <Steps.Root
           size={args.size}
           layout={args.layout}
           current={isControlled ? args.current : undefined}
         >
-          <Step.Item index={0} activated={isControlled ? undefined : args.firstActivated}>
+          <Steps.Item index={0} activated={isControlled ? undefined : args.firstActivated}>
             {args.firstLabel}
-          </Step.Item>
-          <Step.Item index={1} activated={isControlled ? undefined : args.secondActivated}>
+          </Steps.Item>
+          <Steps.Item index={1} activated={isControlled ? undefined : args.secondActivated}>
             {args.secondLabel}
-          </Step.Item>
-          <Step.Item index={2} activated={isControlled ? undefined : args.thirdActivated}>
+          </Steps.Item>
+          <Steps.Item index={2} activated={isControlled ? undefined : args.thirdActivated}>
             {args.thirdLabel}
-          </Step.Item>
-        </Step.Root>
+          </Steps.Item>
+        </Steps.Root>
       </div>
     );
   },
@@ -182,7 +182,7 @@ export const Default: Story = {
     docs: {
       description: {
         story:
-          "기본 스텝 컴포넌트입니다. Controls 패널에서 Step.Root의 size, layout, current와 각 Step.Item의 레이블 및 활성 여부를 조정하여 실시간으로 변경 사항을 확인할 수 있습니다.",
+          "기본 스텝 컴포넌트입니다. Controls 패널에서 Steps.Root의 size, layout, current와 각 Steps.Item의 레이블 및 활성 여부를 조정하여 실시간으로 변경 사항을 확인할 수 있습니다.",
       },
     },
   },
@@ -191,17 +191,17 @@ export const Default: Story = {
 export const AllCompleted: CustomStory = {
   render: () => (
     <div style={{ width: "600px" }}>
-      <Step.Root size='md'>
-        <Step.Item index={0} activated>
+      <Steps.Root size='md'>
+        <Steps.Item index={0} activated>
           회원가입
-        </Step.Item>
-        <Step.Item index={1} activated>
+        </Steps.Item>
+        <Steps.Item index={1} activated>
           정보 입력
-        </Step.Item>
-        <Step.Item index={2} activated>
+        </Steps.Item>
+        <Steps.Item index={2} activated>
           완료
-        </Step.Item>
-      </Step.Root>
+        </Steps.Item>
+      </Steps.Root>
     </div>
   ),
   parameters: {
@@ -216,17 +216,17 @@ export const AllCompleted: CustomStory = {
 export const AllUncompleted: CustomStory = {
   render: () => (
     <div style={{ width: "600px" }}>
-      <Step.Root size='md'>
-        <Step.Item index={0} activated={false}>
+      <Steps.Root size='md'>
+        <Steps.Item index={0} activated={false}>
           회원가입
-        </Step.Item>
-        <Step.Item index={1} activated={false}>
+        </Steps.Item>
+        <Steps.Item index={1} activated={false}>
           정보 입력
-        </Step.Item>
-        <Step.Item index={2} activated={false}>
+        </Steps.Item>
+        <Steps.Item index={2} activated={false}>
           완료
-        </Step.Item>
-      </Step.Root>
+        </Steps.Item>
+      </Steps.Root>
     </div>
   ),
   parameters: {
@@ -242,37 +242,37 @@ export const SizeVariant: CustomStory = {
   render: () => (
     <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
       <div style={{ width: "600px" }}>
-        <Step.Root size='lg'>
-          <Step.Item index={0} activated>
+        <Steps.Root size='lg'>
+          <Steps.Item index={0} activated>
             lg - 단계 1
-          </Step.Item>
-          <Step.Item index={1} activated>
+          </Steps.Item>
+          <Steps.Item index={1} activated>
             lg - 단계 2
-          </Step.Item>
-          <Step.Item index={2} activated={false}>
+          </Steps.Item>
+          <Steps.Item index={2} activated={false}>
             lg - 단계 3
-          </Step.Item>
-        </Step.Root>
+          </Steps.Item>
+        </Steps.Root>
       </div>
       <div style={{ width: "600px" }}>
-        <Step.Root size='md'>
-          <Step.Item index={0} activated>
+        <Steps.Root size='md'>
+          <Steps.Item index={0} activated>
             md - 단계 1
-          </Step.Item>
-          <Step.Item index={1} activated>
+          </Steps.Item>
+          <Steps.Item index={1} activated>
             md - 단계 2
-          </Step.Item>
-          <Step.Item index={2} activated={false}>
+          </Steps.Item>
+          <Steps.Item index={2} activated={false}>
             md - 단계 3
-          </Step.Item>
-        </Step.Root>
+          </Steps.Item>
+        </Steps.Root>
       </div>
     </div>
   ),
   parameters: {
     docs: {
       description: {
-        story: "Step 컴포넌트는 lg, md 2가지 크기를 제공합니다.",
+        story: "Steps 컴포넌트는 lg, md 2가지 크기를 제공합니다.",
       },
     },
   },
@@ -283,31 +283,31 @@ export const LayoutVariant: CustomStory = {
     <div style={{ display: "flex", flexDirection: "column", gap: "48px" }}>
       <div style={{ width: "600px" }}>
         <div style={{ marginBottom: "12px" }}>수평 (horizontal, 기본값)</div>
-        <Step.Root size='lg' layout='horizontal'>
-          <Step.Item index={0} activated>
+        <Steps.Root size='lg' layout='horizontal'>
+          <Steps.Item index={0} activated>
             단계 1
-          </Step.Item>
-          <Step.Item index={1} activated>
+          </Steps.Item>
+          <Steps.Item index={1} activated>
             단계 2
-          </Step.Item>
-          <Step.Item index={2} activated={false}>
+          </Steps.Item>
+          <Steps.Item index={2} activated={false}>
             단계 3
-          </Step.Item>
-        </Step.Root>
+          </Steps.Item>
+        </Steps.Root>
       </div>
       <div style={{ width: "200px" }}>
         <div style={{ marginBottom: "12px" }}>수직 (vertical)</div>
-        <Step.Root size='lg' layout='vertical'>
-          <Step.Item index={0} activated>
+        <Steps.Root size='lg' layout='vertical'>
+          <Steps.Item index={0} activated>
             단계 1
-          </Step.Item>
-          <Step.Item index={1} activated>
+          </Steps.Item>
+          <Steps.Item index={1} activated>
             단계 2
-          </Step.Item>
-          <Step.Item index={2} activated={false}>
+          </Steps.Item>
+          <Steps.Item index={2} activated={false}>
             단계 3
-          </Step.Item>
-        </Step.Root>
+          </Steps.Item>
+        </Steps.Root>
       </div>
     </div>
   ),
@@ -325,62 +325,62 @@ export const VariousItemCounts: CustomStory = {
   render: () => (
     <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
       <div style={{ width: "600px" }}>
-        <Step.Root size='md'>
-          <Step.Item index={0} activated>
+        <Steps.Root size='md'>
+          <Steps.Item index={0} activated>
             단계 1
-          </Step.Item>
-          <Step.Item index={1} activated>
+          </Steps.Item>
+          <Steps.Item index={1} activated>
             단계 2
-          </Step.Item>
-        </Step.Root>
+          </Steps.Item>
+        </Steps.Root>
       </div>
       <div style={{ width: "600px" }}>
-        <Step.Root size='md'>
-          <Step.Item index={0} activated>
+        <Steps.Root size='md'>
+          <Steps.Item index={0} activated>
             단계 1
-          </Step.Item>
-          <Step.Item index={1} activated>
+          </Steps.Item>
+          <Steps.Item index={1} activated>
             단계 2
-          </Step.Item>
-          <Step.Item index={2} activated>
+          </Steps.Item>
+          <Steps.Item index={2} activated>
             단계 3
-          </Step.Item>
-        </Step.Root>
+          </Steps.Item>
+        </Steps.Root>
       </div>
       <div style={{ width: "600px" }}>
-        <Step.Root size='md'>
-          <Step.Item index={0} activated>
+        <Steps.Root size='md'>
+          <Steps.Item index={0} activated>
             단계 1
-          </Step.Item>
-          <Step.Item index={1} activated>
+          </Steps.Item>
+          <Steps.Item index={1} activated>
             단계 2
-          </Step.Item>
-          <Step.Item index={2} activated>
+          </Steps.Item>
+          <Steps.Item index={2} activated>
             단계 3
-          </Step.Item>
-          <Step.Item index={3} activated={false}>
+          </Steps.Item>
+          <Steps.Item index={3} activated={false}>
             단계 4
-          </Step.Item>
-        </Step.Root>
+          </Steps.Item>
+        </Steps.Root>
       </div>
       <div style={{ width: "600px" }}>
-        <Step.Root size='md'>
-          <Step.Item index={0} activated>
+        <Steps.Root size='md'>
+          <Steps.Item index={0} activated>
             단계 1
-          </Step.Item>
-          <Step.Item index={1} activated>
+          </Steps.Item>
+          <Steps.Item index={1} activated>
             단계 2
-          </Step.Item>
-          <Step.Item index={2} activated>
+          </Steps.Item>
+          <Steps.Item index={2} activated>
             단계 3
-          </Step.Item>
-          <Step.Item index={3} activated>
+          </Steps.Item>
+          <Steps.Item index={3} activated>
             단계 4
-          </Step.Item>
-          <Step.Item index={4} activated={false}>
+          </Steps.Item>
+          <Steps.Item index={4} activated={false}>
             단계 5
-          </Step.Item>
-        </Step.Root>
+          </Steps.Item>
+        </Steps.Root>
       </div>
     </div>
   ),
@@ -399,49 +399,49 @@ export const StatusVariants: CustomStory = {
       <FlexColumn gap='8px'>
         <div style={{ width: "100%", marginBottom: "20px" }}>Activated (활성)</div>
         <div style={{ width: "600px" }}>
-          <Step.Root size='md'>
-            <Step.Item index={0} activated>
+          <Steps.Root size='md'>
+            <Steps.Item index={0} activated>
               단계 1
-            </Step.Item>
-            <Step.Item index={1} activated>
+            </Steps.Item>
+            <Steps.Item index={1} activated>
               단계 2
-            </Step.Item>
-            <Step.Item index={2} activated>
+            </Steps.Item>
+            <Steps.Item index={2} activated>
               단계 3
-            </Step.Item>
-          </Step.Root>
+            </Steps.Item>
+          </Steps.Root>
         </div>
       </FlexColumn>
       <FlexColumn gap='8px'>
         <div style={{ width: "100%", marginBottom: "20px" }}>Mixed (혼합)</div>
         <div style={{ width: "600px" }}>
-          <Step.Root size='md'>
-            <Step.Item index={0} activated>
+          <Steps.Root size='md'>
+            <Steps.Item index={0} activated>
               단계 1
-            </Step.Item>
-            <Step.Item index={1} activated>
+            </Steps.Item>
+            <Steps.Item index={1} activated>
               단계 2
-            </Step.Item>
-            <Step.Item index={2} activated={false}>
+            </Steps.Item>
+            <Steps.Item index={2} activated={false}>
               단계 3
-            </Step.Item>
-          </Step.Root>
+            </Steps.Item>
+          </Steps.Root>
         </div>
       </FlexColumn>
       <FlexColumn gap='8px'>
         <div style={{ width: "100%", marginBottom: "20px" }}>Inactivated (비활성)</div>
         <div style={{ width: "600px" }}>
-          <Step.Root size='md'>
-            <Step.Item index={0} activated={false}>
+          <Steps.Root size='md'>
+            <Steps.Item index={0} activated={false}>
               단계 1
-            </Step.Item>
-            <Step.Item index={1} activated={false}>
+            </Steps.Item>
+            <Steps.Item index={1} activated={false}>
               단계 2
-            </Step.Item>
-            <Step.Item index={2} activated={false}>
+            </Steps.Item>
+            <Steps.Item index={2} activated={false}>
               단계 3
-            </Step.Item>
-          </Step.Root>
+            </Steps.Item>
+          </Steps.Root>
         </div>
       </FlexColumn>
     </FlexColumn>
@@ -471,20 +471,20 @@ export const UncontrolledExample: CustomStory = {
       return (
         <FlexColumn style={{ width: "100%", gap: "32px" }}>
           <div style={{ width: "700px" }}>
-            <Step.Root size='md'>
-              <Step.Item index={0} activated={stepActivatedList[0]}>
+            <Steps.Root size='md'>
+              <Steps.Item index={0} activated={stepActivatedList[0]}>
                 계정 생성
-              </Step.Item>
-              <Step.Item index={1} activated={stepActivatedList[1]}>
+              </Steps.Item>
+              <Steps.Item index={1} activated={stepActivatedList[1]}>
                 프로필 설정
-              </Step.Item>
-              <Step.Item index={2} activated={stepActivatedList[2]}>
+              </Steps.Item>
+              <Steps.Item index={2} activated={stepActivatedList[2]}>
                 이메일 인증
-              </Step.Item>
-              <Step.Item index={3} activated={stepActivatedList[3]}>
+              </Steps.Item>
+              <Steps.Item index={3} activated={stepActivatedList[3]}>
                 완료
-              </Step.Item>
-            </Step.Root>
+              </Steps.Item>
+            </Steps.Root>
           </div>
 
           <FlexColumn gap='16px'>
@@ -573,7 +573,7 @@ export const UncontrolledExample: CustomStory = {
     docs: {
       description: {
         story:
-          "Uncontrolled 모드입니다. 각 Step.Item에 activated를 직접 전달하여 독립적으로 제어할 수 있습니다. " +
+          "Uncontrolled 모드입니다. 각 Steps.Item에 activated를 직접 전달하여 독립적으로 제어할 수 있습니다. " +
           "각 단계의 활성 여부를 개별적으로 변경할 수 있고 순차적이지 않은 조합도 가능합니다.",
       },
     },
@@ -588,11 +588,11 @@ export const ControlledExample: CustomStory = {
       return (
         <FlexColumn style={{ width: "100%", gap: "24px" }}>
           <div style={{ width: "600px" }}>
-            <Step.Root current={currentStep} size='md'>
-              <Step.Item index={0}>회원가입</Step.Item>
-              <Step.Item index={1}>정보 입력</Step.Item>
-              <Step.Item index={2}>완료</Step.Item>
-            </Step.Root>
+            <Steps.Root current={currentStep} size='md'>
+              <Steps.Item index={0}>회원가입</Steps.Item>
+              <Steps.Item index={1}>정보 입력</Steps.Item>
+              <Steps.Item index={2}>완료</Steps.Item>
+            </Steps.Root>
           </div>
 
           <FlexRow gap='8px'>
@@ -618,7 +618,7 @@ export const ControlledExample: CustomStory = {
     docs: {
       description: {
         story:
-          "Controlled 모드입니다. Step.Root에 current를 전달하면 각 Step.Item의 activated가 자동으로 계산됩니다. " +
+          "Controlled 모드입니다. Steps.Root에 current를 전달하면 각 Steps.Item의 activated가 자동으로 계산됩니다. " +
           "버튼을 클릭하여 단계를 변경할 수 있습니다.",
       },
     },

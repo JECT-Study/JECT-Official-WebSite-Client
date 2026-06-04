@@ -1,40 +1,40 @@
 import { clsx } from "clsx";
 import { Children, Fragment, forwardRef, useMemo } from "react";
 
-import { stepItem, stepLabel, stepRoot, stepSeparatorIcon, stepSeparatorLine } from "./step.css";
-import type { StepItemProps, StepRootProps } from "./step.types";
-import { useStepItemActivated } from "./step.utils";
-import { StepContext, useStepContext } from "./stepContext";
+import { stepsItem, stepsLabel, stepsRoot, stepsSeparatorIcon, stepsSeparatorLine } from "./steps.css";
+import type { StepsItemProps, StepsRootProps } from "./steps.types";
+import { useStepsItemActivated } from "./steps.utils";
+import { StepsContext, useStepsContext } from "./stepsContext";
 import { NumericBadge } from "../Badge";
 import { Divider } from "../Divider";
 import { Icon } from "../Icon";
 
-const stepNumericBadgeSizeMap = {
+const stepsNumericBadgeSizeMap = {
   lg: "sm",
   md: "xs",
 } as const;
 
-const StepSeparator = () => {
-  const { size, layout } = useStepContext("Step.Separator");
+const StepsSeparator = () => {
+  const { size, layout } = useStepsContext("Steps.Separator");
 
   if (layout === "horizontal") {
     return (
       <Icon
         name='arrow-right-s-line'
         size={size === "lg" ? "sm" : "xs"}
-        className={stepSeparatorIcon}
+        className={stepsSeparatorIcon}
       />
     );
   }
 
   return (
-    <div className={stepSeparatorLine({ size })}>
+    <div className={stepsSeparatorLine({ size })}>
       <Divider orientation='vertical' thickness='bold' />
     </div>
   );
 };
 
-const StepRoot = forwardRef<HTMLDivElement, StepRootProps>(
+const StepsRoot = forwardRef<HTMLDivElement, StepsRootProps>(
   ({ size = "md", layout = "horizontal", current, children, className, ...restProps }, ref) => {
     const contextValue = useMemo(
       () => ({ size, layout, currentStep: current }),
@@ -43,33 +43,33 @@ const StepRoot = forwardRef<HTMLDivElement, StepRootProps>(
     const childList = Children.toArray(children);
 
     return (
-      <StepContext.Provider value={contextValue}>
+      <StepsContext.Provider value={contextValue}>
         <div
           ref={ref}
           role='list'
           aria-orientation={layout}
-          className={clsx(stepRoot({ size, layout }), className)}
+          className={clsx(stepsRoot({ size, layout }), className)}
           {...restProps}
         >
           {childList.map((child, childIndex) => (
             <Fragment key={childIndex}>
-              {childIndex > 0 && <StepSeparator />}
+              {childIndex > 0 && <StepsSeparator />}
               {child}
             </Fragment>
           ))}
         </div>
-      </StepContext.Provider>
+      </StepsContext.Provider>
     );
   },
 );
 
-StepRoot.displayName = "Step.Root";
+StepsRoot.displayName = "Steps.Root";
 
-const StepItem = forwardRef<HTMLDivElement, StepItemProps>(
+const StepsItem = forwardRef<HTMLDivElement, StepsItemProps>(
   ({ index, activated: activatedProp, children, className, ...restProps }, ref) => {
-    const { size, layout, currentStep } = useStepContext("Step.Item");
+    const { size, layout, currentStep } = useStepsContext("Steps.Item");
 
-    const isActivated = useStepItemActivated({ itemIndex: index, currentStep, activatedProp });
+    const isActivated = useStepsItemActivated({ itemIndex: index, currentStep, activatedProp });
     const isCurrentStep = currentStep === index;
 
     return (
@@ -78,24 +78,24 @@ const StepItem = forwardRef<HTMLDivElement, StepItemProps>(
         role='listitem'
         aria-current={isCurrentStep ? "step" : undefined}
         data-activated={isActivated}
-        className={clsx(stepItem({ layout }), className)}
+        className={clsx(stepsItem({ layout }), className)}
         {...restProps}
       >
         <NumericBadge.Basic
           hierarchy={isActivated ? "accent" : "tertiary"}
-          size={stepNumericBadgeSizeMap[size]}
+          size={stepsNumericBadgeSizeMap[size]}
         >
           {index + 1}
         </NumericBadge.Basic>
-        <span className={stepLabel({ size, activated: isActivated })}>{children}</span>
+        <span className={stepsLabel({ size, activated: isActivated })}>{children}</span>
       </div>
     );
   },
 );
 
-StepItem.displayName = "Step.Item";
+StepsItem.displayName = "Steps.Item";
 
-export const Step = {
-  Root: StepRoot,
-  Item: StepItem,
+export const Steps = {
+  Root: StepsRoot,
+  Item: StepsItem,
 };

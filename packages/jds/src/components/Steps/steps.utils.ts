@@ -1,8 +1,8 @@
-function calculateStepActivated(itemIndex: number, currentStep: number): boolean {
+function calculateStepsActivated(itemIndex: number, currentStep: number): boolean {
   return itemIndex <= currentStep;
 }
 
-export function useStepItemActivated({
+export function useStepsItemActivated({
   itemIndex,
   currentStep,
   activatedProp,
@@ -12,7 +12,7 @@ export function useStepItemActivated({
   activatedProp?: boolean;
 }): boolean {
   if (currentStep !== undefined && itemIndex !== undefined) {
-    return calculateStepActivated(itemIndex, currentStep);
+    return calculateStepsActivated(itemIndex, currentStep);
   }
 
   return activatedProp ?? false;

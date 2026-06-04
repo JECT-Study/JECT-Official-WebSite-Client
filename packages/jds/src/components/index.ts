@@ -27,7 +27,7 @@ export * from "./Radio";
 export * from "./SegmentedControl";
 export * from "./Select";
 export * from "./Snackbar";
-export * from "./Step";
+export * from "./Steps";
 export * from "./Tab";
 export * from "./Table";
 export * from "./Toast";

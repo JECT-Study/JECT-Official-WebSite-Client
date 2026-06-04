@@ -3,7 +3,7 @@ import { recipe } from "@vanilla-extract/recipes";
 
 import { vars } from "../../tokens/vars.css";
 
-export const stepLabel = recipe({
+export const stepsLabel = recipe({
   base: {
     display: "block",
     minWidth: 0,
@@ -24,7 +24,7 @@ export const stepLabel = recipe({
   },
 });
 
-export const stepItem = recipe({
+export const stepsItem = recipe({
   base: {
     display: "flex",
     flexDirection: "row",
@@ -45,7 +45,7 @@ export const stepItem = recipe({
   },
 });
 
-export const stepRoot = recipe({
+export const stepsRoot = recipe({
   base: {
     display: "flex",
     width: "100%",
@@ -78,12 +78,12 @@ export const stepRoot = recipe({
   ],
 });
 
-export const stepSeparatorIcon = style({
+export const stepsSeparatorIcon = style({
   color: vars.color.semantic.object.assistive,
   flexShrink: 0,
 });
 
-export const stepSeparatorLine = recipe({
+export const stepsSeparatorLine = recipe({
   base: {
     display: "flex",
     alignItems: "center",
