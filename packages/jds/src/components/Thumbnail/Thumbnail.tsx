@@ -35,6 +35,7 @@ export const Thumbnail = forwardRef<HTMLElement, ThumbnailProps>(
   ) => {
     const { isFallbackVisible, onError } = useImageStatus(src);
 
+    // @todo 이미지 렌더링(next/image 등)에 대한 DS의 대응 범위는 추가 논의 필요
     const content = isFallbackVisible ? (
       fallback
     ) : (
