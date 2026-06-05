@@ -9,14 +9,18 @@ import {
   stepsSeparatorIcon,
   stepsSeparatorLine,
 } from "./steps.css";
-import type { StepsItemProps, StepsRootProps } from "./steps.types";
 import { useStepsItemActivated } from "./steps.utils";
+import type { StepsItemProps, StepsRootProps, StepsSize } from "./steps.types";
 import { StepsContext, useStepsContext } from "./stepsContext";
+import type { BadgeSize } from "../Badge";
 import { NumericBadge } from "../Badge";
 import { Divider } from "../Divider";
 import { Icon } from "../Icon";
 
-const stepsNumericBadgeSizeMap = {
+const stepsNumericBadgeSizeMap: Record<StepsSize, BadgeSize> = {
+  lg: "sm",
+  md: "xs",
+} as const;
   lg: "sm",
   md: "xs",
 } as const;
