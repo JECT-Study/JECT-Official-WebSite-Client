@@ -9,7 +9,6 @@ import {
   stepsSeparatorIcon,
   stepsSeparatorLine,
 } from "./steps.css";
-import { useStepsItemActivated } from "./steps.utils";
 import type { StepsItemProps, StepsRootProps, StepsSize } from "./steps.types";
 import { StepsContext, useStepsContext } from "./stepsContext";
 import type { BadgeSize } from "../Badge";
@@ -83,7 +82,7 @@ const StepsItem = forwardRef<HTMLDivElement, StepsItemProps>(
   ({ index, activated: activatedProp, children, className, ...restProps }, ref) => {
     const { size, layout, currentStep } = useStepsContext("Steps.Item");
 
-    const isActivated = useStepsItemActivated({ itemIndex: index, currentStep, activatedProp });
+    const isActivated = currentStep !== undefined ? index <= currentStep : (activatedProp ?? false);
     const isCurrentStep = currentStep === index;
 
     return (
