@@ -15,12 +15,15 @@ import { StepsContext, useStepsContext } from "./stepsContext";
 import type { BadgeSize } from "../Badge";
 import { NumericBadge } from "../Badge";
 import { Divider } from "../Divider";
+import type { IconSize } from "../Icon";
 import { Icon } from "../Icon";
 
 const stepsNumericBadgeSizeMap: Record<StepsSize, BadgeSize> = {
   lg: "sm",
   md: "xs",
 } as const;
+
+const stepsSeparatorSizeMap: Record<StepsSize, IconSize> = {
   lg: "sm",
   md: "xs",
 } as const;
@@ -33,7 +36,7 @@ const StepsSeparator = () => {
       <Icon
         aria-hidden
         name='arrow-right-s-line'
-        size={size === "lg" ? "sm" : "xs"}
+        size={stepsSeparatorSizeMap[size]}
         className={stepsSeparatorIcon}
       />
     );
