@@ -29,6 +29,7 @@ export * from "./Select";
 export * from "./Snackbar";
 export * from "./Step";
 export * from "./Tab";
+export * from "./Tabs";
 export * from "./Table";
 export * from "./Toast";
 export * from "./Tooltip";
