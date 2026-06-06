@@ -35,10 +35,10 @@ const overlaySelectors = {
     transition: `opacity ${vars.environment.semantic.duration[100]} ${vars.environment.semantic.motion.fluent}`,
   },
   "&:hover:not(:disabled):not([data-disabled])::after": {
-    opacity: 0.05,
+    opacity: `calc(${vars.scheme.semantic.opacity["5"]} / 100)`,
   },
   "&:active:not(:disabled):not([data-disabled])::after": {
-    opacity: 0.08,
+    opacity: `calc(${vars.scheme.semantic.opacity["8"]} / 100)`,
     transition: "none",
   },
 } as const;

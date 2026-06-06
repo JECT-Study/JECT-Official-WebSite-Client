@@ -9,7 +9,7 @@ const meta = {
     layout: "centered",
     docs: {
       description: {
-        component: `동일한 화면 내에서 연관된 콘텐츠 뷰를 전환하며 탐색할 수 있도록 돕는 컴포넌트입니다.`,
+        component: "동일한 화면 내에서 연관된 콘텐츠 뷰를 전환하며 탐색할 수 있도록 돕는 컴포넌트입니다.",
       },
     },
   },
