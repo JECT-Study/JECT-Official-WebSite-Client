@@ -1,9 +1,10 @@
-import { BlockButton, Icon, Title } from "@jects/jds";
+import { BlockButton, Icon } from "@jects/jds";
 import { captureException } from "@sentry/react";
 import { useEffect } from "react";
 import { useNavigate, useRouteError } from "react-router-dom";
 
 import Footer from "@/components/common/footer/Footer";
+import { Title } from "@/components/common/typography";
 import GlobalNavigationBar from "@/components/gnb/GlobalNavigationBar";
 import PageBoard from "@/components/layout/PageBoard";
 import PageModule from "@/components/layout/PageModule";

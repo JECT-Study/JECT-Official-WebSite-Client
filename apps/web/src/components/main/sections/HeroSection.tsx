@@ -1,7 +1,8 @@
-import { Hero, Icon, Label } from "@jects/jds";
+import { Icon } from "@jects/jds";
 import { useEffect, useState } from "react";
 
 import heroBackground from "@/assets/images/hero-background.png";
+import { Hero, Label } from "@/components/common/typography";
 
 const ANIMATION_DELAY_MS = 800;
 const ANIMATION_DURATION_MS = 500;
@@ -100,7 +101,7 @@ const HeroSection = () => {
             background: "radial-gradient(33.77% 43.9% at 50% 50%, #191B2480 0%, #191B2400 100%)",
           }}
         >
-          <Hero size='xs' textAlign='center' color='white'>
+          <Hero size='xs' textAlign='center' className='text-white'>
             <span className='flex flex-col items-center'>
               <span>젝트에서</span>
               <RotatingText />
@@ -110,7 +111,7 @@ const HeroSection = () => {
         </div>
 
         <div className='absolute bottom-10 flex flex-col items-center gap-2'>
-          <Label as='span' size='md' weight='bold' className='text-white!'>
+          <Label as='span' size='md' weight='bold' className='text-white'>
             아래로 스크롤해주세요
           </Label>
           <Icon name='arrow-down-wide-line' size='md' color='white' />

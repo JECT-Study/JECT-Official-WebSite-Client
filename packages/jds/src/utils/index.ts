@@ -5,4 +5,5 @@ export * from "./focusRing.css";
 export * from "./forwardRef";
 export * from "./interaction";
 export * from "./interactionLayer";
+export * from "./typography";
 export * from "./overlay.css";

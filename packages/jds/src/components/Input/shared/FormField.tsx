@@ -10,6 +10,8 @@ import {
 import { FormFieldProvider, useFormField } from "./FormFieldContext";
 import type { FormFieldProviderProps } from "./FormFieldContext";
 
+import { getLabelClassName } from "@/utils/typography";
+
 interface FormFieldLabelProps {
   children?: ReactNode;
 }
@@ -24,10 +26,8 @@ export const FormFieldLabel = ({ children }: FormFieldLabelProps) => {
   return (
     <StyledLabelContainer>
       <StyledFieldLabel
-        as='label'
         htmlFor={fieldId}
-        size='sm'
-        weight='normal'
+        className={getLabelClassName({ size: "sm" })}
         $disabled={isDisabled}
         $readOnly={isReadOnly}
       >
@@ -51,9 +51,7 @@ export const FormFieldHelperText = ({ children }: FormFieldHelperTextProps) => {
 
   return (
     <StyledHelperText
-      as='span'
-      size='sm'
-      weight='normal'
+      className={getLabelClassName({ size: "sm" })}
       $validation={validation}
       $disabled={isDisabled}
       $readOnly={isReadOnly}

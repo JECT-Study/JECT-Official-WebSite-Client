@@ -82,6 +82,10 @@ export const SegmentedControlItemStyled = styled.button<StyledItemProps>(
       background: "transparent",
       ...segmentedControlItemSizeMap[size](theme),
       ...interactionStyles.restStyle,
+      "& > span": {
+        color: "inherit",
+        cursor: "inherit",
+      },
       "&:hover": interactionStyles.hoverStyle,
       "&:active": interactionStyles.activeStyle,
       "&:focus-visible": interactionStyles.focusStyle,

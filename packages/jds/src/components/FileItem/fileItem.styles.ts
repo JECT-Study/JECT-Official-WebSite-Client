@@ -4,7 +4,8 @@ import { InteractionLayer } from "utils";
 
 import type { FileItemLabelProps, FileItemWrapButtonProps, FileSizeProps } from "./fileItem.types";
 import { Icon } from "../Icon";
-import { Label } from "../Label";
+
+import { shouldForwardTypographyProp } from "@/utils/typography";
 
 const interactionStyles = (theme: Theme, disabled: boolean, readonly: boolean): CSSObject => {
   const offset = {
@@ -125,29 +126,36 @@ export const FileItemDataContainer = styled.div(({ theme }) => {
 
 export const FileItemIcon = styled(Icon)(() => {
   return {
-    color: "inherit",
+    "&&": {
+      color: "inherit",
+    },
   };
 });
 
-export const FileItemLabel = styled(Label)<FileItemLabelProps>(({
-  $disabled,
-  $readonly,
-  $hasError,
-}) => {
+export const FileItemLabel = styled("span", {
+  shouldForwardProp: shouldForwardTypographyProp,
+})<FileItemLabelProps>(({ $disabled, $readonly, $hasError }) => {
   return {
     flex: "1",
-    cursor: $disabled || $readonly || $hasError ? "default" : "pointer",
-    color: "inherit",
+    "&&": {
+      color: "inherit",
+      cursor: $disabled || $readonly || $hasError ? "default" : "pointer",
+    },
   };
 });
 
-export const FileSizeLabel = styled(Label)<FileSizeProps>(({ theme, $disabled, $hasError }) => {
+export const FileSizeLabel = styled("span", {
+  shouldForwardProp: shouldForwardTypographyProp,
+})<FileSizeProps>(({ theme, $disabled, $hasError }) => {
   return {
-    color: $hasError
-      ? theme.color.semantic.object.neutral
-      : $disabled
-        ? theme.color.semantic.object.assistive
-        : theme.color.semantic.object.neutral,
+    "&&": {
+      color: $hasError
+        ? theme.color.semantic.object.neutral
+        : $disabled
+          ? theme.color.semantic.object.assistive
+          : theme.color.semantic.object.neutral,
+      cursor: "inherit",
+    },
   };
 });
 

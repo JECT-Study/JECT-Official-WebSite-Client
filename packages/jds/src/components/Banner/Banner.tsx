@@ -18,7 +18,7 @@ import {
 import type { BannerBarProps, BannerImageProps } from "./banner.types";
 import { BlockButton } from "../Button/BlockButton";
 import { IconButton } from "../Button/IconButton";
-import { Image } from "../Image/Image";
+import { Thumbnail } from "../Thumbnail";
 
 const BannerBar = forwardRef<HTMLDivElement, BannerBarProps>((props, ref) => {
   const { title, subtitle, label, onClose, closeAriaLabel = "배너 닫기", ...restProps } = props;
@@ -55,13 +55,14 @@ const BannerBar = forwardRef<HTMLDivElement, BannerBarProps>((props, ref) => {
 BannerBar.displayName = "Banner.Bar";
 
 const BannerImage = forwardRef<HTMLDivElement, BannerImageProps>((props, ref) => {
-  const { title, subtitle, isReadonly = true, ...imgProps } = props;
+  const { title, subtitle, ...imgProps } = props;
 
   return (
     <StyledBannerImageRoot ref={ref}>
-      <Image
+      <Thumbnail
+        ratio='9:16'
         orientation='landscape'
-        isReadonly={isReadonly}
+        appearance='hollow'
         alt={title}
         style={{
           position: "absolute",
@@ -70,8 +71,6 @@ const BannerImage = forwardRef<HTMLDivElement, BannerImageProps>((props, ref) =>
           width: "100%",
           height: "100%",
           zIndex: 0,
-          padding: 0,
-          border: "none",
         }}
         {...imgProps}
       />

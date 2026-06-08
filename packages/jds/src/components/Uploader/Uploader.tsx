@@ -18,6 +18,8 @@ import type {
 } from "./uploader.types";
 import { useUploader } from "./useUploader";
 
+import { getLabelClassName } from "@/utils/typography";
+
 const defaultMessages = {
   rest: (
     <>
@@ -148,7 +150,10 @@ const UploaderImageButton = ({
       <>
         <LoadingIcon name='spinner' size='xl' />
         <FlexRowDiv>
-          <ImageLabel as='span' size='sm' textAlign='center' weight='normal' $isDisabled={isDisabled}>
+          <ImageLabel
+            className={getLabelClassName({ size: "sm", textAlign: "center" })}
+            $isDisabled={isDisabled}
+          >
             {loadingLabel}
           </ImageLabel>
           {cancelButton}
@@ -160,7 +165,10 @@ const UploaderImageButton = ({
   return (
     <>
       <AddIcon name='add-line' size='xl' $isDisabled={isDisabled} />
-      <ImageLabel as='span' size='sm' textAlign='center' weight='normal' $isDisabled={isDisabled}>
+      <ImageLabel
+        className={getLabelClassName({ size: "sm", textAlign: "center" })}
+        $isDisabled={isDisabled}
+      >
         {uploadLabel}
       </ImageLabel>
     </>

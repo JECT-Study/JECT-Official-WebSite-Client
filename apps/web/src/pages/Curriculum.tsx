@@ -1,5 +1,4 @@
-import { Hero, Title } from "@jects/jds";
-
+import { Hero, Title } from "@/components/common/typography";
 import CurriculumTabSection from "@/components/curriculum/sections/CurriculumTabSection";
 import PageModule from "@/components/layout/PageModule";
 

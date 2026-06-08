@@ -9,8 +9,9 @@ import type {
   StyledAccordionTriggerProps,
 } from "./accordion.types";
 import type { IconSize } from "../Icon/Icon.types";
-import { Label } from "../Label";
-import type { LabelSize } from "../Label/Label.style";
+
+import { shouldForwardTypographyProp } from "@/utils/typography";
+import type { LabelSize } from "@/utils/typography";
 
 export const accordionSizeMap: Record<
   AccordionSize,
@@ -121,12 +122,16 @@ export const StyledAccordionChevron = styled("div")(({ theme }) => ({
   transition: `transform ${theme.environment.semantic.duration[300]} ${theme.environment.semantic.motion.fluent}`,
 }));
 
-export const StyleLabel = styled(Label)(() => ({
-  color: "inherit",
-  textAlign: "left" as const,
-  textWrap: "wrap" as const,
-  cursor: "pointer",
-}));
+export const StyleLabel = styled("span", { shouldForwardProp: shouldForwardTypographyProp })(
+  () => ({
+    "&&": {
+      color: "inherit",
+      cursor: "pointer",
+    },
+    textAlign: "left" as const,
+    textWrap: "wrap" as const,
+  }),
+);
 
 const slideUp = keyframes`
     from { height: var(--radix-accordion-content-height); }

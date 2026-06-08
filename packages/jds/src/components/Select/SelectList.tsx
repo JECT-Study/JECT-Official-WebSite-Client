@@ -12,6 +12,8 @@ import {
 } from "./select.styles";
 import type { SelectListProps } from "./select.types";
 
+import { getLabelClassName } from "@/utils/typography";
+
 export const SelectList = forwardRef<HTMLDivElement, SelectListProps>(
   ({ value, isDisabled = false, caption, badge, children, ...restProps }, ref) => {
     const { size, isSelected, onChange } = useSelectContext();
@@ -42,9 +44,7 @@ export const SelectList = forwardRef<HTMLDivElement, SelectListProps>(
         <StyledSelectItemContent>
           <StyledSelectItemTextRow>
             <StyledSelectItemText
-              as='span'
-              size={size}
-              weight='normal'
+              className={getLabelClassName({ size })}
               $isDisabled={isDisabled}
               $selected={isItemSelected}
             >
@@ -58,9 +58,7 @@ export const SelectList = forwardRef<HTMLDivElement, SelectListProps>(
           </StyledSelectItemTextRow>
           {caption && (
             <StyledSelectItemCaption
-              as='span'
-              size={captionSize}
-              weight='subtle'
+              className={getLabelClassName({ size: captionSize, weight: "subtle" })}
               $isDisabled={isDisabled}
             >
               {caption}

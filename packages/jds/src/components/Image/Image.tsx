@@ -3,6 +3,7 @@ import type { ElementType, SyntheticEvent } from "react";
 import { IconDiv, ImageButton, ImageLabelDiv, StyledIcon, StyledLabel } from "./Image.style";
 
 import { PolymorphicForwardRef } from "@/utils/forwardRef";
+import { getLabelClassName } from "@/utils/typography";
 
 export type ImgRatio = "1:1" | "4:5" | "3:4" | "2:3" | "9:16" | "1:2" | "9:21";
 export type ImgOrientation = "portrait" | "landscape";
@@ -19,6 +20,11 @@ export interface ImageOwnProps {
   loading?: "lazy" | "eager";
 }
 
+/**
+ * @deprecated `Image`는 더 이상 권장되지 않습니다. 대신 `Thumbnail`을 사용하세요.
+ * 하위 호환을 위해 한시적으로 유지되며 다음 메이저 버전에서 제거될 예정입니다.
+ * @see Thumbnail
+ */
 export const Image = PolymorphicForwardRef<"button", ImageOwnProps>(
   (
     {
@@ -56,7 +62,7 @@ export const Image = PolymorphicForwardRef<"button", ImageOwnProps>(
         <img src={src || fallbackSrc} alt={alt} onError={imageLoadErrorHandler} loading={loading} />
         {badgeVisible && (
           <ImageLabelDiv>
-            <StyledLabel as='span' size='xs' textAlign='center' weight='normal'>
+            <StyledLabel className={getLabelClassName({ size: "xs", textAlign: "center" })}>
               {badgeLabel}
             </StyledLabel>
           </ImageLabelDiv>
