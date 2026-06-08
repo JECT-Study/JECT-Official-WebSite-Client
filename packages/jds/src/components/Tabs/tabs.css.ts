@@ -1,6 +1,7 @@
 import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
+import { focusRing } from "utils";
 
 import type { TabsVariant } from "./tabs.types";
 
@@ -12,16 +13,19 @@ export const label = style({
   cursor: "inherit",
 });
 
-export const content = style({
-  position: "relative",
-  outline: "none",
-  borderRadius: vars.scheme.semantic.radius["6"],
-  selectors: {
-    "&:focus-visible": {
-      boxShadow: `0 0 0 3px ${vars.color.semantic.interaction.focus}`,
+export const content = style([
+  focusRing,
+  {
+    position: "relative",
+    borderRadius: vars.scheme.semantic.radius["6"],
+    selectors: {
+      "&::before": {
+        inset: 0,
+        borderRadius: "inherit",
+      },
     },
   },
-});
+]);
 
 const overlaySelectors = {
   "&::after": {
@@ -45,18 +49,8 @@ const overlaySelectors = {
 
 const focusRingSelectors = {
   "&::before": {
-    content: '""',
-    position: "absolute",
     inset: 0,
     borderRadius: "inherit",
-    pointerEvents: "none",
-  },
-  "&:focus-visible": {
-    outline: "none",
-  },
-  "&:focus-visible::before": {
-    boxShadow: `0 0 0 3px ${vars.color.semantic.interaction.focus}`,
-    zIndex: 1,
   },
 } as const;
 
@@ -134,27 +128,30 @@ export const list = recipe({
 });
 
 export const trigger = recipe({
-  base: {
-    position: "relative",
-    display: "inline-flex",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: vars.scheme.semantic.spacing["4"],
-    minWidth: 0,
-    appearance: "none",
-    cursor: "pointer",
-    whiteSpace: "nowrap",
-    userSelect: "none",
-    color: vars.color.semantic.object.alternative,
-    selectors: {
-      ...overlaySelectors,
-      ...focusRingSelectors,
-      "&:disabled, &[data-disabled]": {
-        cursor: "default",
-        pointerEvents: "none",
+  base: [
+    focusRing,
+    {
+      position: "relative",
+      display: "inline-flex",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: vars.scheme.semantic.spacing["4"],
+      minWidth: 0,
+      appearance: "none",
+      cursor: "pointer",
+      whiteSpace: "nowrap",
+      userSelect: "none",
+      color: vars.color.semantic.object.alternative,
+      selectors: {
+        ...overlaySelectors,
+        ...focusRingSelectors,
+        "&:disabled, &[data-disabled]": {
+          cursor: "default",
+          pointerEvents: "none",
+        },
       },
     },
-  },
+  ],
   variants: {
     variant: triggerVariantStyles,
     isItemStretched: {
