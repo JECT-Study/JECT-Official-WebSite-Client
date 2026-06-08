@@ -1,6 +1,6 @@
 import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
-import { getLabelClassName, pxToRem } from "utils";
+import { pxToRem } from "utils";
 
 import { vars } from "../../tokens/vars.css";
 
@@ -15,8 +15,8 @@ export const stepsLabel = recipe({
   },
   variants: {
     size: {
-      lg: getLabelClassName({ size: "md", weight: "bold" }),
-      md: getLabelClassName({ size: "sm", weight: "bold" }),
+      lg: {},
+      md: {},
     },
     activated: {
       true: { color: vars.color.semantic.object.bold },

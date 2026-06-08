@@ -17,6 +17,8 @@ import { Divider } from "../Divider";
 import type { IconSize } from "../Icon";
 import { Icon } from "../Icon";
 
+import { getLabelClassName, type LabelSize } from "@/utils/typography";
+
 const stepsNumericBadgeSizeMap: Record<StepsSize, BadgeSize> = {
   lg: "sm",
   md: "xs",
@@ -25,6 +27,11 @@ const stepsNumericBadgeSizeMap: Record<StepsSize, BadgeSize> = {
 const stepsSeparatorSizeMap: Record<StepsSize, IconSize> = {
   lg: "sm",
   md: "xs",
+} as const;
+
+const stepsLabelTypographySizeMap: Record<StepsSize, LabelSize> = {
+  lg: "md",
+  md: "sm",
 } as const;
 
 const StepsSeparator = () => {
@@ -99,7 +106,14 @@ const StepsItem = forwardRef<HTMLDivElement, StepsItemProps>(
         >
           {index + 1}
         </NumericBadge.Basic>
-        <span className={stepsLabel({ size, activated: isActivated })}>{children}</span>
+        <span
+          className={clsx(
+            stepsLabel({ size, activated: isActivated }),
+            getLabelClassName({ size: stepsLabelTypographySizeMap[size], weight: "bold" }),
+          )}
+        >
+          {children}
+        </span>
       </div>
     );
   },
