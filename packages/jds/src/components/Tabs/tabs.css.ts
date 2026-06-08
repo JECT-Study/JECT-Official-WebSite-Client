@@ -14,7 +14,7 @@ export const label = style({
 });
 
 export const content = style([
-  focusRing,
+  focusRing(),
   {
     position: "relative",
     borderRadius: vars.scheme.semantic.radius["6"],
@@ -116,7 +116,7 @@ export const list = recipe({
 
 export const trigger = recipe({
   base: [
-    focusRing,
+    focusRing(),
     interactionLayer({ hierarchy: "secondary" }),
     {
       position: "relative",
