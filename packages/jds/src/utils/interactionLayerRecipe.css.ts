@@ -37,6 +37,21 @@ const activeSelector =
  * 컴포넌트 컨텍스트에 맞게 지정해야 한다.
  *
  * 기본값은 `density="normal"`, `hierarchy="primary"`이다.
+ *
+ * @example
+ *   interactionLayer()
+ *   interactionLayer({ density: "bold", hierarchy: "secondary" })
+ *
+ * @example
+ *   base: [
+ *     interactionLayer({ hierarchy: "secondary" }),
+ *     {
+ *       position: "relative",
+ *       selectors: {
+ *         "&::after": { inset: 0, borderRadius: "inherit" },
+ *       },
+ *     },
+ *   ]
  */
 export const interactionLayer = recipe({
   base: {
