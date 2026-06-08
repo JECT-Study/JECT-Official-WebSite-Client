@@ -11,6 +11,8 @@ import type {
   TabsTriggerProps,
 } from "./tabs.types";
 
+import { getLabelClassName } from "@/utils/typography";
+
 const TabsRoot = forwardRef<HTMLDivElement, TabsRootProps>(
   ({ children, variant = "header", isItemStretched = false, ...restProps }, ref) => {
     return (
@@ -51,15 +53,17 @@ const TabsTrigger = forwardRef<HTMLButtonElement, TabsTriggerProps>(
       <TabsPrimitive.Trigger
         ref={ref}
         disabled={disabled}
-        className={clsx(
-          styles.triggerTextStyle,
-          styles.trigger({ variant, isItemStretched }),
-          className,
-        )}
+        className={clsx(styles.trigger({ variant, isItemStretched }), className)}
         {...restProps}
       >
-        <span className={styles.label}>{children}</span>
-        {badge && <span className={clsx(styles.badgeTextStyle, styles.label)}>{badge}</span>}
+        <span className={clsx(getLabelClassName({ weight: "bold" }), styles.label)}>
+          {children}
+        </span>
+        {badge && (
+          <span className={clsx(getLabelClassName({ weight: "subtle" }), styles.label)}>
+            {badge}
+          </span>
+        )}
       </TabsPrimitive.Trigger>
     );
   },

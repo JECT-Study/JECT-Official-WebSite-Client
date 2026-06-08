@@ -5,9 +5,6 @@ import { focusRing, interactionLayer } from "utils";
 
 import type { TabsVariant } from "./tabs.types";
 
-export const triggerTextStyle = "semantic-textStyle-label-md-bold";
-export const badgeTextStyle = "semantic-textStyle-label-md-subtle";
-
 export const label = style({
   color: "inherit",
   cursor: "inherit",
