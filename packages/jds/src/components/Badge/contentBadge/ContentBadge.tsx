@@ -18,6 +18,8 @@ import type {
 } from "../badge.types";
 import { iconSizeMap } from "./contentBadge.variants";
 
+import { getLabelClassName } from "@/utils/typography";
+
 export interface ContentBadgeBasicProps {
   hierarchy?: BasicHierarchy;
   size?: BadgeSize;
@@ -48,10 +50,7 @@ const ContentBadgeBasic = ({
       withIcon={withIcon}
     >
       <ContentBadgeBasicLabel
-        as='span'
-        size={size}
-        textAlign='center'
-        weight='normal'
+        className={getLabelClassName({ size, textAlign: "center" })}
         hierarchy={hierarchy}
         badgeStyle={badgeStyle}
         isMuted={isMuted}
@@ -97,10 +96,7 @@ const ContentBadgeFeedback = ({
       isMuted={isMuted}
     >
       <ContentBadgeFeedbackLabel
-        as='span'
-        size={size}
-        textAlign='center'
-        weight='normal'
+        className={getLabelClassName({ size, textAlign: "center" })}
         variant={variant}
         badgeStyle={badgeStyle}
         isMuted={isMuted}
@@ -131,10 +127,7 @@ const ContentBadgeTheme = ({
   return (
     <ContentBadgeThemeDiv variant={variant} size={size} badgeStyle={badgeStyle} isMuted={isMuted}>
       <ContentBadgeThemeLabel
-        as='span'
-        size={size}
-        textAlign='center'
-        weight='normal'
+        className={getLabelClassName({ size, textAlign: "center" })}
         variant={variant}
         badgeStyle={badgeStyle}
         isMuted={isMuted}

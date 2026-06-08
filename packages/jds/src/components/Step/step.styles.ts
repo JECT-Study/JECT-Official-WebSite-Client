@@ -2,7 +2,8 @@ import isPropValid from "@emotion/is-prop-valid";
 import styled from "@emotion/styled";
 
 import type { StepSize } from "./step.types";
-import { Label } from "../Label";
+
+import { shouldForwardTypographyProp } from "@/utils/typography";
 
 export const StyledCounterNumber = styled("span", {
   shouldForwardProp: prop => isPropValid(prop) && !prop.startsWith("$"),
@@ -82,8 +83,13 @@ export const StyledStepContent = styled("div")(({ theme }) => ({
   color: "inherit",
 }));
 
-export const StyledStepLabel = styled(Label)(({ theme }) => ({
-  flex: "1 0 0",
-  paddingTop: theme.scheme.semantic.spacing[2],
-  whiteSpace: "nowrap",
-}));
+export const StyledStepLabel = styled("span", { shouldForwardProp: shouldForwardTypographyProp })(
+  ({ theme }) => ({
+    flex: "1 0 0",
+    "&&": {
+      color: "inherit",
+    },
+    paddingTop: theme.scheme.semantic.spacing[2],
+    whiteSpace: "nowrap",
+  }),
+);

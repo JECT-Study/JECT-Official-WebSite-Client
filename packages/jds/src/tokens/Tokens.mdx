@@ -168,11 +168,11 @@ theme.typo.primitive.lineHeight.body.md;
 
 ### theme.textStyle
 
-모든 타이포그래피 속성이 통합된 토큰입니다.반응형 자동 대응됩니다.
+모든 타이포그래피 속성이 통합된 토큰입니다. 반응형 자동 대응됩니다.
 
 ```typescript
 theme.textStyle["semantic-textStyle-body-md-normal"];
-theme.textStyle["semantic-textStyle-hero-4"];
+theme.textStyle["semantic-textStyle-title-4"];
 ```
 
 ### theme.environment
@@ -276,13 +276,89 @@ theme.typo.primitive.fontWeight.body.bold;
 
 **textStyle** → `theme.textStyle['...']`
 
-- textStyle이 적용된 Figma는 Typograhpy라는 속성명이 표시되고, `name` 이 존재합니다. 이 name을 적용하면 됩니다.
+textStyle은 Figma variables가 아니라 별도 입력 파일인 `input/textStyles.json`을 통해 생성됩니다.
+
+`textStyles.json`에는 Figma export에서 필요한 text style 항목만 남기고, 각 항목은 `token`을 기준으로 관리합니다.
+
+```json
+{
+  "textStyles": [
+    {
+      "token": "semantic-textstyle-body-md-normal",
+      "type": "text",
+      "fontFamily": "Pretendard Variable",
+      "fontWeight": "400",
+      "fontSize": "15px",
+      "lineHeight": "24px",
+      "letterSpacing": "0.04500000178813934px"
+    }
+  ]
+}
+```
+
+빌더는 `token`을 파싱해 category, size, weight를 계산하고, 생성 결과의 public key는 기존 코드와 호환되도록 `textstyle`을 `textStyle`로 정규화합니다.
+
+```text
+input token: semantic-textstyle-body-md-normal
+generated key: semantic-textStyle-body-md-normal
+```
+
+코드에서는 반드시 생성된 key인 `semantic-textStyle-*`를 사용합니다.
 
 ```typescript
-// Figma: semantic-textStyle-body-md-normal
+// input/textStyles.json: semantic-textstyle-body-md-normal
 theme.textStyle["semantic-textStyle-body-md-normal"];
+```
 
-// ⚠️ textStyle의 경우
+#### typography 유틸 size API와 textStyle 토큰
+
+Figma와 토큰 파일에서는 textStyle을 `semantic-textStyle-title-6`처럼 토큰명 그대로 관리합니다. 반면 typography 유틸에서는 사용성을 위해 `2xl`, `xl`, `lg`, `md`, `sm`, `xs` 같은 size 값을 사용합니다.
+
+예를 들어 Title 계열 recipe는 아래처럼 유틸 size를 Figma textStyle 토큰으로 매핑합니다.
+
+```typescript
+export const title = recipe({
+  variants: {
+    size: {
+      "2xl": "semantic-textStyle-title-6",
+      xl: "semantic-textStyle-title-5",
+      lg: "semantic-textStyle-title-4",
+      md: "semantic-textStyle-title-3",
+      sm: "semantic-textStyle-title-2",
+      xs: "semantic-textStyle-title-1",
+    },
+  },
+});
+```
+
+JDS 내부에서 제목 스타일을 조합할 때는 `getTitleClassName` 같은 typography 유틸의 size API를 사용합니다.
+
+```tsx
+import { getTitleClassName } from "@/utils/typography";
+
+<DialogTitle className={getTitleClassName({ size: "xs", textAlign: "left" })}>
+  Dialog title
+</DialogTitle>;
+```
+
+정리하면, typography 유틸을 사용하는 레이어에서는 `size: "2xl"` 같은 유틸 API를 사용하고, 토큰을 직접 다루는 스타일 레이어에서는 `semantic-textStyle-title-6`처럼 토큰명을 그대로 사용합니다.
+
+빌더는 가능한 경우 typography primitive 토큰을 CSS 변수로 연결합니다.
+
+```typescript
+// generated textStyles.css.ts 예시
+fontSize: "var(--typo-primitive-fontSize-body-md)";
+lineHeight: "var(--typo-primitive-font-lineHeight-body-md)";
+fontFamily: "var(--typo-primitive-typeface-body)";
+fontWeight: "var(--typo-primitive-fontWeight-body-normal)";
+letterSpacing: "var(--typo-primitive-font-letterSpacing-body-md)";
+```
+
+primitive 토큰이 없는 값은 `textStyles.json`의 값을 그대로 사용합니다. 예를 들어 syntax 계열의 `letterSpacing: "0%"`는 별도 primitive letterSpacing 토큰이 없으므로 literal 값으로 생성됩니다.
+
+```typescript
+// generated textStyles.css.ts 예시
+letterSpacing: "0%";
 ```
 
 ## ⚠️ 중요한 주의사항
@@ -290,6 +366,8 @@ theme.textStyle["semantic-textStyle-body-md-normal"];
 - **자동 생성**: 토큰 파일들은 Figma에서 자동 생성되므로 직접 수정하지 마세요
 - **textStyle 권장**: 일관된 타이포그래피를 위해 textStyle 토큰을 사용하세요
 - **CSS 변수**: 모든 토큰은 CSS 변수로 구현되어 반응형과 테마가 자동 처리됩니다
+- **textStyle 입력 관리**: `input/textStyles.json`은 `token`, `type`, `fontFamily`, `fontWeight`, `fontSize`, `lineHeight`, `letterSpacing`만 유지합니다
+- **textStyle 네이밍**: 입력 파일의 `token`은 `semantic-textstyle-*`, 코드에서 사용하는 key/className은 `semantic-textStyle-*`입니다
 
 ## 📖 예시
 

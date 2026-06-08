@@ -24,7 +24,7 @@ const PlateWithTitleContent = ({
 }: PlateWithTitleContentProps) => (
   <>
     {image && (
-      <CardImage src={image.src} alt={image.alt} ratio={layout === 'vertical' ? '2:3' : '1:1'} />
+      <CardImage src={image.src} alt={image.alt} ratio={layout === 'vertical' ? '3:4' : '1:1'} />
     )}
     <CardContent>
       <CardTitle>{title}</CardTitle>

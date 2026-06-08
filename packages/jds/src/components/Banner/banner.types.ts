@@ -1,6 +1,6 @@
 import type { ComponentPropsWithoutRef } from "react";
 
-import type { ImageOwnProps } from "../Image/Image";
+import type { ThumbnailProps } from "../Thumbnail";
 
 export type BannerVariant = "bar" | "image";
 
@@ -17,8 +17,8 @@ export interface BannerBarProps extends BaseBannerProps {
 }
 
 export interface BannerImageProps extends Omit<
-  ImageOwnProps,
-  "ratio" | "orientation" | "badgeVisible" | "badgeLabel" | "alt"
+  ThumbnailProps,
+  "ratio" | "orientation" | "cornerStyle" | "alt" | "asChild" | "children"
 > {
   variant?: "image";
   title: string;

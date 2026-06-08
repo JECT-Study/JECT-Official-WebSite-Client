@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexRow, FlexColumn, Label } from "@storybook-utils/layout";
-import { LabelButton } from "components";
+
+import { LabelButton } from "./LabelButton";
+import { LABEL_BUTTON_HIERARCHY_OPTIONS } from "./labelButton.types";
 
 const meta = {
   title: "Components/LabelButton",
@@ -18,7 +20,7 @@ const meta = {
     },
     hierarchy: {
       control: "select",
-      options: ["accent", "primary", "secondary", "tertiary"],
+      options: LABEL_BUTTON_HIERARCHY_OPTIONS,
       description: "버튼의 시각적 맥락적 위계 구분",
       table: {
         defaultValue: { summary: "primary" },
@@ -126,7 +128,12 @@ export const InteractionStates: Story = {
   parameters: {
     docs: {
       description: {
-        story: "rest, hover, active, focus 상태를 직접 테스트해보세요.",
+        story:
+          "VE overlay 유틸 기반 인터랙션 시스템 (data attribute 방식):\n\n" +
+          "- **rest**: 기본 상태 (opacity: 0)\n" +
+          "- **data-hovered**: 마우스 오버 시 (opacity: 0.08, fluent motion 100ms)\n" +
+          "- **data-pressed**: 클릭 중 (opacity: 0.12, transition 없음)\n" +
+          "- **data-focus-visible**: 키보드 포커스 시 (focus ring 표시, 음수 inset으로 시각 영역 밖으로 확장)",
       },
     },
   },
@@ -138,66 +145,40 @@ export const HierarchyWithSizes: Story = {
   },
   render: () => (
     <FlexColumn>
-      <FlexRow>
-        <Label>Accent:</Label>
-        <LabelButton.Basic size='xs' hierarchy='accent'>
-          XS
-        </LabelButton.Basic>
-        <LabelButton.Basic size='sm' hierarchy='accent'>
-          SM
-        </LabelButton.Basic>
-        <LabelButton.Basic size='md' hierarchy='accent'>
-          MD
-        </LabelButton.Basic>
-        <LabelButton.Basic size='lg' hierarchy='accent'>
-          LG
-        </LabelButton.Basic>
-      </FlexRow>
-      <FlexRow>
-        <Label>Primary:</Label>
-        <LabelButton.Basic size='xs' hierarchy='primary'>
-          XS
-        </LabelButton.Basic>
-        <LabelButton.Basic size='sm' hierarchy='primary'>
-          SM
-        </LabelButton.Basic>
-        <LabelButton.Basic size='md' hierarchy='primary'>
-          MD
-        </LabelButton.Basic>
-        <LabelButton.Basic size='lg' hierarchy='primary'>
-          LG
-        </LabelButton.Basic>
-      </FlexRow>
-      <FlexRow>
-        <Label>Secondary:</Label>
-        <LabelButton.Basic size='xs' hierarchy='secondary'>
-          XS
-        </LabelButton.Basic>
-        <LabelButton.Basic size='sm' hierarchy='secondary'>
-          SM
-        </LabelButton.Basic>
-        <LabelButton.Basic size='md' hierarchy='secondary'>
-          MD
-        </LabelButton.Basic>
-        <LabelButton.Basic size='lg' hierarchy='secondary'>
-          LG
-        </LabelButton.Basic>
-      </FlexRow>
-      <FlexRow>
-        <Label>Tertiary:</Label>
-        <LabelButton.Basic size='xs' hierarchy='tertiary'>
-          XS
-        </LabelButton.Basic>
-        <LabelButton.Basic size='sm' hierarchy='tertiary'>
-          SM
-        </LabelButton.Basic>
-        <LabelButton.Basic size='md' hierarchy='tertiary'>
-          MD
-        </LabelButton.Basic>
-        <LabelButton.Basic size='lg' hierarchy='tertiary'>
-          LG
-        </LabelButton.Basic>
-      </FlexRow>
+      {(["accent", "primary", "secondary", "tertiary"] as const).map(hierarchy => (
+        <FlexColumn key={hierarchy} gap='12px'>
+          <Label>{hierarchy.charAt(0).toUpperCase() + hierarchy.slice(1)}:</Label>
+          <FlexRow gap='12px'>
+            {(["xs", "sm", "md", "lg"] as const).map(size => (
+              <LabelButton.Basic key={size} size={size} hierarchy={hierarchy}>
+                {size.toUpperCase()}
+              </LabelButton.Basic>
+            ))}
+          </FlexRow>
+        </FlexColumn>
+      ))}
+    </FlexColumn>
+  ),
+};
+
+export const DisabledStates: Story = {
+  args: {
+    children: "Label Button",
+  },
+  render: () => (
+    <FlexColumn gap='32px'>
+      {(["accent", "primary", "secondary", "tertiary"] as const).map(hierarchy => (
+        <FlexColumn key={hierarchy} gap='12px'>
+          <Label>{hierarchy.charAt(0).toUpperCase() + hierarchy.slice(1)}:</Label>
+          <FlexRow gap='12px'>
+            {(["xs", "sm", "md", "lg"] as const).map(size => (
+              <LabelButton.Basic key={size} hierarchy={hierarchy} size={size} disabled>
+                {size.toUpperCase()}
+              </LabelButton.Basic>
+            ))}
+          </FlexRow>
+        </FlexColumn>
+      ))}
     </FlexColumn>
   ),
 };
@@ -208,36 +189,18 @@ export const FeedbackButtons: Story = {
   },
   render: () => (
     <FlexColumn>
-      <FlexRow>
-        <Label>Positive:</Label>
-        <LabelButton.Feedback intent='positive' size='xs'>
-          확인
-        </LabelButton.Feedback>
-        <LabelButton.Feedback intent='positive' size='sm'>
-          확인
-        </LabelButton.Feedback>
-        <LabelButton.Feedback intent='positive' size='md'>
-          확인
-        </LabelButton.Feedback>
-        <LabelButton.Feedback intent='positive' size='lg'>
-          확인
-        </LabelButton.Feedback>
-      </FlexRow>
-      <FlexRow>
-        <Label>Destructive:</Label>
-        <LabelButton.Feedback intent='destructive' size='xs'>
-          삭제
-        </LabelButton.Feedback>
-        <LabelButton.Feedback intent='destructive' size='sm'>
-          삭제
-        </LabelButton.Feedback>
-        <LabelButton.Feedback intent='destructive' size='md'>
-          삭제
-        </LabelButton.Feedback>
-        <LabelButton.Feedback intent='destructive' size='lg'>
-          삭제
-        </LabelButton.Feedback>
-      </FlexRow>
+      {(["positive", "destructive"] as const).map(intent => (
+        <FlexColumn key={intent} gap='12px'>
+          <Label>{intent.charAt(0).toUpperCase() + intent.slice(1)}:</Label>
+          <FlexRow gap='12px'>
+            {(["xs", "sm", "md", "lg"] as const).map(size => (
+              <LabelButton.Feedback key={size} intent={intent} size={size}>
+                {intent === "positive" ? "확인" : "삭제"}
+              </LabelButton.Feedback>
+            ))}
+          </FlexRow>
+        </FlexColumn>
+      ))}
     </FlexColumn>
   ),
   parameters: {
@@ -256,24 +219,28 @@ export const FeedbackWithIcons: Story = {
   },
   render: () => (
     <FlexColumn>
-      <FlexRow>
+      <FlexColumn gap='12px'>
         <Label>Positive:</Label>
-        <LabelButton.Feedback intent='positive' prefixIcon='check-line'>
-          저장 완료
-        </LabelButton.Feedback>
-        <LabelButton.Feedback intent='positive' suffixIcon='arrow-right-line'>
-          다음 단계
-        </LabelButton.Feedback>
-      </FlexRow>
-      <FlexRow>
+        <FlexRow gap='12px'>
+          <LabelButton.Feedback intent='positive' prefixIcon='check-line'>
+            저장 완료
+          </LabelButton.Feedback>
+          <LabelButton.Feedback intent='positive' suffixIcon='arrow-right-line'>
+            다음 단계
+          </LabelButton.Feedback>
+        </FlexRow>
+      </FlexColumn>
+      <FlexColumn gap='12px'>
         <Label>Destructive:</Label>
-        <LabelButton.Feedback intent='destructive' prefixIcon='delete-bin-line'>
-          삭제하기
-        </LabelButton.Feedback>
-        <LabelButton.Feedback intent='destructive' suffixIcon='close-line'>
-          취소
-        </LabelButton.Feedback>
-      </FlexRow>
+        <FlexRow gap='12px'>
+          <LabelButton.Feedback intent='destructive' prefixIcon='delete-bin-line'>
+            삭제하기
+          </LabelButton.Feedback>
+          <LabelButton.Feedback intent='destructive' suffixIcon='close-line'>
+            취소
+          </LabelButton.Feedback>
+        </FlexRow>
+      </FlexColumn>
     </FlexColumn>
   ),
   parameters: {
@@ -291,30 +258,18 @@ export const FeedbackDisabled: Story = {
   },
   render: () => (
     <FlexColumn>
-      <FlexRow>
-        <Label>Positive Disabled:</Label>
-        <LabelButton.Feedback intent='positive' size='sm' disabled>
-          확인
-        </LabelButton.Feedback>
-        <LabelButton.Feedback intent='positive' size='md' disabled>
-          확인
-        </LabelButton.Feedback>
-        <LabelButton.Feedback intent='positive' size='lg' disabled>
-          확인
-        </LabelButton.Feedback>
-      </FlexRow>
-      <FlexRow>
-        <Label>Destructive Disabled:</Label>
-        <LabelButton.Feedback intent='destructive' size='sm' disabled>
-          삭제
-        </LabelButton.Feedback>
-        <LabelButton.Feedback intent='destructive' size='md' disabled>
-          삭제
-        </LabelButton.Feedback>
-        <LabelButton.Feedback intent='destructive' size='lg' disabled>
-          삭제
-        </LabelButton.Feedback>
-      </FlexRow>
+      {(["positive", "destructive"] as const).map(intent => (
+        <FlexColumn key={intent} gap='12px'>
+          <Label>{intent.charAt(0).toUpperCase() + intent.slice(1)} Disabled:</Label>
+          <FlexRow gap='12px'>
+            {(["sm", "md", "lg"] as const).map(size => (
+              <LabelButton.Feedback key={size} intent={intent} size={size} disabled>
+                {intent === "positive" ? "확인" : "삭제"}
+              </LabelButton.Feedback>
+            ))}
+          </FlexRow>
+        </FlexColumn>
+      ))}
     </FlexColumn>
   ),
   parameters: {
@@ -332,18 +287,16 @@ export const FeedbackInteractionStates: Story = {
   },
   render: () => (
     <FlexColumn>
-      <FlexRow>
-        <Label>Positive:</Label>
-        <LabelButton.Feedback intent='positive'>Hover me</LabelButton.Feedback>
-        <LabelButton.Feedback intent='positive'>Click me</LabelButton.Feedback>
-        <LabelButton.Feedback intent='positive'>Focus me</LabelButton.Feedback>
-      </FlexRow>
-      <FlexRow>
-        <Label>Destructive:</Label>
-        <LabelButton.Feedback intent='destructive'>Hover me</LabelButton.Feedback>
-        <LabelButton.Feedback intent='destructive'>Click me</LabelButton.Feedback>
-        <LabelButton.Feedback intent='destructive'>Focus me</LabelButton.Feedback>
-      </FlexRow>
+      {(["positive", "destructive"] as const).map(intent => (
+        <FlexColumn key={intent} gap='12px'>
+          <Label>{intent.charAt(0).toUpperCase() + intent.slice(1)}:</Label>
+          <FlexRow gap='12px'>
+            <LabelButton.Feedback intent={intent}>Hover me</LabelButton.Feedback>
+            <LabelButton.Feedback intent={intent}>Click me</LabelButton.Feedback>
+            <LabelButton.Feedback intent={intent}>Focus me</LabelButton.Feedback>
+          </FlexRow>
+        </FlexColumn>
+      ))}
     </FlexColumn>
   ),
   parameters: {

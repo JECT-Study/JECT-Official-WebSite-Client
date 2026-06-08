@@ -9,6 +9,7 @@ export interface FileItemWrapButtonProps {
 export interface FileItemLabelProps {
   $disabled: boolean;
   $readonly: boolean;
+  $hasError: boolean;
 }
 
 export interface FileSizeProps {

@@ -1,26 +1,40 @@
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
-export type RadioSize = "lg" | "md" | "sm" | "xs";
-export type RadioStyle = "empty" | "outline";
-export type RadioAlign = "left" | "right";
+export const RADIO_SIZE_OPTIONS = ["lg", "md", "sm", "xs"] as const;
+export const RADIO_STYLE_OPTIONS = ["empty", "outline"] as const;
+export const RADIO_ALIGN_OPTIONS = ["left", "right"] as const;
 
-export interface RadioRootProps {
+export type RadioSize = (typeof RADIO_SIZE_OPTIONS)[number];
+export type RadioStyle = (typeof RADIO_STYLE_OPTIONS)[number];
+export type RadioAlign = (typeof RADIO_ALIGN_OPTIONS)[number];
+
+type RadioRootControlledProps = {
+  value: string;
+  defaultValue?: never;
+  onChange: (value: string) => void;
+};
+
+type RadioRootUncontrolledProps = {
+  value?: never;
+  defaultValue?: string;
+  onChange?: (value: string) => void;
+};
+
+type RadioRootBaseProps = {
   radioSize?: RadioSize;
   radioStyle?: RadioStyle;
   radioAlign?: RadioAlign;
   disabled?: boolean;
-  value?: string;
-  onChange?: (value: string) => void;
   name?: string;
   children: ReactNode;
-}
+};
 
-export interface RadioBasicProps extends ComponentPropsWithoutRef<"input"> {
+export type RadioRootProps = RadioRootBaseProps &
+  (RadioRootControlledProps | RadioRootUncontrolledProps);
+
+export interface RadioBasicProps extends Omit<ComponentPropsWithoutRef<"input">, "value"> {
   radioSize?: RadioSize;
-}
-
-export interface RadioStyledProps {
-  radioSize: RadioSize;
+  value: string;
 }
 
 export interface RadioItemProps extends ComponentPropsWithoutRef<"div"> {
@@ -29,11 +43,6 @@ export interface RadioItemProps extends ComponentPropsWithoutRef<"div"> {
   radioAlign?: RadioAlign;
   disabled?: boolean;
   children: ReactNode;
-}
-
-export interface StyledLabelProps {
-  $size: RadioSize;
-  $isDisabled: boolean;
 }
 
 export interface RadioLabelProps {

@@ -8,6 +8,8 @@ import {
   NumericBadgeFeedbackLabel,
 } from "./NumericBadge.style";
 
+import { getLabelClassName } from "@/utils/typography";
+
 export interface NumericBadgeBasicProps {
   hierarchy?: BasicHierarchy;
   size?: BadgeSize;
@@ -31,10 +33,7 @@ const NumericBadgeBasic = ({
       isMuted={isMuted}
     >
       <NumericBadgeBasicLabel
-        as='span'
-        size={size}
-        textAlign='center'
-        weight='normal'
+        className={getLabelClassName({ size, textAlign: "center" })}
         hierarchy={hierarchy}
         badgeStyle={badgeStyle}
         isMuted={isMuted}
@@ -70,10 +69,7 @@ const NumericBadgeFeedback = ({
       isMuted={isMuted}
     >
       <NumericBadgeFeedbackLabel
-        as='span'
-        size={size}
-        textAlign='center'
-        weight='normal'
+        className={getLabelClassName({ size, textAlign: "center" })}
         variant={variant}
         badgeStyle={badgeStyle}
         isMuted={isMuted}

@@ -1,4 +1,4 @@
-import { Title } from "@jects/jds";
+import { Title } from "@/components/common/typography";
 
 const GoalSection = () => {
   return (
@@ -8,7 +8,7 @@ const GoalSection = () => {
           <span className='text-(--semantic-accent-normal)'>젝트</span>의 목표
         </Title>
 
-        <Title size='md' textAlign='left' color='var(--semantic-object-boldest)'>
+        <Title size='md' textAlign='left' className='text-(--semantic-object-boldest)'>
           우리는 IT 생태계의 선순환을 목표로 활동하고 있습니다.
         </Title>
 

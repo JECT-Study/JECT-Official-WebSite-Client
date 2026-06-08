@@ -2,7 +2,7 @@ import type { Theme } from "@emotion/react";
 
 import type { MenuSize } from "./menu.types";
 
-import type { LabelSize } from "@/components/Label/Label.style";
+import type { LabelSize } from "@/utils/typography";
 
 export const menuContentMap = (theme: Theme) => ({
   solid: {

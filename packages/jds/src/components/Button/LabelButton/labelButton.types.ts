@@ -1,11 +1,20 @@
 import type { IconName } from "components";
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
-export type LabelButtonSize = "xs" | "sm" | "md" | "lg";
-export type LabelButtonHierarchy = "accent" | "primary" | "secondary" | "tertiary";
+export const LABEL_BUTTON_SIZE_OPTIONS = ["xs", "sm", "md", "lg"] as const;
+export const LABEL_BUTTON_HIERARCHY_OPTIONS = [
+  "accent",
+  "primary",
+  "secondary",
+  "tertiary",
+] as const;
+
+export type LabelButtonSize = (typeof LABEL_BUTTON_SIZE_OPTIONS)[number];
+export type LabelButtonHierarchy = (typeof LABEL_BUTTON_HIERARCHY_OPTIONS)[number];
 export type LabelButtonIntent = "positive" | "destructive";
 
 export interface BaseLabelButtonProps extends ComponentPropsWithoutRef<"button"> {
+  'data-part'?: never;
   children: ReactNode;
   size?: LabelButtonSize;
   prefixIcon?: IconName;
@@ -17,5 +26,5 @@ export interface LabelButtonBasicProps extends BaseLabelButtonProps {
 }
 
 export interface LabelButtonFeedbackProps extends BaseLabelButtonProps {
-  intent: LabelButtonIntent;
+  intent?: LabelButtonIntent;
 }

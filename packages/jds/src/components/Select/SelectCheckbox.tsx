@@ -12,6 +12,8 @@ import {
 import type { SelectCheckboxProps } from "./select.types";
 import { Checkbox } from "../Checkbox";
 
+import { getLabelClassName } from "@/utils/typography";
+
 export const SelectCheckbox = forwardRef<HTMLDivElement, SelectCheckboxProps>(
   ({ value, isDisabled = false, caption, children, ...restProps }, ref) => {
     const { size, isSelected, onChange } = useSelectContext();
@@ -47,9 +49,7 @@ export const SelectCheckbox = forwardRef<HTMLDivElement, SelectCheckboxProps>(
         </StyledSelectItemInputWrapper>
         <StyledSelectItemContent>
           <StyledSelectItemText
-            as='span'
-            size={size}
-            weight='normal'
+            className={getLabelClassName({ size })}
             $isDisabled={isDisabled}
             $selected={isItemSelected}
           >
@@ -57,9 +57,9 @@ export const SelectCheckbox = forwardRef<HTMLDivElement, SelectCheckboxProps>(
           </StyledSelectItemText>
           {caption && (
             <StyledSelectItemCaption
-              as='span'
-              size={size === "md" ? "sm" : "xs"}
-              weight='normal'
+              className={getLabelClassName({
+                size: size === "md" ? "sm" : "xs",
+              })}
               $isDisabled={isDisabled}
             >
               {caption}

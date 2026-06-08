@@ -11,6 +11,8 @@ import type { EmptyStateProps } from "./emptyState.types";
 import { BlockButton } from "../Button/BlockButton";
 import { Icon } from "../Icon";
 
+import { getLabelClassName } from "@/utils/typography";
+
 export const EmptyState = forwardRef<HTMLDivElement, EmptyStateProps>(
   (
     {
@@ -50,7 +52,7 @@ export const EmptyState = forwardRef<HTMLDivElement, EmptyStateProps>(
       <EmptyStateRoot ref={ref} $variant={variant} $layout={layout} {...rest}>
         {icon && <Icon name={icon} size='3xl' aria-hidden='true' />}
         <EmptyStateContentDiv $layout={layout}>
-          <EmptyStateLabel weight='bold' textAlign='center'>
+          <EmptyStateLabel className={getLabelClassName({ weight: "bold", textAlign: "center" })}>
             {header}
           </EmptyStateLabel>
           <EmptyStateBodyTextP $layout={layout}>{body}</EmptyStateBodyTextP>

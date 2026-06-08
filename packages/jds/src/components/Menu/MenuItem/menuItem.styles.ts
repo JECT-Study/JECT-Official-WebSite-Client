@@ -5,8 +5,9 @@ import { InteractionLayer } from "utils";
 
 import type { StyledImageProps, StyledMenuItemProps } from "./menuItem.types";
 import { menuItemColorMap, menuItemImageSizeMap } from "./menuItem.variants";
-import { Image } from "../../Image";
-import { Label } from "../../Label";
+import { Thumbnail } from "../../Thumbnail";
+
+import { shouldForwardTypographyProp } from "@/utils/typography";
 
 const createInteractionStyles = (
   theme: Theme,
@@ -115,7 +116,7 @@ export const StyledMenuItemAnchor = styled("a", {
   };
 });
 
-export const StyledImage = styled(Image)<StyledImageProps>(({ $size }) => {
+export const StyledImage = styled(Thumbnail)<StyledImageProps>(({ $size }) => {
   const width = menuItemImageSizeMap[$size];
   return {
     borderRadius: 0,
@@ -123,6 +124,11 @@ export const StyledImage = styled(Image)<StyledImageProps>(({ $size }) => {
   };
 });
 
-export const MenuItemLabel = styled(Label)(() => ({
-  color: "inherit",
-}));
+export const MenuItemLabel = styled("span", { shouldForwardProp: shouldForwardTypographyProp })(
+  () => ({
+    "&&": {
+      color: "inherit",
+      cursor: "inherit",
+    },
+  }),
+);

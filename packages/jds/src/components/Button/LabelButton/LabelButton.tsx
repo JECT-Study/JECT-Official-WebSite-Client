@@ -1,8 +1,11 @@
+import { mergeProps } from "@react-aria/utils";
+import { clsx } from "clsx";
 import type { LabelButtonBasicProps, LabelButtonFeedbackProps } from "components";
 import { Icon } from "components";
+import { usePressable } from "hooks";
 import { forwardRef } from "react";
 
-import { iconSizeMap, StyledLabelButton } from "./labelButton.styles";
+import { basicRoot, feedbackRoot, iconSizeMap } from "./labelButton.css";
 
 const LabelButtonBasic = forwardRef<HTMLButtonElement, LabelButtonBasicProps>(
   (
@@ -13,25 +16,25 @@ const LabelButtonBasic = forwardRef<HTMLButtonElement, LabelButtonBasicProps>(
       prefixIcon,
       suffixIcon,
       disabled = false,
+      className,
       ...restProps
     },
-    ref,
+    forwardedRef,
   ) => {
+    const { ref, pressableProps } = usePressable(forwardedRef, { disabled });
     const iconSize = iconSizeMap[size];
 
     return (
-      <StyledLabelButton
+      <button
         ref={ref}
-        $hierarchy={hierarchy}
-        $size={size}
-        $disabled={disabled}
-        disabled={disabled}
-        {...restProps}
+        {...mergeProps(pressableProps, restProps)}
+        data-part='root'
+        className={clsx(basicRoot({ hierarchy, size }), className)}
       >
         {prefixIcon && <Icon name={prefixIcon} size={iconSize} />}
         {children}
         {suffixIcon && <Icon name={suffixIcon} size={iconSize} />}
-      </StyledLabelButton>
+      </button>
     );
   },
 );
@@ -47,25 +50,25 @@ const LabelButtonFeedback = forwardRef<HTMLButtonElement, LabelButtonFeedbackPro
       prefixIcon,
       suffixIcon,
       disabled = false,
+      className,
       ...restProps
     },
-    ref,
+    forwardedRef,
   ) => {
+    const { ref, pressableProps } = usePressable(forwardedRef, { disabled });
     const iconSize = iconSizeMap[size];
 
     return (
-      <StyledLabelButton
+      <button
         ref={ref}
-        $intent={intent}
-        $size={size}
-        $disabled={disabled}
-        disabled={disabled}
-        {...restProps}
+        {...mergeProps(pressableProps, restProps)}
+        data-part='root'
+        className={clsx(feedbackRoot({ intent, size }), className)}
       >
         {prefixIcon && <Icon name={prefixIcon} size={iconSize} />}
         {children}
         {suffixIcon && <Icon name={suffixIcon} size={iconSize} />}
-      </StyledLabelButton>
+      </button>
     );
   },
 );

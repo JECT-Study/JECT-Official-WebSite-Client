@@ -1,8 +1,9 @@
-import { BlockButton, Image, LocalNavigation, Title } from "@jects/jds";
+import { BlockButton, Image, LocalNavigation } from "@jects/jds";
 import { useNavigate } from "react-router-dom";
 
 import type { JobFamily } from "@/apis/apply";
 import completeImage from "@/assets/images/complete.png";
+import { Title } from "@/components/common/typography";
 import { APPLY_TITLE, findJobFamilyOption } from "@/constants/applyPageData";
 import { PATH } from "@/constants/path";
 

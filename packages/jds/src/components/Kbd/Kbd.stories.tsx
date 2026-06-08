@@ -11,7 +11,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "키보드 키는 키보드 입력이나 단축키를 시각적으로 표현하기 위한 컴포넌트입니다. 특정 키 또는 키 조합을 명확히 인지할 수 있도록 표시하여, 사용자가 수행해야 할 입력 행동을 보조적으로 안내합니다.",
+          "키보드 키는 키 입력이나 단축키 예시를 시각적으로 보여주는 텍스트 표시 컴포넌트입니다. 사용자는 키 조합을 한눈에 인지하고, 적절한 입력을 빠르게 할 수 있습니다. 문서, 튜토리얼, 도움말, 인앱 가이드 등에서 사용합니다.",
       },
     },
   },
@@ -91,7 +91,7 @@ export const Types: Story = {
   ),
 };
 
-export const isMuted: Story = {
+export const IsMuted: Story = {
   args: {
     children: "kbd",
   },
