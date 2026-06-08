@@ -1,7 +1,7 @@
 import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
-import { focusRing } from "utils";
+import { focusRing, interactionLayer } from "utils";
 
 import type { TabsVariant } from "./tabs.types";
 
@@ -27,23 +27,10 @@ export const content = style([
   },
 ]);
 
-const overlaySelectors = {
+const interactionLayerShapeSelectors = {
   "&::after": {
-    content: '""',
-    position: "absolute",
     inset: 0,
     borderRadius: "inherit",
-    backgroundColor: vars.color.semantic.fill.bold,
-    opacity: 0,
-    pointerEvents: "none",
-    transition: `opacity ${vars.environment.semantic.duration[100]} ${vars.environment.semantic.motion.fluent}`,
-  },
-  "&:hover:not(:disabled):not([data-disabled])::after": {
-    opacity: `calc(${vars.scheme.semantic.opacity["5"]} / 100)`,
-  },
-  "&:active:not(:disabled):not([data-disabled])::after": {
-    opacity: `calc(${vars.scheme.semantic.opacity["8"]} / 100)`,
-    transition: "none",
   },
 } as const;
 
@@ -130,6 +117,7 @@ export const list = recipe({
 export const trigger = recipe({
   base: [
     focusRing,
+    interactionLayer({ hierarchy: "secondary" }),
     {
       position: "relative",
       display: "inline-flex",
@@ -143,7 +131,7 @@ export const trigger = recipe({
       userSelect: "none",
       color: vars.color.semantic.object.alternative,
       selectors: {
-        ...overlaySelectors,
+        ...interactionLayerShapeSelectors,
         ...focusRingSelectors,
         "&:disabled, &[data-disabled]": {
           cursor: "default",
