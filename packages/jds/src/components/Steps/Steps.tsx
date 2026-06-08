@@ -108,7 +108,7 @@ const StepsItem = forwardRef<HTMLDivElement, StepsItemProps>(
         </NumericBadge.Basic>
         <span
           className={clsx(
-            stepsLabel({ size, activated: isActivated }),
+            stepsLabel({ activated: isActivated }),
             getLabelClassName({ size: stepsLabelTypographySizeMap[size], weight: "bold" }),
           )}
         >

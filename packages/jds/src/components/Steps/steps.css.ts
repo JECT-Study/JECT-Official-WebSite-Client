@@ -14,10 +14,6 @@ export const stepsLabel = recipe({
     cursor: "default",
   },
   variants: {
-    size: {
-      lg: {},
-      md: {},
-    },
     activated: {
       true: { color: vars.color.semantic.object.bold },
       false: { color: vars.color.semantic.object.alternative },
