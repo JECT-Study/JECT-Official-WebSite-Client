@@ -6,9 +6,17 @@ import type {
 } from "components";
 import { forwardRef } from "react";
 
+import type { BadgeSize } from "../badge.types";
 import * as styles from "./contentBadge.css";
 
-import { Icon } from "@/components/Icon";
+import { Icon, type IconSize } from "@/components/Icon";
+
+const iconSizeMap = {
+  lg: "sm",
+  md: "sm",
+  sm: "xs",
+  xs: "2xs",
+} satisfies Record<BadgeSize, IconSize>;
 
 const ContentBadgeBasic = forwardRef<HTMLSpanElement, ContentBadgeBasicProps>(
   (
@@ -25,7 +33,7 @@ const ContentBadgeBasic = forwardRef<HTMLSpanElement, ContentBadgeBasicProps>(
     },
     ref,
   ) => {
-    const iconSize = styles.iconSizeMap[size];
+    const iconSize = iconSizeMap[size];
 
     return (
       <span
@@ -62,7 +70,7 @@ const ContentBadgeFeedback = forwardRef<HTMLSpanElement, ContentBadgeFeedbackPro
     },
     ref,
   ) => {
-    const iconSize = styles.iconSizeMap[size];
+    const iconSize = iconSizeMap[size];
 
     return (
       <span

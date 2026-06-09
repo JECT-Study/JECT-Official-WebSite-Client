@@ -1,12 +1,35 @@
 import { recipe } from "@vanilla-extract/recipes";
+import { vars } from "tokens";
 import { pxToRem } from "utils";
 
-import { vars } from "tokens";
 import { BADGE_SIZE_OPTIONS, FEEDBACK_VARIANT_OPTIONS } from "../badge.types";
 import type { BadgeSize, FeedbackVariant } from "../badge.types";
-import { dotBadgeSizeMap } from "../badge.variants";
+
+type DotBadgeSizeConfig = {
+  width: number;
+  height: number;
+};
 
 const dotBadgeMutedOpacity = `calc(${vars.scheme.semantic.opacity["36"]} / 100)`;
+
+const dotBadgeSizeMap = {
+  lg: {
+    width: 16,
+    height: 16,
+  },
+  md: {
+    width: 12,
+    height: 12,
+  },
+  sm: {
+    width: 8,
+    height: 8,
+  },
+  xs: {
+    width: 4,
+    height: 4,
+  },
+} satisfies Record<BadgeSize, DotBadgeSizeConfig>;
 
 const variantBg = {
   positive: {

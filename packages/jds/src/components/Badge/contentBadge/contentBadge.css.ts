@@ -1,16 +1,20 @@
 import { createVar, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
+import { vars, type textStyleClassNames } from "tokens";
 import { pxToRem } from "utils";
 
-import { vars, type textStyleClassNames } from "tokens";
-import type { IconSize } from "../../Icon";
 import { BASIC_HIERARCHY_OPTIONS, FEEDBACK_VARIANT_OPTIONS } from "../badge.types";
 import type { BadgeSize, BasicHierarchy, FeedbackVariant } from "../badge.types";
-import { contentBadgeSizeMap } from "../badge.variants";
 import { CONTENT_BADGE_STYLE_OPTIONS, THEME_VARIANT_OPTIONS } from "./contentBadge.types";
 import type { ContentBadgeStyle, ThemeVariant } from "./contentBadge.types";
 
 type TextStyleClassName = (typeof textStyleClassNames)[number];
+
+type BadgeSizeConfig = {
+  minWidth: number;
+  paddingTopBottom: string;
+  paddingLeftRight: string;
+};
 
 type BadgeStyle = {
   bg: string;
@@ -26,6 +30,29 @@ const badgeBorderColor = createVar();
 const badgeIconColor = createVar();
 
 const contentBadgeMutedOpacity = `calc(${vars.scheme.semantic.opacity["36"]} / 100)`;
+
+const contentBadgeSizeMap = {
+  lg: {
+    minWidth: 28,
+    paddingTopBottom: vars.scheme.semantic.spacing["2"],
+    paddingLeftRight: vars.scheme.semantic.spacing["6"],
+  },
+  md: {
+    minWidth: 27,
+    paddingTopBottom: vars.scheme.semantic.spacing["2"],
+    paddingLeftRight: vars.scheme.semantic.spacing["6"],
+  },
+  sm: {
+    minWidth: 24,
+    paddingTopBottom: vars.scheme.semantic.spacing["2"],
+    paddingLeftRight: vars.scheme.semantic.spacing["6"],
+  },
+  xs: {
+    minWidth: 20,
+    paddingTopBottom: vars.scheme.semantic.spacing["1"],
+    paddingLeftRight: vars.scheme.semantic.spacing["4"],
+  },
+} satisfies Record<BadgeSize, BadgeSizeConfig>;
 
 const createBadgeVars = ({ bg, color, border, iconColor }: BadgeStyle) => ({
   vars: {
@@ -476,13 +503,6 @@ export const labelTextStyle = {
   sm: "semantic-textStyle-label-sm-normal",
   xs: "semantic-textStyle-label-xs-normal",
 } satisfies Record<BadgeSize, TextStyleClassName>;
-
-export const iconSizeMap: Record<BadgeSize, IconSize> = {
-  lg: "sm",
-  md: "sm",
-  sm: "xs",
-  xs: "2xs",
-};
 
 export const icon = style({
   color: badgeIconColor,

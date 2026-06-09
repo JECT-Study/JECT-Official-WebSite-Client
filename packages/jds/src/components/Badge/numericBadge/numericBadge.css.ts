@@ -1,18 +1,23 @@
 import { createVar, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
+import { vars, type textStyleClassNames } from "tokens";
 import { pxToRem } from "utils";
 
-import { vars, type textStyleClassNames } from "tokens";
 import {
   BADGE_SIZE_OPTIONS,
   BASIC_HIERARCHY_OPTIONS,
   FEEDBACK_VARIANT_OPTIONS,
 } from "../badge.types";
 import type { FeedbackVariant, BadgeSize, BasicHierarchy } from "../badge.types";
-import { numericBadgeSizeMap } from "../badge.variants";
 import { NUMERIC_BADGE_STYLE_OPTIONS, type NumericBadgeStyle } from "./numericBadge.types";
 
 type TextStyleClassName = (typeof textStyleClassNames)[number];
+
+type BadgeSizeConfig = {
+  minWidth: number;
+  paddingTopBottom: string;
+  paddingLeftRight: string;
+};
 
 type BadgeStyle = { bg: string; color: string };
 
@@ -20,6 +25,29 @@ const badgeBackgroundColor = createVar();
 const badgeTextColor = createVar();
 
 const numericBadgeMutedOpacity = `calc(${vars.scheme.semantic.opacity["36"]} / 100)`;
+
+const numericBadgeSizeMap = {
+  lg: {
+    minWidth: 24,
+    paddingTopBottom: vars.scheme.semantic.spacing["1"],
+    paddingLeftRight: vars.scheme.semantic.spacing["4"],
+  },
+  md: {
+    minWidth: 23,
+    paddingTopBottom: vars.scheme.semantic.spacing["1"],
+    paddingLeftRight: vars.scheme.semantic.spacing["4"],
+  },
+  sm: {
+    minWidth: 20,
+    paddingTopBottom: vars.scheme.semantic.spacing["1"],
+    paddingLeftRight: vars.scheme.semantic.spacing["4"],
+  },
+  xs: {
+    minWidth: 18,
+    paddingTopBottom: vars.scheme.semantic.spacing["1"],
+    paddingLeftRight: vars.scheme.semantic.spacing["4"],
+  },
+} satisfies Record<BadgeSize, BadgeSizeConfig>;
 
 const createBadgeVars = ({ bg, color }: BadgeStyle) => ({
   vars: {
