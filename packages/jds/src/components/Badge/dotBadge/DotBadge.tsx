@@ -1,8 +1,9 @@
 import { clsx } from "clsx";
-import type { DotBadgeFeedbackProps } from "components";
 import { forwardRef } from "react";
 
 import * as styles from "./dotBadge.css";
+import type { DotBadgeFeedbackProps } from "./dotBadge.types";
+export type { DotBadgeFeedbackProps } from "./dotBadge.types";
 
 const DotBadgeFeedback = forwardRef<HTMLSpanElement, DotBadgeFeedbackProps>(
   ({ variant = "positive", size = "md", isMuted = false, className, ...restProps }, ref) => {

@@ -1,8 +1,9 @@
 import { clsx } from "clsx";
-import type { NumericBadgeBasicProps, NumericBadgeFeedbackProps } from "components";
 import { forwardRef } from "react";
 
 import * as styles from "./numericBadge.css";
+import type { NumericBadgeBasicProps, NumericBadgeFeedbackProps } from "./numericBadge.types";
+export type { NumericBadgeBasicProps, NumericBadgeFeedbackProps } from "./numericBadge.types";
 
 import { getLabelClassName } from "@/utils/typography";
 

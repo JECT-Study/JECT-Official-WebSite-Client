@@ -1,13 +1,18 @@
 import { clsx } from "clsx";
-import type {
-  ContentBadgeBasicProps,
-  ContentBadgeFeedbackProps,
-  ContentBadgeThemeProps,
-} from "components";
 import { forwardRef } from "react";
 
 import type { BadgeSize } from "../badge.types";
 import * as styles from "./contentBadge.css";
+import type {
+  ContentBadgeBasicProps,
+  ContentBadgeFeedbackProps,
+  ContentBadgeThemeProps,
+} from "./contentBadge.types";
+export type {
+  ContentBadgeBasicProps,
+  ContentBadgeFeedbackProps,
+  ContentBadgeThemeProps,
+} from "./contentBadge.types";
 
 import { Icon, type IconSize } from "@/components/Icon";
 import { getLabelClassName } from "@/utils/typography";
