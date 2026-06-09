@@ -5,7 +5,6 @@ import { pxToRem } from "utils";
 
 import { BADGE_SIZE_OPTIONS } from "../badge.types";
 import type { BadgeSize, BasicHierarchy, FeedbackVariant } from "../badge.types";
-import { CONTENT_BADGE_STYLE_OPTIONS, THEME_VARIANT_OPTIONS } from "./contentBadge.types";
 import type { ContentBadgeStyle, ThemeVariant } from "./contentBadge.types";
 
 type BadgeSizeConfig = {
@@ -366,13 +365,6 @@ const themeStyles = {
   },
 } satisfies Record<ContentBadgeStyle, Record<ThemeVariant, BadgeStyle>>;
 
-const themeCompoundVariants = CONTENT_BADGE_STYLE_OPTIONS.flatMap(badgeStyle =>
-  THEME_VARIANT_OPTIONS.map(variant => ({
-    variants: { badgeStyle, variant },
-    style: createBadgeStyle(themeStyles[badgeStyle][variant]),
-  })),
-);
-
 const badgeStyleVariants = {
   solid: {},
   alpha: {},
@@ -555,7 +547,128 @@ export const themeRoot = recipe({
       false: { opacity: 1 },
     },
   },
-  compoundVariants: themeCompoundVariants,
+  compoundVariants: [
+    {
+      variants: { badgeStyle: "solid", variant: "red" },
+      style: createBadgeStyle(themeStyles.solid.red),
+    },
+    {
+      variants: { badgeStyle: "solid", variant: "orange" },
+      style: createBadgeStyle(themeStyles.solid.orange),
+    },
+    {
+      variants: { badgeStyle: "solid", variant: "yellow" },
+      style: createBadgeStyle(themeStyles.solid.yellow),
+    },
+    {
+      variants: { badgeStyle: "solid", variant: "lime" },
+      style: createBadgeStyle(themeStyles.solid.lime),
+    },
+    {
+      variants: { badgeStyle: "solid", variant: "green" },
+      style: createBadgeStyle(themeStyles.solid.green),
+    },
+    {
+      variants: { badgeStyle: "solid", variant: "teal" },
+      style: createBadgeStyle(themeStyles.solid.teal),
+    },
+    {
+      variants: { badgeStyle: "solid", variant: "sky" },
+      style: createBadgeStyle(themeStyles.solid.sky),
+    },
+    {
+      variants: { badgeStyle: "solid", variant: "indigo" },
+      style: createBadgeStyle(themeStyles.solid.indigo),
+    },
+    {
+      variants: { badgeStyle: "solid", variant: "purple" },
+      style: createBadgeStyle(themeStyles.solid.purple),
+    },
+    {
+      variants: { badgeStyle: "solid", variant: "pink" },
+      style: createBadgeStyle(themeStyles.solid.pink),
+    },
+    {
+      variants: { badgeStyle: "alpha", variant: "red" },
+      style: createBadgeStyle(themeStyles.alpha.red),
+    },
+    {
+      variants: { badgeStyle: "alpha", variant: "orange" },
+      style: createBadgeStyle(themeStyles.alpha.orange),
+    },
+    {
+      variants: { badgeStyle: "alpha", variant: "yellow" },
+      style: createBadgeStyle(themeStyles.alpha.yellow),
+    },
+    {
+      variants: { badgeStyle: "alpha", variant: "lime" },
+      style: createBadgeStyle(themeStyles.alpha.lime),
+    },
+    {
+      variants: { badgeStyle: "alpha", variant: "green" },
+      style: createBadgeStyle(themeStyles.alpha.green),
+    },
+    {
+      variants: { badgeStyle: "alpha", variant: "teal" },
+      style: createBadgeStyle(themeStyles.alpha.teal),
+    },
+    {
+      variants: { badgeStyle: "alpha", variant: "sky" },
+      style: createBadgeStyle(themeStyles.alpha.sky),
+    },
+    {
+      variants: { badgeStyle: "alpha", variant: "indigo" },
+      style: createBadgeStyle(themeStyles.alpha.indigo),
+    },
+    {
+      variants: { badgeStyle: "alpha", variant: "purple" },
+      style: createBadgeStyle(themeStyles.alpha.purple),
+    },
+    {
+      variants: { badgeStyle: "alpha", variant: "pink" },
+      style: createBadgeStyle(themeStyles.alpha.pink),
+    },
+    {
+      variants: { badgeStyle: "outlined", variant: "red" },
+      style: createBadgeStyle(themeStyles.outlined.red),
+    },
+    {
+      variants: { badgeStyle: "outlined", variant: "orange" },
+      style: createBadgeStyle(themeStyles.outlined.orange),
+    },
+    {
+      variants: { badgeStyle: "outlined", variant: "yellow" },
+      style: createBadgeStyle(themeStyles.outlined.yellow),
+    },
+    {
+      variants: { badgeStyle: "outlined", variant: "lime" },
+      style: createBadgeStyle(themeStyles.outlined.lime),
+    },
+    {
+      variants: { badgeStyle: "outlined", variant: "green" },
+      style: createBadgeStyle(themeStyles.outlined.green),
+    },
+    {
+      variants: { badgeStyle: "outlined", variant: "teal" },
+      style: createBadgeStyle(themeStyles.outlined.teal),
+    },
+    {
+      variants: { badgeStyle: "outlined", variant: "sky" },
+      style: createBadgeStyle(themeStyles.outlined.sky),
+    },
+    {
+      variants: { badgeStyle: "outlined", variant: "indigo" },
+      style: createBadgeStyle(themeStyles.outlined.indigo),
+    },
+    {
+      variants: { badgeStyle: "outlined", variant: "purple" },
+      style: createBadgeStyle(themeStyles.outlined.purple),
+    },
+    {
+      variants: { badgeStyle: "outlined", variant: "pink" },
+      style: createBadgeStyle(themeStyles.outlined.pink),
+    },
+  ],
 });
 
 export const label = style({
