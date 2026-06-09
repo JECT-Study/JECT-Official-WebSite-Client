@@ -24,61 +24,6 @@ export const content = style([
   },
 ]);
 
-const triggerVariantStyles = {
-  header: {
-    padding: `${vars.scheme.semantic.spacing["8"]} ${vars.scheme.semantic.spacing["12"]}`,
-    border: "none",
-    borderBottom: `${vars.scheme.semantic.strokeWeight["2"]} solid transparent`,
-    borderRadius: 0,
-    backgroundColor: "transparent",
-    selectors: {
-      "&[data-state='inactive']": {
-        color: vars.color.semantic.object.alternative,
-      },
-      "&::after": {
-        bottom: "-2px",
-      },
-      "&[data-state='active']": {
-        color: vars.color.semantic.object.bolder,
-        borderBottomColor: vars.color.semantic.stroke.bold,
-        zIndex: 1,
-      },
-      "&:disabled, &[data-disabled]": {
-        color: vars.color.semantic.object.subtle,
-      },
-      "&:disabled[data-state='active'], &[data-disabled][data-state='active']": {
-        color: vars.color.semantic.object.subtle,
-        borderBottomColor: vars.color.semantic.stroke.subtle,
-      },
-    },
-  },
-  content: {
-    padding: `${vars.scheme.semantic.spacing["6"]} ${vars.scheme.semantic.spacing["12"]}`,
-    border: `${vars.scheme.semantic.strokeWeight["1"]} solid ${vars.color.semantic.stroke.alpha.subtle}`,
-    borderRadius: vars.scheme.semantic.radius["6"],
-    backgroundColor: "transparent",
-    selectors: {
-      "&[data-state='inactive']": {
-        color: vars.color.semantic.object.alternative,
-      },
-      "&[data-state='active']": {
-        color: vars.color.semantic.object.bolder,
-        backgroundColor: vars.color.semantic.fill.subtlest,
-        borderColor: vars.color.semantic.stroke.alpha.subtle,
-      },
-      "&:disabled, &[data-disabled]": {
-        color: vars.color.semantic.object.subtle,
-        borderColor: vars.color.semantic.stroke.alpha.subtler,
-      },
-      "&:disabled[data-state='active'], &[data-disabled][data-state='active']": {
-        color: vars.color.semantic.object.subtle,
-        backgroundColor: vars.color.semantic.fill.subtlest,
-        borderColor: vars.color.semantic.stroke.alpha.subtler,
-      },
-    },
-  },
-} satisfies Record<TabsVariant, object>;
-
 export const list = recipe({
   base: {
     display: "flex",
@@ -130,7 +75,60 @@ export const trigger = recipe({
     },
   ],
   variants: {
-    variant: triggerVariantStyles,
+    variant: {
+      header: {
+        padding: `${vars.scheme.semantic.spacing["8"]} ${vars.scheme.semantic.spacing["12"]}`,
+        border: "none",
+        borderBottom: `${vars.scheme.semantic.strokeWeight["2"]} solid transparent`,
+        borderRadius: 0,
+        backgroundColor: "transparent",
+        selectors: {
+          "&[data-state='inactive']": {
+            color: vars.color.semantic.object.alternative,
+          },
+          "&::after": {
+            bottom: "-2px",
+          },
+          "&[data-state='active']": {
+            color: vars.color.semantic.object.bolder,
+            borderBottomColor: vars.color.semantic.stroke.bold,
+            zIndex: 1,
+          },
+          "&:disabled, &[data-disabled]": {
+            color: vars.color.semantic.object.subtle,
+          },
+          "&:disabled[data-state='active'], &[data-disabled][data-state='active']": {
+            color: vars.color.semantic.object.subtle,
+            borderBottomColor: vars.color.semantic.stroke.subtle,
+          },
+        },
+      },
+      content: {
+        padding: `${vars.scheme.semantic.spacing["6"]} ${vars.scheme.semantic.spacing["12"]}`,
+        border: `${vars.scheme.semantic.strokeWeight["1"]} solid ${vars.color.semantic.stroke.alpha.subtle}`,
+        borderRadius: vars.scheme.semantic.radius["6"],
+        backgroundColor: "transparent",
+        selectors: {
+          "&[data-state='inactive']": {
+            color: vars.color.semantic.object.alternative,
+          },
+          "&[data-state='active']": {
+            color: vars.color.semantic.object.bolder,
+            backgroundColor: vars.color.semantic.fill.subtlest,
+            borderColor: vars.color.semantic.stroke.alpha.subtle,
+          },
+          "&:disabled, &[data-disabled]": {
+            color: vars.color.semantic.object.subtle,
+            borderColor: vars.color.semantic.stroke.alpha.subtler,
+          },
+          "&:disabled[data-state='active'], &[data-disabled][data-state='active']": {
+            color: vars.color.semantic.object.subtle,
+            backgroundColor: vars.color.semantic.fill.subtlest,
+            borderColor: vars.color.semantic.stroke.alpha.subtler,
+          },
+        },
+      },
+    } satisfies Record<TabsVariant, object>,
     isItemStretched: {
       false: {
         flex: "0 0 auto",
