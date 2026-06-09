@@ -39,12 +39,12 @@ const activeSelector =
  * 기본값은 `density="normal"`, `hierarchy="primary"`이다.
  *
  * @example
- *   interactionLayer()
- *   interactionLayer({ density: "bold", hierarchy: "secondary" })
+ *   interactionLayerRecipe()
+ *   interactionLayerRecipe({ density: "bold", hierarchy: "secondary" })
  *
  * @example
  *   base: [
- *     interactionLayer({ hierarchy: "secondary" }),
+ *     interactionLayerRecipe({ hierarchy: "secondary" }),
  *     {
  *       position: "relative",
  *       selectors: {
@@ -53,7 +53,7 @@ const activeSelector =
  *     },
  *   ]
  */
-export const interactionLayer = recipe({
+export const interactionLayerRecipe = recipe({
   base: {
     selectors: {
       "&::after": {
