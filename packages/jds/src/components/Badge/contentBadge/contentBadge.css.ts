@@ -3,7 +3,11 @@ import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
 import { pxToRem } from "utils";
 
-import { BASIC_HIERARCHY_OPTIONS, FEEDBACK_VARIANT_OPTIONS } from "../badge.types";
+import {
+  BADGE_SIZE_OPTIONS,
+  BASIC_HIERARCHY_OPTIONS,
+  FEEDBACK_VARIANT_OPTIONS,
+} from "../badge.types";
 import type { BadgeSize, BasicHierarchy, FeedbackVariant } from "../badge.types";
 import { CONTENT_BADGE_STYLE_OPTIONS, THEME_VARIANT_OPTIONS } from "./contentBadge.types";
 import type { ContentBadgeStyle, ThemeVariant } from "./contentBadge.types";
@@ -62,24 +66,15 @@ const createBadgeVars = ({ bg, color, border, iconColor }: BadgeStyle) => ({
   },
 });
 
-const sizeVariants: Record<BadgeSize, { minWidth: string; padding: string }> = {
-  lg: {
-    minWidth: pxToRem(contentBadgeSizeMap.lg.minWidth),
-    padding: `${contentBadgeSizeMap.lg.paddingTopBottom} ${contentBadgeSizeMap.lg.paddingLeftRight}`,
-  },
-  md: {
-    minWidth: pxToRem(contentBadgeSizeMap.md.minWidth),
-    padding: `${contentBadgeSizeMap.md.paddingTopBottom} ${contentBadgeSizeMap.md.paddingLeftRight}`,
-  },
-  sm: {
-    minWidth: pxToRem(contentBadgeSizeMap.sm.minWidth),
-    padding: `${contentBadgeSizeMap.sm.paddingTopBottom} ${contentBadgeSizeMap.sm.paddingLeftRight}`,
-  },
-  xs: {
-    minWidth: pxToRem(contentBadgeSizeMap.xs.minWidth),
-    padding: `${contentBadgeSizeMap.xs.paddingTopBottom} ${contentBadgeSizeMap.xs.paddingLeftRight}`,
-  },
-};
+const sizeVariants = Object.fromEntries(
+  BADGE_SIZE_OPTIONS.map(size => [
+    size,
+    {
+      minWidth: pxToRem(contentBadgeSizeMap[size].minWidth),
+      padding: `${contentBadgeSizeMap[size].paddingTopBottom} ${contentBadgeSizeMap[size].paddingLeftRight}`,
+    },
+  ]),
+) as Record<BadgeSize, { minWidth: string; padding: string }>;
 
 const rootBase = {
   display: "inline-flex",
