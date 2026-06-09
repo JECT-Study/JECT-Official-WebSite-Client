@@ -196,7 +196,7 @@ const intentVariants = {
  * @see {@link focusRing} — focus ring 유틸
  */
 export const basicRoot = recipe({
-  base: [overlay, focusRing(), baseStyles],
+  base: [overlay(), focusRing(), baseStyles],
   variants: {
     hierarchy: hierarchyVariants satisfies Record<LabelButtonHierarchy, unknown>,
     size: sizeVariants satisfies Record<LabelButtonSize, unknown>,
@@ -211,7 +211,7 @@ export const basicRoot = recipe({
  * 인터랙션 상태 처리는 {@link basicRoot}와 동일하게 `usePressable` data attribute에 의존한다.
  */
 export const feedbackRoot = recipe({
-  base: [overlay, focusRing(), baseStyles],
+  base: [overlay(), focusRing(), baseStyles],
   variants: {
     intent: intentVariants satisfies Record<LabelButtonIntent, unknown>,
     size: sizeVariants satisfies Record<LabelButtonSize, unknown>,

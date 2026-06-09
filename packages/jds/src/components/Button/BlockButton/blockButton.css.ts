@@ -287,7 +287,7 @@ const emptyCompoundVariants = BLOCK_BUTTON_HIERARCHY_OPTIONS.map(hierarchy => ({
  * @see {@link focusRing} — focus ring 유틸
  */
 export const basicRoot = recipe({
-  base: [overlay, focusRing(), baseStyles],
+  base: [overlay(), focusRing(), baseStyles],
   variants: {
     // hierarchy: overlayColor만 설정. 실제 색상은 compoundVariants에서 variant와 교차하여 결정
     hierarchy: {
@@ -325,7 +325,7 @@ export const basicRoot = recipe({
  * 인터랙션 상태 처리는 {@link basicRoot}와 동일하게 `usePressable` data attribute에 의존한다.
  */
 export const feedbackRoot = recipe({
-  base: [overlay, focusRing(), baseStyles],
+  base: [overlay(), focusRing(), baseStyles],
   variants: {
     // feedback은 항상 solid이므로 intent variant에서 색상을 직접 결정
     intent: {

@@ -1,7 +1,7 @@
 import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
-import { focusRing, interactionLayerRecipe } from "utils";
+import { focusRing, overlay } from "utils";
 
 import type { TabsVariant } from "./tabs.types";
 
@@ -45,7 +45,7 @@ export const list = recipe({
 export const trigger = recipe({
   base: [
     focusRing(),
-    interactionLayerRecipe({ hierarchy: "secondary" }),
+    overlay({ hierarchy: "secondary", density: "normal" }),
     {
       position: "relative",
       display: "inline-flex",

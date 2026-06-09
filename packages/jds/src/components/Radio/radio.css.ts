@@ -272,7 +272,7 @@ globalStyle(`${radioItemAlignRight} > :nth-child(3)`, { gridColumn: "1 / span 2"
 
 const itemBaseStyles = style([
   radioItemGrid,
-  overlay,
+  overlay(),
   focusRing(),
   {
     position: "relative",

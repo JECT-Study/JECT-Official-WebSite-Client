@@ -92,21 +92,25 @@ React 컴포넌트는 보통 여러 element의 합성이지만, 정책이 적용
 
 ```ts
 // utils/focusRing.css.ts
-export const focusRing = style({
-  outline: "none",
-  selectors: {
-    "&::before": { content: '""', position: "absolute", pointerEvents: "none" },
-    "&[data-focus-visible]::before": { boxShadow: "...", zIndex: 1 },
+export const focusRing = recipe({
+  base: {
+    outline: "none",
+    selectors: {
+      "&::before": { content: '""', position: "absolute", pointerEvents: "none" },
+      "&[data-focus-visible]::before": { boxShadow: "...", zIndex: 1 },
+    },
   },
 });
 
 // utils/overlay.css.ts
-export const overlay = style({
-  selectors: {
-    "&::after": { content: '""', position: "absolute", pointerEvents: "none", ... },
-    // disabled 상태는 utility가 직접 차단 — 호출자가 잊어도 새지 않음
-    "&[data-hovered]:not([data-disabled])::after": { ... },
-    "&[data-pressed]:not([data-disabled])::after": { ... },
+export const overlay = recipe({
+  base: {
+    selectors: {
+      "&::after": { content: '""', position: "absolute", pointerEvents: "none", ... },
+      // disabled 상태는 utility가 직접 차단 — 호출자가 잊어도 새지 않음
+      "&[data-hovered]:not([data-disabled])::after, &:hover:not(:disabled):not([data-disabled])::after": { ... },
+      "&[data-pressed]:not([data-disabled])::after, &:active:not(:disabled):not([data-disabled])::after": { ... },
+    },
   },
 });
 ```
@@ -169,7 +173,7 @@ condensed 모드처럼 inset과 borderRadius를 컴포넌트별로 다르게 주
 
 ## 새 인터랙티브 컴포넌트 작성 체크리스트
 
-- [ ] recipe `base`에 `[overlay, focusRing, baseStyles]` 합성
+- [ ] recipe `base`에 `[overlay(), focusRing(), baseStyles]` 합성
 - [ ] baseStyles에 `position: relative`
 - [ ] outline 처리는 focusRing 유틸이 자체 책임 — baseStyles에 넣지 않는다
 - [ ] `::before`와 `::after`에 inset과 borderRadius를 명시 (동일한 shape 권장 — `&::before, &::after` 쉼표 selector로 한 줄에)
