@@ -87,7 +87,7 @@ export const trigger = recipe({
             color: vars.color.semantic.object.alternative,
           },
           "&::after": {
-            bottom: "-2px",
+            bottom: `calc(${vars.scheme.semantic.strokeWeight["2"]} * -1)`,
           },
           "&[data-state='active']": {
             color: vars.color.semantic.object.bolder,
