@@ -24,20 +24,6 @@ export const content = style([
   },
 ]);
 
-const interactionLayerShapeSelectors = {
-  "&::after": {
-    inset: 0,
-    borderRadius: "inherit",
-  },
-} as const;
-
-const focusRingSelectors = {
-  "&::before": {
-    inset: 0,
-    borderRadius: "inherit",
-  },
-} as const;
-
 const triggerVariantStyles = {
   header: {
     padding: `${vars.scheme.semantic.spacing["8"]} ${vars.scheme.semantic.spacing["12"]}`,
@@ -128,8 +114,14 @@ export const trigger = recipe({
       userSelect: "none",
       color: vars.color.semantic.object.alternative,
       selectors: {
-        ...interactionLayerShapeSelectors,
-        ...focusRingSelectors,
+        "&::after": {
+          inset: 0,
+          borderRadius: "inherit",
+        },
+        "&::before": {
+          inset: 0,
+          borderRadius: "inherit",
+        },
         "&:disabled, &[data-disabled]": {
           cursor: "default",
           pointerEvents: "none",
