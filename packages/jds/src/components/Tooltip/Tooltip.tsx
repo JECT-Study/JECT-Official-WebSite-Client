@@ -5,6 +5,8 @@ import { forwardRef, type ElementRef } from "react";
 import * as styles from "./tooltip.css";
 import type { TooltipContentProps, TooltipProps, TooltipTriggerProps } from "./tooltip.types";
 
+import { getLabelClassName } from "@/utils/typography";
+
 const TooltipRoot = ({ children, ...radixProps }: TooltipProps) => {
   return (
     <TooltipPrimitive.Root {...radixProps}>
@@ -51,7 +53,7 @@ const TooltipContent = forwardRef<ElementRef<typeof TooltipPrimitive.Content>, T
           sideOffset={sideOffset}
           collisionPadding={collisionPadding}
           avoidCollisions={avoidCollisions}
-          className={clsx(styles.content, styles.contentTextStyle, className)}
+          className={clsx(styles.content, getLabelClassName({ size: "sm" }), className)}
           {...restProps}
         >
           {children}
