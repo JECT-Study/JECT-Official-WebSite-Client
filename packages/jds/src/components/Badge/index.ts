@@ -2,7 +2,13 @@ export * from "./contentBadge/ContentBadge";
 export * from "./dotBadge/DotBadge";
 export * from "./numericBadge/NumericBadge";
 
-export type { BadgeSize, BasicHierarchy, FeedbackVariant } from "./badge.types";
+export type {
+  BadgeSize,
+  BadgeStyle,
+  BadgeStyleWithoutBorder,
+  BasicHierarchy,
+  FeedbackVariant,
+} from "./badge.types";
 export type { ContentBadgeStyle, ThemeVariant } from "./contentBadge/contentBadge.types";
 export type { NumericBadgeStyle } from "./numericBadge/numericBadge.types";
 
@@ -19,13 +25,13 @@ export { NUMERIC_BADGE_STYLE_OPTIONS } from "./numericBadge/numericBadge.types";
 
 export type {
   ContentBadgeBasicProps,
-  ContentBadgeFeedbackProps,
-  ContentBadgeThemeProps,
+  ContentFeedbackBadgeProps,
+  ContentThemeBadgeProps,
 } from "./contentBadge/contentBadge.types";
 
 export type { DotBadgeFeedbackProps } from "./dotBadge/dotBadge.types";
 
 export type {
   NumericBadgeBasicProps,
-  NumericBadgeFeedbackProps,
+  NumericBasicBadgeProps,
 } from "./numericBadge/numericBadge.types";

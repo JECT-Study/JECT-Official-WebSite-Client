@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import type { NumericBadgeBasicProps, NumericBadgeFeedbackProps } from "components";
+import type { NumericBadgeBasicProps, NumericBasicBadgeProps } from "components";
 
 import { NumericBadge } from "./NumericBadge";
 import { NUMERIC_BADGE_STYLE_OPTIONS } from "./numericBadge.types";
@@ -61,7 +61,7 @@ export const Basic: StoryObj<NumericBadgeBasicProps> = {
   ),
 };
 
-export const Feedback: StoryObj<NumericBadgeFeedbackProps> = {
+export const Feedback: StoryObj<NumericBasicBadgeProps> = {
   argTypes: {
     variant: {
       control: "radio",
