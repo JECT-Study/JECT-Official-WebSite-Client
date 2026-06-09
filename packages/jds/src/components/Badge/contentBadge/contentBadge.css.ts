@@ -25,10 +25,7 @@ type BadgeStyle = {
   iconColor?: string;
 };
 
-const badgeBackgroundColor = createVar();
 const badgeTextColor = createVar();
-const badgeBorderWidth = createVar();
-const badgeBorderColor = createVar();
 const badgeIconColor = createVar();
 
 const contentBadgeMutedOpacity = `calc(${vars.scheme.semantic.opacity["36"]} / 100)`;
@@ -56,12 +53,12 @@ const contentBadgeSizeMap = {
   },
 } satisfies Record<BadgeSize, BadgeSizeConfig>;
 
-const createBadgeVars = ({ bg, color, border, iconColor }: BadgeStyle) => ({
+const createBadgeStyle = ({ bg, color, border, iconColor }: BadgeStyle) => ({
+  backgroundColor: bg === "none" ? "transparent" : bg,
+  borderWidth: border === "none" ? "0" : "1px",
+  borderColor: border === "none" ? "transparent" : border,
   vars: {
-    [badgeBackgroundColor]: bg === "none" ? "transparent" : bg,
     [badgeTextColor]: color,
-    [badgeBorderWidth]: border === "none" ? "0" : "1px",
-    [badgeBorderColor]: border === "none" ? "transparent" : border,
     [badgeIconColor]: iconColor ?? color,
   },
 });
@@ -81,10 +78,10 @@ const rootBase = {
   justifyContent: "center",
   alignItems: "center",
   gap: 0,
-  backgroundColor: badgeBackgroundColor,
+  backgroundColor: "transparent",
   borderStyle: "solid",
-  borderWidth: badgeBorderWidth,
-  borderColor: badgeBorderColor,
+  borderWidth: "0",
+  borderColor: "transparent",
   borderRadius: vars.scheme.semantic.radius["4"],
 } as const;
 
@@ -376,19 +373,19 @@ const themeStyles = {
 const basicCompoundVariants = CONTENT_BADGE_STYLE_OPTIONS.flatMap(badgeStyle =>
   BASIC_HIERARCHY_OPTIONS.map(hierarchy => ({
     variants: { badgeStyle, hierarchy },
-    style: createBadgeVars(basicStyles[badgeStyle][hierarchy]),
+    style: createBadgeStyle(basicStyles[badgeStyle][hierarchy]),
   })),
 );
 
 const basicMutedCompoundVariants = CONTENT_BADGE_STYLE_OPTIONS.map(badgeStyle => ({
   variants: { badgeStyle, isMuted: true },
-  style: createBadgeVars(basicStyles[badgeStyle].tertiary),
+  style: createBadgeStyle(basicStyles[badgeStyle].tertiary),
 }));
 
 const feedbackCompoundVariants = CONTENT_BADGE_STYLE_OPTIONS.flatMap(badgeStyle =>
   FEEDBACK_VARIANT_OPTIONS.map(variant => ({
     variants: { badgeStyle, variant },
-    style: createBadgeVars(feedbackStyles[badgeStyle][variant]),
+    style: createBadgeStyle(feedbackStyles[badgeStyle][variant]),
   })),
 );
 
@@ -404,7 +401,7 @@ const feedbackMutedCompoundVariants = CONTENT_BADGE_STYLE_OPTIONS.map(badgeStyle
 const themeCompoundVariants = CONTENT_BADGE_STYLE_OPTIONS.flatMap(badgeStyle =>
   THEME_VARIANT_OPTIONS.map(variant => ({
     variants: { badgeStyle, variant },
-    style: createBadgeVars(themeStyles[badgeStyle][variant]),
+    style: createBadgeStyle(themeStyles[badgeStyle][variant]),
   })),
 );
 

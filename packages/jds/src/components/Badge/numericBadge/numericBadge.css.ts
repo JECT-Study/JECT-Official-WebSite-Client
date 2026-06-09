@@ -19,7 +19,6 @@ type BadgeSizeConfig = {
 
 type BadgeStyle = { bg: string; color: string };
 
-const badgeBackgroundColor = createVar();
 const badgeTextColor = createVar();
 
 const numericBadgeMutedOpacity = `calc(${vars.scheme.semantic.opacity["36"]} / 100)`;
@@ -47,9 +46,9 @@ const numericBadgeSizeMap = {
   },
 } satisfies Record<BadgeSize, BadgeSizeConfig>;
 
-const createBadgeVars = ({ bg, color }: BadgeStyle) => ({
+const createBadgeStyle = ({ bg, color }: BadgeStyle) => ({
+  backgroundColor: bg === "none" ? "transparent" : bg,
   vars: {
-    [badgeBackgroundColor]: bg === "none" ? "transparent" : bg,
     [badgeTextColor]: color,
   },
 });
@@ -68,7 +67,7 @@ const rootBase = {
   display: "inline-flex",
   justifyContent: "center",
   alignItems: "center",
-  backgroundColor: badgeBackgroundColor,
+  backgroundColor: "transparent",
   borderRadius: vars.scheme.semantic.radius["4"],
 } as const;
 
@@ -153,19 +152,19 @@ const feedbackStyles = {
 const basicCompoundVariants = NUMERIC_BADGE_STYLE_OPTIONS.flatMap(badgeStyle =>
   BASIC_HIERARCHY_OPTIONS.map(hierarchy => ({
     variants: { badgeStyle, hierarchy },
-    style: createBadgeVars(basicStyles[badgeStyle][hierarchy]),
+    style: createBadgeStyle(basicStyles[badgeStyle][hierarchy]),
   })),
 );
 
 const basicMutedCompoundVariants = NUMERIC_BADGE_STYLE_OPTIONS.map(badgeStyle => ({
   variants: { badgeStyle, isMuted: true },
-  style: createBadgeVars(basicStyles[badgeStyle].tertiary),
+  style: createBadgeStyle(basicStyles[badgeStyle].tertiary),
 }));
 
 const feedbackCompoundVariants = NUMERIC_BADGE_STYLE_OPTIONS.flatMap(badgeStyle =>
   FEEDBACK_VARIANT_OPTIONS.map(variant => ({
     variants: { badgeStyle, variant },
-    style: createBadgeVars(feedbackStyles[badgeStyle][variant]),
+    style: createBadgeStyle(feedbackStyles[badgeStyle][variant]),
   })),
 );
 
