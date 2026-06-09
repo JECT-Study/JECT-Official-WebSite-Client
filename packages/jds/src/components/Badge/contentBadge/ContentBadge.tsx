@@ -10,6 +10,7 @@ import type { BadgeSize } from "../badge.types";
 import * as styles from "./contentBadge.css";
 
 import { Icon, type IconSize } from "@/components/Icon";
+import { getLabelClassName } from "@/utils/typography";
 
 const iconSizeMap = {
   lg: "sm",
@@ -44,7 +45,7 @@ const ContentBadgeBasic = forwardRef<HTMLSpanElement, ContentBadgeBasicProps>(
         )}
         {...restProps}
       >
-        <span className={clsx(styles.label, styles.labelTextStyle[size])}>{children}</span>
+        <span className={clsx(styles.label, getLabelClassName({ size }))}>{children}</span>
         {withIcon && (
           <Icon name='close-line' size={iconSize} className={styles.icon} onClick={onIconClick} />
         )}
@@ -81,7 +82,7 @@ const ContentBadgeFeedback = forwardRef<HTMLSpanElement, ContentBadgeFeedbackPro
         )}
         {...restProps}
       >
-        <span className={clsx(styles.label, styles.labelTextStyle[size])}>{children}</span>
+        <span className={clsx(styles.label, getLabelClassName({ size }))}>{children}</span>
         {withIcon && (
           <Icon name='close-line' size={iconSize} className={styles.icon} onClick={onIconClick} />
         )}
@@ -111,7 +112,7 @@ const ContentBadgeTheme = forwardRef<HTMLSpanElement, ContentBadgeThemeProps>(
         className={clsx(styles.themeRoot({ variant, size, badgeStyle, isMuted }), className)}
         {...restProps}
       >
-        <span className={clsx(styles.label, styles.labelTextStyle[size])}>{children}</span>
+        <span className={clsx(styles.label, getLabelClassName({ size }))}>{children}</span>
       </span>
     );
   },

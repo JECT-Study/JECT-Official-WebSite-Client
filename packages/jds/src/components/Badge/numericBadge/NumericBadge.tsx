@@ -4,6 +4,8 @@ import { forwardRef } from "react";
 
 import * as styles from "./numericBadge.css";
 
+import { getLabelClassName } from "@/utils/typography";
+
 const NumericBadgeBasic = forwardRef<HTMLSpanElement, NumericBadgeBasicProps>(
   (
     {
@@ -23,7 +25,9 @@ const NumericBadgeBasic = forwardRef<HTMLSpanElement, NumericBadgeBasicProps>(
         className={clsx(styles.basicRoot({ hierarchy, size, badgeStyle, isMuted }), className)}
         {...restProps}
       >
-        <span className={clsx(styles.label, styles.labelTextStyle[size])}>{children}</span>
+        <span className={clsx(styles.label, getLabelClassName({ size, weight: "subtle" }))}>
+          {children}
+        </span>
       </span>
     );
   },
@@ -50,7 +54,9 @@ const NumericBadgeFeedback = forwardRef<HTMLSpanElement, NumericBadgeFeedbackPro
         className={clsx(styles.feedbackRoot({ variant, size, badgeStyle, isMuted }), className)}
         {...restProps}
       >
-        <span className={clsx(styles.label, styles.labelTextStyle[size])}>{children}</span>
+        <span className={clsx(styles.label, getLabelClassName({ size, weight: "subtle" }))}>
+          {children}
+        </span>
       </span>
     );
   },

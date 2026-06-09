@@ -1,14 +1,12 @@
 import { createVar, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
-import { vars, type textStyleClassNames } from "tokens";
+import { vars } from "tokens";
 import { pxToRem } from "utils";
 
 import { BASIC_HIERARCHY_OPTIONS, FEEDBACK_VARIANT_OPTIONS } from "../badge.types";
 import type { BadgeSize, BasicHierarchy, FeedbackVariant } from "../badge.types";
 import { CONTENT_BADGE_STYLE_OPTIONS, THEME_VARIANT_OPTIONS } from "./contentBadge.types";
 import type { ContentBadgeStyle, ThemeVariant } from "./contentBadge.types";
-
-type TextStyleClassName = (typeof textStyleClassNames)[number];
 
 type BadgeSizeConfig = {
   minWidth: number;
@@ -496,13 +494,6 @@ export const label = style({
   alignItems: "center",
   color: badgeTextColor,
 });
-
-export const labelTextStyle = {
-  lg: "semantic-textStyle-label-lg-normal",
-  md: "semantic-textStyle-label-md-normal",
-  sm: "semantic-textStyle-label-sm-normal",
-  xs: "semantic-textStyle-label-xs-normal",
-} satisfies Record<BadgeSize, TextStyleClassName>;
 
 export const icon = style({
   color: badgeIconColor,
