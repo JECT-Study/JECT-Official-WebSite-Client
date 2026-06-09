@@ -3,11 +3,7 @@ import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
 import { pxToRem } from "utils";
 
-import {
-  BADGE_SIZE_OPTIONS,
-  BASIC_HIERARCHY_OPTIONS,
-  FEEDBACK_VARIANT_OPTIONS,
-} from "../badge.types";
+import { BADGE_SIZE_OPTIONS } from "../badge.types";
 import type { BadgeSize, BasicHierarchy, FeedbackVariant } from "../badge.types";
 import { CONTENT_BADGE_STYLE_OPTIONS, THEME_VARIANT_OPTIONS } from "./contentBadge.types";
 import type { ContentBadgeStyle, ThemeVariant } from "./contentBadge.types";
@@ -370,34 +366,6 @@ const themeStyles = {
   },
 } satisfies Record<ContentBadgeStyle, Record<ThemeVariant, BadgeStyle>>;
 
-const basicCompoundVariants = CONTENT_BADGE_STYLE_OPTIONS.flatMap(badgeStyle =>
-  BASIC_HIERARCHY_OPTIONS.map(hierarchy => ({
-    variants: { badgeStyle, hierarchy },
-    style: createBadgeStyle(basicStyles[badgeStyle][hierarchy]),
-  })),
-);
-
-const basicMutedCompoundVariants = CONTENT_BADGE_STYLE_OPTIONS.map(badgeStyle => ({
-  variants: { badgeStyle, isMuted: true },
-  style: createBadgeStyle(basicStyles[badgeStyle].tertiary),
-}));
-
-const feedbackCompoundVariants = CONTENT_BADGE_STYLE_OPTIONS.flatMap(badgeStyle =>
-  FEEDBACK_VARIANT_OPTIONS.map(variant => ({
-    variants: { badgeStyle, variant },
-    style: createBadgeStyle(feedbackStyles[badgeStyle][variant]),
-  })),
-);
-
-const feedbackMutedCompoundVariants = CONTENT_BADGE_STYLE_OPTIONS.map(badgeStyle => ({
-  variants: { badgeStyle, isMuted: true },
-  style: {
-    vars: {
-      [badgeIconColor]: feedbackMutedIconColors[badgeStyle],
-    },
-  },
-}));
-
 const themeCompoundVariants = CONTENT_BADGE_STYLE_OPTIONS.flatMap(badgeStyle =>
   THEME_VARIANT_OPTIONS.map(variant => ({
     variants: { badgeStyle, variant },
@@ -431,7 +399,68 @@ export const basicRoot = recipe({
       false: { gap: 0 },
     },
   },
-  compoundVariants: [...basicCompoundVariants, ...basicMutedCompoundVariants],
+  compoundVariants: [
+    {
+      variants: { badgeStyle: "solid", hierarchy: "accent" },
+      style: createBadgeStyle(basicStyles.solid.accent),
+    },
+    {
+      variants: { badgeStyle: "solid", hierarchy: "primary" },
+      style: createBadgeStyle(basicStyles.solid.primary),
+    },
+    {
+      variants: { badgeStyle: "solid", hierarchy: "secondary" },
+      style: createBadgeStyle(basicStyles.solid.secondary),
+    },
+    {
+      variants: { badgeStyle: "solid", hierarchy: "tertiary" },
+      style: createBadgeStyle(basicStyles.solid.tertiary),
+    },
+    {
+      variants: { badgeStyle: "alpha", hierarchy: "accent" },
+      style: createBadgeStyle(basicStyles.alpha.accent),
+    },
+    {
+      variants: { badgeStyle: "alpha", hierarchy: "primary" },
+      style: createBadgeStyle(basicStyles.alpha.primary),
+    },
+    {
+      variants: { badgeStyle: "alpha", hierarchy: "secondary" },
+      style: createBadgeStyle(basicStyles.alpha.secondary),
+    },
+    {
+      variants: { badgeStyle: "alpha", hierarchy: "tertiary" },
+      style: createBadgeStyle(basicStyles.alpha.tertiary),
+    },
+    {
+      variants: { badgeStyle: "outlined", hierarchy: "accent" },
+      style: createBadgeStyle(basicStyles.outlined.accent),
+    },
+    {
+      variants: { badgeStyle: "outlined", hierarchy: "primary" },
+      style: createBadgeStyle(basicStyles.outlined.primary),
+    },
+    {
+      variants: { badgeStyle: "outlined", hierarchy: "secondary" },
+      style: createBadgeStyle(basicStyles.outlined.secondary),
+    },
+    {
+      variants: { badgeStyle: "outlined", hierarchy: "tertiary" },
+      style: createBadgeStyle(basicStyles.outlined.tertiary),
+    },
+    {
+      variants: { badgeStyle: "solid", isMuted: true },
+      style: createBadgeStyle(basicStyles.solid.tertiary),
+    },
+    {
+      variants: { badgeStyle: "alpha", isMuted: true },
+      style: createBadgeStyle(basicStyles.alpha.tertiary),
+    },
+    {
+      variants: { badgeStyle: "outlined", isMuted: true },
+      style: createBadgeStyle(basicStyles.outlined.tertiary),
+    },
+  ],
 });
 
 export const feedbackRoot = recipe({
@@ -452,7 +481,56 @@ export const feedbackRoot = recipe({
       false: { gap: 0 },
     },
   },
-  compoundVariants: [...feedbackCompoundVariants, ...feedbackMutedCompoundVariants],
+  compoundVariants: [
+    {
+      variants: { badgeStyle: "solid", variant: "positive" },
+      style: createBadgeStyle(feedbackStyles.solid.positive),
+    },
+    {
+      variants: { badgeStyle: "solid", variant: "destructive" },
+      style: createBadgeStyle(feedbackStyles.solid.destructive),
+    },
+    {
+      variants: { badgeStyle: "alpha", variant: "positive" },
+      style: createBadgeStyle(feedbackStyles.alpha.positive),
+    },
+    {
+      variants: { badgeStyle: "alpha", variant: "destructive" },
+      style: createBadgeStyle(feedbackStyles.alpha.destructive),
+    },
+    {
+      variants: { badgeStyle: "outlined", variant: "positive" },
+      style: createBadgeStyle(feedbackStyles.outlined.positive),
+    },
+    {
+      variants: { badgeStyle: "outlined", variant: "destructive" },
+      style: createBadgeStyle(feedbackStyles.outlined.destructive),
+    },
+    {
+      variants: { badgeStyle: "solid", isMuted: true },
+      style: {
+        vars: {
+          [badgeIconColor]: feedbackMutedIconColors.solid,
+        },
+      },
+    },
+    {
+      variants: { badgeStyle: "alpha", isMuted: true },
+      style: {
+        vars: {
+          [badgeIconColor]: feedbackMutedIconColors.alpha,
+        },
+      },
+    },
+    {
+      variants: { badgeStyle: "outlined", isMuted: true },
+      style: {
+        vars: {
+          [badgeIconColor]: feedbackMutedIconColors.outlined,
+        },
+      },
+    },
+  ],
 });
 
 export const themeRoot = recipe({

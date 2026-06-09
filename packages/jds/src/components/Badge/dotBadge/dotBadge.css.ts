@@ -2,7 +2,7 @@ import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
 import { pxToRem } from "utils";
 
-import { BADGE_SIZE_OPTIONS, FEEDBACK_VARIANT_OPTIONS } from "../badge.types";
+import { BADGE_SIZE_OPTIONS } from "../badge.types";
 import type { BadgeSize, FeedbackVariant } from "../badge.types";
 
 type DotBadgeSizeConfig = {
@@ -31,15 +31,6 @@ const dotBadgeSizeMap = {
   },
 } satisfies Record<BadgeSize, DotBadgeSizeConfig>;
 
-const variantBg = {
-  positive: {
-    solid: vars.color.semantic.feedback.positive.neutral,
-  },
-  destructive: {
-    solid: vars.color.semantic.feedback.destructive.neutral,
-  },
-} satisfies Record<FeedbackVariant, { solid: string }>;
-
 const sizeVariants = Object.fromEntries(
   BADGE_SIZE_OPTIONS.map(size => [
     size,
@@ -49,11 +40,6 @@ const sizeVariants = Object.fromEntries(
     },
   ]),
 ) as Record<BadgeSize, { width: string; height: string }>;
-
-const feedbackCompoundVariants = FEEDBACK_VARIANT_OPTIONS.map(variant => ({
-  variants: { variant },
-  style: { backgroundColor: variantBg[variant].solid },
-}));
 
 export const feedbackRoot = recipe({
   base: {
@@ -75,5 +61,14 @@ export const feedbackRoot = recipe({
       false: { opacity: 1 },
     },
   },
-  compoundVariants: feedbackCompoundVariants,
+  compoundVariants: [
+    {
+      variants: { variant: "positive" },
+      style: { backgroundColor: vars.color.semantic.feedback.positive.neutral },
+    },
+    {
+      variants: { variant: "destructive" },
+      style: { backgroundColor: vars.color.semantic.feedback.destructive.neutral },
+    },
+  ],
 });

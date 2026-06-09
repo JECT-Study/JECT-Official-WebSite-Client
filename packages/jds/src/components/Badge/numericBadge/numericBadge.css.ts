@@ -3,13 +3,9 @@ import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
 import { pxToRem } from "utils";
 
-import {
-  BADGE_SIZE_OPTIONS,
-  BASIC_HIERARCHY_OPTIONS,
-  FEEDBACK_VARIANT_OPTIONS,
-} from "../badge.types";
+import { BADGE_SIZE_OPTIONS } from "../badge.types";
 import type { FeedbackVariant, BadgeSize, BasicHierarchy } from "../badge.types";
-import { NUMERIC_BADGE_STYLE_OPTIONS, type NumericBadgeStyle } from "./numericBadge.types";
+import type { NumericBadgeStyle } from "./numericBadge.types";
 
 type BadgeSizeConfig = {
   minWidth: number;
@@ -149,25 +145,6 @@ const feedbackStyles = {
   },
 } satisfies Record<NumericBadgeStyle, Record<FeedbackVariant, BadgeStyle>>;
 
-const basicCompoundVariants = NUMERIC_BADGE_STYLE_OPTIONS.flatMap(badgeStyle =>
-  BASIC_HIERARCHY_OPTIONS.map(hierarchy => ({
-    variants: { badgeStyle, hierarchy },
-    style: createBadgeStyle(basicStyles[badgeStyle][hierarchy]),
-  })),
-);
-
-const basicMutedCompoundVariants = NUMERIC_BADGE_STYLE_OPTIONS.map(badgeStyle => ({
-  variants: { badgeStyle, isMuted: true },
-  style: createBadgeStyle(basicStyles[badgeStyle].tertiary),
-}));
-
-const feedbackCompoundVariants = NUMERIC_BADGE_STYLE_OPTIONS.flatMap(badgeStyle =>
-  FEEDBACK_VARIANT_OPTIONS.map(variant => ({
-    variants: { badgeStyle, variant },
-    style: createBadgeStyle(feedbackStyles[badgeStyle][variant]),
-  })),
-);
-
 export const basicRoot = recipe({
   base: rootBase,
   variants: {
@@ -184,7 +161,68 @@ export const basicRoot = recipe({
       false: { opacity: 1 },
     },
   },
-  compoundVariants: [...basicCompoundVariants, ...basicMutedCompoundVariants],
+  compoundVariants: [
+    {
+      variants: { badgeStyle: "solid", hierarchy: "accent" },
+      style: createBadgeStyle(basicStyles.solid.accent),
+    },
+    {
+      variants: { badgeStyle: "solid", hierarchy: "primary" },
+      style: createBadgeStyle(basicStyles.solid.primary),
+    },
+    {
+      variants: { badgeStyle: "solid", hierarchy: "secondary" },
+      style: createBadgeStyle(basicStyles.solid.secondary),
+    },
+    {
+      variants: { badgeStyle: "solid", hierarchy: "tertiary" },
+      style: createBadgeStyle(basicStyles.solid.tertiary),
+    },
+    {
+      variants: { badgeStyle: "alpha", hierarchy: "accent" },
+      style: createBadgeStyle(basicStyles.alpha.accent),
+    },
+    {
+      variants: { badgeStyle: "alpha", hierarchy: "primary" },
+      style: createBadgeStyle(basicStyles.alpha.primary),
+    },
+    {
+      variants: { badgeStyle: "alpha", hierarchy: "secondary" },
+      style: createBadgeStyle(basicStyles.alpha.secondary),
+    },
+    {
+      variants: { badgeStyle: "alpha", hierarchy: "tertiary" },
+      style: createBadgeStyle(basicStyles.alpha.tertiary),
+    },
+    {
+      variants: { badgeStyle: "hollow", hierarchy: "accent" },
+      style: createBadgeStyle(basicStyles.hollow.accent),
+    },
+    {
+      variants: { badgeStyle: "hollow", hierarchy: "primary" },
+      style: createBadgeStyle(basicStyles.hollow.primary),
+    },
+    {
+      variants: { badgeStyle: "hollow", hierarchy: "secondary" },
+      style: createBadgeStyle(basicStyles.hollow.secondary),
+    },
+    {
+      variants: { badgeStyle: "hollow", hierarchy: "tertiary" },
+      style: createBadgeStyle(basicStyles.hollow.tertiary),
+    },
+    {
+      variants: { badgeStyle: "solid", isMuted: true },
+      style: createBadgeStyle(basicStyles.solid.tertiary),
+    },
+    {
+      variants: { badgeStyle: "alpha", isMuted: true },
+      style: createBadgeStyle(basicStyles.alpha.tertiary),
+    },
+    {
+      variants: { badgeStyle: "hollow", isMuted: true },
+      style: createBadgeStyle(basicStyles.hollow.tertiary),
+    },
+  ],
 });
 
 export const feedbackRoot = recipe({
@@ -201,7 +239,32 @@ export const feedbackRoot = recipe({
       false: { opacity: 1 },
     },
   },
-  compoundVariants: feedbackCompoundVariants,
+  compoundVariants: [
+    {
+      variants: { badgeStyle: "solid", variant: "positive" },
+      style: createBadgeStyle(feedbackStyles.solid.positive),
+    },
+    {
+      variants: { badgeStyle: "solid", variant: "destructive" },
+      style: createBadgeStyle(feedbackStyles.solid.destructive),
+    },
+    {
+      variants: { badgeStyle: "alpha", variant: "positive" },
+      style: createBadgeStyle(feedbackStyles.alpha.positive),
+    },
+    {
+      variants: { badgeStyle: "alpha", variant: "destructive" },
+      style: createBadgeStyle(feedbackStyles.alpha.destructive),
+    },
+    {
+      variants: { badgeStyle: "hollow", variant: "positive" },
+      style: createBadgeStyle(feedbackStyles.hollow.positive),
+    },
+    {
+      variants: { badgeStyle: "hollow", variant: "destructive" },
+      style: createBadgeStyle(feedbackStyles.hollow.destructive),
+    },
+  ],
 });
 
 export const label = style({
