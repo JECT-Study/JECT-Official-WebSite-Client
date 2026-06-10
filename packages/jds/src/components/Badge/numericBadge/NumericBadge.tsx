@@ -2,7 +2,7 @@ import { clsx } from "clsx";
 import { forwardRef } from "react";
 
 import * as styles from "./numericBadge.css";
-import type { NumericBadgeBasicProps, NumericBasicBadgeProps } from "./numericBadge.types";
+import type { NumericBadgeBasicProps, NumericBadgeFeedbackProps } from "./numericBadge.types";
 
 import { getLabelClassName } from "@/utils/typography";
 
@@ -35,7 +35,7 @@ const NumericBadgeBasic = forwardRef<HTMLSpanElement, NumericBadgeBasicProps>(
 
 NumericBadgeBasic.displayName = "NumericBadge.Basic";
 
-const NumericBadgeFeedback = forwardRef<HTMLSpanElement, NumericBasicBadgeProps>(
+const NumericBadgeFeedback = forwardRef<HTMLSpanElement, NumericBadgeFeedbackProps>(
   (
     {
       variant = "positive",

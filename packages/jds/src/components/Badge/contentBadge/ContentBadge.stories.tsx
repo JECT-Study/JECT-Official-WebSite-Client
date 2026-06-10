@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import type {
   ContentBadgeBasicProps,
-  ContentFeedbackBadgeProps,
-  ContentThemeBadgeProps,
+  ContentBadgeFeedbackProps,
+  ContentBadgeThemeProps,
 } from "components";
 
 import { ContentBadge } from "./ContentBadge";
@@ -70,7 +70,7 @@ export const Basic: StoryObj<ContentBadgeBasicProps> = {
   ),
 };
 
-export const Feedback: StoryObj<ContentFeedbackBadgeProps> = {
+export const Feedback: StoryObj<ContentBadgeFeedbackProps> = {
   argTypes: {
     variant: {
       control: "radio",
@@ -101,7 +101,7 @@ export const Feedback: StoryObj<ContentFeedbackBadgeProps> = {
   ),
 };
 
-export const Theme: StoryObj<ContentThemeBadgeProps> = {
+export const Theme: StoryObj<ContentBadgeThemeProps> = {
   argTypes: {
     variant: {
       control: "select",

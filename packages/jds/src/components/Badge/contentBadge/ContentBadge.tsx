@@ -5,8 +5,8 @@ import type { BadgeSize } from "../badge.types";
 import * as styles from "./contentBadge.css";
 import type {
   ContentBadgeBasicProps,
-  ContentFeedbackBadgeProps,
-  ContentThemeBadgeProps,
+  ContentBadgeFeedbackProps,
+  ContentBadgeThemeProps,
 } from "./contentBadge.types";
 
 import { Icon, type IconSize } from "@/components/Icon";
@@ -56,7 +56,7 @@ const ContentBadgeBasic = forwardRef<HTMLSpanElement, ContentBadgeBasicProps>(
 
 ContentBadgeBasic.displayName = "ContentBadge.Basic";
 
-const ContentBadgeFeedback = forwardRef<HTMLSpanElement, ContentFeedbackBadgeProps>(
+const ContentBadgeFeedback = forwardRef<HTMLSpanElement, ContentBadgeFeedbackProps>(
   (
     {
       variant = "positive",
@@ -93,7 +93,7 @@ const ContentBadgeFeedback = forwardRef<HTMLSpanElement, ContentFeedbackBadgePro
 
 ContentBadgeFeedback.displayName = "ContentBadge.Feedback";
 
-const ContentBadgeTheme = forwardRef<HTMLSpanElement, ContentThemeBadgeProps>(
+const ContentBadgeTheme = forwardRef<HTMLSpanElement, ContentBadgeThemeProps>(
   (
     {
       variant = "red",

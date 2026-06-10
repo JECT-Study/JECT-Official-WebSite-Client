@@ -29,7 +29,7 @@ export interface ContentBadgeBasicProps extends Omit<ComponentPropsWithoutRef<"s
   children: ReactNode;
 }
 
-export interface ContentFeedbackBadgeProps extends Omit<ComponentPropsWithoutRef<"span">, "children"> {
+export interface ContentBadgeFeedbackProps extends Omit<ComponentPropsWithoutRef<"span">, "children"> {
   variant?: FeedbackVariant;
   size?: BadgeSize;
   badgeStyle?: ContentBadgeStyle;
@@ -39,7 +39,7 @@ export interface ContentFeedbackBadgeProps extends Omit<ComponentPropsWithoutRef
   children: ReactNode;
 }
 
-export interface ContentThemeBadgeProps extends Omit<ComponentPropsWithoutRef<"span">, "children"> {
+export interface ContentBadgeThemeProps extends Omit<ComponentPropsWithoutRef<"span">, "children"> {
   variant?: ThemeVariant;
   size?: BadgeSize;
   badgeStyle?: ContentBadgeStyle;

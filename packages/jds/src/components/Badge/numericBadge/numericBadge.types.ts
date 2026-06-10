@@ -13,7 +13,7 @@ export interface NumericBadgeBasicProps extends Omit<ComponentPropsWithoutRef<"s
   children: ReactNode;
 }
 
-export interface NumericBasicBadgeProps extends Omit<
+export interface NumericBadgeFeedbackProps extends Omit<
   ComponentPropsWithoutRef<"span">,
   "children"
 > {
