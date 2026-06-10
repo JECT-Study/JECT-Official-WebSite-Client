@@ -9,15 +9,15 @@ import type {
   ContentBadgeThemeProps,
 } from "./contentBadge.types";
 
-import { Icon, type IconSize } from "@/components/Icon";
-import { getLabelClassName } from "@/utils/typography";
+import { IconButton, type IconButtonSize } from "@/components";
+import { getLabelClassName } from "@/utils";
 
 const iconSizeMap = {
   lg: "sm",
   md: "sm",
   sm: "xs",
   xs: "2xs",
-} satisfies Record<BadgeSize, IconSize>;
+} satisfies Record<BadgeSize, IconButtonSize>;
 
 const ContentBadgeBasic = forwardRef<HTMLSpanElement, ContentBadgeBasicProps>(
   (
@@ -26,7 +26,7 @@ const ContentBadgeBasic = forwardRef<HTMLSpanElement, ContentBadgeBasicProps>(
       size = "md",
       badgeStyle = "solid",
       isMuted = false,
-      withIcon = false,
+      withIconButton = false,
       onIconClick,
       className,
       children,
@@ -40,14 +40,22 @@ const ContentBadgeBasic = forwardRef<HTMLSpanElement, ContentBadgeBasicProps>(
       <span
         ref={ref}
         className={clsx(
-          styles.basicRoot({ hierarchy, size, badgeStyle, isMuted, withIcon }),
+          styles.basicRoot({ hierarchy, size, badgeStyle, isMuted, withIconButton }),
           className,
         )}
         {...restProps}
       >
         <span className={clsx(styles.label, getLabelClassName({ size }))}>{children}</span>
-        {withIcon && (
-          <Icon name='close-line' size={iconSize} className={styles.icon} onClick={onIconClick} />
+        {withIconButton && (
+          <IconButton
+            type='button'
+            icon='close-line'
+            size={iconSize}
+            hierarchy='accent'
+            className={styles.icon}
+            aria-label='Close badge'
+            onClick={onIconClick}
+          />
         )}
       </span>
     );
@@ -63,7 +71,7 @@ const ContentBadgeFeedback = forwardRef<HTMLSpanElement, ContentBadgeFeedbackPro
       size = "md",
       badgeStyle = "solid",
       isMuted = false,
-      withIcon = false,
+      withIconButton = false,
       onIconClick,
       className,
       children,
@@ -77,14 +85,22 @@ const ContentBadgeFeedback = forwardRef<HTMLSpanElement, ContentBadgeFeedbackPro
       <span
         ref={ref}
         className={clsx(
-          styles.feedbackRoot({ variant, size, badgeStyle, isMuted, withIcon }),
+          styles.feedbackRoot({ variant, size, badgeStyle, isMuted, withIconButton }),
           className,
         )}
         {...restProps}
       >
         <span className={clsx(styles.label, getLabelClassName({ size }))}>{children}</span>
-        {withIcon && (
-          <Icon name='close-line' size={iconSize} className={styles.icon} onClick={onIconClick} />
+        {withIconButton && (
+          <IconButton
+            type='button'
+            icon='close-line'
+            aria-label='Close badge'
+            size={iconSize}
+            hierarchy='accent'
+            className={styles.icon}
+            onClick={onIconClick}
+          />
         )}
       </span>
     );

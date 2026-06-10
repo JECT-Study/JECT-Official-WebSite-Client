@@ -45,7 +45,7 @@ export const Basic: StoryObj<ContentBadgeBasicProps> = {
       control: "radio",
       options: BASIC_HIERARCHY_OPTIONS,
     },
-    withIcon: {
+    withIconButton: {
       control: "boolean",
     },
   },
@@ -54,7 +54,7 @@ export const Basic: StoryObj<ContentBadgeBasicProps> = {
     size: "md",
     badgeStyle: "solid",
     isMuted: false,
-    withIcon: false,
+    withIconButton: false,
     children: "레이블",
   },
   render: args => (
@@ -63,7 +63,7 @@ export const Basic: StoryObj<ContentBadgeBasicProps> = {
       size={args.size}
       badgeStyle={args.badgeStyle}
       isMuted={args.isMuted}
-      withIcon={args.withIcon}
+      withIconButton={args.withIconButton}
     >
       {args.children}
     </ContentBadge.Basic>
@@ -76,7 +76,7 @@ export const Feedback: StoryObj<ContentBadgeFeedbackProps> = {
       control: "radio",
       options: FEEDBACK_VARIANT_OPTIONS,
     },
-    withIcon: {
+    withIconButton: {
       control: "boolean",
     },
   },
@@ -85,7 +85,7 @@ export const Feedback: StoryObj<ContentBadgeFeedbackProps> = {
     size: "md",
     badgeStyle: "solid",
     isMuted: false,
-    withIcon: false,
+    withIconButton: false,
     children: "레이블",
   },
   render: args => (
@@ -94,7 +94,7 @@ export const Feedback: StoryObj<ContentBadgeFeedbackProps> = {
       size={args.size}
       badgeStyle={args.badgeStyle}
       isMuted={args.isMuted}
-      withIcon={args.withIcon}
+      withIconButton={args.withIconButton}
     >
       {args.children}
     </ContentBadge.Feedback>

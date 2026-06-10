@@ -1,5 +1,6 @@
 import { createVar, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
+import { iconButtonAccentColor } from "components";
 import { vars } from "tokens";
 import { pxToRem } from "utils";
 
@@ -386,7 +387,7 @@ export const basicRoot = recipe({
       true: { opacity: contentBadgeMutedOpacity },
       false: { opacity: 1 },
     },
-    withIcon: {
+    withIconButton: {
       true: { gap: vars.scheme.semantic.spacing["4"] },
     },
   },
@@ -467,7 +468,7 @@ export const feedbackRoot = recipe({
       true: { opacity: contentBadgeMutedOpacity },
       false: { opacity: 1 },
     },
-    withIcon: {
+    withIconButton: {
       true: { gap: vars.scheme.semantic.spacing["4"] },
     },
   },
@@ -677,5 +678,7 @@ export const label = style({
 });
 
 export const icon = style({
-  color: badgeIconColor,
+  vars: {
+    [iconButtonAccentColor]: badgeIconColor,
+  },
 });

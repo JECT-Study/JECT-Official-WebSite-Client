@@ -39,7 +39,7 @@ export const TagItem = ({ tag, isSelected, onSelect, onRemove }: TagItemProps) =
         hierarchy='secondary'
         badgeStyle='alpha'
         isMuted={isDisabled}
-        withIcon={isInteractive}
+        withIconButton={isInteractive}
         onIconClick={isInteractive ? handleRemoveIconClick : undefined}
       >
         {tag.label}
