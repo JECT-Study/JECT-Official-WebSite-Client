@@ -1,11 +1,15 @@
+import { clsx } from "clsx";
 import { Tooltip as TooltipPrimitive } from "radix-ui";
+import { forwardRef, type ElementRef } from "react";
 
-import { StyledTooltipContent } from "./tooltip.styles";
+import * as styles from "./tooltip.css";
 import type { TooltipContentProps, TooltipProps, TooltipTriggerProps } from "./tooltip.types";
 
-const TooltipRoot = ({ children, delayDuration = 0, ...radixProps }: TooltipProps) => {
+import { getLabelClassName } from "@/utils/typography";
+
+const TooltipRoot = ({ children, ...radixProps }: TooltipProps) => {
   return (
-    <TooltipPrimitive.Root delayDuration={delayDuration} {...radixProps}>
+    <TooltipPrimitive.Root {...radixProps}>
       {children}
     </TooltipPrimitive.Root>
   );
@@ -14,38 +18,50 @@ const TooltipRoot = ({ children, delayDuration = 0, ...radixProps }: TooltipProp
 TooltipRoot.displayName = "Tooltip.Root";
 
 //Todo: avoidCollisions로 제어되고 있는 위치 감지를 디자인 에셋에서 요구하는 감지 플로우로 변경 시 내부 Context 활용 필요 가능성
-const TooltipTrigger = ({ children, asChild = true, ...restProps }: TooltipTriggerProps) => {
-  return (
-    <TooltipPrimitive.Trigger asChild={asChild} {...restProps}>
-      {children}
-    </TooltipPrimitive.Trigger>
-  );
-};
+const TooltipTrigger = forwardRef<ElementRef<typeof TooltipPrimitive.Trigger>, TooltipTriggerProps>(
+  ({ children, asChild = false, ...restProps }, ref) => {
+    return (
+      <TooltipPrimitive.Trigger ref={ref} asChild={asChild} {...restProps}>
+        {children}
+      </TooltipPrimitive.Trigger>
+    );
+  },
+);
 
 TooltipTrigger.displayName = "Tooltip.Trigger";
 
-const TooltipContent = ({
-  children,
-  side = "top",
-  sideOffset = 8,
-  collisionPadding = 0,
-  avoidCollisions = true,
-  ...restProps
-}: TooltipContentProps) => {
-  return (
-    <TooltipPrimitive.Portal>
-      <StyledTooltipContent
-        side={side}
-        sideOffset={sideOffset}
-        collisionPadding={collisionPadding}
-        avoidCollisions={avoidCollisions}
-        {...restProps}
-      >
-        {children}
-      </StyledTooltipContent>
-    </TooltipPrimitive.Portal>
-  );
-};
+const TooltipContent = forwardRef<ElementRef<typeof TooltipPrimitive.Content>, TooltipContentProps>(
+  (
+    {
+      children,
+      side = "top",
+      sideOffset = 8,
+      collisionPadding = 0,
+      avoidCollisions = true,
+      forceMount,
+      className,
+      ...restProps
+    },
+    ref,
+  ) => {
+    return (
+      <TooltipPrimitive.Portal forceMount={forceMount}>
+        <TooltipPrimitive.Content
+          ref={ref}
+          forceMount={forceMount}
+          side={side}
+          sideOffset={sideOffset}
+          collisionPadding={collisionPadding}
+          avoidCollisions={avoidCollisions}
+          className={clsx(styles.content, getLabelClassName({ size: "sm" }), className)}
+          {...restProps}
+        >
+          {children}
+        </TooltipPrimitive.Content>
+      </TooltipPrimitive.Portal>
+    );
+  },
+);
 
 TooltipContent.displayName = "Tooltip.Content";
 

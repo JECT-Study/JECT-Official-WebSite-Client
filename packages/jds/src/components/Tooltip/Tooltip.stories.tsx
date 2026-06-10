@@ -2,14 +2,12 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexColumn, FlexRow, Label } from "@storybook-utils/layout";
 import { Icon, IconButton, Input, Tooltip, BlockButton } from "components";
 
-import { getLabelClassName } from "@/utils/typography";
-
 const meta = {
   title: "Components/Tooltip",
   component: Tooltip.Content,
   decorators: [
     Story => (
-      <Tooltip.Provider delayDuration={0} skipDelayDuration={0}>
+      <Tooltip.Provider>
         <Story />
       </Tooltip.Provider>
     ),
@@ -49,8 +47,8 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   render: args => (
     <Tooltip.Root>
-      <Tooltip.Trigger>
-        <IconButton icon='information-line' />
+      <Tooltip.Trigger asChild>
+        <IconButton icon='information-line' aria-label='툴팁 정보' />
       </Tooltip.Trigger>
       <Tooltip.Content {...args}>툴팁 테스트 레이블</Tooltip.Content>
     </Tooltip.Root>
@@ -70,8 +68,8 @@ export const AllSides: Story = {
         <FlexColumn gap='12px'>
           <Label>Top (기본값)</Label>
           <Tooltip.Root>
-            <Tooltip.Trigger>
-              <IconButton icon='information-line' />
+            <Tooltip.Trigger asChild>
+              <IconButton icon='information-line' aria-label='상단 툴팁 정보' />
             </Tooltip.Trigger>
             <Tooltip.Content side='top'>툴팁 상단</Tooltip.Content>
           </Tooltip.Root>
@@ -80,8 +78,8 @@ export const AllSides: Story = {
         <FlexColumn gap='12px'>
           <Label>Right</Label>
           <Tooltip.Root>
-            <Tooltip.Trigger>
-              <IconButton icon='information-line' />
+            <Tooltip.Trigger asChild>
+              <IconButton icon='information-line' aria-label='우측 툴팁 정보' />
             </Tooltip.Trigger>
             <Tooltip.Content side='right'>툴팁 우측</Tooltip.Content>
           </Tooltip.Root>
@@ -90,8 +88,8 @@ export const AllSides: Story = {
         <FlexColumn gap='12px'>
           <Label>Bottom</Label>
           <Tooltip.Root>
-            <Tooltip.Trigger>
-              <IconButton icon='information-line' />
+            <Tooltip.Trigger asChild>
+              <IconButton icon='information-line' aria-label='하단 툴팁 정보' />
             </Tooltip.Trigger>
             <Tooltip.Content side='bottom'>툴팁 아래</Tooltip.Content>
           </Tooltip.Root>
@@ -100,8 +98,8 @@ export const AllSides: Story = {
         <FlexColumn gap='12px'>
           <Label>Left</Label>
           <Tooltip.Root>
-            <Tooltip.Trigger>
-              <IconButton icon='information-line' />
+            <Tooltip.Trigger asChild>
+              <IconButton icon='information-line' aria-label='좌측 툴팁 정보' />
             </Tooltip.Trigger>
             <Tooltip.Content side='left'>툴팁 좌측</Tooltip.Content>
           </Tooltip.Root>
@@ -123,19 +121,19 @@ export const LongContent: Story = {
   args: { children: undefined },
   render: () => (
     <Tooltip.Root>
-      <Tooltip.Trigger>
+      <Tooltip.Trigger asChild>
         <BlockButton.Basic hierarchy='accent'>표시되는 요소가 길 경우</BlockButton.Basic>
       </Tooltip.Trigger>
       <Tooltip.Content>
-        아주 아주 아주 아주 긴 요소입니다. 모바일 환경에서도 정상적인 툴팁 내용이 표시되어야하기
-        때문에 이러한 처리를 하였습니다. 최대 길이는 320px이며 이 후 자동으로 줄바꿈 됩니다.
+        내부 텍스트가 아주 길 경우 컴포넌트의 최대 길이 280px 기준으로 줄바꿈되며 텍스트가 중앙
+        정렬됩니다.
       </Tooltip.Content>
     </Tooltip.Root>
   ),
   parameters: {
     docs: {
       description: {
-        story: "긴 텍스트는 자동으로 줄바꿈되며, 최대 너비는 320px입니다.",
+        story: "긴 텍스트는 최대 너비 280px 기준으로 자동 줄바꿈되며 중앙 정렬됩니다.",
       },
     },
   },
@@ -148,7 +146,7 @@ export const WithCustomOffset: Story = {
       <FlexColumn gap='12px'>
         <Label>오프셋 기본값(8px)</Label>
         <Tooltip.Root>
-          <Tooltip.Trigger>
+          <Tooltip.Trigger asChild>
             <BlockButton.Basic hierarchy='accent'>기본 오프셋</BlockButton.Basic>
           </Tooltip.Trigger>
           <Tooltip.Content sideOffset={8}>트리거 요소로 부터 8px</Tooltip.Content>
@@ -158,7 +156,7 @@ export const WithCustomOffset: Story = {
       <FlexColumn gap='12px'>
         <Label>오프셋 커스텀(24px)</Label>
         <Tooltip.Root>
-          <Tooltip.Trigger>
+          <Tooltip.Trigger asChild>
             <BlockButton.Basic hierarchy='accent'>커스텀(확장) 오프셋</BlockButton.Basic>
           </Tooltip.Trigger>
           <Tooltip.Content sideOffset={24}>트리거 요소로 부터 24px</Tooltip.Content>
@@ -182,7 +180,7 @@ export const CustomTrigger: Story = {
       <div>
         <Tooltip.Root>
           <Tooltip.Trigger>
-            <span className={getLabelClassName()}>텍스트 레이블입니다.</span>
+            <span>텍스트 레이블</span>
           </Tooltip.Trigger>
           <Tooltip.Content>레이블</Tooltip.Content>
         </Tooltip.Root>
@@ -191,7 +189,7 @@ export const CustomTrigger: Story = {
       <FlexColumn gap='12px'>
         <Label>Icon 컴포넌트</Label>
         <Tooltip.Root>
-          <Tooltip.Trigger>
+          <Tooltip.Trigger aria-label='아이콘 툴팁 정보'>
             <Icon name='information-line' size='lg' />
           </Tooltip.Trigger>
           <Tooltip.Content>아이콘 툴팁</Tooltip.Content>
@@ -201,8 +199,8 @@ export const CustomTrigger: Story = {
       <FlexColumn gap='12px'>
         <Label>Icon 버튼</Label>
         <Tooltip.Root>
-          <Tooltip.Trigger>
-            <IconButton icon='alert-line' />
+          <Tooltip.Trigger asChild>
+            <IconButton icon='alert-line' aria-label='경고 툴팁 정보' />
           </Tooltip.Trigger>
           <Tooltip.Content>아이콘 버튼 툴팁</Tooltip.Content>
         </Tooltip.Root>
@@ -211,7 +209,7 @@ export const CustomTrigger: Story = {
       <FlexColumn gap='12px'>
         <Label>Input 예시</Label>
         <Tooltip.Root>
-          <Tooltip.Trigger>
+          <Tooltip.Trigger asChild>
             <Input.TextField value='레이블 명' onChange={e => e.preventDefault()} />
           </Tooltip.Trigger>
           <Tooltip.Content side='top' sideOffset={12}>
@@ -225,7 +223,7 @@ export const CustomTrigger: Story = {
     docs: {
       description: {
         story:
-          "툴팁은 다양한 Interactive한 요소에 적용할 수 있습니다. 다만, forwardRef 로 래핑된 요소나 Content 자체에 Html Element를 가진 요소이어야 합니다. 버튼, 텍스트, 아이콘, 입력 필드 등 어떤 요소든 트리거로 사용할 수 있습니다.",
+          "툴팁은 다양한 요소에 적용할 수 있습니다. 아이콘처럼 시각적 텍스트가 없는 트리거는 Tooltip.Content와 별도로 aria-label 또는 aria-labelledby를 제공해야 합니다.",
       },
     },
   },
