@@ -59,13 +59,13 @@ const sizeVariants = Object.fromEntries(
   ]),
 ) as Record<BadgeSize, { minWidth: string; padding: string }>;
 
-const rootBase = {
+const root = style({
   display: "inline-flex",
   justifyContent: "center",
   alignItems: "center",
   backgroundColor: "transparent",
   borderRadius: vars.scheme.semantic.radius["4"],
-} as const;
+});
 
 const badgeStyleVariants = {
   solid: {},
@@ -146,7 +146,7 @@ const feedbackStyles = {
 } satisfies Record<NumericBadgeStyle, Record<FeedbackVariant, BadgeStyle>>;
 
 export const basicRoot = recipe({
-  base: rootBase,
+  base: root,
   variants: {
     hierarchy: {
       accent: {},
@@ -226,7 +226,7 @@ export const basicRoot = recipe({
 });
 
 export const feedbackRoot = recipe({
-  base: rootBase,
+  base: root,
   variants: {
     variant: {
       positive: {},
