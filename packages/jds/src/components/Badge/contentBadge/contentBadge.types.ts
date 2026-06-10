@@ -19,30 +19,33 @@ export const THEME_VARIANT_OPTIONS = [
 ] as const;
 export type ThemeVariant = (typeof THEME_VARIANT_OPTIONS)[number];
 
-export interface ContentBadgeBasicProps extends Omit<ComponentPropsWithoutRef<"span">, "children"> {
-  hierarchy?: BasicHierarchy;
+interface BaseContentBadgeProps extends Omit<ComponentPropsWithoutRef<"span">, "children"> {
   size?: BadgeSize;
   badgeStyle?: ContentBadgeStyle;
   isMuted?: boolean;
-  withIconButton?: boolean;
-  onIconClick?: (e: MouseEvent<Element>) => void;
   children: ReactNode;
 }
 
-export interface ContentBadgeFeedbackProps extends Omit<ComponentPropsWithoutRef<"span">, "children"> {
-  variant?: FeedbackVariant;
-  size?: BadgeSize;
-  badgeStyle?: ContentBadgeStyle;
-  isMuted?: boolean;
-  withIconButton?: boolean;
-  onIconClick?: (e: MouseEvent<Element>) => void;
-  children: ReactNode;
-}
+type ContentBadgeIconButtonProps =
+  | {
+      withIconButton?: false;
+      onIconClick?: never;
+    }
+  | {
+      withIconButton: true;
+      onIconClick: (e: MouseEvent<Element>) => void;
+    };
 
-export interface ContentBadgeThemeProps extends Omit<ComponentPropsWithoutRef<"span">, "children"> {
+export type ContentBadgeBasicProps = BaseContentBadgeProps &
+  ContentBadgeIconButtonProps & {
+    hierarchy?: BasicHierarchy;
+  };
+
+export type ContentBadgeFeedbackProps = BaseContentBadgeProps &
+  ContentBadgeIconButtonProps & {
+    variant?: FeedbackVariant;
+  };
+
+export interface ContentBadgeThemeProps extends BaseContentBadgeProps {
   variant?: ThemeVariant;
-  size?: BadgeSize;
-  badgeStyle?: ContentBadgeStyle;
-  isMuted?: boolean;
-  children: ReactNode;
 }

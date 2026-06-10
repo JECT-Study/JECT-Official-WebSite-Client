@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+
+import { ContentBadge } from "./ContentBadge";
 import type {
   ContentBadgeBasicProps,
   ContentBadgeFeedbackProps,
   ContentBadgeThemeProps,
-} from "components";
-
-import { ContentBadge } from "./ContentBadge";
+} from "./contentBadge.types";
 import { CONTENT_BADGE_STYLE_OPTIONS, THEME_VARIANT_OPTIONS } from "./contentBadge.types";
 import {
   BADGE_SIZE_OPTIONS,
@@ -57,13 +57,15 @@ export const Basic: StoryObj<ContentBadgeBasicProps> = {
     withIconButton: false,
     children: "레이블",
   },
-  render: args => (
+  render: (args: ContentBadgeBasicProps) => (
     <ContentBadge.Basic
       hierarchy={args.hierarchy}
       size={args.size}
       badgeStyle={args.badgeStyle}
       isMuted={args.isMuted}
-      withIconButton={args.withIconButton}
+      {...(args.withIconButton
+        ? { withIconButton: true, onIconClick: () => undefined }
+        : { withIconButton: false })}
     >
       {args.children}
     </ContentBadge.Basic>
@@ -88,13 +90,15 @@ export const Feedback: StoryObj<ContentBadgeFeedbackProps> = {
     withIconButton: false,
     children: "레이블",
   },
-  render: args => (
+  render: (args: ContentBadgeFeedbackProps) => (
     <ContentBadge.Feedback
       variant={args.variant}
       size={args.size}
       badgeStyle={args.badgeStyle}
       isMuted={args.isMuted}
-      withIconButton={args.withIconButton}
+      {...(args.withIconButton
+        ? { withIconButton: true, onIconClick: () => undefined }
+        : { withIconButton: false })}
     >
       {args.children}
     </ContentBadge.Feedback>

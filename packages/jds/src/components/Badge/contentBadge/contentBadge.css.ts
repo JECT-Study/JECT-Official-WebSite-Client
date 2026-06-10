@@ -1,12 +1,15 @@
 import { createVar, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
-import { iconButtonAccentColor } from "components";
 import { vars } from "tokens";
 import { pxToRem } from "utils";
 
 import { BADGE_SIZE_OPTIONS } from "../badge.types";
 import type { BadgeSize, BasicHierarchy, FeedbackVariant } from "../badge.types";
 import type { ContentBadgeStyle, ThemeVariant } from "./contentBadge.types";
+import {
+  iconButtonAccentColor,
+  iconButtonAccentDisabledColor,
+} from "../../Button/IconButton/iconButton.css";
 
 type BadgeSizeConfig = {
   minWidth: number;
@@ -680,5 +683,6 @@ export const label = style({
 export const icon = style({
   vars: {
     [iconButtonAccentColor]: badgeIconColor,
+    [iconButtonAccentDisabledColor]: badgeIconColor,
   },
 });

@@ -8,8 +8,9 @@ import type {
   ContentBadgeFeedbackProps,
   ContentBadgeThemeProps,
 } from "./contentBadge.types";
+import { IconButton } from "../../Button/IconButton";
+import type { IconButtonSize } from "../../Button/IconButton";
 
-import { IconButton, type IconButtonSize } from "@/components";
 import { getLabelClassName } from "@/utils";
 
 const iconSizeMap = {
@@ -50,10 +51,11 @@ const ContentBadgeBasic = forwardRef<HTMLSpanElement, ContentBadgeBasicProps>(
           <IconButton
             type='button'
             icon='close-line'
+            aria-label='Close badge'
             size={iconSize}
             hierarchy='accent'
             className={styles.icon}
-            aria-label='Close badge'
+            disabled={isMuted}
             onClick={onIconClick}
           />
         )}
@@ -99,6 +101,7 @@ const ContentBadgeFeedback = forwardRef<HTMLSpanElement, ContentBadgeFeedbackPro
             size={iconSize}
             hierarchy='accent'
             className={styles.icon}
+            disabled={isMuted}
             onClick={onIconClick}
           />
         )}
