@@ -72,7 +72,7 @@ const rootBase = {
   display: "inline-flex",
   justifyContent: "center",
   alignItems: "center",
-  gap: 0,
+  gap: vars.scheme.semantic.spacing["0"],
   backgroundColor: "transparent",
   borderStyle: "solid",
   borderWidth: "0",
@@ -387,8 +387,7 @@ export const basicRoot = recipe({
       false: { opacity: 1 },
     },
     withIcon: {
-      true: { gap: pxToRem(4) },
-      false: { gap: 0 },
+      true: { gap: vars.scheme.semantic.spacing["4"] },
     },
   },
   compoundVariants: [
@@ -469,8 +468,7 @@ export const feedbackRoot = recipe({
       false: { opacity: 1 },
     },
     withIcon: {
-      true: { gap: pxToRem(4) },
-      false: { gap: 0 },
+      true: { gap: vars.scheme.semantic.spacing["4"] },
     },
   },
   compoundVariants: [
