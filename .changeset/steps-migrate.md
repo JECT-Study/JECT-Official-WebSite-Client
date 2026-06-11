@@ -1,5 +1,5 @@
 ---
-"@jects/jds": major
+"@jects/jds": minor
 ---
 
 **Steps**
