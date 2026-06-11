@@ -1,19 +1,20 @@
-import { DotBadgeFeedbackDiv } from "./DotBadge.style";
-import type { BadgeSize, FeedbackVariant } from "../badge.types";
+import { clsx } from "clsx";
+import { forwardRef } from "react";
 
-export interface DotBadgeFeedbackProps {
-  variant: FeedbackVariant;
-  size?: BadgeSize;
-  isMuted?: boolean;
-}
+import * as styles from "./dotBadge.css";
+import type { DotBadgeFeedbackProps } from "./dotBadge.types";
 
-export const DotBadgeFeedback = ({
-  variant = "positive",
-  size = "md",
-  isMuted = false,
-}: DotBadgeFeedbackProps) => {
-  return <DotBadgeFeedbackDiv variant={variant} size={size} isMuted={isMuted} />;
-};
+const DotBadgeFeedback = forwardRef<HTMLSpanElement, DotBadgeFeedbackProps>(
+  ({ variant = "positive", size = "md", isMuted = false, className, ...restProps }, ref) => {
+    return (
+      <span
+        ref={ref}
+        className={clsx(styles.feedbackRoot({ variant, size, isMuted }), className)}
+        {...restProps}
+      />
+    );
+  },
+);
 
 DotBadgeFeedback.displayName = "DotBadge.Feedback";
 

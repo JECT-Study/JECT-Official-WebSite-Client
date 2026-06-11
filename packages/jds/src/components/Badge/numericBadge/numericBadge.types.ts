@@ -1,0 +1,25 @@
+import type { ComponentPropsWithoutRef, ReactNode } from "react";
+
+import type { FeedbackVariant, BadgeSize, BasicHierarchy } from "../badge.types";
+
+export const NUMERIC_BADGE_STYLE_OPTIONS = ["solid", "alpha", "hollow"] as const;
+export type NumericBadgeStyle = (typeof NUMERIC_BADGE_STYLE_OPTIONS)[number];
+
+export interface NumericBadgeBasicProps extends Omit<ComponentPropsWithoutRef<"span">, "children"> {
+  hierarchy?: BasicHierarchy;
+  size?: BadgeSize;
+  badgeStyle?: NumericBadgeStyle;
+  isMuted?: boolean;
+  children: ReactNode;
+}
+
+export interface NumericBadgeFeedbackProps extends Omit<
+  ComponentPropsWithoutRef<"span">,
+  "children"
+> {
+  variant?: FeedbackVariant;
+  size?: BadgeSize;
+  badgeStyle?: NumericBadgeStyle;
+  isMuted?: boolean;
+  children: ReactNode;
+}

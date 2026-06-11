@@ -80,7 +80,7 @@ export const StyledBannerBarCloseButton = styled.div(({ theme }) => ({
     color: theme.color.semantic.object.inverse.boldest,
 
     "&:hover": {
-      backgroundColor: theme.colorPrimitive.primitive.flow.light.alpha[100],
+      backgroundColor: theme.colorPrimitive.primitive.flow.alpha[100],
     },
   },
 }));

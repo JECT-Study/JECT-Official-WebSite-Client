@@ -26,10 +26,10 @@ type OutlinedColorState = { borderColor: string; color: string };
 
 // Overlay colors per hierarchy
 const overlayColorByHierarchy = {
-  accent: vars.color.semantic.interaction.bold,
-  primary: vars.color.semantic.interaction.inverse.normal,
-  secondary: vars.color.semantic.interaction.inverse.normal,
-  tertiary: vars.color.semantic.interaction.normal,
+  accent: vars.color.semantic.accent.neutral,
+  primary: vars.color.semantic.fill.boldest,
+  secondary: vars.color.semantic.fill.boldest,
+  tertiary: vars.color.semantic.fill.boldest,
 } satisfies Record<BlockButtonHierarchy, string>;
 
 // Solid colors
@@ -320,7 +320,7 @@ export const basicRoot = recipe({
  *
  * @remarks
  * 항상 solid variant로 렌더링되며, `hierarchy` 없이 `intent`만으로 색상이 결정된다.
- * overlay color는 positive / destructive 모두 `interaction.bold`로 동일하다.
+ * overlay color는 positive / destructive 모두 `object.boldest`로 동일하다.
  *
  * 인터랙션 상태 처리는 {@link basicRoot}와 동일하게 `usePressable` data attribute에 의존한다.
  */
@@ -330,12 +330,12 @@ export const feedbackRoot = recipe({
     // feedback은 항상 solid이므로 intent variant에서 색상을 직접 결정
     intent: {
       positive: {
-        vars: { [overlayColor]: vars.color.semantic.interaction.bold },
+        vars: { [overlayColor]: vars.color.semantic.fill.boldest },
         ...feedbackColorsByIntent.positive.enabled,
         selectors: { "&[data-disabled]": feedbackColorsByIntent.positive.disabled },
       },
       destructive: {
-        vars: { [overlayColor]: vars.color.semantic.interaction.bold },
+        vars: { [overlayColor]: vars.color.semantic.fill.boldest },
         ...feedbackColorsByIntent.destructive.enabled,
         selectors: { "&[data-disabled]": feedbackColorsByIntent.destructive.disabled },
       },

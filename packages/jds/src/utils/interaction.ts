@@ -52,16 +52,16 @@ export function Interaction(
       "::after": { ...afterBaseStyle, opacity: 0 },
       "&:hover::after": { opacity: 0.08 },
       "&:active::after": { opacity: 0.12 },
-      "&:focus-visible": { boxShadow: `0 0 0 3px ${theme.color.semantic.interaction.focus}` },
+      "&:focus-visible": { boxShadow: `0 0 0 3px ${theme.color.semantic.accent.normal}` },
     };
   };
 
   if (fillColor === "default") {
     if (variant === "normal") {
-      if (density === "bold") return createAfter(theme.color.semantic.interaction.bold);
-      if (density === "normal") return createAfter(theme.color.semantic.interaction.normal);
-      if (density === "assistive") return createAfter(theme.color.semantic.interaction.assistive);
-      if (density === "subtle") return createAfter(theme.color.semantic.interaction.subtle);
+      if (density === "bold") return createAfter(theme.color.semantic.object.bold);
+      if (density === "normal") return createAfter(theme.color.semantic.object.neutral);
+      if (density === "assistive") return createAfter(theme.color.semantic.object.assistive);
+      if (density === "subtle") return createAfter(theme.color.semantic.object.subtle);
     } else if (variant === "accent") {
       if (density === "bold") return createAfter(theme.color.semantic.accent.bold);
       if (density === "normal") return createAfter(theme.color.semantic.accent.normal);
@@ -85,11 +85,11 @@ export function Interaction(
     }
   } else if (fillColor === "inverse") {
     if (variant === "normal") {
-      if (density === "bold") return createAfter(theme.color.semantic.interaction.inverse.bold);
-      if (density === "normal") return createAfter(theme.color.semantic.interaction.inverse.normal);
+      if (density === "bold") return createAfter(theme.color.semantic.object.inverse.bold);
+      if (density === "normal") return createAfter(theme.color.semantic.object.inverse.neutral);
       if (density === "assistive")
-        return createAfter(theme.color.semantic.interaction.inverse.assistive);
-      if (density === "subtle") return createAfter(theme.color.semantic.interaction.inverse.subtle);
+        return createAfter(theme.color.semantic.object.inverse.assistive);
+      if (density === "subtle") return createAfter(theme.color.semantic.object.inverse.subtle);
     } else if (variant === "accent") {
       if (density === "bold") return createAfter(theme.color.semantic.accent.inverse.bold);
       if (density === "normal") return createAfter(theme.color.semantic.accent.inverse.normal);

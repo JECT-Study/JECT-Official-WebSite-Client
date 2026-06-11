@@ -1,142 +1,141 @@
-import type { MouseEvent, ReactNode } from "react";
+import { clsx } from "clsx";
+import { forwardRef } from "react";
 
-import {
-  BadgeIcon,
-  ContentBadgeBasicDiv,
-  ContentBadgeBasicLabel,
-  ContentBadgeFeedbackDiv,
-  ContentBadgeFeedbackLabel,
-  ContentBadgeThemeDiv,
-  ContentBadgeThemeLabel,
-} from "./ContentBadge.style";
+import type { BadgeSize } from "../badge.types";
+import * as styles from "./contentBadge.css";
 import type {
-  BadgeSize,
-  ContentBadgeStyle,
-  BasicHierarchy,
-  FeedbackVariant,
-  ThemeVariant,
-} from "../badge.types";
-import { iconSizeMap } from "./contentBadge.variants";
+  ContentBadgeBasicProps,
+  ContentBadgeFeedbackProps,
+  ContentBadgeThemeProps,
+} from "./contentBadge.types";
+import { IconButton } from "../../Button/IconButton";
+import type { IconButtonSize } from "../../Button/IconButton";
 
-import { getLabelClassName } from "@/utils/typography";
+import { getLabelClassName } from "@/utils";
 
-export interface ContentBadgeBasicProps {
-  hierarchy?: BasicHierarchy;
-  size?: BadgeSize;
-  badgeStyle?: ContentBadgeStyle;
-  isMuted?: boolean;
-  withIcon?: boolean;
-  onIconClick?: (e: MouseEvent<Element>) => void;
-  children: ReactNode;
-}
+const iconSizeMap = {
+  lg: "sm",
+  md: "sm",
+  sm: "xs",
+  xs: "2xs",
+} satisfies Record<BadgeSize, IconButtonSize>;
 
-const ContentBadgeBasic = ({
-  hierarchy = "secondary",
-  size = "md",
-  badgeStyle = "solid",
-  isMuted = false,
-  withIcon = false,
-  onIconClick,
-  children,
-}: ContentBadgeBasicProps) => {
-  const iconSize = iconSizeMap[size];
+const ContentBadgeBasic = forwardRef<HTMLSpanElement, ContentBadgeBasicProps>(
+  (
+    {
+      hierarchy = "secondary",
+      size = "md",
+      badgeStyle = "solid",
+      isMuted = false,
+      withIconButton = false,
+      onIconClick,
+      className,
+      children,
+      ...restProps
+    },
+    ref,
+  ) => {
+    const iconSize = iconSizeMap[size];
 
-  return (
-    <ContentBadgeBasicDiv
-      hierarchy={hierarchy}
-      size={size}
-      badgeStyle={badgeStyle}
-      isMuted={isMuted}
-      withIcon={withIcon}
-    >
-      <ContentBadgeBasicLabel
-        className={getLabelClassName({ size, textAlign: "center" })}
-        hierarchy={hierarchy}
-        badgeStyle={badgeStyle}
-        isMuted={isMuted}
+    return (
+      <span
+        ref={ref}
+        className={clsx(
+          styles.basicRoot({ hierarchy, size, badgeStyle, isMuted, withIconButton }),
+          className,
+        )}
+        {...restProps}
       >
-        {children}
-      </ContentBadgeBasicLabel>
-      {withIcon && (
-        <BadgeIcon
-          name='close-line'
-          size={iconSize}
-          hierarchy={hierarchy}
-          badgeStyle={badgeStyle}
-          isMuted={isMuted}
-          onClick={onIconClick}
-        />
-      )}
-    </ContentBadgeBasicDiv>
-  );
-};
+        <span className={clsx(styles.label, getLabelClassName({ size }))}>{children}</span>
+        {withIconButton && (
+          <IconButton
+            type='button'
+            icon='close-line'
+            aria-label='Close badge'
+            size={iconSize}
+            hierarchy='accent'
+            className={styles.icon}
+            disabled={isMuted}
+            onClick={onIconClick}
+          />
+        )}
+      </span>
+    );
+  },
+);
 
 ContentBadgeBasic.displayName = "ContentBadge.Basic";
 
-export interface ContentFeedbackBadgeProps {
-  variant?: FeedbackVariant;
-  size?: BadgeSize;
-  badgeStyle?: ContentBadgeStyle;
-  isMuted?: boolean;
-  children: ReactNode;
-}
+const ContentBadgeFeedback = forwardRef<HTMLSpanElement, ContentBadgeFeedbackProps>(
+  (
+    {
+      variant = "positive",
+      size = "md",
+      badgeStyle = "solid",
+      isMuted = false,
+      withIconButton = false,
+      onIconClick,
+      className,
+      children,
+      ...restProps
+    },
+    ref,
+  ) => {
+    const iconSize = iconSizeMap[size];
 
-const ContentBadgeFeedback = ({
-  variant = "positive",
-  size = "md",
-  badgeStyle = "solid",
-  isMuted = false,
-  children,
-}: ContentFeedbackBadgeProps) => {
-  return (
-    <ContentBadgeFeedbackDiv
-      variant={variant}
-      size={size}
-      badgeStyle={badgeStyle}
-      isMuted={isMuted}
-    >
-      <ContentBadgeFeedbackLabel
-        className={getLabelClassName({ size, textAlign: "center" })}
-        variant={variant}
-        badgeStyle={badgeStyle}
-        isMuted={isMuted}
+    return (
+      <span
+        ref={ref}
+        className={clsx(
+          styles.feedbackRoot({ variant, size, badgeStyle, isMuted, withIconButton }),
+          className,
+        )}
+        {...restProps}
       >
-        {children}
-      </ContentBadgeFeedbackLabel>
-    </ContentBadgeFeedbackDiv>
-  );
-};
+        <span className={clsx(styles.label, getLabelClassName({ size }))}>{children}</span>
+        {withIconButton && (
+          <IconButton
+            type='button'
+            icon='close-line'
+            aria-label='Close badge'
+            size={iconSize}
+            hierarchy='accent'
+            className={styles.icon}
+            disabled={isMuted}
+            onClick={onIconClick}
+          />
+        )}
+      </span>
+    );
+  },
+);
 
 ContentBadgeFeedback.displayName = "ContentBadge.Feedback";
 
-export interface ContentThemeBadgeProps {
-  variant?: ThemeVariant;
-  size?: BadgeSize;
-  badgeStyle?: ContentBadgeStyle;
-  isMuted?: boolean;
-  children: ReactNode;
-}
-
-const ContentBadgeTheme = ({
-  variant = "red",
-  size = "md",
-  badgeStyle = "solid",
-  isMuted = false,
-  children,
-}: ContentThemeBadgeProps) => {
-  return (
-    <ContentBadgeThemeDiv variant={variant} size={size} badgeStyle={badgeStyle} isMuted={isMuted}>
-      <ContentBadgeThemeLabel
-        className={getLabelClassName({ size, textAlign: "center" })}
-        variant={variant}
-        badgeStyle={badgeStyle}
-        isMuted={isMuted}
+const ContentBadgeTheme = forwardRef<HTMLSpanElement, ContentBadgeThemeProps>(
+  (
+    {
+      variant = "red",
+      size = "md",
+      badgeStyle = "solid",
+      isMuted = false,
+      className,
+      children,
+      ...restProps
+    },
+    ref,
+  ) => {
+    return (
+      <span
+        ref={ref}
+        className={clsx(styles.themeRoot({ variant, size, badgeStyle, isMuted }), className)}
+        {...restProps}
       >
-        {children}
-      </ContentBadgeThemeLabel>
-    </ContentBadgeThemeDiv>
-  );
-};
+        <span className={clsx(styles.label, getLabelClassName({ size }))}>{children}</span>
+      </span>
+    );
+  },
+);
 
 ContentBadgeTheme.displayName = "ContentBadge.Theme";
 

@@ -15,6 +15,9 @@ import { z } from "zod";
 /* ------------------ 공통 스키마 ------------------ */
 const hexColorSchema = z.string().regex(/^#[0-9a-fA-F]{6}([0-9a-fA-F]{2})?$/);
 const tokenValueSchema = z.union([z.number(), z.string()]);
+type DeviceName = "desktop" | "tablet" | "mobile";
+
+const deviceNames = ["desktop", "tablet", "mobile"] as const;
 
 /* ------------------ 중첩 객체를 파싱하기 위한 helper function ------------------ */
 export interface NestedObject {
@@ -146,6 +149,74 @@ function convertResponsiveToNested(
     });
   });
   return result;
+}
+
+// Figma에서 내려오는 반응형 키("1200-", "768-1199" 등)를 내부 디바이스 키로 변환
+function resolveDeviceName(deviceKey: string): DeviceName | null {
+  if (deviceNames.includes(deviceKey as DeviceName)) {
+    return deviceKey as DeviceName;
+  }
+
+  const breakpointRange = /^(\d+)-(\d+)?$/.exec(deviceKey);
+  if (!breakpointRange) return null;
+
+  const minWidth = Number(breakpointRange[1]);
+
+  if (minWidth >= 1200) return "desktop";
+  if (minWidth >= 768) return "tablet";
+  return "mobile";
+}
+
+// scheme/typography 토큰을 desktop/tablet/mobile 구조로 정규화
+// 지원하지 않는 범위나 중복 매핑은 Zod issue로 처리
+function normalizeDeviceTokens(
+  data: Record<string, Record<string, string | number>>,
+  ctx: z.RefinementCtx,
+): { hasIssues: boolean; tokens: Record<DeviceName, Record<string, string | number>> } {
+  const normalized: Partial<Record<DeviceName, Record<string, string | number>>> = {};
+  let hasIssues = false;
+
+  Object.entries(data).forEach(([deviceKey, tokens]) => {
+    const deviceName = resolveDeviceName(deviceKey);
+
+    if (!deviceName) {
+      hasIssues = true;
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: `지원하지 않는 디바이스 키입니다: ${deviceKey}`,
+        path: [deviceKey],
+      });
+      return;
+    }
+
+    if (normalized[deviceName]) {
+      hasIssues = true;
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: `${deviceName}에 매핑되는 디바이스 키가 중복되었습니다: ${deviceKey}`,
+        path: [deviceKey],
+      });
+      return;
+    }
+
+    normalized[deviceName] = tokens;
+  });
+
+  deviceNames.forEach(deviceName => {
+    if (!normalized[deviceName]) {
+      hasIssues = true;
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: `${deviceName} 디바이스 토큰이 없습니다.`,
+        path: [deviceName],
+      });
+    }
+  });
+
+  return {
+    hasIssues,
+    tokens: normalized as Record<DeviceName, Record<string, string | number>>,
+  };
 }
 
 /* ------------------ collection별 schema ------------------ */
@@ -306,25 +377,27 @@ const colorPrimitiveSchema = z
  *  - nested: { desktop: nestedObj, tablet: nestedObj, mobile: nestedObj }
  */
 const deviceTokensSchema = z
-  .object({
-    desktop: z.record(z.string(), tokenValueSchema),
-    tablet: z.record(z.string(), tokenValueSchema),
-    mobile: z.record(z.string(), tokenValueSchema),
-  })
-  .transform(data => {
+  .record(z.string(), z.record(z.string(), tokenValueSchema))
+  .transform((data, ctx) => {
+    const normalizedData = normalizeDeviceTokens(data, ctx);
+
+    if (normalizedData.hasIssues) {
+      return z.NEVER;
+    }
+
     // tokens: 디바이스별 원본 데이터
     // cssVariables: 토큰별로 디바이스 값 그룹핑 { "--semantic-spacing-1": { desktop: 1, tablet: 1, mobile: 1 } }
     // nested: 디바이스별 중첩 객체 { desktop: { semantic: { spacing: { 1: "var(--semantic-spacing-1)" } } }, ... }
     const cssVars: Record<string, Record<string, string | number>> = {};
-    Object.entries(data).forEach(([device, tokens]) => {
+    Object.entries(normalizedData.tokens).forEach(([device, tokens]) => {
       Object.entries(tokens).forEach(([key, value]) => {
         const cssKey = `--${key}`;
         if (!cssVars[cssKey]) cssVars[cssKey] = {};
         cssVars[cssKey][device] = addPxIfNeeded(key, value);
       });
     });
-    const nested = convertResponsiveToNested(data);
-    return { tokens: data, cssVariables: cssVars, nested };
+    const nested = convertResponsiveToNested(normalizedData.tokens);
+    return { tokens: normalizedData.tokens, cssVariables: cssVars, nested };
   });
 
 /**

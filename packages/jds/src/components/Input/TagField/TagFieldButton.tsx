@@ -180,7 +180,12 @@ export const TagFieldButton = forwardRef<HTMLInputElement, TagFieldButtonProps>(
                       hierarchy='secondary'
                       badgeStyle='alpha'
                       isMuted={isDisabled}
-                      withIcon={isInteractive}
+                      {...(isInteractive
+                        ? {
+                            withIconButton: true,
+                            onIconClick: (e: MouseEvent<Element>) => handleTagClick(e, tag.id),
+                          }
+                        : { withIconButton: false })}
                     >
                       {tag.label}
                     </ContentBadge.Basic>
