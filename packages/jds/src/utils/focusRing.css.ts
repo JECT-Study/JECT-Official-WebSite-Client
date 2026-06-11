@@ -1,9 +1,20 @@
-import { style } from "@vanilla-extract/css";
+import { createVar } from "@vanilla-extract/css";
+import { recipe } from "@vanilla-extract/recipes";
 
 import { vars } from "../tokens/vars.css";
 
-// TODO: 디자인팀과 정렬 후 토큰화 예정 (예: vars.scheme.semantic.strokeWeight["3"])
-const FOCUS_RING_WIDTH = "3px";
+export type FocusRingBorder = "outside" | "inside";
+export type FocusRingFeedback = "none" | "destructive" | "positive";
+
+const FOCUS_RING_WIDTH = vars.scheme.semantic.strokeWeight["2"];
+const focusVisibleSelector = "&[data-focus-visible]::before, &:focus-visible::before";
+const focusRingColor = createVar();
+
+const focusRingColorMap = {
+  none: vars.color.semantic.accent.alpha.alternative,
+  destructive: vars.color.semantic.feedback.destructive.alpha.alternative,
+  positive: vars.color.semantic.feedback.positive.alpha.alternative,
+} satisfies Record<FocusRingFeedback, string>;
 
 /**
  * @description
@@ -24,31 +35,57 @@ const FOCUS_RING_WIDTH = "3px";
  *   다르므로 이 유틸이 가정하지 않는다.
  *
  * @example
- *   // 케이스 1: 시각 영역 = 탭 영역인 일반 컴포넌트
- *   selectors: {
- *     "&::before": { inset: 0, borderRadius: "inherit" },
- *   }
- *
- * @example
- *   // 케이스 2: 탭 영역이 시각 영역보다 큰 컴포넌트 (IconButton condensed 등)
- *   selectors: {
- *     "&::before": { inset: pxToRem(-4), borderRadius: "4px" },
- *   }
+ *   focusRing()
+ *   focusRing({ border: "inside", feedback: "destructive" })
  */
-export const focusRing = style({
-  outline: "none",
-  selectors: {
-    "&::before": {
-      content: '""',
-      position: "absolute",
-      pointerEvents: "none",
+export const focusRing = recipe({
+  base: {
+    outline: "none",
+    selectors: {
+      "&::before": {
+        content: '""',
+        position: "absolute",
+        pointerEvents: "none",
+      },
+      [focusVisibleSelector]: {
+        // overlay(::after)는 ::before 다음에 그려지므로 기본 stacking에서 위에 온다.
+        // condensed 모드에서 ::before/::after가 같은 영역을 점유할 때 hover+focus 동시 발생 시
+        // overlay가 focus ring 가장자리를 덮는 시각 버그를 방지하기 위해 ::before를 위로 올린다.
+        zIndex: 1,
+      },
     },
-    "&[data-focus-visible]::before": {
-      boxShadow: `0 0 0 ${FOCUS_RING_WIDTH} ${vars.color.semantic.accent.alpha.alternative}`,
-      // overlay(::after)는 ::before 다음에 그려지므로 기본 stacking에서 위에 온다.
-      // condensed 모드에서 ::before/::after가 같은 영역을 점유할 때 hover+focus 동시 발생 시
-      // overlay가 focus ring 가장자리를 덮는 시각 버그를 방지하기 위해 ::before를 위로 올린다.
-      zIndex: 1,
-    },
+  },
+  variants: {
+    border: {
+      outside: {
+        selectors: {
+          [focusVisibleSelector]: {
+            boxShadow: `0 0 0 ${FOCUS_RING_WIDTH} ${focusRingColor}`,
+          },
+        },
+      },
+      inside: {
+        selectors: {
+          [focusVisibleSelector]: {
+            boxShadow: `inset 0 0 0 ${FOCUS_RING_WIDTH} ${focusRingColor}`,
+          },
+        },
+      },
+    } satisfies Record<FocusRingBorder, object>,
+    feedback: {
+      none: {
+        vars: { [focusRingColor]: focusRingColorMap.none },
+      },
+      destructive: {
+        vars: { [focusRingColor]: focusRingColorMap.destructive },
+      },
+      positive: {
+        vars: { [focusRingColor]: focusRingColorMap.positive },
+      },
+    } satisfies Record<FocusRingFeedback, object>,
+  },
+  defaultVariants: {
+    border: "outside",
+    feedback: "none",
   },
 });
