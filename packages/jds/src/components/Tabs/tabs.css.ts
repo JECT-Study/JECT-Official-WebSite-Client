@@ -87,6 +87,7 @@ export const trigger = recipe({
             color: vars.color.semantic.object.alternative,
           },
           "&::after": {
+            // header trigger의 borderBottom 두께와 overlay 위치를 동기화하기 위해 같은 strokeWeight 토큰을 재사용
             bottom: `calc(${vars.scheme.semantic.strokeWeight["2"]} * -1)`,
           },
           "&[data-state='active']": {
