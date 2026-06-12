@@ -271,8 +271,8 @@ globalStyle(`${radioItemAlignRight} > :nth-child(3)`, { gridColumn: "1 / span 2"
 
 const itemBaseStyles = style([
   radioItemGrid,
-  overlay,
-  focusRing,
+  overlay(),
+  focusRing(),
   {
     position: "relative",
     vars: { [overlayColor]: vars.color.semantic.fill.bold },

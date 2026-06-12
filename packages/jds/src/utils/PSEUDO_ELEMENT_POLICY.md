@@ -92,21 +92,40 @@ React 컴포넌트는 보통 여러 element의 합성이지만, 정책이 적용
 
 ```ts
 // utils/focusRing.css.ts
-export const focusRing = style({
-  outline: "none",
-  selectors: {
-    "&::before": { content: '""', position: "absolute", pointerEvents: "none" },
-    "&[data-focus-visible]::before": { boxShadow: "...", zIndex: 1 },
+export const focusRing = recipe({
+  base: {
+    outline: "none",
+    selectors: {
+      "&::before": { content: '""', position: "absolute", pointerEvents: "none" },
+      "&[data-focus-visible]::before, &:focus-visible::before": { boxShadow: "...", zIndex: 1 },
+    },
   },
 });
 
 // utils/overlay.css.ts
-export const overlay = style({
-  selectors: {
-    "&::after": { content: '""', position: "absolute", pointerEvents: "none", ... },
-    // disabled 상태는 utility가 직접 차단 — 호출자가 잊어도 새지 않음
-    "&[data-hovered]:not([data-disabled])::after": { ... },
-    "&[data-pressed]:not([data-disabled])::after": { ... },
+export const overlay = recipe({
+  base: {
+    selectors: {
+      "&::after": { content: '""', position: "absolute", pointerEvents: "none", ... },
+      // disabled 상태는 utility가 직접 차단 — 호출자가 잊어도 새지 않음
+      "&[data-hovered]:not([data-disabled])::after": { ... },
+      "&[data-pressed]:not([data-disabled])::after, &:active:not(:disabled):not([data-disabled])::after": { ... },
+    },
+  },
+  variants: {
+    nativeHover: {
+      // useHover를 거치지 않는 컴포넌트만 명시적으로 opt-in
+      true: {
+        "@media": {
+          "(hover: hover) and (pointer: fine)": {
+            selectors: {
+              "&:hover:not(:disabled):not([data-disabled])::after": { ... },
+              "&[data-pressed]:not([data-disabled])::after, &:active:not(:disabled):not([data-disabled])::after": { ... },
+            },
+          },
+        },
+      },
+    },
   },
 });
 ```
@@ -169,10 +188,11 @@ condensed 모드처럼 inset과 borderRadius를 컴포넌트별로 다르게 주
 
 ## 새 인터랙티브 컴포넌트 작성 체크리스트
 
-- [ ] recipe `base`에 `[overlay, focusRing, baseStyles]` 합성
+- [ ] recipe `base`에 `[overlay(), focusRing(), baseStyles]` 합성
 - [ ] baseStyles에 `position: relative`
 - [ ] outline 처리는 focusRing 유틸이 자체 책임 — baseStyles에 넣지 않는다
 - [ ] `::before`와 `::after`에 inset과 borderRadius를 명시 (동일한 shape 권장 — `&::before, &::after` 쉼표 selector로 한 줄에)
+- [ ] `usePressable` / `useContainerPressable`을 거치지 않는 컴포넌트는 필요한 경우 `overlay({ nativeHover: true })`로 native hover fallback을 명시적으로 opt-in한다
 - [ ] `::before` / `::after`에 *shape 외의 속성*을 추가하지 않는다 (content, backgroundColor 등은 utility 책임)
 - [ ] 추가 시각 요소가 필요하면 *별도 child element* 또는 element 자체 속성(border, background-image 등)으로 표현
 - [ ] 자식 element들은 정책 밖이므로 자유롭게 pseudo-element 사용 가능
@@ -180,3 +200,5 @@ condensed 모드처럼 inset과 borderRadius를 컴포넌트별로 다르게 주
 ## 함수형 mixin으로 가지 않는 이유
 
 `focusRing({ pseudo: '::before' })` 같은 함수형 mixin은 자원이 풍부한 토큰(색상/spacing 등)에 적합하다. pseudo-element는 한 element당 2개뿐인 희소 자원이라 *고정 매핑이 곧 정책 강제*가 된다. 이 정책이 유효한 한, 함수형 mixin으로의 전환은 **정책의 강제력을 약화시키는 방향**이라 채택하지 않는다.
+
+현재 `focusRing()` / `overlay()`가 recipe 함수 형태인 것은 border, feedback, hierarchy, density, native hover fallback 같은 **시각적 variant**를 선택하기 위한 API다. `::before = focusRing`, `::after = overlay`라는 pseudo-element 할당 자체는 파라미터화하지 않으므로 위 정책과 충돌하지 않는다.

@@ -1,6 +1,28 @@
-import { createVar, fallbackVar, style } from "@vanilla-extract/css";
+import { createVar, fallbackVar } from "@vanilla-extract/css";
+import { recipe } from "@vanilla-extract/recipes";
 
 import { vars } from "../tokens/vars.css";
+
+export type OverlayDensity = "normal" | "bold";
+export type OverlayHierarchy = "accent" | "primary" | "secondary" | "tertiary";
+
+export const overlayColorMap = {
+  accent: vars.color.semantic.accent.normal,
+  primary: vars.color.semantic.fill.boldest,
+  secondary: vars.color.semantic.fill.bold,
+  tertiary: vars.color.semantic.fill.normal,
+} satisfies Record<OverlayHierarchy, string>;
+
+export const overlayOpacityMap = {
+  normal: {
+    hover: `calc(${vars.scheme.semantic.opacity["5"]} / 100)`,
+    pressed: `calc(${vars.scheme.semantic.opacity["8"]} / 100)`,
+  },
+  bold: {
+    hover: `calc(${vars.scheme.semantic.opacity["8"]} / 100)`,
+    pressed: `calc(${vars.scheme.semantic.opacity["12"]} / 100)`,
+  },
+} satisfies Record<OverlayDensity, { hover: string; pressed: string }>;
 
 /**
  * @description
@@ -10,13 +32,18 @@ export const overlayColor = createVar();
 
 /**
  * @description
- * hover / pressed opacity — 외부 override 가능 (기본 0.08 / 0.12)
+ * hover / pressed opacity — 외부 override 가능 (기본 bold: 0.08 / 0.12)
  *
  * destructive에서 hover만 진하게, light/dark에서 opacity 차이 등의
  * 사용처별 변형이 필요할 때 사용처에서 assignInlineVars로 덮는다.
  */
 export const overlayHoverOpacity = createVar();
 export const overlayPressedOpacity = createVar();
+
+const hoverSelector = "&[data-hovered]:not([data-disabled])::after";
+const nativeHoverSelector = "&:hover:not(:disabled):not([data-disabled])::after";
+const pressedSelector =
+  "&[data-pressed]:not([data-disabled])::after, &:active:not(:disabled):not([data-disabled])::after";
 
 /**
  * @description
@@ -41,6 +68,16 @@ export const overlayPressedOpacity = createVar();
  *   이 속성을 보고 overlay를 차단한다 (`usePressable`은 자동으로 부여).
  *
  * @example
+ *   overlay()
+ *   overlay({ density: "normal", hierarchy: "secondary" })
+ *   overlay({ density: "normal", hierarchy: "secondary", nativeHover: true })
+ *
+ * @example
+ *   // usePressable/useContainerPressable을 쓰지 않는 Radix 기반 컴포넌트 등은
+ *   // native hover fallback을 명시적으로 opt-in한다.
+ *   overlay({ nativeHover: true })
+ *
+ * @example
  *   // 케이스 1: 시각 영역 = 탭 영역인 일반 컴포넌트
  *   selectors: {
  *     "&::after": { inset: 0, borderRadius: "inherit" },
@@ -52,25 +89,72 @@ export const overlayPressedOpacity = createVar();
  *     "&::after": { inset: pxToRem(-4), borderRadius: "4px" },
  *   }
  */
-export const overlay = style({
-  selectors: {
-    "&::after": {
-      content: '""',
-      position: "absolute",
-      pointerEvents: "none",
-      backgroundColor: overlayColor,
-      opacity: 0,
-      transition: `opacity ${vars.environment.semantic.duration[100]} ${vars.environment.semantic.motion.fluent}`,
+export const overlay = recipe({
+  base: {
+    selectors: {
+      "&::after": {
+        content: '""',
+        position: "absolute",
+        pointerEvents: "none",
+        backgroundColor: fallbackVar(overlayColor, overlayColorMap.primary),
+        opacity: 0,
+        transition: `opacity ${vars.environment.semantic.duration[100]} ${vars.environment.semantic.motion.fluent}`,
+      },
+      [hoverSelector]: {
+        opacity: fallbackVar(overlayHoverOpacity, overlayOpacityMap.bold.hover),
+      },
+      // hover + pressed 동시 상태(마우스 클릭 holding)는 specificity 동등 →
+      // 후행 선언인 pressed 스타일이 적용된다. 의도된 동작 — pressed가 hover 위에
+      [pressedSelector]: {
+        opacity: fallbackVar(overlayPressedOpacity, overlayOpacityMap.bold.pressed),
+        // pressed는 즉각 반응이 자연스러워 transition을 끈다
+        transition: "none",
+      },
     },
-    "&[data-hovered]:not([data-disabled])::after": {
-      opacity: fallbackVar(overlayHoverOpacity, "0.08"),
-    },
-    // hover + pressed 동시 상태(마우스 클릭 holding)는 specificity 동등 →
-    // 후행 선언인 pressed 스타일이 적용된다. 의도된 동작 — pressed가 hover 위에
-    "&[data-pressed]:not([data-disabled])::after": {
-      opacity: fallbackVar(overlayPressedOpacity, "0.12"),
-      // pressed는 즉각 반응이 자연스러워 transition을 끈다
-      transition: "none",
+  },
+  variants: {
+    hierarchy: {
+      accent: { vars: { [overlayColor]: overlayColorMap.accent } },
+      primary: { vars: { [overlayColor]: overlayColorMap.primary } },
+      secondary: { vars: { [overlayColor]: overlayColorMap.secondary } },
+      tertiary: { vars: { [overlayColor]: overlayColorMap.tertiary } },
+    } satisfies Record<OverlayHierarchy, object>,
+    density: {
+      normal: {
+        vars: {
+          [overlayHoverOpacity]: overlayOpacityMap.normal.hover,
+          [overlayPressedOpacity]: overlayOpacityMap.normal.pressed,
+        },
+      },
+      bold: {
+        vars: {
+          [overlayHoverOpacity]: overlayOpacityMap.bold.hover,
+          [overlayPressedOpacity]: overlayOpacityMap.bold.pressed,
+        },
+      },
+    } satisfies Record<OverlayDensity, object>,
+    nativeHover: {
+      false: {},
+      true: {
+        // Radix 등 useHover를 거치지 않는 컴포넌트를 위한 native hover fallback.
+        // touch 환경에서는 sticky hover가 남을 수 있어 hover 가능한 fine pointer에서만 허용한다.
+        "@media": {
+          "(hover: hover) and (pointer: fine)": {
+            selectors: {
+              [nativeHoverSelector]: {
+                opacity: fallbackVar(overlayHoverOpacity, overlayOpacityMap.bold.hover),
+              },
+              // media query 안의 native hover가 pressed보다 뒤에서 생성될 수 있어
+              // hover 가능한 환경에서도 pressed 우선순위를 다시 보장한다.
+              [pressedSelector]: {
+                opacity: fallbackVar(overlayPressedOpacity, overlayOpacityMap.bold.pressed),
+                // pressed는 즉각 반응이 자연스러워 transition을 끈다
+                transition: "none",
+              },
+            },
+          },
+        },
+      },
     },
   },
 });
