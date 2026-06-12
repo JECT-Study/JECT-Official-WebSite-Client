@@ -70,6 +70,12 @@ const pressedSelector =
  * @example
  *   overlay()
  *   overlay({ density: "normal", hierarchy: "secondary" })
+ *   overlay({ density: "normal", hierarchy: "secondary", nativeHover: true })
+ *
+ * @example
+ *   // usePressable/useContainerPressable을 쓰지 않는 Radix 기반 컴포넌트 등은
+ *   // native hover fallback을 명시적으로 opt-in한다.
+ *   overlay({ nativeHover: true })
  *
  * @example
  *   // 케이스 1: 시각 영역 = 탭 영역인 일반 컴포넌트
