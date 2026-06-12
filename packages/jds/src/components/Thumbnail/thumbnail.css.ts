@@ -22,8 +22,6 @@ const PRESS_DIM_LAYER_COLOR = "rgba(1, 1, 9, 0.043)";
 const FOCUS_RING_WIDTH = "2px";
 const FOCUS_RING_COLOR = "rgba(6, 87, 254, 0.56)";
 
-const thumbnailBorderColor = createVar();
-
 const ratioBase: Record<ThumbnailRatio, [number, number]> = {
   "1:1": [1, 1],
   "4:5": [4, 5],
@@ -43,6 +41,11 @@ const orientationVariants = {
   landscape: {},
 } satisfies Record<ThumbnailOrientation, unknown>;
 
+export const thumbnailVars = {
+  width: createVar(),
+  borderColor: createVar(),
+} as const;
+
 const cornerStyleVariants = {
   angular: { borderRadius: 0 },
   curved: { borderRadius: vars.scheme.semantic.radius["8"] },
@@ -51,7 +54,7 @@ const cornerStyleVariants = {
 
 const appearanceVariants = {
   hollow: { border: "none" },
-  outlined: { border: `1px solid ${thumbnailBorderColor}` },
+  outlined: { border: `1px solid ${thumbnailVars.borderColor}` },
 } satisfies Record<ThumbnailAppearance, unknown>;
 
 const aspectRatioCompoundVariants = THUMBNAIL_RATIO_OPTIONS.flatMap(r => {
@@ -77,7 +80,7 @@ const root = recipe({
     display: "block",
     margin: 0,
     overflow: "hidden",
-    width: "100%",
+    width: thumbnailVars.width,
 
     appearance: "none",
     background: "none",
@@ -87,7 +90,8 @@ const root = recipe({
     color: "inherit",
 
     vars: {
-      [thumbnailBorderColor]: vars.color.semantic.stroke.alpha.subtler,
+      [thumbnailVars.width]: "100%",
+      [thumbnailVars.borderColor]: vars.color.semantic.stroke.alpha.subtler,
     },
 
     selectors: {
