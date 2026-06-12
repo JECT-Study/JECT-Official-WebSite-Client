@@ -99,7 +99,9 @@ const MenuItemAnchor = forwardRef<HTMLAnchorElement, MenuItemAnchorProps>(
     return (
       <a
         ref={ref}
+        aria-disabled={disabled || undefined}
         data-disabled={disabled || undefined}
+        tabIndex={disabled ? -1 : undefined}
         className={clsx(menuItemRoot({ tone: getTone({ isDestructive, isSelected }) }), className)}
         {...rest}
       >
