@@ -59,11 +59,7 @@ export const trigger = recipe({
       userSelect: "none",
       color: vars.color.semantic.object.alternative,
       selectors: {
-        "&::after": {
-          inset: 0,
-          borderRadius: "inherit",
-        },
-        "&::before": {
+        "&::before, &::after": {
           inset: 0,
           borderRadius: "inherit",
         },
@@ -83,9 +79,6 @@ export const trigger = recipe({
         borderRadius: 0,
         backgroundColor: "transparent",
         selectors: {
-          "&[data-state='inactive']": {
-            color: vars.color.semantic.object.alternative,
-          },
           "&::after": {
             // header trigger의 borderBottom 두께와 overlay 위치를 동기화하기 위해 같은 strokeWeight 토큰을 재사용
             bottom: `calc(${vars.scheme.semantic.strokeWeight["2"]} * -1)`,
@@ -110,13 +103,9 @@ export const trigger = recipe({
         borderRadius: vars.scheme.semantic.radius["6"],
         backgroundColor: "transparent",
         selectors: {
-          "&[data-state='inactive']": {
-            color: vars.color.semantic.object.alternative,
-          },
           "&[data-state='active']": {
             color: vars.color.semantic.object.bolder,
             backgroundColor: vars.color.semantic.fill.subtlest,
-            borderColor: vars.color.semantic.stroke.alpha.subtle,
           },
           "&:disabled, &[data-disabled]": {
             color: vars.color.semantic.object.subtle,
