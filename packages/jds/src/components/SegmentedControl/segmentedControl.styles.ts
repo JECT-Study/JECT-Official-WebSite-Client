@@ -97,7 +97,7 @@ export const SegmentedControlItemStyled = styled.button<StyledItemProps>(
         ...shadow(theme, "embossed"),
 
         "&:focus-visible": {
-          boxShadow: `${shadow(theme, "embossed").boxShadow}, 0 0 0 3px ${theme.color.semantic.interaction.focus}`,
+          boxShadow: `${shadow(theme, "embossed").boxShadow}, 0 0 0 3px ${theme.color.semantic.accent.alpha.alternative}`,
         },
       },
 

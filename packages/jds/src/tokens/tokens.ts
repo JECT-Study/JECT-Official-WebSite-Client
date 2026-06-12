@@ -1,116 +1,116 @@
 // 자동 생성된 디자인 토큰 - 수정 금지
-// 생성 시간: 5/16/2026, 3:01:40 PM
+// 생성 시간: 5/24/2026, 8:29:30 PM
 
 export const designTokens = {
   "colorPrimitive": {
     "primitive": {
       "flow": {
-        "20": "var(--primitive-flow-20)",
-        "40": "var(--primitive-flow-40)",
-        "60": "var(--primitive-flow-60)",
-        "80": "var(--primitive-flow-80)",
+        "25": "var(--primitive-flow-25)",
+        "50": "var(--primitive-flow-50)",
+        "75": "var(--primitive-flow-75)",
         "100": "var(--primitive-flow-100)",
         "150": "var(--primitive-flow-150)",
         "200": "var(--primitive-flow-200)",
-        "250": "var(--primitive-flow-250)",
         "300": "var(--primitive-flow-300)",
-        "350": "var(--primitive-flow-350)",
         "400": "var(--primitive-flow-400)",
-        "450": "var(--primitive-flow-450)",
         "500": "var(--primitive-flow-500)",
         "550": "var(--primitive-flow-550)",
         "600": "var(--primitive-flow-600)",
-        "650": "var(--primitive-flow-650)",
         "700": "var(--primitive-flow-700)",
         "750": "var(--primitive-flow-750)",
         "800": "var(--primitive-flow-800)",
-        "820": "var(--primitive-flow-820)",
-        "840": "var(--primitive-flow-840)",
-        "860": "var(--primitive-flow-860)",
-        "880": "var(--primitive-flow-880)",
+        "850": "var(--primitive-flow-850)",
         "900": "var(--primitive-flow-900)",
         "dark": {
+          "25": "var(--primitive-flow-dark-25)",
+          "50": "var(--primitive-flow-dark-50)",
+          "75": "var(--primitive-flow-dark-75)",
+          "100": "var(--primitive-flow-dark-100)",
+          "150": "var(--primitive-flow-dark-150)",
+          "200": "var(--primitive-flow-dark-200)",
+          "300": "var(--primitive-flow-dark-300)",
+          "400": "var(--primitive-flow-dark-400)",
+          "500": "var(--primitive-flow-dark-500)",
+          "550": "var(--primitive-flow-dark-550)",
+          "600": "var(--primitive-flow-dark-600)",
+          "700": "var(--primitive-flow-dark-700)",
+          "750": "var(--primitive-flow-dark-750)",
+          "800": "var(--primitive-flow-dark-800)",
+          "850": "var(--primitive-flow-dark-850)",
+          "900": "var(--primitive-flow-dark-900)",
           "alpha": {
-            "20": "var(--primitive-flow-dark-alpha-20)",
-            "40": "var(--primitive-flow-dark-alpha-40)",
-            "60": "var(--primitive-flow-dark-alpha-60)",
-            "80": "var(--primitive-flow-dark-alpha-80)",
+            "25": "var(--primitive-flow-dark-alpha-25)",
+            "50": "var(--primitive-flow-dark-alpha-50)",
+            "75": "var(--primitive-flow-dark-alpha-75)",
             "100": "var(--primitive-flow-dark-alpha-100)",
             "150": "var(--primitive-flow-dark-alpha-150)",
             "200": "var(--primitive-flow-dark-alpha-200)",
-            "250": "var(--primitive-flow-dark-alpha-250)",
             "300": "var(--primitive-flow-dark-alpha-300)",
-            "350": "var(--primitive-flow-dark-alpha-350)",
             "400": "var(--primitive-flow-dark-alpha-400)",
-            "450": "var(--primitive-flow-dark-alpha-450)",
             "500": "var(--primitive-flow-dark-alpha-500)",
             "550": "var(--primitive-flow-dark-alpha-550)",
             "600": "var(--primitive-flow-dark-alpha-600)",
-            "650": "var(--primitive-flow-dark-alpha-650)",
             "700": "var(--primitive-flow-dark-alpha-700)",
             "750": "var(--primitive-flow-dark-alpha-750)",
             "800": "var(--primitive-flow-dark-alpha-800)",
-            "820": "var(--primitive-flow-dark-alpha-820)",
-            "840": "var(--primitive-flow-dark-alpha-840)",
-            "860": "var(--primitive-flow-dark-alpha-860)",
-            "880": "var(--primitive-flow-dark-alpha-880)",
+            "850": "var(--primitive-flow-dark-alpha-850)",
             "900": "var(--primitive-flow-dark-alpha-900)"
           }
         },
-        "light": {
-          "alpha": {
-            "20": "var(--primitive-flow-light-alpha-20)",
-            "40": "var(--primitive-flow-light-alpha-40)",
-            "60": "var(--primitive-flow-light-alpha-60)",
-            "80": "var(--primitive-flow-light-alpha-80)",
-            "100": "var(--primitive-flow-light-alpha-100)",
-            "150": "var(--primitive-flow-light-alpha-150)",
-            "200": "var(--primitive-flow-light-alpha-200)",
-            "250": "var(--primitive-flow-light-alpha-250)",
-            "300": "var(--primitive-flow-light-alpha-300)",
-            "350": "var(--primitive-flow-light-alpha-350)",
-            "400": "var(--primitive-flow-light-alpha-400)",
-            "450": "var(--primitive-flow-light-alpha-450)",
-            "500": "var(--primitive-flow-light-alpha-500)",
-            "550": "var(--primitive-flow-light-alpha-550)",
-            "600": "var(--primitive-flow-light-alpha-600)",
-            "650": "var(--primitive-flow-light-alpha-650)",
-            "700": "var(--primitive-flow-light-alpha-700)",
-            "750": "var(--primitive-flow-light-alpha-750)",
-            "800": "var(--primitive-flow-light-alpha-800)",
-            "820": "var(--primitive-flow-light-alpha-820)",
-            "840": "var(--primitive-flow-light-alpha-840)",
-            "860": "var(--primitive-flow-light-alpha-860)",
-            "880": "var(--primitive-flow-light-alpha-880)",
-            "900": "var(--primitive-flow-light-alpha-900)"
-          }
+        "alpha": {
+          "25": "var(--primitive-flow-alpha-25)",
+          "50": "var(--primitive-flow-alpha-50)",
+          "75": "var(--primitive-flow-alpha-75)",
+          "100": "var(--primitive-flow-alpha-100)",
+          "150": "var(--primitive-flow-alpha-150)",
+          "200": "var(--primitive-flow-alpha-200)",
+          "300": "var(--primitive-flow-alpha-300)",
+          "400": "var(--primitive-flow-alpha-400)",
+          "500": "var(--primitive-flow-alpha-500)",
+          "550": "var(--primitive-flow-alpha-550)",
+          "600": "var(--primitive-flow-alpha-600)",
+          "700": "var(--primitive-flow-alpha-700)",
+          "750": "var(--primitive-flow-alpha-750)",
+          "800": "var(--primitive-flow-alpha-800)",
+          "850": "var(--primitive-flow-alpha-850)",
+          "900": "var(--primitive-flow-alpha-900)"
         }
       },
       "red": {
-        "20": "var(--primitive-red-20)",
-        "40": "var(--primitive-red-40)",
-        "60": "var(--primitive-red-60)",
-        "80": "var(--primitive-red-80)",
+        "25": "var(--primitive-red-25)",
+        "50": "var(--primitive-red-50)",
+        "75": "var(--primitive-red-75)",
         "100": "var(--primitive-red-100)",
         "150": "var(--primitive-red-150)",
         "200": "var(--primitive-red-200)",
-        "250": "var(--primitive-red-250)",
         "300": "var(--primitive-red-300)",
-        "350": "var(--primitive-red-350)",
         "400": "var(--primitive-red-400)",
-        "450": "var(--primitive-red-450)",
         "500": "var(--primitive-red-500)",
         "550": "var(--primitive-red-550)",
         "600": "var(--primitive-red-600)",
-        "650": "var(--primitive-red-650)",
         "700": "var(--primitive-red-700)",
         "750": "var(--primitive-red-750)",
         "800": "var(--primitive-red-800)",
-        "820": "var(--primitive-red-820)",
-        "840": "var(--primitive-red-840)",
-        "860": "var(--primitive-red-860)",
-        "880": "var(--primitive-red-880)",
-        "900": "var(--primitive-red-900)"
+        "850": "var(--primitive-red-850)",
+        "900": "var(--primitive-red-900)",
+        "dark": {
+          "25": "var(--primitive-red-dark-25)",
+          "50": "var(--primitive-red-dark-50)",
+          "75": "var(--primitive-red-dark-75)",
+          "100": "var(--primitive-red-dark-100)",
+          "150": "var(--primitive-red-dark-150)",
+          "200": "var(--primitive-red-dark-200)",
+          "300": "var(--primitive-red-dark-300)",
+          "400": "var(--primitive-red-dark-400)",
+          "500": "var(--primitive-red-dark-500)",
+          "550": "var(--primitive-red-dark-550)",
+          "600": "var(--primitive-red-dark-600)",
+          "700": "var(--primitive-red-dark-700)",
+          "750": "var(--primitive-red-dark-750)",
+          "800": "var(--primitive-red-dark-800)",
+          "850": "var(--primitive-red-dark-850)",
+          "900": "var(--primitive-red-dark-900)"
+        }
       },
       "shade": {
         "2": "var(--primitive-shade-2)",
@@ -125,474 +125,364 @@ export const designTokens = {
         "1000": "var(--primitive-base-1000)"
       },
       "orange": {
-        "20": "var(--primitive-orange-20)",
-        "40": "var(--primitive-orange-40)",
-        "60": "var(--primitive-orange-60)",
-        "80": "var(--primitive-orange-80)",
+        "25": "var(--primitive-orange-25)",
+        "50": "var(--primitive-orange-50)",
+        "75": "var(--primitive-orange-75)",
         "100": "var(--primitive-orange-100)",
         "150": "var(--primitive-orange-150)",
         "200": "var(--primitive-orange-200)",
-        "250": "var(--primitive-orange-250)",
         "300": "var(--primitive-orange-300)",
-        "350": "var(--primitive-orange-350)",
         "400": "var(--primitive-orange-400)",
-        "450": "var(--primitive-orange-450)",
         "500": "var(--primitive-orange-500)",
         "550": "var(--primitive-orange-550)",
         "600": "var(--primitive-orange-600)",
-        "650": "var(--primitive-orange-650)",
         "700": "var(--primitive-orange-700)",
         "750": "var(--primitive-orange-750)",
         "800": "var(--primitive-orange-800)",
-        "820": "var(--primitive-orange-820)",
-        "840": "var(--primitive-orange-840)",
-        "860": "var(--primitive-orange-860)",
-        "880": "var(--primitive-orange-880)",
-        "900": "var(--primitive-orange-900)"
+        "850": "var(--primitive-orange-850)",
+        "900": "var(--primitive-orange-900)",
+        "dark": {
+          "25": "var(--primitive-orange-dark-25)",
+          "50": "var(--primitive-orange-dark-50)",
+          "75": "var(--primitive-orange-dark-75)",
+          "100": "var(--primitive-orange-dark-100)",
+          "150": "var(--primitive-orange-dark-150)",
+          "200": "var(--primitive-orange-dark-200)",
+          "300": "var(--primitive-orange-dark-300)",
+          "400": "var(--primitive-orange-dark-400)",
+          "500": "var(--primitive-orange-dark-500)",
+          "550": "var(--primitive-orange-dark-550)",
+          "600": "var(--primitive-orange-dark-600)",
+          "700": "var(--primitive-orange-dark-700)",
+          "750": "var(--primitive-orange-dark-750)",
+          "800": "var(--primitive-orange-dark-800)",
+          "850": "var(--primitive-orange-dark-850)",
+          "900": "var(--primitive-orange-dark-900)"
+        }
       },
       "yellow": {
-        "20": "var(--primitive-yellow-20)",
-        "40": "var(--primitive-yellow-40)",
-        "60": "var(--primitive-yellow-60)",
-        "80": "var(--primitive-yellow-80)",
+        "25": "var(--primitive-yellow-25)",
+        "50": "var(--primitive-yellow-50)",
+        "75": "var(--primitive-yellow-75)",
         "100": "var(--primitive-yellow-100)",
         "150": "var(--primitive-yellow-150)",
         "200": "var(--primitive-yellow-200)",
-        "250": "var(--primitive-yellow-250)",
         "300": "var(--primitive-yellow-300)",
-        "350": "var(--primitive-yellow-350)",
         "400": "var(--primitive-yellow-400)",
-        "450": "var(--primitive-yellow-450)",
         "500": "var(--primitive-yellow-500)",
         "550": "var(--primitive-yellow-550)",
         "600": "var(--primitive-yellow-600)",
-        "650": "var(--primitive-yellow-650)",
         "700": "var(--primitive-yellow-700)",
         "750": "var(--primitive-yellow-750)",
         "800": "var(--primitive-yellow-800)",
-        "820": "var(--primitive-yellow-820)",
-        "840": "var(--primitive-yellow-840)",
-        "860": "var(--primitive-yellow-860)",
-        "880": "var(--primitive-yellow-880)",
-        "900": "var(--primitive-yellow-900)"
+        "850": "var(--primitive-yellow-850)",
+        "900": "var(--primitive-yellow-900)",
+        "dark": {
+          "25": "var(--primitive-yellow-dark-25)",
+          "50": "var(--primitive-yellow-dark-50)",
+          "75": "var(--primitive-yellow-dark-75)",
+          "100": "var(--primitive-yellow-dark-100)",
+          "150": "var(--primitive-yellow-dark-150)",
+          "200": "var(--primitive-yellow-dark-200)",
+          "300": "var(--primitive-yellow-dark-300)",
+          "400": "var(--primitive-yellow-dark-400)",
+          "500": "var(--primitive-yellow-dark-500)",
+          "550": "var(--primitive-yellow-dark-550)",
+          "600": "var(--primitive-yellow-dark-600)",
+          "700": "var(--primitive-yellow-dark-700)",
+          "750": "var(--primitive-yellow-dark-750)",
+          "800": "var(--primitive-yellow-dark-800)",
+          "850": "var(--primitive-yellow-dark-850)",
+          "900": "var(--primitive-yellow-dark-900)"
+        }
       },
       "lime": {
-        "20": "var(--primitive-lime-20)",
-        "40": "var(--primitive-lime-40)",
-        "60": "var(--primitive-lime-60)",
-        "80": "var(--primitive-lime-80)",
+        "25": "var(--primitive-lime-25)",
+        "50": "var(--primitive-lime-50)",
+        "75": "var(--primitive-lime-75)",
         "100": "var(--primitive-lime-100)",
         "150": "var(--primitive-lime-150)",
         "200": "var(--primitive-lime-200)",
-        "250": "var(--primitive-lime-250)",
         "300": "var(--primitive-lime-300)",
-        "350": "var(--primitive-lime-350)",
         "400": "var(--primitive-lime-400)",
-        "450": "var(--primitive-lime-450)",
         "500": "var(--primitive-lime-500)",
         "550": "var(--primitive-lime-550)",
         "600": "var(--primitive-lime-600)",
-        "650": "var(--primitive-lime-650)",
         "700": "var(--primitive-lime-700)",
         "750": "var(--primitive-lime-750)",
         "800": "var(--primitive-lime-800)",
-        "820": "var(--primitive-lime-820)",
-        "840": "var(--primitive-lime-840)",
-        "860": "var(--primitive-lime-860)",
-        "880": "var(--primitive-lime-880)",
-        "900": "var(--primitive-lime-900)"
+        "850": "var(--primitive-lime-850)",
+        "900": "var(--primitive-lime-900)",
+        "dark": {
+          "25": "var(--primitive-lime-dark-25)",
+          "50": "var(--primitive-lime-dark-50)",
+          "75": "var(--primitive-lime-dark-75)",
+          "100": "var(--primitive-lime-dark-100)",
+          "150": "var(--primitive-lime-dark-150)",
+          "200": "var(--primitive-lime-dark-200)",
+          "300": "var(--primitive-lime-dark-300)",
+          "400": "var(--primitive-lime-dark-400)",
+          "500": "var(--primitive-lime-dark-500)",
+          "550": "var(--primitive-lime-dark-550)",
+          "600": "var(--primitive-lime-dark-600)",
+          "700": "var(--primitive-lime-dark-700)",
+          "750": "var(--primitive-lime-dark-750)",
+          "800": "var(--primitive-lime-dark-800)",
+          "850": "var(--primitive-lime-dark-850)",
+          "900": "var(--primitive-lime-dark-900)"
+        }
       },
       "green": {
-        "20": "var(--primitive-green-20)",
-        "40": "var(--primitive-green-40)",
-        "60": "var(--primitive-green-60)",
-        "80": "var(--primitive-green-80)",
+        "25": "var(--primitive-green-25)",
+        "50": "var(--primitive-green-50)",
+        "75": "var(--primitive-green-75)",
         "100": "var(--primitive-green-100)",
         "150": "var(--primitive-green-150)",
         "200": "var(--primitive-green-200)",
-        "250": "var(--primitive-green-250)",
         "300": "var(--primitive-green-300)",
-        "350": "var(--primitive-green-350)",
         "400": "var(--primitive-green-400)",
-        "450": "var(--primitive-green-450)",
         "500": "var(--primitive-green-500)",
         "550": "var(--primitive-green-550)",
         "600": "var(--primitive-green-600)",
-        "650": "var(--primitive-green-650)",
         "700": "var(--primitive-green-700)",
         "750": "var(--primitive-green-750)",
         "800": "var(--primitive-green-800)",
-        "820": "var(--primitive-green-820)",
-        "840": "var(--primitive-green-840)",
-        "860": "var(--primitive-green-860)",
-        "880": "var(--primitive-green-880)",
-        "900": "var(--primitive-green-900)"
-      },
-      "cyan": {
-        "20": "var(--primitive-cyan-20)",
-        "40": "var(--primitive-cyan-40)",
-        "60": "var(--primitive-cyan-60)",
-        "80": "var(--primitive-cyan-80)",
-        "100": "var(--primitive-cyan-100)",
-        "150": "var(--primitive-cyan-150)",
-        "200": "var(--primitive-cyan-200)",
-        "250": "var(--primitive-cyan-250)",
-        "300": "var(--primitive-cyan-300)",
-        "350": "var(--primitive-cyan-350)",
-        "400": "var(--primitive-cyan-400)",
-        "450": "var(--primitive-cyan-450)",
-        "500": "var(--primitive-cyan-500)",
-        "550": "var(--primitive-cyan-550)",
-        "600": "var(--primitive-cyan-600)",
-        "650": "var(--primitive-cyan-650)",
-        "700": "var(--primitive-cyan-700)",
-        "750": "var(--primitive-cyan-750)",
-        "800": "var(--primitive-cyan-800)",
-        "820": "var(--primitive-cyan-820)",
-        "840": "var(--primitive-cyan-840)",
-        "860": "var(--primitive-cyan-860)",
-        "880": "var(--primitive-cyan-880)",
-        "900": "var(--primitive-cyan-900)"
+        "850": "var(--primitive-green-850)",
+        "900": "var(--primitive-green-900)",
+        "dark": {
+          "25": "var(--primitive-green-dark-25)",
+          "50": "var(--primitive-green-dark-50)",
+          "75": "var(--primitive-green-dark-75)",
+          "100": "var(--primitive-green-dark-100)",
+          "150": "var(--primitive-green-dark-150)",
+          "200": "var(--primitive-green-dark-200)",
+          "300": "var(--primitive-green-dark-300)",
+          "400": "var(--primitive-green-dark-400)",
+          "500": "var(--primitive-green-dark-500)",
+          "550": "var(--primitive-green-dark-550)",
+          "600": "var(--primitive-green-dark-600)",
+          "700": "var(--primitive-green-dark-700)",
+          "750": "var(--primitive-green-dark-750)",
+          "800": "var(--primitive-green-dark-800)",
+          "850": "var(--primitive-green-dark-850)",
+          "900": "var(--primitive-green-dark-900)"
+        }
       },
       "sky": {
-        "20": "var(--primitive-sky-20)",
-        "40": "var(--primitive-sky-40)",
-        "60": "var(--primitive-sky-60)",
-        "80": "var(--primitive-sky-80)",
+        "25": "var(--primitive-sky-25)",
+        "50": "var(--primitive-sky-50)",
+        "75": "var(--primitive-sky-75)",
         "100": "var(--primitive-sky-100)",
         "150": "var(--primitive-sky-150)",
         "200": "var(--primitive-sky-200)",
-        "250": "var(--primitive-sky-250)",
         "300": "var(--primitive-sky-300)",
-        "350": "var(--primitive-sky-350)",
         "400": "var(--primitive-sky-400)",
-        "450": "var(--primitive-sky-450)",
         "500": "var(--primitive-sky-500)",
         "550": "var(--primitive-sky-550)",
         "600": "var(--primitive-sky-600)",
-        "650": "var(--primitive-sky-650)",
         "700": "var(--primitive-sky-700)",
         "750": "var(--primitive-sky-750)",
         "800": "var(--primitive-sky-800)",
-        "820": "var(--primitive-sky-820)",
-        "840": "var(--primitive-sky-840)",
-        "860": "var(--primitive-sky-860)",
-        "880": "var(--primitive-sky-880)",
-        "900": "var(--primitive-sky-900)"
+        "850": "var(--primitive-sky-850)",
+        "900": "var(--primitive-sky-900)",
+        "dark": {
+          "25": "var(--primitive-sky-dark-25)",
+          "50": "var(--primitive-sky-dark-50)",
+          "75": "var(--primitive-sky-dark-75)",
+          "100": "var(--primitive-sky-dark-100)",
+          "150": "var(--primitive-sky-dark-150)",
+          "200": "var(--primitive-sky-dark-200)",
+          "300": "var(--primitive-sky-dark-300)",
+          "400": "var(--primitive-sky-dark-400)",
+          "500": "var(--primitive-sky-dark-500)",
+          "550": "var(--primitive-sky-dark-550)",
+          "600": "var(--primitive-sky-dark-600)",
+          "700": "var(--primitive-sky-dark-700)",
+          "750": "var(--primitive-sky-dark-750)",
+          "800": "var(--primitive-sky-dark-800)",
+          "850": "var(--primitive-sky-dark-850)",
+          "900": "var(--primitive-sky-dark-900)"
+        }
       },
       "blue": {
-        "20": "var(--primitive-blue-20)",
-        "40": "var(--primitive-blue-40)",
-        "60": "var(--primitive-blue-60)",
-        "80": "var(--primitive-blue-80)",
+        "25": "var(--primitive-blue-25)",
+        "50": "var(--primitive-blue-50)",
+        "75": "var(--primitive-blue-75)",
         "100": "var(--primitive-blue-100)",
         "150": "var(--primitive-blue-150)",
         "200": "var(--primitive-blue-200)",
-        "250": "var(--primitive-blue-250)",
         "300": "var(--primitive-blue-300)",
-        "350": "var(--primitive-blue-350)",
         "400": "var(--primitive-blue-400)",
-        "450": "var(--primitive-blue-450)",
         "500": "var(--primitive-blue-500)",
         "550": "var(--primitive-blue-550)",
         "600": "var(--primitive-blue-600)",
-        "650": "var(--primitive-blue-650)",
         "700": "var(--primitive-blue-700)",
         "750": "var(--primitive-blue-750)",
         "800": "var(--primitive-blue-800)",
-        "820": "var(--primitive-blue-820)",
-        "840": "var(--primitive-blue-840)",
-        "860": "var(--primitive-blue-860)",
-        "880": "var(--primitive-blue-880)",
-        "900": "var(--primitive-blue-900)"
-      },
-      "cerulean": {
-        "blue": {
-          "20": "var(--primitive-cerulean-blue-20)",
-          "40": "var(--primitive-cerulean-blue-40)",
-          "60": "var(--primitive-cerulean-blue-60)",
-          "80": "var(--primitive-cerulean-blue-80)",
-          "100": "var(--primitive-cerulean-blue-100)",
-          "150": "var(--primitive-cerulean-blue-150)",
-          "200": "var(--primitive-cerulean-blue-200)",
-          "250": "var(--primitive-cerulean-blue-250)",
-          "300": "var(--primitive-cerulean-blue-300)",
-          "350": "var(--primitive-cerulean-blue-350)",
-          "400": "var(--primitive-cerulean-blue-400)",
-          "450": "var(--primitive-cerulean-blue-450)",
-          "500": "var(--primitive-cerulean-blue-500)",
-          "550": "var(--primitive-cerulean-blue-550)",
-          "600": "var(--primitive-cerulean-blue-600)",
-          "650": "var(--primitive-cerulean-blue-650)",
-          "700": "var(--primitive-cerulean-blue-700)",
-          "750": "var(--primitive-cerulean-blue-750)",
-          "800": "var(--primitive-cerulean-blue-800)",
-          "820": "var(--primitive-cerulean-blue-820)",
-          "840": "var(--primitive-cerulean-blue-840)",
-          "860": "var(--primitive-cerulean-blue-860)",
-          "880": "var(--primitive-cerulean-blue-880)",
-          "900": "var(--primitive-cerulean-blue-900)"
+        "850": "var(--primitive-blue-850)",
+        "900": "var(--primitive-blue-900)",
+        "dark": {
+          "25": "var(--primitive-blue-dark-25)",
+          "50": "var(--primitive-blue-dark-50)",
+          "75": "var(--primitive-blue-dark-75)",
+          "100": "var(--primitive-blue-dark-100)",
+          "150": "var(--primitive-blue-dark-150)",
+          "200": "var(--primitive-blue-dark-200)",
+          "300": "var(--primitive-blue-dark-300)",
+          "400": "var(--primitive-blue-dark-400)",
+          "500": "var(--primitive-blue-dark-500)",
+          "550": "var(--primitive-blue-dark-550)",
+          "600": "var(--primitive-blue-dark-600)",
+          "700": "var(--primitive-blue-dark-700)",
+          "750": "var(--primitive-blue-dark-750)",
+          "800": "var(--primitive-blue-dark-800)",
+          "850": "var(--primitive-blue-dark-850)",
+          "900": "var(--primitive-blue-dark-900)"
         }
       },
-      "violet": {
-        "20": "var(--primitive-violet-20)",
-        "40": "var(--primitive-violet-40)",
-        "60": "var(--primitive-violet-60)",
-        "80": "var(--primitive-violet-80)",
-        "100": "var(--primitive-violet-100)",
-        "150": "var(--primitive-violet-150)",
-        "200": "var(--primitive-violet-200)",
-        "250": "var(--primitive-violet-250)",
-        "300": "var(--primitive-violet-300)",
-        "350": "var(--primitive-violet-350)",
-        "400": "var(--primitive-violet-400)",
-        "450": "var(--primitive-violet-450)",
-        "500": "var(--primitive-violet-500)",
-        "550": "var(--primitive-violet-550)",
-        "600": "var(--primitive-violet-600)",
-        "650": "var(--primitive-violet-650)",
-        "700": "var(--primitive-violet-700)",
-        "750": "var(--primitive-violet-750)",
-        "800": "var(--primitive-violet-800)",
-        "820": "var(--primitive-violet-820)",
-        "840": "var(--primitive-violet-840)",
-        "860": "var(--primitive-violet-860)",
-        "880": "var(--primitive-violet-880)",
-        "900": "var(--primitive-violet-900)"
-      },
       "purple": {
-        "20": "var(--primitive-purple-20)",
-        "40": "var(--primitive-purple-40)",
-        "60": "var(--primitive-purple-60)",
-        "80": "var(--primitive-purple-80)",
+        "25": "var(--primitive-purple-25)",
+        "50": "var(--primitive-purple-50)",
+        "75": "var(--primitive-purple-75)",
         "100": "var(--primitive-purple-100)",
         "150": "var(--primitive-purple-150)",
         "200": "var(--primitive-purple-200)",
-        "250": "var(--primitive-purple-250)",
         "300": "var(--primitive-purple-300)",
-        "350": "var(--primitive-purple-350)",
         "400": "var(--primitive-purple-400)",
-        "450": "var(--primitive-purple-450)",
         "500": "var(--primitive-purple-500)",
         "550": "var(--primitive-purple-550)",
         "600": "var(--primitive-purple-600)",
-        "650": "var(--primitive-purple-650)",
         "700": "var(--primitive-purple-700)",
         "750": "var(--primitive-purple-750)",
         "800": "var(--primitive-purple-800)",
-        "820": "var(--primitive-purple-820)",
-        "840": "var(--primitive-purple-840)",
-        "860": "var(--primitive-purple-860)",
-        "880": "var(--primitive-purple-880)",
-        "900": "var(--primitive-purple-900)"
-      },
-      "fuchsia": {
-        "20": "var(--primitive-fuchsia-20)",
-        "40": "var(--primitive-fuchsia-40)",
-        "60": "var(--primitive-fuchsia-60)",
-        "80": "var(--primitive-fuchsia-80)",
-        "100": "var(--primitive-fuchsia-100)",
-        "150": "var(--primitive-fuchsia-150)",
-        "200": "var(--primitive-fuchsia-200)",
-        "250": "var(--primitive-fuchsia-250)",
-        "300": "var(--primitive-fuchsia-300)",
-        "350": "var(--primitive-fuchsia-350)",
-        "400": "var(--primitive-fuchsia-400)",
-        "450": "var(--primitive-fuchsia-450)",
-        "500": "var(--primitive-fuchsia-500)",
-        "550": "var(--primitive-fuchsia-550)",
-        "600": "var(--primitive-fuchsia-600)",
-        "650": "var(--primitive-fuchsia-650)",
-        "700": "var(--primitive-fuchsia-700)",
-        "750": "var(--primitive-fuchsia-750)",
-        "800": "var(--primitive-fuchsia-800)",
-        "820": "var(--primitive-fuchsia-820)",
-        "840": "var(--primitive-fuchsia-840)",
-        "860": "var(--primitive-fuchsia-860)",
-        "880": "var(--primitive-fuchsia-880)",
-        "900": "var(--primitive-fuchsia-900)"
+        "850": "var(--primitive-purple-850)",
+        "900": "var(--primitive-purple-900)",
+        "dark": {
+          "25": "var(--primitive-purple-dark-25)",
+          "50": "var(--primitive-purple-dark-50)",
+          "75": "var(--primitive-purple-dark-75)",
+          "100": "var(--primitive-purple-dark-100)",
+          "150": "var(--primitive-purple-dark-150)",
+          "200": "var(--primitive-purple-dark-200)",
+          "300": "var(--primitive-purple-dark-300)",
+          "400": "var(--primitive-purple-dark-400)",
+          "500": "var(--primitive-purple-dark-500)",
+          "550": "var(--primitive-purple-dark-550)",
+          "600": "var(--primitive-purple-dark-600)",
+          "700": "var(--primitive-purple-dark-700)",
+          "750": "var(--primitive-purple-dark-750)",
+          "800": "var(--primitive-purple-dark-800)",
+          "850": "var(--primitive-purple-dark-850)",
+          "900": "var(--primitive-purple-dark-900)"
+        }
       },
       "pink": {
-        "20": "var(--primitive-pink-20)",
-        "40": "var(--primitive-pink-40)",
-        "60": "var(--primitive-pink-60)",
-        "80": "var(--primitive-pink-80)",
+        "25": "var(--primitive-pink-25)",
+        "50": "var(--primitive-pink-50)",
+        "75": "var(--primitive-pink-75)",
         "100": "var(--primitive-pink-100)",
         "150": "var(--primitive-pink-150)",
         "200": "var(--primitive-pink-200)",
-        "250": "var(--primitive-pink-250)",
         "300": "var(--primitive-pink-300)",
-        "350": "var(--primitive-pink-350)",
         "400": "var(--primitive-pink-400)",
-        "450": "var(--primitive-pink-450)",
         "500": "var(--primitive-pink-500)",
         "550": "var(--primitive-pink-550)",
         "600": "var(--primitive-pink-600)",
-        "650": "var(--primitive-pink-650)",
         "700": "var(--primitive-pink-700)",
         "750": "var(--primitive-pink-750)",
         "800": "var(--primitive-pink-800)",
-        "820": "var(--primitive-pink-820)",
-        "840": "var(--primitive-pink-840)",
-        "860": "var(--primitive-pink-860)",
-        "880": "var(--primitive-pink-880)",
-        "900": "var(--primitive-pink-900)"
-      },
-      "rose": {
-        "20": "var(--primitive-rose-20)",
-        "40": "var(--primitive-rose-40)",
-        "60": "var(--primitive-rose-60)",
-        "80": "var(--primitive-rose-80)",
-        "100": "var(--primitive-rose-100)",
-        "150": "var(--primitive-rose-150)",
-        "200": "var(--primitive-rose-200)",
-        "250": "var(--primitive-rose-250)",
-        "300": "var(--primitive-rose-300)",
-        "350": "var(--primitive-rose-350)",
-        "400": "var(--primitive-rose-400)",
-        "450": "var(--primitive-rose-450)",
-        "500": "var(--primitive-rose-500)",
-        "550": "var(--primitive-rose-550)",
-        "600": "var(--primitive-rose-600)",
-        "650": "var(--primitive-rose-650)",
-        "700": "var(--primitive-rose-700)",
-        "750": "var(--primitive-rose-750)",
-        "800": "var(--primitive-rose-800)",
-        "820": "var(--primitive-rose-820)",
-        "840": "var(--primitive-rose-840)",
-        "860": "var(--primitive-rose-860)",
-        "880": "var(--primitive-rose-880)",
-        "900": "var(--primitive-rose-900)"
-      },
-      "engross": {
-        "20": "var(--primitive-engross-20)",
-        "40": "var(--primitive-engross-40)",
-        "60": "var(--primitive-engross-60)",
-        "80": "var(--primitive-engross-80)",
-        "100": "var(--primitive-engross-100)",
-        "150": "var(--primitive-engross-150)",
-        "200": "var(--primitive-engross-200)",
-        "250": "var(--primitive-engross-250)",
-        "300": "var(--primitive-engross-300)",
-        "350": "var(--primitive-engross-350)",
-        "400": "var(--primitive-engross-400)",
-        "450": "var(--primitive-engross-450)",
-        "500": "var(--primitive-engross-500)",
-        "550": "var(--primitive-engross-550)",
-        "600": "var(--primitive-engross-600)",
-        "650": "var(--primitive-engross-650)",
-        "700": "var(--primitive-engross-700)",
-        "750": "var(--primitive-engross-750)",
-        "800": "var(--primitive-engross-800)",
-        "820": "var(--primitive-engross-820)",
-        "840": "var(--primitive-engross-840)",
-        "860": "var(--primitive-engross-860)",
-        "880": "var(--primitive-engross-880)",
-        "900": "var(--primitive-engross-900)"
-      },
-      "emerald": {
-        "20": "var(--primitive-emerald-20)",
-        "40": "var(--primitive-emerald-40)",
-        "60": "var(--primitive-emerald-60)",
-        "80": "var(--primitive-emerald-80)",
-        "100": "var(--primitive-emerald-100)",
-        "150": "var(--primitive-emerald-150)",
-        "200": "var(--primitive-emerald-200)",
-        "250": "var(--primitive-emerald-250)",
-        "300": "var(--primitive-emerald-300)",
-        "350": "var(--primitive-emerald-350)",
-        "400": "var(--primitive-emerald-400)",
-        "450": "var(--primitive-emerald-450)",
-        "500": "var(--primitive-emerald-500)",
-        "550": "var(--primitive-emerald-550)",
-        "600": "var(--primitive-emerald-600)",
-        "650": "var(--primitive-emerald-650)",
-        "700": "var(--primitive-emerald-700)",
-        "750": "var(--primitive-emerald-750)",
-        "800": "var(--primitive-emerald-800)",
-        "820": "var(--primitive-emerald-820)",
-        "840": "var(--primitive-emerald-840)",
-        "860": "var(--primitive-emerald-860)",
-        "880": "var(--primitive-emerald-880)",
-        "900": "var(--primitive-emerald-900)"
+        "850": "var(--primitive-pink-850)",
+        "900": "var(--primitive-pink-900)",
+        "dark": {
+          "25": "var(--primitive-pink-dark-25)",
+          "50": "var(--primitive-pink-dark-50)",
+          "75": "var(--primitive-pink-dark-75)",
+          "100": "var(--primitive-pink-dark-100)",
+          "150": "var(--primitive-pink-dark-150)",
+          "200": "var(--primitive-pink-dark-200)",
+          "300": "var(--primitive-pink-dark-300)",
+          "400": "var(--primitive-pink-dark-400)",
+          "500": "var(--primitive-pink-dark-500)",
+          "550": "var(--primitive-pink-dark-550)",
+          "600": "var(--primitive-pink-dark-600)",
+          "700": "var(--primitive-pink-dark-700)",
+          "750": "var(--primitive-pink-dark-750)",
+          "800": "var(--primitive-pink-dark-800)",
+          "850": "var(--primitive-pink-dark-850)",
+          "900": "var(--primitive-pink-dark-900)"
+        }
       },
       "teal": {
-        "20": "var(--primitive-teal-20)",
-        "40": "var(--primitive-teal-40)",
-        "60": "var(--primitive-teal-60)",
-        "80": "var(--primitive-teal-80)",
+        "25": "var(--primitive-teal-25)",
+        "50": "var(--primitive-teal-50)",
+        "75": "var(--primitive-teal-75)",
         "100": "var(--primitive-teal-100)",
         "150": "var(--primitive-teal-150)",
         "200": "var(--primitive-teal-200)",
-        "250": "var(--primitive-teal-250)",
         "300": "var(--primitive-teal-300)",
-        "350": "var(--primitive-teal-350)",
         "400": "var(--primitive-teal-400)",
-        "450": "var(--primitive-teal-450)",
         "500": "var(--primitive-teal-500)",
         "550": "var(--primitive-teal-550)",
         "600": "var(--primitive-teal-600)",
-        "650": "var(--primitive-teal-650)",
         "700": "var(--primitive-teal-700)",
         "750": "var(--primitive-teal-750)",
         "800": "var(--primitive-teal-800)",
-        "820": "var(--primitive-teal-820)",
-        "840": "var(--primitive-teal-840)",
-        "860": "var(--primitive-teal-860)",
-        "880": "var(--primitive-teal-880)",
-        "900": "var(--primitive-teal-900)"
+        "850": "var(--primitive-teal-850)",
+        "900": "var(--primitive-teal-900)",
+        "dark": {
+          "25": "var(--primitive-teal-dark-25)",
+          "50": "var(--primitive-teal-dark-50)",
+          "75": "var(--primitive-teal-dark-75)",
+          "100": "var(--primitive-teal-dark-100)",
+          "150": "var(--primitive-teal-dark-150)",
+          "200": "var(--primitive-teal-dark-200)",
+          "300": "var(--primitive-teal-dark-300)",
+          "400": "var(--primitive-teal-dark-400)",
+          "500": "var(--primitive-teal-dark-500)",
+          "550": "var(--primitive-teal-dark-550)",
+          "600": "var(--primitive-teal-dark-600)",
+          "700": "var(--primitive-teal-dark-700)",
+          "750": "var(--primitive-teal-dark-750)",
+          "800": "var(--primitive-teal-dark-800)",
+          "850": "var(--primitive-teal-dark-850)",
+          "900": "var(--primitive-teal-dark-900)"
+        }
       },
-      "amber": {
-        "20": "var(--primitive-amber-20)",
-        "40": "var(--primitive-amber-40)",
-        "60": "var(--primitive-amber-60)",
-        "80": "var(--primitive-amber-80)",
-        "100": "var(--primitive-amber-100)",
-        "150": "var(--primitive-amber-150)",
-        "200": "var(--primitive-amber-200)",
-        "250": "var(--primitive-amber-250)",
-        "300": "var(--primitive-amber-300)",
-        "350": "var(--primitive-amber-350)",
-        "400": "var(--primitive-amber-400)",
-        "450": "var(--primitive-amber-450)",
-        "500": "var(--primitive-amber-500)",
-        "550": "var(--primitive-amber-550)",
-        "600": "var(--primitive-amber-600)",
-        "650": "var(--primitive-amber-650)",
-        "700": "var(--primitive-amber-700)",
-        "750": "var(--primitive-amber-750)",
-        "800": "var(--primitive-amber-800)",
-        "820": "var(--primitive-amber-820)",
-        "840": "var(--primitive-amber-840)",
-        "860": "var(--primitive-amber-860)",
-        "880": "var(--primitive-amber-880)",
-        "900": "var(--primitive-amber-900)"
-      },
-      "immerse": {
-        "20": "var(--primitive-immerse-20)",
-        "40": "var(--primitive-immerse-40)",
-        "60": "var(--primitive-immerse-60)",
-        "80": "var(--primitive-immerse-80)",
-        "100": "var(--primitive-immerse-100)",
-        "150": "var(--primitive-immerse-150)",
-        "200": "var(--primitive-immerse-200)",
-        "250": "var(--primitive-immerse-250)",
-        "300": "var(--primitive-immerse-300)",
-        "350": "var(--primitive-immerse-350)",
-        "400": "var(--primitive-immerse-400)",
-        "450": "var(--primitive-immerse-450)",
-        "500": "var(--primitive-immerse-500)",
-        "550": "var(--primitive-immerse-550)",
-        "600": "var(--primitive-immerse-600)",
-        "650": "var(--primitive-immerse-650)",
-        "700": "var(--primitive-immerse-700)",
-        "750": "var(--primitive-immerse-750)",
-        "800": "var(--primitive-immerse-800)",
-        "820": "var(--primitive-immerse-820)",
-        "840": "var(--primitive-immerse-840)",
-        "860": "var(--primitive-immerse-860)",
-        "880": "var(--primitive-immerse-880)",
-        "900": "var(--primitive-immerse-900)"
+      "indigo": {
+        "25": "var(--primitive-indigo-25)",
+        "50": "var(--primitive-indigo-50)",
+        "75": "var(--primitive-indigo-75)",
+        "100": "var(--primitive-indigo-100)",
+        "150": "var(--primitive-indigo-150)",
+        "200": "var(--primitive-indigo-200)",
+        "300": "var(--primitive-indigo-300)",
+        "400": "var(--primitive-indigo-400)",
+        "500": "var(--primitive-indigo-500)",
+        "550": "var(--primitive-indigo-550)",
+        "600": "var(--primitive-indigo-600)",
+        "700": "var(--primitive-indigo-700)",
+        "750": "var(--primitive-indigo-750)",
+        "800": "var(--primitive-indigo-800)",
+        "850": "var(--primitive-indigo-850)",
+        "900": "var(--primitive-indigo-900)",
+        "dark": {
+          "25": "var(--primitive-indigo-dark-25)",
+          "50": "var(--primitive-indigo-dark-50)",
+          "75": "var(--primitive-indigo-dark-75)",
+          "100": "var(--primitive-indigo-dark-100)",
+          "150": "var(--primitive-indigo-dark-150)",
+          "200": "var(--primitive-indigo-dark-200)",
+          "300": "var(--primitive-indigo-dark-300)",
+          "400": "var(--primitive-indigo-dark-400)",
+          "500": "var(--primitive-indigo-dark-500)",
+          "550": "var(--primitive-indigo-dark-550)",
+          "600": "var(--primitive-indigo-dark-600)",
+          "700": "var(--primitive-indigo-dark-700)",
+          "750": "var(--primitive-indigo-dark-750)",
+          "800": "var(--primitive-indigo-dark-800)",
+          "850": "var(--primitive-indigo-dark-850)",
+          "900": "var(--primitive-indigo-dark-900)"
+        }
       }
     }
   },
@@ -608,9 +498,13 @@ export const designTokens = {
               "subtle": "var(--semantic-accent-alpha-inverse-subtle)",
               "subtler": "var(--semantic-accent-alpha-inverse-subtler)",
               "subtlest": "var(--semantic-accent-alpha-inverse-subtlest)",
-              "assistive": "var(--semantic-accent-alpha-inverse-assistive)"
+              "assistive": "var(--semantic-accent-alpha-inverse-assistive)",
+              "alternative": "var(--semantic-accent-alpha-inverse-alternative)",
+              "neutral": "var(--semantic-accent-alpha-inverse-neutral)"
             },
-            "subtlest": "var(--semantic-accent-alpha-subtlest)"
+            "subtlest": "var(--semantic-accent-alpha-subtlest)",
+            "alternative": "var(--semantic-accent-alpha-alternative)",
+            "neutral": "var(--semantic-accent-alpha-neutral)"
           },
           "bold": "var(--semantic-accent-bold)",
           "normal": "var(--semantic-accent-normal)",
@@ -619,19 +513,19 @@ export const designTokens = {
             "bold": "var(--semantic-accent-inverse-bold)",
             "normal": "var(--semantic-accent-inverse-normal)",
             "neutral": "var(--semantic-accent-inverse-neutral)",
-            "alternative": "var(--semantic-accent-inverse-alternative)",
             "assistive": "var(--semantic-accent-inverse-assistive)",
             "subtle": "var(--semantic-accent-inverse-subtle)",
             "bolder": "var(--semantic-accent-inverse-bolder)",
             "subtler": "var(--semantic-accent-inverse-subtler)",
-            "subtlest": "var(--semantic-accent-inverse-subtlest)"
+            "subtlest": "var(--semantic-accent-inverse-subtlest)",
+            "alternative": "var(--semantic-accent-inverse-alternative)"
           },
-          "alternative": "var(--semantic-accent-alternative)",
           "assistive": "var(--semantic-accent-assistive)",
           "subtle": "var(--semantic-accent-subtle)",
           "subtler": "var(--semantic-accent-subtler)",
           "bolder": "var(--semantic-accent-bolder)",
-          "subtlest": "var(--semantic-accent-subtlest)"
+          "subtlest": "var(--semantic-accent-subtlest)",
+          "alternative": "var(--semantic-accent-alternative)"
         },
         "object": {
           "neutral": "var(--semantic-object-neutral)",
@@ -717,20 +611,6 @@ export const designTokens = {
             }
           }
         },
-        "interaction": {
-          "bold": "var(--semantic-interaction-bold)",
-          "normal": "var(--semantic-interaction-normal)",
-          "inverse": {
-            "focus": "var(--semantic-interaction-inverse-focus)",
-            "bold": "var(--semantic-interaction-inverse-bold)",
-            "normal": "var(--semantic-interaction-inverse-normal)",
-            "assistive": "var(--semantic-interaction-inverse-assistive)",
-            "subtle": "var(--semantic-interaction-inverse-subtle)"
-          },
-          "focus": "var(--semantic-interaction-focus)",
-          "assistive": "var(--semantic-interaction-assistive)",
-          "subtle": "var(--semantic-interaction-subtle)"
-        },
         "stroke": {
           "neutral": "var(--semantic-stroke-neutral)",
           "alternative": "var(--semantic-stroke-alternative)",
@@ -751,9 +631,11 @@ export const designTokens = {
               "alternative": "var(--semantic-stroke-alpha-inverse-alternative)",
               "assistive": "var(--semantic-stroke-alpha-inverse-assistive)",
               "subtle": "var(--semantic-stroke-alpha-inverse-subtle)",
-              "subtler": "var(--semantic-stroke-alpha-inverse-subtler)"
+              "subtler": "var(--semantic-stroke-alpha-inverse-subtler)",
+              "subtlest": "var(--semantic-stroke-alpha-inverse-subtlest)"
             },
-            "subtler": "var(--semantic-stroke-alpha-subtler)"
+            "subtler": "var(--semantic-stroke-alpha-subtler)",
+            "subtlest": "var(--semantic-stroke-alpha-subtlest)"
           },
           "subtle": "var(--semantic-stroke-subtle)",
           "inverse": {
@@ -763,16 +645,15 @@ export const designTokens = {
             "alternative": "var(--semantic-stroke-inverse-alternative)",
             "assistive": "var(--semantic-stroke-inverse-assistive)",
             "subtle": "var(--semantic-stroke-inverse-subtle)",
-            "subtler": "var(--semantic-stroke-inverse-subtler)"
+            "subtler": "var(--semantic-stroke-inverse-subtler)",
+            "subtlest": "var(--semantic-stroke-inverse-subtlest)"
           },
-          "subtler": "var(--semantic-stroke-subtler)"
+          "subtler": "var(--semantic-stroke-subtler)",
+          "subtlest": "var(--semantic-stroke-subtlest)"
         },
         "fill": {
           "boldest": "var(--semantic-fill-boldest)",
           "bold": "var(--semantic-fill-bold)",
-          "neutral": "var(--semantic-fill-neutral)",
-          "alternative": "var(--semantic-fill-alternative)",
-          "assistive": "var(--semantic-fill-assistive)",
           "inverse": {
             "boldest": "var(--semantic-fill-inverse-boldest)",
             "bold": "var(--semantic-fill-inverse-bold)",
@@ -789,7 +670,10 @@ export const designTokens = {
           "subtler": "var(--semantic-fill-subtler)",
           "subtlest": "var(--semantic-fill-subtlest)",
           "bolder": "var(--semantic-fill-bolder)",
-          "normal": "var(--semantic-fill-normal)"
+          "normal": "var(--semantic-fill-normal)",
+          "neutral": "var(--semantic-fill-neutral)",
+          "alternative": "var(--semantic-fill-alternative)",
+          "assistive": "var(--semantic-fill-assistive)"
         },
         "system": {
           "white": "var(--semantic-system-white)",
@@ -808,9 +692,12 @@ export const designTokens = {
               "assistive": "var(--semantic-theme-red-alpha-assistive)",
               "subtle": "var(--semantic-theme-red-alpha-subtle)",
               "subtler": "var(--semantic-theme-red-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-red-alpha-subtlest)"
+              "subtlest": "var(--semantic-theme-red-alpha-subtlest)",
+              "alternative": "var(--semantic-theme-red-alpha-alternative)",
+              "neutral": "var(--semantic-theme-red-alpha-neutral)"
             },
-            "bolder": "var(--semantic-theme-red-bolder)"
+            "bolder": "var(--semantic-theme-red-bolder)",
+            "subtlest": "var(--semantic-theme-red-subtlest)"
           },
           "orange": {
             "bold": "var(--semantic-theme-orange-bold)",
@@ -824,25 +711,12 @@ export const designTokens = {
               "assistive": "var(--semantic-theme-orange-alpha-assistive)",
               "subtle": "var(--semantic-theme-orange-alpha-subtle)",
               "subtler": "var(--semantic-theme-orange-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-orange-alpha-subtlest)"
+              "subtlest": "var(--semantic-theme-orange-alpha-subtlest)",
+              "alternative": "var(--semantic-theme-orange-alpha-alternative)",
+              "neutral": "var(--semantic-theme-orange-alpha-neutral)"
             },
-            "bolder": "var(--semantic-theme-orange-bolder)"
-          },
-          "amber": {
-            "bold": "var(--semantic-theme-amber-bold)",
-            "normal": "var(--semantic-theme-amber-normal)",
-            "neutral": "var(--semantic-theme-amber-neutral)",
-            "alternative": "var(--semantic-theme-amber-alternative)",
-            "assistive": "var(--semantic-theme-amber-assistive)",
-            "subtle": "var(--semantic-theme-amber-subtle)",
-            "subtler": "var(--semantic-theme-amber-subtler)",
-            "alpha": {
-              "assistive": "var(--semantic-theme-amber-alpha-assistive)",
-              "subtle": "var(--semantic-theme-amber-alpha-subtle)",
-              "subtler": "var(--semantic-theme-amber-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-amber-alpha-subtlest)"
-            },
-            "bolder": "var(--semantic-theme-amber-bolder)"
+            "bolder": "var(--semantic-theme-orange-bolder)",
+            "subtlest": "var(--semantic-theme-orange-subtlest)"
           },
           "yellow": {
             "bold": "var(--semantic-theme-yellow-bold)",
@@ -856,9 +730,12 @@ export const designTokens = {
               "assistive": "var(--semantic-theme-yellow-alpha-assistive)",
               "subtle": "var(--semantic-theme-yellow-alpha-subtle)",
               "subtler": "var(--semantic-theme-yellow-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-yellow-alpha-subtlest)"
+              "subtlest": "var(--semantic-theme-yellow-alpha-subtlest)",
+              "alternative": "var(--semantic-theme-yellow-alpha-alternative)",
+              "neutral": "var(--semantic-theme-yellow-alpha-neutral)"
             },
-            "bolder": "var(--semantic-theme-yellow-bolder)"
+            "bolder": "var(--semantic-theme-yellow-bolder)",
+            "subtlest": "var(--semantic-theme-yellow-subtlest)"
           },
           "lime": {
             "bold": "var(--semantic-theme-lime-bold)",
@@ -872,9 +749,12 @@ export const designTokens = {
               "assistive": "var(--semantic-theme-lime-alpha-assistive)",
               "subtle": "var(--semantic-theme-lime-alpha-subtle)",
               "subtler": "var(--semantic-theme-lime-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-lime-alpha-subtlest)"
+              "subtlest": "var(--semantic-theme-lime-alpha-subtlest)",
+              "alternative": "var(--semantic-theme-lime-alpha-alternative)",
+              "neutral": "var(--semantic-theme-lime-alpha-neutral)"
             },
-            "bolder": "var(--semantic-theme-lime-bolder)"
+            "bolder": "var(--semantic-theme-lime-bolder)",
+            "subtlest": "var(--semantic-theme-lime-subtlest)"
           },
           "green": {
             "bold": "var(--semantic-theme-green-bold)",
@@ -888,25 +768,12 @@ export const designTokens = {
               "assistive": "var(--semantic-theme-green-alpha-assistive)",
               "subtle": "var(--semantic-theme-green-alpha-subtle)",
               "subtler": "var(--semantic-theme-green-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-green-alpha-subtlest)"
+              "subtlest": "var(--semantic-theme-green-alpha-subtlest)",
+              "alternative": "var(--semantic-theme-green-alpha-alternative)",
+              "neutral": "var(--semantic-theme-green-alpha-neutral)"
             },
-            "bolder": "var(--semantic-theme-green-bolder)"
-          },
-          "emerald": {
-            "bold": "var(--semantic-theme-emerald-bold)",
-            "normal": "var(--semantic-theme-emerald-normal)",
-            "neutral": "var(--semantic-theme-emerald-neutral)",
-            "alternative": "var(--semantic-theme-emerald-alternative)",
-            "assistive": "var(--semantic-theme-emerald-assistive)",
-            "subtle": "var(--semantic-theme-emerald-subtle)",
-            "subtler": "var(--semantic-theme-emerald-subtler)",
-            "alpha": {
-              "assistive": "var(--semantic-theme-emerald-alpha-assistive)",
-              "subtle": "var(--semantic-theme-emerald-alpha-subtle)",
-              "subtler": "var(--semantic-theme-emerald-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-emerald-alpha-subtlest)"
-            },
-            "bolder": "var(--semantic-theme-emerald-bolder)"
+            "bolder": "var(--semantic-theme-green-bolder)",
+            "subtlest": "var(--semantic-theme-green-subtlest)"
           },
           "teal": {
             "bold": "var(--semantic-theme-teal-bold)",
@@ -920,25 +787,12 @@ export const designTokens = {
               "assistive": "var(--semantic-theme-teal-alpha-assistive)",
               "subtle": "var(--semantic-theme-teal-alpha-subtle)",
               "subtler": "var(--semantic-theme-teal-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-teal-alpha-subtlest)"
+              "subtlest": "var(--semantic-theme-teal-alpha-subtlest)",
+              "alternative": "var(--semantic-theme-teal-alpha-alternative)",
+              "neutral": "var(--semantic-theme-teal-alpha-neutral)"
             },
-            "bolder": "var(--semantic-theme-teal-bolder)"
-          },
-          "cyan": {
-            "bold": "var(--semantic-theme-cyan-bold)",
-            "normal": "var(--semantic-theme-cyan-normal)",
-            "neutral": "var(--semantic-theme-cyan-neutral)",
-            "alternative": "var(--semantic-theme-cyan-alternative)",
-            "assistive": "var(--semantic-theme-cyan-assistive)",
-            "subtle": "var(--semantic-theme-cyan-subtle)",
-            "subtler": "var(--semantic-theme-cyan-subtler)",
-            "alpha": {
-              "assistive": "var(--semantic-theme-cyan-alpha-assistive)",
-              "subtle": "var(--semantic-theme-cyan-alpha-subtle)",
-              "subtler": "var(--semantic-theme-cyan-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-cyan-alpha-subtlest)"
-            },
-            "bolder": "var(--semantic-theme-cyan-bolder)"
+            "bolder": "var(--semantic-theme-teal-bolder)",
+            "subtlest": "var(--semantic-theme-teal-subtlest)"
           },
           "sky": {
             "bold": "var(--semantic-theme-sky-bold)",
@@ -952,41 +806,12 @@ export const designTokens = {
               "assistive": "var(--semantic-theme-sky-alpha-assistive)",
               "subtle": "var(--semantic-theme-sky-alpha-subtle)",
               "subtler": "var(--semantic-theme-sky-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-sky-alpha-subtlest)"
+              "subtlest": "var(--semantic-theme-sky-alpha-subtlest)",
+              "alternative": "var(--semantic-theme-sky-alpha-alternative)",
+              "neutral": "var(--semantic-theme-sky-alpha-neutral)"
             },
-            "bolder": "var(--semantic-theme-sky-bolder)"
-          },
-          "blue": {
-            "bold": "var(--semantic-theme-blue-bold)",
-            "normal": "var(--semantic-theme-blue-normal)",
-            "neutral": "var(--semantic-theme-blue-neutral)",
-            "alternative": "var(--semantic-theme-blue-alternative)",
-            "assistive": "var(--semantic-theme-blue-assistive)",
-            "subtle": "var(--semantic-theme-blue-subtle)",
-            "subtler": "var(--semantic-theme-blue-subtler)",
-            "alpha": {
-              "assistive": "var(--semantic-theme-blue-alpha-assistive)",
-              "subtle": "var(--semantic-theme-blue-alpha-subtle)",
-              "subtler": "var(--semantic-theme-blue-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-blue-alpha-subtlest)"
-            },
-            "bolder": "var(--semantic-theme-blue-bolder)"
-          },
-          "violet": {
-            "bold": "var(--semantic-theme-violet-bold)",
-            "normal": "var(--semantic-theme-violet-normal)",
-            "neutral": "var(--semantic-theme-violet-neutral)",
-            "alternative": "var(--semantic-theme-violet-alternative)",
-            "assistive": "var(--semantic-theme-violet-assistive)",
-            "subtle": "var(--semantic-theme-violet-subtle)",
-            "subtler": "var(--semantic-theme-violet-subtler)",
-            "alpha": {
-              "assistive": "var(--semantic-theme-violet-alpha-assistive)",
-              "subtle": "var(--semantic-theme-violet-alpha-subtle)",
-              "subtler": "var(--semantic-theme-violet-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-violet-alpha-subtlest)"
-            },
-            "bolder": "var(--semantic-theme-violet-bolder)"
+            "bolder": "var(--semantic-theme-sky-bolder)",
+            "subtlest": "var(--semantic-theme-sky-subtlest)"
           },
           "purple": {
             "bold": "var(--semantic-theme-purple-bold)",
@@ -1000,25 +825,12 @@ export const designTokens = {
               "assistive": "var(--semantic-theme-purple-alpha-assistive)",
               "subtle": "var(--semantic-theme-purple-alpha-subtle)",
               "subtler": "var(--semantic-theme-purple-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-purple-alpha-subtlest)"
+              "subtlest": "var(--semantic-theme-purple-alpha-subtlest)",
+              "alternative": "var(--semantic-theme-purple-alpha-alternative)",
+              "neutral": "var(--semantic-theme-purple-alpha-neutral)"
             },
-            "bolder": "var(--semantic-theme-purple-bolder)"
-          },
-          "fuchsia": {
-            "bold": "var(--semantic-theme-fuchsia-bold)",
-            "normal": "var(--semantic-theme-fuchsia-normal)",
-            "neutral": "var(--semantic-theme-fuchsia-neutral)",
-            "alternative": "var(--semantic-theme-fuchsia-alternative)",
-            "assistive": "var(--semantic-theme-fuchsia-assistive)",
-            "subtle": "var(--semantic-theme-fuchsia-subtle)",
-            "subtler": "var(--semantic-theme-fuchsia-subtler)",
-            "alpha": {
-              "assistive": "var(--semantic-theme-fuchsia-alpha-assistive)",
-              "subtle": "var(--semantic-theme-fuchsia-alpha-subtle)",
-              "subtler": "var(--semantic-theme-fuchsia-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-fuchsia-alpha-subtlest)"
-            },
-            "bolder": "var(--semantic-theme-fuchsia-bolder)"
+            "bolder": "var(--semantic-theme-purple-bolder)",
+            "subtlest": "var(--semantic-theme-purple-subtlest)"
           },
           "pink": {
             "bold": "var(--semantic-theme-pink-bold)",
@@ -1032,25 +844,31 @@ export const designTokens = {
               "assistive": "var(--semantic-theme-pink-alpha-assistive)",
               "subtle": "var(--semantic-theme-pink-alpha-subtle)",
               "subtler": "var(--semantic-theme-pink-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-pink-alpha-subtlest)"
+              "subtlest": "var(--semantic-theme-pink-alpha-subtlest)",
+              "alternative": "var(--semantic-theme-pink-alpha-alternative)",
+              "neutral": "var(--semantic-theme-pink-alpha-neutral)"
             },
-            "bolder": "var(--semantic-theme-pink-bolder)"
+            "bolder": "var(--semantic-theme-pink-bolder)",
+            "subtlest": "var(--semantic-theme-pink-subtlest)"
           },
-          "rose": {
-            "bold": "var(--semantic-theme-rose-bold)",
-            "normal": "var(--semantic-theme-rose-normal)",
-            "neutral": "var(--semantic-theme-rose-neutral)",
-            "alternative": "var(--semantic-theme-rose-alternative)",
-            "assistive": "var(--semantic-theme-rose-assistive)",
-            "subtle": "var(--semantic-theme-rose-subtle)",
-            "subtler": "var(--semantic-theme-rose-subtler)",
+          "indigo": {
+            "bolder": "var(--semantic-theme-indigo-bolder)",
+            "bold": "var(--semantic-theme-indigo-bold)",
+            "normal": "var(--semantic-theme-indigo-normal)",
+            "neutral": "var(--semantic-theme-indigo-neutral)",
+            "alternative": "var(--semantic-theme-indigo-alternative)",
+            "assistive": "var(--semantic-theme-indigo-assistive)",
+            "subtle": "var(--semantic-theme-indigo-subtle)",
+            "subtler": "var(--semantic-theme-indigo-subtler)",
+            "subtlest": "var(--semantic-theme-indigo-subtlest)",
             "alpha": {
-              "assistive": "var(--semantic-theme-rose-alpha-assistive)",
-              "subtle": "var(--semantic-theme-rose-alpha-subtle)",
-              "subtler": "var(--semantic-theme-rose-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-rose-alpha-subtlest)"
-            },
-            "bolder": "var(--semantic-theme-rose-bolder)"
+              "alternative": "var(--semantic-theme-indigo-alpha-alternative)",
+              "assistive": "var(--semantic-theme-indigo-alpha-assistive)",
+              "subtle": "var(--semantic-theme-indigo-alpha-subtle)",
+              "subtler": "var(--semantic-theme-indigo-alpha-subtler)",
+              "subtlest": "var(--semantic-theme-indigo-alpha-subtlest)",
+              "neutral": "var(--semantic-theme-indigo-alpha-neutral)"
+            }
           }
         },
         "curtain": {
@@ -1071,9 +889,13 @@ export const designTokens = {
                 "assistive": "var(--semantic-feedback-positive-alpha-inverse-assistive)",
                 "subtle": "var(--semantic-feedback-positive-alpha-inverse-subtle)",
                 "subtler": "var(--semantic-feedback-positive-alpha-inverse-subtler)",
-                "subtlest": "var(--semantic-feedback-positive-alpha-inverse-subtlest)"
+                "subtlest": "var(--semantic-feedback-positive-alpha-inverse-subtlest)",
+                "alternative": "var(--semantic-feedback-positive-alpha-inverse-alternative)",
+                "neutral": "var(--semantic-feedback-positive-alpha-inverse-neutral)"
               },
-              "subtlest": "var(--semantic-feedback-positive-alpha-subtlest)"
+              "subtlest": "var(--semantic-feedback-positive-alpha-subtlest)",
+              "alternative": "var(--semantic-feedback-positive-alpha-alternative)",
+              "neutral": "var(--semantic-feedback-positive-alpha-neutral)"
             },
             "normal": "var(--semantic-feedback-positive-normal)",
             "bold": "var(--semantic-feedback-positive-bold)",
@@ -1085,14 +907,16 @@ export const designTokens = {
               "assistive": "var(--semantic-feedback-positive-inverse-assistive)",
               "subtle": "var(--semantic-feedback-positive-inverse-subtle)",
               "subtler": "var(--semantic-feedback-positive-inverse-subtler)",
-              "bolder": "var(--semantic-feedback-positive-inverse-bolder)"
+              "bolder": "var(--semantic-feedback-positive-inverse-bolder)",
+              "subtlest": "var(--semantic-feedback-positive-inverse-subtlest)"
             },
             "assistive": "var(--semantic-feedback-positive-assistive)",
             "subtler": "var(--semantic-feedback-positive-subtler)",
             "neutral": "var(--semantic-feedback-positive-neutral)",
             "alternative": "var(--semantic-feedback-positive-alternative)",
             "subtle": "var(--semantic-feedback-positive-subtle)",
-            "bolder": "var(--semantic-feedback-positive-bolder)"
+            "bolder": "var(--semantic-feedback-positive-bolder)",
+            "subtlest": "var(--semantic-feedback-positive-subtlest)"
           },
           "destructive": {
             "bold": "var(--semantic-feedback-destructive-bold)",
@@ -1104,7 +928,8 @@ export const designTokens = {
               "assistive": "var(--semantic-feedback-destructive-inverse-assistive)",
               "subtle": "var(--semantic-feedback-destructive-inverse-subtle)",
               "subtler": "var(--semantic-feedback-destructive-inverse-subtler)",
-              "bolder": "var(--semantic-feedback-destructive-inverse-bolder)"
+              "bolder": "var(--semantic-feedback-destructive-inverse-bolder)",
+              "subtlest": "var(--semantic-feedback-destructive-inverse-subtlest)"
             },
             "normal": "var(--semantic-feedback-destructive-normal)",
             "alpha": {
@@ -1115,16 +940,21 @@ export const designTokens = {
                 "assistive": "var(--semantic-feedback-destructive-alpha-inverse-assistive)",
                 "subtle": "var(--semantic-feedback-destructive-alpha-inverse-subtle)",
                 "subtler": "var(--semantic-feedback-destructive-alpha-inverse-subtler)",
-                "subtlest": "var(--semantic-feedback-destructive-alpha-inverse-subtlest)"
+                "subtlest": "var(--semantic-feedback-destructive-alpha-inverse-subtlest)",
+                "alternative": "var(--semantic-feedback-destructive-alpha-inverse-alternative)",
+                "neutral": "var(--semantic-feedback-destructive-alpha-inverse-neutral)"
               },
-              "subtlest": "var(--semantic-feedback-destructive-alpha-subtlest)"
+              "subtlest": "var(--semantic-feedback-destructive-alpha-subtlest)",
+              "alternative": "var(--semantic-feedback-destructive-alpha-alternative)",
+              "neutral": "var(--semantic-feedback-destructive-alpha-neutral)"
             },
             "neutral": "var(--semantic-feedback-destructive-neutral)",
             "alternative": "var(--semantic-feedback-destructive-alternative)",
             "assistive": "var(--semantic-feedback-destructive-assistive)",
             "subtle": "var(--semantic-feedback-destructive-subtle)",
             "subtler": "var(--semantic-feedback-destructive-subtler)",
-            "bolder": "var(--semantic-feedback-destructive-bolder)"
+            "bolder": "var(--semantic-feedback-destructive-bolder)",
+            "subtlest": "var(--semantic-feedback-destructive-subtlest)"
           },
           "notifying": {
             "bold": "var(--semantic-feedback-notifying-bold)",
@@ -1142,7 +972,8 @@ export const designTokens = {
               "assistive": "var(--semantic-feedback-notifying-inverse-assistive)",
               "subtle": "var(--semantic-feedback-notifying-inverse-subtle)",
               "subtler": "var(--semantic-feedback-notifying-inverse-subtler)",
-              "bolder": "var(--semantic-feedback-notifying-inverse-bolder)"
+              "bolder": "var(--semantic-feedback-notifying-inverse-bolder)",
+              "subtlest": "var(--semantic-feedback-notifying-inverse-subtlest)"
             },
             "alpha": {
               "assistive": "var(--semantic-feedback-notifying-alpha-assistive)",
@@ -1152,11 +983,38 @@ export const designTokens = {
                 "assistive": "var(--semantic-feedback-notifying-alpha-inverse-assistive)",
                 "subtle": "var(--semantic-feedback-notifying-alpha-inverse-subtle)",
                 "subtler": "var(--semantic-feedback-notifying-alpha-inverse-subtler)",
-                "subtlest": "var(--semantic-feedback-notifying-alpha-inverse-subtlest)"
+                "subtlest": "var(--semantic-feedback-notifying-alpha-inverse-subtlest)",
+                "alternative": "var(--semantic-feedback-notifying-alpha-inverse-alternative)",
+                "neutral": "var(--semantic-feedback-notifying-alpha-inverse-neutral)"
               },
-              "subtlest": "var(--semantic-feedback-notifying-alpha-subtlest)"
+              "subtlest": "var(--semantic-feedback-notifying-alpha-subtlest)",
+              "alternative": "var(--semantic-feedback-notifying-alpha-alternative)",
+              "neutral": "var(--semantic-feedback-notifying-alpha-neutral)"
             },
-            "bolder": "var(--semantic-feedback-notifying-bolder)"
+            "bolder": "var(--semantic-feedback-notifying-bolder)",
+            "subtlest": "var(--semantic-feedback-notifying-subtlest)",
+            "static": {
+              "bolder": "var(--semantic-feedback-notifying-static-bolder)",
+              "bold": "var(--semantic-feedback-notifying-static-bold)",
+              "normal": "var(--semantic-feedback-notifying-static-normal)",
+              "neutral": "var(--semantic-feedback-notifying-static-neutral)",
+              "alternative": "var(--semantic-feedback-notifying-static-alternative)",
+              "assistive": "var(--semantic-feedback-notifying-static-assistive)",
+              "subtle": "var(--semantic-feedback-notifying-static-subtle)",
+              "subtler": "var(--semantic-feedback-notifying-static-subtler)",
+              "subtlest": "var(--semantic-feedback-notifying-static-subtlest)",
+              "inverse": {
+                "bolder": "var(--semantic-feedback-notifying-static-inverse-bolder)",
+                "bold": "var(--semantic-feedback-notifying-static-inverse-bold)",
+                "normal": "var(--semantic-feedback-notifying-static-inverse-normal)",
+                "neutral": "var(--semantic-feedback-notifying-static-inverse-neutral)",
+                "alternative": "var(--semantic-feedback-notifying-static-inverse-alternative)",
+                "assistive": "var(--semantic-feedback-notifying-static-inverse-assistive)",
+                "subtle": "var(--semantic-feedback-notifying-static-inverse-subtle)",
+                "subtler": "var(--semantic-feedback-notifying-static-inverse-subtler)",
+                "subtlest": "var(--semantic-feedback-notifying-static-inverse-subtlest)"
+              }
+            }
           }
         }
       }
@@ -1172,9 +1030,13 @@ export const designTokens = {
               "subtle": "var(--semantic-accent-alpha-inverse-subtle)",
               "subtler": "var(--semantic-accent-alpha-inverse-subtler)",
               "subtlest": "var(--semantic-accent-alpha-inverse-subtlest)",
-              "assistive": "var(--semantic-accent-alpha-inverse-assistive)"
+              "assistive": "var(--semantic-accent-alpha-inverse-assistive)",
+              "alternative": "var(--semantic-accent-alpha-inverse-alternative)",
+              "neutral": "var(--semantic-accent-alpha-inverse-neutral)"
             },
-            "subtlest": "var(--semantic-accent-alpha-subtlest)"
+            "subtlest": "var(--semantic-accent-alpha-subtlest)",
+            "alternative": "var(--semantic-accent-alpha-alternative)",
+            "neutral": "var(--semantic-accent-alpha-neutral)"
           },
           "bold": "var(--semantic-accent-bold)",
           "normal": "var(--semantic-accent-normal)",
@@ -1183,19 +1045,19 @@ export const designTokens = {
             "bold": "var(--semantic-accent-inverse-bold)",
             "normal": "var(--semantic-accent-inverse-normal)",
             "neutral": "var(--semantic-accent-inverse-neutral)",
-            "alternative": "var(--semantic-accent-inverse-alternative)",
             "assistive": "var(--semantic-accent-inverse-assistive)",
             "subtle": "var(--semantic-accent-inverse-subtle)",
             "bolder": "var(--semantic-accent-inverse-bolder)",
             "subtler": "var(--semantic-accent-inverse-subtler)",
-            "subtlest": "var(--semantic-accent-inverse-subtlest)"
+            "subtlest": "var(--semantic-accent-inverse-subtlest)",
+            "alternative": "var(--semantic-accent-inverse-alternative)"
           },
-          "alternative": "var(--semantic-accent-alternative)",
           "assistive": "var(--semantic-accent-assistive)",
           "subtle": "var(--semantic-accent-subtle)",
           "subtler": "var(--semantic-accent-subtler)",
           "bolder": "var(--semantic-accent-bolder)",
-          "subtlest": "var(--semantic-accent-subtlest)"
+          "subtlest": "var(--semantic-accent-subtlest)",
+          "alternative": "var(--semantic-accent-alternative)"
         },
         "object": {
           "neutral": "var(--semantic-object-neutral)",
@@ -1281,20 +1143,6 @@ export const designTokens = {
             }
           }
         },
-        "interaction": {
-          "bold": "var(--semantic-interaction-bold)",
-          "normal": "var(--semantic-interaction-normal)",
-          "inverse": {
-            "focus": "var(--semantic-interaction-inverse-focus)",
-            "bold": "var(--semantic-interaction-inverse-bold)",
-            "normal": "var(--semantic-interaction-inverse-normal)",
-            "assistive": "var(--semantic-interaction-inverse-assistive)",
-            "subtle": "var(--semantic-interaction-inverse-subtle)"
-          },
-          "focus": "var(--semantic-interaction-focus)",
-          "assistive": "var(--semantic-interaction-assistive)",
-          "subtle": "var(--semantic-interaction-subtle)"
-        },
         "stroke": {
           "neutral": "var(--semantic-stroke-neutral)",
           "alternative": "var(--semantic-stroke-alternative)",
@@ -1315,9 +1163,11 @@ export const designTokens = {
               "alternative": "var(--semantic-stroke-alpha-inverse-alternative)",
               "assistive": "var(--semantic-stroke-alpha-inverse-assistive)",
               "subtle": "var(--semantic-stroke-alpha-inverse-subtle)",
-              "subtler": "var(--semantic-stroke-alpha-inverse-subtler)"
+              "subtler": "var(--semantic-stroke-alpha-inverse-subtler)",
+              "subtlest": "var(--semantic-stroke-alpha-inverse-subtlest)"
             },
-            "subtler": "var(--semantic-stroke-alpha-subtler)"
+            "subtler": "var(--semantic-stroke-alpha-subtler)",
+            "subtlest": "var(--semantic-stroke-alpha-subtlest)"
           },
           "subtle": "var(--semantic-stroke-subtle)",
           "inverse": {
@@ -1327,16 +1177,15 @@ export const designTokens = {
             "alternative": "var(--semantic-stroke-inverse-alternative)",
             "assistive": "var(--semantic-stroke-inverse-assistive)",
             "subtle": "var(--semantic-stroke-inverse-subtle)",
-            "subtler": "var(--semantic-stroke-inverse-subtler)"
+            "subtler": "var(--semantic-stroke-inverse-subtler)",
+            "subtlest": "var(--semantic-stroke-inverse-subtlest)"
           },
-          "subtler": "var(--semantic-stroke-subtler)"
+          "subtler": "var(--semantic-stroke-subtler)",
+          "subtlest": "var(--semantic-stroke-subtlest)"
         },
         "fill": {
           "boldest": "var(--semantic-fill-boldest)",
           "bold": "var(--semantic-fill-bold)",
-          "neutral": "var(--semantic-fill-neutral)",
-          "alternative": "var(--semantic-fill-alternative)",
-          "assistive": "var(--semantic-fill-assistive)",
           "inverse": {
             "boldest": "var(--semantic-fill-inverse-boldest)",
             "bold": "var(--semantic-fill-inverse-bold)",
@@ -1353,7 +1202,10 @@ export const designTokens = {
           "subtler": "var(--semantic-fill-subtler)",
           "subtlest": "var(--semantic-fill-subtlest)",
           "bolder": "var(--semantic-fill-bolder)",
-          "normal": "var(--semantic-fill-normal)"
+          "normal": "var(--semantic-fill-normal)",
+          "neutral": "var(--semantic-fill-neutral)",
+          "alternative": "var(--semantic-fill-alternative)",
+          "assistive": "var(--semantic-fill-assistive)"
         },
         "system": {
           "white": "var(--semantic-system-white)",
@@ -1372,9 +1224,12 @@ export const designTokens = {
               "assistive": "var(--semantic-theme-red-alpha-assistive)",
               "subtle": "var(--semantic-theme-red-alpha-subtle)",
               "subtler": "var(--semantic-theme-red-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-red-alpha-subtlest)"
+              "subtlest": "var(--semantic-theme-red-alpha-subtlest)",
+              "alternative": "var(--semantic-theme-red-alpha-alternative)",
+              "neutral": "var(--semantic-theme-red-alpha-neutral)"
             },
-            "bolder": "var(--semantic-theme-red-bolder)"
+            "bolder": "var(--semantic-theme-red-bolder)",
+            "subtlest": "var(--semantic-theme-red-subtlest)"
           },
           "orange": {
             "bold": "var(--semantic-theme-orange-bold)",
@@ -1388,25 +1243,12 @@ export const designTokens = {
               "assistive": "var(--semantic-theme-orange-alpha-assistive)",
               "subtle": "var(--semantic-theme-orange-alpha-subtle)",
               "subtler": "var(--semantic-theme-orange-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-orange-alpha-subtlest)"
+              "subtlest": "var(--semantic-theme-orange-alpha-subtlest)",
+              "alternative": "var(--semantic-theme-orange-alpha-alternative)",
+              "neutral": "var(--semantic-theme-orange-alpha-neutral)"
             },
-            "bolder": "var(--semantic-theme-orange-bolder)"
-          },
-          "amber": {
-            "bold": "var(--semantic-theme-amber-bold)",
-            "normal": "var(--semantic-theme-amber-normal)",
-            "neutral": "var(--semantic-theme-amber-neutral)",
-            "alternative": "var(--semantic-theme-amber-alternative)",
-            "assistive": "var(--semantic-theme-amber-assistive)",
-            "subtle": "var(--semantic-theme-amber-subtle)",
-            "subtler": "var(--semantic-theme-amber-subtler)",
-            "alpha": {
-              "assistive": "var(--semantic-theme-amber-alpha-assistive)",
-              "subtle": "var(--semantic-theme-amber-alpha-subtle)",
-              "subtler": "var(--semantic-theme-amber-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-amber-alpha-subtlest)"
-            },
-            "bolder": "var(--semantic-theme-amber-bolder)"
+            "bolder": "var(--semantic-theme-orange-bolder)",
+            "subtlest": "var(--semantic-theme-orange-subtlest)"
           },
           "yellow": {
             "bold": "var(--semantic-theme-yellow-bold)",
@@ -1420,9 +1262,12 @@ export const designTokens = {
               "assistive": "var(--semantic-theme-yellow-alpha-assistive)",
               "subtle": "var(--semantic-theme-yellow-alpha-subtle)",
               "subtler": "var(--semantic-theme-yellow-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-yellow-alpha-subtlest)"
+              "subtlest": "var(--semantic-theme-yellow-alpha-subtlest)",
+              "alternative": "var(--semantic-theme-yellow-alpha-alternative)",
+              "neutral": "var(--semantic-theme-yellow-alpha-neutral)"
             },
-            "bolder": "var(--semantic-theme-yellow-bolder)"
+            "bolder": "var(--semantic-theme-yellow-bolder)",
+            "subtlest": "var(--semantic-theme-yellow-subtlest)"
           },
           "lime": {
             "bold": "var(--semantic-theme-lime-bold)",
@@ -1436,9 +1281,12 @@ export const designTokens = {
               "assistive": "var(--semantic-theme-lime-alpha-assistive)",
               "subtle": "var(--semantic-theme-lime-alpha-subtle)",
               "subtler": "var(--semantic-theme-lime-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-lime-alpha-subtlest)"
+              "subtlest": "var(--semantic-theme-lime-alpha-subtlest)",
+              "alternative": "var(--semantic-theme-lime-alpha-alternative)",
+              "neutral": "var(--semantic-theme-lime-alpha-neutral)"
             },
-            "bolder": "var(--semantic-theme-lime-bolder)"
+            "bolder": "var(--semantic-theme-lime-bolder)",
+            "subtlest": "var(--semantic-theme-lime-subtlest)"
           },
           "green": {
             "bold": "var(--semantic-theme-green-bold)",
@@ -1452,25 +1300,12 @@ export const designTokens = {
               "assistive": "var(--semantic-theme-green-alpha-assistive)",
               "subtle": "var(--semantic-theme-green-alpha-subtle)",
               "subtler": "var(--semantic-theme-green-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-green-alpha-subtlest)"
+              "subtlest": "var(--semantic-theme-green-alpha-subtlest)",
+              "alternative": "var(--semantic-theme-green-alpha-alternative)",
+              "neutral": "var(--semantic-theme-green-alpha-neutral)"
             },
-            "bolder": "var(--semantic-theme-green-bolder)"
-          },
-          "emerald": {
-            "bold": "var(--semantic-theme-emerald-bold)",
-            "normal": "var(--semantic-theme-emerald-normal)",
-            "neutral": "var(--semantic-theme-emerald-neutral)",
-            "alternative": "var(--semantic-theme-emerald-alternative)",
-            "assistive": "var(--semantic-theme-emerald-assistive)",
-            "subtle": "var(--semantic-theme-emerald-subtle)",
-            "subtler": "var(--semantic-theme-emerald-subtler)",
-            "alpha": {
-              "assistive": "var(--semantic-theme-emerald-alpha-assistive)",
-              "subtle": "var(--semantic-theme-emerald-alpha-subtle)",
-              "subtler": "var(--semantic-theme-emerald-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-emerald-alpha-subtlest)"
-            },
-            "bolder": "var(--semantic-theme-emerald-bolder)"
+            "bolder": "var(--semantic-theme-green-bolder)",
+            "subtlest": "var(--semantic-theme-green-subtlest)"
           },
           "teal": {
             "bold": "var(--semantic-theme-teal-bold)",
@@ -1484,25 +1319,12 @@ export const designTokens = {
               "assistive": "var(--semantic-theme-teal-alpha-assistive)",
               "subtle": "var(--semantic-theme-teal-alpha-subtle)",
               "subtler": "var(--semantic-theme-teal-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-teal-alpha-subtlest)"
+              "subtlest": "var(--semantic-theme-teal-alpha-subtlest)",
+              "alternative": "var(--semantic-theme-teal-alpha-alternative)",
+              "neutral": "var(--semantic-theme-teal-alpha-neutral)"
             },
-            "bolder": "var(--semantic-theme-teal-bolder)"
-          },
-          "cyan": {
-            "bold": "var(--semantic-theme-cyan-bold)",
-            "normal": "var(--semantic-theme-cyan-normal)",
-            "neutral": "var(--semantic-theme-cyan-neutral)",
-            "alternative": "var(--semantic-theme-cyan-alternative)",
-            "assistive": "var(--semantic-theme-cyan-assistive)",
-            "subtle": "var(--semantic-theme-cyan-subtle)",
-            "subtler": "var(--semantic-theme-cyan-subtler)",
-            "alpha": {
-              "assistive": "var(--semantic-theme-cyan-alpha-assistive)",
-              "subtle": "var(--semantic-theme-cyan-alpha-subtle)",
-              "subtler": "var(--semantic-theme-cyan-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-cyan-alpha-subtlest)"
-            },
-            "bolder": "var(--semantic-theme-cyan-bolder)"
+            "bolder": "var(--semantic-theme-teal-bolder)",
+            "subtlest": "var(--semantic-theme-teal-subtlest)"
           },
           "sky": {
             "bold": "var(--semantic-theme-sky-bold)",
@@ -1516,41 +1338,12 @@ export const designTokens = {
               "assistive": "var(--semantic-theme-sky-alpha-assistive)",
               "subtle": "var(--semantic-theme-sky-alpha-subtle)",
               "subtler": "var(--semantic-theme-sky-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-sky-alpha-subtlest)"
+              "subtlest": "var(--semantic-theme-sky-alpha-subtlest)",
+              "alternative": "var(--semantic-theme-sky-alpha-alternative)",
+              "neutral": "var(--semantic-theme-sky-alpha-neutral)"
             },
-            "bolder": "var(--semantic-theme-sky-bolder)"
-          },
-          "blue": {
-            "bold": "var(--semantic-theme-blue-bold)",
-            "normal": "var(--semantic-theme-blue-normal)",
-            "neutral": "var(--semantic-theme-blue-neutral)",
-            "alternative": "var(--semantic-theme-blue-alternative)",
-            "assistive": "var(--semantic-theme-blue-assistive)",
-            "subtle": "var(--semantic-theme-blue-subtle)",
-            "subtler": "var(--semantic-theme-blue-subtler)",
-            "alpha": {
-              "assistive": "var(--semantic-theme-blue-alpha-assistive)",
-              "subtle": "var(--semantic-theme-blue-alpha-subtle)",
-              "subtler": "var(--semantic-theme-blue-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-blue-alpha-subtlest)"
-            },
-            "bolder": "var(--semantic-theme-blue-bolder)"
-          },
-          "violet": {
-            "bold": "var(--semantic-theme-violet-bold)",
-            "normal": "var(--semantic-theme-violet-normal)",
-            "neutral": "var(--semantic-theme-violet-neutral)",
-            "alternative": "var(--semantic-theme-violet-alternative)",
-            "assistive": "var(--semantic-theme-violet-assistive)",
-            "subtle": "var(--semantic-theme-violet-subtle)",
-            "subtler": "var(--semantic-theme-violet-subtler)",
-            "alpha": {
-              "assistive": "var(--semantic-theme-violet-alpha-assistive)",
-              "subtle": "var(--semantic-theme-violet-alpha-subtle)",
-              "subtler": "var(--semantic-theme-violet-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-violet-alpha-subtlest)"
-            },
-            "bolder": "var(--semantic-theme-violet-bolder)"
+            "bolder": "var(--semantic-theme-sky-bolder)",
+            "subtlest": "var(--semantic-theme-sky-subtlest)"
           },
           "purple": {
             "bold": "var(--semantic-theme-purple-bold)",
@@ -1564,25 +1357,12 @@ export const designTokens = {
               "assistive": "var(--semantic-theme-purple-alpha-assistive)",
               "subtle": "var(--semantic-theme-purple-alpha-subtle)",
               "subtler": "var(--semantic-theme-purple-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-purple-alpha-subtlest)"
+              "subtlest": "var(--semantic-theme-purple-alpha-subtlest)",
+              "alternative": "var(--semantic-theme-purple-alpha-alternative)",
+              "neutral": "var(--semantic-theme-purple-alpha-neutral)"
             },
-            "bolder": "var(--semantic-theme-purple-bolder)"
-          },
-          "fuchsia": {
-            "bold": "var(--semantic-theme-fuchsia-bold)",
-            "normal": "var(--semantic-theme-fuchsia-normal)",
-            "neutral": "var(--semantic-theme-fuchsia-neutral)",
-            "alternative": "var(--semantic-theme-fuchsia-alternative)",
-            "assistive": "var(--semantic-theme-fuchsia-assistive)",
-            "subtle": "var(--semantic-theme-fuchsia-subtle)",
-            "subtler": "var(--semantic-theme-fuchsia-subtler)",
-            "alpha": {
-              "assistive": "var(--semantic-theme-fuchsia-alpha-assistive)",
-              "subtle": "var(--semantic-theme-fuchsia-alpha-subtle)",
-              "subtler": "var(--semantic-theme-fuchsia-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-fuchsia-alpha-subtlest)"
-            },
-            "bolder": "var(--semantic-theme-fuchsia-bolder)"
+            "bolder": "var(--semantic-theme-purple-bolder)",
+            "subtlest": "var(--semantic-theme-purple-subtlest)"
           },
           "pink": {
             "bold": "var(--semantic-theme-pink-bold)",
@@ -1596,25 +1376,31 @@ export const designTokens = {
               "assistive": "var(--semantic-theme-pink-alpha-assistive)",
               "subtle": "var(--semantic-theme-pink-alpha-subtle)",
               "subtler": "var(--semantic-theme-pink-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-pink-alpha-subtlest)"
+              "subtlest": "var(--semantic-theme-pink-alpha-subtlest)",
+              "alternative": "var(--semantic-theme-pink-alpha-alternative)",
+              "neutral": "var(--semantic-theme-pink-alpha-neutral)"
             },
-            "bolder": "var(--semantic-theme-pink-bolder)"
+            "bolder": "var(--semantic-theme-pink-bolder)",
+            "subtlest": "var(--semantic-theme-pink-subtlest)"
           },
-          "rose": {
-            "bold": "var(--semantic-theme-rose-bold)",
-            "normal": "var(--semantic-theme-rose-normal)",
-            "neutral": "var(--semantic-theme-rose-neutral)",
-            "alternative": "var(--semantic-theme-rose-alternative)",
-            "assistive": "var(--semantic-theme-rose-assistive)",
-            "subtle": "var(--semantic-theme-rose-subtle)",
-            "subtler": "var(--semantic-theme-rose-subtler)",
+          "indigo": {
+            "bolder": "var(--semantic-theme-indigo-bolder)",
+            "bold": "var(--semantic-theme-indigo-bold)",
+            "normal": "var(--semantic-theme-indigo-normal)",
+            "neutral": "var(--semantic-theme-indigo-neutral)",
+            "alternative": "var(--semantic-theme-indigo-alternative)",
+            "assistive": "var(--semantic-theme-indigo-assistive)",
+            "subtle": "var(--semantic-theme-indigo-subtle)",
+            "subtler": "var(--semantic-theme-indigo-subtler)",
+            "subtlest": "var(--semantic-theme-indigo-subtlest)",
             "alpha": {
-              "assistive": "var(--semantic-theme-rose-alpha-assistive)",
-              "subtle": "var(--semantic-theme-rose-alpha-subtle)",
-              "subtler": "var(--semantic-theme-rose-alpha-subtler)",
-              "subtlest": "var(--semantic-theme-rose-alpha-subtlest)"
-            },
-            "bolder": "var(--semantic-theme-rose-bolder)"
+              "alternative": "var(--semantic-theme-indigo-alpha-alternative)",
+              "assistive": "var(--semantic-theme-indigo-alpha-assistive)",
+              "subtle": "var(--semantic-theme-indigo-alpha-subtle)",
+              "subtler": "var(--semantic-theme-indigo-alpha-subtler)",
+              "subtlest": "var(--semantic-theme-indigo-alpha-subtlest)",
+              "neutral": "var(--semantic-theme-indigo-alpha-neutral)"
+            }
           }
         },
         "curtain": {
@@ -1635,9 +1421,13 @@ export const designTokens = {
                 "assistive": "var(--semantic-feedback-positive-alpha-inverse-assistive)",
                 "subtle": "var(--semantic-feedback-positive-alpha-inverse-subtle)",
                 "subtler": "var(--semantic-feedback-positive-alpha-inverse-subtler)",
-                "subtlest": "var(--semantic-feedback-positive-alpha-inverse-subtlest)"
+                "subtlest": "var(--semantic-feedback-positive-alpha-inverse-subtlest)",
+                "alternative": "var(--semantic-feedback-positive-alpha-inverse-alternative)",
+                "neutral": "var(--semantic-feedback-positive-alpha-inverse-neutral)"
               },
-              "subtlest": "var(--semantic-feedback-positive-alpha-subtlest)"
+              "subtlest": "var(--semantic-feedback-positive-alpha-subtlest)",
+              "alternative": "var(--semantic-feedback-positive-alpha-alternative)",
+              "neutral": "var(--semantic-feedback-positive-alpha-neutral)"
             },
             "normal": "var(--semantic-feedback-positive-normal)",
             "bold": "var(--semantic-feedback-positive-bold)",
@@ -1649,14 +1439,16 @@ export const designTokens = {
               "assistive": "var(--semantic-feedback-positive-inverse-assistive)",
               "subtle": "var(--semantic-feedback-positive-inverse-subtle)",
               "subtler": "var(--semantic-feedback-positive-inverse-subtler)",
-              "bolder": "var(--semantic-feedback-positive-inverse-bolder)"
+              "bolder": "var(--semantic-feedback-positive-inverse-bolder)",
+              "subtlest": "var(--semantic-feedback-positive-inverse-subtlest)"
             },
             "assistive": "var(--semantic-feedback-positive-assistive)",
             "subtler": "var(--semantic-feedback-positive-subtler)",
             "neutral": "var(--semantic-feedback-positive-neutral)",
             "alternative": "var(--semantic-feedback-positive-alternative)",
             "subtle": "var(--semantic-feedback-positive-subtle)",
-            "bolder": "var(--semantic-feedback-positive-bolder)"
+            "bolder": "var(--semantic-feedback-positive-bolder)",
+            "subtlest": "var(--semantic-feedback-positive-subtlest)"
           },
           "destructive": {
             "bold": "var(--semantic-feedback-destructive-bold)",
@@ -1668,7 +1460,8 @@ export const designTokens = {
               "assistive": "var(--semantic-feedback-destructive-inverse-assistive)",
               "subtle": "var(--semantic-feedback-destructive-inverse-subtle)",
               "subtler": "var(--semantic-feedback-destructive-inverse-subtler)",
-              "bolder": "var(--semantic-feedback-destructive-inverse-bolder)"
+              "bolder": "var(--semantic-feedback-destructive-inverse-bolder)",
+              "subtlest": "var(--semantic-feedback-destructive-inverse-subtlest)"
             },
             "normal": "var(--semantic-feedback-destructive-normal)",
             "alpha": {
@@ -1679,16 +1472,21 @@ export const designTokens = {
                 "assistive": "var(--semantic-feedback-destructive-alpha-inverse-assistive)",
                 "subtle": "var(--semantic-feedback-destructive-alpha-inverse-subtle)",
                 "subtler": "var(--semantic-feedback-destructive-alpha-inverse-subtler)",
-                "subtlest": "var(--semantic-feedback-destructive-alpha-inverse-subtlest)"
+                "subtlest": "var(--semantic-feedback-destructive-alpha-inverse-subtlest)",
+                "alternative": "var(--semantic-feedback-destructive-alpha-inverse-alternative)",
+                "neutral": "var(--semantic-feedback-destructive-alpha-inverse-neutral)"
               },
-              "subtlest": "var(--semantic-feedback-destructive-alpha-subtlest)"
+              "subtlest": "var(--semantic-feedback-destructive-alpha-subtlest)",
+              "alternative": "var(--semantic-feedback-destructive-alpha-alternative)",
+              "neutral": "var(--semantic-feedback-destructive-alpha-neutral)"
             },
             "neutral": "var(--semantic-feedback-destructive-neutral)",
             "alternative": "var(--semantic-feedback-destructive-alternative)",
             "assistive": "var(--semantic-feedback-destructive-assistive)",
             "subtle": "var(--semantic-feedback-destructive-subtle)",
             "subtler": "var(--semantic-feedback-destructive-subtler)",
-            "bolder": "var(--semantic-feedback-destructive-bolder)"
+            "bolder": "var(--semantic-feedback-destructive-bolder)",
+            "subtlest": "var(--semantic-feedback-destructive-subtlest)"
           },
           "notifying": {
             "bold": "var(--semantic-feedback-notifying-bold)",
@@ -1706,7 +1504,8 @@ export const designTokens = {
               "assistive": "var(--semantic-feedback-notifying-inverse-assistive)",
               "subtle": "var(--semantic-feedback-notifying-inverse-subtle)",
               "subtler": "var(--semantic-feedback-notifying-inverse-subtler)",
-              "bolder": "var(--semantic-feedback-notifying-inverse-bolder)"
+              "bolder": "var(--semantic-feedback-notifying-inverse-bolder)",
+              "subtlest": "var(--semantic-feedback-notifying-inverse-subtlest)"
             },
             "alpha": {
               "assistive": "var(--semantic-feedback-notifying-alpha-assistive)",
@@ -1716,11 +1515,38 @@ export const designTokens = {
                 "assistive": "var(--semantic-feedback-notifying-alpha-inverse-assistive)",
                 "subtle": "var(--semantic-feedback-notifying-alpha-inverse-subtle)",
                 "subtler": "var(--semantic-feedback-notifying-alpha-inverse-subtler)",
-                "subtlest": "var(--semantic-feedback-notifying-alpha-inverse-subtlest)"
+                "subtlest": "var(--semantic-feedback-notifying-alpha-inverse-subtlest)",
+                "alternative": "var(--semantic-feedback-notifying-alpha-inverse-alternative)",
+                "neutral": "var(--semantic-feedback-notifying-alpha-inverse-neutral)"
               },
-              "subtlest": "var(--semantic-feedback-notifying-alpha-subtlest)"
+              "subtlest": "var(--semantic-feedback-notifying-alpha-subtlest)",
+              "alternative": "var(--semantic-feedback-notifying-alpha-alternative)",
+              "neutral": "var(--semantic-feedback-notifying-alpha-neutral)"
             },
-            "bolder": "var(--semantic-feedback-notifying-bolder)"
+            "bolder": "var(--semantic-feedback-notifying-bolder)",
+            "subtlest": "var(--semantic-feedback-notifying-subtlest)",
+            "static": {
+              "bolder": "var(--semantic-feedback-notifying-static-bolder)",
+              "bold": "var(--semantic-feedback-notifying-static-bold)",
+              "normal": "var(--semantic-feedback-notifying-static-normal)",
+              "neutral": "var(--semantic-feedback-notifying-static-neutral)",
+              "alternative": "var(--semantic-feedback-notifying-static-alternative)",
+              "assistive": "var(--semantic-feedback-notifying-static-assistive)",
+              "subtle": "var(--semantic-feedback-notifying-static-subtle)",
+              "subtler": "var(--semantic-feedback-notifying-static-subtler)",
+              "subtlest": "var(--semantic-feedback-notifying-static-subtlest)",
+              "inverse": {
+                "bolder": "var(--semantic-feedback-notifying-static-inverse-bolder)",
+                "bold": "var(--semantic-feedback-notifying-static-inverse-bold)",
+                "normal": "var(--semantic-feedback-notifying-static-inverse-normal)",
+                "neutral": "var(--semantic-feedback-notifying-static-inverse-neutral)",
+                "alternative": "var(--semantic-feedback-notifying-static-inverse-alternative)",
+                "assistive": "var(--semantic-feedback-notifying-static-inverse-assistive)",
+                "subtle": "var(--semantic-feedback-notifying-static-inverse-subtle)",
+                "subtler": "var(--semantic-feedback-notifying-static-inverse-subtler)",
+                "subtlest": "var(--semantic-feedback-notifying-static-inverse-subtlest)"
+              }
+            }
           }
         }
       }

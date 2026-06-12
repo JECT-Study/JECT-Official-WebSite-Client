@@ -11,12 +11,9 @@ const focusVisibleSelector = "&[data-focus-visible]::before, &:focus-visible::be
 const focusRingColor = createVar();
 
 const focusRingColorMap = {
-  // TODO: target token: vars.color.semantic.accent.alpha.alternative
-  none: vars.color.semantic.interaction.focus,
-  // TODO: target token: vars.color.semantic.feedback.destructive.alpha.alternative
-  destructive: vars.color.semantic.feedback.destructive.alpha.subtle,
-  // TODO: target token: vars.color.semantic.feedback.positive.alpha.alternative
-  positive: vars.color.semantic.feedback.positive.alpha.subtle,
+  none: vars.color.semantic.accent.alpha.alternative,
+  destructive: vars.color.semantic.feedback.destructive.alpha.alternative,
+  positive: vars.color.semantic.feedback.positive.alpha.alternative,
 } satisfies Record<FocusRingFeedback, string>;
 
 /**
@@ -44,7 +41,6 @@ const focusRingColorMap = {
 export const focusRing = recipe({
   base: {
     outline: "none",
-    vars: { [focusRingColor]: focusRingColorMap.none },
     selectors: {
       "&::before": {
         content: '""',

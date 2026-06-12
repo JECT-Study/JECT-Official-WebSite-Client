@@ -195,44 +195,44 @@ export const ColorPrimitive: Story = {
               css={css`
                 width: 100px;
                 height: 100px;
-                background-color: ${theme.colorPrimitive.primitive.flow[20]};
+                background-color: ${theme.colorPrimitive.primitive.flow[25]};
                 border: 1px solid #ccc;
               `}
             />
-            <p>Flow 20</p>
+            <p>Flow 25</p>
           </div>
           <div>
             <div
               css={css`
                 width: 100px;
                 height: 100px;
-                background-color: ${theme.colorPrimitive.primitive.flow[40]};
+                background-color: ${theme.colorPrimitive.primitive.flow[50]};
                 border: 1px solid #ccc;
               `}
             />
-            <p>Flow 40</p>
+            <p>Flow 50</p>
           </div>
           <div>
             <div
               css={css`
                 width: 100px;
                 height: 100px;
-                background-color: ${theme.colorPrimitive.primitive.flow[60]};
+                background-color: ${theme.colorPrimitive.primitive.flow[75]};
                 border: 1px solid #ccc;
               `}
             />
-            <p>Flow 60</p>
+            <p>Flow 75</p>
           </div>
           <div>
             <div
               css={css`
                 width: 100px;
                 height: 100px;
-                background-color: ${theme.colorPrimitive.primitive.flow[80]};
+                background-color: ${theme.colorPrimitive.primitive.flow[100]};
                 border: 1px solid #ccc;
               `}
             />
-            <p>Flow 80</p>
+            <p>Flow 100</p>
           </div>
         </div>
       </div>

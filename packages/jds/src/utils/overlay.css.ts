@@ -40,8 +40,8 @@ export const overlayColor = createVar();
 export const overlayHoverOpacity = createVar();
 export const overlayPressedOpacity = createVar();
 
-const hoverSelector =
-  "&[data-hovered]:not([data-disabled])::after, &:hover:not(:disabled):not([data-disabled])::after";
+const hoverSelector = "&[data-hovered]:not([data-disabled])::after";
+const nativeHoverSelector = "&:hover:not(:disabled):not([data-disabled])::after";
 const pressedSelector =
   "&[data-pressed]:not([data-disabled])::after, &:active:not(:disabled):not([data-disabled])::after";
 
@@ -70,6 +70,12 @@ const pressedSelector =
  * @example
  *   overlay()
  *   overlay({ density: "normal", hierarchy: "secondary" })
+ *   overlay({ density: "normal", hierarchy: "secondary", nativeHover: true })
+ *
+ * @example
+ *   // usePressable/useContainerPressable을 쓰지 않는 Radix 기반 컴포넌트 등은
+ *   // native hover fallback을 명시적으로 opt-in한다.
+ *   overlay({ nativeHover: true })
  *
  * @example
  *   // 케이스 1: 시각 영역 = 탭 영역인 일반 컴포넌트
@@ -127,5 +133,28 @@ export const overlay = recipe({
         },
       },
     } satisfies Record<OverlayDensity, object>,
+    nativeHover: {
+      false: {},
+      true: {
+        // Radix 등 useHover를 거치지 않는 컴포넌트를 위한 native hover fallback.
+        // touch 환경에서는 sticky hover가 남을 수 있어 hover 가능한 fine pointer에서만 허용한다.
+        "@media": {
+          "(hover: hover) and (pointer: fine)": {
+            selectors: {
+              [nativeHoverSelector]: {
+                opacity: fallbackVar(overlayHoverOpacity, overlayOpacityMap.bold.hover),
+              },
+              // media query 안의 native hover가 pressed보다 뒤에서 생성될 수 있어
+              // hover 가능한 환경에서도 pressed 우선순위를 다시 보장한다.
+              [pressedSelector]: {
+                opacity: fallbackVar(overlayPressedOpacity, overlayOpacityMap.bold.pressed),
+                // pressed는 즉각 반응이 자연스러워 transition을 끈다
+                transition: "none",
+              },
+            },
+          },
+        },
+      },
+    },
   },
 });

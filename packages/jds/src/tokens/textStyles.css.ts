@@ -1,5 +1,5 @@
 // 자동 생성된 VE textStyles - 수정 금지
-// 생성 시간: 5/16/2026, 3:01:40 PM
+// 생성 시간: 5/24/2026, 8:29:30 PM
 import { globalStyle } from "@vanilla-extract/css";
 
 export const textStyleClassNames = [

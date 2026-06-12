@@ -5,7 +5,7 @@ import { InteractionLayer } from "utils";
 
 import type { StyledImageProps, StyledMenuItemProps } from "./menuItem.types";
 import { menuItemColorMap, menuItemImageSizeMap } from "./menuItem.variants";
-import { Image } from "../../Image";
+import { Thumbnail } from "../../Thumbnail";
 
 import { shouldForwardTypographyProp } from "@/utils/typography";
 
@@ -116,7 +116,7 @@ export const StyledMenuItemAnchor = styled("a", {
   };
 });
 
-export const StyledImage = styled(Image)<StyledImageProps>(({ $size }) => {
+export const StyledImage = styled(Thumbnail)<StyledImageProps>(({ $size }) => {
   const width = menuItemImageSizeMap[$size];
   return {
     borderRadius: 0,

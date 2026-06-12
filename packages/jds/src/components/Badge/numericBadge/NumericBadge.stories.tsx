@@ -1,7 +1,13 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import type { NumericBadgeBasicProps, NumericBadgeFeedbackProps } from "components";
 
 import { NumericBadge } from "./NumericBadge";
-import type { NumericBadgeBasicProps, NumericBasicBadgeProps } from "./NumericBadge";
+import { NUMERIC_BADGE_STYLE_OPTIONS } from "./numericBadge.types";
+import {
+  BADGE_SIZE_OPTIONS,
+  BASIC_HIERARCHY_OPTIONS,
+  FEEDBACK_VARIANT_OPTIONS,
+} from "../badge.types";
 
 const meta: Meta<typeof NumericBadge.Basic> = {
   title: "Components/NumericBadge",
@@ -12,11 +18,11 @@ const meta: Meta<typeof NumericBadge.Basic> = {
   argTypes: {
     size: {
       control: "radio",
-      options: ["lg", "md", "sm", "xs"],
+      options: BADGE_SIZE_OPTIONS,
     },
     badgeStyle: {
       control: "radio",
-      options: ["solid", "empty"],
+      options: NUMERIC_BADGE_STYLE_OPTIONS,
     },
     isMuted: {
       control: "boolean",
@@ -33,7 +39,7 @@ export const Basic: StoryObj<NumericBadgeBasicProps> = {
   argTypes: {
     hierarchy: {
       control: "radio",
-      options: ["accent", "primary", "secondary", "tertiary"],
+      options: BASIC_HIERARCHY_OPTIONS,
     },
   },
   args: {
@@ -55,11 +61,11 @@ export const Basic: StoryObj<NumericBadgeBasicProps> = {
   ),
 };
 
-export const Feedback: StoryObj<NumericBasicBadgeProps> = {
+export const Feedback: StoryObj<NumericBadgeFeedbackProps> = {
   argTypes: {
     variant: {
       control: "radio",
-      options: ["positive", "destructive", "notifying"],
+      options: FEEDBACK_VARIANT_OPTIONS,
     },
   },
   args: {
