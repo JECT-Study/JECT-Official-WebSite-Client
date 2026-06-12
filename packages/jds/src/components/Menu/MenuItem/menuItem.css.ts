@@ -45,14 +45,9 @@ const baseStyles = style({
 });
 
 /**
- * `MenuItem.Button` / `MenuItem.Anchor` 공용 VE recipe.
- *
  * @remarks
  * Radix DropdownMenu 내부(usePressable 미경유)에서도 쓰이므로 native hover로 opt-in한다.
- * - hover / active → `::after` overlay
- * - `:focus-visible` → `::before` focus ring
- * - `:disabled` / `data-disabled` → overlay 차단 + 색상/커서 전환
- *   (anchor는 `:disabled`가 없으므로 `data-disabled` 속성으로 표현한다)
+ * anchor는 `:disabled`가 없으므로 disabled 상태를 `data-disabled` 속성으로 부여해야 한다.
  */
 export const menuItemRoot = recipe({
   base: [overlay({ nativeHover: true }), focusRing(), baseStyles],
