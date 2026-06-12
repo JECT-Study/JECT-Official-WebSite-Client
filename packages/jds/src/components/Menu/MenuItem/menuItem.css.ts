@@ -5,9 +5,6 @@ import { focusRing, overlay, overlayColor, pxToRem } from "utils";
 
 import type { MenuItemSize, MenuItemTone } from "./menuItem.types";
 
-import { thumbnailVars } from "@/components/Thumbnail/thumbnail.css";
-import { labelColorVar } from "@/utils/typography.css";
-
 // 탭 영역이 시각 영역보다 상하 4px / 좌우 8px 큰 컴포넌트 — overlay/focusRing 케이스 2
 const LAYER_INSET = `${pxToRem(-4)} ${pxToRem(-8)}`;
 const LAYER_RADIUS = vars.scheme.semantic.radius["6"];
@@ -74,28 +71,20 @@ export const menuItemRoot = recipe({
 
 export const menuItemLabel = style({
   cursor: "inherit",
-  vars: {
-    [labelColorVar]: "inherit",
-  },
+  color: "inherit",
 });
 
 export const menuItemImage = recipe({
   variants: {
     size: {
       lg: {
-        vars: {
-          [thumbnailVars.width]: "20px",
-        },
+        width: "20px",
       },
       md: {
-        vars: {
-          [thumbnailVars.width]: "18px",
-        },
+        width: "18px",
       },
       sm: {
-        vars: {
-          [thumbnailVars.width]: "16px",
-        },
+        width: "16px",
       },
     } satisfies Record<MenuItemSize, unknown>,
   },

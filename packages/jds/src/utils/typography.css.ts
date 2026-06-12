@@ -1,4 +1,4 @@
-import { createVar, style } from "@vanilla-extract/css";
+import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
 import type { LabelCursor, LabelSize, LabelTextAlign, LabelWeight, TitleSize } from "./typography";
@@ -10,16 +10,11 @@ const alignVariants: Record<LabelTextAlign, { justifyContent: string }> = {
   right: { justifyContent: "flex-end" },
 };
 
-export const labelColorVar = createVar();
-
 export const label = recipe({
   base: {
     display: "flex",
     alignItems: "center",
-    color: labelColorVar,
-    vars: {
-      [labelColorVar]: vars.color.semantic.object.bold,
-    },
+    color: vars.color.semantic.object.bold,
   },
   variants: {
     size: {
