@@ -23,7 +23,6 @@ export const megaMenuLabel = style({
 export const megaMenuGroup = style({
   display: "flex",
   flexDirection: "column",
-  justifyItems: "flex-start",
   alignItems: "flex-start",
   gap: vars.scheme.semantic.spacing["16"],
 });
