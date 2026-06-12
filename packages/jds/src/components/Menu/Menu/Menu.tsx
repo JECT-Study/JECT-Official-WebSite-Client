@@ -1,7 +1,8 @@
+import { clsx } from "clsx";
 import { DropdownMenu } from "radix-ui";
 import { forwardRef } from "react";
 
-import { StyledDropdownMenuContent, StyledMenuCategory, StyledMenuGroup } from "./Menu.styles";
+import { menuCategory, menuContent, menuGroup } from "./menu.css";
 import type {
   MenuAnchorProps,
   MenuButtonProps,
@@ -10,12 +11,12 @@ import type {
   MenuGroupProps,
   MenuItemProps,
   MenuRootProps,
+  MenuSize,
 } from "./menu.types";
-import { menuCategorySizeMap } from "./menu.variants";
 import { MenuContext, useMenuContext } from "./menuContext";
 import { MenuItem } from "../MenuItem";
 
-import { getLabelClassName } from "@/utils/typography";
+import { getLabelClassName, type LabelSize } from "@/utils/typography";
 
 const MenuRoot = ({ children, menuStyle = "solid", size = "md", ...rest }: MenuRootProps) => {
   return (
@@ -27,72 +28,103 @@ const MenuRoot = ({ children, menuStyle = "solid", size = "md", ...rest }: MenuR
 
 MenuRoot.displayName = "Menu.Root";
 
-const MenuContent = forwardRef<HTMLDivElement, MenuContentProps>(({ children, ...rest }, ref) => {
-  const { menuStyle, size } = useMenuContext();
+const MenuContent = forwardRef<HTMLDivElement, MenuContentProps>(
+  ({ children, className, ...restProps }, ref) => {
+    const { menuStyle, size } = useMenuContext("Menu.Content");
 
-  return (
-    <StyledDropdownMenuContent ref={ref} $menuStyle={menuStyle} $size={size} {...rest}>
-      {children}
-    </StyledDropdownMenuContent>
-  );
-});
+    return (
+      <DropdownMenu.Content
+        ref={ref}
+        className={clsx(menuContent({ menuStyle, size }), className)}
+        {...restProps}
+      >
+        {children}
+      </DropdownMenu.Content>
+    );
+  },
+);
 
 MenuContent.displayName = "Menu.Content";
 
-const MenuCategory = forwardRef<HTMLDivElement, MenuCategoryProps>(({ children, ...rest }, ref) => {
-  const { size } = useMenuContext();
-  const labelSize = menuCategorySizeMap[size];
+const MenuCategory = forwardRef<HTMLDivElement, MenuCategoryProps>((props, ref) => {
+  const { size: labelSizeFromProps, textAlign, weight, cursor, as, children, ...restProps } = props;
+  const { size: menuSizeFromCtx } = useMenuContext("Menu.Category");
+  const size = labelSizeFromProps ?? labelSizeByMenuSizeMap[menuSizeFromCtx];
+
+  const Component = as ?? "div";
 
   return (
-    <StyledMenuCategory ref={ref} className={getLabelClassName({ size: labelSize })} {...rest}>
+    <Component
+      ref={ref}
+      className={clsx(getLabelClassName({ size, textAlign, weight, cursor }), menuCategory)}
+      {...restProps}
+    >
       {children}
-    </StyledMenuCategory>
+    </Component>
   );
 });
+
+const labelSizeByMenuSizeMap: Record<MenuSize, LabelSize> = {
+  lg: "md",
+  md: "sm",
+  sm: "xs",
+} as const;
 
 MenuCategory.displayName = "Menu.Category";
 
-const MenuGroup = forwardRef<HTMLUListElement, MenuGroupProps>(({ children, ...rest }, ref) => {
-  const { size } = useMenuContext();
+const MenuGroup = forwardRef<HTMLUListElement, MenuGroupProps>(
+  ({ children, ...restProps }, ref) => {
+    const { size } = useMenuContext("Menu.Group");
 
-  return (
-    <StyledMenuGroup ref={ref} role='list' $size={size} {...rest}>
-      {children}
-    </StyledMenuGroup>
-  );
-});
+    return (
+      <ul ref={ref} role='list' className={menuGroup({ size })} {...restProps}>
+        {children}
+      </ul>
+    );
+  },
+);
 
 MenuGroup.displayName = "Menu.Group";
 
-const MenuGroupItem = forwardRef<HTMLLIElement, MenuItemProps>(({ children, ...rest }, ref) => {
-  return (
-    <DropdownMenu.Item asChild {...rest}>
-      <li ref={ref}>{children}</li>
-    </DropdownMenu.Item>
-  );
-});
+const MenuGroupItem = forwardRef<HTMLLIElement, MenuItemProps>(
+  ({ children, ...restProps }, ref) => {
+    return (
+      <DropdownMenu.Item asChild {...restProps}>
+        <li ref={ref}>{children}</li>
+      </DropdownMenu.Item>
+    );
+  },
+);
 
 MenuGroupItem.displayName = "Menu.GroupItem";
 
-const MenuButton = forwardRef<HTMLButtonElement, MenuButtonProps>(({ children, ...rest }, ref) => {
-  const { size } = useMenuContext();
+const MenuButton = forwardRef<HTMLButtonElement, MenuButtonProps>(
+  ({ children, ...restProps }, ref) => {
+    const { size } = useMenuContext("Menu.Button");
 
-  return (
-    <MenuItem.Button ref={ref} size={size} {...rest}>
-      {children}
-    </MenuItem.Button>
-  );
-});
+    return (
+      <MenuItem.Button ref={ref} size={size} {...restProps}>
+        {children}
+      </MenuItem.Button>
+    );
+  },
+);
 
-const MenuAnchor = forwardRef<HTMLAnchorElement, MenuAnchorProps>(({ children, ...rest }, ref) => {
-  const { size } = useMenuContext();
+MenuButton.displayName = "Menu.Button";
 
-  return (
-    <MenuItem.Anchor ref={ref} size={size} {...rest}>
-      {children}
-    </MenuItem.Anchor>
-  );
-});
+const MenuAnchor = forwardRef<HTMLAnchorElement, MenuAnchorProps>(
+  ({ children, ...restProps }, ref) => {
+    const { size } = useMenuContext("Menu.Anchor");
+
+    return (
+      <MenuItem.Anchor ref={ref} size={size} {...restProps}>
+        {children}
+      </MenuItem.Anchor>
+    );
+  },
+);
+
+MenuAnchor.displayName = "Menu.Anchor";
 
 export const Menu = {
   Root: MenuRoot,

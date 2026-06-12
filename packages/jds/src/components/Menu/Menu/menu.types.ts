@@ -25,16 +25,8 @@ export interface MenuCategoryProps extends LabelOwnProps {
 export interface MenuGroupProps {
   children: ReactNode;
 }
+
 export type MenuTrigger = DropdownMenu.DropdownMenuTriggerProps;
 export type MenuItemProps = ComponentPropsWithoutRef<typeof DropdownMenu.Item>;
 export type MenuButtonProps = MenuItemButtonProps;
 export type MenuAnchorProps = MenuItemAnchorProps;
-
-export interface StyledDropdownMenuContentProps {
-  $menuStyle: MenuStyle;
-  $size: MenuSize;
-}
-
-export interface StyledMenuGroupProps {
-  $size: MenuSize;
-}
