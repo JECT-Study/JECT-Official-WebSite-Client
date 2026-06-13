@@ -92,7 +92,6 @@ export const icon = recipe({
       none: {},
       positive: { color: vars.color.semantic.feedback.positive.normal },
       destructive: { color: vars.color.semantic.feedback.destructive.normal },
-      // TODO: semantic.feedback.notifying.staticInverse.bold 토큰이 추가되면 교체한다.
       notifying: { color: vars.color.semantic.feedback.notifying.inverse.bold },
     } satisfies Record<ToastFeedback, object>,
   },
