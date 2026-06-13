@@ -27,7 +27,6 @@ export const content = style([
 export const list = recipe({
   base: {
     display: "flex",
-    alignItems: "stretch",
   },
   variants: {
     variant: {
