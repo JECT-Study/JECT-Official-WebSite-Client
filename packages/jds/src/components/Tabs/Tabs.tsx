@@ -46,7 +46,7 @@ const TabsList = forwardRef<HTMLDivElement, TabsListProps>(
 TabsList.displayName = "Tabs.List";
 
 const TabsTrigger = forwardRef<HTMLButtonElement, TabsTriggerProps>(
-  ({ children, disabled = false, badge, className, ...restProps }, ref) => {
+  ({ children, disabled = false, badge="", className, ...restProps }, ref) => {
     const { variant, isItemStretched } = useTabsContext();
 
     return (
@@ -59,11 +59,11 @@ const TabsTrigger = forwardRef<HTMLButtonElement, TabsTriggerProps>(
         <span className={clsx(getLabelClassName({ weight: "bold" }), styles.label)}>
           {children}
         </span>
-        {badge && (
+        {badge ? (
           <span className={clsx(getLabelClassName({ weight: "subtle" }), styles.label)}>
             {badge}
           </span>
-        )}
+        ) : null}
       </TabsPrimitive.Trigger>
     );
   },
