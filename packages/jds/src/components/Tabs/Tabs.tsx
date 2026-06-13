@@ -13,7 +13,7 @@ import type {
 
 import { getLabelClassName } from "@/utils/typography";
 
-const TabsRoot = forwardRef<HTMLDivElement, TabsRootProps>(
+export const TabsRoot = forwardRef<HTMLDivElement, TabsRootProps>(
   ({ children, variant = "header", isItemStretched = false, ...restProps }, ref) => {
     return (
       <TabsContext.Provider value={{ variant, isItemStretched }}>
@@ -27,7 +27,7 @@ const TabsRoot = forwardRef<HTMLDivElement, TabsRootProps>(
 
 TabsRoot.displayName = "Tabs.Root";
 
-const TabsList = forwardRef<HTMLDivElement, TabsListProps>(
+export const TabsList = forwardRef<HTMLDivElement, TabsListProps>(
   ({ children, className, ...restProps }, ref) => {
     const { variant } = useTabsContext();
 
@@ -45,7 +45,7 @@ const TabsList = forwardRef<HTMLDivElement, TabsListProps>(
 
 TabsList.displayName = "Tabs.List";
 
-const TabsTrigger = forwardRef<HTMLButtonElement, TabsTriggerProps>(
+export const TabsTrigger = forwardRef<HTMLButtonElement, TabsTriggerProps>(
   ({ children, disabled = false, badge="", className, ...restProps }, ref) => {
     const { variant, isItemStretched } = useTabsContext();
 
@@ -71,7 +71,7 @@ const TabsTrigger = forwardRef<HTMLButtonElement, TabsTriggerProps>(
 
 TabsTrigger.displayName = "Tabs.Trigger";
 
-const TabsContent = forwardRef<HTMLDivElement, TabsContentProps>(
+export const TabsContent = forwardRef<HTMLDivElement, TabsContentProps>(
   ({ children, className, ...restProps }, ref) => {
     return (
       <TabsPrimitive.Content ref={ref} className={clsx(styles.content, className)} {...restProps}>
