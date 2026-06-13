@@ -73,13 +73,15 @@ export const trigger = recipe({
     variant: {
       header: {
         padding: `${vars.scheme.semantic.spacing["8"]} ${vars.scheme.semantic.spacing["12"]}`,
+        // header list의 baseline 위에 active underline을 겹치기 위해 같은 strokeWeight 토큰을 재사용
+        marginBottom: `calc(${vars.scheme.semantic.strokeWeight["1"]} * -1)`,
         border: "none",
         borderBottom: `${vars.scheme.semantic.strokeWeight["2"]} solid transparent`,
         borderRadius: 0,
         backgroundColor: "transparent",
         selectors: {
           "&::after": {
-            // header trigger의 borderBottom 두께와 overlay 위치를 동기화하기 위해 같은 strokeWeight 토큰을 재사용
+            // header trigger의 underline 두께와 overlay 위치를 동기화하기 위해 같은 strokeWeight 토큰을 재사용
             bottom: `calc(${vars.scheme.semantic.strokeWeight["2"]} * -1)`,
           },
           "&[data-state='active']": {
@@ -92,7 +94,7 @@ export const trigger = recipe({
           },
           "&:disabled[data-state='active'], &[data-disabled][data-state='active']": {
             color: vars.color.semantic.object.subtle,
-            borderBottomColor: vars.color.semantic.stroke.subtle,
+            borderBottomColor: vars.color.semantic.stroke.assistive,
           },
         },
       },
