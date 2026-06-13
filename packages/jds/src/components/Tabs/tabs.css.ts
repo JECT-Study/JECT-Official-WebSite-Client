@@ -1,12 +1,20 @@
-import { style } from "@vanilla-extract/css";
+import { createVar, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
 import { focusRing, overlay } from "utils";
 
 import type { TabsVariant } from "./tabs.types";
 
+const labelColorVar = createVar();
+const badgeColorVar = createVar();
+
 export const label = style({
-  color: "inherit",
+  color: labelColorVar,
+  cursor: "inherit",
+});
+
+export const badge = style({
+  color: badgeColorVar,
   cursor: "inherit",
 });
 
@@ -56,7 +64,10 @@ export const trigger = recipe({
       cursor: "pointer",
       whiteSpace: "nowrap",
       userSelect: "none",
-      color: vars.color.semantic.object.alternative,
+      vars: {
+        [labelColorVar]: vars.color.semantic.object.alternative,
+        [badgeColorVar]: vars.color.semantic.object.alternative,
+      },
       selectors: {
         "&::before, &::after": {
           inset: 0,
@@ -85,15 +96,24 @@ export const trigger = recipe({
             bottom: `calc(${vars.scheme.semantic.strokeWeight["2"]} * -1)`,
           },
           "&[data-state='active']": {
-            color: vars.color.semantic.object.bolder,
+            vars: {
+              [labelColorVar]: vars.color.semantic.object.bolder,
+              [badgeColorVar]: vars.color.semantic.object.bold,
+            },
             borderBottomColor: vars.color.semantic.stroke.bold,
             zIndex: 1,
           },
           "&:disabled, &[data-disabled]": {
-            color: vars.color.semantic.object.subtle,
+            vars: {
+              [labelColorVar]: vars.color.semantic.object.alternative,
+              [badgeColorVar]: vars.color.semantic.object.alternative,
+            },
           },
           "&:disabled[data-state='active'], &[data-disabled][data-state='active']": {
-            color: vars.color.semantic.object.subtle,
+            vars: {
+              [labelColorVar]: vars.color.semantic.object.alternative,
+              [badgeColorVar]: vars.color.semantic.object.alternative,
+            },
             borderBottomColor: vars.color.semantic.stroke.assistive,
           },
         },
@@ -105,15 +125,24 @@ export const trigger = recipe({
         backgroundColor: "transparent",
         selectors: {
           "&[data-state='active']": {
-            color: vars.color.semantic.object.bolder,
+            vars: {
+              [labelColorVar]: vars.color.semantic.object.bolder,
+              [badgeColorVar]: vars.color.semantic.object.bold,
+            },
             backgroundColor: vars.color.semantic.fill.subtlest,
           },
           "&:disabled, &[data-disabled]": {
-            color: vars.color.semantic.object.subtle,
+            vars: {
+              [labelColorVar]: vars.color.semantic.object.alternative,
+              [badgeColorVar]: vars.color.semantic.object.alternative,
+            },
             borderColor: vars.color.semantic.stroke.alpha.subtler,
           },
           "&:disabled[data-state='active'], &[data-disabled][data-state='active']": {
-            color: vars.color.semantic.object.subtle,
+            vars: {
+              [labelColorVar]: vars.color.semantic.object.alternative,
+              [badgeColorVar]: vars.color.semantic.object.alternative,
+            },
             backgroundColor: vars.color.semantic.fill.subtlest,
             borderColor: vars.color.semantic.stroke.alpha.subtler,
           },

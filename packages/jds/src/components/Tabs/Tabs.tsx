@@ -60,7 +60,7 @@ export const TabsTrigger = forwardRef<HTMLButtonElement, TabsTriggerProps>(
           {children}
         </span>
         {badge ? (
-          <span className={clsx(getLabelClassName({ weight: "subtle" }), styles.label)}>
+          <span className={clsx(getLabelClassName({ weight: "subtle" }), styles.badge)}>
             {badge}
           </span>
         ) : null}
