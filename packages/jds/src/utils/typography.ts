@@ -23,10 +23,19 @@ export type LabelOwnProps = {
 
 export type TitleSize = "2xl" | "xl" | "lg" | "md" | "sm" | "xs";
 export type TitleTextAlign = keyof typeof TEXT_ALIGN_MAPPING;
+export type BodySize = "lg" | "md" | "sm" | "xs" | "2xs";
+export type BodyTextAlign = keyof typeof TEXT_ALIGN_MAPPING;
+export type BodyWeight = "bold" | "normal";
 
 export interface TitleStyleOptions {
   size?: TitleSize;
   textAlign?: TitleTextAlign;
+}
+
+export interface BodyStyleOptions {
+  size?: BodySize;
+  textAlign?: BodyTextAlign;
+  weight?: BodyWeight;
 }
 
 export const getLabelClassName = ({
@@ -48,8 +57,20 @@ export const getTitleClassName = ({ size = "md", textAlign = "left" }: TitleStyl
     textAlign,
   });
 
+export const getBodyClassName = ({
+  size = "md",
+  textAlign = "left",
+  weight = "normal",
+}: BodyStyleOptions = {}) =>
+  typographyStyles.body({
+    size,
+    textAlign,
+    weight,
+  });
+
 export const typography = {
   label: typographyStyles.label,
+  body: typographyStyles.body,
   title: typographyStyles.title,
   inheritColor: typographyStyles.inheritColor,
 };
