@@ -1,77 +1,29 @@
+import { clsx } from "clsx";
 import { useEffect, useState } from "react";
 
-import {
-  ToastCaptionP,
-  ToastContentDiv,
-  ToastDiv,
-  ToastFeedbackIcon,
-  ToastLabel,
-  ToastLabelContainerDiv,
-} from "./toast.styles";
-import type { ToastBasicProps, ToastFeedbackProps } from "./toast.types";
-import { IconButton } from "../Button/IconButton";
+import * as styles from "./toast.css";
+import type { ToastProps, ToastVariant } from "./toast.types";
+import { Icon } from "../Icon";
+import type { IconName } from "../Icon";
 
-import { getLabelClassName } from "@/utils/typography";
+import { getBodyClassName, getLabelClassName } from "@/utils/typography";
 
-const ToastBasic = ({ id, caption, onRemove, title, isClosing }: ToastBasicProps) => {
-  const [phase, setPhase] = useState<"enter" | "static" | "exit">("enter");
-
-  const onAnimationEnd = () => {
-    if (phase === "enter") {
-      setPhase("static");
-      return;
-    }
-
-    if (phase === "exit") {
-      onRemove?.();
-    }
-  };
-
-  const onClose = () => setPhase("exit");
-
-  useEffect(() => {
-    if (phase === "static") {
-      const timer = setTimeout(() => setPhase("exit"), 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [phase]);
-
-  useEffect(() => {
-    if (isClosing) setPhase("exit");
-  }, [isClosing]);
-
-  return (
-    <ToastDiv id={id} className={phase} toastStyle='basic' onAnimationEnd={onAnimationEnd}>
-      <ToastContentDiv>
-        <ToastLabelContainerDiv>
-          <ToastLabel toastStyle='basic' className={getLabelClassName()}>
-            {title}
-          </ToastLabel>
-          <IconButton
-            icon='close-line'
-            hierarchy='secondary'
-            size='md'
-            aria-label='toast close button'
-            onClick={onClose}
-          />
-        </ToastLabelContainerDiv>
-        {caption && <ToastCaptionP>{caption}</ToastCaptionP>}
-      </ToastContentDiv>
-    </ToastDiv>
-  );
+const feedbackIconName: Record<ToastVariant, IconName> = {
+  positive: "check-line",
+  destructive: "error-warning-octagon-line",
+  notifying: "alert-line",
 };
 
-ToastBasic.displayName = "Toast.Basic";
-
-const ToastFeedback = ({
+export const Toast = ({
   id,
-  variant = "positive",
-  caption,
+  feedback = "none",
+  description,
   onRemove,
   title,
   isClosing,
-}: ToastFeedbackProps) => {
+}: ToastProps) => {
   const [phase, setPhase] = useState<"enter" | "static" | "exit">("enter");
+  const withDescription = Boolean(description);
 
   const onAnimationEnd = () => {
     if (phase === "enter") {
@@ -84,8 +36,6 @@ const ToastFeedback = ({
     }
   };
 
-  const onClose = () => setPhase("exit");
-
   useEffect(() => {
     if (phase === "static") {
       const timer = setTimeout(() => setPhase("exit"), 3000);
@@ -97,34 +47,30 @@ const ToastFeedback = ({
     if (isClosing) setPhase("exit");
   }, [isClosing]);
 
+  const phaseClassName = phase === "enter" ? styles.enter : phase === "exit" ? styles.exit : null;
+  const iconName = feedback !== "none" && feedbackIconName[feedback];
+
   return (
-    <ToastDiv id={id} className={phase} toastStyle={variant} onAnimationEnd={onAnimationEnd}>
-      <ToastContentDiv>
-        <ToastLabelContainerDiv>
-          <ToastFeedbackIcon
-            variant={variant}
-            name={variant === "positive" ? "check-line" : "error-warning-line"}
-          />
-          <ToastLabel toastStyle={variant} className={getLabelClassName()}>
-            {title}
-          </ToastLabel>
-          <IconButton
-            icon='close-line'
-            hierarchy='secondary'
-            size='md'
-            aria-label='toast close button'
-            onClick={onClose}
-          />
-        </ToastLabelContainerDiv>
-        {caption && <ToastCaptionP>{caption}</ToastCaptionP>}
-      </ToastContentDiv>
-    </ToastDiv>
+    <div
+      id={id}
+      className={clsx(styles.root({ feedback, withDescription }), phaseClassName)}
+      onAnimationEnd={onAnimationEnd}
+    >
+      {iconName && <Icon name={iconName} className={styles.icon({ feedback })} />}
+      <div className={styles.content({ withDescription })}>
+        <span className={clsx(styles.label, getLabelClassName({ size: "md", weight: "normal" }))}>
+          {title}
+        </span>
+        {description && (
+          <span
+            className={clsx(styles.description, getBodyClassName({ size: "xs", weight: "normal" }))}
+          >
+            {description}
+          </span>
+        )}
+      </div>
+    </div>
   );
 };
 
-ToastFeedback.displayName = "Toast.Feedback";
-
-export const Toast = {
-  Basic: ToastBasic,
-  Feedback: ToastFeedback,
-};
+Toast.displayName = "Toast";

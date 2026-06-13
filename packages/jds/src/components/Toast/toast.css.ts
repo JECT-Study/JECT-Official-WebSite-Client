@@ -1,0 +1,107 @@
+import { keyframes, style } from "@vanilla-extract/css";
+import { recipe } from "@vanilla-extract/recipes";
+import { vars } from "tokens";
+
+import type { ToastFeedback } from "./toast.types";
+
+const slideIn = keyframes({
+  from: { opacity: 0, transform: "translateY(100%)" },
+  to: { opacity: 1, transform: "translateY(0)" },
+});
+
+const slideOut = keyframes({
+  from: { opacity: 1, transform: "translateY(0)" },
+  to: { opacity: 0, transform: "translateY(100%)" },
+});
+
+export const stackContainer = style({
+  position: "fixed",
+  right: 0,
+  bottom: 0,
+  zIndex: vars.environment.semantic.zIndex.overlay,
+  display: "flex",
+  flexDirection: "column-reverse",
+  gap: vars.scheme.semantic.spacing["16"],
+  padding: vars.scheme.semantic.spacing["40"],
+  overflow: "hidden",
+});
+
+export const root = recipe({
+  base: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    boxSizing: "border-box",
+    width: "344px",
+    padding: `${vars.scheme.semantic.spacing["12"]} ${vars.scheme.semantic.spacing["16"]}`,
+    border: `${vars.scheme.semantic.strokeWeight["1"]} solid ${vars.color.semantic.stroke.subtle}`,
+    borderRadius: vars.scheme.semantic.radius["10"],
+    backgroundColor: vars.color.semantic.surface.shallow,
+    boxShadow: vars.environment.semantic.shadow.overlay,
+  },
+  variants: {
+    feedback: {
+      none: { gap: 0 },
+      positive: { gap: vars.scheme.semantic.spacing["10"] },
+      destructive: { gap: vars.scheme.semantic.spacing["10"] },
+      notifying: { gap: vars.scheme.semantic.spacing["10"] },
+    } satisfies Record<ToastFeedback, object>,
+    withDescription: {
+      true: {},
+      false: {},
+    },
+  },
+  defaultVariants: {
+    feedback: "none",
+    withDescription: false,
+  },
+});
+
+export const content = recipe({
+  base: {
+    display: "flex",
+    flex: 1,
+    minWidth: 0,
+    flexDirection: "column",
+  },
+  variants: {
+    withDescription: {
+      true: { gap: vars.scheme.semantic.spacing["2"] },
+      false: { gap: vars.scheme.semantic.spacing["0"] },
+    },
+  },
+  defaultVariants: {
+    withDescription: false,
+  },
+});
+
+export const label = style({
+  color: vars.color.semantic.object.boldest,
+});
+
+export const description = style({
+  color: vars.color.semantic.object.neutral,
+});
+
+export const icon = recipe({
+  base: {
+    flexShrink: 0,
+  },
+  variants: {
+    feedback: {
+      none: {},
+      positive: { color: vars.color.semantic.feedback.positive.normal },
+      destructive: { color: vars.color.semantic.feedback.destructive.normal },
+      // TODO: semantic.feedback.notifying.staticInverse.bold 토큰이 추가되면 교체한다.
+      notifying: { color: vars.color.semantic.feedback.notifying.inverse.bold },
+    } satisfies Record<ToastFeedback, object>,
+  },
+});
+
+export const enter = style({
+  animation: `${slideIn} ${vars.environment.semantic.duration["250"]} ${vars.environment.semantic.motion.bouncy} forwards`,
+});
+
+export const exit = style({
+  animation: `${slideOut} ${vars.environment.semantic.duration["200"]} ${vars.environment.semantic.motion.leave} forwards`,
+});

@@ -1,8 +1,8 @@
 export { Toast } from "./Toast";
 export type {
-  ToastStyle,
+  ToastFeedback,
   ToastBaseProps,
-  ToastFeedbackProps,
+  ToastProps,
   ToastItem,
   ToastHandler,
 } from "./toast.types";

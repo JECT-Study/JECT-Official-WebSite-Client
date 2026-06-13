@@ -3,7 +3,7 @@ import { createContext, useContext, useEffect } from "react";
 import { createPortal } from "react-dom";
 
 import { Toast } from "./Toast";
-import { ToastStackContainer } from "./toast.styles";
+import { stackContainer } from "./toast.css";
 import type { ToastHandler } from "./toast.types";
 import { toastController } from "./toastController";
 import { useToastProvider } from "./useToastProvider";
@@ -27,20 +27,11 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
     <ToastContext.Provider value={{ toast: handler, removeToast }}>
       {children}
       {createPortal(
-        <ToastStackContainer>
-          {toasts.map(toast =>
-            toast.type === "basic" ? (
-              <Toast.Basic key={toast.id} onRemove={() => removeToast(toast.id)} {...toast} />
-            ) : (
-              <Toast.Feedback
-                key={toast.id}
-                variant={toast.type}
-                onRemove={() => removeToast(toast.id)}
-                {...toast}
-              />
-            ),
-          )}
-        </ToastStackContainer>,
+        <div className={stackContainer}>
+          {toasts.map(toast => (
+            <Toast key={toast.id} onRemove={() => removeToast(toast.id)} {...toast} />
+          ))}
+        </div>,
         document.body,
       )}
     </ToastContext.Provider>
