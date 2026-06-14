@@ -1,7 +1,7 @@
 import { globalStyle, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
-import { pxToRem, overlay, overlayColorMap, labelTypographyVars } from "utils";
+import { pxToRem, overlay, overlayColorMap, overlayOpacityMap, labelTypographyVars } from "utils";
 
 import { CHECKBOX_SIZE_OPTIONS, type CheckboxSize } from "./checkbox.types";
 import { checkboxSizeMap } from "./checkbox.variants";
@@ -71,7 +71,6 @@ export const checkboxVisual = recipe({
         color: vars.color.semantic.object.subtle,
         cursor: "not-allowed",
       },
-      // focusRing 유틸은 자기 자신의 focus 기준이므로 형제 input의 :focus-visible에 반응해야 하는 여기선 직접 선언한다.
       'input[type="checkbox"]:focus-visible + &': {
         boxShadow: `0 0 0 ${vars.scheme.semantic.strokeWeight["2"]} ${vars.color.semantic.accent.alpha.alternative}`,
       },
@@ -84,7 +83,7 @@ export const checkboxVisual = recipe({
       '[data-invalid] input[type="checkbox"]:disabled + &': {
         borderColor: vars.color.semantic.feedback.destructive.alpha.subtle,
       },
-      "&::after": {
+      'input[type="checkbox"]:not(:disabled) + &::after': {
         content: '""',
         position: "absolute",
         top: 0,
@@ -96,8 +95,12 @@ export const checkboxVisual = recipe({
         opacity: 0,
         pointerEvents: "none",
       },
-      "&:hover::after": { opacity: 0.08 },
-      "&:active::after": { opacity: 0.12 },
+      'input[type="checkbox"]:not(:disabled) + &:hover::after': {
+        opacity: overlayOpacityMap.normal.hover,
+      },
+      'input[type="checkbox"]:not(:disabled) + &:active::after': {
+        opacity: overlayOpacityMap.normal.pressed,
+      },
     },
   },
   variants: {
