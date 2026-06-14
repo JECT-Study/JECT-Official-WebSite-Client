@@ -109,7 +109,7 @@ export const checkboxVisual = recipe({
       md: { width: checkboxSizeMap.md.sizeRem, height: checkboxSizeMap.md.sizeRem },
       sm: { width: checkboxSizeMap.sm.sizeRem, height: checkboxSizeMap.sm.sizeRem },
       xs: { width: checkboxSizeMap.xs.sizeRem, height: checkboxSizeMap.xs.sizeRem },
-    } satisfies Record<CheckboxSize, unknown>,
+    } satisfies Record<CheckboxSize, object>,
   },
 });
 
@@ -122,12 +122,12 @@ const itemInsetBySize: Record<CheckboxSize, string> = {
   xs: `${pxToRem(-3)} ${pxToRem(-6)}`,
 };
 
-const itemOutlinedPaddingBySize = {
+const itemOutlinedPaddingBySize: Record<CheckboxSize, string> = {
   lg: `${vars.scheme.semantic.spacing["10"]} ${vars.scheme.semantic.spacing["12"]}`,
   md: `${vars.scheme.semantic.spacing["8"]} ${vars.scheme.semantic.spacing["10"]}`,
   sm: `${vars.scheme.semantic.spacing["6"]} ${vars.scheme.semantic.spacing["8"]}`,
   xs: `${vars.scheme.semantic.spacing["4"]} ${vars.scheme.semantic.spacing["6"]}`,
-} satisfies Record<CheckboxSize, string>;
+};
 
 const expansionCompoundVariants = CHECKBOX_SIZE_OPTIONS.map(size => ({
   variants: { size, styleOutlined: "hollow" as const },
@@ -234,7 +234,7 @@ export const checkboxTextLabel = recipe({
       md: labelTypographyVars.normal.md,
       sm: labelTypographyVars.normal.sm,
       xs: labelTypographyVars.normal.xs,
-    } satisfies Record<CheckboxSize, unknown>,
+    } satisfies Record<CheckboxSize, object>,
   },
 });
 
@@ -258,6 +258,6 @@ export const checkboxHelper = recipe({
       md: labelTypographyVars.subtle.sm,
       sm: labelTypographyVars.subtle.xs,
       xs: labelTypographyVars.subtle.xs,
-    } satisfies Record<CheckboxSize, unknown>,
+    } satisfies Record<CheckboxSize, object>,
   },
 });
