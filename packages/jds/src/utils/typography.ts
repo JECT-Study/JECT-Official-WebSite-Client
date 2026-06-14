@@ -23,15 +23,14 @@ export type LabelOwnProps = {
 
 export type TitleSize = "2xl" | "xl" | "lg" | "md" | "sm" | "xs";
 export type TitleTextAlign = keyof typeof TEXT_ALIGN_MAPPING;
-export type BodySize = "lg" | "md" | "sm" | "xs" | "2xs";
-export type BodyTextAlign = keyof typeof TEXT_ALIGN_MAPPING;
-export type BodyWeight = "bold" | "normal";
-
 export interface TitleStyleOptions {
   size?: TitleSize;
   textAlign?: TitleTextAlign;
 }
 
+export type BodySize = "lg" | "md" | "sm" | "xs" | "2xs";
+export type BodyTextAlign = keyof typeof TEXT_ALIGN_MAPPING;
+export type BodyWeight = "bold" | "normal";
 export interface BodyStyleOptions {
   size?: BodySize;
   textAlign?: BodyTextAlign;
