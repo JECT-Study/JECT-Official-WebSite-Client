@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { FlexColumn, FlexRow, Label } from "@storybook-utils/layout";
+import { FlexColumn, FlexRow } from "@storybook-utils/layout";
 
 import { Toast } from "./Toast";
 import { toastController } from "./toastController";
@@ -156,8 +156,8 @@ export const UseGlobalToast: StoryObj<typeof Toast> = {
 
     return (
       <FlexRow>
-        <FlexColumn>
-          <Label>only Title</Label>
+        <FlexColumn style={{ width: "150px" }}>
+          <span>only Title</span>
           <BlockButton.Basic onClick={basicToast} variant='outlined'>
             Basic
           </BlockButton.Basic>
@@ -171,8 +171,8 @@ export const UseGlobalToast: StoryObj<typeof Toast> = {
             Notifying
           </BlockButton.Basic>
         </FlexColumn>
-        <FlexColumn>
-          <Label>with Description</Label>
+        <FlexColumn style={{ width: "150px" }}>
+          <span>with Description</span>
           <BlockButton.Basic onClick={basicToastDescription} variant='outlined'>
             Basic
           </BlockButton.Basic>
