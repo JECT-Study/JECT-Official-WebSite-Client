@@ -34,7 +34,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   render: args => (
     <Menu.Root {...args}>
-      <Menu.Trigger>
+      <Menu.Trigger asChild>
         <IconButton icon='menu-line' />
       </Menu.Trigger>
       <Menu.Content side='right' align='start' sideOffset={10}>
@@ -66,7 +66,7 @@ export const MenuStyles: Story = {
     <FlexRow>
       <span className={getLabelClassName()}>solid style</span>
       <Menu.Root menuStyle='solid'>
-        <Menu.Trigger>
+        <Menu.Trigger asChild>
           <IconButton icon='menu-line' />
         </Menu.Trigger>
         <Menu.Content align='end'>
@@ -83,7 +83,7 @@ export const MenuStyles: Story = {
       </Menu.Root>
       <span className={getLabelClassName()}>empty style</span>
       <Menu.Root menuStyle='empty'>
-        <Menu.Trigger>
+        <Menu.Trigger asChild>
           <IconButton icon='menu-line' />
         </Menu.Trigger>
         <Menu.Content align='start' sideOffset={10}>
