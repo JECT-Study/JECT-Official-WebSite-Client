@@ -1,7 +1,7 @@
 import { createContext, useContext } from "react";
 import type { CheckboxGroupState } from "react-stately";
 
-import type { CheckboxSize, CheckboxStyle } from "./checkbox.types";
+import type { CheckState, CheckboxSize, CheckboxStyle } from "./checkbox.types";
 
 export interface CheckboxContextValue {
   size: CheckboxSize;
@@ -9,6 +9,7 @@ export interface CheckboxContextValue {
   disabled: boolean;
   isInvalid: boolean;
   state?: CheckboxGroupState;
+  onChildCheckedChange?: (checked: CheckState) => void;
 }
 
 const CheckboxContext = createContext<CheckboxContextValue | null>(null);
