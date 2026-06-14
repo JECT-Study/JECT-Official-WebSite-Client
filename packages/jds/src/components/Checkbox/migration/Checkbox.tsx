@@ -161,6 +161,7 @@ const CheckboxBasicGrouped = ({
     >
       <input
         {...mergeProps(inputProps, restProps)}
+        ref={ref}
         aria-invalid={isEffectiveInvalid || undefined}
         className={checkboxInput}
       />
