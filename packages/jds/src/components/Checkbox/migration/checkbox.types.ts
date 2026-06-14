@@ -1,10 +1,10 @@
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 export const CHECKBOX_SIZE_OPTIONS = ["xs", "sm", "md", "lg"] as const;
-export const CHECKBOX_STYLE_OPTIONS = ["hollow", "outlined"] as const;
+export const CHECKBOX_VARIANT_OPTIONS = ["hollow", "outlined"] as const;
 
 export type CheckboxSize = (typeof CHECKBOX_SIZE_OPTIONS)[number];
-export type CheckboxStyle = (typeof CHECKBOX_STYLE_OPTIONS)[number];
+export type CheckboxVariant = (typeof CHECKBOX_VARIANT_OPTIONS)[number];
 export type CheckState = boolean | "indeterminate";
 
 // Checkbox.Root
@@ -22,8 +22,8 @@ type CheckboxRootUncontrolledProps = {
 };
 
 type CheckboxRootBaseProps = {
-  checkboxSize?: CheckboxSize;
-  checkboxStyle?: CheckboxStyle;
+  size?: CheckboxSize;
+  variant?: CheckboxVariant;
   disabled?: boolean;
   isInvalid?: boolean;
   name?: string;
@@ -36,8 +36,8 @@ export type CheckboxRootProps = CheckboxRootBaseProps &
 // Checkbox.Item
 
 export interface CheckboxItemProps extends ComponentPropsWithoutRef<"div"> {
-  checkboxSize?: CheckboxSize;
-  checkboxStyle?: CheckboxStyle;
+  size?: CheckboxSize;
+  variant?: CheckboxVariant;
   disabled?: boolean;
   isInvalid?: boolean;
   children: ReactNode;
@@ -62,7 +62,7 @@ type CheckboxBasicBaseProps = Omit<
   ComponentPropsWithoutRef<"input">,
   "size" | "checked" | "defaultChecked" | "onChange"
 > & {
-  checkboxSize?: CheckboxSize;
+  size?: CheckboxSize;
   value?: string;
   disabled?: boolean;
   isInvalid?: boolean;
