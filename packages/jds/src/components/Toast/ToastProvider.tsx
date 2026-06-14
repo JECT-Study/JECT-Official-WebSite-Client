@@ -33,7 +33,7 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
       {children}
       {isMounted &&
         createPortal(
-          <div className={stackContainer}>
+          <div className={stackContainer} role='status' aria-live='polite' aria-atomic='true'>
             {toasts.map(toast => (
               <Toast key={toast.id} onRemove={() => removeToast(toast.id)} {...toast} />
             ))}
