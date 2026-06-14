@@ -70,7 +70,7 @@ export const UseToastProvider: StoryObj<typeof Toast> = {
   render: () => {
     const { toast } = useToast();
     const description =
-      "토스트 내용은 최대 다섯 줄 까지 입력 가능하며, 더 많은 내용을 입력해야 하는 상황에서는 별도의 안내 페이지로 유도합니다.";
+      "토스트의 맥락과 목적을 레이블만으로 충분히 설명할 수 없을 때 보조적인 설명을 작성합니다.";
 
     const basicToast = () => toast.basic("베이직 토스트");
     const positiveToast = () => toast.positive("피드백 토스트 - positive");
@@ -139,7 +139,7 @@ export const UseGlobalToast: StoryObj<typeof Toast> = {
   ],
   render: () => {
     const description =
-      "토스트 레이블만으로 결과나 상태를 충분히 이해하기 어려운 경우에는 설명 텍스트를 함께 제공합니다.";
+      "토스트의 맥락과 목적을 레이블만으로 충분히 설명할 수 없을 때 보조적인 설명을 작성합니다.";
 
     const basicToast = () => toastController.basic("베이직 토스트");
     const positiveToast = () => toastController.positive("피드백 토스트");
