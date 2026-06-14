@@ -1,30 +1,48 @@
-import { keyframes, style } from "@vanilla-extract/css";
+import { createVar, keyframes, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
-
-import type { ToastFeedback } from "./toast.types";
 import { pxToRem } from "utils";
 
+import type { ToastFeedback } from "./toast.types";
+
+import { breakpoints } from "@/tokens/breakpoints";
+
+const mobileViewport = `screen and (max-width: ${breakpoints.mobile.max}px)`;
+const viewportOffset = createVar();
+
 const slideIn = keyframes({
-  from: { opacity: 0, transform: "translateY(100%)" },
+  from: { opacity: 0, transform: `translateY(calc(100% + ${viewportOffset}))` },
   to: { opacity: 1, transform: "translateY(0)" },
 });
 
 const slideOut = keyframes({
   from: { opacity: 1, transform: "translateY(0)" },
-  to: { opacity: 0, transform: "translateY(100%)" },
+  to: { opacity: 0, transform: `translateY(calc(100% + ${viewportOffset}))` },
 });
 
 export const stackContainer = style({
+  vars: {
+    [viewportOffset]: vars.scheme.semantic.spacing["40"],
+  },
   position: "fixed",
-  right: 0,
-  bottom: 0,
+  right: vars.scheme.semantic.spacing["40"],
+  bottom: vars.scheme.semantic.spacing["40"],
   zIndex: vars.environment.semantic.zIndex.overlay,
   display: "flex",
   flexDirection: "column-reverse",
   gap: vars.scheme.semantic.spacing["16"],
-  padding: vars.scheme.semantic.spacing["40"],
-  overflow: "hidden",
+  pointerEvents: "none",
+  "@media": {
+    [mobileViewport]: {
+      vars: {
+        [viewportOffset]: vars.scheme.semantic.spacing["24"],
+      },
+      right: vars.scheme.semantic.spacing["24"],
+      bottom: vars.scheme.semantic.spacing["24"],
+      left: vars.scheme.semantic.spacing["24"],
+      alignItems: "center",
+    },
+  },
 });
 
 export const root = recipe({
@@ -34,6 +52,7 @@ export const root = recipe({
     alignItems: "flex-start",
     boxSizing: "border-box",
     width: pxToRem(280),
+    maxWidth: "100%",
     padding: `${vars.scheme.semantic.spacing["12"]} ${vars.scheme.semantic.spacing["16"]}`,
     borderRadius: vars.scheme.semantic.radius["10"],
     backgroundColor: vars.color.semantic.surface.shallow,
