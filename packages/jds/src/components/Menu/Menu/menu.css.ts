@@ -4,6 +4,8 @@ import { vars } from "tokens";
 
 import type { MenuSize, MenuStyle } from "./menu.types";
 
+import { labelColorVar } from "@/utils/typography.css";
+
 const contentPaddingBySize = {
   lg: vars.scheme.semantic.margin.lg,
   md: vars.scheme.semantic.margin.md,
@@ -52,7 +54,9 @@ export const menuContent = recipe({
 });
 
 export const menuCategory = style({
-  color: vars.color.semantic.object.alternative,
+  vars: {
+    [labelColorVar]: vars.color.semantic.object.alternative,
+  },
 });
 
 export const menuGroup = recipe({

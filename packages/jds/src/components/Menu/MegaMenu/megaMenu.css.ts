@@ -1,6 +1,8 @@
 import { style } from "@vanilla-extract/css";
 import { vars } from "tokens";
 
+import { labelColorVar } from "@/utils/typography.css";
+
 export const megaMenuRoot = style({
   display: "flex",
   backgroundColor: vars.color.semantic.surface.shallow,
@@ -17,7 +19,9 @@ export const megaMenuSection = style({
 });
 
 export const megaMenuLabel = style({
-  color: vars.color.semantic.object.alternative,
+  vars: {
+    [labelColorVar]: vars.color.semantic.object.alternative,
+  },
 });
 
 export const megaMenuGroup = style({

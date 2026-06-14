@@ -6,6 +6,7 @@ import { focusRing, overlay, overlayColor, pxToRem } from "utils";
 import type { MenuItemSize, MenuItemTone } from "./menuItem.types";
 
 import { thumbnailVars } from "@/components/Thumbnail/thumbnail.css";
+import { labelColorVar } from "@/utils/typography.css";
 
 // 탭 영역이 시각 영역보다 상하 4px / 좌우 8px 큰 컴포넌트 — overlay/focusRing 케이스 2
 const LAYER_INSET = `${pxToRem(-4)} ${pxToRem(-8)}`;
@@ -73,7 +74,9 @@ export const menuItemRoot = recipe({
 
 export const menuItemLabel = style({
   cursor: "inherit",
-  color: "inherit",
+  vars: {
+    [labelColorVar]: "inherit",
+  },
 });
 
 export const menuItemImage = recipe({
