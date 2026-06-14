@@ -259,10 +259,16 @@ const CheckboxBasic = forwardRef<HTMLInputElement, CheckboxBasicProps>(
     const isInvalid = (isInvalidProp ?? false) || (context?.isInvalid ?? false);
 
     if (context?.state) {
+      if (!value) {
+        throw new Error(
+          "Checkbox.Root 내부에서는 그룹 내 고유 식별자로 사용할 `value`를 지정해야 합니다.",
+        );
+      }
+
       return (
         <CheckboxBasicGrouped
           size={size}
-          value={value ?? ""}
+          value={value}
           isDisabled={isDisabled}
           isInvalid={isInvalid}
           state={context.state}
