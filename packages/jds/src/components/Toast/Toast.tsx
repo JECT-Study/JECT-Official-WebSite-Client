@@ -23,7 +23,7 @@ export const Toast = ({
   isClosing,
 }: ToastProps) => {
   const [phase, setPhase] = useState<"enter" | "static" | "exit">("enter");
-  const withDescription = Boolean(description);
+  const hasDescription = Boolean(description);
 
   const onAnimationEnd = () => {
     if (phase === "enter") {
@@ -53,11 +53,11 @@ export const Toast = ({
   return (
     <div
       id={id}
-      className={clsx(styles.root({ feedback, withDescription }), phaseClassName)}
+      className={clsx(styles.root({ feedback, withDescription: hasDescription }), phaseClassName)}
       onAnimationEnd={onAnimationEnd}
     >
       {iconName && <Icon name={iconName} size='sm' className={styles.icon({ feedback })} />}
-      <div className={styles.content({ withDescription })}>
+      <div className={styles.content({ withDescription: hasDescription })}>
         <span className={clsx(styles.label, getLabelClassName({ size: "md", weight: "normal" }))}>
           {title}
         </span>
