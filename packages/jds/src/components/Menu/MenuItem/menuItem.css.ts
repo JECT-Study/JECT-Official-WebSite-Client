@@ -78,13 +78,13 @@ export const menuItemImage = recipe({
   variants: {
     size: {
       lg: {
-        width: "20px",
+        width: pxToRem(20),
       },
       md: {
-        width: "18px",
+        width: pxToRem(18),
       },
       sm: {
-        width: "16px",
+        width: pxToRem(16),
       },
     } satisfies Record<MenuItemSize, unknown>,
   },
