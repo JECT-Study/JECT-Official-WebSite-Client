@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { createContext, useContext, useEffect } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
 import { Toast } from "./Toast";
@@ -17,23 +17,29 @@ const ToastContext = createContext<ToastContextType | null>(null);
 
 export const ToastProvider = ({ children }: { children: ReactNode }) => {
   const { toasts, toast: handler, removeToast } = useToastProvider({});
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     toastController.setHandler(handler);
     return () => toastController.clearHandler();
   }, [handler]);
 
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   return (
     <ToastContext.Provider value={{ toast: handler, removeToast }}>
       {children}
-      {createPortal(
-        <div className={stackContainer}>
-          {toasts.map(toast => (
-            <Toast key={toast.id} onRemove={() => removeToast(toast.id)} {...toast} />
-          ))}
-        </div>,
-        document.body,
-      )}
+      {isMounted &&
+        createPortal(
+          <div className={stackContainer}>
+            {toasts.map(toast => (
+              <Toast key={toast.id} onRemove={() => removeToast(toast.id)} {...toast} />
+            ))}
+          </div>,
+          document.body,
+        )}
     </ToastContext.Provider>
   );
 };
