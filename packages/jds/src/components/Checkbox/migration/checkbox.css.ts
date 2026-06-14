@@ -1,17 +1,10 @@
 import { globalStyle, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
-import type { IconSize } from "components";
 import { vars } from "tokens";
 import { pxToRem, overlay, overlayColorMap, labelTypographyVars } from "utils";
 
 import { CHECKBOX_SIZE_OPTIONS, type CheckboxSize } from "./checkbox.types";
-
-const checkboxSizeMap: Record<CheckboxSize, { sizeRem: string; iconSize: IconSize }> = {
-  lg: { sizeRem: pxToRem(20), iconSize: "md" },
-  md: { sizeRem: pxToRem(18), iconSize: "sm" },
-  sm: { sizeRem: pxToRem(16), iconSize: "xs" },
-  xs: { sizeRem: pxToRem(14), iconSize: "2xs" },
-};
+import { checkboxSizeMap } from "./checkbox.variants";
 
 export const checkboxGroupWrapper = style({ display: "contents" });
 
