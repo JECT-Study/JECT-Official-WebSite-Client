@@ -56,7 +56,7 @@ export const Toast = ({
       className={clsx(styles.root({ feedback, withDescription }), phaseClassName)}
       onAnimationEnd={onAnimationEnd}
     >
-      {iconName && <Icon name={iconName} className={styles.icon({ feedback })} />}
+      {iconName && <Icon name={iconName} size='sm' className={styles.icon({ feedback })} />}
       <div className={styles.content({ withDescription })}>
         <span className={clsx(styles.label, getLabelClassName({ size: "md", weight: "normal" }))}>
           {title}

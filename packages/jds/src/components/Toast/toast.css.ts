@@ -3,6 +3,7 @@ import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
 
 import type { ToastFeedback } from "./toast.types";
+import { pxToRem } from "utils";
 
 const slideIn = keyframes({
   from: { opacity: 0, transform: "translateY(100%)" },
@@ -30,14 +31,13 @@ export const root = recipe({
   base: {
     display: "flex",
     flexDirection: "row",
-    alignItems: "center",
+    alignItems: "flex-start",
     boxSizing: "border-box",
-    width: "344px",
+    width: pxToRem(280),
     padding: `${vars.scheme.semantic.spacing["12"]} ${vars.scheme.semantic.spacing["16"]}`,
-    border: `${vars.scheme.semantic.strokeWeight["1"]} solid ${vars.color.semantic.stroke.subtle}`,
     borderRadius: vars.scheme.semantic.radius["10"],
     backgroundColor: vars.color.semantic.surface.shallow,
-    boxShadow: vars.environment.semantic.shadow.overlay,
+    boxShadow: `inset 0 0 0 ${vars.scheme.semantic.strokeWeight["1"]} ${vars.color.semantic.stroke.subtle}, ${vars.environment.semantic.shadow.overlay}`,
   },
   variants: {
     feedback: {
@@ -86,6 +86,7 @@ export const description = style({
 export const icon = recipe({
   base: {
     flexShrink: 0,
+    padding: `${vars.scheme.semantic.spacing["2"]} ${vars.scheme.semantic.spacing["0"]}`,
   },
   variants: {
     feedback: {
