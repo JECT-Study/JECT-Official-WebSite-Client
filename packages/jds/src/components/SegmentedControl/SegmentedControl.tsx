@@ -1,19 +1,13 @@
-import { ToggleGroup } from "radix-ui";
-import type { ElementRef } from "react";
-import { createContext, forwardRef, useContext } from "react";
+import { clsx } from "clsx";
+import { RadioGroup } from "radix-ui";
+import { createContext, forwardRef, useContext, useMemo } from "react";
 
-import {
-  SegmentedControlRootStyled,
-  SegmentedControlContentStyled,
-  SegmentedControlItemStyled,
-} from "./segmentedControl.styles";
+import * as styles from "./segmentedControl.css";
 import type {
   SegmentedControlSize,
   SegmentedControlRootProps,
   SegmentedControlItemProps,
 } from "./segmentedControl.types";
-
-import { getLabelClassName } from "@/utils/typography";
 
 const SegmentedControlContext = createContext<{ size: SegmentedControlSize }>({
   size: "md",
@@ -21,37 +15,37 @@ const SegmentedControlContext = createContext<{ size: SegmentedControlSize }>({
 
 const useSegmentedControlContext = () => useContext(SegmentedControlContext);
 
-const SegmentedControlRoot = forwardRef<
-  ElementRef<typeof SegmentedControlRootStyled>,
-  SegmentedControlRootProps
->(({ size = "md", children, ...props }, ref) => {
-  return (
-    <SegmentedControlContext.Provider value={{ size }}>
-      <SegmentedControlRootStyled ref={ref} size={size}>
-        <ToggleGroup.Root asChild type='single' {...props}>
-          <SegmentedControlContentStyled size={size}>{children}</SegmentedControlContentStyled>
-        </ToggleGroup.Root>
-      </SegmentedControlRootStyled>
-    </SegmentedControlContext.Provider>
-  );
-});
+const SegmentedControlRoot = forwardRef<HTMLDivElement, SegmentedControlRootProps>(
+  ({ size = "md", children, className, ...props }, ref) => {
+    const contextValue = useMemo(() => ({ size }), [size]);
+    return (
+      <SegmentedControlContext.Provider value={contextValue}>
+        <RadioGroup.Root ref={ref} {...props} className={clsx(styles.root(), className)}>
+          {children}
+        </RadioGroup.Root>
+      </SegmentedControlContext.Provider>
+    );
+  },
+);
 
 SegmentedControlRoot.displayName = "SegmentedControl.Root";
 
-const SegmentedControlItem = forwardRef<
-  ElementRef<typeof SegmentedControlItemStyled>,
-  SegmentedControlItemProps
->(({ value, disabled = false, children, ...props }, ref) => {
-  const { size } = useSegmentedControlContext();
-
-  return (
-    <ToggleGroup.Item asChild value={value} disabled={disabled} {...props}>
-      <SegmentedControlItemStyled ref={ref} size={size} $isDisabled={disabled}>
-        <span className={getLabelClassName({ size })}>{children}</span>
-      </SegmentedControlItemStyled>
-    </ToggleGroup.Item>
-  );
-});
+const SegmentedControlItem = forwardRef<HTMLButtonElement, SegmentedControlItemProps>(
+  ({ value, disabled = false, children, className, ...props }, ref) => {
+    const { size } = useSegmentedControlContext();
+    return (
+      <RadioGroup.Item
+        ref={ref}
+        value={value}
+        disabled={disabled}
+        {...props}
+        className={clsx(styles.item({ size }), className)}
+      >
+        <span className={styles.itemLabel({ size })}>{children}</span>
+      </RadioGroup.Item>
+    );
+  },
+);
 
 SegmentedControlItem.displayName = "SegmentedControl.Item";
 
