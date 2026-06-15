@@ -3,6 +3,49 @@ import { FlexColumn, FlexRow, Label } from "@storybook-utils/layout";
 import { useState } from "react";
 
 import { SegmentedControl } from "./SegmentedControl";
+import type { SegmentedControlSize } from "./segmentedControl.types";
+
+const sizes = ["lg", "md", "sm", "xs"] as const satisfies readonly SegmentedControlSize[];
+const storyWidth = "22.5rem";
+const labelWidth = "3ch";
+
+const options = [
+  { value: "option1", label: "레이블" },
+  { value: "option2", label: "레이블" },
+  { value: "option3", label: "레이블" },
+] as const;
+const optionValues = options.map(({ value }) => value);
+
+const renderItems = (
+  items: readonly {
+    value: string;
+    label: string;
+    disabled?: boolean;
+    autoFocus?: boolean;
+  }[] = options,
+) =>
+  items.map(({ value, label, disabled, autoFocus }) => (
+    <SegmentedControl.Item key={value} value={value} disabled={disabled} autoFocus={autoFocus}>
+      {label}
+    </SegmentedControl.Item>
+  ));
+
+const ControlledExample = () => {
+  const [value, setValue] = useState("option1");
+
+  return (
+    <FlexColumn gap='0.75rem' style={{ width: storyWidth }}>
+      <SegmentedControl.Root value={value} onValueChange={setValue}>
+        {renderItems([
+          { value: "option1", label: "목록" },
+          { value: "option2", label: "카드" },
+          { value: "option3", label: "표" },
+        ])}
+      </SegmentedControl.Root>
+      <Label>Selected: {value}</Label>
+    </FlexColumn>
+  );
+};
 
 const meta: Meta<typeof SegmentedControl.Root> = {
   title: "Components/SegmentedControl",
@@ -13,12 +56,23 @@ const meta: Meta<typeof SegmentedControl.Root> = {
   argTypes: {
     size: {
       control: "select",
-      options: ["lg", "md", "sm", "xs"],
-      description: "세그먼티드 컨트롤 사이즈",
+      options: sizes,
+      description: "컴포넌트의 시각적 크기입니다.",
+      table: {
+        defaultValue: { summary: "md" },
+      },
     },
     defaultValue: {
-      control: "text",
-      description: "기본 선택된 세그먼티드 컨트롤 아이템",
+      control: "select",
+      options: optionValues,
+      description: "기본 선택된 세그먼티드 컨트롤 아이템입니다.",
+    },
+    disabled: {
+      control: "boolean",
+      description: "비활성화되었는지의 여부입니다.",
+      table: {
+        defaultValue: { summary: "false" },
+      },
     },
   },
 } satisfies Meta<typeof SegmentedControl.Root>;
@@ -30,37 +84,63 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     size: "md",
+    defaultValue: "option1",
   },
   render: args => (
-    <SegmentedControl.Root defaultValue='option1' size={args.size}>
-      <SegmentedControl.Item value='option1'>레이블</SegmentedControl.Item>
-      <SegmentedControl.Item value='option2'>레이블</SegmentedControl.Item>
+    <SegmentedControl.Root key={`${args.size}-${args.defaultValue}-${args.disabled}`} {...args}>
+      {renderItems()}
     </SegmentedControl.Root>
   ),
   parameters: {
     docs: {
       description: {
         story:
-          "키보드로 탐색할 수 있습니다. Tab으로 컴포넌트에 포커스하고, 화살표 키(←/→)로 항목 간 이동 및 선택이 가능합니다.",
+          "라디오처럼 여러 옵션 중 하나를 선택해 연관된 뷰나 상태, 표시 형식을 전환하는 컴포넌트입니다. Root가 Item들을 감싸며, Item 내부 텍스트는 한 줄 말줄임으로 표시됩니다. Tab으로 포커스하고, 화살표 키(←/→, ↑/↓)로 항목 간 이동 및 선택이 가능합니다.",
       },
     },
   },
 };
 
-export const DisabledItem: Story = {
+export const States: Story = {
   render: () => (
-    <SegmentedControl.Root defaultValue='option1'>
-      <SegmentedControl.Item value='option1'>레이블</SegmentedControl.Item>
-      <SegmentedControl.Item value='option2' disabled>
-        Disabled
-      </SegmentedControl.Item>
-      <SegmentedControl.Item value='option3'>레이블</SegmentedControl.Item>
-    </SegmentedControl.Root>
+    <FlexColumn gap='1.25rem' style={{ width: storyWidth }}>
+      <FlexColumn gap='0.5rem'>
+        <Label>Default</Label>
+        <SegmentedControl.Root defaultValue='option2'>{renderItems()}</SegmentedControl.Root>
+      </FlexColumn>
+      <FlexColumn gap='0.5rem'>
+        <Label>Item disabled</Label>
+        <SegmentedControl.Root defaultValue='option1'>
+          {renderItems([
+            { value: "option1", label: "레이블" },
+            { value: "option2", label: "레이블", disabled: true },
+            { value: "option3", label: "레이블" },
+          ])}
+        </SegmentedControl.Root>
+      </FlexColumn>
+      <FlexColumn gap='0.5rem'>
+        <Label>Root disabled</Label>
+        <SegmentedControl.Root defaultValue='option1' disabled>
+          {renderItems()}
+        </SegmentedControl.Root>
+      </FlexColumn>
+      <FlexColumn gap='0.5rem'>
+        <Label>Focused</Label>
+        <SegmentedControl.Root defaultValue='option2'>
+          {renderItems([
+            { value: "option1", label: "레이블" },
+            { value: "option2", label: "레이블", autoFocus: true },
+            { value: "option3", label: "레이블", disabled: true },
+          ])}
+        </SegmentedControl.Root>
+      </FlexColumn>
+    </FlexColumn>
   ),
   parameters: {
     docs: {
       description: {
-        story: "SegmentedControl.Item의 disabled 속성을 통해 비활성화시킬 수 있습니다.",
+        story:
+          "Item은 rest, hover, active, focused 상태를 가지며 선택된 항목은 data-state='checked'로 표현됩니다. 선택된 항목을 다시 눌러도 해제되지 않고, 다른 항목을 선택하면 기존 선택이 해제됩니다. Item 또는 Root의 disabled 속성으로 비활성화할 수 있습니다.",
       },
     },
   },
@@ -68,105 +148,25 @@ export const DisabledItem: Story = {
 
 export const ItemSizes: Story = {
   render: () => (
-    <FlexColumn>
-      <FlexRow>
-        <Label>lg</Label>
-        <SegmentedControl.Root size='lg' defaultValue='option1'>
-          <SegmentedControl.Item value='option1'>레이블</SegmentedControl.Item>
-          <SegmentedControl.Item value='option2'>레이블</SegmentedControl.Item>
-        </SegmentedControl.Root>
-      </FlexRow>
-      <FlexRow>
-        <Label>md</Label>
-        <SegmentedControl.Root size='md' defaultValue='option1'>
-          <SegmentedControl.Item value='option1'>레이블</SegmentedControl.Item>
-          <SegmentedControl.Item value='option2'>레이블</SegmentedControl.Item>
-        </SegmentedControl.Root>
-      </FlexRow>
-      <FlexRow>
-        <Label>sm</Label>
-        <SegmentedControl.Root size='sm' defaultValue='option1'>
-          <SegmentedControl.Item value='option1'>레이블</SegmentedControl.Item>
-          <SegmentedControl.Item value='option2'>레이블</SegmentedControl.Item>
-        </SegmentedControl.Root>
-      </FlexRow>
-      <FlexRow>
-        <Label>xs</Label>
-        <SegmentedControl.Root size='xs' defaultValue='option1'>
-          <SegmentedControl.Item value='option1'>레이블</SegmentedControl.Item>
-          <SegmentedControl.Item value='option2'>레이블</SegmentedControl.Item>
-        </SegmentedControl.Root>
-      </FlexRow>
+    <FlexColumn gap='0.75rem' style={{ width: storyWidth }}>
+      {sizes.map(size => (
+        <FlexRow key={size} gap='0.75rem'>
+          <Label style={{ width: labelWidth }}>{size}</Label>
+          <SegmentedControl.Root size={size} defaultValue='option1'>
+            {renderItems(options.slice(0, 2))}
+          </SegmentedControl.Root>
+        </FlexRow>
+      ))}
     </FlexColumn>
   ),
   parameters: {
     docs: {
       description: {
-        story: "세그먼티드 컨트롤은 lg, md, sm, xs 사이즈를 제공합니다.",
+        story:
+          "세그먼티드 컨트롤은 lg, md, sm, xs 사이즈를 제공합니다. 주변 UI 요소와 디바이스 환경에 맞는 크기를 선택합니다.",
       },
     },
   },
-};
-
-export const ItemCounts: Story = {
-  render: () => (
-    <FlexColumn>
-      <SegmentedControl.Root defaultValue='option1'>
-        <SegmentedControl.Item value='option1'>레이블</SegmentedControl.Item>
-        <SegmentedControl.Item value='option2'>레이블</SegmentedControl.Item>
-      </SegmentedControl.Root>
-      <SegmentedControl.Root defaultValue='option1'>
-        <SegmentedControl.Item value='option1'>레이블</SegmentedControl.Item>
-        <SegmentedControl.Item value='option2'>레이블</SegmentedControl.Item>
-        <SegmentedControl.Item value='option3'>레이블</SegmentedControl.Item>
-      </SegmentedControl.Root>
-      <SegmentedControl.Root defaultValue='option1'>
-        <SegmentedControl.Item value='option1'>레이블</SegmentedControl.Item>
-        <SegmentedControl.Item value='option2'>레이블</SegmentedControl.Item>
-        <SegmentedControl.Item value='option3'>레이블</SegmentedControl.Item>
-        <SegmentedControl.Item value='option4'>레이블</SegmentedControl.Item>
-      </SegmentedControl.Root>
-    </FlexColumn>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: "세그먼티드 컨트롤의 내부 항목 개수는 슬롯을 추가하는 방식으로 설정할 수 있습니다.",
-      },
-    },
-  },
-};
-
-export const Uncontrolled: Story = {
-  render: () => (
-    <SegmentedControl.Root defaultValue='option1'>
-      <SegmentedControl.Item value='option1'>Option 1</SegmentedControl.Item>
-      <SegmentedControl.Item value='option2'>Option 2</SegmentedControl.Item>
-      <SegmentedControl.Item value='option3'>Option 3</SegmentedControl.Item>
-    </SegmentedControl.Root>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: "defaultValue를 사용한 비제어 컴포넌트입니다. 내부적으로 상태를 관리합니다.",
-      },
-    },
-  },
-};
-
-const ControlledExample = () => {
-  const [value, setValue] = useState("option1");
-
-  return (
-    <FlexColumn>
-      <SegmentedControl.Root value={value} onValueChange={setValue}>
-        <SegmentedControl.Item value='option1'>Option 1</SegmentedControl.Item>
-        <SegmentedControl.Item value='option2'>Option 2</SegmentedControl.Item>
-        <SegmentedControl.Item value='option3'>Option 3</SegmentedControl.Item>
-      </SegmentedControl.Root>
-      <Label>Selected: {value}</Label>
-    </FlexColumn>
-  );
 };
 
 export const Controlled: Story = {
