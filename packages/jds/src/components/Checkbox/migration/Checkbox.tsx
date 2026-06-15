@@ -6,7 +6,7 @@ import type { ForwardedRef, InputHTMLAttributes } from "react";
 import { forwardRef, useLayoutEffect, useState } from "react";
 import { useCheckboxGroupState, useToggleState } from "react-stately";
 import type { CheckboxGroupState } from "react-stately";
-import { focusRing } from "utils";
+import { focusRing, getLabelClassName } from "utils";
 
 import {
   checkboxControlSlot,
@@ -29,7 +29,7 @@ import type {
   CheckboxRootProps,
   CheckboxSize,
 } from "./checkbox.types";
-import { checkboxSizeMap } from "./checkbox.variants";
+import { checkboxHelperSizeMap, checkboxSizeMap } from "./checkbox.variants";
 import { CheckboxProvider, useCheckboxContext } from "./CheckboxContext";
 
 import { useContainerPressable } from "@/hooks";
@@ -299,11 +299,9 @@ CheckboxBasic.displayName = "Checkbox.Basic";
 
 const CheckboxLabel = forwardRef<HTMLDivElement, CheckboxLabelProps>(({ children }, ref) => {
   const context = useCheckboxContext();
+  const size = context?.size ?? "md";
   return (
-    <div
-      ref={ref}
-      className={clsx(checkboxTextLabel({ size: context?.size ?? "md" }), checkboxLabelSlot)}
-    >
+    <div ref={ref} className={clsx(getLabelClassName({ size }), checkboxTextLabel, checkboxLabelSlot)}>
       {children}
     </div>
   );
@@ -313,10 +311,15 @@ CheckboxLabel.displayName = "Checkbox.Label";
 
 const CheckboxHelper = forwardRef<HTMLDivElement, CheckboxHelperProps>(({ children }, ref) => {
   const context = useCheckboxContext();
+  const size = context?.size ?? "md";
   return (
     <div
       ref={ref}
-      className={clsx(checkboxHelper({ size: context?.size ?? "md" }), checkboxHelperSlot)}
+      className={clsx(
+        getLabelClassName({ size: checkboxHelperSizeMap[size], weight: "subtle" }),
+        checkboxHelper,
+        checkboxHelperSlot,
+      )}
     >
       {children}
     </div>
