@@ -2,6 +2,19 @@ import { globalStyle, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
 
+export const tableRoot = style({
+  width: "100%",
+
+  tableLayout: "fixed",
+  borderSpacing: 0,
+  overflow: "hidden",
+
+  borderRadius: vars.scheme.semantic.radius["10"],
+  border: `${vars.scheme.semantic.strokeWeight[1]} solid ${vars.color.semantic.stroke.subtle}`,
+
+  background: vars.color.semantic.surface.standard,
+});
+
 export const tableHeader = style({
   background: vars.color.semantic.surface.deeper,
 });
