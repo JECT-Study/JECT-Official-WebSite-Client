@@ -6,5 +6,4 @@ export * from "./forwardRef";
 export * from "./interaction";
 export * from "./interactionLayer";
 export * from "./typography";
-export * from "./labelTypographyVars.css";
 export * from "./overlay.css";

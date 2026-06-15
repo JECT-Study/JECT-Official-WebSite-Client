@@ -1,7 +1,7 @@
 import { globalStyle, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
-import { pxToRem, overlay, overlayColorMap, overlayOpacityMap, labelTypographyVars } from "utils";
+import { pxToRem, overlay, overlayColorMap, overlayOpacityMap } from "utils";
 
 import { CHECKBOX_SIZE_OPTIONS, type CheckboxSize } from "./checkbox.types";
 import { checkboxSizeMap } from "./checkbox.variants";
@@ -220,44 +220,24 @@ export const checkboxItem = recipe({
 // Checkbox.Label / Checkbox.Helper
 // disabled 및 invalid 색상은 조상의 data attribute로 제어한다.
 
-export const checkboxTextLabel = recipe({
-  base: {
-    whiteSpace: "nowrap",
-    color: vars.color.semantic.object.bolder,
-    selectors: {
-      "[data-disabled] &": { color: vars.color.semantic.object.subtle },
-    },
-  },
-  variants: {
-    size: {
-      lg: labelTypographyVars.normal.lg,
-      md: labelTypographyVars.normal.md,
-      sm: labelTypographyVars.normal.sm,
-      xs: labelTypographyVars.normal.xs,
-    } satisfies Record<CheckboxSize, object>,
+export const checkboxTextLabel = style({
+  whiteSpace: "nowrap",
+  color: vars.color.semantic.object.bolder,
+  selectors: {
+    "[data-disabled] &": { color: vars.color.semantic.object.subtle },
   },
 });
 
-export const checkboxHelper = recipe({
-  base: {
-    whiteSpace: "nowrap",
-    color: vars.color.semantic.object.alternative,
-    position: "relative",
-    zIndex: 10,
-    selectors: {
-      "[data-disabled] &": { color: vars.color.semantic.object.subtle },
-      "[data-invalid] &": { color: vars.color.semantic.feedback.destructive.normal },
-      "[data-invalid][data-disabled] &": {
-        color: vars.color.semantic.feedback.destructive.alpha.assistive,
-      },
+export const checkboxHelper = style({
+  whiteSpace: "nowrap",
+  color: vars.color.semantic.object.alternative,
+  position: "relative",
+  zIndex: 10,
+  selectors: {
+    "[data-disabled] &": { color: vars.color.semantic.object.subtle },
+    "[data-invalid] &": { color: vars.color.semantic.feedback.destructive.normal },
+    "[data-invalid][data-disabled] &": {
+      color: vars.color.semantic.feedback.destructive.alpha.assistive,
     },
-  },
-  variants: {
-    size: {
-      lg: labelTypographyVars.subtle.sm,
-      md: labelTypographyVars.subtle.sm,
-      sm: labelTypographyVars.subtle.xs,
-      xs: labelTypographyVars.subtle.xs,
-    } satisfies Record<CheckboxSize, object>,
   },
 });
