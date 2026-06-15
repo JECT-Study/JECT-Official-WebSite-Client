@@ -21,7 +21,7 @@ import {
   checkboxVisual,
 } from "./checkbox.css";
 import type {
-  CheckState,
+  CheckedState,
   CheckboxBasicProps,
   CheckboxHelperProps,
   CheckboxItemProps,
@@ -86,7 +86,7 @@ const CheckboxItem = forwardRef<HTMLDivElement, CheckboxItemProps>(
     const variant = variantProp ?? parentContext?.variant ?? "hollow";
     const isInvalid = isInvalidProp ?? parentContext?.isInvalid ?? false;
 
-    const [childChecked, setChildChecked] = useState<CheckState>(false);
+    const [childChecked, setChildChecked] = useState<CheckedState>(false);
     const isEffectiveInvalid = isInvalid && childChecked === false;
 
     const { containerPressableProps } = useContainerPressable({ disabled: isDisabled });
@@ -127,7 +127,7 @@ interface CheckboxBasicGroupedProps {
   isDisabled: boolean;
   isInvalid: boolean;
   state: CheckboxGroupState;
-  onChildCheckedChange?: (checked: CheckState) => void;
+  onChildCheckedChange?: (checked: CheckedState) => void;
   forwardedRef: ForwardedRef<HTMLInputElement>;
   restProps: InputHTMLAttributes<HTMLInputElement>;
 }
@@ -179,7 +179,7 @@ interface CheckboxBasicStandaloneProps {
   checked?: boolean | "indeterminate";
   defaultChecked?: boolean;
   onCheckedChange?: (checked: boolean | "indeterminate") => void;
-  onChildCheckedChange?: (checked: CheckState) => void;
+  onChildCheckedChange?: (checked: CheckedState) => void;
   forwardedRef: ForwardedRef<HTMLInputElement>;
   restProps: InputHTMLAttributes<HTMLInputElement>;
 }
@@ -203,7 +203,7 @@ const CheckboxBasicStandalone = ({
     onChange: isSelected => onCheckedChange?.(isSelected),
   });
 
-  const isChecked: CheckState = isIndeterminate ? "indeterminate" : toggleState.isSelected;
+  const isChecked: CheckedState = isIndeterminate ? "indeterminate" : toggleState.isSelected;
   const isEffectiveInvalid = isInvalid && isChecked === false;
 
   const ref = useObjectRef(forwardedRef);

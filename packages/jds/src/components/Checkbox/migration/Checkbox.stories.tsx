@@ -3,7 +3,7 @@ import { FlexColumn, FlexRow } from "@storybook-utils/layout";
 import { useState } from "react";
 
 import { Checkbox } from "./Checkbox";
-import type { CheckState } from "./checkbox.types";
+import type { CheckedState } from "./checkbox.types";
 
 const meta: Meta<typeof Checkbox.Item> = {
   title: "Components/Checkbox (Migration)",
@@ -181,7 +181,7 @@ export const CheckboxGroupSelectAll: Story = {
 
       const isAllChecked = selected.length === ALL.length;
       const isSomeChecked = selected.length > 0 && !isAllChecked;
-      const parentState: CheckState = isAllChecked ? true : isSomeChecked ? "indeterminate" : false;
+      const parentState: CheckedState = isAllChecked ? true : isSomeChecked ? "indeterminate" : false;
 
       return (
         <FlexColumn>
