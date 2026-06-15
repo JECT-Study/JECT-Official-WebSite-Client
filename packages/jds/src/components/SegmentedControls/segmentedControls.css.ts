@@ -1,6 +1,6 @@
 import { recipe } from "@vanilla-extract/recipes";
 
-import type { SegmentedControlSize } from "./segmentedControl.types";
+import type { SegmentedControlsSize } from "./segmentedControls.types";
 import { vars } from "../../tokens/vars.css";
 import { focusRing } from "../../utils/focusRing.css";
 import { overlay, overlayColor } from "../../utils/overlay.css";
@@ -18,14 +18,14 @@ const itemSizeVariants = {
   xs: {
     padding: `${vars.scheme.semantic.spacing["4"]} ${vars.scheme.semantic.spacing["8"]}`,
   },
-} satisfies Record<SegmentedControlSize, object>;
+} satisfies Record<SegmentedControlsSize, object>;
 
 const labelTypographyBySize = {
   lg: "semantic-textStyle-label-lg-normal",
   md: "semantic-textStyle-label-md-normal",
   sm: "semantic-textStyle-label-sm-normal",
   xs: "semantic-textStyle-label-xs-normal",
-} satisfies Record<SegmentedControlSize, string>;
+} satisfies Record<SegmentedControlsSize, string>;
 
 export const root = recipe({
   base: {

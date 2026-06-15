@@ -5,7 +5,7 @@ import { useGlobalNavigationVariant } from "./useGlobalNavigationVariant";
 import { BlockButton } from "../../Button/BlockButton";
 import { LabelButton } from "../../Button/LabelButton";
 import { Logo } from "../../Logo";
-import { SegmentedControl } from "../../SegmentedControl";
+import { SegmentedControls } from "../../SegmentedControls";
 
 import { useMediaQueryFlags } from "@/hooks";
 
@@ -318,10 +318,10 @@ export const WithThemeSwitcher: Story = {
             </GlobalNavigation.Item>
           </GlobalNavigation.List>
           <div style={{ width: "160px" }}>
-            <SegmentedControl.Root defaultValue='light' size='xs' onValueChange={handleThemeChange}>
-              <SegmentedControl.Item value='light'>라이트</SegmentedControl.Item>
-              <SegmentedControl.Item value='dark'>다크</SegmentedControl.Item>
-            </SegmentedControl.Root>
+            <SegmentedControls.Root defaultValue='light' size='xs' onValueChange={handleThemeChange}>
+              <SegmentedControls.Item value='light'>라이트</SegmentedControls.Item>
+              <SegmentedControls.Item value='dark'>다크</SegmentedControls.Item>
+            </SegmentedControls.Root>
           </div>
           <GlobalNavigation.MobileMenuButton />
         </GlobalNavigation.Root>
@@ -336,7 +336,7 @@ export const WithThemeSwitcher: Story = {
     docs: {
       description: {
         story:
-          "SegmentedControl을 조합하여 테마 스위처를 포함한 내비게이션입니다. 세그먼트를 선택하면 실제로 테마가 변경됩니다.",
+          "SegmentedControls를 조합하여 테마 스위처를 포함한 내비게이션입니다. 세그먼트를 선택하면 실제로 테마가 변경됩니다.",
       },
     },
   },

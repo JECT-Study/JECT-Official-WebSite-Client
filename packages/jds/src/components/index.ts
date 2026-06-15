@@ -26,7 +26,7 @@ export * from "./Menu/Menu";
 export * from "./Navigation/GlobalNavigation";
 export * from "./Navigation/LocalNavigation";
 export * from "./Radio";
-export * from "./SegmentedControl";
+export * from "./SegmentedControls";
 export * from "./Select";
 export * from "./Snackbar";
 export * from "./Steps";

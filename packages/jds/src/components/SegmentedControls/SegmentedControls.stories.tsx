@@ -2,10 +2,10 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexColumn, FlexRow, Label } from "@storybook-utils/layout";
 import { useState } from "react";
 
-import { SegmentedControl } from "./SegmentedControl";
-import type { SegmentedControlSize } from "./segmentedControl.types";
+import { SegmentedControls } from "./SegmentedControls";
+import type { SegmentedControlsSize } from "./segmentedControls.types";
 
-const sizes = ["lg", "md", "sm", "xs"] as const satisfies readonly SegmentedControlSize[];
+const sizes = ["lg", "md", "sm", "xs"] as const satisfies readonly SegmentedControlsSize[];
 const storyWidth = "22.5rem";
 const labelWidth = "3ch";
 
@@ -24,9 +24,9 @@ const renderItems = (
   }[] = options,
 ) =>
   items.map(({ value, label, disabled }) => (
-    <SegmentedControl.Item key={value} value={value} disabled={disabled}>
+    <SegmentedControls.Item key={value} value={value} disabled={disabled}>
       {label}
-    </SegmentedControl.Item>
+    </SegmentedControls.Item>
   ));
 
 const ControlledExample = () => {
@@ -34,21 +34,21 @@ const ControlledExample = () => {
 
   return (
     <FlexColumn gap='0.75rem' style={{ width: storyWidth }}>
-      <SegmentedControl.Root value={value} onValueChange={setValue}>
+      <SegmentedControls.Root value={value} onValueChange={setValue}>
         {renderItems([
           { value: "option1", label: "목록" },
           { value: "option2", label: "카드" },
           { value: "option3", label: "표" },
         ])}
-      </SegmentedControl.Root>
+      </SegmentedControls.Root>
       <Label>Selected: {value}</Label>
     </FlexColumn>
   );
 };
 
-const meta: Meta<typeof SegmentedControl.Root> = {
-  title: "Components/SegmentedControl",
-  component: SegmentedControl.Root,
+const meta: Meta<typeof SegmentedControls.Root> = {
+  title: "Components/SegmentedControls",
+  component: SegmentedControls.Root,
   parameters: {
     layout: "centered",
   },
@@ -80,7 +80,7 @@ const meta: Meta<typeof SegmentedControl.Root> = {
       },
     },
   },
-} satisfies Meta<typeof SegmentedControl.Root>;
+} satisfies Meta<typeof SegmentedControls.Root>;
 
 export default meta;
 
@@ -93,9 +93,9 @@ export const Default: Story = {
     disabled: false,
   },
   render: args => (
-    <SegmentedControl.Root key={`${args.size}-${args.defaultValue}-${args.disabled}`} {...args}>
+    <SegmentedControls.Root key={`${args.size}-${args.defaultValue}-${args.disabled}`} {...args}>
       {renderItems()}
-    </SegmentedControl.Root>
+    </SegmentedControls.Root>
   ),
   parameters: {
     docs: {
@@ -112,33 +112,33 @@ export const States: Story = {
     <FlexColumn gap='1.25rem' style={{ width: storyWidth }}>
       <FlexColumn gap='0.5rem'>
         <Label>Default</Label>
-        <SegmentedControl.Root defaultValue='option2'>{renderItems()}</SegmentedControl.Root>
+        <SegmentedControls.Root defaultValue='option2'>{renderItems()}</SegmentedControls.Root>
       </FlexColumn>
       <FlexColumn gap='0.5rem'>
         <Label>Item disabled</Label>
-        <SegmentedControl.Root defaultValue='option1'>
+        <SegmentedControls.Root defaultValue='option1'>
           {renderItems([
             { value: "option1", label: "레이블" },
             { value: "option2", label: "레이블", disabled: true },
             { value: "option3", label: "레이블" },
           ])}
-        </SegmentedControl.Root>
+        </SegmentedControls.Root>
       </FlexColumn>
       <FlexColumn gap='0.5rem'>
         <Label>Root disabled</Label>
-        <SegmentedControl.Root defaultValue='option1' disabled>
+        <SegmentedControls.Root defaultValue='option1' disabled>
           {renderItems()}
-        </SegmentedControl.Root>
+        </SegmentedControls.Root>
       </FlexColumn>
       <FlexColumn gap='0.5rem'>
         <Label>Focused</Label>
-        <SegmentedControl.Root defaultValue='option2'>
+        <SegmentedControls.Root defaultValue='option2'>
           {renderItems([
             { value: "option1", label: "레이블" },
             { value: "option2", label: "레이블" },
             { value: "option3", label: "레이블", disabled: true },
           ])}
-        </SegmentedControl.Root>
+        </SegmentedControls.Root>
       </FlexColumn>
     </FlexColumn>
   ),
@@ -158,9 +158,9 @@ export const ItemSizes: Story = {
       {sizes.map(size => (
         <FlexRow key={size} gap='0.75rem'>
           <Label style={{ width: labelWidth }}>{size}</Label>
-          <SegmentedControl.Root size={size} defaultValue='option1'>
+          <SegmentedControls.Root size={size} defaultValue='option1'>
             {renderItems(options.slice(0, 2))}
-          </SegmentedControl.Root>
+          </SegmentedControls.Root>
         </FlexRow>
       ))}
     </FlexColumn>
