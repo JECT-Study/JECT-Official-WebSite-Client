@@ -21,11 +21,10 @@ const renderItems = (
     value: string;
     label: string;
     disabled?: boolean;
-    autoFocus?: boolean;
   }[] = options,
 ) =>
-  items.map(({ value, label, disabled, autoFocus }) => (
-    <SegmentedControl.Item key={value} value={value} disabled={disabled} autoFocus={autoFocus}>
+  items.map(({ value, label, disabled }) => (
+    <SegmentedControl.Item key={value} value={value} disabled={disabled}>
       {label}
     </SegmentedControl.Item>
   ));
@@ -129,7 +128,7 @@ export const States: Story = {
         <SegmentedControl.Root defaultValue='option2'>
           {renderItems([
             { value: "option1", label: "레이블" },
-            { value: "option2", label: "레이블", autoFocus: true },
+            { value: "option2", label: "레이블" },
             { value: "option3", label: "레이블", disabled: true },
           ])}
         </SegmentedControl.Root>
