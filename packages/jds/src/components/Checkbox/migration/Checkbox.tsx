@@ -29,7 +29,7 @@ import type {
   CheckboxRootProps,
   CheckboxSize,
 } from "./checkbox.types";
-import { checkboxHelperSizeMap, checkboxSizeMap } from "./checkbox.variants";
+import { checkboxSizeMap } from "./checkbox.variants";
 import { CheckboxProvider, useCheckboxContext } from "./CheckboxContext";
 
 import { useContainerPressable } from "@/hooks";
@@ -152,7 +152,7 @@ const CheckboxBasicGrouped = ({
     onChildCheckedChange?.(isChecked);
   }, [isChecked, onChildCheckedChange]);
 
-  const iconSize = checkboxSizeMap[size].iconSize;
+  const iconSize = checkboxSizeMap[size].icon;
 
   return (
     <label
@@ -223,7 +223,7 @@ const CheckboxBasicStandalone = ({
     onChildCheckedChange?.(isChecked);
   }, [isChecked, onChildCheckedChange]);
 
-  const iconSize = checkboxSizeMap[size].iconSize;
+  const iconSize = checkboxSizeMap[size].icon;
 
   return (
     <label
@@ -301,7 +301,14 @@ const CheckboxLabel = forwardRef<HTMLDivElement, CheckboxLabelProps>(({ children
   const context = useCheckboxContext();
   const size = context?.size ?? "md";
   return (
-    <div ref={ref} className={clsx(getLabelClassName({ size }), checkboxTextLabel, checkboxLabelSlot)}>
+    <div
+      ref={ref}
+      className={clsx(
+        getLabelClassName({ size: checkboxSizeMap[size].label }),
+        checkboxTextLabel,
+        checkboxLabelSlot,
+      )}
+    >
       {children}
     </div>
   );
@@ -316,7 +323,7 @@ const CheckboxHelper = forwardRef<HTMLDivElement, CheckboxHelperProps>(({ childr
     <div
       ref={ref}
       className={clsx(
-        getLabelClassName({ size: checkboxHelperSizeMap[size], weight: "subtle" }),
+        getLabelClassName({ size: checkboxSizeMap[size].helper, weight: "subtle" }),
         checkboxHelper,
         checkboxHelperSlot,
       )}

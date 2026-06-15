@@ -105,10 +105,10 @@ export const checkboxVisual = recipe({
   },
   variants: {
     size: {
-      lg: { width: checkboxSizeMap.lg.sizeRem, height: checkboxSizeMap.lg.sizeRem },
-      md: { width: checkboxSizeMap.md.sizeRem, height: checkboxSizeMap.md.sizeRem },
-      sm: { width: checkboxSizeMap.sm.sizeRem, height: checkboxSizeMap.sm.sizeRem },
-      xs: { width: checkboxSizeMap.xs.sizeRem, height: checkboxSizeMap.xs.sizeRem },
+      lg: { width: checkboxSizeMap.lg.visual, height: checkboxSizeMap.lg.visual },
+      md: { width: checkboxSizeMap.md.visual, height: checkboxSizeMap.md.visual },
+      sm: { width: checkboxSizeMap.sm.visual, height: checkboxSizeMap.sm.visual },
+      xs: { width: checkboxSizeMap.xs.visual, height: checkboxSizeMap.xs.visual },
     } satisfies Record<CheckboxSize, object>,
   },
 });

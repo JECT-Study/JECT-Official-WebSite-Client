@@ -3,16 +3,12 @@ import { pxToRem, type LabelSize } from "utils";
 
 import type { CheckboxSize } from "./checkbox.types";
 
-export const checkboxSizeMap: Record<CheckboxSize, { sizeRem: string; iconSize: IconSize }> = {
-  lg: { sizeRem: pxToRem(20), iconSize: "md" },
-  md: { sizeRem: pxToRem(18), iconSize: "sm" },
-  sm: { sizeRem: pxToRem(16), iconSize: "xs" },
-  xs: { sizeRem: pxToRem(14), iconSize: "2xs" },
-};
-
-export const checkboxHelperSizeMap: Record<CheckboxSize, LabelSize> = {
-  lg: "sm",
-  md: "sm",
-  sm: "xs",
-  xs: "xs",
+export const checkboxSizeMap: Record<
+  CheckboxSize,
+  { visual: string; icon: IconSize; label: LabelSize; helper: LabelSize }
+> = {
+  lg: { visual: pxToRem(20), icon: "md", label: "lg", helper: "sm" },
+  md: { visual: pxToRem(18), icon: "sm", label: "md", helper: "sm" },
+  sm: { visual: pxToRem(16), icon: "xs", label: "sm", helper: "xs" },
+  xs: { visual: pxToRem(14), icon: "2xs", label: "xs", helper: "xs" },
 };
