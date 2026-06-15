@@ -7,7 +7,6 @@ import type {
   TableRowItemLabelProps,
   TableRowItemBaseProps,
   TableRowItemBadgeProps,
-  TableRowItemOnlyProp,
 } from "../Table.types";
 import {
   badgeWrapper,
@@ -23,15 +22,6 @@ import { ContentBadge } from "@/components/Badge";
 import { Code } from "@/components/Code/Code";
 import { Icon } from "@/components/Icon";
 import { getLabelClassName } from "@/utils/typography";
-
-const tableRowItemOnlyProps = new Set<TableRowItemOnlyProp>([
-  "variant",
-  "hasDivider",
-  "children",
-  "description",
-  "prefixIcon",
-  "color",
-]);
 
 const BadgeContent = ({ children }: Pick<TableRowItemBaseProps, "children">) => (
   <div className={badgeWrapper}>
@@ -107,9 +97,20 @@ export const TableRowItem = forwardRef<HTMLTableCellElement, TableRowItemProps>(
 
 TableRowItem.displayName = "TableRowItem";
 
+const tableRowItemOnlyProps = [
+  "variant",
+  "hasDivider",
+  "children",
+  "description",
+  "prefixIcon",
+  "color",
+] as const;
+
+type TableRowItemOnlyProp = (typeof tableRowItemOnlyProps)[number];
+
 const getTableCellProps = (props: TableRowItemProps): HTMLAttributes<HTMLTableCellElement> => {
   const tableCellEntries = Object.entries(props).filter(
-    ([key]) => !tableRowItemOnlyProps.has(key as TableRowItemOnlyProp),
+    ([key]) => !tableRowItemOnlyProps.includes(key as TableRowItemOnlyProp),
   );
 
   return Object.fromEntries(tableCellEntries) as HTMLAttributes<HTMLTableCellElement>;
