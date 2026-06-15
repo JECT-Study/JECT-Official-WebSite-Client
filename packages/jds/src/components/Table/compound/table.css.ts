@@ -40,6 +40,7 @@ export const tableHeaderItem = style({
 });
 
 export const tableHeaderLabel = style({
+  display: "block",
   width: "100%",
   minWidth: 0,
   height: "100%",
