@@ -10,6 +10,7 @@ export interface CheckboxContextValue {
   isInvalid: boolean;
   state?: CheckboxGroupState;
   onChildCheckedChange?: (checked: CheckedState) => void;
+  withinItem?: boolean;
 }
 
 const CheckboxContext = createContext<CheckboxContextValue | null>(null);
