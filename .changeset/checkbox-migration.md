@@ -2,7 +2,7 @@
 "@jects/jds": minor
 ---
 
-**Checkbox Migration**
+**Checkbox**
 
 Checkbox가 vanilla-extract 기반으로 재작성되면서 API를 Compound Component 패턴으로 재설계했습니다. 단일 컴포넌트(`Checkbox.Basic` / `Checkbox.Content`)에서 복합 컴포넌트 구조로 바뀌고, 일부 prop의 이름·값과 public 타입이 변경/제거됩니다.
 
