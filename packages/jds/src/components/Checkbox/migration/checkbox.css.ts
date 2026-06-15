@@ -6,6 +6,8 @@ import { pxToRem, overlay, overlayColorMap, overlayOpacityMap } from "utils";
 import { CHECKBOX_SIZE_OPTIONS, type CheckboxSize } from "./checkbox.types";
 import { checkboxSizeMap } from "./checkbox.variants";
 
+import { labelColorVar } from "@/utils/typography.css";
+
 export const checkboxGroupWrapper = style({ display: "contents" });
 
 // Checkbox.Basic
@@ -223,22 +225,24 @@ export const checkboxItem = recipe({
 
 export const checkboxTextLabel = style({
   whiteSpace: "nowrap",
-  color: vars.color.semantic.object.bolder,
+  vars: { [labelColorVar]: vars.color.semantic.object.bolder },
   selectors: {
-    "[data-disabled] &": { color: vars.color.semantic.object.subtle },
+    "[data-disabled] &": { vars: { [labelColorVar]: vars.color.semantic.object.subtle } },
   },
 });
 
 export const checkboxHelper = style({
   whiteSpace: "nowrap",
-  color: vars.color.semantic.object.alternative,
+  vars: { [labelColorVar]: vars.color.semantic.object.alternative },
   position: "relative",
   zIndex: 10,
   selectors: {
-    "[data-disabled] &": { color: vars.color.semantic.object.subtle },
-    "[data-invalid] &": { color: vars.color.semantic.feedback.destructive.normal },
+    "[data-disabled] &": { vars: { [labelColorVar]: vars.color.semantic.object.subtle } },
+    "[data-invalid] &": {
+      vars: { [labelColorVar]: vars.color.semantic.feedback.destructive.normal },
+    },
     "[data-invalid][data-disabled] &": {
-      color: vars.color.semantic.feedback.destructive.alpha.assistive,
+      vars: { [labelColorVar]: vars.color.semantic.feedback.destructive.alpha.assistive },
     },
   },
 });
