@@ -90,6 +90,7 @@ export const Default: Story = {
   args: {
     size: "md",
     defaultValue: "option1",
+    disabled: false,
   },
   render: args => (
     <SegmentedControl.Root key={`${args.size}-${args.defaultValue}-${args.disabled}`} {...args}>
