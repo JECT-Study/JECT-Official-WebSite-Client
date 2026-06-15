@@ -25,6 +25,10 @@ export interface TableRowProps extends HTMLAttributes<HTMLTableRowElement> {
   children: ReactNode;
 }
 
+export interface TableBodyProps extends HTMLAttributes<HTMLTableSectionElement> {
+  children: ReactNode;
+}
+
 export interface TableProps extends HTMLAttributes<HTMLTableElement> {
   children: ReactNode;
 }
