@@ -2,7 +2,7 @@
 "@jects/jds": minor
 ---
 
-**SegmentedControls Migration**
+**SegmentedControls**
 
 SegmentedControl이 `SegmentedControls`로 이름이 변경되었습니다. 또한 vanilla-extract 기반으로 재작성되면서 내부 동작을 Radix `ToggleGroup`에서 `RadioGroup`으로 변경했습니다. 컴포넌트 사용 구조(`Root` / `Item`)는 유지되지만, public export 이름, public props 타입, 상태 attribute 기준이 변경됩니다.
 
