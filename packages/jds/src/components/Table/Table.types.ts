@@ -3,6 +3,13 @@ import type { HTMLAttributes, ReactNode } from "react";
 import type { IconName } from "../Icon";
 
 export type TableRowItemVariant = "label" | "code" | "badge";
+export type TableRowItemOnlyProp =
+  | "variant"
+  | "hasDivider"
+  | "children"
+  | "description"
+  | "prefixIcon"
+  | "color";
 
 export interface TableRowItemBaseProps extends HTMLAttributes<HTMLTableCellElement> {
   hasDivider?: boolean;
