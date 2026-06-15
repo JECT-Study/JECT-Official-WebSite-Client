@@ -1,4 +1,4 @@
-import { globalStyle, style } from "@vanilla-extract/css";
+import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
 import { pxToRem, overlay, overlayColorMap, overlayOpacityMap } from "utils";
@@ -27,7 +27,6 @@ export const checkboxRootLabel = style({
   position: "relative",
 });
 
-// 호출자는 className에 "visual" 리터럴을 반드시 함께 부여해야 한다. checkboxItem globalStyle이 이 클래스명에 의존한다.
 // invalid 셀렉터는 valid보다 명시도가 높아 차이나는 프로퍼티만 선언한다.
 export const checkboxVisual = recipe({
   base: {
@@ -71,12 +70,6 @@ export const checkboxVisual = recipe({
         color: vars.color.semantic.object.subtle,
         cursor: "not-allowed",
       },
-      'input[type="checkbox"]:focus-visible + &': {
-        boxShadow: `0 0 0 ${vars.scheme.semantic.strokeWeight["2"]} ${vars.color.semantic.accent.alpha.alternative}`,
-      },
-      '[data-invalid] input[type="checkbox"]:not(:disabled):focus-visible + &': {
-        boxShadow: `0 0 0 ${vars.scheme.semantic.strokeWeight["2"]} ${vars.color.semantic.feedback.destructive.alpha.alternative}`,
-      },
       '[data-invalid] input[type="checkbox"]:not(:disabled) + &': {
         borderColor: vars.color.semantic.feedback.destructive.neutral,
       },
@@ -110,6 +103,19 @@ export const checkboxVisual = recipe({
       sm: { width: checkboxSizeMap.sm.visual, height: checkboxSizeMap.sm.visual },
       xs: { width: checkboxSizeMap.xs.visual, height: checkboxSizeMap.xs.visual },
     } satisfies Record<CheckboxSize, object>,
+    focusRing: {
+      on: {
+        selectors: {
+          'input[type="checkbox"]:focus-visible + &': {
+            boxShadow: `0 0 0 ${vars.scheme.semantic.strokeWeight["2"]} ${vars.color.semantic.accent.alpha.alternative}`,
+          },
+          '[data-invalid] input[type="checkbox"]:not(:disabled):focus-visible + &': {
+            boxShadow: `0 0 0 ${vars.scheme.semantic.strokeWeight["2"]} ${vars.color.semantic.feedback.destructive.alpha.alternative}`,
+          },
+        },
+      },
+      off: {},
+    },
   },
 });
 
@@ -158,11 +164,6 @@ export const checkboxLabelSlot = style({
   alignItems: "center",
 });
 export const checkboxHelperSlot = style({ gridColumn: "2", gridRow: "2" });
-
-// Checkbox.Item 컨테이너의 ::before가 focus ring을 담당하므로 visual 자체의 focus ring을 숨긴다.
-globalStyle(`${checkboxItemGrid} input[type="checkbox"]:focus-visible + .visual`, {
-  boxShadow: "none !important",
-});
 
 // data-invalid는 useContainerPressable이 아닌 컴포넌트에서 직접 부여한다.
 export const checkboxItem = recipe({
