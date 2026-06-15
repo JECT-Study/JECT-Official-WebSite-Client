@@ -73,6 +73,12 @@ const meta: Meta<typeof SegmentedControl.Root> = {
         defaultValue: { summary: "false" },
       },
     },
+    asChild: {
+      control: false,
+      table: {
+        disable: true,
+      },
+    },
   },
 } satisfies Meta<typeof SegmentedControl.Root>;
 
