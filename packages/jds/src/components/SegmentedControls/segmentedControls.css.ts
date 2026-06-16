@@ -3,7 +3,7 @@ import { recipe } from "@vanilla-extract/recipes";
 import type { SegmentedControlsSize } from "./segmentedControls.types";
 import { vars } from "../../tokens/vars.css";
 import { focusRing } from "../../utils/focusRing.css";
-import { overlay, overlayColor } from "../../utils/overlay.css";
+import { overlay } from "../../utils/overlay.css";
 
 const itemSizeVariants = {
   lg: {
@@ -45,7 +45,7 @@ export const root = recipe({
 
 export const item = recipe({
   base: [
-    overlay({ density: "normal", nativeHover: true }),
+    overlay({ density: "normal", hierarchy: "secondary", nativeHover: true }),
     focusRing(),
     {
       position: "relative",
@@ -87,9 +87,6 @@ export const item = recipe({
           borderColor: vars.color.semantic.stroke.alpha.subtler,
           background: vars.color.semantic.surface.shallower,
         },
-      },
-      vars: {
-        [overlayColor]: vars.color.semantic.fill.bold,
       },
     },
   ],
