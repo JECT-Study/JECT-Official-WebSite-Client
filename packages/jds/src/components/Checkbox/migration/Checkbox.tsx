@@ -132,7 +132,7 @@ interface CheckboxBasicGroupedProps {
   isDisabled: boolean;
   isInvalid: boolean;
   controlId: string;
-  focusRing: "on" | "off";
+  interaction: "on" | "off";
   state: CheckboxGroupState;
   onChildCheckedChange?: (checked: CheckedState) => void;
   forwardedRef: ForwardedRef<HTMLInputElement>;
@@ -145,7 +145,7 @@ const CheckboxBasicGrouped = ({
   isDisabled,
   isInvalid,
   controlId,
-  focusRing,
+  interaction,
   state,
   onChildCheckedChange,
   forwardedRef,
@@ -176,7 +176,7 @@ const CheckboxBasicGrouped = ({
         aria-invalid={isEffectiveInvalid || undefined}
         className={checkboxInput}
       />
-      <span className={checkboxVisual({ size, focusRing })} aria-hidden='true'>
+      <span className={checkboxVisual({ size, interaction })} aria-hidden='true'>
         <Icon name='check-line' size={iconSize} />
       </span>
     </label>
@@ -187,7 +187,7 @@ interface CheckboxBasicStandaloneProps {
   size: CheckboxSize;
   isDisabled: boolean;
   isInvalid: boolean;
-  focusRing: "on" | "off";
+  interaction: "on" | "off";
   controlId: string;
   checked?: boolean | "indeterminate";
   defaultChecked?: boolean;
@@ -201,7 +201,7 @@ const CheckboxBasicStandalone = ({
   size,
   isDisabled,
   isInvalid,
-  focusRing,
+  interaction,
   controlId,
   checked,
   defaultChecked,
@@ -252,7 +252,7 @@ const CheckboxBasicStandalone = ({
         id={controlId}
         className={checkboxInput}
       />
-      <span className={checkboxVisual({ size, focusRing })} aria-hidden='true'>
+      <span className={checkboxVisual({ size, interaction })} aria-hidden='true'>
         <Icon name={isIndeterminate ? "subtract-line" : "check-line"} size={iconSize} />
       </span>
     </label>
@@ -279,7 +279,7 @@ const CheckboxBasic = forwardRef<HTMLInputElement, CheckboxBasicProps>(
     const size = sizeProp ?? context?.size ?? "md";
     const isDisabled = (disabled ?? false) || (context?.disabled ?? false);
     const isInvalid = (isInvalidProp ?? false) || (context?.isInvalid ?? false);
-    const focusRing = context?.withinItem ? "off" : "on";
+    const interaction = context?.withinItem ? "off" : "on";
     const controlId = context?.controlId ?? checkboxId;
 
     if (context?.state) {
@@ -295,7 +295,7 @@ const CheckboxBasic = forwardRef<HTMLInputElement, CheckboxBasicProps>(
           value={value}
           isDisabled={isDisabled}
           isInvalid={isInvalid}
-          focusRing={focusRing}
+          interaction={interaction}
           state={context.state}
           onChildCheckedChange={context?.onChildCheckedChange}
           controlId={controlId}
@@ -310,7 +310,7 @@ const CheckboxBasic = forwardRef<HTMLInputElement, CheckboxBasicProps>(
         size={size}
         isDisabled={isDisabled}
         isInvalid={isInvalid}
-        focusRing={focusRing}
+        interaction={interaction}
         controlId={controlId}
         checked={checked}
         defaultChecked={defaultChecked}

@@ -78,24 +78,6 @@ export const checkboxVisual = recipe({
       '[data-invalid] input[type="checkbox"]:disabled + &': {
         borderColor: vars.color.semantic.feedback.destructive.alpha.subtle,
       },
-      'input[type="checkbox"]:not(:disabled) + &::after': {
-        content: '""',
-        position: "absolute",
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: "100%",
-        backgroundColor: overlayColorMap.primary,
-        borderRadius: "inherit",
-        opacity: 0,
-        pointerEvents: "none",
-      },
-      'input[type="checkbox"]:not(:disabled) + &:hover::after': {
-        opacity: overlayOpacityMap.normal.hover,
-      },
-      'input[type="checkbox"]:not(:disabled) + &:active::after': {
-        opacity: overlayOpacityMap.normal.pressed,
-      },
     },
   },
   variants: {
@@ -105,9 +87,27 @@ export const checkboxVisual = recipe({
       sm: { width: checkboxSizeMap.sm.visual, height: checkboxSizeMap.sm.visual },
       xs: { width: checkboxSizeMap.xs.visual, height: checkboxSizeMap.xs.visual },
     } satisfies Record<CheckboxSize, object>,
-    focusRing: {
+    interaction: {
       on: {
         selectors: {
+          'input[type="checkbox"]:not(:disabled) + &::after': {
+            content: '""',
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            backgroundColor: overlayColorMap.primary,
+            borderRadius: "inherit",
+            opacity: 0,
+            pointerEvents: "none",
+          },
+          'input[type="checkbox"]:not(:disabled) + &:hover::after': {
+            opacity: overlayOpacityMap.normal.hover,
+          },
+          'input[type="checkbox"]:not(:disabled) + &:active::after': {
+            opacity: overlayOpacityMap.normal.pressed,
+          },
           'input[type="checkbox"]:focus-visible + &': {
             boxShadow: `0 0 0 ${vars.scheme.semantic.strokeWeight["2"]} ${vars.color.semantic.accent.alpha.alternative}`,
           },
