@@ -184,3 +184,36 @@ export const Controlled: Story = {
     },
   },
 };
+
+export const Sizing: Story = {
+  render: () => (
+    <FlexColumn gap='1.25rem' style={{ width: storyWidth }}>
+      <FlexColumn gap='0.5rem'>
+        <Label>부모 채움 (기본)</Label>
+        <SegmentedControls.Root defaultValue='option1'>{renderItems()}</SegmentedControls.Root>
+      </FlexColumn>
+      <FlexColumn gap='0.5rem'>
+        <Label>래퍼로 너비 제어 (15rem)</Label>
+        <div style={{ width: "15rem" }}>
+          <SegmentedControls.Root defaultValue='option1'>{renderItems()}</SegmentedControls.Root>
+        </div>
+      </FlexColumn>
+      <FlexColumn gap='0.5rem'>
+        <Label>래퍼로 너비 제어 (10rem)</Label>
+        <div style={{ width: "10rem" }}>
+          <SegmentedControls.Root defaultValue='option1'>
+            {renderItems(options.slice(0, 2))}
+          </SegmentedControls.Root>
+        </div>
+      </FlexColumn>
+    </FlexColumn>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "세그먼티드 컨트롤의 기본 너비는 부모 레이아웃을 채우는 width: 100%(Figma의 fill)입니다. 특정 너비가 필요하면 컴포넌트에 직접 width를 주지 않고, 소비처에서 원하는 너비의 래퍼로 감싸 사이즈를 제어합니다. 화면 전체 너비로 늘어나면 위계가 무너지므로 넓은 레이아웃에서는 래퍼로 적절한 너비를 의도하는 것이 권장됩니다.",
+      },
+    },
+  },
+};
