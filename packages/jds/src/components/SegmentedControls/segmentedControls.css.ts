@@ -76,9 +76,6 @@ export const item = recipe({
         '&[data-state="checked"]::before, &[data-state="checked"]::after': {
           inset: "-1px",
         },
-        '&[data-state="unchecked"]': {
-          color: vars.color.semantic.object.alternative,
-        },
         "&:disabled, &[data-disabled]": {
           color: vars.color.semantic.object.subtle,
           cursor: "not-allowed",
