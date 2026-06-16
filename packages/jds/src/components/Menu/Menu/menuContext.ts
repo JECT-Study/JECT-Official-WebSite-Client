@@ -9,10 +9,10 @@ export interface MenuContextValue {
 
 export const MenuContext = createContext<MenuContextValue | undefined>(undefined);
 
-export const useMenuContext = () => {
+export const useMenuContext = (componentName: string) => {
   const context = useContext(MenuContext);
   if (!context) {
-    throw new Error("Menu 컴포넌트는 Menu.Root 내부에서 사용해야 합니다");
+    throw new Error(`${componentName}는 Menu.Root 내부에서만 사용되어야 합니다.`);
   }
   return context;
 };
