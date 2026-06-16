@@ -1,12 +1,13 @@
+import { clsx } from "clsx";
 import { forwardRef } from "react";
 
 import {
-  StyledDivider,
-  StyledLabel,
-  StyledMegaMenuGroup,
-  StyledMegaMenuRoot,
-  StyledMegaMenuSection,
-} from "./megaMenu.styles";
+  megaMenuDivider,
+  megaMenuGroup,
+  megaMenuLabel,
+  megaMenuRoot,
+  megaMenuSection,
+} from "./megaMenu.css";
 import type {
   MegaMenuGroupItemProps,
   MegaMenuGroupProps,
@@ -16,41 +17,45 @@ import type {
 
 import { getLabelClassName } from "@/utils/typography";
 
-const MegaMenuRoot = forwardRef<HTMLDivElement, MegaMenuProps>(({ children, ...rest }, ref) => {
-  return (
-    <StyledMegaMenuRoot ref={ref} {...rest}>
-      {children}
-    </StyledMegaMenuRoot>
-  );
-});
+const MegaMenuRoot = forwardRef<HTMLDivElement, MegaMenuProps>(
+  ({ children, className, ...restProps }, ref) => {
+    return (
+      <div ref={ref} className={clsx(megaMenuRoot, className)} {...restProps}>
+        {children}
+      </div>
+    );
+  },
+);
 
 MegaMenuRoot.displayName = "MegaMenu.Root";
 
 const MegaMenuDivider = () => {
-  return <StyledDivider />;
+  return <hr className={megaMenuDivider} />;
 };
 
 MegaMenuDivider.displayName = "MegaMenu.Divider";
 
 const MegaMenuSection = forwardRef<HTMLDivElement, MegaMenuSectionProps>(
-  ({ children, sectionName = "", ...rest }, ref) => {
+  ({ children, sectionName = "", className, ...restProps }, ref) => {
     return (
-      <StyledMegaMenuSection ref={ref} {...rest}>
-        <StyledLabel className={getLabelClassName({ size: "sm" })}>{sectionName}</StyledLabel>
+      <div ref={ref} className={clsx(megaMenuSection, className)} {...restProps}>
+        <span className={clsx(getLabelClassName({ size: "sm" }), megaMenuLabel)}>
+          {sectionName}
+        </span>
         {children}
-      </StyledMegaMenuSection>
+      </div>
     );
   },
 );
 
-StyledMegaMenuSection.displayName = "MegaMenu.Section";
+MegaMenuSection.displayName = "MegaMenu.Section";
 
 const MegaMenuGroup = forwardRef<HTMLUListElement, MegaMenuGroupProps>(
-  ({ children, ...rest }, ref) => {
+  ({ children, className, ...restProps }, ref) => {
     return (
-      <StyledMegaMenuGroup ref={ref} role='list' {...rest}>
+      <ul ref={ref} role='list' className={clsx(megaMenuGroup, className)} {...restProps}>
         {children}
-      </StyledMegaMenuGroup>
+      </ul>
     );
   },
 );
@@ -58,9 +63,9 @@ const MegaMenuGroup = forwardRef<HTMLUListElement, MegaMenuGroupProps>(
 MegaMenuGroup.displayName = "MegaMenu.Group";
 
 const MegaMenuGroupItem = forwardRef<HTMLLIElement, MegaMenuGroupItemProps>(
-  ({ children, ...rest }, ref) => {
+  ({ children, ...restProps }, ref) => {
     return (
-      <li ref={ref} {...rest}>
+      <li ref={ref} {...restProps}>
         {children}
       </li>
     );

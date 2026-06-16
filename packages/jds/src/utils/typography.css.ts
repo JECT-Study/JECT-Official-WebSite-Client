@@ -1,4 +1,4 @@
-import { style } from "@vanilla-extract/css";
+import { createVar, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
 import type {
@@ -25,11 +25,16 @@ const bodyAlignVariants: Record<BodyTextAlign, { textAlign: "center" | "left" | 
   right: { textAlign: "right" },
 };
 
+export const labelColorVar = createVar();
+
 export const label = recipe({
   base: {
     display: "flex",
     alignItems: "center",
-    color: vars.color.semantic.object.bold,
+    color: labelColorVar,
+    vars: {
+      [labelColorVar]: vars.color.semantic.object.bold,
+    },
   },
   variants: {
     size: {
