@@ -65,7 +65,7 @@ MegaMenuGroup.displayName = "MegaMenu.Group";
 const MegaMenuGroupItem = forwardRef<HTMLLIElement, MegaMenuGroupItemProps>(
   ({ children, ...restProps }, ref) => {
     return (
-      <li ref={ref} role='listitem' {...restProps}>
+      <li ref={ref} {...restProps}>
         {children}
       </li>
     );
