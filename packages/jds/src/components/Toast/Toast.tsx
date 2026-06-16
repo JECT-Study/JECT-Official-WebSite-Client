@@ -2,13 +2,13 @@ import { clsx } from "clsx";
 import { useEffect, useState } from "react";
 
 import * as styles from "./toast.css";
-import type { ToastProps, ToastVariant } from "./toast.types";
+import type { ToastProps, ToastFeedbackVariant } from "./toast.types";
 import { Icon } from "../Icon";
 import type { IconName } from "../Icon";
 
 import { getBodyClassName, getLabelClassName } from "@/utils/typography";
 
-const feedbackIconName: Record<ToastVariant, IconName> = {
+const feedbackIconName: Record<ToastFeedbackVariant, IconName> = {
   positive: "check-line",
   destructive: "error-warning-octagon-line",
   notifying: "alert-line",

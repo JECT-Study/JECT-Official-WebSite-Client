@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import type { LimitedQueueProviderBaseItem } from "@/hooks/useLimitedQueueProvider";
 
 export type ToastFeedback = "none" | "positive" | "destructive" | "notifying";
-export type ToastVariant = Exclude<ToastFeedback, "none">;
+export type ToastFeedbackVariant = Exclude<ToastFeedback, "none">;
 
 export interface ToastBaseProps {
   title: ReactNode;
