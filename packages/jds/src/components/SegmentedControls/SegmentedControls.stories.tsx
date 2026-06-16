@@ -168,8 +168,7 @@ export const ItemSizes: Story = {
   parameters: {
     docs: {
       description: {
-        story:
-          "세그먼티드 컨트롤은 lg, md, sm, xs 사이즈를 제공합니다. 주변 UI 요소와 디바이스 환경에 맞는 크기를 선택합니다.",
+        story: `세그먼티드 컨트롤은 ${sizes.join(", ")} 사이즈를 제공합니다. 주변 UI 요소와 디바이스 환경에 맞는 크기를 선택합니다.`,
       },
     },
   },
