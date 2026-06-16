@@ -1,6 +1,6 @@
 import { clsx } from "clsx";
 import { Tabs as TabsPrimitive } from "radix-ui";
-import { forwardRef } from "react";
+import { forwardRef, useMemo } from "react";
 
 import * as styles from "./tabs.css";
 import { TabsContext, useTabsContext } from "./tabsContext";
@@ -15,8 +15,13 @@ import { getLabelClassName } from "@/utils/typography";
 
 export const TabsRoot = forwardRef<HTMLDivElement, TabsRootProps>(
   ({ children, variant = "header", isItemStretched = false, ...restProps }, ref) => {
+    const contextValue = useMemo(
+      () => ({ variant, isItemStretched }),
+      [variant, isItemStretched],
+    );
+
     return (
-      <TabsContext.Provider value={{ variant, isItemStretched }}>
+      <TabsContext.Provider value={contextValue}>
         <TabsPrimitive.Root ref={ref} {...restProps}>
           {children}
         </TabsPrimitive.Root>
