@@ -141,8 +141,7 @@ const expansionCompoundVariants = CHECKBOX_SIZE_OPTIONS.map(size => ({
   variants: { size, styleOutlined: "hollow" as const },
   style: {
     selectors: {
-      "&::after": { inset: itemInsetBySize[size] },
-      "&::before": { inset: itemInsetBySize[size] },
+      "&::before, &::after": { inset: itemInsetBySize[size] },
     },
   },
 }));
@@ -176,8 +175,7 @@ export const checkboxItem = recipe({
     {
       position: "relative",
       selectors: {
-        "&::after": { inset: 0, borderRadius: "inherit" },
-        "&::before": { inset: 0, borderRadius: "inherit" },
+        "&::before, &::after": { inset: 0, borderRadius: "inherit" },
       },
     },
   ],
