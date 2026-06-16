@@ -3,22 +3,19 @@ import { Tabs as TabsPrimitive } from "radix-ui";
 import { forwardRef, useMemo } from "react";
 
 import * as styles from "./tabs.css";
-import { TabsContext, useTabsContext } from "./tabsContext";
 import type {
   TabsContentProps,
   TabsListProps,
   TabsRootProps,
   TabsTriggerProps,
 } from "./tabs.types";
+import { TabsContext, useTabsContext } from "./tabsContext";
 
 import { getLabelClassName } from "@/utils/typography";
 
 export const TabsRoot = forwardRef<HTMLDivElement, TabsRootProps>(
   ({ children, variant = "header", isItemStretched = false, ...restProps }, ref) => {
-    const contextValue = useMemo(
-      () => ({ variant, isItemStretched }),
-      [variant, isItemStretched],
-    );
+    const contextValue = useMemo(() => ({ variant, isItemStretched }), [variant, isItemStretched]);
 
     return (
       <TabsContext.Provider value={contextValue}>
@@ -51,7 +48,7 @@ export const TabsList = forwardRef<HTMLDivElement, TabsListProps>(
 TabsList.displayName = "Tabs.List";
 
 export const TabsTrigger = forwardRef<HTMLButtonElement, TabsTriggerProps>(
-  ({ children, disabled = false, badge="", className, ...restProps }, ref) => {
+  ({ children, disabled = false, badge = "", className, ...restProps }, ref) => {
     const { variant, isItemStretched } = useTabsContext();
 
     return (
