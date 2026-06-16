@@ -1,4 +1,4 @@
-import { Tabs as TabsPrimitive } from "radix-ui";
+import type { Tabs as TabsPrimitive } from "radix-ui";
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 export type TabsVariant = "header" | "content";
