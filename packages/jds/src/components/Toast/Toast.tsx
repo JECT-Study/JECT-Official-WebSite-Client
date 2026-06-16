@@ -8,6 +8,13 @@ import type { IconName } from "../Icon";
 
 import { getBodyClassName, getLabelClassName } from "@/utils/typography";
 
+type ToastPhase = "enter" | "static" | "exit";
+
+const phaseClassNameMap: Partial<Record<ToastPhase, string>> = {
+  enter: styles.enter,
+  exit: styles.exit,
+};
+
 const feedbackIconName: Record<ToastFeedbackVariant, IconName> = {
   positive: "check-line",
   destructive: "error-warning-octagon-line",
@@ -22,7 +29,7 @@ export const Toast = ({
   title,
   isClosing,
 }: ToastProps) => {
-  const [phase, setPhase] = useState<"enter" | "static" | "exit">("enter");
+  const [phase, setPhase] = useState<ToastPhase>("enter");
   const hasDescription = Boolean(description);
 
   const onAnimationEnd = () => {
@@ -47,7 +54,7 @@ export const Toast = ({
     if (isClosing) setPhase("exit");
   }, [isClosing]);
 
-  const phaseClassName = phase === "enter" ? styles.enter : phase === "exit" ? styles.exit : null;
+  const phaseClassName = phaseClassNameMap[phase];
   const iconName = feedback !== "none" && feedbackIconName[feedback];
 
   return (
