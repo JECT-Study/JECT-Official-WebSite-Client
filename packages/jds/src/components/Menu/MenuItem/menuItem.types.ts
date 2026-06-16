@@ -4,6 +4,7 @@ import type { IconName } from "../../Icon";
 
 export type MenuItemVariant = "icon" | "thumbnail";
 export type MenuItemSize = "lg" | "md" | "sm";
+export type MenuItemTone = "normal" | "accent" | "destructive";
 
 export interface MenuItemButtonProps extends ComponentPropsWithoutRef<"button"> {
   variant?: MenuItemVariant;
@@ -32,14 +33,4 @@ export interface MenuItemAnchorProps extends ComponentPropsWithoutRef<"a"> {
   children: ReactNode;
   imageAlt?: string;
   imageSrc?: string;
-}
-
-export interface StyledMenuItemProps {
-  $isSelected: boolean;
-  $isDestructive: boolean;
-  $isDisabled: boolean;
-}
-
-export interface StyledImageProps {
-  $size: MenuItemSize;
 }

@@ -1,13 +1,10 @@
+import { clsx } from "clsx";
 import { forwardRef } from "react";
 
-import {
-  StyledImage,
-  StyledMenuItemAnchor,
-  StyledMenuItemButton,
-  MenuItemLabel,
-} from "./menuItem.styles";
-import type { MenuItemAnchorProps, MenuItemButtonProps } from "./menuItem.types";
+import { menuItemImage, menuItemLabel, menuItemRoot } from "./menuItem.css";
+import type { MenuItemAnchorProps, MenuItemButtonProps, MenuItemTone } from "./menuItem.types";
 import { Icon } from "../../Icon";
+import { Thumbnail } from "../../Thumbnail";
 
 import { getLabelClassName } from "@/utils/typography";
 
@@ -25,44 +22,57 @@ const MenuItemButton = forwardRef<HTMLButtonElement, MenuItemButtonProps>(
       suffixIconVisible = false,
       imageAlt = "",
       imageSrc = "",
+      className,
       children,
-      ...rest
+      ...restProps
     },
     ref,
   ) => {
     return (
-      <StyledMenuItemButton
+      <button
         ref={ref}
         disabled={disabled}
-        $isDisabled={disabled}
-        $isSelected={isSelected}
-        $isDestructive={isDestructive}
-        {...rest}
+        data-disabled={disabled || undefined}
+        className={clsx(menuItemRoot({ tone: getTone({ isDestructive, isSelected }) }), className)}
+        {...restProps}
       >
         {variant === "icon" && prefixIconVisible && <Icon name={prefixIcon} size={size} />}
         {variant === "thumbnail" && (
-          <StyledImage
+          <Thumbnail
             src={imageSrc}
             alt={imageAlt}
             ratio='1:1'
             orientation='portrait'
             cornerStyle='angular'
-            $size={size}
+            className={menuItemImage({ size })}
           />
         )}
-        <MenuItemLabel
-          className={getLabelClassName({
-            size,
-            cursor: disabled ? undefined : "pointer",
-          })}
+        <span
+          className={clsx(
+            getLabelClassName({
+              size,
+            }),
+            menuItemLabel,
+          )}
         >
           {children}
-        </MenuItemLabel>
+        </span>
         {suffixIconVisible && <Icon name={suffixIcon} size={size} />}
-      </StyledMenuItemButton>
+      </button>
     );
   },
 );
+
+interface getToneParams {
+  isDestructive: boolean;
+  isSelected: boolean;
+}
+
+const getTone = ({ isDestructive, isSelected }: getToneParams): MenuItemTone => {
+  if (isDestructive) return "destructive";
+  if (isSelected) return "accent";
+  return "normal";
+};
 
 MenuItemButton.displayName = "MenuItem.Button";
 
@@ -80,33 +90,35 @@ const MenuItemAnchor = forwardRef<HTMLAnchorElement, MenuItemAnchorProps>(
       suffixIconVisible = false,
       imageAlt = "",
       imageSrc = "",
+      className,
       children,
       ...rest
     },
     ref,
   ) => {
     return (
-      <StyledMenuItemAnchor
+      <a
         ref={ref}
-        $isDisabled={disabled}
-        $isSelected={isSelected}
-        $isDestructive={isDestructive}
+        aria-disabled={disabled || undefined}
+        data-disabled={disabled || undefined}
+        tabIndex={disabled ? -1 : undefined}
+        className={clsx(menuItemRoot({ tone: getTone({ isDestructive, isSelected }) }), className)}
         {...rest}
       >
         {variant === "icon" && prefixIconVisible && <Icon name={prefixIcon} size={size} />}
         {variant === "thumbnail" && (
-          <StyledImage
+          <Thumbnail
             src={imageSrc}
             alt={imageAlt}
             ratio='1:1'
             orientation='portrait'
             cornerStyle='angular'
-            $size={size}
+            className={menuItemImage({ size })}
           />
         )}
-        <MenuItemLabel className={getLabelClassName({ size })}>{children}</MenuItemLabel>
+        <span className={clsx(getLabelClassName({ size }), menuItemLabel)}>{children}</span>
         {suffixIconVisible && <Icon name={suffixIcon} size={size} />}
-      </StyledMenuItemAnchor>
+      </a>
     );
   },
 );
