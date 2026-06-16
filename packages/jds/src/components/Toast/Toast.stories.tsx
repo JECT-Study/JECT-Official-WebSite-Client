@@ -92,10 +92,10 @@ export const UseToastProvider: StoryObj<typeof Toast> = {
             Basic
           </BlockButton.Basic>
           <BlockButton.Feedback onClick={positiveToast} intent='positive'>
-            Feedback
+            Positive
           </BlockButton.Feedback>
           <BlockButton.Feedback onClick={destructiveToast} intent='destructive'>
-            Feedback
+            Destructive
           </BlockButton.Feedback>
           <BlockButton.Basic onClick={notifyingToast} hierarchy='accent' variant='solid'>
             Notifying
@@ -107,10 +107,10 @@ export const UseToastProvider: StoryObj<typeof Toast> = {
             Basic
           </BlockButton.Basic>
           <BlockButton.Feedback onClick={positiveToastDescription} intent='positive'>
-            Feedback
+            Positive
           </BlockButton.Feedback>
           <BlockButton.Feedback onClick={destructiveToastDescription} intent='destructive'>
-            Feedback
+            Destructive
           </BlockButton.Feedback>
           <BlockButton.Basic onClick={notifyingToastDescription} hierarchy='accent' variant='solid'>
             Notifying
@@ -126,7 +126,7 @@ export const UseGlobalToast: StoryObj<typeof Toast> = {
     docs: {
       description: {
         story:
-          "Axios interceptor와 같이 ToastProvider 외부에서 토스트를 띄워야하는 경우(useToast훅을 사용할 수 없습 경우), 전역 toast 함수를 사용하여 토스트를 호출할 수 있습니다. 전역 toast 함수를 사용할 때도 ToastProvider 작성이 필요합니다.",
+          "Axios interceptor와 같이 ToastProvider 외부에서 토스트를 띄워야 하는 경우(useToast훅을 사용할 수 없는 경우), 전역 toast 함수를 사용하여 토스트를 호출할 수 있습니다. 전역 toast 함수를 사용할 때도 ToastProvider 작성이 필요합니다.",
       },
     },
   },
@@ -142,9 +142,9 @@ export const UseGlobalToast: StoryObj<typeof Toast> = {
       "토스트의 맥락과 목적을 레이블만으로 충분히 설명할 수 없을 때 보조적인 설명을 작성합니다.";
 
     const basicToast = () => toastController.basic("베이직 토스트");
-    const positiveToast = () => toastController.positive("피드백 토스트");
-    const destructiveToast = () => toastController.destructive("피드백 토스트");
-    const notifyingToast = () => toastController.notifying("피드백 토스트");
+    const positiveToast = () => toastController.positive("피드백 토스트 - positive");
+    const destructiveToast = () => toastController.destructive("피드백 토스트 - destructive");
+    const notifyingToast = () => toastController.notifying("피드백 토스트 - notifying");
 
     const basicToastDescription = () => toastController.basic("베이직 토스트", description);
     const positiveToastDescription = () =>
@@ -162,10 +162,10 @@ export const UseGlobalToast: StoryObj<typeof Toast> = {
             Basic
           </BlockButton.Basic>
           <BlockButton.Feedback onClick={positiveToast} intent='positive'>
-            Feedback
+            Positive
           </BlockButton.Feedback>
           <BlockButton.Feedback onClick={destructiveToast} intent='destructive'>
-            Feedback
+            Destructive
           </BlockButton.Feedback>
           <BlockButton.Basic onClick={notifyingToast} hierarchy='accent' variant='solid'>
             Notifying
@@ -177,10 +177,10 @@ export const UseGlobalToast: StoryObj<typeof Toast> = {
             Basic
           </BlockButton.Basic>
           <BlockButton.Feedback onClick={positiveToastDescription} intent='positive'>
-            Feedback
+            Positive
           </BlockButton.Feedback>
           <BlockButton.Feedback onClick={destructiveToastDescription} intent='destructive'>
-            Feedback
+            Destructive
           </BlockButton.Feedback>
           <BlockButton.Basic onClick={notifyingToastDescription} hierarchy='accent' variant='solid'>
             Notifying
