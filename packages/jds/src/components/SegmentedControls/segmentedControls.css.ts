@@ -5,28 +5,6 @@ import { vars } from "../../tokens/vars.css";
 import { focusRing } from "../../utils/focusRing.css";
 import { overlay } from "../../utils/overlay.css";
 
-const itemSizeVariants = {
-  lg: {
-    padding: `${vars.scheme.semantic.spacing["10"]} ${vars.scheme.semantic.spacing["16"]}`,
-  },
-  md: {
-    padding: `${vars.scheme.semantic.spacing["8"]} ${vars.scheme.semantic.spacing["12"]}`,
-  },
-  sm: {
-    padding: `${vars.scheme.semantic.spacing["6"]} ${vars.scheme.semantic.spacing["10"]}`,
-  },
-  xs: {
-    padding: `${vars.scheme.semantic.spacing["4"]} ${vars.scheme.semantic.spacing["8"]}`,
-  },
-} satisfies Record<SegmentedControlsSize, object>;
-
-const labelTypographyBySize = {
-  lg: "semantic-textStyle-label-lg-normal",
-  md: "semantic-textStyle-label-md-normal",
-  sm: "semantic-textStyle-label-sm-normal",
-  xs: "semantic-textStyle-label-xs-normal",
-} satisfies Record<SegmentedControlsSize, string>;
-
 export const root = recipe({
   base: {
     display: "flex",
@@ -88,7 +66,20 @@ export const item = recipe({
     },
   ],
   variants: {
-    size: itemSizeVariants,
+    size: {
+      lg: {
+        padding: `${vars.scheme.semantic.spacing["10"]} ${vars.scheme.semantic.spacing["16"]}`,
+      },
+      md: {
+        padding: `${vars.scheme.semantic.spacing["8"]} ${vars.scheme.semantic.spacing["12"]}`,
+      },
+      sm: {
+        padding: `${vars.scheme.semantic.spacing["6"]} ${vars.scheme.semantic.spacing["10"]}`,
+      },
+      xs: {
+        padding: `${vars.scheme.semantic.spacing["4"]} ${vars.scheme.semantic.spacing["8"]}`,
+      },
+    } satisfies Record<SegmentedControlsSize, object>,
   },
 });
 
@@ -104,6 +95,11 @@ export const itemLabel = recipe({
     whiteSpace: "nowrap",
   },
   variants: {
-    size: labelTypographyBySize,
+    size: {
+      lg: "semantic-textStyle-label-lg-normal",
+      md: "semantic-textStyle-label-md-normal",
+      sm: "semantic-textStyle-label-sm-normal",
+      xs: "semantic-textStyle-label-xs-normal",
+    } satisfies Record<SegmentedControlsSize, string>,
   },
 });
