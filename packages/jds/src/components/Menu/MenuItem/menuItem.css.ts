@@ -39,8 +39,7 @@ const baseStyles = style({
       color: vars.color.semantic.object.subtle,
     },
     // ::before = focusRing, ::after = overlay
-    "&::before": { inset: LAYER_INSET, borderRadius: LAYER_RADIUS },
-    "&::after": { inset: LAYER_INSET, borderRadius: LAYER_RADIUS },
+    "&::before, &::after": { inset: LAYER_INSET, borderRadius: LAYER_RADIUS },
   },
 });
 
