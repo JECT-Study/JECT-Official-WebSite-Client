@@ -7,8 +7,6 @@ import type { ToastFeedback } from "./toast.types";
 
 import { breakpoints } from "@/tokens/breakpoints";
 
-const mobileViewport = `screen and (max-width: ${breakpoints.mobile.max}px)`;
-
 const slideIn = keyframes({
   from: { opacity: 0, transform: "translateY(100%)" },
   to: { opacity: 1, transform: "translateY(0)" },
@@ -30,7 +28,7 @@ export const stackContainer = style({
   padding: vars.scheme.semantic.spacing["40"],
   overflow: "hidden",
   "@media": {
-    [mobileViewport]: {
+    [`screen and (max-width: ${breakpoints.mobile.max}px)`]: {
       left: 0,
       padding: vars.scheme.semantic.spacing["24"],
       boxSizing: "border-box",
