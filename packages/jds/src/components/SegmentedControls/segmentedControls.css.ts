@@ -11,7 +11,6 @@ export const root = recipe({
     alignItems: "center",
     justifyContent: "center",
     gap: vars.scheme.semantic.spacing["2"],
-    flex: "1 0 0",
     minWidth: 0,
     width: "100%",
     background: vars.color.semantic.fill.subtlest,
