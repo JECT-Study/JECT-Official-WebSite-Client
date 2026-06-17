@@ -40,7 +40,6 @@ export interface CheckboxItemProps extends ComponentPropsWithoutRef<"div"> {
   variant?: CheckboxVariant;
   disabled?: boolean;
   isInvalid?: boolean;
-  controlId?: string;
   children: ReactNode;
 }
 
