@@ -9,6 +9,9 @@ export interface CheckboxContextValue {
   disabled: boolean;
   isInvalid: boolean;
   labelId?: string;
+  helperId?: string;
+  hasHelper?: boolean;
+  onHelperMountChange?: (mounted: boolean) => void;
   state?: CheckboxGroupState;
   onChildCheckedChange?: (checked: CheckedState) => void;
   withinItem?: boolean;

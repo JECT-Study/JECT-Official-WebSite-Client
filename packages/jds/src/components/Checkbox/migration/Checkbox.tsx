@@ -81,6 +81,7 @@ const CheckboxItem = forwardRef<HTMLLabelElement, CheckboxItemProps>(
   ) => {
     const parentContext = useCheckboxContext();
     const labelId = useId();
+    const helperId = useId();
 
     const size = sizeProp ?? parentContext?.size ?? "md";
     const isDisabled = disabled || (parentContext?.disabled ?? false);
@@ -88,6 +89,7 @@ const CheckboxItem = forwardRef<HTMLLabelElement, CheckboxItemProps>(
     const isInvalid = isInvalidProp ?? parentContext?.isInvalid ?? false;
 
     const [childChecked, setChildChecked] = useState<CheckedState>(false);
+    const [hasHelper, setHasHelper] = useState(false);
     const isEffectiveInvalid = isInvalid && childChecked === false;
 
     const { containerPressableProps } = useContainerPressable({ disabled: isDisabled });
@@ -101,6 +103,9 @@ const CheckboxItem = forwardRef<HTMLLabelElement, CheckboxItemProps>(
           disabled: isDisabled,
           isInvalid,
           labelId,
+          helperId,
+          hasHelper,
+          onHelperMountChange: setHasHelper,
           onChildCheckedChange: setChildChecked,
           withinItem: true,
         }}
@@ -127,6 +132,7 @@ CheckboxItem.displayName = "Checkbox.Item";
 interface CheckboxControlProps {
   isWithinItem: boolean;
   labelId?: string;
+  describedById?: string;
   isEffectiveInvalid: boolean;
   size: CheckboxSize;
   interaction: "on" | "off";
@@ -138,6 +144,7 @@ interface CheckboxControlProps {
 const CheckboxControl = ({
   isWithinItem,
   labelId,
+  describedById,
   isEffectiveInvalid,
   size,
   interaction,
@@ -153,6 +160,7 @@ const CheckboxControl = ({
         ref={inputRef}
         aria-invalid={isEffectiveInvalid || undefined}
         aria-labelledby={isWithinItem ? labelId : undefined}
+        aria-describedby={describedById}
         className={checkboxInput}
       />
       <span className={checkboxVisual({ size, interaction })} aria-hidden='true'>
@@ -179,6 +187,7 @@ interface CheckboxBasicGroupedProps {
   isInvalid: boolean;
   isWithinItem: boolean;
   labelId?: string;
+  describedById?: string;
   interaction: "on" | "off";
   state: CheckboxGroupState;
   onChildCheckedChange?: (checked: CheckedState) => void;
@@ -193,6 +202,7 @@ const CheckboxBasicGrouped = ({
   isInvalid,
   isWithinItem,
   labelId,
+  describedById,
   interaction,
   state,
   onChildCheckedChange,
@@ -215,6 +225,7 @@ const CheckboxBasicGrouped = ({
     <CheckboxControl
       isWithinItem={isWithinItem}
       labelId={labelId}
+      describedById={describedById}
       isEffectiveInvalid={isEffectiveInvalid}
       size={size}
       interaction={interaction}
@@ -232,6 +243,7 @@ interface CheckboxBasicStandaloneProps {
   interaction: "on" | "off";
   isWithinItem: boolean;
   labelId?: string;
+  describedById?: string;
   checked?: boolean | "indeterminate";
   defaultChecked?: boolean;
   onCheckedChange?: (checked: boolean | "indeterminate") => void;
@@ -247,6 +259,7 @@ const CheckboxBasicStandalone = ({
   interaction,
   isWithinItem,
   labelId,
+  describedById,
   checked,
   defaultChecked,
   onCheckedChange,
@@ -288,6 +301,7 @@ const CheckboxBasicStandalone = ({
     <CheckboxControl
       isWithinItem={isWithinItem}
       labelId={labelId}
+      describedById={describedById}
       isEffectiveInvalid={isEffectiveInvalid}
       size={size}
       interaction={interaction}
@@ -320,6 +334,7 @@ const CheckboxBasic = forwardRef<HTMLInputElement, CheckboxBasicProps>(
     const isWithinItem = context?.withinItem ?? false;
     const interaction = isWithinItem ? "off" : "on";
     const labelId = context?.labelId;
+    const describedById = isWithinItem && context?.hasHelper ? context?.helperId : undefined;
 
     if (context?.state) {
       if (!value) {
@@ -339,6 +354,7 @@ const CheckboxBasic = forwardRef<HTMLInputElement, CheckboxBasicProps>(
           onChildCheckedChange={context?.onChildCheckedChange}
           isWithinItem={isWithinItem}
           labelId={labelId}
+          describedById={describedById}
           forwardedRef={forwardedRef}
           restProps={restProps}
         />
@@ -353,6 +369,7 @@ const CheckboxBasic = forwardRef<HTMLInputElement, CheckboxBasicProps>(
         interaction={interaction}
         isWithinItem={isWithinItem}
         labelId={labelId}
+        describedById={describedById}
         checked={checked}
         defaultChecked={defaultChecked}
         onCheckedChange={onCheckedChange}
@@ -389,9 +406,17 @@ CheckboxLabel.displayName = "Checkbox.Label";
 const CheckboxHelper = forwardRef<HTMLDivElement, CheckboxHelperProps>(({ children }, ref) => {
   const context = useCheckboxContext();
   const size = context?.size ?? "md";
+  const onHelperMountChange = context?.onHelperMountChange;
+
+  useLayoutEffect(() => {
+    onHelperMountChange?.(true);
+    return () => onHelperMountChange?.(false);
+  }, [onHelperMountChange]);
+
   return (
     <div
       ref={ref}
+      id={context?.helperId}
       className={clsx(
         getLabelClassName({ size: checkboxSizeMap[size].helper, weight: "subtle" }),
         checkboxHelper,
