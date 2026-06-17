@@ -35,7 +35,7 @@ export type CheckboxRootProps = CheckboxRootBaseProps &
 
 // Checkbox.Item
 
-export interface CheckboxItemProps extends ComponentPropsWithoutRef<"div"> {
+export interface CheckboxItemProps extends ComponentPropsWithoutRef<"label"> {
   size?: CheckboxSize;
   variant?: CheckboxVariant;
   disabled?: boolean;
