@@ -1,6 +1,5 @@
+import { Title } from "@jects/jds";
 import type { ReactNode } from "react";
-
-import { Title } from "@/components/common/typography";
 
 interface QuestionFieldWrapperProps {
   title: string;

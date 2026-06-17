@@ -1,4 +1,4 @@
-import { Title } from "@/components/common/typography";
+import { Title } from "@jects/jds";
 
 const GrowthStorySection = () => {
   return (

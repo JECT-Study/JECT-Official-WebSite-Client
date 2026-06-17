@@ -1,7 +1,6 @@
-import { Icon } from "@jects/jds";
+import { Icon, Title } from "@jects/jds";
 
 import Footer from "@/components/common/footer/Footer";
-import { Title } from "@/components/common/typography";
 import PagesContainer from "@/components/layout/PagesContainer";
 
 function Maintenance() {

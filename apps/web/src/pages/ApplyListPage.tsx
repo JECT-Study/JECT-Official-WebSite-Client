@@ -1,11 +1,10 @@
-import { Card, Divider, Select, SelectField } from "@jects/jds";
+import { Card, Divider, Hero, Select, SelectField, Title } from "@jects/jds";
 import { Fragment, useState } from "react";
 
 import backendImage from "@/assets/images/backend.png";
 import frontendImage from "@/assets/images/frontend.png";
 import productDesignerImage from "@/assets/images/product-designer.png";
 import productManagerImage from "@/assets/images/product-manager.png";
-import { Hero, Title } from "@/components/common/typography";
 import PageHeroContainer from "@/components/layout/PageHeroContainer";
 import PageModule from "@/components/layout/PageModule";
 import { PATH } from "@/constants/path";

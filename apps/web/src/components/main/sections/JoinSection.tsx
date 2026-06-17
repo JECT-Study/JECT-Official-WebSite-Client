@@ -1,8 +1,7 @@
-import { BlockButton, Image } from "@jects/jds";
+import { BlockButton, Hero, Image, Label } from "@jects/jds";
 import { useNavigate } from "react-router-dom";
 
 import joinTeamMeetingImage from "@/assets/images/join-team-meeting.png";
-import { Hero, Label } from "@/components/common/typography";
 import { PATH } from "@/constants/path";
 import { trackApplyStart } from "@/utils/analytics";
 
@@ -21,7 +20,7 @@ const JoinSection = () => {
           <div className='flex flex-col gap-(--semantic-spacing-48)'>
             <div className='flex flex-col gap-(--semantic-spacing-16)'>
               <div className='whitespace-pre-line'>
-                <Hero size='xs' textAlign='left' className='text-white'>
+                <Hero size='xs' textAlign='left' color='white'>
                   {"젝트의 구성원으로\n함께해주세요"}
                 </Hero>
               </div>
@@ -29,7 +28,7 @@ const JoinSection = () => {
                 size='lg'
                 textAlign='left'
                 weight='bold'
-                className='text-(--semantic-object-static-inverse-normal)'
+                color='var(--semantic-object-static-inverse-normal)'
               >
                 모든 구성원들의 몰입과 성장을 위해.
               </Label>

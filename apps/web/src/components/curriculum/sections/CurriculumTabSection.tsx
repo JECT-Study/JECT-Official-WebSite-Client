@@ -1,6 +1,5 @@
-import { ContentBadge, EmptyState, Tab } from "@jects/jds";
+import { ContentBadge, EmptyState, Tab, Title } from "@jects/jds";
 
-import { Title } from "@/components/common/typography";
 import { figmaGuideCurriculumData, teamProjectScheduleData } from "@/constants/curriculumData";
 import type { FigmaGuideItem, TeamProjectItem } from "@/types/ui/curriculum";
 
@@ -64,11 +63,11 @@ const CurriculumTabSection = () => {
       </Tab.List>
 
       <Tab.Content value='team-project-schedule'>
-        <div className='tablet:grid-cols-2 grid w-full grid-cols-1 gap-(--semantic-spacing-16) pt-(--semantic-spacing-48)'>
+        <div className='grid w-full grid-cols-1 gap-(--semantic-spacing-16) pt-(--semantic-spacing-48) tablet:grid-cols-2'>
           {teamProjectScheduleData.map(item => (
             <TeamProjectCard key={item.id} item={item} />
           ))}
-          <div className='[&>div]:h-full [&>div]:max-w-full! [&>div]:min-w-0!'>
+          <div className='[&>div]:h-full [&>div]:min-w-0! [&>div]:max-w-full!'>
             <EmptyState
               variant='outlined'
               header='그 밖에 더 많은 활동들이 기다리고 있어요...'
@@ -79,7 +78,7 @@ const CurriculumTabSection = () => {
       </Tab.Content>
 
       <Tab.Content value='figma-guide-curriculum'>
-        <div className='tablet:grid-cols-2 grid w-full grid-cols-1 gap-(--semantic-spacing-16) pt-(--semantic-spacing-48)'>
+        <div className='grid w-full grid-cols-1 gap-(--semantic-spacing-16) pt-(--semantic-spacing-48) tablet:grid-cols-2'>
           {figmaGuideCurriculumData.map(item => (
             <FigmaGuideCard key={item.id} item={item} />
           ))}

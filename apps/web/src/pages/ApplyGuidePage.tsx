@@ -4,17 +4,18 @@ import {
   Accordion,
   BlockButton,
   Divider,
+  Hero,
   IconButton,
   Label,
   LocalNavigation,
   Tab,
+  Title,
   toastController,
 } from "@jects/jds";
 import { theme } from "@jects/jds/tokens";
 import { useNavigate, useParams, useSearchParams, Navigate } from "react-router-dom";
 
 import type { JobFamily } from "@/apis/apply";
-import { Hero, Title } from "@/components/common/typography";
 import PageModule from "@/components/layout/PageModule";
 import {
   findJobFamilyOption,
