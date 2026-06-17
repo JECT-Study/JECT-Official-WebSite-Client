@@ -5,9 +5,9 @@ import { tableHeader } from "./table.css";
 import type { TableHeaderSectionProps } from "../Table.types";
 
 export const TableHeader = forwardRef<HTMLTableSectionElement, TableHeaderSectionProps>(
-  ({ children, className, ...restProps }, ref) => (
+  ({ children, className, rowProps, ...restProps }, ref) => (
     <thead ref={ref} className={clsx(tableHeader, className)} {...restProps}>
-      <tr>{children}</tr>
+      <tr {...rowProps}>{children}</tr>
     </thead>
   ),
 );
