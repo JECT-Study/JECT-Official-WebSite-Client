@@ -25,31 +25,37 @@ export const tableBody = style({
   background: vars.color.semantic.surface.standard,
 });
 
+const cellBorder = `${vars.scheme.semantic.strokeWeight[1]} solid ${vars.color.semantic.stroke.subtle}`;
+
+const cellBorderBase = {
+  borderBottom: cellBorder,
+  selectors: {
+    "&:last-child": {
+      borderRight: "none",
+    },
+  },
+} as const;
+
+const dividerVariants = {
+  hasDivider: {
+    true: {
+      borderRight: cellBorder,
+    },
+    false: {
+      borderRight: "none",
+    },
+  },
+} as const;
+
 export const tableHeaderItem = recipe({
   base: {
     padding: vars.scheme.semantic.spacing["0"],
     verticalAlign: "middle",
     textAlign: "left",
     fontWeight: "normal",
-
-    borderBottom: `${vars.scheme.semantic.strokeWeight[1]} solid ${vars.color.semantic.stroke.subtle}`,
-
-    selectors: {
-      "&:last-child": {
-        borderRight: "none",
-      },
-    },
+    ...cellBorderBase,
   },
-  variants: {
-    hasDivider: {
-      true: {
-        borderRight: `${vars.scheme.semantic.strokeWeight[1]} solid ${vars.color.semantic.stroke.subtle}`,
-      },
-      false: {
-        borderRight: "none",
-      },
-    },
-  },
+  variants: dividerVariants,
 });
 
 export const tableHeaderLabel = style({
@@ -77,44 +83,25 @@ export const tableRowItem = recipe({
   base: {
     padding: `${vars.scheme.semantic.spacing["10"]} ${vars.scheme.semantic.spacing["12"]}`,
     verticalAlign: "top",
-
-    borderBottom: `${vars.scheme.semantic.strokeWeight[1]} solid ${vars.color.semantic.stroke.subtle}`,
-
-    selectors: {
-      "&:last-child": {
-        borderRight: "none",
-      },
-    },
+    ...cellBorderBase,
   },
-  variants: {
-    hasDivider: {
-      true: {
-        borderRight: `${vars.scheme.semantic.strokeWeight[1]} solid ${vars.color.semantic.stroke.subtle}`,
-      },
-      false: {
-        borderRight: "none",
-      },
-    },
-  },
+  variants: dividerVariants,
 });
 
 export const tableItemContent = recipe({
   base: {
     display: "flex",
+    flexDirection: "column",
+    gap: vars.scheme.semantic.spacing["4"],
   },
   variants: {
     variant: {
-      label: {
-        flexDirection: "column",
-        gap: vars.scheme.semantic.spacing["4"],
-      },
-      code: {
-        flexDirection: "column",
-        gap: vars.scheme.semantic.spacing["4"],
-      },
+      label: {},
+      code: {},
       badge: {
         flexDirection: "row",
         alignItems: "flex-start",
+        gap: 0,
       },
     },
   },
