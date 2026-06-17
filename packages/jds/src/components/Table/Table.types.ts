@@ -46,3 +46,12 @@ export type TableRowItemProps =
   | TableRowItemLabelProps
   | TableRowItemCodeProps
   | TableRowItemBadgeProps;
+
+type KeysOfUnion<T> = T extends unknown ? keyof T : never;
+
+type TableRowItemCustomKey = Exclude<
+  KeysOfUnion<TableRowItemProps>,
+  keyof HTMLAttributes<HTMLTableCellElement>
+>;
+
+export type TableRowItemOwnKey = TableRowItemCustomKey | "children" | "color";
