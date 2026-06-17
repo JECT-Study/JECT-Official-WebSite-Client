@@ -1,9 +1,16 @@
-import { BlockButton, Checkbox, Icon, TextField, toastController, Tooltip } from "@jects/jds";
+import {
+  BlockButton,
+  Checkbox,
+  Icon,
+  Label,
+  TextField,
+  toastController,
+  Tooltip,
+} from "@jects/jds";
 import { Controller } from "react-hook-form";
 
 import { SelectController } from "./components/SelectController";
 
-import { Label } from "@/components/common/typography";
 import { APPLY_MESSAGE } from "@/constants/applyMessages";
 import { APPLY_TITLE } from "@/constants/applyPageData";
 import { ApplyStepLayout } from "@/features/shared/components";

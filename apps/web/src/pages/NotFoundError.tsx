@@ -1,8 +1,7 @@
-import { BlockButton } from "@jects/jds";
+import { BlockButton, Hero, Title } from "@jects/jds";
 import { useNavigate } from "react-router-dom";
 
 import Footer from "@/components/common/footer/Footer";
-import { Hero, Title } from "@/components/common/typography";
 import GlobalNavigationBar from "@/components/gnb/GlobalNavigationBar";
 import PageBoard from "@/components/layout/PageBoard";
 import PageModule from "@/components/layout/PageModule";
@@ -18,7 +17,7 @@ function NotFoundError() {
           <PageModule className='h-dvh'>
             <div className='flex h-full w-full flex-col items-center justify-center gap-(--semantic-spacing-32) pt-(--semantic-margin-xl) pb-(--semantic-margin-3xl)'>
               <div className='text-(--semantic-feedback-notifying-normal)'>
-                <Hero size='lg' className='text-inherit'>
+                <Hero size='lg' color='inherit'>
                   404
                 </Hero>
               </div>

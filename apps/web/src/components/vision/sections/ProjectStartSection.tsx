@@ -1,4 +1,4 @@
-import { Title } from "@/components/common/typography";
+import { Title } from "@jects/jds";
 
 const ProjectStartSection = () => {
   return (
@@ -8,7 +8,7 @@ const ProjectStartSection = () => {
           프로<span className='text-(--semantic-accent-normal)'>젝트</span>&nbsp;시작
         </Title>
 
-        <Title size='md' textAlign='left' className='text-(--semantic-object-boldest)'>
+        <Title size='md' textAlign='left' color='var(--semantic-object-boldest)'>
           젝트는 개발자들의 소규모 사이드 프로젝트 모임으로 시작했습니다.
         </Title>
 

@@ -1,8 +1,17 @@
-import { Callout, ContentBadge, EmptyState, Icon, Image, LabelButton } from "@jects/jds";
+import {
+  Callout,
+  ContentBadge,
+  EmptyState,
+  Hero,
+  Icon,
+  Image,
+  Label,
+  LabelButton,
+  Title as JdsTitle,
+} from "@jects/jds";
 import { useNavigate } from "react-router-dom";
 
 import introTeamMeetingImage from "@/assets/images/intro-team-meeting.png";
-import { Hero, Label, Title } from "@/components/common/typography";
 import { positionData, programData, statData } from "@/constants/mainPageData";
 
 const wrapperClassName =
@@ -68,12 +77,7 @@ const IntroSection = () => {
                   </Callout.Basic>
                 ))}
               </div>
-              <Label
-                as='span'
-                size='sm'
-                weight='normal'
-                className='text-(--semantic-object-assistive)'
-              >
+              <Label as='span' size='sm' weight='normal' color='var(--semantic-object-assistive)'>
                 *현 4기 기준, 진행 완료 및 진행중 프로젝트 포함.
               </Label>
             </div>
@@ -103,9 +107,9 @@ const IntroSection = () => {
               >
                 <div className='flex items-center gap-(--semantic-spacing-8)'>
                   <Icon name={icon} size='2xl' />
-                  <Title size='sm' textAlign='left'>
+                  <JdsTitle size='sm' textAlign='left'>
                     {title}
-                  </Title>
+                  </JdsTitle>
                 </div>
                 <p className='body-md font-(--primitive-font-weight-body-bold) text-(--semantic-object-normal)'>
                   {description}
