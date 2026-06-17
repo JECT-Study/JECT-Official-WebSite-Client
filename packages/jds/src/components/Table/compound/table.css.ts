@@ -25,18 +25,29 @@ export const tableBody = style({
   background: vars.color.semantic.surface.standard,
 });
 
-export const tableHeaderItem = style({
-  padding: vars.scheme.semantic.spacing["0"],
-  verticalAlign: "middle",
-  textAlign: "left",
-  fontWeight: "normal",
+export const tableHeaderItem = recipe({
+  base: {
+    padding: vars.scheme.semantic.spacing["0"],
+    verticalAlign: "middle",
+    textAlign: "left",
+    fontWeight: "normal",
 
-  borderBottom: `${vars.scheme.semantic.strokeWeight[1]} solid ${vars.color.semantic.stroke.subtle}`,
-  borderRight: `${vars.scheme.semantic.strokeWeight[1]} solid ${vars.color.semantic.stroke.subtle}`,
+    borderBottom: `${vars.scheme.semantic.strokeWeight[1]} solid ${vars.color.semantic.stroke.subtle}`,
 
-  selectors: {
-    "&:last-child": {
-      borderRight: "none",
+    selectors: {
+      "&:last-child": {
+        borderRight: "none",
+      },
+    },
+  },
+  variants: {
+    hasDivider: {
+      true: {
+        borderRight: `${vars.scheme.semantic.strokeWeight[1]} solid ${vars.color.semantic.stroke.subtle}`,
+      },
+      false: {
+        borderRight: "none",
+      },
     },
   },
 });

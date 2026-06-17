@@ -7,10 +7,10 @@ import type { TableHeaderProps } from "../Table.types";
 import { getLabelClassName } from "@/utils/typography";
 
 export const TableHeaderItem = forwardRef<HTMLTableCellElement, TableHeaderProps>(
-  ({ children, className, style, width, ...restProps }, ref) => (
+  ({ children, className, style, width, hasDivider = true, ...restProps }, ref) => (
     <th
       ref={ref}
-      className={clsx(tableHeaderItem, className)}
+      className={clsx(tableHeaderItem({ hasDivider }), className)}
       style={{ width, ...style }}
       {...restProps}
     >
