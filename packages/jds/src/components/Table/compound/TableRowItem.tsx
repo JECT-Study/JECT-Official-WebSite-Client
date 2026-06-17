@@ -45,7 +45,7 @@ const CodeContent = ({ children }: Pick<TableRowItemBaseProps, "children">) => (
 const LabelContent = ({ children, prefixIcon, color }: Omit<TableRowItemLabelProps, "variant">) => (
   <div className={tableItemTitle}>
     {prefixIcon && <Icon name={prefixIcon} size='sm' aria-hidden='true' />}
-    {color && <ColorChip color={color} />}
+    {color && <ColorChip color={color} aria-hidden='true' />}
     <span className={getLabelClassName()}>{children}</span>
   </div>
 );
