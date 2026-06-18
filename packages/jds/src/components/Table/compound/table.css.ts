@@ -6,23 +6,16 @@ import { labelColorVar } from "@/utils/typography.css";
 
 export const tableRoot = style({
   width: "100%",
-
   tableLayout: "fixed",
   borderSpacing: 0,
   overflow: "hidden",
-
   borderRadius: vars.scheme.semantic.radius["10"],
   border: `${vars.scheme.semantic.strokeWeight[1]} solid ${vars.color.semantic.stroke.subtle}`,
-
   background: vars.color.semantic.surface.standard,
 });
 
 export const tableHeader = style({
   background: vars.color.semantic.surface.deeper,
-});
-
-export const tableBody = style({
-  background: vars.color.semantic.surface.standard,
 });
 
 const cellBorder = `${vars.scheme.semantic.strokeWeight[1]} solid ${vars.color.semantic.stroke.subtle}`;
@@ -49,7 +42,7 @@ const dividerVariants = {
 
 export const tableHeaderItem = recipe({
   base: {
-    padding: vars.scheme.semantic.spacing["0"],
+    padding: 0,
     verticalAlign: "middle",
     textAlign: "left",
     fontWeight: "normal",
@@ -71,9 +64,7 @@ export const tableHeaderLabel = style({
   },
 });
 
-export const tableRow = style({
-  background: vars.color.semantic.surface.standard,
-});
+export const tableRow = style({});
 
 globalStyle(`${tableRow}:last-of-type > td`, {
   borderBottom: "none",
