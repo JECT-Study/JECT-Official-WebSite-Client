@@ -75,7 +75,7 @@ export const tableRow = style({
   background: vars.color.semantic.surface.standard,
 });
 
-globalStyle(`${tableRow}:last-of-type td`, {
+globalStyle(`${tableRow}:last-of-type > td`, {
   borderBottom: "none",
 });
 
@@ -109,7 +109,7 @@ export const tableItemContent = recipe({
 
 export const tableItemTitle = style({
   display: "flex",
-  alignItems: "flex-start",
+  alignItems: "center",
   gap: vars.scheme.semantic.spacing["6"],
 });
 

@@ -9,7 +9,7 @@ export interface TableRowItemBaseProps extends HTMLAttributes<HTMLTableCellEleme
   children: ReactNode;
 }
 
-export interface TableHeaderProps extends HTMLAttributes<HTMLTableCellElement> {
+export interface TableHeaderItemProps extends HTMLAttributes<HTMLTableCellElement> {
   children: ReactNode;
   width?: string | number;
   hasDivider?: boolean;
