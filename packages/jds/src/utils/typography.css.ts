@@ -1,4 +1,4 @@
-import { createVar, style } from "@vanilla-extract/css";
+import { createVar, fallbackVar, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
 import type {
@@ -31,10 +31,7 @@ export const label = recipe({
   base: {
     display: "flex",
     alignItems: "center",
-    color: labelColorVar,
-    vars: {
-      [labelColorVar]: vars.color.semantic.object.bold,
-    },
+    color: fallbackVar(labelColorVar, vars.color.semantic.object.bold),
   },
   variants: {
     size: {
@@ -112,11 +109,13 @@ export const label = recipe({
   },
 });
 
+export const titleColorVar = createVar();
+
 export const title = recipe({
   base: {
     display: "flex",
     alignItems: "center",
-    color: vars.color.semantic.object.bolder,
+    color: fallbackVar(titleColorVar, vars.color.semantic.object.bolder),
     cursor: "default",
   },
   variants: {
