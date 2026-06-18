@@ -94,6 +94,10 @@ const iconSizeByAccordionSizeMap: Record<AccordionSize, IconSize> = {
 
 AccordionTrigger.displayName = "Accordion.Trigger";
 
+/**
+ * Accordion.Content
+ * - 아코디언이 열렸을 때 보여지는 상세 내용 영역입니다.
+ */
 const AccordionContent = forwardRef<HTMLDivElement, AccordionContentProps>(
   ({ children, className, ...restProps }, ref) => {
     const { isStretched, size } = useAccordionContext("Accordion.Content");
