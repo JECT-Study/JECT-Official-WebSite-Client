@@ -51,7 +51,7 @@ export const trigger = recipe({
   base: [overlay({ nativeHover: true }), focusRing(), triggerBase],
   variants: {
     isStretched: {
-      true: { padding: 0 },
+      true: { padding: `${vars.scheme.semantic.spacing["0"]}` },
       false: {
         padding: `${vars.scheme.semantic.spacing["4"]} ${vars.scheme.semantic.spacing["16"]}`,
       },
@@ -90,13 +90,15 @@ export const chevron = style({
   },
 });
 
+const RADIX_ACCORDION_CONTENT_HEIGHT_VAR = "var(--radix-accordion-content-height)";
+
 const slideDown = keyframes({
   from: { height: 0 },
-  to: { height: "var(--radix-accordion-content-height)" },
+  to: { height: RADIX_ACCORDION_CONTENT_HEIGHT_VAR },
 });
 
 const slideUp = keyframes({
-  from: { height: "var(--radix-accordion-content-height)" },
+  from: { height: RADIX_ACCORDION_CONTENT_HEIGHT_VAR },
   to: { height: 0 },
 });
 
@@ -123,8 +125,10 @@ export const contentText = recipe({
   },
   variants: {
     isStretched: {
-      true: { padding: 0 },
-      false: { padding: `0 ${vars.scheme.semantic.spacing["16"]}` },
+      true: { padding: `${vars.scheme.semantic.spacing["0"]}` },
+      false: {
+        padding: `${vars.scheme.semantic.spacing["0"]} ${vars.scheme.semantic.spacing["16"]}`,
+      },
     },
   },
   defaultVariants: {
