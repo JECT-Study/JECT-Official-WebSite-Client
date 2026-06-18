@@ -23,12 +23,12 @@ import { getBodyClassName, getLabelClassName } from "@/utils/typography";
  * - Context를 통해 내부 컴포넌트들에게 size와 isStretched 상태를 공유합니다.
  */
 const AccordionRoot = forwardRef<HTMLDivElement, AccordionRootProps>(
-  ({ children, isStretched = true, size = "lg", ...props }, ref) => {
+  ({ children, isStretched = true, size = "lg", ...restProps }, ref) => {
     const contextValue = useMemo(() => ({ isStretched, size }), [isStretched, size]);
 
     return (
       <AccordionContext.Provider value={contextValue}>
-        <AccordionPrimitive.Root {...props} ref={ref}>
+        <AccordionPrimitive.Root ref={ref} {...restProps}>
           <div className={styles.root}>{children}</div>
         </AccordionPrimitive.Root>
       </AccordionContext.Provider>
@@ -43,8 +43,8 @@ AccordionRoot.displayName = "Accordion.Root";
  * - 개별 아코디언 항목을 감싸는 래퍼입니다.
  */
 const AccordionItem = forwardRef<HTMLDivElement, AccordionItemProps>(
-  ({ children, ...props }, ref) => (
-    <AccordionPrimitive.Item {...props} ref={ref}>
+  ({ children, ...restProps }, ref) => (
+    <AccordionPrimitive.Item ref={ref} {...restProps}>
       {children}
     </AccordionPrimitive.Item>
   ),
@@ -58,7 +58,7 @@ AccordionItem.displayName = "Accordion.Item";
  * - Context에서 주입된 size에 따라 스타일(아이콘 크기, 폰트 크기)이 결정됩니다.
  */
 const AccordionTrigger = forwardRef<HTMLButtonElement, AccordionTriggerProps>(
-  ({ children, withPrefixIcon, className, ...props }, ref) => {
+  ({ children, withPrefixIcon, className, ...restProps }, ref) => {
     const { isStretched, size } = useAccordionContext("Accordion.Trigger");
 
     const iconSize = iconSizeByAccordionSizeMap[size];
@@ -66,9 +66,9 @@ const AccordionTrigger = forwardRef<HTMLButtonElement, AccordionTriggerProps>(
     return (
       <AccordionPrimitive.Header>
         <AccordionPrimitive.Trigger
-          {...props}
           ref={ref}
           className={clsx(styles.trigger({ isStretched }), className)}
+          {...restProps}
         >
           <div className={styles.labelContainer}>
             {withPrefixIcon && <Icon size={iconSize} name={withPrefixIcon} aria-hidden />}
