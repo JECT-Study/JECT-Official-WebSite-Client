@@ -57,14 +57,9 @@ export const root = recipe({
       destructive: { gap: vars.scheme.semantic.spacing["10"] },
       notifying: { gap: vars.scheme.semantic.spacing["10"] },
     } satisfies Record<ToastFeedback, object>,
-    withDescription: {
-      true: {},
-      false: {},
-    },
   },
   defaultVariants: {
     feedback: "none",
-    withDescription: false,
   },
 });
 

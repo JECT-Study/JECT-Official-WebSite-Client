@@ -60,7 +60,7 @@ export const Toast = ({
   return (
     <div
       id={id}
-      className={clsx(styles.root({ feedback, withDescription: hasDescription }), phaseClassName)}
+      className={clsx(styles.root({ feedback }), phaseClassName)}
       onAnimationEnd={onAnimationEnd}
     >
       {iconName && <Icon name={iconName} size='sm' className={styles.icon({ feedback })} />}
