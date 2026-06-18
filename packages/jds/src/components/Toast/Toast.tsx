@@ -45,7 +45,7 @@ export const Toast = ({
 
   useEffect(() => {
     if (phase === "static") {
-      const timer = setTimeout(() => setPhase("exit"), 3000);
+      const timer = setTimeout(() => setPhase("exit"), 2500);
       return () => clearTimeout(timer);
     }
   }, [phase]);
