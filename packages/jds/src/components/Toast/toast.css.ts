@@ -6,6 +6,7 @@ import { pxToRem } from "utils";
 import type { ToastFeedback } from "./toast.types";
 
 import { breakpoints } from "@/tokens/breakpoints";
+import { labelColorVar } from "@/utils/typography.css";
 
 const slideIn = keyframes({
   from: { opacity: 0, transform: "translateY(100%)" },
@@ -82,11 +83,15 @@ export const content = recipe({
 });
 
 export const label = style({
-  color: vars.color.semantic.object.boldest,
+  vars: {
+    [labelColorVar]: vars.color.semantic.object.boldest,
+  },
 });
 
 export const description = style({
-  color: vars.color.semantic.object.neutral,
+  vars: {
+    [labelColorVar]: vars.color.semantic.object.neutral,
+  },
 });
 
 export const icon = recipe({
