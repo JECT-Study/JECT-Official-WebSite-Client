@@ -1,4 +1,4 @@
-import type { HTMLAttributes, ReactNode } from "react";
+import type { HTMLAttributes, ReactNode, ThHTMLAttributes } from "react";
 
 import type { IconName } from "../Icon";
 
@@ -9,7 +9,7 @@ export interface TableRowItemBaseProps extends HTMLAttributes<HTMLTableCellEleme
   children: ReactNode;
 }
 
-export interface TableHeaderItemProps extends HTMLAttributes<HTMLTableCellElement> {
+export interface TableHeaderItemProps extends ThHTMLAttributes<HTMLTableCellElement> {
   children: ReactNode;
   width?: string | number;
   hasDivider?: boolean;
