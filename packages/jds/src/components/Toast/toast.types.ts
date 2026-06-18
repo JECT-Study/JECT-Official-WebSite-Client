@@ -8,6 +8,7 @@ export type ToastFeedbackVariant = Exclude<ToastFeedback, "none">;
 export interface ToastBaseProps {
   title: ReactNode;
   description?: ReactNode;
+  duration?: number;
 }
 
 export type ToastBase = ToastBaseProps & LimitedQueueProviderBaseItem;
@@ -22,12 +23,17 @@ export interface ToastItem extends ToastBase {
 }
 
 export interface ToastHandler {
-  basic: (title: string, description?: string) => void;
-  positive: (title: string, description?: string) => void;
-  destructive: (title: string, description?: string) => void;
-  notifying: (title: string, description?: string) => void;
+  basic: (title: string, options?: ToastOptions) => void;
+  positive: (title: string, options?: ToastOptions) => void;
+  destructive: (title: string, options?: ToastOptions) => void;
+  notifying: (title: string, options?: ToastOptions) => void;
 }
 
 export interface UseToastProviderProps {
   toastLimit?: number;
+}
+
+export interface ToastOptions {
+  description?: string;
+  duration?: number;
 }

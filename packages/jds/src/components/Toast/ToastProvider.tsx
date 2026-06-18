@@ -8,6 +8,11 @@ import type { ToastHandler } from "./toast.types";
 import { toastController } from "./toastController";
 import { useToastProvider } from "./useToastProvider";
 
+interface ToastProviderProps {
+  children: ReactNode;
+  duration?: number;
+}
+
 interface ToastContextType {
   toast: ToastHandler;
   removeToast: (id: string) => void;
@@ -15,7 +20,7 @@ interface ToastContextType {
 
 const ToastContext = createContext<ToastContextType | null>(null);
 
-export const ToastProvider = ({ children }: { children: ReactNode }) => {
+export const ToastProvider = ({ children, duration }: ToastProviderProps) => {
   const { toasts, toast: handler, removeToast } = useToastProvider({});
   const [isMounted, setIsMounted] = useState(false);
 
@@ -35,7 +40,12 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
         createPortal(
           <div className={stackContainer} role='status' aria-live='polite' aria-atomic='true'>
             {toasts.map(toast => (
-              <Toast key={toast.id} onRemove={() => removeToast(toast.id)} {...toast} />
+              <Toast
+                key={toast.id}
+                onRemove={() => removeToast(toast.id)}
+                {...toast}
+                duration={toast.duration ?? duration}
+              />
             ))}
           </div>,
           document.body,

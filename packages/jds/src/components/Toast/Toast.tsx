@@ -10,6 +10,8 @@ import { getBodyClassName, getLabelClassName } from "@/utils/typography";
 
 type ToastPhase = "enter" | "static" | "exit";
 
+const DEFAULT_TOAST_DURATION = 2500;
+
 const phaseClassNameMap: Partial<Record<ToastPhase, string>> = {
   enter: styles.enter,
   exit: styles.exit,
@@ -28,6 +30,7 @@ export const Toast = ({
   onRemove,
   title,
   isClosing,
+  duration = DEFAULT_TOAST_DURATION,
 }: ToastProps) => {
   const [phase, setPhase] = useState<ToastPhase>("enter");
   const hasDescription = Boolean(description);
@@ -45,10 +48,12 @@ export const Toast = ({
 
   useEffect(() => {
     if (phase === "static") {
-      const timer = setTimeout(() => setPhase("exit"), 2500);
+      if (duration === Infinity) return;
+
+      const timer = setTimeout(() => setPhase("exit"), duration);
       return () => clearTimeout(timer);
     }
-  }, [phase]);
+  }, [duration, phase]);
 
   useEffect(() => {
     if (isClosing) setPhase("exit");

@@ -21,6 +21,10 @@ const meta: Meta<typeof Toast> = {
       description: "본문 아래에 표시되는 설명 텍스트입니다.",
       control: "text",
     },
+    duration: {
+      description: "토스트가 유지되는 시간입니다. 단위는 ms입니다.",
+      control: "number",
+    },
   },
 };
 
@@ -31,6 +35,7 @@ export const Basic: StoryObj<typeof Toast> = {
     feedback: "none",
     title: "토스트 레이블",
     description: "설명 텍스트",
+    duration: Infinity,
   },
   render: ({ id = "toast-1", ...args }) => <Toast id={id} {...args} />,
 };
@@ -47,6 +52,7 @@ export const Feedback: StoryObj<typeof Toast> = {
     feedback: "positive",
     title: "토스트 제목 레이블",
     description: "설명 텍스트",
+    duration: Infinity,
   },
   render: ({ id = "toast-1", ...args }) => <Toast id={id} {...args} />,
 };
@@ -77,12 +83,13 @@ export const UseToastProvider: StoryObj<typeof Toast> = {
     const destructiveToast = () => toast.destructive("피드백 토스트 - destructive");
     const notifyingToast = () => toast.notifying("피드백 토스트 - notifying");
 
-    const basicToastDescription = () => toast.basic("베이직 토스트", description);
-    const positiveToastDescription = () => toast.positive("피드백 토스트 - positive", description);
+    const basicToastDescription = () => toast.basic("베이직 토스트", { description });
+    const positiveToastDescription = () =>
+      toast.positive("피드백 토스트 - positive", { description });
     const destructiveToastDescription = () =>
-      toast.destructive("피드백 토스트 - destructive", description);
+      toast.destructive("피드백 토스트 - destructive", { description });
     const notifyingToastDescription = () =>
-      toast.notifying("피드백 토스트 - notifying", description);
+      toast.notifying("피드백 토스트 - notifying", { description });
 
     return (
       <FlexRow>
@@ -146,13 +153,13 @@ export const UseGlobalToast: StoryObj<typeof Toast> = {
     const destructiveToast = () => toastController.destructive("피드백 토스트 - destructive");
     const notifyingToast = () => toastController.notifying("피드백 토스트 - notifying");
 
-    const basicToastDescription = () => toastController.basic("베이직 토스트", description);
+    const basicToastDescription = () => toastController.basic("베이직 토스트", { description });
     const positiveToastDescription = () =>
-      toastController.positive("피드백 토스트 - positive", description);
+      toastController.positive("피드백 토스트 - positive", { description });
     const destructiveToastDescription = () =>
-      toastController.destructive("피드백 토스트 - destructive", description);
+      toastController.destructive("피드백 토스트 - destructive", { description });
     const notifyingToastDescription = () =>
-      toastController.notifying("피드백 토스트 - notifying", description);
+      toastController.notifying("피드백 토스트 - notifying", { description });
 
     return (
       <FlexRow>

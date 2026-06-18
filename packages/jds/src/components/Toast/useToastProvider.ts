@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 
-import type { ToastItem, UseToastProviderProps } from "./toast.types";
+import type { ToastItem, ToastOptions, UseToastProviderProps } from "./toast.types";
 
 import { useLimitedQueueProvider } from "@/hooks/useLimitedQueueProvider";
 
@@ -9,14 +9,14 @@ export const useToastProvider = ({ toastLimit = 3 }: UseToastProviderProps) => {
 
   const handler = useMemo(
     () => ({
-      basic: (title: string, description?: string) =>
-        addItem({ feedback: "none", title, description }),
-      positive: (title: string, description?: string) =>
-        addItem({ feedback: "positive", title, description }),
-      destructive: (title: string, description?: string) =>
-        addItem({ feedback: "destructive", title, description }),
-      notifying: (title: string, description?: string) =>
-        addItem({ feedback: "notifying", title, description }),
+      basic: (title: string, options?: ToastOptions) =>
+        addItem({ feedback: "none", title, ...options }),
+      positive: (title: string, options?: ToastOptions) =>
+        addItem({ feedback: "positive", title, ...options }),
+      destructive: (title: string, options?: ToastOptions) =>
+        addItem({ feedback: "destructive", title, ...options }),
+      notifying: (title: string, options?: ToastOptions) =>
+        addItem({ feedback: "notifying", title, ...options }),
     }),
     [addItem],
   );
