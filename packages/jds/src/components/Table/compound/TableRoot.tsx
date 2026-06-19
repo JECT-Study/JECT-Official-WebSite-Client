@@ -14,4 +14,4 @@ export const TableRoot = forwardRef<HTMLTableElement, TableProps>(
   },
 );
 
-TableRoot.displayName = "TableRoot";
+TableRoot.displayName = "Table.Root";

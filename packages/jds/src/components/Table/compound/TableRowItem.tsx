@@ -96,7 +96,7 @@ export const TableRowItem = forwardRef<HTMLTableCellElement, TableRowItemProps>(
   );
 });
 
-TableRowItem.displayName = "TableRowItem";
+TableRowItem.displayName = "Table.RowItem";
 
 const tableRowItemOnlyProps: Record<TableRowItemOwnKey, true> = {
   variant: true,

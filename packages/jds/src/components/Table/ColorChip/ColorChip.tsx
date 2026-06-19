@@ -20,4 +20,4 @@ export const ColorChip = forwardRef<HTMLDivElement, ColorChipProps>(
   },
 );
 
-ColorChip.displayName = "ColorChip";
+ColorChip.displayName = "Table.ColorChip";

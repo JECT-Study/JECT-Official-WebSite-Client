@@ -12,4 +12,4 @@ export const TableHeader = forwardRef<HTMLTableSectionElement, TableHeaderSectio
   ),
 );
 
-TableHeader.displayName = "TableHeader";
+TableHeader.displayName = "Table.Header";

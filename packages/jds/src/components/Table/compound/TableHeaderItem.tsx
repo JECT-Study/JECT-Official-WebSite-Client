@@ -20,4 +20,4 @@ export const TableHeaderItem = forwardRef<HTMLTableCellElement, TableHeaderItemP
   ),
 );
 
-TableHeaderItem.displayName = "TableHeaderItem";
+TableHeaderItem.displayName = "Table.HeaderItem";
