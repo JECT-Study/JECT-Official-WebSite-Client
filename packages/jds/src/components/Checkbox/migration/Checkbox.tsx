@@ -2,7 +2,7 @@ import { useCheckbox, useCheckboxGroup, useCheckboxGroupItem } from "@react-aria
 import { mergeProps, useObjectRef } from "@react-aria/utils";
 import { clsx } from "clsx";
 import { Icon } from "components";
-import type { ForwardedRef, InputHTMLAttributes } from "react";
+import type { ForwardedRef, InputHTMLAttributes, ReactNode, Ref } from "react";
 import { forwardRef, useId, useLayoutEffect, useState } from "react";
 import { useCheckboxGroupState, useToggleState } from "react-stately";
 import type { CheckboxGroupState } from "react-stately";
@@ -66,14 +66,13 @@ const CheckboxRoot = ({
 
 CheckboxRoot.displayName = "Checkbox.Root";
 
-const CheckboxItem = forwardRef<HTMLDivElement, CheckboxItemProps>(
+const CheckboxItem = forwardRef<HTMLLabelElement, CheckboxItemProps>(
   (
     {
       size: sizeProp,
       variant: variantProp,
       disabled = false,
       isInvalid: isInvalidProp,
-      controlId: controlIdProp,
       children,
       className,
       ...restProps
@@ -81,15 +80,16 @@ const CheckboxItem = forwardRef<HTMLDivElement, CheckboxItemProps>(
     ref,
   ) => {
     const parentContext = useCheckboxContext();
-    const checkboxId = useId();
+    const labelId = useId();
+    const helperId = useId();
 
     const size = sizeProp ?? parentContext?.size ?? "md";
     const isDisabled = disabled || (parentContext?.disabled ?? false);
     const variant = variantProp ?? parentContext?.variant ?? "hollow";
     const isInvalid = isInvalidProp ?? parentContext?.isInvalid ?? false;
-    const controlId = controlIdProp ?? checkboxId;
 
     const [childChecked, setChildChecked] = useState<CheckedState>(false);
+    const [hasHelper, setHasHelper] = useState(false);
     const isEffectiveInvalid = isInvalid && childChecked === false;
 
     const { containerPressableProps } = useContainerPressable({ disabled: isDisabled });
@@ -102,12 +102,15 @@ const CheckboxItem = forwardRef<HTMLDivElement, CheckboxItemProps>(
           variant,
           disabled: isDisabled,
           isInvalid,
-          controlId,
+          labelId,
+          helperId,
+          hasHelper,
+          onHelperMountChange: setHasHelper,
           onChildCheckedChange: setChildChecked,
           withinItem: true,
         }}
       >
-        <div
+        <label
           ref={ref}
           {...mergeProps(containerPressableProps, restProps)}
           data-invalid={isEffectiveInvalid || undefined}
@@ -118,7 +121,7 @@ const CheckboxItem = forwardRef<HTMLDivElement, CheckboxItemProps>(
           )}
         >
           {children}
-        </div>
+        </label>
       </CheckboxProvider>
     );
   },
@@ -126,12 +129,65 @@ const CheckboxItem = forwardRef<HTMLDivElement, CheckboxItemProps>(
 
 CheckboxItem.displayName = "Checkbox.Item";
 
+interface CheckboxControlProps {
+  isWithinItem: boolean;
+  labelId?: string;
+  describedById?: string;
+  isEffectiveInvalid: boolean;
+  size: CheckboxSize;
+  interaction: "on" | "off";
+  inputRef: Ref<HTMLInputElement>;
+  inputProps: InputHTMLAttributes<HTMLInputElement>;
+  icon: ReactNode;
+}
+
+const CheckboxControl = ({
+  isWithinItem,
+  labelId,
+  describedById,
+  isEffectiveInvalid,
+  size,
+  interaction,
+  inputRef,
+  inputProps,
+  icon,
+}: CheckboxControlProps) => {
+  const className = clsx(checkboxRootLabel, checkboxControlSlot);
+  const content = (
+    <>
+      <input
+        {...inputProps}
+        ref={inputRef}
+        aria-invalid={isEffectiveInvalid || undefined}
+        aria-labelledby={isWithinItem ? labelId : undefined}
+        aria-describedby={describedById}
+        className={checkboxInput}
+      />
+      <span className={checkboxVisual({ size, interaction })} aria-hidden='true'>
+        {icon}
+      </span>
+    </>
+  );
+
+  return isWithinItem ? (
+    <span className={className} data-invalid={isEffectiveInvalid || undefined}>
+      {content}
+    </span>
+  ) : (
+    <label className={className} data-invalid={isEffectiveInvalid || undefined}>
+      {content}
+    </label>
+  );
+};
+
 interface CheckboxBasicGroupedProps {
   size: CheckboxSize;
   value: string;
   isDisabled: boolean;
   isInvalid: boolean;
-  controlId: string;
+  isWithinItem: boolean;
+  labelId?: string;
+  describedById?: string;
   interaction: "on" | "off";
   state: CheckboxGroupState;
   onChildCheckedChange?: (checked: CheckedState) => void;
@@ -144,7 +200,9 @@ const CheckboxBasicGrouped = ({
   value,
   isDisabled,
   isInvalid,
-  controlId,
+  isWithinItem,
+  labelId,
+  describedById,
   interaction,
   state,
   onChildCheckedChange,
@@ -164,22 +222,17 @@ const CheckboxBasicGrouped = ({
   const iconSize = checkboxSizeMap[size].icon;
 
   return (
-    <label
-      htmlFor={controlId}
-      className={clsx(checkboxRootLabel, checkboxControlSlot)}
-      data-invalid={isEffectiveInvalid || undefined}
-    >
-      <input
-        {...mergeProps(inputProps, restProps)}
-        ref={ref}
-        id={controlId}
-        aria-invalid={isEffectiveInvalid || undefined}
-        className={checkboxInput}
-      />
-      <span className={checkboxVisual({ size, interaction })} aria-hidden='true'>
-        <Icon name='check-line' size={iconSize} />
-      </span>
-    </label>
+    <CheckboxControl
+      isWithinItem={isWithinItem}
+      labelId={labelId}
+      describedById={describedById}
+      isEffectiveInvalid={isEffectiveInvalid}
+      size={size}
+      interaction={interaction}
+      inputRef={ref}
+      inputProps={mergeProps(inputProps, restProps)}
+      icon={<Icon name='check-line' size={iconSize} />}
+    />
   );
 };
 
@@ -188,7 +241,9 @@ interface CheckboxBasicStandaloneProps {
   isDisabled: boolean;
   isInvalid: boolean;
   interaction: "on" | "off";
-  controlId: string;
+  isWithinItem: boolean;
+  labelId?: string;
+  describedById?: string;
   checked?: boolean | "indeterminate";
   defaultChecked?: boolean;
   onCheckedChange?: (checked: boolean | "indeterminate") => void;
@@ -202,7 +257,9 @@ const CheckboxBasicStandalone = ({
   isDisabled,
   isInvalid,
   interaction,
-  controlId,
+  isWithinItem,
+  labelId,
+  describedById,
   checked,
   defaultChecked,
   onCheckedChange,
@@ -241,21 +298,17 @@ const CheckboxBasicStandalone = ({
   const iconSize = checkboxSizeMap[size].icon;
 
   return (
-    <label
-      htmlFor={controlId}
-      className={clsx(checkboxRootLabel, checkboxControlSlot)}
-      data-invalid={isEffectiveInvalid || undefined}
-    >
-      <input
-        {...mergeProps(inputProps, restProps)}
-        ref={ref}
-        id={controlId}
-        className={checkboxInput}
-      />
-      <span className={checkboxVisual({ size, interaction })} aria-hidden='true'>
-        <Icon name={isIndeterminate ? "subtract-line" : "check-line"} size={iconSize} />
-      </span>
-    </label>
+    <CheckboxControl
+      isWithinItem={isWithinItem}
+      labelId={labelId}
+      describedById={describedById}
+      isEffectiveInvalid={isEffectiveInvalid}
+      size={size}
+      interaction={interaction}
+      inputRef={ref}
+      inputProps={mergeProps(inputProps, restProps)}
+      icon={<Icon name={isIndeterminate ? "subtract-line" : "check-line"} size={iconSize} />}
+    />
   );
 };
 
@@ -274,13 +327,14 @@ const CheckboxBasic = forwardRef<HTMLInputElement, CheckboxBasicProps>(
     forwardedRef,
   ) => {
     const context = useCheckboxContext();
-    const checkboxId = useId();
 
     const size = sizeProp ?? context?.size ?? "md";
     const isDisabled = (disabled ?? false) || (context?.disabled ?? false);
     const isInvalid = (isInvalidProp ?? false) || (context?.isInvalid ?? false);
-    const interaction = context?.withinItem ? "off" : "on";
-    const controlId = context?.controlId ?? checkboxId;
+    const isWithinItem = context?.withinItem ?? false;
+    const interaction = isWithinItem ? "off" : "on";
+    const labelId = context?.labelId;
+    const describedById = isWithinItem && context?.hasHelper ? context?.helperId : undefined;
 
     if (context?.state) {
       if (!value) {
@@ -298,7 +352,9 @@ const CheckboxBasic = forwardRef<HTMLInputElement, CheckboxBasicProps>(
           interaction={interaction}
           state={context.state}
           onChildCheckedChange={context?.onChildCheckedChange}
-          controlId={controlId}
+          isWithinItem={isWithinItem}
+          labelId={labelId}
+          describedById={describedById}
           forwardedRef={forwardedRef}
           restProps={restProps}
         />
@@ -311,7 +367,9 @@ const CheckboxBasic = forwardRef<HTMLInputElement, CheckboxBasicProps>(
         isDisabled={isDisabled}
         isInvalid={isInvalid}
         interaction={interaction}
-        controlId={controlId}
+        isWithinItem={isWithinItem}
+        labelId={labelId}
+        describedById={describedById}
         checked={checked}
         defaultChecked={defaultChecked}
         onCheckedChange={onCheckedChange}
@@ -325,13 +383,13 @@ const CheckboxBasic = forwardRef<HTMLInputElement, CheckboxBasicProps>(
 
 CheckboxBasic.displayName = "Checkbox.Basic";
 
-const CheckboxLabel = forwardRef<HTMLLabelElement, CheckboxLabelProps>(({ children }, ref) => {
+const CheckboxLabel = forwardRef<HTMLSpanElement, CheckboxLabelProps>(({ children }, ref) => {
   const context = useCheckboxContext();
   const size = context?.size ?? "md";
   return (
-    <label
+    <span
       ref={ref}
-      htmlFor={context?.controlId}
+      id={context?.labelId}
       className={clsx(
         getLabelClassName({ size: checkboxSizeMap[size].label }),
         checkboxTextLabel,
@@ -339,18 +397,26 @@ const CheckboxLabel = forwardRef<HTMLLabelElement, CheckboxLabelProps>(({ childr
       )}
     >
       {children}
-    </label>
+    </span>
   );
 });
 
 CheckboxLabel.displayName = "Checkbox.Label";
 
-const CheckboxHelper = forwardRef<HTMLDivElement, CheckboxHelperProps>(({ children }, ref) => {
+const CheckboxHelper = forwardRef<HTMLSpanElement, CheckboxHelperProps>(({ children }, ref) => {
   const context = useCheckboxContext();
   const size = context?.size ?? "md";
+  const onHelperMountChange = context?.onHelperMountChange;
+
+  useLayoutEffect(() => {
+    onHelperMountChange?.(true);
+    return () => onHelperMountChange?.(false);
+  }, [onHelperMountChange]);
+
   return (
-    <div
+    <span
       ref={ref}
+      id={context?.helperId}
       className={clsx(
         getLabelClassName({ size: checkboxSizeMap[size].helper, weight: "subtle" }),
         checkboxHelper,
@@ -358,7 +424,7 @@ const CheckboxHelper = forwardRef<HTMLDivElement, CheckboxHelperProps>(({ childr
       )}
     >
       {children}
-    </div>
+    </span>
   );
 });
 

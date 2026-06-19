@@ -8,7 +8,10 @@ export interface CheckboxContextValue {
   variant: CheckboxVariant;
   disabled: boolean;
   isInvalid: boolean;
-  controlId?: string;
+  labelId?: string;
+  helperId?: string;
+  hasHelper?: boolean;
+  onHelperMountChange?: (mounted: boolean) => void;
   state?: CheckboxGroupState;
   onChildCheckedChange?: (checked: CheckedState) => void;
   withinItem?: boolean;
