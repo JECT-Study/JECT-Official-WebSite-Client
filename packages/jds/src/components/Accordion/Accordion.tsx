@@ -106,14 +106,14 @@ const AccordionContent = forwardRef<HTMLDivElement, AccordionContentProps>(
     return (
       <AccordionPrimitive.Content
         ref={ref}
-        className={clsx([styles.content, className])}
+        className={clsx(styles.content, className)}
         {...restProps}
       >
         <div
-          className={clsx([
+          className={clsx(
             getBodyClassName({ size: bodySize }),
             styles.contentText({ isStretched }),
-          ])}
+          )}
         >
           {children}
         </div>
