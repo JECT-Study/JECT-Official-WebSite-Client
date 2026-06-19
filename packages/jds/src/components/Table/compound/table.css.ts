@@ -58,7 +58,7 @@ export const tableHeaderLabel = style({
   height: "100%",
   padding: vars.scheme.semantic.spacing["12"],
   boxSizing: "border-box",
-  wordBreak: "break-word",
+  wordBreak: "keep-all",
   vars: {
     [labelColorVar]: vars.color.semantic.object.bolder,
   },
