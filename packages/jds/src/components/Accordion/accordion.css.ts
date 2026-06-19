@@ -73,7 +73,6 @@ export const labelContainer = style({
 export const label = style({
   textAlign: "left",
   textWrap: "wrap",
-  // @TODO: labelToken defaultValue 처리 후 한번에 제거.
   vars: {
     [labelColorVar]: "inherit",
   },
