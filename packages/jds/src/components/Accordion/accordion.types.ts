@@ -22,12 +22,3 @@ export type AccordionTriggerProps = AccordionPrimitive.AccordionTriggerProps & {
 };
 
 export type AccordionContentProps = AccordionPrimitive.AccordionContentProps;
-
-export interface StyledAccordionTriggerProps {
-  $isStretched: boolean;
-}
-
-export interface StyledAccordionContentProps {
-  $isStretched: boolean;
-  $size: AccordionSize;
-}
