@@ -7,6 +7,8 @@ import { BADGE_SIZE_OPTIONS } from "../badge.types";
 import type { FeedbackVariant, BadgeSize, BasicHierarchy } from "../badge.types";
 import type { NumericBadgeStyle } from "./numericBadge.types";
 
+import { labelColorVar } from "@/utils/typography.css";
+
 type BadgeSizeConfig = {
   minWidth: number;
   paddingTopBottom: string;
@@ -271,5 +273,7 @@ export const label = style({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  color: badgeTextColor,
+  vars: {
+    [labelColorVar]: badgeTextColor,
+  },
 });
