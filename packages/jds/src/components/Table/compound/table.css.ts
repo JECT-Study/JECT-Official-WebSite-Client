@@ -1,4 +1,4 @@
-import { globalStyle, style } from "@vanilla-extract/css";
+import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
 
@@ -66,15 +66,17 @@ export const tableHeaderLabel = style({
 
 export const tableRow = style({});
 
-globalStyle(`${tableRow}:last-of-type > td`, {
-  borderBottom: "none",
-});
-
 export const tableRowItem = recipe({
   base: {
     padding: `${vars.scheme.semantic.spacing["10"]} ${vars.scheme.semantic.spacing["12"]}`,
     verticalAlign: "top",
     ...cellBorderBase,
+    selectors: {
+      ...cellBorderBase.selectors,
+      [`${tableRow}:last-of-type > &`]: {
+        borderBottom: "none",
+      },
+    },
   },
   variants: dividerVariants,
 });
