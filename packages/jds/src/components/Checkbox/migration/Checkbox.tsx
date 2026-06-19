@@ -403,7 +403,7 @@ const CheckboxLabel = forwardRef<HTMLSpanElement, CheckboxLabelProps>(({ childre
 
 CheckboxLabel.displayName = "Checkbox.Label";
 
-const CheckboxHelper = forwardRef<HTMLDivElement, CheckboxHelperProps>(({ children }, ref) => {
+const CheckboxHelper = forwardRef<HTMLSpanElement, CheckboxHelperProps>(({ children }, ref) => {
   const context = useCheckboxContext();
   const size = context?.size ?? "md";
   const onHelperMountChange = context?.onHelperMountChange;
@@ -414,7 +414,7 @@ const CheckboxHelper = forwardRef<HTMLDivElement, CheckboxHelperProps>(({ childr
   }, [onHelperMountChange]);
 
   return (
-    <div
+    <span
       ref={ref}
       id={context?.helperId}
       className={clsx(
@@ -424,7 +424,7 @@ const CheckboxHelper = forwardRef<HTMLDivElement, CheckboxHelperProps>(({ childr
       )}
     >
       {children}
-    </div>
+    </span>
   );
 });
 
