@@ -7,7 +7,7 @@ import type { ColorChipProps } from "./ColorChip.types";
 
 export const ColorChip = forwardRef<HTMLDivElement, ColorChipProps>(
   ({ color, className, style, ...restProps }, ref) => {
-    const backgroundColor = color.trim() || "transparent";
+    const backgroundColor = color || "transparent";
 
     return (
       <div
