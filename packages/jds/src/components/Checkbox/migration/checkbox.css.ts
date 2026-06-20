@@ -30,7 +30,7 @@ export const checkboxInput = style({
   whiteSpace: "nowrap",
 });
 
-export const checkboxRootLabel = style({
+export const checkboxControlRoot = style({
   display: "inline-flex",
   position: "relative",
 });
@@ -227,7 +227,7 @@ export const checkboxItem = recipe({
 // Checkbox.Label / Checkbox.Helper
 // disabled 및 invalid 색상은 조상의 data attribute로 제어한다.
 
-export const checkboxTextLabel = style({
+export const checkboxLabel = style({
   whiteSpace: "nowrap",
   vars: { [labelColorVar]: vars.color.semantic.object.bolder },
   selectors: {

@@ -11,15 +11,15 @@ import { focusRing, getLabelClassName } from "utils";
 import type { LabelSize } from "utils";
 
 import {
+  checkboxControlRoot,
   checkboxControlSlot,
   checkboxGroupWrapper,
   checkboxHelper,
   checkboxHelperSlot,
   checkboxInput,
   checkboxItem,
+  checkboxLabel,
   checkboxLabelSlot,
-  checkboxRootLabel,
-  checkboxTextLabel,
   checkboxVisual,
 } from "./checkbox.css";
 import type {
@@ -160,7 +160,7 @@ const CheckboxControl = ({
   inputProps,
   icon,
 }: CheckboxControlProps) => {
-  const className = clsx(checkboxRootLabel, checkboxControlSlot);
+  const className = clsx(checkboxControlRoot, checkboxControlSlot);
   const content = (
     <>
       <input
@@ -400,7 +400,7 @@ const CheckboxLabel = forwardRef<HTMLSpanElement, CheckboxLabelProps>(({ childre
       id={context?.labelId}
       className={clsx(
         getLabelClassName({ size: checkboxSizeMap[size].label }),
-        checkboxTextLabel,
+        checkboxLabel,
         checkboxLabelSlot,
       )}
     >
