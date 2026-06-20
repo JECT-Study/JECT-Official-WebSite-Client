@@ -3,7 +3,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
 import { Toast } from "./Toast";
-import { stackContainer } from "./toast.css";
+import { stackContainer, visuallyHidden } from "./toast.css";
 import type { ToastHandler } from "./toast.types";
 import { toastController } from "./toastController";
 import { useToastProvider } from "./useToastProvider";
@@ -24,6 +24,8 @@ export const ToastProvider = ({ children, duration }: ToastProviderProps) => {
   const { toasts, toast: handler, removeToast } = useToastProvider({});
   const [isMounted, setIsMounted] = useState(false);
 
+  const latestToast = toasts.length > 0 ? toasts[toasts.length - 1] : null;
+
   useEffect(() => {
     toastController.setHandler(handler);
     return () => toastController.clearHandler();
@@ -36,9 +38,21 @@ export const ToastProvider = ({ children, duration }: ToastProviderProps) => {
   return (
     <ToastContext.Provider value={{ toast: handler, removeToast }}>
       {children}
+
+      {/* 스크린리더 전용 live region: 최신 토스트만 낭독 */}
+      <div className={visuallyHidden} role='status' aria-live='polite'>
+        {latestToast && (
+          <span>
+            {latestToast.title}
+            {latestToast.description ? ` - ${latestToast.description}` : ""}
+          </span>
+        )}
+      </div>
+
       {isMounted &&
         createPortal(
-          <div className={stackContainer} role='status' aria-live='polite' aria-atomic='true'>
+          // 시각용 스택: live region과 중복 낭독 방지
+          <div className={stackContainer} aria-hidden='true'>
             {toasts.map(toast => (
               <Toast
                 key={toast.id}
