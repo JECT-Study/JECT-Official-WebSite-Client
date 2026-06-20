@@ -70,14 +70,24 @@ export const fileName = style({
   textOverflow: "ellipsis",
   whiteSpace: "nowrap",
   cursor: "inherit",
+
+  // native underline을 유지해 text-decoration-skip-ink 동작을 보장한다.
+  textDecorationLine: "underline",
+  textDecorationStyle: "solid",
+  textDecorationSkipInk: "auto",
+  textDecorationColor: "transparent",
+  transition: `text-decoration-color ${vars.environment.semantic.duration[100]} ${vars.environment.semantic.motion.fluent}`,
+
   vars: {
     [labelColorVar]: vars.color.semantic.object.bolder,
   },
   selectors: {
-    [`${interactive}:hover &`]: {
-      textDecorationLine: "underline",
-      textDecorationStyle: "solid",
-      textDecorationSkipInk: "auto",
+    [`${root}[data-hovered]:not([data-readonly]):not([data-disabled]) &`]: {
+      textDecorationColor: "currentColor",
+    },
+    // readonly/disabled 상태에서는 선택 중에도 밑줄이 드러나지 않도록 제거한다.
+    [`${root}[data-readonly] &, ${root}[data-disabled] &`]: {
+      textDecorationLine: "none",
     },
     [`${root}[data-file-disabled] &`]: {
       vars: {
