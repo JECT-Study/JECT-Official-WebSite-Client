@@ -22,11 +22,13 @@ export interface ToastItem extends ToastBase {
   feedback: ToastFeedback;
 }
 
+type ToastHandlerFn = (title: string, options?: ToastOptions) => void;
+
 export interface ToastHandler {
-  basic: (title: string, options?: ToastOptions) => void;
-  positive: (title: string, options?: ToastOptions) => void;
-  destructive: (title: string, options?: ToastOptions) => void;
-  notifying: (title: string, options?: ToastOptions) => void;
+  basic: ToastHandlerFn;
+  positive: ToastHandlerFn;
+  destructive: ToastHandlerFn;
+  notifying: ToastHandlerFn;
 }
 
 export interface UseToastProviderProps {
