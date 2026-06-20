@@ -101,9 +101,7 @@ export const label = style({
 });
 
 export const description = style({
-  vars: {
-    [labelColorVar]: vars.color.semantic.object.neutral,
-  },
+  color: vars.color.semantic.object.neutral,
 });
 
 export const icon = recipe({
