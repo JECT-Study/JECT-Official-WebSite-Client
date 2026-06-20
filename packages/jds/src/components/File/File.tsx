@@ -39,7 +39,6 @@ export const File = forwardRef<HTMLButtonElement, FileProps>(
       <button
         ref={pressableRef}
         {...mergeProps(rootProps, pressableProps, {
-          "data-disabled": isPressableDisabled || undefined,
           "data-file-disabled": disabled || undefined,
           "aria-disabled": disabled || undefined,
         })}
