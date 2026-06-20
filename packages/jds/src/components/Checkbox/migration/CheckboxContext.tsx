@@ -3,22 +3,30 @@ import type { CheckboxGroupState } from "react-stately";
 
 import type { CheckedState, CheckboxSize, CheckboxVariant } from "./checkbox.types";
 
-export interface CheckboxContextValue {
+export interface CheckboxConfigContextValue {
   size: CheckboxSize;
   variant: CheckboxVariant;
   disabled: boolean;
   isInvalid: boolean;
-  labelId?: string;
-  helperId?: string;
-  hasHelper?: boolean;
-  onHelperMountChange?: (mounted: boolean) => void;
   state?: CheckboxGroupState;
-  onChildCheckedChange?: (checked: CheckedState) => void;
-  withinItem?: boolean;
 }
 
-const CheckboxContext = createContext<CheckboxContextValue | null>(null);
+const CheckboxConfigContext = createContext<CheckboxConfigContextValue | null>(null);
 
-export const CheckboxProvider = CheckboxContext.Provider;
+export const CheckboxConfigProvider = CheckboxConfigContext.Provider;
 
-export const useCheckboxContext = () => useContext(CheckboxContext);
+export const useCheckboxConfig = () => useContext(CheckboxConfigContext);
+
+export interface CheckboxItemContextValue {
+  labelId: string;
+  helperId: string;
+  hasHelper: boolean;
+  onHelperMountChange: (mounted: boolean) => void;
+  onChildCheckedChange: (checked: CheckedState) => void;
+}
+
+const CheckboxItemContext = createContext<CheckboxItemContextValue | null>(null);
+
+export const CheckboxItemProvider = CheckboxItemContext.Provider;
+
+export const useCheckboxItem = () => useContext(CheckboxItemContext);
