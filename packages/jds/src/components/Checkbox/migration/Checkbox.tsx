@@ -92,14 +92,14 @@ const CheckboxItem = forwardRef<HTMLLabelElement, CheckboxItemProps>(
     },
     ref,
   ) => {
-    const parentContext = useCheckboxConfig();
+    const parentConfig = useCheckboxConfig();
     const labelId = useId();
     const helperId = useId();
 
-    const size = sizeProp ?? parentContext?.size ?? "md";
-    const isDisabled = disabled || (parentContext?.disabled ?? false);
-    const variant = variantProp ?? parentContext?.variant ?? "hollow";
-    const isInvalid = isInvalidProp ?? parentContext?.isInvalid ?? false;
+    const size = sizeProp ?? parentConfig?.size ?? "md";
+    const isDisabled = disabled || (parentConfig?.disabled ?? false);
+    const variant = variantProp ?? parentConfig?.variant ?? "hollow";
+    const isInvalid = isInvalidProp ?? parentConfig?.isInvalid ?? false;
 
     const [childChecked, setChildChecked] = useState<CheckedState>(false);
     const [hasHelper, setHasHelper] = useState(false);
@@ -110,7 +110,7 @@ const CheckboxItem = forwardRef<HTMLLabelElement, CheckboxItemProps>(
     return (
       <CheckboxConfigProvider
         value={{
-          ...parentContext,
+          ...parentConfig,
           size,
           variant,
           disabled: isDisabled,
