@@ -4,11 +4,17 @@ import { vars } from "tokens";
 import { pxToRem, overlay, overlayColorMap, overlayOpacityMap } from "utils";
 
 import { CHECKBOX_SIZE_OPTIONS, type CheckboxSize } from "./checkbox.types";
-import { checkboxSizeMap } from "./checkbox.variants";
 
 import { labelColorVar } from "@/utils/typography.css";
 
 export const checkboxGroupWrapper = style({ display: "contents" });
+
+const checkboxVisualSizeMap = {
+  lg: pxToRem(20),
+  md: pxToRem(18),
+  sm: pxToRem(16),
+  xs: pxToRem(14),
+} satisfies Record<CheckboxSize, string>;
 
 // Checkbox.Basic
 
@@ -82,10 +88,10 @@ export const checkboxVisual = recipe({
   },
   variants: {
     size: {
-      lg: { width: checkboxSizeMap.lg.visual, height: checkboxSizeMap.lg.visual },
-      md: { width: checkboxSizeMap.md.visual, height: checkboxSizeMap.md.visual },
-      sm: { width: checkboxSizeMap.sm.visual, height: checkboxSizeMap.sm.visual },
-      xs: { width: checkboxSizeMap.xs.visual, height: checkboxSizeMap.xs.visual },
+      lg: { width: checkboxVisualSizeMap.lg, height: checkboxVisualSizeMap.lg },
+      md: { width: checkboxVisualSizeMap.md, height: checkboxVisualSizeMap.md },
+      sm: { width: checkboxVisualSizeMap.sm, height: checkboxVisualSizeMap.sm },
+      xs: { width: checkboxVisualSizeMap.xs, height: checkboxVisualSizeMap.xs },
     } satisfies Record<CheckboxSize, object>,
     interaction: {
       on: {

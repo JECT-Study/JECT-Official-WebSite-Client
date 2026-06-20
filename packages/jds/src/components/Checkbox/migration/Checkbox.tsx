@@ -2,11 +2,13 @@ import { useCheckbox, useCheckboxGroup, useCheckboxGroupItem } from "@react-aria
 import { mergeProps, useObjectRef } from "@react-aria/utils";
 import { clsx } from "clsx";
 import { Icon } from "components";
+import type { IconSize } from "components";
 import type { ForwardedRef, InputHTMLAttributes, ReactNode, Ref } from "react";
 import { forwardRef, useId, useLayoutEffect, useState } from "react";
 import { useCheckboxGroupState, useToggleState } from "react-stately";
 import type { CheckboxGroupState } from "react-stately";
 import { focusRing, getLabelClassName } from "utils";
+import type { LabelSize } from "utils";
 
 import {
   checkboxControlSlot,
@@ -29,10 +31,16 @@ import type {
   CheckboxRootProps,
   CheckboxSize,
 } from "./checkbox.types";
-import { checkboxSizeMap } from "./checkbox.variants";
 import { CheckboxProvider, useCheckboxContext } from "./CheckboxContext";
 
 import { useContainerPressable } from "@/hooks";
+
+const checkboxSizeMap = {
+  lg: { icon: "md", label: "lg", helper: "sm" },
+  md: { icon: "sm", label: "md", helper: "sm" },
+  sm: { icon: "xs", label: "sm", helper: "xs" },
+  xs: { icon: "2xs", label: "xs", helper: "xs" },
+} satisfies Record<CheckboxSize, { icon: IconSize; label: LabelSize; helper: LabelSize }>;
 
 const CheckboxRoot = ({
   size = "md",
