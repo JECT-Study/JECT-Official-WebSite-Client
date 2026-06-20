@@ -65,6 +65,8 @@ export const interactive = style({
 });
 
 export const fileName = style({
+  display: "block",
+  flex: 1,
   minWidth: 0,
   overflow: "hidden",
   textOverflow: "ellipsis",
