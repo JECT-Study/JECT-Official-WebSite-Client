@@ -45,7 +45,7 @@ export const File = forwardRef<HTMLButtonElement, FileProps>(
         className={clsx(styles.root, interactionClassName, className)}
       >
         <span className={styles.fileInfo}>
-          <Icon size='xs' name='attachment-line' className={styles.icon} />
+          <Icon size='xs' name='link-diagonal-line' className={styles.icon} />
           <span
             className={clsx(getLabelClassName({ size: "md", weight: "subtle" }), styles.fileName)}
           >
