@@ -10,7 +10,7 @@ import { Icon } from "../Icon";
 
 import { getLabelClassName } from "@/utils/typography";
 
-export const File = forwardRef<HTMLButtonElement, FileProps>(
+export const File = forwardRef<HTMLDivElement, FileProps>(
   (
     {
       fileName,
@@ -27,6 +27,7 @@ export const File = forwardRef<HTMLButtonElement, FileProps>(
     const isPressableDisabled = disabled || readonly;
     const { ref: pressableRef, pressableProps } = usePressable(ref, {
       disabled: isPressableDisabled,
+      elementType: "div",
     });
 
     const interactionClassName = disabled
@@ -36,9 +37,10 @@ export const File = forwardRef<HTMLButtonElement, FileProps>(
         : styles.interactive;
 
     return (
-      <button
+      <div
         ref={pressableRef}
         {...mergeProps(rootProps, pressableProps, {
+          "data-readonly": readonly || undefined,
           "data-file-disabled": disabled || undefined,
           "aria-disabled": disabled || undefined,
         })}
@@ -60,21 +62,22 @@ export const File = forwardRef<HTMLButtonElement, FileProps>(
         >
           {fileSize}
         </span>
-        {removable && !readonly && (
+        {removable && !readonly && !disabled && (
           <IconButton
             hierarchy='accent'
             size='sm'
             icon='close-line'
-            disabled={disabled}
             className={styles.removeButton}
+            aria-label={`${fileName} 파일 삭제`}
             onClick={e => {
               e.preventDefault();
               e.stopPropagation();
               onRemove?.(e);
             }}
+            onPointerDown={e => e.stopPropagation()}
           />
         )}
-      </button>
+      </div>
     );
   },
 );

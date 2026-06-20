@@ -1,10 +1,22 @@
-import type { ComponentPropsWithoutRef, MouseEvent, ReactNode } from "react";
+import type { ComponentPropsWithoutRef, MouseEvent } from "react";
 
-export interface FileProps extends Omit<ComponentPropsWithoutRef<"button">, "children"> {
-  fileName: ReactNode;
-  fileSize: ReactNode;
-  removable?: boolean;
+interface BaseFileProps extends Omit<ComponentPropsWithoutRef<"div">, "children"> {
+  fileName: string;
+  fileSize: string;
   readonly?: boolean;
   disabled?: boolean;
-  onRemove?: (event: MouseEvent<HTMLButtonElement>) => void;
 }
+
+type FileRemovableProps =
+  | {
+      removable?: false;
+      onRemove?: never;
+    }
+  | {
+      removable: true;
+      readonly?: false;
+      disabled?: false;
+      onRemove: (event: MouseEvent<HTMLButtonElement>) => void;
+    };
+
+export type FileProps = BaseFileProps & FileRemovableProps;

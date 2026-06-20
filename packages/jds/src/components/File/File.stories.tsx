@@ -35,7 +35,35 @@ const meta: Meta<typeof File> = {
 
 export default meta;
 
-type Story = StoryObj<typeof File>;
+interface FileStoryArgs {
+  fileName: string;
+  fileSize: string;
+  readonly?: boolean;
+  disabled?: boolean;
+  removable?: boolean;
+}
+
+type Story = StoryObj<FileStoryArgs>;
+
+const renderFile = (args: FileStoryArgs) => (
+  <div style={{ width: "280px" }}>
+    <File
+      fileName={args.fileName}
+      fileSize={args.fileSize}
+      onClick={() => {
+        alert("file clicked");
+      }}
+      {...(args.removable && !args.readonly && !args.disabled
+        ? {
+            readonly: false,
+            disabled: false,
+            removable: true,
+            onRemove: () => alert("icon clicked"),
+          }
+        : { readonly: args.readonly, disabled: args.disabled, removable: false })}
+    />
+  </div>
+);
 
 export const Default: Story = {
   args: {
@@ -45,17 +73,7 @@ export const Default: Story = {
     disabled: false,
     removable: false,
   },
-  render: args => (
-    <div style={{ width: "280px" }}>
-      <File
-        fileName={args.fileName}
-        fileSize={args.fileSize}
-        readonly={args.readonly}
-        disabled={args.disabled}
-        removable={args.removable}
-      />
-    </div>
-  ),
+  render: renderFile,
 };
 
 export const Removable: Story = {
@@ -74,17 +92,7 @@ export const Removable: Story = {
     disabled: false,
     removable: true,
   },
-  render: args => (
-    <div style={{ width: "280px" }}>
-      <File
-        fileName={args.fileName}
-        fileSize={args.fileSize}
-        readonly={args.readonly}
-        disabled={args.disabled}
-        removable={args.removable}
-      />
-    </div>
-  ),
+  render: renderFile,
 };
 
 export const Readonly: Story = {
@@ -103,17 +111,7 @@ export const Readonly: Story = {
     disabled: false,
     removable: false,
   },
-  render: args => (
-    <div style={{ width: "280px" }}>
-      <File
-        fileName={args.fileName}
-        fileSize={args.fileSize}
-        readonly={args.readonly}
-        disabled={args.disabled}
-        removable={args.removable}
-      />
-    </div>
-  ),
+  render: renderFile,
 };
 
 export const Disabled: Story = {
@@ -131,15 +129,5 @@ export const Disabled: Story = {
     disabled: true,
     removable: false,
   },
-  render: args => (
-    <div style={{ width: "280px" }}>
-      <File
-        fileName={args.fileName}
-        fileSize={args.fileSize}
-        readonly={args.readonly}
-        disabled={args.disabled}
-        removable={args.removable}
-      />
-    </div>
-  ),
+  render: renderFile,
 };
