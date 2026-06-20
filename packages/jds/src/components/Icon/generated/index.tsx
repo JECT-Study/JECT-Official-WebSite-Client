@@ -81,6 +81,7 @@ export { default as Instagram } from "./Instagram";
 export { default as Instance } from "./Instance";
 export { default as Layer } from "./Layer";
 export { default as Line } from "./Line";
+export { default as LinkDiagonalLine } from "./LinkDiagonalLine";
 export { default as LinkLine } from "./LinkLine";
 export { default as MailFill } from "./MailFill";
 export { default as MailLine } from "./MailLine";
