@@ -3,29 +3,74 @@ import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
 
 import type { CalloutFeedback, CalloutSize } from "./Callout.types";
+import { labelColorVar, titleColorVar } from "../../utils/typography.css";
+
+interface SurfaceStyle {
+  backgroundColor: string;
+  borderColor: string;
+  color: string;
+}
+
+interface FeedbackStyle {
+  surface: SurfaceStyle;
+  layer: Pick<SurfaceStyle, "backgroundColor">;
+  icon: Pick<SurfaceStyle, "color">;
+}
 
 const feedbackStyles = {
   none: {
-    backgroundColor: vars.color.semantic.fill.subtlest,
-    borderColor: vars.color.semantic.stroke.alpha.subtler,
-    color: vars.color.semantic.object.bold,
+    surface: {
+      backgroundColor: vars.color.semantic.fill.subtlest,
+      borderColor: vars.color.semantic.stroke.alpha.subtler,
+      color: vars.color.semantic.object.bold,
+    },
+    layer: { backgroundColor: vars.color.semantic.fill.subtlest },
+    icon: { color: vars.color.semantic.object.bold },
   },
   positive: {
-    backgroundColor: vars.color.semantic.feedback.positive.alpha.subtlest,
-    borderColor: vars.color.semantic.feedback.positive.alpha.subtler,
-    color: vars.color.semantic.object.bolder,
+    surface: {
+      backgroundColor: vars.color.semantic.feedback.positive.alpha.subtlest,
+      borderColor: vars.color.semantic.feedback.positive.alpha.subtler,
+      color: vars.color.semantic.object.bolder,
+    },
+    layer: { backgroundColor: vars.color.semantic.feedback.positive.neutral },
+    icon: { color: vars.color.semantic.feedback.positive.bold },
   },
   destructive: {
-    backgroundColor: vars.color.semantic.feedback.destructive.alpha.subtlest,
-    borderColor: vars.color.semantic.feedback.destructive.alpha.subtler,
-    color: vars.color.semantic.object.bolder,
+    surface: {
+      backgroundColor: vars.color.semantic.feedback.destructive.alpha.subtlest,
+      borderColor: vars.color.semantic.feedback.destructive.alpha.subtler,
+      color: vars.color.semantic.object.bolder,
+    },
+    layer: { backgroundColor: vars.color.semantic.feedback.destructive.neutral },
+    icon: { color: vars.color.semantic.feedback.destructive.bold },
   },
   notifying: {
-    backgroundColor: vars.color.semantic.feedback.notifying.alpha.subtlest,
-    borderColor: vars.color.semantic.feedback.notifying.alpha.subtler,
-    color: vars.color.semantic.object.bolder,
+    surface: {
+      backgroundColor: vars.color.semantic.feedback.notifying.alpha.subtlest,
+      borderColor: vars.color.semantic.feedback.notifying.alpha.subtler,
+      color: vars.color.semantic.object.bolder,
+    },
+    layer: { backgroundColor: vars.color.semantic.feedback.notifying.static.inverse.bolder },
+    icon: { color: vars.color.semantic.feedback.notifying.static.inverse.bold },
   },
-} satisfies Record<CalloutFeedback, object>;
+} satisfies Record<CalloutFeedback, FeedbackStyle>;
+
+const byFeedback = <K extends keyof FeedbackStyle>(part: K) =>
+  ({
+    none: feedbackStyles.none[part],
+    positive: feedbackStyles.positive[part],
+    destructive: feedbackStyles.destructive[part],
+    notifying: feedbackStyles.notifying[part],
+  }) satisfies Record<CalloutFeedback, FeedbackStyle[K]>;
+
+const surfaceWithTextColorVars = (surface: SurfaceStyle) => ({
+  ...surface,
+  vars: {
+    [titleColorVar]: surface.color,
+    [labelColorVar]: surface.color,
+  },
+});
 
 export const root = recipe({
   base: {
@@ -55,11 +100,12 @@ export const root = recipe({
         padding: `${vars.scheme.semantic.spacing["12"]} ${vars.scheme.semantic.spacing["16"]}`,
       },
     } satisfies Record<CalloutSize, object>,
-    feedback: feedbackStyles,
-  },
-  defaultVariants: {
-    size: "md",
-    feedback: "none",
+    feedback: {
+      none: surfaceWithTextColorVars(feedbackStyles.none.surface),
+      positive: surfaceWithTextColorVars(feedbackStyles.positive.surface),
+      destructive: surfaceWithTextColorVars(feedbackStyles.destructive.surface),
+      notifying: surfaceWithTextColorVars(feedbackStyles.notifying.surface),
+    },
   },
 });
 
@@ -71,15 +117,7 @@ export const adjustmentLayer = recipe({
     opacity: `calc(${vars.scheme.semantic.opacity["5"]} / 100)`,
   },
   variants: {
-    feedback: {
-      none: { backgroundColor: vars.color.semantic.fill.subtlest },
-      positive: { backgroundColor: vars.color.semantic.feedback.positive.neutral },
-      destructive: { backgroundColor: vars.color.semantic.feedback.destructive.neutral },
-      notifying: { backgroundColor: vars.color.semantic.feedback.notifying.static.inverse.bolder },
-    } satisfies Record<CalloutFeedback, object>,
-  },
-  defaultVariants: {
-    feedback: "none",
+    feedback: byFeedback("layer"),
   },
 });
 
@@ -95,12 +133,9 @@ export const content = recipe({
     size: {
       lg: { gap: vars.scheme.semantic.spacing["10"] },
       md: { gap: vars.scheme.semantic.spacing["10"] },
-      sm: { gap: vars.scheme.semantic.spacing["6"] },
-      xs: { gap: vars.scheme.semantic.spacing["6"] },
+      sm: { gap: vars.scheme.semantic.spacing["8"] },
+      xs: { gap: vars.scheme.semantic.spacing["8"] },
     } satisfies Record<CalloutSize, object>,
-  },
-  defaultVariants: {
-    size: "md",
   },
 });
 
@@ -118,9 +153,6 @@ export const titleWrap = recipe({
       xs: { gap: vars.scheme.semantic.spacing["6"] },
     } satisfies Record<CalloutSize, object>,
   },
-  defaultVariants: {
-    size: "md",
-  },
 });
 
 export const iconContainer = style({
@@ -132,59 +164,21 @@ export const iconContainer = style({
 
 export const icon = recipe({
   variants: {
-    feedback: {
-      none: { color: vars.color.semantic.object.bold },
-      positive: { color: vars.color.semantic.feedback.positive.bold },
-      destructive: { color: vars.color.semantic.feedback.destructive.bold },
-      notifying: { color: vars.color.semantic.feedback.notifying.static.inverse.bold },
-    } satisfies Record<CalloutFeedback, object>,
-  },
-  defaultVariants: {
-    feedback: "none",
+    feedback: byFeedback("icon"),
   },
 });
 
-const text = style({
+export const body = style({
   width: "100%",
   margin: 0,
   color: "inherit",
   wordBreak: "break-word",
 });
 
-const titleText = style([
-  text,
+export const title = style([
+  body,
   {
     flex: 1,
     minWidth: 0,
   },
 ]);
-
-export const title = recipe({
-  base: titleText,
-  variants: {
-    size: {
-      lg: "semantic-textStyle-title-1",
-      md: "semantic-textStyle-label-lg-bold",
-      sm: "semantic-textStyle-label-md-bold",
-      xs: "semantic-textStyle-label-sm-bold",
-    } satisfies Record<CalloutSize, string>,
-  },
-  defaultVariants: {
-    size: "md",
-  },
-});
-
-export const body = recipe({
-  base: text,
-  variants: {
-    size: {
-      lg: "semantic-textStyle-body-lg-normal",
-      md: "semantic-textStyle-body-md-normal",
-      sm: "semantic-textStyle-body-sm-normal",
-      xs: "semantic-textStyle-body-2xs-normal",
-    } satisfies Record<CalloutSize, string>,
-  },
-  defaultVariants: {
-    size: "md",
-  },
-});
