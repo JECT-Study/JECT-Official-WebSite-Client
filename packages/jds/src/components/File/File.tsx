@@ -3,6 +3,7 @@ import { useHover, usePress } from "@react-aria/interactions";
 import { mergeProps } from "@react-aria/utils";
 import { clsx } from "clsx";
 import { forwardRef } from "react";
+import type { MouseEvent } from "react";
 
 import * as styles from "./file.css";
 import type { FileProps } from "./file.types";
@@ -25,15 +26,22 @@ export const File = forwardRef<HTMLDivElement, FileProps>(
       style,
       className,
 
+      onClick,
       ...buttonProps
     },
     ref,
   ) => {
     const isPressableDisabled = disabled || readonly;
 
-    const { hoverProps, isHovered } = useHover({ isDisabled: isPressableDisabled });
-    const { pressProps, isPressed } = usePress({ isDisabled: isPressableDisabled });
     const { focusProps: mainFocusProps, isFocusVisible: isMainFocusVisible } = useFocusRing();
+    const { hoverProps, isHovered } = useHover({ isDisabled: isPressableDisabled });
+    const { pressProps, isPressed } = usePress({
+      isDisabled: isPressableDisabled,
+      onClick: e => {
+        if (readonly) return;
+        onClick?.(e as MouseEvent<HTMLButtonElement>);
+      },
+    });
 
     const interactionClassName = disabled
       ? styles.disabled
@@ -44,7 +52,7 @@ export const File = forwardRef<HTMLDivElement, FileProps>(
     return (
       <div
         ref={ref}
-        {...mergeProps(hoverProps, pressProps)}
+        {...hoverProps}
         id={id}
         style={style}
         className={clsx(styles.root, interactionClassName, className)}
@@ -56,16 +64,10 @@ export const File = forwardRef<HTMLDivElement, FileProps>(
         data-focus-visible={isMainFocusVisible || undefined}
       >
         <button
-          {...buttonProps}
-          {...mainFocusProps}
+          {...mergeProps(buttonProps, mainFocusProps, pressProps)}
           type={buttonProps.type ?? "button"}
           disabled={isPressableDisabled}
           className={styles.mainAction}
-          aria-label={buttonProps["aria-label"] || `${fileName} 파일 열기`}
-          onClick={e => {
-            if (readonly) e.preventDefault(); // 클릭 방어
-            buttonProps.onClick?.(e);
-          }}
         >
           <span className={styles.fileInfo}>
             <Icon size='xs' name='link-diagonal-line' className={styles.icon} />
