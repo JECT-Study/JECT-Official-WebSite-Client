@@ -2,7 +2,7 @@ import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
 
-import type { CalloutFeedback, CalloutSize } from "./Callout.types";
+import type { CalloutFeedback, CalloutSize } from "./callout.types";
 import { labelColorVar, titleColorVar } from "../../utils/typography.css";
 
 interface SurfaceStyle {

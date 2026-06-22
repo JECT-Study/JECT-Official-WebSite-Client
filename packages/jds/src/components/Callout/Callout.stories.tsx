@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { Callout } from "./Callout";
-import type { CalloutFeedback, CalloutSize } from "./Callout.types";
+import type { CalloutFeedback, CalloutSize } from "./callout.types";
 import { iconMap } from "../Icon/IconMap";
 
 const CALLOUT_SIZES: CalloutSize[] = ["lg", "md", "sm", "xs"];

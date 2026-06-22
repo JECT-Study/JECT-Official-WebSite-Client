@@ -1,8 +1,8 @@
 import { clsx } from "clsx";
 import { forwardRef } from "react";
 
-import * as styles from "./Callout.css";
-import type { CalloutFeedback, CalloutProps, CalloutSize } from "./Callout.types";
+import * as styles from "./callout.css";
+import type { CalloutFeedback, CalloutProps, CalloutSize } from "./callout.types";
 import { Icon } from "../Icon";
 import type { IconSize } from "../Icon";
 
