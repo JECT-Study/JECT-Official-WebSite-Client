@@ -142,19 +142,7 @@ const image = style({
   borderRadius: "inherit",
 });
 
-const fallback = style({
-  width: "100%",
-  height: "100%",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  borderRadius: "inherit",
-  backgroundColor: vars.colorPrimitive.primitive.flow.alpha["50"],
-  color: vars.color.semantic.object.subtlest,
-});
-
 export const thumbnailStyles = {
   root,
   image,
-  fallback,
 } as const;

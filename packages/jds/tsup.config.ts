@@ -16,5 +16,6 @@ export default defineConfig({
   // TODO(Emotion 제거): external에서 "@emotion/react", "@emotion/styled" 제거
   external: ["react", "react-dom", "@emotion/react", "@emotion/styled"],
   esbuildPlugins: [vanillaExtractPlugin()],
+  loader: { ".png": "dataurl" },
   minify: process.env.NODE_ENV === "production",
 });

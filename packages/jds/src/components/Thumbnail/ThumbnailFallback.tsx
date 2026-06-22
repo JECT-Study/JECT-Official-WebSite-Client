@@ -1,11 +1,15 @@
 import { thumbnailStyles } from "./thumbnail.css";
-import { Icon } from "../Icon";
+import defaultImage from "../../assets/images/defaultImage.png";
 
 export function ThumbnailFallback() {
   return (
-    <div data-part='fallback' className={thumbnailStyles.fallback}>
-      <Icon name='image-line' size='3xl' aria-hidden='true' />
-    </div>
+    <img
+      data-part='fallback'
+      src={defaultImage}
+      alt=''
+      aria-hidden='true'
+      className={thumbnailStyles.image}
+    />
   );
 }
 
