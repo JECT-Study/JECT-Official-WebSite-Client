@@ -8,7 +8,7 @@ import {
 } from "../Button/IconButton/iconButton.css";
 
 import { focusRing } from "@/utils/focusRing.css";
-import { overlay } from "@/utils/overlay.css";
+import { overlay, overlayPressedOpacity } from "@/utils/overlay.css";
 import { labelColorVar } from "@/utils/typography.css";
 
 const LAYER_INSET = `${pxToRem(-6)} ${pxToRem(-8)}`;
@@ -37,9 +37,38 @@ export const root = style([
         inset: LAYER_INSET,
         borderRadius: LAYER_RADIUS,
       },
+      "&[data-readonly]": {
+        vars: {
+          [overlayPressedOpacity]: "0",
+        },
+      },
     },
   },
 ]);
+
+export const mainAction = style({
+  display: "flex",
+  flex: 1,
+  flexDirection: "row",
+  alignItems: "center",
+  gap: vars.scheme.semantic.spacing["8"],
+  minWidth: 0,
+  padding: 0,
+  border: "none",
+  background: "transparent",
+  color: "inherit",
+  font: "inherit",
+  textAlign: "left",
+  appearance: "none",
+  WebkitAppearance: "none",
+  cursor: "inherit",
+  selectors: {
+    "&:disabled": {
+      pointerEvents: "none",
+      cursor: "inherit",
+    },
+  },
+});
 
 export const fileInfo = style({
   display: "flex",

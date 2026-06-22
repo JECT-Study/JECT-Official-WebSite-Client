@@ -1,10 +1,9 @@
 import type { ComponentPropsWithoutRef, MouseEvent } from "react";
 
-interface BaseFileProps extends Omit<ComponentPropsWithoutRef<"div">, "children"> {
+interface BaseFileProps extends Omit<ComponentPropsWithoutRef<"button">, "children"> {
   fileName: string;
   fileSize: string;
   readonly?: boolean;
-  disabled?: boolean;
 }
 
 type FileRemovableProps =

@@ -1,6 +1,7 @@
+import { useFocusRing } from "@react-aria/focus";
+import { useHover, usePress } from "@react-aria/interactions";
 import { mergeProps } from "@react-aria/utils";
 import { clsx } from "clsx";
-import { usePressable } from "hooks";
 import { forwardRef } from "react";
 
 import * as styles from "./file.css";
@@ -19,16 +20,20 @@ export const File = forwardRef<HTMLDivElement, FileProps>(
       readonly = false,
       disabled = false,
       onRemove,
+
+      id,
+      style,
       className,
-      ...rootProps
+
+      ...buttonProps
     },
     ref,
   ) => {
     const isPressableDisabled = disabled || readonly;
-    const { ref: pressableRef, pressableProps } = usePressable(ref, {
-      disabled: isPressableDisabled,
-      elementType: "div",
-    });
+
+    const { hoverProps, isHovered } = useHover({ isDisabled: isPressableDisabled });
+    const { pressProps, isPressed } = usePress({ isDisabled: isPressableDisabled });
+    const { focusProps: mainFocusProps, isFocusVisible: isMainFocusVisible } = useFocusRing();
 
     const interactionClassName = disabled
       ? styles.disabled
@@ -38,30 +43,48 @@ export const File = forwardRef<HTMLDivElement, FileProps>(
 
     return (
       <div
-        ref={pressableRef}
-        {...mergeProps(rootProps, pressableProps, {
-          "data-readonly": readonly || undefined,
-          "data-file-disabled": disabled || undefined,
-          "aria-disabled": disabled || undefined,
-        })}
+        ref={ref}
+        {...mergeProps(hoverProps, pressProps)}
+        id={id}
+        style={style}
         className={clsx(styles.root, interactionClassName, className)}
+        data-readonly={readonly || undefined}
+        data-file-disabled={disabled || undefined}
+        data-disabled={disabled || undefined}
+        data-hovered={isHovered || undefined}
+        data-pressed={isPressed || undefined}
+        data-focus-visible={isMainFocusVisible || undefined}
       >
-        <span className={styles.fileInfo}>
-          <Icon size='xs' name='link-diagonal-line' className={styles.icon} />
-          <span
-            className={clsx(getLabelClassName({ size: "md", weight: "subtle" }), styles.fileName)}
-          >
-            {fileName}
-          </span>
-        </span>
-        <span
-          className={clsx(
-            getLabelClassName({ size: "sm", textAlign: "right", weight: "subtle" }),
-            styles.fileSize,
-          )}
+        <button
+          {...buttonProps}
+          {...mainFocusProps}
+          type={buttonProps.type ?? "button"}
+          disabled={isPressableDisabled}
+          className={styles.mainAction}
+          aria-label={buttonProps["aria-label"] || `${fileName} 파일 열기`}
+          onClick={e => {
+            if (readonly) e.preventDefault(); // 클릭 방어
+            buttonProps.onClick?.(e);
+          }}
         >
-          {fileSize}
-        </span>
+          <span className={styles.fileInfo}>
+            <Icon size='xs' name='link-diagonal-line' className={styles.icon} />
+            <span
+              className={clsx(getLabelClassName({ size: "md", weight: "subtle" }), styles.fileName)}
+            >
+              {fileName}
+            </span>
+          </span>
+          <span
+            className={clsx(
+              getLabelClassName({ size: "sm", textAlign: "right", weight: "subtle" }),
+              styles.fileSize,
+            )}
+          >
+            {fileSize}
+          </span>
+        </button>
+
         {removable && !readonly && !disabled && (
           <IconButton
             hierarchy='accent'
@@ -74,7 +97,6 @@ export const File = forwardRef<HTMLDivElement, FileProps>(
               e.stopPropagation();
               onRemove?.(e);
             }}
-            onPointerDown={e => e.stopPropagation()}
           />
         )}
       </div>
