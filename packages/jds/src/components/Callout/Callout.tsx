@@ -1,49 +1,46 @@
-import { useTheme } from "@emotion/react";
+import { clsx } from "clsx";
 
-import {
-  CalloutContainer,
-  CalloutContentDiv,
-  CalloutTitleP,
-  CalloutContentP,
-} from "./Callout.style";
-import type { CalloutProps } from "./Callout.types";
-import { getCalloutStyleToken } from "./Callout.variants";
-import { LabelButton } from "../Button/LabelButton";
+import * as styles from "./Callout.css";
+import type { CalloutProps, CalloutSize } from "./Callout.types";
+import { Icon } from "../Icon";
+import type { IconSize } from "../Icon";
+
+const iconSizeMap = {
+  lg: "lg",
+  md: "sm",
+  sm: "xs",
+  xs: "2xs",
+} as const satisfies Record<CalloutSize, IconSize>;
 
 export const Callout = ({
   size = "md",
+  feedback = "none",
   title,
-  labelButtonProps,
+  icon,
   children,
   className,
-  ...props
 }: CalloutProps) => {
-  const theme = useTheme();
-  const styleToken = getCalloutStyleToken(theme, props);
-
-  const renderButton = () => {
-    if (!labelButtonProps) return null;
-
-    if (props.feedback) {
-      return <LabelButton.Basic hierarchy='secondary' size={size} {...labelButtonProps} />;
-    }
-
-    return (
-      <LabelButton.Basic
-        hierarchy={props.hierarchy || "secondary"}
-        size={size}
-        {...labelButtonProps}
-      />
-    );
-  };
-
   return (
-    <CalloutContainer $size={size} $styleToken={styleToken} className={className}>
-      <CalloutContentDiv $size={size}>
-        {title && <CalloutTitleP $size={size}>{title}</CalloutTitleP>}
-        <CalloutContentP $size={size}>{children}</CalloutContentP>
-      </CalloutContentDiv>
-      {renderButton()}
-    </CalloutContainer>
+    <div className={clsx(styles.root({ size, feedback }), className)}>
+      <div className={styles.adjustmentLayer({ feedback })} aria-hidden />
+      <div className={styles.content({ size })}>
+        {title && (
+          <div className={styles.titleWrap({ size })}>
+            {icon && (
+              <span className={styles.iconContainer}>
+                <Icon
+                  aria-hidden
+                  className={styles.icon({ feedback })}
+                  name={icon}
+                  size={iconSizeMap[size]}
+                />
+              </span>
+            )}
+            <p className={styles.title({ size })}>{title}</p>
+          </div>
+        )}
+        <p className={styles.body({ size })}>{children}</p>
+      </div>
+    </div>
   );
 };
