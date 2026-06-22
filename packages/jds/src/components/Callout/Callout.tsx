@@ -2,7 +2,7 @@ import { clsx } from "clsx";
 import { forwardRef } from "react";
 
 import * as styles from "./Callout.css";
-import type { CalloutProps, CalloutSize } from "./Callout.types";
+import type { CalloutFeedback, CalloutProps, CalloutSize } from "./Callout.types";
 import { Icon } from "../Icon";
 import type { IconSize } from "../Icon";
 
@@ -13,10 +13,22 @@ const iconSizeMap = {
   xs: "2xs",
 } as const satisfies Record<CalloutSize, IconSize>;
 
+const feedbackRoleMap = {
+  none: undefined,
+  positive: "status",
+  destructive: "alert",
+  notifying: "status",
+} as const satisfies Record<CalloutFeedback, "status" | "alert" | undefined>;
+
 export const Callout = forwardRef<HTMLDivElement, CalloutProps>(
   ({ size = "md", feedback = "none", title, icon, children, className, ...restProps }, ref) => {
     return (
-      <div ref={ref} className={clsx(styles.root({ size, feedback }), className)} {...restProps}>
+      <div
+        ref={ref}
+        role={feedbackRoleMap[feedback]}
+        className={clsx(styles.root({ size, feedback }), className)}
+        {...restProps}
+      >
         <div className={styles.adjustmentLayer({ feedback })} aria-hidden />
         <div className={styles.content({ size })}>
           {title && (
