@@ -47,8 +47,6 @@ const appearanceVariants = {
   outlined: { border: `1px solid ${thumbnailVars.borderColor}` },
 } satisfies Record<ThumbnailAppearance, unknown>;
 
-const pressDimLayerColor = `color-mix(in srgb, ${vars.color.semantic.fill.normal} calc(${vars.scheme.semantic.opacity["8"]} * 1%), transparent)`;
-
 const aspectRatioCompoundVariants = THUMBNAIL_RATIO_OPTIONS.flatMap(r => {
   const [w, h] = ratioBase[r];
   return THUMBNAIL_ORIENTATION_OPTIONS.map(o => ({
@@ -83,7 +81,7 @@ const root = recipe({
 
     vars: {
       [thumbnailVars.width]: "100%",
-      [thumbnailVars.borderColor]: vars.color.semantic.stroke.alpha.subtler,
+      [thumbnailVars.borderColor]: vars.color.semantic.stroke.alpha.subtle,
     },
 
     selectors: {
@@ -109,12 +107,8 @@ const root = recipe({
       "&:is(button, a)": {
         cursor: "pointer",
       },
-      "&:is(button, a):hover::after": {
-        opacity: 1,
-      },
       "&:is(button, a):active::after": {
-        opacity: 1,
-        backgroundImage: `linear-gradient(${pressDimLayerColor}, ${pressDimLayerColor})`,
+        opacity: `calc(${vars.scheme.semantic.opacity["8"]} * 1%)`,
         transition: "none",
       },
       "&:is(button, a):focus-visible": {
