@@ -1,7 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { Callout } from "./Callout";
+import type { CalloutFeedback, CalloutSize } from "./Callout.types";
 import { iconMap } from "../Icon/IconMap";
+
+const CALLOUT_SIZES: CalloutSize[] = ["lg", "md", "sm", "xs"];
+const CALLOUT_FEEDBACKS: CalloutFeedback[] = ["none", "positive", "destructive", "notifying"];
 
 const meta = {
   title: "Components/Callout",
@@ -17,7 +21,7 @@ const meta = {
   argTypes: {
     size: {
       control: "radio",
-      options: ["lg", "md", "sm", "xs"],
+      options: CALLOUT_SIZES,
       description: "Callout의 크기",
       table: {
         defaultValue: { summary: "md" },
@@ -41,7 +45,7 @@ const meta = {
     },
     feedback: {
       control: "radio",
-      options: ["none", "positive", "destructive", "notifying"],
+      options: CALLOUT_FEEDBACKS,
       description: "피드백 상태",
       table: {
         defaultValue: { summary: "none" },
@@ -88,17 +92,19 @@ export const Feedback: Story = {
     children:
       "콜아웃 텍스트의 최대 입력 글자수 제한은 없지만, 너무 많은 글자수는 핵심적인 내용을 효과적으로 전달하는 데에 적절치 않다는 점을 유의합니다.",
   },
-  render: args => (
+  render: ({ title, icon, size, children }) => (
     <div style={{ display: "flex", flexDirection: "column", gap: "1rem", width: "20rem" }}>
-      <Callout feedback='positive' size={args.size} title={args.title} icon={args.icon}>
-        {args.children}
-      </Callout>
-      <Callout feedback='destructive' size={args.size} title={args.title} icon={args.icon}>
-        {args.children}
-      </Callout>
-      <Callout feedback='notifying' size={args.size} title={args.title} icon={args.icon}>
-        {args.children}
-      </Callout>
+      {CALLOUT_FEEDBACKS.map(feedback =>
+        title ? (
+          <Callout key={feedback} feedback={feedback} size={size} title={title} icon={icon}>
+            {children}
+          </Callout>
+        ) : (
+          <Callout key={feedback} feedback={feedback} size={size}>
+            {children}
+          </Callout>
+        ),
+      )}
     </div>
   ),
 };
