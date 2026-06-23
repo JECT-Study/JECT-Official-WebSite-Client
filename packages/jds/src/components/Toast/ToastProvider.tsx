@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { isValidElement } from "react";
 import { createContext, useContext, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
@@ -20,11 +21,29 @@ interface ToastContextType {
 
 const ToastContext = createContext<ToastContextType | null>(null);
 
+const extractTextFromNode = (node: ReactNode): string => {
+  if (typeof node === "string" || typeof node === "number") {
+    return String(node);
+  }
+  if (Array.isArray(node)) {
+    return node.map(extractTextFromNode).join("");
+  }
+  if (isValidElement(node) && node.props && "children" in node.props) {
+    return extractTextFromNode(node.props.children as ReactNode);
+  }
+  return "";
+};
+
 export const ToastProvider = ({ children, duration }: ToastProviderProps) => {
   const { toasts, toast: handler, removeToast } = useToastProvider({});
   const [isMounted, setIsMounted] = useState(false);
 
   const latestToast = toasts.length > 0 ? toasts[toasts.length - 1] : null;
+  const safeAnnouncement = latestToast
+    ? [extractTextFromNode(latestToast.title), extractTextFromNode(latestToast.description)]
+        .filter(Boolean)
+        .join(" ")
+    : "";
 
   useEffect(() => {
     toastController.setHandler(handler);
@@ -41,18 +60,13 @@ export const ToastProvider = ({ children, duration }: ToastProviderProps) => {
 
       {/* 스크린리더 전용 live region: 최신 토스트만 낭독 */}
       <div className={visuallyHidden} role='status' aria-live='polite'>
-        {latestToast && (
-          <>
-            {latestToast.title}
-            {latestToast.description && <> {latestToast.description}</>}
-          </>
-        )}
+        {safeAnnouncement}
       </div>
 
       {isMounted &&
         createPortal(
           // 시각용 스택: live region과 중복 낭독 방지
-          <div className={stackContainer} aria-hidden='true'>
+          <div className={stackContainer}>
             {toasts.map(toast => (
               <Toast
                 key={toast.id}

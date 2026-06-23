@@ -10,7 +10,14 @@ import { getBodyClassName, getLabelClassName } from "@/utils/typography";
 
 type ToastPhase = "enter" | "static" | "exit";
 
-const DEFAULT_TOAST_DURATION = 2500;
+/**
+ * enter/exit 값은 toast.css.ts의 animation duration 토큰과 동기화한다.
+ */
+const TOAST_DURATION = {
+  DEFAULT: 2500,
+  ENTER: 250,
+  EXIT: 200,
+} as const;
 
 const phaseClassNameMap: Partial<Record<ToastPhase, string>> = {
   enter: styles.enter,
@@ -30,30 +37,34 @@ export const Toast = ({
   onRemove,
   title,
   isClosing,
-  duration = DEFAULT_TOAST_DURATION,
+  duration = TOAST_DURATION.DEFAULT,
 }: ToastProps) => {
   const [phase, setPhase] = useState<ToastPhase>("enter");
   const hasDescription = Boolean(description);
 
-  const onAnimationEnd = () => {
+  useEffect(() => {
     if (phase === "enter") {
-      setPhase("static");
-      return;
+      const timer = setTimeout(() => setPhase("static"), TOAST_DURATION.ENTER);
+      return () => clearTimeout(timer);
     }
-
-    if (phase === "exit") {
-      onRemove?.();
-    }
-  };
+  }, [phase]);
 
   useEffect(() => {
     if (phase === "static") {
       if (duration === Infinity) return;
-
       const timer = setTimeout(() => setPhase("exit"), duration);
       return () => clearTimeout(timer);
     }
   }, [duration, phase]);
+
+  useEffect(() => {
+    if (phase === "exit") {
+      const timer = setTimeout(() => {
+        onRemove?.();
+      }, TOAST_DURATION.EXIT);
+      return () => clearTimeout(timer);
+    }
+  }, [phase, onRemove]);
 
   useEffect(() => {
     if (isClosing) setPhase("exit");
@@ -63,11 +74,7 @@ export const Toast = ({
   const iconName = feedback !== "none" && feedbackIconName[feedback];
 
   return (
-    <div
-      id={id}
-      className={clsx(styles.root({ feedback }), phaseClassName)}
-      onAnimationEnd={onAnimationEnd}
-    >
+    <div id={id} className={clsx(styles.root({ feedback }), phaseClassName)}>
       {iconName && <Icon name={iconName} size='sm' className={styles.icon({ feedback })} />}
       <div className={styles.content({ withDescription: hasDescription })}>
         <span className={clsx(styles.label, getLabelClassName({ size: "md", weight: "normal" }))}>
