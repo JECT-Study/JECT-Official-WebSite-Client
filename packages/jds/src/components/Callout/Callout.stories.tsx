@@ -100,6 +100,17 @@ const withFixedWidth = (Story: ComponentType) => (
   </div>
 );
 
+const CalloutExample = ({ size, feedback, title, icon, children }: CalloutStoryArgs) =>
+  title ? (
+    <Callout size={size} feedback={feedback} title={title} icon={icon}>
+      {children}
+    </Callout>
+  ) : (
+    <Callout size={size} feedback={feedback}>
+      {children}
+    </Callout>
+  );
+
 export const Default: Story = {
   decorators: [withFixedWidth],
   parameters: {
@@ -185,15 +196,9 @@ export const Size: Story = {
     <div style={{ display: "flex", gap: "1rem", width: "100%" }}>
       {CALLOUT_SIZES.map(size => (
         <LabeledExample key={size} label={`size=${size}`}>
-          {title ? (
-            <Callout size={size} feedback={feedback} title={title} icon={icon}>
-              {children}
-            </Callout>
-          ) : (
-            <Callout size={size} feedback={feedback}>
-              {children}
-            </Callout>
-          )}
+          <CalloutExample size={size} feedback={feedback} title={title} icon={icon}>
+            {children}
+          </CalloutExample>
         </LabeledExample>
       ))}
     </div>
@@ -228,15 +233,14 @@ export const Feedback: Story = {
     <div style={{ display: "flex", gap: "1rem", width: "100%" }}>
       {CALLOUT_FEEDBACKS.map(feedback => (
         <LabeledExample key={feedback} label={`feedback=${feedback}`}>
-          {title ? (
-            <Callout feedback={feedback} size={size} title={title} icon={feedbackIconMap[feedback]}>
-              {children}
-            </Callout>
-          ) : (
-            <Callout feedback={feedback} size={size}>
-              {children}
-            </Callout>
-          )}
+          <CalloutExample
+            size={size}
+            feedback={feedback}
+            title={title}
+            icon={feedbackIconMap[feedback]}
+          >
+            {children}
+          </CalloutExample>
         </LabeledExample>
       ))}
     </div>
