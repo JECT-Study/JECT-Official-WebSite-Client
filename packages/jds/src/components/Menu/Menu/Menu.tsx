@@ -157,7 +157,7 @@ const MenuTree = forwardRef<HTMLButtonElement, MenuTreeProps>(
       }
     };
 
-    const hasChildren = Children.count(children) > 0;
+    const hasChildren = Children.toArray(children).length > 0;
     const hasTreeButton = withTreeButton ?? hasChildren;
 
     // 부모(자식 보유) 노드는 label 클릭/선택 시 메뉴를 닫지 않고 펼침·접힘만 수행한다.
