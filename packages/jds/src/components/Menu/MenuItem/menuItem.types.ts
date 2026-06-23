@@ -4,13 +4,11 @@ import type { IconName } from "../../Icon";
 
 export type MenuItemVariant = "icon" | "thumbnail";
 export type MenuItemSize = "lg" | "md" | "sm";
-export type MenuItemTone = "normal" | "accent" | "destructive";
 
 export interface MenuItemButtonProps extends ComponentPropsWithoutRef<"button"> {
   variant?: MenuItemVariant;
   size?: MenuItemSize;
   isSelected?: boolean;
-  isDestructive?: boolean;
   prefixIcon?: IconName;
   suffixIcon?: IconName;
   prefixIconVisible?: boolean;
@@ -25,7 +23,6 @@ export interface MenuItemAnchorProps extends ComponentPropsWithoutRef<"a"> {
   size?: MenuItemSize;
   disabled?: boolean;
   isSelected?: boolean;
-  isDestructive?: boolean;
   prefixIcon?: IconName;
   suffixIcon?: IconName;
   prefixIconVisible?: boolean;

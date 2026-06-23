@@ -1,8 +1,8 @@
 import { clsx } from "clsx";
 import { forwardRef } from "react";
 
-import { menuItemImage, menuItemLabel, menuItemRoot } from "./menuItem.css";
-import type { MenuItemAnchorProps, MenuItemButtonProps, MenuItemTone } from "./menuItem.types";
+import { menuContainerStyle, menuItemImage, menuItemLabel } from "./menuItem.css";
+import type { MenuItemAnchorProps, MenuItemButtonProps } from "./menuItem.types";
 import { Icon } from "../../Icon";
 import { Thumbnail } from "../../Thumbnail";
 
@@ -14,7 +14,6 @@ const MenuItemButton = forwardRef<HTMLButtonElement, MenuItemButtonProps>(
       variant = "icon",
       size = "md",
       isSelected = false,
-      isDestructive = false,
       disabled = false,
       prefixIcon = "blank",
       suffixIcon = "blank",
@@ -33,7 +32,7 @@ const MenuItemButton = forwardRef<HTMLButtonElement, MenuItemButtonProps>(
         ref={ref}
         disabled={disabled}
         data-disabled={disabled || undefined}
-        className={clsx(menuItemRoot({ tone: getTone({ isDestructive, isSelected }) }), className)}
+        className={clsx(menuContainerStyle({ size, isSelected }), className)}
         {...restProps}
       >
         {variant === "icon" && prefixIconVisible && <Icon name={prefixIcon} size={size} />}
@@ -63,17 +62,6 @@ const MenuItemButton = forwardRef<HTMLButtonElement, MenuItemButtonProps>(
   },
 );
 
-interface getToneParams {
-  isDestructive: boolean;
-  isSelected: boolean;
-}
-
-const getTone = ({ isDestructive, isSelected }: getToneParams): MenuItemTone => {
-  if (isDestructive) return "destructive";
-  if (isSelected) return "accent";
-  return "normal";
-};
-
 MenuItemButton.displayName = "MenuItem.Button";
 
 const MenuItemAnchor = forwardRef<HTMLAnchorElement, MenuItemAnchorProps>(
@@ -82,7 +70,6 @@ const MenuItemAnchor = forwardRef<HTMLAnchorElement, MenuItemAnchorProps>(
       variant = "icon",
       size = "md",
       isSelected = false,
-      isDestructive = false,
       disabled = false,
       prefixIcon = "blank",
       suffixIcon = "blank",
@@ -102,7 +89,7 @@ const MenuItemAnchor = forwardRef<HTMLAnchorElement, MenuItemAnchorProps>(
         aria-disabled={disabled || undefined}
         data-disabled={disabled || undefined}
         tabIndex={disabled ? -1 : undefined}
-        className={clsx(menuItemRoot({ tone: getTone({ isDestructive, isSelected }) }), className)}
+        className={clsx(menuContainerStyle({ size, isSelected }), className)}
         {...rest}
       >
         {variant === "icon" && prefixIconVisible && <Icon name={prefixIcon} size={size} />}

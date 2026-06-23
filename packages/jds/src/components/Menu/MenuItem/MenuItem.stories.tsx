@@ -28,10 +28,6 @@ const meta: Meta<typeof MenuItem.Button> = {
       control: "boolean",
       description: "항목 선택 여부",
     },
-    isDestructive: {
-      control: "boolean",
-      description: "항목의 부정-파괴적 여부",
-    },
     prefixIcon: {
       control: "select",
       description: "왼쪽 아이콘명",
@@ -72,7 +68,6 @@ export const Default: Story = {
     size: "md",
     disabled: false,
     isSelected: false,
-    isDestructive: false,
     prefixIcon: "blank",
     suffixIcon: "blank",
     prefixIconVisible: true,
@@ -93,7 +88,6 @@ export const MenuItemSizes: Story = {
   args: {
     disabled: false,
     isSelected: false,
-    isDestructive: false,
     prefixIconVisible: true,
     suffixIconVisible: true,
   },
@@ -140,7 +134,6 @@ export const MenuItemAnchor: AnchorStory = {
     size: "md",
     disabled: false,
     isSelected: false,
-    isDestructive: false,
     prefixIcon: "blank",
     suffixIcon: "blank",
     prefixIconVisible: true,
