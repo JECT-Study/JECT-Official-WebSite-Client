@@ -42,11 +42,7 @@ const bodyTypographySizeMap = {
 export const Callout = forwardRef<HTMLDivElement, CalloutProps>(
   ({ size = "md", feedback = "none", title, icon, children, className, ...restProps }, ref) => {
     return (
-      <div
-        ref={ref}
-        className={clsx(styles.root({ size, feedback }), className)}
-        {...restProps}
-      >
+      <div ref={ref} className={clsx(styles.root({ size, feedback }), className)} {...restProps}>
         <div className={styles.content({ size })}>
           {title && (
             <div className={styles.titleWrap({ size })}>

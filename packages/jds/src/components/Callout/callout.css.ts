@@ -172,12 +172,12 @@ export const body = style({
   width: "100%",
   margin: 0,
   color: "inherit",
-  wordBreak: "break-word",
+  overflowWrap: "break-word",
 });
 
 export const title = style({
   margin: 0,
   flex: 1,
   minWidth: 0,
-  wordBreak: "break-word",
+  overflowWrap: "break-word",
 });
