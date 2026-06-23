@@ -2,7 +2,7 @@
 "@jects/jds": minor
 ---
 
-**Menu / MenuItem**
+**Menu**
 
 계층형(아코디언) 메뉴를 위한 `Menu.Tree` 컴포넌트를 추가하고, MenuItem의 표현 옵션을 확장합니다.
 
