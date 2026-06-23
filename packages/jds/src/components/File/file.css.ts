@@ -161,4 +161,11 @@ export const removeButton = style({
     [iconButtonAccentColor]: vars.color.semantic.object.alternative,
     [iconButtonAccentDisabledColor]: vars.color.semantic.object.subtler,
   },
+  selectors: {
+    [`${root}[data-file-disabled] &`]: {
+      vars: {
+        [iconButtonAccentColor]: vars.color.semantic.object.subtler,
+      },
+    },
+  },
 });

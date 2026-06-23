@@ -5,6 +5,7 @@ interface BaseFileProps extends Omit<ComponentPropsWithoutRef<"button">, "childr
   fileName: string;
   fileSize: string;
   readonly?: boolean;
+  disabled?: boolean;
   onPress?: (event: PressEvent) => void;
 }
 
@@ -16,7 +17,6 @@ type FileRemovableProps =
   | {
       removable: true;
       readonly?: false;
-      disabled?: false;
       onRemove: (event: MouseEvent<HTMLButtonElement>) => void;
     };
 

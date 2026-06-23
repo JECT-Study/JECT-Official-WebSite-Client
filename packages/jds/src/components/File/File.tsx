@@ -90,7 +90,7 @@ export const File = forwardRef<HTMLDivElement, FileProps>(
           </span>
         </button>
 
-        {removable && !readonly && !disabled && (
+        {removable && !readonly && (
           <IconButton
             hierarchy='accent'
             size='sm'

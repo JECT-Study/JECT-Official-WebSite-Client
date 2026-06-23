@@ -50,13 +50,13 @@ const renderFile = (args: FileStoryArgs) => (
     <File
       fileName={args.fileName}
       fileSize={args.fileSize}
+      disabled={args.disabled}
       onPress={() => {
         alert("file clicked");
       }}
-      {...(args.removable && !args.readonly && !args.disabled
+      {...(args.removable && !args.readonly
         ? {
             readonly: false,
-            disabled: false,
             removable: true,
             onRemove: () => alert("icon clicked"),
           }
@@ -128,6 +128,25 @@ export const Disabled: Story = {
     readonly: false,
     disabled: true,
     removable: false,
+  },
+  render: renderFile,
+};
+
+export const DisabledRemovable: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "파일 열기 동작은 비활성화되어 있지만, 사용자가 파일을 삭제할 수 있어야 하는 경우에는 disabled와 removable을 함께 사용합니다.",
+      },
+    },
+  },
+  args: {
+    fileName: "파일명.pdf",
+    fileSize: "2.6MB",
+    readonly: false,
+    disabled: true,
+    removable: true,
   },
   render: renderFile,
 };
