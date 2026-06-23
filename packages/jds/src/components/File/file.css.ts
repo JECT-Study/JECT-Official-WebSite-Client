@@ -126,11 +126,6 @@ export const readonly = style({
 
 export const disabled = style({
   cursor: "not-allowed",
-  selectors: {
-    "&:focus-visible::before": {
-      boxShadow: "none",
-    },
-  },
 });
 
 export const fileSize = style({
