@@ -47,7 +47,6 @@ export const Callout = forwardRef<HTMLDivElement, CalloutProps>(
         className={clsx(styles.root({ size, feedback }), className)}
         {...restProps}
       >
-        <div className={styles.adjustmentLayer({ feedback })} aria-hidden />
         <div className={styles.content({ size })}>
           {title && (
             <div className={styles.titleWrap({ size })}>

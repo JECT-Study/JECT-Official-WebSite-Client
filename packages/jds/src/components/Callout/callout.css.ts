@@ -1,4 +1,4 @@
-import { style } from "@vanilla-extract/css";
+import { createVar, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
 
@@ -64,13 +64,19 @@ const byFeedback = <K extends keyof FeedbackStyle>(part: K) =>
     notifying: feedbackStyles.notifying[part],
   }) satisfies Record<CalloutFeedback, FeedbackStyle[K]>;
 
-const surfaceWithTextColorVars = (surface: SurfaceStyle) => ({
-  ...surface,
-  vars: {
-    [titleColorVar]: surface.color,
-    [labelColorVar]: surface.color,
-  },
-});
+const layerColorVar = createVar();
+
+const feedbackVars = (feedback: CalloutFeedback) => {
+  const { surface, layer } = feedbackStyles[feedback];
+  return {
+    ...surface,
+    vars: {
+      [titleColorVar]: surface.color,
+      [labelColorVar]: surface.color,
+      [layerColorVar]: layer.backgroundColor,
+    },
+  };
+};
 
 export const root = recipe({
   base: {
@@ -80,10 +86,19 @@ export const root = recipe({
     alignItems: "flex-start",
     gap: vars.scheme.semantic.spacing["16"],
     width: "100%",
-    overflow: "hidden",
     borderWidth: vars.scheme.semantic.strokeWeight["1"],
     borderStyle: "solid",
     borderRadius: vars.scheme.semantic.radius["8"],
+    "::after": {
+      content: '""',
+      position: "absolute",
+      inset: 0,
+      borderRadius: "inherit",
+      backgroundColor: layerColorVar,
+      opacity: `calc(${vars.scheme.semantic.opacity["5"]} / 100)`,
+      pointerEvents: "none",
+      zIndex: -10,
+    },
   },
   variants: {
     size: {
@@ -101,23 +116,11 @@ export const root = recipe({
       },
     } satisfies Record<CalloutSize, object>,
     feedback: {
-      none: surfaceWithTextColorVars(feedbackStyles.none.surface),
-      positive: surfaceWithTextColorVars(feedbackStyles.positive.surface),
-      destructive: surfaceWithTextColorVars(feedbackStyles.destructive.surface),
-      notifying: surfaceWithTextColorVars(feedbackStyles.notifying.surface),
+      none: feedbackVars("none"),
+      positive: feedbackVars("positive"),
+      destructive: feedbackVars("destructive"),
+      notifying: feedbackVars("notifying"),
     },
-  },
-});
-
-export const adjustmentLayer = recipe({
-  base: {
-    position: "absolute",
-    inset: "-1px",
-    pointerEvents: "none",
-    opacity: `calc(${vars.scheme.semantic.opacity["5"]} / 100)`,
-  },
-  variants: {
-    feedback: byFeedback("layer"),
   },
 });
 
