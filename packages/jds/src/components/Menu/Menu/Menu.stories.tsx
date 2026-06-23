@@ -130,27 +130,30 @@ export const Tree: Story = {
       <Menu.Content side='right' align='start' sideOffset={10} style={{ width: "220px" }}>
         <Menu.Category>카테고리</Menu.Category>
 
-        {/* depth 1 — 자식이 있는 펼침 헤더 (chevron 노출, 클릭/←·→ 로 토글) */}
-        <Menu.Tree label='상위 메뉴' defaultOpen fullWidthText>
-          {/* depth 2 — 말단 항목 (withTreeButton={false} 로 chevron 자리 비움) */}
-          <Menu.Tree label='하위 메뉴' withTreeButton={false} fullWidthText />
+        {/* 최상위 트리는 Menu.Group(ul) 안에 둬야 유효한 리스트 마크업이 된다 */}
+        <Menu.Group>
+          {/* depth 1 — 자식이 있는 펼침 헤더 (chevron 노출, 클릭/←·→ 로 토글) */}
+          <Menu.Tree label='상위 메뉴' defaultOpen fullWidthText>
+            {/* depth 2 — 말단 항목 (withTreeButton={false} 로 chevron 자리 비움) */}
+            <Menu.Tree label='하위 메뉴' withTreeButton={false} fullWidthText />
 
-          {/* depth 2 — 다시 펼쳐지는 헤더 */}
-          <Menu.Tree label='하위 그룹' defaultOpen fullWidthText>
-            {/* depth 3 — 선택 / 비활성 말단 항목 */}
-            <Menu.Tree label='선택된 항목' withTreeButton={false} fullWidthText isSelected />
-            <Menu.Tree label='비활성 항목' withTreeButton={false} fullWidthText disabled />
+            {/* depth 2 — 다시 펼쳐지는 헤더 */}
+            <Menu.Tree label='하위 그룹' defaultOpen fullWidthText>
+              {/* depth 3 — 선택 / 비활성 말단 항목 */}
+              <Menu.Tree label='선택된 항목' withTreeButton={false} fullWidthText isSelected />
+              <Menu.Tree label='비활성 항목' withTreeButton={false} fullWidthText disabled />
+            </Menu.Tree>
           </Menu.Tree>
-        </Menu.Tree>
 
-        {/* depth 1 — 단독 말단 항목 */}
-        <Menu.Tree
-          label='단일 메뉴'
-          withTreeButton={false}
-          fullWidthText
-          suffixIconVisible
-          suffixIcon='arrow-right-up-line'
-        />
+          {/* depth 1 — 단독 말단 항목 */}
+          <Menu.Tree
+            label='단일 메뉴'
+            withTreeButton={false}
+            fullWidthText
+            suffixIconVisible
+            suffixIcon='arrow-right-up-line'
+          />
+        </Menu.Group>
       </Menu.Content>
     </Menu.Root>
   ),
