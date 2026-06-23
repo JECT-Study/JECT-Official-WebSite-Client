@@ -19,6 +19,7 @@ export * from "./Image";
 export * from "./Thumbnail";
 export * from "./Input";
 export * from "./Kbd";
+export * from "./Link";
 export * from "./Logo";
 export * from "./Menu/MegaMenu";
 export * from "./Menu/MenuItem";
