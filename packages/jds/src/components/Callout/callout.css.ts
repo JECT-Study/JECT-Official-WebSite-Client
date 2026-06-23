@@ -73,6 +73,7 @@ const feedbackVars = (feedback: CalloutFeedback) => {
 export const root = recipe({
   base: {
     position: "relative",
+    isolation: "isolate",
     display: "flex",
     flexDirection: "column",
     alignItems: "flex-start",
