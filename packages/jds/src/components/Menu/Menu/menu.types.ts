@@ -30,14 +30,15 @@ export type MenuTriggerProps = DropdownMenu.DropdownMenuTriggerProps;
 
 export type MenuItemProps = ComponentPropsWithoutRef<typeof DropdownMenu.Item>;
 
-export interface MenuTreeProps extends MenuItemButtonProps {
+export interface MenuTreeProps extends Omit<MenuItemButtonProps, "children"> {
   label: ReactNode;
   open?: boolean;
   defaultOpen?: boolean;
   onOpenChange?: (open: boolean) => void;
   disabled?: boolean;
-  children: ReactNode;
   className?: string;
+  children?: ReactNode;
+  withTreeButton?: boolean;
 }
 
 export type MenuButtonProps = MenuItemButtonProps;

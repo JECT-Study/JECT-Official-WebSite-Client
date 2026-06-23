@@ -122,3 +122,61 @@ export const menuGroup = recipe({
     } satisfies Record<MenuSize, unknown>,
   },
 });
+
+export const menuTreeContainer = recipe({
+  base: {
+    display: "flex",
+    flexDirection: "column",
+    listStyle: "none",
+    gap: menuListGapVar,
+  },
+  variants: {
+    size: {
+      lg: { vars: { [menuListGapVar]: menuListGap.lg } },
+      md: { vars: { [menuListGapVar]: menuListGap.md } },
+      sm: { vars: { [menuListGapVar]: menuListGap.sm } },
+    } satisfies Record<MenuSize, unknown>,
+  },
+});
+
+export const menuTreeTrigger = style({
+  display: "flex",
+  alignItems: "center",
+  gap: menuListGapVar,
+});
+
+export const menuTreeIconButton = recipe({
+  base: {
+    marginLeft: vars.scheme.semantic.spacing["10"],
+  },
+  variants: {
+    hasTreeButton: {
+      true: {},
+      false: {
+        visibility: "hidden",
+      },
+    },
+  },
+});
+
+export const menuIndentPadding = vars.scheme.semantic.spacing["24"];
+
+export const menuTreeIndent = style({
+  listStyle: "none",
+  // NOTE:ul 태그의 기본 스타일 제거
+  paddingLeft: vars.scheme.semantic.spacing["0"],
+  marginTop: vars.scheme.semantic.spacing["0"],
+  marginBottom: vars.scheme.semantic.spacing["0"],
+});
+
+export const menuTreeContent = style({
+  display: "flex",
+  flexDirection: "column",
+  listStyle: "none",
+  gap: menuListGapVar,
+  paddingLeft: menuIndentPadding,
+
+  // NOTE:ul 태그의 기본 스타일 제거
+  marginTop: vars.scheme.semantic.spacing["0"],
+  marginBottom: vars.scheme.semantic.spacing["0"],
+});

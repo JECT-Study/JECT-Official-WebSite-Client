@@ -109,3 +109,56 @@ export const MenuStyles: Story = {
     },
   },
 };
+
+export const Tree: Story = {
+  render: args => (
+    <Menu.Root open {...args}>
+      <Menu.Trigger asChild>
+        <IconButton icon='menu-line' />
+      </Menu.Trigger>
+      <Menu.Content side='right' align='start' sideOffset={10}>
+        <Menu.Category>레이블</Menu.Category>
+        {/* depth 1 헤더 */}
+        <Menu.Tree
+          label='메뉴 레이블 (fullWidthText)'
+          defaultOpen
+          fullWidthText
+          suffixIconVisible={true}
+          suffixIcon='blank'
+        >
+          {/* depth 2 리프 */}
+          <Menu.Tree
+            label='메뉴 레이블'
+            withTreeButton={false}
+            prefixIcon='arrow-right-s-line'
+            fullWidthText
+          />
+          {/* depth 2 헤더 */}
+          <Menu.Tree label='메뉴 레이블' defaultOpen>
+            {/* depth 3 리프 */}
+            <Menu.Tree
+              label='메뉴 레이블(selected)'
+              prefixIconVisible={true}
+              prefixIcon='blank'
+              fullWidthText
+              withTreeButton={false}
+            />
+          </Menu.Tree>
+          <Menu.Tree label='메뉴 레이블(disabled)' withTreeButton={false} disabled />
+        </Menu.Tree>
+        {/* depth 1 리프 */}
+        <Menu.GroupItem>
+          <Menu.Tree label='메뉴 레이블' withTreeButton={false} />
+        </Menu.GroupItem>
+      </Menu.Content>
+    </Menu.Root>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "계층적 관계의 항목을 탐색/선택하는 tree variant입니다. 펼쳐지는 브랜치는 Menu.Tree(label로 헤더 + chevron 렌더, defaultOpen/open으로 펼침 제어)로, 말단 항목은 기존 Menu.GroupItem + Menu.Button/Anchor로 구성합니다. depth는 중첩 깊이에 따라 자동으로 파생되어 들여쓰기됩니다.",
+      },
+    },
+  },
+};

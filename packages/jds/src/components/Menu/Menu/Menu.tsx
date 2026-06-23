@@ -1,6 +1,6 @@
 import { clsx } from "clsx";
 import { DropdownMenu } from "radix-ui";
-import { forwardRef } from "react";
+import { Children, forwardRef, useState } from "react";
 
 import {
   menuCategory,
@@ -8,6 +8,11 @@ import {
   menuContent,
   menuGroup,
   menuGroupSelector,
+  menuTreeContainer,
+  menuTreeContent,
+  menuTreeIconButton,
+  menuTreeIndent,
+  menuTreeTrigger,
 } from "./menu.css";
 import type {
   MenuAnchorProps,
@@ -18,10 +23,13 @@ import type {
   MenuItemProps,
   MenuRootProps,
   MenuSize,
+  MenuTreeProps,
 } from "./menu.types";
 import { MenuContext, useMenuContext } from "./menuContext";
 import { MenuItem } from "../MenuItem";
 
+import { IconButton } from "@/components/Button/IconButton";
+import type { IconButtonSize } from "@/components/Button/IconButton/iconButton.types";
 import { getLabelClassName, type LabelSize } from "@/utils/typography";
 
 const MenuRoot = ({ children, menuStyle = "solid", size = "md", ...rest }: MenuRootProps) => {
@@ -102,16 +110,93 @@ const MenuGroup = forwardRef<HTMLUListElement, MenuGroupProps>(
 MenuGroup.displayName = "Menu.Group";
 
 const MenuGroupItem = forwardRef<HTMLLIElement, MenuItemProps>(
-  ({ children, ...restProps }, ref) => {
+  ({ children, className, ...restProps }, ref) => {
     return (
       <DropdownMenu.Item asChild {...restProps}>
-        <li ref={ref}>{children}</li>
+        <li ref={ref} className={clsx(menuTreeIndent, className)}>
+          {children}
+        </li>
       </DropdownMenu.Item>
     );
   },
 );
 
 MenuGroupItem.displayName = "Menu.GroupItem";
+
+const MenuTree = forwardRef<HTMLButtonElement, MenuTreeProps>(
+  (
+    {
+      label,
+      open: openProp,
+      defaultOpen = false,
+      onOpenChange,
+      disabled = false,
+      children,
+      withTreeButton = true,
+      ...restProps
+    },
+    ref,
+  ) => {
+    const { size } = useMenuContext("Menu.Tree");
+
+    const [isInternalOpen, setIsInternalOpen] = useState(defaultOpen);
+    const isControlled = openProp !== undefined;
+    const isOpen = isControlled ? openProp : isInternalOpen;
+
+    const setOpen = (isNextOpen: boolean) => {
+      if (disabled) return;
+      if (!isControlled) setIsInternalOpen(isNextOpen);
+      onOpenChange?.(isNextOpen);
+    };
+
+    const handleToggle = () => setOpen(!isOpen);
+
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
+      if (disabled) return;
+      if (event.key === "ArrowRight" && !isOpen) {
+        event.preventDefault();
+        setOpen(true);
+      } else if (event.key === "ArrowLeft" && isOpen) {
+        event.preventDefault();
+        setOpen(false);
+      }
+    };
+
+    const hasChildren = Children.count(children) > 0;
+    const hasTreeButton = withTreeButton ?? !hasChildren;
+
+    return (
+      <li className={menuTreeContainer({ size })}>
+        <div className={menuTreeTrigger}>
+          <IconButton
+            className={menuTreeIconButton({ hasTreeButton })}
+            icon={isOpen ? "arrow-down-s-line" : "arrow-right-s-line"}
+            size={menuTreeIconSizeByMenuSize[size]}
+            disabled={disabled}
+            condensed
+            aria-label={isOpen ? "접기" : "펼치기"}
+            aria-expanded={isOpen}
+            onClick={handleToggle}
+          />
+          <DropdownMenu.Item asChild disabled={disabled} onKeyDown={handleKeyDown}>
+            <MenuItem.Button ref={ref} size={size} disabled={disabled} {...restProps}>
+              {label}
+            </MenuItem.Button>
+          </DropdownMenu.Item>
+        </div>
+        {isOpen && <ul className={menuTreeContent}>{children}</ul>}
+      </li>
+    );
+  },
+);
+
+const menuTreeIconSizeByMenuSize: Record<MenuSize, IconButtonSize> = {
+  lg: "lg",
+  md: "md",
+  sm: "xs",
+} as const;
+
+MenuTree.displayName = "Menu.Tree";
 
 const MenuButton = forwardRef<HTMLButtonElement, MenuButtonProps>(
   ({ children, ...restProps }, ref) => {
@@ -148,6 +233,7 @@ export const Menu = {
   Category: MenuCategory,
   Group: MenuGroup,
   GroupItem: MenuGroupItem,
+  Tree: MenuTree,
   Button: MenuButton,
   Anchor: MenuAnchor,
 };
