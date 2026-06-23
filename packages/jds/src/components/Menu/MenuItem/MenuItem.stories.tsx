@@ -173,7 +173,7 @@ export const Anchor: AnchorStory = {
     size: "md",
     disabled: false,
     isSelected: false,
-    href: "/",
+    href: "#",
     prefixIcon: "blank",
     prefixIconVisible: true,
     suffixIconVisible: false,
