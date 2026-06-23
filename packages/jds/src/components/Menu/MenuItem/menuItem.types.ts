@@ -33,7 +33,7 @@ export interface MenuItemAnchorProps extends ComponentPropsWithoutRef<"a"> {
   suffixIconVisible?: boolean;
   suffixBadge?: NumericBadgeBasicProps["children"];
   suffixBadgeVisible?: boolean;
-  suffixBadgeMutate?: boolean;
+  suffixBadgeMuted?: boolean;
   children: ReactNode;
   imageAlt?: string;
   imageSrc?: string;

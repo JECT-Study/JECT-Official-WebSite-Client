@@ -82,7 +82,7 @@ const MenuItemAnchor = forwardRef<HTMLAnchorElement, MenuItemAnchorProps>(
       suffixBadge = 99,
       suffixIconVisible = false,
       suffixBadgeVisible = false,
-      suffixBadgeMutate = false,
+      suffixBadgeMuted = false,
       imageAlt = "",
       imageSrc = "",
       stretched = false,
@@ -119,7 +119,7 @@ const MenuItemAnchor = forwardRef<HTMLAnchorElement, MenuItemAnchorProps>(
         </span>
         {suffixIconVisible && <Icon name={suffixIcon} size={size} />}
         {suffixBadgeVisible && (
-          <NumericBadge.Basic size={suffixBadgeSizeByMenuSize[size]} isMuted={suffixBadgeMutate}>
+          <NumericBadge.Basic size={suffixBadgeSizeByMenuSize[size]} isMuted={suffixBadgeMuted}>
             {suffixBadge}
           </NumericBadge.Basic>
         )}

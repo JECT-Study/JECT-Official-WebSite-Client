@@ -16,7 +16,7 @@
 - `MenuItem.Button` / `MenuItem.Anchor`에 `stretched`, `fullWidthText` prop 추가
   - `fullWidthText`: 라벨을 남은 공간만큼 확장해 후행 아이콘/배지를 오른쪽 끝으로 정렬
   - `stretched`: 좌우 패딩을 제거해 컨테이너 너비에 꽉 차게 배치
-- `MenuItem.Anchor`에 후행 `NumericBadge` 옵션 추가: `suffixBadge`, `suffixBadgeVisible`, `suffixBadgeMutate`
+- `MenuItem.Anchor`에 후행 `NumericBadge` 옵션 추가: `suffixBadge`, `suffixBadgeVisible`, `suffixBadgeMuted`
 - `Menu.Group`(ul)이 표준 `ul` 속성(`className` 등)을 전달받도록 확장
 
 **소비자 영향 (코드 수정 필요)**

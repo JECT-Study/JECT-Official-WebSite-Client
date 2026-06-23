@@ -179,7 +179,7 @@ export const Anchor: AnchorStory = {
     suffixIconVisible: false,
     suffixBadgeVisible: true,
     suffixBadge: 99,
-    suffixBadgeMutate: false,
+    suffixBadgeMuted: false,
     fullWidthText: true,
     children: "메뉴 레이블",
   },
@@ -196,7 +196,7 @@ export const Anchor: AnchorStory = {
       control: "boolean",
       description: "후행 배지 노출 여부",
     },
-    suffixBadgeMutate: {
+    suffixBadgeMuted: {
       control: "boolean",
       description: "배지 muted(저강조) 스타일 여부",
     },
@@ -210,7 +210,7 @@ export const Anchor: AnchorStory = {
     docs: {
       description: {
         story:
-          "페이지 이동용 메뉴 아이템은 MenuItem.Anchor를 사용합니다. a 태그로 렌더되어 href로 탭 이동이 가능하며, 후행에 NumericBadge를 노출할 수 있습니다(suffixBadge / suffixBadgeVisible / suffixBadgeMutate).",
+          "페이지 이동용 메뉴 아이템은 MenuItem.Anchor를 사용합니다. a 태그로 렌더되어 href로 탭 이동이 가능하며, 후행에 NumericBadge를 노출할 수 있습니다(suffixBadge / suffixBadgeVisible / suffixBadgeMuted).",
       },
     },
   },
