@@ -16,10 +16,12 @@ const meta: Meta<typeof Menu.Root> = {
     menuStyle: {
       control: "radio",
       options: ["solid", "hollow"],
+      description: "메뉴 컨테이너 스타일 (배경/그림자 유무)",
     },
     size: {
       control: "radio",
       options: ["lg", "md", "sm"],
+      description: "메뉴 아이템 크기",
     },
   },
   args: {
@@ -37,28 +39,37 @@ export const Default: Story = {
       <Menu.Trigger asChild>
         <IconButton icon='menu-line' />
       </Menu.Trigger>
-      <Menu.Content side='right' align='start' sideOffset={10}>
+      <Menu.Content side='right' align='start' sideOffset={10} style={{ width: "200px" }}>
         <Menu.Category>카테고리</Menu.Category>
         <Menu.Group>
-          <Menu.GroupItem style={{ width: "120px" }}>
-            <Menu.Button>메뉴 레이블</Menu.Button>
-          </Menu.GroupItem>
-          <Menu.GroupItem style={{ width: "120px" }}>
-            <Menu.Button>메뉴 레이블</Menu.Button>
+          <Menu.GroupItem>
+            <Menu.Button fullWidthText suffixIconVisible suffixIcon='arrow-right-s-line'>
+              메뉴 레이블
+            </Menu.Button>
           </Menu.GroupItem>
           <Menu.GroupItem>
-            <Menu.Button disabled>메뉴 레이블(disabled)</Menu.Button>
+            <Menu.Button isSelected>메뉴 레이블 (selected)</Menu.Button>
           </Menu.GroupItem>
           <Menu.GroupItem>
-            <Menu.Button isSelected>메뉴 레이블(selected)</Menu.Button>
+            <Menu.Button disabled>메뉴 레이블 (disabled)</Menu.Button>
           </Menu.GroupItem>
           <Menu.GroupItem>
-            <Menu.Button>메뉴 레이블(destructive)</Menu.Button>
+            <Menu.Anchor href='/' fullWidthText suffixBadgeVisible suffixBadge={5}>
+              메뉴 레이블 (badge)
+            </Menu.Anchor>
           </Menu.GroupItem>
         </Menu.Group>
       </Menu.Content>
     </Menu.Root>
   ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "기본 메뉴 구성입니다. 동작용 항목은 Menu.Button, 페이지 이동용 항목은 Menu.Anchor(후행 배지 노출 가능)를 사용합니다. 우측 Controls로 menuStyle / size를 바꿔볼 수 있습니다.",
+      },
+    },
+  },
 };
 
 export const MenuStyles: Story = {
@@ -104,7 +115,7 @@ export const MenuStyles: Story = {
     docs: {
       description: {
         story:
-          "Menu.Content의 side, align, sideOffset, alignOffset 속성을 통해서 Menu.Content의 위치를 조정할 수 있습니다",
+          "solid는 배경/테두리/그림자가 있는 팝오버, hollow는 컨테이너 장식 없이 항목만 노출하는 스타일입니다. Menu.Content의 side / align / sideOffset으로 위치를 조정합니다.",
       },
     },
   },
@@ -116,40 +127,30 @@ export const Tree: Story = {
       <Menu.Trigger asChild>
         <IconButton icon='menu-line' />
       </Menu.Trigger>
-      <Menu.Content side='right' align='start' sideOffset={10}>
-        <Menu.Category>레이블</Menu.Category>
-        {/* depth 1 헤더 */}
-        <Menu.Tree
-          label='메뉴 레이블 (fullWidthText)'
-          defaultOpen
-          fullWidthText
-          suffixIconVisible={true}
-          suffixIcon='blank'
-        >
-          {/* depth 2 리프 */}
-          <Menu.Tree
-            label='메뉴 레이블'
-            withTreeButton={false}
-            prefixIcon='arrow-right-s-line'
-            fullWidthText
-          />
-          {/* depth 2 헤더 */}
-          <Menu.Tree label='메뉴 레이블' defaultOpen>
-            {/* depth 3 리프 */}
-            <Menu.Tree
-              label='메뉴 레이블(selected)'
-              prefixIconVisible={true}
-              prefixIcon='blank'
-              fullWidthText
-              withTreeButton={false}
-            />
+      <Menu.Content side='right' align='start' sideOffset={10} style={{ width: "220px" }}>
+        <Menu.Category>카테고리</Menu.Category>
+
+        {/* depth 1 — 자식이 있는 펼침 헤더 (chevron 노출, 클릭/←·→ 로 토글) */}
+        <Menu.Tree label='상위 메뉴' defaultOpen fullWidthText>
+          {/* depth 2 — 말단 항목 (withTreeButton={false} 로 chevron 자리 비움) */}
+          <Menu.Tree label='하위 메뉴' withTreeButton={false} fullWidthText />
+
+          {/* depth 2 — 다시 펼쳐지는 헤더 */}
+          <Menu.Tree label='하위 그룹' defaultOpen fullWidthText>
+            {/* depth 3 — 선택 / 비활성 말단 항목 */}
+            <Menu.Tree label='선택된 항목' withTreeButton={false} fullWidthText isSelected />
+            <Menu.Tree label='비활성 항목' withTreeButton={false} fullWidthText disabled />
           </Menu.Tree>
-          <Menu.Tree label='메뉴 레이블(disabled)' withTreeButton={false} disabled />
         </Menu.Tree>
-        {/* depth 1 리프 */}
-        <Menu.GroupItem>
-          <Menu.Tree label='메뉴 레이블' withTreeButton={false} />
-        </Menu.GroupItem>
+
+        {/* depth 1 — 단독 말단 항목 */}
+        <Menu.Tree
+          label='단일 메뉴'
+          withTreeButton={false}
+          fullWidthText
+          suffixIconVisible
+          suffixIcon='arrow-right-up-line'
+        />
       </Menu.Content>
     </Menu.Root>
   ),
@@ -157,7 +158,7 @@ export const Tree: Story = {
     docs: {
       description: {
         story:
-          "계층적 관계의 항목을 탐색/선택하는 tree variant입니다. 펼쳐지는 브랜치는 Menu.Tree(label로 헤더 + chevron 렌더, defaultOpen/open으로 펼침 제어)로, 말단 항목은 기존 Menu.GroupItem + Menu.Button/Anchor로 구성합니다. depth는 중첩 깊이에 따라 자동으로 파생되어 들여쓰기됩니다.",
+          "계층적 항목을 탐색/선택하는 tree variant입니다. 펼쳐지는 브랜치는 Menu.Tree(label로 헤더 + chevron 렌더, defaultOpen/open으로 펼침 제어)로 구성하고, 말단 항목은 withTreeButton={false}로 chevron 없이 표현합니다. chevron 클릭 또는 →/← 키로 펼치고 접을 수 있으며, depth는 중첩 깊이에 따라 자동으로 들여쓰기됩니다.",
       },
     },
   },
