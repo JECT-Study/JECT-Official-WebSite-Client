@@ -43,8 +43,7 @@ const meta = {
     },
     title: {
       control: "text",
-      description:
-        "내부에 타이틀(역할의) 텍스트를 포함하는지의 여부입니다. 미입력 시 본문만 표시됩니다.",
+      description: "타이틀 텍스트입니다. 미입력 시 본문만 표시됩니다.",
     },
     children: {
       control: "text",
@@ -132,7 +131,7 @@ export const WithTitle: Story = {
     docs: {
       description: {
         story:
-          "콜아웃 문장을 요약하는 제목이 필요하거나 콜아웃 자체의 주목도를 올려야 할 때 `withTitle=true` 를 사용합니다.",
+          "콜아웃 문장을 요약하는 제목이 필요하거나 콜아웃 자체의 주목도를 올려야 할 때 `title` 을 입력합니다.",
       },
     },
   },
@@ -141,10 +140,10 @@ export const WithTitle: Story = {
   },
   render: () => (
     <div style={exampleRowStyle}>
-      <LabeledExample label='withTitle=false'>
+      <LabeledExample label='title 없음'>
         <Callout>{CALLOUT_BODY}</Callout>
       </LabeledExample>
-      <LabeledExample label='withTitle=true'>
+      <LabeledExample label='title 있음'>
         <Callout title={CALLOUT_TITLE}>{CALLOUT_BODY}</Callout>
       </LabeledExample>
     </div>
@@ -156,7 +155,7 @@ export const WithIcon: Story = {
     docs: {
       description: {
         story:
-          "`withTitle=true` 일 때 `withIcon=true` 를 사용해 타이틀 접두 아이콘을 표시할 수 있습니다.\n이 때 콜아웃의 내용이나 제목과 관련이 있는 아이콘을 사용하도록 합니다.",
+          "`title` 이 있을 때 `icon` 을 지정해 타이틀 접두 아이콘을 표시할 수 있습니다.\n이 때 콜아웃의 내용이나 제목과 관련이 있는 아이콘을 사용하도록 합니다.",
       },
     },
   },
@@ -165,10 +164,10 @@ export const WithIcon: Story = {
   },
   render: () => (
     <div style={exampleRowStyle}>
-      <LabeledExample label='withIcon=false'>
+      <LabeledExample label='icon 없음'>
         <Callout title={CALLOUT_TITLE}>{CALLOUT_BODY}</Callout>
       </LabeledExample>
-      <LabeledExample label='withIcon=true'>
+      <LabeledExample label='icon 있음'>
         <Callout title={CALLOUT_TITLE} icon='vector'>
           {CALLOUT_BODY}
         </Callout>
