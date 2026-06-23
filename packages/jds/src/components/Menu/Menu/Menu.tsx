@@ -127,7 +127,7 @@ const MenuTree = forwardRef<HTMLButtonElement, MenuTreeProps>(
       onOpenChange,
       disabled = false,
       children,
-      withTreeButton = true,
+      withTreeButton,
       ...restProps
     },
     ref,
@@ -158,7 +158,7 @@ const MenuTree = forwardRef<HTMLButtonElement, MenuTreeProps>(
     };
 
     const hasChildren = Children.count(children) > 0;
-    const hasTreeButton = withTreeButton ?? !hasChildren;
+    const hasTreeButton = withTreeButton ?? hasChildren;
 
     return (
       <li className={menuTreeContainer({ size })}>
