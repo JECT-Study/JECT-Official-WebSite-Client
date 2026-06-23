@@ -21,6 +21,8 @@ const MenuItemButton = forwardRef<HTMLButtonElement, MenuItemButtonProps>(
       suffixIconVisible = false,
       imageAlt = "",
       imageSrc = "",
+      stretched = false,
+      fullWidthText = false,
       className,
       children,
       ...restProps
@@ -33,7 +35,7 @@ const MenuItemButton = forwardRef<HTMLButtonElement, MenuItemButtonProps>(
         disabled={disabled}
         aria-selected={isSelected || undefined}
         data-disabled={disabled || undefined}
-        className={clsx(menuContainerStyle({ size, isSelected }), className)}
+        className={clsx(menuContainerStyle({ size, isSelected, stretched }), className)}
         {...restProps}
       >
         {variant === "icon" && prefixIconVisible && <Icon name={prefixIcon} size={size} />}
@@ -52,7 +54,7 @@ const MenuItemButton = forwardRef<HTMLButtonElement, MenuItemButtonProps>(
             getLabelClassName({
               size,
             }),
-            menuItemLabel,
+            menuItemLabel({ fullWidthText }),
           )}
         >
           {children}
@@ -78,6 +80,8 @@ const MenuItemAnchor = forwardRef<HTMLAnchorElement, MenuItemAnchorProps>(
       suffixIconVisible = false,
       imageAlt = "",
       imageSrc = "",
+      stretched = false,
+      fullWidthText = false,
       className,
       children,
       ...rest
@@ -91,7 +95,7 @@ const MenuItemAnchor = forwardRef<HTMLAnchorElement, MenuItemAnchorProps>(
         aria-selected={isSelected || undefined}
         data-disabled={disabled || undefined}
         tabIndex={disabled ? -1 : undefined}
-        className={clsx(menuContainerStyle({ size, isSelected }), className)}
+        className={clsx(menuContainerStyle({ size, isSelected, stretched }), className)}
         {...rest}
       >
         {variant === "icon" && prefixIconVisible && <Icon name={prefixIcon} size={size} />}
@@ -105,7 +109,9 @@ const MenuItemAnchor = forwardRef<HTMLAnchorElement, MenuItemAnchorProps>(
             className={menuItemImage({ size })}
           />
         )}
-        <span className={clsx(getLabelClassName({ size }), menuItemLabel)}>{children}</span>
+        <span className={clsx(getLabelClassName({ size }), menuItemLabel({ fullWidthText }))}>
+          {children}
+        </span>
         {suffixIconVisible && <Icon name={suffixIcon} size={size} />}
       </a>
     );

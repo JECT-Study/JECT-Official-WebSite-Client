@@ -16,6 +16,8 @@ export interface MenuItemButtonProps extends ComponentPropsWithoutRef<"button"> 
   children: ReactNode;
   imageAlt?: string;
   imageSrc?: string;
+  stretched?: boolean;
+  fullWidthText?: boolean;
 }
 
 export interface MenuItemAnchorProps extends ComponentPropsWithoutRef<"a"> {
@@ -30,4 +32,6 @@ export interface MenuItemAnchorProps extends ComponentPropsWithoutRef<"a"> {
   children: ReactNode;
   imageAlt?: string;
   imageSrc?: string;
+  stretched?: boolean;
+  fullWidthText?: boolean;
 }
