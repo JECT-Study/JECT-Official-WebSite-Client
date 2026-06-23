@@ -50,7 +50,7 @@ const renderFile = (args: FileStoryArgs) => (
     <File
       fileName={args.fileName}
       fileSize={args.fileSize}
-      onClick={() => {
+      onPress={() => {
         alert("file clicked");
       }}
       {...(args.removable && !args.readonly && !args.disabled

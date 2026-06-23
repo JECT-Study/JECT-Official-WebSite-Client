@@ -1,9 +1,11 @@
+import type { PressEvent } from "@react-types/shared";
 import type { ComponentPropsWithoutRef, MouseEvent } from "react";
 
-interface BaseFileProps extends Omit<ComponentPropsWithoutRef<"button">, "children"> {
+interface BaseFileProps extends Omit<ComponentPropsWithoutRef<"button">, "children" | "onClick"> {
   fileName: string;
   fileSize: string;
   readonly?: boolean;
+  onPress?: (event: PressEvent) => void;
 }
 
 type FileRemovableProps =

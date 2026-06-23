@@ -1,9 +1,9 @@
+import { useButton } from "@react-aria/button";
 import { useFocusRing } from "@react-aria/focus";
-import { useHover, usePress } from "@react-aria/interactions";
+import { useHover } from "@react-aria/interactions";
 import { mergeProps } from "@react-aria/utils";
 import { clsx } from "clsx";
-import { forwardRef } from "react";
-import type { MouseEvent } from "react";
+import { forwardRef, useRef } from "react";
 
 import * as styles from "./file.css";
 import type { FileProps } from "./file.types";
@@ -26,22 +26,24 @@ export const File = forwardRef<HTMLDivElement, FileProps>(
       style,
       className,
 
-      onClick,
+      onPress,
       ...buttonProps
     },
     ref,
   ) => {
     const isPressableDisabled = disabled || readonly;
+    const innerButtonRef = useRef<HTMLButtonElement>(null);
 
     const { focusProps: mainFocusProps, isFocusVisible: isMainFocusVisible } = useFocusRing();
     const { hoverProps, isHovered } = useHover({ isDisabled: isPressableDisabled });
-    const { pressProps, isPressed } = usePress({
-      isDisabled: isPressableDisabled,
-      onClick: e => {
-        if (readonly) return;
-        onClick?.(e as MouseEvent<HTMLButtonElement>);
+    const { buttonProps: ariaButtonProps, isPressed } = useButton(
+      {
+        elementType: "button",
+        isDisabled: isPressableDisabled,
+        onPress,
       },
-    });
+      innerButtonRef,
+    );
 
     const interactionClassName = disabled
       ? styles.disabled
@@ -64,7 +66,8 @@ export const File = forwardRef<HTMLDivElement, FileProps>(
         data-focus-visible={isMainFocusVisible || undefined}
       >
         <button
-          {...mergeProps(buttonProps, mainFocusProps, pressProps)}
+          ref={innerButtonRef}
+          {...mergeProps(buttonProps, mainFocusProps, ariaButtonProps)}
           type={buttonProps.type ?? "button"}
           disabled={isPressableDisabled}
           className={styles.mainAction}
