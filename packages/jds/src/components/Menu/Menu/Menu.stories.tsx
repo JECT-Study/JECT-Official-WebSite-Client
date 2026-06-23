@@ -15,7 +15,7 @@ const meta: Meta<typeof Menu.Root> = {
   argTypes: {
     menuStyle: {
       control: "radio",
-      options: ["solid", "empty"],
+      options: ["solid", "hollow"],
     },
     size: {
       control: "radio",
@@ -53,7 +53,7 @@ export const Default: Story = {
             <Menu.Button isSelected>메뉴 레이블(selected)</Menu.Button>
           </Menu.GroupItem>
           <Menu.GroupItem>
-            <Menu.Button isDestructive>메뉴 레이블(destructive)</Menu.Button>
+            <Menu.Button>메뉴 레이블(destructive)</Menu.Button>
           </Menu.GroupItem>
         </Menu.Group>
       </Menu.Content>
@@ -81,8 +81,8 @@ export const MenuStyles: Story = {
           </Menu.Group>
         </Menu.Content>
       </Menu.Root>
-      <span className={getLabelClassName()}>empty style</span>
-      <Menu.Root menuStyle='empty'>
+      <span className={getLabelClassName()}>hollow style</span>
+      <Menu.Root menuStyle='hollow'>
         <Menu.Trigger asChild>
           <IconButton icon='menu-line' />
         </Menu.Trigger>

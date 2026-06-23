@@ -2,7 +2,13 @@ import { clsx } from "clsx";
 import { DropdownMenu } from "radix-ui";
 import { forwardRef } from "react";
 
-import { menuCategory, menuContent, menuGroup } from "./menu.css";
+import {
+  menuCategory,
+  menuCategoryContainer,
+  menuContent,
+  menuGroup,
+  menuGroupSelector,
+} from "./menu.css";
 import type {
   MenuAnchorProps,
   MenuButtonProps,
@@ -49,18 +55,23 @@ MenuContent.displayName = "Menu.Content";
 const MenuCategory = forwardRef<HTMLDivElement, MenuCategoryProps>((props, ref) => {
   const { size: labelSizeFromProps, textAlign, weight, cursor, as, children, ...restProps } = props;
   const { size: menuSizeFromCtx } = useMenuContext("Menu.Category");
-  const size = labelSizeFromProps ?? labelSizeByMenuSizeMap[menuSizeFromCtx];
+  const labelSize = labelSizeFromProps ?? labelSizeByMenuSizeMap[menuSizeFromCtx];
 
   const Component = as ?? "div";
 
   return (
-    <Component
-      ref={ref}
-      className={clsx(getLabelClassName({ size, textAlign, weight, cursor }), menuCategory)}
-      {...restProps}
-    >
-      {children}
-    </Component>
+    <div className={menuCategoryContainer({ size: menuSizeFromCtx })}>
+      <Component
+        ref={ref}
+        className={clsx(
+          getLabelClassName({ size: labelSize, textAlign, weight, cursor }),
+          menuCategory,
+        )}
+        {...restProps}
+      >
+        {children}
+      </Component>
+    </div>
   );
 });
 
@@ -73,11 +84,15 @@ const labelSizeByMenuSizeMap: Record<MenuSize, LabelSize> = {
 MenuCategory.displayName = "Menu.Category";
 
 const MenuGroup = forwardRef<HTMLUListElement, MenuGroupProps>(
-  ({ children, ...restProps }, ref) => {
+  ({ children, className, ...restProps }, ref) => {
     const { size } = useMenuContext("Menu.Group");
 
     return (
-      <ul ref={ref} role='list' className={menuGroup({ size })} {...restProps}>
+      <ul
+        ref={ref}
+        className={clsx(menuGroup({ size }), menuGroupSelector, className)}
+        {...restProps}
+      >
         {children}
       </ul>
     );
