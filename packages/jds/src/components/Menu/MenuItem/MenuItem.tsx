@@ -79,7 +79,7 @@ const MenuItemAnchor = forwardRef<HTMLAnchorElement, MenuItemAnchorProps>(
       prefixIcon = "blank",
       prefixIconVisible = false,
       suffixIcon = "blank",
-      suffixBadge = 99,
+      suffixBadge,
       suffixIconVisible = false,
       suffixBadgeVisible = false,
       suffixBadgeMuted = false,
