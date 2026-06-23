@@ -178,10 +178,9 @@ export const body = style({
   wordBreak: "break-word",
 });
 
-export const title = style([
-  body,
-  {
-    flex: 1,
-    minWidth: 0,
-  },
-]);
+export const title = style({
+  margin: 0,
+  flex: 1,
+  minWidth: 0,
+  wordBreak: "break-word",
+});
