@@ -1,0 +1,35 @@
+import { clsx } from "clsx";
+import { Icon } from "components";
+import { Slot } from "radix-ui";
+import { forwardRef } from "react";
+
+import { root } from "./link.css";
+import type { LinkProps } from "./link.types";
+
+export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
+  ({ external = false, asChild, disabled = false, className, children, onClick, ...rest }, ref) => {
+    const Component = asChild ? Slot.Root : "a";
+
+    return (
+      <Component
+        ref={ref}
+        {...rest}
+        className={clsx(root, className)}
+        data-disabled={disabled || undefined}
+        aria-disabled={disabled || undefined}
+        onClick={e => {
+          if (disabled) {
+            e.preventDefault();
+            return;
+          }
+          onClick?.(e);
+        }}
+      >
+        <Slot.Slottable>{children}</Slot.Slottable>
+        {external && <Icon name='external-link-line' aria-hidden />}
+      </Component>
+    );
+  },
+);
+
+Link.displayName = "Link";
