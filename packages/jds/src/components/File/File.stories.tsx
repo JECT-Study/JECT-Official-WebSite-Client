@@ -137,7 +137,7 @@ export const DisabledRemovable: Story = {
     docs: {
       description: {
         story:
-          "파일 열기 동작은 비활성화되어 있지만, 사용자가 파일을 삭제할 수 있어야 하는 경우에는 disabled와 removable을 함께 사용합니다.",
+          "파일 다운로드는 불가능하지만 삭제할 수 있는 상황에서만 사용합니다. 이 상황이 보편적이지는 않기 때문에, 꼭 필요한 플로우인지 고려해야 합니다.",
       },
     },
   },
