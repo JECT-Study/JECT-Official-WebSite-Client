@@ -3,7 +3,7 @@ import { FlexColumn, FlexRow } from "@storybook-utils/layout";
 
 import { MenuItem } from ".";
 
-const SAMPLE_SRC = "https://picsum.photos/seed/jds-menu-item/80/80";
+const SAMPLE_SRC = "/images/defaultImage.png";
 
 const meta: Meta<typeof MenuItem.Button> = {
   title: "Components/Menu/MenuItem",
