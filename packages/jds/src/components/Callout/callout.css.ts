@@ -56,14 +56,6 @@ const feedbackStyles = {
   },
 } satisfies Record<CalloutFeedback, FeedbackStyle>;
 
-const byFeedback = <K extends keyof FeedbackStyle>(part: K) =>
-  ({
-    none: feedbackStyles.none[part],
-    positive: feedbackStyles.positive[part],
-    destructive: feedbackStyles.destructive[part],
-    notifying: feedbackStyles.notifying[part],
-  }) satisfies Record<CalloutFeedback, FeedbackStyle[K]>;
-
 const layerColorVar = createVar();
 
 const feedbackVars = (feedback: CalloutFeedback) => {
@@ -167,7 +159,12 @@ export const iconContainer = style({
 
 export const icon = recipe({
   variants: {
-    feedback: byFeedback("icon"),
+    feedback: {
+      none: feedbackStyles.none.icon,
+      positive: feedbackStyles.positive.icon,
+      destructive: feedbackStyles.destructive.icon,
+      notifying: feedbackStyles.notifying.icon,
+    } satisfies Record<CalloutFeedback, FeedbackStyle["icon"]>,
   },
 });
 
