@@ -7,7 +7,6 @@ import {
   menuCategoryContainer,
   menuContent,
   menuGroup,
-  menuGroupSelector,
   menuTreeContainer,
   menuTreeContent,
   menuTreeIconButton,
@@ -96,11 +95,7 @@ const MenuGroup = forwardRef<HTMLUListElement, MenuGroupProps>(
     const { size } = useMenuContext("Menu.Group");
 
     return (
-      <ul
-        ref={ref}
-        className={clsx(menuGroup({ size }), menuGroupSelector, className)}
-        {...restProps}
-      >
+      <ul ref={ref} className={clsx(menuGroup({ size }), className)} {...restProps}>
         {children}
       </ul>
     );

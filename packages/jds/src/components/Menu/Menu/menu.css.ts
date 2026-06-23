@@ -98,8 +98,6 @@ export const menuCategory = style({
 
 const menuListGapVar = createVar();
 
-export const menuGroupSelector = style({});
-
 export const menuGroup = recipe({
   base: {
     display: "flex",
