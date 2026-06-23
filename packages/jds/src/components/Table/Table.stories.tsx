@@ -59,7 +59,7 @@ export const Basic: StoryObj<TableRowItemProps> = {
   render: (args: TableRowItemProps) => (
     <Table.Root>
       <Table.Header>
-        <Table.HeaderItem>레이블 (상태 확인 가능)</Table.HeaderItem>
+        <Table.HeaderItem hasDivider={args.hasDivider}>레이블 (상태 확인 가능)</Table.HeaderItem>
         <Table.HeaderItem>레이블</Table.HeaderItem>
         <Table.HeaderItem>레이블</Table.HeaderItem>
         <Table.HeaderItem>레이블</Table.HeaderItem>
