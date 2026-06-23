@@ -54,7 +54,7 @@ export const Default: Story = {
             <Menu.Button disabled>메뉴 레이블 (disabled)</Menu.Button>
           </Menu.GroupItem>
           <Menu.GroupItem>
-            <Menu.Anchor href='/' fullWidthText suffixBadgeVisible suffixBadge={5}>
+            <Menu.Anchor href='#' fullWidthText suffixBadgeVisible suffixBadge={5}>
               메뉴 레이블 (badge)
             </Menu.Anchor>
           </Menu.GroupItem>
