@@ -42,10 +42,10 @@ export const ToastProvider = ({ children, duration }: ToastProviderProps) => {
       {/* 스크린리더 전용 live region: 최신 토스트만 낭독 */}
       <div className={visuallyHidden} role='status' aria-live='polite'>
         {latestToast && (
-          <span>
+          <>
             {latestToast.title}
-            {latestToast.description ? ` - ${latestToast.description}` : ""}
-          </span>
+            {latestToast.description && <> {latestToast.description}</>}
+          </>
         )}
       </div>
 

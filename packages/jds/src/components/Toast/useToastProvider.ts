@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { ReactNode, useMemo } from "react";
 
 import type { ToastItem, ToastOptions, UseToastProviderProps } from "./toast.types";
 
@@ -9,13 +9,13 @@ export const useToastProvider = ({ toastLimit = 3 }: UseToastProviderProps) => {
 
   const handler = useMemo(
     () => ({
-      basic: (title: string, options?: ToastOptions) =>
+      basic: (title: ReactNode, options?: ToastOptions) =>
         addItem({ feedback: "none", title, ...options }),
-      positive: (title: string, options?: ToastOptions) =>
+      positive: (title: ReactNode, options?: ToastOptions) =>
         addItem({ feedback: "positive", title, ...options }),
-      destructive: (title: string, options?: ToastOptions) =>
+      destructive: (title: ReactNode, options?: ToastOptions) =>
         addItem({ feedback: "destructive", title, ...options }),
-      notifying: (title: string, options?: ToastOptions) =>
+      notifying: (title: ReactNode, options?: ToastOptions) =>
         addItem({ feedback: "notifying", title, ...options }),
     }),
     [addItem],

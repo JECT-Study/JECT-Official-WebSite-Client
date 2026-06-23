@@ -22,7 +22,7 @@ export interface ToastItem extends ToastBase {
   feedback: ToastFeedback;
 }
 
-type ToastHandlerFn = (title: string, options?: ToastOptions) => void;
+type ToastHandlerFn = (title: ReactNode, options?: ToastOptions) => void;
 
 export interface ToastHandler {
   basic: ToastHandlerFn;
@@ -36,6 +36,6 @@ export interface UseToastProviderProps {
 }
 
 export interface ToastOptions {
-  description?: string;
+  description?: ReactNode;
   duration?: number;
 }
