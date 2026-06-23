@@ -17,17 +17,13 @@ export const root = style([
   {
     position: "relative",
     display: "flex",
-    flexDirection: "row",
     alignItems: "center",
     width: "100%",
     padding: 0,
     gap: vars.scheme.semantic.spacing["8"],
-    border: "none",
     borderRadius: LAYER_RADIUS,
     background: "transparent",
-    font: "inherit",
     textAlign: "left",
-    appearance: "none",
     WebkitAppearance: "none",
     selectors: {
       "&::before, &::after": {
@@ -46,7 +42,6 @@ export const root = style([
 export const mainAction = style({
   display: "flex",
   flex: 1,
-  flexDirection: "row",
   alignItems: "center",
   gap: vars.scheme.semantic.spacing["8"],
   minWidth: 0,
