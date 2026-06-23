@@ -160,6 +160,14 @@ const MenuTree = forwardRef<HTMLButtonElement, MenuTreeProps>(
     const hasChildren = Children.count(children) > 0;
     const hasTreeButton = withTreeButton ?? hasChildren;
 
+    // 부모(자식 보유) 노드는 label 클릭/선택 시 메뉴를 닫지 않고 펼침·접힘만 수행한다.
+    // 잎 노드는 기본 동작(메뉴 닫힘 + onClick)을 그대로 둔다.
+    const handleLabelSelect = (event: Event) => {
+      if (!hasChildren) return;
+      event.preventDefault();
+      handleToggle();
+    };
+
     return (
       <li className={menuTreeContainer({ size })}>
         <div className={menuTreeTrigger}>
@@ -173,7 +181,12 @@ const MenuTree = forwardRef<HTMLButtonElement, MenuTreeProps>(
             aria-expanded={isOpen}
             onClick={handleToggle}
           />
-          <DropdownMenu.Item asChild disabled={disabled} onKeyDown={handleKeyDown}>
+          <DropdownMenu.Item
+            asChild
+            disabled={disabled}
+            onKeyDown={handleKeyDown}
+            onSelect={handleLabelSelect}
+          >
             <MenuItem.Button ref={ref} size={size} disabled={disabled} {...restProps}>
               {label}
             </MenuItem.Button>
