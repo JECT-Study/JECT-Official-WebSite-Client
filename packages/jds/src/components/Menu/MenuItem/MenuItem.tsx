@@ -5,7 +5,9 @@ import { menuContainerStyle, menuItemImage, menuItemLabel } from "./menuItem.css
 import type { MenuItemAnchorProps, MenuItemButtonProps } from "./menuItem.types";
 import { Icon } from "../../Icon";
 import { Thumbnail } from "../../Thumbnail";
+import { type MenuSize } from "../Menu";
 
+import { NumericBadge, type BadgeSize } from "@/components/Badge";
 import { getLabelClassName } from "@/utils/typography";
 
 const MenuItemButton = forwardRef<HTMLButtonElement, MenuItemButtonProps>(
@@ -75,9 +77,12 @@ const MenuItemAnchor = forwardRef<HTMLAnchorElement, MenuItemAnchorProps>(
       isSelected = false,
       disabled = false,
       prefixIcon = "blank",
-      suffixIcon = "blank",
       prefixIconVisible = false,
+      suffixIcon = "blank",
+      suffixBadge = 99,
       suffixIconVisible = false,
+      suffixBadgeVisible = false,
+      suffixBadgeMutate = false,
       imageAlt = "",
       imageSrc = "",
       stretched = false,
@@ -113,10 +118,21 @@ const MenuItemAnchor = forwardRef<HTMLAnchorElement, MenuItemAnchorProps>(
           {children}
         </span>
         {suffixIconVisible && <Icon name={suffixIcon} size={size} />}
+        {suffixBadgeVisible && (
+          <NumericBadge.Basic size={suffixBadgeSizeByMenuSize[size]} isMuted={suffixBadgeMutate}>
+            {suffixBadge}
+          </NumericBadge.Basic>
+        )}
       </a>
     );
   },
 );
+
+const suffixBadgeSizeByMenuSize: Record<MenuSize, BadgeSize> = {
+  lg: "lg",
+  md: "md",
+  sm: "sm",
+} as const;
 
 MenuItemAnchor.displayName = "MenuItem.Anchor";
 

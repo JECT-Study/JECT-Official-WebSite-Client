@@ -2,6 +2,8 @@ import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 import type { IconName } from "../../Icon";
 
+import type { NumericBadgeBasicProps } from "@/components/Badge";
+
 export type MenuItemVariant = "icon" | "thumbnail";
 export type MenuItemSize = "lg" | "md" | "sm";
 
@@ -29,6 +31,9 @@ export interface MenuItemAnchorProps extends ComponentPropsWithoutRef<"a"> {
   suffixIcon?: IconName;
   prefixIconVisible?: boolean;
   suffixIconVisible?: boolean;
+  suffixBadge?: NumericBadgeBasicProps["children"];
+  suffixBadgeVisible?: boolean;
+  suffixBadgeMutate?: boolean;
   children: ReactNode;
   imageAlt?: string;
   imageSrc?: string;
