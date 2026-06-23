@@ -8,7 +8,7 @@ import type { MenuItemSize } from "./menuItem.types";
 import { thumbnailVars } from "@/components/Thumbnail/thumbnail.css";
 import { labelColorVar } from "@/utils/typography.css";
 
-const LAYER_RADIUS = vars.scheme.semantic.radius["6"];
+const LAYER_RADIUS = vars.scheme.semantic.radius["8"];
 
 const menuItemVariants = {
   paddingHorizontal: createVar(),
@@ -31,6 +31,9 @@ export const menuContainerStyle = recipe({
       padding: `${menuItemVariants.paddingVertical} ${menuItemVariants.paddingHorizontal}`,
       color: vars.color.semantic.object.bold,
       selectors: {
+        '&[aria-selected="true"]': {
+          background: vars.color.semantic.fill.subtlest,
+        },
         "&:disabled, &[data-disabled]": {
           cursor: "default",
           color: vars.color.semantic.object.subtle,
