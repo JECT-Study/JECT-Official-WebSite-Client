@@ -106,7 +106,11 @@ const RadioBasicGrouped = ({
 
   return (
     <label {...labelProps} className={radioRootLabel}>
-      <input {...mergeProps(inputProps, restProps, { onChange })} className={radioInput} />
+      <input
+        {...mergeProps(inputProps, restProps, { onChange })}
+        ref={ref}
+        className={radioInput}
+      />
       <span className={clsx(radioVisual({ size }), "visual")} aria-hidden='true' />
     </label>
   );
