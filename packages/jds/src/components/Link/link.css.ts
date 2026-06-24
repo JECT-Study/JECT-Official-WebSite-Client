@@ -19,6 +19,9 @@ const baseStyle = style({
       color: vars.color.semantic.object.subtle,
       cursor: "not-allowed",
     },
+    "[data-disabled] &": {
+      pointerEvents: "none",
+    },
     "&::before, &::after": { inset: 0, borderRadius: "inherit" },
   },
 });
