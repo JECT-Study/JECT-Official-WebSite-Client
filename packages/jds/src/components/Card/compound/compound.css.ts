@@ -6,7 +6,6 @@ import { focusRing } from "../../../utils/focusRing.css";
 import { overlay as overlayInteraction, overlayColor } from "../../../utils/overlay.css";
 
 const titleColor = createVar();
-const labelColor = createVar();
 const bodyColor = createVar();
 const captionColor = createVar();
 
@@ -19,7 +18,6 @@ export const root = recipe({
     height: "100%",
     vars: {
       [titleColor]: vars.color.semantic.object.bolder,
-      [labelColor]: vars.color.semantic.object.neutral,
       [bodyColor]: vars.color.semantic.object.normal,
       [captionColor]: vars.color.semantic.object.alternative,
     },
@@ -77,7 +75,6 @@ export const root = recipe({
       true: {
         vars: {
           [titleColor]: vars.color.semantic.object.subtle,
-          [labelColor]: vars.color.semantic.object.subtle,
           [bodyColor]: vars.color.semantic.object.subtle,
           [captionColor]: vars.color.semantic.object.subtle,
         },
@@ -208,23 +205,6 @@ const ellipsis = style({
   WebkitLineClamp: 1,
   overflow: "hidden",
   textOverflow: "ellipsis",
-});
-
-export const label = recipe({
-  base: [
-    ellipsis,
-    {
-      color: labelColor,
-      margin: 0,
-      alignSelf: "stretch",
-    },
-  ],
-  variants: {
-    variant: {
-      plate: "semantic-textStyle-label-sm-normal",
-      post: "semantic-textStyle-label-lg-bold",
-    },
-  },
 });
 
 export const body = style({

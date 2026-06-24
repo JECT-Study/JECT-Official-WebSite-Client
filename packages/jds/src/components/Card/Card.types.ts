@@ -24,13 +24,6 @@ export interface CardTitleProps extends ComponentPropsWithoutRef<"h3"> {
   children: ReactNode;
 }
 
-/**
- * @deprecated Plate Card는 Card.Label 위계 요소를 지원하지 않습니다. Post 마이그레이션 완료 후 제거 예정입니다.
- */
-export interface CardLabelProps extends ComponentPropsWithoutRef<"h4"> {
-  children: ReactNode;
-}
-
 export interface CardBodyProps extends ComponentPropsWithoutRef<"p"> {
   children: ReactNode;
 }
