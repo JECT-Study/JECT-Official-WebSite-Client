@@ -29,14 +29,7 @@ export const CardRoot = forwardRef<HTMLDivElement, CardRootOwnProps>(
           ref={ref}
           data-interactive={interactive ? "true" : "false"}
           data-disabled={isDisabled || undefined}
-          className={clsx(
-            styles.root({
-              layout,
-              variant,
-              isDisabled,
-            }),
-            className,
-          )}
+          className={clsx(styles.root({ layout, variant, isDisabled }), className)}
           {...restProps}
         >
           {children}
