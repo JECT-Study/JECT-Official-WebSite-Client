@@ -43,7 +43,7 @@ const meta: Meta<typeof Link> = {
       },
     },
     asChild: {
-      control: "boolean",
+      control: false,
       description: "true이면 <a> 대신 전달한 자식 요소에 스타일을 합성합니다.",
       table: {
         defaultValue: { summary: "false" },
