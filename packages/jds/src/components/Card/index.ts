@@ -10,7 +10,7 @@ import {
   CardMetaItem,
   CardOverlay,
 } from "./compound";
-import { PlateWithTitle, PlateWithLabel, PlateCompact, Post } from "./presets";
+import { Plate, Post } from "./presets";
 
 export const Card = {
   Root: CardRoot,
@@ -25,9 +25,7 @@ export const Card = {
   Overlay: CardOverlay,
 
   Preset: {
-    PlateWithTitle,
-    PlateWithLabel,
-    PlateCompact,
+    Plate,
     Post,
   },
 };
@@ -46,9 +44,4 @@ export type {
   CardMetaItemProps,
 } from "./Card.types";
 
-export type {
-  PlateWithTitlePresetProps,
-  PlateWithLabelPresetProps,
-  PlateCompactPresetProps,
-  PostPresetProps,
-} from "./Card.types";
+export type { PlatePresetProps, PostPresetProps } from "./Card.types";

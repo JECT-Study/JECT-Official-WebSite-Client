@@ -39,6 +39,9 @@ export interface CardTitleProps extends ComponentPropsWithoutRef<"h3"> {
   children: ReactNode;
 }
 
+/**
+ * @deprecated Plate Card는 Card.Label 위계 요소를 지원하지 않습니다. Post 마이그레이션 완료 후 제거 예정입니다.
+ */
 export interface CardLabelProps extends ComponentPropsWithoutRef<"h4"> {
   children: ReactNode;
 }
@@ -64,57 +67,20 @@ interface BasePresetOwnProps {
   };
 }
 
-export interface PlateWithTitlePresetBaseProps extends BasePresetOwnProps {
+export interface PlatePresetBaseProps extends BasePresetOwnProps {
   caption?: string;
   title: string;
   body: ReactNode;
 }
 
-export type PlateWithTitlePresetProps =
-  | (PlateWithTitlePresetBaseProps & {
+export type PlatePresetProps =
+  | (PlatePresetBaseProps & {
       as: "a";
       href: string;
       target?: string;
       rel?: string;
     })
-  | (PlateWithTitlePresetBaseProps & {
-      as: "button";
-      onClick: () => void;
-      type?: "button" | "submit" | "reset";
-    });
-
-export interface PlateWithLabelPresetBaseProps extends BasePresetOwnProps {
-  caption?: string;
-  label: string;
-  body: ReactNode;
-}
-
-export type PlateWithLabelPresetProps =
-  | (PlateWithLabelPresetBaseProps & {
-      as: "a";
-      href: string;
-      target?: string;
-      rel?: string;
-    })
-  | (PlateWithLabelPresetBaseProps & {
-      as: "button";
-      onClick: () => void;
-      type?: "button" | "submit" | "reset";
-    });
-
-export interface PlateCompactPresetBaseProps extends BasePresetOwnProps {
-  caption: string;
-  body: ReactNode;
-}
-
-export type PlateCompactPresetProps =
-  | (PlateCompactPresetBaseProps & {
-      as: "a";
-      href: string;
-      target?: string;
-      rel?: string;
-    })
-  | (PlateCompactPresetBaseProps & {
+  | (PlatePresetBaseProps & {
       as: "button";
       onClick: () => void;
       type?: "button" | "submit" | "reset";

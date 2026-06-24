@@ -307,13 +307,13 @@ export const InteractionDetails: Story = {
   ),
 };
 
-export const PresetPlateWithTitle: Story = {
-  name: "Preset - PlateWithTitle (Card.Title을 사용하는 구조)",
+export const PresetPlate: Story = {
+  name: "Preset - Plate (title + body + optional caption)",
   args: {},
   render: () => (
     <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
       <div style={{ width: "350px" }}>
-        <Card.Preset.PlateWithTitle.Link
+        <Card.Preset.Plate.Link
           href='#'
           layout='vertical'
           image={{ alt: "image의 alt 이름" }}
@@ -323,7 +323,7 @@ export const PresetPlateWithTitle: Story = {
         />
       </div>
       <div style={{ width: "480px", height: "160px" }}>
-        <Card.Preset.PlateWithTitle.Button
+        <Card.Preset.Plate.Button
           onClick={() => alert("카드가 클릭되었습니다!")}
           layout='horizontal'
           image={{ alt: "image의 alt 이름" }}
@@ -336,60 +336,74 @@ export const PresetPlateWithTitle: Story = {
   ),
 };
 
-export const PresetPlateWithLabel: Story = {
-  name: "Preset - PlateWithLabel (Card.Label을 사용하는 구조)",
+export const PlateVariantMatrix: Story = {
+  name: "Plate 변형 매트릭스 (Figma 변형 table 대응)",
   args: {},
-  render: () => (
-    <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
-      <div style={{ width: "274px" }}>
-        <Card.Preset.PlateWithLabel.Link
-          href='#'
-          layout='vertical'
-          image={{ alt: "image의 alt 이름" }}
-          caption='캡션 내용이 들어감'
-          label='제목(Card.Title보다 위계가 낮은 Card.label을 사용)'
-          body='body에 대한 설명입니다. Preset을 사용하여 Card.Title보다 위계가 낮은 Card.Label을 사용하여 상단 요소를 표현합니다.'
-        />
-      </div>
-      <div style={{ width: "480px", height: "160px" }}>
-        <Card.Preset.PlateWithLabel.Button
-          onClick={() => alert("PlateWithLabel 카드가 클릭되었습니다!")}
-          layout='horizontal'
-          image={{ alt: "image의 alt 이름" }}
-          caption='캡션 내용이 들어감'
-          label='가로 레이아웃 Label'
-          body='horizontal layout에서도 Card.Label을 사용할 수 있습니다. 이미지가 좌측에 표시됩니다.'
-        />
-      </div>
-    </div>
-  ),
-};
+  parameters: {
+    docs: {
+      description: {
+        story: `Figma 변형 table의 Plate Card 변형 축을 한 화면에 재현합니다.
 
-export const PresetPlateCompact: Story = {
-  name: "Preset - PlateCompact (Card.Title, Card.Label을 둘다 사용하지 않는 구조)",
-  args: {},
-  render: () => (
-    <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
-      <div style={{ width: "274px" }}>
-        <Card.Preset.PlateCompact.Link
-          href='#'
-          layout='vertical'
-          image={{ alt: "이미지의 alt 명" }}
-          caption='캡션 내용이 들어갑니다.'
-          body='Title이나 Label 없이 간결하게 정보를 표시하는 카드입니다. 1:2 비율의 이미지를 사용합니다.'
-        />
+- **layout**: vertical / horizontal
+- **withCaption**: false / true (caption 표시 여부)
+- **disabled**: false / true
+
+state(rest / hover / active / focused)는 정적 렌더링으로 강제할 수 없어 Chromatic hover/focus 캡처 및 \`CompoundWithOverlay\` / \`InteractionDetails\` 스토리에서 확인합니다. disabled=true에서 hover/active는 사용하지 않으며, focused ring은 disabled에서도 표시됩니다(키보드 위치 안내 — a11y).`,
+      },
+    },
+  },
+  render: () => {
+    const layouts = ["vertical", "horizontal"] as const;
+    const disabledStates = [false, true] as const;
+
+    const renderCell = (
+      layout: (typeof layouts)[number],
+      isDisabled: boolean,
+      withCaption: boolean,
+    ) => {
+      const wrapStyle =
+        layout === "vertical"
+          ? { width: "240px" }
+          : { width: "480px", height: withCaption ? "152px" : "120px" };
+
+      return (
+        <div
+          key={`${layout}-${isDisabled}-${withCaption}`}
+          style={{ display: "flex", flexDirection: "column", gap: "8px" }}
+        >
+          <span style={{ fontSize: "12px", color: "#999" }}>
+            disabled={String(isDisabled)} · caption={String(withCaption)}
+          </span>
+          <div style={wrapStyle}>
+            <Card.Preset.Plate.Link
+              href='#'
+              layout={layout}
+              isDisabled={isDisabled}
+              image={{ alt: "플레이트 카드 이미지" }}
+              title='플레이트 카드 제목'
+              body='카드 내용은 두 줄을 넘어가면 말줄임(...) 표시합니다.'
+              {...(withCaption ? { caption: "캡션 레이블" } : {})}
+            />
+          </div>
+        </div>
+      );
+    };
+
+    return (
+      <div style={{ display: "flex", flexDirection: "column", gap: "40px" }}>
+        {layouts.map(layout => (
+          <section key={layout} style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+            <h3 style={{ margin: 0, fontSize: "14px", fontWeight: "bold" }}>layout = {layout}</h3>
+            <div style={{ display: "flex", gap: "24px", flexWrap: "wrap", alignItems: "flex-start" }}>
+              {disabledStates.flatMap(isDisabled =>
+                [false, true].map(withCaption => renderCell(layout, isDisabled, withCaption)),
+              )}
+            </div>
+          </section>
+        ))}
       </div>
-      <div style={{ width: "480px", height: "120px" }}>
-        <Card.Preset.PlateCompact.Button
-          onClick={() => alert("PlateCompact 카드가 클릭되었습니다!")}
-          layout='horizontal'
-          image={{ alt: "이미지의 alt 명" }}
-          caption='캡션 내용이 들어갑니다.'
-          body='horizontal layout에서도 간결한 카드를 사용할 수 있습니다.'
-        />
-      </div>
-    </div>
-  ),
+    );
+  },
 };
 
 export const PresetPost: Story = {
