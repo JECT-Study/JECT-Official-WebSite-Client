@@ -4,7 +4,7 @@ import { pxToRem } from "utils";
 import type { PostPresetProps } from "../Card.types";
 import {
   CardRoot,
-  CardImage,
+  CardThumbnail,
   CardContent,
   CardTitle,
   CardBody,
@@ -30,7 +30,7 @@ const PostContent = ({ layout, image, title, body, author, date }: PostContentPr
   if (layout === "vertical") {
     return (
       <>
-        {image && <CardImage src={image.src} alt={image.alt} ratio='1:2' />}
+        {image && <CardThumbnail image={image} />}
         <CardContent>
           <CardTitle>{title}</CardTitle>
           <CardBody>{body}</CardBody>
@@ -58,12 +58,7 @@ const PostContent = ({ layout, image, title, body, author, date }: PostContentPr
             </CardMeta>
           </div>
           {image && (
-            <CardImage
-              src={image.src}
-              alt={image.alt}
-              ratio='1:1'
-              style={{ width: pxToRem(80), height: pxToRem(80) }}
-            />
+            <CardThumbnail image={image} style={{ width: pxToRem(80), height: pxToRem(80) }} />
           )}
         </div>
       </CardContent>

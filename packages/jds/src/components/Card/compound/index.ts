@@ -1,5 +1,5 @@
 export { CardRoot } from "./CardRoot";
-export { CardImage } from "./CardImage";
+export { CardThumbnail } from "./CardThumbnail";
 export { CardContent } from "./CardContent";
 export { CardCaption } from "./CardCaption";
 export { CardTitle } from "./CardTitle";
