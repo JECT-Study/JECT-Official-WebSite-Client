@@ -1,11 +1,10 @@
 import { createContext, useContext } from "react";
 
-import type { CardLayout, CardVariant, CardStyle } from "./Card.types";
+import type { CardLayout, CardVariant } from "./Card.types";
 
 export interface CardContextValue {
   layout: CardLayout;
   variant: CardVariant;
-  cardStyle?: CardStyle;
   isDisabled: boolean;
   interactive: boolean;
 }

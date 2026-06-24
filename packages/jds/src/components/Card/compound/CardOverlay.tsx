@@ -27,7 +27,6 @@ export const CardOverlay = PolymorphicForwardRef<"a", CardOverlayOwnProps>(
         className={clsx(
           styles.overlay({
             variant: context.variant,
-            cardStyle: context.cardStyle ?? "outlined",
             isDisabled: context.isDisabled,
           }),
           className,

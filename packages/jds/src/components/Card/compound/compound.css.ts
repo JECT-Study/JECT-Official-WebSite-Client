@@ -60,11 +60,20 @@ export const root = recipe({
       post: {
         borderRadius: vars.scheme.semantic.radius[10],
         overflow: "visible",
+        backgroundColor: "transparent",
+        border: "none",
+        padding: 0,
+        boxShadow: "none",
+        selectors: {
+          '&[data-interactive="true"]:not([data-disabled="true"]):hover': {
+            boxShadow: "none",
+          },
+          '&[data-interactive="true"]:not([data-disabled="true"]):has([data-overlay]:focus-visible)':
+            {
+              boxShadow: "none",
+            },
+        },
       },
-    },
-    cardStyle: {
-      outlined: {},
-      empty: {},
     },
     isDisabled: {
       true: {
@@ -80,47 +89,12 @@ export const root = recipe({
   },
   compoundVariants: [
     {
-      variants: { variant: "post", cardStyle: "outlined", layout: "vertical" },
-      style: { gap: vars.scheme.semantic.spacing[20] },
-    },
-    {
-      variants: { variant: "post", cardStyle: "outlined", layout: "horizontal" },
-      style: { gap: vars.scheme.semantic.spacing[20] },
-    },
-    {
-      variants: { variant: "post", cardStyle: "outlined" },
-      style: {
-        border: `1px solid ${vars.color.semantic.stroke.subtle}`,
-        padding: vars.scheme.semantic.spacing[20],
-        backgroundColor: vars.color.semantic.surface.shallow,
-        boxShadow: SHADOW_DEFAULT,
-      },
-    },
-    {
-      variants: { variant: "post", cardStyle: "empty", layout: "vertical" },
+      variants: { variant: "post", layout: "vertical" },
       style: { gap: vars.scheme.semantic.spacing[16] },
     },
     {
-      variants: { variant: "post", cardStyle: "empty", layout: "horizontal" },
+      variants: { variant: "post", layout: "horizontal" },
       style: { gap: vars.scheme.semantic.spacing[24] },
-    },
-    {
-      variants: { variant: "post", cardStyle: "empty" },
-      style: {
-        backgroundColor: "transparent",
-        border: "none",
-        padding: 0,
-        boxShadow: "none",
-        selectors: {
-          '&[data-interactive="true"]:not([data-disabled="true"]):hover': {
-            boxShadow: "none",
-          },
-          '&[data-interactive="true"]:not([data-disabled="true"]):has([data-overlay]:focus-visible)':
-            {
-              boxShadow: "none",
-            },
-        },
-      },
     },
   ],
 });
@@ -299,27 +273,16 @@ export const overlay = recipe({
         inset: 0,
         borderRadius: vars.scheme.semantic.radius[12],
       },
-      post: { borderRadius: vars.scheme.semantic.radius[10] },
-    },
-    cardStyle: {
-      outlined: {},
-      empty: {},
+      post: {
+        inset: "-12px",
+        borderRadius: vars.scheme.semantic.radius[10],
+      },
     },
     isDisabled: {
       true: { cursor: "default", pointerEvents: "none" },
       false: { cursor: "pointer", pointerEvents: "auto" },
     },
   },
-  compoundVariants: [
-    {
-      variants: { variant: "post", cardStyle: "outlined" },
-      style: { inset: 0 },
-    },
-    {
-      variants: { variant: "post", cardStyle: "empty" },
-      style: { inset: "-12px" },
-    },
-  ],
 });
 
 export const badge = style({

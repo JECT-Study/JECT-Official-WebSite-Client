@@ -36,11 +36,6 @@ const meta = {
         defaultValue: { summary: "plate" },
       },
     },
-    cardStyle: {
-      control: "radio",
-      options: ["outlined", "empty"],
-      description: "카드의 스타일 (post variant에만 적용)",
-    },
     isDisabled: {
       control: "boolean",
       description: "비활성화 상태",
@@ -137,7 +132,7 @@ export const CompoundWithMeta: Story = {
   args: {},
   render: () => (
     <div style={{ width: "400px" }}>
-      <Card.Root layout='vertical' variant='post' cardStyle='outlined'>
+      <Card.Root layout='vertical' variant='post'>
         <Card.Image alt='블로그 포스트 사진' />
         <Card.Content>
           <Card.Title>포스트 제목</Card.Title>
@@ -410,43 +405,83 @@ export const PresetPost: Story = {
   name: "Preset - Post (디자인 에셋에서 Card/Post 케이스)",
   args: {},
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-      <div style={{ width: "400px" }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+      <div style={{ width: "240px" }}>
         <Card.Preset.Post.Link
           href='#'
           layout='vertical'
-          cardStyle='outlined'
           image={{ alt: "이미지의 alt 명" }}
-          title='Post에 오는 제목이 옵니다.'
-          body='Card.Post의 body(실질적인 내용)가 들어갑니다. 현재 a태그를 overlay로 사용합니다.'
+          title='포스트 카드 제목'
+          body='카드 내용은 두 줄을 넘어가면 말줄임(...) 표시합니다.'
           author='김젝트'
-          date='2025년 5월 28일'
+          date='2026년 2월 25일(수)'
         />
       </div>
-      <div style={{ width: "400px" }}>
+      <div style={{ width: "480px" }}>
         <Card.Preset.Post.Button
           onClick={() => alert("Post 카드(button형) 클릭됨!")}
-          layout='vertical'
-          cardStyle='empty'
-          image={{ alt: "이미지의 alt 명" }}
-          title='Post에 오는 제목이 옵니다.'
-          body='Card.Post의 body(실질적인 내용)가 들어갑니다. 현재 button 태그를 overlay로 사용합니다.'
-          author='김젝트'
-          date='2025년 5월 28일'
-        />
-      </div>
-      <div style={{ width: "400px" }}>
-        <Card.Preset.Post.Link
-          href='#'
           layout='horizontal'
-          cardStyle='outlined'
           image={{ alt: "이미지의 alt 명" }}
-          title='Post에 오는 제목이 옵니다.'
-          body='Card.Post의 body(실질적인 내용)가 들어갑니다. 현재 a태그를 overlay로 사용합니다.'
+          title='포스트 카드 제목'
+          body='카드 내용은 두 줄을 넘어가면 말줄임(...) 표시합니다.'
           author='김젝트'
-          date='2025년 5월 28일'
+          date='2026년 2월 25일(수)'
         />
       </div>
     </div>
   ),
+};
+
+export const PostVariantMatrix: Story = {
+  name: "Post 변형 매트릭스 (Figma 변형 table 대응)",
+  args: {},
+  parameters: {
+    docs: {
+      description: {
+        story: `Figma 변형 table의 Post Card 변형 축을 한 화면에 재현합니다.
+
+- **layout**: vertical / horizontal
+- **disabled**: false / true
+
+Post는 단일 스타일(테두리 없는 empty)이며, state(rest / hover / active / focused)는 정적 렌더링으로 강제할 수 없어 Chromatic hover/focus 캡처 및 \`CompoundWithOverlay\` 스토리에서 확인합니다. disabled=true에서 hover/active는 사용하지 않으며, focused ring은 disabled에서도 표시됩니다(키보드 위치 안내 — a11y).`,
+      },
+    },
+  },
+  render: () => {
+    const layouts = ["vertical", "horizontal"] as const;
+
+    const renderCell = (layout: (typeof layouts)[number], isDisabled: boolean) => (
+      <div
+        key={`${layout}-${isDisabled}`}
+        style={{ display: "flex", flexDirection: "column", gap: "8px" }}
+      >
+        <span style={{ fontSize: "12px", color: "#999" }}>disabled={String(isDisabled)}</span>
+        <div style={layout === "vertical" ? { width: "240px" } : { width: "480px" }}>
+          <Card.Preset.Post.Link
+            href='#'
+            layout={layout}
+            isDisabled={isDisabled}
+            image={{ alt: "포스트 카드 이미지" }}
+            title='포스트 카드 제목'
+            body='카드 내용은 두 줄을 넘어가면 말줄임(...) 표시합니다.'
+            author='김젝트'
+            date='2026년 2월 25일(수)'
+          />
+        </div>
+      </div>
+    );
+
+    return (
+      <div style={{ display: "flex", flexDirection: "column", gap: "40px" }}>
+        {layouts.map(layout => (
+          <section key={layout} style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+            <h3 style={{ margin: 0, fontSize: "14px", fontWeight: "bold" }}>layout = {layout}</h3>
+            <div style={{ display: "flex", gap: "40px", flexWrap: "wrap", alignItems: "flex-start" }}>
+              {[false, true].map(isDisabled => renderCell(layout, isDisabled))}
+            </div>
+          </section>
+        ))}
+      </div>
+    );
+  },
 };

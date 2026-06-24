@@ -10,7 +10,6 @@ export const CardRoot = forwardRef<HTMLDivElement, CardRootOwnProps>(
     {
       layout = "vertical",
       variant = "plate",
-      cardStyle,
       isDisabled = false,
       interactive = false,
       children,
@@ -20,8 +19,8 @@ export const CardRoot = forwardRef<HTMLDivElement, CardRootOwnProps>(
     ref,
   ) => {
     const contextValue = useMemo(
-      () => ({ layout, variant, cardStyle, isDisabled, interactive }),
-      [layout, variant, cardStyle, isDisabled, interactive],
+      () => ({ layout, variant, isDisabled, interactive }),
+      [layout, variant, isDisabled, interactive],
     );
 
     return (
@@ -34,7 +33,6 @@ export const CardRoot = forwardRef<HTMLDivElement, CardRootOwnProps>(
             styles.root({
               layout,
               variant,
-              cardStyle: cardStyle ?? "outlined",
               isDisabled,
             }),
             className,

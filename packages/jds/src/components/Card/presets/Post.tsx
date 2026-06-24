@@ -72,26 +72,8 @@ const PostContent = ({ layout, image, title, body, author, date }: PostContentPr
 };
 
 export const PostLink = forwardRef<HTMLDivElement, PostLinkProps>(
-  (
-    {
-      layout = "vertical",
-      cardStyle = "outlined",
-      isDisabled = false,
-      href,
-      target,
-      rel,
-      ...contentProps
-    },
-    ref,
-  ) => (
-    <CardRoot
-      ref={ref}
-      layout={layout}
-      variant='post'
-      cardStyle={cardStyle}
-      isDisabled={isDisabled}
-      interactive
-    >
+  ({ layout = "vertical", isDisabled = false, href, target, rel, ...contentProps }, ref) => (
+    <CardRoot ref={ref} layout={layout} variant='post' isDisabled={isDisabled} interactive>
       <PostContent layout={layout} {...contentProps} />
       <CardOverlay as='a' href={href} target={target} rel={rel} data-overlay />
     </CardRoot>
@@ -101,25 +83,8 @@ export const PostLink = forwardRef<HTMLDivElement, PostLinkProps>(
 PostLink.displayName = "Card.Preset.Post.Link";
 
 export const PostButton = forwardRef<HTMLDivElement, PostButtonProps>(
-  (
-    {
-      layout = "vertical",
-      cardStyle = "outlined",
-      isDisabled = false,
-      onClick,
-      type,
-      ...contentProps
-    },
-    ref,
-  ) => (
-    <CardRoot
-      ref={ref}
-      layout={layout}
-      variant='post'
-      cardStyle={cardStyle}
-      isDisabled={isDisabled}
-      interactive
-    >
+  ({ layout = "vertical", isDisabled = false, onClick, type, ...contentProps }, ref) => (
+    <CardRoot ref={ref} layout={layout} variant='post' isDisabled={isDisabled} interactive>
       <PostContent layout={layout} {...contentProps} />
       <CardOverlay as='button' onClick={onClick} type={type || "button"} data-overlay />
     </CardRoot>

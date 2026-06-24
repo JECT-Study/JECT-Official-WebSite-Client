@@ -4,12 +4,10 @@ import type { ThumbnailOrientation, ThumbnailRatio } from "../Thumbnail";
 
 export type CardLayout = "vertical" | "horizontal";
 export type CardVariant = "plate" | "post";
-export type CardStyle = "outlined" | "empty";
 
 export interface CardRootOwnProps extends ComponentPropsWithoutRef<"div"> {
   layout?: CardLayout;
   variant?: CardVariant;
-  cardStyle?: CardStyle;
   isDisabled?: boolean;
   interactive?: boolean;
   children?: ReactNode;
@@ -87,7 +85,6 @@ export type PlatePresetProps =
     });
 
 export interface PostPresetBaseProps extends BasePresetOwnProps {
-  cardStyle?: "outlined" | "empty";
   title: string;
   body: ReactNode;
   author: string;
