@@ -45,3 +45,5 @@ export const CardRoot = forwardRef<HTMLDivElement, CardRootOwnProps>(
     );
   },
 );
+
+CardRoot.displayName = "Card.Root";
