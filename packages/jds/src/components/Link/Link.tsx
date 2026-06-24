@@ -1,8 +1,8 @@
 import { clsx } from "clsx";
-import { Icon } from "components";
 import { Slot } from "radix-ui";
 import { forwardRef } from "react";
 
+import { Icon } from "../Icon";
 import { root } from "./link.css";
 import type { LinkProps } from "./link.types";
 
