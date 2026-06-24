@@ -172,7 +172,7 @@ export const content = recipe({
   ],
 });
 
-export const contentMain = style({
+export const contentGroup = style({
   display: "flex",
   flexDirection: "column",
   alignItems: "flex-start",

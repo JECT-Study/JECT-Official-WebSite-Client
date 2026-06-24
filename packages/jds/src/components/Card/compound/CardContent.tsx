@@ -40,9 +40,9 @@ export const CardContent = forwardRef<HTMLDivElement, CardContentProps>(
         {...restProps}
       >
         {mainContentNodes.length > 0 && (
-          <div className={styles.contentMain}>{mainContentNodes}</div>
+          <div className={styles.contentGroup}>{mainContentNodes}</div>
         )}
-        {metaNodes.length > 0 && <div className={styles.contentMain}>{metaNodes}</div>}
+        {metaNodes.length > 0 && <div className={styles.contentGroup}>{metaNodes}</div>}
       </div>
     );
   },

@@ -48,7 +48,7 @@ const PostContent = ({ layout, image, title, body, author, date }: PostContentPr
       <CardContent>
         <div className={styles.horizontalCardPostLayout}>
           <div className={styles.horizontalPostContentWrap}>
-            <div className={styles.contentMain}>
+            <div className={styles.contentGroup}>
               <CardTitle>{title}</CardTitle>
               <CardBody>{body}</CardBody>
             </div>
