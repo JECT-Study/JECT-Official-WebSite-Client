@@ -6,5 +6,5 @@ export type {
   RadioRootProps,
   RadioSize,
   RadioVariant,
-  RadioSubLabelProps,
+  RadioHelperProps,
 } from "./radio.types";
