@@ -32,7 +32,7 @@ export const PlateLink = forwardRef<HTMLDivElement, PlateLinkProps>(
   ({ layout = "vertical", isDisabled = false, href, target, rel, ...contentProps }, ref) => (
     <CardRoot ref={ref} layout={layout} variant='plate' isDisabled={isDisabled} interactive>
       <PlateContent layout={layout} {...contentProps} />
-      <CardOverlay as='a' href={href} target={target} rel={rel} data-overlay />
+      <CardOverlay as='a' href={href} target={target} rel={rel} />
     </CardRoot>
   ),
 );
@@ -43,7 +43,7 @@ export const PlateButton = forwardRef<HTMLDivElement, PlateButtonProps>(
   ({ layout = "vertical", isDisabled = false, onClick, type, ...contentProps }, ref) => (
     <CardRoot ref={ref} layout={layout} variant='plate' isDisabled={isDisabled} interactive>
       <PlateContent layout={layout} {...contentProps} />
-      <CardOverlay as='button' onClick={onClick} type={type || "button"} data-overlay />
+      <CardOverlay as='button' onClick={onClick} type={type || "button"} />
     </CardRoot>
   ),
 );

@@ -75,7 +75,7 @@ export const PostLink = forwardRef<HTMLDivElement, PostLinkProps>(
   ({ layout = "vertical", isDisabled = false, href, target, rel, ...contentProps }, ref) => (
     <CardRoot ref={ref} layout={layout} variant='post' isDisabled={isDisabled} interactive>
       <PostContent layout={layout} {...contentProps} />
-      <CardOverlay as='a' href={href} target={target} rel={rel} data-overlay />
+      <CardOverlay as='a' href={href} target={target} rel={rel} />
     </CardRoot>
   ),
 );
@@ -86,7 +86,7 @@ export const PostButton = forwardRef<HTMLDivElement, PostButtonProps>(
   ({ layout = "vertical", isDisabled = false, onClick, type, ...contentProps }, ref) => (
     <CardRoot ref={ref} layout={layout} variant='post' isDisabled={isDisabled} interactive>
       <PostContent layout={layout} {...contentProps} />
-      <CardOverlay as='button' onClick={onClick} type={type || "button"} data-overlay />
+      <CardOverlay as='button' onClick={onClick} type={type || "button"} />
     </CardRoot>
   ),
 );
