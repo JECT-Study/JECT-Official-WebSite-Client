@@ -2,9 +2,10 @@ import { createVar, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
 import { vars } from "../../../tokens/vars.css";
+import { focusRing } from "../../../utils/focusRing.css";
+import { overlay as overlayInteraction, overlayColor } from "../../../utils/overlay.css";
 
 const SHADOW_DEFAULT = "0 1px 2px 0 rgba(0, 0, 0, 0.05)";
-const FOCUS_OUTLINE_WIDTH = "3px";
 
 const titleColor = createVar();
 const labelColor = createVar();
@@ -274,41 +275,24 @@ export const caption = recipe({
   },
 });
 
-export const overlay = recipe({
-  base: {
-    position: "absolute",
-    zIndex: 100,
-    textDecoration: "none",
-    color: "inherit",
-    outline: "none",
-    appearance: "none",
-    background: "none",
-    padding: 0,
-    selectors: {
-      "&::before": {
-        content: '""',
-        position: "absolute",
-        inset: 0,
-        borderRadius: "inherit",
-        boxShadow: `0 0 0 ${FOCUS_OUTLINE_WIDTH} ${vars.color.semantic.accent.normal}`,
-        opacity: 0,
-        pointerEvents: "none",
-        transition: `opacity ${vars.environment.semantic.duration[150]} ${vars.environment.semantic.motion.fluent}`,
-      },
-      "&::after": {
-        content: '""',
-        position: "absolute",
-        inset: 0,
-        borderRadius: "inherit",
-        backgroundColor: vars.color.semantic.object.assistive,
-        opacity: 0,
-        pointerEvents: "none",
-        transition: `opacity ${vars.environment.semantic.duration[100]} ${vars.environment.semantic.motion.fluent}`,
-      },
-      '&:not([data-disabled="true"]):hover::after': { opacity: 0.08 },
-      '&:not([data-disabled="true"]):active::after': { opacity: 0.12, transition: "none" },
-    },
+const overlayBase = style({
+  position: "absolute",
+  zIndex: 100,
+  textDecoration: "none",
+  color: "inherit",
+  appearance: "none",
+  background: "none",
+  padding: 0,
+  vars: {
+    [overlayColor]: vars.color.semantic.object.assistive,
   },
+  selectors: {
+    "&::before, &::after": { inset: 0, borderRadius: "inherit" },
+  },
+});
+
+export const overlay = recipe({
+  base: [overlayInteraction({ nativeHover: true }), focusRing(), overlayBase],
   variants: {
     variant: {
       plate: {
@@ -329,31 +313,11 @@ export const overlay = recipe({
   compoundVariants: [
     {
       variants: { variant: "post", cardStyle: "outlined" },
-      style: {
-        inset: 0,
-        selectors: {
-          "&:focus-visible": {
-            boxShadow: `0 0 0 ${FOCUS_OUTLINE_WIDTH} ${vars.color.semantic.accent.normal}`,
-          },
-        },
-      },
+      style: { inset: 0 },
     },
     {
       variants: { variant: "post", cardStyle: "empty" },
-      style: {
-        inset: "-12px",
-        selectors: { "&:focus-visible::before": { opacity: 1 } },
-      },
-    },
-    {
-      variants: { variant: "plate" },
-      style: {
-        selectors: {
-          "&:focus-visible": {
-            boxShadow: `0 0 0 ${FOCUS_OUTLINE_WIDTH} ${vars.color.semantic.accent.normal}`,
-          },
-        },
-      },
+      style: { inset: "-12px" },
     },
   ],
 });

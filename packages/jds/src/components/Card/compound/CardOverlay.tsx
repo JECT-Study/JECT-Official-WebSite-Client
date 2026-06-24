@@ -23,7 +23,7 @@ export const CardOverlay = PolymorphicForwardRef<"a", CardOverlayOwnProps>(
       <Component
         ref={ref}
         data-overlay
-        data-disabled={context.isDisabled ? "true" : "false"}
+        data-disabled={context.isDisabled || undefined}
         className={clsx(
           styles.overlay({
             variant: context.variant,
