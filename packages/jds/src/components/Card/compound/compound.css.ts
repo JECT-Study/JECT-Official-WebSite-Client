@@ -211,8 +211,8 @@ export const contentMain = style({
 
 export const meta = style({
   display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
+  flexDirection: "row",
+  alignItems: "center",
   padding: 0,
   alignSelf: "stretch",
   gap: vars.scheme.semantic.spacing[8],
