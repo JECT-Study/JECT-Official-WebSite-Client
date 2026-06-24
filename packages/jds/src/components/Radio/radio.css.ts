@@ -203,7 +203,7 @@ const itemSizeVariants = {
   },
 } satisfies Record<RadioSize, object>;
 
-// empty 모드에서 ::after / ::before를 element 경계 밖으로 확장하는 크기
+// hollow 모드에서 ::after / ::before를 element 경계 밖으로 확장하는 크기
 const itemInsetBySize: Record<RadioSize, string> = {
   lg: `${pxToRem(-4)} ${pxToRem(-6)}`,
   md: `${pxToRem(-4)} ${pxToRem(-6)}`,
@@ -211,8 +211,8 @@ const itemInsetBySize: Record<RadioSize, string> = {
   xs: `${pxToRem(-3)} ${pxToRem(-4)}`,
 };
 
-// outline 모드 size별 padding
-const itemOutlinePaddingBySize = {
+// outlined 모드 size별 padding
+const itemOutlinedPaddingBySize = {
   lg: vars.scheme.semantic.spacing["12"],
   md: vars.scheme.semantic.spacing["10"],
   sm: vars.scheme.semantic.spacing["8"],
@@ -221,7 +221,7 @@ const itemOutlinePaddingBySize = {
 
 // Compound variants
 const expansionCompoundVariants = RADIO_SIZE_OPTIONS.map(size => ({
-  variants: { size, styleOutline: "empty" as const },
+  variants: { size, styleOutlined: "hollow" as const },
   style: {
     selectors: {
       "&::after": { inset: itemInsetBySize[size] },
@@ -230,9 +230,9 @@ const expansionCompoundVariants = RADIO_SIZE_OPTIONS.map(size => ({
   },
 }));
 
-const outlinePaddingCompoundVariants = RADIO_SIZE_OPTIONS.map(size => ({
-  variants: { size, styleOutline: "outline" as const },
-  style: { padding: itemOutlinePaddingBySize[size] },
+const outlinedPaddingCompoundVariants = RADIO_SIZE_OPTIONS.map(size => ({
+  variants: { size, styleOutlined: "outlined" as const },
+  style: { padding: itemOutlinedPaddingBySize[size] },
 }));
 
 // VE selectors는 & 자신만 타겟할 수 있어 자식 요소 배치에 globalStyle을 사용한다.
@@ -304,21 +304,21 @@ const itemBaseStyles = style([
 export const radioItem = recipe({
   base: itemBaseStyles,
   variants: {
-    // size: gap, borderRadius만 결정. overlay 확장은 compoundVariants에서 styleOutline과 교차
+    // size: gap, borderRadius만 결정. overlay 확장은 compoundVariants에서 styleOutlined와 교차
     size: itemSizeVariants satisfies Record<RadioSize, unknown>,
-    styleOutline: {
-      outline: {
+    styleOutlined: {
+      outlined: {
         border: `${vars.scheme.semantic.strokeWeight["1"]} solid ${vars.color.semantic.stroke.alpha.subtle}`,
         selectors: {
           "&[data-disabled]": { borderColor: vars.color.semantic.stroke.alpha.subtler },
-          // overlay가 outline border 위에 그려질 때 border를 유지
+          // overlay가 outlined border 위에 그려질 때 border를 유지
           "&::after": { border: "inherit" },
         },
       },
-      empty: { border: "none", padding: 0 },
+      hollow: { border: "none", padding: 0 },
     },
   },
-  compoundVariants: [...expansionCompoundVariants, ...outlinePaddingCompoundVariants],
+  compoundVariants: [...expansionCompoundVariants, ...outlinedPaddingCompoundVariants],
 });
 
 // Radio.Label / Radio.SubLabel

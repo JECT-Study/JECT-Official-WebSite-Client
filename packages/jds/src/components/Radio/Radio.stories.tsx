@@ -70,20 +70,20 @@ export const RadioBasicSizes: Story = {
   render: () => {
     return (
       <FlexRow>
-        <Radio.Basic name='size' value='1' radioSize='lg' />
-        <Radio.Basic name='size' value='2' radioSize='md' />
-        <Radio.Basic name='size' value='3' radioSize='sm' />
-        <Radio.Basic name='size' value='4' radioSize='xs' />
+        <Radio.Basic name='size' value='1' size='lg' />
+        <Radio.Basic name='size' value='2' size='md' />
+        <Radio.Basic name='size' value='3' size='sm' />
+        <Radio.Basic name='size' value='4' size='xs' />
       </FlexRow>
     );
   },
 };
 
-export const RadioStyle: Story = {
+export const RadioVariant: Story = {
   render: () => (
     <FlexColumn>
       <FlexRow style={{ alignItems: "flex-start" }}>
-        <Radio.Root radioStyle='empty' radioSize='lg' name='emptyStyle'>
+        <Radio.Root variant='hollow' size='lg' name='hollowVariant'>
           <Radio.Item>
             <Radio.Basic value='1' />
             <Radio.Label>레이블</Radio.Label>
@@ -105,7 +105,7 @@ export const RadioStyle: Story = {
         </Radio.Root>
       </FlexRow>
       <FlexRow style={{ alignItems: "flex-start" }}>
-        <Radio.Root radioStyle='outline' radioSize='lg' name='outlineStyle'>
+        <Radio.Root variant='outlined' size='lg' name='outlinedVariant'>
           <Radio.Item>
             <Radio.Basic value='1' />
             <Radio.Label>레이블</Radio.Label>

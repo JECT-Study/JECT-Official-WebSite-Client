@@ -28,8 +28,8 @@ import { RadioProvider, useRadioContext } from "./RadioContext";
 import { useContainerPressable } from "@/hooks";
 
 const RadioRoot = ({
-  radioSize = "md",
-  radioStyle = "empty",
+  size = "md",
+  variant = "hollow",
   disabled = false,
   value,
   defaultValue,
@@ -41,7 +41,7 @@ const RadioRoot = ({
   const { radioGroupProps } = useRadioGroup({ isDisabled: disabled }, state);
 
   return (
-    <RadioProvider value={{ size: radioSize, style: radioStyle, disabled, state }}>
+    <RadioProvider value={{ size, variant, disabled, state }}>
       <div {...radioGroupProps} className={radioGroupWrapper}>
         {children}
       </div>
@@ -53,23 +53,23 @@ RadioRoot.displayName = "Radio.Root";
 
 const RadioItem = forwardRef<HTMLDivElement, RadioItemProps>(
   (
-    { radioSize, radioStyle, disabled = false, children, className, ...restProps },
+    { size: sizeProp, variant: variantProp, disabled = false, children, className, ...restProps },
     ref,
   ) => {
     const parentContext = useRadioContext();
 
-    const size = radioSize ?? parentContext?.size ?? "md";
+    const size = sizeProp ?? parentContext?.size ?? "md";
     const isDisabled = disabled || (parentContext?.disabled ?? false);
-    const style = radioStyle ?? parentContext?.style ?? "empty";
+    const variant = variantProp ?? parentContext?.variant ?? "hollow";
 
     const { containerPressableProps } = useContainerPressable({ disabled: isDisabled });
 
     return (
-      <RadioProvider value={{ ...parentContext, size, style, disabled: isDisabled }}>
+      <RadioProvider value={{ ...parentContext, size, variant, disabled: isDisabled }}>
         <div
           ref={ref}
           {...mergeProps(containerPressableProps, restProps)}
-          className={clsx(radioItem({ size, styleOutline: style }), className)}
+          className={clsx(radioItem({ size, styleOutlined: variant }), className)}
         >
           {children}
         </div>
@@ -113,9 +113,9 @@ const RadioBasicGrouped = ({
 };
 
 const RadioBasic = forwardRef<HTMLInputElement, RadioBasicProps>(
-  ({ radioSize, value, checked, disabled, onChange, name, ...restProps }, forwardedRef) => {
+  ({ size: sizeProp, value, checked, disabled, onChange, name, ...restProps }, forwardedRef) => {
     const context = useRadioContext();
-    const size = context?.size ?? radioSize ?? "md";
+    const size = context?.size ?? sizeProp ?? "md";
     const isDisabled = disabled || (context?.disabled ?? false);
 
     if (context?.state) {
