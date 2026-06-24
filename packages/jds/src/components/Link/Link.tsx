@@ -10,10 +10,14 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
   ({ external = false, asChild, disabled = false, className, children, onClick, ...rest }, ref) => {
     const Component = asChild ? Slot.Root : "a";
 
+    const disabledNativeProps =
+      disabled && !asChild ? { href: undefined, role: "link" as const, tabIndex: 0 } : {};
+
     return (
       <Component
         ref={ref}
         {...rest}
+        {...disabledNativeProps}
         className={clsx(root, className)}
         data-disabled={disabled || undefined}
         aria-disabled={disabled || undefined}
