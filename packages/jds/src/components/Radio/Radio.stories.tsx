@@ -83,7 +83,7 @@ export const RadioStyle: Story = {
   render: () => (
     <FlexColumn>
       <FlexRow style={{ alignItems: "flex-start" }}>
-        <Radio.Root radioStyle='empty' radioSize='lg' radioAlign='left' name='emptyStyle'>
+        <Radio.Root radioStyle='empty' radioSize='lg' name='emptyStyle'>
           <Radio.Item>
             <Radio.Basic value='1' />
             <Radio.Label>레이블</Radio.Label>
@@ -105,7 +105,7 @@ export const RadioStyle: Story = {
         </Radio.Root>
       </FlexRow>
       <FlexRow style={{ alignItems: "flex-start" }}>
-        <Radio.Root radioStyle='outline' radioSize='lg' radioAlign='left' name='outlineStyle'>
+        <Radio.Root radioStyle='outline' radioSize='lg' name='outlineStyle'>
           <Radio.Item>
             <Radio.Basic value='1' />
             <Radio.Label>레이블</Radio.Label>
@@ -122,57 +122,6 @@ export const RadioStyle: Story = {
           <Radio.Item>
             <Radio.Basic value='4' />
             <Radio.Label>레이블</Radio.Label>
-            <Radio.SubLabel>서브레이블</Radio.SubLabel>
-          </Radio.Item>
-        </Radio.Root>
-      </FlexRow>
-    </FlexColumn>
-  ),
-};
-
-export const RadioAlign: Story = {
-  render: () => (
-    <FlexColumn>
-      <FlexRow style={{ alignItems: "flex-start" }}>
-        <Radio.Root radioStyle='empty' radioSize='lg' radioAlign='right' name='emptyRight'>
-          <Radio.Item>
-            <Radio.Label>레이블</Radio.Label>
-            <Radio.Basic value='1' />
-          </Radio.Item>
-          <Radio.Item>
-            <Radio.Label>레이블</Radio.Label>
-            <Radio.Basic value='2' />
-          </Radio.Item>
-          <Radio.Item>
-            <Radio.Label>레이블</Radio.Label>
-            <Radio.Basic value='3' />
-            <Radio.SubLabel>서브레이블</Radio.SubLabel>
-          </Radio.Item>
-          <Radio.Item>
-            <Radio.Label>레이블</Radio.Label>
-            <Radio.Basic value='4' />
-            <Radio.SubLabel>서브레이블</Radio.SubLabel>
-          </Radio.Item>
-        </Radio.Root>
-      </FlexRow>
-      <FlexRow style={{ alignItems: "flex-start" }}>
-        <Radio.Root radioStyle='outline' radioSize='lg' radioAlign='right' name='outlineRight'>
-          <Radio.Item>
-            <Radio.Label>레이블</Radio.Label>
-            <Radio.Basic value='1' />
-          </Radio.Item>
-          <Radio.Item>
-            <Radio.Label>레이블</Radio.Label>
-            <Radio.Basic value='2' />
-          </Radio.Item>
-          <Radio.Item>
-            <Radio.Label>레이블</Radio.Label>
-            <Radio.Basic value='3' />
-            <Radio.SubLabel>서브레이블</Radio.SubLabel>
-          </Radio.Item>
-          <Radio.Item>
-            <Radio.Label>레이블</Radio.Label>
-            <Radio.Basic value='4' />
             <Radio.SubLabel>서브레이블</Radio.SubLabel>
           </Radio.Item>
         </Radio.Root>

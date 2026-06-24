@@ -1,12 +1,11 @@
 import { createContext, useContext } from "react";
 import type { RadioGroupState } from "react-stately";
 
-import type { RadioAlign, RadioSize, RadioStyle } from "./radio.types";
+import type { RadioSize, RadioStyle } from "./radio.types";
 
 export interface RadioContextValue {
   size: RadioSize;
   style: RadioStyle;
-  align: RadioAlign;
   disabled: boolean;
   state?: RadioGroupState;
 }

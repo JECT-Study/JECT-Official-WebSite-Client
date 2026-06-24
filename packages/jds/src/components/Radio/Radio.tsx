@@ -30,7 +30,6 @@ import { useContainerPressable } from "@/hooks";
 const RadioRoot = ({
   radioSize = "md",
   radioStyle = "empty",
-  radioAlign = "left",
   disabled = false,
   value,
   defaultValue,
@@ -42,9 +41,7 @@ const RadioRoot = ({
   const { radioGroupProps } = useRadioGroup({ isDisabled: disabled }, state);
 
   return (
-    <RadioProvider
-      value={{ size: radioSize, style: radioStyle, align: radioAlign, disabled, state }}
-    >
+    <RadioProvider value={{ size: radioSize, style: radioStyle, disabled, state }}>
       <div {...radioGroupProps} className={radioGroupWrapper}>
         {children}
       </div>
@@ -56,7 +53,7 @@ RadioRoot.displayName = "Radio.Root";
 
 const RadioItem = forwardRef<HTMLDivElement, RadioItemProps>(
   (
-    { radioSize, radioStyle, radioAlign, disabled = false, children, className, ...restProps },
+    { radioSize, radioStyle, disabled = false, children, className, ...restProps },
     ref,
   ) => {
     const parentContext = useRadioContext();
@@ -64,16 +61,15 @@ const RadioItem = forwardRef<HTMLDivElement, RadioItemProps>(
     const size = radioSize ?? parentContext?.size ?? "md";
     const isDisabled = disabled || (parentContext?.disabled ?? false);
     const style = radioStyle ?? parentContext?.style ?? "empty";
-    const align = radioAlign ?? parentContext?.align ?? "left";
 
     const { containerPressableProps } = useContainerPressable({ disabled: isDisabled });
 
     return (
-      <RadioProvider value={{ ...parentContext, size, style, align, disabled: isDisabled }}>
+      <RadioProvider value={{ ...parentContext, size, style, disabled: isDisabled }}>
         <div
           ref={ref}
           {...mergeProps(containerPressableProps, restProps)}
-          className={clsx(radioItem({ size, styleOutline: style, alignRight: align }), className)}
+          className={clsx(radioItem({ size, styleOutline: style }), className)}
         >
           {children}
         </div>

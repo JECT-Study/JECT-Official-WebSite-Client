@@ -1,6 +1,5 @@
 export { Radio } from "./Radio";
 export type {
-  RadioAlign,
   RadioBasicProps,
   RadioItemProps,
   RadioLabelProps,

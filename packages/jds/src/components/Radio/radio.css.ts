@@ -261,13 +261,8 @@ globalStyle(`${radioItemGrid} input[type="radio"]:focus-visible + .visual`, {
   boxShadow: "none !important",
 });
 
-// alignRight 변형별 SubLabel(:nth-child(3)) 배치
-// recipe 내부 selectors에서 자식을 타겟할 수 없어 별도 style + globalStyle로 분리한다.
-const radioItemAlignLeft = style({});
-globalStyle(`${radioItemAlignLeft} > :nth-child(3)`, { gridColumn: "2", gridRow: "2" });
-
-const radioItemAlignRight = style({});
-globalStyle(`${radioItemAlignRight} > :nth-child(3)`, { gridColumn: "1 / span 2", gridRow: "2" });
+// SubLabel(:nth-child(3))은 라벨 아래 행에 배치한다.
+globalStyle(`${radioItemGrid} > :nth-child(3)`, { gridColumn: "2", gridRow: "2" });
 
 const itemBaseStyles = style([
   radioItemGrid,
@@ -321,10 +316,6 @@ export const radioItem = recipe({
         },
       },
       empty: { border: "none", padding: 0 },
-    },
-    alignRight: {
-      left: [radioItemAlignLeft],
-      right: [radioItemAlignRight],
     },
   },
   compoundVariants: [...expansionCompoundVariants, ...outlinePaddingCompoundVariants],
