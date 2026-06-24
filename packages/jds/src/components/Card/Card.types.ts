@@ -6,7 +6,7 @@ export type CardLayout = "vertical" | "horizontal";
 export type CardVariant = "plate" | "post";
 export type CardStyle = "outlined" | "empty";
 
-export interface CardRootOwnProps {
+export interface CardRootOwnProps extends ComponentPropsWithoutRef<"div"> {
   layout?: CardLayout;
   variant?: CardVariant;
   cardStyle?: CardStyle;

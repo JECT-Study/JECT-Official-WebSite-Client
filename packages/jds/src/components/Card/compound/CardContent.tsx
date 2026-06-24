@@ -1,8 +1,9 @@
+import { clsx } from "clsx";
 import { Children, forwardRef, isValidElement, type ReactNode } from "react";
 
 import { useCardContext } from "../Card.context";
 import type { CardContentProps } from "../Card.types";
-import { StyledCardContent, StyledContentMain } from "./compound.styles";
+import * as styles from "./compound.css";
 
 interface ComponentWithDisplayName {
   displayName?: string;
@@ -20,7 +21,7 @@ const isTargetComponent = (child: ReactNode, targetNames: string[]): boolean => 
 };
 
 export const CardContent = forwardRef<HTMLDivElement, CardContentProps>(
-  ({ children, ...restProps }, ref) => {
+  ({ children, className, ...restProps }, ref) => {
     const { variant, layout } = useCardContext();
     const childrenArray = Children.toArray(children);
 
@@ -33,10 +34,16 @@ export const CardContent = forwardRef<HTMLDivElement, CardContentProps>(
     });
 
     return (
-      <StyledCardContent ref={ref} $variant={variant} $layout={layout} {...restProps}>
-        {mainContentNodes.length > 0 && <StyledContentMain>{mainContentNodes}</StyledContentMain>}
-        {metaNodes.length > 0 && <StyledContentMain>{metaNodes}</StyledContentMain>}
-      </StyledCardContent>
+      <div
+        ref={ref}
+        className={clsx(styles.content({ variant, layout }), className)}
+        {...restProps}
+      >
+        {mainContentNodes.length > 0 && (
+          <div className={styles.contentMain}>{mainContentNodes}</div>
+        )}
+        {metaNodes.length > 0 && <div className={styles.contentMain}>{metaNodes}</div>}
+      </div>
     );
   },
 );

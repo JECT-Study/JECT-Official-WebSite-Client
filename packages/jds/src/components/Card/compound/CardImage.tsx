@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 
-import { StyledCardImageContainer } from "./compound.styles";
+import * as styles from "./compound.css";
 import { Thumbnail, type ThumbnailShapeProps } from "../../Thumbnail";
 import { useCardContext } from "../Card.context";
 import type { CardImageProps } from "../Card.types";
@@ -26,7 +26,7 @@ export const CardImage = forwardRef<HTMLDivElement, CardImageProps>(
     },
     ref,
   ) => {
-    const { layout, variant, cardStyle } = useCardContext();
+    const { layout, variant } = useCardContext();
 
     const orientationMap = {
       vertical: "landscape" as const,
@@ -55,13 +55,7 @@ export const CardImage = forwardRef<HTMLDivElement, CardImageProps>(
         : { ratio: finalRatio, orientation: finalOrientation, cornerStyle: "angular" };
 
     return (
-      <StyledCardImageContainer
-        ref={ref}
-        $layout={layout}
-        $variant={variant}
-        $cardStyle={cardStyle}
-        style={customStyle}
-      >
+      <div ref={ref} className={styles.imageContainer({ layout, variant })} style={customStyle}>
         {/* 임시 브릿지: 레거시 Card가 걷힐 때 이 Thumbnail 주입도 함께 제거 예정 */}
         <Thumbnail
           src={src}
@@ -72,27 +66,8 @@ export const CardImage = forwardRef<HTMLDivElement, CardImageProps>(
           {...restProps}
           {...shape}
         />
-        {badgeVisible && badgeLabel && (
-          <span
-            style={{
-              position: "absolute",
-              top: "8px",
-              left: "8px",
-              zIndex: 1,
-              minWidth: "18px",
-              padding: "0 6px",
-              borderRadius: "2px",
-              backgroundColor: "rgba(0, 0, 0, 0.6)",
-              color: "#fff",
-              fontSize: "12px",
-              lineHeight: "18px",
-              textAlign: "center",
-            }}
-          >
-            {badgeLabel}
-          </span>
-        )}
-      </StyledCardImageContainer>
+        {badgeVisible && badgeLabel && <span className={styles.badge}>{badgeLabel}</span>}
+      </div>
     );
   },
 );

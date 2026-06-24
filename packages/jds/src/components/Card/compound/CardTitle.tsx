@@ -1,14 +1,19 @@
+import { clsx } from "clsx";
 import { forwardRef } from "react";
 
 import type { CardTitleProps } from "../Card.types";
-import { StyledCardTitle } from "./compound.styles";
+import * as styles from "./compound.css";
 
 export const CardTitle = forwardRef<HTMLHeadingElement, CardTitleProps>(
-  ({ children, ...restProps }, ref) => {
+  ({ children, className, ...restProps }, ref) => {
     return (
-      <StyledCardTitle ref={ref} {...restProps}>
+      <h3
+        ref={ref}
+        className={clsx("semantic-textStyle-title-1", styles.title, className)}
+        {...restProps}
+      >
         {children}
-      </StyledCardTitle>
+      </h3>
     );
   },
 );

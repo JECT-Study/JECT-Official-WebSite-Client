@@ -1,14 +1,17 @@
-import { useContext } from "react";
+import { clsx } from "clsx";
+import { useContext, type ReactNode } from "react";
 
 import { CardContext } from "../Card.context";
-import { StyledCardOverlay } from "./compound.styles";
+import * as styles from "./compound.css";
 
 import { PolymorphicForwardRef } from "@/utils/forwardRef";
 
-type CardOverlayOwnProps = Record<string, never>;
+export interface CardOverlayOwnProps {
+  children?: ReactNode;
+}
 
 export const CardOverlay = PolymorphicForwardRef<"a", CardOverlayOwnProps>(
-  ({ as, children, ...restProps }, ref) => {
+  ({ as, children, className, ...restProps }, ref) => {
     const Component = as || "a";
     const context = useContext(CardContext);
 
@@ -17,17 +20,22 @@ export const CardOverlay = PolymorphicForwardRef<"a", CardOverlayOwnProps>(
     }
 
     return (
-      <StyledCardOverlay
-        as={Component}
+      <Component
         ref={ref}
         data-overlay
-        $variant={context.variant}
-        $cardStyle={context.cardStyle}
-        $isDisabled={context.isDisabled}
+        data-disabled={context.isDisabled ? "true" : "false"}
+        className={clsx(
+          styles.overlay({
+            variant: context.variant,
+            cardStyle: context.cardStyle ?? "outlined",
+            isDisabled: context.isDisabled,
+          }),
+          className,
+        )}
         {...restProps}
       >
         {children}
-      </StyledCardOverlay>
+      </Component>
     );
   },
 );

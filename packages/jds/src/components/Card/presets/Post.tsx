@@ -10,13 +10,9 @@ import {
   CardBody,
   CardMeta,
   CardMetaItem,
+  CardOverlay,
 } from "../compound";
-import {
-  StyledCardOverlay,
-  StyledContentMain,
-  StyledHorizontalCardPostLayout,
-  StyledHorizontalPostContentWrap,
-} from "../compound/compound.styles";
+import * as styles from "../compound/compound.css";
 
 type PostLinkProps = Omit<Extract<PostPresetProps, { as: "a" }>, "as">;
 type PostButtonProps = Omit<Extract<PostPresetProps, { as: "button" }>, "as">;
@@ -50,17 +46,17 @@ const PostContent = ({ layout, image, title, body, author, date }: PostContentPr
   return (
     <>
       <CardContent>
-        <StyledHorizontalCardPostLayout>
-          <StyledHorizontalPostContentWrap>
-            <StyledContentMain>
+        <div className={styles.horizontalCardPostLayout}>
+          <div className={styles.horizontalPostContentWrap}>
+            <div className={styles.contentMain}>
               <CardTitle>{title}</CardTitle>
               <CardBody>{body}</CardBody>
-            </StyledContentMain>
+            </div>
             <CardMeta>
               <CardMetaItem>{author}</CardMetaItem>
               <CardMetaItem>{date}</CardMetaItem>
             </CardMeta>
-          </StyledHorizontalPostContentWrap>
+          </div>
           {image && (
             <CardImage
               src={image.src}
@@ -69,7 +65,7 @@ const PostContent = ({ layout, image, title, body, author, date }: PostContentPr
               style={{ width: pxToRem(80), height: pxToRem(80) }}
             />
           )}
-        </StyledHorizontalCardPostLayout>
+        </div>
       </CardContent>
     </>
   );
@@ -97,16 +93,7 @@ export const PostLink = forwardRef<HTMLDivElement, PostLinkProps>(
       interactive
     >
       <PostContent layout={layout} {...contentProps} />
-      <StyledCardOverlay
-        as='a'
-        href={href}
-        target={target}
-        rel={rel}
-        data-overlay
-        $variant='post'
-        $cardStyle={cardStyle}
-        $isDisabled={isDisabled}
-      />
+      <CardOverlay as='a' href={href} target={target} rel={rel} data-overlay />
     </CardRoot>
   ),
 );
@@ -134,15 +121,7 @@ export const PostButton = forwardRef<HTMLDivElement, PostButtonProps>(
       interactive
     >
       <PostContent layout={layout} {...contentProps} />
-      <StyledCardOverlay
-        as='button'
-        onClick={onClick}
-        type={type || "button"}
-        data-overlay
-        $variant='post'
-        $cardStyle={cardStyle}
-        $isDisabled={isDisabled}
-      />
+      <CardOverlay as='button' onClick={onClick} type={type || "button"} data-overlay />
     </CardRoot>
   ),
 );

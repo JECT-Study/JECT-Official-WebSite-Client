@@ -1,8 +1,9 @@
+import { clsx } from "clsx";
 import { forwardRef, useMemo } from "react";
 
 import { CardContext } from "../Card.context";
 import type { CardRootOwnProps } from "../Card.types";
-import { StyledCardRoot } from "./compound.styles";
+import * as styles from "./compound.css";
 
 export const CardRoot = forwardRef<HTMLDivElement, CardRootOwnProps>(
   (
@@ -13,6 +14,7 @@ export const CardRoot = forwardRef<HTMLDivElement, CardRootOwnProps>(
       isDisabled = false,
       interactive = false,
       children,
+      className,
       ...restProps
     },
     ref,
@@ -24,17 +26,23 @@ export const CardRoot = forwardRef<HTMLDivElement, CardRootOwnProps>(
 
     return (
       <CardContext.Provider value={contextValue}>
-        <StyledCardRoot
+        <div
           ref={ref}
           data-interactive={interactive ? "true" : "false"}
-          $layout={layout}
-          $variant={variant}
-          $cardStyle={cardStyle}
-          $isDisabled={isDisabled}
+          data-disabled={isDisabled ? "true" : "false"}
+          className={clsx(
+            styles.root({
+              layout,
+              variant,
+              cardStyle: cardStyle ?? "outlined",
+              isDisabled,
+            }),
+            className,
+          )}
           {...restProps}
         >
           {children}
-        </StyledCardRoot>
+        </div>
       </CardContext.Provider>
     );
   },

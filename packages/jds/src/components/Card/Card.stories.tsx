@@ -195,7 +195,6 @@ export const CompoundWithOverlay: Story = {
             </Card.Body>
             <Card.Caption>Hover, Focus, Active 상태 모두 지원</Card.Caption>
           </Card.Content>
-          {/* @ts-expect-error - Polymorphic component의 제네릭 타입 추론 한계 (TypeScript와 forwardRef 간의 추론 제약사항) */}
           <Card.Overlay as='a' href='#' aria-label='카드 상세 페이지로 이동' />
         </Card.Root>
       </div>
@@ -211,7 +210,6 @@ export const CompoundWithOverlay: Story = {
           </Card.Content>
           <Card.Overlay
             as='button'
-            // @ts-expect-error - Polymorphic component의 제네릭 타입 추론 한계
             onClick={() => alert("카드가 클릭되었습니다!")}
             aria-label='카드 클릭'
           />
@@ -228,7 +226,6 @@ export const CompoundWithOverlay: Story = {
             </Card.Body>
             <Card.Caption>layout = horizontal</Card.Caption>
           </Card.Content>
-          {/* @ts-expect-error - Polymorphic component의 제네릭 타입 추론 한계 */}
           <Card.Overlay as='a' href='#' aria-label='가로 카드 상세 페이지로 이동' />
         </Card.Root>
       </div>
@@ -285,7 +282,6 @@ export const InteractionDetails: Story = {
               </Card.Body>
               <Card.Caption>Hover, Active, Focus 모두 동작</Card.Caption>
             </Card.Content>
-            {/* @ts-expect-error - Polymorphic component의 제네릭 타입 추론 한계 */}
             <Card.Overlay as='a' href='#' aria-label='인터랙티브 카드' />
           </Card.Root>
         </div>

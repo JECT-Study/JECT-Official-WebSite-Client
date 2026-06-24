@@ -1,14 +1,15 @@
+import { clsx } from "clsx";
 import { forwardRef } from "react";
 
 import type { CardMetaProps } from "../Card.types";
-import { StyledCardMeta } from "./compound.styles";
+import * as styles from "./compound.css";
 
 export const CardMeta = forwardRef<HTMLDivElement, CardMetaProps>(
-  ({ children, ...restProps }, ref) => {
+  ({ children, className, ...restProps }, ref) => {
     return (
-      <StyledCardMeta ref={ref} {...restProps}>
+      <div ref={ref} className={clsx(styles.meta, className)} {...restProps}>
         {children}
-      </StyledCardMeta>
+      </div>
     );
   },
 );

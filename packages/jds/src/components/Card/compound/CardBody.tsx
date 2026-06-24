@@ -1,14 +1,19 @@
+import { clsx } from "clsx";
 import { forwardRef } from "react";
 
 import type { CardBodyProps } from "../Card.types";
-import { StyledCardBody } from "./compound.styles";
+import * as styles from "./compound.css";
 
 export const CardBody = forwardRef<HTMLParagraphElement, CardBodyProps>(
-  ({ children, ...restProps }, ref) => {
+  ({ children, className, ...restProps }, ref) => {
     return (
-      <StyledCardBody ref={ref} {...restProps}>
+      <p
+        ref={ref}
+        className={clsx("semantic-textStyle-body-sm-normal", styles.body, className)}
+        {...restProps}
+      >
         {children}
-      </StyledCardBody>
+      </p>
     );
   },
 );
