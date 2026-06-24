@@ -39,4 +39,4 @@ export const CardThumbnail = ({ image, style }: CardThumbnailProps) => {
   );
 };
 
-CardThumbnail.displayName = "CardThumbnail";
+CardThumbnail.displayName = "Card.Thumbnail";
