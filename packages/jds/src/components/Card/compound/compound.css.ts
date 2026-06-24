@@ -133,7 +133,11 @@ export const imageContainer = recipe({
   variants: {
     layout: {
       vertical: { width: "100%" },
-      horizontal: { height: "100%", alignSelf: "stretch" },
+      horizontal: {
+        height: "100%",
+        alignSelf: "stretch",
+        aspectRatio: "1 / 1",
+      },
     },
     variant: {
       plate: {},
