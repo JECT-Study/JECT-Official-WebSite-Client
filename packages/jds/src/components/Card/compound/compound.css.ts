@@ -5,8 +5,6 @@ import { vars } from "../../../tokens/vars.css";
 import { focusRing } from "../../../utils/focusRing.css";
 import { overlay as overlayInteraction, overlayColor } from "../../../utils/overlay.css";
 
-const SHADOW_DEFAULT = "0 1px 2px 0 rgba(0, 0, 0, 0.05)";
-
 const titleColor = createVar();
 const labelColor = createVar();
 const bodyColor = createVar();
@@ -55,7 +53,7 @@ export const root = recipe({
         borderRadius: vars.scheme.semantic.radius[12],
         backgroundColor: vars.color.semantic.surface.shallow,
         border: `1px solid ${vars.color.semantic.stroke.alpha.subtler}`,
-        boxShadow: SHADOW_DEFAULT,
+        boxShadow: vars.environment.semantic.shadow.embossed,
       },
       post: {
         borderRadius: vars.scheme.semantic.radius[10],
