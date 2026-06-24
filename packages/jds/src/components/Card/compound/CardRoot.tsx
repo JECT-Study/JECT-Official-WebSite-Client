@@ -28,7 +28,7 @@ export const CardRoot = forwardRef<HTMLDivElement, CardRootOwnProps>(
         <div
           ref={ref}
           data-interactive={interactive ? "true" : "false"}
-          data-disabled={isDisabled ? "true" : "false"}
+          data-disabled={isDisabled || undefined}
           className={clsx(
             styles.root({
               layout,
