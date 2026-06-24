@@ -19,8 +19,8 @@ export const CardRoot = forwardRef<HTMLDivElement, CardRootOwnProps>(
     ref,
   ) => {
     const contextValue = useMemo(
-      () => ({ layout, variant, isDisabled, interactive }),
-      [layout, variant, isDisabled, interactive],
+      () => ({ layout, variant, isDisabled }),
+      [layout, variant, isDisabled],
     );
 
     return (
