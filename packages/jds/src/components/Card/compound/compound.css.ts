@@ -4,6 +4,7 @@ import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "../../../tokens/vars.css";
 import { focusRing } from "../../../utils/focusRing.css";
 import { overlay as overlayInteraction, overlayColor } from "../../../utils/overlay.css";
+import { labelColorVar, titleColorVar } from "../../../utils/typography.css";
 
 const titleColor = createVar();
 const bodyColor = createVar();
@@ -188,12 +189,12 @@ export const meta = style({
 });
 
 export const metaItem = style({
-  color: captionColor,
+  vars: { [labelColorVar]: captionColor },
   whiteSpace: "nowrap",
 });
 
 export const title = style({
-  color: titleColor,
+  vars: { [titleColorVar]: titleColor },
   margin: 0,
   alignSelf: "stretch",
   textWrap: "wrap",
