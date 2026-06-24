@@ -1,34 +1,84 @@
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
-export type CheckboxSize = "xs" | "sm" | "md" | "lg";
-export type CheckboxVariant = "empty" | "outlined";
-export type CheckboxAlign = "left" | "right";
+export const CHECKBOX_SIZE_OPTIONS = ["xs", "sm", "md", "lg"] as const;
+export const CHECKBOX_VARIANT_OPTIONS = ["hollow", "outlined"] as const;
 
+export type CheckboxSize = (typeof CHECKBOX_SIZE_OPTIONS)[number];
+export type CheckboxVariant = (typeof CHECKBOX_VARIANT_OPTIONS)[number];
 export type CheckedState = boolean | "indeterminate";
 
-interface CheckboxCommonProps extends Omit<
-  ComponentPropsWithoutRef<"input">,
-  "size" | "onChange" | "checked" | "defaultChecked"
-> {
+// Checkbox.Root
+
+type CheckboxRootControlledProps = {
+  value: string[];
+  defaultValue?: never;
+  onChange: (value: string[]) => void;
+};
+
+type CheckboxRootUncontrolledProps = {
+  value?: never;
+  defaultValue?: string[];
+  onChange?: (value: string[]) => void;
+};
+
+type CheckboxRootBaseProps = {
+  size?: CheckboxSize;
+  variant?: CheckboxVariant;
   disabled?: boolean;
   isInvalid?: boolean;
+  name?: string;
+  children: ReactNode;
+};
+
+export type CheckboxRootProps = CheckboxRootBaseProps &
+  (CheckboxRootControlledProps | CheckboxRootUncontrolledProps);
+
+// Checkbox.Item
+
+export interface CheckboxItemProps extends ComponentPropsWithoutRef<"label"> {
   size?: CheckboxSize;
-  onCheckedChange?: (checked: CheckedState) => void;
-}
-
-export interface CheckboxBoxProps extends CheckboxCommonProps {
-  checked: boolean;
-  isIndeterminate: boolean;
-}
-
-export interface CheckboxBasicProps extends CheckboxCommonProps {
-  checked?: CheckedState;
-}
-
-export interface CheckboxContentProps extends CheckboxCommonProps {
   variant?: CheckboxVariant;
-  align?: CheckboxAlign;
-  label: ReactNode;
-  subLabel?: ReactNode;
-  checked?: CheckedState;
+  disabled?: boolean;
+  isInvalid?: boolean;
+  children: ReactNode;
+}
+
+// Checkbox.Basic
+// Checkbox.Root 안에서 사용 시 value가 그룹 내 식별자가 되며 checked 상태는 그룹이 관리한다.
+
+type CheckboxBasicControlledProps = {
+  checked: CheckedState;
+  defaultChecked?: never;
+  onCheckedChange: (checked: CheckedState) => void;
+};
+
+type CheckboxBasicUncontrolledProps = {
+  checked?: never;
+  defaultChecked?: boolean;
+  onCheckedChange?: (checked: CheckedState) => void;
+};
+
+type CheckboxBasicBaseProps = Omit<
+  ComponentPropsWithoutRef<"input">,
+  "size" | "checked" | "defaultChecked" | "onChange"
+> & {
+  size?: CheckboxSize;
+  value?: string;
+  disabled?: boolean;
+  isInvalid?: boolean;
+};
+
+export type CheckboxBasicProps = CheckboxBasicBaseProps &
+  (CheckboxBasicControlledProps | CheckboxBasicUncontrolledProps);
+
+// Checkbox.Label
+
+export interface CheckboxLabelProps {
+  children: ReactNode;
+}
+
+// Checkbox.Helper
+
+export interface CheckboxHelperProps {
+  children: ReactNode;
 }
