@@ -30,7 +30,7 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
         }}
       >
         <Slot.Slottable>{children}</Slot.Slottable>
-        {external && <Icon name='external-link-line' aria-hidden />}
+        {external && <Icon name='external-link-line' role='img' aria-label='외부 링크' />}
       </Component>
     );
   },
