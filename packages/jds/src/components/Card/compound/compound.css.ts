@@ -198,7 +198,10 @@ export const meta = style({
 
 export const metaItem = style({
   vars: { [labelColorVar]: captionColor },
+  minWidth: 0,
+  overflow: "hidden",
   whiteSpace: "nowrap",
+  textOverflow: "ellipsis",
 });
 
 export const title = style({
