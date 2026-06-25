@@ -228,19 +228,15 @@ export const body = style([
   },
 ]);
 
-export const caption = recipe({
-  base: [lineClamp(1), { color: captionColor }],
-  variants: {
-    standalone: {
-      true: "semantic-textStyle-label-sm-subtle",
-      false: "semantic-textStyle-label-xs-subtle",
-    },
-  },
-});
+export const caption = style([
+  lineClamp(1),
+  "semantic-textStyle-label-xs-subtle",
+  { color: captionColor },
+]);
 
 const overlayBase = style({
   position: "absolute",
-  zIndex: 100,
+  zIndex: 1,
   textDecoration: "none",
   color: "inherit",
   appearance: "none",
