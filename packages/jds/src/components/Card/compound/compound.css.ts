@@ -183,7 +183,6 @@ export const meta = style({
   display: "flex",
   flexDirection: "row",
   alignItems: "center",
-  padding: 0,
   alignSelf: "stretch",
   gap: vars.scheme.semantic.spacing[8],
 });
@@ -253,7 +252,7 @@ export const overlay = recipe({
         borderRadius: vars.scheme.semantic.radius[12],
       },
       post: {
-        inset: "-12px",
+        inset: `calc(${vars.scheme.semantic.spacing[12]} * -1)`,
         borderRadius: vars.scheme.semantic.radius[10],
       },
     },
