@@ -17,7 +17,6 @@ export interface CardContentProps extends ComponentPropsWithoutRef<"div"> {
 
 export interface CardCaptionProps extends ComponentPropsWithoutRef<"span"> {
   children: ReactNode;
-  standalone?: boolean;
 }
 
 export interface CardTitleProps extends ComponentPropsWithoutRef<"h3"> {

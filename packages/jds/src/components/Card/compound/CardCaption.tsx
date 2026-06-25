@@ -5,9 +5,9 @@ import type { CardCaptionProps } from "../Card.types";
 import * as styles from "./card.css";
 
 export const CardCaption = forwardRef<HTMLSpanElement, CardCaptionProps>(
-  ({ children, standalone = false, className, ...restProps }, ref) => {
+  ({ children, className, ...restProps }, ref) => {
     return (
-      <span ref={ref} className={clsx(styles.caption({ standalone }), className)} {...restProps}>
+      <span ref={ref} className={clsx(styles.caption, className)} {...restProps}>
         {children}
       </span>
     );
