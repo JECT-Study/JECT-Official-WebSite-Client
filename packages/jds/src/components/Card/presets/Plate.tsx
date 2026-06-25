@@ -47,7 +47,7 @@ export const PlateButton = forwardRef<HTMLDivElement, PlateButtonProps>(
       layout={layout}
       variant='plate'
       isDisabled={isDisabled}
-      overlay={<CardOverlay as='button' onClick={onClick} type={type || "button"} />}
+      overlay={<CardOverlay as='button' onClick={onClick} type={type} />}
     >
       <PlateContent {...contentProps} />
     </PresetFrame>

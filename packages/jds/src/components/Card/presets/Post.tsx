@@ -57,7 +57,7 @@ export const PostButton = forwardRef<HTMLDivElement, PostButtonProps>(
       layout={layout}
       variant='post'
       isDisabled={isDisabled}
-      overlay={<CardOverlay as='button' onClick={onClick} type={type || "button"} />}
+      overlay={<CardOverlay as='button' onClick={onClick} type={type} />}
     >
       <PostContent layout={layout} {...contentProps} />
     </PresetFrame>
