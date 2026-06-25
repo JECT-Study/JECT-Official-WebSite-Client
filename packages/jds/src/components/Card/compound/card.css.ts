@@ -211,26 +211,25 @@ export const title = style({
   textWrap: "wrap",
 });
 
-const ellipsis = style({
-  display: "-webkit-box",
-  WebkitBoxOrient: "vertical",
-  WebkitLineClamp: 1,
-  overflow: "hidden",
-  textOverflow: "ellipsis",
-});
+const lineClamp = (lines: number) =>
+  style({
+    display: "-webkit-box",
+    WebkitBoxOrient: "vertical",
+    WebkitLineClamp: lines,
+    overflow: "hidden",
+  });
 
-export const body = style({
-  color: bodyColor,
-  margin: 0,
-  alignSelf: "stretch",
-  display: "-webkit-box",
-  WebkitBoxOrient: "vertical",
-  WebkitLineClamp: 2,
-  overflow: "hidden",
-});
+export const body = style([
+  lineClamp(2),
+  {
+    color: bodyColor,
+    margin: 0,
+    alignSelf: "stretch",
+  },
+]);
 
 export const caption = recipe({
-  base: [ellipsis, { color: captionColor }],
+  base: [lineClamp(1), { color: captionColor }],
   variants: {
     standalone: {
       true: "semantic-textStyle-label-sm-subtle",
