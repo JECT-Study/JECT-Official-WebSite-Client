@@ -5,13 +5,11 @@ import {
   CardRoot,
   CardThumbnail,
   CardContent,
-  CardTitle,
-  CardBody,
   CardMeta,
   CardMetaItem,
   CardOverlay,
 } from "../compound";
-import * as styles from "../compound/card.css";
+import { TitleBody } from "./shared";
 
 type PostLinkProps = Omit<Extract<PostPresetProps, { as: "a" }>, "as">;
 type PostButtonProps = Omit<Extract<PostPresetProps, { as: "button" }>, "as">;
@@ -32,10 +30,7 @@ const PostContent = ({ layout, image, title, body, author, date }: PostContentPr
     <>
       {layout === "vertical" && thumbnail}
       <CardContent>
-        <div className={styles.contentGroup}>
-          <CardTitle>{title}</CardTitle>
-          <CardBody>{body}</CardBody>
-        </div>
+        <TitleBody title={title} body={body} />
         <CardMeta>
           <CardMetaItem>{author}</CardMetaItem>
           <CardMetaItem>{date}</CardMetaItem>

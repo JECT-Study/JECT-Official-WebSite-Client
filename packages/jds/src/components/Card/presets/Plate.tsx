@@ -1,16 +1,8 @@
 import { forwardRef, type ReactNode } from "react";
 
 import type { CardThumbnailImage, PlatePresetProps } from "../Card.types";
-import {
-  CardRoot,
-  CardThumbnail,
-  CardContent,
-  CardCaption,
-  CardTitle,
-  CardBody,
-  CardOverlay,
-} from "../compound";
-import * as styles from "../compound/card.css";
+import { CardRoot, CardThumbnail, CardContent, CardCaption, CardOverlay } from "../compound";
+import { TitleBody } from "./shared";
 
 type PlateLinkProps = Omit<Extract<PlatePresetProps, { as: "a" }>, "as">;
 type PlateButtonProps = Omit<Extract<PlatePresetProps, { as: "button" }>, "as">;
@@ -26,10 +18,7 @@ const PlateContent = ({ image, caption, title, body }: PlateContentProps) => (
   <>
     {image && <CardThumbnail image={image} />}
     <CardContent>
-      <div className={styles.contentGroup}>
-        <CardTitle>{title}</CardTitle>
-        <CardBody>{body}</CardBody>
-      </div>
+      <TitleBody title={title} body={body} />
       {caption && <CardCaption>{caption}</CardCaption>}
     </CardContent>
   </>
