@@ -144,10 +144,15 @@ const MenuTree = forwardRef<HTMLButtonElement, MenuTreeProps>(
       onOpenChange?.(isNextOpen);
     };
 
-    const handleToggle = () => setOpen(!isOpen);
+    const hasChildren = Children.toArray(children).length > 0;
+
+    const handleToggle = () => {
+      if (!hasChildren) return;
+      setOpen(!isOpen);
+    };
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
-      if (disabled) return;
+      if (disabled || !hasChildren) return;
       if (event.key === "ArrowRight" && !isOpen) {
         event.preventDefault();
         setOpen(true);
@@ -157,7 +162,6 @@ const MenuTree = forwardRef<HTMLButtonElement, MenuTreeProps>(
       }
     };
 
-    const hasChildren = Children.toArray(children).length > 0;
     const hasTreeButton = withTreeButton ?? hasChildren;
 
     // 부모(자식 보유) 노드는 label 클릭/선택 시 메뉴를 닫지 않고 펼침·접힘만 수행한다.
@@ -178,7 +182,7 @@ const MenuTree = forwardRef<HTMLButtonElement, MenuTreeProps>(
             disabled={disabled}
             condensed
             aria-label={isOpen ? "접기" : "펼치기"}
-            aria-expanded={isOpen}
+            aria-expanded={hasChildren ? isOpen : undefined}
             onClick={handleToggle}
           />
           <DropdownMenu.Item
@@ -192,7 +196,7 @@ const MenuTree = forwardRef<HTMLButtonElement, MenuTreeProps>(
             </MenuItem.Button>
           </DropdownMenu.Item>
         </div>
-        {isOpen && <ul className={menuTreeContent}>{children}</ul>}
+        {isOpen && hasChildren && <ul className={menuTreeContent}>{children}</ul>}
       </li>
     );
   },
