@@ -151,6 +151,7 @@ export const content = recipe({
     flexDirection: "column",
     alignItems: "flex-start",
     flex: "1 0 0",
+    minWidth: 0,
     gap: vars.scheme.semantic.spacing[16],
   },
   variants: {
@@ -275,6 +276,7 @@ export const horizontalPostContentWrap = style({
   display: "flex",
   flexDirection: "column",
   flex: "1 0 0",
+  minWidth: 0,
   gap: vars.scheme.semantic.spacing[16],
 });
 
