@@ -25,7 +25,7 @@ const PlateContent = ({ image, caption, title, body }: PlateContentProps) => (
 );
 
 export const PlateLink = forwardRef<HTMLDivElement, PlateLinkProps>(
-  ({ layout = "vertical", isDisabled = false, href, target, rel, ...contentProps }, ref) => (
+  ({ layout, isDisabled, href, target, rel, ...contentProps }, ref) => (
     <PresetFrame
       ref={ref}
       layout={layout}
@@ -41,7 +41,7 @@ export const PlateLink = forwardRef<HTMLDivElement, PlateLinkProps>(
 PlateLink.displayName = "Card.Preset.Plate.Link";
 
 export const PlateButton = forwardRef<HTMLDivElement, PlateButtonProps>(
-  ({ layout = "vertical", isDisabled = false, onClick, type, ...contentProps }, ref) => (
+  ({ layout, isDisabled, onClick, type, ...contentProps }, ref) => (
     <PresetFrame
       ref={ref}
       layout={layout}

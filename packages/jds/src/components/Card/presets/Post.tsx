@@ -35,7 +35,7 @@ const PostContent = ({ layout, image, title, body, author, date }: PostContentPr
 };
 
 export const PostLink = forwardRef<HTMLDivElement, PostLinkProps>(
-  ({ layout = "vertical", isDisabled = false, href, target, rel, ...contentProps }, ref) => (
+  ({ layout = "vertical", isDisabled, href, target, rel, ...contentProps }, ref) => (
     <PresetFrame
       ref={ref}
       layout={layout}
@@ -51,7 +51,7 @@ export const PostLink = forwardRef<HTMLDivElement, PostLinkProps>(
 PostLink.displayName = "Card.Preset.Post.Link";
 
 export const PostButton = forwardRef<HTMLDivElement, PostButtonProps>(
-  ({ layout = "vertical", isDisabled = false, onClick, type, ...contentProps }, ref) => (
+  ({ layout = "vertical", isDisabled, onClick, type, ...contentProps }, ref) => (
     <PresetFrame
       ref={ref}
       layout={layout}
