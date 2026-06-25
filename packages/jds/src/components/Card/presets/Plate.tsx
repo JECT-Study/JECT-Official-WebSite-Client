@@ -25,15 +25,16 @@ const PlateContent = ({ image, caption, title, body }: PlateContentProps) => (
 );
 
 export const PlateLink = forwardRef<HTMLDivElement, PlateLinkProps>(
-  ({ layout, isDisabled, href, target, rel, ...contentProps }, ref) => (
+  ({ layout, isDisabled, image, caption, title, body, href, target, rel, ...rest }, ref) => (
     <PresetFrame
       ref={ref}
       layout={layout}
       variant='plate'
       isDisabled={isDisabled}
       overlay={<CardOverlay as='a' href={href} target={target} rel={rel} />}
+      {...rest}
     >
-      <PlateContent {...contentProps} />
+      <PlateContent image={image} caption={caption} title={title} body={body} />
     </PresetFrame>
   ),
 );
@@ -41,15 +42,16 @@ export const PlateLink = forwardRef<HTMLDivElement, PlateLinkProps>(
 PlateLink.displayName = "Card.Preset.Plate.Link";
 
 export const PlateButton = forwardRef<HTMLDivElement, PlateButtonProps>(
-  ({ layout, isDisabled, onClick, type, ...contentProps }, ref) => (
+  ({ layout, isDisabled, image, caption, title, body, onClick, type, ...rest }, ref) => (
     <PresetFrame
       ref={ref}
       layout={layout}
       variant='plate'
       isDisabled={isDisabled}
       overlay={<CardOverlay as='button' onClick={onClick} type={type} />}
+      {...rest}
     >
-      <PlateContent {...contentProps} />
+      <PlateContent image={image} caption={caption} title={title} body={body} />
     </PresetFrame>
   ),
 );

@@ -51,7 +51,7 @@ export interface CardThumbnailImage {
   alt: string;
 }
 
-interface BasePresetOwnProps {
+interface BasePresetOwnProps extends Omit<ComponentPropsWithoutRef<"div">, "onClick" | "children"> {
   layout?: CardLayout;
   isDisabled?: boolean;
   image?: CardThumbnailImage;

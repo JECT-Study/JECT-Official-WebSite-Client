@@ -1,6 +1,6 @@
 import { forwardRef, type ReactNode } from "react";
 
-import type { CardLayout, CardVariant } from "../Card.types";
+import type { CardRootOwnProps } from "../Card.types";
 import { CardRoot, CardTitle, CardBody } from "../compound";
 import * as styles from "../compound/card.css";
 
@@ -16,17 +16,13 @@ export const TitleBody = ({ title, body }: TitleBodyProps) => (
   </div>
 );
 
-interface PresetFrameProps {
-  layout?: CardLayout;
-  variant: CardVariant;
-  isDisabled?: boolean;
+interface PresetFrameProps extends CardRootOwnProps {
   overlay: ReactNode;
-  children: ReactNode;
 }
 
 export const PresetFrame = forwardRef<HTMLDivElement, PresetFrameProps>(
-  ({ layout, variant, isDisabled, overlay, children }, ref) => (
-    <CardRoot ref={ref} layout={layout} variant={variant} isDisabled={isDisabled} interactive>
+  ({ overlay, children, ...rootProps }, ref) => (
+    <CardRoot ref={ref} {...rootProps} interactive>
       {children}
       {overlay}
     </CardRoot>

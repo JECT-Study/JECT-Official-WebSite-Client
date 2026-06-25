@@ -35,15 +35,38 @@ const PostContent = ({ layout, image, title, body, author, date }: PostContentPr
 };
 
 export const PostLink = forwardRef<HTMLDivElement, PostLinkProps>(
-  ({ layout = "vertical", isDisabled, href, target, rel, ...contentProps }, ref) => (
+  (
+    {
+      layout = "vertical",
+      isDisabled,
+      image,
+      title,
+      body,
+      author,
+      date,
+      href,
+      target,
+      rel,
+      ...rest
+    },
+    ref,
+  ) => (
     <PresetFrame
       ref={ref}
       layout={layout}
       variant='post'
       isDisabled={isDisabled}
       overlay={<CardOverlay as='a' href={href} target={target} rel={rel} />}
+      {...rest}
     >
-      <PostContent layout={layout} {...contentProps} />
+      <PostContent
+        layout={layout}
+        image={image}
+        title={title}
+        body={body}
+        author={author}
+        date={date}
+      />
     </PresetFrame>
   ),
 );
@@ -51,15 +74,26 @@ export const PostLink = forwardRef<HTMLDivElement, PostLinkProps>(
 PostLink.displayName = "Card.Preset.Post.Link";
 
 export const PostButton = forwardRef<HTMLDivElement, PostButtonProps>(
-  ({ layout = "vertical", isDisabled, onClick, type, ...contentProps }, ref) => (
+  (
+    { layout = "vertical", isDisabled, image, title, body, author, date, onClick, type, ...rest },
+    ref,
+  ) => (
     <PresetFrame
       ref={ref}
       layout={layout}
       variant='post'
       isDisabled={isDisabled}
       overlay={<CardOverlay as='button' onClick={onClick} type={type} />}
+      {...rest}
     >
-      <PostContent layout={layout} {...contentProps} />
+      <PostContent
+        layout={layout}
+        image={image}
+        title={title}
+        body={body}
+        author={author}
+        date={date}
+      />
     </PresetFrame>
   ),
 );
