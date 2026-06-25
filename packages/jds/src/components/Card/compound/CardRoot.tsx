@@ -3,7 +3,7 @@ import { forwardRef, useMemo } from "react";
 
 import { CardContext } from "../Card.context";
 import type { CardRootOwnProps } from "../Card.types";
-import * as styles from "./compound.css";
+import * as styles from "./card.css";
 
 export const CardRoot = forwardRef<HTMLDivElement, CardRootOwnProps>(
   (

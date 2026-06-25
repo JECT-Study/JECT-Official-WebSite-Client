@@ -1,4 +1,4 @@
-import * as styles from "./compound.css";
+import * as styles from "./card.css";
 import { Thumbnail, type ThumbnailShapeProps } from "../../Thumbnail";
 import { useCardContext } from "../Card.context";
 

@@ -3,7 +3,7 @@ import { forwardRef } from "react";
 
 import { useCardContext } from "../Card.context";
 import type { CardContentProps } from "../Card.types";
-import * as styles from "./compound.css";
+import * as styles from "./card.css";
 
 export const CardContent = forwardRef<HTMLDivElement, CardContentProps>(
   ({ children, className, ...restProps }, ref) => {

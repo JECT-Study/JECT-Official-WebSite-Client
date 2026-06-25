@@ -11,7 +11,7 @@ import {
   CardMetaItem,
   CardOverlay,
 } from "../compound";
-import * as styles from "../compound/compound.css";
+import * as styles from "../compound/card.css";
 
 type PostLinkProps = Omit<Extract<PostPresetProps, { as: "a" }>, "as">;
 type PostButtonProps = Omit<Extract<PostPresetProps, { as: "button" }>, "as">;

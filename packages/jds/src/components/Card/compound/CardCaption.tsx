@@ -2,7 +2,7 @@ import { clsx } from "clsx";
 import { forwardRef } from "react";
 
 import type { CardCaptionProps } from "../Card.types";
-import * as styles from "./compound.css";
+import * as styles from "./card.css";
 
 export const CardCaption = forwardRef<HTMLSpanElement, CardCaptionProps>(
   ({ children, standalone = false, className, ...restProps }, ref) => {

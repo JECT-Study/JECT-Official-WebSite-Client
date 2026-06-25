@@ -2,7 +2,7 @@ import { clsx } from "clsx";
 import { forwardRef } from "react";
 
 import type { CardBodyProps } from "../Card.types";
-import * as styles from "./compound.css";
+import * as styles from "./card.css";
 
 import { getBodyClassName } from "@/utils/typography";
 

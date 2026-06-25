@@ -3,7 +3,7 @@ import { forwardRef, type ComponentPropsWithoutRef, type Ref } from "react";
 
 import { useCardContext } from "../Card.context";
 import type { CardOverlayProps } from "../Card.types";
-import * as styles from "./compound.css";
+import * as styles from "./card.css";
 
 export const CardOverlay = forwardRef<HTMLAnchorElement | HTMLButtonElement, CardOverlayProps>(
   ({ as = "a", children, className, ...restProps }, ref) => {

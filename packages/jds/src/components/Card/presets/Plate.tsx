@@ -10,7 +10,7 @@ import {
   CardBody,
   CardOverlay,
 } from "../compound";
-import * as styles from "../compound/compound.css";
+import * as styles from "../compound/card.css";
 
 type PlateLinkProps = Omit<Extract<PlatePresetProps, { as: "a" }>, "as">;
 type PlateButtonProps = Omit<Extract<PlatePresetProps, { as: "button" }>, "as">;
