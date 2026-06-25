@@ -9,13 +9,13 @@ export interface CardContextValue {
   titleId: string;
 }
 
-export const CardContext = createContext<CardContextValue | null>(null);
+export const CardContext = createContext<CardContextValue | undefined>(undefined);
 
-export const useCardContext = (): CardContextValue => {
+export const useCardContext = (componentName: string) => {
   const context = useContext(CardContext);
 
   if (!context) {
-    throw new Error("must be used within Card.Root");
+    throw new Error(`${componentName}는 Card.Root 내부에서만 사용되어야 합니다.`);
   }
 
   return context;

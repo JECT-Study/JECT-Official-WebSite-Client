@@ -1,13 +1,13 @@
 import { clsx } from "clsx";
 import { forwardRef, type ComponentPropsWithoutRef, type Ref } from "react";
 
-import { useCardContext } from "../Card.context";
 import type { CardOverlayProps } from "../Card.types";
+import { useCardContext } from "../cardContext";
 import * as styles from "./card.css";
 
 export const CardOverlay = forwardRef<HTMLAnchorElement | HTMLButtonElement, CardOverlayProps>(
   ({ as = "a", children, className, ...restProps }, ref) => {
-    const { variant, isDisabled, titleId } = useCardContext();
+    const { variant, isDisabled, titleId } = useCardContext("Card.Overlay");
     const overlayClassName = clsx(styles.overlay({ variant, isDisabled }), className);
 
     const hasOwnLabel =

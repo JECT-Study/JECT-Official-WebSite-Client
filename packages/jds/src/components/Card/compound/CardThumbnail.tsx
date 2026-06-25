@@ -3,8 +3,8 @@ import { forwardRef } from "react";
 
 import * as styles from "./card.css";
 import { Thumbnail, type ThumbnailShapeProps } from "../../Thumbnail";
-import { useCardContext } from "../Card.context";
 import type { CardThumbnailProps } from "../Card.types";
+import { useCardContext } from "../cardContext";
 
 const ratioByVariantLayout = {
   plate: { vertical: "3:4", horizontal: "1:1" },
@@ -13,7 +13,7 @@ const ratioByVariantLayout = {
 
 export const CardThumbnail = forwardRef<HTMLDivElement, CardThumbnailProps>(
   ({ image, className, ...restProps }, ref) => {
-    const { layout, variant } = useCardContext();
+    const { layout, variant } = useCardContext("Card.Thumbnail");
 
     const ratio = ratioByVariantLayout[variant][layout];
     const shape: ThumbnailShapeProps =

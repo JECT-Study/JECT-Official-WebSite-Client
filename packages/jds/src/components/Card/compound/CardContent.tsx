@@ -1,13 +1,13 @@
 import { clsx } from "clsx";
 import { forwardRef } from "react";
 
-import { useCardContext } from "../Card.context";
 import type { CardContentProps } from "../Card.types";
+import { useCardContext } from "../cardContext";
 import * as styles from "./card.css";
 
 export const CardContent = forwardRef<HTMLDivElement, CardContentProps>(
   ({ children, className, ...restProps }, ref) => {
-    const { variant, layout } = useCardContext();
+    const { variant, layout } = useCardContext("Card.Content");
 
     return (
       <div
