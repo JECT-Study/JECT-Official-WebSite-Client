@@ -264,21 +264,6 @@ export const overlay = recipe({
   },
 });
 
-export const badge = style({
-  position: "absolute",
-  top: 8,
-  left: 8,
-  zIndex: 1,
-  minWidth: 18,
-  padding: "0 6px",
-  borderRadius: 2,
-  backgroundColor: vars.color.semantic.curtain.static.dim,
-  color: vars.color.semantic.object.static.inverse.boldest,
-  fontSize: 12,
-  lineHeight: "18px",
-  textAlign: "center",
-});
-
 export const horizontalPostContentWrap = style({
   display: "flex",
   flexDirection: "column",
