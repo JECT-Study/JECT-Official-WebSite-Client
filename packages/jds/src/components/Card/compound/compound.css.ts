@@ -143,15 +143,15 @@ export const content = recipe({
     flexDirection: "column",
     alignItems: "flex-start",
     flex: "1 0 0",
+    gap: vars.scheme.semantic.spacing[16],
   },
   variants: {
     variant: {
       plate: {
         padding: vars.scheme.semantic.spacing[20],
-        gap: vars.scheme.semantic.spacing[16],
         alignSelf: "stretch",
       },
-      post: { gap: vars.scheme.semantic.spacing[16] },
+      post: {},
     },
     layout: {
       vertical: {},

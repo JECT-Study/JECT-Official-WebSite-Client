@@ -32,8 +32,10 @@ const PostContent = ({ layout, image, title, body, author, date }: PostContentPr
       <>
         {image && <CardThumbnail image={image} />}
         <CardContent>
-          <CardTitle>{title}</CardTitle>
-          <CardBody>{body}</CardBody>
+          <div className={styles.contentGroup}>
+            <CardTitle>{title}</CardTitle>
+            <CardBody>{body}</CardBody>
+          </div>
           <CardMeta>
             <CardMetaItem>{author}</CardMetaItem>
             <CardMetaItem>{date}</CardMetaItem>

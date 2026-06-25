@@ -10,6 +10,7 @@ import {
   CardBody,
   CardOverlay,
 } from "../compound";
+import * as styles from "../compound/compound.css";
 
 type PlateLinkProps = Omit<Extract<PlatePresetProps, { as: "a" }>, "as">;
 type PlateButtonProps = Omit<Extract<PlatePresetProps, { as: "button" }>, "as">;
@@ -25,8 +26,10 @@ const PlateContent = ({ image, caption, title, body }: PlateContentProps) => (
   <>
     {image && <CardThumbnail image={image} />}
     <CardContent>
-      <CardTitle>{title}</CardTitle>
-      <CardBody>{body}</CardBody>
+      <div className={styles.contentGroup}>
+        <CardTitle>{title}</CardTitle>
+        <CardBody>{body}</CardBody>
+      </div>
       {caption && <CardCaption>{caption}</CardCaption>}
     </CardContent>
   </>
