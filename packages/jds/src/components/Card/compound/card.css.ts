@@ -283,7 +283,7 @@ export const horizontalPostContentWrap = style({
   gap: vars.scheme.semantic.spacing[16],
 });
 
-export const horizontalCardPostLayout = style({
+export const horizontalPostLayout = style({
   display: "flex",
   gap: vars.scheme.semantic.spacing[24],
   alignItems: "flex-start",

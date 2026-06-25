@@ -47,7 +47,7 @@ const PostContent = ({ layout, image, title, body, author, date }: PostContentPr
   return (
     <>
       <CardContent>
-        <div className={styles.horizontalCardPostLayout}>
+        <div className={styles.horizontalPostLayout}>
           <div className={styles.horizontalPostContentWrap}>
             <div className={styles.contentGroup}>
               <CardTitle>{title}</CardTitle>
