@@ -29,9 +29,6 @@ export const menuContainerStyle = recipe({
       borderRadius: menuItemVariants.layerRadius,
       color: vars.color.semantic.object.bold,
       selectors: {
-        '&[aria-selected="true"]': {
-          background: vars.color.semantic.fill.subtlest,
-        },
         "&:disabled, &[data-disabled]": {
           cursor: "default",
           color: vars.color.semantic.object.subtle,
@@ -67,6 +64,7 @@ export const menuContainerStyle = recipe({
     } satisfies Record<MenuItemSize, unknown>,
     isSelected: {
       true: {
+        background: vars.color.semantic.fill.subtlest,
         vars: {
           [labelColorVar]: vars.color.semantic.object.boldest,
         },

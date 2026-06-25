@@ -35,7 +35,6 @@ const MenuItemButton = forwardRef<HTMLButtonElement, MenuItemButtonProps>(
       <button
         ref={ref}
         disabled={disabled}
-        aria-selected={isSelected || undefined}
         data-disabled={disabled || undefined}
         className={clsx(menuContainerStyle({ size, isSelected, stretched }), className)}
         {...restProps}
@@ -97,7 +96,6 @@ const MenuItemAnchor = forwardRef<HTMLAnchorElement, MenuItemAnchorProps>(
       <a
         ref={ref}
         aria-disabled={disabled || undefined}
-        aria-selected={isSelected || undefined}
         data-disabled={disabled || undefined}
         tabIndex={disabled ? -1 : undefined}
         className={clsx(menuContainerStyle({ size, isSelected, stretched }), className)}
