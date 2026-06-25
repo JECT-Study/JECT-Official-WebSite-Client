@@ -1,15 +1,8 @@
 import { forwardRef, type ReactNode } from "react";
 
 import type { CardThumbnailImage, PostPresetProps } from "../Card.types";
-import {
-  CardRoot,
-  CardThumbnail,
-  CardContent,
-  CardMeta,
-  CardMetaItem,
-  CardOverlay,
-} from "../compound";
-import { TitleBody } from "./shared";
+import { CardThumbnail, CardContent, CardMeta, CardMetaItem, CardOverlay } from "../compound";
+import { PresetFrame, TitleBody } from "./shared";
 
 type PostLinkProps = Omit<Extract<PostPresetProps, { as: "a" }>, "as">;
 type PostButtonProps = Omit<Extract<PostPresetProps, { as: "button" }>, "as">;
@@ -43,10 +36,15 @@ const PostContent = ({ layout, image, title, body, author, date }: PostContentPr
 
 export const PostLink = forwardRef<HTMLDivElement, PostLinkProps>(
   ({ layout = "vertical", isDisabled = false, href, target, rel, ...contentProps }, ref) => (
-    <CardRoot ref={ref} layout={layout} variant='post' isDisabled={isDisabled} interactive>
+    <PresetFrame
+      ref={ref}
+      layout={layout}
+      variant='post'
+      isDisabled={isDisabled}
+      overlay={<CardOverlay as='a' href={href} target={target} rel={rel} />}
+    >
       <PostContent layout={layout} {...contentProps} />
-      <CardOverlay as='a' href={href} target={target} rel={rel} />
-    </CardRoot>
+    </PresetFrame>
   ),
 );
 
@@ -54,10 +52,15 @@ PostLink.displayName = "Card.Preset.Post.Link";
 
 export const PostButton = forwardRef<HTMLDivElement, PostButtonProps>(
   ({ layout = "vertical", isDisabled = false, onClick, type, ...contentProps }, ref) => (
-    <CardRoot ref={ref} layout={layout} variant='post' isDisabled={isDisabled} interactive>
+    <PresetFrame
+      ref={ref}
+      layout={layout}
+      variant='post'
+      isDisabled={isDisabled}
+      overlay={<CardOverlay as='button' onClick={onClick} type={type || "button"} />}
+    >
       <PostContent layout={layout} {...contentProps} />
-      <CardOverlay as='button' onClick={onClick} type={type || "button"} />
-    </CardRoot>
+    </PresetFrame>
   ),
 );
 

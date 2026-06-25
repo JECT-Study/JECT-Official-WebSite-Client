@@ -1,8 +1,8 @@
 import { forwardRef, type ReactNode } from "react";
 
 import type { CardThumbnailImage, PlatePresetProps } from "../Card.types";
-import { CardRoot, CardThumbnail, CardContent, CardCaption, CardOverlay } from "../compound";
-import { TitleBody } from "./shared";
+import { CardThumbnail, CardContent, CardCaption, CardOverlay } from "../compound";
+import { PresetFrame, TitleBody } from "./shared";
 
 type PlateLinkProps = Omit<Extract<PlatePresetProps, { as: "a" }>, "as">;
 type PlateButtonProps = Omit<Extract<PlatePresetProps, { as: "button" }>, "as">;
@@ -26,10 +26,15 @@ const PlateContent = ({ image, caption, title, body }: PlateContentProps) => (
 
 export const PlateLink = forwardRef<HTMLDivElement, PlateLinkProps>(
   ({ layout = "vertical", isDisabled = false, href, target, rel, ...contentProps }, ref) => (
-    <CardRoot ref={ref} layout={layout} variant='plate' isDisabled={isDisabled} interactive>
+    <PresetFrame
+      ref={ref}
+      layout={layout}
+      variant='plate'
+      isDisabled={isDisabled}
+      overlay={<CardOverlay as='a' href={href} target={target} rel={rel} />}
+    >
       <PlateContent {...contentProps} />
-      <CardOverlay as='a' href={href} target={target} rel={rel} />
-    </CardRoot>
+    </PresetFrame>
   ),
 );
 
@@ -37,10 +42,15 @@ PlateLink.displayName = "Card.Preset.Plate.Link";
 
 export const PlateButton = forwardRef<HTMLDivElement, PlateButtonProps>(
   ({ layout = "vertical", isDisabled = false, onClick, type, ...contentProps }, ref) => (
-    <CardRoot ref={ref} layout={layout} variant='plate' isDisabled={isDisabled} interactive>
+    <PresetFrame
+      ref={ref}
+      layout={layout}
+      variant='plate'
+      isDisabled={isDisabled}
+      overlay={<CardOverlay as='button' onClick={onClick} type={type || "button"} />}
+    >
       <PlateContent {...contentProps} />
-      <CardOverlay as='button' onClick={onClick} type={type || "button"} />
-    </CardRoot>
+    </PresetFrame>
   ),
 );
 
