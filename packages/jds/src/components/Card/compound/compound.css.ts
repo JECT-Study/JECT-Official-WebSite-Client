@@ -23,18 +23,18 @@ export const root = recipe({
       [captionColor]: vars.color.semantic.object.alternative,
     },
     selectors: {
-      '&[data-interactive="true"]:not([data-disabled="true"])': {
+      "&[data-interactive]:not([data-disabled])": {
         transition: `transform ${vars.environment.semantic.duration[150]} ${vars.environment.semantic.motion.fluent}, box-shadow ${vars.environment.semantic.duration[150]} ${vars.environment.semantic.motion.fluent}`,
       },
-      '&[data-interactive="true"]:not([data-disabled="true"]):hover': {
+      "&[data-interactive]:not([data-disabled]):hover": {
         transform: "translateY(-2px)",
         boxShadow: vars.environment.semantic.shadow.raised,
       },
-      '&[data-interactive="true"]:not([data-disabled="true"]):active': {
+      "&[data-interactive]:not([data-disabled]):active": {
         transform: "translateY(0)",
         transition: "none",
       },
-      '&[data-interactive="true"]:not([data-disabled="true"]):has([data-overlay]:focus-visible)': {
+      "&[data-interactive]:not([data-disabled]):has([data-overlay]:focus-visible)": {
         transform: "translateY(-2px)",
         boxShadow: vars.environment.semantic.shadow.raised,
       },
@@ -62,13 +62,12 @@ export const root = recipe({
         padding: 0,
         boxShadow: "none",
         selectors: {
-          '&[data-interactive="true"]:not([data-disabled="true"]):hover': {
+          "&[data-interactive]:not([data-disabled]):hover": {
             boxShadow: "none",
           },
-          '&[data-interactive="true"]:not([data-disabled="true"]):has([data-overlay]:focus-visible)':
-            {
-              boxShadow: "none",
-            },
+          "&[data-interactive]:not([data-disabled]):has([data-overlay]:focus-visible)": {
+            boxShadow: "none",
+          },
         },
       },
     },

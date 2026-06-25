@@ -27,7 +27,7 @@ export const CardRoot = forwardRef<HTMLDivElement, CardRootOwnProps>(
       <CardContext.Provider value={contextValue}>
         <div
           ref={ref}
-          data-interactive={interactive ? "true" : "false"}
+          data-interactive={interactive || undefined}
           data-disabled={isDisabled || undefined}
           className={clsx(styles.root({ layout, variant, isDisabled }), className)}
           {...restProps}
