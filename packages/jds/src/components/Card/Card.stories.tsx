@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { CardThumbnail } from "./compound";
 import { Card } from "./index";
 
 const meta = {
@@ -73,7 +72,7 @@ export const CompoundBasic: Story = {
   render: args => (
     <div>
       <Card.Root {...args}>
-        <CardThumbnail image={{ alt: "프로젝트 이미지" }} />
+        <Card.Thumbnail image={{ alt: "프로젝트 이미지" }} />
         <Card.Content>
           <Card.Title>타이틀 레이블</Card.Title>
           <Card.Body>
@@ -94,7 +93,7 @@ export const CompoundCustom: Story = {
   render: () => (
     <div style={{ width: "400px" }}>
       <Card.Root layout='vertical' variant='plate'>
-        <CardThumbnail image={{ alt: "커스텀 카드" }} />
+        <Card.Thumbnail image={{ alt: "커스텀 카드" }} />
         <Card.Content>
           <Card.Title>커스텀 구성 카드</Card.Title>
           <Card.Body>
@@ -134,7 +133,7 @@ export const CompoundWithMeta: Story = {
   render: () => (
     <div style={{ width: "400px" }}>
       <Card.Root layout='vertical' variant='post'>
-        <CardThumbnail image={{ alt: "블로그 포스트 사진" }} />
+        <Card.Thumbnail image={{ alt: "블로그 포스트 사진" }} />
         <Card.Content>
           <Card.Title>포스트 제목</Card.Title>
           <Card.Body>
@@ -182,7 +181,7 @@ export const CompoundWithOverlay: Story = {
     <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
       <div style={{ width: "350px" }}>
         <Card.Root layout='vertical' variant='plate' interactive>
-          <CardThumbnail image={{ alt: "클릭 가능한 카드" }} />
+          <Card.Thumbnail image={{ alt: "클릭 가능한 카드" }} />
           <Card.Content>
             <Card.Title>인터랙티브 카드 (링크)</Card.Title>
             <Card.Body>
@@ -196,7 +195,7 @@ export const CompoundWithOverlay: Story = {
       </div>
       <div style={{ width: "350px" }}>
         <Card.Root layout='vertical' variant='plate' interactive>
-          <CardThumbnail image={{ alt: "버튼 카드" }} />
+          <Card.Thumbnail image={{ alt: "버튼 카드" }} />
           <Card.Content>
             <Card.Title>인터랙티브 카드 (버튼)</Card.Title>
             <Card.Body>
@@ -213,7 +212,7 @@ export const CompoundWithOverlay: Story = {
       </div>
       <div style={{ width: "480px", height: "240px" }}>
         <Card.Root layout='horizontal' variant='plate' interactive>
-          <CardThumbnail image={{ alt: "가로 레이아웃" }} />
+          <Card.Thumbnail image={{ alt: "가로 레이아웃" }} />
           <Card.Content>
             <Card.Title>가로 레이아웃도 지원</Card.Title>
             <Card.Body>
@@ -269,7 +268,7 @@ export const InteractionDetails: Story = {
         </h3>
         <div style={{ width: "350px" }}>
           <Card.Root layout='vertical' variant='plate' interactive>
-            <CardThumbnail image={{ alt: "인터랙티브 카드" }} />
+            <Card.Thumbnail image={{ alt: "인터랙티브 카드" }} />
             <Card.Content>
               <Card.Title>인터랙션 효과 적용됨</Card.Title>
               <Card.Body>
@@ -288,7 +287,7 @@ export const InteractionDetails: Story = {
         </h3>
         <div style={{ width: "350px" }}>
           <Card.Root layout='vertical' variant='plate'>
-            <CardThumbnail image={{ alt: "일반 카드" }} />
+            <Card.Thumbnail image={{ alt: "일반 카드" }} />
             <Card.Content>
               <Card.Title>인터랙션 효과 없음</Card.Title>
               <Card.Body>

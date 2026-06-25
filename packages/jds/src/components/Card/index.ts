@@ -1,5 +1,6 @@
 import {
   CardRoot,
+  CardThumbnail,
   CardContent,
   CardCaption,
   CardTitle,
@@ -12,6 +13,7 @@ import { Plate, Post } from "./presets";
 
 export const Card = {
   Root: CardRoot,
+  Thumbnail: CardThumbnail,
   Content: CardContent,
   Caption: CardCaption,
   Title: CardTitle,
@@ -30,6 +32,8 @@ export type { CardLayout, CardVariant } from "./Card.types";
 
 export type {
   CardRootOwnProps,
+  CardThumbnailImage,
+  CardThumbnailProps,
   CardContentProps,
   CardCaptionProps,
   CardTitleProps,
