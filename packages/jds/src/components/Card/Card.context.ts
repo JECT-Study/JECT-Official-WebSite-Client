@@ -6,6 +6,7 @@ export interface CardContextValue {
   layout: CardLayout;
   variant: CardVariant;
   isDisabled: boolean;
+  titleId: string;
 }
 
 export const CardContext = createContext<CardContextValue | null>(null);

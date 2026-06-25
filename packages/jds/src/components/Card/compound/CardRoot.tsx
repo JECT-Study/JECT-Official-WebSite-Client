@@ -1,5 +1,5 @@
 import { clsx } from "clsx";
-import { forwardRef, useMemo } from "react";
+import { forwardRef, useId, useMemo } from "react";
 
 import { CardContext } from "../Card.context";
 import type { CardRootOwnProps } from "../Card.types";
@@ -18,9 +18,11 @@ export const CardRoot = forwardRef<HTMLDivElement, CardRootOwnProps>(
     },
     ref,
   ) => {
+    const titleId = useId();
+
     const contextValue = useMemo(
-      () => ({ layout, variant, isDisabled }),
-      [layout, variant, isDisabled],
+      () => ({ layout, variant, isDisabled, titleId }),
+      [layout, variant, isDisabled, titleId],
     );
 
     return (

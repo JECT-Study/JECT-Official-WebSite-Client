@@ -7,8 +7,12 @@ import * as styles from "./card.css";
 
 export const CardOverlay = forwardRef<HTMLAnchorElement | HTMLButtonElement, CardOverlayProps>(
   ({ as = "a", children, className, ...restProps }, ref) => {
-    const { variant, isDisabled } = useCardContext();
+    const { variant, isDisabled, titleId } = useCardContext();
     const overlayClassName = clsx(styles.overlay({ variant, isDisabled }), className);
+
+    const hasOwnLabel =
+      children != null || restProps["aria-label"] != null || restProps["aria-labelledby"] != null;
+    const ariaLabelledby = restProps["aria-labelledby"] ?? (hasOwnLabel ? undefined : titleId);
 
     if (as === "button") {
       const { type, ...buttonProps } = restProps as ComponentPropsWithoutRef<"button">;
@@ -19,6 +23,7 @@ export const CardOverlay = forwardRef<HTMLAnchorElement | HTMLButtonElement, Car
           type={type ?? "button"}
           className={overlayClassName}
           {...buttonProps}
+          aria-labelledby={ariaLabelledby}
           data-overlay
           data-disabled={isDisabled || undefined}
           disabled={isDisabled}
@@ -35,6 +40,7 @@ export const CardOverlay = forwardRef<HTMLAnchorElement | HTMLButtonElement, Car
         ref={ref as Ref<HTMLAnchorElement>}
         className={overlayClassName}
         {...anchorProps}
+        aria-labelledby={ariaLabelledby}
         data-overlay
         data-disabled={isDisabled || undefined}
         aria-disabled={isDisabled || undefined}
