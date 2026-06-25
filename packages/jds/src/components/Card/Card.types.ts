@@ -47,13 +47,15 @@ interface CardOverlayButtonProps extends ComponentPropsWithoutRef<"button"> {
 
 export type CardOverlayProps = CardOverlayLinkProps | CardOverlayButtonProps;
 
+export interface CardThumbnailImage {
+  src?: string;
+  alt: string;
+}
+
 interface BasePresetOwnProps {
   layout?: CardLayout;
   isDisabled?: boolean;
-  image?: {
-    src?: string;
-    alt: string;
-  };
+  image?: CardThumbnailImage;
 }
 
 export interface PlatePresetBaseProps extends BasePresetOwnProps {

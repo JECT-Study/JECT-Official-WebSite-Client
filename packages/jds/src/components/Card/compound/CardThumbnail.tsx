@@ -1,14 +1,10 @@
 import * as styles from "./card.css";
 import { Thumbnail, type ThumbnailShapeProps } from "../../Thumbnail";
 import { useCardContext } from "../Card.context";
-
-interface CardThumbnailImageProps {
-  src?: string;
-  alt: string;
-}
+import type { CardThumbnailImage } from "../Card.types";
 
 interface CardThumbnailProps {
-  image: CardThumbnailImageProps;
+  image: CardThumbnailImage;
 }
 
 const ratioByVariantLayout = {

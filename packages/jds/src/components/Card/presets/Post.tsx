@@ -1,6 +1,6 @@
 import { forwardRef, type ReactNode } from "react";
 
-import type { PostPresetProps } from "../Card.types";
+import type { CardThumbnailImage, PostPresetProps } from "../Card.types";
 import {
   CardRoot,
   CardThumbnail,
@@ -18,7 +18,7 @@ type PostButtonProps = Omit<Extract<PostPresetProps, { as: "button" }>, "as">;
 
 interface PostContentProps {
   layout: "vertical" | "horizontal";
-  image?: { src?: string; alt: string };
+  image?: CardThumbnailImage;
   title: string;
   body: ReactNode;
   author: string;

@@ -1,6 +1,6 @@
 import { forwardRef, type ReactNode } from "react";
 
-import type { PlatePresetProps } from "../Card.types";
+import type { CardThumbnailImage, PlatePresetProps } from "../Card.types";
 import {
   CardRoot,
   CardThumbnail,
@@ -16,7 +16,7 @@ type PlateLinkProps = Omit<Extract<PlatePresetProps, { as: "a" }>, "as">;
 type PlateButtonProps = Omit<Extract<PlatePresetProps, { as: "button" }>, "as">;
 
 interface PlateContentProps {
-  image?: { src?: string; alt: string };
+  image?: CardThumbnailImage;
   caption?: string;
   title: string;
   body: ReactNode;
