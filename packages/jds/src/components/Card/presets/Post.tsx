@@ -1,5 +1,4 @@
 import { forwardRef, type ReactNode } from "react";
-import { pxToRem } from "utils";
 
 import type { PostPresetProps } from "../Card.types";
 import {
@@ -59,9 +58,7 @@ const PostContent = ({ layout, image, title, body, author, date }: PostContentPr
               <CardMetaItem>{date}</CardMetaItem>
             </CardMeta>
           </div>
-          {image && (
-            <CardThumbnail image={image} style={{ width: pxToRem(80), height: pxToRem(80) }} />
-          )}
+          {image && <CardThumbnail image={image} />}
         </div>
       </CardContent>
     </>

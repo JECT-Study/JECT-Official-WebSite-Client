@@ -1,5 +1,6 @@
 import { createVar, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
+import { pxToRem } from "utils";
 
 import { vars } from "../../../tokens/vars.css";
 import { focusRing } from "../../../utils/focusRing.css";
@@ -131,6 +132,14 @@ export const imageContainer = recipe({
         borderTopRightRadius: 0,
         borderBottomLeftRadius: "inherit",
         borderBottomRightRadius: 0,
+      },
+    },
+    {
+      variants: { layout: "horizontal", variant: "post" },
+      style: {
+        width: pxToRem(80),
+        height: pxToRem(80),
+        alignSelf: "flex-start",
       },
     },
   ],

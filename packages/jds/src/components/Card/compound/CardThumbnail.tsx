@@ -1,5 +1,3 @@
-import type { CSSProperties } from "react";
-
 import * as styles from "./compound.css";
 import { Thumbnail, type ThumbnailShapeProps } from "../../Thumbnail";
 import { useCardContext } from "../Card.context";
@@ -11,7 +9,6 @@ interface CardThumbnailImageProps {
 
 interface CardThumbnailProps {
   image: CardThumbnailImageProps;
-  style?: CSSProperties;
 }
 
 const ratioByVariantLayout = {
@@ -19,7 +16,7 @@ const ratioByVariantLayout = {
   post: { vertical: "1:2", horizontal: "1:1" },
 } as const;
 
-export const CardThumbnail = ({ image, style }: CardThumbnailProps) => {
+export const CardThumbnail = ({ image }: CardThumbnailProps) => {
   const { layout, variant } = useCardContext();
 
   const ratio = ratioByVariantLayout[variant][layout];
@@ -27,7 +24,7 @@ export const CardThumbnail = ({ image, style }: CardThumbnailProps) => {
     ratio === "1:1" ? { ratio: "1:1" } : { ratio, orientation: "landscape" };
 
   return (
-    <div className={styles.imageContainer({ layout, variant })} style={style}>
+    <div className={styles.imageContainer({ layout, variant })}>
       <Thumbnail
         src={image.src}
         alt={image.alt}
