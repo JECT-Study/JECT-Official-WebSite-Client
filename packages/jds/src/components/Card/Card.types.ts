@@ -36,6 +36,17 @@ export interface CardMetaItemProps extends ComponentPropsWithoutRef<"span"> {
   children: ReactNode;
 }
 
+interface CardOverlayLinkProps extends ComponentPropsWithoutRef<"a"> {
+  as?: "a";
+  href: string;
+}
+
+interface CardOverlayButtonProps extends ComponentPropsWithoutRef<"button"> {
+  as: "button";
+}
+
+export type CardOverlayProps = CardOverlayLinkProps | CardOverlayButtonProps;
+
 interface BasePresetOwnProps {
   layout?: CardLayout;
   isDisabled?: boolean;

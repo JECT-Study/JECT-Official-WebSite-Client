@@ -36,6 +36,7 @@ export type {
   CardBodyProps,
   CardMetaProps,
   CardMetaItemProps,
+  CardOverlayProps,
 } from "./Card.types";
 
 export type { PlatePresetProps, PostPresetProps } from "./Card.types";

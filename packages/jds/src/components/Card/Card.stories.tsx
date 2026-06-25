@@ -82,7 +82,7 @@ export const CompoundBasic: Story = {
           </Card.Body>
           <Card.Caption>캡션 레이블입니다.</Card.Caption>
         </Card.Content>
-        {args.interactive && <Card.Overlay />}
+        {args.interactive && <Card.Overlay as='a' href='#' aria-label='카드 상세 페이지로 이동' />}
       </Card.Root>
     </div>
   ),
@@ -390,7 +390,9 @@ state(rest / hover / active / focused)는 정적 렌더링으로 강제할 수 �
         {layouts.map(layout => (
           <section key={layout} style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
             <h3 style={{ margin: 0, fontSize: "14px", fontWeight: "bold" }}>layout = {layout}</h3>
-            <div style={{ display: "flex", gap: "24px", flexWrap: "wrap", alignItems: "flex-start" }}>
+            <div
+              style={{ display: "flex", gap: "24px", flexWrap: "wrap", alignItems: "flex-start" }}
+            >
               {disabledStates.flatMap(isDisabled =>
                 [false, true].map(withCaption => renderCell(layout, isDisabled, withCaption)),
               )}
@@ -477,7 +479,9 @@ Post는 단일 스타일(테두리 없는 empty)이며, state(rest / hover / act
         {layouts.map(layout => (
           <section key={layout} style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
             <h3 style={{ margin: 0, fontSize: "14px", fontWeight: "bold" }}>layout = {layout}</h3>
-            <div style={{ display: "flex", gap: "40px", flexWrap: "wrap", alignItems: "flex-start" }}>
+            <div
+              style={{ display: "flex", gap: "40px", flexWrap: "wrap", alignItems: "flex-start" }}
+            >
               {[false, true].map(isDisabled => renderCell(layout, isDisabled))}
             </div>
           </section>

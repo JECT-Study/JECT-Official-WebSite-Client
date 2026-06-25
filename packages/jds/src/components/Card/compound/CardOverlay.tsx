@@ -1,40 +1,47 @@
 import { clsx } from "clsx";
-import { useContext, type ReactNode } from "react";
+import { forwardRef, type ComponentPropsWithoutRef, type Ref } from "react";
 
-import { CardContext } from "../Card.context";
+import { useCardContext } from "../Card.context";
+import type { CardOverlayProps } from "../Card.types";
 import * as styles from "./compound.css";
 
-import { PolymorphicForwardRef } from "@/utils/forwardRef";
+export const CardOverlay = forwardRef<HTMLAnchorElement | HTMLButtonElement, CardOverlayProps>(
+  ({ as = "a", children, className, ...restProps }, ref) => {
+    const { variant, isDisabled } = useCardContext();
+    const overlayClassName = clsx(styles.overlay({ variant, isDisabled }), className);
 
-export interface CardOverlayOwnProps {
-  children?: ReactNode;
-}
+    if (as === "button") {
+      const { type, ...buttonProps } = restProps as ComponentPropsWithoutRef<"button">;
 
-export const CardOverlay = PolymorphicForwardRef<"a", CardOverlayOwnProps>(
-  ({ as, children, className, ...restProps }, ref) => {
-    const Component = as || "a";
-    const context = useContext(CardContext);
-
-    if (!context) {
-      throw new Error("CardOverlay 는 Card.Root 내부에서 사용되어야 합니다.");
+      return (
+        <button
+          ref={ref as Ref<HTMLButtonElement>}
+          type={type ?? "button"}
+          className={overlayClassName}
+          {...buttonProps}
+          data-overlay
+          data-disabled={isDisabled || undefined}
+          disabled={isDisabled}
+        >
+          {children}
+        </button>
+      );
     }
 
+    const { href, ...anchorProps } = restProps as ComponentPropsWithoutRef<"a">;
+
     return (
-      <Component
-        ref={ref}
+      <a
+        ref={ref as Ref<HTMLAnchorElement>}
+        className={overlayClassName}
+        {...anchorProps}
         data-overlay
-        data-disabled={context.isDisabled || undefined}
-        className={clsx(
-          styles.overlay({
-            variant: context.variant,
-            isDisabled: context.isDisabled,
-          }),
-          className,
-        )}
-        {...restProps}
+        data-disabled={isDisabled || undefined}
+        aria-disabled={isDisabled || undefined}
+        href={isDisabled ? undefined : href}
       >
         {children}
-      </Component>
+      </a>
     );
   },
 );
