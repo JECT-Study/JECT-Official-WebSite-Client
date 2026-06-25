@@ -269,18 +269,3 @@ export const overlay = recipe({
     },
   },
 });
-
-export const horizontalPostContentWrap = style({
-  display: "flex",
-  flexDirection: "column",
-  flex: "1 0 0",
-  minWidth: 0,
-  gap: vars.scheme.semantic.spacing[16],
-});
-
-export const horizontalPostLayout = style({
-  display: "flex",
-  gap: vars.scheme.semantic.spacing[24],
-  alignItems: "flex-start",
-  alignSelf: "stretch",
-});

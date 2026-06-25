@@ -26,41 +26,22 @@ interface PostContentProps {
 }
 
 const PostContent = ({ layout, image, title, body, author, date }: PostContentProps) => {
-  if (layout === "vertical") {
-    return (
-      <>
-        {image && <CardThumbnail image={image} />}
-        <CardContent>
-          <div className={styles.contentGroup}>
-            <CardTitle>{title}</CardTitle>
-            <CardBody>{body}</CardBody>
-          </div>
-          <CardMeta>
-            <CardMetaItem>{author}</CardMetaItem>
-            <CardMetaItem>{date}</CardMetaItem>
-          </CardMeta>
-        </CardContent>
-      </>
-    );
-  }
+  const thumbnail = image && <CardThumbnail image={image} />;
 
   return (
     <>
+      {layout === "vertical" && thumbnail}
       <CardContent>
-        <div className={styles.horizontalPostLayout}>
-          <div className={styles.horizontalPostContentWrap}>
-            <div className={styles.contentGroup}>
-              <CardTitle>{title}</CardTitle>
-              <CardBody>{body}</CardBody>
-            </div>
-            <CardMeta>
-              <CardMetaItem>{author}</CardMetaItem>
-              <CardMetaItem>{date}</CardMetaItem>
-            </CardMeta>
-          </div>
-          {image && <CardThumbnail image={image} />}
+        <div className={styles.contentGroup}>
+          <CardTitle>{title}</CardTitle>
+          <CardBody>{body}</CardBody>
         </div>
+        <CardMeta>
+          <CardMetaItem>{author}</CardMetaItem>
+          <CardMetaItem>{date}</CardMetaItem>
+        </CardMeta>
       </CardContent>
+      {layout === "horizontal" && thumbnail}
     </>
   );
 };
