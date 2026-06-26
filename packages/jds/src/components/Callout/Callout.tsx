@@ -59,9 +59,11 @@ export const Callout = forwardRef<HTMLDivElement, CalloutProps>(
               <p className={clsx(styles.title, getTitleTypographyClass(size))}>{title}</p>
             </div>
           )}
-          <p className={clsx(styles.body, getBodyClassName({ size: bodyTypographySizeMap[size] }))}>
+          <div
+            className={clsx(styles.body, getBodyClassName({ size: bodyTypographySizeMap[size] }))}
+          >
             {children}
-          </p>
+          </div>
         </div>
       </div>
     );
