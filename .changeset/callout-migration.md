@@ -28,4 +28,4 @@ Emotion에서 vanilla-extract로 Callout 컴포넌트의 스타일링을 마이�
 
 - `icon?: IconName` prop 추가 (`title`이 있을 때만 사용 가능)
 - 네이티브 `div` 속성 전달 및 `ref` 포워딩 지원
-- Figma 디자인 정렬: title 타이포를 size별 bold로, `notifying` 색상을 `static.inverse`로, title↔body gap을 size별로(sm/xs는 6) 조정
+- Figma 디자인 정렬: title 타이포를 size별 bold로, `notifying` 색상을 `static.inverse`로, title↔body gap을 size별로(sm/xs는 8) 조정
