@@ -77,7 +77,6 @@ export const root = recipe({
     display: "flex",
     flexDirection: "column",
     alignItems: "flex-start",
-    gap: vars.scheme.semantic.spacing["16"],
     width: "100%",
     borderWidth: vars.scheme.semantic.strokeWeight["1"],
     borderStyle: "solid",
@@ -119,7 +118,6 @@ export const root = recipe({
 
 export const content = recipe({
   base: {
-    position: "relative",
     display: "flex",
     flexDirection: "column",
     alignItems: "flex-start",
