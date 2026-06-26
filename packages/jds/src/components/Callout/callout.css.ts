@@ -14,7 +14,7 @@ interface SurfaceStyle {
 interface FeedbackStyle {
   surface: SurfaceStyle;
   layer: Pick<SurfaceStyle, "backgroundColor">;
-  icon: Pick<SurfaceStyle, "color">;
+  iconColor: string;
 }
 
 const feedbackStyles = {
@@ -25,7 +25,7 @@ const feedbackStyles = {
       color: vars.color.semantic.object.bold,
     },
     layer: { backgroundColor: vars.color.semantic.fill.subtlest },
-    icon: { color: vars.color.semantic.object.bold },
+    iconColor: vars.color.semantic.object.bold,
   },
   positive: {
     surface: {
@@ -34,7 +34,7 @@ const feedbackStyles = {
       color: vars.color.semantic.object.bolder,
     },
     layer: { backgroundColor: vars.color.semantic.feedback.positive.neutral },
-    icon: { color: vars.color.semantic.feedback.positive.bold },
+    iconColor: vars.color.semantic.feedback.positive.bold,
   },
   destructive: {
     surface: {
@@ -43,7 +43,7 @@ const feedbackStyles = {
       color: vars.color.semantic.object.bolder,
     },
     layer: { backgroundColor: vars.color.semantic.feedback.destructive.neutral },
-    icon: { color: vars.color.semantic.feedback.destructive.bold },
+    iconColor: vars.color.semantic.feedback.destructive.bold,
   },
   notifying: {
     surface: {
@@ -52,20 +52,22 @@ const feedbackStyles = {
       color: vars.color.semantic.object.bolder,
     },
     layer: { backgroundColor: vars.color.semantic.feedback.notifying.static.inverse.bolder },
-    icon: { color: vars.color.semantic.feedback.notifying.static.inverse.bold },
+    iconColor: vars.color.semantic.feedback.notifying.static.inverse.bold,
   },
 } satisfies Record<CalloutFeedback, FeedbackStyle>;
 
 const layerColorVar = createVar();
+const iconColorVar = createVar();
 
 const feedbackVars = (feedback: CalloutFeedback) => {
-  const { surface, layer } = feedbackStyles[feedback];
+  const { surface, layer, iconColor } = feedbackStyles[feedback];
   return {
     ...surface,
     vars: {
       [titleColorVar]: surface.color,
       [labelColorVar]: surface.color,
       [layerColorVar]: layer.backgroundColor,
+      [iconColorVar]: iconColor,
     },
   };
 };
@@ -156,15 +158,8 @@ export const iconContainer = style({
   padding: `${vars.scheme.semantic.spacing["1"]} ${vars.scheme.semantic.spacing["0"]}`,
 });
 
-export const icon = recipe({
-  variants: {
-    feedback: {
-      none: feedbackStyles.none.icon,
-      positive: feedbackStyles.positive.icon,
-      destructive: feedbackStyles.destructive.icon,
-      notifying: feedbackStyles.notifying.icon,
-    } satisfies Record<CalloutFeedback, FeedbackStyle["icon"]>,
-  },
+export const icon = style({
+  color: iconColorVar,
 });
 
 export const body = style({

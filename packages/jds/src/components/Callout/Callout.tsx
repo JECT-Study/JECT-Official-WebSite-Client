@@ -67,7 +67,7 @@ export const Callout = forwardRef<HTMLDivElement, CalloutProps>(
                 <span className={styles.iconContainer}>
                   <Icon
                     aria-hidden
-                    className={styles.icon({ feedback })}
+                    className={styles.icon}
                     name={icon}
                     size={iconSizeMap[size]}
                   />
