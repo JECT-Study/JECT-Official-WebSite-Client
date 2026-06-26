@@ -1,6 +1,7 @@
 import { forwardRef, type ReactNode } from "react";
 
 import type { CardRootOwnProps } from "../Card.types";
+import { useCardContext } from "../cardContext";
 import { CardRoot, CardTitle, CardBody } from "../compound";
 import * as styles from "../compound/card.css";
 
@@ -9,12 +10,16 @@ interface TitleBodyProps {
   body: ReactNode;
 }
 
-export const TitleBody = ({ title, body }: TitleBodyProps) => (
-  <div className={styles.contentGroup}>
-    <CardTitle>{title}</CardTitle>
-    <CardBody>{body}</CardBody>
-  </div>
-);
+export const TitleBody = ({ title, body }: TitleBodyProps) => {
+  const { variant } = useCardContext("Card.Preset.TitleBody");
+
+  return (
+    <div className={styles.contentGroup({ variant })}>
+      <CardTitle>{title}</CardTitle>
+      <CardBody>{body}</CardBody>
+    </div>
+  );
+};
 
 interface PresetFrameProps extends CardRootOwnProps {
   overlay: ReactNode;

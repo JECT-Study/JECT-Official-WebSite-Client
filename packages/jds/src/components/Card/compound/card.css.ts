@@ -52,8 +52,9 @@ export const root = recipe({
         padding: 0,
         borderRadius: vars.scheme.semantic.radius[12],
         backgroundColor: vars.color.semantic.surface.shallow,
-        border: `1px solid ${vars.color.semantic.stroke.alpha.subtler}`,
+        border: `1px solid ${vars.color.semantic.stroke.subtle}`,
         boxShadow: vars.environment.semantic.shadow.embossed,
+        overflow: "hidden",
       },
       post: {
         borderRadius: vars.scheme.semantic.radius[10],
@@ -114,7 +115,6 @@ export const imageContainer = recipe({
       horizontal: {
         height: "100%",
         alignSelf: "stretch",
-        aspectRatio: "1 / 1",
       },
     },
     variant: {
@@ -135,6 +135,7 @@ export const imageContainer = recipe({
     {
       variants: { layout: "horizontal", variant: "plate" },
       style: {
+        aspectRatio: "1 / 1",
         borderTopLeftRadius: "inherit",
         borderTopRightRadius: 0,
         borderBottomLeftRadius: "inherit",
@@ -150,6 +151,11 @@ export const imageContainer = recipe({
       },
     },
   ],
+});
+
+export const thumbnailFill = style({
+  position: "absolute",
+  inset: 0,
 });
 
 export const content = recipe({
@@ -177,22 +183,29 @@ export const content = recipe({
   compoundVariants: [
     {
       variants: { variant: "plate", layout: "vertical" },
-      style: { borderTop: `1px solid ${vars.color.semantic.stroke.alpha.subtler}` },
+      style: { borderTop: `1px solid ${vars.color.semantic.stroke.subtle}` },
     },
     {
       variants: { variant: "plate", layout: "horizontal" },
-      style: { borderLeft: `1px solid ${vars.color.semantic.stroke.alpha.subtler}` },
+      style: { borderLeft: `1px solid ${vars.color.semantic.stroke.subtle}` },
     },
   ],
 });
 
-export const contentGroup = style({
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "flex-start",
-  alignSelf: "stretch",
-  width: "100%",
-  gap: vars.scheme.semantic.spacing[8],
+export const contentGroup = recipe({
+  base: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
+    alignSelf: "stretch",
+    width: "100%",
+  },
+  variants: {
+    variant: {
+      plate: { gap: vars.scheme.semantic.spacing[10] },
+      post: { gap: vars.scheme.semantic.spacing[8] },
+    },
+  },
 });
 
 export const meta = style({
@@ -215,30 +228,39 @@ export const title = style({
   vars: { [titleColorVar]: titleColor },
   margin: 0,
   alignSelf: "stretch",
-  textWrap: "wrap",
+  minWidth: 0,
+  overflow: "hidden",
+  whiteSpace: "nowrap",
+  textOverflow: "ellipsis",
 });
 
-const lineClamp = (lines: number) =>
-  style({
+export const body = recipe({
+  base: {
     display: "-webkit-box",
     WebkitBoxOrient: "vertical",
-    WebkitLineClamp: lines,
+    WebkitLineClamp: 2,
     overflow: "hidden",
-  });
-
-export const body = style([
-  lineClamp(2),
-  {
     color: bodyColor,
     margin: 0,
     alignSelf: "stretch",
   },
-]);
+  variants: {
+    variant: {
+      plate: { minHeight: pxToRem(44) },
+      post: {},
+    },
+  },
+});
 
 export const caption = style([
-  lineClamp(1),
   "semantic-textStyle-label-xs-subtle",
-  { color: captionColor },
+  {
+    display: "-webkit-box",
+    WebkitBoxOrient: "vertical",
+    WebkitLineClamp: 1,
+    overflow: "hidden",
+    color: captionColor,
+  },
 ]);
 
 const overlayBase = style({

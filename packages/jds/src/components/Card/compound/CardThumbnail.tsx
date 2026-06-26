@@ -7,7 +7,7 @@ import type { CardThumbnailProps } from "../Card.types";
 import { useCardContext } from "../cardContext";
 
 const ratioByVariantLayout = {
-  plate: { vertical: "3:4", horizontal: "1:1" },
+  plate: { vertical: "2:3", horizontal: "1:1" },
   post: { vertical: "1:2", horizontal: "1:1" },
 } as const;
 
@@ -18,6 +18,8 @@ export const CardThumbnail = forwardRef<HTMLDivElement, CardThumbnailProps>(
     const ratio = ratioByVariantLayout[variant][layout];
     const shape: ThumbnailShapeProps =
       ratio === "1:1" ? { ratio: "1:1" } : { ratio, orientation: "landscape" };
+
+    const isHorizontal = layout === "horizontal";
 
     return (
       <div
@@ -30,6 +32,7 @@ export const CardThumbnail = forwardRef<HTMLDivElement, CardThumbnailProps>(
           alt={image.alt}
           appearance={variant === "plate" ? "hollow" : "outlined"}
           cornerStyle='angular'
+          className={isHorizontal ? styles.thumbnailFill : undefined}
           {...shape}
         />
       </div>

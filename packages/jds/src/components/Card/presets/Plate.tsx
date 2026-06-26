@@ -14,15 +14,19 @@ interface PlateContentProps {
   body: ReactNode;
 }
 
-const PlateContent = ({ image, caption, title, body }: PlateContentProps) => (
-  <>
-    {image && <CardThumbnail image={image} />}
-    <CardContent>
-      <TitleBody title={title} body={body} />
-      {caption && <CardCaption>{caption}</CardCaption>}
-    </CardContent>
-  </>
-);
+const PlateContent = ({ image, caption, title, body }: PlateContentProps) => {
+  const thumbnailImage = image ?? { alt: title };
+
+  return (
+    <>
+      <CardThumbnail image={thumbnailImage} />
+      <CardContent>
+        <TitleBody title={title} body={body} />
+        {caption && <CardCaption>{caption}</CardCaption>}
+      </CardContent>
+    </>
+  );
+};
 
 export const PlateLink = forwardRef<HTMLDivElement, PlateLinkProps>(
   ({ layout, isDisabled, image, caption, title, body, href, target, rel, ...rest }, ref) => (
