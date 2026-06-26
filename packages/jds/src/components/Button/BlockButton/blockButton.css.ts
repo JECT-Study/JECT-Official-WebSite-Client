@@ -19,12 +19,10 @@ export const iconSizeMap: Record<BlockButtonSize, IconSize> = {
   xs: "2xs",
 };
 
-// Color state types
 type ColorState = { backgroundColor: string; color: string };
 type OnlyColor = { color: string };
 type OutlinedColorState = { borderColor: string; color: string };
 
-// Overlay colors per hierarchy
 const overlayColorByHierarchy = {
   accent: vars.color.semantic.accent.neutral,
   primary: vars.color.semantic.fill.boldest,
@@ -32,7 +30,6 @@ const overlayColorByHierarchy = {
   tertiary: vars.color.semantic.fill.boldest,
 } satisfies Record<BlockButtonHierarchy, string>;
 
-// Solid colors
 const solidColorsByHierarchy = {
   accent: {
     enabled: {
@@ -76,7 +73,6 @@ const solidColorsByHierarchy = {
   },
 } satisfies Record<BlockButtonHierarchy, { enabled: ColorState; disabled: ColorState }>;
 
-// Outlined colors (backgroundColor / borderWidth / borderStyle은 variant 레벨에서 공유)
 const outlinedColorsByHierarchy = {
   accent: {
     enabled: {
@@ -123,7 +119,6 @@ const outlinedColorsByHierarchy = {
   { enabled: OutlinedColorState; disabled: OutlinedColorState }
 >;
 
-// Empty colors (backgroundColor: "transparent"는 variant 레벨에서 공유)
 const emptyColorsByHierarchy = {
   accent: {
     enabled: { color: vars.color.semantic.accent.normal },
@@ -143,7 +138,6 @@ const emptyColorsByHierarchy = {
   },
 } satisfies Record<BlockButtonHierarchy, { enabled: OnlyColor; disabled: OnlyColor }>;
 
-// Feedback colors
 const feedbackColorsByIntent = {
   positive: {
     enabled: {
@@ -167,8 +161,6 @@ const feedbackColorsByIntent = {
   },
 } satisfies Record<FeedbackIntent, { enabled: ColorState; disabled: ColorState }>;
 
-// Size variants (padding + borderRadius)
-// 타이포그래피는 getLabelClassName(=typography.label recipe)을 컴포넌트에서 clsx로 합성한다.
 const sizeVariants = {
   lg: {
     padding: `${vars.scheme.semantic.spacing["10"]} ${vars.scheme.semantic.spacing["20"]}`,
@@ -188,7 +180,6 @@ const sizeVariants = {
   },
 } satisfies Record<BlockButtonSize, object>;
 
-// Base styles
 const baseStyles = style({
   position: "relative",
   display: "inline-flex",
@@ -203,14 +194,11 @@ const baseStyles = style({
   gap: vars.scheme.semantic.spacing["4"],
   selectors: {
     "&[data-disabled]": { cursor: "not-allowed" },
-    // ::before = focusRing, ::after = overlay
-    // borderRadius: "inherit" → 버튼의 size variant borderRadius를 그대로 상속
     "&::before": { inset: 0, borderRadius: "inherit" },
     "&::after": { inset: 0, borderRadius: "inherit" },
   },
 });
 
-// Compound variants
 const solidCompoundVariants = BLOCK_BUTTON_HIERARCHY_OPTIONS.map(hierarchy => ({
   variants: { hierarchy, variant: "solid" as const },
   style: {
@@ -235,31 +223,18 @@ const emptyCompoundVariants = BLOCK_BUTTON_HIERARCHY_OPTIONS.map(hierarchy => ({
   },
 }));
 
-/**
- * `BlockButton.Basic`용 VE recipe.
- *
- * @remarks
- * 인터랙션 상태는 `usePressable`이 부여하는 data attribute를 소비한다.
- * - `data-hovered` / `data-pressed` → `::after` overlay opacity (0.08 / 0.12)
- * - `data-focus-visible`            → `::before` focus ring box-shadow
- * - `data-disabled`                 → overlay 차단 + `cursor: not-allowed`
- *
- * `usePressable` 없이 단독으로 사용하면 hover·focus·disabled 스타일이 동작하지 않는다.
- *
- * @see {@link overlay} — hover/pressed overlay 유틸
- * @see {@link focusRing} — focus ring 유틸
- */
+const rootBase = [overlay(), focusRing(), baseStyles];
+
+// hierarchy는 overlayColor만 지정하고, 실제 색상은 variant와 조합해서 결정된다.
 export const basicRoot = recipe({
-  base: [overlay(), focusRing(), baseStyles],
+  base: rootBase,
   variants: {
-    // hierarchy: overlayColor만 설정. 실제 색상은 compoundVariants에서 variant와 교차하여 결정
     hierarchy: {
       accent: { vars: { [overlayColor]: overlayColorByHierarchy.accent } },
       primary: { vars: { [overlayColor]: overlayColorByHierarchy.primary } },
       secondary: { vars: { [overlayColor]: overlayColorByHierarchy.secondary } },
       tertiary: { vars: { [overlayColor]: overlayColorByHierarchy.tertiary } },
     } satisfies Record<BlockButtonHierarchy, unknown>,
-    // variant: hierarchy와 무관하게 공유되는 base 속성만 설정
     variant: {
       solid: {},
       outlined: {
@@ -278,19 +253,9 @@ export const basicRoot = recipe({
   ],
 });
 
-/**
- * `BlockButton.Feedback`용 VE recipe.
- *
- * @remarks
- * 항상 solid variant로 렌더링되며, `hierarchy` 없이 `intent`만으로 색상이 결정된다.
- * overlay color는 positive / destructive 모두 `object.boldest`로 동일하다.
- *
- * 인터랙션 상태 처리는 {@link basicRoot}와 동일하게 `usePressable` data attribute에 의존한다.
- */
 export const feedbackRoot = recipe({
-  base: [overlay(), focusRing(), baseStyles],
+  base: rootBase,
   variants: {
-    // feedback은 항상 solid이므로 intent variant에서 색상을 직접 결정
     intent: {
       positive: {
         vars: { [overlayColor]: vars.color.semantic.fill.boldest },
