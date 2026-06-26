@@ -2,17 +2,9 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import type { ComponentType, ReactNode } from "react";
 
 import { Callout } from "./Callout";
-import type { CalloutFeedback, CalloutSize } from "./callout.types";
+import type { CalloutFeedback, CalloutProps, CalloutSize } from "./callout.types";
 import type { IconName } from "../Icon";
 import { iconMap } from "../Icon/IconMap";
-
-interface CalloutStoryArgs {
-  size?: CalloutSize;
-  feedback?: CalloutFeedback;
-  title?: string;
-  icon?: IconName;
-  children: ReactNode;
-}
 
 const CALLOUT_SIZES: CalloutSize[] = ["lg", "md", "sm", "xs"];
 const CALLOUT_FEEDBACKS: CalloutFeedback[] = ["none", "positive", "destructive", "notifying"];
@@ -23,7 +15,8 @@ const CALLOUT_BODY =
 
 const meta = {
   title: "Components/Callout",
-  component: Callout as ComponentType<CalloutStoryArgs>,
+  component: Callout,
+  render: args => <CalloutExample {...args} />,
   parameters: {
     layout: "centered",
     docs: {
@@ -64,12 +57,12 @@ const meta = {
       },
     },
   },
-} satisfies Meta<CalloutStoryArgs>;
+} satisfies Meta<CalloutProps>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const ExampleLabel = ({ children }: Pick<CalloutStoryArgs, "children">) => (
+const ExampleLabel = ({ children }: Pick<CalloutProps, "children">) => (
   <code
     style={{
       padding: "0.125rem 0.5rem",
@@ -99,16 +92,17 @@ const withFixedWidth = (Story: ComponentType) => (
   </div>
 );
 
-const CalloutExample = ({ size, feedback, title, icon, children }: CalloutStoryArgs) =>
+const CalloutExample = ({ title, icon, children, ...restProps }: CalloutProps) =>
   title ? (
-    <Callout size={size} feedback={feedback} title={title} icon={icon}>
+    <Callout {...restProps} title={title} icon={icon}>
       {children}
     </Callout>
   ) : (
-    <Callout size={size} feedback={feedback}>
-      {children}
-    </Callout>
+    <Callout {...restProps}>{children}</Callout>
   );
+
+const withIconWhenTitled = (args: CalloutProps, icon: IconName): CalloutProps =>
+  args.title ? { ...args, icon } : args;
 
 export const Default: Story = {
   decorators: [withFixedWidth],
@@ -191,13 +185,11 @@ export const Size: Story = {
     icon: "vector",
     children: CALLOUT_BODY,
   },
-  render: ({ title, icon, feedback, children }) => (
+  render: args => (
     <div style={{ display: "flex", gap: "1rem", width: "100%" }}>
       {CALLOUT_SIZES.map(size => (
         <LabeledExample key={size} label={`size=${size}`}>
-          <CalloutExample size={size} feedback={feedback} title={title} icon={icon}>
-            {children}
-          </CalloutExample>
+          <CalloutExample {...args} size={size} />
         </LabeledExample>
       ))}
     </div>
@@ -228,18 +220,14 @@ export const Feedback: Story = {
     title: CALLOUT_TITLE,
     children: CALLOUT_BODY,
   },
-  render: ({ title, size, children }) => (
+  render: args => (
     <div style={{ display: "flex", gap: "1rem", width: "100%" }}>
       {CALLOUT_FEEDBACKS.map(feedback => (
         <LabeledExample key={feedback} label={`feedback=${feedback}`}>
           <CalloutExample
-            size={size}
+            {...withIconWhenTitled(args, feedbackIconMap[feedback])}
             feedback={feedback}
-            title={title}
-            icon={feedbackIconMap[feedback]}
-          >
-            {children}
-          </CalloutExample>
+          />
         </LabeledExample>
       ))}
     </div>
