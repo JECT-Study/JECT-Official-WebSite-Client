@@ -4,7 +4,7 @@ import type { IconSize } from "components";
 import { vars } from "tokens";
 import { pxToRem, focusRing, overlay, overlayColor } from "utils";
 
-import type { LabelButtonHierarchy, LabelButtonIntent, LabelButtonSize } from "./labelButton.types";
+import type { LabelButtonFeedback, LabelButtonHierarchy, LabelButtonSize } from "./labelButton.types";
 
 export const iconSizeMap: Record<LabelButtonSize, IconSize> = {
   lg: "md",
@@ -49,7 +49,7 @@ const feedbackColorsByIntent = {
     color: vars.color.semantic.feedback.destructive.normal,
     disabledColor: vars.color.semantic.feedback.destructive.alpha.subtle,
   },
-} satisfies Record<LabelButtonIntent, ColorEntry>;
+} satisfies Record<LabelButtonFeedback, ColorEntry>;
 
 // padding이 0이라 탭/포커스 영역(::before·::after)을 size별 음수 inset으로 시각 영역 밖까지 확장한다.
 const tapAreaBySize = {
@@ -108,10 +108,10 @@ const hierarchyVariants = {
   tertiary: colorVariant(hierarchyColorsByHierarchy.tertiary),
 } satisfies Record<LabelButtonHierarchy, unknown>;
 
-const intentVariants = {
+const feedbackVariants = {
   positive: colorVariant(feedbackColorsByIntent.positive),
   destructive: colorVariant(feedbackColorsByIntent.destructive),
-} satisfies Record<LabelButtonIntent, unknown>;
+} satisfies Record<LabelButtonFeedback, unknown>;
 
 const rootBase = [overlay(), focusRing(), baseStyles];
 
@@ -126,7 +126,7 @@ export const basicRoot = recipe({
 export const feedbackRoot = recipe({
   base: rootBase,
   variants: {
-    intent: intentVariants satisfies Record<LabelButtonIntent, unknown>,
+    feedback: feedbackVariants satisfies Record<LabelButtonFeedback, unknown>,
     size: sizeVariants satisfies Record<LabelButtonSize, unknown>,
   },
 });

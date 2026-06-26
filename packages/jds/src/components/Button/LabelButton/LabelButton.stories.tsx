@@ -6,7 +6,7 @@ import { LABEL_BUTTON_HIERARCHY_OPTIONS } from "./labelButton.types";
 
 const meta = {
   title: "Components/LabelButton",
-  component: LabelButton.Basic,
+  component: LabelButton,
   parameters: {
     layout: "centered",
   },
@@ -56,7 +56,7 @@ const meta = {
       },
     },
   },
-} satisfies Meta<typeof LabelButton.Basic>;
+} satisfies Meta<typeof LabelButton>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -77,10 +77,10 @@ export const AllSizes: Story = {
   },
   render: () => (
     <FlexRow>
-      <LabelButton.Basic size='xs'>Extra Small</LabelButton.Basic>
-      <LabelButton.Basic size='sm'>Small</LabelButton.Basic>
-      <LabelButton.Basic size='md'>Medium</LabelButton.Basic>
-      <LabelButton.Basic size='lg'>Large</LabelButton.Basic>
+      <LabelButton size='xs'>Extra Small</LabelButton>
+      <LabelButton size='sm'>Small</LabelButton>
+      <LabelButton size='md'>Medium</LabelButton>
+      <LabelButton size='lg'>Large</LabelButton>
     </FlexRow>
   ),
 };
@@ -91,10 +91,10 @@ export const AllHierarchies: Story = {
   },
   render: () => (
     <FlexColumn>
-      <LabelButton.Basic hierarchy='accent'>Accent</LabelButton.Basic>
-      <LabelButton.Basic hierarchy='primary'>Primary</LabelButton.Basic>
-      <LabelButton.Basic hierarchy='secondary'>Secondary</LabelButton.Basic>
-      <LabelButton.Basic hierarchy='tertiary'>Tertiary</LabelButton.Basic>
+      <LabelButton hierarchy='accent'>Accent</LabelButton>
+      <LabelButton hierarchy='primary'>Primary</LabelButton>
+      <LabelButton hierarchy='secondary'>Secondary</LabelButton>
+      <LabelButton hierarchy='tertiary'>Tertiary</LabelButton>
     </FlexColumn>
   ),
 };
@@ -105,11 +105,11 @@ export const WithIcons: Story = {
   },
   render: () => (
     <FlexColumn>
-      <LabelButton.Basic prefixIcon='arrow-left-line'>With Prefix Icon</LabelButton.Basic>
-      <LabelButton.Basic suffixIcon='arrow-right-line'>With Suffix Icon</LabelButton.Basic>
-      <LabelButton.Basic prefixIcon='arrow-left-line' suffixIcon='arrow-right-line'>
+      <LabelButton prefixIcon='arrow-left-line'>With Prefix Icon</LabelButton>
+      <LabelButton suffixIcon='arrow-right-line'>With Suffix Icon</LabelButton>
+      <LabelButton prefixIcon='arrow-left-line' suffixIcon='arrow-right-line'>
         With Both Icons
-      </LabelButton.Basic>
+      </LabelButton>
     </FlexColumn>
   ),
 };
@@ -120,9 +120,9 @@ export const InteractionStates: Story = {
   },
   render: () => (
     <FlexColumn>
-      <LabelButton.Basic>Hover me</LabelButton.Basic>
-      <LabelButton.Basic>Click me (Active)</LabelButton.Basic>
-      <LabelButton.Basic>Tab to focus me</LabelButton.Basic>
+      <LabelButton>Hover me</LabelButton>
+      <LabelButton>Click me (Active)</LabelButton>
+      <LabelButton>Tab to focus me</LabelButton>
     </FlexColumn>
   ),
   parameters: {
@@ -150,9 +150,9 @@ export const HierarchyWithSizes: Story = {
           <Label>{hierarchy.charAt(0).toUpperCase() + hierarchy.slice(1)}:</Label>
           <FlexRow gap='12px'>
             {(["xs", "sm", "md", "lg"] as const).map(size => (
-              <LabelButton.Basic key={size} size={size} hierarchy={hierarchy}>
+              <LabelButton key={size} size={size} hierarchy={hierarchy}>
                 {size.toUpperCase()}
-              </LabelButton.Basic>
+              </LabelButton>
             ))}
           </FlexRow>
         </FlexColumn>
@@ -172,9 +172,9 @@ export const DisabledStates: Story = {
           <Label>{hierarchy.charAt(0).toUpperCase() + hierarchy.slice(1)}:</Label>
           <FlexRow gap='12px'>
             {(["xs", "sm", "md", "lg"] as const).map(size => (
-              <LabelButton.Basic key={size} hierarchy={hierarchy} size={size} disabled>
+              <LabelButton key={size} hierarchy={hierarchy} size={size} disabled>
                 {size.toUpperCase()}
-              </LabelButton.Basic>
+              </LabelButton>
             ))}
           </FlexRow>
         </FlexColumn>
@@ -194,9 +194,9 @@ export const FeedbackButtons: Story = {
           <Label>{intent.charAt(0).toUpperCase() + intent.slice(1)}:</Label>
           <FlexRow gap='12px'>
             {(["xs", "sm", "md", "lg"] as const).map(size => (
-              <LabelButton.Feedback key={size} intent={intent} size={size}>
+              <LabelButton key={size} feedback={intent} size={size}>
                 {intent === "positive" ? "확인" : "삭제"}
-              </LabelButton.Feedback>
+              </LabelButton>
             ))}
           </FlexRow>
         </FlexColumn>
@@ -222,23 +222,23 @@ export const FeedbackWithIcons: Story = {
       <FlexColumn gap='12px'>
         <Label>Positive:</Label>
         <FlexRow gap='12px'>
-          <LabelButton.Feedback intent='positive' prefixIcon='check-line'>
+          <LabelButton feedback='positive' prefixIcon='check-line'>
             저장 완료
-          </LabelButton.Feedback>
-          <LabelButton.Feedback intent='positive' suffixIcon='arrow-right-line'>
+          </LabelButton>
+          <LabelButton feedback='positive' suffixIcon='arrow-right-line'>
             다음 단계
-          </LabelButton.Feedback>
+          </LabelButton>
         </FlexRow>
       </FlexColumn>
       <FlexColumn gap='12px'>
         <Label>Destructive:</Label>
         <FlexRow gap='12px'>
-          <LabelButton.Feedback intent='destructive' prefixIcon='delete-bin-line'>
+          <LabelButton feedback='destructive' prefixIcon='delete-bin-line'>
             삭제하기
-          </LabelButton.Feedback>
-          <LabelButton.Feedback intent='destructive' suffixIcon='close-line'>
+          </LabelButton>
+          <LabelButton feedback='destructive' suffixIcon='close-line'>
             취소
-          </LabelButton.Feedback>
+          </LabelButton>
         </FlexRow>
       </FlexColumn>
     </FlexColumn>
@@ -263,9 +263,9 @@ export const FeedbackDisabled: Story = {
           <Label>{intent.charAt(0).toUpperCase() + intent.slice(1)} Disabled:</Label>
           <FlexRow gap='12px'>
             {(["sm", "md", "lg"] as const).map(size => (
-              <LabelButton.Feedback key={size} intent={intent} size={size} disabled>
+              <LabelButton key={size} feedback={intent} size={size} disabled>
                 {intent === "positive" ? "확인" : "삭제"}
-              </LabelButton.Feedback>
+              </LabelButton>
             ))}
           </FlexRow>
         </FlexColumn>
@@ -291,9 +291,9 @@ export const FeedbackInteractionStates: Story = {
         <FlexColumn key={intent} gap='12px'>
           <Label>{intent.charAt(0).toUpperCase() + intent.slice(1)}:</Label>
           <FlexRow gap='12px'>
-            <LabelButton.Feedback intent={intent}>Hover me</LabelButton.Feedback>
-            <LabelButton.Feedback intent={intent}>Click me</LabelButton.Feedback>
-            <LabelButton.Feedback intent={intent}>Focus me</LabelButton.Feedback>
+            <LabelButton feedback={intent}>Hover me</LabelButton>
+            <LabelButton feedback={intent}>Click me</LabelButton>
+            <LabelButton feedback={intent}>Focus me</LabelButton>
           </FlexRow>
         </FlexColumn>
       ))}
