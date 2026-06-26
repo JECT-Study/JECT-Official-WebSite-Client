@@ -92,6 +92,13 @@ export const root = recipe({
       variants: { variant: "post", layout: "horizontal" },
       style: { gap: vars.scheme.semantic.spacing[24] },
     },
+    {
+      variants: { variant: "plate", layout: "horizontal" },
+      style: {
+        display: "grid",
+        gridTemplateColumns: "auto minmax(0, 1fr)",
+      },
+    },
   ],
 });
 
