@@ -1,3 +1,4 @@
+import type { StyleRule } from "@vanilla-extract/css";
 import { createVar } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
@@ -61,7 +62,7 @@ export const menuContainerStyle = recipe({
           [menuItemVariants.paddingVertical]: vars.scheme.semantic.spacing["6"],
         },
       },
-    } satisfies Record<MenuItemSize, unknown>,
+    } satisfies Record<MenuItemSize, StyleRule>,
     isSelected: {
       true: {
         background: vars.color.semantic.fill.subtlest,
@@ -109,6 +110,6 @@ export const menuItemImage = recipe({
       sm: {
         vars: { [thumbnailVars.width]: pxToRem(16) },
       },
-    } satisfies Record<MenuItemSize, unknown>,
+    } satisfies Record<MenuItemSize, StyleRule>,
   },
 });

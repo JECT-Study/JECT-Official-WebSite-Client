@@ -1,3 +1,4 @@
+import type { StyleRule } from "@vanilla-extract/css";
 import { createVar, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
@@ -37,7 +38,7 @@ export const menuContent = recipe({
         boxShadow: vars.environment.semantic.shadow.floated,
       },
       hollow: {},
-    } satisfies Record<MenuStyle, unknown>,
+    } satisfies Record<MenuStyle, StyleRule>,
     size: {
       lg: {
         vars: {
@@ -57,7 +58,7 @@ export const menuContent = recipe({
           [menuContentVariants.gap]: vars.scheme.semantic.spacing["4"],
         },
       },
-    } satisfies Record<MenuSize, unknown>,
+    } satisfies Record<MenuSize, StyleRule>,
   },
 });
 
@@ -86,7 +87,7 @@ export const menuCategoryContainer = recipe({
           [menuCategoryMarginHorizontalMarginVars]: vars.scheme.semantic.spacing["8"],
         },
       },
-    } satisfies Record<MenuSize, unknown>,
+    } satisfies Record<MenuSize, StyleRule>,
   },
 });
 
@@ -117,7 +118,7 @@ export const menuGroup = recipe({
       lg: { vars: { [menuListGapVar]: menuListGap.lg } },
       md: { vars: { [menuListGapVar]: menuListGap.md } },
       sm: { vars: { [menuListGapVar]: menuListGap.sm } },
-    } satisfies Record<MenuSize, unknown>,
+    } satisfies Record<MenuSize, StyleRule>,
   },
 });
 
@@ -133,7 +134,7 @@ export const menuTreeContainer = recipe({
       lg: { vars: { [menuListGapVar]: menuListGap.lg } },
       md: { vars: { [menuListGapVar]: menuListGap.md } },
       sm: { vars: { [menuListGapVar]: menuListGap.sm } },
-    } satisfies Record<MenuSize, unknown>,
+    } satisfies Record<MenuSize, StyleRule>,
   },
 });
 
