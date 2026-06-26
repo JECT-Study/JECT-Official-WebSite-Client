@@ -6,10 +6,10 @@ import { focusRing, overlay, overlayColor } from "utils";
 
 import { BLOCK_BUTTON_HIERARCHY_OPTIONS } from "./blockButton.types";
 import type {
+  BlockButtonFeedback,
   BlockButtonHierarchy,
   BlockButtonSize,
   BlockButtonStyle,
-  FeedbackIntent,
 } from "./blockButton.types";
 
 export const iconSizeMap: Record<BlockButtonSize, IconSize> = {
@@ -159,7 +159,7 @@ const feedbackColorsByIntent = {
       color: vars.color.semantic.feedback.destructive.alpha.subtle,
     },
   },
-} satisfies Record<FeedbackIntent, { enabled: ColorState; disabled: ColorState }>;
+} satisfies Record<BlockButtonFeedback, { enabled: ColorState; disabled: ColorState }>;
 
 const sizeVariants = {
   lg: {
@@ -256,7 +256,7 @@ export const basicRoot = recipe({
 export const feedbackRoot = recipe({
   base: rootBase,
   variants: {
-    intent: {
+    feedback: {
       positive: {
         vars: { [overlayColor]: vars.color.semantic.fill.boldest },
         ...feedbackColorsByIntent.positive.enabled,
@@ -267,7 +267,7 @@ export const feedbackRoot = recipe({
         ...feedbackColorsByIntent.destructive.enabled,
         selectors: { "&[data-disabled]": feedbackColorsByIntent.destructive.disabled },
       },
-    } satisfies Record<FeedbackIntent, unknown>,
+    } satisfies Record<BlockButtonFeedback, unknown>,
     size: sizeVariants satisfies Record<BlockButtonSize, unknown>,
   },
 });

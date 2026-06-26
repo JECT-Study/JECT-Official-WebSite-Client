@@ -1,6 +1,10 @@
 import { mergeProps } from "@react-aria/utils";
 import { clsx } from "clsx";
-import type { BlockButtonBasicProps, BlockButtonFeedbackProps } from "components";
+import type {
+  BlockButtonBasicProps,
+  BlockButtonFeedbackProps,
+  BlockButtonProps,
+} from "components";
 import { Icon } from "components";
 import { usePressable } from "hooks";
 import { forwardRef } from "react";
@@ -8,13 +12,14 @@ import { getLabelClassName } from "utils";
 
 import { basicRoot, feedbackRoot, iconSizeMap } from "./blockButton.css";
 
-const BlockButtonBasic = forwardRef<HTMLButtonElement, BlockButtonBasicProps>(
+const BlockButtonRoot = forwardRef<HTMLButtonElement, BlockButtonProps>(
   (
     {
       children,
       size = "md",
-      variant = "solid",
-      hierarchy = "primary",
+      hierarchy,
+      variant,
+      feedback,
       prefixIcon,
       suffixIcon,
       disabled = false,
@@ -25,17 +30,16 @@ const BlockButtonBasic = forwardRef<HTMLButtonElement, BlockButtonBasicProps>(
   ) => {
     const { ref, pressableProps } = usePressable(forwardedRef, { disabled });
     const iconSize = iconSizeMap[size];
+    const rootClassName = feedback
+      ? feedbackRoot({ feedback, size })
+      : basicRoot({ hierarchy: hierarchy ?? "primary", variant: variant ?? "solid", size });
 
     return (
       <button
         ref={ref}
         {...mergeProps(pressableProps, restProps)}
         data-part='root'
-        className={clsx(
-          getLabelClassName({ size, weight: "bold" }),
-          basicRoot({ hierarchy, variant, size }),
-          className,
-        )}
+        className={clsx(getLabelClassName({ size, weight: "bold" }), rootClassName, className)}
       >
         {prefixIcon && <Icon name={prefixIcon} size={iconSize} />}
         {children}
@@ -44,48 +48,26 @@ const BlockButtonBasic = forwardRef<HTMLButtonElement, BlockButtonBasicProps>(
     );
   },
 );
+
+BlockButtonRoot.displayName = "BlockButton";
+
+const BlockButtonBasic = forwardRef<HTMLButtonElement, BlockButtonBasicProps>((props, ref) => (
+  <BlockButtonRoot ref={ref} {...props} />
+));
 
 BlockButtonBasic.displayName = "BlockButton.Basic";
 
 const BlockButtonFeedback = forwardRef<HTMLButtonElement, BlockButtonFeedbackProps>(
-  (
-    {
-      children,
-      size = "md",
-      intent = "destructive",
-      prefixIcon,
-      suffixIcon,
-      disabled = false,
-      className,
-      ...restProps
-    },
-    forwardedRef,
-  ) => {
-    const { ref, pressableProps } = usePressable(forwardedRef, { disabled });
-    const iconSize = iconSizeMap[size];
-
-    return (
-      <button
-        ref={ref}
-        {...mergeProps(pressableProps, restProps)}
-        data-part='root'
-        className={clsx(
-          getLabelClassName({ size, weight: "bold" }),
-          feedbackRoot({ intent, size }),
-          className,
-        )}
-      >
-        {prefixIcon && <Icon name={prefixIcon} size={iconSize} />}
-        {children}
-        {suffixIcon && <Icon name={suffixIcon} size={iconSize} />}
-      </button>
-    );
-  },
+  ({ intent = "destructive", ...props }, ref) => (
+    <BlockButtonRoot ref={ref} feedback={intent} {...props} />
+  ),
 );
 
 BlockButtonFeedback.displayName = "BlockButton.Feedback";
 
-export const BlockButton = {
+export const BlockButton = Object.assign(BlockButtonRoot, {
+  /** @deprecated `<BlockButton hierarchy variant>`를 사용하세요. */
   Basic: BlockButtonBasic,
+  /** @deprecated `<BlockButton feedback>`를 사용하세요. */
   Feedback: BlockButtonFeedback,
-};
+});
