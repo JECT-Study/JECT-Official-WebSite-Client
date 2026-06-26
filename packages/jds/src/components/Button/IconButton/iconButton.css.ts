@@ -1,27 +1,22 @@
 import { createVar, fallbackVar, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
+import { vars } from "tokens";
+import { focusRing, overlay, overlayColor } from "utils";
 
 import {
   ICON_BUTTON_SIZE_OPTIONS,
   type IconButtonHierarchy,
   type IconButtonSize,
 } from "./iconButton.types";
-import { vars } from "../../../tokens/vars.css";
-import { focusRing } from "../../../utils/focusRing.css";
-import { overlay, overlayColor } from "../../../utils/overlay.css";
 
 const iconButtonIconColor = createVar();
 
 /**
- * hierarchy="accent"일 때 색상을 외부에서 덮어쓰기 위한 CSS variable
+ * `hierarchy="accent"`의 색을 외부에서 덮는 CSS 변수. feedback(positive/destructive)
+ * 같은 프리셋은 DS에 두지 않고 도메인 레이어에서 이 변수로 만든다.
  *
- * `feedback` (positive / destructive) 같은 사용처별 프리셋은 DS 안에 두지 않고,
- * 도메인 레이어에서 이 var를 inline으로 할당해 만든다.
- *
- * **두 var는 한 쌍이다.** `iconButtonAccentColor`만 override하고
- * `iconButtonAccentDisabledColor`를 누락하면 disabled 시 *기본 accent 색의 alpha*로
- * 떨어져 시각이 부조화한다 (override한 도메인 색과 매치되지 않음). 깨짐은 아니지만
- * 도메인 색을 적용할 땐 둘을 함께 설정하라.
+ * 둘은 한 쌍이다. `iconButtonAccentColor`만 덮고 `iconButtonAccentDisabledColor`를
+ * 빠뜨리면 disabled 색이 기본 accent의 alpha로 남으므로 함께 지정한다.
  *
  * @example
  *   <IconButton hierarchy="accent" style={assignInlineVars({
@@ -32,7 +27,7 @@ const iconButtonIconColor = createVar();
 export const iconButtonAccentColor = createVar();
 export const iconButtonAccentDisabledColor = createVar();
 
-const baseStyles = {
+const baseStyles = style({
   position: "relative",
   display: "inline-flex",
   flexDirection: "row",
@@ -47,7 +42,7 @@ const baseStyles = {
   selectors: {
     "&[data-disabled]": { cursor: "not-allowed" },
   },
-} as const;
+});
 
 const neutralHierarchy = (color: string) => ({
   vars: {
