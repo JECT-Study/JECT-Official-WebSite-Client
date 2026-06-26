@@ -4,6 +4,7 @@ import type { BlockButtonBasicProps, BlockButtonFeedbackProps } from "components
 import { Icon } from "components";
 import { usePressable } from "hooks";
 import { forwardRef } from "react";
+import { getLabelClassName } from "utils";
 
 import { basicRoot, feedbackRoot, iconSizeMap } from "./blockButton.css";
 
@@ -30,7 +31,11 @@ const BlockButtonBasic = forwardRef<HTMLButtonElement, BlockButtonBasicProps>(
         ref={ref}
         {...mergeProps(pressableProps, restProps)}
         data-part='root'
-        className={clsx(basicRoot({ hierarchy, variant, size }), className)}
+        className={clsx(
+          getLabelClassName({ size, weight: "bold" }),
+          basicRoot({ hierarchy, variant, size }),
+          className,
+        )}
       >
         {prefixIcon && <Icon name={prefixIcon} size={iconSize} />}
         {children}
@@ -64,7 +69,11 @@ const BlockButtonFeedback = forwardRef<HTMLButtonElement, BlockButtonFeedbackPro
         ref={ref}
         {...mergeProps(pressableProps, restProps)}
         data-part='root'
-        className={clsx(feedbackRoot({ intent, size }), className)}
+        className={clsx(
+          getLabelClassName({ size, weight: "bold" }),
+          feedbackRoot({ intent, size }),
+          className,
+        )}
       >
         {prefixIcon && <Icon name={prefixIcon} size={iconSize} />}
         {children}

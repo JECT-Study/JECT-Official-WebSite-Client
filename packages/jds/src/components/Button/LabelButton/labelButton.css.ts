@@ -53,38 +53,6 @@ const feedbackColorsByIntent = {
   },
 } satisfies Record<LabelButtonIntent, ColorEntry>;
 
-// Typography per size
-const typographyBySize = {
-  lg: {
-    fontSize: vars.typo.primitive.fontSize.label.lg,
-    lineHeight: vars.typo.primitive.font.lineHeight.label.lg,
-    fontFamily: vars.typo.primitive.typeface.label,
-    fontWeight: vars.typo.primitive.fontWeight.label.bold,
-    letterSpacing: vars.typo.primitive.font.letterSpacing.label.lg,
-  },
-  md: {
-    fontSize: vars.typo.primitive.fontSize.label.md,
-    lineHeight: vars.typo.primitive.font.lineHeight.label.md,
-    fontFamily: vars.typo.primitive.typeface.label,
-    fontWeight: vars.typo.primitive.fontWeight.label.bold,
-    letterSpacing: vars.typo.primitive.font.letterSpacing.label.md,
-  },
-  sm: {
-    fontSize: vars.typo.primitive.fontSize.label.sm,
-    lineHeight: vars.typo.primitive.font.lineHeight.label.sm,
-    fontFamily: vars.typo.primitive.typeface.label,
-    fontWeight: vars.typo.primitive.fontWeight.label.bold,
-    letterSpacing: vars.typo.primitive.font.letterSpacing.label.sm,
-  },
-  xs: {
-    fontSize: vars.typo.primitive.fontSize.label.xs,
-    lineHeight: vars.typo.primitive.font.lineHeight.label.xs,
-    fontFamily: vars.typo.primitive.typeface.label,
-    fontWeight: vars.typo.primitive.fontWeight.label.bold,
-    letterSpacing: vars.typo.primitive.font.letterSpacing.label.xs,
-  },
-} satisfies Record<LabelButtonSize, object>;
-
 // LabelButton은 padding이 0이고 탭 영역이 시각 영역을 초과한다.
 // ::before(focusRing)와 ::after(overlay)를 size별로 음수 inset으로 확장한다.
 const tapAreaBySize = {
@@ -94,26 +62,23 @@ const tapAreaBySize = {
   xs: { inset: `${pxToRem(-1)} ${pxToRem(-3)}`, borderRadius: vars.scheme.semantic.radius["4"] },
 } satisfies Record<LabelButtonSize, { inset: string; borderRadius: string }>;
 
-// Size variants (typography + ::before/::after 확장 영역을 함께 결정)
+// Size variants (::before/::after 확장 영역을 결정)
+// 타이포그래피는 getLabelClassName을 컴포넌트에서 clsx로 합성한다.
 // BlockButton과 달리 padding이 0이므로 borderRadius는 tapArea에서만 의미를 가진다.
 const sizeVariants = {
   lg: {
-    ...typographyBySize.lg,
     selectors: {
       // size별 음수 inset으로 탭/포커스 영역을 시각 영역 밖으로 확장한다.
       "&::before, &::after": tapAreaBySize.lg,
     },
   },
   md: {
-    ...typographyBySize.md,
     selectors: { "&::before, &::after": tapAreaBySize.md },
   },
   sm: {
-    ...typographyBySize.sm,
     selectors: { "&::before, &::after": tapAreaBySize.sm },
   },
   xs: {
-    ...typographyBySize.xs,
     selectors: { "&::before, &::after": tapAreaBySize.xs },
   },
 } satisfies Record<LabelButtonSize, object>;

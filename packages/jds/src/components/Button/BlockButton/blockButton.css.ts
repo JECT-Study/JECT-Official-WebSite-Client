@@ -167,61 +167,24 @@ const feedbackColorsByIntent = {
   },
 } satisfies Record<FeedbackIntent, { enabled: ColorState; disabled: ColorState }>;
 
-// Typography per size
-// globalStyle 클래스를 쓰는 대신 동일한 CSS var를 직접 참조해 recipe 안에서 인라인으로 처리한다.
-// recipe size variant만으로 타이포/크기가 한번에 결정되므로 className 합성이 필요하지 않다.
-const typographyBySize = {
-  lg: {
-    fontSize: vars.typo.primitive.fontSize.label.lg,
-    lineHeight: vars.typo.primitive.font.lineHeight.label.lg,
-    fontFamily: vars.typo.primitive.typeface.label,
-    fontWeight: vars.typo.primitive.fontWeight.label.bold,
-    letterSpacing: vars.typo.primitive.font.letterSpacing.label.lg,
-  },
-  md: {
-    fontSize: vars.typo.primitive.fontSize.label.md,
-    lineHeight: vars.typo.primitive.font.lineHeight.label.md,
-    fontFamily: vars.typo.primitive.typeface.label,
-    fontWeight: vars.typo.primitive.fontWeight.label.bold,
-    letterSpacing: vars.typo.primitive.font.letterSpacing.label.md,
-  },
-  sm: {
-    fontSize: vars.typo.primitive.fontSize.label.sm,
-    lineHeight: vars.typo.primitive.font.lineHeight.label.sm,
-    fontFamily: vars.typo.primitive.typeface.label,
-    fontWeight: vars.typo.primitive.fontWeight.label.bold,
-    letterSpacing: vars.typo.primitive.font.letterSpacing.label.sm,
-  },
-  xs: {
-    fontSize: vars.typo.primitive.fontSize.label.xs,
-    lineHeight: vars.typo.primitive.font.lineHeight.label.xs,
-    fontFamily: vars.typo.primitive.typeface.label,
-    fontWeight: vars.typo.primitive.fontWeight.label.bold,
-    letterSpacing: vars.typo.primitive.font.letterSpacing.label.xs,
-  },
-} satisfies Record<BlockButtonSize, object>;
-
-// Size variants (padding + borderRadius + typography)
+// Size variants (padding + borderRadius)
+// 타이포그래피는 getLabelClassName(=typography.label recipe)을 컴포넌트에서 clsx로 합성한다.
 const sizeVariants = {
   lg: {
     padding: `${vars.scheme.semantic.spacing["10"]} ${vars.scheme.semantic.spacing["20"]}`,
     borderRadius: vars.scheme.semantic.radius["6"],
-    ...typographyBySize.lg,
   },
   md: {
     padding: `${vars.scheme.semantic.spacing["8"]} ${vars.scheme.semantic.spacing["16"]}`,
     borderRadius: vars.scheme.semantic.radius["6"],
-    ...typographyBySize.md,
   },
   sm: {
     padding: `${vars.scheme.semantic.spacing["6"]} ${vars.scheme.semantic.spacing["12"]}`,
     borderRadius: vars.scheme.semantic.radius["4"],
-    ...typographyBySize.sm,
   },
   xs: {
     padding: `${vars.scheme.semantic.spacing["4"]} ${vars.scheme.semantic.spacing["8"]}`,
     borderRadius: vars.scheme.semantic.radius["4"],
-    ...typographyBySize.xs,
   },
 } satisfies Record<BlockButtonSize, object>;
 

@@ -4,6 +4,7 @@ import type { LabelButtonBasicProps, LabelButtonFeedbackProps } from "components
 import { Icon } from "components";
 import { usePressable } from "hooks";
 import { forwardRef } from "react";
+import { getLabelClassName } from "utils";
 
 import { basicRoot, feedbackRoot, iconSizeMap } from "./labelButton.css";
 
@@ -29,7 +30,11 @@ const LabelButtonBasic = forwardRef<HTMLButtonElement, LabelButtonBasicProps>(
         ref={ref}
         {...mergeProps(pressableProps, restProps)}
         data-part='root'
-        className={clsx(basicRoot({ hierarchy, size }), className)}
+        className={clsx(
+          getLabelClassName({ size, weight: "bold" }),
+          basicRoot({ hierarchy, size }),
+          className,
+        )}
       >
         {prefixIcon && <Icon name={prefixIcon} size={iconSize} />}
         {children}
@@ -63,7 +68,11 @@ const LabelButtonFeedback = forwardRef<HTMLButtonElement, LabelButtonFeedbackPro
         ref={ref}
         {...mergeProps(pressableProps, restProps)}
         data-part='root'
-        className={clsx(feedbackRoot({ intent, size }), className)}
+        className={clsx(
+          getLabelClassName({ size, weight: "bold" }),
+          feedbackRoot({ intent, size }),
+          className,
+        )}
       >
         {prefixIcon && <Icon name={prefixIcon} size={iconSize} />}
         {children}
