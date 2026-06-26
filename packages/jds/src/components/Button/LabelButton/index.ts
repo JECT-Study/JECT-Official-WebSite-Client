@@ -1,4 +1,5 @@
 export { LabelButton } from "./LabelButton";
+export { LABEL_BUTTON_SIZE_OPTIONS, LABEL_BUTTON_HIERARCHY_OPTIONS } from "./labelButton.types";
 export type {
   LabelButtonProps,
   LabelButtonBasicProps,

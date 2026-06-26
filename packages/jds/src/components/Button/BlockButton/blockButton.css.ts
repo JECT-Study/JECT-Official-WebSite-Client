@@ -9,7 +9,7 @@ import type {
   BlockButtonFeedback,
   BlockButtonHierarchy,
   BlockButtonSize,
-  BlockButtonStyle,
+  BlockButtonVariant,
 } from "./blockButton.types";
 
 export const iconSizeMap: Record<BlockButtonSize, IconSize> = {
@@ -243,7 +243,7 @@ export const basicRoot = recipe({
         borderStyle: "solid",
       },
       empty: { backgroundColor: "transparent" },
-    } satisfies Record<BlockButtonStyle, unknown>,
+    } satisfies Record<BlockButtonVariant, unknown>,
     size: sizeVariants satisfies Record<BlockButtonSize, unknown>,
   },
   compoundVariants: [

@@ -2,7 +2,11 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexRow, FlexColumn, Label } from "@storybook-utils/layout";
 
 import { BlockButton } from "./BlockButton";
-import { BLOCK_BUTTON_HIERARCHY_OPTIONS, BLOCK_BUTTON_STYLE_OPTIONS } from "./blockButton.types";
+import {
+  BLOCK_BUTTON_HIERARCHY_OPTIONS,
+  BLOCK_BUTTON_SIZE_OPTIONS,
+  BLOCK_BUTTON_VARIANT_OPTIONS,
+} from "./blockButton.types";
 
 const meta = {
   title: "Components/BlockButton",
@@ -28,7 +32,7 @@ const meta = {
     },
     size: {
       control: "select",
-      options: ["xs", "sm", "md", "lg"],
+      options: BLOCK_BUTTON_SIZE_OPTIONS,
       description: "버튼의 크기",
       table: {
         defaultValue: { summary: "md" },
@@ -36,7 +40,7 @@ const meta = {
     },
     variant: {
       control: "select",
-      options: ["solid", "outlined", "empty"],
+      options: BLOCK_BUTTON_VARIANT_OPTIONS,
       description: "버튼의 스타일 변형",
       table: {
         defaultValue: { summary: "solid" },
@@ -167,7 +171,7 @@ export const ComprehensiveMatrix: Story = {
   },
   render: () => (
     <FlexColumn gap='32px'>
-      {BLOCK_BUTTON_STYLE_OPTIONS.map(variant => (
+      {BLOCK_BUTTON_VARIANT_OPTIONS.map(variant => (
         <FlexColumn key={variant} gap='12px'>
           <Label>{variant.charAt(0).toUpperCase() + variant.slice(1)}</Label>
           <FlexRow gap='12px'>

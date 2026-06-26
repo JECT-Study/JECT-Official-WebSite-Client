@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexRow, FlexColumn, Label } from "@storybook-utils/layout";
 
 import { LabelButton } from "./LabelButton";
-import { LABEL_BUTTON_HIERARCHY_OPTIONS } from "./labelButton.types";
+import { LABEL_BUTTON_HIERARCHY_OPTIONS, LABEL_BUTTON_SIZE_OPTIONS } from "./labelButton.types";
 
 const meta = {
   title: "Components/LabelButton",
@@ -28,7 +28,7 @@ const meta = {
     },
     size: {
       control: "select",
-      options: ["xs", "sm", "md", "lg"],
+      options: LABEL_BUTTON_SIZE_OPTIONS,
       description: "컴포넌트의 크기",
       table: {
         defaultValue: { summary: "md" },
