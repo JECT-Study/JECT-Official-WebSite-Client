@@ -95,7 +95,7 @@ const MenuGroup = forwardRef<HTMLUListElement, MenuGroupProps>(
     const { size } = useMenuContext("Menu.Group");
 
     return (
-      <ul ref={ref} className={clsx(menuGroup({ size }), className)} {...restProps}>
+      <ul role='list' ref={ref} className={clsx(menuGroup({ size }), className)} {...restProps}>
         {children}
       </ul>
     );
@@ -187,7 +187,11 @@ const MenuTree = forwardRef<HTMLButtonElement, MenuTreeProps>(
             {label}
           </MenuItem.Button>
         </div>
-        {isOpen && hasChildren && <ul className={menuTreeContent}>{children}</ul>}
+        {isOpen && hasChildren && (
+          <ul role='list' className={menuTreeContent}>
+            {children}
+          </ul>
+        )}
       </li>
     );
   },
