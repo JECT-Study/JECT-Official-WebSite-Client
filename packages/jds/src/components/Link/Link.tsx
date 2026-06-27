@@ -22,10 +22,7 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
         data-disabled={disabled || undefined}
         aria-disabled={disabled || undefined}
         onClick={e => {
-          if (disabled) {
-            e.preventDefault();
-            return;
-          }
+          if (disabled) return;
           onClick?.(e);
         }}
       >
