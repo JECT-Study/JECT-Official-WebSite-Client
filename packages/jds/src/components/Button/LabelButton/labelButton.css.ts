@@ -1,4 +1,4 @@
-import { style } from "@vanilla-extract/css";
+import { style, type StyleRule } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import type { IconSize } from "components";
 import { vars } from "tokens";
@@ -74,7 +74,7 @@ const sizeVariants = {
   xs: {
     selectors: { "&::before, &::after": tapAreaBySize.xs },
   },
-} satisfies Record<LabelButtonSize, object>;
+} satisfies Record<LabelButtonSize, StyleRule>;
 
 const baseStyles = style({
   position: "relative",
@@ -106,27 +106,27 @@ const hierarchyVariants = {
   primary: colorVariant(hierarchyColorsByHierarchy.primary),
   secondary: colorVariant(hierarchyColorsByHierarchy.secondary),
   tertiary: colorVariant(hierarchyColorsByHierarchy.tertiary),
-} satisfies Record<LabelButtonHierarchy, unknown>;
+} satisfies Record<LabelButtonHierarchy, StyleRule>;
 
 const feedbackVariants = {
   positive: colorVariant(feedbackColorsByIntent.positive),
   destructive: colorVariant(feedbackColorsByIntent.destructive),
-} satisfies Record<LabelButtonFeedback, unknown>;
+} satisfies Record<LabelButtonFeedback, StyleRule>;
 
 const rootBase = [overlay(), focusRing(), baseStyles];
 
 export const basicRoot = recipe({
   base: rootBase,
   variants: {
-    hierarchy: hierarchyVariants satisfies Record<LabelButtonHierarchy, unknown>,
-    size: sizeVariants satisfies Record<LabelButtonSize, unknown>,
+    hierarchy: hierarchyVariants satisfies Record<LabelButtonHierarchy, StyleRule>,
+    size: sizeVariants satisfies Record<LabelButtonSize, StyleRule>,
   },
 });
 
 export const feedbackRoot = recipe({
   base: rootBase,
   variants: {
-    feedback: feedbackVariants satisfies Record<LabelButtonFeedback, unknown>,
-    size: sizeVariants satisfies Record<LabelButtonSize, unknown>,
+    feedback: feedbackVariants satisfies Record<LabelButtonFeedback, StyleRule>,
+    size: sizeVariants satisfies Record<LabelButtonSize, StyleRule>,
   },
 });

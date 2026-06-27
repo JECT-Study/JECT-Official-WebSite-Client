@@ -1,4 +1,4 @@
-import { createVar, fallbackVar, style } from "@vanilla-extract/css";
+import { createVar, fallbackVar, style, type StyleRule } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
 import { focusRing, overlay, overlayColor } from "utils";
@@ -56,7 +56,7 @@ const neutralHierarchy = (color: string) => ({
   },
 });
 
-const sizeVariants: Record<IconButtonSize, { width: string; height: string }> = {
+const sizeVariants = {
   "2xs": { width: "12px", height: "12px" },
   xs: { width: "14px", height: "14px" },
   sm: { width: "16px", height: "16px" },
@@ -65,12 +65,12 @@ const sizeVariants: Record<IconButtonSize, { width: string; height: string }> = 
   xl: { width: "24px", height: "24px" },
   "2xl": { width: "28px", height: "28px" },
   "3xl": { width: "32px", height: "32px" },
-};
+} satisfies Record<IconButtonSize, StyleRule>;
 
 type TapAreaShape = { inset: string; borderRadius: string };
 type PaddingGeometry = { padding: string; borderRadius: string };
 
-const tapAreaInsetBySize: Record<IconButtonSize, TapAreaShape> = {
+const tapAreaInsetBySize = {
   "2xs": { inset: "-1px", borderRadius: vars.scheme.semantic.radius["2"] },
   xs: { inset: "-1px", borderRadius: vars.scheme.semantic.radius["2"] },
   sm: { inset: "-2px", borderRadius: vars.scheme.semantic.radius["2"] },
@@ -79,9 +79,9 @@ const tapAreaInsetBySize: Record<IconButtonSize, TapAreaShape> = {
   xl: { inset: "-3px", borderRadius: vars.scheme.semantic.radius["4"] },
   "2xl": { inset: "-4px", borderRadius: vars.scheme.semantic.radius["4"] },
   "3xl": { inset: "-4px", borderRadius: vars.scheme.semantic.radius["4"] },
-};
+} satisfies Record<IconButtonSize, TapAreaShape>;
 
-const paddingGeometryBySize: Record<IconButtonSize, PaddingGeometry> = {
+const paddingGeometryBySize = {
   "2xs": {
     padding: vars.scheme.semantic.spacing["4"],
     borderRadius: vars.scheme.semantic.radius["4"],
@@ -114,7 +114,7 @@ const paddingGeometryBySize: Record<IconButtonSize, PaddingGeometry> = {
     padding: vars.scheme.semantic.spacing["8"],
     borderRadius: vars.scheme.semantic.radius["6"],
   },
-};
+} satisfies Record<IconButtonSize, PaddingGeometry>;
 
 const elementMatchingPseudoShape = { inset: 0, borderRadius: "inherit" } as const;
 
@@ -167,7 +167,7 @@ export const root = recipe({
       primary: neutralHierarchy(vars.color.semantic.object.boldest),
       secondary: neutralHierarchy(vars.color.semantic.object.neutral),
       tertiary: neutralHierarchy(vars.color.semantic.object.alternative),
-    } satisfies Record<IconButtonHierarchy, unknown>,
+    } satisfies Record<IconButtonHierarchy, StyleRule>,
     size: sizeVariants,
     // recipe API 한계: variant를 선언해야 compoundVariants에서 매치 가능
     // 실제 스타일은 sizeCondensedCompoundVariants에서 size × condensed로 결정

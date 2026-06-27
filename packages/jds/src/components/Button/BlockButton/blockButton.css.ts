@@ -1,4 +1,4 @@
-import { style } from "@vanilla-extract/css";
+import { style, type StyleRule } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import type { IconSize } from "components";
 import { vars } from "tokens";
@@ -178,7 +178,7 @@ const sizeVariants = {
     padding: `${vars.scheme.semantic.spacing["4"]} ${vars.scheme.semantic.spacing["8"]}`,
     borderRadius: vars.scheme.semantic.radius["4"],
   },
-} satisfies Record<BlockButtonSize, object>;
+} satisfies Record<BlockButtonSize, StyleRule>;
 
 const baseStyles = style({
   position: "relative",
@@ -234,7 +234,7 @@ export const basicRoot = recipe({
       primary: { vars: { [overlayColor]: overlayColorByHierarchy.primary } },
       secondary: { vars: { [overlayColor]: overlayColorByHierarchy.secondary } },
       tertiary: { vars: { [overlayColor]: overlayColorByHierarchy.tertiary } },
-    } satisfies Record<BlockButtonHierarchy, unknown>,
+    } satisfies Record<BlockButtonHierarchy, StyleRule>,
     variant: {
       solid: {},
       outlined: {
@@ -243,8 +243,8 @@ export const basicRoot = recipe({
         borderStyle: "solid",
       },
       empty: { backgroundColor: "transparent" },
-    } satisfies Record<BlockButtonVariant, unknown>,
-    size: sizeVariants satisfies Record<BlockButtonSize, unknown>,
+    } satisfies Record<BlockButtonVariant, StyleRule>,
+    size: sizeVariants satisfies Record<BlockButtonSize, StyleRule>,
   },
   compoundVariants: [
     ...solidCompoundVariants,
@@ -267,7 +267,7 @@ export const feedbackRoot = recipe({
         ...feedbackColorsByIntent.destructive.enabled,
         selectors: { "&[data-disabled]": feedbackColorsByIntent.destructive.disabled },
       },
-    } satisfies Record<BlockButtonFeedback, unknown>,
-    size: sizeVariants satisfies Record<BlockButtonSize, unknown>,
+    } satisfies Record<BlockButtonFeedback, StyleRule>,
+    size: sizeVariants satisfies Record<BlockButtonSize, StyleRule>,
   },
 });
