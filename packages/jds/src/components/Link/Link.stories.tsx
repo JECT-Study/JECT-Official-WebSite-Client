@@ -30,7 +30,7 @@ const meta: Meta<typeof Link> = {
     external: {
       control: "boolean",
       description:
-        "외부 리소스로 이동함을 나타냅니다. 외부 링크 아이콘과 스크린리더 레이블이 표시됩니다.",
+        "외부 리소스로 이동함을 나타냅니다. 아이콘, 스크린리더 레이블 표시 외 새 탭 열기가 필요한 경우 target, rel 속성을 직접 명시하세요.",
       table: {
         defaultValue: { summary: "false" },
       },
