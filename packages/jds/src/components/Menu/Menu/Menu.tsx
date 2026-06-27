@@ -1,3 +1,4 @@
+import { mergeProps } from "@react-aria/utils";
 import { clsx } from "clsx";
 import { DropdownMenu } from "radix-ui";
 import { Children, forwardRef, useState } from "react";
@@ -125,6 +126,7 @@ const MenuTree = forwardRef<HTMLButtonElement, MenuTreeProps>(
       open: openProp,
       defaultOpen = false,
       onOpenChange,
+      onKeyDown,
       disabled = false,
       children,
       withTreeButton,
@@ -180,7 +182,7 @@ const MenuTree = forwardRef<HTMLButtonElement, MenuTreeProps>(
           <MenuItem.Button
             ref={ref}
             size={size}
-            onKeyDown={handleKeyDown}
+            onKeyDown={mergeProps(handleKeyDown, onKeyDown)}
             disabled={disabled}
             {...restProps}
           >
