@@ -145,11 +145,11 @@ export const HierarchyWithSizes: Story = {
   },
   render: () => (
     <FlexColumn>
-      {(["accent", "primary", "secondary", "tertiary"] as const).map(hierarchy => (
+      {LABEL_BUTTON_HIERARCHY_OPTIONS.map(hierarchy => (
         <FlexColumn key={hierarchy} gap='12px'>
           <Label>{hierarchy.charAt(0).toUpperCase() + hierarchy.slice(1)}:</Label>
           <FlexRow gap='12px'>
-            {(["xs", "sm", "md", "lg"] as const).map(size => (
+            {LABEL_BUTTON_SIZE_OPTIONS.map(size => (
               <LabelButton key={size} size={size} hierarchy={hierarchy}>
                 {size.toUpperCase()}
               </LabelButton>
@@ -167,11 +167,11 @@ export const DisabledStates: Story = {
   },
   render: () => (
     <FlexColumn gap='32px'>
-      {(["accent", "primary", "secondary", "tertiary"] as const).map(hierarchy => (
+      {LABEL_BUTTON_HIERARCHY_OPTIONS.map(hierarchy => (
         <FlexColumn key={hierarchy} gap='12px'>
           <Label>{hierarchy.charAt(0).toUpperCase() + hierarchy.slice(1)}:</Label>
           <FlexRow gap='12px'>
-            {(["xs", "sm", "md", "lg"] as const).map(size => (
+            {LABEL_BUTTON_SIZE_OPTIONS.map(size => (
               <LabelButton key={size} hierarchy={hierarchy} size={size} disabled>
                 {size.toUpperCase()}
               </LabelButton>
@@ -193,7 +193,7 @@ export const FeedbackButtons: Story = {
         <FlexColumn key={intent} gap='12px'>
           <Label>{intent.charAt(0).toUpperCase() + intent.slice(1)}:</Label>
           <FlexRow gap='12px'>
-            {(["xs", "sm", "md", "lg"] as const).map(size => (
+            {LABEL_BUTTON_SIZE_OPTIONS.map(size => (
               <LabelButton key={size} feedback={intent} size={size}>
                 {intent === "positive" ? "확인" : "삭제"}
               </LabelButton>

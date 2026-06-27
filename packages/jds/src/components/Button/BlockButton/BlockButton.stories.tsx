@@ -200,7 +200,7 @@ export const SizeWithVariants: Story = {
   },
   render: () => (
     <FlexColumn>
-      {(["xs", "sm", "md", "lg"] as const).map(size => (
+      {BLOCK_BUTTON_SIZE_OPTIONS.map(size => (
         <FlexColumn key={size} gap='12px'>
           <Label>{size.toUpperCase()}:</Label>
           <FlexRow gap='12px'>
@@ -230,7 +230,7 @@ export const FeedbackButtons: Story = {
         <FlexColumn key={feedback} gap='12px'>
           <Label>{feedback.charAt(0).toUpperCase() + feedback.slice(1)}:</Label>
           <FlexRow gap='12px'>
-            {(["xs", "sm", "md", "lg"] as const).map(size => (
+            {BLOCK_BUTTON_SIZE_OPTIONS.map(size => (
               <BlockButton key={size} feedback={feedback} size={size}>
                 {feedback === "positive" ? "저장" : "삭제"}
               </BlockButton>
