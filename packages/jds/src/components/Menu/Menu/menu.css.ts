@@ -15,7 +15,6 @@ const menuListGap = {
 
 const menuContentVariants = {
   gap: createVar(),
-  paddingHorizontal: createVar(),
   paddingVertical: createVar(),
 } as const;
 
