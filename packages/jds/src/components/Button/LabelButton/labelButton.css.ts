@@ -84,7 +84,6 @@ const sizeVariants = {
 
 const baseStyles = style({
   position: "relative",
-  display: "inline-flex",
   flexDirection: "row",
   justifyContent: "center",
   alignItems: "center",
@@ -97,6 +96,7 @@ const baseStyles = style({
   fontFamily: "inherit",
   whiteSpace: "nowrap",
   selectors: {
+    "&&": { display: "inline-flex" },
     "&[data-disabled]": { cursor: "not-allowed" },
   },
 });

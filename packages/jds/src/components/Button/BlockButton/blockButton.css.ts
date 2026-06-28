@@ -186,7 +186,6 @@ const liftColor = <T extends { color: string }>({ color, ...rest }: T): StyleRul
 
 const baseStyles = style({
   position: "relative",
-  display: "inline-flex",
   flexDirection: "row",
   justifyContent: "center",
   alignItems: "center",
@@ -197,6 +196,7 @@ const baseStyles = style({
   whiteSpace: "nowrap",
   gap: vars.scheme.semantic.spacing["4"],
   selectors: {
+    "&&": { display: "inline-flex" },
     "&[data-disabled]": { cursor: "not-allowed" },
     "&::before": { inset: 0, borderRadius: "inherit" },
     "&::after": { inset: 0, borderRadius: "inherit" },
