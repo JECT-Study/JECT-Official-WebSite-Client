@@ -8,17 +8,17 @@
 
 **소비자 영향 (코드 수정 필요)**
 
-| AS-IS | TO-BE |
-| --- | --- |
-| `FileItem` | `File` |
-| `FileItemProps` | `FileProps` |
-| `onClick` | `onPress` |
-| `removeable` | `removable` |
-| `hasError`, `errorMessage` | 제거 |
-| `fileName: ReactNode` | `fileName: string` |
-| `fileSize?: ReactNode` | `fileSize: string` |
-| `removeable`과 `onRemove`를 각각 선택적으로 전달 | `removable: true`이면 `onRemove` 필수 |
-| `readonly`와 함께 `removeable` 전달 가능, 삭제 버튼은 미노출 | `readonly + removable` 조합 불가 |
+| AS-IS                                                        | TO-BE                                 |
+| ------------------------------------------------------------ | ------------------------------------- |
+| `FileItem`                                                   | `File`                                |
+| `FileItemProps`                                              | `FileProps`                           |
+| `onClick`                                                    | `onPress`                             |
+| `removeable`                                                 | `removable`                           |
+| `hasError`, `errorMessage`                                   | 제거                                  |
+| `fileName: ReactNode`                                        | `fileName: string`                    |
+| `fileSize?: ReactNode`                                       | `fileSize: string`                    |
+| `removeable`과 `onRemove`를 각각 선택적으로 전달             | `removable: true`이면 `onRemove` 필수 |
+| `readonly`와 함께 `removeable` 전달 가능, 삭제 버튼은 미노출 | `readonly + removable` 조합 불가      |
 
 `disabled + removable` 조합은 허용됩니다. 파일 열기 또는 다운로드는 비활성화하되, 삭제 액션은 제공해야 하는 사용처를 위한 동작입니다.
 
@@ -26,19 +26,15 @@
 
 ```diff
 - <FileItem
--   fileName={file.name}
--   fileSize={file.size}
--   onClick={handleClick}
--   removeable
--   onRemove={handleRemove}
-- />
 + <File
-+   fileName={file.name}
-+   fileSize={file.size}
+    fileName={file.name}
+    fileSize={file.size}
+-   onClick={handleClick}
 +   onPress={handlePress}
+-   removeable
 +   removable
-+   onRemove={handleRemove}
-+ />
+    onRemove={handleRemove}
+  />
 ```
 
 ```diff
