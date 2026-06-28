@@ -38,7 +38,7 @@ export type BlockButtonProps = BaseBlockButtonProps &
     | { feedback?: BlockButtonFeedback; hierarchy?: never; variant?: never }
   );
 
-// TODO(deprecation): 호출부 마이그레이션 완료 후 아래 deprecated 타입과 .Basic/.Feedback 별칭 제거
+// TODO(deprecation, #497): 호출부 마이그레이션 완료 후 아래 deprecated 타입과 .Basic/.Feedback 별칭 제거
 /** @deprecated `<BlockButton hierarchy variant>`를 사용하세요. */
 export interface BlockButtonBasicProps extends BaseBlockButtonProps {
   variant?: BlockButtonVariant;
