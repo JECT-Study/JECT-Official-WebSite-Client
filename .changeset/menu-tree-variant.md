@@ -12,7 +12,7 @@
   - `label`로 헤더 행 렌더, chevron 클릭 또는 `→` / `←` 키로 펼침·접힘 (메뉴는 닫히지 않음)
   - 비제어(`defaultOpen`) / 제어(`open` + `onOpenChange`) 모두 지원
   - `withTreeButton={false}`로 chevron 없는 말단 항목 표현, 중첩 깊이에 따라 자동 들여쓰기
-- `MenuItem`에 selected 상태 시각화 추가 (`aria-selected` 기반 배경)
+- `MenuItem`에 selected 상태 시각화 추가 (`isSelected` prop 기반 배경)
 - `MenuItem.Button` / `MenuItem.Anchor`에 `stretched`, `fullWidthText` prop 추가
   - `fullWidthText`: 라벨을 남은 공간만큼 확장해 후행 아이콘/배지를 오른쪽 끝으로 정렬
   - `stretched`: 좌우 패딩을 제거해 컨테이너 너비에 꽉 차게 배치
