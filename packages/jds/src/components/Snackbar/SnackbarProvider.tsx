@@ -1,12 +1,17 @@
 import type { ReactNode } from "react";
-import { createContext, useContext, useEffect } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
 import { Snackbar } from "./Snackbar";
-import { SnackbarStackContainer } from "./snackbar.styles";
+import { stackContainer } from "./snackbar.css";
 import type { SnackbarHandler } from "./snackbar.types";
 import { snackbarController } from "./snackbarController";
 import { useSnackbarProvider } from "./useSnackbarProvider";
+
+interface SnackbarProviderProps {
+  children: ReactNode;
+  duration?: number;
+}
 
 interface SnackbarContextType {
   snackbar: SnackbarHandler;
@@ -15,38 +20,37 @@ interface SnackbarContextType {
 
 const SnackbarContext = createContext<SnackbarContextType | null>(null);
 
-export const SnackbarProvider = ({ children }: { children: ReactNode }) => {
+export const SnackbarProvider = ({ children, duration }: SnackbarProviderProps) => {
   const { snackbars, snackbar: handler, removeSnackbar } = useSnackbarProvider({});
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     snackbarController.setHandler(handler);
     return () => snackbarController.clearHandler();
   }, [handler]);
 
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   return (
     <SnackbarContext.Provider value={{ snackbar: handler, removeSnackbar }}>
       {children}
-      {createPortal(
-        <SnackbarStackContainer>
-          {snackbars.map(snackbar =>
-            snackbar.type === "basic" ? (
-              <Snackbar.Basic
+
+      {isMounted &&
+        createPortal(
+          <div className={stackContainer}>
+            {snackbars.map(snackbar => (
+              <Snackbar
                 key={snackbar.id}
                 onRemove={() => removeSnackbar(snackbar.id)}
                 {...snackbar}
+                duration={snackbar.duration ?? duration}
               />
-            ) : (
-              <Snackbar.Feedback
-                key={snackbar.id}
-                variant={snackbar.type}
-                onRemove={() => removeSnackbar(snackbar.id)}
-                {...snackbar}
-              />
-            ),
-          )}
-        </SnackbarStackContainer>,
-        document.body,
-      )}
+            ))}
+          </div>,
+          document.body,
+        )}
     </SnackbarContext.Provider>
   );
 };

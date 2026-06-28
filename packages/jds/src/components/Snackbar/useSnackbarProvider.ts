@@ -1,4 +1,4 @@
-import type { SnackbarItem, SnackbarBaseProps, UseSnackbarProviderProps } from "./snackbar.types";
+import type { SnackbarItem, SnackbarOptions, UseSnackbarProviderProps } from "./snackbar.types";
 
 import { useLimitedQueueProvider } from "@/hooks/useLimitedQueueProvider";
 
@@ -8,12 +8,14 @@ export const useSnackbarProvider = ({ snackbarLimit = 3 }: UseSnackbarProviderPr
   });
 
   const handler = {
-    basic: (snackbarBaseProps: SnackbarBaseProps) =>
-      addItem({ type: "basic", ...snackbarBaseProps }),
-    positive: (snackbarBaseProps: SnackbarBaseProps) =>
-      addItem({ type: "positive", ...snackbarBaseProps }),
-    destructive: (snackbarBaseProps: SnackbarBaseProps) =>
-      addItem({ type: "destructive", ...snackbarBaseProps }),
+    basic: (title: string, options?: SnackbarOptions) =>
+      addItem({ feedback: "none", title, ...options }),
+    positive: (title: string, options?: SnackbarOptions) =>
+      addItem({ feedback: "positive", title, ...options }),
+    destructive: (title: string, options?: SnackbarOptions) =>
+      addItem({ feedback: "destructive", title, ...options }),
+    notifying: (title: string, options?: SnackbarOptions) =>
+      addItem({ feedback: "notifying", title, ...options }),
   };
 
   return { snackbars: items, snackbar: handler, removeSnackbar: removeItem };

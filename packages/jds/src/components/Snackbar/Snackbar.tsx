@@ -1,173 +1,130 @@
+import { clsx } from "clsx";
 import { useEffect, useState } from "react";
 
-import {
-  ButtonContainerDiv,
-  SnackbarCaptionP,
-  SnackbarContentDiv,
-  SnackbarDiv,
-  SnackbarFeedbackIcon,
-  SnackbarLabel,
-  SnackbarLabelContainerDiv,
-} from "./snackbar.styles";
-import type {
-  SnackbarBasicProps,
-  SnackbarButtonsProps,
-  SnackbarFeedbackProps,
-} from "./snackbar.types";
-import { BlockButton } from "../Button/BlockButton";
+import * as styles from "./snackbar.css";
+import type { SnackbarFeedbackVariant, SnackbarProps } from "./snackbar.types";
 import { IconButton } from "../Button/IconButton";
+import { LabelButton } from "../Button/LabelButton";
+import { Icon } from "../Icon";
+import type { IconName } from "../Icon";
 
-import { getLabelClassName } from "@/utils/typography";
+import { getBodyClassName, getLabelClassName } from "@/utils/typography";
 
-const SnackbarButtons = ({ prefixButtonProps, suffixButtonProps }: SnackbarButtonsProps) => {
-  if (!prefixButtonProps && !suffixButtonProps) return;
+type SnackbarPhase = "enter" | "static" | "exit";
 
-  return (
-    <ButtonContainerDiv>
-      {prefixButtonProps && (
-        <BlockButton.Basic hierarchy='tertiary' size='xs' variant='solid' {...prefixButtonProps}>
-          {prefixButtonProps.children}
-        </BlockButton.Basic>
-      )}
-      {suffixButtonProps && (
-        <BlockButton.Basic hierarchy='primary' size='xs' variant='solid' {...suffixButtonProps}>
-          {suffixButtonProps.children}
-        </BlockButton.Basic>
-      )}
-    </ButtonContainerDiv>
-  );
+/**
+ * enter/exit 값은 snackbar.css.ts의 animation duration 토큰과 동기화한다.
+ */
+const SNACKBAR_DURATION = {
+  DEFAULT: 4000,
+  ENTER: 250,
+  EXIT: 200,
+} as const;
+
+const phaseClassNameMap: Partial<Record<SnackbarPhase, string>> = {
+  enter: styles.enter,
+  exit: styles.exit,
 };
 
-const SnackbarBasic = ({
+const feedbackIconName: Record<SnackbarFeedbackVariant, IconName> = {
+  positive: "check-line",
+  destructive: "error-warning-octagon-line",
+  notifying: "alert-line",
+};
+
+export const Snackbar = ({
   id,
-  caption,
-  prefixButtonProps,
-  suffixButtonProps,
-  title,
+  feedback = "none",
+  description,
+  labelButtonProps,
   onRemove,
+  title,
   isClosing,
-}: SnackbarBasicProps) => {
-  const [phase, setPhase] = useState<"enter" | "static" | "exit">("enter");
-
-  const onAnimationEnd = () => {
-    if (phase === "enter") {
-      setPhase("static");
-      return;
-    }
-
-    if (phase === "exit") {
-      onRemove?.();
-    }
-  };
-
-  const onClose = () => setPhase("exit");
+  duration = SNACKBAR_DURATION.DEFAULT,
+  withCloseButton = false,
+}: SnackbarProps) => {
+  const [phase, setPhase] = useState<SnackbarPhase>("enter");
+  const hasDescription = Boolean(description);
 
   useEffect(() => {
-    if (phase === "static") {
-      const timer = setTimeout(() => setPhase("exit"), 3000);
+    if (phase === "enter") {
+      const timer = setTimeout(() => setPhase("static"), SNACKBAR_DURATION.ENTER);
       return () => clearTimeout(timer);
     }
   }, [phase]);
 
   useEffect(() => {
-    if (isClosing) setPhase("exit");
-  }, [isClosing]);
-
-  return (
-    <SnackbarDiv id={id} className={phase} snackbarStyle='basic' onAnimationEnd={onAnimationEnd}>
-      <SnackbarContentDiv>
-        <SnackbarLabelContainerDiv>
-          <SnackbarLabel snackbarStyle='basic' className={getLabelClassName()}>
-            {title}
-          </SnackbarLabel>
-          <IconButton
-            icon='close-line'
-            hierarchy='secondary'
-            size='md'
-            aria-label='toast close button'
-            onClick={onClose}
-          />
-        </SnackbarLabelContainerDiv>
-        {caption && <SnackbarCaptionP>{caption}</SnackbarCaptionP>}
-      </SnackbarContentDiv>
-      <SnackbarButtons
-        prefixButtonProps={prefixButtonProps}
-        suffixButtonProps={suffixButtonProps}
-      />
-    </SnackbarDiv>
-  );
-};
-
-SnackbarBasic.displayName = "Snackbar.Basic";
-
-const SnackbarFeedback = ({
-  id,
-  variant = "positive",
-  caption = undefined,
-  prefixButtonProps = undefined,
-  suffixButtonProps = undefined,
-  title,
-  onRemove,
-  isClosing,
-}: SnackbarFeedbackProps) => {
-  const [phase, setPhase] = useState<"enter" | "static" | "exit">("enter");
-
-  const onAnimationEnd = () => {
-    if (phase === "enter") {
-      setPhase("static");
-      return;
-    }
-
-    if (phase === "exit") {
-      onRemove?.();
-    }
-  };
-
-  const onClose = () => setPhase("exit");
-
-  useEffect(() => {
     if (phase === "static") {
-      const timer = setTimeout(() => setPhase("exit"), 3000);
+      if (duration === Infinity) return;
+      const timer = setTimeout(() => setPhase("exit"), duration);
       return () => clearTimeout(timer);
     }
-  }, [phase]);
+  }, [duration, phase]);
+
+  useEffect(() => {
+    if (phase === "exit") {
+      const timer = setTimeout(() => {
+        onRemove?.();
+      }, SNACKBAR_DURATION.EXIT);
+      return () => clearTimeout(timer);
+    }
+  }, [phase, onRemove]);
 
   useEffect(() => {
     if (isClosing) setPhase("exit");
   }, [isClosing]);
 
+  const onClose = () => setPhase("exit");
+  const phaseClassName = phaseClassNameMap[phase];
+  const iconName = feedback !== "none" && feedbackIconName[feedback];
+  const hasLabelAndCloseButton = Boolean(labelButtonProps && withCloseButton);
+
   return (
-    <SnackbarDiv id={id} className={phase} snackbarStyle={variant} onAnimationEnd={onAnimationEnd}>
-      <SnackbarContentDiv>
-        <SnackbarLabelContainerDiv>
-          <SnackbarFeedbackIcon
-            variant={variant}
-            name={variant === "positive" ? "check-line" : "error-warning-line"}
-          />
-          <SnackbarLabel snackbarStyle={variant} className={getLabelClassName()}>
+    <div
+      id={id}
+      className={clsx(
+        styles.root({ feedback, withLabelAndCloseButton: hasLabelAndCloseButton }),
+        phaseClassName,
+      )}
+    >
+      {iconName && <Icon name={iconName} size='sm' className={styles.icon({ feedback })} />}
+      <div className={styles.body}>
+        <div className={styles.content({ withDescription: hasDescription })}>
+          <span className={clsx(styles.title, getLabelClassName({ size: "md", weight: "normal" }))}>
             {title}
-          </SnackbarLabel>
-          <IconButton
-            icon='close-line'
-            hierarchy='secondary'
-            size='md'
-            aria-label='toast close button'
-            onClick={onClose}
-          />
-        </SnackbarLabelContainerDiv>
-        {caption && <SnackbarCaptionP>{caption}</SnackbarCaptionP>}
-      </SnackbarContentDiv>
-      <SnackbarButtons
-        prefixButtonProps={prefixButtonProps}
-        suffixButtonProps={suffixButtonProps}
-      />
-    </SnackbarDiv>
+          </span>
+          {description && (
+            <span
+              className={clsx(
+                styles.description,
+                getBodyClassName({ size: "xs", weight: "normal" }),
+              )}
+            >
+              {description}
+            </span>
+          )}
+        </div>
+        {(labelButtonProps || withCloseButton) && (
+          <div className={styles.actions}>
+            {labelButtonProps && (
+              <LabelButton.Basic hierarchy='primary' size='md' {...labelButtonProps}>
+                {labelButtonProps.children}
+              </LabelButton.Basic>
+            )}
+            {withCloseButton && (
+              <IconButton
+                icon='close-line'
+                hierarchy='tertiary'
+                size='sm'
+                aria-label='snackbar close button'
+                onClick={onClose}
+              />
+            )}
+          </div>
+        )}
+      </div>
+    </div>
   );
 };
 
-SnackbarFeedback.displayName = "Snackbar.Feedback";
-
-export const Snackbar = {
-  Basic: SnackbarBasic,
-  Feedback: SnackbarFeedback,
-};
+Snackbar.displayName = "Snackbar";

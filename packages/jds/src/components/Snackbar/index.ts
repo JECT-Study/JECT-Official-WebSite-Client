@@ -1,12 +1,9 @@
 export { Snackbar } from "./Snackbar";
 export type {
-  SnackbarVariant,
-  SnackbarStyle,
-  SnackbarButtonsProps,
-  SnackbarBase,
+  SnackbarFeedback,
+  SnackbarLabelButtonProps,
   SnackbarBaseProps,
-  SnackbarBasicProps,
-  SnackbarFeedbackProps,
+  SnackbarProps,
   SnackbarItem,
   SnackbarHandler,
 } from "./snackbar.types";
