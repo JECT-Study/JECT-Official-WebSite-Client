@@ -31,15 +31,15 @@ export const File = forwardRef<HTMLDivElement, FileProps>(
     },
     ref,
   ) => {
-    const isPressableDisabled = disabled || readonly;
+    const isHoverDisabled = disabled || readonly;
     const innerButtonRef = useRef<HTMLButtonElement>(null);
 
     const { focusProps: mainFocusProps, isFocusVisible: isMainFocusVisible } = useFocusRing();
-    const { hoverProps, isHovered } = useHover({ isDisabled: isPressableDisabled });
+    const { hoverProps, isHovered } = useHover({ isDisabled: isHoverDisabled });
     const { buttonProps: ariaButtonProps, isPressed } = useButton(
       {
         elementType: "button",
-        isDisabled: isPressableDisabled,
+        isDisabled: disabled,
         onPress,
       },
       innerButtonRef,
@@ -69,7 +69,7 @@ export const File = forwardRef<HTMLDivElement, FileProps>(
           ref={innerButtonRef}
           {...mergeProps(buttonProps, mainFocusProps, ariaButtonProps)}
           type={buttonProps.type ?? "button"}
-          disabled={isPressableDisabled}
+          disabled={disabled}
           className={styles.mainAction}
         >
           <span className={styles.fileInfo}>
