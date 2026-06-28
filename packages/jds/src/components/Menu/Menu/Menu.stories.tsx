@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexRow } from "@storybook-utils/layout";
+import { action } from "storybook/actions";
+import { expect, userEvent, within } from "storybook/test";
 
 import { Menu } from "./Menu";
 
@@ -32,6 +34,7 @@ const meta: Meta<typeof Menu.Root> = {
 export default meta;
 
 type Story = StoryObj<typeof meta>;
+const onItemClick = action("menu-item-click");
 
 export const Default: Story = {
   render: args => (
@@ -65,8 +68,7 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story:
-          "기본 메뉴 구성입니다. 동작용 항목은 Menu.Button, 페이지 이동용 항목은 Menu.Anchor(후행 배지 노출 가능)를 사용합니다. 우측 Controls로 menuStyle / size를 바꿔볼 수 있습니다.",
+        story: "기본 메뉴 구성. 동작은 Menu.Button, 이동은 Menu.Anchor를 사용합니다.",
       },
     },
   },
@@ -114,8 +116,7 @@ export const MenuStyles: Story = {
   parameters: {
     docs: {
       description: {
-        story:
-          "solid는 배경/테두리/그림자가 있는 팝오버, hollow는 컨테이너 장식 없이 항목만 노출하는 스타일입니다. Menu.Content의 side / align / sideOffset으로 위치를 조정합니다.",
+        story: "solid는 배경/그림자가 있는 팝오버, hollow는 항목만 노출하는 스타일입니다.",
       },
     },
   },
@@ -123,7 +124,7 @@ export const MenuStyles: Story = {
 
 export const Tree: Story = {
   render: args => (
-    <Menu.Root open {...args}>
+    <Menu.Root {...args}>
       <Menu.Trigger asChild>
         <IconButton icon='menu-line' />
       </Menu.Trigger>
@@ -132,15 +133,36 @@ export const Tree: Story = {
 
         {/* 최상위 트리는 Menu.Group(ul) 안에 둬야 유효한 리스트 마크업이 된다 */}
         <Menu.Group>
-          {/* depth 1 — 자식이 있는 펼침 헤더 (chevron 노출, 클릭/←·→ 로 토글) */}
-          <Menu.Tree label='상위 메뉴' defaultOpen fullWidthText>
+          {/* depth 1 — 자식이 있는 펼침 헤더 (chevron 클릭/←·→ 로 토글, 라벨 클릭/Enter 는 항목 선택) */}
+          <Menu.Tree
+            label='상위 메뉴'
+            defaultOpen
+            fullWidthText
+            onClick={() => onItemClick("상위 메뉴")}
+          >
             {/* depth 2 — 말단 항목 (withTreeButton={false} 로 chevron 자리 비움) */}
-            <Menu.Tree label='하위 메뉴' withTreeButton={false} fullWidthText />
+            <Menu.Tree
+              label='하위 메뉴'
+              withTreeButton={false}
+              fullWidthText
+              onClick={() => onItemClick("하위 메뉴")}
+            />
 
             {/* depth 2 — 다시 펼쳐지는 헤더 */}
-            <Menu.Tree label='하위 그룹' defaultOpen fullWidthText>
+            <Menu.Tree
+              label='하위 그룹'
+              defaultOpen
+              fullWidthText
+              onClick={() => onItemClick("하위 그룹")}
+            >
               {/* depth 3 — 선택 / 비활성 말단 항목 */}
-              <Menu.Tree label='선택된 항목' withTreeButton={false} fullWidthText isSelected />
+              <Menu.Tree
+                label='선택된 항목'
+                withTreeButton={false}
+                fullWidthText
+                isSelected
+                onClick={() => onItemClick("선택된 항목")}
+              />
               <Menu.Tree label='비활성 항목' withTreeButton={false} fullWidthText disabled />
             </Menu.Tree>
           </Menu.Tree>
@@ -152,16 +174,26 @@ export const Tree: Story = {
             fullWidthText
             suffixIconVisible
             suffixIcon='arrow-right-up-line'
+            onClick={() => onItemClick("단일 메뉴")}
           />
         </Menu.Group>
       </Menu.Content>
     </Menu.Root>
   ),
+  // 키보드(↓)로 메뉴를 열면 WAI-ARIA 메뉴 표준에 따라 첫 항목으로 포커스가 이동하는 것을 시연한다.
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const trigger = canvas.getByRole("button");
+    trigger.focus();
+    await userEvent.keyboard("{ArrowDown}");
+    const firstItem = await canvas.findByRole("menuitem", { name: "상위 메뉴" });
+    await expect(firstItem).toHaveFocus();
+  },
   parameters: {
     docs: {
       description: {
-        story:
-          "계층적 항목을 탐색/선택하는 tree variant입니다. 펼쳐지는 브랜치는 Menu.Tree(label로 헤더 + chevron 렌더, defaultOpen/open으로 펼침 제어)로 구성하고, 말단 항목은 withTreeButton={false}로 chevron 없이 표현합니다. chevron 클릭 또는 →/← 키로 펼치고 접을 수 있으며, depth는 중첩 깊이에 따라 자동으로 들여쓰기됩니다.",
+        story: `계층 항목을 탐색/선택하는 tree variant입니다.\n
+브랜치는 Menu.Tree, 말단 항목은 withTreeButton={false}로 표현합니다. chevron·→/← 로 펼치고 라벨 클릭·Enter로 선택합니다.`,
       },
     },
   },
