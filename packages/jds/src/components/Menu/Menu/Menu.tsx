@@ -1,4 +1,4 @@
-import { mergeProps } from "@react-aria/utils";
+import { chain } from "@react-aria/utils";
 import { clsx } from "clsx";
 import { DropdownMenu } from "radix-ui";
 import { Children, forwardRef, useId, useState } from "react";
@@ -178,20 +178,26 @@ const MenuTree = forwardRef<HTMLButtonElement, MenuTreeProps>(
             size={menuTreeIconSizeByMenuSize[size]}
             disabled={disabled}
             condensed
+            tabIndex={-1}
             aria-label={isOpen ? "접기" : "펼치기"}
-            aria-expanded={hasChildren ? isOpen : undefined}
-            aria-controls={menuTreeId}
             onClick={handleToggle}
           />
-          <MenuItem.Button
-            ref={ref}
-            size={size}
-            onKeyDown={mergeProps(handleKeyDown, onKeyDown)}
+          <DropdownMenu.Item
+            asChild
             disabled={disabled}
-            {...restProps}
+            aria-expanded={hasChildren ? isOpen : undefined}
+            aria-controls={hasChildren ? menuTreeId : undefined}
           >
-            {label}
-          </MenuItem.Button>
+            <MenuItem.Button
+              ref={ref}
+              size={size}
+              onKeyDown={chain(onKeyDown, handleKeyDown)}
+              disabled={disabled}
+              {...restProps}
+            >
+              {label}
+            </MenuItem.Button>
+          </DropdownMenu.Item>
         </div>
         {isOpen && hasChildren && (
           <ul id={menuTreeId} className={menuTreeContent}>
