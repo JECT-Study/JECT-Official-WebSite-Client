@@ -12,6 +12,8 @@ import type {
   BlockButtonVariant,
 } from "./blockButton.types";
 
+import { labelColorVar } from "@/utils/typography.css";
+
 export const iconSizeMap: Record<BlockButtonSize, IconSize> = {
   lg: "md",
   md: "sm",
@@ -180,6 +182,11 @@ const sizeVariants = {
   },
 } satisfies Record<BlockButtonSize, StyleRule>;
 
+const liftColor = <T extends { color: string }>({ color, ...rest }: T): StyleRule => ({
+  ...rest,
+  vars: { [labelColorVar]: color },
+});
+
 const baseStyles = style({
   position: "relative",
   display: "inline-flex",
@@ -202,24 +209,24 @@ const baseStyles = style({
 const solidCompoundVariants = BLOCK_BUTTON_HIERARCHY_OPTIONS.map(hierarchy => ({
   variants: { hierarchy, variant: "solid" as const },
   style: {
-    ...solidColorsByHierarchy[hierarchy].enabled,
-    selectors: { "&[data-disabled]": solidColorsByHierarchy[hierarchy].disabled },
+    ...liftColor(solidColorsByHierarchy[hierarchy].enabled),
+    selectors: { "&[data-disabled]": liftColor(solidColorsByHierarchy[hierarchy].disabled) },
   },
 }));
 
 const outlinedCompoundVariants = BLOCK_BUTTON_HIERARCHY_OPTIONS.map(hierarchy => ({
   variants: { hierarchy, variant: "outlined" as const },
   style: {
-    ...outlinedColorsByHierarchy[hierarchy].enabled,
-    selectors: { "&[data-disabled]": outlinedColorsByHierarchy[hierarchy].disabled },
+    ...liftColor(outlinedColorsByHierarchy[hierarchy].enabled),
+    selectors: { "&[data-disabled]": liftColor(outlinedColorsByHierarchy[hierarchy].disabled) },
   },
 }));
 
 const emptyCompoundVariants = BLOCK_BUTTON_HIERARCHY_OPTIONS.map(hierarchy => ({
   variants: { hierarchy, variant: "empty" as const },
   style: {
-    ...emptyColorsByHierarchy[hierarchy].enabled,
-    selectors: { "&[data-disabled]": emptyColorsByHierarchy[hierarchy].disabled },
+    ...liftColor(emptyColorsByHierarchy[hierarchy].enabled),
+    selectors: { "&[data-disabled]": liftColor(emptyColorsByHierarchy[hierarchy].disabled) },
   },
 }));
 
@@ -253,21 +260,30 @@ export const basicRoot = recipe({
   ],
 });
 
+const feedbackVariant = ({
+  enabled,
+  disabled,
+}: {
+  enabled: ColorState;
+  disabled: ColorState;
+}): StyleRule => ({
+  backgroundColor: enabled.backgroundColor,
+  vars: {
+    [overlayColor]: vars.color.semantic.fill.boldest,
+    [labelColorVar]: enabled.color,
+  },
+  selectors: { "&[data-disabled]": liftColor(disabled) },
+});
+
+const feedbackVariants = {
+  positive: feedbackVariant(feedbackColorsByIntent.positive),
+  destructive: feedbackVariant(feedbackColorsByIntent.destructive),
+} satisfies Record<BlockButtonFeedback, StyleRule>;
+
 export const feedbackRoot = recipe({
   base: rootBase,
   variants: {
-    feedback: {
-      positive: {
-        vars: { [overlayColor]: vars.color.semantic.fill.boldest },
-        ...feedbackColorsByIntent.positive.enabled,
-        selectors: { "&[data-disabled]": feedbackColorsByIntent.positive.disabled },
-      },
-      destructive: {
-        vars: { [overlayColor]: vars.color.semantic.fill.boldest },
-        ...feedbackColorsByIntent.destructive.enabled,
-        selectors: { "&[data-disabled]": feedbackColorsByIntent.destructive.disabled },
-      },
-    } satisfies Record<BlockButtonFeedback, StyleRule>,
+    feedback: feedbackVariants satisfies Record<BlockButtonFeedback, StyleRule>,
     size: sizeVariants satisfies Record<BlockButtonSize, StyleRule>,
   },
 });

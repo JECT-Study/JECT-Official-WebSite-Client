@@ -6,6 +6,8 @@ import { pxToRem, focusRing, overlay, overlayColor } from "utils";
 
 import type { LabelButtonFeedback, LabelButtonHierarchy, LabelButtonSize } from "./labelButton.types";
 
+import { labelColorVar } from "@/utils/typography.css";
+
 export const iconSizeMap: Record<LabelButtonSize, IconSize> = {
   lg: "md",
   md: "sm",
@@ -95,10 +97,9 @@ const baseStyles = style({
   },
 });
 
-const colorVariant = ({ overlayColor: oc, color, disabledColor }: ColorEntry) => ({
-  vars: { [overlayColor]: oc },
-  color,
-  selectors: { "&[data-disabled]": { color: disabledColor } },
+const colorVariant = ({ overlayColor: oc, color, disabledColor }: ColorEntry): StyleRule => ({
+  vars: { [overlayColor]: oc, [labelColorVar]: color },
+  selectors: { "&[data-disabled]": { vars: { [labelColorVar]: disabledColor } } },
 });
 
 const hierarchyVariants = {
