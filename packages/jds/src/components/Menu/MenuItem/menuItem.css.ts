@@ -46,8 +46,8 @@ export const menuContainerStyle = recipe({
     size: {
       sm: {
         vars: {
-          [menuItemVariants.paddingHorizontal]: vars.scheme.semantic.spacing["10"],
-          [menuItemVariants.paddingVertical]: vars.scheme.semantic.spacing["4"],
+          [menuItemVariants.paddingHorizontal]: vars.scheme.semantic.spacing["8"],
+          [menuItemVariants.paddingVertical]: vars.scheme.semantic.spacing["6"],
         },
       },
       md: {
@@ -58,8 +58,8 @@ export const menuContainerStyle = recipe({
       },
       lg: {
         vars: {
-          [menuItemVariants.paddingHorizontal]: vars.scheme.semantic.spacing["8"],
-          [menuItemVariants.paddingVertical]: vars.scheme.semantic.spacing["6"],
+          [menuItemVariants.paddingHorizontal]: vars.scheme.semantic.spacing["10"],
+          [menuItemVariants.paddingVertical]: vars.scheme.semantic.spacing["4"],
         },
       },
     } satisfies Record<MenuItemSize, StyleRule>,
