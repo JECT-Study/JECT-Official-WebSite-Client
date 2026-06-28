@@ -21,9 +21,9 @@ export const iconSizeMap: Record<BlockButtonSize, IconSize> = {
   xs: "2xs",
 };
 
-type ColorState = { backgroundColor: string; color: string };
-type OnlyColor = { color: string };
-type OutlinedColorState = { borderColor: string; color: string };
+type FilledPalette = { backgroundColor: string; color: string };
+type EmptyPalette = { color: string };
+type OutlinedPalette = { borderColor: string; color: string };
 
 const overlayColorByHierarchy = {
   accent: vars.color.semantic.accent.neutral,
@@ -73,7 +73,7 @@ const solidColorsByHierarchy = {
       color: vars.color.semantic.object.assistive,
     },
   },
-} satisfies Record<BlockButtonHierarchy, { enabled: ColorState; disabled: ColorState }>;
+} satisfies Record<BlockButtonHierarchy, { enabled: FilledPalette; disabled: FilledPalette }>;
 
 const outlinedColorsByHierarchy = {
   accent: {
@@ -116,10 +116,7 @@ const outlinedColorsByHierarchy = {
       color: vars.color.semantic.object.assistive,
     },
   },
-} satisfies Record<
-  BlockButtonHierarchy,
-  { enabled: OutlinedColorState; disabled: OutlinedColorState }
->;
+} satisfies Record<BlockButtonHierarchy, { enabled: OutlinedPalette; disabled: OutlinedPalette }>;
 
 const emptyColorsByHierarchy = {
   accent: {
@@ -138,7 +135,7 @@ const emptyColorsByHierarchy = {
     enabled: { color: vars.color.semantic.object.neutral },
     disabled: { color: vars.color.semantic.object.assistive },
   },
-} satisfies Record<BlockButtonHierarchy, { enabled: OnlyColor; disabled: OnlyColor }>;
+} satisfies Record<BlockButtonHierarchy, { enabled: EmptyPalette; disabled: EmptyPalette }>;
 
 const feedbackColorsByIntent = {
   positive: {
@@ -161,7 +158,7 @@ const feedbackColorsByIntent = {
       color: vars.color.semantic.feedback.destructive.alpha.subtle,
     },
   },
-} satisfies Record<BlockButtonFeedback, { enabled: ColorState; disabled: ColorState }>;
+} satisfies Record<BlockButtonFeedback, { enabled: FilledPalette; disabled: FilledPalette }>;
 
 const sizeVariants = {
   lg: {
@@ -264,8 +261,8 @@ const feedbackVariant = ({
   enabled,
   disabled,
 }: {
-  enabled: ColorState;
-  disabled: ColorState;
+  enabled: FilledPalette;
+  disabled: FilledPalette;
 }): StyleRule => ({
   backgroundColor: enabled.backgroundColor,
   vars: {

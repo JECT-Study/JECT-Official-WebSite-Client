@@ -4,7 +4,11 @@ import type { IconSize } from "components";
 import { vars } from "tokens";
 import { pxToRem, focusRing, overlay, overlayColor } from "utils";
 
-import type { LabelButtonFeedback, LabelButtonHierarchy, LabelButtonSize } from "./labelButton.types";
+import type {
+  LabelButtonFeedback,
+  LabelButtonHierarchy,
+  LabelButtonSize,
+} from "./labelButton.types";
 
 import { labelColorVar } from "@/utils/typography.css";
 
@@ -15,9 +19,9 @@ export const iconSizeMap: Record<LabelButtonSize, IconSize> = {
   xs: "2xs",
 };
 
-type ColorEntry = { overlayColor: string; color: string; disabledColor: string };
+type LabelButtonPalette = { overlayColor: string; color: string; disabledColor: string };
 
-const hierarchyColorsByHierarchy = {
+const colorsByHierarchy = {
   accent: {
     overlayColor: vars.color.semantic.accent.normal,
     color: vars.color.semantic.accent.normal,
@@ -38,7 +42,7 @@ const hierarchyColorsByHierarchy = {
     color: vars.color.semantic.object.alternative,
     disabledColor: vars.color.semantic.object.subtle,
   },
-} satisfies Record<LabelButtonHierarchy, ColorEntry>;
+} satisfies Record<LabelButtonHierarchy, LabelButtonPalette>;
 
 const feedbackColorsByIntent = {
   positive: {
@@ -51,7 +55,7 @@ const feedbackColorsByIntent = {
     color: vars.color.semantic.feedback.destructive.normal,
     disabledColor: vars.color.semantic.feedback.destructive.alpha.subtle,
   },
-} satisfies Record<LabelButtonFeedback, ColorEntry>;
+} satisfies Record<LabelButtonFeedback, LabelButtonPalette>;
 
 // padding이 0이라 탭/포커스 영역(::before·::after)을 size별 음수 inset으로 시각 영역 밖까지 확장한다.
 const tapAreaBySize = {
@@ -97,16 +101,20 @@ const baseStyles = style({
   },
 });
 
-const colorVariant = ({ overlayColor: oc, color, disabledColor }: ColorEntry): StyleRule => ({
+const colorVariant = ({
+  overlayColor: oc,
+  color,
+  disabledColor,
+}: LabelButtonPalette): StyleRule => ({
   vars: { [overlayColor]: oc, [labelColorVar]: color },
   selectors: { "&[data-disabled]": { vars: { [labelColorVar]: disabledColor } } },
 });
 
 const hierarchyVariants = {
-  accent: colorVariant(hierarchyColorsByHierarchy.accent),
-  primary: colorVariant(hierarchyColorsByHierarchy.primary),
-  secondary: colorVariant(hierarchyColorsByHierarchy.secondary),
-  tertiary: colorVariant(hierarchyColorsByHierarchy.tertiary),
+  accent: colorVariant(colorsByHierarchy.accent),
+  primary: colorVariant(colorsByHierarchy.primary),
+  secondary: colorVariant(colorsByHierarchy.secondary),
+  tertiary: colorVariant(colorsByHierarchy.tertiary),
 } satisfies Record<LabelButtonHierarchy, StyleRule>;
 
 const feedbackVariants = {
