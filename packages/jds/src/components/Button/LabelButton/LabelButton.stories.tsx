@@ -2,7 +2,11 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexRow, FlexColumn, Label } from "@storybook-utils/layout";
 
 import { LabelButton } from "./LabelButton";
-import { LABEL_BUTTON_HIERARCHY_OPTIONS, LABEL_BUTTON_SIZE_OPTIONS } from "./labelButton.types";
+import {
+  LABEL_BUTTON_FEEDBACK_OPTIONS,
+  LABEL_BUTTON_HIERARCHY_OPTIONS,
+  LABEL_BUTTON_SIZE_OPTIONS,
+} from "./labelButton.types";
 
 const meta = {
   title: "Components/LabelButton",
@@ -189,7 +193,7 @@ export const FeedbackButtons: Story = {
   },
   render: () => (
     <FlexColumn>
-      {(["positive", "destructive"] as const).map(intent => (
+      {LABEL_BUTTON_FEEDBACK_OPTIONS.map(intent => (
         <FlexColumn key={intent} gap='12px'>
           <Label>{intent.charAt(0).toUpperCase() + intent.slice(1)}:</Label>
           <FlexRow gap='12px'>
@@ -258,7 +262,7 @@ export const FeedbackDisabled: Story = {
   },
   render: () => (
     <FlexColumn>
-      {(["positive", "destructive"] as const).map(intent => (
+      {LABEL_BUTTON_FEEDBACK_OPTIONS.map(intent => (
         <FlexColumn key={intent} gap='12px'>
           <Label>{intent.charAt(0).toUpperCase() + intent.slice(1)} Disabled:</Label>
           <FlexRow gap='12px'>
@@ -287,7 +291,7 @@ export const FeedbackInteractionStates: Story = {
   },
   render: () => (
     <FlexColumn>
-      {(["positive", "destructive"] as const).map(intent => (
+      {LABEL_BUTTON_FEEDBACK_OPTIONS.map(intent => (
         <FlexColumn key={intent} gap='12px'>
           <Label>{intent.charAt(0).toUpperCase() + intent.slice(1)}:</Label>
           <FlexRow gap='12px'>

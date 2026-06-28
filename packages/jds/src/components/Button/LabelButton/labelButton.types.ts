@@ -8,10 +8,11 @@ export const LABEL_BUTTON_HIERARCHY_OPTIONS = [
   "secondary",
   "tertiary",
 ] as const;
+export const LABEL_BUTTON_FEEDBACK_OPTIONS = ["positive", "destructive"] as const;
 
 export type LabelButtonSize = (typeof LABEL_BUTTON_SIZE_OPTIONS)[number];
 export type LabelButtonHierarchy = (typeof LABEL_BUTTON_HIERARCHY_OPTIONS)[number];
-export type LabelButtonFeedback = "positive" | "destructive";
+export type LabelButtonFeedback = (typeof LABEL_BUTTON_FEEDBACK_OPTIONS)[number];
 
 /** @deprecated `LabelButtonFeedback`를 사용하세요. */
 export type LabelButtonIntent = LabelButtonFeedback;

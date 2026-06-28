@@ -3,6 +3,7 @@ import { FlexRow, FlexColumn, Label } from "@storybook-utils/layout";
 
 import { BlockButton } from "./BlockButton";
 import {
+  BLOCK_BUTTON_FEEDBACK_OPTIONS,
   BLOCK_BUTTON_HIERARCHY_OPTIONS,
   BLOCK_BUTTON_SIZE_OPTIONS,
   BLOCK_BUTTON_VARIANT_OPTIONS,
@@ -226,7 +227,7 @@ export const FeedbackButtons: Story = {
   },
   render: () => (
     <FlexColumn>
-      {(["positive", "destructive"] as const).map(feedback => (
+      {BLOCK_BUTTON_FEEDBACK_OPTIONS.map(feedback => (
         <FlexColumn key={feedback} gap='12px'>
           <Label>{feedback.charAt(0).toUpperCase() + feedback.slice(1)}:</Label>
           <FlexRow gap='12px'>

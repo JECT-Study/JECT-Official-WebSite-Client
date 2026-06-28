@@ -9,11 +9,12 @@ export const BLOCK_BUTTON_HIERARCHY_OPTIONS = [
   "tertiary",
 ] as const;
 export const BLOCK_BUTTON_VARIANT_OPTIONS = ["solid", "outlined", "empty"] as const;
+export const BLOCK_BUTTON_FEEDBACK_OPTIONS = ["positive", "destructive"] as const;
 
 export type BlockButtonSize = (typeof BLOCK_BUTTON_SIZE_OPTIONS)[number];
 export type BlockButtonHierarchy = (typeof BLOCK_BUTTON_HIERARCHY_OPTIONS)[number];
 export type BlockButtonVariant = (typeof BLOCK_BUTTON_VARIANT_OPTIONS)[number];
-export type BlockButtonFeedback = "positive" | "destructive";
+export type BlockButtonFeedback = (typeof BLOCK_BUTTON_FEEDBACK_OPTIONS)[number];
 
 /** @deprecated `BLOCK_BUTTON_VARIANT_OPTIONS`를 사용하세요. */
 export const BLOCK_BUTTON_STYLE_OPTIONS = BLOCK_BUTTON_VARIANT_OPTIONS;
