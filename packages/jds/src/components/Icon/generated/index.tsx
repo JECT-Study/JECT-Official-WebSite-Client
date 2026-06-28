@@ -50,6 +50,7 @@ export { default as Download2Line } from "./Download2Line";
 export { default as Draggable } from "./Draggable";
 export { default as Effect } from "./Effect";
 export { default as ErrorWarningLine } from "./ErrorWarningLine";
+export { default as ErrorWarningOctagonLine } from "./ErrorWarningOctagonLine";
 export { default as ExportLine } from "./ExportLine";
 export { default as ExternalLinkLine } from "./ExternalLinkLine";
 export { default as EyeLine } from "./EyeLine";
