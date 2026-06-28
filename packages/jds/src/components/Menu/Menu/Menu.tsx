@@ -1,7 +1,7 @@
 import { mergeProps } from "@react-aria/utils";
 import { clsx } from "clsx";
 import { DropdownMenu } from "radix-ui";
-import { Children, forwardRef, useState } from "react";
+import { Children, forwardRef, useId, useState } from "react";
 
 import {
   menuCategory,
@@ -137,8 +137,11 @@ const MenuTree = forwardRef<HTMLButtonElement, MenuTreeProps>(
     const { size } = useMenuContext("Menu.Tree");
 
     const [isInternalOpen, setIsInternalOpen] = useState(defaultOpen);
+
     const isControlled = openProp !== undefined;
     const isOpen = isControlled ? openProp : isInternalOpen;
+
+    const menuTreeId = useId();
 
     const setOpen = (isNextOpen: boolean) => {
       if (disabled) return;
@@ -177,6 +180,7 @@ const MenuTree = forwardRef<HTMLButtonElement, MenuTreeProps>(
             condensed
             aria-label={isOpen ? "접기" : "펼치기"}
             aria-expanded={hasChildren ? isOpen : undefined}
+            aria-controls={menuTreeId}
             onClick={handleToggle}
           />
           <MenuItem.Button
@@ -190,7 +194,7 @@ const MenuTree = forwardRef<HTMLButtonElement, MenuTreeProps>(
           </MenuItem.Button>
         </div>
         {isOpen && hasChildren && (
-          <ul role='list' className={menuTreeContent}>
+          <ul id={menuTreeId} className={menuTreeContent}>
             {children}
           </ul>
         )}
