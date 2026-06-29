@@ -15,10 +15,11 @@ type SnackbarPhase = "enter" | "static" | "exit";
 /**
  * enter/exit 값은 snackbar.css.ts의 animation duration 토큰과 동기화한다.
  */
-const SNACKBAR_DURATION = {
-  DEFAULT: 4000,
+export const SNACKBAR_TIMER = {
+  DURATION: 4000,
   ENTER: 250,
   EXIT: 200,
+  QUEUE_FALLBACK: 1500,
 } as const;
 
 const phaseClassNameMap: Partial<Record<SnackbarPhase, string>> = {
@@ -40,7 +41,7 @@ export const Snackbar = ({
   onRemove,
   title,
   isClosing,
-  duration = SNACKBAR_DURATION.DEFAULT,
+  duration = SNACKBAR_TIMER.DURATION,
   withCloseButton = false,
 }: SnackbarProps) => {
   const [phase, setPhase] = useState<SnackbarPhase>("enter");
@@ -48,7 +49,7 @@ export const Snackbar = ({
 
   useEffect(() => {
     if (phase === "enter") {
-      const timer = setTimeout(() => setPhase("static"), SNACKBAR_DURATION.ENTER);
+      const timer = setTimeout(() => setPhase("static"), SNACKBAR_TIMER.ENTER);
       return () => clearTimeout(timer);
     }
   }, [phase]);
@@ -65,7 +66,7 @@ export const Snackbar = ({
     if (phase === "exit") {
       const timer = setTimeout(() => {
         onRemove?.();
-      }, SNACKBAR_DURATION.EXIT);
+      }, SNACKBAR_TIMER.EXIT);
       return () => clearTimeout(timer);
     }
   }, [phase, onRemove]);

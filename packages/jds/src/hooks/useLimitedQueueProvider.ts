@@ -7,12 +7,13 @@ export interface LimitedQueueProviderBaseItem {
 
 interface UseLimitedQueueProviderProps {
   limit?: number;
+  fallbackTimeout: number;
 }
 
 export const useLimitedQueueProvider = <T extends LimitedQueueProviderBaseItem>({
   limit = 3,
+  fallbackTimeout,
 }: UseLimitedQueueProviderProps) => {
-  const AUTO_RESOLVE_TIME = 1500;
   const [items, setItems] = useState<T[]>([]);
   const removeResolvers = useRef<Map<string, () => void>>(new Map());
 
@@ -48,16 +49,16 @@ export const useLimitedQueueProvider = <T extends LimitedQueueProviderBaseItem>(
             if (removeResolvers.current.has(first.id)) {
               resolve();
               removeResolvers.current.delete(first.id);
+              setItems(prev => prev.filter(i => i.id !== first.id));
             }
-          }, AUTO_RESOLVE_TIME);
+          }, fallbackTimeout);
         });
       }
 
       setItems(prev => [...prev, newItem]);
       return id;
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [items, limit],
+    [items, limit, fallbackTimeout, closeItem],
   );
 
   return { items, addItem, closeItem, removeItem };
