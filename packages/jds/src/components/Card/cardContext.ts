@@ -20,3 +20,7 @@ export const useCardContext = (componentName: string) => {
 
   return context;
 };
+
+export const useCardRootGuard = (componentName: string) => {
+  useCardContext(componentName);
+};
