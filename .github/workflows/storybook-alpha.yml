@@ -9,6 +9,10 @@ on:
 jobs:
   deploy-alpha:
     if: github.event.label.name == 'alpha-storybook'
+    # 같은 PR에서 레이블을 연달아 붙이면 이전 알파 빌드를 취소하여 중복 빌드 방지
+    concurrency:
+      group: storybook-alpha-${{ github.event.pull_request.number }}
+      cancel-in-progress: true
     runs-on: ubuntu-22.04
 
     permissions:
