@@ -189,11 +189,11 @@ export const UseGlobalSnackbar: StoryObj<typeof Snackbar> = {
     const basicSnackbar = () =>
       snackbarController.basic("베이직 스낵바", { description, labelButtonProps });
     const positiveSnackbar = () =>
-      snackbarController.positive("피드백 스낵바", { description, labelButtonProps });
+      snackbarController.positive("피드백 스낵바 - positive", { description, labelButtonProps });
     const destructiveSnackbar = () =>
-      snackbarController.destructive("피드백 스낵바", { description, labelButtonProps });
+      snackbarController.destructive("피드백 스낵바 - destructive", { description, labelButtonProps });
     const notifyingSnackbar = () =>
-      snackbarController.notifying("피드백 스낵바", { description, labelButtonProps });
+      snackbarController.notifying("피드백 스낵바 - notifying", { description, labelButtonProps });
 
     return (
       <FlexColumn>

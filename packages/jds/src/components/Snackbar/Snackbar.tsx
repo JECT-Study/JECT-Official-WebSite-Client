@@ -108,7 +108,12 @@ export const Snackbar = ({
         {(labelButtonProps || withCloseButton) && (
           <div className={styles.actions}>
             {labelButtonProps && (
-              <LabelButton.Basic hierarchy='primary' size='md' {...labelButtonProps}>
+              <LabelButton.Basic
+                {...labelButtonProps}
+                hierarchy='primary'
+                size='md'
+                aria-label={`${title} 알림 ${labelButtonProps.children}`}
+              >
                 {labelButtonProps.children}
               </LabelButton.Basic>
             )}
@@ -117,7 +122,7 @@ export const Snackbar = ({
                 icon='close-line'
                 hierarchy='tertiary'
                 size='sm'
-                aria-label='snackbar close button'
+                aria-label={`${title} 알림 닫기`}
                 onClick={onClose}
               />
             )}

@@ -3,7 +3,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
 import { Snackbar } from "./Snackbar";
-import { stackContainer } from "./snackbar.css";
+import { stackContainer, visuallyHidden } from "./snackbar.css";
 import type { SnackbarHandler } from "./snackbar.types";
 import { snackbarController } from "./snackbarController";
 import { useSnackbarProvider } from "./useSnackbarProvider";
@@ -24,6 +24,11 @@ export const SnackbarProvider = ({ children, duration }: SnackbarProviderProps) 
   const { snackbars, snackbar: handler, removeSnackbar } = useSnackbarProvider({});
   const [isMounted, setIsMounted] = useState(false);
 
+  const latestSnackbar = snackbars.length > 0 ? snackbars[snackbars.length - 1] : null;
+  const announcement = latestSnackbar
+    ? [latestSnackbar.title, latestSnackbar.description].filter(Boolean).join(" ")
+    : "";
+
   useEffect(() => {
     snackbarController.setHandler(handler);
     return () => snackbarController.clearHandler();
@@ -36,6 +41,10 @@ export const SnackbarProvider = ({ children, duration }: SnackbarProviderProps) 
   return (
     <SnackbarContext.Provider value={{ snackbar: handler, removeSnackbar }}>
       {children}
+
+      <div className={visuallyHidden} role='status' aria-live='polite'>
+        {announcement}
+      </div>
 
       {isMounted &&
         createPortal(
