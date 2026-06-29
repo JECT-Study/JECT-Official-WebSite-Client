@@ -7,7 +7,12 @@ import * as styles from "./card.css";
 export const CardCaption = forwardRef<HTMLSpanElement, CardCaptionProps>(
   ({ children, className, ...restProps }, ref) => {
     return (
-      <span ref={ref} className={clsx(styles.caption, className)} {...restProps}>
+      <span
+        ref={ref}
+        data-card-caption=''
+        className={clsx(styles.caption, className)}
+        {...restProps}
+      >
         {children}
       </span>
     );

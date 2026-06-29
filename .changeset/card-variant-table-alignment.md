@@ -21,7 +21,8 @@ Card를 Figma 디자인 변형 table에 맞춰 정리하고, 내부 이미지를
   - hover / pressed dim을 `overlay` 유틸(`::after`)로 교체 (`object.assistive`, native hover opt-in).
   - `CardOverlay`의 `data-disabled`를 presence 기반으로 변경해 overlay 유틸의 disabled 차단과 정합.
 - Figma 변형 table(layout × withCaption × disabled)을 재현하는 `PlateVariantMatrix` 스토리 추가.
-- horizontal layout에서 이미지 컨테이너가 fallback/이미지의 intrinsic 폭만큼 늘어나 content를 0폭으로 밀어내던 버그 수정 (`aspectRatio` 고정으로 이미지 폭 = 높이).
+- horizontal layout: Card 루트의 공통 `height: 100%`를 제거하고 Plate 루트 높이를 caption 유무에 따라 고정합니다. caption이 없으면 `7.5rem`, caption이 있으면 `9.5rem`을 사용해 body 2줄 고정 및 말줄임 가이드와 좌측 정사각 이미지 크기를 정합시킵니다. 내부 `Thumbnail`을 `absolute` + `object-fit: cover`로 두어 intrinsic 폭주를 막습니다.
+- `Card.Title`을 1줄 말줄임(`white-space: nowrap` + `text-overflow: ellipsis`)으로 통일 — 디자인 정합 및 horizontal에서 제목 줄바꿈으로 인한 레이아웃 순환 방지.
 
 **Post**
 
