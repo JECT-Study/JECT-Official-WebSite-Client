@@ -41,7 +41,7 @@ export const SelectRadio = forwardRef<HTMLDivElement, SelectRadioProps>(
       >
         <StyledSelectItemInputWrapper>
           <Radio.Basic
-            radioSize={size}
+            size={size}
             value={value}
             checked={isItemSelected}
             disabled={isDisabled}
