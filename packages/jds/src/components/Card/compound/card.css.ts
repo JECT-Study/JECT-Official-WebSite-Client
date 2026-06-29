@@ -97,7 +97,7 @@ export const root = recipe({
           [horizontalImageSize]: horizontalPlateHeight,
         },
         selectors: {
-          "&:has([data-card-caption])": {
+          "&:has([data-card-slot='caption'])": {
             height: horizontalPlateCaptionHeight,
             vars: {
               [horizontalImageSize]: horizontalPlateCaptionHeight,

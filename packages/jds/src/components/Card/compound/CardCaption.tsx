@@ -12,7 +12,7 @@ export const CardCaption = forwardRef<HTMLSpanElement, CardCaptionProps>(
     return (
       <span
         ref={ref}
-        data-card-caption=''
+        data-card-slot='caption'
         className={clsx(styles.caption, className)}
         {...restProps}
       >
