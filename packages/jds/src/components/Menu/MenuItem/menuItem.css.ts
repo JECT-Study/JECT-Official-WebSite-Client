@@ -33,6 +33,7 @@ export const menuContainerStyle = recipe({
         "&:disabled, &[data-disabled]": {
           cursor: "default",
           color: vars.color.semantic.object.subtle,
+          vars: { [labelColorVar]: vars.color.semantic.object.subtle },
         },
         "&::before, &::after": { inset: 0, borderRadius: menuItemVariants.layerRadius },
       },
