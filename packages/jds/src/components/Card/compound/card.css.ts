@@ -25,7 +25,6 @@ export const root = recipe({
       [titleColor]: vars.color.semantic.object.bolder,
       [bodyColor]: vars.color.semantic.object.normal,
       [captionColor]: vars.color.semantic.object.alternative,
-      [horizontalImageSize]: horizontalPlateHeight,
     },
     selectors: {
       "&[data-interactive]:not([data-disabled])": {
@@ -52,10 +51,7 @@ export const root = recipe({
     },
     variant: {
       plate: {
-        gap: 0,
-        padding: 0,
         minWidth: pxToRem(240),
-        height: "fit-content",
         borderRadius: vars.scheme.semantic.radius[12],
         backgroundColor: vars.color.semantic.surface.shallow,
         border: `1px solid ${vars.color.semantic.stroke.subtle}`,
@@ -63,12 +59,6 @@ export const root = recipe({
         overflow: "hidden",
       },
       post: {
-        borderRadius: vars.scheme.semantic.radius[10],
-        overflow: "visible",
-        backgroundColor: "transparent",
-        border: "none",
-        padding: 0,
-        boxShadow: "none",
         selectors: {
           "&[data-interactive]:not([data-disabled]):hover": {
             boxShadow: "none",
@@ -128,10 +118,7 @@ export const imageContainer = recipe({
   variants: {
     layout: {
       vertical: { width: "100%" },
-      horizontal: {
-        height: "100%",
-        alignSelf: "stretch",
-      },
+      horizontal: {},
     },
     variant: {
       plate: {},
@@ -173,8 +160,6 @@ export const imageContainer = recipe({
 export const thumbnailFill = style({
   position: "absolute",
   inset: 0,
-  width: "100%",
-  height: "100%",
   aspectRatio: "auto",
 });
 
@@ -189,10 +174,7 @@ export const content = recipe({
   },
   variants: {
     variant: {
-      plate: {
-        padding: vars.scheme.semantic.spacing[20],
-        alignSelf: "stretch",
-      },
+      plate: { padding: vars.scheme.semantic.spacing[20] },
       post: {},
     },
     layout: {
