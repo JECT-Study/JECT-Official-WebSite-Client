@@ -117,3 +117,7 @@ jobs:
                 console.error(`❌ 레이블 삭제 오류: ${error.message}`);
               }
             }
+
+      - name: Fail if Chromatic failed
+        if: steps.chromatic.outcome == 'failure'
+        run: exit 1
