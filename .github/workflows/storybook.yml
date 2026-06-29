@@ -1,36 +1,75 @@
 name: Storybook Deployment and Visual Testing
-run-name: ${{ github.actor }}의 스토리북 배포 및 테스트
 
 on:
+  # 안정 버전: dev 브랜치에 머지될 때만 빌드 → 항상 최신 안정 상태를 가리키는 고정 링크
+  push:
+    branches:
+      - dev
+    paths:
+      - "packages/jds/**"
+      - ".github/workflows/storybook.yml"
+  # PR 시각 회귀 테스트: dev로 향하는 PR이 jds를 건드릴 때만 실행
   pull_request:
     branches:
       - dev
-jobs:
-  storybook:
-    runs-on: ubuntu-22.04
-    defaults:
-      run:
-        working-directory: packages/jds
+    paths:
+      - "packages/jds/**"
 
+# 같은 ref의 이전 실행은 취소하여 Chromatic 스냅샷 낭비 방지
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # PR 시각 회귀 (리뷰 보조): 변경점이 있으면 Chromatic에서 리뷰 대기
+  pr-regression:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Cache node_modules
-        id: cache
-        uses: actions/cache@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}-storybook
+          node-version: 22
+          cache: "npm"
 
       - name: Install dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm ci
+
+      - name: Publish to Chromatic (PR 회귀)
+        uses: chromaui/action@latest
+        with:
+          projectToken: ${{ secrets.CHROMATIC_TOKEN }}
+          workingDir: packages/jds
+          autoAcceptChanges: false
+
+  # 안정 버전: dev 머지 시 자동 승인하여 dev permalink를 항상 최신 안정 상태로 유지
+  deploy-stable:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "npm"
+
+      - name: Install dependencies
         run: npm ci
 
       - name: Publish to Chromatic
         uses: chromaui/action@latest
         with:
+          # dev permalink가 고정 안정 링크이고, PR 빌드는 이 링크를 바꾸지 않는다.
           projectToken: ${{ secrets.CHROMATIC_TOKEN }}
           workingDir: packages/jds
+          autoAcceptChanges: true
