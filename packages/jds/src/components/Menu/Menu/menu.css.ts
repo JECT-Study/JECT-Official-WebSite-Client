@@ -159,14 +159,6 @@ export const menuTreeIconButton = recipe({
 
 export const menuIndentPadding = vars.scheme.semantic.spacing["24"];
 
-export const menuTreeIndent = style({
-  listStyle: "none",
-  // NOTE:ul 태그의 기본 스타일 제거
-  paddingLeft: vars.scheme.semantic.spacing["0"],
-  marginTop: vars.scheme.semantic.spacing["0"],
-  marginBottom: vars.scheme.semantic.spacing["0"],
-});
-
 export const menuTreeContent = style({
   display: "flex",
   flexDirection: "column",

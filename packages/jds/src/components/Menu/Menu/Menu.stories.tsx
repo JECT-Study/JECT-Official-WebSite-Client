@@ -45,22 +45,14 @@ export const Default: Story = {
       <Menu.Content side='right' align='start' sideOffset={10} style={{ width: "200px" }}>
         <Menu.Category>카테고리</Menu.Category>
         <Menu.Group>
-          <Menu.GroupItem>
-            <Menu.Button fullWidthText suffixIconVisible suffixIcon='arrow-right-s-line'>
-              메뉴 레이블
-            </Menu.Button>
-          </Menu.GroupItem>
-          <Menu.GroupItem>
-            <Menu.Button isSelected>메뉴 레이블 (selected)</Menu.Button>
-          </Menu.GroupItem>
-          <Menu.GroupItem>
-            <Menu.Button disabled>메뉴 레이블 (disabled)</Menu.Button>
-          </Menu.GroupItem>
-          <Menu.GroupItem>
-            <Menu.Anchor href='#' fullWidthText suffixBadgeVisible suffixBadge={5}>
-              메뉴 레이블 (badge)
-            </Menu.Anchor>
-          </Menu.GroupItem>
+          <Menu.Button autoFocus fullWidthText suffixIconVisible suffixIcon='arrow-right-s-line'>
+            메뉴 레이블
+          </Menu.Button>
+          <Menu.Button isSelected>메뉴 레이블 (selected)</Menu.Button>
+          <Menu.Button disabled>메뉴 레이블 (disabled)</Menu.Button>
+          <Menu.Anchor href='#' fullWidthText suffixBadgeVisible suffixBadge={5}>
+            메뉴 레이블 (badge)
+          </Menu.Anchor>
         </Menu.Group>
       </Menu.Content>
     </Menu.Root>
@@ -85,12 +77,8 @@ export const MenuStyles: Story = {
         <Menu.Content align='end'>
           <Menu.Category>카테고리</Menu.Category>
           <Menu.Group>
-            <Menu.GroupItem>
-              <Menu.Button>메뉴 레이블</Menu.Button>
-            </Menu.GroupItem>
-            <Menu.GroupItem>
-              <Menu.Button>메뉴 레이블</Menu.Button>
-            </Menu.GroupItem>
+            <Menu.Button autoFocus>메뉴 레이블</Menu.Button>
+            <Menu.Button>메뉴 레이블</Menu.Button>
           </Menu.Group>
         </Menu.Content>
       </Menu.Root>
@@ -102,12 +90,8 @@ export const MenuStyles: Story = {
         <Menu.Content align='start' sideOffset={10}>
           <Menu.Category>카테고리</Menu.Category>
           <Menu.Group>
-            <Menu.GroupItem>
-              <Menu.Button>메뉴 레이블</Menu.Button>
-            </Menu.GroupItem>
-            <Menu.GroupItem>
-              <Menu.Button>메뉴 레이블</Menu.Button>
-            </Menu.GroupItem>
+            <Menu.Button autoFocus>메뉴 레이블</Menu.Button>
+            <Menu.Button>메뉴 레이블</Menu.Button>
           </Menu.Group>
         </Menu.Content>
       </Menu.Root>
@@ -136,6 +120,7 @@ export const Tree: Story = {
           {/* depth 1 — 자식이 있는 펼침 헤더 (chevron 클릭/←·→ 로 토글, 라벨 클릭/Enter 는 항목 선택) */}
           <Menu.Tree
             label='상위 메뉴'
+            autoFocus
             defaultOpen
             fullWidthText
             onClick={() => onItemClick("상위 메뉴")}

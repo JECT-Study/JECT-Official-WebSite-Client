@@ -11,7 +11,6 @@ import {
   menuTreeContainer,
   menuTreeContent,
   menuTreeIconButton,
-  menuTreeIndent,
   menuTreeTrigger,
 } from "./menu.css";
 import type {
@@ -20,7 +19,6 @@ import type {
   MenuCategoryProps,
   MenuContentProps,
   MenuGroupProps,
-  MenuItemProps,
   MenuRootProps,
   MenuSize,
   MenuTreeProps,
@@ -104,20 +102,6 @@ const MenuGroup = forwardRef<HTMLUListElement, MenuGroupProps>(
 );
 
 MenuGroup.displayName = "Menu.Group";
-
-const MenuGroupItem = forwardRef<HTMLLIElement, MenuItemProps>(
-  ({ children, className, ...restProps }, ref) => {
-    return (
-      <DropdownMenu.Item asChild {...restProps}>
-        <li ref={ref} className={clsx(menuTreeIndent, className)}>
-          {children}
-        </li>
-      </DropdownMenu.Item>
-    );
-  },
-);
-
-MenuGroupItem.displayName = "Menu.GroupItem";
 
 const MenuTree = forwardRef<HTMLButtonElement, MenuTreeProps>(
   (
@@ -218,13 +202,17 @@ const menuTreeIconSizeByMenuSize: Record<MenuSize, IconButtonSize> = {
 MenuTree.displayName = "Menu.Tree";
 
 const MenuButton = forwardRef<HTMLButtonElement, MenuButtonProps>(
-  ({ children, ...restProps }, ref) => {
+  ({ children, disabled, onSelect, textValue, ...restProps }, ref) => {
     const { size } = useMenuContext("Menu.Button");
 
     return (
-      <MenuItem.Button ref={ref} size={size} {...restProps}>
-        {children}
-      </MenuItem.Button>
+      <li>
+        <DropdownMenu.Item asChild disabled={disabled} onSelect={onSelect} textValue={textValue}>
+          <MenuItem.Button ref={ref} size={size} disabled={disabled} {...restProps}>
+            {children}
+          </MenuItem.Button>
+        </DropdownMenu.Item>
+      </li>
     );
   },
 );
@@ -232,13 +220,17 @@ const MenuButton = forwardRef<HTMLButtonElement, MenuButtonProps>(
 MenuButton.displayName = "Menu.Button";
 
 const MenuAnchor = forwardRef<HTMLAnchorElement, MenuAnchorProps>(
-  ({ children, ...restProps }, ref) => {
+  ({ children, disabled, onSelect, textValue, ...restProps }, ref) => {
     const { size } = useMenuContext("Menu.Anchor");
 
     return (
-      <MenuItem.Anchor ref={ref} size={size} {...restProps}>
-        {children}
-      </MenuItem.Anchor>
+      <li>
+        <DropdownMenu.Item asChild disabled={disabled} onSelect={onSelect} textValue={textValue}>
+          <MenuItem.Anchor ref={ref} size={size} disabled={disabled} {...restProps}>
+            {children}
+          </MenuItem.Anchor>
+        </DropdownMenu.Item>
+      </li>
     );
   },
 );
@@ -251,7 +243,6 @@ export const Menu = {
   Content: MenuContent,
   Category: MenuCategory,
   Group: MenuGroup,
-  GroupItem: MenuGroupItem,
   Tree: MenuTree,
   Button: MenuButton,
   Anchor: MenuAnchor,
