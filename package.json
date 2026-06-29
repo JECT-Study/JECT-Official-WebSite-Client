@@ -17,6 +17,7 @@
     "build-storybook": "turbo build-storybook",
     "chromatic": "turbo chromatic",
     "clean": "turbo clean && rm -rf node_modules",
+    "changeset": "changeset",
     "format": "turbo format",
     "type-check": "turbo type-check"
   },

@@ -1,10 +1,11 @@
 export { Checkbox } from "./Checkbox";
 export type {
+  CheckboxRootProps,
+  CheckboxItemProps,
   CheckboxBasicProps,
-  CheckboxBoxProps,
-  CheckboxContentProps,
+  CheckboxLabelProps,
+  CheckboxHelperProps,
   CheckboxSize,
   CheckboxVariant,
-  CheckboxAlign,
   CheckedState,
 } from "./checkbox.types";

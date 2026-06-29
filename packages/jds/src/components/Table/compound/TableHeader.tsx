@@ -1,8 +1,15 @@
-import type { TableHeaderProps } from "../Table.types";
-import { StyledTableHeader } from "./Table.styles";
+import { clsx } from "clsx";
+import { forwardRef } from "react";
 
-export const TableHeader = ({ children }: Pick<TableHeaderProps, "children">) => (
-  <StyledTableHeader>{children}</StyledTableHeader>
+import { tableHeader } from "./table.css";
+import type { TableHeaderSectionProps } from "../Table.types";
+
+export const TableHeader = forwardRef<HTMLTableSectionElement, TableHeaderSectionProps>(
+  ({ children, className, rowProps, ...restProps }, ref) => (
+    <thead ref={ref} className={clsx(tableHeader, className)} {...restProps}>
+      <tr {...rowProps}>{children}</tr>
+    </thead>
+  ),
 );
 
-TableHeader.displayName = "TableHeader";
+TableHeader.displayName = "Table.Header";

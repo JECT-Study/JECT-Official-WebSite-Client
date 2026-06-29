@@ -1,12 +1,17 @@
 import type { ReactNode } from "react";
-import { createContext, useContext, useEffect } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
 import { Toast } from "./Toast";
-import { ToastStackContainer } from "./toast.styles";
+import { stackContainer, visuallyHidden } from "./toast.css";
 import type { ToastHandler } from "./toast.types";
 import { toastController } from "./toastController";
 import { useToastProvider } from "./useToastProvider";
+
+interface ToastProviderProps {
+  children: ReactNode;
+  duration?: number;
+}
 
 interface ToastContextType {
   toast: ToastHandler;
@@ -15,34 +20,48 @@ interface ToastContextType {
 
 const ToastContext = createContext<ToastContextType | null>(null);
 
-export const ToastProvider = ({ children }: { children: ReactNode }) => {
+export const ToastProvider = ({ children, duration }: ToastProviderProps) => {
   const { toasts, toast: handler, removeToast } = useToastProvider({});
+  const [isMounted, setIsMounted] = useState(false);
+
+  const latestToast = toasts.length > 0 ? toasts[toasts.length - 1] : null;
+  const announcement = latestToast
+    ? [latestToast.title, latestToast.description].filter(Boolean).join(" ")
+    : "";
 
   useEffect(() => {
     toastController.setHandler(handler);
     return () => toastController.clearHandler();
   }, [handler]);
 
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   return (
     <ToastContext.Provider value={{ toast: handler, removeToast }}>
       {children}
-      {createPortal(
-        <ToastStackContainer>
-          {toasts.map(toast =>
-            toast.type === "basic" ? (
-              <Toast.Basic key={toast.id} onRemove={() => removeToast(toast.id)} {...toast} />
-            ) : (
-              <Toast.Feedback
+
+      {/* 스크린리더 전용 live region: 최신 토스트만 낭독 */}
+      <div className={visuallyHidden} role='status' aria-live='polite'>
+        {announcement}
+      </div>
+
+      {isMounted &&
+        createPortal(
+          // 시각용 스택: live region과 중복 낭독 방지
+          <div className={stackContainer} aria-hidden='true'>
+            {toasts.map(toast => (
+              <Toast
                 key={toast.id}
-                variant={toast.type}
                 onRemove={() => removeToast(toast.id)}
                 {...toast}
+                duration={toast.duration ?? duration}
               />
-            ),
-          )}
-        </ToastStackContainer>,
-        document.body,
-      )}
+            ))}
+          </div>,
+          document.body,
+        )}
     </ToastContext.Provider>
   );
 };

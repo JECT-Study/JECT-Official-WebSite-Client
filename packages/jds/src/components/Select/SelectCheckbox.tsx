@@ -43,6 +43,7 @@ export const SelectCheckbox = forwardRef<HTMLDivElement, SelectCheckboxProps>(
           <Checkbox.Basic
             size={size}
             checked={isItemSelected}
+            onCheckedChange={() => {}}
             disabled={isDisabled}
             tabIndex={-1}
           />

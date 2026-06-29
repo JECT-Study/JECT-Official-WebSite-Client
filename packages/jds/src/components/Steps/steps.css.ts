@@ -4,6 +4,8 @@ import { pxToRem } from "utils";
 
 import { vars } from "../../tokens/vars.css";
 
+import { labelColorVar } from "@/utils/typography.css";
+
 export const stepsLabel = recipe({
   base: {
     display: "block",
@@ -15,8 +17,8 @@ export const stepsLabel = recipe({
   },
   variants: {
     activated: {
-      true: { color: vars.color.semantic.object.bold },
-      false: { color: vars.color.semantic.object.alternative },
+      true: { vars: { [labelColorVar]: vars.color.semantic.object.bold } },
+      false: { vars: { [labelColorVar]: vars.color.semantic.object.alternative } },
     },
   },
 });

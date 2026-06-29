@@ -1,16 +1,17 @@
+import { clsx } from "clsx";
 import { forwardRef } from "react";
 
-import { StyledTableRoot } from "./Table.styles";
+import { tableRoot } from "./table.css";
 import type { TableProps } from "../Table.types";
 
 export const TableRoot = forwardRef<HTMLTableElement, TableProps>(
-  ({ children, ...restProps }, ref) => {
+  ({ children, className, ...restProps }, ref) => {
     return (
-      <StyledTableRoot ref={ref} {...restProps}>
+      <table ref={ref} className={clsx(tableRoot, className)} {...restProps}>
         {children}
-      </StyledTableRoot>
+      </table>
     );
   },
 );
 
-TableRoot.displayName = "TableRoot";
+TableRoot.displayName = "Table.Root";

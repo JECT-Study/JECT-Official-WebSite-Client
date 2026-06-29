@@ -1,8 +1,23 @@
-import { StyledColorChip } from "./ColorChip.styles";
+import { assignInlineVars } from "@vanilla-extract/dynamic";
+import { clsx } from "clsx";
+import { forwardRef } from "react";
+
+import { colorChip, colorChipBackground } from "./colorChip.css";
 import type { ColorChipProps } from "./ColorChip.types";
 
-export const ColorChip = ({ color, className, ...restProps }: ColorChipProps) => {
-  return <StyledColorChip $color={color} className={className} {...restProps} />;
-};
+export const ColorChip = forwardRef<HTMLDivElement, ColorChipProps>(
+  ({ color, className, style, ...restProps }, ref) => {
+    const backgroundColor = color || "transparent";
 
-ColorChip.displayName = "ColorChip";
+    return (
+      <div
+        ref={ref}
+        className={clsx(colorChip, className)}
+        style={{ ...assignInlineVars({ [colorChipBackground]: backgroundColor }), ...style }}
+        {...restProps}
+      />
+    );
+  },
+);
+
+ColorChip.displayName = "Table.ColorChip";
