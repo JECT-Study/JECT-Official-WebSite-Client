@@ -21,167 +21,112 @@ export const iconSizeMap: Record<BlockButtonSize, IconSize> = {
   xs: "2xs",
 };
 
-type FilledPalette = { backgroundColor: string; color: string };
-type EmptyPalette = { color: string };
+type SolidPalette = { backgroundColor: string; color: string };
 type OutlinedPalette = { borderColor: string; color: string };
+type HollowPalette = { color: string };
+
+const solidDisabled = {
+  backgroundColor: vars.color.semantic.fill.subtlest,
+  color: vars.color.semantic.object.subtler,
+} satisfies SolidPalette;
+
+const outlinedDisabled = {
+  borderColor: vars.color.semantic.accent.alpha.subtler,
+  color: vars.color.semantic.object.subtler,
+} satisfies OutlinedPalette;
+
+const hollowDisabled = {
+  color: vars.color.semantic.accent.alpha.subtler,
+} satisfies HollowPalette;
+
+const solidEnabledByHierarchy = {
+  accent: {
+    backgroundColor: vars.color.semantic.accent.neutral,
+    color: vars.color.semantic.object.static.inverse.boldest,
+  },
+  primary: {
+    backgroundColor: vars.color.semantic.fill.boldest,
+    color: vars.color.semantic.object.inverse.boldest,
+  },
+  secondary: {
+    backgroundColor: vars.color.semantic.fill.subtler,
+    color: vars.color.semantic.object.neutral,
+  },
+} satisfies Record<BlockButtonHierarchy, SolidPalette>;
 
 const overlayColorByHierarchy = {
-  accent: vars.color.semantic.accent.neutral,
+  accent: vars.color.semantic.accent.normal,
   primary: vars.color.semantic.fill.boldest,
   secondary: vars.color.semantic.fill.boldest,
-  tertiary: vars.color.semantic.fill.boldest,
 } satisfies Record<BlockButtonHierarchy, string>;
 
-const solidColorsByHierarchy = {
+const solidOverlayColorByHierarchy = {
+  accent: vars.color.semantic.fill.boldest,
+  primary: vars.color.semantic.fill.inverse.boldest,
+  secondary: vars.color.semantic.fill.boldest,
+} satisfies Record<BlockButtonHierarchy, string>;
+
+const outlinedEnabledByHierarchy = {
   accent: {
-    enabled: {
-      backgroundColor: vars.color.semantic.accent.neutral,
-      color: vars.color.semantic.object.static.inverse.boldest,
-    },
-    disabled: {
-      backgroundColor: vars.color.semantic.accent.alpha.subtlest,
-      color: vars.color.semantic.accent.alpha.subtler,
-    },
+    borderColor: vars.color.semantic.accent.neutral,
+    color: vars.color.semantic.accent.normal,
   },
   primary: {
-    enabled: {
-      backgroundColor: vars.color.semantic.fill.bolder,
-      color: vars.color.semantic.object.inverse.boldest,
-    },
-    disabled: {
-      backgroundColor: vars.color.semantic.fill.subtlest,
-      color: vars.color.semantic.object.assistive,
-    },
+    borderColor: vars.color.semantic.stroke.alpha.assistive,
+    color: vars.color.semantic.object.boldest,
   },
   secondary: {
-    enabled: {
-      backgroundColor: vars.color.semantic.fill.neutral,
-      color: vars.color.semantic.object.static.inverse.boldest,
-    },
-    disabled: {
-      backgroundColor: vars.color.semantic.fill.subtlest,
-      color: vars.color.semantic.object.assistive,
-    },
+    borderColor: vars.color.semantic.stroke.alpha.subtle,
+    color: vars.color.semantic.object.neutral,
   },
-  tertiary: {
-    enabled: {
-      backgroundColor: vars.color.semantic.fill.subtle,
-      color: vars.color.semantic.object.normal,
-    },
-    disabled: {
-      backgroundColor: vars.color.semantic.fill.subtlest,
-      color: vars.color.semantic.object.assistive,
-    },
-  },
-} satisfies Record<BlockButtonHierarchy, { enabled: FilledPalette; disabled: FilledPalette }>;
+} satisfies Record<BlockButtonHierarchy, OutlinedPalette>;
 
-const outlinedColorsByHierarchy = {
-  accent: {
-    enabled: {
-      borderColor: vars.color.semantic.accent.alpha.subtle,
-      color: vars.color.semantic.accent.normal,
-    },
-    disabled: {
-      borderColor: vars.color.semantic.accent.alpha.subtler,
-      color: vars.color.semantic.accent.alpha.subtler,
-    },
-  },
-  primary: {
-    enabled: {
-      borderColor: vars.color.semantic.stroke.alpha.assistive,
-      color: vars.color.semantic.object.boldest,
-    },
-    disabled: {
-      borderColor: vars.color.semantic.stroke.alpha.subtler,
-      color: vars.color.semantic.object.assistive,
-    },
-  },
-  secondary: {
-    enabled: {
-      borderColor: vars.color.semantic.stroke.alpha.assistive,
-      color: vars.color.semantic.object.bold,
-    },
-    disabled: {
-      borderColor: vars.color.semantic.stroke.alpha.subtler,
-      color: vars.color.semantic.object.assistive,
-    },
-  },
-  tertiary: {
-    enabled: {
-      borderColor: vars.color.semantic.stroke.alpha.assistive,
-      color: vars.color.semantic.object.neutral,
-    },
-    disabled: {
-      borderColor: vars.color.semantic.stroke.alpha.subtler,
-      color: vars.color.semantic.object.assistive,
-    },
-  },
-} satisfies Record<BlockButtonHierarchy, { enabled: OutlinedPalette; disabled: OutlinedPalette }>;
+const hollowEnabledByHierarchy = {
+  accent: { color: vars.color.semantic.accent.normal },
+  primary: { color: vars.color.semantic.object.boldest },
+  secondary: { color: vars.color.semantic.object.neutral },
+} satisfies Record<BlockButtonHierarchy, HollowPalette>;
 
-const emptyColorsByHierarchy = {
-  accent: {
-    enabled: { color: vars.color.semantic.accent.normal },
-    disabled: { color: vars.color.semantic.accent.alpha.subtler },
-  },
-  primary: {
-    enabled: { color: vars.color.semantic.object.boldest },
-    disabled: { color: vars.color.semantic.object.assistive },
-  },
-  secondary: {
-    enabled: { color: vars.color.semantic.object.bold },
-    disabled: { color: vars.color.semantic.object.assistive },
-  },
-  tertiary: {
-    enabled: { color: vars.color.semantic.object.neutral },
-    disabled: { color: vars.color.semantic.object.assistive },
-  },
-} satisfies Record<BlockButtonHierarchy, { enabled: EmptyPalette; disabled: EmptyPalette }>;
-
-const feedbackColorsByIntent = {
+// feedback의 disabled 색은 solid 토큰을 재사용한다.
+const feedbackEnabledByIntent = {
   positive: {
-    enabled: {
-      backgroundColor: vars.color.semantic.feedback.positive.neutral,
-      color: vars.color.semantic.object.static.inverse.boldest,
-    },
-    disabled: {
-      backgroundColor: vars.color.semantic.feedback.positive.alpha.subtler,
-      color: vars.color.semantic.feedback.positive.alpha.subtle,
-    },
+    backgroundColor: vars.color.semantic.feedback.positive.neutral,
+    color: vars.color.semantic.object.static.inverse.boldest,
   },
   destructive: {
-    enabled: {
-      backgroundColor: vars.color.semantic.feedback.destructive.neutral,
-      color: vars.color.semantic.object.static.inverse.boldest,
-    },
-    disabled: {
-      backgroundColor: vars.color.semantic.feedback.destructive.alpha.subtler,
-      color: vars.color.semantic.feedback.destructive.alpha.subtle,
-    },
+    backgroundColor: vars.color.semantic.feedback.destructive.neutral,
+    color: vars.color.semantic.object.static.inverse.boldest,
   },
-} satisfies Record<BlockButtonFeedback, { enabled: FilledPalette; disabled: FilledPalette }>;
+} satisfies Record<BlockButtonFeedback, SolidPalette>;
 
 const sizeVariants = {
   lg: {
     padding: `${vars.scheme.semantic.spacing["10"]} ${vars.scheme.semantic.spacing["20"]}`,
-    borderRadius: vars.scheme.semantic.radius["6"],
+    borderRadius: vars.scheme.semantic.radius["8"],
   },
   md: {
     padding: `${vars.scheme.semantic.spacing["8"]} ${vars.scheme.semantic.spacing["16"]}`,
-    borderRadius: vars.scheme.semantic.radius["6"],
+    borderRadius: vars.scheme.semantic.radius["8"],
   },
   sm: {
     padding: `${vars.scheme.semantic.spacing["6"]} ${vars.scheme.semantic.spacing["12"]}`,
-    borderRadius: vars.scheme.semantic.radius["4"],
+    borderRadius: vars.scheme.semantic.radius["6"],
   },
   xs: {
     padding: `${vars.scheme.semantic.spacing["4"]} ${vars.scheme.semantic.spacing["8"]}`,
-    borderRadius: vars.scheme.semantic.radius["4"],
+    borderRadius: vars.scheme.semantic.radius["6"],
   },
 } satisfies Record<BlockButtonSize, StyleRule>;
 
-const liftColor = <T extends { color: string }>({ color, ...rest }: T): StyleRule => ({
+const colorVars = <T extends { color: string }>(
+  { color, ...rest }: T,
+  overlay?: string,
+): StyleRule => ({
   ...rest,
-  vars: { [labelColorVar]: color },
+  vars: {
+    [labelColorVar]: color,
+    ...(overlay && { [overlayColor]: overlay }),
+  },
 });
 
 const baseStyles = style({
@@ -206,25 +151,25 @@ const baseStyles = style({
 const solidCompoundVariants = BLOCK_BUTTON_HIERARCHY_OPTIONS.map(hierarchy => ({
   variants: { hierarchy, variant: "solid" as const },
   style: {
-    ...liftColor(solidColorsByHierarchy[hierarchy].enabled),
-    selectors: { "&[data-disabled]": liftColor(solidColorsByHierarchy[hierarchy].disabled) },
-  },
+    ...colorVars(solidEnabledByHierarchy[hierarchy], solidOverlayColorByHierarchy[hierarchy]),
+    selectors: { "&[data-disabled]": colorVars(solidDisabled) },
+  } satisfies StyleRule,
 }));
 
 const outlinedCompoundVariants = BLOCK_BUTTON_HIERARCHY_OPTIONS.map(hierarchy => ({
   variants: { hierarchy, variant: "outlined" as const },
   style: {
-    ...liftColor(outlinedColorsByHierarchy[hierarchy].enabled),
-    selectors: { "&[data-disabled]": liftColor(outlinedColorsByHierarchy[hierarchy].disabled) },
-  },
+    ...colorVars(outlinedEnabledByHierarchy[hierarchy], overlayColorByHierarchy[hierarchy]),
+    selectors: { "&[data-disabled]": colorVars(outlinedDisabled) },
+  } satisfies StyleRule,
 }));
 
-const emptyCompoundVariants = BLOCK_BUTTON_HIERARCHY_OPTIONS.map(hierarchy => ({
-  variants: { hierarchy, variant: "empty" as const },
+const hollowCompoundVariants = BLOCK_BUTTON_HIERARCHY_OPTIONS.map(hierarchy => ({
+  variants: { hierarchy, variant: "hollow" as const },
   style: {
-    ...liftColor(emptyColorsByHierarchy[hierarchy].enabled),
-    selectors: { "&[data-disabled]": liftColor(emptyColorsByHierarchy[hierarchy].disabled) },
-  },
+    ...colorVars(hollowEnabledByHierarchy[hierarchy], overlayColorByHierarchy[hierarchy]),
+    selectors: { "&[data-disabled]": colorVars(hollowDisabled) },
+  } satisfies StyleRule,
 }));
 
 const rootBase = [overlay(), focusRing(), baseStyles];
@@ -234,47 +179,36 @@ export const basicRoot = recipe({
   base: rootBase,
   variants: {
     hierarchy: {
-      accent: { vars: { [overlayColor]: overlayColorByHierarchy.accent } },
-      primary: { vars: { [overlayColor]: overlayColorByHierarchy.primary } },
-      secondary: { vars: { [overlayColor]: overlayColorByHierarchy.secondary } },
-      tertiary: { vars: { [overlayColor]: overlayColorByHierarchy.tertiary } },
+      accent: {},
+      primary: {},
+      secondary: {},
     } satisfies Record<BlockButtonHierarchy, StyleRule>,
     variant: {
       solid: {},
       outlined: {
         backgroundColor: "transparent",
-        borderWidth: "1px",
+        borderWidth: vars.scheme.semantic.strokeWeight["1"],
         borderStyle: "solid",
       },
-      empty: { backgroundColor: "transparent" },
+      hollow: { backgroundColor: "transparent" },
     } satisfies Record<BlockButtonVariant, StyleRule>,
     size: sizeVariants satisfies Record<BlockButtonSize, StyleRule>,
   },
   compoundVariants: [
     ...solidCompoundVariants,
     ...outlinedCompoundVariants,
-    ...emptyCompoundVariants,
+    ...hollowCompoundVariants,
   ],
 });
 
-const feedbackVariant = ({
-  enabled,
-  disabled,
-}: {
-  enabled: FilledPalette;
-  disabled: FilledPalette;
-}): StyleRule => ({
-  backgroundColor: enabled.backgroundColor,
-  vars: {
-    [overlayColor]: vars.color.semantic.fill.boldest,
-    [labelColorVar]: enabled.color,
-  },
-  selectors: { "&[data-disabled]": liftColor(disabled) },
+const feedbackVariant = (enabled: SolidPalette): StyleRule => ({
+  ...colorVars(enabled, solidOverlayColorByHierarchy.accent),
+  selectors: { "&[data-disabled]": colorVars(solidDisabled) },
 });
 
 const feedbackVariants = {
-  positive: feedbackVariant(feedbackColorsByIntent.positive),
-  destructive: feedbackVariant(feedbackColorsByIntent.destructive),
+  positive: feedbackVariant(feedbackEnabledByIntent.positive),
+  destructive: feedbackVariant(feedbackEnabledByIntent.destructive),
 } satisfies Record<BlockButtonFeedback, StyleRule>;
 
 export const feedbackRoot = recipe({

@@ -2,13 +2,8 @@ import type { IconName } from "components";
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 export const BLOCK_BUTTON_SIZE_OPTIONS = ["xs", "sm", "md", "lg"] as const;
-export const BLOCK_BUTTON_HIERARCHY_OPTIONS = [
-  "accent",
-  "primary",
-  "secondary",
-  "tertiary",
-] as const;
-export const BLOCK_BUTTON_VARIANT_OPTIONS = ["solid", "outlined", "empty"] as const;
+export const BLOCK_BUTTON_HIERARCHY_OPTIONS = ["accent", "primary", "secondary"] as const;
+export const BLOCK_BUTTON_VARIANT_OPTIONS = ["solid", "outlined", "hollow"] as const;
 export const BLOCK_BUTTON_FEEDBACK_OPTIONS = ["positive", "destructive"] as const;
 
 export type BlockButtonSize = (typeof BLOCK_BUTTON_SIZE_OPTIONS)[number];
@@ -25,7 +20,7 @@ export type BlockButtonStyle = BlockButtonVariant;
 export type FeedbackIntent = BlockButtonFeedback;
 
 export interface BaseBlockButtonProps extends ComponentPropsWithoutRef<"button"> {
-  'data-part'?: never;
+  "data-part"?: never;
   children: ReactNode;
   size?: BlockButtonSize;
   prefixIcon?: IconName;
