@@ -29,8 +29,10 @@ type RadioRootBaseProps = {
 export type RadioRootProps = RadioRootBaseProps &
   (RadioRootControlledProps | RadioRootUncontrolledProps);
 
-export interface RadioBasicProps
-  extends Omit<ComponentPropsWithoutRef<"input">, "value" | "size"> {
+export interface RadioBasicProps extends Omit<
+  ComponentPropsWithoutRef<"input">,
+  "value" | "size" | "type"
+> {
   size?: RadioSize;
   value: string;
 }

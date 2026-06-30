@@ -60,7 +60,7 @@ type CheckboxBasicUncontrolledProps = {
 
 type CheckboxBasicBaseProps = Omit<
   ComponentPropsWithoutRef<"input">,
-  "size" | "checked" | "defaultChecked" | "onChange"
+  "size" | "checked" | "defaultChecked" | "onChange" | "type"
 > & {
   size?: CheckboxSize;
   value?: string;
