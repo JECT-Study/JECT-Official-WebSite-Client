@@ -12,7 +12,7 @@ const meta = {
     layout: "centered",
     docs: {
       description: {
-        component: `Post 카드는 게시글·콘텐츠의 핵심 정보를 요약해 보여주는 카드입니다. 이미지와 텍스트(제목·본문)에 더해 메타 정보(작성자·작성일)를 함께 노출하며, 테두리 없는 단일(empty) 스타일로 렌더링됩니다.
+        component: `포스트 카드는 게시글, 콘텐츠의 핵심 정보를 요약해 목록, 그리드에서 빠르게 훑게 하는 카드입니다. 썸네일, 제목, 요약, 메타 데이터 같은 슬롯을 고정된 구조로 담습니다.
 
 \`variant='post'\`로 Compound(\`Card.Root\` + \`Card.Thumbnail\` + \`Card.Content\` + \`Card.Title/Body\` + \`Card.Meta/MetaItem\` + \`Card.Overlay\`)를 직접 조합합니다. horizontal에서는 이미지를 \`Card.Content\` 뒤에 배치해 우측에 둡니다.
 
@@ -87,13 +87,30 @@ export const Overview: Story = {
       {(["vertical", "horizontal"] as const).map(layout => (
         <section key={layout} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
           <h3 style={{ margin: 0, fontSize: 14, fontWeight: "bold" }}>layout = {layout}</h3>
-          <div style={{ display: "flex", gap: 40, flexWrap: "wrap", alignItems: "flex-start" }}>
+          <div
+            style={{
+              display: "flex",
+              gap: 40,
+              flexWrap: layout === "vertical" ? "nowrap" : "wrap",
+              alignItems: "flex-start",
+            }}
+          >
             {OVERVIEW_CASES.map(({ key, label, isDisabled }) => (
-              <div key={key} style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+              <div
+                key={key}
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 8,
+                  flexShrink: layout === "vertical" ? 0 : undefined,
+                }}
+              >
                 <span style={{ fontSize: 12, color: "#999" }}>{label}</span>
                 <div style={sizeFor(layout)}>
                   <Card.Root layout={layout} variant='post' isDisabled={isDisabled} interactive>
-                    {layout === "vertical" && <Card.Thumbnail image={{ alt: "포스트 카드 이미지" }} />}
+                    {layout === "vertical" && (
+                      <Card.Thumbnail image={{ alt: "포스트 카드 이미지" }} />
+                    )}
                     <Card.Content>
                       <Card.Title>포스트 카드 제목</Card.Title>
                       <Card.Body>카드 내용은 두 줄을 넘어가면 말줄임(...) 표시합니다.</Card.Body>
@@ -102,7 +119,9 @@ export const Overview: Story = {
                         <Card.MetaItem>2026년 2월 25일(수)</Card.MetaItem>
                       </Card.Meta>
                     </Card.Content>
-                    {layout === "horizontal" && <Card.Thumbnail image={{ alt: "포스트 카드 이미지" }} />}
+                    {layout === "horizontal" && (
+                      <Card.Thumbnail image={{ alt: "포스트 카드 이미지" }} />
+                    )}
                     <Card.Overlay as='a' href='#' />
                   </Card.Root>
                 </div>
