@@ -30,7 +30,7 @@ export const Card = {
   },
 };
 
-export type { CardLayout, CardVariant } from "./Card.types";
+export type { CardLayout, CardVariant } from "./card.types";
 
 export type {
   CardRootProps,
@@ -44,6 +44,6 @@ export type {
   CardMetaProps,
   CardMetaItemProps,
   CardOverlayProps,
-} from "./Card.types";
+} from "./card.types";
 
-export type { PlatePresetProps, PostPresetProps } from "./Card.types";
+export type { PlatePresetProps, PostPresetProps } from "./card.types";

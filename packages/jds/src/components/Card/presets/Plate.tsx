@@ -1,6 +1,6 @@
 import { forwardRef, type ReactNode } from "react";
 
-import type { PlatePresetBaseProps, PlatePresetProps } from "../Card.types";
+import type { PlatePresetBaseProps, PlatePresetProps } from "../card.types";
 import { CardThumbnail, CardContent, CardCaption, CardOverlay } from "../compound";
 import { PresetFrame, TitleBody } from "./shared";
 

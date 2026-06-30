@@ -1,6 +1,6 @@
 import { forwardRef, type ReactNode } from "react";
 
-import type { CardRootProps } from "../Card.types";
+import type { CardRootProps } from "../card.types";
 import { CardRoot, CardContentGroup, CardTitle, CardBody } from "../compound";
 
 interface TitleBodyProps {

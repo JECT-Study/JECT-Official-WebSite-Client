@@ -3,7 +3,7 @@ import { forwardRef } from "react";
 
 import * as styles from "./card.css";
 import { Thumbnail, type ThumbnailShapeProps } from "../../Thumbnail";
-import type { CardThumbnailProps } from "../Card.types";
+import type { CardThumbnailProps } from "../card.types";
 import { useCardContext } from "../cardContext";
 
 const ratioByVariantLayout = {

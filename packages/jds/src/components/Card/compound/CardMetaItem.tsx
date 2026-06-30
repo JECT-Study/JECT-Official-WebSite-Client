@@ -1,7 +1,7 @@
 import { clsx } from "clsx";
 import { forwardRef } from "react";
 
-import type { CardMetaItemProps } from "../Card.types";
+import type { CardMetaItemProps } from "../card.types";
 import { useCardRootGuard } from "../cardContext";
 import * as styles from "./card.css";
 

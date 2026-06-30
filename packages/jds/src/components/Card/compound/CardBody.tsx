@@ -1,7 +1,7 @@
 import { clsx } from "clsx";
 import { forwardRef } from "react";
 
-import type { CardBodyProps } from "../Card.types";
+import type { CardBodyProps } from "../card.types";
 import { useCardContext } from "../cardContext";
 import * as styles from "./card.css";
 
