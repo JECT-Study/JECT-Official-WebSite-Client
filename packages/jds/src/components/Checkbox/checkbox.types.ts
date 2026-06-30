@@ -7,8 +7,6 @@ export type CheckboxSize = (typeof CHECKBOX_SIZE_OPTIONS)[number];
 export type CheckboxVariant = (typeof CHECKBOX_VARIANT_OPTIONS)[number];
 export type CheckedState = boolean | "indeterminate";
 
-// Checkbox.Root
-
 type CheckboxRootControlledProps = {
   value: string[];
   defaultValue?: never;
@@ -33,18 +31,13 @@ type CheckboxRootBaseProps = {
 export type CheckboxRootProps = CheckboxRootBaseProps &
   (CheckboxRootControlledProps | CheckboxRootUncontrolledProps);
 
-// Checkbox.Item
-
-export interface CheckboxItemProps extends ComponentPropsWithoutRef<"label"> {
+export type CheckboxItemProps = ComponentPropsWithoutRef<"label"> & {
   size?: CheckboxSize;
   variant?: CheckboxVariant;
   disabled?: boolean;
   isInvalid?: boolean;
   children: ReactNode;
-}
-
-// Checkbox.Basic
-// Checkbox.Root 안에서 사용 시 value가 그룹 내 식별자가 되며 checked 상태는 그룹이 관리한다.
+};
 
 type CheckboxBasicControlledProps = {
   checked: CheckedState;
@@ -71,14 +64,10 @@ type CheckboxBasicBaseProps = Omit<
 export type CheckboxBasicProps = CheckboxBasicBaseProps &
   (CheckboxBasicControlledProps | CheckboxBasicUncontrolledProps);
 
-// Checkbox.Label
-
-export interface CheckboxLabelProps {
+export type CheckboxLabelProps = {
   children: ReactNode;
-}
+};
 
-// Checkbox.Helper
-
-export interface CheckboxHelperProps {
+export type CheckboxHelperProps = {
   children: ReactNode;
-}
+};
