@@ -65,6 +65,19 @@ interface BasePresetOwnProps extends Omit<ComponentPropsWithoutRef<"div">, "onCl
   image?: CardThumbnailImage;
 }
 
+interface PresetLinkProps {
+  as: "a";
+  href: string;
+  target?: string;
+  rel?: string;
+}
+
+interface PresetButtonProps {
+  as: "button";
+  onClick: () => void;
+  type?: "button" | "submit" | "reset";
+}
+
 export interface PlatePresetBaseProps extends BasePresetOwnProps {
   caption?: string;
   title: string;
@@ -72,17 +85,8 @@ export interface PlatePresetBaseProps extends BasePresetOwnProps {
 }
 
 export type PlatePresetProps =
-  | (PlatePresetBaseProps & {
-      as: "a";
-      href: string;
-      target?: string;
-      rel?: string;
-    })
-  | (PlatePresetBaseProps & {
-      as: "button";
-      onClick: () => void;
-      type?: "button" | "submit" | "reset";
-    });
+  | (PlatePresetBaseProps & PresetLinkProps)
+  | (PlatePresetBaseProps & PresetButtonProps);
 
 export interface PostPresetBaseProps extends BasePresetOwnProps {
   title: string;
@@ -92,14 +96,5 @@ export interface PostPresetBaseProps extends BasePresetOwnProps {
 }
 
 export type PostPresetProps =
-  | (PostPresetBaseProps & {
-      as: "a";
-      href: string;
-      target?: string;
-      rel?: string;
-    })
-  | (PostPresetBaseProps & {
-      as: "button";
-      onClick: () => void;
-      type?: "button" | "submit" | "reset";
-    });
+  | (PostPresetBaseProps & PresetLinkProps)
+  | (PostPresetBaseProps & PresetButtonProps);
