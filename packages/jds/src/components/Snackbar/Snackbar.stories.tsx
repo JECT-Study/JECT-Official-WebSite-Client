@@ -105,18 +105,18 @@ export const UseSnackbarProvider: StoryObj<typeof Snackbar> = {
 
     return (
       <FlexColumn>
-        <BlockButton.Basic onClick={basicSnackbar} variant='outlined'>
+        <BlockButton variant='outlined' onClick={basicSnackbar}>
           Basic
-        </BlockButton.Basic>
-        <BlockButton.Feedback onClick={positiveSnackbar} intent='positive'>
+        </BlockButton>
+        <BlockButton feedback='positive' onClick={positiveSnackbar}>
           Positive
-        </BlockButton.Feedback>
-        <BlockButton.Feedback onClick={destructiveSnackbar} intent='destructive'>
+        </BlockButton>
+        <BlockButton feedback='destructive' onClick={destructiveSnackbar}>
           Destructive
-        </BlockButton.Feedback>
-        <BlockButton.Basic onClick={notifyingSnackbar} hierarchy='accent' variant='solid'>
+        </BlockButton>
+        <BlockButton hierarchy='accent' variant='solid' onClick={notifyingSnackbar}>
           Notifying
-        </BlockButton.Basic>
+        </BlockButton>
       </FlexColumn>
     );
   },
@@ -153,15 +153,15 @@ export const UseSnackbarProviderWithOptions: StoryObj<typeof Snackbar> = {
 
     return (
       <FlexColumn>
-        <BlockButton.Basic onClick={title} variant='outlined'>
+        <BlockButton variant='outlined' onClick={title}>
           title
-        </BlockButton.Basic>
-        <BlockButton.Basic onClick={titleDescription} variant='outlined'>
+        </BlockButton>
+        <BlockButton variant='outlined' onClick={titleDescription}>
           title + description
-        </BlockButton.Basic>
-        <BlockButton.Basic onClick={titleDescriptionButton} variant='outlined'>
+        </BlockButton>
+        <BlockButton variant='outlined' onClick={titleDescriptionButton}>
           title + description + close button
-        </BlockButton.Basic>
+        </BlockButton>
       </FlexColumn>
     );
   },
@@ -204,18 +204,18 @@ export const UseGlobalSnackbar: StoryObj<typeof Snackbar> = {
 
     return (
       <FlexColumn>
-        <BlockButton.Basic onClick={basicSnackbar} variant='outlined'>
+        <BlockButton variant='outlined' onClick={basicSnackbar}>
           Basic
-        </BlockButton.Basic>
-        <BlockButton.Feedback onClick={positiveSnackbar} intent='positive'>
+        </BlockButton>
+        <BlockButton feedback='positive' onClick={positiveSnackbar}>
           Positive
-        </BlockButton.Feedback>
-        <BlockButton.Feedback onClick={destructiveSnackbar} intent='destructive'>
+        </BlockButton>
+        <BlockButton feedback='destructive' onClick={destructiveSnackbar}>
           Destructive
-        </BlockButton.Feedback>
-        <BlockButton.Basic onClick={notifyingSnackbar} hierarchy='accent' variant='solid'>
+        </BlockButton>
+        <BlockButton hierarchy='accent' variant='solid' onClick={notifyingSnackbar}>
           Notifying
-        </BlockButton.Basic>
+        </BlockButton>
       </FlexColumn>
     );
   },
