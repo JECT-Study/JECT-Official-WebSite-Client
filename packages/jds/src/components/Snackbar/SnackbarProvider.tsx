@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
 import { Snackbar } from "./Snackbar";
@@ -24,10 +24,10 @@ export const SnackbarProvider = ({ children, duration }: SnackbarProviderProps) 
   const { snackbars, snackbar: handler, removeSnackbar } = useSnackbarProvider({});
   const [isMounted, setIsMounted] = useState(false);
 
+  const [announcement, setAnnouncement] = useState("");
+  const announcementSpaceToggleRef = useRef(false);
+
   const latestSnackbar = snackbars.length > 0 ? snackbars[snackbars.length - 1] : null;
-  const announcement = latestSnackbar
-    ? [latestSnackbar.title, latestSnackbar.description].filter(Boolean).join(" ")
-    : "";
 
   useEffect(() => {
     snackbarController.setHandler(handler);
@@ -38,11 +38,28 @@ export const SnackbarProvider = ({ children, duration }: SnackbarProviderProps) 
     setIsMounted(true);
   }, []);
 
+  useEffect(() => {
+    if (!latestSnackbar) return;
+
+    const baseText = [latestSnackbar.title, latestSnackbar.description].filter(Boolean).join(" ");
+
+    /**
+     * [A11y] VoiceOver는 live region에 이전과 동일한 문자열이 다시 들어오면
+     * 새 알림으로 인식하지 않아 낭독을 건너뛰는 경우가 있습니다.
+     * 사용자에게 들리지 않는 zero-width space(\u200B)를 1개/2개로 번갈아 붙여
+     * 화면에 보이는 문구는 유지하면서 DOM 텍스트 변경을 확실히 만듭니다.
+     */
+    announcementSpaceToggleRef.current = !announcementSpaceToggleRef.current;
+    const invisibleSpace = announcementSpaceToggleRef.current ? "\u200B" : "\u200B\u200B";
+
+    setAnnouncement(`${baseText}${invisibleSpace}`);
+  }, [latestSnackbar?.id]);
+
   return (
     <SnackbarContext.Provider value={{ snackbar: handler, removeSnackbar }}>
       {children}
 
-      <div className={visuallyHidden} role='status' aria-live='polite'>
+      <div className={visuallyHidden} role='status' aria-live='polite' aria-atomic='true'>
         {announcement}
       </div>
 
