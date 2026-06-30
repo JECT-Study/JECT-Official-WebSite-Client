@@ -229,6 +229,7 @@ export const checkboxItem = recipe({
 
 export const checkboxLabel = style({
   whiteSpace: "nowrap",
+  zIndex: 10,
   vars: { [labelColorVar]: vars.color.semantic.object.bolder },
   selectors: {
     "[data-disabled] &": { vars: { [labelColorVar]: vars.color.semantic.object.subtle } },
