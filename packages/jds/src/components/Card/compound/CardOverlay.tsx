@@ -10,9 +10,10 @@ export const CardOverlay = forwardRef<HTMLAnchorElement | HTMLButtonElement, Car
     const { variant, isDisabled, titleId } = useCardContext("Card.Overlay");
     const overlayClassName = clsx(styles.overlay({ variant, isDisabled }), className);
 
-    const hasOwnLabel =
-      children != null || restProps["aria-label"] != null || restProps["aria-labelledby"] != null;
-    const ariaLabelledby = restProps["aria-labelledby"] ?? (hasOwnLabel ? undefined : titleId);
+    const ariaLabel = restProps["aria-label"];
+    const explicitAriaLabelledby = restProps["aria-labelledby"];
+    const hasAccessibleName = children != null || ariaLabel != null;
+    const ariaLabelledby = explicitAriaLabelledby ?? (hasAccessibleName ? undefined : titleId);
 
     if (as === "button") {
       const { type, ...buttonProps } = restProps as ComponentPropsWithoutRef<"button">;
