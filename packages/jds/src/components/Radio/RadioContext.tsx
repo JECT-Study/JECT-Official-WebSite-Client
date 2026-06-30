@@ -1,18 +1,30 @@
 import { createContext, useContext } from "react";
 import type { RadioGroupState } from "react-stately";
 
-import type { RadioAlign, RadioSize, RadioStyle } from "./radio.types";
+import type { RadioSize, RadioVariant } from "./radio.types";
 
-export interface RadioContextValue {
+export interface RadioConfigContextValue {
   size: RadioSize;
-  style: RadioStyle;
-  align: RadioAlign;
+  variant: RadioVariant;
   disabled: boolean;
   state?: RadioGroupState;
 }
 
-const RadioContext = createContext<RadioContextValue | null>(null);
+const RadioConfigContext = createContext<RadioConfigContextValue | null>(null);
 
-export const RadioProvider = RadioContext.Provider;
+export const RadioConfigProvider = RadioConfigContext.Provider;
 
-export const useRadioContext = () => useContext(RadioContext);
+export const useRadioConfig = () => useContext(RadioConfigContext);
+
+export interface RadioItemContextValue {
+  labelId: string;
+  helperId: string;
+  hasHelper: boolean;
+  onHelperMountChange: (mounted: boolean) => void;
+}
+
+const RadioItemContext = createContext<RadioItemContextValue | null>(null);
+
+export const RadioItemProvider = RadioItemContext.Provider;
+
+export const useRadioItem = () => useContext(RadioItemContext);

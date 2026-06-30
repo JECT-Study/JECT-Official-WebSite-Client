@@ -1,11 +1,10 @@
 export { Radio } from "./Radio";
 export type {
-  RadioAlign,
   RadioBasicProps,
   RadioItemProps,
   RadioLabelProps,
   RadioRootProps,
   RadioSize,
-  RadioStyle,
-  RadioSubLabelProps,
+  RadioVariant,
+  RadioHelperProps,
 } from "./radio.types";

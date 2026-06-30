@@ -2,11 +2,16 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexRow, FlexColumn, Label } from "@storybook-utils/layout";
 
 import { BlockButton } from "./BlockButton";
-import { BLOCK_BUTTON_HIERARCHY_OPTIONS, BLOCK_BUTTON_STYLE_OPTIONS } from "./blockButton.types";
+import {
+  BLOCK_BUTTON_FEEDBACK_OPTIONS,
+  BLOCK_BUTTON_HIERARCHY_OPTIONS,
+  BLOCK_BUTTON_SIZE_OPTIONS,
+  BLOCK_BUTTON_VARIANT_OPTIONS,
+} from "./blockButton.types";
 
 const meta = {
   title: "Components/BlockButton",
-  component: BlockButton.Basic,
+  component: BlockButton,
   parameters: {
     layout: "centered",
   },
@@ -28,7 +33,7 @@ const meta = {
     },
     size: {
       control: "select",
-      options: ["xs", "sm", "md", "lg"],
+      options: BLOCK_BUTTON_SIZE_OPTIONS,
       description: "버튼의 크기",
       table: {
         defaultValue: { summary: "md" },
@@ -36,7 +41,7 @@ const meta = {
     },
     variant: {
       control: "select",
-      options: ["solid", "outlined", "empty"],
+      options: BLOCK_BUTTON_VARIANT_OPTIONS,
       description: "버튼의 스타일 변형",
       table: {
         defaultValue: { summary: "solid" },
@@ -64,7 +69,7 @@ const meta = {
       },
     },
   },
-} satisfies Meta<typeof BlockButton.Basic>;
+} satisfies Meta<typeof BlockButton>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -86,10 +91,10 @@ export const AllSizes: Story = {
   },
   render: () => (
     <FlexRow>
-      <BlockButton.Basic size='xs'>Extra Small</BlockButton.Basic>
-      <BlockButton.Basic size='sm'>Small</BlockButton.Basic>
-      <BlockButton.Basic size='md'>Medium</BlockButton.Basic>
-      <BlockButton.Basic size='lg'>Large</BlockButton.Basic>
+      <BlockButton size='xs'>Extra Small</BlockButton>
+      <BlockButton size='sm'>Small</BlockButton>
+      <BlockButton size='md'>Medium</BlockButton>
+      <BlockButton size='lg'>Large</BlockButton>
     </FlexRow>
   ),
 };
@@ -100,10 +105,10 @@ export const AllHierarchies: Story = {
   },
   render: () => (
     <FlexColumn>
-      <BlockButton.Basic hierarchy='accent'>Accent</BlockButton.Basic>
-      <BlockButton.Basic hierarchy='primary'>Primary</BlockButton.Basic>
-      <BlockButton.Basic hierarchy='secondary'>Secondary</BlockButton.Basic>
-      <BlockButton.Basic hierarchy='tertiary'>Tertiary</BlockButton.Basic>
+      <BlockButton hierarchy='accent'>Accent</BlockButton>
+      <BlockButton hierarchy='primary'>Primary</BlockButton>
+      <BlockButton hierarchy='secondary'>Secondary</BlockButton>
+      <BlockButton hierarchy='tertiary'>Tertiary</BlockButton>
     </FlexColumn>
   ),
 };
@@ -114,9 +119,9 @@ export const AllVariants: Story = {
   },
   render: () => (
     <FlexColumn>
-      <BlockButton.Basic variant='solid'>Solid</BlockButton.Basic>
-      <BlockButton.Basic variant='outlined'>Outlined</BlockButton.Basic>
-      <BlockButton.Basic variant='empty'>Empty</BlockButton.Basic>
+      <BlockButton variant='solid'>Solid</BlockButton>
+      <BlockButton variant='outlined'>Outlined</BlockButton>
+      <BlockButton variant='empty'>Empty</BlockButton>
     </FlexColumn>
   ),
 };
@@ -127,11 +132,11 @@ export const WithIcons: Story = {
   },
   render: () => (
     <FlexColumn>
-      <BlockButton.Basic prefixIcon='arrow-left-line'>With Prefix Icon</BlockButton.Basic>
-      <BlockButton.Basic suffixIcon='arrow-right-line'>With Suffix Icon</BlockButton.Basic>
-      <BlockButton.Basic prefixIcon='arrow-left-line' suffixIcon='arrow-right-line'>
+      <BlockButton prefixIcon='arrow-left-line'>With Prefix Icon</BlockButton>
+      <BlockButton suffixIcon='arrow-right-line'>With Suffix Icon</BlockButton>
+      <BlockButton prefixIcon='arrow-left-line' suffixIcon='arrow-right-line'>
         With Both Icons
-      </BlockButton.Basic>
+      </BlockButton>
     </FlexColumn>
   ),
 };
@@ -142,9 +147,9 @@ export const InteractionStates: Story = {
   },
   render: () => (
     <FlexColumn>
-      <BlockButton.Basic>Hover me</BlockButton.Basic>
-      <BlockButton.Basic>Click me (Active)</BlockButton.Basic>
-      <BlockButton.Basic>Tab to focus me</BlockButton.Basic>
+      <BlockButton>Hover me</BlockButton>
+      <BlockButton>Click me (Active)</BlockButton>
+      <BlockButton>Tab to focus me</BlockButton>
     </FlexColumn>
   ),
   parameters: {
@@ -167,14 +172,14 @@ export const ComprehensiveMatrix: Story = {
   },
   render: () => (
     <FlexColumn gap='32px'>
-      {BLOCK_BUTTON_STYLE_OPTIONS.map(variant => (
+      {BLOCK_BUTTON_VARIANT_OPTIONS.map(variant => (
         <FlexColumn key={variant} gap='12px'>
           <Label>{variant.charAt(0).toUpperCase() + variant.slice(1)}</Label>
           <FlexRow gap='12px'>
             {BLOCK_BUTTON_HIERARCHY_OPTIONS.map(hierarchy => (
-              <BlockButton.Basic key={hierarchy} variant={variant} hierarchy={hierarchy}>
+              <BlockButton key={hierarchy} variant={variant} hierarchy={hierarchy}>
                 {hierarchy}
-              </BlockButton.Basic>
+              </BlockButton>
             ))}
           </FlexRow>
         </FlexColumn>
@@ -196,19 +201,19 @@ export const SizeWithVariants: Story = {
   },
   render: () => (
     <FlexColumn>
-      {(["xs", "sm", "md", "lg"] as const).map(size => (
+      {BLOCK_BUTTON_SIZE_OPTIONS.map(size => (
         <FlexColumn key={size} gap='12px'>
           <Label>{size.toUpperCase()}:</Label>
           <FlexRow gap='12px'>
-            <BlockButton.Basic size={size} variant='solid'>
+            <BlockButton size={size} variant='solid'>
               Solid
-            </BlockButton.Basic>
-            <BlockButton.Basic size={size} variant='outlined'>
+            </BlockButton>
+            <BlockButton size={size} variant='outlined'>
               Outlined
-            </BlockButton.Basic>
-            <BlockButton.Basic size={size} variant='empty'>
+            </BlockButton>
+            <BlockButton size={size} variant='empty'>
               Empty
-            </BlockButton.Basic>
+            </BlockButton>
           </FlexRow>
         </FlexColumn>
       ))}
@@ -222,14 +227,14 @@ export const FeedbackButtons: Story = {
   },
   render: () => (
     <FlexColumn>
-      {(["positive", "destructive"] as const).map(intent => (
-        <FlexColumn key={intent} gap='12px'>
-          <Label>{intent.charAt(0).toUpperCase() + intent.slice(1)}:</Label>
+      {BLOCK_BUTTON_FEEDBACK_OPTIONS.map(feedback => (
+        <FlexColumn key={feedback} gap='12px'>
+          <Label>{feedback.charAt(0).toUpperCase() + feedback.slice(1)}:</Label>
           <FlexRow gap='12px'>
-            {(["xs", "sm", "md", "lg"] as const).map(size => (
-              <BlockButton.Feedback key={size} intent={intent} size={size}>
-                {intent === "positive" ? "저장" : "삭제"}
-              </BlockButton.Feedback>
+            {BLOCK_BUTTON_SIZE_OPTIONS.map(size => (
+              <BlockButton key={size} feedback={feedback} size={size}>
+                {feedback === "positive" ? "저장" : "삭제"}
+              </BlockButton>
             ))}
           </FlexRow>
         </FlexColumn>
