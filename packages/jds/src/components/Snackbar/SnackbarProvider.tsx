@@ -59,6 +59,7 @@ export const SnackbarProvider = ({ children, duration }: SnackbarProviderProps) 
     <SnackbarContext.Provider value={{ snackbar: handler, removeSnackbar }}>
       {children}
 
+      {/* 스크린리더 전용 live region: 최신 스낵바만 낭독 */}
       <div className={visuallyHidden} role='status' aria-live='polite' aria-atomic='true'>
         {announcement}
       </div>
