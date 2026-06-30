@@ -1,5 +1,10 @@
 import { SNACKBAR_TIMER } from "./Snackbar";
-import type { SnackbarItem, SnackbarOptions, UseSnackbarProviderProps } from "./snackbar.types";
+import type {
+  SnackbarActionProps,
+  SnackbarItem,
+  SnackbarOptions,
+  UseSnackbarProviderProps,
+} from "./snackbar.types";
 
 import { useLimitedQueueProvider } from "@/hooks/useLimitedQueueProvider";
 
@@ -10,14 +15,30 @@ export const useSnackbarProvider = ({ snackbarLimit = 3 }: UseSnackbarProviderPr
   });
 
   const handler = {
-    basic: (title: string, options?: SnackbarOptions) =>
-      addItem({ feedback: "none", title, ...options }),
-    positive: (title: string, options?: SnackbarOptions) =>
-      addItem({ feedback: "positive", title, ...options }),
-    destructive: (title: string, options?: SnackbarOptions) =>
-      addItem({ feedback: "destructive", title, ...options }),
-    notifying: (title: string, options?: SnackbarOptions) =>
-      addItem({ feedback: "notifying", title, ...options }),
+    basic: (
+      title: string,
+      labelText: SnackbarActionProps["labelText"],
+      onButtonClick: SnackbarActionProps["onButtonClick"],
+      options?: SnackbarOptions,
+    ) => addItem({ feedback: "none", title, labelText, onButtonClick, ...options }),
+    positive: (
+      title: string,
+      labelText: SnackbarActionProps["labelText"],
+      onButtonClick: SnackbarActionProps["onButtonClick"],
+      options?: SnackbarOptions,
+    ) => addItem({ feedback: "positive", title, labelText, onButtonClick, ...options }),
+    destructive: (
+      title: string,
+      labelText: SnackbarActionProps["labelText"],
+      onButtonClick: SnackbarActionProps["onButtonClick"],
+      options?: SnackbarOptions,
+    ) => addItem({ feedback: "destructive", title, labelText, onButtonClick, ...options }),
+    notifying: (
+      title: string,
+      labelText: SnackbarActionProps["labelText"],
+      onButtonClick: SnackbarActionProps["onButtonClick"],
+      options?: SnackbarOptions,
+    ) => addItem({ feedback: "notifying", title, labelText, onButtonClick, ...options }),
   };
 
   return { snackbars: items, snackbar: handler, removeSnackbar: removeItem };

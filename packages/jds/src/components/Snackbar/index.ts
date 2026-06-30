@@ -1,7 +1,8 @@
 export { Snackbar } from "./Snackbar";
 export type {
   SnackbarFeedback,
-  SnackbarLabelButtonProps,
+  SnackbarActionProps,
+  SnackbarOptions,
   SnackbarBaseProps,
   SnackbarProps,
   SnackbarItem,

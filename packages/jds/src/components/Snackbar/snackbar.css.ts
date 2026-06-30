@@ -69,7 +69,7 @@ export const root = recipe({
       destructive: { gap: vars.scheme.semantic.spacing["10"] },
       notifying: { gap: vars.scheme.semantic.spacing["10"] },
     } satisfies Record<SnackbarFeedback, object>,
-    withLabelAndCloseButton: {
+    withCloseButton: {
       true: {
         paddingRight: vars.scheme.semantic.spacing["10"],
       },
@@ -78,7 +78,7 @@ export const root = recipe({
   },
   defaultVariants: {
     feedback: "none",
-    withLabelAndCloseButton: false,
+    withCloseButton: false,
   },
 });
 

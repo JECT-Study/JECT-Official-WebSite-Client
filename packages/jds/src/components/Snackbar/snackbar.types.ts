@@ -1,19 +1,20 @@
-import type { LabelButtonBasicProps } from "../Button/LabelButton";
-
 import type { LimitedQueueProviderBaseItem } from "@/hooks/useLimitedQueueProvider";
 
 export type SnackbarFeedback = "none" | "positive" | "destructive" | "notifying";
 export type SnackbarFeedbackVariant = Exclude<SnackbarFeedback, "none">;
-export type SnackbarLabelButtonProps = Omit<LabelButtonBasicProps, "hierarchy" | "size">;
+
+export interface SnackbarActionProps {
+  labelText: string;
+  onButtonClick: () => void;
+}
 
 export interface SnackbarOptions {
   description?: string;
   duration?: number;
-  labelButtonProps?: SnackbarLabelButtonProps;
   withCloseButton?: boolean;
 }
 
-export interface SnackbarBaseProps extends SnackbarOptions {
+export interface SnackbarBaseProps extends SnackbarActionProps, SnackbarOptions {
   title: string;
 }
 
@@ -28,7 +29,12 @@ export interface SnackbarItem extends SnackbarBase {
   feedback: SnackbarFeedback;
 }
 
-type SnackbarHandlerFn = (title: string, options?: SnackbarOptions) => void;
+type SnackbarHandlerFn = (
+  title: string,
+  labelText: SnackbarActionProps["labelText"],
+  onButtonClick: SnackbarActionProps["onButtonClick"],
+  options?: SnackbarOptions,
+) => void;
 
 export interface SnackbarHandler {
   basic: SnackbarHandlerFn;

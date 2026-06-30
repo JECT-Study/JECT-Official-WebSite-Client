@@ -37,7 +37,8 @@ export const Snackbar = ({
   id,
   feedback = "none",
   description,
-  labelButtonProps,
+  labelText,
+  onButtonClick,
   onRemove,
   title,
   isClosing,
@@ -78,16 +79,9 @@ export const Snackbar = ({
   const onClose = () => setPhase("exit");
   const phaseClassName = phaseClassNameMap[phase];
   const iconName = feedback !== "none" && feedbackIconName[feedback];
-  const hasLabelAndCloseButton = Boolean(labelButtonProps && withCloseButton);
 
   return (
-    <div
-      id={id}
-      className={clsx(
-        styles.root({ feedback, withLabelAndCloseButton: hasLabelAndCloseButton }),
-        phaseClassName,
-      )}
-    >
+    <div id={id} className={clsx(styles.root({ feedback, withCloseButton }), phaseClassName)}>
       {iconName && <Icon name={iconName} size='sm' className={styles.icon({ feedback })} />}
       <div className={styles.body}>
         <div className={styles.content({ withDescription: hasDescription })}>
@@ -105,29 +99,25 @@ export const Snackbar = ({
             </span>
           )}
         </div>
-        {(labelButtonProps || withCloseButton) && (
-          <div className={styles.actions}>
-            {labelButtonProps && (
-              <LabelButton.Basic
-                {...labelButtonProps}
-                hierarchy='primary'
-                size='md'
-                aria-label={`${title} 알림 ${labelButtonProps.children}`}
-              >
-                {labelButtonProps.children}
-              </LabelButton.Basic>
-            )}
-            {withCloseButton && (
-              <IconButton
-                icon='close-line'
-                hierarchy='tertiary'
-                size='sm'
-                aria-label={`${title} 알림 닫기`}
-                onClick={onClose}
-              />
-            )}
-          </div>
-        )}
+        <div className={styles.actions}>
+          <LabelButton.Basic
+            hierarchy='primary'
+            size='md'
+            aria-label={`${title} 알림 ${labelText}`}
+            onClick={onButtonClick}
+          >
+            {labelText}
+          </LabelButton.Basic>
+          {withCloseButton && (
+            <IconButton
+              icon='close-line'
+              hierarchy='tertiary'
+              size='sm'
+              aria-label={`${title} 알림 닫기`}
+              onClick={onClose}
+            />
+          )}
+        </div>
       </div>
     </div>
   );
