@@ -3,7 +3,7 @@ import type { ComponentPropsWithoutRef, ElementType, ReactNode } from "react";
 export type CardLayout = "vertical" | "horizontal";
 export type CardVariant = "plate" | "post";
 
-export interface CardRootOwnProps extends ComponentPropsWithoutRef<"div"> {
+export interface CardRootProps extends ComponentPropsWithoutRef<"div"> {
   layout?: CardLayout;
   variant?: CardVariant;
   isDisabled?: boolean;

@@ -33,7 +33,7 @@ export const Card = {
 export type { CardLayout, CardVariant } from "./Card.types";
 
 export type {
-  CardRootOwnProps,
+  CardRootProps,
   CardThumbnailImage,
   CardThumbnailProps,
   CardContentProps,

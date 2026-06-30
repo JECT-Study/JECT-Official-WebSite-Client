@@ -1,6 +1,6 @@
 import { forwardRef, type ReactNode } from "react";
 
-import type { CardRootOwnProps } from "../Card.types";
+import type { CardRootProps } from "../Card.types";
 import { CardRoot, CardContentGroup, CardTitle, CardBody } from "../compound";
 
 interface TitleBodyProps {
@@ -15,7 +15,7 @@ export const TitleBody = ({ title, body }: TitleBodyProps) => (
   </CardContentGroup>
 );
 
-interface PresetFrameProps extends CardRootOwnProps {
+interface PresetFrameProps extends CardRootProps {
   overlay: ReactNode;
 }
 
