@@ -1,4 +1,4 @@
-import { style } from "@vanilla-extract/css";
+import { style, type StyleRule } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import type { IconSize } from "components";
 import { vars } from "tokens";
@@ -6,11 +6,13 @@ import { focusRing, overlay, overlayColor } from "utils";
 
 import { BLOCK_BUTTON_HIERARCHY_OPTIONS } from "./blockButton.types";
 import type {
+  BlockButtonFeedback,
   BlockButtonHierarchy,
   BlockButtonSize,
-  BlockButtonStyle,
-  FeedbackIntent,
+  BlockButtonVariant,
 } from "./blockButton.types";
+
+import { labelColorVar } from "@/utils/typography.css";
 
 export const iconSizeMap: Record<BlockButtonSize, IconSize> = {
   lg: "md",
@@ -19,12 +21,10 @@ export const iconSizeMap: Record<BlockButtonSize, IconSize> = {
   xs: "2xs",
 };
 
-// Color state types
-type ColorState = { backgroundColor: string; color: string };
-type OnlyColor = { color: string };
-type OutlinedColorState = { borderColor: string; color: string };
+type FilledPalette = { backgroundColor: string; color: string };
+type EmptyPalette = { color: string };
+type OutlinedPalette = { borderColor: string; color: string };
 
-// Overlay colors per hierarchy
 const overlayColorByHierarchy = {
   accent: vars.color.semantic.accent.neutral,
   primary: vars.color.semantic.fill.boldest,
@@ -32,7 +32,6 @@ const overlayColorByHierarchy = {
   tertiary: vars.color.semantic.fill.boldest,
 } satisfies Record<BlockButtonHierarchy, string>;
 
-// Solid colors
 const solidColorsByHierarchy = {
   accent: {
     enabled: {
@@ -74,9 +73,8 @@ const solidColorsByHierarchy = {
       color: vars.color.semantic.object.assistive,
     },
   },
-} satisfies Record<BlockButtonHierarchy, { enabled: ColorState; disabled: ColorState }>;
+} satisfies Record<BlockButtonHierarchy, { enabled: FilledPalette; disabled: FilledPalette }>;
 
-// Outlined colors (backgroundColor / borderWidth / borderStyle은 variant 레벨에서 공유)
 const outlinedColorsByHierarchy = {
   accent: {
     enabled: {
@@ -118,12 +116,8 @@ const outlinedColorsByHierarchy = {
       color: vars.color.semantic.object.assistive,
     },
   },
-} satisfies Record<
-  BlockButtonHierarchy,
-  { enabled: OutlinedColorState; disabled: OutlinedColorState }
->;
+} satisfies Record<BlockButtonHierarchy, { enabled: OutlinedPalette; disabled: OutlinedPalette }>;
 
-// Empty colors (backgroundColor: "transparent"는 variant 레벨에서 공유)
 const emptyColorsByHierarchy = {
   accent: {
     enabled: { color: vars.color.semantic.accent.normal },
@@ -141,9 +135,8 @@ const emptyColorsByHierarchy = {
     enabled: { color: vars.color.semantic.object.neutral },
     disabled: { color: vars.color.semantic.object.assistive },
   },
-} satisfies Record<BlockButtonHierarchy, { enabled: OnlyColor; disabled: OnlyColor }>;
+} satisfies Record<BlockButtonHierarchy, { enabled: EmptyPalette; disabled: EmptyPalette }>;
 
-// Feedback colors
 const feedbackColorsByIntent = {
   positive: {
     enabled: {
@@ -165,70 +158,34 @@ const feedbackColorsByIntent = {
       color: vars.color.semantic.feedback.destructive.alpha.subtle,
     },
   },
-} satisfies Record<FeedbackIntent, { enabled: ColorState; disabled: ColorState }>;
+} satisfies Record<BlockButtonFeedback, { enabled: FilledPalette; disabled: FilledPalette }>;
 
-// Typography per size
-// globalStyle 클래스를 쓰는 대신 동일한 CSS var를 직접 참조해 recipe 안에서 인라인으로 처리한다.
-// recipe size variant만으로 타이포/크기가 한번에 결정되므로 className 합성이 필요하지 않다.
-const typographyBySize = {
-  lg: {
-    fontSize: vars.typo.primitive.fontSize.label.lg,
-    lineHeight: vars.typo.primitive.font.lineHeight.label.lg,
-    fontFamily: vars.typo.primitive.typeface.label,
-    fontWeight: vars.typo.primitive.fontWeight.label.bold,
-    letterSpacing: vars.typo.primitive.font.letterSpacing.label.lg,
-  },
-  md: {
-    fontSize: vars.typo.primitive.fontSize.label.md,
-    lineHeight: vars.typo.primitive.font.lineHeight.label.md,
-    fontFamily: vars.typo.primitive.typeface.label,
-    fontWeight: vars.typo.primitive.fontWeight.label.bold,
-    letterSpacing: vars.typo.primitive.font.letterSpacing.label.md,
-  },
-  sm: {
-    fontSize: vars.typo.primitive.fontSize.label.sm,
-    lineHeight: vars.typo.primitive.font.lineHeight.label.sm,
-    fontFamily: vars.typo.primitive.typeface.label,
-    fontWeight: vars.typo.primitive.fontWeight.label.bold,
-    letterSpacing: vars.typo.primitive.font.letterSpacing.label.sm,
-  },
-  xs: {
-    fontSize: vars.typo.primitive.fontSize.label.xs,
-    lineHeight: vars.typo.primitive.font.lineHeight.label.xs,
-    fontFamily: vars.typo.primitive.typeface.label,
-    fontWeight: vars.typo.primitive.fontWeight.label.bold,
-    letterSpacing: vars.typo.primitive.font.letterSpacing.label.xs,
-  },
-} satisfies Record<BlockButtonSize, object>;
-
-// Size variants (padding + borderRadius + typography)
 const sizeVariants = {
   lg: {
     padding: `${vars.scheme.semantic.spacing["10"]} ${vars.scheme.semantic.spacing["20"]}`,
     borderRadius: vars.scheme.semantic.radius["6"],
-    ...typographyBySize.lg,
   },
   md: {
     padding: `${vars.scheme.semantic.spacing["8"]} ${vars.scheme.semantic.spacing["16"]}`,
     borderRadius: vars.scheme.semantic.radius["6"],
-    ...typographyBySize.md,
   },
   sm: {
     padding: `${vars.scheme.semantic.spacing["6"]} ${vars.scheme.semantic.spacing["12"]}`,
     borderRadius: vars.scheme.semantic.radius["4"],
-    ...typographyBySize.sm,
   },
   xs: {
     padding: `${vars.scheme.semantic.spacing["4"]} ${vars.scheme.semantic.spacing["8"]}`,
     borderRadius: vars.scheme.semantic.radius["4"],
-    ...typographyBySize.xs,
   },
-} satisfies Record<BlockButtonSize, object>;
+} satisfies Record<BlockButtonSize, StyleRule>;
 
-// Base styles
+const liftColor = <T extends { color: string }>({ color, ...rest }: T): StyleRule => ({
+  ...rest,
+  vars: { [labelColorVar]: color },
+});
+
 const baseStyles = style({
   position: "relative",
-  display: "inline-flex",
   flexDirection: "row",
   justifyContent: "center",
   alignItems: "center",
@@ -239,64 +196,49 @@ const baseStyles = style({
   whiteSpace: "nowrap",
   gap: vars.scheme.semantic.spacing["4"],
   selectors: {
+    "&&": { display: "inline-flex" },
     "&[data-disabled]": { cursor: "not-allowed" },
-    // ::before = focusRing, ::after = overlay
-    // borderRadius: "inherit" → 버튼의 size variant borderRadius를 그대로 상속
     "&::before": { inset: 0, borderRadius: "inherit" },
     "&::after": { inset: 0, borderRadius: "inherit" },
   },
 });
 
-// Compound variants
 const solidCompoundVariants = BLOCK_BUTTON_HIERARCHY_OPTIONS.map(hierarchy => ({
   variants: { hierarchy, variant: "solid" as const },
   style: {
-    ...solidColorsByHierarchy[hierarchy].enabled,
-    selectors: { "&[data-disabled]": solidColorsByHierarchy[hierarchy].disabled },
+    ...liftColor(solidColorsByHierarchy[hierarchy].enabled),
+    selectors: { "&[data-disabled]": liftColor(solidColorsByHierarchy[hierarchy].disabled) },
   },
 }));
 
 const outlinedCompoundVariants = BLOCK_BUTTON_HIERARCHY_OPTIONS.map(hierarchy => ({
   variants: { hierarchy, variant: "outlined" as const },
   style: {
-    ...outlinedColorsByHierarchy[hierarchy].enabled,
-    selectors: { "&[data-disabled]": outlinedColorsByHierarchy[hierarchy].disabled },
+    ...liftColor(outlinedColorsByHierarchy[hierarchy].enabled),
+    selectors: { "&[data-disabled]": liftColor(outlinedColorsByHierarchy[hierarchy].disabled) },
   },
 }));
 
 const emptyCompoundVariants = BLOCK_BUTTON_HIERARCHY_OPTIONS.map(hierarchy => ({
   variants: { hierarchy, variant: "empty" as const },
   style: {
-    ...emptyColorsByHierarchy[hierarchy].enabled,
-    selectors: { "&[data-disabled]": emptyColorsByHierarchy[hierarchy].disabled },
+    ...liftColor(emptyColorsByHierarchy[hierarchy].enabled),
+    selectors: { "&[data-disabled]": liftColor(emptyColorsByHierarchy[hierarchy].disabled) },
   },
 }));
 
-/**
- * `BlockButton.Basic`용 VE recipe.
- *
- * @remarks
- * 인터랙션 상태는 `usePressable`이 부여하는 data attribute를 소비한다.
- * - `data-hovered` / `data-pressed` → `::after` overlay opacity (0.08 / 0.12)
- * - `data-focus-visible`            → `::before` focus ring box-shadow
- * - `data-disabled`                 → overlay 차단 + `cursor: not-allowed`
- *
- * `usePressable` 없이 단독으로 사용하면 hover·focus·disabled 스타일이 동작하지 않는다.
- *
- * @see {@link overlay} — hover/pressed overlay 유틸
- * @see {@link focusRing} — focus ring 유틸
- */
+const rootBase = [overlay(), focusRing(), baseStyles];
+
+// hierarchy는 overlayColor만 지정하고, 실제 색상은 variant와 조합해서 결정된다.
 export const basicRoot = recipe({
-  base: [overlay(), focusRing(), baseStyles],
+  base: rootBase,
   variants: {
-    // hierarchy: overlayColor만 설정. 실제 색상은 compoundVariants에서 variant와 교차하여 결정
     hierarchy: {
       accent: { vars: { [overlayColor]: overlayColorByHierarchy.accent } },
       primary: { vars: { [overlayColor]: overlayColorByHierarchy.primary } },
       secondary: { vars: { [overlayColor]: overlayColorByHierarchy.secondary } },
       tertiary: { vars: { [overlayColor]: overlayColorByHierarchy.tertiary } },
-    } satisfies Record<BlockButtonHierarchy, unknown>,
-    // variant: hierarchy와 무관하게 공유되는 base 속성만 설정
+    } satisfies Record<BlockButtonHierarchy, StyleRule>,
     variant: {
       solid: {},
       outlined: {
@@ -305,8 +247,8 @@ export const basicRoot = recipe({
         borderStyle: "solid",
       },
       empty: { backgroundColor: "transparent" },
-    } satisfies Record<BlockButtonStyle, unknown>,
-    size: sizeVariants satisfies Record<BlockButtonSize, unknown>,
+    } satisfies Record<BlockButtonVariant, StyleRule>,
+    size: sizeVariants satisfies Record<BlockButtonSize, StyleRule>,
   },
   compoundVariants: [
     ...solidCompoundVariants,
@@ -315,31 +257,30 @@ export const basicRoot = recipe({
   ],
 });
 
-/**
- * `BlockButton.Feedback`용 VE recipe.
- *
- * @remarks
- * 항상 solid variant로 렌더링되며, `hierarchy` 없이 `intent`만으로 색상이 결정된다.
- * overlay color는 positive / destructive 모두 `object.boldest`로 동일하다.
- *
- * 인터랙션 상태 처리는 {@link basicRoot}와 동일하게 `usePressable` data attribute에 의존한다.
- */
+const feedbackVariant = ({
+  enabled,
+  disabled,
+}: {
+  enabled: FilledPalette;
+  disabled: FilledPalette;
+}): StyleRule => ({
+  backgroundColor: enabled.backgroundColor,
+  vars: {
+    [overlayColor]: vars.color.semantic.fill.boldest,
+    [labelColorVar]: enabled.color,
+  },
+  selectors: { "&[data-disabled]": liftColor(disabled) },
+});
+
+const feedbackVariants = {
+  positive: feedbackVariant(feedbackColorsByIntent.positive),
+  destructive: feedbackVariant(feedbackColorsByIntent.destructive),
+} satisfies Record<BlockButtonFeedback, StyleRule>;
+
 export const feedbackRoot = recipe({
-  base: [overlay(), focusRing(), baseStyles],
+  base: rootBase,
   variants: {
-    // feedback은 항상 solid이므로 intent variant에서 색상을 직접 결정
-    intent: {
-      positive: {
-        vars: { [overlayColor]: vars.color.semantic.fill.boldest },
-        ...feedbackColorsByIntent.positive.enabled,
-        selectors: { "&[data-disabled]": feedbackColorsByIntent.positive.disabled },
-      },
-      destructive: {
-        vars: { [overlayColor]: vars.color.semantic.fill.boldest },
-        ...feedbackColorsByIntent.destructive.enabled,
-        selectors: { "&[data-disabled]": feedbackColorsByIntent.destructive.disabled },
-      },
-    } satisfies Record<FeedbackIntent, unknown>,
-    size: sizeVariants satisfies Record<BlockButtonSize, unknown>,
+    feedback: feedbackVariants satisfies Record<BlockButtonFeedback, StyleRule>,
+    size: sizeVariants satisfies Record<BlockButtonSize, StyleRule>,
   },
 });

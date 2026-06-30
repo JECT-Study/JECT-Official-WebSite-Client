@@ -1,11 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexRow, FlexColumn, Label } from "@storybook-utils/layout";
-import {
-  ICON_BUTTON_HIERARCHY_OPTIONS,
-  ICON_BUTTON_SIZE_OPTIONS,
-  IconButton,
-  type IconButtonSize,
-} from "components";
+import { IconButton, type IconButtonSize } from "components";
+
+import { ICON_BUTTON_HIERARCHY_OPTIONS, ICON_BUTTON_SIZE_OPTIONS } from "./iconButton.types";
 
 const MATRIX_SIZE_OPTIONS = ["sm", "md", "xl"] as const satisfies readonly IconButtonSize[];
 
