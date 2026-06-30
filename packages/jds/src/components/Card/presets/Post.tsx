@@ -1,100 +1,54 @@
 import { forwardRef, type ReactNode } from "react";
 
-import type { CardThumbnailImage, PostPresetProps } from "../Card.types";
+import type { PostPresetBaseProps, PostPresetProps } from "../Card.types";
 import { CardThumbnail, CardContent, CardMeta, CardMetaItem, CardOverlay } from "../compound";
 import { PresetFrame, TitleBody } from "./shared";
 
 type PostLinkProps = Omit<Extract<PostPresetProps, { as: "a" }>, "as">;
 type PostButtonProps = Omit<Extract<PostPresetProps, { as: "button" }>, "as">;
+type PostBaseProps = PostPresetBaseProps & { overlay: ReactNode };
 
-interface PostContentProps {
-  layout: "vertical" | "horizontal";
-  image?: CardThumbnailImage;
-  title: string;
-  body: ReactNode;
-  author: string;
-  date: string;
-}
+const PostBase = forwardRef<HTMLDivElement, PostBaseProps>(
+  ({ layout = "vertical", image, title, body, author, date, overlay, ...frameProps }, ref) => {
+    const thumbnail = image && <CardThumbnail image={image} />;
 
-const PostContent = ({ layout, image, title, body, author, date }: PostContentProps) => {
-  const thumbnail = image && <CardThumbnail image={image} />;
+    return (
+      <PresetFrame ref={ref} layout={layout} variant='post' overlay={overlay} {...frameProps}>
+        {layout === "vertical" && thumbnail}
+        <CardContent>
+          <TitleBody title={title} body={body} />
+          <CardMeta>
+            <CardMetaItem>{author}</CardMetaItem>
+            <CardMetaItem>{date}</CardMetaItem>
+          </CardMeta>
+        </CardContent>
+        {layout === "horizontal" && thumbnail}
+      </PresetFrame>
+    );
+  },
+);
 
-  return (
-    <>
-      {layout === "vertical" && thumbnail}
-      <CardContent>
-        <TitleBody title={title} body={body} />
-        <CardMeta>
-          <CardMetaItem>{author}</CardMetaItem>
-          <CardMetaItem>{date}</CardMetaItem>
-        </CardMeta>
-      </CardContent>
-      {layout === "horizontal" && thumbnail}
-    </>
-  );
-};
+PostBase.displayName = "Card.Preset.Post.Base";
 
 export const PostLink = forwardRef<HTMLDivElement, PostLinkProps>(
-  (
-    {
-      layout = "vertical",
-      isDisabled,
-      image,
-      title,
-      body,
-      author,
-      date,
-      href,
-      target,
-      rel,
-      ...rest
-    },
-    ref,
-  ) => (
-    <PresetFrame
+  ({ href, target, rel, ...rest }, ref) => (
+    <PostBase
       ref={ref}
-      layout={layout}
-      variant='post'
-      isDisabled={isDisabled}
       overlay={<CardOverlay as='a' href={href} target={target} rel={rel} />}
       {...rest}
-    >
-      <PostContent
-        layout={layout}
-        image={image}
-        title={title}
-        body={body}
-        author={author}
-        date={date}
-      />
-    </PresetFrame>
+    />
   ),
 );
 
 PostLink.displayName = "Card.Preset.Post.Link";
 
 export const PostButton = forwardRef<HTMLDivElement, PostButtonProps>(
-  (
-    { layout = "vertical", isDisabled, image, title, body, author, date, onClick, type, ...rest },
-    ref,
-  ) => (
-    <PresetFrame
+  ({ onClick, type, ...rest }, ref) => (
+    <PostBase
       ref={ref}
-      layout={layout}
-      variant='post'
-      isDisabled={isDisabled}
       overlay={<CardOverlay as='button' onClick={onClick} type={type} />}
       {...rest}
-    >
-      <PostContent
-        layout={layout}
-        image={image}
-        title={title}
-        body={body}
-        author={author}
-        date={date}
-      />
-    </PresetFrame>
+    />
   ),
 );
 

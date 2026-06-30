@@ -1,62 +1,50 @@
 import { forwardRef, type ReactNode } from "react";
 
-import type { CardThumbnailImage, PlatePresetProps } from "../Card.types";
+import type { PlatePresetBaseProps, PlatePresetProps } from "../Card.types";
 import { CardThumbnail, CardContent, CardCaption, CardOverlay } from "../compound";
 import { PresetFrame, TitleBody } from "./shared";
 
 type PlateLinkProps = Omit<Extract<PlatePresetProps, { as: "a" }>, "as">;
 type PlateButtonProps = Omit<Extract<PlatePresetProps, { as: "button" }>, "as">;
+type PlateBaseProps = PlatePresetBaseProps & { overlay: ReactNode };
 
-interface PlateContentProps {
-  image?: CardThumbnailImage;
-  caption?: string;
-  title: string;
-  body: ReactNode;
-}
+const PlateBase = forwardRef<HTMLDivElement, PlateBaseProps>(
+  ({ image, caption, title, body, overlay, ...frameProps }, ref) => {
+    const thumbnailImage = image ?? { alt: title };
 
-const PlateContent = ({ image, caption, title, body }: PlateContentProps) => {
-  const thumbnailImage = image ?? { alt: title };
+    return (
+      <PresetFrame ref={ref} variant='plate' overlay={overlay} {...frameProps}>
+        <CardThumbnail image={thumbnailImage} />
+        <CardContent>
+          <TitleBody title={title} body={body} />
+          {caption && <CardCaption>{caption}</CardCaption>}
+        </CardContent>
+      </PresetFrame>
+    );
+  },
+);
 
-  return (
-    <>
-      <CardThumbnail image={thumbnailImage} />
-      <CardContent>
-        <TitleBody title={title} body={body} />
-        {caption && <CardCaption>{caption}</CardCaption>}
-      </CardContent>
-    </>
-  );
-};
+PlateBase.displayName = "Card.Preset.Plate.Base";
 
 export const PlateLink = forwardRef<HTMLDivElement, PlateLinkProps>(
-  ({ layout, isDisabled, image, caption, title, body, href, target, rel, ...rest }, ref) => (
-    <PresetFrame
+  ({ href, target, rel, ...rest }, ref) => (
+    <PlateBase
       ref={ref}
-      layout={layout}
-      variant='plate'
-      isDisabled={isDisabled}
       overlay={<CardOverlay as='a' href={href} target={target} rel={rel} />}
       {...rest}
-    >
-      <PlateContent image={image} caption={caption} title={title} body={body} />
-    </PresetFrame>
+    />
   ),
 );
 
 PlateLink.displayName = "Card.Preset.Plate.Link";
 
 export const PlateButton = forwardRef<HTMLDivElement, PlateButtonProps>(
-  ({ layout, isDisabled, image, caption, title, body, onClick, type, ...rest }, ref) => (
-    <PresetFrame
+  ({ onClick, type, ...rest }, ref) => (
+    <PlateBase
       ref={ref}
-      layout={layout}
-      variant='plate'
-      isDisabled={isDisabled}
       overlay={<CardOverlay as='button' onClick={onClick} type={type} />}
       {...rest}
-    >
-      <PlateContent image={image} caption={caption} title={title} body={body} />
-    </PresetFrame>
+    />
   ),
 );
 
