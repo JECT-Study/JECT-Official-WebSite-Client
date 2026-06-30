@@ -5,12 +5,12 @@ import type { MenuItemAnchorProps, MenuItemButtonProps } from "../MenuItem";
 
 import type { LabelOwnProps } from "@/utils/typography";
 
-export type MenuStyle = "solid" | "empty";
+export type MenuStyle = "solid" | "hollow";
 export type MenuSize = "lg" | "md" | "sm";
 
 export interface MenuRootProps extends ComponentPropsWithoutRef<typeof DropdownMenu.Root> {
-  menuStyle?: MenuStyle;
   size?: MenuSize;
+  menuStyle?: MenuStyle;
   children: ReactNode;
 }
 
@@ -22,10 +22,28 @@ export interface MenuCategoryProps extends LabelOwnProps {
   children: ReactNode;
 }
 
-export interface MenuGroupProps {
+export interface MenuGroupProps extends ComponentPropsWithoutRef<"ul"> {
   children: ReactNode;
 }
-export type MenuTrigger = DropdownMenu.DropdownMenuTriggerProps;
+
+export type MenuTriggerProps = DropdownMenu.DropdownMenuTriggerProps;
+
 export type MenuItemProps = ComponentPropsWithoutRef<typeof DropdownMenu.Item>;
-export type MenuButtonProps = MenuItemButtonProps;
-export type MenuAnchorProps = MenuItemAnchorProps;
+
+type MenuDropdownItemProps = Pick<MenuItemProps, "onSelect" | "textValue">;
+
+export interface MenuTreeProps extends Omit<MenuItemButtonProps, "children"> {
+  label: ReactNode;
+  open?: boolean;
+  defaultOpen?: boolean;
+  onOpenChange?: (open: boolean) => void;
+  disabled?: boolean;
+  className?: string;
+  children?: ReactNode;
+  withTreeButton?: boolean;
+}
+
+export interface MenuButtonProps
+  extends Omit<MenuItemButtonProps, "onSelect">, MenuDropdownItemProps {}
+export interface MenuAnchorProps
+  extends Omit<MenuItemAnchorProps, "onSelect">, MenuDropdownItemProps {}
