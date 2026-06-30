@@ -3,14 +3,13 @@ import type {
   SnackbarActionProps,
   SnackbarItem,
   SnackbarOptions,
-  UseSnackbarProviderProps,
 } from "./snackbar.types";
 
 import { useLimitedQueueProvider } from "@/hooks/useLimitedQueueProvider";
 
-export const useSnackbarProvider = ({ snackbarLimit = 3 }: UseSnackbarProviderProps) => {
+export const useSnackbarProvider = () => {
   const { items, addItem, removeItem } = useLimitedQueueProvider<SnackbarItem>({
-    limit: snackbarLimit,
+    limit: 3,
     fallbackTimeout: SNACKBAR_TIMER.QUEUE_FALLBACK,
   });
 

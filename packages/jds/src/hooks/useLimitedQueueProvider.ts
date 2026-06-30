@@ -6,12 +6,12 @@ export interface LimitedQueueProviderBaseItem {
 }
 
 interface UseLimitedQueueProviderProps {
-  limit?: number;
+  limit: number;
   fallbackTimeout: number;
 }
 
 export const useLimitedQueueProvider = <T extends LimitedQueueProviderBaseItem>({
-  limit = 3,
+  limit,
   fallbackTimeout,
 }: UseLimitedQueueProviderProps) => {
   const [items, setItems] = useState<T[]>([]);
