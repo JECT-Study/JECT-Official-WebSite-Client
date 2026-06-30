@@ -5,6 +5,14 @@ import type { CardOverlayProps } from "../Card.types";
 import { useCardContext } from "../cardContext";
 import * as styles from "./card.css";
 
+/**
+ * Card 표면 전체를 덮는 단일 클릭 타겟
+ * 자체 접근성 이름이 없으면 카드 title을 `aria-labelledby`로 보강한다.
+ *
+ * @remarks
+ * `as="button"`일 때 카드 내부에 인터랙티브 요소를 두지 않는다.
+ * 예외적으로 내부 액션이 필요하면 오버레이 위 레이어(`z-index` > overlay)로 올려 전체 클릭과 분리한다.
+ */
 export const CardOverlay = forwardRef<HTMLAnchorElement | HTMLButtonElement, CardOverlayProps>(
   ({ as = "a", children, className, ...restProps }, ref) => {
     const { variant, isDisabled, titleId } = useCardContext("Card.Overlay");
