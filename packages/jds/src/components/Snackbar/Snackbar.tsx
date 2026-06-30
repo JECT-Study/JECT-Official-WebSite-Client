@@ -100,14 +100,14 @@ export const Snackbar = ({
           )}
         </div>
         <div className={styles.actions}>
-          <LabelButton.Basic
+          <LabelButton
             hierarchy='primary'
             size='md'
             aria-label={`${title} 알림 ${labelText}`}
             onClick={onButtonClick}
           >
             {labelText}
-          </LabelButton.Basic>
+          </LabelButton>
           {withCloseButton && (
             <IconButton
               icon='close-line'
