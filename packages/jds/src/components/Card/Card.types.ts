@@ -1,4 +1,4 @@
-import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import type { ComponentPropsWithoutRef, ElementType, ReactNode } from "react";
 
 export type CardLayout = "vertical" | "horizontal";
 export type CardVariant = "plate" | "post";
@@ -11,33 +11,15 @@ export interface CardRootOwnProps extends ComponentPropsWithoutRef<"div"> {
   children?: ReactNode;
 }
 
-export interface CardContentProps extends ComponentPropsWithoutRef<"div"> {
-  children: ReactNode;
-}
+type CardSlotProps<E extends ElementType> = ComponentPropsWithoutRef<E> & { children: ReactNode };
 
-export interface CardContentGroupProps extends ComponentPropsWithoutRef<"div"> {
-  children: ReactNode;
-}
-
-export interface CardCaptionProps extends ComponentPropsWithoutRef<"span"> {
-  children: ReactNode;
-}
-
-export interface CardTitleProps extends ComponentPropsWithoutRef<"h3"> {
-  children: ReactNode;
-}
-
-export interface CardBodyProps extends ComponentPropsWithoutRef<"p"> {
-  children: ReactNode;
-}
-
-export interface CardMetaProps extends ComponentPropsWithoutRef<"div"> {
-  children: ReactNode;
-}
-
-export interface CardMetaItemProps extends ComponentPropsWithoutRef<"span"> {
-  children: ReactNode;
-}
+export type CardContentProps = CardSlotProps<"div">;
+export type CardContentGroupProps = CardSlotProps<"div">;
+export type CardCaptionProps = CardSlotProps<"span">;
+export type CardTitleProps = CardSlotProps<"h3">;
+export type CardBodyProps = CardSlotProps<"p">;
+export type CardMetaProps = CardSlotProps<"div">;
+export type CardMetaItemProps = CardSlotProps<"span">;
 
 interface CardOverlayLinkProps extends ComponentPropsWithoutRef<"a"> {
   as?: "a";
