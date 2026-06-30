@@ -15,6 +15,10 @@ export interface CardContentProps extends ComponentPropsWithoutRef<"div"> {
   children: ReactNode;
 }
 
+export interface CardContentGroupProps extends ComponentPropsWithoutRef<"div"> {
+  children: ReactNode;
+}
+
 export interface CardCaptionProps extends ComponentPropsWithoutRef<"span"> {
   children: ReactNode;
 }

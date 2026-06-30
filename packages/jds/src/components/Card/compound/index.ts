@@ -1,6 +1,7 @@
 export { CardRoot } from "./CardRoot";
 export { CardThumbnail } from "./CardThumbnail";
 export { CardContent } from "./CardContent";
+export { CardContentGroup } from "./CardContentGroup";
 export { CardCaption } from "./CardCaption";
 export { CardTitle } from "./CardTitle";
 export { CardBody } from "./CardBody";
