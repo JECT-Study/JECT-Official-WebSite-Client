@@ -254,16 +254,13 @@ export const body = recipe({
   },
 });
 
-export const caption = style([
-  "semantic-textStyle-label-xs-subtle",
-  {
-    display: "-webkit-box",
-    WebkitBoxOrient: "vertical",
-    WebkitLineClamp: 1,
-    overflow: "hidden",
-    color: captionColor,
-  },
-]);
+export const caption = style({
+  vars: { [labelColorVar]: captionColor },
+  display: "-webkit-box",
+  WebkitBoxOrient: "vertical",
+  WebkitLineClamp: 1,
+  overflow: "hidden",
+});
 
 const overlayBase = style({
   position: "absolute",
