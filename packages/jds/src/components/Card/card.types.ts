@@ -56,7 +56,7 @@ interface PresetLinkProps {
 
 interface PresetButtonProps {
   as: "button";
-  onClick: () => void;
+  onClick: NonNullable<ComponentPropsWithoutRef<"button">["onClick"]>;
   type?: "button" | "submit" | "reset";
 }
 
