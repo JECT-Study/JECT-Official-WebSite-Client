@@ -14,9 +14,9 @@ export const CardTitle = forwardRef<HTMLHeadingElement, CardTitleProps>(
     return (
       <h3
         ref={ref}
-        id={titleId}
         className={clsx(getTitleClassName({ size: "xs" }), styles.title, className)}
         {...restProps}
+        id={titleId}
       >
         {children}
       </h3>
