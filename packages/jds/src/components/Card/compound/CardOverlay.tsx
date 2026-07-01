@@ -42,13 +42,15 @@ export const CardOverlay = forwardRef<HTMLAnchorElement | HTMLButtonElement, Car
       );
     }
 
-    const { href, ...anchorProps } = restProps as ComponentPropsWithoutRef<"a">;
+    const { href, onClick, tabIndex, ...anchorProps } = restProps as ComponentPropsWithoutRef<"a">;
 
     return (
       <a
         ref={ref as Ref<HTMLAnchorElement>}
         className={overlayClassName}
         {...anchorProps}
+        onClick={isDisabled ? undefined : onClick}
+        tabIndex={isDisabled ? -1 : tabIndex}
         aria-labelledby={ariaLabelledby}
         data-overlay
         data-disabled={isDisabled || undefined}
