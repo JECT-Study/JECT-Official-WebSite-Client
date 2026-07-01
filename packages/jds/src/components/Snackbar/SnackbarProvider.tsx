@@ -28,6 +28,10 @@ export const SnackbarProvider = ({ children, duration }: SnackbarProviderProps) 
   const announcementSpaceToggleRef = useRef(false);
 
   const latestSnackbar = snackbars.length > 0 ? snackbars[snackbars.length - 1] : null;
+  
+  const latestSnackbarId = latestSnackbar?.id;
+  const latestSnackbarTitle = latestSnackbar?.title;
+  const latestSnackbarDescription = latestSnackbar?.description;
 
   useEffect(() => {
     snackbarController.setHandler(handler);
@@ -39,9 +43,9 @@ export const SnackbarProvider = ({ children, duration }: SnackbarProviderProps) 
   }, []);
 
   useEffect(() => {
-    if (!latestSnackbar) return;
+    if (!latestSnackbarId) return;
 
-    const baseText = [latestSnackbar.title, latestSnackbar.description].filter(Boolean).join(" ");
+    const baseText = [latestSnackbarTitle, latestSnackbarDescription].filter(Boolean).join(" ");
 
     /**
      * [A11y] VoiceOver는 live region에 이전과 동일한 문자열이 다시 들어오면
@@ -53,7 +57,7 @@ export const SnackbarProvider = ({ children, duration }: SnackbarProviderProps) 
     const invisibleSpace = announcementSpaceToggleRef.current ? "\u200B" : "\u200B\u200B";
 
     setAnnouncement(`${baseText}${invisibleSpace}`);
-  }, [latestSnackbar?.id]);
+  }, [latestSnackbarId, latestSnackbarTitle, latestSnackbarDescription]);
 
   return (
     <SnackbarContext.Provider value={{ snackbar: handler, removeSnackbar }}>

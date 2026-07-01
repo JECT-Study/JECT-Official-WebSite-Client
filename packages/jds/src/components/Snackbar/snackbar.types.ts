@@ -42,7 +42,3 @@ export interface SnackbarHandler {
   destructive: SnackbarHandlerFn;
   notifying: SnackbarHandlerFn;
 }
-
-export interface UseSnackbarProviderProps {
-  snackbarLimit?: number;
-}
