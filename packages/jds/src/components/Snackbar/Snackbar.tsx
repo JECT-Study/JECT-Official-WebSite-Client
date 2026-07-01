@@ -37,8 +37,8 @@ export const Snackbar = ({
   id,
   feedback = "none",
   description,
-  labelText,
-  onButtonClick,
+  label,
+  onClick,
   onRemove,
   title,
   isClosing,
@@ -103,10 +103,10 @@ export const Snackbar = ({
           <LabelButton
             hierarchy='primary'
             size='md'
-            aria-label={`${title} 알림 ${labelText}`}
-            onClick={onButtonClick}
+            aria-label={`${title} 알림 ${label}`}
+            onClick={onClick}
           >
-            {labelText}
+            {label}
           </LabelButton>
           {withCloseButton && (
             <IconButton

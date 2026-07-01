@@ -4,8 +4,8 @@ export type SnackbarFeedback = "none" | "positive" | "destructive" | "notifying"
 export type SnackbarFeedbackVariant = Exclude<SnackbarFeedback, "none">;
 
 export interface SnackbarActionProps {
-  labelText: string;
-  onButtonClick: () => void;
+  label: string;
+  onClick: () => void;
 }
 
 export interface SnackbarOptions {
@@ -31,8 +31,8 @@ export interface SnackbarItem extends SnackbarBase {
 
 type SnackbarHandlerFn = (
   title: string,
-  labelText: SnackbarActionProps["labelText"],
-  onButtonClick: SnackbarActionProps["onButtonClick"],
+  label: SnackbarActionProps["label"],
+  onClick: SnackbarActionProps["onClick"],
   options?: SnackbarOptions,
 ) => void;
 

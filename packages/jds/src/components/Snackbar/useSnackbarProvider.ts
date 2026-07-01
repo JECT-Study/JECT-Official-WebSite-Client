@@ -16,28 +16,28 @@ export const useSnackbarProvider = () => {
   const handler = {
     basic: (
       title: string,
-      labelText: SnackbarActionProps["labelText"],
-      onButtonClick: SnackbarActionProps["onButtonClick"],
+      label: SnackbarActionProps["label"],
+      onClick: SnackbarActionProps["onClick"],
       options?: SnackbarOptions,
-    ) => addItem({ feedback: "none", title, labelText, onButtonClick, ...options }),
+    ) => addItem({ feedback: "none", title, label, onClick, ...options }),
     positive: (
       title: string,
-      labelText: SnackbarActionProps["labelText"],
-      onButtonClick: SnackbarActionProps["onButtonClick"],
+      label: SnackbarActionProps["label"],
+      onClick: SnackbarActionProps["onClick"],
       options?: SnackbarOptions,
-    ) => addItem({ feedback: "positive", title, labelText, onButtonClick, ...options }),
+    ) => addItem({ feedback: "positive", title, label, onClick, ...options }),
     destructive: (
       title: string,
-      labelText: SnackbarActionProps["labelText"],
-      onButtonClick: SnackbarActionProps["onButtonClick"],
+      label: SnackbarActionProps["label"],
+      onClick: SnackbarActionProps["onClick"],
       options?: SnackbarOptions,
-    ) => addItem({ feedback: "destructive", title, labelText, onButtonClick, ...options }),
+    ) => addItem({ feedback: "destructive", title, label, onClick, ...options }),
     notifying: (
       title: string,
-      labelText: SnackbarActionProps["labelText"],
-      onButtonClick: SnackbarActionProps["onButtonClick"],
+      label: SnackbarActionProps["label"],
+      onClick: SnackbarActionProps["onClick"],
       options?: SnackbarOptions,
-    ) => addItem({ feedback: "notifying", title, labelText, onButtonClick, ...options }),
+    ) => addItem({ feedback: "notifying", title, label, onClick, ...options }),
   };
 
   return { snackbars: items, snackbar: handler, removeSnackbar: removeItem };
