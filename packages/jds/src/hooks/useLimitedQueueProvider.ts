@@ -84,17 +84,19 @@ export const useLimitedQueueProvider = <T extends LimitedQueueProviderBaseItem>(
 
       // 연속 호출 중에도 실제 렌더링되는 아이템 수가 limit을 넘지 않도록 추가 전까지 대기한다.
       while (itemsRef.current.length >= normalizedLimit) {
-        const firstActiveItem = itemsRef.current.find(i => !i.isClosing);
+        const firstClosingItem = itemsRef.current.find(item => item.isClosing);
 
-        if (firstActiveItem) {
-          closeItem(firstActiveItem.id);
-          await waitForItemRemoval(firstActiveItem.id);
-        } else {
-          // 모든 아이템이 이미 닫히는 중이면 가장 오래된 아이템의 실제 제거를 기다린다.
-          const firstItem = itemsRef.current[0];
-          if (!firstItem) break;
-          await waitForItemRemoval(firstItem.id);
+        if (firstClosingItem) {
+          // 닫히는 중인 아이템이 있으면 새 아이템을 닫지 않도록 해당 제거를 먼저 기다린다.
+          await waitForItemRemoval(firstClosingItem.id);
+          continue;
         }
+
+        const firstActiveItem = itemsRef.current[0];
+        if (!firstActiveItem) break;
+
+        closeItem(firstActiveItem.id);
+        await waitForItemRemoval(firstActiveItem.id);
       }
 
       syncSetItems(prev => [...prev, newItem]);
