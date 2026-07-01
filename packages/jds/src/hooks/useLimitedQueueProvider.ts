@@ -21,6 +21,8 @@ export const useLimitedQueueProvider = <T extends LimitedQueueProviderBaseItem>(
   limit,
   fallbackTimeout,
 }: UseLimitedQueueProviderProps) => {
+  const normalizedLimit = Number.isFinite(limit) && limit > 0 ? Math.floor(limit) : 1;
+  
   const [items, setItems] = useState<T[]>([]);
   const itemsRef = useRef<T[]>([]);
 
@@ -81,7 +83,7 @@ export const useLimitedQueueProvider = <T extends LimitedQueueProviderBaseItem>(
       const newItem = { ...item, id } as T;
 
       // 연속 호출 중에도 실제 렌더링되는 아이템 수가 limit을 넘지 않도록 추가 전까지 대기한다.
-      while (itemsRef.current.length >= limit) {
+      while (itemsRef.current.length >= normalizedLimit) {
         const firstActiveItem = itemsRef.current.find(i => !i.isClosing);
 
         if (firstActiveItem) {
@@ -89,14 +91,16 @@ export const useLimitedQueueProvider = <T extends LimitedQueueProviderBaseItem>(
           await waitForItemRemoval(firstActiveItem.id);
         } else {
           // 모든 아이템이 이미 닫히는 중이면 가장 오래된 아이템의 실제 제거를 기다린다.
-          await waitForItemRemoval(itemsRef.current[0].id);
+          const firstItem = itemsRef.current[0];
+          if (!firstItem) break;
+          await waitForItemRemoval(firstItem.id);
         }
       }
 
       syncSetItems(prev => [...prev, newItem]);
       return id;
     },
-    [limit, closeItem, waitForItemRemoval, syncSetItems],
+    [normalizedLimit, closeItem, waitForItemRemoval, syncSetItems],
   );
 
   const value = useMemo(
