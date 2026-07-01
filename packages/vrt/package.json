@@ -21,6 +21,7 @@
     "vrt:test": "start-server-and-test serve http://localhost:6007 test:run",
     "vrt:approve": "npm run backstop:approve",
     "report:open": "open backstop_data/html_report/index.html",
+    "vrt:baseline": "npm run sb:build && npm run vrt:reference",
     "vrt": "npm run sb:build && npm run vrt:test"
   },
   "devDependencies": {

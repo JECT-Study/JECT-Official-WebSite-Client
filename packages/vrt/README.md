@@ -31,7 +31,7 @@ npm --workspace @jects/vrt run vrt:test
 npm --workspace @jects/vrt run vrt:approve
 ```
 
-`npm --workspace @jects/vrt run vrt`를 실행하면 **1 → 3** 과정을 한 번에 수행합니다.
+`npm --workspace @jects/vrt run vrt:baseline`은 **빌드 + baseline 생성**을, `npm --workspace @jects/vrt run vrt`는 **빌드 + 회귀 검사**를 한 번에 수행합니다.
 
 HTML diff 리포트는 `backstop_data/html_report/index.html`에 생성됩니다. 컨테이너 내부에서는 브라우저를 자동으로 열 수 없으므로 직접 열어 확인해야 합니다.
 
