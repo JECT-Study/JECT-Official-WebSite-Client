@@ -21,9 +21,14 @@ function loadStories() {
   let index;
   try {
     index = JSON.parse(readFileSync(INDEX_PATH, "utf8"));
-  } catch {
+  } catch (error) {
+    if (error.code === "ENOENT") {
+      throw new Error(
+        `Storybook 인덱스를 찾을 수 없습니다: ${INDEX_PATH}\n먼저 "npm run sb:build" 를 실행하세요.`,
+      );
+    }
     throw new Error(
-      `Storybook 인덱스를 찾을 수 없습니다: ${INDEX_PATH}\n먼저 "npm run sb:build" 를 실행하세요.`,
+      `Storybook 인덱스를 파싱할 수 없습니다: ${INDEX_PATH}\n파일이 손상되었거나 불완전합니다. "npm run sb:build" 로 다시 생성하세요.`,
     );
   }
 
