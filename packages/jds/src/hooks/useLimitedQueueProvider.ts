@@ -1,4 +1,5 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useMemo } from "react";
+import type { SetStateAction } from "react";
 
 export interface LimitedQueueProviderBaseItem {
   id: string;
@@ -10,56 +11,98 @@ interface UseLimitedQueueProviderProps {
   fallbackTimeout: number;
 }
 
+/**
+ * 지정한 개수를 초과하지 않도록 아이템 큐를 관리하는 훅.
+ *
+ * limit에 도달한 상태에서 새 아이템이 추가되면 가장 오래된 아이템을 닫고,
+ * 제거가 완료된 뒤 새 아이템을 큐에 추가한다.
+ */
 export const useLimitedQueueProvider = <T extends LimitedQueueProviderBaseItem>({
   limit,
   fallbackTimeout,
 }: UseLimitedQueueProviderProps) => {
   const [items, setItems] = useState<T[]>([]);
-  const removeResolvers = useRef<Map<string, () => void>>(new Map());
+  const itemsRef = useRef<T[]>([]);
 
-  const removeItem = useCallback((id: string) => {
-    const resolver = removeResolvers.current.get(id);
-    if (resolver) {
-      resolver();
-      removeResolvers.current.delete(id);
-    }
+  // 같은 아이템의 제거를 여러 addItem 호출이 기다릴 수 있어 resolver를 배열로 관리한다.
+  const removeResolvers = useRef<Map<string, Array<() => void>>>(new Map());
 
-    setItems(prev => prev.filter(item => item.id !== id));
+  const syncSetItems = useCallback((updater: SetStateAction<T[]>) => {
+    const next = typeof updater === "function" ? updater(itemsRef.current) : updater;
+    itemsRef.current = next;
+    setItems(next);
   }, []);
 
-  const closeItem = useCallback((id: string) => {
-    setItems(prev =>
-      prev.map(item => (item.id === id && !item.isClosing ? { ...item, isClosing: true } : item)),
-    );
-  }, []);
+  const removeItem = useCallback(
+    (id: string) => {
+      const resolvers = removeResolvers.current.get(id);
+      if (resolvers) {
+        // 동일한 제거 완료를 기다리던 모든 addItem 흐름을 함께 재개한다.
+        resolvers.forEach(resolve => resolve());
+        removeResolvers.current.delete(id);
+      }
+      syncSetItems(prev => prev.filter(item => item.id !== id));
+    },
+    [syncSetItems],
+  );
+
+  const closeItem = useCallback(
+    (id: string) => {
+      syncSetItems(prev =>
+        prev.map(item => (item.id === id && !item.isClosing ? { ...item, isClosing: true } : item)),
+      );
+    },
+    [syncSetItems],
+  );
+
+  const waitForItemRemoval = useCallback(
+    (id: string) =>
+      new Promise<void>(resolve => {
+        const existing = removeResolvers.current.get(id) || [];
+        removeResolvers.current.set(id, [...existing, resolve]);
+
+        setTimeout(() => {
+          const current = removeResolvers.current.get(id);
+          if (current && current.includes(resolve)) {
+            // exit animation의 완료 콜백이 누락되어도 큐가 멈추지 않도록 fallback으로 제거한다.
+            const allResolvers = removeResolvers.current.get(id) || [];
+            allResolvers.forEach(r => r());
+            removeResolvers.current.delete(id);
+            syncSetItems(prev => prev.filter(item => item.id !== id));
+          }
+        }, fallbackTimeout);
+      }),
+    [fallbackTimeout, syncSetItems],
+  );
 
   const addItem = useCallback(
     async (item: Omit<T, "id">) => {
       const id = crypto.randomUUID();
       const newItem = { ...item, id } as T;
 
-      if (items.length >= limit) {
-        const first = items[0];
-        closeItem(first.id);
+      // 연속 호출 중에도 실제 렌더링되는 아이템 수가 limit을 넘지 않도록 추가 전까지 대기한다.
+      while (itemsRef.current.length >= limit) {
+        const firstActiveItem = itemsRef.current.find(i => !i.isClosing);
 
-        await new Promise<void>(resolve => {
-          removeResolvers.current.set(first.id, resolve);
-
-          setTimeout(() => {
-            if (removeResolvers.current.has(first.id)) {
-              resolve();
-              removeResolvers.current.delete(first.id);
-              setItems(prev => prev.filter(i => i.id !== first.id));
-            }
-          }, fallbackTimeout);
-        });
+        if (firstActiveItem) {
+          closeItem(firstActiveItem.id);
+          await waitForItemRemoval(firstActiveItem.id);
+        } else {
+          // 모든 아이템이 이미 닫히는 중이면 가장 오래된 아이템의 실제 제거를 기다린다.
+          await waitForItemRemoval(itemsRef.current[0].id);
+        }
       }
 
-      setItems(prev => [...prev, newItem]);
+      syncSetItems(prev => [...prev, newItem]);
       return id;
     },
-    [items, limit, fallbackTimeout, closeItem],
+    [limit, closeItem, waitForItemRemoval, syncSetItems],
   );
 
-  return { items, addItem, closeItem, removeItem };
+  const value = useMemo(
+    () => ({ items, addItem, closeItem, removeItem }),
+    [items, addItem, closeItem, removeItem],
+  );
+
+  return value;
 };
