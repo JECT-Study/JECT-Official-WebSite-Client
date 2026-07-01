@@ -41,3 +41,6 @@ jobs:
           projectToken: ${{ secrets.CHROMATIC_TOKEN }}
           workingDir: packages/jds
           autoAcceptChanges: true
+          # 변경된 파일에 영향받는 스토리만 스냅샷을 찍어 스냅샷 소모를 줄인다.
+          # baseline 비교에 git 히스토리가 필요하므로 checkout의 fetch-depth: 0과 함께 동작한다.
+          onlyChanged: true
