@@ -11,17 +11,23 @@ Emotion에서 vanilla-extract로 Callout 컴포넌트의 스타일링을 마이�
 | 항목               | AS-IS                                        | TO-BE                                               |
 | ------------------ | -------------------------------------------- | --------------------------------------------------- |
 | `hierarchy`        | `"primary" \| "secondary"`                   | 제거 (스타일은 `feedback`으로만 결정)               |
-| `labelButtonProps` | 내부에 `LabelButton`을 렌더링                | 제거. 버튼이 필요하면 Callout 외부에서 직접 렌더링  |
+| `labelButtonProps` | 내부에 `LabelButton`을 렌더링                | 제거. 버튼이 필요하면 `children`에 직접 렌더링       |
 | `feedback`         | `"positive" \| "destructive" \| "notifying"` | `"none"`(기본) 추가, `hierarchy`와의 배타 관계 해제 |
 
 **마이그레이션 예시**
+
+버튼이 필요하면 `children`에 직접 렌더링합니다. 정렬이 필요하면 flex 컨테이너로 감쌉니다.
 
 ```diff
 - <Callout hierarchy="secondary" labelButtonProps={{ children: "확인", onClick: handleClick }}>
 -   본문 내용
 - </Callout>
-+ <Callout>본문 내용</Callout>
-+ <LabelButton.Basic hierarchy="secondary" onClick={handleClick}>확인</LabelButton.Basic>
++ <Callout>
++   <div style={{ display: "flex", flexDirection: "column", gap: "1rem", alignItems: "flex-start" }}>
++     본문 내용
++     <LabelButton.Basic hierarchy="secondary" onClick={handleClick}>확인</LabelButton.Basic>
++   </div>
++ </Callout>
 ```
 
 **추가 사항 (non-breaking)**
