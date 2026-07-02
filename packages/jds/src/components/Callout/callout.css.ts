@@ -5,72 +5,8 @@ import { vars } from "tokens";
 import type { CalloutFeedback, CalloutSize } from "./callout.types";
 import { labelColorVar, titleColorVar } from "../../utils/typography.css";
 
-interface SurfaceStyle {
-  backgroundColor: string;
-  borderColor: string;
-  color: string;
-}
-
-interface FeedbackStyle {
-  surface: SurfaceStyle;
-  layer: Pick<SurfaceStyle, "backgroundColor">;
-  iconColor: string;
-}
-
-const feedbackStyles = {
-  none: {
-    surface: {
-      backgroundColor: vars.color.semantic.fill.subtlest,
-      borderColor: vars.color.semantic.stroke.alpha.subtler,
-      color: vars.color.semantic.object.bold,
-    },
-    layer: { backgroundColor: vars.color.semantic.fill.subtlest },
-    iconColor: vars.color.semantic.object.bold,
-  },
-  positive: {
-    surface: {
-      backgroundColor: vars.color.semantic.feedback.positive.alpha.subtlest,
-      borderColor: vars.color.semantic.feedback.positive.alpha.subtler,
-      color: vars.color.semantic.object.bolder,
-    },
-    layer: { backgroundColor: vars.color.semantic.feedback.positive.neutral },
-    iconColor: vars.color.semantic.feedback.positive.bold,
-  },
-  destructive: {
-    surface: {
-      backgroundColor: vars.color.semantic.feedback.destructive.alpha.subtlest,
-      borderColor: vars.color.semantic.feedback.destructive.alpha.subtler,
-      color: vars.color.semantic.object.bolder,
-    },
-    layer: { backgroundColor: vars.color.semantic.feedback.destructive.neutral },
-    iconColor: vars.color.semantic.feedback.destructive.bold,
-  },
-  notifying: {
-    surface: {
-      backgroundColor: vars.color.semantic.feedback.notifying.alpha.subtlest,
-      borderColor: vars.color.semantic.feedback.notifying.alpha.subtler,
-      color: vars.color.semantic.object.bolder,
-    },
-    layer: { backgroundColor: vars.color.semantic.feedback.notifying.static.inverse.bolder },
-    iconColor: vars.color.semantic.feedback.notifying.static.inverse.bold,
-  },
-} satisfies Record<CalloutFeedback, FeedbackStyle>;
-
 const layerColorVar = createVar();
 const iconColorVar = createVar();
-
-const feedbackVars = (feedback: CalloutFeedback) => {
-  const { surface, layer, iconColor } = feedbackStyles[feedback];
-  return {
-    ...surface,
-    vars: {
-      [titleColorVar]: surface.color,
-      [labelColorVar]: surface.color,
-      [layerColorVar]: layer.backgroundColor,
-      [iconColorVar]: iconColor,
-    },
-  };
-};
 
 export const root = recipe({
   base: {
@@ -110,11 +46,51 @@ export const root = recipe({
       },
     } satisfies Record<CalloutSize, object>,
     feedback: {
-      none: feedbackVars("none"),
-      positive: feedbackVars("positive"),
-      destructive: feedbackVars("destructive"),
-      notifying: feedbackVars("notifying"),
-    },
+      none: {
+        backgroundColor: vars.color.semantic.fill.subtlest,
+        borderColor: vars.color.semantic.stroke.alpha.subtler,
+        color: vars.color.semantic.object.bold,
+        vars: {
+          [titleColorVar]: vars.color.semantic.object.bold,
+          [labelColorVar]: vars.color.semantic.object.bold,
+          [layerColorVar]: vars.color.semantic.fill.subtlest,
+          [iconColorVar]: vars.color.semantic.object.bold,
+        },
+      },
+      positive: {
+        backgroundColor: vars.color.semantic.feedback.positive.alpha.subtlest,
+        borderColor: vars.color.semantic.feedback.positive.alpha.subtler,
+        color: vars.color.semantic.object.bolder,
+        vars: {
+          [titleColorVar]: vars.color.semantic.object.bolder,
+          [labelColorVar]: vars.color.semantic.object.bolder,
+          [layerColorVar]: vars.color.semantic.feedback.positive.neutral,
+          [iconColorVar]: vars.color.semantic.feedback.positive.bold,
+        },
+      },
+      destructive: {
+        backgroundColor: vars.color.semantic.feedback.destructive.alpha.subtlest,
+        borderColor: vars.color.semantic.feedback.destructive.alpha.subtler,
+        color: vars.color.semantic.object.bolder,
+        vars: {
+          [titleColorVar]: vars.color.semantic.object.bolder,
+          [labelColorVar]: vars.color.semantic.object.bolder,
+          [layerColorVar]: vars.color.semantic.feedback.destructive.neutral,
+          [iconColorVar]: vars.color.semantic.feedback.destructive.bold,
+        },
+      },
+      notifying: {
+        backgroundColor: vars.color.semantic.feedback.notifying.alpha.subtlest,
+        borderColor: vars.color.semantic.feedback.notifying.alpha.subtler,
+        color: vars.color.semantic.object.bolder,
+        vars: {
+          [titleColorVar]: vars.color.semantic.object.bolder,
+          [labelColorVar]: vars.color.semantic.object.bolder,
+          [layerColorVar]: vars.color.semantic.feedback.notifying.static.inverse.bolder,
+          [iconColorVar]: vars.color.semantic.feedback.notifying.static.inverse.bold,
+        },
+      },
+    } satisfies Record<CalloutFeedback, object>,
   },
 });
 
