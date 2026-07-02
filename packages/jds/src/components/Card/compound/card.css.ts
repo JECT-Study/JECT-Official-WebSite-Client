@@ -56,7 +56,6 @@ export const root = recipe({
         backgroundColor: vars.color.semantic.surface.shallow,
         border: `1px solid ${vars.color.semantic.stroke.subtle}`,
         boxShadow: vars.environment.semantic.shadow.embossed,
-        overflow: "hidden",
       },
       post: {
         selectors: {
