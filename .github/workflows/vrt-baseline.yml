@@ -8,7 +8,9 @@ on:
 
 jobs:
   baseline:
-    if: github.event.label.name == 'vrt-baseline'
+    if: >-
+      github.event.label.name == 'vrt-baseline' &&
+      github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-22.04
     timeout-minutes: 20
     # 같은 PR에서 레이블을 연달아 붙이면 이전 실행을 취소한다.
@@ -21,11 +23,12 @@ jobs:
       pull-requests: write
 
     steps:
-      # baseline 커밋을 PR 브랜치에 푸시해야 하므로 head 브랜치를 체크아웃하고 자격 증명을 유지한다.
+      # 체크아웃 토큰이 이후 PR 코드 실행 단계에 남지 않도록 persist-credentials를 끄고, push 단계에서만 토큰으로 인증한다.
       - name: Checkout PR branch
         uses: actions/checkout@v4
         with:
           ref: ${{ github.head_ref }}
+          persist-credentials: false
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -48,6 +51,9 @@ jobs:
 
       - name: Commit and push baseline
         id: commit
+        env:
+          HEAD_REF: ${{ github.head_ref }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -57,7 +63,8 @@ jobs:
             echo "baseline에 변경 사항이 없습니다."
           else
             git commit -m "chore(vrt): CI에서 baseline 재생성"
-            git push origin HEAD:${{ github.head_ref }}
+            # push 시점에만 토큰으로 인증한다.
+            git push "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "HEAD:${HEAD_REF}"
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
