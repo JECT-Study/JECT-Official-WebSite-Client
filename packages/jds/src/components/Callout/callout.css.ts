@@ -1,4 +1,4 @@
-import { createVar, style } from "@vanilla-extract/css";
+import { createVar, style, type StyleRule } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
 
@@ -44,7 +44,7 @@ export const root = recipe({
       xs: {
         padding: `${vars.scheme.semantic.spacing["12"]} ${vars.scheme.semantic.spacing["16"]}`,
       },
-    } satisfies Record<CalloutSize, object>,
+    } satisfies Record<CalloutSize, StyleRule>,
     feedback: {
       none: {
         backgroundColor: vars.color.semantic.fill.subtlest,
@@ -90,7 +90,7 @@ export const root = recipe({
           [iconColorVar]: vars.color.semantic.feedback.notifying.static.inverse.bold,
         },
       },
-    } satisfies Record<CalloutFeedback, object>,
+    } satisfies Record<CalloutFeedback, StyleRule>,
   },
 });
 
@@ -107,7 +107,7 @@ export const content = recipe({
       md: { gap: vars.scheme.semantic.spacing["10"] },
       sm: { gap: vars.scheme.semantic.spacing["8"] },
       xs: { gap: vars.scheme.semantic.spacing["8"] },
-    } satisfies Record<CalloutSize, object>,
+    } satisfies Record<CalloutSize, StyleRule>,
   },
 });
 
@@ -123,7 +123,7 @@ export const titleWrap = recipe({
       md: { gap: vars.scheme.semantic.spacing["8"] },
       sm: { gap: vars.scheme.semantic.spacing["6"] },
       xs: { gap: vars.scheme.semantic.spacing["6"] },
-    } satisfies Record<CalloutSize, object>,
+    } satisfies Record<CalloutSize, StyleRule>,
   },
 });
 
