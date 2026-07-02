@@ -36,7 +36,7 @@ const meta: Meta<typeof IconButton> = {
     condensed: {
       control: "boolean",
       description:
-        "true이면 버튼이 아이콘 크기에 맞게 렌더링되고, 인터랙션 영역이 아이콘 바깥까지 확장됩니다. false이면 사이즈별 spacing/radius 토큰에 따라 padding이 적용됩니다.",
+        "true이면 버튼이 아이콘 크기에 맞게 렌더링되고, false이면 추가 padding이 적용됩니다.",
       table: { defaultValue: { summary: "true" } },
     },
     disabled: {
@@ -137,7 +137,7 @@ export const IconButtonCondensed: Story = {
     docs: {
       description: {
         story:
-          "위 행은 condensed=true(기본)로 아이콘 외경에 맞고, 아래 행은 condensed=false로 사이즈별 spacing 토큰만큼 padding을 둬 컴포넌트 자체가 더 큽니다.",
+          "`condensed` 옵션을 사용하면 버튼이 아이콘 크기에 맞게 렌더링되고, `false`일 때는 사이즈별 추가 padding이 적용됩니다.",
       },
     },
   },
@@ -160,9 +160,9 @@ export const IconButtonAccentOverride: Story = {
   parameters: {
     docs: {
       description: {
-        story: `DS는 feedback prop을 직접 노출하지 않습니다. 대신 \`hierarchy='accent'\`에서 색상을
-\`iconButtonAccentColor\` / \`iconButtonAccentDisabledColor\` CSS variable로 덮어
-사용처마다 positive / destructive 등의 프리셋을 만듭니다.
+        story: `디자인 시스템 레벨에서 feedback prop을 제공하지 않는 대신 \`hierarchy='accent'\`에서 색상을
+\`iconButtonAccentColor\` / \`iconButtonAccentDisabledColor\` CSS 변수로 덮어
+사용하는 곳에서 positive / destructive 등의 프리셋을 만들 수 있습니다.
 
 \`\`\`tsx
 import { assignInlineVars } from '@vanilla-extract/dynamic';
