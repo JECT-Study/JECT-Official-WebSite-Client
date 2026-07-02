@@ -1,12 +1,16 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { FlexRow, FlexColumn, Label } from "@storybook-utils/layout";
-import { IconButton, type IconButtonSize } from "components";
+import { FlexColumn, FlexRow } from "@storybook-utils/layout";
 
-import { ICON_BUTTON_HIERARCHY_OPTIONS, ICON_BUTTON_SIZE_OPTIONS } from "./iconButton.types";
+import { IconButton } from "./IconButton";
+import {
+  ICON_BUTTON_HIERARCHY_OPTIONS,
+  ICON_BUTTON_SIZE_OPTIONS,
+  type IconButtonSize,
+} from "./iconButton.types";
 
 const MATRIX_SIZE_OPTIONS = ["sm", "md", "xl"] as const satisfies readonly IconButtonSize[];
 
-const meta = {
+const meta: Meta<typeof IconButton> = {
   title: "Components/IconButton",
   component: IconButton,
   parameters: {
@@ -15,36 +19,42 @@ const meta = {
   argTypes: {
     icon: {
       control: "text",
-      description: "표시할 아이콘 이름입니다. Icon 컴포넌트에서 사용하는 값입니다.",
+      description: "표시할 아이콘 이름 (Icon 컴포넌트에서 사용하는 값)",
     },
     hierarchy: {
       control: "select",
       options: ICON_BUTTON_HIERARCHY_OPTIONS,
-      description: "버튼의 시각적 맥락적 위계 구분",
+      description: "버튼의 시각적 위계",
+      table: { defaultValue: { summary: "primary" } },
     },
     size: {
       control: "select",
       options: ICON_BUTTON_SIZE_OPTIONS,
-      description: "컴포넌트의 크기",
+      description: "버튼 크기",
+      table: { defaultValue: { summary: "md" } },
     },
     condensed: {
       control: "boolean",
       description:
-        "true: 내부 패딩 없이 아이콘 크기로만 렌더되며 인터랙션 효과가 외부로 약간 확장됩니다. false: 사이즈별 spacing/radius 토큰만큼 padding을 가지고 인터랙션이 컴포넌트 외경에 맞춰집니다.",
+        "true이면 버튼이 아이콘 크기에 맞게 렌더링되고, 인터랙션 영역이 아이콘 바깥까지 확장됩니다. false이면 사이즈별 spacing/radius 토큰에 따라 padding이 적용됩니다.",
+      table: { defaultValue: { summary: "true" } },
     },
     disabled: {
       control: "boolean",
-      description: "비활성화되었는지 여부",
+      description: "비활성화 여부",
+      table: { defaultValue: { summary: "false" } },
     },
     "aria-label": {
       control: "text",
-      description: "접근성 레이블이며 아이콘 버튼은 화면에 텍스트가 없으므로 항상 지정해야 합니다.",
+      description:
+        "아이콘 버튼은 화면에 표시되는 텍스트가 없으므로, 스크린 리더를 위한 레이블을 반드시 지정해야 합니다.",
     },
   },
 } satisfies Meta<typeof IconButton>;
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+
+type Story = StoryObj<typeof IconButton>;
 
 export const Default: Story = {
   args: {
@@ -55,49 +65,71 @@ export const Default: Story = {
   },
 };
 
-export const AllSizes: Story = {
-  args: { icon: "check-line" },
+export const IconButtonSizes: Story = {
   render: () => (
     <FlexRow>
-      <IconButton icon='check-line' size='2xs' aria-label='2XS Check' />
-      <IconButton icon='check-line' size='xs' aria-label='XS Check' />
-      <IconButton icon='check-line' size='sm' aria-label='SM Check' />
-      <IconButton icon='check-line' size='md' aria-label='MD Check' />
-      <IconButton icon='check-line' size='lg' aria-label='LG Check' />
-      <IconButton icon='check-line' size='xl' aria-label='XL Check' />
-      <IconButton icon='check-line' size='2xl' aria-label='2XL Check' />
-      <IconButton icon='check-line' size='3xl' aria-label='3XL Check' />
+      {ICON_BUTTON_SIZE_OPTIONS.map(size => (
+        <IconButton key={size} icon='check-line' size={size} aria-label={`체크 ${size}`} />
+      ))}
     </FlexRow>
   ),
 };
 
-export const AllHierarchies: Story = {
-  args: { icon: "check-line" },
+export const IconButtonHierarchies: Story = {
   render: () => (
     <FlexRow>
-      <IconButton icon='check-line' hierarchy='accent' aria-label='Accent Check' />
-      <IconButton icon='check-line' hierarchy='primary' aria-label='Primary Check' />
-      <IconButton icon='check-line' hierarchy='secondary' aria-label='Secondary Check' />
-      <IconButton icon='check-line' hierarchy='tertiary' aria-label='Tertiary Check' />
+      {ICON_BUTTON_HIERARCHY_OPTIONS.map(hierarchy => (
+        <IconButton
+          key={hierarchy}
+          icon='check-line'
+          hierarchy={hierarchy}
+          aria-label={`체크 ${hierarchy}`}
+        />
+      ))}
     </FlexRow>
   ),
 };
 
-export const Condensed: Story = {
-  args: { icon: "check-line" },
+export const IconButtonDisabled: Story = {
+  render: () => (
+    <FlexRow>
+      {ICON_BUTTON_HIERARCHY_OPTIONS.map(hierarchy => (
+        <IconButton
+          key={hierarchy}
+          icon='check-line'
+          hierarchy={hierarchy}
+          disabled
+          aria-label={`체크 ${hierarchy}`}
+        />
+      ))}
+    </FlexRow>
+  ),
+};
+
+export const IconButtonCondensed: Story = {
   render: () => (
     <FlexColumn>
       <FlexRow>
-        <Label>condensed = true (default):</Label>
-        <IconButton icon='check-line' size='md' condensed aria-label='Condensed MD' />
-        <IconButton icon='check-line' size='xl' condensed aria-label='Condensed XL' />
-        <IconButton icon='check-line' size='3xl' condensed aria-label='Condensed 3XL' />
+        {MATRIX_SIZE_OPTIONS.map(size => (
+          <IconButton
+            key={size}
+            icon='check-line'
+            size={size}
+            condensed
+            aria-label={`condensed ${size}`}
+          />
+        ))}
       </FlexRow>
       <FlexRow>
-        <Label>condensed = false:</Label>
-        <IconButton icon='check-line' size='md' condensed={false} aria-label='Spacious MD' />
-        <IconButton icon='check-line' size='xl' condensed={false} aria-label='Spacious XL' />
-        <IconButton icon='check-line' size='3xl' condensed={false} aria-label='Spacious 3XL' />
+        {MATRIX_SIZE_OPTIONS.map(size => (
+          <IconButton
+            key={size}
+            icon='check-line'
+            size={size}
+            condensed={false}
+            aria-label={`spacious ${size}`}
+          />
+        ))}
       </FlexRow>
     </FlexColumn>
   ),
@@ -105,41 +137,24 @@ export const Condensed: Story = {
     docs: {
       description: {
         story:
-          "condensed=true는 아이콘 외경에 맞고, condensed=false는 사이즈별 spacing 토큰만큼 padding을 두어 컴포넌트 자체가 더 큽니다. rest, hover, active, focus 상태를 직접 테스트해보세요.",
+          "위 행은 condensed=true(기본)로 아이콘 외경에 맞고, 아래 행은 condensed=false로 사이즈별 spacing 토큰만큼 padding을 둬 컴포넌트 자체가 더 큽니다.",
       },
     },
   },
 };
 
-export const HierarchyWithSizes: Story = {
-  args: { icon: "check-line" },
-  render: () => (
-    <FlexColumn>
-      {ICON_BUTTON_HIERARCHY_OPTIONS.map(hierarchy => (
-        <FlexRow key={hierarchy}>
-          <Label>{hierarchy}:</Label>
-          {MATRIX_SIZE_OPTIONS.map(size => (
-            <IconButton
-              key={size}
-              icon='check-line'
-              size={size}
-              hierarchy={hierarchy}
-              aria-label={`${hierarchy} ${size}`}
-            />
-          ))}
-        </FlexRow>
-      ))}
-    </FlexColumn>
-  ),
-};
-
-export const AccentOverridable: Story = {
-  args: { icon: "check-line" },
+export const IconButtonAccentOverride: Story = {
   render: () => (
     <FlexRow>
-      <IconButton icon='check-line' hierarchy='accent' size='md' aria-label='Accent MD' />
-      <IconButton icon='check-line' hierarchy='accent' size='xl' aria-label='Accent XL' />
-      <IconButton icon='check-line' hierarchy='accent' size='3xl' aria-label='Accent 3XL' />
+      {MATRIX_SIZE_OPTIONS.map(size => (
+        <IconButton
+          key={size}
+          icon='check-line'
+          hierarchy='accent'
+          size={size}
+          aria-label={`accent ${size}`}
+        />
+      ))}
     </FlexRow>
   ),
   parameters: {
@@ -163,6 +178,43 @@ import { IconButton, iconButtonAccentColor, iconButtonAccentDisabledColor, vars 
   })}
 />
 \`\`\``,
+      },
+    },
+  },
+};
+
+export const IconButtonComprehensiveMatrix: Story = {
+  render: () => (
+    <FlexColumn>
+      {ICON_BUTTON_HIERARCHY_OPTIONS.map(hierarchy => (
+        <FlexRow key={hierarchy}>
+          {MATRIX_SIZE_OPTIONS.map(size => (
+            <IconButton
+              key={size}
+              icon='check-line'
+              hierarchy={hierarchy}
+              size={size}
+              aria-label={`${hierarchy} ${size}`}
+            />
+          ))}
+          {MATRIX_SIZE_OPTIONS.map(size => (
+            <IconButton
+              key={`${size}-disabled`}
+              icon='check-line'
+              hierarchy={hierarchy}
+              size={size}
+              disabled
+              aria-label={`${hierarchy} ${size} disabled`}
+            />
+          ))}
+        </FlexRow>
+      ))}
+    </FlexColumn>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: "모든 hierarchy 및 대표 size 조합을 enabled / disabled로 한눈에 확인할 수 있습니다.",
       },
     },
   },
