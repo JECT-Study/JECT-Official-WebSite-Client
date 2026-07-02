@@ -41,6 +41,14 @@ npm --workspace @jects/vrt run report:open
 
 > **Baseline은 반드시 Docker(`vrt:reference`)에서 생성한 뒤 커밋해야 합니다.** CI(Ubuntu)와 동일한 렌더링 결과를 사용해 불필요한 오탐을 방지할 수 있습니다. Git에는 `backstop_data/bitmaps_reference/`만 커밋합니다.
 
+`vrt:reference`(및 `vrt:baseline`)는 baseline을 만들기 전에 `bitmaps_reference/`를 먼저 비우고 현재 스토리 기준으로 새로 채웁니다. 스토리가 삭제되면 해당 스냅샷도 함께 사라지므로 더 이상 쓰이지 않는 컴포넌트의 baseline이 쌓이지 않습니다.
+
+## CI에서 baseline 갱신 (Docker 없이)
+
+로컬에서 Docker로 VRT를 돌리지 않는 경우, PR에 **`vrt-baseline` 레이블**을 붙이면 `vrt-baseline.yml` 워크플로가 CI에서 baseline을 재생성해 PR 브랜치에 커밋합니다. 로컬과 동일한 `backstopjs/backstopjs:6.3.25` 이미지를 사용하므로 렌더링 결과가 일치합니다. 실행이 끝나면 결과를 PR 코멘트로 남기고 레이블을 자동으로 제거합니다.
+
+> GitHub Actions의 기본 토큰으로 푸시한 커밋은 다른 워크플로를 다시 트리거하지 않으므로, baseline 커밋 후 회귀 검사를 다시 돌리려면 워크플로를 수동으로 재실행해야 합니다.
+
 ## 특정 스토리 제외
 
 스토리 메타 또는 개별 스토리에 `tags: ["skip-vrt"]`를 추가하면 VRT 대상에서 제외됩니다.
