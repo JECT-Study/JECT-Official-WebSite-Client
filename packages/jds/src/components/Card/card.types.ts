@@ -26,7 +26,7 @@ interface CardOverlayLinkProps extends ComponentPropsWithoutRef<"a"> {
   href: string;
 }
 
-interface CardOverlayButtonProps extends ComponentPropsWithoutRef<"button"> {
+interface CardOverlayButtonProps extends Omit<ComponentPropsWithoutRef<"button">, "disabled"> {
   as: "button";
 }
 
