@@ -37,8 +37,6 @@ import {
   useCheckboxItem,
 } from "./CheckboxContext";
 
-import { useContainerPressable } from "@/hooks";
-
 const checkboxSizeMap = {
   lg: { icon: "md", label: "lg", helper: "sm" },
   md: { icon: "sm", label: "md", helper: "sm" },
@@ -104,8 +102,6 @@ const CheckboxItem = forwardRef<HTMLLabelElement, CheckboxItemProps>(
     const [hasHelper, setHasHelper] = useState(false);
     const isEffectiveInvalid = isInvalid && childChecked === false;
 
-    const { containerPressableProps } = useContainerPressable({ disabled: isDisabled });
-
     return (
       <CheckboxConfigProvider
         value={{
@@ -127,7 +123,8 @@ const CheckboxItem = forwardRef<HTMLLabelElement, CheckboxItemProps>(
         >
           <label
             ref={ref}
-            {...mergeProps(containerPressableProps, restProps)}
+            {...restProps}
+            data-disabled={isDisabled || undefined}
             data-invalid={isEffectiveInvalid || undefined}
             className={clsx(
               checkboxItem({ size, styleOutlined: variant }),

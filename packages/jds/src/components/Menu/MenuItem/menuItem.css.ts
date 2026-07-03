@@ -17,7 +17,7 @@ const menuItemVariants = {
 
 export const menuContainerStyle = recipe({
   base: [
-    overlay({ nativeHover: true }),
+    overlay(),
     focusRing(),
     {
       position: "relative",
