@@ -21,8 +21,8 @@ export const useLimitedQueueProvider = <T extends LimitedQueueProviderBaseItem>(
   limit,
   fallbackTimeout,
 }: UseLimitedQueueProviderProps) => {
-  const normalizedLimit = Number.isFinite(limit) && limit > 0 ? Math.floor(limit) : 1;
-  
+  const normalizedLimit = Number.isFinite(limit) && limit > 0 ? Math.max(1, Math.floor(limit)) : 1;
+
   const [items, setItems] = useState<T[]>([]);
   const itemsRef = useRef<T[]>([]);
 
