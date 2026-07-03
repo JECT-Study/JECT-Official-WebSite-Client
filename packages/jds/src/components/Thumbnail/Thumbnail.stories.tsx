@@ -54,7 +54,7 @@ const FixedBox = ({
 }: {
   children: React.ReactNode;
   size?: number;
-}) => <div style={{ width: size, height: size }}>{children}</div>;
+}) => <div style={{ width: size }}>{children}</div>;
 
 export const Default: Story = {
   render: args => (

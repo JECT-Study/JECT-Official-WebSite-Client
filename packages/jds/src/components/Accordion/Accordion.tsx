@@ -1,26 +1,21 @@
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
+import { clsx } from "clsx";
 import { forwardRef, useMemo } from "react";
 
-import { Icon } from "../Icon";
-import {
-  StyledAccordionContent,
-  StyledAccordionContentText,
-  StyledAccordionLabelContainer,
-  StyledAccordionTrigger,
-  StyledAccordionChevron,
-  StyleLabel,
-  StyledAccordionRoot,
-  accordionSizeMap,
-} from "./accordion.styles";
+import * as styles from "./accordion.css";
 import type {
   AccordionContentProps,
   AccordionItemProps,
   AccordionRootProps,
+  AccordionSize,
   AccordionTriggerProps,
 } from "./accordion.types";
 import { AccordionContext, useAccordionContext } from "./accordionContext";
+import { Icon } from "../Icon";
+import type { IconSize } from "../Icon/Icon.types";
 
-import { getLabelClassName } from "@/utils/typography";
+import type { BodySize } from "@/utils/typography";
+import { getBodyClassName, getLabelClassName } from "@/utils/typography";
 
 /**
  * Accordion.Root
@@ -28,13 +23,13 @@ import { getLabelClassName } from "@/utils/typography";
  * - Context를 통해 내부 컴포넌트들에게 size와 isStretched 상태를 공유합니다.
  */
 const AccordionRoot = forwardRef<HTMLDivElement, AccordionRootProps>(
-  ({ children, isStretched = true, size = "lg", ...props }, ref) => {
+  ({ children, isStretched = true, size = "lg", ...restProps }, ref) => {
     const contextValue = useMemo(() => ({ isStretched, size }), [isStretched, size]);
 
     return (
       <AccordionContext.Provider value={contextValue}>
-        <AccordionPrimitive.Root {...props} ref={ref}>
-          <StyledAccordionRoot>{children}</StyledAccordionRoot>
+        <AccordionPrimitive.Root ref={ref} {...restProps}>
+          <div className={styles.root}>{children}</div>
         </AccordionPrimitive.Root>
       </AccordionContext.Provider>
     );
@@ -48,8 +43,8 @@ AccordionRoot.displayName = "Accordion.Root";
  * - 개별 아코디언 항목을 감싸는 래퍼입니다.
  */
 const AccordionItem = forwardRef<HTMLDivElement, AccordionItemProps>(
-  ({ children, ...props }, ref) => (
-    <AccordionPrimitive.Item {...props} ref={ref}>
+  ({ children, ...restProps }, ref) => (
+    <AccordionPrimitive.Item ref={ref} {...restProps}>
       {children}
     </AccordionPrimitive.Item>
   ),
@@ -63,26 +58,39 @@ AccordionItem.displayName = "Accordion.Item";
  * - Context에서 주입된 size에 따라 스타일(아이콘 크기, 폰트 크기)이 결정됩니다.
  */
 const AccordionTrigger = forwardRef<HTMLButtonElement, AccordionTriggerProps>(
-  ({ children, withPrefixIcon, ...props }, ref) => {
-    const { isStretched, size } = useAccordionContext();
-    const { iconSize, labelSize } = accordionSizeMap[size];
+  ({ children, withPrefixIcon, className, ...restProps }, ref) => {
+    const { isStretched, size } = useAccordionContext("Accordion.Trigger");
+
+    const iconSize = iconSizeByAccordionSizeMap[size];
 
     return (
       <AccordionPrimitive.Header>
-        <StyledAccordionTrigger {...props} ref={ref} $isStretched={isStretched}>
-          <StyledAccordionLabelContainer>
+        <AccordionPrimitive.Trigger
+          ref={ref}
+          className={clsx(styles.trigger({ isStretched }), className)}
+          {...restProps}
+        >
+          <div className={styles.labelContainer}>
             {withPrefixIcon && <Icon size={iconSize} name={withPrefixIcon} aria-hidden />}
-            <StyleLabel className={getLabelClassName({ size: labelSize })}>{children}</StyleLabel>
-          </StyledAccordionLabelContainer>
+            <span className={clsx(getLabelClassName({ size, cursor: "pointer" }), styles.label)}>
+              {children}
+            </span>
+          </div>
 
-          <StyledAccordionChevron className='arrowIcon'>
+          <div className={styles.chevron}>
             <Icon size={iconSize} name='arrow-down-s-line' aria-hidden />
-          </StyledAccordionChevron>
-        </StyledAccordionTrigger>
+          </div>
+        </AccordionPrimitive.Trigger>
       </AccordionPrimitive.Header>
     );
   },
 );
+
+const iconSizeByAccordionSizeMap: Record<AccordionSize, IconSize> = {
+  lg: "sm",
+  md: "xs",
+  sm: "xs",
+} as const;
 
 AccordionTrigger.displayName = "Accordion.Trigger";
 
@@ -91,18 +99,34 @@ AccordionTrigger.displayName = "Accordion.Trigger";
  * - 아코디언이 열렸을 때 보여지는 상세 내용 영역입니다.
  */
 const AccordionContent = forwardRef<HTMLDivElement, AccordionContentProps>(
-  ({ children, ...props }, ref) => {
-    const { isStretched, size } = useAccordionContext();
+  ({ children, className, ...restProps }, ref) => {
+    const { isStretched, size } = useAccordionContext("Accordion.Content");
+    const bodySize = bodySizeByAccordionSizeMap[size];
 
     return (
-      <StyledAccordionContent {...props} ref={ref} $size={size}>
-        <StyledAccordionContentText $isStretched={isStretched}>
+      <AccordionPrimitive.Content
+        ref={ref}
+        className={clsx(styles.content, className)}
+        {...restProps}
+      >
+        <div
+          className={clsx(
+            getBodyClassName({ size: bodySize }),
+            styles.contentText({ isStretched }),
+          )}
+        >
           {children}
-        </StyledAccordionContentText>
-      </StyledAccordionContent>
+        </div>
+      </AccordionPrimitive.Content>
     );
   },
 );
+
+const bodySizeByAccordionSizeMap: Record<AccordionSize, BodySize> = {
+  lg: "lg",
+  md: "md",
+  sm: "xs",
+} as const;
 
 AccordionContent.displayName = "Accordion.Content";
 

@@ -1,7 +1,15 @@
-import type { TableRowProps } from "../Table.types";
+import { forwardRef } from "react";
 
-export const TableBody = ({ children }: TableRowProps) => {
-  return <tbody>{children}</tbody>;
-};
+import type { TableBodyProps } from "../Table.types";
 
-TableBody.displayName = "TableBody";
+export const TableBody = forwardRef<HTMLTableSectionElement, TableBodyProps>(
+  ({ children, className, ...restProps }, ref) => {
+    return (
+      <tbody ref={ref} className={className} {...restProps}>
+        {children}
+      </tbody>
+    );
+  },
+);
+
+TableBody.displayName = "Table.Body";

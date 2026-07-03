@@ -1,11 +1,13 @@
 import { clsx } from "clsx";
 import { forwardRef } from "react";
 
-import { menuItemImage, menuItemLabel, menuItemRoot } from "./menuItem.css";
-import type { MenuItemAnchorProps, MenuItemButtonProps, MenuItemTone } from "./menuItem.types";
+import { menuContainerStyle, menuItemImage, menuItemLabel } from "./menuItem.css";
+import type { MenuItemAnchorProps, MenuItemButtonProps } from "./menuItem.types";
 import { Icon } from "../../Icon";
 import { Thumbnail } from "../../Thumbnail";
+import { type MenuSize } from "../Menu";
 
+import { NumericBadge, type BadgeSize } from "@/components/Badge";
 import { getLabelClassName } from "@/utils/typography";
 
 const MenuItemButton = forwardRef<HTMLButtonElement, MenuItemButtonProps>(
@@ -14,7 +16,6 @@ const MenuItemButton = forwardRef<HTMLButtonElement, MenuItemButtonProps>(
       variant = "icon",
       size = "md",
       isSelected = false,
-      isDestructive = false,
       disabled = false,
       prefixIcon = "blank",
       suffixIcon = "blank",
@@ -22,6 +23,8 @@ const MenuItemButton = forwardRef<HTMLButtonElement, MenuItemButtonProps>(
       suffixIconVisible = false,
       imageAlt = "",
       imageSrc = "",
+      stretched = false,
+      fullWidthText = false,
       className,
       children,
       ...restProps
@@ -33,7 +36,7 @@ const MenuItemButton = forwardRef<HTMLButtonElement, MenuItemButtonProps>(
         ref={ref}
         disabled={disabled}
         data-disabled={disabled || undefined}
-        className={clsx(menuItemRoot({ tone: getTone({ isDestructive, isSelected }) }), className)}
+        className={clsx(menuContainerStyle({ size, isSelected, stretched }), className)}
         {...restProps}
       >
         {variant === "icon" && prefixIconVisible && <Icon name={prefixIcon} size={size} />}
@@ -52,7 +55,7 @@ const MenuItemButton = forwardRef<HTMLButtonElement, MenuItemButtonProps>(
             getLabelClassName({
               size,
             }),
-            menuItemLabel,
+            menuItemLabel({ fullWidthText }),
           )}
         >
           {children}
@@ -63,17 +66,6 @@ const MenuItemButton = forwardRef<HTMLButtonElement, MenuItemButtonProps>(
   },
 );
 
-interface getToneParams {
-  isDestructive: boolean;
-  isSelected: boolean;
-}
-
-const getTone = ({ isDestructive, isSelected }: getToneParams): MenuItemTone => {
-  if (isDestructive) return "destructive";
-  if (isSelected) return "accent";
-  return "normal";
-};
-
 MenuItemButton.displayName = "MenuItem.Button";
 
 const MenuItemAnchor = forwardRef<HTMLAnchorElement, MenuItemAnchorProps>(
@@ -82,14 +74,18 @@ const MenuItemAnchor = forwardRef<HTMLAnchorElement, MenuItemAnchorProps>(
       variant = "icon",
       size = "md",
       isSelected = false,
-      isDestructive = false,
       disabled = false,
       prefixIcon = "blank",
-      suffixIcon = "blank",
       prefixIconVisible = false,
+      suffixIcon = "blank",
+      suffixBadge,
       suffixIconVisible = false,
+      suffixBadgeVisible = false,
+      suffixBadgeMuted = false,
       imageAlt = "",
       imageSrc = "",
+      stretched = false,
+      fullWidthText = false,
       className,
       children,
       ...rest
@@ -102,7 +98,7 @@ const MenuItemAnchor = forwardRef<HTMLAnchorElement, MenuItemAnchorProps>(
         aria-disabled={disabled || undefined}
         data-disabled={disabled || undefined}
         tabIndex={disabled ? -1 : undefined}
-        className={clsx(menuItemRoot({ tone: getTone({ isDestructive, isSelected }) }), className)}
+        className={clsx(menuContainerStyle({ size, isSelected, stretched }), className)}
         {...rest}
       >
         {variant === "icon" && prefixIconVisible && <Icon name={prefixIcon} size={size} />}
@@ -116,12 +112,25 @@ const MenuItemAnchor = forwardRef<HTMLAnchorElement, MenuItemAnchorProps>(
             className={menuItemImage({ size })}
           />
         )}
-        <span className={clsx(getLabelClassName({ size }), menuItemLabel)}>{children}</span>
+        <span className={clsx(getLabelClassName({ size }), menuItemLabel({ fullWidthText }))}>
+          {children}
+        </span>
         {suffixIconVisible && <Icon name={suffixIcon} size={size} />}
+        {suffixBadgeVisible && (
+          <NumericBadge.Basic size={suffixBadgeSizeByMenuSize[size]} isMuted={suffixBadgeMuted}>
+            {suffixBadge}
+          </NumericBadge.Basic>
+        )}
       </a>
     );
   },
 );
+
+const suffixBadgeSizeByMenuSize: Record<MenuSize, BadgeSize> = {
+  lg: "lg",
+  md: "md",
+  sm: "sm",
+} as const;
 
 MenuItemAnchor.displayName = "MenuItem.Anchor";
 

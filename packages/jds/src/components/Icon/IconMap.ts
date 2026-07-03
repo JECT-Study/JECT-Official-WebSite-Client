@@ -65,6 +65,7 @@ export const iconMap = {
   draggable: Icons.Draggable,
   effect: Icons.Effect,
   "error-warning-line": Icons.ErrorWarningLine,
+  "error-warning-octagon-line": Icons.ErrorWarningOctagonLine,
   "export-line": Icons.ExportLine,
   "external-link-line": Icons.ExternalLinkLine,
   "eye-line": Icons.EyeLine,

@@ -11,17 +11,6 @@ import {
 } from "./thumbnail.types";
 import { vars } from "../../tokens/vars.css";
 
-// TODO: 임시 하드코딩 — 디자인 토큰 마이그레이션(별도 작업) 완료 후 토큰으로 교체할 것
-//   hover dim        = fill.normal               (rgba(1,1,9,0.54), 알파 내장)
-//   active 추가 레이어 = fill.normal @ opacity-8 (0.08) — hover 레이어 위에 스택
-//                       아래 값은 그 스택 레이어를 합성(0.54 × 0.08 ≈ 0.043)한 단일 색 임시 표현
-const HOVER_DIM_COLOR = "rgba(1, 1, 9, 0.54)";
-const PRESS_DIM_LAYER_COLOR = "rgba(1, 1, 9, 0.043)";
-// TODO: 임시 하드코딩 — 디자인 토큰 마이그레이션 완료 후 토큰으로 교체할 것
-//   color = accent.alpha.alternative (rgba(6,87,254,0.56)),  width = stroke-weight-2 (2px)
-const FOCUS_RING_WIDTH = "2px";
-const FOCUS_RING_COLOR = "rgba(6, 87, 254, 0.56)";
-
 export const thumbnailVars = {
   width: createVar(),
   borderColor: createVar(),
@@ -31,6 +20,7 @@ const ratioBase: Record<ThumbnailRatio, [number, number]> = {
   "1:1": [1, 1],
   "4:5": [4, 5],
   "3:4": [3, 4],
+  "2:3": [2, 3],
   "9:16": [9, 16],
   "1:2": [1, 2],
   "9:21": [9, 21],
@@ -91,7 +81,7 @@ const root = recipe({
 
     vars: {
       [thumbnailVars.width]: "100%",
-      [thumbnailVars.borderColor]: vars.color.semantic.stroke.alpha.subtler,
+      [thumbnailVars.borderColor]: vars.color.semantic.stroke.alpha.subtle,
     },
 
     selectors: {
@@ -109,7 +99,7 @@ const root = recipe({
         position: "absolute",
         inset: 0,
         pointerEvents: "none",
-        backgroundColor: HOVER_DIM_COLOR,
+        backgroundColor: vars.color.semantic.fill.normal,
         opacity: 0,
         transition: `opacity ${vars.environment.semantic.duration[100]} ${vars.environment.semantic.motion.fluent}`,
       },
@@ -117,19 +107,15 @@ const root = recipe({
       "&:is(button, a)": {
         cursor: "pointer",
       },
-      "&:is(button, a):hover::after": {
-        opacity: 1,
-      },
       "&:is(button, a):active::after": {
-        opacity: 1,
-        backgroundImage: `linear-gradient(${PRESS_DIM_LAYER_COLOR}, ${PRESS_DIM_LAYER_COLOR})`,
+        opacity: `calc(${vars.scheme.semantic.opacity["8"]} * 1%)`,
         transition: "none",
       },
       "&:is(button, a):focus-visible": {
         outline: "none",
       },
       "&:is(button, a):focus-visible::before": {
-        boxShadow: `inset 0 0 0 ${FOCUS_RING_WIDTH} ${FOCUS_RING_COLOR}`,
+        boxShadow: `inset 0 0 0 ${vars.scheme.semantic.strokeWeight["2"]} ${vars.color.semantic.accent.alpha.alternative}`,
         zIndex: 1,
       },
     },
@@ -151,21 +137,7 @@ const image = style({
   borderRadius: "inherit",
 });
 
-const fallback = style({
-  width: "100%",
-  height: "100%",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  borderRadius: "inherit",
-  // TODO: 토큰 마이그레이션(별도 작업) 후 배경을 primitive/flow/alpha/50 으로 교체할 것
-  //       현행 토큰셋에 해당 토큰 미존재로 보류 — 임시로 surface.deeper 유지
-  backgroundColor: vars.color.semantic.surface.deeper,
-  color: vars.color.semantic.object.subtlest,
-});
-
 export const thumbnailStyles = {
   root,
   image,
-  fallback,
 } as const;

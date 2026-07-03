@@ -80,7 +80,15 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
                 <DialogContentDiv>
                   <DialogTitle className={getTitleClassName({ size: "xs" })}>{header}</DialogTitle>
                   <DialogBodyTextP>{body}</DialogBodyTextP>
-                  {checkboxAction && <Checkbox.Content {...checkboxAction} />}
+                  {checkboxAction && (
+                    <Checkbox.Item>
+                      <Checkbox.Basic
+                        checked={checkboxAction.checked}
+                        onCheckedChange={checkboxAction.onCheckedChange}
+                      />
+                      <Checkbox.Label>{checkboxAction.label}</Checkbox.Label>
+                    </Checkbox.Item>
+                  )}
                 </DialogContentDiv>
                 <DialogButtonContainerDiv $isStacked={isButtonStretched && hasTertiaryButton}>
                   {renderButtons()}

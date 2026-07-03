@@ -1,4 +1,4 @@
-import type { HTMLAttributes, ReactNode } from "react";
+import type { HTMLAttributes, ReactNode, ThHTMLAttributes } from "react";
 
 import type { IconName } from "../Icon";
 
@@ -9,13 +9,23 @@ export interface TableRowItemBaseProps extends HTMLAttributes<HTMLTableCellEleme
   children: ReactNode;
 }
 
-export interface TableHeaderProps extends HTMLAttributes<HTMLTableCellElement> {
+export interface TableHeaderItemProps extends ThHTMLAttributes<HTMLTableCellElement> {
   children: ReactNode;
   width?: string | number;
+  hasDivider?: boolean;
 }
 
 export interface TableRowProps extends HTMLAttributes<HTMLTableRowElement> {
   children: ReactNode;
+}
+
+export interface TableBodyProps extends HTMLAttributes<HTMLTableSectionElement> {
+  children: ReactNode;
+}
+
+export interface TableHeaderSectionProps extends HTMLAttributes<HTMLTableSectionElement> {
+  children: ReactNode;
+  rowProps?: HTMLAttributes<HTMLTableRowElement>;
 }
 
 export interface TableProps extends HTMLAttributes<HTMLTableElement> {
@@ -42,3 +52,12 @@ export type TableRowItemProps =
   | TableRowItemLabelProps
   | TableRowItemCodeProps
   | TableRowItemBadgeProps;
+
+type KeysOfUnion<T> = T extends unknown ? keyof T : never;
+
+type TableRowItemCustomKey = Exclude<
+  KeysOfUnion<TableRowItemProps>,
+  keyof HTMLAttributes<HTMLTableCellElement>
+>;
+
+export type TableRowItemOwnKey = TableRowItemCustomKey | "children" | "color";

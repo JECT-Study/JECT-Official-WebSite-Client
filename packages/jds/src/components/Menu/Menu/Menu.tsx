@@ -1,21 +1,33 @@
+import { chain } from "@react-aria/utils";
 import { clsx } from "clsx";
 import { DropdownMenu } from "radix-ui";
-import { forwardRef } from "react";
+import { Children, forwardRef, useId, useState } from "react";
 
-import { menuCategory, menuContent, menuGroup } from "./menu.css";
+import {
+  menuCategory,
+  menuCategoryContainer,
+  menuContent,
+  menuGroup,
+  menuTreeContainer,
+  menuTreeContent,
+  menuTreeIconButton,
+  menuTreeTrigger,
+} from "./menu.css";
 import type {
   MenuAnchorProps,
   MenuButtonProps,
   MenuCategoryProps,
   MenuContentProps,
   MenuGroupProps,
-  MenuItemProps,
   MenuRootProps,
   MenuSize,
+  MenuTreeProps,
 } from "./menu.types";
 import { MenuContext, useMenuContext } from "./menuContext";
 import { MenuItem } from "../MenuItem";
 
+import { IconButton } from "@/components/Button/IconButton";
+import type { IconButtonSize } from "@/components/Button/IconButton/iconButton.types";
 import { getLabelClassName, type LabelSize } from "@/utils/typography";
 
 const MenuRoot = ({ children, menuStyle = "solid", size = "md", ...rest }: MenuRootProps) => {
@@ -49,18 +61,23 @@ MenuContent.displayName = "Menu.Content";
 const MenuCategory = forwardRef<HTMLDivElement, MenuCategoryProps>((props, ref) => {
   const { size: labelSizeFromProps, textAlign, weight, cursor, as, children, ...restProps } = props;
   const { size: menuSizeFromCtx } = useMenuContext("Menu.Category");
-  const size = labelSizeFromProps ?? labelSizeByMenuSizeMap[menuSizeFromCtx];
+  const labelSize = labelSizeFromProps ?? labelSizeByMenuSizeMap[menuSizeFromCtx];
 
   const Component = as ?? "div";
 
   return (
-    <Component
-      ref={ref}
-      className={clsx(getLabelClassName({ size, textAlign, weight, cursor }), menuCategory)}
-      {...restProps}
-    >
-      {children}
-    </Component>
+    <div className={menuCategoryContainer({ size: menuSizeFromCtx })}>
+      <Component
+        ref={ref}
+        className={clsx(
+          getLabelClassName({ size: labelSize, textAlign, weight, cursor }),
+          menuCategory,
+        )}
+        {...restProps}
+      >
+        {children}
+      </Component>
+    </div>
   );
 });
 
@@ -73,11 +90,11 @@ const labelSizeByMenuSizeMap: Record<MenuSize, LabelSize> = {
 MenuCategory.displayName = "Menu.Category";
 
 const MenuGroup = forwardRef<HTMLUListElement, MenuGroupProps>(
-  ({ children, ...restProps }, ref) => {
+  ({ children, className, ...restProps }, ref) => {
     const { size } = useMenuContext("Menu.Group");
 
     return (
-      <ul ref={ref} role='list' className={menuGroup({ size })} {...restProps}>
+      <ul role='list' ref={ref} className={clsx(menuGroup({ size }), className)} {...restProps}>
         {children}
       </ul>
     );
@@ -86,26 +103,116 @@ const MenuGroup = forwardRef<HTMLUListElement, MenuGroupProps>(
 
 MenuGroup.displayName = "Menu.Group";
 
-const MenuGroupItem = forwardRef<HTMLLIElement, MenuItemProps>(
-  ({ children, ...restProps }, ref) => {
+const MenuTree = forwardRef<HTMLButtonElement, MenuTreeProps>(
+  (
+    {
+      label,
+      open: openProp,
+      defaultOpen = false,
+      onOpenChange,
+      onKeyDown,
+      disabled = false,
+      children,
+      withTreeButton,
+      ...restProps
+    },
+    ref,
+  ) => {
+    const { size } = useMenuContext("Menu.Tree");
+
+    const [isInternalOpen, setIsInternalOpen] = useState(defaultOpen);
+
+    const isControlled = openProp !== undefined;
+    const isOpen = isControlled ? openProp : isInternalOpen;
+
+    const menuTreeId = useId();
+
+    const setOpen = (isNextOpen: boolean) => {
+      if (disabled) return;
+      if (!isControlled) setIsInternalOpen(isNextOpen);
+      onOpenChange?.(isNextOpen);
+    };
+
+    const hasChildren = Children.toArray(children).length > 0;
+
+    const handleToggle = () => {
+      if (!hasChildren) return;
+      setOpen(!isOpen);
+    };
+
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
+      if (disabled || !hasChildren) return;
+      if (event.key === "ArrowRight" && !isOpen) {
+        event.preventDefault();
+        setOpen(true);
+      } else if (event.key === "ArrowLeft" && isOpen) {
+        event.preventDefault();
+        setOpen(false);
+      }
+    };
+
+    const hasTreeButton = withTreeButton ?? hasChildren;
+
     return (
-      <DropdownMenu.Item asChild {...restProps}>
-        <li ref={ref}>{children}</li>
-      </DropdownMenu.Item>
+      <li className={menuTreeContainer({ size })}>
+        <div className={menuTreeTrigger}>
+          <IconButton
+            className={menuTreeIconButton({ hasTreeButton })}
+            icon={isOpen ? "arrow-down-s-line" : "arrow-right-s-line"}
+            size={menuTreeIconSizeByMenuSize[size]}
+            disabled={disabled}
+            condensed
+            tabIndex={-1}
+            aria-label={isOpen ? "접기" : "펼치기"}
+            onClick={handleToggle}
+          />
+          <DropdownMenu.Item
+            asChild
+            disabled={disabled}
+            aria-expanded={hasChildren ? isOpen : undefined}
+            aria-controls={hasChildren ? menuTreeId : undefined}
+          >
+            <MenuItem.Button
+              ref={ref}
+              size={size}
+              onKeyDown={chain(onKeyDown, handleKeyDown)}
+              disabled={disabled}
+              {...restProps}
+            >
+              {label}
+            </MenuItem.Button>
+          </DropdownMenu.Item>
+        </div>
+        {isOpen && hasChildren && (
+          <ul id={menuTreeId} className={menuTreeContent}>
+            {children}
+          </ul>
+        )}
+      </li>
     );
   },
 );
 
-MenuGroupItem.displayName = "Menu.GroupItem";
+const menuTreeIconSizeByMenuSize: Record<MenuSize, IconButtonSize> = {
+  lg: "lg",
+  md: "md",
+  sm: "xs",
+} as const;
+
+MenuTree.displayName = "Menu.Tree";
 
 const MenuButton = forwardRef<HTMLButtonElement, MenuButtonProps>(
-  ({ children, ...restProps }, ref) => {
+  ({ children, disabled, onSelect, textValue, ...restProps }, ref) => {
     const { size } = useMenuContext("Menu.Button");
 
     return (
-      <MenuItem.Button ref={ref} size={size} {...restProps}>
-        {children}
-      </MenuItem.Button>
+      <li>
+        <DropdownMenu.Item asChild disabled={disabled} onSelect={onSelect} textValue={textValue}>
+          <MenuItem.Button ref={ref} size={size} disabled={disabled} {...restProps}>
+            {children}
+          </MenuItem.Button>
+        </DropdownMenu.Item>
+      </li>
     );
   },
 );
@@ -113,13 +220,17 @@ const MenuButton = forwardRef<HTMLButtonElement, MenuButtonProps>(
 MenuButton.displayName = "Menu.Button";
 
 const MenuAnchor = forwardRef<HTMLAnchorElement, MenuAnchorProps>(
-  ({ children, ...restProps }, ref) => {
+  ({ children, disabled, onSelect, textValue, ...restProps }, ref) => {
     const { size } = useMenuContext("Menu.Anchor");
 
     return (
-      <MenuItem.Anchor ref={ref} size={size} {...restProps}>
-        {children}
-      </MenuItem.Anchor>
+      <li>
+        <DropdownMenu.Item asChild disabled={disabled} onSelect={onSelect} textValue={textValue}>
+          <MenuItem.Anchor ref={ref} size={size} disabled={disabled} {...restProps}>
+            {children}
+          </MenuItem.Anchor>
+        </DropdownMenu.Item>
+      </li>
     );
   },
 );
@@ -132,7 +243,7 @@ export const Menu = {
   Content: MenuContent,
   Category: MenuCategory,
   Group: MenuGroup,
-  GroupItem: MenuGroupItem,
+  Tree: MenuTree,
   Button: MenuButton,
   Anchor: MenuAnchor,
 };
