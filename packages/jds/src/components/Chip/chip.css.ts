@@ -1,0 +1,159 @@
+import { createVar, style } from "@vanilla-extract/css";
+import { recipe } from "@vanilla-extract/recipes";
+import { vars } from "tokens";
+import { focusRing, overlay, pxToRem } from "utils";
+
+import {
+  iconButtonAccentColor,
+  iconButtonAccentDisabledColor,
+} from "../Button/IconButton/iconButton.css";
+
+import { labelColorVar } from "@/utils/typography.css";
+
+const chipColorVars = {
+  label: createVar(),
+  icon: createVar(),
+  border: createVar(),
+  background: createVar(),
+} as const;
+
+export const root = recipe({
+  base: [
+    overlay({ hierarchy: "primary", density: "normal", nativeHover: true }),
+    focusRing(),
+    {
+      position: "relative",
+      display: "inline-flex",
+      flexDirection: "row",
+      alignItems: "center",
+      gap: vars.scheme.semantic.spacing["4"],
+      boxSizing: "border-box",
+      width: "fit-content",
+      paddingTop: vars.scheme.semantic.spacing["4"],
+      paddingRight: vars.scheme.semantic.spacing["8"],
+      paddingBottom: vars.scheme.semantic.spacing["4"],
+      paddingLeft: vars.scheme.semantic.spacing["10"],
+      borderStyle: "solid",
+      borderWidth: vars.scheme.semantic.strokeWeight["1"],
+      borderColor: chipColorVars.border,
+      borderRadius: vars.scheme.semantic.radius.max,
+      backgroundColor: chipColorVars.background,
+      whiteSpace: "nowrap",
+      vars: {
+        [chipColorVars.label]: vars.color.semantic.object.bold,
+        [chipColorVars.icon]: vars.color.semantic.object.neutral,
+        [chipColorVars.border]: vars.color.semantic.stroke.alpha.subtle,
+        [chipColorVars.background]: "transparent",
+      },
+      selectors: {
+        "&::before, &::after": { inset: 0, borderRadius: "inherit" },
+        "&[data-disabled][data-focus-visible]::before": { boxShadow: "none" },
+        "&:has(> [data-chip-part='content'][data-focus-visible])::before": {
+          zIndex: 1,
+          boxShadow: `0 0 0 ${vars.scheme.semantic.strokeWeight["2"]} ${vars.color.semantic.accent.alpha.alternative}`,
+        },
+        "&[data-disabled]:has(> [data-chip-part='content'][data-focus-visible])::before": {
+          boxShadow: "none",
+        },
+      },
+    },
+  ],
+  variants: {
+    activated: {
+      true: {
+        vars: {
+          [chipColorVars.label]: vars.color.semantic.accent.bold,
+          [chipColorVars.icon]: vars.color.semantic.accent.normal,
+          [chipColorVars.border]: vars.color.semantic.accent.alpha.neutral,
+          [chipColorVars.background]: vars.color.semantic.accent.alpha.subtlest,
+        },
+      },
+      false: {
+        vars: {
+          [chipColorVars.label]: vars.color.semantic.object.bold,
+          [chipColorVars.icon]: vars.color.semantic.object.neutral,
+          [chipColorVars.border]: vars.color.semantic.stroke.alpha.subtle,
+          [chipColorVars.background]: "transparent",
+        },
+      },
+    },
+    disabled: {
+      true: { cursor: "not-allowed" },
+      false: { cursor: "pointer" },
+    },
+  },
+  compoundVariants: [
+    {
+      variants: { activated: false, disabled: true },
+      style: {
+        vars: {
+          [chipColorVars.label]: vars.color.semantic.object.subtler,
+          [chipColorVars.icon]: vars.color.semantic.object.subtler,
+          [chipColorVars.border]: vars.color.semantic.stroke.alpha.subtler,
+          [chipColorVars.background]: "transparent",
+        },
+      },
+    },
+    {
+      variants: { activated: true, disabled: true },
+      style: {
+        vars: {
+          [chipColorVars.label]: vars.color.semantic.object.subtler,
+          [chipColorVars.icon]: vars.color.semantic.object.subtler,
+          [chipColorVars.border]: vars.color.semantic.accent.alpha.subtler,
+          [chipColorVars.background]: "transparent",
+        },
+      },
+    },
+  ],
+});
+
+export const contentButton = style({
+  display: "inline-flex",
+  flexDirection: "row",
+  alignItems: "center",
+  flexShrink: 0,
+  minWidth: 0,
+  gap: vars.scheme.semantic.spacing["6"],
+  padding: 0,
+  border: "none",
+  background: "transparent",
+  color: "inherit",
+  cursor: "pointer",
+  font: "inherit",
+  selectors: {
+    "&[disabled]": {
+      cursor: "not-allowed",
+    },
+  },
+});
+
+export const label = style({
+  minWidth: 0,
+  vars: {
+    [labelColorVar]: chipColorVars.label,
+  },
+  selectors: {
+    "&&": { cursor: "inherit" },
+  },
+});
+
+export const dividerWrapper = style({
+  display: "inline-flex",
+  alignItems: "center",
+  flexShrink: 0,
+  height: pxToRem(12),
+});
+
+export const divider = style({
+  flexShrink: 0,
+  height: "100%",
+  alignSelf: "center",
+});
+
+export const closeButton = style({
+  vars: {
+    [iconButtonAccentColor]: chipColorVars.icon,
+    [iconButtonAccentDisabledColor]: chipColorVars.icon,
+  },
+});

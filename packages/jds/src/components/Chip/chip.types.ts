@@ -1,8 +1,8 @@
-import type { ComponentPropsWithoutRef, MouseEventHandler } from "react";
+import type { ComponentPropsWithoutRef, MouseEvent } from "react";
 
 export interface ChipProps extends Omit<ComponentPropsWithoutRef<"button">, "children"> {
   label: string;
   valueLabel?: string;
   activated?: boolean;
-  onRemove: MouseEventHandler<HTMLButtonElement>;
+  onRemove: (event: MouseEvent<HTMLButtonElement>) => void;
 }
