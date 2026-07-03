@@ -1,5 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexColumn, FlexRow } from "@storybook-utils/layout";
+import { assignInlineVars } from "@vanilla-extract/dynamic";
+import { iconButtonAccentColor, iconButtonAccentDisabledColor } from "components";
+import { vars } from "tokens";
 
 import { IconButton } from "./IconButton";
 import {
@@ -149,9 +152,13 @@ export const IconButtonAccentOverride: Story = {
       {MATRIX_SIZE_OPTIONS.map(size => (
         <IconButton
           key={size}
-          icon='check-line'
+          icon='close-line'
           hierarchy='accent'
           size={size}
+          style={assignInlineVars({
+            [iconButtonAccentColor]: vars.color.semantic.feedback.destructive.normal,
+            [iconButtonAccentDisabledColor]: vars.color.semantic.feedback.destructive.normal,
+          })}
           aria-label={`accent ${size}`}
         />
       ))}
@@ -174,7 +181,7 @@ import { IconButton, iconButtonAccentColor, iconButtonAccentDisabledColor, vars 
   aria-label="삭제"
   style={assignInlineVars({
     [iconButtonAccentColor]: vars.color.semantic.feedback.destructive.normal,
-    [iconButtonAccentDisabledColor]: vars.color.semantic.feedback.destructive.alpha.subtle,
+    [iconButtonAccentDisabledColor]: vars.color.semantic.feedback.destructive.normal,
   })}
 />
 \`\`\``,
