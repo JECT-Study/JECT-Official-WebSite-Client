@@ -1,18 +1,16 @@
-import { useButton } from "@react-aria/button";
-import { useFocusRing } from "@react-aria/focus";
-import { useHover } from "@react-aria/interactions";
 import { mergeProps } from "@react-aria/utils";
 import { clsx } from "clsx";
-import { forwardRef, useRef } from "react";
+import { forwardRef } from "react";
 
 import * as styles from "./file.css";
 import type { FileProps } from "./file.types";
 import { IconButton } from "../Button/IconButton";
 import { Icon } from "../Icon";
 
+import { useCompositePressable } from "@/hooks";
 import { getLabelClassName } from "@/utils/typography";
 
-export const File = forwardRef<HTMLDivElement, FileProps>(
+export const File = forwardRef<HTMLButtonElement, FileProps>(
   (
     {
       fileName,
@@ -21,29 +19,16 @@ export const File = forwardRef<HTMLDivElement, FileProps>(
       readonly = false,
       disabled = false,
       onRemove,
-
-      id,
-      style,
       className,
-
-      onPress,
-      ...buttonProps
+      ...restProps
     },
-    ref,
+    forwardedRef,
   ) => {
-    const isHoverDisabled = disabled || readonly;
-    const innerButtonRef = useRef<HTMLButtonElement>(null);
-
-    const { focusProps: mainFocusProps, isFocusVisible: isMainFocusVisible } = useFocusRing();
-    const { hoverProps, isHovered } = useHover({ isDisabled: isHoverDisabled });
-    const { buttonProps: ariaButtonProps, isPressed } = useButton(
-      {
-        elementType: "button",
-        isDisabled: disabled,
-        onPress,
-      },
-      innerButtonRef,
-    );
+    const { mainActionRef, mainActionProps, rootProps } = useCompositePressable(forwardedRef, {
+      disabled,
+      hoverDisabled: disabled || readonly,
+      elementType: "button",
+    });
 
     const interactionClassName = disabled
       ? styles.disabled
@@ -53,22 +38,15 @@ export const File = forwardRef<HTMLDivElement, FileProps>(
 
     return (
       <div
-        ref={ref}
-        {...hoverProps}
-        id={id}
-        style={style}
+        {...rootProps}
         className={clsx(styles.root, interactionClassName, className)}
         data-readonly={readonly || undefined}
         data-file-disabled={disabled || undefined}
-        data-disabled={disabled || undefined}
-        data-hovered={isHovered || undefined}
-        data-pressed={isPressed || undefined}
-        data-focus-visible={isMainFocusVisible || undefined}
       >
         <button
-          ref={innerButtonRef}
-          {...mergeProps(buttonProps, mainFocusProps, ariaButtonProps)}
-          type={buttonProps.type ?? "button"}
+          ref={mainActionRef}
+          {...mergeProps(mainActionProps, restProps)}
+          type={restProps.type ?? "button"}
           disabled={disabled}
           className={styles.mainAction}
         >

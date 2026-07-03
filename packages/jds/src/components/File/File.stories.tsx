@@ -51,7 +51,7 @@ const renderFile = (args: FileStoryArgs) => (
       fileName={args.fileName}
       fileSize={args.fileSize}
       disabled={args.disabled}
-      onPress={() => {
+      onClick={() => {
         if (args.readonly) return;
         alert("file clicked");
       }}
@@ -101,7 +101,7 @@ export const Readonly: Story = {
     docs: {
       description: {
         story:
-          "readonly는 파일의 정보를 읽을 수는 있지만 다운로드나 삭제 같은 조작이 제한되는 상태를 나타냅니다. 클릭 이벤트를 차단하지 않으므로, 조작 제한이 필요하다면 소비자 측 onPress 핸들러에서 readonly 여부를 확인해 처리합니다.",
+          "readonly는 파일의 정보를 읽을 수는 있지만 다운로드나 삭제 같은 조작이 제한되는 상태를 나타냅니다. 클릭 이벤트를 차단하지 않으므로, 조작 제한이 필요하다면 소비자 측 onClick 핸들러에서 readonly 여부를 확인해 처리합니다.",
       },
     },
   },
