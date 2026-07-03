@@ -6,6 +6,11 @@ import { vars } from "../../tokens/vars.css";
 const thickness = createVar();
 const lineStyle = createVar();
 
+/**
+ * Divider 색상을 소비처에서 오버라이드하기 위한 CSS 변수.
+ *
+ * 값을 주입하지 않으면 Divider의 기본 stroke 색상으로 fallback된다.
+ */
 export const dividerColor = createVar();
 
 export const divider = recipe({
