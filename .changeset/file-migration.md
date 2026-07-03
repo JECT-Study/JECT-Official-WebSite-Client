@@ -4,7 +4,7 @@
 
 **File**
 
-기존 `FileItem` 컴포넌트가 vanilla-extract 기반의 `File` 컴포넌트로 변경되었습니다. 파일 영역 액션은 `onClick` 대신 React Aria의 `onPress`로 전달하며, 마우스와 키보드 액션이 동일하게 동작하도록 개선되었습니다.
+기존 `FileItem` 컴포넌트가 vanilla-extract 기반의 `File` 컴포넌트로 변경되었습니다. 파일 영역의 메인 액션은 기존처럼 `onClick`, `type`, `aria-*` 같은 native button props로 전달합니다. 삭제 버튼을 표시하려면 `removable`과 `onRemove`를 함께 전달해야 합니다.
 
 **소비자 영향 (코드 수정 필요)**
 
@@ -12,7 +12,7 @@
 | ------------------------------------------------------------ | ------------------------------------- |
 | `FileItem`                                                   | `File`                                |
 | `FileItemProps`                                              | `FileProps`                           |
-| `onClick`                                                    | `onPress`                             |
+| `onClick` 등 native button props                             | 유지                                  |
 | `removeable`                                                 | `removable`                           |
 | `hasError`, `errorMessage`                                   | 제거                                  |
 | `fileName: ReactNode`                                        | `fileName: string`                    |
@@ -29,8 +29,7 @@
 + <File
     fileName={file.name}
     fileSize={file.size}
--   onClick={handleClick}
-+   onPress={handlePress}
+    onClick={handleClick}
 -   removeable
 +   removable
     onRemove={handleRemove}
