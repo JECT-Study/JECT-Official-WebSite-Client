@@ -1,11 +1,12 @@
-import { createVar } from "@vanilla-extract/css";
+import { createVar, fallbackVar } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
 import { vars } from "../../tokens/vars.css";
 
 const thickness = createVar();
 const lineStyle = createVar();
-const color = vars.color.semantic.stroke.alpha.subtle;
+
+export const dividerColor = createVar();
 
 export const divider = recipe({
   base: {
@@ -18,13 +19,13 @@ export const divider = recipe({
       horizontal: {
         width: "100%",
         height: 0,
-        borderTop: `${thickness} ${lineStyle} ${color}`,
+        borderTop: `${thickness} ${lineStyle} ${fallbackVar(dividerColor, vars.color.semantic.stroke.alpha.assistive)}`,
       },
       vertical: {
         width: 0,
         height: "100%",
         alignSelf: "stretch",
-        borderLeft: `${thickness} ${lineStyle} ${color}`,
+        borderLeft: `${thickness} ${lineStyle} ${fallbackVar(dividerColor, vars.color.semantic.stroke.alpha.assistive)}`,
       },
     },
     thickness: {

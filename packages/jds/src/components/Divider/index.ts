@@ -1,4 +1,5 @@
 export { Divider } from "./Divider";
+export { dividerColor } from "./divider.css";
 export type {
   DividerThickness,
   DividerOrientation,
