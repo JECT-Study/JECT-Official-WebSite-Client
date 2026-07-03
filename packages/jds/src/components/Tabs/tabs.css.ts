@@ -52,7 +52,7 @@ export const list = recipe({
 export const trigger = recipe({
   base: [
     focusRing(),
-    overlay({ hierarchy: "secondary", density: "normal", nativeHover: true }),
+    overlay({ hierarchy: "secondary", density: "normal" }),
     {
       position: "relative",
       display: "inline-flex",

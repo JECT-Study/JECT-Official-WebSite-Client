@@ -29,8 +29,6 @@ import type {
 } from "./radio.types";
 import { RadioItemProvider, RadioConfigProvider, useRadioConfig, useRadioItem } from "./RadioContext";
 
-import { useContainerPressable } from "@/hooks";
-
 const radioTextSizeMap = {
   lg: { label: "lg", helper: "sm" },
   md: { label: "md", helper: "sm" },
@@ -77,8 +75,6 @@ const RadioItem = forwardRef<HTMLLabelElement, RadioItemProps>(
 
     const [hasHelper, setHasHelper] = useState(false);
 
-    const { containerPressableProps } = useContainerPressable({ disabled: isDisabled });
-
     return (
       <RadioConfigProvider value={{ ...parentContext, size, variant, disabled: isDisabled }}>
         <RadioItemProvider
@@ -86,7 +82,8 @@ const RadioItem = forwardRef<HTMLLabelElement, RadioItemProps>(
         >
           <label
             ref={ref}
-            {...mergeProps(containerPressableProps, restProps)}
+            {...restProps}
+            data-disabled={isDisabled || undefined}
             className={clsx(radioItem({ size, styleOutlined: variant }), focusRing(), className)}
           >
             {children}

@@ -7,7 +7,7 @@ export type FocusRingBorder = "outside" | "inside";
 export type FocusRingFeedback = "none" | "destructive" | "positive";
 
 const FOCUS_RING_WIDTH = vars.scheme.semantic.strokeWeight["2"];
-const focusVisibleSelector = "&[data-focus-visible]::before, &:focus-visible::before";
+const focusVisibleSelector = "&:focus-visible::before, &:has(:focus-visible)::before";
 const focusRingColor = createVar();
 
 const focusRingColorMap = {
