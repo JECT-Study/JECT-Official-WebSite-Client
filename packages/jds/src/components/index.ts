@@ -7,6 +7,7 @@ export * from "./Button/LabelButton";
 export * from "./Callout";
 export * from "./Card";
 export * from "./Checkbox";
+export * from "./Chip";
 export * from "./Code";
 export * from "./Dialog";
 export * from "./Divider";
