@@ -29,19 +29,16 @@ type RadioRootBaseProps = {
 export type RadioRootProps = RadioRootBaseProps &
   (RadioRootControlledProps | RadioRootUncontrolledProps);
 
-export type RadioBasicProps = Omit<
-  ComponentPropsWithoutRef<"input">,
-  "value" | "size" | "type"
-> & {
-  size?: RadioSize;
+export type RadioItemProps = Omit<ComponentPropsWithoutRef<"button">, "value"> & {
   value: string;
-};
-
-export type RadioItemProps = ComponentPropsWithoutRef<"label"> & {
   size?: RadioSize;
   variant?: RadioVariant;
   disabled?: boolean;
   children: ReactNode;
+};
+
+export type RadioIndicatorProps = Omit<ComponentPropsWithoutRef<"span">, "children"> & {
+  size?: RadioSize;
 };
 
 export type RadioLabelProps = {

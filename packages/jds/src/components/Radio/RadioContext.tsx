@@ -1,5 +1,4 @@
 import { createContext, useContext } from "react";
-import type { RadioGroupState } from "react-stately";
 
 import type { RadioSize, RadioVariant } from "./radio.types";
 
@@ -7,7 +6,6 @@ export interface RadioConfigContextValue {
   size: RadioSize;
   variant: RadioVariant;
   disabled: boolean;
-  state?: RadioGroupState;
 }
 
 const RadioConfigContext = createContext<RadioConfigContextValue | null>(null);
