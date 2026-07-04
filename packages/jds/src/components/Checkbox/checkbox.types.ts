@@ -39,21 +39,21 @@ export type CheckboxItemProps = ComponentPropsWithoutRef<"label"> & {
   children: ReactNode;
 };
 
-type CheckboxBasicControlledProps = {
+type CheckboxControlControlledProps = {
   checked: CheckedState;
   defaultChecked?: never;
   onCheckedChange: (checked: CheckedState) => void;
 };
 
-type CheckboxBasicUncontrolledProps = {
+type CheckboxControlUncontrolledProps = {
   checked?: never;
   defaultChecked?: boolean;
   onCheckedChange?: (checked: CheckedState) => void;
 };
 
-type CheckboxBasicBaseProps = Omit<
-  ComponentPropsWithoutRef<"input">,
-  "size" | "checked" | "defaultChecked" | "onChange" | "type"
+type CheckboxControlBaseProps = Omit<
+  ComponentPropsWithoutRef<"button">,
+  "size" | "checked" | "defaultChecked" | "onChange" | "value" | "type"
 > & {
   size?: CheckboxSize;
   value?: string;
@@ -61,8 +61,8 @@ type CheckboxBasicBaseProps = Omit<
   isInvalid?: boolean;
 };
 
-export type CheckboxBasicProps = CheckboxBasicBaseProps &
-  (CheckboxBasicControlledProps | CheckboxBasicUncontrolledProps);
+export type CheckboxControlProps = CheckboxControlBaseProps &
+  (CheckboxControlControlledProps | CheckboxControlUncontrolledProps);
 
 export type CheckboxLabelProps = {
   children: ReactNode;
