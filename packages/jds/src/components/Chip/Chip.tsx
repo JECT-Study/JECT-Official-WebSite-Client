@@ -1,3 +1,7 @@
+import { useButton } from "@react-aria/button";
+import { useFocusRing } from "@react-aria/focus";
+import { useHover } from "@react-aria/interactions";
+import { mergeProps, useObjectRef } from "@react-aria/utils";
 import { clsx } from "clsx";
 import { forwardRef } from "react";
 
@@ -6,7 +10,6 @@ import type { ChipProps } from "./chip.types";
 import { IconButton } from "../Button/IconButton";
 import { Divider } from "../Divider";
 
-import { usePressable } from "@/hooks/usePressable";
 import { getLabelClassName } from "@/utils/typography";
 
 export const Chip = forwardRef<HTMLButtonElement, ChipProps>(
@@ -24,27 +27,34 @@ export const Chip = forwardRef<HTMLButtonElement, ChipProps>(
     },
     forwardedRef,
   ) => {
-    const { ref, pressableProps } = usePressable(forwardedRef, {
-      disabled,
-      elementType: "button",
-    });
-
+    const mainActionRef = useObjectRef(forwardedRef);
+    const { focusProps, isFocusVisible } = useFocusRing();
+    const { hoverProps, isHovered } = useHover({ isDisabled: disabled });
+    const { buttonProps, isPressed } = useButton(
+      { isDisabled: disabled, elementType: "button" },
+      mainActionRef,
+    );
+    const mainActionProps = mergeProps({ ...buttonProps, onKeyDown: undefined }, focusProps);
     const hasValueLabel = Boolean(valueLabel);
 
     return (
       <span
+        {...hoverProps}
         className={clsx(styles.root({ activated, disabled }), className)}
         style={style}
+        data-hovered={isHovered || undefined}
+        data-pressed={isPressed || undefined}
+        data-focus-visible={isFocusVisible || undefined}
         data-disabled={disabled || undefined}
       >
         <button
-          ref={ref}
-          type={type}
+          ref={mainActionRef}
           data-chip-part='content'
           aria-pressed={activated}
-          {...pressableProps}
+          {...mainActionProps}
+          type={type}
           {...restProps}
-          className={clsx(styles.contentButton, pressableProps.className)}
+          className={clsx(styles.contentButton, mainActionProps.className)}
         >
           <span className={clsx(styles.label, getLabelClassName({ size: "md" }))}>
             {label}
@@ -83,4 +93,5 @@ export const Chip = forwardRef<HTMLButtonElement, ChipProps>(
     );
   },
 );
+
 Chip.displayName = "Chip";

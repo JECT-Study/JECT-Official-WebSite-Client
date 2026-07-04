@@ -19,7 +19,7 @@ const chipColorVars = {
 
 export const root = recipe({
   base: [
-    overlay({ hierarchy: "primary", density: "normal", nativeHover: true }),
+    overlay({ hierarchy: "primary", density: "normal" }),
     focusRing(),
     {
       position: "relative",
@@ -48,13 +48,6 @@ export const root = recipe({
       selectors: {
         "&::before, &::after": { inset: 0, borderRadius: "inherit" },
         "&[data-disabled][data-focus-visible]::before": { boxShadow: "none" },
-        "&:has(> [data-chip-part='content'][data-focus-visible])::before": {
-          zIndex: 1,
-          boxShadow: `0 0 0 ${vars.scheme.semantic.strokeWeight["2"]} ${vars.color.semantic.accent.alpha.alternative}`,
-        },
-        "&[data-disabled]:has(> [data-chip-part='content'][data-focus-visible])::before": {
-          boxShadow: "none",
-        },
       },
     },
   ],
