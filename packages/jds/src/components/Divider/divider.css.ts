@@ -11,7 +11,7 @@ const lineStyle = createVar();
  *
  * 값을 주입하지 않으면 Divider의 기본 stroke 색상으로 fallback된다.
  */
-export const dividerColor = createVar();
+export const dividerColorVar = createVar();
 
 export const divider = recipe({
   base: {
@@ -24,13 +24,13 @@ export const divider = recipe({
       horizontal: {
         width: "100%",
         height: 0,
-        borderTop: `${thickness} ${lineStyle} ${fallbackVar(dividerColor, vars.color.semantic.stroke.alpha.assistive)}`,
+        borderTop: `${thickness} ${lineStyle} ${fallbackVar(dividerColorVar, vars.color.semantic.stroke.alpha.assistive)}`,
       },
       vertical: {
         width: 0,
         height: "100%",
         alignSelf: "stretch",
-        borderLeft: `${thickness} ${lineStyle} ${fallbackVar(dividerColor, vars.color.semantic.stroke.alpha.assistive)}`,
+        borderLeft: `${thickness} ${lineStyle} ${fallbackVar(dividerColorVar, vars.color.semantic.stroke.alpha.assistive)}`,
       },
     },
     thickness: {
