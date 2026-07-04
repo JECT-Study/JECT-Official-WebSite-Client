@@ -3,7 +3,7 @@ import { FlexColumn, FlexRow } from "@storybook-utils/layout";
 import { useState } from "react";
 
 import { Checkbox } from "./Checkbox";
-import type { CheckedState } from "./checkbox.types";
+import { CHECKBOX_SIZE_OPTIONS, CHECKBOX_VARIANT_OPTIONS, type CheckedState } from "./checkbox.types";
 
 const meta: Meta<typeof Checkbox.Item> = {
   title: "Components/Checkbox",
@@ -54,7 +54,7 @@ export const CheckboxItemStyle: Story = {
   render: () => (
     <FlexColumn gap={SECTION_GAP}>
       <FlexColumn gap={GROUP_GAP}>
-        {(["lg", "md", "sm", "xs"] as const).map(size => (
+        {CHECKBOX_SIZE_OPTIONS.map(size => (
           <Checkbox.Item key={size} size={size} variant='hollow'>
             <Checkbox.Control value='item' />
             <Checkbox.Label>레이블</Checkbox.Label>
@@ -62,7 +62,7 @@ export const CheckboxItemStyle: Story = {
         ))}
       </FlexColumn>
       <FlexColumn gap={GROUP_GAP}>
-        {(["lg", "md", "sm", "xs"] as const).map(size => (
+        {CHECKBOX_SIZE_OPTIONS.map(size => (
           <Checkbox.Item key={size} size={size} variant='outlined'>
             <Checkbox.Control value='item' />
             <Checkbox.Label>레이블</Checkbox.Label>
@@ -289,7 +289,7 @@ export const CheckboxComprehensiveMatrix: Story = {
   render: () => (
     <FlexColumn gap={SECTION_GAP}>
       <FlexColumn>
-        {(["lg", "md", "sm", "xs"] as const).map(size => (
+        {CHECKBOX_SIZE_OPTIONS.map(size => (
           <FlexRow key={size}>
             <Checkbox.Control size={size} checked={false} onCheckedChange={() => {}} />
             <Checkbox.Control size={size} checked={true} onCheckedChange={() => {}} />
@@ -306,7 +306,7 @@ export const CheckboxComprehensiveMatrix: Story = {
         ))}
       </FlexColumn>
       <FlexColumn gap={SECTION_GAP}>
-        {(["hollow", "outlined"] as const).map(variant => (
+        {CHECKBOX_VARIANT_OPTIONS.map(variant => (
           <FlexColumn key={variant} gap={GROUP_GAP}>
             <Checkbox.Item variant={variant}>
               <Checkbox.Control defaultChecked />

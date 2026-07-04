@@ -3,6 +3,7 @@ import { FlexColumn, FlexRow } from "@storybook-utils/layout";
 import { useState } from "react";
 
 import { Radio } from "./Radio";
+import { RADIO_SIZE_OPTIONS } from "./radio.types";
 
 const meta = {
   title: "Components/Radio",
@@ -16,15 +17,13 @@ export default meta;
 
 type Story = StoryObj<typeof Radio.Item>;
 
-const SIZES = ["lg", "md", "sm", "xs"] as const;
-
 const GROUP_GAP = "12px";
 
 export const Sizes: Story = {
   render: () => (
     <FlexColumn gap={GROUP_GAP}>
       <Radio.Root defaultValue='md'>
-        {SIZES.map(size => (
+        {RADIO_SIZE_OPTIONS.map(size => (
           <Radio.Item key={size} value={size} size={size}>
             <Radio.Indicator />
             <Radio.Label>{size}</Radio.Label>
@@ -152,7 +151,7 @@ export const Controlled: Story = {
 export const ComprehensiveMatrix: Story = {
   render: () => (
     <FlexColumn>
-      {SIZES.map(size => (
+      {RADIO_SIZE_OPTIONS.map(size => (
         <FlexRow key={size}>
           <FlexColumn gap={GROUP_GAP}>
             <Radio.Root defaultValue='checked' size={size}>
