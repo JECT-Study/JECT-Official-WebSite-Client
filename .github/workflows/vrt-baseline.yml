@@ -1,0 +1,113 @@
+name: Visual Regression Baseline (BackstopJS)
+
+on:
+  # vrt-baseline 레이블을 붙일 때만 baseline을 재생성한다.
+  pull_request:
+    types:
+      - labeled
+
+jobs:
+  baseline:
+    if: >-
+      github.event.label.name == 'vrt-baseline' &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-22.04
+    timeout-minutes: 20
+    # 같은 PR에서 레이블을 연달아 붙이면 이전 실행을 취소한다.
+    concurrency:
+      group: vrt-baseline-${{ github.event.pull_request.number }}
+      cancel-in-progress: true
+
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      # 체크아웃 토큰이 이후 PR 코드 실행 단계에 남지 않도록 persist-credentials를 끄고, push 단계에서만 토큰으로 인증한다.
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          persist-credentials: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Storybook
+        run: npm --workspace @jects/vrt run sb:build
+
+      # 로컬과 동일한 Docker 이미지로 baseline을 재생성한다.
+      # ref:run이 bitmaps_reference를 먼저 비우므로 삭제된 스토리의 남은 스냅샷은 제거된다.
+      - name: Regenerate baseline
+        run: npm --workspace @jects/vrt run vrt:reference
+        env:
+          CI: "true"
+
+      - name: Commit and push baseline
+        id: commit
+        env:
+          HEAD_REF: ${{ github.head_ref }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A packages/vrt/backstop_data/bitmaps_reference
+          if git diff --staged --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "baseline에 변경 사항이 없습니다."
+          else
+            git commit -m "chore(vrt): CI에서 baseline 재생성"
+            # push 시점에만 토큰으로 인증한다.
+            git push "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "HEAD:${HEAD_REF}"
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Comment result
+        uses: actions/github-script@v7
+        if: always()
+        with:
+          script: |
+            const prNumber = context.payload.pull_request.number;
+            const changed = '${{ steps.commit.outputs.changed }}';
+            const runUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+
+            let body;
+            if (changed === 'true') {
+              body = `## 🖼️ VRT baseline 재생성 완료\n\n- 삭제된 스토리의 스냅샷을 정리하고 현재 스토리 기준으로 baseline을 새로 커밋했습니다.\n- 워크플로: [실행 내역 보기](${runUrl})`;
+            } else if (changed === 'false') {
+              body = `## 🖼️ VRT baseline 재생성 완료\n\n- baseline에 변경 사항이 없어 커밋하지 않았습니다.\n- 워크플로: [실행 내역 보기](${runUrl})`;
+            } else {
+              body = `## ❌ VRT baseline 재생성 실패\n\n- 워크플로 실행 내역을 확인해 주세요.\n- 워크플로: [실행 내역 보기](${runUrl})`;
+            }
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber,
+              body,
+            });
+
+      - name: Remove vrt-baseline label
+        uses: actions/github-script@v7
+        if: always()
+        with:
+          script: |
+            const prNumber = context.payload.pull_request.number;
+            try {
+              await github.rest.issues.removeLabel({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: prNumber,
+                name: 'vrt-baseline',
+              });
+            } catch (error) {
+              if (error.status !== 404) {
+                throw error;
+              }
+            }
