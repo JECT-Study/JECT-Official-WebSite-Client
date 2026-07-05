@@ -71,7 +71,7 @@ const meta = {
     ),
     uploadButton: triggerUpload => (
       <BlockButton.Basic
-        hierarchy='tertiary'
+        hierarchy='secondary'
         size='sm'
         variant='outlined'
         suffixIcon='upload-2-line'
@@ -120,7 +120,7 @@ export const Default: StoryObj<typeof Uploader.File> = {
         }
         uploadButton={triggerUpload => (
           <BlockButton.Basic
-            hierarchy='tertiary'
+            hierarchy='secondary'
             size='sm'
             variant='outlined'
             suffixIcon='upload-2-line'

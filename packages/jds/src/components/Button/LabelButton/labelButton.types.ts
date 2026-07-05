@@ -17,13 +17,13 @@ export type LabelButtonFeedback = (typeof LABEL_BUTTON_FEEDBACK_OPTIONS)[number]
 /** @deprecated `LabelButtonFeedback`를 사용하세요. */
 export type LabelButtonIntent = LabelButtonFeedback;
 
-export interface BaseLabelButtonProps extends ComponentPropsWithoutRef<"button"> {
+export type BaseLabelButtonProps = ComponentPropsWithoutRef<"button"> & {
   "data-part"?: never;
   children: ReactNode;
   size?: LabelButtonSize;
   prefixIcon?: IconName;
   suffixIcon?: IconName;
-}
+};
 
 export type LabelButtonProps = BaseLabelButtonProps &
   (
@@ -33,10 +33,10 @@ export type LabelButtonProps = BaseLabelButtonProps &
 
 // TODO(deprecation, #497): 호출부 마이그레이션 완료 후 아래 deprecated 타입과 .Basic/.Feedback 별칭 제거
 /** @deprecated `<LabelButton hierarchy>`를 사용하세요. */
-export interface LabelButtonBasicProps extends BaseLabelButtonProps {
+export type LabelButtonBasicProps = BaseLabelButtonProps & {
   hierarchy?: LabelButtonHierarchy;
-}
+};
 /** @deprecated `<LabelButton feedback>`를 사용하세요. */
-export interface LabelButtonFeedbackProps extends BaseLabelButtonProps {
+export type LabelButtonFeedbackProps = BaseLabelButtonProps & {
   intent?: LabelButtonFeedback;
-}
+};
