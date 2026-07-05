@@ -31,12 +31,12 @@ const solidDisabled = {
 } satisfies SolidPalette;
 
 const outlinedDisabled = {
-  borderColor: vars.color.semantic.accent.alpha.subtler,
+  borderColor: vars.color.semantic.stroke.alpha.subtler,
   color: vars.color.semantic.object.subtler,
 } satisfies OutlinedPalette;
 
 const hollowDisabled = {
-  color: vars.color.semantic.accent.alpha.subtler,
+  color: vars.color.semantic.object.subtler,
 } satisfies HollowPalette;
 
 const solidEnabledByHierarchy = {
