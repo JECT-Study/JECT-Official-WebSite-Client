@@ -19,28 +19,24 @@ export const iconSizeMap: Record<LabelButtonSize, IconSize> = {
   xs: "2xs",
 };
 
-type LabelButtonPalette = { overlayColor: string; color: string; disabledColor: string };
+type LabelButtonPalette = { overlayColor: string; color: string };
 
 const colorsByHierarchy = {
   accent: {
     overlayColor: vars.color.semantic.accent.normal,
     color: vars.color.semantic.accent.normal,
-    disabledColor: vars.color.semantic.accent.alpha.subtle,
   },
   primary: {
     overlayColor: vars.color.semantic.fill.boldest,
     color: vars.color.semantic.object.boldest,
-    disabledColor: vars.color.semantic.object.subtle,
   },
   secondary: {
     overlayColor: vars.color.semantic.object.boldest,
     color: vars.color.semantic.object.neutral,
-    disabledColor: vars.color.semantic.object.subtle,
   },
   tertiary: {
     overlayColor: vars.color.semantic.object.boldest,
     color: vars.color.semantic.object.alternative,
-    disabledColor: vars.color.semantic.object.subtle,
   },
 } satisfies Record<LabelButtonHierarchy, LabelButtonPalette>;
 
@@ -48,21 +44,19 @@ const feedbackColorsByIntent = {
   positive: {
     overlayColor: vars.color.semantic.feedback.positive.normal,
     color: vars.color.semantic.feedback.positive.normal,
-    disabledColor: vars.color.semantic.feedback.positive.alpha.subtle,
   },
   destructive: {
     overlayColor: vars.color.semantic.feedback.destructive.normal,
     color: vars.color.semantic.feedback.destructive.normal,
-    disabledColor: vars.color.semantic.feedback.destructive.alpha.subtle,
   },
 } satisfies Record<LabelButtonFeedback, LabelButtonPalette>;
 
 // padding이 0이라 탭/포커스 영역(::before·::after)을 size별 음수 inset으로 시각 영역 밖까지 확장한다.
 const tapAreaBySize = {
-  lg: { inset: `${pxToRem(-4)} ${pxToRem(-8)}`, borderRadius: vars.scheme.semantic.radius["6"] },
-  md: { inset: `${pxToRem(-3)} ${pxToRem(-6)}`, borderRadius: vars.scheme.semantic.radius["6"] },
-  sm: { inset: `${pxToRem(-2)} ${pxToRem(-4)}`, borderRadius: vars.scheme.semantic.radius["4"] },
-  xs: { inset: `${pxToRem(-1)} ${pxToRem(-3)}`, borderRadius: vars.scheme.semantic.radius["4"] },
+  lg: { inset: `${pxToRem(-4)} ${pxToRem(-8)}`, borderRadius: vars.scheme.semantic.radius["8"] },
+  md: { inset: `${pxToRem(-3)} ${pxToRem(-6)}`, borderRadius: vars.scheme.semantic.radius["8"] },
+  sm: { inset: `${pxToRem(-2)} ${pxToRem(-4)}`, borderRadius: vars.scheme.semantic.radius["6"] },
+  xs: { inset: `${pxToRem(-1)} ${pxToRem(-3)}`, borderRadius: vars.scheme.semantic.radius["6"] },
 } satisfies Record<LabelButtonSize, { inset: string; borderRadius: string }>;
 
 const sizeVariants = {
@@ -101,13 +95,11 @@ const baseStyles = style({
   },
 });
 
-const colorVariant = ({
-  overlayColor: oc,
-  color,
-  disabledColor,
-}: LabelButtonPalette): StyleRule => ({
+const colorVariant = ({ overlayColor: oc, color }: LabelButtonPalette): StyleRule => ({
   vars: { [overlayColor]: oc, [labelColorVar]: color },
-  selectors: { "&[data-disabled]": { vars: { [labelColorVar]: disabledColor } } },
+  selectors: {
+    "&[data-disabled]": { vars: { [labelColorVar]: vars.color.semantic.object.subtler } },
+  },
 });
 
 const hierarchyVariants = {

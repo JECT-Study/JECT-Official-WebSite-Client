@@ -56,8 +56,8 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
       const tertiary = tertiaryAction ? (
         <BlockButton.Basic
           key='tertiary'
-          variant='empty'
-          hierarchy='tertiary'
+          variant='hollow'
+          hierarchy='secondary'
           style={{ width: isButtonStretched ? "100%" : "auto" }}
           {...tertiaryAction}
         />
