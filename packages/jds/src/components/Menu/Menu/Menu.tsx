@@ -1,4 +1,3 @@
-import { chain } from "@react-aria/utils";
 import { clsx } from "clsx";
 import { DropdownMenu } from "radix-ui";
 import { Children, forwardRef, useId, useState } from "react";
@@ -175,7 +174,10 @@ const MenuTree = forwardRef<HTMLButtonElement, MenuTreeProps>(
             <MenuItem.Button
               ref={ref}
               size={size}
-              onKeyDown={chain(onKeyDown, handleKeyDown)}
+              onKeyDown={e => {
+                onKeyDown?.(e);
+                handleKeyDown(e);
+              }}
               disabled={disabled}
               {...restProps}
             >
