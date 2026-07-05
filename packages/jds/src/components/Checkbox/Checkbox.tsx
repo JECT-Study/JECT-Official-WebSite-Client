@@ -7,7 +7,7 @@ import type { ForwardedRef, InputHTMLAttributes, ReactNode, Ref } from "react";
 import { forwardRef, useId, useLayoutEffect, useState } from "react";
 import { useCheckboxGroupState, useToggleState } from "react-stately";
 import type { CheckboxGroupState } from "react-stately";
-import { focusRing, getLabelClassName } from "utils";
+import { focusRing, getLabelClassName, visuallyHidden } from "utils";
 import type { LabelSize } from "utils";
 
 import {
@@ -16,7 +16,6 @@ import {
   checkboxGroupWrapper,
   checkboxHelper,
   checkboxHelperSlot,
-  checkboxInput,
   checkboxItem,
   checkboxLabel,
   checkboxLabelSlot,
@@ -178,7 +177,7 @@ const CheckboxControl = ({
         aria-invalid={isEffectiveInvalid || undefined}
         aria-labelledby={isWithinItem ? labelId : undefined}
         aria-describedby={describedById}
-        className={checkboxInput}
+        className={visuallyHidden}
       />
       <span className={checkboxVisual({ size, interaction })} aria-hidden='true'>
         {icon}
