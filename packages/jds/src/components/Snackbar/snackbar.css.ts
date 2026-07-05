@@ -1,4 +1,4 @@
-import { keyframes, style } from "@vanilla-extract/css";
+import { keyframes, style, type StyleRule } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
 import { pxToRem } from "utils";
@@ -62,7 +62,7 @@ export const root = recipe({
       positive: { gap: vars.scheme.semantic.spacing["10"] },
       destructive: { gap: vars.scheme.semantic.spacing["10"] },
       notifying: { gap: vars.scheme.semantic.spacing["10"] },
-    } satisfies Record<SnackbarFeedback, object>,
+    } satisfies Record<SnackbarFeedback, StyleRule>,
     withCloseButton: {
       true: {
         paddingRight: vars.scheme.semantic.spacing["10"],
@@ -123,7 +123,7 @@ export const icon = recipe({
       positive: { color: vars.color.semantic.feedback.positive.normal },
       destructive: { color: vars.color.semantic.feedback.destructive.normal },
       notifying: { color: vars.color.semantic.feedback.notifying.inverse.bold },
-    } satisfies Record<SnackbarFeedback, object>,
+    } satisfies Record<SnackbarFeedback, StyleRule>,
   },
 });
 
