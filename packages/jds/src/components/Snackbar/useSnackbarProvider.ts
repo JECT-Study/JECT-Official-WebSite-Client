@@ -1,4 +1,4 @@
-import { SNACKBAR_TIMER } from "./Snackbar";
+import { SNACKBAR_QUEUE_FALLBACK_TIMEOUT } from "./snackbar.constants";
 import type {
   SnackbarActionProps,
   SnackbarItem,
@@ -10,7 +10,7 @@ import { useLimitedQueueProvider } from "@/hooks/useLimitedQueueProvider";
 export const useSnackbarProvider = () => {
   const { items, addItem, removeItem } = useLimitedQueueProvider<SnackbarItem>({
     limit: 3,
-    fallbackTimeout: SNACKBAR_TIMER.QUEUE_FALLBACK,
+    fallbackTimeout: SNACKBAR_QUEUE_FALLBACK_TIMEOUT,
   });
 
   const handler = {

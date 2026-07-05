@@ -1,6 +1,7 @@
 import { clsx } from "clsx";
 import { useEffect, useState } from "react";
 
+import { SNACKBAR_ANIMATION_TIMER, SNACKBAR_DEFAULT_DURATION } from "./snackbar.constants";
 import * as styles from "./snackbar.css";
 import type { SnackbarFeedbackVariant, SnackbarProps } from "./snackbar.types";
 import { IconButton } from "../Button/IconButton";
@@ -11,16 +12,6 @@ import type { IconName } from "../Icon";
 import { getBodyClassName, getLabelClassName } from "@/utils/typography";
 
 type SnackbarPhase = "enter" | "static" | "exit";
-
-/**
- * enter/exit 값은 snackbar.css.ts의 animation duration 토큰과 동기화한다.
- */
-export const SNACKBAR_TIMER = {
-  DURATION: 4000,
-  ENTER: 250,
-  EXIT: 200,
-  QUEUE_FALLBACK: 1500,
-} as const;
 
 const phaseClassNameMap: Partial<Record<SnackbarPhase, string>> = {
   enter: styles.enter,
@@ -42,7 +33,7 @@ export const Snackbar = ({
   onRemove,
   title,
   isClosing,
-  duration = SNACKBAR_TIMER.DURATION,
+  duration = SNACKBAR_DEFAULT_DURATION,
   withCloseButton = false,
 }: SnackbarProps) => {
   const [phase, setPhase] = useState<SnackbarPhase>("enter");
@@ -50,7 +41,7 @@ export const Snackbar = ({
 
   useEffect(() => {
     if (phase === "enter") {
-      const timer = setTimeout(() => setPhase("static"), SNACKBAR_TIMER.ENTER);
+      const timer = setTimeout(() => setPhase("static"), SNACKBAR_ANIMATION_TIMER.ENTER);
       return () => clearTimeout(timer);
     }
   }, [phase]);
@@ -67,7 +58,7 @@ export const Snackbar = ({
     if (phase === "exit") {
       const timer = setTimeout(() => {
         onRemove?.();
-      }, SNACKBAR_TIMER.EXIT);
+      }, SNACKBAR_ANIMATION_TIMER.EXIT);
       return () => clearTimeout(timer);
     }
   }, [phase, onRemove]);

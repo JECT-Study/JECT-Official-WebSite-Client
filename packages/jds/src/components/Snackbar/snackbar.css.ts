@@ -3,6 +3,7 @@ import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
 import { pxToRem } from "utils";
 
+import { SNACKBAR_ANIMATION_DURATION_TOKEN } from "./snackbar.constants";
 import type { SnackbarFeedback } from "./snackbar.types";
 
 import { breakpoints } from "@/tokens/breakpoints";
@@ -136,9 +137,9 @@ export const actions = style({
 });
 
 export const enter = style({
-  animation: `${slideIn} ${vars.environment.semantic.duration["250"]} ${vars.environment.semantic.motion.bouncy} forwards`,
+  animation: `${slideIn} ${vars.environment.semantic.duration[SNACKBAR_ANIMATION_DURATION_TOKEN.ENTER]} ${vars.environment.semantic.motion.bouncy} forwards`,
 });
 
 export const exit = style({
-  animation: `${slideOut} ${vars.environment.semantic.duration["200"]} ${vars.environment.semantic.motion.leave} forwards`,
+  animation: `${slideOut} ${vars.environment.semantic.duration[SNACKBAR_ANIMATION_DURATION_TOKEN.EXIT]} ${vars.environment.semantic.motion.leave} forwards`,
 });
