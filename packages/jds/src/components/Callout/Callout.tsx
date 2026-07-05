@@ -1,49 +1,90 @@
-import { useTheme } from "@emotion/react";
+import { clsx } from "clsx";
+import { forwardRef } from "react";
+
+import * as styles from "./callout.css";
+import type { CalloutProps, CalloutSize } from "./callout.types";
+import { Icon } from "../Icon";
+import type { IconSize } from "../Icon";
 
 import {
-  CalloutContainer,
-  CalloutContentDiv,
-  CalloutTitleP,
-  CalloutContentP,
-} from "./Callout.style";
-import type { CalloutProps } from "./Callout.types";
-import { getCalloutStyleToken } from "./Callout.variants";
-import { LabelButton } from "../Button/LabelButton";
+  getBodyClassName,
+  getLabelClassName,
+  getTitleClassName,
+  type BodySize,
+  type LabelSize,
+} from "@/utils/typography";
 
-export const Callout = ({
-  size = "md",
-  title,
-  labelButtonProps,
-  children,
-  className,
-  ...props
-}: CalloutProps) => {
-  const theme = useTheme();
-  const styleToken = getCalloutStyleToken(theme, props);
+const iconSizeMap = {
+  lg: "lg",
+  md: "sm",
+  sm: "xs",
+  xs: "2xs",
+} as const satisfies Record<CalloutSize, IconSize>;
 
-  const renderButton = () => {
-    if (!labelButtonProps) return null;
+const titleLabelSizeMap = {
+  md: "lg",
+  sm: "md",
+  xs: "sm",
+} as const satisfies Record<Exclude<CalloutSize, "lg">, LabelSize>;
 
-    if (props.feedback) {
-      return <LabelButton.Basic hierarchy='secondary' size={size} {...labelButtonProps} />;
-    }
+const getTitleTypographyClass = (size: CalloutSize) =>
+  size === "lg"
+    ? getTitleClassName({ size: "xs" })
+    : getLabelClassName({ size: titleLabelSizeMap[size], weight: "bold" });
 
+const bodyTypographySizeMap = {
+  lg: "lg",
+  md: "md",
+  sm: "sm",
+  xs: "2xs",
+} as const satisfies Record<CalloutSize, BodySize>;
+
+export const Callout = forwardRef<HTMLDivElement, CalloutProps>(
+  (
+    {
+      size = "md",
+      feedback = "none",
+      title,
+      icon,
+      children,
+      className,
+      role = "note",
+      ...restProps
+    },
+    ref,
+  ) => {
     return (
-      <LabelButton.Basic
-        hierarchy={props.hierarchy || "secondary"}
-        size={size}
-        {...labelButtonProps}
-      />
+      <div
+        ref={ref}
+        role={role}
+        className={clsx(styles.root({ size, feedback }), className)}
+        {...restProps}
+      >
+        <div className={styles.content({ size })}>
+          {title && (
+            <div className={styles.titleWrap({ size })}>
+              {icon && (
+                <span className={styles.iconContainer}>
+                  <Icon
+                    aria-hidden
+                    className={styles.icon}
+                    name={icon}
+                    size={iconSizeMap[size]}
+                  />
+                </span>
+              )}
+              <p className={clsx(styles.title, getTitleTypographyClass(size))}>{title}</p>
+            </div>
+          )}
+          <div
+            className={clsx(styles.body, getBodyClassName({ size: bodyTypographySizeMap[size] }))}
+          >
+            {children}
+          </div>
+        </div>
+      </div>
     );
-  };
+  },
+);
 
-  return (
-    <CalloutContainer $size={size} $styleToken={styleToken} className={className}>
-      <CalloutContentDiv $size={size}>
-        {title && <CalloutTitleP $size={size}>{title}</CalloutTitleP>}
-        <CalloutContentP $size={size}>{children}</CalloutContentP>
-      </CalloutContentDiv>
-      {renderButton()}
-    </CalloutContainer>
-  );
-};
+Callout.displayName = "Callout";
