@@ -17,6 +17,9 @@ const viewports = [
 // 스토리에 tags: ["skip-vrt"] 를 달면 VRT 대상에서 제외된다.
 const SKIP_TAG = "skip-vrt";
 
+const captureDelay = Number(process.env.VRT_CAPTURE_DELAY) || (process.env.CI ? 1000 : 300);
+const asyncCaptureLimit = Number(process.env.VRT_CAPTURE_LIMIT) || (process.env.CI ? 2 : 5);
+
 function loadStories() {
   let index;
   try {
@@ -44,7 +47,7 @@ function toScenario(story) {
     // 전체 화면이 아니라 렌더된 컴포넌트 루트만 캡처
     selectors: ["#storybook-root"],
     readySelector: "#storybook-root",
-    delay: 300,
+    delay: captureDelay,
     misMatchThreshold: 0.1,
   };
 }
@@ -68,7 +71,7 @@ const config = {
   engineOptions: { args: ["--no-sandbox"] },
   // 캡처 직전 애니메이션, 트랜지션, 커서 깜빡임 등을 제거해 오탐을 막는다.
   onReadyScript: "puppet/onReady.cjs",
-  asyncCaptureLimit: 5,
+  asyncCaptureLimit,
   asyncCompareLimit: 50,
 };
 
