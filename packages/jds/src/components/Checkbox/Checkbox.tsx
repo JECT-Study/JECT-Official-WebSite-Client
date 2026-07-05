@@ -32,6 +32,7 @@ import {
   useCheckboxConfig,
   useCheckboxItem,
 } from "./CheckboxContext";
+import { useCheckboxState } from "./useCheckboxState";
 
 const checkboxSizeMap = {
   lg: { icon: "md", label: "lg", helper: "sm" },
@@ -39,21 +40,6 @@ const checkboxSizeMap = {
   sm: { icon: "xs", label: "sm", helper: "xs" },
   xs: { icon: "2xs", label: "xs", helper: "xs" },
 } satisfies Record<CheckboxSize, { icon: IconSize; label: LabelSize; helper: LabelSize }>;
-
-function useControllableValue(
-  prop: string[] | undefined,
-  defaultProp: string[],
-  onChange?: (value: string[]) => void,
-): [string[], (next: string[]) => void] {
-  const [uncontrolled, setUncontrolled] = useState(defaultProp);
-  const isControlled = prop !== undefined;
-  const value = isControlled ? prop : uncontrolled;
-  const setValue = (next: string[]) => {
-    if (!isControlled) setUncontrolled(next);
-    onChange?.(next);
-  };
-  return [value, setValue];
-}
 
 const CheckboxRoot = ({
   size = "md",
@@ -66,13 +52,13 @@ const CheckboxRoot = ({
   name,
   children,
 }: CheckboxRootProps) => {
-  const [selected, setSelected] = useControllableValue(value, defaultValue ?? [], onChange);
+  const [selected, setSelected] = useCheckboxState(value, defaultValue ?? [], onChange);
 
   const state = {
     value: selected,
     isSelected: (v: string) => selected.includes(v),
     toggle: (v: string) =>
-      setSelected(selected.includes(v) ? selected.filter(item => item !== v) : [...selected, v]),
+      setSelected(prev => (prev.includes(v) ? prev.filter(item => item !== v) : [...prev, v])),
   };
 
   return (
