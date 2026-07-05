@@ -27,9 +27,10 @@ export const SnackbarProvider = ({ children, duration }: SnackbarProviderProps) 
 
   const [announcement, setAnnouncement] = useState("");
   const announcementSpaceToggleRef = useRef(false);
+  const announcedSnackbarIdsRef = useRef<Set<string>>(new Set());
 
   const latestSnackbar = snackbars.length > 0 ? snackbars[snackbars.length - 1] : null;
-  
+
   const latestSnackbarId = latestSnackbar?.id;
   const latestSnackbarTitle = latestSnackbar?.title;
   const latestSnackbarDescription = latestSnackbar?.description;
@@ -45,6 +46,14 @@ export const SnackbarProvider = ({ children, duration }: SnackbarProviderProps) 
 
   useEffect(() => {
     if (!latestSnackbarId) return;
+
+    /**
+     * [A11y] 최신 스낵바가 먼저 제거되면 이미 낭독한 이전 스낵바가
+     * 다시 latest가 될 수 있습니다. 신규 id만 live region에 반영해
+     * 같은 스낵바가 반복 낭독되지 않도록 합니다.
+     */
+    if (announcedSnackbarIdsRef.current.has(latestSnackbarId)) return;
+    announcedSnackbarIdsRef.current.add(latestSnackbarId);
 
     const baseText = [latestSnackbarTitle, latestSnackbarDescription].filter(Boolean).join(" ");
 
