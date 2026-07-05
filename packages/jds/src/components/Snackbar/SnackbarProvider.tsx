@@ -1,9 +1,10 @@
 import type { ReactNode } from "react";
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import { visuallyHidden } from "utils";
 
 import { Snackbar } from "./Snackbar";
-import { stackContainer, visuallyHidden } from "./snackbar.css";
+import { stackContainer } from "./snackbar.css";
 import type { SnackbarHandler } from "./snackbar.types";
 import { snackbarController } from "./snackbarController";
 import { useSnackbarProvider } from "./useSnackbarProvider";
