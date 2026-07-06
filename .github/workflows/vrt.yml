@@ -16,6 +16,9 @@ concurrency:
 
 jobs:
   backstop:
+    # vrt-baseline 라벨이 붙어 있는 동안(baseline 재생성 중)에는 회귀 검사를 건너뛴다.
+    # baseline이 항상 우선하며, 옛 baseline과 비교해 생기는 오탐을 막는다.
+    if: ${{ !contains(github.event.pull_request.labels.*.name, 'vrt-baseline') }}
     runs-on: ubuntu-22.04
     timeout-minutes: 20
     steps:
