@@ -1,9 +1,10 @@
 import type { ReactNode } from "react";
 import { createContext, useContext, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+import { visuallyHidden } from "utils";
 
 import { Toast } from "./Toast";
-import { stackContainer, visuallyHidden } from "./toast.css";
+import { stackContainer } from "./toast.css";
 import type { ToastHandler } from "./toast.types";
 import { toastController } from "./toastController";
 import { useToastProvider } from "./useToastProvider";

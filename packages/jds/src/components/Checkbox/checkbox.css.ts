@@ -18,18 +18,6 @@ const checkboxVisualSizeMap = {
 
 // Checkbox.Basic
 
-export const checkboxInput = style({
-  position: "absolute",
-  width: 1,
-  height: 1,
-  padding: 0,
-  margin: -1,
-  border: 0,
-  overflow: "hidden",
-  clipPath: "inset(50%)",
-  whiteSpace: "nowrap",
-});
-
 export const checkboxControlRoot = style({
   display: "inline-flex",
   position: "relative",
@@ -229,6 +217,7 @@ export const checkboxItem = recipe({
 
 export const checkboxLabel = style({
   whiteSpace: "nowrap",
+  zIndex: 10,
   vars: { [labelColorVar]: vars.color.semantic.object.bolder },
   selectors: {
     "[data-disabled] &": { vars: { [labelColorVar]: vars.color.semantic.object.subtle } },
