@@ -21,8 +21,24 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+      actions: write
 
     steps:
+      # baseline이 항상 우선하도록 같은 PR 브랜치에서 진행 중인 VRT 실행을 먼저 취소한다.
+      # concurrency로는 우선순위를 표현할 수 없어(나중에 cancel-in-progress를 가진 쪽이 이김) API로 명시 취소한다.
+      - name: Cancel in-flight VRT runs
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HEAD_REF: ${{ github.head_ref }}
+        run: |
+          gh api "repos/${GITHUB_REPOSITORY}/actions/workflows/vrt.yml/runs?event=pull_request&branch=${HEAD_REF}" \
+            --jq '.workflow_runs[] | select(.status != "completed") | .id' \
+          | while read -r run_id; do
+              [ -z "$run_id" ] && continue
+              echo "진행 중인 VRT 실행 취소: ${run_id}"
+              gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/runs/${run_id}/cancel" || true
+            done
+
       # 체크아웃 토큰이 이후 PR 코드 실행 단계에 남지 않도록 persist-credentials를 끄고, push 단계에서만 토큰으로 인증한다.
       - name: Checkout PR branch
         uses: actions/checkout@v4
