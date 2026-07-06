@@ -25,7 +25,7 @@ const SnackbarButtons = ({ prefixButtonProps, suffixButtonProps }: SnackbarButto
   return (
     <ButtonContainerDiv>
       {prefixButtonProps && (
-        <BlockButton.Basic hierarchy='tertiary' size='xs' variant='solid' {...prefixButtonProps}>
+        <BlockButton.Basic hierarchy='secondary' size='xs' variant='solid' {...prefixButtonProps}>
           {prefixButtonProps.children}
         </BlockButton.Basic>
       )}
