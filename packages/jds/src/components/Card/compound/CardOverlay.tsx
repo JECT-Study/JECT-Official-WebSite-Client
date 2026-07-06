@@ -1,5 +1,5 @@
 import { clsx } from "clsx";
-import { forwardRef, type ComponentPropsWithoutRef, type Ref } from "react";
+import { forwardRef, useEffect, type ComponentPropsWithoutRef, type Ref } from "react";
 
 import type { CardOverlayProps } from "../card.types";
 import { useCardContext } from "../cardContext";
@@ -20,8 +20,21 @@ export const CardOverlay = forwardRef<HTMLAnchorElement | HTMLButtonElement, Car
 
     const ariaLabel = restProps["aria-label"];
     const explicitAriaLabelledby = restProps["aria-labelledby"];
-    const hasAccessibleName = children != null || ariaLabel != null;
+    const hasAccessibleName =
+      children != null || ariaLabel != null || explicitAriaLabelledby != null;
     const ariaLabelledby = explicitAriaLabelledby ?? (hasAccessibleName ? undefined : titleId);
+
+    useEffect(() => {
+      const isDevelopment =
+        typeof process !== "undefined" && process.env?.NODE_ENV !== "production";
+
+      if (!isDevelopment || hasAccessibleName) return;
+      if (typeof document !== "undefined" && document.getElementById(titleId)) return;
+
+      console.warn(
+        "Card.Overlay는 접근 이름이 필요합니다. Card.Title, aria-label, aria-labelledby, children 중 하나를 제공하세요.",
+      );
+    }, [hasAccessibleName, titleId]);
 
     if (as === "button") {
       const { type, ...buttonProps } = restProps as ComponentPropsWithoutRef<"button">;
