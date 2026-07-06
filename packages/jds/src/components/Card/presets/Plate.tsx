@@ -1,11 +1,9 @@
 import { forwardRef, type ReactNode } from "react";
 
-import type { PlatePresetBaseProps, PlatePresetProps } from "../card.types";
+import type { PlatePresetBaseProps, PlateLinkProps, PlateButtonProps } from "../card.types";
 import { CardThumbnail, CardContent, CardCaption, CardOverlay } from "../compound";
 import { PresetFrame, TitleBody } from "./shared";
 
-type PlateLinkProps = Omit<Extract<PlatePresetProps, { as: "a" }>, "as">;
-type PlateButtonProps = Omit<Extract<PlatePresetProps, { as: "button" }>, "as">;
 type PlateBaseProps = PlatePresetBaseProps & { overlay: ReactNode };
 
 const PlateBase = forwardRef<HTMLDivElement, PlateBaseProps>(

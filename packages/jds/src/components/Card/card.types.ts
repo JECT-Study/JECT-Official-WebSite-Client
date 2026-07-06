@@ -47,15 +47,13 @@ interface BasePresetOwnProps extends Omit<ComponentPropsWithoutRef<"div">, "onCl
   image?: CardThumbnailImage;
 }
 
-interface PresetLinkProps {
-  as: "a";
+interface PresetLinkOwnProps {
   href: string;
   target?: string;
   rel?: string;
 }
 
-interface PresetButtonProps {
-  as: "button";
+interface PresetButtonOwnProps {
   onClick: NonNullable<ComponentPropsWithoutRef<"button">["onClick"]>;
   type?: "button" | "submit" | "reset";
 }
@@ -66,9 +64,8 @@ export interface PlatePresetBaseProps extends BasePresetOwnProps {
   body: ReactNode;
 }
 
-export type PlatePresetProps =
-  | (PlatePresetBaseProps & PresetLinkProps)
-  | (PlatePresetBaseProps & PresetButtonProps);
+export interface PlateLinkProps extends PlatePresetBaseProps, PresetLinkOwnProps {}
+export interface PlateButtonProps extends PlatePresetBaseProps, PresetButtonOwnProps {}
 
 export interface PostPresetBaseProps extends BasePresetOwnProps {
   title: string;
@@ -77,6 +74,5 @@ export interface PostPresetBaseProps extends BasePresetOwnProps {
   date: string;
 }
 
-export type PostPresetProps =
-  | (PostPresetBaseProps & PresetLinkProps)
-  | (PostPresetBaseProps & PresetButtonProps);
+export interface PostLinkProps extends PostPresetBaseProps, PresetLinkOwnProps {}
+export interface PostButtonProps extends PostPresetBaseProps, PresetButtonOwnProps {}

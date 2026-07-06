@@ -1,11 +1,9 @@
 import { forwardRef, type ReactNode } from "react";
 
-import type { PostPresetBaseProps, PostPresetProps } from "../card.types";
+import type { PostPresetBaseProps, PostLinkProps, PostButtonProps } from "../card.types";
 import { CardThumbnail, CardContent, CardMeta, CardMetaItem, CardOverlay } from "../compound";
 import { PresetFrame, TitleBody } from "./shared";
 
-type PostLinkProps = Omit<Extract<PostPresetProps, { as: "a" }>, "as">;
-type PostButtonProps = Omit<Extract<PostPresetProps, { as: "button" }>, "as">;
 type PostBaseProps = PostPresetBaseProps & { overlay: ReactNode };
 
 const PostBase = forwardRef<HTMLDivElement, PostBaseProps>(

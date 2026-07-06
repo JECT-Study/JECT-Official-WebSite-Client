@@ -46,4 +46,9 @@ export type {
   CardOverlayProps,
 } from "./card.types";
 
-export type { PlatePresetProps, PostPresetProps } from "./card.types";
+export type {
+  PlateLinkProps,
+  PlateButtonProps,
+  PostLinkProps,
+  PostButtonProps,
+} from "./card.types";
