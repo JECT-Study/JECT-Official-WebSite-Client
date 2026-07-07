@@ -16,7 +16,7 @@ const NumericBadgeRoot = forwardRef<HTMLSpanElement, NumericBadgeProps>(
       hierarchy = "accent",
       feedback,
       size = "md",
-      badgeStyle = "alpha",
+      badgeStyle = "solid",
       isMuted = false,
       className,
       children,

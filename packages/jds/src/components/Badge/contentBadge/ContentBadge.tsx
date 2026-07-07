@@ -28,7 +28,7 @@ const ContentBadgeRoot = forwardRef<HTMLSpanElement, ContentBadgeProps>(
       feedback,
       variant,
       size = "md",
-      badgeStyle = "alpha",
+      badgeStyle = "solid",
       isMuted = false,
       withIconButton = false,
       onIconClick,
