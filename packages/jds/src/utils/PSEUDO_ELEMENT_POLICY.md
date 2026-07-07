@@ -79,14 +79,14 @@ hover는 커서의 위치를 나타내고 press와 focus는 어떤 컨트롤을 
 
 `interaction: "delegated"`가 이 규칙을 구현한다. overlay는 hover를 자기 요소로 두고 press만 내부 버튼으로 넘기며, focusRing은 focus를 내부 버튼으로 넘긴다.
 
-```
+```tsx
 style([
   overlay({ hierarchy: "secondary", interaction: "delegated" }),
   focusRing({ interaction: "delegated" }),
 ]);
 
 // 내부 버튼
-<button data-interaction-target />
+<button data-interaction-target />;
 ```
 
 - `data-interaction-target`은 root 아래 한 요소에만 부여한다. 그 요소는 자기 overlay와 focusRing을 갖지 않는다. root가 이미 그리므로 레이어가 두 번 겹치기 때문이다.
@@ -98,12 +98,16 @@ style([
 
 유틸은 상태에 따라 효과를 켜고 끄는 것만 담당한다. inset과 borderRadius 같은 모양, 그리고 `position: relative` 같은 배치는 호출부가 정한다.
 
-```
+```ts
 // 시각 영역 = 탭 영역
-"&::before, &::after": { inset: 0, borderRadius: "inherit" }
+style({
+  selectors: { "&::before, &::after": { inset: 0, borderRadius: "inherit" } },
+});
 
 // 시각 영역 < 탭 영역, IconButton condensed 등
-"&::before, &::after": { inset: pxToRem(-4), borderRadius: "4px" }
+style({
+  selectors: { "&::before, &::after": { inset: pxToRem(-4), borderRadius: "4px" } },
+});
 ```
 
 `::before`와 `::after`에 같은 모양을 주면 focus ring과 overlay가 같은 영역에 그려진다. 요소에 `position: relative`가 없으면 `position: absolute`인 pseudo가 viewport를 기준으로 잡히므로, 호출부가 이를 지정해야 한다.
