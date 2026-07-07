@@ -1,5 +1,5 @@
+import type { StyleRule } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
-import { StyleRule } from "@vanilla-extract/css";
 import { vars } from "tokens";
 import { pxToRem } from "utils";
 
