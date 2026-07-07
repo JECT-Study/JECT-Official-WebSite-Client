@@ -1,10 +1,11 @@
-import { createVar, fallbackVar } from "@vanilla-extract/css";
+import { createVar, fallbackVar, type StyleRule } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
 import { vars } from "../tokens/vars.css";
 
 export type OverlayDensity = "normal" | "bold";
 export type OverlayHierarchy = "accent" | "primary" | "secondary" | "tertiary";
+export type OverlayInteraction = "self" | "delegated";
 
 export const overlayColorMap = {
   accent: vars.color.semantic.accent.normal,
@@ -24,45 +25,22 @@ export const overlayOpacityMap = {
   },
 } satisfies Record<OverlayDensity, { hover: string; pressed: string }>;
 
-/**
- * @description
- * overlay 색상 — 호출자가 hierarchy 등 컨텍스트에 맞게 할당
- */
+/** overlay의 color. hierarchy에 따라 정해지고, 필요하면 직접 덮어쓴다. */
 export const overlayColor = createVar();
 
-/**
- * @description
- * hover / pressed opacity — 외부 override 가능 (기본 bold: 0.08 / 0.12)
- */
+/** hover, press일 때의 opacity. density에 따라 정해지고, 필요하면 직접 덮어쓴다. */
 export const overlayHoverOpacity = createVar();
 export const overlayPressedOpacity = createVar();
 
-// hover는 fine pointer에서만 반응한다 (터치 환경의 sticky hover를 방지)
-const hoverSelector = "&:hover:not(:disabled):not([data-disabled])::after";
-const pressedSelector = "&:active:not(:disabled):not([data-disabled])::after";
-
 /**
- * @description
- * hover / pressed 상태에서 ::after에 색상 overlay를 표시한다. 상태는 순수 CSS
- * 의사클래스(`:hover` / `:active`)로 구동되며, JS 인터랙션 훅에 의존하지 않는다.
+ * `::after`에 hover/pressed 오버레이를 그린다.
  *
- * 이 유틸은 ::after를 hover / pressed overlay 전용으로 점유한다. 인터랙티브
- * 컴포넌트의 ::after에 다른 용도(divider/arrow/shimmer 등)를 추가 점유하면
- * overlay가 가려진다. 비인터랙티브 시각 효과는 별도 element로 표현해야 한다.
+ * hover는 언제나 요소 자신의 `:hover`를 쓰고, press는 `interaction`으로 어느 요소에서 읽을지 정한다.
+ * `self`는 자신의 `:active`를, `delegated`는 안쪽 `[data-interaction-target]`의 `:active`를 읽는다.
+ * 요소의 `position: relative`와 `::after`의 inset, borderRadius는 호출부가 지정한다. disabled 상태는 `data-disabled`로 표시한다.
  *
- * `data-disabled`(또는 native `:disabled`)가 있으면 overlay는 표시되지 않는다.
- *
- * @see ./PSEUDO_ELEMENT_POLICY.md — pseudo-element 자원 할당 정책
- *
- * @requires
- * - 호출자는 element에 `position: relative`(또는 다른 positioned 값)를 부여해야 한다.
- * - 호출자는 `&::after`에 inset과 borderRadius를 직접 지정해야 한다.
- * - disabled 상태를 표시할 때는 element에 `data-disabled` 속성을 부여한다(native
- *   `<button disabled>`처럼 `:disabled`가 걸리는 경우는 자동으로 차단된다).
- *
- * @example
- *   overlay()
- *   overlay({ density: "normal", hierarchy: "secondary" })
+ * @see ./PSEUDO_ELEMENT_POLICY.md
+ * @example overlay({ hierarchy: "secondary", interaction: "delegated" })
  */
 export const overlay = recipe({
   base: {
@@ -75,24 +53,6 @@ export const overlay = recipe({
         opacity: 0,
         transition: `opacity ${vars.environment.semantic.duration[100]} ${vars.environment.semantic.motion.fluent}`,
       },
-      // pressed는 즉각 반응이 자연스러워 transition을 끈다
-      [pressedSelector]: {
-        opacity: fallbackVar(overlayPressedOpacity, overlayOpacityMap.bold.pressed),
-        transition: "none",
-      },
-    },
-    "@media": {
-      "(hover: hover) and (pointer: fine)": {
-        selectors: {
-          [hoverSelector]: {
-            opacity: fallbackVar(overlayHoverOpacity, overlayOpacityMap.bold.hover),
-          },
-          [pressedSelector]: {
-            opacity: fallbackVar(overlayPressedOpacity, overlayOpacityMap.bold.pressed),
-            transition: "none",
-          },
-        },
-      },
     },
   },
   variants: {
@@ -101,7 +61,7 @@ export const overlay = recipe({
       primary: { vars: { [overlayColor]: overlayColorMap.primary } },
       secondary: { vars: { [overlayColor]: overlayColorMap.secondary } },
       tertiary: { vars: { [overlayColor]: overlayColorMap.tertiary } },
-    } satisfies Record<OverlayHierarchy, object>,
+    } satisfies Record<OverlayHierarchy, StyleRule>,
     density: {
       normal: {
         vars: {
@@ -115,6 +75,54 @@ export const overlay = recipe({
           [overlayPressedOpacity]: overlayOpacityMap.bold.pressed,
         },
       },
-    } satisfies Record<OverlayDensity, object>,
+    } satisfies Record<OverlayDensity, StyleRule>,
+    // hover는 fine pointer에서만 반응한다. press가 hover에 우선하도록 같은 @media 안 hover 뒤에 다시 선언한다.
+    interaction: {
+      self: {
+        selectors: {
+          "&:active:not(:disabled):not([data-disabled])::after": {
+            opacity: fallbackVar(overlayPressedOpacity, overlayOpacityMap.bold.pressed),
+            transition: "none",
+          },
+        },
+        "@media": {
+          "(hover: hover) and (pointer: fine)": {
+            selectors: {
+              "&:hover:not(:disabled):not([data-disabled])::after": {
+                opacity: fallbackVar(overlayHoverOpacity, overlayOpacityMap.bold.hover),
+              },
+              "&:active:not(:disabled):not([data-disabled])::after": {
+                opacity: fallbackVar(overlayPressedOpacity, overlayOpacityMap.bold.pressed),
+                transition: "none",
+              },
+            },
+          },
+        },
+      },
+      delegated: {
+        selectors: {
+          "&:not([data-disabled]):has([data-interaction-target]:active)::after": {
+            opacity: fallbackVar(overlayPressedOpacity, overlayOpacityMap.bold.pressed),
+            transition: "none",
+          },
+        },
+        "@media": {
+          "(hover: hover) and (pointer: fine)": {
+            selectors: {
+              "&:hover:not(:disabled):not([data-disabled])::after": {
+                opacity: fallbackVar(overlayHoverOpacity, overlayOpacityMap.bold.hover),
+              },
+              "&:not([data-disabled]):has([data-interaction-target]:active)::after": {
+                opacity: fallbackVar(overlayPressedOpacity, overlayOpacityMap.bold.pressed),
+                transition: "none",
+              },
+            },
+          },
+        },
+      },
+    } satisfies Record<OverlayInteraction, StyleRule>,
+  },
+  defaultVariants: {
+    interaction: "self",
   },
 });
