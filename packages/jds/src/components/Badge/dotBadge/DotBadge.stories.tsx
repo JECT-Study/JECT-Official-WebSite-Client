@@ -11,7 +11,7 @@ const meta: Meta<typeof DotBadge> = {
     layout: "centered",
   },
   argTypes: {
-    variant: {
+    feedback: {
       control: "radio",
       options: FEEDBACK_VARIANT_OPTIONS,
     },
@@ -31,7 +31,7 @@ type Story = StoryObj<typeof DotBadge>;
 
 export const Default: Story = {
   args: {
-    variant: "positive",
+    feedback: "positive",
     size: "md",
     isMuted: false,
   },
@@ -39,7 +39,7 @@ export const Default: Story = {
 
 export const DotBadgeSizes: Story = {
   args: {
-    variant: "positive",
+    feedback: "positive",
     isMuted: false,
   },
   argTypes: {
@@ -50,7 +50,7 @@ export const DotBadgeSizes: Story = {
   render: args => (
     <FlexRow>
       {BADGE_SIZE_OPTIONS.map(size => (
-        <DotBadge key={size} variant={args.variant} size={size} isMuted={args.isMuted} />
+        <DotBadge key={size} feedback={args.feedback} size={size} isMuted={args.isMuted} />
       ))}
     </FlexRow>
   ),
@@ -62,14 +62,14 @@ export const DotBadgeFeedback: Story = {
     isMuted: false,
   },
   argTypes: {
-    variant: {
+    feedback: {
       control: false,
     },
   },
   render: args => (
     <FlexRow>
-      {FEEDBACK_VARIANT_OPTIONS.map(variant => (
-        <DotBadge key={variant} variant={variant} size={args.size} isMuted={args.isMuted} />
+      {FEEDBACK_VARIANT_OPTIONS.map(feedback => (
+        <DotBadge key={feedback} feedback={feedback} size={args.size} isMuted={args.isMuted} />
       ))}
     </FlexRow>
   ),
@@ -81,14 +81,14 @@ export const DotBadgeMuted: Story = {
     isMuted: true,
   },
   argTypes: {
-    variant: {
+    feedback: {
       control: false,
     },
   },
   render: args => (
     <FlexRow>
-      {FEEDBACK_VARIANT_OPTIONS.map(variant => (
-        <DotBadge key={variant} variant={variant} size={args.size} isMuted={args.isMuted} />
+      {FEEDBACK_VARIANT_OPTIONS.map(feedback => (
+        <DotBadge key={feedback} feedback={feedback} size={args.size} isMuted={args.isMuted} />
       ))}
     </FlexRow>
   ),
