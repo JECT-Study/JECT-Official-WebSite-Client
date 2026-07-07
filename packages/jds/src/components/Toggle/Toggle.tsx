@@ -5,12 +5,12 @@ import * as styles from "./toggle.css";
 import type { ToggleProps } from "./toggle.types";
 
 export const Toggle = forwardRef<HTMLButtonElement, ToggleProps>(
-  ({ checked, disabled = false, className, type = "button", ...props }, ref) => {
+  ({ checked, disabled = false, className, ...props }, ref) => {
     return (
       <button
         ref={ref}
         {...props}
-        type={type}
+        type='button'
         role='switch'
         aria-checked={checked}
         disabled={disabled}
