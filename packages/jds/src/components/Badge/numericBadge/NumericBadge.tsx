@@ -2,14 +2,19 @@ import { clsx } from "clsx";
 import { forwardRef } from "react";
 
 import * as styles from "./numericBadge.css";
-import type { NumericBadgeBasicProps, NumericBadgeFeedbackProps } from "./numericBadge.types";
+import type {
+  NumericBadgeBasicProps,
+  NumericBadgeFeedbackProps,
+  NumericBadgeProps,
+} from "./numericBadge.types";
 
 import { getLabelClassName } from "@/utils/typography";
 
-const NumericBadgeBasic = forwardRef<HTMLSpanElement, NumericBadgeBasicProps>(
+const NumericBadgeRoot = forwardRef<HTMLSpanElement, NumericBadgeProps>(
   (
     {
       hierarchy = "secondary",
+      feedback,
       size = "md",
       badgeStyle = "solid",
       isMuted = false,
@@ -19,12 +24,12 @@ const NumericBadgeBasic = forwardRef<HTMLSpanElement, NumericBadgeBasicProps>(
     },
     ref,
   ) => {
+    const rootClassName = feedback
+      ? styles.feedbackRoot({ variant: feedback, size, badgeStyle, isMuted })
+      : styles.basicRoot({ hierarchy, size, badgeStyle, isMuted });
+
     return (
-      <span
-        ref={ref}
-        className={clsx(styles.basicRoot({ hierarchy, size, badgeStyle, isMuted }), className)}
-        {...restProps}
-      >
+      <span ref={ref} className={clsx(rootClassName, className)} {...restProps}>
         <span className={clsx(styles.label, getLabelClassName({ size, weight: "subtle" }))}>
           {children}
         </span>
@@ -32,39 +37,26 @@ const NumericBadgeBasic = forwardRef<HTMLSpanElement, NumericBadgeBasicProps>(
     );
   },
 );
+
+NumericBadgeRoot.displayName = "NumericBadge";
+
+const NumericBadgeBasic = forwardRef<HTMLSpanElement, NumericBadgeBasicProps>((props, ref) => (
+  <NumericBadgeRoot ref={ref} {...props} />
+));
 
 NumericBadgeBasic.displayName = "NumericBadge.Basic";
 
 const NumericBadgeFeedback = forwardRef<HTMLSpanElement, NumericBadgeFeedbackProps>(
-  (
-    {
-      variant = "positive",
-      size = "md",
-      badgeStyle = "solid",
-      isMuted = false,
-      className,
-      children,
-      ...restProps
-    },
-    ref,
-  ) => {
-    return (
-      <span
-        ref={ref}
-        className={clsx(styles.feedbackRoot({ variant, size, badgeStyle, isMuted }), className)}
-        {...restProps}
-      >
-        <span className={clsx(styles.label, getLabelClassName({ size, weight: "subtle" }))}>
-          {children}
-        </span>
-      </span>
-    );
-  },
+  ({ variant = "positive", ...props }, ref) => (
+    <NumericBadgeRoot ref={ref} feedback={variant} {...props} />
+  ),
 );
 
 NumericBadgeFeedback.displayName = "NumericBadge.Feedback";
 
-export const NumericBadge = {
+export const NumericBadge = Object.assign(NumericBadgeRoot, {
+  /** @deprecated `<NumericBadge hierarchy badgeStyle>`를 사용하세요. */
   Basic: NumericBadgeBasic,
+  /** @deprecated `<NumericBadge feedback badgeStyle>`를 사용하세요. */
   Feedback: NumericBadgeFeedback,
-};
+});

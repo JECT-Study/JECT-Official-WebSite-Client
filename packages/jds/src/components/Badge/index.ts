@@ -28,4 +28,5 @@ export type { DotBadgeFeedbackProps, DotBadgeProps } from "./dotBadge/dotBadge.t
 export type {
   NumericBadgeBasicProps,
   NumericBadgeFeedbackProps,
+  NumericBadgeProps,
 } from "./numericBadge/numericBadge.types";
