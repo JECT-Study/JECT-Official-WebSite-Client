@@ -26,14 +26,14 @@ export const root = style([
         inset: 0,
         borderRadius: "inherit",
       },
-      '&[data-state="checked"]': {
+      '&[aria-checked="true"]': {
         backgroundColor: vars.color.semantic.accent.neutral,
       },
       "&:disabled": {
         backgroundColor: vars.color.semantic.fill.subtlest,
         cursor: "not-allowed",
       },
-      '&[data-state="checked"]:disabled': {
+      '&[aria-checked="true"]:disabled': {
         backgroundColor: vars.color.semantic.accent.alpha.subtler,
       },
     },
@@ -49,7 +49,7 @@ export const thumb = style({
   transform: "translateX(0)",
   transition: `transform ${vars.environment.semantic.duration["150"]} ${vars.environment.semantic.motion.fluent}`,
   selectors: {
-    [`${root}[data-state="checked"] &`]: {
+    [`${root}[aria-checked="true"] &`]: {
       transform: `translateX(${pxToRem(16)})`,
     },
   },

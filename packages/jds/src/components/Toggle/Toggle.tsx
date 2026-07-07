@@ -14,7 +14,6 @@ export const Toggle = forwardRef<HTMLButtonElement, ToggleProps>(
         role='switch'
         aria-checked={checked}
         disabled={disabled}
-        data-state={checked ? "checked" : "unchecked"}
         className={clsx(styles.root, className)}
       >
         <span className={styles.thumb} aria-hidden='true' />
