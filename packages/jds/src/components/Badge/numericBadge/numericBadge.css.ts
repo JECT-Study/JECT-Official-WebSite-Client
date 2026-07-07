@@ -1,4 +1,4 @@
-import { createVar, style } from "@vanilla-extract/css";
+import { createVar, style, type StyleRule } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
 import { pxToRem } from "utils";
@@ -59,7 +59,7 @@ const sizeVariants = Object.fromEntries(
       padding: `${numericBadgeSizeMap[size].paddingTopBottom} ${numericBadgeSizeMap[size].paddingLeftRight}`,
     },
   ]),
-) as Record<BadgeSize, { minWidth: string; padding: string }>;
+) as Record<BadgeSize, StyleRule>;
 
 const root = style({
   display: "inline-flex",
@@ -73,7 +73,7 @@ const badgeStyleVariants = {
   solid: {},
   alpha: {},
   hollow: { padding: vars.scheme.semantic.spacing["0"] },
-} satisfies Record<NumericBadgeStyle, object>;
+} satisfies Record<NumericBadgeStyle, StyleRule>;
 
 const basicStyles = {
   solid: {
@@ -155,7 +155,7 @@ export const basicRoot = recipe({
       primary: {},
       secondary: {},
       tertiary: {},
-    } satisfies Record<BasicHierarchy, object>,
+    } satisfies Record<BasicHierarchy, StyleRule>,
     size: sizeVariants,
     badgeStyle: badgeStyleVariants,
     isMuted: {
@@ -233,7 +233,7 @@ export const feedbackRoot = recipe({
     variant: {
       positive: {},
       destructive: {},
-    } satisfies Record<FeedbackVariant, object>,
+    } satisfies Record<FeedbackVariant, StyleRule>,
     size: sizeVariants,
     badgeStyle: badgeStyleVariants,
     isMuted: {
