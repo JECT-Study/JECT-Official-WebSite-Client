@@ -1,11 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { ContentBadge } from "./ContentBadge";
-import type {
-  ContentBadgeBasicProps,
-  ContentBadgeFeedbackProps,
-  ContentBadgeThemeProps,
-} from "./contentBadge.types";
 import { CONTENT_BADGE_STYLE_OPTIONS, THEME_VARIANT_OPTIONS } from "./contentBadge.types";
 import {
   BADGE_SIZE_OPTIONS,
@@ -13,9 +8,9 @@ import {
   FEEDBACK_VARIANT_OPTIONS,
 } from "../badge.types";
 
-const meta: Meta<typeof ContentBadge.Basic> = {
+const meta: Meta<typeof ContentBadge> = {
   title: "Components/ContentBadge",
-  component: ContentBadge.Basic,
+  component: ContentBadge,
   parameters: {
     layout: "centered",
   },
@@ -39,7 +34,9 @@ const meta: Meta<typeof ContentBadge.Basic> = {
 
 export default meta;
 
-export const Basic: StoryObj<ContentBadgeBasicProps> = {
+type Story = StoryObj<typeof ContentBadge>;
+
+export const Basic: Story = {
   argTypes: {
     hierarchy: {
       control: "radio",
@@ -57,8 +54,8 @@ export const Basic: StoryObj<ContentBadgeBasicProps> = {
     withIconButton: false,
     children: "레이블",
   },
-  render: (args: ContentBadgeBasicProps) => (
-    <ContentBadge.Basic
+  render: args => (
+    <ContentBadge
       hierarchy={args.hierarchy}
       size={args.size}
       badgeStyle={args.badgeStyle}
@@ -68,13 +65,13 @@ export const Basic: StoryObj<ContentBadgeBasicProps> = {
         : { withIconButton: false })}
     >
       {args.children}
-    </ContentBadge.Basic>
+    </ContentBadge>
   ),
 };
 
-export const Feedback: StoryObj<ContentBadgeFeedbackProps> = {
+export const Feedback: Story = {
   argTypes: {
-    variant: {
+    feedback: {
       control: "radio",
       options: FEEDBACK_VARIANT_OPTIONS,
     },
@@ -83,16 +80,16 @@ export const Feedback: StoryObj<ContentBadgeFeedbackProps> = {
     },
   },
   args: {
-    variant: "positive",
+    feedback: "positive",
     size: "md",
     badgeStyle: "solid",
     isMuted: false,
     withIconButton: false,
     children: "레이블",
   },
-  render: (args: ContentBadgeFeedbackProps) => (
-    <ContentBadge.Feedback
-      variant={args.variant}
+  render: args => (
+    <ContentBadge
+      feedback={args.feedback}
       size={args.size}
       badgeStyle={args.badgeStyle}
       isMuted={args.isMuted}
@@ -101,11 +98,11 @@ export const Feedback: StoryObj<ContentBadgeFeedbackProps> = {
         : { withIconButton: false })}
     >
       {args.children}
-    </ContentBadge.Feedback>
+    </ContentBadge>
   ),
 };
 
-export const Theme: StoryObj<ContentBadgeThemeProps> = {
+export const Theme: Story = {
   argTypes: {
     variant: {
       control: "select",
@@ -120,13 +117,13 @@ export const Theme: StoryObj<ContentBadgeThemeProps> = {
     children: "레이블",
   },
   render: args => (
-    <ContentBadge.Theme
+    <ContentBadge
       variant={args.variant}
       size={args.size}
       badgeStyle={args.badgeStyle}
       isMuted={args.isMuted}
     >
       {args.children}
-    </ContentBadge.Theme>
+    </ContentBadge>
   ),
 };

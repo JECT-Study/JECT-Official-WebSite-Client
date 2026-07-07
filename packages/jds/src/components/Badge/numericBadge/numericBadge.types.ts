@@ -23,6 +23,7 @@ export type NumericBadgeProps = BaseNumericBadgeProps &
 export type NumericBadgeBasicProps = BaseNumericBadgeProps & {
   hierarchy?: BasicHierarchy;
 };
+
 /** @deprecated `<NumericBadge feedback badgeStyle>`를 사용하세요. */
 export type NumericBadgeFeedbackProps = BaseNumericBadgeProps & {
   /** @deprecated `feedback`을 사용하세요. */

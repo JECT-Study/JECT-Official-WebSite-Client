@@ -20,6 +20,7 @@ export { NUMERIC_BADGE_STYLE_OPTIONS } from "./numericBadge/numericBadge.types";
 export type {
   ContentBadgeBasicProps,
   ContentBadgeFeedbackProps,
+  ContentBadgeProps,
   ContentBadgeThemeProps,
 } from "./contentBadge/contentBadge.types";
 

@@ -6,6 +6,7 @@ import * as styles from "./contentBadge.css";
 import type {
   ContentBadgeBasicProps,
   ContentBadgeFeedbackProps,
+  ContentBadgeProps,
   ContentBadgeThemeProps,
 } from "./contentBadge.types";
 import { IconButton } from "../../Button/IconButton";
@@ -20,10 +21,12 @@ const iconSizeMap = {
   xs: "2xs",
 } satisfies Record<BadgeSize, IconButtonSize>;
 
-const ContentBadgeBasic = forwardRef<HTMLSpanElement, ContentBadgeBasicProps>(
+const ContentBadgeRoot = forwardRef<HTMLSpanElement, ContentBadgeProps>(
   (
     {
       hierarchy = "secondary",
+      feedback,
+      variant,
       size = "md",
       badgeStyle = "solid",
       isMuted = false,
@@ -36,16 +39,15 @@ const ContentBadgeBasic = forwardRef<HTMLSpanElement, ContentBadgeBasicProps>(
     ref,
   ) => {
     const iconSize = iconSizeMap[size];
+    // TODO: feedbackRoot의 recipe variant key도 public prop 이름에 맞춰 feedback으로 변경
+    const rootClassName = feedback
+      ? styles.feedbackRoot({ variant: feedback, size, badgeStyle, isMuted, withIconButton })
+      : variant
+        ? styles.themeRoot({ variant, size, badgeStyle, isMuted })
+        : styles.basicRoot({ hierarchy, size, badgeStyle, isMuted, withIconButton });
 
     return (
-      <span
-        ref={ref}
-        className={clsx(
-          styles.basicRoot({ hierarchy, size, badgeStyle, isMuted, withIconButton }),
-          className,
-        )}
-        {...restProps}
-      >
+      <span ref={ref} className={clsx(rootClassName, className)} {...restProps}>
         <span className={clsx(styles.label, getLabelClassName({ size }))}>{children}</span>
         {withIconButton && (
           <IconButton
@@ -64,83 +66,35 @@ const ContentBadgeBasic = forwardRef<HTMLSpanElement, ContentBadgeBasicProps>(
   },
 );
 
+ContentBadgeRoot.displayName = "ContentBadge";
+
+const ContentBadgeBasic = forwardRef<HTMLSpanElement, ContentBadgeBasicProps>((props, ref) => (
+  <ContentBadgeRoot ref={ref} {...props} />
+));
+
 ContentBadgeBasic.displayName = "ContentBadge.Basic";
 
 const ContentBadgeFeedback = forwardRef<HTMLSpanElement, ContentBadgeFeedbackProps>(
-  (
-    {
-      variant = "positive",
-      size = "md",
-      badgeStyle = "solid",
-      isMuted = false,
-      withIconButton = false,
-      onIconClick,
-      className,
-      children,
-      ...restProps
-    },
-    ref,
-  ) => {
-    const iconSize = iconSizeMap[size];
-
-    return (
-      <span
-        ref={ref}
-        className={clsx(
-          styles.feedbackRoot({ variant, size, badgeStyle, isMuted, withIconButton }),
-          className,
-        )}
-        {...restProps}
-      >
-        <span className={clsx(styles.label, getLabelClassName({ size }))}>{children}</span>
-        {withIconButton && (
-          <IconButton
-            type='button'
-            icon='close-line'
-            aria-label='Close badge'
-            size={iconSize}
-            hierarchy='accent'
-            className={styles.icon}
-            disabled={isMuted}
-            onClick={onIconClick}
-          />
-        )}
-      </span>
-    );
-  },
+  ({ variant = "positive", ...props }, ref) => (
+    <ContentBadgeRoot ref={ref} feedback={variant} {...props} />
+  ),
 );
 
 ContentBadgeFeedback.displayName = "ContentBadge.Feedback";
 
 const ContentBadgeTheme = forwardRef<HTMLSpanElement, ContentBadgeThemeProps>(
-  (
-    {
-      variant = "red",
-      size = "md",
-      badgeStyle = "solid",
-      isMuted = false,
-      className,
-      children,
-      ...restProps
-    },
-    ref,
-  ) => {
-    return (
-      <span
-        ref={ref}
-        className={clsx(styles.themeRoot({ variant, size, badgeStyle, isMuted }), className)}
-        {...restProps}
-      >
-        <span className={clsx(styles.label, getLabelClassName({ size }))}>{children}</span>
-      </span>
-    );
-  },
+  ({ variant = "red", ...props }, ref) => (
+    <ContentBadgeRoot ref={ref} variant={variant} {...props} />
+  ),
 );
 
 ContentBadgeTheme.displayName = "ContentBadge.Theme";
 
-export const ContentBadge = {
+export const ContentBadge = Object.assign(ContentBadgeRoot, {
+  /** @deprecated `<ContentBadge hierarchy badgeStyle>`를 사용하세요. */
   Basic: ContentBadgeBasic,
+  /** @deprecated `<ContentBadge feedback badgeStyle>`를 사용하세요. */
   Feedback: ContentBadgeFeedback,
+  /** @deprecated `<ContentBadge variant badgeStyle>`를 사용하세요. */
   Theme: ContentBadgeTheme,
-};
+});
