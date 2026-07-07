@@ -102,6 +102,38 @@ export const NumericBadgeSizes: Story = {
   ),
 };
 
+export const NumericBadgeBadgeStyles: Story = {
+  argTypes: {
+    badgeStyle: {
+      control: false,
+    },
+    feedback: {
+      control: false,
+    },
+  },
+  args: {
+    hierarchy: "secondary",
+    size: "md",
+    isMuted: false,
+    children: "99",
+  },
+  render: args => (
+    <FlexRow>
+      {NUMERIC_BADGE_STYLE_OPTIONS.map(badgeStyle => (
+        <NumericBadge
+          key={badgeStyle}
+          hierarchy={args.hierarchy}
+          size={args.size}
+          badgeStyle={badgeStyle}
+          isMuted={args.isMuted}
+        >
+          {args.children}
+        </NumericBadge>
+      ))}
+    </FlexRow>
+  ),
+};
+
 export const NumericBadgeHierarchies: Story = {
   argTypes: {
     hierarchy: {
