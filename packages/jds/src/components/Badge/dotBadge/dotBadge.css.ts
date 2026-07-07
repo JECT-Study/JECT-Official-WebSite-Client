@@ -1,4 +1,5 @@
 import { recipe } from "@vanilla-extract/recipes";
+import { StyleRule } from "@vanilla-extract/css";
 import { vars } from "tokens";
 import { pxToRem } from "utils";
 
@@ -54,7 +55,7 @@ export const feedbackRoot = recipe({
     variant: {
       positive: {},
       destructive: {},
-    } satisfies Record<FeedbackVariant, object>,
+    } satisfies Record<FeedbackVariant, StyleRule>,
     size: sizeVariants,
     isMuted: {
       true: { opacity: dotBadgeMutedOpacity },
