@@ -67,9 +67,9 @@ export const Default: Story = {
     },
   },
   args: {
-    hierarchy: "secondary",
+    hierarchy: "accent",
     size: "md",
-    badgeStyle: "solid",
+    badgeStyle: "alpha",
     isMuted: false,
     withIconButton: false,
     children: "레이블",
@@ -100,7 +100,7 @@ export const ContentBadgeSizes: Story = {
     },
   },
   args: {
-    hierarchy: "secondary",
+    hierarchy: "accent",
     badgeStyle: "solid",
     isMuted: false,
     withIconButton: false,
@@ -137,7 +137,7 @@ export const ContentBadgeBadgeStyles: Story = {
     },
   },
   args: {
-    hierarchy: "secondary",
+    hierarchy: "accent",
     size: "md",
     isMuted: false,
     withIconButton: false,
@@ -264,7 +264,7 @@ export const ContentBadgeWithIconButton: Story = {
         {CONTENT_BADGE_STYLE_OPTIONS.map(badgeStyle => (
           <ContentBadge
             key={badgeStyle}
-            hierarchy='secondary'
+            hierarchy='accent'
             size={args.size}
             badgeStyle={badgeStyle}
             isMuted={args.isMuted}
@@ -348,7 +348,7 @@ export const ContentBadgeMuted: Story = {
     },
   },
   args: {
-    hierarchy: "secondary",
+    hierarchy: "accent",
     size: "md",
     withIconButton: false,
     children: "레이블",

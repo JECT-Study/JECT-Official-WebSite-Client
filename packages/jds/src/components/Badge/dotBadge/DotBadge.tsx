@@ -9,6 +9,7 @@ const DotBadgeRoot = forwardRef<HTMLSpanElement, DotBadgeProps>(
     return (
       <span
         ref={ref}
+        // TODO: feedbackRoot의 recipe variant key도 public prop 이름에 맞춰 feedback으로 변경
         className={clsx(styles.feedbackRoot({ variant: feedback, size, isMuted }), className)}
         {...restProps}
       />

@@ -13,10 +13,10 @@ import { getLabelClassName } from "@/utils/typography";
 const NumericBadgeRoot = forwardRef<HTMLSpanElement, NumericBadgeProps>(
   (
     {
-      hierarchy = "secondary",
+      hierarchy = "accent",
       feedback,
       size = "md",
-      badgeStyle = "solid",
+      badgeStyle = "alpha",
       isMuted = false,
       className,
       children,
@@ -24,6 +24,7 @@ const NumericBadgeRoot = forwardRef<HTMLSpanElement, NumericBadgeProps>(
     },
     ref,
   ) => {
+    // TODO: feedbackRoot의 recipe variant key도 public prop 이름에 맞춰 feedback으로 변경
     const rootClassName = feedback
       ? styles.feedbackRoot({ variant: feedback, size, badgeStyle, isMuted })
       : styles.basicRoot({ hierarchy, size, badgeStyle, isMuted });

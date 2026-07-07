@@ -52,9 +52,9 @@ export const Default: Story = {
     },
   },
   args: {
-    hierarchy: "secondary",
+    hierarchy: "accent",
     size: "md",
-    badgeStyle: "solid",
+    badgeStyle: "alpha",
     isMuted: false,
     children: "99",
   },
@@ -80,7 +80,7 @@ export const NumericBadgeSizes: Story = {
     },
   },
   args: {
-    hierarchy: "secondary",
+    hierarchy: "accent",
     badgeStyle: "solid",
     isMuted: false,
     children: "99",
@@ -112,7 +112,7 @@ export const NumericBadgeBadgeStyles: Story = {
     },
   },
   args: {
-    hierarchy: "secondary",
+    hierarchy: "accent",
     size: "md",
     isMuted: false,
     children: "99",
@@ -211,7 +211,7 @@ export const NumericBadgeMuted: Story = {
     },
   },
   args: {
-    hierarchy: "secondary",
+    hierarchy: "accent",
     size: "md",
     children: "99",
   },

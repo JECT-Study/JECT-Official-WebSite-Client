@@ -24,11 +24,11 @@ const iconSizeMap = {
 const ContentBadgeRoot = forwardRef<HTMLSpanElement, ContentBadgeProps>(
   (
     {
-      hierarchy = "secondary",
+      hierarchy = "accent",
       feedback,
       variant,
       size = "md",
-      badgeStyle = "solid",
+      badgeStyle = "alpha",
       isMuted = false,
       withIconButton = false,
       onIconClick,
