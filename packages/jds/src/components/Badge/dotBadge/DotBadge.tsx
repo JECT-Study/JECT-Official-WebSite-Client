@@ -2,9 +2,9 @@ import { clsx } from "clsx";
 import { forwardRef } from "react";
 
 import * as styles from "./dotBadge.css";
-import type { DotBadgeFeedbackProps } from "./dotBadge.types";
+import type { DotBadgeFeedbackProps, DotBadgeProps } from "./dotBadge.types";
 
-const DotBadgeFeedback = forwardRef<HTMLSpanElement, DotBadgeFeedbackProps>(
+const DotBadgeRoot = forwardRef<HTMLSpanElement, DotBadgeProps>(
   ({ variant = "positive", size = "md", isMuted = false, className, ...restProps }, ref) => {
     return (
       <span
@@ -16,8 +16,15 @@ const DotBadgeFeedback = forwardRef<HTMLSpanElement, DotBadgeFeedbackProps>(
   },
 );
 
+DotBadgeRoot.displayName = "DotBadge";
+
+const DotBadgeFeedback = forwardRef<HTMLSpanElement, DotBadgeFeedbackProps>((props, ref) => (
+  <DotBadgeRoot ref={ref} {...props} />
+));
+
 DotBadgeFeedback.displayName = "DotBadge.Feedback";
 
-export const DotBadge = {
+export const DotBadge = Object.assign(DotBadgeRoot, {
+  /** @deprecated `<DotBadge variant>`를 사용하세요. */
   Feedback: DotBadgeFeedback,
-};
+});

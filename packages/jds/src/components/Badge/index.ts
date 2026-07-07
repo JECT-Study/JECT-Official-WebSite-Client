@@ -23,7 +23,7 @@ export type {
   ContentBadgeThemeProps,
 } from "./contentBadge/contentBadge.types";
 
-export type { DotBadgeFeedbackProps } from "./dotBadge/dotBadge.types";
+export type { DotBadgeFeedbackProps, DotBadgeProps } from "./dotBadge/dotBadge.types";
 
 export type {
   NumericBadgeBasicProps,
