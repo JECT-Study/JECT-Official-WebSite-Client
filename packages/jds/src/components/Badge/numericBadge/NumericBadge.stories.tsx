@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { FlexColumn, FlexRow } from "@storybook-utils/layout";
 
 import { NumericBadge } from "./NumericBadge";
 import { NUMERIC_BADGE_STYLE_OPTIONS } from "./numericBadge.types";
@@ -15,6 +16,14 @@ const meta: Meta<typeof NumericBadge> = {
     layout: "centered",
   },
   argTypes: {
+    hierarchy: {
+      control: "radio",
+      options: BASIC_HIERARCHY_OPTIONS,
+    },
+    feedback: {
+      control: "radio",
+      options: FEEDBACK_VARIANT_OPTIONS,
+    },
     size: {
       control: "radio",
       options: BADGE_SIZE_OPTIONS,
@@ -36,11 +45,10 @@ export default meta;
 
 type Story = StoryObj<typeof NumericBadge>;
 
-export const Basic: Story = {
+export const Default: Story = {
   argTypes: {
-    hierarchy: {
-      control: "radio",
-      options: BASIC_HIERARCHY_OPTIONS,
+    feedback: {
+      control: false,
     },
   },
   args: {
@@ -62,28 +70,172 @@ export const Basic: Story = {
   ),
 };
 
-export const Feedback: Story = {
+export const NumericBadgeSizes: Story = {
   argTypes: {
+    size: {
+      control: false,
+    },
     feedback: {
-      control: "radio",
-      options: FEEDBACK_VARIANT_OPTIONS,
+      control: false,
     },
   },
   args: {
-    feedback: "positive",
+    hierarchy: "secondary",
+    badgeStyle: "solid",
+    isMuted: false,
+    children: "99",
+  },
+  render: args => (
+    <FlexRow>
+      {BADGE_SIZE_OPTIONS.map(size => (
+        <NumericBadge
+          key={size}
+          hierarchy={args.hierarchy}
+          size={size}
+          badgeStyle={args.badgeStyle}
+          isMuted={args.isMuted}
+        >
+          {args.children}
+        </NumericBadge>
+      ))}
+    </FlexRow>
+  ),
+};
+
+export const NumericBadgeHierarchies: Story = {
+  argTypes: {
+    hierarchy: {
+      control: false,
+    },
+    feedback: {
+      control: false,
+    },
+  },
+  args: {
     size: "md",
     badgeStyle: "solid",
     isMuted: false,
     children: "99",
   },
   render: args => (
-    <NumericBadge
-      feedback={args.feedback}
-      size={args.size}
-      badgeStyle={args.badgeStyle}
-      isMuted={args.isMuted}
-    >
-      {args.children}
-    </NumericBadge>
+    <FlexRow>
+      {BASIC_HIERARCHY_OPTIONS.map(hierarchy => (
+        <NumericBadge
+          key={hierarchy}
+          hierarchy={hierarchy}
+          size={args.size}
+          badgeStyle={args.badgeStyle}
+          isMuted={args.isMuted}
+        >
+          {args.children}
+        </NumericBadge>
+      ))}
+    </FlexRow>
+  ),
+};
+
+export const NumericBadgeFeedback: Story = {
+  argTypes: {
+    hierarchy: {
+      control: false,
+    },
+    feedback: {
+      control: false,
+    },
+  },
+  args: {
+    size: "md",
+    badgeStyle: "solid",
+    isMuted: false,
+    children: "99",
+  },
+  render: args => (
+    <FlexRow>
+      {FEEDBACK_VARIANT_OPTIONS.map(feedback => (
+        <NumericBadge
+          key={feedback}
+          feedback={feedback}
+          size={args.size}
+          badgeStyle={args.badgeStyle}
+          isMuted={args.isMuted}
+        >
+          {args.children}
+        </NumericBadge>
+      ))}
+    </FlexRow>
+  ),
+};
+
+export const NumericBadgeMuted: Story = {
+  argTypes: {
+    badgeStyle: {
+      control: false,
+    },
+    feedback: {
+      control: false,
+    },
+    isMuted: {
+      control: false,
+    },
+  },
+  args: {
+    hierarchy: "secondary",
+    size: "md",
+    children: "99",
+  },
+  render: args => (
+    <FlexRow>
+      {NUMERIC_BADGE_STYLE_OPTIONS.map(badgeStyle => (
+        <NumericBadge
+          key={badgeStyle}
+          hierarchy={args.hierarchy}
+          size={args.size}
+          badgeStyle={badgeStyle}
+          isMuted
+        >
+          {args.children}
+        </NumericBadge>
+      ))}
+    </FlexRow>
+  ),
+};
+
+export const NumericBadgeFeedbackMuted: Story = {
+  argTypes: {
+    hierarchy: {
+      control: false,
+    },
+    badgeStyle: {
+      control: false,
+    },
+    feedback: {
+      control: false,
+    },
+    isMuted: {
+      control: false,
+    },
+  },
+  args: {
+    size: "md",
+    children: "99",
+  },
+  render: args => (
+    <FlexColumn>
+      {FEEDBACK_VARIANT_OPTIONS.map(feedback => (
+        <FlexRow key={feedback}>
+          {NUMERIC_BADGE_STYLE_OPTIONS.map(badgeStyle => (
+            <NumericBadge
+              key={badgeStyle}
+              feedback={feedback}
+              size={args.size}
+              badgeStyle={badgeStyle}
+              isMuted
+            >
+              {args.children}
+            </NumericBadge>
+          ))}
+        </FlexRow>
+      ))}
+    </FlexColumn>
   ),
 };
