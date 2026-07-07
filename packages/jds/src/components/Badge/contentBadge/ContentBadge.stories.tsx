@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { FlexColumn, FlexRow } from "@storybook-utils/layout";
 
 import { ContentBadge } from "./ContentBadge";
 import { CONTENT_BADGE_STYLE_OPTIONS, THEME_VARIANT_OPTIONS } from "./contentBadge.types";
@@ -15,6 +16,18 @@ const meta: Meta<typeof ContentBadge> = {
     layout: "centered",
   },
   argTypes: {
+    hierarchy: {
+      control: "radio",
+      options: BASIC_HIERARCHY_OPTIONS,
+    },
+    feedback: {
+      control: "radio",
+      options: FEEDBACK_VARIANT_OPTIONS,
+    },
+    variant: {
+      control: "select",
+      options: THEME_VARIANT_OPTIONS,
+    },
     size: {
       control: "radio",
       options: BADGE_SIZE_OPTIONS,
@@ -24,6 +37,9 @@ const meta: Meta<typeof ContentBadge> = {
       options: CONTENT_BADGE_STYLE_OPTIONS,
     },
     isMuted: {
+      control: "boolean",
+    },
+    withIconButton: {
       control: "boolean",
     },
     children: {
@@ -36,18 +52,22 @@ export default meta;
 
 type Story = StoryObj<typeof ContentBadge>;
 
-export const Basic: Story = {
+const getIconButtonProps = (withIconButton?: boolean) =>
+  withIconButton
+    ? { withIconButton: true as const, onIconClick: () => undefined }
+    : { withIconButton: false as const };
+
+export const Default: Story = {
   argTypes: {
-    hierarchy: {
-      control: "radio",
-      options: BASIC_HIERARCHY_OPTIONS,
+    feedback: {
+      control: false,
     },
-    withIconButton: {
-      control: "boolean",
+    variant: {
+      control: false,
     },
   },
   args: {
-    hierarchy: "accent",
+    hierarchy: "secondary",
     size: "md",
     badgeStyle: "solid",
     isMuted: false,
@@ -60,27 +80,100 @@ export const Basic: Story = {
       size={args.size}
       badgeStyle={args.badgeStyle}
       isMuted={args.isMuted}
-      {...(args.withIconButton
-        ? { withIconButton: true, onIconClick: () => undefined }
-        : { withIconButton: false })}
+      {...getIconButtonProps(args.withIconButton)}
     >
       {args.children}
     </ContentBadge>
   ),
 };
 
-export const Feedback: Story = {
+export const ContentBadgeSizes: Story = {
   argTypes: {
-    feedback: {
-      control: "radio",
-      options: FEEDBACK_VARIANT_OPTIONS,
+    size: {
+      control: false,
     },
-    withIconButton: {
-      control: "boolean",
+    feedback: {
+      control: false,
+    },
+    variant: {
+      control: false,
     },
   },
   args: {
-    feedback: "positive",
+    hierarchy: "secondary",
+    badgeStyle: "solid",
+    isMuted: false,
+    withIconButton: false,
+    children: "레이블",
+  },
+  render: args => (
+    <FlexRow>
+      {BADGE_SIZE_OPTIONS.map(size => (
+        <ContentBadge
+          key={size}
+          hierarchy={args.hierarchy}
+          size={size}
+          badgeStyle={args.badgeStyle}
+          isMuted={args.isMuted}
+          {...getIconButtonProps(args.withIconButton)}
+        >
+          {args.children}
+        </ContentBadge>
+      ))}
+    </FlexRow>
+  ),
+};
+
+export const ContentBadgeBadgeStyles: Story = {
+  argTypes: {
+    badgeStyle: {
+      control: false,
+    },
+    feedback: {
+      control: false,
+    },
+    variant: {
+      control: false,
+    },
+  },
+  args: {
+    hierarchy: "secondary",
+    size: "md",
+    isMuted: false,
+    withIconButton: false,
+    children: "레이블",
+  },
+  render: args => (
+    <FlexRow>
+      {CONTENT_BADGE_STYLE_OPTIONS.map(badgeStyle => (
+        <ContentBadge
+          key={badgeStyle}
+          hierarchy={args.hierarchy}
+          size={args.size}
+          badgeStyle={badgeStyle}
+          isMuted={args.isMuted}
+          {...getIconButtonProps(args.withIconButton)}
+        >
+          {args.children}
+        </ContentBadge>
+      ))}
+    </FlexRow>
+  ),
+};
+
+export const ContentBadgeHierarchies: Story = {
+  argTypes: {
+    hierarchy: {
+      control: false,
+    },
+    feedback: {
+      control: false,
+    },
+    variant: {
+      control: false,
+    },
+  },
+  args: {
     size: "md",
     badgeStyle: "solid",
     isMuted: false,
@@ -88,42 +181,283 @@ export const Feedback: Story = {
     children: "레이블",
   },
   render: args => (
-    <ContentBadge
-      feedback={args.feedback}
-      size={args.size}
-      badgeStyle={args.badgeStyle}
-      isMuted={args.isMuted}
-      {...(args.withIconButton
-        ? { withIconButton: true, onIconClick: () => undefined }
-        : { withIconButton: false })}
-    >
-      {args.children}
-    </ContentBadge>
+    <FlexRow>
+      {BASIC_HIERARCHY_OPTIONS.map(hierarchy => (
+        <ContentBadge
+          key={hierarchy}
+          hierarchy={hierarchy}
+          size={args.size}
+          badgeStyle={args.badgeStyle}
+          isMuted={args.isMuted}
+          {...getIconButtonProps(args.withIconButton)}
+        >
+          {args.children}
+        </ContentBadge>
+      ))}
+    </FlexRow>
   ),
 };
 
-export const Theme: Story = {
+export const ContentBadgeFeedback: Story = {
   argTypes: {
+    hierarchy: {
+      control: false,
+    },
+    feedback: {
+      control: false,
+    },
     variant: {
-      control: "select",
-      options: THEME_VARIANT_OPTIONS,
+      control: false,
     },
   },
   args: {
-    variant: "red",
+    size: "md",
+    badgeStyle: "solid",
+    isMuted: false,
+    withIconButton: false,
+    children: "레이블",
+  },
+  render: args => (
+    <FlexRow>
+      {FEEDBACK_VARIANT_OPTIONS.map(feedback => (
+        <ContentBadge
+          key={feedback}
+          feedback={feedback}
+          size={args.size}
+          badgeStyle={args.badgeStyle}
+          isMuted={args.isMuted}
+          {...getIconButtonProps(args.withIconButton)}
+        >
+          {args.children}
+        </ContentBadge>
+      ))}
+    </FlexRow>
+  ),
+};
+
+export const ContentBadgeWithIconButton: Story = {
+  argTypes: {
+    badgeStyle: {
+      control: false,
+    },
+    hierarchy: {
+      control: false,
+    },
+    feedback: {
+      control: false,
+    },
+    variant: {
+      control: false,
+    },
+    withIconButton: {
+      control: false,
+    },
+  },
+  args: {
+    size: "md",
+    isMuted: false,
+    children: "레이블",
+  },
+  render: args => (
+    <FlexColumn style={{ alignItems: "center" }}>
+      <FlexRow>
+        {CONTENT_BADGE_STYLE_OPTIONS.map(badgeStyle => (
+          <ContentBadge
+            key={badgeStyle}
+            hierarchy='secondary'
+            size={args.size}
+            badgeStyle={badgeStyle}
+            isMuted={args.isMuted}
+            withIconButton
+            onIconClick={() => undefined}
+          >
+            {args.children}
+          </ContentBadge>
+        ))}
+      </FlexRow>
+      <FlexRow>
+        {CONTENT_BADGE_STYLE_OPTIONS.map(badgeStyle => (
+          <ContentBadge
+            key={badgeStyle}
+            feedback='positive'
+            size={args.size}
+            badgeStyle={badgeStyle}
+            isMuted={args.isMuted}
+            withIconButton
+            onIconClick={() => undefined}
+          >
+            {args.children}
+          </ContentBadge>
+        ))}
+      </FlexRow>
+    </FlexColumn>
+  ),
+};
+
+export const ContentBadgeTheme: Story = {
+  argTypes: {
+    hierarchy: {
+      control: false,
+    },
+    feedback: {
+      control: false,
+    },
+    variant: {
+      control: false,
+    },
+    withIconButton: {
+      control: false,
+    },
+  },
+  args: {
     size: "md",
     badgeStyle: "solid",
     isMuted: false,
     children: "레이블",
   },
   render: args => (
-    <ContentBadge
-      variant={args.variant}
-      size={args.size}
-      badgeStyle={args.badgeStyle}
-      isMuted={args.isMuted}
-    >
-      {args.children}
-    </ContentBadge>
+    <FlexRow>
+      {THEME_VARIANT_OPTIONS.map(variant => (
+        <ContentBadge
+          key={variant}
+          variant={variant}
+          size={args.size}
+          badgeStyle={args.badgeStyle}
+          isMuted={args.isMuted}
+        >
+          {args.children}
+        </ContentBadge>
+      ))}
+    </FlexRow>
+  ),
+};
+
+export const ContentBadgeMuted: Story = {
+  argTypes: {
+    badgeStyle: {
+      control: false,
+    },
+    feedback: {
+      control: false,
+    },
+    variant: {
+      control: false,
+    },
+    isMuted: {
+      control: false,
+    },
+  },
+  args: {
+    hierarchy: "secondary",
+    size: "md",
+    withIconButton: false,
+    children: "레이블",
+  },
+  render: args => (
+    <FlexRow>
+      {CONTENT_BADGE_STYLE_OPTIONS.map(badgeStyle => (
+        <ContentBadge
+          key={badgeStyle}
+          hierarchy={args.hierarchy}
+          size={args.size}
+          badgeStyle={badgeStyle}
+          isMuted
+          {...getIconButtonProps(args.withIconButton)}
+        >
+          {args.children}
+        </ContentBadge>
+      ))}
+    </FlexRow>
+  ),
+};
+
+export const ContentBadgeFeedbackMuted: Story = {
+  argTypes: {
+    hierarchy: {
+      control: false,
+    },
+    badgeStyle: {
+      control: false,
+    },
+    feedback: {
+      control: false,
+    },
+    variant: {
+      control: false,
+    },
+    isMuted: {
+      control: false,
+    },
+  },
+  args: {
+    size: "md",
+    withIconButton: false,
+    children: "레이블",
+  },
+  render: args => (
+    <FlexColumn>
+      {FEEDBACK_VARIANT_OPTIONS.map(feedback => (
+        <FlexRow key={feedback}>
+          {CONTENT_BADGE_STYLE_OPTIONS.map(badgeStyle => (
+            <ContentBadge
+              key={badgeStyle}
+              feedback={feedback}
+              size={args.size}
+              badgeStyle={badgeStyle}
+              isMuted
+              {...getIconButtonProps(args.withIconButton)}
+            >
+              {args.children}
+            </ContentBadge>
+          ))}
+        </FlexRow>
+      ))}
+    </FlexColumn>
+  ),
+};
+
+export const ContentBadgeThemeMuted: Story = {
+  argTypes: {
+    hierarchy: {
+      control: false,
+    },
+    badgeStyle: {
+      control: false,
+    },
+    feedback: {
+      control: false,
+    },
+    variant: {
+      control: false,
+    },
+    isMuted: {
+      control: false,
+    },
+    withIconButton: {
+      control: false,
+    },
+  },
+  args: {
+    size: "md",
+    children: "레이블",
+  },
+  render: args => (
+    <FlexColumn style={{ alignItems: "center" }}>
+      {CONTENT_BADGE_STYLE_OPTIONS.map(badgeStyle => (
+        <FlexRow key={badgeStyle}>
+          {THEME_VARIANT_OPTIONS.map(variant => (
+            <ContentBadge
+              key={variant}
+              variant={variant}
+              size={args.size}
+              badgeStyle={badgeStyle}
+              isMuted
+            >
+              {args.children}
+            </ContentBadge>
+          ))}
+        </FlexRow>
+      ))}
+    </FlexColumn>
   ),
 };
