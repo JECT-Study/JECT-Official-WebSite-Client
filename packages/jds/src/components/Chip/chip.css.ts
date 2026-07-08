@@ -7,6 +7,7 @@ import {
   iconButtonAccentColor,
   iconButtonAccentDisabledColor,
 } from "../Button/IconButton/iconButton.css";
+import { dividerColorVar } from "../Divider";
 
 import { labelColorVar } from "@/utils/typography.css";
 
@@ -15,6 +16,7 @@ const chipColorVars = {
   icon: createVar(),
   border: createVar(),
   background: createVar(),
+  divider: createVar(),
 } as const;
 
 export const root = recipe({
@@ -44,6 +46,7 @@ export const root = recipe({
         [chipColorVars.icon]: vars.color.semantic.object.neutral,
         [chipColorVars.border]: vars.color.semantic.stroke.alpha.subtle,
         [chipColorVars.background]: "transparent",
+        [chipColorVars.divider]: vars.color.semantic.stroke.alpha.alternative,
       },
       selectors: {
         "&::before, &::after": { inset: 0, borderRadius: "inherit" },
@@ -59,6 +62,7 @@ export const root = recipe({
           [chipColorVars.icon]: vars.color.semantic.accent.normal,
           [chipColorVars.border]: vars.color.semantic.accent.alpha.neutral,
           [chipColorVars.background]: vars.color.semantic.accent.alpha.subtlest,
+          [chipColorVars.divider]: vars.color.semantic.accent.alpha.assistive,
         },
       },
       false: {
@@ -67,6 +71,7 @@ export const root = recipe({
           [chipColorVars.icon]: vars.color.semantic.object.neutral,
           [chipColorVars.border]: vars.color.semantic.stroke.alpha.subtle,
           [chipColorVars.background]: "transparent",
+          [chipColorVars.divider]: vars.color.semantic.stroke.alpha.alternative,
         },
       },
     },
@@ -84,6 +89,7 @@ export const root = recipe({
           [chipColorVars.icon]: vars.color.semantic.object.subtler,
           [chipColorVars.border]: vars.color.semantic.stroke.alpha.subtler,
           [chipColorVars.background]: "transparent",
+          [chipColorVars.divider]: vars.color.semantic.stroke.alpha.subtle,
         },
       },
     },
@@ -95,6 +101,7 @@ export const root = recipe({
           [chipColorVars.icon]: vars.color.semantic.object.subtler,
           [chipColorVars.border]: vars.color.semantic.accent.alpha.subtler,
           [chipColorVars.background]: "transparent",
+          [chipColorVars.divider]: vars.color.semantic.stroke.alpha.subtle,
         },
       },
     },
@@ -142,6 +149,9 @@ export const divider = style({
   flexShrink: 0,
   height: "100%",
   alignSelf: "center",
+  vars: {
+    [dividerColorVar]: chipColorVars.divider,
+  },
 });
 
 export const closeButton = style({
