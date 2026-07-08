@@ -1,21 +1,17 @@
-import { useCheckbox, useCheckboxGroup, useCheckboxGroupItem } from "@react-aria/checkbox";
-import { mergeProps, useObjectRef } from "@react-aria/utils";
 import { clsx } from "clsx";
 import { Icon } from "components";
 import type { IconSize } from "components";
-import type { ForwardedRef, InputHTMLAttributes, ReactNode, Ref } from "react";
+import { Checkbox as CheckboxPrimitive } from "radix-ui";
 import { forwardRef, useId, useLayoutEffect, useState } from "react";
-import { useCheckboxGroupState, useToggleState } from "react-stately";
-import type { CheckboxGroupState } from "react-stately";
-import { focusRing, getLabelClassName, visuallyHidden } from "utils";
+import { focusRing, getLabelClassName } from "utils";
 import type { LabelSize } from "utils";
 
 import {
-  checkboxControlRoot,
   checkboxControlSlot,
   checkboxGroupWrapper,
   checkboxHelper,
   checkboxHelperSlot,
+  checkboxIndicator,
   checkboxItem,
   checkboxLabel,
   checkboxLabelSlot,
@@ -23,7 +19,7 @@ import {
 } from "./checkbox.css";
 import type {
   CheckedState,
-  CheckboxBasicProps,
+  CheckboxControlProps,
   CheckboxHelperProps,
   CheckboxItemProps,
   CheckboxLabelProps,
@@ -36,6 +32,7 @@ import {
   useCheckboxConfig,
   useCheckboxItem,
 } from "./CheckboxContext";
+import { useCheckboxState } from "./useCheckboxState";
 
 const checkboxSizeMap = {
   lg: { icon: "md", label: "lg", helper: "sm" },
@@ -55,19 +52,18 @@ const CheckboxRoot = ({
   name,
   children,
 }: CheckboxRootProps) => {
-  const state = useCheckboxGroupState({
-    value,
-    defaultValue,
-    onChange,
-    isDisabled: disabled,
-    isInvalid,
-    name,
-  });
-  const { groupProps } = useCheckboxGroup({ isDisabled: disabled, isInvalid }, state);
+  const [selected, setSelected] = useCheckboxState(value, defaultValue ?? [], onChange);
+
+  const state = {
+    value: selected,
+    isSelected: (v: string) => selected.includes(v),
+    toggle: (v: string) =>
+      setSelected(prev => (prev.includes(v) ? prev.filter(item => item !== v) : [...prev, v])),
+  };
 
   return (
-    <CheckboxConfigProvider value={{ size, variant, disabled, isInvalid, state }}>
-      <div {...groupProps} className={checkboxGroupWrapper}>
+    <CheckboxConfigProvider value={{ size, variant, disabled, isInvalid, name, state }}>
+      <div role='group' className={checkboxGroupWrapper}>
         {children}
       </div>
     </CheckboxConfigProvider>
@@ -142,190 +138,7 @@ const CheckboxItem = forwardRef<HTMLLabelElement, CheckboxItemProps>(
 
 CheckboxItem.displayName = "Checkbox.Item";
 
-interface CheckboxControlProps {
-  isWithinItem: boolean;
-  labelId?: string;
-  describedById?: string;
-  isEffectiveInvalid: boolean;
-  size: CheckboxSize;
-  interaction: "on" | "off";
-  inputRef: Ref<HTMLInputElement>;
-  inputProps: InputHTMLAttributes<HTMLInputElement>;
-  icon: ReactNode;
-}
-
-const CheckboxControl = ({
-  isWithinItem,
-  labelId,
-  describedById,
-  isEffectiveInvalid,
-  size,
-  interaction,
-  inputRef,
-  inputProps,
-  icon,
-}: CheckboxControlProps) => {
-  const className = clsx(checkboxControlRoot, checkboxControlSlot);
-  const content = (
-    <>
-      <input
-        {...inputProps}
-        ref={inputRef}
-        aria-invalid={isEffectiveInvalid || undefined}
-        aria-labelledby={isWithinItem ? labelId : undefined}
-        aria-describedby={describedById}
-        className={visuallyHidden}
-      />
-      <span className={checkboxVisual({ size, interaction })} aria-hidden='true'>
-        {icon}
-      </span>
-    </>
-  );
-
-  return isWithinItem ? (
-    <span className={className} data-invalid={isEffectiveInvalid || undefined}>
-      {content}
-    </span>
-  ) : (
-    <label className={className} data-invalid={isEffectiveInvalid || undefined}>
-      {content}
-    </label>
-  );
-};
-
-interface CheckboxBasicGroupedProps {
-  size: CheckboxSize;
-  value: string;
-  isDisabled: boolean;
-  isInvalid: boolean;
-  isWithinItem: boolean;
-  labelId?: string;
-  describedById?: string;
-  interaction: "on" | "off";
-  state: CheckboxGroupState;
-  onChildCheckedChange?: (checked: CheckedState) => void;
-  forwardedRef: ForwardedRef<HTMLInputElement>;
-  restProps: InputHTMLAttributes<HTMLInputElement>;
-}
-
-const CheckboxBasicGrouped = ({
-  size,
-  value,
-  isDisabled,
-  isInvalid,
-  isWithinItem,
-  labelId,
-  describedById,
-  interaction,
-  state,
-  onChildCheckedChange,
-  forwardedRef,
-  restProps,
-}: CheckboxBasicGroupedProps) => {
-  const ref = useObjectRef(forwardedRef);
-  const { inputProps } = useCheckboxGroupItem({ value, isDisabled }, state, ref);
-
-  const isChecked = state.isSelected(value);
-  const isEffectiveInvalid = isInvalid && !isChecked;
-
-  useLayoutEffect(() => {
-    onChildCheckedChange?.(isChecked);
-  }, [isChecked, onChildCheckedChange]);
-
-  const iconSize = checkboxSizeMap[size].icon;
-
-  return (
-    <CheckboxControl
-      isWithinItem={isWithinItem}
-      labelId={labelId}
-      describedById={describedById}
-      isEffectiveInvalid={isEffectiveInvalid}
-      size={size}
-      interaction={interaction}
-      inputRef={ref}
-      inputProps={mergeProps(inputProps, restProps)}
-      icon={<Icon name='check-line' size={iconSize} />}
-    />
-  );
-};
-
-interface CheckboxBasicStandaloneProps {
-  size: CheckboxSize;
-  isDisabled: boolean;
-  isInvalid: boolean;
-  interaction: "on" | "off";
-  isWithinItem: boolean;
-  labelId?: string;
-  describedById?: string;
-  checked?: boolean | "indeterminate";
-  defaultChecked?: boolean;
-  onCheckedChange?: (checked: boolean | "indeterminate") => void;
-  onChildCheckedChange?: (checked: CheckedState) => void;
-  forwardedRef: ForwardedRef<HTMLInputElement>;
-  restProps: InputHTMLAttributes<HTMLInputElement>;
-}
-
-const CheckboxBasicStandalone = ({
-  size,
-  isDisabled,
-  isInvalid,
-  interaction,
-  isWithinItem,
-  labelId,
-  describedById,
-  checked,
-  defaultChecked,
-  onCheckedChange,
-  onChildCheckedChange,
-  forwardedRef,
-  restProps,
-}: CheckboxBasicStandaloneProps) => {
-  const isIndeterminate = checked === "indeterminate";
-
-  const toggleState = useToggleState({
-    isSelected: checked !== undefined && !isIndeterminate ? checked : undefined,
-    defaultSelected: defaultChecked,
-    onChange: isSelected => onCheckedChange?.(isSelected),
-  });
-
-  const isChecked: CheckedState = isIndeterminate ? "indeterminate" : toggleState.isSelected;
-  const isEffectiveInvalid = isInvalid && isChecked === false;
-
-  const ref = useObjectRef(forwardedRef);
-  const { inputProps } = useCheckbox(
-    { isIndeterminate, isDisabled, isInvalid: isEffectiveInvalid },
-    toggleState,
-    ref,
-  );
-
-  useLayoutEffect(() => {
-    if (ref.current) {
-      ref.current.indeterminate = isIndeterminate;
-    }
-  }, [isIndeterminate, ref]);
-
-  useLayoutEffect(() => {
-    onChildCheckedChange?.(isChecked);
-  }, [isChecked, onChildCheckedChange]);
-
-  const iconSize = checkboxSizeMap[size].icon;
-
-  return (
-    <CheckboxControl
-      isWithinItem={isWithinItem}
-      labelId={labelId}
-      describedById={describedById}
-      isEffectiveInvalid={isEffectiveInvalid}
-      size={size}
-      interaction={interaction}
-      inputRef={ref}
-      inputProps={mergeProps(inputProps, restProps)}
-      icon={<Icon name={isIndeterminate ? "subtract-line" : "check-line"} size={iconSize} />}
-    />
-  );
-};
-
-const CheckboxBasic = forwardRef<HTMLInputElement, CheckboxBasicProps>(
+const CheckboxControl = forwardRef<HTMLButtonElement, CheckboxControlProps>(
   (
     {
       size: sizeProp,
@@ -335,6 +148,7 @@ const CheckboxBasic = forwardRef<HTMLInputElement, CheckboxBasicProps>(
       checked,
       defaultChecked,
       onCheckedChange,
+      className,
       ...restProps
     },
     forwardedRef,
@@ -347,55 +161,72 @@ const CheckboxBasic = forwardRef<HTMLInputElement, CheckboxBasicProps>(
     const isInvalid = (isInvalidProp ?? false) || (configContext?.isInvalid ?? false);
     const isWithinItem = itemContext != null;
     const interaction = isWithinItem ? "off" : "on";
-    const labelId = itemContext?.labelId;
-    const describedById = itemContext?.hasHelper ? itemContext?.helperId : undefined;
+    const iconSize = checkboxSizeMap[size].icon;
 
-    if (configContext?.state) {
-      if (!value) {
-        throw new Error(
-          "Checkbox.Root 내부에서는 그룹 내 고유 식별자로 사용할 `value`를 지정해야 합니다.",
-        );
-      }
+    const groupState = configContext?.state;
 
-      return (
-        <CheckboxBasicGrouped
-          size={size}
-          value={value}
-          isDisabled={isDisabled}
-          isInvalid={isInvalid}
-          isWithinItem={isWithinItem}
-          interaction={interaction}
-          state={configContext.state}
-          onChildCheckedChange={itemContext?.onChildCheckedChange}
-          labelId={labelId}
-          describedById={describedById}
-          forwardedRef={forwardedRef}
-          restProps={restProps}
-        />
+    if (groupState && value == null) {
+      throw new Error(
+        "Checkbox.Root 내부에서는 그룹 내 고유 식별자로 사용할 `value`를 지정해야 합니다.",
       );
     }
 
+    const isGrouped = groupState != null && value != null;
+    const isControlledStandalone = checked !== undefined;
+
+    const [uncontrolledChecked, setUncontrolledChecked] = useState<CheckedState>(
+      defaultChecked ?? false,
+    );
+
+    const currentChecked: CheckedState = isGrouped
+      ? groupState.isSelected(value)
+      : isControlledStandalone
+        ? checked
+        : uncontrolledChecked;
+
+    const isEffectiveInvalid = isInvalid && currentChecked === false;
+    const isIndeterminate = currentChecked === "indeterminate";
+
+    const onChildCheckedChange = itemContext?.onChildCheckedChange;
+    useLayoutEffect(() => {
+      onChildCheckedChange?.(currentChecked);
+    }, [currentChecked, onChildCheckedChange]);
+
+    const handleCheckedChange = (next: CheckedState) => {
+      if (isGrouped) {
+        groupState.toggle(value);
+        return;
+      }
+      if (!isControlledStandalone) setUncontrolledChecked(next);
+      onCheckedChange?.(next);
+    };
+
     return (
-      <CheckboxBasicStandalone
-        size={size}
-        isDisabled={isDisabled}
-        isInvalid={isInvalid}
-        isWithinItem={isWithinItem}
-        interaction={interaction}
-        labelId={labelId}
-        describedById={describedById}
-        checked={checked}
-        defaultChecked={defaultChecked}
-        onCheckedChange={onCheckedChange}
-        onChildCheckedChange={itemContext?.onChildCheckedChange}
-        forwardedRef={forwardedRef}
-        restProps={restProps}
-      />
+      <CheckboxPrimitive.Root
+        ref={forwardedRef}
+        value={value}
+        name={configContext?.name}
+        checked={currentChecked}
+        onCheckedChange={handleCheckedChange}
+        disabled={isDisabled}
+        aria-invalid={isEffectiveInvalid || undefined}
+        aria-labelledby={isWithinItem ? itemContext?.labelId : undefined}
+        aria-describedby={
+          isWithinItem && itemContext?.hasHelper ? itemContext?.helperId : undefined
+        }
+        data-invalid={isEffectiveInvalid || undefined}
+        className={clsx(checkboxVisual({ size, interaction }), checkboxControlSlot, className)}
+        {...restProps}
+      >
+        <CheckboxPrimitive.Indicator className={checkboxIndicator}>
+          <Icon name={isIndeterminate ? "subtract-line" : "check-line"} size={iconSize} />
+        </CheckboxPrimitive.Indicator>
+      </CheckboxPrimitive.Root>
     );
   },
 );
 
-CheckboxBasic.displayName = "Checkbox.Basic";
+CheckboxControl.displayName = "Checkbox.Control";
 
 const CheckboxLabel = forwardRef<HTMLSpanElement, CheckboxLabelProps>(({ children }, ref) => {
   const config = useCheckboxConfig();
@@ -450,7 +281,7 @@ CheckboxHelper.displayName = "Checkbox.Helper";
 export const Checkbox = {
   Root: CheckboxRoot,
   Item: CheckboxItem,
-  Basic: CheckboxBasic,
+  Control: CheckboxControl,
   Label: CheckboxLabel,
   Helper: CheckboxHelper,
 };

@@ -82,7 +82,7 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
                   <DialogBodyTextP>{body}</DialogBodyTextP>
                   {checkboxAction && (
                     <Checkbox.Item>
-                      <Checkbox.Basic
+                      <Checkbox.Control
                         checked={checkboxAction.checked}
                         onCheckedChange={checkboxAction.onCheckedChange}
                       />

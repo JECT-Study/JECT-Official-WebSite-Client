@@ -16,14 +16,7 @@ const checkboxVisualSizeMap = {
   xs: pxToRem(14),
 } satisfies Record<CheckboxSize, string>;
 
-// Checkbox.Basic
-
-export const checkboxControlRoot = style({
-  display: "inline-flex",
-  position: "relative",
-});
-
-// invalid 셀렉터는 valid보다 명시도가 높아 차이나는 프로퍼티만 선언한다.
+// Checkbox.Control
 export const checkboxVisual = recipe({
   base: {
     display: "inline-flex",
@@ -31,6 +24,9 @@ export const checkboxVisual = recipe({
     justifyContent: "center",
     flexShrink: 0,
     boxSizing: "border-box",
+    appearance: "none",
+    margin: 0,
+    padding: 0,
     borderRadius: vars.scheme.semantic.radius["4"],
     border: `${vars.scheme.semantic.strokeWeight["1"]} solid ${vars.color.semantic.stroke.alpha.assistive}`,
     backgroundColor: vars.color.semantic.surface.shallow,
@@ -39,37 +35,37 @@ export const checkboxVisual = recipe({
     position: "relative",
     outline: "none",
     selectors: {
-      'input[type="checkbox"]:not(:disabled):checked + &': {
+      '&[data-state="checked"]:not([data-disabled])': {
         backgroundColor: vars.color.semantic.accent.neutral,
         border: "none",
         color: vars.color.semantic.object.static.inverse.boldest,
       },
-      'input[type="checkbox"]:not(:disabled):indeterminate + &': {
+      '&[data-state="indeterminate"]:not([data-disabled])': {
         backgroundColor: vars.color.semantic.accent.neutral,
         border: "none",
         color: vars.color.semantic.object.static.inverse.boldest,
       },
-      'input[type="checkbox"]:disabled:not(:checked):not(:indeterminate) + &': {
+      '&[data-disabled][data-state="unchecked"]': {
         backgroundColor: vars.color.semantic.surface.standard,
         borderColor: vars.color.semantic.stroke.alpha.subtle,
         cursor: "not-allowed",
       },
-      'input[type="checkbox"]:disabled:checked + &': {
+      '&[data-disabled][data-state="checked"]': {
         backgroundColor: vars.color.semantic.fill.subtlest,
         border: "none",
         color: vars.color.semantic.object.subtle,
         cursor: "not-allowed",
       },
-      'input[type="checkbox"]:disabled:indeterminate + &': {
+      '&[data-disabled][data-state="indeterminate"]': {
         backgroundColor: vars.color.semantic.fill.subtlest,
         border: "none",
         color: vars.color.semantic.object.subtle,
         cursor: "not-allowed",
       },
-      '[data-invalid] input[type="checkbox"]:not(:disabled) + &': {
+      "&[data-invalid]:not([data-disabled])": {
         borderColor: vars.color.semantic.feedback.destructive.neutral,
       },
-      '[data-invalid] input[type="checkbox"]:disabled + &': {
+      "&[data-invalid][data-disabled]": {
         borderColor: vars.color.semantic.feedback.destructive.alpha.subtle,
       },
     },
@@ -84,7 +80,7 @@ export const checkboxVisual = recipe({
     interaction: {
       on: {
         selectors: {
-          'input[type="checkbox"]:not(:disabled) + &::after': {
+          "&:not([data-disabled])::after": {
             content: '""',
             position: "absolute",
             top: 0,
@@ -96,23 +92,35 @@ export const checkboxVisual = recipe({
             opacity: 0,
             pointerEvents: "none",
           },
-          'input[type="checkbox"]:not(:disabled) + &:hover::after': {
-            opacity: overlayOpacityMap.normal.hover,
-          },
-          'input[type="checkbox"]:not(:disabled) + &:active::after': {
+          "&:not([data-disabled]):active::after": {
             opacity: overlayOpacityMap.normal.pressed,
           },
-          'input[type="checkbox"]:focus-visible + &': {
+          "&:focus-visible": {
             boxShadow: `0 0 0 ${vars.scheme.semantic.strokeWeight["2"]} ${vars.color.semantic.accent.alpha.alternative}`,
           },
-          '[data-invalid] input[type="checkbox"]:not(:disabled):focus-visible + &': {
+          "&[data-invalid]:focus-visible": {
             boxShadow: `0 0 0 ${vars.scheme.semantic.strokeWeight["2"]} ${vars.color.semantic.feedback.destructive.alpha.alternative}`,
+          },
+        },
+        "@media": {
+          "(hover: hover) and (pointer: fine)": {
+            selectors: {
+              "&:not([data-disabled]):hover::after": {
+                opacity: overlayOpacityMap.normal.hover,
+              },
+            },
           },
         },
       },
       off: {},
     },
   },
+});
+
+export const checkboxIndicator = style({
+  display: "inline-flex",
+  alignItems: "center",
+  justifyContent: "center",
 });
 
 // Checkbox.Item
