@@ -282,7 +282,7 @@ const overlayBase = style({
 });
 
 export const overlay = recipe({
-  base: [overlayInteraction({ nativeHover: true }), focusRing(), overlayBase],
+  base: [overlayInteraction(), focusRing(), overlayBase],
   variants: {
     variant: {
       plate: {
