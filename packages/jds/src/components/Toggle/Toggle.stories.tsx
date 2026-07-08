@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexColumn, FlexRow, Label } from "@storybook-utils/layout";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { Toggle } from "./Toggle";
 
@@ -11,7 +11,8 @@ const meta: Meta<typeof Toggle> = {
     layout: "centered",
     docs: {
       description: {
-        component: "켜고 끄는 두 가지 상태를 제어하는 입력 컴포넌트입니다. 설정의 활성화 여부를 직관적으로 전환할 때 활용합니다."
+        component:
+          "켜고 끄는 두 가지 상태를 제어하는 입력 컴포넌트입니다. 설정의 활성화 여부를 직관적으로 전환할 때 활용합니다.",
       },
     },
   },
@@ -46,20 +47,7 @@ export const Default: Story = {
     const DefaultToggle = () => {
       const [checked, setChecked] = useState(args.checked);
 
-      useEffect(() => {
-        setChecked(args.checked);
-      }, [args.checked]);
-
-      return (
-        <Toggle
-          {...args}
-          checked={checked}
-          onClick={event => {
-            setChecked(value => !value);
-            args.onClick?.(event);
-          }}
-        />
-      );
+      return <Toggle {...args} checked={checked} onClick={() => setChecked(value => !value)} />;
     };
 
     return <DefaultToggle />;
@@ -101,10 +89,7 @@ export const Controlled: Story = {
 
       return (
         <FlexColumn gap='0.75rem'>
-          <Toggle
-            checked={checked}
-            onClick={() => setChecked(value => !value)}
-          />
+          <Toggle checked={checked} onClick={() => setChecked(value => !value)} />
           <Label>Checked: {String(checked)}</Label>
         </FlexColumn>
       );
