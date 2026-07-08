@@ -47,9 +47,12 @@ export const EmptyState = forwardRef<HTMLDivElement, EmptyStateProps>(
         {...rest}
       >
         {image && (
-          <div className={emptyStateStyles.image}>
-            <Thumbnail appearance='hollow' cornerStyle='angular' {...image} />
-          </div>
+          <Thumbnail
+            appearance='hollow'
+            cornerStyle='angular'
+            {...image}
+            className={clsx(emptyStateStyles.thumbnail, image.className)}
+          />
         )}
         <div className={emptyStateStyles.content({ layout })}>
           <span

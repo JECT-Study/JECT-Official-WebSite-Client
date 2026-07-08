@@ -3,6 +3,7 @@ import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
 import { pxToRem } from "utils";
 
+import { thumbnailVars } from "@/components/Thumbnail/thumbnail.css";
 import { titleColorVar } from "@/utils/typography.css";
 
 const root = recipe({
@@ -62,9 +63,11 @@ const header = style({
   },
 });
 
-const image = style({
+const thumbnail = style({
   flexShrink: 0,
-  width: pxToRem(64),
+  vars: {
+    [thumbnailVars.width]: pxToRem(64),
+  },
 });
 
 const body = recipe({
@@ -113,7 +116,7 @@ export const emptyStateStyles = {
   root,
   content,
   header,
-  image,
+  thumbnail,
   body,
   buttonContainer,
 } as const;
