@@ -32,7 +32,7 @@ export const CardThumbnail = forwardRef<HTMLDivElement, CardThumbnailProps>(
           alt={image.alt}
           appearance={variant === "plate" ? "hollow" : "outlined"}
           cornerStyle='angular'
-          className={isHorizontal ? styles.thumbnailFill : undefined}
+          className={styles.thumbnailFill({ isHorizontal })}
           {...shape}
         />
       </div>

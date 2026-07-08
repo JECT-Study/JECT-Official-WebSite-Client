@@ -157,10 +157,13 @@ export const imageContainer = recipe({
   ],
 });
 
-export const thumbnailFill = style({
-  position: "absolute",
-  inset: 0,
-  aspectRatio: "auto",
+export const thumbnailFill = recipe({
+  variants: {
+    isHorizontal: {
+      true: { position: "absolute", inset: 0, aspectRatio: "auto" },
+      false: {},
+    },
+  },
 });
 
 export const content = recipe({
