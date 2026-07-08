@@ -37,6 +37,24 @@ export type RadioItemProps = Omit<ComponentPropsWithoutRef<"button">, "value"> &
   children: ReactNode;
 };
 
+export type RadioOption = {
+  value: string;
+  label: ReactNode;
+  helper?: ReactNode;
+  disabled?: boolean;
+};
+
+type RadioGroupBaseProps = {
+  size?: RadioSize;
+  variant?: RadioVariant;
+  disabled?: boolean;
+  name?: string;
+  options: RadioOption[];
+};
+
+export type RadioGroupProps = RadioGroupBaseProps &
+  (RadioRootControlledProps | RadioRootUncontrolledProps);
+
 export type RadioIndicatorProps = Omit<ComponentPropsWithoutRef<"span">, "children"> & {
   size?: RadioSize;
 };

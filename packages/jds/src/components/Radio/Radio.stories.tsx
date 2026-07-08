@@ -2,34 +2,38 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexColumn, FlexRow } from "@storybook-utils/layout";
 import { useState } from "react";
 
-import { Radio } from "./Radio";
 import { RADIO_SIZE_OPTIONS } from "./radio.types";
+import { RadioGroup } from "./RadioGroup";
 
 const meta = {
   title: "Components/Radio",
-  component: Radio.Item,
+  component: RadioGroup,
   parameters: {
     layout: "centered",
   },
-} satisfies Meta<typeof Radio.Item>;
+} satisfies Meta<typeof RadioGroup>;
 
 export default meta;
 
-type Story = StoryObj<typeof Radio.Item>;
+type Story = StoryObj<typeof RadioGroup>;
 
 const GROUP_GAP = "12px";
 
 export const Sizes: Story = {
   render: () => (
     <FlexColumn gap={GROUP_GAP}>
-      <Radio.Root defaultValue='md'>
-        {RADIO_SIZE_OPTIONS.map(size => (
-          <Radio.Item key={size} value={size} size={size}>
-            <Radio.Indicator />
-            <Radio.Label>{size}</Radio.Label>
-          </Radio.Item>
-        ))}
-      </Radio.Root>
+      {RADIO_SIZE_OPTIONS.map(size => (
+        <FlexColumn key={size} gap={GROUP_GAP}>
+          <RadioGroup
+            size={size}
+            defaultValue='checked'
+            options={[
+              { value: "unchecked", label: size },
+              { value: "checked", label: size },
+            ]}
+          />
+        </FlexColumn>
+      ))}
     </FlexColumn>
   ),
 };
@@ -38,30 +42,24 @@ export const Variants: Story = {
   render: () => (
     <FlexRow>
       <FlexColumn gap={GROUP_GAP}>
-        <Radio.Root defaultValue='a' variant='hollow'>
-          <Radio.Item value='a'>
-            <Radio.Indicator />
-            <Radio.Label>hollow</Radio.Label>
-          </Radio.Item>
-          <Radio.Item value='b'>
-            <Radio.Indicator />
-            <Radio.Label>hollow</Radio.Label>
-            <Radio.Helper>헬퍼 텍스트</Radio.Helper>
-          </Radio.Item>
-        </Radio.Root>
+        <RadioGroup
+          variant='hollow'
+          defaultValue='a'
+          options={[
+            { value: "a", label: "hollow" },
+            { value: "b", label: "hollow", helper: "헬퍼 텍스트" },
+          ]}
+        />
       </FlexColumn>
       <FlexColumn gap={GROUP_GAP}>
-        <Radio.Root defaultValue='a' variant='outlined'>
-          <Radio.Item value='a'>
-            <Radio.Indicator />
-            <Radio.Label>outlined</Radio.Label>
-          </Radio.Item>
-          <Radio.Item value='b'>
-            <Radio.Indicator />
-            <Radio.Label>outlined</Radio.Label>
-            <Radio.Helper>헬퍼 텍스트</Radio.Helper>
-          </Radio.Item>
-        </Radio.Root>
+        <RadioGroup
+          variant='outlined'
+          defaultValue='a'
+          options={[
+            { value: "a", label: "outlined" },
+            { value: "b", label: "outlined", helper: "헬퍼 텍스트" },
+          ]}
+        />
       </FlexColumn>
     </FlexRow>
   ),
@@ -71,30 +69,26 @@ export const Disabled: Story = {
   render: () => (
     <FlexRow>
       <FlexColumn gap={GROUP_GAP}>
-        <Radio.Root defaultValue='a' disabled variant='hollow'>
-          <Radio.Item value='a'>
-            <Radio.Indicator />
-            <Radio.Label>checked</Radio.Label>
-          </Radio.Item>
-          <Radio.Item value='b'>
-            <Radio.Indicator />
-            <Radio.Label>unchecked</Radio.Label>
-          </Radio.Item>
-        </Radio.Root>
+        <RadioGroup
+          variant='hollow'
+          defaultValue='a'
+          disabled
+          options={[
+            { value: "a", label: "checked" },
+            { value: "b", label: "unchecked" },
+          ]}
+        />
       </FlexColumn>
       <FlexColumn gap={GROUP_GAP}>
-        <Radio.Root defaultValue='a' disabled variant='outlined'>
-          <Radio.Item value='a'>
-            <Radio.Indicator />
-            <Radio.Label>checked</Radio.Label>
-            <Radio.Helper>헬퍼 텍스트</Radio.Helper>
-          </Radio.Item>
-          <Radio.Item value='b'>
-            <Radio.Indicator />
-            <Radio.Label>unchecked</Radio.Label>
-            <Radio.Helper>헬퍼 텍스트</Radio.Helper>
-          </Radio.Item>
-        </Radio.Root>
+        <RadioGroup
+          variant='outlined'
+          defaultValue='a'
+          disabled
+          options={[
+            { value: "a", label: "checked", helper: "헬퍼 텍스트" },
+            { value: "b", label: "unchecked", helper: "헬퍼 텍스트" },
+          ]}
+        />
       </FlexColumn>
     </FlexRow>
   ),
@@ -103,20 +97,15 @@ export const Disabled: Story = {
 export const Uncontrolled: Story = {
   render: () => (
     <FlexColumn gap={GROUP_GAP}>
-      <Radio.Root defaultValue='2' name='uncontrolled'>
-        <Radio.Item value='1'>
-          <Radio.Indicator />
-          <Radio.Label>레이블</Radio.Label>
-        </Radio.Item>
-        <Radio.Item value='2'>
-          <Radio.Indicator />
-          <Radio.Label>레이블 (기본 선택)</Radio.Label>
-        </Radio.Item>
-        <Radio.Item value='3'>
-          <Radio.Indicator />
-          <Radio.Label>레이블</Radio.Label>
-        </Radio.Item>
-      </Radio.Root>
+      <RadioGroup
+        defaultValue='2'
+        name='uncontrolled'
+        options={[
+          { value: "1", label: "레이블" },
+          { value: "2", label: "레이블 (기본 선택)" },
+          { value: "3", label: "레이블" },
+        ]}
+      />
     </FlexColumn>
   ),
 };
@@ -128,20 +117,16 @@ export const Controlled: Story = {
       <FlexColumn>
         <span>선택: {selected}</span>
         <FlexColumn gap={GROUP_GAP}>
-          <Radio.Root value={selected} onChange={setSelected} name='controlled'>
-            <Radio.Item value='1'>
-              <Radio.Indicator />
-              <Radio.Label>레이블</Radio.Label>
-            </Radio.Item>
-            <Radio.Item value='2'>
-              <Radio.Indicator />
-              <Radio.Label>레이블</Radio.Label>
-            </Radio.Item>
-            <Radio.Item value='3'>
-              <Radio.Indicator />
-              <Radio.Label>레이블</Radio.Label>
-            </Radio.Item>
-          </Radio.Root>
+          <RadioGroup
+            value={selected}
+            onChange={setSelected}
+            name='controlled'
+            options={[
+              { value: "1", label: "레이블" },
+              { value: "2", label: "레이블" },
+              { value: "3", label: "레이블" },
+            ]}
+          />
         </FlexColumn>
       </FlexColumn>
     );
@@ -154,28 +139,25 @@ export const ComprehensiveMatrix: Story = {
       {RADIO_SIZE_OPTIONS.map(size => (
         <FlexRow key={size}>
           <FlexColumn gap={GROUP_GAP}>
-            <Radio.Root defaultValue='checked' size={size}>
-              <Radio.Item value='unchecked'>
-                <Radio.Indicator />
-                <Radio.Label>{size}</Radio.Label>
-              </Radio.Item>
-              <Radio.Item value='checked'>
-                <Radio.Indicator />
-                <Radio.Label>{size}</Radio.Label>
-              </Radio.Item>
-            </Radio.Root>
+            <RadioGroup
+              size={size}
+              defaultValue='checked'
+              options={[
+                { value: "unchecked", label: size },
+                { value: "checked", label: size },
+              ]}
+            />
           </FlexColumn>
           <FlexColumn gap={GROUP_GAP}>
-            <Radio.Root defaultValue='checked' size={size} disabled>
-              <Radio.Item value='unchecked'>
-                <Radio.Indicator />
-                <Radio.Label>{size}</Radio.Label>
-              </Radio.Item>
-              <Radio.Item value='checked'>
-                <Radio.Indicator />
-                <Radio.Label>{size}</Radio.Label>
-              </Radio.Item>
-            </Radio.Root>
+            <RadioGroup
+              size={size}
+              defaultValue='checked'
+              disabled
+              options={[
+                { value: "unchecked", label: size },
+                { value: "checked", label: size },
+              ]}
+            />
           </FlexColumn>
         </FlexRow>
       ))}

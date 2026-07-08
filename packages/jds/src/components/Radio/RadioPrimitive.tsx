@@ -160,7 +160,7 @@ const RadioHelper = forwardRef<HTMLSpanElement, RadioHelperProps>(({ children },
 
 RadioHelper.displayName = "Radio.Helper";
 
-export const Radio = {
+export const RadioPrimitive = {
   Root: RadioRoot,
   Item: RadioItem,
   Indicator: RadioIndicator,
