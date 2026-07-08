@@ -1,64 +1,67 @@
+import { clsx } from "clsx";
 import { forwardRef } from "react";
 
-import {
-  EmptyStateLabel,
-  EmptyStateRoot,
-  EmptyStateBodyTextP,
-  EmptyStateContentDiv,
-  EmptyStateButtonContainerDiv,
-} from "./emptyState.styles";
+import { emptyStateStyles } from "./emptyState.css";
 import type { EmptyStateProps } from "./emptyState.types";
 import { BlockButton } from "../Button/BlockButton";
-import { Icon } from "../Icon";
+import { Thumbnail } from "../Thumbnail";
 
-import { getLabelClassName } from "@/utils/typography";
+import { getTitleClassName } from "@/utils/typography";
 
 export const EmptyState = forwardRef<HTMLDivElement, EmptyStateProps>(
   (
     {
-      variant = "empty",
+      variant = "hollow",
       layout = "vertical",
       header,
       body,
       primaryAction,
       secondaryAction,
-      icon,
+      image,
       ...rest
     },
     ref,
   ) => {
     const hasPrimary = !!primaryAction;
     const hasSecondary = !!secondaryAction;
+    const hasBothActions = hasPrimary && hasSecondary;
 
     const renderActions = () => {
-      if (!hasPrimary) return null;
+      if (!hasPrimary && !hasSecondary) return null;
 
       return (
-        <EmptyStateButtonContainerDiv $hasSecondary={hasSecondary}>
+        <div className={emptyStateStyles.buttonContainer({ hasBothActions })}>
           {hasSecondary && (
-            <BlockButton.Basic
-              variant='outlined'
-              hierarchy='secondary'
-              size='sm'
-              {...secondaryAction}
-            />
+            <BlockButton variant='outlined' hierarchy='secondary' size='sm' {...secondaryAction} />
           )}
-          <BlockButton.Basic size='sm' {...primaryAction} />
-        </EmptyStateButtonContainerDiv>
+          {hasPrimary && <BlockButton size='sm' {...primaryAction} />}
+        </div>
       );
     };
 
     return (
-      <EmptyStateRoot ref={ref} $variant={variant} $layout={layout} {...rest}>
-        {icon && <Icon name={icon} size='3xl' aria-hidden='true' />}
-        <EmptyStateContentDiv $layout={layout}>
-          <EmptyStateLabel className={getLabelClassName({ weight: "bold", textAlign: "center" })}>
+      <div ref={ref} className={emptyStateStyles.root({ variant, layout })} {...rest}>
+        {image && (
+          <div className={emptyStateStyles.image}>
+            <Thumbnail appearance='hollow' cornerStyle='angular' {...image} />
+          </div>
+        )}
+        <div className={emptyStateStyles.content({ layout })}>
+          <span
+            className={clsx(
+              getTitleClassName({
+                size: "xs",
+                textAlign: layout === "vertical" ? "center" : "left",
+              }),
+              emptyStateStyles.header,
+            )}
+          >
             {header}
-          </EmptyStateLabel>
-          <EmptyStateBodyTextP $layout={layout}>{body}</EmptyStateBodyTextP>
-        </EmptyStateContentDiv>
+          </span>
+          <p className={emptyStateStyles.body({ layout })}>{body}</p>
+        </div>
         {renderActions()}
-      </EmptyStateRoot>
+      </div>
     );
   },
 );

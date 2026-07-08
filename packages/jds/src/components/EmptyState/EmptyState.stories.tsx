@@ -1,35 +1,66 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { FlexColumn } from "@storybook-utils/layout";
+import type { CSSProperties, ReactNode } from "react";
 
 import { EmptyState } from "./EmptyState";
+import type { ThumbnailProps } from "../Thumbnail";
 
 const SAMPLE_BUTTON = "레이블";
-const SAMPLE_LABEL = "엠티 스테이트 레이블";
+const SAMPLE_HEADER = "엠티 스테이트 타이틀";
 const SAMPLE_BODY =
   "해당 엠티 스테이트에 대해 설명하거나 제안하는 콘텐츠 내용을 최대 세 줄 까지 입력할 수 있습니다.";
+const SAMPLE_IMAGE: ThumbnailProps = { alt: "샘플 이미지" };
+
+const handleButtonClick = () => {
+  console.log("클릭");
+};
+const PRIMARY_ACTION = { children: SAMPLE_BUTTON, onClick: handleButtonClick };
+const SECONDARY_ACTION = { children: SAMPLE_BUTTON, onClick: handleButtonClick };
+
+const rowStyle: CSSProperties = {
+  display: "flex",
+  flexWrap: "wrap",
+  justifyContent: "center",
+  alignItems: "flex-start",
+  gap: 32,
+};
+const caseStyle: CSSProperties = {
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  gap: 16,
+};
+const captionStyle: CSSProperties = {
+  fontSize: 11,
+  lineHeight: 1.4,
+  color: "#8a8a8a",
+  background: "#efefef",
+  padding: "3px 8px",
+  borderRadius: 3,
+  whiteSpace: "nowrap",
+};
+
+const Case = ({ label, children }: { label: string; children: ReactNode }) => (
+  <div style={caseStyle}>
+    <span style={captionStyle}>{label}</span>
+    <div style={{ width: 360 }}>{children}</div>
+  </div>
+);
 
 const meta: Meta<typeof EmptyState> = {
   title: "Components/EmptyState",
   component: EmptyState,
+  tags: ["autodocs"],
   parameters: {
     layout: "centered",
   },
   argTypes: {
     variant: {
       control: "select",
-      options: ["empty", "outlined", "alpha"],
+      options: ["hollow", "dashed", "alpha"],
       description: "엠티 스테이트 외관 변형",
       table: {
-        defaultValue: { summary: "empty" },
+        defaultValue: { summary: "hollow" },
       },
-    },
-    header: {
-      control: "text",
-      description: "엠티 스테이트를 축약적으로 설명하는 레이블",
-    },
-    body: {
-      control: "text",
-      description: "엠티 스테이트를 자세하게 설명하는 레이블",
     },
     layout: {
       control: "select",
@@ -39,9 +70,17 @@ const meta: Meta<typeof EmptyState> = {
         defaultValue: { summary: "vertical" },
       },
     },
-    icon: {
+    header: {
       control: "text",
-      description: "엠티 스테이트에 표시되는 아이콘 이름 (Icon 컴포넌트)",
+      description: "엠티 스테이트를 축약적으로 설명하는 타이틀",
+    },
+    body: {
+      control: "text",
+      description: "엠티 스테이트를 자세하게 설명하는 본문",
+    },
+    image: {
+      control: false,
+      description: "엠티 스테이트에 표시되는 이미지 슬롯 (Thumbnail 재사용)",
     },
     primaryAction: {
       control: "object",
@@ -49,8 +88,7 @@ const meta: Meta<typeof EmptyState> = {
     },
     secondaryAction: {
       control: "object",
-      description:
-        "secondary 버튼 설정 (children, onClick, disabled). primaryAction이 있을 때만 유효",
+      description: "secondary 버튼 설정 (children, onClick, disabled)",
     },
   },
 } satisfies Meta<typeof EmptyState>;
@@ -59,88 +97,103 @@ export default meta;
 
 type Story = StoryObj<typeof EmptyState>;
 
-export const Default: Story = {
+export const Playground: Story = {
   args: {
-    variant: "empty",
-    header: SAMPLE_LABEL,
-    body: SAMPLE_BODY,
+    variant: "hollow",
     layout: "vertical",
-    icon: "vector",
+    header: SAMPLE_HEADER,
+    body: SAMPLE_BODY,
+    image: SAMPLE_IMAGE,
+    primaryAction: PRIMARY_ACTION,
   },
 };
 
-export const AllVariants: Story = {
+export const Style: Story = {
   render: () => (
-    <FlexColumn>
-      <EmptyState header='Empty' body={SAMPLE_BODY} />
-      <EmptyState variant='outlined' header='Outlined' body={SAMPLE_BODY} />
-      <EmptyState variant='alpha' header='Alpha' body={SAMPLE_BODY} />
-    </FlexColumn>
+    <div style={rowStyle}>
+      {(["hollow", "dashed", "alpha"] as const).map(variant => (
+        <Case key={variant} label={variant}>
+          <EmptyState
+            variant={variant}
+            header={SAMPLE_HEADER}
+            body={SAMPLE_BODY}
+            primaryAction={PRIMARY_ACTION}
+            secondaryAction={SECONDARY_ACTION}
+          />
+        </Case>
+      ))}
+    </div>
   ),
 };
 
-const handleButtonClick = () => {
-  console.log("클릭");
-};
-
-export const AllLayouts: Story = {
+export const Layout: Story = {
   render: () => (
-    <FlexColumn>
-      <EmptyState header={SAMPLE_LABEL} body={SAMPLE_BODY} />
-      <EmptyState layout='horizontal' header={SAMPLE_LABEL} body={SAMPLE_BODY} />
-    </FlexColumn>
+    <div style={rowStyle}>
+      {(["vertical", "horizontal"] as const).map(layout => (
+        <Case key={layout} label={layout}>
+          <EmptyState
+            layout={layout}
+            header={SAMPLE_HEADER}
+            body={SAMPLE_BODY}
+            primaryAction={PRIMARY_ACTION}
+          />
+        </Case>
+      ))}
+    </div>
   ),
 };
 
-export const AllActions: Story = {
+export const WithImage: Story = {
   render: () => (
-    <FlexColumn>
-      <EmptyState
-        header={SAMPLE_LABEL}
-        body={SAMPLE_BODY}
-        primaryAction={{ children: SAMPLE_BUTTON, onClick: handleButtonClick }}
-      />
-      <EmptyState
-        header={SAMPLE_LABEL}
-        body={SAMPLE_BODY}
-        primaryAction={{ children: SAMPLE_BUTTON, onClick: handleButtonClick }}
-        secondaryAction={{ children: SAMPLE_BUTTON, onClick: handleButtonClick }}
-      />
-      <EmptyState
-        layout='horizontal'
-        header={SAMPLE_LABEL}
-        body={SAMPLE_BODY}
-        primaryAction={{ children: SAMPLE_BUTTON, onClick: handleButtonClick }}
-      />
-      <EmptyState
-        layout='horizontal'
-        header={SAMPLE_LABEL}
-        body={SAMPLE_BODY}
-        primaryAction={{ children: SAMPLE_BUTTON, onClick: handleButtonClick }}
-        secondaryAction={{ children: SAMPLE_BUTTON, onClick: handleButtonClick }}
-      />
-    </FlexColumn>
+    <div style={rowStyle}>
+      <Case label='withImage=false'>
+        <EmptyState
+          header={SAMPLE_HEADER}
+          body={SAMPLE_BODY}
+          primaryAction={PRIMARY_ACTION}
+          secondaryAction={SECONDARY_ACTION}
+        />
+      </Case>
+      <Case label='withImage=true'>
+        <EmptyState
+          image={SAMPLE_IMAGE}
+          header={SAMPLE_HEADER}
+          body={SAMPLE_BODY}
+          primaryAction={PRIMARY_ACTION}
+          secondaryAction={SECONDARY_ACTION}
+        />
+      </Case>
+    </div>
   ),
 };
 
-export const AllIcons: Story = {
+export const WithPrimaryButton: Story = {
   render: () => (
-    <FlexColumn>
-      <EmptyState
-        icon='vector'
-        header={SAMPLE_LABEL}
-        body={SAMPLE_BODY}
-        primaryAction={{ children: SAMPLE_BUTTON, onClick: handleButtonClick }}
-        secondaryAction={{ children: SAMPLE_BUTTON, onClick: handleButtonClick }}
-      />
-      <EmptyState
-        icon='vector'
-        layout='horizontal'
-        header={SAMPLE_LABEL}
-        body={SAMPLE_BODY}
-        primaryAction={{ children: SAMPLE_BUTTON, onClick: handleButtonClick }}
-        secondaryAction={{ children: SAMPLE_BUTTON, onClick: handleButtonClick }}
-      />
-    </FlexColumn>
+    <div style={rowStyle}>
+      <Case label='withPrimaryButton=false'>
+        <EmptyState header={SAMPLE_HEADER} body={SAMPLE_BODY} />
+      </Case>
+      <Case label='withPrimaryButton=true'>
+        <EmptyState header={SAMPLE_HEADER} body={SAMPLE_BODY} primaryAction={PRIMARY_ACTION} />
+      </Case>
+    </div>
+  ),
+};
+
+export const WithSecondaryButton: Story = {
+  render: () => (
+    <div style={rowStyle}>
+      <Case label='withSecondaryButton=true'>
+        <EmptyState header={SAMPLE_HEADER} body={SAMPLE_BODY} secondaryAction={SECONDARY_ACTION} />
+      </Case>
+      <Case label='withSecondaryButton, withPrimaryButton=true'>
+        <EmptyState
+          header={SAMPLE_HEADER}
+          body={SAMPLE_BODY}
+          primaryAction={PRIMARY_ACTION}
+          secondaryAction={SECONDARY_ACTION}
+        />
+      </Case>
+    </div>
   ),
 };
