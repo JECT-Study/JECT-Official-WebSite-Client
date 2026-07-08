@@ -1,7 +1,7 @@
 import { clsx } from "clsx";
 import { forwardRef } from "react";
 
-import type { CardCaptionProps } from "../card.types";
+import { CARD_PART_CAPTION, type CardCaptionProps } from "../card.types";
 import { useCardRootGuard } from "../cardContext";
 import * as styles from "./card.css";
 
@@ -20,7 +20,7 @@ export const CardCaption = forwardRef<HTMLSpanElement, CardCaptionProps>(
           className,
         )}
         {...restProps}
-        data-card-slot='caption'
+        data-part={CARD_PART_CAPTION}
       >
         {children}
       </span>

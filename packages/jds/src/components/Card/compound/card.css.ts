@@ -6,6 +6,7 @@ import { vars } from "../../../tokens/vars.css";
 import { focusRing } from "../../../utils/focusRing.css";
 import { overlay as overlayInteraction, overlayColor } from "../../../utils/overlay.css";
 import { labelColorVar, titleColorVar } from "../../../utils/typography.css";
+import { CARD_PART_CAPTION, CARD_PART_OVERLAY } from "../card.types";
 
 const titleColor = createVar();
 const bodyColor = createVar();
@@ -38,7 +39,7 @@ export const root = recipe({
         transform: "translateY(0)",
         transition: "none",
       },
-      "&[data-interactive]:not([data-disabled]):has([data-overlay]:focus-visible)": {
+      [`&[data-interactive]:not([data-disabled]):has([data-part='${CARD_PART_OVERLAY}']:focus-visible)`]: {
         transform: "translateY(-2px)",
         boxShadow: vars.environment.semantic.shadow.raised,
       },
@@ -62,7 +63,7 @@ export const root = recipe({
           "&[data-interactive]:not([data-disabled]):hover": {
             boxShadow: "none",
           },
-          "&[data-interactive]:not([data-disabled]):has([data-overlay]:focus-visible)": {
+          [`&[data-interactive]:not([data-disabled]):has([data-part='${CARD_PART_OVERLAY}']:focus-visible)`]: {
             boxShadow: "none",
           },
         },
@@ -96,7 +97,7 @@ export const root = recipe({
           [horizontalImageSize]: horizontalPlateHeight,
         },
         selectors: {
-          "&:has([data-card-slot='caption'])": {
+          [`&:has([data-part='${CARD_PART_CAPTION}'])`]: {
             height: horizontalPlateCaptionHeight,
             vars: {
               [horizontalImageSize]: horizontalPlateCaptionHeight,

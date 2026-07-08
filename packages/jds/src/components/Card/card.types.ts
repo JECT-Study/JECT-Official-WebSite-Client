@@ -1,5 +1,8 @@
 import type { ComponentPropsWithoutRef, ElementType, ReactNode } from "react";
 
+export const CARD_PART_CAPTION = "caption";
+export const CARD_PART_OVERLAY = "overlay";
+
 export type CardLayout = "vertical" | "horizontal";
 export type CardVariant = "plate" | "post";
 

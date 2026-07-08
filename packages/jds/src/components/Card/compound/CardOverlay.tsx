@@ -1,7 +1,7 @@
 import { clsx } from "clsx";
 import { forwardRef, useEffect, type ComponentPropsWithoutRef, type Ref } from "react";
 
-import type { CardOverlayProps } from "../card.types";
+import { CARD_PART_OVERLAY, type CardOverlayProps } from "../card.types";
 import { useCardContext } from "../cardContext";
 import * as styles from "./card.css";
 
@@ -46,7 +46,7 @@ export const CardOverlay = forwardRef<HTMLAnchorElement | HTMLButtonElement, Car
           className={overlayClassName}
           {...buttonProps}
           aria-labelledby={ariaLabelledby}
-          data-overlay
+          data-part={CARD_PART_OVERLAY}
           data-disabled={isDisabled || undefined}
           disabled={isDisabled}
         >
@@ -65,7 +65,7 @@ export const CardOverlay = forwardRef<HTMLAnchorElement | HTMLButtonElement, Car
         onClick={isDisabled ? undefined : onClick}
         tabIndex={isDisabled ? -1 : tabIndex}
         aria-labelledby={ariaLabelledby}
-        data-overlay
+        data-part={CARD_PART_OVERLAY}
         data-disabled={isDisabled || undefined}
         aria-disabled={isDisabled || undefined}
         href={isDisabled ? undefined : href}
