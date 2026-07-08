@@ -6,7 +6,7 @@
 
 **추가**
 
-- `Card.Preset.Plate` / `Card.Preset.Post` (`PlatePresetProps` / `PostPresetProps`): title + body 기반 단일 preset (Plate는 optional `caption`), `as="a"`(`href` 필수) / `as="button"` 분기
+- `Card.Preset.Plate` / `Card.Preset.Post`: title + body 기반 단일 preset (Plate는 optional `caption`), `.Link`(`href` 필수) / `.Button` 분기 — props 타입 `PlateLinkProps`·`PlateButtonProps` / `PostLinkProps`·`PostButtonProps`
 - `Card.Thumbnail` (`CardThumbnailProps` / `CardThumbnailImage`): `layout`×`variant` 자동 사이징, public 노출
 - `Card.ContentGroup` (`CardContentGroupProps`): title·body를 묶는 그룹 컨테이너
 - `CardOverlayProps` export — `Card.Overlay`의 `a` / `button` discriminated union 타입
@@ -18,10 +18,12 @@
 | ----------------- | ------------------------------------------------------------------------------------- | ------------------------------------------- |
 | 이미지            | `Card.Image` / `CardImageProps`                                                       | `Card.Thumbnail` 또는 `Thumbnail`           |
 | Plate preset      | `Card.Preset.PlateWithTitle` / `PlateWithLabel` / `PlateCompact`                      | `Card.Preset.Plate`                         |
-| Plate preset 타입 | `PlateWithTitlePresetProps` / `PlateWithLabelPresetProps` / `PlateCompactPresetProps` | `PlatePresetProps`                          |
+| Plate preset 타입 | `PlateWithTitlePresetProps` / `PlateWithLabelPresetProps` / `PlateCompactPresetProps` | `PlateLinkProps` / `PlateButtonProps`       |
+| Post preset 타입  | `PostPresetProps`                                                                     | `PostLinkProps` / `PostButtonProps`         |
 | Plate label       | `Card.Label` / `CardLabelProps`                                                       | 제거 — 미지원                               |
 | Card 스타일       | `cardStyle` prop (`Card.Root`·Post) / `CardStyle` 타입                                | 제거 — Post는 항상 empty 렌더링             |
 | Overlay `as`      | 임의 element 허용 / `href` 미강제                                                     | `"a"`·`"button"`만, `as="a"` 시 `href` 필수 |
+| Overlay DOM 마커  | `data-overlay` 속성                                                                   | `data-part="overlay"`                       |
 | Caption           | `standalone` prop                                                                     | 제거                                        |
 | Root props 타입   | `CardRootOwnProps`                                                                    | `CardRootProps`                             |
 
