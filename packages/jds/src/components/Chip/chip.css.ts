@@ -65,18 +65,17 @@ export const root = recipe({
           [chipColorVars.divider]: vars.color.semantic.accent.alpha.assistive,
         },
       },
-      false: {
-        vars: {
-          [chipColorVars.label]: vars.color.semantic.object.bold,
-          [chipColorVars.icon]: vars.color.semantic.object.neutral,
-          [chipColorVars.border]: vars.color.semantic.stroke.alpha.subtle,
-          [chipColorVars.background]: "transparent",
-          [chipColorVars.divider]: vars.color.semantic.stroke.alpha.alternative,
-        },
-      },
     },
     disabled: {
-      true: { cursor: "not-allowed" },
+      true: {
+        cursor: "not-allowed",
+        vars: {
+          [chipColorVars.label]: vars.color.semantic.object.subtler,
+          [chipColorVars.icon]: vars.color.semantic.object.subtler,
+          [chipColorVars.background]: "transparent",
+          [chipColorVars.divider]: vars.color.semantic.stroke.alpha.subtle,
+        },
+      },
       false: { cursor: "pointer" },
     },
   },
@@ -85,11 +84,7 @@ export const root = recipe({
       variants: { activated: false, disabled: true },
       style: {
         vars: {
-          [chipColorVars.label]: vars.color.semantic.object.subtler,
-          [chipColorVars.icon]: vars.color.semantic.object.subtler,
           [chipColorVars.border]: vars.color.semantic.stroke.alpha.subtler,
-          [chipColorVars.background]: "transparent",
-          [chipColorVars.divider]: vars.color.semantic.stroke.alpha.subtle,
         },
       },
     },
@@ -97,11 +92,7 @@ export const root = recipe({
       variants: { activated: true, disabled: true },
       style: {
         vars: {
-          [chipColorVars.label]: vars.color.semantic.object.subtler,
-          [chipColorVars.icon]: vars.color.semantic.object.subtler,
           [chipColorVars.border]: vars.color.semantic.accent.alpha.subtler,
-          [chipColorVars.background]: "transparent",
-          [chipColorVars.divider]: vars.color.semantic.stroke.alpha.subtle,
         },
       },
     },
