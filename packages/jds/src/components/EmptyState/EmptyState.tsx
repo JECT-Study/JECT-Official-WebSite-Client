@@ -18,6 +18,7 @@ export const EmptyState = forwardRef<HTMLDivElement, EmptyStateProps>(
       primaryAction,
       secondaryAction,
       image,
+      className,
       ...rest
     },
     ref,
@@ -40,7 +41,11 @@ export const EmptyState = forwardRef<HTMLDivElement, EmptyStateProps>(
     };
 
     return (
-      <div ref={ref} className={emptyStateStyles.root({ variant, layout })} {...rest}>
+      <div
+        ref={ref}
+        className={clsx(emptyStateStyles.root({ variant, layout }), className)}
+        {...rest}
+      >
         {image && (
           <div className={emptyStateStyles.image}>
             <Thumbnail appearance='hollow' cornerStyle='angular' {...image} />
