@@ -19,8 +19,7 @@ const root = recipe({
     variant: {
       hollow: {},
       dashed: {
-        backgroundColor: "transparent",
-        border: `1px dashed ${vars.color.semantic.stroke.alpha.assistive}`,
+        border: `${vars.scheme.semantic.strokeWeight["1"]} dashed ${vars.color.semantic.stroke.alpha.assistive}`,
       },
       alpha: {
         backgroundColor: vars.color.semantic.fill.subtlest,
@@ -41,7 +40,6 @@ const content = recipe({
   base: {
     display: "flex",
     flexDirection: "column",
-    padding: vars.scheme.semantic.spacing["0"],
     gap: vars.scheme.semantic.spacing["8"],
   },
   variants: {
@@ -98,7 +96,6 @@ const buttonContainer = recipe({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    padding: vars.scheme.semantic.spacing["0"],
     gap: vars.scheme.semantic.spacing["12"],
   },
   variants: {
