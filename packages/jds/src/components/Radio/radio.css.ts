@@ -19,18 +19,6 @@ const radioSizeMap: Record<RadioSize, { sizeRem: string; borderKey: StrokeWeight
 
 export const radioGroupWrapper = style({ display: "contents" });
 
-export const radioInput = style({
-  position: "absolute",
-  width: 1,
-  height: 1,
-  padding: 0,
-  margin: -1,
-  border: 0,
-  overflow: "hidden",
-  clipPath: "inset(50%)",
-  whiteSpace: "nowrap",
-});
-
 export const radioControlRoot = style({
   display: "inline-flex",
   position: "relative",

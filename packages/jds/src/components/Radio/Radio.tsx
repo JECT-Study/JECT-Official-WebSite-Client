@@ -5,7 +5,7 @@ import type { ChangeEventHandler, ForwardedRef, InputHTMLAttributes, Ref } from 
 import { forwardRef, useId, useLayoutEffect, useState } from "react";
 import { useRadioGroupState } from "react-stately";
 import type { RadioGroupState } from "react-stately";
-import { focusRing, getLabelClassName } from "utils";
+import { focusRing, getLabelClassName, visuallyHidden } from "utils";
 import type { LabelSize } from "utils";
 
 import {
@@ -14,7 +14,6 @@ import {
   radioGroupWrapper,
   radioHelper,
   radioHelperSlot,
-  radioInput,
   radioItem,
   radioLabel,
   radioLabelSlot,
@@ -127,7 +126,7 @@ const RadioControl = ({
         ref={inputRef}
         aria-labelledby={isWithinItem ? labelId : undefined}
         aria-describedby={describedById}
-        className={radioInput}
+        className={visuallyHidden}
       />
       <span className={radioVisual({ size, interaction })} aria-hidden='true' />
     </>
