@@ -76,6 +76,7 @@ const header = recipe({
 
 const thumbnail = style({
   flexShrink: 0,
+  height: pxToRem(64),
   vars: {
     [thumbnailVars.width]: pxToRem(64),
   },
