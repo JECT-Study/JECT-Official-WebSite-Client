@@ -5,15 +5,15 @@ import { pxToRem } from "utils";
 import { iconButtonAccentColor } from "../Button/IconButton/iconButton.css";
 
 import { focusRing } from "@/utils/focusRing.css";
-import { overlay, overlayPressedOpacity } from "@/utils/overlay.css";
+import { overlay, overlayHoverOpacity, overlayPressedOpacity } from "@/utils/overlay.css";
 import { labelColorVar } from "@/utils/typography.css";
 
 const LAYER_INSET = `${pxToRem(-6)} ${pxToRem(-8)}`;
 const LAYER_RADIUS = vars.scheme.semantic.radius["6"];
 
 export const root = style([
-  overlay({ hierarchy: "secondary", density: "normal" }),
-  focusRing(),
+  overlay({ hierarchy: "secondary", density: "normal", interaction: "delegated" }),
+  focusRing({ interaction: "delegated" }),
   {
     position: "relative",
     display: "flex",
@@ -32,6 +32,7 @@ export const root = style([
       },
       "&[data-readonly]": {
         vars: {
+          [overlayHoverOpacity]: "0",
           [overlayPressedOpacity]: "0",
         },
       },
@@ -75,7 +76,7 @@ export const icon = style({
   flexShrink: 0,
   color: vars.color.semantic.object.alternative,
   selectors: {
-    [`${root}[data-file-disabled] &`]: {
+    [`${root}[data-disabled] &`]: {
       color: vars.color.semantic.object.subtler,
     },
   },
@@ -104,15 +105,21 @@ export const fileName = style({
   vars: {
     [labelColorVar]: vars.color.semantic.object.bolder,
   },
-  selectors: {
-    [`${root}[data-hovered]:not([data-readonly]):not([data-disabled]) &`]: {
-      textDecorationColor: "currentColor",
+  "@media": {
+    "(hover: hover) and (pointer: fine)": {
+      selectors: {
+        [`${root}:hover:not([data-readonly]):not([data-disabled]) &`]: {
+          textDecorationColor: "currentColor",
+        },
+      },
     },
+  },
+  selectors: {
     // readonly/disabled 상태에서는 선택 중에도 밑줄이 드러나지 않도록 제거한다.
     [`${root}[data-readonly] &, ${root}[data-disabled] &`]: {
       textDecorationLine: "none",
     },
-    [`${root}[data-file-disabled] &`]: {
+    [`${root}[data-disabled] &`]: {
       vars: {
         [labelColorVar]: vars.color.semantic.object.subtle,
       },
@@ -135,7 +142,7 @@ export const fileSize = style({
     [labelColorVar]: vars.color.semantic.object.alternative,
   },
   selectors: {
-    [`${root}[data-file-disabled] &`]: {
+    [`${root}[data-disabled] &`]: {
       vars: {
         [labelColorVar]: vars.color.semantic.object.subtle,
       },
