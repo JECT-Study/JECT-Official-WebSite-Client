@@ -97,7 +97,7 @@ export default meta;
 
 type Story = StoryObj<typeof EmptyState>;
 
-export const Playground: Story = {
+export const Default: Story = {
   args: {
     variant: "hollow",
     layout: "vertical",
