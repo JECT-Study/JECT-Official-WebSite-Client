@@ -6,8 +6,6 @@ import type { EmptyStateProps } from "./emptyState.types";
 import { BlockButton } from "../Button/BlockButton";
 import { Thumbnail } from "../Thumbnail";
 
-import { getTitleClassName } from "@/utils/typography";
-
 export const EmptyState = forwardRef<HTMLDivElement, EmptyStateProps>(
   (
     {
@@ -52,17 +50,7 @@ export const EmptyState = forwardRef<HTMLDivElement, EmptyStateProps>(
           />
         )}
         <div className={emptyStateStyles.content({ layout })}>
-          <span
-            className={clsx(
-              getTitleClassName({
-                size: "xs",
-                textAlign: layout === "vertical" ? "center" : "left",
-              }),
-              emptyStateStyles.header,
-            )}
-          >
-            {header}
-          </span>
+          <span className={emptyStateStyles.header({ layout })}>{header}</span>
           <p className={emptyStateStyles.body({ layout })}>{body}</p>
         </div>
         {actions}

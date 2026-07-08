@@ -4,7 +4,6 @@ import { vars } from "tokens";
 import { pxToRem } from "utils";
 
 import { thumbnailVars } from "@/components/Thumbnail/thumbnail.css";
-import { titleColorVar } from "@/utils/typography.css";
 
 const root = recipe({
   base: {
@@ -57,9 +56,21 @@ const content = recipe({
   },
 });
 
-const header = style({
-  vars: {
-    [titleColorVar]: vars.color.semantic.object.neutral,
+const header = recipe({
+  base: [
+    "semantic-textStyle-title-1",
+    {
+      color: vars.color.semantic.object.neutral,
+    },
+  ],
+  variants: {
+    layout: {
+      vertical: { textAlign: "center" },
+      horizontal: { textAlign: "left" },
+    },
+  },
+  defaultVariants: {
+    layout: "vertical",
   },
 });
 
