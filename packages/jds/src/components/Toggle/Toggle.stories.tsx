@@ -45,9 +45,9 @@ export const Default: Story = {
   },
   render: args => {
     const DefaultToggle = () => {
-      const [checked, setChecked] = useState(args.checked);
+      const [checked, setChecked] = useState(args.checked ?? false);
 
-      return <Toggle {...args} checked={checked} onClick={() => setChecked(value => !value)} />;
+      return <Toggle {...args} checked={checked} onChange={e => setChecked(e.target.checked)} />;
     };
 
     return <DefaultToggle />;
@@ -59,16 +59,16 @@ export const States: Story = {
     <FlexColumn gap='0.75rem'>
       <FlexRow gap='1rem'>
         <Label style={{ width: "6rem" }}>Unchecked</Label>
-        <Toggle checked={false} aria-label='꺼진 토글' />
+        <Toggle checked={false} aria-label='꺼진 토글' readOnly />
       </FlexRow>
       <FlexRow gap='1rem'>
         <Label style={{ width: "6rem" }}>Checked</Label>
-        <Toggle checked aria-label='켜진 토글' />
+        <Toggle checked aria-label='켜진 토글' readOnly />
       </FlexRow>
       <FlexRow gap='1rem'>
         <Label style={{ width: "6rem" }}>Disabled</Label>
-        <Toggle checked={false} disabled aria-label='비활성 꺼진 토글' />
-        <Toggle checked disabled aria-label='비활성 켜진 토글' />
+        <Toggle checked={false} disabled aria-label='비활성 꺼진 토글' readOnly />
+        <Toggle checked disabled aria-label='비활성 켜진 토글' readOnly />
       </FlexRow>
     </FlexColumn>
   ),
@@ -89,7 +89,7 @@ export const Controlled: Story = {
 
       return (
         <FlexColumn gap='0.75rem'>
-          <Toggle checked={checked} onClick={() => setChecked(value => !value)} />
+          <Toggle checked={checked} onChange={e => setChecked(e.target.checked)} />
           <Label>Checked: {String(checked)}</Label>
         </FlexColumn>
       );
@@ -100,7 +100,7 @@ export const Controlled: Story = {
   parameters: {
     docs: {
       description: {
-        story: "`checked`와 `onClick`을 사용해 외부에서 상태를 관리하는 예시입니다.",
+        story: "`checked`와 `onChange`를 사용해 외부에서 상태를 관리하는 예시입니다.",
       },
     },
   },

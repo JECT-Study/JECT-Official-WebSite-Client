@@ -1,9 +1,5 @@
 import type { ComponentPropsWithoutRef } from "react";
 
-export type ToggleProps = Omit<
-  ComponentPropsWithoutRef<"button">,
-  "role" | "aria-checked" | "children" | "type"
-> & {
-  checked: boolean;
+export type ToggleProps = Omit<ComponentPropsWithoutRef<"input">, "children" | "role" | "type"> & {
   children?: never;
 };

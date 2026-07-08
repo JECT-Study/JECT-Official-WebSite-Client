@@ -4,20 +4,26 @@ import { forwardRef } from "react";
 import * as styles from "./toggle.css";
 import type { ToggleProps } from "./toggle.types";
 
-export const Toggle = forwardRef<HTMLButtonElement, ToggleProps>(
-  ({ checked, disabled = false, className, ...props }, ref) => {
+export const Toggle = forwardRef<HTMLInputElement, ToggleProps>(
+  ({ disabled = false, className, style, ...props }, ref) => {
     return (
-      <button
-        ref={ref}
-        {...props}
-        type='button'
-        role='switch'
-        aria-checked={checked}
-        disabled={disabled}
-        className={clsx(styles.root, className)}
-      >
-        <span className={styles.thumb} aria-hidden='true' />
-      </button>
+      <label className={styles.root}>
+        <span
+          className={clsx(styles.track, className)}
+          data-disabled={disabled || undefined}
+          style={style}
+        >
+          <input
+            ref={ref}
+            {...props}
+            type='checkbox'
+            role='switch'
+            disabled={disabled}
+            className={styles.input}
+          />
+          <span className={styles.thumb} aria-hidden='true' />
+        </span>
+      </label>
     );
   },
 );
