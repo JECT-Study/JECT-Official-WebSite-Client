@@ -230,7 +230,7 @@ export const basicRoot = recipe({
 export const feedbackRoot = recipe({
   base: root,
   variants: {
-    variant: {
+    feedback: {
       positive: {},
       destructive: {},
     } satisfies Record<FeedbackVariant, StyleRule>,
@@ -243,27 +243,27 @@ export const feedbackRoot = recipe({
   },
   compoundVariants: [
     {
-      variants: { badgeStyle: "solid", variant: "positive" },
+      variants: { badgeStyle: "solid", feedback: "positive" },
       style: createBadgeStyle(feedbackStyles.solid.positive),
     },
     {
-      variants: { badgeStyle: "solid", variant: "destructive" },
+      variants: { badgeStyle: "solid", feedback: "destructive" },
       style: createBadgeStyle(feedbackStyles.solid.destructive),
     },
     {
-      variants: { badgeStyle: "alpha", variant: "positive" },
+      variants: { badgeStyle: "alpha", feedback: "positive" },
       style: createBadgeStyle(feedbackStyles.alpha.positive),
     },
     {
-      variants: { badgeStyle: "alpha", variant: "destructive" },
+      variants: { badgeStyle: "alpha", feedback: "destructive" },
       style: createBadgeStyle(feedbackStyles.alpha.destructive),
     },
     {
-      variants: { badgeStyle: "hollow", variant: "positive" },
+      variants: { badgeStyle: "hollow", feedback: "positive" },
       style: createBadgeStyle(feedbackStyles.hollow.positive),
     },
     {
-      variants: { badgeStyle: "hollow", variant: "destructive" },
+      variants: { badgeStyle: "hollow", feedback: "destructive" },
       style: createBadgeStyle(feedbackStyles.hollow.destructive),
     },
   ],

@@ -52,7 +52,7 @@ export const feedbackRoot = recipe({
     borderRadius: vars.scheme.semantic.radius.max,
   },
   variants: {
-    variant: {
+    feedback: {
       positive: {},
       destructive: {},
     } satisfies Record<FeedbackVariant, StyleRule>,
@@ -64,11 +64,11 @@ export const feedbackRoot = recipe({
   },
   compoundVariants: [
     {
-      variants: { variant: "positive" },
+      variants: { feedback: "positive" },
       style: { backgroundColor: vars.color.semantic.feedback.positive.neutral },
     },
     {
-      variants: { variant: "destructive" },
+      variants: { feedback: "destructive" },
       style: { backgroundColor: vars.color.semantic.feedback.destructive.neutral },
     },
   ],

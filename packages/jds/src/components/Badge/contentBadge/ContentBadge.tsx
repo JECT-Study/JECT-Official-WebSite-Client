@@ -39,9 +39,8 @@ const ContentBadgeRoot = forwardRef<HTMLSpanElement, ContentBadgeProps>(
     ref,
   ) => {
     const iconSize = iconSizeMap[size];
-    // TODO: feedbackRoot의 recipe variant key도 public prop 이름에 맞춰 feedback으로 변경
     const rootClassName = feedback
-      ? styles.feedbackRoot({ variant: feedback, size, badgeStyle, isMuted, withIconButton })
+      ? styles.feedbackRoot({ feedback, size, badgeStyle, isMuted, withIconButton })
       : variant
         ? styles.themeRoot({ variant, size, badgeStyle, isMuted })
         : styles.basicRoot({ hierarchy, size, badgeStyle, isMuted, withIconButton });
