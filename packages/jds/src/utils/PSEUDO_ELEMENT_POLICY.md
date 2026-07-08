@@ -94,6 +94,20 @@ style([
 
 `::before`는 focusRing, `::after`는 overlay라는 매핑은 그대로 유지된다. pseudo가 자기 상태 대신 다른 요소의 상태를 반영할 뿐이다.
 
+### focusRing이 focus를 읽는 범위
+
+`focusRing`의 `interaction`은 어느 요소의 focus에 반응할지 정한다. ring을 그리는 요소와 실제 focus를 받는 요소가 같은지 다른지에 따라 값을 고른다.
+
+| 값          | 반응하는 focus                            | 쓰는 곳                                                            |
+| ----------- | ----------------------------------------- | ------------------------------------------------------------------ |
+| `self`      | 요소 자신의 `:focus-visible`              | 자신이 곧 focus 대상인 요소 (버튼, 링크 등)                        |
+| `within`    | 자신 또는 자손의 `:focus-visible`         | 내부 컨트롤을 감싸 focus 대상이 자손인 요소 (Checkbox 등)          |
+| `delegated` | `[data-interaction-target]:focus-visible` | root가 그리고 focus는 지정한 내부 버튼이 받는 요소 (File, Chip 등) |
+
+`self`는 요소 자신만, `within`은 `:has(:focus-visible)`로 자손까지, `delegated`는 자손 중 `[data-interaction-target]` 하나만 본다. 뒤로 갈수록 focus를 읽는 범위가 좁아진다.
+
+`within`은 자손 아무 곳의 focus에나 반응하므로, 임의의 콘텐츠를 감싸는 컨테이너(예: 탭 패널)에 쓰면 패널 안 어떤 컨트롤에 focus가 가도 패널 전체에 ring이 그려진다. 이런 컨테이너는 자신만 focus 대상인 `self`를 쓴다. 자손이 여럿이고 그중 하나(main action)만 골라야 하면 `delegated`를 쓴다.
+
 ## 호출부가 담당하는 것
 
 유틸은 상태에 따라 효과를 켜고 끄는 것만 담당한다. inset과 borderRadius 같은 모양, 그리고 `position: relative` 같은 배치는 호출부가 정한다.
