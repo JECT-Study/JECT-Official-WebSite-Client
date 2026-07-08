@@ -36,17 +36,13 @@ export const SelectRadio = forwardRef<HTMLDivElement, SelectRadioProps>(
         role='radio'
         aria-checked={isItemSelected}
         aria-disabled={isDisabled}
+        data-state={isItemSelected ? "checked" : "unchecked"}
+        data-disabled={isDisabled || undefined}
         tabIndex={isDisabled ? -1 : 0}
         {...restProps}
       >
         <StyledSelectItemInputWrapper>
-          <Radio.Basic
-            size={size}
-            value={value}
-            checked={isItemSelected}
-            disabled={isDisabled}
-            tabIndex={-1}
-          />
+          <Radio.Indicator size={size} />
         </StyledSelectItemInputWrapper>
         <StyledSelectItemContent>
           <StyledSelectItemText

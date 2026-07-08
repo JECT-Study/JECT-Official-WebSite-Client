@@ -1,19 +1,14 @@
-import { useRadio, useRadioGroup } from "@react-aria/radio";
-import { mergeProps, useObjectRef } from "@react-aria/utils";
 import { clsx } from "clsx";
-import type { ChangeEventHandler, ForwardedRef, InputHTMLAttributes, Ref } from "react";
+import { RadioGroup } from "radix-ui";
 import { forwardRef, useId, useLayoutEffect, useState } from "react";
-import { useRadioGroupState } from "react-stately";
-import type { RadioGroupState } from "react-stately";
-import { focusRing, getLabelClassName, visuallyHidden } from "utils";
+import { focusRing, getLabelClassName } from "utils";
 import type { LabelSize } from "utils";
 
 import {
-  radioControlRoot,
-  radioControlSlot,
   radioGroupWrapper,
   radioHelper,
   radioHelperSlot,
+  radioIndicatorSlot,
   radioItem,
   radioLabel,
   radioLabelSlot,
@@ -21,7 +16,7 @@ import {
 } from "./radio.css";
 import type {
   RadioSize,
-  RadioBasicProps,
+  RadioIndicatorProps,
   RadioHelperProps,
   RadioItemProps,
   RadioLabelProps,
@@ -45,24 +40,26 @@ const RadioRoot = ({
   onChange,
   name,
   children,
-}: RadioRootProps) => {
-  const state = useRadioGroupState({ value, defaultValue, onChange, isDisabled: disabled, name });
-  const { radioGroupProps } = useRadioGroup({ isDisabled: disabled }, state);
-
-  return (
-    <RadioConfigProvider value={{ size, variant, disabled, state }}>
-      <div {...radioGroupProps} className={radioGroupWrapper}>
-        {children}
-      </div>
-    </RadioConfigProvider>
-  );
-};
+}: RadioRootProps) => (
+  <RadioConfigProvider value={{ size, variant, disabled }}>
+    <RadioGroup.Root
+      className={radioGroupWrapper}
+      value={value}
+      defaultValue={defaultValue}
+      onValueChange={onChange}
+      disabled={disabled}
+      name={name}
+    >
+      {children}
+    </RadioGroup.Root>
+  </RadioConfigProvider>
+);
 
 RadioRoot.displayName = "Radio.Root";
 
-const RadioItem = forwardRef<HTMLLabelElement, RadioItemProps>(
+const RadioItem = forwardRef<HTMLButtonElement, RadioItemProps>(
   (
-    { size: sizeProp, variant: variantProp, disabled = false, children, className, ...restProps },
+    { value, size: sizeProp, variant: variantProp, disabled = false, children, className, ...restProps },
     ref,
   ) => {
     const parentContext = useRadioConfig();
@@ -76,22 +73,21 @@ const RadioItem = forwardRef<HTMLLabelElement, RadioItemProps>(
     const [hasHelper, setHasHelper] = useState(false);
 
     return (
-      <RadioConfigProvider value={{ ...parentContext, size, variant, disabled: isDisabled }}>
+      <RadioConfigProvider value={{ size, variant, disabled: isDisabled }}>
         <RadioItemProvider
           value={{ labelId, helperId, hasHelper, onHelperMountChange: setHasHelper }}
         >
-          <label
+          <RadioGroup.Item
             ref={ref}
+            value={value}
+            disabled={isDisabled}
+            aria-labelledby={labelId}
+            aria-describedby={hasHelper ? helperId : undefined}
+            className={clsx(radioItem({ size, styleOutlined: variant }), focusRing(), className)}
             {...restProps}
-            data-disabled={isDisabled || undefined}
-            className={clsx(
-              radioItem({ size, styleOutlined: variant }),
-              focusRing({ interaction: "within" }),
-              className,
-            )}
           >
             {children}
-          </label>
+          </RadioGroup.Item>
         </RadioItemProvider>
       </RadioConfigProvider>
     );
@@ -100,142 +96,22 @@ const RadioItem = forwardRef<HTMLLabelElement, RadioItemProps>(
 
 RadioItem.displayName = "Radio.Item";
 
-interface RadioControlProps {
-  isWithinItem: boolean;
-  labelId?: string;
-  describedById?: string;
-  size: RadioSize;
-  interaction: "on" | "off";
-  inputRef: Ref<HTMLInputElement>;
-  inputProps: InputHTMLAttributes<HTMLInputElement>;
-}
-
-const RadioControl = ({
-  isWithinItem,
-  labelId,
-  describedById,
-  size,
-  interaction,
-  inputRef,
-  inputProps,
-}: RadioControlProps) => {
-  const className = clsx(radioControlRoot, radioControlSlot);
-  const content = (
-    <>
-      <input
-        {...inputProps}
-        ref={inputRef}
-        aria-labelledby={isWithinItem ? labelId : undefined}
-        aria-describedby={describedById}
-        className={visuallyHidden}
-      />
-      <span className={radioVisual({ size, interaction })} aria-hidden='true' />
-    </>
-  );
-
-  return isWithinItem ? (
-    <span className={className}>{content}</span>
-  ) : (
-    <label className={className}>{content}</label>
-  );
-};
-
-interface RadioBasicGroupedProps {
-  size: RadioSize;
-  value: string;
-  isDisabled: boolean;
-  isWithinItem: boolean;
-  labelId?: string;
-  describedById?: string;
-  interaction: "on" | "off";
-  state: RadioGroupState;
-  forwardedRef: ForwardedRef<HTMLInputElement>;
-  restProps: InputHTMLAttributes<HTMLInputElement>;
-  onChange?: ChangeEventHandler<HTMLInputElement>;
-}
-
-const RadioBasicGrouped = ({
-  size,
-  value,
-  isDisabled,
-  isWithinItem,
-  labelId,
-  describedById,
-  interaction,
-  state,
-  forwardedRef,
-  restProps,
-  onChange,
-}: RadioBasicGroupedProps) => {
-  const ref = useObjectRef(forwardedRef);
-  const { inputProps } = useRadio({ value, isDisabled }, state, ref);
-
-  return (
-    <RadioControl
-      isWithinItem={isWithinItem}
-      labelId={labelId}
-      describedById={describedById}
-      size={size}
-      interaction={interaction}
-      inputRef={ref}
-      inputProps={mergeProps(inputProps, restProps, { onChange })}
-    />
-  );
-};
-
-const RadioBasic = forwardRef<HTMLInputElement, RadioBasicProps>(
-  ({ size: sizeProp, value, checked, disabled, onChange, name, ...restProps }, forwardedRef) => {
-    const context = useRadioConfig();
-    const itemContext = useRadioItem();
-
-    const size = context?.size ?? sizeProp ?? "md";
-    const isDisabled = disabled || (context?.disabled ?? false);
-    const isWithinItem = itemContext != null;
-    const interaction = isWithinItem ? "off" : "on";
-    const labelId = itemContext?.labelId;
-    const describedById = itemContext?.hasHelper ? itemContext?.helperId : undefined;
-
-    if (context?.state) {
-      return (
-        <RadioBasicGrouped
-          size={size}
-          value={value}
-          isDisabled={isDisabled}
-          isWithinItem={isWithinItem}
-          labelId={labelId}
-          describedById={describedById}
-          interaction={interaction}
-          state={context.state}
-          forwardedRef={forwardedRef}
-          restProps={restProps}
-          onChange={onChange}
-        />
-      );
-    }
-
+const RadioIndicator = forwardRef<HTMLSpanElement, RadioIndicatorProps>(
+  ({ size: sizeProp, className, ...restProps }, ref) => {
+    const config = useRadioConfig();
+    const size = sizeProp ?? config?.size ?? "md";
     return (
-      <RadioControl
-        isWithinItem={isWithinItem}
-        labelId={labelId}
-        describedById={describedById}
-        size={size}
-        interaction={interaction}
-        inputRef={forwardedRef}
-        inputProps={{
-          type: "radio",
-          value,
-          checked,
-          disabled: isDisabled,
-          onChange,
-          name,
-          ...restProps,
-        }}
+      <span
+        ref={ref}
+        aria-hidden='true'
+        className={clsx(radioVisual({ size }), radioIndicatorSlot, className)}
+        {...restProps}
       />
     );
   },
 );
 
-RadioBasic.displayName = "Radio.Basic";
+RadioIndicator.displayName = "Radio.Indicator";
 
 const RadioLabel = forwardRef<HTMLSpanElement, RadioLabelProps>(({ children }, ref) => {
   const size = useRadioConfig()?.size ?? "md";
@@ -287,7 +163,7 @@ RadioHelper.displayName = "Radio.Helper";
 export const Radio = {
   Root: RadioRoot,
   Item: RadioItem,
-  Basic: RadioBasic,
+  Indicator: RadioIndicator,
   Label: RadioLabel,
   Helper: RadioHelper,
 };
