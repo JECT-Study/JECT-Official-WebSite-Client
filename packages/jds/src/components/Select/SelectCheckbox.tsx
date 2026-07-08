@@ -10,7 +10,7 @@ import {
   StyledSelectItemInputWrapper,
 } from "./select.styles";
 import type { SelectCheckboxProps } from "./select.types";
-import { Checkbox } from "../Checkbox";
+import { CheckboxPrimitive } from "../Checkbox/CheckboxPrimitive";
 
 import { getLabelClassName } from "@/utils/typography";
 
@@ -40,7 +40,7 @@ export const SelectCheckbox = forwardRef<HTMLDivElement, SelectCheckboxProps>(
         {...restProps}
       >
         <StyledSelectItemInputWrapper>
-          <Checkbox.Control
+          <CheckboxPrimitive.Control
             size={size}
             checked={isItemSelected}
             onCheckedChange={() => {}}

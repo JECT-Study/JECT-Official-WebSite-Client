@@ -71,3 +71,37 @@ export type CheckboxLabelProps = {
 export type CheckboxHelperProps = {
   children: ReactNode;
 };
+
+export type CheckboxOption = {
+  value: string;
+  label: ReactNode;
+  helper?: ReactNode;
+  disabled?: boolean;
+  isInvalid?: boolean;
+};
+
+type CheckboxGroupBaseProps = {
+  size?: CheckboxSize;
+  variant?: CheckboxVariant;
+  disabled?: boolean;
+  isInvalid?: boolean;
+  name?: string;
+  options: CheckboxOption[];
+};
+
+export type CheckboxGroupProps = CheckboxGroupBaseProps &
+  (CheckboxRootControlledProps | CheckboxRootUncontrolledProps);
+
+type CheckboxStandaloneBaseProps = {
+  size?: CheckboxSize;
+  variant?: CheckboxVariant;
+  disabled?: boolean;
+  isInvalid?: boolean;
+  label?: ReactNode;
+  helper?: ReactNode;
+  name?: string;
+  value?: string;
+};
+
+export type CheckboxProps = CheckboxStandaloneBaseProps &
+  (CheckboxControlControlledProps | CheckboxControlUncontrolledProps);
