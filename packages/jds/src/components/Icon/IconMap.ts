@@ -96,6 +96,7 @@ export const iconMap = {
   instance: Icons.Instance,
   layer: Icons.Layer,
   line: Icons.Line,
+  "link-diagonal-line": Icons.LinkDiagonalLine,
   "link-line": Icons.LinkLine,
   "mail-fill": Icons.MailFill,
   "mail-line": Icons.MailLine,
