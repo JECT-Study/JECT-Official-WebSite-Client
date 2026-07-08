@@ -125,6 +125,12 @@ export const contentButton = style({
     "&[disabled]": {
       cursor: "not-allowed",
     },
+    "&::after": {
+      content: '""',
+      position: "absolute",
+      inset: 0,
+      borderRadius: vars.scheme.semantic.radius.max,
+    },
   },
 });
 
@@ -155,6 +161,8 @@ export const divider = style({
 });
 
 export const closeButton = style({
+  position: "relative",
+  zIndex: 1,
   vars: {
     [iconButtonAccentColor]: chipColorVars.icon,
     [iconButtonAccentDisabledColor]: chipColorVars.icon,
