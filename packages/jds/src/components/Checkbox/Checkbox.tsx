@@ -128,7 +128,7 @@ const CheckboxItem = forwardRef<HTMLLabelElement, CheckboxItemProps>(
             data-invalid={isEffectiveInvalid || undefined}
             className={clsx(
               checkboxItem({ size, styleOutlined: variant }),
-              focusRing({ feedback: isEffectiveInvalid ? "destructive" : "none" }),
+              focusRing({ feedback: isEffectiveInvalid ? "destructive" : "none", interaction: "within" }),
               className,
             )}
           >

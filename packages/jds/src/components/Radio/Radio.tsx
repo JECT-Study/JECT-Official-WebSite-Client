@@ -84,7 +84,11 @@ const RadioItem = forwardRef<HTMLLabelElement, RadioItemProps>(
             ref={ref}
             {...restProps}
             data-disabled={isDisabled || undefined}
-            className={clsx(radioItem({ size, styleOutlined: variant }), focusRing(), className)}
+            className={clsx(
+              radioItem({ size, styleOutlined: variant }),
+              focusRing({ interaction: "within" }),
+              className,
+            )}
           >
             {children}
           </label>
