@@ -45,9 +45,11 @@ export const Default: Story = {
   },
   render: args => {
     const DefaultToggle = () => {
-      const [checked, setChecked] = useState(args.checked ?? false);
+      const [isChecked, setIsChecked] = useState(args.checked ?? false);
 
-      return <Toggle {...args} checked={checked} onChange={e => setChecked(e.target.checked)} />;
+      return (
+        <Toggle {...args} checked={isChecked} onChange={e => setIsChecked(e.target.checked)} />
+      );
     };
 
     return <DefaultToggle />;
@@ -85,12 +87,12 @@ export const States: Story = {
 export const Controlled: Story = {
   render: () => {
     const ControlledToggle = () => {
-      const [checked, setChecked] = useState(false);
+      const [isChecked, setIsChecked] = useState(false);
 
       return (
         <FlexColumn gap='0.75rem'>
-          <Toggle checked={checked} onChange={e => setChecked(e.target.checked)} />
-          <Label>Checked: {String(checked)}</Label>
+          <Toggle checked={isChecked} onChange={e => setIsChecked(e.target.checked)} />
+          <Label>Checked: {String(isChecked)}</Label>
         </FlexColumn>
       );
     };
