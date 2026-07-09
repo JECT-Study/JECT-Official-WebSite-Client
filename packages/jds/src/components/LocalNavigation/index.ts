@@ -1,2 +1,2 @@
 export { LocalNavigation } from "./LocalNavigation";
-export type { LocalNavigationProps } from "./localNavigation.types";
+export type { LocalNavigationProps, LocalNavigationTitleAs } from "./localNavigation.types";

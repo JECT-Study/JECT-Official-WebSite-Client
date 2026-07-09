@@ -1,6 +1,6 @@
 import { clsx } from "clsx";
 import { IconButton } from "components";
-import { forwardRef } from "react";
+import { forwardRef, useId } from "react";
 import { getTitleClassName } from "utils";
 
 import { backButtonSlot, navRoot, navTitle, suffixActionSlot } from "./localNavigation.css";
@@ -10,6 +10,7 @@ export const LocalNavigation = forwardRef<HTMLElement, LocalNavigationProps>(
   (
     {
       title,
+      titleAs: TitleTag = "span",
       nested = false,
       floated = false,
       stretched = false,
@@ -20,10 +21,12 @@ export const LocalNavigation = forwardRef<HTMLElement, LocalNavigationProps>(
     },
     ref,
   ) => {
+    const titleId = useId();
+
     return (
       <nav
         ref={ref}
-        aria-label={title}
+        aria-labelledby={titleId}
         className={clsx(navRoot({ nested, floated, stretched }), className)}
         {...restProps}
       >
@@ -37,9 +40,12 @@ export const LocalNavigation = forwardRef<HTMLElement, LocalNavigationProps>(
             />
           </div>
         )}
-        <h2 className={clsx(getTitleClassName({ size: nested ? "xs" : "md" }), navTitle)}>
+        <TitleTag
+          id={titleId}
+          className={clsx(getTitleClassName({ size: nested ? "xs" : "md" }), navTitle)}
+        >
           {title}
-        </h2>
+        </TitleTag>
         {suffixAction && <div className={suffixActionSlot}>{suffixAction}</div>}
       </nav>
     );
