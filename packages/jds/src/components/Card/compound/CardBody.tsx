@@ -1,14 +1,28 @@
+import { clsx } from "clsx";
 import { forwardRef } from "react";
 
-import type { CardBodyProps } from "../Card.types";
-import { StyledCardBody } from "./compound.styles";
+import type { CardBodyProps } from "../card.types";
+import { useCardContext } from "../cardContext";
+import * as styles from "./card.css";
+
+import { getBodyClassName } from "@/utils/typography";
 
 export const CardBody = forwardRef<HTMLParagraphElement, CardBodyProps>(
-  ({ children, ...restProps }, ref) => {
+  ({ children, className, ...restProps }, ref) => {
+    const { variant } = useCardContext("Card.Body");
+
     return (
-      <StyledCardBody ref={ref} {...restProps}>
+      <p
+        ref={ref}
+        className={clsx(
+          getBodyClassName({ size: "sm", weight: "normal" }),
+          styles.body({ variant }),
+          className,
+        )}
+        {...restProps}
+      >
         {children}
-      </StyledCardBody>
+      </p>
     );
   },
 );

@@ -1,14 +1,28 @@
+import { clsx } from "clsx";
 import { forwardRef } from "react";
 
-import type { CardMetaItemProps } from "../Card.types";
-import { StyledCardMetaItem } from "./compound.styles";
+import type { CardMetaItemProps } from "../card.types";
+import { useCardRootGuard } from "../cardContext";
+import * as styles from "./card.css";
+
+import { getLabelClassName } from "@/utils/typography";
 
 export const CardMetaItem = forwardRef<HTMLSpanElement, CardMetaItemProps>(
-  ({ children, ...restProps }, ref) => {
+  ({ children, className, ...restProps }, ref) => {
+    useCardRootGuard("Card.MetaItem");
+
     return (
-      <StyledCardMetaItem ref={ref} {...restProps}>
+      <span
+        ref={ref}
+        className={clsx(
+          getLabelClassName({ size: "sm", weight: "normal" }),
+          styles.metaItem,
+          className,
+        )}
+        {...restProps}
+      >
         {children}
-      </StyledCardMetaItem>
+      </span>
     );
   },
 );

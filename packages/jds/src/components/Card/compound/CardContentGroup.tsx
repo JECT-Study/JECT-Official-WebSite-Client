@@ -1,18 +1,18 @@
 import { clsx } from "clsx";
 import { forwardRef } from "react";
 
-import type { CardContentProps } from "../card.types";
+import type { CardContentGroupProps } from "../card.types";
 import { useCardContext } from "../cardContext";
 import * as styles from "./card.css";
 
-export const CardContent = forwardRef<HTMLDivElement, CardContentProps>(
+export const CardContentGroup = forwardRef<HTMLDivElement, CardContentGroupProps>(
   ({ children, className, ...restProps }, ref) => {
-    const { variant, layout } = useCardContext("Card.Content");
+    const { variant } = useCardContext("Card.ContentGroup");
 
     return (
       <div
         ref={ref}
-        className={clsx(styles.content({ variant, layout }), className)}
+        className={clsx(styles.contentGroup({ variant }), className)}
         {...restProps}
       >
         {children}
@@ -21,4 +21,4 @@ export const CardContent = forwardRef<HTMLDivElement, CardContentProps>(
   },
 );
 
-CardContent.displayName = "Card.Content";
+CardContentGroup.displayName = "Card.ContentGroup";

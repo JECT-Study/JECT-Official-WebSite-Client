@@ -22,7 +22,7 @@ export const root = recipe({
 
 export const item = recipe({
   base: [
-    overlay({ density: "normal", hierarchy: "secondary", nativeHover: true }),
+    overlay({ density: "normal", hierarchy: "secondary" }),
     focusRing(),
     {
       position: "relative",

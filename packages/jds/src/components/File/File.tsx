@@ -1,4 +1,3 @@
-import { mergeProps } from "@react-aria/utils";
 import { clsx } from "clsx";
 import { forwardRef } from "react";
 
@@ -7,7 +6,6 @@ import type { FileProps } from "./file.types";
 import { IconButton } from "../Button/IconButton";
 import { Icon } from "../Icon";
 
-import { useCompositePressable } from "@/hooks";
 import { getLabelClassName } from "@/utils/typography";
 
 export const File = forwardRef<HTMLButtonElement, FileProps>(
@@ -24,12 +22,6 @@ export const File = forwardRef<HTMLButtonElement, FileProps>(
     },
     forwardedRef,
   ) => {
-    const { mainActionRef, mainActionProps, rootProps } = useCompositePressable(forwardedRef, {
-      disabled,
-      hoverDisabled: disabled || readonly,
-      elementType: "button",
-    });
-
     const interactionClassName = disabled
       ? styles.disabled
       : readonly
@@ -38,16 +30,16 @@ export const File = forwardRef<HTMLButtonElement, FileProps>(
 
     return (
       <div
-        {...rootProps}
         className={clsx(styles.root, interactionClassName, className)}
         data-readonly={readonly || undefined}
-        data-file-disabled={disabled || undefined}
+        data-disabled={disabled || undefined}
       >
         <button
-          ref={mainActionRef}
-          {...mergeProps(mainActionProps, restProps)}
+          ref={forwardedRef}
+          {...restProps}
           type={restProps.type ?? "button"}
           disabled={disabled}
+          data-interaction-target
           className={styles.mainAction}
         >
           <span className={styles.fileInfo}>
