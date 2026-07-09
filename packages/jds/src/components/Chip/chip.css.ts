@@ -21,8 +21,8 @@ const chipColorVars = {
 
 export const root = recipe({
   base: [
-    overlay({ hierarchy: "primary", density: "normal" }),
-    focusRing(),
+    overlay({ hierarchy: "primary", density: "normal", interaction: "delegated" }),
+    focusRing({ interaction: "delegated" }),
     {
       position: "relative",
       display: "inline-flex",
@@ -48,7 +48,6 @@ export const root = recipe({
       },
       selectors: {
         "&::before, &::after": { inset: 0, borderRadius: "inherit" },
-        "&[data-disabled][data-focus-visible]::before": { boxShadow: "none" },
       },
     },
   ],

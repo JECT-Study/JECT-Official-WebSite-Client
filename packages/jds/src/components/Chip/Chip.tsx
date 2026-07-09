@@ -1,7 +1,3 @@
-import { useButton } from "@react-aria/button";
-import { useFocusRing } from "@react-aria/focus";
-import { useHover } from "@react-aria/interactions";
-import { mergeProps, useObjectRef } from "@react-aria/utils";
 import { clsx } from "clsx";
 import { forwardRef } from "react";
 
@@ -27,38 +23,24 @@ export const Chip = forwardRef<HTMLButtonElement, ChipProps>(
     },
     forwardedRef,
   ) => {
-    const mainActionRef = useObjectRef(forwardedRef);
-    const { focusProps, isFocusVisible } = useFocusRing();
-    const { hoverProps, isHovered } = useHover({ isDisabled: disabled });
-    const { buttonProps, isPressed } = useButton(
-      { isDisabled: disabled, elementType: "button" },
-      mainActionRef,
-    );
-    const mainActionProps = mergeProps({ ...buttonProps, onKeyDown: undefined }, focusProps);
     const hasValueLabel = Boolean(valueLabel);
 
     return (
       <span
-        {...hoverProps}
         className={clsx(styles.root({ activated, disabled }), className)}
         style={style}
-        data-hovered={isHovered || undefined}
-        data-pressed={isPressed || undefined}
-        data-focus-visible={isFocusVisible || undefined}
         data-disabled={disabled || undefined}
       >
         <button
-          ref={mainActionRef}
-          data-chip-part='content'
-          aria-pressed={activated}
-          {...mainActionProps}
-          type={type}
+          ref={forwardedRef}
           {...restProps}
-          className={clsx(styles.contentButton, mainActionProps.className)}
+          type={type}
+          disabled={disabled}
+          aria-pressed={activated}
+          data-interaction-target
+          className={styles.contentButton}
         >
-          <span className={clsx(styles.label, getLabelClassName({ size: "md" }))}>
-            {label}
-          </span>
+          <span className={clsx(styles.label, getLabelClassName({ size: "md" }))}>{label}</span>
           {hasValueLabel && (
             <>
               <span className={styles.dividerWrapper}>
