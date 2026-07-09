@@ -119,7 +119,7 @@ const MATRIX_CELL_CLASS = "dialog-variant-cell";
 const MATRIX_STYLE = `
 .${MATRIX_CELL_CLASS} > *:not([role="dialog"]) { display: none; }
 .${MATRIX_CELL_CLASS} [role="dialog"] { position: static; transform: none; animation: none; width: 100%; }
-.${MATRIX_CELL_CLASS} *::before, .${MATRIX_CELL_CLASS} *::after { box-shadow: none !important; }
+.${MATRIX_CELL_CLASS} :where(button, label)::before, .${MATRIX_CELL_CLASS} :where(button, label)::after { box-shadow: none !important; }
 `;
 
 type MatrixCaseProps = {
