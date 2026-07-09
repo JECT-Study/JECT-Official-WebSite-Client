@@ -156,49 +156,6 @@ export const WithSecondaryButton: Story = {
   },
 };
 
-export const WithTertiaryButton: Story = {
-  render: () => {
-    const [open, setOpen] = useState<"default" | "isStretched" | null>(null);
-
-    return (
-      <FlexRow>
-        <BlockButton.Basic onClick={() => setOpen("default")}>정렬된 경우</BlockButton.Basic>
-        <BlockButton.Basic onClick={() => setOpen("isStretched")}>
-          정렬되지 않은 경우
-        </BlockButton.Basic>
-
-        <Dialog
-          open={open === "default"}
-          onOpenChange={value => (value ? setOpen("default") : setOpen(null))}
-          header={SAMPLE_HEADER}
-          body={SAMPLE_BODY}
-          primaryAction={{ children: "레이블" }}
-          secondaryAction={{ children: "레이블" }}
-          tertiaryAction={{ children: "레이블" }}
-        />
-        <Dialog
-          open={open === "isStretched"}
-          onOpenChange={value => (value ? setOpen("isStretched") : setOpen(null))}
-          header={SAMPLE_HEADER}
-          body={SAMPLE_BODY}
-          isButtonStretched
-          primaryAction={{ children: "레이블" }}
-          secondaryAction={{ children: "레이블" }}
-          tertiaryAction={{ children: "레이블" }}
-        />
-      </FlexRow>
-    );
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "tertiaryAction을 통해 내부에 세 번째 위계(중요도)의 버튼 컴포넌트를 포함하는지 판단합니다. secondaryAction이 존재하지 않을 경우 사용할 수 없습니다.",
-      },
-    },
-  },
-};
-
 export const WithCheckbox: Story = {
   render: () => {
     const [isOpen, setIsOpen] = useState(false);

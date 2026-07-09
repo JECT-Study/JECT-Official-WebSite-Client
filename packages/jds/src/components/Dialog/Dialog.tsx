@@ -1,21 +1,13 @@
 import * as DialogPrimitive from "@radix-ui/react-dialog";
+import { clsx } from "clsx";
 import { forwardRef } from "react";
 
-import {
-  DialogBodyTextP,
-  DialogButtonContainerDiv,
-  DialogContentDiv,
-  DialogDiv,
-  DialogRoot,
-  DialogTitle,
-  DialogOverlay,
-  DialogContent,
-} from "./Dialog.styles";
+import * as styles from "./dialog.css";
 import type { DialogProps } from "./Dialog.types";
 import { BlockButton } from "../Button/BlockButton";
 import { Checkbox } from "../Checkbox";
 
-import { getTitleClassName } from "@/utils/typography";
+import { getBodyClassName, getTitleClassName } from "@/utils/typography";
 
 export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
   (
@@ -26,19 +18,21 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
       checkboxAction,
       primaryAction,
       secondaryAction,
-      tertiaryAction,
       ...rest
     },
     ref,
   ) => {
-    const hasTertiaryButton = !!tertiaryAction;
-    const isReversedOrder = isButtonStretched && !!tertiaryAction;
+    const hasSecondaryButton = !!secondaryAction;
+    const isStacked = isButtonStretched && hasSecondaryButton;
+    const buttonSize = isButtonStretched ? "lg" : "md";
+    const buttonWidth = isButtonStretched ? "100%" : "auto";
 
     const renderButtons = () => {
       const primary = (
         <BlockButton.Basic
           key='primary'
-          style={{ width: isButtonStretched ? "100%" : "auto" }}
+          size={buttonSize}
+          style={{ width: buttonWidth }}
           {...primaryAction}
         />
       );
@@ -48,24 +42,15 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
           key='secondary'
           variant='outlined'
           hierarchy='secondary'
-          style={{ width: isButtonStretched ? "100%" : "auto" }}
+          size={buttonSize}
+          style={{ width: buttonWidth }}
           {...secondaryAction}
         />
       ) : null;
 
-      const tertiary = tertiaryAction ? (
-        <BlockButton.Basic
-          key='tertiary'
-          variant='hollow'
-          hierarchy='secondary'
-          style={{ width: isButtonStretched ? "100%" : "auto" }}
-          {...tertiaryAction}
-        />
-      ) : null;
-
-      const ordered: (JSX.Element | null)[] = isReversedOrder
-        ? [primary, secondary, tertiary]
-        : [tertiary, secondary, primary];
+      const ordered: (JSX.Element | null)[] = isStacked
+        ? [primary, secondary]
+        : [secondary, primary];
 
       return ordered.filter(Boolean) as JSX.Element[];
     };
@@ -73,29 +58,31 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
     return (
       <DialogPrimitive.Root {...rest}>
         <DialogPrimitive.Portal>
-          <DialogOverlay />
-          <DialogContent asChild>
-            <DialogRoot ref={ref}>
-              <DialogDiv>
-                <DialogContentDiv>
-                  <DialogTitle className={getTitleClassName({ size: "xs" })}>{header}</DialogTitle>
-                  <DialogBodyTextP>{body}</DialogBodyTextP>
-                  {checkboxAction && (
-                    <Checkbox.Item>
-                      <Checkbox.Basic
-                        checked={checkboxAction.checked}
-                        onCheckedChange={checkboxAction.onCheckedChange}
-                      />
-                      <Checkbox.Label>{checkboxAction.label}</Checkbox.Label>
-                    </Checkbox.Item>
-                  )}
-                </DialogContentDiv>
-                <DialogButtonContainerDiv $isStacked={isButtonStretched && hasTertiaryButton}>
-                  {renderButtons()}
-                </DialogButtonContainerDiv>
-              </DialogDiv>
-            </DialogRoot>
-          </DialogContent>
+          <DialogPrimitive.Overlay className={styles.overlay} />
+          <DialogPrimitive.Content ref={ref} className={clsx(styles.content, styles.panel)}>
+            <div className={styles.inner}>
+              <div className={styles.textGroup}>
+                <div className={styles.textWrap}>
+                  <h2 className={clsx(getTitleClassName({ size: "xs" }), styles.title)}>{header}</h2>
+                  <p
+                    className={clsx(getBodyClassName({ size: "md", weight: "normal" }), styles.bodyText)}
+                  >
+                    {body}
+                  </p>
+                </div>
+                {checkboxAction && (
+                  <Checkbox.Item>
+                    <Checkbox.Basic
+                      checked={checkboxAction.checked}
+                      onCheckedChange={checkboxAction.onCheckedChange}
+                    />
+                    <Checkbox.Label>{checkboxAction.label}</Checkbox.Label>
+                  </Checkbox.Item>
+                )}
+              </div>
+              <div className={styles.buttonContainer({ isStacked })}>{renderButtons()}</div>
+            </div>
+          </DialogPrimitive.Content>
         </DialogPrimitive.Portal>
       </DialogPrimitive.Root>
     );

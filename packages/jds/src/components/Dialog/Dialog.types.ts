@@ -15,22 +15,13 @@ type CheckBoxActionProps = {
 };
 type RadixDialogProps = Omit<DialogPrimitive.DialogProps, "children">;
 
-type DialogActionOptions =
-  | {
-      secondaryAction?: undefined;
-      tertiaryAction?: never;
-    }
-  | {
-      secondaryAction: BlockButtonActionProps;
-      tertiaryAction?: BlockButtonActionProps;
-    };
-
-interface DialogBaseProps {
+type DialogBaseProps = {
   header: string;
   body: ReactNode;
   isButtonStretched?: boolean;
   checkboxAction?: CheckBoxActionProps;
   primaryAction: BlockButtonActionProps;
-}
+  secondaryAction?: BlockButtonActionProps;
+};
 
-export type DialogProps = DialogBaseProps & DialogActionOptions & RadixDialogProps;
+export type DialogProps = DialogBaseProps & RadixDialogProps;
