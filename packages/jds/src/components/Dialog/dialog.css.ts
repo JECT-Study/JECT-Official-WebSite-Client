@@ -117,6 +117,18 @@ export const bodyText = style({
   color: vars.color.semantic.object.normal,
 });
 
+export const actionButton = recipe({
+  variants: {
+    stretched: {
+      true: { width: "100%" },
+      false: { width: "auto" },
+    },
+  },
+  defaultVariants: {
+    stretched: false,
+  },
+});
+
 export const buttonContainer = recipe({
   base: {
     display: "flex",

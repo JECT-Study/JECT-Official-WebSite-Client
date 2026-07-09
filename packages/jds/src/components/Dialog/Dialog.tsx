@@ -26,14 +26,14 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
     const hasSecondaryButton = !!secondaryAction;
     const isStacked = isButtonStretched && hasSecondaryButton;
     const buttonSize = isButtonStretched ? "lg" : "md";
-    const buttonWidth = isButtonStretched ? "100%" : "auto";
+    const buttonClassName = styles.actionButton({ stretched: isButtonStretched });
 
     const renderButtons = () => {
       const primary = (
         <BlockButton.Basic
           key='primary'
           size={buttonSize}
-          style={{ width: buttonWidth }}
+          className={buttonClassName}
           {...primaryAction}
         />
       );
@@ -44,7 +44,7 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
           variant='outlined'
           hierarchy='secondary'
           size={buttonSize}
-          style={{ width: buttonWidth }}
+          className={buttonClassName}
           {...secondaryAction}
         />
       ) : null;
