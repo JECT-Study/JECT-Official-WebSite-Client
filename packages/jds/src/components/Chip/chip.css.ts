@@ -28,9 +28,8 @@ export const root = recipe({
       display: "inline-flex",
       flexDirection: "row",
       alignItems: "center",
-      gap: vars.scheme.semantic.spacing["4"],
       boxSizing: "border-box",
-      width: "fit-content",
+      gap: vars.scheme.semantic.spacing["4"],
       paddingTop: vars.scheme.semantic.spacing["4"],
       paddingRight: vars.scheme.semantic.spacing["8"],
       paddingBottom: vars.scheme.semantic.spacing["4"],
@@ -38,7 +37,6 @@ export const root = recipe({
       border: `${vars.scheme.semantic.strokeWeight["1"]} solid ${chipColorVars.border}`,
       borderRadius: vars.scheme.semantic.radius.max,
       backgroundColor: chipColorVars.background,
-      whiteSpace: "nowrap",
       vars: {
         [chipColorVars.label]: vars.color.semantic.object.bold,
         [chipColorVars.icon]: vars.color.semantic.object.neutral,
@@ -98,9 +96,7 @@ export const root = recipe({
 
 export const contentButton = style({
   display: "inline-flex",
-  flexDirection: "row",
   alignItems: "center",
-  flexShrink: 0,
   minWidth: 0,
   gap: vars.scheme.semantic.spacing["6"],
   padding: 0,
