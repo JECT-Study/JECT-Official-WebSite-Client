@@ -13,7 +13,7 @@ const root = recipe({
     alignItems: "center",
     alignSelf: "stretch",
     gap: vars.scheme.semantic.spacing["24"],
-    padding: `${vars.scheme.semantic.margin.lg} ${vars.scheme.semantic.margin.sm}`,
+    paddingBlock: vars.scheme.semantic.margin.lg,
     borderRadius: vars.scheme.semantic.radius["8"],
   },
   variants: {
@@ -27,9 +27,12 @@ const root = recipe({
       },
     },
     layout: {
-      vertical: { flexDirection: "column" },
+      vertical: {
+        flexDirection: "column",
+        paddingInline: vars.scheme.semantic.margin.sm,
+      },
       horizontal: {
-        padding: `${vars.scheme.semantic.margin.lg} ${vars.scheme.semantic.margin.md}`,
+        paddingInline: vars.scheme.semantic.margin.md,
       },
     },
   },
