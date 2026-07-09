@@ -5,18 +5,6 @@ import { focusRing, overlay, overlayHoverOpacity, pxToRem, visuallyHidden } from
 export const input = style([visuallyHidden]);
 
 export const root = style([
-  {
-    display: "inline-flex",
-    cursor: "pointer",
-    selectors: {
-      [`&:has(${input}:disabled)`]: {
-        cursor: "not-allowed",
-      },
-    },
-  },
-]);
-
-export const track = style([
   overlay({ density: "normal", hierarchy: "primary" }),
   focusRing({ interaction: "within" }),
   {
@@ -31,10 +19,10 @@ export const track = style([
     boxSizing: "border-box",
     cursor: "pointer",
     userSelect: "none",
+    transition: `background-color ${vars.environment.semantic.duration["150"]} ${vars.environment.semantic.motion.fluent}`,
     vars: {
       [overlayHoverOpacity]: "0",
     },
-    transition: `background-color ${vars.environment.semantic.duration["150"]} ${vars.environment.semantic.motion.fluent}`,
     selectors: {
       "&::before, &::after": {
         inset: 0,
@@ -43,11 +31,11 @@ export const track = style([
       [`&:has(${input}:checked)`]: {
         backgroundColor: vars.color.semantic.accent.neutral,
       },
-      "&[data-disabled]": {
+      [`&:has(${input}:disabled)`]: {
         backgroundColor: vars.color.semantic.fill.subtlest,
         cursor: "not-allowed",
       },
-      [`&[data-disabled]:has(${input}:checked)`]: {
+      [`&:has(${input}:disabled:checked)`]: {
         backgroundColor: vars.color.semantic.accent.alpha.subtler,
       },
     },
@@ -63,7 +51,7 @@ export const thumb = style({
   transform: "translateX(0)",
   transition: `transform ${vars.environment.semantic.duration["150"]} ${vars.environment.semantic.motion.fluent}`,
   selectors: {
-    [`${track}:has(${input}:checked) &`]: {
+    [`${root}:has(${input}:checked) &`]: {
       transform: `translateX(${pxToRem(16)})`,
     },
   },
