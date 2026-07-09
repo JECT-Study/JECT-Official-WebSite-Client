@@ -1,5 +1,4 @@
 import { keyframes, style } from "@vanilla-extract/css";
-import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
 import { pxToRem } from "utils";
 
@@ -35,7 +34,6 @@ const slideOut = keyframes({
   },
 });
 
-// TODO: 다이얼로그 사용 케이스에 따른 배경 색상 변경(dim/dimmer) → 디자인 팀 구체화 필요
 export const overlay = style({
   position: "fixed",
   inset: 0,
@@ -117,33 +115,11 @@ export const bodyText = style({
   color: vars.color.semantic.object.normal,
 });
 
-export const actionButton = recipe({
-  variants: {
-    stretched: {
-      true: { width: "100%" },
-      false: { width: "auto" },
-    },
-  },
-  defaultVariants: {
-    stretched: false,
-  },
-});
-
-export const buttonContainer = recipe({
-  base: {
-    display: "flex",
-    justifyContent: "flex-end",
-    alignSelf: "stretch",
-    padding: vars.scheme.semantic.spacing["0"],
-    gap: vars.scheme.semantic.spacing["12"],
-  },
-  variants: {
-    isStacked: {
-      true: { flexDirection: "column" },
-      false: { flexDirection: "row" },
-    },
-  },
-  defaultVariants: {
-    isStacked: false,
-  },
+export const buttonContainer = style({
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "flex-end",
+  alignSelf: "stretch",
+  padding: vars.scheme.semantic.spacing["0"],
+  gap: vars.scheme.semantic.spacing["12"],
 });

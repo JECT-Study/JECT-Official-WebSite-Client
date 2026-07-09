@@ -1,5 +1,5 @@
-import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { clsx } from "clsx";
+import { Dialog as DialogPrimitive } from "radix-ui";
 import { forwardRef } from "react";
 
 import * as styles from "./dialog.css";
@@ -12,9 +12,9 @@ import { getBodyClassName, getTitleClassName } from "@/utils/typography";
 export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
   (
     {
-      isButtonStretched = false,
       header,
       body,
+      closeOnClickOutside = true,
       checkboxAction,
       primaryAction,
       secondaryAction,
@@ -23,44 +23,19 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
     },
     ref,
   ) => {
-    const hasSecondaryButton = !!secondaryAction;
-    const isStacked = isButtonStretched && hasSecondaryButton;
-    const buttonSize = isButtonStretched ? "lg" : "md";
-    const buttonClassName = styles.actionButton({ stretched: isButtonStretched });
-
-    const renderButtons = () => {
-      const primary = (
-        <BlockButton.Basic
-          key='primary'
-          size={buttonSize}
-          className={buttonClassName}
-          {...primaryAction}
-        />
-      );
-
-      const secondary = secondaryAction ? (
-        <BlockButton.Basic
-          key='secondary'
-          variant='outlined'
-          hierarchy='secondary'
-          size={buttonSize}
-          className={buttonClassName}
-          {...secondaryAction}
-        />
-      ) : null;
-
-      const ordered: (JSX.Element | null)[] = isStacked
-        ? [primary, secondary]
-        : [secondary, primary];
-
-      return ordered.filter((button): button is JSX.Element => button !== null);
-    };
+    const secondaryButton = secondaryAction ? (
+      <BlockButton.Basic variant='outlined' hierarchy='secondary' size='md' {...secondaryAction} />
+    ) : null;
 
     return (
       <DialogPrimitive.Root {...rest}>
         <DialogPrimitive.Portal container={container}>
           <DialogPrimitive.Overlay className={styles.overlay} />
-          <DialogPrimitive.Content ref={ref} className={clsx(styles.content, styles.panel)}>
+          <DialogPrimitive.Content
+            ref={ref}
+            className={clsx(styles.content, styles.panel)}
+            onPointerDownOutside={closeOnClickOutside ? undefined : event => event.preventDefault()}
+          >
             <div className={styles.inner}>
               <div className={styles.textGroup}>
                 <div className={styles.textWrap}>
@@ -70,14 +45,14 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
                     </h2>
                   </DialogPrimitive.Title>
                   <DialogPrimitive.Description asChild>
-                    <p
+                    <div
                       className={clsx(
                         getBodyClassName({ size: "md", weight: "normal" }),
                         styles.bodyText,
                       )}
                     >
                       {body}
-                    </p>
+                    </div>
                   </DialogPrimitive.Description>
                 </div>
                 {checkboxAction && (
@@ -90,7 +65,10 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
                   </Checkbox.Item>
                 )}
               </div>
-              <div className={styles.buttonContainer({ isStacked })}>{renderButtons()}</div>
+              <div className={styles.buttonContainer}>
+                {secondaryButton}
+                <BlockButton.Basic size='md' {...primaryAction} />
+              </div>
             </div>
           </DialogPrimitive.Content>
         </DialogPrimitive.Portal>

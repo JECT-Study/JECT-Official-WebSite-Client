@@ -27,11 +27,11 @@ const meta: Meta<typeof Dialog> = {
       control: "text",
       description: "본문 내용 역할의 텍스트 내용",
     },
-    isButtonStretched: {
+    closeOnClickOutside: {
       control: "boolean",
-      description: "버튼 컨테이너 및 버튼들이 늘려져 세로로 쌓이는지 여부",
+      description: "배경(오버레이) 클릭 시 다이얼로그가 닫히는지 여부",
       table: {
-        defaultValue: { summary: "false" },
+        defaultValue: { summary: "true" },
       },
     },
     primaryAction: {
@@ -49,7 +49,7 @@ export const Default: Story = {
   args: {
     header: SAMPLE_HEADER,
     body: SAMPLE_BODY,
-    isButtonStretched: false,
+    closeOnClickOutside: true,
     primaryAction: {
       children: SAMPLE_BUTTON,
     },
@@ -64,7 +64,7 @@ export const Default: Story = {
         <Dialog
           open={isOpen}
           onOpenChange={setIsOpen}
-          isButtonStretched={args.isButtonStretched}
+          closeOnClickOutside={args.closeOnClickOutside}
           header={args.header}
           body={args.body}
           primaryAction={{
@@ -157,37 +157,6 @@ const Matrix = ({ children }: { children: ReactNode }) => (
     <div style={rowStyle}>{children}</div>
   </>
 );
-
-export const ButtonLayout: Story = {
-  render: () => (
-    <Matrix>
-      <MatrixCase
-        label='horizontal'
-        header={SAMPLE_HEADER}
-        body={SAMPLE_BODY}
-        primaryAction={{ children: SAMPLE_BUTTON }}
-        secondaryAction={{ children: SAMPLE_BUTTON }}
-      />
-      <MatrixCase
-        label='vertical'
-        isButtonStretched
-        header={SAMPLE_HEADER}
-        body={SAMPLE_BODY}
-        primaryAction={{ children: SAMPLE_BUTTON }}
-        secondaryAction={{ children: SAMPLE_BUTTON }}
-      />
-    </Matrix>
-  ),
-  parameters: {
-    layout: "padded",
-    docs: {
-      description: {
-        story:
-          "버튼 정렬 방향입니다. horizontal은 우측 정렬 행, vertical(isButtonStretched)은 세로로 늘려 쌓습니다.",
-      },
-    },
-  },
-};
 
 export const WithCheckbox: Story = {
   render: () => (
