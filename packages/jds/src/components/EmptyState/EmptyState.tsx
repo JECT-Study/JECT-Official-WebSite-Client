@@ -23,17 +23,17 @@ export const EmptyState = forwardRef<HTMLDivElement, EmptyStateProps>(
   ) => {
     const hasPrimary = !!primaryAction;
     const hasSecondary = !!secondaryAction;
+    const hasAnyAction = hasPrimary || hasSecondary;
     const hasBothActions = hasPrimary && hasSecondary;
 
-    const actions =
-      hasPrimary || hasSecondary ? (
-        <div className={emptyStateStyles.buttonContainer({ hasBothActions })}>
-          {hasSecondary && (
-            <BlockButton variant='outlined' hierarchy='secondary' size='sm' {...secondaryAction} />
-          )}
-          {hasPrimary && <BlockButton size='sm' {...primaryAction} />}
-        </div>
-      ) : null;
+    const actions = hasAnyAction ? (
+      <div className={emptyStateStyles.buttonContainer({ hasBothActions })}>
+        {hasSecondary && (
+          <BlockButton variant='outlined' hierarchy='secondary' size='sm' {...secondaryAction} />
+        )}
+        {hasPrimary && <BlockButton size='sm' {...primaryAction} />}
+      </div>
+    ) : null;
 
     return (
       <div
