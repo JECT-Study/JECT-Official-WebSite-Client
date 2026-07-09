@@ -1,17 +1,17 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexColumn, FlexRow } from "@storybook-utils/layout";
 
-import { ContentBadge } from "./ContentBadge";
-import { CONTENT_BADGE_STYLE_OPTIONS, THEME_VARIANT_OPTIONS } from "./contentBadge.types";
+import { Badge } from "../Badge";
 import {
   BADGE_SIZE_OPTIONS,
   BASIC_HIERARCHY_OPTIONS,
   FEEDBACK_VARIANT_OPTIONS,
 } from "../badge.types";
+import { CONTENT_BADGE_STYLE_OPTIONS, THEME_VARIANT_OPTIONS } from "./contentBadge.types";
 
-const meta: Meta<typeof ContentBadge> = {
+const meta: Meta<typeof Badge.Content> = {
   title: "Components/Badge/Content",
-  component: ContentBadge,
+  component: Badge.Content,
   parameters: {
     layout: "centered",
   },
@@ -50,7 +50,7 @@ const meta: Meta<typeof ContentBadge> = {
 
 export default meta;
 
-type Story = StoryObj<typeof ContentBadge>;
+type Story = StoryObj<typeof Badge.Content>;
 
 const getIconButtonProps = (withIconButton?: boolean) =>
   withIconButton
@@ -75,7 +75,7 @@ export const Default: Story = {
     children: "레이블",
   },
   render: args => (
-    <ContentBadge
+    <Badge.Content
       hierarchy={args.hierarchy}
       size={args.size}
       badgeStyle={args.badgeStyle}
@@ -83,7 +83,7 @@ export const Default: Story = {
       {...getIconButtonProps(args.withIconButton)}
     >
       {args.children}
-    </ContentBadge>
+    </Badge.Content>
   ),
 };
 
@@ -109,7 +109,7 @@ export const ContentBadgeSizes: Story = {
   render: args => (
     <FlexRow>
       {BADGE_SIZE_OPTIONS.map(size => (
-        <ContentBadge
+        <Badge.Content
           key={size}
           hierarchy={args.hierarchy}
           size={size}
@@ -118,7 +118,7 @@ export const ContentBadgeSizes: Story = {
           {...getIconButtonProps(args.withIconButton)}
         >
           {args.children}
-        </ContentBadge>
+        </Badge.Content>
       ))}
     </FlexRow>
   ),
@@ -146,7 +146,7 @@ export const ContentBadgeBadgeStyles: Story = {
   render: args => (
     <FlexRow>
       {CONTENT_BADGE_STYLE_OPTIONS.map(badgeStyle => (
-        <ContentBadge
+        <Badge.Content
           key={badgeStyle}
           hierarchy={args.hierarchy}
           size={args.size}
@@ -155,7 +155,7 @@ export const ContentBadgeBadgeStyles: Story = {
           {...getIconButtonProps(args.withIconButton)}
         >
           {args.children}
-        </ContentBadge>
+        </Badge.Content>
       ))}
     </FlexRow>
   ),
@@ -183,7 +183,7 @@ export const ContentBadgeHierarchies: Story = {
   render: args => (
     <FlexRow>
       {BASIC_HIERARCHY_OPTIONS.map(hierarchy => (
-        <ContentBadge
+        <Badge.Content
           key={hierarchy}
           hierarchy={hierarchy}
           size={args.size}
@@ -192,7 +192,7 @@ export const ContentBadgeHierarchies: Story = {
           {...getIconButtonProps(args.withIconButton)}
         >
           {args.children}
-        </ContentBadge>
+        </Badge.Content>
       ))}
     </FlexRow>
   ),
@@ -220,7 +220,7 @@ export const ContentBadgeFeedback: Story = {
   render: args => (
     <FlexRow>
       {FEEDBACK_VARIANT_OPTIONS.map(feedback => (
-        <ContentBadge
+        <Badge.Content
           key={feedback}
           feedback={feedback}
           size={args.size}
@@ -229,7 +229,7 @@ export const ContentBadgeFeedback: Story = {
           {...getIconButtonProps(args.withIconButton)}
         >
           {args.children}
-        </ContentBadge>
+        </Badge.Content>
       ))}
     </FlexRow>
   ),
@@ -262,7 +262,7 @@ export const ContentBadgeWithIconButton: Story = {
     <FlexColumn style={{ alignItems: "center" }}>
       <FlexRow>
         {CONTENT_BADGE_STYLE_OPTIONS.map(badgeStyle => (
-          <ContentBadge
+          <Badge.Content
             key={badgeStyle}
             hierarchy='accent'
             size={args.size}
@@ -272,12 +272,12 @@ export const ContentBadgeWithIconButton: Story = {
             onIconClick={() => undefined}
           >
             {args.children}
-          </ContentBadge>
+          </Badge.Content>
         ))}
       </FlexRow>
       <FlexRow>
         {CONTENT_BADGE_STYLE_OPTIONS.map(badgeStyle => (
-          <ContentBadge
+          <Badge.Content
             key={badgeStyle}
             feedback='positive'
             size={args.size}
@@ -287,7 +287,7 @@ export const ContentBadgeWithIconButton: Story = {
             onIconClick={() => undefined}
           >
             {args.children}
-          </ContentBadge>
+          </Badge.Content>
         ))}
       </FlexRow>
     </FlexColumn>
@@ -318,7 +318,7 @@ export const ContentBadgeTheme: Story = {
   render: args => (
     <FlexRow>
       {THEME_VARIANT_OPTIONS.map(variant => (
-        <ContentBadge
+        <Badge.Content
           key={variant}
           variant={variant}
           size={args.size}
@@ -326,7 +326,7 @@ export const ContentBadgeTheme: Story = {
           isMuted={args.isMuted}
         >
           {args.children}
-        </ContentBadge>
+        </Badge.Content>
       ))}
     </FlexRow>
   ),
@@ -356,7 +356,7 @@ export const ContentBadgeMuted: Story = {
   render: args => (
     <FlexRow>
       {CONTENT_BADGE_STYLE_OPTIONS.map(badgeStyle => (
-        <ContentBadge
+        <Badge.Content
           key={badgeStyle}
           hierarchy={args.hierarchy}
           size={args.size}
@@ -365,7 +365,7 @@ export const ContentBadgeMuted: Story = {
           {...getIconButtonProps(args.withIconButton)}
         >
           {args.children}
-        </ContentBadge>
+        </Badge.Content>
       ))}
     </FlexRow>
   ),
@@ -399,7 +399,7 @@ export const ContentBadgeFeedbackMuted: Story = {
       {FEEDBACK_VARIANT_OPTIONS.map(feedback => (
         <FlexRow key={feedback}>
           {CONTENT_BADGE_STYLE_OPTIONS.map(badgeStyle => (
-            <ContentBadge
+            <Badge.Content
               key={badgeStyle}
               feedback={feedback}
               size={args.size}
@@ -408,7 +408,7 @@ export const ContentBadgeFeedbackMuted: Story = {
               {...getIconButtonProps(args.withIconButton)}
             >
               {args.children}
-            </ContentBadge>
+            </Badge.Content>
           ))}
         </FlexRow>
       ))}
@@ -446,7 +446,7 @@ export const ContentBadgeThemeMuted: Story = {
       {CONTENT_BADGE_STYLE_OPTIONS.map(badgeStyle => (
         <FlexRow key={badgeStyle}>
           {THEME_VARIANT_OPTIONS.map(variant => (
-            <ContentBadge
+            <Badge.Content
               key={variant}
               variant={variant}
               size={args.size}
@@ -454,7 +454,7 @@ export const ContentBadgeThemeMuted: Story = {
               isMuted
             >
               {args.children}
-            </ContentBadge>
+            </Badge.Content>
           ))}
         </FlexRow>
       ))}

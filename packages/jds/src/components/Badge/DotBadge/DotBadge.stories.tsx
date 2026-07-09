@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexRow } from "@storybook-utils/layout";
 
-import { DotBadge } from "./DotBadge";
+import { Badge } from "../Badge";
 import { BADGE_SIZE_OPTIONS, FEEDBACK_VARIANT_OPTIONS } from "../badge.types";
 
-const meta: Meta<typeof DotBadge> = {
+const meta: Meta<typeof Badge.Dot> = {
   title: "Components/Badge/Dot",
-  component: DotBadge,
+  component: Badge.Dot,
   parameters: {
     layout: "centered",
   },
@@ -27,7 +27,7 @@ const meta: Meta<typeof DotBadge> = {
 
 export default meta;
 
-type Story = StoryObj<typeof DotBadge>;
+type Story = StoryObj<typeof Badge.Dot>;
 
 export const Default: Story = {
   args: {
@@ -50,7 +50,7 @@ export const DotBadgeSizes: Story = {
   render: args => (
     <FlexRow>
       {BADGE_SIZE_OPTIONS.map(size => (
-        <DotBadge key={size} feedback={args.feedback} size={size} isMuted={args.isMuted} />
+        <Badge.Dot key={size} feedback={args.feedback} size={size} isMuted={args.isMuted} />
       ))}
     </FlexRow>
   ),
@@ -69,7 +69,7 @@ export const DotBadgeFeedback: Story = {
   render: args => (
     <FlexRow>
       {FEEDBACK_VARIANT_OPTIONS.map(feedback => (
-        <DotBadge key={feedback} feedback={feedback} size={args.size} isMuted={args.isMuted} />
+        <Badge.Dot key={feedback} feedback={feedback} size={args.size} isMuted={args.isMuted} />
       ))}
     </FlexRow>
   ),
@@ -88,7 +88,7 @@ export const DotBadgeMuted: Story = {
   render: args => (
     <FlexRow>
       {FEEDBACK_VARIANT_OPTIONS.map(feedback => (
-        <DotBadge key={feedback} feedback={feedback} size={args.size} isMuted={args.isMuted} />
+        <Badge.Dot key={feedback} feedback={feedback} size={args.size} isMuted={args.isMuted} />
       ))}
     </FlexRow>
   ),
