@@ -1,6 +1,6 @@
 import { style } from "@vanilla-extract/css";
 import { vars } from "tokens";
-import { overlay, overlayHoverOpacity, pxToRem, visuallyHidden } from "utils";
+import { focusRing, overlay, overlayHoverOpacity, pxToRem, visuallyHidden } from "utils";
 
 export const input = style([visuallyHidden]);
 
@@ -18,6 +18,7 @@ export const root = style([
 
 export const track = style([
   overlay({ density: "normal", hierarchy: "primary" }),
+  focusRing({ interaction: "within" }),
   {
     position: "relative",
     display: "inline-flex",
@@ -35,18 +36,9 @@ export const track = style([
     },
     transition: `background-color ${vars.environment.semantic.duration["150"]} ${vars.environment.semantic.motion.fluent}`,
     selectors: {
-      "&::before": {
-        content: '""',
-        position: "absolute",
-        pointerEvents: "none",
-      },
       "&::before, &::after": {
         inset: 0,
         borderRadius: "inherit",
-      },
-      [`&:has(${input}:focus-visible)::before`]: {
-        boxShadow: `0 0 0 ${vars.scheme.semantic.strokeWeight["2"]} ${vars.color.semantic.accent.alpha.alternative}`,
-        zIndex: 1,
       },
       [`&:has(${input}:checked)`]: {
         backgroundColor: vars.color.semantic.accent.neutral,
