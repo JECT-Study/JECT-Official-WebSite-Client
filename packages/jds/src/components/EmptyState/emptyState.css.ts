@@ -73,19 +73,10 @@ const body = style({
   textOverflow: "ellipsis",
 });
 
-const buttonContainer = recipe({
-  base: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: vars.scheme.semantic.spacing["12"],
-  },
-  variants: {
-    hasBothActions: {
-      true: { minWidth: pxToRem(130) },
-      false: { minWidth: pxToRem(58) },
-    },
-  },
+const buttonContainer = style({
+  display: "flex",
+  alignItems: "center",
+  gap: vars.scheme.semantic.spacing["12"],
 });
 
 export const emptyStateStyles = {

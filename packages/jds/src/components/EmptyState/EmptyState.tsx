@@ -26,11 +26,10 @@ export const EmptyState = forwardRef<HTMLDivElement, EmptyStateProps>(
     const hasPrimary = !!primaryAction;
     const hasSecondary = !!secondaryAction;
     const hasAnyAction = hasPrimary || hasSecondary;
-    const hasBothActions = hasPrimary && hasSecondary;
     const textAlign = layout === "vertical" ? "center" : "left";
 
     const actions = hasAnyAction ? (
-      <div className={emptyStateStyles.buttonContainer({ hasBothActions })}>
+      <div className={emptyStateStyles.buttonContainer}>
         {hasSecondary && (
           <BlockButton variant='outlined' hierarchy='secondary' size='sm' {...secondaryAction} />
         )}
