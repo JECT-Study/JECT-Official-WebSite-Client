@@ -6,6 +6,8 @@ import type { EmptyStateProps } from "./emptyState.types";
 import { BlockButton } from "../Button/BlockButton";
 import { Thumbnail } from "../Thumbnail";
 
+import { getBodyClassName, getTitleClassName } from "@/utils/typography";
+
 export const EmptyState = forwardRef<HTMLDivElement, EmptyStateProps>(
   (
     {
@@ -25,6 +27,7 @@ export const EmptyState = forwardRef<HTMLDivElement, EmptyStateProps>(
     const hasSecondary = !!secondaryAction;
     const hasAnyAction = hasPrimary || hasSecondary;
     const hasBothActions = hasPrimary && hasSecondary;
+    const textAlign = layout === "vertical" ? "center" : "left";
 
     const actions = hasAnyAction ? (
       <div className={emptyStateStyles.buttonContainer({ hasBothActions })}>
@@ -50,8 +53,17 @@ export const EmptyState = forwardRef<HTMLDivElement, EmptyStateProps>(
           />
         )}
         <div className={emptyStateStyles.content({ layout })}>
-          <span className={emptyStateStyles.header({ layout })}>{header}</span>
-          <p className={emptyStateStyles.body({ layout })}>{body}</p>
+          <span className={clsx(getTitleClassName({ size: "xs", textAlign }), emptyStateStyles.header)}>
+            {header}
+          </span>
+          <p
+            className={clsx(
+              getBodyClassName({ size: "md", weight: "normal", textAlign }),
+              emptyStateStyles.body,
+            )}
+          >
+            {body}
+          </p>
         </div>
         {actions}
       </div>

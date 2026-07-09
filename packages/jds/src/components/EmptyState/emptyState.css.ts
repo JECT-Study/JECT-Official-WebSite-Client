@@ -4,6 +4,7 @@ import { vars } from "tokens";
 import { pxToRem } from "utils";
 
 import { thumbnailVars } from "@/components/Thumbnail/thumbnail.css";
+import { titleColorVar } from "@/utils/typography.css";
 
 const root = recipe({
   base: {
@@ -30,10 +31,6 @@ const root = recipe({
       horizontal: { flexDirection: "row" },
     },
   },
-  defaultVariants: {
-    variant: "hollow",
-    layout: "vertical",
-  },
 });
 
 const content = recipe({
@@ -51,26 +48,11 @@ const content = recipe({
       },
     },
   },
-  defaultVariants: {
-    layout: "vertical",
-  },
 });
 
-const header = recipe({
-  base: [
-    "semantic-textStyle-title-1",
-    {
-      color: vars.color.semantic.object.neutral,
-    },
-  ],
-  variants: {
-    layout: {
-      vertical: { textAlign: "center" },
-      horizontal: { textAlign: "left" },
-    },
-  },
-  defaultVariants: {
-    layout: "vertical",
+const header = style({
+  vars: {
+    [titleColorVar]: vars.color.semantic.object.neutral,
   },
 });
 
@@ -82,28 +64,14 @@ const thumbnail = style({
   },
 });
 
-const body = recipe({
-  base: [
-    "semantic-textStyle-body-md-normal",
-    {
-      display: "-webkit-box",
-      WebkitBoxOrient: "vertical",
-      WebkitLineClamp: 3,
-      margin: vars.scheme.semantic.spacing["0"],
-      overflow: "hidden",
-      color: vars.color.semantic.object.alternative,
-      textOverflow: "ellipsis",
-    },
-  ],
-  variants: {
-    layout: {
-      vertical: { textAlign: "center" },
-      horizontal: { textAlign: "left" },
-    },
-  },
-  defaultVariants: {
-    layout: "vertical",
-  },
+const body = style({
+  display: "-webkit-box",
+  WebkitBoxOrient: "vertical",
+  WebkitLineClamp: 3,
+  margin: vars.scheme.semantic.spacing["0"],
+  overflow: "hidden",
+  color: vars.color.semantic.object.alternative,
+  textOverflow: "ellipsis",
 });
 
 const buttonContainer = recipe({
@@ -118,9 +86,6 @@ const buttonContainer = recipe({
       true: { minWidth: pxToRem(130) },
       false: { minWidth: pxToRem(58) },
     },
-  },
-  defaultVariants: {
-    hasBothActions: false,
   },
 });
 
