@@ -1,6 +1,6 @@
-import { ContentBadge } from "./contentBadge/ContentBadge";
-import { DotBadge } from "./dotBadge/DotBadge";
-import { NumericBadge } from "./numericBadge/NumericBadge";
+import { ContentBadge } from "./ContentBadge/ContentBadge";
+import { DotBadge } from "./DotBadge/DotBadge";
+import { NumericBadge } from "./NumericBadge/NumericBadge";
 
 export const Badge = {
   Content: ContentBadge,
