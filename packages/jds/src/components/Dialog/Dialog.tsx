@@ -64,12 +64,21 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
             <div className={styles.inner}>
               <div className={styles.textGroup}>
                 <div className={styles.textWrap}>
-                  <h2 className={clsx(getTitleClassName({ size: "xs" }), styles.title)}>{header}</h2>
-                  <p
-                    className={clsx(getBodyClassName({ size: "md", weight: "normal" }), styles.bodyText)}
-                  >
-                    {body}
-                  </p>
+                  <DialogPrimitive.Title asChild>
+                    <h2 className={clsx(getTitleClassName({ size: "xs" }), styles.title)}>
+                      {header}
+                    </h2>
+                  </DialogPrimitive.Title>
+                  <DialogPrimitive.Description asChild>
+                    <p
+                      className={clsx(
+                        getBodyClassName({ size: "md", weight: "normal" }),
+                        styles.bodyText,
+                      )}
+                    >
+                      {body}
+                    </p>
+                  </DialogPrimitive.Description>
                 </div>
                 {checkboxAction && (
                   <Checkbox.Item>
