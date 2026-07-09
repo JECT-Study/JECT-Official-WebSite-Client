@@ -37,6 +37,7 @@ export const root = recipe({
       border: `${vars.scheme.semantic.strokeWeight["1"]} solid ${chipColorVars.border}`,
       borderRadius: vars.scheme.semantic.radius.max,
       backgroundColor: chipColorVars.background,
+      whiteSpace: "nowrap",
       vars: {
         [chipColorVars.label]: vars.color.semantic.object.bold,
         [chipColorVars.icon]: vars.color.semantic.object.neutral,
