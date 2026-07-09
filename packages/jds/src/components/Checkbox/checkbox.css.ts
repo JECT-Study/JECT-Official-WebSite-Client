@@ -160,7 +160,6 @@ export const checkboxLabelSlot = style({
 });
 export const checkboxHelperSlot = style({ gridColumn: "2", gridRow: "2" });
 
-// data-invalid는 useContainerPressable이 아닌 컴포넌트에서 직접 부여한다.
 export const checkboxItem = recipe({
   base: [
     // focus ring은 invalid 상태에서 색이 달라지므로 Checkbox.tsx에서 focusRing({ feedback })으로 부여한다.
