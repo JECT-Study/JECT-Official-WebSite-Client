@@ -61,16 +61,16 @@ export const States: Story = {
     <FlexColumn gap='0.75rem'>
       <FlexRow gap='1rem'>
         <Label style={{ width: "6rem" }}>Unchecked</Label>
-        <Toggle checked={false} aria-label='꺼진 토글' readOnly />
+        <Toggle aria-label='꺼진 토글' />
       </FlexRow>
       <FlexRow gap='1rem'>
         <Label style={{ width: "6rem" }}>Checked</Label>
-        <Toggle checked aria-label='켜진 토글' readOnly />
+        <Toggle defaultChecked aria-label='켜진 토글' />
       </FlexRow>
       <FlexRow gap='1rem'>
         <Label style={{ width: "6rem" }}>Disabled</Label>
-        <Toggle checked={false} disabled aria-label='비활성 꺼진 토글' readOnly />
-        <Toggle checked disabled aria-label='비활성 켜진 토글' readOnly />
+        <Toggle disabled aria-label='비활성 꺼진 토글' />
+        <Toggle defaultChecked disabled aria-label='비활성 켜진 토글' />
       </FlexRow>
     </FlexColumn>
   ),
