@@ -10,7 +10,7 @@ import {
 } from "../badge.types";
 
 const meta: Meta<typeof NumericBadge> = {
-  title: "Components/NumericBadge",
+  title: "Components/Badge/Numeric",
   component: NumericBadge,
   parameters: {
     layout: "centered",

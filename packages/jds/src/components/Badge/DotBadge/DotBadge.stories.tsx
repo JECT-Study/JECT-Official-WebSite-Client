@@ -5,7 +5,7 @@ import { DotBadge } from "./DotBadge";
 import { BADGE_SIZE_OPTIONS, FEEDBACK_VARIANT_OPTIONS } from "../badge.types";
 
 const meta: Meta<typeof DotBadge> = {
-  title: "Components/DotBadge",
+  title: "Components/Badge/Dot",
   component: DotBadge,
   parameters: {
     layout: "centered",
