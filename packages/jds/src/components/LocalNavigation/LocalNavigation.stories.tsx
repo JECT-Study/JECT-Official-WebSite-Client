@@ -5,6 +5,7 @@ import { type ComponentType } from "react";
 import { vars } from "tokens";
 
 import { LocalNavigation } from "./LocalNavigation";
+import { LOCAL_NAVIGATION_TITLE_AS_OPTIONS } from "./localNavigation.types";
 
 const withContainer = (Story: ComponentType) => (
   <div
@@ -38,6 +39,12 @@ const meta = {
       control: "text",
       description: "내비게이션 타이틀 텍스트",
     },
+    titleAs: {
+      control: "select",
+      options: LOCAL_NAVIGATION_TITLE_AS_OPTIONS,
+      description: "타이틀 요소 태그. heading 레벨은 문서 구조에 맞게 지정",
+      table: { defaultValue: { summary: "span" } },
+    },
     nested: {
       control: "boolean",
       description: "하위 계층 여부 (true면 뒤로 가기 버튼 노출)",
@@ -45,12 +52,12 @@ const meta = {
     },
     floated: {
       control: "boolean",
-      description: "스크롤 시 상단에 떠 있는 상태",
+      description: "반투명 배경 및 블러, 하단 border 적용 여부",
       table: { defaultValue: { summary: "false" } },
     },
     stretched: {
       control: "boolean",
-      description: "좌우 여백 적용 여부",
+      description: "기본 좌우 여백 제거 여부",
       table: { defaultValue: { summary: "false" } },
     },
     suffixAction: {
@@ -60,6 +67,7 @@ const meta = {
   },
   args: {
     title: "내비게이션 타이틀",
+    titleAs: "span",
     nested: false,
     floated: false,
     stretched: false,
