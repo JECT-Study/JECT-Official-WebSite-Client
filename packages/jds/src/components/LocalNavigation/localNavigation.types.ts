@@ -5,4 +5,4 @@ export type LocalNavigationProps = Omit<ComponentPropsWithoutRef<"nav">, "title"
   nested?: boolean;
   onBackClick?: MouseEventHandler<HTMLButtonElement>;
   suffixAction?: ReactNode;
-} & ({ floated: false; stretched: boolean } | { floated: true; stretched: false });
+} & ({ floated?: false; stretched?: boolean } | { floated: true; stretched?: false });
