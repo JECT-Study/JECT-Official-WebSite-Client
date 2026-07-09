@@ -42,13 +42,8 @@ const triggerBase = style({
   },
 });
 
-/**
- * @remarks
- * Radix Accordion 내부(usePressable 미경유)에서도 쓰이므로 native hover로 opt-in한다.
- * Radix는 disabled 상태를 `data-disabled` 속성으로 부여하므로 overlay가 자동으로 차단된다.
- */
 export const trigger = recipe({
-  base: [overlay({ nativeHover: true }), focusRing(), triggerBase],
+  base: [overlay(), focusRing(), triggerBase],
   variants: {
     isStretched: {
       true: { padding: `${vars.scheme.semantic.spacing["0"]}` },

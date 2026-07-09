@@ -32,7 +32,7 @@ globalStyle(`${baseStyle} [data-part="icon"] svg`, {
 });
 
 export const root = style([
-  overlay({ density: "bold", hierarchy: "accent", nativeHover: true }),
+  overlay({ density: "bold", hierarchy: "accent" }),
   focusRing(),
   baseStyle,
 ]);
