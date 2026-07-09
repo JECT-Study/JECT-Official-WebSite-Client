@@ -11,7 +11,7 @@ const SAMPLE_BODY =
 const SAMPLE_IMAGE: ThumbnailProps = { alt: "샘플 이미지" };
 
 const handleButtonClick = () => {
-  console.log("클릭");
+  alert("버튼이 클릭되었습니다.");
 };
 const PRIMARY_ACTION = { children: SAMPLE_BUTTON, onClick: handleButtonClick };
 const SECONDARY_ACTION = { children: SAMPLE_BUTTON, onClick: handleButtonClick };
@@ -57,7 +57,8 @@ const meta: Meta<typeof EmptyState> = {
     variant: {
       control: "select",
       options: ["hollow", "dashed", "alpha"],
-      description: "엠티 스테이트 외관 변형",
+      description:
+        "엠티 스테이트가 사용되는 맥락에서의 주변 요소들이나 부모 컨테이너의 시각적 특징을 고려해 적절히 사용합니다.",
       table: {
         defaultValue: { summary: "hollow" },
       },
@@ -65,22 +66,24 @@ const meta: Meta<typeof EmptyState> = {
     layout: {
       control: "select",
       options: ["vertical", "horizontal"],
-      description: "엠티 스테이트의 세로-가로 방향에 따른 외관 변경",
+      description:
+        "컴포넌트의 최종적인 외형은 해석에 영향을 미치지 않습니다. 내부 요소들의 배열이 수직인지, 수평인지를 구별해야 한다면 이 프로퍼티를 사용하세요.",
       table: {
         defaultValue: { summary: "vertical" },
       },
     },
     header: {
       control: "text",
-      description: "엠티 스테이트를 축약적으로 설명하는 타이틀",
+      description: "엠티 스테이트를 축약적으로 설명하는 타이틀 텍스트입니다.",
     },
     body: {
       control: "text",
-      description: "엠티 스테이트를 자세하게 설명하는 본문",
+      description: "엠티 스테이트를 자세하게 설명하는 본문 텍스트입니다.",
     },
     image: {
-      control: false,
-      description: "엠티 스테이트에 표시되는 이미지 슬롯 (Thumbnail 재사용)",
+      control: "object",
+      description:
+        "엠티 스테이트에 표시되는 이미지 슬롯(ThumbnailProps)입니다. { src, alt } 형태로 지정하며, src가 없으면 fallback이 표시됩니다. 작성되지 않을 경우 컴포넌트에 표시되지 않습니다.",
     },
     primaryAction: {
       control: "object",
