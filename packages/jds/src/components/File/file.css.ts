@@ -19,12 +19,8 @@ export const root = style([
     display: "flex",
     alignItems: "center",
     width: "100%",
-    padding: 0,
     gap: vars.scheme.semantic.spacing["8"],
     borderRadius: LAYER_RADIUS,
-    background: "transparent",
-    textAlign: "left",
-    WebkitAppearance: "none",
     selectors: {
       "&::before, &::after": {
         inset: LAYER_INSET,
@@ -71,7 +67,6 @@ export const mainAction = style({
 export const fileInfo = style({
   display: "flex",
   flex: 1,
-  flexDirection: "row",
   alignItems: "center",
   minWidth: 0,
   gap: vars.scheme.semantic.spacing["6"],
