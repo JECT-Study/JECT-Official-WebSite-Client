@@ -34,6 +34,7 @@ const BlockButtonRoot = forwardRef<HTMLButtonElement, BlockButtonProps>(
     return (
       <button
         ref={forwardedRef}
+        type='button'
         {...restProps}
         disabled={disabled}
         data-disabled={disabled || undefined}
