@@ -64,8 +64,6 @@ const contentVars = {
   focusRingColor: createVar(),
 } as const;
 
-const transition = `border-color ${vars.environment.semantic.duration["100"]} ${vars.environment.semantic.motion.fluent}, box-shadow ${vars.environment.semantic.duration["100"]} ${vars.environment.semantic.motion.fluent}`;
-
 export const content = recipe({
   base: {
     position: "relative",
@@ -75,7 +73,7 @@ export const content = recipe({
     minWidth: 0,
     gap: vars.scheme.semantic.spacing["8"],
     borderRadius: vars.scheme.semantic.radius["8"],
-    transition,
+    transition: `border-color ${vars.environment.semantic.duration["100"]} ${vars.environment.semantic.motion.fluent}, box-shadow ${vars.environment.semantic.duration["100"]} ${vars.environment.semantic.motion.fluent}`,
   },
   variants: {
     fieldStyle: {
