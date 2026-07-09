@@ -19,10 +19,6 @@ export const FieldLabel = forwardRef<HTMLLabelElement, FieldLabelProps>(
       required: isRequired,
     } = useFieldContext("Field.Label");
 
-    if (!children) {
-      return null;
-    }
-
     return (
       <span className={styles.labelContainer({ fieldStyle })}>
         <label
