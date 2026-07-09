@@ -28,7 +28,9 @@ const root = recipe({
     },
     layout: {
       vertical: { flexDirection: "column" },
-      horizontal: {},
+      horizontal: {
+        padding: `${vars.scheme.semantic.margin.lg} ${vars.scheme.semantic.margin.md}`,
+      },
     },
   },
 });
