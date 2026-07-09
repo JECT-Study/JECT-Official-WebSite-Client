@@ -53,7 +53,7 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
         ? [primary, secondary]
         : [secondary, primary];
 
-      return ordered.filter(Boolean) as JSX.Element[];
+      return ordered.filter((button): button is JSX.Element => button !== null);
     };
 
     return (
