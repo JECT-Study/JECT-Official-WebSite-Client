@@ -56,6 +56,11 @@ export const mainAction = style({
   WebkitAppearance: "none",
   cursor: "inherit",
   selectors: {
+    "&::after": {
+      content: '""',
+      position: "absolute",
+      inset: 0,
+    },
     "&:disabled": {
       pointerEvents: "none",
       cursor: "inherit",
@@ -151,6 +156,8 @@ export const fileSize = style({
 });
 
 export const removeButton = style({
+  position: "relative",
+  zIndex: 1,
   vars: {
     [iconButtonAccentColor]: vars.color.semantic.object.alternative,
   },
