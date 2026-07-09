@@ -18,6 +18,7 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
       checkboxAction,
       primaryAction,
       secondaryAction,
+      container,
       ...rest
     },
     ref,
@@ -57,7 +58,7 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
 
     return (
       <DialogPrimitive.Root {...rest}>
-        <DialogPrimitive.Portal>
+        <DialogPrimitive.Portal container={container}>
           <DialogPrimitive.Overlay className={styles.overlay} />
           <DialogPrimitive.Content ref={ref} className={clsx(styles.content, styles.panel)}>
             <div className={styles.inner}>

@@ -13,3 +13,4 @@ Dialog의 스타일 구현을 Emotion(`@emotion/styled`)에서 vanilla-extract�
 - `isButtonStretched`이면서 `secondaryAction`이 있을 때 버튼을 세로로 쌓고(primary 위, secondary 아래), 그 외에는 우측 정렬 행으로 배치하도록 수정
 - `isButtonStretched`이면 버튼 크기를 `lg`, 아니면 `md`로 적용
 - Figma 스펙에 맞춰 간격·타이포 보정: 내부 패딩 `24px → 20px`, 본문 타이포 `body/xs → body/md`, 제목·본문 간격 `16px → 12px`(체크박스는 별도 `16px` 간격 유지)
+- `container` prop 추가 — Radix Portal의 렌더 대상을 지정할 수 있습니다(스토리북 variant matrix 등 인라인 렌더링용, 기본값은 기존과 동일하게 `document.body`)

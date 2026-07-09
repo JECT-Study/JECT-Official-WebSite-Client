@@ -22,6 +22,7 @@ type DialogBaseProps = {
   checkboxAction?: CheckBoxActionProps;
   primaryAction: BlockButtonActionProps;
   secondaryAction?: BlockButtonActionProps;
+  container?: HTMLElement | null;
 };
 
 export type DialogProps = DialogBaseProps & RadixDialogProps;
