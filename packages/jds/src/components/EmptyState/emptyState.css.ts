@@ -28,7 +28,7 @@ const root = recipe({
     },
     layout: {
       vertical: { flexDirection: "column" },
-      horizontal: { flexDirection: "row" },
+      horizontal: {},
     },
   },
 });
@@ -44,7 +44,6 @@ const content = recipe({
       vertical: {},
       horizontal: {
         flex: 1,
-        alignItems: "flex-start",
       },
     },
   },
