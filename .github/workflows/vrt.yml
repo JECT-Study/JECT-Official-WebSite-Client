@@ -1,13 +1,11 @@
 name: Visual Regression (BackstopJS)
 
 on:
-  # jds 또는 vrt가 변경되는 PR에서만 회귀 검사를 실행한다.
+  # required check는 룰셋에서 브랜치 전역으로 강제되므로,
+  # 모든 dev PR에서 실행해 status를 항상 보고한다. 실제 검사는 jds 또는 vrt 변경 시에만 수행한다.
   pull_request:
     branches:
       - dev
-    paths:
-      - "packages/jds/**"
-      - "packages/vrt/**"
 
 # 같은 ref의 이전 실행은 취소하여 중복 실행 방지
 concurrency:
@@ -15,43 +13,117 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  backstop:
-    # vrt-baseline 라벨이 붙어 있는 동안(baseline 재생성 중)에는 회귀 검사를 건너뛴다.
-    # baseline이 항상 우선하며, 옛 baseline과 비교해 생기는 오탐을 막는다.
+  visual-regression:
+    # vrt-baseline 레이블이 붙어 있는 동안(baseline 재생성 중)에는 회귀 검사를 건너뛴다.
+    # baseline이 항상 우선하며, 옛 baseline과 비교해 생기는 오탐을 막는다. 이때 status는 vrt-baseline.yml이 발행한다.
     if: ${{ !contains(github.event.pull_request.labels.*.name, 'vrt-baseline') }}
     runs-on: ubuntu-22.04
     timeout-minutes: 20
+    permissions:
+      contents: read
+      pull-requests: read
+      statuses: write
     steps:
+      # 필수 체크는 모든 PR에 보고돼야 하므로 jds/vrt 변경 여부를 먼저 판별한다.
+      - name: Detect relevant changes
+        id: changes
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const files = await github.paginate(github.rest.pulls.listFiles, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number,
+              per_page: 100,
+            });
+            const relevant = files.some(
+              (f) =>
+                f.filename.startsWith('packages/jds/') ||
+                f.filename.startsWith('packages/vrt/'),
+            );
+            core.setOutput('relevant', relevant ? 'true' : 'false');
+
+      # jds/vrt 변경이 없으면 검사 없이 통과 처리한다.
+      - name: Mark status as passed (no relevant changes)
+        if: steps.changes.outputs.relevant == 'false'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: context.payload.pull_request.head.sha,
+              context: 'Visual Regression Test',
+              state: 'success',
+              description: 'jds/vrt 변경 없음',
+            });
+
+      # 실제 검사는 jds/vrt 변경이 있을 때만 수행한다.
+      - name: Mark status as pending
+        if: steps.changes.outputs.relevant == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: context.payload.pull_request.head.sha,
+              context: 'Visual Regression Test',
+              state: 'pending',
+              description: '시각 회귀 검사 진행 중',
+            });
+
       - name: Checkout repository
+        if: steps.changes.outputs.relevant == 'true'
         uses: actions/checkout@v4
         with:
           ref: ${{ github.head_ref }}
           persist-credentials: false
 
       - name: Setup Node.js
+        if: steps.changes.outputs.relevant == 'true'
         uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: "npm"
 
       - name: Install dependencies
+        if: steps.changes.outputs.relevant == 'true'
         run: npm ci
 
       - name: Build Storybook
+        if: steps.changes.outputs.relevant == 'true'
         run: npm --workspace @jects/vrt run sb:build
 
       # 로컬과 동일한 경로로 실행한다. 시나리오를 생성하고 서버를 띄운 뒤 backstop을 Docker로 돌려 baseline과 비교한다.
       # baseline(bitmaps_reference)은 같은 Docker 이미지에서 생성해 커밋해 둬야 오탐이 나지 않는다.
       - name: Run visual regression
+        if: steps.changes.outputs.relevant == 'true'
         run: npm --workspace @jects/vrt run vrt:test
         env:
           CI: "true"
 
       # 실패 시 diff를 볼 수 있도록 리포트와 결과 이미지를 아티팩트로 올린다.
       - name: Upload BackstopJS report
-        if: always()
+        if: ${{ always() && steps.changes.outputs.relevant == 'true' }}
         uses: actions/upload-artifact@v4
         with:
           name: backstop-report
           path: packages/vrt/backstop_data/
           retention-days: 7
+
+      # 검사 결과를 확정한다. 실패 및 취소는 failure로 기록해 병합을 막는다.
+      - name: Report status
+        if: ${{ always() && steps.changes.outputs.relevant == 'true' }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const state = '${{ job.status }}' === 'success' ? 'success' : 'failure';
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: context.payload.pull_request.head.sha,
+              context: 'Visual Regression Test',
+              state,
+              description: state === 'success' ? '시각 회귀 검사 통과' : '시각 회귀 검사 실패',
+            });
