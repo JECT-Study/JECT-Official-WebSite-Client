@@ -65,7 +65,7 @@ const ContentBadgeRoot = forwardRef<HTMLSpanElement, ContentBadgeProps>(
   },
 );
 
-ContentBadgeRoot.displayName = "ContentBadge";
+ContentBadgeRoot.displayName = "Badge.Content";
 
 const ContentBadgeBasic = forwardRef<HTMLSpanElement, ContentBadgeBasicProps>((props, ref) => (
   <ContentBadgeRoot ref={ref} {...props} />
@@ -90,10 +90,10 @@ const ContentBadgeTheme = forwardRef<HTMLSpanElement, ContentBadgeThemeProps>(
 ContentBadgeTheme.displayName = "ContentBadge.Theme";
 
 export const ContentBadge = Object.assign(ContentBadgeRoot, {
-  /** @deprecated `<ContentBadge hierarchy badgeStyle>`를 사용하세요. */
+  /** @deprecated `<Badge.Content hierarchy badgeStyle>`를 사용하세요. */
   Basic: ContentBadgeBasic,
-  /** @deprecated `<ContentBadge feedback badgeStyle>`를 사용하세요. */
+  /** @deprecated `<Badge.Content feedback badgeStyle>`를 사용하세요. */
   Feedback: ContentBadgeFeedback,
-  /** @deprecated `<ContentBadge variant badgeStyle>`를 사용하세요. */
+  /** @deprecated `<Badge.Content variant badgeStyle>`를 사용하세요. */
   Theme: ContentBadgeTheme,
 });

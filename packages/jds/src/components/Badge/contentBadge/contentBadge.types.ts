@@ -58,20 +58,20 @@ export type ContentBadgeProps = BaseContentBadgeProps &
   );
 
 // TODO(deprecation): 호출부 마이그레이션 완료 후 아래 deprecated 타입과 .Basic/.Feedback/.Theme 별칭 제거
-/** @deprecated `<ContentBadge hierarchy badgeStyle>`를 사용하세요. */
+/** @deprecated `<Badge.Content hierarchy badgeStyle>`를 사용하세요. */
 export type ContentBadgeBasicProps = BaseContentBadgeProps &
   ContentBadgeIconButtonProps & {
     hierarchy?: BasicHierarchy;
   };
 
-/** @deprecated `<ContentBadge feedback badgeStyle>`를 사용하세요. */
+/** @deprecated `<Badge.Content feedback badgeStyle>`를 사용하세요. */
 export type ContentBadgeFeedbackProps = BaseContentBadgeProps &
   ContentBadgeIconButtonProps & {
     /** @deprecated `feedback`을 사용하세요. */
     variant?: FeedbackVariant;
   };
 
-/** @deprecated `<ContentBadge variant badgeStyle>`를 사용하세요. */
+/** @deprecated `<Badge.Content variant badgeStyle>`를 사용하세요. */
 export type ContentBadgeThemeProps = BaseContentBadgeProps & {
   variant?: ThemeVariant;
 };

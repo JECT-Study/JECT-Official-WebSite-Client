@@ -38,7 +38,7 @@ const NumericBadgeRoot = forwardRef<HTMLSpanElement, NumericBadgeProps>(
   },
 );
 
-NumericBadgeRoot.displayName = "NumericBadge";
+NumericBadgeRoot.displayName = "Badge.Numeric";
 
 const NumericBadgeBasic = forwardRef<HTMLSpanElement, NumericBadgeBasicProps>((props, ref) => (
   <NumericBadgeRoot ref={ref} {...props} />
@@ -55,8 +55,8 @@ const NumericBadgeFeedback = forwardRef<HTMLSpanElement, NumericBadgeFeedbackPro
 NumericBadgeFeedback.displayName = "NumericBadge.Feedback";
 
 export const NumericBadge = Object.assign(NumericBadgeRoot, {
-  /** @deprecated `<NumericBadge hierarchy badgeStyle>`를 사용하세요. */
+  /** @deprecated `<Badge.Numeric hierarchy badgeStyle>`를 사용하세요. */
   Basic: NumericBadgeBasic,
-  /** @deprecated `<NumericBadge feedback badgeStyle>`를 사용하세요. */
+  /** @deprecated `<Badge.Numeric feedback badgeStyle>`를 사용하세요. */
   Feedback: NumericBadgeFeedback,
 });
