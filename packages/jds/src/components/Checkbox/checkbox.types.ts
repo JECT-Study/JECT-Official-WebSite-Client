@@ -104,11 +104,14 @@ type CheckboxStandaloneBaseProps = {
   variant?: CheckboxVariant;
   disabled?: boolean;
   isInvalid?: boolean;
-  label?: ReactNode;
-  helper?: ReactNode;
   name?: string;
   value?: string;
 };
 
+type CheckboxLabelHelperProps =
+  | { label?: ReactNode; helper?: never }
+  | { label: ReactNode; helper?: ReactNode };
+
 export type CheckboxProps = CheckboxStandaloneBaseProps &
+  CheckboxLabelHelperProps &
   (CheckboxControlControlledProps | CheckboxControlUncontrolledProps);
