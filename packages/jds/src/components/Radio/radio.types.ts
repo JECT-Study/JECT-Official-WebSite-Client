@@ -57,6 +57,8 @@ export type RadioGroupProps = RadioGroupBaseProps &
 
 export type RadioIndicatorProps = Omit<ComponentPropsWithoutRef<"span">, "children"> & {
   size?: RadioSize;
+  checked?: boolean;
+  disabled?: boolean;
 };
 
 export type RadioLabelProps = {

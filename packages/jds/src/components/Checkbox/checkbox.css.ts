@@ -77,6 +77,30 @@ export const checkboxVisual = recipe({
       sm: { width: checkboxVisualSizeMap.sm, height: checkboxVisualSizeMap.sm },
       xs: { width: checkboxVisualSizeMap.xs, height: checkboxVisualSizeMap.xs },
     } satisfies Record<CheckboxSize, object>,
+  },
+});
+
+// Checkbox.Control
+export const checkboxControl = recipe({
+  base: {
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexShrink: 0,
+    margin: 0,
+    padding: 0,
+    border: "none",
+    background: "none",
+    appearance: "none",
+    cursor: "pointer",
+    position: "relative",
+    outline: "none",
+    borderRadius: vars.scheme.semantic.radius["4"],
+    selectors: {
+      "&:disabled": { cursor: "not-allowed" },
+    },
+  },
+  variants: {
     interaction: {
       on: {
         selectors: {

@@ -97,13 +97,16 @@ const RadioItem = forwardRef<HTMLButtonElement, RadioItemProps>(
 RadioItem.displayName = "Radio.Item";
 
 const RadioIndicator = forwardRef<HTMLSpanElement, RadioIndicatorProps>(
-  ({ size: sizeProp, className, ...restProps }, ref) => {
+  ({ size: sizeProp, checked, disabled = false, className, ...restProps }, ref) => {
     const config = useRadioConfig();
     const size = sizeProp ?? config?.size ?? "md";
+    const isSelfDriven = checked !== undefined;
     return (
       <span
         ref={ref}
         aria-hidden='true'
+        data-state={isSelfDriven ? (checked ? "checked" : "unchecked") : undefined}
+        data-disabled={isSelfDriven && disabled ? "" : undefined}
         className={clsx(radioVisual({ size }), radioIndicatorSlot, className)}
         {...restProps}
       />

@@ -23,19 +23,36 @@ export const radioGroupWrapper = style({ display: "contents" });
 const checkedEnabled = '[role="radio"][data-state="checked"]:not([data-disabled]) &';
 const uncheckedDisabled = '[role="radio"][data-disabled][data-state="unchecked"] &';
 const checkedDisabled = '[role="radio"][data-disabled][data-state="checked"] &';
+const selfCheckedEnabled = '&[data-state="checked"]:not([data-disabled])';
+const selfUncheckedDisabled = '&[data-disabled][data-state="unchecked"]';
+const selfCheckedDisabled = '&[data-disabled][data-state="checked"]';
 
-const makeSizeVariant = (size: RadioSize) => ({
-  width: radioSizeMap[size].sizeRem,
-  height: radioSizeMap[size].sizeRem,
-  selectors: {
-    [checkedEnabled]: {
-      border: `${vars.scheme.semantic.strokeWeight[radioSizeMap[size].borderKey]} solid ${vars.color.semantic.accent.neutral}`,
+const baseCheckedEnabledStyle = {
+  backgroundColor: vars.color.semantic.surface.static.standard,
+};
+const baseUncheckedDisabledStyle = {
+  backgroundColor: vars.color.semantic.surface.standard,
+  borderColor: vars.color.semantic.stroke.alpha.subtle,
+};
+const baseCheckedDisabledStyle = {
+  backgroundColor: vars.color.semantic.fill.subtlest,
+};
+
+const makeSizeVariant = (size: RadioSize) => {
+  const borderChecked = `${vars.scheme.semantic.strokeWeight[radioSizeMap[size].borderKey]} solid ${vars.color.semantic.accent.neutral}`;
+  const borderCheckedDisabled = `${vars.scheme.semantic.strokeWeight[radioSizeMap[size].borderKey]} solid ${vars.color.semantic.stroke.alpha.subtle}`;
+
+  return {
+    width: radioSizeMap[size].sizeRem,
+    height: radioSizeMap[size].sizeRem,
+    selectors: {
+      [checkedEnabled]: { border: borderChecked },
+      [selfCheckedEnabled]: { border: borderChecked },
+      [checkedDisabled]: { border: borderCheckedDisabled },
+      [selfCheckedDisabled]: { border: borderCheckedDisabled },
     },
-    [checkedDisabled]: {
-      border: `${vars.scheme.semantic.strokeWeight[radioSizeMap[size].borderKey]} solid ${vars.color.semantic.stroke.alpha.subtle}`,
-    },
-  },
-});
+  };
+};
 
 export const radioVisual = recipe({
   base: {
@@ -46,12 +63,12 @@ export const radioVisual = recipe({
     backgroundColor: vars.color.semantic.surface.shallow,
     position: "relative",
     selectors: {
-      [checkedEnabled]: { backgroundColor: vars.color.semantic.surface.static.standard },
-      [uncheckedDisabled]: {
-        backgroundColor: vars.color.semantic.surface.standard,
-        borderColor: vars.color.semantic.stroke.alpha.subtle,
-      },
-      [checkedDisabled]: { backgroundColor: vars.color.semantic.fill.subtlest },
+      [checkedEnabled]: baseCheckedEnabledStyle,
+      [selfCheckedEnabled]: baseCheckedEnabledStyle,
+      [uncheckedDisabled]: baseUncheckedDisabledStyle,
+      [selfUncheckedDisabled]: baseUncheckedDisabledStyle,
+      [checkedDisabled]: baseCheckedDisabledStyle,
+      [selfCheckedDisabled]: baseCheckedDisabledStyle,
     },
   },
   variants: {

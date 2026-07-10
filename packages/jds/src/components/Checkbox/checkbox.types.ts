@@ -64,6 +64,13 @@ type CheckboxControlBaseProps = Omit<
 export type CheckboxControlProps = CheckboxControlBaseProps &
   (CheckboxControlControlledProps | CheckboxControlUncontrolledProps);
 
+export type CheckboxIndicatorProps = Omit<ComponentPropsWithoutRef<"span">, "children"> & {
+  size?: CheckboxSize;
+  state?: CheckedState;
+  disabled?: boolean;
+  isInvalid?: boolean;
+};
+
 export type CheckboxLabelProps = {
   children: ReactNode;
 };

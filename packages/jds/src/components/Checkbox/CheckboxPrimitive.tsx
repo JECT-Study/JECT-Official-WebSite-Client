@@ -7,6 +7,7 @@ import { focusRing, getLabelClassName } from "utils";
 import type { LabelSize } from "utils";
 
 import {
+  checkboxControl,
   checkboxControlSlot,
   checkboxGroupWrapper,
   checkboxHelper,
@@ -21,6 +22,7 @@ import type {
   CheckedState,
   CheckboxControlProps,
   CheckboxHelperProps,
+  CheckboxIndicatorProps,
   CheckboxItemProps,
   CheckboxLabelProps,
   CheckboxRootProps,
@@ -138,6 +140,37 @@ const CheckboxItem = forwardRef<HTMLLabelElement, CheckboxItemProps>(
 
 CheckboxItem.displayName = "Checkbox.Item";
 
+const CheckboxIndicator = forwardRef<HTMLSpanElement, CheckboxIndicatorProps>(
+  ({ size = "md", state = false, disabled = false, isInvalid = false, className, ...restProps }, ref) => {
+    const isIndeterminate = state === "indeterminate";
+    const isChecked = state === true;
+    const dataState = isIndeterminate ? "indeterminate" : isChecked ? "checked" : "unchecked";
+
+    return (
+      <span
+        ref={ref}
+        aria-hidden
+        data-state={dataState}
+        data-disabled={disabled || undefined}
+        data-invalid={isInvalid || undefined}
+        className={clsx(checkboxVisual({ size }), className)}
+        {...restProps}
+      >
+        {(isChecked || isIndeterminate) && (
+          <span className={checkboxIndicator}>
+            <Icon
+              name={isIndeterminate ? "subtract-line" : "check-line"}
+              size={checkboxSizeMap[size].icon}
+            />
+          </span>
+        )}
+      </span>
+    );
+  },
+);
+
+CheckboxIndicator.displayName = "Checkbox.Indicator";
+
 const CheckboxControl = forwardRef<HTMLButtonElement, CheckboxControlProps>(
   (
     {
@@ -161,7 +194,6 @@ const CheckboxControl = forwardRef<HTMLButtonElement, CheckboxControlProps>(
     const isInvalid = (isInvalidProp ?? false) || (configContext?.isInvalid ?? false);
     const isWithinItem = itemContext != null;
     const interaction = isWithinItem ? "off" : "on";
-    const iconSize = checkboxSizeMap[size].icon;
 
     const groupState = configContext?.state;
 
@@ -185,7 +217,6 @@ const CheckboxControl = forwardRef<HTMLButtonElement, CheckboxControlProps>(
         : uncontrolledChecked;
 
     const isEffectiveInvalid = isInvalid && currentChecked === false;
-    const isIndeterminate = currentChecked === "indeterminate";
 
     const onChildCheckedChange = itemContext?.onChildCheckedChange;
     useLayoutEffect(() => {
@@ -215,12 +246,15 @@ const CheckboxControl = forwardRef<HTMLButtonElement, CheckboxControlProps>(
           isWithinItem && itemContext?.hasHelper ? itemContext?.helperId : undefined
         }
         data-invalid={isEffectiveInvalid || undefined}
-        className={clsx(checkboxVisual({ size, interaction }), checkboxControlSlot, className)}
+        className={clsx(checkboxControl({ interaction }), checkboxControlSlot, className)}
         {...restProps}
       >
-        <RadixCheckbox.Indicator className={checkboxIndicator}>
-          <Icon name={isIndeterminate ? "subtract-line" : "check-line"} size={iconSize} />
-        </RadixCheckbox.Indicator>
+        <CheckboxIndicator
+          size={size}
+          state={currentChecked}
+          disabled={isDisabled}
+          isInvalid={isEffectiveInvalid}
+        />
       </RadixCheckbox.Root>
     );
   },
@@ -282,6 +316,7 @@ export const CheckboxPrimitive = {
   Root: CheckboxRoot,
   Item: CheckboxItem,
   Control: CheckboxControl,
+  Indicator: CheckboxIndicator,
   Label: CheckboxLabel,
   Helper: CheckboxHelper,
 };

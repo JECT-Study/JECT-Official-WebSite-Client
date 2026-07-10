@@ -40,14 +40,7 @@ export const SelectCheckbox = forwardRef<HTMLDivElement, SelectCheckboxProps>(
         {...restProps}
       >
         <StyledSelectItemInputWrapper>
-          <CheckboxPrimitive.Control
-            size={size}
-            checked={isItemSelected}
-            onCheckedChange={() => {}}
-            disabled={isDisabled}
-            tabIndex={-1}
-            aria-hidden
-          />
+          <CheckboxPrimitive.Indicator size={size} state={isItemSelected} disabled={isDisabled} />
         </StyledSelectItemInputWrapper>
         <StyledSelectItemContent>
           <StyledSelectItemText
