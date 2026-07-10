@@ -1,4 +1,4 @@
-import { style } from "@vanilla-extract/css";
+import { style, type StyleRule } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
 import { pxToRem, overlay } from "utils";
@@ -20,23 +20,23 @@ const radioSizeMap: Record<RadioSize, { sizeRem: string; borderKey: StrokeWeight
 export const radioGroupWrapper = style({ display: "contents" });
 
 // Radio.Indicator
-const checkedEnabled = '[role="radio"][data-state="checked"]:not([data-disabled]) &';
-const uncheckedDisabled = '[role="radio"][data-disabled][data-state="unchecked"] &';
-const checkedDisabled = '[role="radio"][data-disabled][data-state="checked"] &';
+const ancestorCheckedEnabled = '[role="radio"][data-state="checked"]:not([data-disabled]) &';
+const ancestorUncheckedDisabled = '[role="radio"][data-disabled][data-state="unchecked"] &';
+const ancestorCheckedDisabled = '[role="radio"][data-disabled][data-state="checked"] &';
 const selfCheckedEnabled = '&[data-state="checked"]:not([data-disabled])';
 const selfUncheckedDisabled = '&[data-disabled][data-state="unchecked"]';
 const selfCheckedDisabled = '&[data-disabled][data-state="checked"]';
 
 const baseCheckedEnabledStyle = {
   backgroundColor: vars.color.semantic.surface.static.standard,
-};
+} satisfies StyleRule;
 const baseUncheckedDisabledStyle = {
   backgroundColor: vars.color.semantic.surface.standard,
   borderColor: vars.color.semantic.stroke.alpha.subtle,
-};
+} satisfies StyleRule;
 const baseCheckedDisabledStyle = {
   backgroundColor: vars.color.semantic.fill.subtlest,
-};
+} satisfies StyleRule;
 
 const makeSizeVariant = (size: RadioSize) => {
   const borderChecked = `${vars.scheme.semantic.strokeWeight[radioSizeMap[size].borderKey]} solid ${vars.color.semantic.accent.neutral}`;
@@ -46,9 +46,9 @@ const makeSizeVariant = (size: RadioSize) => {
     width: radioSizeMap[size].sizeRem,
     height: radioSizeMap[size].sizeRem,
     selectors: {
-      [checkedEnabled]: { border: borderChecked },
+      [ancestorCheckedEnabled]: { border: borderChecked },
       [selfCheckedEnabled]: { border: borderChecked },
-      [checkedDisabled]: { border: borderCheckedDisabled },
+      [ancestorCheckedDisabled]: { border: borderCheckedDisabled },
       [selfCheckedDisabled]: { border: borderCheckedDisabled },
     },
   };
@@ -63,11 +63,11 @@ export const radioVisual = recipe({
     backgroundColor: vars.color.semantic.surface.shallow,
     position: "relative",
     selectors: {
-      [checkedEnabled]: baseCheckedEnabledStyle,
+      [ancestorCheckedEnabled]: baseCheckedEnabledStyle,
       [selfCheckedEnabled]: baseCheckedEnabledStyle,
-      [uncheckedDisabled]: baseUncheckedDisabledStyle,
+      [ancestorUncheckedDisabled]: baseUncheckedDisabledStyle,
       [selfUncheckedDisabled]: baseUncheckedDisabledStyle,
-      [checkedDisabled]: baseCheckedDisabledStyle,
+      [ancestorCheckedDisabled]: baseCheckedDisabledStyle,
       [selfCheckedDisabled]: baseCheckedDisabledStyle,
     },
   },

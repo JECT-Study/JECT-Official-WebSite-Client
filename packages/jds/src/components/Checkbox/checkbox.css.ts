@@ -16,7 +16,7 @@ const checkboxVisualSizeMap = {
   xs: pxToRem(14),
 } satisfies Record<CheckboxSize, string>;
 
-// Checkbox.Control
+// Checkbox.Indicator
 export const checkboxVisual = recipe({
   base: {
     display: "inline-flex",
@@ -141,7 +141,7 @@ export const checkboxControl = recipe({
   },
 });
 
-export const checkboxIndicator = style({
+export const checkboxIconWrapper = style({
   display: "inline-flex",
   alignItems: "center",
   justifyContent: "center",

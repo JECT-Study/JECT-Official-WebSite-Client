@@ -12,7 +12,7 @@ import {
   checkboxGroupWrapper,
   checkboxHelper,
   checkboxHelperSlot,
-  checkboxIndicator,
+  checkboxIconWrapper,
   checkboxItem,
   checkboxLabel,
   checkboxLabelSlot,
@@ -157,7 +157,7 @@ const CheckboxIndicator = forwardRef<HTMLSpanElement, CheckboxIndicatorProps>(
         {...restProps}
       >
         {(isChecked || isIndeterminate) && (
-          <span className={checkboxIndicator}>
+          <span className={checkboxIconWrapper}>
             <Icon
               name={isIndeterminate ? "subtract-line" : "check-line"}
               size={checkboxSizeMap[size].icon}

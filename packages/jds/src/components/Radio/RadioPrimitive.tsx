@@ -106,7 +106,7 @@ const RadioIndicator = forwardRef<HTMLSpanElement, RadioIndicatorProps>(
         ref={ref}
         aria-hidden='true'
         data-state={isSelfDriven ? (checked ? "checked" : "unchecked") : undefined}
-        data-disabled={isSelfDriven && disabled ? "" : undefined}
+        data-disabled={disabled || undefined}
         className={clsx(radioVisual({ size }), radioIndicatorSlot, className)}
         {...restProps}
       />
