@@ -30,10 +30,8 @@ export const root = recipe({
       alignItems: "center",
       boxSizing: "border-box",
       gap: vars.scheme.semantic.spacing["4"],
-      paddingTop: vars.scheme.semantic.spacing["4"],
-      paddingRight: vars.scheme.semantic.spacing["8"],
-      paddingBottom: vars.scheme.semantic.spacing["4"],
-      paddingLeft: vars.scheme.semantic.spacing["10"],
+      paddingBlock: vars.scheme.semantic.spacing["4"],
+      paddingInline: `${vars.scheme.semantic.spacing["10"]} ${vars.scheme.semantic.spacing["8"]}`,
       border: `${vars.scheme.semantic.strokeWeight["1"]} solid ${chipColorVars.border}`,
       borderRadius: vars.scheme.semantic.radius.max,
       backgroundColor: chipColorVars.background,
@@ -46,7 +44,10 @@ export const root = recipe({
         [chipColorVars.divider]: vars.color.semantic.stroke.alpha.alternative,
       },
       selectors: {
-        "&::before, &::after": { inset: 0, borderRadius: "inherit" },
+        "&::before, &::after": {
+          inset: 0,
+          borderRadius: "inherit",
+        },
       },
     },
   ],
@@ -72,7 +73,9 @@ export const root = recipe({
           [chipColorVars.divider]: vars.color.semantic.stroke.alpha.subtle,
         },
       },
-      false: { cursor: "pointer" },
+      false: {
+        cursor: "pointer",
+      },
     },
   },
   compoundVariants: [
@@ -125,7 +128,9 @@ export const label = style({
     [labelColorVar]: chipColorVars.label,
   },
   selectors: {
-    "&&": { cursor: "inherit" },
+    "&&": {
+      cursor: "inherit",
+    },
   },
 });
 
