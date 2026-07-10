@@ -105,14 +105,12 @@ export const contentButton = style({
   gap: vars.scheme.semantic.spacing["6"],
   padding: 0,
   border: "none",
+  outline: "none",
   background: "transparent",
   color: "inherit",
-  cursor: "pointer",
+  cursor: "inherit",
   font: "inherit",
   selectors: {
-    "&[disabled]": {
-      cursor: "not-allowed",
-    },
     "&::after": {
       content: '""',
       position: "absolute",
