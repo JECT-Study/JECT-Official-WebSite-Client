@@ -1,6 +1,7 @@
 import { clsx } from "clsx";
 import { Icon } from "components";
 import type { IconSize } from "components";
+import { useControllableState } from "hooks";
 import { Checkbox as RadixCheckbox } from "radix-ui";
 import { forwardRef, useId, useLayoutEffect, useState } from "react";
 import { focusRing, getLabelClassName } from "utils";
@@ -34,7 +35,6 @@ import {
   useCheckboxConfig,
   useCheckboxItem,
 } from "./CheckboxContext";
-import { useCheckboxState } from "./useCheckboxState";
 
 const checkboxSizeMap = {
   lg: { icon: "md", label: "lg", helper: "sm" },
@@ -54,7 +54,11 @@ const CheckboxRoot = ({
   name,
   children,
 }: CheckboxRootProps) => {
-  const [selected, setSelected] = useCheckboxState(value, defaultValue ?? [], onChange);
+  const [selected, setSelected] = useControllableState<string[]>(
+    value,
+    defaultValue ?? [],
+    onChange,
+  );
 
   const state = {
     value: selected,
@@ -210,17 +214,16 @@ const CheckboxControl = forwardRef<HTMLButtonElement, CheckboxControlProps>(
     }
 
     const isGrouped = groupState != null && value != null;
-    const isControlledStandalone = checked !== undefined;
 
-    const [uncontrolledChecked, setUncontrolledChecked] = useState<CheckedState>(
+    const [standaloneChecked, setStandaloneChecked] = useControllableState<CheckedState>(
+      checked,
       defaultChecked ?? false,
+      onCheckedChange,
     );
 
     const currentChecked: CheckedState = isGrouped
       ? groupState.isSelected(value)
-      : isControlledStandalone
-        ? checked
-        : uncontrolledChecked;
+      : standaloneChecked;
 
     const isEffectiveInvalid = isInvalid && currentChecked === false;
 
@@ -234,8 +237,7 @@ const CheckboxControl = forwardRef<HTMLButtonElement, CheckboxControlProps>(
         groupState.toggle(value);
         return;
       }
-      if (!isControlledStandalone) setUncontrolledChecked(next);
-      onCheckedChange?.(next);
+      setStandaloneChecked(next);
     };
 
     return (
