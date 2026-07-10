@@ -1,7 +1,7 @@
 import { style, type StyleRule } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
-import { pxToRem, overlay, overlayColorMap, overlayOpacityMap } from "utils";
+import { pxToRem, overlay } from "utils";
 
 import { CHECKBOX_SIZE_OPTIONS, type CheckboxSize } from "./checkbox.types";
 
@@ -81,63 +81,23 @@ export const checkboxVisual = recipe({
 });
 
 // Checkbox.Control
-export const checkboxControl = recipe({
-  base: {
-    display: "inline-flex",
-    alignItems: "center",
-    justifyContent: "center",
-    flexShrink: 0,
-    margin: 0,
-    padding: 0,
-    border: "none",
-    background: "none",
-    appearance: "none",
-    cursor: "pointer",
-    position: "relative",
-    outline: "none",
-    borderRadius: vars.scheme.semantic.radius["4"],
-    selectors: {
-      "&:disabled": { cursor: "not-allowed" },
-    },
-  },
-  variants: {
-    interaction: {
-      on: {
-        selectors: {
-          "&:not([data-disabled])::after": {
-            content: '""',
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            backgroundColor: overlayColorMap.primary,
-            borderRadius: "inherit",
-            opacity: 0,
-            pointerEvents: "none",
-          },
-          "&:not([data-disabled]):active::after": {
-            opacity: overlayOpacityMap.normal.pressed,
-          },
-          "&:focus-visible": {
-            boxShadow: `0 0 0 ${vars.scheme.semantic.strokeWeight["2"]} ${vars.color.semantic.accent.alpha.alternative}`,
-          },
-          "&[data-invalid]:focus-visible": {
-            boxShadow: `0 0 0 ${vars.scheme.semantic.strokeWeight["2"]} ${vars.color.semantic.feedback.destructive.alpha.alternative}`,
-          },
-        },
-        "@media": {
-          "(hover: hover) and (pointer: fine)": {
-            selectors: {
-              "&:not([data-disabled]):hover::after": {
-                opacity: overlayOpacityMap.normal.hover,
-              },
-            },
-          },
-        },
-      },
-      off: {},
-    },
+export const checkboxControl = style({
+  display: "inline-flex",
+  alignItems: "center",
+  justifyContent: "center",
+  flexShrink: 0,
+  margin: 0,
+  padding: 0,
+  border: "none",
+  background: "none",
+  appearance: "none",
+  cursor: "pointer",
+  position: "relative",
+  outline: "none",
+  borderRadius: vars.scheme.semantic.radius["4"],
+  selectors: {
+    "&:disabled": { cursor: "not-allowed" },
+    "&::before, &::after": { inset: 0, borderRadius: "inherit" },
   },
 });
 

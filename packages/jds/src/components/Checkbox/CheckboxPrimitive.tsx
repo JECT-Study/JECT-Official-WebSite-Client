@@ -4,7 +4,7 @@ import type { IconSize } from "components";
 import { useControllableState } from "hooks";
 import { Checkbox as RadixCheckbox } from "radix-ui";
 import { forwardRef, useId, useLayoutEffect, useState } from "react";
-import { focusRing, getLabelClassName } from "utils";
+import { focusRing, getLabelClassName, overlay } from "utils";
 import type { LabelSize } from "utils";
 
 import {
@@ -203,7 +203,6 @@ const CheckboxControl = forwardRef<HTMLButtonElement, CheckboxControlProps>(
     const isDisabled = (disabled ?? false) || (configContext?.disabled ?? false);
     const isInvalid = (isInvalidProp ?? false) || (configContext?.isInvalid ?? false);
     const isWithinItem = itemContext != null;
-    const interaction = isWithinItem ? "off" : "on";
 
     const groupState = configContext?.state;
 
@@ -254,7 +253,13 @@ const CheckboxControl = forwardRef<HTMLButtonElement, CheckboxControlProps>(
           isWithinItem && itemContext?.hasHelper ? itemContext?.helperId : undefined
         }
         data-invalid={isEffectiveInvalid || undefined}
-        className={clsx(checkboxControl({ interaction }), checkboxControlSlot, className)}
+        className={clsx(
+          checkboxControl,
+          checkboxControlSlot,
+          !isWithinItem && overlay({ density: "normal" }),
+          !isWithinItem && focusRing({ feedback: isEffectiveInvalid ? "destructive" : "none" }),
+          className,
+        )}
         {...restProps}
       >
         <CheckboxIndicator
