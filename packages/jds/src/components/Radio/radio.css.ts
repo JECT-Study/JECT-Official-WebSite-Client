@@ -188,7 +188,6 @@ export const radioItem = recipe({
 
 export const radioLabel = style({
   whiteSpace: "nowrap",
-  zIndex: 10,
   vars: { [labelColorVar]: vars.color.semantic.object.bolder },
   selectors: {
     "[data-disabled] &": { vars: { [labelColorVar]: vars.color.semantic.object.subtle } },
@@ -199,7 +198,6 @@ export const radioHelper = style({
   whiteSpace: "nowrap",
   vars: { [labelColorVar]: vars.color.semantic.object.alternative },
   position: "relative",
-  zIndex: 10,
   selectors: {
     "[data-disabled] &": { vars: { [labelColorVar]: vars.color.semantic.object.subtle } },
   },
