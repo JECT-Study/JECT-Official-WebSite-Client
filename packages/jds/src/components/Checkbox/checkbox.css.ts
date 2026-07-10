@@ -1,4 +1,4 @@
-import { style } from "@vanilla-extract/css";
+import { style, type StyleRule } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
 import { pxToRem, overlay, overlayColorMap, overlayOpacityMap } from "utils";
@@ -76,7 +76,7 @@ export const checkboxVisual = recipe({
       md: { width: checkboxVisualSizeMap.md, height: checkboxVisualSizeMap.md },
       sm: { width: checkboxVisualSizeMap.sm, height: checkboxVisualSizeMap.sm },
       xs: { width: checkboxVisualSizeMap.xs, height: checkboxVisualSizeMap.xs },
-    } satisfies Record<CheckboxSize, object>,
+    } satisfies Record<CheckboxSize, StyleRule>,
   },
 });
 
@@ -222,7 +222,7 @@ export const checkboxItem = recipe({
         gap: `${vars.scheme.semantic.spacing["6"]} ${vars.scheme.semantic.spacing["8"]}`,
         borderRadius: vars.scheme.semantic.radius["4"],
       },
-    } satisfies Record<CheckboxSize, object>,
+    } satisfies Record<CheckboxSize, StyleRule>,
     styleOutlined: {
       outlined: {
         border: `${vars.scheme.semantic.strokeWeight["1"]} solid ${vars.color.semantic.stroke.alpha.assistive}`,

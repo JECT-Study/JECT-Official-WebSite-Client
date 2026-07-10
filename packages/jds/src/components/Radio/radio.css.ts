@@ -77,7 +77,7 @@ export const radioVisual = recipe({
       md: makeSizeVariant("md"),
       sm: makeSizeVariant("sm"),
       xs: makeSizeVariant("xs"),
-    } satisfies Record<RadioSize, unknown>,
+    } satisfies Record<RadioSize, StyleRule>,
   },
 });
 
@@ -99,7 +99,7 @@ const itemSizeVariants = {
     gap: `${vars.scheme.semantic.spacing["6"]} ${vars.scheme.semantic.spacing["8"]}`,
     borderRadius: vars.scheme.semantic.radius["4"],
   },
-} satisfies Record<RadioSize, object>;
+} satisfies Record<RadioSize, StyleRule>;
 
 const itemInsetBySize: Record<RadioSize, string> = {
   lg: `${pxToRem(-4)} ${pxToRem(-8)}`,
@@ -171,7 +171,7 @@ export const radioItem = recipe({
     },
   ],
   variants: {
-    size: itemSizeVariants satisfies Record<RadioSize, unknown>,
+    size: itemSizeVariants satisfies Record<RadioSize, StyleRule>,
     styleOutlined: {
       outlined: {
         border: `${vars.scheme.semantic.strokeWeight["1"]} solid ${vars.color.semantic.stroke.alpha.subtle}`,
