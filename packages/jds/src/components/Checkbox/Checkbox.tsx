@@ -18,7 +18,12 @@ export const Checkbox = forwardRef<HTMLButtonElement, CheckboxProps>(
     }
 
     return (
-      <CheckboxPrimitive.Item size={size} variant={variant} disabled={disabled} isInvalid={isInvalid}>
+      <CheckboxPrimitive.Item
+        size={size}
+        variant={variant}
+        disabled={disabled}
+        isInvalid={isInvalid}
+      >
         <CheckboxPrimitive.Control ref={ref} {...controlProps} />
         {label != null && <CheckboxPrimitive.Label>{label}</CheckboxPrimitive.Label>}
         {helper != null && <CheckboxPrimitive.Helper>{helper}</CheckboxPrimitive.Helper>}

@@ -126,7 +126,10 @@ const CheckboxItem = forwardRef<HTMLLabelElement, CheckboxItemProps>(
             data-invalid={isEffectiveInvalid || undefined}
             className={clsx(
               checkboxItem({ size, styleOutlined: variant }),
-              focusRing({ feedback: isEffectiveInvalid ? "destructive" : "none", interaction: "within" }),
+              focusRing({
+                feedback: isEffectiveInvalid ? "destructive" : "none",
+                interaction: "within",
+              }),
               className,
             )}
           >
@@ -141,7 +144,10 @@ const CheckboxItem = forwardRef<HTMLLabelElement, CheckboxItemProps>(
 CheckboxItem.displayName = "Checkbox.Item";
 
 const CheckboxIndicator = forwardRef<HTMLSpanElement, CheckboxIndicatorProps>(
-  ({ size = "md", state = false, disabled = false, isInvalid = false, className, ...restProps }, ref) => {
+  (
+    { size = "md", state = false, disabled = false, isInvalid = false, className, ...restProps },
+    ref,
+  ) => {
     const isIndeterminate = state === "indeterminate";
     const isChecked = state === true;
     const dataState = isIndeterminate ? "indeterminate" : isChecked ? "checked" : "unchecked";

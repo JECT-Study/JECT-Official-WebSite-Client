@@ -22,7 +22,12 @@ import type {
   RadioLabelProps,
   RadioRootProps,
 } from "./radio.types";
-import { RadioItemProvider, RadioConfigProvider, useRadioConfig, useRadioItem } from "./RadioContext";
+import {
+  RadioItemProvider,
+  RadioConfigProvider,
+  useRadioConfig,
+  useRadioItem,
+} from "./RadioContext";
 
 const radioTextSizeMap = {
   lg: { label: "lg", helper: "sm" },
@@ -59,7 +64,15 @@ RadioRoot.displayName = "Radio.Root";
 
 const RadioItem = forwardRef<HTMLButtonElement, RadioItemProps>(
   (
-    { value, size: sizeProp, variant: variantProp, disabled = false, children, className, ...restProps },
+    {
+      value,
+      size: sizeProp,
+      variant: variantProp,
+      disabled = false,
+      children,
+      className,
+      ...restProps
+    },
     ref,
   ) => {
     const parentContext = useRadioConfig();
@@ -100,12 +113,13 @@ const RadioIndicator = forwardRef<HTMLSpanElement, RadioIndicatorProps>(
   ({ size: sizeProp, checked, disabled = false, className, ...restProps }, ref) => {
     const config = useRadioConfig();
     const size = sizeProp ?? config?.size ?? "md";
-    const isSelfDriven = checked !== undefined;
+    const hasExplicitState = checked !== undefined;
+
     return (
       <span
         ref={ref}
-        aria-hidden='true'
-        data-state={isSelfDriven ? (checked ? "checked" : "unchecked") : undefined}
+        aria-hidden
+        data-state={hasExplicitState ? (checked ? "checked" : "unchecked") : undefined}
         data-disabled={disabled || undefined}
         className={clsx(radioVisual({ size }), radioIndicatorSlot, className)}
         {...restProps}

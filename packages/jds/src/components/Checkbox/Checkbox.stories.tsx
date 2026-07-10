@@ -3,7 +3,11 @@ import { FlexColumn, FlexRow } from "@storybook-utils/layout";
 import { useState } from "react";
 
 import { Checkbox } from "./Checkbox";
-import { CHECKBOX_SIZE_OPTIONS, CHECKBOX_VARIANT_OPTIONS, type CheckedState } from "./checkbox.types";
+import {
+  CHECKBOX_SIZE_OPTIONS,
+  CHECKBOX_VARIANT_OPTIONS,
+  type CheckedState,
+} from "./checkbox.types";
 import { CheckboxGroup } from "./CheckboxGroup";
 
 const meta = {
