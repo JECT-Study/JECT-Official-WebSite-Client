@@ -27,6 +27,7 @@ export const ToastProvider = ({ children, duration }: ToastProviderProps) => {
 
   const [announcement, setAnnouncement] = useState("");
   const announcementSpaceToggleRef = useRef(false);
+  const announcedToastIdsRef = useRef<Set<string>>(new Set());
 
   const latestToast = toasts.length > 0 ? toasts[toasts.length - 1] : null;
 
@@ -45,6 +46,14 @@ export const ToastProvider = ({ children, duration }: ToastProviderProps) => {
 
   useEffect(() => {
     if (!latestToastId) return;
+
+    /**
+     * [A11y] 최신 토스트가 먼저 제거되면 이미 낭독한 이전 토스트가
+     * 다시 latest가 될 수 있습니다. 신규 id만 live region에 반영해
+     * 같은 토스트가 반복 낭독되지 않도록 합니다.
+     */
+    if (announcedToastIdsRef.current.has(latestToastId)) return;
+    announcedToastIdsRef.current.add(latestToastId);
 
     const baseText = [latestToastTitle, latestToastDescription].filter(Boolean).join(" ");
 
