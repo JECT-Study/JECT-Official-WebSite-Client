@@ -27,6 +27,7 @@ export const root = recipe({
       position: "relative",
       display: "inline-flex",
       flexDirection: "row",
+      width: "fit-content",
       alignItems: "center",
       boxSizing: "border-box",
       gap: vars.scheme.semantic.spacing["4"],
