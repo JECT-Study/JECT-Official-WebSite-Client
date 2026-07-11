@@ -47,38 +47,24 @@ export const Default: Story = {
 export const Activated: Story = {
   args: {
     label: "레이블",
+    valueLabel: "값 레이블",
+    disabled: false,
+    onClick: () => alert("chip clicked"),
     onRemove: () => alert("icon clicked"),
   },
-  render: () => (
-    <Chip
-      label='레이블'
-      valueLabel='값 레이블'
-      onClick={() => alert("chip clicked")}
-      onRemove={() => alert("icon clicked")}
-    />
-  ),
 };
 
 export const Disabled: Story = {
   args: {
     label: "레이블",
+    disabled: true,
+    onClick: () => alert("chip clicked"),
     onRemove: () => alert("icon clicked"),
   },
-  render: () => (
+  render: args => (
     <FlexRow>
-      <Chip
-        label='레이블'
-        disabled
-        onClick={() => alert("chip clicked")}
-        onRemove={() => alert("icon clicked")}
-      />
-      <Chip
-        label='레이블'
-        valueLabel='값 레이블'
-        disabled
-        onClick={() => alert("chip clicked")}
-        onRemove={() => alert("icon clicked")}
-      />
+      <Chip {...args} />
+      <Chip {...args} valueLabel='값 레이블' />
     </FlexRow>
   ),
 };
