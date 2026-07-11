@@ -99,7 +99,7 @@ export const root = recipe({
   ],
 });
 
-export const contentButton = style({
+export const mainAction = style({
   display: "inline-flex",
   alignItems: "center",
   minWidth: 0,
@@ -149,7 +149,7 @@ export const divider = style({
   },
 });
 
-export const closeButton = style({
+export const removeButton = style({
   position: "relative",
   zIndex: 1,
   vars: {

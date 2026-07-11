@@ -38,7 +38,7 @@ export const Chip = forwardRef<HTMLButtonElement, ChipProps>(
           disabled={disabled}
           aria-pressed={activated}
           data-interaction-target
-          className={styles.contentButton}
+          className={styles.mainAction}
         >
           <span className={clsx(styles.label, getLabelClassName({ size: "md" }))}>{label}</span>
           {hasValueLabel && (
@@ -65,7 +65,7 @@ export const Chip = forwardRef<HTMLButtonElement, ChipProps>(
           hierarchy='accent'
           aria-label={`${[label, valueLabel].filter(Boolean).join(" ")} 삭제`}
           disabled={disabled}
-          className={styles.closeButton}
+          className={styles.removeButton}
           onClick={e => {
             e.stopPropagation();
             onRemove(e);
