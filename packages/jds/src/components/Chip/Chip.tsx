@@ -13,7 +13,6 @@ export const Chip = forwardRef<HTMLButtonElement, ChipProps>(
     {
       label,
       valueLabel,
-      activated = false,
       disabled = false,
       onRemove,
       className,
@@ -23,7 +22,7 @@ export const Chip = forwardRef<HTMLButtonElement, ChipProps>(
     },
     forwardedRef,
   ) => {
-    const hasValueLabel = Boolean(valueLabel);
+    const activated = Boolean(valueLabel);
 
     return (
       <span
@@ -41,7 +40,7 @@ export const Chip = forwardRef<HTMLButtonElement, ChipProps>(
           className={styles.mainAction}
         >
           <span className={clsx(styles.label, getLabelClassName({ size: "md" }))}>{label}</span>
-          {hasValueLabel && (
+          {activated && (
             <>
               <span className={styles.dividerWrapper}>
                 <Divider

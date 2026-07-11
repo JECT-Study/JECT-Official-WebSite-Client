@@ -23,11 +23,7 @@ const meta = {
     },
     valueLabel: {
       control: "text",
-      description: "기본 레이블 뒤에 표시되는 값 레이블입니다.",
-    },
-    activated: {
-      control: "boolean",
-      description: "활성화 된 것처럼 보이는지의 여부입니다.",
+      description: "기본 레이블 뒤에 표시되는 값 레이블입니다. 전달되면 활성 상태로 표시됩니다.",
     },
     disabled: {
       control: "boolean",
@@ -42,8 +38,6 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     label: "레이블",
-    valueLabel: "값 레이블",
-    activated: false,
     disabled: false,
     onClick: () => alert("chip clicked"),
     onRemove: () => alert("icon clicked"),
@@ -56,21 +50,12 @@ export const Activated: Story = {
     onRemove: () => alert("icon clicked"),
   },
   render: () => (
-    <FlexRow>
-      <Chip
-        label='레이블'
-        activated
-        onClick={() => alert("chip clicked")}
-        onRemove={() => alert("icon clicked")}
-      />
-      <Chip
-        label='레이블'
-        valueLabel='값 레이블'
-        activated
-        onClick={() => alert("chip clicked")}
-        onRemove={() => alert("icon clicked")}
-      />
-    </FlexRow>
+    <Chip
+      label='레이블'
+      valueLabel='값 레이블'
+      onClick={() => alert("chip clicked")}
+      onRemove={() => alert("icon clicked")}
+    />
   ),
 };
 
@@ -81,7 +66,6 @@ export const Disabled: Story = {
   },
   render: () => (
     <FlexColumn>
-      <span>Activated = false</span>
       <FlexRow>
         <Chip
           label='레이블'
@@ -97,26 +81,6 @@ export const Disabled: Story = {
           onRemove={() => alert("icon clicked")}
         />
       </FlexRow>
-      <FlexColumn>
-        <span>Activated = true</span>
-        <FlexRow>
-          <Chip
-            label='레이블'
-            activated
-            disabled
-            onClick={() => alert("chip clicked")}
-            onRemove={() => alert("icon clicked")}
-          />
-          <Chip
-            label='레이블'
-            valueLabel='값 레이블'
-            activated
-            disabled
-            onClick={() => alert("chip clicked")}
-            onRemove={() => alert("icon clicked")}
-          />
-        </FlexRow>
-      </FlexColumn>
     </FlexColumn>
   ),
 };
