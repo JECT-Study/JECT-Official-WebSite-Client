@@ -1,7 +1,7 @@
 import { createVar, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
-import { focusRing, overlay, pxToRem } from "utils";
+import { focusRing, overlay, overlayColor, overlayColorMap, pxToRem } from "utils";
 
 import {
   iconButtonAccentColor,
@@ -21,7 +21,7 @@ const chipColorVars = {
 
 export const root = recipe({
   base: [
-    overlay({ hierarchy: "primary", density: "normal", interaction: "delegated" }),
+    overlay({ density: "normal", interaction: "delegated" }),
     focusRing({ interaction: "delegated" }),
     {
       position: "relative",
@@ -61,6 +61,7 @@ export const root = recipe({
           [chipColorVars.border]: vars.color.semantic.accent.alpha.neutral,
           [chipColorVars.background]: vars.color.semantic.accent.alpha.subtlest,
           [chipColorVars.divider]: vars.color.semantic.accent.alpha.assistive,
+          [overlayColor]: overlayColorMap.accent,
         },
       },
     },
