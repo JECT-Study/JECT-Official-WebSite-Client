@@ -31,6 +31,7 @@ export const stackContainer = style({
   maxWidth: `calc(${pxToRem(400)} + ${vars.scheme.semantic.spacing["40"]} + ${vars.scheme.semantic.spacing["40"]})`,
   padding: vars.scheme.semantic.spacing["40"],
   overflow: "hidden",
+  pointerEvents: "none",
   "@media": {
     [`screen and (max-width: ${breakpoints.mobile.max}px)`]: {
       left: 0,
@@ -54,6 +55,7 @@ export const root = recipe({
     borderRadius: vars.scheme.semantic.radius["10"],
     backgroundColor: vars.color.semantic.surface.shallow,
     boxShadow: `inset 0 0 0 ${vars.scheme.semantic.strokeWeight["1"]} ${vars.color.semantic.stroke.subtle}, ${vars.environment.semantic.shadow.overlay}`,
+    pointerEvents: "auto",
   },
   variants: {
     feedback: {
