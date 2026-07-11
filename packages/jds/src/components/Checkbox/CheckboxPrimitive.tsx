@@ -1,12 +1,12 @@
 import { clsx } from "clsx";
-import { Icon } from "components";
-import type { IconSize } from "components";
 import { useControllableState } from "hooks";
 import { Checkbox as RadixCheckbox } from "radix-ui";
 import { forwardRef, useId, useLayoutEffect, useState } from "react";
 import { focusRing, getLabelClassName, overlay } from "utils";
 import type { LabelSize } from "utils";
 
+import type { IconSize } from "../Icon";
+import { Icon } from "../Icon";
 import {
   checkboxControl,
   checkboxControlSlot,
