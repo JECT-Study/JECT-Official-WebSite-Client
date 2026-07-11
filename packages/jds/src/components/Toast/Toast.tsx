@@ -1,5 +1,5 @@
 import { clsx } from "clsx";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import * as styles from "./toast.css";
 import type { ToastProps, ToastFeedbackVariant } from "./toast.types";
@@ -42,6 +42,9 @@ export const Toast = ({
   const [phase, setPhase] = useState<ToastPhase>("enter");
   const hasDescription = Boolean(description);
 
+  // Provider 리렌더로 onRemove가 바뀌어도 exit 타이머가 재시작되지 않도록 최신 콜백만 보관한다.
+  const onRemoveRef = useRef(onRemove);
+
   useEffect(() => {
     if (phase === "enter") {
       const timer = setTimeout(() => setPhase("static"), TOAST_DURATION.ENTER);
@@ -58,13 +61,17 @@ export const Toast = ({
   }, [duration, phase]);
 
   useEffect(() => {
+    onRemoveRef.current = onRemove;
+  }, [onRemove]);
+
+  useEffect(() => {
     if (phase === "exit") {
       const timer = setTimeout(() => {
-        onRemove?.();
+        onRemoveRef.current?.();
       }, TOAST_DURATION.EXIT);
       return () => clearTimeout(timer);
     }
-  }, [phase, onRemove]);
+  }, [phase]);
 
   useEffect(() => {
     if (isClosing) setPhase("exit");
