@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { FlexColumn, FlexRow } from "@storybook-utils/layout";
+import { FlexRow } from "@storybook-utils/layout";
 
 import { Chip } from "./Chip";
 
@@ -65,22 +65,20 @@ export const Disabled: Story = {
     onRemove: () => alert("icon clicked"),
   },
   render: () => (
-    <FlexColumn>
-      <FlexRow>
-        <Chip
-          label='레이블'
-          disabled
-          onClick={() => alert("chip clicked")}
-          onRemove={() => alert("icon clicked")}
-        />
-        <Chip
-          label='레이블'
-          valueLabel='값 레이블'
-          disabled
-          onClick={() => alert("chip clicked")}
-          onRemove={() => alert("icon clicked")}
-        />
-      </FlexRow>
-    </FlexColumn>
+    <FlexRow>
+      <Chip
+        label='레이블'
+        disabled
+        onClick={() => alert("chip clicked")}
+        onRemove={() => alert("icon clicked")}
+      />
+      <Chip
+        label='레이블'
+        valueLabel='값 레이블'
+        disabled
+        onClick={() => alert("chip clicked")}
+        onRemove={() => alert("icon clicked")}
+      />
+    </FlexRow>
   ),
 };

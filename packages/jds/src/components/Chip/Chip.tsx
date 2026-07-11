@@ -22,11 +22,11 @@ export const Chip = forwardRef<HTMLButtonElement, ChipProps>(
     },
     forwardedRef,
   ) => {
-    const activated = Boolean(valueLabel);
+    const isActivated = Boolean(valueLabel);
 
     return (
       <span
-        className={clsx(styles.root({ activated, disabled }), className)}
+        className={clsx(styles.root({ activated: isActivated, disabled }), className)}
         style={style}
         data-disabled={disabled || undefined}
       >
@@ -35,12 +35,12 @@ export const Chip = forwardRef<HTMLButtonElement, ChipProps>(
           {...restProps}
           type={type}
           disabled={disabled}
-          aria-pressed={activated}
+          aria-pressed={isActivated}
           data-interaction-target
           className={styles.mainAction}
         >
           <span className={clsx(styles.label, getLabelClassName({ size: "md" }))}>{label}</span>
-          {activated && (
+          {isActivated && (
             <>
               <span className={styles.dividerWrapper}>
                 <Divider
