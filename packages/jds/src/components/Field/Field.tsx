@@ -1,4 +1,5 @@
-import { useId, type ReactNode } from "react";
+import { clsx } from "clsx";
+import { forwardRef, useId, type ComponentPropsWithoutRef, type ReactNode } from "react";
 
 import { FieldContent } from "./compound/Content";
 import { FieldHelperText } from "./compound/HelperText";
@@ -7,7 +8,7 @@ import { FieldProvider } from "./Field.context";
 import * as styles from "./field.css";
 import type { FieldStatus, FieldStyle } from "./field.types";
 
-export interface FieldProps {
+export interface FieldProps extends ComponentPropsWithoutRef<"div"> {
   status?: FieldStatus;
   fieldStyle?: FieldStyle;
   readonly?: boolean;
@@ -16,29 +17,38 @@ export interface FieldProps {
   children: ReactNode;
 }
 
-const InternalField = ({
-  status = "default",
-  fieldStyle = "outline",
-  readonly = false,
-  disabled = false,
-  required = false,
-  children,
-}: FieldProps) => {
-  const fieldId = useId();
+const InternalField = forwardRef<HTMLDivElement, FieldProps>(
+  (
+    {
+      status = "default",
+      fieldStyle = "outline",
+      readonly = false,
+      disabled = false,
+      required = false,
+      children,
+      className,
+      ...restProps
+    },
+    ref,
+  ) => {
+    const fieldId = useId();
 
-  return (
-    <FieldProvider
-      fieldId={fieldId}
-      status={status}
-      fieldStyle={fieldStyle}
-      readonly={readonly}
-      disabled={disabled}
-      required={required}
-    >
-      <div className={styles.container()}>{children}</div>
-    </FieldProvider>
-  );
-};
+    return (
+      <FieldProvider
+        fieldId={fieldId}
+        status={status}
+        fieldStyle={fieldStyle}
+        readonly={readonly}
+        disabled={disabled}
+        required={required}
+      >
+        <div ref={ref} className={clsx(styles.container(), className)} {...restProps}>
+          {children}
+        </div>
+      </FieldProvider>
+    );
+  },
+);
 
 InternalField.displayName = "InternalField";
 

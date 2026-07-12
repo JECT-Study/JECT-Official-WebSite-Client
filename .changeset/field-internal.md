@@ -8,7 +8,7 @@
 
 **구성**
 
-- `Field`: `useId`로 필드 문맥을 생성하고 상태를 context로 제공하는 루트 컨테이너
+- `Field`: `useId`로 필드 문맥을 생성하고 상태를 context로 제공하는 루트 컨테이너 (native `div` 속성 및 `ref` 포워딩 지원)
 - `Field.Label`: `htmlFor`를 필드 문맥의 id에 연결, `required`일 때 asterisk 표시
 - `Field.Content`: 입력 영역 래퍼 — outline 스타일에서 테두리/배경/인터랙션 레이어/focus ring 담당, 좌우 addon(아이콘·버튼) 배치 가능
 - `Field.HelperText`: status/disabled에 따라 색상이 연동되는 보조 텍스트
