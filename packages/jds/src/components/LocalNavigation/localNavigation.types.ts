@@ -12,13 +12,21 @@ export const LOCAL_NAVIGATION_TITLE_AS_OPTIONS = [
 
 export type LocalNavigationTitleAs = (typeof LOCAL_NAVIGATION_TITLE_AS_OPTIONS)[number];
 
-export type LocalNavigationProps = Omit<
+type LocalNavigationBaseProps = Omit<
   ComponentPropsWithoutRef<"nav">,
   "title" | "children" | "aria-labelledby"
 > & {
   title: string;
   titleAs?: LocalNavigationTitleAs;
-  nested?: boolean;
-  onBackClick?: MouseEventHandler<HTMLButtonElement>;
   suffixAction?: ReactNode;
-} & ({ floated?: false; stretched?: boolean } | { floated: true; stretched?: false });
+};
+
+type NestedProps =
+  | { nested?: false; onBackClick?: never }
+  | { nested: true; onBackClick: MouseEventHandler<HTMLButtonElement> };
+
+type FloatedProps =
+  | { floated?: false; stretched?: boolean }
+  | { floated: true; stretched?: false };
+
+export type LocalNavigationProps = LocalNavigationBaseProps & NestedProps & FloatedProps;
