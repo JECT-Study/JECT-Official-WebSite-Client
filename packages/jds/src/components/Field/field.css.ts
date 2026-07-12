@@ -52,14 +52,8 @@ export const label = recipe({
   },
 });
 
-export const asteriskContainer = style({
-  position: "relative",
-});
-
 export const asterisk = style({
-  position: "absolute",
-  // NOTE: 2px 만큼 위로 영역을 벗어나있음
-  top: -2,
+  marginTop: -2,
   color: vars.color.semantic.feedback.notifying.static.inverse.bold,
 });
 

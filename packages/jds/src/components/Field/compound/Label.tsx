@@ -40,11 +40,9 @@ export const FieldLabel = forwardRef<HTMLLabelElement, FieldLabelProps>(
             {children}
           </label>
           {isRequired && (
-            <div className={styles.asteriskContainer}>
-              <span className={styles.asterisk} aria-hidden>
-                *
-              </span>
-            </div>
+            <span className={styles.asterisk} aria-hidden>
+              *
+            </span>
           )}
         </span>
         {rightSlot}
