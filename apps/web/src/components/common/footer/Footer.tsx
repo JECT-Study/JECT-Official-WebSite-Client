@@ -15,7 +15,7 @@ function Footer() {
         </FooterJds.Header>
         <FooterJds.Divider />
         <FooterJds.Bottom
-          copyright='© 2025 JECT. All rights reserved.'
+          copyright='© 2026 JECT. All rights reserved.'
           email='jectofficial@ject.kr'
           privacyLink='https://cultured-phalange-7de.notion.site/2cd62a893ac580129760c2b304eacec5'
         />

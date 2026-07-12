@@ -75,7 +75,7 @@ export const Default: Story = {
         <Footer.Nav sections={mockSections} />
         <Footer.Divider />
         <Footer.Bottom
-          copyright='© 2025 JECT. All rights reserved.'
+          copyright='© 2026 JECT. All rights reserved.'
           email='jectofficial@ject.kr'
           privacyLink='https://privacy.ject.kr'
         />
@@ -145,7 +145,7 @@ export const Nav: Story = {
 export const Bottom: Story = {
   render: () => (
     <Footer.Bottom
-      copyright='© 2025 JECT. All rights reserved.'
+      copyright='© 2026 JECT. All rights reserved.'
       email='jectofficial@ject.kr'
       privacyLink='https://privacy.ject.kr'
     />
