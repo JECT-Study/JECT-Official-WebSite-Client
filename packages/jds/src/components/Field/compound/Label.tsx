@@ -26,25 +26,27 @@ export const FieldLabel = forwardRef<HTMLLabelElement, FieldLabelProps>(
     return (
       <span className={styles.labelContainer({ fieldStyle })}>
         {leftSlot}
-        <label
-          ref={ref}
-          htmlFor={fieldId}
-          className={clsx(
-            getLabelClassName({ size: "sm" }),
-            styles.label({ disabled: isDisabled }),
-            className,
+        <span className={styles.labelMain}>
+          <label
+            ref={ref}
+            htmlFor={fieldId}
+            className={clsx(
+              getLabelClassName({ size: "sm" }),
+              styles.label({ disabled: isDisabled }),
+              className,
+            )}
+            {...restProps}
+          >
+            {children}
+          </label>
+          {isRequired && (
+            <div className={styles.asteriskContainer}>
+              <span className={styles.asterisk} aria-hidden>
+                *
+              </span>
+            </div>
           )}
-          {...restProps}
-        >
-          {children}
-        </label>
-        {isRequired && (
-          <div className={styles.asteriskContainer}>
-            <span className={styles.asterisk} aria-hidden>
-              *
-            </span>
-          </div>
-        )}
+        </span>
         {rightSlot}
       </span>
     );

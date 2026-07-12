@@ -17,7 +17,7 @@ export const labelContainer = recipe({
     display: "flex",
     flexDirection: "row",
     alignItems: "flex-start",
-    gap: vars.scheme.semantic.spacing["2"],
+    gap: vars.scheme.semantic.spacing["4"],
   },
   variants: {
     fieldStyle: {
@@ -29,6 +29,13 @@ export const labelContainer = recipe({
       },
     } satisfies Record<FieldStyle, StyleRule>,
   },
+});
+
+export const labelMain = style({
+  display: "flex",
+  flexDirection: "row",
+  alignItems: "flex-start",
+  gap: vars.scheme.semantic.spacing["2"],
 });
 
 export const label = recipe({
