@@ -10,7 +10,7 @@ interface StatItem {
 export const statData: StatItem[] = [
   {
     id: 1,
-    title: "163",
+    title: "183",
     description: "누적 동아리원",
   },
   {
@@ -20,8 +20,8 @@ export const statData: StatItem[] = [
   },
   {
     id: 3,
-    title: "39",
-    description: "3기 팀 프로젝트 완주자",
+    title: "53",
+    description: "4기 팀 프로젝트 완주자",
     isFullWidth: true,
   },
 ];
