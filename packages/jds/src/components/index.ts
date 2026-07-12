@@ -33,6 +33,7 @@ export * from "./Snackbar";
 export * from "./Steps";
 export * from "./Tabs";
 export * from "./Table";
+export * from "./TextField";
 export * from "./Toast";
 export * from "./Toggle";
 export * from "./Tooltip";
