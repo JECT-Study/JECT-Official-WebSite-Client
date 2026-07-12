@@ -12,7 +12,10 @@ export const LOCAL_NAVIGATION_TITLE_AS_OPTIONS = [
 
 export type LocalNavigationTitleAs = (typeof LOCAL_NAVIGATION_TITLE_AS_OPTIONS)[number];
 
-export type LocalNavigationProps = Omit<ComponentPropsWithoutRef<"nav">, "title" | "children"> & {
+export type LocalNavigationProps = Omit<
+  ComponentPropsWithoutRef<"nav">,
+  "title" | "children" | "aria-labelledby"
+> & {
   title: string;
   titleAs?: LocalNavigationTitleAs;
   nested?: boolean;
