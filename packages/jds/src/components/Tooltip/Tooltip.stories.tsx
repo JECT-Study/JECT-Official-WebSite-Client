@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexColumn, FlexRow, Label } from "@storybook-utils/layout";
-import { Icon, IconButton, Input, Tooltip, BlockButton } from "components";
+import { Icon, IconButton, TextField, Tooltip, BlockButton } from "components";
 
 const meta = {
   title: "Components/Tooltip",
@@ -208,14 +208,18 @@ export const CustomTrigger: Story = {
 
       <FlexColumn gap='12px'>
         <Label>Input 예시</Label>
-        <Tooltip.Root>
-          <Tooltip.Trigger asChild>
-            <Input.TextField value='레이블 명' onChange={e => e.preventDefault()} />
-          </Tooltip.Trigger>
-          <Tooltip.Content side='top' sideOffset={12}>
-            안녕하세요? 툴팁입니다.
-          </Tooltip.Content>
-        </Tooltip.Root>
+        <TextField>
+          <TextField.Content>
+            <Tooltip.Root>
+              <Tooltip.Trigger asChild>
+                <TextField.Input value='레이블 명' onChange={e => e.preventDefault()} />
+              </Tooltip.Trigger>
+              <Tooltip.Content side='top' sideOffset={12}>
+                안녕하세요? 툴팁입니다.
+              </Tooltip.Content>
+            </Tooltip.Root>
+          </TextField.Content>
+        </TextField>
       </FlexColumn>
     </FlexColumn>
   ),
