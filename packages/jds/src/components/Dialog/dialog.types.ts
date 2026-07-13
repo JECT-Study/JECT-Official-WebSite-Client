@@ -9,23 +9,23 @@ type BlockButtonActionProps = Pick<
   "children" | "onClick" | "disabled" | "hierarchy"
 >;
 
-export interface CheckBoxActionProps {
+export interface CheckboxActionProps {
   label: ReactNode;
   checked: CheckedState;
   onCheckedChange: (checked: CheckedState) => void;
 }
 
-type RadixDialogProps = Omit<Dialog.DialogProps, "children">;
-
 export interface DialogBaseProps {
   header: string;
   body: ReactNode;
   closeOnClickOutside?: boolean;
-  checkboxAction?: CheckBoxActionProps;
+  checkboxAction?: CheckboxActionProps;
   primaryAction: BlockButtonActionProps;
   secondaryAction?: BlockButtonActionProps;
   container?: HTMLElement | null;
   className?: string;
 }
+
+type RadixDialogProps = Omit<Dialog.DialogProps, "children">;
 
 export type DialogProps = DialogBaseProps & RadixDialogProps;
