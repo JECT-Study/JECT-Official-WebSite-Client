@@ -36,6 +36,10 @@ export const useControllableState = <T>(
   const setValue = useCallback((next: T | SetStateFn<T>) => {
     const nextValue = typeof next === "function" ? (next as SetStateFn<T>)(valueRef.current) : next;
 
+    if (Object.is(nextValue, valueRef.current)) {
+      return;
+    }
+
     if (!isControlledRef.current) {
       setUncontrolled(nextValue);
     }
