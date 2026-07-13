@@ -15,6 +15,7 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
       header,
       body,
       closeOnClickOutside = true,
+      buttonLayout = "horizontal",
       checkboxAction,
       primaryAction,
       secondaryAction,
@@ -24,8 +25,16 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
     },
     ref,
   ) => {
+    const buttonSize = buttonLayout === "vertical" ? "lg" : "md";
+
+    const primaryButton = <BlockButton size={buttonSize} {...primaryAction} />;
     const secondaryButton = secondaryAction ? (
-      <BlockButton variant='outlined' hierarchy='secondary' size='md' {...secondaryAction} />
+      <BlockButton
+        variant='outlined'
+        hierarchy='secondary'
+        size={buttonSize}
+        {...secondaryAction}
+      />
     ) : null;
 
     return (
@@ -66,9 +75,18 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
                   </Checkbox.Item>
                 )}
               </div>
-              <div className={styles.buttonGroup}>
-                {secondaryButton}
-                <BlockButton size='md' {...primaryAction} />
+              <div className={styles.buttonGroup[buttonLayout]}>
+                {buttonLayout === "vertical" ? (
+                  <>
+                    {primaryButton}
+                    {secondaryButton}
+                  </>
+                ) : (
+                  <>
+                    {secondaryButton}
+                    {primaryButton}
+                  </>
+                )}
               </div>
             </div>
           </DialogPrimitive.Content>

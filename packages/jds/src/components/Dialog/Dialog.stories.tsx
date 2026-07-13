@@ -213,3 +213,35 @@ export const WithSecondaryButton: Story = {
     },
   },
 };
+
+export const ButtonLayout: Story = {
+  render: () => (
+    <Matrix>
+      <MatrixCase
+        label='buttonLayout=horizontal'
+        buttonLayout='horizontal'
+        header={SAMPLE_HEADER}
+        body={SAMPLE_BODY}
+        primaryAction={{ children: SAMPLE_BUTTON }}
+        secondaryAction={{ children: SAMPLE_BUTTON }}
+      />
+      <MatrixCase
+        label='buttonLayout=vertical'
+        buttonLayout='vertical'
+        header={SAMPLE_HEADER}
+        body={SAMPLE_BODY}
+        primaryAction={{ children: SAMPLE_BUTTON }}
+        secondaryAction={{ children: SAMPLE_BUTTON }}
+      />
+    </Matrix>
+  ),
+  parameters: {
+    layout: "padded",
+    docs: {
+      description: {
+        story:
+          "buttonLayout으로 버튼 배치를 전환합니다. horizontal은 보조, 주요 버튼을 우측 정렬한 md 크기로, vertical은 주요 버튼을 위에 둔 전체 너비 lg 크기로 세로 배치합니다.",
+      },
+    },
+  },
+};

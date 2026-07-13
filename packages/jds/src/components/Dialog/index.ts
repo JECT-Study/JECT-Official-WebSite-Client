@@ -1,2 +1,2 @@
 export { Dialog } from "./Dialog";
-export type { DialogProps } from "./dialog.types";
+export type { DialogButtonLayout, DialogProps } from "./dialog.types";

@@ -8,10 +8,10 @@ Emotion에서 vanilla-extract로 Dialog 컴포넌트의 스타일링을 마이�
 
 **소비자 영향 (코드 수정 필요)**
 
-| 항목                | AS-IS                       | TO-BE                                      |
-| ------------------- | --------------------------- | ------------------------------------------ |
-| `tertiaryAction`    | 세 번째 버튼 렌더링         | 제거 (primary/secondary 두 위계만 지원)    |
-| `isButtonStretched` | 버튼을 늘리거나 세로로 스택 | 제거 (버튼은 항상 우측 정렬 가로 행, `md`) |
+| 항목                | AS-IS                       | TO-BE                                       |
+| ------------------- | --------------------------- | ------------------------------------------- |
+| `tertiaryAction`    | 세 번째 버튼 렌더링         | 제거 (primary/secondary 두 위계만 지원)     |
+| `isButtonStretched` | 버튼을 늘리거나 세로로 스택 | `buttonLayout="vertical"`로 대체            |
 
 **마이그레이션 예시**
 
@@ -21,11 +21,15 @@ Emotion에서 vanilla-extract로 Dialog 컴포넌트의 스타일링을 마이�
     secondaryAction={{ children: "취소" }}
 -   tertiaryAction={{ children: "더보기" }}
 -   isButtonStretched
++   buttonLayout="vertical"
   />
 ```
 
 **추가 사항 (non-breaking)**
 
+- `buttonLayout?: "horizontal" | "vertical"` prop 추가 (기본 `horizontal`). Figma 스펙 대응
+  - `horizontal`: secondary, primary 순으로 우측 정렬한 가로 행, 버튼 크기 `md`
+  - `vertical`: primary(위), secondary(아래) 순으로 전체 너비 세로 스택, 버튼 크기 `lg`
 - `closeOnClickOutside?: boolean` prop 추가 (기본 `true`, 배경 클릭 닫힘 제어)
 - `container?: HTMLElement | null` prop 추가 (Portal 렌더 대상 지정)
 - `className?: string` prop 추가 (다이얼로그 표면 스타일 확장)

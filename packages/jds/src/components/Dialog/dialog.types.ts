@@ -15,10 +15,13 @@ export interface CheckboxActionProps {
   onCheckedChange: (checked: CheckedState) => void;
 }
 
+export type DialogButtonLayout = "horizontal" | "vertical";
+
 export interface DialogBaseProps {
   header: string;
   body: ReactNode;
   closeOnClickOutside?: boolean;
+  buttonLayout?: DialogButtonLayout;
   checkboxAction?: CheckboxActionProps;
   primaryAction: BlockButtonActionProps;
   secondaryAction?: BlockButtonActionProps;

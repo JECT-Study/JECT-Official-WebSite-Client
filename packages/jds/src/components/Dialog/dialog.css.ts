@@ -1,4 +1,4 @@
-import { keyframes, style } from "@vanilla-extract/css";
+import { keyframes, style, styleVariants } from "@vanilla-extract/css";
 import { vars } from "tokens";
 import { pxToRem } from "utils";
 
@@ -117,10 +117,20 @@ export const bodyText = style({
   color: vars.color.semantic.object.normal,
 });
 
-export const buttonGroup = style({
-  display: "flex",
-  flexDirection: "row",
-  justifyContent: "flex-end",
-  alignSelf: "stretch",
-  gap: vars.scheme.semantic.spacing["12"],
+export const buttonGroup = styleVariants({
+  horizontal: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    alignItems: "center",
+    alignSelf: "stretch",
+    gap: vars.scheme.semantic.spacing["12"],
+  },
+  vertical: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "stretch",
+    alignSelf: "stretch",
+    gap: vars.scheme.semantic.spacing["12"],
+  },
 });
