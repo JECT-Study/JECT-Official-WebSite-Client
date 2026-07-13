@@ -34,9 +34,25 @@ const meta: Meta<typeof Dialog> = {
         defaultValue: { summary: "true" },
       },
     },
+    buttonLayout: {
+      control: "inline-radio",
+      options: ["horizontal", "vertical"],
+      description: "버튼 배치 방향. horizontal은 우측 정렬 md, vertical은 전체 너비 lg 세로 배치",
+      table: {
+        defaultValue: { summary: "horizontal" },
+      },
+    },
     primaryAction: {
       control: "object",
-      description: "첫 번째 버튼",
+      description: "주요 위계 버튼",
+    },
+    secondaryAction: {
+      control: "object",
+      description: "두 번째 위계의 버튼(선택). 없으면 렌더링되지 않음",
+    },
+    checkboxAction: {
+      control: "object",
+      description: "본문 하단 체크박스(선택). 없으면 렌더링되지 않음",
     },
   },
 };
@@ -50,6 +66,7 @@ export const Default: Story = {
     header: SAMPLE_HEADER,
     body: SAMPLE_BODY,
     closeOnClickOutside: true,
+    buttonLayout: "horizontal",
     primaryAction: {
       children: SAMPLE_BUTTON,
     },
@@ -61,16 +78,7 @@ export const Default: Story = {
     return (
       <>
         <BlockButton.Basic onClick={() => setIsOpen(true)}>다이얼로그 열기</BlockButton.Basic>
-        <Dialog
-          open={isOpen}
-          onOpenChange={setIsOpen}
-          closeOnClickOutside={args.closeOnClickOutside}
-          header={args.header}
-          body={args.body}
-          primaryAction={{
-            ...args.primaryAction,
-          }}
-        />
+        <Dialog {...args} open={isOpen} onOpenChange={setIsOpen} />
       </>
     );
   },
@@ -182,6 +190,19 @@ export const WithCheckbox: Story = {
       description: {
         story: "checkboxAction을 통해 본문 하단에 체크박스를 포함하는지 여부입니다.",
       },
+      source: {
+        code: `const [open, setOpen] = useState(false);
+const [checked, setChecked] = useState<CheckedState>(false);
+
+<Dialog
+  open={open}
+  onOpenChange={setOpen}
+  header="다이얼로그 타이틀"
+  body="간결하게 안내하는 내용을 작성합니다."
+  primaryAction={{ children: "레이블" }}
+  checkboxAction={{ label: "레이블", checked, onCheckedChange: setChecked }}
+/>`,
+      },
     },
   },
 };
@@ -209,6 +230,18 @@ export const WithSecondaryButton: Story = {
     docs: {
       description: {
         story: "secondaryAction을 통해 두 번째 위계의 버튼을 포함하는지 여부입니다.",
+      },
+      source: {
+        code: `const [open, setOpen] = useState(false);
+
+<Dialog
+  open={open}
+  onOpenChange={setOpen}
+  header="다이얼로그 타이틀"
+  body="간결하게 안내하는 내용을 작성합니다."
+  primaryAction={{ children: "레이블" }}
+  secondaryAction={{ children: "레이블" }}
+/>`,
       },
     },
   },
@@ -241,6 +274,19 @@ export const ButtonLayout: Story = {
       description: {
         story:
           "buttonLayout으로 버튼 배치를 전환합니다. horizontal은 보조, 주요 버튼을 우측 정렬한 md 크기로, vertical은 주요 버튼을 위에 둔 전체 너비 lg 크기로 세로 배치합니다.",
+      },
+      source: {
+        code: `const [open, setOpen] = useState(false);
+
+<Dialog
+  open={open}
+  onOpenChange={setOpen}
+  buttonLayout="vertical"
+  header="다이얼로그 타이틀"
+  body="간결하게 안내하는 내용을 작성합니다."
+  primaryAction={{ children: "레이블" }}
+  secondaryAction={{ children: "레이블" }}
+/>`,
       },
     },
   },
