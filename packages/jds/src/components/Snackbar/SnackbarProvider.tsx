@@ -69,6 +69,15 @@ export const SnackbarProvider = ({ children, duration }: SnackbarProviderProps) 
     setAnnouncement(`${baseText}${invisibleSpace}`);
   }, [latestSnackbarId, latestSnackbarTitle, latestSnackbarDescription]);
 
+  useEffect(() => {
+    // 큐에서 제거된 스낵바 id를 정리해 낭독 완료 목록이 계속 누적되지 않도록 한다.
+    const activeSnackbarIds = new Set(snackbars.map(snackbar => snackbar.id));
+
+    announcedSnackbarIdsRef.current.forEach(id => {
+      if (!activeSnackbarIds.has(id)) announcedSnackbarIdsRef.current.delete(id);
+    });
+  }, [snackbars]);
+
   return (
     <SnackbarContext.Provider value={{ snackbar: handler, removeSnackbar }}>
       {children}
