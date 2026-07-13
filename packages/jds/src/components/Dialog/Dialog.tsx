@@ -37,8 +37,8 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
             onPointerDownOutside={closeOnClickOutside ? undefined : event => event.preventDefault()}
           >
             <div className={styles.inner}>
-              <div className={styles.textGroup}>
-                <div className={styles.textWrap}>
+              <div className={styles.contentGroup}>
+                <div className={styles.textGroup}>
                   <DialogPrimitive.Title asChild>
                     <h2 className={clsx(getTitleClassName({ size: "xs" }), styles.title)}>
                       {header}

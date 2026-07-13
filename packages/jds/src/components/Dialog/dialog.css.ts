@@ -87,7 +87,7 @@ export const inner = style({
   gap: vars.scheme.semantic.spacing["24"],
 });
 
-export const textGroup = style({
+export const contentGroup = style({
   display: "flex",
   flexDirection: "column",
   alignItems: "flex-start",
@@ -96,7 +96,7 @@ export const textGroup = style({
   gap: vars.scheme.semantic.spacing["16"],
 });
 
-export const textWrap = style({
+export const textGroup = style({
   display: "flex",
   flexDirection: "column",
   alignItems: "flex-start",
