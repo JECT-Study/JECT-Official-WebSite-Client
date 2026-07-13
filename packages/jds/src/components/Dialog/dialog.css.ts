@@ -65,11 +65,15 @@ export const content = style({
   },
 });
 
+const minPanelWidth = pxToRem(400);
+const maxPanelWidth = pxToRem(560);
+const viewportWidth = `calc(100vw - ${pxToRem(32)})`;
+
 export const panel = style({
   display: "flex",
   flexDirection: "column",
-  width: `calc(100vw - ${pxToRem(32)})`,
-  maxWidth: pxToRem(500),
+  minWidth: `min(${minPanelWidth}, ${viewportWidth})`,
+  maxWidth: `min(${maxPanelWidth}, ${viewportWidth})`,
   borderRadius: vars.scheme.semantic.radius["12"],
   border: `1px solid ${vars.color.semantic.stroke.alpha.subtle}`,
   background: vars.color.semantic.surface.shallow,
