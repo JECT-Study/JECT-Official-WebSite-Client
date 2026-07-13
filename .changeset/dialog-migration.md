@@ -4,13 +4,30 @@
 
 **Dialog**
 
-Dialog의 스타일 구현을 Emotion(`@emotion/styled`)에서 vanilla-extract로 마이그레이션하고, 버튼 레이아웃을 Figma 디자인 variant에 맞게 정렬했습니다.
+Emotion에서 vanilla-extract로 Dialog 컴포넌트의 스타일링을 마이그레이션합니다. 함께 `tertiaryAction`, `isButtonStretched` prop이 제거되어 breaking change입니다.
 
-- `Dialog.styles.ts` → `dialog.css.ts` (vanilla-extract `style` / `recipe`)로 전환
-- overlay dim, `shadow` 오버레이는 semantic 토큰(`vars.color.semantic.curtain.static.dim`, `vars.environment.semantic.shadow.overlay`)으로 참조
-- 본문 타이포그래피를 `getBodyClassName` 유틸로 적용 (css에 textStyle 하드코딩 제거)
-- **[Breaking] `tertiaryAction` prop 제거** — Figma 디자인은 primary/secondary 두 위계만 지원합니다.
-- `isButtonStretched`이면서 `secondaryAction`이 있을 때 버튼을 세로로 쌓고(primary 위, secondary 아래), 그 외에는 우측 정렬 행으로 배치하도록 수정
-- `isButtonStretched`이면 버튼 크기를 `lg`, 아니면 `md`로 적용
-- Figma 스펙에 맞춰 간격·타이포 보정: 내부 패딩 `24px → 20px`, 본문 타이포 `body/xs → body/md`, 제목·본문 간격 `16px → 12px`(체크박스는 별도 `16px` 간격 유지)
-- `container` prop 추가 — Radix Portal의 렌더 대상을 지정할 수 있습니다(스토리북 variant matrix 등 인라인 렌더링용, 기본값은 기존과 동일하게 `document.body`)
+**소비자 영향 (코드 수정 필요)**
+
+| 항목                | AS-IS                       | TO-BE                                      |
+| ------------------- | --------------------------- | ------------------------------------------ |
+| `tertiaryAction`    | 세 번째 버튼 렌더링         | 제거 (primary/secondary 두 위계만 지원)    |
+| `isButtonStretched` | 버튼을 늘리거나 세로로 스택 | 제거 (버튼은 항상 우측 정렬 가로 행, `md`) |
+
+**마이그레이션 예시**
+
+```diff
+  <Dialog
+    primaryAction={{ children: "확인" }}
+    secondaryAction={{ children: "취소" }}
+-   tertiaryAction={{ children: "더보기" }}
+-   isButtonStretched
+  />
+```
+
+**추가 사항 (non-breaking)**
+
+- `closeOnClickOutside?: boolean` prop 추가 (기본 `true`, 배경 클릭 닫힘 제어)
+- `container?: HTMLElement | null` prop 추가 (Portal 렌더 대상 지정)
+- `className?: string` prop 추가 (다이얼로그 표면 스타일 확장)
+- 너비 정책 변경: 고정 너비 제거, `min-width` 400 / `max-width` 560 및 모바일 뷰포트 대응
+- 접근성: 제목/본문을 Radix `Title`/`Description`으로 위임해 레이블 자동 연결
