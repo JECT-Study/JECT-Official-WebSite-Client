@@ -37,6 +37,7 @@ const slideOut = keyframes({
 export const overlay = style({
   position: "fixed",
   inset: 0,
+  zIndex: vars.environment.semantic.zIndex.overlay,
   backgroundColor: vars.color.semantic.curtain.static.dim,
   selectors: {
     '&[data-state="open"]': {
@@ -53,7 +54,7 @@ export const content = style({
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  zIndex: 50,
+  zIndex: vars.environment.semantic.zIndex.overlay,
   selectors: {
     '&[data-state="open"]': {
       animation: `${slideIn} ${vars.environment.semantic.duration["200"]} ${vars.environment.semantic.motion.entrance}`,
