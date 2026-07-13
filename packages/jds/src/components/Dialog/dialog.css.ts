@@ -2,6 +2,9 @@ import { keyframes, style } from "@vanilla-extract/css";
 import { vars } from "tokens";
 import { pxToRem } from "utils";
 
+const restingTransform = "translate(-50%, -50%)";
+const enterExitTransform = `translate(-50%, calc(-50% + ${pxToRem(60)}))`;
+
 const overlayFadeIn = keyframes({
   from: { opacity: 0 },
   to: { opacity: 1 },
@@ -15,22 +18,22 @@ const overlayFadeOut = keyframes({
 const slideIn = keyframes({
   from: {
     opacity: 0,
-    transform: "translate(-50%, calc(-50% + 60px))",
+    transform: enterExitTransform,
   },
   to: {
     opacity: 1,
-    transform: "translate(-50%, -50%)",
+    transform: restingTransform,
   },
 });
 
 const slideOut = keyframes({
   from: {
     opacity: 1,
-    transform: "translate(-50%, -50%)",
+    transform: restingTransform,
   },
   to: {
     opacity: 0,
-    transform: "translate(-50%, calc(-50% + 60px))",
+    transform: enterExitTransform,
   },
 });
 
@@ -53,7 +56,7 @@ export const content = style({
   position: "fixed",
   top: "50%",
   left: "50%",
-  transform: "translate(-50%, -50%)",
+  transform: restingTransform,
   zIndex: vars.environment.semantic.zIndex.overlay,
   selectors: {
     '&[data-state="open"]': {
