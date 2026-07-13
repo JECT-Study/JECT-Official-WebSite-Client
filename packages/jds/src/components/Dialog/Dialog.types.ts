@@ -1,11 +1,11 @@
 import type { Dialog } from "radix-ui";
 import type { ReactNode } from "react";
 
-import type { BlockButtonBasicProps } from "../Button/BlockButton";
+import type { BlockButtonProps } from "../Button/BlockButton";
 import type { CheckedState } from "../Checkbox";
 
 type BlockButtonActionProps = Pick<
-  BlockButtonBasicProps,
+  BlockButtonProps,
   "children" | "onClick" | "disabled" | "hierarchy"
 >;
 type CheckBoxActionProps = {

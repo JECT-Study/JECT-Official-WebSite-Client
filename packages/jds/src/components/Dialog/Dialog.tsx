@@ -24,7 +24,7 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
     ref,
   ) => {
     const secondaryButton = secondaryAction ? (
-      <BlockButton.Basic variant='outlined' hierarchy='secondary' size='md' {...secondaryAction} />
+      <BlockButton variant='outlined' hierarchy='secondary' size='md' {...secondaryAction} />
     ) : null;
 
     return (
@@ -67,7 +67,7 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
               </div>
               <div className={styles.buttonContainer}>
                 {secondaryButton}
-                <BlockButton.Basic size='md' {...primaryAction} />
+                <BlockButton size='md' {...primaryAction} />
               </div>
             </div>
           </DialogPrimitive.Content>
