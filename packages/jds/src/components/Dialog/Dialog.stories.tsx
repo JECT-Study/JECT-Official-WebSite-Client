@@ -3,7 +3,7 @@ import type { CSSProperties, ReactNode } from "react";
 import { useState } from "react";
 
 import { Dialog } from "./Dialog";
-import type { DialogProps } from "./Dialog.types";
+import type { DialogProps } from "./dialog.types";
 
 import type { CheckedState } from "@/components";
 import { BlockButton } from "@/components";

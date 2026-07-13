@@ -8,14 +8,16 @@ type BlockButtonActionProps = Pick<
   BlockButtonProps,
   "children" | "onClick" | "disabled" | "hierarchy"
 >;
-type CheckBoxActionProps = {
+
+export interface CheckBoxActionProps {
   label: ReactNode;
   checked: CheckedState;
   onCheckedChange: (checked: CheckedState) => void;
-};
+}
+
 type RadixDialogProps = Omit<Dialog.DialogProps, "children">;
 
-type DialogBaseProps = {
+export interface DialogBaseProps {
   header: string;
   body: ReactNode;
   closeOnClickOutside?: boolean;
@@ -24,6 +26,6 @@ type DialogBaseProps = {
   secondaryAction?: BlockButtonActionProps;
   container?: HTMLElement | null;
   className?: string;
-};
+}
 
 export type DialogProps = DialogBaseProps & RadixDialogProps;

@@ -3,7 +3,7 @@ import { Dialog as DialogPrimitive } from "radix-ui";
 import { forwardRef } from "react";
 
 import * as styles from "./dialog.css";
-import type { DialogProps } from "./Dialog.types";
+import type { DialogProps } from "./dialog.types";
 import { BlockButton } from "../Button/BlockButton";
 import { Checkbox } from "../Checkbox";
 
