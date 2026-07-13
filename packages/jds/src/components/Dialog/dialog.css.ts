@@ -77,6 +77,7 @@ export const panel = style({
   flexDirection: "column",
   minWidth: `min(${minPanelWidth}, ${availableWidth})`,
   maxWidth: `min(${maxPanelWidth}, ${availableWidth})`,
+  maxHeight: `calc(100vh - ${pxToRem(32)})`,
   borderRadius: vars.scheme.semantic.radius["12"],
   border: `1px solid ${vars.color.semantic.stroke.alpha.subtle}`,
   background: vars.color.semantic.surface.shallow,
@@ -97,6 +98,8 @@ export const contentGroup = style({
   alignItems: "flex-start",
   alignSelf: "stretch",
   gap: vars.scheme.semantic.spacing["16"],
+  minHeight: 0,
+  overflowY: "auto",
 });
 
 export const textGroup = style({
@@ -125,6 +128,7 @@ export const buttonGroup = styleVariants({
     alignItems: "center",
     alignSelf: "stretch",
     gap: vars.scheme.semantic.spacing["12"],
+    flexShrink: 0,
   },
   vertical: {
     display: "flex",
@@ -132,5 +136,6 @@ export const buttonGroup = styleVariants({
     alignItems: "stretch",
     alignSelf: "stretch",
     gap: vars.scheme.semantic.spacing["12"],
+    flexShrink: 0,
   },
 });
