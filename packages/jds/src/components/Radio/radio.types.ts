@@ -1,4 +1,5 @@
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import type { RenderableNode } from "types";
 
 export const RADIO_SIZE_OPTIONS = ["xs", "sm", "md", "lg"] as const;
 export const RADIO_VARIANT_OPTIONS = ["hollow", "outlined"] as const;
@@ -39,7 +40,7 @@ export type RadioItemProps = Omit<ComponentPropsWithoutRef<"button">, "value"> &
 
 export type RadioOption = {
   value: string;
-  label: ReactNode;
+  label: RenderableNode;
   helper?: ReactNode;
   disabled?: boolean;
 };

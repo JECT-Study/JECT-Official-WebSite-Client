@@ -1,4 +1,5 @@
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import type { RenderableNode } from "types";
 
 export const CHECKBOX_SIZE_OPTIONS = ["xs", "sm", "md", "lg"] as const;
 export const CHECKBOX_VARIANT_OPTIONS = ["hollow", "outlined"] as const;
@@ -81,7 +82,7 @@ export type CheckboxHelperProps = {
 
 export type CheckboxOption = {
   value: string;
-  label: ReactNode;
+  label: RenderableNode;
   helper?: ReactNode;
   disabled?: boolean;
   isInvalid?: boolean;
@@ -109,8 +110,8 @@ type CheckboxStandaloneBaseProps = {
 };
 
 type CheckboxLabelHelperProps =
-  | { label?: ReactNode; helper?: never }
-  | { label: ReactNode; helper?: ReactNode };
+  | { label?: RenderableNode; helper?: never }
+  | { label: RenderableNode; helper?: ReactNode };
 
 export type CheckboxProps = CheckboxStandaloneBaseProps &
   CheckboxLabelHelperProps &
