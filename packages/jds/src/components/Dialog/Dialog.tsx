@@ -19,6 +19,7 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
       primaryAction,
       secondaryAction,
       container,
+      className,
       ...rest
     },
     ref,
@@ -33,7 +34,7 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
           <DialogPrimitive.Overlay className={styles.overlay} />
           <DialogPrimitive.Content
             ref={ref}
-            className={clsx(styles.content, styles.panel)}
+            className={clsx(styles.content, styles.panel, className)}
             onPointerDownOutside={closeOnClickOutside ? undefined : event => event.preventDefault()}
           >
             <div className={styles.inner}>

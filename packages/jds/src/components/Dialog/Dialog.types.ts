@@ -23,6 +23,7 @@ type DialogBaseProps = {
   primaryAction: BlockButtonActionProps;
   secondaryAction?: BlockButtonActionProps;
   container?: HTMLElement | null;
+  className?: string;
 };
 
 export type DialogProps = DialogBaseProps & RadixDialogProps;
