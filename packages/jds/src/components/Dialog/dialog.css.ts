@@ -3,7 +3,7 @@ import { vars } from "tokens";
 import { pxToRem } from "utils";
 
 const restingTransform = "translate(-50%, -50%)";
-const enterExitTransform = `translate(-50%, calc(-50% + ${pxToRem(60)}))`;
+const offsetTransform = `translate(-50%, calc(-50% + ${pxToRem(60)}))`;
 
 const overlayFadeIn = keyframes({
   from: { opacity: 0 },
@@ -18,7 +18,7 @@ const overlayFadeOut = keyframes({
 const slideIn = keyframes({
   from: {
     opacity: 0,
-    transform: enterExitTransform,
+    transform: offsetTransform,
   },
   to: {
     opacity: 1,
@@ -33,7 +33,7 @@ const slideOut = keyframes({
   },
   to: {
     opacity: 0,
-    transform: enterExitTransform,
+    transform: offsetTransform,
   },
 });
 
@@ -52,7 +52,7 @@ export const overlay = style({
   },
 });
 
-export const content = style({
+export const positioner = style({
   position: "fixed",
   top: "50%",
   left: "50%",
@@ -70,20 +70,20 @@ export const content = style({
 
 const minPanelWidth = pxToRem(400);
 const maxPanelWidth = pxToRem(560);
-const viewportWidth = `calc(100vw - ${pxToRem(32)})`;
+const availableWidth = `calc(100vw - ${pxToRem(32)})`;
 
 export const panel = style({
   display: "flex",
   flexDirection: "column",
-  minWidth: `min(${minPanelWidth}, ${viewportWidth})`,
-  maxWidth: `min(${maxPanelWidth}, ${viewportWidth})`,
+  minWidth: `min(${minPanelWidth}, ${availableWidth})`,
+  maxWidth: `min(${maxPanelWidth}, ${availableWidth})`,
   borderRadius: vars.scheme.semantic.radius["12"],
   border: `1px solid ${vars.color.semantic.stroke.alpha.subtle}`,
   background: vars.color.semantic.surface.shallow,
   boxShadow: vars.environment.semantic.shadow.overlay,
 });
 
-export const inner = style({
+export const contentArea = style({
   display: "flex",
   flexDirection: "column",
   alignSelf: "stretch",
@@ -117,7 +117,7 @@ export const bodyText = style({
   color: vars.color.semantic.object.normal,
 });
 
-export const buttonContainer = style({
+export const buttonGroup = style({
   display: "flex",
   flexDirection: "row",
   justifyContent: "flex-end",

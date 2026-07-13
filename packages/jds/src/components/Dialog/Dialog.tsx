@@ -34,10 +34,10 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
           <DialogPrimitive.Overlay className={styles.overlay} />
           <DialogPrimitive.Content
             ref={ref}
-            className={clsx(styles.content, styles.panel, className)}
+            className={clsx(styles.positioner, styles.panel, className)}
             onPointerDownOutside={closeOnClickOutside ? undefined : event => event.preventDefault()}
           >
-            <div className={styles.inner}>
+            <div className={styles.contentArea}>
               <div className={styles.contentGroup}>
                 <div className={styles.textGroup}>
                   <DialogPrimitive.Title asChild>
@@ -66,7 +66,7 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
                   </Checkbox.Item>
                 )}
               </div>
-              <div className={styles.buttonContainer}>
+              <div className={styles.buttonGroup}>
                 {secondaryButton}
                 <BlockButton size='md' {...primaryAction} />
               </div>
