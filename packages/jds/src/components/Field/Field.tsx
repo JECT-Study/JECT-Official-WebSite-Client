@@ -32,10 +32,12 @@ const InternalField = forwardRef<HTMLDivElement, FieldProps>(
     ref,
   ) => {
     const fieldId = useId();
+    const helperTextId = `${fieldId}-helper-text`;
 
     return (
       <FieldProvider
         fieldId={fieldId}
+        helperTextId={helperTextId}
         status={status}
         fieldStyle={fieldStyle}
         readonly={readonly}

@@ -59,11 +59,17 @@ type Story = StoryObj<typeof meta>;
  * uncontrolled(defaultValue)로 만들어 실제 타이핑·포커스가 가능하게 한다.
  */
 const DemoInput = (props: ComponentPropsWithoutRef<"input">) => {
-  const { fieldId, disabled: isDisabled, readonly: isReadonly } = useFieldContext("DemoInput");
+  const {
+    fieldId,
+    helperTextId,
+    disabled: isDisabled,
+    readonly: isReadonly,
+  } = useFieldContext("DemoInput");
 
   return (
     <input
       id={fieldId}
+      aria-describedby={helperTextId}
       disabled={isDisabled}
       readOnly={isReadonly}
       style={{

@@ -12,11 +12,17 @@ export interface FieldHelperTextProps extends ComponentPropsWithoutRef<"span"> {
 
 export const FieldHelperText = forwardRef<HTMLSpanElement, FieldHelperTextProps>(
   ({ children, className, ...restProps }, ref) => {
-    const { status, fieldStyle, disabled: isDisabled } = useFieldContext("Field.HelperText");
+    const {
+      helperTextId,
+      status,
+      fieldStyle,
+      disabled: isDisabled,
+    } = useFieldContext("Field.HelperText");
 
     return (
       <span
         ref={ref}
+        id={helperTextId}
         className={clsx(
           getLabelClassName({ size: "sm" }),
           styles.helperText({ status, fieldStyle, disabled: isDisabled }),

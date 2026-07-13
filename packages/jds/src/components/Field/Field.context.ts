@@ -4,6 +4,7 @@ import { createCtxProvider } from "@/hooks/createCtxProvider";
 
 export interface FieldContextValue {
   fieldId: string;
+  helperTextId: string;
   status: FieldStatus;
   fieldStyle: FieldStyle;
   readonly: boolean;
