@@ -71,8 +71,6 @@ export const panel = style({
   alignItems: "flex-start",
   width: `calc(100vw - ${pxToRem(32)})`,
   maxWidth: pxToRem(500),
-  padding: vars.scheme.semantic.spacing["0"],
-  gap: vars.scheme.semantic.spacing["0"],
   borderRadius: vars.scheme.semantic.radius["12"],
   border: `1px solid ${vars.color.semantic.stroke.alpha.subtle}`,
   background: vars.color.semantic.surface.shallow,
@@ -93,7 +91,6 @@ export const contentGroup = style({
   flexDirection: "column",
   alignItems: "flex-start",
   alignSelf: "stretch",
-  padding: vars.scheme.semantic.spacing["0"],
   gap: vars.scheme.semantic.spacing["16"],
 });
 
@@ -121,6 +118,5 @@ export const buttonContainer = style({
   flexDirection: "row",
   justifyContent: "flex-end",
   alignSelf: "stretch",
-  padding: vars.scheme.semantic.spacing["0"],
   gap: vars.scheme.semantic.spacing["12"],
 });
