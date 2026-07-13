@@ -1,4 +1,3 @@
-import { mergeProps } from "@react-aria/utils";
 import { clsx } from "clsx";
 import type {
   LabelButtonBasicProps,
@@ -6,7 +5,6 @@ import type {
   LabelButtonProps,
 } from "components";
 import { Icon } from "components";
-import { usePressable } from "hooks";
 import { forwardRef } from "react";
 import { getLabelClassName } from "utils";
 
@@ -27,7 +25,6 @@ const LabelButtonRoot = forwardRef<HTMLButtonElement, LabelButtonProps>(
     },
     forwardedRef,
   ) => {
-    const { ref, pressableProps } = usePressable(forwardedRef, { disabled });
     const iconSize = iconSizeMap[size];
     const rootClassName = feedback
       ? feedbackRoot({ feedback, size })
@@ -35,8 +32,10 @@ const LabelButtonRoot = forwardRef<HTMLButtonElement, LabelButtonProps>(
 
     return (
       <button
-        ref={ref}
-        {...mergeProps(pressableProps, restProps)}
+        ref={forwardedRef}
+        {...restProps}
+        disabled={disabled}
+        data-disabled={disabled || undefined}
         data-part='root'
         className={clsx(getLabelClassName({ size, weight: "bold" }), rootClassName, className)}
       >
