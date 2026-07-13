@@ -45,6 +45,8 @@ const RadioRoot = ({
   onChange,
   name,
   children,
+  "aria-label": ariaLabel,
+  "aria-labelledby": ariaLabelledBy,
 }: RadioRootProps) => (
   <RadioConfigProvider value={{ size, variant, disabled }}>
     <RadioGroup.Root
@@ -54,6 +56,8 @@ const RadioRoot = ({
       onValueChange={onChange}
       disabled={disabled}
       name={name}
+      aria-label={ariaLabel}
+      aria-labelledby={ariaLabelledBy}
     >
       {children}
     </RadioGroup.Root>

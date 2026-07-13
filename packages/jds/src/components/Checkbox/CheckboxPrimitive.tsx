@@ -53,6 +53,8 @@ const CheckboxRoot = ({
   onChange,
   name,
   children,
+  "aria-label": ariaLabel,
+  "aria-labelledby": ariaLabelledBy,
 }: CheckboxRootProps) => {
   const [selected, setSelected] = useControllableState<string[]>(
     value,
@@ -69,7 +71,12 @@ const CheckboxRoot = ({
 
   return (
     <CheckboxConfigProvider value={{ size, variant, disabled, isInvalid, name, state }}>
-      <div role='group' className={checkboxGroupWrapper}>
+      <div
+        role='group'
+        aria-label={ariaLabel}
+        aria-labelledby={ariaLabelledBy}
+        className={checkboxGroupWrapper}
+      >
         {children}
       </div>
     </CheckboxConfigProvider>

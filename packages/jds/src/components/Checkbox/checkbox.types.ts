@@ -1,5 +1,5 @@
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
-import type { RenderableNode } from "types";
+import type { AriaLabelProps, RenderableNode } from "types";
 
 export const CHECKBOX_SIZE_OPTIONS = ["xs", "sm", "md", "lg"] as const;
 export const CHECKBOX_VARIANT_OPTIONS = ["hollow", "outlined"] as const;
@@ -30,6 +30,7 @@ type CheckboxRootBaseProps = {
 };
 
 export type CheckboxRootProps = CheckboxRootBaseProps &
+  AriaLabelProps &
   (CheckboxRootControlledProps | CheckboxRootUncontrolledProps);
 
 export type CheckboxItemProps = ComponentPropsWithoutRef<"label"> & {
@@ -98,6 +99,7 @@ type CheckboxGroupBaseProps = {
 };
 
 export type CheckboxGroupProps = CheckboxGroupBaseProps &
+  AriaLabelProps &
   (CheckboxRootControlledProps | CheckboxRootUncontrolledProps);
 
 type CheckboxStandaloneBaseProps = {

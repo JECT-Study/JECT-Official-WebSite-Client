@@ -1,5 +1,5 @@
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
-import type { RenderableNode } from "types";
+import type { AriaLabelProps, RenderableNode } from "types";
 
 export const RADIO_SIZE_OPTIONS = ["xs", "sm", "md", "lg"] as const;
 export const RADIO_VARIANT_OPTIONS = ["hollow", "outlined"] as const;
@@ -28,6 +28,7 @@ type RadioRootBaseProps = {
 };
 
 export type RadioRootProps = RadioRootBaseProps &
+  AriaLabelProps &
   (RadioRootControlledProps | RadioRootUncontrolledProps);
 
 export type RadioItemProps = Omit<ComponentPropsWithoutRef<"button">, "value"> & {
@@ -54,6 +55,7 @@ type RadioGroupBaseProps = {
 };
 
 export type RadioGroupProps = RadioGroupBaseProps &
+  AriaLabelProps &
   (RadioRootControlledProps | RadioRootUncontrolledProps);
 
 export type RadioIndicatorProps = Omit<ComponentPropsWithoutRef<"span">, "children"> & {
