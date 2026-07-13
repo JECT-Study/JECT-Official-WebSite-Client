@@ -52,9 +52,20 @@ export const label = recipe({
   },
 });
 
-export const asterisk = style({
-  marginTop: -2,
-  color: vars.color.semantic.feedback.notifying.static.inverse.bold,
+export const asterisk = recipe({
+  base: {
+    marginTop: -2,
+  },
+  variants: {
+    disabled: {
+      true: {
+        vars: { [labelColorVar]: vars.color.semantic.feedback.notifying.alpha.inverse.assistive },
+      },
+      false: {
+        vars: { [labelColorVar]: vars.color.semantic.feedback.notifying.static.inverse.bold },
+      },
+    },
+  },
 });
 
 const contentVars = {

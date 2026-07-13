@@ -40,7 +40,13 @@ export const FieldLabel = forwardRef<HTMLLabelElement, FieldLabelProps>(
             {children}
           </label>
           {isRequired && (
-            <span className={styles.asterisk} aria-hidden>
+            <span
+              className={clsx(
+                getLabelClassName({ size: "sm" }),
+                styles.asterisk({ disabled: isDisabled }),
+              )}
+              aria-hidden
+            >
               *
             </span>
           )}
