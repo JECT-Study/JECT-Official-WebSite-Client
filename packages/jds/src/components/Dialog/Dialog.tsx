@@ -30,10 +30,10 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
     const primaryButton = <BlockButton size={buttonSize} {...primaryAction} />;
     const secondaryButton = secondaryAction ? (
       <BlockButton
+        {...secondaryAction}
         variant='outlined'
         hierarchy='secondary'
         size={buttonSize}
-        {...secondaryAction}
       />
     ) : null;
 
