@@ -68,7 +68,6 @@ export const content = style({
 export const panel = style({
   display: "flex",
   flexDirection: "column",
-  alignItems: "flex-start",
   width: `calc(100vw - ${pxToRem(32)})`,
   maxWidth: pxToRem(500),
   borderRadius: vars.scheme.semantic.radius["12"],
@@ -80,7 +79,6 @@ export const panel = style({
 export const inner = style({
   display: "flex",
   flexDirection: "column",
-  alignItems: "flex-start",
   alignSelf: "stretch",
   padding: vars.scheme.semantic.spacing["20"],
   gap: vars.scheme.semantic.spacing["24"],
@@ -97,7 +95,6 @@ export const contentGroup = style({
 export const textGroup = style({
   display: "flex",
   flexDirection: "column",
-  alignItems: "flex-start",
   alignSelf: "stretch",
   gap: vars.scheme.semantic.spacing["12"],
 });
