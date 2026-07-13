@@ -73,7 +73,6 @@ const contentVars = {
   borderHoverColor: createVar(),
   borderFocusColor: createVar(),
   backgroundColor: createVar(),
-  focusRingColor: createVar(),
 } as const;
 
 export const content = recipe({
@@ -85,7 +84,7 @@ export const content = recipe({
     minWidth: 0,
     gap: vars.scheme.semantic.spacing["8"],
     borderRadius: vars.scheme.semantic.radius["8"],
-    transition: `border-color ${vars.environment.semantic.duration["100"]} ${vars.environment.semantic.motion.fluent}, box-shadow ${vars.environment.semantic.duration["100"]} ${vars.environment.semantic.motion.fluent}`,
+    transition: `border-color ${vars.environment.semantic.duration["100"]} ${vars.environment.semantic.motion.fluent}`,
   },
   variants: {
     fieldStyle: {
@@ -95,7 +94,6 @@ export const content = recipe({
         borderStyle: "solid",
         borderColor: contentVars.borderColor,
         backgroundColor: contentVars.backgroundColor,
-        boxShadow: `0 0 0 0 ${contentVars.focusRingColor}`,
         vars: {
           [contentVars.backgroundColor]: vars.color.semantic.surface.standard,
         },
@@ -104,12 +102,16 @@ export const content = recipe({
             inset: 0,
             borderRadius: "inherit",
           },
+          "&::before": {
+            inset: `calc(-1 * ${vars.scheme.semantic.strokeWeight["1"]})`,
+            borderRadius: "inherit",
+            transition: `box-shadow ${vars.environment.semantic.duration["100"]} ${vars.environment.semantic.motion.fluent}`,
+          },
           "&:hover": {
             borderColor: contentVars.borderHoverColor,
           },
           "&:focus-within": {
             borderColor: contentVars.borderFocusColor,
-            boxShadow: `0 0 0 ${vars.scheme.semantic.strokeWeight["2"]} ${contentVars.focusRingColor}`,
           },
         },
       },
@@ -139,7 +141,6 @@ export const content = recipe({
       style: {
         vars: {
           [contentVars.borderColor]: vars.color.semantic.stroke.alpha.assistive,
-          [contentVars.focusRingColor]: vars.color.semantic.accent.alternative,
           [contentVars.borderHoverColor]: vars.color.semantic.accent.normal,
           [contentVars.borderFocusColor]: vars.color.semantic.accent.normal,
         },
@@ -150,7 +151,6 @@ export const content = recipe({
       style: {
         vars: {
           [contentVars.borderColor]: vars.color.semantic.feedback.positive.alpha.alternative,
-          [contentVars.focusRingColor]: vars.color.semantic.feedback.positive.alpha.alternative,
           [contentVars.borderHoverColor]: vars.color.semantic.feedback.positive.normal,
           [contentVars.borderFocusColor]: vars.color.semantic.feedback.positive.normal,
         },
@@ -161,7 +161,6 @@ export const content = recipe({
       style: {
         vars: {
           [contentVars.borderColor]: vars.color.semantic.feedback.destructive.alpha.alternative,
-          [contentVars.focusRingColor]: vars.color.semantic.feedback.destructive.alpha.alternative,
           [contentVars.borderHoverColor]: vars.color.semantic.feedback.destructive.normal,
           [contentVars.borderFocusColor]: vars.color.semantic.feedback.destructive.normal,
         },
