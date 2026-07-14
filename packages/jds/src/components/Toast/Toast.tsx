@@ -13,10 +13,11 @@ type ToastPhase = "enter" | "static" | "exit";
 /**
  * enter/exit 값은 toast.css.ts의 animation duration 토큰과 동기화한다.
  */
-const TOAST_DURATION = {
-  DEFAULT: 2500,
+export const TOAST_TIMER = {
+  DURATION: 2500,
   ENTER: 250,
   EXIT: 200,
+  QUEUE_FALLBACK: 1500,
 } as const;
 
 const phaseClassNameMap: Partial<Record<ToastPhase, string>> = {
@@ -37,7 +38,7 @@ export const Toast = ({
   onRemove,
   title,
   isClosing,
-  duration = TOAST_DURATION.DEFAULT,
+  duration = TOAST_TIMER.DURATION,
 }: ToastProps) => {
   const [phase, setPhase] = useState<ToastPhase>("enter");
   const hasDescription = Boolean(description);
@@ -47,7 +48,7 @@ export const Toast = ({
 
   useEffect(() => {
     if (phase === "enter") {
-      const timer = setTimeout(() => setPhase("static"), TOAST_DURATION.ENTER);
+      const timer = setTimeout(() => setPhase("static"), TOAST_TIMER.ENTER);
       return () => clearTimeout(timer);
     }
   }, [phase]);
@@ -68,7 +69,7 @@ export const Toast = ({
     if (phase === "exit") {
       const timer = setTimeout(() => {
         onRemoveRef.current?.();
-      }, TOAST_DURATION.EXIT);
+      }, TOAST_TIMER.EXIT);
       return () => clearTimeout(timer);
     }
   }, [phase]);
