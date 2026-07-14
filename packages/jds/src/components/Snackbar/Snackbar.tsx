@@ -138,6 +138,7 @@ export const Snackbar = ({
 
   const phaseClassName = phaseClassNameMap[phase];
   const iconName = feedback !== "none" && feedbackIconName[feedback];
+  const titleId = `${id}-title`;
 
   return (
     <div
@@ -151,7 +152,10 @@ export const Snackbar = ({
       {iconName && <Icon name={iconName} size='sm' className={styles.icon({ feedback })} />}
       <div className={styles.body}>
         <div className={styles.content({ withDescription: hasDescription })}>
-          <span className={clsx(styles.title, getLabelClassName({ size: "md", weight: "normal" }))}>
+          <span
+            id={titleId}
+            className={clsx(styles.title, getLabelClassName({ size: "md", weight: "normal" }))}
+          >
             {title}
           </span>
           {description && (
@@ -169,7 +173,7 @@ export const Snackbar = ({
           <LabelButton
             hierarchy='primary'
             size='md'
-            aria-label={`${title} 알림 ${label}`}
+            aria-describedby={titleId}
             onClick={onClick}
           >
             {label}
