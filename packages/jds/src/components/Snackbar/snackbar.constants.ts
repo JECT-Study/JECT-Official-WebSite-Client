@@ -11,3 +11,5 @@ export const SNACKBAR_ANIMATION_TIMER = {
 } as const;
 
 export const SNACKBAR_QUEUE_FALLBACK_TIMEOUT = 1500;
+
+export const SNACKBAR_QUEUE_LIMIT = 3;
