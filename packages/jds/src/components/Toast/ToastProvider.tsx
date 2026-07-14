@@ -22,7 +22,7 @@ interface ToastContextType {
 const ToastContext = createContext<ToastContextType | null>(null);
 
 export const ToastProvider = ({ children, duration }: ToastProviderProps) => {
-  const { toasts, toast: handler, removeToast } = useToastProvider({});
+  const { toasts, toast: handler, removeToast } = useToastProvider();
   const [isMounted, setIsMounted] = useState(false);
 
   const [announcement, setAnnouncement] = useState("");
