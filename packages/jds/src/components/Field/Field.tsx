@@ -1,5 +1,11 @@
 import { clsx } from "clsx";
-import { forwardRef, useId, type ComponentPropsWithoutRef, type ReactNode } from "react";
+import {
+  forwardRef,
+  useId,
+  useState,
+  type ComponentPropsWithoutRef,
+  type ReactNode,
+} from "react";
 
 import { FieldContent } from "./compound/Content";
 import { FieldHelperText } from "./compound/HelperText";
@@ -33,11 +39,14 @@ const InternalField = forwardRef<HTMLDivElement, FieldProps>(
   ) => {
     const fieldId = useId();
     const helperTextId = `${fieldId}-helper-text`;
+    const [hasHelperText, setHasHelperText] = useState(false);
 
     return (
       <FieldProvider
         fieldId={fieldId}
         helperTextId={helperTextId}
+        hasHelperText={hasHelperText}
+        onHelperTextMountChange={setHasHelperText}
         status={status}
         fieldStyle={fieldStyle}
         readonly={readonly}

@@ -62,6 +62,7 @@ const DemoInput = (props: ComponentPropsWithoutRef<"input">) => {
   const {
     fieldId,
     helperTextId,
+    hasHelperText,
     disabled: isDisabled,
     readonly: isReadonly,
   } = useFieldContext("DemoInput");
@@ -69,7 +70,7 @@ const DemoInput = (props: ComponentPropsWithoutRef<"input">) => {
   return (
     <input
       id={fieldId}
-      aria-describedby={helperTextId}
+      aria-describedby={hasHelperText ? helperTextId : undefined}
       disabled={isDisabled}
       readOnly={isReadonly}
       style={{
