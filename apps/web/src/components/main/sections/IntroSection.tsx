@@ -5,7 +5,6 @@ import {
   Hero,
   Icon,
   Image,
-  Label,
   LabelButton,
   Title as JdsTitle,
 } from "@jects/jds";
