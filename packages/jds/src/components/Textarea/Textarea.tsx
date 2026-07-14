@@ -6,7 +6,7 @@ import { TextareaControl } from "./compound/Control";
 import { TextareaCounter } from "./compound/Counter";
 import { TextareaProvider, type TextareaState } from "./Textarea.context";
 
-export type TextareaProps = FieldProps;
+export type TextareaProps = Omit<FieldProps, "fieldStyle">;
 
 /**
  * 루트는 내부 Field primitive 를 래핑하고, 글자 수 카운터를 위한 값 길이·maxLength 를 추적한다.

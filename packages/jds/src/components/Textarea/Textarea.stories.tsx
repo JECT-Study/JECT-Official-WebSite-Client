@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { FlexColumn, FlexRow, Label } from "@storybook-utils/layout";
+import { FlexColumn } from "@storybook-utils/layout";
 import { useState } from "react";
 import { vars } from "tokens";
 
@@ -19,12 +19,6 @@ const meta = {
     children: {
       control: false,
       table: { disable: true },
-    },
-    fieldStyle: {
-      control: "inline-radio",
-      options: ["outline", "hollow"],
-      description: "필드 스타일 (outline: 테두리, hollow: 민무늬)",
-      table: { defaultValue: { summary: "outline" } },
     },
     status: {
       control: "inline-radio",
@@ -60,7 +54,6 @@ type Story = StoryObj<typeof meta>;
  */
 export const Playground: Story = {
   args: {
-    fieldStyle: "outline",
     status: "default",
     disabled: false,
     readonly: false,
@@ -87,39 +80,6 @@ export const Playground: Story = {
         <Textarea.HelperText>500자 이내로 입력해주세요</Textarea.HelperText>
       </Textarea>
     </div>
-  ),
-};
-
-/**
- * 필드 스타일 비교.
- * - `outline`: 테두리 + 배경 + focus ring (readonly 포함, 입력 기본 스타일과 동일)
- * - `hollow`: 테두리/배경/focus ring 없이 입력만 노출
- */
-export const Styles: Story = {
-  render: () => (
-    <FlexRow gap='32px'>
-      <FlexColumn gap='8px' style={{ width: "20rem" }}>
-        <Label>outline</Label>
-        <Textarea fieldStyle='outline'>
-          <Textarea.Label>자기소개</Textarea.Label>
-          <Textarea.Content>
-            <Textarea.Control placeholder='내용을 입력하세요' />
-          </Textarea.Content>
-          <Textarea.HelperText>500자 이내로 입력해주세요</Textarea.HelperText>
-        </Textarea>
-      </FlexColumn>
-
-      <FlexColumn gap='8px' style={{ width: "20rem" }}>
-        <Label>hollow</Label>
-        <Textarea fieldStyle='hollow'>
-          <Textarea.Label>자기소개</Textarea.Label>
-          <Textarea.Content>
-            <Textarea.Control placeholder='내용을 입력하세요' />
-          </Textarea.Content>
-          <Textarea.HelperText>500자 이내로 입력해주세요</Textarea.HelperText>
-        </Textarea>
-      </FlexColumn>
-    </FlexRow>
   ),
 };
 
@@ -220,7 +180,11 @@ export const WithCounter: Story = {
         <Textarea>
           <Textarea.Label>uncontrolled (헬퍼텍스트 없이 counter만)</Textarea.Label>
           <Textarea.Content>
-            <Textarea.Control maxLength={50} defaultValue='기본값' placeholder='내용을 입력하세요' />
+            <Textarea.Control
+              maxLength={50}
+              defaultValue='기본값'
+              placeholder='내용을 입력하세요'
+            />
             <Textarea.Counter />
           </Textarea.Content>
         </Textarea>

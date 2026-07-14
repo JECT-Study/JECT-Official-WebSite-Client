@@ -51,7 +51,6 @@ export const body = style({
   flexDirection: "column",
   flex: "1 1 0",
   minWidth: 0,
-  // textarea(min-height 48px)와 그 아래 counter 사이 간격
   gap: vars.scheme.semantic.spacing["12"],
 });
 
