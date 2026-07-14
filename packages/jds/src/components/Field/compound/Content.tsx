@@ -7,13 +7,17 @@ import * as styles from "../field.css";
 import type { FieldStatus } from "../field.types";
 
 export interface FieldContentProps extends ComponentPropsWithoutRef<"div"> {
-  /** Overlay 레이어 적용 여부를 관리해요. */
+  /**
+   * hover/press overlay 레이어 적용 여부를 관리해요.
+   * fieldStyle과 무관하게 이 컴포넌트를 확장하는 필드 종류에 따라 결정돼요.
+   * (예: Text/Tag/Time/Date는 미사용, Select/File은 사용)
+   */
   hasOverlay?: boolean;
   children: ReactNode;
 }
 
 export const FieldContent = forwardRef<HTMLDivElement, FieldContentProps>(
-  ({ children, className, hasOverlay: hasOverLayFromProps = true, ...restProps }, ref) => {
+  ({ children, className, hasOverlay = false, ...restProps }, ref) => {
     const {
       status,
       fieldStyle,
@@ -21,16 +25,15 @@ export const FieldContent = forwardRef<HTMLDivElement, FieldContentProps>(
       readonly: isReadonly,
     } = useFieldContext("Field.Content");
 
-    const hasOutline = fieldStyle === "outline";
-    const hasOverlayLayer = hasOverLayFromProps && hasOutline;
+    const hasFocusRing = fieldStyle === "outline";
 
     return (
       <div
         ref={ref}
         className={clsx(
           styles.content({ status, fieldStyle, disabled: isDisabled, readOnly: isReadonly }),
-          hasOverlayLayer && overlay({ hierarchy: "tertiary", density: "normal" }),
-          hasOutline && focusRing({ interaction: "within", feedback: statusToFeedback[status] }),
+          hasOverlay && overlay({ hierarchy: "tertiary", density: "normal" }),
+          hasFocusRing && focusRing({ interaction: "within", feedback: statusToFeedback[status] }),
           className,
         )}
         {...restProps}
