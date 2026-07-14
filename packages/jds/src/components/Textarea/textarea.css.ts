@@ -11,7 +11,7 @@ export const control = recipe({
     display: "block",
     width: "100%",
     minWidth: 0,
-    minHeight: "4.5rem",
+    minHeight: "3rem",
     padding: 0,
     border: "none",
     outline: "none",
@@ -51,20 +51,13 @@ export const body = style({
   flexDirection: "column",
   flex: "1 1 0",
   minWidth: 0,
-  gap: vars.scheme.semantic.spacing["8"],
+  // textarea(min-height 48px)와 그 아래 counter 사이 간격
+  gap: vars.scheme.semantic.spacing["12"],
 });
 
-export const counter = recipe({
-  base: {
-    alignSelf: "flex-end",
-    flexShrink: 0,
-    whiteSpace: "nowrap",
-    vars: { [labelColorVar]: vars.color.semantic.object.alternative },
-  },
-  variants: {
-    disabled: {
-      true: { vars: { [labelColorVar]: vars.color.semantic.object.subtle } },
-      false: {},
-    },
-  },
+export const counter = style({
+  alignSelf: "flex-end",
+  flexShrink: 0,
+  whiteSpace: "nowrap",
+  vars: { [labelColorVar]: vars.color.semantic.object.alternative },
 });
