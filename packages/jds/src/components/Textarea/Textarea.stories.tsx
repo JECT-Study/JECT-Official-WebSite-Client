@@ -48,7 +48,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 /**
- * 컨트롤 패널에서 fieldStyle / status / disabled / readonly / required 를 바꿔가며
+ * 컨트롤 패널에서 status / disabled / readonly / required 를 바꿔가며
  * 직접 입력·resize·focus 해볼 수 있는 인터랙티브 예시입니다.
  * Textarea.Control 에 `maxLength` 를 주면 박스 내부 우측 하단의 Counter 가 자동으로 글자 수를 표시합니다.
  */
