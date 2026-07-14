@@ -69,6 +69,15 @@ export const ToastProvider = ({ children, duration }: ToastProviderProps) => {
     setAnnouncement(`${baseText}${invisibleSpace}`);
   }, [latestToastId, latestToastTitle, latestToastDescription]);
 
+  useEffect(() => {
+    // 큐에서 제거된 토스트 id를 정리해 낭독 완료 목록이 계속 누적되지 않도록 한다.
+    const activeToastIds = new Set(toasts.map(toast => toast.id));
+
+    announcedToastIdsRef.current.forEach(id => {
+      if (!activeToastIds.has(id)) announcedToastIdsRef.current.delete(id);
+    });
+  }, [toasts]);
+
   return (
     <ToastContext.Provider value={{ toast: handler, removeToast }}>
       {children}
