@@ -14,7 +14,6 @@ export interface CheckboxConfigContextValue {
   disabled: boolean;
   isInvalid: boolean;
   name?: string;
-  state?: CheckboxGroupState;
 }
 
 const CheckboxConfigContext = createContext<CheckboxConfigContextValue | null>(null);
@@ -22,6 +21,12 @@ const CheckboxConfigContext = createContext<CheckboxConfigContextValue | null>(n
 export const CheckboxConfigProvider = CheckboxConfigContext.Provider;
 
 export const useCheckboxConfig = () => useContext(CheckboxConfigContext);
+
+const CheckboxSelectionContext = createContext<CheckboxGroupState | null>(null);
+
+export const CheckboxSelectionProvider = CheckboxSelectionContext.Provider;
+
+export const useCheckboxSelection = () => useContext(CheckboxSelectionContext);
 
 export interface CheckboxItemContextValue {
   labelId: string;

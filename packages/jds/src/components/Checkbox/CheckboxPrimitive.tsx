@@ -1,7 +1,7 @@
 import { clsx } from "clsx";
 import { useControllableState } from "hooks";
 import { Checkbox as RadixCheckbox } from "radix-ui";
-import { forwardRef, useId, useLayoutEffect, useState } from "react";
+import { forwardRef, useCallback, useId, useLayoutEffect, useMemo, useState } from "react";
 import { focusRing, getLabelClassName, overlay } from "utils";
 import type { LabelSize } from "utils";
 
@@ -32,9 +32,12 @@ import type {
 import {
   CheckboxConfigProvider,
   CheckboxItemProvider,
+  CheckboxSelectionProvider,
   useCheckboxConfig,
   useCheckboxItem,
+  useCheckboxSelection,
 } from "./CheckboxContext";
+import type { CheckboxGroupState } from "./CheckboxContext";
 
 const checkboxSizeMap = {
   lg: { icon: "md", label: "lg", helper: "sm" },
@@ -62,23 +65,35 @@ const CheckboxRoot = ({
     onChange,
   );
 
-  const state = {
-    value: selected,
-    isSelected: (v: string) => selected.includes(v),
-    toggle: (v: string) =>
+  const isSelected = useCallback((v: string) => selected.includes(v), [selected]);
+  const toggle = useCallback(
+    (v: string) =>
       setSelected(prev => (prev.includes(v) ? prev.filter(item => item !== v) : [...prev, v])),
-  };
+    [setSelected],
+  );
+
+  const selectionState = useMemo<CheckboxGroupState>(
+    () => ({ value: selected, isSelected, toggle }),
+    [selected, isSelected, toggle],
+  );
+
+  const configValue = useMemo(
+    () => ({ size, variant, disabled, isInvalid, name }),
+    [size, variant, disabled, isInvalid, name],
+  );
 
   return (
-    <CheckboxConfigProvider value={{ size, variant, disabled, isInvalid, name, state }}>
-      <div
-        role='group'
-        aria-label={ariaLabel}
-        aria-labelledby={ariaLabelledBy}
-        className={checkboxGroupWrapper}
-      >
-        {children}
-      </div>
+    <CheckboxConfigProvider value={configValue}>
+      <CheckboxSelectionProvider value={selectionState}>
+        <div
+          role='group'
+          aria-label={ariaLabel}
+          aria-labelledby={ariaLabelledBy}
+          className={checkboxGroupWrapper}
+        >
+          {children}
+        </div>
+      </CheckboxSelectionProvider>
     </CheckboxConfigProvider>
   );
 };
@@ -111,16 +126,13 @@ const CheckboxItem = forwardRef<HTMLLabelElement, CheckboxItemProps>(
     const [hasHelper, setHasHelper] = useState(false);
     const isEffectiveInvalid = isInvalid && childChecked === false;
 
+    const configValue = useMemo(
+      () => ({ ...parentConfig, size, variant, disabled: isDisabled, isInvalid }),
+      [parentConfig, size, variant, isDisabled, isInvalid],
+    );
+
     return (
-      <CheckboxConfigProvider
-        value={{
-          ...parentConfig,
-          size,
-          variant,
-          disabled: isDisabled,
-          isInvalid,
-        }}
-      >
+      <CheckboxConfigProvider value={configValue}>
         <CheckboxItemProvider
           value={{
             labelId,
@@ -211,7 +223,7 @@ const CheckboxControl = forwardRef<HTMLButtonElement, CheckboxControlProps>(
     const isInvalid = (isInvalidProp ?? false) || (configContext?.isInvalid ?? false);
     const isWithinItem = itemContext != null;
 
-    const groupState = configContext?.state;
+    const groupState = useCheckboxSelection();
 
     if (groupState && value == null) {
       throw new Error(
