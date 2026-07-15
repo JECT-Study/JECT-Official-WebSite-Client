@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexColumn, FlexRow } from "@storybook-utils/layout";
 
-import { Badge } from "../Badge";
+import { NumericBadge } from "./NumericBadge";
 import {
   BADGE_SIZE_OPTIONS,
   BASIC_HIERARCHY_OPTIONS,
@@ -9,9 +9,9 @@ import {
 } from "../badge.types";
 import { NUMERIC_BADGE_STYLE_OPTIONS } from "./numericBadge.types";
 
-const meta: Meta<typeof Badge.Numeric> = {
-  title: "Components/Badge/Numeric",
-  component: Badge.Numeric,
+const meta: Meta<typeof NumericBadge> = {
+  title: "Components/NumericBadge",
+  component: NumericBadge,
   parameters: {
     layout: "centered",
   },
@@ -43,7 +43,7 @@ const meta: Meta<typeof Badge.Numeric> = {
 
 export default meta;
 
-type Story = StoryObj<typeof Badge.Numeric>;
+type Story = StoryObj<typeof NumericBadge>;
 
 export const Default: Story = {
   argTypes: {
@@ -59,14 +59,14 @@ export const Default: Story = {
     children: "99",
   },
   render: args => (
-    <Badge.Numeric
+    <NumericBadge
       hierarchy={args.hierarchy}
       size={args.size}
       badgeStyle={args.badgeStyle}
       isMuted={args.isMuted}
     >
       {args.children}
-    </Badge.Numeric>
+    </NumericBadge>
   ),
 };
 
@@ -88,7 +88,7 @@ export const NumericBadgeSizes: Story = {
   render: args => (
     <FlexRow>
       {BADGE_SIZE_OPTIONS.map(size => (
-        <Badge.Numeric
+        <NumericBadge
           key={size}
           hierarchy={args.hierarchy}
           size={size}
@@ -96,7 +96,7 @@ export const NumericBadgeSizes: Story = {
           isMuted={args.isMuted}
         >
           {args.children}
-        </Badge.Numeric>
+        </NumericBadge>
       ))}
     </FlexRow>
   ),
@@ -120,7 +120,7 @@ export const NumericBadgeBadgeStyles: Story = {
   render: args => (
     <FlexRow>
       {NUMERIC_BADGE_STYLE_OPTIONS.map(badgeStyle => (
-        <Badge.Numeric
+        <NumericBadge
           key={badgeStyle}
           hierarchy={args.hierarchy}
           size={args.size}
@@ -128,7 +128,7 @@ export const NumericBadgeBadgeStyles: Story = {
           isMuted={args.isMuted}
         >
           {args.children}
-        </Badge.Numeric>
+        </NumericBadge>
       ))}
     </FlexRow>
   ),
@@ -152,7 +152,7 @@ export const NumericBadgeHierarchies: Story = {
   render: args => (
     <FlexRow>
       {BASIC_HIERARCHY_OPTIONS.map(hierarchy => (
-        <Badge.Numeric
+        <NumericBadge
           key={hierarchy}
           hierarchy={hierarchy}
           size={args.size}
@@ -160,7 +160,7 @@ export const NumericBadgeHierarchies: Story = {
           isMuted={args.isMuted}
         >
           {args.children}
-        </Badge.Numeric>
+        </NumericBadge>
       ))}
     </FlexRow>
   ),
@@ -184,7 +184,7 @@ export const NumericBadgeFeedback: Story = {
   render: args => (
     <FlexRow>
       {FEEDBACK_VARIANT_OPTIONS.map(feedback => (
-        <Badge.Numeric
+        <NumericBadge
           key={feedback}
           feedback={feedback}
           size={args.size}
@@ -192,7 +192,7 @@ export const NumericBadgeFeedback: Story = {
           isMuted={args.isMuted}
         >
           {args.children}
-        </Badge.Numeric>
+        </NumericBadge>
       ))}
     </FlexRow>
   ),
@@ -218,7 +218,7 @@ export const NumericBadgeMuted: Story = {
   render: args => (
     <FlexRow>
       {NUMERIC_BADGE_STYLE_OPTIONS.map(badgeStyle => (
-        <Badge.Numeric
+        <NumericBadge
           key={badgeStyle}
           hierarchy={args.hierarchy}
           size={args.size}
@@ -226,7 +226,7 @@ export const NumericBadgeMuted: Story = {
           isMuted
         >
           {args.children}
-        </Badge.Numeric>
+        </NumericBadge>
       ))}
     </FlexRow>
   ),
@@ -256,7 +256,7 @@ export const NumericBadgeFeedbackMuted: Story = {
       {FEEDBACK_VARIANT_OPTIONS.map(feedback => (
         <FlexRow key={feedback}>
           {NUMERIC_BADGE_STYLE_OPTIONS.map(badgeStyle => (
-            <Badge.Numeric
+            <NumericBadge
               key={badgeStyle}
               feedback={feedback}
               size={args.size}
@@ -264,7 +264,7 @@ export const NumericBadgeFeedbackMuted: Story = {
               isMuted
             >
               {args.children}
-            </Badge.Numeric>
+            </NumericBadge>
           ))}
         </FlexRow>
       ))}

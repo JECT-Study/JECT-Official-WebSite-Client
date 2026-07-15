@@ -16,7 +16,7 @@ const DotBadgeRoot = forwardRef<HTMLSpanElement, DotBadgeProps>(
   },
 );
 
-DotBadgeRoot.displayName = "Badge.Dot";
+DotBadgeRoot.displayName = "DotBadge";
 
 const DotBadgeFeedback = forwardRef<HTMLSpanElement, DotBadgeFeedbackProps>(
   ({ variant = "positive", ...props }, ref) => (
@@ -27,6 +27,6 @@ const DotBadgeFeedback = forwardRef<HTMLSpanElement, DotBadgeFeedbackProps>(
 DotBadgeFeedback.displayName = "DotBadge.Feedback";
 
 export const DotBadge = Object.assign(DotBadgeRoot, {
-  /** @deprecated `<Badge.Dot feedback>`를 사용하세요. */
+  /** @deprecated `<DotBadge feedback>`를 사용하세요. */
   Feedback: DotBadgeFeedback,
 });

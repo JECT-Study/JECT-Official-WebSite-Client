@@ -1,4 +1,3 @@
-export { Badge } from "./Badge";
 export * from "./ContentBadge/ContentBadge";
 export * from "./DotBadge/DotBadge";
 export * from "./NumericBadge/NumericBadge";
