@@ -102,14 +102,25 @@ export type CheckboxGroupProps = CheckboxGroupBaseProps &
   AriaLabelProps &
   (CheckboxRootControlledProps | CheckboxRootUncontrolledProps);
 
-type CheckboxStandaloneBaseProps = {
-  size?: CheckboxSize;
-  variant?: CheckboxVariant;
-  disabled?: boolean;
-  isInvalid?: boolean;
-  name?: string;
-  value?: string;
-};
+type CheckboxStandaloneBaseProps = Omit<
+  ComponentPropsWithoutRef<"button">,
+  | "size"
+  | "checked"
+  | "defaultChecked"
+  | "onChange"
+  | "value"
+  | "type"
+  | "aria-label"
+  | "aria-labelledby"
+> &
+  AriaLabelProps & {
+    size?: CheckboxSize;
+    variant?: CheckboxVariant;
+    disabled?: boolean;
+    isInvalid?: boolean;
+    name?: string;
+    value?: string;
+  };
 
 type CheckboxLabelHelperProps =
   | { label?: RenderableNode; helper?: never }
