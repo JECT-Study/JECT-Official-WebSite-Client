@@ -48,7 +48,11 @@ export const Default: Story = {
       const [isChecked, setIsChecked] = useState(args.checked ?? false);
 
       return (
-        <Toggle {...args} checked={isChecked} onChange={e => setIsChecked(e.target.checked)} />
+        <Toggle
+          checked={isChecked}
+          disabled={args.disabled}
+          onChange={e => setIsChecked(e.target.checked)}
+        />
       );
     };
 
