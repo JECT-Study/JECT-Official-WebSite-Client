@@ -61,7 +61,6 @@ export const radioVisual = recipe({
     borderRadius: vars.scheme.semantic.radius.max,
     border: `${vars.scheme.semantic.strokeWeight["1"]} solid ${vars.color.semantic.stroke.alpha.assistive}`,
     backgroundColor: vars.color.semantic.surface.shallow,
-    position: "relative",
     selectors: {
       [ancestorCheckedEnabled]: baseCheckedEnabledStyle,
       [selfCheckedEnabled]: baseCheckedEnabledStyle,
@@ -149,7 +148,7 @@ const buttonReset = style({
   },
 });
 
-export const radioIndicatorSlot = style({ gridColumn: "1", gridRow: "1", alignItems: "center" });
+export const radioIndicatorSlot = style({ gridColumn: "1", gridRow: "1" });
 export const radioLabelSlot = style({
   gridColumn: "2",
   gridRow: "1",
@@ -197,7 +196,6 @@ export const radioLabel = style({
 export const radioHelper = style({
   whiteSpace: "nowrap",
   vars: { [labelColorVar]: vars.color.semantic.object.alternative },
-  position: "relative",
   selectors: {
     "[data-disabled] &": { vars: { [labelColorVar]: vars.color.semantic.object.subtle } },
   },

@@ -24,39 +24,25 @@ export const checkboxVisual = recipe({
     justifyContent: "center",
     flexShrink: 0,
     boxSizing: "border-box",
-    appearance: "none",
     margin: 0,
     padding: 0,
     borderRadius: vars.scheme.semantic.radius["4"],
     border: `${vars.scheme.semantic.strokeWeight["1"]} solid ${vars.color.semantic.stroke.alpha.assistive}`,
     backgroundColor: vars.color.semantic.surface.shallow,
     color: "transparent",
-    cursor: "pointer",
-    position: "relative",
-    outline: "none",
     selectors: {
-      '&[data-state="checked"]:not([data-disabled])': {
-        backgroundColor: vars.color.semantic.accent.neutral,
-        border: "none",
-        color: vars.color.semantic.object.static.inverse.boldest,
-      },
-      '&[data-state="indeterminate"]:not([data-disabled])': {
-        backgroundColor: vars.color.semantic.accent.neutral,
-        border: "none",
-        color: vars.color.semantic.object.static.inverse.boldest,
-      },
+      '&[data-state="checked"]:not([data-disabled]), &[data-state="indeterminate"]:not([data-disabled])':
+        {
+          backgroundColor: vars.color.semantic.accent.neutral,
+          border: "none",
+          color: vars.color.semantic.object.static.inverse.boldest,
+        },
       '&[data-disabled][data-state="unchecked"]': {
         backgroundColor: vars.color.semantic.surface.standard,
         borderColor: vars.color.semantic.stroke.alpha.subtle,
         cursor: "not-allowed",
       },
-      '&[data-disabled][data-state="checked"]': {
-        backgroundColor: vars.color.semantic.fill.subtlest,
-        border: "none",
-        color: vars.color.semantic.object.subtle,
-        cursor: "not-allowed",
-      },
-      '&[data-disabled][data-state="indeterminate"]': {
+      '&[data-disabled][data-state="checked"], &[data-disabled][data-state="indeterminate"]': {
         backgroundColor: vars.color.semantic.fill.subtlest,
         border: "none",
         color: vars.color.semantic.object.subtle,
@@ -143,7 +129,7 @@ const checkboxItemGrid = style({
   alignItems: "center",
 });
 
-export const checkboxControlSlot = style({ gridColumn: "1", gridRow: "1", alignItems: "center" });
+export const checkboxControlSlot = style({ gridColumn: "1", gridRow: "1" });
 export const checkboxLabelSlot = style({
   gridColumn: "2",
   gridRow: "1",
@@ -217,7 +203,6 @@ export const checkboxLabel = style({
 export const checkboxHelper = style({
   whiteSpace: "nowrap",
   vars: { [labelColorVar]: vars.color.semantic.object.alternative },
-  position: "relative",
   selectors: {
     "[data-disabled] &": { vars: { [labelColorVar]: vars.color.semantic.object.subtle } },
     "[data-invalid] &": {
