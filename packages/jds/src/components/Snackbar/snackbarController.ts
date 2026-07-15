@@ -6,6 +6,7 @@ type SnackbarController = {
   basic: SnackbarHandler["basic"];
   positive: SnackbarHandler["positive"];
   destructive: SnackbarHandler["destructive"];
+  notifying: SnackbarHandler["notifying"];
 };
 
 let currentHandler: SnackbarHandler | null = null;
@@ -28,5 +29,9 @@ export const snackbarController: SnackbarController = {
   destructive: (...args) => {
     if (!currentHandler) return console.warn("SnackbarProvider not ready");
     return currentHandler.destructive(...args);
+  },
+  notifying: (...args) => {
+    if (!currentHandler) return console.warn("SnackbarProvider not ready");
+    return currentHandler.notifying(...args);
   },
 };
