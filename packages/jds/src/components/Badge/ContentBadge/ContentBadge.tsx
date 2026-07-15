@@ -1,5 +1,5 @@
 import { clsx } from "clsx";
-import { forwardRef } from "react";
+import { forwardRef, useId } from "react";
 
 import type { BadgeSize } from "../badge.types";
 import * as styles from "./contentBadge.css";
@@ -38,6 +38,9 @@ const ContentBadgeRoot = forwardRef<HTMLSpanElement, ContentBadgeProps>(
     },
     ref,
   ) => {
+    const labelId = useId();
+    const actionId = useId();
+
     const iconSize = iconSizeMap[size];
     const rootClassName = feedback
       ? styles.feedbackRoot({ feedback, size, badgeStyle, isMuted, withIconButton })
@@ -47,18 +50,26 @@ const ContentBadgeRoot = forwardRef<HTMLSpanElement, ContentBadgeProps>(
 
     return (
       <span ref={ref} className={clsx(rootClassName, className)} {...restProps}>
-        <span className={clsx(styles.label, getLabelClassName({ size }))}>{children}</span>
+        <span id={labelId} className={clsx(styles.label, getLabelClassName({ size }))}>
+          {children}
+        </span>
+
         {withIconButton && (
-          <IconButton
-            type='button'
-            icon='close-line'
-            aria-label='Close badge'
-            size={iconSize}
-            hierarchy='accent'
-            className={styles.icon}
-            disabled={isMuted}
-            onClick={onIconClick}
-          />
+          <>
+            <span id={actionId} hidden>
+              배지 제거
+            </span>
+            <IconButton
+              type='button'
+              icon='close-line'
+              aria-labelledby={`${labelId} ${actionId}`}
+              size={iconSize}
+              hierarchy='accent'
+              className={styles.icon}
+              disabled={isMuted}
+              onClick={onIconClick}
+            />
+          </>
         )}
       </span>
     );
