@@ -1,6 +1,6 @@
 import { clsx } from "clsx";
 import { RadioGroup } from "radix-ui";
-import { forwardRef, useId, useLayoutEffect, useState } from "react";
+import { forwardRef, useId, useLayoutEffect, useMemo, useState } from "react";
 import { focusRing, getLabelClassName } from "utils";
 import type { LabelSize } from "utils";
 
@@ -47,22 +47,26 @@ const RadioRoot = ({
   children,
   "aria-label": ariaLabel,
   "aria-labelledby": ariaLabelledBy,
-}: RadioRootProps) => (
-  <RadioConfigProvider value={{ size, variant, disabled }}>
-    <RadioGroup.Root
-      className={radioGroupWrapper}
-      value={value}
-      defaultValue={defaultValue}
-      onValueChange={onChange}
-      disabled={disabled}
-      name={name}
-      aria-label={ariaLabel}
-      aria-labelledby={ariaLabelledBy}
-    >
-      {children}
-    </RadioGroup.Root>
-  </RadioConfigProvider>
-);
+}: RadioRootProps) => {
+  const configValue = useMemo(() => ({ size, variant, disabled }), [size, variant, disabled]);
+
+  return (
+    <RadioConfigProvider value={configValue}>
+      <RadioGroup.Root
+        className={radioGroupWrapper}
+        value={value}
+        defaultValue={defaultValue}
+        onValueChange={onChange}
+        disabled={disabled}
+        name={name}
+        aria-label={ariaLabel}
+        aria-labelledby={ariaLabelledBy}
+      >
+        {children}
+      </RadioGroup.Root>
+    </RadioConfigProvider>
+  );
+};
 
 RadioRoot.displayName = "Radio.Root";
 
@@ -89,8 +93,13 @@ const RadioItem = forwardRef<HTMLButtonElement, RadioItemProps>(
 
     const [hasHelper, setHasHelper] = useState(false);
 
+    const configValue = useMemo(
+      () => ({ size, variant, disabled: isDisabled }),
+      [size, variant, isDisabled],
+    );
+
     return (
-      <RadioConfigProvider value={{ size, variant, disabled: isDisabled }}>
+      <RadioConfigProvider value={configValue}>
         <RadioItemProvider
           value={{ labelId, helperId, hasHelper, onHelperMountChange: setHasHelper }}
         >
