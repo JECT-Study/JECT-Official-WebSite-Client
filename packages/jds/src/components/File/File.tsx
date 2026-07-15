@@ -64,7 +64,7 @@ export const File = forwardRef<HTMLButtonElement, FileProps>(
 
         {removable && !readonly && (
           <IconButton
-            hierarchy='accent'
+            hierarchy='tertiary'
             size='sm'
             icon='close-line'
             className={styles.removeButton}

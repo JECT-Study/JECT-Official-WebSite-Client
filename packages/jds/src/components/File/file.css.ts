@@ -2,8 +2,6 @@ import { style } from "@vanilla-extract/css";
 import { vars } from "tokens";
 import { pxToRem } from "utils";
 
-import { iconButtonAccentColor } from "../Button/IconButton/iconButton.css";
-
 import { focusRing } from "@/utils/focusRing.css";
 import { overlay, overlayHoverOpacity, overlayPressedOpacity } from "@/utils/overlay.css";
 import { labelColorVar } from "@/utils/typography.css";
@@ -153,7 +151,4 @@ export const fileSize = style({
 export const removeButton = style({
   position: "relative",
   zIndex: 1,
-  vars: {
-    [iconButtonAccentColor]: vars.color.semantic.object.alternative,
-  },
 });
