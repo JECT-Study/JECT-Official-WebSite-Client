@@ -211,6 +211,10 @@ const CheckboxControl = forwardRef<HTMLButtonElement, CheckboxControlProps>(
       defaultChecked,
       onCheckedChange,
       className,
+      name: nameProp,
+      "aria-label": ariaLabel,
+      "aria-labelledby": ariaLabelledBy,
+      "aria-describedby": ariaDescribedBy,
       ...restProps
     },
     forwardedRef,
@@ -222,6 +226,12 @@ const CheckboxControl = forwardRef<HTMLButtonElement, CheckboxControlProps>(
     const isDisabled = (disabled ?? false) || (configContext?.disabled ?? false);
     const isInvalid = (isInvalidProp ?? false) || (configContext?.isInvalid ?? false);
     const isWithinItem = itemContext != null;
+
+    const resolvedName = configContext?.name ?? nameProp;
+    const resolvedAriaLabel = isWithinItem ? undefined : ariaLabel;
+    const resolvedAriaLabelledBy = isWithinItem ? itemContext?.labelId : ariaLabelledBy;
+    const resolvedAriaDescribedBy =
+      isWithinItem && itemContext?.hasHelper ? itemContext?.helperId : ariaDescribedBy;
 
     const groupState = useCheckboxSelection();
 
@@ -261,16 +271,16 @@ const CheckboxControl = forwardRef<HTMLButtonElement, CheckboxControlProps>(
     return (
       <RadixCheckbox.Root
         ref={forwardedRef}
+        {...restProps}
         value={value}
-        name={configContext?.name}
+        name={resolvedName}
         checked={currentChecked}
         onCheckedChange={handleCheckedChange}
         disabled={isDisabled}
         aria-invalid={isEffectiveInvalid || undefined}
-        aria-labelledby={isWithinItem ? itemContext?.labelId : undefined}
-        aria-describedby={
-          isWithinItem && itemContext?.hasHelper ? itemContext?.helperId : undefined
-        }
+        aria-label={resolvedAriaLabel}
+        aria-labelledby={resolvedAriaLabelledBy}
+        aria-describedby={resolvedAriaDescribedBy}
         data-invalid={isEffectiveInvalid || undefined}
         className={clsx(
           checkboxControl,
@@ -279,7 +289,6 @@ const CheckboxControl = forwardRef<HTMLButtonElement, CheckboxControlProps>(
           !isWithinItem && focusRing({ feedback: isEffectiveInvalid ? "destructive" : "none" }),
           className,
         )}
-        {...restProps}
       >
         <CheckboxIndicator
           size={size}
