@@ -105,12 +105,12 @@ const RadioItem = forwardRef<HTMLButtonElement, RadioItemProps>(
         >
           <RadioGroup.Item
             ref={ref}
+            {...restProps}
             value={value}
             disabled={isDisabled}
             aria-labelledby={labelId}
             aria-describedby={hasHelper ? helperId : undefined}
             className={clsx(radioItem({ size, styleOutlined: variant }), focusRing(), className)}
-            {...restProps}
           >
             {children}
           </RadioGroup.Item>
