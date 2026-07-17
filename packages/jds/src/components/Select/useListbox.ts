@@ -53,7 +53,7 @@ export function useListbox({ mode, value, defaultValue, onChange, disabled }: Us
     };
   }, []);
 
-  const activeId = activeValue ? optionIds.current.get(activeValue) : undefined;
+  const activeId = activeValue != null ? optionIds.current.get(activeValue) : undefined;
 
   const getEnabledOptionNodes = useCallback((): HTMLElement[] => {
     const el = listboxRef.current;
@@ -69,7 +69,7 @@ export function useListbox({ mode, value, defaultValue, onChange, disabled }: Us
       if (nodes.length === 0) return;
 
       const values = nodes.map(node => node.getAttribute("data-value") ?? "");
-      const current = activeValue ? values.indexOf(activeValue) : -1;
+      const current = activeValue != null ? values.indexOf(activeValue) : -1;
 
       let idx: number;
       if (dir === "first") idx = 0;
@@ -104,7 +104,7 @@ export function useListbox({ mode, value, defaultValue, onChange, disabled }: Us
           break;
         case "Enter":
         case " ":
-          if (activeValue) {
+          if (activeValue != null) {
             e.preventDefault();
             select(activeValue);
           }
@@ -115,7 +115,7 @@ export function useListbox({ mode, value, defaultValue, onChange, disabled }: Us
   );
 
   const onFocus = useCallback(() => {
-    if (activeValue) return;
+    if (activeValue != null) return;
     const nodes = getEnabledOptionNodes();
     if (nodes.length === 0) return;
     const values = nodes.map(node => node.getAttribute("data-value") ?? "");
