@@ -17,13 +17,21 @@ type SelectUncontrolledProps = {
   onChange?: (value: string) => void;
 };
 
+export type SelectOption = {
+  value: string;
+  label: string;
+  caption?: string;
+  suffix?: ReactNode;
+  disabled?: boolean;
+};
+
 type SelectBaseProps = AriaLabelProps & {
   variant?: OptionVariant;
   label?: string;
   disabled?: boolean;
   width?: SelectDimension;
   height?: SelectDimension;
-  children?: ReactNode;
+  options: SelectOption[];
 };
 
 export type SelectProps = SelectBaseProps & (SelectControlledProps | SelectUncontrolledProps);

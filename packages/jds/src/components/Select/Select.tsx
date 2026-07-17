@@ -2,7 +2,7 @@ import { ListboxRoot } from "./ListboxRoot";
 import { Option } from "./Option";
 import type { SelectProps } from "./select.types";
 
-const SelectBase = ({
+export const Select = ({
   value,
   defaultValue,
   onChange,
@@ -11,7 +11,7 @@ const SelectBase = ({
   disabled = false,
   width,
   height,
-  children,
+  options,
   "aria-label": ariaLabel,
   "aria-labelledby": ariaLabelledby,
 }: SelectProps) => (
@@ -28,10 +28,20 @@ const SelectBase = ({
     aria-label={ariaLabel}
     aria-labelledby={ariaLabelledby}
   >
-    {children}
+    {options.map(
+      ({ value: optionValue, label: optionLabel, caption, suffix, disabled: optionDisabled }) => (
+        <Option
+          key={optionValue}
+          value={optionValue}
+          caption={caption}
+          suffix={suffix}
+          disabled={optionDisabled}
+        >
+          {optionLabel}
+        </Option>
+      ),
+    )}
   </ListboxRoot>
 );
 
-SelectBase.displayName = "Select";
-
-export const Select = Object.assign(SelectBase, { Option });
+Select.displayName = "Select";

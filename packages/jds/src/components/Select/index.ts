@@ -4,7 +4,7 @@ export { MultiSelect } from "./MultiSelect";
 export type {
   SelectProps,
   MultiSelectProps,
-  SelectOptionProps,
+  SelectOption,
   SelectionMode,
   OptionVariant,
   SelectDimension,

@@ -91,4 +91,4 @@ export const Option = ({
   );
 };
 
-Option.displayName = "Select.Option";
+Option.displayName = "SelectOption";

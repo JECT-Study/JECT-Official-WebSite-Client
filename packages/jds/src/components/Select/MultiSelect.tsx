@@ -2,7 +2,7 @@ import { ListboxRoot } from "./ListboxRoot";
 import { Option } from "./Option";
 import type { MultiSelectProps } from "./select.types";
 
-const MultiSelectBase = ({
+export const MultiSelect = ({
   value,
   defaultValue,
   onChange,
@@ -11,7 +11,7 @@ const MultiSelectBase = ({
   disabled = false,
   width,
   height,
-  children,
+  options,
   "aria-label": ariaLabel,
   "aria-labelledby": ariaLabelledby,
 }: MultiSelectProps) => (
@@ -28,10 +28,20 @@ const MultiSelectBase = ({
     aria-label={ariaLabel}
     aria-labelledby={ariaLabelledby}
   >
-    {children}
+    {options.map(
+      ({ value: optionValue, label: optionLabel, caption, suffix, disabled: optionDisabled }) => (
+        <Option
+          key={optionValue}
+          value={optionValue}
+          caption={caption}
+          suffix={suffix}
+          disabled={optionDisabled}
+        >
+          {optionLabel}
+        </Option>
+      ),
+    )}
   </ListboxRoot>
 );
 
-MultiSelectBase.displayName = "MultiSelect";
-
-export const MultiSelect = Object.assign(MultiSelectBase, { Option });
+MultiSelect.displayName = "MultiSelect";
