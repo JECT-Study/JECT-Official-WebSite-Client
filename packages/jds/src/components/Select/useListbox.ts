@@ -26,9 +26,9 @@ export function useListbox({ mode, value, defaultValue, onChange, disabled }: Us
   );
 
   const selectedValues = useMemo<string[]>(() => {
-    if (mode === "multiple") return selection as string[];
-    return selection == null ? [] : [selection as string];
-  }, [mode, selection]);
+    if (selection == null) return [];
+    return Array.isArray(selection) ? selection : [selection];
+  }, [selection]);
 
   const isSelected = useCallback((v: string) => selectedValues.includes(v), [selectedValues]);
 
@@ -55,9 +55,9 @@ export function useListbox({ mode, value, defaultValue, onChange, disabled }: Us
 
   const activeId = activeValue ? optionIds.current.get(activeValue) : undefined;
 
-  const getEnabledOptionNodes = useCallback(() => {
+  const getEnabledOptionNodes = useCallback((): HTMLElement[] => {
     const el = listboxRef.current;
-    if (!el) return [] as HTMLElement[];
+    if (!el) return [];
     return Array.from(el.querySelectorAll<HTMLElement>('[role="option"]')).filter(
       node => node.getAttribute("aria-disabled") !== "true",
     );
