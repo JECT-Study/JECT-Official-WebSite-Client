@@ -10,7 +10,7 @@ interface StatItem {
 export const statData: StatItem[] = [
   {
     id: 1,
-    title: "183",
+    title: "184",
     description: "누적 동아리원",
   },
   {
