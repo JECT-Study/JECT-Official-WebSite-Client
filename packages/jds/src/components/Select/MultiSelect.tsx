@@ -12,6 +12,8 @@ const MultiSelectBase = ({
   width,
   height,
   children,
+  "aria-label": ariaLabel,
+  "aria-labelledby": ariaLabelledby,
 }: MultiSelectProps) => (
   <ListboxRoot
     mode='multiple'
@@ -23,6 +25,8 @@ const MultiSelectBase = ({
     value={value}
     defaultValue={defaultValue}
     onChange={onChange as ((value: string | string[]) => void) | undefined}
+    aria-label={ariaLabel}
+    aria-labelledby={ariaLabelledby}
   >
     {children}
   </ListboxRoot>

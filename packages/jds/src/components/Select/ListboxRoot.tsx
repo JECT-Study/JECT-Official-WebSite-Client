@@ -8,7 +8,7 @@ import { useListbox } from "./useListbox";
 
 import { getLabelClassName } from "@/utils/typography";
 
-interface ListboxRootProps {
+type ListboxRootProps = {
   mode: SelectionMode;
   variant: OptionVariant;
   disabled: boolean;
@@ -19,7 +19,9 @@ interface ListboxRootProps {
   defaultValue?: string | string[];
   onChange?: (value: string | string[]) => void;
   children?: ReactNode;
-}
+  "aria-label"?: string;
+  "aria-labelledby"?: string;
+};
 
 const resolveDimension = (value: SelectDimension) => (value === "full" ? "100%" : value);
 
@@ -34,6 +36,8 @@ export const ListboxRoot = ({
   defaultValue,
   onChange,
   children,
+  "aria-label": ariaLabel,
+  "aria-labelledby": ariaLabelledby,
 }: ListboxRootProps) => {
   const {
     listboxRef,
@@ -72,7 +76,8 @@ export const ListboxRoot = ({
         <div
           ref={listboxRef}
           className={listbox}
-          aria-labelledby={label != null ? labelId : undefined}
+          aria-label={label != null ? undefined : ariaLabel}
+          aria-labelledby={label != null ? labelId : ariaLabelledby}
           {...getListboxProps()}
         >
           {children}

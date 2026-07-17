@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import type { AriaLabelProps } from "types";
 
 export type SelectionMode = "single" | "multiple";
 export type OptionVariant = "control" | "label";
@@ -16,7 +17,7 @@ type SelectUncontrolledProps = {
   onChange?: (value: string) => void;
 };
 
-type SelectBaseProps = {
+type SelectBaseProps = AriaLabelProps & {
   variant?: OptionVariant;
   label?: string;
   disabled?: boolean;

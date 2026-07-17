@@ -12,6 +12,8 @@ const SelectBase = ({
   width,
   height,
   children,
+  "aria-label": ariaLabel,
+  "aria-labelledby": ariaLabelledby,
 }: SelectProps) => (
   <ListboxRoot
     mode='single'
@@ -23,6 +25,8 @@ const SelectBase = ({
     value={value}
     defaultValue={defaultValue}
     onChange={onChange as ((value: string | string[]) => void) | undefined}
+    aria-label={ariaLabel}
+    aria-labelledby={ariaLabelledby}
   >
     {children}
   </ListboxRoot>
