@@ -12,21 +12,23 @@ interface UseListboxParams {
 }
 
 export function useListbox({ mode, value, defaultValue, onChange, disabled }: UseListboxParams) {
-  const listboxRef = useRef<HTMLDivElement | null>(null);
-  const listboxId = useId();
-  const optionIds = useRef(new Map<string, string>());
   const [activeValue, setActiveValue] = useState<string | null>(null);
 
-  const [selection, setSelection] = useControllableState<string | string[]>(
+  const optionIds = useRef(new Map<string, string>());
+  const listboxRef = useRef<HTMLDivElement | null>(null);
+
+  const listboxId = useId();
+
+  const [selection, setSelection] = useControllableState<string | string[] | undefined>(
     value,
-    defaultValue ?? (mode === "multiple" ? [] : ""),
-    onChange,
+    defaultValue ?? (mode === "multiple" ? [] : undefined),
+    onChange as ((value: string | string[] | undefined) => void) | undefined,
   );
 
-  const selectedValues = useMemo(
-    () => (mode === "multiple" ? (selection as string[]) : selection ? [selection as string] : []),
-    [mode, selection],
-  );
+  const selectedValues = useMemo<string[]>(() => {
+    if (mode === "multiple") return selection as string[];
+    return selection == null ? [] : [selection as string];
+  }, [mode, selection]);
 
   const isSelected = useCallback((v: string) => selectedValues.includes(v), [selectedValues]);
 
