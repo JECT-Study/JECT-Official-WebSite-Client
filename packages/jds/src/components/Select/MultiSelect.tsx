@@ -1,20 +1,20 @@
 import { ListboxRoot } from "./ListboxRoot";
 import { Option } from "./Option";
-import type { SelectProps } from "./select.types";
+import type { MultiSelectProps } from "./select.types";
 
-const SelectBase = ({
+const MultiSelectBase = ({
   value,
   defaultValue,
   onChange,
-  variant = "label",
+  variant = "control",
   label,
   disabled = false,
   width,
   height,
   children,
-}: SelectProps) => (
+}: MultiSelectProps) => (
   <ListboxRoot
-    mode='single'
+    mode='multiple'
     variant={variant}
     disabled={disabled}
     label={label}
@@ -28,6 +28,6 @@ const SelectBase = ({
   </ListboxRoot>
 );
 
-SelectBase.displayName = "Select";
+MultiSelectBase.displayName = "MultiSelect";
 
-export const Select = Object.assign(SelectBase, { Option });
+export const MultiSelect = Object.assign(MultiSelectBase, { Option });

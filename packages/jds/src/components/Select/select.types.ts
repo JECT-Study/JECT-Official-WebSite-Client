@@ -1,64 +1,51 @@
-import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import type { ReactNode } from "react";
 
-export type SelectVariant = "list" | "checkbox" | "radio";
-export type SelectSize = "md" | "sm";
+export type SelectionMode = "single" | "multiple";
+export type OptionVariant = "control" | "label";
+export type SelectDimension = "full" | (string & {});
 
-export type SelectValue = string | string[];
-
-export interface SelectContextType {
-  value: SelectValue;
-  variant: SelectVariant;
-  size: SelectSize;
+type SelectControlledProps = {
+  value: string;
+  defaultValue?: never;
   onChange: (value: string) => void;
-  isSelected: (value: string) => boolean;
-}
+};
 
-export interface BaseSelectProps {
-  size?: SelectSize;
+type SelectUncontrolledProps = {
+  value?: never;
+  defaultValue?: string;
+  onChange?: (value: string) => void;
+};
+
+type SelectBaseProps = {
+  variant?: OptionVariant;
   label?: string;
+  disabled?: boolean;
+  width?: SelectDimension;
+  height?: SelectDimension;
   children?: ReactNode;
-}
+};
 
-export interface SelectListVariantProps
-  extends BaseSelectProps, Omit<ComponentPropsWithoutRef<"div">, "size" | "onChange"> {
-  variant?: "list";
-  value: string;
-  onChange: (value: string) => void;
-}
+export type SelectProps = SelectBaseProps & (SelectControlledProps | SelectUncontrolledProps);
 
-export interface SelectRadioVariantProps
-  extends BaseSelectProps, Omit<ComponentPropsWithoutRef<"div">, "size" | "onChange"> {
-  variant: "radio";
-  value: string;
-  onChange: (value: string) => void;
-}
-
-export interface SelectCheckboxVariantProps
-  extends BaseSelectProps, Omit<ComponentPropsWithoutRef<"div">, "size" | "onChange"> {
-  variant: "checkbox";
+type MultiSelectControlledProps = {
   value: string[];
+  defaultValue?: never;
   onChange: (value: string[]) => void;
-}
+};
 
-export type SelectProps =
-  | SelectListVariantProps
-  | SelectRadioVariantProps
-  | SelectCheckboxVariantProps;
+type MultiSelectUncontrolledProps = {
+  value?: never;
+  defaultValue?: string[];
+  onChange?: (value: string[]) => void;
+};
 
-export interface BaseSelectItemProps {
+export type MultiSelectProps = SelectBaseProps &
+  (MultiSelectControlledProps | MultiSelectUncontrolledProps);
+
+export type SelectOptionProps = {
   value: string;
-  isDisabled?: boolean;
+  disabled?: boolean;
   caption?: string;
+  suffix?: ReactNode;
   children?: ReactNode;
-}
-
-export interface SelectListProps
-  extends BaseSelectItemProps, Omit<ComponentPropsWithoutRef<"div">, "onClick"> {
-  badge?: ReactNode;
-}
-
-export interface SelectRadioProps
-  extends BaseSelectItemProps, Omit<ComponentPropsWithoutRef<"div">, "onClick"> {}
-
-export interface SelectCheckboxProps
-  extends BaseSelectItemProps, Omit<ComponentPropsWithoutRef<"div">, "onClick"> {}
+};
