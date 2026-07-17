@@ -1,5 +1,5 @@
 import { clsx } from "clsx";
-import { type CSSProperties, type ReactNode } from "react";
+import { type CSSProperties, type ReactNode, useMemo } from "react";
 
 import { ListboxProvider } from "./ListboxContext";
 import { listbox, selectContainer, selectLabel } from "./select.css";
@@ -56,19 +56,13 @@ export const ListboxRoot = ({
     containerStyle.height = resolveDimension(height);
   }
 
+  const contextValue = useMemo(
+    () => ({ disabled, variant, mode, isSelected, activeValue, select, setActive, registerOption }),
+    [disabled, variant, mode, isSelected, activeValue, select, setActive, registerOption],
+  );
+
   return (
-    <ListboxProvider
-      value={{
-        disabled,
-        variant,
-        mode,
-        isSelected,
-        activeValue,
-        select,
-        setActive,
-        registerOption,
-      }}
-    >
+    <ListboxProvider value={contextValue}>
       <div className={selectContainer} style={containerStyle}>
         {label != null && (
           <span id={labelId} className={clsx(getLabelClassName({ size: "sm" }), selectLabel)}>

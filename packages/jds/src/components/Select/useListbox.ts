@@ -28,7 +28,7 @@ export function useListbox({ mode, value, defaultValue, onChange, disabled }: Us
     [mode, selection],
   );
 
-  const isSelected = (v: string) => selectedValues.includes(v);
+  const isSelected = useCallback((v: string) => selectedValues.includes(v), [selectedValues]);
 
   const select = useCallback(
     (v: string) => {
