@@ -1,4 +1,2 @@
-export { PlateWithTitle } from "./PlateWithTitle";
-export { PlateWithLabel } from "./PlateWithLabel";
-export { PlateCompact } from "./PlateCompact";
+export { Plate } from "./Plate";
 export { Post } from "./Post";

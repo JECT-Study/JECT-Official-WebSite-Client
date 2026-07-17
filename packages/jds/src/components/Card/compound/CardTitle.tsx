@@ -1,14 +1,25 @@
+import { clsx } from "clsx";
 import { forwardRef } from "react";
 
-import type { CardTitleProps } from "../Card.types";
-import { StyledCardTitle } from "./compound.styles";
+import type { CardTitleProps } from "../card.types";
+import { useCardContext } from "../cardContext";
+import * as styles from "./card.css";
+
+import { getTitleClassName } from "@/utils/typography";
 
 export const CardTitle = forwardRef<HTMLHeadingElement, CardTitleProps>(
-  ({ children, ...restProps }, ref) => {
+  ({ children, className, ...restProps }, ref) => {
+    const { titleId } = useCardContext("Card.Title");
+
     return (
-      <StyledCardTitle ref={ref} {...restProps}>
+      <h3
+        ref={ref}
+        className={clsx(getTitleClassName({ size: "xs" }), styles.title, className)}
+        {...restProps}
+        id={titleId}
+      >
         {children}
-      </StyledCardTitle>
+      </h3>
     );
   },
 );
