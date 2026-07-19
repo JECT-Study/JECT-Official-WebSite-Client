@@ -50,12 +50,11 @@ export const WithCaptionAndDisabled: Story = {
   args: { value: "seoul", onChange: () => {}, options: REGIONS },
   render: function Render() {
     const [value, setValue] = useState("seoul");
-    const options: SelectOption[] = [
-      { value: "seoul", label: "서울특별시", caption: "수도" },
-      { value: "gyeonggi", label: "경기도" },
-      { value: "incheon", label: "인천광역시", disabled: true },
-      { value: "busan", label: "부산광역시" },
-    ];
+    const options: SelectOption[] = REGIONS.map(region => {
+      if (region.value === "seoul") return { ...region, caption: "수도" };
+      if (region.value === "busan") return { ...region, disabled: true };
+      return region;
+    });
     return (
       <Select
         value={value}
