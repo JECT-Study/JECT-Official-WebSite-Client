@@ -16,7 +16,7 @@ export const labelContainer = recipe({
   base: {
     display: "flex",
     flexDirection: "row",
-    alignItems: "flex-start",
+    alignItems: "center",
     gap: vars.scheme.semantic.spacing["4"],
   },
   variants: {
