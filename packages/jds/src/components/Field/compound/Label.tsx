@@ -8,14 +8,14 @@ import { getLabelClassName } from "@/utils/typography";
 
 export interface FieldLabelProps extends Omit<ComponentPropsWithoutRef<"label">, "htmlFor"> {
   children?: ReactNode;
-  /** 라벨 텍스트 왼쪽에 배치되는 부가 요소 (예: 아이콘) */
-  leftSlot?: ReactNode;
-  /** 라벨 텍스트(+required 별표) 오른쪽에 배치되는 부가 요소 (예: 도움말 아이콘) */
-  rightSlot?: ReactNode;
+  /** 라벨 텍스트 앞에 배치되는 부가 요소 (예: 아이콘) */
+  prefixSlot?: ReactNode;
+  /** 라벨 텍스트(+required 별표) 뒤에 배치되는 부가 요소 (예: 도움말 아이콘) */
+  suffixSlot?: ReactNode;
 }
 
 export const FieldLabel = forwardRef<HTMLLabelElement, FieldLabelProps>(
-  ({ children, leftSlot, rightSlot, className, ...restProps }, ref) => {
+  ({ children, prefixSlot, suffixSlot, className, ...restProps }, ref) => {
     const {
       fieldId,
       fieldStyle,
@@ -25,7 +25,7 @@ export const FieldLabel = forwardRef<HTMLLabelElement, FieldLabelProps>(
 
     return (
       <span className={styles.labelContainer({ fieldStyle })}>
-        {leftSlot}
+        {prefixSlot}
         <span className={styles.labelMain}>
           <label
             ref={ref}
@@ -51,7 +51,7 @@ export const FieldLabel = forwardRef<HTMLLabelElement, FieldLabelProps>(
             </span>
           )}
         </span>
-        {rightSlot}
+        {suffixSlot}
       </span>
     );
   },
