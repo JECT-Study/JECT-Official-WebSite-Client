@@ -1,5 +1,4 @@
-import { ListboxRoot } from "./ListboxRoot";
-import { Option } from "./Option";
+import { Listbox } from "./Listbox";
 import type { MultiSelectProps } from "./select.types";
 
 export const MultiSelect = ({
@@ -15,7 +14,7 @@ export const MultiSelect = ({
   "aria-label": ariaLabel,
   "aria-labelledby": ariaLabelledby,
 }: MultiSelectProps) => (
-  <ListboxRoot
+  <Listbox
     mode='multiple'
     variant={variant}
     disabled={disabled}
@@ -24,24 +23,11 @@ export const MultiSelect = ({
     height={height}
     value={value}
     defaultValue={defaultValue}
-    onChange={onChange as ((value: string | string[]) => void) | undefined}
+    onChange={onChange}
+    options={options}
     aria-label={ariaLabel}
     aria-labelledby={ariaLabelledby}
-  >
-    {options.map(
-      ({ value: optionValue, label: optionLabel, caption, suffix, disabled: optionDisabled }) => (
-        <Option
-          key={optionValue}
-          value={optionValue}
-          caption={caption}
-          suffix={suffix}
-          disabled={optionDisabled}
-        >
-          {optionLabel}
-        </Option>
-      ),
-    )}
-  </ListboxRoot>
+  />
 );
 
 MultiSelect.displayName = "MultiSelect";

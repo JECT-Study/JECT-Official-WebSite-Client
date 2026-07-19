@@ -3,14 +3,7 @@ import { clsx } from "clsx";
 import { CheckboxPrimitive } from "../Checkbox/CheckboxPrimitive";
 import { Icon } from "../Icon";
 import { useListboxContext } from "./ListboxContext";
-import {
-  option,
-  optionCaption,
-  optionCheck,
-  optionControlSlot,
-  optionText,
-  optionTrailing,
-} from "./select.css";
+import * as styles from "./select.css";
 import type { SelectOptionProps } from "./select.types";
 import { getOptionId } from "./select.utils";
 import { RadioPrimitive } from "../Radio/RadioPrimitive";
@@ -57,11 +50,11 @@ export const Option = ({
       data-selected={isItemSelected || undefined}
       data-active={isActive || undefined}
       data-disabled={isDisabled || undefined}
-      className={option}
+      className={styles.option}
       onClick={handleClick}
     >
       {variant === "control" && (
-        <span className={optionControlSlot}>
+        <span className={styles.optionControlSlot}>
           {mode === "multiple" ? (
             <CheckboxPrimitive.Indicator size='md' state={isItemSelected} disabled={isDisabled} />
           ) : (
@@ -69,19 +62,24 @@ export const Option = ({
           )}
         </span>
       )}
-      <span className={clsx(getLabelClassName({ size: "md" }), optionText)}>{children}</span>
+      <span className={clsx(getLabelClassName({ size: "md" }), styles.optionText)}>{children}</span>
       {(suffix != null || (variant === "label" && isItemSelected)) && (
-        <div className={optionTrailing}>
+        <div className={styles.optionTrailing}>
           {suffix}
           {variant === "label" && isItemSelected && (
-            <span className={optionCheck}>
+            <span className={styles.optionCheck}>
               <Icon name='check-line' size='sm' />
             </span>
           )}
         </div>
       )}
       {caption && (
-        <span className={clsx(getLabelClassName({ size: "sm", weight: "subtle" }), optionCaption)}>
+        <span
+          className={clsx(
+            getLabelClassName({ size: "sm", weight: "subtle" }),
+            styles.optionCaption,
+          )}
+        >
           {caption}
         </span>
       )}
