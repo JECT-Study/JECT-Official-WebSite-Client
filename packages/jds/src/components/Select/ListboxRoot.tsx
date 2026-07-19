@@ -39,16 +39,8 @@ export const ListboxRoot = ({
   "aria-label": ariaLabel,
   "aria-labelledby": ariaLabelledby,
 }: ListboxRootProps) => {
-  const {
-    listboxRef,
-    listboxId,
-    isSelected,
-    select,
-    activeValue,
-    setActive,
-    registerOption,
-    getListboxProps,
-  } = useListbox({ mode, value, defaultValue, onChange, disabled });
+  const { listboxRef, listboxId, isSelected, select, activeValue, setActive, getListboxProps } =
+    useListbox({ mode, value, defaultValue, onChange, disabled });
 
   const labelId = `${listboxId}-label`;
 
@@ -61,8 +53,8 @@ export const ListboxRoot = ({
   }
 
   const contextValue = useMemo(
-    () => ({ disabled, variant, mode, isSelected, activeValue, select, setActive, registerOption }),
-    [disabled, variant, mode, isSelected, activeValue, select, setActive, registerOption],
+    () => ({ listboxId, disabled, variant, mode, isSelected, activeValue, select, setActive }),
+    [listboxId, disabled, variant, mode, isSelected, activeValue, select, setActive],
   );
 
   return (

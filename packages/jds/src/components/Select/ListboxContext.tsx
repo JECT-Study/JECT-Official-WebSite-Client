@@ -3,6 +3,7 @@ import { createContext, useContext } from "react";
 import type { OptionVariant, SelectionMode } from "./select.types";
 
 export interface ListboxContextValue {
+  listboxId: string;
   disabled: boolean;
   variant: OptionVariant;
   mode: SelectionMode;
@@ -10,7 +11,6 @@ export interface ListboxContextValue {
   activeValue: string | null;
   select: (value: string) => void;
   setActive: (value: string | null) => void;
-  registerOption: (value: string, id: string) => () => void;
 }
 
 const ListboxContext = createContext<ListboxContextValue | null>(null);

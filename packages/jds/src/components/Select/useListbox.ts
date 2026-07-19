@@ -2,6 +2,7 @@ import { useControllableState } from "hooks";
 import { useCallback, useId, useMemo, useRef, useState, type KeyboardEvent } from "react";
 
 import type { SelectionMode } from "./select.types";
+import { getOptionId } from "./select.utils";
 
 interface UseListboxParams {
   mode: SelectionMode;
@@ -11,10 +12,9 @@ interface UseListboxParams {
   disabled: boolean;
 }
 
-export function useListbox({ mode, value, defaultValue, onChange, disabled }: UseListboxParams) {
+export const useListbox = ({ mode, value, defaultValue, onChange, disabled }: UseListboxParams) => {
   const [activeValue, setActiveValue] = useState<string | null>(null);
 
-  const optionIds = useRef(new Map<string, string>());
   const listboxRef = useRef<HTMLDivElement | null>(null);
 
   const listboxId = useId();
@@ -46,14 +46,7 @@ export function useListbox({ mode, value, defaultValue, onChange, disabled }: Us
     [mode, setSelection],
   );
 
-  const registerOption = useCallback((v: string, id: string) => {
-    optionIds.current.set(v, id);
-    return () => {
-      optionIds.current.delete(v);
-    };
-  }, []);
-
-  const activeId = activeValue != null ? optionIds.current.get(activeValue) : undefined;
+  const activeId = activeValue != null ? getOptionId(listboxId, activeValue) : undefined;
 
   const getEnabledOptionNodes = useCallback((): HTMLElement[] => {
     const el = listboxRef.current;
@@ -144,7 +137,6 @@ export function useListbox({ mode, value, defaultValue, onChange, disabled }: Us
     select,
     activeValue,
     setActive: setActiveValue,
-    registerOption,
     getListboxProps,
   };
-}
+};

@@ -1,5 +1,4 @@
 import { clsx } from "clsx";
-import { useEffect, useId } from "react";
 
 import { CheckboxPrimitive } from "../Checkbox/CheckboxPrimitive";
 import { Icon } from "../Icon";
@@ -13,6 +12,7 @@ import {
   optionTrailing,
 } from "./select.css";
 import type { SelectOptionProps } from "./select.types";
+import { getOptionId } from "./select.utils";
 import { RadioPrimitive } from "../Radio/RadioPrimitive";
 
 import { getLabelClassName } from "@/utils/typography";
@@ -25,6 +25,7 @@ export const Option = ({
   children,
 }: SelectOptionProps) => {
   const {
+    listboxId,
     mode,
     variant,
     disabled: isGroupDisabled,
@@ -32,15 +33,12 @@ export const Option = ({
     activeValue,
     select,
     setActive,
-    registerOption,
   } = useListboxContext();
 
-  const id = useId();
+  const id = getOptionId(listboxId, value);
   const isDisabled = disabled || isGroupDisabled;
   const isItemSelected = isSelected(value);
   const isActive = activeValue === value;
-
-  useEffect(() => registerOption(value, id), [value, id, registerOption]);
 
   const handleClick = () => {
     if (isDisabled) return;
