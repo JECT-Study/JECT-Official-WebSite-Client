@@ -137,7 +137,7 @@ export const Playground: Story = {
  * - `outline`: 테두리 + 배경 + focus ring (readonly 포함, Input 기본 스타일과 동일)
  * - `hollow`: 테두리/배경/focus ring 없이 입력만 노출
  *
- * hover/press overlay 레이어는 fieldStyle과 무관하게 `Field.Content`의 `hasOverlay`로
+ * hover/press overlay 레이어는 outline일 때만 `Field.Content`의 `hasOverlay`로
  * opt-in 하며(기본 off), Select/File처럼 필요한 필드 종류에서만 켜요. (WithOverlay 예시 참고)
  */
 export const Styles: Story = {
@@ -235,33 +235,19 @@ export const WithAddon: Story = {
 
 /**
  * Field.Content 는 `hasOverlay` 로 hover/press overlay 레이어를 opt-in 할 수 있습니다 (기본 off).
- * Select/File 처럼 요소 전체가 눌리는 필드에서 켜며, fieldStyle(outline/hollow)과 무관하게 적용됩니다.
+ * Select/File 처럼 요소 전체가 눌리는 필드에서 켜며, outline에서만 표시되고 hollow에서는 무시됩니다.
  */
 export const WithOverlay: Story = {
   render: () => (
-    <FlexRow gap='32px'>
-      <FlexColumn gap='8px' style={{ width: "18rem" }}>
-        <Label>outline + overlay</Label>
-        <Field fieldStyle='outline'>
-          <Field.Label>이메일</Field.Label>
-          <Field.Content hasOverlay>
-            <DemoInput placeholder='이메일을 입력하세요' />
-          </Field.Content>
-          <Field.HelperText>hover/press 시 overlay 틴트가 표시됩니다</Field.HelperText>
-        </Field>
-      </FlexColumn>
-
-      <FlexColumn gap='8px' style={{ width: "18rem" }}>
-        <Label>hollow + overlay</Label>
-        <Field fieldStyle='hollow'>
-          <Field.Label>이메일</Field.Label>
-          <Field.Content hasOverlay>
-            <DemoInput placeholder='이메일을 입력하세요' />
-          </Field.Content>
-          <Field.HelperText>hollow 에서도 overlay 는 동일하게 적용됩니다</Field.HelperText>
-        </Field>
-      </FlexColumn>
-    </FlexRow>
+    <div style={{ width: "18rem" }}>
+      <Field fieldStyle='outline'>
+        <Field.Label>이메일</Field.Label>
+        <Field.Content hasOverlay>
+          <DemoInput placeholder='이메일을 입력하세요' />
+        </Field.Content>
+        <Field.HelperText>hover/press 시 overlay 틴트가 표시됩니다</Field.HelperText>
+      </Field>
+    </div>
   ),
 };
 
