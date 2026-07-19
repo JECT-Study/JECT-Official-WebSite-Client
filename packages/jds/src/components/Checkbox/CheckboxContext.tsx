@@ -1,14 +1,19 @@
 import { createContext, useContext } from "react";
-import type { CheckboxGroupState } from "react-stately";
 
 import type { CheckedState, CheckboxSize, CheckboxVariant } from "./checkbox.types";
+
+export interface CheckboxGroupState {
+  value: string[];
+  isSelected: (value: string) => boolean;
+  toggle: (value: string) => void;
+}
 
 export interface CheckboxConfigContextValue {
   size: CheckboxSize;
   variant: CheckboxVariant;
   disabled: boolean;
   isInvalid: boolean;
-  state?: CheckboxGroupState;
+  name?: string;
 }
 
 const CheckboxConfigContext = createContext<CheckboxConfigContextValue | null>(null);
@@ -16,6 +21,12 @@ const CheckboxConfigContext = createContext<CheckboxConfigContextValue | null>(n
 export const CheckboxConfigProvider = CheckboxConfigContext.Provider;
 
 export const useCheckboxConfig = () => useContext(CheckboxConfigContext);
+
+const CheckboxSelectionContext = createContext<CheckboxGroupState | null>(null);
+
+export const CheckboxSelectionProvider = CheckboxSelectionContext.Provider;
+
+export const useCheckboxSelection = () => useContext(CheckboxSelectionContext);
 
 export interface CheckboxItemContextValue {
   labelId: string;
