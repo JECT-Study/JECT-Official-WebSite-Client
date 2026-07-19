@@ -47,8 +47,15 @@ export const backButtonSlot = style({
 
 export const navTitle = style({
   flex: 1,
+  minWidth: 0,
   margin: 0,
   lineHeight: 1,
+  overflow: "hidden",
+  whiteSpace: "nowrap",
+  textOverflow: "ellipsis",
+  selectors: {
+    "&&": { display: "block" },
+  },
 });
 
 export const suffixActionSlot = style({
