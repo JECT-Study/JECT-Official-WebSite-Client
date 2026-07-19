@@ -85,12 +85,6 @@ export const content = recipe({
     gap: vars.scheme.semantic.spacing["8"],
     borderRadius: vars.scheme.semantic.radius["8"],
     transition: `border-color ${vars.environment.semantic.duration["100"]} ${vars.environment.semantic.motion.fluent}`,
-    selectors: {
-      "&::after": {
-        inset: 0,
-        borderRadius: "inherit",
-      },
-    },
   },
   variants: {
     fieldStyle: {
@@ -104,6 +98,10 @@ export const content = recipe({
           [contentVars.backgroundColor]: vars.color.semantic.surface.standard,
         },
         selectors: {
+          "&::after": {
+            inset: 0,
+            borderRadius: "inherit",
+          },
           "&::before": {
             inset: `calc(-1 * ${vars.scheme.semantic.strokeWeight["1"]})`,
             borderRadius: "inherit",
