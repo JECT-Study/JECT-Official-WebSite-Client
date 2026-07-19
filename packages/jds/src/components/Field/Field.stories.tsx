@@ -44,7 +44,7 @@ const meta = {
     },
     required: {
       control: "boolean",
-      description: "필수 입력 여부 (라벨 옆 * 표시)",
+      description: "필수 입력 여부 (라벨 옆 * 표시 및 하위 컨트롤 연결용 context 제공)",
       table: { defaultValue: { summary: "false" } },
     },
   },
@@ -65,6 +65,7 @@ const DemoInput = (props: ComponentPropsWithoutRef<"input">) => {
     hasHelperText,
     disabled: isDisabled,
     readonly: isReadonly,
+    required: isRequired,
   } = useFieldContext("DemoInput");
 
   return (
@@ -73,6 +74,7 @@ const DemoInput = (props: ComponentPropsWithoutRef<"input">) => {
       aria-describedby={hasHelperText ? helperTextId : undefined}
       disabled={isDisabled}
       readOnly={isReadonly}
+      required={isRequired}
       style={{
         flex: "1 0 0",
         minWidth: 0,
