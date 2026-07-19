@@ -134,11 +134,8 @@ export const Playground: Story = {
 
 /**
  * 필드 스타일 비교.
- * - `outline`: 테두리 + 배경 + focus ring (readonly 포함, Input 기본 스타일과 동일)
- * - `hollow`: 테두리/배경/focus ring 없이 입력만 노출
- *
- * hover/press overlay 레이어는 outline일 때만 `Field.Content`의 `hasOverlay`로
- * opt-in 하며(기본 off), Select/File처럼 필요한 필드 종류에서만 켜요. (WithOverlay 예시 참고)
+ * - `outline`: 테두리 + 배경 + hover/press overlay + focus ring (readonly 포함)
+ * - `hollow`: 테두리/배경/인터랙션 레이어 없이 입력만 노출
  */
 export const Styles: Story = {
   render: () => (
@@ -234,18 +231,18 @@ export const WithAddon: Story = {
 };
 
 /**
- * Field.Content 는 `hasOverlay` 로 hover/press overlay 레이어를 opt-in 할 수 있습니다 (기본 off).
- * Select/File 처럼 요소 전체가 눌리는 필드에서 켜며, outline에서만 표시되고 hollow에서는 무시됩니다.
+ * outline Field.Content 는 hover/press overlay 와 focus ring 을 함께 표시합니다.
+ * hollow 에서는 인터랙션 레이어가 적용되지 않습니다.
  */
-export const WithOverlay: Story = {
+export const OutlineInteraction: Story = {
   render: () => (
     <div style={{ width: "18rem" }}>
       <Field fieldStyle='outline'>
         <Field.Label>이메일</Field.Label>
-        <Field.Content hasOverlay>
+        <Field.Content>
           <DemoInput placeholder='이메일을 입력하세요' />
         </Field.Content>
-        <Field.HelperText>hover/press 시 overlay 틴트가 표시됩니다</Field.HelperText>
+        <Field.HelperText>hover/press 시 overlay 틴트와 focus ring이 표시됩니다</Field.HelperText>
       </Field>
     </div>
   ),
