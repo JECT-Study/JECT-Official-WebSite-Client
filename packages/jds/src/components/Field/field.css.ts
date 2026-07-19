@@ -75,6 +75,9 @@ const contentVars = {
   backgroundColor: createVar(),
 } as const;
 
+const contentPaddingBlock = vars.scheme.semantic.spacing["8"];
+const contentPaddingInline = vars.scheme.semantic.spacing["12"];
+
 export const content = recipe({
   base: {
     position: "relative",
@@ -95,7 +98,7 @@ export const content = recipe({
   variants: {
     fieldStyle: {
       outline: {
-        padding: `${vars.scheme.semantic.spacing["8"]} ${vars.scheme.semantic.spacing["12"]}`,
+        padding: `${contentPaddingBlock} ${contentPaddingInline}`,
         borderWidth: vars.scheme.semantic.strokeWeight["1"],
         borderStyle: "solid",
         borderColor: contentVars.borderColor,
@@ -117,7 +120,13 @@ export const content = recipe({
           },
         },
       },
-      hollow: {},
+      hollow: {
+        selectors: {
+          "&::after": {
+            inset: `calc(-1 * ${contentPaddingBlock}) calc(-1 * ${contentPaddingInline})`,
+          },
+        },
+      },
     } satisfies Record<FieldStyle, StyleRule>,
     status: {
       default: {},
