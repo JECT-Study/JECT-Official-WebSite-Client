@@ -79,27 +79,24 @@ export const panel = style({
   maxWidth: `min(${maxPanelWidth}, ${availableWidth})`,
   maxHeight: `calc(100vh - ${pxToRem(32)})`,
   borderRadius: vars.scheme.semantic.radius["12"],
-  border: `1px solid ${vars.color.semantic.stroke.alpha.subtle}`,
+  border: `${vars.scheme.semantic.strokeWeight["1"]} solid ${vars.color.semantic.stroke.subtle}`,
   background: vars.color.semantic.surface.shallow,
   boxShadow: vars.environment.semantic.shadow.overlay,
+  overflow: "hidden",
 });
 
-export const contentArea = style({
-  display: "flex",
-  flexDirection: "column",
-  alignSelf: "stretch",
-  padding: vars.scheme.semantic.spacing["20"],
-  gap: vars.scheme.semantic.spacing["24"],
-});
-
-export const contentGroup = style({
+export const scrollBody = style({
   display: "flex",
   flexDirection: "column",
   alignItems: "flex-start",
   alignSelf: "stretch",
-  gap: vars.scheme.semantic.spacing["16"],
+  flex: "1 1 auto",
   minHeight: 0,
   overflowY: "auto",
+  gap: vars.scheme.semantic.spacing["16"],
+  paddingTop: vars.scheme.semantic.spacing["20"],
+  paddingInline: vars.scheme.semantic.spacing["20"],
+  paddingBottom: vars.scheme.semantic.spacing["12"],
 });
 
 export const textGroup = style({
@@ -129,6 +126,9 @@ export const buttonGroup = styleVariants({
     alignSelf: "stretch",
     gap: vars.scheme.semantic.spacing["12"],
     flexShrink: 0,
+    paddingTop: vars.scheme.semantic.spacing["12"],
+    paddingInline: vars.scheme.semantic.spacing["20"],
+    paddingBottom: vars.scheme.semantic.spacing["20"],
   },
   vertical: {
     display: "flex",
@@ -137,5 +137,8 @@ export const buttonGroup = styleVariants({
     alignSelf: "stretch",
     gap: vars.scheme.semantic.spacing["12"],
     flexShrink: 0,
+    paddingTop: vars.scheme.semantic.spacing["12"],
+    paddingInline: vars.scheme.semantic.spacing["20"],
+    paddingBottom: vars.scheme.semantic.spacing["20"],
   },
 });

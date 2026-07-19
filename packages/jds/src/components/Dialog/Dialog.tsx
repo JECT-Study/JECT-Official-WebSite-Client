@@ -46,48 +46,46 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
             className={clsx(styles.positioner, styles.panel, className)}
             onPointerDownOutside={closeOnClickOutside ? undefined : event => event.preventDefault()}
           >
-            <div className={styles.contentArea}>
-              <div className={styles.contentGroup}>
-                <div className={styles.textGroup}>
-                  <DialogPrimitive.Title asChild>
-                    <h2 className={clsx(getTitleClassName({ size: "xs" }), styles.title)}>
-                      {header}
-                    </h2>
-                  </DialogPrimitive.Title>
-                  <DialogPrimitive.Description asChild>
-                    <div
-                      className={clsx(
-                        getBodyClassName({ size: "md", weight: "normal" }),
-                        styles.bodyText,
-                      )}
-                    >
-                      {body}
-                    </div>
-                  </DialogPrimitive.Description>
-                </div>
-                {checkboxAction && (
-                  <Checkbox.Item>
-                    <Checkbox.Basic
-                      checked={checkboxAction.checked}
-                      onCheckedChange={checkboxAction.onCheckedChange}
-                    />
-                    <Checkbox.Label>{checkboxAction.label}</Checkbox.Label>
-                  </Checkbox.Item>
-                )}
+            <div className={styles.scrollBody}>
+              <div className={styles.textGroup}>
+                <DialogPrimitive.Title asChild>
+                  <h2 className={clsx(getTitleClassName({ size: "xs" }), styles.title)}>
+                    {header}
+                  </h2>
+                </DialogPrimitive.Title>
+                <DialogPrimitive.Description asChild>
+                  <div
+                    className={clsx(
+                      getBodyClassName({ size: "md", weight: "normal" }),
+                      styles.bodyText,
+                    )}
+                  >
+                    {body}
+                  </div>
+                </DialogPrimitive.Description>
               </div>
-              <div className={styles.buttonGroup[buttonLayout]}>
-                {buttonLayout === "vertical" ? (
-                  <>
-                    {primaryButton}
-                    {secondaryButton}
-                  </>
-                ) : (
-                  <>
-                    {secondaryButton}
-                    {primaryButton}
-                  </>
-                )}
-              </div>
+              {checkboxAction && (
+                <Checkbox.Item>
+                  <Checkbox.Basic
+                    checked={checkboxAction.checked}
+                    onCheckedChange={checkboxAction.onCheckedChange}
+                  />
+                  <Checkbox.Label>{checkboxAction.label}</Checkbox.Label>
+                </Checkbox.Item>
+              )}
+            </div>
+            <div className={styles.buttonGroup[buttonLayout]}>
+              {buttonLayout === "vertical" ? (
+                <>
+                  {primaryButton}
+                  {secondaryButton}
+                </>
+              ) : (
+                <>
+                  {secondaryButton}
+                  {primaryButton}
+                </>
+              )}
             </div>
           </DialogPrimitive.Content>
         </DialogPrimitive.Portal>
