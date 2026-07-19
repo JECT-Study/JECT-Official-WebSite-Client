@@ -44,10 +44,10 @@ export const overlay = style({
   backgroundColor: vars.color.semantic.curtain.static.dim,
   selectors: {
     '&[data-state="open"]': {
-      animation: `${overlayFadeIn} ${vars.environment.semantic.duration["200"]} ${vars.environment.semantic.motion.entrance}`,
+      animation: `${overlayFadeIn} ${vars.environment.semantic.duration["250"]} ${vars.environment.semantic.motion.entrance}`,
     },
     '&[data-state="closed"]': {
-      animation: `${overlayFadeOut} ${vars.environment.semantic.duration["300"]} ${vars.environment.semantic.motion.leave}`,
+      animation: `${overlayFadeOut} ${vars.environment.semantic.duration["200"]} ${vars.environment.semantic.motion.leave}`,
     },
   },
 });
@@ -60,10 +60,10 @@ export const positioner = style({
   zIndex: vars.environment.semantic.zIndex.overlay,
   selectors: {
     '&[data-state="open"]': {
-      animation: `${slideIn} ${vars.environment.semantic.duration["200"]} ${vars.environment.semantic.motion.entrance}`,
+      animation: `${slideIn} ${vars.environment.semantic.duration["250"]} ${vars.environment.semantic.motion.entrance}`,
     },
     '&[data-state="closed"]': {
-      animation: `${slideOut} ${vars.environment.semantic.duration["300"]} ${vars.environment.semantic.motion.leave}`,
+      animation: `${slideOut} ${vars.environment.semantic.duration["200"]} ${vars.environment.semantic.motion.leave}`,
     },
   },
 });
