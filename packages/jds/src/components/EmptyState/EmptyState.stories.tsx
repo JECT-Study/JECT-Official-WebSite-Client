@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import type { CSSProperties, ReactNode } from "react";
 
 import { EmptyState } from "./EmptyState";
+import { Code } from "../Code";
 import type { ThumbnailProps } from "../Thumbnail";
 
 const SAMPLE_BUTTON = "레이블";
@@ -29,19 +30,10 @@ const caseStyle: CSSProperties = {
   alignItems: "center",
   gap: 16,
 };
-const captionStyle: CSSProperties = {
-  fontSize: 11,
-  lineHeight: 1.4,
-  color: "#8a8a8a",
-  background: "#efefef",
-  padding: "3px 8px",
-  borderRadius: 3,
-  whiteSpace: "nowrap",
-};
 
 const Case = ({ label, children }: { label: string; children: ReactNode }) => (
   <div style={caseStyle}>
-    <span style={captionStyle}>{label}</span>
+    <Code size='xs'>{label}</Code>
     <div style={{ width: 360 }}>{children}</div>
   </div>
 );
