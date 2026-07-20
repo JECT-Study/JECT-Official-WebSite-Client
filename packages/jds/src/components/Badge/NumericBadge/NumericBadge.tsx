@@ -13,7 +13,7 @@ import { getLabelClassName } from "@/utils/typography";
 const NumericBadgeRoot = forwardRef<HTMLSpanElement, NumericBadgeProps>(
   (
     {
-      hierarchy = "accent",
+      hierarchy = "secondary",
       feedback,
       size = "md",
       badgeStyle = "solid",

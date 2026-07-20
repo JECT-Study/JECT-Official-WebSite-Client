@@ -17,7 +17,7 @@
 | `<NumericBadge.Basic hierarchy>`  | `<NumericBadge hierarchy>` |
 | `<NumericBadge.Feedback variant>` | `<NumericBadge feedback>`  |
 
-`ContentBadge`와 `NumericBadge`의 기본 `badgeStyle`은 `solid`로 변경했습니다. 또한 `ContentBadge` 제거 버튼의 접근성 이름에 배지 내용과 동작을 함께 제공하도록 개선했습니다.
+`ContentBadge` 제거 버튼의 접근성 이름에 배지 내용과 동작을 함께 제공하도록 개선했습니다.
 
 **AS-IS**
 
