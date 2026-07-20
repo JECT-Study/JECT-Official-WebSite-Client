@@ -3,27 +3,35 @@ import { FlexColumn, FlexRow } from "@storybook-utils/layout";
 import { useState } from "react";
 
 import { Checkbox } from "./Checkbox";
-import type { CheckedState } from "./checkbox.types";
+import {
+  CHECKBOX_SIZE_OPTIONS,
+  CHECKBOX_VARIANT_OPTIONS,
+  type CheckedState,
+} from "./checkbox.types";
+import { CheckboxGroup } from "./CheckboxGroup";
 
-const meta: Meta<typeof Checkbox.Item> = {
+const meta = {
   title: "Components/Checkbox",
-  component: Checkbox.Item,
+  component: Checkbox,
   parameters: {
     layout: "centered",
   },
-} satisfies Meta<typeof Checkbox.Item>;
+} satisfies Meta<typeof Checkbox>;
 
 export default meta;
 
-type Story = StoryObj<typeof Checkbox.Item>;
+type Story = StoryObj<typeof Checkbox>;
+
+const GROUP_GAP = "12px";
+const SECTION_GAP = "32px";
 
 export const CheckboxBasicSizes: Story = {
   render: () => (
     <FlexRow>
-      <Checkbox.Basic size='lg' />
-      <Checkbox.Basic size='md' />
-      <Checkbox.Basic size='sm' />
-      <Checkbox.Basic size='xs' />
+      <Checkbox size='lg' />
+      <Checkbox size='md' />
+      <Checkbox size='sm' />
+      <Checkbox size='xs' />
     </FlexRow>
   ),
 };
@@ -32,16 +40,16 @@ export const CheckboxBasicStates: Story = {
   render: () => (
     <FlexColumn>
       <FlexRow>
-        <Checkbox.Basic checked={false} onCheckedChange={() => {}} />
-        <Checkbox.Basic checked={true} onCheckedChange={() => {}} />
-        <Checkbox.Basic checked='indeterminate' onCheckedChange={() => {}} />
-        <Checkbox.Basic checked={false} isInvalid onCheckedChange={() => {}} />
+        <Checkbox checked={false} onCheckedChange={() => {}} />
+        <Checkbox checked={true} onCheckedChange={() => {}} />
+        <Checkbox checked='indeterminate' onCheckedChange={() => {}} />
+        <Checkbox checked={false} isInvalid onCheckedChange={() => {}} />
       </FlexRow>
       <FlexRow>
-        <Checkbox.Basic checked={false} disabled onCheckedChange={() => {}} />
-        <Checkbox.Basic checked={true} disabled onCheckedChange={() => {}} />
-        <Checkbox.Basic checked='indeterminate' disabled onCheckedChange={() => {}} />
-        <Checkbox.Basic checked={false} isInvalid disabled onCheckedChange={() => {}} />
+        <Checkbox checked={false} disabled onCheckedChange={() => {}} />
+        <Checkbox checked={true} disabled onCheckedChange={() => {}} />
+        <Checkbox checked='indeterminate' disabled onCheckedChange={() => {}} />
+        <Checkbox checked={false} isInvalid disabled onCheckedChange={() => {}} />
       </FlexRow>
     </FlexColumn>
   ),
@@ -49,22 +57,15 @@ export const CheckboxBasicStates: Story = {
 
 export const CheckboxItemStyle: Story = {
   render: () => (
-    <FlexColumn>
-      <FlexColumn>
-        {(["lg", "md", "sm", "xs"] as const).map(size => (
-          <Checkbox.Item key={size} size={size} variant='hollow'>
-            <Checkbox.Basic value='item' />
-            <Checkbox.Label>레이블</Checkbox.Label>
-          </Checkbox.Item>
+    <FlexColumn gap={SECTION_GAP}>
+      <FlexColumn gap={GROUP_GAP}>
+        {CHECKBOX_SIZE_OPTIONS.map(size => (
+          <Checkbox key={size} size={size} variant='hollow' label='레이블' />
         ))}
       </FlexColumn>
-      <FlexColumn>
-        {(["lg", "md", "sm", "xs"] as const).map(size => (
-          <Checkbox.Item key={size} size={size} variant='outlined'>
-            <Checkbox.Basic value='item' />
-            <Checkbox.Label>레이블</Checkbox.Label>
-            <Checkbox.Helper>헬퍼 텍스트</Checkbox.Helper>
-          </Checkbox.Item>
+      <FlexColumn gap={GROUP_GAP}>
+        {CHECKBOX_SIZE_OPTIONS.map(size => (
+          <Checkbox key={size} size={size} variant='outlined' label='레이블' helper='헬퍼 텍스트' />
         ))}
       </FlexColumn>
     </FlexColumn>
@@ -73,42 +74,20 @@ export const CheckboxItemStyle: Story = {
 
 export const CheckboxItemDisabled: Story = {
   render: () => (
-    <FlexColumn>
-      <Checkbox.Item variant='hollow' disabled>
-        <Checkbox.Basic value='item' />
-        <Checkbox.Label>레이블</Checkbox.Label>
-      </Checkbox.Item>
-      <Checkbox.Item variant='outlined' disabled>
-        <Checkbox.Basic value='item' />
-        <Checkbox.Label>레이블</Checkbox.Label>
-        <Checkbox.Helper>헬퍼 텍스트</Checkbox.Helper>
-      </Checkbox.Item>
+    <FlexColumn gap={GROUP_GAP}>
+      <Checkbox variant='hollow' disabled label='레이블' />
+      <Checkbox variant='outlined' disabled label='레이블' helper='헬퍼 텍스트' />
     </FlexColumn>
   ),
 };
 
 export const CheckboxItemInvalid: Story = {
   render: () => (
-    <FlexColumn>
-      <Checkbox.Item variant='hollow' isInvalid>
-        <Checkbox.Basic value='item' />
-        <Checkbox.Label>레이블</Checkbox.Label>
-      </Checkbox.Item>
-      <Checkbox.Item variant='outlined' isInvalid>
-        <Checkbox.Basic value='item' />
-        <Checkbox.Label>레이블</Checkbox.Label>
-        <Checkbox.Helper>헬퍼 텍스트</Checkbox.Helper>
-      </Checkbox.Item>
-      <Checkbox.Item variant='outlined' isInvalid disabled>
-        <Checkbox.Basic value='item' />
-        <Checkbox.Label>레이블</Checkbox.Label>
-        <Checkbox.Helper>헬퍼 텍스트</Checkbox.Helper>
-      </Checkbox.Item>
-      <Checkbox.Item variant='outlined' isInvalid>
-        <Checkbox.Basic value='item' defaultChecked />
-        <Checkbox.Label>레이블</Checkbox.Label>
-        <Checkbox.Helper>헬퍼 텍스트</Checkbox.Helper>
-      </Checkbox.Item>
+    <FlexColumn gap={GROUP_GAP}>
+      <Checkbox variant='hollow' isInvalid label='레이블' />
+      <Checkbox variant='outlined' isInvalid label='레이블' helper='헬퍼 텍스트' />
+      <Checkbox variant='outlined' isInvalid disabled label='레이블' helper='헬퍼 텍스트' />
+      <Checkbox variant='outlined' isInvalid defaultChecked label='레이블' helper='헬퍼 텍스트' />
     </FlexColumn>
   ),
   parameters: {
@@ -123,94 +102,70 @@ export const CheckboxItemInvalid: Story = {
 
 export const CheckboxGroupUncontrolled: Story = {
   render: () => (
-    <FlexColumn>
-      <Checkbox.Root defaultValue={["2"]} name='groupUncontrolled'>
-        <Checkbox.Item>
-          <Checkbox.Basic value='1' />
-          <Checkbox.Label>레이블</Checkbox.Label>
-        </Checkbox.Item>
-        <Checkbox.Item>
-          <Checkbox.Basic value='2' />
-          <Checkbox.Label>레이블 (기본 선택)</Checkbox.Label>
-        </Checkbox.Item>
-        <Checkbox.Item>
-          <Checkbox.Basic value='3' />
-          <Checkbox.Label>레이블</Checkbox.Label>
-        </Checkbox.Item>
-      </Checkbox.Root>
+    <FlexColumn gap={GROUP_GAP}>
+      <CheckboxGroup
+        defaultValue={["2"]}
+        name='groupUncontrolled'
+        options={[
+          { value: "1", label: "레이블" },
+          { value: "2", label: "레이블 (기본 선택)" },
+          { value: "3", label: "레이블" },
+        ]}
+      />
     </FlexColumn>
   ),
 };
 
 export const CheckboxGroupControlled: Story = {
-  render: () => {
-    const ControlledGroup = () => {
-      const [selected, setSelected] = useState<string[]>(["1"]);
+  render: function Render() {
+    const [selected, setSelected] = useState<string[]>(["1"]);
 
-      return (
-        <FlexColumn>
-          <span>선택: {selected.join(", ") || "(없음)"}</span>
-          <Checkbox.Root value={selected} onChange={setSelected} name='groupControlled'>
-            <Checkbox.Item>
-              <Checkbox.Basic value='1' />
-              <Checkbox.Label>레이블</Checkbox.Label>
-            </Checkbox.Item>
-            <Checkbox.Item>
-              <Checkbox.Basic value='2' />
-              <Checkbox.Label>레이블</Checkbox.Label>
-            </Checkbox.Item>
-            <Checkbox.Item>
-              <Checkbox.Basic value='3' />
-              <Checkbox.Label>레이블</Checkbox.Label>
-            </Checkbox.Item>
-          </Checkbox.Root>
+    return (
+      <FlexColumn>
+        <span>선택: {selected.join(", ") || "(없음)"}</span>
+        <FlexColumn gap={GROUP_GAP}>
+          <CheckboxGroup
+            value={selected}
+            onChange={setSelected}
+            name='groupControlled'
+            options={[
+              { value: "1", label: "레이블" },
+              { value: "2", label: "레이블" },
+              { value: "3", label: "레이블" },
+            ]}
+          />
         </FlexColumn>
-      );
-    };
-
-    return <ControlledGroup />;
+      </FlexColumn>
+    );
   },
 };
 
 export const CheckboxGroupSelectAll: Story = {
-  render: () => {
+  render: function Render() {
     const ALL = ["1", "2", "3"];
+    const [selected, setSelected] = useState<string[]>(["1"]);
 
-    const SelectAllGroup = () => {
-      const [selected, setSelected] = useState<string[]>(["1"]);
+    const isAllChecked = selected.length === ALL.length;
+    const isSomeChecked = selected.length > 0 && !isAllChecked;
+    const parentState: CheckedState = isAllChecked ? true : isSomeChecked ? "indeterminate" : false;
 
-      const isAllChecked = selected.length === ALL.length;
-      const isSomeChecked = selected.length > 0 && !isAllChecked;
-      const parentState: CheckedState = isAllChecked
-        ? true
-        : isSomeChecked
-          ? "indeterminate"
-          : false;
-
-      return (
-        <FlexColumn>
-          <Checkbox.Item>
-            <Checkbox.Basic
-              checked={parentState}
-              onCheckedChange={() => setSelected(isAllChecked ? [] : [...ALL])}
-            />
-            <Checkbox.Label>전체 선택</Checkbox.Label>
-          </Checkbox.Item>
-          <FlexColumn>
-            <Checkbox.Root value={selected} onChange={setSelected} name='groupSelectAll'>
-              {ALL.map(value => (
-                <Checkbox.Item key={value}>
-                  <Checkbox.Basic value={value} />
-                  <Checkbox.Label>레이블 {value}</Checkbox.Label>
-                </Checkbox.Item>
-              ))}
-            </Checkbox.Root>
-          </FlexColumn>
+    return (
+      <FlexColumn gap={GROUP_GAP}>
+        <Checkbox
+          checked={parentState}
+          onCheckedChange={() => setSelected(isAllChecked ? [] : [...ALL])}
+          label='전체 선택'
+        />
+        <FlexColumn gap={GROUP_GAP}>
+          <CheckboxGroup
+            value={selected}
+            onChange={setSelected}
+            name='groupSelectAll'
+            options={ALL.map(value => ({ value, label: `레이블 ${value}` }))}
+          />
         </FlexColumn>
-      );
-    };
-
-    return <SelectAllGroup />;
+      </FlexColumn>
+    );
   },
   parameters: {
     docs: {
@@ -224,57 +179,46 @@ export const CheckboxGroupSelectAll: Story = {
 
 export const CheckboxGroupDisabled: Story = {
   render: () => (
-    <FlexRow>
-      <Checkbox.Root disabled defaultValue={["2"]} name='groupDisabled'>
-        <Checkbox.Item>
-          <Checkbox.Basic value='1' />
-          <Checkbox.Label>레이블</Checkbox.Label>
-        </Checkbox.Item>
-        <Checkbox.Item>
-          <Checkbox.Basic value='2' />
-          <Checkbox.Label>레이블</Checkbox.Label>
-        </Checkbox.Item>
-      </Checkbox.Root>
-    </FlexRow>
+    <FlexColumn gap={GROUP_GAP}>
+      <CheckboxGroup
+        disabled
+        defaultValue={["2"]}
+        name='groupDisabled'
+        options={[
+          { value: "1", label: "레이블" },
+          { value: "2", label: "레이블" },
+        ]}
+      />
+    </FlexColumn>
   ),
 };
 
 export const CheckboxGroupInvalid: Story = {
-  render: () => {
-    const InvalidGroup = () => {
-      const [selected, setSelected] = useState<string[]>([]);
-      const isInvalid = selected.length === 0;
+  render: function Render() {
+    const [selected, setSelected] = useState<string[]>([]);
+    const isInvalid = selected.length === 0;
 
-      return (
-        <FlexRow>
-          <Checkbox.Root
-            value={selected}
-            onChange={setSelected}
-            isInvalid={isInvalid}
-            name='groupInvalid'
-            variant='outlined'
-          >
-            <Checkbox.Item>
-              <Checkbox.Basic value='1' />
-              <Checkbox.Label>레이블</Checkbox.Label>
-              <Checkbox.Helper>1개 이상 선택해 주세요</Checkbox.Helper>
-            </Checkbox.Item>
-            <Checkbox.Item>
-              <Checkbox.Basic value='2' />
-              <Checkbox.Label>레이블</Checkbox.Label>
-            </Checkbox.Item>
-          </Checkbox.Root>
-        </FlexRow>
-      );
-    };
-
-    return <InvalidGroup />;
+    return (
+      <FlexColumn gap={GROUP_GAP}>
+        <CheckboxGroup
+          value={selected}
+          onChange={setSelected}
+          isInvalid={isInvalid}
+          name='groupInvalid'
+          variant='outlined'
+          options={[
+            { value: "1", label: "레이블", helper: "1개 이상 선택해 주세요" },
+            { value: "2", label: "레이블" },
+          ]}
+        />
+      </FlexColumn>
+    );
   },
   parameters: {
     docs: {
       description: {
         story:
-          "`Checkbox.Root`의 `isInvalid`를 선택 상태에서 파생하면 그룹 단위 유효성 검사를 표현할 수 있습니다. 아무것도 선택하지 않은 초기 상태에서는 invalid가 그룹 전체로 전파되며, 하나 이상 선택하면 invalid가 해제됩니다.",
+          "`CheckboxGroup`의 `isInvalid`를 선택 상태에서 파생하면 그룹 단위 유효성 검사를 표현할 수 있습니다. 아무것도 선택하지 않은 초기 상태에서는 invalid가 그룹 전체로 전파되며, 하나 이상 선택하면 invalid가 해제됩니다.",
       },
     },
   },
@@ -282,42 +226,25 @@ export const CheckboxGroupInvalid: Story = {
 
 export const CheckboxComprehensiveMatrix: Story = {
   render: () => (
-    <FlexColumn>
+    <FlexColumn gap={SECTION_GAP}>
       <FlexColumn>
-        {(["lg", "md", "sm", "xs"] as const).map(size => (
+        {CHECKBOX_SIZE_OPTIONS.map(size => (
           <FlexRow key={size}>
-            <Checkbox.Basic size={size} checked={false} onCheckedChange={() => {}} />
-            <Checkbox.Basic size={size} checked={true} onCheckedChange={() => {}} />
-            <Checkbox.Basic size={size} checked='indeterminate' onCheckedChange={() => {}} />
-            <Checkbox.Basic size={size} checked={false} disabled onCheckedChange={() => {}} />
-            <Checkbox.Basic size={size} checked={true} disabled onCheckedChange={() => {}} />
-            <Checkbox.Basic
-              size={size}
-              checked='indeterminate'
-              disabled
-              onCheckedChange={() => {}}
-            />
+            <Checkbox size={size} checked={false} onCheckedChange={() => {}} />
+            <Checkbox size={size} checked={true} onCheckedChange={() => {}} />
+            <Checkbox size={size} checked='indeterminate' onCheckedChange={() => {}} />
+            <Checkbox size={size} checked={false} disabled onCheckedChange={() => {}} />
+            <Checkbox size={size} checked={true} disabled onCheckedChange={() => {}} />
+            <Checkbox size={size} checked='indeterminate' disabled onCheckedChange={() => {}} />
           </FlexRow>
         ))}
       </FlexColumn>
-      <FlexColumn>
-        {(["hollow", "outlined"] as const).map(variant => (
-          <FlexColumn key={variant}>
-            <Checkbox.Item variant={variant}>
-              <Checkbox.Basic defaultChecked />
-              <Checkbox.Label>레이블</Checkbox.Label>
-              <Checkbox.Helper>헬퍼 텍스트</Checkbox.Helper>
-            </Checkbox.Item>
-            <Checkbox.Item variant={variant} disabled>
-              <Checkbox.Basic />
-              <Checkbox.Label>레이블</Checkbox.Label>
-              <Checkbox.Helper>헬퍼 텍스트</Checkbox.Helper>
-            </Checkbox.Item>
-            <Checkbox.Item variant={variant} isInvalid>
-              <Checkbox.Basic />
-              <Checkbox.Label>레이블</Checkbox.Label>
-              <Checkbox.Helper>필수 항목입니다</Checkbox.Helper>
-            </Checkbox.Item>
+      <FlexColumn gap={SECTION_GAP}>
+        {CHECKBOX_VARIANT_OPTIONS.map(variant => (
+          <FlexColumn key={variant} gap={GROUP_GAP}>
+            <Checkbox variant={variant} defaultChecked label='레이블' helper='헬퍼 텍스트' />
+            <Checkbox variant={variant} disabled label='레이블' helper='헬퍼 텍스트' />
+            <Checkbox variant={variant} isInvalid label='레이블' helper='필수 항목입니다' />
           </FlexColumn>
         ))}
       </FlexColumn>
