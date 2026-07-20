@@ -4,10 +4,7 @@ import type { ReactNode } from "react";
 import type { BlockButtonProps } from "../Button/BlockButton";
 import type { CheckedState } from "../Checkbox";
 
-type BlockButtonActionProps = Pick<
-  BlockButtonProps,
-  "children" | "onClick" | "disabled" | "hierarchy"
->;
+type BlockButtonActionProps = Pick<BlockButtonProps, "children" | "onClick" | "disabled">;
 
 export interface CheckboxActionProps {
   label: ReactNode;
