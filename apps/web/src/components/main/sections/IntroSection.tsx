@@ -5,7 +5,6 @@ import {
   Hero,
   Icon,
   Image,
-  Label,
   LabelButton,
   Title as JdsTitle,
 } from "@jects/jds";
@@ -77,9 +76,9 @@ const IntroSection = () => {
                   </Callout.Basic>
                 ))}
               </div>
-              <Label as='span' size='sm' weight='normal' color='var(--semantic-object-assistive)'>
-                *현 4기 기준, 진행 완료 및 진행중 프로젝트 포함.
-              </Label>
+              {/*<Label as='span' size='sm' weight='normal' color='var(--semantic-object-assistive)'>*/}
+              {/*  *현 4기 기준, 진행 완료 및 진행중 프로젝트 포함.*/}
+              {/*</Label>*/}
             </div>
 
             <LabelButton.Basic
