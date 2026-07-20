@@ -1,5 +1,6 @@
 import type { Dialog } from "radix-ui";
 import type { ReactNode } from "react";
+import type { RenderableNode } from "types";
 
 import type { BlockButtonProps } from "../Button/BlockButton";
 import type { CheckedState } from "../Checkbox";
@@ -7,7 +8,7 @@ import type { CheckedState } from "../Checkbox";
 type BlockButtonActionProps = Pick<BlockButtonProps, "children" | "onClick" | "disabled">;
 
 export interface CheckboxActionProps {
-  label: ReactNode;
+  label: RenderableNode;
   checked: CheckedState;
   onCheckedChange: (checked: CheckedState) => void;
 }

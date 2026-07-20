@@ -65,13 +65,11 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
                 </DialogPrimitive.Description>
               </div>
               {checkboxAction && (
-                <Checkbox.Item>
-                  <Checkbox.Basic
-                    checked={checkboxAction.checked}
-                    onCheckedChange={checkboxAction.onCheckedChange}
-                  />
-                  <Checkbox.Label>{checkboxAction.label}</Checkbox.Label>
-                </Checkbox.Item>
+                <Checkbox
+                  checked={checkboxAction.checked}
+                  onCheckedChange={checkboxAction.onCheckedChange}
+                  label={checkboxAction.label}
+                />
               )}
             </div>
             <div className={styles.buttonGroup[buttonLayout]}>
