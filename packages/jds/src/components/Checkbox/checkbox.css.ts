@@ -1,7 +1,7 @@
-import { style } from "@vanilla-extract/css";
+import { style, type StyleRule } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
-import { pxToRem, overlay, overlayColorMap, overlayOpacityMap } from "utils";
+import { pxToRem, overlay } from "utils";
 
 import { CHECKBOX_SIZE_OPTIONS, type CheckboxSize } from "./checkbox.types";
 
@@ -16,14 +16,7 @@ const checkboxVisualSizeMap = {
   xs: pxToRem(14),
 } satisfies Record<CheckboxSize, string>;
 
-// Checkbox.Basic
-
-export const checkboxControlRoot = style({
-  display: "inline-flex",
-  position: "relative",
-});
-
-// invalid 셀렉터는 valid보다 명시도가 높아 차이나는 프로퍼티만 선언한다.
+// Checkbox.Indicator
 export const checkboxVisual = recipe({
   base: {
     display: "inline-flex",
@@ -31,45 +24,34 @@ export const checkboxVisual = recipe({
     justifyContent: "center",
     flexShrink: 0,
     boxSizing: "border-box",
+    margin: 0,
+    padding: 0,
     borderRadius: vars.scheme.semantic.radius["4"],
     border: `${vars.scheme.semantic.strokeWeight["1"]} solid ${vars.color.semantic.stroke.alpha.assistive}`,
     backgroundColor: vars.color.semantic.surface.shallow,
     color: "transparent",
-    cursor: "pointer",
-    position: "relative",
-    outline: "none",
     selectors: {
-      'input[type="checkbox"]:not(:disabled):checked + &': {
-        backgroundColor: vars.color.semantic.accent.neutral,
-        border: "none",
-        color: vars.color.semantic.object.static.inverse.boldest,
-      },
-      'input[type="checkbox"]:not(:disabled):indeterminate + &': {
-        backgroundColor: vars.color.semantic.accent.neutral,
-        border: "none",
-        color: vars.color.semantic.object.static.inverse.boldest,
-      },
-      'input[type="checkbox"]:disabled:not(:checked):not(:indeterminate) + &': {
+      '&[data-state="checked"]:not([data-disabled]), &[data-state="indeterminate"]:not([data-disabled])':
+        {
+          backgroundColor: vars.color.semantic.accent.neutral,
+          border: "none",
+          color: vars.color.semantic.object.static.inverse.boldest,
+        },
+      '&[data-disabled][data-state="unchecked"]': {
         backgroundColor: vars.color.semantic.surface.standard,
         borderColor: vars.color.semantic.stroke.alpha.subtle,
         cursor: "not-allowed",
       },
-      'input[type="checkbox"]:disabled:checked + &': {
+      '&[data-disabled][data-state="checked"], &[data-disabled][data-state="indeterminate"]': {
         backgroundColor: vars.color.semantic.fill.subtlest,
         border: "none",
         color: vars.color.semantic.object.subtle,
         cursor: "not-allowed",
       },
-      'input[type="checkbox"]:disabled:indeterminate + &': {
-        backgroundColor: vars.color.semantic.fill.subtlest,
-        border: "none",
-        color: vars.color.semantic.object.subtle,
-        cursor: "not-allowed",
-      },
-      '[data-invalid] input[type="checkbox"]:not(:disabled) + &': {
+      "&[data-invalid]:not([data-disabled])": {
         borderColor: vars.color.semantic.feedback.destructive.neutral,
       },
-      '[data-invalid] input[type="checkbox"]:disabled + &': {
+      "&[data-invalid][data-disabled]": {
         borderColor: vars.color.semantic.feedback.destructive.alpha.subtle,
       },
     },
@@ -80,39 +62,35 @@ export const checkboxVisual = recipe({
       md: { width: checkboxVisualSizeMap.md, height: checkboxVisualSizeMap.md },
       sm: { width: checkboxVisualSizeMap.sm, height: checkboxVisualSizeMap.sm },
       xs: { width: checkboxVisualSizeMap.xs, height: checkboxVisualSizeMap.xs },
-    } satisfies Record<CheckboxSize, object>,
-    interaction: {
-      on: {
-        selectors: {
-          'input[type="checkbox"]:not(:disabled) + &::after': {
-            content: '""',
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            backgroundColor: overlayColorMap.primary,
-            borderRadius: "inherit",
-            opacity: 0,
-            pointerEvents: "none",
-          },
-          'input[type="checkbox"]:not(:disabled) + &:hover::after': {
-            opacity: overlayOpacityMap.normal.hover,
-          },
-          'input[type="checkbox"]:not(:disabled) + &:active::after': {
-            opacity: overlayOpacityMap.normal.pressed,
-          },
-          'input[type="checkbox"]:focus-visible + &': {
-            boxShadow: `0 0 0 ${vars.scheme.semantic.strokeWeight["2"]} ${vars.color.semantic.accent.alpha.alternative}`,
-          },
-          '[data-invalid] input[type="checkbox"]:not(:disabled):focus-visible + &': {
-            boxShadow: `0 0 0 ${vars.scheme.semantic.strokeWeight["2"]} ${vars.color.semantic.feedback.destructive.alpha.alternative}`,
-          },
-        },
-      },
-      off: {},
-    },
+    } satisfies Record<CheckboxSize, StyleRule>,
   },
+});
+
+// Checkbox.Control
+export const checkboxControl = style({
+  display: "inline-flex",
+  alignItems: "center",
+  justifyContent: "center",
+  flexShrink: 0,
+  margin: 0,
+  padding: 0,
+  border: "none",
+  background: "none",
+  appearance: "none",
+  cursor: "pointer",
+  position: "relative",
+  outline: "none",
+  borderRadius: vars.scheme.semantic.radius["4"],
+  selectors: {
+    "&:disabled": { cursor: "not-allowed" },
+    "&::before, &::after": { inset: 0, borderRadius: "inherit" },
+  },
+});
+
+export const checkboxIconWrapper = style({
+  display: "inline-flex",
+  alignItems: "center",
+  justifyContent: "center",
 });
 
 // Checkbox.Item
@@ -151,7 +129,7 @@ const checkboxItemGrid = style({
   alignItems: "center",
 });
 
-export const checkboxControlSlot = style({ gridColumn: "1", gridRow: "1", alignItems: "center" });
+export const checkboxControlSlot = style({ gridColumn: "1", gridRow: "1" });
 export const checkboxLabelSlot = style({
   gridColumn: "2",
   gridRow: "1",
@@ -190,7 +168,7 @@ export const checkboxItem = recipe({
         gap: `${vars.scheme.semantic.spacing["6"]} ${vars.scheme.semantic.spacing["8"]}`,
         borderRadius: vars.scheme.semantic.radius["4"],
       },
-    } satisfies Record<CheckboxSize, object>,
+    } satisfies Record<CheckboxSize, StyleRule>,
     styleOutlined: {
       outlined: {
         border: `${vars.scheme.semantic.strokeWeight["1"]} solid ${vars.color.semantic.stroke.alpha.assistive}`,
@@ -216,7 +194,6 @@ export const checkboxItem = recipe({
 
 export const checkboxLabel = style({
   whiteSpace: "nowrap",
-  zIndex: 10,
   vars: { [labelColorVar]: vars.color.semantic.object.bolder },
   selectors: {
     "[data-disabled] &": { vars: { [labelColorVar]: vars.color.semantic.object.subtle } },
@@ -226,8 +203,6 @@ export const checkboxLabel = style({
 export const checkboxHelper = style({
   whiteSpace: "nowrap",
   vars: { [labelColorVar]: vars.color.semantic.object.alternative },
-  position: "relative",
-  zIndex: 10,
   selectors: {
     "[data-disabled] &": { vars: { [labelColorVar]: vars.color.semantic.object.subtle } },
     "[data-invalid] &": {
