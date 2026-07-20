@@ -10,7 +10,7 @@ import {
   StyledSelectItemInputWrapper,
 } from "./select.styles";
 import type { SelectRadioProps } from "./select.types";
-import { Radio } from "../Radio";
+import { RadioPrimitive } from "../Radio/RadioPrimitive";
 
 import { getLabelClassName } from "@/utils/typography";
 
@@ -40,13 +40,7 @@ export const SelectRadio = forwardRef<HTMLDivElement, SelectRadioProps>(
         {...restProps}
       >
         <StyledSelectItemInputWrapper>
-          <Radio.Basic
-            size={size}
-            value={value}
-            checked={isItemSelected}
-            disabled={isDisabled}
-            tabIndex={-1}
-          />
+          <RadioPrimitive.Indicator size={size} checked={isItemSelected} disabled={isDisabled} />
         </StyledSelectItemInputWrapper>
         <StyledSelectItemContent>
           <StyledSelectItemText

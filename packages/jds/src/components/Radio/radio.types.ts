@@ -1,4 +1,5 @@
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import type { AriaLabelProps, RenderableNode } from "types";
 
 export const RADIO_SIZE_OPTIONS = ["xs", "sm", "md", "lg"] as const;
 export const RADIO_VARIANT_OPTIONS = ["hollow", "outlined"] as const;
@@ -27,21 +28,40 @@ type RadioRootBaseProps = {
 };
 
 export type RadioRootProps = RadioRootBaseProps &
+  AriaLabelProps &
   (RadioRootControlledProps | RadioRootUncontrolledProps);
 
-export type RadioBasicProps = Omit<
-  ComponentPropsWithoutRef<"input">,
-  "value" | "size" | "type"
-> & {
-  size?: RadioSize;
+export type RadioItemProps = Omit<ComponentPropsWithoutRef<"button">, "value"> & {
   value: string;
-};
-
-export type RadioItemProps = ComponentPropsWithoutRef<"label"> & {
   size?: RadioSize;
   variant?: RadioVariant;
   disabled?: boolean;
   children: ReactNode;
+};
+
+export type RadioOption = {
+  value: string;
+  label: RenderableNode;
+  helper?: ReactNode;
+  disabled?: boolean;
+};
+
+type RadioGroupBaseProps = {
+  size?: RadioSize;
+  variant?: RadioVariant;
+  disabled?: boolean;
+  name?: string;
+  options: RadioOption[];
+};
+
+export type RadioGroupProps = RadioGroupBaseProps &
+  AriaLabelProps &
+  (RadioRootControlledProps | RadioRootUncontrolledProps);
+
+export type RadioIndicatorProps = Omit<ComponentPropsWithoutRef<"span">, "children"> & {
+  size?: RadioSize;
+  checked?: boolean;
+  disabled?: boolean;
 };
 
 export type RadioLabelProps = {
