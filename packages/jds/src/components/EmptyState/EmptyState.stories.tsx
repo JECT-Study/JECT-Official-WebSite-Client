@@ -34,7 +34,7 @@ const caseStyle: CSSProperties = {
 const Case = ({ label, children }: { label: string; children: ReactNode }) => (
   <div style={caseStyle}>
     <Code size='xs'>{label}</Code>
-    <div style={{ width: 360 }}>{children}</div>
+    <div style={{ width: "100%", maxWidth: 360 }}>{children}</div>
   </div>
 );
 
