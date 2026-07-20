@@ -165,7 +165,6 @@ export const dividerWrapper = style({
 });
 
 export const divider = style({
-  flexShrink: 0,
   height: "100%",
   alignSelf: "center",
   vars: {
