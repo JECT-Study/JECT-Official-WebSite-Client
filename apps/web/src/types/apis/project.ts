@@ -22,7 +22,7 @@ export interface ProjectReviewsQueryParams {
   size: number;
 }
 
-export type ProjectCategory = "SEMESTER_1" | "SEMESTER_2" | "SEMESTER_3" | null;
+export type ProjectCategory = "SEMESTER_1" | "SEMESTER_2" | "SEMESTER_3" | "SEMESTER_4" | null;
 export type ProjectSort = "empty" | "unsorted" | "sorted";
 
 export interface Project {
@@ -72,7 +72,8 @@ export interface ProjectDetailResponse {
   techStack: string[];
   badges: string[];
   description: string;
-  serviceUrl: string;
+  serviceUrl?: string;
+  githubUrl?: string;
   bannerImageUrl: ProjectImageUrl | null;
   sampleImageUrls: ProjectImageUrl[];
   descriptionImageUrls: ProjectImageUrl[];
