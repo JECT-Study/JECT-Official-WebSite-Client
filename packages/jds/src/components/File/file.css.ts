@@ -2,8 +2,6 @@ import { style } from "@vanilla-extract/css";
 import { vars } from "tokens";
 import { pxToRem } from "utils";
 
-import { iconButtonAccentColor } from "../Button/IconButton/iconButton.css";
-
 import { focusRing } from "@/utils/focusRing.css";
 import { overlay, overlayHoverOpacity, overlayPressedOpacity } from "@/utils/overlay.css";
 import { labelColorVar } from "@/utils/typography.css";
@@ -19,12 +17,8 @@ export const root = style([
     display: "flex",
     alignItems: "center",
     width: "100%",
-    padding: 0,
     gap: vars.scheme.semantic.spacing["8"],
     borderRadius: LAYER_RADIUS,
-    background: "transparent",
-    textAlign: "left",
-    WebkitAppearance: "none",
     selectors: {
       "&::before, &::after": {
         inset: LAYER_INSET,
@@ -56,6 +50,11 @@ export const mainAction = style({
   WebkitAppearance: "none",
   cursor: "inherit",
   selectors: {
+    "&::after": {
+      content: '""',
+      position: "absolute",
+      inset: 0,
+    },
     "&:disabled": {
       pointerEvents: "none",
       cursor: "inherit",
@@ -66,7 +65,6 @@ export const mainAction = style({
 export const fileInfo = style({
   display: "flex",
   flex: 1,
-  flexDirection: "row",
   alignItems: "center",
   minWidth: 0,
   gap: vars.scheme.semantic.spacing["6"],
@@ -151,7 +149,6 @@ export const fileSize = style({
 });
 
 export const removeButton = style({
-  vars: {
-    [iconButtonAccentColor]: vars.color.semantic.object.alternative,
-  },
+  position: "relative",
+  zIndex: 1,
 });
