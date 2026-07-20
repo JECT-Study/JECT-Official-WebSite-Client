@@ -22,8 +22,9 @@ const meta = {
       description: "기본 레이블입니다.",
     },
     valueLabel: {
-      control: "text",
-      description: "기본 레이블 뒤에 표시되는 값 레이블입니다. 전달되면 활성 상태로 표시됩니다.",
+      control: "object",
+      description:
+        "기본 레이블 뒤에 쉼표로 구분해 표시되는 값 레이블 배열입니다. 전달되면 활성 상태로 표시되며, 표시 영역은 최대 160px입니다.",
     },
     disabled: {
       control: "boolean",
@@ -47,7 +48,7 @@ export const Default: Story = {
 export const Activated: Story = {
   args: {
     label: "레이블",
-    valueLabel: "값 레이블",
+    valueLabel: ["값 레이블 1", "값 레이블 2", "값 레이블 3"],
     disabled: false,
     onClick: () => alert("chip clicked"),
     onRemove: () => alert("icon clicked"),
@@ -64,7 +65,7 @@ export const Disabled: Story = {
   render: args => (
     <FlexRow>
       <Chip {...args} />
-      <Chip {...args} valueLabel='값 레이블' />
+      <Chip {...args} valueLabel={["값 레이블"]} />
     </FlexRow>
   ),
 };

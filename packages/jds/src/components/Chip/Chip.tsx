@@ -22,7 +22,8 @@ export const Chip = forwardRef<HTMLButtonElement, ChipProps>(
     },
     forwardedRef,
   ) => {
-    const isActivated = Boolean(valueLabel);
+    const valueLabelText = valueLabel?.join(", ");
+    const isActivated = Boolean(valueLabelText);
 
     return (
       <span
@@ -50,8 +51,10 @@ export const Chip = forwardRef<HTMLButtonElement, ChipProps>(
                   className={styles.divider}
                 />
               </span>
-              <span className={clsx(styles.label, getLabelClassName({ size: "md" }))}>
-                {valueLabel}
+              <span
+                className={clsx(styles.valueLabel, getLabelClassName({ size: "md" }))}
+              >
+                <span className={styles.valueLabelText}>{valueLabelText}</span>
               </span>
             </>
           )}
@@ -62,7 +65,7 @@ export const Chip = forwardRef<HTMLButtonElement, ChipProps>(
           icon='close-line'
           size='xs'
           hierarchy='accent'
-          aria-label={`${[label, valueLabel].filter(Boolean).join(" ")} 삭제`}
+          aria-label={`${[label, valueLabelText].filter(Boolean).join(" ")} 제거`}
           disabled={disabled}
           className={styles.removeButton}
           onClick={e => {

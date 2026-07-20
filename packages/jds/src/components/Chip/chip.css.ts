@@ -27,6 +27,7 @@ export const root = recipe({
       position: "relative",
       display: "inline-flex",
       flexDirection: "row",
+      flexShrink: 0,
       width: "fit-content",
       alignItems: "center",
       boxSizing: "border-box",
@@ -123,7 +124,8 @@ export const mainAction = style({
 });
 
 export const label = style({
-  minWidth: 0,
+  flexShrink: 0,
+  whiteSpace: "nowrap",
   vars: {
     [labelColorVar]: chipColorVars.label,
   },
@@ -132,6 +134,27 @@ export const label = style({
       cursor: "inherit",
     },
   },
+});
+
+export const valueLabel = style({
+  minWidth: 0,
+  maxWidth: pxToRem(160),
+  vars: {
+    [labelColorVar]: chipColorVars.label,
+  },
+  selectors: {
+    "&&": {
+      cursor: "inherit",
+    },
+  },
+});
+
+export const valueLabelText = style({
+  display: "block",
+  minWidth: 0,
+  overflow: "hidden",
+  textOverflow: "ellipsis",
+  whiteSpace: "nowrap",
 });
 
 export const dividerWrapper = style({
