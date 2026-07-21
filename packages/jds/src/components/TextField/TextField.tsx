@@ -33,7 +33,6 @@ export const Input = forwardRef<HTMLInputElement, TextFieldInputProps>(
       fieldId,
       helperTextId,
       hasHelperText,
-      fieldStyle,
       disabled: isDisabled,
       readonly: isReadonly,
       required: isRequired,
@@ -49,7 +48,7 @@ export const Input = forwardRef<HTMLInputElement, TextFieldInputProps>(
         required={isRequired}
         className={clsx(
           getBodyClassName({ size: "md" }),
-          styles.input({ fieldStyle, disabled: isDisabled, readOnly: isReadonly }),
+          styles.input({ disabled: isDisabled, readOnly: isReadonly }),
           className,
         )}
         {...restProps}
