@@ -78,6 +78,8 @@ export const useListbox = ({ mode, value, defaultValue, onChange, disabled }: Us
 
   const onKeyDown = useCallback(
     (e: KeyboardEvent) => {
+      if (disabled) return;
+
       switch (e.key) {
         case "ArrowDown":
           e.preventDefault();
@@ -104,7 +106,7 @@ export const useListbox = ({ mode, value, defaultValue, onChange, disabled }: Us
           break;
       }
     },
-    [activeValue, moveActive, select],
+    [activeValue, disabled, moveActive, select],
   );
 
   const onFocus = useCallback(() => {
