@@ -1,7 +1,7 @@
-import { style } from "@vanilla-extract/css";
+import { style, type StyleRule } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
-import { pxToRem, overlay, overlayColorMap, overlayOpacityMap } from "utils";
+import { pxToRem, overlay } from "utils";
 
 import { RADIO_SIZE_OPTIONS } from "./radio.types";
 import type { RadioSize } from "./radio.types";
@@ -19,117 +19,68 @@ const radioSizeMap: Record<RadioSize, { sizeRem: string; borderKey: StrokeWeight
 
 export const radioGroupWrapper = style({ display: "contents" });
 
-export const radioControlRoot = style({
-  display: "inline-flex",
-  position: "relative",
-});
+// Radio.Indicator
+const ancestorCheckedEnabled = '[role="radio"][data-state="checked"]:not([data-disabled]) &';
+const ancestorUncheckedDisabled = '[role="radio"][data-disabled][data-state="unchecked"] &';
+const ancestorCheckedDisabled = '[role="radio"][data-disabled][data-state="checked"] &';
+const selfCheckedEnabled = '&[data-state="checked"]:not([data-disabled])';
+const selfUncheckedDisabled = '&[data-disabled][data-state="unchecked"]';
+const selfCheckedDisabled = '&[data-disabled][data-state="checked"]';
+
+const baseCheckedEnabledStyle = {
+  backgroundColor: vars.color.semantic.surface.static.standard,
+} satisfies StyleRule;
+const baseUncheckedDisabledStyle = {
+  backgroundColor: vars.color.semantic.surface.standard,
+  borderColor: vars.color.semantic.stroke.alpha.subtle,
+} satisfies StyleRule;
+const baseCheckedDisabledStyle = {
+  backgroundColor: vars.color.semantic.fill.subtlest,
+} satisfies StyleRule;
+
+const makeSizeVariant = (size: RadioSize) => {
+  const borderChecked = `${vars.scheme.semantic.strokeWeight[radioSizeMap[size].borderKey]} solid ${vars.color.semantic.accent.neutral}`;
+  const borderCheckedDisabled = `${vars.scheme.semantic.strokeWeight[radioSizeMap[size].borderKey]} solid ${vars.color.semantic.stroke.alpha.subtle}`;
+
+  return {
+    width: radioSizeMap[size].sizeRem,
+    height: radioSizeMap[size].sizeRem,
+    selectors: {
+      [ancestorCheckedEnabled]: { border: borderChecked },
+      [selfCheckedEnabled]: { border: borderChecked },
+      [ancestorCheckedDisabled]: { border: borderCheckedDisabled },
+      [selfCheckedDisabled]: { border: borderCheckedDisabled },
+    },
+  };
+};
 
 export const radioVisual = recipe({
   base: {
     flexShrink: 0,
+    boxSizing: "border-box",
     borderRadius: vars.scheme.semantic.radius.max,
     border: `${vars.scheme.semantic.strokeWeight["1"]} solid ${vars.color.semantic.stroke.alpha.assistive}`,
     backgroundColor: vars.color.semantic.surface.shallow,
-    cursor: "pointer",
-    position: "relative",
-    outline: "none",
     selectors: {
-      'input[type="radio"]:not(:disabled):checked + &': {
-        backgroundColor: vars.color.semantic.surface.static.standard,
-      },
-      'input[type="radio"]:not(:checked):disabled + &': {
-        backgroundColor: vars.color.semantic.surface.standard,
-        borderColor: vars.color.semantic.stroke.alpha.subtle,
-        cursor: "not-allowed",
-      },
-      'input[type="radio"]:checked:disabled + &': {
-        backgroundColor: vars.color.semantic.fill.subtlest,
-        cursor: "not-allowed",
-      },
+      [ancestorCheckedEnabled]: baseCheckedEnabledStyle,
+      [selfCheckedEnabled]: baseCheckedEnabledStyle,
+      [ancestorUncheckedDisabled]: baseUncheckedDisabledStyle,
+      [selfUncheckedDisabled]: baseUncheckedDisabledStyle,
+      [ancestorCheckedDisabled]: baseCheckedDisabledStyle,
+      [selfCheckedDisabled]: baseCheckedDisabledStyle,
     },
   },
   variants: {
     size: {
-      lg: {
-        width: radioSizeMap.lg.sizeRem,
-        height: radioSizeMap.lg.sizeRem,
-        selectors: {
-          'input[type="radio"]:not(:disabled):checked + &': {
-            border: `${vars.scheme.semantic.strokeWeight[radioSizeMap.lg.borderKey]} solid ${vars.color.semantic.accent.neutral}`,
-          },
-          'input[type="radio"]:checked:disabled + &': {
-            border: `${vars.scheme.semantic.strokeWeight[radioSizeMap.lg.borderKey]} solid ${vars.color.semantic.stroke.alpha.subtle}`,
-          },
-        },
-      },
-      md: {
-        width: radioSizeMap.md.sizeRem,
-        height: radioSizeMap.md.sizeRem,
-        selectors: {
-          'input[type="radio"]:not(:disabled):checked + &': {
-            border: `${vars.scheme.semantic.strokeWeight[radioSizeMap.md.borderKey]} solid ${vars.color.semantic.accent.neutral}`,
-          },
-          'input[type="radio"]:checked:disabled + &': {
-            border: `${vars.scheme.semantic.strokeWeight[radioSizeMap.md.borderKey]} solid ${vars.color.semantic.stroke.alpha.subtle}`,
-          },
-        },
-      },
-      sm: {
-        width: radioSizeMap.sm.sizeRem,
-        height: radioSizeMap.sm.sizeRem,
-        selectors: {
-          'input[type="radio"]:not(:disabled):checked + &': {
-            border: `${vars.scheme.semantic.strokeWeight[radioSizeMap.sm.borderKey]} solid ${vars.color.semantic.accent.neutral}`,
-          },
-          'input[type="radio"]:checked:disabled + &': {
-            border: `${vars.scheme.semantic.strokeWeight[radioSizeMap.sm.borderKey]} solid ${vars.color.semantic.stroke.alpha.subtle}`,
-          },
-        },
-      },
-      xs: {
-        width: radioSizeMap.xs.sizeRem,
-        height: radioSizeMap.xs.sizeRem,
-        selectors: {
-          'input[type="radio"]:not(:disabled):checked + &': {
-            border: `${vars.scheme.semantic.strokeWeight[radioSizeMap.xs.borderKey]} solid ${vars.color.semantic.accent.neutral}`,
-          },
-          'input[type="radio"]:checked:disabled + &': {
-            border: `${vars.scheme.semantic.strokeWeight[radioSizeMap.xs.borderKey]} solid ${vars.color.semantic.stroke.alpha.subtle}`,
-          },
-        },
-      },
-    } satisfies Record<RadioSize, unknown>,
-    interaction: {
-      on: {
-        selectors: {
-          'input[type="radio"]:not(:disabled) + &::after': {
-            content: '""',
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            backgroundColor: overlayColorMap.primary,
-            borderRadius: "inherit",
-            opacity: 0,
-            pointerEvents: "none",
-          },
-          'input[type="radio"]:not(:disabled) + &:hover::after': {
-            opacity: overlayOpacityMap.normal.hover,
-          },
-          'input[type="radio"]:not(:disabled) + &:active::after': {
-            opacity: overlayOpacityMap.normal.pressed,
-          },
-          'input[type="radio"]:focus-visible + &': {
-            boxShadow: `0 0 0 ${vars.scheme.semantic.strokeWeight["2"]} ${vars.color.semantic.accent.alpha.alternative}`,
-          },
-        },
-      },
-      off: {},
-    },
+      lg: makeSizeVariant("lg"),
+      md: makeSizeVariant("md"),
+      sm: makeSizeVariant("sm"),
+      xs: makeSizeVariant("xs"),
+    } satisfies Record<RadioSize, StyleRule>,
   },
 });
 
+// Radio.Item
 const itemSizeVariants = {
   lg: {
     gap: `${vars.scheme.semantic.spacing["6"]} ${vars.scheme.semantic.spacing["12"]}`,
@@ -147,7 +98,7 @@ const itemSizeVariants = {
     gap: `${vars.scheme.semantic.spacing["6"]} ${vars.scheme.semantic.spacing["8"]}`,
     borderRadius: vars.scheme.semantic.radius["4"],
   },
-} satisfies Record<RadioSize, object>;
+} satisfies Record<RadioSize, StyleRule>;
 
 const itemInsetBySize: Record<RadioSize, string> = {
   lg: `${pxToRem(-4)} ${pxToRem(-8)}`,
@@ -183,7 +134,21 @@ const radioItemGrid = style({
   alignItems: "center",
 });
 
-export const radioControlSlot = style({ gridColumn: "1", gridRow: "1", alignItems: "center" });
+const buttonReset = style({
+  appearance: "none",
+  margin: 0,
+  padding: 0,
+  font: "inherit",
+  color: "inherit",
+  textAlign: "left",
+  backgroundColor: "transparent",
+  cursor: "pointer",
+  selectors: {
+    "&[data-disabled]": { cursor: "not-allowed" },
+  },
+});
+
+export const radioIndicatorSlot = style({ gridColumn: "1", gridRow: "1" });
 export const radioLabelSlot = style({
   gridColumn: "2",
   gridRow: "1",
@@ -195,6 +160,7 @@ export const radioHelperSlot = style({ gridColumn: "2", gridRow: "2" });
 export const radioItem = recipe({
   base: [
     radioItemGrid,
+    buttonReset,
     overlay(),
     {
       position: "relative",
@@ -204,7 +170,7 @@ export const radioItem = recipe({
     },
   ],
   variants: {
-    size: itemSizeVariants satisfies Record<RadioSize, unknown>,
+    size: itemSizeVariants satisfies Record<RadioSize, StyleRule>,
     styleOutlined: {
       outlined: {
         border: `${vars.scheme.semantic.strokeWeight["1"]} solid ${vars.color.semantic.stroke.alpha.subtle}`,
@@ -221,7 +187,6 @@ export const radioItem = recipe({
 
 export const radioLabel = style({
   whiteSpace: "nowrap",
-  zIndex: 10,
   vars: { [labelColorVar]: vars.color.semantic.object.bolder },
   selectors: {
     "[data-disabled] &": { vars: { [labelColorVar]: vars.color.semantic.object.subtle } },
@@ -231,8 +196,6 @@ export const radioLabel = style({
 export const radioHelper = style({
   whiteSpace: "nowrap",
   vars: { [labelColorVar]: vars.color.semantic.object.alternative },
-  position: "relative",
-  zIndex: 10,
   selectors: {
     "[data-disabled] &": { vars: { [labelColorVar]: vars.color.semantic.object.subtle } },
   },

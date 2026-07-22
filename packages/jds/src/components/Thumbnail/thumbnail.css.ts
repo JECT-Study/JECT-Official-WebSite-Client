@@ -1,4 +1,4 @@
-import { createVar, style } from "@vanilla-extract/css";
+import { createVar, fallbackVar, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
 import {
@@ -70,7 +70,7 @@ const root = recipe({
     display: "block",
     margin: 0,
     overflow: "hidden",
-    width: thumbnailVars.width,
+    width: fallbackVar(thumbnailVars.width, "100%"),
 
     appearance: "none",
     background: "none",
@@ -80,7 +80,6 @@ const root = recipe({
     color: "inherit",
 
     vars: {
-      [thumbnailVars.width]: "100%",
       [thumbnailVars.borderColor]: vars.color.semantic.stroke.alpha.subtle,
     },
 
