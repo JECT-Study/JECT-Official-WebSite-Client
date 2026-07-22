@@ -9,22 +9,29 @@ import {
   type KeyboardEvent,
 } from "react";
 
-import type { SelectionMode } from "./select.types";
+import type { SelectionMode, SelectOption } from "./select.types";
 import { getOptionId } from "./select.utils";
 
 interface UseListboxParams {
   mode: SelectionMode;
+  options: SelectOption[];
   value?: string | string[];
   defaultValue?: string | string[];
   onChange?: (value: string | string[]) => void;
   disabled: boolean;
 }
 
-export const useListbox = ({ mode, value, defaultValue, onChange, disabled }: UseListboxParams) => {
-  const [activeValue, setActiveValue] = useState<string | null>(null);
+export const useListbox = ({
+  mode,
+  options,
+  value,
+  defaultValue,
+  onChange,
+  disabled,
+}: UseListboxParams) => {
+  const [rawActiveValue, setActiveValue] = useState<string | null>(null);
 
   const listboxRef = useRef<HTMLDivElement | null>(null);
-
   const listboxId = useId();
 
   useEffect(() => {
@@ -49,6 +56,13 @@ export const useListbox = ({ mode, value, defaultValue, onChange, disabled }: Us
     defaultValue ?? (mode === "multiple" ? [] : undefined),
     onChange as ((value: string | string[] | undefined) => void) | undefined,
   );
+
+  const activeValue = useMemo(() => {
+    if (rawActiveValue == null) return null;
+
+    const option = options.find(o => o.value === rawActiveValue);
+    return option != null && !option.disabled ? rawActiveValue : null;
+  }, [options, rawActiveValue]);
 
   const selectedValues = useMemo<string[]>(() => {
     if (selection == null) return [];
@@ -137,8 +151,10 @@ export const useListbox = ({ mode, value, defaultValue, onChange, disabled }: Us
   const onFocus = useCallback(() => {
     if (activeValue != null) return;
     const nodes = getEnabledOptionNodes();
+
     if (nodes.length === 0) return;
     const values = nodes.map(node => node.getAttribute("data-value") ?? "");
+
     setActiveValue(values.find(v => selectedValues.includes(v)) ?? values[0]);
   }, [activeValue, getEnabledOptionNodes, selectedValues]);
 

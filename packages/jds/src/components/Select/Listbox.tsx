@@ -55,6 +55,7 @@ export const Listbox = ({
   const { listboxRef, listboxId, isSelected, select, activeValue, setActive, getListboxProps } =
     useListbox({
       mode,
+      options,
       value,
       defaultValue,
       onChange: onChange as ((value: string | string[]) => void) | undefined,
