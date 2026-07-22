@@ -100,6 +100,7 @@ export const optionText = style({
   selectors: {
     "&&": {
       display: "block",
+      cursor: "inherit",
     },
     '[data-variant="label"][data-selected]:not([data-disabled]) &': {
       vars: { [labelColorVar]: vars.color.semantic.accent.normal },
@@ -118,6 +119,9 @@ export const optionCaption = style({
   gridRow: "2",
   vars: { [labelColorVar]: vars.color.semantic.object.assistive },
   selectors: {
+    "&&": {
+      cursor: "inherit",
+    },
     "[data-disabled] &": {
       vars: { [labelColorVar]: vars.color.semantic.object.subtle },
     },
