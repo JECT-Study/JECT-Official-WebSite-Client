@@ -51,11 +51,17 @@ export const Label: Story = {
     const [values, setValues] = useState<string[]>(["seoul", "busan"]);
     return (
       <FlexRow>
-        <Select value={value} onChange={setValue} options={REGIONS.slice(0, 5)} />
+        <Select
+          value={value}
+          onChange={setValue}
+          aria-label='거주 지역'
+          options={REGIONS.slice(0, 5)}
+        />
         <MultiSelect
           value={values}
           onChange={setValues}
           variant='label'
+          aria-label='거주 지역'
           options={REGIONS.slice(0, 5)}
         />
       </FlexRow>
@@ -68,7 +74,13 @@ export const Radio: Story = {
   render: function Render() {
     const [value, setValue] = useState("seoul");
     return (
-      <Select value={value} onChange={setValue} variant='control' options={REGIONS.slice(0, 5)} />
+      <Select
+        value={value}
+        onChange={setValue}
+        variant='control'
+        aria-label='거주 지역'
+        options={REGIONS.slice(0, 5)}
+      />
     );
   },
 };
@@ -77,7 +89,14 @@ export const Checkbox: Story = {
   args: { value: "seoul", onChange: () => {}, options: REGIONS.slice(0, 5) },
   render: function Render() {
     const [value, setValue] = useState<string[]>(["seoul"]);
-    return <MultiSelect value={value} onChange={setValue} options={REGIONS.slice(0, 5)} />;
+    return (
+      <MultiSelect
+        value={value}
+        onChange={setValue}
+        aria-label='거주 지역'
+        options={REGIONS.slice(0, 5)}
+      />
+    );
   },
 };
 
@@ -100,7 +119,15 @@ export const WithCaptionAndDisabled: Story = {
       if (region.value === "busan") return { ...region, disabled: true };
       return region;
     });
-    return <Select value={value} onChange={setValue} variant='control' options={options} />;
+    return (
+      <Select
+        value={value}
+        onChange={setValue}
+        variant='control'
+        aria-label='거주 지역'
+        options={options}
+      />
+    );
   },
 };
 
@@ -117,7 +144,15 @@ export const WithSuffix: Story = {
         </ContentBadge.Basic>
       ),
     }));
-    return <Select value={value} onChange={setValue} variant='label' options={options} />;
+    return (
+      <Select
+        value={value}
+        onChange={setValue}
+        variant='label'
+        aria-label='거주 지역'
+        options={options}
+      />
+    );
   },
 };
 
@@ -133,6 +168,14 @@ export const ScrollToSelected: Story = {
   },
   render: function Render() {
     const [value, setValue] = useState("ulsan");
-    return <Select value={value} onChange={setValue} height='240px' options={REGIONS} />;
+    return (
+      <Select
+        value={value}
+        onChange={setValue}
+        aria-label='거주 지역'
+        height='240px'
+        options={REGIONS}
+      />
+    );
   },
 };
