@@ -1,6 +1,7 @@
 import { clsx } from "clsx";
 import { type CSSProperties, useMemo } from "react";
 
+import type { ListboxContextValue } from "./ListboxContext";
 import { ListboxProvider } from "./ListboxContext";
 import { Option } from "./Option";
 import * as styles from "./select.css";
@@ -72,7 +73,7 @@ export const Listbox = ({
     containerStyle.height = resolveDimension(height);
   }
 
-  const contextValue = useMemo(
+  const contextValue = useMemo<ListboxContextValue>(
     () => ({ listboxId, disabled, variant, mode, isSelected, activeValue, select, setActive }),
     [listboxId, disabled, variant, mode, isSelected, activeValue, select, setActive],
   );
