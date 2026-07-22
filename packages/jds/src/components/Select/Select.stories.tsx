@@ -47,7 +47,7 @@ type Story = StoryObj<typeof meta>;
 export const Label: Story = {
   args: { value: "seoul", onChange: () => {}, options: REGIONS.slice(0, 5) },
   render: function Render() {
-    const [value, setValue] = useState("seoul");
+    const [value, setValue] = useState<string | null>("seoul");
     const [values, setValues] = useState<string[]>(["seoul", "busan"]);
     return (
       <FlexRow>

@@ -15,7 +15,7 @@ import { getOptionId } from "./select.utils";
 interface UseListboxParams {
   mode: SelectionMode;
   options: SelectOption[];
-  value?: string | string[];
+  value?: string | string[] | null;
   defaultValue?: string | string[];
   onChange?: (value: string | string[]) => void;
   disabled: boolean;
@@ -51,10 +51,10 @@ export const useListbox = ({
     }
   }, []);
 
-  const [selection, setSelection] = useControllableState<string | string[] | undefined>(
+  const [selection, setSelection] = useControllableState<string | string[] | null | undefined>(
     value,
     defaultValue ?? (mode === "multiple" ? [] : undefined),
-    onChange as ((value: string | string[] | undefined) => void) | undefined,
+    onChange as ((value: string | string[] | null | undefined) => void) | undefined,
   );
 
   const activeValue = useMemo(() => {

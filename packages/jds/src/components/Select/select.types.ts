@@ -6,7 +6,7 @@ export type OptionVariant = "control" | "label";
 export type SelectDimension = "full" | (string & {});
 
 type SelectControlledProps = {
-  value: string;
+  value: string | null;
   defaultValue?: never;
   onChange: (value: string) => void;
 };

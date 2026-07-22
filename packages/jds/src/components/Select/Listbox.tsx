@@ -23,7 +23,7 @@ type ListboxBaseProps = {
 
 type ListboxSingleProps = {
   mode: "single";
-  value?: string;
+  value?: string | null;
   defaultValue?: string;
   onChange?: (value: string) => void;
 };
