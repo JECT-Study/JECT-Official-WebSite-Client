@@ -44,12 +44,7 @@ export const Chip = forwardRef<HTMLButtonElement, ChipProps>(
           {isActivated && (
             <>
               <span className={styles.dividerWrapper}>
-                <Divider
-                  orientation='vertical'
-                  decorative
-                  variant='solid'
-                  className={styles.divider}
-                />
+                <Divider orientation='vertical' decorative variant='solid' />
               </span>
               <span className={clsx(styles.valueLabel, getLabelClassName({ size: "md" }))}>
                 <span className={styles.valueLabelText}>{valueLabelText}</span>

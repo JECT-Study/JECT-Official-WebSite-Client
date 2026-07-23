@@ -159,14 +159,8 @@ export const valueLabelText = style({
 
 export const dividerWrapper = style({
   display: "inline-flex",
-  alignItems: "center",
   flexShrink: 0,
   height: pxToRem(12),
-});
-
-export const divider = style({
-  height: "100%",
-  alignSelf: "center",
   vars: {
     [dividerColorVar]: chipColorVars.divider,
   },
