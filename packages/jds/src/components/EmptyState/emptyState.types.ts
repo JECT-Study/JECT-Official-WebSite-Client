@@ -1,30 +1,16 @@
-import type { IconName } from "components";
+import type { ComponentPropsWithoutRef } from "react";
 
-import type { BlockButtonBasicProps } from "../Button/BlockButton";
+import type { BlockButtonProps } from "../Button/BlockButton";
+import type { ThumbnailProps } from "../Thumbnail";
 
-type EmptyStateStyleVariant = {
-  variant?: "empty" | "outlined" | "alpha";
+type BlockButtonActionProps = Pick<BlockButtonProps, "children" | "onClick" | "disabled">;
+
+export type EmptyStateProps = Omit<ComponentPropsWithoutRef<"div">, "children"> & {
+  variant?: "hollow" | "dashed" | "alpha";
   layout?: "vertical" | "horizontal";
-};
-
-type BlockButtonActionProps = Pick<BlockButtonBasicProps, "children" | "onClick" | "disabled">;
-
-type EmptyStateActionOptions =
-  | {
-      primaryAction?: undefined;
-      secondaryAction?: never;
-    }
-  | {
-      primaryAction: BlockButtonActionProps;
-      secondaryAction?: BlockButtonActionProps;
-    };
-
-interface EmptyStateBaseProps {
   header: string;
   body: string;
-  icon?: IconName;
-}
-
-export type EmptyStateProps = EmptyStateStyleVariant &
-  EmptyStateBaseProps &
-  EmptyStateActionOptions;
+  image?: ThumbnailProps;
+  primaryAction?: BlockButtonActionProps;
+  secondaryAction?: BlockButtonActionProps;
+};
