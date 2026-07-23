@@ -125,7 +125,6 @@ export const mainAction = style({
 
 export const label = style({
   flexShrink: 0,
-  whiteSpace: "nowrap",
   vars: {
     [labelColorVar]: chipColorVars.label,
   },
@@ -154,7 +153,6 @@ export const valueLabelText = style({
   minWidth: 0,
   overflow: "hidden",
   textOverflow: "ellipsis",
-  whiteSpace: "nowrap",
 });
 
 export const dividerWrapper = style({
