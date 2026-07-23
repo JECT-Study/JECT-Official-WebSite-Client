@@ -36,7 +36,6 @@ export const Chip = forwardRef<HTMLButtonElement, ChipProps>(
           {...restProps}
           type={type}
           disabled={disabled}
-          aria-pressed={isActivated}
           data-interaction-target
           className={styles.mainAction}
         >
