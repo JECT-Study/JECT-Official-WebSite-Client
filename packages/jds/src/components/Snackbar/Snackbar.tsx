@@ -1,70 +1,121 @@
-import { useEffect, useState } from "react";
+import { clsx } from "clsx";
+import type { FocusEvent } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
-import {
-  ButtonContainerDiv,
-  SnackbarCaptionP,
-  SnackbarContentDiv,
-  SnackbarDiv,
-  SnackbarFeedbackIcon,
-  SnackbarLabel,
-  SnackbarLabelContainerDiv,
-} from "./snackbar.styles";
-import type {
-  SnackbarBasicProps,
-  SnackbarButtonsProps,
-  SnackbarFeedbackProps,
-} from "./snackbar.types";
-import { BlockButton } from "../Button/BlockButton";
+import { SNACKBAR_ANIMATION_TIMER, SNACKBAR_DEFAULT_DURATION } from "./snackbar.constants";
+import * as styles from "./snackbar.css";
+import type { SnackbarFeedbackVariant, SnackbarProps } from "./snackbar.types";
 import { IconButton } from "../Button/IconButton";
+import { LabelButton } from "../Button/LabelButton";
+import { Icon } from "../Icon";
+import type { IconName } from "../Icon";
 
-import { getLabelClassName } from "@/utils/typography";
+import { getBodyClassName, getLabelClassName } from "@/utils/typography";
 
-const SnackbarButtons = ({ prefixButtonProps, suffixButtonProps }: SnackbarButtonsProps) => {
-  if (!prefixButtonProps && !suffixButtonProps) return;
+type SnackbarPhase = "enter" | "static" | "exit";
+type AutoDismissPauseReason = "hover" | "focus";
 
-  return (
-    <ButtonContainerDiv>
-      {prefixButtonProps && (
-        <BlockButton.Basic hierarchy='secondary' size='xs' variant='solid' {...prefixButtonProps}>
-          {prefixButtonProps.children}
-        </BlockButton.Basic>
-      )}
-      {suffixButtonProps && (
-        <BlockButton.Basic hierarchy='primary' size='xs' variant='solid' {...suffixButtonProps}>
-          {suffixButtonProps.children}
-        </BlockButton.Basic>
-      )}
-    </ButtonContainerDiv>
-  );
+const phaseClassNameMap: Partial<Record<SnackbarPhase, string>> = {
+  enter: styles.enter,
+  exit: styles.exit,
 };
 
-const SnackbarBasic = ({
+const feedbackIconName: Record<SnackbarFeedbackVariant, IconName> = {
+  positive: "check-line",
+  destructive: "error-warning-octagon-line",
+  notifying: "alert-line",
+};
+
+export const Snackbar = ({
   id,
-  caption,
-  prefixButtonProps,
-  suffixButtonProps,
-  title,
+  feedback = "none",
+  description,
+  label,
+  onClick,
   onRemove,
+  title,
   isClosing,
-}: SnackbarBasicProps) => {
-  const [phase, setPhase] = useState<"enter" | "static" | "exit">("enter");
+  duration = SNACKBAR_DEFAULT_DURATION,
+  withCloseButton = false,
+}: SnackbarProps) => {
+  const [phase, setPhase] = useState<SnackbarPhase>("enter");
+  const hasDescription = Boolean(description);
 
-  const onAnimationEnd = () => {
-    if (phase === "enter") {
-      setPhase("static");
-      return;
-    }
+  // Provider 리렌더로 onRemove가 바뀌어도 exit 타이머가 재시작되지 않도록 최신 콜백만 보관한다.
+  const onRemoveRef = useRef(onRemove);
 
-    if (phase === "exit") {
-      onRemove?.();
-    }
+  // hover/focus로 자동 닫힘을 멈춘 뒤, 남은 시간만큼 이어서 재개하기 위한 타이머 상태.
+  const exitTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const exitDeadlineRef = useRef(0);
+  const remainingDurationRef = useRef(duration);
+  const pauseReasonsRef = useRef<Set<AutoDismissPauseReason>>(new Set());
+
+  const clearExitTimer = useCallback(() => {
+    if (!exitTimerRef.current) return;
+    clearTimeout(exitTimerRef.current);
+    exitTimerRef.current = null;
+  }, []);
+
+  const startExitTimer = useCallback(
+    (delay: number) => {
+      clearExitTimer();
+
+      if (delay <= 0) {
+        setPhase("exit");
+        return;
+      }
+
+      remainingDurationRef.current = delay;
+      // pause 시점에 남은 시간을 계산하기 위해 자동 닫힘 예정 시각을 기록한다.
+      exitDeadlineRef.current = Date.now() + delay;
+      exitTimerRef.current = setTimeout(() => setPhase("exit"), delay);
+    },
+    [clearExitTimer],
+  );
+
+  const pauseAutoDismiss = (reason: AutoDismissPauseReason) => {
+    pauseReasonsRef.current.add(reason);
+    if (duration === Infinity || phase !== "static" || !exitTimerRef.current) return;
+
+    remainingDurationRef.current = Math.max(0, exitDeadlineRef.current - Date.now());
+    clearExitTimer();
   };
 
-  const onClose = () => setPhase("exit");
+  const resumeAutoDismiss = (reason: AutoDismissPauseReason) => {
+    pauseReasonsRef.current.delete(reason);
+    // hover와 focus가 동시에 걸린 경우, 모든 상호작용이 끝난 뒤에만 재개한다.
+    if (duration === Infinity || phase !== "static" || pauseReasonsRef.current.size > 0) return;
+
+    startExitTimer(remainingDurationRef.current);
+  };
+
+  useEffect(() => {
+    if (phase === "enter") {
+      const timer = setTimeout(() => setPhase("static"), SNACKBAR_ANIMATION_TIMER.ENTER);
+      return () => clearTimeout(timer);
+    }
+  }, [phase]);
 
   useEffect(() => {
     if (phase === "static") {
-      const timer = setTimeout(() => setPhase("exit"), 3000);
+      if (duration === Infinity) return;
+      remainingDurationRef.current = duration;
+
+      if (pauseReasonsRef.current.size === 0) startExitTimer(duration);
+      return clearExitTimer;
+    }
+    clearExitTimer();
+  }, [clearExitTimer, duration, phase, startExitTimer]);
+
+  useEffect(() => {
+    onRemoveRef.current = onRemove;
+  }, [onRemove]);
+
+  useEffect(() => {
+    if (phase === "exit") {
+      const timer = setTimeout(() => {
+        onRemoveRef.current?.();
+      }, SNACKBAR_ANIMATION_TIMER.EXIT);
       return () => clearTimeout(timer);
     }
   }, [phase]);
@@ -73,101 +124,73 @@ const SnackbarBasic = ({
     if (isClosing) setPhase("exit");
   }, [isClosing]);
 
-  return (
-    <SnackbarDiv id={id} className={phase} snackbarStyle='basic' onAnimationEnd={onAnimationEnd}>
-      <SnackbarContentDiv>
-        <SnackbarLabelContainerDiv>
-          <SnackbarLabel snackbarStyle='basic' className={getLabelClassName()}>
-            {title}
-          </SnackbarLabel>
-          <IconButton
-            icon='close-line'
-            hierarchy='secondary'
-            size='md'
-            aria-label='toast close button'
-            onClick={onClose}
-          />
-        </SnackbarLabelContainerDiv>
-        {caption && <SnackbarCaptionP>{caption}</SnackbarCaptionP>}
-      </SnackbarContentDiv>
-      <SnackbarButtons
-        prefixButtonProps={prefixButtonProps}
-        suffixButtonProps={suffixButtonProps}
-      />
-    </SnackbarDiv>
-  );
-};
-
-SnackbarBasic.displayName = "Snackbar.Basic";
-
-const SnackbarFeedback = ({
-  id,
-  variant = "positive",
-  caption = undefined,
-  prefixButtonProps = undefined,
-  suffixButtonProps = undefined,
-  title,
-  onRemove,
-  isClosing,
-}: SnackbarFeedbackProps) => {
-  const [phase, setPhase] = useState<"enter" | "static" | "exit">("enter");
-
-  const onAnimationEnd = () => {
-    if (phase === "enter") {
-      setPhase("static");
-      return;
-    }
-
-    if (phase === "exit") {
-      onRemove?.();
-    }
+  const handleMouseEnter = () => pauseAutoDismiss("hover");
+  const handleMouseLeave = () => resumeAutoDismiss("hover");
+  const handleFocus = () => pauseAutoDismiss("focus");
+  const handleBlur = (event: FocusEvent<HTMLDivElement>) => {
+    const nextTarget = event.relatedTarget;
+    // 내부 버튼 사이에서 포커스가 이동하는 경우 자동 닫힘을 재개하지 않는다.
+    if (nextTarget instanceof Node && event.currentTarget.contains(nextTarget)) return;
+    resumeAutoDismiss("focus");
   };
 
   const onClose = () => setPhase("exit");
 
-  useEffect(() => {
-    if (phase === "static") {
-      const timer = setTimeout(() => setPhase("exit"), 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [phase]);
-
-  useEffect(() => {
-    if (isClosing) setPhase("exit");
-  }, [isClosing]);
+  const phaseClassName = phaseClassNameMap[phase];
+  const iconName = feedback !== "none" && feedbackIconName[feedback];
+  const titleId = `${id}-title`;
 
   return (
-    <SnackbarDiv id={id} className={phase} snackbarStyle={variant} onAnimationEnd={onAnimationEnd}>
-      <SnackbarContentDiv>
-        <SnackbarLabelContainerDiv>
-          <SnackbarFeedbackIcon
-            variant={variant}
-            name={variant === "positive" ? "check-line" : "error-warning-line"}
-          />
-          <SnackbarLabel snackbarStyle={variant} className={getLabelClassName()}>
+    <div
+      id={id}
+      className={clsx(styles.root({ feedback, withCloseButton }), phaseClassName)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onFocus={handleFocus}
+      onBlur={handleBlur}
+    >
+      {iconName && <Icon name={iconName} size='sm' className={styles.icon({ feedback })} />}
+      <div className={styles.body}>
+        <div className={styles.content({ withDescription: hasDescription })}>
+          <span
+            id={titleId}
+            className={clsx(styles.title, getLabelClassName({ size: "md", weight: "normal" }))}
+          >
             {title}
-          </SnackbarLabel>
-          <IconButton
-            icon='close-line'
-            hierarchy='secondary'
+          </span>
+          {description && (
+            <span
+              className={clsx(
+                styles.description,
+                getBodyClassName({ size: "xs", weight: "normal" }),
+              )}
+            >
+              {description}
+            </span>
+          )}
+        </div>
+        <div className={styles.actions}>
+          <LabelButton
+            hierarchy='primary'
             size='md'
-            aria-label='toast close button'
-            onClick={onClose}
-          />
-        </SnackbarLabelContainerDiv>
-        {caption && <SnackbarCaptionP>{caption}</SnackbarCaptionP>}
-      </SnackbarContentDiv>
-      <SnackbarButtons
-        prefixButtonProps={prefixButtonProps}
-        suffixButtonProps={suffixButtonProps}
-      />
-    </SnackbarDiv>
+            aria-describedby={titleId}
+            onClick={onClick}
+          >
+            {label}
+          </LabelButton>
+          {withCloseButton && (
+            <IconButton
+              icon='close-line'
+              hierarchy='tertiary'
+              size='sm'
+              aria-label={`${title} 알림 닫기`}
+              onClick={onClose}
+            />
+          )}
+        </div>
+      </div>
+    </div>
   );
 };
 
-SnackbarFeedback.displayName = "Snackbar.Feedback";
-
-export const Snackbar = {
-  Basic: SnackbarBasic,
-  Feedback: SnackbarFeedback,
-};
+Snackbar.displayName = "Snackbar";

@@ -67,12 +67,9 @@
     "format": "prettier --write ."
   },
   "dependencies": {
-    "@react-aria/checkbox": "^3.17.1",
-    "@react-aria/radio": "^3.13.0",
     "@react-aria/utils": "^3.34.0",
     "clsx": "^2.1.1",
-    "radix-ui": "^1.4.3",
-    "react-stately": "^3.46.0"
+    "radix-ui": "^1.4.3"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^4.1.3",

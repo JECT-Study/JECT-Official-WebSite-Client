@@ -19,18 +19,14 @@ export { default as BX_신현지 } from "@/assets/images/member/BX_신현지.png
 export { default as BX_홍승민 } from "@/assets/images/member/BX_홍승민.png";
 
 /** 메이커스 1팀 */
-export { default as 메이커스_김원준 } from "@/assets/images/member/메이커스_김원준.png";
-export { default as 메이커스_김민준 } from "@/assets/images/member/메이커스_김민준.png";
 export { default as 메이커스_김지훈 } from "@/assets/images/member/메이커스_김지훈.jpg";
-export { default as 메이커스_김현중 } from "@/assets/images/member/메이커스_김현중.png";
-export { default as 메이커스_공희상 } from "@/assets/images/member/메이커스_공희상.png";
-export { default as 메이커스_오준용 } from "@/assets/images/member/메이커스_오준용.png";
+export { default as 메이커스_이지형 } from "@/assets/images/member/메이커스_이지형.png";
 export { default as 메이커스_강태성 } from "@/assets/images/member/메이커스_강태성.png";
+export { default as 메이커스_공희상 } from "@/assets/images/member/메이커스_공희상.png";
 export { default as 메이커스_이재호 } from "@/assets/images/member/메이커스_이재호.png";
 export { default as 메이커스_최원준 } from "@/assets/images/member/메이커스_최원준.png";
 export { default as 메이커스_권정인 } from "@/assets/images/member/메이커스_권정인.jpg";
 
 /** 메이커스 2팀 */
 export { default as 메이커스_문소희 } from "@/assets/images/member/메이커스_문소희.png";
-export { default as 메이커스_방재현 } from "@/assets/images/member/메이커스_방재현.png";
-export { default as 메이커스_정효림 } from "@/assets/images/member/메이커스_정효림.png";
+export { default as 메이커스_한아름 } from "@/assets/images/member/메이커스_한아름.jpg";
