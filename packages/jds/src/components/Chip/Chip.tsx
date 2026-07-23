@@ -22,7 +22,7 @@ export const Chip = forwardRef<HTMLButtonElement, ChipProps>(
     },
     forwardedRef,
   ) => {
-    const valueLabelText = valueLabel?.join(", ");
+    const valueLabelText = valueLabel?.filter(Boolean).join(", ");
     const isActivated = Boolean(valueLabelText);
 
     return (
@@ -51,9 +51,7 @@ export const Chip = forwardRef<HTMLButtonElement, ChipProps>(
                   className={styles.divider}
                 />
               </span>
-              <span
-                className={clsx(styles.valueLabel, getLabelClassName({ size: "md" }))}
-              >
+              <span className={clsx(styles.valueLabel, getLabelClassName({ size: "md" }))}>
                 <span className={styles.valueLabelText}>{valueLabelText}</span>
               </span>
             </>
