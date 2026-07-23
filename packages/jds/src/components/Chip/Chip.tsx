@@ -60,10 +60,7 @@ export const Chip = forwardRef<HTMLButtonElement, ChipProps>(
           aria-label={`${[label, valueLabelText].filter(Boolean).join(" ")} 제거`}
           disabled={disabled}
           className={styles.removeButton}
-          onClick={e => {
-            e.stopPropagation();
-            onRemove(e);
-          }}
+          onClick={onRemove}
         />
       </span>
     );
