@@ -7,7 +7,6 @@ import {
   iconButtonAccentColor,
   iconButtonAccentDisabledColor,
 } from "../Button/IconButton/iconButton.css";
-import { dividerColorVar } from "../Divider";
 
 import { labelColorVar } from "@/utils/typography.css";
 
@@ -16,7 +15,6 @@ const chipColorVars = {
   icon: createVar(),
   border: createVar(),
   background: createVar(),
-  divider: createVar(),
 } as const;
 
 export const root = recipe({
@@ -43,7 +41,6 @@ export const root = recipe({
         [chipColorVars.icon]: vars.color.semantic.object.neutral,
         [chipColorVars.border]: vars.color.semantic.stroke.alpha.subtle,
         [chipColorVars.background]: "transparent",
-        [chipColorVars.divider]: vars.color.semantic.stroke.alpha.alternative,
       },
       selectors: {
         "&::before, &::after": {
@@ -61,7 +58,6 @@ export const root = recipe({
           [chipColorVars.icon]: vars.color.semantic.accent.normal,
           [chipColorVars.border]: vars.color.semantic.accent.alpha.neutral,
           [chipColorVars.background]: vars.color.semantic.accent.alpha.subtlest,
-          [chipColorVars.divider]: vars.color.semantic.accent.alpha.assistive,
           [overlayColor]: overlayColorMap.accent,
         },
       },
@@ -73,7 +69,6 @@ export const root = recipe({
           [chipColorVars.label]: vars.color.semantic.object.subtler,
           [chipColorVars.icon]: vars.color.semantic.object.subtler,
           [chipColorVars.background]: "transparent",
-          [chipColorVars.divider]: vars.color.semantic.stroke.alpha.subtle,
         },
       },
       false: {
@@ -153,15 +148,6 @@ export const valueLabelText = style({
   minWidth: 0,
   overflow: "hidden",
   textOverflow: "ellipsis",
-});
-
-export const dividerWrapper = style({
-  display: "inline-flex",
-  flexShrink: 0,
-  height: pxToRem(12),
-  vars: {
-    [dividerColorVar]: chipColorVars.divider,
-  },
 });
 
 export const removeButton = style({
