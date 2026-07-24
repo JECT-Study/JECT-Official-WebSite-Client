@@ -1,3 +1,4 @@
+import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { clsx } from "clsx";
 import { useControllableState } from "hooks";
 import { Checkbox as RadixCheckbox } from "radix-ui";
@@ -10,6 +11,7 @@ import { Icon } from "../Icon";
 import {
   checkboxControl,
   checkboxControlSlot,
+  checkboxGroupColumnsVar,
   checkboxGroupWrapper,
   checkboxHelper,
   checkboxHelperSlot,
@@ -51,6 +53,9 @@ const CheckboxRoot = ({
   variant = "hollow",
   disabled = false,
   isInvalid = false,
+  layout = "vertical",
+  columns,
+  stretched = false,
   value,
   defaultValue,
   onChange,
@@ -78,8 +83,8 @@ const CheckboxRoot = ({
   );
 
   const configValue = useMemo(
-    () => ({ size, variant, disabled, isInvalid, name }),
-    [size, variant, disabled, isInvalid, name],
+    () => ({ size, variant, disabled, isInvalid, stretched, name }),
+    [size, variant, disabled, isInvalid, stretched, name],
   );
 
   return (
@@ -89,7 +94,12 @@ const CheckboxRoot = ({
           role='group'
           aria-label={ariaLabel}
           aria-labelledby={ariaLabelledBy}
-          className={checkboxGroupWrapper}
+          className={checkboxGroupWrapper({ layout })}
+          style={
+            layout === "grid"
+              ? assignInlineVars({ [checkboxGroupColumnsVar]: String(columns) })
+              : undefined
+          }
         >
           {children}
         </div>
@@ -107,6 +117,7 @@ const CheckboxItem = forwardRef<HTMLLabelElement, CheckboxItemProps>(
       variant: variantProp,
       disabled = false,
       isInvalid: isInvalidProp,
+      stretched: stretchedProp,
       children,
       className,
       ...restProps
@@ -121,14 +132,22 @@ const CheckboxItem = forwardRef<HTMLLabelElement, CheckboxItemProps>(
     const isDisabled = disabled || (parentConfig?.disabled ?? false);
     const variant = variantProp ?? parentConfig?.variant ?? "hollow";
     const isInvalid = isInvalidProp ?? parentConfig?.isInvalid ?? false;
+    const isStretched = stretchedProp ?? parentConfig?.stretched ?? false;
 
     const [childChecked, setChildChecked] = useState<CheckedState>(false);
     const [hasHelper, setHasHelper] = useState(false);
     const isEffectiveInvalid = isInvalid && childChecked === false;
 
     const configValue = useMemo(
-      () => ({ ...parentConfig, size, variant, disabled: isDisabled, isInvalid }),
-      [parentConfig, size, variant, isDisabled, isInvalid],
+      () => ({
+        ...parentConfig,
+        size,
+        variant,
+        disabled: isDisabled,
+        isInvalid,
+        stretched: isStretched,
+      }),
+      [parentConfig, size, variant, isDisabled, isInvalid, isStretched],
     );
 
     return (
@@ -148,7 +167,7 @@ const CheckboxItem = forwardRef<HTMLLabelElement, CheckboxItemProps>(
             data-disabled={isDisabled || undefined}
             data-invalid={isEffectiveInvalid || undefined}
             className={clsx(
-              checkboxItem({ size, styleOutlined: variant }),
+              checkboxItem({ size, styleOutlined: variant, stretched: isStretched }),
               focusRing({
                 feedback: isEffectiveInvalid ? "destructive" : "none",
                 interaction: "within",
