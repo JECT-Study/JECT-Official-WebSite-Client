@@ -1,6 +1,11 @@
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { clsx } from "clsx";
-import { useControllableState } from "hooks";
+import {
+  RovingFocusProvider,
+  useControllableState,
+  useRovingFocusGroup,
+  useRovingFocusItem,
+} from "hooks";
 import { Checkbox as RadixCheckbox } from "radix-ui";
 import { forwardRef, useCallback, useId, useLayoutEffect, useMemo, useState } from "react";
 import { focusRing, getLabelClassName, overlay } from "utils";
@@ -87,22 +92,28 @@ const CheckboxRoot = ({
     [size, variant, disabled, isInvalid, stretched, name],
   );
 
+  const { containerProps, contextValue: rovingContextValue } =
+    useRovingFocusGroup<HTMLDivElement>();
+
   return (
     <CheckboxConfigProvider value={configValue}>
       <CheckboxSelectionProvider value={selectionState}>
-        <div
-          role='group'
-          aria-label={ariaLabel}
-          aria-labelledby={ariaLabelledBy}
-          className={checkboxGroupWrapper({ layout })}
-          style={
-            layout === "grid"
-              ? assignInlineVars({ [checkboxGroupColumnsVar]: String(columns) })
-              : undefined
-          }
-        >
-          {children}
-        </div>
+        <RovingFocusProvider value={rovingContextValue}>
+          <div
+            {...containerProps}
+            role='group'
+            aria-label={ariaLabel}
+            aria-labelledby={ariaLabelledBy}
+            className={checkboxGroupWrapper({ layout })}
+            style={
+              layout === "grid"
+                ? assignInlineVars({ [checkboxGroupColumnsVar]: String(columns) })
+                : undefined
+            }
+          >
+            {children}
+          </div>
+        </RovingFocusProvider>
       </CheckboxSelectionProvider>
     </CheckboxConfigProvider>
   );
@@ -287,10 +298,13 @@ const CheckboxControl = forwardRef<HTMLButtonElement, CheckboxControlProps>(
       setStandaloneChecked(next);
     };
 
+    const rovingProps = useRovingFocusItem(isGrouped ? value : undefined);
+
     return (
       <RadixCheckbox.Root
         ref={forwardedRef}
         {...restProps}
+        {...rovingProps}
         value={value}
         name={resolvedName}
         checked={currentChecked}
