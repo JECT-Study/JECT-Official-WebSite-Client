@@ -37,7 +37,7 @@ export const root = recipe({
       backgroundColor: chipColorVars.background,
       whiteSpace: "nowrap",
       vars: {
-        [chipColorVars.label]: vars.color.semantic.object.bold,
+        [chipColorVars.label]: vars.color.semantic.object.normal,
         [chipColorVars.icon]: vars.color.semantic.object.neutral,
         [chipColorVars.border]: vars.color.semantic.stroke.alpha.subtle,
         [chipColorVars.background]: "transparent",
@@ -56,7 +56,7 @@ export const root = recipe({
         vars: {
           [chipColorVars.label]: vars.color.semantic.accent.bold,
           [chipColorVars.icon]: vars.color.semantic.accent.normal,
-          [chipColorVars.border]: vars.color.semantic.accent.alpha.neutral,
+          [chipColorVars.border]: vars.color.semantic.accent.alpha.subtle,
           [chipColorVars.background]: vars.color.semantic.accent.alpha.subtlest,
           [overlayColor]: overlayColorMap.accent,
         },
