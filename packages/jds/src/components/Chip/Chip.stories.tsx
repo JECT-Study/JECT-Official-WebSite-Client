@@ -26,6 +26,11 @@ const meta = {
       description:
         "기본 레이블 뒤에 쉼표로 구분해 표시되는 값 레이블 배열입니다. 전달되면 활성 상태로 표시되며, 표시 영역은 최대 160px입니다.",
     },
+    valueLabelOnly: {
+      control: "boolean",
+      description:
+        "활성 상태에서 기본 레이블을 시각적으로 숨기고 값 레이블만 표시합니다. valueLabel이 있을 때만 적용됩니다.",
+    },
     disabled: {
       control: "boolean",
       description: "비활성 되었는지의 여부입니다.",
@@ -49,6 +54,17 @@ export const Activated: Story = {
   args: {
     label: "레이블",
     valueLabel: ["값 레이블 1", "값 레이블 2", "값 레이블 3"],
+    disabled: false,
+    onClick: () => alert("chip clicked"),
+    onRemove: () => alert("icon clicked"),
+  },
+};
+
+export const ValueLabelOnly: Story = {
+  args: {
+    label: "레이블",
+    valueLabel: ["값 레이블 1", "값 레이블 2", "값 레이블 3"],
+    valueLabelOnly: true,
     disabled: false,
     onClick: () => alert("chip clicked"),
     onRemove: () => alert("icon clicked"),

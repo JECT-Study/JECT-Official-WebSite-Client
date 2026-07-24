@@ -1,5 +1,6 @@
 import { clsx } from "clsx";
 import { forwardRef } from "react";
+import { visuallyHidden } from "utils";
 
 import * as styles from "./chip.css";
 import type { ChipProps } from "./chip.types";
@@ -12,6 +13,7 @@ export const Chip = forwardRef<HTMLButtonElement, ChipProps>(
     {
       label,
       valueLabel,
+      valueLabelOnly = false,
       disabled = false,
       onRemove,
       className,
@@ -23,6 +25,7 @@ export const Chip = forwardRef<HTMLButtonElement, ChipProps>(
   ) => {
     const valueLabelText = valueLabel?.filter(Boolean).join(", ");
     const isActivated = Boolean(valueLabelText);
+    const isLabelVisible = !isActivated || !valueLabelOnly;
 
     return (
       <span
@@ -38,7 +41,11 @@ export const Chip = forwardRef<HTMLButtonElement, ChipProps>(
           data-interaction-target
           className={styles.mainAction}
         >
-          <span className={clsx(styles.label, getLabelClassName({ size: "md" }))}>{label}</span>
+          {isLabelVisible ? (
+            <span className={clsx(styles.label, getLabelClassName({ size: "md" }))}>{label}</span>
+          ) : (
+            <span className={visuallyHidden}>{label}</span>
+          )}
           {isActivated && (
             <span className={clsx(styles.valueLabel, getLabelClassName({ size: "md" }))}>
               <span className={styles.valueLabelText}>{valueLabelText}</span>
