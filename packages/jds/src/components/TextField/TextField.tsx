@@ -12,7 +12,9 @@ export type TextFieldProps = FieldProps;
 /**
  * 루트는 내부 Field primitive 를 그대로 래핑해 status·fieldStyle·readonly·disabled·required 를 전달한다.
  */
-const TextFieldRoot = (props: TextFieldProps) => <Field {...props} />;
+const TextFieldRoot = forwardRef<HTMLDivElement, TextFieldProps>(({ ...props }, ref) => {
+  return <Field ref={ref} {...props} />;
+});
 
 TextFieldRoot.displayName = "TextField";
 
