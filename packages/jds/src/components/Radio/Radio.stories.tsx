@@ -17,22 +17,21 @@ export default meta;
 
 type Story = StoryObj<typeof RadioGroup>;
 
-const GROUP_GAP = "12px";
+const CONTAINER_WIDTH = "280px";
 
 export const Sizes: Story = {
   render: () => (
-    <FlexColumn gap={GROUP_GAP}>
+    <FlexColumn>
       {RADIO_SIZE_OPTIONS.map(size => (
-        <FlexColumn key={size} gap={GROUP_GAP}>
-          <RadioGroup
-            size={size}
-            defaultValue='checked'
-            options={[
-              { value: "unchecked", label: size },
-              { value: "checked", label: size },
-            ]}
-          />
-        </FlexColumn>
+        <RadioGroup
+          key={size}
+          size={size}
+          defaultValue='checked'
+          options={[
+            { value: "unchecked", label: size },
+            { value: "checked", label: size },
+          ]}
+        />
       ))}
     </FlexColumn>
   ),
@@ -41,26 +40,22 @@ export const Sizes: Story = {
 export const Variants: Story = {
   render: () => (
     <FlexRow>
-      <FlexColumn gap={GROUP_GAP}>
-        <RadioGroup
-          variant='hollow'
-          defaultValue='a'
-          options={[
-            { value: "a", label: "hollow" },
-            { value: "b", label: "hollow", helper: "헬퍼 텍스트" },
-          ]}
-        />
-      </FlexColumn>
-      <FlexColumn gap={GROUP_GAP}>
-        <RadioGroup
-          variant='outlined'
-          defaultValue='a'
-          options={[
-            { value: "a", label: "outlined" },
-            { value: "b", label: "outlined", helper: "헬퍼 텍스트" },
-          ]}
-        />
-      </FlexColumn>
+      <RadioGroup
+        variant='hollow'
+        defaultValue='a'
+        options={[
+          { value: "a", label: "hollow" },
+          { value: "b", label: "hollow", helper: "헬퍼 텍스트" },
+        ]}
+      />
+      <RadioGroup
+        variant='outlined'
+        defaultValue='a'
+        options={[
+          { value: "a", label: "outlined" },
+          { value: "b", label: "outlined", helper: "헬퍼 텍스트" },
+        ]}
+      />
     </FlexRow>
   ),
 };
@@ -68,45 +63,39 @@ export const Variants: Story = {
 export const Disabled: Story = {
   render: () => (
     <FlexRow>
-      <FlexColumn gap={GROUP_GAP}>
-        <RadioGroup
-          variant='hollow'
-          defaultValue='a'
-          disabled
-          options={[
-            { value: "a", label: "checked" },
-            { value: "b", label: "unchecked" },
-          ]}
-        />
-      </FlexColumn>
-      <FlexColumn gap={GROUP_GAP}>
-        <RadioGroup
-          variant='outlined'
-          defaultValue='a'
-          disabled
-          options={[
-            { value: "a", label: "checked", helper: "헬퍼 텍스트" },
-            { value: "b", label: "unchecked", helper: "헬퍼 텍스트" },
-          ]}
-        />
-      </FlexColumn>
+      <RadioGroup
+        variant='hollow'
+        defaultValue='a'
+        disabled
+        options={[
+          { value: "a", label: "checked" },
+          { value: "b", label: "unchecked" },
+        ]}
+      />
+      <RadioGroup
+        variant='outlined'
+        defaultValue='a'
+        disabled
+        options={[
+          { value: "a", label: "checked", helper: "헬퍼 텍스트" },
+          { value: "b", label: "unchecked", helper: "헬퍼 텍스트" },
+        ]}
+      />
     </FlexRow>
   ),
 };
 
 export const Uncontrolled: Story = {
   render: () => (
-    <FlexColumn gap={GROUP_GAP}>
-      <RadioGroup
-        defaultValue='2'
-        name='uncontrolled'
-        options={[
-          { value: "1", label: "레이블" },
-          { value: "2", label: "레이블 (기본 선택)" },
-          { value: "3", label: "레이블" },
-        ]}
-      />
-    </FlexColumn>
+    <RadioGroup
+      defaultValue='2'
+      name='uncontrolled'
+      options={[
+        { value: "1", label: "레이블 1" },
+        { value: "2", label: "레이블 2" },
+        { value: "3", label: "레이블 3" },
+      ]}
+    />
   ),
 };
 
@@ -116,20 +105,82 @@ export const Controlled: Story = {
     return (
       <FlexColumn>
         <span>선택: {selected}</span>
-        <FlexColumn gap={GROUP_GAP}>
-          <RadioGroup
-            value={selected}
-            onChange={setSelected}
-            name='controlled'
-            options={[
-              { value: "1", label: "레이블" },
-              { value: "2", label: "레이블" },
-              { value: "3", label: "레이블" },
-            ]}
-          />
-        </FlexColumn>
+        <RadioGroup
+          value={selected}
+          onChange={setSelected}
+          name='controlled'
+          options={[
+            { value: "1", label: "레이블 1" },
+            { value: "2", label: "레이블 2" },
+            { value: "3", label: "레이블 3" },
+          ]}
+        />
       </FlexColumn>
     );
+  },
+};
+
+export const GridLayout: Story = {
+  render: () => (
+    <FlexColumn style={{ width: CONTAINER_WIDTH }}>
+      <RadioGroup
+        layout='grid'
+        columns={3}
+        defaultValue='1'
+        name='grid'
+        options={[
+          { value: "1", label: "레이블 1" },
+          { value: "2", label: "레이블 2" },
+          { value: "3", label: "레이블 3" },
+          { value: "4", label: "레이블 4" },
+          { value: "5", label: "레이블 5" },
+        ]}
+      />
+    </FlexColumn>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: "`layout='grid'`는 그룹 너비 전체를 `columns` 개수로 균등 분할합니다.",
+      },
+    },
+  },
+};
+
+export const Stretched: Story = {
+  render: () => (
+    <FlexColumn style={{ width: CONTAINER_WIDTH }}>
+      <RadioGroup
+        stretched
+        variant='outlined'
+        defaultValue='1'
+        name='stretchedVertical'
+        options={[
+          { value: "1", label: "레이블 1" },
+          { value: "2", label: "레이블 2", helper: "헬퍼 텍스트" },
+        ]}
+      />
+      <RadioGroup
+        layout='grid'
+        columns={2}
+        stretched
+        variant='outlined'
+        defaultValue='1'
+        name='stretchedGrid'
+        options={[
+          { value: "1", label: "레이블 1" },
+          { value: "2", label: "레이블 2" },
+        ]}
+      />
+    </FlexColumn>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "`stretched`를 지정하면 아이템이 컨테이너(vertical) 또는 셀(grid) 너비를 가득 채웁니다.",
+      },
+    },
   },
 };
 
@@ -138,27 +189,23 @@ export const ComprehensiveMatrix: Story = {
     <FlexColumn>
       {RADIO_SIZE_OPTIONS.map(size => (
         <FlexRow key={size}>
-          <FlexColumn gap={GROUP_GAP}>
-            <RadioGroup
-              size={size}
-              defaultValue='checked'
-              options={[
-                { value: "unchecked", label: size },
-                { value: "checked", label: size },
-              ]}
-            />
-          </FlexColumn>
-          <FlexColumn gap={GROUP_GAP}>
-            <RadioGroup
-              size={size}
-              defaultValue='checked'
-              disabled
-              options={[
-                { value: "unchecked", label: size },
-                { value: "checked", label: size },
-              ]}
-            />
-          </FlexColumn>
+          <RadioGroup
+            size={size}
+            defaultValue='checked'
+            options={[
+              { value: "unchecked", label: size },
+              { value: "checked", label: size },
+            ]}
+          />
+          <RadioGroup
+            size={size}
+            defaultValue='checked'
+            disabled
+            options={[
+              { value: "unchecked", label: size },
+              { value: "checked", label: size },
+            ]}
+          />
         </FlexRow>
       ))}
     </FlexColumn>
