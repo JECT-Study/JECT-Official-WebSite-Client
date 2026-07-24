@@ -33,6 +33,7 @@ export const Input = forwardRef<HTMLInputElement, TextFieldInputProps>(
       fieldId,
       helperTextId,
       hasHelperText,
+      status,
       disabled: isDisabled,
       readonly: isReadonly,
       required: isRequired,
@@ -43,6 +44,7 @@ export const Input = forwardRef<HTMLInputElement, TextFieldInputProps>(
         ref={ref}
         id={fieldId}
         aria-describedby={hasHelperText ? helperTextId : undefined}
+        aria-invalid={status === "error"}
         disabled={isDisabled}
         readOnly={isReadonly}
         required={isRequired}
