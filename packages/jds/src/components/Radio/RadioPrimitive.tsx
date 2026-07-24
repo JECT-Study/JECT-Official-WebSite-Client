@@ -1,3 +1,4 @@
+import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { clsx } from "clsx";
 import { RadioGroup } from "radix-ui";
 import { forwardRef, useId, useLayoutEffect, useMemo, useState } from "react";
@@ -5,6 +6,7 @@ import { focusRing, getLabelClassName } from "utils";
 import type { LabelSize } from "utils";
 
 import {
+  radioGroupColumnsVar,
   radioGroupWrapper,
   radioHelper,
   radioHelperSlot,
@@ -40,6 +42,9 @@ const RadioRoot = ({
   size = "md",
   variant = "hollow",
   disabled = false,
+  layout = "vertical",
+  columns,
+  stretched = false,
   value,
   defaultValue,
   onChange,
@@ -48,12 +53,20 @@ const RadioRoot = ({
   "aria-label": ariaLabel,
   "aria-labelledby": ariaLabelledBy,
 }: RadioRootProps) => {
-  const configValue = useMemo(() => ({ size, variant, disabled }), [size, variant, disabled]);
+  const configValue = useMemo(
+    () => ({ size, variant, disabled, stretched }),
+    [size, variant, disabled, stretched],
+  );
 
   return (
     <RadioConfigProvider value={configValue}>
       <RadioGroup.Root
-        className={radioGroupWrapper}
+        className={radioGroupWrapper({ layout })}
+        style={
+          layout === "grid"
+            ? assignInlineVars({ [radioGroupColumnsVar]: String(columns) })
+            : undefined
+        }
         value={value}
         defaultValue={defaultValue}
         onValueChange={onChange}
@@ -77,6 +90,7 @@ const RadioItem = forwardRef<HTMLButtonElement, RadioItemProps>(
       size: sizeProp,
       variant: variantProp,
       disabled = false,
+      stretched: stretchedProp,
       children,
       className,
       ...restProps
@@ -90,12 +104,13 @@ const RadioItem = forwardRef<HTMLButtonElement, RadioItemProps>(
     const size = sizeProp ?? parentContext?.size ?? "md";
     const isDisabled = disabled || (parentContext?.disabled ?? false);
     const variant = variantProp ?? parentContext?.variant ?? "hollow";
+    const isStretched = stretchedProp ?? parentContext?.stretched ?? false;
 
     const [hasHelper, setHasHelper] = useState(false);
 
     const configValue = useMemo(
-      () => ({ size, variant, disabled: isDisabled }),
-      [size, variant, isDisabled],
+      () => ({ size, variant, disabled: isDisabled, stretched: isStretched }),
+      [size, variant, isDisabled, isStretched],
     );
 
     return (
@@ -110,7 +125,11 @@ const RadioItem = forwardRef<HTMLButtonElement, RadioItemProps>(
             disabled={isDisabled}
             aria-labelledby={labelId}
             aria-describedby={hasHelper ? helperId : undefined}
-            className={clsx(radioItem({ size, styleOutlined: variant }), focusRing(), className)}
+            className={clsx(
+              radioItem({ size, styleOutlined: variant, stretched: isStretched }),
+              focusRing(),
+              className,
+            )}
           >
             {children}
           </RadioGroup.Item>
