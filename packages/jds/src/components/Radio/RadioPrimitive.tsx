@@ -5,17 +5,7 @@ import { forwardRef, useId, useLayoutEffect, useMemo, useState } from "react";
 import { focusRing, getLabelClassName } from "utils";
 import type { LabelSize } from "utils";
 
-import {
-  radioGroupColumnsVar,
-  radioGroupWrapper,
-  radioHelper,
-  radioHelperSlot,
-  radioIndicatorSlot,
-  radioItem,
-  radioLabel,
-  radioLabelSlot,
-  radioVisual,
-} from "./radio.css";
+import * as styles from "./radio.css";
 import type {
   RadioSize,
   RadioIndicatorProps,
@@ -61,10 +51,10 @@ const RadioRoot = ({
   return (
     <RadioConfigProvider value={configValue}>
       <RadioGroup.Root
-        className={radioGroupWrapper({ layout })}
+        className={styles.radioGroupWrapper({ layout })}
         style={
           layout === "grid"
-            ? assignInlineVars({ [radioGroupColumnsVar]: String(columns) })
+            ? assignInlineVars({ [styles.radioGroupColumnsVar]: String(columns) })
             : undefined
         }
         value={value}
@@ -126,7 +116,7 @@ const RadioItem = forwardRef<HTMLButtonElement, RadioItemProps>(
             aria-labelledby={labelId}
             aria-describedby={hasHelper ? helperId : undefined}
             className={clsx(
-              radioItem({ size, styleOutlined: variant, stretched: isStretched }),
+              styles.radioItem({ size, styleOutlined: variant, stretched: isStretched }),
               focusRing(),
               className,
             )}
@@ -153,7 +143,7 @@ const RadioIndicator = forwardRef<HTMLSpanElement, RadioIndicatorProps>(
         aria-hidden
         data-state={hasExplicitState ? (checked ? "checked" : "unchecked") : undefined}
         data-disabled={disabled || undefined}
-        className={clsx(radioVisual({ size }), radioIndicatorSlot, className)}
+        className={clsx(styles.radioVisual({ size }), styles.radioIndicatorSlot, className)}
         {...restProps}
       />
     );
@@ -171,8 +161,8 @@ const RadioLabel = forwardRef<HTMLSpanElement, RadioLabelProps>(({ children }, r
       id={labelId}
       className={clsx(
         getLabelClassName({ size: radioTextSizeMap[size].label }),
-        radioLabel,
-        radioLabelSlot,
+        styles.radioLabel,
+        styles.radioLabelSlot,
       )}
     >
       {children}
@@ -198,8 +188,8 @@ const RadioHelper = forwardRef<HTMLSpanElement, RadioHelperProps>(({ children },
       id={item?.helperId}
       className={clsx(
         getLabelClassName({ size: radioTextSizeMap[size].helper, weight: "subtle" }),
-        radioHelper,
-        radioHelperSlot,
+        styles.radioHelper,
+        styles.radioHelperSlot,
       )}
     >
       {children}

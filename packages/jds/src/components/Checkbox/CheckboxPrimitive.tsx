@@ -13,20 +13,7 @@ import type { LabelSize } from "utils";
 
 import type { IconSize } from "../Icon";
 import { Icon } from "../Icon";
-import {
-  checkboxControl,
-  checkboxControlInItem,
-  checkboxControlSlot,
-  checkboxGroupColumnsVar,
-  checkboxGroupWrapper,
-  checkboxHelper,
-  checkboxHelperSlot,
-  checkboxIconWrapper,
-  checkboxItem,
-  checkboxLabel,
-  checkboxLabelSlot,
-  checkboxVisual,
-} from "./checkbox.css";
+import * as styles from "./checkbox.css";
 import type {
   CheckedState,
   CheckboxControlProps,
@@ -105,10 +92,10 @@ const CheckboxRoot = ({
             role='group'
             aria-label={ariaLabel}
             aria-labelledby={ariaLabelledBy}
-            className={checkboxGroupWrapper({ layout })}
+            className={styles.checkboxGroupWrapper({ layout })}
             style={
               layout === "grid"
-                ? assignInlineVars({ [checkboxGroupColumnsVar]: String(columns) })
+                ? assignInlineVars({ [styles.checkboxGroupColumnsVar]: String(columns) })
                 : undefined
             }
           >
@@ -179,7 +166,7 @@ const CheckboxItem = forwardRef<HTMLLabelElement, CheckboxItemProps>(
             data-disabled={isDisabled || undefined}
             data-invalid={isEffectiveInvalid || undefined}
             className={clsx(
-              checkboxItem({ size, styleOutlined: variant, stretched: isStretched }),
+              styles.checkboxItem({ size, styleOutlined: variant, stretched: isStretched }),
               focusRing({
                 feedback: isEffectiveInvalid ? "destructive" : "none",
                 interaction: "within",
@@ -213,11 +200,11 @@ const CheckboxIndicator = forwardRef<HTMLSpanElement, CheckboxIndicatorProps>(
         data-state={dataState}
         data-disabled={disabled || undefined}
         data-invalid={isInvalid || undefined}
-        className={clsx(checkboxVisual({ size }), className)}
+        className={clsx(styles.checkboxVisual({ size }), className)}
         {...restProps}
       >
         {(isChecked || isIndeterminate) && (
-          <span className={checkboxIconWrapper}>
+          <span className={styles.checkboxIconWrapper}>
             <Icon
               name={isIndeterminate ? "subtract-line" : "check-line"}
               size={checkboxSizeMap[size].icon}
@@ -317,9 +304,9 @@ const CheckboxControl = forwardRef<HTMLButtonElement, CheckboxControlProps>(
         aria-describedby={resolvedAriaDescribedBy}
         data-invalid={isEffectiveInvalid || undefined}
         className={clsx(
-          checkboxControl,
-          checkboxControlSlot,
-          isWithinItem && checkboxControlInItem,
+          styles.checkboxControl,
+          styles.checkboxControlSlot,
+          isWithinItem && styles.checkboxControlInItem,
           !isWithinItem && overlay({ density: "normal" }),
           !isWithinItem && focusRing({ feedback: isEffectiveInvalid ? "destructive" : "none" }),
           className,
@@ -349,8 +336,8 @@ const CheckboxLabel = forwardRef<HTMLSpanElement, CheckboxLabelProps>(({ childre
       id={item?.labelId}
       className={clsx(
         getLabelClassName({ size: checkboxSizeMap[size].label }),
-        checkboxLabel,
-        checkboxLabelSlot,
+        styles.checkboxLabel,
+        styles.checkboxLabelSlot,
       )}
     >
       {children}
@@ -377,8 +364,8 @@ const CheckboxHelper = forwardRef<HTMLSpanElement, CheckboxHelperProps>(({ child
       id={item?.helperId}
       className={clsx(
         getLabelClassName({ size: checkboxSizeMap[size].helper, weight: "subtle" }),
-        checkboxHelper,
-        checkboxHelperSlot,
+        styles.checkboxHelper,
+        styles.checkboxHelperSlot,
       )}
     >
       {children}
