@@ -147,11 +147,14 @@ const outlinedPaddingCompoundVariants = CHECKBOX_SIZE_OPTIONS.map(size => ({
 const checkboxItemGrid = style({
   display: "inline-grid",
   gridTemplateColumns: "auto minmax(0, 1fr)",
-  alignItems: "center",
+  alignItems: "start",
   maxWidth: "100%",
 });
 
 export const checkboxControlSlot = style({ gridColumn: "1", gridRow: "1" });
+
+export const checkboxControlInItem = style({ marginTop: pxToRem(1) });
+
 export const checkboxLabelSlot = style({
   gridColumn: "2",
   gridRow: "1",

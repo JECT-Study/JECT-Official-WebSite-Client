@@ -152,7 +152,7 @@ const outlinedPaddingCompoundVariants = RADIO_SIZE_OPTIONS.map(size => ({
 const radioItemGrid = style({
   display: "inline-grid",
   gridTemplateColumns: "auto minmax(0, 1fr)",
-  alignItems: "center",
+  alignItems: "start",
   maxWidth: "100%",
 });
 
@@ -170,7 +170,7 @@ const buttonReset = style({
   },
 });
 
-export const radioIndicatorSlot = style({ gridColumn: "1", gridRow: "1" });
+export const radioIndicatorSlot = style({ gridColumn: "1", gridRow: "1", marginTop: pxToRem(1) });
 export const radioLabelSlot = style({
   gridColumn: "2",
   gridRow: "1",

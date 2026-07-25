@@ -15,6 +15,7 @@ import type { IconSize } from "../Icon";
 import { Icon } from "../Icon";
 import {
   checkboxControl,
+  checkboxControlInItem,
   checkboxControlSlot,
   checkboxGroupColumnsVar,
   checkboxGroupWrapper,
@@ -318,6 +319,7 @@ const CheckboxControl = forwardRef<HTMLButtonElement, CheckboxControlProps>(
         className={clsx(
           checkboxControl,
           checkboxControlSlot,
+          isWithinItem && checkboxControlInItem,
           !isWithinItem && overlay({ density: "normal" }),
           !isWithinItem && focusRing({ feedback: isEffectiveInvalid ? "destructive" : "none" }),
           className,
