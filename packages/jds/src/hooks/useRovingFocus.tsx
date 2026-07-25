@@ -55,13 +55,14 @@ export function useRovingFocusGroup<T extends HTMLElement>(): RovingFocusGroup<T
     [],
   );
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useLayoutEffect(() => {
     const ids = getFocusableItems().map(item => item.dataset.rovingId);
     if (tabStopId != null && ids.includes(tabStopId)) {
       return;
     }
     setTabStopId(ids[0] ?? null);
-  }, [getFocusableItems, tabStopId]);
+  });
 
   const handleFocus = useCallback((event: FocusEvent<T>) => {
     const id = (event.target as HTMLElement).dataset.rovingId;
