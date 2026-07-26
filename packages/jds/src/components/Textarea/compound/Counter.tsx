@@ -3,6 +3,7 @@ import { clsx } from "clsx";
 import { useTextareaContext } from "../Textarea.context";
 import * as styles from "../textarea.css";
 
+import { useFieldContext } from "@/components/Field/Field.context";
 import { getLabelClassName } from "@/utils/typography";
 
 /**
@@ -11,11 +12,19 @@ import { getLabelClassName } from "@/utils/typography";
  */
 export const TextareaCounter = () => {
   const { valueLength, maxLength } = useTextareaContext("Textarea.Counter");
+  const { status, readonly: isReadonly } = useFieldContext("Textarea.Counter");
 
   if (maxLength == null) return null;
 
+  const isError = status === "error";
+
   return (
-    <span className={clsx(getLabelClassName({ size: "sm" }), styles.counter)}>
+    <span
+      className={clsx(
+        getLabelClassName({ size: "sm" }),
+        styles.counter({ error: isError, disabled: isReadonly }),
+      )}
+    >
       {`${valueLength}/${maxLength}`}
     </span>
   );

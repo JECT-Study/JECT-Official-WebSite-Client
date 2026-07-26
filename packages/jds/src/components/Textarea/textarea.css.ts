@@ -1,4 +1,5 @@
 import { createVar, fallbackVar, style } from "@vanilla-extract/css";
+import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
 
 import { labelColorVar } from "../../utils/typography.css";
@@ -43,9 +44,32 @@ export const body = style({
   gap: vars.scheme.semantic.spacing["12"],
 });
 
-export const counter = style({
-  alignSelf: "flex-end",
-  flexShrink: 0,
-  whiteSpace: "nowrap",
-  vars: { [labelColorVar]: vars.color.semantic.object.alternative },
+export const counter = recipe({
+  base: {
+    alignSelf: "flex-end",
+    flexShrink: 0,
+    whiteSpace: "nowrap",
+    vars: { [labelColorVar]: vars.color.semantic.object.alternative },
+  },
+  variants: {
+    error: {
+      true: { vars: { [labelColorVar]: vars.color.semantic.feedback.destructive.normal } },
+      false: {},
+    },
+    disabled: {
+      true: { vars: { [labelColorVar]: vars.color.semantic.object.subtle } },
+      false: {},
+    },
+  },
+  compoundVariants: [
+    {
+      variants: {
+        error: true,
+        disabled: true,
+      },
+      style: {
+        vars: { [labelColorVar]: vars.color.semantic.feedback.destructive.alpha.assistive },
+      },
+    },
+  ],
 });
