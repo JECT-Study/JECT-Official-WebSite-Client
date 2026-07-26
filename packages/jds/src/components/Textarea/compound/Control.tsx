@@ -13,10 +13,7 @@ import * as styles from "../textarea.css";
 
 import { getBodyClassName } from "@/utils/typography";
 
-export type TextareaControlProps = Omit<
-  ComponentPropsWithoutRef<"textarea">,
-  "id" | "disabled" | "readOnly" | "required"
->;
+export type TextareaControlProps = ComponentPropsWithoutRef<"textarea">;
 
 /**
  * @description Field 컨텍스트(fieldId·status·disabled·readonly·required)를 소비해 Textarea.Content 안에 놓이는 실제 textarea.
@@ -24,15 +21,29 @@ export type TextareaControlProps = Omit<
  * Textarea.Counter 가 별도 prop 없이 글자 수를 표시할 수 있게 한다.
  */
 export const TextareaControl = forwardRef<HTMLTextAreaElement, TextareaControlProps>(
-  ({ className, value, defaultValue, onChange, maxLength, ...restProps }, ref) => {
+  (
+    {
+      id,
+      readOnly: readOnlyProps,
+      disabled: disabledProps,
+      required: requiredProps,
+      className,
+      value,
+      defaultValue,
+      onChange,
+      maxLength,
+      ...restProps
+    },
+    ref,
+  ) => {
     const {
       fieldId,
       helperTextId,
       hasHelperText,
       status,
-      disabled: isDisabled,
-      readonly: isReadonly,
-      required: isRequired,
+      disabled: isDisabledFromCtx,
+      readonly: isReadonlyFromCtx,
+      required: isRequiredFromCtx,
     } = useFieldContext("Textarea.Control");
     const { onControlStateChange } = useTextareaContext("Textarea.Control");
 
@@ -51,10 +62,15 @@ export const TextareaControl = forwardRef<HTMLTextAreaElement, TextareaControlPr
       onChange?.(event);
     };
 
+    const textareaId = id ?? fieldId;
+    const isReadonly = readOnlyProps ?? isReadonlyFromCtx;
+    const isDisabled = disabledProps ?? isDisabledFromCtx;
+    const isRequired = requiredProps ?? isRequiredFromCtx;
+
     return (
       <textarea
         ref={ref}
-        id={fieldId}
+        id={textareaId}
         value={value}
         defaultValue={defaultValue}
         onChange={handleChange}
@@ -64,11 +80,7 @@ export const TextareaControl = forwardRef<HTMLTextAreaElement, TextareaControlPr
         maxLength={maxLength}
         aria-describedby={hasHelperText ? helperTextId : undefined}
         aria-invalid={status === "error"}
-        className={clsx(
-          getBodyClassName({ size: "md" }),
-          styles.control({ disabled: isDisabled, readOnly: isReadonly }),
-          className,
-        )}
+        className={clsx(getBodyClassName({ size: "md" }), styles.control, className)}
         {...restProps}
       />
     );

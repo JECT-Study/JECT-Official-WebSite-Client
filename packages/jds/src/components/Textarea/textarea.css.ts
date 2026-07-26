@@ -1,45 +1,34 @@
 import { createVar, fallbackVar, style } from "@vanilla-extract/css";
-import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
 
 import { labelColorVar } from "../../utils/typography.css";
 
 const textColor = createVar();
 
-export const control = recipe({
-  base: {
-    display: "block",
-    width: "100%",
-    minWidth: 0,
-    minHeight: "3rem",
-    padding: 0,
-    border: "none",
-    outline: "none",
-    backgroundColor: "transparent",
-    resize: "vertical",
-    position: "relative",
-    zIndex: 1,
-    color: fallbackVar(textColor, vars.color.semantic.object.boldest),
-    "::placeholder": {
-      color: vars.color.semantic.object.assistive,
+export const control = style({
+  display: "block",
+  width: "100%",
+  minWidth: 0,
+  minHeight: "3rem",
+  padding: 0,
+  border: "none",
+  outline: "none",
+  backgroundColor: "transparent",
+  resize: "vertical",
+  position: "relative",
+  zIndex: 1,
+  color: fallbackVar(textColor, vars.color.semantic.object.boldest),
+  "::placeholder": {
+    color: vars.color.semantic.object.assistive,
+  },
+
+  selectors: {
+    "&:disabled": { resize: "none", vars: { [textColor]: vars.color.semantic.object.assistive } },
+    "&:read-only:not(:disabled)": {
+      resize: "none",
+      vars: { [textColor]: vars.color.semantic.object.subtle },
     },
   },
-  variants: {
-    disabled: {
-      true: { resize: "none", vars: { [textColor]: vars.color.semantic.object.assistive } },
-      false: {},
-    },
-    readOnly: {
-      true: { resize: "none" },
-      false: {},
-    },
-  },
-  compoundVariants: [
-    {
-      variants: { disabled: false, readOnly: true },
-      style: { vars: { [textColor]: vars.color.semantic.object.subtle } },
-    },
-  ],
 });
 
 /**
