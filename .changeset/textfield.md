@@ -6,7 +6,7 @@
 
 내부 `Field` primitive 위에 얹은 공개 compound `TextField`를 추가합니다. `TextField.Label` / `TextField.Content` / `TextField.HelperText`로 라벨·입력 영역·헬퍼텍스트를 조합하며, 루트에서 `status`(default/success/error)·`fieldStyle`(outline/hollow)·`disabled`·`readonly`·`required`를 지원하고 native `div` 속성과 `ref`를 함께 전달할 수 있습니다.
 
-`TextField.Input`은 필드 컨텍스트를 소비해 `id`·`disabled`·`readOnly`·`required`를 루트 상태에서 가져오므로(해당 prop들은 `TextFieldInputProps`에서 제외) 라벨과 입력이 자동으로 연결됩니다. `TextField.HelperText`가 실제로 렌더될 때만 `aria-describedby`로 연결하고, 없으면 참조하지 않습니다.
+`TextField.Input`은 필드 컨텍스트를 소비해 `disabled`·`readOnly`·`required`를 루트 상태에서 가져오며, 필요하면 `TextField.Input`에 직접 넘겨 덮어쓸 수 있습니다. `id`는 `TextField.Label`의 `htmlFor`와 짝을 이뤄야 하므로 컨텍스트 값만 사용하고 `TextFieldInputProps`에서 제외했습니다. `status`가 `error`면 `aria-invalid`가 함께 전달되고, `TextField.HelperText`가 실제로 렌더될 때만 `aria-describedby`로 연결합니다.
 
 `TextField.Content`는 입력 좌우에 아이콘·버튼 등 부가 요소를 자유롭게 배치할 수 있습니다. 입력은 controlled(`value`+`onChange`) / uncontrolled(`defaultValue`) 를 모두 지원합니다.
 
@@ -42,6 +42,7 @@
 | 유효성           | `validation="none" \| "error" \| "success"`         | `status="default" \| "success" \| "error"`                                           |
 | 상호작용         | `interaction="enabled" \| "disabled" \| "readOnly"` | `disabled` / `readonly` (+ `required`) boolean prop                                  |
 | 버튼형           | `labelIcon` / `button` (TextFieldButton)            | `TextField.Content` / `TextField.Label` 슬롯에 직접 배치                             |
+| 입력 타이포      | `body-sm`                                           | `body-md` (시각 변경)                                                                |
 | 타입             | `TextFieldPublicProps`, `TextFieldButtonProps`      | `TextFieldProps`, `TextFieldInputProps`, `TextFieldContentProps`, `TextFieldLabelProps`, `TextFieldHelperTextProps` |
 
 **AS-IS**
