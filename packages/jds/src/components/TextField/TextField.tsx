@@ -63,7 +63,7 @@ export const Input = forwardRef<HTMLInputElement, TextFieldInputProps>(
         required={isRequired}
         className={clsx(
           getBodyClassName({ size: "md" }),
-          styles.input({ disabled: isDisabled, readOnly: isReadOnly }),
+          styles.input,
           className,
         )}
         {...restProps}
