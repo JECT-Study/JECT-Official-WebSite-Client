@@ -15,11 +15,11 @@ import { getBodyClassName } from "@/utils/typography";
 
 export type TextareaControlProps = Omit<
   ComponentPropsWithoutRef<"textarea">,
-  "id" | "disabled" | "readOnly"
+  "id" | "disabled" | "readOnly" | "required"
 >;
 
 /**
- * @description Field 컨텍스트(fieldId·disabled·readonly)를 소비해 Textarea.Content 안에 놓이는 실제 textarea.
+ * @description Field 컨텍스트(fieldId·status·disabled·readonly·required)를 소비해 Textarea.Content 안에 놓이는 실제 textarea.
  * controlled(value·onChange) / uncontrolled(defaultValue) 를 모두 지원하며, 값 길이를 Textarea 컨텍스트에 보고해
  * Textarea.Counter 가 별도 prop 없이 글자 수를 표시할 수 있게 한다.
  */
@@ -29,8 +29,10 @@ export const TextareaControl = forwardRef<HTMLTextAreaElement, TextareaControlPr
       fieldId,
       helperTextId,
       hasHelperText,
+      status,
       disabled: isDisabled,
       readonly: isReadonly,
+      required: isRequired,
     } = useFieldContext("Textarea.Control");
     const { onControlStateChange } = useTextareaContext("Textarea.Control");
 
@@ -58,8 +60,10 @@ export const TextareaControl = forwardRef<HTMLTextAreaElement, TextareaControlPr
         onChange={handleChange}
         disabled={isDisabled}
         readOnly={isReadonly}
+        required={isRequired}
         maxLength={maxLength}
         aria-describedby={hasHelperText ? helperTextId : undefined}
+        aria-invalid={status === "error"}
         className={clsx(
           getBodyClassName({ size: "md" }),
           styles.control({ disabled: isDisabled, readOnly: isReadonly }),

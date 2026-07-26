@@ -4,7 +4,7 @@
 
 **Textarea**
 
-내부 `Field` primitive 위에 얹은 공개 compound `Textarea`(여러 줄 텍스트 입력)를 추가합니다. `Textarea.Control`이 필드 컨텍스트(`fieldId`·`disabled`·`readonly`)를 소비해 라벨과 실제 입력을 자동으로 연결하며, `Textarea.Label` / `Textarea.Content` / `Textarea.HelperText`로 라벨·입력 영역·헬퍼텍스트를 조합합니다. 루트에서 `status`(default/success/error)·`disabled`·`readonly`·`required`를 지원하고, native `div` 속성과 `ref`를 함께 전달할 수 있습니다. 스타일은 outline(테두리)로 고정됩니다.
+내부 `Field` primitive 위에 얹은 공개 compound `Textarea`(여러 줄 텍스트 입력)를 추가합니다. `Textarea.Control`이 필드 컨텍스트(`fieldId`·`status`·`disabled`·`readonly`·`required`)를 소비해 라벨과 실제 입력을 자동으로 연결하고(해당 prop들은 `TextareaControlProps`에서 제외), `status`가 `error`면 `aria-invalid`를, `Textarea.HelperText`가 실제로 렌더될 때만 `aria-describedby`를 전달합니다. `Textarea.Label` / `Textarea.Content` / `Textarea.HelperText`로 라벨·입력 영역·헬퍼텍스트를 조합합니다. 루트에서 `status`(default/success/error)·`disabled`·`readonly`·`required`를 지원하고, native `div` 속성과 `ref`를 함께 전달할 수 있습니다. 스타일은 outline(테두리)로 고정됩니다.
 
 입력은 controlled(`value`+`onChange`) / uncontrolled(`defaultValue`) 를 모두 지원합니다. `Textarea.Control`에 `maxLength`를 지정하면 박스 내부 우측 하단의 `Textarea.Counter`가 별도 prop 없이 `현재/최대` 형태로 글자 수를 표시합니다(길이는 컨텍스트로 자동 추적). `Textarea.Control`은 렌더된 `Textarea.HelperText`가 있을 때만 `aria-describedby`로 헬퍼텍스트를 참조합니다.
 
