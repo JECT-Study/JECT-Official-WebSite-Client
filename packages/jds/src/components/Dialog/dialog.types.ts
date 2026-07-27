@@ -1,5 +1,5 @@
 import type { Dialog } from "radix-ui";
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import type { RenderableNode } from "types";
 
 import type { BlockButtonProps } from "../Button/BlockButton";
@@ -25,6 +25,7 @@ export interface DialogBaseProps {
   secondaryAction?: BlockButtonActionProps;
   container?: HTMLElement | null;
   className?: string;
+  style?: CSSProperties;
 }
 
 type RadixDialogProps = Omit<Dialog.DialogProps, "children">;

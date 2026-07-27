@@ -22,6 +22,7 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
       secondaryAction,
       container,
       className,
+      style,
       ...rest
     },
     ref,
@@ -48,6 +49,7 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
           <DialogPrimitive.Content
             ref={ref}
             className={clsx(styles.positioner, styles.panel, className)}
+            style={style}
             onPointerDownOutside={closeOnClickOutside ? undefined : event => event.preventDefault()}
           >
             <div className={styles.scrollRegion}>

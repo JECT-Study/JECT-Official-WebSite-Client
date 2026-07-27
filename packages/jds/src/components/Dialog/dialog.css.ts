@@ -1,4 +1,4 @@
-import { keyframes, style, styleVariants } from "@vanilla-extract/css";
+import { createVar, fallbackVar, keyframes, style, styleVariants } from "@vanilla-extract/css";
 import { vars } from "tokens";
 import { focusRing, pxToRem } from "utils";
 
@@ -72,11 +72,23 @@ const minPanelWidth = pxToRem(400);
 const maxPanelWidth = pxToRem(560);
 const availableWidth = `calc(100vw - ${pxToRem(32)})`;
 
+/**
+ * 패널 너비를 사용처에서 정하는 CSS 변수. 지정하지 않으면 내용에 따라 400~560px 사이에서 정해진다.
+ *
+ * 지정하면 min/maxWidth가 모두 이 값이 되어 너비가 고정된다. 어느 경우든 viewport를 넘지 않도록
+ * `availableWidth`로 한 번 더 좁힌다. `panel`이 변수를 선언하지 않고 fallback으로만 읽으므로
+ * 사용처가 명시도 경쟁 없이 덮어쓸 수 있다.
+ *
+ * @example
+ *   <Dialog style={assignInlineVars({ [dialogPanelWidth]: "720px" })} />
+ */
+export const dialogPanelWidth = createVar();
+
 export const panel = style({
   display: "flex",
   flexDirection: "column",
-  minWidth: `min(${minPanelWidth}, ${availableWidth})`,
-  maxWidth: `min(${maxPanelWidth}, ${availableWidth})`,
+  minWidth: `min(${fallbackVar(dialogPanelWidth, minPanelWidth)}, ${availableWidth})`,
+  maxWidth: `min(${fallbackVar(dialogPanelWidth, maxPanelWidth)}, ${availableWidth})`,
   maxHeight: `calc(100dvh - ${pxToRem(32)})`,
   borderRadius: vars.scheme.semantic.radius["12"],
   border: `${vars.scheme.semantic.strokeWeight["1"]} solid ${vars.color.semantic.stroke.subtle}`,
