@@ -52,6 +52,9 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
             style={style}
             onPointerDownOutside={closeOnClickOutside ? undefined : event => event.preventDefault()}
           >
+            <DialogPrimitive.Title asChild>
+              <h2 className={clsx(getTitleClassName({ size: "xs" }), styles.title)}>{header}</h2>
+            </DialogPrimitive.Title>
             <div className={styles.scrollRegion}>
               <div
                 ref={scrollBodyRef}
@@ -59,23 +62,16 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
                 tabIndex={isScrollBodyOverflowing ? 0 : undefined}
                 data-interaction-target
               >
-                <div className={styles.textGroup}>
-                  <DialogPrimitive.Title asChild>
-                    <h2 className={clsx(getTitleClassName({ size: "xs" }), styles.title)}>
-                      {header}
-                    </h2>
-                  </DialogPrimitive.Title>
-                  <DialogPrimitive.Description asChild>
-                    <div
-                      className={clsx(
-                        getBodyClassName({ size: "md", weight: "normal" }),
-                        styles.bodyText,
-                      )}
-                    >
-                      {body}
-                    </div>
-                  </DialogPrimitive.Description>
-                </div>
+                <DialogPrimitive.Description asChild>
+                  <div
+                    className={clsx(
+                      getBodyClassName({ size: "md", weight: "normal" }),
+                      styles.bodyText,
+                    )}
+                  >
+                    {body}
+                  </div>
+                </DialogPrimitive.Description>
                 {checkboxAction && (
                   <Checkbox
                     checked={checkboxAction.checked}

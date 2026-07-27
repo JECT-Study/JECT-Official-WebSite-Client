@@ -128,21 +128,17 @@ export const scrollBody = style({
   overflowY: "auto",
   outline: "none",
   gap: vars.scheme.semantic.spacing["16"],
-  paddingTop: vars.scheme.semantic.spacing["20"],
   paddingInline: vars.scheme.semantic.spacing["20"],
   paddingBottom: vars.scheme.semantic.spacing["12"],
-});
-
-export const textGroup = style({
-  display: "flex",
-  flexDirection: "column",
-  alignSelf: "stretch",
-  gap: vars.scheme.semantic.spacing["12"],
 });
 
 export const title = style({
   margin: 0,
   alignSelf: "stretch",
+  flexShrink: 0,
+  paddingTop: vars.scheme.semantic.spacing["20"],
+  paddingInline: vars.scheme.semantic.spacing["20"],
+  paddingBottom: vars.scheme.semantic.spacing["12"],
 });
 
 export const bodyText = style({
