@@ -77,7 +77,7 @@ export const panel = style({
   flexDirection: "column",
   minWidth: `min(${minPanelWidth}, ${availableWidth})`,
   maxWidth: `min(${maxPanelWidth}, ${availableWidth})`,
-  maxHeight: `calc(100vh - ${pxToRem(32)})`,
+  maxHeight: `calc(100dvh - ${pxToRem(32)})`,
   borderRadius: vars.scheme.semantic.radius["12"],
   border: `${vars.scheme.semantic.strokeWeight["1"]} solid ${vars.color.semantic.stroke.subtle}`,
   background: vars.color.semantic.surface.shallow,
