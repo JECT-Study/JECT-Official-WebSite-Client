@@ -7,6 +7,7 @@ import type { DialogProps } from "./dialog.types";
 import { BlockButton } from "../Button/BlockButton";
 import { Checkbox } from "../Checkbox";
 
+import { useVerticalOverflow } from "@/hooks/useVerticalOverflow";
 import { getBodyClassName, getTitleClassName } from "@/utils/typography";
 
 export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
@@ -25,6 +26,9 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
     },
     ref,
   ) => {
+    const { ref: scrollBodyRef, isOverflowing: isScrollBodyOverflowing } =
+      useVerticalOverflow<HTMLDivElement>();
+
     const buttonSize = buttonLayout === "vertical" ? "lg" : "md";
 
     const primaryButton = <BlockButton size={buttonSize} {...primaryAction} />;
@@ -46,31 +50,38 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
             className={clsx(styles.positioner, styles.panel, className)}
             onPointerDownOutside={closeOnClickOutside ? undefined : event => event.preventDefault()}
           >
-            <div className={styles.scrollBody}>
-              <div className={styles.textGroup}>
-                <DialogPrimitive.Title asChild>
-                  <h2 className={clsx(getTitleClassName({ size: "xs" }), styles.title)}>
-                    {header}
-                  </h2>
-                </DialogPrimitive.Title>
-                <DialogPrimitive.Description asChild>
-                  <div
-                    className={clsx(
-                      getBodyClassName({ size: "md", weight: "normal" }),
-                      styles.bodyText,
-                    )}
-                  >
-                    {body}
-                  </div>
-                </DialogPrimitive.Description>
+            <div className={styles.scrollRegion}>
+              <div
+                ref={scrollBodyRef}
+                className={styles.scrollBody}
+                tabIndex={isScrollBodyOverflowing ? 0 : undefined}
+                data-interaction-target
+              >
+                <div className={styles.textGroup}>
+                  <DialogPrimitive.Title asChild>
+                    <h2 className={clsx(getTitleClassName({ size: "xs" }), styles.title)}>
+                      {header}
+                    </h2>
+                  </DialogPrimitive.Title>
+                  <DialogPrimitive.Description asChild>
+                    <div
+                      className={clsx(
+                        getBodyClassName({ size: "md", weight: "normal" }),
+                        styles.bodyText,
+                      )}
+                    >
+                      {body}
+                    </div>
+                  </DialogPrimitive.Description>
+                </div>
+                {checkboxAction && (
+                  <Checkbox
+                    checked={checkboxAction.checked}
+                    onCheckedChange={checkboxAction.onCheckedChange}
+                    label={checkboxAction.label}
+                  />
+                )}
               </div>
-              {checkboxAction && (
-                <Checkbox
-                  checked={checkboxAction.checked}
-                  onCheckedChange={checkboxAction.onCheckedChange}
-                  label={checkboxAction.label}
-                />
-              )}
             </div>
             <div className={styles.buttonGroup[buttonLayout]}>
               {buttonLayout === "vertical" ? (

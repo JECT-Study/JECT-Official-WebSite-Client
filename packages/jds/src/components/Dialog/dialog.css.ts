@@ -1,6 +1,6 @@
 import { keyframes, style, styleVariants } from "@vanilla-extract/css";
 import { vars } from "tokens";
-import { pxToRem } from "utils";
+import { focusRing, pxToRem } from "utils";
 
 const restingTransform = "translate(-50%, -50%)";
 const offsetTransform = `translate(-50%, calc(-50% + ${pxToRem(60)}))`;
@@ -85,6 +85,27 @@ export const panel = style({
   overflow: "hidden",
 });
 
+/**
+ * focus를 받는 것은 스크롤 컨테이너인 `scrollBody`지만, ring은 스크롤되지 않는 이 래퍼가 그린다.
+ * `scrollBody`의 `::before`는 스크롤 콘텐츠와 함께 올라가 사라지기 때문이다.
+ *
+ * @see ../../utils/PSEUDO_ELEMENT_POLICY.md 의 상태 위임
+ */
+export const scrollRegion = style([
+  focusRing({ border: "inside", interaction: "delegated" }),
+  {
+    position: "relative",
+    display: "flex",
+    flexDirection: "column",
+    alignSelf: "stretch",
+    flex: "1 1 auto",
+    minHeight: 0,
+    selectors: {
+      "&::before": { inset: 0 },
+    },
+  },
+]);
+
 export const scrollBody = style({
   display: "flex",
   flexDirection: "column",
@@ -93,6 +114,7 @@ export const scrollBody = style({
   flex: "1 1 auto",
   minHeight: 0,
   overflowY: "auto",
+  outline: "none",
   gap: vars.scheme.semantic.spacing["16"],
   paddingTop: vars.scheme.semantic.spacing["20"],
   paddingInline: vars.scheme.semantic.spacing["20"],
