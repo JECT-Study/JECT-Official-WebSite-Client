@@ -72,27 +72,29 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
                     {body}
                   </div>
                 </DialogPrimitive.Description>
-                {checkboxAction && (
-                  <Checkbox
-                    checked={checkboxAction.checked}
-                    onCheckedChange={checkboxAction.onCheckedChange}
-                    label={checkboxAction.label}
-                  />
-                )}
               </div>
             </div>
-            <div className={styles.buttonGroup[buttonLayout]}>
-              {buttonLayout === "vertical" ? (
-                <>
-                  {primaryButton}
-                  {secondaryButton}
-                </>
-              ) : (
-                <>
-                  {secondaryButton}
-                  {primaryButton}
-                </>
+            <div className={styles.footer}>
+              {checkboxAction && (
+                <Checkbox
+                  checked={checkboxAction.checked}
+                  onCheckedChange={checkboxAction.onCheckedChange}
+                  label={checkboxAction.label}
+                />
               )}
+              <div className={styles.buttonGroup[buttonLayout]}>
+                {buttonLayout === "vertical" ? (
+                  <>
+                    {primaryButton}
+                    {secondaryButton}
+                  </>
+                ) : (
+                  <>
+                    {secondaryButton}
+                    {primaryButton}
+                  </>
+                )}
+              </div>
             </div>
           </DialogPrimitive.Content>
         </DialogPrimitive.Portal>

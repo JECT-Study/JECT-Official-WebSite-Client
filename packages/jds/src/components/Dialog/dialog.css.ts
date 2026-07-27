@@ -127,7 +127,6 @@ export const scrollBody = style({
   minHeight: 0,
   overflowY: "auto",
   outline: "none",
-  gap: vars.scheme.semantic.spacing["16"],
   paddingInline: vars.scheme.semantic.spacing["20"],
   paddingBottom: vars.scheme.semantic.spacing["12"],
 });
@@ -139,6 +138,18 @@ export const title = style({
   paddingTop: vars.scheme.semantic.spacing["20"],
   paddingInline: vars.scheme.semantic.spacing["20"],
   paddingBottom: vars.scheme.semantic.spacing["12"],
+});
+
+export const footer = style({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "flex-start",
+  alignSelf: "stretch",
+  flexShrink: 0,
+  gap: vars.scheme.semantic.spacing["12"],
+  paddingTop: vars.scheme.semantic.spacing["12"],
+  paddingInline: vars.scheme.semantic.spacing["20"],
+  paddingBottom: vars.scheme.semantic.spacing["20"],
 });
 
 export const bodyText = style({
@@ -156,9 +167,6 @@ export const buttonGroup = styleVariants({
     alignSelf: "stretch",
     gap: vars.scheme.semantic.spacing["12"],
     flexShrink: 0,
-    paddingTop: vars.scheme.semantic.spacing["12"],
-    paddingInline: vars.scheme.semantic.spacing["20"],
-    paddingBottom: vars.scheme.semantic.spacing["20"],
   },
   vertical: {
     display: "flex",
@@ -167,8 +175,5 @@ export const buttonGroup = styleVariants({
     alignSelf: "stretch",
     gap: vars.scheme.semantic.spacing["12"],
     flexShrink: 0,
-    paddingTop: vars.scheme.semantic.spacing["12"],
-    paddingInline: vars.scheme.semantic.spacing["20"],
-    paddingBottom: vars.scheme.semantic.spacing["20"],
   },
 });
