@@ -1,5 +1,5 @@
 import { clsx } from "clsx";
-import { type CSSProperties, useMemo } from "react";
+import { type CSSProperties, forwardRef, useMemo } from "react";
 
 import * as styles from "./listbox.css";
 import type { ListboxProps, SelectDimension } from "./listbox.types";
@@ -12,84 +12,91 @@ import { getLabelClassName } from "@/utils/typography";
 
 const resolveDimension = (value: SelectDimension) => (value === "full" ? "100%" : value);
 
-export const Listbox = ({
-  mode,
-  variant,
-  disabled,
-  label,
-  width,
-  height,
-  value,
-  defaultValue,
-  onChange,
-  options,
-  "aria-label": ariaLabel,
-  "aria-labelledby": ariaLabelledby,
-}: ListboxProps) => {
-  const { listboxRef, listboxId, isSelected, select, activeValue, setActive, getListboxProps } =
-    useListbox({
+export const Listbox = forwardRef<HTMLDivElement, ListboxProps>(
+  (
+    {
       mode,
-      options,
+      variant,
+      disabled,
+      label,
+      width,
+      height,
       value,
       defaultValue,
-      onChange: onChange as ((value: string | string[]) => void) | undefined,
-      disabled,
-    });
+      onChange,
+      options,
+      "aria-label": ariaLabel,
+      "aria-labelledby": ariaLabelledby,
+    },
+    ref,
+  ) => {
+    const { listboxRef, listboxId, isSelected, select, activeValue, setActive, getListboxProps } =
+      useListbox({
+        mode,
+        options,
+        value,
+        defaultValue,
+        onChange: onChange as ((value: string | string[]) => void) | undefined,
+        disabled,
+      });
 
-  const labelId = `${listboxId}-label`;
+    const labelId = `${listboxId}-label`;
 
-  const containerStyle: CSSProperties = {};
-  if (width !== undefined) {
-    containerStyle.width = resolveDimension(width);
-  }
-  if (height !== undefined) {
-    containerStyle.height = resolveDimension(height);
-  }
+    const containerStyle: CSSProperties = {};
+    if (width !== undefined) {
+      containerStyle.width = resolveDimension(width);
+    }
+    if (height !== undefined) {
+      containerStyle.height = resolveDimension(height);
+    }
 
-  const contextValue = useMemo<ListboxContextValue>(
-    () => ({ listboxId, disabled, variant, mode, isSelected, activeValue, select, setActive }),
-    [listboxId, disabled, variant, mode, isSelected, activeValue, select, setActive],
-  );
+    const contextValue = useMemo<ListboxContextValue>(
+      () => ({ listboxId, disabled, variant, mode, isSelected, activeValue, select, setActive }),
+      [listboxId, disabled, variant, mode, isSelected, activeValue, select, setActive],
+    );
 
-  return (
-    <ListboxProvider value={contextValue}>
-      <div className={styles.selectContainer} style={containerStyle}>
-        {label != null && (
-          <span
-            id={labelId}
-            className={clsx(getLabelClassName({ size: "sm" }), styles.selectLabel)}
-          >
-            {label}
-          </span>
-        )}
-        <div
-          ref={listboxRef}
-          className={styles.listbox}
-          aria-label={label != null ? undefined : ariaLabel}
-          aria-labelledby={label != null ? labelId : ariaLabelledby}
-          {...getListboxProps()}
-        >
-          {options.map(
-            ({
-              value: optionValue,
-              label: optionLabel,
-              caption,
-              suffix,
-              disabled: optionDisabled,
-            }) => (
-              <Option
-                key={optionValue}
-                value={optionValue}
-                caption={caption}
-                suffix={suffix}
-                disabled={optionDisabled}
-              >
-                {optionLabel}
-              </Option>
-            ),
+    return (
+      <ListboxProvider value={contextValue}>
+        <div className={styles.selectContainer} style={containerStyle} ref={ref}>
+          {label != null && (
+            <span
+              id={labelId}
+              className={clsx(getLabelClassName({ size: "sm" }), styles.selectLabel)}
+            >
+              {label}
+            </span>
           )}
+          <div
+            ref={listboxRef}
+            className={styles.listbox}
+            aria-label={label != null ? undefined : ariaLabel}
+            aria-labelledby={label != null ? labelId : ariaLabelledby}
+            {...getListboxProps()}
+          >
+            {options.map(
+              ({
+                value: optionValue,
+                label: optionLabel,
+                caption,
+                suffix,
+                disabled: optionDisabled,
+              }) => (
+                <Option
+                  key={optionValue}
+                  value={optionValue}
+                  caption={caption}
+                  suffix={suffix}
+                  disabled={optionDisabled}
+                >
+                  {optionLabel}
+                </Option>
+              ),
+            )}
+          </div>
         </div>
-      </div>
-    </ListboxProvider>
-  );
-};
+      </ListboxProvider>
+    );
+  },
+);
+
+Listbox.displayName = "Listbox";

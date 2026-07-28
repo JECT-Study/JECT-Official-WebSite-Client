@@ -1,33 +1,41 @@
+import { forwardRef } from "react";
+
 import type { MultiSelectProps } from "./multiSelect.types";
 import { Listbox } from "../Listbox";
 
-export const MultiSelect = ({
-  value,
-  defaultValue,
-  onChange,
-  variant = "control",
-  label,
-  disabled = false,
-  width,
-  height,
-  options,
-  "aria-label": ariaLabel,
-  "aria-labelledby": ariaLabelledby,
-}: MultiSelectProps) => (
-  <Listbox
-    mode='multiple'
-    variant={variant}
-    disabled={disabled}
-    label={label}
-    width={width}
-    height={height}
-    value={value}
-    defaultValue={defaultValue}
-    onChange={onChange}
-    options={options}
-    aria-label={ariaLabel}
-    aria-labelledby={ariaLabelledby}
-  />
+export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
+  (
+    {
+      value,
+      defaultValue,
+      onChange,
+      variant = "control",
+      label,
+      disabled = false,
+      width,
+      height,
+      options,
+      "aria-label": ariaLabel,
+      "aria-labelledby": ariaLabelledby,
+    },
+    ref,
+  ) => (
+    <Listbox
+      ref={ref}
+      mode='multiple'
+      variant={variant}
+      disabled={disabled}
+      label={label}
+      width={width}
+      height={height}
+      value={value}
+      defaultValue={defaultValue}
+      onChange={onChange}
+      options={options}
+      aria-label={ariaLabel}
+      aria-labelledby={ariaLabelledby}
+    />
+  ),
 );
 
 MultiSelect.displayName = "MultiSelect";
