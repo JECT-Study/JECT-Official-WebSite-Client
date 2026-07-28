@@ -6,7 +6,9 @@
 
 내부 `Field` primitive 위에 얹은 공개 compound `TextField`를 추가합니다. `TextField.Label` / `TextField.Content` / `TextField.HelperText`로 라벨·입력 영역·헬퍼텍스트를 조합하며, 루트에서 `status`(default/success/error)·`fieldStyle`(outline/hollow)·`disabled`·`readonly`·`required`를 지원하고 native `div` 속성과 `ref`를 함께 전달할 수 있습니다.
 
-`TextField.Input`은 필드 컨텍스트를 소비해 `disabled`·`readOnly`·`required`를 루트 상태에서 가져오며, 필요하면 `TextField.Input`에 직접 넘겨 덮어쓸 수 있습니다. `id`는 `TextField.Label`의 `htmlFor`와 짝을 이뤄야 하므로 컨텍스트 값만 사용하고 `TextFieldInputProps`에서 제외했습니다. `status`가 `error`면 `aria-invalid`가 함께 전달되고, `TextField.HelperText`가 실제로 렌더될 때만 `aria-describedby`로 연결합니다.
+`TextField.Input`은 필드 컨텍스트를 소비해 `disabled`·`readOnly`·`required`를 루트 상태에서 가져오며, 필요하면 `TextField.Input`에 직접 넘겨 덮어쓸 수 있습니다. `id`는 컨텍스트의 `fieldId`를 기본값으로 쓰되 직접 넘겨 덮어쓸 수 있으며, 이때는 `TextField.Label`에도 같은 `id`를 넘겨 `htmlFor`를 맞춰야 라벨과 입력의 연결이 유지됩니다. `status`가 `error`면 `aria-invalid`가 함께 전달되고, `TextField.HelperText`가 실제로 렌더될 때만 `aria-describedby`로 연결합니다. 외부에서 `aria-describedby`를 함께 넘기면 헬퍼텍스트 id와 공백으로 병합하므로, `Tooltip.Trigger asChild`처럼 래퍼가 값을 주입하는 경우에도 헬퍼텍스트 연결이 유지됩니다.
+
+`disabled`·`readonly`를 `TextField.Input`에서 덮어쓰면 `TextField.Content`도 그 상태를 함께 반영해 컨테이너와 입력의 상태가 어긋나지 않습니다.
 
 `TextField.Content`는 입력 좌우에 아이콘·버튼 등 부가 요소를 자유롭게 배치할 수 있습니다. 입력은 controlled(`value`+`onChange`) / uncontrolled(`defaultValue`) 를 모두 지원합니다.
 
