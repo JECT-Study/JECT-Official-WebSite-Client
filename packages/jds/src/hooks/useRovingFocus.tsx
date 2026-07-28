@@ -20,6 +20,7 @@ interface RovingFocusContainerProps<T extends HTMLElement> {
   ref: Ref<T>;
   onKeyDown: (event: KeyboardEvent<T>) => void;
   onFocus: (event: FocusEvent<T>) => void;
+  "data-roving-container": string;
 }
 
 interface RovingFocusGroup<T extends HTMLElement> {
@@ -46,12 +47,15 @@ export function useRovingFocusGroup<T extends HTMLElement>(): RovingFocusGroup<T
   const containerRef = useRef<T>(null);
   const [tabStopId, setTabStopId] = useState<string | null>(null);
 
+  const isOwnItem = (item: Element) =>
+    item.closest("[data-roving-container]") === containerRef.current;
+
   const getFocusableItems = useCallback(
     () =>
       Array.from(
         containerRef.current?.querySelectorAll<HTMLElement>("[data-roving-item]:not(:disabled)") ??
           [],
-      ),
+      ).filter(isOwnItem),
     [],
   );
 
@@ -65,7 +69,12 @@ export function useRovingFocusGroup<T extends HTMLElement>(): RovingFocusGroup<T
   });
 
   const handleFocus = useCallback((event: FocusEvent<T>) => {
+    if (!isOwnItem(event.target as HTMLElement)) {
+      return;
+    }
+
     const id = (event.target as HTMLElement).dataset.rovingId;
+
     if (id != null) {
       setTabStopId(id);
     }
@@ -111,7 +120,12 @@ export function useRovingFocusGroup<T extends HTMLElement>(): RovingFocusGroup<T
   }, []);
 
   const containerProps = useMemo<RovingFocusContainerProps<T>>(
-    () => ({ ref: containerRef, onKeyDown: handleKeyDown, onFocus: handleFocus }),
+    () => ({
+      ref: containerRef,
+      onKeyDown: handleKeyDown,
+      onFocus: handleFocus,
+      "data-roving-container": "",
+    }),
     [handleKeyDown, handleFocus],
   );
 
