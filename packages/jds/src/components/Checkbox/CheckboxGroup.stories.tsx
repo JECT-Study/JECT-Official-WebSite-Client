@@ -214,7 +214,7 @@ export const Stretched: Story = {
     docs: {
       description: {
         story:
-          "`stretched`를 지정하면 아이템이 컨테이너(vertical) 또는 셀(grid) 너비를 가득 채웁니다.",
+          "그룹에 `stretched`를 지정하면 각 아이템이 컨테이너(vertical) 또는 셀(grid) 너비를 가득 채웁니다.",
       },
     },
   },
