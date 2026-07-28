@@ -2,21 +2,15 @@ import { clsx } from "clsx";
 
 import { CheckboxPrimitive } from "../Checkbox/CheckboxPrimitive";
 import { Icon } from "../Icon";
+import * as styles from "./listbox.css";
+import type { OptionProps } from "./listbox.types";
+import { getOptionId } from "./listbox.utils";
 import { useListboxContext } from "./ListboxContext";
-import * as styles from "./select.css";
-import type { SelectOptionProps } from "./select.types";
-import { getOptionId } from "./select.utils";
 import { RadioPrimitive } from "../Radio/RadioPrimitive";
 
 import { getLabelClassName } from "@/utils/typography";
 
-export const Option = ({
-  value,
-  disabled = false,
-  caption,
-  suffix,
-  children,
-}: SelectOptionProps) => {
+export const Option = ({ value, disabled = false, caption, suffix, children }: OptionProps) => {
   const {
     listboxId,
     mode,
@@ -87,4 +81,4 @@ export const Option = ({
   );
 };
 
-Option.displayName = "SelectOption";
+Option.displayName = "Option";

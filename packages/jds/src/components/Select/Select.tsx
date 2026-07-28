@@ -1,5 +1,5 @@
-import { Listbox } from "./Listbox";
 import type { SelectProps } from "./select.types";
+import { Listbox } from "../Listbox";
 
 export const Select = ({
   value,

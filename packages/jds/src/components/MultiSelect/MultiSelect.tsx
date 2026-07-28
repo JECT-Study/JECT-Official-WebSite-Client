@@ -1,5 +1,5 @@
-import { Listbox } from "./Listbox";
-import type { MultiSelectProps } from "./select.types";
+import type { MultiSelectProps } from "./multiSelect.types";
+import { Listbox } from "../Listbox";
 
 export const MultiSelect = ({
   value,

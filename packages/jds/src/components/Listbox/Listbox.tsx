@@ -1,41 +1,14 @@
 import { clsx } from "clsx";
 import { type CSSProperties, useMemo } from "react";
 
+import * as styles from "./listbox.css";
+import type { ListboxProps, SelectDimension } from "./listbox.types";
 import type { ListboxContextValue } from "./ListboxContext";
 import { ListboxProvider } from "./ListboxContext";
 import { Option } from "./Option";
-import * as styles from "./select.css";
-import type { OptionVariant, SelectDimension, SelectOption } from "./select.types";
 import { useListbox } from "./useListbox";
 
 import { getLabelClassName } from "@/utils/typography";
-
-type ListboxBaseProps = {
-  variant: OptionVariant;
-  disabled: boolean;
-  label?: string;
-  width?: SelectDimension;
-  height?: SelectDimension;
-  options: SelectOption[];
-  "aria-label"?: string;
-  "aria-labelledby"?: string;
-};
-
-type ListboxSingleProps = {
-  mode: "single";
-  value?: string | null;
-  defaultValue?: string;
-  onChange?: (value: string) => void;
-};
-
-type ListboxMultipleProps = {
-  mode: "multiple";
-  value?: string[];
-  defaultValue?: string[];
-  onChange?: (value: string[]) => void;
-};
-
-type ListboxProps = ListboxBaseProps & (ListboxSingleProps | ListboxMultipleProps);
 
 const resolveDimension = (value: SelectDimension) => (value === "full" ? "100%" : value);
 

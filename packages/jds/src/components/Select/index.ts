@@ -1,11 +1,4 @@
 export { Select } from "./Select";
-export { MultiSelect } from "./MultiSelect";
+export type { SelectProps } from "./select.types";
 
-export type {
-  SelectProps,
-  MultiSelectProps,
-  SelectOption,
-  SelectionMode,
-  OptionVariant,
-  SelectDimension,
-} from "./select.types";
+export type { SelectOption, SelectionMode, OptionVariant, SelectDimension } from "../Listbox";

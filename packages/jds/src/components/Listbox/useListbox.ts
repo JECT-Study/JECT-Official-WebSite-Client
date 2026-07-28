@@ -9,8 +9,8 @@ import {
   type KeyboardEvent,
 } from "react";
 
-import type { SelectionMode, SelectOption } from "./select.types";
-import { getOptionId } from "./select.utils";
+import type { SelectionMode, SelectOption } from "./listbox.types";
+import { getOptionId } from "./listbox.utils";
 
 interface UseListboxParams {
   mode: SelectionMode;

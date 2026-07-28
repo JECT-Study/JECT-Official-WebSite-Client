@@ -24,6 +24,7 @@ export * from "./Logo";
 export * from "./Menu/MegaMenu";
 export * from "./Menu/MenuItem";
 export * from "./Menu/Menu";
+export * from "./MultiSelect";
 export * from "./Navigation/GlobalNavigation";
 export * from "./Navigation/LocalNavigation";
 export * from "./Radio";

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 
-import { Select } from "./Select";
+import { MultiSelect } from "./MultiSelect";
 import { ContentBadge } from "../Badge/contentBadge/ContentBadge";
 import type { SelectOption } from "../Listbox";
 
@@ -25,28 +25,28 @@ const REGIONS: SelectOption[] = [
 ];
 
 const meta = {
-  title: "Components/Select",
-  component: Select,
+  title: "Components/MultiSelect",
+  component: MultiSelect,
   parameters: {
     layout: "centered",
     docs: {
       description: {
         component:
-          "목록에서 하나의 값을 선택하는 컴포넌트입니다. 여러 값을 선택하려면 `MultiSelect`를 사용합니다.",
+          "목록에서 여러 값을 선택하는 컴포넌트입니다. 하나의 값만 선택하려면 `Select`를 사용합니다.",
       },
     },
   },
-} satisfies Meta<typeof Select>;
+} satisfies Meta<typeof MultiSelect>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Label: Story = {
-  args: { value: "seoul", onChange: () => {}, options: REGIONS.slice(0, 5) },
+export const Control: Story = {
+  args: { value: ["seoul", "busan"], onChange: () => {}, options: REGIONS.slice(0, 5) },
   render: function Render() {
-    const [value, setValue] = useState<string | null>("seoul");
+    const [value, setValue] = useState<string[]>(["seoul", "busan"]);
     return (
-      <Select
+      <MultiSelect
         value={value}
         onChange={setValue}
         aria-label='거주 지역'
@@ -56,15 +56,15 @@ export const Label: Story = {
   },
 };
 
-export const Control: Story = {
-  args: { value: "seoul", onChange: () => {}, options: REGIONS.slice(0, 5) },
+export const Label: Story = {
+  args: { value: ["seoul", "busan"], onChange: () => {}, options: REGIONS.slice(0, 5) },
   render: function Render() {
-    const [value, setValue] = useState("seoul");
+    const [value, setValue] = useState<string[]>(["seoul", "busan"]);
     return (
-      <Select
+      <MultiSelect
         value={value}
         onChange={setValue}
-        variant='control'
+        variant='label'
         aria-label='거주 지역'
         options={REGIONS.slice(0, 5)}
       />
@@ -73,40 +73,39 @@ export const Control: Story = {
 };
 
 export const WithSelectLabel: Story = {
-  args: { value: null, onChange: () => {}, options: REGIONS.slice(0, 5) },
+  args: { value: [], onChange: () => {}, options: REGIONS.slice(0, 5) },
   render: function Render() {
-    const [value, setValue] = useState<string | null>(null);
+    const [value, setValue] = useState<string[]>([]);
     return (
-      <Select value={value} onChange={setValue} label='거주 지역' options={REGIONS.slice(0, 5)} />
+      <MultiSelect
+        value={value}
+        onChange={setValue}
+        label='거주 지역'
+        options={REGIONS.slice(0, 5)}
+      />
     );
   },
 };
 
 export const WithCaptionAndDisabled: Story = {
-  args: { value: null, onChange: () => {}, options: REGIONS.slice(0, 5) },
+  args: { value: [], onChange: () => {}, options: REGIONS.slice(0, 5) },
   render: function Render() {
-    const [value, setValue] = useState<string | null>(null);
+    const [value, setValue] = useState<string[]>([]);
     const options: SelectOption[] = REGIONS.slice(0, 5).map(region => {
       if (region.value === "seoul") return { ...region, caption: "수도" };
       if (region.value === "busan") return { ...region, disabled: true };
       return region;
     });
     return (
-      <Select
-        value={value}
-        onChange={setValue}
-        variant='control'
-        aria-label='거주 지역'
-        options={options}
-      />
+      <MultiSelect value={value} onChange={setValue} aria-label='거주 지역' options={options} />
     );
   },
 };
 
 export const WithSuffix: Story = {
-  args: { value: null, onChange: () => {}, options: REGIONS.slice(0, 5) },
+  args: { value: [], onChange: () => {}, options: REGIONS.slice(0, 5) },
   render: function Render() {
-    const [value, setValue] = useState<string | null>(null);
+    const [value, setValue] = useState<string[]>([]);
     const options: SelectOption[] = REGIONS.slice(0, 5).map(region => ({
       ...region,
       caption: "설명",
@@ -117,7 +116,7 @@ export const WithSuffix: Story = {
       ),
     }));
     return (
-      <Select
+      <MultiSelect
         value={value}
         onChange={setValue}
         variant='label'
@@ -129,7 +128,7 @@ export const WithSuffix: Story = {
 };
 
 export const ScrollToSelected: Story = {
-  args: { value: "ulsan", onChange: () => {}, options: REGIONS },
+  args: { value: ["ulsan", "sejong"], onChange: () => {}, options: REGIONS },
   parameters: {
     docs: {
       description: {
@@ -139,9 +138,9 @@ export const ScrollToSelected: Story = {
     },
   },
   render: function Render() {
-    const [value, setValue] = useState("ulsan");
+    const [value, setValue] = useState<string[]>(["ulsan", "sejong"]);
     return (
-      <Select
+      <MultiSelect
         value={value}
         onChange={setValue}
         aria-label='거주 지역'

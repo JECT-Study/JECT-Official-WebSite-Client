@@ -1,6 +1,6 @@
 import { createContext, useContext } from "react";
 
-import type { OptionVariant, SelectionMode } from "./select.types";
+import type { OptionVariant, SelectionMode } from "./listbox.types";
 
 export interface ListboxContextValue {
   listboxId: string;
