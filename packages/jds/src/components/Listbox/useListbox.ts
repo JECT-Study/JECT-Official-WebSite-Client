@@ -1,8 +1,8 @@
 import { useControllableState } from "hooks";
 import {
   useCallback,
-  useEffect,
   useId,
+  useLayoutEffect,
   useMemo,
   useRef,
   useState,
@@ -32,11 +32,17 @@ export const useListbox = ({
   const [rawActiveValue, setActiveValue] = useState<string | null>(null);
 
   const listboxRef = useRef<HTMLDivElement | null>(null);
+  const shouldScrollToSelectedRef = useRef(true);
+
   const listboxId = useId();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    if (!shouldScrollToSelectedRef.current) return;
+
     const el = listboxRef.current;
-    if (el == null) return;
+    if (el == null || options.length === 0) return;
+
+    shouldScrollToSelectedRef.current = false;
 
     const selected = el.querySelector<HTMLElement>('[aria-selected="true"]');
     if (selected == null) return;
@@ -49,7 +55,7 @@ export const useListbox = ({
     } else if (optionRect.bottom > listRect.bottom) {
       el.scrollTop += optionRect.bottom - listRect.bottom;
     }
-  }, []);
+  }, [options.length]);
 
   const [selection, setSelection] = useControllableState<string | string[] | null | undefined>(
     value,
