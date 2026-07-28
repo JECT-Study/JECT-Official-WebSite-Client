@@ -17,7 +17,7 @@ export const input = style({
     color: vars.color.semantic.object.assistive,
   },
   selectors: {
-    "&:read-only:not(:disabled)": {
+    "&[data-readonly]:not(:disabled)": {
       vars: { [inputTextColor]: vars.color.semantic.object.subtle },
     },
     "&:disabled": {
