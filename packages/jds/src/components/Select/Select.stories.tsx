@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 
 import { Select } from "./Select";
-import { ContentBadge } from "../Badge/contentBadge/ContentBadge";
+import { ContentBadge } from "../Badge";
 import type { SelectOption } from "../Listbox";
 
 const REGIONS: SelectOption[] = [
