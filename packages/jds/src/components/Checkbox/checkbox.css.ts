@@ -170,7 +170,9 @@ export const checkboxItem = recipe({
     overlay(),
     {
       position: "relative",
+      cursor: "pointer",
       selectors: {
+        "&[data-disabled]": { cursor: "not-allowed" },
         "&::before, &::after": { inset: 0, borderRadius: "inherit" },
       },
     },
@@ -226,6 +228,7 @@ export const checkboxItem = recipe({
 export const checkboxLabel = style({
   vars: { [labelColorVar]: vars.color.semantic.object.bolder },
   selectors: {
+    "&&": { cursor: "inherit" },
     "[data-disabled] &": { vars: { [labelColorVar]: vars.color.semantic.object.subtle } },
   },
 });
@@ -233,6 +236,7 @@ export const checkboxLabel = style({
 export const checkboxHelper = style({
   vars: { [labelColorVar]: vars.color.semantic.object.alternative },
   selectors: {
+    "&&": { cursor: "inherit" },
     "[data-disabled] &": { vars: { [labelColorVar]: vars.color.semantic.object.subtle } },
     "[data-invalid] &": {
       vars: { [labelColorVar]: vars.color.semantic.feedback.destructive.normal },

@@ -216,6 +216,7 @@ export const radioItem = recipe({
 export const radioLabel = style({
   vars: { [labelColorVar]: vars.color.semantic.object.bolder },
   selectors: {
+    "&&": { cursor: "inherit" },
     "[data-disabled] &": { vars: { [labelColorVar]: vars.color.semantic.object.subtle } },
   },
 });
@@ -223,6 +224,7 @@ export const radioLabel = style({
 export const radioHelper = style({
   vars: { [labelColorVar]: vars.color.semantic.object.alternative },
   selectors: {
+    "&&": { cursor: "inherit" },
     "[data-disabled] &": { vars: { [labelColorVar]: vars.color.semantic.object.subtle } },
   },
 });
