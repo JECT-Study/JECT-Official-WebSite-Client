@@ -32,7 +32,11 @@ import {
   useCheckboxItem,
   useCheckboxSelection,
 } from "./CheckboxContext";
-import type { CheckboxGroupState } from "./CheckboxContext";
+import type {
+  CheckboxConfigContextValue,
+  CheckboxGroupState,
+  CheckboxItemContextValue,
+} from "./CheckboxContext";
 
 const checkboxSizeMap = {
   lg: { icon: "md", label: "lg", helper: "sm" },
@@ -75,7 +79,7 @@ const CheckboxRoot = ({
     [selected, isSelected, toggle],
   );
 
-  const configValue = useMemo(
+  const configValue = useMemo<CheckboxConfigContextValue>(
     () => ({ size, variant, disabled, isInvalid, stretched, name }),
     [size, variant, disabled, isInvalid, stretched, name],
   );
@@ -137,7 +141,7 @@ const CheckboxItem = forwardRef<HTMLLabelElement, CheckboxItemProps>(
     const [hasHelper, setHasHelper] = useState(false);
     const isEffectiveInvalid = isInvalid && childChecked === false;
 
-    const configValue = useMemo(
+    const configValue = useMemo<CheckboxConfigContextValue>(
       () => ({
         ...parentConfig,
         size,
@@ -149,17 +153,20 @@ const CheckboxItem = forwardRef<HTMLLabelElement, CheckboxItemProps>(
       [parentConfig, size, variant, isDisabled, isInvalid, isStretched],
     );
 
+    const itemValue = useMemo<CheckboxItemContextValue>(
+      () => ({
+        labelId,
+        helperId,
+        hasHelper,
+        onHelperMountChange: setHasHelper,
+        onChildCheckedChange: setChildChecked,
+      }),
+      [labelId, helperId, hasHelper],
+    );
+
     return (
       <CheckboxConfigProvider value={configValue}>
-        <CheckboxItemProvider
-          value={{
-            labelId,
-            helperId,
-            hasHelper,
-            onHelperMountChange: setHasHelper,
-            onChildCheckedChange: setChildChecked,
-          }}
-        >
+        <CheckboxItemProvider value={itemValue}>
           <label
             ref={ref}
             {...restProps}

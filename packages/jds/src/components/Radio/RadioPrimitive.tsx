@@ -20,6 +20,7 @@ import {
   useRadioConfig,
   useRadioItem,
 } from "./RadioContext";
+import type { RadioConfigContextValue, RadioItemContextValue } from "./RadioContext";
 
 const radioTextSizeMap = {
   lg: { label: "lg", helper: "sm" },
@@ -43,7 +44,7 @@ const RadioRoot = ({
   "aria-label": ariaLabel,
   "aria-labelledby": ariaLabelledBy,
 }: RadioRootProps) => {
-  const configValue = useMemo(
+  const configValue = useMemo<RadioConfigContextValue>(
     () => ({ size, variant, disabled, stretched }),
     [size, variant, disabled, stretched],
   );
@@ -98,16 +99,19 @@ const RadioItem = forwardRef<HTMLButtonElement, RadioItemProps>(
 
     const [hasHelper, setHasHelper] = useState(false);
 
-    const configValue = useMemo(
+    const configValue = useMemo<RadioConfigContextValue>(
       () => ({ size, variant, disabled: isDisabled, stretched: isStretched }),
       [size, variant, isDisabled, isStretched],
     );
 
+    const itemValue = useMemo<RadioItemContextValue>(
+      () => ({ labelId, helperId, hasHelper, onHelperMountChange: setHasHelper }),
+      [labelId, helperId, hasHelper],
+    );
+
     return (
       <RadioConfigProvider value={configValue}>
-        <RadioItemProvider
-          value={{ labelId, helperId, hasHelper, onHelperMountChange: setHasHelper }}
-        >
+        <RadioItemProvider value={itemValue}>
           <RadioGroup.Item
             ref={ref}
             {...restProps}
