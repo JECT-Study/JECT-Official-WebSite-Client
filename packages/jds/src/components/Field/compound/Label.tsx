@@ -6,7 +6,7 @@ import * as styles from "../field.css";
 
 import { getLabelClassName } from "@/utils/typography";
 
-export interface FieldLabelProps extends Omit<ComponentPropsWithoutRef<"label">, "htmlFor"> {
+export interface FieldLabelProps extends ComponentPropsWithoutRef<"label"> {
   children?: ReactNode;
   /** 라벨 텍스트 앞에 배치되는 부가 요소 (예: 아이콘) */
   prefixSlot?: ReactNode;
@@ -15,7 +15,7 @@ export interface FieldLabelProps extends Omit<ComponentPropsWithoutRef<"label">,
 }
 
 export const FieldLabel = forwardRef<HTMLLabelElement, FieldLabelProps>(
-  ({ children, prefixSlot, suffixSlot, className, ...restProps }, ref) => {
+  ({ id: idFromProps, children, prefixSlot, suffixSlot, className, ...restProps }, ref) => {
     const {
       fieldId,
       fieldStyle,
@@ -23,13 +23,15 @@ export const FieldLabel = forwardRef<HTMLLabelElement, FieldLabelProps>(
       required: isRequired,
     } = useFieldContext("Field.Label");
 
+    const id = idFromProps ?? fieldId;
+
     return (
       <span className={styles.labelContainer({ fieldStyle })}>
         {prefixSlot}
         <span className={styles.labelMain}>
           <label
             ref={ref}
-            htmlFor={fieldId}
+            htmlFor={id}
             className={clsx(
               getLabelClassName({ size: "sm" }),
               styles.label({ disabled: isDisabled }),

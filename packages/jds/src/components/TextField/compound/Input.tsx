@@ -6,10 +6,7 @@ import * as styles from "../textField.css";
 
 import { getBodyClassName } from "@/utils/typography";
 
-/**
- * `id` 는 Field.Label 의 htmlFor 와 짝을 이뤄야 하므로 컨텍스트의 fieldId 만 사용한다.
- */
-export type TextFieldInputProps = Omit<ComponentPropsWithoutRef<"input">, "id">;
+export type TextFieldInputProps = ComponentPropsWithoutRef<"input">;
 
 /**
  * @description Field 컨텍스트를 소비해 Field.Content 안에 놓이는 실제 input.
@@ -19,9 +16,11 @@ export type TextFieldInputProps = Omit<ComponentPropsWithoutRef<"input">, "id">;
 export const TextFieldInput = forwardRef<HTMLInputElement, TextFieldInputProps>(
   (
     {
+      id: idFromProps,
       readOnly: readOnlyFromProps,
       disabled: disabledFromProps,
       required: requiredFromProps,
+      "aria-describedby": describedByFromProps,
       className,
       ...restProps
     },
@@ -37,19 +36,26 @@ export const TextFieldInput = forwardRef<HTMLInputElement, TextFieldInputProps>(
       required: isRequiredFromCtx,
     } = useFieldContext("TextField.Input");
 
+    const id = idFromProps ?? fieldId;
     const isReadOnly = readOnlyFromProps ?? isReadOnlyFromCtx;
     const isDisabled = disabledFromProps ?? isDisabledFromCtx;
     const isRequired = requiredFromProps ?? isRequiredFromCtx;
 
+    const describedByIds = [hasHelperText ? helperTextId : undefined, describedByFromProps].filter(
+      Boolean,
+    );
+
     return (
       <input
         ref={ref}
-        id={fieldId}
-        aria-describedby={hasHelperText ? helperTextId : undefined}
+        id={id}
+        aria-describedby={describedByIds.length > 0 ? describedByIds.join(" ") : undefined}
         aria-invalid={status === "error"}
         disabled={isDisabled}
         readOnly={isReadOnly}
         required={isRequired}
+        // NOTES: :read-only 는 readonly 가 적용되지 않는 type(checkbox·range·file 등)에서도 항상 매칭되므로 스타일은 실제로 해석된 readonly 상태를 담은 data 속성으로 건다.
+        data-readonly={isReadOnly || undefined}
         className={clsx(getBodyClassName({ size: "md" }), styles.input, className)}
         {...restProps}
       />
