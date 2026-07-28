@@ -1,32 +1,38 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexColumn, FlexRow } from "@storybook-utils/layout";
-import { useState } from "react";
+import { useState, type ComponentProps } from "react";
 
-import { RADIO_SIZE_OPTIONS } from "./radio.types";
-import { RadioGroup } from "./RadioGroup";
+import { Checkbox } from "./Checkbox";
+import { CHECKBOX_SIZE_OPTIONS, type CheckedState } from "./checkbox.types";
+import { CheckboxGroup } from "./CheckboxGroup";
 
 const meta = {
-  title: "Components/Radio",
-  component: RadioGroup,
+  title: "Components/CheckboxGroup",
+  component: CheckboxGroup,
   parameters: {
     layout: "centered",
   },
-} satisfies Meta<typeof RadioGroup>;
+} satisfies Meta<typeof CheckboxGroup>;
 
 export default meta;
 
-type Story = StoryObj<typeof RadioGroup>;
+type Story = StoryObj<typeof CheckboxGroup>;
 
+const GROUP_GAP = "12px";
 const CONTAINER_WIDTH = "280px";
+
+const ItemColumn = ({ style, ...props }: ComponentProps<typeof FlexColumn>) => (
+  <FlexColumn style={{ alignItems: "flex-start", ...style }} {...props} />
+);
 
 export const Sizes: Story = {
   render: () => (
     <FlexColumn>
-      {RADIO_SIZE_OPTIONS.map(size => (
-        <RadioGroup
+      {CHECKBOX_SIZE_OPTIONS.map(size => (
+        <CheckboxGroup
           key={size}
           size={size}
-          defaultValue='checked'
+          defaultValue={["checked"]}
           options={[
             { value: "unchecked", label: size },
             { value: "checked", label: size },
@@ -40,17 +46,17 @@ export const Sizes: Story = {
 export const Variants: Story = {
   render: () => (
     <FlexRow>
-      <RadioGroup
+      <CheckboxGroup
         variant='hollow'
-        defaultValue='a'
+        defaultValue={["a"]}
         options={[
           { value: "a", label: "hollow" },
           { value: "b", label: "hollow", helper: "헬퍼 텍스트" },
         ]}
       />
-      <RadioGroup
+      <CheckboxGroup
         variant='outlined'
-        defaultValue='a'
+        defaultValue={["a"]}
         options={[
           { value: "a", label: "outlined" },
           { value: "b", label: "outlined", helper: "헬퍼 텍스트" },
@@ -63,18 +69,18 @@ export const Variants: Story = {
 export const Disabled: Story = {
   render: () => (
     <FlexRow>
-      <RadioGroup
+      <CheckboxGroup
         variant='hollow'
-        defaultValue='a'
+        defaultValue={["a"]}
         disabled
         options={[
           { value: "a", label: "checked" },
           { value: "b", label: "unchecked" },
         ]}
       />
-      <RadioGroup
+      <CheckboxGroup
         variant='outlined'
-        defaultValue='a'
+        defaultValue={["a"]}
         disabled
         options={[
           { value: "a", label: "checked", helper: "헬퍼 텍스트" },
@@ -85,10 +91,39 @@ export const Disabled: Story = {
   ),
 };
 
+export const Invalid: Story = {
+  render: function Render() {
+    const [selected, setSelected] = useState<string[]>([]);
+    const isInvalid = selected.length === 0;
+
+    return (
+      <CheckboxGroup
+        value={selected}
+        onChange={setSelected}
+        isInvalid={isInvalid}
+        name='groupInvalid'
+        variant='outlined'
+        options={[
+          { value: "1", label: "레이블 1", helper: "헬퍼 텍스트" },
+          { value: "2", label: "레이블 2" },
+        ]}
+      />
+    );
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "`CheckboxGroup`의 `isInvalid`를 사용하여 그룹 단위 유효성 검사를 표현할 수 있습니다. 아무것도 선택하지 않은 초기 상태에서는 invalid가 그룹 전체로 전파되며 하나 이상 선택하면 invalid가 해제됩니다.",
+      },
+    },
+  },
+};
+
 export const Uncontrolled: Story = {
   render: () => (
-    <RadioGroup
-      defaultValue='2'
+    <CheckboxGroup
+      defaultValue={["2"]}
       name='uncontrolled'
       options={[
         { value: "1", label: "레이블 1" },
@@ -101,11 +136,12 @@ export const Uncontrolled: Story = {
 
 export const Controlled: Story = {
   render: function Render() {
-    const [selected, setSelected] = useState("1");
+    const [selected, setSelected] = useState<string[]>(["1"]);
+
     return (
       <FlexColumn>
-        <span>선택: {selected}</span>
-        <RadioGroup
+        <span>선택: {selected.join(", ") || "(없음)"}</span>
+        <CheckboxGroup
           value={selected}
           onChange={setSelected}
           name='controlled'
@@ -123,10 +159,10 @@ export const Controlled: Story = {
 export const GridLayout: Story = {
   render: () => (
     <FlexColumn style={{ width: CONTAINER_WIDTH }}>
-      <RadioGroup
+      <CheckboxGroup
         layout='grid'
         columns={3}
-        defaultValue='1'
+        defaultValue={["1"]}
         name='grid'
         options={[
           { value: "1", label: "레이블 1" },
@@ -150,22 +186,22 @@ export const GridLayout: Story = {
 export const Stretched: Story = {
   render: () => (
     <FlexColumn style={{ width: CONTAINER_WIDTH }}>
-      <RadioGroup
+      <CheckboxGroup
         stretched
         variant='outlined'
-        defaultValue='1'
+        defaultValue={["1"]}
         name='stretchedVertical'
         options={[
           { value: "1", label: "레이블 1" },
           { value: "2", label: "레이블 2", helper: "헬퍼 텍스트" },
         ]}
       />
-      <RadioGroup
+      <CheckboxGroup
         layout='grid'
         columns={2}
         stretched
         variant='outlined'
-        defaultValue='1'
+        defaultValue={["1"]}
         name='stretchedGrid'
         options={[
           { value: "1", label: "레이블 1" },
@@ -184,36 +220,36 @@ export const Stretched: Story = {
   },
 };
 
-export const ComprehensiveMatrix: Story = {
-  render: () => (
-    <FlexColumn>
-      {RADIO_SIZE_OPTIONS.map(size => (
-        <FlexRow key={size}>
-          <RadioGroup
-            size={size}
-            defaultValue='checked'
-            options={[
-              { value: "unchecked", label: size },
-              { value: "checked", label: size },
-            ]}
-          />
-          <RadioGroup
-            size={size}
-            defaultValue='checked'
-            disabled
-            options={[
-              { value: "unchecked", label: size },
-              { value: "checked", label: size },
-            ]}
-          />
-        </FlexRow>
-      ))}
-    </FlexColumn>
-  ),
+export const SelectAll: Story = {
+  render: function Render() {
+    const ALL = ["1", "2", "3"];
+    const [selected, setSelected] = useState<string[]>(["1"]);
+
+    const isAllChecked = selected.length === ALL.length;
+    const isSomeChecked = selected.length > 0 && !isAllChecked;
+    const parentState: CheckedState = isAllChecked ? true : isSomeChecked ? "indeterminate" : false;
+
+    return (
+      <ItemColumn gap={GROUP_GAP}>
+        <Checkbox
+          checked={parentState}
+          onCheckedChange={() => setSelected(isAllChecked ? [] : [...ALL])}
+          label='전체 선택'
+        />
+        <CheckboxGroup
+          value={selected}
+          onChange={setSelected}
+          name='groupSelectAll'
+          options={ALL.map(value => ({ value, label: `레이블 ${value}` }))}
+        />
+      </ItemColumn>
+    );
+  },
   parameters: {
     docs: {
       description: {
-        story: "모든 size와 상태 조합을 한눈에 확인할 수 있습니다.",
+        story:
+          "부모 체크박스는 그룹의 선택 상태에서 파생되어, 모두 선택되면 checked, 일부만 선택되면 indeterminate, 아무것도 선택되지 않으면 unchecked로 표시됩니다. 부모를 클릭하면 전체 선택과 전체 해제를 토글합니다.",
       },
     },
   },

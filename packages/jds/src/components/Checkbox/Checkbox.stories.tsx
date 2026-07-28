@@ -1,14 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexColumn, FlexRow } from "@storybook-utils/layout";
-import { useState, type ComponentProps } from "react";
+import type { ComponentProps } from "react";
 
 import { Checkbox } from "./Checkbox";
-import {
-  CHECKBOX_SIZE_OPTIONS,
-  CHECKBOX_VARIANT_OPTIONS,
-  type CheckedState,
-} from "./checkbox.types";
-import { CheckboxGroup } from "./CheckboxGroup";
+import { CHECKBOX_SIZE_OPTIONS } from "./checkbox.types";
 
 const meta = {
   title: "Components/Checkbox",
@@ -30,7 +25,7 @@ const ItemColumn = ({ style, ...props }: ComponentProps<typeof FlexColumn>) => (
   <FlexColumn style={{ alignItems: "flex-start", ...style }} {...props} />
 );
 
-export const CheckboxBasicSizes: Story = {
+export const Sizes: Story = {
   render: () => (
     <FlexRow>
       {CHECKBOX_SIZE_OPTIONS.map(size => (
@@ -40,7 +35,7 @@ export const CheckboxBasicSizes: Story = {
   ),
 };
 
-export const CheckboxBasicStates: Story = {
+export const States: Story = {
   render: () => (
     <FlexColumn>
       <FlexRow>
@@ -59,7 +54,7 @@ export const CheckboxBasicStates: Story = {
   ),
 };
 
-export const CheckboxItemStyle: Story = {
+export const Variants: Story = {
   render: () => (
     <ItemColumn gap={SECTION_GAP}>
       <ItemColumn gap={GROUP_GAP}>
@@ -76,7 +71,7 @@ export const CheckboxItemStyle: Story = {
   ),
 };
 
-export const CheckboxItemDisabled: Story = {
+export const Disabled: Story = {
   render: () => (
     <ItemColumn gap={GROUP_GAP}>
       <Checkbox variant='hollow' disabled label='레이블' />
@@ -85,7 +80,7 @@ export const CheckboxItemDisabled: Story = {
   ),
 };
 
-export const CheckboxItemInvalid: Story = {
+export const Invalid: Story = {
   render: () => (
     <ItemColumn gap={GROUP_GAP}>
       <Checkbox variant='hollow' isInvalid label='레이블' />
@@ -104,7 +99,7 @@ export const CheckboxItemInvalid: Story = {
   },
 };
 
-export const CheckboxItemStretched: Story = {
+export const Stretched: Story = {
   render: () => (
     <ItemColumn gap={GROUP_GAP} style={{ width: CONTAINER_WIDTH }}>
       <Checkbox variant='hollow' stretched label='레이블' />
@@ -115,219 +110,6 @@ export const CheckboxItemStretched: Story = {
     docs: {
       description: {
         story: "`stretched`를 지정하면 아이템이 부모 컨테이너 너비를 가득 채웁니다.",
-      },
-    },
-  },
-};
-
-export const CheckboxGroupUncontrolled: Story = {
-  render: () => (
-    <CheckboxGroup
-      defaultValue={["2"]}
-      name='groupUncontrolled'
-      options={[
-        { value: "1", label: "레이블 1" },
-        { value: "2", label: "레이블 2" },
-        { value: "3", label: "레이블 3" },
-      ]}
-    />
-  ),
-};
-
-export const CheckboxGroupControlled: Story = {
-  render: function Render() {
-    const [selected, setSelected] = useState<string[]>(["1"]);
-
-    return (
-      <FlexColumn>
-        <span>선택: {selected.join(", ") || "(없음)"}</span>
-        <CheckboxGroup
-          value={selected}
-          onChange={setSelected}
-          name='groupControlled'
-          options={[
-            { value: "1", label: "레이블 1" },
-            { value: "2", label: "레이블 2" },
-            { value: "3", label: "레이블 3" },
-          ]}
-        />
-      </FlexColumn>
-    );
-  },
-};
-
-export const CheckboxGroupGridLayout: Story = {
-  render: () => (
-    <FlexColumn style={{ width: CONTAINER_WIDTH }}>
-      <CheckboxGroup
-        layout='grid'
-        columns={3}
-        defaultValue={["1"]}
-        name='grid'
-        options={[
-          { value: "1", label: "레이블 1" },
-          { value: "2", label: "레이블 2" },
-          { value: "3", label: "레이블 3" },
-          { value: "4", label: "레이블 4" },
-          { value: "5", label: "레이블 5" },
-        ]}
-      />
-    </FlexColumn>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: "`layout='grid'`는 그룹 너비 전체를 `columns` 개수로 균등 분할합니다.",
-      },
-    },
-  },
-};
-
-export const CheckboxGroupStretched: Story = {
-  render: () => (
-    <FlexColumn style={{ width: CONTAINER_WIDTH }}>
-      <CheckboxGroup
-        stretched
-        variant='outlined'
-        defaultValue={["1"]}
-        name='stretchedVertical'
-        options={[
-          { value: "1", label: "레이블 1" },
-          { value: "2", label: "레이블 2", helper: "헬퍼 텍스트" },
-        ]}
-      />
-      <CheckboxGroup
-        layout='grid'
-        columns={2}
-        stretched
-        variant='outlined'
-        defaultValue={["1"]}
-        name='stretchedGrid'
-        options={[
-          { value: "1", label: "레이블 1" },
-          { value: "2", label: "레이블 2" },
-        ]}
-      />
-    </FlexColumn>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "`stretched`를 지정하면 아이템이 컨테이너(vertical) 또는 셀(grid) 너비를 가득 채웁니다.",
-      },
-    },
-  },
-};
-
-export const CheckboxGroupSelectAll: Story = {
-  render: function Render() {
-    const ALL = ["1", "2", "3"];
-    const [selected, setSelected] = useState<string[]>(["1"]);
-
-    const isAllChecked = selected.length === ALL.length;
-    const isSomeChecked = selected.length > 0 && !isAllChecked;
-    const parentState: CheckedState = isAllChecked ? true : isSomeChecked ? "indeterminate" : false;
-
-    return (
-      <ItemColumn gap={GROUP_GAP}>
-        <Checkbox
-          checked={parentState}
-          onCheckedChange={() => setSelected(isAllChecked ? [] : [...ALL])}
-          label='전체 선택'
-        />
-        <CheckboxGroup
-          value={selected}
-          onChange={setSelected}
-          name='groupSelectAll'
-          options={ALL.map(value => ({ value, label: `레이블 ${value}` }))}
-        />
-      </ItemColumn>
-    );
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "부모 체크박스는 그룹의 선택 상태에서 파생되어, 모두 선택되면 checked, 일부만 선택되면 indeterminate, 아무것도 선택되지 않으면 unchecked로 표시됩니다. 부모를 클릭하면 전체 선택과 전체 해제를 토글합니다.",
-      },
-    },
-  },
-};
-
-export const CheckboxGroupDisabled: Story = {
-  render: () => (
-    <CheckboxGroup
-      disabled
-      defaultValue={["2"]}
-      name='groupDisabled'
-      options={[
-        { value: "1", label: "레이블 1" },
-        { value: "2", label: "레이블 2" },
-      ]}
-    />
-  ),
-};
-
-export const CheckboxGroupInvalid: Story = {
-  render: function Render() {
-    const [selected, setSelected] = useState<string[]>([]);
-    const isInvalid = selected.length === 0;
-
-    return (
-      <CheckboxGroup
-        value={selected}
-        onChange={setSelected}
-        isInvalid={isInvalid}
-        name='groupInvalid'
-        variant='outlined'
-        options={[
-          { value: "1", label: "레이블 1", helper: "헬퍼 텍스트" },
-          { value: "2", label: "레이블 2" },
-        ]}
-      />
-    );
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "`CheckboxGroup`의 `isInvalid`를 선택 상태에서 파생하면 그룹 단위 유효성 검사를 표현할 수 있습니다. 아무것도 선택하지 않은 초기 상태에서는 invalid가 그룹 전체로 전파되며, 하나 이상 선택하면 invalid가 해제됩니다.",
-      },
-    },
-  },
-};
-
-export const CheckboxComprehensiveMatrix: Story = {
-  render: () => (
-    <FlexColumn gap={SECTION_GAP}>
-      <FlexColumn>
-        {CHECKBOX_SIZE_OPTIONS.map(size => (
-          <FlexRow key={size}>
-            <Checkbox size={size} checked={false} onCheckedChange={() => {}} />
-            <Checkbox size={size} checked={true} onCheckedChange={() => {}} />
-            <Checkbox size={size} checked='indeterminate' onCheckedChange={() => {}} />
-            <Checkbox size={size} checked={false} disabled onCheckedChange={() => {}} />
-            <Checkbox size={size} checked={true} disabled onCheckedChange={() => {}} />
-            <Checkbox size={size} checked='indeterminate' disabled onCheckedChange={() => {}} />
-          </FlexRow>
-        ))}
-      </FlexColumn>
-      <ItemColumn gap={SECTION_GAP}>
-        {CHECKBOX_VARIANT_OPTIONS.map(variant => (
-          <ItemColumn key={variant} gap={GROUP_GAP}>
-            <Checkbox variant={variant} defaultChecked label={variant} helper='헬퍼 텍스트' />
-            <Checkbox variant={variant} disabled label={variant} helper='헬퍼 텍스트' />
-            <Checkbox variant={variant} isInvalid label={variant} helper='헬퍼 텍스트' />
-          </ItemColumn>
-        ))}
-      </ItemColumn>
-    </FlexColumn>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: "모든 size와 상태 조합을 한눈에 확인할 수 있습니다.",
       },
     },
   },
