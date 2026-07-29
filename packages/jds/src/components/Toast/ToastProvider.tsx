@@ -45,7 +45,10 @@ export const ToastProvider = ({ children, duration }: ToastProviderProps) => {
   }, []);
 
   useEffect(() => {
-    if (!latestToastId) return;
+    if (!latestToastId) {
+      setAnnouncement("");
+      return;
+    }
 
     /**
      * [A11y] 최신 토스트가 먼저 제거되면 이미 낭독한 이전 토스트가
