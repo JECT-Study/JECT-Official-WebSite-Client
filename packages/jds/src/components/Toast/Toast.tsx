@@ -1,6 +1,7 @@
 import { clsx } from "clsx";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
+import { TOAST_ANIMATION_TIMER, TOAST_DEFAULT_DURATION } from "./toast.constants";
 import * as styles from "./toast.css";
 import type { ToastProps, ToastFeedbackVariant } from "./toast.types";
 import { Icon } from "../Icon";
@@ -9,16 +10,6 @@ import type { IconName } from "../Icon";
 import { getBodyClassName, getLabelClassName } from "@/utils/typography";
 
 type ToastPhase = "enter" | "static" | "exit";
-
-/**
- * enter/exit 값은 toast.css.ts의 animation duration 토큰과 동기화한다.
- */
-export const TOAST_TIMER = {
-  DURATION: 2500,
-  ENTER: 250,
-  EXIT: 200,
-  QUEUE_FALLBACK: 1500,
-} as const;
 
 const phaseClassNameMap: Partial<Record<ToastPhase, string>> = {
   enter: styles.enter,
@@ -38,14 +29,17 @@ export const Toast = ({
   onRemove,
   title,
   isClosing,
-  duration = TOAST_TIMER.DURATION,
+  duration = TOAST_DEFAULT_DURATION,
 }: ToastProps) => {
   const [phase, setPhase] = useState<ToastPhase>("enter");
   const hasDescription = Boolean(description);
 
+  // Provider 리렌더로 onRemove가 바뀌어도 exit 타이머가 재시작되지 않도록 최신 콜백만 보관한다.
+  const onRemoveRef = useRef(onRemove);
+
   useEffect(() => {
     if (phase === "enter") {
-      const timer = setTimeout(() => setPhase("static"), TOAST_TIMER.ENTER);
+      const timer = setTimeout(() => setPhase("static"), TOAST_ANIMATION_TIMER.ENTER);
       return () => clearTimeout(timer);
     }
   }, [phase]);
@@ -59,13 +53,17 @@ export const Toast = ({
   }, [duration, phase]);
 
   useEffect(() => {
+    onRemoveRef.current = onRemove;
+  }, [onRemove]);
+
+  useEffect(() => {
     if (phase === "exit") {
       const timer = setTimeout(() => {
-        onRemove?.();
-      }, TOAST_TIMER.EXIT);
+        onRemoveRef.current?.();
+      }, TOAST_ANIMATION_TIMER.EXIT);
       return () => clearTimeout(timer);
     }
-  }, [phase, onRemove]);
+  }, [phase]);
 
   useEffect(() => {
     if (isClosing) setPhase("exit");
