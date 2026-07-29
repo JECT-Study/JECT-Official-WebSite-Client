@@ -21,6 +21,7 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
     return (
       <button
         ref={forwardedRef}
+        type='button'
         {...restProps}
         disabled={disabled}
         data-disabled={disabled || undefined}
