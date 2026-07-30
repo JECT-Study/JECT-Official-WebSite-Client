@@ -97,33 +97,33 @@ export const UseToastProvider: StoryObj<typeof Toast> = {
       <FlexRow>
         <FlexColumn style={{ width: "150px" }}>
           <span>only Title</span>
-          <BlockButton.Basic onClick={basicToast} variant='outlined'>
+          <BlockButton variant='outlined' onClick={basicToast}>
             Basic
-          </BlockButton.Basic>
-          <BlockButton.Feedback onClick={positiveToast} intent='positive'>
+          </BlockButton>
+          <BlockButton feedback='positive' onClick={positiveToast}>
             Positive
-          </BlockButton.Feedback>
-          <BlockButton.Feedback onClick={destructiveToast} intent='destructive'>
+          </BlockButton>
+          <BlockButton feedback='destructive' onClick={destructiveToast}>
             Destructive
-          </BlockButton.Feedback>
-          <BlockButton.Basic onClick={notifyingToast} hierarchy='accent' variant='solid'>
+          </BlockButton>
+          <BlockButton hierarchy='accent' variant='solid' onClick={notifyingToast}>
             Notifying
-          </BlockButton.Basic>
+          </BlockButton>
         </FlexColumn>
         <FlexColumn style={{ width: "150px" }}>
           <span>with Description</span>
-          <BlockButton.Basic onClick={basicToastDescription} variant='outlined'>
+          <BlockButton variant='outlined' onClick={basicToastDescription}>
             Basic
-          </BlockButton.Basic>
-          <BlockButton.Feedback onClick={positiveToastDescription} intent='positive'>
+          </BlockButton>
+          <BlockButton feedback='positive' onClick={positiveToastDescription}>
             Positive
-          </BlockButton.Feedback>
-          <BlockButton.Feedback onClick={destructiveToastDescription} intent='destructive'>
+          </BlockButton>
+          <BlockButton feedback='destructive' onClick={destructiveToastDescription}>
             Destructive
-          </BlockButton.Feedback>
-          <BlockButton.Basic onClick={notifyingToastDescription} hierarchy='accent' variant='solid'>
+          </BlockButton>
+          <BlockButton hierarchy='accent' variant='solid' onClick={notifyingToastDescription}>
             Notifying
-          </BlockButton.Basic>
+          </BlockButton>
         </FlexColumn>
       </FlexRow>
     );
@@ -278,33 +278,33 @@ export const UseGlobalToast: StoryObj<typeof Toast> = {
       <FlexRow>
         <FlexColumn style={{ width: "150px" }}>
           <span>only Title</span>
-          <BlockButton.Basic onClick={basicToast} variant='outlined'>
+          <BlockButton variant='outlined' onClick={basicToast}>
             Basic
-          </BlockButton.Basic>
-          <BlockButton.Feedback onClick={positiveToast} intent='positive'>
+          </BlockButton>
+          <BlockButton feedback='positive' onClick={positiveToast}>
             Positive
-          </BlockButton.Feedback>
-          <BlockButton.Feedback onClick={destructiveToast} intent='destructive'>
+          </BlockButton>
+          <BlockButton feedback='destructive' onClick={destructiveToast}>
             Destructive
-          </BlockButton.Feedback>
-          <BlockButton.Basic onClick={notifyingToast} hierarchy='accent' variant='solid'>
+          </BlockButton>
+          <BlockButton hierarchy='accent' variant='solid' onClick={notifyingToast}>
             Notifying
-          </BlockButton.Basic>
+          </BlockButton>
         </FlexColumn>
         <FlexColumn style={{ width: "150px" }}>
           <span>with Description</span>
-          <BlockButton.Basic onClick={basicToastDescription} variant='outlined'>
+          <BlockButton variant='outlined' onClick={basicToastDescription}>
             Basic
-          </BlockButton.Basic>
-          <BlockButton.Feedback onClick={positiveToastDescription} intent='positive'>
+          </BlockButton>
+          <BlockButton feedback='positive' onClick={positiveToastDescription}>
             Positive
-          </BlockButton.Feedback>
-          <BlockButton.Feedback onClick={destructiveToastDescription} intent='destructive'>
+          </BlockButton>
+          <BlockButton feedback='destructive' onClick={destructiveToastDescription}>
             Destructive
-          </BlockButton.Feedback>
-          <BlockButton.Basic onClick={notifyingToastDescription} hierarchy='accent' variant='solid'>
+          </BlockButton>
+          <BlockButton hierarchy='accent' variant='solid' onClick={notifyingToastDescription}>
             Notifying
-          </BlockButton.Basic>
+          </BlockButton>
         </FlexColumn>
       </FlexRow>
     );
