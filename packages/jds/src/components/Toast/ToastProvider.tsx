@@ -28,7 +28,8 @@ export const ToastProvider = ({ children, duration }: ToastProviderProps) => {
   const [statusAnnouncement, setStatusAnnouncement] = useState("");
   const [alertAnnouncement, setAlertAnnouncement] = useState("");
 
-  const announcementSpaceToggleRef = useRef(false);
+  const statusAnnouncementSpaceToggleRef = useRef(false);
+  const alertAnnouncementSpaceToggleRef = useRef(false);
   const announcedToastIdsRef = useRef<Set<string>>(new Set());
 
   const latestToast = toasts.length > 0 ? toasts[toasts.length - 1] : null;
@@ -68,16 +69,18 @@ export const ToastProvider = ({ children, duration }: ToastProviderProps) => {
      * [A11y] VoiceOver는 live region에 이전과 동일한 문자열이 다시 들어오면
      * 새 알림으로 인식하지 않아 낭독을 건너뛰는 경우가 있습니다.
      * 사용자에게 들리지 않는 zero-width space(\u200B)를 1개/2개로 번갈아 붙여
-     * 화면에 보이는 문구는 유지하면서 DOM 텍스트 변경을 확실히 만듭니다.
+     * 화면에 보이는 문구는 유지하면서 각 live region의 DOM 텍스트 변경을 확실히 만듭니다.
+     * status와 alert가 toggle을 공유하면 교차 알림 이후 동일 문구의
+     * state가 같아질 수 있으므로, live region별 toggle을 독립적으로 관리합니다.
      */
-    announcementSpaceToggleRef.current = !announcementSpaceToggleRef.current;
-    const invisibleSpace = announcementSpaceToggleRef.current ? "\u200B" : "\u200B\u200B";
-    const announcement = `${baseText}${invisibleSpace}`;
-
     if (latestToastFeedback === "destructive") {
-      setAlertAnnouncement(announcement);
+      alertAnnouncementSpaceToggleRef.current = !alertAnnouncementSpaceToggleRef.current;
+      const invisibleSpace = alertAnnouncementSpaceToggleRef.current ? "\u200B" : "\u200B\u200B";
+      setAlertAnnouncement(`${baseText}${invisibleSpace}`);
     } else {
-      setStatusAnnouncement(announcement);
+      statusAnnouncementSpaceToggleRef.current = !statusAnnouncementSpaceToggleRef.current;
+      const invisibleSpace = statusAnnouncementSpaceToggleRef.current ? "\u200B" : "\u200B\u200B";
+      setStatusAnnouncement(`${baseText}${invisibleSpace}`);
     }
   }, [latestToastId, latestToastTitle, latestToastDescription, latestToastFeedback]);
 
