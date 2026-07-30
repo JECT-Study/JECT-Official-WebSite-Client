@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { FlexColumn } from "@storybook-utils/layout";
+import { FlexColumn, FlexRow, Label } from "@storybook-utils/layout";
+import { useEffect, useRef, useState } from "react";
+import { visuallyHidden } from "utils";
 
 import { Snackbar } from "./Snackbar";
 import { snackbarController } from "./snackbarController";
@@ -118,6 +120,118 @@ export const UseSnackbarProvider: StoryObj<typeof Snackbar> = {
       </FlexColumn>
     );
   },
+};
+
+const VoiceOverLiveRegionDemo = () => {
+  const { snackbar } = useSnackbar();
+  const [articleAnnouncement, setArticleAnnouncement] = useState("");
+  const articleAnnouncementSpaceToggleRef = useRef(false);
+  const snackbarTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const onClick = () => {};
+
+  const articleText =
+    "접근성 안내는 모든 사용자가 정보를 동등하게 이해하도록 돕습니다. 일반 상태는 현재 낭독을 방해하지 않고, 긴급 오류는 즉시 전달되는지 VoiceOver로 확인합니다.";
+
+  const startArticleReading = () => {
+    articleAnnouncementSpaceToggleRef.current = !articleAnnouncementSpaceToggleRef.current;
+    const invisibleSpace = articleAnnouncementSpaceToggleRef.current ? "\u200B" : "\u200B\u200B";
+
+    setArticleAnnouncement(`${articleText} ${invisibleSpace}`);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (snackbarTimerRef.current) {
+        clearTimeout(snackbarTimerRef.current);
+      }
+    };
+  }, []);
+
+  const startTest = (feedback: "status" | "alert") => {
+    if (snackbarTimerRef.current) clearTimeout(snackbarTimerRef.current);
+    startArticleReading();
+
+    snackbarTimerRef.current = setTimeout(() => {
+      if (feedback === "alert") {
+        snackbar.destructive("긴급 오류가 발생했습니다.", "확인", onClick, {
+          description: "현재 읽고 있는 본문을 중단하고 즉시 낭독해야 합니다.",
+        });
+      } else {
+        snackbar.basic("일반 상태 안내입니다.", "확인", onClick, {
+          description: "현재 낭독을 즉시 중단하지 않고 다음 가능한 시점에 안내해야 합니다.",
+        });
+      }
+      snackbarTimerRef.current = null;
+    }, 4000);
+  };
+
+  return (
+    <FlexColumn gap='24px' style={{ width: "min(768px, calc(100vw - 32px))" }}>
+      <Label style={{ width: "auto" }}>
+        버튼을 누르면 본문 낭독이 시작되고 4초 뒤 해당 스낵바가 자동으로 발생합니다. 두 테스트는 한
+        번에 하나씩 실행하세요.
+      </Label>
+      <FlexRow
+        gap='50px'
+        style={{
+          alignItems: "stretch",
+          flexWrap: "wrap",
+          justifyContent: "center",
+        }}
+      >
+        <div
+          style={{
+            flex: 1,
+            minWidth: "min(100%, 320px)",
+            boxSizing: "border-box",
+            padding: "20px",
+            borderRadius: "12px",
+            backgroundColor: "rgba(127, 127, 127, 0.1)",
+          }}
+        >
+          <h4 style={{ margin: 0 }}>VoiceOver 낭독 테스트용 본문</h4>
+          <p>{articleText}</p>
+        </div>
+        <FlexColumn
+          gap='12px'
+          style={{
+            flex: "0 0 180px",
+            alignItems: "stretch",
+            justifyContent: "center",
+          }}
+        >
+          <BlockButton variant='outlined' onClick={() => startTest("status")}>
+            Status 비교 시작
+          </BlockButton>
+          <BlockButton feedback='destructive' onClick={() => startTest("alert")}>
+            Alert 비교 시작
+          </BlockButton>
+        </FlexColumn>
+      </FlexRow>
+      <div className={visuallyHidden} role='status' aria-live='polite' aria-atomic='true'>
+        {articleAnnouncement}
+      </div>
+    </FlexColumn>
+  );
+};
+
+export const VoiceOverLiveRegion: StoryObj<typeof Snackbar> = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "각 버튼은 VoiceOver의 본문 낭독을 시작하고 4초 뒤 해당 스낵바를 자동 호출합니다. status 스낵바는 낭독을 즉시 끊지 않고 다음 자연스러운 시점에 읽히는지, alert 스낵바는 낭독을 중단하고 즉시 읽히는지 비교합니다. 스낵바는 확인할 수 있도록 15초간 유지됩니다.",
+      },
+    },
+  },
+  decorators: [
+    Story => (
+      <SnackbarProvider duration={15000}>
+        <Story />
+      </SnackbarProvider>
+    ),
+  ],
+  render: () => <VoiceOverLiveRegionDemo />,
 };
 
 export const UseSnackbarProviderWithOptions: StoryObj<typeof Snackbar> = {
