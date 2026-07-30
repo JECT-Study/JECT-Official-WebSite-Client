@@ -20,6 +20,7 @@ export const TextFieldInput = forwardRef<HTMLInputElement, TextFieldInputProps>(
       disabled: disabledFromProps,
       required: requiredFromProps,
       "aria-describedby": describedByFromProps,
+      "aria-invalid": invalidFromProps,
       className,
       ...restProps
     },
@@ -42,6 +43,7 @@ export const TextFieldInput = forwardRef<HTMLInputElement, TextFieldInputProps>(
     const describedByIds = [hasHelperText ? helperTextId : undefined, describedByFromProps].filter(
       Boolean,
     );
+    const ariaInvalid = status === "error" ? true : (invalidFromProps ?? false);
 
     return (
       <input
@@ -49,7 +51,7 @@ export const TextFieldInput = forwardRef<HTMLInputElement, TextFieldInputProps>(
         ref={ref}
         id={fieldId}
         aria-describedby={describedByIds.length > 0 ? describedByIds.join(" ") : undefined}
-        aria-invalid={status === "error"}
+        aria-invalid={ariaInvalid}
         disabled={isDisabled}
         readOnly={isReadOnly}
         required={isRequired}
