@@ -227,13 +227,13 @@ export const VoiceOverLiveRegion: StoryObj<typeof Toast> = {
     docs: {
       description: {
         story:
-          "각 버튼은 VoiceOver의 본문 낭독을 시작하고 4초 뒤 해당 토스트를 자동 호출합니다. status 토스트는 낭독을 즉시 끊지 않고 다음 자연스러운 시점에 읽히는지, alert 토스트는 낭독을 중단하고 즉시 읽히는지 비교합니다. 토스트는 확인할 수 있도록 15초간 유지됩니다.",
+          "각 버튼은 VoiceOver의 본문 낭독을 시작하고 4초 뒤 해당 토스트를 자동 호출합니다. status 토스트는 낭독을 즉시 끊지 않고 다음 자연스러운 시점에 읽히는지, alert 토스트는 낭독을 중단하고 즉시 읽히는지 비교합니다.",
       },
     },
   },
   decorators: [
     Story => (
-      <ToastProvider duration={15000}>
+      <ToastProvider>
         <Story />
       </ToastProvider>
     ),
