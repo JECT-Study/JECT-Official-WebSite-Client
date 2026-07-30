@@ -25,7 +25,9 @@ export const SnackbarProvider = ({ children, duration }: SnackbarProviderProps) 
   const { snackbars, snackbar: handler, removeSnackbar } = useSnackbarProvider();
   const [isMounted, setIsMounted] = useState(false);
 
-  const [announcement, setAnnouncement] = useState("");
+  const [statusAnnouncement, setStatusAnnouncement] = useState("");
+  const [alertAnnouncement, setAlertAnnouncement] = useState("");
+
   const announcementSpaceToggleRef = useRef(false);
   const announcedSnackbarIdsRef = useRef<Set<string>>(new Set());
 
@@ -34,6 +36,7 @@ export const SnackbarProvider = ({ children, duration }: SnackbarProviderProps) 
   const latestSnackbarId = latestSnackbar?.id;
   const latestSnackbarTitle = latestSnackbar?.title;
   const latestSnackbarDescription = latestSnackbar?.description;
+  const latestSnackbarFeedback = latestSnackbar?.feedback;
 
   useEffect(() => {
     snackbarController.setHandler(handler);
@@ -46,7 +49,8 @@ export const SnackbarProvider = ({ children, duration }: SnackbarProviderProps) 
 
   useEffect(() => {
     if (!latestSnackbarId) {
-      setAnnouncement("");
+      setStatusAnnouncement("");
+      setAlertAnnouncement("");
       return;
     }
 
@@ -68,9 +72,14 @@ export const SnackbarProvider = ({ children, duration }: SnackbarProviderProps) 
      */
     announcementSpaceToggleRef.current = !announcementSpaceToggleRef.current;
     const invisibleSpace = announcementSpaceToggleRef.current ? "\u200B" : "\u200B\u200B";
+    const announcement = `${baseText}${invisibleSpace}`;
 
-    setAnnouncement(`${baseText}${invisibleSpace}`);
-  }, [latestSnackbarId, latestSnackbarTitle, latestSnackbarDescription]);
+    if (latestSnackbarFeedback === "destructive") {
+      setAlertAnnouncement(announcement);
+    } else {
+      setStatusAnnouncement(announcement);
+    }
+  }, [latestSnackbarId, latestSnackbarTitle, latestSnackbarDescription, latestSnackbarFeedback]);
 
   useEffect(() => {
     // 큐에서 제거된 스낵바 id를 정리해 낭독 완료 목록이 계속 누적되지 않도록 한다.
@@ -85,9 +94,12 @@ export const SnackbarProvider = ({ children, duration }: SnackbarProviderProps) 
     <SnackbarContext.Provider value={{ snackbar: handler, removeSnackbar }}>
       {children}
 
-      {/* 스크린리더 전용 live region: 최신 스낵바만 낭독 */}
+      {/* 스크린리더 전용 live region: feedback에 맞는 영역에서 최신 스낵바만 낭독 */}
       <div className={visuallyHidden} role='status' aria-live='polite' aria-atomic='true'>
-        {announcement}
+        {statusAnnouncement}
+      </div>
+      <div className={visuallyHidden} role='alert' aria-live='assertive' aria-atomic='true'>
+        {alertAnnouncement}
       </div>
 
       {isMounted &&
