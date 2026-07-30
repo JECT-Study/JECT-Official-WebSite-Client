@@ -20,7 +20,7 @@ Toast가 Compound 구조에서 `feedback` prop을 사용하는 단일 컴포넌�
 | `ToastVariant = "positive" \| "destructive"`            | `ToastFeedback = "none" \| "positive" \| "destructive" \| "notifying"` |
 | `ToastBasicProps`, `ToastFeedbackProps`                 | `ToastProps`                                                           |
 | `ToastStyle`, `ToastFeedbackIconProps`, `ToastDivProps` | 제거                                                                   |
-| 닫기 버튼                                               | 제거. 자동 종료 동작 기준으로 확인 필요                                |
+| 닫기 버튼                                               | 제거. `duration` 기반 자동 종료로 대체                                 |
 
 **마이그레이션 예시**
 
