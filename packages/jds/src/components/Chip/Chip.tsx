@@ -1,0 +1,71 @@
+import { clsx } from "clsx";
+import { forwardRef } from "react";
+import { visuallyHidden } from "utils";
+
+import * as styles from "./chip.css";
+import type { ChipProps } from "./chip.types";
+import { IconButton } from "../Button/IconButton";
+
+import { getLabelClassName } from "@/utils/typography";
+
+export const Chip = forwardRef<HTMLButtonElement, ChipProps>(
+  (
+    {
+      label,
+      valueLabel,
+      valueLabelOnly = false,
+      disabled = false,
+      onRemove,
+      className,
+      style,
+      type = "button",
+      ...restProps
+    },
+    forwardedRef,
+  ) => {
+    const valueLabelText = valueLabel?.filter(Boolean).join(", ");
+    const isActivated = Boolean(valueLabelText);
+    const isLabelVisible = !isActivated || !valueLabelOnly;
+
+    return (
+      <span
+        className={clsx(styles.root({ activated: isActivated, disabled }), className)}
+        style={style}
+        data-disabled={disabled || undefined}
+      >
+        <button
+          ref={forwardedRef}
+          {...restProps}
+          type={type}
+          disabled={disabled}
+          data-interaction-target
+          className={styles.mainAction}
+        >
+          {isLabelVisible ? (
+            <span className={clsx(styles.label, getLabelClassName({ size: "md" }))}>{label}</span>
+          ) : (
+            <span className={visuallyHidden}>{label}</span>
+          )}
+          {isActivated && (
+            <span className={clsx(styles.valueLabel, getLabelClassName({ size: "md" }))}>
+              <span className={styles.valueLabelText}>{valueLabelText}</span>
+            </span>
+          )}
+        </button>
+
+        <IconButton
+          type='button'
+          icon='close-line'
+          size='xs'
+          hierarchy='accent'
+          aria-label={`${[label, valueLabelText].filter(Boolean).join(" ")} 제거`}
+          disabled={disabled}
+          className={styles.removeButton}
+          onClick={onRemove}
+        />
+      </span>
+    );
+  },
+);
+
+Chip.displayName = "Chip";

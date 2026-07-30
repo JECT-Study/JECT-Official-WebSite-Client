@@ -33,6 +33,7 @@ const LabelButtonRoot = forwardRef<HTMLButtonElement, LabelButtonProps>(
     return (
       <button
         ref={forwardedRef}
+        type='button'
         {...restProps}
         disabled={disabled}
         data-disabled={disabled || undefined}

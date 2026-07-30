@@ -29,10 +29,6 @@ export interface ToastHandler {
   notifying: ToastHandlerFn;
 }
 
-export interface UseToastProviderProps {
-  toastLimit?: number;
-}
-
 export interface ToastOptions {
   description?: string;
   duration?: number;
