@@ -6,6 +6,8 @@
 
 Snackbar가 Compound 구조에서 `feedback` prop을 사용하는 단일 컴포넌트 구조로 변경되었습니다. `none`, `positive`, `destructive`, `notifying` 피드백 상태를 지원하고, Snackbar 노출 시간을 `duration`으로 조절할 수 있습니다. 스크린리더 낭독은 시각용 Snackbar 스택과 분리된 live region에서 가장 최근 Snackbar만 읽도록 개선되었습니다. 사용자가 Snackbar에 hover 또는 focus 중일 때는 자동 닫힘이 일시정지됩니다.
 
+`feedback="destructive"`는 `role="alert"`와 `aria-live="assertive"`로 즉시 낭독하며, 나머지 피드백은 `role="status"`와 `aria-live="polite"`로 안내합니다.
+
 **소비자 영향 (코드 수정 필요)**
 
 | AS-IS                                                            | TO-BE                                                                     |
