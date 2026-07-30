@@ -12,6 +12,8 @@ export const container = recipe({
   },
 });
 
+const controlDisabledSelector = `${container.classNames.base}:has(input:disabled) &`;
+
 export const labelContainer = recipe({
   base: {
     display: "flex",
@@ -39,7 +41,13 @@ export const labelMain = style({
 });
 
 export const label = recipe({
-  base: {},
+  base: {
+    selectors: {
+      [controlDisabledSelector]: {
+        vars: { [labelColorVar]: vars.color.semantic.object.subtle },
+      },
+    },
+  },
   variants: {
     disabled: {
       true: {
@@ -55,6 +63,11 @@ export const label = recipe({
 export const asterisk = recipe({
   base: {
     marginTop: -2,
+    selectors: {
+      [controlDisabledSelector]: {
+        vars: { [labelColorVar]: vars.color.semantic.feedback.notifying.alpha.inverse.assistive },
+      },
+    },
   },
   variants: {
     disabled: {
@@ -214,6 +227,18 @@ export const content = recipe({
   ],
 });
 
+const disabledHelperTextColor = {
+  default: vars.color.semantic.object.subtle,
+  success: vars.color.semantic.feedback.positive.alpha.assistive,
+  error: vars.color.semantic.feedback.destructive.alpha.assistive,
+} satisfies Record<FieldStatus, string>;
+
+const disabledHelperTextSelector = (status: FieldStatus) => ({
+  [controlDisabledSelector]: {
+    vars: { [labelColorVar]: disabledHelperTextColor[status] },
+  },
+});
+
 export const helperText = recipe({
   base: {},
   variants: {
@@ -224,12 +249,15 @@ export const helperText = recipe({
     status: {
       default: {
         vars: { [labelColorVar]: vars.color.semantic.object.alternative },
+        selectors: disabledHelperTextSelector("default"),
       },
       success: {
         vars: { [labelColorVar]: vars.color.semantic.feedback.positive.normal },
+        selectors: disabledHelperTextSelector("success"),
       },
       error: {
         vars: { [labelColorVar]: vars.color.semantic.feedback.destructive.normal },
+        selectors: disabledHelperTextSelector("error"),
       },
     } satisfies Record<FieldStatus, StyleRule>,
     disabled: {
