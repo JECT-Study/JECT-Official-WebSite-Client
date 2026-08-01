@@ -1,8 +1,11 @@
 import { clsx } from "clsx";
-import { forwardRef } from "react";
+import { Popover } from "radix-ui";
+import { forwardRef, useLayoutEffect, useMemo } from "react";
 
 import { useFieldContext } from "../../Field/Field.context";
 import { Icon } from "../../Icon";
+import { Listbox, useListbox } from "../../Listbox";
+import { useSelectFieldContext } from "../SelectField.context";
 import * as styles from "../selectField.css";
 import type { SelectFieldTriggerProps } from "../selectField.types";
 
@@ -13,6 +16,9 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
     {
       options,
       value,
+      defaultValue,
+      onChange,
+      variant = "label",
       placeholder,
       disabled: disabledFromProps,
       "aria-describedby": describedByFromProps,
@@ -31,8 +37,43 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
       readonly: isReadOnly,
     } = useFieldContext("SelectField.Trigger");
 
+    const { isOpen, onOpenChange } = useSelectFieldContext("SelectField.Trigger");
+
     const isDisabled = disabledFromProps ?? isDisabledFromCtx;
-    const selectedLabel = options.find(option => option.value === value)?.label;
+    const isInteractive = !isDisabled && !isReadOnly;
+
+    const { listboxRef, contextValue, selectedValues, scrollToSelected, getListboxProps } =
+      useListbox({
+        mode: "single",
+        variant,
+        options,
+        value,
+        defaultValue,
+        onChange: onChange as ((value: string | string[]) => void) | undefined,
+        disabled: isDisabled,
+        scrollToSelectedOnMount: false,
+      });
+
+    const selectedLabel = options.find(option => option.value === selectedValues[0])?.label;
+
+    useLayoutEffect(() => {
+      if (!isOpen) return;
+
+      // Radix가 available-height를 반영한 뒤에야 스크롤 영역이 생기므로 다음 프레임에서 실행
+      const frame = requestAnimationFrame(() => scrollToSelected());
+      return () => cancelAnimationFrame(frame);
+    }, [isOpen, scrollToSelected]);
+
+    const popupContextValue = useMemo(
+      () => ({
+        ...contextValue,
+        select: (optionValue: string) => {
+          contextValue.select(optionValue);
+          onOpenChange(false);
+        },
+      }),
+      [contextValue, onOpenChange],
+    );
 
     const describedByIds = [hasHelperText ? helperTextId : undefined, describedByFromProps].filter(
       Boolean,
@@ -40,25 +81,48 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
     const ariaInvalid = status === "error" ? true : (invalidFromProps ?? false);
 
     return (
-      <button
-        {...restProps}
-        ref={ref}
-        type='button'
-        id={fieldId}
-        aria-describedby={describedByIds.length > 0 ? describedByIds.join(" ") : undefined}
-        aria-invalid={ariaInvalid}
-        disabled={isDisabled}
-        data-readonly={isReadOnly || undefined}
-        className={clsx(styles.trigger, className)}
-      >
-        <span
-          className={clsx(getBodyClassName({ size: "md" }), styles.value)}
-          data-placeholder={selectedLabel == null || undefined}
-        >
-          {selectedLabel ?? placeholder}
-        </span>
-        <Icon name='arrow-down-s-line' size='sm' className={styles.indicator} />
-      </button>
+      <>
+        <Popover.Trigger asChild disabled={!isInteractive}>
+          <button
+            {...restProps}
+            ref={ref}
+            type='button'
+            id={fieldId}
+            aria-describedby={describedByIds.length > 0 ? describedByIds.join(" ") : undefined}
+            aria-invalid={ariaInvalid}
+            disabled={isDisabled}
+            data-readonly={isReadOnly || undefined}
+            data-open={isOpen || undefined}
+            className={clsx(styles.trigger, className)}
+          >
+            <span
+              className={clsx(getBodyClassName({ size: "md" }), styles.value)}
+              data-placeholder={selectedLabel == null || undefined}
+            >
+              {selectedLabel ?? placeholder}
+            </span>
+            <Icon name='arrow-down-s-line' size='md' className={styles.indicator} />
+          </button>
+        </Popover.Trigger>
+        <Popover.Portal>
+          <Popover.Content
+            asChild
+            align='start'
+            sideOffset={4}
+            collisionPadding={8}
+            onOpenAutoFocus={event => event.preventDefault()}
+          >
+            <Listbox
+              className={styles.popup}
+              context={popupContextValue}
+              options={options}
+              listboxRef={listboxRef}
+              listboxProps={getListboxProps()}
+              onMouseDown={event => event.preventDefault()}
+            />
+          </Popover.Content>
+        </Popover.Portal>
+      </>
     );
   },
 );

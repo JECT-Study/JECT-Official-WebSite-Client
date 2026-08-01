@@ -21,6 +21,7 @@ interface UseListboxParams {
   defaultValue?: string | string[];
   onChange?: (value: string | string[]) => void;
   disabled: boolean;
+  scrollToSelectedOnMount?: boolean;
 }
 
 export const useListbox = ({
@@ -31,6 +32,7 @@ export const useListbox = ({
   defaultValue,
   onChange,
   disabled,
+  scrollToSelectedOnMount = true,
 }: UseListboxParams) => {
   const [rawActiveValue, setActiveValue] = useState<string | null>(null);
 
@@ -39,16 +41,23 @@ export const useListbox = ({
 
   const listboxId = useId();
 
+  const scrollToSelected = useCallback(() => {
+    const el = listboxRef.current;
+    if (el == null) return;
+
+    scrollSelectedOptionIntoView(el);
+  }, []);
+
   useLayoutEffect(() => {
-    if (!shouldScrollToSelectedRef.current) return;
+    if (!scrollToSelectedOnMount || !shouldScrollToSelectedRef.current) return;
 
     const el = listboxRef.current;
     if (el == null || options.length === 0) return;
 
     shouldScrollToSelectedRef.current = false;
 
-    scrollSelectedOptionIntoView(el);
-  }, [options.length]);
+    scrollToSelected();
+  }, [options.length, scrollToSelected, scrollToSelectedOnMount]);
 
   const [selection, setSelection] = useControllableState<string | string[] | null | undefined>(
     value,
@@ -164,12 +173,19 @@ export const useListbox = ({
       "aria-multiselectable": mode === "multiple" ? true : undefined,
       "aria-orientation": "vertical" as const,
       "aria-disabled": disabled || undefined,
+    }),
+    [listboxId, mode, disabled],
+  );
+
+  const getFocusableListboxProps = useCallback(
+    () => ({
+      ...getListboxProps(),
       tabIndex: disabled ? -1 : 0,
       "aria-activedescendant": activeId,
       onKeyDown,
       onFocus,
     }),
-    [listboxId, mode, disabled, activeId, onKeyDown, onFocus],
+    [getListboxProps, disabled, activeId, onKeyDown, onFocus],
   );
 
   const contextValue = useMemo<ListboxContextValue>(
@@ -189,6 +205,9 @@ export const useListbox = ({
   return {
     listboxRef,
     contextValue,
+    selectedValues,
+    scrollToSelected,
     getListboxProps,
+    getFocusableListboxProps,
   };
 };

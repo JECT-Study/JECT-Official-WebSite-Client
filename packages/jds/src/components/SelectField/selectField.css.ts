@@ -56,6 +56,11 @@ export const value = style({
   },
 });
 
+export const popup = style({
+  minWidth: "var(--radix-popover-trigger-width)",
+  maxHeight: "var(--radix-popover-content-available-height)",
+});
+
 export const indicator = style({
   display: "inline-flex",
   flexShrink: 0,

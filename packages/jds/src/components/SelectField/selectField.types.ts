@@ -1,15 +1,30 @@
 import type { ComponentPropsWithoutRef } from "react";
 
 import type { FieldProps } from "../Field";
-import type { SelectOption } from "../Listbox";
+import type { OptionVariant, SelectOption } from "../Listbox";
 
 export type SelectFieldProps = FieldProps;
 
-export type SelectFieldTriggerProps = Omit<
+type SelectFieldTriggerBaseProps = Omit<
   ComponentPropsWithoutRef<"button">,
-  "id" | "type" | "value"
+  "id" | "type" | "value" | "defaultValue" | "onChange"
 > & {
   options: SelectOption[];
-  value?: string | null;
   placeholder?: string;
+  variant?: OptionVariant;
 };
+
+type SelectFieldTriggerControlledProps = {
+  value: string | null;
+  defaultValue?: never;
+  onChange: (value: string) => void;
+};
+
+type SelectFieldTriggerUncontrolledProps = {
+  value?: never;
+  defaultValue?: string;
+  onChange?: (value: string) => void;
+};
+
+export type SelectFieldTriggerProps = SelectFieldTriggerBaseProps &
+  (SelectFieldTriggerControlledProps | SelectFieldTriggerUncontrolledProps);
