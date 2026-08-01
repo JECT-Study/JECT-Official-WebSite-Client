@@ -69,11 +69,7 @@ export const File = forwardRef<HTMLButtonElement, FileProps>(
             icon='close-line'
             className={styles.removeButton}
             aria-label={`${fileName} 파일 삭제`}
-            onClick={e => {
-              e.preventDefault();
-              e.stopPropagation();
-              onRemove?.(e);
-            }}
+            onClick={onRemove}
           />
         )}
       </div>

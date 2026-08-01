@@ -45,7 +45,10 @@ export const SnackbarProvider = ({ children, duration }: SnackbarProviderProps) 
   }, []);
 
   useEffect(() => {
-    if (!latestSnackbarId) return;
+    if (!latestSnackbarId) {
+      setAnnouncement("");
+      return;
+    }
 
     /**
      * [A11y] 최신 스낵바가 먼저 제거되면 이미 낭독한 이전 스낵바가
