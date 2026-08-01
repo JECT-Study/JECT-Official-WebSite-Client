@@ -10,7 +10,7 @@ import {
 } from "react";
 
 import type { SelectionMode, SelectOption } from "./listbox.types";
-import { getOptionId } from "./listbox.utils";
+import { getOptionId, scrollSelectedOptionIntoView } from "./listbox.utils";
 
 interface UseListboxParams {
   mode: SelectionMode;
@@ -44,17 +44,7 @@ export const useListbox = ({
 
     shouldScrollToSelectedRef.current = false;
 
-    const selected = el.querySelector<HTMLElement>('[aria-selected="true"]');
-    if (selected == null) return;
-
-    const listRect = el.getBoundingClientRect();
-    const optionRect = selected.getBoundingClientRect();
-
-    if (optionRect.top < listRect.top) {
-      el.scrollTop += optionRect.top - listRect.top;
-    } else if (optionRect.bottom > listRect.bottom) {
-      el.scrollTop += optionRect.bottom - listRect.bottom;
-    }
+    scrollSelectedOptionIntoView(el);
   }, [options.length]);
 
   const [selection, setSelection] = useControllableState<string | string[] | null | undefined>(
