@@ -1,4 +1,5 @@
 export { Listbox } from "./Listbox";
+export { useListbox } from "./useListbox";
 
 export type {
   ListboxProps,

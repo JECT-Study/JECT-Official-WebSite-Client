@@ -1,12 +1,10 @@
 import { clsx } from "clsx";
-import { type CSSProperties, forwardRef, useMemo } from "react";
+import { type CSSProperties, forwardRef } from "react";
 
 import * as styles from "./listbox.css";
 import type { ListboxProps, SelectDimension } from "./listbox.types";
-import type { ListboxContextValue } from "./ListboxContext";
 import { ListboxProvider } from "./ListboxContext";
 import { Option } from "./Option";
-import { useListbox } from "./useListbox";
 
 import { getLabelClassName } from "@/utils/typography";
 
@@ -15,34 +13,26 @@ const resolveDimension = (value: SelectDimension) => (value === "full" ? "100%" 
 export const Listbox = forwardRef<HTMLDivElement, ListboxProps>(
   (
     {
-      mode,
-      variant,
-      disabled,
+      context,
+      options,
+      listboxRef,
+      listboxProps,
       label,
       width,
       height,
-      value,
-      defaultValue,
-      onChange,
-      options,
+      className,
+      style,
       "aria-label": ariaLabel,
       "aria-labelledby": ariaLabelledby,
+      ...restProps
     },
     ref,
   ) => {
-    const { listboxRef, listboxId, isSelected, select, activeValue, setActive, getListboxProps } =
-      useListbox({
-        mode,
-        options,
-        value,
-        defaultValue,
-        onChange: onChange as ((value: string | string[]) => void) | undefined,
-        disabled,
-      });
+    const { className: listboxClassName, ...restListboxProps } = listboxProps;
 
-    const labelId = `${listboxId}-label`;
+    const labelId = `${context.listboxId}-label`;
 
-    const containerStyle: CSSProperties = {};
+    const containerStyle: CSSProperties = { ...style };
     if (width !== undefined) {
       containerStyle.width = resolveDimension(width);
     }
@@ -50,14 +40,14 @@ export const Listbox = forwardRef<HTMLDivElement, ListboxProps>(
       containerStyle.height = resolveDimension(height);
     }
 
-    const contextValue = useMemo<ListboxContextValue>(
-      () => ({ listboxId, disabled, variant, mode, isSelected, activeValue, select, setActive }),
-      [listboxId, disabled, variant, mode, isSelected, activeValue, select, setActive],
-    );
-
     return (
-      <ListboxProvider value={contextValue}>
-        <div className={styles.selectContainer} style={containerStyle} ref={ref}>
+      <ListboxProvider value={context}>
+        <div
+          ref={ref}
+          className={clsx(styles.selectContainer, className)}
+          style={containerStyle}
+          {...restProps}
+        >
           {label != null && (
             <span
               id={labelId}
@@ -68,30 +58,22 @@ export const Listbox = forwardRef<HTMLDivElement, ListboxProps>(
           )}
           <div
             ref={listboxRef}
-            className={styles.listbox}
+            className={clsx(styles.listbox, listboxClassName)}
             aria-label={label != null ? undefined : ariaLabel}
             aria-labelledby={label != null ? labelId : ariaLabelledby}
-            {...getListboxProps()}
+            {...restListboxProps}
           >
-            {options.map(
-              ({
-                value: optionValue,
-                label: optionLabel,
-                caption,
-                suffix,
-                disabled: optionDisabled,
-              }) => (
-                <Option
-                  key={optionValue}
-                  value={optionValue}
-                  caption={caption}
-                  suffix={suffix}
-                  disabled={optionDisabled}
-                >
-                  {optionLabel}
-                </Option>
-              ),
-            )}
+            {options.map(({ value, label: optionLabel, caption, suffix, disabled }) => (
+              <Option
+                key={value}
+                value={value}
+                caption={caption}
+                suffix={suffix}
+                disabled={disabled}
+              >
+                {optionLabel}
+              </Option>
+            ))}
           </div>
         </div>
       </ListboxProvider>

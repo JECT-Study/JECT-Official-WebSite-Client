@@ -1,5 +1,7 @@
-import type { ReactNode } from "react";
+import type { ComponentPropsWithoutRef, ReactNode, Ref } from "react";
 import type { AriaLabelProps } from "types";
+
+import type { ListboxContextValue } from "./ListboxContext";
 
 export type SelectionMode = "single" | "multiple";
 export type OptionVariant = "control" | "label";
@@ -30,29 +32,12 @@ export type OptionProps = {
   children?: ReactNode;
 };
 
-type ListboxBaseProps = {
-  variant: OptionVariant;
-  disabled: boolean;
+export type ListboxProps = ComponentPropsWithoutRef<"div"> & {
+  context: ListboxContextValue;
+  options: SelectOption[];
+  listboxRef: Ref<HTMLDivElement>;
+  listboxProps: ComponentPropsWithoutRef<"div">;
   label?: string;
   width?: SelectDimension;
   height?: SelectDimension;
-  options: SelectOption[];
-  "aria-label"?: string;
-  "aria-labelledby"?: string;
 };
-
-type ListboxSingleProps = {
-  mode: "single";
-  value?: string | null;
-  defaultValue?: string;
-  onChange?: (value: string) => void;
-};
-
-type ListboxMultipleProps = {
-  mode: "multiple";
-  value?: string[];
-  defaultValue?: string[];
-  onChange?: (value: string[]) => void;
-};
-
-export type ListboxProps = ListboxBaseProps & (ListboxSingleProps | ListboxMultipleProps);

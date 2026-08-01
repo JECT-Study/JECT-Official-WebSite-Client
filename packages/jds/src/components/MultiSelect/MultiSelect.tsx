@@ -1,7 +1,7 @@
 import { forwardRef } from "react";
 
 import type { MultiSelectProps } from "./multiSelect.types";
-import { Listbox } from "../Listbox";
+import { Listbox, useListbox } from "../Listbox";
 
 export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
   (
@@ -19,23 +19,32 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
       "aria-labelledby": ariaLabelledby,
     },
     ref,
-  ) => (
-    <Listbox
-      ref={ref}
-      mode='multiple'
-      variant={variant}
-      disabled={disabled}
-      label={label}
-      width={width}
-      height={height}
-      value={value}
-      defaultValue={defaultValue}
-      onChange={onChange}
-      options={options}
-      aria-label={ariaLabel}
-      aria-labelledby={ariaLabelledby}
-    />
-  ),
+  ) => {
+    const { listboxRef, contextValue, getListboxProps } = useListbox({
+      mode: "multiple",
+      variant,
+      options,
+      value,
+      defaultValue,
+      onChange: onChange as ((value: string | string[]) => void) | undefined,
+      disabled,
+    });
+
+    return (
+      <Listbox
+        ref={ref}
+        context={contextValue}
+        options={options}
+        label={label}
+        width={width}
+        height={height}
+        listboxRef={listboxRef}
+        listboxProps={getListboxProps()}
+        aria-label={ariaLabel}
+        aria-labelledby={ariaLabelledby}
+      />
+    );
+  },
 );
 
 MultiSelect.displayName = "MultiSelect";

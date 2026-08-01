@@ -9,11 +9,13 @@ import {
   type KeyboardEvent,
 } from "react";
 
-import type { SelectionMode, SelectOption } from "./listbox.types";
+import type { OptionVariant, SelectionMode, SelectOption } from "./listbox.types";
 import { getOptionId, scrollSelectedOptionIntoView } from "./listbox.utils";
+import type { ListboxContextValue } from "./ListboxContext";
 
 interface UseListboxParams {
   mode: SelectionMode;
+  variant: OptionVariant;
   options: SelectOption[];
   value?: string | string[] | null;
   defaultValue?: string | string[];
@@ -23,6 +25,7 @@ interface UseListboxParams {
 
 export const useListbox = ({
   mode,
+  variant,
   options,
   value,
   defaultValue,
@@ -169,13 +172,23 @@ export const useListbox = ({
     [listboxId, mode, disabled, activeId, onKeyDown, onFocus],
   );
 
+  const contextValue = useMemo<ListboxContextValue>(
+    () => ({
+      listboxId,
+      disabled,
+      variant,
+      mode,
+      isSelected,
+      activeValue,
+      select,
+      setActive: setActiveValue,
+    }),
+    [listboxId, disabled, variant, mode, isSelected, activeValue, select],
+  );
+
   return {
     listboxRef,
-    listboxId,
-    isSelected,
-    select,
-    activeValue,
-    setActive: setActiveValue,
+    contextValue,
     getListboxProps,
   };
 };
