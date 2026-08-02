@@ -13,17 +13,17 @@ import * as styles from "../textarea.css";
 
 import { getBodyClassName } from "@/utils/typography";
 
-export type TextareaControlProps = ComponentPropsWithoutRef<"textarea">;
+export type TextareaControlProps = Omit<ComponentPropsWithoutRef<"textarea">, "id">;
 
 /**
  * @description Field 컨텍스트(fieldId·status·disabled·readonly·required)를 소비해 Textarea.Content 안에 놓이는 실제 textarea.
  * controlled(value·onChange) / uncontrolled(defaultValue) 를 모두 지원하며, 값 길이를 Textarea 컨텍스트에 보고해
  * Textarea.Counter 가 별도 prop 없이 글자 수를 표시할 수 있게 한다.
+ * uncontrolled 경로의 길이는 onChange 를 거치는 변경만 추적한다.
  */
 export const TextareaControl = forwardRef<HTMLTextAreaElement, TextareaControlProps>(
   (
     {
-      id,
       readOnly: readOnlyProps,
       disabled: disabledProps,
       required: requiredProps,
@@ -62,7 +62,6 @@ export const TextareaControl = forwardRef<HTMLTextAreaElement, TextareaControlPr
       onChange?.(event);
     };
 
-    const textareaId = id ?? fieldId;
     const isReadonly = readOnlyProps ?? isReadonlyFromCtx;
     const isDisabled = disabledProps ?? isDisabledFromCtx;
     const isRequired = requiredProps ?? isRequiredFromCtx;
@@ -70,7 +69,7 @@ export const TextareaControl = forwardRef<HTMLTextAreaElement, TextareaControlPr
     return (
       <textarea
         ref={ref}
-        id={textareaId}
+        id={fieldId}
         value={value}
         defaultValue={defaultValue}
         onChange={handleChange}
