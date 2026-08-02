@@ -6,7 +6,7 @@
 
 Snackbar가 Compound 구조에서 `feedback` prop을 사용하는 단일 컴포넌트 구조로 변경되었습니다. `none`, `positive`, `destructive`, `notifying` 피드백 상태를 지원하고, Snackbar 노출 시간을 `duration`으로 조절할 수 있습니다. 스크린리더 낭독은 시각용 Snackbar 스택과 분리된 live region에서 가장 최근 Snackbar만 읽도록 개선되었습니다. 사용자가 Snackbar에 hover 또는 focus 중일 때는 자동 닫힘이 일시정지됩니다.
 
-`SnackbarProvider`는 스크린리더 자동 낭독용 live region을 둘로 나눠, `feedback="destructive"` 스낵바는 `role="alert"`와 `aria-live="assertive"` 영역에서 즉시 낭독하고 나머지 피드백은 `role="status"`와 `aria-live="polite"` 영역에서 안내합니다. 이 자동 낭독은 `useSnackbar` 또는 `snackbarController`를 통해 `SnackbarProvider`의 큐에 추가한 경우에만 동작하며, `<Snackbar>`를 직접 렌더링하면 동작하지 않습니다.
+`SnackbarProvider`는 스크린리더 자동 낭독용 live region을 둘로 나눠, `feedback="destructive"` 스낵바는 `role="alert"`와 `aria-live="assertive"` 영역에서 즉시 낭독하고 나머지 피드백은 `role="status"`와 `aria-live="polite"` 영역에서 안내합니다. 낭독 문구에는 제목과 설명뿐만 아니라 액션 버튼의 존재도 “{label} 버튼이 있습니다.” 형식으로 함께 안내합니다. 이 자동 낭독은 `useSnackbar` 또는 `snackbarController`를 통해 `SnackbarProvider`의 큐에 추가한 경우에만 동작하며, `<Snackbar>`를 직접 렌더링하면 동작하지 않습니다.
 
 **소비자 영향 (코드 수정 필요)**
 

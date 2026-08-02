@@ -26,7 +26,10 @@ const SnackbarContext = createContext<SnackbarContextType | null>(null);
 export const SnackbarProvider = ({ children, duration }: SnackbarProviderProps) => {
   const { snackbars, snackbar: handler, removeSnackbar } = useSnackbarProvider();
   const [isMounted, setIsMounted] = useState(false);
-  const { statusAnnouncement, alertAnnouncement } = useLiveRegionAnnouncements(snackbars);
+  const { statusAnnouncement, alertAnnouncement } = useLiveRegionAnnouncements(
+    snackbars,
+    snackbar => snackbar.label,
+  );
 
   useEffect(() => {
     snackbarController.setHandler(handler);

@@ -17,8 +17,12 @@ interface LiveAnnouncement {
  *
  * destructive 항목은 alert, 나머지 항목은 status announcement로 분리하고,
  * 큐에서 제거된 항목의 문구를 해당 live region에서 정리한다.
+ * 액션 라벨 선택자가 전달되면 낭독 문구에 사용 가능한 작업도 함께 안내한다.
  */
-export const useLiveRegionAnnouncements = <T extends LiveRegionItem>(items: T[]) => {
+export const useLiveRegionAnnouncements = <T extends LiveRegionItem>(
+  items: T[],
+  getActionLabel?: (item: T) => string | undefined,
+) => {
   const [statusAnnouncement, setStatusAnnouncement] = useState<LiveAnnouncement | null>(null);
   const [alertAnnouncement, setAlertAnnouncement] = useState<LiveAnnouncement | null>(null);
 
@@ -32,6 +36,7 @@ export const useLiveRegionAnnouncements = <T extends LiveRegionItem>(items: T[])
   const latestItemTitle = latestItem?.title;
   const latestItemDescription = latestItem?.description;
   const latestItemFeedback = latestItem?.feedback;
+  const latestItemActionLabel = latestItem ? getActionLabel?.(latestItem) : undefined;
 
   useEffect(() => {
     if (!latestItemId) return;
@@ -43,7 +48,10 @@ export const useLiveRegionAnnouncements = <T extends LiveRegionItem>(items: T[])
     if (announcedItemIdsRef.current.has(latestItemId)) return;
     announcedItemIdsRef.current.add(latestItemId);
 
-    const baseText = [latestItemTitle, latestItemDescription].filter(Boolean).join(" ");
+    const actionText = latestItemActionLabel
+      ? `${latestItemActionLabel} 버튼이 있습니다.`
+      : undefined;
+    const baseText = [latestItemTitle, latestItemDescription, actionText].filter(Boolean).join(" ");
 
     /**
      * VoiceOver는 live region에 이전과 동일한 문자열이 다시 들어오면 낭독을 건너뛸 수 있다.
@@ -60,7 +68,13 @@ export const useLiveRegionAnnouncements = <T extends LiveRegionItem>(items: T[])
       const invisibleSpace = statusAnnouncementSpaceToggleRef.current ? "\u200B" : "\u200B\u200B";
       setStatusAnnouncement({ id: latestItemId, text: `${baseText}${invisibleSpace}` });
     }
-  }, [latestItemId, latestItemTitle, latestItemDescription, latestItemFeedback]);
+  }, [
+    latestItemId,
+    latestItemTitle,
+    latestItemDescription,
+    latestItemFeedback,
+    latestItemActionLabel,
+  ]);
 
   useEffect(() => {
     // 제거된 항목을 낭독 완료 목록과 live region에서 함께 정리한다.
