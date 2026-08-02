@@ -1,6 +1,6 @@
 import { style } from "@vanilla-extract/css";
 import { vars } from "tokens";
-import { overlay } from "utils";
+import { overlay, virtualFocusSelector } from "utils";
 
 import { labelColorVar } from "@/utils/typography.css";
 
@@ -59,7 +59,7 @@ export const option = style([
         borderRadius: "inherit",
         pointerEvents: "none",
       },
-      ':is([role="listbox"]:focus-visible, [role="listbox"][data-virtual-focus]) &[data-active]:not([data-disabled])::before':
+      [`:is([role="listbox"]:focus-visible, [role="listbox"]${virtualFocusSelector}) &[data-active]:not([data-disabled])::before`]:
         {
           boxShadow: `inset 0 0 0 ${vars.scheme.semantic.strokeWeight["2"]} ${vars.color.semantic.accent.alpha.alternative}`,
           zIndex: 1,

@@ -1,4 +1,5 @@
 import { clsx } from "clsx";
+import { getActiveDescendantContainerProps } from "hooks";
 import { Popover } from "radix-ui";
 import {
   forwardRef,
@@ -188,7 +189,7 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
               listboxRef={listboxRef}
               listboxProps={{
                 ...getListboxProps(),
-                ...{ "data-virtual-focus": "" },
+                ...getActiveDescendantContainerProps(),
                 "aria-labelledby": labelId,
               }}
               onMouseDown={e => e.preventDefault()}

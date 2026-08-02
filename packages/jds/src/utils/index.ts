@@ -6,5 +6,6 @@ export * from "./forwardRef";
 export * from "./interaction";
 export * from "./interactionLayer";
 export * from "./typography";
+export * from "./virtualFocus";
 export * from "./overlay.css";
 export * from "./visuallyHidden.css";

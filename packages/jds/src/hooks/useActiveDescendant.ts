@@ -1,4 +1,5 @@
 import { useCallback, useRef, useState, type KeyboardEvent, type RefObject } from "react";
+import { VIRTUAL_FOCUS_ATTRIBUTE } from "utils";
 
 type ActiveDescendantDirection = "next" | "prev" | "first" | "last";
 
@@ -14,6 +15,10 @@ interface ActiveDescendantItemParams {
 interface ActiveDescendantItemProps {
   "data-active-descendant": string;
   "data-disabled": true | undefined;
+}
+
+interface ActiveDescendantContainerProps {
+  [VIRTUAL_FOCUS_ATTRIBUTE]: string;
 }
 
 interface ActiveDescendantGroup<T extends HTMLElement> {
@@ -36,6 +41,16 @@ export const getActiveDescendantItemProps = ({
 }: ActiveDescendantItemParams): ActiveDescendantItemProps => ({
   "data-active-descendant": value,
   "data-disabled": disabled || undefined,
+});
+
+/**
+ * 항목을 담는 컨테이너에 적용할 속성을 만든다.
+ *
+ * 포커스가 컨테이너 밖에 있으면 `:focus-visible` 이 적용되지 않으므로,
+ * 스타일이 활성 항목을 표시할지 이 속성으로 판단한다.
+ */
+export const getActiveDescendantContainerProps = (): ActiveDescendantContainerProps => ({
+  [VIRTUAL_FOCUS_ATTRIBUTE]: "",
 });
 
 const DIRECTION_BY_KEY: Record<string, ActiveDescendantDirection> = {
