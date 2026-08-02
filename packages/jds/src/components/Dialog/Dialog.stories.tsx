@@ -29,9 +29,10 @@ const meta: Meta<typeof Dialog> = {
       control: "text",
       description: "본문 내용 역할의 텍스트 내용",
     },
-    closeOnClickOutside: {
+    closeOnInteractOutside: {
       control: "boolean",
-      description: "배경(오버레이) 클릭 시 다이얼로그가 닫히는지 여부",
+      description:
+        "바깥 영역 클릭 또는 바깥 요소로의 포커스 이동 시 다이얼로그가 닫히는지 여부. Esc 키 동작에는 영향을 주지 않음",
       table: {
         defaultValue: { summary: "true" },
       },
@@ -67,7 +68,7 @@ export const Default: Story = {
   args: {
     header: SAMPLE_HEADER,
     body: SAMPLE_BODY,
-    closeOnClickOutside: true,
+    closeOnInteractOutside: true,
     buttonLayout: "horizontal",
     primaryAction: {
       children: SAMPLE_BUTTON,

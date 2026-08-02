@@ -18,7 +18,7 @@ export type DialogButtonLayout = "horizontal" | "vertical";
 export interface DialogBaseProps {
   header: string;
   body: ReactNode;
-  closeOnClickOutside?: boolean;
+  closeOnInteractOutside?: boolean;
   buttonLayout?: DialogButtonLayout;
   checkboxAction?: CheckboxActionProps;
   primaryAction: BlockButtonActionProps;

@@ -15,7 +15,7 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
     {
       header,
       body,
-      closeOnClickOutside = true,
+      closeOnInteractOutside = true,
       buttonLayout = "horizontal",
       checkboxAction,
       primaryAction,
@@ -50,7 +50,7 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
             ref={ref}
             className={clsx(styles.positioner, styles.panel, className)}
             style={style}
-            onPointerDownOutside={closeOnClickOutside ? undefined : event => event.preventDefault()}
+            onInteractOutside={closeOnInteractOutside ? undefined : event => event.preventDefault()}
           >
             <DialogPrimitive.Title asChild>
               <h2 className={clsx(getTitleClassName({ size: "xs" }), styles.title)}>{header}</h2>
