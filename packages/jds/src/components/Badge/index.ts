@@ -19,7 +19,7 @@ export { NUMERIC_BADGE_STYLE_OPTIONS } from "./NumericBadge/numericBadge.types";
 
 export type { ContentBadgeProps } from "./ContentBadge/contentBadge.types";
 
-export type { DotBadgeFeedbackProps, DotBadgeProps } from "./DotBadge/dotBadge.types";
+export type { DotBadgeProps } from "./DotBadge/dotBadge.types";
 
 export type {
   NumericBadgeBasicProps,
