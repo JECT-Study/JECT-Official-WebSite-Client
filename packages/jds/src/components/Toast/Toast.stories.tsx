@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexColumn, FlexRow } from "@storybook-utils/layout";
-import { LiveRegionDemo, type LiveRegionFeedback } from "@storybook-utils/LiveRegionDemo";
+import { LiveRegionDemo, type LiveRegionScenario } from "@storybook-utils/LiveRegionDemo";
 
 import { Toast } from "./Toast";
 import { toastController } from "./toastController";
@@ -132,8 +132,20 @@ export const UseToastProvider: StoryObj<typeof Toast> = {
 const ToastLiveRegionDemo = () => {
   const { toast } = useToast();
 
-  const showNotification = (feedback: LiveRegionFeedback) => {
-    if (feedback === "alert") {
+  const showNotification = (scenario: LiveRegionScenario) => {
+    if (scenario === "mixed") {
+      toast.destructive("동시에 발생한 긴급 오류입니다.");
+      toast.basic("동시에 발생한 일반 상태 안내입니다.");
+      return;
+    }
+
+    if (scenario === "multiple-alerts") {
+      toast.destructive("먼저 발생한 긴급 오류입니다.");
+      toast.destructive("가장 최근에 발생한 긴급 오류입니다.");
+      return;
+    }
+
+    if (scenario === "alert") {
       toast.destructive("긴급 오류가 발생했습니다.", {
         description: "현재 읽고 있는 본문을 중단하고 즉시 낭독해야 합니다.",
       });
@@ -154,7 +166,7 @@ export const VoiceOverLiveRegion: StoryObj<typeof Toast> = {
     docs: {
       description: {
         story:
-          "각 버튼은 VoiceOver의 본문 낭독을 시작하고 4초 뒤 해당 토스트를 자동 호출합니다. status 토스트는 낭독을 즉시 끊지 않고 다음 자연스러운 시점에 읽히는지, alert 토스트는 낭독을 중단하고 즉시 읽히는지 비교합니다.",
+          "각 버튼은 VoiceOver의 본문 낭독을 시작하고 4초 뒤 해당 토스트를 자동 호출합니다. status와 alert의 낭독 시점을 비교하고, alert/status 두 채널을 동시에 호출하면 각 채널의 최신 알림이 live region에 반영되어 alert가 우선 안내되는지 확인합니다. alert를 두 개 동시에 호출하면 가장 최근 알림만 안내되어야 합니다.",
       },
     },
   },

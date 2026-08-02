@@ -13,12 +13,12 @@ declare module "@storybook-utils/layout" {
 declare module "@storybook-utils/LiveRegionDemo" {
   import type { ComponentType } from "react";
 
-  export type LiveRegionFeedback = "status" | "alert";
+  export type LiveRegionScenario = "status" | "alert" | "mixed" | "multiple-alerts";
   export type NotificationType = "toast" | "snackbar";
 
   interface LiveRegionDemoProps {
     notificationType: NotificationType;
-    onNotify: (feedback: LiveRegionFeedback) => void;
+    onNotify: (scenario: LiveRegionScenario) => void;
   }
 
   export const LiveRegionDemo: ComponentType<LiveRegionDemoProps>;

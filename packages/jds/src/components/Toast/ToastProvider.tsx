@@ -41,7 +41,7 @@ export const ToastProvider = ({ children, duration }: ToastProviderProps) => {
     <ToastContext.Provider value={{ toast: handler, removeToast }}>
       {children}
 
-      {/* 스크린리더 전용 live region: feedback에 맞는 영역에서 최신 토스트만 낭독 */}
+      {/* 스크린리더 전용 live region: alert/status 채널별 최신 토스트를 각 영역에서 낭독 */}
       <div className={visuallyHidden} role='status' aria-live='polite' aria-atomic='true'>
         {statusAnnouncement}
       </div>

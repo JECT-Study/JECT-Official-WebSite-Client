@@ -5,7 +5,7 @@ import { visuallyHidden } from "utils";
 
 import { Snackbar } from "./Snackbar";
 import { stackContainer } from "./snackbar.css";
-import type { SnackbarHandler } from "./snackbar.types";
+import type { SnackbarHandler, SnackbarItem } from "./snackbar.types";
 import { snackbarController } from "./snackbarController";
 import { useSnackbarProvider } from "./useSnackbarProvider";
 
@@ -23,12 +23,14 @@ interface SnackbarContextType {
 
 const SnackbarContext = createContext<SnackbarContextType | null>(null);
 
+const getSnackbarActionLabel = (snackbar: SnackbarItem) => snackbar.label;
+
 export const SnackbarProvider = ({ children, duration }: SnackbarProviderProps) => {
   const { snackbars, snackbar: handler, removeSnackbar } = useSnackbarProvider();
   const [isMounted, setIsMounted] = useState(false);
   const { statusAnnouncement, alertAnnouncement } = useLiveRegionAnnouncements(
     snackbars,
-    snackbar => snackbar.label,
+    getSnackbarActionLabel,
   );
 
   useEffect(() => {
@@ -44,7 +46,7 @@ export const SnackbarProvider = ({ children, duration }: SnackbarProviderProps) 
     <SnackbarContext.Provider value={{ snackbar: handler, removeSnackbar }}>
       {children}
 
-      {/* 스크린리더 전용 live region: feedback에 맞는 영역에서 최신 스낵바만 낭독 */}
+      {/* 스크린리더 전용 live region: alert/status 채널별 최신 스낵바를 각 영역에서 낭독 */}
       <div className={visuallyHidden} role='status' aria-live='polite' aria-atomic='true'>
         {statusAnnouncement}
       </div>

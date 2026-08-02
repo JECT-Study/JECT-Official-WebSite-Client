@@ -13,10 +13,12 @@ interface LiveAnnouncement {
 }
 
 /**
- * 알림 큐의 최신 항목을 피드백 유형에 맞는 live region 낭독 문구로 관리하는 훅.
+ * 알림 큐의 alert/status 채널별 최신 항목을 live region 낭독 문구로 관리하는 훅.
  *
- * destructive 항목은 alert, 나머지 항목은 status announcement로 분리하고,
- * 큐에서 제거된 항목의 문구를 해당 live region에서 정리한다.
+ * destructive 항목은 alert, 나머지 항목은 status 채널로 분리한다. 같은 렌더에
+ * 동일한 alert/status 채널의 항목이 여러 개 추가되면 가장 최근 항목만 낭독하고, 이전 항목이
+ * 큐 변경 후 뒤늦게 낭독되지 않도록 함께 처리 완료로 기록한다.
+ * 큐에서 제거된 항목의 문구는 해당 live region에서 정리한다.
  * 액션 라벨 선택자가 전달되면 낭독 문구에 사용 가능한 작업도 함께 안내한다.
  */
 export const useLiveRegionAnnouncements = <T extends LiveRegionItem>(
@@ -28,30 +30,32 @@ export const useLiveRegionAnnouncements = <T extends LiveRegionItem>(
 
   const statusAnnouncementSpaceToggleRef = useRef(false);
   const alertAnnouncementSpaceToggleRef = useRef(false);
-  const announcedItemIdsRef = useRef<Set<string>>(new Set());
-
-  const latestItem = items.length > 0 ? items[items.length - 1] : null;
-
-  const latestItemId = latestItem?.id;
-  const latestItemTitle = latestItem?.title;
-  const latestItemDescription = latestItem?.description;
-  const latestItemFeedback = latestItem?.feedback;
-  const latestItemActionLabel = latestItem ? getActionLabel?.(latestItem) : undefined;
+  const handledItemIdsRef = useRef<Set<string>>(new Set());
 
   useEffect(() => {
-    if (!latestItemId) return;
-
     /**
-     * 최신 항목이 먼저 제거되면 이미 낭독한 이전 항목이 다시 latest가 될 수 있다.
-     * 신규 id만 live region에 반영해 같은 항목이 반복 낭독되지 않도록 한다.
+     * 같은 렌더에 여러 항목이 추가되면 alert/status 채널별 최신 항목만 낭독한다.
+     * 선택되지 않은 이전 항목도 처리 완료로 기록해, 최신 항목이 제거된 뒤
+     * 큐의 마지막 항목이 되더라도 뒤늦게 낭독되지 않도록 한다.
      */
-    if (announcedItemIdsRef.current.has(latestItemId)) return;
-    announcedItemIdsRef.current.add(latestItemId);
+    const pendingItems = items.filter(item => !handledItemIdsRef.current.has(item.id));
+    if (pendingItems.length === 0) return;
 
-    const actionText = latestItemActionLabel
-      ? `${latestItemActionLabel} 버튼이 있습니다.`
-      : undefined;
-    const baseText = [latestItemTitle, latestItemDescription, actionText].filter(Boolean).join(" ");
+    pendingItems.forEach(item => handledItemIdsRef.current.add(item.id));
+
+    const latestAlertItem = [...pendingItems]
+      .reverse()
+      .find(item => item.feedback === "destructive");
+    const latestStatusItem = [...pendingItems]
+      .reverse()
+      .find(item => item.feedback !== "destructive");
+
+    const createAnnouncementText = (item: T) => {
+      const actionLabel = getActionLabel?.(item);
+      const actionText = actionLabel ? `${actionLabel} 버튼이 있습니다.` : undefined;
+
+      return [item.title, item.description, actionText].filter(Boolean).join(" ");
+    };
 
     /**
      * VoiceOver는 live region에 이전과 동일한 문자열이 다시 들어오면 낭독을 건너뛸 수 있다.
@@ -59,29 +63,31 @@ export const useLiveRegionAnnouncements = <T extends LiveRegionItem>(
      * DOM 텍스트 변경을 보장한다. 교차 알림에서도 같은 state가 되지 않도록
      * status와 alert의 toggle은 독립적으로 관리한다.
      */
-    if (latestItemFeedback === "destructive") {
+    if (latestAlertItem) {
       alertAnnouncementSpaceToggleRef.current = !alertAnnouncementSpaceToggleRef.current;
       const invisibleSpace = alertAnnouncementSpaceToggleRef.current ? "\u200B" : "\u200B\u200B";
-      setAlertAnnouncement({ id: latestItemId, text: `${baseText}${invisibleSpace}` });
-    } else {
+      setAlertAnnouncement({
+        id: latestAlertItem.id,
+        text: `${createAnnouncementText(latestAlertItem)}${invisibleSpace}`,
+      });
+    }
+
+    if (latestStatusItem) {
       statusAnnouncementSpaceToggleRef.current = !statusAnnouncementSpaceToggleRef.current;
       const invisibleSpace = statusAnnouncementSpaceToggleRef.current ? "\u200B" : "\u200B\u200B";
-      setStatusAnnouncement({ id: latestItemId, text: `${baseText}${invisibleSpace}` });
+      setStatusAnnouncement({
+        id: latestStatusItem.id,
+        text: `${createAnnouncementText(latestStatusItem)}${invisibleSpace}`,
+      });
     }
-  }, [
-    latestItemId,
-    latestItemTitle,
-    latestItemDescription,
-    latestItemFeedback,
-    latestItemActionLabel,
-  ]);
+  }, [items, getActionLabel]);
 
   useEffect(() => {
-    // 제거된 항목을 낭독 완료 목록과 live region에서 함께 정리한다.
+    // 제거된 항목을 처리 완료 목록과 live region에서 함께 정리한다.
     const activeItemIds = new Set(items.map(item => item.id));
 
-    announcedItemIdsRef.current.forEach(id => {
-      if (!activeItemIds.has(id)) announcedItemIdsRef.current.delete(id);
+    handledItemIdsRef.current.forEach(id => {
+      if (!activeItemIds.has(id)) handledItemIdsRef.current.delete(id);
     });
 
     setStatusAnnouncement(current => (current && !activeItemIds.has(current.id) ? null : current));

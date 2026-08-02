@@ -5,12 +5,12 @@ import { FlexColumn, FlexRow, Label } from "./layout";
 
 import { BlockButton } from "@/components/Button/BlockButton/BlockButton";
 
-export type LiveRegionFeedback = "status" | "alert";
+export type LiveRegionScenario = "status" | "alert" | "mixed" | "multiple-alerts";
 export type NotificationType = "toast" | "snackbar";
 
 interface LiveRegionDemoProps {
   notificationType: NotificationType;
-  onNotify: (feedback: LiveRegionFeedback) => void;
+  onNotify: (scenario: LiveRegionScenario) => void;
 }
 
 const notificationLabelMap: Record<NotificationType, string> = {
@@ -43,12 +43,12 @@ export const LiveRegionDemo = ({ notificationType, onNotify }: LiveRegionDemoPro
     setArticleAnnouncement(`${ARTICLE_TEXT} ${invisibleSpace}`);
   };
 
-  const startTest = (feedback: LiveRegionFeedback) => {
+  const startTest = (scenario: LiveRegionScenario) => {
     if (notificationTimerRef.current) clearTimeout(notificationTimerRef.current);
     startArticleReading();
 
     notificationTimerRef.current = setTimeout(() => {
-      onNotify(feedback);
+      onNotify(scenario);
       notificationTimerRef.current = null;
     }, NOTIFICATION_DELAY);
   };
@@ -56,8 +56,9 @@ export const LiveRegionDemo = ({ notificationType, onNotify }: LiveRegionDemoPro
   return (
     <FlexColumn gap='24px' style={{ width: "min(768px, calc(100vw - 32px))" }}>
       <Label style={{ width: "auto" }}>
-        버튼을 누르면 본문 낭독이 시작되고 4초 뒤 해당 {notificationLabel}가 자동으로 발생합니다. 두
-        테스트는 한 번에 하나씩 실행하세요.
+        버튼을 누르면 본문 낭독이 시작되고 4초 뒤 해당 {notificationLabel}가 자동으로 발생합니다. 각
+        테스트는 한 번에 하나씩 실행하세요. 동시 호출 테스트에서는 alert/status 채널별 최신 알림이
+        각 live region에 반영되는지와 alert가 우선 안내되는지 확인하세요.
       </Label>
       <FlexRow
         gap='50px'
@@ -89,10 +90,16 @@ export const LiveRegionDemo = ({ notificationType, onNotify }: LiveRegionDemoPro
           }}
         >
           <BlockButton variant='outlined' onClick={() => startTest("status")}>
-            Status 비교 시작
+            Status 호출
           </BlockButton>
           <BlockButton feedback='destructive' onClick={() => startTest("alert")}>
-            Alert 비교 시작
+            Alert 호출
+          </BlockButton>
+          <BlockButton hierarchy='accent' variant='solid' onClick={() => startTest("mixed")}>
+            Status + Alert 동시 호출
+          </BlockButton>
+          <BlockButton feedback='destructive' onClick={() => startTest("multiple-alerts")}>
+            Alert 2개 동시 호출
           </BlockButton>
         </FlexColumn>
       </FlexRow>
