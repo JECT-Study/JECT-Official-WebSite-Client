@@ -109,6 +109,7 @@ export const ToastProvider = ({ children, duration }: ToastProviderProps) => {
         {alertAnnouncement?.text}
       </div>
 
+      {/* 시각용 스택: 자동 낭독은 live region이 담당하므로, 상호작용 요소가 없는 스택은 중복 탐색을 막기 위해 숨김 */}
       {isMounted &&
         createPortal(
           <div className={stackContainer} aria-hidden='true'>

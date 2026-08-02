@@ -113,6 +113,7 @@ export const SnackbarProvider = ({ children, duration }: SnackbarProviderProps) 
         {alertAnnouncement?.text}
       </div>
 
+      {/* 시각용 스택: 자동 낭독은 live region이 담당하되, 액션과 닫기 버튼에 접근할 수 있도록 접근성 트리에 유지 */}
       {isMounted &&
         createPortal(
           <div className={stackContainer}>
