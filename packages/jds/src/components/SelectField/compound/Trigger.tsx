@@ -1,6 +1,13 @@
 import { clsx } from "clsx";
 import { Popover } from "radix-ui";
-import { forwardRef, useLayoutEffect, useMemo, type KeyboardEvent, type MouseEvent } from "react";
+import {
+  forwardRef,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  type KeyboardEvent,
+  type MouseEvent,
+} from "react";
 
 import { useFieldContext } from "../../Field/Field.context";
 import { Icon } from "../../Icon";
@@ -71,10 +78,8 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
 
     const selectedLabel = options.find(option => option.value === selectedValues[0])?.label;
 
-    const openPopup = () => {
-      activateSelected();
-      onOpenChange(true);
-    };
+    const activateSelectedRef = useRef(activateSelected);
+    activateSelectedRef.current = activateSelected;
 
     const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
       onClickFromProps?.(e);
@@ -88,7 +93,7 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
       if (!isOpen) {
         if (OPENING_KEYS.includes(e.key)) {
           e.preventDefault();
-          openPopup();
+          onOpenChange(true);
         }
         return;
       }
@@ -113,6 +118,8 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
 
     useLayoutEffect(() => {
       if (!isOpen) return;
+
+      activateSelectedRef.current();
 
       // Radix가 available-height를 반영한 뒤에야 스크롤 영역이 생기므로 다음 프레임에서 실행
       const frame = requestAnimationFrame(() => scrollToSelected());
