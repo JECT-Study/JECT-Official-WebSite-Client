@@ -1,6 +1,6 @@
 import { clsx } from "clsx";
 import { Popover } from "radix-ui";
-import { forwardRef, useLayoutEffect, useMemo, type KeyboardEvent } from "react";
+import { forwardRef, useLayoutEffect, useMemo, type KeyboardEvent, type MouseEvent } from "react";
 
 import { useFieldContext } from "../../Field/Field.context";
 import { Icon } from "../../Icon";
@@ -24,6 +24,7 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
       variant = "label",
       placeholder,
       disabled: disabledFromProps,
+      onClick: onClickFromProps,
       onKeyDown: onKeyDownFromProps,
       "aria-describedby": describedByFromProps,
       "aria-invalid": invalidFromProps,
@@ -72,6 +73,11 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
     const openPopup = () => {
       activateSelected();
       onOpenChange(true);
+    };
+
+    const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
+      onClickFromProps?.(e);
+      if (isReadOnly) e.preventDefault();
     };
 
     const handleKeyDown = (e: KeyboardEvent<HTMLButtonElement>) => {
@@ -130,7 +136,7 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
 
     return (
       <>
-        <Popover.Trigger asChild disabled={!isInteractive}>
+        <Popover.Trigger asChild>
           <button
             {...restProps}
             ref={ref}
@@ -147,6 +153,7 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
             data-readonly={isReadOnly || undefined}
             data-open={isOpen || undefined}
             className={clsx(styles.trigger, className)}
+            onClick={handleClick}
             onKeyDown={handleKeyDown}
           >
             <span
