@@ -100,12 +100,12 @@ const StepsItem = forwardRef<HTMLDivElement, StepsItemProps>(
         data-activated={isActivated}
         className={clsx(stepsItem({ layout }), className)}
       >
-        <NumericBadge.Basic
+        <NumericBadge
           hierarchy={isActivated ? "accent" : "tertiary"}
           size={stepsNumericBadgeSizeMap[size]}
         >
           {index + 1}
-        </NumericBadge.Basic>
+        </NumericBadge>
         <span
           className={clsx(
             stepsLabel({ activated: isActivated }),
