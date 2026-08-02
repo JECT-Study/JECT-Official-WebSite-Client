@@ -23,6 +23,7 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
       onChange,
       variant = "label",
       placeholder,
+      suffix,
       disabled: disabledFromProps,
       onClick: onClickFromProps,
       onKeyDown: onKeyDownFromProps,
@@ -162,6 +163,7 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
             >
               {selectedLabel ?? placeholder}
             </span>
+            {suffix}
             <Icon name='arrow-down-s-line' size='md' className={styles.indicator} />
           </button>
         </Popover.Trigger>

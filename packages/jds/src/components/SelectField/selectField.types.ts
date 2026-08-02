@@ -1,4 +1,4 @@
-import type { ComponentPropsWithoutRef } from "react";
+import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 import type { FieldProps } from "../Field";
 import type { OptionVariant, SelectOption } from "../Listbox";
@@ -12,6 +12,7 @@ type SelectFieldTriggerBaseProps = Omit<
   options: SelectOption[];
   placeholder?: string;
   variant?: OptionVariant;
+  suffix?: ReactNode;
 };
 
 type SelectFieldTriggerControlledProps = {
