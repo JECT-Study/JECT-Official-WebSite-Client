@@ -28,6 +28,7 @@ export const FieldLabel = forwardRef<HTMLLabelElement, FieldLabelProps>(
         {prefixSlot}
         <span className={styles.labelMain}>
           <label
+            {...restProps}
             ref={ref}
             htmlFor={fieldId}
             className={clsx(
@@ -35,7 +36,6 @@ export const FieldLabel = forwardRef<HTMLLabelElement, FieldLabelProps>(
               styles.label({ disabled: isDisabled }),
               className,
             )}
-            {...restProps}
           >
             {children}
           </label>

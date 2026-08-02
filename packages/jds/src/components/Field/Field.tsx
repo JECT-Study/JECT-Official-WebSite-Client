@@ -1,11 +1,5 @@
 import { clsx } from "clsx";
-import {
-  forwardRef,
-  useId,
-  useState,
-  type ComponentPropsWithoutRef,
-  type ReactNode,
-} from "react";
+import { forwardRef, useId, useState, type ComponentPropsWithoutRef, type ReactNode } from "react";
 
 import { FieldContent } from "./compound/Content";
 import { FieldHelperText } from "./compound/HelperText";
@@ -26,6 +20,7 @@ export interface FieldProps extends ComponentPropsWithoutRef<"div"> {
 const InternalField = forwardRef<HTMLDivElement, FieldProps>(
   (
     {
+      id: idFromProps,
       status = "default",
       fieldStyle = "outline",
       readonly = false,
@@ -37,7 +32,8 @@ const InternalField = forwardRef<HTMLDivElement, FieldProps>(
     },
     ref,
   ) => {
-    const fieldId = useId();
+    const generatedId = useId();
+    const fieldId = idFromProps ?? generatedId;
     const helperTextId = `${fieldId}-helper-text`;
     const [hasHelperText, setHasHelperText] = useState(false);
 
