@@ -66,7 +66,7 @@ export const Playground: Story = {
           suffixSlot={
             <Icon
               name='information-line'
-              size='sm'
+              size='2xs'
               style={args.disabled ? { color: vars.color.semantic.object.subtle } : undefined}
             />
           }
@@ -127,7 +127,8 @@ export const States: Story = {
       <Textarea disabled>
         <Textarea.Label>Disabled</Textarea.Label>
         <Textarea.Content>
-          <Textarea.Control placeholder='비활성화된 입력 필드' />
+          <Textarea.Control maxLength={100} defaultValue='비활성화된 내용입니다.' />
+          <Textarea.Counter />
         </Textarea.Content>
         <Textarea.HelperText>이 필드는 비활성화되어 있습니다</Textarea.HelperText>
       </Textarea>
