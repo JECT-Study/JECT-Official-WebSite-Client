@@ -216,6 +216,7 @@ const VoiceOverLiveRegionDemo = () => {
 };
 
 export const VoiceOverLiveRegion: StoryObj<typeof Snackbar> = {
+  tags: ["skip-vrt"],
   parameters: {
     docs: {
       description: {

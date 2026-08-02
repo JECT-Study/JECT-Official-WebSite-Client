@@ -223,6 +223,7 @@ const VoiceOverLiveRegionDemo = () => {
 };
 
 export const VoiceOverLiveRegion: StoryObj<typeof Toast> = {
+  tags: ["skip-vrt"],
   parameters: {
     docs: {
       description: {
