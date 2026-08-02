@@ -104,11 +104,6 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
         return;
       }
 
-      if (e.key === "Tab") {
-        onOpenChange(false);
-        return;
-      }
-
       onActiveDescendantKeyDown(e);
 
       if (SELECTION_KEYS.includes(e.key)) {
