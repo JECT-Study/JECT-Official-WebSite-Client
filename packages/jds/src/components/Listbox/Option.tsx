@@ -1,4 +1,5 @@
 import { clsx } from "clsx";
+import { getActiveDescendantItemProps } from "hooks";
 
 import { CheckboxPrimitive } from "../Checkbox/CheckboxPrimitive";
 import { Icon } from "../Icon";
@@ -39,11 +40,10 @@ export const Option = ({ value, disabled = false, caption, suffix, children }: O
       role='option'
       aria-selected={isItemSelected}
       aria-disabled={isDisabled || undefined}
-      data-value={value}
+      {...getActiveDescendantItemProps({ value, disabled: isDisabled })}
       data-variant={variant}
       data-selected={isItemSelected || undefined}
       data-active={isActive || undefined}
-      data-disabled={isDisabled || undefined}
       className={styles.option}
       onClick={handleClick}
     >
