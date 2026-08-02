@@ -82,7 +82,7 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
                   label={checkboxAction.label}
                 />
               )}
-              <div className={styles.buttonGroup[buttonLayout]}>
+              <div className={styles.buttonGroup({ buttonLayout })}>
                 {buttonLayout === "vertical" ? (
                   <>
                     {primaryButton}

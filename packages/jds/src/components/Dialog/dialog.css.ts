@@ -1,6 +1,9 @@
-import { createVar, fallbackVar, keyframes, style, styleVariants } from "@vanilla-extract/css";
+import { createVar, fallbackVar, keyframes, style, type StyleRule } from "@vanilla-extract/css";
+import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
 import { focusRing, pxToRem } from "utils";
+
+import type { DialogButtonLayout } from "./dialog.types";
 
 const restingTransform = "translate(-50%, -50%)";
 const offsetTransform = `translate(-50%, calc(-50% + ${pxToRem(60)}))`;
@@ -158,22 +161,27 @@ export const bodyText = style({
   color: vars.color.semantic.object.normal,
 });
 
-export const buttonGroup = styleVariants({
-  horizontal: {
+export const buttonGroup = recipe({
+  base: {
     display: "flex",
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    alignItems: "center",
     alignSelf: "stretch",
     gap: vars.scheme.semantic.spacing["12"],
     flexShrink: 0,
   },
-  vertical: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "stretch",
-    alignSelf: "stretch",
-    gap: vars.scheme.semantic.spacing["12"],
-    flexShrink: 0,
+  variants: {
+    buttonLayout: {
+      horizontal: {
+        flexDirection: "row",
+        justifyContent: "flex-end",
+        alignItems: "center",
+      },
+      vertical: {
+        flexDirection: "column",
+        alignItems: "stretch",
+      },
+    } satisfies Record<DialogButtonLayout, StyleRule>,
+  },
+  defaultVariants: {
+    buttonLayout: "horizontal",
   },
 });
