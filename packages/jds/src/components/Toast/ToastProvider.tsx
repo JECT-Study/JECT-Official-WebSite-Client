@@ -19,14 +19,19 @@ interface ToastContextType {
   removeToast: (id: string) => void;
 }
 
+interface LiveAnnouncement {
+  id: string;
+  text: string;
+}
+
 const ToastContext = createContext<ToastContextType | null>(null);
 
 export const ToastProvider = ({ children, duration }: ToastProviderProps) => {
   const { toasts, toast: handler, removeToast } = useToastProvider();
   const [isMounted, setIsMounted] = useState(false);
 
-  const [statusAnnouncement, setStatusAnnouncement] = useState("");
-  const [alertAnnouncement, setAlertAnnouncement] = useState("");
+  const [statusAnnouncement, setStatusAnnouncement] = useState<LiveAnnouncement | null>(null);
+  const [alertAnnouncement, setAlertAnnouncement] = useState<LiveAnnouncement | null>(null);
 
   const statusAnnouncementSpaceToggleRef = useRef(false);
   const alertAnnouncementSpaceToggleRef = useRef(false);
@@ -49,11 +54,7 @@ export const ToastProvider = ({ children, duration }: ToastProviderProps) => {
   }, []);
 
   useEffect(() => {
-    if (!latestToastId) {
-      setStatusAnnouncement("");
-      setAlertAnnouncement("");
-      return;
-    }
+    if (!latestToastId) return;
 
     /**
      * [A11y] 최신 토스트가 먼저 제거되면 이미 낭독한 이전 토스트가
@@ -76,21 +77,24 @@ export const ToastProvider = ({ children, duration }: ToastProviderProps) => {
     if (latestToastFeedback === "destructive") {
       alertAnnouncementSpaceToggleRef.current = !alertAnnouncementSpaceToggleRef.current;
       const invisibleSpace = alertAnnouncementSpaceToggleRef.current ? "\u200B" : "\u200B\u200B";
-      setAlertAnnouncement(`${baseText}${invisibleSpace}`);
+      setAlertAnnouncement({ id: latestToastId, text: `${baseText}${invisibleSpace}` });
     } else {
       statusAnnouncementSpaceToggleRef.current = !statusAnnouncementSpaceToggleRef.current;
       const invisibleSpace = statusAnnouncementSpaceToggleRef.current ? "\u200B" : "\u200B\u200B";
-      setStatusAnnouncement(`${baseText}${invisibleSpace}`);
+      setStatusAnnouncement({ id: latestToastId, text: `${baseText}${invisibleSpace}` });
     }
   }, [latestToastId, latestToastTitle, latestToastDescription, latestToastFeedback]);
 
   useEffect(() => {
-    // 큐에서 제거된 토스트 id를 정리해 낭독 완료 목록이 계속 누적되지 않도록 한다.
+    // 제거된 토스트를 낭독 완료 목록과 live region에서 함께 정리한다.
     const activeToastIds = new Set(toasts.map(toast => toast.id));
 
     announcedToastIdsRef.current.forEach(id => {
       if (!activeToastIds.has(id)) announcedToastIdsRef.current.delete(id);
     });
+
+    setStatusAnnouncement(current => (current && !activeToastIds.has(current.id) ? null : current));
+    setAlertAnnouncement(current => (current && !activeToastIds.has(current.id) ? null : current));
   }, [toasts]);
 
   return (
@@ -99,10 +103,10 @@ export const ToastProvider = ({ children, duration }: ToastProviderProps) => {
 
       {/* 스크린리더 전용 live region: feedback에 맞는 영역에서 최신 토스트만 낭독 */}
       <div className={visuallyHidden} role='status' aria-live='polite' aria-atomic='true'>
-        {statusAnnouncement}
+        {statusAnnouncement?.text}
       </div>
       <div className={visuallyHidden} role='alert' aria-live='assertive' aria-atomic='true'>
-        {alertAnnouncement}
+        {alertAnnouncement?.text}
       </div>
 
       {isMounted &&

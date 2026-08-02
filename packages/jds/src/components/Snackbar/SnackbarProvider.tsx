@@ -19,14 +19,19 @@ interface SnackbarContextType {
   removeSnackbar: (id: string) => void;
 }
 
+interface LiveAnnouncement {
+  id: string;
+  text: string;
+}
+
 const SnackbarContext = createContext<SnackbarContextType | null>(null);
 
 export const SnackbarProvider = ({ children, duration }: SnackbarProviderProps) => {
   const { snackbars, snackbar: handler, removeSnackbar } = useSnackbarProvider();
   const [isMounted, setIsMounted] = useState(false);
 
-  const [statusAnnouncement, setStatusAnnouncement] = useState("");
-  const [alertAnnouncement, setAlertAnnouncement] = useState("");
+  const [statusAnnouncement, setStatusAnnouncement] = useState<LiveAnnouncement | null>(null);
+  const [alertAnnouncement, setAlertAnnouncement] = useState<LiveAnnouncement | null>(null);
 
   const statusAnnouncementSpaceToggleRef = useRef(false);
   const alertAnnouncementSpaceToggleRef = useRef(false);
@@ -49,11 +54,7 @@ export const SnackbarProvider = ({ children, duration }: SnackbarProviderProps) 
   }, []);
 
   useEffect(() => {
-    if (!latestSnackbarId) {
-      setStatusAnnouncement("");
-      setAlertAnnouncement("");
-      return;
-    }
+    if (!latestSnackbarId) return;
 
     /**
      * [A11y] 최신 스낵바가 먼저 제거되면 이미 낭독한 이전 스낵바가
@@ -76,21 +77,28 @@ export const SnackbarProvider = ({ children, duration }: SnackbarProviderProps) 
     if (latestSnackbarFeedback === "destructive") {
       alertAnnouncementSpaceToggleRef.current = !alertAnnouncementSpaceToggleRef.current;
       const invisibleSpace = alertAnnouncementSpaceToggleRef.current ? "\u200B" : "\u200B\u200B";
-      setAlertAnnouncement(`${baseText}${invisibleSpace}`);
+      setAlertAnnouncement({ id: latestSnackbarId, text: `${baseText}${invisibleSpace}` });
     } else {
       statusAnnouncementSpaceToggleRef.current = !statusAnnouncementSpaceToggleRef.current;
       const invisibleSpace = statusAnnouncementSpaceToggleRef.current ? "\u200B" : "\u200B\u200B";
-      setStatusAnnouncement(`${baseText}${invisibleSpace}`);
+      setStatusAnnouncement({ id: latestSnackbarId, text: `${baseText}${invisibleSpace}` });
     }
   }, [latestSnackbarId, latestSnackbarTitle, latestSnackbarDescription, latestSnackbarFeedback]);
 
   useEffect(() => {
-    // 큐에서 제거된 스낵바 id를 정리해 낭독 완료 목록이 계속 누적되지 않도록 한다.
+    // 제거된 스낵바를 낭독 완료 목록과 live region에서 함께 정리한다.
     const activeSnackbarIds = new Set(snackbars.map(snackbar => snackbar.id));
 
     announcedSnackbarIdsRef.current.forEach(id => {
       if (!activeSnackbarIds.has(id)) announcedSnackbarIdsRef.current.delete(id);
     });
+
+    setStatusAnnouncement(current =>
+      current && !activeSnackbarIds.has(current.id) ? null : current,
+    );
+    setAlertAnnouncement(current =>
+      current && !activeSnackbarIds.has(current.id) ? null : current,
+    );
   }, [snackbars]);
 
   return (
@@ -99,10 +107,10 @@ export const SnackbarProvider = ({ children, duration }: SnackbarProviderProps) 
 
       {/* 스크린리더 전용 live region: feedback에 맞는 영역에서 최신 스낵바만 낭독 */}
       <div className={visuallyHidden} role='status' aria-live='polite' aria-atomic='true'>
-        {statusAnnouncement}
+        {statusAnnouncement?.text}
       </div>
       <div className={visuallyHidden} role='alert' aria-live='assertive' aria-atomic='true'>
-        {alertAnnouncement}
+        {alertAnnouncement?.text}
       </div>
 
       {isMounted &&
