@@ -112,6 +112,7 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
       onActiveDescendantKeyDown(e);
 
       if (SELECTION_KEYS.includes(e.key)) {
+        e.preventDefault();
         onOpenChange(false);
       }
     };
