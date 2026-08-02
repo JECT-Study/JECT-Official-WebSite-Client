@@ -1,6 +1,6 @@
 import { clsx } from "clsx";
 import { Popover } from "radix-ui";
-import { forwardRef, useLayoutEffect, useMemo } from "react";
+import { forwardRef, useLayoutEffect, useMemo, type KeyboardEvent } from "react";
 
 import { useFieldContext } from "../../Field/Field.context";
 import { Icon } from "../../Icon";
@@ -10,6 +10,9 @@ import * as styles from "../selectField.css";
 import type { SelectFieldTriggerProps } from "../selectField.types";
 
 import { getBodyClassName } from "@/utils/typography";
+
+const SELECTION_KEYS = ["Enter", " "];
+const OPENING_KEYS = ["ArrowDown", "ArrowUp", "Home", "End", ...SELECTION_KEYS];
 
 export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTriggerProps>(
   (
@@ -21,6 +24,7 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
       variant = "label",
       placeholder,
       disabled: disabledFromProps,
+      onKeyDown: onKeyDownFromProps,
       "aria-describedby": describedByFromProps,
       "aria-invalid": invalidFromProps,
       className,
@@ -42,19 +46,63 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
     const isDisabled = disabledFromProps ?? isDisabledFromCtx;
     const isInteractive = !isDisabled && !isReadOnly;
 
-    const { listboxRef, contextValue, selectedValues, scrollToSelected, getListboxProps } =
-      useListbox({
-        mode: "single",
-        variant,
-        options,
-        value,
-        defaultValue,
-        onChange: onChange as ((value: string | string[]) => void) | undefined,
-        disabled: isDisabled,
-        scrollToSelectedOnMount: false,
-      });
+    const {
+      listboxRef,
+      listboxId,
+      contextValue,
+      selectedValues,
+      activeId,
+      activateSelected,
+      scrollToSelected,
+      onKeyDown: onActiveDescendantKeyDown,
+      getListboxProps,
+    } = useListbox({
+      mode: "single",
+      variant,
+      options,
+      value,
+      defaultValue,
+      onChange: onChange as ((value: string | string[]) => void) | undefined,
+      disabled: isDisabled,
+      scrollToSelectedOnMount: false,
+    });
 
     const selectedLabel = options.find(option => option.value === selectedValues[0])?.label;
+
+    const openPopup = () => {
+      activateSelected();
+      onOpenChange(true);
+    };
+
+    const handleKeyDown = (e: KeyboardEvent<HTMLButtonElement>) => {
+      onKeyDownFromProps?.(e);
+      if (e.defaultPrevented || !isInteractive) return;
+
+      if (!isOpen) {
+        if (OPENING_KEYS.includes(e.key)) {
+          e.preventDefault();
+          openPopup();
+        }
+        return;
+      }
+
+      if (e.altKey && (e.key === "ArrowDown" || e.key === "ArrowUp")) {
+        e.preventDefault();
+        onOpenChange(false);
+        return;
+      }
+
+      if (e.key === "Tab") {
+        onOpenChange(false);
+        return;
+      }
+
+      onActiveDescendantKeyDown(e);
+
+      if (SELECTION_KEYS.includes(e.key)) {
+        onOpenChange(false);
+      }
+    };
 
     useLayoutEffect(() => {
       if (!isOpen) return;
@@ -88,12 +136,18 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
             ref={ref}
             type='button'
             id={fieldId}
+            role='combobox'
+            aria-haspopup='listbox'
+            aria-expanded={isOpen}
+            aria-controls={listboxId}
+            aria-activedescendant={isOpen ? activeId : undefined}
             aria-describedby={describedByIds.length > 0 ? describedByIds.join(" ") : undefined}
             aria-invalid={ariaInvalid}
             disabled={isDisabled}
             data-readonly={isReadOnly || undefined}
             data-open={isOpen || undefined}
             className={clsx(styles.trigger, className)}
+            onKeyDown={handleKeyDown}
           >
             <span
               className={clsx(getBodyClassName({ size: "md" }), styles.value)}
@@ -110,15 +164,16 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
             align='start'
             sideOffset={4}
             collisionPadding={8}
-            onOpenAutoFocus={event => event.preventDefault()}
+            onOpenAutoFocus={e => e.preventDefault()}
           >
             <Listbox
+              role='presentation'
               className={styles.popup}
               context={popupContextValue}
               options={options}
               listboxRef={listboxRef}
-              listboxProps={getListboxProps()}
-              onMouseDown={event => event.preventDefault()}
+              listboxProps={{ ...getListboxProps(), ...{ "data-virtual-focus": "" } }}
+              onMouseDown={e => e.preventDefault()}
             />
           </Popover.Content>
         </Popover.Portal>

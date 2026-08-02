@@ -59,10 +59,11 @@ export const option = style([
         borderRadius: "inherit",
         pointerEvents: "none",
       },
-      '[role="listbox"]:focus-visible &[data-active]:not([data-disabled])::before': {
-        boxShadow: `inset 0 0 0 ${vars.scheme.semantic.strokeWeight["2"]} ${vars.color.semantic.accent.alpha.alternative}`,
-        zIndex: 1,
-      },
+      ':is([role="listbox"]:focus-visible, [role="listbox"][data-virtual-focus]) &[data-active]:not([data-disabled])::before':
+        {
+          boxShadow: `inset 0 0 0 ${vars.scheme.semantic.strokeWeight["2"]} ${vars.color.semantic.accent.alpha.alternative}`,
+          zIndex: 1,
+        },
       "&[data-disabled]": { cursor: "not-allowed" },
     },
   },
