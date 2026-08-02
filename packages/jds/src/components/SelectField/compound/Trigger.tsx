@@ -154,6 +154,7 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
             aria-activedescendant={isOpen ? activeId : undefined}
             aria-describedby={describedByIds.length > 0 ? describedByIds.join(" ") : undefined}
             aria-invalid={ariaInvalid}
+            aria-readonly={isReadOnly || undefined}
             disabled={isDisabled}
             data-readonly={isReadOnly || undefined}
             data-open={isOpen || undefined}
