@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { forwardRef, useState } from "react";
 
 import { Field, type FieldProps } from "../Field";
 import { TextareaContent } from "./compound/Content";
@@ -11,21 +11,25 @@ export type TextareaProps = Omit<FieldProps, "fieldStyle">;
 /**
  * 루트는 내부 Field primitive 를 래핑하고, 글자 수 카운터를 위한 값 길이·maxLength 를 추적한다.
  */
-const TextareaRoot = ({ children, ...restProps }: TextareaProps) => {
-  const [{ valueLength, maxLength }, setControlState] = useState<TextareaState>({
-    valueLength: 0,
-  });
+const TextareaRoot = forwardRef<HTMLDivElement, TextareaProps>(
+  ({ children, ...restProps }, ref) => {
+    const [{ valueLength, maxLength }, setControlState] = useState<TextareaState>({
+      valueLength: 0,
+    });
 
-  return (
-    <TextareaProvider
-      valueLength={valueLength}
-      maxLength={maxLength}
-      onControlStateChange={setControlState}
-    >
-      <Field {...restProps}>{children}</Field>
-    </TextareaProvider>
-  );
-};
+    return (
+      <TextareaProvider
+        valueLength={valueLength}
+        maxLength={maxLength}
+        onControlStateChange={setControlState}
+      >
+        <Field ref={ref} {...restProps}>
+          {children}
+        </Field>
+      </TextareaProvider>
+    );
+  },
+);
 
 TextareaRoot.displayName = "Textarea";
 
