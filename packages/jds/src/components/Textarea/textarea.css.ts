@@ -56,7 +56,7 @@ export const counter = recipe({
       true: { vars: { [labelColorVar]: vars.color.semantic.feedback.destructive.normal } },
       false: {},
     },
-    disabled: {
+    dimmed: {
       true: { vars: { [labelColorVar]: vars.color.semantic.object.subtle } },
       false: {},
     },
@@ -65,7 +65,7 @@ export const counter = recipe({
     {
       variants: {
         error: true,
-        disabled: true,
+        dimmed: true,
       },
       style: {
         vars: { [labelColorVar]: vars.color.semantic.feedback.destructive.alpha.assistive },
