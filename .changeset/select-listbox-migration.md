@@ -31,7 +31,7 @@ Select가 W3C Listbox 패턴 기반으로 재작성되었습니다. 기존에는
 
 `ref`가 가리키는 요소가 `role`을 가진 항목 래퍼에서 최상위 컨테이너로 변경되었습니다. 항목은 컴포넌트가 아닌 데이터 객체가 되어 개별 `ref`를 받지 않습니다.
 
-타입 export가 함께 정리되었습니다. `SelectVariant` / `SelectSize` / `SelectValue` / `SelectContextType` / `SelectListProps` / `SelectRadioProps` / `SelectCheckboxProps`가 제거되고, `MultiSelectProps` / `SelectOption` / `SelectionMode` / `OptionVariant` / `SelectDimension`이 추가되었습니다.
+타입 export가 함께 정리되었습니다. `SelectVariant` / `SelectSize` / `SelectValue` / `SelectContextType` / `SelectListProps` / `SelectRadioProps` / `SelectCheckboxProps`가 제거되고, `MultiSelectProps` / `SelectOption` / `OptionVariant` / `SelectDimension`이 추가되었습니다.
 
 **AS-IS**
 
