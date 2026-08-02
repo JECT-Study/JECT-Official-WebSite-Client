@@ -209,7 +209,7 @@ export const StyledSelectItemCaption = styled("span", {
   },
 }));
 
-export const StyledSelectItemBadge = styled(ContentBadge.Basic)({
+export const StyledSelectItemBadge = styled(ContentBadge)({
   position: "relative",
   zIndex: 1,
   cursor: "inherit",
