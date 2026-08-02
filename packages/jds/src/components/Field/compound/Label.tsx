@@ -18,6 +18,7 @@ export const FieldLabel = forwardRef<HTMLLabelElement, FieldLabelProps>(
   ({ children, prefixSlot, suffixSlot, className, ...restProps }, ref) => {
     const {
       fieldId,
+      labelId,
       fieldStyle,
       disabled: isDisabled,
       required: isRequired,
@@ -30,6 +31,7 @@ export const FieldLabel = forwardRef<HTMLLabelElement, FieldLabelProps>(
           <label
             {...restProps}
             ref={ref}
+            id={labelId}
             htmlFor={fieldId}
             className={clsx(
               getLabelClassName({ size: "sm" }),

@@ -43,6 +43,7 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
   ) => {
     const {
       fieldId,
+      labelId,
       helperTextId,
       hasHelperText,
       status,
@@ -184,7 +185,11 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
               context={popupContextValue}
               options={options}
               listboxRef={listboxRef}
-              listboxProps={{ ...getListboxProps(), ...{ "data-virtual-focus": "" } }}
+              listboxProps={{
+                ...getListboxProps(),
+                ...{ "data-virtual-focus": "" },
+                "aria-labelledby": labelId,
+              }}
               onMouseDown={e => e.preventDefault()}
             />
           </Popover.Content>
