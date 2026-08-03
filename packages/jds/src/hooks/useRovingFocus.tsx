@@ -38,6 +38,8 @@ const NAVIGATION_KEYS = ["ArrowDown", "ArrowRight", "ArrowUp", "ArrowLeft", "Hom
  * DOM 순서 기반 roving tabindex 그룹
  *
  * Tab 키로 그룹에 진입한 뒤 방향키와 Home, End 키로 항목 간 포커스를 이동한다.
+ * 방향키는 DOM 순서 기준의 선형 이동으로 ArrowDown, ArrowRight가 다음 항목이고
+ * ArrowUp, ArrowLeft가 이전 항목이다.
  * disabled 항목은 건너뛰고 항목 구성이 변경되면 포커스를 첫 번째 항목으로 초기화한다.
  * 선택 상태나 활성 상태는 관리하지 않고, 포커스 이동만 담당한다.
  *
