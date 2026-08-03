@@ -32,9 +32,10 @@ const meta = {
           "스텝 컴포넌트는 사용자가 따라야 할 절차나 진행 단계를 시각적으로 나타냅니다. " +
           "Steps.Root로 컨테이너를 구성하고, 각 단계는 Steps.Item으로 표현합니다. " +
           "모든 Steps.Item은 명시적으로 index prop을 제공해야 합니다.\n\n" +
-          "**두 가지 모드 지원:**\n" +
-          "- **Controlled 모드**: Steps.Root에 current를 전달하면 각 Steps.Item의 activated가 자동 계산됩니다.\n" +
-          "- **Uncontrolled 모드**: 각 Steps.Item에 activated를 직접 전달하여 제어가 가능합니다.",
+          "**활성 여부 결정 규칙:**\n" +
+          "- 기본은 Steps.Root의 current입니다. index가 current 이하인 단계가 활성으로 계산됩니다.\n" +
+          "- 개별 Steps.Item에 activated를 명시하면 current 계산을 덮어씁니다. 순차적이지 않은 조합이 필요할 때 사용합니다.\n" +
+          "- current도 activated도 없으면 모든 단계가 비활성입니다.",
       },
     },
   },
@@ -76,7 +77,7 @@ const meta = {
     activated: {
       control: false,
       description:
-        "Steps.Item의 활성 여부입니다. Steps.Root에 current가 전달되면 current 기반으로 자동 계산되고, current가 없을 때 직접 제어할 수 있습니다.",
+        "Steps.Item의 활성 여부입니다. 생략하면 Steps.Root의 current로 계산되고, 명시하면 current 계산을 덮어씁니다.",
       table: {
         category: "Steps.Item",
         type: { summary: "boolean" },
@@ -530,6 +531,44 @@ export const StatusVariants: CustomStory = {
   },
 };
 
+export const ActivatedOverridesCurrent: CustomStory = {
+  render: () => (
+    <FlexColumn style={{ width: "100%", gap: "32px" }}>
+      <FlexColumn gap='8px'>
+        <Label>current=2 (activated 없음)</Label>
+        <div style={{ width: "600px" }}>
+          <Steps.Root size='md' current={2}>
+            <Steps.Item index={0}>계정 생성</Steps.Item>
+            <Steps.Item index={1}>선택 단계</Steps.Item>
+            <Steps.Item index={2}>완료</Steps.Item>
+          </Steps.Root>
+        </div>
+      </FlexColumn>
+      <FlexColumn gap='8px'>
+        <Label>current=2 + 2단계를 activated false로 덮어쓰기</Label>
+        <div style={{ width: "600px" }}>
+          <Steps.Root size='md' current={2}>
+            <Steps.Item index={0}>계정 생성</Steps.Item>
+            <Steps.Item index={1} activated={false}>
+              선택 단계
+            </Steps.Item>
+            <Steps.Item index={2}>완료</Steps.Item>
+          </Steps.Root>
+        </div>
+      </FlexColumn>
+    </FlexColumn>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "activated는 current 계산보다 우선합니다. 건너뛴 선택 단계처럼 current만으로 표현할 수 없는 상태를 개별 Steps.Item에서 덮어쓸 수 있습니다. " +
+          "두 번째 예시는 current가 2여서 기본 계산으로는 모든 단계가 활성이지만, 2단계만 비활성으로 지정한 결과입니다.",
+      },
+    },
+  },
+};
+
 export const UncontrolledExample: CustomStory = {
   render: () => {
     function StoryComponent() {
@@ -648,8 +687,8 @@ export const UncontrolledExample: CustomStory = {
     docs: {
       description: {
         story:
-          "Uncontrolled 모드입니다. 각 Steps.Item에 activated를 직접 전달하여 독립적으로 제어할 수 있습니다. " +
-          "각 단계의 활성 여부를 개별적으로 변경할 수 있고 순차적이지 않은 조합도 가능합니다.",
+          "각 Steps.Item에 activated를 직접 전달해 독립적으로 제어하는 예시입니다. activated는 current 계산을 덮어쓰므로 " +
+          "current로 표현할 수 없는 순차적이지 않은 조합에 사용합니다.",
       },
     },
   },
@@ -693,7 +732,7 @@ export const ControlledExample: CustomStory = {
     docs: {
       description: {
         story:
-          "Controlled 모드입니다. Steps.Root에 current를 전달하면 각 Steps.Item의 activated가 자동으로 계산됩니다. " +
+          "Steps.Root의 current만으로 제어하는 예시입니다. activated를 넘기지 않으면 index가 current 이하인 단계가 활성으로 계산됩니다. " +
           "버튼을 클릭하여 단계를 변경할 수 있습니다.",
       },
     },
