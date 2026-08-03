@@ -81,7 +81,7 @@ const StepsRoot = forwardRef<HTMLOListElement, StepsRootProps>(
           className={clsx(stepsRoot({ size, layout }), className)}
         >
           {childList.map((child, childIndex) => (
-            <li className={stepsListItem({ size, layout })} key={childIndex}>
+            <li className={stepsListItem({ layout })} key={childIndex}>
               {childIndex > 0 && <StepsSeparator />}
               {child}
             </li>
