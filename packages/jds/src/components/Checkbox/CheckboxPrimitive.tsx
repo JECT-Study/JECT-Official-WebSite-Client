@@ -1,11 +1,6 @@
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { clsx } from "clsx";
-import {
-  RovingFocusProvider,
-  useControllableState,
-  useRovingFocusGroup,
-  useRovingFocusItem,
-} from "hooks";
+import { useControllableState } from "hooks";
 import { Checkbox as RadixCheckbox } from "radix-ui";
 import { forwardRef, useCallback, useId, useLayoutEffect, useMemo, useState } from "react";
 import { focusRing, getLabelClassName, overlay } from "utils";
@@ -37,6 +32,12 @@ import type {
   CheckboxGroupState,
   CheckboxItemContextValue,
 } from "./CheckboxContext";
+
+import {
+  RovingFocusProvider,
+  useRovingFocusGroup,
+  useRovingFocusItem,
+} from "@/hooks/useRovingFocus";
 
 const checkboxSizeMap = {
   lg: { icon: "md", label: "lg", helper: "sm" },
