@@ -1,5 +1,4 @@
 import { clsx } from "clsx";
-import { getActiveDescendantContainerProps } from "hooks";
 import { Popover } from "radix-ui";
 import {
   forwardRef,
@@ -17,6 +16,7 @@ import { useSelectFieldContext } from "../SelectField.context";
 import * as styles from "../selectField.css";
 import type { SelectFieldTriggerProps } from "../selectField.types";
 
+import { getActiveDescendantContainerProps } from "@/hooks/useActiveDescendant";
 import { getBodyClassName } from "@/utils/typography";
 
 const SELECTION_KEYS = ["Enter", " "];

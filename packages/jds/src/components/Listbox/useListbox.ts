@@ -1,9 +1,11 @@
-import { useActiveDescendant, useControllableState } from "hooks";
+import { useControllableState } from "hooks";
 import { useCallback, useId, useLayoutEffect, useMemo, useRef, type KeyboardEvent } from "react";
 
 import type { OptionVariant, SelectionMode, SelectOption } from "./listbox.types";
 import { getOptionId, scrollSelectedOptionIntoView } from "./listbox.utils";
 import type { ListboxContextValue } from "./ListboxContext";
+
+import { useActiveDescendant } from "@/hooks/useActiveDescendant";
 
 const SELECTION_KEYS = ["Enter", " "];
 

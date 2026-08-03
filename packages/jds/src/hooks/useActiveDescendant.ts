@@ -1,5 +1,6 @@
 import { useCallback, useRef, useState, type KeyboardEvent, type RefObject } from "react";
-import { VIRTUAL_FOCUS_ATTRIBUTE } from "utils";
+
+import { VIRTUAL_FOCUS_ATTRIBUTE } from "@/utils/virtualFocus";
 
 type ActiveDescendantDirection = "next" | "prev" | "first" | "last";
 

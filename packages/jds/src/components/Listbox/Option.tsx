@@ -1,5 +1,4 @@
 import { clsx } from "clsx";
-import { getActiveDescendantItemProps } from "hooks";
 
 import { CheckboxPrimitive } from "../Checkbox/CheckboxPrimitive";
 import { Icon } from "../Icon";
@@ -9,6 +8,7 @@ import { getOptionId } from "./listbox.utils";
 import { useListboxContext } from "./ListboxContext";
 import { RadioPrimitive } from "../Radio/RadioPrimitive";
 
+import { getActiveDescendantItemProps } from "@/hooks/useActiveDescendant";
 import { getLabelClassName } from "@/utils/typography";
 
 export const Option = ({ value, disabled = false, caption, suffix, children }: OptionProps) => {

@@ -1,8 +1,9 @@
 import { style } from "@vanilla-extract/css";
 import { vars } from "tokens";
-import { overlay, virtualFocusSelector } from "utils";
+import { overlay } from "utils";
 
 import { labelColorVar } from "@/utils/typography.css";
+import { virtualFocusSelector } from "@/utils/virtualFocus";
 
 export const selectContainer = style({
   display: "flex",
