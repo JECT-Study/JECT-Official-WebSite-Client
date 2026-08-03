@@ -25,8 +25,8 @@ const stepsNumericBadgeSizeMap: Record<StepsSize, BadgeSize> = {
 } as const;
 
 const stepsSeparatorSizeMap: Record<StepsSize, IconSize> = {
-  lg: "sm",
-  md: "xs",
+  lg: "xs",
+  md: "2xs",
 } as const;
 
 const stepsLabelTypographySizeMap: Record<StepsSize, LabelSize> = {
