@@ -20,6 +20,7 @@ EmptyState를 Emotion에서 vanilla-extract로 마이그레이션하고 신규 �
 
 - `primaryAction` / `secondaryAction`을 독립적으로 지정할 수 있습니다. 기존엔 `secondaryAction`이 `primaryAction`을 요구했으나, 이제 secondary 버튼 단독 사용도 가능합니다.
 - 루트에 native `div` 속성(`className`, `id`, `aria-*`, `onClick` 등)을 전달할 수 있습니다.
+- `header`가 optional로 변경되었습니다. 값이 없으면 타이틀을 렌더하지 않습니다. `body`는 계속 필수입니다.
 
 **디자인 변경**
 
