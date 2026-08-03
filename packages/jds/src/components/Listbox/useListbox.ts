@@ -109,10 +109,11 @@ export const useListbox = ({
 
       onActiveDescendantKeyDown(e);
 
-      if (SELECTION_KEYS.includes(e.key) && activeValue != null) {
-        e.preventDefault();
-        select(activeValue);
-      }
+      if (!SELECTION_KEYS.includes(e.key)) return;
+
+      e.preventDefault();
+
+      if (activeValue != null) select(activeValue);
     },
     [activeValue, disabled, onActiveDescendantKeyDown, select],
   );
