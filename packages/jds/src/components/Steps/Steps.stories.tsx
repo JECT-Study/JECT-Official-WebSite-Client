@@ -323,24 +323,74 @@ export const LayoutVariant: CustomStory = {
 
 export const VerticalControlled: CustomStory = {
   render: () => (
-    <div style={{ display: "flex", gap: "48px" }}>
-      {[0, 1, 2].map(step => (
-        <div key={step} style={{ width: "200px" }}>
-          <div style={{ marginBottom: "12px" }}>current: {step}</div>
-          <Steps.Root size='lg' layout='vertical' current={step}>
-            <Steps.Item index={0}>단계 1</Steps.Item>
-            <Steps.Item index={1}>단계 2</Steps.Item>
-            <Steps.Item index={2}>단계 3</Steps.Item>
-          </Steps.Root>
-        </div>
+    <FlexColumn style={{ width: "100%", gap: "32px" }}>
+      {(["lg", "md"] as const).map(size => (
+        <FlexColumn key={size} gap='8px'>
+          <Label>size: {size}</Label>
+          <FlexRow gap='48px'>
+            {[0, 1, 2].map(step => (
+              <FlexColumn key={step} gap='8px' style={{ width: "160px" }}>
+                <Label>current: {step}</Label>
+                <Steps.Root size={size} layout='vertical' current={step}>
+                  <Steps.Item index={0}>단계 1</Steps.Item>
+                  <Steps.Item index={1}>단계 2</Steps.Item>
+                  <Steps.Item index={2}>단계 3</Steps.Item>
+                </Steps.Root>
+              </FlexColumn>
+            ))}
+          </FlexRow>
+        </FlexColumn>
       ))}
-    </div>
+    </FlexColumn>
   ),
   parameters: {
     docs: {
       description: {
         story:
-          "수직 레이아웃에서 current 기반 제어 모드입니다. 활성 단계까지의 연결선이 accent 색상으로 표시되고, 이후 연결선은 subtle 색상으로 남습니다.",
+          "수직 레이아웃에서 current 기반 제어 모드입니다. lg는 연결선 높이 20px, md는 18px이며 이 높이가 단계 사이의 간격 역할을 합니다. 활성 단계로 이어지는 연결선은 accent 색상, 이후 연결선은 subtle 색상으로 표시됩니다.",
+      },
+    },
+  },
+};
+
+export const VerticalUncontrolled: CustomStory = {
+  render: () => (
+    <FlexRow gap='48px'>
+      <FlexColumn gap='8px' style={{ width: "160px" }}>
+        <Label>전체 활성</Label>
+        <Steps.Root size='md' layout='vertical'>
+          <Steps.Item index={0} activated>
+            단계 1
+          </Steps.Item>
+          <Steps.Item index={1} activated>
+            단계 2
+          </Steps.Item>
+          <Steps.Item index={2} activated>
+            단계 3
+          </Steps.Item>
+        </Steps.Root>
+      </FlexColumn>
+      <FlexColumn gap='8px' style={{ width: "160px" }}>
+        <Label>전체 비활성</Label>
+        <Steps.Root size='md' layout='vertical'>
+          <Steps.Item index={0} activated={false}>
+            단계 1
+          </Steps.Item>
+          <Steps.Item index={1} activated={false}>
+            단계 2
+          </Steps.Item>
+          <Steps.Item index={2} activated={false}>
+            단계 3
+          </Steps.Item>
+        </Steps.Root>
+      </FlexColumn>
+    </FlexRow>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "수직 레이아웃에서 각 Steps.Item의 activated를 직접 제어하는 모드입니다. 연결선 색상은 바로 뒤에 오는 단계의 활성 여부를 따릅니다.",
       },
     },
   },
