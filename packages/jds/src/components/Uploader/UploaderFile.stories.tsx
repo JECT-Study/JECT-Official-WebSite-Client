@@ -81,9 +81,9 @@ const meta = {
       </BlockButton>
     ),
     cancelButton: (
-      <LabelButton.Basic hierarchy='tertiary' size='sm' suffixIcon='arrow-go-back-line'>
+      <LabelButton hierarchy='tertiary' size='sm' suffixIcon='arrow-go-back-line'>
         업로드 취소
-      </LabelButton.Basic>
+      </LabelButton>
     ),
   },
 } satisfies Meta<typeof Uploader.File>;
@@ -131,14 +131,14 @@ export const Default: StoryObj<typeof Uploader.File> = {
           </BlockButton>
         )}
         cancelButton={
-          <LabelButton.Basic
+          <LabelButton
             hierarchy='tertiary'
             size='sm'
             suffixIcon='arrow-go-back-line'
             onClick={onCancel}
           >
             업로드 취소
-          </LabelButton.Basic>
+          </LabelButton>
         }
       />
     );

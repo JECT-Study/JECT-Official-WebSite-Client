@@ -67,30 +67,30 @@ export const Default: Story = {
         <GlobalNavigation.List>
           <GlobalNavigation.Item>
             <GlobalNavigation.Trigger>
-              <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+              <LabelButton hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
                 젝트
-              </LabelButton.Basic>
+              </LabelButton>
             </GlobalNavigation.Trigger>
           </GlobalNavigation.Item>
           <GlobalNavigation.Item>
             <GlobalNavigation.Trigger>
-              <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+              <LabelButton hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
                 프로그램
-              </LabelButton.Basic>
+              </LabelButton>
             </GlobalNavigation.Trigger>
           </GlobalNavigation.Item>
           <GlobalNavigation.Item>
             <GlobalNavigation.Trigger>
-              <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+              <LabelButton hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
                 뉴스
-              </LabelButton.Basic>
+              </LabelButton>
             </GlobalNavigation.Trigger>
           </GlobalNavigation.Item>
           <GlobalNavigation.Item>
             <GlobalNavigation.Trigger>
-              <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+              <LabelButton hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
                 합류 가이드
-              </LabelButton.Basic>
+              </LabelButton>
             </GlobalNavigation.Trigger>
           </GlobalNavigation.Item>
         </GlobalNavigation.List>
@@ -122,30 +122,30 @@ export const WithScrollVariant: Story = {
             <GlobalNavigation.List>
               <GlobalNavigation.Item>
                 <GlobalNavigation.Trigger>
-                  <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+                  <LabelButton hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
                     젝트
-                  </LabelButton.Basic>
+                  </LabelButton>
                 </GlobalNavigation.Trigger>
               </GlobalNavigation.Item>
               <GlobalNavigation.Item>
                 <GlobalNavigation.Trigger>
-                  <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+                  <LabelButton hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
                     프로그램
-                  </LabelButton.Basic>
+                  </LabelButton>
                 </GlobalNavigation.Trigger>
               </GlobalNavigation.Item>
               <GlobalNavigation.Item>
                 <GlobalNavigation.Trigger>
-                  <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+                  <LabelButton hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
                     뉴스
-                  </LabelButton.Basic>
+                  </LabelButton>
                 </GlobalNavigation.Trigger>
               </GlobalNavigation.Item>
               <GlobalNavigation.Item>
                 <GlobalNavigation.Trigger>
-                  <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+                  <LabelButton hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
                     합류 가이드
-                  </LabelButton.Basic>
+                  </LabelButton>
                 </GlobalNavigation.Trigger>
               </GlobalNavigation.Item>
             </GlobalNavigation.List>
@@ -193,46 +193,46 @@ export const Responsive: Story = {
           <GlobalNavigation.List>
             <GlobalNavigation.Item>
               <GlobalNavigation.Trigger>
-                <LabelButton.Basic
+                <LabelButton
                   hierarchy='primary'
                   size={labelButtonSize}
                   suffixIcon='arrow-down-s-line'
                 >
                   젝트
-                </LabelButton.Basic>
+                </LabelButton>
               </GlobalNavigation.Trigger>
             </GlobalNavigation.Item>
             <GlobalNavigation.Item>
               <GlobalNavigation.Trigger>
-                <LabelButton.Basic
+                <LabelButton
                   hierarchy='primary'
                   size={labelButtonSize}
                   suffixIcon='arrow-down-s-line'
                 >
                   프로그램
-                </LabelButton.Basic>
+                </LabelButton>
               </GlobalNavigation.Trigger>
             </GlobalNavigation.Item>
             <GlobalNavigation.Item>
               <GlobalNavigation.Trigger>
-                <LabelButton.Basic
+                <LabelButton
                   hierarchy='primary'
                   size={labelButtonSize}
                   suffixIcon='arrow-down-s-line'
                 >
                   뉴스
-                </LabelButton.Basic>
+                </LabelButton>
               </GlobalNavigation.Trigger>
             </GlobalNavigation.Item>
             <GlobalNavigation.Item>
               <GlobalNavigation.Trigger>
-                <LabelButton.Basic
+                <LabelButton
                   hierarchy='primary'
                   size={labelButtonSize}
                   suffixIcon='arrow-down-s-line'
                 >
                   합류 가이드
-                </LabelButton.Basic>
+                </LabelButton>
               </GlobalNavigation.Trigger>
             </GlobalNavigation.Item>
           </GlobalNavigation.List>
@@ -283,30 +283,30 @@ export const WithThemeSwitcher: Story = {
           <GlobalNavigation.List>
             <GlobalNavigation.Item>
               <GlobalNavigation.Trigger>
-                <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+                <LabelButton hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
                   젝트
-                </LabelButton.Basic>
+                </LabelButton>
               </GlobalNavigation.Trigger>
             </GlobalNavigation.Item>
             <GlobalNavigation.Item>
               <GlobalNavigation.Trigger>
-                <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+                <LabelButton hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
                   프로그램
-                </LabelButton.Basic>
+                </LabelButton>
               </GlobalNavigation.Trigger>
             </GlobalNavigation.Item>
             <GlobalNavigation.Item>
               <GlobalNavigation.Trigger>
-                <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+                <LabelButton hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
                   뉴스
-                </LabelButton.Basic>
+                </LabelButton>
               </GlobalNavigation.Trigger>
             </GlobalNavigation.Item>
             <GlobalNavigation.Item>
               <GlobalNavigation.Trigger>
-                <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+                <LabelButton hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
                   합류 가이드
-                </LabelButton.Basic>
+                </LabelButton>
               </GlobalNavigation.Trigger>
             </GlobalNavigation.Item>
           </GlobalNavigation.List>
@@ -367,9 +367,9 @@ export const WithContent: Story = {
         <GlobalNavigation.List>
           <GlobalNavigation.Item>
             <GlobalNavigation.Trigger>
-              <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+              <LabelButton hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
                 젝트
-              </LabelButton.Basic>
+              </LabelButton>
             </GlobalNavigation.Trigger>
             <GlobalNavigation.Content>
               <TempNavigationContent />
@@ -377,9 +377,9 @@ export const WithContent: Story = {
           </GlobalNavigation.Item>
           <GlobalNavigation.Item>
             <GlobalNavigation.Trigger>
-              <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+              <LabelButton hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
                 프로그램
-              </LabelButton.Basic>
+              </LabelButton>
             </GlobalNavigation.Trigger>
             <GlobalNavigation.Content>
               <TempNavigationContent />
@@ -387,9 +387,9 @@ export const WithContent: Story = {
           </GlobalNavigation.Item>
           <GlobalNavigation.Item>
             <GlobalNavigation.Trigger>
-              <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+              <LabelButton hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
                 뉴스
-              </LabelButton.Basic>
+              </LabelButton>
             </GlobalNavigation.Trigger>
             <GlobalNavigation.Content>
               <TempNavigationContent />
@@ -397,9 +397,9 @@ export const WithContent: Story = {
           </GlobalNavigation.Item>
           <GlobalNavigation.Item>
             <GlobalNavigation.Trigger>
-              <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+              <LabelButton hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
                 합류 가이드
-              </LabelButton.Basic>
+              </LabelButton>
             </GlobalNavigation.Trigger>
             <GlobalNavigation.Content>
               <TempNavigationContent />
