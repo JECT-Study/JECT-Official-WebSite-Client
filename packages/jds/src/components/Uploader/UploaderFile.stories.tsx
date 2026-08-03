@@ -70,7 +70,7 @@ const meta = {
       </span>
     ),
     uploadButton: triggerUpload => (
-      <BlockButton.Basic
+      <BlockButton
         hierarchy='secondary'
         size='sm'
         variant='outlined'
@@ -78,7 +78,7 @@ const meta = {
         onClick={triggerUpload}
       >
         파일 업로드
-      </BlockButton.Basic>
+      </BlockButton>
     ),
     cancelButton: (
       <LabelButton.Basic hierarchy='tertiary' size='sm' suffixIcon='arrow-go-back-line'>
@@ -119,7 +119,7 @@ export const Default: StoryObj<typeof Uploader.File> = {
           </AssistiveLabel>
         }
         uploadButton={triggerUpload => (
-          <BlockButton.Basic
+          <BlockButton
             hierarchy='secondary'
             size='sm'
             variant='outlined'
@@ -128,7 +128,7 @@ export const Default: StoryObj<typeof Uploader.File> = {
             onClick={triggerUpload}
           >
             파일 업로드
-          </BlockButton.Basic>
+          </BlockButton>
         )}
         cancelButton={
           <LabelButton.Basic

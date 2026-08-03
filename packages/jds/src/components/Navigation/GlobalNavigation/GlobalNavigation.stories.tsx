@@ -96,9 +96,9 @@ export const Default: Story = {
         </GlobalNavigation.List>
         <GlobalNavigation.List align='right'>
           <GlobalNavigation.Item>
-            <BlockButton.Basic hierarchy='primary' size='sm' onClick={() => alert("hello!")}>
+            <BlockButton hierarchy='primary' size='sm' onClick={() => alert("hello!")}>
               지원하기
-            </BlockButton.Basic>
+            </BlockButton>
           </GlobalNavigation.Item>
         </GlobalNavigation.List>
         <GlobalNavigation.MobileMenuButton />
@@ -151,9 +151,9 @@ export const WithScrollVariant: Story = {
             </GlobalNavigation.List>
             <GlobalNavigation.List align='right'>
               <GlobalNavigation.Item>
-                <BlockButton.Basic hierarchy='primary' size='sm' onClick={() => alert("hello!")}>
+                <BlockButton hierarchy='primary' size='sm' onClick={() => alert("hello!")}>
                   지원하기
-                </BlockButton.Basic>
+                </BlockButton>
               </GlobalNavigation.Item>
             </GlobalNavigation.List>
             <GlobalNavigation.MobileMenuButton />
@@ -238,13 +238,13 @@ export const Responsive: Story = {
           </GlobalNavigation.List>
           <GlobalNavigation.List align='right'>
             <GlobalNavigation.Item>
-              <BlockButton.Basic
+              <BlockButton
                 hierarchy='primary'
                 size={blockButtonSize}
                 onClick={() => alert("hello!")}
               >
                 지원하기
-              </BlockButton.Basic>
+              </BlockButton>
             </GlobalNavigation.Item>
           </GlobalNavigation.List>
           <GlobalNavigation.MobileMenuButton />
@@ -312,9 +312,9 @@ export const WithThemeSwitcher: Story = {
           </GlobalNavigation.List>
           <GlobalNavigation.List align='right'>
             <GlobalNavigation.Item>
-              <BlockButton.Basic hierarchy='primary' size='sm' onClick={() => alert("hello!")}>
+              <BlockButton hierarchy='primary' size='sm' onClick={() => alert("hello!")}>
                 지원하기
-              </BlockButton.Basic>
+              </BlockButton>
             </GlobalNavigation.Item>
           </GlobalNavigation.List>
           <div style={{ width: "160px" }}>
@@ -408,9 +408,9 @@ export const WithContent: Story = {
         </GlobalNavigation.List>
         <GlobalNavigation.List align='right'>
           <GlobalNavigation.Item>
-            <BlockButton.Basic hierarchy='primary' size='sm' onClick={() => alert("hello!")}>
+            <BlockButton hierarchy='primary' size='sm' onClick={() => alert("hello!")}>
               지원하기
-            </BlockButton.Basic>
+            </BlockButton>
           </GlobalNavigation.Item>
         </GlobalNavigation.List>
         <GlobalNavigation.MobileMenuButton />

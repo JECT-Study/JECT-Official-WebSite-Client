@@ -36,7 +36,7 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
 
     const renderButtons = () => {
       const primary = (
-        <BlockButton.Basic
+        <BlockButton
           key='primary'
           style={{ width: isButtonStretched ? "100%" : "auto" }}
           {...primaryAction}
@@ -44,7 +44,7 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
       );
 
       const secondary = secondaryAction ? (
-        <BlockButton.Basic
+        <BlockButton
           key='secondary'
           variant='outlined'
           hierarchy='secondary'
@@ -54,7 +54,7 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
       ) : null;
 
       const tertiary = tertiaryAction ? (
-        <BlockButton.Basic
+        <BlockButton
           key='tertiary'
           variant='hollow'
           hierarchy='secondary'

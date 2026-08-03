@@ -143,9 +143,9 @@ export const WithGlobalNavigation: Story = {
       </GlobalNavigation.List>
       <GlobalNavigation.List align='right'>
         <GlobalNavigation.Item>
-          <BlockButton.Basic hierarchy='primary' size='sm' onClick={() => alert("hello!")}>
+          <BlockButton hierarchy='primary' size='sm' onClick={() => alert("hello!")}>
             지원하기
-          </BlockButton.Basic>
+          </BlockButton>
         </GlobalNavigation.Item>
       </GlobalNavigation.List>
     </GlobalNavigation.Root>

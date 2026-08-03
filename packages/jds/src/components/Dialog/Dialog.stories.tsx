@@ -60,7 +60,7 @@ export const Default: Story = {
 
     return (
       <>
-        <BlockButton.Basic onClick={() => setIsOpen(true)}>다이얼로그 열기</BlockButton.Basic>
+        <BlockButton onClick={() => setIsOpen(true)}>다이얼로그 열기</BlockButton>
         <Dialog
           open={isOpen}
           onOpenChange={setIsOpen}
@@ -82,10 +82,8 @@ export const IsButtonStretched: Story = {
 
     return (
       <FlexRow>
-        <BlockButton.Basic onClick={() => setOpen("default")}>정렬된 경우</BlockButton.Basic>
-        <BlockButton.Basic onClick={() => setOpen("isStretched")}>
-          정렬되지 않은 경우
-        </BlockButton.Basic>
+        <BlockButton onClick={() => setOpen("default")}>정렬된 경우</BlockButton>
+        <BlockButton onClick={() => setOpen("isStretched")}>정렬되지 않은 경우</BlockButton>
 
         <Dialog
           open={open === "default"}
@@ -121,10 +119,8 @@ export const WithSecondaryButton: Story = {
 
     return (
       <FlexRow>
-        <BlockButton.Basic onClick={() => setOpen("default")}>정렬된 경우</BlockButton.Basic>
-        <BlockButton.Basic onClick={() => setOpen("isStretched")}>
-          정렬되지 않은 경우
-        </BlockButton.Basic>
+        <BlockButton onClick={() => setOpen("default")}>정렬된 경우</BlockButton>
+        <BlockButton onClick={() => setOpen("isStretched")}>정렬되지 않은 경우</BlockButton>
 
         <Dialog
           open={open === "default"}
@@ -162,10 +158,8 @@ export const WithTertiaryButton: Story = {
 
     return (
       <FlexRow>
-        <BlockButton.Basic onClick={() => setOpen("default")}>정렬된 경우</BlockButton.Basic>
-        <BlockButton.Basic onClick={() => setOpen("isStretched")}>
-          정렬되지 않은 경우
-        </BlockButton.Basic>
+        <BlockButton onClick={() => setOpen("default")}>정렬된 경우</BlockButton>
+        <BlockButton onClick={() => setOpen("isStretched")}>정렬되지 않은 경우</BlockButton>
 
         <Dialog
           open={open === "default"}
@@ -206,9 +200,7 @@ export const WithCheckbox: Story = {
 
     return (
       <>
-        <BlockButton.Basic onClick={() => setIsOpen(true)}>
-          체크박스 포함된 다이얼로그 열기
-        </BlockButton.Basic>
+        <BlockButton onClick={() => setIsOpen(true)}>체크박스 포함된 다이얼로그 열기</BlockButton>
         <Dialog
           open={isOpen}
           onOpenChange={setIsOpen}
