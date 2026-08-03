@@ -41,7 +41,7 @@ interface ResolveActivatedParams {
 }
 
 const resolveActivated = ({ currentStep, index, activated }: ResolveActivatedParams) =>
-  currentStep !== undefined ? index <= currentStep : (activated ?? false);
+  activated ?? (currentStep !== undefined && index <= currentStep);
 
 const StepsSeparator = () => {
   const { size, layout } = useStepsContext("Steps.Separator");
