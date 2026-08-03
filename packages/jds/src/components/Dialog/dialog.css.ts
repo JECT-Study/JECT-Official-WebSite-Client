@@ -180,7 +180,4 @@ export const buttonGroup = recipe({
       },
     } satisfies Record<DialogButtonLayout, StyleRule>,
   },
-  defaultVariants: {
-    buttonLayout: "horizontal",
-  },
 });
