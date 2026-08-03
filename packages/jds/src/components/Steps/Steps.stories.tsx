@@ -321,6 +321,31 @@ export const LayoutVariant: CustomStory = {
   },
 };
 
+export const VerticalControlled: CustomStory = {
+  render: () => (
+    <div style={{ display: "flex", gap: "48px" }}>
+      {[0, 1, 2].map(step => (
+        <div key={step} style={{ width: "200px" }}>
+          <div style={{ marginBottom: "12px" }}>current: {step}</div>
+          <Steps.Root size='lg' layout='vertical' current={step}>
+            <Steps.Item index={0}>단계 1</Steps.Item>
+            <Steps.Item index={1}>단계 2</Steps.Item>
+            <Steps.Item index={2}>단계 3</Steps.Item>
+          </Steps.Root>
+        </div>
+      ))}
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "수직 레이아웃에서 current 기반 제어 모드입니다. 활성 단계까지의 연결선이 accent 색상으로 표시되고, 이후 연결선은 subtle 색상으로 남습니다.",
+      },
+    },
+  },
+};
+
 export const VariousItemCounts: CustomStory = {
   render: () => (
     <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>

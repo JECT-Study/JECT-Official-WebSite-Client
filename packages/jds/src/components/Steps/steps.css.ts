@@ -5,6 +5,7 @@ import { pxToRem } from "utils";
 
 import type { StepsSize } from "./steps.types";
 import { vars } from "../../tokens/vars.css";
+import { dividerColorVar } from "../Divider/divider.css";
 
 import { labelColorVar } from "@/utils/typography.css";
 
@@ -104,12 +105,20 @@ export const stepsSeparatorIcon = style({
   flexShrink: 0,
 });
 
+const activatedItemSelector = `[data-activated='true']`;
+
 export const stepsSeparatorLine = recipe({
   base: {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     flexShrink: 0,
+    vars: { [dividerColorVar]: vars.color.semantic.stroke.alpha.subtle },
+    selectors: {
+      [`&:has(~ ${activatedItemSelector}, ~ * ${activatedItemSelector})`]: {
+        vars: { [dividerColorVar]: vars.color.semantic.accent.neutral },
+      },
+    },
   },
   variants: {
     size: {
