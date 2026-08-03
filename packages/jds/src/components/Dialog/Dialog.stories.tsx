@@ -96,6 +96,41 @@ export const Default: Story = {
   },
 };
 
+export const PanelWidth: Story = {
+  args: Default.args,
+  render: args => <Dialog {...args} open />,
+  tags: ["!autodocs"],
+  parameters: {
+    layout: "fullscreen",
+    chromatic: { viewports: [400, 1200] },
+    docs: {
+      description: {
+        story:
+          "패널의 실제 포지셔닝과 너비를 확인합니다. 너비를 지정하지 않으면 400~560px 사이에서 내용에 맞춰 정해지고, 뷰포트가 좁으면 좌우 16px을 남기고 줄어듭니다.",
+      },
+    },
+  },
+};
+
+export const ScrollableBody: Story = {
+  args: {
+    ...Default.args,
+    body: Array.from({ length: 12 }, () => SAMPLE_BODY).join(" "),
+    secondaryAction: { children: SAMPLE_BUTTON },
+  },
+  render: args => <Dialog {...args} open />,
+  tags: ["!autodocs"],
+  parameters: {
+    layout: "fullscreen",
+    docs: {
+      description: {
+        story:
+          "본문이 길어 패널이 최대 너비 560px과 최대 높이에 모두 걸린 상태입니다. 제목과 버튼은 고정되고 본문 영역만 스크롤됩니다.",
+      },
+    },
+  },
+};
+
 const rowStyle: CSSProperties = {
   display: "flex",
   flexWrap: "wrap",
