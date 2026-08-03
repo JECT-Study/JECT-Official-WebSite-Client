@@ -12,6 +12,12 @@ type SelectFieldTriggerBaseProps = Omit<
   options: SelectOption[];
   placeholder?: string;
   variant?: OptionVariant;
+  /**
+   * 값과 화살표 사이에 배치되는 부가 요소입니다.
+   *
+   * 트리거 버튼 안에 렌더되므로 버튼이나 링크처럼 상호작용하는 요소는 전달하면 안 됩니다.
+   * 배지, 아이콘, 단축키 표시처럼 읽기 전용 콘텐츠를 위한 자리입니다.
+   */
   suffix?: ReactNode;
 };
 
