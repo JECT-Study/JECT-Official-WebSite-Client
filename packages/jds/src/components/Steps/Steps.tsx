@@ -106,7 +106,7 @@ const StepsItem = forwardRef<HTMLDivElement, StepsItemProps>(
         {...restProps}
         ref={ref}
         aria-current={isCurrentStep ? "step" : undefined}
-        data-activated={isActivated}
+        data-steps-activated={isActivated}
         className={clsx(stepsItem({ layout }), className)}
       >
         <NumericBadge

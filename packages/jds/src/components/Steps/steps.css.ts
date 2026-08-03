@@ -105,7 +105,7 @@ export const stepsSeparatorIcon = style({
   flexShrink: 0,
 });
 
-const activatedItemSelector = `[data-activated='true']`;
+const activatedItemSelector = `[data-steps-activated='true']`;
 
 export const stepsSeparatorLine = recipe({
   base: {
