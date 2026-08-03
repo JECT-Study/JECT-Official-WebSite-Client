@@ -13,7 +13,6 @@ export const stepsLabel = recipe({
     overflow: "hidden",
     textOverflow: "ellipsis",
     whiteSpace: "nowrap",
-    cursor: "default",
   },
   variants: {
     activated: {
@@ -47,7 +46,6 @@ export const stepsItem = recipe({
 export const stepsListItem = recipe({
   base: {
     display: "flex",
-    listStyle: "none",
     minWidth: 0,
   },
   variants: {
