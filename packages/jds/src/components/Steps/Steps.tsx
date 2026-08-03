@@ -34,6 +34,15 @@ const stepsLabelTypographySizeMap: Record<StepsSize, LabelSize> = {
   md: "sm",
 } as const;
 
+interface ResolveActivatedParams {
+  currentStep: number | undefined;
+  index: number;
+  activated: boolean | undefined;
+}
+
+const resolveActivated = ({ currentStep, index, activated }: ResolveActivatedParams) =>
+  currentStep !== undefined ? index <= currentStep : (activated ?? false);
+
 const StepsSeparator = () => {
   const { size, layout } = useStepsContext("Steps.Separator");
 
@@ -89,7 +98,7 @@ const StepsItem = forwardRef<HTMLDivElement, StepsItemProps>(
   ({ index, activated: activatedProp, children, className, ...restProps }, ref) => {
     const { size, layout, currentStep } = useStepsContext("Steps.Item");
 
-    const isActivated = currentStep !== undefined ? index <= currentStep : (activatedProp ?? false);
+    const isActivated = resolveActivated({ currentStep, index, activated: activatedProp });
     const isCurrentStep = currentStep === index;
 
     return (
