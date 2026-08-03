@@ -99,7 +99,11 @@ const CheckboxRoot = ({
             className={styles.checkboxGroupWrapper({ layout })}
             style={
               layout === "grid"
-                ? assignInlineVars({ [styles.checkboxGroupColumnsVar]: String(columns) })
+                ? assignInlineVars({
+                    [styles.checkboxGroupColumnsVar]: String(
+                      Math.max(1, Math.floor(Number(columns))),
+                    ),
+                  })
                 : undefined
             }
           >
