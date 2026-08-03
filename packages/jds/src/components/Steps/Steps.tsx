@@ -59,7 +59,7 @@ const StepsSeparator = () => {
 
   return (
     <div className={stepsSeparatorLine({ size })} aria-hidden>
-      <Divider orientation='vertical' thickness='bold' />
+      <Divider orientation='vertical' thickness='bold' decorative />
     </div>
   );
 };
