@@ -121,9 +121,14 @@ const captionStyle: CSSProperties = {
   whiteSpace: "nowrap",
 };
 
+const MATRIX_PANEL_WIDTH = 360;
+const PANEL_VIEWPORT_GUTTER = 32;
+
 const cellStyle: CSSProperties = {
   position: "relative",
-  width: 360,
+  display: "flex",
+  justifyContent: "center",
+  width: MATRIX_PANEL_WIDTH + PANEL_VIEWPORT_GUTTER,
 };
 
 const MATRIX_CELL_CLASS = "dialog-variant-cell";
