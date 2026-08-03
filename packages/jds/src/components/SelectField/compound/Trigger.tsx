@@ -157,6 +157,7 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
             aria-invalid={ariaInvalid}
             aria-readonly={isReadOnly || undefined}
             disabled={isDisabled}
+            data-interaction-target=''
             data-readonly={isReadOnly || undefined}
             data-open={isOpen || undefined}
             className={clsx(styles.trigger, className)}
