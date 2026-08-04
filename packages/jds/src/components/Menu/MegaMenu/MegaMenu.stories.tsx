@@ -102,9 +102,9 @@ export const WithGlobalNavigation: Story = {
       <GlobalNavigation.List>
         <GlobalNavigation.Item>
           <GlobalNavigation.Trigger>
-            <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+            <LabelButton hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
               젝트
-            </LabelButton.Basic>
+            </LabelButton>
           </GlobalNavigation.Trigger>
           <GlobalNavigation.Content offset={10}>
             <TempNavigationContent />
@@ -112,9 +112,9 @@ export const WithGlobalNavigation: Story = {
         </GlobalNavigation.Item>
         <GlobalNavigation.Item>
           <GlobalNavigation.Trigger>
-            <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+            <LabelButton hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
               프로그램
-            </LabelButton.Basic>
+            </LabelButton>
           </GlobalNavigation.Trigger>
           <GlobalNavigation.Content offset={10}>
             <TempNavigationContent />
@@ -122,9 +122,9 @@ export const WithGlobalNavigation: Story = {
         </GlobalNavigation.Item>
         <GlobalNavigation.Item>
           <GlobalNavigation.Trigger>
-            <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+            <LabelButton hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
               뉴스
-            </LabelButton.Basic>
+            </LabelButton>
           </GlobalNavigation.Trigger>
           <GlobalNavigation.Content offset={10}>
             <TempNavigationContent />
@@ -132,9 +132,9 @@ export const WithGlobalNavigation: Story = {
         </GlobalNavigation.Item>
         <GlobalNavigation.Item>
           <GlobalNavigation.Trigger>
-            <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+            <LabelButton hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
               합류 가이드
-            </LabelButton.Basic>
+            </LabelButton>
           </GlobalNavigation.Trigger>
           <GlobalNavigation.Content offset={10}>
             <TempNavigationContent />
@@ -143,9 +143,9 @@ export const WithGlobalNavigation: Story = {
       </GlobalNavigation.List>
       <GlobalNavigation.List align='right'>
         <GlobalNavigation.Item>
-          <BlockButton.Basic hierarchy='primary' size='sm' onClick={() => alert("hello!")}>
+          <BlockButton hierarchy='primary' size='sm' onClick={() => alert("hello!")}>
             지원하기
-          </BlockButton.Basic>
+          </BlockButton>
         </GlobalNavigation.Item>
       </GlobalNavigation.List>
     </GlobalNavigation.Root>
