@@ -303,7 +303,6 @@ const cssVariables = {
   scheme: parsedTokens.scheme.cssVariables,
   typography: parsedTokens.typography.cssVariables,
   environment: parsedTokens.environment.cssVariables,
-  textStyle: parsedTextStyle.cssVariables,
 };
 
 const processedTokens = {
@@ -315,88 +314,6 @@ const processedTokens = {
   textStyle: parsedTextStyle.nested,
 };
 
-// globalStyles 형식으로 변환
-const globalStyles = {
-  ":root": {
-    ...cssVariables.colorPrimitive,
-    ...cssVariables.environment,
-    ...cssVariables.colorSemantic.light,
-    // scheme desktop 기본값
-    ...Object.fromEntries(
-      Object.entries(cssVariables.scheme).map(([key, values]) => [key, values.desktop]),
-    ),
-    // typography desktop 기본값
-    ...Object.fromEntries(
-      Object.entries(cssVariables.typography).map(([key, values]) => [key, values.desktop]),
-    ),
-  },
-  // textStyle 클래스들 - CSS-in-JS용이므로 camelCase 사용
-  ...parsedTextStyle.nested,
-  '[data-theme="dark"]': cssVariables.colorSemantic.dark,
-  [`@media (min-width: ${parsedTokens.scheme.tokens.tablet["semantic-breakpoint-min"]}px) and (max-width: ${parsedTokens.scheme.tokens.tablet["semantic-breakpoint-max"]}px)`]:
-    {
-      ":root": {
-        // scheme tablet
-        ...Object.fromEntries(
-          Object.entries(cssVariables.scheme).map(([key, values]) => [key, values.tablet]),
-        ),
-        // typography tablet
-        ...Object.fromEntries(
-          Object.entries(cssVariables.typography).map(([key, values]) => [key, values.tablet]),
-        ),
-      },
-    },
-  [`@media (min-width: ${parsedTokens.scheme.tokens.mobile["semantic-breakpoint-min"]}px) and (max-width: ${parsedTokens.scheme.tokens.mobile["semantic-breakpoint-max"]}px)`]:
-    {
-      ":root": {
-        // scheme mobile
-        ...Object.fromEntries(
-          Object.entries(cssVariables.scheme).map(([key, values]) => [key, values.mobile]),
-        ),
-        // typography mobile
-        ...Object.fromEntries(
-          Object.entries(cssVariables.typography).map(([key, values]) => [key, values.mobile]),
-        ),
-      },
-    },
-};
-
-// theme 객체 생성
-// 미디어쿼리는 CSS 변수가 자동 처리하기 때문에 default(light,desktop)로 설정
-const theme = {
-  colorPrimitive: processedTokens.colorPrimitive,
-  color: processedTokens.colorSemantic.light,
-  scheme: processedTokens.scheme.desktop,
-  environment: processedTokens.environment,
-  typo: processedTokens.typography.desktop,
-  textStyle: processedTokens.textStyle,
-  breakPoint: {
-    desktop: `@media (min-width: ${parsedTokens.scheme.tokens.desktop["semantic-breakpoint-min"]}px) and (max-width: ${parsedTokens.scheme.tokens.desktop["semantic-breakpoint-max"]}px)`,
-    tablet: `@media (min-width: ${parsedTokens.scheme.tokens.tablet["semantic-breakpoint-min"]}px) and (max-width: ${parsedTokens.scheme.tokens.tablet["semantic-breakpoint-max"]}px)`,
-    mobile: `@media (min-width: ${parsedTokens.scheme.tokens.mobile["semantic-breakpoint-min"]}px) and (max-width: ${parsedTokens.scheme.tokens.mobile["semantic-breakpoint-max"]}px)`,
-  },
-};
-
-// TODO(Emotion 제거): globalStyles 생성 블록 전체 삭제 (globalStyles.ts 파일도 함께 삭제)
-// globalStyles 파일 생성
-const globalStylesContent = `// 자동 생성된 globalStyles - 수정 금지
-// 생성 시간: ${new Date().toLocaleString()}
-
-export const globalStyles = ${JSON.stringify(globalStyles, null, 2)} as const;
-`;
-
-const globalStylesPath = join(outputDir, "globalStyles.ts");
-
-// TODO(Emotion 제거): theme 생성 블록 전체 삭제 (theme.ts 파일도 함께 삭제)
-// theme 파일 생성
-const themeContent = `// 자동 생성된 theme - 수정 금지
-// 생성 시간: ${new Date().toLocaleString()}
-
-export const theme = ${JSON.stringify(theme, null, 2)} as const;
-`;
-
-const themePath = join(outputDir, "theme.ts");
-
 const tsContent = `// 자동 생성된 디자인 토큰 - 수정 금지
 // 생성 시간: ${new Date().toLocaleString()}
 
@@ -407,12 +324,8 @@ if (!fs.existsSync(outputDir)) {
   fs.mkdirSync(outputDir, { recursive: true });
 }
 
-fs.writeFileSync(globalStylesPath, globalStylesContent); // TODO(Emotion 제거): 이 줄 삭제
-fs.writeFileSync(themePath, themeContent); // TODO(Emotion 제거): 이 줄 삭제
 fs.writeFileSync(outputFile, tsContent);
-console.log(`\n✅ globalStyles 파일이 생성되었습니다: ${globalStylesPath}`); // TODO(Emotion 제거): 이 줄 삭제
-console.log(`✅ theme 파일이 생성되었습니다: ${themePath}`); // TODO(Emotion 제거): 이 줄 삭제
-console.log(`✅ tokens 파일이 생성되었습니다: ${outputFile}`);
+console.log(`\n✅ tokens 파일이 생성되었습니다: ${outputFile}`);
 
 // ===== 합성 environment 토큰 (shadow, zIndex) 주입 =====
 const radiusVar = (step: number): string => `var(--scheme-semantic-radius-${step})`;

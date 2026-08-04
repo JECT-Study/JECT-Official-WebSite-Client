@@ -276,36 +276,7 @@ export const textStyleSchema = z
       return `var(--typo-${toCssPropertyCamelCase(tokenName.replaceAll("/", "-"))})`;
     }
 
-    // globalStyles용 CSS 객체 생성 (kebab-case 속성명) TODO(Emotion 제거): 이 블록 삭제
-    const cssStyleObjects: Record<string, Record<string, string>> = {};
-    data.forEach(textStyle => {
-      const name = textStyle.name.replaceAll("/", "-");
-      cssStyleObjects[name] = {
-        "font-size": textStyle.properties.fontSize.token
-          ? toVeTypoVar(textStyle.properties.fontSize.token.name)
-          : addPxIfNeeded("font-size", textStyle.properties.fontSize.value),
-        "line-height": textStyle.properties.lineHeight.token
-          ? toVeTypoVar(textStyle.properties.lineHeight.token.name)
-          : String(textStyle.properties.lineHeight.value),
-        "font-family": textStyle.properties.fontFamily.token
-          ? toVeTypoVar(textStyle.properties.fontFamily.token.name)
-          : String(textStyle.properties.fontFamily.value),
-        "font-weight": textStyle.properties.fontWeight.token
-          ? toVeTypoVar(textStyle.properties.fontWeight.token.name)
-          : String(textStyle.properties.fontWeight.value),
-        "letter-spacing": textStyle.properties.letterSpacing.token
-          ? toVeTypoVar(textStyle.properties.letterSpacing.token.name)
-          : addPxIfNeeded("letter-spacing", textStyle.properties.letterSpacing.value),
-        "paragraph-spacing": textStyle.properties.paragraphSpacing.token
-          ? toVeTypoVar(textStyle.properties.paragraphSpacing.token.name)
-          : addPxIfNeeded("paragraph-spacing", textStyle.properties.paragraphSpacing.value) || "0",
-        "paragraph-indent": textStyle.properties.paragraphIndent.token
-          ? toVeTypoVar(textStyle.properties.paragraphIndent.token.name)
-          : addPxIfNeeded("paragraph-indent", textStyle.properties.paragraphIndent.value) || "0",
-      };
-    });
-
-    // theme / VE textStyles.css.ts용 JS 객체 생성 (camelCase 속성명)
+    // VE textStyles.css.ts용 JS 객체 생성 (camelCase 속성명)
     const themeStyleObjects: Record<string, Record<string, string>> = {};
     data.forEach(textStyle => {
       const name = textStyle.name.replaceAll("/", "-");
@@ -334,13 +305,10 @@ export const textStyleSchema = z
       };
     });
 
-    // cssVariables: globalStyles용 (kebab-case)
-    const cssVariables = cssStyleObjects;
-
-    // nested: theme용 (camelCase)
+    // nested: VE textStyles.css.ts용 (camelCase)
     const nested = themeStyleObjects;
 
-    return { tokens, cssVariables, nested };
+    return { tokens, nested };
   });
 
 /**
