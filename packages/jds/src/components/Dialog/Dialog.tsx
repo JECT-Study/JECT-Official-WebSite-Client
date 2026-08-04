@@ -1,3 +1,4 @@
+import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { clsx } from "clsx";
 import { Dialog as DialogPrimitive } from "radix-ui";
 import { forwardRef } from "react";
@@ -8,6 +9,7 @@ import { BlockButton } from "../Button/BlockButton";
 import { Checkbox } from "../Checkbox";
 
 import { useVerticalOverflow } from "@/hooks/useVerticalOverflow";
+import { pxToRem } from "@/utils/cssUnit";
 import { getBodyClassName, getTitleClassName } from "@/utils/typography";
 
 export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
@@ -21,14 +23,16 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
       primaryAction,
       secondaryAction,
       container,
-      className,
-      style,
+      width,
       ...rest
     },
     ref,
   ) => {
     const { ref: scrollBodyRef, isOverflowing: isScrollBodyOverflowing } =
       useVerticalOverflow<HTMLDivElement>();
+
+    const panelStyle =
+      width == null ? undefined : assignInlineVars({ [styles.dialogPanelWidth]: pxToRem(width) });
 
     const buttonSize = buttonLayout === "vertical" ? "lg" : "md";
 
@@ -48,8 +52,8 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
           <DialogPrimitive.Overlay className={styles.overlay} />
           <DialogPrimitive.Content
             ref={ref}
-            className={clsx(styles.positioner, styles.panel, className)}
-            style={style}
+            className={clsx(styles.positioner, styles.panel)}
+            style={panelStyle}
             onInteractOutside={closeOnInteractOutside ? undefined : event => event.preventDefault()}
           >
             <DialogPrimitive.Title asChild>

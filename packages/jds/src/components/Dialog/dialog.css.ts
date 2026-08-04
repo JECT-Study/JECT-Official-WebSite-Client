@@ -76,13 +76,8 @@ const maxPanelWidth = pxToRem(560);
 const availableWidth = `calc(100% - ${pxToRem(32)})`;
 
 /**
- * 패널 너비를 사용처에서 정하는 CSS 변수. 지정하지 않으면 내용에 따라 400~560px 사이에서 정해진다.
- *
- * 지정하면 min/maxWidth가 모두 이 값이 되어 너비가 고정된다. 어느 경우든 viewport를 넘지 않도록 availableWidth로 한 번 더 좁힌다.
- * panel이 변수를 선언하지 않고 fallback으로만 읽으므로 사용처가 명시도 경쟁 없이 덮어쓸 수 있다.
- *
- * @example
- *   <Dialog style={assignInlineVars({ [dialogPanelWidth]: "720px" })} />
+ * `Dialog`의 `width` prop이 rem으로 변환해 주입하는 비공개 변수.
+ * panel이 fallback으로만 읽으므로 인라인 값이 명시도 경쟁 없이 이긴다.
  */
 export const dialogPanelWidth = createVar();
 
@@ -100,8 +95,8 @@ export const panel = style({
 });
 
 /**
- * focus를 받는 것은 스크롤 컨테이너인 `scrollBody`지만, ring은 스크롤되지 않는 이 래퍼가 그린다.
- * `scrollBody`의 `::before`는 스크롤 콘텐츠와 함께 올라가 사라지기 때문이다.
+ * focus는 `scrollBody`가 받고 ring은 스크롤되지 않는 이 래퍼가 그린다.
+ * `scrollBody`의 `::before`는 콘텐츠와 함께 스크롤되어 사라지기 때문이다.
  *
  * @see ../../utils/PSEUDO_ELEMENT_POLICY.md 의 상태 위임
  */

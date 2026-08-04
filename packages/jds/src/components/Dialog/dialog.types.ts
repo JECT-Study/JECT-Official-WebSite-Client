@@ -1,5 +1,5 @@
 import type { Dialog } from "radix-ui";
-import type { CSSProperties, ReactNode } from "react";
+import type { ReactNode } from "react";
 import type { RenderableNode } from "types";
 
 import type { BlockButtonProps } from "../Button/BlockButton";
@@ -15,6 +15,7 @@ export interface CheckboxActionProps {
 
 export type DialogButtonLayout = "horizontal" | "vertical";
 
+/** 포지셔닝과 애니메이션을 컴포넌트가 소유하므로 className/style 대신 조정 축만 prop으로 연다. */
 export interface DialogBaseProps {
   header: string;
   body: ReactNode;
@@ -24,8 +25,8 @@ export interface DialogBaseProps {
   primaryAction: BlockButtonActionProps;
   secondaryAction?: BlockButtonActionProps;
   container?: HTMLElement | null;
-  className?: string;
-  style?: CSSProperties;
+  /** px 단위 너비 고정. 없으면 400~560px 사이에서 내용에 맞춰 정해진다. */
+  width?: number;
 }
 
 type RadixDialogProps = Omit<Dialog.DialogProps, "children">;

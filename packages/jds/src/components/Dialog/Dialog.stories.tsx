@@ -1,10 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { assignInlineVars } from "@vanilla-extract/dynamic";
 import type { CSSProperties, ReactNode } from "react";
 import { useState } from "react";
 
 import { Dialog } from "./Dialog";
-import { dialogPanelWidth } from "./dialog.css";
 import type { DialogProps } from "./dialog.types";
 
 import type { CheckedState } from "@/components";
@@ -112,6 +110,22 @@ export const PanelWidth: Story = {
   },
 };
 
+export const PanelWidthFixed: Story = {
+  args: { ...Default.args, width: 720 },
+  render: args => <Dialog {...args} open />,
+  tags: ["!autodocs"],
+  parameters: {
+    layout: "fullscreen",
+    chromatic: { viewports: [400, 1200] },
+    docs: {
+      description: {
+        story:
+          "`width`로 너비를 720px에 고정한 상태입니다. 내용 길이와 무관하게 720px을 유지하고, 뷰포트가 좁으면 지정값과 무관하게 좌우 16px을 남기고 줄어듭니다.",
+      },
+    },
+  },
+};
+
 export const ScrollableBody: Story = {
   args: {
     ...Default.args,
@@ -191,7 +205,7 @@ const MatrixCase = ({ label, checkbox, ...props }: MatrixCaseProps) => {
             open
             modal={false}
             container={container}
-            style={assignInlineVars({ [dialogPanelWidth]: "100%" })}
+            width={MATRIX_PANEL_WIDTH}
             checkboxAction={
               checkbox ? { label: SAMPLE_BUTTON, checked, onCheckedChange: setChecked } : undefined
             }

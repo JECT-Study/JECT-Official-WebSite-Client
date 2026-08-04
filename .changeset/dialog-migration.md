@@ -34,14 +34,15 @@ Emotion에서 vanilla-extract로 Dialog 컴포넌트의 스타일링을 마이�
 | `buttonLayout`           | `"horizontal" \| "vertical"` | `"horizontal"`  | 버튼 배치. `vertical`은 primary를 위에 두고 전체 너비로 스택    |
 | `closeOnInteractOutside` | `boolean`                    | `true`          | 바깥 클릭과 바깥으로의 포커스 이동에 의한 닫힘 여부. Esc는 별개 |
 | `container`              | `HTMLElement \| null`        | `document.body` | Portal 렌더 대상                                                |
-| `className`              | `string`                     | -               | 패널 스타일 확장                                                |
-| `style`                  | `CSSProperties`              | -               | 패널 인라인 스타일. 아래 너비 지정에 사용                       |
+| `width`                  | `number`                     | -               | px 단위 패널 너비 고정                                          |
 
-패널 너비를 사용처에서 정할 수 있도록 `dialogPanelWidth` CSS 변수를 함께 export합니다. 지정하지 않으면 400~560px 사이에서 내용에 맞춰 정해집니다.
+패널 너비는 기본적으로 400~560px 사이에서 내용에 맞춰 정해집니다. 이 범위는 권장값이라 서비스 요구에 따라 `width`로 고정할 수 있고, 지정하면 내용 길이와 무관하게 그 너비를 유지합니다. 어느 경우든 뷰포트를 넘지 않도록 좌우 16px을 남기고 줄어듭니다.
 
 ```tsx
-<Dialog style={assignInlineVars({ [dialogPanelWidth]: "720px" })} />
+<Dialog width={720} />
 ```
+
+Portal로 렌더되고 포지셔닝과 애니메이션은 컴포넌트가 소유하므로 `className`과 `style`은 받지 않습니다. 사용처가 조정할 축은 `width`처럼 prop으로 명시합니다.
 
 **동작 변경 (코드 수정 불필요)**
 
