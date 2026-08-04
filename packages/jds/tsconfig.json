@@ -11,8 +11,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "jsxImportSource": "@emotion/react",
-    "types": ["@emotion/react/types/css-prop", "node"],
+    "types": ["node"],
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -25,7 +24,6 @@
     "paths": {
       "components": ["components/index"],
       "hooks": ["hooks/index"],
-      "style": ["style/index"],
       "theme": ["theme/index"],
       "tokens": ["tokens/index"],
       "types": ["types/index"],

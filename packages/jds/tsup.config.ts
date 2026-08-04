@@ -13,8 +13,7 @@ export default defineConfig({
   dts: true,
   sourcemap: true,
   clean: true,
-  // TODO(Emotion 제거): external에서 "@emotion/react", "@emotion/styled" 제거
-  external: ["react", "react-dom", "@emotion/react", "@emotion/styled"],
+  external: ["react", "react-dom"],
   esbuildPlugins: [vanillaExtractPlugin()],
   minify: process.env.NODE_ENV === "production",
 });
