@@ -36,7 +36,7 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
 
     const buttonSize = buttonLayout === "vertical" ? "lg" : "md";
 
-    const primaryButton = <BlockButton size={buttonSize} {...primaryAction} />;
+    const primaryButton = <BlockButton {...primaryAction} size={buttonSize} />;
     const secondaryButton = secondaryAction ? (
       <BlockButton
         {...secondaryAction}
