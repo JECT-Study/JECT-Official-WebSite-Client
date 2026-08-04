@@ -3,12 +3,7 @@ import { forwardRef, useId } from "react";
 
 import type { BadgeSize } from "../badge.types";
 import * as styles from "./contentBadge.css";
-import type {
-  ContentBadgeBasicProps,
-  ContentBadgeFeedbackProps,
-  ContentBadgeProps,
-  ContentBadgeThemeProps,
-} from "./contentBadge.types";
+import type { ContentBadgeProps } from "./contentBadge.types";
 import { IconButton } from "../../Button/IconButton";
 import type { IconButtonSize } from "../../Button/IconButton";
 
@@ -21,7 +16,7 @@ const iconSizeMap = {
   xs: "2xs",
 } satisfies Record<BadgeSize, IconButtonSize>;
 
-const ContentBadgeRoot = forwardRef<HTMLSpanElement, ContentBadgeProps>(
+export const ContentBadge = forwardRef<HTMLSpanElement, ContentBadgeProps>(
   (
     {
       hierarchy = "secondary",
@@ -76,35 +71,4 @@ const ContentBadgeRoot = forwardRef<HTMLSpanElement, ContentBadgeProps>(
   },
 );
 
-ContentBadgeRoot.displayName = "ContentBadge";
-
-const ContentBadgeBasic = forwardRef<HTMLSpanElement, ContentBadgeBasicProps>((props, ref) => (
-  <ContentBadgeRoot ref={ref} {...props} />
-));
-
-ContentBadgeBasic.displayName = "ContentBadge.Basic";
-
-const ContentBadgeFeedback = forwardRef<HTMLSpanElement, ContentBadgeFeedbackProps>(
-  ({ variant = "positive", ...props }, ref) => (
-    <ContentBadgeRoot ref={ref} feedback={variant} {...props} />
-  ),
-);
-
-ContentBadgeFeedback.displayName = "ContentBadge.Feedback";
-
-const ContentBadgeTheme = forwardRef<HTMLSpanElement, ContentBadgeThemeProps>(
-  ({ variant = "red", ...props }, ref) => (
-    <ContentBadgeRoot ref={ref} variant={variant} {...props} />
-  ),
-);
-
-ContentBadgeTheme.displayName = "ContentBadge.Theme";
-
-export const ContentBadge = Object.assign(ContentBadgeRoot, {
-  /** @deprecated `<ContentBadge hierarchy badgeStyle>`를 사용하세요. */
-  Basic: ContentBadgeBasic,
-  /** @deprecated `<ContentBadge feedback badgeStyle>`를 사용하세요. */
-  Feedback: ContentBadgeFeedback,
-  /** @deprecated `<ContentBadge variant badgeStyle>`를 사용하세요. */
-  Theme: ContentBadgeTheme,
-});
+ContentBadge.displayName = "ContentBadge";
