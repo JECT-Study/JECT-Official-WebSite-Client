@@ -1,15 +1,15 @@
 import { forwardRef } from "react";
 
-import type { SelectProps } from "./select.types";
+import type { MultiSelectProps } from "./multiSelect.types";
 import { Listbox, useListbox } from "../Listbox";
 
-export const Select = forwardRef<HTMLDivElement, SelectProps>(
+export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
   (
     {
       value,
       defaultValue,
       onChange,
-      variant = "label",
+      variant = "control",
       label,
       disabled = false,
       width,
@@ -21,7 +21,7 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(
     ref,
   ) => {
     const { listboxRef, contextValue, getListboxProps } = useListbox({
-      mode: "single",
+      mode: "multiple",
       variant,
       options,
       value,
@@ -47,4 +47,4 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(
   },
 );
 
-Select.displayName = "Select";
+MultiSelect.displayName = "MultiSelect";
