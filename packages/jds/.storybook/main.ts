@@ -12,7 +12,8 @@ const getAbsolutePath = (value: string): string =>
   dirname(require.resolve(join(value, "package.json")));
 
 const config: StorybookConfig = {
-  stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
+  // src/tokens의 Token Usage / Usage Guide는 Emotion 기준으로 작성되어 있어 재작성 전까지 제외한다.
+  stories: ["../src/components/**/*.mdx", "../src/components/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
   addons: [
     getAbsolutePath("@storybook/addon-onboarding"),
     getAbsolutePath("@storybook/addon-docs"),
@@ -32,7 +33,6 @@ const config: StorybookConfig = {
       ...config.resolve.alias,
       components: resolve(__dirname, "../src/components"),
       hooks: resolve(__dirname, "../src/hooks"),
-      style: resolve(__dirname, "../src/style"),
       theme: resolve(__dirname, "../src/theme"),
       tokens: resolve(__dirname, "../src/tokens"),
       types: resolve(__dirname, "../src/types"),
