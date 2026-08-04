@@ -38,6 +38,7 @@ const config: StorybookConfig = {
       types: resolve(__dirname, "../src/types"),
       utils: resolve(__dirname, "../src/utils"),
       "@": resolve(__dirname, "../src"),
+      "@storybook-assets": resolve(__dirname, "./assets"),
       "@storybook-utils": resolve(__dirname, "./utils"),
     };
 

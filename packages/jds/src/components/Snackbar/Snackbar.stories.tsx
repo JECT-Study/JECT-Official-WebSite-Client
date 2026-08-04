@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexColumn } from "@storybook-utils/layout";
+import { LiveRegionDemo, type LiveRegionScenario } from "@storybook-utils/LiveRegionDemo";
 
 import { Snackbar } from "./Snackbar";
 import { snackbarController } from "./snackbarController";
@@ -118,6 +119,58 @@ export const UseSnackbarProvider: StoryObj<typeof Snackbar> = {
       </FlexColumn>
     );
   },
+};
+
+const SnackbarLiveRegionDemo = () => {
+  const { snackbar } = useSnackbar();
+  const onClick = () => {};
+
+  const showNotification = (scenario: LiveRegionScenario) => {
+    if (scenario === "mixed") {
+      snackbar.destructive("동시에 발생한 긴급 오류입니다.", "확인", onClick);
+      snackbar.basic("동시에 발생한 일반 상태 안내입니다.", "확인", onClick);
+      return;
+    }
+
+    if (scenario === "multiple-alerts") {
+      snackbar.destructive("먼저 발생한 긴급 오류입니다.", "확인", onClick);
+      snackbar.destructive("가장 최근에 발생한 긴급 오류입니다.", "확인", onClick);
+      return;
+    }
+
+    if (scenario === "alert") {
+      snackbar.destructive("긴급 오류가 발생했습니다.", "확인", onClick, {
+        description: "현재 읽고 있는 본문을 중단하고 즉시 낭독해야 합니다.",
+      });
+      return;
+    }
+
+    snackbar.basic("일반 상태 안내입니다.", "확인", onClick, {
+      description: "현재 낭독을 즉시 중단하지 않고 다음 가능한 시점에 안내해야 합니다.",
+    });
+  };
+
+  return <LiveRegionDemo notificationType='snackbar' onNotify={showNotification} />;
+};
+
+export const VoiceOverLiveRegion: StoryObj<typeof Snackbar> = {
+  tags: ["skip-vrt"],
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "각 버튼은 VoiceOver의 본문 낭독을 시작하고 4초 뒤 해당 스낵바를 자동 호출합니다. status와 alert의 낭독 시점을 비교하고, alert/status 두 채널을 동시에 호출하면 각 채널의 최신 알림이 live region에 반영되어 alert가 우선 안내되는지 확인합니다. alert를 두 개 동시에 호출하면 가장 최근 알림만 안내되어야 합니다.",
+      },
+    },
+  },
+  decorators: [
+    Story => (
+      <SnackbarProvider>
+        <Story />
+      </SnackbarProvider>
+    ),
+  ],
+  render: () => <SnackbarLiveRegionDemo />,
 };
 
 export const UseSnackbarProviderWithOptions: StoryObj<typeof Snackbar> = {

@@ -9,6 +9,8 @@ import type { ToastHandler } from "./toast.types";
 import { toastController } from "./toastController";
 import { useToastProvider } from "./useToastProvider";
 
+import { useLiveRegionAnnouncements } from "@/hooks/useLiveRegionAnnouncements";
+
 interface ToastProviderProps {
   children: ReactNode;
   duration?: number;
@@ -22,13 +24,9 @@ interface ToastContextType {
 const ToastContext = createContext<ToastContextType | null>(null);
 
 export const ToastProvider = ({ children, duration }: ToastProviderProps) => {
-  const { toasts, toast: handler, removeToast } = useToastProvider({});
+  const { toasts, toast: handler, removeToast } = useToastProvider();
   const [isMounted, setIsMounted] = useState(false);
-
-  const latestToast = toasts.length > 0 ? toasts[toasts.length - 1] : null;
-  const announcement = latestToast
-    ? [latestToast.title, latestToast.description].filter(Boolean).join(" ")
-    : "";
+  const { statusAnnouncement, alertAnnouncement } = useLiveRegionAnnouncements(toasts);
 
   useEffect(() => {
     toastController.setHandler(handler);
@@ -43,14 +41,17 @@ export const ToastProvider = ({ children, duration }: ToastProviderProps) => {
     <ToastContext.Provider value={{ toast: handler, removeToast }}>
       {children}
 
-      {/* 스크린리더 전용 live region: 최신 토스트만 낭독 */}
-      <div className={visuallyHidden} role='status' aria-live='polite'>
-        {announcement}
+      {/* 스크린리더 전용 live region: alert/status 채널별 최신 토스트를 각 영역에서 낭독 */}
+      <div className={visuallyHidden} role='status' aria-live='polite' aria-atomic='true'>
+        {statusAnnouncement}
+      </div>
+      <div className={visuallyHidden} role='alert' aria-live='assertive' aria-atomic='true'>
+        {alertAnnouncement}
       </div>
 
+      {/* 시각용 스택: 자동 낭독은 live region이 담당하므로, 상호작용 요소가 없는 스택은 중복 탐색을 막기 위해 숨김 */}
       {isMounted &&
         createPortal(
-          // 시각용 스택: live region과 중복 낭독 방지
           <div className={stackContainer} aria-hidden='true'>
             {toasts.map(toast => (
               <Toast

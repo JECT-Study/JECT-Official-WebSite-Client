@@ -323,7 +323,7 @@ export const ButtonWithValidation: Story = {
           value={value1}
           isOpen={isOpen1}
           onClick={() => setIsOpen1(!isOpen1)}
-          button={<BlockButton.Basic size='md'>확인</BlockButton.Basic>}
+          button={<BlockButton size='md'>확인</BlockButton>}
           validation='none'
         />
         <SelectField.Button
@@ -334,9 +334,9 @@ export const ButtonWithValidation: Story = {
           isOpen={isOpen2}
           onClick={() => setIsOpen2(!isOpen2)}
           button={
-            <BlockButton.Feedback intent='destructive' size='md'>
+            <BlockButton feedback='destructive' size='md'>
               재선택
-            </BlockButton.Feedback>
+            </BlockButton>
           }
           validation='error'
         />
@@ -346,7 +346,7 @@ export const ButtonWithValidation: Story = {
           value={value3}
           isOpen={isOpen3}
           onClick={() => setIsOpen3(!isOpen3)}
-          button={<BlockButton.Basic size='md'>확인</BlockButton.Basic>}
+          button={<BlockButton size='md'>확인</BlockButton>}
           validation='success'
         />
       </div>
@@ -490,7 +490,7 @@ export const AllVariants: Story = {
 
         <FlexColumn gap='16px'>
           <label>
-            <strong>SelectField.Button (BlockButton.Basic 권장)</strong>
+            <strong>SelectField.Button (BlockButton 권장)</strong>
           </label>
           <SelectField.Button
             label='근무 지역'
@@ -499,7 +499,7 @@ export const AllVariants: Story = {
             value={buttonValue}
             isOpen={isButtonOpen}
             onClick={() => setIsButtonOpen(!isButtonOpen)}
-            button={<BlockButton.Basic size='md'>확인</BlockButton.Basic>}
+            button={<BlockButton size='md'>확인</BlockButton>}
           />
         </FlexColumn>
       </FlexColumn>
@@ -514,7 +514,7 @@ export const AllVariants: Story = {
           "1. **SelectField**: 기본 선택 필드 (SelectField.tsx)\n" +
           "2. **SelectField.Button**: 버튼 포함 (SelectFieldButton.tsx)\n\n" +
           "**권장사항:**\n" +
-          "- SelectField.Button의 button prop에는 BlockButton.Basic 사용을 권장합니다.\n" +
+          "- SelectField.Button의 button prop에는 BlockButton 사용을 권장합니다.\n" +
           '- size는 "md"로 고정하여 일관성을 유지합니다.\n\n' +
           "```tsx\n" +
           'import { SelectField, BlockButton } from "@jects/jds";\n' +
@@ -528,13 +528,13 @@ export const AllVariants: Story = {
           "  isOpen={isOpen}\n" +
           "  onClick={() => setIsOpen(!isOpen)}\n" +
           "/>\n\n" +
-          "// 버튼 포함 (BlockButton.Basic 권장)\n" +
+          "// 버튼 포함 (BlockButton 권장)\n" +
           "<SelectField.Button\n" +
           '  label="지역"\n' +
           "  value={value}\n" +
           "  isOpen={isOpen}\n" +
           "  onClick={() => setIsOpen(!isOpen)}\n" +
-          '  button={<BlockButton.Basic size="md">확인</BlockButton.Basic>}\n' +
+          '  button={<BlockButton size="md">확인</BlockButton>}\n' +
           "/>\n" +
           "```",
       },

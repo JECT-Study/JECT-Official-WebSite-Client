@@ -1,16 +1,12 @@
 import { clsx } from "clsx";
-import type {
-  BlockButtonBasicProps,
-  BlockButtonFeedbackProps,
-  BlockButtonProps,
-} from "components";
+import type { BlockButtonProps } from "components";
 import { Icon } from "components";
 import { forwardRef } from "react";
 import { getLabelClassName } from "utils";
 
 import { basicRoot, feedbackRoot, iconSizeMap } from "./blockButton.css";
 
-const BlockButtonRoot = forwardRef<HTMLButtonElement, BlockButtonProps>(
+export const BlockButton = forwardRef<HTMLButtonElement, BlockButtonProps>(
   (
     {
       children,
@@ -34,6 +30,7 @@ const BlockButtonRoot = forwardRef<HTMLButtonElement, BlockButtonProps>(
     return (
       <button
         ref={forwardedRef}
+        type='button'
         {...restProps}
         disabled={disabled}
         data-disabled={disabled || undefined}
@@ -48,25 +45,4 @@ const BlockButtonRoot = forwardRef<HTMLButtonElement, BlockButtonProps>(
   },
 );
 
-BlockButtonRoot.displayName = "BlockButton";
-
-const BlockButtonBasic = forwardRef<HTMLButtonElement, BlockButtonBasicProps>((props, ref) => (
-  <BlockButtonRoot ref={ref} {...props} />
-));
-
-BlockButtonBasic.displayName = "BlockButton.Basic";
-
-const BlockButtonFeedback = forwardRef<HTMLButtonElement, BlockButtonFeedbackProps>(
-  ({ intent = "destructive", ...props }, ref) => (
-    <BlockButtonRoot ref={ref} feedback={intent} {...props} />
-  ),
-);
-
-BlockButtonFeedback.displayName = "BlockButton.Feedback";
-
-export const BlockButton = Object.assign(BlockButtonRoot, {
-  /** @deprecated `<BlockButton hierarchy variant>`를 사용하세요. */
-  Basic: BlockButtonBasic,
-  /** @deprecated `<BlockButton feedback>`를 사용하세요. */
-  Feedback: BlockButtonFeedback,
-});
+BlockButton.displayName = "BlockButton";

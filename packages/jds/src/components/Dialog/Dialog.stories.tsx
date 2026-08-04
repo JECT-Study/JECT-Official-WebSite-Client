@@ -78,7 +78,7 @@ export const Default: Story = {
 
     return (
       <>
-        <BlockButton.Basic onClick={() => setIsOpen(true)}>다이얼로그 열기</BlockButton.Basic>
+        <BlockButton onClick={() => setIsOpen(true)}>다이얼로그 열기</BlockButton>
         <Dialog {...args} open={isOpen} onOpenChange={setIsOpen} />
       </>
     );

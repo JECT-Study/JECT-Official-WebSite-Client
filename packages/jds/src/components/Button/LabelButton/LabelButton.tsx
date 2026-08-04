@@ -1,16 +1,12 @@
 import { clsx } from "clsx";
-import type {
-  LabelButtonBasicProps,
-  LabelButtonFeedbackProps,
-  LabelButtonProps,
-} from "components";
+import type { LabelButtonProps } from "components";
 import { Icon } from "components";
 import { forwardRef } from "react";
 import { getLabelClassName } from "utils";
 
 import { basicRoot, feedbackRoot, iconSizeMap } from "./labelButton.css";
 
-const LabelButtonRoot = forwardRef<HTMLButtonElement, LabelButtonProps>(
+export const LabelButton = forwardRef<HTMLButtonElement, LabelButtonProps>(
   (
     {
       children,
@@ -33,6 +29,7 @@ const LabelButtonRoot = forwardRef<HTMLButtonElement, LabelButtonProps>(
     return (
       <button
         ref={forwardedRef}
+        type='button'
         {...restProps}
         disabled={disabled}
         data-disabled={disabled || undefined}
@@ -47,25 +44,4 @@ const LabelButtonRoot = forwardRef<HTMLButtonElement, LabelButtonProps>(
   },
 );
 
-LabelButtonRoot.displayName = "LabelButton";
-
-const LabelButtonBasic = forwardRef<HTMLButtonElement, LabelButtonBasicProps>((props, ref) => (
-  <LabelButtonRoot ref={ref} {...props} />
-));
-
-LabelButtonBasic.displayName = "LabelButton.Basic";
-
-const LabelButtonFeedback = forwardRef<HTMLButtonElement, LabelButtonFeedbackProps>(
-  ({ intent = "destructive", ...props }, ref) => (
-    <LabelButtonRoot ref={ref} feedback={intent} {...props} />
-  ),
-);
-
-LabelButtonFeedback.displayName = "LabelButton.Feedback";
-
-export const LabelButton = Object.assign(LabelButtonRoot, {
-  /** @deprecated `<LabelButton hierarchy>`를 사용하세요. */
-  Basic: LabelButtonBasic,
-  /** @deprecated `<LabelButton feedback>`를 사용하세요. */
-  Feedback: LabelButtonFeedback,
-});
+LabelButton.displayName = "LabelButton";

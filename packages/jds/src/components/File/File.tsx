@@ -18,6 +18,7 @@ export const File = forwardRef<HTMLButtonElement, FileProps>(
       disabled = false,
       onRemove,
       className,
+      style,
       ...restProps
     },
     forwardedRef,
@@ -31,6 +32,7 @@ export const File = forwardRef<HTMLButtonElement, FileProps>(
     return (
       <div
         className={clsx(styles.root, interactionClassName, className)}
+        style={style}
         data-readonly={readonly || undefined}
         data-disabled={disabled || undefined}
       >
@@ -62,16 +64,12 @@ export const File = forwardRef<HTMLButtonElement, FileProps>(
 
         {removable && !readonly && (
           <IconButton
-            hierarchy='accent'
+            hierarchy='tertiary'
             size='sm'
             icon='close-line'
             className={styles.removeButton}
             aria-label={`${fileName} 파일 삭제`}
-            onClick={e => {
-              e.preventDefault();
-              e.stopPropagation();
-              onRemove?.(e);
-            }}
+            onClick={onRemove}
           />
         )}
       </div>
