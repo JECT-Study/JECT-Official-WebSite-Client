@@ -141,6 +141,7 @@ const RadioIndicator = forwardRef<HTMLSpanElement, RadioIndicatorProps>(
   ({ size: sizeProp, checked, disabled = false, className, ...restProps }, ref) => {
     const config = useRadioConfig();
     const size = sizeProp ?? config?.size ?? "md";
+    const isWithinItem = useRadioItem() != null;
     const hasExplicitState = checked !== undefined;
 
     return (
@@ -149,7 +150,12 @@ const RadioIndicator = forwardRef<HTMLSpanElement, RadioIndicatorProps>(
         aria-hidden
         data-state={hasExplicitState ? (checked ? "checked" : "unchecked") : undefined}
         data-disabled={disabled || undefined}
-        className={clsx(styles.radioVisual({ size }), styles.radioIndicatorSlot, className)}
+        className={clsx(
+          styles.radioVisual({ size }),
+          styles.radioIndicatorSlot,
+          isWithinItem && styles.radioIndicatorInItem,
+          className,
+        )}
         {...restProps}
       />
     );

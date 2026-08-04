@@ -170,13 +170,17 @@ const buttonReset = style({
   },
 });
 
-export const radioIndicatorSlot = style({ gridColumn: "1", gridRow: "1", marginTop: pxToRem(1) });
+export const radioIndicatorSlot = style({ gridColumn: "1", gridRow: "1" });
+
+export const radioIndicatorInItem = style({ marginTop: pxToRem(1) });
+
 export const radioLabelSlot = style({
   gridColumn: "2",
   gridRow: "1",
   display: "flex",
   alignItems: "center",
 });
+
 export const radioHelperSlot = style({ gridColumn: "2", gridRow: "2" });
 
 export const radioItem = recipe({
