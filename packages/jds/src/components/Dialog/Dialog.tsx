@@ -1,99 +1,106 @@
-import * as DialogPrimitive from "@radix-ui/react-dialog";
+import { assignInlineVars } from "@vanilla-extract/dynamic";
+import { clsx } from "clsx";
+import { Dialog as DialogPrimitive } from "radix-ui";
 import { forwardRef } from "react";
 
-import {
-  DialogBodyTextP,
-  DialogButtonContainerDiv,
-  DialogContentDiv,
-  DialogDiv,
-  DialogRoot,
-  DialogTitle,
-  DialogOverlay,
-  DialogContent,
-} from "./Dialog.styles";
-import type { DialogProps } from "./Dialog.types";
+import * as styles from "./dialog.css";
+import type { DialogProps } from "./dialog.types";
 import { BlockButton } from "../Button/BlockButton";
 import { Checkbox } from "../Checkbox";
 
-import { getTitleClassName } from "@/utils/typography";
+import { useVerticalOverflow } from "@/hooks/useVerticalOverflow";
+import { pxToRem } from "@/utils/cssUnit";
+import { getBodyClassName, getTitleClassName } from "@/utils/typography";
 
 export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
   (
     {
-      isButtonStretched = false,
       header,
       body,
+      closeOnInteractOutside = true,
+      buttonLayout = "horizontal",
       checkboxAction,
       primaryAction,
       secondaryAction,
-      tertiaryAction,
+      container,
+      width,
       ...rest
     },
     ref,
   ) => {
-    const hasTertiaryButton = !!tertiaryAction;
-    const isReversedOrder = isButtonStretched && !!tertiaryAction;
+    const { ref: scrollBodyRef, isOverflowing: isScrollBodyOverflowing } =
+      useVerticalOverflow<HTMLDivElement>();
 
-    const renderButtons = () => {
-      const primary = (
-        <BlockButton
-          key='primary'
-          style={{ width: isButtonStretched ? "100%" : "auto" }}
-          {...primaryAction}
-        />
-      );
+    const panelStyle =
+      width == null ? undefined : assignInlineVars({ [styles.dialogPanelWidth]: pxToRem(width) });
 
-      const secondary = secondaryAction ? (
-        <BlockButton
-          key='secondary'
-          variant='outlined'
-          hierarchy='secondary'
-          style={{ width: isButtonStretched ? "100%" : "auto" }}
-          {...secondaryAction}
-        />
-      ) : null;
+    const buttonSize = buttonLayout === "vertical" ? "lg" : "md";
 
-      const tertiary = tertiaryAction ? (
-        <BlockButton
-          key='tertiary'
-          variant='hollow'
-          hierarchy='secondary'
-          style={{ width: isButtonStretched ? "100%" : "auto" }}
-          {...tertiaryAction}
-        />
-      ) : null;
-
-      const ordered: (JSX.Element | null)[] = isReversedOrder
-        ? [primary, secondary, tertiary]
-        : [tertiary, secondary, primary];
-
-      return ordered.filter(Boolean) as JSX.Element[];
-    };
+    const primaryButton = <BlockButton {...primaryAction} size={buttonSize} />;
+    const secondaryButton = secondaryAction ? (
+      <BlockButton
+        {...secondaryAction}
+        variant='outlined'
+        hierarchy='secondary'
+        size={buttonSize}
+      />
+    ) : null;
 
     return (
       <DialogPrimitive.Root {...rest}>
-        <DialogPrimitive.Portal>
-          <DialogOverlay />
-          <DialogContent asChild>
-            <DialogRoot ref={ref}>
-              <DialogDiv>
-                <DialogContentDiv>
-                  <DialogTitle className={getTitleClassName({ size: "xs" })}>{header}</DialogTitle>
-                  <DialogBodyTextP>{body}</DialogBodyTextP>
-                  {checkboxAction && (
-                    <Checkbox
-                      checked={checkboxAction.checked}
-                      onCheckedChange={checkboxAction.onCheckedChange}
-                      label={checkboxAction.label}
-                    />
-                  )}
-                </DialogContentDiv>
-                <DialogButtonContainerDiv $isStacked={isButtonStretched && hasTertiaryButton}>
-                  {renderButtons()}
-                </DialogButtonContainerDiv>
-              </DialogDiv>
-            </DialogRoot>
-          </DialogContent>
+        <DialogPrimitive.Portal container={container}>
+          <DialogPrimitive.Overlay className={styles.overlay} />
+          <DialogPrimitive.Content
+            ref={ref}
+            className={clsx(styles.positioner, styles.panel)}
+            style={panelStyle}
+            onInteractOutside={closeOnInteractOutside ? undefined : event => event.preventDefault()}
+          >
+            <DialogPrimitive.Title asChild>
+              <h2 className={clsx(getTitleClassName({ size: "xs" }), styles.title)}>{header}</h2>
+            </DialogPrimitive.Title>
+            <div className={styles.scrollRegion}>
+              <div
+                ref={scrollBodyRef}
+                className={styles.scrollBody}
+                tabIndex={isScrollBodyOverflowing ? 0 : undefined}
+                data-interaction-target
+              >
+                <DialogPrimitive.Description asChild>
+                  <div
+                    className={clsx(
+                      getBodyClassName({ size: "md", weight: "normal" }),
+                      styles.bodyText,
+                    )}
+                  >
+                    {body}
+                  </div>
+                </DialogPrimitive.Description>
+              </div>
+            </div>
+            <div className={styles.footer}>
+              {checkboxAction && (
+                <Checkbox
+                  checked={checkboxAction.checked}
+                  onCheckedChange={checkboxAction.onCheckedChange}
+                  label={checkboxAction.label}
+                />
+              )}
+              <div className={styles.buttonGroup({ buttonLayout })}>
+                {buttonLayout === "vertical" ? (
+                  <>
+                    {primaryButton}
+                    {secondaryButton}
+                  </>
+                ) : (
+                  <>
+                    {secondaryButton}
+                    {primaryButton}
+                  </>
+                )}
+              </div>
+            </div>
+          </DialogPrimitive.Content>
         </DialogPrimitive.Portal>
       </DialogPrimitive.Root>
     );
