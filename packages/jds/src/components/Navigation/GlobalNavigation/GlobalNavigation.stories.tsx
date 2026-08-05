@@ -67,38 +67,38 @@ export const Default: Story = {
         <GlobalNavigation.List>
           <GlobalNavigation.Item>
             <GlobalNavigation.Trigger>
-              <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+              <LabelButton hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
                 젝트
-              </LabelButton.Basic>
+              </LabelButton>
             </GlobalNavigation.Trigger>
           </GlobalNavigation.Item>
           <GlobalNavigation.Item>
             <GlobalNavigation.Trigger>
-              <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+              <LabelButton hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
                 프로그램
-              </LabelButton.Basic>
+              </LabelButton>
             </GlobalNavigation.Trigger>
           </GlobalNavigation.Item>
           <GlobalNavigation.Item>
             <GlobalNavigation.Trigger>
-              <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+              <LabelButton hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
                 뉴스
-              </LabelButton.Basic>
+              </LabelButton>
             </GlobalNavigation.Trigger>
           </GlobalNavigation.Item>
           <GlobalNavigation.Item>
             <GlobalNavigation.Trigger>
-              <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+              <LabelButton hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
                 합류 가이드
-              </LabelButton.Basic>
+              </LabelButton>
             </GlobalNavigation.Trigger>
           </GlobalNavigation.Item>
         </GlobalNavigation.List>
         <GlobalNavigation.List align='right'>
           <GlobalNavigation.Item>
-            <BlockButton.Basic hierarchy='primary' size='sm' onClick={() => alert("hello!")}>
+            <BlockButton hierarchy='primary' size='sm' onClick={() => alert("hello!")}>
               지원하기
-            </BlockButton.Basic>
+            </BlockButton>
           </GlobalNavigation.Item>
         </GlobalNavigation.List>
         <GlobalNavigation.MobileMenuButton />
@@ -122,38 +122,38 @@ export const WithScrollVariant: Story = {
             <GlobalNavigation.List>
               <GlobalNavigation.Item>
                 <GlobalNavigation.Trigger>
-                  <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+                  <LabelButton hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
                     젝트
-                  </LabelButton.Basic>
+                  </LabelButton>
                 </GlobalNavigation.Trigger>
               </GlobalNavigation.Item>
               <GlobalNavigation.Item>
                 <GlobalNavigation.Trigger>
-                  <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+                  <LabelButton hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
                     프로그램
-                  </LabelButton.Basic>
+                  </LabelButton>
                 </GlobalNavigation.Trigger>
               </GlobalNavigation.Item>
               <GlobalNavigation.Item>
                 <GlobalNavigation.Trigger>
-                  <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+                  <LabelButton hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
                     뉴스
-                  </LabelButton.Basic>
+                  </LabelButton>
                 </GlobalNavigation.Trigger>
               </GlobalNavigation.Item>
               <GlobalNavigation.Item>
                 <GlobalNavigation.Trigger>
-                  <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+                  <LabelButton hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
                     합류 가이드
-                  </LabelButton.Basic>
+                  </LabelButton>
                 </GlobalNavigation.Trigger>
               </GlobalNavigation.Item>
             </GlobalNavigation.List>
             <GlobalNavigation.List align='right'>
               <GlobalNavigation.Item>
-                <BlockButton.Basic hierarchy='primary' size='sm' onClick={() => alert("hello!")}>
+                <BlockButton hierarchy='primary' size='sm' onClick={() => alert("hello!")}>
                   지원하기
-                </BlockButton.Basic>
+                </BlockButton>
               </GlobalNavigation.Item>
             </GlobalNavigation.List>
             <GlobalNavigation.MobileMenuButton />
@@ -193,58 +193,58 @@ export const Responsive: Story = {
           <GlobalNavigation.List>
             <GlobalNavigation.Item>
               <GlobalNavigation.Trigger>
-                <LabelButton.Basic
+                <LabelButton
                   hierarchy='primary'
                   size={labelButtonSize}
                   suffixIcon='arrow-down-s-line'
                 >
                   젝트
-                </LabelButton.Basic>
+                </LabelButton>
               </GlobalNavigation.Trigger>
             </GlobalNavigation.Item>
             <GlobalNavigation.Item>
               <GlobalNavigation.Trigger>
-                <LabelButton.Basic
+                <LabelButton
                   hierarchy='primary'
                   size={labelButtonSize}
                   suffixIcon='arrow-down-s-line'
                 >
                   프로그램
-                </LabelButton.Basic>
+                </LabelButton>
               </GlobalNavigation.Trigger>
             </GlobalNavigation.Item>
             <GlobalNavigation.Item>
               <GlobalNavigation.Trigger>
-                <LabelButton.Basic
+                <LabelButton
                   hierarchy='primary'
                   size={labelButtonSize}
                   suffixIcon='arrow-down-s-line'
                 >
                   뉴스
-                </LabelButton.Basic>
+                </LabelButton>
               </GlobalNavigation.Trigger>
             </GlobalNavigation.Item>
             <GlobalNavigation.Item>
               <GlobalNavigation.Trigger>
-                <LabelButton.Basic
+                <LabelButton
                   hierarchy='primary'
                   size={labelButtonSize}
                   suffixIcon='arrow-down-s-line'
                 >
                   합류 가이드
-                </LabelButton.Basic>
+                </LabelButton>
               </GlobalNavigation.Trigger>
             </GlobalNavigation.Item>
           </GlobalNavigation.List>
           <GlobalNavigation.List align='right'>
             <GlobalNavigation.Item>
-              <BlockButton.Basic
+              <BlockButton
                 hierarchy='primary'
                 size={blockButtonSize}
                 onClick={() => alert("hello!")}
               >
                 지원하기
-              </BlockButton.Basic>
+              </BlockButton>
             </GlobalNavigation.Item>
           </GlobalNavigation.List>
           <GlobalNavigation.MobileMenuButton />
@@ -283,38 +283,38 @@ export const WithThemeSwitcher: Story = {
           <GlobalNavigation.List>
             <GlobalNavigation.Item>
               <GlobalNavigation.Trigger>
-                <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+                <LabelButton hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
                   젝트
-                </LabelButton.Basic>
+                </LabelButton>
               </GlobalNavigation.Trigger>
             </GlobalNavigation.Item>
             <GlobalNavigation.Item>
               <GlobalNavigation.Trigger>
-                <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+                <LabelButton hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
                   프로그램
-                </LabelButton.Basic>
+                </LabelButton>
               </GlobalNavigation.Trigger>
             </GlobalNavigation.Item>
             <GlobalNavigation.Item>
               <GlobalNavigation.Trigger>
-                <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+                <LabelButton hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
                   뉴스
-                </LabelButton.Basic>
+                </LabelButton>
               </GlobalNavigation.Trigger>
             </GlobalNavigation.Item>
             <GlobalNavigation.Item>
               <GlobalNavigation.Trigger>
-                <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+                <LabelButton hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
                   합류 가이드
-                </LabelButton.Basic>
+                </LabelButton>
               </GlobalNavigation.Trigger>
             </GlobalNavigation.Item>
           </GlobalNavigation.List>
           <GlobalNavigation.List align='right'>
             <GlobalNavigation.Item>
-              <BlockButton.Basic hierarchy='primary' size='sm' onClick={() => alert("hello!")}>
+              <BlockButton hierarchy='primary' size='sm' onClick={() => alert("hello!")}>
                 지원하기
-              </BlockButton.Basic>
+              </BlockButton>
             </GlobalNavigation.Item>
           </GlobalNavigation.List>
           <div style={{ width: "160px" }}>
@@ -367,9 +367,9 @@ export const WithContent: Story = {
         <GlobalNavigation.List>
           <GlobalNavigation.Item>
             <GlobalNavigation.Trigger>
-              <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+              <LabelButton hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
                 젝트
-              </LabelButton.Basic>
+              </LabelButton>
             </GlobalNavigation.Trigger>
             <GlobalNavigation.Content>
               <TempNavigationContent />
@@ -377,9 +377,9 @@ export const WithContent: Story = {
           </GlobalNavigation.Item>
           <GlobalNavigation.Item>
             <GlobalNavigation.Trigger>
-              <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+              <LabelButton hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
                 프로그램
-              </LabelButton.Basic>
+              </LabelButton>
             </GlobalNavigation.Trigger>
             <GlobalNavigation.Content>
               <TempNavigationContent />
@@ -387,9 +387,9 @@ export const WithContent: Story = {
           </GlobalNavigation.Item>
           <GlobalNavigation.Item>
             <GlobalNavigation.Trigger>
-              <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+              <LabelButton hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
                 뉴스
-              </LabelButton.Basic>
+              </LabelButton>
             </GlobalNavigation.Trigger>
             <GlobalNavigation.Content>
               <TempNavigationContent />
@@ -397,9 +397,9 @@ export const WithContent: Story = {
           </GlobalNavigation.Item>
           <GlobalNavigation.Item>
             <GlobalNavigation.Trigger>
-              <LabelButton.Basic hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+              <LabelButton hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
                 합류 가이드
-              </LabelButton.Basic>
+              </LabelButton>
             </GlobalNavigation.Trigger>
             <GlobalNavigation.Content>
               <TempNavigationContent />
@@ -408,9 +408,9 @@ export const WithContent: Story = {
         </GlobalNavigation.List>
         <GlobalNavigation.List align='right'>
           <GlobalNavigation.Item>
-            <BlockButton.Basic hierarchy='primary' size='sm' onClick={() => alert("hello!")}>
+            <BlockButton hierarchy='primary' size='sm' onClick={() => alert("hello!")}>
               지원하기
-            </BlockButton.Basic>
+            </BlockButton>
           </GlobalNavigation.Item>
         </GlobalNavigation.List>
         <GlobalNavigation.MobileMenuButton />

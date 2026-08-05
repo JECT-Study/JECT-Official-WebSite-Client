@@ -117,9 +117,9 @@ const MenuItemAnchor = forwardRef<HTMLAnchorElement, MenuItemAnchorProps>(
         </span>
         {suffixIconVisible && <Icon name={suffixIcon} size={size} />}
         {suffixBadgeVisible && (
-          <NumericBadge.Basic size={suffixBadgeSizeByMenuSize[size]} isMuted={suffixBadgeMuted}>
+          <NumericBadge size={suffixBadgeSizeByMenuSize[size]} isMuted={suffixBadgeMuted}>
             {suffixBadge}
-          </NumericBadge.Basic>
+          </NumericBadge>
         )}
       </a>
     );

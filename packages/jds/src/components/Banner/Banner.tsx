@@ -32,9 +32,9 @@ const BannerBar = forwardRef<HTMLDivElement, BannerBarProps>((props, ref) => {
         </StyledBannerBarTitles>
 
         {label && (
-          <BlockButton.Basic size='xs' hierarchy='primary' variant='solid'>
+          <BlockButton size='xs' hierarchy='primary' variant='solid'>
             {label}
-          </BlockButton.Basic>
+          </BlockButton>
         )}
       </StyledBannerBarContent>
 

@@ -309,7 +309,7 @@ export const ButtonWithValidation: Story = {
           placeholder='태그를 입력하세요'
           tags={tags1}
           onTagsChange={setTags1}
-          button={<BlockButton.Basic size='md'>저장</BlockButton.Basic>}
+          button={<BlockButton size='md'>저장</BlockButton>}
           validation='none'
         />
         <TagField.Button
@@ -318,9 +318,9 @@ export const ButtonWithValidation: Story = {
           tags={tags2}
           onTagsChange={setTags2}
           button={
-            <BlockButton.Feedback intent='destructive' size='md'>
+            <BlockButton feedback='destructive' size='md'>
               초기화
-            </BlockButton.Feedback>
+            </BlockButton>
           }
           validation='error'
         />
@@ -329,7 +329,7 @@ export const ButtonWithValidation: Story = {
           helperText='올바르게 입력되었습니다'
           tags={tags3}
           onTagsChange={setTags3}
-          button={<BlockButton.Basic size='md'>확인</BlockButton.Basic>}
+          button={<BlockButton size='md'>확인</BlockButton>}
           validation='success'
         />
       </div>
@@ -484,7 +484,7 @@ export const AllVariants: Story = {
 
         <FlexColumn gap='16px'>
           <label>
-            <strong>TagField.Button (BlockButton.Basic 권장)</strong>
+            <strong>TagField.Button (BlockButton 권장)</strong>
           </label>
           <TagField.Button
             label='프로젝트 기술'
@@ -492,7 +492,7 @@ export const AllVariants: Story = {
             helperText='사용한 기술을 태그로 추가해주세요'
             tags={buttonTags}
             onTagsChange={setButtonTags}
-            button={<BlockButton.Basic size='md'>저장</BlockButton.Basic>}
+            button={<BlockButton size='md'>저장</BlockButton>}
           />
         </FlexColumn>
       </FlexColumn>
@@ -507,7 +507,7 @@ export const AllVariants: Story = {
           "1. **TagField**: 기본 태그 입력 필드 (TagField.tsx)\n" +
           "2. **TagField.Button**: 버튼 포함 (TagFieldButton.tsx)\n\n" +
           "**권장사항:**\n" +
-          "- TagField.Button의 button prop에는 BlockButton.Basic 사용을 권장합니다.\n" +
+          "- TagField.Button의 button prop에는 BlockButton 사용을 권장합니다.\n" +
           '- size는 "md"로 고정하여 일관성을 유지합니다.\n\n' +
           "```tsx\n" +
           'import { TagField, BlockButton } from "@jects/jds";\n' +
@@ -519,12 +519,12 @@ export const AllVariants: Story = {
           "  tags={tags}\n" +
           "  onTagsChange={setTags}\n" +
           "/>\n\n" +
-          "// 버튼 포함 (BlockButton.Basic 권장)\n" +
+          "// 버튼 포함 (BlockButton 권장)\n" +
           "<TagField.Button\n" +
           '  label="기술 스택"\n' +
           "  tags={tags}\n" +
           "  onTagsChange={setTags}\n" +
-          '  button={<BlockButton.Basic size="md">저장</BlockButton.Basic>}\n' +
+          '  button={<BlockButton size="md">저장</BlockButton>}\n' +
           "/>\n" +
           "```",
       },
