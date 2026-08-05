@@ -25,14 +25,23 @@ const stepsNumericBadgeSizeMap: Record<StepsSize, BadgeSize> = {
 } as const;
 
 const stepsSeparatorSizeMap: Record<StepsSize, IconSize> = {
-  lg: "sm",
-  md: "xs",
+  lg: "xs",
+  md: "2xs",
 } as const;
 
 const stepsLabelTypographySizeMap: Record<StepsSize, LabelSize> = {
   lg: "md",
   md: "sm",
 } as const;
+
+interface ResolveActivatedParams {
+  currentStep: number | undefined;
+  index: number;
+  activated: boolean | undefined;
+}
+
+const resolveActivated = ({ currentStep, index, activated }: ResolveActivatedParams) =>
+  activated ?? (currentStep !== undefined && index <= currentStep);
 
 const StepsSeparator = () => {
   const { size, layout } = useStepsContext("Steps.Separator");
@@ -50,7 +59,7 @@ const StepsSeparator = () => {
 
   return (
     <div className={stepsSeparatorLine({ size })} aria-hidden>
-      <Divider orientation='vertical' thickness='bold' />
+      <Divider orientation='vertical' thickness='bold' decorative />
     </div>
   );
 };
@@ -72,7 +81,7 @@ const StepsRoot = forwardRef<HTMLOListElement, StepsRootProps>(
           className={clsx(stepsRoot({ size, layout }), className)}
         >
           {childList.map((child, childIndex) => (
-            <li className={stepsListItem({ size, layout })} key={childIndex}>
+            <li className={stepsListItem({ layout })} key={childIndex}>
               {childIndex > 0 && <StepsSeparator />}
               {child}
             </li>
@@ -89,7 +98,7 @@ const StepsItem = forwardRef<HTMLDivElement, StepsItemProps>(
   ({ index, activated: activatedProp, children, className, ...restProps }, ref) => {
     const { size, layout, currentStep } = useStepsContext("Steps.Item");
 
-    const isActivated = currentStep !== undefined ? index <= currentStep : (activatedProp ?? false);
+    const isActivated = resolveActivated({ currentStep, index, activated: activatedProp });
     const isCurrentStep = currentStep === index;
 
     return (
@@ -97,7 +106,7 @@ const StepsItem = forwardRef<HTMLDivElement, StepsItemProps>(
         {...restProps}
         ref={ref}
         aria-current={isCurrentStep ? "step" : undefined}
-        data-activated={isActivated}
+        data-steps-activated={isActivated}
         className={clsx(stepsItem({ layout }), className)}
       >
         <NumericBadge
