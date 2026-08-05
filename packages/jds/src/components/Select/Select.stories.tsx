@@ -111,9 +111,9 @@ export const WithSuffix: Story = {
       ...region,
       caption: "설명",
       suffix: (
-        <ContentBadge.Basic hierarchy='tertiary' size='xs' badgeStyle='outlined'>
+        <ContentBadge hierarchy='tertiary' size='xs' badgeStyle='outlined'>
           레이블
-        </ContentBadge.Basic>
+        </ContentBadge>
       ),
     }));
     return (

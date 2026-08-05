@@ -70,7 +70,7 @@ const meta = {
       </span>
     ),
     uploadButton: triggerUpload => (
-      <BlockButton.Basic
+      <BlockButton
         hierarchy='secondary'
         size='sm'
         variant='outlined'
@@ -78,12 +78,12 @@ const meta = {
         onClick={triggerUpload}
       >
         파일 업로드
-      </BlockButton.Basic>
+      </BlockButton>
     ),
     cancelButton: (
-      <LabelButton.Basic hierarchy='tertiary' size='sm' suffixIcon='arrow-go-back-line'>
+      <LabelButton hierarchy='tertiary' size='sm' suffixIcon='arrow-go-back-line'>
         업로드 취소
-      </LabelButton.Basic>
+      </LabelButton>
     ),
   },
 } satisfies Meta<typeof Uploader.File>;
@@ -119,7 +119,7 @@ export const Default: StoryObj<typeof Uploader.File> = {
           </AssistiveLabel>
         }
         uploadButton={triggerUpload => (
-          <BlockButton.Basic
+          <BlockButton
             hierarchy='secondary'
             size='sm'
             variant='outlined'
@@ -128,17 +128,17 @@ export const Default: StoryObj<typeof Uploader.File> = {
             onClick={triggerUpload}
           >
             파일 업로드
-          </BlockButton.Basic>
+          </BlockButton>
         )}
         cancelButton={
-          <LabelButton.Basic
+          <LabelButton
             hierarchy='tertiary'
             size='sm'
             suffixIcon='arrow-go-back-line'
             onClick={onCancel}
           >
             업로드 취소
-          </LabelButton.Basic>
+          </LabelButton>
         }
       />
     );

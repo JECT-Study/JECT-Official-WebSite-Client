@@ -34,7 +34,7 @@ export const TagItem = ({ tag, isSelected, onSelect, onRemove }: TagItemProps) =
       onClick={isInteractive ? handleBodyClick : undefined}
       onMouseDown={e => e.preventDefault()}
     >
-      <ContentBadge.Basic
+      <ContentBadge
         size='xs'
         hierarchy='secondary'
         badgeStyle='alpha'
@@ -44,7 +44,7 @@ export const TagItem = ({ tag, isSelected, onSelect, onRemove }: TagItemProps) =
           : { withIconButton: false })}
       >
         {tag.label}
-      </ContentBadge.Basic>
+      </ContentBadge>
     </StyledTagWrapper>
   );
 };
