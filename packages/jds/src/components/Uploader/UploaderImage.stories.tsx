@@ -71,14 +71,14 @@ export const Default: StoryObj<typeof Uploader.Image> = {
         isLoading={args.isLoading}
         isDisabled={args.isDisabled}
         cancelButton={
-          <LabelButton.Basic
+          <LabelButton
             hierarchy='tertiary'
             size='xs'
             suffixIcon='arrow-go-back-line'
             onClick={onCancel}
           >
             취소
-          </LabelButton.Basic>
+          </LabelButton>
         }
       />
     );

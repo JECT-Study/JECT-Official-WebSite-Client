@@ -175,7 +175,7 @@ export const TagFieldButton = forwardRef<HTMLInputElement, TagFieldButtonProps>(
                     $isInteractive={isInteractive}
                     onClick={isInteractive ? e => handleTagClick(e, tag.id) : undefined}
                   >
-                    <ContentBadge.Basic
+                    <ContentBadge
                       size='xs'
                       hierarchy='secondary'
                       badgeStyle='alpha'
@@ -188,7 +188,7 @@ export const TagFieldButton = forwardRef<HTMLInputElement, TagFieldButtonProps>(
                         : { withIconButton: false })}
                     >
                       {tag.label}
-                    </ContentBadge.Basic>
+                    </ContentBadge>
                   </StyledTagWrapper>
                 ))}
               </StyledTagContainer>

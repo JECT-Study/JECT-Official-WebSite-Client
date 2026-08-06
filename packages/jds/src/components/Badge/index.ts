@@ -17,17 +17,8 @@ export {
 } from "./ContentBadge/contentBadge.types";
 export { NUMERIC_BADGE_STYLE_OPTIONS } from "./NumericBadge/numericBadge.types";
 
-export type {
-  ContentBadgeBasicProps,
-  ContentBadgeFeedbackProps,
-  ContentBadgeProps,
-  ContentBadgeThemeProps,
-} from "./ContentBadge/contentBadge.types";
+export type { ContentBadgeProps } from "./ContentBadge/contentBadge.types";
 
-export type { DotBadgeFeedbackProps, DotBadgeProps } from "./DotBadge/dotBadge.types";
+export type { DotBadgeProps } from "./DotBadge/dotBadge.types";
 
-export type {
-  NumericBadgeBasicProps,
-  NumericBadgeFeedbackProps,
-  NumericBadgeProps,
-} from "./NumericBadge/numericBadge.types";
+export type { NumericBadgeProps } from "./NumericBadge/numericBadge.types";
