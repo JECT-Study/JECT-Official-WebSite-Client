@@ -61,6 +61,8 @@ export function useRovingFocusGroup<T extends HTMLElement>(): RovingFocusGroup<T
     [],
   );
 
+  // 현재 항목 목록은 DOM 조회로 구성하므로 별도의 의존성으로 추적할 수 없다.
+  // 의존성 배열을 추가하면 항목 추가 및 제거 시점과 동기화되지 않는다.
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useLayoutEffect(() => {
     const ids = getFocusableItems().map(item => item.dataset.rovingId);
