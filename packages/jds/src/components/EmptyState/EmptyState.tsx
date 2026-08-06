@@ -52,9 +52,16 @@ export const EmptyState = forwardRef<HTMLDivElement, EmptyStateProps>(
           />
         )}
         <div className={emptyStateStyles.content({ layout })}>
-          <span className={clsx(getTitleClassName({ size: "xs", textAlign }), emptyStateStyles.header)}>
-            {header}
-          </span>
+          {header && (
+            <span
+              className={clsx(
+                getTitleClassName({ size: "xs", textAlign }),
+                emptyStateStyles.header,
+              )}
+            >
+              {header}
+            </span>
+          )}
           <p
             className={clsx(
               getBodyClassName({ size: "md", weight: "normal", textAlign }),

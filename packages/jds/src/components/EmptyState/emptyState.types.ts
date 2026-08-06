@@ -8,7 +8,7 @@ type BlockButtonActionProps = Pick<BlockButtonProps, "children" | "onClick" | "d
 export type EmptyStateProps = Omit<ComponentPropsWithoutRef<"div">, "children"> & {
   variant?: "hollow" | "dashed" | "alpha";
   layout?: "vertical" | "horizontal";
-  header: string;
+  header?: string;
   body: string;
   image?: ThumbnailProps;
   primaryAction?: BlockButtonActionProps;
