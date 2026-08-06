@@ -59,6 +59,7 @@ export const value = style({
 export const popup = style({
   minWidth: "var(--radix-popover-trigger-width)",
   maxHeight: "var(--radix-popover-content-available-height)",
+  zIndex: vars.environment.semantic.zIndex.floated,
 });
 
 export const indicator = style({
