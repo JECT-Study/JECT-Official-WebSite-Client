@@ -10,6 +10,7 @@ export type CheckboxVariant = (typeof CHECKBOX_VARIANT_OPTIONS)[number];
 type CheckboxRootLayoutProps =
   | { layout?: "vertical"; columns?: never }
   | { layout: "grid"; columns: number };
+
 export type CheckedState = boolean | "indeterminate";
 
 type CheckboxRootControlledProps = {
@@ -127,14 +128,13 @@ type CheckboxStandaloneBaseProps = Omit<
     variant?: CheckboxVariant;
     disabled?: boolean;
     isInvalid?: boolean;
-    stretched?: boolean;
     name?: string;
     value?: string;
   };
 
 type CheckboxLabelHelperProps =
-  | { label?: RenderableNode; helper?: never }
-  | { label: RenderableNode; helper?: ReactNode };
+  | { label?: RenderableNode; helper?: never; stretched?: never }
+  | { label: RenderableNode; helper?: ReactNode; stretched?: boolean };
 
 export type CheckboxProps = CheckboxStandaloneBaseProps &
   CheckboxLabelHelperProps &
