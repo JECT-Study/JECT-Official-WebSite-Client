@@ -208,12 +208,12 @@ const CheckboxIndicator = forwardRef<HTMLSpanElement, CheckboxIndicatorProps>(
     return (
       <span
         ref={ref}
+        {...restProps}
         aria-hidden
         data-state={dataState}
         data-disabled={disabled || undefined}
         data-invalid={isInvalid || undefined}
         className={clsx(styles.checkboxVisual({ size }), className)}
-        {...restProps}
       >
         {(isChecked || isIndeterminate) && (
           <span className={styles.checkboxIconWrapper}>

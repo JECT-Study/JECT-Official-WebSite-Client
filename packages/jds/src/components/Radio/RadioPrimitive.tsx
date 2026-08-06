@@ -147,6 +147,7 @@ const RadioIndicator = forwardRef<HTMLSpanElement, RadioIndicatorProps>(
     return (
       <span
         ref={ref}
+        {...restProps}
         aria-hidden
         data-state={hasExplicitState ? (checked ? "checked" : "unchecked") : undefined}
         data-disabled={disabled || undefined}
@@ -156,7 +157,6 @@ const RadioIndicator = forwardRef<HTMLSpanElement, RadioIndicatorProps>(
           isWithinItem && styles.radioIndicatorInItem,
           className,
         )}
-        {...restProps}
       />
     );
   },
