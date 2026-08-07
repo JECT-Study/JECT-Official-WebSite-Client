@@ -1,6 +1,11 @@
 import { z } from "zod";
 
-export const applicationStatusSchema = z.enum(["JOINED", "TEMP_SAVED", "SUBMITTED"]);
+export const applicationStatusSchema = z.enum([
+  "JOINED",
+  "TEMP_SAVED",
+  "SUBMITTED",
+  "REJECTED",
+]);
 
 export const applicationStatusResponseSchema = z.object({
   status: applicationStatusSchema,

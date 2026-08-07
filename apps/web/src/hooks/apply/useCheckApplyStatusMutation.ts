@@ -20,7 +20,7 @@ export function useCheckApplyStatusMutation() {
       // 2. 프로필 등록된 경우에만 지원 상태 확인
       const { status } = await applyApi.getStatus(recruitId);
 
-      if (status === "SUBMITTED") {
+      if (status === "SUBMITTED" || status === "REJECTED") {
         return { result: "SUBMITTED" };
       }
 
