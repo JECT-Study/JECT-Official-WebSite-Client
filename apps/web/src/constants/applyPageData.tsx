@@ -12,7 +12,7 @@ export const JOB_FAMILY_OPTIONS = [
     koreanFirst: "프로덕트",
     koreanSecond: "매니저",
     english: "Product Manager",
-    navigationTitle: "[젝트 4기] 프로덕트 매니저 모집",
+    navigationTitle: "[젝트 5기] 프로덕트 매니저 모집",
   },
   {
     value: "PD",
@@ -21,7 +21,7 @@ export const JOB_FAMILY_OPTIONS = [
     koreanFirst: "프로덕트",
     koreanSecond: "디자이너",
     english: "Product Designer",
-    navigationTitle: "[젝트 4기] 프로덕트 디자이너 모집",
+    navigationTitle: "[젝트 5기] 프로덕트 디자이너 모집",
   },
   {
     value: "FE",
@@ -30,7 +30,7 @@ export const JOB_FAMILY_OPTIONS = [
     koreanFirst: "프론트엔드",
     koreanSecond: "개발자",
     english: "Frontend Engineer",
-    navigationTitle: "[젝트 4기] 프론트엔드 개발자 모집",
+    navigationTitle: "[젝트 5기] 프론트엔드 개발자 모집",
   },
   {
     value: "BE",
@@ -39,7 +39,7 @@ export const JOB_FAMILY_OPTIONS = [
     koreanFirst: "백엔드",
     koreanSecond: "개발자",
     english: "Backend Engineer",
-    navigationTitle: "[젝트 4기] 백엔드 개발자 모집",
+    navigationTitle: "[젝트 5기] 백엔드 개발자 모집",
   },
   {
     value: "APP",
@@ -48,7 +48,7 @@ export const JOB_FAMILY_OPTIONS = [
     koreanFirst: "앱",
     koreanSecond: "개발자",
     english: "App Engineer",
-    navigationTitle: "[젝트 4기] 앱 개발자 모집",
+    navigationTitle: "[젝트 5기] 앱 개발자 모집",
   },
 ] as const;
 
@@ -231,7 +231,7 @@ export const JOB_FAMILY_RECRUITMENT_INFO: Record<JobFamily, JobFamilyRecruitment
         "사용자 경험을 고려해 '왜 이렇게 구현해야 하는지'를 고민할 수 있는 분",
         "PD, BE와 원활하게 소통하며 더 나은 화면 구조를 함께 만들어갈 수 있는 분",
         "주도적으로 문제를 해결하고, 협업 과정에서 열린 태도로 소통할 수 있는 분",
-        "최소 5개월 동안 적극적으로 시간을 투자하고 끝까지 책임감 있게 활동할 수 있는 분",
+        "약 3개월 동안 적극적으로 시간을 투자하고 끝까지 책임감 있게 활동할 수 있는 분",
       ],
     },
   },
@@ -264,7 +264,7 @@ export const JOB_FAMILY_RECRUITMENT_INFO: Record<JobFamily, JobFamilyRecruitment
         "문제를 근본적으로 해결하려는 태도를 가진 분",
         "협업을 즐기고, 다른 포지션의 의견을 기술적으로 번역-설명할 수 있는 분",
         "코드 품질과 확장성을 고려하며 성장하고 싶은 분",
-        "최소 5개월 동안 적극적으로 시간을 투자하고 끝까지 책임감 있게 활동할 수 있는 분",
+        "약 3개월 동안 적극적으로 시간을 투자하고 끝까지 책임감 있게 활동할 수 있는 분",
       ],
     },
   },
@@ -328,7 +328,7 @@ export const JOB_FAMILY_RECRUITMENT_INFO: Record<JobFamily, JobFamilyRecruitment
         "디자인에 대해 의도를 설명하고 스스로 개선해 나갈 수 있는 분",
         "디지털 서비스를 디자인하고 사용자를 확보해 운영까지 경험해보고 싶은 분",
         "상호 존중을 바탕으로 팀 협업에 협조적으로 임할 수 있는 분",
-        "최소 5개월 동안 적극적으로 시간을 투자하고 끝까지 책임 있게 활동할 수 있는 분",
+        "약 3개월 동안 적극적으로 시간을 투자하고 끝까지 책임 있게 활동할 수 있는 분",
       ],
     },
   },
