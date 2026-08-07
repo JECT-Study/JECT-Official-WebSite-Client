@@ -22,9 +22,10 @@ import {
 
 interface ContinueWritingFunnelProps {
   jobFamily: JobFamily;
+  recruitId: number;
 }
 
-export function ContinueWritingFunnel({ jobFamily }: ContinueWritingFunnelProps) {
+export function ContinueWritingFunnel({ jobFamily, recruitId }: ContinueWritingFunnelProps) {
   const navigate = useNavigate();
   const { isDialogOpen, handleConfirm, handleCancel } = useNavigationBlock();
 
@@ -32,7 +33,7 @@ export function ContinueWritingFunnel({ jobFamily }: ContinueWritingFunnelProps)
     id: "continue-writing-funnel",
     initial: {
       step: "본인확인",
-      context: { jobFamily },
+      context: { jobFamily, recruitId },
     },
   });
 
