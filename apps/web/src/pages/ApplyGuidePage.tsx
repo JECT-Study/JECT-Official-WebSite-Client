@@ -23,6 +23,7 @@ import {
   JOB_FAMILY_RECRUITMENT_INFO,
 } from "@/constants/applyPageData";
 import { PATH } from "@/constants/path";
+import { useRecruitId } from "@/hooks/recruit";
 
 type TabValue = "info" | "notice" | "faq";
 
@@ -107,6 +108,7 @@ function ApplyGuidePage() {
   const navigate = useNavigate();
   const { jobFamily } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
+  const { recruitId } = useRecruitId(isValidJobFamily(jobFamily) ? jobFamily : undefined);
 
   const tabParam = searchParams.get("tab") as TabValue | null;
   const faqParam = searchParams.get("faq");
@@ -137,13 +139,13 @@ function ApplyGuidePage() {
     setSearchParams(newParams, { replace: true });
   };
 
-  // const handleApply = () => {
-  //   void navigate(`${PATH.applyFunnel}/${jobFamily}`);
-  // };
+  const handleApply = () => {
+    void navigate(`${PATH.applyFunnel}/${jobFamily}`);
+  };
 
-  // const handleContinue = () => {
-  //   void navigate(`${PATH.applyContinue}/${jobFamily}`);
-  // };
+  const handleContinue = () => {
+    void navigate(`${PATH.applyContinue}/${jobFamily}`);
+  };
 
   const handleBack = () => {
     void navigate(PATH.applyList);
@@ -190,11 +192,40 @@ function ApplyGuidePage() {
           </Label>
         </div>
 
-        <a href='https://forms.gle/oarw4xzjDezR6mzQA' target='_blank' rel='noopener noreferrer'>
-          <BlockButton.Basic variant='solid' hierarchy='accent' size='lg' className='w-full'>
-            5기 모집 알림 신청하기
-          </BlockButton.Basic>
-        </a>
+        <div className='flex gap-3 self-stretch'>
+          {recruitId != null ? (
+            <>
+              <BlockButton.Basic
+                variant='outlined'
+                hierarchy='secondary'
+                size='lg'
+                onClick={handleContinue}
+              >
+                이어서 작성하기
+              </BlockButton.Basic>
+              <BlockButton.Basic
+                variant='solid'
+                hierarchy='accent'
+                size='lg'
+                suffixIcon='arrow-right-line'
+                onClick={handleApply}
+                className='flex-1'
+              >
+                지원서 작성하기
+              </BlockButton.Basic>
+            </>
+          ) : (
+            <BlockButton.Basic
+              variant='solid'
+              hierarchy='accent'
+              size='lg'
+              className='flex-1'
+              disabled
+            >
+              현재 모집 기간이 아닙니다
+            </BlockButton.Basic>
+          )}
+        </div>
       </section>
 
       <Tab.Root
