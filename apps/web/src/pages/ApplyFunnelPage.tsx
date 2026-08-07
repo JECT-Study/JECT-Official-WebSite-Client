@@ -4,7 +4,7 @@ import type { JobFamily } from "@/apis/apply";
 import { PATH } from "@/constants/path";
 import { ApplyFunnel } from "@/features/apply/ApplyFunnel";
 
-const VALID_JOB_FAMILIES: JobFamily[] = ["PM", "PD", "FE", "BE"];
+const VALID_JOB_FAMILIES: JobFamily[] = ["PM", "PD", "FE", "BE", "APP"];
 
 function isValidJobFamily(value: string | undefined): value is JobFamily {
   return VALID_JOB_FAMILIES.includes(value as JobFamily);

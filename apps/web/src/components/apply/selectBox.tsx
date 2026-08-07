@@ -12,11 +12,12 @@ interface selectBoxProps {
   onOpenDialog: (job: JobFamily) => void;
 }
 
-const JOB_FAMILY: JobFamily[] = ["FE", "BE", "PM", "PD"];
+const JOB_FAMILY: JobFamily[] = ["FE", "BE", "APP", "PM", "PD"];
 
 const jobFamily: Record<JobFamily, string> = {
   FE: "프론트엔드 개발자",
   BE: "백엔드 개발자",
+  APP: "앱 개발자",
   PM: "프로덕트 매니저",
   PD: "프로덕트 디자이너",
 };

@@ -5,12 +5,13 @@ import PageHeroContainer from "@/components/layout/PageHeroContainer";
 import PageModule from "@/components/layout/PageModule";
 import { PATH } from "@/constants/path";
 
-type FilterValue = "all" | "PM" | "PD" | "FE" | "BE";
+type FilterValue = "all" | "PM" | "PD" | "FE" | "BE" | "APP";
 
 const FILTER_OPTIONS: { value: FilterValue; label: string }[] = [
-  { value: "all", label: "전체(4)" },
+  { value: "all", label: "전체(5)" },
   { value: "FE", label: "프론트엔드 개발자(1)" },
   { value: "BE", label: "백엔드 개발자(1)" },
+  { value: "APP", label: "앱 개발자(1)" },
   { value: "PM", label: "프로덕트 매니저(1)" },
   { value: "PD", label: "프로덕트 디자이너(1)" },
 ];
@@ -41,6 +42,18 @@ const RECRUITMENT_LIST = [
   },
   {
     id: 3,
+    jobFamily: "APP" as const,
+    title: "[젝트 4기] 앱 개발자 모집",
+    period: "2025년 12월 29일 - 2026년 1월 18일",
+    description:
+      "사용자가 모바일 환경에서 서비스를 자연스럽게 이용할 수 있도록 앱 화면과 기능을 구현합니다. PM, PD, 백엔드 개발자와 긴밀히 협업하며 기획, 디자인, 서버 데이터를 앱 흐름에 맞게 연결합니다.\n" +
+      "AOS, iOS, Flutter, React Native 등 사용 기술에 관계없이 앱 서비스의 구조와 사용자 흐름을 설계·구현합니다.\n" +
+      "API 연동, 상태 관리, 화면 전환, 로컬 저장소, 권한 처리 등 모바일 앱 개발에 필요한 핵심 기능을 다룹니다.\n" +
+      "앱 성능과 안정성을 고려하며 실제 사용 가능한 모바일 서비스 품질을 만들어갑니다.",
+    isOpen: true,
+  },
+  {
+    id: 4,
     jobFamily: "PM" as const,
     title: "[젝트 4기] 프로덕트 매니저 모집",
     period: "2025년 12월 29일 - 2026년 1월 18일",
@@ -51,7 +64,7 @@ const RECRUITMENT_LIST = [
     isOpen: true,
   },
   {
-    id: 4,
+    id: 5,
     jobFamily: "PD" as const,
     title: "[젝트 4기] 프로덕트 디자이너 모집",
     period: "2025년 12월 29일 - 2026년 1월 18일",

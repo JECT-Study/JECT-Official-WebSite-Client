@@ -106,7 +106,7 @@ export const portfolioResponseSchema = z.object({
   sequence: z.string(),
 });
 
-export const jobFamilySchema = z.enum(["PM", "PD", "FE", "BE"]);
+export const jobFamilySchema = z.enum(["PM", "PD", "FE", "BE", "APP"]);
 
 export const answersResponseSchema = z.object({
   jobFamily: jobFamilySchema.optional(),
