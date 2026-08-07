@@ -22,4 +22,5 @@ export const API_ENDPOINT = {
   projectDetail: "/projects/:projectId",
   semesters: "/semesters",
   applyStatus: "/apply/status",
+  activeRecruits: "/recruits/active",
 } as const;

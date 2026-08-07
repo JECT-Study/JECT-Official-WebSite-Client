@@ -1,0 +1,1 @@
+export { useActiveRecruitsQuery } from "./useActiveRecruitsQuery";
