@@ -12,7 +12,7 @@ export const container = recipe({
   },
 });
 
-const controlDisabledSelector = `${container.classNames.base}:has(input:disabled) &`;
+const controlDisabledSelector = `${container.classNames.base}:has(:is(input, [data-interaction-target]):disabled) &`;
 
 export const labelContainer = recipe({
   base: {
@@ -100,7 +100,7 @@ export const content = recipe({
     transition: `border-color ${vars.environment.semantic.duration["100"]} ${vars.environment.semantic.motion.fluent}`,
     selectors: {
       // NOTES: 상태는 루트(컨텍스트)뿐 아니라 안쪽 input 에서도 덮어쓸 수 있으므로, 컨테이너가 실제 컨트롤 상태를 함께 반영하도록 native 상태를 읽는다.
-      "&:has(input:disabled)": {
+      "&:has(:is(input, [data-interaction-target]):disabled)": {
         pointerEvents: "none",
       },
     },
@@ -133,7 +133,7 @@ export const content = recipe({
             borderColor: contentVars.borderFocusColor,
           },
           // NOTES: readonly 는 native `:read-only` 가 type 에 따라 오탐하므로 TextField.Input 이 해석해 내려주는 data 속성을 읽는다.
-          "&:has(input[data-readonly])": {
+          "&:has(:is(input, [data-interaction-target])[data-readonly])": {
             vars: { [contentVars.backgroundColor]: vars.color.semantic.fill.subtlest },
           },
         },
@@ -168,7 +168,7 @@ export const content = recipe({
           [contentVars.borderFocusColor]: vars.color.semantic.accent.normal,
         },
         selectors: {
-          "&:has(input:disabled)": {
+          "&:has(:is(input, [data-interaction-target]):disabled)": {
             vars: { [contentVars.borderColor]: vars.color.semantic.stroke.alpha.subtle },
           },
         },
@@ -183,7 +183,7 @@ export const content = recipe({
           [contentVars.borderFocusColor]: vars.color.semantic.feedback.positive.normal,
         },
         selectors: {
-          "&:has(input:disabled)": {
+          "&:has(:is(input, [data-interaction-target]):disabled)": {
             vars: {
               [contentVars.borderColor]: vars.color.semantic.feedback.positive.alpha.subtle,
             },
@@ -200,7 +200,7 @@ export const content = recipe({
           [contentVars.borderFocusColor]: vars.color.semantic.feedback.destructive.normal,
         },
         selectors: {
-          "&:has(input:disabled)": {
+          "&:has(:is(input, [data-interaction-target]):disabled)": {
             vars: {
               [contentVars.borderColor]: vars.color.semantic.feedback.destructive.alpha.subtle,
             },

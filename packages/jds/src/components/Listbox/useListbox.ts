@@ -1,17 +1,12 @@
 import { useControllableState } from "hooks";
-import {
-  useCallback,
-  useId,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-  useState,
-  type KeyboardEvent,
-} from "react";
+import { useCallback, useId, useLayoutEffect, useMemo, useRef, type KeyboardEvent } from "react";
 
+import { SELECTION_KEYS } from "./listbox.constants";
 import type { OptionVariant, SelectionMode, SelectOption } from "./listbox.types";
 import { getOptionId, scrollSelectedOptionIntoView } from "./listbox.utils";
 import type { ListboxContextValue } from "./ListboxContext";
+
+import { useActiveDescendant } from "@/hooks/useActiveDescendant";
 
 interface UseListboxParams {
   mode: SelectionMode;
@@ -21,6 +16,7 @@ interface UseListboxParams {
   defaultValue?: string | string[];
   onChange?: (value: string | string[]) => void;
   disabled: boolean;
+  autoScrollToSelected?: boolean;
 }
 
 export const useListbox = ({
@@ -31,37 +27,17 @@ export const useListbox = ({
   defaultValue,
   onChange,
   disabled,
+  autoScrollToSelected = true,
 }: UseListboxParams) => {
-  const [rawActiveValue, setActiveValue] = useState<string | null>(null);
-
-  const listboxRef = useRef<HTMLDivElement | null>(null);
-  const shouldScrollToSelectedRef = useRef(true);
+  const shouldAutoScrollRef = useRef(true);
 
   const listboxId = useId();
-
-  useLayoutEffect(() => {
-    if (!shouldScrollToSelectedRef.current) return;
-
-    const el = listboxRef.current;
-    if (el == null || options.length === 0) return;
-
-    shouldScrollToSelectedRef.current = false;
-
-    scrollSelectedOptionIntoView(el);
-  }, [options.length]);
 
   const [selection, setSelection] = useControllableState<string | string[] | null | undefined>(
     value,
     defaultValue ?? (mode === "multiple" ? [] : undefined),
     onChange as ((value: string | string[] | null | undefined) => void) | undefined,
   );
-
-  const activeValue = useMemo(() => {
-    if (rawActiveValue == null) return null;
-
-    const option = options.find(o => o.value === rawActiveValue);
-    return option != null && !option.disabled ? rawActiveValue : null;
-  }, [options, rawActiveValue]);
 
   const selectedValues = useMemo<string[]>(() => {
     if (selection == null) return [];
@@ -84,78 +60,68 @@ export const useListbox = ({
     [mode, setSelection],
   );
 
+  const {
+    containerRef: listboxRef,
+    activeValue: rawActiveValue,
+    setActiveValue,
+    onKeyDown: onActiveDescendantKeyDown,
+  } = useActiveDescendant<HTMLDivElement>({ disabled });
+
+  const scrollToSelected = useCallback(() => {
+    const el = listboxRef.current;
+    if (el == null) return;
+
+    scrollSelectedOptionIntoView(el);
+  }, [listboxRef]);
+
+  useLayoutEffect(() => {
+    if (!autoScrollToSelected || !shouldAutoScrollRef.current) return;
+
+    const el = listboxRef.current;
+    if (el == null || options.length === 0) return;
+
+    shouldAutoScrollRef.current = false;
+
+    scrollToSelected();
+  }, [listboxRef, options.length, scrollToSelected, autoScrollToSelected]);
+
+  const activeValue = useMemo(() => {
+    if (rawActiveValue == null) return null;
+
+    const option = options.find(o => o.value === rawActiveValue);
+    return option != null && !option.disabled ? rawActiveValue : null;
+  }, [options, rawActiveValue]);
+
   const activeId = activeValue != null ? getOptionId(listboxId, activeValue) : undefined;
 
-  const getEnabledOptionNodes = useCallback((): HTMLElement[] => {
-    const el = listboxRef.current;
-    if (!el) return [];
-    return Array.from(el.querySelectorAll<HTMLElement>('[role="option"]')).filter(
-      node => node.getAttribute("aria-disabled") !== "true",
-    );
-  }, []);
+  const activateSelected = useCallback(() => {
+    const enabledOptions = options.filter(option => !option.disabled);
+    if (enabledOptions.length === 0) return;
 
-  const moveActive = useCallback(
-    (dir: "next" | "prev" | "first" | "last") => {
-      const nodes = getEnabledOptionNodes();
-      if (nodes.length === 0) return;
-
-      const values = nodes.map(node => node.getAttribute("data-value") ?? "");
-      const current = activeValue != null ? values.indexOf(activeValue) : -1;
-
-      let idx: number;
-      if (dir === "first") idx = 0;
-      else if (dir === "last") idx = nodes.length - 1;
-      else if (dir === "next") idx = current < 0 ? 0 : (current + 1) % nodes.length;
-      else idx = current <= 0 ? nodes.length - 1 : current - 1;
-
-      setActiveValue(values[idx]);
-      nodes[idx].scrollIntoView({ block: "nearest" });
-    },
-    [activeValue, getEnabledOptionNodes],
-  );
+    const selected = enabledOptions.find(option => selectedValues.includes(option.value));
+    setActiveValue(selected?.value ?? enabledOptions[0].value);
+  }, [options, selectedValues, setActiveValue]);
 
   const onKeyDown = useCallback(
     (e: KeyboardEvent) => {
       if (disabled) return;
 
-      switch (e.key) {
-        case "ArrowDown":
-          e.preventDefault();
-          moveActive("next");
-          break;
-        case "ArrowUp":
-          e.preventDefault();
-          moveActive("prev");
-          break;
-        case "Home":
-          e.preventDefault();
-          moveActive("first");
-          break;
-        case "End":
-          e.preventDefault();
-          moveActive("last");
-          break;
-        case "Enter":
-        case " ":
-          if (activeValue != null) {
-            e.preventDefault();
-            select(activeValue);
-          }
-          break;
-      }
+      onActiveDescendantKeyDown(e);
+
+      if (!SELECTION_KEYS.includes(e.key)) return;
+
+      e.preventDefault();
+
+      if (activeValue != null) select(activeValue);
     },
-    [activeValue, disabled, moveActive, select],
+    [activeValue, disabled, onActiveDescendantKeyDown, select],
   );
 
   const onFocus = useCallback(() => {
     if (activeValue != null) return;
-    const nodes = getEnabledOptionNodes();
 
-    if (nodes.length === 0) return;
-    const values = nodes.map(node => node.getAttribute("data-value") ?? "");
-
-    setActiveValue(values.find(v => selectedValues.includes(v)) ?? values[0]);
-  }, [activeValue, getEnabledOptionNodes, selectedValues]);
+    activateSelected();
+  }, [activateSelected, activeValue]);
 
   const getListboxProps = useCallback(
     () => ({
@@ -164,12 +130,19 @@ export const useListbox = ({
       "aria-multiselectable": mode === "multiple" ? true : undefined,
       "aria-orientation": "vertical" as const,
       "aria-disabled": disabled || undefined,
+    }),
+    [listboxId, mode, disabled],
+  );
+
+  const getFocusableListboxProps = useCallback(
+    () => ({
+      ...getListboxProps(),
       tabIndex: disabled ? -1 : 0,
       "aria-activedescendant": activeId,
       onKeyDown,
       onFocus,
     }),
-    [listboxId, mode, disabled, activeId, onKeyDown, onFocus],
+    [getListboxProps, disabled, activeId, onKeyDown, onFocus],
   );
 
   const contextValue = useMemo<ListboxContextValue>(
@@ -183,12 +156,19 @@ export const useListbox = ({
       select,
       setActive: setActiveValue,
     }),
-    [listboxId, disabled, variant, mode, isSelected, activeValue, select],
+    [listboxId, disabled, variant, mode, isSelected, activeValue, select, setActiveValue],
   );
 
   return {
     listboxRef,
+    listboxId,
     contextValue,
+    selectedValues,
+    activeId,
+    activateSelected,
+    scrollToSelected,
+    onKeyDown,
     getListboxProps,
+    getFocusableListboxProps,
   };
 };

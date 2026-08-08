@@ -8,6 +8,7 @@ import { getOptionId } from "./listbox.utils";
 import { useListboxContext } from "./ListboxContext";
 import { RadioPrimitive } from "../Radio/RadioPrimitive";
 
+import { getActiveDescendantItemProps } from "@/hooks/useActiveDescendant";
 import { getLabelClassName } from "@/utils/typography";
 
 export const Option = ({ value, disabled = false, caption, suffix, children }: OptionProps) => {
@@ -39,11 +40,10 @@ export const Option = ({ value, disabled = false, caption, suffix, children }: O
       role='option'
       aria-selected={isItemSelected}
       aria-disabled={isDisabled || undefined}
-      data-value={value}
+      {...getActiveDescendantItemProps({ value, disabled: isDisabled })}
       data-variant={variant}
       data-selected={isItemSelected || undefined}
       data-active={isActive || undefined}
-      data-disabled={isDisabled || undefined}
       className={styles.option}
       onClick={handleClick}
     >
