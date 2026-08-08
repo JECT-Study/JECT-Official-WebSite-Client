@@ -16,7 +16,7 @@ interface UseListboxParams {
   defaultValue?: string | string[];
   onChange?: (value: string | string[]) => void;
   disabled: boolean;
-  scrollToSelectedOnMount?: boolean;
+  autoScrollToSelected?: boolean;
 }
 
 export const useListbox = ({
@@ -27,9 +27,9 @@ export const useListbox = ({
   defaultValue,
   onChange,
   disabled,
-  scrollToSelectedOnMount = true,
+  autoScrollToSelected = true,
 }: UseListboxParams) => {
-  const shouldScrollToSelectedRef = useRef(true);
+  const shouldAutoScrollRef = useRef(true);
 
   const listboxId = useId();
 
@@ -75,15 +75,15 @@ export const useListbox = ({
   }, [listboxRef]);
 
   useLayoutEffect(() => {
-    if (!scrollToSelectedOnMount || !shouldScrollToSelectedRef.current) return;
+    if (!autoScrollToSelected || !shouldAutoScrollRef.current) return;
 
     const el = listboxRef.current;
     if (el == null || options.length === 0) return;
 
-    shouldScrollToSelectedRef.current = false;
+    shouldAutoScrollRef.current = false;
 
     scrollToSelected();
-  }, [listboxRef, options.length, scrollToSelected, scrollToSelectedOnMount]);
+  }, [listboxRef, options.length, scrollToSelected, autoScrollToSelected]);
 
   const activeValue = useMemo(() => {
     if (rawActiveValue == null) return null;

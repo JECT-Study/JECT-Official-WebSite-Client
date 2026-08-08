@@ -75,7 +75,7 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
       defaultValue,
       onChange: onChange as ((value: string | string[]) => void) | undefined,
       disabled: isDisabled,
-      scrollToSelectedOnMount: false,
+      autoScrollToSelected: false,
     });
 
     const selectedLabel = options.find(option => option.value === selectedValues[0])?.label;
