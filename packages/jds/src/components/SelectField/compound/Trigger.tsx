@@ -12,6 +12,7 @@ import {
 import { useFieldContext } from "../../Field/Field.context";
 import { Icon } from "../../Icon";
 import { Listbox, useListbox } from "../../Listbox";
+import { SELECTION_KEYS } from "../../Listbox/listbox.constants";
 import { useSelectFieldContext } from "../SelectField.context";
 import * as styles from "../selectField.css";
 import type { SelectFieldTriggerProps } from "../selectField.types";
@@ -19,7 +20,6 @@ import type { SelectFieldTriggerProps } from "../selectField.types";
 import { getActiveDescendantContainerProps } from "@/hooks/useActiveDescendant";
 import { getBodyClassName } from "@/utils/typography";
 
-const SELECTION_KEYS = ["Enter", " "];
 const OPENING_KEYS = ["ArrowDown", "ArrowUp", "Home", "End", ...SELECTION_KEYS];
 
 export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTriggerProps>(
