@@ -152,6 +152,7 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
             aria-haspopup='listbox'
             aria-expanded={isOpen}
             aria-controls={listboxId}
+            aria-labelledby={labelId}
             aria-activedescendant={isOpen ? activeId : undefined}
             aria-describedby={describedByIds.length > 0 ? describedByIds.join(" ") : undefined}
             aria-invalid={ariaInvalid}
