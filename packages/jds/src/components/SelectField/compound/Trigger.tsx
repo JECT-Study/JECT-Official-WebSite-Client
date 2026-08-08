@@ -65,7 +65,7 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
       activeId,
       activateSelected,
       scrollToSelected,
-      onKeyDown: onActiveDescendantKeyDown,
+      onKeyDown: onListboxKeyDown,
       getListboxProps,
     } = useListbox({
       mode: "single",
@@ -106,7 +106,7 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
         return;
       }
 
-      onActiveDescendantKeyDown(e);
+      onListboxKeyDown(e);
 
       if (SELECTION_KEYS.includes(e.key)) {
         e.preventDefault();
