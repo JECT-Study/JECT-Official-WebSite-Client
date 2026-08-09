@@ -1,6 +1,7 @@
 import { clsx } from "clsx";
 import { type CSSProperties, forwardRef, useMemo } from "react";
 
+import { ListboxCustomValue } from "./compound/CustomValue";
 import { ListboxOption } from "./compound/Option";
 import * as styles from "./listbox.css";
 import type { ListboxProps, SelectDimension } from "./listbox.types";
@@ -83,4 +84,5 @@ InternalListbox.displayName = "InternalListbox";
 
 export const Listbox = Object.assign(InternalListbox, {
   Option: ListboxOption,
+  CustomValue: ListboxCustomValue,
 });
