@@ -213,19 +213,17 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
               }}
               onMouseDown={e => e.preventDefault()}
             >
-              {options.map(
-                ({ value: optionValue, label: optionLabel, caption, suffix, disabled }) => (
-                  <Listbox.Option
-                    key={optionValue}
-                    value={optionValue}
-                    caption={caption}
-                    suffix={suffix}
-                    disabled={disabled}
-                  >
-                    {optionLabel}
-                  </Listbox.Option>
-                ),
-              )}
+              {options.map(option => (
+                <Listbox.Option
+                  key={option.value}
+                  value={option.value}
+                  caption={option.caption}
+                  suffix={option.suffix}
+                  disabled={option.disabled}
+                >
+                  {option.label}
+                </Listbox.Option>
+              ))}
             </Listbox>
           </Popover.Content>
         </Popover.Portal>

@@ -57,15 +57,15 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
         aria-label={ariaLabel}
         aria-labelledby={ariaLabelledby}
       >
-        {options.map(({ value: optionValue, label: optionLabel, caption, suffix, disabled }) => (
+        {options.map(option => (
           <Listbox.Option
-            key={optionValue}
-            value={optionValue}
-            caption={caption}
-            suffix={suffix}
-            disabled={disabled}
+            key={option.value}
+            value={option.value}
+            caption={option.caption}
+            suffix={option.suffix}
+            disabled={option.disabled}
           >
-            {optionLabel}
+            {option.label}
           </Listbox.Option>
         ))}
       </Listbox>
