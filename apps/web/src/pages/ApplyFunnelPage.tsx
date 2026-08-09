@@ -1,6 +1,7 @@
 import { Navigate, useParams } from "react-router-dom";
 
 import type { JobFamily } from "@/apis/apply";
+import { ApplyLoadingFallback } from "@/components/layout/ApplyLayout";
 import { PATH } from "@/constants/path";
 import { ApplyFunnel } from "@/features/apply/ApplyFunnel";
 import { useRecruitId } from "@/hooks/recruit";
@@ -21,7 +22,7 @@ function ApplyFunnelPage() {
   }
 
   if (isPending) {
-    return null;
+    return <ApplyLoadingFallback />;
   }
 
   if (recruitId == null) {
