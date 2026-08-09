@@ -21,7 +21,7 @@ const focusRingColorMap = {
  *
  * `border`는 ring을 요소 바깥과 안쪽 중 어디에 그릴지, `feedback`은 ring 색, `interaction`은
  * focus를 어느 요소에서 읽을지 정한다. `self`는 요소 자신이 focus를 받을 때만, `within`은 자신 또는
- * 자손이 focus를 받을 때(`<label>`이 input을 감싸는 구조 등), `delegated`는 안쪽
+ * 자손이 focus를 받을 때(`<label>`이 input을 감싸는 구조 등), `delegated`는 직계 자식
  * `[data-interaction-target]`가 focus를 받을 때 그린다.
  * 요소의 `position: relative`와 `::before`의 inset, borderRadius는 호출부가 지정한다.
  *
@@ -70,7 +70,7 @@ export const focusRing = recipe({
       },
       delegated: {
         selectors: {
-          "&:has([data-interaction-target]:focus-visible)::before": {
+          "&:has(> [data-interaction-target]:focus-visible)::before": {
             boxShadow: focusRingShadow,
             zIndex: 1,
           },
