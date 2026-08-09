@@ -97,7 +97,7 @@ export const Default: Story = {
 export const PanelWidth: Story = {
   args: Default.args,
   render: args => <Dialog {...args} open />,
-  tags: ["!autodocs", "skip-vrt"],
+  tags: ["!autodocs", "vrt-viewport", "vrt-mobile"],
   parameters: {
     layout: "fullscreen",
     chromatic: { viewports: [400, 1200] },
@@ -113,7 +113,7 @@ export const PanelWidth: Story = {
 export const PanelWidthFixed: Story = {
   args: { ...Default.args, width: 720 },
   render: args => <Dialog {...args} open />,
-  tags: ["!autodocs", "skip-vrt"],
+  tags: ["!autodocs", "vrt-viewport", "vrt-mobile"],
   parameters: {
     layout: "fullscreen",
     chromatic: { viewports: [400, 1200] },
@@ -133,7 +133,7 @@ export const ScrollableBody: Story = {
     secondaryAction: { children: SAMPLE_BUTTON },
   },
   render: args => <Dialog {...args} open />,
-  tags: ["!autodocs", "skip-vrt"],
+  tags: ["!autodocs", "vrt-viewport"],
   parameters: {
     layout: "fullscreen",
     docs: {
