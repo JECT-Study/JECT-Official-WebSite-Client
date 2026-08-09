@@ -1,20 +1,20 @@
 import { clsx } from "clsx";
 import { type CSSProperties, forwardRef } from "react";
 
+import { ListboxOption } from "./compound/Option";
 import * as styles from "./listbox.css";
 import type { ListboxProps, SelectDimension } from "./listbox.types";
 import { ListboxProvider } from "./ListboxContext";
-import { Option } from "./Option";
 
 import { getLabelClassName } from "@/utils/typography";
 
 const resolveDimension = (value: SelectDimension) => (value === "full" ? "100%" : value);
 
-export const Listbox = forwardRef<HTMLDivElement, ListboxProps>(
+const InternalListbox = forwardRef<HTMLDivElement, ListboxProps>(
   (
     {
       context,
-      options,
+      children,
       listboxRef,
       listboxProps,
       label,
@@ -63,17 +63,7 @@ export const Listbox = forwardRef<HTMLDivElement, ListboxProps>(
             aria-labelledby={label != null ? labelId : ariaLabelledby}
             {...restListboxProps}
           >
-            {options.map(({ value, label: optionLabel, caption, suffix, disabled }) => (
-              <Option
-                key={value}
-                value={value}
-                caption={caption}
-                suffix={suffix}
-                disabled={disabled}
-              >
-                {optionLabel}
-              </Option>
-            ))}
+            {children}
           </div>
         </div>
       </ListboxProvider>
@@ -81,4 +71,8 @@ export const Listbox = forwardRef<HTMLDivElement, ListboxProps>(
   },
 );
 
-Listbox.displayName = "Listbox";
+InternalListbox.displayName = "InternalListbox";
+
+export const Listbox = Object.assign(InternalListbox, {
+  Option: ListboxOption,
+});

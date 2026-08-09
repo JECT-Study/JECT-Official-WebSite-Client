@@ -24,7 +24,7 @@ export type SelectBaseProps = AriaLabelProps & {
   options: SelectOption[];
 };
 
-export type OptionProps = {
+export type ListboxOptionProps = {
   value: string;
   disabled?: boolean;
   caption?: string;
@@ -34,7 +34,6 @@ export type OptionProps = {
 
 export type ListboxProps = ComponentPropsWithoutRef<"div"> & {
   context: ListboxContextValue;
-  options: SelectOption[];
   listboxRef: Ref<HTMLDivElement>;
   listboxProps: ComponentPropsWithoutRef<"div">;
   label?: string;

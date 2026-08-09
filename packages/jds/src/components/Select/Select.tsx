@@ -34,7 +34,6 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(
       <Listbox
         ref={ref}
         context={contextValue}
-        options={options}
         label={label}
         width={width}
         height={height}
@@ -42,7 +41,19 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(
         listboxProps={getFocusableListboxProps()}
         aria-label={ariaLabel}
         aria-labelledby={ariaLabelledby}
-      />
+      >
+        {options.map(({ value: optionValue, label: optionLabel, caption, suffix, disabled }) => (
+          <Listbox.Option
+            key={optionValue}
+            value={optionValue}
+            caption={caption}
+            suffix={suffix}
+            disabled={disabled}
+          >
+            {optionLabel}
+          </Listbox.Option>
+        ))}
+      </Listbox>
     );
   },
 );

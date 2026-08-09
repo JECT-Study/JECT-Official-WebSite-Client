@@ -3,6 +3,7 @@ export { useListbox } from "./useListbox";
 
 export type {
   ListboxProps,
+  ListboxOptionProps,
   SelectBaseProps,
   SelectOption,
   SelectionMode,

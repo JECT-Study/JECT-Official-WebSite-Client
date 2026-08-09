@@ -187,7 +187,6 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
               role='presentation'
               className={styles.popup}
               context={popupContextValue}
-              options={options}
               listboxRef={listboxRef}
               listboxProps={{
                 ...getListboxProps(),
@@ -195,7 +194,21 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
                 "aria-labelledby": labelId,
               }}
               onMouseDown={e => e.preventDefault()}
-            />
+            >
+              {options.map(
+                ({ value: optionValue, label: optionLabel, caption, suffix, disabled }) => (
+                  <Listbox.Option
+                    key={optionValue}
+                    value={optionValue}
+                    caption={caption}
+                    suffix={suffix}
+                    disabled={disabled}
+                  >
+                    {optionLabel}
+                  </Listbox.Option>
+                ),
+              )}
+            </Listbox>
           </Popover.Content>
         </Popover.Portal>
       </>
