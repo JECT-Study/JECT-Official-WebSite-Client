@@ -108,7 +108,9 @@ function ApplyGuidePage() {
   const navigate = useNavigate();
   const { jobFamily } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
-  const { recruitId } = useRecruitId(isValidJobFamily(jobFamily) ? jobFamily : undefined);
+  const { recruitId, isPending: isRecruitPending } = useRecruitId(
+    isValidJobFamily(jobFamily) ? jobFamily : undefined,
+  );
 
   const tabParam = searchParams.get("tab") as TabValue | null;
   const faqParam = searchParams.get("faq");
@@ -219,10 +221,11 @@ function ApplyGuidePage() {
               variant='solid'
               hierarchy='accent'
               size='lg'
+              suffixIcon={isRecruitPending ? "arrow-right-line" : undefined}
               className='flex-1'
               disabled
             >
-              현재 모집 기간이 아닙니다
+              {isRecruitPending ? "지원서 작성하기" : "현재 모집 기간이 아닙니다"}
             </BlockButton.Basic>
           )}
         </div>
