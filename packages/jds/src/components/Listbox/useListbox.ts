@@ -1,7 +1,7 @@
 import { useCallback, useId, useLayoutEffect, useMemo, useRef, type KeyboardEvent } from "react";
 
 import { SELECTION_KEYS } from "./listbox.constants";
-import { getOptionId, scrollSelectedOptionIntoView } from "./listbox.utils";
+import { getOptionId, hasSelectedOption, scrollSelectedOptionIntoView } from "./listbox.utils";
 import type { ListboxBehaviorContextValue } from "./ListboxContext";
 
 import { useActiveDescendant } from "@/hooks/useActiveDescendant";
@@ -40,16 +40,18 @@ export const useListbox = ({
     scrollSelectedOptionIntoView(el);
   }, [listboxRef]);
 
+  // 선택 항목은 DOM 조회로 확인하므로 별도의 의존성으로 추적할 수 없다.
+  // 의존성 배열을 추가하면 항목이 늦게 렌더되는 시점과 동기화되지 않는다.
   useLayoutEffect(() => {
     if (!autoScrollToSelected || !shouldAutoScrollRef.current) return;
 
     const el = listboxRef.current;
-    if (el == null || el.childElementCount === 0) return;
+    if (el == null || !hasSelectedOption(el)) return;
 
     shouldAutoScrollRef.current = false;
 
     scrollToSelected();
-  }, [listboxRef, scrollToSelected, autoScrollToSelected]);
+  });
 
   const activeId = activeValue != null ? getOptionId(listboxId, activeValue) : undefined;
 
