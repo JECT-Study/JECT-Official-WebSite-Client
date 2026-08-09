@@ -1,7 +1,9 @@
 import { clsx } from "clsx";
+import { useControllableState } from "hooks";
 import { Popover } from "radix-ui";
 import {
   forwardRef,
+  useCallback,
   useLayoutEffect,
   useMemo,
   useRef,
@@ -57,28 +59,42 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
     const isDisabled = disabledFromProps ?? isDisabledFromCtx;
     const isInteractive = !isDisabled && !isReadOnly;
 
+    const handleChange = useCallback(
+      (next: string | null) => {
+        if (next != null) onChange?.(next);
+      },
+      [onChange],
+    );
+
+    const [selectedValue, setSelectedValue] = useControllableState<string | null>(
+      value,
+      defaultValue ?? null,
+      handleChange,
+    );
+
+    const selectedValues = useMemo(
+      () => (selectedValue == null ? [] : [selectedValue]),
+      [selectedValue],
+    );
+
     const {
       listboxRef,
       listboxId,
       contextValue,
-      selectedValues,
       activeId,
       activateSelected,
       scrollToSelected,
       onKeyDown: onListboxKeyDown,
       getListboxProps,
     } = useListbox({
-      mode: "single",
-      variant,
       options,
-      value,
-      defaultValue,
-      onChange: onChange as ((value: string | string[]) => void) | undefined,
+      selectedValues,
       disabled: isDisabled,
+      onSelect: setSelectedValue,
       autoScrollToSelected: false,
     });
 
-    const selectedLabel = options.find(option => option.value === selectedValues[0])?.label;
+    const selectedLabel = options.find(option => option.value === selectedValue)?.label;
 
     const activateSelectedRef = useRef(activateSelected);
     activateSelectedRef.current = activateSelected;
@@ -187,6 +203,8 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
               role='presentation'
               className={styles.popup}
               context={popupContextValue}
+              selectionMode='single'
+              variant={variant}
               listboxRef={listboxRef}
               listboxProps={{
                 ...getListboxProps(),

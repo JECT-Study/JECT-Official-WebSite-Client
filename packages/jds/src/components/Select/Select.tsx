@@ -1,4 +1,5 @@
-import { forwardRef } from "react";
+import { useControllableState } from "hooks";
+import { forwardRef, useCallback, useMemo } from "react";
 
 import type { SelectProps } from "./select.types";
 import { Listbox, useListbox } from "../Listbox";
@@ -20,20 +21,37 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(
     },
     ref,
   ) => {
-    const { listboxRef, contextValue, getFocusableListboxProps } = useListbox({
-      mode: "single",
-      variant,
-      options,
+    const handleChange = useCallback(
+      (next: string | null) => {
+        if (next != null) onChange?.(next);
+      },
+      [onChange],
+    );
+
+    const [selectedValue, setSelectedValue] = useControllableState<string | null>(
       value,
-      defaultValue,
-      onChange: onChange as ((value: string | string[]) => void) | undefined,
+      defaultValue ?? null,
+      handleChange,
+    );
+
+    const selectedValues = useMemo(
+      () => (selectedValue == null ? [] : [selectedValue]),
+      [selectedValue],
+    );
+
+    const { listboxRef, contextValue, getFocusableListboxProps } = useListbox({
+      options,
+      selectedValues,
       disabled,
+      onSelect: setSelectedValue,
     });
 
     return (
       <Listbox
         ref={ref}
         context={contextValue}
+        selectionMode='single'
+        variant={variant}
         label={label}
         width={width}
         height={height}

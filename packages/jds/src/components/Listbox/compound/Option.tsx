@@ -20,7 +20,7 @@ export const ListboxOption = ({
 }: ListboxOptionProps) => {
   const {
     listboxId,
-    mode,
+    selectionMode,
     variant,
     disabled: isGroupDisabled,
     isSelected,
@@ -55,7 +55,7 @@ export const ListboxOption = ({
     >
       {variant === "control" && (
         <span className={styles.optionControlSlot}>
-          {mode === "multiple" ? (
+          {selectionMode === "multiple" ? (
             <CheckboxPrimitive.Indicator size='md' state={isItemSelected} disabled={isDisabled} />
           ) : (
             <RadioPrimitive.Indicator size='md' checked={isItemSelected} disabled={isDisabled} />

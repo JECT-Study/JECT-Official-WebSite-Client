@@ -1,5 +1,5 @@
 import { clsx } from "clsx";
-import { type CSSProperties, forwardRef } from "react";
+import { type CSSProperties, forwardRef, useMemo } from "react";
 
 import { ListboxOption } from "./compound/Option";
 import * as styles from "./listbox.css";
@@ -14,6 +14,8 @@ const InternalListbox = forwardRef<HTMLDivElement, ListboxProps>(
   (
     {
       context,
+      selectionMode,
+      variant,
       children,
       listboxRef,
       listboxProps,
@@ -30,6 +32,11 @@ const InternalListbox = forwardRef<HTMLDivElement, ListboxProps>(
   ) => {
     const { className: listboxClassName, ...restListboxProps } = listboxProps;
 
+    const contextValue = useMemo(
+      () => ({ ...context, selectionMode, variant }),
+      [context, selectionMode, variant],
+    );
+
     const labelId = `${context.listboxId}-label`;
 
     const containerStyle: CSSProperties = { ...style };
@@ -41,7 +48,7 @@ const InternalListbox = forwardRef<HTMLDivElement, ListboxProps>(
     }
 
     return (
-      <ListboxProvider value={context}>
+      <ListboxProvider value={contextValue}>
         <div
           ref={ref}
           className={clsx(styles.selectContainer, className)}
@@ -61,6 +68,7 @@ const InternalListbox = forwardRef<HTMLDivElement, ListboxProps>(
             className={clsx(styles.listbox, listboxClassName)}
             aria-label={label != null ? undefined : ariaLabel}
             aria-labelledby={label != null ? labelId : ariaLabelledby}
+            aria-multiselectable={selectionMode === "multiple" || undefined}
             {...restListboxProps}
           >
             {children}

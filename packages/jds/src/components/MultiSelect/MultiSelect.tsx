@@ -1,4 +1,5 @@
-import { forwardRef } from "react";
+import { useControllableState } from "hooks";
+import { forwardRef, useCallback } from "react";
 
 import type { MultiSelectProps } from "./multiSelect.types";
 import { Listbox, useListbox } from "../Listbox";
@@ -20,20 +21,34 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
     },
     ref,
   ) => {
-    const { listboxRef, contextValue, getFocusableListboxProps } = useListbox({
-      mode: "multiple",
-      variant,
-      options,
+    const [selectedValues, setSelectedValues] = useControllableState<string[]>(
       value,
-      defaultValue,
-      onChange: onChange as ((value: string | string[]) => void) | undefined,
+      defaultValue ?? [],
+      onChange,
+    );
+
+    const toggle = useCallback(
+      (next: string) => {
+        setSelectedValues(prev =>
+          prev.includes(next) ? prev.filter(v => v !== next) : [...prev, next],
+        );
+      },
+      [setSelectedValues],
+    );
+
+    const { listboxRef, contextValue, getFocusableListboxProps } = useListbox({
+      options,
+      selectedValues,
       disabled,
+      onSelect: toggle,
     });
 
     return (
       <Listbox
         ref={ref}
         context={contextValue}
+        selectionMode='multiple'
+        variant={variant}
         label={label}
         width={width}
         height={height}
