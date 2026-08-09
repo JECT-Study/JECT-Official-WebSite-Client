@@ -36,7 +36,7 @@ export const overlayPressedOpacity = createVar();
  * `::after`에 hover/pressed 오버레이를 그린다.
  *
  * hover는 언제나 요소 자신의 `:hover`를 쓰고, press는 `interaction`으로 어느 요소에서 읽을지 정한다.
- * `self`는 자신의 `:active`를, `delegated`는 안쪽 `[data-interaction-target]`의 `:active`를 읽는다.
+ * `self`는 자신의 `:active`를, `delegated`는 직계 자식 `[data-interaction-target]`의 `:active`를 읽는다.
  * 요소의 `position: relative`와 `::after`의 inset, borderRadius는 호출부가 지정한다. disabled 상태는 `data-disabled`로 표시한다.
  *
  * @see ./PSEUDO_ELEMENT_POLICY.md
@@ -101,7 +101,7 @@ export const overlay = recipe({
       },
       delegated: {
         selectors: {
-          "&:not([data-disabled]):has([data-interaction-target]:active)::after": {
+          "&:not([data-disabled]):has(> [data-interaction-target]:active)::after": {
             opacity: fallbackVar(overlayPressedOpacity, overlayOpacityMap.bold.pressed),
             transition: "none",
           },
@@ -112,7 +112,7 @@ export const overlay = recipe({
               "&:hover:not(:disabled):not([data-disabled])::after": {
                 opacity: fallbackVar(overlayHoverOpacity, overlayOpacityMap.bold.hover),
               },
-              "&:not([data-disabled]):has([data-interaction-target]:active)::after": {
+              "&:not([data-disabled]):has(> [data-interaction-target]:active)::after": {
                 opacity: fallbackVar(overlayPressedOpacity, overlayOpacityMap.bold.pressed),
                 transition: "none",
               },
