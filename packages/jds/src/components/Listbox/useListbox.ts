@@ -132,7 +132,6 @@ export const useListbox = ({
     activateSelected,
     scrollToSelected,
     onKeyDown,
-    onActiveDescendantKeyDown,
     getListboxProps,
     getFocusableListboxProps,
   };
