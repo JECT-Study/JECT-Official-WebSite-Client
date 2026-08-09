@@ -108,9 +108,11 @@ function ApplyGuidePage() {
   const navigate = useNavigate();
   const { jobFamily } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
-  const { recruitId, isPending: isRecruitPending } = useRecruitId(
-    isValidJobFamily(jobFamily) ? jobFamily : undefined,
-  );
+  const {
+    recruitId,
+    isPending: isRecruitPending,
+    isError: isRecruitError,
+  } = useRecruitId(isValidJobFamily(jobFamily) ? jobFamily : undefined);
 
   const tabParam = searchParams.get("tab") as TabValue | null;
   const faqParam = searchParams.get("faq");
@@ -139,6 +141,12 @@ function ApplyGuidePage() {
       newParams.delete("faq");
     }
     setSearchParams(newParams, { replace: true });
+  };
+
+  const getDisabledActionLabel = () => {
+    if (isRecruitPending) return "모집 정보를 불러오는 중입니다";
+    if (isRecruitError) return "일시적인 오류가 발생했습니다";
+    return "현재 모집 기간이 아닙니다";
   };
 
   const handleApply = () => {
@@ -221,11 +229,10 @@ function ApplyGuidePage() {
               variant='solid'
               hierarchy='accent'
               size='lg'
-              suffixIcon={isRecruitPending ? "arrow-right-line" : undefined}
               className='flex-1'
               disabled
             >
-              {isRecruitPending ? "지원서 작성하기" : "현재 모집 기간이 아닙니다"}
+              {getDisabledActionLabel()}
             </BlockButton.Basic>
           )}
         </div>
@@ -367,8 +374,8 @@ function ApplyGuidePage() {
                   프로젝트 중도 이탈 관련 안내
                 </Title>
                 <p css={bodyTextStyle}>
-                  젝트의 팀 프로젝트는 3개월간 진행되는 활동으로, 생각보다 많은 시간과
-                  책임, 꾸준한 참여가 요구됩니다.
+                  젝트의 팀 프로젝트는 3개월간 진행되는 활동으로, 생각보다 많은 시간과 책임, 꾸준한
+                  참여가 요구됩니다.
                   <br />
                   따라서 활동 기간 중 취업, 인턴, 해외여행 등 기타 중요 개인 일정이 예정되어 있는
                   경우, 끝까지 참여가 가능한지에 대해 충분한 고민과 판단 후 지원해주시기 바랍니다.
