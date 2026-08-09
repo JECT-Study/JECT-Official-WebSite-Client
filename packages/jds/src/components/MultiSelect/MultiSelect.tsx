@@ -23,7 +23,6 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
     const { selectedValues, toggle } = useMultiSelectState(value, defaultValue, onChange);
 
     const { listboxRef, contextValue, getFocusableListboxProps } = useListbox({
-      options,
       selectedValues,
       disabled,
       onSelect: toggle,

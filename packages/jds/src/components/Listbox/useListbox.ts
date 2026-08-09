@@ -1,14 +1,12 @@
 import { useCallback, useId, useLayoutEffect, useMemo, useRef, type KeyboardEvent } from "react";
 
 import { SELECTION_KEYS } from "./listbox.constants";
-import type { SelectOption } from "./listbox.types";
 import { getOptionId, scrollSelectedOptionIntoView } from "./listbox.utils";
 import type { ListboxBehaviorContextValue } from "./ListboxContext";
 
 import { useActiveDescendant } from "@/hooks/useActiveDescendant";
 
 interface UseListboxParams {
-  options: SelectOption[];
   selectedValues: string[];
   disabled: boolean;
   onSelect: (value: string) => void;
@@ -16,7 +14,6 @@ interface UseListboxParams {
 }
 
 export const useListbox = ({
-  options,
   selectedValues,
   disabled,
   onSelect,
@@ -30,8 +27,9 @@ export const useListbox = ({
 
   const {
     containerRef: listboxRef,
-    activeValue: rawActiveValue,
+    activeValue,
     setActiveValue,
+    getEnabledValues,
     onKeyDown: onActiveDescendantKeyDown,
   } = useActiveDescendant<HTMLDivElement>({ disabled });
 
@@ -46,29 +44,21 @@ export const useListbox = ({
     if (!autoScrollToSelected || !shouldAutoScrollRef.current) return;
 
     const el = listboxRef.current;
-    if (el == null || options.length === 0) return;
+    if (el == null || el.childElementCount === 0) return;
 
     shouldAutoScrollRef.current = false;
 
     scrollToSelected();
-  }, [listboxRef, options.length, scrollToSelected, autoScrollToSelected]);
-
-  const activeValue = useMemo(() => {
-    if (rawActiveValue == null) return null;
-
-    const option = options.find(o => o.value === rawActiveValue);
-    return option != null && !option.disabled ? rawActiveValue : null;
-  }, [options, rawActiveValue]);
+  }, [listboxRef, scrollToSelected, autoScrollToSelected]);
 
   const activeId = activeValue != null ? getOptionId(listboxId, activeValue) : undefined;
 
   const activateSelected = useCallback(() => {
-    const enabledOptions = options.filter(option => !option.disabled);
-    if (enabledOptions.length === 0) return;
+    const values = getEnabledValues();
+    if (values.length === 0) return;
 
-    const selected = enabledOptions.find(option => selectedValues.includes(option.value));
-    setActiveValue(selected?.value ?? enabledOptions[0].value);
-  }, [options, selectedValues, setActiveValue]);
+    setActiveValue(values.find(value => selectedValues.includes(value)) ?? values[0]);
+  }, [getEnabledValues, selectedValues, setActiveValue]);
 
   const onKeyDown = useCallback(
     (e: KeyboardEvent) => {

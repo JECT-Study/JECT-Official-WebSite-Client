@@ -73,7 +73,6 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
       onKeyDown: onListboxKeyDown,
       getListboxProps,
     } = useListbox({
-      options,
       selectedValues,
       disabled: isDisabled,
       onSelect: select,
@@ -119,10 +118,11 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
     useLayoutEffect(() => {
       if (!isOpen) return;
 
-      activateSelectedRef.current();
-
-      // Radix가 available-height를 반영한 뒤에야 스크롤 영역이 생기므로 다음 프레임에서 실행
-      const frame = requestAnimationFrame(() => scrollToSelected());
+      // Radix가 다음 커밋에서 팝업을 DOM에 추가하므로, 목록이 렌더링된 뒤 활성 항목과 스크롤을 맞춘다
+      const frame = requestAnimationFrame(() => {
+        activateSelectedRef.current();
+        scrollToSelected();
+      });
       return () => cancelAnimationFrame(frame);
     }, [isOpen, scrollToSelected]);
 

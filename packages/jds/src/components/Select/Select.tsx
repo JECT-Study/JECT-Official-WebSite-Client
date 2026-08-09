@@ -23,7 +23,6 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(
     const { selectedValues, select } = useSingleSelectState(value, defaultValue, onChange);
 
     const { listboxRef, contextValue, getFocusableListboxProps } = useListbox({
-      options,
       selectedValues,
       disabled,
       onSelect: select,
