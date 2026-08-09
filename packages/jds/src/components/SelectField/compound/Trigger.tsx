@@ -1,9 +1,7 @@
 import { clsx } from "clsx";
-import { useControllableState } from "hooks";
 import { Popover } from "radix-ui";
 import {
   forwardRef,
-  useCallback,
   useLayoutEffect,
   useMemo,
   useRef,
@@ -13,7 +11,7 @@ import {
 
 import { useFieldContext } from "../../Field/Field.context";
 import { Icon } from "../../Icon";
-import { Listbox, useListbox } from "../../Listbox";
+import { Listbox, useListbox, useSingleSelectState } from "../../Listbox";
 import { SELECTION_KEYS } from "../../Listbox/listbox.constants";
 import { useSelectFieldContext } from "../SelectField.context";
 import * as styles from "../selectField.css";
@@ -59,22 +57,10 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
     const isDisabled = disabledFromProps ?? isDisabledFromCtx;
     const isInteractive = !isDisabled && !isReadOnly;
 
-    const handleChange = useCallback(
-      (next: string | null) => {
-        if (next != null) onChange?.(next);
-      },
-      [onChange],
-    );
-
-    const [selectedValue, setSelectedValue] = useControllableState<string | null>(
+    const { selectedValue, selectedValues, select } = useSingleSelectState(
       value,
-      defaultValue ?? null,
-      handleChange,
-    );
-
-    const selectedValues = useMemo(
-      () => (selectedValue == null ? [] : [selectedValue]),
-      [selectedValue],
+      defaultValue,
+      onChange,
     );
 
     const {
@@ -90,7 +76,7 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
       options,
       selectedValues,
       disabled: isDisabled,
-      onSelect: setSelectedValue,
+      onSelect: select,
       autoScrollToSelected: false,
     });
 

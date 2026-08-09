@@ -1,5 +1,7 @@
 export { Listbox } from "./Listbox";
 export { useListbox } from "./useListbox";
+export { useSingleSelectState } from "./useSingleSelectState";
+export { useMultiSelectState } from "./useMultiSelectState";
 
 export type {
   ListboxProps,
