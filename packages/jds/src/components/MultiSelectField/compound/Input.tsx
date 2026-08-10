@@ -113,6 +113,7 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       contextValue,
       activeId,
       activateSelected,
+      activateFirst,
       scrollToSelected,
       onKeyDown: onListboxKeyDown,
       getListboxProps,
@@ -141,15 +142,19 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       return () => onHasPopupContentChange(false);
     }, [hasPopupContent, onHasPopupContentChange]);
 
-    const activateSelectedRef = useRef(activateSelected);
-    activateSelectedRef.current = activateSelected;
+    const activateRef = useRef<() => void>(() => {});
+
+    activateRef.current = () => {
+      if (trimmedQuery === "") activateSelected();
+      else activateFirst();
+    };
 
     useLayoutEffect(() => {
       if (!isOpen) return;
 
       // Radix가 다음 커밋에서 팝업을 DOM에 추가하므로, 목록이 렌더링된 뒤 활성 항목과 스크롤을 맞춘다
       const frame = requestAnimationFrame(() => {
-        activateSelectedRef.current();
+        activateRef.current();
         scrollToSelected();
       });
       return () => cancelAnimationFrame(frame);
@@ -160,7 +165,7 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       if (previousQueryRef.current === query) return;
 
       previousQueryRef.current = query;
-      if (isOpen) activateSelectedRef.current();
+      if (isOpen) activateRef.current();
     }, [isOpen, query]);
 
     const openIfInteractive = () => {
