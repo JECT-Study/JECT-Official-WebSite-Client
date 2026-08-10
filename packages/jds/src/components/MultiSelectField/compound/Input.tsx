@@ -130,10 +130,12 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
 
     const activateRef = useRef<() => void>(() => {});
 
-    activateRef.current = () => {
-      if (trimmedQuery === "") activateSelected();
-      else activateFirst();
-    };
+    useLayoutEffect(() => {
+      activateRef.current = () => {
+        if (trimmedQuery === "") activateSelected();
+        else activateFirst();
+      };
+    }, [trimmedQuery, activateSelected, activateFirst]);
 
     useLayoutEffect(() => {
       if (!isOpen) return;
