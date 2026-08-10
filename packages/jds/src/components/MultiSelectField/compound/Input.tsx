@@ -87,16 +87,14 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
     const visibleOptions = useMemo(() => {
       if (trimmedQuery === "") return options;
 
-      return options.filter(option =>
-        option.label.toLowerCase().includes(trimmedQuery.toLowerCase()),
-      );
+      return options.filter(option => option.toLowerCase().includes(trimmedQuery.toLowerCase()));
     }, [options, trimmedQuery]);
 
     const isCreatable =
       allowCustomValue &&
       !isAtMax &&
       trimmedQuery !== "" &&
-      !options.some(option => isSameText(option.label, trimmedQuery)) &&
+      !options.some(option => isSameText(option, trimmedQuery)) &&
       !selectedValues.some(selected => isSameText(selected, trimmedQuery));
 
     const handleSelect = useCallback(
@@ -125,11 +123,6 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
     });
 
     const { activeValue } = contextValue;
-
-    const getLabelOf = useCallback(
-      (target: string) => options.find(option => option.value === target)?.label ?? target,
-      [options],
-    );
 
     useEffect(() => {
       onValueStateChange({ valueCount: selectedValues.length, maxValues });
@@ -161,6 +154,7 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
     }, [isOpen, scrollToSelected]);
 
     const previousQueryRef = useRef(query);
+
     useEffect(() => {
       if (previousQueryRef.current === query) return;
 
@@ -249,7 +243,7 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
                 }
               : { withIconButton: false })}
           >
-            {getLabelOf(selected)}
+            {selected}
           </ContentBadge>
         ))}
         <input
@@ -310,13 +304,11 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
               )}
               {visibleOptions.map(option => (
                 <Listbox.Option
-                  key={option.value}
-                  value={option.value}
-                  caption={option.caption}
-                  suffix={option.suffix}
-                  disabled={option.disabled || (isAtMax && !selectedValues.includes(option.value))}
+                  key={option}
+                  value={option}
+                  disabled={isAtMax && !selectedValues.includes(option)}
                 >
-                  {option.label}
+                  {option}
                 </Listbox.Option>
               ))}
             </Listbox>
