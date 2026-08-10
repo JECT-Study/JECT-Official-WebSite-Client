@@ -13,7 +13,8 @@ import type { MultiSelectFieldProps } from "./multiSelectField.types";
 import { Field } from "../Field";
 
 const MultiSelectFieldRoot = forwardRef<HTMLDivElement, MultiSelectFieldProps>((props, ref) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpenRequested, setIsOpenRequested] = useState(false);
+  const [hasPopupContent, setHasPopupContent] = useState(false);
   const [hasCounter, setHasCounter] = useState(false);
   const [{ valueCount, maxValues }, setValueState] = useState<MultiSelectFieldValueState>({
     valueCount: 0,
@@ -21,10 +22,13 @@ const MultiSelectFieldRoot = forwardRef<HTMLDivElement, MultiSelectFieldProps>((
   const counterId = useId();
   const contentRef = useRef<HTMLDivElement>(null);
 
+  const isOpen = isOpenRequested && hasPopupContent;
+
   return (
     <MultiSelectFieldProvider
       isOpen={isOpen}
-      onOpenChange={setIsOpen}
+      onOpenChange={setIsOpenRequested}
+      onHasPopupContentChange={setHasPopupContent}
       contentRef={contentRef}
       valueCount={valueCount}
       maxValues={maxValues}
@@ -33,7 +37,7 @@ const MultiSelectFieldRoot = forwardRef<HTMLDivElement, MultiSelectFieldProps>((
       onCounterMountChange={setHasCounter}
       onValueStateChange={setValueState}
     >
-      <Popover.Root open={isOpen} onOpenChange={setIsOpen} modal={false}>
+      <Popover.Root open={isOpen} onOpenChange={setIsOpenRequested} modal={false}>
         <Field ref={ref} {...props} />
       </Popover.Root>
     </MultiSelectFieldProvider>

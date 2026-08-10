@@ -61,8 +61,15 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       required: isRequiredFromCtx,
     } = useFieldContext("MultiSelectField.Input");
 
-    const { isOpen, onOpenChange, contentRef, counterId, hasCounter, onValueStateChange } =
-      useMultiSelectFieldContext("MultiSelectField.Input");
+    const {
+      isOpen,
+      onOpenChange,
+      onHasPopupContentChange,
+      contentRef,
+      counterId,
+      hasCounter,
+      onValueStateChange,
+    } = useMultiSelectFieldContext("MultiSelectField.Input");
 
     const isDisabled = disabledFromProps ?? isDisabledFromCtx;
     const isReadOnly = readOnlyFromProps ?? isReadOnlyFromCtx;
@@ -126,6 +133,13 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
     useEffect(() => {
       onValueStateChange({ valueCount: selectedValues.length, maxValues });
     }, [maxValues, onValueStateChange, selectedValues.length]);
+
+    const hasPopupContent = visibleOptions.length > 0 || isCreatable;
+
+    useEffect(() => {
+      onHasPopupContentChange(hasPopupContent);
+      return () => onHasPopupContentChange(false);
+    }, [hasPopupContent, onHasPopupContentChange]);
 
     const activateSelectedRef = useRef(activateSelected);
     activateSelectedRef.current = activateSelected;
@@ -209,8 +223,6 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       describedByFromProps,
     ].filter(Boolean);
     const ariaInvalid = status === "error" ? true : (invalidFromProps ?? false);
-    const hasNoResults = visibleOptions.length === 0 && !isCreatable;
-    const isPopupVisible = isOpen && !hasNoResults;
 
     return (
       <>
@@ -242,9 +254,9 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
           type='text'
           role='combobox'
           aria-haspopup='listbox'
-          aria-expanded={isPopupVisible}
-          aria-controls={isPopupVisible ? listboxId : undefined}
-          aria-activedescendant={isPopupVisible ? activeId : undefined}
+          aria-expanded={isOpen}
+          aria-controls={isOpen ? listboxId : undefined}
+          aria-activedescendant={isOpen ? activeId : undefined}
           aria-autocomplete='list'
           aria-describedby={describedByIds.length > 0 ? describedByIds.join(" ") : undefined}
           aria-invalid={ariaInvalid}
@@ -262,53 +274,49 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
           onMouseDown={openIfInteractive}
         />
         {suffix != null && <span className={styles.suffix}>{suffix}</span>}
-        {isPopupVisible && (
-          <Popover.Portal>
-            <Popover.Content
-              asChild
-              align='start'
-              sideOffset={4}
-              collisionPadding={8}
-              onOpenAutoFocus={e => e.preventDefault()}
-              onCloseAutoFocus={e => e.preventDefault()}
-              onInteractOutside={e => {
-                if (contentRef.current?.contains(e.target as Node)) e.preventDefault();
+        <Popover.Portal>
+          <Popover.Content
+            asChild
+            align='start'
+            sideOffset={4}
+            collisionPadding={8}
+            onOpenAutoFocus={e => e.preventDefault()}
+            onCloseAutoFocus={e => e.preventDefault()}
+            onInteractOutside={e => {
+              if (contentRef.current?.contains(e.target as Node)) e.preventDefault();
+            }}
+          >
+            <Listbox
+              role='presentation'
+              className={styles.popup}
+              context={contextValue}
+              selectionMode='multiple'
+              variant={variant}
+              listboxRef={listboxRef}
+              listboxProps={{
+                ...getListboxProps(),
+                ...getActiveDescendantContainerProps(),
+                "aria-labelledby": labelId,
               }}
+              onMouseDown={e => e.preventDefault()}
             >
-              <Listbox
-                role='presentation'
-                className={styles.popup}
-                context={contextValue}
-                selectionMode='multiple'
-                variant={variant}
-                listboxRef={listboxRef}
-                listboxProps={{
-                  ...getListboxProps(),
-                  ...getActiveDescendantContainerProps(),
-                  "aria-labelledby": labelId,
-                }}
-                onMouseDown={e => e.preventDefault()}
-              >
-                {isCreatable && (
-                  <Listbox.CustomValue value={trimmedQuery} caption='입력한 값 새로 추가' />
-                )}
-                {visibleOptions.map(option => (
-                  <Listbox.Option
-                    key={option.value}
-                    value={option.value}
-                    caption={option.caption}
-                    suffix={option.suffix}
-                    disabled={
-                      option.disabled ?? (isAtMax && !selectedValues.includes(option.value))
-                    }
-                  >
-                    {option.label}
-                  </Listbox.Option>
-                ))}
-              </Listbox>
-            </Popover.Content>
-          </Popover.Portal>
-        )}
+              {isCreatable && (
+                <Listbox.CustomValue value={trimmedQuery} caption='입력한 값 새로 추가' />
+              )}
+              {visibleOptions.map(option => (
+                <Listbox.Option
+                  key={option.value}
+                  value={option.value}
+                  caption={option.caption}
+                  suffix={option.suffix}
+                  disabled={option.disabled ?? (isAtMax && !selectedValues.includes(option.value))}
+                >
+                  {option.label}
+                </Listbox.Option>
+              ))}
+            </Listbox>
+          </Popover.Content>
+        </Popover.Portal>
       </>
     );
   },

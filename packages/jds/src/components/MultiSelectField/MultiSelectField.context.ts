@@ -10,6 +10,7 @@ export interface MultiSelectFieldValueState {
 export interface MultiSelectFieldContextValue extends MultiSelectFieldValueState {
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
+  onHasPopupContentChange: (hasContent: boolean) => void;
   contentRef: RefObject<HTMLDivElement | null>;
   counterId: string;
   hasCounter: boolean;
