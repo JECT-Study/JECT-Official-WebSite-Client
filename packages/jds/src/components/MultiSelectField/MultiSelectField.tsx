@@ -5,44 +5,70 @@ import { MultiSelectFieldContent } from "./compound/Content";
 import { MultiSelectFieldCounter } from "./compound/Counter";
 import { MultiSelectFieldFooter } from "./compound/Footer";
 import { MultiSelectFieldInput } from "./compound/Input";
-import {
-  MultiSelectFieldProvider,
-  type MultiSelectFieldValueState,
-} from "./MultiSelectField.context";
+import { MultiSelectFieldProvider } from "./MultiSelectField.context";
 import type { MultiSelectFieldProps } from "./multiSelectField.types";
 import { Field } from "../Field";
+import { useMultiSelectState } from "../Listbox";
 
-const MultiSelectFieldRoot = forwardRef<HTMLDivElement, MultiSelectFieldProps>((props, ref) => {
-  const [isOpenRequested, setIsOpenRequested] = useState(false);
-  const [hasPopupContent, setHasPopupContent] = useState(false);
-  const [hasCounter, setHasCounter] = useState(false);
-  const [{ valueCount, maxValues }, setValueState] = useState<MultiSelectFieldValueState>({
-    valueCount: 0,
-  });
-  const counterId = useId();
-  const contentRef = useRef<HTMLDivElement>(null);
+const MultiSelectFieldRoot = forwardRef<HTMLDivElement, MultiSelectFieldProps>(
+  (
+    {
+      value,
+      defaultValue,
+      onChange,
+      maxValues,
+      name,
+      form,
+      disabled = false,
+      children,
+      ...restProps
+    },
+    ref,
+  ) => {
+    const [isOpenRequested, setIsOpenRequested] = useState(false);
+    const [hasPopupContent, setHasPopupContent] = useState(false);
+    const [hasCounter, setHasCounter] = useState(false);
+    const counterId = useId();
+    const contentRef = useRef<HTMLDivElement>(null);
 
-  const isOpen = isOpenRequested && hasPopupContent;
+    const { selectedValues, toggle, remove } = useMultiSelectState(value, defaultValue, onChange);
 
-  return (
-    <MultiSelectFieldProvider
-      isOpen={isOpen}
-      onOpenChange={setIsOpenRequested}
-      onHasPopupContentChange={setHasPopupContent}
-      contentRef={contentRef}
-      valueCount={valueCount}
-      maxValues={maxValues}
-      counterId={counterId}
-      hasCounter={hasCounter}
-      onCounterMountChange={setHasCounter}
-      onValueStateChange={setValueState}
-    >
-      <Popover.Root open={isOpen} onOpenChange={setIsOpenRequested} modal={false}>
-        <Field ref={ref} {...props} />
-      </Popover.Root>
-    </MultiSelectFieldProvider>
-  );
-});
+    const isOpen = isOpenRequested && hasPopupContent;
+
+    return (
+      <MultiSelectFieldProvider
+        isOpen={isOpen}
+        onOpenChange={setIsOpenRequested}
+        onHasPopupContentChange={setHasPopupContent}
+        contentRef={contentRef}
+        selectedValues={selectedValues}
+        toggle={toggle}
+        remove={remove}
+        maxValues={maxValues}
+        counterId={counterId}
+        hasCounter={hasCounter}
+        onCounterMountChange={setHasCounter}
+      >
+        <Popover.Root open={isOpen} onOpenChange={setIsOpenRequested} modal={false}>
+          <Field ref={ref} disabled={disabled} {...restProps}>
+            {children}
+            {name != null &&
+              selectedValues.map(selected => (
+                <input
+                  key={selected}
+                  type='hidden'
+                  name={name}
+                  value={selected}
+                  form={form}
+                  disabled={disabled}
+                />
+              ))}
+          </Field>
+        </Popover.Root>
+      </MultiSelectFieldProvider>
+    );
+  },
+);
 
 MultiSelectFieldRoot.displayName = "MultiSelectField";
 

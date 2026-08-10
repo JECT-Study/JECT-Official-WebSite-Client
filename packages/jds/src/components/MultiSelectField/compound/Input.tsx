@@ -14,7 +14,7 @@ import {
 
 import { ContentBadge } from "../../Badge";
 import { useFieldContext } from "../../Field/Field.context";
-import { Listbox, useListbox, useMultiSelectState } from "../../Listbox";
+import { Listbox, useListbox } from "../../Listbox";
 import { useMultiSelectFieldContext } from "../MultiSelectField.context";
 import * as styles from "../multiSelectField.css";
 import type { MultiSelectFieldInputProps } from "../multiSelectField.types";
@@ -31,16 +31,10 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
   (
     {
       options,
-      value,
-      defaultValue,
-      onChange,
       variant = "control",
-      maxValues,
       allowCustomValue = false,
       placeholder,
       suffix,
-      name,
-      form,
       disabled: disabledFromProps,
       readOnly: readOnlyFromProps,
       required: requiredFromProps,
@@ -68,9 +62,12 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       onOpenChange,
       onHasPopupContentChange,
       contentRef,
+      selectedValues,
+      toggle,
+      remove,
+      maxValues,
       counterId,
       hasCounter,
-      onValueStateChange,
     } = useMultiSelectFieldContext("MultiSelectField.Input");
 
     const isDisabled = disabledFromProps ?? isDisabledFromCtx;
@@ -80,8 +77,6 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
 
     const inputRef = useRef<HTMLInputElement>(null);
     const [query, setQuery] = useState("");
-
-    const { selectedValues, toggle, remove } = useMultiSelectState(value, defaultValue, onChange);
 
     const trimmedQuery = query.trim();
     const isAtMax = maxValues != null && selectedValues.length >= maxValues;
@@ -125,10 +120,6 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
     });
 
     const { activeValue } = contextValue;
-
-    useEffect(() => {
-      onValueStateChange({ valueCount: selectedValues.length, maxValues });
-    }, [maxValues, onValueStateChange, selectedValues.length]);
 
     const hasPopupContent = visibleOptions.length > 0 || isCreatable;
 
@@ -275,17 +266,6 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
           onMouseDown={openIfInteractive}
         />
         {suffix != null && <span className={styles.suffix}>{suffix}</span>}
-        {name != null &&
-          selectedValues.map(selected => (
-            <input
-              key={selected}
-              type='hidden'
-              name={name}
-              value={selected}
-              form={form}
-              disabled={isDisabled}
-            />
-          ))}
         <Popover.Portal>
           <Popover.Content
             asChild

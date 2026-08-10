@@ -9,13 +9,10 @@ import * as styles from "../multiSelectField.css";
 import { getLabelClassName } from "@/utils/typography";
 
 export const MultiSelectFieldCounter = () => {
-  const { valueCount, maxValues, counterId, onCounterMountChange } =
-    useMultiSelectFieldContext("MultiSelectField.Counter");
-  const {
-    fieldStyle,
-    status,
-    disabled: isDisabled,
-  } = useFieldContext("MultiSelectField.Counter");
+  const { selectedValues, maxValues, counterId, onCounterMountChange } = useMultiSelectFieldContext(
+    "MultiSelectField.Counter",
+  );
+  const { fieldStyle, status, disabled: isDisabled } = useFieldContext("MultiSelectField.Counter");
 
   const isVisible = maxValues != null;
 
@@ -37,7 +34,7 @@ export const MultiSelectFieldCounter = () => {
         styles.counter,
       )}
     >
-      {`${valueCount}/${maxValues}`}
+      {`${selectedValues.length}/${maxValues}`}
     </span>
   );
 };
