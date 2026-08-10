@@ -309,7 +309,7 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
                   value={option.value}
                   caption={option.caption}
                   suffix={option.suffix}
-                  disabled={option.disabled ?? (isAtMax && !selectedValues.includes(option.value))}
+                  disabled={option.disabled || (isAtMax && !selectedValues.includes(option.value))}
                 >
                   {option.label}
                 </Listbox.Option>
