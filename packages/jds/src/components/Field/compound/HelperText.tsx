@@ -1,10 +1,5 @@
 import { clsx } from "clsx";
-import {
-  forwardRef,
-  useLayoutEffect,
-  type ComponentPropsWithoutRef,
-  type ReactNode,
-} from "react";
+import { forwardRef, useLayoutEffect, type ComponentPropsWithoutRef, type ReactNode } from "react";
 
 import { useFieldContext } from "../Field.context";
 import * as styles from "../field.css";

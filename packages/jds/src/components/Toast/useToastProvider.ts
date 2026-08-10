@@ -1,12 +1,12 @@
-import { TOAST_TIMER } from "./Toast";
-import type { ToastItem, ToastOptions, UseToastProviderProps } from "./toast.types";
+import { TOAST_QUEUE_FALLBACK_TIMEOUT, TOAST_QUEUE_LIMIT } from "./toast.constants";
+import type { ToastItem, ToastOptions } from "./toast.types";
 
 import { useLimitedQueueProvider } from "@/hooks/useLimitedQueueProvider";
 
-export const useToastProvider = ({ toastLimit = 3 }: UseToastProviderProps) => {
+export const useToastProvider = () => {
   const { items, addItem, removeItem } = useLimitedQueueProvider<ToastItem>({
-    limit: toastLimit,
-    fallbackTimeout: TOAST_TIMER.QUEUE_FALLBACK,
+    limit: TOAST_QUEUE_LIMIT,
+    fallbackTimeout: TOAST_QUEUE_FALLBACK_TIMEOUT,
   });
 
   const handler = {

@@ -12,6 +12,8 @@ export const container = recipe({
   },
 });
 
+const controlDisabledSelector = `${container.classNames.base}:has(:is(input, [data-interaction-target]):disabled) &`;
+
 export const labelContainer = recipe({
   base: {
     display: "flex",
@@ -39,7 +41,13 @@ export const labelMain = style({
 });
 
 export const label = recipe({
-  base: {},
+  base: {
+    selectors: {
+      [controlDisabledSelector]: {
+        vars: { [labelColorVar]: vars.color.semantic.object.subtle },
+      },
+    },
+  },
   variants: {
     disabled: {
       true: {
@@ -55,6 +63,11 @@ export const label = recipe({
 export const asterisk = recipe({
   base: {
     marginTop: -2,
+    selectors: {
+      [controlDisabledSelector]: {
+        vars: { [labelColorVar]: vars.color.semantic.feedback.notifying.alpha.inverse.assistive },
+      },
+    },
   },
   variants: {
     disabled: {
@@ -85,6 +98,12 @@ export const content = recipe({
     gap: vars.scheme.semantic.spacing["8"],
     borderRadius: vars.scheme.semantic.radius["8"],
     transition: `border-color ${vars.environment.semantic.duration["100"]} ${vars.environment.semantic.motion.fluent}`,
+    selectors: {
+      // NOTES: 상태는 루트(컨텍스트)뿐 아니라 안쪽 input 에서도 덮어쓸 수 있으므로, 컨테이너가 실제 컨트롤 상태를 함께 반영하도록 native 상태를 읽는다.
+      "&:has(:is(input, [data-interaction-target]):disabled)": {
+        pointerEvents: "none",
+      },
+    },
   },
   variants: {
     fieldStyle: {
@@ -112,6 +131,10 @@ export const content = recipe({
           },
           "&:focus-within": {
             borderColor: contentVars.borderFocusColor,
+          },
+          // NOTES: readonly 는 native `:read-only` 가 type 에 따라 오탐하므로 TextField.Input 이 해석해 내려주는 data 속성을 읽는다.
+          "&:has(:is(input, [data-interaction-target])[data-readonly])": {
+            vars: { [contentVars.backgroundColor]: vars.color.semantic.fill.subtlest },
           },
         },
       },
@@ -144,6 +167,11 @@ export const content = recipe({
           [contentVars.borderHoverColor]: vars.color.semantic.accent.normal,
           [contentVars.borderFocusColor]: vars.color.semantic.accent.normal,
         },
+        selectors: {
+          "&:has(:is(input, [data-interaction-target]):disabled)": {
+            vars: { [contentVars.borderColor]: vars.color.semantic.stroke.alpha.subtle },
+          },
+        },
       },
     },
     {
@@ -154,6 +182,13 @@ export const content = recipe({
           [contentVars.borderHoverColor]: vars.color.semantic.feedback.positive.normal,
           [contentVars.borderFocusColor]: vars.color.semantic.feedback.positive.normal,
         },
+        selectors: {
+          "&:has(:is(input, [data-interaction-target]):disabled)": {
+            vars: {
+              [contentVars.borderColor]: vars.color.semantic.feedback.positive.alpha.subtle,
+            },
+          },
+        },
       },
     },
     {
@@ -163,6 +198,13 @@ export const content = recipe({
           [contentVars.borderColor]: vars.color.semantic.feedback.destructive.alpha.alternative,
           [contentVars.borderHoverColor]: vars.color.semantic.feedback.destructive.normal,
           [contentVars.borderFocusColor]: vars.color.semantic.feedback.destructive.normal,
+        },
+        selectors: {
+          "&:has(:is(input, [data-interaction-target]):disabled)": {
+            vars: {
+              [contentVars.borderColor]: vars.color.semantic.feedback.destructive.alpha.subtle,
+            },
+          },
         },
       },
     },
@@ -185,6 +227,18 @@ export const content = recipe({
   ],
 });
 
+const disabledHelperTextColor = {
+  default: vars.color.semantic.object.subtle,
+  success: vars.color.semantic.feedback.positive.alpha.assistive,
+  error: vars.color.semantic.feedback.destructive.alpha.assistive,
+} satisfies Record<FieldStatus, string>;
+
+const disabledHelperTextSelector = (status: FieldStatus) => ({
+  [controlDisabledSelector]: {
+    vars: { [labelColorVar]: disabledHelperTextColor[status] },
+  },
+});
+
 export const helperText = recipe({
   base: {},
   variants: {
@@ -195,12 +249,15 @@ export const helperText = recipe({
     status: {
       default: {
         vars: { [labelColorVar]: vars.color.semantic.object.alternative },
+        selectors: disabledHelperTextSelector("default"),
       },
       success: {
         vars: { [labelColorVar]: vars.color.semantic.feedback.positive.normal },
+        selectors: disabledHelperTextSelector("success"),
       },
       error: {
         vars: { [labelColorVar]: vars.color.semantic.feedback.destructive.normal },
+        selectors: disabledHelperTextSelector("error"),
       },
     } satisfies Record<FieldStatus, StyleRule>,
     disabled: {

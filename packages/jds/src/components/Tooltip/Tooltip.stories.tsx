@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexColumn, FlexRow, Label } from "@storybook-utils/layout";
-import { Icon, IconButton, Input, Tooltip, BlockButton } from "components";
+import { Icon, IconButton, TextField, Tooltip, BlockButton } from "components";
 
 const meta = {
   title: "Components/Tooltip",
@@ -122,7 +122,7 @@ export const LongContent: Story = {
   render: () => (
     <Tooltip.Root>
       <Tooltip.Trigger asChild>
-        <BlockButton.Basic hierarchy='accent'>표시되는 요소가 길 경우</BlockButton.Basic>
+        <BlockButton hierarchy='accent'>표시되는 요소가 길 경우</BlockButton>
       </Tooltip.Trigger>
       <Tooltip.Content>
         내부 텍스트가 아주 길 경우 컴포넌트의 최대 길이 280px 기준으로 줄바꿈되며 텍스트가 중앙
@@ -147,7 +147,7 @@ export const WithCustomOffset: Story = {
         <Label>오프셋 기본값(8px)</Label>
         <Tooltip.Root>
           <Tooltip.Trigger asChild>
-            <BlockButton.Basic hierarchy='accent'>기본 오프셋</BlockButton.Basic>
+            <BlockButton hierarchy='accent'>기본 오프셋</BlockButton>
           </Tooltip.Trigger>
           <Tooltip.Content sideOffset={8}>트리거 요소로 부터 8px</Tooltip.Content>
         </Tooltip.Root>
@@ -157,7 +157,7 @@ export const WithCustomOffset: Story = {
         <Label>오프셋 커스텀(24px)</Label>
         <Tooltip.Root>
           <Tooltip.Trigger asChild>
-            <BlockButton.Basic hierarchy='accent'>커스텀(확장) 오프셋</BlockButton.Basic>
+            <BlockButton hierarchy='accent'>커스텀(확장) 오프셋</BlockButton>
           </Tooltip.Trigger>
           <Tooltip.Content sideOffset={24}>트리거 요소로 부터 24px</Tooltip.Content>
         </Tooltip.Root>
@@ -208,14 +208,18 @@ export const CustomTrigger: Story = {
 
       <FlexColumn gap='12px'>
         <Label>Input 예시</Label>
-        <Tooltip.Root>
-          <Tooltip.Trigger asChild>
-            <Input.TextField value='레이블 명' onChange={e => e.preventDefault()} />
-          </Tooltip.Trigger>
-          <Tooltip.Content side='top' sideOffset={12}>
-            안녕하세요? 툴팁입니다.
-          </Tooltip.Content>
-        </Tooltip.Root>
+        <TextField>
+          <TextField.Content>
+            <Tooltip.Root>
+              <Tooltip.Trigger asChild>
+                <TextField.Input value='레이블 명' onChange={e => e.preventDefault()} />
+              </Tooltip.Trigger>
+              <Tooltip.Content side='top' sideOffset={12}>
+                안녕하세요? 툴팁입니다.
+              </Tooltip.Content>
+            </Tooltip.Root>
+          </TextField.Content>
+        </TextField>
       </FlexColumn>
     </FlexColumn>
   ),

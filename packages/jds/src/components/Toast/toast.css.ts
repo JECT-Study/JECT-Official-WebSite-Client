@@ -3,6 +3,7 @@ import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
 import { pxToRem } from "utils";
 
+import { TOAST_ANIMATION_DURATION_TOKEN } from "./toast.constants";
 import type { ToastFeedback } from "./toast.types";
 
 import { breakpoints } from "@/tokens/breakpoints";
@@ -22,17 +23,21 @@ export const stackContainer = style({
   position: "fixed",
   right: 0,
   bottom: 0,
-  zIndex: vars.environment.semantic.zIndex.overlay,
+  zIndex: vars.environment.semantic.zIndex.floated,
   display: "flex",
   flexDirection: "column-reverse",
   gap: vars.scheme.semantic.spacing["16"],
+  boxSizing: "border-box",
+  width: "100%",
+  maxWidth: `calc(${pxToRem(400)} + ${vars.scheme.semantic.spacing["40"]} + ${vars.scheme.semantic.spacing["40"]})`,
   padding: vars.scheme.semantic.spacing["40"],
   overflow: "hidden",
+  pointerEvents: "none",
   "@media": {
     [`screen and (max-width: ${breakpoints.mobile.max}px)`]: {
       left: 0,
+      maxWidth: "none",
       padding: vars.scheme.semantic.spacing["24"],
-      boxSizing: "border-box",
       alignItems: "center",
     },
   },
@@ -44,12 +49,14 @@ export const root = recipe({
     flexDirection: "row",
     alignItems: "flex-start",
     boxSizing: "border-box",
-    width: pxToRem(280),
-    maxWidth: "100%",
+    width: "100%",
+    minWidth: pxToRem(240),
+    maxWidth: pxToRem(400),
     padding: `${vars.scheme.semantic.spacing["12"]} ${vars.scheme.semantic.spacing["16"]}`,
     borderRadius: vars.scheme.semantic.radius["10"],
     backgroundColor: vars.color.semantic.surface.shallow,
     boxShadow: `inset 0 0 0 ${vars.scheme.semantic.strokeWeight["1"]} ${vars.color.semantic.stroke.subtle}, ${vars.environment.semantic.shadow.overlay}`,
+    pointerEvents: "auto",
   },
   variants: {
     feedback: {
@@ -108,9 +115,9 @@ export const icon = recipe({
 });
 
 export const enter = style({
-  animation: `${slideIn} ${vars.environment.semantic.duration["250"]} ${vars.environment.semantic.motion.bouncy} forwards`,
+  animation: `${slideIn} ${vars.environment.semantic.duration[TOAST_ANIMATION_DURATION_TOKEN.ENTER]} ${vars.environment.semantic.motion.bouncy} forwards`,
 });
 
 export const exit = style({
-  animation: `${slideOut} ${vars.environment.semantic.duration["200"]} ${vars.environment.semantic.motion.leave} forwards`,
+  animation: `${slideOut} ${vars.environment.semantic.duration[TOAST_ANIMATION_DURATION_TOKEN.EXIT]} ${vars.environment.semantic.motion.leave} forwards`,
 });

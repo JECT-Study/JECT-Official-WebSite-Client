@@ -27,9 +27,9 @@ import { getLabelClassName } from "@/utils/typography";
 const BadgeContent = ({ children }: Pick<TableRowItemBaseProps, "children">) => (
   <div className={badgeWrapper}>
     {Children.map(children, child => (
-      <ContentBadge.Basic size='sm' hierarchy='primary' badgeStyle='alpha'>
+      <ContentBadge size='sm' hierarchy='primary' badgeStyle='alpha'>
         {child}
-      </ContentBadge.Basic>
+      </ContentBadge>
     ))}
   </div>
 );
