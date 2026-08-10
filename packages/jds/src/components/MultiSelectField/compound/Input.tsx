@@ -1,4 +1,5 @@
 import { clsx } from "clsx";
+import { disassemble } from "es-hangul";
 import { Popover } from "radix-ui";
 import {
   forwardRef,
@@ -26,6 +27,8 @@ import { getBodyClassName } from "@/utils/typography";
 const MOVE_KEYS = ["ArrowDown", "ArrowUp"];
 
 const isSameText = (a: string, b: string) => a.toLowerCase() === b.toLowerCase();
+
+const toSearchKey = (text: string) => disassemble(text.toLowerCase());
 
 export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFieldInputProps>(
   (
@@ -84,7 +87,8 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
     const visibleOptions = useMemo(() => {
       if (trimmedQuery === "") return options;
 
-      return options.filter(option => option.toLowerCase().includes(trimmedQuery.toLowerCase()));
+      const queryKey = toSearchKey(trimmedQuery);
+      return options.filter(option => toSearchKey(option).includes(queryKey));
     }, [options, trimmedQuery]);
 
     const isCreatable =
