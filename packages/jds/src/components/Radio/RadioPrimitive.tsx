@@ -55,9 +55,7 @@ const RadioRoot = ({
         className={styles.radioGroupWrapper({ layout })}
         style={
           layout === "grid"
-            ? assignInlineVars({
-                [styles.radioGroupColumnsVar]: String(Math.max(1, Math.floor(Number(columns)))),
-              })
+            ? assignInlineVars({ [styles.radioGroupColumnsVar]: String(columns) })
             : undefined
         }
         value={value}
