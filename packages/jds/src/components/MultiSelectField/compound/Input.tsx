@@ -39,6 +39,8 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       allowCustomValue = false,
       placeholder,
       suffix,
+      name,
+      form,
       disabled: disabledFromProps,
       readOnly: readOnlyFromProps,
       required: requiredFromProps,
@@ -273,6 +275,17 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
           onMouseDown={openIfInteractive}
         />
         {suffix != null && <span className={styles.suffix}>{suffix}</span>}
+        {name != null &&
+          selectedValues.map(selected => (
+            <input
+              key={selected}
+              type='hidden'
+              name={name}
+              value={selected}
+              form={form}
+              disabled={isDisabled}
+            />
+          ))}
         <Popover.Portal>
           <Popover.Content
             asChild
