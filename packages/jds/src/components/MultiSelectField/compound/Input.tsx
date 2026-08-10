@@ -102,9 +102,9 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
     const handleSelect = useCallback(
       (next: string) => {
         toggle(next);
-        if (next === trimmedQuery) setQuery("");
+        setQuery("");
       },
-      [toggle, trimmedQuery],
+      [toggle],
     );
 
     const {
