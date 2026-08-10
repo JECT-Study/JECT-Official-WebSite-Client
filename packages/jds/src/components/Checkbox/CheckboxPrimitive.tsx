@@ -1,3 +1,4 @@
+import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { clsx } from "clsx";
 import { useControllableState } from "hooks";
 import { Checkbox as RadixCheckbox } from "radix-ui";
@@ -7,18 +8,7 @@ import type { LabelSize } from "utils";
 
 import type { IconSize } from "../Icon";
 import { Icon } from "../Icon";
-import {
-  checkboxControl,
-  checkboxControlSlot,
-  checkboxGroupWrapper,
-  checkboxHelper,
-  checkboxHelperSlot,
-  checkboxIconWrapper,
-  checkboxItem,
-  checkboxLabel,
-  checkboxLabelSlot,
-  checkboxVisual,
-} from "./checkbox.css";
+import * as styles from "./checkbox.css";
 import type {
   CheckedState,
   CheckboxControlProps,
@@ -37,7 +27,17 @@ import {
   useCheckboxItem,
   useCheckboxSelection,
 } from "./CheckboxContext";
-import type { CheckboxGroupState } from "./CheckboxContext";
+import type {
+  CheckboxConfigContextValue,
+  CheckboxGroupState,
+  CheckboxItemContextValue,
+} from "./CheckboxContext";
+
+import {
+  RovingFocusProvider,
+  useRovingFocusGroup,
+  useRovingFocusItem,
+} from "@/hooks/useRovingFocus";
 
 const checkboxSizeMap = {
   lg: { icon: "md", label: "lg", helper: "sm" },
@@ -51,6 +51,9 @@ const CheckboxRoot = ({
   variant = "hollow",
   disabled = false,
   isInvalid = false,
+  layout = "vertical",
+  columns,
+  stretched = false,
   value,
   defaultValue,
   onChange,
@@ -77,22 +80,33 @@ const CheckboxRoot = ({
     [selected, isSelected, toggle],
   );
 
-  const configValue = useMemo(
-    () => ({ size, variant, disabled, isInvalid, name }),
-    [size, variant, disabled, isInvalid, name],
+  const configValue = useMemo<CheckboxConfigContextValue>(
+    () => ({ size, variant, disabled, isInvalid, stretched, name }),
+    [size, variant, disabled, isInvalid, stretched, name],
   );
+
+  const { containerProps, contextValue: rovingContextValue } =
+    useRovingFocusGroup<HTMLDivElement>();
 
   return (
     <CheckboxConfigProvider value={configValue}>
       <CheckboxSelectionProvider value={selectionState}>
-        <div
-          role='group'
-          aria-label={ariaLabel}
-          aria-labelledby={ariaLabelledBy}
-          className={checkboxGroupWrapper}
-        >
-          {children}
-        </div>
+        <RovingFocusProvider value={rovingContextValue}>
+          <div
+            {...containerProps}
+            role='group'
+            aria-label={ariaLabel}
+            aria-labelledby={ariaLabelledBy}
+            className={styles.checkboxGroupWrapper({ layout })}
+            style={
+              layout === "grid"
+                ? assignInlineVars({ [styles.checkboxGroupColumnsVar]: String(columns) })
+                : undefined
+            }
+          >
+            {children}
+          </div>
+        </RovingFocusProvider>
       </CheckboxSelectionProvider>
     </CheckboxConfigProvider>
   );
@@ -107,6 +121,7 @@ const CheckboxItem = forwardRef<HTMLLabelElement, CheckboxItemProps>(
       variant: variantProp,
       disabled = false,
       isInvalid: isInvalidProp,
+      stretched: stretchedProp,
       children,
       className,
       ...restProps
@@ -121,34 +136,45 @@ const CheckboxItem = forwardRef<HTMLLabelElement, CheckboxItemProps>(
     const isDisabled = disabled || (parentConfig?.disabled ?? false);
     const variant = variantProp ?? parentConfig?.variant ?? "hollow";
     const isInvalid = isInvalidProp ?? parentConfig?.isInvalid ?? false;
+    const isStretched = stretchedProp ?? parentConfig?.stretched ?? false;
 
     const [childChecked, setChildChecked] = useState<CheckedState>(false);
     const [hasHelper, setHasHelper] = useState(false);
     const isEffectiveInvalid = isInvalid && childChecked === false;
 
-    const configValue = useMemo(
-      () => ({ ...parentConfig, size, variant, disabled: isDisabled, isInvalid }),
-      [parentConfig, size, variant, isDisabled, isInvalid],
+    const configValue = useMemo<CheckboxConfigContextValue>(
+      () => ({
+        ...parentConfig,
+        size,
+        variant,
+        disabled: isDisabled,
+        isInvalid,
+        stretched: isStretched,
+      }),
+      [parentConfig, size, variant, isDisabled, isInvalid, isStretched],
+    );
+
+    const itemValue = useMemo<CheckboxItemContextValue>(
+      () => ({
+        labelId,
+        helperId,
+        hasHelper,
+        onHelperMountChange: setHasHelper,
+        onChildCheckedChange: setChildChecked,
+      }),
+      [labelId, helperId, hasHelper],
     );
 
     return (
       <CheckboxConfigProvider value={configValue}>
-        <CheckboxItemProvider
-          value={{
-            labelId,
-            helperId,
-            hasHelper,
-            onHelperMountChange: setHasHelper,
-            onChildCheckedChange: setChildChecked,
-          }}
-        >
+        <CheckboxItemProvider value={itemValue}>
           <label
             ref={ref}
             {...restProps}
             data-disabled={isDisabled || undefined}
             data-invalid={isEffectiveInvalid || undefined}
             className={clsx(
-              checkboxItem({ size, styleOutlined: variant }),
+              styles.checkboxItem({ size, styleOutlined: variant, stretched: isStretched }),
               focusRing({
                 feedback: isEffectiveInvalid ? "destructive" : "none",
                 interaction: "within",
@@ -178,15 +204,15 @@ const CheckboxIndicator = forwardRef<HTMLSpanElement, CheckboxIndicatorProps>(
     return (
       <span
         ref={ref}
+        {...restProps}
         aria-hidden
         data-state={dataState}
         data-disabled={disabled || undefined}
         data-invalid={isInvalid || undefined}
-        className={clsx(checkboxVisual({ size }), className)}
-        {...restProps}
+        className={clsx(styles.checkboxVisual({ size }), className)}
       >
         {(isChecked || isIndeterminate) && (
-          <span className={checkboxIconWrapper}>
+          <span className={styles.checkboxIconWrapper}>
             <Icon
               name={isIndeterminate ? "subtract-line" : "check-line"}
               size={checkboxSizeMap[size].icon}
@@ -268,10 +294,13 @@ const CheckboxControl = forwardRef<HTMLButtonElement, CheckboxControlProps>(
       setStandaloneChecked(next);
     };
 
+    const rovingProps = useRovingFocusItem(isGrouped ? value : undefined);
+
     return (
       <RadixCheckbox.Root
         ref={forwardedRef}
         {...restProps}
+        {...rovingProps}
         value={value}
         name={resolvedName}
         checked={currentChecked}
@@ -283,8 +312,9 @@ const CheckboxControl = forwardRef<HTMLButtonElement, CheckboxControlProps>(
         aria-describedby={resolvedAriaDescribedBy}
         data-invalid={isEffectiveInvalid || undefined}
         className={clsx(
-          checkboxControl,
-          checkboxControlSlot,
+          styles.checkboxControl,
+          styles.checkboxControlSlot,
+          isWithinItem && styles.checkboxControlInItem,
           !isWithinItem && overlay({ density: "normal" }),
           !isWithinItem && focusRing({ feedback: isEffectiveInvalid ? "destructive" : "none" }),
           className,
@@ -314,8 +344,8 @@ const CheckboxLabel = forwardRef<HTMLSpanElement, CheckboxLabelProps>(({ childre
       id={item?.labelId}
       className={clsx(
         getLabelClassName({ size: checkboxSizeMap[size].label }),
-        checkboxLabel,
-        checkboxLabelSlot,
+        styles.checkboxLabel,
+        styles.checkboxLabelSlot,
       )}
     >
       {children}
@@ -342,8 +372,8 @@ const CheckboxHelper = forwardRef<HTMLSpanElement, CheckboxHelperProps>(({ child
       id={item?.helperId}
       className={clsx(
         getLabelClassName({ size: checkboxSizeMap[size].helper, weight: "subtle" }),
-        checkboxHelper,
-        checkboxHelperSlot,
+        styles.checkboxHelper,
+        styles.checkboxHelperSlot,
       )}
     >
       {children}
