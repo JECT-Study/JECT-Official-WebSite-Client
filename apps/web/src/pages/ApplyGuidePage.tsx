@@ -21,6 +21,7 @@ import {
   findJobFamilyOption,
   JOB_FAMILY_OPTIONS,
   JOB_FAMILY_RECRUITMENT_INFO,
+  RECRUITMENT_SECTION_TITLE,
 } from "@/constants/applyPageData";
 import { PATH } from "@/constants/path";
 import { useRecruitId } from "@/hooks/recruit";
@@ -52,19 +53,15 @@ function RecruitmentInfoContent({ jobFamily }: { jobFamily: JobFamily }) {
     <div className='flex flex-col items-start gap-(--semantic-spacing-32) self-stretch'>
       <div className='flex flex-col items-start gap-(--semantic-spacing-16) self-stretch'>
         <Title size='xs' textAlign='left'>
-          젝트는 대한민국의 IT 동아리입니다
+          IT 동아리 젝트
         </Title>
         <p css={bodyTextStyle}>
-          젝트는 개발, 기획(매니지먼트), 디자인 관련 포지션의 팀원들이 한 팀이 되어 실제 사용자에게
-          제공되는 디지털 서비스를 직접 만들고 운영하는 IT 동아리입니다.
+          젝트는 개발, 기획(매니지먼트), 디자인 관련 포지션 구성원들이 한 팀이 되어 실제 사용자를
+          대상으로 하는 디지털 프로덕트를 직접 만들고 운영하는 IT 동아리입니다.
           <br />
           <br />
-          기획–개발–디자인의 협업 과정 전반을 경험하며, 사용자의 불편함을 해결하는 프로덕트
-          개발-운영, 네트워킹을 통한 관계 구축을 핵심 가치로 삼고 있어요.
-          <br />
-          <br />
-          현재 폭발적인 성장을 거듭하고 있는 젝트는 4기까지 총 180명 이상의 구성원과 함께 18개의
-          프로젝트를 성공적으로 완료했으며, 26년 하반기를 함께할 5기 여러분들을 모집합니다.
+          4기까지 총 184명의 구성원과 함께 18개의 프로젝트를 완료했으며, 2026년 하반기를 함께할 5기
+          구성원들을 모집합니다.
         </p>
       </div>
 
@@ -81,10 +78,10 @@ function RecruitmentInfoContent({ jobFamily }: { jobFamily: JobFamily }) {
 
       <div className='flex flex-col items-start gap-(--semantic-spacing-16) self-stretch'>
         <Title size='xs' textAlign='left'>
-          {info.experiences.title}
+          {RECRUITMENT_SECTION_TITLE.experiences}
         </Title>
         <ul css={listStyle}>
-          {info.experiences.items.map((item, index) => (
+          {info.experiences.map((item, index) => (
             <li key={index}>{item}</li>
           ))}
         </ul>
@@ -92,10 +89,21 @@ function RecruitmentInfoContent({ jobFamily }: { jobFamily: JobFamily }) {
 
       <div className='flex flex-col items-start gap-(--semantic-spacing-16) self-stretch'>
         <Title size='xs' textAlign='left'>
-          {info.qualifications.title}
+          {RECRUITMENT_SECTION_TITLE.outcomes}
         </Title>
         <ul css={listStyle}>
-          {info.qualifications.items.map((item, index) => (
+          {info.outcomes.map((item, index) => (
+            <li key={index}>{item}</li>
+          ))}
+        </ul>
+      </div>
+
+      <div className='flex flex-col items-start gap-(--semantic-spacing-16) self-stretch'>
+        <Title size='xs' textAlign='left'>
+          {RECRUITMENT_SECTION_TITLE.qualifications}
+        </Title>
+        <ul css={listStyle}>
+          {info.qualifications.map((item, index) => (
             <li key={index}>{item}</li>
           ))}
         </ul>
@@ -271,10 +279,12 @@ function ApplyGuidePage() {
                   `,
                 ]}
               >
-                <li>모집 기간: 2026년 8월 22일(토) 00:00 - 9월 6일(일) 23:59</li>
-                <li>합격 발표: 2026년 9월 10일(목)</li>
+                <li>모집 기간: 2026년 8월 22일(토) 00:00 - 2026년 9월 7일(일) 00:00</li>
+                <li>합격 발표: 2026년 9월 10일(목) 18:00</li>
+                <li>추가 합격 안내: 2026년 9월 11일(금) - 9월 18일(금)</li>
                 <li>결원 발생 시 예비 합격 순번에 따라 안내</li>
                 <li>오프라인 온보딩: 2026년 9월 19일(토), 서울</li>
+                <li>활동 기간: 2026년 9월 19일(토) - 2027년 1월 16일(토)</li>
               </ul>
             </div>
             <div className='flex flex-col items-stretch gap-(--semantic-spacing-16) self-stretch'>
@@ -374,8 +384,8 @@ function ApplyGuidePage() {
                   프로젝트 중도 이탈 관련 안내
                 </Title>
                 <p css={bodyTextStyle}>
-                  젝트의 팀 프로젝트는 3개월간 진행되는 활동으로, 생각보다 많은 시간과 책임, 꾸준한
-                  참여가 요구됩니다.
+                  젝트의 팀 프로젝트는 약 4개월간 장기적으로 진행되는 활동으로, 생각보다 많은 시간과
+                  책임, 꾸준한 참여가 요구됩니다.
                   <br />
                   따라서 활동 기간 중 취업, 인턴, 해외여행 등 기타 중요 개인 일정이 예정되어 있는
                   경우, 끝까지 참여가 가능한지에 대해 충분한 고민과 판단 후 지원해주시기 바랍니다.
@@ -437,7 +447,7 @@ function ApplyGuidePage() {
                   <p css={bodyTextStyle}>
                     지원이 가능합니다.
                     <br />
-                    다만 3개월간 진행되는 팀 프로젝트인 만큼 꾸준한 열정과 시간 투자가 필요합니다.
+                    다만 약 4개월간 진행되는 팀 프로젝트인 만큼 꾸준한 열정과 시간 투자가 필요합니다.
                     활동 기간 중 취업/인턴/이직을 하시게 되더라도, 처음 약속한 팀원으로서 끝까지
                     책임감을 가지고 프로젝트에 성실히 참여해 주시길 바랍니다.
                     <br />
