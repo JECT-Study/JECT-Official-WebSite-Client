@@ -10,6 +10,7 @@ import {
   useRef,
   useState,
   type ChangeEvent,
+  type FocusEvent,
   type KeyboardEvent,
   type MouseEvent,
 } from "react";
@@ -43,6 +44,7 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       readOnly: readOnlyFromProps,
       required: requiredFromProps,
       onKeyDown: onKeyDownFromProps,
+      onBlur: onBlurFromProps,
       onMouseDown: onMouseDownFromProps,
       "aria-describedby": describedByFromProps,
       "aria-invalid": invalidFromProps,
@@ -181,6 +183,14 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       openIfInteractive();
     };
 
+    const handleBlur = (e: FocusEvent<HTMLInputElement>) => {
+      onBlurFromProps?.(e);
+      if (e.defaultPrevented || allowCustomValue) return;
+      if (contentRef.current?.contains(e.relatedTarget)) return;
+
+      setQuery("");
+    };
+
     const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
       onKeyDownFromProps?.(e);
       if (e.defaultPrevented || !isInteractive || e.nativeEvent.isComposing) return;
@@ -279,6 +289,7 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
           data-readonly={isReadOnly || undefined}
           className={clsx(getBodyClassName({ size: "md" }), styles.input, className)}
           onChange={handleChange}
+          onBlur={handleBlur}
           onKeyDown={handleKeyDown}
           onMouseDown={handleMouseDown}
         />
