@@ -63,6 +63,8 @@ npm --workspace @jects/vrt run report:open
 
 `vrt-viewport`는 포털로 `document.body`에 붙는 Dialog 패널처럼 컴포넌트 루트 바깥에 렌더되는 요소를 캡처하기 위한 것입니다. 비교 범위가 화면 전체로 넓어져 배경 변화까지 diff에 잡히므로, 오탐이 잦으면 해당 시나리오의 `misMatchThreshold`를 올려 대응합니다.
 
+**`vrt-viewport`는 화면 전체를 덮는 오버레이에만 사용합니다.** Dialog처럼 오버레이가 `position: fixed; inset: 0`이면 뷰포트 캡처와 컨테이너 캡처의 픽셀이 같아집니다. Tooltip처럼 화면을 덮지 않는 오버레이는 뷰포트 캡처가 대부분 여백이 되므로, 포털 컨테이너를 지정하는 방식이 맞습니다.
+
 ## 뷰포트 / 임계값 조정
 
 `scripts/generate-scenarios.mjs` 상단의 뷰포트 상수와 각 시나리오의 `misMatchThreshold`, `delay`를 조정하면 됩니다.
