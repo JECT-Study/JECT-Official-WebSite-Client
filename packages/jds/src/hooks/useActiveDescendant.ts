@@ -1,4 +1,11 @@
-import { useCallback, useRef, useState, type KeyboardEvent, type RefObject } from "react";
+import {
+  useCallback,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type KeyboardEvent,
+  type RefObject,
+} from "react";
 
 import { VIRTUAL_FOCUS_ATTRIBUTE } from "@/utils/virtualFocus";
 
@@ -26,6 +33,7 @@ interface ActiveDescendantGroup<T extends HTMLElement> {
   containerRef: RefObject<T>;
   activeValue: string | null;
   setActiveValue: (value: string | null) => void;
+  getEnabledValues: () => string[];
   onKeyDown: (e: KeyboardEvent) => void;
 }
 
@@ -126,5 +134,16 @@ export function useActiveDescendant<T extends HTMLElement>({
     [disabled, move],
   );
 
-  return { containerRef, activeValue, setActiveValue, onKeyDown };
+  const getEnabledValues = useCallback(() => getItemValues().values, [getItemValues]);
+
+  // 현재 항목 목록은 DOM 조회로 구성하므로 별도의 의존성으로 추적할 수 없다.
+  // 의존성 배열을 추가하면 항목 추가 및 제거 시점과 동기화되지 않는다.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useLayoutEffect(() => {
+    if (activeValue == null || containerRef.current == null) return;
+
+    if (!getEnabledValues().includes(activeValue)) setActiveValue(null);
+  });
+
+  return { containerRef, activeValue, setActiveValue, getEnabledValues, onKeyDown };
 }
