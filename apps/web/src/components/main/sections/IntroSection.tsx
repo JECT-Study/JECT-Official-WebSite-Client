@@ -10,7 +10,7 @@ import {
 } from "@jects/jds";
 import { useNavigate } from "react-router-dom";
 
-import introTeamMeetingImage from "@/assets/images/intro-team-meeting.png";
+import introSectionImage from "@/assets/images/intro-section.webp";
 import { positionData, programData, statData } from "@/constants/mainPageData";
 
 const wrapperClassName =
@@ -50,7 +50,7 @@ const IntroSection = () => {
         {/* IT 동아리 젝트 */}
         <div className={wrapperClassName}>
           <Image
-            src={introTeamMeetingImage}
+            src={introSectionImage}
             alt='젝트 팀원들이 함께 모여 회의하는 모습'
             ratio='9:21'
             orientation='landscape'

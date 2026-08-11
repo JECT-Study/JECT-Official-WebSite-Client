@@ -1,7 +1,7 @@
 import { BlockButton, Hero, Image, Label, Title } from "@jects/jds";
 import { useNavigate } from "react-router-dom";
 
-import joinTeamMeetingImage from "@/assets/images/join-team-meeting.png";
+import joinSectionImage from "@/assets/images/join-section.webp";
 import SwypLogo from "@/assets/svg/swypLogo.svg?react";
 import { PATH } from "@/constants/path";
 import { trackApplyStart } from "@/utils/analytics";
@@ -43,7 +43,7 @@ const JoinSection = () => {
           </BlockButton.Basic>
         </div>
         <Image
-          src={joinTeamMeetingImage}
+          src={joinSectionImage}
           alt='젝트 구성원들'
           ratio='3:4'
           orientation='landscape'
