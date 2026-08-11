@@ -20,7 +20,7 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(
     },
     ref,
   ) => {
-    const { listboxRef, contextValue, getListboxProps } = useListbox({
+    const { listboxRef, contextValue, getFocusableListboxProps } = useListbox({
       mode: "single",
       variant,
       options,
@@ -39,7 +39,7 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(
         width={width}
         height={height}
         listboxRef={listboxRef}
-        listboxProps={getListboxProps()}
+        listboxProps={getFocusableListboxProps()}
         aria-label={ariaLabel}
         aria-labelledby={ariaLabelledby}
       />

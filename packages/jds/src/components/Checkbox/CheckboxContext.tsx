@@ -13,6 +13,7 @@ export interface CheckboxConfigContextValue {
   variant: CheckboxVariant;
   disabled: boolean;
   isInvalid: boolean;
+  stretched: boolean;
   name?: string;
 }
 

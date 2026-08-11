@@ -4,6 +4,7 @@ import { createCtxProvider } from "@/hooks/createCtxProvider";
 
 export interface FieldContextValue {
   fieldId: string;
+  labelId: string;
   helperTextId: string;
   /** Field.HelperText가 실제로 렌더되고 있는지 여부예요. */
   hasHelperText: boolean;

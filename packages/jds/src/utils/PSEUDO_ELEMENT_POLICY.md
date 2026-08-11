@@ -89,7 +89,7 @@ style([
 <button data-interaction-target />;
 ```
 
-- `data-interaction-target`은 root 아래 한 요소에만 부여한다. 그 요소는 자기 overlay와 focusRing을 갖지 않는다. root가 이미 그리므로 레이어가 두 번 겹치기 때문이다.
+- `data-interaction-target`은 root의 직계 자식 한 요소에만 부여한다. 그 요소는 자기 overlay와 focusRing을 갖지 않는다. root가 이미 그리므로 레이어가 두 번 겹치기 때문이다. `delegated` 선택자가 `:has(> ...)`로 직계 자식만 보므로 더 깊은 곳에 같은 속성이 있어도 root는 반응하지 않는다. body가 `ReactNode`인 Dialog처럼 children이 열린 컴포넌트에서 소비처가 넣은 File, Chip이 root 정책을 깨는 것을 막는다.
 - 내부 버튼에 native `disabled`와 `pointer-events: none`이 걸리면 `:has()`가 매치되지 않아 press와 focus가 자동으로 꺼진다. root의 `data-disabled`는 이 경우를 대비한 방어 장치다.
 
 `::before`는 focusRing, `::after`는 overlay라는 매핑은 그대로 유지된다. pseudo가 자기 상태 대신 다른 요소의 상태를 반영할 뿐이다.
@@ -102,9 +102,9 @@ style([
 | ----------- | ----------------------------------------- | ------------------------------------------------------------------ |
 | `self`      | 요소 자신의 `:focus-visible`              | 자신이 곧 focus 대상인 요소 (버튼, 링크 등)                        |
 | `within`    | 자신 또는 자손의 `:focus-visible`         | 내부 컨트롤을 감싸 focus 대상이 자손인 요소 (Checkbox 등)          |
-| `delegated` | `[data-interaction-target]:focus-visible` | root가 그리고 focus는 지정한 내부 버튼이 받는 요소 (File, Chip 등) |
+| `delegated` | `> [data-interaction-target]:focus-visible` | root가 그리고 focus는 지정한 내부 버튼이 받는 요소 (File, Chip 등) |
 
-`self`는 요소 자신만, `within`은 `:has(:focus-visible)`로 자손까지, `delegated`는 자손 중 `[data-interaction-target]` 하나만 본다. 뒤로 갈수록 focus를 읽는 범위가 좁아진다.
+`self`는 요소 자신만, `within`은 `:has(:focus-visible)`로 자손까지, `delegated`는 직계 자식 중 `[data-interaction-target]` 하나만 본다. 뒤로 갈수록 focus를 읽는 범위가 좁아진다.
 
 `within`은 자손 아무 곳의 focus에나 반응하므로, 임의의 콘텐츠를 감싸는 컨테이너(예: 탭 패널)에 쓰면 패널 안 어떤 컨트롤에 focus가 가도 패널 전체에 ring이 그려진다. 이런 컨테이너는 자신만 focus 대상인 `self`를 쓴다. 자손이 여럿이고 그중 하나(main action)만 골라야 하면 `delegated`를 쓴다.
 
@@ -142,7 +142,7 @@ style({
 - [ ] `baseStyles`에 `position: relative`를 지정한다.
 - [ ] outline은 focusRing이 담당하므로 `baseStyles`에 넣지 않는다.
 - [ ] `::before`와 `::after`에 inset과 borderRadius를 지정한다. 같은 모양을 권장한다.
-- [ ] root가 그리고 실제 대상은 내부 버튼인 컴포넌트는 root에 `overlay`와 `focusRing`을 `interaction: "delegated"`로 주고, 내부 버튼에 `data-interaction-target`을 부여한다. 내부 버튼은 자기 레이어를 갖지 않는다.
+- [ ] root가 그리고 실제 대상은 내부 버튼인 컴포넌트는 root에 `overlay`와 `focusRing`을 `interaction: "delegated"`로 주고, root의 직계 자식인 내부 버튼에 `data-interaction-target`을 부여한다. 내부 버튼은 자기 레이어를 갖지 않는다.
 - [ ] `::before`와 `::after`에 모양 외의 속성을 추가하지 않는다.
 - [ ] 추가 효과가 필요하면 자식 요소나 요소 자체 속성으로 구현한다.
 - [ ] 자식 요소는 규칙의 대상이 아니므로 pseudo를 자유롭게 쓴다.

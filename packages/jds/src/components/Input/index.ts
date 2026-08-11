@@ -1,5 +1,4 @@
 import { InputArea } from "./InputArea";
-import { SelectField } from "./SelectField";
 import { TagField } from "./TagField";
 
 export type {
@@ -9,9 +8,6 @@ export type {
   FieldInputPublicProps,
   FieldTextAreaPublicProps,
 } from "./input.types";
-
-export { SelectField } from "./SelectField";
-export type { SelectFieldProps } from "./SelectField";
 
 export { InputArea } from "./InputArea";
 export type {
@@ -26,7 +22,6 @@ export { TagField } from "./TagField";
 export type { TagFieldProps, Tag } from "./TagField";
 
 export const Input = {
-  SelectField,
   InputArea,
   TagField,
 };

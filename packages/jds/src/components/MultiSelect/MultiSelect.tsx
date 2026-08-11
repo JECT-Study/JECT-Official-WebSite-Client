@@ -20,7 +20,7 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
     },
     ref,
   ) => {
-    const { listboxRef, contextValue, getListboxProps } = useListbox({
+    const { listboxRef, contextValue, getFocusableListboxProps } = useListbox({
       mode: "multiple",
       variant,
       options,
@@ -39,7 +39,7 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
         width={width}
         height={height}
         listboxRef={listboxRef}
-        listboxProps={getListboxProps()}
+        listboxProps={getFocusableListboxProps()}
         aria-label={ariaLabel}
         aria-labelledby={ariaLabelledby}
       />
