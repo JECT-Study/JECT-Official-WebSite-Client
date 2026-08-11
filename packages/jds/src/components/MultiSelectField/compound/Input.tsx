@@ -11,6 +11,7 @@ import {
   useState,
   type ChangeEvent,
   type KeyboardEvent,
+  type MouseEvent,
 } from "react";
 
 import { ContentBadge } from "../../Badge";
@@ -42,6 +43,7 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       readOnly: readOnlyFromProps,
       required: requiredFromProps,
       onKeyDown: onKeyDownFromProps,
+      onMouseDown: onMouseDownFromProps,
       "aria-describedby": describedByFromProps,
       "aria-invalid": invalidFromProps,
       className,
@@ -167,6 +169,13 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       if (isInteractive && !isOpen) onOpenChange(true);
     };
 
+    const handleMouseDown = (e: MouseEvent<HTMLInputElement>) => {
+      onMouseDownFromProps?.(e);
+      if (e.defaultPrevented) return;
+
+      openIfInteractive();
+    };
+
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
       setQuery(e.target.value);
       openIfInteractive();
@@ -271,7 +280,7 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
           className={clsx(getBodyClassName({ size: "md" }), styles.input, className)}
           onChange={handleChange}
           onKeyDown={handleKeyDown}
-          onMouseDown={openIfInteractive}
+          onMouseDown={handleMouseDown}
         />
         {suffix != null && <span className={styles.suffix}>{suffix}</span>}
         {name != null &&
