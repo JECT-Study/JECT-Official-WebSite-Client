@@ -6,7 +6,7 @@ import type { OptionVariant } from "../Listbox";
 type MultiSelectFieldBaseProps = Omit<FieldProps, "value" | "defaultValue" | "onChange"> & {
   /** 선택할 수 있는 값의 최대 개수입니다. 지정하면 `MultiSelectField.Counter`가 현재 개수와 함께 표시됩니다. */
   maxValues?: number;
-  /** 지정하면 선택값마다 히든 input을 렌더해 폼 제출에 포함시킵니다. */
+  /** 지정하면 선택값마다 hidden input을 렌더해 폼 제출에 포함시킵니다. */
   name?: string;
   form?: string;
 };
