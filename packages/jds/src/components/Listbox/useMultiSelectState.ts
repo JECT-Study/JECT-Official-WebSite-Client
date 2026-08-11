@@ -21,5 +21,12 @@ export const useMultiSelectState = (
     [setSelectedValues],
   );
 
-  return { selectedValues, toggle };
+  const remove = useCallback(
+    (target: string) => {
+      setSelectedValues(prev => prev.filter(v => v !== target));
+    },
+    [setSelectedValues],
+  );
+
+  return { selectedValues, toggle, remove };
 };

@@ -62,6 +62,13 @@ export const useListbox = ({
     setActiveValue(values.find(value => selectedValues.includes(value)) ?? values[0]);
   }, [getEnabledValues, selectedValues, setActiveValue]);
 
+  const activateFirst = useCallback(() => {
+    const values = getEnabledValues();
+    if (values.length === 0) return;
+
+    setActiveValue(values[0]);
+  }, [getEnabledValues, setActiveValue]);
+
   const onKeyDown = useCallback(
     (e: KeyboardEvent) => {
       if (disabled) return;
@@ -122,6 +129,7 @@ export const useListbox = ({
     contextValue,
     activeId,
     activateSelected,
+    activateFirst,
     scrollToSelected,
     onKeyDown,
     getListboxProps,

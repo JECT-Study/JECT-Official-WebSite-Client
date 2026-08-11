@@ -1,5 +1,4 @@
 import { InputArea } from "./InputArea";
-import { TagField } from "./TagField";
 
 export type {
   InputStyle,
@@ -18,10 +17,6 @@ export type {
   InputAreaProps,
 } from "./InputArea";
 
-export { TagField } from "./TagField";
-export type { TagFieldProps, Tag } from "./TagField";
-
 export const Input = {
   InputArea,
-  TagField,
 };

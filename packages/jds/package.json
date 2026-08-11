@@ -69,6 +69,7 @@
   "dependencies": {
     "@react-aria/utils": "^3.34.0",
     "clsx": "^2.1.1",
+    "es-hangul": "^2.4.0",
     "radix-ui": "^1.4.3"
   },
   "devDependencies": {

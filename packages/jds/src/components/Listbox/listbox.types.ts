@@ -32,6 +32,11 @@ export type ListboxOptionProps = {
   children?: ReactNode;
 };
 
+export type ListboxCustomValueProps = {
+  value: string;
+  caption?: string;
+};
+
 export type ListboxProps = ComponentPropsWithoutRef<"div"> & {
   context: ListboxBehaviorContextValue;
   selectionMode: SelectionMode;
