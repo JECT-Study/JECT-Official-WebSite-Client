@@ -1,20 +1,23 @@
 import { clsx } from "clsx";
-import { type CSSProperties, forwardRef } from "react";
+import { type CSSProperties, forwardRef, useMemo } from "react";
 
+import { ListboxCustomValue } from "./compound/CustomValue";
+import { ListboxOption } from "./compound/Option";
 import * as styles from "./listbox.css";
 import type { ListboxProps, SelectDimension } from "./listbox.types";
 import { ListboxProvider } from "./ListboxContext";
-import { Option } from "./Option";
 
 import { getLabelClassName } from "@/utils/typography";
 
 const resolveDimension = (value: SelectDimension) => (value === "full" ? "100%" : value);
 
-export const Listbox = forwardRef<HTMLDivElement, ListboxProps>(
+const InternalListbox = forwardRef<HTMLDivElement, ListboxProps>(
   (
     {
       context,
-      options,
+      selectionMode,
+      variant,
+      children,
       listboxRef,
       listboxProps,
       label,
@@ -30,6 +33,11 @@ export const Listbox = forwardRef<HTMLDivElement, ListboxProps>(
   ) => {
     const { className: listboxClassName, ...restListboxProps } = listboxProps;
 
+    const contextValue = useMemo(
+      () => ({ ...context, selectionMode, variant }),
+      [context, selectionMode, variant],
+    );
+
     const labelId = `${context.listboxId}-label`;
 
     const containerStyle: CSSProperties = { ...style };
@@ -41,7 +49,7 @@ export const Listbox = forwardRef<HTMLDivElement, ListboxProps>(
     }
 
     return (
-      <ListboxProvider value={context}>
+      <ListboxProvider value={contextValue}>
         <div
           ref={ref}
           className={clsx(styles.selectContainer, className)}
@@ -61,19 +69,10 @@ export const Listbox = forwardRef<HTMLDivElement, ListboxProps>(
             className={clsx(styles.listbox, listboxClassName)}
             aria-label={label != null ? undefined : ariaLabel}
             aria-labelledby={label != null ? labelId : ariaLabelledby}
+            aria-multiselectable={selectionMode === "multiple" || undefined}
             {...restListboxProps}
           >
-            {options.map(({ value, label: optionLabel, caption, suffix, disabled }) => (
-              <Option
-                key={value}
-                value={value}
-                caption={caption}
-                suffix={suffix}
-                disabled={disabled}
-              >
-                {optionLabel}
-              </Option>
-            ))}
+            {children}
           </div>
         </div>
       </ListboxProvider>
@@ -81,4 +80,9 @@ export const Listbox = forwardRef<HTMLDivElement, ListboxProps>(
   },
 );
 
-Listbox.displayName = "Listbox";
+InternalListbox.displayName = "InternalListbox";
+
+export const Listbox = Object.assign(InternalListbox, {
+  Option: ListboxOption,
+  CustomValue: ListboxCustomValue,
+});

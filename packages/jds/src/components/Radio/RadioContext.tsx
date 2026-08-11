@@ -6,6 +6,7 @@ export interface RadioConfigContextValue {
   size: RadioSize;
   variant: RadioVariant;
   disabled: boolean;
+  stretched: boolean;
 }
 
 const RadioConfigContext = createContext<RadioConfigContextValue | null>(null);

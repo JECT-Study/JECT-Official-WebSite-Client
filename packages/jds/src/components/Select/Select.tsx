@@ -1,7 +1,7 @@
 import { forwardRef } from "react";
 
 import type { SelectProps } from "./select.types";
-import { Listbox, useListbox } from "../Listbox";
+import { Listbox, useListbox, useSingleSelectState } from "../Listbox";
 
 export const Select = forwardRef<HTMLDivElement, SelectProps>(
   (
@@ -20,21 +20,20 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(
     },
     ref,
   ) => {
+    const { selectedValues, select } = useSingleSelectState(value, defaultValue, onChange);
+
     const { listboxRef, contextValue, getFocusableListboxProps } = useListbox({
-      mode: "single",
-      variant,
-      options,
-      value,
-      defaultValue,
-      onChange: onChange as ((value: string | string[]) => void) | undefined,
+      selectedValues,
       disabled,
+      onSelect: select,
     });
 
     return (
       <Listbox
         ref={ref}
         context={contextValue}
-        options={options}
+        selectionMode='single'
+        variant={variant}
         label={label}
         width={width}
         height={height}
@@ -42,7 +41,19 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(
         listboxProps={getFocusableListboxProps()}
         aria-label={ariaLabel}
         aria-labelledby={ariaLabelledby}
-      />
+      >
+        {options.map(option => (
+          <Listbox.Option
+            key={option.value}
+            value={option.value}
+            caption={option.caption}
+            suffix={option.suffix}
+            disabled={option.disabled}
+          >
+            {option.label}
+          </Listbox.Option>
+        ))}
+      </Listbox>
     );
   },
 );
