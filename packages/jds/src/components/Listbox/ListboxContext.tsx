@@ -2,15 +2,18 @@ import { createContext, useContext } from "react";
 
 import type { OptionVariant, SelectionMode } from "./listbox.types";
 
-export interface ListboxContextValue {
+export interface ListboxBehaviorContextValue {
   listboxId: string;
   disabled: boolean;
-  variant: OptionVariant;
-  mode: SelectionMode;
   isSelected: (value: string) => boolean;
   activeValue: string | null;
   select: (value: string) => void;
   setActive: (value: string | null) => void;
+}
+
+export interface ListboxContextValue extends ListboxBehaviorContextValue {
+  variant: OptionVariant;
+  selectionMode: SelectionMode;
 }
 
 const ListboxContext = createContext<ListboxContextValue | null>(null);

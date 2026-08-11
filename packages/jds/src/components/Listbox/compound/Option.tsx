@@ -1,20 +1,26 @@
 import { clsx } from "clsx";
 
-import { CheckboxPrimitive } from "../Checkbox/CheckboxPrimitive";
-import { Icon } from "../Icon";
-import * as styles from "./listbox.css";
-import type { OptionProps } from "./listbox.types";
-import { getOptionId } from "./listbox.utils";
-import { useListboxContext } from "./ListboxContext";
-import { RadioPrimitive } from "../Radio/RadioPrimitive";
+import { CheckboxPrimitive } from "../../Checkbox/CheckboxPrimitive";
+import { Icon } from "../../Icon";
+import { RadioPrimitive } from "../../Radio/RadioPrimitive";
+import * as styles from "../listbox.css";
+import type { ListboxOptionProps } from "../listbox.types";
+import { getOptionId } from "../listbox.utils";
+import { useListboxContext } from "../ListboxContext";
 
 import { getActiveDescendantItemProps } from "@/hooks/useActiveDescendant";
 import { getLabelClassName } from "@/utils/typography";
 
-export const Option = ({ value, disabled = false, caption, suffix, children }: OptionProps) => {
+export const ListboxOption = ({
+  value,
+  disabled = false,
+  caption,
+  suffix,
+  children,
+}: ListboxOptionProps) => {
   const {
     listboxId,
-    mode,
+    selectionMode,
     variant,
     disabled: isGroupDisabled,
     isSelected,
@@ -49,7 +55,7 @@ export const Option = ({ value, disabled = false, caption, suffix, children }: O
     >
       {variant === "control" && (
         <span className={styles.optionControlSlot}>
-          {mode === "multiple" ? (
+          {selectionMode === "multiple" ? (
             <CheckboxPrimitive.Indicator size='md' state={isItemSelected} disabled={isDisabled} />
           ) : (
             <RadioPrimitive.Indicator size='md' checked={isItemSelected} disabled={isDisabled} />
@@ -81,4 +87,4 @@ export const Option = ({ value, disabled = false, caption, suffix, children }: O
   );
 };
 
-Option.displayName = "Option";
+ListboxOption.displayName = "Listbox.Option";

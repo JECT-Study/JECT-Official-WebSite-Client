@@ -1,7 +1,7 @@
 import { forwardRef } from "react";
 
 import type { MultiSelectProps } from "./multiSelect.types";
-import { Listbox, useListbox } from "../Listbox";
+import { Listbox, useListbox, useMultiSelectState } from "../Listbox";
 
 export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
   (
@@ -20,21 +20,20 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
     },
     ref,
   ) => {
+    const { selectedValues, toggle } = useMultiSelectState(value, defaultValue, onChange);
+
     const { listboxRef, contextValue, getFocusableListboxProps } = useListbox({
-      mode: "multiple",
-      variant,
-      options,
-      value,
-      defaultValue,
-      onChange: onChange as ((value: string | string[]) => void) | undefined,
+      selectedValues,
       disabled,
+      onSelect: toggle,
     });
 
     return (
       <Listbox
         ref={ref}
         context={contextValue}
-        options={options}
+        selectionMode='multiple'
+        variant={variant}
         label={label}
         width={width}
         height={height}
@@ -42,7 +41,19 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
         listboxProps={getFocusableListboxProps()}
         aria-label={ariaLabel}
         aria-labelledby={ariaLabelledby}
-      />
+      >
+        {options.map(option => (
+          <Listbox.Option
+            key={option.value}
+            value={option.value}
+            caption={option.caption}
+            suffix={option.suffix}
+            disabled={option.disabled}
+          >
+            {option.label}
+          </Listbox.Option>
+        ))}
+      </Listbox>
     );
   },
 );
