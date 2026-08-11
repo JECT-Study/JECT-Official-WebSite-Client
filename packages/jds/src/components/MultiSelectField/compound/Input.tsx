@@ -185,10 +185,11 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
 
     const handleBlur = (e: FocusEvent<HTMLInputElement>) => {
       onBlurFromProps?.(e);
-      if (e.defaultPrevented || allowCustomValue) return;
+
       if (contentRef.current?.contains(e.relatedTarget)) return;
 
-      setQuery("");
+      onOpenChange(false);
+      if (!e.defaultPrevented && !allowCustomValue) setQuery("");
     };
 
     const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
