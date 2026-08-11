@@ -11,6 +11,8 @@ export interface MultiSelectFieldContextValue {
   toggle: (value: string) => void;
   remove: (value: string) => void;
   maxValues?: number;
+  name?: string;
+  form?: string;
   counterId: string;
   hasCounter: boolean;
   onCounterMountChange: (mounted: boolean) => void;

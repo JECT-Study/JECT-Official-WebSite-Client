@@ -11,20 +11,7 @@ import { Field } from "../Field";
 import { useMultiSelectState } from "../Listbox";
 
 const MultiSelectFieldRoot = forwardRef<HTMLDivElement, MultiSelectFieldProps>(
-  (
-    {
-      value,
-      defaultValue,
-      onChange,
-      maxValues,
-      name,
-      form,
-      disabled = false,
-      children,
-      ...restProps
-    },
-    ref,
-  ) => {
+  ({ value, defaultValue, onChange, maxValues, name, form, ...restProps }, ref) => {
     const [isOpenRequested, setIsOpenRequested] = useState(false);
     const [hasPopupContent, setHasPopupContent] = useState(false);
     const [hasCounter, setHasCounter] = useState(false);
@@ -45,25 +32,14 @@ const MultiSelectFieldRoot = forwardRef<HTMLDivElement, MultiSelectFieldProps>(
         toggle={toggle}
         remove={remove}
         maxValues={maxValues}
+        name={name}
+        form={form}
         counterId={counterId}
         hasCounter={hasCounter}
         onCounterMountChange={setHasCounter}
       >
         <Popover.Root open={isOpen} onOpenChange={setIsOpenRequested} modal={false}>
-          <Field ref={ref} disabled={disabled} {...restProps}>
-            {children}
-            {name != null &&
-              selectedValues.map(selected => (
-                <input
-                  key={selected}
-                  type='hidden'
-                  name={name}
-                  value={selected}
-                  form={form}
-                  disabled={disabled}
-                />
-              ))}
-          </Field>
+          <Field ref={ref} {...restProps} />
         </Popover.Root>
       </MultiSelectFieldProvider>
     );

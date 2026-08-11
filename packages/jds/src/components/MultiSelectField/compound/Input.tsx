@@ -69,6 +69,8 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       toggle,
       remove,
       maxValues,
+      name,
+      form,
       counterId,
       hasCounter,
     } = useMultiSelectFieldContext("MultiSelectField.Input");
@@ -272,6 +274,17 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
           onMouseDown={openIfInteractive}
         />
         {suffix != null && <span className={styles.suffix}>{suffix}</span>}
+        {name != null &&
+          selectedValues.map(selected => (
+            <input
+              key={selected}
+              type='hidden'
+              name={name}
+              value={selected}
+              form={form}
+              disabled={isDisabled}
+            />
+          ))}
         <Popover.Portal>
           <Popover.Content
             asChild
