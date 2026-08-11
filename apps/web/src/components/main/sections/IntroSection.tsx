@@ -1,7 +1,6 @@
 import {
   Callout,
   ContentBadge,
-  EmptyState,
   Hero,
   Icon,
   Image,
@@ -149,13 +148,6 @@ const IntroSection = () => {
                 {description}
               </Callout.Basic>
             ))}
-            <div className='tablet:col-span-1 col-span-full [&>div]:h-full [&>div]:w-full [&>div]:max-w-full!'>
-              <EmptyState
-                variant='outlined'
-                header='그 밖에 더 많은 활동들이 기다리고 있어요...'
-                body='젝트에 합류해서 직접 활동해보세요!'
-              />
-            </div>
           </div>
         </div>
       </div>
