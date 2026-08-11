@@ -197,16 +197,13 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       if (e.defaultPrevented || !isInteractive || e.nativeEvent.isComposing) return;
 
       if (e.key === "Escape") {
-        if (isOpen) {
-          e.preventDefault();
-          onOpenChange(false);
-        }
+        if (isOpen) e.preventDefault();
+        onOpenChange(false);
         return;
       }
 
       if (e.key === "Backspace" && query === "") {
         if (selectedValues.length === 0) return;
-
         e.preventDefault();
         remove(selectedValues[selectedValues.length - 1]);
         return;
