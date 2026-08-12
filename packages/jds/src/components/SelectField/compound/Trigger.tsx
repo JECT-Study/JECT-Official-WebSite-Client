@@ -98,6 +98,12 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
     const activateSelectedRef = useRef(activateSelected);
     activateSelectedRef.current = activateSelected;
 
+    const handleContentMouseDown = (e: MouseEvent<HTMLDivElement>) => {
+      if (e.target !== e.currentTarget || !isInteractive) return;
+
+      onOpenChange(true);
+    };
+
     const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
       onClickFromProps?.(e);
       if (isReadOnly) e.preventDefault();
@@ -157,7 +163,7 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
     return (
       <>
         <Popover.Anchor asChild>
-          <FieldContent>
+          <FieldContent onMouseDown={handleContentMouseDown}>
             <Popover.Trigger asChild>
               <button
                 {...restProps}

@@ -185,13 +185,10 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       if (isOpen) activateRef.current();
     }, [isOpen, query]);
 
-    // 박스 패딩을 눌러도 컨트롤에 포커스가 가도록 시각 영역과 클릭 타깃을 맞춘다.
     const handleContentMouseDown = (e: MouseEvent<HTMLDivElement>) => {
-      if (e.target !== e.currentTarget) return;
+      if (e.target !== e.currentTarget || !isInteractive) return;
 
-      e.preventDefault();
-      inputRef.current?.focus();
-      if (isInteractive) onOpenChange(true);
+      onOpenChange(true);
     };
 
     const openIfInteractive = () => {
