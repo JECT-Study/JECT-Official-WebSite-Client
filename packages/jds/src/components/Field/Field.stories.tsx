@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { FlexColumn, FlexRow, Label } from "@storybook-utils/layout";
+import { FlexColumn } from "@storybook-utils/layout";
 import { type ComponentPropsWithoutRef } from "react";
 
 import { Field } from "./Field";
@@ -19,12 +19,6 @@ const meta = {
     children: {
       control: false,
       table: { disable: true },
-    },
-    fieldStyle: {
-      control: "inline-radio",
-      options: ["outline", "hollow"],
-      description: "필드 스타일 (outline: 테두리+인터랙션 레이어, hollow: 민무늬)",
-      table: { defaultValue: { summary: "outline" } },
     },
     status: {
       control: "inline-radio",
@@ -112,12 +106,11 @@ const SampleField = ({
 );
 
 /**
- * 컨트롤 패널에서 fieldStyle / status / disabled / readonly / required 를 바꿔가며
+ * 컨트롤 패널에서 status / disabled / readonly / required 를 바꿔가며
  * 직접 타이핑·hover·focus 해볼 수 있는 인터랙티브 예시입니다.
  */
 export const Playground: Story = {
   args: {
-    fieldStyle: "outline",
     status: "default",
     disabled: false,
     readonly: false,
@@ -129,31 +122,6 @@ export const Playground: Story = {
         <SampleField />
       </Field>
     </div>
-  ),
-};
-
-/**
- * 필드 스타일 비교.
- * - `outline`: 테두리 + 배경 + hover/press overlay + focus ring (readonly 포함)
- * - `hollow`: 테두리/배경/인터랙션 레이어 없이 입력만 노출
- */
-export const Styles: Story = {
-  render: () => (
-    <FlexRow gap='32px'>
-      <FlexColumn gap='8px' style={{ width: "18rem" }}>
-        <Label>outline</Label>
-        <Field fieldStyle='outline'>
-          <SampleField />
-        </Field>
-      </FlexColumn>
-
-      <FlexColumn gap='8px' style={{ width: "18rem" }}>
-        <Label>hollow</Label>
-        <Field fieldStyle='hollow'>
-          <SampleField />
-        </Field>
-      </FlexColumn>
-    </FlexRow>
   ),
 };
 
@@ -231,13 +199,12 @@ export const WithAddon: Story = {
 };
 
 /**
- * outline Field.Content 는 hover/press overlay 와 focus ring 을 함께 표시합니다.
- * hollow 에서는 인터랙션 레이어가 적용되지 않습니다.
+ * Field.Content 는 hover/press overlay 와 focus ring 을 함께 표시합니다.
  */
-export const OutlineInteraction: Story = {
+export const Interaction: Story = {
   render: () => (
     <div style={{ width: "18rem" }}>
-      <Field fieldStyle='outline'>
+      <Field>
         <Field.Label>이메일</Field.Label>
         <Field.Content>
           <DemoInput placeholder='이메일을 입력하세요' />

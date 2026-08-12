@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { FlexColumn, FlexRow, Label } from "@storybook-utils/layout";
+import { FlexColumn } from "@storybook-utils/layout";
 import { vars } from "tokens";
 
 import { TextField } from "./TextField";
@@ -18,12 +18,6 @@ const meta = {
     children: {
       control: false,
       table: { disable: true },
-    },
-    fieldStyle: {
-      control: "inline-radio",
-      options: ["outline", "hollow"],
-      description: "필드 스타일 (outline: 테두리+인터랙션 레이어, hollow: 민무늬)",
-      table: { defaultValue: { summary: "outline" } },
     },
     status: {
       control: "inline-radio",
@@ -53,7 +47,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 /**
- * 컨트롤 패널에서 fieldStyle / status / disabled / readonly / required 를 바꿔가며
+ * 컨트롤 패널에서 status / disabled / readonly / required 를 바꿔가며
  * 직접 타이핑·hover·focus 해볼 수 있는 인터랙티브 예시입니다.
  *
  * TextField.Label 의 `suffixSlot` 으로 라벨(+required 별표) 오른쪽에
@@ -61,7 +55,6 @@ type Story = StoryObj<typeof meta>;
  */
 export const Playground: Story = {
   args: {
-    fieldStyle: "outline",
     status: "default",
     disabled: false,
     readonly: false,
@@ -85,43 +78,6 @@ export const Playground: Story = {
       </TextField.Content>
       <TextField.HelperText>유효한 이메일 주소를 입력해주세요</TextField.HelperText>
     </TextField>
-  ),
-};
-
-/**
- * 필드 스타일 비교.
- * - `outline`: 테두리 + 배경 + 인터랙션 레이어(hover/press 틴트) + focus ring
- * - `hollow`: 테두리/배경/인터랙션 없이 입력만 노출
- */
-export const Styles: Story = {
-  render: () => (
-    <FlexRow gap='32px'>
-      <FlexColumn gap='8px'>
-        <Label>outline</Label>
-        <TextField fieldStyle='outline'>
-          <TextField.Label suffixSlot={<Icon name='information-line' size='2xs' />}>
-            이메일
-          </TextField.Label>
-          <TextField.Content>
-            <TextField.Input placeholder='이메일을 입력하세요' />
-          </TextField.Content>
-          <TextField.HelperText>유효한 이메일 주소를 입력해주세요</TextField.HelperText>
-        </TextField>
-      </FlexColumn>
-
-      <FlexColumn gap='8px'>
-        <Label>hollow</Label>
-        <TextField fieldStyle='hollow'>
-          <TextField.Label suffixSlot={<Icon name='information-line' size='2xs' />}>
-            이메일
-          </TextField.Label>
-          <TextField.Content>
-            <TextField.Input placeholder='이메일을 입력하세요' />
-          </TextField.Content>
-          <TextField.HelperText>유효한 이메일 주소를 입력해주세요</TextField.HelperText>
-        </TextField>
-      </FlexColumn>
-    </FlexRow>
   ),
 };
 

@@ -2,7 +2,7 @@ import { createVar, style, type StyleRule } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
 
-import type { FieldStatus, FieldStyle } from "./field.types";
+import type { FieldStatus } from "./field.types";
 import { labelColorVar } from "../../utils/typography.css";
 
 export const container = recipe({
@@ -18,23 +18,12 @@ const controlDisabledSelector = `${container.classNames.base}:has(${FIELD_CONTRO
 const contentDisabledSelector = `&:has(${FIELD_CONTROL}:disabled)`;
 const contentReadonlySelector = `&:has(${FIELD_CONTROL}[data-readonly])`;
 
-export const labelContainer = recipe({
-  base: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    gap: vars.scheme.semantic.spacing["4"],
-  },
-  variants: {
-    fieldStyle: {
-      outline: {
-        marginBottom: vars.scheme.semantic.spacing["4"],
-      },
-      hollow: {
-        marginBottom: vars.scheme.semantic.spacing["10"],
-      },
-    } satisfies Record<FieldStyle, StyleRule>,
-  },
+export const labelContainer = style({
+  display: "flex",
+  flexDirection: "row",
+  alignItems: "center",
+  gap: vars.scheme.semantic.spacing["4"],
+  marginBottom: vars.scheme.semantic.spacing["4"],
 });
 
 export const labelMain = style({
@@ -100,54 +89,82 @@ export const content = recipe({
     flex: "1 0 0",
     minWidth: 0,
     gap: vars.scheme.semantic.spacing["8"],
+    padding: `${vars.scheme.semantic.spacing["8"]} ${vars.scheme.semantic.spacing["12"]}`,
     borderRadius: vars.scheme.semantic.radius["8"],
+    borderWidth: vars.scheme.semantic.strokeWeight["1"],
+    borderStyle: "solid",
+    borderColor: contentVars.borderColor,
+    backgroundColor: contentVars.backgroundColor,
     transition: `border-color ${vars.environment.semantic.duration["100"]} ${vars.environment.semantic.motion.fluent}`,
+    vars: {
+      [contentVars.backgroundColor]: vars.color.semantic.surface.standard,
+    },
     selectors: {
+      "&::after": {
+        inset: 0,
+        borderRadius: "inherit",
+      },
+      "&::before": {
+        inset: `calc(-1 * ${vars.scheme.semantic.strokeWeight["1"]})`,
+        borderRadius: "inherit",
+        transition: `box-shadow ${vars.environment.semantic.duration["100"]} ${vars.environment.semantic.motion.fluent}`,
+      },
+      "&:hover": {
+        borderColor: contentVars.borderHoverColor,
+      },
+      "&:focus-within": {
+        borderColor: contentVars.borderFocusColor,
+      },
       // 상태는 루트(컨텍스트)뿐 아니라 컨트롤에서도 덮어쓸 수 있으므로, 컨테이너가 실제 컨트롤 상태를 함께 반영하도록 native 상태를 읽는다.
       [contentDisabledSelector]: {
         pointerEvents: "none",
       },
+      // native :read-only는 type에 따라 오탐할 수 있어 컨트롤이 내려준 data 속성을 사용한다.
+      [contentReadonlySelector]: {
+        vars: { [contentVars.backgroundColor]: vars.color.semantic.fill.subtlest },
+      },
     },
   },
   variants: {
-    fieldStyle: {
-      outline: {
-        padding: `${vars.scheme.semantic.spacing["8"]} ${vars.scheme.semantic.spacing["12"]}`,
-        borderWidth: vars.scheme.semantic.strokeWeight["1"],
-        borderStyle: "solid",
-        borderColor: contentVars.borderColor,
-        backgroundColor: contentVars.backgroundColor,
+    status: {
+      default: {
         vars: {
-          [contentVars.backgroundColor]: vars.color.semantic.surface.standard,
+          [contentVars.borderColor]: vars.color.semantic.stroke.alpha.assistive,
+          [contentVars.borderHoverColor]: vars.color.semantic.accent.normal,
+          [contentVars.borderFocusColor]: vars.color.semantic.accent.normal,
         },
         selectors: {
-          "&::after": {
-            inset: 0,
-            borderRadius: "inherit",
-          },
-          "&::before": {
-            inset: `calc(-1 * ${vars.scheme.semantic.strokeWeight["1"]})`,
-            borderRadius: "inherit",
-            transition: `box-shadow ${vars.environment.semantic.duration["100"]} ${vars.environment.semantic.motion.fluent}`,
-          },
-          "&:hover": {
-            borderColor: contentVars.borderHoverColor,
-          },
-          "&:focus-within": {
-            borderColor: contentVars.borderFocusColor,
-          },
-          // native :read-only는 type에 따라 오탐할 수 있어 컨트롤이 내려준 data 속성을 사용한다.
-          [contentReadonlySelector]: {
-            vars: { [contentVars.backgroundColor]: vars.color.semantic.fill.subtlest },
+          [contentDisabledSelector]: {
+            vars: { [contentVars.borderColor]: vars.color.semantic.stroke.alpha.subtle },
           },
         },
       },
-      hollow: {},
-    } satisfies Record<FieldStyle, StyleRule>,
-    status: {
-      default: {},
-      success: {},
-      error: {},
+      success: {
+        vars: {
+          [contentVars.borderColor]: vars.color.semantic.feedback.positive.alpha.alternative,
+          [contentVars.borderHoverColor]: vars.color.semantic.feedback.positive.normal,
+          [contentVars.borderFocusColor]: vars.color.semantic.feedback.positive.normal,
+        },
+        selectors: {
+          [contentDisabledSelector]: {
+            vars: { [contentVars.borderColor]: vars.color.semantic.feedback.positive.alpha.subtle },
+          },
+        },
+      },
+      error: {
+        vars: {
+          [contentVars.borderColor]: vars.color.semantic.feedback.destructive.alpha.alternative,
+          [contentVars.borderHoverColor]: vars.color.semantic.feedback.destructive.normal,
+          [contentVars.borderFocusColor]: vars.color.semantic.feedback.destructive.normal,
+        },
+        selectors: {
+          [contentDisabledSelector]: {
+            vars: {
+              [contentVars.borderColor]: vars.color.semantic.feedback.destructive.alpha.subtle,
+            },
+          },
+        },
+      },
     } satisfies Record<FieldStatus, StyleRule>,
     readOnly: {
       true: {
@@ -164,66 +181,17 @@ export const content = recipe({
   },
   compoundVariants: [
     {
-      variants: { fieldStyle: "outline", status: "default" },
-      style: {
-        vars: {
-          [contentVars.borderColor]: vars.color.semantic.stroke.alpha.assistive,
-          [contentVars.borderHoverColor]: vars.color.semantic.accent.normal,
-          [contentVars.borderFocusColor]: vars.color.semantic.accent.normal,
-        },
-        selectors: {
-          [contentDisabledSelector]: {
-            vars: { [contentVars.borderColor]: vars.color.semantic.stroke.alpha.subtle },
-          },
-        },
-      },
-    },
-    {
-      variants: { fieldStyle: "outline", status: "success" },
-      style: {
-        vars: {
-          [contentVars.borderColor]: vars.color.semantic.feedback.positive.alpha.alternative,
-          [contentVars.borderHoverColor]: vars.color.semantic.feedback.positive.normal,
-          [contentVars.borderFocusColor]: vars.color.semantic.feedback.positive.normal,
-        },
-        selectors: {
-          [contentDisabledSelector]: {
-            vars: {
-              [contentVars.borderColor]: vars.color.semantic.feedback.positive.alpha.subtle,
-            },
-          },
-        },
-      },
-    },
-    {
-      variants: { fieldStyle: "outline", status: "error" },
-      style: {
-        vars: {
-          [contentVars.borderColor]: vars.color.semantic.feedback.destructive.alpha.alternative,
-          [contentVars.borderHoverColor]: vars.color.semantic.feedback.destructive.normal,
-          [contentVars.borderFocusColor]: vars.color.semantic.feedback.destructive.normal,
-        },
-        selectors: {
-          [contentDisabledSelector]: {
-            vars: {
-              [contentVars.borderColor]: vars.color.semantic.feedback.destructive.alpha.subtle,
-            },
-          },
-        },
-      },
-    },
-    {
-      variants: { fieldStyle: "outline", disabled: true, status: "default" },
+      variants: { disabled: true, status: "default" },
       style: { vars: { [contentVars.borderColor]: vars.color.semantic.stroke.alpha.subtle } },
     },
     {
-      variants: { fieldStyle: "outline", disabled: true, status: "error" },
+      variants: { disabled: true, status: "error" },
       style: {
         vars: { [contentVars.borderColor]: vars.color.semantic.feedback.destructive.alpha.subtle },
       },
     },
     {
-      variants: { fieldStyle: "outline", disabled: true, status: "success" },
+      variants: { disabled: true, status: "success" },
       style: {
         vars: { [contentVars.borderColor]: vars.color.semantic.feedback.positive.alpha.subtle },
       },
@@ -244,12 +212,8 @@ const disabledHelperTextSelector = (status: FieldStatus) => ({
 });
 
 export const helperText = recipe({
-  base: {},
+  base: { marginTop: vars.scheme.semantic.spacing["6"] },
   variants: {
-    fieldStyle: {
-      outline: { marginTop: vars.scheme.semantic.spacing["6"] },
-      hollow: { marginTop: vars.scheme.semantic.spacing["12"] },
-    } satisfies Record<FieldStyle, StyleRule>,
     status: {
       default: {
         vars: { [labelColorVar]: vars.color.semantic.object.alternative },

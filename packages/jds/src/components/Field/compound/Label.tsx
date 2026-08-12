@@ -19,13 +19,12 @@ export const FieldLabel = forwardRef<HTMLLabelElement, FieldLabelProps>(
     const {
       fieldId,
       labelId,
-      fieldStyle,
       disabled: isDisabled,
       required: isRequired,
     } = useFieldContext("Field.Label");
 
     return (
-      <span className={styles.labelContainer({ fieldStyle })}>
+      <span className={styles.labelContainer}>
         {prefixSlot}
         <span className={styles.labelMain}>
           <label

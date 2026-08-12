@@ -6,11 +6,10 @@ import { FieldHelperText } from "./compound/HelperText";
 import { FieldLabel } from "./compound/Label";
 import { FieldProvider } from "./Field.context";
 import * as styles from "./field.css";
-import type { FieldStatus, FieldStyle } from "./field.types";
+import type { FieldStatus } from "./field.types";
 
 export interface FieldProps extends ComponentPropsWithoutRef<"div"> {
   status?: FieldStatus;
-  fieldStyle?: FieldStyle;
   readonly?: boolean;
   disabled?: boolean;
   required?: boolean;
@@ -22,7 +21,6 @@ const InternalField = forwardRef<HTMLDivElement, FieldProps>(
     {
       id: idFromProps,
       status = "default",
-      fieldStyle = "outline",
       readonly = false,
       disabled = false,
       required = false,
@@ -46,7 +44,6 @@ const InternalField = forwardRef<HTMLDivElement, FieldProps>(
         hasHelperText={hasHelperText}
         onHelperTextMountChange={setHasHelperText}
         status={status}
-        fieldStyle={fieldStyle}
         readonly={readonly}
         disabled={disabled}
         required={required}

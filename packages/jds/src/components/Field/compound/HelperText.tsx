@@ -16,7 +16,6 @@ export const FieldHelperText = forwardRef<HTMLSpanElement, FieldHelperTextProps>
       helperTextId,
       onHelperTextMountChange,
       status,
-      fieldStyle,
       disabled: isDisabled,
     } = useFieldContext("Field.HelperText");
 
@@ -33,7 +32,7 @@ export const FieldHelperText = forwardRef<HTMLSpanElement, FieldHelperTextProps>
         id={helperTextId}
         className={clsx(
           getLabelClassName({ size: "sm" }),
-          styles.helperText({ status, fieldStyle, disabled: isDisabled }),
+          styles.helperText({ status, disabled: isDisabled }),
           className,
         )}
         {...restProps}

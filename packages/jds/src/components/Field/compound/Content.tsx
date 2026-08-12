@@ -10,30 +10,17 @@ export interface FieldContentProps extends ComponentPropsWithoutRef<"div"> {
   children: ReactNode;
 }
 
-/**
- * outline: hover/press overlay + focus ring
- * hollow: 인터랙션 레이어 없음 (입력만 노출)
- */
 export const FieldContent = forwardRef<HTMLDivElement, FieldContentProps>(
   ({ children, className, ...restProps }, ref) => {
-    const {
-      status,
-      fieldStyle,
-      disabled: isDisabled,
-      readonly: isReadonly,
-    } = useFieldContext("Field.Content");
-
-    const isOutline = fieldStyle === "outline";
+    const { status, disabled: isDisabled, readonly: isReadonly } = useFieldContext("Field.Content");
 
     return (
       <div
         ref={ref}
         className={clsx(
-          styles.content({ status, fieldStyle, disabled: isDisabled, readOnly: isReadonly }),
-          isOutline && [
-            overlay({ hierarchy: "tertiary", density: "normal" }),
-            focusRing({ interaction: "within", feedback: statusToFeedback[status] }),
-          ],
+          styles.content({ status, disabled: isDisabled, readOnly: isReadonly }),
+          overlay({ hierarchy: "tertiary", density: "normal" }),
+          focusRing({ interaction: "within", feedback: statusToFeedback[status] }),
           className,
         )}
         {...restProps}

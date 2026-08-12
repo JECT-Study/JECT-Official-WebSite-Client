@@ -1,4 +1,4 @@
-import type { FieldStatus, FieldStyle } from "./field.types";
+import type { FieldStatus } from "./field.types";
 
 import { createCtxProvider } from "@/hooks/createCtxProvider";
 
@@ -11,7 +11,6 @@ export interface FieldContextValue {
   /** Field.HelperText가 mount/unmount될 때 호출돼요. */
   onHelperTextMountChange: (mounted: boolean) => void;
   status: FieldStatus;
-  fieldStyle: FieldStyle;
   readonly: boolean;
   disabled: boolean;
   required: boolean;
