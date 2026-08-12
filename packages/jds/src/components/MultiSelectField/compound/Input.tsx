@@ -283,7 +283,7 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
           readOnly={isReadOnly}
           placeholder={selectedValues.length === 0 ? placeholder : undefined}
           value={query}
-          data-interaction-target=''
+          data-field-control=''
           data-readonly={isReadOnly || undefined}
           className={clsx(getBodyClassName({ size: "md" }), styles.input, className)}
           onChange={handleChange}

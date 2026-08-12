@@ -55,7 +55,8 @@ export const TextFieldInput = forwardRef<HTMLInputElement, TextFieldInputProps>(
         disabled={isDisabled}
         readOnly={isReadOnly}
         required={isRequired}
-        // NOTES: :read-only 는 readonly 가 적용되지 않는 type(checkbox·range·file 등)에서도 항상 매칭되므로 스타일은 실제로 해석된 readonly 상태를 담은 data 속성으로 건다.
+        data-field-control=''
+        // native :read-only는 readonly를 지원하지 않는 input type에서도 매칭되므로, 해석된 상태를 data 속성으로 내려준다.
         data-readonly={isReadOnly || undefined}
         className={clsx(getBodyClassName({ size: "md" }), styles.input, className)}
       />

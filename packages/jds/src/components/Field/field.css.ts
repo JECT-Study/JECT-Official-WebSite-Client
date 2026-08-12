@@ -12,7 +12,11 @@ export const container = recipe({
   },
 });
 
-const controlDisabledSelector = `${container.classNames.base}:has(:is(input, [data-interaction-target]):disabled) &`;
+const FIELD_CONTROL = "[data-field-control]";
+
+const controlDisabledSelector = `${container.classNames.base}:has(${FIELD_CONTROL}:disabled) &`;
+const contentDisabledSelector = `&:has(${FIELD_CONTROL}:disabled)`;
+const contentReadonlySelector = `&:has(${FIELD_CONTROL}[data-readonly])`;
 
 export const labelContainer = recipe({
   base: {
@@ -99,8 +103,8 @@ export const content = recipe({
     borderRadius: vars.scheme.semantic.radius["8"],
     transition: `border-color ${vars.environment.semantic.duration["100"]} ${vars.environment.semantic.motion.fluent}`,
     selectors: {
-      // NOTES: 상태는 루트(컨텍스트)뿐 아니라 안쪽 input 에서도 덮어쓸 수 있으므로, 컨테이너가 실제 컨트롤 상태를 함께 반영하도록 native 상태를 읽는다.
-      "&:has(:is(input, [data-interaction-target]):disabled)": {
+      // 상태는 루트(컨텍스트)뿐 아니라 컨트롤에서도 덮어쓸 수 있으므로, 컨테이너가 실제 컨트롤 상태를 함께 반영하도록 native 상태를 읽는다.
+      [contentDisabledSelector]: {
         pointerEvents: "none",
       },
     },
@@ -132,8 +136,8 @@ export const content = recipe({
           "&:focus-within": {
             borderColor: contentVars.borderFocusColor,
           },
-          // NOTES: readonly 는 native `:read-only` 가 type 에 따라 오탐하므로 TextField.Input 이 해석해 내려주는 data 속성을 읽는다.
-          "&:has(:is(input, [data-interaction-target])[data-readonly])": {
+          // native :read-only는 type에 따라 오탐할 수 있어 컨트롤이 내려준 data 속성을 사용한다.
+          [contentReadonlySelector]: {
             vars: { [contentVars.backgroundColor]: vars.color.semantic.fill.subtlest },
           },
         },
@@ -168,7 +172,7 @@ export const content = recipe({
           [contentVars.borderFocusColor]: vars.color.semantic.accent.normal,
         },
         selectors: {
-          "&:has(:is(input, [data-interaction-target]):disabled)": {
+          [contentDisabledSelector]: {
             vars: { [contentVars.borderColor]: vars.color.semantic.stroke.alpha.subtle },
           },
         },
@@ -183,7 +187,7 @@ export const content = recipe({
           [contentVars.borderFocusColor]: vars.color.semantic.feedback.positive.normal,
         },
         selectors: {
-          "&:has(:is(input, [data-interaction-target]):disabled)": {
+          [contentDisabledSelector]: {
             vars: {
               [contentVars.borderColor]: vars.color.semantic.feedback.positive.alpha.subtle,
             },
@@ -200,7 +204,7 @@ export const content = recipe({
           [contentVars.borderFocusColor]: vars.color.semantic.feedback.destructive.normal,
         },
         selectors: {
-          "&:has(:is(input, [data-interaction-target]):disabled)": {
+          [contentDisabledSelector]: {
             vars: {
               [contentVars.borderColor]: vars.color.semantic.feedback.destructive.alpha.subtle,
             },
