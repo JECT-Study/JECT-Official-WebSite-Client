@@ -7,7 +7,7 @@ import { SelectFieldProvider } from "./SelectField.context";
 import type { SelectFieldProps } from "./selectField.types";
 import { Field } from "../Field";
 
-const SelectFieldRoot = forwardRef<HTMLDivElement, SelectFieldProps>(({ ...props }, ref) => {
+const SelectFieldRoot = forwardRef<HTMLDivElement, SelectFieldProps>((props, ref) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (

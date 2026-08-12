@@ -8,7 +8,7 @@ export type TextFieldProps = FieldProps;
 /**
  * 루트는 내부 Field primitive를 그대로 감싸 status, readonly, disabled, required를 전달한다.
  */
-const TextFieldRoot = forwardRef<HTMLDivElement, TextFieldProps>(({ ...props }, ref) => {
+const TextFieldRoot = forwardRef<HTMLDivElement, TextFieldProps>((props, ref) => {
   return <Field ref={ref} {...props} />;
 });
 
