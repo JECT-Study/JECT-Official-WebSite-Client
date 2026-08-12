@@ -1,12 +1,16 @@
 ---
-"@jects/jds": minor
+"@jects/jds": patch
 ---
 
 **Thumbnail**
 
-`ratio`에 `2:3` 비율 옵션을 추가합니다.
+`ratio`에 `2:3` 옵션을 추가하고, 기본 fallback과 인터랙션 색상을 조정합니다.
 
-추가 개선사항:
+**추가**
 
-- 기본 fallback을 아이콘에서 공용 placeholder 이미지로 변경
-- hover/active dim, focus ring, border 색상을 디자인 토큰 기반으로 정렬
+- `ratio`에 `2:3` 비율 추가
+
+**동작 변경 (코드 수정 불필요)**
+
+- 기본 fallback이 아이콘에서 공용 placeholder 이미지로 바뀝니다.
+- hover와 active dim, focus ring, border 색상을 디자인 토큰 기준으로 정렬합니다.

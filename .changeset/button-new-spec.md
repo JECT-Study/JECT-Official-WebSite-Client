@@ -4,23 +4,20 @@
 
 **Button (BlockButton / LabelButton)**
 
-신규 디자인 스펙을 반영해 두 버튼의 외형 및 `BlockButton`의 옵션이 변경되었습니다.
+신규 디자인 스펙에 맞춰 두 버튼의 외형과 `BlockButton`의 옵션을 변경합니다. 별칭을 두지 않으므로 아래 값을 쓰던 호출부는 수정이 필요합니다.
 
-| 이전                                   | 이후                 |
-| -------------------------------------- | -------------------- |
-| `BlockButton` `variant = "empty"`      | `variant = "hollow"` |
-| `BlockButton` `hierarchy = "tertiary"` | 제거                 |
+**소비처 영향 (코드 수정 필요)**
 
-`BlockButton`의 `variant="empty"`는 `"hollow"`로 이름이 바뀌었고, `hierarchy="tertiary"`는 제거되었습니다. 별칭을 두지 않으므로 해당 값을 사용하던 호출부는 마이그레이션이 필요합니다.
+| AS-IS                                  | TO-BE              |
+| -------------------------------------- | ------------------ |
+| `BlockButton`의 `variant="empty"`      | `variant="hollow"` |
+| `BlockButton`의 `hierarchy="tertiary"` | 제거 — 대체재 없음 |
 
-**AS-IS**
-
-```tsx
-<BlockButton variant='empty'>더보기</BlockButton>
+```diff
+- <BlockButton variant='empty'>더보기</BlockButton>
++ <BlockButton variant='hollow'>더보기</BlockButton>
 ```
 
-**TO-BE**
+**동작 변경 (코드 수정 불필요)**
 
-```tsx
-<BlockButton variant='hollow'>더보기</BlockButton>
-```
+- `BlockButton`, `LabelButton`의 외형이 신규 디자인 스펙에 맞게 변경됩니다.

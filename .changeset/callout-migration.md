@@ -4,19 +4,16 @@
 
 **Callout**
 
-Emotion에서 vanilla-extract로 Callout 컴포넌트의 스타일링을 마이그레이션합니다. 함께 `hierarchy`, `labelButtonProps` prop이 제거되어 breaking change입니다.
+Callout의 스타일링을 Emotion에서 vanilla-extract로 마이그레이션하고 `hierarchy`, `labelButtonProps` prop을 제거합니다. 두 prop을 쓰던 코드는 수정이 필요합니다.
 
-**소비자 영향 (코드 수정 필요)**
+**소비처 영향 (코드 수정 필요)**
 
-| 항목               | AS-IS                                        | TO-BE                                               |
-| ------------------ | -------------------------------------------- | --------------------------------------------------- |
-| `hierarchy`        | `"primary" \| "secondary"`                   | 제거 (스타일은 `feedback`으로만 결정)               |
-| `labelButtonProps` | 내부에 `LabelButton`을 렌더링                | 제거. 버튼이 필요하면 `children`에 직접 렌더링       |
-| `feedback`         | `"positive" \| "destructive" \| "notifying"` | `"none"`(기본) 추가, `hierarchy`와의 배타 관계 해제 |
+| AS-IS                                | TO-BE                                        |
+| ------------------------------------ | -------------------------------------------- |
+| `hierarchy="primary" \| "secondary"` | 제거 — 스타일은 `feedback`으로만 결정합니다  |
+| `labelButtonProps`                   | 제거 — 버튼은 `children`에 직접 렌더링합니다 |
 
-**마이그레이션 예시**
-
-버튼이 필요하면 `children`에 직접 렌더링합니다. 정렬이 필요하면 flex 컨테이너로 감쌉니다.
+버튼 정렬이 필요하면 flex 컨테이너로 감쌉니다.
 
 ```diff
 - <Callout hierarchy="secondary" labelButtonProps={{ children: "확인", onClick: handleClick }}>
@@ -25,13 +22,19 @@ Emotion에서 vanilla-extract로 Callout 컴포넌트의 스타일링을 마이�
 + <Callout>
 +   <div style={{ display: "flex", flexDirection: "column", gap: "1rem", alignItems: "flex-start" }}>
 +     본문 내용
-+     <LabelButton.Basic hierarchy="secondary" onClick={handleClick}>확인</LabelButton.Basic>
++     <LabelButton hierarchy="secondary" onClick={handleClick}>확인</LabelButton>
 +   </div>
 + </Callout>
 ```
 
-**추가 사항 (non-breaking)**
+**추가**
 
-- `icon?: IconName` prop 추가 (`title`이 있을 때만 사용 가능)
-- 네이티브 `div` 속성 전달 및 `ref` 포워딩 지원
-- Figma 디자인 정렬: title 타이포를 size별 bold로, `notifying` 색상을 `static.inverse`로, title↔body gap을 size별로(sm/xs는 8) 조정
+- `icon?: IconName` — `title`이 있을 때만 지정할 수 있는 아이콘
+- `feedback`에 `"none"` 추가, 기본값입니다
+- 네이티브 `div` 속성 전달과 `ref` 포워딩 지원
+
+**동작 변경 (코드 수정 불필요)**
+
+- title 타이포가 size별 bold로 변경됩니다.
+- `notifying`의 색상이 `static.inverse`로 변경됩니다.
+- title과 body 사이 gap을 size별로 조정합니다. sm, xs는 8입니다.
