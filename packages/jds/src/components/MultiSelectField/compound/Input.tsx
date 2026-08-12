@@ -301,6 +301,7 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
               aria-controls={isOpen ? listboxId : undefined}
               aria-activedescendant={isOpen ? activeId : undefined}
               aria-autocomplete='list'
+              aria-labelledby={hasLabel ? labelId : undefined}
               aria-describedby={describedByIds.length > 0 ? describedByIds.join(" ") : undefined}
               aria-invalid={ariaInvalid}
               aria-required={isRequired || undefined}

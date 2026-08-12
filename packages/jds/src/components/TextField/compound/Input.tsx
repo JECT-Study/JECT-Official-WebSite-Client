@@ -40,6 +40,8 @@ export const TextFieldInput = forwardRef<HTMLInputElement, TextFieldInputProps>(
   ) => {
     const {
       fieldId,
+      labelId,
+      hasLabel,
       helperId,
       hasHelper,
       status,
@@ -62,6 +64,7 @@ export const TextFieldInput = forwardRef<HTMLInputElement, TextFieldInputProps>(
           {...restProps}
           ref={ref}
           id={fieldId}
+          aria-labelledby={hasLabel ? labelId : undefined}
           aria-describedby={describedByIds.length > 0 ? describedByIds.join(" ") : undefined}
           aria-invalid={ariaInvalid}
           disabled={isDisabled}
