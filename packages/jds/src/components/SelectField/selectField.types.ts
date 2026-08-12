@@ -11,6 +11,8 @@ type SelectFieldTriggerBaseProps = Omit<
 > & {
   options: SelectOption[];
   placeholder?: string;
+  /** 필수 입력 여부. 트리거가 button 이므로 aria-required 로 반영한다. */
+  required?: boolean;
   variant?: OptionVariant;
   /**
    * 값과 화살표 사이에 배치되는 부가 요소입니다.

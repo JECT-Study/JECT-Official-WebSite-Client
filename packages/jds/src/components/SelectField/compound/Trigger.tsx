@@ -32,6 +32,7 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
       onChange,
       variant = "label",
       placeholder,
+      required: requiredFromProps,
       suffix,
       disabled: disabledFromProps,
       onClick: onClickFromProps,
@@ -52,11 +53,13 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
       status,
       disabled: isDisabledFromCtx,
       readonly: isReadOnly,
+      required: isRequiredFromCtx,
     } = useFieldContext("SelectField.Trigger");
 
     const { isOpen, onOpenChange } = useSelectFieldContext("SelectField.Trigger");
 
     const isDisabled = disabledFromProps ?? isDisabledFromCtx;
+    const isRequired = requiredFromProps ?? isRequiredFromCtx;
     const isInteractive = !isDisabled && !isReadOnly;
 
     const { selectedValue, selectedValues, select } = useSingleSelectState(
@@ -161,6 +164,7 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
                 aria-describedby={describedByIds.length > 0 ? describedByIds.join(" ") : undefined}
                 aria-invalid={ariaInvalid}
                 aria-readonly={isReadOnly || undefined}
+                aria-required={isRequired || undefined}
                 disabled={isDisabled}
                 data-field-control=''
                 data-readonly={isReadOnly || undefined}
