@@ -6,16 +6,20 @@ import * as styles from "../field.css";
 
 import { getLabelClassName } from "@/utils/typography";
 
-export interface FieldLabelProps extends Omit<ComponentPropsWithoutRef<"label">, "htmlFor"> {
+// prefix는 HTMLAttributes의 RDFa 속성과 타입이 충돌하므로 제외하고 ReactNode로 재정의한다.
+export interface FieldLabelProps extends Omit<
+  ComponentPropsWithoutRef<"label">,
+  "htmlFor" | "prefix"
+> {
   children?: ReactNode;
   /** 라벨 텍스트 앞에 배치되는 부가 요소 (예: 아이콘) */
-  prefixSlot?: ReactNode;
+  prefix?: ReactNode;
   /** 라벨 텍스트(+required 별표) 뒤에 배치되는 부가 요소 (예: 도움말 아이콘) */
-  suffixSlot?: ReactNode;
+  suffix?: ReactNode;
 }
 
 export const FieldLabel = forwardRef<HTMLLabelElement, FieldLabelProps>(
-  ({ children, prefixSlot, suffixSlot, className, ...restProps }, ref) => {
+  ({ children, prefix, suffix, className, ...restProps }, ref) => {
     const {
       fieldId,
       labelId,
@@ -31,7 +35,7 @@ export const FieldLabel = forwardRef<HTMLLabelElement, FieldLabelProps>(
 
     return (
       <span className={styles.labelContainer}>
-        {prefixSlot}
+        {prefix}
         <span className={styles.labelMain}>
           <label
             {...restProps}
@@ -58,7 +62,7 @@ export const FieldLabel = forwardRef<HTMLLabelElement, FieldLabelProps>(
             </span>
           )}
         </span>
-        {suffixSlot}
+        {suffix}
       </span>
     );
   },

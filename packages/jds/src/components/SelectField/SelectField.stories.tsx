@@ -84,7 +84,7 @@ export const Playground: Story = {
   render: args => (
     <SelectField {...args} style={FIELD_WIDTH}>
       <SelectField.Label
-        suffixSlot={
+        suffix={
           <Icon
             name='information-line'
             size='2xs'

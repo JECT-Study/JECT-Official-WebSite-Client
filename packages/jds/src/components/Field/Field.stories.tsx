@@ -97,7 +97,7 @@ const SampleField = ({
   defaultValue?: string;
 }) => (
   <>
-    <Field.Label suffixSlot={<Icon name='information-line' size='2xs' />}>{label}</Field.Label>
+    <Field.Label suffix={<Icon name='information-line' size='2xs' />}>{label}</Field.Label>
     <Field.Content>
       <DemoInput placeholder={placeholder} defaultValue={defaultValue} />
     </Field.Content>
@@ -186,7 +186,7 @@ export const WithAddon: Story = {
   render: () => (
     <div style={{ width: "20rem" }}>
       <Field>
-        <Field.Label suffixSlot={<Icon name='information-line' size='2xs' />}>이메일</Field.Label>
+        <Field.Label suffix={<Icon name='information-line' size='2xs' />}>이메일</Field.Label>
         <Field.Content>
           <Icon name='account-circle-line' size='sm' />
           <DemoInput placeholder='이메일을 입력하세요' />
@@ -216,15 +216,15 @@ export const Interaction: Story = {
 };
 
 /**
- * Field.Label 의 `prefixSlot` / `suffixSlot` 으로 라벨 앞뒤에 도움말 아이콘 등 부가 요소를 배치합니다.
+ * Field.Label 의 `prefix` / `suffix` 으로 라벨 앞뒤에 도움말 아이콘 등 부가 요소를 배치합니다.
  * 슬롯은 라벨·required 별표와 같은 labelContainer 행 안에 렌더되므로 별도 정렬 이슈가 없습니다.
- * required 별표는 라벨 오른쪽·suffixSlot 왼쪽에 위치합니다 (이메일 * ⓘ).
+ * required 별표는 라벨 오른쪽·suffix 왼쪽에 위치합니다 (이메일 * ⓘ).
  */
 export const LabelSlots: Story = {
   render: () => (
     <FlexColumn gap='24px'>
       <Field>
-        <Field.Label suffixSlot={<Icon name='information-line' size='2xs' />}>이메일</Field.Label>
+        <Field.Label suffix={<Icon name='information-line' size='2xs' />}>이메일</Field.Label>
         <Field.Content>
           <DemoInput placeholder='이메일을 입력하세요' />
         </Field.Content>
@@ -232,7 +232,7 @@ export const LabelSlots: Story = {
       </Field>
 
       <Field required>
-        <Field.Label suffixSlot={<Icon name='information-line' size='2xs' />}>이메일</Field.Label>
+        <Field.Label suffix={<Icon name='information-line' size='2xs' />}>이메일</Field.Label>
         <Field.Content>
           <DemoInput placeholder='이메일을 입력하세요' />
         </Field.Content>

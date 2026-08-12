@@ -88,7 +88,7 @@ export const Playground: Story = {
   render: args => (
     <MultiSelectField {...args} style={FIELD_WIDTH}>
       <MultiSelectField.Label
-        suffixSlot={
+        suffix={
           <Icon
             name='information-line'
             size='2xs'
