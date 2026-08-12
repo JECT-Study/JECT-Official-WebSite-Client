@@ -14,11 +14,11 @@ type MultiSelectFieldInputBaseProps = Omit<
   options: string[];
   placeholder?: string;
   variant?: OptionVariant;
-  /** 선택할 수 있는 값의 최대 개수입니다. 지정하면 `MultiSelectField.Counter`가 현재 개수와 함께 표시됩니다. */
+  /** 선택할 수 있는 값의 최대 개수. 지정하면 `MultiSelectField.Counter`가 현재 개수와 함께 표시된다. */
   maxValues?: number;
-  /** 입력값이 기존 옵션이나 현재 선택값과 겹치지 않을 때 목록에 새 값 추가 항목을 표시합니다. */
+  /** 입력값이 기존 옵션이나 현재 선택값과 겹치지 않을 때 목록에 새 값 추가 항목을 표시한다. */
   allowCustomValue?: boolean;
-  /** 입력 오른쪽에 형제로 배치되는 부가 요소입니다. */
+  /** 입력 오른쪽에 형제로 배치되는 부가 요소 */
   suffix?: ReactNode;
 };
 
