@@ -35,6 +35,6 @@ Toast를 Compound 구조에서 `feedback` prop을 쓰는 단일 컴포넌트 구
 
 **동작 변경 (코드 수정 불필요)**
 
-- `ToastProvider`가 스크린리더 낭독용 live region을 둘로 나눕니다. `feedback="destructive"`는 `role="alert"`와 `aria-live="assertive"` 영역에서 즉시 낭독하고 나머지는 `role="status"`와 `aria-live="polite"` 영역에서 안내합니다.
-- 같은 렌더에 동일한 alert 또는 status 채널의 Toast가 여러 개 추가되면 해당 채널의 가장 최근 항목만 안내합니다. 여러 알림의 내용을 모두 전달해야 하면 하나의 Toast로 통합해야 합니다.
-- 자동 낭독은 `useToast` 또는 `toastController`로 `ToastProvider`의 큐에 추가한 경우에만 동작하고, `<Toast>`를 직접 렌더링하면 동작하지 않습니다.
+- `ToastProvider`가 스크린리더 낭독용 live region을 둘로 분리 — `feedback="destructive"`는 `role="alert"`와 `aria-live="assertive"` 영역에서 즉시 낭독, 나머지는 `role="status"`와 `aria-live="polite"` 영역에서 안내
+- 같은 렌더에 동일한 alert 또는 status 채널의 Toast가 여러 개 추가되면 해당 채널의 가장 최근 항목만 안내 — 여러 알림의 내용을 모두 전달해야 하면 하나의 Toast로 통합 필요
+- 자동 낭독은 `useToast` 또는 `toastController`로 `ToastProvider`의 큐에 추가한 경우에만 동작, `<Toast>`를 직접 렌더링하면 미동작

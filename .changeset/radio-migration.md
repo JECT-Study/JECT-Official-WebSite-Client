@@ -55,14 +55,14 @@ Radio를 radix RadioGroup 기반으로 재작성하고 API를 조립된 props �
 
 **추가**
 
-- `layout` — `"vertical"`(기본) 또는 `"grid"`. `grid`는 `columns`를 함께 지정해야 합니다.
-- `stretched` — 아이템이 전체 너비를 채웁니다.
-- uncontrolled 방식 지원. `defaultValue`로 초기 선택값을 지정합니다.
+- `layout` — `"vertical"`(기본) 또는 `"grid"`, `grid`는 `columns` 필수
+- `stretched` — 아이템이 전체 너비를 채움
+- uncontrolled 방식 지원, `defaultValue`로 초기 선택값 지정
 
 **동작 변경 (코드 수정 불필요)**
 
-- 라디오 컨트롤이 `<input type="radio">`에서 `<button role="radio">`로 바뀝니다. 라디오 DOM을 직접 조회하거나 폼 값에 의존하던 코드는 확인이 필요합니다.
-- `RadioGroup`이 레이아웃을 직접 관리합니다. 소비처가 감싸 배치하던 컨테이너는 필요 없습니다.
-- 레이블과 헬퍼의 `white-space: nowrap`이 제거되어 폭이 부족하면 텍스트가 개행됩니다.
-- 레이블과 헬퍼 텍스트를 클릭해도 해당 라디오가 선택됩니다.
-- disabled 상태의 색상과 커서 등 시각적 표현이 신규 디자인 스펙에 맞게 바뀝니다.
+- 라디오 컨트롤이 `<input type="radio">`에서 `<button role="radio">`로 변경 — DOM을 직접 조회하거나 폼 값에 의존하던 코드는 확인 필요
+- `RadioGroup`이 레이아웃을 직접 관리 — 소비처가 감싸 배치하던 컨테이너 불필요
+- 레이블과 헬퍼의 `white-space: nowrap` 제거 — 폭이 부족하면 텍스트 개행
+- 레이블과 헬퍼 텍스트를 클릭해도 해당 라디오 선택
+- disabled 상태의 색상과 커서 등 시각적 표현을 신규 디자인 스펙에 맞게 변경

@@ -12,4 +12,4 @@ Divider의 기본 색상을 `semantic.stroke.alpha.subtle`에서 `semantic.strok
 
 **동작 변경 (코드 수정 불필요)**
 
-- Divider 기본 색상이 `semantic.stroke.alpha.subtle`에서 `semantic.stroke.alpha.assistive`로 바뀝니다.
+- Divider 기본 색상이 `semantic.stroke.alpha.subtle`에서 `semantic.stroke.alpha.assistive`로 변경

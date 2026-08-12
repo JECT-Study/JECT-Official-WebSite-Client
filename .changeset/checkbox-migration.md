@@ -64,16 +64,16 @@ Checkbox를 radix Checkbox 기반으로 재작성하고 API를 조립된 props �
 
 **추가**
 
-- `CheckboxGroup` (`CheckboxGroupProps`) — 다중 선택 그룹. 선택값은 `string[]`이고 controlled(`value` + `onChange`)와 uncontrolled(`defaultValue`)를 모두 지원합니다.
-- `layout` — `"vertical"`(기본) 또는 `"grid"`. `grid`는 `columns`를 함께 지정해야 합니다.
-- `stretched` — 아이템이 전체 너비를 채웁니다. 그룹에 지정하면 모든 아이템에 전파되고, 단독 `Checkbox`에도 지정할 수 있습니다.
+- `CheckboxGroup` (`CheckboxGroupProps`) — 다중 선택 그룹, 선택값은 `string[]`, controlled(`value` + `onChange`)와 uncontrolled(`defaultValue`) 모두 지원
+- `layout` — `"vertical"`(기본) 또는 `"grid"`, `grid`는 `columns` 필수
+- `stretched` — 아이템이 전체 너비를 채움, 그룹에 지정하면 모든 아이템에 전파되고 단독 `Checkbox`에도 지정 가능
 - `isInvalid`, `name` — 유효성 표시와 폼 제출 이름
-- `defaultChecked`를 통한 비제어 방식. 기존 제어 방식(`checked`)도 그대로 씁니다.
+- `defaultChecked`를 통한 비제어 방식, 기존 제어 방식(`checked`)도 그대로 사용 가능
 
 **동작 변경 (코드 수정 불필요)**
 
-- 체크박스 컨트롤이 `<input type="checkbox">`에서 `<button role="checkbox">`로 바뀝니다. 체크박스 DOM을 직접 조회하거나 폼 값에 의존하던 코드는 확인이 필요합니다.
-- `CheckboxGroup`이 레이아웃을 직접 관리합니다. 소비처가 감싸 배치하던 컨테이너는 필요 없습니다.
-- `CheckboxGroup`이 방향키, Home, End로 포커스를 이동합니다. 그룹에 Tab으로 진입한 뒤 방향키로 항목을 옮기고 Space로 선택을 토글합니다.
-- 레이블과 헬퍼의 `white-space: nowrap`이 제거되어 폭이 부족하면 텍스트가 개행됩니다.
-- `invalid` 스타일이 unchecked 상태에서만 적용됩니다. checked, indeterminate 상태에서는 적용되지 않습니다.
+- 체크박스 컨트롤이 `<input type="checkbox">`에서 `<button role="checkbox">`로 변경 — DOM을 직접 조회하거나 폼 값에 의존하던 코드는 확인 필요
+- `CheckboxGroup`이 레이아웃을 직접 관리 — 소비처가 감싸 배치하던 컨테이너 불필요
+- `CheckboxGroup`이 방향키, Home, End로 포커스 이동 — Tab으로 진입한 뒤 방향키로 항목 이동, Space로 선택 토글
+- 레이블과 헬퍼의 `white-space: nowrap` 제거 — 폭이 부족하면 텍스트 개행
+- `invalid` 스타일이 unchecked 상태에서만 적용 — checked, indeterminate 상태에서는 미적용

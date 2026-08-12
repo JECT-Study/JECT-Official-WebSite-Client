@@ -8,5 +8,5 @@
 
 **동작 변경 (코드 수정 불필요)**
 
-- `MegaMenu.Section`의 잘못된 `displayName`을 수정합니다.
-- `useMenuContext`를 Menu 밖에서 호출했을 때의 에러 메시지를 개선합니다.
+- `MegaMenu.Section`의 잘못된 `displayName` 수정
+- `useMenuContext`를 Menu 밖에서 호출했을 때의 에러 메시지 개선

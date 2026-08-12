@@ -8,11 +8,11 @@ Dialog의 스타일링을 Emotion에서 vanilla-extract로 마이그레이션하
 
 **소비처 영향 (코드 수정 필요)**
 
-| AS-IS                                    | TO-BE                                          |
-| ---------------------------------------- | ---------------------------------------------- |
-| `tertiaryAction`                         | 제거 — primary, secondary 두 위계만 지원합니다 |
-| `isButtonStretched`                      | `buttonLayout="vertical"`                      |
-| `primaryAction.hierarchy` 등 `hierarchy` | 제거 — 슬롯이 위계를 결정합니다                |
+| AS-IS                                    | TO-BE                                    |
+| ---------------------------------------- | ---------------------------------------- |
+| `tertiaryAction`                         | 제거 — primary, secondary 두 위계만 지원 |
+| `isButtonStretched`                      | `buttonLayout="vertical"`                |
+| `primaryAction.hierarchy` 등 `hierarchy` | 제거 — 슬롯이 위계를 결정                |
 
 ```diff
   <Dialog
@@ -45,8 +45,8 @@ Dialog의 스타일링을 Emotion에서 vanilla-extract로 마이그레이션하
 
 **동작 변경 (코드 수정 불필요)**
 
-- 너비가 고정값에서 400~560px 범위로 바뀌고, 좁은 뷰포트에서는 화면 안쪽으로 줄어듭니다.
-- 본문이 길면 본문 영역만 스크롤되고 제목, 체크박스, 버튼은 고정됩니다. 체크박스는 본문이 아니라 푸터에서 버튼과 함께 배치되며 패널 높이는 `100dvh` 기준으로 제한됩니다.
-- 제목과 본문이 Radix `Title`, `Description`으로 연결되어 레이블이 자동 지정되고, 스크롤이 생긴 본문은 키보드로 포커스해 탐색할 수 있습니다.
-- 패널 border가 `stroke.alpha.subtle`에서 `stroke.subtle`로 바뀌어 색이 달라집니다. light는 `#10101721`에서 `#e0e0e1`로, dark는 `#f6f7fc19`에서 `#313237`로 바뀝니다.
-- 등장 애니메이션이 200ms에서 250ms로, 퇴장이 300ms에서 200ms로 바뀝니다.
+- 너비가 고정값에서 400~560px 범위로 변경, 좁은 뷰포트에서는 화면 안쪽으로 축소
+- 본문이 길면 본문 영역만 스크롤되고 제목, 체크박스, 버튼은 고정 — 체크박스는 본문이 아니라 푸터에서 버튼과 함께 배치, 패널 높이는 `100dvh` 기준으로 제한
+- 제목과 본문이 Radix `Title`, `Description`으로 연결되어 레이블 자동 지정, 스크롤이 생긴 본문은 키보드로 포커스해 탐색 가능
+- 패널 border가 `stroke.alpha.subtle`에서 `stroke.subtle`로 변경 — light `#10101721` → `#e0e0e1`, dark `#f6f7fc19` → `#313237`
+- 등장 애니메이션 200ms → 250ms, 퇴장 300ms → 200ms

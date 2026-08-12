@@ -34,9 +34,9 @@
 
 **동작 변경 (코드 수정 불필요)**
 
-- 수직 연결선 색상이 활성 여부로 분기합니다. 뒤에 오는 단계가 활성이면 `semantic.accent.neutral`, 아니면 `semantic.stroke.alpha.subtle`을 적용합니다.
-- 수직 연결선의 비활성 색상이 `semantic.stroke.alpha.assistive`에서 `semantic.stroke.alpha.subtle`로 바뀝니다.
-- 수직 연결선의 활성 판정을 `:has()`로 처리해 `Steps.Item`을 다른 컴포넌트로 감싼 경우에도 활성 상태가 유지됩니다.
-- 수평 separator 아이콘 크기가 줄어듭니다. lg는 16px에서 14px로, md는 14px에서 12px로 바뀝니다.
-- 수직 연결선 `Divider`에 `decorative`를 적용해 내부 `aria-hidden`이 `false`에서 `true`로 바뀝니다. 상위 래퍼가 이미 `aria-hidden`이라 보조기술 노출 여부는 동일합니다.
-- 수평 layout 화살표 아이콘은 활성 여부와 무관하게 단일 색상을 유지합니다.
+- 수직 연결선 색상이 활성 여부로 분기 — 뒤에 오는 단계가 활성이면 `semantic.accent.neutral`, 아니면 `semantic.stroke.alpha.subtle`
+- 수직 연결선의 비활성 색상이 `semantic.stroke.alpha.assistive`에서 `semantic.stroke.alpha.subtle`로 변경
+- 수직 연결선의 활성 판정을 `:has()`로 처리 — `Steps.Item`을 다른 컴포넌트로 감싼 경우에도 활성 상태 유지
+- 수평 separator 아이콘 크기 축소 — lg 16px → 14px, md 14px → 12px
+- 수직 연결선 `Divider`에 `decorative` 적용으로 내부 `aria-hidden`이 `false`에서 `true`로 변경 — 상위 래퍼가 이미 `aria-hidden`이라 보조기술 노출 여부는 동일
+- 수평 layout 화살표 아이콘은 활성 여부와 무관하게 단일 색상 유지

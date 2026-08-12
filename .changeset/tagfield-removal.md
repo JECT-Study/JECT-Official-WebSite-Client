@@ -15,7 +15,7 @@
 | `helperText`                                        | `MultiSelectField.Footer` 안의 `MultiSelectField.HelperText` |
 | `tags`, `onTagsChange` (`Tag[]`)                    | `value`, `onChange` 또는 `defaultValue` (`string[]`)         |
 | `maxTags`                                           | `maxValues`                                                  |
-| `allowDuplicates`                                   | 제거 — 선택값은 항상 고유합니다                              |
+| `allowDuplicates`                                   | 제거 — 선택값은 항상 고유                                    |
 | `isWithInfoIcon`                                    | `MultiSelectField.Label`의 `suffixSlot`                      |
 | `style="outlined" \| "empty"`                       | `fieldStyle="outline" \| "hollow"`                           |
 | `validation="none" \| "error" \| "success"`         | `status="default" \| "success" \| "error"`                   |

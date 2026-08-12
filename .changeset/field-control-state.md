@@ -10,6 +10,6 @@
 
 **동작 변경 (코드 수정 불필요)**
 
-- `Field.Content`가 `:has(input:disabled)`로 disabled 상태를, `:has(input[data-readonly])`로 readonly 상태를 감지해 테두리 색상, 배경 색상, `pointer-events`를 적용합니다.
-- 루트 컨테이너가 `:has(input:disabled)`를 기준으로 레이블, `required` 별표, 헬퍼텍스트에 disabled 색상을 적용합니다. 헬퍼텍스트는 `status`별 색상에 각각 대응하며 `readonly`는 색상 변경 대상이 아닙니다.
-- 루트 context 기반 스타일은 그대로이므로 `Field`에서 상태를 지정하던 경우의 동작은 바뀌지 않습니다.
+- `Field.Content`가 `:has(input:disabled)`로 disabled를, `:has(input[data-readonly])`로 readonly를 감지해 테두리 색상, 배경 색상, `pointer-events` 적용
+- 루트 컨테이너가 `:has(input:disabled)`를 기준으로 레이블, `required` 별표, 헬퍼텍스트에 disabled 색상 적용 — 헬퍼텍스트는 `status`별 색상에 각각 대응, `readonly`는 색상 변경 대상 아님
+- 루트 context 기반 스타일은 그대로이므로 `Field`에서 상태를 지정하던 경우의 동작은 변화 없음

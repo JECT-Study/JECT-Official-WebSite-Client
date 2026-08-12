@@ -20,4 +20,4 @@
 
 **동작 변경 (코드 수정 불필요)**
 
-- `BlockButton`, `LabelButton`의 외형이 신규 디자인 스펙에 맞게 변경됩니다.
+- `BlockButton`, `LabelButton`의 외형을 신규 디자인 스펙에 맞게 변경

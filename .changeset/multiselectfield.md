@@ -8,28 +8,28 @@
 
 루트 prop
 
-| prop           | 기본값      | 설명                                                              |
-| -------------- | ----------- | ----------------------------------------------------------------- |
-| `value`        | -           | controlled 선택값, `string[]`                                     |
-| `onChange`     | -           | 선택값 변경 핸들러, `value`와 함께 씁니다                         |
-| `defaultValue` | `[]`        | uncontrolled 초기 선택값, `value`와 함께 쓸 수 없습니다           |
-| `maxValues`    | -           | 선택할 수 있는 최대 개수                                          |
-| `name`         | -           | 폼 제출에 사용할 이름                                             |
-| `status`       | `'default'` | `'default'`, `'success'`, `'error'`                               |
-| `fieldStyle`   | `'outline'` | `'outline'`, `'hollow'`                                           |
-| `disabled`     | `false`     | 비활성 상태                                                       |
-| `readonly`     | `false`     | 읽기 전용 상태                                                    |
-| `required`     | `false`     | 필수 입력 여부, 레이블 옆 `*` 표시와 `aria-required`로 노출합니다 |
+| prop           | 기본값      | 설명                                                        |
+| -------------- | ----------- | ----------------------------------------------------------- |
+| `value`        | -           | controlled 선택값, `string[]`                               |
+| `onChange`     | -           | 선택값 변경 핸들러, `value`와 함께 사용                     |
+| `defaultValue` | `[]`        | uncontrolled 초기 선택값, `value`와 함께 사용 불가          |
+| `maxValues`    | -           | 선택할 수 있는 최대 개수                                    |
+| `name`         | -           | 폼 제출에 사용할 이름                                       |
+| `status`       | `'default'` | `'default'`, `'success'`, `'error'`                         |
+| `fieldStyle`   | `'outline'` | `'outline'`, `'hollow'`                                     |
+| `disabled`     | `false`     | 비활성 상태                                                 |
+| `readonly`     | `false`     | 읽기 전용 상태                                              |
+| `required`     | `false`     | 필수 입력 여부, 레이블 옆 `*` 표시와 `aria-required`로 노출 |
 
 `MultiSelectField.Input` prop
 
-| prop               | 기본값      | 설명                                                 |
-| ------------------ | ----------- | ---------------------------------------------------- |
-| `options`          | -           | 선택지, `string[]`                                   |
-| `allowCustomValue` | `false`     | 목록에 없는 입력값을 새 값으로 추가할 수 있게 합니다 |
-| `placeholder`      | -           | 선택값이 없을 때 표시할 문구                         |
-| `variant`          | `'control'` | 선택 마크 표시 여부, `'control'`, `'label'`          |
-| `suffix`           | -           | 입력 오른쪽에 배치할 읽기 전용 요소                  |
+| prop               | 기본값      | 설명                                        |
+| ------------------ | ----------- | ------------------------------------------- |
+| `options`          | -           | 선택지, `string[]`                          |
+| `allowCustomValue` | `false`     | 목록에 없는 입력값을 새 값으로 추가 허용    |
+| `placeholder`      | -           | 선택값이 없을 때 표시할 문구                |
+| `variant`          | `'control'` | 선택 마크 표시 여부, `'control'`, `'label'` |
+| `suffix`           | -           | 입력 오른쪽에 배치할 읽기 전용 요소         |
 
 `maxValues`를 지정하면 최대 개수만큼 고른 뒤 나머지 항목을 고를 수 없습니다. `MultiSelectField.Counter`를 `MultiSelectField.Footer` 안에 두면 현재 개수와 최대 개수를 함께 표시합니다. `name`을 지정하면 선택값이 폼 제출에 포함되며, 값이 여러 개이므로 `FormData.getAll(name)`으로 받습니다.
 

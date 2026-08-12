@@ -26,7 +26,7 @@
 
 **추가**
 
-- `Menu.Tree` (`MenuTreeProps`) — chevron 또는 `→`, `←`로 펼치고 접습니다. 비제어(`defaultOpen`)와 제어(`open` + `onOpenChange`)를 모두 지원하고 `withTreeButton={false}`로 말단 항목을 표현합니다.
-- `MenuItem`의 `isSelected`로 selected 상태를 시각화하고, `stretched`와 `fullWidthText` 옵션을 지정할 수 있습니다.
+- `Menu.Tree` (`MenuTreeProps`) — chevron 또는 `→`, `←`로 펼치고 접음, 비제어(`defaultOpen`)와 제어(`open` + `onOpenChange`) 모두 지원, `withTreeButton={false}`로 말단 항목 표현
+- `MenuItem`의 `isSelected`로 selected 상태 시각화, `stretched`와 `fullWidthText` 옵션 지정 가능
 - `MenuItem.Anchor`의 후행 배지 — `suffixBadge`, `suffixBadgeVisible`, `suffixBadgeMuted`
 - `Menu.Button`, `Menu.Anchor`에 항목 레벨 `onSelect`와 `textValue` 노출

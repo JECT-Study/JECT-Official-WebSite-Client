@@ -8,8 +8,8 @@
 
 **추가**
 
-- `FocusRingInteraction` (`"self" | "within" | "delegated"`), `OverlayInteraction` (`"self" | "delegated"`) — `interaction` 옵션의 값 타입. `@jects/jds/utils`에서 가져옵니다.
+- `FocusRingInteraction` (`"self" | "within" | "delegated"`), `OverlayInteraction` (`"self" | "delegated"`) — `interaction` 옵션의 값 타입, `@jects/jds/utils`에서 가져옴
 
 **동작 변경 (코드 수정 불필요)**
 
-- `delegated`를 쓰는 요소 안에 `[data-interaction-target]`을 가진 컴포넌트(File, Chip)를 중첩하면 바깥 요소의 focus ring과 press 오버레이가 더 이상 함께 그려지지 않습니다. Dialog의 `body`에 File이나 Chip을 넣은 경우가 여기 해당합니다.
+- `delegated`를 쓰는 요소 안에 `[data-interaction-target]`을 가진 컴포넌트(File, Chip)를 중첩하면 바깥 요소의 focus ring과 press 오버레이가 더 이상 함께 그려지지 않음 — Dialog의 `body`에 File이나 Chip을 넣은 경우가 해당

@@ -8,11 +8,11 @@
 
 **소비처 영향 (코드 수정 필요)**
 
-| AS-IS                   | TO-BE                                                              |
-| ----------------------- | ------------------------------------------------------------------ |
-| `usePressable`          | 제거 — `@jects/jds/utils`의 `focusRing`, `overlay` recipe를 씁니다 |
-| `useContainerPressable` | 제거 — 같음                                                        |
+| AS-IS                   | TO-BE                                                          |
+| ----------------------- | -------------------------------------------------------------- |
+| `usePressable`          | 제거 — `@jects/jds/utils`의 `focusRing`, `overlay` recipe 사용 |
+| `useContainerPressable` | 제거 — 같음                                                    |
 
 **추가**
 
-- `useControllableState` — 제어와 비제어 상태를 함께 다루는 훅. `@jects/jds/hooks`에서 가져옵니다.
+- `useControllableState` — 제어와 비제어 상태를 함께 다루는 훅, `@jects/jds/hooks`에서 가져옴

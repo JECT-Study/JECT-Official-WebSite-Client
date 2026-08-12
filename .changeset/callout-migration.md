@@ -8,10 +8,10 @@ Callout의 스타일링을 Emotion에서 vanilla-extract로 마이그레이션�
 
 **소비처 영향 (코드 수정 필요)**
 
-| AS-IS                                | TO-BE                                        |
-| ------------------------------------ | -------------------------------------------- |
-| `hierarchy="primary" \| "secondary"` | 제거 — 스타일은 `feedback`으로만 결정합니다  |
-| `labelButtonProps`                   | 제거 — 버튼은 `children`에 직접 렌더링합니다 |
+| AS-IS                                | TO-BE                                  |
+| ------------------------------------ | -------------------------------------- |
+| `hierarchy="primary" \| "secondary"` | 제거 — 스타일은 `feedback`으로만 결정  |
+| `labelButtonProps`                   | 제거 — 버튼은 `children`에 직접 렌더링 |
 
 버튼 정렬이 필요하면 flex 컨테이너로 감쌉니다.
 
@@ -30,12 +30,12 @@ Callout의 스타일링을 Emotion에서 vanilla-extract로 마이그레이션�
 **추가**
 
 - `icon?: IconName` — `title`이 있을 때만 지정할 수 있는 아이콘
-- `feedback`에 `"none"` 추가, 기본값입니다.
+- `feedback`에 `"none"` 추가, 기본값
 - 네이티브 `div` 속성 전달과 `ref` 포워딩 지원
-- 타입 `CalloutProps`, `CalloutFeedback`, `CalloutSize`를 새로 내보냅니다.
+- 타입 `CalloutProps`, `CalloutFeedback`, `CalloutSize` 신규 export
 
 **동작 변경 (코드 수정 불필요)**
 
-- title 타이포가 size별 bold로 변경됩니다.
-- `notifying`의 색상이 `static.inverse`로 변경됩니다.
-- title과 body 사이 gap을 size별로 조정합니다. sm, xs는 8입니다.
+- title 타이포를 size별 bold로 변경
+- `notifying` 색상을 `static.inverse`로 변경
+- title과 body 사이 gap을 size별로 조정 — sm, xs는 8

@@ -8,14 +8,14 @@
 
 **소비처 영향 (코드 수정 필요)**
 
-| AS-IS                                                      | TO-BE                                              |
-| ---------------------------------------------------------- | -------------------------------------------------- |
-| `SegmentedControl`                                         | `SegmentedControls` (import과 JSX 모두)            |
-| `SegmentedControl{Size,RootProps,ItemProps}`               | `SegmentedControls*`                               |
-| props 기준이 `ToggleGroup`                                 | `RadioGroup` — ToggleGroup 전용 props를 제거합니다 |
-| `asChild`                                                  | 제거 — Item은 `asChild?: never`로 타입 차단        |
-| `data-state="on" \| "off"`                                 | `data-state="checked" \| "unchecked"`              |
-| `StyledRootProps`, `StyledContentProps`, `StyledItemProps` | 제거 — 대체재 없음                                 |
+| AS-IS                                                      | TO-BE                                       |
+| ---------------------------------------------------------- | ------------------------------------------- |
+| `SegmentedControl`                                         | `SegmentedControls` (import과 JSX 모두)     |
+| `SegmentedControl{Size,RootProps,ItemProps}`               | `SegmentedControls*`                        |
+| props 기준이 `ToggleGroup`                                 | `RadioGroup` — ToggleGroup 전용 props 제거  |
+| `asChild`                                                  | 제거 — Item은 `asChild?: never`로 타입 차단 |
+| `data-state="on" \| "off"`                                 | `data-state="checked" \| "unchecked"`       |
+| `StyledRootProps`, `StyledContentProps`, `StyledItemProps` | 제거 — 대체재 없음                          |
 
 ```diff
 - import { SegmentedControl } from "@jects/jds";
