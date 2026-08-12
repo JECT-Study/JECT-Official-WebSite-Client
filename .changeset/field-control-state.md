@@ -6,7 +6,11 @@
 
 `Field.Content`, `Field.Label`, `Field.HelperText`가 루트 context뿐 아니라 내부 입력 요소의 상태도 반영합니다. 입력 요소에서만 `disabled`를 지정해도 컨테이너와 레이블, 헬퍼텍스트가 함께 바뀌고, `readonly`는 컨테이너의 배경 색상만 바뀝니다.
 
-`Field`를 확장하는 입력 요소는 최종 readonly 상태를 `data-readonly` 속성으로 전달합니다.
+readonly에 대한 Field 수준 스타일은 `data-readonly` 속성으로만 걸립니다.
+
+- `Field`를 확장하는 입력 요소가 context 값과 자신의 prop을 합친 최종 readonly 상태를 이 속성으로 전달
+- `TextField.Input`에 직접 `readOnly`를 준 경우도 이 속성으로 내려가므로 컨테이너 스타일이 함께 변경
+- `data-readonly` 없이 네이티브 `readOnly`만 붙인 요소에는 Field 스타일 미반응
 
 **동작 변경 (코드 수정 불필요)**
 
