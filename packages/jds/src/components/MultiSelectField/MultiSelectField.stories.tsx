@@ -97,13 +97,11 @@ export const Playground: Story = {
       >
         레이블
       </MultiSelectField.Label>
-      <MultiSelectField.Content>
-        <MultiSelectField.Input
-          options={options}
-          defaultValue={["서울특별시"]}
-          placeholder='플레이스홀더'
-        />
-      </MultiSelectField.Content>
+      <MultiSelectField.Input
+        options={options}
+        defaultValue={["서울특별시"]}
+        placeholder='플레이스홀더'
+      />
       <MultiSelectField.Footer>
         <MultiSelectField.Helper>헬퍼 텍스트</MultiSelectField.Helper>
       </MultiSelectField.Footer>
@@ -122,13 +120,11 @@ export const Statuses: Story = {
           <Label>{status}</Label>
           <MultiSelectField status={status} style={FIELD_WIDTH}>
             <MultiSelectField.Label>레이블</MultiSelectField.Label>
-            <MultiSelectField.Content>
-              <MultiSelectField.Input
-                options={options}
-                defaultValue={["서울특별시"]}
-                placeholder='플레이스홀더'
-              />
-            </MultiSelectField.Content>
+            <MultiSelectField.Input
+              options={options}
+              defaultValue={["서울특별시"]}
+              placeholder='플레이스홀더'
+            />
             <MultiSelectField.Footer>
               <MultiSelectField.Helper>헬퍼 텍스트</MultiSelectField.Helper>
             </MultiSelectField.Footer>
@@ -156,13 +152,11 @@ export const States: Story = {
           <Label>{name}</Label>
           <MultiSelectField {...props} style={FIELD_WIDTH}>
             <MultiSelectField.Label>레이블</MultiSelectField.Label>
-            <MultiSelectField.Content>
-              <MultiSelectField.Input
-                options={options}
-                defaultValue={["서울특별시", "부산광역시"]}
-                placeholder='플레이스홀더'
-              />
-            </MultiSelectField.Content>
+            <MultiSelectField.Input
+              options={options}
+              defaultValue={["서울특별시", "부산광역시"]}
+              placeholder='플레이스홀더'
+            />
             <MultiSelectField.Footer>
               <MultiSelectField.Helper>헬퍼 텍스트</MultiSelectField.Helper>
             </MultiSelectField.Footer>
@@ -191,13 +185,11 @@ export const Values: Story = {
           <Label>{name}</Label>
           <MultiSelectField style={FIELD_WIDTH}>
             <MultiSelectField.Label>레이블</MultiSelectField.Label>
-            <MultiSelectField.Content>
-              <MultiSelectField.Input
-                options={options}
-                defaultValue={[...defaultValue]}
-                placeholder='플레이스홀더'
-              />
-            </MultiSelectField.Content>
+            <MultiSelectField.Input
+              options={options}
+              defaultValue={[...defaultValue]}
+              placeholder='플레이스홀더'
+            />
           </MultiSelectField>
         </FlexColumn>
       ))}
@@ -213,14 +205,12 @@ export const WithCounter: Story = {
   render: () => (
     <MultiSelectField style={FIELD_WIDTH}>
       <MultiSelectField.Label>레이블</MultiSelectField.Label>
-      <MultiSelectField.Content>
-        <MultiSelectField.Input
-          options={options}
-          defaultValue={["서울특별시", "부산광역시", "대구광역시"]}
-          maxValues={3}
-          placeholder='플레이스홀더'
-        />
-      </MultiSelectField.Content>
+      <MultiSelectField.Input
+        options={options}
+        defaultValue={["서울특별시", "부산광역시", "대구광역시"]}
+        maxValues={3}
+        placeholder='플레이스홀더'
+      />
       <MultiSelectField.Footer>
         <MultiSelectField.Helper>헬퍼 텍스트</MultiSelectField.Helper>
         <MultiSelectField.Counter />
@@ -233,19 +223,17 @@ export const CustomValue: Story = {
   render: () => (
     <MultiSelectField style={FIELD_WIDTH}>
       <MultiSelectField.Label>레이블</MultiSelectField.Label>
-      <MultiSelectField.Content>
-        <MultiSelectField.Input
-          options={options}
-          maxValues={20}
-          allowCustomValue
-          placeholder='플레이스홀더'
-          suffix={
-            <Kbd type='function' size='sm'>
-              ⏎
-            </Kbd>
-          }
-        />
-      </MultiSelectField.Content>
+      <MultiSelectField.Input
+        options={options}
+        maxValues={20}
+        allowCustomValue
+        placeholder='플레이스홀더'
+        suffix={
+          <Kbd type='function' size='sm'>
+            ⏎
+          </Kbd>
+        }
+      />
       <MultiSelectField.Footer>
         <MultiSelectField.Helper>헬퍼 텍스트</MultiSelectField.Helper>
         <MultiSelectField.Counter />
@@ -261,9 +249,7 @@ export const ScrollToSelected: Story = {
   render: () => (
     <MultiSelectField defaultValue={["제주특별자치도"]} style={FIELD_WIDTH}>
       <MultiSelectField.Label>레이블</MultiSelectField.Label>
-      <MultiSelectField.Content>
-        <MultiSelectField.Input options={REGIONS} placeholder='플레이스홀더' />
-      </MultiSelectField.Content>
+      <MultiSelectField.Input options={REGIONS} placeholder='플레이스홀더' />
     </MultiSelectField>
   ),
 };
@@ -282,14 +268,12 @@ const FormPreview = () => {
       <FlexColumn gap='16px' style={{ alignItems: "flex-start" }}>
         <MultiSelectField style={FIELD_WIDTH}>
           <MultiSelectField.Label>레이블</MultiSelectField.Label>
-          <MultiSelectField.Content>
-            <MultiSelectField.Input
-              options={REGIONS}
-              name='regions'
-              defaultValue={["서울특별시", "부산광역시"]}
-              placeholder='플레이스홀더'
-            />
-          </MultiSelectField.Content>
+          <MultiSelectField.Input
+            options={REGIONS}
+            name='regions'
+            defaultValue={["서울특별시", "부산광역시"]}
+            placeholder='플레이스홀더'
+          />
         </MultiSelectField>
         <BlockButton type='submit' style={{ width: "100%" }}>
           제출

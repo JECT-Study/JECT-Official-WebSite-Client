@@ -1,7 +1,6 @@
 import { clsx } from "clsx";
 import { forwardRef, useId, useState, type ComponentPropsWithoutRef, type ReactNode } from "react";
 
-import { FieldContent } from "./compound/Content";
 import { FieldCounter } from "./compound/Counter";
 import { FieldFooter } from "./compound/Footer";
 import { FieldHelper } from "./compound/Helper";
@@ -68,12 +67,8 @@ const InternalField = forwardRef<HTMLDivElement, FieldProps>(
 
 InternalField.displayName = "InternalField";
 
-/**
- * @description Field component는 내부 internal component로 field류의 component를 구현하는 데 사용되는 컴포넌트입니다.
- */
 export const Field = Object.assign(InternalField, {
   Label: FieldLabel,
-  Content: FieldContent,
   Helper: FieldHelper,
   Counter: FieldCounter,
   Footer: FieldFooter,

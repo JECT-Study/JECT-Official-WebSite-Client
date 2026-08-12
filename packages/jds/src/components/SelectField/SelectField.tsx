@@ -1,7 +1,6 @@
 import { Popover } from "radix-ui";
 import { forwardRef, useState } from "react";
 
-import { SelectFieldContent } from "./compound/Content";
 import { SelectFieldTrigger } from "./compound/Trigger";
 import { SelectFieldProvider } from "./SelectField.context";
 import type { SelectFieldProps } from "./selectField.types";
@@ -23,7 +22,6 @@ SelectFieldRoot.displayName = "SelectField";
 
 export const SelectField = Object.assign(SelectFieldRoot, {
   Label: Field.Label,
-  Content: SelectFieldContent,
   Trigger: SelectFieldTrigger,
   Helper: Field.Helper,
 });

@@ -21,16 +21,13 @@ TextFieldRoot.displayName = "TextField";
  * ```tsx
  * <TextField status="error" required>
  *   <TextField.Label>이메일</TextField.Label>
- *   <TextField.Content>
- *     <TextField.Input placeholder="이메일을 입력하세요" value={v} onChange={onChange} />
- *   </TextField.Content>
+ *   <TextField.Input placeholder="이메일을 입력하세요" value={v} onChange={onChange} />
  *   <TextField.Helper>유효한 이메일 주소를 입력해주세요</TextField.Helper>
  * </TextField>
  * ```
  */
 export const TextField = Object.assign(TextFieldRoot, {
   Label: Field.Label,
-  Content: Field.Content,
   Input: TextFieldInput,
   Helper: Field.Helper,
 });
