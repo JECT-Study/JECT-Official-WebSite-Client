@@ -15,4 +15,4 @@
 
 **추가**
 
-- `useControllableState` — 제어와 비제어 상태를 함께 다루는 훅. `@jects/jds/hooks`에서 가져옵니다
+- `useControllableState` — 제어와 비제어 상태를 함께 다루는 훅. `@jects/jds/hooks`에서 가져옵니다.

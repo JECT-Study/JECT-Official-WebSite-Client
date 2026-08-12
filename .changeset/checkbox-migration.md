@@ -64,11 +64,11 @@ Checkbox를 radix Checkbox 기반으로 재작성하고 API를 조립된 props �
 
 **추가**
 
-- `CheckboxGroup` (`CheckboxGroupProps`) — 다중 선택 그룹. 선택값은 `string[]`이고 controlled(`value` + `onChange`)와 uncontrolled(`defaultValue`)를 모두 지원합니다
-- `layout` — `"vertical"`(기본) 또는 `"grid"`. `grid`는 `columns`를 함께 지정해야 합니다
-- `stretched` — 아이템이 전체 너비를 채웁니다. 그룹에 지정하면 모든 아이템에 전파되고, 단독 `Checkbox`에도 지정할 수 있습니다
+- `CheckboxGroup` (`CheckboxGroupProps`) — 다중 선택 그룹. 선택값은 `string[]`이고 controlled(`value` + `onChange`)와 uncontrolled(`defaultValue`)를 모두 지원합니다.
+- `layout` — `"vertical"`(기본) 또는 `"grid"`. `grid`는 `columns`를 함께 지정해야 합니다.
+- `stretched` — 아이템이 전체 너비를 채웁니다. 그룹에 지정하면 모든 아이템에 전파되고, 단독 `Checkbox`에도 지정할 수 있습니다.
 - `isInvalid`, `name` — 유효성 표시와 폼 제출 이름
-- `defaultChecked`를 통한 비제어 방식. 기존 제어 방식(`checked`)도 그대로 씁니다
+- `defaultChecked`를 통한 비제어 방식. 기존 제어 방식(`checked`)도 그대로 씁니다.
 
 **동작 변경 (코드 수정 불필요)**
 

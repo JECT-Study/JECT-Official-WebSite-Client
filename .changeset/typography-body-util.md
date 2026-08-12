@@ -8,7 +8,7 @@
 
 **추가**
 
-- `getBodyClassName({ size, weight, textAlign })` — 본문 타이포 클래스명을 반환합니다
+- `getBodyClassName({ size, weight, textAlign })` — 본문 타이포 클래스명을 반환합니다.
 - 타입 `BodySize`(`"lg" | "md" | "sm" | "xs" | "2xs"`), `BodyWeight`(`"bold" | "normal"`), `BodyTextAlign`, `BodyStyleOptions`
 
 ```tsx

@@ -37,11 +37,11 @@ compound로 직접 조합한 경우 이미지를 교체합니다.
 
 **추가**
 
-- `Card.Preset.Plate` / `Card.Preset.Post` — title과 body 기반 단일 preset. Plate는 `caption`을 선택적으로 받고, 둘 다 `.Link`(`href` 필수)와 `.Button`으로 분기합니다
-- `Card.Thumbnail` (`CardThumbnailProps` / `CardThumbnailImage`) — `layout`과 `variant`에 따라 자동 사이징합니다
+- `Card.Preset.Plate` / `Card.Preset.Post` — title과 body 기반 단일 preset. Plate는 `caption`을 선택적으로 받고, 둘 다 `.Link`(`href` 필수)와 `.Button`으로 분기합니다.
+- `Card.Thumbnail` (`CardThumbnailProps` / `CardThumbnailImage`) — `layout`과 `variant`에 따라 자동 사이징합니다.
 - `Card.ContentGroup` (`CardContentGroupProps`) — title과 body를 묶는 그룹 컨테이너
 - `CardOverlayProps` — `Card.Overlay`의 `a` / `button` discriminated union 타입
-- `Card.Root`와 preset이 native `div` 속성(`className`, `style`, `data-*` 등)을 상속합니다
+- `Card.Root`와 preset이 native `div` 속성(`className`, `style`, `data-*` 등)을 상속합니다.
 
 **동작 변경 (코드 수정 불필요)**
 

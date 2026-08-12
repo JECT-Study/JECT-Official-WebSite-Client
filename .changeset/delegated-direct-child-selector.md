@@ -8,7 +8,7 @@
 
 **추가**
 
-- `FocusRingInteraction` (`"self" | "within" | "delegated"`), `OverlayInteraction` (`"self" | "delegated"`) — `interaction` 옵션의 값 타입. `@jects/jds/utils`에서 가져옵니다
+- `FocusRingInteraction` (`"self" | "within" | "delegated"`), `OverlayInteraction` (`"self" | "delegated"`) — `interaction` 옵션의 값 타입. `@jects/jds/utils`에서 가져옵니다.
 
 **동작 변경 (코드 수정 불필요)**
 
