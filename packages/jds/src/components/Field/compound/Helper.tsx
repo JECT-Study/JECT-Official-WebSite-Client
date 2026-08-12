@@ -28,6 +28,7 @@ export const FieldHelper = forwardRef<HTMLSpanElement, FieldHelperProps>(
 
     return (
       <span
+        {...restProps}
         ref={ref}
         id={helperId}
         className={clsx(
@@ -35,7 +36,6 @@ export const FieldHelper = forwardRef<HTMLSpanElement, FieldHelperProps>(
           styles.helper({ status, disabled: isDisabled }),
           className,
         )}
-        {...restProps}
       >
         {children}
       </span>

@@ -16,6 +16,7 @@ export const FieldContent = forwardRef<HTMLDivElement, FieldContentProps>(
 
     return (
       <div
+        {...restProps}
         ref={ref}
         className={clsx(
           styles.content({ status, disabled: isDisabled, readOnly: isReadonly }),
@@ -23,7 +24,6 @@ export const FieldContent = forwardRef<HTMLDivElement, FieldContentProps>(
           focusRing({ interaction: "within", feedback: statusToFeedback[status] }),
           className,
         )}
-        {...restProps}
       >
         {children}
       </div>
