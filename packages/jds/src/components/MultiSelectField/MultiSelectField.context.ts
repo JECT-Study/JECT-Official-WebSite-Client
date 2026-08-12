@@ -7,12 +7,9 @@ export interface MultiSelectFieldContextValue {
   onOpenChange: (open: boolean) => void;
   onHasPopupContentChange: (hasContent: boolean) => void;
   contentRef: RefObject<HTMLDivElement | null>;
-  selectedValues: string[];
-  toggle: (value: string) => void;
-  remove: (value: string) => void;
-  maxValues?: number;
-  name?: string;
-  form?: string;
+  /** MultiSelectField.Input이 보고하는 선택 개수. Counter가 읽는다. */
+  counter: { current: number; max: number } | null;
+  onCounterChange: (counter: { current: number; max: number } | null) => void;
 }
 
 export const [MultiSelectFieldProvider, useMultiSelectFieldContext] =

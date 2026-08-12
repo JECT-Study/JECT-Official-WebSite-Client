@@ -17,7 +17,7 @@ import {
 
 import { ContentBadge } from "../../Badge";
 import { useFieldContext } from "../../Field/Field.context";
-import { Listbox, useListbox } from "../../Listbox";
+import { Listbox, useListbox, useMultiSelectState } from "../../Listbox";
 import { useMultiSelectFieldContext } from "../MultiSelectField.context";
 import * as styles from "../multiSelectField.css";
 import type { MultiSelectFieldInputProps } from "../multiSelectField.types";
@@ -36,6 +36,12 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
   (
     {
       options,
+      value,
+      defaultValue,
+      onChange,
+      maxValues,
+      name,
+      form,
       variant = "control",
       allowCustomValue = false,
       placeholder,
@@ -67,23 +73,15 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       required: isRequiredFromCtx,
     } = useFieldContext("MultiSelectField.Input");
 
-    const {
-      isOpen,
-      onOpenChange,
-      onHasPopupContentChange,
-      contentRef,
-      selectedValues,
-      toggle,
-      remove,
-      maxValues,
-      name,
-      form,
-    } = useMultiSelectFieldContext("MultiSelectField.Input");
+    const { isOpen, onOpenChange, onHasPopupContentChange, contentRef, onCounterChange } =
+      useMultiSelectFieldContext("MultiSelectField.Input");
 
     const isDisabled = disabledFromProps ?? isDisabledFromCtx;
     const isReadOnly = readOnlyFromProps ?? isReadOnlyFromCtx;
     const isRequired = requiredFromProps ?? isRequiredFromCtx;
     const isInteractive = !isDisabled && !isReadOnly;
+
+    const { selectedValues, toggle, remove } = useMultiSelectState(value, defaultValue, onChange);
 
     const inputRef = useRef<HTMLInputElement>(null);
     const [query, setQuery] = useState("");
@@ -138,6 +136,15 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       onHasPopupContentChange(hasPopupContent);
       return () => onHasPopupContentChange(false);
     }, [hasPopupContent, onHasPopupContentChange]);
+
+    const selectedCount = selectedValues.length;
+
+    useLayoutEffect(() => {
+      if (maxValues == null) return;
+
+      onCounterChange({ current: selectedCount, max: maxValues });
+      return () => onCounterChange(null);
+    }, [selectedCount, maxValues, onCounterChange]);
 
     const activateRef = useRef<() => void>(() => {});
 

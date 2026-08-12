@@ -3,13 +3,11 @@ import { useMultiSelectFieldContext } from "../MultiSelectField.context";
 import * as styles from "../multiSelectField.css";
 
 export const MultiSelectFieldCounter = () => {
-  const { selectedValues, maxValues } = useMultiSelectFieldContext("MultiSelectField.Counter");
+  const { counter } = useMultiSelectFieldContext("MultiSelectField.Counter");
 
-  if (maxValues == null) return null;
+  if (counter == null) return null;
 
-  return (
-    <Field.Counter current={selectedValues.length} max={maxValues} className={styles.counter} />
-  );
+  return <Field.Counter current={counter.current} max={counter.max} className={styles.counter} />;
 };
 
 MultiSelectFieldCounter.displayName = "MultiSelectField.Counter";
