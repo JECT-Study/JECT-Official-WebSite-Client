@@ -1,5 +1,5 @@
 import { clsx } from "clsx";
-import { forwardRef, type ComponentPropsWithoutRef, type ReactNode } from "react";
+import { forwardRef, useLayoutEffect, type ComponentPropsWithoutRef, type ReactNode } from "react";
 
 import { FieldContent } from "../../Field";
 import { useFieldContext } from "../../Field/Field.context";
@@ -46,6 +46,7 @@ export const TextFieldInput = forwardRef<HTMLInputElement, TextFieldInputProps>(
       hasLabel,
       helperId,
       hasHelper,
+      onControlRequiredChange,
       status,
       disabled: isDisabledFromCtx,
       readonly: isReadOnlyFromCtx,
@@ -55,6 +56,11 @@ export const TextFieldInput = forwardRef<HTMLInputElement, TextFieldInputProps>(
     const isReadOnly = readOnlyFromProps ?? isReadOnlyFromCtx;
     const isDisabled = disabledFromProps ?? isDisabledFromCtx;
     const isRequired = requiredFromProps ?? isRequiredFromCtx;
+
+    useLayoutEffect(() => {
+      onControlRequiredChange(isRequired);
+      return () => onControlRequiredChange(false);
+    }, [isRequired, onControlRequiredChange]);
 
     const describedByIds = [hasHelper ? helperId : undefined, describedByFromProps].filter(Boolean);
     const ariaInvalid = status === "error" ? true : (invalidFromProps ?? false);

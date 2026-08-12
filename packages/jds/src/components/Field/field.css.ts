@@ -53,7 +53,7 @@ export const label = recipe({
   },
 });
 
-export const asterisk = recipe({
+export const requiredMark = recipe({
   base: {
     marginTop: -2,
     selectors: {

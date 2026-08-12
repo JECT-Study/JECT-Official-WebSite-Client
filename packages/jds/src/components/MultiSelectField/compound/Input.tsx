@@ -68,6 +68,7 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       hasHelper,
       counterId,
       hasCounter,
+      onControlRequiredChange,
       status,
       disabled: isDisabledFromCtx,
       readonly: isReadOnlyFromCtx,
@@ -82,6 +83,12 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
     const isDisabled = disabledFromProps ?? isDisabledFromCtx;
     const isReadOnly = readOnlyFromProps ?? isReadOnlyFromCtx;
     const isRequired = requiredFromProps ?? isRequiredFromCtx;
+
+    useLayoutEffect(() => {
+      onControlRequiredChange(isRequired);
+      return () => onControlRequiredChange(false);
+    }, [isRequired, onControlRequiredChange]);
+
     const isInteractive = !isDisabled && !isReadOnly;
 
     const { selectedValues, toggle, remove } = useMultiSelectState(value, defaultValue, onChange);

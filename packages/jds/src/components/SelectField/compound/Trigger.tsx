@@ -50,6 +50,7 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
       hasLabel,
       helperId,
       hasHelper,
+      onControlRequiredChange,
       status,
       disabled: isDisabledFromCtx,
       readonly: isReadOnly,
@@ -60,6 +61,12 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
 
     const isDisabled = disabledFromProps ?? isDisabledFromCtx;
     const isRequired = requiredFromProps ?? isRequiredFromCtx;
+
+    useLayoutEffect(() => {
+      onControlRequiredChange(isRequired);
+      return () => onControlRequiredChange(false);
+    }, [isRequired, onControlRequiredChange]);
+
     const isInteractive = !isDisabled && !isReadOnly;
 
     const { selectedValue, selectedValues, select } = useSingleSelectState(
