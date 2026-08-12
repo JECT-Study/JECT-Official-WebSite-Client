@@ -12,7 +12,7 @@ export interface TextFieldInputProps extends Omit<
   ComponentPropsWithoutRef<"input">,
   "id" | "prefix" | "required"
 > {
-  /** 필수 입력 여부. native required 대신 aria-required 로 반영한다. */
+  /** 필수 입력 여부. aria-required로 반영한다. */
   required?: boolean;
   /** 입력 왼쪽에 배치되는 부가 요소 */
   prefix?: ReactNode;

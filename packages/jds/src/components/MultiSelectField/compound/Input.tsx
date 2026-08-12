@@ -311,6 +311,7 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
               aria-labelledby={hasLabel ? labelId : undefined}
               aria-describedby={describedByIds.length > 0 ? describedByIds.join(" ") : undefined}
               aria-invalid={ariaInvalid}
+              aria-readonly={isReadOnly || undefined}
               aria-required={isRequired || undefined}
               autoComplete='off'
               disabled={isDisabled}

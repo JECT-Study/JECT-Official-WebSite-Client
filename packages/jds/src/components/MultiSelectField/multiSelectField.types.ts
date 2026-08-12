@@ -9,7 +9,7 @@ type MultiSelectFieldInputBaseProps = Omit<
   ComponentPropsWithoutRef<"input">,
   "id" | "type" | "value" | "defaultValue" | "onChange" | "required"
 > & {
-  /** 필수 입력 여부. native required 대신 aria-required 로 반영한다. */
+  /** 필수 입력 여부. aria-required로 반영한다. */
   required?: boolean;
   options: string[];
   placeholder?: string;

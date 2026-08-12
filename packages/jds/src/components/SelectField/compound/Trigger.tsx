@@ -32,6 +32,7 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
       onChange,
       variant = "label",
       placeholder,
+      readonly: readonlyFromProps,
       required: requiredFromProps,
       suffix,
       disabled: disabledFromProps,
@@ -53,13 +54,14 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
       onControlRequiredChange,
       status,
       disabled: isDisabledFromCtx,
-      readonly: isReadOnly,
+      readonly: isReadOnlyFromCtx,
       required: isRequiredFromCtx,
     } = useFieldContext("SelectField.Trigger");
 
     const { isOpen, onOpenChange } = useSelectFieldContext("SelectField.Trigger");
 
     const isDisabled = disabledFromProps ?? isDisabledFromCtx;
+    const isReadOnly = readonlyFromProps ?? isReadOnlyFromCtx;
     const isRequired = requiredFromProps ?? isRequiredFromCtx;
 
     useLayoutEffect(() => {
