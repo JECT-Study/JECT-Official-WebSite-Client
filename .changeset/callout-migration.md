@@ -32,6 +32,7 @@ Callout의 스타일링을 Emotion에서 vanilla-extract로 마이그레이션�
 - `icon?: IconName` — `title`이 있을 때만 지정할 수 있는 아이콘
 - `feedback`에 `"none"` 추가, 기본값입니다
 - 네이티브 `div` 속성 전달과 `ref` 포워딩 지원
+- 타입 `CalloutProps`, `CalloutFeedback`, `CalloutSize`를 새로 내보냅니다
 
 **동작 변경 (코드 수정 불필요)**
 

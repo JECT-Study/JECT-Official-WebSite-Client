@@ -10,6 +10,8 @@
 
 화면에 표시되는 라벨이 포함되지 않으므로 소비처에서 `aria-label` 또는 `aria-labelledby`를 전달해야 합니다. checkbox에서 동작하지 않는 `readOnly`와 컴포넌트가 고정하는 `children`, `role`, `type` prop은 지원하지 않습니다.
 
+타입 `ToggleProps`를 함께 내보냅니다.
+
 ```tsx
 import { type ChangeEvent, useState } from "react";
 

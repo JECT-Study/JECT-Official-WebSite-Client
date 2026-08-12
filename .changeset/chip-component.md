@@ -17,6 +17,8 @@
 
 `valueLabel` 표시 영역이 160px을 넘으면 말줄임표로 처리합니다. `valueLabelOnly`로 숨긴 `label`은 접근성 트리에 유지됩니다. `valueLabel`이 빈 배열이거나 빈 문자열로만 구성된 경우 기본 상태로 표시하며, 이때 `valueLabelOnly`를 함께 전달해도 적용되지 않고 `label`이 화면에 유지됩니다.
 
+타입 `ChipProps`를 함께 내보냅니다.
+
 ```tsx
 <Chip label='레이블' onClick={handleClick} onRemove={handleRemove} />
 

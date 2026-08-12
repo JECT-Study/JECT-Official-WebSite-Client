@@ -10,6 +10,8 @@
 - `disabled` — 이동을 차단하고 흐리게 표시합니다. `asChild`와 함께 쓸 수 없습니다
 - `asChild` — `<a>` 대신 전달한 자식 요소에 스타일을 합성합니다. Next.js, React Router의 `Link` 등 라우팅 컴포넌트와 결합할 때 씁니다
 
+타입 `LinkProps`를 함께 내보냅니다.
+
 ```tsx
 <p className={getBodyClassName({ size: "md" })}>
   자세한 내용은 <Link href='/docs'>문서</Link>를 참고하세요.

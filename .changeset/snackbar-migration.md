@@ -19,6 +19,7 @@ Snackbar를 Compound 구조에서 `feedback` prop을 쓰는 단일 컴포넌트 
 | `SnackbarVariant = "positive" \| "destructive"`                  | `SnackbarFeedback = "none" \| "positive" \| "destructive" \| "notifying"` |
 | `SnackbarBasicProps`, `SnackbarFeedbackProps`                    | `SnackbarProps`                                                           |
 | `SnackbarStyle`, `SnackbarFeedbackIconProps`, `SnackbarDivProps` | 제거 — 대체재 없음                                                        |
+| `SnackbarBase`, `SnackbarButtonsProps`                           | 제거 — 대체재 없음                                                        |
 | 항상 노출되던 닫기 버튼                                          | `withCloseButton` 옵션으로 표시 여부 제어                                 |
 
 ```diff
@@ -57,6 +58,11 @@ Snackbar를 Compound 구조에서 `feedback` prop을 쓰는 단일 컴포넌트 
 +   withCloseButton
 + />
 ```
+
+**추가**
+
+- `SnackbarActionProps` — 액션 버튼 타입. `label`, `onClick`
+- `SnackbarOptions` — 호출 옵션 타입. `description`, `duration`, `withCloseButton`
 
 **동작 변경 (코드 수정 불필요)**
 
