@@ -6,7 +6,7 @@
 
 `SelectField`를 내부 `Field` primitive 기반의 compound 컴포넌트로 재작성합니다. `SelectField.Label`, `SelectField.Content`, `SelectField.Trigger`, `SelectField.HelperText`를 조합해 구성하며 루트에서 `status`(`default`/`success`/`error`), `fieldStyle`(`outline`/`hollow`), `disabled`, `readonly`, `required` 상태를 관리합니다.
 
-`SelectField.Trigger`는 트리거 버튼과 선택 목록을 함께 관리합니다. 선택지는 `options`로 전달하고 값은 controlled(`value` + `onChange`)와 uncontrolled(`defaultValue`)를 모두 지원합니다. 단일 선택만 지원하며 선택 마크 표시 여부는 `variant`(`control`/`label`)로 제어합니다. 값과 화살표 사이에는 `suffix`로 배지나 단축키 같은 읽기 전용 요소를 배치하며, 트리거 버튼 안에 중첩되므로 상호작용하는 요소는 전달하면 안 됩니다.
+`SelectField.Trigger`는 트리거 버튼과 선택 목록을 함께 관리합니다. 선택지는 `options`로 전달하고 값은 controlled(`value` + `onChange`)와 uncontrolled(`defaultValue`)를 모두 지원합니다. `value`와 `defaultValue`는 `options[].value`를 받고 `onChange`도 선택된 `options[].value`를 넘겨줍니다. `options[].label`은 화면 표시 전용이라 값으로 쓰이지 않습니다. 단일 선택만 지원하며 선택 마크 표시 여부는 `variant`(`control`/`label`)로 제어합니다. 값과 화살표 사이에는 `suffix`로 배지나 단축키 같은 읽기 전용 요소를 배치하며, 트리거 버튼 안에 중첩되므로 상호작용하는 요소는 전달하면 안 됩니다.
 
 선택 목록은 Radix Popover로 표시하고 열림 상태와 위치 계산, 바깥 클릭과 Escape 처리를 컴포넌트가 담당합니다. 목록 높이는 트리거 아래에 남은 화면 공간으로 제한하고 초과하면 내부에서 스크롤하며, 열릴 때는 선택된 항목이 보이도록 스크롤 위치를 맞춥니다.
 

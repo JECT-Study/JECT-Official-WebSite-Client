@@ -18,7 +18,7 @@ Select를 W3C Listbox 패턴 기반으로 재작성하고, 컨테이너의 varia
 | 항목 `isDisabled`                                                                                                                     | `SelectOption.disabled`                                                               |
 | `SelectVariant` / `SelectSize` / `SelectValue` / `SelectContextType` / `SelectListProps` / `SelectRadioProps` / `SelectCheckboxProps` | 제거 — `MultiSelectProps` / `SelectOption` / `OptionVariant` / `SelectDimension` 추가 |
 
-값 타입이 컴포넌트별로 고정됩니다. `Select`는 `string`, `MultiSelect`는 `string[]`를 씁니다. `badge`는 전달한 내용을 컴포넌트가 `ContentBadge`로 감쌌지만 `suffix`는 전달받은 노드를 그대로 배치합니다.
+값 타입이 컴포넌트별로 고정됩니다. `Select`는 `string`, `MultiSelect`는 `string[]`를 씁니다. 컨테이너가 `role="listbox"`를 가지므로 접근 가능한 이름이 필요합니다. 레이블 요소가 따로 없으면 `aria-label`을, 있으면 `aria-labelledby`를 전달합니다. `badge`는 전달한 내용을 컴포넌트가 `ContentBadge`로 감쌌지만 `suffix`는 전달받은 노드를 그대로 배치합니다.
 
 ```diff
 - <Select variant='radio' value={value} onChange={setValue}>
@@ -27,6 +27,7 @@ Select를 W3C Listbox 패턴 기반으로 재작성하고, 컨테이너의 varia
 - </Select>
 + <Select
 +   variant='control'
++   aria-label='지역'
 +   value={value}
 +   onChange={setValue}
 +   options={[
@@ -42,6 +43,7 @@ Select를 W3C Listbox 패턴 기반으로 재작성하고, 컨테이너의 varia
 -   <Select.Checkbox value='busan'>부산광역시</Select.Checkbox>
 - </Select>
 + <MultiSelect
++   aria-label='지역'
 +   value={values}
 +   onChange={setValues}
 +   options={[

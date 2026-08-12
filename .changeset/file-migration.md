@@ -21,11 +21,14 @@
 
 `disabled`와 `removable` 조합은 허용합니다. 파일 열기 또는 다운로드는 비활성화하되 삭제 액션은 제공할 수 있습니다.
 
+`fileName`과 `fileSize`가 `ReactNode`에서 `string`으로 좁혀지고 `fileSize`는 필수가 됩니다. 네이티브 `File`의 `size`는 `number`이므로 그대로 넘길 수 없고, 표시할 문자열로 변환해 전달해야 합니다.
+
 ```diff
 - <FileItem
 + <File
     fileName={file.name}
-    fileSize={file.size}
+-   fileSize={file.size}
++   fileSize={formatFileSize(file.size)}
     onClick={handleClick}
 -   removeable
 +   removable
