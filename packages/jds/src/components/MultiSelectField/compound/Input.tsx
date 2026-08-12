@@ -59,6 +59,8 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       hasLabel,
       helperId,
       hasHelper,
+      counterId,
+      hasCounter,
       status,
       disabled: isDisabledFromCtx,
       readonly: isReadOnlyFromCtx,
@@ -76,8 +78,6 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       maxValues,
       name,
       form,
-      counterId,
-      hasCounter,
     } = useMultiSelectFieldContext("MultiSelectField.Input");
 
     const isDisabled = disabledFromProps ?? isDisabledFromCtx;

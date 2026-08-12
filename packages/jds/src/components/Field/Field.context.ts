@@ -14,6 +14,11 @@ export interface FieldContextValue {
   hasHelper: boolean;
   /** Field.Helper가 mount/unmount될 때 호출된다. */
   onHelperMountChange: (mounted: boolean) => void;
+  counterId: string;
+  /** Field.Counter가 실제로 렌더되고 있는지 여부 */
+  hasCounter: boolean;
+  /** Field.Counter가 mount/unmount될 때 호출된다. */
+  onCounterMountChange: (mounted: boolean) => void;
   status: FieldStatus;
   readonly: boolean;
   disabled: boolean;

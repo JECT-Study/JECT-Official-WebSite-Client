@@ -13,9 +13,6 @@ export interface MultiSelectFieldContextValue {
   maxValues?: number;
   name?: string;
   form?: string;
-  counterId: string;
-  hasCounter: boolean;
-  onCounterMountChange: (mounted: boolean) => void;
 }
 
 export const [MultiSelectFieldProvider, useMultiSelectFieldContext] =

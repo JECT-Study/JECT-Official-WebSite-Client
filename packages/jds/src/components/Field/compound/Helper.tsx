@@ -31,7 +31,8 @@ export const FieldHelper = forwardRef<HTMLSpanElement, FieldHelperProps>(
         id={helperId}
         className={clsx(
           getLabelClassName({ size: "sm" }),
-          styles.helper({ status, disabled: isDisabled }),
+          styles.belowContent,
+          styles.supportText({ status, disabled: isDisabled }),
           className,
         )}
       >
