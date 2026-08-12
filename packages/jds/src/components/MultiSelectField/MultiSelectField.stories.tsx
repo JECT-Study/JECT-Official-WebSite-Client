@@ -102,7 +102,7 @@ export const Playground: Story = {
         <MultiSelectField.Input options={options} placeholder='플레이스홀더' />
       </MultiSelectField.Content>
       <MultiSelectField.Footer>
-        <MultiSelectField.HelperText>헬퍼 텍스트</MultiSelectField.HelperText>
+        <MultiSelectField.Helper>헬퍼 텍스트</MultiSelectField.Helper>
       </MultiSelectField.Footer>
     </MultiSelectField>
   ),
@@ -123,7 +123,7 @@ export const Statuses: Story = {
               <MultiSelectField.Input options={options} placeholder='플레이스홀더' />
             </MultiSelectField.Content>
             <MultiSelectField.Footer>
-              <MultiSelectField.HelperText>헬퍼 텍스트</MultiSelectField.HelperText>
+              <MultiSelectField.Helper>헬퍼 텍스트</MultiSelectField.Helper>
             </MultiSelectField.Footer>
           </MultiSelectField>
         </FlexColumn>
@@ -157,7 +157,7 @@ export const States: Story = {
               <MultiSelectField.Input options={options} placeholder='플레이스홀더' />
             </MultiSelectField.Content>
             <MultiSelectField.Footer>
-              <MultiSelectField.HelperText>헬퍼 텍스트</MultiSelectField.HelperText>
+              <MultiSelectField.Helper>헬퍼 텍스트</MultiSelectField.Helper>
             </MultiSelectField.Footer>
           </MultiSelectField>
         </FlexColumn>
@@ -210,7 +210,7 @@ export const WithCounter: Story = {
         <MultiSelectField.Input options={options} placeholder='플레이스홀더' />
       </MultiSelectField.Content>
       <MultiSelectField.Footer>
-        <MultiSelectField.HelperText>헬퍼 텍스트</MultiSelectField.HelperText>
+        <MultiSelectField.Helper>헬퍼 텍스트</MultiSelectField.Helper>
         <MultiSelectField.Counter />
       </MultiSelectField.Footer>
     </MultiSelectField>
@@ -234,7 +234,7 @@ export const CustomValue: Story = {
         />
       </MultiSelectField.Content>
       <MultiSelectField.Footer>
-        <MultiSelectField.HelperText>헬퍼 텍스트</MultiSelectField.HelperText>
+        <MultiSelectField.Helper>헬퍼 텍스트</MultiSelectField.Helper>
         <MultiSelectField.Counter />
       </MultiSelectField.Footer>
     </MultiSelectField>

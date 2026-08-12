@@ -53,6 +53,6 @@ export const MultiSelectField = Object.assign(MultiSelectFieldRoot, {
   Content: MultiSelectFieldContent,
   Input: MultiSelectFieldInput,
   Footer: MultiSelectFieldFooter,
-  HelperText: Field.HelperText,
+  Helper: Field.Helper,
   Counter: MultiSelectFieldCounter,
 });

@@ -30,7 +30,7 @@ export const MultiSelectFieldCounter = () => {
       id={counterId}
       className={clsx(
         getLabelClassName({ size: "sm" }),
-        fieldStyles.helperText({ status, disabled: isDisabled }),
+        fieldStyles.helper({ status, disabled: isDisabled }),
         styles.counter,
       )}
     >

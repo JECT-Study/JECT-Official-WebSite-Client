@@ -55,8 +55,8 @@ type Story = StoryObj<typeof meta>;
 const DemoInput = (props: ComponentPropsWithoutRef<"input">) => {
   const {
     fieldId,
-    helperTextId,
-    hasHelperText,
+    helperId,
+    hasHelper,
     disabled: isDisabled,
     readonly: isReadonly,
     required: isRequired,
@@ -65,7 +65,7 @@ const DemoInput = (props: ComponentPropsWithoutRef<"input">) => {
   return (
     <input
       id={fieldId}
-      aria-describedby={hasHelperText ? helperTextId : undefined}
+      aria-describedby={hasHelper ? helperId : undefined}
       disabled={isDisabled}
       readOnly={isReadonly}
       required={isRequired}
@@ -101,7 +101,7 @@ const SampleField = ({
     <Field.Content>
       <DemoInput placeholder={placeholder} defaultValue={defaultValue} />
     </Field.Content>
-    <Field.HelperText>{helper}</Field.HelperText>
+    <Field.Helper>{helper}</Field.Helper>
   </>
 );
 
@@ -192,7 +192,7 @@ export const WithAddon: Story = {
           <DemoInput placeholder='이메일을 입력하세요' />
           <Icon name='close-line' size='sm' />
         </Field.Content>
-        <Field.HelperText>유효한 이메일 주소를 입력해주세요</Field.HelperText>
+        <Field.Helper>유효한 이메일 주소를 입력해주세요</Field.Helper>
       </Field>
     </div>
   ),
@@ -209,7 +209,7 @@ export const Interaction: Story = {
         <Field.Content>
           <DemoInput placeholder='이메일을 입력하세요' />
         </Field.Content>
-        <Field.HelperText>hover/press 시 overlay 틴트와 focus ring이 표시됩니다</Field.HelperText>
+        <Field.Helper>hover/press 시 overlay 틴트와 focus ring이 표시됩니다</Field.Helper>
       </Field>
     </div>
   ),
@@ -228,7 +228,7 @@ export const LabelSlots: Story = {
         <Field.Content>
           <DemoInput placeholder='이메일을 입력하세요' />
         </Field.Content>
-        <Field.HelperText>유효한 이메일 주소를 입력해주세요</Field.HelperText>
+        <Field.Helper>유효한 이메일 주소를 입력해주세요</Field.Helper>
       </Field>
 
       <Field required>
@@ -236,7 +236,7 @@ export const LabelSlots: Story = {
         <Field.Content>
           <DemoInput placeholder='이메일을 입력하세요' />
         </Field.Content>
-        <Field.HelperText>필수 입력 항목입니다</Field.HelperText>
+        <Field.Helper>필수 입력 항목입니다</Field.Helper>
       </Field>
     </FlexColumn>
   ),

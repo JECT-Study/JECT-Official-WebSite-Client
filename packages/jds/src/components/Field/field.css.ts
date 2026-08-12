@@ -199,33 +199,33 @@ export const content = recipe({
   ],
 });
 
-const disabledHelperTextColor = {
+const disabledHelperColor = {
   default: vars.color.semantic.object.subtle,
   success: vars.color.semantic.feedback.positive.alpha.assistive,
   error: vars.color.semantic.feedback.destructive.alpha.assistive,
 } satisfies Record<FieldStatus, string>;
 
-const disabledHelperTextSelector = (status: FieldStatus) => ({
+const disabledHelperSelector = (status: FieldStatus) => ({
   [controlDisabledSelector]: {
-    vars: { [labelColorVar]: disabledHelperTextColor[status] },
+    vars: { [labelColorVar]: disabledHelperColor[status] },
   },
 });
 
-export const helperText = recipe({
+export const helper = recipe({
   base: { marginTop: vars.scheme.semantic.spacing["6"] },
   variants: {
     status: {
       default: {
         vars: { [labelColorVar]: vars.color.semantic.object.alternative },
-        selectors: disabledHelperTextSelector("default"),
+        selectors: disabledHelperSelector("default"),
       },
       success: {
         vars: { [labelColorVar]: vars.color.semantic.feedback.positive.normal },
-        selectors: disabledHelperTextSelector("success"),
+        selectors: disabledHelperSelector("success"),
       },
       error: {
         vars: { [labelColorVar]: vars.color.semantic.feedback.destructive.normal },
-        selectors: disabledHelperTextSelector("error"),
+        selectors: disabledHelperSelector("error"),
       },
     } satisfies Record<FieldStatus, StyleRule>,
     disabled: {

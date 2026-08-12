@@ -46,8 +46,8 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
       fieldId,
       labelId,
       hasLabel,
-      helperTextId,
-      hasHelperText,
+      helperId,
+      hasHelper,
       status,
       disabled: isDisabledFromCtx,
       readonly: isReadOnly,
@@ -138,9 +138,7 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
       [contextValue, onOpenChange],
     );
 
-    const describedByIds = [hasHelperText ? helperTextId : undefined, describedByFromProps].filter(
-      Boolean,
-    );
+    const describedByIds = [hasHelper ? helperId : undefined, describedByFromProps].filter(Boolean);
     const ariaInvalid = status === "error" ? true : (invalidFromProps ?? false);
 
     return (

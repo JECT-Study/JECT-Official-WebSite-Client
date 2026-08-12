@@ -4,5 +4,5 @@ export type { MultiSelectFieldFooterProps } from "./compound/Footer";
 export type {
   FieldContentProps as MultiSelectFieldContentProps,
   FieldLabelProps as MultiSelectFieldLabelProps,
-  FieldHelperTextProps as MultiSelectFieldHelperTextProps,
+  FieldHelperProps as MultiSelectFieldHelperProps,
 } from "../Field";

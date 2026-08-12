@@ -97,7 +97,7 @@ export const Playground: Story = {
       <SelectField.Content>
         <SelectField.Trigger options={options} defaultValue='seoul' placeholder='플레이스홀더' />
       </SelectField.Content>
-      <SelectField.HelperText>헬퍼 텍스트</SelectField.HelperText>
+      <SelectField.Helper>헬퍼 텍스트</SelectField.Helper>
     </SelectField>
   ),
 };
@@ -120,7 +120,7 @@ export const Statuses: Story = {
                 placeholder='플레이스홀더'
               />
             </SelectField.Content>
-            <SelectField.HelperText>헬퍼 텍스트</SelectField.HelperText>
+            <SelectField.Helper>헬퍼 텍스트</SelectField.Helper>
           </SelectField>
         </FlexColumn>
       ))}
@@ -148,7 +148,7 @@ export const States: Story = {
               placeholder='플레이스홀더'
             />
           </SelectField.Content>
-          <SelectField.HelperText>헬퍼 텍스트</SelectField.HelperText>
+          <SelectField.Helper>헬퍼 텍스트</SelectField.Helper>
         </SelectField>
       </FlexColumn>
       <FlexColumn gap='16px'>
@@ -162,7 +162,7 @@ export const States: Story = {
               placeholder='플레이스홀더'
             />
           </SelectField.Content>
-          <SelectField.HelperText>헬퍼 텍스트</SelectField.HelperText>
+          <SelectField.Helper>헬퍼 텍스트</SelectField.Helper>
         </SelectField>
       </FlexColumn>
       <FlexColumn gap='16px'>
@@ -176,7 +176,7 @@ export const States: Story = {
               placeholder='플레이스홀더'
             />
           </SelectField.Content>
-          <SelectField.HelperText>헬퍼 텍스트</SelectField.HelperText>
+          <SelectField.Helper>헬퍼 텍스트</SelectField.Helper>
         </SelectField>
       </FlexColumn>
     </FlexRow>
@@ -237,7 +237,7 @@ export const WithSuffix: Story = {
           }
         />
       </SelectField.Content>
-      <SelectField.HelperText>헬퍼 텍스트</SelectField.HelperText>
+      <SelectField.Helper>헬퍼 텍스트</SelectField.Helper>
     </SelectField>
   ),
 };

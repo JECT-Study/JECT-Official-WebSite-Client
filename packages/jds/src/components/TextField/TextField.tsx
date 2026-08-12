@@ -24,7 +24,7 @@ TextFieldRoot.displayName = "TextField";
  *   <TextField.Content>
  *     <TextField.Input placeholder="이메일을 입력하세요" value={v} onChange={onChange} />
  *   </TextField.Content>
- *   <TextField.HelperText>유효한 이메일 주소를 입력해주세요</TextField.HelperText>
+ *   <TextField.Helper>유효한 이메일 주소를 입력해주세요</TextField.Helper>
  * </TextField>
  * ```
  */
@@ -32,5 +32,5 @@ export const TextField = Object.assign(TextFieldRoot, {
   Label: Field.Label,
   Content: Field.Content,
   Input: TextFieldInput,
-  HelperText: Field.HelperText,
+  Helper: Field.Helper,
 });
