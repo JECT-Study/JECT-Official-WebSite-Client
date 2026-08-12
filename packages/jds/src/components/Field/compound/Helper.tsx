@@ -19,8 +19,6 @@ export const FieldHelper = forwardRef<HTMLSpanElement, FieldHelperProps>(
       disabled: isDisabled,
     } = useFieldContext("Field.Helper");
 
-    // Helper가 실제로 렌더되는 동안에만 Field가 id를 노출하도록 mount 여부를 알려줘요.
-    // 이를 통해 입력 요소가 Helper가 없을 땐 존재하지 않는 id를 참조하지 않아요.
     useLayoutEffect(() => {
       onHelperMountChange(true);
       return () => onHelperMountChange(false);

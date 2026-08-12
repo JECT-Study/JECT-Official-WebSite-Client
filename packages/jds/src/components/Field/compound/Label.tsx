@@ -12,9 +12,9 @@ export interface FieldLabelProps extends Omit<
   "htmlFor" | "prefix"
 > {
   children?: ReactNode;
-  /** 라벨 텍스트 앞에 배치되는 부가 요소 (예: 아이콘) */
+  /** 레이블 텍스트 앞에 배치되는 부가 요소 (예: 아이콘) */
   prefix?: ReactNode;
-  /** 라벨 텍스트(+required 별표) 뒤에 배치되는 부가 요소 (예: 도움말 아이콘) */
+  /** 레이블 텍스트 뒤에 배치되는 부가 요소 (예: 도움말 아이콘) */
   suffix?: ReactNode;
 }
 

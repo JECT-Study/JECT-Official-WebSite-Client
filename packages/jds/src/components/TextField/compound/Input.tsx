@@ -10,8 +10,8 @@ export type TextFieldInputProps = Omit<ComponentPropsWithoutRef<"input">, "id">;
 
 /**
  * @description Field 컨텍스트를 소비해 Field.Content 안에 놓이는 실제 input.
- * Helper 가 실제로 렌더될 때만 aria-describedby 로 연결한다.
- * controlled(value·onChange) / uncontrolled(defaultValue) 를 모두 지원한다.
+ * Helper가 실제로 렌더될 때만 aria-describedby로 연결한다.
+ * controlled(value, onChange)와 uncontrolled(defaultValue)를 모두 지원한다.
  */
 export const TextFieldInput = forwardRef<HTMLInputElement, TextFieldInputProps>(
   (
