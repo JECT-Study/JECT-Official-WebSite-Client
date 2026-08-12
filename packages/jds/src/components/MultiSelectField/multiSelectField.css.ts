@@ -2,8 +2,6 @@ import { createVar, fallbackVar, style } from "@vanilla-extract/css";
 import { vars } from "tokens";
 import { pxToRem } from "utils";
 
-import * as fieldStyles from "../Field/field.css";
-
 const inputTextColor = createVar();
 const placeholderTextColor = createVar();
 
@@ -57,15 +55,6 @@ export const popup = style({
   maxHeight: "var(--radix-popover-content-available-height)",
   zIndex: vars.environment.semantic.zIndex.floated,
 });
-
-export const footer = style([
-  fieldStyles.belowContent,
-  {
-    display: "flex",
-    alignItems: "flex-start",
-    gap: vars.scheme.semantic.spacing["8"],
-  },
-]);
 
 export const counter = style({
   whiteSpace: "nowrap",

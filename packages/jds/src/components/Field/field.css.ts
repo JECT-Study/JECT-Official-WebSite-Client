@@ -220,6 +220,15 @@ export const belowContent = style({
   },
 });
 
+export const footer = style([
+  belowContent,
+  {
+    display: "flex",
+    alignItems: "flex-start",
+    gap: vars.scheme.semantic.spacing["8"],
+  },
+]);
+
 export const supportText = recipe({
   variants: {
     status: {

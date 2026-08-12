@@ -3,7 +3,6 @@ import { forwardRef, useRef, useState } from "react";
 
 import { MultiSelectFieldContent } from "./compound/Content";
 import { MultiSelectFieldCounter } from "./compound/Counter";
-import { MultiSelectFieldFooter } from "./compound/Footer";
 import { MultiSelectFieldInput } from "./compound/Input";
 import { MultiSelectFieldProvider } from "./MultiSelectField.context";
 import type { MultiSelectFieldProps } from "./multiSelectField.types";
@@ -39,7 +38,7 @@ export const MultiSelectField = Object.assign(MultiSelectFieldRoot, {
   Label: Field.Label,
   Content: MultiSelectFieldContent,
   Input: MultiSelectFieldInput,
-  Footer: MultiSelectFieldFooter,
+  Footer: Field.Footer,
   Helper: Field.Helper,
   Counter: MultiSelectFieldCounter,
 });

@@ -3,6 +3,7 @@ import { forwardRef, useId, useState, type ComponentPropsWithoutRef, type ReactN
 
 import { FieldContent } from "./compound/Content";
 import { FieldCounter } from "./compound/Counter";
+import { FieldFooter } from "./compound/Footer";
 import { FieldHelper } from "./compound/Helper";
 import { FieldLabel } from "./compound/Label";
 import { FieldProvider } from "./Field.context";
@@ -75,4 +76,5 @@ export const Field = Object.assign(InternalField, {
   Content: FieldContent,
   Helper: FieldHelper,
   Counter: FieldCounter,
+  Footer: FieldFooter,
 });
