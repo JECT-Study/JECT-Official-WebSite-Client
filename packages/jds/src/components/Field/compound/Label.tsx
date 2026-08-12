@@ -1,5 +1,5 @@
 import { clsx } from "clsx";
-import { forwardRef, type ComponentPropsWithoutRef, type ReactNode } from "react";
+import { forwardRef, useLayoutEffect, type ComponentPropsWithoutRef, type ReactNode } from "react";
 
 import { useFieldContext } from "../Field.context";
 import * as styles from "../field.css";
@@ -19,9 +19,15 @@ export const FieldLabel = forwardRef<HTMLLabelElement, FieldLabelProps>(
     const {
       fieldId,
       labelId,
+      onLabelMountChange,
       disabled: isDisabled,
       required: isRequired,
     } = useFieldContext("Field.Label");
+
+    useLayoutEffect(() => {
+      onLabelMountChange(true);
+      return () => onLabelMountChange(false);
+    }, [onLabelMountChange]);
 
     return (
       <span className={styles.labelContainer}>

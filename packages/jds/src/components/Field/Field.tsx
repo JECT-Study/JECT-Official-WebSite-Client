@@ -34,12 +34,15 @@ const InternalField = forwardRef<HTMLDivElement, FieldProps>(
     const fieldId = idFromProps ?? generatedId;
     const labelId = `${fieldId}-label`;
     const helperTextId = `${fieldId}-helper-text`;
+    const [hasLabel, setHasLabel] = useState(false);
     const [hasHelperText, setHasHelperText] = useState(false);
 
     return (
       <FieldProvider
         fieldId={fieldId}
         labelId={labelId}
+        hasLabel={hasLabel}
+        onLabelMountChange={setHasLabel}
         helperTextId={helperTextId}
         hasHelperText={hasHelperText}
         onHelperTextMountChange={setHasHelperText}

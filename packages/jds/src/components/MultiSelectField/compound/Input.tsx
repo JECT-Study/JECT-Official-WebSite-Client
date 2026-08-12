@@ -56,6 +56,7 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
     const {
       fieldId,
       labelId,
+      hasLabel,
       helperTextId,
       hasHelperText,
       status,
@@ -325,7 +326,7 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
               listboxProps={{
                 ...getListboxProps(),
                 ...getActiveDescendantContainerProps(),
-                "aria-labelledby": labelId,
+                "aria-labelledby": hasLabel ? labelId : undefined,
               }}
               onMouseDown={e => e.preventDefault()}
             >

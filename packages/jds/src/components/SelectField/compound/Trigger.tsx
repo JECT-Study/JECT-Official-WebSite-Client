@@ -45,6 +45,7 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
     const {
       fieldId,
       labelId,
+      hasLabel,
       helperTextId,
       hasHelperText,
       status,
@@ -154,7 +155,7 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
             aria-haspopup='listbox'
             aria-expanded={isOpen}
             aria-controls={listboxId}
-            aria-labelledby={labelId}
+            aria-labelledby={hasLabel ? labelId : undefined}
             aria-activedescendant={isOpen ? activeId : undefined}
             aria-describedby={describedByIds.length > 0 ? describedByIds.join(" ") : undefined}
             aria-invalid={ariaInvalid}
@@ -195,7 +196,7 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
               listboxProps={{
                 ...getListboxProps(),
                 ...getActiveDescendantContainerProps(),
-                "aria-labelledby": labelId,
+                "aria-labelledby": hasLabel ? labelId : undefined,
               }}
               onMouseDown={e => e.preventDefault()}
             >
