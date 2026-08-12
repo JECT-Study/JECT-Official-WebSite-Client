@@ -38,5 +38,5 @@
 
 ```diff
 - <FileItem fileName={file.name} fileSize={file.size} hasError errorMessage="파일을 다시 확인해주세요." />
-+ <File fileName={file.name} fileSize={file.size} />
++ <File fileName={file.name} fileSize={formatFileSize(file.size)} />
 ```
