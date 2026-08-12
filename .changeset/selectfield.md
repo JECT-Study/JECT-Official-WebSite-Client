@@ -36,20 +36,22 @@
 
 **소비처 영향 (코드 수정 필요)**
 
-| AS-IS `Input.SelectField`                           | TO-BE `SelectField`                                                                                                             |
-| --------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| 단일 컴포넌트 (prop 기반)                           | compound                                                                                                                        |
-| `label`                                             | `<SelectField.Label>`                                                                                                           |
-| `helperText`                                        | `<SelectField.HelperText>`                                                                                                      |
-| 루트 `value` (표시할 문자열)                        | `<SelectField.Trigger>`의 controlled(`value` + `onChange`) / uncontrolled(`defaultValue`)                                       |
-| 소비처가 `Select`를 직접 배치                       | `<SelectField.Trigger options={…}>`                                                                                             |
-| `isOpen` / `onClick`으로 소비처가 열림 상태 관리    | 컴포넌트가 소유                                                                                                                 |
-| `isWithInfoIcon`                                    | `<SelectField.Label suffixSlot={<Icon … />}>`                                                                                   |
-| `style="outlined" \| "empty"`                       | `fieldStyle="outline" \| "hollow"`                                                                                              |
-| `validation="none" \| "error" \| "success"`         | `status="default" \| "success" \| "error"`                                                                                      |
-| `interaction="enabled" \| "disabled" \| "readOnly"` | `disabled` / `readonly` (+ `required`) boolean prop                                                                             |
-| `labelIcon` / `button` (SelectFieldButton)          | 제거 — 대체재 없음                                                                                                              |
-| `SelectFieldPublicProps`, `SelectFieldButtonProps`  | `SelectFieldProps`, `SelectFieldTriggerProps`, `SelectFieldContentProps`, `SelectFieldLabelProps`, `SelectFieldHelperTextProps` |
+| AS-IS `Input.SelectField`                           | TO-BE `SelectField`                                                                       |
+| --------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| 단일 컴포넌트 (prop 기반)                           | compound                                                                                  |
+| `label`                                             | `<SelectField.Label>`                                                                     |
+| `helperText`                                        | `<SelectField.HelperText>`                                                                |
+| 루트 `value` (표시할 문자열)                        | `<SelectField.Trigger>`의 controlled(`value` + `onChange`) / uncontrolled(`defaultValue`) |
+| 소비처가 `Select`를 직접 배치                       | `<SelectField.Trigger options={…}>`                                                       |
+| `isOpen` / `onClick`으로 소비처가 열림 상태 관리    | 컴포넌트가 소유                                                                           |
+| `isWithInfoIcon`                                    | `<SelectField.Label suffixSlot={<Icon … />}>`                                             |
+| `style="outlined" \| "empty"`                       | `fieldStyle="outline" \| "hollow"`                                                        |
+| `validation="none" \| "error" \| "success"`         | `status="default" \| "success" \| "error"`                                                |
+| `interaction="enabled" \| "disabled" \| "readOnly"` | `disabled` / `readonly` (+ `required`) boolean prop                                       |
+| `labelIcon` / `button` (SelectFieldButton)          | 제거 — 대체재 없음                                                                        |
+| `SelectFieldProps` (단일 컴포넌트 props)            | `SelectFieldProps` (compound 루트 props)                                                  |
+
+`SelectFieldProps`는 이름이 그대로라 타입 검사를 통과할 수 있습니다. 이 타입을 직접 참조하던 코드는 필드가 달라졌으므로 확인이 필요합니다.
 
 ```diff
 - const [isOpen, setIsOpen] = useState(false);
