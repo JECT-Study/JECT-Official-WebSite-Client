@@ -147,7 +147,7 @@ const IntroSection = () => {
                 </div>
               ),
             )}
-            <div className='tablet:col-span-1 [&>label]:title-01 col-span-full [&_p]:whitespace-pre-line [&>div]:h-full [&>div]:w-full [&>div]:max-w-full!'>
+            <div className='tablet:col-span-1 col-span-full [&_p]:whitespace-pre-line [&>div]:h-full [&>div]:w-full [&>div]:max-w-full!'>
               <EmptyState
                 variant='outlined'
                 header='젝트만의 협업 문화'
