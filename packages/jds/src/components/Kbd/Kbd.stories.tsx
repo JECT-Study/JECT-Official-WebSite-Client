@@ -59,6 +59,46 @@ export const Default: Story = {
   },
 };
 
+export const AllSizes: Story = {
+  args: {
+    children: "Kbd",
+  },
+  render: () => (
+    <FlexColumn>
+      <FlexRow>
+        <span>sm</span>
+        <Kbd size='sm'>A</Kbd>
+        <Kbd size='sm' type='text'>
+          ctrl
+        </Kbd>
+        <Kbd size='sm' type='function'>
+          ⌘
+        </Kbd>
+      </FlexRow>
+      <FlexRow>
+        <span>md</span>
+        <Kbd size='md'>A</Kbd>
+        <Kbd size='md' type='text'>
+          ctrl
+        </Kbd>
+        <Kbd size='md' type='function'>
+          ⌘
+        </Kbd>
+      </FlexRow>
+      <FlexRow>
+        <span>lg</span>
+        <Kbd size='lg'>A</Kbd>
+        <Kbd size='lg' type='text'>
+          ctrl
+        </Kbd>
+        <Kbd size='lg' type='function'>
+          ⌘
+        </Kbd>
+      </FlexRow>
+    </FlexColumn>
+  ),
+};
+
 export const Types: Story = {
   args: {
     children: "kbd",
@@ -93,12 +133,58 @@ export const Types: Story = {
 
 export const IsMuted: Story = {
   args: {
-    children: "kbd",
+    children: "Kbd",
   },
   render: () => (
     <FlexColumn>
-      <Kbd muted>A</Kbd>
-      <Kbd>/</Kbd>
+      <FlexRow>
+        <span>key</span>
+        <Kbd type='key' muted>
+          A
+        </Kbd>
+        <Kbd type='key' muted>
+          /
+        </Kbd>
+        <Kbd type='key' muted>
+          \
+        </Kbd>
+      </FlexRow>
+      <FlexRow>
+        <span>text</span>
+        <Kbd type='text' muted>
+          ctrl
+        </Kbd>
+        <Kbd type='text' muted>
+          alt
+        </Kbd>
+        <Kbd type='text' muted>
+          tab
+        </Kbd>
+        <Kbd type='text' muted>
+          esc
+        </Kbd>
+      </FlexRow>
+      <FlexRow>
+        <span>function</span>
+        <Kbd type='function' muted>
+          ⌘
+        </Kbd>
+        <Kbd type='function' muted>
+          ⌥
+        </Kbd>
+        <Kbd type='function' muted>
+          ⇧
+        </Kbd>
+        <Kbd type='function' muted>
+          ⌃
+        </Kbd>
+        <Kbd type='function' muted>
+          ⌫
+        </Kbd>
+        <Kbd type='function' muted>
+          ⏎
+        </Kbd>
+      </FlexRow>
     </FlexColumn>
   ),
 };
