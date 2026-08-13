@@ -1,19 +1,23 @@
-import { styleVariants } from "@vanilla-extract/css";
+import type { StyleRule } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
 import { pxToRem } from "utils";
 
-import { kbdPaddingXMap, kbdSizeMap } from "./kbd.variants";
+import type { KbdSize, KbdType } from "./kbd.types";
 
-const sizeVariants = styleVariants(kbdSizeMap, ({ height, minWidth }) => ({
-  height: pxToRem(height),
-  minWidth: pxToRem(minWidth),
-}));
+import { labelColorVar } from "@/utils/typography.css";
 
-const typeVariants = styleVariants(kbdPaddingXMap, paddingX => ({
-  paddingLeft: pxToRem(paddingX),
-  paddingRight: pxToRem(paddingX),
-}));
+const sizeVariants = {
+  lg: { height: pxToRem(26), minWidth: pxToRem(20) },
+  md: { height: pxToRem(24), minWidth: pxToRem(19) },
+  sm: { height: pxToRem(22), minWidth: pxToRem(19) },
+} satisfies Record<KbdSize, StyleRule>;
+
+const typeVariants = {
+  function: { paddingInline: pxToRem(4) },
+  key: { paddingInline: pxToRem(6) },
+  text: { paddingInline: pxToRem(6) },
+} satisfies Record<KbdType, StyleRule>;
 
 export const kbd = recipe({
   base: {
@@ -21,12 +25,13 @@ export const kbd = recipe({
     alignItems: "center",
     justifyContent: "center",
 
-    paddingTop: vars.scheme.semantic.spacing["2"],
-    paddingBottom: vars.scheme.semantic.spacing["2"],
-
+    paddingBlock: pxToRem(2),
     borderRadius: vars.scheme.semantic.radius["4"],
     border: `1px solid ${vars.color.semantic.stroke.alpha.subtle}`,
     color: vars.color.semantic.object.neutral,
+    vars: {
+      [labelColorVar]: vars.color.semantic.object.neutral,
+    },
   },
   variants: {
     type: typeVariants,
@@ -35,6 +40,9 @@ export const kbd = recipe({
       true: {
         borderColor: vars.color.semantic.stroke.alpha.subtler,
         color: vars.color.semantic.object.subtle,
+        vars: {
+          [labelColorVar]: vars.color.semantic.object.subtle,
+        },
       },
       false: {},
     },

@@ -19,7 +19,7 @@ const meta = {
   argTypes: {
     size: {
       control: "radio",
-      options: ["lg", "md", "sm", "xs"],
+      options: ["lg", "md", "sm"],
       description: "컴포넌트의 시각적 크기입니다.",
       table: {
         defaultValue: { summary: "md" },
