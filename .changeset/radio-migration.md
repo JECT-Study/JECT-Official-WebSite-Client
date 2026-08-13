@@ -58,7 +58,6 @@ Radio를 radix RadioGroup 기반으로 재작성하고 API를 조립된 props �
 
 - `layout` — `"vertical"`(기본) 또는 `"grid"`, `grid`는 `columns` 필수
 - `stretched` — 아이템이 전체 너비를 채움
-- uncontrolled 방식 지원, `defaultValue`로 초기 선택값 지정
 
 **동작 변경 (코드 수정 불필요)**
 
