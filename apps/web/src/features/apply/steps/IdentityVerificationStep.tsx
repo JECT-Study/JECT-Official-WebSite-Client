@@ -109,7 +109,7 @@ export function IdentityVerificationStep({ context, dispatch }: IdentityVerifica
   const { mutateAsync: updateProfileAsync } = useMemberProfileMutation();
 
   const handleCheckApplyStatus = (userEmail: string) => {
-    checkApplyStatusMutate(undefined, {
+    checkApplyStatusMutate(context.recruitId, {
       onSuccess: data => {
         if (data.result === "PROFILE_NOT_REGISTERED") {
           dispatch("goToProfile", userEmail);
@@ -123,7 +123,7 @@ export function IdentityVerificationStep({ context, dispatch }: IdentityVerifica
 
         // CONTINUE (TEMP_SAVED 또는 JOINED) → draft 확인
         void applyApi
-          .getDraft()
+          .getDraft(context.recruitId)
           .then(draft => {
             // 파트 불일치 체크: draft에 저장된 jobFamily와 현재 접근한 jobFamily가 다른 경우
             if (draft.jobFamily != null && draft.jobFamily !== context.jobFamily) {
@@ -204,17 +204,20 @@ export function IdentityVerificationStep({ context, dispatch }: IdentityVerifica
       const profile = await applyApi.getMe();
 
       // 2. 기존 draft + 프로필 삭제
-      await deleteDraftAsync();
+      await deleteDraftAsync(context.recruitId);
 
       // 3. 프로필 복원 (새로운 jobFamily로)
       await updateProfileAsync({
-        name: profile.name,
-        phoneNumber: profile.phoneNumber,
-        careerDetails: profile.careerDetails,
-        region: profile.region,
-        experiencePeriod: profile.experiencePeriod,
-        interestedDomains: profile.interestedDomains,
-        jobFamily: context.jobFamily,
+        recruitId: context.recruitId,
+        profile: {
+          name: profile.name,
+          phoneNumber: profile.phoneNumber,
+          careerDetails: profile.careerDetails,
+          region: profile.region,
+          experiencePeriod: profile.experiencePeriod,
+          interestedDomains: profile.interestedDomains,
+          jobFamily: context.jobFamily,
+        },
       });
 
       // 4. 지원서 작성으로 이동

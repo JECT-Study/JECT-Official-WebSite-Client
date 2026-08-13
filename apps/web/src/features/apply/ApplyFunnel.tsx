@@ -24,9 +24,10 @@ import {
 
 interface ApplyFunnelProps {
   jobFamily: JobFamily;
+  recruitId: number;
 }
 
-export function ApplyFunnel({ jobFamily }: ApplyFunnelProps) {
+export function ApplyFunnel({ jobFamily, recruitId }: ApplyFunnelProps) {
   const navigate = useNavigate();
   const { isDialogOpen, handleConfirm, handleCancel } = useNavigationBlock();
 
@@ -34,7 +35,7 @@ export function ApplyFunnel({ jobFamily }: ApplyFunnelProps) {
     id: "apply-funnel",
     initial: {
       step: "이메일인증",
-      context: { jobFamily },
+      context: { jobFamily, recruitId },
     },
   });
 
