@@ -42,10 +42,10 @@ const renderFileQuestion = (props: FileQuestionProps): ReactNode => (
 );
 
 export function RegistrationStep({ context, onNext, onBack }: RegistrationStepProps) {
-  const { jobFamily } = context;
+  const { jobFamily, recruitId } = context;
 
   const { questions, answers, portfolios, setAnswers, setPortfolios } =
-    useRegistrationFormWithDraft(jobFamily);
+    useRegistrationFormWithDraft(jobFamily, recruitId);
 
   const [isSubmitDialogOpen, setIsSubmitDialogOpen] = useState(false);
 
@@ -79,17 +79,17 @@ export function RegistrationStep({ context, onNext, onBack }: RegistrationStepPr
 
   //지원서 임시 저장
   const handleSaveDraft = useCallback(() => {
-    saveDraftMutate({ answers, portfolios: formattedPortfolios });
-  }, [saveDraftMutate, answers, formattedPortfolios]);
+    saveDraftMutate({ recruitId, answers: { answers, portfolios: formattedPortfolios } });
+  }, [saveDraftMutate, recruitId, answers, formattedPortfolios]);
 
   //지원서 제출
   const handleSubmit = useCallback(() => {
     setIsSubmitDialogOpen(false);
     submitAnswerMutate({
-      jobFamily,
+      recruitId,
       answers: { answers, portfolios: formattedPortfolios },
     });
-  }, [submitAnswerMutate, jobFamily, answers, formattedPortfolios]);
+  }, [submitAnswerMutate, recruitId, answers, formattedPortfolios]);
 
   const renderQuestion = useCallback(
     (question: Question): ReactNode => {

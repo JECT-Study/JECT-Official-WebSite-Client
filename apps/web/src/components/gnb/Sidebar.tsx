@@ -78,13 +78,6 @@ const ProgramMenu = ({ handleMenuClick }: SidebarMenusProps) => {
         >
           미니 스터디
         </MenuItem.Anchor>
-        <MenuItem.Anchor
-          href={PATH.liveSession}
-          size='lg'
-          onClick={e => handleMenuClick(e, PATH.liveSession)}
-        >
-          라이브 세션
-        </MenuItem.Anchor>
       </div>
     </div>
   );

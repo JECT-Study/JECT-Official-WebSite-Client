@@ -1,10 +1,34 @@
 import { BlockButton, Hero, Image, Label, Title } from "@jects/jds";
+import type { FunctionComponent, SVGProps } from "react";
 import { useNavigate } from "react-router-dom";
 
-import joinTeamMeetingImage from "@/assets/images/join-team-meeting.png";
+import joinSectionImage from "@/assets/images/join-section.webp";
+import FigmaLogo from "@/assets/svg/figmaLogo.svg?react";
 import SwypLogo from "@/assets/svg/swypLogo.svg?react";
 import { PATH } from "@/constants/path";
 import { trackApplyStart } from "@/utils/analytics";
+
+const SponsorCard = ({
+  name,
+  href,
+  logo: Logo,
+}: {
+  name: string;
+  href: string;
+  logo: FunctionComponent<SVGProps<SVGSVGElement>>;
+}) => {
+  return (
+    <a
+      href={href}
+      target='_blank'
+      rel='noopener noreferrer'
+      aria-label={`${name} 웹사이트 (새 창 열림)`}
+      className='border-border-trans-alternative-dark bg-surface-deep-dark desktop:w-60 desktop:h-25 tablet:w-[158px] tablet:h-[66px] flex h-33 w-full items-center justify-center rounded-(--semantic-radius-6) border'
+    >
+      <Logo className='h-auto w-2/3 max-w-40' aria-hidden />
+    </a>
+  );
+};
 
 const JoinSection = () => {
   const navigate = useNavigate();
@@ -43,7 +67,7 @@ const JoinSection = () => {
           </BlockButton.Basic>
         </div>
         <Image
-          src={joinTeamMeetingImage}
+          src={joinSectionImage}
           alt='젝트 구성원들'
           ratio='3:4'
           orientation='landscape'
@@ -67,15 +91,10 @@ const JoinSection = () => {
             구성원들의 몰입과 성장을 지원하고 있어요.
           </Label>
         </div>
-        <a
-          href='https://swyp.im/'
-          target='_blank'
-          rel='noopener noreferrer'
-          aria-label='스위프 웹사이트 (새 창 열림)'
-          className='border-border-trans-alternative-dark bg-surface-deep-dark tablet:w-70 tablet:h-[118px] flex h-[110px] w-full items-center justify-center rounded-(--semantic-radius-6) border'
-        >
-          <SwypLogo aria-hidden />
-        </a>
+        <div className='tablet:flex-row flex flex-col gap-(--semantic-spacing-16)'>
+          <SponsorCard name='Figma' href='https://www.figma.com/ko-kr/' logo={FigmaLogo} />
+          <SponsorCard name='스위프' href='https://swyp.im/' logo={SwypLogo} />
+        </div>
       </div>
     </section>
   );

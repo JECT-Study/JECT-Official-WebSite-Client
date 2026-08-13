@@ -35,9 +35,10 @@ const parseAnswersFromApi = (
 
 export function useRegistrationFormWithDraft(
   jobFamily: JobFamily,
+  recruitId: number,
 ): UseRegistrationFormWithDraftReturn {
-  const { data: questionsData } = useQuestionsSuspenseQuery(jobFamily);
-  const { data: draftData } = useDraftSuspenseQuery();
+  const { data: questionsData } = useQuestionsSuspenseQuery(recruitId);
+  const { data: draftData } = useDraftSuspenseQuery(recruitId);
 
   const questions: Question[] = questionsData.questionResponses;
 

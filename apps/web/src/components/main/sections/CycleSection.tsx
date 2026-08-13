@@ -1,12 +1,12 @@
 import { Banner } from "@jects/jds";
 
-import cycleVisionBannerImage from "@/assets/images/cycle-vision-banner.png";
+import cycleSectionImage from "@/assets/images/cycle-section.webp";
 
 const CycleSection = () => {
   return (
     <section>
       <Banner.Image
-        src={cycleVisionBannerImage}
+        src={cycleSectionImage}
         isReadonly
         title={"IT 생태계의\n선순환을 목표로 하는 젝트"}
         subtitle={
