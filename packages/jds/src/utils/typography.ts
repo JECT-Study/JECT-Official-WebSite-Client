@@ -37,6 +37,11 @@ export interface BodyStyleOptions {
   weight?: BodyWeight;
 }
 
+export type SyntaxSize = "lg" | "md" | "sm" | "xs";
+export interface SyntaxStyleOptions {
+  size?: SyntaxSize;
+}
+
 export const getLabelClassName = ({
   size = "md",
   textAlign = "left",
@@ -67,10 +72,14 @@ export const getBodyClassName = ({
     weight,
   });
 
+export const getSyntaxClassName = ({ size = "md" }: SyntaxStyleOptions = {}) =>
+  typographyStyles.syntax({ size });
+
 export const typography = {
   label: typographyStyles.label,
   body: typographyStyles.body,
   title: typographyStyles.title,
+  syntax: typographyStyles.syntax,
   inheritColor: typographyStyles.inheritColor,
 };
 

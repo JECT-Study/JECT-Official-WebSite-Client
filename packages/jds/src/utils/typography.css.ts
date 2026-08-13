@@ -9,6 +9,7 @@ import type {
   LabelSize,
   LabelTextAlign,
   LabelWeight,
+  SyntaxSize,
   TitleSize,
 } from "./typography";
 import { vars } from "../tokens/vars.css";
@@ -196,6 +197,20 @@ export const body = recipe({
     size: "md",
     weight: "normal",
     textAlign: "left",
+  },
+});
+
+export const syntax = recipe({
+  variants: {
+    size: {
+      lg: "semantic-textStyle-syntax-lg",
+      md: "semantic-textStyle-syntax-md",
+      sm: "semantic-textStyle-syntax-sm",
+      xs: "semantic-textStyle-syntax-xs",
+    } satisfies Record<SyntaxSize, string>,
+  },
+  defaultVariants: {
+    size: "md",
   },
 });
 
