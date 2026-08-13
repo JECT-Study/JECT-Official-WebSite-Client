@@ -23,6 +23,7 @@ export type { ApplicationStatus } from "@/apis/apply/schemas";
 //JobFamily에 대한 공고 이기 때문에 해당 인터페이스를 기본으로 가짐
 interface BaseContext {
   jobFamily: JobFamily;
+  recruitId: number;
 }
 
 export type ApplicantInfoContext = BaseContext & { email: string };

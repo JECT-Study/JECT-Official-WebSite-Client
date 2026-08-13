@@ -4,8 +4,13 @@ import { useMutation, useQueryClient, type UseMutationOptions } from "@tanstack/
 import { applyApi, applyMutationKeys, applyQueryKeys } from "@/apis/apply";
 import type { MemberProfilePayload } from "@/types/apis/apply";
 
+interface MemberProfileVariables {
+  recruitId: number;
+  profile: MemberProfilePayload;
+}
+
 type UseMemberProfileMutationOptions = Omit<
-  UseMutationOptions<null, Error, MemberProfilePayload, unknown>,
+  UseMutationOptions<null, Error, MemberProfileVariables, unknown>,
   "mutationKey" | "mutationFn"
 >;
 
@@ -15,7 +20,8 @@ export function useMemberProfileMutation(options?: UseMemberProfileMutationOptio
 
   return useMutation({
     mutationKey: applyMutationKeys.profile.update,
-    mutationFn: applyApi.updateProfile,
+    mutationFn: ({ recruitId, profile }: MemberProfileVariables) =>
+      applyApi.updateProfile(recruitId, profile),
     retry: 1,
     ...restOptions,
     onSuccess: (data, variables, onMutateResult, mutationContext) => {

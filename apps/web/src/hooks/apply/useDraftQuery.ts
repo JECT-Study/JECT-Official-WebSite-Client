@@ -6,11 +6,11 @@ interface UseDraftQueryOptions {
   enabled?: boolean;
 }
 
-export function useDraftQuery(options: UseDraftQueryOptions = {}) {
+export function useDraftQuery(recruitId: number, options: UseDraftQueryOptions = {}) {
   const { enabled: isEnabled = true } = options;
 
   return useQuery({
-    ...applyQueries.draft.current(),
+    ...applyQueries.draft.byRecruitId(recruitId),
     enabled: isEnabled,
     retry: 0,
   });
