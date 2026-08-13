@@ -28,6 +28,16 @@ import { useRecruitId } from "@/hooks/recruit";
 
 type TabValue = "info" | "notice" | "faq";
 
+const RECRUIT_ALERT_FORM_URL = "https://forms.gle/oarw4xzjDezR6mzQA";
+const RECRUIT_START_AT = new Date("2026-08-22T00:00:00+09:00").getTime();
+const RECRUIT_END_AT = new Date("2026-09-07T00:00:00+09:00").getTime();
+
+const INACTIVE_ACTION_LABEL = {
+  pending: "모집 정보를 불러오는 중입니다",
+  closed: "모집이 마감되었습니다",
+  error: "일시적인 오류가 발생했습니다",
+} as const;
+
 const VALID_JOB_FAMILIES = JOB_FAMILY_OPTIONS.map(opt => opt.value);
 
 function isValidJobFamily(value: string | undefined): value is JobFamily {
@@ -116,11 +126,9 @@ function ApplyGuidePage() {
   const navigate = useNavigate();
   const { jobFamily } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
-  const {
-    recruitId,
-    isPending: isRecruitPending,
-    isError: isRecruitError,
-  } = useRecruitId(isValidJobFamily(jobFamily) ? jobFamily : undefined);
+  const { recruitId, isPending: isRecruitPending } = useRecruitId(
+    isValidJobFamily(jobFamily) ? jobFamily : undefined,
+  );
 
   const tabParam = searchParams.get("tab") as TabValue | null;
   const faqParam = searchParams.get("faq");
@@ -151,11 +159,17 @@ function ApplyGuidePage() {
     setSearchParams(newParams, { replace: true });
   };
 
-  const getDisabledActionLabel = () => {
-    if (isRecruitPending) return "모집 정보를 불러오는 중입니다";
-    if (isRecruitError) return "일시적인 오류가 발생했습니다";
-    return "현재 모집 기간이 아닙니다";
+  const getInactiveActionState = () => {
+    if (isRecruitPending) return "pending" as const;
+
+    const now = Date.now();
+    if (now < RECRUIT_START_AT) return "beforeStart" as const;
+    if (now >= RECRUIT_END_AT) return "closed" as const;
+
+    return "error" as const;
   };
+
+  const inactiveActionState = getInactiveActionState();
 
   const handleApply = () => {
     void navigate(`${PATH.applyFunnel}/${jobFamily}`);
@@ -232,6 +246,17 @@ function ApplyGuidePage() {
                 지원서 작성하기
               </BlockButton.Basic>
             </>
+          ) : inactiveActionState === "beforeStart" ? (
+            <a
+              href={RECRUIT_ALERT_FORM_URL}
+              target='_blank'
+              rel='noopener noreferrer'
+              className='flex-1'
+            >
+              <BlockButton.Basic variant='solid' hierarchy='accent' size='lg' className='w-full'>
+                5기 모집 알림 신청하기
+              </BlockButton.Basic>
+            </a>
           ) : (
             <BlockButton.Basic
               variant='solid'
@@ -240,7 +265,7 @@ function ApplyGuidePage() {
               className='flex-1'
               disabled
             >
-              {getDisabledActionLabel()}
+              {INACTIVE_ACTION_LABEL[inactiveActionState]}
             </BlockButton.Basic>
           )}
         </div>
