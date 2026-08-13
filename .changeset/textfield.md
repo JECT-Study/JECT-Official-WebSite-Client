@@ -28,18 +28,21 @@
 
 **소비처 영향 (코드 수정 필요)**
 
-| AS-IS `Input.TextField`                             | TO-BE `TextField`                                                                                                   |
-| --------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| 단일 컴포넌트 (prop 기반)                           | compound                                                                                                            |
-| `label`                                             | `<TextField.Label>`                                                                                                 |
-| `helperText`                                        | `<TextField.HelperText>`                                                                                            |
-| 루트의 `value` / `onChange` (필수)                  | `<TextField.Input>`의 controlled(`value` + `onChange`) / uncontrolled(`defaultValue`)                               |
-| `isWithInfoIcon`                                    | `<TextField.Label suffixSlot={<Icon … />}>`                                                                         |
-| `style="outlined" \| "empty"`                       | `fieldStyle="outline" \| "hollow"`                                                                                  |
-| `validation="none" \| "error" \| "success"`         | `status="default" \| "success" \| "error"`                                                                          |
-| `interaction="enabled" \| "disabled" \| "readOnly"` | `disabled` / `readonly` (+ `required`) boolean prop                                                                 |
-| `labelIcon` / `button` (TextFieldButton)            | `TextField.Content` / `TextField.Label` 슬롯에 직접 배치                                                            |
-| `TextFieldPublicProps`, `TextFieldButtonProps`      | `TextFieldProps`, `TextFieldInputProps`, `TextFieldContentProps`, `TextFieldLabelProps`, `TextFieldHelperTextProps` |
+| AS-IS `Input.TextField`                             | TO-BE `TextField`                                                                                 |
+| --------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| 단일 컴포넌트 (prop 기반)                           | compound                                                                                          |
+| `label`                                             | `<TextField.Label>`                                                                               |
+| `helperText`                                        | `<TextField.HelperText>`                                                                          |
+| 루트의 `value` / `onChange` (필수)                  | `<TextField.Input>`의 controlled(`value` + `onChange`) / uncontrolled(`defaultValue`)             |
+| `isWithInfoIcon`                                    | `<TextField.Label suffixSlot={<Icon … />}>`                                                       |
+| `style="outlined" \| "empty"`                       | `fieldStyle="outline" \| "hollow"`                                                                |
+| `validation="none" \| "error" \| "success"`         | `status="default" \| "success" \| "error"`                                                        |
+| `interaction="enabled" \| "disabled" \| "readOnly"` | `disabled` / `readonly` (+ `required`) boolean prop                                               |
+| `labelIcon` / `button` (TextFieldButton)            | `TextField.Content` / `TextField.Label` 슬롯에 직접 배치                                          |
+| `TextFieldPublicProps`, `TextFieldButtonProps`      | `TextFieldInputProps`, `TextFieldContentProps`, `TextFieldLabelProps`, `TextFieldHelperTextProps` |
+| `TextFieldProps` (단일 컴포넌트 props)              | `TextFieldProps` (compound 루트 props)                                                            |
+
+`TextFieldProps`는 이름이 그대로라 타입 검사를 통과할 수 있습니다. 이 타입을 직접 참조하던 코드는 필드가 달라졌으므로 확인이 필요합니다.
 
 ```diff
 - <Input.TextField
