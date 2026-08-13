@@ -1,11 +1,11 @@
 import { captureException } from "@sentry/react";
 import { useMutation, useQueryClient, type UseMutationOptions } from "@tanstack/react-query";
 
-import { applyApi, applyMutationKeys, applyQueryKeys, type JobFamily } from "@/apis/apply";
+import { applyApi, applyMutationKeys, applyQueryKeys } from "@/apis/apply";
 import type { AnswersPayload } from "@/types/apis/application";
 
 interface SubmitAnswerVariables {
-  jobFamily: JobFamily;
+  recruitId: number;
   answers: AnswersPayload;
 }
 
@@ -20,7 +20,8 @@ export function useSubmitAnswerMutation(options?: UseSubmitAnswerMutationOptions
 
   return useMutation({
     mutationKey: applyMutationKeys.submit,
-    mutationFn: ({ jobFamily, answers }: SubmitAnswerVariables) => applyApi.submit(jobFamily, answers),
+    mutationFn: ({ recruitId, answers }: SubmitAnswerVariables) =>
+      applyApi.submit(recruitId, answers),
     retry: 1,
     ...restOptions,
     onSuccess: (data, variables, onMutateResult, mutationContext) => {

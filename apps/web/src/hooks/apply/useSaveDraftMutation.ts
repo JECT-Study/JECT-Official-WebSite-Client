@@ -5,8 +5,13 @@ import { useMutation, useQueryClient, type UseMutationOptions } from "@tanstack/
 import { applyApi, applyMutationKeys, applyQueryKeys } from "@/apis/apply";
 import type { AnswersPayload } from "@/types/apis/application";
 
+interface SaveDraftVariables {
+  recruitId: number;
+  answers: AnswersPayload;
+}
+
 type UseSaveDraftMutationOptions = Omit<
-  UseMutationOptions<null, Error, AnswersPayload, unknown>,
+  UseMutationOptions<null, Error, SaveDraftVariables, unknown>,
   "mutationKey" | "mutationFn"
 >;
 
@@ -16,7 +21,8 @@ export function useSaveDraftMutation(options?: UseSaveDraftMutationOptions) {
 
   return useMutation({
     mutationKey: applyMutationKeys.draft.save,
-    mutationFn: (answers: AnswersPayload) => applyApi.saveDraft(answers),
+    mutationFn: ({ recruitId, answers }: SaveDraftVariables) =>
+      applyApi.saveDraft(recruitId, answers),
     retry: 1,
     ...restOptions,
     onSuccess: (data, variables, onMutateResult, mutationContext) => {

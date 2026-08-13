@@ -48,7 +48,10 @@ export function ApplicantInfoStep({ context, onNext, onBack }: ApplicantInfoStep
   });
 
   const onSubmit = (data: ProfileData) => {
-    saveProfile({ ...data, jobFamily: context.jobFamily });
+    saveProfile({
+      recruitId: context.recruitId,
+      profile: { ...data, jobFamily: context.jobFamily },
+    });
   };
 
   return (

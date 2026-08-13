@@ -1,6 +1,11 @@
 import { z } from "zod";
 
-export const applicationStatusSchema = z.enum(["JOINED", "TEMP_SAVED", "SUBMITTED"]);
+export const applicationStatusSchema = z.enum([
+  "JOINED",
+  "TEMP_SAVED",
+  "SUBMITTED",
+  "REJECTED",
+]);
 
 export const applicationStatusResponseSchema = z.object({
   status: applicationStatusSchema,
@@ -106,7 +111,7 @@ export const portfolioResponseSchema = z.object({
   sequence: z.string(),
 });
 
-export const jobFamilySchema = z.enum(["PM", "PD", "FE", "BE"]);
+export const jobFamilySchema = z.enum(["PM", "PD", "FE", "BE", "APP"]);
 
 export const answersResponseSchema = z.object({
   jobFamily: jobFamilySchema.optional(),
