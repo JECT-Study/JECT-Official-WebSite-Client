@@ -15,6 +15,7 @@ Checkbox를 radix Checkbox 기반으로 재작성하고 API를 조립된 props �
 | 여러 개를 소비처에서 직접 배치                                   | `CheckboxGroup`의 `options`                             |
 | `variant = "empty" \| "outlined"`                                | `variant = "hollow" \| "outlined"`                      |
 | `align = "left" \| "right"`                                      | 제거 — 대체재 없음                                      |
+| `checked` 단독 지정 (`onCheckedChange` 선택)                     | `checked`와 `onCheckedChange` 함께 필수                 |
 | `CheckboxBasicProps`, `CheckboxBoxProps`, `CheckboxContentProps` | `CheckboxProps`, `CheckboxGroupProps`, `CheckboxOption` |
 | `CheckboxAlign`                                                  | 제거 — 대체재 없음                                      |
 | 컨트롤 엘리먼트 `<input type="checkbox">`                        | `<button role="checkbox">`                              |
@@ -71,7 +72,7 @@ Checkbox를 radix Checkbox 기반으로 재작성하고 API를 조립된 props �
 - `layout` — `"vertical"`(기본) 또는 `"grid"`, `grid`는 `columns` 필수
 - `stretched` — 아이템이 전체 너비를 채움, 그룹에 지정하면 모든 아이템에 전파되고 단독 `Checkbox`에도 지정 가능
 - `isInvalid`, `name` — 유효성 표시와 폼 제출 이름
-- `defaultChecked`를 통한 비제어 방식, 기존 제어 방식(`checked`)도 그대로 사용 가능
+- 단독 `Checkbox`의 uncontrolled(`defaultChecked`) — controlled는 `checked` + `onCheckedChange`
 
 **동작 변경 (코드 수정 불필요)**
 
