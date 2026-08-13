@@ -10,6 +10,7 @@ import {
   LocalNavigation,
   Tab,
   Title,
+  Tooltip,
   toastController,
 } from "@jects/jds";
 import { theme } from "@jects/jds/tokens";
@@ -211,13 +212,19 @@ function ApplyGuidePage() {
             <Hero size='xs' textAlign='left'>
               모집
             </Hero>
-            <IconButton.Basic
-              icon='link-line'
-              size='2xl'
-              hierarchy='tertiary'
-              onClick={handleCopyUrl}
-              aria-label='URL 복사'
-            />
+            <Tooltip.Provider>
+              <Tooltip.Root>
+                <Tooltip.Trigger aria-label='URL 복사'>
+                  <IconButton.Basic
+                    icon='link-line'
+                    size='2xl'
+                    hierarchy='tertiary'
+                    onClick={handleCopyUrl}
+                  />
+                </Tooltip.Trigger>
+                <Tooltip.Content>URL 복사</Tooltip.Content>
+              </Tooltip.Root>
+            </Tooltip.Provider>
           </div>
           <Label as='span' size='lg' weight='bold' textAlign='left'>
             2026년 8월 22일(토) - 9월 6일(일)
