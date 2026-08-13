@@ -3,14 +3,14 @@ import {
   ContentBadge,
   EmptyState,
   Hero,
-  Icon,
   Image,
   LabelButton,
   Title as JdsTitle,
+  type ThemeVariant,
 } from "@jects/jds";
 import { useNavigate } from "react-router-dom";
 
-import introTeamMeetingImage from "@/assets/images/intro-team-meeting.png";
+import introSectionImage from "@/assets/images/intro-section.webp";
 import { positionData, programData, statData } from "@/constants/mainPageData";
 
 const wrapperClassName =
@@ -20,11 +20,26 @@ const positionCardStyles = {
   green:
     "bg-[var(--semantic-theme-green-alpha-subtlest)] border-[var(--semantic-theme-green-alpha-subtler)]",
   sky: "bg-[var(--semantic-theme-sky-alpha-subtlest)] border-[var(--semantic-theme-sky-alpha-subtler)]",
+  indigo:
+    "bg-[var(--semantic-theme-indigo-alpha-subtlest)] border-[var(--semantic-theme-indigo-alpha-subtler)]",
   orange:
     "bg-[var(--semantic-theme-orange-alpha-subtlest)] border-[var(--semantic-theme-orange-alpha-subtler)]",
   purple:
     "bg-[var(--semantic-theme-purple-alpha-subtlest)] border-[var(--semantic-theme-purple-alpha-subtler)]",
 } as const;
+
+// TODO: 현재 사용 중인 JDS의 배지가 indigo variant를 지원하지 않아 blue로 렌더링한 뒤 색상만 덮어쓴다.
+//       JDS 마이그레이션 완료 후 아래 두 상수 제거
+const positionBadgeVariants = {
+  green: "green",
+  sky: "sky",
+  indigo: "blue",
+  orange: "orange",
+  purple: "purple",
+} as const satisfies Record<keyof typeof positionCardStyles, ThemeVariant>;
+
+const indigoBadgeStyle =
+  "[&>*]:bg-[var(--semantic-theme-indigo-alpha-subtler)]! [&_*]:text-[var(--semantic-theme-indigo-normal)]!";
 
 const IntroSection = () => {
   const navigate = useNavigate();
@@ -35,7 +50,7 @@ const IntroSection = () => {
         {/* IT 동아리 젝트 */}
         <div className={wrapperClassName}>
           <Image
-            src={introTeamMeetingImage}
+            src={introSectionImage}
             alt='젝트 팀원들이 함께 모여 회의하는 모습'
             ratio='9:21'
             orientation='landscape'
@@ -99,35 +114,46 @@ const IntroSection = () => {
           </Hero>
 
           <div className='tablet:grid-cols-2 grid w-full grid-cols-1 gap-(--semantic-spacing-16)'>
-            {positionData.map(({ id, title, icon, description, tags, themeColor }) => (
-              <div
-                key={id}
-                className={`flex flex-col gap-(--semantic-spacing-16) rounded-(--semantic-radius-6) border px-(--semantic-spacing-24) py-(--semantic-spacing-20) ${positionCardStyles[themeColor]}`}
-              >
-                <div className='flex items-center gap-(--semantic-spacing-8)'>
-                  <Icon name={icon} size='2xl' />
-                  <JdsTitle size='sm' textAlign='left'>
-                    {title}
-                  </JdsTitle>
+            {positionData.map(
+              ({ id, title, icon: PositionIcon, description, tags, themeColor }) => (
+                <div
+                  key={id}
+                  className={`flex flex-col gap-(--semantic-spacing-16) rounded-(--semantic-radius-6) border px-(--semantic-spacing-24) py-(--semantic-spacing-20) ${positionCardStyles[themeColor]}`}
+                >
+                  <div className='flex items-center gap-(--semantic-spacing-8)'>
+                    <PositionIcon width={24} height={24} />
+                    <JdsTitle size='sm' textAlign='left'>
+                      {title}
+                    </JdsTitle>
+                  </div>
+                  <p className='body-md font-(--primitive-font-weight-body-bold) text-(--semantic-object-normal)'>
+                    {description}
+                  </p>
+                  <div
+                    className={`flex flex-wrap gap-(--semantic-spacing-8) ${themeColor === "indigo" ? indigoBadgeStyle : ""}`}
+                  >
+                    {tags.map(tag => (
+                      <ContentBadge.Theme
+                        key={tag}
+                        variant={positionBadgeVariants[themeColor]}
+                        size='sm'
+                        badgeStyle='alpha'
+                        isMuted={false}
+                      >
+                        {tag}
+                      </ContentBadge.Theme>
+                    ))}
+                  </div>
                 </div>
-                <p className='body-md font-(--primitive-font-weight-body-bold) text-(--semantic-object-normal)'>
-                  {description}
-                </p>
-                <div className='flex flex-wrap gap-(--semantic-spacing-8)'>
-                  {tags.map(tag => (
-                    <ContentBadge.Theme
-                      key={tag}
-                      variant={themeColor}
-                      size='sm'
-                      badgeStyle='alpha'
-                      isMuted={false}
-                    >
-                      {tag}
-                    </ContentBadge.Theme>
-                  ))}
-                </div>
-              </div>
-            ))}
+              ),
+            )}
+            <div className='tablet:col-span-1 col-span-full [&_p]:whitespace-pre-line [&>div]:h-full [&>div]:w-full [&>div]:max-w-full!'>
+              <EmptyState
+                variant='outlined'
+                header='젝트만의 협업 문화'
+                body={"기획부터 출시까지, 다양한 직군이 함께 협업하며\n하나의 서비스를 완성해요."}
+              />
+            </div>
           </div>
         </div>
 
@@ -149,13 +175,6 @@ const IntroSection = () => {
                 {description}
               </Callout.Basic>
             ))}
-            <div className='tablet:col-span-1 col-span-full [&>div]:h-full [&>div]:w-full [&>div]:max-w-full!'>
-              <EmptyState
-                variant='outlined'
-                header='그 밖에 더 많은 활동들이 기다리고 있어요...'
-                body='젝트에 합류해서 직접 활동해보세요!'
-              />
-            </div>
           </div>
         </div>
       </div>

@@ -18,7 +18,6 @@ import ApplyListPage from "@/pages/ApplyListPage";
 import ContinueWritingFunnelPage from "@/pages/ContinueWritingFunnelPage";
 import Curriculum from "@/pages/Curriculum";
 import Faq from "@/pages/Faq";
-import LiveSession from "@/pages/LiveSession";
 import Main from "@/pages/Main";
 import MiniStudy from "@/pages/MiniStudy";
 import RecruitmentComplete from "@/pages/RecruitmentComplete";
@@ -37,7 +36,6 @@ const router = sentryCreateBrowserRouter([
         element: <StandardLayout />,
         children: [
           { path: PATH.miniStudy, element: <MiniStudy /> },
-          { path: PATH.liveSession, element: <LiveSession /> },
           { path: PATH.curriculum, element: <Curriculum /> },
           { path: `${PATH.faq}/:tabId?/:questionId?`, element: <Faq /> },
           { path: PATH.teamProject, element: <TeamProject /> },
