@@ -17,6 +17,10 @@ Select를 W3C Listbox 패턴 기반으로 재작성하고, 컨테이너의 varia
 | 항목 `badge` (`Select.List` 전용)                                                                                                     | `SelectOption.suffix`                                                                 |
 | 항목 `isDisabled`                                                                                                                     | `SelectOption.disabled`                                                               |
 | `SelectVariant` / `SelectSize` / `SelectValue` / `SelectContextType` / `SelectListProps` / `SelectRadioProps` / `SelectCheckboxProps` | 제거 — `MultiSelectProps` / `SelectOption` / `OptionVariant` / `SelectDimension` 추가 |
+| 항목 `role="checkbox"`, `role="radio"`                                                                                                | `role="option"`                                                                       |
+| `ref`가 가리키던 `role` 보유 항목 래퍼                                                                                                | 최상위 컨테이너                                                                       |
+
+항목의 체크박스와 라디오는 선택 상태를 나타내는 시각적 요소로만 동작합니다. `role`이나 항목 엘리먼트로 DOM을 조회하던 코드는 셀렉터 수정이 필요하며, 항목은 데이터 객체가 되어 개별 `ref`를 받지 않습니다.
 
 값 타입이 컴포넌트별로 고정됩니다. `Select`는 `string`, `MultiSelect`는 `string[]`를 씁니다. 컨테이너가 `role="listbox"`를 가지므로 접근 가능한 이름이 필요합니다. 레이블 요소가 따로 없으면 `aria-label`을, 있으면 `aria-labelledby`를 전달합니다. `badge`는 전달한 내용을 컴포넌트가 `ContentBadge`로 감쌌지만 `suffix`는 전달받은 노드를 그대로 배치합니다.
 
@@ -52,8 +56,3 @@ Select를 W3C Listbox 패턴 기반으로 재작성하고, 컨테이너의 varia
 +   ]}
 + />
 ```
-
-**동작 변경 (코드 수정 불필요)**
-
-- 컨테이너 역할이 `role="listbox"`로 통일, 항목 역할이 `role="checkbox"`, `role="radio"`에서 `role="option"`으로 변경 — 체크박스와 라디오는 선택 상태를 나타내는 시각적 요소로만 동작
-- `ref`가 가리키는 요소가 `role`을 가진 항목 래퍼에서 최상위 컨테이너로 변경 — 항목은 데이터 객체가 되어 개별 `ref`를 받지 않음

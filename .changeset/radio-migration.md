@@ -18,8 +18,9 @@ Radio를 radix RadioGroup 기반으로 재작성하고 API를 조립된 props �
 | `radioAlign`                                                                                   | 제거 — 대체재 없음                                |
 | `RadioRootProps`, `RadioItemProps`, `RadioBasicProps`, `RadioLabelProps`, `RadioSubLabelProps` | `RadioGroupProps`, `RadioOption`                  |
 | `RadioStyle`, `RadioAlign`                                                                     | `RadioVariant`, `RadioAlign`은 제거 — 대체재 없음 |
+| 컨트롤 엘리먼트 `<input type="radio">`                                                         | `<button role="radio">`                           |
 
-그룹에 속하지 않는 단독 라디오는 지원하지 않습니다. 라디오는 `RadioGroup`으로만 씁니다.
+그룹에 속하지 않는 단독 라디오는 지원하지 않습니다. 라디오는 `RadioGroup`으로만 씁니다. 컨트롤 엘리먼트가 바뀌었으므로 `input[type="radio"]`로 DOM을 조회하거나 스타일링하던 코드는 셀렉터 수정이 필요합니다. 폼 제출값은 `name`을 전달하면 그대로 유지됩니다.
 
 ```diff
 - <Radio.Root
@@ -61,7 +62,6 @@ Radio를 radix RadioGroup 기반으로 재작성하고 API를 조립된 props �
 
 **동작 변경 (코드 수정 불필요)**
 
-- 라디오 컨트롤이 `<input type="radio">`에서 `<button role="radio">`로 변경 — DOM을 직접 조회하거나 폼 값에 의존하던 코드는 확인 필요
 - `RadioGroup`이 레이아웃을 직접 관리 — 소비처가 감싸 배치하던 컨테이너 불필요
 - 레이블과 헬퍼의 `white-space: nowrap` 제거 — 폭이 부족하면 텍스트 개행
 - 레이블과 헬퍼 텍스트를 클릭해도 해당 라디오 선택

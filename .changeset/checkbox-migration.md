@@ -17,6 +17,9 @@ Checkbox를 radix Checkbox 기반으로 재작성하고 API를 조립된 props �
 | `align = "left" \| "right"`                                      | 제거 — 대체재 없음                                      |
 | `CheckboxBasicProps`, `CheckboxBoxProps`, `CheckboxContentProps` | `CheckboxProps`, `CheckboxGroupProps`, `CheckboxOption` |
 | `CheckboxAlign`                                                  | 제거 — 대체재 없음                                      |
+| 컨트롤 엘리먼트 `<input type="checkbox">`                        | `<button role="checkbox">`                              |
+
+컨트롤 엘리먼트가 바뀌었으므로 `input[type="checkbox"]`로 DOM을 조회하거나 스타일링하던 코드는 셀렉터 수정이 필요합니다. 폼 제출값은 `name`을 전달하면 그대로 유지됩니다.
 
 `helper`와 `stretched`는 `label`이 있을 때만 지정할 수 있습니다. `indeterminate`는 제어 모드(`checked="indeterminate"`)에서만 지원하며, `defaultChecked`는 `boolean`만 받습니다.
 
@@ -72,7 +75,6 @@ Checkbox를 radix Checkbox 기반으로 재작성하고 API를 조립된 props �
 
 **동작 변경 (코드 수정 불필요)**
 
-- 체크박스 컨트롤이 `<input type="checkbox">`에서 `<button role="checkbox">`로 변경 — DOM을 직접 조회하거나 폼 값에 의존하던 코드는 확인 필요
 - `CheckboxGroup`이 레이아웃을 직접 관리 — 소비처가 감싸 배치하던 컨테이너 불필요
 - `CheckboxGroup`이 방향키, Home, End로 포커스 이동 — Tab으로 진입한 뒤 방향키로 항목 이동, Space로 선택 토글
 - 레이블과 헬퍼의 `white-space: nowrap` 제거 — 폭이 부족하면 텍스트 개행
