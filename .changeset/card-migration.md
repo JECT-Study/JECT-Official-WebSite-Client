@@ -21,11 +21,25 @@ Figma 디자인 변형 table에 맞춰 API를 정리하고 내부 이미지를 `
 | Caption의 `standalone` prop                                                           | 제거 — 대체재 없음                          |
 | `CardRootOwnProps`                                                                    | `CardRootProps`                             |
 
-preset은 이름만 바뀌고 props는 동일합니다.
+Plate preset 셋이 `Card.Preset.Plate` 하나로 합쳐지고, `title`은 필수입니다. `PlateWithTitle`은 이름만 바꾸면 됩니다.
 
 ```diff
 - <Card.Preset.PlateWithTitle.Link href={url} title={title} body={body} />
 + <Card.Preset.Plate.Link href={url} title={title} body={body} />
+```
+
+`PlateWithLabel`의 `label`은 `title`로 넘깁니다. `Card.Label`이 제거되어 레이블 전용 스타일은 유지되지 않고 `Card.Title` 스타일로 렌더링됩니다.
+
+```diff
+- <Card.Preset.PlateWithLabel.Link href={url} label={label} body={body} />
++ <Card.Preset.Plate.Link href={url} title={label} body={body} />
+```
+
+`PlateCompact`에는 title이 없었으므로 `title`을 새로 정해 전달합니다. `caption`은 필수에서 선택으로 바뀝니다.
+
+```diff
+- <Card.Preset.PlateCompact.Link href={url} caption={caption} body={body} />
++ <Card.Preset.Plate.Link href={url} title={title} caption={caption} body={body} />
 ```
 
 compound로 직접 조합한 경우 이미지를 교체합니다.
