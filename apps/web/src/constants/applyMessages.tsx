@@ -51,11 +51,6 @@ export const APPLY_MESSAGE = {
   },
 } as const;
 
-export const APPLY_SNACKBAR = {
-  default: "지금은 젝트 3기 모집 기간이에요!",
-  main: "젝트에서 함께 재밌는 프로젝트 해요!",
-};
-
 export const APPLY_BUTTON_TEXT = {
   email: {
     submit: "인증번호 받기",
