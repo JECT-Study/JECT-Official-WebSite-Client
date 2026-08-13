@@ -180,6 +180,10 @@ function ApplyGuidePage() {
     void navigate(`${PATH.applyContinue}/${jobFamily}`);
   };
 
+  const handleRecruitAlert = () => {
+    window.open(RECRUIT_ALERT_FORM_URL, "_blank", "noopener,noreferrer");
+  };
+
   const handleBack = () => {
     void navigate(PATH.applyList);
   };
@@ -254,16 +258,15 @@ function ApplyGuidePage() {
               </BlockButton.Basic>
             </>
           ) : inactiveActionState === "beforeStart" ? (
-            <a
-              href={RECRUIT_ALERT_FORM_URL}
-              target='_blank'
-              rel='noopener noreferrer'
+            <BlockButton.Basic
+              variant='solid'
+              hierarchy='accent'
+              size='lg'
               className='flex-1'
+              onClick={handleRecruitAlert}
             >
-              <BlockButton.Basic variant='solid' hierarchy='accent' size='lg' className='w-full'>
-                5기 모집 알림 신청하기
-              </BlockButton.Basic>
-            </a>
+              5기 모집 알림 신청하기
+            </BlockButton.Basic>
           ) : (
             <BlockButton.Basic
               variant='solid'
