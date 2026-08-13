@@ -218,12 +218,13 @@ function ApplyGuidePage() {
             </Hero>
             <Tooltip.Provider>
               <Tooltip.Root>
-                <Tooltip.Trigger aria-label='URL 복사'>
+                <Tooltip.Trigger asChild>
                   <IconButton.Basic
                     icon='link-line'
                     size='2xl'
                     hierarchy='tertiary'
                     onClick={handleCopyUrl}
+                    aria-label='URL 복사'
                   />
                 </Tooltip.Trigger>
                 <Tooltip.Content>URL 복사</Tooltip.Content>
