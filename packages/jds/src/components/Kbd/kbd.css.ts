@@ -27,7 +27,7 @@ export const kbd = recipe({
 
     paddingBlock: pxToRem(2),
     borderRadius: vars.scheme.semantic.radius["4"],
-    border: `1px solid ${vars.color.semantic.stroke.alpha.subtle}`,
+    border: `${vars.scheme.semantic.strokeWeight["1"]} solid ${vars.color.semantic.stroke.alpha.subtle}`,
     color: vars.color.semantic.object.neutral,
     vars: {
       [labelColorVar]: vars.color.semantic.object.neutral,
