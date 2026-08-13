@@ -43,5 +43,5 @@ Table을 vanilla-extract 기반으로 재작성하고 `Table.ColorChip`을 공�
 - 헤더 배경이 `fill.subtlest`에서 `surface.deeper`로 변경
 - 루트 radius가 `6px`에서 `10px`으로 변경, `overflow: hidden` 추가
 - 셀 내용의 세로 정렬이 `middle`에서 `top`으로, 내용 사이 간격이 `6`에서 `4`로 변경
-- `Table.ColorChip`에 `aria-hidden="true"` 적용 — 보조기술이 읽지 않음
+- label variant가 렌더하는 컬러 칩에 `aria-hidden="true"` 적용 — 보조기술이 읽지 않음, 단독으로 쓰는 `Table.ColorChip`은 기본값 없음
 - `displayName`이 `TableRoot`에서 `Table.Root` 형태로 변경 — 컴포넌트 이름에 의존하던 스냅샷 확인 필요
