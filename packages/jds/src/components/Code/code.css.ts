@@ -7,7 +7,7 @@ export const code = style({
   padding: `${vars.scheme.semantic.spacing["0"]} ${vars.scheme.semantic.spacing["6"]}`,
   borderRadius: vars.scheme.semantic.radius["4"],
   background: vars.color.semantic.fill.subtlest,
-  border: `1px solid ${vars.color.semantic.stroke.alpha.assistive}`,
+  border: `${vars.scheme.semantic.strokeWeight["1"]} solid ${vars.color.semantic.stroke.alpha.assistive}`,
   color: vars.color.semantic.object.bold,
   cursor: "text",
 });
