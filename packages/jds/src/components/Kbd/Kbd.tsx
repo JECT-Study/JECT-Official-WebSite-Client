@@ -4,10 +4,21 @@ import { forwardRef } from "react";
 import { kbd } from "./kbd.css";
 import type { KbdProps } from "./kbd.types";
 
+import { getLabelClassName, getSyntaxClassName } from "@/utils/typography";
+
 export const Kbd = forwardRef<HTMLElement, KbdProps>(
   ({ children, size = "md", type = "key", muted = false, className, ...restProps }, ref) => {
+    const typographyClassName =
+      type === "function"
+        ? getLabelClassName({ size, weight: "normal" })
+        : getSyntaxClassName({ size });
+
     return (
-      <kbd ref={ref} className={clsx(kbd({ size, type, muted }), className)} {...restProps}>
+      <kbd
+        ref={ref}
+        className={clsx(typographyClassName, kbd({ size, type, muted }), className)}
+        {...restProps}
+      >
         {children}
       </kbd>
     );

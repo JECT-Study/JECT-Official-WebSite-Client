@@ -3,8 +3,7 @@ import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
 import { pxToRem } from "utils";
 
-import type { KbdSize, KbdType } from "./kbd.types";
-import { kbdPaddingXMap, kbdSizeMap, typographyMap } from "./kbd.variants";
+import { kbdPaddingXMap, kbdSizeMap } from "./kbd.variants";
 
 const sizeVariants = styleVariants(kbdSizeMap, ({ height, minWidth }) => ({
   height: pxToRem(height),
@@ -15,16 +14,6 @@ const typeVariants = styleVariants(kbdPaddingXMap, paddingX => ({
   paddingLeft: pxToRem(paddingX),
   paddingRight: pxToRem(paddingX),
 }));
-
-const typographyCompoundVariants = Object.entries(typographyMap).flatMap(([type, sizeMap]) =>
-  Object.entries(sizeMap).map(([size, typographyClassName]) => ({
-    variants: { type, size },
-    style: typographyClassName,
-  })),
-) as Array<{
-  variants: { type: KbdType; size: KbdSize };
-  style: string;
-}>;
 
 export const kbd = recipe({
   base: {
@@ -50,5 +39,4 @@ export const kbd = recipe({
       false: {},
     },
   },
-  compoundVariants: typographyCompoundVariants,
 });
