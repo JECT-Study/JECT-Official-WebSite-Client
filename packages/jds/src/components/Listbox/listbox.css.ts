@@ -130,6 +130,14 @@ export const optionCaption = style({
   },
 });
 
+export const customValueText = style({
+  gridColumn: "1 / 3",
+});
+
+export const customValueCaption = style({
+  gridColumn: "1 / -1",
+});
+
 export const optionCheck = style({
   display: "inline-flex",
   flexShrink: 0,

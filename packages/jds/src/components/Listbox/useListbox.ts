@@ -1,69 +1,35 @@
-import { useControllableState } from "hooks";
 import { useCallback, useId, useLayoutEffect, useMemo, useRef, type KeyboardEvent } from "react";
 
 import { SELECTION_KEYS } from "./listbox.constants";
-import type { OptionVariant, SelectionMode, SelectOption } from "./listbox.types";
-import { getOptionId, scrollSelectedOptionIntoView } from "./listbox.utils";
-import type { ListboxContextValue } from "./ListboxContext";
+import { getOptionId, hasSelectedOption, scrollSelectedOptionIntoView } from "./listbox.utils";
+import type { ListboxBehaviorContextValue } from "./ListboxContext";
 
 import { useActiveDescendant } from "@/hooks/useActiveDescendant";
 
 interface UseListboxParams {
-  mode: SelectionMode;
-  variant: OptionVariant;
-  options: SelectOption[];
-  value?: string | string[] | null;
-  defaultValue?: string | string[];
-  onChange?: (value: string | string[]) => void;
+  selectedValues: string[];
   disabled: boolean;
+  onSelect: (value: string) => void;
   autoScrollToSelected?: boolean;
 }
 
 export const useListbox = ({
-  mode,
-  variant,
-  options,
-  value,
-  defaultValue,
-  onChange,
+  selectedValues,
   disabled,
+  onSelect,
   autoScrollToSelected = true,
 }: UseListboxParams) => {
   const shouldAutoScrollRef = useRef(true);
 
   const listboxId = useId();
 
-  const [selection, setSelection] = useControllableState<string | string[] | null | undefined>(
-    value,
-    defaultValue ?? (mode === "multiple" ? [] : undefined),
-    onChange as ((value: string | string[] | null | undefined) => void) | undefined,
-  );
-
-  const selectedValues = useMemo<string[]>(() => {
-    if (selection == null) return [];
-    return Array.isArray(selection) ? selection : [selection];
-  }, [selection]);
-
   const isSelected = useCallback((v: string) => selectedValues.includes(v), [selectedValues]);
-
-  const select = useCallback(
-    (v: string) => {
-      if (mode === "multiple") {
-        setSelection(prev => {
-          const arr = Array.isArray(prev) ? prev : [];
-          return arr.includes(v) ? arr.filter(x => x !== v) : [...arr, v];
-        });
-      } else {
-        setSelection(v);
-      }
-    },
-    [mode, setSelection],
-  );
 
   const {
     containerRef: listboxRef,
-    activeValue: rawActiveValue,
+    activeValue,
     setActiveValue,
+    getEnabledValues,
     onKeyDown: onActiveDescendantKeyDown,
   } = useActiveDescendant<HTMLDivElement>({ disabled });
 
@@ -74,33 +40,34 @@ export const useListbox = ({
     scrollSelectedOptionIntoView(el);
   }, [listboxRef]);
 
+  // 선택 항목은 DOM 조회로 확인하므로 별도의 의존성으로 추적할 수 없다.
+  // 의존성 배열을 추가하면 항목이 늦게 렌더되는 시점과 동기화되지 않는다.
   useLayoutEffect(() => {
     if (!autoScrollToSelected || !shouldAutoScrollRef.current) return;
 
     const el = listboxRef.current;
-    if (el == null || options.length === 0) return;
+    if (el == null || !hasSelectedOption(el)) return;
 
     shouldAutoScrollRef.current = false;
 
     scrollToSelected();
-  }, [listboxRef, options.length, scrollToSelected, autoScrollToSelected]);
-
-  const activeValue = useMemo(() => {
-    if (rawActiveValue == null) return null;
-
-    const option = options.find(o => o.value === rawActiveValue);
-    return option != null && !option.disabled ? rawActiveValue : null;
-  }, [options, rawActiveValue]);
+  });
 
   const activeId = activeValue != null ? getOptionId(listboxId, activeValue) : undefined;
 
   const activateSelected = useCallback(() => {
-    const enabledOptions = options.filter(option => !option.disabled);
-    if (enabledOptions.length === 0) return;
+    const values = getEnabledValues();
+    if (values.length === 0) return;
 
-    const selected = enabledOptions.find(option => selectedValues.includes(option.value));
-    setActiveValue(selected?.value ?? enabledOptions[0].value);
-  }, [options, selectedValues, setActiveValue]);
+    setActiveValue(values.find(value => selectedValues.includes(value)) ?? values[0]);
+  }, [getEnabledValues, selectedValues, setActiveValue]);
+
+  const activateFirst = useCallback(() => {
+    const values = getEnabledValues();
+    if (values.length === 0) return;
+
+    setActiveValue(values[0]);
+  }, [getEnabledValues, setActiveValue]);
 
   const onKeyDown = useCallback(
     (e: KeyboardEvent) => {
@@ -112,9 +79,9 @@ export const useListbox = ({
 
       e.preventDefault();
 
-      if (activeValue != null) select(activeValue);
+      if (activeValue != null) onSelect(activeValue);
     },
-    [activeValue, disabled, onActiveDescendantKeyDown, select],
+    [activeValue, disabled, onActiveDescendantKeyDown, onSelect],
   );
 
   const onFocus = useCallback(() => {
@@ -127,11 +94,10 @@ export const useListbox = ({
     () => ({
       id: listboxId,
       role: "listbox" as const,
-      "aria-multiselectable": mode === "multiple" ? true : undefined,
       "aria-orientation": "vertical" as const,
       "aria-disabled": disabled || undefined,
     }),
-    [listboxId, mode, disabled],
+    [listboxId, disabled],
   );
 
   const getFocusableListboxProps = useCallback(
@@ -145,27 +111,25 @@ export const useListbox = ({
     [getListboxProps, disabled, activeId, onKeyDown, onFocus],
   );
 
-  const contextValue = useMemo<ListboxContextValue>(
+  const contextValue = useMemo<ListboxBehaviorContextValue>(
     () => ({
       listboxId,
       disabled,
-      variant,
-      mode,
       isSelected,
       activeValue,
-      select,
+      select: onSelect,
       setActive: setActiveValue,
     }),
-    [listboxId, disabled, variant, mode, isSelected, activeValue, select, setActiveValue],
+    [listboxId, disabled, isSelected, activeValue, onSelect, setActiveValue],
   );
 
   return {
     listboxRef,
     listboxId,
     contextValue,
-    selectedValues,
     activeId,
     activateSelected,
+    activateFirst,
     scrollToSelected,
     onKeyDown,
     getListboxProps,

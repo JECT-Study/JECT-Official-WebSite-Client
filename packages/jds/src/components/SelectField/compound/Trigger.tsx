@@ -11,7 +11,7 @@ import {
 
 import { useFieldContext } from "../../Field/Field.context";
 import { Icon } from "../../Icon";
-import { Listbox, useListbox } from "../../Listbox";
+import { Listbox, useListbox, useSingleSelectState } from "../../Listbox";
 import { SELECTION_KEYS } from "../../Listbox/listbox.constants";
 import { useSelectFieldContext } from "../SelectField.context";
 import * as styles from "../selectField.css";
@@ -57,28 +57,29 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
     const isDisabled = disabledFromProps ?? isDisabledFromCtx;
     const isInteractive = !isDisabled && !isReadOnly;
 
+    const { selectedValue, selectedValues, select } = useSingleSelectState(
+      value,
+      defaultValue,
+      onChange,
+    );
+
     const {
       listboxRef,
       listboxId,
       contextValue,
-      selectedValues,
       activeId,
       activateSelected,
       scrollToSelected,
       onKeyDown: onListboxKeyDown,
       getListboxProps,
     } = useListbox({
-      mode: "single",
-      variant,
-      options,
-      value,
-      defaultValue,
-      onChange: onChange as ((value: string | string[]) => void) | undefined,
+      selectedValues,
       disabled: isDisabled,
+      onSelect: select,
       autoScrollToSelected: false,
     });
 
-    const selectedLabel = options.find(option => option.value === selectedValues[0])?.label;
+    const selectedLabel = options.find(option => option.value === selectedValue)?.label;
 
     const activateSelectedRef = useRef(activateSelected);
     activateSelectedRef.current = activateSelected;
@@ -117,10 +118,11 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
     useLayoutEffect(() => {
       if (!isOpen) return;
 
-      activateSelectedRef.current();
-
-      // Radix가 available-height를 반영한 뒤에야 스크롤 영역이 생기므로 다음 프레임에서 실행
-      const frame = requestAnimationFrame(() => scrollToSelected());
+      // Radix가 다음 커밋에서 팝업을 DOM에 추가하므로, 목록이 렌더링된 뒤 활성 항목과 스크롤을 맞춘다
+      const frame = requestAnimationFrame(() => {
+        activateSelectedRef.current();
+        scrollToSelected();
+      });
       return () => cancelAnimationFrame(frame);
     }, [isOpen, scrollToSelected]);
 
@@ -187,7 +189,8 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
               role='presentation'
               className={styles.popup}
               context={popupContextValue}
-              options={options}
+              selectionMode='single'
+              variant={variant}
               listboxRef={listboxRef}
               listboxProps={{
                 ...getListboxProps(),
@@ -195,7 +198,19 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
                 "aria-labelledby": labelId,
               }}
               onMouseDown={e => e.preventDefault()}
-            />
+            >
+              {options.map(option => (
+                <Listbox.Option
+                  key={option.value}
+                  value={option.value}
+                  caption={option.caption}
+                  suffix={option.suffix}
+                  disabled={option.disabled}
+                >
+                  {option.label}
+                </Listbox.Option>
+              ))}
+            </Listbox>
           </Popover.Content>
         </Popover.Portal>
       </>

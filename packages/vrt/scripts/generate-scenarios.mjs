@@ -9,13 +9,17 @@ const root = resolve(__dirname, "..");
 const BASE_URL = process.env.VRT_BASE_URL ?? "http://host.docker.internal:6007";
 const INDEX_PATH = resolve(root, "storybook-static/index.json");
 
-const viewports = [
-  { label: "mobile", width: 375, height: 812 },
-  { label: "desktop", width: 1280, height: 800 },
-];
+const MOBILE_VIEWPORT = { label: "mobile", width: 375, height: 812 };
+const DESKTOP_VIEWPORT = { label: "desktop", width: 1280, height: 800 };
 
-// 스토리에 tags: ["skip-vrt"] 를 달면 VRT 대상에서 제외된다.
-const SKIP_TAG = "skip-vrt";
+const viewports = [DESKTOP_VIEWPORT];
+
+// 스토리 tags로 시나리오 옵션을 분기한다. index.json에는 parameters가 실리지 않고 tags만 들어온다.
+const TAG = {
+  skip: "skip-vrt",
+  mobile: "vrt-mobile",
+  viewport: "vrt-viewport",
+};
 
 const captureDelay = Number(process.env.VRT_CAPTURE_DELAY) || (process.env.CI ? 1000 : 300);
 const asyncCaptureLimit = Number(process.env.VRT_CAPTURE_LIMIT) || (process.env.CI ? 2 : 5);
@@ -36,19 +40,22 @@ function loadStories() {
   }
 
   return Object.values(index.entries ?? {}).filter(
-    entry => entry.type === "story" && !(entry.tags ?? []).includes(SKIP_TAG),
+    entry => entry.type === "story" && !(entry.tags ?? []).includes(TAG.skip),
   );
 }
 
 function toScenario(story) {
+  const tags = new Set(story.tags ?? []);
+
   return {
     label: story.id,
     url: `${BASE_URL}/iframe.html?id=${encodeURIComponent(story.id)}&viewMode=story`,
-    // 전체 화면이 아니라 렌더된 컴포넌트 루트만 캡처
-    selectors: ["#storybook-root"],
+    // 포털로 body에 붙는 오버레이는 컴포넌트 루트 바깥이라 뷰포트 전체를 잡아야 캡처된다.
+    selectors: tags.has(TAG.viewport) ? ["viewport"] : ["#storybook-root"],
     readySelector: "#storybook-root",
     delay: captureDelay,
     misMatchThreshold: 0.1,
+    ...(tags.has(TAG.mobile) ? { viewports: [MOBILE_VIEWPORT, DESKTOP_VIEWPORT] } : {}),
   };
 }
 
@@ -76,8 +83,12 @@ const config = {
 };
 
 writeFileSync(resolve(root, "backstop.json"), `${JSON.stringify(config, null, 2)}\n`);
+
+const snapshotCount = scenarios.reduce(
+  (total, scenario) => total + (scenario.viewports ?? viewports).length,
+  0,
+);
+const mobileCount = scenarios.filter(scenario => scenario.viewports).length;
 console.log(
-  `Generated ${scenarios.length} scenarios × ${viewports.length} viewports = ${
-    scenarios.length * viewports.length
-  } snapshots.`,
+  `Generated ${scenarios.length} scenarios (${mobileCount} with mobile) = ${snapshotCount} snapshots.`,
 );

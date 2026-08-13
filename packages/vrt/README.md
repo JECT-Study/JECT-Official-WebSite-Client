@@ -49,10 +49,22 @@ npm --workspace @jects/vrt run report:open
 
 > GitHub Actions의 기본 토큰으로 푸시한 커밋은 다른 워크플로를 다시 트리거하지 않으므로, baseline 커밋 후 회귀 검사를 다시 돌리려면 워크플로를 수동으로 재실행해야 합니다.
 
-## 특정 스토리 제외
+## 스토리 태그로 캡처 방식 지정
 
-스토리 메타 또는 개별 스토리에 `tags: ["skip-vrt"]`를 추가하면 VRT 대상에서 제외됩니다.
+스토리 메타 또는 개별 스토리의 `tags`로 시나리오 옵션을 분기합니다. Storybook `index.json` 엔트리에는 `parameters`가 실리지 않고 `tags`만 포함되므로, 스토리별 설정은 태그로만 전달할 수 있습니다.
+
+| 태그           | 동작                                             |
+| -------------- | ------------------------------------------------ |
+| `skip-vrt`     | VRT 대상에서 제외합니다.                         |
+| `vrt-mobile`   | 데스크탑에 더해 모바일 뷰포트도 함께 캡처합니다. |
+| `vrt-viewport` | `#storybook-root` 대신 뷰포트 전체를 캡처합니다. |
+
+기본값은 데스크탑 단일 뷰포트와 `#storybook-root` 캡처입니다. 모바일 스냅샷은 환경별 결과 확인이 필요한 스토리에만 `vrt-mobile`로 opt-in합니다.
+
+`vrt-viewport`는 포털로 `document.body`에 붙는 Dialog 패널처럼 컴포넌트 루트 바깥에 렌더되는 요소를 캡처하기 위한 것입니다. 비교 범위가 화면 전체로 넓어져 배경 변화까지 diff에 잡히므로, 오탐이 잦으면 해당 시나리오의 `misMatchThreshold`를 올려 대응합니다.
+
+**`vrt-viewport`는 화면 전체를 덮는 오버레이에만 사용합니다.** Dialog처럼 오버레이가 `position: fixed; inset: 0`이면 뷰포트 캡처와 컨테이너 캡처의 픽셀이 같아집니다. Tooltip처럼 화면을 덮지 않는 오버레이는 뷰포트 캡처가 대부분 여백이 되므로, 포털 컨테이너를 지정하는 방식이 맞습니다.
 
 ## 뷰포트 / 임계값 조정
 
-`scripts/generate-scenarios.mjs` 상단의 `viewports`와 각 시나리오의 `misMatchThreshold`, `delay`를 조정하면 됩니다.
+`scripts/generate-scenarios.mjs` 상단의 뷰포트 상수와 각 시나리오의 `misMatchThreshold`, `delay`를 조정하면 됩니다.
