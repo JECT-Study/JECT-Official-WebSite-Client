@@ -1,7 +1,7 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 
-import { applyQueries, type JobFamily } from "@/apis/apply";
+import { applyQueries } from "@/apis/apply";
 
-export function useQuestionsSuspenseQuery(jobFamily: JobFamily) {
-  return useSuspenseQuery(applyQueries.questions.byJobFamily(jobFamily));
+export function useQuestionsSuspenseQuery(recruitId: number) {
+  return useSuspenseQuery(applyQueries.questions.byRecruitId(recruitId));
 }

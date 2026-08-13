@@ -12,7 +12,6 @@ import {
   type MemberProfileInitialStatusResponseSchema,
   type QuestionResponseSchema,
   type AnswersResponseSchema,
-  type JobFamily,
 } from "./schemas";
 
 import { API_ENDPOINT } from "@/constants/apiEndpoint";
@@ -39,11 +38,13 @@ export const applyApi = {
       memberProfileInitialStatusResponseSchema,
     ),
 
-  getStatus: () =>
-    httpClient.get<ApplicationStatusResponseSchema>(
-      API_ENDPOINT.applyStatus,
+  getStatus: (recruitId: number) => {
+    const params = new URLSearchParams({ recruitId: String(recruitId) });
+    return httpClient.get<ApplicationStatusResponseSchema>(
+      `${API_ENDPOINT.applyStatus}?${params.toString()}`,
       applicationStatusResponseSchema,
-    ),
+    );
+  },
 
   getMe: () =>
     httpClient.get<MemberMeResponseSchema>(
@@ -51,26 +52,39 @@ export const applyApi = {
       memberMeResponseSchema,
     ),
 
-  updateProfile: (data: MemberProfilePayload) =>
-    httpClient.post<null>(API_ENDPOINT.applyProfile, data),
+  updateProfile: (recruitId: number, data: MemberProfilePayload) => {
+    const params = new URLSearchParams({ recruitId: String(recruitId) });
+    return httpClient.post<null>(`${API_ENDPOINT.applyProfile}?${params.toString()}`, data);
+  },
 
-  getQuestions: (jobFamily: JobFamily) => {
-    const params = new URLSearchParams({ jobFamily });
+  getQuestions: (recruitId: number) => {
+    const params = new URLSearchParams({ recruitId: String(recruitId) });
     return httpClient.get<QuestionResponseSchema>(
       `${API_ENDPOINT.question}?${params.toString()}`,
       questionResponseSchema,
     );
   },
 
-  getDraft: () => httpClient.get<AnswersResponseSchema>(API_ENDPOINT.draft, answersResponseSchema),
+  getDraft: (recruitId: number) => {
+    const params = new URLSearchParams({ recruitId: String(recruitId) });
+    return httpClient.get<AnswersResponseSchema>(
+      `${API_ENDPOINT.draft}?${params.toString()}`,
+      answersResponseSchema,
+    );
+  },
 
-  saveDraft: (answers: AnswersPayload) =>
-    httpClient.post<null>(API_ENDPOINT.draft, answers),
+  saveDraft: (recruitId: number, answers: AnswersPayload) => {
+    const params = new URLSearchParams({ recruitId: String(recruitId) });
+    return httpClient.post<null>(`${API_ENDPOINT.draft}?${params.toString()}`, answers);
+  },
 
-  deleteDraft: () => httpClient.delete<null>(API_ENDPOINT.draft),
+  deleteDraft: (recruitId: number) => {
+    const params = new URLSearchParams({ recruitId: String(recruitId) });
+    return httpClient.delete<null>(`${API_ENDPOINT.draft}?${params.toString()}`);
+  },
 
-  submit: (jobFamily: JobFamily, answers: AnswersPayload) => {
-    const params = new URLSearchParams({ jobFamily });
+  submit: (recruitId: number, answers: AnswersPayload) => {
+    const params = new URLSearchParams({ recruitId: String(recruitId) });
     return httpClient.post<null>(`${API_ENDPOINT.submitAnswer}?${params.toString()}`, answers);
   },
 

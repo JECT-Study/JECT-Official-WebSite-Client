@@ -3,7 +3,7 @@ import { useMutation, useQueryClient, type UseMutationOptions } from "@tanstack/
 import { applyApi, applyMutationKeys, applyQueryKeys } from "@/apis/apply";
 
 type UseDeleteDraftMutationOptions = Omit<
-  UseMutationOptions<null, Error, void, unknown>,
+  UseMutationOptions<null, Error, number, unknown>,
   "mutationKey" | "mutationFn"
 >;
 
@@ -13,7 +13,7 @@ export function useDeleteDraftMutation(options?: UseDeleteDraftMutationOptions) 
 
   return useMutation({
     mutationKey: applyMutationKeys.draft.delete,
-    mutationFn: applyApi.deleteDraft,
+    mutationFn: (recruitId: number) => applyApi.deleteDraft(recruitId),
     ...restOptions,
     onSuccess: (data, variables, onMutateResult, mutationContext) => {
       void queryClient.invalidateQueries({ queryKey: applyQueryKeys.draft.all() });
