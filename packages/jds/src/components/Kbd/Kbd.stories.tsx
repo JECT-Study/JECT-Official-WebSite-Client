@@ -33,7 +33,7 @@ const meta = {
         defaultValue: { summary: "key" },
       },
     },
-    muted: {
+    isMuted: {
       control: "boolean",
       description: "시각적으로 강조도가 낮춰졌는지의 여부입니다.",
       table: {
@@ -55,7 +55,7 @@ export const Default: Story = {
     children: "K",
     size: "md",
     type: "key",
-    muted: false,
+    isMuted: false,
   },
 };
 
@@ -139,49 +139,49 @@ export const IsMuted: Story = {
     <FlexColumn>
       <FlexRow>
         <span>key</span>
-        <Kbd type='key' muted>
+        <Kbd type='key' isMuted>
           A
         </Kbd>
-        <Kbd type='key' muted>
+        <Kbd type='key' isMuted>
           /
         </Kbd>
-        <Kbd type='key' muted>
+        <Kbd type='key' isMuted>
           \
         </Kbd>
       </FlexRow>
       <FlexRow>
         <span>text</span>
-        <Kbd type='text' muted>
+        <Kbd type='text' isMuted>
           ctrl
         </Kbd>
-        <Kbd type='text' muted>
+        <Kbd type='text' isMuted>
           alt
         </Kbd>
-        <Kbd type='text' muted>
+        <Kbd type='text' isMuted>
           tab
         </Kbd>
-        <Kbd type='text' muted>
+        <Kbd type='text' isMuted>
           esc
         </Kbd>
       </FlexRow>
       <FlexRow>
         <span>function</span>
-        <Kbd type='function' muted>
+        <Kbd type='function' isMuted>
           ⌘
         </Kbd>
-        <Kbd type='function' muted>
+        <Kbd type='function' isMuted>
           ⌥
         </Kbd>
-        <Kbd type='function' muted>
+        <Kbd type='function' isMuted>
           ⇧
         </Kbd>
-        <Kbd type='function' muted>
+        <Kbd type='function' isMuted>
           ⌃
         </Kbd>
-        <Kbd type='function' muted>
+        <Kbd type='function' isMuted>
           ⌫
         </Kbd>
-        <Kbd type='function' muted>
+        <Kbd type='function' isMuted>
           ⏎
         </Kbd>
       </FlexRow>

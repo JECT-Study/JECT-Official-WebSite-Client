@@ -36,7 +36,7 @@ export const kbd = recipe({
   variants: {
     type: typeVariants,
     size: sizeVariants,
-    muted: {
+    isMuted: {
       true: {
         borderColor: vars.color.semantic.stroke.alpha.subtler,
         color: vars.color.semantic.object.subtle,

@@ -7,5 +7,5 @@ export interface KbdProps extends ComponentPropsWithoutRef<"kbd"> {
   children: ReactNode;
   size?: KbdSize;
   type?: KbdType;
-  muted?: boolean;
+  isMuted?: boolean;
 }
