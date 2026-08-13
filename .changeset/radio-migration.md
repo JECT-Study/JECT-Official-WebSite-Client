@@ -8,17 +8,18 @@ Radio를 radix RadioGroup 기반으로 재작성하고 API를 조립된 props �
 
 **소비처 영향 (코드 수정 필요)**
 
-| AS-IS                                                                                          | TO-BE                                             |
-| ---------------------------------------------------------------------------------------------- | ------------------------------------------------- |
-| `Radio` (compound)                                                                             | `RadioGroup`                                      |
-| `Radio.Root` + `Radio.Item` + `Radio.Basic` 조합                                               | `RadioGroup`의 `options`                          |
-| `Radio.Label` / `Radio.SubLabel`                                                               | `options[].label` / `options[].helper`            |
-| `radioSize`                                                                                    | `size`                                            |
-| `radioStyle = "empty" \| "outline"`                                                            | `variant = "hollow" \| "outlined"`                |
-| `radioAlign`                                                                                   | 제거 — 대체재 없음                                |
-| `RadioRootProps`, `RadioItemProps`, `RadioBasicProps`, `RadioLabelProps`, `RadioSubLabelProps` | `RadioGroupProps`, `RadioOption`                  |
-| `RadioStyle`, `RadioAlign`                                                                     | `RadioVariant`, `RadioAlign`은 제거 — 대체재 없음 |
-| 컨트롤 엘리먼트 `<input type="radio">`                                                         | `<button role="radio">`                           |
+| AS-IS                                                                                          | TO-BE                                  |
+| ---------------------------------------------------------------------------------------------- | -------------------------------------- |
+| `Radio` (compound)                                                                             | `RadioGroup`                           |
+| `Radio.Root` + `Radio.Item` + `Radio.Basic` 조합                                               | `RadioGroup`의 `options`               |
+| `Radio.Label` / `Radio.SubLabel`                                                               | `options[].label` / `options[].helper` |
+| `radioSize`                                                                                    | `size`                                 |
+| `radioStyle = "empty" \| "outline"`                                                            | `variant = "hollow" \| "outlined"`     |
+| `radioAlign`                                                                                   | 제거 — 대체재 없음                     |
+| `RadioRootProps`, `RadioItemProps`, `RadioBasicProps`, `RadioLabelProps`, `RadioSubLabelProps` | `RadioGroupProps`, `RadioOption`       |
+| `RadioStyle`                                                                                   | `RadioVariant`                         |
+| `RadioAlign`                                                                                   | 제거 — 대체재 없음                     |
+| 컨트롤 엘리먼트 `<input type="radio">`                                                         | `<button role="radio">`                |
 
 그룹에 속하지 않는 단독 라디오는 지원하지 않습니다. 라디오는 `RadioGroup`으로만 씁니다. 컨트롤 엘리먼트가 바뀌었으므로 `input[type="radio"]`로 DOM을 조회하거나 스타일링하던 코드는 셀렉터 수정이 필요합니다. 폼 제출값은 `name`을 전달하면 그대로 유지됩니다.
 
