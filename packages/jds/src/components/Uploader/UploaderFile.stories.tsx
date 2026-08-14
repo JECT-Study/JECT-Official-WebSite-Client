@@ -74,7 +74,7 @@ const meta = {
         hierarchy='secondary'
         size='sm'
         variant='outlined'
-        suffixIcon='upload-2-line'
+        suffixIcon='upload'
         onClick={triggerUpload}
       >
         파일 업로드
@@ -123,7 +123,7 @@ export const Default: StoryObj<typeof Uploader.File> = {
             hierarchy='secondary'
             size='sm'
             variant='outlined'
-            suffixIcon='upload-2-line'
+            suffixIcon='upload'
             disabled={args.isDisabled}
             onClick={triggerUpload}
           >

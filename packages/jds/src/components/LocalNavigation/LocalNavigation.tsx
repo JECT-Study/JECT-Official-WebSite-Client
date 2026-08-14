@@ -33,7 +33,7 @@ export const LocalNavigation = forwardRef<HTMLElement, LocalNavigationProps>(
         {nested && (
           <div className={backButtonSlot}>
             <IconButton
-              icon='arrow-left-line'
+              icon='arrow-left'
               size='xl'
               aria-label='뒤로 가기'
               onClick={onBackClick}

@@ -158,7 +158,7 @@ const MenuTree = forwardRef<HTMLButtonElement, MenuTreeProps>(
         <div className={menuTreeTrigger}>
           <IconButton
             className={menuTreeIconButton({ hasTreeButton })}
-            icon={isOpen ? "arrow-down-s-line" : "arrow-right-s-line"}
+            icon={isOpen ? "chevron-down" : "chevron-right"}
             size={menuTreeIconSizeByMenuSize[size]}
             disabled={disabled}
             condensed

@@ -45,7 +45,7 @@ export const Default: Story = {
       <Menu.Content side='right' align='start' sideOffset={10} style={{ width: "200px" }}>
         <Menu.Category>카테고리</Menu.Category>
         <Menu.Group>
-          <Menu.Button autoFocus fullWidthText suffixIconVisible suffixIcon='arrow-right-s-line'>
+          <Menu.Button autoFocus fullWidthText suffixIconVisible suffixIcon='chevron-right'>
             메뉴 레이블
           </Menu.Button>
           <Menu.Button isSelected>메뉴 레이블 (selected)</Menu.Button>
@@ -158,7 +158,7 @@ export const Tree: Story = {
             withTreeButton={false}
             fullWidthText
             suffixIconVisible
-            suffixIcon='arrow-right-up-line'
+            suffixIcon='arrow-up-right'
             onClick={() => onItemClick("단일 메뉴")}
           />
         </Menu.Group>

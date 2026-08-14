@@ -145,7 +145,7 @@ export const States: Story = {
 export const Layout: Story = {
   args: {
     suffixIconVisible: true,
-    suffixIcon: "arrow-right-s-line",
+    suffixIcon: "chevron-right",
   },
   render: args => (
     <FlexColumn style={{ width: "200px" }}>

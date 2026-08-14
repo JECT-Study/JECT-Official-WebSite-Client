@@ -118,9 +118,9 @@ export const BlockButtonDisabled: Story = {
 export const BlockButtonWithIcons: Story = {
   render: () => (
     <FlexRow>
-      <BlockButton prefixIcon='arrow-left-line'>레이블</BlockButton>
-      <BlockButton suffixIcon='arrow-right-line'>레이블</BlockButton>
-      <BlockButton prefixIcon='arrow-left-line' suffixIcon='arrow-right-line'>
+      <BlockButton prefixIcon='arrow-left'>레이블</BlockButton>
+      <BlockButton suffixIcon='arrow-right'>레이블</BlockButton>
+      <BlockButton prefixIcon='arrow-left' suffixIcon='arrow-right'>
         레이블
       </BlockButton>
     </FlexRow>

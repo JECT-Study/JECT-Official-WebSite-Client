@@ -174,7 +174,7 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
               {selectedLabel ?? placeholder}
             </span>
             {suffix}
-            <Icon name='arrow-down-s-line' size='md' className={styles.indicator} />
+            <Icon name='chevron-down' size='md' className={styles.indicator} />
           </button>
         </Popover.Trigger>
         <Popover.Portal>
