@@ -10,6 +10,7 @@ import {
   LocalNavigation,
   Tab,
   Title,
+  Tooltip,
   toastController,
 } from "@jects/jds";
 import { theme } from "@jects/jds/tokens";
@@ -27,6 +28,16 @@ import { PATH } from "@/constants/path";
 import { useRecruitId } from "@/hooks/recruit";
 
 type TabValue = "info" | "notice" | "faq";
+
+const RECRUIT_ALERT_FORM_URL = "https://forms.gle/oarw4xzjDezR6mzQA";
+const RECRUIT_START_AT = new Date("2026-08-22T00:00:00+09:00").getTime();
+const RECRUIT_END_AT = new Date("2026-09-07T00:00:00+09:00").getTime();
+
+const INACTIVE_ACTION_LABEL = {
+  pending: "모집 정보를 불러오는 중입니다",
+  closed: "모집이 마감되었습니다",
+  error: "일시적인 오류가 발생했습니다",
+} as const;
 
 const VALID_JOB_FAMILIES = JOB_FAMILY_OPTIONS.map(opt => opt.value);
 
@@ -116,11 +127,9 @@ function ApplyGuidePage() {
   const navigate = useNavigate();
   const { jobFamily } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
-  const {
-    recruitId,
-    isPending: isRecruitPending,
-    isError: isRecruitError,
-  } = useRecruitId(isValidJobFamily(jobFamily) ? jobFamily : undefined);
+  const { recruitId, isPending: isRecruitPending } = useRecruitId(
+    isValidJobFamily(jobFamily) ? jobFamily : undefined,
+  );
 
   const tabParam = searchParams.get("tab") as TabValue | null;
   const faqParam = searchParams.get("faq");
@@ -151,11 +160,17 @@ function ApplyGuidePage() {
     setSearchParams(newParams, { replace: true });
   };
 
-  const getDisabledActionLabel = () => {
-    if (isRecruitPending) return "모집 정보를 불러오는 중입니다";
-    if (isRecruitError) return "일시적인 오류가 발생했습니다";
-    return "현재 모집 기간이 아닙니다";
+  const getInactiveActionState = () => {
+    if (isRecruitPending) return "pending" as const;
+
+    const now = Date.now();
+    if (now < RECRUIT_START_AT) return "beforeStart" as const;
+    if (now >= RECRUIT_END_AT) return "closed" as const;
+
+    return "error" as const;
   };
+
+  const inactiveActionState = getInactiveActionState();
 
   const handleApply = () => {
     void navigate(`${PATH.applyFunnel}/${jobFamily}`);
@@ -163,6 +178,10 @@ function ApplyGuidePage() {
 
   const handleContinue = () => {
     void navigate(`${PATH.applyContinue}/${jobFamily}`);
+  };
+
+  const handleRecruitAlert = () => {
+    window.open(RECRUIT_ALERT_FORM_URL, "_blank", "noopener,noreferrer");
   };
 
   const handleBack = () => {
@@ -197,13 +216,20 @@ function ApplyGuidePage() {
             <Hero size='xs' textAlign='left'>
               모집
             </Hero>
-            <IconButton.Basic
-              icon='link-line'
-              size='2xl'
-              hierarchy='tertiary'
-              onClick={handleCopyUrl}
-              aria-label='URL 복사'
-            />
+            <Tooltip.Provider>
+              <Tooltip.Root>
+                <Tooltip.Trigger asChild>
+                  <IconButton.Basic
+                    icon='link-line'
+                    size='2xl'
+                    hierarchy='tertiary'
+                    onClick={handleCopyUrl}
+                    aria-label='URL 복사'
+                  />
+                </Tooltip.Trigger>
+                <Tooltip.Content>URL 복사</Tooltip.Content>
+              </Tooltip.Root>
+            </Tooltip.Provider>
           </div>
           <Label as='span' size='lg' weight='bold' textAlign='left'>
             2026년 8월 22일(토) - 9월 6일(일)
@@ -232,6 +258,16 @@ function ApplyGuidePage() {
                 지원서 작성하기
               </BlockButton.Basic>
             </>
+          ) : inactiveActionState === "beforeStart" ? (
+            <BlockButton.Basic
+              variant='solid'
+              hierarchy='accent'
+              size='lg'
+              className='flex-1'
+              onClick={handleRecruitAlert}
+            >
+              5기 모집 알림 신청하기
+            </BlockButton.Basic>
           ) : (
             <BlockButton.Basic
               variant='solid'
@@ -240,7 +276,7 @@ function ApplyGuidePage() {
               className='flex-1'
               disabled
             >
-              {getDisabledActionLabel()}
+              {INACTIVE_ACTION_LABEL[inactiveActionState]}
             </BlockButton.Basic>
           )}
         </div>
@@ -279,7 +315,7 @@ function ApplyGuidePage() {
                   `,
                 ]}
               >
-                <li>모집 기간: 2026년 8월 22일(토) 00:00 - 2026년 9월 7일(일) 00:00</li>
+                <li>모집 기간: 2026년 8월 22일(토) 00:00 - 2026년 9월 6일(일) 23:59</li>
                 <li>합격 발표: 2026년 9월 10일(목) 18:00</li>
                 <li>추가 합격 안내: 2026년 9월 11일(금) - 9월 18일(금)</li>
                 <li>결원 발생 시 예비 합격 순번에 따라 안내</li>
@@ -441,18 +477,15 @@ function ApplyGuidePage() {
               </Accordion.Item>
               <Accordion.Item value='faq-3'>
                 <Accordion.Trigger>
-                  활동 도중 취업/인턴/이직 계획이 있어도 지원이 가능한가요?
+                  활동 도중 취업, 인턴, 이직 계획이 있어도 지원이 가능한가요?
                 </Accordion.Trigger>
                 <Accordion.Content>
                   <p css={bodyTextStyle}>
                     지원이 가능합니다.
                     <br />
-                    다만 약 4개월간 진행되는 팀 프로젝트인 만큼 꾸준한 열정과 시간 투자가 필요합니다.
-                    활동 기간 중 취업/인턴/이직을 하시게 되더라도, 처음 약속한 팀원으로서 끝까지
-                    책임감을 가지고 프로젝트에 성실히 참여해 주시길 바랍니다.
-                    <br />
-                    프로젝트 중도 이탈은 팀원과 젝트 공동체에 큰 부정적 영향을 끼치는 행위이니,
-                    지원자분의 현 상황과 향후 계획 등을 충분히 고려하여 지원 부탁드립니다.
+                    다만 4개월간 진행되는 팀 프로젝트인 만큼 꾸준한 시간 투자와 열정이 필요합니다.
+                    중도 이탈 없이 끝까지 책임감을 갖고 성실히 참여해 주시길 부탁드리며, 지원자분의
+                    현 상황과 향후 계획 등을 충분히 고려하신 뒤 지원해주세요.
                   </p>
                 </Accordion.Content>
               </Accordion.Item>
