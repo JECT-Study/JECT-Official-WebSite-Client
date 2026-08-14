@@ -103,7 +103,7 @@ const SampleField = ({
   defaultValue?: string;
 }) => (
   <>
-    <Field.Label suffixSlot={<Icon name='information-line' size='2xs' />}>{label}</Field.Label>
+    <Field.Label suffixSlot={<Icon name='info' size='2xs' />}>{label}</Field.Label>
     <Field.Content>
       <DemoInput placeholder={placeholder} defaultValue={defaultValue} />
     </Field.Content>
@@ -218,7 +218,7 @@ export const WithAddon: Story = {
   render: () => (
     <div style={{ width: "20rem" }}>
       <Field>
-        <Field.Label suffixSlot={<Icon name='information-line' size='2xs' />}>이메일</Field.Label>
+        <Field.Label suffixSlot={<Icon name='info' size='2xs' />}>이메일</Field.Label>
         <Field.Content>
           <Icon name='account-circle-line' size='sm' />
           <DemoInput placeholder='이메일을 입력하세요' />
@@ -257,7 +257,7 @@ export const LabelSlots: Story = {
   render: () => (
     <FlexColumn gap='24px'>
       <Field>
-        <Field.Label suffixSlot={<Icon name='information-line' size='2xs' />}>이메일</Field.Label>
+        <Field.Label suffixSlot={<Icon name='info' size='2xs' />}>이메일</Field.Label>
         <Field.Content>
           <DemoInput placeholder='이메일을 입력하세요' />
         </Field.Content>
@@ -265,7 +265,7 @@ export const LabelSlots: Story = {
       </Field>
 
       <Field required>
-        <Field.Label suffixSlot={<Icon name='information-line' size='2xs' />}>이메일</Field.Label>
+        <Field.Label suffixSlot={<Icon name='info' size='2xs' />}>이메일</Field.Label>
         <Field.Content>
           <DemoInput placeholder='이메일을 입력하세요' />
         </Field.Content>

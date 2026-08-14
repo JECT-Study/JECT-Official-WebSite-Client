@@ -93,7 +93,7 @@ export const Playground: Story = {
       <SelectField.Label
         suffixSlot={
           <Icon
-            name='information-line'
+            name='info'
             size='2xs'
             style={args.disabled ? { color: vars.color.semantic.object.subtle } : undefined}
           />
@@ -121,7 +121,7 @@ export const Styles: Story = {
         <FlexColumn key={style} gap='16px'>
           <Label>{style}</Label>
           <SelectField fieldStyle={style} style={FIELD_WIDTH}>
-            <SelectField.Label suffixSlot={<Icon name='information-line' size='2xs' />}>
+            <SelectField.Label suffixSlot={<Icon name='info' size='2xs' />}>
               레이블
             </SelectField.Label>
             <SelectField.Content>

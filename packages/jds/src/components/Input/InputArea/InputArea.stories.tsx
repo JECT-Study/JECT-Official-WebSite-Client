@@ -301,7 +301,7 @@ export const EmptyStyle: Story = {
 export const WithLabelIcon: Story = {
   args: {
     label: "추가 정보",
-    labelIcon: "information-line",
+    labelIcon: "info",
     helperText: "아이콘을 호버하면 추가 정보를 볼 수 있습니다",
     value: "",
     onChange: () => {},

@@ -33,7 +33,7 @@ export const FormFieldLabel = ({ children }: FormFieldLabelProps) => {
       >
         {children || label}
       </StyledFieldLabel>
-      {isWithInfoIcon && <StyledLabelIcon name='information-line' size='2xs' />}
+      {isWithInfoIcon && <StyledLabelIcon name='info' size='2xs' />}
     </StyledLabelContainer>
   );
 };
