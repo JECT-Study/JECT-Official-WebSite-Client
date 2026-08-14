@@ -55,7 +55,7 @@ const UploaderFileButton = ({
   if (isLoading && !isDisabled) {
     return (
       <>
-        <LoadingIcon name='spinner' size='2xl' />
+        <LoadingIcon name='loader-circle' size='2xl' />
         <FlexRowDiv>
           {helperLabel}
           {cancelButton}
@@ -148,7 +148,7 @@ const UploaderImageButton = ({
   if (!isDisabled && isLoading) {
     return (
       <>
-        <LoadingIcon name='spinner' size='xl' />
+        <LoadingIcon name='loader-circle' size='xl' />
         <FlexRowDiv>
           <ImageLabel
             className={getLabelClassName({ size: "sm", textAlign: "center" })}
