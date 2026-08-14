@@ -201,7 +201,7 @@ export const WithAddon: Story = {
     <TextField>
       <TextField.Label suffixSlot={<Icon name='info' size='2xs' />}>이메일</TextField.Label>
       <TextField.Content>
-        <Icon name='account-circle-line' size='sm' />
+        <Icon name='circle-user-round' size='sm' />
         <TextField.Input placeholder='이메일을 입력하세요' />
         <Icon name='close-line' size='sm' />
       </TextField.Content>
