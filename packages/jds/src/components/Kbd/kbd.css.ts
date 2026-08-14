@@ -21,15 +21,19 @@ const typeVariants = {
 
 export const kbd = recipe({
   base: {
-    display: "inline-flex",
     alignItems: "center",
-    justifyContent: "center",
-
     borderRadius: vars.scheme.semantic.radius["4"],
     border: `${vars.scheme.semantic.strokeWeight["1"]} solid ${vars.color.semantic.stroke.alpha.subtle}`,
     color: vars.color.semantic.object.neutral,
     vars: {
       [labelColorVar]: vars.color.semantic.object.neutral,
+    },
+    selectors: {
+      "&&": {
+        display: "inline-flex",
+        justifyContent: "center",
+        cursor: "inherit",
+      },
     },
   },
   variants: {
