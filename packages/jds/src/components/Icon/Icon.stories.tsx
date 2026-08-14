@@ -22,7 +22,7 @@ export const Default: Story = {
 
 export const WithCustomColor: Story = {
   args: {
-    name: "heart-3-fill",
+    name: "heart",
     size: "3xl",
     style: { color: "#ff0000" },
   },

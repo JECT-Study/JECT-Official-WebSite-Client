@@ -164,7 +164,7 @@ const UploaderImageButton = ({
 
   return (
     <>
-      <AddIcon name='add-line' size='xl' $isDisabled={isDisabled} />
+      <AddIcon name='plus' size='xl' $isDisabled={isDisabled} />
       <ImageLabel
         className={getLabelClassName({ size: "sm", textAlign: "center" })}
         $isDisabled={isDisabled}

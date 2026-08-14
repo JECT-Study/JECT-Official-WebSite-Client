@@ -1,5 +1,5 @@
 import type { SVGProps } from "react";
-const SvgSubtractLine = (props: SVGProps<SVGSVGElement>) => (
+const SvgMinus = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns='http://www.w3.org/2000/svg'
     width='1em'
@@ -8,7 +8,7 @@ const SvgSubtractLine = (props: SVGProps<SVGSVGElement>) => (
     viewBox='0 0 24 24'
     {...props}
   >
-    <path fill='currentColor' d='M19 13.007H5v-2h14z' />
+    <path fill='currentColor' d='M19 11a1 1 0 1 1 0 2H5a1 1 0 1 1 0-2z' />
   </svg>
 );
-export default SvgSubtractLine;
+export default SvgMinus;

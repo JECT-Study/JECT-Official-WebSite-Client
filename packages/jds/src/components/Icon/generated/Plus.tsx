@@ -1,5 +1,5 @@
 import type { SVGProps } from "react";
-const SvgHeart3Fill = (props: SVGProps<SVGSVGElement>) => (
+const SvgPlus = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns='http://www.w3.org/2000/svg'
     width='1em'
@@ -10,8 +10,8 @@ const SvgHeart3Fill = (props: SVGProps<SVGSVGElement>) => (
   >
     <path
       fill='currentColor'
-      d='M16.5 3.007c3.038 0 5.5 2.5 5.5 6 0 7-7.5 11-10 12.5-2.5-1.5-10-5.5-10-12.5 0-3.5 2.5-6 5.5-6 1.86 0 3.5 1 4.5 2 1-1 2.64-2 4.5-2'
+      d='M12 4a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2h-6v6a1 1 0 1 1-2 0v-6H5a1 1 0 1 1 0-2h6V5a1 1 0 0 1 1-1'
     />
   </svg>
 );
-export default SvgHeart3Fill;
+export default SvgPlus;
