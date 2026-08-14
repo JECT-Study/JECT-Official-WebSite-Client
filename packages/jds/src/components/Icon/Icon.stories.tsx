@@ -30,7 +30,7 @@ export const WithCustomColor: Story = {
 
 export const InheritColor: Story = {
   args: {
-    name: "check-line",
+    name: "check",
     size: "2xl",
   },
   render: args => (

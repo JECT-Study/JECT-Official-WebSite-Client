@@ -1,5 +1,5 @@
 import type { SVGProps } from "react";
-const SvgCheckLine = (props: SVGProps<SVGSVGElement>) => (
+const SvgCheck = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns='http://www.w3.org/2000/svg'
     width='1em'
@@ -10,8 +10,8 @@ const SvgCheckLine = (props: SVGProps<SVGSVGElement>) => (
   >
     <path
       fill='currentColor'
-      d='m10.004 15.18 9.192-9.193 1.415 1.414-10.607 10.607-6.364-6.364 1.414-1.414z'
+      d='M19.293 5.293a1 1 0 1 1 1.414 1.414l-11 11a1 1 0 0 1-1.414 0l-5-5a1 1 0 1 1 1.414-1.414L9 15.586z'
     />
   </svg>
 );
-export default SvgCheckLine;
+export default SvgCheck;

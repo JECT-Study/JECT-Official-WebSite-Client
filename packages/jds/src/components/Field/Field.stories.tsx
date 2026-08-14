@@ -222,7 +222,7 @@ export const WithAddon: Story = {
         <Field.Content>
           <Icon name='circle-user-round' size='sm' />
           <DemoInput placeholder='이메일을 입력하세요' />
-          <Icon name='close-line' size='sm' />
+          <Icon name='x' size='sm' />
         </Field.Content>
         <Field.HelperText>유효한 이메일 주소를 입력해주세요</Field.HelperText>
       </Field>

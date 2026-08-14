@@ -55,7 +55,7 @@ export const Chip = forwardRef<HTMLButtonElement, ChipProps>(
 
         <IconButton
           type='button'
-          icon='close-line'
+          icon='x'
           size='xs'
           hierarchy='accent'
           aria-label={`${[label, valueLabelText].filter(Boolean).join(" ")} 제거`}

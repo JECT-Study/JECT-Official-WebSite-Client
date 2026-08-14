@@ -66,7 +66,7 @@ export const File = forwardRef<HTMLButtonElement, FileProps>(
           <IconButton
             hierarchy='tertiary'
             size='sm'
-            icon='close-line'
+            icon='x'
             className={styles.removeButton}
             aria-label={`${fileName} 파일 삭제`}
             onClick={onRemove}

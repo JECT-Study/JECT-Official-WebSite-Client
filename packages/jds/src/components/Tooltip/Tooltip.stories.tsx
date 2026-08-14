@@ -200,7 +200,7 @@ export const CustomTrigger: Story = {
         <Label>Icon 버튼</Label>
         <Tooltip.Root>
           <Tooltip.Trigger asChild>
-            <IconButton icon='alert-line' aria-label='경고 툴팁 정보' />
+            <IconButton icon='triangle-alert' aria-label='경고 툴팁 정보' />
           </Tooltip.Trigger>
           <Tooltip.Content>아이콘 버튼 툴팁</Tooltip.Content>
         </Tooltip.Root>

@@ -198,9 +198,9 @@ export const Size: Story = {
 
 const feedbackIconMap: Record<CalloutFeedback, IconName> = {
   none: "vector-square",
-  positive: "check-line",
-  destructive: "close-line",
-  notifying: "error-warning-line",
+  positive: "check",
+  destructive: "x",
+  notifying: "circle-alert",
 };
 
 export const Feedback: Story = {

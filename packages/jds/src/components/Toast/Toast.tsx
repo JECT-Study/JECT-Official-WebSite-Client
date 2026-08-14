@@ -17,9 +17,9 @@ const phaseClassNameMap: Partial<Record<ToastPhase, string>> = {
 };
 
 const feedbackIconName: Record<ToastFeedbackVariant, IconName> = {
-  positive: "check-line",
-  destructive: "error-warning-octagon-line",
-  notifying: "alert-line",
+  positive: "check",
+  destructive: "octagon-alert",
+  notifying: "triangle-alert",
 };
 
 export const Toast = ({

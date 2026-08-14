@@ -203,7 +203,7 @@ export const WithAddon: Story = {
       <TextField.Content>
         <Icon name='circle-user-round' size='sm' />
         <TextField.Input placeholder='이메일을 입력하세요' />
-        <Icon name='close-line' size='sm' />
+        <Icon name='x' size='sm' />
       </TextField.Content>
       <TextField.HelperText>유효한 이메일 주소를 입력해주세요</TextField.HelperText>
     </TextField>
