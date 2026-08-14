@@ -67,7 +67,7 @@ const meta = {
     type: "multiple",
     isStretched: false,
     collapsible: true,
-    withPrefixIcon: "vector",
+    withPrefixIcon: "vector-square",
     size: "lg",
   },
 } satisfies Meta<AccordionStoryArgs>;
