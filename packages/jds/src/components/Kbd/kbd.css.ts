@@ -25,7 +25,6 @@ export const kbd = recipe({
     alignItems: "center",
     justifyContent: "center",
 
-    paddingBlock: pxToRem(2),
     borderRadius: vars.scheme.semantic.radius["4"],
     border: `${vars.scheme.semantic.strokeWeight["1"]} solid ${vars.color.semantic.stroke.alpha.subtle}`,
     color: vars.color.semantic.object.neutral,
