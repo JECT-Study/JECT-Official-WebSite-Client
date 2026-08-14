@@ -15,7 +15,6 @@ export const sizeMap: Record<IconSize, number> = {
 };
 
 export const iconMap = {
-  absolute: Icons.Absolute,
   "alert-fill": Icons.AlertFill,
   "alert-line": Icons.AlertLine,
   "arrow-down": Icons.ArrowDown,
@@ -50,6 +49,7 @@ export const iconMap = {
   "code-s-slash-line": Icons.CodeSSlashLine,
   coins: Icons.Coins,
   component: Icons.Component,
+  contrast: Icons.Contrast,
   "corner-down-left": Icons.CornerDownLeft,
   "corner-down-right": Icons.CornerDownRight,
   download: Icons.Download,
@@ -67,6 +67,7 @@ export const iconMap = {
   "file-text": Icons.FileText,
   "figma-line": Icons.FigmaLine,
   flag: Icons.Flag,
+  focus: Icons.Focus,
   folder: Icons.Folder,
   "footer-logo": Icons.FooterLogo,
   frame: Icons.Frame,
@@ -76,7 +77,7 @@ export const iconMap = {
   "grip-vertical": Icons.GripVertical,
   heart: Icons.Heart,
   house: Icons.House,
-  "image-line": Icons.ImageLine,
+  image: Icons.Image,
   info: Icons.Info,
   instagram: Icons.Instagram,
   instance: Icons.Instance,

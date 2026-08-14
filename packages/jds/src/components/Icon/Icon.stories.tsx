@@ -15,7 +15,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    name: "absolute",
+    name: "focus",
     size: "5xl",
   },
 };
