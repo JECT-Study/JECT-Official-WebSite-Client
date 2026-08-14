@@ -74,7 +74,7 @@ export const Default: StoryObj<typeof Uploader.Image> = {
           <LabelButton
             hierarchy='tertiary'
             size='xs'
-            suffixIcon='arrow-go-back-line'
+            suffixIcon='undo-2'
             onClick={onCancel}
           >
             취소

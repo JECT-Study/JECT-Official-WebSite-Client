@@ -160,21 +160,21 @@ export const Multiple: Story = {
     <div style={{ width: "500px" }}>
       <Accordion.Root isStretched={args.isStretched} type='multiple'>
         <Accordion.Item value='item-1'>
-          <Accordion.Trigger withPrefixIcon='blank'>타이틀</Accordion.Trigger>
+          <Accordion.Trigger withPrefixIcon='square-dashed'>타이틀</Accordion.Trigger>
           <Accordion.Content>
             아코디언 콘텐츠 내용은 타이틀에 대한 상세 내용 및 설명을 포함합니다.
           </Accordion.Content>
         </Accordion.Item>
 
         <Accordion.Item value='item-2'>
-          <Accordion.Trigger withPrefixIcon='blank'>타이틀</Accordion.Trigger>
+          <Accordion.Trigger withPrefixIcon='square-dashed'>타이틀</Accordion.Trigger>
           <Accordion.Content>
             아코디언 콘텐츠 내용은 타이틀에 대한 상세 내용 및 설명을 포함합니다.
           </Accordion.Content>
         </Accordion.Item>
 
         <Accordion.Item value='item-3'>
-          <Accordion.Trigger withPrefixIcon='blank'>타이틀</Accordion.Trigger>
+          <Accordion.Trigger withPrefixIcon='square-dashed'>타이틀</Accordion.Trigger>
           <Accordion.Content>
             아코디언 콘텐츠 내용은 타이틀에 대한 상세 내용 및 설명을 포함합니다.
           </Accordion.Content>
@@ -202,21 +202,21 @@ export const WithoutDefaultValue: Story = {
         collapsible
       >
         <Accordion.Item value='item-1'>
-          <Accordion.Trigger withPrefixIcon='blank'>타이틀</Accordion.Trigger>
+          <Accordion.Trigger withPrefixIcon='square-dashed'>타이틀</Accordion.Trigger>
           <Accordion.Content>
             아코디언 콘텐츠 내용은 타이틀에 대한 상세 내용 및 설명을 포함합니다.
           </Accordion.Content>
         </Accordion.Item>
 
         <Accordion.Item value='item-2'>
-          <Accordion.Trigger withPrefixIcon='blank'>타이틀</Accordion.Trigger>
+          <Accordion.Trigger withPrefixIcon='square-dashed'>타이틀</Accordion.Trigger>
           <Accordion.Content>
             아코디언 콘텐츠 내용은 타이틀에 대한 상세 내용 및 설명을 포함합니다.
           </Accordion.Content>
         </Accordion.Item>
 
         <Accordion.Item value='item-3'>
-          <Accordion.Trigger withPrefixIcon='blank'>타이틀</Accordion.Trigger>
+          <Accordion.Trigger withPrefixIcon='square-dashed'>타이틀</Accordion.Trigger>
           <Accordion.Content>
             아코디언 콘텐츠 내용은 타이틀에 대한 상세 내용 및 설명을 포함합니다.
           </Accordion.Content>
@@ -244,21 +244,21 @@ export const DisabledItems: Story = {
         collapsible
       >
         <Accordion.Item value='item-1' disabled>
-          <Accordion.Trigger withPrefixIcon='blank'>타이틀</Accordion.Trigger>
+          <Accordion.Trigger withPrefixIcon='square-dashed'>타이틀</Accordion.Trigger>
           <Accordion.Content>
             아코디언 콘텐츠 내용은 타이틀에 대한 상세 내용 및 설명을 포함합니다.
           </Accordion.Content>
         </Accordion.Item>
 
         <Accordion.Item value='item-2' disabled>
-          <Accordion.Trigger withPrefixIcon='blank'>타이틀</Accordion.Trigger>
+          <Accordion.Trigger withPrefixIcon='square-dashed'>타이틀</Accordion.Trigger>
           <Accordion.Content>
             아코디언 콘텐츠 내용은 타이틀에 대한 상세 내용 및 설명을 포함합니다.
           </Accordion.Content>
         </Accordion.Item>
 
         <Accordion.Item value='item-3' disabled>
-          <Accordion.Trigger withPrefixIcon='blank'>타이틀</Accordion.Trigger>
+          <Accordion.Trigger withPrefixIcon='square-dashed'>타이틀</Accordion.Trigger>
           <Accordion.Content>
             아코디언 콘텐츠 내용은 타이틀에 대한 상세 내용 및 설명을 포함합니다.
           </Accordion.Content>

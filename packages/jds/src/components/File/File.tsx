@@ -45,7 +45,7 @@ export const File = forwardRef<HTMLButtonElement, FileProps>(
           className={styles.mainAction}
         >
           <span className={styles.fileInfo}>
-            <Icon size='xs' name='link-diagonal-line' className={styles.icon} />
+            <Icon size='xs' name='paperclip' className={styles.icon} />
             <span
               className={clsx(getLabelClassName({ size: "md", weight: "subtle" }), styles.fileName)}
             >
