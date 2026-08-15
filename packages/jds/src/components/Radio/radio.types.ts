@@ -7,6 +7,10 @@ export const RADIO_VARIANT_OPTIONS = ["hollow", "outlined"] as const;
 export type RadioSize = (typeof RADIO_SIZE_OPTIONS)[number];
 export type RadioVariant = (typeof RADIO_VARIANT_OPTIONS)[number];
 
+type RadioRootLayoutProps =
+  | { layout?: "vertical"; columns?: never }
+  | { layout: "grid"; columns: number };
+
 type RadioRootControlledProps = {
   value: string;
   defaultValue?: never;
@@ -23,12 +27,14 @@ type RadioRootBaseProps = {
   size?: RadioSize;
   variant?: RadioVariant;
   disabled?: boolean;
+  stretched?: boolean;
   name?: string;
   children: ReactNode;
 };
 
 export type RadioRootProps = RadioRootBaseProps &
   AriaLabelProps &
+  RadioRootLayoutProps &
   (RadioRootControlledProps | RadioRootUncontrolledProps);
 
 export type RadioItemProps = Omit<ComponentPropsWithoutRef<"button">, "value"> & {
@@ -36,6 +42,7 @@ export type RadioItemProps = Omit<ComponentPropsWithoutRef<"button">, "value"> &
   size?: RadioSize;
   variant?: RadioVariant;
   disabled?: boolean;
+  stretched?: boolean;
   children: ReactNode;
 };
 
@@ -50,12 +57,14 @@ type RadioGroupBaseProps = {
   size?: RadioSize;
   variant?: RadioVariant;
   disabled?: boolean;
+  stretched?: boolean;
   name?: string;
   options: RadioOption[];
 };
 
 export type RadioGroupProps = RadioGroupBaseProps &
   AriaLabelProps &
+  RadioRootLayoutProps &
   (RadioRootControlledProps | RadioRootUncontrolledProps);
 
 export type RadioIndicatorProps = Omit<ComponentPropsWithoutRef<"span">, "children"> & {

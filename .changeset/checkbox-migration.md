@@ -4,71 +4,79 @@
 
 **Checkbox**
 
-Checkbox가 vanilla-extract 기반으로 재작성되면서 API를 Compound Component 패턴으로 재설계했습니다. 단일 컴포넌트(`Checkbox.Basic` / `Checkbox.Content`)에서 복합 컴포넌트 구조로 바뀌고, 일부 prop의 이름·값과 public 타입이 변경/제거됩니다.
+Checkbox를 radix Checkbox 기반으로 재작성하고 API를 조립된 props 형태로 바꿉니다. compound(`Checkbox.Basic`, `Checkbox.Content`)를 더 이상 공개하지 않으며, 단독 체크박스는 `Checkbox`, 다중 선택은 `CheckboxGroup`으로 나뉩니다.
 
-| AS-IS | TO-BE |
-| --- | --- |
-| `Checkbox.Basic`, `Checkbox.Content` | `Checkbox.Root`, `Checkbox.Item`, `Checkbox.Basic`, `Checkbox.Label`, `Checkbox.Helper` |
-| `Checkbox.Content`의 `label` / `subLabel` props 프리셋 | `Checkbox.Item` + `Basic` + `Label` + `Helper` 조합 |
-| `subLabel` | `Checkbox.Helper` |
-| `variant = "empty" \| "outlined"` | `variant = "hollow" \| "outlined"` |
-| `align = "left" \| "right"` | 제거 |
-| `CheckboxBasicProps`, `CheckboxBoxProps`, `CheckboxContentProps` | `CheckboxRootProps`, `CheckboxItemProps`, `CheckboxBasicProps`, `CheckboxLabelProps`, `CheckboxHelperProps` |
-| `CheckboxAlign` | 제거 |
+**소비처 영향 (코드 수정 필요)**
 
-`Checkbox.Root`가 추가되었습니다. 여러 Checkbox를 그룹으로 관리하기 위한 컨테이너 컴포넌트이며, 선택된 항목은 `string[]` 형태로 관리됩니다.
+| AS-IS                                                            | TO-BE                                                   |
+| ---------------------------------------------------------------- | ------------------------------------------------------- |
+| `Checkbox.Basic`                                                 | `Checkbox`                                              |
+| `Checkbox.Content`의 `label` / `subLabel`                        | `Checkbox`의 `label` / `helper` props                   |
+| 여러 개를 소비처에서 직접 배치                                   | `CheckboxGroup`의 `options`                             |
+| `variant = "empty" \| "outlined"`                                | `variant = "hollow" \| "outlined"`                      |
+| `align = "left" \| "right"`                                      | 제거 — 대체재 없음                                      |
+| `checked` 단독 지정 (`onCheckedChange` 선택)                     | `checked`와 `onCheckedChange` 함께 필수                 |
+| `CheckboxBasicProps`, `CheckboxBoxProps`, `CheckboxContentProps` | `CheckboxProps`, `CheckboxGroupProps`, `CheckboxOption` |
+| `CheckboxAlign`                                                  | 제거 — 대체재 없음                                      |
+| 컨트롤 엘리먼트 `<input type="checkbox">`                        | `<button role="checkbox">`                              |
 
-그룹 내에서 사용하는 `Checkbox.Basic`에는 항목을 식별하기 위한 `value` prop이 필수입니다. `value`가 누락되면 런타임 에러가 발생합니다. 단독으로 사용하는 경우에는 `value` 없이 `checked` 또는 `defaultChecked`로 상태를 제어할 수 있습니다.
+컨트롤 엘리먼트가 바뀌었으므로 `input[type="checkbox"]`로 DOM을 조회하거나 스타일링하던 코드는 셀렉터 수정이 필요합니다. 폼 제출값은 `name`을 전달하면 그대로 유지됩니다.
 
-또한 `defaultChecked`를 통한 비제어 방식을 지원합니다. 기존의 제어 방식(`checked`)도 계속 사용할 수 있습니다.
+`helper`와 `stretched`는 `label`이 있을 때만 지정할 수 있습니다. `indeterminate`는 제어 모드(`checked="indeterminate"`)에서만 지원하며, `defaultChecked`는 `boolean`만 받습니다.
 
-`indeterminate` 상태는 제어 모드(`checked="indeterminate"`)에서만 지원됩니다. `defaultChecked`는 `boolean` 값만 허용하므로 `indeterminate` 상태의 초기값으로 사용할 수 없습니다.
-
-이제 `invalid` 스타일은 unchecked 상태에서만 적용됩니다. checked 또는 indeterminate 상태에서는 invalid 스타일이 적용되지 않습니다.
-
-**AS-IS**
-
-```tsx
-import { Checkbox } from "@jects/jds";
-import type { CheckedState } from "@jects/jds";
-
-// 단일
-<Checkbox.Basic size='md' checked={checked} onCheckedChange={setChecked} />;
-
-// 라벨 프리셋
-<Checkbox.Content
-  size='md'
-  variant='empty'
-  align='left'
-  label='레이블'
-  subLabel='헬퍼 텍스트'
-  checked={checked}
-  onCheckedChange={setChecked}
-/>;
+```diff
+- <Checkbox.Basic size='md' checked={checked} onCheckedChange={setChecked} />
++ <Checkbox size='md' checked={checked} onCheckedChange={setChecked} aria-label='선택' />
 ```
 
-**TO-BE**
-
-```tsx
-import { Checkbox } from "@jects/jds";
-import type { CheckedState } from "@jects/jds";
-
-// 단일
-<Checkbox.Item size='md' variant='hollow'>
-  <Checkbox.Basic checked={checked} onCheckedChange={setChecked} />
-  <Checkbox.Label>레이블</Checkbox.Label>
-  <Checkbox.Helper>헬퍼 텍스트</Checkbox.Helper>
-</Checkbox.Item>;
-
-// 그룹
-<Checkbox.Root value={selected} onChange={setSelected} variant='outlined'>
-  <Checkbox.Item>
-    <Checkbox.Basic value='1' />
-    <Checkbox.Label>옵션 1</Checkbox.Label>
-  </Checkbox.Item>
-  <Checkbox.Item>
-    <Checkbox.Basic value='2' />
-    <Checkbox.Label>옵션 2</Checkbox.Label>
-  </Checkbox.Item>
-</Checkbox.Root>;
+```diff
+- <Checkbox.Content
+-   size='md'
+-   variant='empty'
+-   align='left'
+-   label='레이블'
+-   subLabel='헬퍼 텍스트'
+-   checked={checked}
+-   onCheckedChange={setChecked}
+- />
++ <Checkbox
++   size='md'
++   variant='hollow'
++   label='레이블'
++   helper='헬퍼 텍스트'
++   checked={checked}
++   onCheckedChange={setChecked}
++ />
 ```
+
+```diff
+- <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)" }}>
+-   <Checkbox.Content label='옵션 1' checked={a} onCheckedChange={setA} />
+-   <Checkbox.Content label='옵션 2' checked={b} onCheckedChange={setB} />
+- </div>
++ <CheckboxGroup
++   layout='grid'
++   columns={3}
++   value={value}
++   onChange={setValue}
++   options={[
++     { value: "1", label: "옵션 1" },
++     { value: "2", label: "옵션 2" },
++   ]}
++ />
+```
+
+**추가**
+
+- `CheckboxGroup` (`CheckboxGroupProps`) — 다중 선택 그룹, 선택값은 `string[]`, controlled(`value` + `onChange`)와 uncontrolled(`defaultValue`) 모두 지원
+- `layout` — `"vertical"`(기본) 또는 `"grid"`, `grid`는 `columns` 필수
+- `stretched` — 아이템이 전체 너비를 채움, 그룹에 지정하면 모든 아이템에 전파되고 단독 `Checkbox`에도 지정 가능
+- `isInvalid`, `name` — 유효성 표시와 폼 제출 이름
+- 단독 `Checkbox`의 uncontrolled(`defaultChecked`) — controlled는 `checked` + `onCheckedChange`
+
+**동작 변경 (코드 수정 불필요)**
+
+- `CheckboxGroup`이 레이아웃을 직접 관리 — 소비처가 감싸 배치하던 컨테이너 불필요
+- `CheckboxGroup`이 방향키, Home, End로 포커스 이동 — Tab으로 진입한 뒤 방향키로 항목 이동, Space로 선택 토글
+- 레이블과 헬퍼의 `white-space: nowrap` 제거 — 폭이 부족하면 텍스트 개행
+- `invalid` 스타일이 unchecked 상태에서만 적용 — checked, indeterminate 상태에서는 미적용

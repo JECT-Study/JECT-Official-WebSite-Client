@@ -1,19 +1,11 @@
+import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { clsx } from "clsx";
 import { RadioGroup } from "radix-ui";
 import { forwardRef, useId, useLayoutEffect, useMemo, useState } from "react";
 import { focusRing, getLabelClassName } from "utils";
 import type { LabelSize } from "utils";
 
-import {
-  radioGroupWrapper,
-  radioHelper,
-  radioHelperSlot,
-  radioIndicatorSlot,
-  radioItem,
-  radioLabel,
-  radioLabelSlot,
-  radioVisual,
-} from "./radio.css";
+import * as styles from "./radio.css";
 import type {
   RadioSize,
   RadioIndicatorProps,
@@ -28,6 +20,7 @@ import {
   useRadioConfig,
   useRadioItem,
 } from "./RadioContext";
+import type { RadioConfigContextValue, RadioItemContextValue } from "./RadioContext";
 
 const radioTextSizeMap = {
   lg: { label: "lg", helper: "sm" },
@@ -40,6 +33,9 @@ const RadioRoot = ({
   size = "md",
   variant = "hollow",
   disabled = false,
+  layout = "vertical",
+  columns,
+  stretched = false,
   value,
   defaultValue,
   onChange,
@@ -48,12 +44,20 @@ const RadioRoot = ({
   "aria-label": ariaLabel,
   "aria-labelledby": ariaLabelledBy,
 }: RadioRootProps) => {
-  const configValue = useMemo(() => ({ size, variant, disabled }), [size, variant, disabled]);
+  const configValue = useMemo<RadioConfigContextValue>(
+    () => ({ size, variant, disabled, stretched }),
+    [size, variant, disabled, stretched],
+  );
 
   return (
     <RadioConfigProvider value={configValue}>
       <RadioGroup.Root
-        className={radioGroupWrapper}
+        className={styles.radioGroupWrapper({ layout })}
+        style={
+          layout === "grid"
+            ? assignInlineVars({ [styles.radioGroupColumnsVar]: String(columns) })
+            : undefined
+        }
         value={value}
         defaultValue={defaultValue}
         onValueChange={onChange}
@@ -77,6 +81,7 @@ const RadioItem = forwardRef<HTMLButtonElement, RadioItemProps>(
       size: sizeProp,
       variant: variantProp,
       disabled = false,
+      stretched: stretchedProp,
       children,
       className,
       ...restProps
@@ -90,19 +95,23 @@ const RadioItem = forwardRef<HTMLButtonElement, RadioItemProps>(
     const size = sizeProp ?? parentContext?.size ?? "md";
     const isDisabled = disabled || (parentContext?.disabled ?? false);
     const variant = variantProp ?? parentContext?.variant ?? "hollow";
+    const isStretched = stretchedProp ?? parentContext?.stretched ?? false;
 
     const [hasHelper, setHasHelper] = useState(false);
 
-    const configValue = useMemo(
-      () => ({ size, variant, disabled: isDisabled }),
-      [size, variant, isDisabled],
+    const configValue = useMemo<RadioConfigContextValue>(
+      () => ({ size, variant, disabled: isDisabled, stretched: isStretched }),
+      [size, variant, isDisabled, isStretched],
+    );
+
+    const itemValue = useMemo<RadioItemContextValue>(
+      () => ({ labelId, helperId, hasHelper, onHelperMountChange: setHasHelper }),
+      [labelId, helperId, hasHelper],
     );
 
     return (
       <RadioConfigProvider value={configValue}>
-        <RadioItemProvider
-          value={{ labelId, helperId, hasHelper, onHelperMountChange: setHasHelper }}
-        >
+        <RadioItemProvider value={itemValue}>
           <RadioGroup.Item
             ref={ref}
             {...restProps}
@@ -110,7 +119,11 @@ const RadioItem = forwardRef<HTMLButtonElement, RadioItemProps>(
             disabled={isDisabled}
             aria-labelledby={labelId}
             aria-describedby={hasHelper ? helperId : undefined}
-            className={clsx(radioItem({ size, styleOutlined: variant }), focusRing(), className)}
+            className={clsx(
+              styles.radioItem({ size, styleOutlined: variant, stretched: isStretched }),
+              focusRing(),
+              className,
+            )}
           >
             {children}
           </RadioGroup.Item>
@@ -126,16 +139,22 @@ const RadioIndicator = forwardRef<HTMLSpanElement, RadioIndicatorProps>(
   ({ size: sizeProp, checked, disabled = false, className, ...restProps }, ref) => {
     const config = useRadioConfig();
     const size = sizeProp ?? config?.size ?? "md";
+    const isWithinItem = useRadioItem() != null;
     const hasExplicitState = checked !== undefined;
 
     return (
       <span
         ref={ref}
+        {...restProps}
         aria-hidden
         data-state={hasExplicitState ? (checked ? "checked" : "unchecked") : undefined}
         data-disabled={disabled || undefined}
-        className={clsx(radioVisual({ size }), radioIndicatorSlot, className)}
-        {...restProps}
+        className={clsx(
+          styles.radioVisual({ size }),
+          styles.radioIndicatorSlot,
+          isWithinItem && styles.radioIndicatorInItem,
+          className,
+        )}
       />
     );
   },
@@ -152,8 +171,8 @@ const RadioLabel = forwardRef<HTMLSpanElement, RadioLabelProps>(({ children }, r
       id={labelId}
       className={clsx(
         getLabelClassName({ size: radioTextSizeMap[size].label }),
-        radioLabel,
-        radioLabelSlot,
+        styles.radioLabel,
+        styles.radioLabelSlot,
       )}
     >
       {children}
@@ -179,8 +198,8 @@ const RadioHelper = forwardRef<HTMLSpanElement, RadioHelperProps>(({ children },
       id={item?.helperId}
       className={clsx(
         getLabelClassName({ size: radioTextSizeMap[size].helper, weight: "subtle" }),
-        radioHelper,
-        radioHelperSlot,
+        styles.radioHelper,
+        styles.radioHelperSlot,
       )}
     >
       {children}

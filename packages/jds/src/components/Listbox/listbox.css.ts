@@ -3,6 +3,7 @@ import { vars } from "tokens";
 import { overlay } from "utils";
 
 import { labelColorVar } from "@/utils/typography.css";
+import { virtualFocusSelector } from "@/utils/virtualFocus";
 
 export const selectContainer = style({
   display: "flex",
@@ -59,10 +60,11 @@ export const option = style([
         borderRadius: "inherit",
         pointerEvents: "none",
       },
-      '[role="listbox"]:focus-visible &[data-active]:not([data-disabled])::before': {
-        boxShadow: `inset 0 0 0 ${vars.scheme.semantic.strokeWeight["2"]} ${vars.color.semantic.accent.alpha.alternative}`,
-        zIndex: 1,
-      },
+      [`:is([role="listbox"]:focus-visible, [role="listbox"]${virtualFocusSelector}) &[data-active]:not([data-disabled])::before`]:
+        {
+          boxShadow: `inset 0 0 0 ${vars.scheme.semantic.strokeWeight["2"]} ${vars.color.semantic.accent.alpha.alternative}`,
+          zIndex: 1,
+        },
       "&[data-disabled]": { cursor: "not-allowed" },
     },
   },
@@ -126,6 +128,14 @@ export const optionCaption = style({
       vars: { [labelColorVar]: vars.color.semantic.object.subtle },
     },
   },
+});
+
+export const customValueText = style({
+  gridColumn: "1 / 3",
+});
+
+export const customValueCaption = style({
+  gridColumn: "1 / -1",
 });
 
 export const optionCheck = style({

@@ -23,7 +23,7 @@ export const stackContainer = style({
   position: "fixed",
   right: 0,
   bottom: 0,
-  zIndex: vars.environment.semantic.zIndex.overlay,
+  zIndex: vars.environment.semantic.zIndex.floated,
   display: "flex",
   flexDirection: "column-reverse",
   gap: vars.scheme.semantic.spacing["16"],

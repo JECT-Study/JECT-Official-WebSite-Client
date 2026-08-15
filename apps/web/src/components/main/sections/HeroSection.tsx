@@ -2,16 +2,22 @@ import { Hero, Icon, Label } from "@jects/jds";
 import { useEffect, useState } from "react";
 
 import heroBackground from "@/assets/images/hero-background.png";
+import PositionApp from "@/assets/svg/positionApp.svg?react";
+import PositionBe from "@/assets/svg/positionBe.svg?react";
+import PositionFe from "@/assets/svg/positionFe.svg?react";
+import PositionPd from "@/assets/svg/positionPd.svg?react";
+import PositionPm from "@/assets/svg/positionPm.svg?react";
 
 const ANIMATION_DELAY_MS = 800;
 const ANIMATION_DURATION_MS = 500;
 const ANIMATION_CYCLE_MS = ANIMATION_DELAY_MS + ANIMATION_DURATION_MS;
 
 const ROTATION_ITEMS = [
-  { icon: "frontend", text: "프론트엔드 개발을" },
-  { icon: "backend", text: "백엔드 개발을" },
-  { icon: "product", text: "프로덕트 관리를" },
-  { icon: "design", text: "프로덕트 디자인을" },
+  { icon: PositionFe, text: "프론트엔드 개발을" },
+  { icon: PositionBe, text: "백엔드 개발을" },
+  { icon: PositionApp, text: "앱 개발을" },
+  { icon: PositionPm, text: "프로덕트 관리를" },
+  { icon: PositionPd, text: "프로덕트 디자인을" },
 ] as const;
 
 const RotatingText = () => {
@@ -57,10 +63,10 @@ const RotatingText = () => {
           transition: isTransitioning ? `transform ${ANIMATION_DURATION_MS}ms` : "none",
         }}
       >
-        {extendedItems.map((item, index) => (
+        {extendedItems.map(({ icon: PositionIcon, text }, index) => (
           <span key={index} className='flex h-[1.2em] items-center justify-center gap-2'>
-            <Icon name={item.icon} size='4xl' color='currentColor' />
-            <span>{item.text}</span>
+            <PositionIcon width={36} height={36} />
+            <span>{text}</span>
           </span>
         ))}
       </span>

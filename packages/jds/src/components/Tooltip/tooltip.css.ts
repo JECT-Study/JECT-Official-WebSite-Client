@@ -23,7 +23,7 @@ export const content = style({
   maxWidth: pxToRem(280),
   overflowWrap: "break-word",
   textAlign: "center",
-  zIndex: 9999,
+  zIndex: vars.environment.semantic.zIndex.floated,
   boxShadow: vars.environment.semantic.shadow.overlay,
 
   selectors: {

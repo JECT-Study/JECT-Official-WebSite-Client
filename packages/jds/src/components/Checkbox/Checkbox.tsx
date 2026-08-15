@@ -4,7 +4,7 @@ import type { CheckboxProps } from "./checkbox.types";
 import { CheckboxPrimitive } from "./CheckboxPrimitive";
 
 export const Checkbox = forwardRef<HTMLButtonElement, CheckboxProps>(
-  ({ label, helper, size, variant, disabled, isInvalid, ...controlProps }, ref) => {
+  ({ label, helper, size, variant, disabled, isInvalid, stretched, ...controlProps }, ref) => {
     if (label == null && helper == null) {
       return (
         <CheckboxPrimitive.Control
@@ -23,6 +23,7 @@ export const Checkbox = forwardRef<HTMLButtonElement, CheckboxProps>(
         variant={variant}
         disabled={disabled}
         isInvalid={isInvalid}
+        stretched={stretched}
       >
         <CheckboxPrimitive.Control ref={ref} {...controlProps} />
         {label != null && <CheckboxPrimitive.Label>{label}</CheckboxPrimitive.Label>}

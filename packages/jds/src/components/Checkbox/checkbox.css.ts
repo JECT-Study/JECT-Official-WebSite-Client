@@ -1,4 +1,4 @@
-import { style, type StyleRule } from "@vanilla-extract/css";
+import { createVar, style, type StyleRule } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
 import { pxToRem, overlay } from "utils";
@@ -7,7 +7,28 @@ import { CHECKBOX_SIZE_OPTIONS, type CheckboxSize } from "./checkbox.types";
 
 import { labelColorVar } from "@/utils/typography.css";
 
-export const checkboxGroupWrapper = style({ display: "contents" });
+export const checkboxGroupColumnsVar = createVar();
+
+export const checkboxGroupWrapper = recipe({
+  variants: {
+    layout: {
+      vertical: {
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "flex-start",
+        gap: vars.scheme.semantic.spacing["12"],
+      },
+      grid: {
+        display: "grid",
+        width: "100%",
+        gridTemplateColumns: `repeat(${checkboxGroupColumnsVar}, minmax(0, 1fr))`,
+        justifyItems: "start",
+        gap: vars.scheme.semantic.spacing["10"],
+      },
+    },
+  },
+  defaultVariants: { layout: "vertical" },
+});
 
 const checkboxVisualSizeMap = {
   lg: pxToRem(20),
@@ -125,11 +146,15 @@ const outlinedPaddingCompoundVariants = CHECKBOX_SIZE_OPTIONS.map(size => ({
 
 const checkboxItemGrid = style({
   display: "inline-grid",
-  gridTemplateColumns: "auto 1fr",
-  alignItems: "center",
+  gridTemplateColumns: "auto minmax(0, 1fr)",
+  alignItems: "start",
+  maxWidth: "100%",
 });
 
 export const checkboxControlSlot = style({ gridColumn: "1", gridRow: "1" });
+
+export const checkboxControlInItem = style({ marginTop: pxToRem(1) });
+
 export const checkboxLabelSlot = style({
   gridColumn: "2",
   gridRow: "1",
@@ -145,7 +170,9 @@ export const checkboxItem = recipe({
     overlay(),
     {
       position: "relative",
+      cursor: "pointer",
       selectors: {
+        "&[data-disabled]": { cursor: "not-allowed" },
         "&::before, &::after": { inset: 0, borderRadius: "inherit" },
       },
     },
@@ -185,6 +212,12 @@ export const checkboxItem = recipe({
       },
       hollow: { border: "none", padding: 0 },
     },
+    stretched: {
+      true: {
+        display: "grid",
+        width: "100%",
+      },
+    },
   },
   compoundVariants: [...expansionCompoundVariants, ...outlinedPaddingCompoundVariants],
 });
@@ -193,17 +226,17 @@ export const checkboxItem = recipe({
 // disabled 및 invalid 색상은 조상의 data attribute로 제어한다.
 
 export const checkboxLabel = style({
-  whiteSpace: "nowrap",
   vars: { [labelColorVar]: vars.color.semantic.object.bolder },
   selectors: {
+    "&&": { cursor: "inherit" },
     "[data-disabled] &": { vars: { [labelColorVar]: vars.color.semantic.object.subtle } },
   },
 });
 
 export const checkboxHelper = style({
-  whiteSpace: "nowrap",
   vars: { [labelColorVar]: vars.color.semantic.object.alternative },
   selectors: {
+    "&&": { cursor: "inherit" },
     "[data-disabled] &": { vars: { [labelColorVar]: vars.color.semantic.object.subtle } },
     "[data-invalid] &": {
       vars: { [labelColorVar]: vars.color.semantic.feedback.destructive.normal },

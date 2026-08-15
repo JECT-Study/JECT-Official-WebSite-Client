@@ -23,7 +23,7 @@ function ApplyLayout() {
 }
 
 //Todo: Apply 로딩 fallback - 일단 공용이랑 동일하게 교체
-function ApplyLoadingFallback() {
+export function ApplyLoadingFallback() {
   return (
     <div className='flex min-h-screen flex-col items-center justify-center'>
       <DefaultLoadingFallback />

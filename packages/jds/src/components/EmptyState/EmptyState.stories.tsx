@@ -66,7 +66,8 @@ const meta: Meta<typeof EmptyState> = {
     },
     header: {
       control: "text",
-      description: "엠티 스테이트를 축약적으로 설명하는 타이틀 텍스트입니다.",
+      description:
+        "엠티 스테이트를 축약적으로 설명하는 타이틀 텍스트입니다. 작성되지 않을 경우 컴포넌트에 표시되지 않습니다.",
     },
     body: {
       control: "text",
@@ -134,6 +135,30 @@ export const Layout: Story = {
           />
         </Case>
       ))}
+    </div>
+  ),
+};
+
+export const WithTitle: Story = {
+  render: () => (
+    <div style={rowStyle}>
+      <Case label='withTitle=false'>
+        <EmptyState
+          image={SAMPLE_IMAGE}
+          body={SAMPLE_BODY}
+          primaryAction={PRIMARY_ACTION}
+          secondaryAction={SECONDARY_ACTION}
+        />
+      </Case>
+      <Case label='withTitle=true'>
+        <EmptyState
+          image={SAMPLE_IMAGE}
+          header={SAMPLE_HEADER}
+          body={SAMPLE_BODY}
+          primaryAction={PRIMARY_ACTION}
+          secondaryAction={SECONDARY_ACTION}
+        />
+      </Case>
     </div>
   ),
 };

@@ -76,14 +76,6 @@ export const ProgramMenu = () => {
               미니 스터디
             </MenuItem.Anchor>
           </MegaMenu.GroupItem>
-          <MegaMenu.GroupItem>
-            <MenuItem.Anchor
-              href={PATH.liveSession}
-              onClick={e => handleMenuClick(e, PATH.liveSession)}
-            >
-              라이브 세션
-            </MenuItem.Anchor>
-          </MegaMenu.GroupItem>
         </MegaMenu.Group>
       </MegaMenu.Section>
     </MegaMenu.Root>

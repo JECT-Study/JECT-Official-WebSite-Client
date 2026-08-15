@@ -6,6 +6,11 @@ export const CHECKBOX_VARIANT_OPTIONS = ["hollow", "outlined"] as const;
 
 export type CheckboxSize = (typeof CHECKBOX_SIZE_OPTIONS)[number];
 export type CheckboxVariant = (typeof CHECKBOX_VARIANT_OPTIONS)[number];
+
+type CheckboxRootLayoutProps =
+  | { layout?: "vertical"; columns?: never }
+  | { layout: "grid"; columns: number };
+
 export type CheckedState = boolean | "indeterminate";
 
 type CheckboxRootControlledProps = {
@@ -25,12 +30,14 @@ type CheckboxRootBaseProps = {
   variant?: CheckboxVariant;
   disabled?: boolean;
   isInvalid?: boolean;
+  stretched?: boolean;
   name?: string;
   children: ReactNode;
 };
 
 export type CheckboxRootProps = CheckboxRootBaseProps &
   AriaLabelProps &
+  CheckboxRootLayoutProps &
   (CheckboxRootControlledProps | CheckboxRootUncontrolledProps);
 
 export type CheckboxItemProps = ComponentPropsWithoutRef<"label"> & {
@@ -38,6 +45,7 @@ export type CheckboxItemProps = ComponentPropsWithoutRef<"label"> & {
   variant?: CheckboxVariant;
   disabled?: boolean;
   isInvalid?: boolean;
+  stretched?: boolean;
   children: ReactNode;
 };
 
@@ -94,12 +102,14 @@ type CheckboxGroupBaseProps = {
   variant?: CheckboxVariant;
   disabled?: boolean;
   isInvalid?: boolean;
+  stretched?: boolean;
   name?: string;
   options: CheckboxOption[];
 };
 
 export type CheckboxGroupProps = CheckboxGroupBaseProps &
   AriaLabelProps &
+  CheckboxRootLayoutProps &
   (CheckboxRootControlledProps | CheckboxRootUncontrolledProps);
 
 type CheckboxStandaloneBaseProps = Omit<
@@ -123,8 +133,8 @@ type CheckboxStandaloneBaseProps = Omit<
   };
 
 type CheckboxLabelHelperProps =
-  | { label?: RenderableNode; helper?: never }
-  | { label: RenderableNode; helper?: ReactNode };
+  | { label?: RenderableNode; helper?: never; stretched?: never }
+  | { label: RenderableNode; helper?: ReactNode; stretched?: boolean };
 
 export type CheckboxProps = CheckboxStandaloneBaseProps &
   CheckboxLabelHelperProps &
