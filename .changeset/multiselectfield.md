@@ -36,6 +36,8 @@
 
 선택 목록은 Radix Popover로 표시하며 열림 상태와 위치 계산, 바깥 클릭과 Escape 처리를 컴포넌트가 담당합니다. 검색 결과가 없으면 목록이 열리지 않고, 한글은 조합 중에도 검색 결과가 유지됩니다. 방향키로 항목을 이동하고 Enter로 선택하며, 검색어가 비어 있을 때 Backspace는 마지막 태그를 제거합니다. `disabled`와 `readonly`에서는 목록을 열 수 없고 태그도 제거할 수 없습니다.
 
+접근 이름은 `MultiSelectField.Label`이 렌더되면 그 id를 참조하고, 레이블 없이 쓰면 입력 요소에 전달한 `aria-labelledby`나 `aria-label`을 사용합니다. 목록은 Portal로 분리되므로 입력 요소와 같은 이름을 함께 연결합니다.
+
 입력 요소는 `role="combobox"`로 native 시맨틱을 덮어쓰므로 읽기 전용과 필수 상태를 `aria-readonly`, `aria-required`로 함께 노출합니다. `required`는 native `required`를 붙이지 않아 브라우저 기본 검증은 동작하지 않습니다.
 
 `es-hangul`이 런타임 의존성으로 추가됩니다. gzip 기준 약 1.8KB이며 `MultiSelectField`를 사용하는 소비처 번들에만 포함됩니다.

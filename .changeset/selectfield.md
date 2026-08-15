@@ -10,7 +10,7 @@
 
 선택 목록은 Radix Popover로 표시하고 열림 상태와 위치 계산, 바깥 클릭과 Escape 처리를 컴포넌트가 담당합니다. 목록 높이는 트리거 아래에 남은 화면 공간으로 제한하고 초과하면 내부에서 스크롤하며, 열릴 때는 선택된 항목이 보이도록 스크롤 위치를 맞춥니다.
 
-접근성은 W3C 콤보박스 패턴을 따릅니다. 트리거는 `role="combobox"`와 `aria-haspopup="listbox"`, `aria-expanded`, `aria-activedescendant`를 가지며 포커스는 항상 트리거에 유지됩니다. `aria-controls`는 목록이 열려 DOM에 존재할 때만 연결하고, `aria-labelledby`는 `SelectField.Label`이 렌더될 때만 연결합니다. 닫힌 상태에서는 방향키, `Home`, `End`, `Enter`, `Space`로 목록을 열고, 열린 상태에서는 방향키와 `Home`, `End`로 이동한 뒤 `Enter`나 `Space`로 선택합니다. `status`가 `error`면 트리거에 `aria-invalid`를 적용하고, `aria-describedby`는 `SelectField.Helper`가 렌더될 때만 연결합니다. 버튼에는 native `readonly`와 `required`가 없으므로 두 상태는 `aria-readonly`와 `aria-required`로 노출하며, `disabled`와 `readonly`에서는 클릭과 키보드 모두 목록을 열 수 없습니다.
+접근성은 W3C 콤보박스 패턴을 따릅니다. 트리거는 `role="combobox"`와 `aria-haspopup="listbox"`, `aria-expanded`, `aria-activedescendant`를 가지며 포커스는 항상 트리거에 유지됩니다. `aria-controls`는 목록이 열려 DOM에 존재할 때만 연결합니다. 접근 이름은 `SelectField.Label`이 렌더되면 그 id를 참조하고, 레이블 없이 쓰면 트리거에 전달한 `aria-labelledby`나 `aria-label`을 사용합니다. 목록은 Portal로 분리되므로 트리거와 같은 이름을 함께 연결합니다. 닫힌 상태에서는 방향키, `Home`, `End`, `Enter`, `Space`로 목록을 열고, 열린 상태에서는 방향키와 `Home`, `End`로 이동한 뒤 `Enter`나 `Space`로 선택합니다. `status`가 `error`면 트리거에 `aria-invalid`를 적용하고, `aria-describedby`는 `SelectField.Helper`가 렌더될 때만 연결합니다. 버튼에는 native `readonly`와 `required`가 없으므로 두 상태는 `aria-readonly`와 `aria-required`로 노출하며, `disabled`와 `readonly`에서는 클릭과 키보드 모두 목록을 열 수 없습니다.
 
 타입 `SelectFieldProps`, `SelectFieldTriggerProps`, `SelectFieldLabelProps`, `SelectFieldHelperProps`를 함께 내보냅니다.
 
