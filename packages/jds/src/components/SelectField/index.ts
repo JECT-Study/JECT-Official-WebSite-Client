@@ -3,5 +3,5 @@ export type { SelectFieldProps, SelectFieldTriggerProps } from "./selectField.ty
 export type {
   FieldContentProps as SelectFieldContentProps,
   FieldLabelProps as SelectFieldLabelProps,
-  FieldHelperTextProps as SelectFieldHelperTextProps,
+  FieldHelperProps as SelectFieldHelperProps,
 } from "../Field";

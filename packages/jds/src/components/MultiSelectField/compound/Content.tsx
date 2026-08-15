@@ -16,9 +16,7 @@ export const MultiSelectFieldContent = forwardRef<HTMLDivElement, FieldContentPr
       onMouseDown?.(e);
       if (e.defaultPrevented || e.target !== e.currentTarget) return;
 
-      const input = e.currentTarget.querySelector<HTMLInputElement>(
-        "input[data-interaction-target]",
-      );
+      const input = e.currentTarget.querySelector<HTMLInputElement>("input[data-field-control]");
       if (input == null) return;
 
       e.preventDefault();

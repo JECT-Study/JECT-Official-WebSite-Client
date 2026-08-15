@@ -47,12 +47,6 @@ const meta = {
       control: false,
       table: { disable: true },
     },
-    fieldStyle: {
-      control: "inline-radio",
-      options: ["outline", "hollow"],
-      description: "필드 스타일",
-      table: { defaultValue: { summary: "outline" } },
-    },
     status: {
       control: "inline-radio",
       options: ["default", "success", "error"],
@@ -85,7 +79,6 @@ type Story = StoryObj<typeof meta>;
  */
 export const Playground: Story = {
   args: {
-    fieldStyle: "outline",
     status: "default",
     disabled: false,
     readonly: false,
@@ -95,7 +88,7 @@ export const Playground: Story = {
   render: args => (
     <MultiSelectField {...args} style={FIELD_WIDTH}>
       <MultiSelectField.Label
-        suffixSlot={
+        suffix={
           <Icon
             name='information-line'
             size='2xs'
@@ -109,33 +102,9 @@ export const Playground: Story = {
         <MultiSelectField.Input options={options} placeholder='플레이스홀더' />
       </MultiSelectField.Content>
       <MultiSelectField.Footer>
-        <MultiSelectField.HelperText>헬퍼 텍스트</MultiSelectField.HelperText>
+        <MultiSelectField.Helper>헬퍼 텍스트</MultiSelectField.Helper>
       </MultiSelectField.Footer>
     </MultiSelectField>
-  ),
-};
-
-/**
- * `fieldStyle`에 따른 필드의 스타일 변형입니다.
- */
-export const Styles: Story = {
-  render: () => (
-    <FlexRow gap='32px' style={{ alignItems: "flex-start" }}>
-      {(["outline", "hollow"] as const).map(style => (
-        <FlexColumn key={style} gap='16px' style={{ alignItems: "flex-start" }}>
-          <Label>{style}</Label>
-          <MultiSelectField fieldStyle={style} defaultValue={["서울특별시"]} style={FIELD_WIDTH}>
-            <MultiSelectField.Label>레이블</MultiSelectField.Label>
-            <MultiSelectField.Content>
-              <MultiSelectField.Input options={options} placeholder='플레이스홀더' />
-            </MultiSelectField.Content>
-            <MultiSelectField.Footer>
-              <MultiSelectField.HelperText>헬퍼 텍스트</MultiSelectField.HelperText>
-            </MultiSelectField.Footer>
-          </MultiSelectField>
-        </FlexColumn>
-      ))}
-    </FlexRow>
   ),
 };
 
@@ -154,7 +123,7 @@ export const Statuses: Story = {
               <MultiSelectField.Input options={options} placeholder='플레이스홀더' />
             </MultiSelectField.Content>
             <MultiSelectField.Footer>
-              <MultiSelectField.HelperText>헬퍼 텍스트</MultiSelectField.HelperText>
+              <MultiSelectField.Helper>헬퍼 텍스트</MultiSelectField.Helper>
             </MultiSelectField.Footer>
           </MultiSelectField>
         </FlexColumn>
@@ -188,7 +157,7 @@ export const States: Story = {
               <MultiSelectField.Input options={options} placeholder='플레이스홀더' />
             </MultiSelectField.Content>
             <MultiSelectField.Footer>
-              <MultiSelectField.HelperText>헬퍼 텍스트</MultiSelectField.HelperText>
+              <MultiSelectField.Helper>헬퍼 텍스트</MultiSelectField.Helper>
             </MultiSelectField.Footer>
           </MultiSelectField>
         </FlexColumn>
@@ -241,7 +210,7 @@ export const WithCounter: Story = {
         <MultiSelectField.Input options={options} placeholder='플레이스홀더' />
       </MultiSelectField.Content>
       <MultiSelectField.Footer>
-        <MultiSelectField.HelperText>헬퍼 텍스트</MultiSelectField.HelperText>
+        <MultiSelectField.Helper>헬퍼 텍스트</MultiSelectField.Helper>
         <MultiSelectField.Counter />
       </MultiSelectField.Footer>
     </MultiSelectField>
@@ -265,7 +234,7 @@ export const CustomValue: Story = {
         />
       </MultiSelectField.Content>
       <MultiSelectField.Footer>
-        <MultiSelectField.HelperText>헬퍼 텍스트</MultiSelectField.HelperText>
+        <MultiSelectField.Helper>헬퍼 텍스트</MultiSelectField.Helper>
         <MultiSelectField.Counter />
       </MultiSelectField.Footer>
     </MultiSelectField>

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { FlexColumn, FlexRow, Label } from "@storybook-utils/layout";
+import { FlexColumn } from "@storybook-utils/layout";
 import { type ComponentPropsWithoutRef } from "react";
 
 import { Field } from "./Field";
@@ -19,12 +19,6 @@ const meta = {
     children: {
       control: false,
       table: { disable: true },
-    },
-    fieldStyle: {
-      control: "inline-radio",
-      options: ["outline", "hollow"],
-      description: "필드 스타일 (outline: 테두리+인터랙션 레이어, hollow: 민무늬)",
-      table: { defaultValue: { summary: "outline" } },
     },
     status: {
       control: "inline-radio",
@@ -61,8 +55,8 @@ type Story = StoryObj<typeof meta>;
 const DemoInput = (props: ComponentPropsWithoutRef<"input">) => {
   const {
     fieldId,
-    helperTextId,
-    hasHelperText,
+    helperId,
+    hasHelper,
     disabled: isDisabled,
     readonly: isReadonly,
     required: isRequired,
@@ -71,7 +65,7 @@ const DemoInput = (props: ComponentPropsWithoutRef<"input">) => {
   return (
     <input
       id={fieldId}
-      aria-describedby={hasHelperText ? helperTextId : undefined}
+      aria-describedby={hasHelper ? helperId : undefined}
       disabled={isDisabled}
       readOnly={isReadonly}
       required={isRequired}
@@ -103,21 +97,20 @@ const SampleField = ({
   defaultValue?: string;
 }) => (
   <>
-    <Field.Label suffixSlot={<Icon name='information-line' size='2xs' />}>{label}</Field.Label>
+    <Field.Label suffix={<Icon name='information-line' size='2xs' />}>{label}</Field.Label>
     <Field.Content>
       <DemoInput placeholder={placeholder} defaultValue={defaultValue} />
     </Field.Content>
-    <Field.HelperText>{helper}</Field.HelperText>
+    <Field.Helper>{helper}</Field.Helper>
   </>
 );
 
 /**
- * 컨트롤 패널에서 fieldStyle / status / disabled / readonly / required 를 바꿔가며
+ * 컨트롤 패널에서 status / disabled / readonly / required 를 바꿔가며
  * 직접 타이핑·hover·focus 해볼 수 있는 인터랙티브 예시입니다.
  */
 export const Playground: Story = {
   args: {
-    fieldStyle: "outline",
     status: "default",
     disabled: false,
     readonly: false,
@@ -129,31 +122,6 @@ export const Playground: Story = {
         <SampleField />
       </Field>
     </div>
-  ),
-};
-
-/**
- * 필드 스타일 비교.
- * - `outline`: 테두리 + 배경 + hover/press overlay + focus ring (readonly 포함)
- * - `hollow`: 테두리/배경/인터랙션 레이어 없이 입력만 노출
- */
-export const Styles: Story = {
-  render: () => (
-    <FlexRow gap='32px'>
-      <FlexColumn gap='8px' style={{ width: "18rem" }}>
-        <Label>outline</Label>
-        <Field fieldStyle='outline'>
-          <SampleField />
-        </Field>
-      </FlexColumn>
-
-      <FlexColumn gap='8px' style={{ width: "18rem" }}>
-        <Label>hollow</Label>
-        <Field fieldStyle='hollow'>
-          <SampleField />
-        </Field>
-      </FlexColumn>
-    </FlexRow>
   ),
 };
 
@@ -218,58 +186,57 @@ export const WithAddon: Story = {
   render: () => (
     <div style={{ width: "20rem" }}>
       <Field>
-        <Field.Label suffixSlot={<Icon name='information-line' size='2xs' />}>이메일</Field.Label>
+        <Field.Label suffix={<Icon name='information-line' size='2xs' />}>이메일</Field.Label>
         <Field.Content>
           <Icon name='account-circle-line' size='sm' />
           <DemoInput placeholder='이메일을 입력하세요' />
           <Icon name='close-line' size='sm' />
         </Field.Content>
-        <Field.HelperText>유효한 이메일 주소를 입력해주세요</Field.HelperText>
+        <Field.Helper>유효한 이메일 주소를 입력해주세요</Field.Helper>
       </Field>
     </div>
   ),
 };
 
 /**
- * outline Field.Content 는 hover/press overlay 와 focus ring 을 함께 표시합니다.
- * hollow 에서는 인터랙션 레이어가 적용되지 않습니다.
+ * Field.Content 는 hover/press overlay 와 focus ring 을 함께 표시합니다.
  */
-export const OutlineInteraction: Story = {
+export const Interaction: Story = {
   render: () => (
     <div style={{ width: "18rem" }}>
-      <Field fieldStyle='outline'>
+      <Field>
         <Field.Label>이메일</Field.Label>
         <Field.Content>
           <DemoInput placeholder='이메일을 입력하세요' />
         </Field.Content>
-        <Field.HelperText>hover/press 시 overlay 틴트와 focus ring이 표시됩니다</Field.HelperText>
+        <Field.Helper>hover/press 시 overlay 틴트와 focus ring이 표시됩니다</Field.Helper>
       </Field>
     </div>
   ),
 };
 
 /**
- * Field.Label 의 `prefixSlot` / `suffixSlot` 으로 라벨 앞뒤에 도움말 아이콘 등 부가 요소를 배치합니다.
+ * Field.Label 의 `prefix` / `suffix` 으로 라벨 앞뒤에 도움말 아이콘 등 부가 요소를 배치합니다.
  * 슬롯은 라벨·required 별표와 같은 labelContainer 행 안에 렌더되므로 별도 정렬 이슈가 없습니다.
- * required 별표는 라벨 오른쪽·suffixSlot 왼쪽에 위치합니다 (이메일 * ⓘ).
+ * required 별표는 라벨 오른쪽·suffix 왼쪽에 위치합니다 (이메일 * ⓘ).
  */
 export const LabelSlots: Story = {
   render: () => (
     <FlexColumn gap='24px'>
       <Field>
-        <Field.Label suffixSlot={<Icon name='information-line' size='2xs' />}>이메일</Field.Label>
+        <Field.Label suffix={<Icon name='information-line' size='2xs' />}>이메일</Field.Label>
         <Field.Content>
           <DemoInput placeholder='이메일을 입력하세요' />
         </Field.Content>
-        <Field.HelperText>유효한 이메일 주소를 입력해주세요</Field.HelperText>
+        <Field.Helper>유효한 이메일 주소를 입력해주세요</Field.Helper>
       </Field>
 
       <Field required>
-        <Field.Label suffixSlot={<Icon name='information-line' size='2xs' />}>이메일</Field.Label>
+        <Field.Label suffix={<Icon name='information-line' size='2xs' />}>이메일</Field.Label>
         <Field.Content>
           <DemoInput placeholder='이메일을 입력하세요' />
         </Field.Content>
-        <Field.HelperText>필수 입력 항목입니다</Field.HelperText>
+        <Field.Helper>필수 입력 항목입니다</Field.Helper>
       </Field>
     </FlexColumn>
   ),

@@ -4,5 +4,5 @@ export type { TextFieldInputProps } from "./compound/Input";
 export type {
   FieldContentProps as TextFieldContentProps,
   FieldLabelProps as TextFieldLabelProps,
-  FieldHelperTextProps as TextFieldHelperTextProps,
+  FieldHelperProps as TextFieldHelperProps,
 } from "../Field";

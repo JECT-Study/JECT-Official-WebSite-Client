@@ -45,8 +45,9 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
     const {
       fieldId,
       labelId,
-      helperTextId,
-      hasHelperText,
+      hasLabel,
+      helperId,
+      hasHelper,
       status,
       disabled: isDisabledFromCtx,
       readonly: isReadOnly,
@@ -137,9 +138,7 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
       [contextValue, onOpenChange],
     );
 
-    const describedByIds = [hasHelperText ? helperTextId : undefined, describedByFromProps].filter(
-      Boolean,
-    );
+    const describedByIds = [hasHelper ? helperId : undefined, describedByFromProps].filter(Boolean);
     const ariaInvalid = status === "error" ? true : (invalidFromProps ?? false);
 
     return (
@@ -154,13 +153,13 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
             aria-haspopup='listbox'
             aria-expanded={isOpen}
             aria-controls={listboxId}
-            aria-labelledby={labelId}
+            aria-labelledby={hasLabel ? labelId : undefined}
             aria-activedescendant={isOpen ? activeId : undefined}
             aria-describedby={describedByIds.length > 0 ? describedByIds.join(" ") : undefined}
             aria-invalid={ariaInvalid}
             aria-readonly={isReadOnly || undefined}
             disabled={isDisabled}
-            data-interaction-target=''
+            data-field-control=''
             data-readonly={isReadOnly || undefined}
             data-open={isOpen || undefined}
             className={clsx(styles.trigger, className)}
@@ -195,7 +194,7 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
               listboxProps={{
                 ...getListboxProps(),
                 ...getActiveDescendantContainerProps(),
-                "aria-labelledby": labelId,
+                "aria-labelledby": hasLabel ? labelId : undefined,
               }}
               onMouseDown={e => e.preventDefault()}
             >

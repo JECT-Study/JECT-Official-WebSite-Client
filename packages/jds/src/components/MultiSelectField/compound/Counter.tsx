@@ -12,7 +12,7 @@ export const MultiSelectFieldCounter = () => {
   const { selectedValues, maxValues, counterId, onCounterMountChange } = useMultiSelectFieldContext(
     "MultiSelectField.Counter",
   );
-  const { fieldStyle, status, disabled: isDisabled } = useFieldContext("MultiSelectField.Counter");
+  const { status, disabled: isDisabled } = useFieldContext("MultiSelectField.Counter");
 
   const isVisible = maxValues != null;
 
@@ -30,7 +30,7 @@ export const MultiSelectFieldCounter = () => {
       id={counterId}
       className={clsx(
         getLabelClassName({ size: "sm" }),
-        fieldStyles.helperText({ fieldStyle, status, disabled: isDisabled }),
+        fieldStyles.helper({ status, disabled: isDisabled }),
         styles.counter,
       )}
     >

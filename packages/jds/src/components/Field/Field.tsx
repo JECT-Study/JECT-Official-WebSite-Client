@@ -2,15 +2,14 @@ import { clsx } from "clsx";
 import { forwardRef, useId, useState, type ComponentPropsWithoutRef, type ReactNode } from "react";
 
 import { FieldContent } from "./compound/Content";
-import { FieldHelperText } from "./compound/HelperText";
+import { FieldHelper } from "./compound/Helper";
 import { FieldLabel } from "./compound/Label";
 import { FieldProvider } from "./Field.context";
 import * as styles from "./field.css";
-import type { FieldStatus, FieldStyle } from "./field.types";
+import type { FieldStatus } from "./field.types";
 
 export interface FieldProps extends ComponentPropsWithoutRef<"div"> {
   status?: FieldStatus;
-  fieldStyle?: FieldStyle;
   readonly?: boolean;
   disabled?: boolean;
   required?: boolean;
@@ -22,7 +21,6 @@ const InternalField = forwardRef<HTMLDivElement, FieldProps>(
     {
       id: idFromProps,
       status = "default",
-      fieldStyle = "outline",
       readonly = false,
       disabled = false,
       required = false,
@@ -35,18 +33,20 @@ const InternalField = forwardRef<HTMLDivElement, FieldProps>(
     const generatedId = useId();
     const fieldId = idFromProps ?? generatedId;
     const labelId = `${fieldId}-label`;
-    const helperTextId = `${fieldId}-helper-text`;
-    const [hasHelperText, setHasHelperText] = useState(false);
+    const helperId = `${fieldId}-helper`;
+    const [hasLabel, setHasLabel] = useState(false);
+    const [hasHelper, setHasHelper] = useState(false);
 
     return (
       <FieldProvider
         fieldId={fieldId}
         labelId={labelId}
-        helperTextId={helperTextId}
-        hasHelperText={hasHelperText}
-        onHelperTextMountChange={setHasHelperText}
+        hasLabel={hasLabel}
+        onLabelMountChange={setHasLabel}
+        helperId={helperId}
+        hasHelper={hasHelper}
+        onHelperMountChange={setHasHelper}
         status={status}
-        fieldStyle={fieldStyle}
         readonly={readonly}
         disabled={disabled}
         required={required}
@@ -67,5 +67,5 @@ InternalField.displayName = "InternalField";
 export const Field = Object.assign(InternalField, {
   Label: FieldLabel,
   Content: FieldContent,
-  HelperText: FieldHelperText,
+  Helper: FieldHelper,
 });

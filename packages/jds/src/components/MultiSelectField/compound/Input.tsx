@@ -56,8 +56,9 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
     const {
       fieldId,
       labelId,
-      helperTextId,
-      hasHelperText,
+      hasLabel,
+      helperId,
+      hasHelper,
       status,
       disabled: isDisabledFromCtx,
       readonly: isReadOnlyFromCtx,
@@ -235,7 +236,7 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
     };
 
     const describedByIds = [
-      hasHelperText ? helperTextId : undefined,
+      hasHelper ? helperId : undefined,
       hasCounter ? counterId : undefined,
       describedByFromProps,
     ].filter(Boolean);
@@ -283,7 +284,7 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
           readOnly={isReadOnly}
           placeholder={selectedValues.length === 0 ? placeholder : undefined}
           value={query}
-          data-interaction-target=''
+          data-field-control=''
           data-readonly={isReadOnly || undefined}
           className={clsx(getBodyClassName({ size: "md" }), styles.input, className)}
           onChange={handleChange}
@@ -325,7 +326,7 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
               listboxProps={{
                 ...getListboxProps(),
                 ...getActiveDescendantContainerProps(),
-                "aria-labelledby": labelId,
+                "aria-labelledby": hasLabel ? labelId : undefined,
               }}
               onMouseDown={e => e.preventDefault()}
             >

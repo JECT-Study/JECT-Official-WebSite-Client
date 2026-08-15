@@ -25,5 +25,5 @@ export const SelectField = Object.assign(SelectFieldRoot, {
   Label: Field.Label,
   Content: SelectFieldContent,
   Trigger: SelectFieldTrigger,
-  HelperText: Field.HelperText,
+  Helper: Field.Helper,
 });
