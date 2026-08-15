@@ -1,8 +1,8 @@
 import { clsx } from "clsx";
-import { forwardRef, useLayoutEffect, type ComponentPropsWithoutRef, type ReactNode } from "react";
+import { forwardRef, type ComponentPropsWithoutRef, type ReactNode } from "react";
 
 import { FieldContent } from "../../Field";
-import { useFieldContext } from "../../Field/Field.context";
+import { useFieldControl } from "../../Field/useFieldControl";
 import * as styles from "../textField.css";
 
 import { getBodyClassName } from "@/utils/typography";
@@ -33,6 +33,7 @@ export const TextFieldInput = forwardRef<HTMLInputElement, TextFieldInputProps>(
       readOnly: readOnlyFromProps,
       disabled: disabledFromProps,
       required: requiredFromProps,
+      "aria-label": ariaLabelFromProps,
       "aria-labelledby": labelledByFromProps,
       "aria-describedby": describedByFromProps,
       "aria-invalid": invalidFromProps,
@@ -43,28 +44,22 @@ export const TextFieldInput = forwardRef<HTMLInputElement, TextFieldInputProps>(
   ) => {
     const {
       fieldId,
-      labelId,
-      hasLabel,
-      helperId,
-      hasHelper,
-      onControlRequiredChange,
-      status,
-      disabled: isDisabledFromCtx,
-      readonly: isReadOnlyFromCtx,
-      required: isRequiredFromCtx,
-    } = useFieldContext("TextField.Input");
-
-    const isReadOnly = readOnlyFromProps ?? isReadOnlyFromCtx;
-    const isDisabled = disabledFromProps ?? isDisabledFromCtx;
-    const isRequired = requiredFromProps ?? isRequiredFromCtx;
-
-    useLayoutEffect(() => {
-      onControlRequiredChange(isRequired);
-      return () => onControlRequiredChange(false);
-    }, [isRequired, onControlRequiredChange]);
-
-    const describedByIds = [hasHelper ? helperId : undefined, describedByFromProps].filter(Boolean);
-    const ariaInvalid = status === "error" ? true : (invalidFromProps ?? false);
+      isDisabled,
+      isReadOnly,
+      isRequired,
+      ariaLabel,
+      ariaLabelledBy,
+      ariaDescribedBy,
+      ariaInvalid,
+    } = useFieldControl("TextField.Input", {
+      disabled: disabledFromProps,
+      readOnly: readOnlyFromProps,
+      required: requiredFromProps,
+      ariaLabel: ariaLabelFromProps,
+      ariaLabelledBy: labelledByFromProps,
+      ariaDescribedBy: describedByFromProps,
+      ariaInvalid: invalidFromProps,
+    });
 
     return (
       <FieldContent>
@@ -73,8 +68,9 @@ export const TextFieldInput = forwardRef<HTMLInputElement, TextFieldInputProps>(
           {...restProps}
           ref={ref}
           id={fieldId}
-          aria-labelledby={hasLabel ? labelId : labelledByFromProps}
-          aria-describedby={describedByIds.length > 0 ? describedByIds.join(" ") : undefined}
+          aria-label={ariaLabel}
+          aria-labelledby={ariaLabelledBy}
+          aria-describedby={ariaDescribedBy}
           aria-invalid={ariaInvalid}
           disabled={isDisabled}
           readOnly={isReadOnly}
