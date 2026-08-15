@@ -64,11 +64,6 @@ globalStyle("input, button, textarea, select", {
   font: "inherit",
 });
 
-// rows 속성이 없는 textarea의 최소 높이 확보
-globalStyle("textarea:not([rows])", {
-  minHeight: "10em",
-});
-
 // 클래스가 있는 a에 대해서만 기본 장식 제거
 globalStyle("a[class]", {
   textDecoration: "none",
