@@ -53,6 +53,8 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       onKeyDown: onKeyDownFromProps,
       onBlur: onBlurFromProps,
       onMouseDown: onMouseDownFromProps,
+      "aria-label": ariaLabelFromProps,
+      "aria-labelledby": labelledByFromProps,
       "aria-describedby": describedByFromProps,
       "aria-invalid": invalidFromProps,
       className,
@@ -264,6 +266,8 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       describedByFromProps,
     ].filter(Boolean);
     const ariaInvalid = status === "error" ? true : (invalidFromProps ?? false);
+    const labelledBy = hasLabel ? labelId : labelledByFromProps;
+    const ariaLabel = labelledBy == null ? ariaLabelFromProps : undefined;
 
     return (
       <>
@@ -305,7 +309,8 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
               aria-controls={isOpen ? listboxId : undefined}
               aria-activedescendant={isOpen ? activeId : undefined}
               aria-autocomplete='list'
-              aria-labelledby={hasLabel ? labelId : undefined}
+              aria-label={ariaLabel}
+              aria-labelledby={labelledBy}
               aria-describedby={describedByIds.length > 0 ? describedByIds.join(" ") : undefined}
               aria-invalid={ariaInvalid}
               aria-readonly={isReadOnly || undefined}
@@ -359,7 +364,8 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
               listboxProps={{
                 ...getListboxProps(),
                 ...getActiveDescendantContainerProps(),
-                "aria-labelledby": hasLabel ? labelId : undefined,
+                "aria-label": ariaLabel,
+                "aria-labelledby": labelledBy,
               }}
               onMouseDown={e => e.preventDefault()}
             >

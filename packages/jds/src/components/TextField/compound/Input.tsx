@@ -33,6 +33,7 @@ export const TextFieldInput = forwardRef<HTMLInputElement, TextFieldInputProps>(
       readOnly: readOnlyFromProps,
       disabled: disabledFromProps,
       required: requiredFromProps,
+      "aria-labelledby": labelledByFromProps,
       "aria-describedby": describedByFromProps,
       "aria-invalid": invalidFromProps,
       className,
@@ -72,7 +73,7 @@ export const TextFieldInput = forwardRef<HTMLInputElement, TextFieldInputProps>(
           {...restProps}
           ref={ref}
           id={fieldId}
-          aria-labelledby={hasLabel ? labelId : undefined}
+          aria-labelledby={hasLabel ? labelId : labelledByFromProps}
           aria-describedby={describedByIds.length > 0 ? describedByIds.join(" ") : undefined}
           aria-invalid={ariaInvalid}
           disabled={isDisabled}

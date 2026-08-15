@@ -38,6 +38,8 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
       disabled: disabledFromProps,
       onClick: onClickFromProps,
       onKeyDown: onKeyDownFromProps,
+      "aria-label": ariaLabelFromProps,
+      "aria-labelledby": labelledByFromProps,
       "aria-describedby": describedByFromProps,
       "aria-invalid": invalidFromProps,
       className,
@@ -159,6 +161,8 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
 
     const describedByIds = [hasHelper ? helperId : undefined, describedByFromProps].filter(Boolean);
     const ariaInvalid = status === "error" ? true : (invalidFromProps ?? false);
+    const labelledBy = hasLabel ? labelId : labelledByFromProps;
+    const ariaLabel = labelledBy == null ? ariaLabelFromProps : undefined;
 
     return (
       <>
@@ -174,7 +178,8 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
                 aria-haspopup='listbox'
                 aria-expanded={isOpen}
                 aria-controls={isOpen ? listboxId : undefined}
-                aria-labelledby={hasLabel ? labelId : undefined}
+                aria-label={ariaLabel}
+                aria-labelledby={labelledBy}
                 aria-activedescendant={isOpen ? activeId : undefined}
                 aria-describedby={describedByIds.length > 0 ? describedByIds.join(" ") : undefined}
                 aria-invalid={ariaInvalid}
@@ -218,7 +223,8 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
               listboxProps={{
                 ...getListboxProps(),
                 ...getActiveDescendantContainerProps(),
-                "aria-labelledby": hasLabel ? labelId : undefined,
+                "aria-label": ariaLabel,
+                "aria-labelledby": labelledBy,
               }}
               onMouseDown={e => e.preventDefault()}
             >
