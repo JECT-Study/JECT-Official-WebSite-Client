@@ -73,9 +73,7 @@ export const Playground: Story = {
       >
         이메일
       </TextField.Label>
-      <TextField.Content>
-        <TextField.Input placeholder='이메일을 입력하세요' />
-      </TextField.Content>
+      <TextField.Input placeholder='이메일을 입력하세요' />
       <TextField.Helper>유효한 이메일 주소를 입력해주세요</TextField.Helper>
     </TextField>
   ),
@@ -92,27 +90,21 @@ export const Statuses: Story = {
         <TextField.Label suffix={<Icon name='information-line' size='2xs' />}>
           이메일
         </TextField.Label>
-        <TextField.Content>
-          <TextField.Input placeholder='이메일을 입력하세요' />
-        </TextField.Content>
+        <TextField.Input placeholder='이메일을 입력하세요' />
         <TextField.Helper>유효한 이메일 주소를 입력해주세요</TextField.Helper>
       </TextField>
       <TextField status='success'>
         <TextField.Label suffix={<Icon name='information-line' size='2xs' />}>
           이메일
         </TextField.Label>
-        <TextField.Content>
-          <TextField.Input placeholder='이메일을 입력하세요' defaultValue='user@example.com' />
-        </TextField.Content>
+        <TextField.Input placeholder='이메일을 입력하세요' defaultValue='user@example.com' />
         <TextField.Helper>올바른 이메일 형식입니다</TextField.Helper>
       </TextField>
       <TextField status='error'>
         <TextField.Label suffix={<Icon name='information-line' size='2xs' />}>
           이메일
         </TextField.Label>
-        <TextField.Content>
-          <TextField.Input placeholder='이메일을 입력하세요' defaultValue='invalid-email' />
-        </TextField.Content>
+        <TextField.Input placeholder='이메일을 입력하세요' defaultValue='invalid-email' />
         <TextField.Helper>유효하지 않은 이메일 형식입니다</TextField.Helper>
       </TextField>
     </FlexColumn>
@@ -140,27 +132,21 @@ export const States: Story = {
         >
           Disabled
         </TextField.Label>
-        <TextField.Content>
-          <TextField.Input placeholder='비활성화된 입력 필드' />
-        </TextField.Content>
+        <TextField.Input placeholder='비활성화된 입력 필드' />
         <TextField.Helper>이 필드는 비활성화되어 있습니다</TextField.Helper>
       </TextField>
       <TextField readonly>
         <TextField.Label suffix={<Icon name='information-line' size='2xs' />}>
           Read Only
         </TextField.Label>
-        <TextField.Content>
-          <TextField.Input placeholder='이메일을 입력하세요' defaultValue='홍길동' />
-        </TextField.Content>
+        <TextField.Input placeholder='이메일을 입력하세요' defaultValue='홍길동' />
         <TextField.Helper>이 필드는 읽기 전용 상태입니다</TextField.Helper>
       </TextField>
       <TextField required>
         <TextField.Label suffix={<Icon name='information-line' size='2xs' />}>
           Required
         </TextField.Label>
-        <TextField.Content>
-          <TextField.Input placeholder='필수 입력 항목입니다' />
-        </TextField.Content>
+        <TextField.Input placeholder='필수 입력 항목입니다' />
         <TextField.Helper>필수로 입력해야 하는 필드입니다</TextField.Helper>
       </TextField>
     </FlexColumn>
@@ -168,17 +154,17 @@ export const States: Story = {
 };
 
 /**
- * TextField.Content 는 입력 좌우에 아이콘·버튼 등 부가 요소를 함께 배치할 수 있습니다.
+ * `TextField.Input`의 `prefix` / `suffix`로 컨트롤 좌우에 아이콘, 버튼 등 부가 요소를 배치할 수 있습니다.
  */
 export const WithAddon: Story = {
   render: () => (
     <TextField>
       <TextField.Label suffix={<Icon name='information-line' size='2xs' />}>이메일</TextField.Label>
-      <TextField.Content>
-        <Icon name='account-circle-line' size='sm' />
-        <TextField.Input placeholder='이메일을 입력하세요' />
-        <Icon name='close-line' size='sm' />
-      </TextField.Content>
+      <TextField.Input
+        prefix={<Icon name='account-circle-line' size='sm' />}
+        suffix={<Icon name='close-line' size='sm' />}
+        placeholder='이메일을 입력하세요'
+      />
       <TextField.Helper>유효한 이메일 주소를 입력해주세요</TextField.Helper>
     </TextField>
   ),

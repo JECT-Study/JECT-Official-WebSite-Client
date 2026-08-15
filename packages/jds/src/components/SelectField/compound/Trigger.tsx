@@ -9,6 +9,7 @@ import {
   type MouseEvent,
 } from "react";
 
+import { FieldContent } from "../../Field";
 import { useFieldContext } from "../../Field/Field.context";
 import { Icon } from "../../Icon";
 import { Listbox, useListbox, useSingleSelectState } from "../../Listbox";
@@ -143,39 +144,43 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
 
     return (
       <>
-        <Popover.Trigger asChild>
-          <button
-            {...restProps}
-            ref={ref}
-            type='button'
-            id={fieldId}
-            role='combobox'
-            aria-haspopup='listbox'
-            aria-expanded={isOpen}
-            aria-controls={listboxId}
-            aria-labelledby={hasLabel ? labelId : undefined}
-            aria-activedescendant={isOpen ? activeId : undefined}
-            aria-describedby={describedByIds.length > 0 ? describedByIds.join(" ") : undefined}
-            aria-invalid={ariaInvalid}
-            aria-readonly={isReadOnly || undefined}
-            disabled={isDisabled}
-            data-field-control=''
-            data-readonly={isReadOnly || undefined}
-            data-open={isOpen || undefined}
-            className={clsx(styles.trigger, className)}
-            onClick={handleClick}
-            onKeyDown={handleKeyDown}
-          >
-            <span
-              className={clsx(getBodyClassName({ size: "md" }), styles.value)}
-              data-placeholder={selectedLabel == null || undefined}
-            >
-              {selectedLabel ?? placeholder}
-            </span>
-            {suffix}
-            <Icon name='arrow-down-s-line' size='md' className={styles.indicator} />
-          </button>
-        </Popover.Trigger>
+        <Popover.Anchor asChild>
+          <FieldContent>
+            <Popover.Trigger asChild>
+              <button
+                {...restProps}
+                ref={ref}
+                type='button'
+                id={fieldId}
+                role='combobox'
+                aria-haspopup='listbox'
+                aria-expanded={isOpen}
+                aria-controls={listboxId}
+                aria-labelledby={hasLabel ? labelId : undefined}
+                aria-activedescendant={isOpen ? activeId : undefined}
+                aria-describedby={describedByIds.length > 0 ? describedByIds.join(" ") : undefined}
+                aria-invalid={ariaInvalid}
+                aria-readonly={isReadOnly || undefined}
+                disabled={isDisabled}
+                data-field-control=''
+                data-readonly={isReadOnly || undefined}
+                data-open={isOpen || undefined}
+                className={clsx(styles.trigger, className)}
+                onClick={handleClick}
+                onKeyDown={handleKeyDown}
+              >
+                <span
+                  className={clsx(getBodyClassName({ size: "md" }), styles.value)}
+                  data-placeholder={selectedLabel == null || undefined}
+                >
+                  {selectedLabel ?? placeholder}
+                </span>
+                {suffix}
+                <Icon name='arrow-down-s-line' size='md' className={styles.indicator} />
+              </button>
+            </Popover.Trigger>
+          </FieldContent>
+        </Popover.Anchor>
         <Popover.Portal>
           <Popover.Content
             asChild

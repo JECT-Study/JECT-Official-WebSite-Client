@@ -199,33 +199,51 @@ export const content = recipe({
   ],
 });
 
-const disabledHelperColor = {
+const disabledSupportTextColor = {
   default: vars.color.semantic.object.subtle,
   success: vars.color.semantic.feedback.positive.alpha.assistive,
   error: vars.color.semantic.feedback.destructive.alpha.assistive,
 } satisfies Record<FieldStatus, string>;
 
-const disabledHelperSelector = (status: FieldStatus) => ({
+const disabledSupportTextSelector = (status: FieldStatus) => ({
   [controlDisabledSelector]: {
-    vars: { [labelColorVar]: disabledHelperColor[status] },
+    vars: { [labelColorVar]: disabledSupportTextColor[status] },
   },
 });
 
-export const helper = recipe({
-  base: { marginTop: vars.scheme.semantic.spacing["6"] },
+// 박스 아래 첫 요소만 margin-top을 갖는다. Footer 처럼 여러 요소를 묶는 경우 래퍼가 받고 그 자식은 받지 않는다.
+// belowContent를 합성하지 않은 요소가 사이에 들어가면 간격이 사라진다.
+export const belowContent = style({
+  selectors: {
+    [`${content.classNames.base} + &`]: {
+      marginTop: vars.scheme.semantic.spacing["6"],
+    },
+  },
+});
+
+export const footer = style([
+  belowContent,
+  {
+    display: "flex",
+    alignItems: "flex-start",
+    gap: vars.scheme.semantic.spacing["8"],
+  },
+]);
+
+export const supportText = recipe({
   variants: {
     status: {
       default: {
         vars: { [labelColorVar]: vars.color.semantic.object.alternative },
-        selectors: disabledHelperSelector("default"),
+        selectors: disabledSupportTextSelector("default"),
       },
       success: {
         vars: { [labelColorVar]: vars.color.semantic.feedback.positive.normal },
-        selectors: disabledHelperSelector("success"),
+        selectors: disabledSupportTextSelector("success"),
       },
       error: {
         vars: { [labelColorVar]: vars.color.semantic.feedback.destructive.normal },
-        selectors: disabledHelperSelector("error"),
+        selectors: disabledSupportTextSelector("error"),
       },
     } satisfies Record<FieldStatus, StyleRule>,
     disabled: {

@@ -1,7 +1,8 @@
 import { clsx } from "clsx";
 import { forwardRef, useId, useState, type ComponentPropsWithoutRef, type ReactNode } from "react";
 
-import { FieldContent } from "./compound/Content";
+import { FieldCounter } from "./compound/Counter";
+import { FieldFooter } from "./compound/Footer";
 import { FieldHelper } from "./compound/Helper";
 import { FieldLabel } from "./compound/Label";
 import { FieldProvider } from "./Field.context";
@@ -34,8 +35,10 @@ const InternalField = forwardRef<HTMLDivElement, FieldProps>(
     const fieldId = idFromProps ?? generatedId;
     const labelId = `${fieldId}-label`;
     const helperId = `${fieldId}-helper`;
+    const counterId = `${fieldId}-counter`;
     const [hasLabel, setHasLabel] = useState(false);
     const [hasHelper, setHasHelper] = useState(false);
+    const [hasCounter, setHasCounter] = useState(false);
 
     return (
       <FieldProvider
@@ -46,6 +49,9 @@ const InternalField = forwardRef<HTMLDivElement, FieldProps>(
         helperId={helperId}
         hasHelper={hasHelper}
         onHelperMountChange={setHasHelper}
+        counterId={counterId}
+        hasCounter={hasCounter}
+        onCounterMountChange={setHasCounter}
         status={status}
         readonly={readonly}
         disabled={disabled}
@@ -61,11 +67,9 @@ const InternalField = forwardRef<HTMLDivElement, FieldProps>(
 
 InternalField.displayName = "InternalField";
 
-/**
- * @description Field component는 내부 internal component로 field류의 component를 구현하는 데 사용되는 컴포넌트입니다.
- */
 export const Field = Object.assign(InternalField, {
   Label: FieldLabel,
-  Content: FieldContent,
   Helper: FieldHelper,
+  Counter: FieldCounter,
+  Footer: FieldFooter,
 });

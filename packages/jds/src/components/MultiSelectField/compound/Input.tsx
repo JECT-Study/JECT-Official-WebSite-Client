@@ -16,8 +16,9 @@ import {
 } from "react";
 
 import { ContentBadge } from "../../Badge";
+import { FieldContent } from "../../Field";
 import { useFieldContext } from "../../Field/Field.context";
-import { Listbox, useListbox } from "../../Listbox";
+import { Listbox, useListbox, useMultiSelectState } from "../../Listbox";
 import { useMultiSelectFieldContext } from "../MultiSelectField.context";
 import * as styles from "../multiSelectField.css";
 import type { MultiSelectFieldInputProps } from "../multiSelectField.types";
@@ -36,6 +37,12 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
   (
     {
       options,
+      value,
+      defaultValue,
+      onChange,
+      maxValues,
+      name,
+      form,
       variant = "control",
       allowCustomValue = false,
       placeholder,
@@ -59,31 +66,25 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       hasLabel,
       helperId,
       hasHelper,
+      counterId,
+      hasCounter,
       status,
       disabled: isDisabledFromCtx,
       readonly: isReadOnlyFromCtx,
       required: isRequiredFromCtx,
     } = useFieldContext("MultiSelectField.Input");
 
-    const {
-      isOpen,
-      onOpenChange,
-      onHasPopupContentChange,
-      contentRef,
-      selectedValues,
-      toggle,
-      remove,
-      maxValues,
-      name,
-      form,
-      counterId,
-      hasCounter,
-    } = useMultiSelectFieldContext("MultiSelectField.Input");
+    const { isOpen, onOpenChange, onHasPopupContentChange, onCounterChange } =
+      useMultiSelectFieldContext("MultiSelectField.Input");
+
+    const contentRef = useRef<HTMLDivElement>(null);
 
     const isDisabled = disabledFromProps ?? isDisabledFromCtx;
     const isReadOnly = readOnlyFromProps ?? isReadOnlyFromCtx;
     const isRequired = requiredFromProps ?? isRequiredFromCtx;
     const isInteractive = !isDisabled && !isReadOnly;
+
+    const { selectedValues, toggle, remove } = useMultiSelectState(value, defaultValue, onChange);
 
     const inputRef = useRef<HTMLInputElement>(null);
     const [query, setQuery] = useState("");
@@ -139,6 +140,15 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       return () => onHasPopupContentChange(false);
     }, [hasPopupContent, onHasPopupContentChange]);
 
+    const selectedCount = selectedValues.length;
+
+    useLayoutEffect(() => {
+      if (maxValues == null) return;
+
+      onCounterChange({ current: selectedCount, max: maxValues });
+      return () => onCounterChange(null);
+    }, [selectedCount, maxValues, onCounterChange]);
+
     const activateRef = useRef<() => void>(() => {});
 
     useLayoutEffect(() => {
@@ -167,6 +177,15 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       previousQueryRef.current = query;
       if (isOpen) activateRef.current();
     }, [isOpen, query]);
+
+    // 박스 패딩을 눌러도 컨트롤에 포커스가 가도록 시각 영역과 클릭 타깃을 맞춘다.
+    const handleContentMouseDown = (e: MouseEvent<HTMLDivElement>) => {
+      if (e.target !== e.currentTarget) return;
+
+      e.preventDefault();
+      inputRef.current?.focus();
+      if (isInteractive) onOpenChange(true);
+    };
 
     const openIfInteractive = () => {
       if (isInteractive && !isOpen) onOpenChange(true);
@@ -244,66 +263,74 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
 
     return (
       <>
-        {selectedValues.map(selected => (
-          <ContentBadge
-            key={selected}
-            size='sm'
-            hierarchy='primary'
-            badgeStyle='outlined'
-            isMuted={isDisabled}
-            className={styles.tag}
-            {...(isInteractive
-              ? {
-                  withIconButton: true,
-                  onIconClick: () => {
-                    remove(selected);
-                    inputRef.current?.focus();
-                  },
-                }
-              : { withIconButton: false })}
+        <Popover.Anchor asChild>
+          <FieldContent
+            ref={contentRef}
+            className={styles.content}
+            onMouseDown={handleContentMouseDown}
           >
-            {selected}
-          </ContentBadge>
-        ))}
-        <input
-          {...restProps}
-          ref={mergeRefs(ref, inputRef)}
-          id={fieldId}
-          type='text'
-          role='combobox'
-          aria-haspopup='listbox'
-          aria-expanded={isOpen}
-          aria-controls={isOpen ? listboxId : undefined}
-          aria-activedescendant={isOpen ? activeId : undefined}
-          aria-autocomplete='list'
-          aria-describedby={describedByIds.length > 0 ? describedByIds.join(" ") : undefined}
-          aria-invalid={ariaInvalid}
-          aria-required={isRequired || undefined}
-          autoComplete='off'
-          disabled={isDisabled}
-          readOnly={isReadOnly}
-          placeholder={selectedValues.length === 0 ? placeholder : undefined}
-          value={query}
-          data-field-control=''
-          data-readonly={isReadOnly || undefined}
-          className={clsx(getBodyClassName({ size: "md" }), styles.input, className)}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          onKeyDown={handleKeyDown}
-          onMouseDown={handleMouseDown}
-        />
-        {suffix != null && <span className={styles.suffix}>{suffix}</span>}
-        {name != null &&
-          selectedValues.map(selected => (
+            {selectedValues.map(selected => (
+              <ContentBadge
+                key={selected}
+                size='sm'
+                hierarchy='primary'
+                badgeStyle='outlined'
+                isMuted={isDisabled}
+                className={styles.tag}
+                {...(isInteractive
+                  ? {
+                      withIconButton: true,
+                      onIconClick: () => {
+                        remove(selected);
+                        inputRef.current?.focus();
+                      },
+                    }
+                  : { withIconButton: false })}
+              >
+                {selected}
+              </ContentBadge>
+            ))}
             <input
-              key={selected}
-              type='hidden'
-              name={name}
-              value={selected}
-              form={form}
+              {...restProps}
+              ref={mergeRefs(ref, inputRef)}
+              id={fieldId}
+              type='text'
+              role='combobox'
+              aria-haspopup='listbox'
+              aria-expanded={isOpen}
+              aria-controls={isOpen ? listboxId : undefined}
+              aria-activedescendant={isOpen ? activeId : undefined}
+              aria-autocomplete='list'
+              aria-describedby={describedByIds.length > 0 ? describedByIds.join(" ") : undefined}
+              aria-invalid={ariaInvalid}
+              aria-required={isRequired || undefined}
+              autoComplete='off'
               disabled={isDisabled}
+              readOnly={isReadOnly}
+              placeholder={selectedValues.length === 0 ? placeholder : undefined}
+              value={query}
+              data-field-control=''
+              data-readonly={isReadOnly || undefined}
+              className={clsx(getBodyClassName({ size: "md" }), styles.input, className)}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              onKeyDown={handleKeyDown}
+              onMouseDown={handleMouseDown}
             />
-          ))}
+            {suffix != null && <span className={styles.suffix}>{suffix}</span>}
+            {name != null &&
+              selectedValues.map(selected => (
+                <input
+                  key={selected}
+                  type='hidden'
+                  name={name}
+                  value={selected}
+                  form={form}
+                  disabled={isDisabled}
+                />
+              ))}
+          </FieldContent>
+        </Popover.Anchor>
         <Popover.Portal>
           <Popover.Content
             asChild

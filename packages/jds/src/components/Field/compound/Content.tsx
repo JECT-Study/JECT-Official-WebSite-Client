@@ -12,7 +12,7 @@ export interface FieldContentProps extends ComponentPropsWithoutRef<"div"> {
 
 export const FieldContent = forwardRef<HTMLDivElement, FieldContentProps>(
   ({ children, className, ...restProps }, ref) => {
-    const { status, disabled: isDisabled, readonly: isReadonly } = useFieldContext("Field.Content");
+    const { status, disabled: isDisabled, readonly: isReadonly } = useFieldContext("FieldContent");
 
     return (
       <div
@@ -37,4 +37,4 @@ const statusToFeedback = {
   error: "destructive",
 } satisfies Record<FieldStatus, FocusRingFeedback>;
 
-FieldContent.displayName = "Field.Content";
+FieldContent.displayName = "FieldContent";

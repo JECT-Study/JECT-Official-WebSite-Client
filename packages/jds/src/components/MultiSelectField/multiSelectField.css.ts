@@ -56,12 +56,6 @@ export const popup = style({
   zIndex: vars.environment.semantic.zIndex.floated,
 });
 
-export const footer = style({
-  display: "flex",
-  alignItems: "flex-start",
-  gap: vars.scheme.semantic.spacing["8"],
-});
-
 export const counter = style({
   whiteSpace: "nowrap",
   flexShrink: 0,
