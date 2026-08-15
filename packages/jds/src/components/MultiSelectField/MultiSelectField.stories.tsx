@@ -247,9 +247,13 @@ export const CustomValue: Story = {
  */
 export const ScrollToSelected: Story = {
   render: () => (
-    <MultiSelectField defaultValue={["제주특별자치도"]} style={FIELD_WIDTH}>
+    <MultiSelectField style={FIELD_WIDTH}>
       <MultiSelectField.Label>레이블</MultiSelectField.Label>
-      <MultiSelectField.Input options={REGIONS} placeholder='플레이스홀더' />
+      <MultiSelectField.Input
+        options={REGIONS}
+        defaultValue={["제주특별자치도"]}
+        placeholder='플레이스홀더'
+      />
     </MultiSelectField>
   ),
 };
