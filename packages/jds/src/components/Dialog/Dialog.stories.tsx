@@ -1,15 +1,15 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { FlexRow } from "@storybook-utils/layout";
+import type { CSSProperties, ReactNode } from "react";
 import { useState } from "react";
 
 import { Dialog } from "./Dialog";
+import type { DialogProps } from "./dialog.types";
 
 import type { CheckedState } from "@/components";
 import { BlockButton } from "@/components";
 
-const SAMPLE_HEADER = "타이틀";
-const SAMPLE_BODY =
-  "다이얼로그 콘텐츠 내용의 입력 제한은 없지만, 과도하게 많은 내용을 안내하려 하는 것을 지양합니다.";
+const SAMPLE_HEADER = "다이얼로그 타이틀";
+const SAMPLE_BODY = "간결하게 안내하는 내용을 작성합니다. 피드백 메시지 원칙을 참조하세요.";
 const SAMPLE_BUTTON = "레이블";
 
 const meta: Meta<typeof Dialog> = {
@@ -27,16 +27,33 @@ const meta: Meta<typeof Dialog> = {
       control: "text",
       description: "본문 내용 역할의 텍스트 내용",
     },
-    isButtonStretched: {
+    closeOnInteractOutside: {
       control: "boolean",
-      description: "컴포넌트 내부 버튼 컨테이너 및 버튼들이 정렬 없이 늘려져 있는지 여부",
+      description:
+        "바깥 영역 클릭 또는 바깥 요소로의 포커스 이동 시 다이얼로그가 닫히는지 여부. Esc 키 동작에는 영향을 주지 않음",
       table: {
-        defaultValue: { summary: "false" },
+        defaultValue: { summary: "true" },
+      },
+    },
+    buttonLayout: {
+      control: "inline-radio",
+      options: ["horizontal", "vertical"],
+      description: "버튼 배치 방향. horizontal은 우측 정렬 md, vertical은 전체 너비 lg 세로 배치",
+      table: {
+        defaultValue: { summary: "horizontal" },
       },
     },
     primaryAction: {
       control: "object",
-      description: "첫 번째 버튼",
+      description: "주요 위계 버튼",
+    },
+    secondaryAction: {
+      control: "object",
+      description: "두 번째 위계의 버튼(선택). 없으면 렌더링되지 않음",
+    },
+    checkboxAction: {
+      control: "object",
+      description: "본문 하단 체크박스(선택). 없으면 렌더링되지 않음",
     },
   },
 };
@@ -49,7 +66,8 @@ export const Default: Story = {
   args: {
     header: SAMPLE_HEADER,
     body: SAMPLE_BODY,
-    isButtonStretched: false,
+    closeOnInteractOutside: true,
+    buttonLayout: "horizontal",
     primaryAction: {
       children: SAMPLE_BUTTON,
     },
@@ -60,174 +78,273 @@ export const Default: Story = {
 
     return (
       <>
-        <BlockButton.Basic onClick={() => setIsOpen(true)}>다이얼로그 열기</BlockButton.Basic>
-        <Dialog
-          open={isOpen}
-          onOpenChange={setIsOpen}
-          isButtonStretched={args.isButtonStretched}
-          header={args.header}
-          body={args.body}
-          primaryAction={{
-            ...args.primaryAction,
-          }}
-        />
+        <BlockButton onClick={() => setIsOpen(true)}>다이얼로그 열기</BlockButton>
+        <Dialog {...args} open={isOpen} onOpenChange={setIsOpen} />
       </>
     );
   },
-};
 
-export const IsButtonStretched: Story = {
-  render: () => {
-    const [open, setOpen] = useState<"default" | "isStretched" | null>(null);
-
-    return (
-      <FlexRow>
-        <BlockButton.Basic onClick={() => setOpen("default")}>정렬된 경우</BlockButton.Basic>
-        <BlockButton.Basic onClick={() => setOpen("isStretched")}>
-          정렬되지 않은 경우
-        </BlockButton.Basic>
-
-        <Dialog
-          open={open === "default"}
-          onOpenChange={value => (value ? setOpen("default") : setOpen(null))}
-          header={SAMPLE_HEADER}
-          body={SAMPLE_BODY}
-          primaryAction={{ children: "레이블" }}
-        />
-        <Dialog
-          open={open === "isStretched"}
-          onOpenChange={value => (value ? setOpen("isStretched") : setOpen(null))}
-          header={SAMPLE_HEADER}
-          body={SAMPLE_BODY}
-          isButtonStretched
-          primaryAction={{ children: "레이블" }}
-        />
-      </FlexRow>
-    );
-  },
   parameters: {
     docs: {
       description: {
         story:
-          "컴포넌트 내부에 버튼 컨테이너 및 버튼들이 특정 방향으로 정렬 없이 늘려져 있는지 확인할 수 있습니다. 다이얼로그가 작을 때 버튼 시인성과 상호작용 용이를 위해 존재합니다.",
+          "버튼 클릭으로 다이얼로그를 열어 등장/퇴장 애니메이션과 오버레이 동작을 확인할 수 있습니다.",
+      },
+    },
+  },
+};
+
+export const PanelWidth: Story = {
+  args: Default.args,
+  render: args => <Dialog {...args} open />,
+  tags: ["!autodocs", "vrt-viewport", "vrt-mobile"],
+  parameters: {
+    layout: "fullscreen",
+    chromatic: { viewports: [400, 1200] },
+    docs: {
+      description: {
+        story:
+          "패널의 실제 포지셔닝과 너비를 확인합니다. 너비를 지정하지 않으면 400~560px 사이에서 내용에 맞춰 정해지고, 뷰포트가 좁으면 좌우 16px을 남기고 줄어듭니다.",
+      },
+    },
+  },
+};
+
+export const PanelWidthFixed: Story = {
+  args: { ...Default.args, width: 720 },
+  render: args => <Dialog {...args} open />,
+  tags: ["!autodocs", "vrt-viewport", "vrt-mobile"],
+  parameters: {
+    layout: "fullscreen",
+    chromatic: { viewports: [400, 1200] },
+    docs: {
+      description: {
+        story:
+          "`width`로 너비를 720px에 고정한 상태입니다. 내용 길이와 무관하게 720px을 유지하고, 뷰포트가 좁으면 지정값과 무관하게 좌우 16px을 남기고 줄어듭니다.",
+      },
+    },
+  },
+};
+
+export const ScrollableBody: Story = {
+  args: {
+    ...Default.args,
+    body: Array.from({ length: 12 }, () => SAMPLE_BODY).join(" "),
+    secondaryAction: { children: SAMPLE_BUTTON },
+  },
+  render: args => <Dialog {...args} open />,
+  tags: ["!autodocs", "vrt-viewport"],
+  parameters: {
+    layout: "fullscreen",
+    docs: {
+      description: {
+        story:
+          "본문이 길어 패널이 최대 너비 560px과 최대 높이에 모두 걸린 상태입니다. 제목과 버튼은 고정되고 본문 영역만 스크롤됩니다.",
+      },
+    },
+  },
+};
+
+const rowStyle: CSSProperties = {
+  display: "flex",
+  flexWrap: "wrap",
+  justifyContent: "center",
+  alignItems: "flex-start",
+  gap: 32,
+};
+
+const caseStyle: CSSProperties = {
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  gap: 16,
+};
+
+const captionStyle: CSSProperties = {
+  fontSize: 11,
+  lineHeight: 1.4,
+  color: "#8a8a8a",
+  background: "#efefef",
+  padding: "3px 8px",
+  borderRadius: 3,
+  whiteSpace: "nowrap",
+};
+
+const MATRIX_PANEL_WIDTH = 360;
+const PANEL_VIEWPORT_GUTTER = 32;
+
+const cellStyle: CSSProperties = {
+  position: "relative",
+  display: "flex",
+  justifyContent: "center",
+  width: MATRIX_PANEL_WIDTH + PANEL_VIEWPORT_GUTTER,
+};
+
+const MATRIX_CELL_CLASS = "dialog-variant-cell";
+const MATRIX_STYLE = `
+.${MATRIX_CELL_CLASS} > *:not([role="dialog"]) { display: none; }
+.${MATRIX_CELL_CLASS} [role="dialog"] { position: static; transform: none; animation: none; }
+.${MATRIX_CELL_CLASS} :where(button, label)::before, .${MATRIX_CELL_CLASS} :where(button, label)::after { box-shadow: none !important; }
+`;
+
+type MatrixCaseProps = {
+  label: string;
+  checkbox?: boolean;
+} & Omit<DialogProps, "open" | "container" | "checkboxAction">;
+
+const MatrixCase = ({ label, checkbox, ...props }: MatrixCaseProps) => {
+  const [container, setContainer] = useState<HTMLDivElement | null>(null);
+  const [checked, setChecked] = useState<CheckedState>(false);
+
+  return (
+    <div style={caseStyle}>
+      <span style={captionStyle}>{label}</span>
+      <div ref={setContainer} className={MATRIX_CELL_CLASS} style={cellStyle}>
+        {container && (
+          <Dialog
+            open
+            modal={false}
+            container={container}
+            width={MATRIX_PANEL_WIDTH}
+            checkboxAction={
+              checkbox ? { label: SAMPLE_BUTTON, checked, onCheckedChange: setChecked } : undefined
+            }
+            {...props}
+          />
+        )}
+      </div>
+    </div>
+  );
+};
+
+const Matrix = ({ children }: { children: ReactNode }) => (
+  <>
+    <style>{MATRIX_STYLE}</style>
+    <div style={rowStyle}>{children}</div>
+  </>
+);
+
+export const WithCheckbox: Story = {
+  render: () => (
+    <Matrix>
+      <MatrixCase
+        label='withCheckbox=false'
+        header={SAMPLE_HEADER}
+        body={SAMPLE_BODY}
+        primaryAction={{ children: SAMPLE_BUTTON }}
+      />
+      <MatrixCase
+        label='withCheckbox=true'
+        checkbox
+        header={SAMPLE_HEADER}
+        body={SAMPLE_BODY}
+        primaryAction={{ children: SAMPLE_BUTTON }}
+      />
+    </Matrix>
+  ),
+  parameters: {
+    layout: "padded",
+    docs: {
+      description: {
+        story: "checkboxAction을 통해 본문 하단에 체크박스를 포함하는지 여부입니다.",
+      },
+      source: {
+        code: `const [open, setOpen] = useState(false);
+const [checked, setChecked] = useState<CheckedState>(false);
+
+<Dialog
+  open={open}
+  onOpenChange={setOpen}
+  header="다이얼로그 타이틀"
+  body="간결하게 안내하는 내용을 작성합니다."
+  primaryAction={{ children: "레이블" }}
+  checkboxAction={{ label: "레이블", checked, onCheckedChange: setChecked }}
+/>`,
       },
     },
   },
 };
 
 export const WithSecondaryButton: Story = {
-  render: () => {
-    const [open, setOpen] = useState<"default" | "isStretched" | null>(null);
-
-    return (
-      <FlexRow>
-        <BlockButton.Basic onClick={() => setOpen("default")}>정렬된 경우</BlockButton.Basic>
-        <BlockButton.Basic onClick={() => setOpen("isStretched")}>
-          정렬되지 않은 경우
-        </BlockButton.Basic>
-
-        <Dialog
-          open={open === "default"}
-          onOpenChange={value => (value ? setOpen("default") : setOpen(null))}
-          header={SAMPLE_HEADER}
-          body={SAMPLE_BODY}
-          primaryAction={{ children: "레이블" }}
-          secondaryAction={{ children: "레이블" }}
-        />
-        <Dialog
-          open={open === "isStretched"}
-          onOpenChange={value => (value ? setOpen("isStretched") : setOpen(null))}
-          header={SAMPLE_HEADER}
-          body={SAMPLE_BODY}
-          isButtonStretched
-          primaryAction={{ children: "레이블" }}
-          secondaryAction={{ children: "레이블" }}
-        />
-      </FlexRow>
-    );
-  },
+  render: () => (
+    <Matrix>
+      <MatrixCase
+        label='withSecondaryButton=false'
+        header={SAMPLE_HEADER}
+        body={SAMPLE_BODY}
+        primaryAction={{ children: SAMPLE_BUTTON }}
+      />
+      <MatrixCase
+        label='withSecondaryButton=true'
+        header={SAMPLE_HEADER}
+        body={SAMPLE_BODY}
+        primaryAction={{ children: SAMPLE_BUTTON }}
+        secondaryAction={{ children: SAMPLE_BUTTON }}
+      />
+    </Matrix>
+  ),
   parameters: {
+    layout: "padded",
     docs: {
       description: {
-        story:
-          "secondaryAction을 통해 내부에 두 번째 위계(중요도)의 버튼 컴포넌트를 포함하는지 판단합니다.",
+        story: "secondaryAction을 통해 두 번째 위계의 버튼을 포함하는지 여부입니다.",
+      },
+      source: {
+        code: `const [open, setOpen] = useState(false);
+
+<Dialog
+  open={open}
+  onOpenChange={setOpen}
+  header="다이얼로그 타이틀"
+  body="간결하게 안내하는 내용을 작성합니다."
+  primaryAction={{ children: "레이블" }}
+  secondaryAction={{ children: "레이블" }}
+/>`,
       },
     },
   },
 };
 
-export const WithTertiaryButton: Story = {
-  render: () => {
-    const [open, setOpen] = useState<"default" | "isStretched" | null>(null);
-
-    return (
-      <FlexRow>
-        <BlockButton.Basic onClick={() => setOpen("default")}>정렬된 경우</BlockButton.Basic>
-        <BlockButton.Basic onClick={() => setOpen("isStretched")}>
-          정렬되지 않은 경우
-        </BlockButton.Basic>
-
-        <Dialog
-          open={open === "default"}
-          onOpenChange={value => (value ? setOpen("default") : setOpen(null))}
-          header={SAMPLE_HEADER}
-          body={SAMPLE_BODY}
-          primaryAction={{ children: "레이블" }}
-          secondaryAction={{ children: "레이블" }}
-          tertiaryAction={{ children: "레이블" }}
-        />
-        <Dialog
-          open={open === "isStretched"}
-          onOpenChange={value => (value ? setOpen("isStretched") : setOpen(null))}
-          header={SAMPLE_HEADER}
-          body={SAMPLE_BODY}
-          isButtonStretched
-          primaryAction={{ children: "레이블" }}
-          secondaryAction={{ children: "레이블" }}
-          tertiaryAction={{ children: "레이블" }}
-        />
-      </FlexRow>
-    );
-  },
+export const ButtonLayout: Story = {
+  render: () => (
+    <Matrix>
+      <MatrixCase
+        label='buttonLayout=horizontal'
+        buttonLayout='horizontal'
+        header={SAMPLE_HEADER}
+        body={SAMPLE_BODY}
+        primaryAction={{ children: SAMPLE_BUTTON }}
+        secondaryAction={{ children: SAMPLE_BUTTON }}
+      />
+      <MatrixCase
+        label='buttonLayout=vertical'
+        buttonLayout='vertical'
+        header={SAMPLE_HEADER}
+        body={SAMPLE_BODY}
+        primaryAction={{ children: SAMPLE_BUTTON }}
+        secondaryAction={{ children: SAMPLE_BUTTON }}
+      />
+    </Matrix>
+  ),
   parameters: {
+    layout: "padded",
     docs: {
       description: {
         story:
-          "tertiaryAction을 통해 내부에 세 번째 위계(중요도)의 버튼 컴포넌트를 포함하는지 판단합니다. secondaryAction이 존재하지 않을 경우 사용할 수 없습니다.",
+          "buttonLayout으로 버튼 배치를 전환합니다. horizontal은 보조, 주요 버튼을 우측 정렬한 md 크기로, vertical은 주요 버튼을 위에 둔 전체 너비 lg 크기로 세로 배치합니다.",
       },
-    },
-  },
-};
+      source: {
+        code: `const [open, setOpen] = useState(false);
 
-export const WithCheckbox: Story = {
-  render: () => {
-    const [isOpen, setIsOpen] = useState(false);
-    const [isChecked, setIsChecked] = useState<CheckedState>(false);
-
-    return (
-      <>
-        <BlockButton.Basic onClick={() => setIsOpen(true)}>
-          체크박스 포함된 다이얼로그 열기
-        </BlockButton.Basic>
-        <Dialog
-          open={isOpen}
-          onOpenChange={setIsOpen}
-          header={SAMPLE_HEADER}
-          body={SAMPLE_BODY}
-          checkboxAction={{
-            label: "체크박스 항목 내용",
-            checked: isChecked,
-            onCheckedChange: setIsChecked,
-          }}
-          primaryAction={{ children: "레이블" }}
-        />
-      </>
-    );
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: "checkboxAction을 통해 내부에 체크박스 컴포넌트를 포함하는지의 판단합니다.",
+<Dialog
+  open={open}
+  onOpenChange={setOpen}
+  buttonLayout="vertical"
+  header="다이얼로그 타이틀"
+  body="간결하게 안내하는 내용을 작성합니다."
+  primaryAction={{ children: "레이블" }}
+  secondaryAction={{ children: "레이블" }}
+/>`,
       },
     },
   },

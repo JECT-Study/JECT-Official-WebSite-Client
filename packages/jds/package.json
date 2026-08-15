@@ -69,6 +69,7 @@
   "dependencies": {
     "@react-aria/utils": "^3.34.0",
     "clsx": "^2.1.1",
+    "es-hangul": "^2.4.0",
     "radix-ui": "^1.4.3"
   },
   "devDependencies": {
@@ -77,9 +78,9 @@
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@ject/eslint-config": "*",
-    "@storybook/addon-docs": "^10.1.0",
-    "@storybook/addon-onboarding": "^10.1.0",
-    "@storybook/react-vite": "^10.1.0",
+    "@storybook/addon-docs": "~10.1.11",
+    "@storybook/addon-onboarding": "~10.1.11",
+    "@storybook/react-vite": "~10.1.11",
     "@svgr/cli": "^8.1.0",
     "@svgr/core": "^8.1.0",
     "@types/node": "^22.19.1",
@@ -94,7 +95,7 @@
     "eslint-plugin-storybook": "^10.1.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "storybook": "^10.1.0",
+    "storybook": "~10.1.11",
     "style-dictionary": "^4.3.2",
     "tsup": "^8.5.0",
     "zod": "^3.25.76"

@@ -1,4 +1,4 @@
-import { style, type StyleRule } from "@vanilla-extract/css";
+import { createVar, style, type StyleRule } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
 import { pxToRem, overlay } from "utils";
@@ -17,7 +17,28 @@ const radioSizeMap: Record<RadioSize, { sizeRem: string; borderKey: StrokeWeight
   xs: { sizeRem: pxToRem(14), borderKey: "4" },
 };
 
-export const radioGroupWrapper = style({ display: "contents" });
+export const radioGroupColumnsVar = createVar();
+
+export const radioGroupWrapper = recipe({
+  variants: {
+    layout: {
+      vertical: {
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "flex-start",
+        gap: vars.scheme.semantic.spacing["12"],
+      },
+      grid: {
+        display: "grid",
+        width: "100%",
+        gridTemplateColumns: `repeat(${radioGroupColumnsVar}, minmax(0, 1fr))`,
+        justifyItems: "start",
+        gap: vars.scheme.semantic.spacing["10"],
+      },
+    },
+  },
+  defaultVariants: { layout: "vertical" },
+});
 
 // Radio.Indicator
 const ancestorCheckedEnabled = '[role="radio"][data-state="checked"]:not([data-disabled]) &';
@@ -130,8 +151,9 @@ const outlinedPaddingCompoundVariants = RADIO_SIZE_OPTIONS.map(size => ({
 
 const radioItemGrid = style({
   display: "inline-grid",
-  gridTemplateColumns: "auto 1fr",
-  alignItems: "center",
+  gridTemplateColumns: "auto minmax(0, 1fr)",
+  alignItems: "start",
+  maxWidth: "100%",
 });
 
 const buttonReset = style({
@@ -149,12 +171,16 @@ const buttonReset = style({
 });
 
 export const radioIndicatorSlot = style({ gridColumn: "1", gridRow: "1" });
+
+export const radioIndicatorInItem = style({ marginTop: pxToRem(1) });
+
 export const radioLabelSlot = style({
   gridColumn: "2",
   gridRow: "1",
   display: "flex",
   alignItems: "center",
 });
+
 export const radioHelperSlot = style({ gridColumn: "2", gridRow: "2" });
 
 export const radioItem = recipe({
@@ -181,22 +207,28 @@ export const radioItem = recipe({
       },
       hollow: { border: "none", padding: 0 },
     },
+    stretched: {
+      true: {
+        display: "grid",
+        width: "100%",
+      },
+    },
   },
   compoundVariants: [...expansionCompoundVariants, ...outlinedPaddingCompoundVariants],
 });
 
 export const radioLabel = style({
-  whiteSpace: "nowrap",
   vars: { [labelColorVar]: vars.color.semantic.object.bolder },
   selectors: {
+    "&&": { cursor: "inherit" },
     "[data-disabled] &": { vars: { [labelColorVar]: vars.color.semantic.object.subtle } },
   },
 });
 
 export const radioHelper = style({
-  whiteSpace: "nowrap",
   vars: { [labelColorVar]: vars.color.semantic.object.alternative },
   selectors: {
+    "&&": { cursor: "inherit" },
     "[data-disabled] &": { vars: { [labelColorVar]: vars.color.semantic.object.subtle } },
   },
 });

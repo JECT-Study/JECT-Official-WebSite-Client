@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { FlexColumn, FlexRow, Label } from "@storybook-utils/layout";
+import { FlexColumn } from "@storybook-utils/layout";
 import { vars } from "tokens";
 
 import { TextField } from "./TextField";
@@ -18,12 +18,6 @@ const meta = {
     children: {
       control: false,
       table: { disable: true },
-    },
-    fieldStyle: {
-      control: "inline-radio",
-      options: ["outline", "hollow"],
-      description: "필드 스타일 (outline: 테두리+인터랙션 레이어, hollow: 민무늬)",
-      table: { defaultValue: { summary: "outline" } },
     },
     status: {
       control: "inline-radio",
@@ -53,15 +47,14 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 /**
- * 컨트롤 패널에서 fieldStyle / status / disabled / readonly / required 를 바꿔가며
+ * 컨트롤 패널에서 status / disabled / readonly / required 를 바꿔가며
  * 직접 타이핑·hover·focus 해볼 수 있는 인터랙티브 예시입니다.
  *
- * TextField.Label 의 `suffixSlot` 으로 라벨(+required 별표) 오른쪽에
+ * TextField.Label 의 `suffix` 으로 라벨(+required 별표) 오른쪽에
  * 도움말 아이콘 등 부가 요소를 배치할 수 있습니다.
  */
 export const Playground: Story = {
   args: {
-    fieldStyle: "outline",
     status: "default",
     disabled: false,
     readonly: false,
@@ -70,7 +63,7 @@ export const Playground: Story = {
   render: args => (
     <TextField {...args}>
       <TextField.Label
-        suffixSlot={
+        suffix={
           <Icon
             name='information-line'
             size='2xs'
@@ -80,48 +73,9 @@ export const Playground: Story = {
       >
         이메일
       </TextField.Label>
-      <TextField.Content>
-        <TextField.Input placeholder='이메일을 입력하세요' />
-      </TextField.Content>
-      <TextField.HelperText>유효한 이메일 주소를 입력해주세요</TextField.HelperText>
+      <TextField.Input placeholder='이메일을 입력하세요' />
+      <TextField.Helper>유효한 이메일 주소를 입력해주세요</TextField.Helper>
     </TextField>
-  ),
-};
-
-/**
- * 필드 스타일 비교.
- * - `outline`: 테두리 + 배경 + 인터랙션 레이어(hover/press 틴트) + focus ring
- * - `hollow`: 테두리/배경/인터랙션 없이 입력만 노출
- */
-export const Styles: Story = {
-  render: () => (
-    <FlexRow gap='32px'>
-      <FlexColumn gap='8px'>
-        <Label>outline</Label>
-        <TextField fieldStyle='outline'>
-          <TextField.Label suffixSlot={<Icon name='information-line' size='2xs' />}>
-            이메일
-          </TextField.Label>
-          <TextField.Content>
-            <TextField.Input placeholder='이메일을 입력하세요' />
-          </TextField.Content>
-          <TextField.HelperText>유효한 이메일 주소를 입력해주세요</TextField.HelperText>
-        </TextField>
-      </FlexColumn>
-
-      <FlexColumn gap='8px'>
-        <Label>hollow</Label>
-        <TextField fieldStyle='hollow'>
-          <TextField.Label suffixSlot={<Icon name='information-line' size='2xs' />}>
-            이메일
-          </TextField.Label>
-          <TextField.Content>
-            <TextField.Input placeholder='이메일을 입력하세요' />
-          </TextField.Content>
-          <TextField.HelperText>유효한 이메일 주소를 입력해주세요</TextField.HelperText>
-        </TextField>
-      </FlexColumn>
-    </FlexRow>
   ),
 };
 
@@ -133,31 +87,25 @@ export const Statuses: Story = {
   render: () => (
     <FlexColumn gap='24px'>
       <TextField status='default'>
-        <TextField.Label suffixSlot={<Icon name='information-line' size='2xs' />}>
+        <TextField.Label suffix={<Icon name='information-line' size='2xs' />}>
           이메일
         </TextField.Label>
-        <TextField.Content>
-          <TextField.Input placeholder='이메일을 입력하세요' />
-        </TextField.Content>
-        <TextField.HelperText>유효한 이메일 주소를 입력해주세요</TextField.HelperText>
+        <TextField.Input placeholder='이메일을 입력하세요' />
+        <TextField.Helper>유효한 이메일 주소를 입력해주세요</TextField.Helper>
       </TextField>
       <TextField status='success'>
-        <TextField.Label suffixSlot={<Icon name='information-line' size='2xs' />}>
+        <TextField.Label suffix={<Icon name='information-line' size='2xs' />}>
           이메일
         </TextField.Label>
-        <TextField.Content>
-          <TextField.Input placeholder='이메일을 입력하세요' defaultValue='user@example.com' />
-        </TextField.Content>
-        <TextField.HelperText>올바른 이메일 형식입니다</TextField.HelperText>
+        <TextField.Input placeholder='이메일을 입력하세요' defaultValue='user@example.com' />
+        <TextField.Helper>올바른 이메일 형식입니다</TextField.Helper>
       </TextField>
       <TextField status='error'>
-        <TextField.Label suffixSlot={<Icon name='information-line' size='2xs' />}>
+        <TextField.Label suffix={<Icon name='information-line' size='2xs' />}>
           이메일
         </TextField.Label>
-        <TextField.Content>
-          <TextField.Input placeholder='이메일을 입력하세요' defaultValue='invalid-email' />
-        </TextField.Content>
-        <TextField.HelperText>유효하지 않은 이메일 형식입니다</TextField.HelperText>
+        <TextField.Input placeholder='이메일을 입력하세요' defaultValue='invalid-email' />
+        <TextField.Helper>유효하지 않은 이메일 형식입니다</TextField.Helper>
       </TextField>
     </FlexColumn>
   ),
@@ -167,14 +115,14 @@ export const Statuses: Story = {
  * 상호작용 상태.
  * - `disabled`: 비활성화(배경/보더 dim, 입력 불가)
  * - `readonly`: 읽기 전용
- * - `required`: 필수(라벨 옆 * 표시). suffixSlot 아이콘은 별표 오른쪽에 옵니다.
+ * - `required`: 필수(라벨 옆 * 표시). suffix 아이콘은 별표 오른쪽에 옵니다.
  */
 export const States: Story = {
   render: () => (
     <FlexColumn gap='24px'>
       <TextField disabled>
         <TextField.Label
-          suffixSlot={
+          suffix={
             <Icon
               name='information-line'
               size='2xs'
@@ -184,48 +132,40 @@ export const States: Story = {
         >
           Disabled
         </TextField.Label>
-        <TextField.Content>
-          <TextField.Input placeholder='비활성화된 입력 필드' />
-        </TextField.Content>
-        <TextField.HelperText>이 필드는 비활성화되어 있습니다</TextField.HelperText>
+        <TextField.Input placeholder='비활성화된 입력 필드' />
+        <TextField.Helper>이 필드는 비활성화되어 있습니다</TextField.Helper>
       </TextField>
       <TextField readonly>
-        <TextField.Label suffixSlot={<Icon name='information-line' size='2xs' />}>
+        <TextField.Label suffix={<Icon name='information-line' size='2xs' />}>
           Read Only
         </TextField.Label>
-        <TextField.Content>
-          <TextField.Input placeholder='이메일을 입력하세요' defaultValue='홍길동' />
-        </TextField.Content>
-        <TextField.HelperText>이 필드는 읽기 전용 상태입니다</TextField.HelperText>
+        <TextField.Input placeholder='이메일을 입력하세요' defaultValue='홍길동' />
+        <TextField.Helper>이 필드는 읽기 전용 상태입니다</TextField.Helper>
       </TextField>
       <TextField required>
-        <TextField.Label suffixSlot={<Icon name='information-line' size='2xs' />}>
+        <TextField.Label suffix={<Icon name='information-line' size='2xs' />}>
           Required
         </TextField.Label>
-        <TextField.Content>
-          <TextField.Input placeholder='필수 입력 항목입니다' />
-        </TextField.Content>
-        <TextField.HelperText>필수로 입력해야 하는 필드입니다</TextField.HelperText>
+        <TextField.Input placeholder='필수 입력 항목입니다' />
+        <TextField.Helper>필수로 입력해야 하는 필드입니다</TextField.Helper>
       </TextField>
     </FlexColumn>
   ),
 };
 
 /**
- * TextField.Content 는 입력 좌우에 아이콘·버튼 등 부가 요소를 함께 배치할 수 있습니다.
+ * `TextField.Input`의 `prefix` / `suffix`로 컨트롤 좌우에 아이콘, 버튼 등 부가 요소를 배치할 수 있습니다.
  */
 export const WithAddon: Story = {
   render: () => (
     <TextField>
-      <TextField.Label suffixSlot={<Icon name='information-line' size='2xs' />}>
-        이메일
-      </TextField.Label>
-      <TextField.Content>
-        <Icon name='account-circle-line' size='sm' />
-        <TextField.Input placeholder='이메일을 입력하세요' />
-        <Icon name='close-line' size='sm' />
-      </TextField.Content>
-      <TextField.HelperText>유효한 이메일 주소를 입력해주세요</TextField.HelperText>
+      <TextField.Label suffix={<Icon name='information-line' size='2xs' />}>이메일</TextField.Label>
+      <TextField.Input
+        prefix={<Icon name='account-circle-line' size='sm' />}
+        suffix={<Icon name='close-line' size='sm' />}
+        placeholder='이메일을 입력하세요'
+      />
+      <TextField.Helper>유효한 이메일 주소를 입력해주세요</TextField.Helper>
     </TextField>
   ),
 };

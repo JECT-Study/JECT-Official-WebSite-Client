@@ -1,10 +1,18 @@
-import { style } from "@vanilla-extract/css";
+import type { StyleRule } from "@vanilla-extract/css";
+import { createVar, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { pxToRem } from "utils";
 
+import type { StepsSize } from "./steps.types";
 import { vars } from "../../tokens/vars.css";
+import { dividerColorVar } from "../Divider/divider.css";
 
 import { labelColorVar } from "@/utils/typography.css";
+
+const stepsHorizontalGap = {
+  lg: vars.scheme.semantic.spacing["10"],
+  md: vars.scheme.semantic.spacing["8"],
+} satisfies Record<StepsSize, string>;
 
 export const stepsLabel = recipe({
   base: {
@@ -13,7 +21,6 @@ export const stepsLabel = recipe({
     overflow: "hidden",
     textOverflow: "ellipsis",
     whiteSpace: "nowrap",
-    cursor: "default",
   },
   variants: {
     activated: {
@@ -44,10 +51,11 @@ export const stepsItem = recipe({
   },
 });
 
+const stepsGapVar = createVar();
+
 export const stepsListItem = recipe({
   base: {
     display: "flex",
-    listStyle: "none",
     minWidth: 0,
   },
   variants: {
@@ -55,27 +63,14 @@ export const stepsListItem = recipe({
       horizontal: {
         flexDirection: "row",
         alignItems: "center",
+        gap: stepsGapVar,
       },
       vertical: {
         flexDirection: "column",
         alignItems: "flex-start",
       },
     },
-    size: {
-      lg: {},
-      md: {},
-    },
   },
-  compoundVariants: [
-    {
-      variants: { layout: "horizontal", size: "lg" },
-      style: { gap: vars.scheme.semantic.spacing["10"] },
-    },
-    {
-      variants: { layout: "horizontal", size: "md" },
-      style: { gap: vars.scheme.semantic.spacing["8"] },
-    },
-  ],
 });
 
 export const stepsRoot = recipe({
@@ -91,6 +86,7 @@ export const stepsRoot = recipe({
       horizontal: {
         flexDirection: "row",
         alignItems: "center",
+        gap: stepsGapVar,
       },
       vertical: {
         flexDirection: "column",
@@ -98,20 +94,10 @@ export const stepsRoot = recipe({
       },
     },
     size: {
-      lg: {},
-      md: {},
-    },
+      lg: { vars: { [stepsGapVar]: stepsHorizontalGap.lg } },
+      md: { vars: { [stepsGapVar]: stepsHorizontalGap.md } },
+    } satisfies Record<StepsSize, StyleRule>,
   },
-  compoundVariants: [
-    {
-      variants: { layout: "horizontal", size: "lg" },
-      style: { gap: vars.scheme.semantic.spacing["10"] },
-    },
-    {
-      variants: { layout: "horizontal", size: "md" },
-      style: { gap: vars.scheme.semantic.spacing["8"] },
-    },
-  ],
 });
 
 export const stepsSeparatorIcon = style({
@@ -119,12 +105,20 @@ export const stepsSeparatorIcon = style({
   flexShrink: 0,
 });
 
+const activatedItemSelector = `[data-steps-activated='true']`;
+
 export const stepsSeparatorLine = recipe({
   base: {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     flexShrink: 0,
+    vars: { [dividerColorVar]: vars.color.semantic.stroke.alpha.subtle },
+    selectors: {
+      [`&:has(~ ${activatedItemSelector}, ~ * ${activatedItemSelector})`]: {
+        vars: { [dividerColorVar]: vars.color.semantic.accent.neutral },
+      },
+    },
   },
   variants: {
     size: {

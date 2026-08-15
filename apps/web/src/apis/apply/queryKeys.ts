@@ -1,21 +1,20 @@
 import { isAxiosError } from "axios";
 
 import { applyApi } from "./api";
-import type { JobFamily } from "./schemas";
 
 export const applyQueryKeys = {
   all: ["apply"] as const,
   status: {
     all: () => [...applyQueryKeys.all, "status"] as const,
-    current: () => [...applyQueryKeys.status.all(), "current"] as const,
+    byRecruitId: (recruitId: number) => [...applyQueryKeys.status.all(), recruitId] as const,
   },
   questions: {
     all: () => [...applyQueryKeys.all, "questions"] as const,
-    byJobFamily: (jobFamily: JobFamily) => [...applyQueryKeys.questions.all(), jobFamily] as const,
+    byRecruitId: (recruitId: number) => [...applyQueryKeys.questions.all(), recruitId] as const,
   },
   draft: {
     all: () => [...applyQueryKeys.all, "draft"] as const,
-    current: () => [...applyQueryKeys.draft.all(), "current"] as const,
+    byRecruitId: (recruitId: number) => [...applyQueryKeys.draft.all(), recruitId] as const,
   },
   profile: {
     all: () => [...applyQueryKeys.all, "profile"] as const,
@@ -49,9 +48,9 @@ export const applyMutationKeys = {
 
 export const applyQueries = {
   status: {
-    current: () => ({
-      queryKey: applyQueryKeys.status.current(),
-      queryFn: () => applyApi.getStatus(),
+    byRecruitId: (recruitId: number) => ({
+      queryKey: applyQueryKeys.status.byRecruitId(recruitId),
+      queryFn: () => applyApi.getStatus(recruitId),
     }),
   },
   profile: {
@@ -65,17 +64,17 @@ export const applyQueries = {
     }),
   },
   questions: {
-    byJobFamily: (jobFamily: JobFamily) => ({
-      queryKey: applyQueryKeys.questions.byJobFamily(jobFamily),
-      queryFn: () => applyApi.getQuestions(jobFamily),
+    byRecruitId: (recruitId: number) => ({
+      queryKey: applyQueryKeys.questions.byRecruitId(recruitId),
+      queryFn: () => applyApi.getQuestions(recruitId),
     }),
   },
   draft: {
-    current: () => ({
-      queryKey: applyQueryKeys.draft.current(),
+    byRecruitId: (recruitId: number) => ({
+      queryKey: applyQueryKeys.draft.byRecruitId(recruitId),
       queryFn: async () => {
         try {
-          return await applyApi.getDraft();
+          return await applyApi.getDraft(recruitId);
         } catch (error) {
           if (isAxiosError(error) && error.response?.status === 404) {
             return { answers: {}, portfolios: [] };

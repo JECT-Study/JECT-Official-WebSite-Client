@@ -226,3 +226,17 @@
   --color-accent-inverse-neutral-light: #5758e3;
   --color-accent-inverse-neutral-dark: #6465f1;
 }
+
+/* TODO: 현재 사용 중인 JDS에 indigo 토큰이 없어 임시 정의
+         JDS 마이그레이션 완료 후 아래 두 블록 제거 */
+:root {
+  --semantic-theme-indigo-alpha-subtlest: #525dce0f;
+  --semantic-theme-indigo-alpha-subtler: #525dce2d;
+  --semantic-theme-indigo-normal: #525dce;
+}
+
+[data-theme="dark"] {
+  --semantic-theme-indigo-alpha-subtlest: #7989fc0f;
+  --semantic-theme-indigo-alpha-subtler: #7989fc2d;
+  --semantic-theme-indigo-normal: #7989fc;
+}

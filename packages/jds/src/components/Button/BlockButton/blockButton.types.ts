@@ -11,14 +11,6 @@ export type BlockButtonHierarchy = (typeof BLOCK_BUTTON_HIERARCHY_OPTIONS)[numbe
 export type BlockButtonVariant = (typeof BLOCK_BUTTON_VARIANT_OPTIONS)[number];
 export type BlockButtonFeedback = (typeof BLOCK_BUTTON_FEEDBACK_OPTIONS)[number];
 
-/** @deprecated `BLOCK_BUTTON_VARIANT_OPTIONS`를 사용하세요. */
-export const BLOCK_BUTTON_STYLE_OPTIONS = BLOCK_BUTTON_VARIANT_OPTIONS;
-/** @deprecated `BlockButtonVariant`를 사용하세요. */
-export type BlockButtonStyle = BlockButtonVariant;
-
-/** @deprecated `BlockButtonFeedback`를 사용하세요. */
-export type FeedbackIntent = BlockButtonFeedback;
-
 export type BaseBlockButtonProps = ComponentPropsWithoutRef<"button"> & {
   "data-part"?: never;
   children: ReactNode;
@@ -32,14 +24,3 @@ export type BlockButtonProps = BaseBlockButtonProps &
     | { hierarchy?: BlockButtonHierarchy; variant?: BlockButtonVariant; feedback?: never }
     | { feedback?: BlockButtonFeedback; hierarchy?: never; variant?: never }
   );
-
-// TODO(deprecation, #497): 호출부 마이그레이션 완료 후 아래 deprecated 타입과 .Basic/.Feedback 별칭 제거
-/** @deprecated `<BlockButton hierarchy variant>`를 사용하세요. */
-export type BlockButtonBasicProps = BaseBlockButtonProps & {
-  variant?: BlockButtonVariant;
-  hierarchy?: BlockButtonHierarchy;
-};
-/** @deprecated `<BlockButton feedback>`를 사용하세요. */
-export type BlockButtonFeedbackProps = BaseBlockButtonProps & {
-  intent?: BlockButtonFeedback;
-};

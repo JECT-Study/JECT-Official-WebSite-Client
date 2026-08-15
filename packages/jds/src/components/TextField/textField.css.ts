@@ -2,6 +2,7 @@ import { createVar, fallbackVar, style } from "@vanilla-extract/css";
 import { vars } from "tokens";
 
 const inputTextColor = createVar();
+const placeholderTextColor = createVar();
 
 export const input = style({
   flex: "1 0 0",
@@ -12,16 +13,20 @@ export const input = style({
   backgroundColor: "transparent",
   position: "relative",
   zIndex: 1,
-  color: fallbackVar(inputTextColor, vars.color.semantic.object.boldest),
+  color: fallbackVar(inputTextColor, vars.color.semantic.object.bolder),
   "::placeholder": {
-    color: vars.color.semantic.object.assistive,
+    color: fallbackVar(placeholderTextColor, vars.color.semantic.object.assistive),
   },
   selectors: {
     "&[data-readonly]:not(:disabled)": {
-      vars: { [inputTextColor]: vars.color.semantic.object.subtle },
+      cursor: "default",
     },
     "&:disabled": {
-      vars: { [inputTextColor]: vars.color.semantic.object.assistive },
+      cursor: "not-allowed",
+      vars: {
+        [inputTextColor]: vars.color.semantic.object.assistive,
+        [placeholderTextColor]: vars.color.semantic.object.subtler,
+      },
     },
   },
 });
