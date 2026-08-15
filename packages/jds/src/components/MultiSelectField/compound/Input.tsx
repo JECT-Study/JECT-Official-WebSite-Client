@@ -17,7 +17,7 @@ import {
 
 import { ContentBadge } from "../../Badge";
 import { FieldContent } from "../../Field";
-import { useFieldContext } from "../../Field/Field.context";
+import { useFieldControl } from "../../Field/useFieldControl";
 import { Listbox, useListbox, useMultiSelectState } from "../../Listbox";
 import { useMultiSelectFieldContext } from "../MultiSelectField.context";
 import * as styles from "../multiSelectField.css";
@@ -64,32 +64,27 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
   ) => {
     const {
       fieldId,
-      labelId,
-      hasLabel,
-      helperId,
-      hasHelper,
-      counterId,
-      hasCounter,
-      onControlRequiredChange,
-      status,
-      disabled: isDisabledFromCtx,
-      readonly: isReadOnlyFromCtx,
-      required: isRequiredFromCtx,
-    } = useFieldContext("MultiSelectField.Input");
+      isDisabled,
+      isReadOnly,
+      isRequired,
+      ariaLabel,
+      ariaLabelledBy,
+      ariaDescribedBy,
+      ariaInvalid,
+    } = useFieldControl("MultiSelectField.Input", {
+      disabled: disabledFromProps,
+      readOnly: readOnlyFromProps,
+      required: requiredFromProps,
+      ariaLabel: ariaLabelFromProps,
+      ariaLabelledBy: labelledByFromProps,
+      ariaDescribedBy: describedByFromProps,
+      ariaInvalid: invalidFromProps,
+    });
 
     const { isOpen, onOpenChange, onHasPopupContentChange, onCounterChange } =
       useMultiSelectFieldContext("MultiSelectField.Input");
 
     const contentRef = useRef<HTMLDivElement>(null);
-
-    const isDisabled = disabledFromProps ?? isDisabledFromCtx;
-    const isReadOnly = readOnlyFromProps ?? isReadOnlyFromCtx;
-    const isRequired = requiredFromProps ?? isRequiredFromCtx;
-
-    useLayoutEffect(() => {
-      onControlRequiredChange(isRequired);
-      return () => onControlRequiredChange(false);
-    }, [isRequired, onControlRequiredChange]);
 
     const isInteractive = !isDisabled && !isReadOnly;
 
@@ -260,15 +255,6 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       }
     };
 
-    const describedByIds = [
-      hasHelper ? helperId : undefined,
-      hasCounter ? counterId : undefined,
-      describedByFromProps,
-    ].filter(Boolean);
-    const ariaInvalid = status === "error" ? true : (invalidFromProps ?? false);
-    const labelledBy = hasLabel ? labelId : labelledByFromProps;
-    const ariaLabel = labelledBy == null ? ariaLabelFromProps : undefined;
-
     return (
       <>
         <Popover.Anchor asChild>
@@ -310,8 +296,8 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
               aria-activedescendant={isOpen ? activeId : undefined}
               aria-autocomplete='list'
               aria-label={ariaLabel}
-              aria-labelledby={labelledBy}
-              aria-describedby={describedByIds.length > 0 ? describedByIds.join(" ") : undefined}
+              aria-labelledby={ariaLabelledBy}
+              aria-describedby={ariaDescribedBy}
               aria-invalid={ariaInvalid}
               aria-readonly={isReadOnly || undefined}
               aria-required={isRequired || undefined}
@@ -365,7 +351,7 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
                 ...getListboxProps(),
                 ...getActiveDescendantContainerProps(),
                 "aria-label": ariaLabel,
-                "aria-labelledby": labelledBy,
+                "aria-labelledby": ariaLabelledBy,
               }}
               onMouseDown={e => e.preventDefault()}
             >

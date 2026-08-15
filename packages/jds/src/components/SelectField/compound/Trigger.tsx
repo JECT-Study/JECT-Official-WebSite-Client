@@ -10,7 +10,7 @@ import {
 } from "react";
 
 import { FieldContent } from "../../Field";
-import { useFieldContext } from "../../Field/Field.context";
+import { useFieldControl } from "../../Field/useFieldControl";
 import { Icon } from "../../Icon";
 import { Listbox, useListbox, useSingleSelectState } from "../../Listbox";
 import { SELECTION_KEYS } from "../../Listbox/listbox.constants";
@@ -49,27 +49,24 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
   ) => {
     const {
       fieldId,
-      labelId,
-      hasLabel,
-      helperId,
-      hasHelper,
-      onControlRequiredChange,
-      status,
-      disabled: isDisabledFromCtx,
-      readonly: isReadOnlyFromCtx,
-      required: isRequiredFromCtx,
-    } = useFieldContext("SelectField.Trigger");
+      isDisabled,
+      isReadOnly,
+      isRequired,
+      ariaLabel,
+      ariaLabelledBy,
+      ariaDescribedBy,
+      ariaInvalid,
+    } = useFieldControl("SelectField.Trigger", {
+      disabled: disabledFromProps,
+      readOnly: readonlyFromProps,
+      required: requiredFromProps,
+      ariaLabel: ariaLabelFromProps,
+      ariaLabelledBy: labelledByFromProps,
+      ariaDescribedBy: describedByFromProps,
+      ariaInvalid: invalidFromProps,
+    });
 
     const { isOpen, onOpenChange } = useSelectFieldContext("SelectField.Trigger");
-
-    const isDisabled = disabledFromProps ?? isDisabledFromCtx;
-    const isReadOnly = readonlyFromProps ?? isReadOnlyFromCtx;
-    const isRequired = requiredFromProps ?? isRequiredFromCtx;
-
-    useLayoutEffect(() => {
-      onControlRequiredChange(isRequired);
-      return () => onControlRequiredChange(false);
-    }, [isRequired, onControlRequiredChange]);
 
     const isInteractive = !isDisabled && !isReadOnly;
 
@@ -159,11 +156,6 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
       [contextValue, onOpenChange],
     );
 
-    const describedByIds = [hasHelper ? helperId : undefined, describedByFromProps].filter(Boolean);
-    const ariaInvalid = status === "error" ? true : (invalidFromProps ?? false);
-    const labelledBy = hasLabel ? labelId : labelledByFromProps;
-    const ariaLabel = labelledBy == null ? ariaLabelFromProps : undefined;
-
     return (
       <>
         <Popover.Anchor asChild>
@@ -179,9 +171,9 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
                 aria-expanded={isOpen}
                 aria-controls={isOpen ? listboxId : undefined}
                 aria-label={ariaLabel}
-                aria-labelledby={labelledBy}
+                aria-labelledby={ariaLabelledBy}
                 aria-activedescendant={isOpen ? activeId : undefined}
-                aria-describedby={describedByIds.length > 0 ? describedByIds.join(" ") : undefined}
+                aria-describedby={ariaDescribedBy}
                 aria-invalid={ariaInvalid}
                 aria-readonly={isReadOnly || undefined}
                 aria-required={isRequired || undefined}
@@ -224,7 +216,7 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
                 ...getListboxProps(),
                 ...getActiveDescendantContainerProps(),
                 "aria-label": ariaLabel,
-                "aria-labelledby": labelledBy,
+                "aria-labelledby": ariaLabelledBy,
               }}
               onMouseDown={e => e.preventDefault()}
             >
