@@ -212,6 +212,7 @@ const disabledSupportTextSelector = (status: FieldStatus) => ({
 });
 
 // 박스 아래 첫 요소만 margin-top을 갖는다. Footer 처럼 여러 요소를 묶는 경우 래퍼가 받고 그 자식은 받지 않는다.
+// belowContent를 합성하지 않은 요소가 사이에 들어가면 간격이 사라진다.
 export const belowContent = style({
   selectors: {
     [`${content.classNames.base} + &`]: {
