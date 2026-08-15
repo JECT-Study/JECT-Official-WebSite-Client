@@ -24,8 +24,8 @@ export const FieldLabel = forwardRef<HTMLLabelElement, FieldLabelProps>(
       fieldId,
       labelId,
       onLabelMountChange,
+      isControlRequired,
       disabled: isDisabled,
-      required: isRequired,
     } = useFieldContext("Field.Label");
 
     useLayoutEffect(() => {
@@ -50,11 +50,11 @@ export const FieldLabel = forwardRef<HTMLLabelElement, FieldLabelProps>(
           >
             {children}
           </label>
-          {isRequired && (
+          {isControlRequired && (
             <span
               className={clsx(
                 getLabelClassName({ size: "sm" }),
-                styles.asterisk({ disabled: isDisabled }),
+                styles.requiredMark({ disabled: isDisabled }),
               )}
               aria-hidden
             >

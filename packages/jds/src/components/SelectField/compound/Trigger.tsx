@@ -32,10 +32,14 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
       onChange,
       variant = "label",
       placeholder,
+      readonly: readonlyFromProps,
+      required: requiredFromProps,
       suffix,
       disabled: disabledFromProps,
       onClick: onClickFromProps,
       onKeyDown: onKeyDownFromProps,
+      "aria-label": ariaLabelFromProps,
+      "aria-labelledby": labelledByFromProps,
       "aria-describedby": describedByFromProps,
       "aria-invalid": invalidFromProps,
       className,
@@ -49,14 +53,24 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
       hasLabel,
       helperId,
       hasHelper,
+      onControlRequiredChange,
       status,
       disabled: isDisabledFromCtx,
-      readonly: isReadOnly,
+      readonly: isReadOnlyFromCtx,
+      required: isRequiredFromCtx,
     } = useFieldContext("SelectField.Trigger");
 
     const { isOpen, onOpenChange } = useSelectFieldContext("SelectField.Trigger");
 
     const isDisabled = disabledFromProps ?? isDisabledFromCtx;
+    const isReadOnly = readonlyFromProps ?? isReadOnlyFromCtx;
+    const isRequired = requiredFromProps ?? isRequiredFromCtx;
+
+    useLayoutEffect(() => {
+      onControlRequiredChange(isRequired);
+      return () => onControlRequiredChange(false);
+    }, [isRequired, onControlRequiredChange]);
+
     const isInteractive = !isDisabled && !isReadOnly;
 
     const { selectedValue, selectedValues, select } = useSingleSelectState(
@@ -85,6 +99,12 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
 
     const activateSelectedRef = useRef(activateSelected);
     activateSelectedRef.current = activateSelected;
+
+    const handleContentMouseDown = (e: MouseEvent<HTMLDivElement>) => {
+      if (e.target !== e.currentTarget || !isInteractive) return;
+
+      onOpenChange(true);
+    };
 
     const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
       onClickFromProps?.(e);
@@ -141,11 +161,13 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
 
     const describedByIds = [hasHelper ? helperId : undefined, describedByFromProps].filter(Boolean);
     const ariaInvalid = status === "error" ? true : (invalidFromProps ?? false);
+    const labelledBy = hasLabel ? labelId : labelledByFromProps;
+    const ariaLabel = labelledBy == null ? ariaLabelFromProps : undefined;
 
     return (
       <>
         <Popover.Anchor asChild>
-          <FieldContent>
+          <FieldContent onMouseDown={handleContentMouseDown}>
             <Popover.Trigger asChild>
               <button
                 {...restProps}
@@ -155,12 +177,14 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
                 role='combobox'
                 aria-haspopup='listbox'
                 aria-expanded={isOpen}
-                aria-controls={listboxId}
-                aria-labelledby={hasLabel ? labelId : undefined}
+                aria-controls={isOpen ? listboxId : undefined}
+                aria-label={ariaLabel}
+                aria-labelledby={labelledBy}
                 aria-activedescendant={isOpen ? activeId : undefined}
                 aria-describedby={describedByIds.length > 0 ? describedByIds.join(" ") : undefined}
                 aria-invalid={ariaInvalid}
                 aria-readonly={isReadOnly || undefined}
+                aria-required={isRequired || undefined}
                 disabled={isDisabled}
                 data-field-control=''
                 data-readonly={isReadOnly || undefined}
@@ -199,7 +223,8 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
               listboxProps={{
                 ...getListboxProps(),
                 ...getActiveDescendantContainerProps(),
-                "aria-labelledby": hasLabel ? labelId : undefined,
+                "aria-label": ariaLabel,
+                "aria-labelledby": labelledBy,
               }}
               onMouseDown={e => e.preventDefault()}
             >

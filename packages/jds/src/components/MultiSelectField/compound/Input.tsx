@@ -53,6 +53,8 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       onKeyDown: onKeyDownFromProps,
       onBlur: onBlurFromProps,
       onMouseDown: onMouseDownFromProps,
+      "aria-label": ariaLabelFromProps,
+      "aria-labelledby": labelledByFromProps,
       "aria-describedby": describedByFromProps,
       "aria-invalid": invalidFromProps,
       className,
@@ -68,6 +70,7 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       hasHelper,
       counterId,
       hasCounter,
+      onControlRequiredChange,
       status,
       disabled: isDisabledFromCtx,
       readonly: isReadOnlyFromCtx,
@@ -82,6 +85,12 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
     const isDisabled = disabledFromProps ?? isDisabledFromCtx;
     const isReadOnly = readOnlyFromProps ?? isReadOnlyFromCtx;
     const isRequired = requiredFromProps ?? isRequiredFromCtx;
+
+    useLayoutEffect(() => {
+      onControlRequiredChange(isRequired);
+      return () => onControlRequiredChange(false);
+    }, [isRequired, onControlRequiredChange]);
+
     const isInteractive = !isDisabled && !isReadOnly;
 
     const { selectedValues, toggle, remove } = useMultiSelectState(value, defaultValue, onChange);
@@ -178,13 +187,10 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       if (isOpen) activateRef.current();
     }, [isOpen, query]);
 
-    // 박스 패딩을 눌러도 컨트롤에 포커스가 가도록 시각 영역과 클릭 타깃을 맞춘다.
     const handleContentMouseDown = (e: MouseEvent<HTMLDivElement>) => {
-      if (e.target !== e.currentTarget) return;
+      if (e.target !== e.currentTarget || !isInteractive) return;
 
-      e.preventDefault();
-      inputRef.current?.focus();
-      if (isInteractive) onOpenChange(true);
+      onOpenChange(true);
     };
 
     const openIfInteractive = () => {
@@ -260,6 +266,8 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       describedByFromProps,
     ].filter(Boolean);
     const ariaInvalid = status === "error" ? true : (invalidFromProps ?? false);
+    const labelledBy = hasLabel ? labelId : labelledByFromProps;
+    const ariaLabel = labelledBy == null ? ariaLabelFromProps : undefined;
 
     return (
       <>
@@ -301,8 +309,11 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
               aria-controls={isOpen ? listboxId : undefined}
               aria-activedescendant={isOpen ? activeId : undefined}
               aria-autocomplete='list'
+              aria-label={ariaLabel}
+              aria-labelledby={labelledBy}
               aria-describedby={describedByIds.length > 0 ? describedByIds.join(" ") : undefined}
               aria-invalid={ariaInvalid}
+              aria-readonly={isReadOnly || undefined}
               aria-required={isRequired || undefined}
               autoComplete='off'
               disabled={isDisabled}
@@ -353,7 +364,8 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
               listboxProps={{
                 ...getListboxProps(),
                 ...getActiveDescendantContainerProps(),
-                "aria-labelledby": hasLabel ? labelId : undefined,
+                "aria-label": ariaLabel,
+                "aria-labelledby": labelledBy,
               }}
               onMouseDown={e => e.preventDefault()}
             >

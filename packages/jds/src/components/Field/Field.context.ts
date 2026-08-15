@@ -19,6 +19,9 @@ export interface FieldContextValue {
   hasCounter: boolean;
   /** Field.Counter가 mount/unmount될 때 호출된다. */
   onCounterMountChange: (mounted: boolean) => void;
+  /** 컨트롤이 해석해 보고한 required. Field.Label이 required mark 렌더에 사용한다. */
+  isControlRequired: boolean;
+  onControlRequiredChange: (required: boolean) => void;
   status: FieldStatus;
   readonly: boolean;
   disabled: boolean;
