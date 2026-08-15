@@ -1,57 +1,43 @@
 import { forwardRef, useState } from "react";
 
-import { Field, type FieldProps } from "../Field";
-import { TextareaContent } from "./compound/Content";
 import { TextareaControl } from "./compound/Control";
 import { TextareaCounter } from "./compound/Counter";
-import { TextareaProvider, type TextareaState } from "./Textarea.context";
+import { TextareaProvider } from "./Textarea.context";
+import { Field, type FieldProps } from "../Field";
 
-export type TextareaProps = Omit<FieldProps, "fieldStyle">;
+export type TextareaProps = FieldProps;
 
-/**
- * 루트는 내부 Field primitive 를 래핑하고, 글자 수 카운터를 위한 값 길이·maxLength 를 추적한다.
- */
-const TextareaRoot = forwardRef<HTMLDivElement, TextareaProps>(
-  ({ children, ...restProps }, ref) => {
-    const [{ valueLength, maxLength }, setControlState] = useState<TextareaState>({
-      valueLength: 0,
-    });
+const TextareaRoot = forwardRef<HTMLDivElement, TextareaProps>((props, ref) => {
+  const [counter, setCounter] = useState<{ current: number; max: number } | null>(null);
 
-    return (
-      <TextareaProvider
-        valueLength={valueLength}
-        maxLength={maxLength}
-        onControlStateChange={setControlState}
-      >
-        <Field ref={ref} {...restProps}>
-          {children}
-        </Field>
-      </TextareaProvider>
-    );
-  },
-);
+  return (
+    <TextareaProvider counter={counter} onCounterChange={setCounter}>
+      <Field ref={ref} {...props} />
+    </TextareaProvider>
+  );
+});
 
 TextareaRoot.displayName = "Textarea";
 
 /**
- * @description Field primitive 위에 얹은 공개 compound Textarea (여러 줄 텍스트 입력).
+ * @description Field primitive 위에 얹은 공개 compound Textarea.
  *
  * @example
  * ```tsx
  * <Textarea status="error" required>
  *   <Textarea.Label>자기소개</Textarea.Label>
- *   <Textarea.Content>
- *     <Textarea.Control maxLength={200} placeholder="내용을 입력하세요" />
+ *   <Textarea.Control maxLength={200} placeholder="내용을 입력하세요" />
+ *   <Textarea.Footer>
+ *     <Textarea.Helper>200자 이내로 입력해주세요</Textarea.Helper>
  *     <Textarea.Counter />
- *   </Textarea.Content>
- *   <Textarea.HelperText>200자 이내로 입력해주세요</Textarea.HelperText>
+ *   </Textarea.Footer>
  * </Textarea>
  * ```
  */
 export const Textarea = Object.assign(TextareaRoot, {
   Label: Field.Label,
-  Content: TextareaContent,
   Control: TextareaControl,
+  Footer: Field.Footer,
+  Helper: Field.Helper,
   Counter: TextareaCounter,
-  HelperText: Field.HelperText,
 });
