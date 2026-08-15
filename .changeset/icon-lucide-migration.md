@@ -8,91 +8,102 @@
 
 **소비처 영향 (코드 수정 필요)**
 
-| AS-IS                                                                                                                                                                                                        | TO-BE                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------ |
-| `account-circle-line`                                                                                                                                                                                        | `circle-user-round`      |
-| `user-line`                                                                                                                                                                                                  | `user-round`             |
-| `bookmark-fill`, `bookmark-line`                                                                                                                                                                             | `bookmark`               |
-| `flag-fill`, `flag-line`                                                                                                                                                                                     | `flag`                   |
-| `notification-line`                                                                                                                                                                                          | `bell`                   |
-| `question-line`                                                                                                                                                                                              | `circle-question-mark`   |
-| `information-fill`, `information-line`                                                                                                                                                                       | `info`                   |
-| `sun-line`                                                                                                                                                                                                   | `sun`                    |
-| `moon-line`                                                                                                                                                                                                  | `moon`                   |
-| `eye-line`                                                                                                                                                                                                   | `eye`                    |
-| `eye-off-line`                                                                                                                                                                                               | `eye-off`                |
-| `arrow-down-line`                                                                                                                                                                                            | `arrow-down`             |
-| `arrow-left-line`                                                                                                                                                                                            | `arrow-left`             |
-| `arrow-right-line`                                                                                                                                                                                           | `arrow-right`            |
-| `arrow-up-line`                                                                                                                                                                                              | `arrow-up`               |
-| `arrow-left-down-line`                                                                                                                                                                                       | `arrow-down-left`        |
-| `arrow-right-down-line`                                                                                                                                                                                      | `arrow-down-right`       |
-| `arrow-left-up-line`                                                                                                                                                                                         | `arrow-up-left`          |
-| `arrow-right-up-line`                                                                                                                                                                                        | `arrow-up-right`         |
-| `arrow-down-s-fill`, `arrow-down-s-line`                                                                                                                                                                     | `chevron-down`           |
-| `arrow-left-s-line`                                                                                                                                                                                          | `chevron-left`           |
-| `arrow-right-s-line`                                                                                                                                                                                         | `chevron-right`          |
-| `arrow-up-s-fill`, `arrow-up-s-line`                                                                                                                                                                         | `chevron-up`             |
-| `arrow-go-back-line`                                                                                                                                                                                         | `undo-2`                 |
-| `arrow-go-forward-line`                                                                                                                                                                                      | `redo-2`                 |
-| `corner-down-left-line`                                                                                                                                                                                      | `corner-down-left`       |
-| `corner-down-right-line`                                                                                                                                                                                     | `corner-down-right`      |
-| `reset-left-line`                                                                                                                                                                                            | `rotate-ccw`             |
-| `restart-line`                                                                                                                                                                                               | `rotate-cw`              |
-| `download-2-line`                                                                                                                                                                                            | `download`               |
-| `upload-2-line`                                                                                                                                                                                              | `upload`                 |
-| `external-link-line`, `export-line`                                                                                                                                                                          | `external-link`          |
-| `cursor-line`                                                                                                                                                                                                | `mouse-pointer`          |
-| `home-2-fill`, `home-2-line`                                                                                                                                                                                 | `house`                  |
-| `computer-line`                                                                                                                                                                                              | `monitor`                |
-| `smartphone-line`                                                                                                                                                                                            | `smartphone`             |
-| `tablet-line`                                                                                                                                                                                                | `tablet`                 |
-| `spinner`                                                                                                                                                                                                    | `loader-circle`          |
-| `effect`                                                                                                                                                                                                     | `zap`                    |
-| `layer`                                                                                                                                                                                                      | `layers`                 |
-| `pencil-line`                                                                                                                                                                                                | `pencil`                 |
-| `flow-chart`                                                                                                                                                                                                 | `workflow`               |
-| `robot-line`                                                                                                                                                                                                 | `bot`                    |
-| `qr-code-line`                                                                                                                                                                                               | `qr-code`                |
-| `slash-command`                                                                                                                                                                                              | `slash`                  |
-| `delete-bin-line`                                                                                                                                                                                            | `trash`                  |
-| `file-3-line`                                                                                                                                                                                                | `file`                   |
-| `file-text-line`                                                                                                                                                                                             | `file-text`              |
-| `file-unknow-line`                                                                                                                                                                                           | `file-question-mark`     |
-| `file-warning-line`                                                                                                                                                                                          | `file-exclamation-point` |
-| `folder-4-line`                                                                                                                                                                                              | `folder`                 |
-| `coin-line`                                                                                                                                                                                                  | `coins`                  |
-| `draggable`                                                                                                                                                                                                  | `grip-vertical`          |
-| `more-horizontal`                                                                                                                                                                                            | `ellipsis`               |
-| `more-vertical`                                                                                                                                                                                              | `ellipsis-vertical`      |
-| `menu-line`                                                                                                                                                                                                  | `menu`                   |
-| `global-line`                                                                                                                                                                                                | `globe`                  |
-| `guide-line`                                                                                                                                                                                                 | `route`                  |
-| `heart-3-fill`, `heart-3-line`                                                                                                                                                                               | `heart`                  |
-| `megaphone-line`                                                                                                                                                                                             | `megaphone`              |
-| `add-line`                                                                                                                                                                                                   | `plus`                   |
-| `subtract-line`                                                                                                                                                                                              | `minus`                  |
-| `image-line`                                                                                                                                                                                                 | `image`                  |
-| `circle-fill`, `circle-line`                                                                                                                                                                                 | `circle`                 |
-| `square-fill`, `square-line`                                                                                                                                                                                 | `square`                 |
-| `alert-fill`, `alert-line`, `error-warning-line`                                                                                                                                                             | `triangle-alert`         |
-| `error-warning-octagon-line`                                                                                                                                                                                 | `octagon-alert`          |
-| `check-line`                                                                                                                                                                                                 | `check`                  |
-| `close-line`                                                                                                                                                                                                 | `x`                      |
-| `at-line`                                                                                                                                                                                                    | `at-sign`                |
-| `attachment-line`                                                                                                                                                                                            | `paperclip`              |
-| `chat-line`                                                                                                                                                                                                  | `message-circle`         |
-| `code-s-slash-line`                                                                                                                                                                                          | `code-xml`               |
-| `link-diagonal-line`, `link-line`                                                                                                                                                                            | `link`                   |
-| `mail-fill`, `mail-line`                                                                                                                                                                                     | `mail`                   |
-| `message-2-line`                                                                                                                                                                                             | `message-square-more`    |
-| `save-line`                                                                                                                                                                                                  | `save`                   |
-| `search-line`                                                                                                                                                                                                | `search`                 |
-| `sticky-note-line`                                                                                                                                                                                           | `sticky-note`            |
-| `text`                                                                                                                                                                                                       | `type`                   |
-| `calendar-line`                                                                                                                                                                                              | `calendar-days`          |
-| `cloud-fill`, `cloud-line`                                                                                                                                                                                   | `cloud`                  |
-| `absolute`, `arrow-down-wide-line`, `arrow-up-wide-line`, `bar`, `blank`, `function-line`, `instance`, `line`, `property`, `radius-angled`, `radius-circle`, `radius-rounded`, `style`, `variable`, `vector` | 제거, 동일 대응 없음     |
+| AS-IS                                                            | TO-BE                    |
+| ---------------------------------------------------------------- | ------------------------ |
+| `account-circle-line`                                            | `circle-user-round`      |
+| `user-line`                                                      | `user-round`             |
+| `bookmark-fill`, `bookmark-line`                                 | `bookmark`               |
+| `flag-fill`, `flag-line`                                         | `flag`                   |
+| `notification-line`                                              | `bell`                   |
+| `question-line`                                                  | `circle-question-mark`   |
+| `information-fill`, `information-line`                           | `info`                   |
+| `sun-line`                                                       | `sun`                    |
+| `moon-line`                                                      | `moon`                   |
+| `eye-line`                                                       | `eye`                    |
+| `eye-off-line`                                                   | `eye-off`                |
+| `arrow-down-line`                                                | `arrow-down`             |
+| `arrow-left-line`                                                | `arrow-left`             |
+| `arrow-right-line`                                               | `arrow-right`            |
+| `arrow-up-line`                                                  | `arrow-up`               |
+| `arrow-left-down-line`                                           | `arrow-down-left`        |
+| `arrow-right-down-line`                                          | `arrow-down-right`       |
+| `arrow-left-up-line`                                             | `arrow-up-left`          |
+| `arrow-right-up-line`                                            | `arrow-up-right`         |
+| `arrow-down-s-fill`, `arrow-down-s-line`, `arrow-down-wide-line` | `chevron-down`           |
+| `arrow-left-s-line`                                              | `chevron-left`           |
+| `arrow-right-s-line`                                             | `chevron-right`          |
+| `arrow-up-s-fill`, `arrow-up-s-line`, `arrow-up-wide-line`       | `chevron-up`             |
+| `arrow-go-back-line`                                             | `undo-2`                 |
+| `arrow-go-forward-line`                                          | `redo-2`                 |
+| `corner-down-left-line`                                          | `corner-down-left`       |
+| `corner-down-right-line`                                         | `corner-down-right`      |
+| `reset-left-line`                                                | `rotate-ccw`             |
+| `restart-line`                                                   | `rotate-cw`              |
+| `download-2-line`                                                | `download`               |
+| `upload-2-line`                                                  | `upload`                 |
+| `external-link-line`                                             | `external-link`          |
+| `export-line`                                                    | `file-down`              |
+| `cursor-line`                                                    | `mouse-pointer`          |
+| `home-2-fill`, `home-2-line`                                     | `house`                  |
+| `computer-line`                                                  | `monitor`                |
+| `smartphone-line`                                                | `smartphone`             |
+| `tablet-line`                                                    | `tablet`                 |
+| `spinner`                                                        | `loader-circle`          |
+| `effect`                                                         | `zap`                    |
+| `layer`                                                          | `layers`                 |
+| `pencil-line`                                                    | `pencil`                 |
+| `flow-chart`                                                     | `workflow`               |
+| `robot-line`                                                     | `bot`                    |
+| `qr-code-line`                                                   | `qr-code`                |
+| `slash-command`                                                  | `square-slash`           |
+| `delete-bin-line`                                                | `trash`                  |
+| `file-3-line`                                                    | `file`                   |
+| `file-text-line`                                                 | `file-text`              |
+| `file-unknow-line`                                               | `file-question-mark`     |
+| `file-warning-line`                                              | `file-exclamation-point` |
+| `folder-4-line`                                                  | `folder`                 |
+| `coin-line`                                                      | `coins`                  |
+| `draggable`                                                      | `grip-vertical`          |
+| `more-horizontal`                                                | `ellipsis`               |
+| `more-vertical`                                                  | `ellipsis-vertical`      |
+| `menu-line`                                                      | `menu`                   |
+| `global-line`                                                    | `globe`                  |
+| `guide-line`                                                     | `route`                  |
+| `heart-3-fill`, `heart-3-line`                                   | `heart`                  |
+| `megaphone-line`                                                 | `megaphone`              |
+| `add-line`                                                       | `plus`                   |
+| `subtract-line`                                                  | `minus`                  |
+| `image-line`                                                     | `image`                  |
+| `circle-fill`, `circle-line`                                     | `circle`                 |
+| `square-fill`, `square-line`                                     | `square`                 |
+| `alert-fill`, `alert-line`                                       | `triangle-alert`         |
+| `error-warning-line`                                             | `circle-alert`           |
+| `error-warning-octagon-line`                                     | `octagon-alert`          |
+| `check-line`                                                     | `check`                  |
+| `close-line`                                                     | `x`                      |
+| `at-line`                                                        | `at-sign`                |
+| `attachment-line`, `link-diagonal-line`                          | `paperclip`              |
+| `chat-line`                                                      | `message-circle`         |
+| `code-s-slash-line`                                              | `code-xml`               |
+| `link-line`                                                      | `link`                   |
+| `mail-fill`, `mail-line`                                         | `mail`                   |
+| `message-2-line`                                                 | `message-square-more`    |
+| `save-line`                                                      | `save`                   |
+| `search-line`                                                    | `search`                 |
+| `sticky-note-line`                                               | `sticky-note`            |
+| `text`                                                           | `type`                   |
+| `calendar-line`                                                  | `calendar-days`          |
+| `cloud-fill`, `cloud-line`                                       | `cloud`                  |
+| `absolute`                                                       | `focus`                  |
+| `bar`                                                            | `separator-vertical`     |
+| `blank`                                                          | `square-dashed`          |
+| `function-line`, `style`                                         | `layout-grid`            |
+| `instance`                                                       | `diamond`                |
+| `line`                                                           | `slash`                  |
+| `property`                                                       | `toggle-right`           |
+| `radius-angled`, `radius-circle`, `radius-rounded`               | `square-round-corner`    |
+| `variable`                                                       | `hexagon`                |
+| `vector`                                                         | `vector-square`          |
 
 ```diff
 -<Icon name='information-line' />
@@ -108,10 +119,10 @@
 **추가**
 
 - `arrow-down-left`, `arrow-down-right`, `arrow-up-left`, `arrow-up-right`
-- `case-sensitive`, `copy`, `focus`, `hash`, `layout-grid`, `move-horizontal`, `separator-vertical`, `table-of-contents`
-- `contrast`, `diamond`, `hexagon`, `panel-left`, `square-dashed`, `square-plus`, `square-round-corner`, `square-slash`, `vector-square`
-- `clock-3`, `file-down`, `maximize-2`, `minimize-2`, `ruler`, `toggle-left`, `toggle-right`
-- `circle-alert`, `frown`, `laugh`, `meh`, `zoom-in`, `zoom-out`
+- `case-sensitive`, `copy`, `hash`, `move-horizontal`, `table-of-contents`
+- `contrast`, `panel-left`, `square-plus`
+- `clock-3`, `maximize-2`, `minimize-2`, `ruler`, `toggle-left`
+- `frown`, `laugh`, `meh`, `zoom-in`, `zoom-out`
 
 **동작 변경 (코드 수정 불필요)**
 
