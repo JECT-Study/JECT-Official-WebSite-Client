@@ -4,7 +4,7 @@
 
 **MultiSelectField**
 
-여러 값을 태그로 선택하는 `MultiSelectField`를 추가합니다. `MultiSelectField.Label`, `MultiSelectField.Input`, `MultiSelectField.Footer`, `MultiSelectField.Helper`, `MultiSelectField.Counter`를 조합해 구성합니다.
+제공된 옵션에서 여러 값을 선택할 수 있는 `MultiSelectField`를 추가합니다. `MultiSelectField.Label`, `MultiSelectField.Input`, `MultiSelectField.Footer`, `MultiSelectField.Helper`, `MultiSelectField.Counter`를 조합해 구성합니다.
 
 루트 prop
 
@@ -17,20 +17,21 @@
 
 `MultiSelectField.Input` prop
 
-| prop               | 기본값      | 설명                                                |
-| ------------------ | ----------- | --------------------------------------------------- |
-| `value`            | -           | controlled 선택값, `string[]`                       |
-| `onChange`         | -           | 선택값 변경 핸들러, `value`와 함께 사용             |
-| `defaultValue`     | `[]`        | uncontrolled 초기 선택값, `value`와 함께 사용 불가  |
-| `options`          | -           | 선택지, `string[]`                                  |
-| `maxValues`        | -           | 선택할 수 있는 최대 개수                            |
-| `name`             | -           | 폼 제출에 사용할 이름                               |
-| `allowCustomValue` | `false`     | 목록에 없는 입력값을 새 값으로 추가 허용            |
-| `placeholder`      | -           | 선택값이 없을 때 표시할 문구                        |
-| `variant`          | `'control'` | 선택 마크 표시 여부, `'control'`, `'label'`         |
-| `suffix`           | -           | 입력 오른쪽에 배치할 읽기 전용 요소                 |
-| `readOnly`         | -           | 읽기 전용 상태, 지정하면 루트의 `readonly`를 덮어씀 |
-| `required`         | -           | 필수 입력 여부, 지정하면 루트의 `required`를 덮어씀 |
+| prop           | 기본값      | 설명                                                |
+| -------------- | ----------- | --------------------------------------------------- |
+| `value`        | -           | controlled 선택값, `string[]`                       |
+| `onChange`     | -           | 선택값 변경 핸들러, `value`와 함께 사용             |
+| `defaultValue` | `[]`        | uncontrolled 초기 선택값, `value`와 함께 사용 불가  |
+| `options`      | -           | 선택지, `SelectOption[]`                            |
+| `maxValues`    | -           | 선택할 수 있는 최대 개수                            |
+| `name`         | -           | 폼 제출에 사용할 이름                               |
+| `placeholder`  | -           | 선택값이 없을 때 표시할 문구                        |
+| `variant`      | `'control'` | 선택 마크 표시 여부, `'control'`, `'label'`         |
+| `suffix`       | -           | 입력 오른쪽에 배치할 읽기 전용 요소                 |
+| `readOnly`     | -           | 읽기 전용 상태, 지정하면 루트의 `readonly`를 덮어씀 |
+| `required`     | -           | 필수 입력 여부, 지정하면 루트의 `required`를 덮어씀 |
+
+선택지는 `Select`, `SelectField`와 같은 `SelectOption` 형식이므로 값과 표시명을 따로 지정하고 캡션, 부가 요소, 옵션별 비활성도 함께 지정할 수 있습니다. 태그에는 선택한 값의 표시명이 나타납니다. 값을 옵션으로 제한하지 않아야 한다면 `SuggestionField`를 사용합니다.
 
 값과 선택지, 폼 관련 prop은 `MultiSelectField.Input`이 받습니다. `maxValues`를 지정하면 최대 개수만큼 고른 뒤 나머지 항목을 고를 수 없고, `MultiSelectField.Counter`를 `MultiSelectField.Footer` 안에 두면 현재 개수와 최대 개수를 함께 표시합니다. `name`을 지정하면 선택값이 폼 제출에 포함되며, 값이 여러 개이므로 `FormData.getAll(name)`으로 받습니다.
 
@@ -40,19 +41,19 @@
 
 입력 요소는 `role="combobox"`로 native 시맨틱을 덮어쓰므로 읽기 전용과 필수 상태를 `aria-readonly`, `aria-required`로 함께 노출합니다. `required`는 native `required`를 붙이지 않아 브라우저 기본 검증은 동작하지 않습니다.
 
-`es-hangul`이 런타임 의존성으로 추가됩니다. gzip 기준 약 1.8KB이며 `MultiSelectField`를 사용하는 소비처 번들에만 포함됩니다.
-
 타입 `MultiSelectFieldProps`, `MultiSelectFieldInputProps`, `MultiSelectFieldFooterProps`, `MultiSelectFieldLabelProps`, `MultiSelectFieldHelperProps`를 함께 내보냅니다.
 
 ```tsx
 <MultiSelectField>
   <MultiSelectField.Label>관심 기술 스택</MultiSelectField.Label>
   <MultiSelectField.Input
-    options={["React", "TypeScript", "Next.js"]}
-    defaultValue={["React"]}
+    options={[
+      { value: "react", label: "React" },
+      { value: "typescript", label: "TypeScript" },
+    ]}
+    defaultValue={["react"]}
     maxValues={5}
     name='stacks'
-    allowCustomValue
     placeholder='기술 스택을 선택하세요'
   />
   <MultiSelectField.Footer>
