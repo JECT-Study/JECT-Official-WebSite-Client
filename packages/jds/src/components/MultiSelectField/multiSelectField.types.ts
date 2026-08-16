@@ -13,6 +13,8 @@ type MultiSelectFieldInputBaseProps = Omit<
   required?: boolean;
   options: SelectOption[];
   placeholder?: string;
+  /** 항목 검색 가능 여부 */
+  searchable?: boolean;
   variant?: OptionVariant;
   /** 선택할 수 있는 값의 최대 개수. 지정하면 `MultiSelectField.Counter`가 현재 개수와 함께 표시된다. */
   maxValues?: number;

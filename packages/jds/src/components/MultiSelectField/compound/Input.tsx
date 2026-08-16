@@ -42,6 +42,7 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       name,
       form,
       variant = "control",
+      searchable = true,
       placeholder,
       suffix,
       disabled: disabledFromProps,
@@ -195,6 +196,8 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
     };
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+      if (!searchable) return;
+
       setQuery(e.target.value);
       openIfInteractive();
     };
@@ -289,16 +292,18 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
               aria-expanded={isOpen}
               aria-controls={isOpen ? listboxId : undefined}
               aria-activedescendant={isOpen ? activeId : undefined}
-              aria-autocomplete='list'
+              aria-autocomplete={searchable ? "list" : undefined}
               aria-label={ariaLabel}
               aria-labelledby={ariaLabelledBy}
               aria-describedby={ariaDescribedBy}
               aria-invalid={ariaInvalid}
-              aria-readonly={isReadOnly || undefined}
+              // searchable=false가 타이핑을 막기 위해 native readonly를 사용하므로,
+              // 스크린 리더에 읽기 전용으로 전달되지 않도록 항상 aria-readonly를 명시한다.
+              aria-readonly={isReadOnly}
               aria-required={isRequired || undefined}
               autoComplete='off'
               disabled={isDisabled}
-              readOnly={isReadOnly}
+              readOnly={isReadOnly || !searchable}
               placeholder={selectedValues.length === 0 ? placeholder : undefined}
               value={query}
               data-field-control=''

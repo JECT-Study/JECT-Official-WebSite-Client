@@ -222,6 +222,31 @@ export const WithCounter: Story = {
 };
 
 /**
+ * `searchable`을 끄면 검색어를 입력할 수 없게 됩니다.
+ * 필드 자체가 읽기 전용이 되는 `readonly`와 달리 목록은 그대로 열립니다.
+ */
+export const Searchable: Story = {
+  render: () => (
+    <FlexRow gap='32px' style={{ alignItems: "flex-start" }}>
+      {([true, false] as const).map(searchable => (
+        <FlexColumn key={String(searchable)} gap='16px' style={{ alignItems: "flex-start" }}>
+          <Label>{String(searchable)}</Label>
+          <MultiSelectField style={FIELD_WIDTH}>
+            <MultiSelectField.Label>레이블</MultiSelectField.Label>
+            <MultiSelectField.Input
+              options={options}
+              searchable={searchable}
+              defaultValue={["seoul"]}
+              placeholder='플레이스홀더'
+            />
+          </MultiSelectField>
+        </FlexColumn>
+      ))}
+    </FlexRow>
+  ),
+};
+
+/**
  * `suffix`는 입력 오른쪽에 형제로 배치되므로 배지나 단축키 표시 같은 읽기 전용 요소만 사용합니다.
  */
 export const WithSuffix: Story = {

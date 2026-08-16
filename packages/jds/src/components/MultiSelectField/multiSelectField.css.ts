@@ -26,7 +26,7 @@ export const input = style({
     color: fallbackVar(placeholderTextColor, vars.color.semantic.object.assistive),
   },
   selectors: {
-    "&[data-readonly]:not(:disabled)": {
+    "&:read-only:not(:disabled)": {
       cursor: "default",
     },
     "&:disabled": {
