@@ -17,7 +17,7 @@ import { Listbox, useListbox, useSingleSelectState } from "../../Listbox";
 import { SELECTION_KEYS } from "../../Listbox/listbox.constants";
 import { useSelectFieldContext } from "../SelectField.context";
 import * as styles from "../selectField.css";
-import type { SelectFieldTriggerProps } from "../selectField.types";
+import type { SelectFieldInputProps } from "../selectField.types";
 
 import { getActiveDescendantContainerProps } from "@/hooks/useActiveDescendant";
 import { getBodyClassName } from "@/utils/typography";
@@ -25,7 +25,7 @@ import { getBodyClassName } from "@/utils/typography";
 const MOVE_KEYS = ["ArrowDown", "ArrowUp"];
 const OPENING_KEYS = [...MOVE_KEYS, "Home", "End", ...SELECTION_KEYS];
 
-export const SelectFieldTrigger = forwardRef<HTMLInputElement, SelectFieldTriggerProps>(
+export const SelectFieldInput = forwardRef<HTMLInputElement, SelectFieldInputProps>(
   (
     {
       options,
@@ -34,10 +34,10 @@ export const SelectFieldTrigger = forwardRef<HTMLInputElement, SelectFieldTrigge
       onChange,
       variant = "label",
       placeholder,
-      readonly: readonlyFromProps,
-      required: requiredFromProps,
       suffix,
       disabled: disabledFromProps,
+      readOnly: readOnlyFromProps,
+      required: requiredFromProps,
       onKeyDown: onKeyDownFromProps,
       onBlur: onBlurFromProps,
       onMouseDown: onMouseDownFromProps,
@@ -59,9 +59,9 @@ export const SelectFieldTrigger = forwardRef<HTMLInputElement, SelectFieldTrigge
       ariaLabelledBy,
       ariaDescribedBy,
       ariaInvalid,
-    } = useFieldControl("SelectField.Trigger", {
+    } = useFieldControl("SelectField.Input", {
       disabled: disabledFromProps,
-      readOnly: readonlyFromProps,
+      readOnly: readOnlyFromProps,
       required: requiredFromProps,
       ariaLabel: ariaLabelFromProps,
       ariaLabelledBy: labelledByFromProps,
@@ -69,7 +69,7 @@ export const SelectFieldTrigger = forwardRef<HTMLInputElement, SelectFieldTrigge
       ariaInvalid: invalidFromProps,
     });
 
-    const { isOpen, onOpenChange } = useSelectFieldContext("SelectField.Trigger");
+    const { isOpen, onOpenChange } = useSelectFieldContext("SelectField.Input");
 
     const contentRef = useRef<HTMLDivElement>(null);
 
@@ -213,7 +213,7 @@ export const SelectFieldTrigger = forwardRef<HTMLInputElement, SelectFieldTrigge
               value={selectedLabel ?? ""}
               data-field-control=''
               data-readonly={isReadOnly || undefined}
-              className={clsx(getBodyClassName({ size: "md" }), styles.trigger, className)}
+              className={clsx(getBodyClassName({ size: "md" }), styles.input, className)}
               onBlur={handleBlur}
               onKeyDown={handleKeyDown}
               onMouseDown={handleMouseDown}
@@ -268,4 +268,4 @@ export const SelectFieldTrigger = forwardRef<HTMLInputElement, SelectFieldTrigge
   },
 );
 
-SelectFieldTrigger.displayName = "SelectField.Trigger";
+SelectFieldInput.displayName = "SelectField.Input";

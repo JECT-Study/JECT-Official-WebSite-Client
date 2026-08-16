@@ -5,14 +5,14 @@ import type { OptionVariant, SelectOption } from "../Listbox";
 
 export type SelectFieldProps = FieldProps;
 
-type SelectFieldTriggerBaseProps = Omit<
+type SelectFieldInputBaseProps = Omit<
   ComponentPropsWithoutRef<"input">,
   "id" | "type" | "value" | "defaultValue" | "onChange" | "required"
 > & {
   options: SelectOption[];
   placeholder?: string;
   /** 읽기 전용 여부. aria-readonly로 반영한다. */
-  readonly?: boolean;
+  readOnly?: boolean;
   /** 필수 입력 여부. aria-required로 반영한다. */
   required?: boolean;
   variant?: OptionVariant;
@@ -20,17 +20,17 @@ type SelectFieldTriggerBaseProps = Omit<
   suffix?: ReactNode;
 };
 
-type SelectFieldTriggerControlledProps = {
+type SelectFieldInputControlledProps = {
   value: string | null;
   defaultValue?: never;
   onChange: (value: string) => void;
 };
 
-type SelectFieldTriggerUncontrolledProps = {
+type SelectFieldInputUncontrolledProps = {
   value?: never;
   defaultValue?: string;
   onChange?: (value: string) => void;
 };
 
-export type SelectFieldTriggerProps = SelectFieldTriggerBaseProps &
-  (SelectFieldTriggerControlledProps | SelectFieldTriggerUncontrolledProps);
+export type SelectFieldInputProps = SelectFieldInputBaseProps &
+  (SelectFieldInputControlledProps | SelectFieldInputUncontrolledProps);

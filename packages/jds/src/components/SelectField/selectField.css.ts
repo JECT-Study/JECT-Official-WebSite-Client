@@ -1,11 +1,11 @@
 import { createVar, fallbackVar, style } from "@vanilla-extract/css";
 import { vars } from "tokens";
 
-const triggerTextColor = createVar();
+const inputTextColor = createVar();
 const placeholderTextColor = createVar();
 const indicatorIconColor = createVar();
 
-export const trigger = style({
+export const input = style({
   flex: "1 0 0",
   minWidth: 0,
   padding: 0,
@@ -15,7 +15,7 @@ export const trigger = style({
   position: "relative",
   zIndex: 1,
   textOverflow: "ellipsis",
-  color: fallbackVar(triggerTextColor, vars.color.semantic.object.bolder),
+  color: fallbackVar(inputTextColor, vars.color.semantic.object.bolder),
   "::placeholder": {
     color: fallbackVar(placeholderTextColor, vars.color.semantic.object.assistive),
   },
@@ -31,7 +31,7 @@ export const trigger = style({
     "&:disabled": {
       cursor: "not-allowed",
       vars: {
-        [triggerTextColor]: vars.color.semantic.object.assistive,
+        [inputTextColor]: vars.color.semantic.object.assistive,
         [placeholderTextColor]: vars.color.semantic.object.subtler,
         [indicatorIconColor]: vars.color.semantic.object.subtler,
       },

@@ -94,7 +94,7 @@ export const Playground: Story = {
       >
         레이블
       </SelectField.Label>
-      <SelectField.Trigger options={options} defaultValue='seoul' placeholder='플레이스홀더' />
+      <SelectField.Input options={options} defaultValue='seoul' placeholder='플레이스홀더' />
       <SelectField.Helper>헬퍼 텍스트</SelectField.Helper>
     </SelectField>
   ),
@@ -111,11 +111,7 @@ export const Statuses: Story = {
           <Label>{status}</Label>
           <SelectField status={status} style={FIELD_WIDTH}>
             <SelectField.Label>레이블</SelectField.Label>
-            <SelectField.Trigger
-              options={options}
-              defaultValue='seoul'
-              placeholder='플레이스홀더'
-            />
+            <SelectField.Input options={options} defaultValue='seoul' placeholder='플레이스홀더' />
             <SelectField.Helper>헬퍼 텍스트</SelectField.Helper>
           </SelectField>
         </FlexColumn>
@@ -137,7 +133,7 @@ export const States: Story = {
         <Label>disabled</Label>
         <SelectField disabled style={FIELD_WIDTH}>
           <SelectField.Label>레이블</SelectField.Label>
-          <SelectField.Trigger options={options} defaultValue='seoul' placeholder='플레이스홀더' />
+          <SelectField.Input options={options} defaultValue='seoul' placeholder='플레이스홀더' />
           <SelectField.Helper>헬퍼 텍스트</SelectField.Helper>
         </SelectField>
       </FlexColumn>
@@ -145,7 +141,7 @@ export const States: Story = {
         <Label>readonly</Label>
         <SelectField readonly style={FIELD_WIDTH}>
           <SelectField.Label>레이블</SelectField.Label>
-          <SelectField.Trigger options={options} defaultValue='seoul' placeholder='플레이스홀더' />
+          <SelectField.Input options={options} defaultValue='seoul' placeholder='플레이스홀더' />
           <SelectField.Helper>헬퍼 텍스트</SelectField.Helper>
         </SelectField>
       </FlexColumn>
@@ -153,7 +149,7 @@ export const States: Story = {
         <Label>required</Label>
         <SelectField required style={FIELD_WIDTH}>
           <SelectField.Label>레이블</SelectField.Label>
-          <SelectField.Trigger options={options} defaultValue='seoul' placeholder='플레이스홀더' />
+          <SelectField.Input options={options} defaultValue='seoul' placeholder='플레이스홀더' />
           <SelectField.Helper>헬퍼 텍스트</SelectField.Helper>
         </SelectField>
       </FlexColumn>
@@ -171,14 +167,14 @@ export const Values: Story = {
         <Label>placeholder</Label>
         <SelectField style={FIELD_WIDTH}>
           <SelectField.Label>레이블</SelectField.Label>
-          <SelectField.Trigger options={options} placeholder='플레이스홀더' />
+          <SelectField.Input options={options} placeholder='플레이스홀더' />
         </SelectField>
       </FlexColumn>
       <FlexColumn gap='16px'>
         <Label>selected</Label>
         <SelectField style={FIELD_WIDTH}>
           <SelectField.Label>레이블</SelectField.Label>
-          <SelectField.Trigger options={options} defaultValue='seoul' placeholder='플레이스홀더' />
+          <SelectField.Input options={options} defaultValue='seoul' placeholder='플레이스홀더' />
         </SelectField>
       </FlexColumn>
     </FlexRow>
@@ -195,7 +191,7 @@ export const WithSuffix: Story = {
   render: () => (
     <SelectField style={FIELD_WIDTH}>
       <SelectField.Label>레이블</SelectField.Label>
-      <SelectField.Trigger
+      <SelectField.Input
         options={options}
         defaultValue='seoul'
         placeholder='플레이스홀더'
@@ -218,7 +214,7 @@ export const ScrollToSelected: Story = {
   render: () => (
     <SelectField style={FIELD_WIDTH}>
       <SelectField.Label>레이블</SelectField.Label>
-      <SelectField.Trigger options={REGIONS} defaultValue='jeju' placeholder='플레이스홀더' />
+      <SelectField.Input options={REGIONS} defaultValue='jeju' placeholder='플레이스홀더' />
     </SelectField>
   ),
 };
