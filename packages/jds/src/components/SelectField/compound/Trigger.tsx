@@ -9,7 +9,8 @@ import {
   type MouseEvent,
 } from "react";
 
-import { useFieldContext } from "../../Field/Field.context";
+import { FieldContent } from "../../Field";
+import { useFieldControl } from "../../Field/useFieldControl";
 import { Icon } from "../../Icon";
 import { Listbox, useListbox, useSingleSelectState } from "../../Listbox";
 import { SELECTION_KEYS } from "../../Listbox/listbox.constants";
@@ -31,10 +32,14 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
       onChange,
       variant = "label",
       placeholder,
+      readonly: readonlyFromProps,
+      required: requiredFromProps,
       suffix,
       disabled: disabledFromProps,
       onClick: onClickFromProps,
       onKeyDown: onKeyDownFromProps,
+      "aria-label": ariaLabelFromProps,
+      "aria-labelledby": labelledByFromProps,
       "aria-describedby": describedByFromProps,
       "aria-invalid": invalidFromProps,
       className,
@@ -44,17 +49,25 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
   ) => {
     const {
       fieldId,
-      labelId,
-      helperTextId,
-      hasHelperText,
-      status,
-      disabled: isDisabledFromCtx,
-      readonly: isReadOnly,
-    } = useFieldContext("SelectField.Trigger");
+      isDisabled,
+      isReadOnly,
+      isRequired,
+      ariaLabel,
+      ariaLabelledBy,
+      ariaDescribedBy,
+      ariaInvalid,
+    } = useFieldControl("SelectField.Trigger", {
+      disabled: disabledFromProps,
+      readOnly: readonlyFromProps,
+      required: requiredFromProps,
+      ariaLabel: ariaLabelFromProps,
+      ariaLabelledBy: labelledByFromProps,
+      ariaDescribedBy: describedByFromProps,
+      ariaInvalid: invalidFromProps,
+    });
 
     const { isOpen, onOpenChange } = useSelectFieldContext("SelectField.Trigger");
 
-    const isDisabled = disabledFromProps ?? isDisabledFromCtx;
     const isInteractive = !isDisabled && !isReadOnly;
 
     const { selectedValue, selectedValues, select } = useSingleSelectState(
@@ -83,6 +96,12 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
 
     const activateSelectedRef = useRef(activateSelected);
     activateSelectedRef.current = activateSelected;
+
+    const handleContentMouseDown = (e: MouseEvent<HTMLDivElement>) => {
+      if (e.target !== e.currentTarget || !isInteractive) return;
+
+      onOpenChange(true);
+    };
 
     const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
       onClickFromProps?.(e);
@@ -137,46 +156,47 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
       [contextValue, onOpenChange],
     );
 
-    const describedByIds = [hasHelperText ? helperTextId : undefined, describedByFromProps].filter(
-      Boolean,
-    );
-    const ariaInvalid = status === "error" ? true : (invalidFromProps ?? false);
-
     return (
       <>
-        <Popover.Trigger asChild>
-          <button
-            {...restProps}
-            ref={ref}
-            type='button'
-            id={fieldId}
-            role='combobox'
-            aria-haspopup='listbox'
-            aria-expanded={isOpen}
-            aria-controls={listboxId}
-            aria-labelledby={labelId}
-            aria-activedescendant={isOpen ? activeId : undefined}
-            aria-describedby={describedByIds.length > 0 ? describedByIds.join(" ") : undefined}
-            aria-invalid={ariaInvalid}
-            aria-readonly={isReadOnly || undefined}
-            disabled={isDisabled}
-            data-interaction-target=''
-            data-readonly={isReadOnly || undefined}
-            data-open={isOpen || undefined}
-            className={clsx(styles.trigger, className)}
-            onClick={handleClick}
-            onKeyDown={handleKeyDown}
-          >
-            <span
-              className={clsx(getBodyClassName({ size: "md" }), styles.value)}
-              data-placeholder={selectedLabel == null || undefined}
-            >
-              {selectedLabel ?? placeholder}
-            </span>
-            {suffix}
-            <Icon name='chevron-down' size='md' className={styles.indicator} />
-          </button>
-        </Popover.Trigger>
+        <Popover.Anchor asChild>
+          <FieldContent onMouseDown={handleContentMouseDown}>
+            <Popover.Trigger asChild>
+              <button
+                {...restProps}
+                ref={ref}
+                type='button'
+                id={fieldId}
+                role='combobox'
+                aria-haspopup='listbox'
+                aria-expanded={isOpen}
+                aria-controls={isOpen ? listboxId : undefined}
+                aria-label={ariaLabel}
+                aria-labelledby={ariaLabelledBy}
+                aria-activedescendant={isOpen ? activeId : undefined}
+                aria-describedby={ariaDescribedBy}
+                aria-invalid={ariaInvalid}
+                aria-readonly={isReadOnly || undefined}
+                aria-required={isRequired || undefined}
+                disabled={isDisabled}
+                data-field-control=''
+                data-readonly={isReadOnly || undefined}
+                data-open={isOpen || undefined}
+                className={clsx(styles.trigger, className)}
+                onClick={handleClick}
+                onKeyDown={handleKeyDown}
+              >
+                <span
+                  className={clsx(getBodyClassName({ size: "md" }), styles.value)}
+                  data-placeholder={selectedLabel == null || undefined}
+                >
+                  {selectedLabel ?? placeholder}
+                </span>
+                {suffix}
+                <Icon name='chevron-down' size='md' className={styles.indicator} />
+              </button>
+            </Popover.Trigger>
+          </FieldContent>
+        </Popover.Anchor>
         <Popover.Portal>
           <Popover.Content
             asChild
@@ -195,7 +215,8 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
               listboxProps={{
                 ...getListboxProps(),
                 ...getActiveDescendantContainerProps(),
-                "aria-labelledby": labelId,
+                "aria-label": ariaLabel,
+                "aria-labelledby": ariaLabelledBy,
               }}
               onMouseDown={e => e.preventDefault()}
             >

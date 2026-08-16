@@ -209,16 +209,14 @@ export const CustomTrigger: Story = {
       <FlexColumn gap='12px'>
         <Label>Input 예시</Label>
         <TextField>
-          <TextField.Content>
-            <Tooltip.Root>
-              <Tooltip.Trigger asChild>
-                <TextField.Input value='레이블 명' onChange={e => e.preventDefault()} />
-              </Tooltip.Trigger>
-              <Tooltip.Content side='top' sideOffset={12}>
-                안녕하세요? 툴팁입니다.
-              </Tooltip.Content>
-            </Tooltip.Root>
-          </TextField.Content>
+          <Tooltip.Root>
+            <Tooltip.Trigger asChild>
+              <TextField.Input value='레이블 명' onChange={e => e.preventDefault()} />
+            </Tooltip.Trigger>
+            <Tooltip.Content side='top' sideOffset={12}>
+              안녕하세요? 툴팁입니다.
+            </Tooltip.Content>
+          </Tooltip.Root>
         </TextField>
       </FlexColumn>
     </FlexColumn>

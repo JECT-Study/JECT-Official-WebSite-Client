@@ -1,24 +1,40 @@
 import { clsx } from "clsx";
-import { forwardRef, type ComponentPropsWithoutRef } from "react";
+import { forwardRef, type ComponentPropsWithoutRef, type ReactNode } from "react";
 
-import { useFieldContext } from "../../Field/Field.context";
+import { FieldContent } from "../../Field";
+import { useFieldControl } from "../../Field/useFieldControl";
 import * as styles from "../textField.css";
 
 import { getBodyClassName } from "@/utils/typography";
 
-export type TextFieldInputProps = Omit<ComponentPropsWithoutRef<"input">, "id">;
+// prefix는 HTMLAttributes의 RDFa 속성과 타입이 충돌하므로 제외하고 ReactNode로 재정의한다.
+export interface TextFieldInputProps extends Omit<
+  ComponentPropsWithoutRef<"input">,
+  "id" | "prefix" | "required"
+> {
+  /** 필수 입력 여부. aria-required로 반영한다. */
+  required?: boolean;
+  /** 입력 왼쪽에 배치되는 부가 요소 */
+  prefix?: ReactNode;
+  /** 입력 오른쪽에 배치되는 부가 요소 */
+  suffix?: ReactNode;
+}
 
 /**
- * @description Field 컨텍스트를 소비해 Field.Content 안에 놓이는 실제 input.
- * HelperText 가 실제로 렌더될 때만 aria-describedby 로 연결한다.
- * controlled(value·onChange) / uncontrolled(defaultValue) 를 모두 지원한다.
+ * @description Field 컨텍스트를 소비해 필드 박스와 실제 input을 함께 렌더한다.
+ * Helper가 실제로 렌더될 때만 aria-describedby로 연결한다.
+ * controlled(value, onChange)와 uncontrolled(defaultValue)를 모두 지원한다.
  */
 export const TextFieldInput = forwardRef<HTMLInputElement, TextFieldInputProps>(
   (
     {
+      prefix,
+      suffix,
       readOnly: readOnlyFromProps,
       disabled: disabledFromProps,
       required: requiredFromProps,
+      "aria-label": ariaLabelFromProps,
+      "aria-labelledby": labelledByFromProps,
       "aria-describedby": describedByFromProps,
       "aria-invalid": invalidFromProps,
       className,
@@ -28,37 +44,44 @@ export const TextFieldInput = forwardRef<HTMLInputElement, TextFieldInputProps>(
   ) => {
     const {
       fieldId,
-      helperTextId,
-      hasHelperText,
-      status,
-      disabled: isDisabledFromCtx,
-      readonly: isReadOnlyFromCtx,
-      required: isRequiredFromCtx,
-    } = useFieldContext("TextField.Input");
-
-    const isReadOnly = readOnlyFromProps ?? isReadOnlyFromCtx;
-    const isDisabled = disabledFromProps ?? isDisabledFromCtx;
-    const isRequired = requiredFromProps ?? isRequiredFromCtx;
-
-    const describedByIds = [hasHelperText ? helperTextId : undefined, describedByFromProps].filter(
-      Boolean,
-    );
-    const ariaInvalid = status === "error" ? true : (invalidFromProps ?? false);
+      isDisabled,
+      isReadOnly,
+      isRequired,
+      ariaLabel,
+      ariaLabelledBy,
+      ariaDescribedBy,
+      ariaInvalid,
+    } = useFieldControl("TextField.Input", {
+      disabled: disabledFromProps,
+      readOnly: readOnlyFromProps,
+      required: requiredFromProps,
+      ariaLabel: ariaLabelFromProps,
+      ariaLabelledBy: labelledByFromProps,
+      ariaDescribedBy: describedByFromProps,
+      ariaInvalid: invalidFromProps,
+    });
 
     return (
-      <input
-        {...restProps}
-        ref={ref}
-        id={fieldId}
-        aria-describedby={describedByIds.length > 0 ? describedByIds.join(" ") : undefined}
-        aria-invalid={ariaInvalid}
-        disabled={isDisabled}
-        readOnly={isReadOnly}
-        required={isRequired}
-        // NOTES: :read-only 는 readonly 가 적용되지 않는 type(checkbox·range·file 등)에서도 항상 매칭되므로 스타일은 실제로 해석된 readonly 상태를 담은 data 속성으로 건다.
-        data-readonly={isReadOnly || undefined}
-        className={clsx(getBodyClassName({ size: "md" }), styles.input, className)}
-      />
+      <FieldContent>
+        {prefix}
+        <input
+          {...restProps}
+          ref={ref}
+          id={fieldId}
+          aria-label={ariaLabel}
+          aria-labelledby={ariaLabelledBy}
+          aria-describedby={ariaDescribedBy}
+          aria-invalid={ariaInvalid}
+          disabled={isDisabled}
+          readOnly={isReadOnly}
+          aria-required={isRequired || undefined}
+          data-field-control=''
+          // native :read-only는 readonly를 지원하지 않는 input type에서도 매칭되므로, 해석된 상태를 data 속성으로 내려준다.
+          data-readonly={isReadOnly || undefined}
+          className={clsx(getBodyClassName({ size: "md" }), styles.input, className)}
+        />
+        {suffix}
+      </FieldContent>
     );
   },
 );

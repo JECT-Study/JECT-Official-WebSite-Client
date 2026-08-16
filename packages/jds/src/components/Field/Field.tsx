@@ -1,16 +1,16 @@
 import { clsx } from "clsx";
 import { forwardRef, useId, useState, type ComponentPropsWithoutRef, type ReactNode } from "react";
 
-import { FieldContent } from "./compound/Content";
-import { FieldHelperText } from "./compound/HelperText";
+import { FieldCounter } from "./compound/Counter";
+import { FieldFooter } from "./compound/Footer";
+import { FieldHelper } from "./compound/Helper";
 import { FieldLabel } from "./compound/Label";
 import { FieldProvider } from "./Field.context";
 import * as styles from "./field.css";
-import type { FieldStatus, FieldStyle } from "./field.types";
+import type { FieldStatus } from "./field.types";
 
 export interface FieldProps extends ComponentPropsWithoutRef<"div"> {
   status?: FieldStatus;
-  fieldStyle?: FieldStyle;
   readonly?: boolean;
   disabled?: boolean;
   required?: boolean;
@@ -22,7 +22,6 @@ const InternalField = forwardRef<HTMLDivElement, FieldProps>(
     {
       id: idFromProps,
       status = "default",
-      fieldStyle = "outline",
       readonly = false,
       disabled = false,
       required = false,
@@ -35,18 +34,28 @@ const InternalField = forwardRef<HTMLDivElement, FieldProps>(
     const generatedId = useId();
     const fieldId = idFromProps ?? generatedId;
     const labelId = `${fieldId}-label`;
-    const helperTextId = `${fieldId}-helper-text`;
-    const [hasHelperText, setHasHelperText] = useState(false);
+    const helperId = `${fieldId}-helper`;
+    const counterId = `${fieldId}-counter`;
+    const [hasLabel, setHasLabel] = useState(false);
+    const [hasHelper, setHasHelper] = useState(false);
+    const [hasCounter, setHasCounter] = useState(false);
+    const [isControlRequired, setControlRequired] = useState(false);
 
     return (
       <FieldProvider
         fieldId={fieldId}
         labelId={labelId}
-        helperTextId={helperTextId}
-        hasHelperText={hasHelperText}
-        onHelperTextMountChange={setHasHelperText}
+        hasLabel={hasLabel}
+        onLabelMountChange={setHasLabel}
+        helperId={helperId}
+        hasHelper={hasHelper}
+        onHelperMountChange={setHasHelper}
+        counterId={counterId}
+        hasCounter={hasCounter}
+        onCounterMountChange={setHasCounter}
+        isControlRequired={isControlRequired}
+        onControlRequiredChange={setControlRequired}
         status={status}
-        fieldStyle={fieldStyle}
         readonly={readonly}
         disabled={disabled}
         required={required}
@@ -61,11 +70,9 @@ const InternalField = forwardRef<HTMLDivElement, FieldProps>(
 
 InternalField.displayName = "InternalField";
 
-/**
- * @description Field component는 내부 internal component로 field류의 component를 구현하는 데 사용되는 컴포넌트입니다.
- */
 export const Field = Object.assign(InternalField, {
   Label: FieldLabel,
-  Content: FieldContent,
-  HelperText: FieldHelperText,
+  Helper: FieldHelper,
+  Counter: FieldCounter,
+  Footer: FieldFooter,
 });

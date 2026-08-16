@@ -69,11 +69,6 @@ export const resetCss = {
     font: "inherit",
   },
 
-  // rows 속성이 없는 textarea의 최소 높이 확보
-  "textarea:not([rows])": {
-    minHeight: "10em",
-  },
-
   // 추가: 클래스가 있는 a에 대해서만 기본 장식 제거 (기존 규칙 보완)
   "a[class]": {
     textDecoration: "none",
