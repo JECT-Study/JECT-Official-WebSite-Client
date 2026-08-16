@@ -334,7 +334,7 @@ const FormPreview = () => {
         <MultiSelectField style={FIELD_WIDTH}>
           <MultiSelectField.Label>레이블</MultiSelectField.Label>
           <MultiSelectField.Input
-            options={REGIONS}
+            options={options}
             name='regions'
             defaultValue={["seoul", "busan"]}
             placeholder='플레이스홀더'
