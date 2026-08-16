@@ -11,6 +11,8 @@ type SelectFieldInputBaseProps = Omit<
 > & {
   options: SelectOption[];
   placeholder?: string;
+  /** 항목 검색 가능 여부 */
+  searchable?: boolean;
   /** 읽기 전용 여부. aria-readonly로 반영한다. */
   readOnly?: boolean;
   /** 필수 입력 여부. aria-required로 반영한다. */
