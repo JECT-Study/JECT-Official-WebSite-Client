@@ -8,20 +8,20 @@
 
 **소비처 영향 (코드 수정 필요)**
 
-| AS-IS                                               | TO-BE                                                        |
-| --------------------------------------------------- | ------------------------------------------------------------ |
-| `Input.TagField`                                    | `MultiSelectField`                                           |
-| `label`                                             | `MultiSelectField.Label`                                     |
-| `helperText`                                        | `MultiSelectField.Footer` 안의 `MultiSelectField.HelperText` |
-| `tags`, `onTagsChange` (`Tag[]`)                    | `value`, `onChange` 또는 `defaultValue` (`string[]`)         |
-| `maxTags`                                           | `maxValues`                                                  |
-| `allowDuplicates`                                   | 제거 — 선택값은 항상 고유                                    |
-| `isWithInfoIcon`                                    | `MultiSelectField.Label`의 `suffixSlot`                      |
-| `style="outlined" \| "empty"`                       | `fieldStyle="outline" \| "hollow"`                           |
-| `validation="none" \| "error" \| "success"`         | `status="default" \| "success" \| "error"`                   |
-| `interaction="enabled" \| "disabled" \| "readOnly"` | `disabled`, `readonly` boolean prop                          |
-| `TagFieldButton` (`labelIcon`, `button`)            | 제거 — 대체재 없음                                           |
-| `TagFieldProps`, `TagFieldPublicProps`, `Tag`       | `MultiSelectFieldProps`, `MultiSelectFieldInputProps`        |
+| AS-IS                                               | TO-BE                                                                           |
+| --------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `Input.TagField`                                    | `MultiSelectField`                                                              |
+| `label`                                             | `MultiSelectField.Label`                                                        |
+| `helperText`                                        | `MultiSelectField.Footer` 안의 `MultiSelectField.Helper`                        |
+| `tags`, `onTagsChange` (`Tag[]`)                    | `MultiSelectField.Input`의 `value`, `onChange` 또는 `defaultValue` (`string[]`) |
+| `maxTags`                                           | `MultiSelectField.Input`의 `maxValues`                                          |
+| `allowDuplicates`                                   | 제거 — 선택값은 항상 고유                                                       |
+| `isWithInfoIcon`                                    | `MultiSelectField.Label`의 `suffix`                                             |
+| `style="outlined" \| "empty"`                       | 제거 — `outlined` 표현으로 고정                                                 |
+| `validation="none" \| "error" \| "success"`         | `status="default" \| "success" \| "error"`                                      |
+| `interaction="enabled" \| "disabled" \| "readOnly"` | `disabled`, `readonly` boolean prop                                             |
+| `TagFieldButton` (`labelIcon`, `button`)            | 제거 — 대체재 없음                                                              |
+| `TagFieldProps`, `TagFieldPublicProps`, `Tag`       | `MultiSelectFieldProps`, `MultiSelectFieldInputProps`                           |
 
 ```diff
 - const [tags, setTags] = useState<Tag[]>([{ id: "1", label: "React" }]);
@@ -34,17 +34,17 @@
 -   onTagsChange={setTags}
 -   maxTags={5}
 - />;
-+ <MultiSelectField defaultValue={["React"]} maxValues={5}>
++ <MultiSelectField>
 +   <MultiSelectField.Label>관심 기술 스택</MultiSelectField.Label>
-+   <MultiSelectField.Content>
-+     <MultiSelectField.Input
-+       options={["React", "TypeScript", "Next.js"]}
-+       allowCustomValue
-+       placeholder='기술 스택을 선택하세요'
-+     />
-+   </MultiSelectField.Content>
++   <MultiSelectField.Input
++     options={["React", "TypeScript", "Next.js"]}
++     defaultValue={["React"]}
++     maxValues={5}
++     allowCustomValue
++     placeholder='기술 스택을 선택하세요'
++   />
 +   <MultiSelectField.Footer>
-+     <MultiSelectField.HelperText>최대 5개까지 고를 수 있어요</MultiSelectField.HelperText>
++     <MultiSelectField.Helper>최대 5개까지 고를 수 있어요</MultiSelectField.Helper>
 +     <MultiSelectField.Counter />
 +   </MultiSelectField.Footer>
 + </MultiSelectField>

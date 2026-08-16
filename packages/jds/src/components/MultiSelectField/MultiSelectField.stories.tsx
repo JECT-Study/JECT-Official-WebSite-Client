@@ -47,12 +47,6 @@ const meta = {
       control: false,
       table: { disable: true },
     },
-    fieldStyle: {
-      control: "inline-radio",
-      options: ["outline", "hollow"],
-      description: "필드 스타일",
-      table: { defaultValue: { summary: "outline" } },
-    },
     status: {
       control: "inline-radio",
       options: ["default", "success", "error"],
@@ -85,17 +79,15 @@ type Story = StoryObj<typeof meta>;
  */
 export const Playground: Story = {
   args: {
-    fieldStyle: "outline",
     status: "default",
     disabled: false,
     readonly: false,
     required: false,
-    defaultValue: ["서울특별시"],
   },
   render: args => (
     <MultiSelectField {...args} style={FIELD_WIDTH}>
       <MultiSelectField.Label
-        suffixSlot={
+        suffix={
           <Icon
             name='information-line'
             size='2xs'
@@ -105,37 +97,15 @@ export const Playground: Story = {
       >
         레이블
       </MultiSelectField.Label>
-      <MultiSelectField.Content>
-        <MultiSelectField.Input options={options} placeholder='플레이스홀더' />
-      </MultiSelectField.Content>
+      <MultiSelectField.Input
+        options={options}
+        defaultValue={["서울특별시"]}
+        placeholder='플레이스홀더'
+      />
       <MultiSelectField.Footer>
-        <MultiSelectField.HelperText>헬퍼 텍스트</MultiSelectField.HelperText>
+        <MultiSelectField.Helper>헬퍼 텍스트</MultiSelectField.Helper>
       </MultiSelectField.Footer>
     </MultiSelectField>
-  ),
-};
-
-/**
- * `fieldStyle`에 따른 필드의 스타일 변형입니다.
- */
-export const Styles: Story = {
-  render: () => (
-    <FlexRow gap='32px' style={{ alignItems: "flex-start" }}>
-      {(["outline", "hollow"] as const).map(style => (
-        <FlexColumn key={style} gap='16px' style={{ alignItems: "flex-start" }}>
-          <Label>{style}</Label>
-          <MultiSelectField fieldStyle={style} defaultValue={["서울특별시"]} style={FIELD_WIDTH}>
-            <MultiSelectField.Label>레이블</MultiSelectField.Label>
-            <MultiSelectField.Content>
-              <MultiSelectField.Input options={options} placeholder='플레이스홀더' />
-            </MultiSelectField.Content>
-            <MultiSelectField.Footer>
-              <MultiSelectField.HelperText>헬퍼 텍스트</MultiSelectField.HelperText>
-            </MultiSelectField.Footer>
-          </MultiSelectField>
-        </FlexColumn>
-      ))}
-    </FlexRow>
   ),
 };
 
@@ -148,13 +118,15 @@ export const Statuses: Story = {
       {(["default", "success", "error"] as const).map(status => (
         <FlexColumn key={status} gap='16px' style={{ alignItems: "flex-start" }}>
           <Label>{status}</Label>
-          <MultiSelectField status={status} defaultValue={["서울특별시"]} style={FIELD_WIDTH}>
+          <MultiSelectField status={status} style={FIELD_WIDTH}>
             <MultiSelectField.Label>레이블</MultiSelectField.Label>
-            <MultiSelectField.Content>
-              <MultiSelectField.Input options={options} placeholder='플레이스홀더' />
-            </MultiSelectField.Content>
+            <MultiSelectField.Input
+              options={options}
+              defaultValue={["서울특별시"]}
+              placeholder='플레이스홀더'
+            />
             <MultiSelectField.Footer>
-              <MultiSelectField.HelperText>헬퍼 텍스트</MultiSelectField.HelperText>
+              <MultiSelectField.Helper>헬퍼 텍스트</MultiSelectField.Helper>
             </MultiSelectField.Footer>
           </MultiSelectField>
         </FlexColumn>
@@ -178,17 +150,15 @@ export const States: Story = {
       ).map(([name, props]) => (
         <FlexColumn key={name} gap='16px' style={{ alignItems: "flex-start" }}>
           <Label>{name}</Label>
-          <MultiSelectField
-            {...props}
-            defaultValue={["서울특별시", "부산광역시"]}
-            style={FIELD_WIDTH}
-          >
+          <MultiSelectField {...props} style={FIELD_WIDTH}>
             <MultiSelectField.Label>레이블</MultiSelectField.Label>
-            <MultiSelectField.Content>
-              <MultiSelectField.Input options={options} placeholder='플레이스홀더' />
-            </MultiSelectField.Content>
+            <MultiSelectField.Input
+              options={options}
+              defaultValue={["서울특별시", "부산광역시"]}
+              placeholder='플레이스홀더'
+            />
             <MultiSelectField.Footer>
-              <MultiSelectField.HelperText>헬퍼 텍스트</MultiSelectField.HelperText>
+              <MultiSelectField.Helper>헬퍼 텍스트</MultiSelectField.Helper>
             </MultiSelectField.Footer>
           </MultiSelectField>
         </FlexColumn>
@@ -213,11 +183,13 @@ export const Values: Story = {
       ).map(([name, defaultValue]) => (
         <FlexColumn key={name} gap='16px' style={{ alignItems: "flex-start" }}>
           <Label>{name}</Label>
-          <MultiSelectField defaultValue={[...defaultValue]} style={FIELD_WIDTH}>
+          <MultiSelectField style={FIELD_WIDTH}>
             <MultiSelectField.Label>레이블</MultiSelectField.Label>
-            <MultiSelectField.Content>
-              <MultiSelectField.Input options={options} placeholder='플레이스홀더' />
-            </MultiSelectField.Content>
+            <MultiSelectField.Input
+              options={options}
+              defaultValue={[...defaultValue]}
+              placeholder='플레이스홀더'
+            />
           </MultiSelectField>
         </FlexColumn>
       ))}
@@ -231,17 +203,16 @@ export const Values: Story = {
  */
 export const WithCounter: Story = {
   render: () => (
-    <MultiSelectField
-      defaultValue={["서울특별시", "부산광역시", "대구광역시"]}
-      maxValues={3}
-      style={FIELD_WIDTH}
-    >
+    <MultiSelectField style={FIELD_WIDTH}>
       <MultiSelectField.Label>레이블</MultiSelectField.Label>
-      <MultiSelectField.Content>
-        <MultiSelectField.Input options={options} placeholder='플레이스홀더' />
-      </MultiSelectField.Content>
+      <MultiSelectField.Input
+        options={options}
+        defaultValue={["서울특별시", "부산광역시", "대구광역시"]}
+        maxValues={3}
+        placeholder='플레이스홀더'
+      />
       <MultiSelectField.Footer>
-        <MultiSelectField.HelperText>헬퍼 텍스트</MultiSelectField.HelperText>
+        <MultiSelectField.Helper>헬퍼 텍스트</MultiSelectField.Helper>
         <MultiSelectField.Counter />
       </MultiSelectField.Footer>
     </MultiSelectField>
@@ -250,22 +221,21 @@ export const WithCounter: Story = {
 
 export const CustomValue: Story = {
   render: () => (
-    <MultiSelectField maxValues={20} style={FIELD_WIDTH}>
+    <MultiSelectField style={FIELD_WIDTH}>
       <MultiSelectField.Label>레이블</MultiSelectField.Label>
-      <MultiSelectField.Content>
-        <MultiSelectField.Input
-          options={options}
-          allowCustomValue
-          placeholder='플레이스홀더'
-          suffix={
-            <Kbd type='function' size='sm'>
-              ⏎
-            </Kbd>
-          }
-        />
-      </MultiSelectField.Content>
+      <MultiSelectField.Input
+        options={options}
+        maxValues={20}
+        allowCustomValue
+        placeholder='플레이스홀더'
+        suffix={
+          <Kbd type='function' size='sm'>
+            ⏎
+          </Kbd>
+        }
+      />
       <MultiSelectField.Footer>
-        <MultiSelectField.HelperText>헬퍼 텍스트</MultiSelectField.HelperText>
+        <MultiSelectField.Helper>헬퍼 텍스트</MultiSelectField.Helper>
         <MultiSelectField.Counter />
       </MultiSelectField.Footer>
     </MultiSelectField>
@@ -277,11 +247,13 @@ export const CustomValue: Story = {
  */
 export const ScrollToSelected: Story = {
   render: () => (
-    <MultiSelectField defaultValue={["제주특별자치도"]} style={FIELD_WIDTH}>
+    <MultiSelectField style={FIELD_WIDTH}>
       <MultiSelectField.Label>레이블</MultiSelectField.Label>
-      <MultiSelectField.Content>
-        <MultiSelectField.Input options={REGIONS} placeholder='플레이스홀더' />
-      </MultiSelectField.Content>
+      <MultiSelectField.Input
+        options={REGIONS}
+        defaultValue={["제주특별자치도"]}
+        placeholder='플레이스홀더'
+      />
     </MultiSelectField>
   ),
 };
@@ -298,15 +270,14 @@ const FormPreview = () => {
       }}
     >
       <FlexColumn gap='16px' style={{ alignItems: "flex-start" }}>
-        <MultiSelectField
-          name='regions'
-          defaultValue={["서울특별시", "부산광역시"]}
-          style={FIELD_WIDTH}
-        >
+        <MultiSelectField style={FIELD_WIDTH}>
           <MultiSelectField.Label>레이블</MultiSelectField.Label>
-          <MultiSelectField.Content>
-            <MultiSelectField.Input options={REGIONS} placeholder='플레이스홀더' />
-          </MultiSelectField.Content>
+          <MultiSelectField.Input
+            options={REGIONS}
+            name='regions'
+            defaultValue={["서울특별시", "부산광역시"]}
+            placeholder='플레이스홀더'
+          />
         </MultiSelectField>
         <BlockButton type='submit' style={{ width: "100%" }}>
           제출

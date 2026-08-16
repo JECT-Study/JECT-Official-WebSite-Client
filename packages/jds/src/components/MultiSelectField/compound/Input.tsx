@@ -16,8 +16,9 @@ import {
 } from "react";
 
 import { ContentBadge } from "../../Badge";
-import { useFieldContext } from "../../Field/Field.context";
-import { Listbox, useListbox } from "../../Listbox";
+import { FieldContent } from "../../Field";
+import { useFieldControl } from "../../Field/useFieldControl";
+import { Listbox, useListbox, useMultiSelectState } from "../../Listbox";
 import { useMultiSelectFieldContext } from "../MultiSelectField.context";
 import * as styles from "../multiSelectField.css";
 import type { MultiSelectFieldInputProps } from "../multiSelectField.types";
@@ -36,6 +37,12 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
   (
     {
       options,
+      value,
+      defaultValue,
+      onChange,
+      maxValues,
+      name,
+      form,
       variant = "control",
       allowCustomValue = false,
       placeholder,
@@ -46,6 +53,8 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       onKeyDown: onKeyDownFromProps,
       onBlur: onBlurFromProps,
       onMouseDown: onMouseDownFromProps,
+      "aria-label": ariaLabelFromProps,
+      "aria-labelledby": labelledByFromProps,
       "aria-describedby": describedByFromProps,
       "aria-invalid": invalidFromProps,
       className,
@@ -55,34 +64,31 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
   ) => {
     const {
       fieldId,
-      labelId,
-      helperTextId,
-      hasHelperText,
-      status,
-      disabled: isDisabledFromCtx,
-      readonly: isReadOnlyFromCtx,
-      required: isRequiredFromCtx,
-    } = useFieldContext("MultiSelectField.Input");
+      isDisabled,
+      isReadOnly,
+      isRequired,
+      ariaLabel,
+      ariaLabelledBy,
+      ariaDescribedBy,
+      ariaInvalid,
+    } = useFieldControl("MultiSelectField.Input", {
+      disabled: disabledFromProps,
+      readOnly: readOnlyFromProps,
+      required: requiredFromProps,
+      ariaLabel: ariaLabelFromProps,
+      ariaLabelledBy: labelledByFromProps,
+      ariaDescribedBy: describedByFromProps,
+      ariaInvalid: invalidFromProps,
+    });
 
-    const {
-      isOpen,
-      onOpenChange,
-      onHasPopupContentChange,
-      contentRef,
-      selectedValues,
-      toggle,
-      remove,
-      maxValues,
-      name,
-      form,
-      counterId,
-      hasCounter,
-    } = useMultiSelectFieldContext("MultiSelectField.Input");
+    const { isOpen, onOpenChange, onHasPopupContentChange, onCounterChange } =
+      useMultiSelectFieldContext("MultiSelectField.Input");
 
-    const isDisabled = disabledFromProps ?? isDisabledFromCtx;
-    const isReadOnly = readOnlyFromProps ?? isReadOnlyFromCtx;
-    const isRequired = requiredFromProps ?? isRequiredFromCtx;
+    const contentRef = useRef<HTMLDivElement>(null);
+
     const isInteractive = !isDisabled && !isReadOnly;
+
+    const { selectedValues, toggle, remove } = useMultiSelectState(value, defaultValue, onChange);
 
     const inputRef = useRef<HTMLInputElement>(null);
     const [query, setQuery] = useState("");
@@ -138,6 +144,15 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       return () => onHasPopupContentChange(false);
     }, [hasPopupContent, onHasPopupContentChange]);
 
+    const selectedCount = selectedValues.length;
+
+    useLayoutEffect(() => {
+      if (maxValues == null) return;
+
+      onCounterChange({ current: selectedCount, max: maxValues });
+      return () => onCounterChange(null);
+    }, [selectedCount, maxValues, onCounterChange]);
+
     const activateRef = useRef<() => void>(() => {});
 
     useLayoutEffect(() => {
@@ -166,6 +181,12 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       previousQueryRef.current = query;
       if (isOpen) activateRef.current();
     }, [isOpen, query]);
+
+    const handleContentMouseDown = (e: MouseEvent<HTMLDivElement>) => {
+      if (e.target !== e.currentTarget || !isInteractive) return;
+
+      onOpenChange(true);
+    };
 
     const openIfInteractive = () => {
       if (isInteractive && !isOpen) onOpenChange(true);
@@ -234,75 +255,79 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       }
     };
 
-    const describedByIds = [
-      hasHelperText ? helperTextId : undefined,
-      hasCounter ? counterId : undefined,
-      describedByFromProps,
-    ].filter(Boolean);
-    const ariaInvalid = status === "error" ? true : (invalidFromProps ?? false);
-
     return (
       <>
-        {selectedValues.map(selected => (
-          <ContentBadge
-            key={selected}
-            size='sm'
-            hierarchy='primary'
-            badgeStyle='outlined'
-            isMuted={isDisabled}
-            className={styles.tag}
-            {...(isInteractive
-              ? {
-                  withIconButton: true,
-                  onIconClick: () => {
-                    remove(selected);
-                    inputRef.current?.focus();
-                  },
-                }
-              : { withIconButton: false })}
+        <Popover.Anchor asChild>
+          <FieldContent
+            ref={contentRef}
+            className={styles.content}
+            onMouseDown={handleContentMouseDown}
           >
-            {selected}
-          </ContentBadge>
-        ))}
-        <input
-          {...restProps}
-          ref={mergeRefs(ref, inputRef)}
-          id={fieldId}
-          type='text'
-          role='combobox'
-          aria-haspopup='listbox'
-          aria-expanded={isOpen}
-          aria-controls={isOpen ? listboxId : undefined}
-          aria-activedescendant={isOpen ? activeId : undefined}
-          aria-autocomplete='list'
-          aria-describedby={describedByIds.length > 0 ? describedByIds.join(" ") : undefined}
-          aria-invalid={ariaInvalid}
-          aria-required={isRequired || undefined}
-          autoComplete='off'
-          disabled={isDisabled}
-          readOnly={isReadOnly}
-          placeholder={selectedValues.length === 0 ? placeholder : undefined}
-          value={query}
-          data-interaction-target=''
-          data-readonly={isReadOnly || undefined}
-          className={clsx(getBodyClassName({ size: "md" }), styles.input, className)}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          onKeyDown={handleKeyDown}
-          onMouseDown={handleMouseDown}
-        />
-        {suffix != null && <span className={styles.suffix}>{suffix}</span>}
-        {name != null &&
-          selectedValues.map(selected => (
+            {selectedValues.map(selected => (
+              <ContentBadge
+                key={selected}
+                size='sm'
+                hierarchy='primary'
+                badgeStyle='outlined'
+                isMuted={isDisabled}
+                className={styles.tag}
+                {...(isInteractive
+                  ? {
+                      withIconButton: true,
+                      onIconClick: () => {
+                        remove(selected);
+                        inputRef.current?.focus();
+                      },
+                    }
+                  : { withIconButton: false })}
+              >
+                {selected}
+              </ContentBadge>
+            ))}
             <input
-              key={selected}
-              type='hidden'
-              name={name}
-              value={selected}
-              form={form}
+              {...restProps}
+              ref={mergeRefs(ref, inputRef)}
+              id={fieldId}
+              type='text'
+              role='combobox'
+              aria-haspopup='listbox'
+              aria-expanded={isOpen}
+              aria-controls={isOpen ? listboxId : undefined}
+              aria-activedescendant={isOpen ? activeId : undefined}
+              aria-autocomplete='list'
+              aria-label={ariaLabel}
+              aria-labelledby={ariaLabelledBy}
+              aria-describedby={ariaDescribedBy}
+              aria-invalid={ariaInvalid}
+              aria-readonly={isReadOnly || undefined}
+              aria-required={isRequired || undefined}
+              autoComplete='off'
               disabled={isDisabled}
+              readOnly={isReadOnly}
+              placeholder={selectedValues.length === 0 ? placeholder : undefined}
+              value={query}
+              data-field-control=''
+              data-readonly={isReadOnly || undefined}
+              className={clsx(getBodyClassName({ size: "md" }), styles.input, className)}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              onKeyDown={handleKeyDown}
+              onMouseDown={handleMouseDown}
             />
-          ))}
+            {suffix != null && <span className={styles.suffix}>{suffix}</span>}
+            {name != null &&
+              selectedValues.map(selected => (
+                <input
+                  key={selected}
+                  type='hidden'
+                  name={name}
+                  value={selected}
+                  form={form}
+                  disabled={isDisabled}
+                />
+              ))}
+          </FieldContent>
+        </Popover.Anchor>
         <Popover.Portal>
           <Popover.Content
             asChild
@@ -325,7 +350,8 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
               listboxProps={{
                 ...getListboxProps(),
                 ...getActiveDescendantContainerProps(),
-                "aria-labelledby": labelId,
+                "aria-label": ariaLabel,
+                "aria-labelledby": ariaLabelledBy,
               }}
               onMouseDown={e => e.preventDefault()}
             >

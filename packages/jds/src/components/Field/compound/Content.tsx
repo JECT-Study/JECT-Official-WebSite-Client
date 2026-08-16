@@ -1,5 +1,5 @@
 import { clsx } from "clsx";
-import { forwardRef, type ComponentPropsWithoutRef, type ReactNode } from "react";
+import { forwardRef, type ComponentPropsWithoutRef, type MouseEvent, type ReactNode } from "react";
 import { focusRing, overlay, type FocusRingFeedback } from "utils";
 
 import { useFieldContext } from "../Field.context";
@@ -10,33 +10,33 @@ export interface FieldContentProps extends ComponentPropsWithoutRef<"div"> {
   children: ReactNode;
 }
 
-/**
- * outline: hover/press overlay + focus ring
- * hollow: 인터랙션 레이어 없음 (입력만 노출)
- */
 export const FieldContent = forwardRef<HTMLDivElement, FieldContentProps>(
-  ({ children, className, ...restProps }, ref) => {
-    const {
-      status,
-      fieldStyle,
-      disabled: isDisabled,
-      readonly: isReadonly,
-    } = useFieldContext("Field.Content");
+  ({ children, className, onMouseDown, ...restProps }, ref) => {
+    const { status, disabled: isDisabled, readonly: isReadonly } = useFieldContext("FieldContent");
 
-    const isOutline = fieldStyle === "outline";
+    // 박스의 패딩을 눌러도 컨트롤이 포커스를 받도록 시각 영역과 클릭 타깃을 맞춘다.
+    const handleMouseDown = (e: MouseEvent<HTMLDivElement>) => {
+      onMouseDown?.(e);
+      if (e.defaultPrevented || e.target !== e.currentTarget) return;
+
+      const control = e.currentTarget.querySelector<HTMLElement>("[data-field-control]");
+      if (control == null) return;
+
+      e.preventDefault();
+      control.focus();
+    };
 
     return (
       <div
+        {...restProps}
         ref={ref}
+        onMouseDown={handleMouseDown}
         className={clsx(
-          styles.content({ status, fieldStyle, disabled: isDisabled, readOnly: isReadonly }),
-          isOutline && [
-            overlay({ hierarchy: "tertiary", density: "normal" }),
-            focusRing({ interaction: "within", feedback: statusToFeedback[status] }),
-          ],
+          styles.content({ status, disabled: isDisabled, readOnly: isReadonly }),
+          overlay({ hierarchy: "tertiary", density: "normal" }),
+          focusRing({ interaction: "within", feedback: statusToFeedback[status] }),
           className,
         )}
-        {...restProps}
       >
         {children}
       </div>
@@ -50,4 +50,4 @@ const statusToFeedback = {
   error: "destructive",
 } satisfies Record<FieldStatus, FocusRingFeedback>;
 
-FieldContent.displayName = "Field.Content";
+FieldContent.displayName = "FieldContent";
