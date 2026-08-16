@@ -32,6 +32,8 @@ export const SelectFieldInput = forwardRef<HTMLInputElement, SelectFieldInputPro
       value,
       defaultValue,
       onChange,
+      name,
+      form,
       variant = "label",
       placeholder,
       suffix,
@@ -220,6 +222,15 @@ export const SelectFieldInput = forwardRef<HTMLInputElement, SelectFieldInputPro
             />
             {suffix}
             <Icon name='arrow-down-s-line' size='md' className={styles.indicator} />
+            {name != null && (
+              <input
+                type='hidden'
+                name={name}
+                value={selectedValue ?? ""}
+                form={form}
+                disabled={isDisabled}
+              />
+            )}
           </FieldContent>
         </Popover.Anchor>
         <Popover.Portal>
