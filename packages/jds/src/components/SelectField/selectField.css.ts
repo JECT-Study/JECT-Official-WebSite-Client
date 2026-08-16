@@ -6,23 +6,24 @@ const placeholderTextColor = createVar();
 const indicatorIconColor = createVar();
 
 export const trigger = style({
-  display: "flex",
-  alignItems: "center",
   flex: "1 0 0",
   minWidth: 0,
-  gap: vars.scheme.semantic.spacing["8"],
   padding: 0,
   border: "none",
   outline: "none",
   backgroundColor: "transparent",
   position: "relative",
   zIndex: 1,
-  cursor: "pointer",
-  textAlign: "left",
+  textOverflow: "ellipsis",
   color: fallbackVar(triggerTextColor, vars.color.semantic.object.bolder),
+  "::placeholder": {
+    color: fallbackVar(placeholderTextColor, vars.color.semantic.object.assistive),
+  },
   selectors: {
-    "&[data-readonly]:not(:disabled)": {
+    "&:read-only:not(:disabled)": {
       cursor: "default",
+    },
+    "&[data-readonly]:not(:disabled)": {
       vars: {
         [indicatorIconColor]: vars.color.semantic.object.subtler,
       },
@@ -34,24 +35,6 @@ export const trigger = style({
         [placeholderTextColor]: vars.color.semantic.object.subtler,
         [indicatorIconColor]: vars.color.semantic.object.subtler,
       },
-    },
-  },
-});
-
-export const value = style({
-  flex: "1 0 0",
-  minWidth: 0,
-  overflow: "hidden",
-  textOverflow: "ellipsis",
-  whiteSpace: "nowrap",
-  color: "inherit",
-  selectors: {
-    "&&": {
-      display: "block",
-      cursor: "inherit",
-    },
-    "&[data-placeholder]": {
-      color: fallbackVar(placeholderTextColor, vars.color.semantic.object.assistive),
     },
   },
 });

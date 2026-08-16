@@ -5,6 +5,7 @@ import {
   useLayoutEffect,
   useMemo,
   useRef,
+  type FocusEvent,
   type KeyboardEvent,
   type MouseEvent,
 } from "react";
@@ -21,9 +22,10 @@ import type { SelectFieldTriggerProps } from "../selectField.types";
 import { getActiveDescendantContainerProps } from "@/hooks/useActiveDescendant";
 import { getBodyClassName } from "@/utils/typography";
 
-const OPENING_KEYS = ["ArrowDown", "ArrowUp", "Home", "End", ...SELECTION_KEYS];
+const MOVE_KEYS = ["ArrowDown", "ArrowUp"];
+const OPENING_KEYS = [...MOVE_KEYS, "Home", "End", ...SELECTION_KEYS];
 
-export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTriggerProps>(
+export const SelectFieldTrigger = forwardRef<HTMLInputElement, SelectFieldTriggerProps>(
   (
     {
       options,
@@ -36,8 +38,9 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
       required: requiredFromProps,
       suffix,
       disabled: disabledFromProps,
-      onClick: onClickFromProps,
       onKeyDown: onKeyDownFromProps,
+      onBlur: onBlurFromProps,
+      onMouseDown: onMouseDownFromProps,
       "aria-label": ariaLabelFromProps,
       "aria-labelledby": labelledByFromProps,
       "aria-describedby": describedByFromProps,
@@ -68,6 +71,8 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
 
     const { isOpen, onOpenChange } = useSelectFieldContext("SelectField.Trigger");
 
+    const contentRef = useRef<HTMLDivElement>(null);
+
     const isInteractive = !isDisabled && !isReadOnly;
 
     const { selectedValue, selectedValues, select } = useSingleSelectState(
@@ -75,6 +80,8 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
       defaultValue,
       onChange,
     );
+
+    const selectedLabel = options.find(option => option.value === selectedValue)?.label;
 
     const {
       listboxRef,
@@ -92,54 +99,17 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
       autoScrollToSelected: false,
     });
 
-    const selectedLabel = options.find(option => option.value === selectedValue)?.label;
+    const { activeValue } = contextValue;
 
-    const activateSelectedRef = useRef(activateSelected);
-    activateSelectedRef.current = activateSelected;
-
-    const handleContentMouseDown = (e: MouseEvent<HTMLDivElement>) => {
-      if (e.target !== e.currentTarget || !isInteractive) return;
-
-      onOpenChange(true);
-    };
-
-    const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
-      onClickFromProps?.(e);
-      if (isReadOnly) e.preventDefault();
-    };
-
-    const handleKeyDown = (e: KeyboardEvent<HTMLButtonElement>) => {
-      onKeyDownFromProps?.(e);
-      if (e.defaultPrevented || !isInteractive) return;
-
-      if (!isOpen) {
-        if (OPENING_KEYS.includes(e.key)) {
-          e.preventDefault();
-          onOpenChange(true);
-        }
-        return;
-      }
-
-      if (e.altKey && (e.key === "ArrowDown" || e.key === "ArrowUp")) {
-        e.preventDefault();
-        onOpenChange(false);
-        return;
-      }
-
-      onListboxKeyDown(e);
-
-      if (SELECTION_KEYS.includes(e.key)) {
-        e.preventDefault();
-        onOpenChange(false);
-      }
-    };
+    const activateRef = useRef<() => void>(() => {});
+    activateRef.current = activateSelected;
 
     useLayoutEffect(() => {
       if (!isOpen) return;
 
       // Radix가 다음 커밋에서 팝업을 DOM에 추가하므로, 목록이 렌더링된 뒤 활성 항목과 스크롤을 맞춘다
       const frame = requestAnimationFrame(() => {
-        activateSelectedRef.current();
+        activateRef.current();
         scrollToSelected();
       });
       return () => cancelAnimationFrame(frame);
@@ -156,45 +126,100 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
       [contextValue, onOpenChange],
     );
 
+    const handleContentMouseDown = (e: MouseEvent<HTMLDivElement>) => {
+      if (e.target !== e.currentTarget || !isInteractive) return;
+
+      onOpenChange(true);
+    };
+
+    const handleMouseDown = (e: MouseEvent<HTMLInputElement>) => {
+      onMouseDownFromProps?.(e);
+      if (e.defaultPrevented || !isInteractive) return;
+
+      onOpenChange(!isOpen);
+    };
+
+    const handleBlur = (e: FocusEvent<HTMLInputElement>) => {
+      onBlurFromProps?.(e);
+
+      if (contentRef.current?.contains(e.relatedTarget)) return;
+      if (e.defaultPrevented) return;
+
+      onOpenChange(false);
+    };
+
+    const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+      onKeyDownFromProps?.(e);
+      if (e.defaultPrevented || !isInteractive || e.nativeEvent.isComposing) return;
+
+      if (e.key === "Escape") {
+        if (isOpen) e.preventDefault();
+        onOpenChange(false);
+        return;
+      }
+
+      if (!isOpen) {
+        if (OPENING_KEYS.includes(e.key)) {
+          e.preventDefault();
+          onOpenChange(true);
+        }
+        return;
+      }
+
+      if (e.altKey && MOVE_KEYS.includes(e.key)) {
+        e.preventDefault();
+        onOpenChange(false);
+        return;
+      }
+
+      onListboxKeyDown(e);
+
+      if (SELECTION_KEYS.includes(e.key) && activeValue != null) {
+        e.preventDefault();
+        onOpenChange(false);
+      }
+    };
+
     return (
       <>
         <Popover.Anchor asChild>
-          <FieldContent onMouseDown={handleContentMouseDown}>
-            <Popover.Trigger asChild>
-              <button
-                {...restProps}
-                ref={ref}
-                type='button'
-                id={fieldId}
-                role='combobox'
-                aria-haspopup='listbox'
-                aria-expanded={isOpen}
-                aria-controls={isOpen ? listboxId : undefined}
-                aria-label={ariaLabel}
-                aria-labelledby={ariaLabelledBy}
-                aria-activedescendant={isOpen ? activeId : undefined}
-                aria-describedby={ariaDescribedBy}
-                aria-invalid={ariaInvalid}
-                aria-readonly={isReadOnly || undefined}
-                aria-required={isRequired || undefined}
-                disabled={isDisabled}
-                data-field-control=''
-                data-readonly={isReadOnly || undefined}
-                data-open={isOpen || undefined}
-                className={clsx(styles.trigger, className)}
-                onClick={handleClick}
-                onKeyDown={handleKeyDown}
-              >
-                <span
-                  className={clsx(getBodyClassName({ size: "md" }), styles.value)}
-                  data-placeholder={selectedLabel == null || undefined}
-                >
-                  {selectedLabel ?? placeholder}
-                </span>
-                {suffix}
-                <Icon name='arrow-down-s-line' size='md' className={styles.indicator} />
-              </button>
-            </Popover.Trigger>
+          <FieldContent
+            ref={contentRef}
+            data-open={isOpen || undefined}
+            onMouseDown={handleContentMouseDown}
+          >
+            <input
+              {...restProps}
+              ref={ref}
+              id={fieldId}
+              type='text'
+              role='combobox'
+              aria-haspopup='listbox'
+              aria-expanded={isOpen}
+              aria-controls={isOpen ? listboxId : undefined}
+              aria-activedescendant={isOpen ? activeId : undefined}
+              aria-label={ariaLabel}
+              aria-labelledby={ariaLabelledBy}
+              aria-describedby={ariaDescribedBy}
+              aria-invalid={ariaInvalid}
+              // 목록에서만 값을 고르므로 타이핑을 막되, 스크린 리더에 읽기 전용으로
+              // 전달되지 않도록 항상 aria-readonly를 명시한다.
+              aria-readonly={isReadOnly}
+              aria-required={isRequired || undefined}
+              autoComplete='off'
+              disabled={isDisabled}
+              readOnly
+              placeholder={placeholder}
+              value={selectedLabel ?? ""}
+              data-field-control=''
+              data-readonly={isReadOnly || undefined}
+              className={clsx(getBodyClassName({ size: "md" }), styles.trigger, className)}
+              onBlur={handleBlur}
+              onKeyDown={handleKeyDown}
+              onMouseDown={handleMouseDown}
+            />
+            {suffix}
+            <Icon name='arrow-down-s-line' size='md' className={styles.indicator} />
           </FieldContent>
         </Popover.Anchor>
         <Popover.Portal>
@@ -204,6 +229,10 @@ export const SelectFieldTrigger = forwardRef<HTMLButtonElement, SelectFieldTrigg
             sideOffset={4}
             collisionPadding={8}
             onOpenAutoFocus={e => e.preventDefault()}
+            onCloseAutoFocus={e => e.preventDefault()}
+            onInteractOutside={e => {
+              if (contentRef.current?.contains(e.target as Node)) e.preventDefault();
+            }}
           >
             <Listbox
               role='presentation'
