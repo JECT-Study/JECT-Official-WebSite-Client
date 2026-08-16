@@ -166,8 +166,8 @@ export const WithoutSuggestions: Story = {
 };
 
 /**
- * 포커스가 사라질 때 입력 중인 값을 어떻게 처리할지 정합니다.
- * `true`면 값으로 반영하고, `false`면 반영하지 않고 사라집니다.
+ * 포커스가 제거될 때 입력 중인 값을 처리하는 방식을 정합니다.
+ * `true`면 입력 중인 값을 선택값으로 반영하고, `false`면 반영하지 않고 버립니다.
  */
 export const AcceptValueOnBlur: Story = {
   render: () => (
