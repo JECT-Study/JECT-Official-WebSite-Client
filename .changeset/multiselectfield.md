@@ -26,7 +26,7 @@
 | `maxValues`    | -           | 선택할 수 있는 최대 개수                            |
 | `name`         | -           | 폼 제출에 사용할 이름                               |
 | `placeholder`  | -           | 선택값이 없을 때 표시할 문구                        |
-| `searchable`   | `true`      | 항목 검색 가능 여부                                 |
+| `searchable`   | `false`     | 항목 검색 가능 여부                                 |
 | `variant`      | `'control'` | 선택 마크 표시 여부, `'control'`, `'label'`         |
 | `suffix`       | -           | 입력 오른쪽에 배치할 읽기 전용 요소                 |
 | `readOnly`     | -           | 읽기 전용 상태, 지정하면 루트의 `readonly`를 덮어씀 |

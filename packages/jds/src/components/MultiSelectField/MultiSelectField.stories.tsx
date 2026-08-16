@@ -222,8 +222,7 @@ export const WithCounter: Story = {
 };
 
 /**
- * `searchable`을 끄면 검색어를 입력할 수 없게 됩니다.
- * 필드 자체가 읽기 전용이 되는 `readonly`와 달리 목록은 그대로 열립니다.
+ * `searchable`을 켜면 검색어로 항목을 찾을 수 있습니다.
  */
 export const Searchable: Story = {
   render: () => (

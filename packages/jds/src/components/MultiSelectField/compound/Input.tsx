@@ -42,7 +42,7 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       name,
       form,
       variant = "control",
-      searchable = true,
+      searchable = false,
       placeholder,
       suffix,
       disabled: disabledFromProps,
