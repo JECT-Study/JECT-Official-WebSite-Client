@@ -24,5 +24,3 @@ Kbd의 타입별 타이포그래피 스타일을 공통 유틸과 연동하고 �
 
 - 크기별 `min-width` 변경 — `lg` 16px에서 20px, `md` 14px에서 19px, `sm` 11px에서 19px
 - 기본 상하 패딩 제거 — 2px에서 0
-- `key`, `text` 타입은 `getSyntaxClassName`, `function` 타입은 `getLabelClassName`으로 타이포그래피 스타일 적용
-- 테두리 두께를 `semantic.strokeWeight["1"]` 토큰과 연동
