@@ -14,9 +14,9 @@ const sizeVariants = {
 } satisfies Record<KbdSize, StyleRule>;
 
 const typeVariants = {
-  function: { paddingInline: pxToRem(4) },
-  key: { paddingInline: pxToRem(6) },
-  text: { paddingInline: pxToRem(6) },
+  function: { paddingInline: vars.scheme.semantic.spacing["4"] },
+  key: { paddingInline: vars.scheme.semantic.spacing["6"] },
+  text: { paddingInline: vars.scheme.semantic.spacing["6"] },
 } satisfies Record<KbdType, StyleRule>;
 
 export const kbd = recipe({
