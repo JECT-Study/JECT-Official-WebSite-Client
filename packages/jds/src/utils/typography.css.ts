@@ -12,7 +12,10 @@ import type {
   SyntaxSize,
   TitleSize,
 } from "./typography";
+import type { textStyleClassNames } from "../tokens/textStyles.css";
 import { vars } from "../tokens/vars.css";
+
+type TextStyleClassName = (typeof textStyleClassNames)[number];
 
 const alignVariants: Record<LabelTextAlign, { justifyContent: string }> = {
   center: { justifyContent: "center" },
@@ -207,7 +210,7 @@ export const syntax = recipe({
       md: "semantic-textStyle-syntax-md",
       sm: "semantic-textStyle-syntax-sm",
       xs: "semantic-textStyle-syntax-xs",
-    } satisfies Record<SyntaxSize, string>,
+    } satisfies Record<SyntaxSize, TextStyleClassName>,
   },
   defaultVariants: {
     size: "md",
