@@ -17,6 +17,7 @@ export default defineConfig({
   plugins: [
     vanillaExtractPlugin(),
     dts({
+      tsconfigPath: "./tsconfig.app.json",
       entryRoot: "src",
       include: ["src"],
       exclude: ["src/**/*.stories.*"],
