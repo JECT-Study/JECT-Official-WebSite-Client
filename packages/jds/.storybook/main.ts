@@ -5,6 +5,8 @@ import { dirname, join, resolve } from "path";
 
 import { vanillaExtractPlugin } from "@vanilla-extract/vite-plugin";
 
+import { srcAliases } from "../vite.aliases.ts";
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const require = createRequire(import.meta.url);
 
@@ -30,14 +32,7 @@ const config: StorybookConfig = {
     config.resolve = config.resolve || {};
     config.resolve.alias = {
       ...config.resolve.alias,
-      components: resolve(__dirname, "../src/components"),
-      hooks: resolve(__dirname, "../src/hooks"),
-      style: resolve(__dirname, "../src/style"),
-      theme: resolve(__dirname, "../src/theme"),
-      tokens: resolve(__dirname, "../src/tokens"),
-      types: resolve(__dirname, "../src/types"),
-      utils: resolve(__dirname, "../src/utils"),
-      "@": resolve(__dirname, "../src"),
+      ...srcAliases,
       "@storybook-assets": resolve(__dirname, "./assets"),
       "@storybook-utils": resolve(__dirname, "./utils"),
     };
