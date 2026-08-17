@@ -189,7 +189,7 @@ export const Searchable: Story = {
           <SelectField style={FIELD_WIDTH}>
             <SelectField.Label>레이블</SelectField.Label>
             <SelectField.Input
-              options={REGIONS}
+              options={options}
               searchable={searchable}
               defaultValue='seoul'
               placeholder='플레이스홀더'
