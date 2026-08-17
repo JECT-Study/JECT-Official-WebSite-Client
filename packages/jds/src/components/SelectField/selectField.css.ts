@@ -3,7 +3,6 @@ import { vars } from "tokens";
 
 const inputTextColor = createVar();
 const placeholderTextColor = createVar();
-const indicatorIconColor = createVar();
 
 export const input = style({
   flex: "1 0 0",
@@ -23,17 +22,11 @@ export const input = style({
     "&:read-only:not(:disabled)": {
       cursor: "default",
     },
-    "&[data-readonly]:not(:disabled)": {
-      vars: {
-        [indicatorIconColor]: vars.color.semantic.object.subtler,
-      },
-    },
     "&:disabled": {
       cursor: "not-allowed",
       vars: {
         [inputTextColor]: vars.color.semantic.object.assistive,
         [placeholderTextColor]: vars.color.semantic.object.subtler,
-        [indicatorIconColor]: vars.color.semantic.object.subtler,
       },
     },
   },
@@ -48,9 +41,12 @@ export const popup = style({
 export const indicator = style({
   display: "inline-flex",
   flexShrink: 0,
-  color: fallbackVar(indicatorIconColor, vars.color.semantic.object.assistive),
+  color: vars.color.semantic.object.assistive,
   transition: `transform ${vars.environment.semantic.duration["100"]} ${vars.environment.semantic.motion.fluent}`,
   selectors: {
+    "[data-disabled] &": {
+      color: vars.color.semantic.object.subtler,
+    },
     "[data-open] &": {
       transform: "rotate(180deg)",
     },

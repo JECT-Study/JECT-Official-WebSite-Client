@@ -235,6 +235,7 @@ export const SelectFieldInput = forwardRef<HTMLInputElement, SelectFieldInputPro
           <FieldContent
             ref={contentRef}
             data-open={isOpen || undefined}
+            data-disabled={isDisabled || undefined}
             onMouseDown={handleContentMouseDown}
           >
             <input
