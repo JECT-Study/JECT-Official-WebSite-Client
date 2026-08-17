@@ -15,7 +15,7 @@ export default defineConfig({
     alias: srcAliases,
   },
   plugins: [
-    vanillaExtractPlugin(),
+    vanillaExtractPlugin({ identifiers: "debug" }),
     dts({
       tsconfigPath: "./tsconfig.app.json",
       entryRoot: "src",
