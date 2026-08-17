@@ -27,7 +27,8 @@ import { getActiveDescendantContainerProps } from "@/hooks/useActiveDescendant";
 import { getBodyClassName } from "@/utils/typography";
 
 const MOVE_KEYS = ["ArrowDown", "ArrowUp"];
-const OPENING_KEYS = [...MOVE_KEYS, "Home", "End", ...SELECTION_KEYS];
+const NAVIGATION_KEYS = [...MOVE_KEYS, "Home", "End"];
+const OPENING_KEYS = [...NAVIGATION_KEYS, ...SELECTION_KEYS];
 
 const toSearchKey = (text: string) => disassemble(text.toLowerCase());
 
@@ -178,7 +179,7 @@ export const SelectFieldInput = forwardRef<HTMLInputElement, SelectFieldInputPro
       onMouseDownFromProps?.(e);
       if (e.defaultPrevented || !isInteractive) return;
 
-      onOpenChange(!isOpen);
+      onOpenChange(searchable ? true : !isOpen);
     };
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -207,8 +208,12 @@ export const SelectFieldInput = forwardRef<HTMLInputElement, SelectFieldInputPro
         return;
       }
 
+      const openingKeys = searchable ? MOVE_KEYS : OPENING_KEYS;
+      const listboxKeys = searchable ? MOVE_KEYS : NAVIGATION_KEYS;
+      const selectionKeys = searchable ? ["Enter"] : SELECTION_KEYS;
+
       if (!isOpen) {
-        if (OPENING_KEYS.includes(e.key)) {
+        if (openingKeys.includes(e.key)) {
           e.preventDefault();
           onOpenChange(true);
         }
@@ -221,10 +226,14 @@ export const SelectFieldInput = forwardRef<HTMLInputElement, SelectFieldInputPro
         return;
       }
 
-      onListboxKeyDown(e);
+      if (listboxKeys.includes(e.key)) {
+        onListboxKeyDown(e);
+        return;
+      }
 
-      if (SELECTION_KEYS.includes(e.key) && activeValue != null) {
+      if (selectionKeys.includes(e.key) && activeValue != null) {
         e.preventDefault();
+        select(activeValue);
         closeAndReset();
       }
     };
