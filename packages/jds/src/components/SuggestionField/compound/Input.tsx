@@ -230,7 +230,7 @@ export const SuggestionFieldInput = forwardRef<HTMLInputElement, SuggestionField
       if (e.defaultPrevented || !isInteractive || e.nativeEvent.isComposing) return;
 
       if (e.key === "Escape") {
-        if (isOpen || query !== "") e.preventDefault();
+        if (isOpen) e.preventDefault();
         closeAndReset();
         return;
       }
