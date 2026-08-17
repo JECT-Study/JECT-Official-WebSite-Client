@@ -8,9 +8,13 @@
 
 `SelectField.Input`이 필드 박스와 입력 요소, 선택 목록을 함께 관리합니다. 박스의 테두리 안쪽 패딩을 클릭하면 입력 요소로 포커스가 이동하고 목록이 열립니다. 선택지는 `options`로 전달하고 값은 controlled(`value` + `onChange`)와 uncontrolled(`defaultValue`)를 모두 지원합니다. `value`와 `defaultValue`는 `options[].value`를 받고 `onChange`도 선택된 `options[].value`를 넘겨줍니다. `options[].label`은 화면 표시 전용이라 값으로 쓰이지 않습니다. 단일 선택만 지원하며 선택 마크 표시 여부는 `variant`(`control`/`label`)로 제어합니다. 입력과 화살표 사이에는 `suffix`로 배지나 단축키 같은 읽기 전용 요소를 배치합니다. `searchable`을 켜면 검색어로 항목을 찾을 수 있고, 목록이 닫히거나 포커스가 제거되면 선택한 옵션의 `label`로 돌아갑니다. `readOnly`와 `required`는 루트와 `SelectField.Input` 중 어느 쪽에 지정해도 되고, 입력 요소에 준 값이 루트를 덮어씁니다. `name`을 지정하면 선택값이 hidden input으로 렌더되어 폼 제출에 포함됩니다.
 
-선택 목록은 Radix Popover로 표시하고 열림 상태와 위치 계산, 바깥 클릭과 Escape 처리를 컴포넌트가 담당합니다. 목록 높이는 입력 요소 아래에 남은 화면 공간으로 제한하고 초과하면 내부에서 스크롤하며, 열릴 때는 선택된 항목이 보이도록 스크롤 위치를 맞춥니다.
+선택 목록은 Radix Popover로 표시하고 열림 상태와 위치 계산, 바깥 클릭과 Escape 처리를 컴포넌트가 담당합니다. 목록 높이는 입력 요소 아래에 남은 화면 공간으로 제한하고 초과하면 내부에서 스크롤하며, 열릴 때는 선택된 항목이 보이도록 스크롤 위치를 맞춥니다. 검색 결과가 없으면 목록이 열리지 않고, 한글은 조합 중에도 검색 결과가 유지됩니다.
 
-접근성은 W3C 콤보박스 패턴을 따릅니다. 입력 요소는 `role="combobox"`와 `aria-haspopup="listbox"`, `aria-expanded`, `aria-activedescendant`를 가지며 포커스는 항상 입력 요소에 유지됩니다. `aria-controls`는 목록이 열려 DOM에 존재할 때만 연결합니다. 접근 이름은 `SelectField.Label`이 렌더되면 그 id를 참조하고, 레이블 없이 쓰면 입력 요소에 전달한 `aria-labelledby`나 `aria-label`을 사용합니다. 목록은 Portal로 분리되므로 입력 요소와 같은 이름을 함께 연결합니다. 닫힌 상태에서는 방향키, `Home`, `End`, `Enter`, `Space`로 목록을 열고, 열린 상태에서는 방향키와 `Home`, `End`로 이동한 뒤 `Enter`나 `Space`로 선택합니다. `status`가 `error`면 입력 요소에 `aria-invalid`를 적용하고, `aria-describedby`는 `SelectField.Helper`가 렌더될 때만 연결합니다. 입력 요소는 `role="combobox"`로 native 시맨틱을 덮어쓰므로 읽기 전용과 필수 상태를 `aria-readonly`, `aria-required`로 함께 노출합니다. `searchable`을 끄면 타이핑을 막기 위해 native `readOnly`가 적용되지만 필드는 읽기 전용이 아닙니다. `disabled`와 `readonly`에서는 클릭과 키보드 모두 목록을 열 수 없습니다.
+`searchable`을 끄면 닫힌 상태에서 방향키, `Home`, `End`, `Enter`, `Space`로 목록을 열고, 열린 상태에서는 방향키와 `Home`, `End`로 이동한 뒤 `Enter`나 `Space`로 선택합니다. `searchable`을 켜면 타이핑이 우선하므로 방향키로만 목록을 열고 이동하며 `Enter`로 선택합니다. `disabled`와 `readonly`에서는 클릭과 키보드 모두 목록을 열 수 없습니다.
+
+접근성은 W3C 콤보박스 패턴을 따릅니다. 입력 요소는 `role="combobox"`와 `aria-haspopup="listbox"`, `aria-expanded`, `aria-activedescendant`를 가지며 포커스는 항상 입력 요소에 유지됩니다. `aria-controls`는 목록이 열려 DOM에 존재할 때만 연결합니다. `role="combobox"`가 native 시맨틱을 덮어쓰므로 읽기 전용과 필수 상태를 `aria-readonly`, `aria-required`로 함께 노출합니다. `searchable`을 끄면 검색어를 입력할 수 없습니다. 이때 입력 요소에는 native `readOnly`만 적용되고 필드는 읽기 전용이 아닙니다.
+
+접근 이름은 `SelectField.Label`이 렌더되면 그 id를 참조하고, 레이블 없이 쓰면 입력 요소에 전달한 `aria-labelledby`나 `aria-label`을 사용합니다. 목록은 Portal로 분리되므로 입력 요소와 같은 이름을 함께 연결합니다. `status`가 `error`면 입력 요소에 `aria-invalid`를 적용하고, `aria-describedby`는 `SelectField.Helper`가 렌더될 때만 연결합니다.
 
 타입 `SelectFieldProps`, `SelectFieldInputProps`, `SelectFieldLabelProps`, `SelectFieldHelperProps`를 함께 내보냅니다.
 
