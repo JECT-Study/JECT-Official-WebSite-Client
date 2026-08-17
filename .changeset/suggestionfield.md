@@ -6,11 +6,13 @@
 
 `Input.TagField`를 내부 `Field` primitive 기반의 compound 컴포넌트 `SuggestionField`로 재작성합니다.
 
-`SuggestionField.Label`, `SuggestionField.Input`, `SuggestionField.Footer`, `SuggestionField.Helper`, `SuggestionField.Counter`로 구성합니다. 값은 `string[]`이며 입력한 문자열이 그대로 값이 됩니다. `suggestions`는 입력을 보조하는 목록일 뿐 값의 범위를 제한하지 않으며, 선택한 항목은 입력한 값과 동일하게 처리되어 목록에서 제외됩니다. `suffix`로 입력 오른쪽의 읽기 전용 요소를 지정합니다. 값을 옵션으로 제한하는 경우 `MultiSelectField`를 사용합니다.
+`SuggestionField.Label`, `SuggestionField.Input`, `SuggestionField.Footer`, `SuggestionField.Helper`, `SuggestionField.Counter`로 구성합니다. 값은 `string[]`이고 입력한 문자열이 값이 됩니다. `suggestions`는 입력을 보조하는 목록이며 값의 범위를 제한하지 않습니다. 목록에서 선택한 항목은 입력한 값과 동일하게 처리되어 목록에서 제외됩니다.
 
-`maxValues`를 지정하면 그 개수까지만 추가할 수 있으며, `SuggestionField.Counter`를 `SuggestionField.Footer` 안에 두면 현재 개수와 최대 개수를 표시합니다. `name`을 지정하면 값마다 hidden input이 렌더되므로 `FormData.getAll(name)`으로 받습니다. `acceptValueOnBlur`의 기본값은 `true`이며, 포커스가 제거될 때 입력 중인 값을 확정할지 결정합니다.
+`suffix`로 입력 오른쪽에 놓을 읽기 전용 요소를 지정할 수 있습니다. `maxValues`로 추가 개수를 제한할 수 있고, `SuggestionField.Counter`를 `SuggestionField.Footer` 안에 두면 현재 개수와 최대 개수를 표시합니다. `name`을 지정하면 값마다 hidden input이 렌더되므로 `FormData.getAll(name)`으로 받습니다.
 
-입력값으로 목록을 좁힐 수 있고, 한글은 조합 중에도 결과가 유지됩니다. 방향키로 항목을 이동하고 Enter로 확정하며, 검색어가 비어 있을 때 Backspace는 마지막 태그를 제거하고 Escape와 `alt`+방향키는 목록을 닫으며 입력 중인 값을 지웁니다. 목록은 Portal로 분리됩니다.
+`acceptValueOnBlur`의 기본값은 `true`이며, 포커스가 제거될 때 입력 중인 값을 확정할지 결정할 수 있습니다.
+
+값을 옵션으로 제한해야 하는 경우 `MultiSelectField`를 사용합니다.
 
 타입 `SuggestionFieldProps`, `SuggestionFieldInputProps`, `SuggestionFieldLabelProps`, `SuggestionFieldHelperProps`, `SuggestionFieldFooterProps`를 함께 내보냅니다.
 
