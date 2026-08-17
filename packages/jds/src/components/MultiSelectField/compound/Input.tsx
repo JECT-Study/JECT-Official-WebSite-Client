@@ -19,6 +19,7 @@ import { ContentBadge } from "../../Badge";
 import { FieldContent } from "../../Field";
 import { useFieldControl } from "../../Field/useFieldControl";
 import { Listbox, useListbox, useMultiSelectState } from "../../Listbox";
+import { SELECTION_KEYS } from "../../Listbox/listbox.constants";
 import { useMultiSelectFieldContext } from "../MultiSelectField.context";
 import * as styles from "../multiSelectField.css";
 import type { MultiSelectFieldInputProps } from "../multiSelectField.types";
@@ -28,6 +29,8 @@ import { getActiveDescendantContainerProps } from "@/hooks/useActiveDescendant";
 import { getBodyClassName } from "@/utils/typography";
 
 const MOVE_KEYS = ["ArrowDown", "ArrowUp"];
+const NAVIGATION_KEYS = [...MOVE_KEYS, "Home", "End"];
+const OPENING_KEYS = [...NAVIGATION_KEYS, ...SELECTION_KEYS];
 
 const toSearchKey = (text: string) => disassemble(text.toLowerCase());
 
@@ -178,6 +181,11 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       if (isOpen) activateRef.current();
     }, [isOpen, query]);
 
+    const closeAndReset = () => {
+      onOpenChange(false);
+      setQuery("");
+    };
+
     const handleContentMouseDown = (e: MouseEvent<HTMLDivElement>) => {
       if (e.target !== e.currentTarget || !isInteractive) return;
 
@@ -192,7 +200,8 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       onMouseDownFromProps?.(e);
       if (e.defaultPrevented) return;
 
-      openIfInteractive();
+      if (searchable) openIfInteractive();
+      else if (isInteractive) onOpenChange(!isOpen);
     };
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -217,7 +226,7 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
 
       if (e.key === "Escape") {
         if (isOpen) e.preventDefault();
-        onOpenChange(false);
+        closeAndReset();
         return;
       }
 
@@ -228,8 +237,12 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
         return;
       }
 
+      const openingKeys = searchable ? MOVE_KEYS : OPENING_KEYS;
+      const listboxKeys = searchable ? MOVE_KEYS : NAVIGATION_KEYS;
+      const selectionKeys = searchable ? ["Enter"] : SELECTION_KEYS;
+
       if (!isOpen) {
-        if (MOVE_KEYS.includes(e.key)) {
+        if (openingKeys.includes(e.key)) {
           e.preventDefault();
           onOpenChange(true);
         }
@@ -238,16 +251,16 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
 
       if (e.altKey && MOVE_KEYS.includes(e.key)) {
         e.preventDefault();
-        onOpenChange(false);
+        closeAndReset();
         return;
       }
 
-      if (MOVE_KEYS.includes(e.key)) {
+      if (listboxKeys.includes(e.key)) {
         onListboxKeyDown(e);
         return;
       }
 
-      if (e.key === "Enter" && activeValue != null) {
+      if (selectionKeys.includes(e.key) && activeValue != null) {
         e.preventDefault();
         handleSelect(activeValue);
       }
