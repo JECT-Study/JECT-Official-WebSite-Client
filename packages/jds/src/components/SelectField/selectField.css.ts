@@ -32,6 +32,12 @@ export const input = style({
   },
 });
 
+export const suffix = style({
+  display: "inline-flex",
+  alignItems: "center",
+  flexShrink: 0,
+});
+
 export const popup = style({
   minWidth: "var(--radix-popover-trigger-width)",
   maxHeight: "var(--radix-popover-content-available-height)",

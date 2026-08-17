@@ -79,7 +79,8 @@ export const SelectFieldInput = forwardRef<HTMLInputElement, SelectFieldInputPro
       ariaInvalid: invalidFromProps,
     });
 
-    const { isOpen, onOpenChange } = useSelectFieldContext("SelectField.Input");
+    const { isOpen, onOpenChange, onHasPopupContentChange } =
+      useSelectFieldContext("SelectField.Input");
 
     const contentRef = useRef<HTMLDivElement>(null);
 
@@ -122,6 +123,13 @@ export const SelectFieldInput = forwardRef<HTMLInputElement, SelectFieldInputPro
     });
 
     const { activeValue } = contextValue;
+
+    const hasPopupContent = visibleOptions.length > 0;
+
+    useEffect(() => {
+      onHasPopupContentChange(hasPopupContent);
+      return () => onHasPopupContentChange(false);
+    }, [hasPopupContent, onHasPopupContentChange]);
 
     const activateRef = useRef<() => void>(() => {});
 
@@ -175,27 +183,32 @@ export const SelectFieldInput = forwardRef<HTMLInputElement, SelectFieldInputPro
       onOpenChange(true);
     };
 
+    const openIfInteractive = () => {
+      if (isInteractive && !isOpen) onOpenChange(true);
+    };
+
     const handleMouseDown = (e: MouseEvent<HTMLInputElement>) => {
       onMouseDownFromProps?.(e);
-      if (e.defaultPrevented || !isInteractive) return;
+      if (e.defaultPrevented) return;
 
-      onOpenChange(searchable ? true : !isOpen);
+      if (searchable) openIfInteractive();
+      else if (isInteractive) onOpenChange(!isOpen);
     };
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
       if (!searchable) return;
 
       setQuery(e.target.value);
-      if (!isOpen) onOpenChange(true);
+      openIfInteractive();
     };
 
     const handleBlur = (e: FocusEvent<HTMLInputElement>) => {
       onBlurFromProps?.(e);
 
       if (contentRef.current?.contains(e.relatedTarget)) return;
-      if (e.defaultPrevented) return;
 
-      closeAndReset();
+      onOpenChange(false);
+      if (!e.defaultPrevented) setQuery(null);
     };
 
     const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -279,7 +292,7 @@ export const SelectFieldInput = forwardRef<HTMLInputElement, SelectFieldInputPro
               onKeyDown={handleKeyDown}
               onMouseDown={handleMouseDown}
             />
-            {suffix}
+            {suffix != null && <span className={styles.suffix}>{suffix}</span>}
             <Icon name='arrow-down-s-line' size='md' className={styles.indicator} />
             {name != null && (
               <input

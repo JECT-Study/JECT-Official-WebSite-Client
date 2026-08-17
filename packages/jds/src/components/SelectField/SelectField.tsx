@@ -7,11 +7,18 @@ import type { SelectFieldProps } from "./selectField.types";
 import { Field } from "../Field";
 
 const SelectFieldRoot = forwardRef<HTMLDivElement, SelectFieldProps>((props, ref) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpenRequested, setIsOpenRequested] = useState(false);
+  const [hasPopupContent, setHasPopupContent] = useState(false);
+
+  const isOpen = isOpenRequested && hasPopupContent;
 
   return (
-    <SelectFieldProvider isOpen={isOpen} onOpenChange={setIsOpen}>
-      <Popover.Root open={isOpen} onOpenChange={setIsOpen} modal={false}>
+    <SelectFieldProvider
+      isOpen={isOpen}
+      onOpenChange={setIsOpenRequested}
+      onHasPopupContentChange={setHasPopupContent}
+    >
+      <Popover.Root open={isOpen} onOpenChange={setIsOpenRequested} modal={false}>
         <Field ref={ref} {...props} />
       </Popover.Root>
     </SelectFieldProvider>
