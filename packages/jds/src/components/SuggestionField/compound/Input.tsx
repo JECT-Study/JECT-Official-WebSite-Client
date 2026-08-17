@@ -186,6 +186,11 @@ export const SuggestionFieldInput = forwardRef<HTMLInputElement, SuggestionField
       if (isOpen) activateRef.current();
     }, [isOpen, query]);
 
+    const closeAndReset = () => {
+      onOpenChange(false);
+      setQuery("");
+    };
+
     const handleContentMouseDown = (e: MouseEvent<HTMLDivElement>) => {
       if (e.target !== e.currentTarget || !isInteractive) return;
 
@@ -226,8 +231,7 @@ export const SuggestionFieldInput = forwardRef<HTMLInputElement, SuggestionField
 
       if (e.key === "Escape") {
         if (isOpen || query !== "") e.preventDefault();
-        onOpenChange(false);
-        setQuery("");
+        closeAndReset();
         return;
       }
 
@@ -253,7 +257,7 @@ export const SuggestionFieldInput = forwardRef<HTMLInputElement, SuggestionField
 
       if (e.altKey && MOVE_KEYS.includes(e.key)) {
         e.preventDefault();
-        onOpenChange(false);
+        closeAndReset();
         return;
       }
 
