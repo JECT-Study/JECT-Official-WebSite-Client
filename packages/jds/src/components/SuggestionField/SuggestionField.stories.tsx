@@ -1,4 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import {
+  FIELD_PLAYGROUND_ARGS,
+  FIELD_WIDTH,
+  fieldArgTypes,
+  FormResult,
+} from "@storybook-utils/field";
 import { FlexColumn, FlexRow, Label } from "@storybook-utils/layout";
 import { useState } from "react";
 import { vars } from "tokens";
@@ -8,12 +14,12 @@ import { BlockButton } from "../Button/BlockButton";
 import { Icon } from "../Icon";
 import { Kbd } from "../Kbd";
 
-import { getLabelClassName } from "@/utils/typography";
-
 const SUGGESTIONS = ["React", "TypeScript", "Next.js", "vanilla-extract"];
 
-const FIELD_WIDTH = { width: "16rem" };
-
+/**
+ * 입력한 문자열을 값으로 받는 필드입니다. 추가한 값은 제안 목록에서 사라집니다.
+ * 값을 옵션으로 제한해야 하면 `MultiSelectField`를 사용합니다.
+ */
 const meta = {
   title: "Components/SuggestionField",
   component: SuggestionField,
@@ -23,48 +29,14 @@ const meta = {
   args: {
     children: null,
   },
-  argTypes: {
-    children: {
-      control: false,
-      table: { disable: true },
-    },
-    status: {
-      control: "inline-radio",
-      options: ["default", "success", "error"],
-      description: "유효성/피드백 상태",
-      table: { defaultValue: { summary: "default" } },
-    },
-    disabled: {
-      control: "boolean",
-      description: "비활성화 상태",
-      table: { defaultValue: { summary: "false" } },
-    },
-    readonly: {
-      control: "boolean",
-      description: "읽기 전용 상태",
-      table: { defaultValue: { summary: "false" } },
-    },
-    required: {
-      control: "boolean",
-      description: "필수 입력 여부 (레이블 옆 * 표시)",
-      table: { defaultValue: { summary: "false" } },
-    },
-  },
+  argTypes: fieldArgTypes,
 } satisfies Meta<typeof SuggestionField>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-/**
- * 입력한 문자열을 값으로 추가합니다. 선택한 항목은 제안 목록에서 사라집니다.
- */
 export const Playground: Story = {
-  args: {
-    status: "default",
-    disabled: false,
-    readonly: false,
-    required: false,
-  },
+  args: FIELD_PLAYGROUND_ARGS,
   render: args => (
     <SuggestionField {...args} style={FIELD_WIDTH}>
       <SuggestionField.Label
@@ -82,11 +54,6 @@ export const Playground: Story = {
         suggestions={SUGGESTIONS}
         defaultValue={["React"]}
         placeholder='플레이스홀더'
-        suffix={
-          <Kbd type='function' size='sm'>
-            ⏎
-          </Kbd>
-        }
       />
       <SuggestionField.Footer>
         <SuggestionField.Helper>헬퍼 텍스트</SuggestionField.Helper>
@@ -154,13 +121,53 @@ export const States: Story = {
 };
 
 /**
- * `suggestions` 없이도 동작합니다. 이때는 입력한 값을 추가하는 항목만 표시됩니다.
+ * 값이 없으면 placeholder를 표시합니다.
+ * 태그가 늘어나 남은 가로 폭이 100px 미만이 되면 입력이 다음 줄로 내려갑니다.
  */
-export const WithoutSuggestions: Story = {
+export const Values: Story = {
+  render: () => (
+    <FlexRow gap='32px' style={{ alignItems: "flex-start" }}>
+      {(
+        [
+          ["0개", []],
+          ["1개", ["React"]],
+          ["3개", ["React", "TypeScript", "Next.js"]],
+        ] as const
+      ).map(([name, defaultValue]) => (
+        <FlexColumn key={name} gap='16px' style={{ alignItems: "flex-start" }}>
+          <Label>{name}</Label>
+          <SuggestionField style={FIELD_WIDTH}>
+            <SuggestionField.Label>레이블</SuggestionField.Label>
+            <SuggestionField.Input
+              suggestions={SUGGESTIONS}
+              defaultValue={[...defaultValue]}
+              placeholder='플레이스홀더'
+            />
+          </SuggestionField>
+        </FlexColumn>
+      ))}
+    </FlexRow>
+  ),
+};
+
+/**
+ * `maxValues`를 지정하면 `SuggestionField.Counter`에 현재 추가한 개수와 최대 개수를 함께 표시합니다.
+ * 최대 개수에 도달하면 값을 더 추가할 수 없습니다.
+ */
+export const WithCounter: Story = {
   render: () => (
     <SuggestionField style={FIELD_WIDTH}>
       <SuggestionField.Label>레이블</SuggestionField.Label>
-      <SuggestionField.Input defaultValue={["React"]} placeholder='플레이스홀더' />
+      <SuggestionField.Input
+        suggestions={SUGGESTIONS}
+        defaultValue={["React", "TypeScript"]}
+        maxValues={3}
+        placeholder='플레이스홀더'
+      />
+      <SuggestionField.Footer>
+        <SuggestionField.Helper>헬퍼 텍스트</SuggestionField.Helper>
+        <SuggestionField.Counter />
+      </SuggestionField.Footer>
     </SuggestionField>
   ),
 };
@@ -190,22 +197,39 @@ export const AcceptValueOnBlur: Story = {
 };
 
 /**
- * `maxValues`를 지정하면 `SuggestionField.Counter`에 현재 개수와 최대 개수를 함께 표시합니다.
- * 최대 개수에 도달하면 값을 더 추가할 수 없습니다.
+ * `suggestions` 없이도 동작합니다. 이때는 입력한 값을 추가하는 항목만 표시됩니다.
  */
-export const WithCounter: Story = {
+export const WithoutSuggestions: Story = {
+  render: () => (
+    <SuggestionField style={FIELD_WIDTH}>
+      <SuggestionField.Label>레이블</SuggestionField.Label>
+      <SuggestionField.Input defaultValue={["React"]} placeholder='플레이스홀더' />
+      <SuggestionField.Footer>
+        <SuggestionField.Helper>헬퍼 텍스트</SuggestionField.Helper>
+      </SuggestionField.Footer>
+    </SuggestionField>
+  ),
+};
+
+/**
+ * `suffix`는 입력 오른쪽에 형제로 배치되므로 배지나 단축키 표시 같은 읽기 전용 요소만 사용합니다.
+ */
+export const WithSuffix: Story = {
   render: () => (
     <SuggestionField style={FIELD_WIDTH}>
       <SuggestionField.Label>레이블</SuggestionField.Label>
       <SuggestionField.Input
         suggestions={SUGGESTIONS}
-        defaultValue={["React", "TypeScript"]}
-        maxValues={3}
+        defaultValue={["React"]}
         placeholder='플레이스홀더'
+        suffix={
+          <Kbd type='function' size='sm'>
+            ⏎
+          </Kbd>
+        }
       />
       <SuggestionField.Footer>
         <SuggestionField.Helper>헬퍼 텍스트</SuggestionField.Helper>
-        <SuggestionField.Counter />
       </SuggestionField.Footer>
     </SuggestionField>
   ),
@@ -235,9 +259,7 @@ const FormPreview = () => {
         <BlockButton type='submit' style={{ width: "100%" }}>
           제출
         </BlockButton>
-        <output className={getLabelClassName()} style={{ ...FIELD_WIDTH, display: "block" }}>
-          {submitted == null ? "미제출" : `전송된 데이터: ${submitted}`}
-        </output>
+        <FormResult value={submitted} />
       </FlexColumn>
     </form>
   );

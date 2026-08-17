@@ -1,40 +1,23 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import {
+  FIELD_PLAYGROUND_ARGS,
+  FIELD_WIDTH,
+  fieldArgTypes,
+  FormResult,
+} from "@storybook-utils/field";
 import { FlexColumn, FlexRow, Label } from "@storybook-utils/layout";
+import { REGIONS, REGION_OPTIONS, toExpressiveOptions } from "@storybook-utils/selectOptions";
 import { useState } from "react";
 import { vars } from "tokens";
 
 import { MultiSelectField } from "./MultiSelectField";
-import { ContentBadge } from "../Badge";
 import { BlockButton } from "../Button/BlockButton";
 import { Icon } from "../Icon";
 import { Kbd } from "../Kbd";
-import type { SelectOption } from "../Listbox";
 
-import { getLabelClassName } from "@/utils/typography";
-
-const REGIONS = [
-  { value: "seoul", label: "서울특별시" },
-  { value: "gwangju-jeonnam", label: "전남광주통합특별시" },
-  { value: "busan", label: "부산광역시" },
-  { value: "daegu", label: "대구광역시" },
-  { value: "incheon", label: "인천광역시" },
-  { value: "daejeon", label: "대전광역시" },
-  { value: "ulsan", label: "울산광역시" },
-  { value: "sejong", label: "세종특별자치시" },
-  { value: "gyeonggi", label: "경기도" },
-  { value: "gangwon", label: "강원특별자치도" },
-  { value: "chungbuk", label: "충청북도" },
-  { value: "chungnam", label: "충청남도" },
-  { value: "jeonbuk", label: "전북특별자치도" },
-  { value: "gyeongbuk", label: "경상북도" },
-  { value: "gyeongnam", label: "경상남도" },
-  { value: "jeju", label: "제주특별자치도" },
-];
-
-const options = REGIONS.slice(0, 4);
-
-const FIELD_WIDTH = { width: "16rem" };
-
+/**
+ * 목록에서 여러 값을 선택하는 필드입니다. 값을 옵션으로 제한하지 않아야 하면 `SuggestionField`를 사용합니다.
+ */
 const meta = {
   title: "Components/MultiSelectField",
   component: MultiSelectField,
@@ -44,48 +27,14 @@ const meta = {
   args: {
     children: null,
   },
-  argTypes: {
-    children: {
-      control: false,
-      table: { disable: true },
-    },
-    status: {
-      control: "inline-radio",
-      options: ["default", "success", "error"],
-      description: "유효성/피드백 상태",
-      table: { defaultValue: { summary: "default" } },
-    },
-    disabled: {
-      control: "boolean",
-      description: "비활성화 상태",
-      table: { defaultValue: { summary: "false" } },
-    },
-    readonly: {
-      control: "boolean",
-      description: "읽기 전용 상태",
-      table: { defaultValue: { summary: "false" } },
-    },
-    required: {
-      control: "boolean",
-      description: "필수 입력 여부 (레이블 옆 * 표시)",
-      table: { defaultValue: { summary: "false" } },
-    },
-  },
+  argTypes: fieldArgTypes,
 } satisfies Meta<typeof MultiSelectField>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-/**
- * 선택한 값은 태그로 쌓이고, 입력 영역이 100px보다 좁아지면 다음 줄로 내려갑니다.
- */
 export const Playground: Story = {
-  args: {
-    status: "default",
-    disabled: false,
-    readonly: false,
-    required: false,
-  },
+  args: FIELD_PLAYGROUND_ARGS,
   render: args => (
     <MultiSelectField {...args} style={FIELD_WIDTH}>
       <MultiSelectField.Label
@@ -100,7 +49,7 @@ export const Playground: Story = {
         레이블
       </MultiSelectField.Label>
       <MultiSelectField.Input
-        options={options}
+        options={REGION_OPTIONS}
         defaultValue={["seoul"]}
         placeholder='플레이스홀더'
       />
@@ -123,7 +72,7 @@ export const Statuses: Story = {
           <MultiSelectField status={status} style={FIELD_WIDTH}>
             <MultiSelectField.Label>레이블</MultiSelectField.Label>
             <MultiSelectField.Input
-              options={options}
+              options={REGION_OPTIONS}
               defaultValue={["seoul"]}
               placeholder='플레이스홀더'
             />
@@ -155,7 +104,7 @@ export const States: Story = {
           <MultiSelectField {...props} style={FIELD_WIDTH}>
             <MultiSelectField.Label>레이블</MultiSelectField.Label>
             <MultiSelectField.Input
-              options={options}
+              options={REGION_OPTIONS}
               defaultValue={["seoul", "busan"]}
               placeholder='플레이스홀더'
             />
@@ -180,7 +129,7 @@ export const Values: Story = {
         [
           ["0개", []],
           ["1개", ["seoul"]],
-          ["3개", ["seoul", "gwangju-jeonnam", "busan"]],
+          ["3개", ["seoul", "jeonnam-gwangju", "busan"]],
         ] as const
       ).map(([name, defaultValue]) => (
         <FlexColumn key={name} gap='16px' style={{ alignItems: "flex-start" }}>
@@ -188,7 +137,7 @@ export const Values: Story = {
           <MultiSelectField style={FIELD_WIDTH}>
             <MultiSelectField.Label>레이블</MultiSelectField.Label>
             <MultiSelectField.Input
-              options={options}
+              options={REGION_OPTIONS}
               defaultValue={[...defaultValue]}
               placeholder='플레이스홀더'
             />
@@ -208,7 +157,7 @@ export const WithCounter: Story = {
     <MultiSelectField style={FIELD_WIDTH}>
       <MultiSelectField.Label>레이블</MultiSelectField.Label>
       <MultiSelectField.Input
-        options={options}
+        options={REGION_OPTIONS}
         defaultValue={["seoul", "busan", "daegu"]}
         maxValues={3}
         placeholder='플레이스홀더'
@@ -233,7 +182,7 @@ export const Searchable: Story = {
           <MultiSelectField style={FIELD_WIDTH}>
             <MultiSelectField.Label>레이블</MultiSelectField.Label>
             <MultiSelectField.Input
-              options={options}
+              options={REGION_OPTIONS}
               searchable={searchable}
               defaultValue={["seoul"]}
               placeholder='플레이스홀더'
@@ -253,7 +202,7 @@ export const WithSuffix: Story = {
     <MultiSelectField style={FIELD_WIDTH}>
       <MultiSelectField.Label>레이블</MultiSelectField.Label>
       <MultiSelectField.Input
-        options={options}
+        options={REGION_OPTIONS}
         defaultValue={["seoul"]}
         placeholder='플레이스홀더'
         suffix={
@@ -270,41 +219,26 @@ export const WithSuffix: Story = {
 };
 
 /**
- * 옵션 별로 캡션과 부가 요소, 비활성 여부를 함께 지정할 수 있습니다.
+ * 옵션별로 캡션과 부가 요소, 비활성 여부를 함께 지정할 수 있습니다.
  */
 export const OptionExpression: Story = {
-  render: () => {
-    const expressive: SelectOption[] = options.map(option => {
-      if (option.value === "busan") return { ...option, disabled: true };
-      return {
-        ...option,
-        caption: "캡션",
-        suffix: (
-          <ContentBadge hierarchy='tertiary' size='xs' badgeStyle='outlined'>
-            레이블
-          </ContentBadge>
-        ),
-      };
-    });
-
-    return (
-      <MultiSelectField style={FIELD_WIDTH}>
-        <MultiSelectField.Label>레이블</MultiSelectField.Label>
-        <MultiSelectField.Input
-          options={expressive}
-          defaultValue={["seoul"]}
-          placeholder='플레이스홀더'
-        />
-        <MultiSelectField.Footer>
-          <MultiSelectField.Helper>헬퍼 텍스트</MultiSelectField.Helper>
-        </MultiSelectField.Footer>
-      </MultiSelectField>
-    );
-  },
+  render: () => (
+    <MultiSelectField style={FIELD_WIDTH}>
+      <MultiSelectField.Label>레이블</MultiSelectField.Label>
+      <MultiSelectField.Input
+        options={toExpressiveOptions(REGION_OPTIONS)}
+        defaultValue={["seoul"]}
+        placeholder='플레이스홀더'
+      />
+      <MultiSelectField.Footer>
+        <MultiSelectField.Helper>헬퍼 텍스트</MultiSelectField.Helper>
+      </MultiSelectField.Footer>
+    </MultiSelectField>
+  ),
 };
 
 /**
- * 목록이 길면 열리는 시점에 선택된 항목이 보이도록 스크롤 위치가 조정됩니다.
+ * 목록이 길면 열리는 시점에 선택한 항목이 보이도록 스크롤 위치가 조정됩니다.
  */
 export const ScrollToSelected: Story = {
   render: () => (
@@ -334,7 +268,7 @@ const FormPreview = () => {
         <MultiSelectField style={FIELD_WIDTH}>
           <MultiSelectField.Label>레이블</MultiSelectField.Label>
           <MultiSelectField.Input
-            options={options}
+            options={REGION_OPTIONS}
             name='regions'
             defaultValue={["seoul", "busan"]}
             placeholder='플레이스홀더'
@@ -343,9 +277,7 @@ const FormPreview = () => {
         <BlockButton type='submit' style={{ width: "100%" }}>
           제출
         </BlockButton>
-        <output className={getLabelClassName()} style={{ ...FIELD_WIDTH, display: "block" }}>
-          {submitted == null ? "미제출" : `전송된 데이터: ${submitted}`}
-        </output>
+        <FormResult value={submitted} />
       </FlexColumn>
     </form>
   );
@@ -353,7 +285,7 @@ const FormPreview = () => {
 
 /**
  * `name`을 지정하면 선택한 값마다 hidden input이 렌더되어 폼 제출에 포함됩니다.
- * 선택값이 여러 개이므로 소비처에서는 `FormData.getAll(name)`으로 값을 가져올 수 있습니다.
+ * 값이 여러 개이므로 소비처에서는 `FormData.getAll(name)`으로 값을 가져올 수 있습니다.
  */
 export const WithForm: Story = {
   render: () => <FormPreview />,

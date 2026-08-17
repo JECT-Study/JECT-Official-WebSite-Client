@@ -1,40 +1,24 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import {
+  FIELD_PLAYGROUND_ARGS,
+  FIELD_WIDTH,
+  fieldArgTypes,
+  FormResult,
+} from "@storybook-utils/field";
 import { FlexColumn, FlexRow, Label } from "@storybook-utils/layout";
+import { REGIONS, REGION_OPTIONS, toExpressiveOptions } from "@storybook-utils/selectOptions";
 import { useState } from "react";
 import { vars } from "tokens";
 
 import { SelectField } from "./SelectField";
-import { ContentBadge } from "../Badge";
 import { BlockButton } from "../Button/BlockButton";
 import { Icon } from "../Icon";
 import { Kbd } from "../Kbd";
-import type { SelectOption } from "../Listbox";
 
-import { getLabelClassName } from "@/utils/typography";
-
-const REGIONS: SelectOption[] = [
-  { value: "seoul", label: "서울특별시" },
-  { value: "jeonnam-gwangju", label: "전남광주통합특별시" },
-  { value: "busan", label: "부산광역시" },
-  { value: "daegu", label: "대구광역시" },
-  { value: "incheon", label: "인천광역시" },
-  { value: "daejeon", label: "대전광역시" },
-  { value: "ulsan", label: "울산광역시" },
-  { value: "sejong", label: "세종특별자치시" },
-  { value: "gyeonggi", label: "경기도" },
-  { value: "gangwon", label: "강원특별자치도" },
-  { value: "chungbuk", label: "충청북도" },
-  { value: "chungnam", label: "충청남도" },
-  { value: "jeonbuk", label: "전북특별자치도" },
-  { value: "gyeongbuk", label: "경상북도" },
-  { value: "gyeongnam", label: "경상남도" },
-  { value: "jeju", label: "제주특별자치도" },
-];
-
-const options = REGIONS.slice(0, 4);
-
-const FIELD_WIDTH = { width: "16rem" };
-
+/**
+ * 목록에서 하나의 값을 선택하는 필드입니다. 항목을 선택하면 목록이 닫힙니다.
+ * 여러 값을 선택해야 하면 `MultiSelectField`를 사용합니다.
+ */
 const meta = {
   title: "Components/SelectField",
   component: SelectField,
@@ -44,45 +28,14 @@ const meta = {
   args: {
     children: null,
   },
-  argTypes: {
-    children: {
-      control: false,
-      table: { disable: true },
-    },
-    status: {
-      control: "inline-radio",
-      options: ["default", "success", "error"],
-      description: "유효성/피드백 상태",
-      table: { defaultValue: { summary: "default" } },
-    },
-    disabled: {
-      control: "boolean",
-      description: "비활성화 상태",
-      table: { defaultValue: { summary: "false" } },
-    },
-    readonly: {
-      control: "boolean",
-      description: "읽기 전용 상태",
-      table: { defaultValue: { summary: "false" } },
-    },
-    required: {
-      control: "boolean",
-      description: "필수 입력 여부 (레이블 옆 * 표시)",
-      table: { defaultValue: { summary: "false" } },
-    },
-  },
+  argTypes: fieldArgTypes,
 } satisfies Meta<typeof SelectField>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Playground: Story = {
-  args: {
-    status: "default",
-    disabled: false,
-    readonly: false,
-    required: false,
-  },
+  args: FIELD_PLAYGROUND_ARGS,
   render: args => (
     <SelectField {...args} style={FIELD_WIDTH}>
       <SelectField.Label
@@ -96,7 +49,7 @@ export const Playground: Story = {
       >
         레이블
       </SelectField.Label>
-      <SelectField.Input options={options} defaultValue='seoul' placeholder='플레이스홀더' />
+      <SelectField.Input options={REGION_OPTIONS} defaultValue='seoul' placeholder='플레이스홀더' />
       <SelectField.Helper>헬퍼 텍스트</SelectField.Helper>
     </SelectField>
   ),
@@ -113,7 +66,11 @@ export const Statuses: Story = {
           <Label>{status}</Label>
           <SelectField status={status} style={FIELD_WIDTH}>
             <SelectField.Label>레이블</SelectField.Label>
-            <SelectField.Input options={options} defaultValue='seoul' placeholder='플레이스홀더' />
+            <SelectField.Input
+              options={REGION_OPTIONS}
+              defaultValue='seoul'
+              placeholder='플레이스홀더'
+            />
             <SelectField.Helper>헬퍼 텍스트</SelectField.Helper>
           </SelectField>
         </FlexColumn>
@@ -123,7 +80,7 @@ export const Statuses: Story = {
 };
 
 /**
- * `disabled`와 `readonly`에서는 목록을 열 수 없습니다. `disabled`는 포커스도 받지 않고 `readonly`는 포커스만 받습니다.
+ * `disabled`와 `readonly`에서는 목록을 열 수 없습니다.
  */
 export const States: Story = {
   render: () => (
@@ -139,7 +96,11 @@ export const States: Story = {
           <Label>{name}</Label>
           <SelectField {...props} style={FIELD_WIDTH}>
             <SelectField.Label>레이블</SelectField.Label>
-            <SelectField.Input options={options} defaultValue='seoul' placeholder='플레이스홀더' />
+            <SelectField.Input
+              options={REGION_OPTIONS}
+              defaultValue='seoul'
+              placeholder='플레이스홀더'
+            />
             <SelectField.Helper>헬퍼 텍스트</SelectField.Helper>
           </SelectField>
         </FlexColumn>
@@ -149,15 +110,15 @@ export const States: Story = {
 };
 
 /**
- * 값이 없으면 placeholder를 표시하고, 값이 있으면 선택된 옵션의 `label`을 표시합니다.
+ * 값이 없으면 placeholder를 표시하고, 값이 있으면 선택한 항목의 표시명을 보여줍니다.
  */
 export const Values: Story = {
   render: () => (
     <FlexRow gap='32px' style={{ alignItems: "flex-start" }}>
       {(
         [
-          ["placeholder", undefined],
-          ["selected", "seoul"],
+          ["없음", undefined],
+          ["있음", "seoul"],
         ] as const
       ).map(([name, defaultValue]) => (
         <FlexColumn key={name} gap='16px' style={{ alignItems: "flex-start" }}>
@@ -165,7 +126,7 @@ export const Values: Story = {
           <SelectField style={FIELD_WIDTH}>
             <SelectField.Label>레이블</SelectField.Label>
             <SelectField.Input
-              options={options}
+              options={REGION_OPTIONS}
               defaultValue={defaultValue}
               placeholder='플레이스홀더'
             />
@@ -178,7 +139,7 @@ export const Values: Story = {
 
 /**
  * `searchable`을 켜면 검색어로 항목을 찾을 수 있습니다.
- * 목록이 닫히거나 포커스가 제거되면 선택한 옵션의 `label`로 돌아갑니다.
+ * 목록이 닫히거나 포커스가 제거되면 선택한 항목의 표시명으로 돌아갑니다.
  */
 export const Searchable: Story = {
   render: () => (
@@ -189,7 +150,7 @@ export const Searchable: Story = {
           <SelectField style={FIELD_WIDTH}>
             <SelectField.Label>레이블</SelectField.Label>
             <SelectField.Input
-              options={options}
+              options={REGION_OPTIONS}
               searchable={searchable}
               defaultValue='seoul'
               placeholder='플레이스홀더'
@@ -202,14 +163,14 @@ export const Searchable: Story = {
 };
 
 /**
- * `suffix`는 입력과 화살표 사이에 형제로 배치되므로 배지나 단축키 표시 같은 읽기 전용 요소만 사용합니다.
+ * `suffix`는 입력 오른쪽에 형제로 배치되므로 배지나 단축키 표시 같은 읽기 전용 요소만 사용합니다.
  */
 export const WithSuffix: Story = {
   render: () => (
     <SelectField style={FIELD_WIDTH}>
       <SelectField.Label>레이블</SelectField.Label>
       <SelectField.Input
-        options={options}
+        options={REGION_OPTIONS}
         defaultValue='seoul'
         placeholder='플레이스홀더'
         suffix={
@@ -224,36 +185,24 @@ export const WithSuffix: Story = {
 };
 
 /**
- * 옵션 별로 캡션과 부가 요소, 비활성 여부를 함께 지정할 수 있습니다.
+ * 옵션별로 캡션과 부가 요소, 비활성 여부를 함께 지정할 수 있습니다.
  */
 export const OptionExpression: Story = {
-  render: () => {
-    const expressive: SelectOption[] = options.map(option => {
-      if (option.value === "busan") return { ...option, disabled: true };
-      return {
-        ...option,
-        caption: "캡션",
-        suffix: (
-          <ContentBadge hierarchy='tertiary' size='xs' badgeStyle='outlined'>
-            레이블
-          </ContentBadge>
-        ),
-      };
-    });
-
-    return (
-      <SelectField style={FIELD_WIDTH}>
-        <SelectField.Label>레이블</SelectField.Label>
-        <SelectField.Input options={expressive} defaultValue='seoul' placeholder='플레이스홀더' />
-        <SelectField.Helper>헬퍼 텍스트</SelectField.Helper>
-      </SelectField>
-    );
-  },
+  render: () => (
+    <SelectField style={FIELD_WIDTH}>
+      <SelectField.Label>레이블</SelectField.Label>
+      <SelectField.Input
+        options={toExpressiveOptions(REGION_OPTIONS)}
+        defaultValue='seoul'
+        placeholder='플레이스홀더'
+      />
+      <SelectField.Helper>헬퍼 텍스트</SelectField.Helper>
+    </SelectField>
+  ),
 };
 
 /**
- * 팝업 높이는 입력 요소 아래(또는 위)의 남은 화면 공간만큼으로 제한됩니다.
- * 목록이 그보다 길면 열리는 시점에 선택된 옵션이 보이도록 스크롤 위치가 조정됩니다.
+ * 목록이 길면 열리는 시점에 선택한 항목이 보이도록 스크롤 위치가 조정됩니다.
  */
 export const ScrollToSelected: Story = {
   render: () => (
@@ -271,7 +220,7 @@ const FormPreview = () => {
     <form
       onSubmit={e => {
         e.preventDefault();
-        const entry = new FormData(e.currentTarget).get("region");
+        const entry = new FormData(e.currentTarget).get("regions");
         setSubmitted(typeof entry === "string" ? entry : null);
       }}
     >
@@ -279,8 +228,8 @@ const FormPreview = () => {
         <SelectField style={FIELD_WIDTH}>
           <SelectField.Label>레이블</SelectField.Label>
           <SelectField.Input
-            options={options}
-            name='region'
+            options={REGION_OPTIONS}
+            name='regions'
             defaultValue='seoul'
             placeholder='플레이스홀더'
           />
@@ -288,9 +237,7 @@ const FormPreview = () => {
         <BlockButton type='submit' style={{ width: "100%" }}>
           제출
         </BlockButton>
-        <output className={getLabelClassName()} style={{ ...FIELD_WIDTH, display: "block" }}>
-          {submitted == null || submitted === "" ? "미제출" : `전송된 데이터: ${submitted}`}
-        </output>
+        <FormResult value={submitted} />
       </FlexColumn>
     </form>
   );
