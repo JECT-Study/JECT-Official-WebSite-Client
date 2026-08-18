@@ -1,5 +1,5 @@
 import type { StyleRule } from "@vanilla-extract/css";
-import { createVar } from "@vanilla-extract/css";
+import { createVar, fallbackVar } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
 import { focusRing, overlay, overlayColor, pxToRem } from "utils";
@@ -7,12 +7,12 @@ import { focusRing, overlay, overlayColor, pxToRem } from "utils";
 import type { MenuItemSize } from "./menuItem.types";
 
 import { thumbnailVars } from "@/components/Thumbnail/thumbnail.css";
-import { labelColorVar } from "@/utils/typography.css";
 
 const menuItemVariants = {
   paddingHorizontal: createVar(),
   paddingVertical: createVar(),
   layerRadius: createVar(),
+  labelColor: createVar(),
 } as const;
 
 export const menuContainerStyle = recipe({
@@ -33,7 +33,7 @@ export const menuContainerStyle = recipe({
         "&:disabled, &[data-disabled]": {
           cursor: "default",
           color: vars.color.semantic.object.subtle,
-          vars: { [labelColorVar]: vars.color.semantic.object.subtle },
+          vars: { [menuItemVariants.labelColor]: vars.color.semantic.object.subtle },
         },
         "&::before, &::after": { inset: 0, borderRadius: menuItemVariants.layerRadius },
       },
@@ -67,9 +67,7 @@ export const menuContainerStyle = recipe({
     isSelected: {
       true: {
         background: vars.color.semantic.fill.subtlest,
-        vars: {
-          [labelColorVar]: vars.color.semantic.object.boldest,
-        },
+        vars: { [menuItemVariants.labelColor]: vars.color.semantic.object.boldest },
       },
       false: {},
     },
@@ -84,10 +82,10 @@ export const menuContainerStyle = recipe({
 
 export const menuItemLabel = recipe({
   base: {
+    display: "flex",
+    alignItems: "center",
     cursor: "inherit",
-    vars: {
-      [labelColorVar]: "inherit",
-    },
+    color: fallbackVar(menuItemVariants.labelColor, vars.color.semantic.object.bold),
   },
   variants: {
     fullWidthText: {

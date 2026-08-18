@@ -7,7 +7,6 @@ import { SNACKBAR_ANIMATION_DURATION_TOKEN } from "./snackbar.constants";
 import type { SnackbarFeedback } from "./snackbar.types";
 
 import { breakpoints } from "@/tokens/breakpoints";
-import { labelColorVar } from "@/utils/typography.css";
 
 const slideIn = keyframes({
   from: { opacity: 0, transform: "translateY(100%)" },
@@ -104,9 +103,10 @@ export const content = recipe({
 });
 
 export const title = style({
-  vars: {
-    [labelColorVar]: vars.color.semantic.object.bolder,
-  },
+  display: "flex",
+  alignItems: "center",
+  cursor: "default",
+  color: vars.color.semantic.object.bolder,
 });
 
 export const description = style({

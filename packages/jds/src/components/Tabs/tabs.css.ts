@@ -5,15 +5,19 @@ import { focusRing, overlay } from "utils";
 
 import type { TabsVariant } from "./tabs.types";
 
-const labelColorVar = createVar();
+const labelColor = createVar();
 const badgeColorVar = createVar();
 
 export const label = style({
-  color: labelColorVar,
+  display: "flex",
+  alignItems: "center",
+  color: labelColor,
   cursor: "inherit",
 });
 
 export const badge = style({
+  display: "flex",
+  alignItems: "center",
   color: badgeColorVar,
   cursor: "inherit",
 });
@@ -65,7 +69,7 @@ export const trigger = recipe({
       whiteSpace: "nowrap",
       userSelect: "none",
       vars: {
-        [labelColorVar]: vars.color.semantic.object.alternative,
+        [labelColor]: vars.color.semantic.object.alternative,
         [badgeColorVar]: vars.color.semantic.object.alternative,
       },
       selectors: {
@@ -97,7 +101,7 @@ export const trigger = recipe({
           },
           "&[data-state='active']": {
             vars: {
-              [labelColorVar]: vars.color.semantic.object.bolder,
+              [labelColor]: vars.color.semantic.object.bolder,
               [badgeColorVar]: vars.color.semantic.object.bold,
             },
             borderBottomColor: vars.color.semantic.stroke.bold,
@@ -105,13 +109,13 @@ export const trigger = recipe({
           },
           "&:disabled, &[data-disabled]": {
             vars: {
-              [labelColorVar]: vars.color.semantic.object.subtle,
+              [labelColor]: vars.color.semantic.object.subtle,
               [badgeColorVar]: vars.color.semantic.object.subtle,
             },
           },
           "&:disabled[data-state='active'], &[data-disabled][data-state='active']": {
             vars: {
-              [labelColorVar]: vars.color.semantic.object.subtle,
+              [labelColor]: vars.color.semantic.object.subtle,
               [badgeColorVar]: vars.color.semantic.object.subtle,
             },
             borderBottomColor: vars.color.semantic.stroke.assistive,
@@ -126,21 +130,21 @@ export const trigger = recipe({
         selectors: {
           "&[data-state='active']": {
             vars: {
-              [labelColorVar]: vars.color.semantic.object.bolder,
+              [labelColor]: vars.color.semantic.object.bolder,
               [badgeColorVar]: vars.color.semantic.object.bold,
             },
             backgroundColor: vars.color.semantic.fill.subtlest,
           },
           "&:disabled, &[data-disabled]": {
             vars: {
-              [labelColorVar]: vars.color.semantic.object.subtle,
+              [labelColor]: vars.color.semantic.object.subtle,
               [badgeColorVar]: vars.color.semantic.object.subtle,
             },
             borderColor: vars.color.semantic.stroke.alpha.subtler,
           },
           "&:disabled[data-state='active'], &[data-disabled][data-state='active']": {
             vars: {
-              [labelColorVar]: vars.color.semantic.object.subtle,
+              [labelColor]: vars.color.semantic.object.subtle,
               [badgeColorVar]: vars.color.semantic.object.subtle,
             },
             backgroundColor: vars.color.semantic.fill.subtlest,

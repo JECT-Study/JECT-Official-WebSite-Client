@@ -14,6 +14,7 @@ import {
   codeWrapper,
   descriptionStyle,
   tableItemContent,
+  tableItemLabel,
   tableItemTitle,
   tableRowItem,
 } from "./table.css";
@@ -46,7 +47,7 @@ const LabelContent = ({ children, prefixIcon, color }: Omit<TableRowItemLabelPro
   <div className={tableItemTitle}>
     {prefixIcon && <Icon name={prefixIcon} size='sm' aria-hidden='true' />}
     {color && <ColorChip color={color} aria-hidden='true' />}
-    <span className={getLabelClassName()}>{children}</span>
+    <span className={clsx(getLabelClassName(), tableItemLabel)}>{children}</span>
   </div>
 );
 

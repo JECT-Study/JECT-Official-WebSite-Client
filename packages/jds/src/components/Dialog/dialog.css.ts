@@ -129,6 +129,10 @@ export const scrollBody = style({
 });
 
 export const title = style({
+  display: "flex",
+  alignItems: "center",
+  color: vars.color.semantic.object.bolder,
+  cursor: "default",
   margin: 0,
   alignSelf: "stretch",
   flexShrink: 0,

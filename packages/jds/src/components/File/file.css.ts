@@ -4,7 +4,6 @@ import { pxToRem } from "utils";
 
 import { focusRing } from "@/utils/focusRing.css";
 import { overlay, overlayHoverOpacity, overlayPressedOpacity } from "@/utils/overlay.css";
-import { labelColorVar } from "@/utils/typography.css";
 
 const LAYER_INSET = `${pxToRem(-6)} ${pxToRem(-8)}`;
 const LAYER_RADIUS = vars.scheme.semantic.radius["6"];
@@ -100,9 +99,7 @@ export const fileName = style({
   textDecorationColor: "transparent",
   transition: `text-decoration-color ${vars.environment.semantic.duration[100]} ${vars.environment.semantic.motion.fluent}`,
 
-  vars: {
-    [labelColorVar]: vars.color.semantic.object.bolder,
-  },
+  color: vars.color.semantic.object.bolder,
   "@media": {
     "(hover: hover) and (pointer: fine)": {
       selectors: {
@@ -118,9 +115,7 @@ export const fileName = style({
       textDecorationLine: "none",
     },
     [`${root}[data-disabled] &`]: {
-      vars: {
-        [labelColorVar]: vars.color.semantic.object.subtle,
-      },
+      color: vars.color.semantic.object.subtle,
     },
   },
 });
@@ -134,16 +129,15 @@ export const disabled = style({
 });
 
 export const fileSize = style({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "flex-end",
   flexShrink: 0,
+  color: vars.color.semantic.object.alternative,
   cursor: "inherit",
-  vars: {
-    [labelColorVar]: vars.color.semantic.object.alternative,
-  },
   selectors: {
     [`${root}[data-disabled] &`]: {
-      vars: {
-        [labelColorVar]: vars.color.semantic.object.subtle,
-      },
+      color: vars.color.semantic.object.subtle,
     },
   },
 });

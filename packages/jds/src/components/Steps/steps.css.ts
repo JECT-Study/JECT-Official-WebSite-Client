@@ -7,8 +7,6 @@ import type { StepsSize } from "./steps.types";
 import { vars } from "../../tokens/vars.css";
 import { dividerColorVar } from "../Divider/divider.css";
 
-import { labelColorVar } from "@/utils/typography.css";
-
 const stepsHorizontalGap = {
   lg: vars.scheme.semantic.spacing["10"],
   md: vars.scheme.semantic.spacing["8"],
@@ -17,6 +15,7 @@ const stepsHorizontalGap = {
 export const stepsLabel = recipe({
   base: {
     display: "block",
+    cursor: "default",
     minWidth: 0,
     overflow: "hidden",
     textOverflow: "ellipsis",
@@ -24,8 +23,8 @@ export const stepsLabel = recipe({
   },
   variants: {
     activated: {
-      true: { vars: { [labelColorVar]: vars.color.semantic.object.bold } },
-      false: { vars: { [labelColorVar]: vars.color.semantic.object.alternative } },
+      true: { color: vars.color.semantic.object.bold },
+      false: { color: vars.color.semantic.object.alternative },
     },
   },
 });

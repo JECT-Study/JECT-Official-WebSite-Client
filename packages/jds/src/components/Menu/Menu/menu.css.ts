@@ -5,8 +5,6 @@ import { vars } from "tokens";
 
 import type { MenuSize, MenuStyle } from "./menu.types";
 
-import { labelColorVar } from "@/utils/typography.css";
-
 const menuListGap = {
   lg: vars.scheme.semantic.spacing["8"],
   md: vars.scheme.semantic.spacing["6"],
@@ -90,9 +88,26 @@ export const menuCategoryContainer = recipe({
   },
 });
 
-export const menuCategory = style({
-  vars: {
-    [labelColorVar]: vars.color.semantic.object.assistive,
+export const menuCategory = recipe({
+  base: {
+    display: "flex",
+    alignItems: "center",
+    color: vars.color.semantic.object.assistive,
+  },
+  variants: {
+    textAlign: {
+      center: { justifyContent: "center" },
+      left: { justifyContent: "flex-start" },
+      right: { justifyContent: "flex-end" },
+    },
+    cursor: {
+      pointer: { cursor: "pointer" },
+      default: { cursor: "default" },
+    },
+  },
+  defaultVariants: {
+    textAlign: "left",
+    cursor: "default",
   },
 });
 

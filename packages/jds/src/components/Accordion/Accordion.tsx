@@ -72,9 +72,7 @@ const AccordionTrigger = forwardRef<HTMLButtonElement, AccordionTriggerProps>(
         >
           <div className={styles.labelContainer}>
             {withPrefixIcon && <Icon size={iconSize} name={withPrefixIcon} aria-hidden />}
-            <span className={clsx(getLabelClassName({ size, cursor: "pointer" }), styles.label)}>
-              {children}
-            </span>
+            <span className={clsx(getLabelClassName({ size }), styles.label)}>{children}</span>
           </div>
 
           <div className={styles.chevron}>
