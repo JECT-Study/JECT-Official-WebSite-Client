@@ -22,6 +22,7 @@ export default defineConfig({
       include: ["src"],
       exclude: ["src/**/*.stories.*"],
       compilerOptions: { declarationMap: false },
+      bundleTypes: true,
     }),
   ],
   publicDir: false,

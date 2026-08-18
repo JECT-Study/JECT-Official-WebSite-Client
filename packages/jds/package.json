@@ -32,22 +32,22 @@
       "require": "./dist/index.cjs"
     },
     "./theme": {
-      "types": "./dist/theme/index.d.ts",
+      "types": "./dist/theme.d.ts",
       "import": "./dist/theme.js",
       "require": "./dist/theme.cjs"
     },
     "./hooks": {
-      "types": "./dist/hooks/index.d.ts",
+      "types": "./dist/hooks.d.ts",
       "import": "./dist/hooks.js",
       "require": "./dist/hooks.cjs"
     },
     "./utils": {
-      "types": "./dist/utils/index.d.ts",
+      "types": "./dist/utils.d.ts",
       "import": "./dist/utils.js",
       "require": "./dist/utils.cjs"
     },
     "./tokens": {
-      "types": "./dist/tokens/index.d.ts",
+      "types": "./dist/tokens.d.ts",
       "import": "./dist/tokens.js",
       "require": "./dist/tokens.cjs"
     },
@@ -78,6 +78,7 @@
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@ject/eslint-config": "*",
+    "@microsoft/api-extractor": "^7.58.12",
     "@storybook/addon-docs": "~10.1.11",
     "@storybook/addon-onboarding": "~10.1.11",
     "@storybook/react-vite": "~10.1.11",
