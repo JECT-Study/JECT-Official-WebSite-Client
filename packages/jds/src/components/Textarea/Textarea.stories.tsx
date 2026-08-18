@@ -71,6 +71,7 @@ export const Statuses: Story = {
 
 /**
  * `disabled`와 `readonly`에서는 입력과 크기 조절을 할 수 없습니다.
+ * `disabled`는 포커스를 받을 수 없으며, `readonly`는 포커스를 받을 수 있습니다.
  */
 export const States: Story = {
   render: () => (

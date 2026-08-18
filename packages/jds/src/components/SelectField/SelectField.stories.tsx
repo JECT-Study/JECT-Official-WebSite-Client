@@ -81,6 +81,7 @@ export const Statuses: Story = {
 
 /**
  * `disabled`와 `readonly`에서는 목록을 열 수 없습니다.
+ * `disabled`는 포커스를 받을 수 없으며, `readonly`는 포커스를 받을 수 있습니다.
  */
 export const States: Story = {
   render: () => (
@@ -202,7 +203,8 @@ export const OptionExpression: Story = {
 };
 
 /**
- * 목록이 길면 열리는 시점에 선택한 항목이 보이도록 스크롤 위치가 조정됩니다.
+ * 팝업 높이는 남은 화면 공간만큼으로 제한됩니다.
+ * 목록이 그보다 길면 열리는 시점에 선택한 항목이 보이도록 스크롤 위치가 조정됩니다.
  */
 export const ScrollToSelected: Story = {
   render: () => (
