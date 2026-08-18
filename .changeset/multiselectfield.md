@@ -4,7 +4,7 @@
 
 **MultiSelectField**
 
-제공된 옵션에서 여러 값을 선택하는 `MultiSelectField`를 추가합니다.
+제공된 옵션에서 여러 값을 선택하는 `MultiSelectField`를 추가합니다. 필드 공통 동작은 `Field` 항목에서 다룹니다.
 
 `MultiSelectField.Label`, `MultiSelectField.Input`, `MultiSelectField.Footer`, `MultiSelectField.Helper`, `MultiSelectField.Counter`로 구성합니다. 선택지는 `SelectOption[]`으로 전달하며 값과 표시명, 캡션, 부가 요소, 비활성 여부를 지정할 수 있습니다. 선택한 값은 표시명이 붙은 태그로 표시됩니다.
 

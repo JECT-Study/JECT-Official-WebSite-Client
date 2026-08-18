@@ -4,7 +4,7 @@
 
 **SuggestionField**
 
-`Input.TagField`를 내부 `Field` primitive 기반의 compound 컴포넌트 `SuggestionField`로 재작성합니다.
+`Input.TagField`를 내부 `Field` primitive 기반의 compound 컴포넌트 `SuggestionField`로 재작성합니다. 필드 공통 동작은 `Field` 항목에서 다룹니다.
 
 `SuggestionField.Label`, `SuggestionField.Input`, `SuggestionField.Footer`, `SuggestionField.Helper`, `SuggestionField.Counter`로 구성합니다. 값은 `string[]`이고 입력한 문자열이 값이 됩니다. `suggestions`는 입력을 보조하는 목록이며 값의 범위를 제한하지 않습니다. 목록에서 선택한 항목은 입력한 값과 동일하게 처리되어 목록에서 제외됩니다.
 

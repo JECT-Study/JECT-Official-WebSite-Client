@@ -4,7 +4,7 @@
 
 **SelectField**
 
-`Input.SelectField`를 내부 `Field` primitive 기반의 compound 컴포넌트 `SelectField`로 재작성합니다.
+`Input.SelectField`를 내부 `Field` primitive 기반의 compound 컴포넌트 `SelectField`로 재작성합니다. 필드 공통 동작은 `Field` 항목에서 다룹니다.
 
 `SelectField.Label`, `SelectField.Input`, `SelectField.Helper`로 구성합니다. 선택지는 `SelectOption[]`으로 전달하며 값과 표시명, 캡션, 부가 요소, 비활성 여부를 지정할 수 있습니다. `value`와 `defaultValue`, `onChange`는 모두 `options[].value`를 주고받습니다.
 

@@ -4,7 +4,7 @@
 
 **Textarea**
 
-`Input.InputArea`를 내부 `Field` primitive 기반의 compound 컴포넌트 `Textarea`로 재작성합니다.
+`Input.InputArea`를 내부 `Field` primitive 기반의 compound 컴포넌트 `Textarea`로 재작성합니다. 필드 공통 동작은 `Field` 항목에서 다룹니다.
 
 `Textarea.Label`, `Textarea.Control`, `Textarea.Footer`, `Textarea.Helper`, `Textarea.Counter`로 구성합니다. 값은 controlled(`value` + `onChange`)와 uncontrolled(`defaultValue`)를 모두 지원합니다.
 
