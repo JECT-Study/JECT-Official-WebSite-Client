@@ -1,6 +1,6 @@
 import { vanillaExtractPlugin } from "@vanilla-extract/vite-plugin";
+import dts from "unplugin-dts/vite";
 import { defineConfig } from "vite";
-import dts from "vite-plugin-dts";
 
 import pkg from "./package.json" with { type: "json" };
 import { srcAliases } from "./vite.aliases";
