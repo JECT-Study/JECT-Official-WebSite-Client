@@ -10,7 +10,9 @@
 
 `variant`로 선택 표시 방식을, `suffix`로 입력 오른쪽에 놓을 읽기 전용 요소를 지정할 수 있습니다. `name`을 지정하면 선택값이 hidden input으로 렌더되어 폼 제출에 포함됩니다.
 
-`searchable`의 기본값은 `false`입니다. `true`이면 검색어로 항목을 필터링할 수 있으며, 목록이 닫히거나 포커스가 제거되면 선택한 값의 표시명으로 돌아갑니다.
+`searchable`의 기본값은 `false`입니다. `true`이면 검색어로 항목을 필터링할 수 있으며, 목록이 닫히거나 포커스가 제거되면 선택한 값의 표시명으로 돌아갑니다. `false`이면 타이핑을 막기 위해 입력 요소에 native `readOnly`가 적용되지만 필드가 읽기 전용이 되는 것은 아니라, 읽기 전용 여부는 `data-readonly`로 판단해야 합니다.
+
+입력 요소는 `role="combobox"`로 native 시맨틱을 덮어쓰며 `aria-haspopup`, `aria-expanded`, `aria-controls`, `aria-activedescendant`, `aria-readonly`를 함께 노출합니다.
 
 타입 `SelectFieldProps`, `SelectFieldInputProps`, `SelectFieldLabelProps`, `SelectFieldHelperProps`를 함께 내보냅니다.
 

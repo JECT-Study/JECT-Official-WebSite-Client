@@ -12,6 +12,8 @@
 
 `acceptValueOnBlur`의 기본값은 `true`이며, 포커스가 제거될 때 입력 중인 값을 확정할지 결정할 수 있습니다.
 
+입력 요소는 `role="combobox"`로 native 시맨틱을 덮어쓰며 `aria-haspopup`, `aria-expanded`, `aria-controls`, `aria-activedescendant`, `aria-readonly`를 함께 노출합니다.
+
 값을 옵션으로 제한해야 하는 경우 `MultiSelectField`를 사용합니다.
 
 타입 `SuggestionFieldProps`, `SuggestionFieldInputProps`, `SuggestionFieldLabelProps`, `SuggestionFieldHelperProps`, `SuggestionFieldFooterProps`를 함께 내보냅니다.
