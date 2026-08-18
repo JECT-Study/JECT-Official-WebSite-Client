@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexRow } from "@storybook-utils/layout";
 import { action } from "storybook/actions";
 import { expect, userEvent, within } from "storybook/test";
+import { vars } from "tokens";
 
 import { Menu } from "./Menu";
 
@@ -69,7 +70,9 @@ export const Default: Story = {
 export const MenuStyles: Story = {
   render: () => (
     <FlexRow>
-      <span className={getLabelClassName()}>solid style</span>
+      <span className={getLabelClassName()} style={{ color: vars.color.semantic.object.bold }}>
+        solid style
+      </span>
       <Menu.Root menuStyle='solid'>
         <Menu.Trigger asChild>
           <IconButton icon='menu-line' />
@@ -82,7 +85,9 @@ export const MenuStyles: Story = {
           </Menu.Group>
         </Menu.Content>
       </Menu.Root>
-      <span className={getLabelClassName()}>hollow style</span>
+      <span className={getLabelClassName()} style={{ color: vars.color.semantic.object.bold }}>
+        hollow style
+      </span>
       <Menu.Root menuStyle='hollow'>
         <Menu.Trigger asChild>
           <IconButton icon='menu-line' />

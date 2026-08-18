@@ -282,7 +282,10 @@ const FormPreview = () => {
         <BlockButton type='submit' style={{ width: "100%" }}>
           제출
         </BlockButton>
-        <output className={getLabelClassName()} style={{ ...FIELD_WIDTH, display: "block" }}>
+        <output
+          className={getLabelClassName()}
+          style={{ ...FIELD_WIDTH, display: "block", color: vars.color.semantic.object.bold }}
+        >
           {submitted == null ? "미제출" : `전송된 데이터: ${submitted}`}
         </output>
       </FlexColumn>
