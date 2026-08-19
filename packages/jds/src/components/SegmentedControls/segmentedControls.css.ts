@@ -1,6 +1,8 @@
+import type { StyleRule } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
 import type { SegmentedControlsSize } from "./segmentedControls.types";
+import { textStyles } from "../../tokens/textStyles";
 import { vars } from "../../tokens/vars.css";
 import { focusRing } from "../../utils/focusRing.css";
 import { overlay } from "../../utils/overlay.css";
@@ -95,10 +97,10 @@ export const itemLabel = recipe({
   },
   variants: {
     size: {
-      lg: "semantic-textStyle-label-lg-normal",
-      md: "semantic-textStyle-label-md-normal",
-      sm: "semantic-textStyle-label-sm-normal",
-      xs: "semantic-textStyle-label-xs-normal",
-    } satisfies Record<SegmentedControlsSize, string>,
+      lg: textStyles.label.lg.normal,
+      md: textStyles.label.md.normal,
+      sm: textStyles.label.sm.normal,
+      xs: textStyles.label.xs.normal,
+    } satisfies Record<SegmentedControlsSize, StyleRule>,
   },
 });

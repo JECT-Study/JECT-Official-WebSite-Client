@@ -1,13 +1,14 @@
+import type { StyleRule } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
-import { vars } from "tokens";
+import { textStyles, vars } from "tokens";
 
 import type { CodeSize } from "./code.types";
 
-export const codeTypographyClassName: Record<CodeSize, string> = {
-  lg: "semantic-textStyle-syntax-lg",
-  md: "semantic-textStyle-syntax-md",
-  sm: "semantic-textStyle-syntax-sm",
-  xs: "semantic-textStyle-syntax-xs",
+export const codeTypography: Record<CodeSize, StyleRule> = {
+  lg: textStyles.syntax.lg,
+  md: textStyles.syntax.md,
+  sm: textStyles.syntax.sm,
+  xs: textStyles.syntax.xs,
 };
 
 export const code = recipe({
@@ -22,6 +23,6 @@ export const code = recipe({
     cursor: "text",
   },
   variants: {
-    size: codeTypographyClassName,
+    size: codeTypography,
   },
 });
