@@ -1,4 +1,4 @@
-import { styleVariants } from "@vanilla-extract/css";
+import { styleVariants, type StyleRule } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
 import { pxToRem } from "utils";
@@ -17,13 +17,13 @@ const typeVariants = styleVariants(kbdPaddingXMap, paddingX => ({
 }));
 
 const typographyCompoundVariants = Object.entries(typographyMap).flatMap(([type, sizeMap]) =>
-  Object.entries(sizeMap).map(([size, typographyClassName]) => ({
+  Object.entries(sizeMap).map(([size, textStyle]) => ({
     variants: { type, size },
-    style: typographyClassName,
+    style: textStyle,
   })),
 ) as Array<{
   variants: { type: KbdType; size: KbdSize };
-  style: string;
+  style: StyleRule;
 }>;
 
 export const kbd = recipe({
