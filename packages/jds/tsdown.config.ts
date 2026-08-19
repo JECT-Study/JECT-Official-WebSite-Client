@@ -10,8 +10,15 @@ export default defineConfig({
   dts: false,
   clean: false,
   target: "es2022",
+  tsconfig: "./tsconfig.app.json",
   sourcemap: true,
-  plugins: [vanillaExtractPlugin({ identifiers: "debug", extract: { name: "styles.css" } })],
+  plugins: [
+    vanillaExtractPlugin({
+      identifiers: "debug",
+      extract: { name: "styles.css" },
+      esbuildOptions: { tsconfig: "./tsconfig.app.json" },
+    }),
+  ],
   deps: { neverBundle: externalPackages },
   outputOptions: { assetFileNames: "[name][extname]" },
 });

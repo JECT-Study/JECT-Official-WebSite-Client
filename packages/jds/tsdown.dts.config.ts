@@ -11,6 +11,7 @@ export default defineConfig({
   dts: { emitDtsOnly: true, sourcemap: true },
   clean: false,
   target: "es2022",
+  tsconfig: "./tsconfig.app.json",
   deps: { neverBundle: externalPackages },
   plugins: [
     {
