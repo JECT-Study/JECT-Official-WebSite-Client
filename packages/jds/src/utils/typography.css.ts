@@ -4,7 +4,6 @@ import { recipe } from "@vanilla-extract/recipes";
 import type { BodySize, BodyWeight, LabelSize, LabelWeight, TitleSize } from "./typography";
 import { textStyles } from "../tokens/textStyles";
 
-
 export const label = recipe({
   variants: {
     size: {
