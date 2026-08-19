@@ -1,4 +1,4 @@
-import { style, type StyleRule } from "@vanilla-extract/css";
+import type { StyleRule } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
 import type { BodySize, BodyWeight, LabelSize, LabelWeight, TitleSize } from "./typography.types";
@@ -150,8 +150,4 @@ export const body = recipe({
     size: "md",
     weight: "normal",
   },
-});
-
-export const inheritColor = style({
-  color: "inherit",
 });
