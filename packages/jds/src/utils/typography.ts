@@ -20,13 +20,6 @@ export const getBodyClassName = ({ size = "md", weight = "normal" }: BodyStyleOp
     weight,
   });
 
-export const typography = {
-  label: typographyStyles.label,
-  body: typographyStyles.body,
-  title: typographyStyles.title,
-  inheritColor: typographyStyles.inheritColor,
-};
-
 const typographyProps = new Set(["size", "textAlign", "weight", "cursor", "color", "as"]);
 
 export const shouldForwardTypographyProp = (prop: string) => {
