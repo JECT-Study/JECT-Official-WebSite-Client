@@ -1,7 +1,7 @@
 import { style, type StyleRule } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
-import type { BodySize, BodyWeight, LabelSize, LabelWeight, TitleSize } from "./typography";
+import type { BodySize, BodyWeight, LabelSize, LabelWeight, TitleSize } from "./typography.types";
 import { textStyles } from "../tokens/textStyles";
 
 export const label = recipe({
