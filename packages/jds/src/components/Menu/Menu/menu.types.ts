@@ -1,9 +1,9 @@
 import type { DropdownMenu } from "radix-ui";
-import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import type { ComponentPropsWithoutRef, ElementType, ReactNode } from "react";
 
 import type { MenuItemAnchorProps, MenuItemButtonProps } from "../MenuItem";
 
-import type { LabelOwnProps } from "@/utils/typography";
+import type { LabelSize, LabelWeight } from "@/utils/typography";
 
 export type MenuStyle = "solid" | "hollow";
 export type MenuSize = "lg" | "md" | "sm";
@@ -18,7 +18,13 @@ export interface MenuContentProps extends ComponentPropsWithoutRef<typeof Dropdo
   children: ReactNode;
 }
 
-export interface MenuCategoryProps extends LabelOwnProps {
+export interface MenuCategoryProps {
+  as?: ElementType;
+  size?: LabelSize;
+  weight?: LabelWeight;
+  textAlign?: "center" | "left" | "right";
+  cursor?: "pointer" | "default";
+  htmlFor?: string;
   children: ReactNode;
 }
 

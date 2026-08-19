@@ -1,32 +1,7 @@
-import type { ElementType } from "react";
-
 import * as typographyStyles from "./typography.css";
-import type {
-  BodyStyleOptions,
-  LabelSize,
-  LabelStyleOptions,
-  LabelWeight,
-  TitleStyleOptions,
-} from "./typography.types";
+import type { BodyStyleOptions, LabelStyleOptions, TitleStyleOptions } from "./typography.types";
 
 export * from "./typography.types";
-
-export const TEXT_ALIGN_MAPPING = {
-  center: "center",
-  left: "flex-start",
-  right: "flex-end",
-} as const;
-
-export type LabelTextAlign = keyof typeof TEXT_ALIGN_MAPPING;
-export type LabelCursor = "pointer" | "default";
-export type LabelOwnProps = {
-  as?: ElementType;
-  size?: LabelSize;
-  textAlign?: LabelTextAlign;
-  weight?: LabelWeight;
-  cursor?: LabelCursor;
-  htmlFor?: string;
-};
 
 export const getLabelClassName = ({ size = "md", weight = "normal" }: LabelStyleOptions = {}) =>
   typographyStyles.label({
