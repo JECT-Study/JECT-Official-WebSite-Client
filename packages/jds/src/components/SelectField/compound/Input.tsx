@@ -216,7 +216,7 @@ export const SelectFieldInput = forwardRef<HTMLInputElement, SelectFieldInputPro
       if (e.defaultPrevented || !isInteractive || e.nativeEvent.isComposing) return;
 
       if (e.key === "Escape") {
-        if (isOpen) e.preventDefault();
+        if (isOpen || query != null) e.preventDefault();
         closeAndReset();
         return;
       }
