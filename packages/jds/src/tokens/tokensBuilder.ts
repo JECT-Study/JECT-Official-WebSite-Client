@@ -659,6 +659,40 @@ const textStylesCssFilePath = join(outputDir, "textStyles.css.ts");
 fs.writeFileSync(textStylesCssFilePath, textStylesCssFileContent);
 console.log(`✅ textStyles.css.ts 파일이 생성되었습니다: ${textStylesCssFilePath}`);
 
+// 토큰명(semantic-textStyle-label-md-bold)을 세그먼트로 쪼개 중첩 객체로 만든다.
+// 사용처가 문자열 키 대신 textStyles.label.md.bold로 접근하게 하기 위함이다.
+const nestedTextStyles: Record<string, unknown> = {};
+
+for (const [name, cssProps] of textStyleEntries) {
+  const segments = name.replace(/^semantic-textStyle-/, "").split("-");
+  let cursor = nestedTextStyles;
+
+  segments.forEach((segment, index) => {
+    if (index === segments.length - 1) {
+      cursor[segment] = cssProps;
+      return;
+    }
+    cursor[segment] ??= {};
+    cursor = cursor[segment] as Record<string, unknown>;
+  });
+}
+
+const textStylesFileContent = `// 자동 생성된 textStyles - 수정 금지
+// 생성 시간: ${new Date().toLocaleString()}
+import type { StyleRule } from "@vanilla-extract/css";
+
+type TextStyleGroup = Record<string, StyleRule | Record<string, StyleRule>>;
+
+export const textStyles = ${JSON.stringify(nestedTextStyles, null, 2)} satisfies Record<
+  string,
+  TextStyleGroup
+>;
+`;
+
+const textStylesFilePath = join(outputDir, "textStyles.ts");
+fs.writeFileSync(textStylesFilePath, textStylesFileContent);
+console.log(`✅ textStyles.ts 파일이 생성되었습니다: ${textStylesFilePath}`);
+
 // ===== breakpoints.ts 생성 =====
 
 const breakpointsFileContent = `// 자동 생성된 브레이크포인트 - 수정 금지

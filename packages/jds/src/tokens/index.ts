@@ -4,3 +4,4 @@ export * from "./theme";
 
 export * from "./vars.css";
 export * from "./textStyles.css";
+export * from "./textStyles";
