@@ -628,36 +628,13 @@ const globalTokensCssFilePath = join(outputDir, "globalTokens.css.ts");
 fs.writeFileSync(globalTokensCssFilePath, globalTokensCssFileContent);
 console.log(`✅ globalTokens.css.ts 파일이 생성되었습니다: ${globalTokensCssFilePath}`);
 
-// ===== VE textStyles.css.ts 생성 =====
+// ===== textStyles.ts 생성 =====
 
 const textStyleEntries = Object.entries(parsedTextStyle.nested).map(([name, props]) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { paragraphSpacing, paragraphIndent, ...cssProps } = props;
   return [name, cssProps] as const;
 });
-
-const textStyleClassNamesJson = JSON.stringify(
-  textStyleEntries.map(([name]) => name),
-  null,
-  2,
-);
-
-const textStyleGlobalStyleBlocks = textStyleEntries
-  .map(([name, cssProps]) => `globalStyle(".${name}", ${JSON.stringify(cssProps, null, 2)});`)
-  .join("\n\n");
-
-const textStylesCssFileContent = `// 자동 생성된 VE textStyles - 수정 금지
-// 생성 시간: ${new Date().toLocaleString()}
-import { globalStyle } from "@vanilla-extract/css";
-
-export const textStyleClassNames = ${textStyleClassNamesJson} as const;
-
-${textStyleGlobalStyleBlocks}
-`;
-
-const textStylesCssFilePath = join(outputDir, "textStyles.css.ts");
-fs.writeFileSync(textStylesCssFilePath, textStylesCssFileContent);
-console.log(`✅ textStyles.css.ts 파일이 생성되었습니다: ${textStylesCssFilePath}`);
 
 // 토큰명(semantic-textStyle-label-md-bold)을 세그먼트로 쪼개 중첩 객체로 만든다.
 // 사용처가 문자열 키 대신 textStyles.label.md.bold로 접근하게 하기 위함이다.
