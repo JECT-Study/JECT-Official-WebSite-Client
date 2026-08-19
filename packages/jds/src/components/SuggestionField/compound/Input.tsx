@@ -19,34 +19,34 @@ import { ContentBadge } from "../../Badge";
 import { FieldContent } from "../../Field";
 import { useFieldControl } from "../../Field/useFieldControl";
 import { Listbox, useListbox, useMultiSelectState } from "../../Listbox";
-import { SELECTION_KEYS } from "../../Listbox/listbox.constants";
-import { useMultiSelectFieldContext } from "../MultiSelectField.context";
-import * as styles from "../multiSelectField.css";
-import type { MultiSelectFieldInputProps } from "../multiSelectField.types";
+import { useSuggestionFieldContext } from "../SuggestionField.context";
+import * as styles from "../suggestionField.css";
+import type { SuggestionFieldInputProps } from "../suggestionField.types";
 
 import { mergeRefs } from "@/hooks/mergeRefs";
 import { getActiveDescendantContainerProps } from "@/hooks/useActiveDescendant";
 import { getBodyClassName } from "@/utils/typography";
 
 const MOVE_KEYS = ["ArrowDown", "ArrowUp"];
-const NAVIGATION_KEYS = [...MOVE_KEYS, "Home", "End"];
-const OPENING_KEYS = [...NAVIGATION_KEYS, ...SELECTION_KEYS];
+
+const EMPTY_SUGGESTIONS: string[] = [];
+
+const isSameText = (a: string, b: string) => a.toLowerCase() === b.toLowerCase();
 
 const toSearchKey = (text: string) => disassemble(text.toLowerCase());
 
-export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFieldInputProps>(
+export const SuggestionFieldInput = forwardRef<HTMLInputElement, SuggestionFieldInputProps>(
   (
     {
-      options,
+      suggestions = EMPTY_SUGGESTIONS,
       value,
       defaultValue,
       onChange,
       maxValues,
       name,
       form,
-      variant = "control",
-      searchable = false,
       placeholder,
+      acceptValueOnBlur = true,
       suffix,
       disabled: disabledFromProps,
       readOnly: readOnlyFromProps,
@@ -72,7 +72,7 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       ariaLabelledBy,
       ariaDescribedBy,
       ariaInvalid,
-    } = useFieldControl("MultiSelectField.Input", {
+    } = useFieldControl("SuggestionField.Input", {
       disabled: disabledFromProps,
       readOnly: readOnlyFromProps,
       required: requiredFromProps,
@@ -83,7 +83,7 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
     });
 
     const { isOpen, onOpenChange, onHasPopupContentChange, onCounterChange } =
-      useMultiSelectFieldContext("MultiSelectField.Input");
+      useSuggestionFieldContext("SuggestionField.Input");
 
     const contentRef = useRef<HTMLDivElement>(null);
 
@@ -97,17 +97,27 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
     const trimmedQuery = query.trim();
     const isAtMax = maxValues != null && selectedValues.length >= maxValues;
 
-    const visibleOptions = useMemo(() => {
-      if (trimmedQuery === "") return options;
+    // 제안은 아직 추가하지 않은 값만 남긴다. 선택한 항목은 제안 목록에서 사라진다.
+    // 최대 개수에 도달하면 남은 제안을 선택할 수 없으므로 목록을 비운다.
+    const visibleSuggestions = useMemo(() => {
+      if (isAtMax) return EMPTY_SUGGESTIONS;
+
+      const remaining = suggestions.filter(
+        suggestion => !selectedValues.some(selected => isSameText(selected, suggestion)),
+      );
+      if (trimmedQuery === "") return remaining;
 
       const queryKey = toSearchKey(trimmedQuery);
-      return options.filter(option => toSearchKey(option.label).includes(queryKey));
-    }, [options, trimmedQuery]);
+      return remaining.filter(suggestion => toSearchKey(suggestion).includes(queryKey));
+    }, [isAtMax, suggestions, selectedValues, trimmedQuery]);
 
-    const labelByValue = useMemo(
-      () => new Map(options.map(option => [option.value, option.label])),
-      [options],
-    );
+    const isQueryAcceptable =
+      !isAtMax &&
+      trimmedQuery !== "" &&
+      !selectedValues.some(selected => isSameText(selected, trimmedQuery));
+
+    const isCreatable =
+      isQueryAcceptable && !suggestions.some(suggestion => isSameText(suggestion, trimmedQuery));
 
     const handleSelect = useCallback(
       (next: string) => {
@@ -122,9 +132,7 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       listboxId,
       contextValue,
       activeId,
-      activateSelected,
       activateFirst,
-      scrollToSelected,
       onKeyDown: onListboxKeyDown,
       getListboxProps,
     } = useListbox({
@@ -134,9 +142,9 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       autoScrollToSelected: false,
     });
 
-    const { activeValue } = contextValue;
+    const { activeValue, setActive } = contextValue;
 
-    const hasPopupContent = visibleOptions.length > 0;
+    const hasPopupContent = visibleSuggestions.length > 0 || isCreatable;
 
     useEffect(() => {
       onHasPopupContentChange(hasPopupContent);
@@ -156,21 +164,18 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
 
     useLayoutEffect(() => {
       activateRef.current = () => {
-        if (trimmedQuery === "") activateSelected();
+        if (trimmedQuery === "") setActive(null);
         else activateFirst();
       };
-    }, [trimmedQuery, activateSelected, activateFirst]);
+    }, [trimmedQuery, activateFirst, setActive]);
 
     useLayoutEffect(() => {
       if (!isOpen) return;
 
-      // Radix가 다음 커밋에서 팝업을 DOM에 추가하므로, 목록이 렌더링된 뒤 활성 항목과 스크롤을 맞춘다
-      const frame = requestAnimationFrame(() => {
-        activateRef.current();
-        scrollToSelected();
-      });
+      // Radix가 다음 커밋에서 팝업을 DOM에 추가하므로, 목록이 렌더링된 뒤 활성 항목을 맞춘다
+      const frame = requestAnimationFrame(() => activateRef.current());
       return () => cancelAnimationFrame(frame);
-    }, [isOpen, scrollToSelected]);
+    }, [isOpen]);
 
     const previousQueryRef = useRef(query);
 
@@ -200,13 +205,10 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       onMouseDownFromProps?.(e);
       if (e.defaultPrevented) return;
 
-      if (searchable) openIfInteractive();
-      else if (isInteractive) onOpenChange(!isOpen);
+      openIfInteractive();
     };
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-      if (!searchable) return;
-
       setQuery(e.target.value);
       openIfInteractive();
     };
@@ -217,7 +219,10 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       if (contentRef.current?.contains(e.relatedTarget)) return;
 
       onOpenChange(false);
-      if (!e.defaultPrevented) setQuery("");
+      if (e.defaultPrevented) return;
+
+      if (acceptValueOnBlur && isQueryAcceptable) toggle(trimmedQuery);
+      setQuery("");
     };
 
     const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -237,12 +242,13 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
         return;
       }
 
-      const openingKeys = searchable ? MOVE_KEYS : OPENING_KEYS;
-      const listboxKeys = searchable ? MOVE_KEYS : NAVIGATION_KEYS;
-      const selectionKeys = searchable ? ["Enter"] : SELECTION_KEYS;
+      if (e.key === "Enter" && query !== "") {
+        e.preventDefault();
+        if (!isOpen && isQueryAcceptable) handleSelect(trimmedQuery);
+      }
 
       if (!isOpen) {
-        if (openingKeys.includes(e.key)) {
+        if (MOVE_KEYS.includes(e.key)) {
           e.preventDefault();
           onOpenChange(true);
         }
@@ -255,12 +261,12 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
         return;
       }
 
-      if (listboxKeys.includes(e.key)) {
+      if (MOVE_KEYS.includes(e.key)) {
         onListboxKeyDown(e);
         return;
       }
 
-      if (selectionKeys.includes(e.key) && activeValue != null) {
+      if (e.key === "Enter" && activeValue != null) {
         e.preventDefault();
         handleSelect(activeValue);
       }
@@ -292,7 +298,7 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
                     }
                   : { withIconButton: false })}
               >
-                {labelByValue.get(selected) ?? selected}
+                {selected}
               </ContentBadge>
             ))}
             <input
@@ -305,18 +311,16 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
               aria-expanded={isOpen}
               aria-controls={isOpen ? listboxId : undefined}
               aria-activedescendant={isOpen ? activeId : undefined}
-              aria-autocomplete={searchable ? "list" : undefined}
+              aria-autocomplete='list'
               aria-label={ariaLabel}
               aria-labelledby={ariaLabelledBy}
               aria-describedby={ariaDescribedBy}
               aria-invalid={ariaInvalid}
-              // searchable=false가 타이핑을 막기 위해 native readonly를 사용하므로,
-              // 스크린 리더에 읽기 전용으로 전달되지 않도록 항상 aria-readonly를 명시한다.
-              aria-readonly={isReadOnly}
+              aria-readonly={isReadOnly || undefined}
               aria-required={isRequired || undefined}
               autoComplete='off'
               disabled={isDisabled}
-              readOnly={isReadOnly || !searchable}
+              readOnly={isReadOnly}
               placeholder={selectedValues.length === 0 ? placeholder : undefined}
               value={query}
               data-field-control=''
@@ -358,7 +362,7 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
               className={styles.popup}
               context={contextValue}
               selectionMode='multiple'
-              variant={variant}
+              variant='label'
               listboxRef={listboxRef}
               listboxProps={{
                 ...getListboxProps(),
@@ -368,15 +372,12 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
               }}
               onMouseDown={e => e.preventDefault()}
             >
-              {visibleOptions.map(option => (
-                <Listbox.Option
-                  key={option.value}
-                  value={option.value}
-                  caption={option.caption}
-                  suffix={option.suffix}
-                  disabled={option.disabled || (isAtMax && !selectedValues.includes(option.value))}
-                >
-                  {option.label}
+              {isCreatable && (
+                <Listbox.CustomValue value={trimmedQuery} caption='입력한 값 새로 추가' />
+              )}
+              {visibleSuggestions.map(suggestion => (
+                <Listbox.Option key={suggestion} value={suggestion}>
+                  {suggestion}
                 </Listbox.Option>
               ))}
             </Listbox>
@@ -387,4 +388,4 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
   },
 );
 
-MultiSelectFieldInput.displayName = "MultiSelectField.Input";
+SuggestionFieldInput.displayName = "SuggestionField.Input";

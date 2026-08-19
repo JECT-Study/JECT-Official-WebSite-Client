@@ -4,29 +4,31 @@ import { useState } from "react";
 import { vars } from "tokens";
 
 import { MultiSelectField } from "./MultiSelectField";
+import { ContentBadge } from "../Badge";
 import { BlockButton } from "../Button/BlockButton";
 import { Icon } from "../Icon";
 import { Kbd } from "../Kbd";
+import type { SelectOption } from "../Listbox";
 
 import { getLabelClassName } from "@/utils/typography";
 
 const REGIONS = [
-  "서울특별시",
-  "전남광주통합특별시",
-  "부산광역시",
-  "대구광역시",
-  "인천광역시",
-  "대전광역시",
-  "울산광역시",
-  "세종특별자치시",
-  "경기도",
-  "강원특별자치도",
-  "충청북도",
-  "충청남도",
-  "전북특별자치도",
-  "경상북도",
-  "경상남도",
-  "제주특별자치도",
+  { value: "seoul", label: "서울특별시" },
+  { value: "gwangju-jeonnam", label: "전남광주통합특별시" },
+  { value: "busan", label: "부산광역시" },
+  { value: "daegu", label: "대구광역시" },
+  { value: "incheon", label: "인천광역시" },
+  { value: "daejeon", label: "대전광역시" },
+  { value: "ulsan", label: "울산광역시" },
+  { value: "sejong", label: "세종특별자치시" },
+  { value: "gyeonggi", label: "경기도" },
+  { value: "gangwon", label: "강원특별자치도" },
+  { value: "chungbuk", label: "충청북도" },
+  { value: "chungnam", label: "충청남도" },
+  { value: "jeonbuk", label: "전북특별자치도" },
+  { value: "gyeongbuk", label: "경상북도" },
+  { value: "gyeongnam", label: "경상남도" },
+  { value: "jeju", label: "제주특별자치도" },
 ];
 
 const options = REGIONS.slice(0, 4);
@@ -99,7 +101,7 @@ export const Playground: Story = {
       </MultiSelectField.Label>
       <MultiSelectField.Input
         options={options}
-        defaultValue={["서울특별시"]}
+        defaultValue={["seoul"]}
         placeholder='플레이스홀더'
       />
       <MultiSelectField.Footer>
@@ -122,7 +124,7 @@ export const Statuses: Story = {
             <MultiSelectField.Label>레이블</MultiSelectField.Label>
             <MultiSelectField.Input
               options={options}
-              defaultValue={["서울특별시"]}
+              defaultValue={["seoul"]}
               placeholder='플레이스홀더'
             />
             <MultiSelectField.Footer>
@@ -154,7 +156,7 @@ export const States: Story = {
             <MultiSelectField.Label>레이블</MultiSelectField.Label>
             <MultiSelectField.Input
               options={options}
-              defaultValue={["서울특별시", "부산광역시"]}
+              defaultValue={["seoul", "busan"]}
               placeholder='플레이스홀더'
             />
             <MultiSelectField.Footer>
@@ -177,8 +179,8 @@ export const Values: Story = {
       {(
         [
           ["0개", []],
-          ["1개", ["서울특별시"]],
-          ["3개", ["서울특별시", "전남광주통합특별시", "부산광역시"]],
+          ["1개", ["seoul"]],
+          ["3개", ["seoul", "gwangju-jeonnam", "busan"]],
         ] as const
       ).map(([name, defaultValue]) => (
         <FlexColumn key={name} gap='16px' style={{ alignItems: "flex-start" }}>
@@ -207,7 +209,7 @@ export const WithCounter: Story = {
       <MultiSelectField.Label>레이블</MultiSelectField.Label>
       <MultiSelectField.Input
         options={options}
-        defaultValue={["서울특별시", "부산광역시", "대구광역시"]}
+        defaultValue={["seoul", "busan", "daegu"]}
         maxValues={3}
         placeholder='플레이스홀더'
       />
@@ -219,27 +221,86 @@ export const WithCounter: Story = {
   ),
 };
 
-export const CustomValue: Story = {
+/**
+ * `searchable`을 켜면 검색어로 항목을 찾을 수 있습니다.
+ */
+export const Searchable: Story = {
+  render: () => (
+    <FlexRow gap='32px' style={{ alignItems: "flex-start" }}>
+      {([true, false] as const).map(searchable => (
+        <FlexColumn key={String(searchable)} gap='16px' style={{ alignItems: "flex-start" }}>
+          <Label>{String(searchable)}</Label>
+          <MultiSelectField style={FIELD_WIDTH}>
+            <MultiSelectField.Label>레이블</MultiSelectField.Label>
+            <MultiSelectField.Input
+              options={options}
+              searchable={searchable}
+              defaultValue={["seoul"]}
+              placeholder='플레이스홀더'
+            />
+          </MultiSelectField>
+        </FlexColumn>
+      ))}
+    </FlexRow>
+  ),
+};
+
+/**
+ * `suffix`는 입력 오른쪽에 형제로 배치되므로 배지나 단축키 표시 같은 읽기 전용 요소만 사용합니다.
+ */
+export const WithSuffix: Story = {
   render: () => (
     <MultiSelectField style={FIELD_WIDTH}>
       <MultiSelectField.Label>레이블</MultiSelectField.Label>
       <MultiSelectField.Input
         options={options}
-        maxValues={20}
-        allowCustomValue
+        defaultValue={["seoul"]}
         placeholder='플레이스홀더'
         suffix={
           <Kbd type='function' size='sm'>
-            ⏎
+            ⌘
           </Kbd>
         }
       />
       <MultiSelectField.Footer>
         <MultiSelectField.Helper>헬퍼 텍스트</MultiSelectField.Helper>
-        <MultiSelectField.Counter />
       </MultiSelectField.Footer>
     </MultiSelectField>
   ),
+};
+
+/**
+ * 옵션 별로 캡션과 부가 요소, 비활성 여부를 함께 지정할 수 있습니다.
+ */
+export const OptionExpression: Story = {
+  render: () => {
+    const expressive: SelectOption[] = options.map(option => {
+      if (option.value === "busan") return { ...option, disabled: true };
+      return {
+        ...option,
+        caption: "캡션",
+        suffix: (
+          <ContentBadge hierarchy='tertiary' size='xs' badgeStyle='outlined'>
+            레이블
+          </ContentBadge>
+        ),
+      };
+    });
+
+    return (
+      <MultiSelectField style={FIELD_WIDTH}>
+        <MultiSelectField.Label>레이블</MultiSelectField.Label>
+        <MultiSelectField.Input
+          options={expressive}
+          defaultValue={["seoul"]}
+          placeholder='플레이스홀더'
+        />
+        <MultiSelectField.Footer>
+          <MultiSelectField.Helper>헬퍼 텍스트</MultiSelectField.Helper>
+        </MultiSelectField.Footer>
+      </MultiSelectField>
+    );
+  },
 };
 
 /**
@@ -251,7 +312,7 @@ export const ScrollToSelected: Story = {
       <MultiSelectField.Label>레이블</MultiSelectField.Label>
       <MultiSelectField.Input
         options={REGIONS}
-        defaultValue={["제주특별자치도"]}
+        defaultValue={["jeju"]}
         placeholder='플레이스홀더'
       />
     </MultiSelectField>
@@ -273,9 +334,9 @@ const FormPreview = () => {
         <MultiSelectField style={FIELD_WIDTH}>
           <MultiSelectField.Label>레이블</MultiSelectField.Label>
           <MultiSelectField.Input
-            options={REGIONS}
+            options={options}
             name='regions'
-            defaultValue={["서울특별시", "부산광역시"]}
+            defaultValue={["seoul", "busan"]}
             placeholder='플레이스홀더'
           />
         </MultiSelectField>
