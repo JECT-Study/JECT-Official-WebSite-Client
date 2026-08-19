@@ -23,3 +23,5 @@ if (failed.length > 0) {
   for (const { reason } of failed) console.error(reason.message);
   process.exit(1);
 }
+
+await import("./check-dts.mjs");
