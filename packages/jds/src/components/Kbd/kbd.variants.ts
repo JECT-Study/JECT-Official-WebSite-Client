@@ -1,8 +1,7 @@
-import type { textStyleClassNames } from "tokens";
+import type { StyleRule } from "@vanilla-extract/css";
+import { textStyles } from "tokens";
 
 import type { KbdSize, KbdType } from "./kbd.types";
-
-type TextStyleClassName = (typeof textStyleClassNames)[number];
 
 interface KbdSizeConfig {
   height: number;
@@ -24,21 +23,21 @@ export const kbdPaddingXMap: Record<KbdType, number> = {
 
 export const typographyMap = {
   function: {
-    lg: "semantic-textStyle-label-lg-normal",
-    md: "semantic-textStyle-label-md-normal",
-    sm: "semantic-textStyle-label-sm-normal",
-    xs: "semantic-textStyle-label-xs-normal",
+    lg: textStyles.label.lg.normal,
+    md: textStyles.label.md.normal,
+    sm: textStyles.label.sm.normal,
+    xs: textStyles.label.xs.normal,
   },
   key: {
-    lg: "semantic-textStyle-syntax-lg",
-    md: "semantic-textStyle-syntax-md",
-    sm: "semantic-textStyle-syntax-sm",
-    xs: "semantic-textStyle-syntax-xs",
+    lg: textStyles.syntax.lg,
+    md: textStyles.syntax.md,
+    sm: textStyles.syntax.sm,
+    xs: textStyles.syntax.xs,
   },
   text: {
-    lg: "semantic-textStyle-syntax-lg",
-    md: "semantic-textStyle-syntax-md",
-    sm: "semantic-textStyle-syntax-sm",
-    xs: "semantic-textStyle-syntax-xs",
+    lg: textStyles.syntax.lg,
+    md: textStyles.syntax.md,
+    sm: textStyles.syntax.sm,
+    xs: textStyles.syntax.xs,
   },
-} satisfies Record<KbdType, Record<KbdSize, TextStyleClassName>>;
+} satisfies Record<KbdType, Record<KbdSize, StyleRule>>;
