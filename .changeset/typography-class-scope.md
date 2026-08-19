@@ -17,7 +17,7 @@
 | `TitleTextAlign`                                                              | 제거                                           |
 | 세 함수가 함께 주던 `display: flex`, `align-items: center`, `color`, `cursor` | 제거 — 해당 요소에서 직접 선언                 |
 
-`getLabelClassName`의 옵션 타입은 `LabelOwnProps`에서 `LabelStyleOptions`로 바뀝니다. `LabelOwnProps`는 그대로 유지되며 `Menu.Category`의 `textAlign`, `cursor` prop도 동작이 같습니다.
+`getLabelClassName`의 옵션 타입은 `LabelOwnProps`에서 `LabelStyleOptions`로 바뀝니다. `Menu.Category`의 `textAlign`, `cursor` prop은 동작이 같습니다.
 
 ```diff
 -<span className={getLabelClassName({ size: "sm", textAlign: "center", cursor: "pointer" })}>
