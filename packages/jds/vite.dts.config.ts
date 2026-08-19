@@ -1,25 +1,26 @@
-import { vanillaExtractPlugin } from "@vanilla-extract/vite-plugin";
+import { dts } from "rolldown-plugin-dts";
 import { defineConfig } from "vite";
 
 import pkg from "./package.json" with { type: "json" };
 import { srcAliases } from "./vite.aliases";
 
-const externalPackages = [...Object.keys(pkg.dependencies), ...Object.keys(pkg.peerDependencies)];
+const externalPackages = [...Object.keys(pkg.dependencies), ...Object.keys(pkg.peerDependencies), "csstype"];
 
 const isExternal = (id: string) =>
-  externalPackages.some(name => id === name || id.startsWith(`${name}/`));
+  externalPackages.some(name => id === name || id.startsWith(`${name}/`)) ||
+  id.startsWith("@radix-ui/");
 
 export default defineConfig({
+  oxc: {
+    exclude: [/\.js$/, /\.d\.[cm]?ts$/],
+  },
   resolve: {
     alias: srcAliases,
   },
-  plugins: [
-    vanillaExtractPlugin({ identifiers: "debug" }),
-  ],
+  plugins: [dts({ tsconfig: "./tsconfig.app.json", emitDtsOnly: true, sourcemap: false })],
   publicDir: false,
   build: {
-    target: "es2022",
-    sourcemap: true,
+    emptyOutDir: false,
     lib: {
       entry: {
         index: "src/index.ts",
@@ -28,9 +29,7 @@ export default defineConfig({
         utils: "src/utils/index.ts",
         tokens: "src/tokens/index.ts",
       },
-      formats: ["es", "cjs"],
-      fileName: (format, entryName) => (format === "cjs" ? `${entryName}.cjs` : `${entryName}.js`),
-      cssFileName: "styles",
+      formats: ["es"],
     },
     rollupOptions: {
       external: isExternal,

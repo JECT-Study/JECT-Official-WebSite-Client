@@ -19,5 +19,5 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["vite.lib.config.ts", "vite.aliases.ts"]
+  "include": ["vite.lib.config.ts", "vite.dts.config.ts", "vite.aliases.ts", "scripts/*.mjs"]
 }
