@@ -52,7 +52,6 @@ export const navTitle = style({
   flex: 1,
   minWidth: 0,
   margin: 0,
-  lineHeight: 1,
   overflow: "hidden",
   whiteSpace: "nowrap",
   textOverflow: "ellipsis",
