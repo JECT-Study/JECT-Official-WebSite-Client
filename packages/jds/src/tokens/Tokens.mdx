@@ -317,15 +317,17 @@ Figma와 토큰 파일에서는 textStyle을 `semantic-textStyle-title-6`처럼 
 예를 들어 Title 계열 recipe는 아래처럼 유틸 size를 Figma textStyle 토큰으로 매핑합니다.
 
 ```typescript
+import { textStyles } from "tokens";
+
 export const title = recipe({
   variants: {
     size: {
-      "2xl": "semantic-textStyle-title-6",
-      xl: "semantic-textStyle-title-5",
-      lg: "semantic-textStyle-title-4",
-      md: "semantic-textStyle-title-3",
-      sm: "semantic-textStyle-title-2",
-      xs: "semantic-textStyle-title-1",
+      "2xl": textStyles.title["6"],
+      xl: textStyles.title["5"],
+      lg: textStyles.title["4"],
+      md: textStyles.title["3"],
+      sm: textStyles.title["2"],
+      xs: textStyles.title["1"],
     },
   },
 });
@@ -339,7 +341,7 @@ import { getTitleClassName } from "@/utils/typography";
 <DialogTitle className={getTitleClassName({ size: "xs" })}>Dialog title</DialogTitle>;
 ```
 
-정리하면, typography 유틸을 사용하는 레이어에서는 `size: "2xl"` 같은 유틸 API를 사용하고, 토큰을 직접 다루는 스타일 레이어에서는 `semantic-textStyle-title-6`처럼 토큰명을 그대로 사용합니다.
+정리하면, typography 유틸을 사용하는 레이어에서는 `size: "2xl"` 같은 유틸 API를 사용하고, 토큰을 직접 다루는 스타일 레이어에서는 `textStyles.title["6"]`처럼 생성된 스타일 객체를 참조합니다.
 
 빌더는 가능한 경우 typography primitive 토큰을 CSS 변수로 연결합니다.
 
