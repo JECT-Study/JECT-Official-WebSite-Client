@@ -32,7 +32,7 @@ export default defineConfig({
       fileName: (format, entryName) => (format === "cjs" ? `${entryName}.cjs` : `${entryName}.js`),
       cssFileName: "styles",
     },
-    rollupOptions: {
+    rolldownOptions: {
       external: isExternal,
     },
   },
