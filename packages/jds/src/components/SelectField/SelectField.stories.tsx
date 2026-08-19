@@ -1,11 +1,16 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexColumn, FlexRow, Label } from "@storybook-utils/layout";
+import { useState } from "react";
 import { vars } from "tokens";
 
 import { SelectField } from "./SelectField";
+import { ContentBadge } from "../Badge";
+import { BlockButton } from "../Button/BlockButton";
 import { Icon } from "../Icon";
 import { Kbd } from "../Kbd";
 import type { SelectOption } from "../Listbox";
+
+import { getLabelClassName } from "@/utils/typography";
 
 const REGIONS: SelectOption[] = [
   { value: "seoul", label: "서울특별시" },
@@ -71,9 +76,6 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-/**
- * 트리거 너비는 선택된 값의 길이에 따라 달라지므로 루트에 `style`이나 `className`으로 지정합니다.
- */
 export const Playground: Story = {
   args: {
     status: "default",
@@ -94,7 +96,7 @@ export const Playground: Story = {
       >
         레이블
       </SelectField.Label>
-      <SelectField.Trigger options={options} defaultValue='seoul' placeholder='플레이스홀더' />
+      <SelectField.Input options={options} defaultValue='seoul' placeholder='플레이스홀더' />
       <SelectField.Helper>헬퍼 텍스트</SelectField.Helper>
     </SelectField>
   ),
@@ -105,17 +107,13 @@ export const Playground: Story = {
  */
 export const Statuses: Story = {
   render: () => (
-    <FlexRow gap='32px'>
+    <FlexRow gap='32px' style={{ alignItems: "flex-start" }}>
       {(["default", "success", "error"] as const).map(status => (
-        <FlexColumn key={status} gap='16px'>
+        <FlexColumn key={status} gap='16px' style={{ alignItems: "flex-start" }}>
           <Label>{status}</Label>
           <SelectField status={status} style={FIELD_WIDTH}>
             <SelectField.Label>레이블</SelectField.Label>
-            <SelectField.Trigger
-              options={options}
-              defaultValue='seoul'
-              placeholder='플레이스홀더'
-            />
+            <SelectField.Input options={options} defaultValue='seoul' placeholder='플레이스홀더' />
             <SelectField.Helper>헬퍼 텍스트</SelectField.Helper>
           </SelectField>
         </FlexColumn>
@@ -125,38 +123,27 @@ export const Statuses: Story = {
 };
 
 /**
- * `disabled`와 `readonly` 상태에서는 모두 목록을 열 수 없지만, 포커스 동작에 차이가 있습니다.
- * - `disabled`: 배경과 테두리가 흐려지고 포커스도 받지 않습니다.
- * - `readonly`: 포커스를 받을 수 있지만 클릭이나 키보드로 열리지 않습니다.
- * - `required`: 레이블 옆에 별표가 표시됩니다.
+ * `disabled`와 `readonly`에서는 목록을 열 수 없습니다. `disabled`는 포커스도 받지 않고 `readonly`는 포커스만 받습니다.
  */
 export const States: Story = {
   render: () => (
-    <FlexRow gap='32px'>
-      <FlexColumn gap='16px'>
-        <Label>disabled</Label>
-        <SelectField disabled style={FIELD_WIDTH}>
-          <SelectField.Label>레이블</SelectField.Label>
-          <SelectField.Trigger options={options} defaultValue='seoul' placeholder='플레이스홀더' />
-          <SelectField.Helper>헬퍼 텍스트</SelectField.Helper>
-        </SelectField>
-      </FlexColumn>
-      <FlexColumn gap='16px'>
-        <Label>readonly</Label>
-        <SelectField readonly style={FIELD_WIDTH}>
-          <SelectField.Label>레이블</SelectField.Label>
-          <SelectField.Trigger options={options} defaultValue='seoul' placeholder='플레이스홀더' />
-          <SelectField.Helper>헬퍼 텍스트</SelectField.Helper>
-        </SelectField>
-      </FlexColumn>
-      <FlexColumn gap='16px'>
-        <Label>required</Label>
-        <SelectField required style={FIELD_WIDTH}>
-          <SelectField.Label>레이블</SelectField.Label>
-          <SelectField.Trigger options={options} defaultValue='seoul' placeholder='플레이스홀더' />
-          <SelectField.Helper>헬퍼 텍스트</SelectField.Helper>
-        </SelectField>
-      </FlexColumn>
+    <FlexRow gap='32px' style={{ alignItems: "flex-start" }}>
+      {(
+        [
+          ["disabled", { disabled: true }],
+          ["readonly", { readonly: true }],
+          ["required", { required: true }],
+        ] as const
+      ).map(([name, props]) => (
+        <FlexColumn key={name} gap='16px' style={{ alignItems: "flex-start" }}>
+          <Label>{name}</Label>
+          <SelectField {...props} style={FIELD_WIDTH}>
+            <SelectField.Label>레이블</SelectField.Label>
+            <SelectField.Input options={options} defaultValue='seoul' placeholder='플레이스홀더' />
+            <SelectField.Helper>헬퍼 텍스트</SelectField.Helper>
+          </SelectField>
+        </FlexColumn>
+      ))}
     </FlexRow>
   ),
 };
@@ -166,36 +153,62 @@ export const States: Story = {
  */
 export const Values: Story = {
   render: () => (
-    <FlexRow gap='32px'>
-      <FlexColumn gap='16px'>
-        <Label>placeholder</Label>
-        <SelectField style={FIELD_WIDTH}>
-          <SelectField.Label>레이블</SelectField.Label>
-          <SelectField.Trigger options={options} placeholder='플레이스홀더' />
-        </SelectField>
-      </FlexColumn>
-      <FlexColumn gap='16px'>
-        <Label>selected</Label>
-        <SelectField style={FIELD_WIDTH}>
-          <SelectField.Label>레이블</SelectField.Label>
-          <SelectField.Trigger options={options} defaultValue='seoul' placeholder='플레이스홀더' />
-        </SelectField>
-      </FlexColumn>
+    <FlexRow gap='32px' style={{ alignItems: "flex-start" }}>
+      {(
+        [
+          ["placeholder", undefined],
+          ["selected", "seoul"],
+        ] as const
+      ).map(([name, defaultValue]) => (
+        <FlexColumn key={name} gap='16px' style={{ alignItems: "flex-start" }}>
+          <Label>{name}</Label>
+          <SelectField style={FIELD_WIDTH}>
+            <SelectField.Label>레이블</SelectField.Label>
+            <SelectField.Input
+              options={options}
+              defaultValue={defaultValue}
+              placeholder='플레이스홀더'
+            />
+          </SelectField>
+        </FlexColumn>
+      ))}
     </FlexRow>
   ),
 };
 
 /**
- * `suffix`는 값과 화살표 사이에 놓입니다. 트리거 버튼 안에 있기 때문에 이 영역을 클릭해도 목록이 열립니다.
- *
- * 같은 이유로 버튼이나 링크는 전달하면 안 됩니다. 버튼 안에 버튼이 중첩되어 마크업이 깨지고
- * 콤보박스의 접근 이름도 함께 오염됩니다. 배지, 아이콘, 단축키 표시처럼 읽기 전용 콘텐츠만 사용합니다.
+ * `searchable`을 켜면 검색어로 항목을 찾을 수 있습니다.
+ * 목록이 닫히거나 포커스가 제거되면 선택한 옵션의 `label`로 돌아갑니다.
+ */
+export const Searchable: Story = {
+  render: () => (
+    <FlexRow gap='32px' style={{ alignItems: "flex-start" }}>
+      {([true, false] as const).map(searchable => (
+        <FlexColumn key={String(searchable)} gap='16px' style={{ alignItems: "flex-start" }}>
+          <Label>{String(searchable)}</Label>
+          <SelectField style={FIELD_WIDTH}>
+            <SelectField.Label>레이블</SelectField.Label>
+            <SelectField.Input
+              options={options}
+              searchable={searchable}
+              defaultValue='seoul'
+              placeholder='플레이스홀더'
+            />
+          </SelectField>
+        </FlexColumn>
+      ))}
+    </FlexRow>
+  ),
+};
+
+/**
+ * `suffix`는 입력과 화살표 사이에 형제로 배치되므로 배지나 단축키 표시 같은 읽기 전용 요소만 사용합니다.
  */
 export const WithSuffix: Story = {
   render: () => (
     <SelectField style={FIELD_WIDTH}>
       <SelectField.Label>레이블</SelectField.Label>
-      <SelectField.Trigger
+      <SelectField.Input
         options={options}
         defaultValue='seoul'
         placeholder='플레이스홀더'
@@ -211,14 +224,81 @@ export const WithSuffix: Story = {
 };
 
 /**
- * 팝업 높이는 트리거 아래(또는 위)의 남은 화면 공간만큼으로 제한됩니다.
+ * 옵션 별로 캡션과 부가 요소, 비활성 여부를 함께 지정할 수 있습니다.
+ */
+export const OptionExpression: Story = {
+  render: () => {
+    const expressive: SelectOption[] = options.map(option => {
+      if (option.value === "busan") return { ...option, disabled: true };
+      return {
+        ...option,
+        caption: "캡션",
+        suffix: (
+          <ContentBadge hierarchy='tertiary' size='xs' badgeStyle='outlined'>
+            레이블
+          </ContentBadge>
+        ),
+      };
+    });
+
+    return (
+      <SelectField style={FIELD_WIDTH}>
+        <SelectField.Label>레이블</SelectField.Label>
+        <SelectField.Input options={expressive} defaultValue='seoul' placeholder='플레이스홀더' />
+        <SelectField.Helper>헬퍼 텍스트</SelectField.Helper>
+      </SelectField>
+    );
+  },
+};
+
+/**
+ * 팝업 높이는 입력 요소 아래(또는 위)의 남은 화면 공간만큼으로 제한됩니다.
  * 목록이 그보다 길면 열리는 시점에 선택된 옵션이 보이도록 스크롤 위치가 조정됩니다.
  */
 export const ScrollToSelected: Story = {
   render: () => (
     <SelectField style={FIELD_WIDTH}>
       <SelectField.Label>레이블</SelectField.Label>
-      <SelectField.Trigger options={REGIONS} defaultValue='jeju' placeholder='플레이스홀더' />
+      <SelectField.Input options={REGIONS} defaultValue='jeju' placeholder='플레이스홀더' />
     </SelectField>
   ),
+};
+
+const FormPreview = () => {
+  const [submitted, setSubmitted] = useState<string | null>(null);
+
+  return (
+    <form
+      onSubmit={e => {
+        e.preventDefault();
+        const entry = new FormData(e.currentTarget).get("region");
+        setSubmitted(typeof entry === "string" ? entry : null);
+      }}
+    >
+      <FlexColumn gap='16px' style={{ alignItems: "flex-start" }}>
+        <SelectField style={FIELD_WIDTH}>
+          <SelectField.Label>레이블</SelectField.Label>
+          <SelectField.Input
+            options={options}
+            name='region'
+            defaultValue='seoul'
+            placeholder='플레이스홀더'
+          />
+        </SelectField>
+        <BlockButton type='submit' style={{ width: "100%" }}>
+          제출
+        </BlockButton>
+        <output className={getLabelClassName()} style={{ ...FIELD_WIDTH, display: "block" }}>
+          {submitted == null || submitted === "" ? "미제출" : `전송된 데이터: ${submitted}`}
+        </output>
+      </FlexColumn>
+    </form>
+  );
+};
+
+/**
+ * `name`을 지정하면 선택한 값이 hidden input으로 렌더되어 폼 제출에 포함됩니다.
+ */
+export const WithForm: Story = {
+  render: () => <FormPreview />,
 };
