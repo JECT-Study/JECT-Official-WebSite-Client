@@ -10,7 +10,7 @@
 
 - `@jects/jds/styles` import가 스타일시트를 가져옴, 이전에는 대상 파일이 없어 해석 실패
 - `index.css`, `theme.css`, `tokens.css`, `utils.css`가 `styles.css` 하나로 통합
-- 통합과 압축으로 CSS 전체 크기가 316KB에서 212KB로, JS가 3954KB에서 3279KB로 감소
+- 통합과 압축으로 CSS 전체 크기가 323.9 kB에서 216.8 kB로, JS가 4,049 kB에서 3,357 kB로 감소
 - CSS 소스맵 제거, devtools에서 규칙의 원본 `.css.ts` 추적 불가
 - `*.d.cts` 제거, `exports`의 `types`가 이전에도 `.d.ts`만 가리켰으므로 타입 해석 결과는 동일
 - `@vanilla-extract/recipes` 타입이 선언 파일에 포함되어 소비처에 별도 설치가 필요하지 않음
