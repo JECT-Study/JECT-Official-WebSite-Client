@@ -1,12 +1,14 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { FIELD_PLAYGROUND_ARGS, FIELD_WIDTH, fieldArgTypes } from "@storybook-utils/field";
 import { FlexColumn, FlexRow, Label } from "@storybook-utils/layout";
 import { vars } from "tokens";
 
 import { Textarea } from "./Textarea";
 import { Icon } from "../Icon";
 
-const FIELD_WIDTH = { width: "16rem" };
-
+/**
+ * 여러 줄 텍스트를 입력하는 필드입니다. 오른쪽 아래 손잡이로 세로 방향 크기를 조절할 수 있습니다.
+ */
 const meta = {
   title: "Components/Textarea",
   component: Textarea,
@@ -16,48 +18,14 @@ const meta = {
   args: {
     children: null,
   },
-  argTypes: {
-    children: {
-      control: false,
-      table: { disable: true },
-    },
-    status: {
-      control: "inline-radio",
-      options: ["default", "success", "error"],
-      description: "유효성/피드백 상태",
-      table: { defaultValue: { summary: "default" } },
-    },
-    disabled: {
-      control: "boolean",
-      description: "비활성화 상태",
-      table: { defaultValue: { summary: "false" } },
-    },
-    readonly: {
-      control: "boolean",
-      description: "읽기 전용 상태",
-      table: { defaultValue: { summary: "false" } },
-    },
-    required: {
-      control: "boolean",
-      description: "필수 입력 여부 (레이블 옆 * 표시)",
-      table: { defaultValue: { summary: "false" } },
-    },
-  },
+  argTypes: fieldArgTypes,
 } satisfies Meta<typeof Textarea>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-/**
- * 오른쪽 아래 손잡이로 세로 방향 크기만 조절할 수 있습니다.
- */
 export const Playground: Story = {
-  args: {
-    status: "default",
-    disabled: false,
-    readonly: false,
-    required: false,
-  },
+  args: FIELD_PLAYGROUND_ARGS,
   render: args => (
     <Textarea {...args} style={FIELD_WIDTH}>
       <Textarea.Label
@@ -103,6 +71,7 @@ export const Statuses: Story = {
 
 /**
  * `disabled`와 `readonly`에서는 입력과 크기 조절을 할 수 없습니다.
+ * `disabled`는 포커스를 받을 수 없으며, `readonly`는 포커스를 받을 수 있습니다.
  */
 export const States: Story = {
   render: () => (
