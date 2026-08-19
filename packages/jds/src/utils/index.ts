@@ -15,6 +15,6 @@ export type {
   LabelWeight,
   TitleSize,
   TitleStyleOptions,
-} from "./typography.types";
+} from "./typography";
 export * from "./overlay.css";
 export * from "./visuallyHidden.css";
