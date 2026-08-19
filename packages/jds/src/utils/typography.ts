@@ -1,6 +1,15 @@
 import type { ElementType } from "react";
 
 import * as typographyStyles from "./typography.css";
+import type {
+  BodyStyleOptions,
+  LabelSize,
+  LabelStyleOptions,
+  LabelWeight,
+  TitleStyleOptions,
+} from "./typography.types";
+
+export * from "./typography.types";
 
 export const TEXT_ALIGN_MAPPING = {
   center: "center",
@@ -8,9 +17,7 @@ export const TEXT_ALIGN_MAPPING = {
   right: "flex-end",
 } as const;
 
-export type LabelSize = "lg" | "md" | "sm" | "xs";
 export type LabelTextAlign = keyof typeof TEXT_ALIGN_MAPPING;
-export type LabelWeight = "bold" | "normal" | "subtle";
 export type LabelCursor = "pointer" | "default";
 export type LabelOwnProps = {
   as?: ElementType;
@@ -20,20 +27,6 @@ export type LabelOwnProps = {
   cursor?: LabelCursor;
   htmlFor?: string;
 };
-
-export type TitleSize = "2xl" | "xl" | "lg" | "md" | "sm" | "xs";
-export interface TitleStyleOptions {
-  size?: TitleSize;
-}
-
-export type BodySize = "lg" | "md" | "sm" | "xs" | "2xs";
-export type BodyWeight = "bold" | "normal";
-export interface BodyStyleOptions {
-  size?: BodySize;
-  weight?: BodyWeight;
-}
-
-export type LabelStyleOptions = Pick<LabelOwnProps, "size" | "weight">;
 
 export const getLabelClassName = ({ size = "md", weight = "normal" }: LabelStyleOptions = {}) =>
   typographyStyles.label({
