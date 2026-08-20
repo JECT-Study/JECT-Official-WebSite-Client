@@ -221,8 +221,7 @@ export const meta = style({
 });
 
 export const metaItem = style({
-  display: "flex",
-  alignItems: "center",
+  display: "block",
   cursor: "default",
   color: captionColor,
   minWidth: 0,
@@ -232,8 +231,7 @@ export const metaItem = style({
 });
 
 export const title = style({
-  display: "flex",
-  alignItems: "center",
+  display: "block",
   color: titleColor,
   cursor: "default",
   margin: 0,
