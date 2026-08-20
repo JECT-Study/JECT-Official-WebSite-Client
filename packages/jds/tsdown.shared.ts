@@ -11,5 +11,4 @@ export const entry = {
 export const externalPackages = [
   ...Object.keys(pkg.dependencies),
   ...Object.keys(pkg.peerDependencies),
-  "csstype",
 ];
