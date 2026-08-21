@@ -164,7 +164,7 @@ export function ApplicantInfoStep({ context, onNext, onBack }: ApplicantInfoStep
                     </span>
                   </>
                 }
-                placeholder='현재 신분을 선택해주세요'
+                placeholder='현재 거주하는 지역을 선택해주세요'
                 value={field.value}
                 options={REGION_OPTIONS}
                 onChange={value => field.onChange(value)}
@@ -190,7 +190,7 @@ export function ApplicantInfoStep({ context, onNext, onBack }: ApplicantInfoStep
                     </Tooltip.Provider>
                   </div>
                 }
-                placeholder='현재 신분을 선택해주세요'
+                placeholder='직무 관련 경험 기간을 선택해주세요'
                 value={field.value}
                 options={EXPERIENCE_PERIOD_OPTIONS}
                 onChange={value => field.onChange(value)}
