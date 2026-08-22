@@ -179,7 +179,12 @@ export function ApplicantInfoStep({ context, onNext, onBack }: ApplicantInfoStep
               <SelectController
                 label={
                   <div className='flex items-center gap-(--semantic-spacing-4) text-(--semantic-object-normal)'>
-                    직무 관련 경험 기간
+                    <span>
+                      직무 관련 경험 기간
+                      <span className='text-feedback-notifying-neutral-light dark:text-feedback-notifying-neutral-dark'>
+                        *
+                      </span>
+                    </span>
                     <Tooltip.Provider>
                       <Tooltip.Root>
                         <Tooltip.Trigger
