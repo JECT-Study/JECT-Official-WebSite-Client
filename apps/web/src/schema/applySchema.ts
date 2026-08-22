@@ -102,7 +102,7 @@ export const applyApplicantInfoSchema = z.object({
 
   region: regionEnum,
 
-  experiencePeriod: experiencePeriodEnum.optional(),
+  experiencePeriod: experiencePeriodEnum,
 
   interestedDomains: z
     .array(interestedDomainEnum)

@@ -13,7 +13,7 @@ import { SelectController } from "./components/SelectController";
 
 import { APPLY_MESSAGE } from "@/constants/applyMessages";
 import { APPLY_TITLE } from "@/constants/applyPageData";
-import { ApplyStepLayout } from "@/features/shared/components";
+import { ApplyStepLayout, RequiredMark } from "@/features/shared/components";
 import { useMemberProfileMutation } from "@/hooks/apply";
 import { useApplyApplicantInfoForm } from "@/hooks/useApplyApplicantInfoForm";
 import { phoneNumberCompleteSchema } from "@/schema/applySchema";
@@ -76,9 +76,7 @@ export function ApplicantInfoStep({ context, onNext, onBack }: ApplicantInfoStep
                 label={
                   <>
                     이름
-                    <span className='text-feedback-notifying-neutral-light dark:text-feedback-notifying-neutral-dark'>
-                      *
-                    </span>
+                    <RequiredMark />
                   </>
                 }
                 validation={deriveInputValidation({
@@ -102,9 +100,7 @@ export function ApplicantInfoStep({ context, onNext, onBack }: ApplicantInfoStep
                 label={
                   <>
                     휴대폰 번호
-                    <span className='text-feedback-notifying-neutral-light dark:text-feedback-notifying-neutral-dark'>
-                      *
-                    </span>
+                    <RequiredMark />
                   </>
                 }
                 validation={deriveInputValidation({
@@ -140,7 +136,7 @@ export function ApplicantInfoStep({ context, onNext, onBack }: ApplicantInfoStep
                 label={
                   <>
                     지원자 신분
-                    <span className='text-feedback-notifying-neutral-light'>*</span>
+                    <RequiredMark />
                   </>
                 }
                 placeholder='현재 신분을 선택해주세요'
@@ -159,12 +155,10 @@ export function ApplicantInfoStep({ context, onNext, onBack }: ApplicantInfoStep
                 label={
                   <>
                     거주 지역
-                    <span className='text-feedback-notifying-neutral-light dark:text-feedback-notifying-neutral-dark'>
-                      *
-                    </span>
+                    <RequiredMark />
                   </>
                 }
-                placeholder='현재 신분을 선택해주세요'
+                placeholder='현재 거주하는 지역을 선택해주세요'
                 value={field.value}
                 options={REGION_OPTIONS}
                 onChange={value => field.onChange(value)}
@@ -179,7 +173,10 @@ export function ApplicantInfoStep({ context, onNext, onBack }: ApplicantInfoStep
               <SelectController
                 label={
                   <div className='flex items-center gap-(--semantic-spacing-4) text-(--semantic-object-normal)'>
-                    직무 관련 경험 기간
+                    <span>
+                      직무 관련 경험 기간
+                      <RequiredMark />
+                    </span>
                     <Tooltip.Provider>
                       <Tooltip.Root>
                         <Tooltip.Trigger className='text-(--semantic-object-alternative)'>
@@ -190,7 +187,7 @@ export function ApplicantInfoStep({ context, onNext, onBack }: ApplicantInfoStep
                     </Tooltip.Provider>
                   </div>
                 }
-                placeholder='현재 신분을 선택해주세요'
+                placeholder='직무 관련 경험 기간을 선택해주세요'
                 value={field.value}
                 options={EXPERIENCE_PERIOD_OPTIONS}
                 onChange={value => field.onChange(value)}
@@ -210,9 +207,7 @@ export function ApplicantInfoStep({ context, onNext, onBack }: ApplicantInfoStep
                 <div className='flex flex-col items-start justify-center gap-(--semantic-spacing-12) self-stretch'>
                   <Label size='md'>
                     관심 도메인(최대 {MAX_SELECTABLE_DOMAINS}개)
-                    <span className='text-feedback-notifying-neutral-light dark:text-feedback-notifying-neutral-dark'>
-                      *
-                    </span>
+                    <RequiredMark />
                   </Label>
                   <div className='tablet:grid-cols-3 grid grid-cols-2 gap-2 self-stretch'>
                     {INTERESTED_DOMAIN_OPTIONS.map(option => (
