@@ -41,7 +41,6 @@ export const APPLY_MESSAGE = {
       title: "지원 상태 확인을 실패했습니다",
       body: "일시적 오류일 수 있으니 다시 시도해주세요. 같은 문제가 계속 발생한다면, jectofficial@ject.kr로 문의해주세요.",
     },
-    changeJobFamily: "파트 변경에 실패했습니다. 다시 시도해주세요.",
   },
   conflict: {
     email: "이미 지원서 제출을 완료한 이메일이에요",
@@ -78,18 +77,6 @@ export const APPLY_DIALOG = {
     ),
     primaryAction: "확인",
   },
-  jobFamilyMismatch: (savedJobFamilyKorean: string, currentJobFamilyKorean: string) => ({
-    header: `${savedJobFamilyKorean} 지원서가 임시저장되어 있어요`,
-    body: (
-      <>
-        {currentJobFamilyKorean}로 새로 지원하시면
-        <br />
-        기존 {savedJobFamilyKorean} 지원서는 사라져요.
-      </>
-    ),
-    primaryAction: `지원서 이어서 작성하기`,
-    secondaryAction: `새로 지원하기`,
-  }),
   applyInProgress: {
     header: "다른 공고에 작성 중인 지원서가 있어요",
     body: (
