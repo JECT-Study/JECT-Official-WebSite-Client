@@ -77,6 +77,18 @@ export const APPLY_DIALOG = {
     ),
     primaryAction: "확인",
   },
+  profileConfirm: (jobFamilyKorean: string) => ({
+    header: `${jobFamilyKorean} 공고로 지원을 시작할까요?`,
+    body: (
+      <>
+        프로필을 등록하면 이 이메일로는 다른 공고에 지원할 수 없어요.
+        <br />
+        지원하려는 공고가 맞는지 확인해주세요.
+      </>
+    ),
+    primaryAction: "등록하기",
+    secondaryAction: "취소",
+  }),
   applyInProgress: {
     header: "다른 공고에 작성 중인 지원서가 있어요",
     body: (
