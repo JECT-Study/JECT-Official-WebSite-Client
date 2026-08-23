@@ -1,4 +1,5 @@
 import { BlockButton, Dialog, LabelButton, TextField, toastController } from "@jects/jds";
+import { isAxiosError } from "axios";
 import { useEffect, useState } from "react";
 import { Controller } from "react-hook-form";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
@@ -16,6 +17,7 @@ import {
 } from "@/hooks/apply";
 import { useApplyEmailForm } from "@/hooks/useApplyEmailForm";
 import { useApplyPinForm } from "@/hooks/useApplyPinForm";
+import type { ApiResponse } from "@/types/apis/response";
 import type { ContinueWritingFunnelSteps } from "@/types/funnel";
 import { handleError } from "@/utils/errorLogger";
 import { deriveInputValidation } from "@/utils/validationHelpers";
@@ -135,7 +137,7 @@ export function IdentityVerificationStep({ context, dispatch }: IdentityVerifica
               return;
             }
 
-            // 같은 파트 또는 draft 없음 → 이어서 작성
+            // 같은 파트 → 이어서 작성
             toastController.positive(
               APPLY_MESSAGE.success.continueWriting.title,
               APPLY_MESSAGE.success.continueWriting.body,
@@ -143,7 +145,16 @@ export function IdentityVerificationStep({ context, dispatch }: IdentityVerifica
             dispatch("goToApply", userEmail);
           })
           .catch((error: unknown) => {
-            // draft 조회 실패 시에도 이어서 작성 가능 (빈 폼으로 시작)
+            // 임시저장한 지원서가 없는 경우(APPLY-3) → 새 폼으로 시작
+            if (
+              isAxiosError<ApiResponse<unknown>>(error) &&
+              error.response?.data.status === "APPLY-3"
+            ) {
+              dispatch("goToApply", userEmail);
+              return;
+            }
+
+            // 그 밖의 조회 실패도 이어서 작성 가능 (빈 폼으로 시작)
             handleError(error, "임시저장 데이터 조회 실패");
             toastController.destructive(
               APPLY_MESSAGE.fail.loadDraft.title,
