@@ -16,6 +16,7 @@ export type Status =
   | "GLOBAL-14"
   | "GLOBAL-15"
   | "APPLY-3"
+  | "APPLY-12"
   //TODO: 하단 부 동일하게 수정된 에러코드에 맞춰서 반영해야함
   | "INVALID_AUTH_CODE"
   | "NOT_FOUND_AUTH_CODE"

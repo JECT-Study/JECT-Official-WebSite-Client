@@ -90,4 +90,15 @@ export const APPLY_DIALOG = {
     primaryAction: `지원서 이어서 작성하기`,
     secondaryAction: `새로 지원하기`,
   }),
+  applyInProgress: {
+    header: "다른 공고에 작성 중인 지원서가 있어요",
+    body: (
+      <>
+        이미 다른 공고에서 지원서를 작성하고 있어 이 공고로는 진행할 수 없어요.
+        <br />
+        작성 중이던 공고에서 이어서 작성해주세요.
+      </>
+    ),
+    primaryAction: "확인",
+  },
 };

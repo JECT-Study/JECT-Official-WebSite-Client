@@ -51,6 +51,7 @@ export function IdentityVerificationStep({ context, dispatch }: IdentityVerifica
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const [isSubmittedDialogOpen, setIsSubmittedDialogOpen] = useState(false);
+  const [isApplyInProgressDialogOpen, setIsApplyInProgressDialogOpen] = useState(false);
   const [mismatchDialog, setMismatchDialog] = useState<JobFamilyMismatchDialog>({
     isOpen: false,
     savedJobFamily: null,
@@ -178,6 +179,12 @@ export function IdentityVerificationStep({ context, dispatch }: IdentityVerifica
       handleCheckApplyStatus(email);
     },
     onError: error => {
+      // 다른 공고에 작성 중인 지원서가 있는 경우(APPLY-12)
+      if (isAxiosError<ApiResponse<unknown>>(error) && error.response?.data.status === "APPLY-12") {
+        setIsApplyInProgressDialogOpen(true);
+        return;
+      }
+
       handleError(error, "PIN 로그인 실패");
       setPinError("pin", {
         type: "apiError",
@@ -336,6 +343,17 @@ export function IdentityVerificationStep({ context, dispatch }: IdentityVerifica
         primaryAction={{
           children: APPLY_DIALOG.submitted.primaryAction,
           onClick: () => setIsSubmittedDialogOpen(false),
+        }}
+      />
+
+      <Dialog
+        open={isApplyInProgressDialogOpen}
+        onOpenChange={open => !open && setIsApplyInProgressDialogOpen(false)}
+        header={APPLY_DIALOG.applyInProgress.header}
+        body={APPLY_DIALOG.applyInProgress.body}
+        primaryAction={{
+          children: APPLY_DIALOG.applyInProgress.primaryAction,
+          onClick: () => setIsApplyInProgressDialogOpen(false),
         }}
       />
 
