@@ -35,13 +35,12 @@ export const APPLY_MESSAGE = {
     saveProfile: "프로필 저장에 실패했습니다. 다시 시도해주세요.",
     loadDraft: {
       title: "지원서 불러오기가 실패했습니다",
-      body: "데이터베이스 관련 혹은 일시적인 오류로 인해 지원서 내용을 불러올 수 없습니다. 불편을 드려 죄송하고, 재작성 부탁드립니다.",
+      body: "지원서 내용을 불러오는 중 오류가 발생했습니다. 다시 시도하거나 지원서를 새로 작성해 주세요. 이용에 불편을 드려 죄송합니다.",
     },
     checkApplyStatus: {
       title: "지원 상태 확인을 실패했습니다",
       body: "일시적 오류일 수 있으니 다시 시도해주세요. 같은 문제가 계속 발생한다면, jectofficial@ject.kr로 문의해주세요.",
     },
-    changeJobFamily: "파트 변경에 실패했습니다. 다시 시도해주세요.",
   },
   conflict: {
     email: "이미 지원서 제출을 완료한 이메일이에요",
@@ -78,16 +77,27 @@ export const APPLY_DIALOG = {
     ),
     primaryAction: "확인",
   },
-  jobFamilyMismatch: (savedJobFamilyKorean: string, currentJobFamilyKorean: string) => ({
-    header: `${savedJobFamilyKorean} 지원서가 임시저장되어 있어요`,
+  profileConfirm: (jobFamilyKorean: string) => ({
+    header: `${jobFamilyKorean} 공고로 지원을 시작할까요?`,
     body: (
       <>
-        {currentJobFamilyKorean}로 새로 지원하시면
+        프로필을 등록하면 이 이메일로는 다른 공고에 지원할 수 없어요.
         <br />
-        기존 {savedJobFamilyKorean} 지원서는 사라져요.
+        지원하려는 공고가 맞는지 확인해주세요.
       </>
     ),
-    primaryAction: `지원서 이어서 작성하기`,
-    secondaryAction: `새로 지원하기`,
+    primaryAction: "등록하기",
+    secondaryAction: "취소",
   }),
+  applyInProgress: {
+    header: "다른 공고에 작성 중인 지원서가 있어요",
+    body: (
+      <>
+        이미 다른 공고에서 지원서를 작성하고 있어 이 공고로는 진행할 수 없어요.
+        <br />
+        작성 중이던 공고에서 이어서 작성해주세요.
+      </>
+    ),
+    primaryAction: "확인",
+  },
 };
