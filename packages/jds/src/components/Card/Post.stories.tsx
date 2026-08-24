@@ -14,7 +14,7 @@ const meta = {
       description: {
         component: `포스트 카드는 게시글, 콘텐츠의 핵심 정보를 요약해 목록, 그리드에서 빠르게 훑게 하는 카드입니다. 썸네일, 제목, 요약, 메타 데이터 같은 슬롯을 고정된 구조로 담습니다.
 
-\`variant='post'\`로 Compound(\`Card.Root\` + \`Card.Thumbnail\` + \`Card.Content\` + \`Card.Title/Body\` + \`Card.Meta/MetaItem\` + \`Card.Overlay\`)를 직접 조합합니다. horizontal에서는 이미지를 \`Card.Content\` 뒤에 배치해 우측에 둡니다.
+\`variant='post'\`로 Compound(\`Card.Root\` + \`Card.Thumbnail\` + \`Card.Content\` + \`Card.ContentGroup\`(\`Card.Title/Body\`) + \`Card.Meta/MetaItem\` + \`Card.Overlay\`)를 직접 조합합니다. 제목과 요약은 \`Card.ContentGroup\`으로 묶습니다. horizontal에서는 이미지를 \`Card.Content\` 뒤에 배치해 우측에 둡니다.
 
 **변형 축**
 - **layout**: vertical(이미지 위) / horizontal(이미지 우측, 80×80)
@@ -53,8 +53,10 @@ export const Playground: Story = {
       <Card.Root layout={layout} variant='post' isDisabled={isDisabled} interactive>
         {layout === "vertical" && <Card.Thumbnail image={{ alt: "포스트 카드 이미지" }} />}
         <Card.Content>
-          <Card.Title>포스트 카드 제목</Card.Title>
-          <Card.Body>카드 내용은 두 줄을 넘어가면 말줄임(...) 표시합니다.</Card.Body>
+          <Card.ContentGroup>
+            <Card.Title>포스트 카드 제목</Card.Title>
+            <Card.Body>카드 내용은 두 줄을 넘어가면 말줄임(...) 표시합니다.</Card.Body>
+          </Card.ContentGroup>
           <Card.Meta>
             <Card.MetaItem>김젝트</Card.MetaItem>
             <Card.MetaItem>2026년 2월 25일(수)</Card.MetaItem>
@@ -112,8 +114,10 @@ export const Overview: Story = {
                       <Card.Thumbnail image={{ alt: "포스트 카드 이미지" }} />
                     )}
                     <Card.Content>
-                      <Card.Title>포스트 카드 제목</Card.Title>
-                      <Card.Body>카드 내용은 두 줄을 넘어가면 말줄임(...) 표시합니다.</Card.Body>
+                      <Card.ContentGroup>
+                        <Card.Title>포스트 카드 제목</Card.Title>
+                        <Card.Body>카드 내용은 두 줄을 넘어가면 말줄임(...) 표시합니다.</Card.Body>
+                      </Card.ContentGroup>
                       <Card.Meta>
                         <Card.MetaItem>김젝트</Card.MetaItem>
                         <Card.MetaItem>2026년 2월 25일(수)</Card.MetaItem>
@@ -127,6 +131,49 @@ export const Overview: Story = {
                 </div>
               </div>
             ))}
+          </div>
+        </section>
+      ))}
+    </div>
+  ),
+};
+
+const LONG_TITLE = "포스트 카드 제목이 한 줄에 담기지 않을 만큼 길어진 경우";
+const LONG_META = "아주 긴 작성자 이름이 들어간 메타 항목";
+
+export const LongText: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "제목과 메타 항목이 한 줄에 담기지 않을 때 말줄임(...)으로 끊기는지 확인합니다. 본문은 두 줄까지 표시한 뒤 말줄임합니다.",
+      },
+    },
+  },
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: 40 }}>
+      {(["vertical", "horizontal"] as const).map(layout => (
+        <section key={layout} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+          <h3 style={{ margin: 0, fontSize: 14, fontWeight: "bold" }}>layout = {layout}</h3>
+          <div style={sizeFor(layout)}>
+            <Card.Root layout={layout} variant='post' interactive>
+              {layout === "vertical" && <Card.Thumbnail image={{ alt: "포스트 카드 이미지" }} />}
+              <Card.Content>
+                <Card.ContentGroup>
+                  <Card.Title>{LONG_TITLE}</Card.Title>
+                  <Card.Body>
+                    카드 내용은 두 줄을 넘어가면 말줄임으로 끊깁니다. 이 문장은 두 줄을 넘기기 위해
+                    충분히 길게 적어 둔 예시입니다.
+                  </Card.Body>
+                </Card.ContentGroup>
+                <Card.Meta>
+                  <Card.MetaItem>{LONG_META}</Card.MetaItem>
+                  <Card.MetaItem>2026년 2월 25일(수)</Card.MetaItem>
+                </Card.Meta>
+              </Card.Content>
+              {layout === "horizontal" && <Card.Thumbnail image={{ alt: "포스트 카드 이미지" }} />}
+              <Card.Overlay as='a' href='#' />
+            </Card.Root>
           </div>
         </section>
       ))}
