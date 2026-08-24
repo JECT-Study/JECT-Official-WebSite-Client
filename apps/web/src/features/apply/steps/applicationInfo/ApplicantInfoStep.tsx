@@ -1,18 +1,20 @@
 import {
   BlockButton,
   Checkbox,
+  Dialog,
   Icon,
   Label,
   TextField,
   toastController,
   Tooltip,
 } from "@jects/jds";
+import { useState } from "react";
 import { Controller } from "react-hook-form";
 
 import { SelectController } from "./components/SelectController";
 
-import { APPLY_MESSAGE } from "@/constants/applyMessages";
-import { APPLY_TITLE } from "@/constants/applyPageData";
+import { APPLY_DIALOG, APPLY_MESSAGE } from "@/constants/applyMessages";
+import { APPLY_TITLE, findJobFamilyOption } from "@/constants/applyPageData";
 import { ApplyStepLayout, RequiredMark } from "@/features/shared/components";
 import { useMemberProfileMutation } from "@/hooks/apply";
 import { useApplyApplicantInfoForm } from "@/hooks/useApplyApplicantInfoForm";
@@ -37,8 +39,9 @@ interface ApplicantInfoStepProps {
 
 export function ApplicantInfoStep({ context, onNext, onBack }: ApplicantInfoStepProps) {
   const { control, handleSubmit, formState, setError } = useApplyApplicantInfoForm();
+  const [pendingProfile, setPendingProfile] = useState<ProfileData | null>(null);
 
-  const { mutate: saveProfile } = useMemberProfileMutation({
+  const { mutate: saveProfile, isPending } = useMemberProfileMutation({
     onSuccess: () => {
       onNext();
     },
@@ -48,11 +51,22 @@ export function ApplicantInfoStep({ context, onNext, onBack }: ApplicantInfoStep
   });
 
   const onSubmit = (data: ProfileData) => {
+    setPendingProfile(data);
+  };
+
+  const handleConfirmProfile = () => {
+    if (!pendingProfile) return;
+
     saveProfile({
       recruitId: context.recruitId,
-      profile: { ...data, jobFamily: context.jobFamily },
+      profile: { ...pendingProfile, jobFamily: context.jobFamily },
     });
+    setPendingProfile(null);
   };
+
+  const profileConfirmContent = APPLY_DIALOG.profileConfirm(
+    findJobFamilyOption(context.jobFamily).korean,
+  );
 
   return (
     <ApplyStepLayout
@@ -237,7 +251,7 @@ export function ApplicantInfoStep({ context, onNext, onBack }: ApplicantInfoStep
         className='self-start'
         type='submit'
         form='applicantForm'
-        disabled={!formState.isValid}
+        disabled={!formState.isValid || isPending}
         size='md'
         variant='solid'
         hierarchy='accent'
@@ -245,6 +259,21 @@ export function ApplicantInfoStep({ context, onNext, onBack }: ApplicantInfoStep
       >
         다음 단계로 진행하기
       </BlockButton.Basic>
+
+      <Dialog
+        open={pendingProfile !== null}
+        onOpenChange={open => !open && setPendingProfile(null)}
+        header={profileConfirmContent.header}
+        body={profileConfirmContent.body}
+        primaryAction={{
+          children: profileConfirmContent.primaryAction,
+          onClick: handleConfirmProfile,
+        }}
+        secondaryAction={{
+          children: profileConfirmContent.secondaryAction,
+          onClick: () => setPendingProfile(null),
+        }}
+      />
     </ApplyStepLayout>
   );
 }

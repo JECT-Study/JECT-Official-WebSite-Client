@@ -1,21 +1,18 @@
 import { BlockButton, Dialog, LabelButton, TextField, toastController } from "@jects/jds";
+import { isAxiosError } from "axios";
 import { useEffect, useState } from "react";
 import { Controller } from "react-hook-form";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 
-import { applyApi, type JobFamily } from "@/apis/apply";
+import { applyApi } from "@/apis/apply";
 import { APPLY_DIALOG, APPLY_MESSAGE } from "@/constants/applyMessages.tsx";
-import { findJobFamilyOption, APPLY_TITLE } from "@/constants/applyPageData";
+import { APPLY_TITLE } from "@/constants/applyPageData";
 import { PATH } from "@/constants/path";
 import { ApplyStepLayout } from "@/features/shared/components";
-import {
-  useCheckApplyStatusMutation,
-  useDeleteDraftMutation,
-  useMemberProfileMutation,
-  usePinLoginMutation,
-} from "@/hooks/apply";
+import { useCheckApplyStatusMutation, usePinLoginMutation } from "@/hooks/apply";
 import { useApplyEmailForm } from "@/hooks/useApplyEmailForm";
 import { useApplyPinForm } from "@/hooks/useApplyPinForm";
+import type { ApiResponse } from "@/types/apis/response";
 import type { ContinueWritingFunnelSteps } from "@/types/funnel";
 import { handleError } from "@/utils/errorLogger";
 import { deriveInputValidation } from "@/utils/validationHelpers";
@@ -39,21 +36,12 @@ interface IdentityVerificationStepProps {
   ) => void;
 }
 
-interface JobFamilyMismatchDialog {
-  isOpen: boolean;
-  savedJobFamily: JobFamily | null;
-}
-
 export function IdentityVerificationStep({ context, dispatch }: IdentityVerificationStepProps) {
   const location = useLocation();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const [isSubmittedDialogOpen, setIsSubmittedDialogOpen] = useState(false);
-  const [mismatchDialog, setMismatchDialog] = useState<JobFamilyMismatchDialog>({
-    isOpen: false,
-    savedJobFamily: null,
-  });
-  const [verifiedEmail, setVerifiedEmail] = useState<string>("");
+  const [isApplyInProgressDialogOpen, setIsApplyInProgressDialogOpen] = useState(false);
 
   //PIN 재설정 후 돌아왔을 때 파라미터
   const isPinResetSuccess = searchParams.get("pinReset") === "success";
@@ -101,12 +89,8 @@ export function IdentityVerificationStep({ context, dispatch }: IdentityVerifica
   const email = watchEmail("email");
   const isFormValid = emailFormState.isValid && pinFormState.isValid;
 
-  const [isChangingJobFamily, setIsChangingJobFamily] = useState(false);
-
   const { mutate: checkApplyStatusMutate, isPending: isCheckingStatus } =
     useCheckApplyStatusMutation();
-  const { mutateAsync: deleteDraftAsync } = useDeleteDraftMutation();
-  const { mutateAsync: updateProfileAsync } = useMemberProfileMutation();
 
   const handleCheckApplyStatus = (userEmail: string) => {
     checkApplyStatusMutate(context.recruitId, {
@@ -124,18 +108,7 @@ export function IdentityVerificationStep({ context, dispatch }: IdentityVerifica
         // CONTINUE (TEMP_SAVED 또는 JOINED) → draft 확인
         void applyApi
           .getDraft(context.recruitId)
-          .then(draft => {
-            // 파트 불일치 체크: draft에 저장된 jobFamily와 현재 접근한 jobFamily가 다른 경우
-            if (draft.jobFamily != null && draft.jobFamily !== context.jobFamily) {
-              setVerifiedEmail(userEmail);
-              setMismatchDialog({
-                isOpen: true,
-                savedJobFamily: draft.jobFamily,
-              });
-              return;
-            }
-
-            // 같은 파트 또는 draft 없음 → 이어서 작성
+          .then(() => {
             toastController.positive(
               APPLY_MESSAGE.success.continueWriting.title,
               APPLY_MESSAGE.success.continueWriting.body,
@@ -143,7 +116,16 @@ export function IdentityVerificationStep({ context, dispatch }: IdentityVerifica
             dispatch("goToApply", userEmail);
           })
           .catch((error: unknown) => {
-            // draft 조회 실패 시에도 이어서 작성 가능 (빈 폼으로 시작)
+            // 임시저장한 지원서가 없는 경우 새 폼으로 시작
+            if (
+              isAxiosError<ApiResponse<unknown>>(error) &&
+              error.response?.data.status === "APPLY-3"
+            ) {
+              dispatch("goToApply", userEmail);
+              return;
+            }
+
+            // 그 밖의 조회 실패 시에도 안내 후 새 폼으로 시작
             handleError(error, "임시저장 데이터 조회 실패");
             toastController.destructive(
               APPLY_MESSAGE.fail.loadDraft.title,
@@ -167,6 +149,12 @@ export function IdentityVerificationStep({ context, dispatch }: IdentityVerifica
       handleCheckApplyStatus(email);
     },
     onError: error => {
+      // 다른 공고에 작성 중인 지원서가 있는 경우
+      if (isAxiosError<ApiResponse<unknown>>(error) && error.response?.data.status === "APPLY-12") {
+        setIsApplyInProgressDialogOpen(true);
+        return;
+      }
+
       handleError(error, "PIN 로그인 실패");
       setPinError("pin", {
         type: "apiError",
@@ -189,62 +177,6 @@ export function IdentityVerificationStep({ context, dispatch }: IdentityVerifica
     });
     void navigate(`${PATH.resetPin}?${params.toString()}`);
   };
-
-  // 파트 불일치 다이얼로그: "기존 파트 지원서 이어서 작성하기" 선택
-  const handleContinueSavedDraft = () => {
-    if (mismatchDialog.savedJobFamily) {
-      void navigate(`${PATH.applyContinue}/${mismatchDialog.savedJobFamily}`);
-    }
-    setMismatchDialog({ isOpen: false, savedJobFamily: null });
-  };
-
-  // 파트 불일치 다이얼로그: "새로운 파트로 지원하기" 선택
-  const handleStartNewApplication = async () => {
-    setIsChangingJobFamily(true);
-    setMismatchDialog({ isOpen: false, savedJobFamily: null });
-
-    try {
-      // 1. 현재 프로필 백업
-      const profile = await applyApi.getMe();
-
-      // 2. 기존 draft + 프로필 삭제
-      await deleteDraftAsync(context.recruitId);
-
-      // 3. 프로필 복원 (새로운 jobFamily로)
-      await updateProfileAsync({
-        recruitId: context.recruitId,
-        profile: {
-          name: profile.name,
-          phoneNumber: profile.phoneNumber,
-          careerDetails: profile.careerDetails,
-          region: profile.region,
-          experiencePeriod: profile.experiencePeriod,
-          interestedDomains: profile.interestedDomains,
-          jobFamily: context.jobFamily,
-        },
-      });
-
-      // 4. 지원서 작성으로 이동
-      toastController.positive(
-        APPLY_MESSAGE.success.continueWriting.title,
-        APPLY_MESSAGE.success.continueWriting.body,
-      );
-      dispatch("goToApply", verifiedEmail);
-    } catch (error) {
-      handleError(error, "파트 변경 실패");
-      toastController.destructive(APPLY_MESSAGE.fail.changeJobFamily);
-    } finally {
-      setIsChangingJobFamily(false);
-    }
-  };
-
-  // 다이얼로그 메시지 생성
-  const mismatchDialogContent = mismatchDialog.savedJobFamily
-    ? APPLY_DIALOG.jobFamilyMismatch(
-        findJobFamilyOption(mismatchDialog.savedJobFamily).korean,
-        findJobFamilyOption(context.jobFamily).korean,
-      )
-    : null;
 
   return (
     <ApplyStepLayout
@@ -328,28 +260,16 @@ export function IdentityVerificationStep({ context, dispatch }: IdentityVerifica
         }}
       />
 
-      {mismatchDialogContent && (
-        <Dialog
-          open={mismatchDialog.isOpen || isChangingJobFamily}
-          onOpenChange={open =>
-            !open &&
-            !isChangingJobFamily &&
-            setMismatchDialog({ isOpen: false, savedJobFamily: null })
-          }
-          header={mismatchDialogContent.header}
-          body={mismatchDialogContent.body}
-          primaryAction={{
-            children: mismatchDialogContent.primaryAction,
-            onClick: handleContinueSavedDraft,
-            disabled: isChangingJobFamily,
-          }}
-          secondaryAction={{
-            children: isChangingJobFamily ? "변경 중..." : mismatchDialogContent.secondaryAction,
-            onClick: () => void handleStartNewApplication(),
-            disabled: isChangingJobFamily,
-          }}
-        />
-      )}
+      <Dialog
+        open={isApplyInProgressDialogOpen}
+        onOpenChange={open => !open && setIsApplyInProgressDialogOpen(false)}
+        header={APPLY_DIALOG.applyInProgress.header}
+        body={APPLY_DIALOG.applyInProgress.body}
+        primaryAction={{
+          children: APPLY_DIALOG.applyInProgress.primaryAction,
+          onClick: () => setIsApplyInProgressDialogOpen(false),
+        }}
+      />
     </ApplyStepLayout>
   );
 }
