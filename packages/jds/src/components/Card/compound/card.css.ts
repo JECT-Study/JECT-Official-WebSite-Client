@@ -177,7 +177,7 @@ export const content = recipe({
   },
   variants: {
     variant: {
-      plate: { padding: vars.scheme.semantic.spacing[20] },
+      plate: { padding: vars.scheme.semantic.margin.sm },
       post: {},
     },
     layout: {
