@@ -25,6 +25,14 @@
   }
 }
 
+/*
+ * TODO: jds@0.0.1에서 disabled 상태의 버튼에 border-radius가 적용되지 않는 문제가 있다.
+ * jds 최신 버전 적용 후 이 규칙과 FileQuestionField의 비활성 스타일 오버라이드를 함께 제거한다.
+ */
+button[class*="css-"]:disabled {
+  border-radius: var(--semantic-radius-6);
+}
+
 @theme {
   --shadow-focus-visible: 0 0 0 4px rgba(173, 198, 255, 1);
 
