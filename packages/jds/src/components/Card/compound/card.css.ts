@@ -54,7 +54,8 @@ export const root = recipe({
         minWidth: pxToRem(240),
         borderRadius: vars.scheme.semantic.radius[12],
         backgroundColor: vars.color.semantic.surface.shallow,
-        border: `1px solid ${vars.color.semantic.stroke.subtle}`,
+        outline: `1px solid ${vars.color.semantic.stroke.subtle}`,
+        outlineOffset: -1,
         boxShadow: vars.environment.semantic.shadow.embossed,
       },
       post: {
@@ -187,11 +188,11 @@ export const content = recipe({
   compoundVariants: [
     {
       variants: { variant: "plate", layout: "vertical" },
-      style: { borderTop: `1px solid ${vars.color.semantic.stroke.subtle}` },
+      style: { boxShadow: `inset 0 1px 0 ${vars.color.semantic.stroke.subtle}` },
     },
     {
       variants: { variant: "plate", layout: "horizontal" },
-      style: { borderLeft: `1px solid ${vars.color.semantic.stroke.subtle}` },
+      style: { boxShadow: `inset 1px 0 0 ${vars.color.semantic.stroke.subtle}` },
     },
   ],
 });
