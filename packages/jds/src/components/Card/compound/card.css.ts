@@ -208,7 +208,7 @@ export const contentGroup = recipe({
   variants: {
     variant: {
       plate: { gap: vars.scheme.semantic.spacing[10] },
-      post: { gap: vars.scheme.semantic.spacing[8] },
+      post: { gap: vars.scheme.semantic.spacing[10] },
     },
   },
 });
@@ -218,7 +218,7 @@ export const meta = style({
   flexDirection: "row",
   alignItems: "center",
   alignSelf: "stretch",
-  gap: vars.scheme.semantic.spacing[8],
+  gap: vars.scheme.semantic.spacing[12],
 });
 
 export const metaItem = style({
