@@ -43,7 +43,7 @@ export function PinSetupStep({ context, onNext, onBack }: PinSetupStepProps) {
   const handleRegisterFormSubmit: FormEventHandler<HTMLFormElement> = e => {
     void handleSubmitPin(async ({ pin }) => {
       try {
-        await registerMemberMutateAsync({ pin });
+        await registerMemberMutateAsync({ pin, recruitId: context.recruitId });
         onNext();
       } catch (error) {
         handleError(error, "회원 등록 실패");

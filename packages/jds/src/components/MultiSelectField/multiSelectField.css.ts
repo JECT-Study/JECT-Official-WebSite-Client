@@ -26,7 +26,8 @@ export const input = style({
     color: fallbackVar(placeholderTextColor, vars.color.semantic.object.assistive),
   },
   selectors: {
-    "&[data-readonly]:not(:disabled)": {
+    // native readonly는 searchable=false를 표현하는 용도로만 사용한다.
+    "&:read-only:not(:disabled)": {
       cursor: "default",
     },
     "&:disabled": {

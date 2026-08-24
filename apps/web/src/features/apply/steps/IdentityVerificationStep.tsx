@@ -178,12 +178,16 @@ export function IdentityVerificationStep({ context, dispatch }: IdentityVerifica
   const isPending = isPinLoginPending || isCheckingStatus;
 
   const onSubmit = (pinData: { pin: string }) => {
-    pinLoginMutate({ email, pin: pinData.pin });
+    pinLoginMutate({ email, pin: pinData.pin, recruitId: context.recruitId });
   };
 
   const handleForgotPin = () => {
     const returnTo = `${location.pathname}${location.search}`;
-    void navigate(`${PATH.resetPin}?returnTo=${encodeURIComponent(returnTo)}`);
+    const params = new URLSearchParams({
+      returnTo,
+      recruitId: String(context.recruitId),
+    });
+    void navigate(`${PATH.resetPin}?${params.toString()}`);
   };
 
   // 파트 불일치 다이얼로그: "기존 파트 지원서 이어서 작성하기" 선택

@@ -21,6 +21,7 @@ import type {
   PresignedUrlResponse,
 } from "@/types/apis/application";
 import type {
+  EmailExistsParams,
   MemberProfilePayload,
   PinLoginPayload,
   RegisterMemberPayload,
@@ -88,8 +89,8 @@ export const applyApi = {
     return httpClient.post<null>(`${API_ENDPOINT.submitAnswer}?${params.toString()}`, answers);
   },
 
-  checkEmailExists: (email: string) => {
-    const params = new URLSearchParams({ email });
+  checkEmailExists: ({ email, recruitId }: EmailExistsParams) => {
+    const params = new URLSearchParams({ email, recruitId: String(recruitId) });
     return httpClient.get<boolean>(`${API_ENDPOINT.checkEmailExists}?${params.toString()}`);
   },
 

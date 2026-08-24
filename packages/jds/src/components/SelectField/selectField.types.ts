@@ -5,36 +5,32 @@ import type { OptionVariant, SelectOption } from "../Listbox";
 
 export type SelectFieldProps = FieldProps;
 
-type SelectFieldTriggerBaseProps = Omit<
-  ComponentPropsWithoutRef<"button">,
-  "id" | "type" | "value" | "defaultValue" | "onChange"
+type SelectFieldInputBaseProps = Omit<
+  ComponentPropsWithoutRef<"input">,
+  "id" | "type" | "value" | "defaultValue" | "onChange" | "required"
 > & {
-  options: SelectOption[];
-  placeholder?: string;
-  /** 읽기 전용 여부. aria-readonly로 반영한다. */
-  readonly?: boolean;
   /** 필수 입력 여부. aria-required로 반영한다. */
   required?: boolean;
+  options: SelectOption[];
+  placeholder?: string;
+  /** 항목 검색 가능 여부 */
+  searchable?: boolean;
   variant?: OptionVariant;
-  /**
-   * 값과 화살표 사이에 배치되는 부가 요소.
-   *
-   * 트리거 버튼 안에 렌더되므로 버튼이나 링크처럼 상호작용하는 요소는 전달하면 안 된다.
-   */
+  /** 입력 오른쪽에 형제로 배치되는 부가 요소 */
   suffix?: ReactNode;
 };
 
-type SelectFieldTriggerControlledProps = {
+type SelectFieldInputControlledProps = {
   value: string | null;
   defaultValue?: never;
   onChange: (value: string) => void;
 };
 
-type SelectFieldTriggerUncontrolledProps = {
+type SelectFieldInputUncontrolledProps = {
   value?: never;
   defaultValue?: string;
   onChange?: (value: string) => void;
 };
 
-export type SelectFieldTriggerProps = SelectFieldTriggerBaseProps &
-  (SelectFieldTriggerControlledProps | SelectFieldTriggerUncontrolledProps);
+export type SelectFieldInputProps = SelectFieldInputBaseProps &
+  (SelectFieldInputControlledProps | SelectFieldInputUncontrolledProps);
