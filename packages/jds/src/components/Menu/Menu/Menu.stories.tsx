@@ -40,12 +40,12 @@ export const Default: Story = {
   render: args => (
     <Menu.Root {...args}>
       <Menu.Trigger asChild>
-        <IconButton icon='menu-line' />
+        <IconButton icon='menu' />
       </Menu.Trigger>
       <Menu.Content side='right' align='start' sideOffset={10} style={{ width: "200px" }}>
         <Menu.Category>카테고리</Menu.Category>
         <Menu.Group>
-          <Menu.Button autoFocus fullWidthText suffixIconVisible suffixIcon='arrow-right-s-line'>
+          <Menu.Button autoFocus fullWidthText suffixIconVisible suffixIcon='chevron-right'>
             메뉴 레이블
           </Menu.Button>
           <Menu.Button isSelected>메뉴 레이블 (selected)</Menu.Button>
@@ -72,7 +72,7 @@ export const MenuStyles: Story = {
       <span className={getLabelClassName()}>solid style</span>
       <Menu.Root menuStyle='solid'>
         <Menu.Trigger asChild>
-          <IconButton icon='menu-line' />
+          <IconButton icon='menu' />
         </Menu.Trigger>
         <Menu.Content align='end'>
           <Menu.Category>카테고리</Menu.Category>
@@ -85,7 +85,7 @@ export const MenuStyles: Story = {
       <span className={getLabelClassName()}>hollow style</span>
       <Menu.Root menuStyle='hollow'>
         <Menu.Trigger asChild>
-          <IconButton icon='menu-line' />
+          <IconButton icon='menu' />
         </Menu.Trigger>
         <Menu.Content align='start' sideOffset={10}>
           <Menu.Category>카테고리</Menu.Category>
@@ -110,7 +110,7 @@ export const Tree: Story = {
   render: args => (
     <Menu.Root {...args}>
       <Menu.Trigger asChild>
-        <IconButton icon='menu-line' />
+        <IconButton icon='menu' />
       </Menu.Trigger>
       <Menu.Content side='right' align='start' sideOffset={10} style={{ width: "220px" }}>
         <Menu.Category>카테고리</Menu.Category>
@@ -158,7 +158,7 @@ export const Tree: Story = {
             withTreeButton={false}
             fullWidthText
             suffixIconVisible
-            suffixIcon='arrow-right-up-line'
+            suffixIcon='arrow-up-right'
             onClick={() => onItemClick("단일 메뉴")}
           />
         </Menu.Group>

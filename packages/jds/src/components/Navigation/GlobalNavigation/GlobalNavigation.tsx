@@ -46,7 +46,7 @@ const GlobalNavigationMobileMenuButton = forwardRef<
     <StyledMobileMenuButton
       ref={ref}
       hierarchy='primary'
-      icon='menu-line'
+      icon='menu'
       size='lg'
       aria-label='MenuButton'
       {...props}

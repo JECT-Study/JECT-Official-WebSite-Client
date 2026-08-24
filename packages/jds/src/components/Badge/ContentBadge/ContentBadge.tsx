@@ -56,7 +56,7 @@ export const ContentBadge = forwardRef<HTMLSpanElement, ContentBadgeProps>(
             </span>
             <IconButton
               type='button'
-              icon='close-line'
+              icon='x'
               aria-labelledby={`${labelId} ${actionId}`}
               size={iconSize}
               hierarchy='accent'

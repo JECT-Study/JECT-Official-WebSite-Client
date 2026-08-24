@@ -45,7 +45,7 @@ export const File = forwardRef<HTMLButtonElement, FileProps>(
           className={styles.mainAction}
         >
           <span className={styles.fileInfo}>
-            <Icon size='xs' name='link-diagonal-line' className={styles.icon} />
+            <Icon size='xs' name='paperclip' className={styles.icon} />
             <span
               className={clsx(getLabelClassName({ size: "md", weight: "subtle" }), styles.fileName)}
             >
@@ -66,7 +66,7 @@ export const File = forwardRef<HTMLButtonElement, FileProps>(
           <IconButton
             hierarchy='tertiary'
             size='sm'
-            icon='close-line'
+            icon='x'
             className={styles.removeButton}
             aria-label={`${fileName} 파일 삭제`}
             onClick={onRemove}

@@ -31,7 +31,7 @@ export const Playground: Story = {
       <Textarea.Label
         suffix={
           <Icon
-            name='information-line'
+            name='info'
             size='2xs'
             style={args.disabled ? { color: vars.color.semantic.object.subtle } : undefined}
           />

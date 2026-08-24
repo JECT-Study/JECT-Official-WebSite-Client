@@ -61,7 +61,7 @@ type Story = StoryObj<typeof IconButton>;
 
 export const Default: Story = {
   args: {
-    icon: "check-line",
+    icon: "check",
     hierarchy: "primary",
     size: "md",
     "aria-label": "체크 버튼",
@@ -72,7 +72,7 @@ export const IconButtonSizes: Story = {
   render: () => (
     <FlexRow>
       {ICON_BUTTON_SIZE_OPTIONS.map(size => (
-        <IconButton key={size} icon='check-line' size={size} aria-label={`체크 ${size}`} />
+        <IconButton key={size} icon='check' size={size} aria-label={`체크 ${size}`} />
       ))}
     </FlexRow>
   ),
@@ -84,7 +84,7 @@ export const IconButtonHierarchies: Story = {
       {ICON_BUTTON_HIERARCHY_OPTIONS.map(hierarchy => (
         <IconButton
           key={hierarchy}
-          icon='check-line'
+          icon='check'
           hierarchy={hierarchy}
           aria-label={`체크 ${hierarchy}`}
         />
@@ -99,7 +99,7 @@ export const IconButtonDisabled: Story = {
       {ICON_BUTTON_HIERARCHY_OPTIONS.map(hierarchy => (
         <IconButton
           key={hierarchy}
-          icon='check-line'
+          icon='check'
           hierarchy={hierarchy}
           disabled
           aria-label={`체크 ${hierarchy}`}
@@ -116,7 +116,7 @@ export const IconButtonCondensed: Story = {
         {MATRIX_SIZE_OPTIONS.map(size => (
           <IconButton
             key={size}
-            icon='check-line'
+            icon='check'
             size={size}
             condensed
             aria-label={`condensed ${size}`}
@@ -127,7 +127,7 @@ export const IconButtonCondensed: Story = {
         {MATRIX_SIZE_OPTIONS.map(size => (
           <IconButton
             key={size}
-            icon='check-line'
+            icon='check'
             size={size}
             condensed={false}
             aria-label={`spacious ${size}`}
@@ -152,7 +152,7 @@ export const IconButtonAccentOverride: Story = {
       {MATRIX_SIZE_OPTIONS.map(size => (
         <IconButton
           key={size}
-          icon='close-line'
+          icon='x'
           hierarchy='accent'
           size={size}
           style={assignInlineVars({
@@ -176,7 +176,7 @@ import { assignInlineVars } from '@vanilla-extract/dynamic';
 import { IconButton, iconButtonAccentColor, iconButtonAccentDisabledColor, vars } from 'jds';
 
 <IconButton
-  icon="close-line"
+  icon="x"
   hierarchy="accent"
   aria-label="삭제"
   style={assignInlineVars({
@@ -198,7 +198,7 @@ export const IconButtonComprehensiveMatrix: Story = {
           {MATRIX_SIZE_OPTIONS.map(size => (
             <IconButton
               key={size}
-              icon='check-line'
+              icon='check'
               hierarchy={hierarchy}
               size={size}
               aria-label={`${hierarchy} ${size}`}
@@ -207,7 +207,7 @@ export const IconButtonComprehensiveMatrix: Story = {
           {MATRIX_SIZE_OPTIONS.map(size => (
             <IconButton
               key={`${size}-disabled`}
-              icon='check-line'
+              icon='check'
               hierarchy={hierarchy}
               size={size}
               disabled

@@ -1,0 +1,17 @@
+import type { SVGProps } from "react";
+const SvgCornerDownRight = (props: SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns='http://www.w3.org/2000/svg'
+    width='1em'
+    height='1em'
+    fill='currentColor'
+    viewBox='0 0 24 24'
+    {...props}
+  >
+    <path
+      fill='currentColor'
+      d='M4 3a1 1 0 0 1 1 1v7a3 3 0 0 0 3 3h9.586l-3.293-3.293a1 1 0 1 1 1.414-1.414l5 5a1 1 0 0 1 0 1.414l-5 5a1 1 0 1 1-1.414-1.414L17.586 16H8a5 5 0 0 1-5-5V4a1 1 0 0 1 1-1'
+    />
+  </svg>
+);
+export default SvgCornerDownRight;

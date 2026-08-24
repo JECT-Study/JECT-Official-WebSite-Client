@@ -69,7 +69,7 @@ export const Image = PolymorphicForwardRef<"button", ImageOwnProps>(
         )}
         {!isReadonly && (
           <IconDiv className='hoverIcon'>
-            <StyledIcon name='delete-bin-line' size='xl' />
+            <StyledIcon name='trash' size='xl' />
           </IconDiv>
         )}
       </ImageButton>
