@@ -162,7 +162,7 @@ export const WithIcon: Story = {
         <Callout title={CALLOUT_TITLE}>{CALLOUT_BODY}</Callout>
       </LabeledExample>
       <LabeledExample label='icon 있음'>
-        <Callout title={CALLOUT_TITLE} icon='vector'>
+        <Callout title={CALLOUT_TITLE} icon='vector-square'>
           {CALLOUT_BODY}
         </Callout>
       </LabeledExample>
@@ -182,7 +182,7 @@ export const Size: Story = {
   args: {
     feedback: "none",
     title: CALLOUT_TITLE,
-    icon: "vector",
+    icon: "vector-square",
     children: CALLOUT_BODY,
   },
   render: args => (
@@ -197,10 +197,10 @@ export const Size: Story = {
 };
 
 const feedbackIconMap: Record<CalloutFeedback, IconName> = {
-  none: "vector",
-  positive: "check-line",
-  destructive: "close-line",
-  notifying: "error-warning-line",
+  none: "vector-square",
+  positive: "check",
+  destructive: "x",
+  notifying: "circle-alert",
 };
 
 export const Feedback: Story = {

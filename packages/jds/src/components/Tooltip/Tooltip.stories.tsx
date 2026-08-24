@@ -48,7 +48,7 @@ export const Default: Story = {
   render: args => (
     <Tooltip.Root>
       <Tooltip.Trigger asChild>
-        <IconButton icon='information-line' aria-label='툴팁 정보' />
+        <IconButton icon='info' aria-label='툴팁 정보' />
       </Tooltip.Trigger>
       <Tooltip.Content {...args}>툴팁 테스트 레이블</Tooltip.Content>
     </Tooltip.Root>
@@ -69,7 +69,7 @@ export const AllSides: Story = {
           <Label>Top (기본값)</Label>
           <Tooltip.Root>
             <Tooltip.Trigger asChild>
-              <IconButton icon='information-line' aria-label='상단 툴팁 정보' />
+              <IconButton icon='info' aria-label='상단 툴팁 정보' />
             </Tooltip.Trigger>
             <Tooltip.Content side='top'>툴팁 상단</Tooltip.Content>
           </Tooltip.Root>
@@ -79,7 +79,7 @@ export const AllSides: Story = {
           <Label>Right</Label>
           <Tooltip.Root>
             <Tooltip.Trigger asChild>
-              <IconButton icon='information-line' aria-label='우측 툴팁 정보' />
+              <IconButton icon='info' aria-label='우측 툴팁 정보' />
             </Tooltip.Trigger>
             <Tooltip.Content side='right'>툴팁 우측</Tooltip.Content>
           </Tooltip.Root>
@@ -89,7 +89,7 @@ export const AllSides: Story = {
           <Label>Bottom</Label>
           <Tooltip.Root>
             <Tooltip.Trigger asChild>
-              <IconButton icon='information-line' aria-label='하단 툴팁 정보' />
+              <IconButton icon='info' aria-label='하단 툴팁 정보' />
             </Tooltip.Trigger>
             <Tooltip.Content side='bottom'>툴팁 아래</Tooltip.Content>
           </Tooltip.Root>
@@ -99,7 +99,7 @@ export const AllSides: Story = {
           <Label>Left</Label>
           <Tooltip.Root>
             <Tooltip.Trigger asChild>
-              <IconButton icon='information-line' aria-label='좌측 툴팁 정보' />
+              <IconButton icon='info' aria-label='좌측 툴팁 정보' />
             </Tooltip.Trigger>
             <Tooltip.Content side='left'>툴팁 좌측</Tooltip.Content>
           </Tooltip.Root>
@@ -190,7 +190,7 @@ export const CustomTrigger: Story = {
         <Label>Icon 컴포넌트</Label>
         <Tooltip.Root>
           <Tooltip.Trigger aria-label='아이콘 툴팁 정보'>
-            <Icon name='information-line' size='lg' />
+            <Icon name='info' size='lg' />
           </Tooltip.Trigger>
           <Tooltip.Content>아이콘 툴팁</Tooltip.Content>
         </Tooltip.Root>
@@ -200,7 +200,7 @@ export const CustomTrigger: Story = {
         <Label>Icon 버튼</Label>
         <Tooltip.Root>
           <Tooltip.Trigger asChild>
-            <IconButton icon='alert-line' aria-label='경고 툴팁 정보' />
+            <IconButton icon='triangle-alert' aria-label='경고 툴팁 정보' />
           </Tooltip.Trigger>
           <Tooltip.Content>아이콘 버튼 툴팁</Tooltip.Content>
         </Tooltip.Root>

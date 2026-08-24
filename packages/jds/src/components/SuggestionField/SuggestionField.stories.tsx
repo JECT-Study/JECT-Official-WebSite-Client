@@ -42,7 +42,7 @@ export const Playground: Story = {
       <SuggestionField.Label
         suffix={
           <Icon
-            name='information-line'
+            name='info'
             size='2xs'
             style={args.disabled ? { color: vars.color.semantic.object.subtle } : undefined}
           />

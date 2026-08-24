@@ -293,7 +293,7 @@ export const SelectFieldInput = forwardRef<HTMLInputElement, SelectFieldInputPro
               onMouseDown={handleMouseDown}
             />
             {suffix != null && <span className={styles.suffix}>{suffix}</span>}
-            <Icon name='arrow-down-s-line' size='md' className={styles.indicator} />
+            <Icon name='chevron-down' size='md' className={styles.indicator} />
             {name != null && (
               <input
                 type='hidden'

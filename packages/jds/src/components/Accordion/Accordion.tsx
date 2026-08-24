@@ -78,7 +78,7 @@ const AccordionTrigger = forwardRef<HTMLButtonElement, AccordionTriggerProps>(
           </div>
 
           <div className={styles.chevron}>
-            <Icon size={iconSize} name='arrow-down-s-line' aria-hidden />
+            <Icon size={iconSize} name='chevron-down' aria-hidden />
           </div>
         </AccordionPrimitive.Trigger>
       </AccordionPrimitive.Header>

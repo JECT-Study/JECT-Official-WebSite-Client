@@ -21,9 +21,9 @@ const phaseClassNameMap: Partial<Record<SnackbarPhase, string>> = {
 };
 
 const feedbackIconName: Record<SnackbarFeedbackVariant, IconName> = {
-  positive: "check-line",
-  destructive: "error-warning-octagon-line",
-  notifying: "alert-line",
+  positive: "check",
+  destructive: "octagon-alert",
+  notifying: "triangle-alert",
 };
 
 export const Snackbar = ({
@@ -180,7 +180,7 @@ export const Snackbar = ({
           </LabelButton>
           {withCloseButton && (
             <IconButton
-              icon='close-line'
+              icon='x'
               hierarchy='tertiary'
               size='sm'
               aria-label={`${title} 알림 닫기`}
