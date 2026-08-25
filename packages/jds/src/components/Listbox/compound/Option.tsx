@@ -68,7 +68,7 @@ export const ListboxOption = ({
           {suffix}
           {variant === "label" && isItemSelected && (
             <span className={styles.optionCheck}>
-              <Icon name='check-line' size='sm' />
+              <Icon name='check' size='sm' />
             </span>
           )}
         </div>

@@ -33,6 +33,11 @@ export interface BodyStyleOptions {
   weight?: BodyWeight;
 }
 
+export type SyntaxSize = "lg" | "md" | "sm" | "xs";
+export interface SyntaxStyleOptions {
+  size?: SyntaxSize;
+}
+
 export type LabelStyleOptions = Pick<LabelOwnProps, "size" | "weight">;
 
 export const getLabelClassName = ({ size = "md", weight = "normal" }: LabelStyleOptions = {}) =>
@@ -52,10 +57,14 @@ export const getBodyClassName = ({ size = "md", weight = "normal" }: BodyStyleOp
     weight,
   });
 
+export const getSyntaxClassName = ({ size = "md" }: SyntaxStyleOptions = {}) =>
+  typographyStyles.syntax({ size });
+
 export const typography = {
   label: typographyStyles.label,
   body: typographyStyles.body,
   title: typographyStyles.title,
+  syntax: typographyStyles.syntax,
   inheritColor: typographyStyles.inheritColor,
 };
 

@@ -50,7 +50,7 @@ const StepsSeparator = () => {
     return (
       <Icon
         aria-hidden
-        name='arrow-right-s-line'
+        name='chevron-right'
         size={stepsSeparatorSizeMap[size]}
         className={stepsSeparatorIcon}
       />

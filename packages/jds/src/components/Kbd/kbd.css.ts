@@ -1,48 +1,40 @@
-import { styleVariants, type StyleRule } from "@vanilla-extract/css";
+import type { StyleRule } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
 import { pxToRem } from "utils";
 
 import type { KbdSize, KbdType } from "./kbd.types";
-import { kbdPaddingXMap, kbdSizeMap, typographyMap } from "./kbd.variants";
 
-const sizeVariants = styleVariants(kbdSizeMap, ({ height, minWidth }) => ({
-  height: pxToRem(height),
-  minWidth: pxToRem(minWidth),
-}));
+const sizeVariants = {
+  lg: { height: pxToRem(26), minWidth: pxToRem(20) },
+  md: { height: pxToRem(24), minWidth: pxToRem(19) },
+  sm: { height: pxToRem(22), minWidth: pxToRem(19) },
+} satisfies Record<KbdSize, StyleRule>;
 
-const typeVariants = styleVariants(kbdPaddingXMap, paddingX => ({
-  paddingLeft: pxToRem(paddingX),
-  paddingRight: pxToRem(paddingX),
-}));
-
-const typographyCompoundVariants = Object.entries(typographyMap).flatMap(([type, sizeMap]) =>
-  Object.entries(sizeMap).map(([size, textStyle]) => ({
-    variants: { type, size },
-    style: textStyle,
-  })),
-) as Array<{
-  variants: { type: KbdType; size: KbdSize };
-  style: StyleRule;
-}>;
+const typeVariants = {
+  function: { paddingInline: vars.scheme.semantic.spacing["4"] },
+  key: { paddingInline: vars.scheme.semantic.spacing["6"] },
+  text: { paddingInline: vars.scheme.semantic.spacing["6"] },
+} satisfies Record<KbdType, StyleRule>;
 
 export const kbd = recipe({
   base: {
-    display: "inline-flex",
     alignItems: "center",
-    justifyContent: "center",
-
-    paddingTop: vars.scheme.semantic.spacing["2"],
-    paddingBottom: vars.scheme.semantic.spacing["2"],
-
     borderRadius: vars.scheme.semantic.radius["4"],
-    border: `1px solid ${vars.color.semantic.stroke.alpha.subtle}`,
+    border: `${vars.scheme.semantic.strokeWeight["1"]} solid ${vars.color.semantic.stroke.alpha.subtle}`,
     color: vars.color.semantic.object.neutral,
+    selectors: {
+      "&&": {
+        display: "inline-flex",
+        justifyContent: "center",
+        cursor: "inherit",
+      },
+    },
   },
   variants: {
     type: typeVariants,
     size: sizeVariants,
-    muted: {
+    isMuted: {
       true: {
         borderColor: vars.color.semantic.stroke.alpha.subtler,
         color: vars.color.semantic.object.subtle,
@@ -50,5 +42,4 @@ export const kbd = recipe({
       false: {},
     },
   },
-  compoundVariants: typographyCompoundVariants,
 });

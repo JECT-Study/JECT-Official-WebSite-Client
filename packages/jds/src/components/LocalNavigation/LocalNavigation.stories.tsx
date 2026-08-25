@@ -138,7 +138,7 @@ export const Stretched: Story = {
 export const WithSuffixAction: Story = {
   args: {
     nested: true,
-    suffixAction: <IconButton hierarchy='tertiary' size='xl' icon='blank' />,
+    suffixAction: <IconButton hierarchy='tertiary' size='xl' icon='square-dashed' />,
   },
   decorators: [withContainer],
   parameters: {

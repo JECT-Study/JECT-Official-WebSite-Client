@@ -87,7 +87,7 @@ export const VariantLabel: Story = {
       <Table.Body>
         <Table.Row>
           <Table.RowItem variant='label'>레이블</Table.RowItem>
-          <Table.RowItem variant='label' prefixIcon='absolute'>
+          <Table.RowItem variant='label' prefixIcon='focus'>
             레이블
           </Table.RowItem>
           <Table.RowItem variant='label' color='#FF5733' description='16진수 색상 코드입니다.'>
@@ -148,7 +148,7 @@ export const ComplexTable: Story = {
       </Table.Header>
       <Table.Body>
         <Table.Row>
-          <Table.RowItem variant='label' prefixIcon='absolute'>
+          <Table.RowItem variant='label' prefixIcon='focus'>
             variant
           </Table.RowItem>
           <Table.RowItem variant='code'>{["code", "code", "code"]}</Table.RowItem>
@@ -158,7 +158,7 @@ export const ComplexTable: Story = {
           <Table.RowItem variant='badge'>레이블</Table.RowItem>
         </Table.Row>
         <Table.Row>
-          <Table.RowItem variant='label' prefixIcon='absolute'>
+          <Table.RowItem variant='label' prefixIcon='focus'>
             color
           </Table.RowItem>
           <Table.RowItem variant='code'>code</Table.RowItem>

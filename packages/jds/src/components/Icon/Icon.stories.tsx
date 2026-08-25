@@ -15,14 +15,14 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    name: "absolute",
+    name: "focus",
     size: "5xl",
   },
 };
 
 export const WithCustomColor: Story = {
   args: {
-    name: "heart-3-fill",
+    name: "heart",
     size: "3xl",
     style: { color: "#ff0000" },
   },
@@ -30,7 +30,7 @@ export const WithCustomColor: Story = {
 
 export const InheritColor: Story = {
   args: {
-    name: "check-line",
+    name: "check",
     size: "2xl",
   },
   render: args => (

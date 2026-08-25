@@ -19,6 +19,7 @@ import { ContentBadge } from "../../Badge";
 import { FieldContent } from "../../Field";
 import { useFieldControl } from "../../Field/useFieldControl";
 import { Listbox, useListbox, useMultiSelectState } from "../../Listbox";
+import { SELECTION_KEYS } from "../../Listbox/listbox.constants";
 import { useMultiSelectFieldContext } from "../MultiSelectField.context";
 import * as styles from "../multiSelectField.css";
 import type { MultiSelectFieldInputProps } from "../multiSelectField.types";
@@ -28,8 +29,8 @@ import { getActiveDescendantContainerProps } from "@/hooks/useActiveDescendant";
 import { getBodyClassName } from "@/utils/typography";
 
 const MOVE_KEYS = ["ArrowDown", "ArrowUp"];
-
-const isSameText = (a: string, b: string) => a.toLowerCase() === b.toLowerCase();
+const NAVIGATION_KEYS = [...MOVE_KEYS, "Home", "End"];
+const OPENING_KEYS = [...NAVIGATION_KEYS, ...SELECTION_KEYS];
 
 const toSearchKey = (text: string) => disassemble(text.toLowerCase());
 
@@ -44,7 +45,7 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       name,
       form,
       variant = "control",
-      allowCustomValue = false,
+      searchable = false,
       placeholder,
       suffix,
       disabled: disabledFromProps,
@@ -100,15 +101,13 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       if (trimmedQuery === "") return options;
 
       const queryKey = toSearchKey(trimmedQuery);
-      return options.filter(option => toSearchKey(option).includes(queryKey));
+      return options.filter(option => toSearchKey(option.label).includes(queryKey));
     }, [options, trimmedQuery]);
 
-    const isCreatable =
-      allowCustomValue &&
-      !isAtMax &&
-      trimmedQuery !== "" &&
-      !options.some(option => isSameText(option, trimmedQuery)) &&
-      !selectedValues.some(selected => isSameText(selected, trimmedQuery));
+    const labelByValue = useMemo(
+      () => new Map(options.map(option => [option.value, option.label])),
+      [options],
+    );
 
     const handleSelect = useCallback(
       (next: string) => {
@@ -137,7 +136,7 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
 
     const { activeValue } = contextValue;
 
-    const hasPopupContent = visibleOptions.length > 0 || isCreatable;
+    const hasPopupContent = visibleOptions.length > 0;
 
     useEffect(() => {
       onHasPopupContentChange(hasPopupContent);
@@ -182,6 +181,11 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       if (isOpen) activateRef.current();
     }, [isOpen, query]);
 
+    const closeAndReset = () => {
+      onOpenChange(false);
+      setQuery("");
+    };
+
     const handleContentMouseDown = (e: MouseEvent<HTMLDivElement>) => {
       if (e.target !== e.currentTarget || !isInteractive) return;
 
@@ -196,10 +200,13 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       onMouseDownFromProps?.(e);
       if (e.defaultPrevented) return;
 
-      openIfInteractive();
+      if (searchable) openIfInteractive();
+      else if (isInteractive) onOpenChange(!isOpen);
     };
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+      if (!searchable) return;
+
       setQuery(e.target.value);
       openIfInteractive();
     };
@@ -210,7 +217,7 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       if (contentRef.current?.contains(e.relatedTarget)) return;
 
       onOpenChange(false);
-      if (!e.defaultPrevented && !allowCustomValue) setQuery("");
+      if (!e.defaultPrevented) setQuery("");
     };
 
     const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -218,8 +225,8 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       if (e.defaultPrevented || !isInteractive || e.nativeEvent.isComposing) return;
 
       if (e.key === "Escape") {
-        if (isOpen) e.preventDefault();
-        onOpenChange(false);
+        if (isOpen || query !== "") e.preventDefault();
+        closeAndReset();
         return;
       }
 
@@ -230,8 +237,12 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
         return;
       }
 
+      const openingKeys = searchable ? MOVE_KEYS : OPENING_KEYS;
+      const listboxKeys = searchable ? MOVE_KEYS : NAVIGATION_KEYS;
+      const selectionKeys = searchable ? ["Enter"] : SELECTION_KEYS;
+
       if (!isOpen) {
-        if (MOVE_KEYS.includes(e.key)) {
+        if (openingKeys.includes(e.key)) {
           e.preventDefault();
           onOpenChange(true);
         }
@@ -240,16 +251,16 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
 
       if (e.altKey && MOVE_KEYS.includes(e.key)) {
         e.preventDefault();
-        onOpenChange(false);
+        closeAndReset();
         return;
       }
 
-      if (MOVE_KEYS.includes(e.key)) {
+      if (listboxKeys.includes(e.key)) {
         onListboxKeyDown(e);
         return;
       }
 
-      if (e.key === "Enter" && activeValue != null) {
+      if (selectionKeys.includes(e.key) && activeValue != null) {
         e.preventDefault();
         handleSelect(activeValue);
       }
@@ -281,7 +292,7 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
                     }
                   : { withIconButton: false })}
               >
-                {selected}
+                {labelByValue.get(selected) ?? selected}
               </ContentBadge>
             ))}
             <input
@@ -294,16 +305,18 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
               aria-expanded={isOpen}
               aria-controls={isOpen ? listboxId : undefined}
               aria-activedescendant={isOpen ? activeId : undefined}
-              aria-autocomplete='list'
+              aria-autocomplete={searchable ? "list" : undefined}
               aria-label={ariaLabel}
               aria-labelledby={ariaLabelledBy}
               aria-describedby={ariaDescribedBy}
               aria-invalid={ariaInvalid}
-              aria-readonly={isReadOnly || undefined}
+              // searchable=false가 타이핑을 막기 위해 native readonly를 사용하므로,
+              // 스크린 리더에 읽기 전용으로 전달되지 않도록 항상 aria-readonly를 명시한다.
+              aria-readonly={isReadOnly}
               aria-required={isRequired || undefined}
               autoComplete='off'
               disabled={isDisabled}
-              readOnly={isReadOnly}
+              readOnly={isReadOnly || !searchable}
               placeholder={selectedValues.length === 0 ? placeholder : undefined}
               value={query}
               data-field-control=''
@@ -355,16 +368,15 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
               }}
               onMouseDown={e => e.preventDefault()}
             >
-              {isCreatable && (
-                <Listbox.CustomValue value={trimmedQuery} caption='입력한 값 새로 추가' />
-              )}
               {visibleOptions.map(option => (
                 <Listbox.Option
-                  key={option}
-                  value={option}
-                  disabled={isAtMax && !selectedValues.includes(option)}
+                  key={option.value}
+                  value={option.value}
+                  caption={option.caption}
+                  suffix={option.suffix}
+                  disabled={option.disabled || (isAtMax && !selectedValues.includes(option.value))}
                 >
-                  {option}
+                  {option.label}
                 </Listbox.Option>
               ))}
             </Listbox>

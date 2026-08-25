@@ -34,6 +34,7 @@ export * from "./Select";
 export * from "./SelectField";
 export * from "./Snackbar";
 export * from "./Steps";
+export * from "./SuggestionField";
 export * from "./Tabs";
 export * from "./Table";
 export * from "./TextField";

@@ -67,28 +67,28 @@ export const Default: Story = {
         <GlobalNavigation.List>
           <GlobalNavigation.Item>
             <GlobalNavigation.Trigger>
-              <LabelButton hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+              <LabelButton hierarchy='primary' size='md' suffixIcon='chevron-down'>
                 젝트
               </LabelButton>
             </GlobalNavigation.Trigger>
           </GlobalNavigation.Item>
           <GlobalNavigation.Item>
             <GlobalNavigation.Trigger>
-              <LabelButton hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+              <LabelButton hierarchy='primary' size='md' suffixIcon='chevron-down'>
                 프로그램
               </LabelButton>
             </GlobalNavigation.Trigger>
           </GlobalNavigation.Item>
           <GlobalNavigation.Item>
             <GlobalNavigation.Trigger>
-              <LabelButton hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+              <LabelButton hierarchy='primary' size='md' suffixIcon='chevron-down'>
                 뉴스
               </LabelButton>
             </GlobalNavigation.Trigger>
           </GlobalNavigation.Item>
           <GlobalNavigation.Item>
             <GlobalNavigation.Trigger>
-              <LabelButton hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+              <LabelButton hierarchy='primary' size='md' suffixIcon='chevron-down'>
                 합류 가이드
               </LabelButton>
             </GlobalNavigation.Trigger>
@@ -122,28 +122,28 @@ export const WithScrollVariant: Story = {
             <GlobalNavigation.List>
               <GlobalNavigation.Item>
                 <GlobalNavigation.Trigger>
-                  <LabelButton hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+                  <LabelButton hierarchy='primary' size='md' suffixIcon='chevron-down'>
                     젝트
                   </LabelButton>
                 </GlobalNavigation.Trigger>
               </GlobalNavigation.Item>
               <GlobalNavigation.Item>
                 <GlobalNavigation.Trigger>
-                  <LabelButton hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+                  <LabelButton hierarchy='primary' size='md' suffixIcon='chevron-down'>
                     프로그램
                   </LabelButton>
                 </GlobalNavigation.Trigger>
               </GlobalNavigation.Item>
               <GlobalNavigation.Item>
                 <GlobalNavigation.Trigger>
-                  <LabelButton hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+                  <LabelButton hierarchy='primary' size='md' suffixIcon='chevron-down'>
                     뉴스
                   </LabelButton>
                 </GlobalNavigation.Trigger>
               </GlobalNavigation.Item>
               <GlobalNavigation.Item>
                 <GlobalNavigation.Trigger>
-                  <LabelButton hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+                  <LabelButton hierarchy='primary' size='md' suffixIcon='chevron-down'>
                     합류 가이드
                   </LabelButton>
                 </GlobalNavigation.Trigger>
@@ -196,7 +196,7 @@ export const Responsive: Story = {
                 <LabelButton
                   hierarchy='primary'
                   size={labelButtonSize}
-                  suffixIcon='arrow-down-s-line'
+                  suffixIcon='chevron-down'
                 >
                   젝트
                 </LabelButton>
@@ -207,7 +207,7 @@ export const Responsive: Story = {
                 <LabelButton
                   hierarchy='primary'
                   size={labelButtonSize}
-                  suffixIcon='arrow-down-s-line'
+                  suffixIcon='chevron-down'
                 >
                   프로그램
                 </LabelButton>
@@ -218,7 +218,7 @@ export const Responsive: Story = {
                 <LabelButton
                   hierarchy='primary'
                   size={labelButtonSize}
-                  suffixIcon='arrow-down-s-line'
+                  suffixIcon='chevron-down'
                 >
                   뉴스
                 </LabelButton>
@@ -229,7 +229,7 @@ export const Responsive: Story = {
                 <LabelButton
                   hierarchy='primary'
                   size={labelButtonSize}
-                  suffixIcon='arrow-down-s-line'
+                  suffixIcon='chevron-down'
                 >
                   합류 가이드
                 </LabelButton>
@@ -283,28 +283,28 @@ export const WithThemeSwitcher: Story = {
           <GlobalNavigation.List>
             <GlobalNavigation.Item>
               <GlobalNavigation.Trigger>
-                <LabelButton hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+                <LabelButton hierarchy='primary' size='md' suffixIcon='chevron-down'>
                   젝트
                 </LabelButton>
               </GlobalNavigation.Trigger>
             </GlobalNavigation.Item>
             <GlobalNavigation.Item>
               <GlobalNavigation.Trigger>
-                <LabelButton hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+                <LabelButton hierarchy='primary' size='md' suffixIcon='chevron-down'>
                   프로그램
                 </LabelButton>
               </GlobalNavigation.Trigger>
             </GlobalNavigation.Item>
             <GlobalNavigation.Item>
               <GlobalNavigation.Trigger>
-                <LabelButton hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+                <LabelButton hierarchy='primary' size='md' suffixIcon='chevron-down'>
                   뉴스
                 </LabelButton>
               </GlobalNavigation.Trigger>
             </GlobalNavigation.Item>
             <GlobalNavigation.Item>
               <GlobalNavigation.Trigger>
-                <LabelButton hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+                <LabelButton hierarchy='primary' size='md' suffixIcon='chevron-down'>
                   합류 가이드
                 </LabelButton>
               </GlobalNavigation.Trigger>
@@ -367,7 +367,7 @@ export const WithContent: Story = {
         <GlobalNavigation.List>
           <GlobalNavigation.Item>
             <GlobalNavigation.Trigger>
-              <LabelButton hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+              <LabelButton hierarchy='primary' size='md' suffixIcon='chevron-down'>
                 젝트
               </LabelButton>
             </GlobalNavigation.Trigger>
@@ -377,7 +377,7 @@ export const WithContent: Story = {
           </GlobalNavigation.Item>
           <GlobalNavigation.Item>
             <GlobalNavigation.Trigger>
-              <LabelButton hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+              <LabelButton hierarchy='primary' size='md' suffixIcon='chevron-down'>
                 프로그램
               </LabelButton>
             </GlobalNavigation.Trigger>
@@ -387,7 +387,7 @@ export const WithContent: Story = {
           </GlobalNavigation.Item>
           <GlobalNavigation.Item>
             <GlobalNavigation.Trigger>
-              <LabelButton hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+              <LabelButton hierarchy='primary' size='md' suffixIcon='chevron-down'>
                 뉴스
               </LabelButton>
             </GlobalNavigation.Trigger>
@@ -397,7 +397,7 @@ export const WithContent: Story = {
           </GlobalNavigation.Item>
           <GlobalNavigation.Item>
             <GlobalNavigation.Trigger>
-              <LabelButton hierarchy='primary' size='md' suffixIcon='arrow-down-s-line'>
+              <LabelButton hierarchy='primary' size='md' suffixIcon='chevron-down'>
                 합류 가이드
               </LabelButton>
             </GlobalNavigation.Trigger>
