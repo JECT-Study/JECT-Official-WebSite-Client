@@ -8,6 +8,10 @@ export interface Email {
 
 export type EmailExistsResponse = boolean;
 
+export interface EmailExistsParams extends Email {
+  recruitId: number;
+}
+
 export interface EmailAuthPayload extends Email {
   sendGroupCode: "AUTH_CODE" | "PIN_RESET";
 }
@@ -15,6 +19,7 @@ export interface EmailAuthPayload extends Email {
 export interface VerificationEmailCodePayload {
   email: string;
   authCode: string;
+  recruitId: number;
 }
 
 export interface VerificationEmailCodeQueryParams {
@@ -28,6 +33,7 @@ export interface VerificationEmailCodeResponse {
 export interface PinLoginPayload {
   email: string;
   pin: string;
+  recruitId: number;
 }
 
 export interface PinLoginResponse {
@@ -37,6 +43,7 @@ export interface PinLoginResponse {
 
 export interface RegisterMemberPayload {
   pin: string;
+  recruitId: number;
 }
 
 export type RegisterMemberResponse = boolean;

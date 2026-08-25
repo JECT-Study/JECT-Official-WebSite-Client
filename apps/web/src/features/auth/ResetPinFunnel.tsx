@@ -6,17 +6,18 @@ import { EmailVerificationStep, NewPinSetupStep } from "./steps";
 import type { ResetPinFunnelSteps } from "@/types/funnel";
 
 interface ResetPinFunnelProps {
+  recruitId: number;
   returnTo: string;
 }
 
-export function ResetPinFunnel({ returnTo }: ResetPinFunnelProps) {
+export function ResetPinFunnel({ recruitId, returnTo }: ResetPinFunnelProps) {
   const navigate = useNavigate();
 
   const funnel = useFunnel<ResetPinFunnelSteps>({
     id: "reset-pin-funnel",
     initial: {
       step: "이메일인증",
-      context: { returnTo },
+      context: { recruitId, returnTo },
     },
   });
 

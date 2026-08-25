@@ -16,3 +16,8 @@ export interface BodyStyleOptions {
   size?: BodySize;
   weight?: BodyWeight;
 }
+
+export type SyntaxSize = "lg" | "md" | "sm" | "xs";
+export interface SyntaxStyleOptions {
+  size?: SyntaxSize;
+}

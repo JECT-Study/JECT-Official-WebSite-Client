@@ -5,7 +5,12 @@ export * from "./focusRing.css";
 export * from "./forwardRef";
 export * from "./interaction";
 export * from "./interactionLayer";
-export { getBodyClassName, getLabelClassName, getTitleClassName } from "./typography";
+export {
+  getBodyClassName,
+  getLabelClassName,
+  getSyntaxClassName,
+  getTitleClassName,
+} from "./typography";
 export type {
   BodySize,
   BodyStyleOptions,
@@ -13,6 +18,8 @@ export type {
   LabelSize,
   LabelStyleOptions,
   LabelWeight,
+  SyntaxSize,
+  SyntaxStyleOptions,
   TitleSize,
   TitleStyleOptions,
 } from "./typography";

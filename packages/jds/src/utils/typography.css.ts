@@ -1,7 +1,14 @@
 import type { StyleRule } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
-import type { BodySize, BodyWeight, LabelSize, LabelWeight, TitleSize } from "./typography.types";
+import type {
+  BodySize,
+  BodyWeight,
+  LabelSize,
+  LabelWeight,
+  SyntaxSize,
+  TitleSize,
+} from "./typography.types";
 import { textStyles } from "../tokens/textStyles";
 
 export const label = recipe({
@@ -149,5 +156,19 @@ export const body = recipe({
   defaultVariants: {
     size: "md",
     weight: "normal",
+  },
+});
+
+export const syntax = recipe({
+  variants: {
+    size: {
+      lg: textStyles.syntax.lg,
+      md: textStyles.syntax.md,
+      sm: textStyles.syntax.sm,
+      xs: textStyles.syntax.xs,
+    } satisfies Record<SyntaxSize, StyleRule>,
+  },
+  defaultVariants: {
+    size: "md",
   },
 });

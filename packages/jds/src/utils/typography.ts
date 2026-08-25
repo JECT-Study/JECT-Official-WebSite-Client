@@ -1,5 +1,10 @@
 import * as typographyStyles from "./typography.css";
-import type { BodyStyleOptions, LabelStyleOptions, TitleStyleOptions } from "./typography.types";
+import type {
+  BodyStyleOptions,
+  LabelStyleOptions,
+  SyntaxStyleOptions,
+  TitleStyleOptions,
+} from "./typography.types";
 
 export * from "./typography.types";
 
@@ -19,6 +24,9 @@ export const getBodyClassName = ({ size = "md", weight = "normal" }: BodyStyleOp
     size,
     weight,
   });
+
+export const getSyntaxClassName = ({ size = "md" }: SyntaxStyleOptions = {}) =>
+  typographyStyles.syntax({ size });
 
 const typographyProps = new Set(["size", "textAlign", "weight", "cursor", "color", "as"]);
 

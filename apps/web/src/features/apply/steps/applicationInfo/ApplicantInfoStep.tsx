@@ -1,19 +1,21 @@
 import {
   BlockButton,
   Checkbox,
+  Dialog,
   Icon,
   Label,
   TextField,
   toastController,
   Tooltip,
 } from "@jects/jds";
+import { useState } from "react";
 import { Controller } from "react-hook-form";
 
 import { SelectController } from "./components/SelectController";
 
-import { APPLY_MESSAGE } from "@/constants/applyMessages";
-import { APPLY_TITLE } from "@/constants/applyPageData";
-import { ApplyStepLayout } from "@/features/shared/components";
+import { APPLY_DIALOG, APPLY_MESSAGE } from "@/constants/applyMessages";
+import { APPLY_TITLE, findJobFamilyOption } from "@/constants/applyPageData";
+import { ApplyStepLayout, RequiredMark } from "@/features/shared/components";
 import { useMemberProfileMutation } from "@/hooks/apply";
 import { useApplyApplicantInfoForm } from "@/hooks/useApplyApplicantInfoForm";
 import { phoneNumberCompleteSchema } from "@/schema/applySchema";
@@ -37,8 +39,9 @@ interface ApplicantInfoStepProps {
 
 export function ApplicantInfoStep({ context, onNext, onBack }: ApplicantInfoStepProps) {
   const { control, handleSubmit, formState, setError } = useApplyApplicantInfoForm();
+  const [pendingProfile, setPendingProfile] = useState<ProfileData | null>(null);
 
-  const { mutate: saveProfile } = useMemberProfileMutation({
+  const { mutate: saveProfile, isPending } = useMemberProfileMutation({
     onSuccess: () => {
       onNext();
     },
@@ -48,11 +51,22 @@ export function ApplicantInfoStep({ context, onNext, onBack }: ApplicantInfoStep
   });
 
   const onSubmit = (data: ProfileData) => {
+    setPendingProfile(data);
+  };
+
+  const handleConfirmProfile = () => {
+    if (!pendingProfile) return;
+
     saveProfile({
       recruitId: context.recruitId,
-      profile: { ...data, jobFamily: context.jobFamily },
+      profile: { ...pendingProfile, jobFamily: context.jobFamily },
     });
+    setPendingProfile(null);
   };
+
+  const profileConfirmContent = APPLY_DIALOG.profileConfirm(
+    findJobFamilyOption(context.jobFamily).korean,
+  );
 
   return (
     <ApplyStepLayout
@@ -76,9 +90,7 @@ export function ApplicantInfoStep({ context, onNext, onBack }: ApplicantInfoStep
                 label={
                   <>
                     이름
-                    <span className='text-feedback-notifying-neutral-light dark:text-feedback-notifying-neutral-dark'>
-                      *
-                    </span>
+                    <RequiredMark />
                   </>
                 }
                 validation={deriveInputValidation({
@@ -102,9 +114,7 @@ export function ApplicantInfoStep({ context, onNext, onBack }: ApplicantInfoStep
                 label={
                   <>
                     휴대폰 번호
-                    <span className='text-feedback-notifying-neutral-light dark:text-feedback-notifying-neutral-dark'>
-                      *
-                    </span>
+                    <RequiredMark />
                   </>
                 }
                 validation={deriveInputValidation({
@@ -140,7 +150,7 @@ export function ApplicantInfoStep({ context, onNext, onBack }: ApplicantInfoStep
                 label={
                   <>
                     지원자 신분
-                    <span className='text-feedback-notifying-neutral-light'>*</span>
+                    <RequiredMark />
                   </>
                 }
                 placeholder='현재 신분을 선택해주세요'
@@ -159,12 +169,10 @@ export function ApplicantInfoStep({ context, onNext, onBack }: ApplicantInfoStep
                 label={
                   <>
                     거주 지역
-                    <span className='text-feedback-notifying-neutral-light dark:text-feedback-notifying-neutral-dark'>
-                      *
-                    </span>
+                    <RequiredMark />
                   </>
                 }
-                placeholder='현재 신분을 선택해주세요'
+                placeholder='현재 거주하는 지역을 선택해주세요'
                 value={field.value}
                 options={REGION_OPTIONS}
                 onChange={value => field.onChange(value)}
@@ -179,7 +187,10 @@ export function ApplicantInfoStep({ context, onNext, onBack }: ApplicantInfoStep
               <SelectController
                 label={
                   <div className='flex items-center gap-(--semantic-spacing-4) text-(--semantic-object-normal)'>
-                    직무 관련 경험 기간
+                    <span>
+                      직무 관련 경험 기간
+                      <RequiredMark />
+                    </span>
                     <Tooltip.Provider>
                       <Tooltip.Root>
                         <Tooltip.Trigger
@@ -193,7 +204,7 @@ export function ApplicantInfoStep({ context, onNext, onBack }: ApplicantInfoStep
                     </Tooltip.Provider>
                   </div>
                 }
-                placeholder='현재 신분을 선택해주세요'
+                placeholder='직무 관련 경험 기간을 선택해주세요'
                 value={field.value}
                 options={EXPERIENCE_PERIOD_OPTIONS}
                 onChange={value => field.onChange(value)}
@@ -213,9 +224,7 @@ export function ApplicantInfoStep({ context, onNext, onBack }: ApplicantInfoStep
                 <div className='flex flex-col items-start justify-center gap-(--semantic-spacing-12) self-stretch'>
                   <Label size='md'>
                     관심 도메인(최대 {MAX_SELECTABLE_DOMAINS}개)
-                    <span className='text-feedback-notifying-neutral-light dark:text-feedback-notifying-neutral-dark'>
-                      *
-                    </span>
+                    <RequiredMark />
                   </Label>
                   <div className='tablet:grid-cols-3 grid grid-cols-2 gap-2 self-stretch'>
                     {INTERESTED_DOMAIN_OPTIONS.map(option => (
@@ -245,7 +254,7 @@ export function ApplicantInfoStep({ context, onNext, onBack }: ApplicantInfoStep
         className='self-start'
         type='submit'
         form='applicantForm'
-        disabled={!formState.isValid}
+        disabled={!formState.isValid || isPending}
         size='md'
         variant='solid'
         hierarchy='accent'
@@ -253,6 +262,21 @@ export function ApplicantInfoStep({ context, onNext, onBack }: ApplicantInfoStep
       >
         다음 단계로 진행하기
       </BlockButton.Basic>
+
+      <Dialog
+        open={pendingProfile !== null}
+        onOpenChange={open => !open && setPendingProfile(null)}
+        header={profileConfirmContent.header}
+        body={profileConfirmContent.body}
+        primaryAction={{
+          children: profileConfirmContent.primaryAction,
+          onClick: handleConfirmProfile,
+        }}
+        secondaryAction={{
+          children: profileConfirmContent.secondaryAction,
+          onClick: () => setPendingProfile(null),
+        }}
+      />
     </ApplyStepLayout>
   );
 }
