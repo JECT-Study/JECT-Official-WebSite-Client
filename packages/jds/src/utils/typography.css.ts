@@ -1,5 +1,6 @@
 import { style, type StyleRule } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
+import { textStyles } from "tokens";
 
 import type {
   BodySize,
@@ -9,7 +10,6 @@ import type {
   SyntaxSize,
   TitleSize,
 } from "./typography";
-import { textStyles } from "../tokens/textStyles";
 
 export const label = recipe({
   variants: {

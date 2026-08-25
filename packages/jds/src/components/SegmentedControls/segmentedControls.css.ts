@@ -1,9 +1,8 @@
 import type { StyleRule } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
+import { textStyles, vars } from "tokens";
 
 import type { SegmentedControlsSize } from "./segmentedControls.types";
-import { textStyles } from "../../tokens/textStyles";
-import { vars } from "../../tokens/vars.css";
 import { focusRing } from "../../utils/focusRing.css";
 import { overlay } from "../../utils/overlay.css";
 
