@@ -155,6 +155,7 @@ export const footer = style({
 
 export const bodyText = style({
   alignSelf: "stretch",
+  textAlign: "left",
   color: vars.color.semantic.object.normal,
 });
 

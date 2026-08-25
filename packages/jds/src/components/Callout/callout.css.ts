@@ -131,6 +131,7 @@ export const icon = style({
 
 export const body = style({
   width: "100%",
+  textAlign: "left",
   margin: 0,
   color: "inherit",
   overflowWrap: "break-word",

@@ -96,6 +96,7 @@ export const label = style({
 });
 
 export const description = style({
+  textAlign: "left",
   color: vars.color.semantic.object.neutral,
 });
 

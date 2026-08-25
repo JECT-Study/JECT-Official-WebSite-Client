@@ -20,6 +20,7 @@ export const input = style({
   backgroundColor: "transparent",
   position: "relative",
   zIndex: 1,
+  textAlign: "left",
   textOverflow: "ellipsis",
   color: fallbackVar(inputTextColor, vars.color.semantic.object.bolder),
   "::placeholder": {

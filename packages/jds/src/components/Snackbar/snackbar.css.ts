@@ -110,6 +110,7 @@ export const title = style({
 });
 
 export const description = style({
+  textAlign: "left",
   color: vars.color.semantic.object.neutral,
 });
 

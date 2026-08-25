@@ -16,6 +16,7 @@ export const control = style({
   resize: "vertical",
   position: "relative",
   zIndex: 1,
+  textAlign: "left",
   color: fallbackVar(textColor, vars.color.semantic.object.bolder),
   "::placeholder": {
     color: fallbackVar(placeholderTextColor, vars.color.semantic.object.assistive),

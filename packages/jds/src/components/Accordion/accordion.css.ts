@@ -115,6 +115,7 @@ export const content = style({
 export const contentText = recipe({
   base: {
     marginTop: vars.scheme.semantic.spacing["12"],
+    textAlign: "left",
   },
   variants: {
     isStretched: {

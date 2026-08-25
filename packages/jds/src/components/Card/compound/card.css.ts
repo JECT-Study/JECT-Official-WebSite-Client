@@ -253,6 +253,7 @@ export const body = recipe({
     color: bodyColor,
     margin: 0,
     alignSelf: "stretch",
+    textAlign: "left",
   },
   variants: {
     variant: {
