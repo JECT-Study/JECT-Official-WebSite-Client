@@ -220,10 +220,11 @@ export const ImageLabel = styled("span", {
   shouldForwardProp: shouldForwardTypographyProp,
 })<UploaderImageLabelProps>(({ theme, $isDisabled }) => {
   return {
-    "&&": {
-      color: $isDisabled ? theme.color.semantic.object.subtle : theme.color.semantic.object.neutral,
-      cursor: "inherit",
-    },
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    color: $isDisabled ? theme.color.semantic.object.subtle : theme.color.semantic.object.neutral,
+    cursor: "inherit",
   };
 });
 

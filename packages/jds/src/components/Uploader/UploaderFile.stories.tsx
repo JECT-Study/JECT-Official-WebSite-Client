@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexColumn } from "@storybook-utils/layout";
 import { useState } from "react";
+import { vars } from "tokens";
 
 import { Uploader } from "./Uploader";
 import { AssistiveLabel } from "./uploader.styles";
@@ -65,7 +66,10 @@ const meta = {
     isDisabled: false,
     maxFileSize: 5 * 1024 * 1024,
     helperLabel: (
-      <span className={getLabelClassName({ size: "xs", textAlign: "center", weight: "bold" })}>
+      <span
+        className={getLabelClassName({ size: "xs", weight: "bold" })}
+        style={{ color: vars.color.semantic.object.bold }}
+      >
         업로드에 문제가 있나요?
       </span>
     ),
@@ -112,7 +116,7 @@ export const Default: StoryObj<typeof Uploader.File> = {
         maxFileSize={5 * 1024 * 1024} // 5MB
         helperLabel={
           <AssistiveLabel
-            className={getLabelClassName({ size: "xs", textAlign: "center", weight: "bold" })}
+            className={getLabelClassName({ size: "xs", weight: "bold" })}
             onClick={onIssue}
           >
             업로드에 문제가 있나요?

@@ -10,8 +10,6 @@ import type {
   LabelButtonSize,
 } from "./labelButton.types";
 
-import { labelColorVar } from "@/utils/typography.css";
-
 export const iconSizeMap: Record<LabelButtonSize, IconSize> = {
   lg: "md",
   md: "sm",
@@ -78,6 +76,7 @@ const sizeVariants = {
 
 const baseStyles = style({
   position: "relative",
+  display: "inline-flex",
   flexDirection: "row",
   justifyContent: "center",
   alignItems: "center",
@@ -90,15 +89,15 @@ const baseStyles = style({
   fontFamily: "inherit",
   whiteSpace: "nowrap",
   selectors: {
-    "&&": { display: "inline-flex" },
     "&[data-disabled]": { cursor: "not-allowed" },
   },
 });
 
 const colorVariant = ({ overlayColor: oc, color }: LabelButtonPalette): StyleRule => ({
-  vars: { [overlayColor]: oc, [labelColorVar]: color },
+  color,
+  vars: { [overlayColor]: oc },
   selectors: {
-    "&[data-disabled]": { vars: { [labelColorVar]: vars.color.semantic.object.subtler } },
+    "&[data-disabled]": { color: vars.color.semantic.object.subtler },
   },
 });
 

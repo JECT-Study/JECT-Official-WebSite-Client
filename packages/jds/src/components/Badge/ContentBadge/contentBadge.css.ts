@@ -11,8 +11,6 @@ import {
   iconButtonAccentDisabledColor,
 } from "../../Button/IconButton/iconButton.css";
 
-import { labelColorVar } from "@/utils/typography.css";
-
 type BadgeSizeConfig = {
   minWidth: number;
   paddingTopBottom: string;
@@ -679,9 +677,8 @@ export const label = style({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  vars: {
-    [labelColorVar]: badgeTextColor,
-  },
+  cursor: "default",
+  color: badgeTextColor,
 });
 
 export const icon = style({

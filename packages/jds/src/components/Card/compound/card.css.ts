@@ -5,7 +5,6 @@ import { pxToRem } from "utils";
 import { vars } from "../../../tokens/vars.css";
 import { focusRing } from "../../../utils/focusRing.css";
 import { overlay as overlayInteraction, overlayColor } from "../../../utils/overlay.css";
-import { labelColorVar, titleColorVar } from "../../../utils/typography.css";
 import { CARD_PART_CAPTION, CARD_PART_OVERLAY } from "../card.types";
 
 const titleColor = createVar();
@@ -222,7 +221,10 @@ export const meta = style({
 });
 
 export const metaItem = style({
-  vars: { [labelColorVar]: captionColor },
+  display: "flex",
+  alignItems: "center",
+  cursor: "default",
+  color: captionColor,
   minWidth: 0,
   overflow: "hidden",
   whiteSpace: "nowrap",
@@ -230,7 +232,10 @@ export const metaItem = style({
 });
 
 export const title = style({
-  vars: { [titleColorVar]: titleColor },
+  display: "flex",
+  alignItems: "center",
+  color: titleColor,
+  cursor: "default",
   margin: 0,
   alignSelf: "stretch",
   minWidth: 0,
@@ -248,6 +253,7 @@ export const body = recipe({
     color: bodyColor,
     margin: 0,
     alignSelf: "stretch",
+    textAlign: "left",
   },
   variants: {
     variant: {
@@ -258,7 +264,8 @@ export const body = recipe({
 });
 
 export const caption = style({
-  vars: { [labelColorVar]: captionColor },
+  color: captionColor,
+  cursor: "default",
   display: "-webkit-box",
   WebkitBoxOrient: "vertical",
   WebkitLineClamp: 1,

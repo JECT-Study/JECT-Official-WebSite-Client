@@ -3,8 +3,6 @@ import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
 import { focusRing, overlay, overlayColor, pxToRem } from "utils";
 
-import { labelColorVar } from "@/utils/typography.css";
-
 // 탭 영역이 시각 영역보다 상하 4px / 좌우 6px 큰 컴포넌트 — overlay/focusRing 케이스 2
 const LAYER_INSET = `${pxToRem(-4)} ${pxToRem(-6)}`;
 const LAYER_RADIUS = vars.scheme.semantic.radius["4"];
@@ -66,11 +64,12 @@ export const labelContainer = style({
 });
 
 export const label = style({
+  display: "flex",
+  alignItems: "center",
+  color: "inherit",
+  cursor: "pointer",
   textAlign: "left",
   textWrap: "wrap",
-  vars: {
-    [labelColorVar]: "inherit",
-  },
 });
 
 export const chevron = style({
@@ -116,6 +115,7 @@ export const content = style({
 export const contentText = recipe({
   base: {
     marginTop: vars.scheme.semantic.spacing["12"],
+    textAlign: "left",
   },
   variants: {
     isStretched: {

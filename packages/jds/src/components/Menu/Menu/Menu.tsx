@@ -70,8 +70,8 @@ const MenuCategory = forwardRef<HTMLDivElement, MenuCategoryProps>((props, ref) 
       <Component
         ref={ref}
         className={clsx(
-          getLabelClassName({ size: labelSize, textAlign, weight, cursor }),
-          menuCategory,
+          getLabelClassName({ size: labelSize, weight }),
+          menuCategory({ textAlign, cursor }),
         )}
         {...restProps}
       >

@@ -6,8 +6,6 @@ import { pxToRem, overlay } from "utils";
 import { RADIO_SIZE_OPTIONS } from "./radio.types";
 import type { RadioSize } from "./radio.types";
 
-import { labelColorVar } from "@/utils/typography.css";
-
 type StrokeWeightKey = keyof typeof vars.scheme.semantic.strokeWeight;
 
 const radioSizeMap: Record<RadioSize, { sizeRem: string; borderKey: StrokeWeightKey }> = {
@@ -218,17 +216,19 @@ export const radioItem = recipe({
 });
 
 export const radioLabel = style({
-  vars: { [labelColorVar]: vars.color.semantic.object.bolder },
+  color: vars.color.semantic.object.bolder,
+  cursor: "inherit",
   selectors: {
-    "&&": { cursor: "inherit" },
-    "[data-disabled] &": { vars: { [labelColorVar]: vars.color.semantic.object.subtle } },
+    "[data-disabled] &": { color: vars.color.semantic.object.subtle },
   },
 });
 
 export const radioHelper = style({
-  vars: { [labelColorVar]: vars.color.semantic.object.alternative },
+  display: "flex",
+  alignItems: "center",
+  color: vars.color.semantic.object.alternative,
+  cursor: "inherit",
   selectors: {
-    "&&": { cursor: "inherit" },
-    "[data-disabled] &": { vars: { [labelColorVar]: vars.color.semantic.object.subtle } },
+    "[data-disabled] &": { color: vars.color.semantic.object.subtle },
   },
 });

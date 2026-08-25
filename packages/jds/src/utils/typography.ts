@@ -22,18 +22,14 @@ export type LabelOwnProps = {
 };
 
 export type TitleSize = "2xl" | "xl" | "lg" | "md" | "sm" | "xs";
-export type TitleTextAlign = keyof typeof TEXT_ALIGN_MAPPING;
 export interface TitleStyleOptions {
   size?: TitleSize;
-  textAlign?: TitleTextAlign;
 }
 
 export type BodySize = "lg" | "md" | "sm" | "xs" | "2xs";
-export type BodyTextAlign = keyof typeof TEXT_ALIGN_MAPPING;
 export type BodyWeight = "bold" | "normal";
 export interface BodyStyleOptions {
   size?: BodySize;
-  textAlign?: BodyTextAlign;
   weight?: BodyWeight;
 }
 
@@ -42,33 +38,22 @@ export interface SyntaxStyleOptions {
   size?: SyntaxSize;
 }
 
-export const getLabelClassName = ({
-  size = "md",
-  textAlign = "left",
-  weight = "normal",
-  cursor = "default",
-}: LabelOwnProps = {}) =>
+export type LabelStyleOptions = Pick<LabelOwnProps, "size" | "weight">;
+
+export const getLabelClassName = ({ size = "md", weight = "normal" }: LabelStyleOptions = {}) =>
   typographyStyles.label({
     size,
-    textAlign,
     weight,
-    cursor,
   });
 
-export const getTitleClassName = ({ size = "md", textAlign = "left" }: TitleStyleOptions = {}) =>
+export const getTitleClassName = ({ size = "md" }: TitleStyleOptions = {}) =>
   typographyStyles.title({
     size,
-    textAlign,
   });
 
-export const getBodyClassName = ({
-  size = "md",
-  textAlign = "left",
-  weight = "normal",
-}: BodyStyleOptions = {}) =>
+export const getBodyClassName = ({ size = "md", weight = "normal" }: BodyStyleOptions = {}) =>
   typographyStyles.body({
     size,
-    textAlign,
     weight,
   });
 

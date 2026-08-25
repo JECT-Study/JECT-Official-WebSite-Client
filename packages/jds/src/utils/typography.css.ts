@@ -1,42 +1,19 @@
-import { createVar, fallbackVar, style } from "@vanilla-extract/css";
+import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
 import type {
   BodySize,
-  BodyTextAlign,
   BodyWeight,
-  LabelCursor,
   LabelSize,
-  LabelTextAlign,
   LabelWeight,
   SyntaxSize,
   TitleSize,
 } from "./typography";
 import type { textStyleClassNames } from "../tokens/textStyles.css";
-import { vars } from "../tokens/vars.css";
 
 type TextStyleClassName = (typeof textStyleClassNames)[number];
 
-const alignVariants: Record<LabelTextAlign, { justifyContent: string }> = {
-  center: { justifyContent: "center" },
-  left: { justifyContent: "flex-start" },
-  right: { justifyContent: "flex-end" },
-};
-
-const bodyAlignVariants: Record<BodyTextAlign, { textAlign: "center" | "left" | "right" }> = {
-  center: { textAlign: "center" },
-  left: { textAlign: "left" },
-  right: { textAlign: "right" },
-};
-
-export const labelColorVar = createVar();
-
 export const label = recipe({
-  base: {
-    display: "flex",
-    alignItems: "center",
-    color: fallbackVar(labelColorVar, vars.color.semantic.object.bold),
-  },
   variants: {
     size: {
       lg: {},
@@ -49,11 +26,6 @@ export const label = recipe({
       normal: {},
       subtle: {},
     } satisfies Record<LabelWeight, unknown>,
-    textAlign: alignVariants,
-    cursor: {
-      pointer: { cursor: "pointer" },
-      default: { cursor: "default" },
-    } satisfies Record<LabelCursor, unknown>,
   },
   compoundVariants: [
     {
@@ -108,20 +80,10 @@ export const label = recipe({
   defaultVariants: {
     size: "md",
     weight: "normal",
-    textAlign: "left",
-    cursor: "default",
   },
 });
 
-export const titleColorVar = createVar();
-
 export const title = recipe({
-  base: {
-    display: "flex",
-    alignItems: "center",
-    color: fallbackVar(titleColorVar, vars.color.semantic.object.bolder),
-    cursor: "default",
-  },
   variants: {
     size: {
       "2xl": "semantic-textStyle-title-6",
@@ -131,11 +93,9 @@ export const title = recipe({
       sm: "semantic-textStyle-title-2",
       xs: "semantic-textStyle-title-1",
     } satisfies Record<TitleSize, string>,
-    textAlign: alignVariants,
   },
   defaultVariants: {
     size: "md",
-    textAlign: "left",
   },
 });
 
@@ -152,7 +112,6 @@ export const body = recipe({
       bold: {},
       normal: {},
     } satisfies Record<BodyWeight, unknown>,
-    textAlign: bodyAlignVariants,
   },
   compoundVariants: [
     {
@@ -199,7 +158,6 @@ export const body = recipe({
   defaultVariants: {
     size: "md",
     weight: "normal",
-    textAlign: "left",
   },
 });
 

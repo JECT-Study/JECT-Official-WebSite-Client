@@ -336,9 +336,7 @@ JDS 내부에서 제목 스타일을 조합할 때는 `getTitleClassName` 같은
 ```tsx
 import { getTitleClassName } from "@/utils/typography";
 
-<DialogTitle className={getTitleClassName({ size: "xs", textAlign: "left" })}>
-  Dialog title
-</DialogTitle>;
+<DialogTitle className={getTitleClassName({ size: "xs" })}>Dialog title</DialogTitle>;
 ```
 
 정리하면, typography 유틸을 사용하는 레이어에서는 `size: "2xl"` 같은 유틸 API를 사용하고, 토큰을 직접 다루는 스타일 레이어에서는 `semantic-textStyle-title-6`처럼 토큰명을 그대로 사용합니다.

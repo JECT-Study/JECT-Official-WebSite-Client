@@ -53,10 +53,7 @@ export const File = forwardRef<HTMLButtonElement, FileProps>(
             </span>
           </span>
           <span
-            className={clsx(
-              getLabelClassName({ size: "sm", textAlign: "right", weight: "subtle" }),
-              styles.fileSize,
-            )}
+            className={clsx(getLabelClassName({ size: "sm", weight: "subtle" }), styles.fileSize)}
           >
             {fileSize}
           </span>
