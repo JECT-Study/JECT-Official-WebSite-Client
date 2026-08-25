@@ -1,5 +1,5 @@
 // 자동 생성된 globalStyles - 수정 금지
-// 생성 시간: 5/24/2026, 8:29:30 PM
+// 생성 시간: 2026. 8. 25. 오후 1:31:26
 
 export const globalStyles = {
   ":root": {
@@ -1291,7 +1291,7 @@ export const globalStyles = {
     "lineHeight": "var(--typo-primitive-font-lineHeight-syntax-lg)",
     "fontFamily": "var(--typo-primitive-typeface-syntax)",
     "fontWeight": "var(--typo-primitive-fontWeight-syntax-normal)",
-    "letterSpacing": "0%",
+    "letterSpacing": "0em",
     "paragraphSpacing": "0px",
     "paragraphIndent": "0px"
   },
@@ -1300,7 +1300,7 @@ export const globalStyles = {
     "lineHeight": "var(--typo-primitive-font-lineHeight-syntax-md)",
     "fontFamily": "var(--typo-primitive-typeface-syntax)",
     "fontWeight": "var(--typo-primitive-fontWeight-syntax-normal)",
-    "letterSpacing": "0%",
+    "letterSpacing": "0em",
     "paragraphSpacing": "0px",
     "paragraphIndent": "0px"
   },
@@ -1309,7 +1309,7 @@ export const globalStyles = {
     "lineHeight": "var(--typo-primitive-font-lineHeight-syntax-sm)",
     "fontFamily": "var(--typo-primitive-typeface-syntax)",
     "fontWeight": "var(--typo-primitive-fontWeight-syntax-normal)",
-    "letterSpacing": "0%",
+    "letterSpacing": "0em",
     "paragraphSpacing": "0px",
     "paragraphIndent": "0px"
   },
@@ -1318,7 +1318,7 @@ export const globalStyles = {
     "lineHeight": "var(--typo-primitive-font-lineHeight-syntax-xs)",
     "fontFamily": "var(--typo-primitive-typeface-syntax)",
     "fontWeight": "var(--typo-primitive-fontWeight-syntax-normal)",
-    "letterSpacing": "0%",
+    "letterSpacing": "0em",
     "paragraphSpacing": "0px",
     "paragraphIndent": "0px"
   },
