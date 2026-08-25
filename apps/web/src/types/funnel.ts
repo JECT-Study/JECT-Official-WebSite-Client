@@ -69,12 +69,14 @@ export type ContinueWritingFunnelStep = keyof ContinueWritingFunnelSteps;
 export type ResetPinFunnelSteps = {
   이메일인증: {
     email?: string;
+    recruitId: number;
     returnTo: string;
   };
 
   새PIN설정: {
     email: string;
     authCode: string;
+    recruitId: number;
     returnTo: string;
   };
 };

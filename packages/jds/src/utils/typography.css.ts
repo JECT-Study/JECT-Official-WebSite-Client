@@ -1,7 +1,17 @@
 import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
-import type { BodySize, BodyWeight, LabelSize, LabelWeight, TitleSize } from "./typography";
+import type {
+  BodySize,
+  BodyWeight,
+  LabelSize,
+  LabelWeight,
+  SyntaxSize,
+  TitleSize,
+} from "./typography";
+import type { textStyleClassNames } from "../tokens/textStyles.css";
+
+type TextStyleClassName = (typeof textStyleClassNames)[number];
 
 export const label = recipe({
   variants: {
@@ -148,6 +158,20 @@ export const body = recipe({
   defaultVariants: {
     size: "md",
     weight: "normal",
+  },
+});
+
+export const syntax = recipe({
+  variants: {
+    size: {
+      lg: "semantic-textStyle-syntax-lg",
+      md: "semantic-textStyle-syntax-md",
+      sm: "semantic-textStyle-syntax-sm",
+      xs: "semantic-textStyle-syntax-xs",
+    } satisfies Record<SyntaxSize, TextStyleClassName>,
+  },
+  defaultVariants: {
+    size: "md",
   },
 });
 

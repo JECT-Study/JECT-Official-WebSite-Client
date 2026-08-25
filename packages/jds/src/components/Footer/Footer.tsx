@@ -149,7 +149,7 @@ const FooterSection = forwardRef<HTMLDivElement, FooterSectionProps>(
                 rel={link.external ? "noopener noreferrer" : undefined}
               >
                 {link.label}
-                {link.external && <Icon name='external-link-line' size='xs' />}
+                {link.external && <Icon name='external-link' size='xs' />}
               </StyledLink>
             </li>
           ))}
@@ -170,7 +170,7 @@ const FooterBottom = forwardRef<HTMLDivElement, FooterBottomProps>(
         {privacyLink && (
           <a href={privacyLink} target='_blank' rel='noopener noreferrer'>
             개인정보처리방침
-            <Icon name='external-link-line' size='xs' />
+            <Icon name='external-link' size='xs' />
           </a>
         )}
       </StyledFooterBottom>

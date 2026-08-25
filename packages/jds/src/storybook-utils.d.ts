@@ -10,6 +10,34 @@ declare module "@storybook-utils/layout" {
   export const Label: ComponentType<HTMLAttributes<HTMLSpanElement>>;
 }
 
+declare module "@storybook-utils/field" {
+  import type { Meta } from "@storybook/react-vite";
+  import type { ComponentType, CSSProperties } from "react";
+
+  export const FIELD_WIDTH: CSSProperties;
+  export const fieldArgTypes: NonNullable<Meta["argTypes"]>;
+  export const FIELD_PLAYGROUND_ARGS: {
+    status: "default";
+    disabled: boolean;
+    readonly: boolean;
+    required: boolean;
+  };
+  export const FormResult: ComponentType<{ value: string | null }>;
+}
+
+declare module "@storybook-utils/selectOptions" {
+  import type { ReactElement } from "react";
+
+  import type { SelectOption } from "@/components/Listbox";
+
+  export const REGIONS: SelectOption[];
+  export const REGION_OPTIONS: SelectOption[];
+  export const OPTION_SUFFIX: ReactElement;
+  export const toCaptionedOptions: (options: SelectOption[]) => SelectOption[];
+  export const toSuffixedOptions: (options: SelectOption[]) => SelectOption[];
+  export const toExpressiveOptions: (options: SelectOption[]) => SelectOption[];
+}
+
 declare module "@storybook-utils/LiveRegionDemo" {
   import type { ComponentType } from "react";
 
