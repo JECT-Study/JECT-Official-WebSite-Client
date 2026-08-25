@@ -641,7 +641,11 @@ const textStyleEntries = Object.entries(parsedTextStyle.nested).map(([name, prop
 //
 // 한 토큰명이 다른 토큰명의 접두사가 되면(body-md와 body-md-bold가 함께 존재) 같은 자리에
 // CSS 속성과 하위 그룹이 섞인다. 지금 토큰에는 그런 쌍이 없고, 생기면 아래에서 즉시 실패한다.
-const nestedTextStyles: Record<string, unknown> = {};
+const createTextStyleGroup = () => Object.create(null) as Record<string, unknown>;
+const hasOwnSegment = (group: Record<string, unknown>, segment: string) =>
+  Object.prototype.hasOwnProperty.call(group, segment);
+
+const nestedTextStyles = createTextStyleGroup();
 const leafPaths = new Set<string>();
 
 for (const [name, cssProps] of textStyleEntries) {
@@ -652,7 +656,7 @@ for (const [name, cssProps] of textStyleEntries) {
     const path = segments.slice(0, index + 1).join(".");
 
     if (index === segments.length - 1) {
-      if (segment in cursor) {
+      if (hasOwnSegment(cursor, segment)) {
         throw new Error(`textStyle 이름 충돌: ${name} — ${path}에 이미 하위 그룹이 있습니다`);
       }
       cursor[segment] = cssProps;
@@ -663,7 +667,9 @@ for (const [name, cssProps] of textStyleEntries) {
     if (leafPaths.has(path)) {
       throw new Error(`textStyle 이름 충돌: ${name} — ${path}가 이미 스타일 값입니다`);
     }
-    cursor[segment] ??= {};
+    if (!hasOwnSegment(cursor, segment)) {
+      cursor[segment] = createTextStyleGroup();
+    }
     cursor = cursor[segment] as Record<string, unknown>;
   });
 }
