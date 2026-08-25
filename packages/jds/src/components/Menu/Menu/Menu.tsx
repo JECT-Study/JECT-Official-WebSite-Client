@@ -59,7 +59,7 @@ const MenuContent = forwardRef<HTMLDivElement, MenuContentProps>(
 MenuContent.displayName = "Menu.Content";
 
 const MenuCategory = forwardRef<HTMLDivElement, MenuCategoryProps>((props, ref) => {
-  const { size: labelSizeFromProps, textAlign, weight, cursor, as, children, ...restProps } = props;
+  const { size: labelSizeFromProps, weight, as, children, ...restProps } = props;
   const { size: menuSizeFromCtx } = useMenuContext("Menu.Category");
   const labelSize = labelSizeFromProps ?? labelSizeByMenuSizeMap[menuSizeFromCtx];
 
@@ -69,10 +69,7 @@ const MenuCategory = forwardRef<HTMLDivElement, MenuCategoryProps>((props, ref) 
     <div className={menuCategoryContainer({ size: menuSizeFromCtx })}>
       <Component
         ref={ref}
-        className={clsx(
-          getLabelClassName({ size: labelSize, weight }),
-          menuCategory({ textAlign, cursor }),
-        )}
+        className={clsx(getLabelClassName({ size: labelSize, weight }), menuCategory)}
         {...restProps}
       >
         {children}
