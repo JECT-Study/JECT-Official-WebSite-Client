@@ -22,9 +22,6 @@ export interface MenuCategoryProps {
   as?: ElementType;
   size?: LabelSize;
   weight?: LabelWeight;
-  textAlign?: "center" | "left" | "right";
-  cursor?: "pointer" | "default";
-  htmlFor?: string;
   children: ReactNode;
 }
 

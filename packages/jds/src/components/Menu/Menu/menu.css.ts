@@ -88,27 +88,12 @@ export const menuCategoryContainer = recipe({
   },
 });
 
-export const menuCategory = recipe({
-  base: {
-    display: "flex",
-    alignItems: "center",
-    color: vars.color.semantic.object.assistive,
-  },
-  variants: {
-    textAlign: {
-      center: { justifyContent: "center" },
-      left: { justifyContent: "flex-start" },
-      right: { justifyContent: "flex-end" },
-    },
-    cursor: {
-      pointer: { cursor: "pointer" },
-      default: { cursor: "default" },
-    },
-  },
-  defaultVariants: {
-    textAlign: "left",
-    cursor: "default",
-  },
+export const menuCategory = style({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "flex-start",
+  cursor: "default",
+  color: vars.color.semantic.object.assistive,
 });
 
 const menuListGapVar = createVar();
