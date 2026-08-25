@@ -13,8 +13,11 @@
 | `getLabelClassName({ textAlign })`                                            | 제거 — 해당 요소에 `justify-content` 직접 선언 |
 | `getLabelClassName({ cursor })`                                               | 제거 — 해당 요소에 `cursor` 직접 선언          |
 | `getTitleClassName({ textAlign })`                                            | 제거 — 해당 요소에 `justify-content` 직접 선언 |
+| `getBodyClassName({ textAlign })`                                             | 제거 — 해당 요소에 `text-align` 직접 선언      |
 | `TitleStyleOptions.textAlign`                                                 | 제거                                           |
 | `TitleTextAlign`                                                              | 제거                                           |
+| `BodyStyleOptions.textAlign`                                                  | 제거                                           |
+| `BodyTextAlign`                                                               | 제거                                           |
 | 세 함수가 함께 주던 `display: flex`, `align-items: center`, `color`, `cursor` | 제거 — 해당 요소에서 직접 선언                 |
 
 `getLabelClassName`의 옵션 타입은 `LabelOwnProps`에서 `LabelStyleOptions`로 바뀝니다. `LabelOwnProps`는 그대로 유지되며 `Menu.Category`의 `textAlign`, `cursor` prop도 동작이 같습니다.
