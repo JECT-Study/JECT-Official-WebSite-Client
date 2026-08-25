@@ -86,7 +86,6 @@ const baseStyles = style({
   background: "transparent",
   cursor: "pointer",
   userSelect: "none",
-  fontFamily: "inherit",
   whiteSpace: "nowrap",
   selectors: {
     "&[data-disabled]": { cursor: "not-allowed" },

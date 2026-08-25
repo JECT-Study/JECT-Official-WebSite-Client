@@ -136,7 +136,6 @@ const baseStyles = style({
   border: "none",
   cursor: "pointer",
   userSelect: "none",
-  fontFamily: "inherit",
   whiteSpace: "nowrap",
   gap: vars.scheme.semantic.spacing["4"],
   selectors: {
