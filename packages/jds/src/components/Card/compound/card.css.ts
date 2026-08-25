@@ -55,7 +55,6 @@ export const root = recipe({
         borderRadius: vars.scheme.semantic.radius[12],
         backgroundColor: vars.color.semantic.surface.shallow,
         outline: `1px solid ${vars.color.semantic.stroke.subtle}`,
-        outlineOffset: -1,
         boxShadow: vars.environment.semantic.shadow.embossed,
       },
       post: {
