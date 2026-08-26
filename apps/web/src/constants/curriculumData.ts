@@ -4,77 +4,49 @@ export const teamProjectScheduleData: TeamProjectItem[] = [
   {
     id: 1,
     stepLabel: "2026년 9월 19일(토)",
-    badges: [
-      { label: "오프라인", variant: "orange" },
-      { label: "필수 참여", variant: "pink" },
-    ],
     title: "5기 온보딩",
     description: "젝트 활동 전반 소개 및 프로젝트 시작",
   },
   {
     id: 2,
     stepLabel: "2026년 10월 10일(토)",
-    badges: [
-      { label: "오프라인", variant: "orange" },
-      { label: "필수 참여", variant: "pink" },
-    ],
     title: "젝트 세미나",
     description: "실무 관점의 인사이트 강연 및 Q&A",
   },
   {
     id: 3,
     stepLabel: "2026년 10월 24일(토)",
-    badges: [
-      { label: "오프라인", variant: "orange" },
-      { label: "필수 참여", variant: "pink" },
-    ],
     title: "기획 발표 세션",
     description: "각 팀 서비스 기획 내용 발표 및 Q&A",
   },
   {
     id: 4,
     stepLabel: "2026년 11월 14일(토)",
-    badges: [
-      { label: "오프라인", variant: "orange" },
-      { label: "선택 참여", variant: "blue" },
-    ],
     title: "젝커톤",
     description: "젝트 주관 공식 해커톤",
+    isOptional: true,
   },
   {
     id: 5,
     stepLabel: "2026년 11월 28일(토)",
-    badges: [
-      { label: "오프라인", variant: "orange" },
-      { label: "선택 참여", variant: "blue" },
-    ],
     title: "젝-트게더",
     description: "타 팀과의 네트워킹 및 리프레시",
   },
   {
     id: 6,
     stepLabel: "2026년 12월 19일(토)",
-    badges: [
-      { label: "오프라인", variant: "orange" },
-      { label: "필수 참여", variant: "pink" },
-    ],
     title: "젝러닝",
     description: "사용자 테스트 진행 및 개선 작업",
   },
   {
     id: 7,
     stepLabel: "2026년 12월 20일(일) - 2027년 1월 8일(금)",
-    badges: [],
     title: "고도화 및 운영 기간",
     description: "기능 개선 및 운영 성과 축적",
   },
   {
     id: 8,
     stepLabel: "2027년 1월 9일(토)",
-    badges: [
-      { label: "오프라인", variant: "orange" },
-      { label: "필수 참여", variant: "pink" },
-    ],
     title: "5기 데모데이",
     description: "최종 결과 발표 및 성과 공유",
   },
