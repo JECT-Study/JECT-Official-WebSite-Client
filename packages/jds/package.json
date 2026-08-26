@@ -27,29 +27,54 @@
   ],
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     },
     "./theme": {
-      "types": "./dist/theme.d.ts",
-      "import": "./dist/theme.js",
-      "require": "./dist/theme.cjs"
+      "import": {
+        "types": "./dist/theme.d.ts",
+        "default": "./dist/theme.js"
+      },
+      "require": {
+        "types": "./dist/theme.d.cts",
+        "default": "./dist/theme.cjs"
+      }
     },
     "./hooks": {
-      "types": "./dist/hooks.d.ts",
-      "import": "./dist/hooks.js",
-      "require": "./dist/hooks.cjs"
+      "import": {
+        "types": "./dist/hooks.d.ts",
+        "default": "./dist/hooks.js"
+      },
+      "require": {
+        "types": "./dist/hooks.d.cts",
+        "default": "./dist/hooks.cjs"
+      }
     },
     "./utils": {
-      "types": "./dist/utils.d.ts",
-      "import": "./dist/utils.js",
-      "require": "./dist/utils.cjs"
+      "import": {
+        "types": "./dist/utils.d.ts",
+        "default": "./dist/utils.js"
+      },
+      "require": {
+        "types": "./dist/utils.d.cts",
+        "default": "./dist/utils.cjs"
+      }
     },
     "./tokens": {
-      "types": "./dist/tokens.d.ts",
-      "import": "./dist/tokens.js",
-      "require": "./dist/tokens.cjs"
+      "import": {
+        "types": "./dist/tokens.d.ts",
+        "default": "./dist/tokens.js"
+      },
+      "require": {
+        "types": "./dist/tokens.d.cts",
+        "default": "./dist/tokens.cjs"
+      }
     },
     "./styles": "./dist/styles.css"
   },
