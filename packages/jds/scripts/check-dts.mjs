@@ -1,16 +1,20 @@
 import { globSync, readFileSync } from "node:fs";
 
+import ts from "typescript";
+
 const pkg = JSON.parse(readFileSync("package.json", "utf8"));
 const declared = [...Object.keys(pkg.dependencies), ...Object.keys(pkg.peerDependencies)];
-
-const SPECIFIER_PATTERN = /(?:from|import\s*\()\s*["']([^"']+)["']/g;
 
 const undeclared = new Set();
 
 for (const file of globSync("dist/**/*.d.{ts,cts}")) {
-  const content = readFileSync(file, "utf8");
+  const info = ts.preProcessFile(readFileSync(file, "utf8"), true, true);
+  const specifiers = [
+    ...info.importedFiles.map(reference => reference.fileName),
+    ...info.typeReferenceDirectives.map(reference => reference.fileName),
+  ];
 
-  for (const [, specifier] of content.matchAll(SPECIFIER_PATTERN)) {
+  for (const specifier of specifiers) {
     if (specifier.startsWith(".")) continue;
 
     const name = specifier.startsWith("@")
