@@ -1,4 +1,4 @@
-import { ContentBadge, Tab, Title } from "@jects/jds";
+import { Tab, Title } from "@jects/jds";
 
 import { figmaGuideCurriculumData, teamProjectScheduleData } from "@/constants/curriculumData";
 import type { FigmaGuideItem, TeamProjectItem } from "@/types/ui/curriculum";
@@ -6,29 +6,18 @@ import type { FigmaGuideItem, TeamProjectItem } from "@/types/ui/curriculum";
 const TeamProjectCard = ({ item }: { item: TeamProjectItem }) => {
   return (
     <div className='flex flex-col items-start gap-(--semantic-spacing-12) rounded-(--semantic-radius-4) border border-(--semantic-stroke-subtle) bg-(--semantic-surface-shallow) p-(--semantic-margin-sm)'>
-      <div className='flex items-center justify-between self-stretch'>
-        <p className='label-lg font-(--primitive-font-weight-label-subtle) text-(--semantic-object-alternative)'>
-          {item.stepLabel}
-        </p>
-        {item.badges.length > 0 && (
-          <div className='flex items-center gap-(--semantic-spacing-8)'>
-            {item.badges.map(badge => (
-              <ContentBadge.Theme
-                key={badge.label}
-                variant={badge.variant}
-                size='sm'
-                badgeStyle='alpha'
-              >
-                {badge.label}
-              </ContentBadge.Theme>
-            ))}
-          </div>
-        )}
-      </div>
+      <p className='label-lg font-(--primitive-font-weight-label-subtle) text-(--semantic-object-alternative)'>
+        {item.stepLabel}
+      </p>
       <div className='flex flex-col items-start gap-(--semantic-spacing-8) self-stretch'>
-        <Title size='xs' textAlign='left'>
-          {item.title}
-        </Title>
+        <div className='flex items-baseline gap-(--semantic-spacing-4)'>
+          <Title size='xs' textAlign='left'>
+            {item.title}
+          </Title>
+          {item.isOptional && (
+            <span className='body-sm text-(--semantic-object-neutral)'>(선택 참여)</span>
+          )}
+        </div>
         <p className='body-lg self-stretch font-(--primitive-font-weight-body-normal) text-(--semantic-object-normal)'>
           {item.description}
         </p>

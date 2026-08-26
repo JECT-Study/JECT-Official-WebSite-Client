@@ -1,4 +1,4 @@
-export type SupportersRole = "대표" | "운영" | "인프라" | "BX";
+export type SupportersRole = "대표" | "운영" | "인프라" | "대외협력" | "BX";
 export type MakersRole = "프론트엔드" | "백엔드" | "디자인" | "기획";
 
 export interface SupporterMember {
