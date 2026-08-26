@@ -628,7 +628,7 @@ const globalTokensCssFilePath = join(outputDir, "globalTokens.css.ts");
 fs.writeFileSync(globalTokensCssFilePath, globalTokensCssFileContent);
 console.log(`✅ globalTokens.css.ts 파일이 생성되었습니다: ${globalTokensCssFilePath}`);
 
-// ===== VE textStyles.css.ts 생성 =====
+// ===== textStyles.ts 생성 =====
 
 const textStyleEntries = Object.entries(parsedTextStyle.nested).map(([name, props]) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -636,28 +636,59 @@ const textStyleEntries = Object.entries(parsedTextStyle.nested).map(([name, prop
   return [name, cssProps] as const;
 });
 
-const textStyleClassNamesJson = JSON.stringify(
-  textStyleEntries.map(([name]) => name),
-  null,
-  2,
-);
+// 토큰명(semantic-textStyle-label-md-bold)을 세그먼트로 쪼개 중첩 객체로 만든다.
+// 사용처가 문자열 키 대신 textStyles.label.md.bold로 접근하게 하기 위함이다.
+//
+// 한 토큰명이 다른 토큰명의 접두사가 되면(body-md와 body-md-bold가 함께 존재) 같은 자리에
+// CSS 속성과 하위 그룹이 섞인다. 지금 토큰에는 그런 쌍이 없고, 생기면 아래에서 즉시 실패한다.
+const createTextStyleGroup = () => Object.create(null) as Record<string, unknown>;
+const hasOwnSegment = (group: Record<string, unknown>, segment: string) =>
+  Object.prototype.hasOwnProperty.call(group, segment);
 
-const textStyleGlobalStyleBlocks = textStyleEntries
-  .map(([name, cssProps]) => `globalStyle(".${name}", ${JSON.stringify(cssProps, null, 2)});`)
-  .join("\n\n");
+const nestedTextStyles = createTextStyleGroup();
+const leafPaths = new Set<string>();
 
-const textStylesCssFileContent = `// 자동 생성된 VE textStyles - 수정 금지
+for (const [name, cssProps] of textStyleEntries) {
+  const segments = name.replace(/^semantic-textStyle-/, "").split("-");
+  let cursor = nestedTextStyles;
+
+  segments.forEach((segment, index) => {
+    const path = segments.slice(0, index + 1).join(".");
+
+    if (index === segments.length - 1) {
+      if (hasOwnSegment(cursor, segment)) {
+        throw new Error(`textStyle 이름 충돌: ${name} — ${path}에 이미 하위 그룹이 있습니다`);
+      }
+      cursor[segment] = cssProps;
+      leafPaths.add(path);
+      return;
+    }
+
+    if (leafPaths.has(path)) {
+      throw new Error(`textStyle 이름 충돌: ${name} — ${path}가 이미 스타일 값입니다`);
+    }
+    if (!hasOwnSegment(cursor, segment)) {
+      cursor[segment] = createTextStyleGroup();
+    }
+    cursor = cursor[segment] as Record<string, unknown>;
+  });
+}
+
+const textStylesFileContent = `// 자동 생성된 textStyles - 수정 금지
 // 생성 시간: ${new Date().toLocaleString()}
-import { globalStyle } from "@vanilla-extract/css";
+import type { StyleRule } from "@vanilla-extract/css";
 
-export const textStyleClassNames = ${textStyleClassNamesJson} as const;
+type TextStyleGroup = Record<string, StyleRule | Record<string, StyleRule>>;
 
-${textStyleGlobalStyleBlocks}
+export const textStyles = ${JSON.stringify(nestedTextStyles, null, 2)} satisfies Record<
+  string,
+  TextStyleGroup
+>;
 `;
 
-const textStylesCssFilePath = join(outputDir, "textStyles.css.ts");
-fs.writeFileSync(textStylesCssFilePath, textStylesCssFileContent);
-console.log(`✅ textStyles.css.ts 파일이 생성되었습니다: ${textStylesCssFilePath}`);
+const textStylesFilePath = join(outputDir, "textStyles.ts");
+fs.writeFileSync(textStylesFilePath, textStylesFileContent);
+console.log(`✅ textStyles.ts 파일이 생성되었습니다: ${textStylesFilePath}`);
 
 // ===== breakpoints.ts 생성 =====
 

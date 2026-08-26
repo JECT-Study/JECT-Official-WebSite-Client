@@ -305,7 +305,7 @@ export const textStyleSchema = z
       };
     });
 
-    // theme / VE textStyles.css.ts용 JS 객체 생성 (camelCase 속성명)
+    // theme / textStyles.ts용 JS 객체 생성 (camelCase 속성명)
     const themeStyleObjects: Record<string, Record<string, string>> = {};
     data.forEach(textStyle => {
       const name = textStyle.name.replaceAll("/", "-");

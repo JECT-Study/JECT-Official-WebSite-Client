@@ -1,5 +1,6 @@
-import { style } from "@vanilla-extract/css";
+import { style, type StyleRule } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
+import { textStyles } from "tokens";
 
 import type {
   BodySize,
@@ -9,9 +10,6 @@ import type {
   SyntaxSize,
   TitleSize,
 } from "./typography";
-import type { textStyleClassNames } from "../tokens/textStyles.css";
-
-type TextStyleClassName = (typeof textStyleClassNames)[number];
 
 export const label = recipe({
   variants: {
@@ -30,51 +28,51 @@ export const label = recipe({
   compoundVariants: [
     {
       variants: { size: "lg", weight: "bold" },
-      style: "semantic-textStyle-label-lg-bold",
+      style: textStyles.label.lg.bold,
     },
     {
       variants: { size: "lg", weight: "normal" },
-      style: "semantic-textStyle-label-lg-normal",
+      style: textStyles.label.lg.normal,
     },
     {
       variants: { size: "lg", weight: "subtle" },
-      style: "semantic-textStyle-label-lg-subtle",
+      style: textStyles.label.lg.subtle,
     },
     {
       variants: { size: "md", weight: "bold" },
-      style: "semantic-textStyle-label-md-bold",
+      style: textStyles.label.md.bold,
     },
     {
       variants: { size: "md", weight: "normal" },
-      style: "semantic-textStyle-label-md-normal",
+      style: textStyles.label.md.normal,
     },
     {
       variants: { size: "md", weight: "subtle" },
-      style: "semantic-textStyle-label-md-subtle",
+      style: textStyles.label.md.subtle,
     },
     {
       variants: { size: "sm", weight: "bold" },
-      style: "semantic-textStyle-label-sm-bold",
+      style: textStyles.label.sm.bold,
     },
     {
       variants: { size: "sm", weight: "normal" },
-      style: "semantic-textStyle-label-sm-normal",
+      style: textStyles.label.sm.normal,
     },
     {
       variants: { size: "sm", weight: "subtle" },
-      style: "semantic-textStyle-label-sm-subtle",
+      style: textStyles.label.sm.subtle,
     },
     {
       variants: { size: "xs", weight: "bold" },
-      style: "semantic-textStyle-label-xs-bold",
+      style: textStyles.label.xs.bold,
     },
     {
       variants: { size: "xs", weight: "normal" },
-      style: "semantic-textStyle-label-xs-normal",
+      style: textStyles.label.xs.normal,
     },
     {
       variants: { size: "xs", weight: "subtle" },
-      style: "semantic-textStyle-label-xs-subtle",
+      style: textStyles.label.xs.subtle,
     },
   ],
   defaultVariants: {
@@ -86,13 +84,13 @@ export const label = recipe({
 export const title = recipe({
   variants: {
     size: {
-      "2xl": "semantic-textStyle-title-6",
-      xl: "semantic-textStyle-title-5",
-      lg: "semantic-textStyle-title-4",
-      md: "semantic-textStyle-title-3",
-      sm: "semantic-textStyle-title-2",
-      xs: "semantic-textStyle-title-1",
-    } satisfies Record<TitleSize, string>,
+      "2xl": textStyles.title["6"],
+      xl: textStyles.title["5"],
+      lg: textStyles.title["4"],
+      md: textStyles.title["3"],
+      sm: textStyles.title["2"],
+      xs: textStyles.title["1"],
+    } satisfies Record<TitleSize, StyleRule>,
   },
   defaultVariants: {
     size: "md",
@@ -116,43 +114,43 @@ export const body = recipe({
   compoundVariants: [
     {
       variants: { size: "lg", weight: "bold" },
-      style: "semantic-textStyle-body-lg-bold",
+      style: textStyles.body.lg.bold,
     },
     {
       variants: { size: "lg", weight: "normal" },
-      style: "semantic-textStyle-body-lg-normal",
+      style: textStyles.body.lg.normal,
     },
     {
       variants: { size: "md", weight: "bold" },
-      style: "semantic-textStyle-body-md-bold",
+      style: textStyles.body.md.bold,
     },
     {
       variants: { size: "md", weight: "normal" },
-      style: "semantic-textStyle-body-md-normal",
+      style: textStyles.body.md.normal,
     },
     {
       variants: { size: "sm", weight: "bold" },
-      style: "semantic-textStyle-body-sm-bold",
+      style: textStyles.body.sm.bold,
     },
     {
       variants: { size: "sm", weight: "normal" },
-      style: "semantic-textStyle-body-sm-normal",
+      style: textStyles.body.sm.normal,
     },
     {
       variants: { size: "xs", weight: "bold" },
-      style: "semantic-textStyle-body-xs-bold",
+      style: textStyles.body.xs.bold,
     },
     {
       variants: { size: "xs", weight: "normal" },
-      style: "semantic-textStyle-body-xs-normal",
+      style: textStyles.body.xs.normal,
     },
     {
       variants: { size: "2xs", weight: "bold" },
-      style: "semantic-textStyle-body-2xs-bold",
+      style: textStyles.body["2xs"].bold,
     },
     {
       variants: { size: "2xs", weight: "normal" },
-      style: "semantic-textStyle-body-2xs-normal",
+      style: textStyles.body["2xs"].normal,
     },
   ],
   defaultVariants: {
@@ -164,11 +162,11 @@ export const body = recipe({
 export const syntax = recipe({
   variants: {
     size: {
-      lg: "semantic-textStyle-syntax-lg",
-      md: "semantic-textStyle-syntax-md",
-      sm: "semantic-textStyle-syntax-sm",
-      xs: "semantic-textStyle-syntax-xs",
-    } satisfies Record<SyntaxSize, TextStyleClassName>,
+      lg: textStyles.syntax.lg,
+      md: textStyles.syntax.md,
+      sm: textStyles.syntax.sm,
+      xs: textStyles.syntax.xs,
+    } satisfies Record<SyntaxSize, StyleRule>,
   },
   defaultVariants: {
     size: "md",
