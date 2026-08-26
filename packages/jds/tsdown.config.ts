@@ -8,7 +8,6 @@ export default defineConfig({
   format: ["es", "cjs"],
   fixedExtension: false,
   dts: false,
-  clean: false,
   target: "es2022",
   tsconfig: "./tsconfig.app.json",
   sourcemap: true,
