@@ -54,6 +54,10 @@ export const root = recipe({
         minWidth: pxToRem(240),
         borderRadius: vars.scheme.semantic.radius[12],
         backgroundColor: vars.color.semantic.surface.shallow,
+        /*
+         * 디자인 치수가 stroke를 제외한 값이라 border로 그리면 border-box 안쪽이 그만큼 줄어든다.
+         * outline은 레이아웃 박스를 차지하지 않아 안쪽 높이를 그대로 둔다.
+         */
         outline: `1px solid ${vars.color.semantic.stroke.subtle}`,
         boxShadow: vars.environment.semantic.shadow.embossed,
       },
@@ -185,6 +189,10 @@ export const content = recipe({
     },
   },
   compoundVariants: [
+    /*
+     * 구분선도 root의 outline과 같은 이유로 border를 쓰지 않는다.
+     * inset box-shadow는 레이아웃 박스를 차지하지 않으면서 한 면만 그릴 수 있다.
+     */
     {
       variants: { variant: "plate", layout: "vertical" },
       style: { boxShadow: `inset 0 1px 0 ${vars.color.semantic.stroke.subtle}` },
