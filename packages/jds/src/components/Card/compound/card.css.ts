@@ -196,20 +196,13 @@ export const content = recipe({
   ],
 });
 
-export const contentGroup = recipe({
-  base: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "flex-start",
-    alignSelf: "stretch",
-    width: "100%",
-  },
-  variants: {
-    variant: {
-      plate: { gap: vars.scheme.semantic.spacing[10] },
-      post: { gap: vars.scheme.semantic.spacing[10] },
-    },
-  },
+export const contentGroup = style({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "flex-start",
+  alignSelf: "stretch",
+  width: "100%",
+  gap: vars.scheme.semantic.spacing[10],
 });
 
 export const meta = style({
