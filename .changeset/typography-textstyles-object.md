@@ -14,11 +14,19 @@ textStyle을 전역 CSS 클래스 대신 중첩 스타일 객체로 제공합니
 | 전역 클래스 `.semantic-textStyle-*` | 제거 — `textStyles`의 값을 스타일에 전개 |
 
 ```diff
+-// Component.tsx
 -import { textStyleClassNames } from "@jects/jds/tokens";
-+import { textStyles } from "@jects/jds/tokens";
-
+-
 -<span className='semantic-textStyle-body-md-normal'>본문</span>
-+const bodyMd = style(textStyles.body.md.normal);
++// styles.css.ts
++import { style } from "@vanilla-extract/css";
++import { textStyles } from "@jects/jds/tokens";
++
++export const bodyMd = style(textStyles.body.md.normal);
++
++// Component.tsx
++import { bodyMd } from "./styles.css";
++
 +<span className={bodyMd}>본문</span>
 ```
 
