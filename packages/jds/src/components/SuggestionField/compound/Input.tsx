@@ -191,12 +191,6 @@ export const SuggestionFieldInput = forwardRef<HTMLInputElement, SuggestionField
       setQuery("");
     };
 
-    const handleContentMouseDown = (e: MouseEvent<HTMLDivElement>) => {
-      if (e.target !== e.currentTarget || !isInteractive) return;
-
-      onOpenChange(true);
-    };
-
     const openIfInteractive = () => {
       if (isInteractive && !isOpen) onOpenChange(true);
     };
@@ -204,6 +198,12 @@ export const SuggestionFieldInput = forwardRef<HTMLInputElement, SuggestionField
     const handleMouseDown = (e: MouseEvent<HTMLInputElement>) => {
       onMouseDownFromProps?.(e);
       if (e.defaultPrevented) return;
+
+      openIfInteractive();
+    };
+
+    const handleContentMouseDown = (e: MouseEvent<HTMLDivElement>) => {
+      if (e.target !== e.currentTarget) return;
 
       openIfInteractive();
     };
