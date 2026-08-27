@@ -177,12 +177,6 @@ export const SelectFieldInput = forwardRef<HTMLInputElement, SelectFieldInputPro
       [contextValue, onOpenChange],
     );
 
-    const handleContentMouseDown = (e: MouseEvent<HTMLDivElement>) => {
-      if (e.target !== e.currentTarget || !isInteractive) return;
-
-      onOpenChange(true);
-    };
-
     const openIfInteractive = () => {
       if (isInteractive && !isOpen) onOpenChange(true);
     };
@@ -193,6 +187,13 @@ export const SelectFieldInput = forwardRef<HTMLInputElement, SelectFieldInputPro
 
       if (searchable) openIfInteractive();
       else if (isInteractive) onOpenChange(!isOpen);
+    };
+
+    const handleContentMouseDown = (e: MouseEvent<HTMLDivElement>) => {
+      if (e.target !== e.currentTarget || !isInteractive) return;
+
+      if (searchable) openIfInteractive();
+      else onOpenChange(!isOpen);
     };
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
