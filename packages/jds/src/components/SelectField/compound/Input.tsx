@@ -181,19 +181,24 @@ export const SelectFieldInput = forwardRef<HTMLInputElement, SelectFieldInputPro
       if (isInteractive && !isOpen) onOpenChange(true);
     };
 
+    const togglePopup = () => {
+      if (!isInteractive) return;
+
+      if (searchable) openIfInteractive();
+      else onOpenChange(!isOpen);
+    };
+
     const handleMouseDown = (e: MouseEvent<HTMLInputElement>) => {
       onMouseDownFromProps?.(e);
       if (e.defaultPrevented) return;
 
-      if (searchable) openIfInteractive();
-      else if (isInteractive) onOpenChange(!isOpen);
+      togglePopup();
     };
 
     const handleContentMouseDown = (e: MouseEvent<HTMLDivElement>) => {
-      if (e.target !== e.currentTarget || !isInteractive) return;
+      if (e.target !== e.currentTarget) return;
 
-      if (searchable) openIfInteractive();
-      else onOpenChange(!isOpen);
+      togglePopup();
     };
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
