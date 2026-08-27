@@ -98,9 +98,9 @@ export const LabelButtonDisabled: Story = {
 export const LabelButtonWithIcons: Story = {
   render: () => (
     <FlexRow>
-      <LabelButton prefixIcon='arrow-left-line'>레이블</LabelButton>
-      <LabelButton suffixIcon='arrow-right-line'>레이블</LabelButton>
-      <LabelButton prefixIcon='arrow-left-line' suffixIcon='arrow-right-line'>
+      <LabelButton prefixIcon='arrow-left'>레이블</LabelButton>
+      <LabelButton suffixIcon='arrow-right'>레이블</LabelButton>
+      <LabelButton prefixIcon='arrow-left' suffixIcon='arrow-right'>
         레이블
       </LabelButton>
     </FlexRow>

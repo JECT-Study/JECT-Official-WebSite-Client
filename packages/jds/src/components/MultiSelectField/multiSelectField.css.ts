@@ -20,13 +20,15 @@ export const input = style({
   backgroundColor: "transparent",
   position: "relative",
   zIndex: 1,
+  textAlign: "left",
   textOverflow: "ellipsis",
   color: fallbackVar(inputTextColor, vars.color.semantic.object.bolder),
   "::placeholder": {
     color: fallbackVar(placeholderTextColor, vars.color.semantic.object.assistive),
   },
   selectors: {
-    "&[data-readonly]:not(:disabled)": {
+    // native readonly는 searchable=false를 표현하는 용도로만 사용한다.
+    "&:read-only:not(:disabled)": {
       cursor: "default",
     },
     "&:disabled": {

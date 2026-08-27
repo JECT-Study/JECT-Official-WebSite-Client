@@ -5,7 +5,6 @@ import { pxToRem } from "utils";
 import { vars } from "../../../tokens/vars.css";
 import { focusRing } from "../../../utils/focusRing.css";
 import { overlay as overlayInteraction, overlayColor } from "../../../utils/overlay.css";
-import { labelColorVar, titleColorVar } from "../../../utils/typography.css";
 import { CARD_PART_CAPTION, CARD_PART_OVERLAY } from "../card.types";
 
 const titleColor = createVar();
@@ -55,7 +54,11 @@ export const root = recipe({
         minWidth: pxToRem(240),
         borderRadius: vars.scheme.semantic.radius[12],
         backgroundColor: vars.color.semantic.surface.shallow,
-        border: `1px solid ${vars.color.semantic.stroke.subtle}`,
+        /*
+         * 디자인 치수가 stroke를 제외한 값이라 border로 그리면 border-box 안쪽이 그만큼 줄어든다.
+         * outline은 레이아웃 박스를 차지하지 않아 안쪽 높이를 그대로 둔다.
+         */
+        outline: `1px solid ${vars.color.semantic.stroke.subtle}`,
         boxShadow: vars.environment.semantic.shadow.embossed,
       },
       post: {
@@ -177,7 +180,7 @@ export const content = recipe({
   },
   variants: {
     variant: {
-      plate: { padding: vars.scheme.semantic.spacing[20] },
+      plate: { padding: vars.scheme.semantic.margin.sm },
       post: {},
     },
     layout: {
@@ -186,31 +189,28 @@ export const content = recipe({
     },
   },
   compoundVariants: [
+    /*
+     * 구분선도 root의 outline과 같은 이유로 border를 쓰지 않는다.
+     * inset box-shadow는 레이아웃 박스를 차지하지 않으면서 한 면만 그릴 수 있다.
+     */
     {
       variants: { variant: "plate", layout: "vertical" },
-      style: { borderTop: `1px solid ${vars.color.semantic.stroke.subtle}` },
+      style: { boxShadow: `inset 0 1px 0 ${vars.color.semantic.stroke.subtle}` },
     },
     {
       variants: { variant: "plate", layout: "horizontal" },
-      style: { borderLeft: `1px solid ${vars.color.semantic.stroke.subtle}` },
+      style: { boxShadow: `inset 1px 0 0 ${vars.color.semantic.stroke.subtle}` },
     },
   ],
 });
 
-export const contentGroup = recipe({
-  base: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "flex-start",
-    alignSelf: "stretch",
-    width: "100%",
-  },
-  variants: {
-    variant: {
-      plate: { gap: vars.scheme.semantic.spacing[10] },
-      post: { gap: vars.scheme.semantic.spacing[8] },
-    },
-  },
+export const contentGroup = style({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "flex-start",
+  alignSelf: "stretch",
+  width: "100%",
+  gap: vars.scheme.semantic.spacing[10],
 });
 
 export const meta = style({
@@ -218,11 +218,13 @@ export const meta = style({
   flexDirection: "row",
   alignItems: "center",
   alignSelf: "stretch",
-  gap: vars.scheme.semantic.spacing[8],
+  gap: vars.scheme.semantic.spacing[12],
 });
 
 export const metaItem = style({
-  vars: { [labelColorVar]: captionColor },
+  display: "block",
+  cursor: "default",
+  color: captionColor,
   minWidth: 0,
   overflow: "hidden",
   whiteSpace: "nowrap",
@@ -230,7 +232,9 @@ export const metaItem = style({
 });
 
 export const title = style({
-  vars: { [titleColorVar]: titleColor },
+  display: "block",
+  color: titleColor,
+  cursor: "default",
   margin: 0,
   alignSelf: "stretch",
   minWidth: 0,
@@ -248,6 +252,7 @@ export const body = recipe({
     color: bodyColor,
     margin: 0,
     alignSelf: "stretch",
+    textAlign: "left",
   },
   variants: {
     variant: {
@@ -258,7 +263,8 @@ export const body = recipe({
 });
 
 export const caption = style({
-  vars: { [labelColorVar]: captionColor },
+  color: captionColor,
+  cursor: "default",
   display: "-webkit-box",
   WebkitBoxOrient: "vertical",
   WebkitLineClamp: 1,

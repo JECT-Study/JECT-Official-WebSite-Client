@@ -13,6 +13,7 @@ export const input = style({
   backgroundColor: "transparent",
   position: "relative",
   zIndex: 1,
+  textAlign: "left",
   color: fallbackVar(inputTextColor, vars.color.semantic.object.bolder),
   "::placeholder": {
     color: fallbackVar(placeholderTextColor, vars.color.semantic.object.assistive),

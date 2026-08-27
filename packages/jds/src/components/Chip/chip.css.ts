@@ -8,8 +8,6 @@ import {
   iconButtonAccentDisabledColor,
 } from "../Button/IconButton/iconButton.css";
 
-import { labelColorVar } from "@/utils/typography.css";
-
 const chipColorVars = {
   label: createVar(),
   icon: createVar(),
@@ -119,28 +117,20 @@ export const mainAction = style({
 });
 
 export const label = style({
+  display: "flex",
+  alignItems: "center",
   flexShrink: 0,
-  vars: {
-    [labelColorVar]: chipColorVars.label,
-  },
-  selectors: {
-    "&&": {
-      cursor: "inherit",
-    },
-  },
+  color: chipColorVars.label,
+  cursor: "inherit",
 });
 
 export const valueLabel = style({
+  display: "flex",
+  alignItems: "center",
   minWidth: 0,
   maxWidth: pxToRem(160),
-  vars: {
-    [labelColorVar]: chipColorVars.label,
-  },
-  selectors: {
-    "&&": {
-      cursor: "inherit",
-    },
-  },
+  color: chipColorVars.label,
+  cursor: "inherit",
 });
 
 export const valueLabelText = style({

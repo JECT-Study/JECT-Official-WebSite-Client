@@ -72,8 +72,8 @@ const meta: Meta<typeof MenuItem.Button> = {
     size: "md",
     disabled: false,
     isSelected: false,
-    prefixIcon: "blank",
-    suffixIcon: "blank",
+    prefixIcon: "square-dashed",
+    suffixIcon: "square-dashed",
     prefixIconVisible: true,
     suffixIconVisible: true,
     stretched: false,
@@ -145,7 +145,7 @@ export const States: Story = {
 export const Layout: Story = {
   args: {
     suffixIconVisible: true,
-    suffixIcon: "arrow-right-s-line",
+    suffixIcon: "chevron-right",
   },
   render: args => (
     <FlexColumn style={{ width: "200px" }}>
@@ -174,7 +174,7 @@ export const Anchor: AnchorStory = {
     disabled: false,
     isSelected: false,
     href: "#",
-    prefixIcon: "blank",
+    prefixIcon: "square-dashed",
     prefixIconVisible: true,
     suffixIconVisible: false,
     suffixBadgeVisible: true,

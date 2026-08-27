@@ -22,6 +22,7 @@ const formatTime = (seconds: number) => {
 
 interface AuthCodeFormProps {
   defaultEmail?: string;
+  recruitId: number;
   sendGroupCode: "AUTH_CODE" | "PIN_RESET";
   onVerified: (email: string, authCode: string) => void | Promise<void>;
   onExistingMember?: (email: string) => void;
@@ -29,6 +30,7 @@ interface AuthCodeFormProps {
 
 export function AuthCodeForm({
   defaultEmail = "",
+  recruitId,
   sendGroupCode,
   onVerified,
   onExistingMember,
@@ -56,7 +58,7 @@ export function AuthCodeForm({
   const handleSendEmailCode = async () => {
     setEmailErrorMessage(null);
     //Todo: PIN_RESET 일 때는 checkEmailMutate가 호출되지 않도록
-    const isUserExists = await checkEmailMutateAsync(currentEmail);
+    const isUserExists = await checkEmailMutateAsync({ email: currentEmail, recruitId });
 
     if (sendGroupCode === "AUTH_CODE" && isUserExists) {
       onExistingMember?.(currentEmail);
@@ -99,7 +101,7 @@ export function AuthCodeForm({
   const handleVerifyCode: FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault();
 
-    verifyCodeMutateAsync({ email: currentEmail, authCode, template: sendGroupCode })
+    verifyCodeMutateAsync({ email: currentEmail, authCode, recruitId, template: sendGroupCode })
       .then(() => onVerified(currentEmail, authCode))
       .catch(() => {
         toastController.destructive(

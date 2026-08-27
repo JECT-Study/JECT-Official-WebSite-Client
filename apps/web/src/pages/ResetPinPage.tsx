@@ -6,12 +6,13 @@ import { ResetPinFunnel } from "@/features/auth/ResetPinFunnel";
 function ResetPinPage() {
   const [searchParams] = useSearchParams();
   const returnTo = searchParams.get("returnTo");
+  const recruitId = Number(searchParams.get("recruitId"));
 
-  if (!returnTo) {
+  if (!returnTo || !Number.isInteger(recruitId) || recruitId <= 0) {
     return <Navigate to={PATH.main} replace />;
   }
 
-  return <ResetPinFunnel returnTo={returnTo} />;
+  return <ResetPinFunnel recruitId={recruitId} returnTo={returnTo} />;
 }
 
 export default ResetPinPage;

@@ -14,7 +14,7 @@ const meta = {
       description: {
         component: `플레이트 카드는 관련된 정보를 하나의 덩어리로 묶어 목록이나 그리드에서 빠르게 훑고 비교할 수 있게 만드는 컨테이너입니다. 썸네일, 제목, 요약, 보조 정보, 액션을 일관된 구조로 담아 화면의 정보 위계를 안정적으로 유지하는 역할을 합니다.
 
-\`variant='plate'\`로 Compound(\`Card.Root\` + \`Card.Thumbnail\` + \`Card.Content\` + \`Card.Title/Body/Caption\` + \`Card.Overlay\`)를 직접 조합합니다.
+\`variant='plate'\`로 Compound(\`Card.Root\` + \`Card.Thumbnail\` + \`Card.Content\` + \`Card.ContentGroup\`(\`Card.Title/Body\`) + \`Card.Caption\` + \`Card.Overlay\`)를 직접 조합합니다. 제목과 요약은 \`Card.ContentGroup\`으로 묶어야 시안의 간격(10px)이 적용됩니다.
 
 **변형 축**
 - **layout**: vertical(이미지 위) / horizontal(이미지 좌측)
@@ -60,8 +60,10 @@ export const Playground: Story = {
       <Card.Root layout={layout} variant='plate' isDisabled={isDisabled} interactive>
         <Card.Thumbnail image={{ alt: "플레이트 카드 이미지" }} />
         <Card.Content>
-          <Card.Title>플레이트 카드 제목</Card.Title>
-          <Card.Body>카드 내용은 두 줄을 넘어가면 말줄임(...) 표시합니다.</Card.Body>
+          <Card.ContentGroup>
+            <Card.Title>플레이트 카드 제목</Card.Title>
+            <Card.Body>카드 내용은 두 줄을 넘어가면 말줄임(...) 표시합니다.</Card.Body>
+          </Card.ContentGroup>
           <Card.Caption>캡션 레이블</Card.Caption>
         </Card.Content>
         <Card.Overlay as='a' href='#' />
@@ -113,8 +115,10 @@ export const Overview: Story = {
                   <Card.Root layout={layout} variant='plate' isDisabled={isDisabled} interactive>
                     <Card.Thumbnail image={{ alt: "플레이트 카드 이미지" }} />
                     <Card.Content>
-                      <Card.Title>플레이트 카드 제목</Card.Title>
-                      <Card.Body>카드 내용은 두 줄을 넘어가면 말줄임(...) 표시합니다.</Card.Body>
+                      <Card.ContentGroup>
+                        <Card.Title>플레이트 카드 제목</Card.Title>
+                        <Card.Body>카드 내용은 두 줄을 넘어가면 말줄임(...) 표시합니다.</Card.Body>
+                      </Card.ContentGroup>
                       <Card.Caption>캡션 레이블</Card.Caption>
                     </Card.Content>
                     <Card.Overlay as='a' href='#' />
@@ -122,6 +126,46 @@ export const Overview: Story = {
                 </div>
               </div>
             ))}
+          </div>
+        </section>
+      ))}
+    </div>
+  ),
+};
+
+const LONG_TITLE = "플레이트 카드 제목이 한 줄에 담기지 않을 만큼 길어진 경우";
+const LONG_CAPTION =
+  "캡션 레이블도 한 줄을 넘어가면 말줄임으로 끊깁니다. 이 문장은 한 줄을 넘기기 위한 예시입니다";
+
+export const LongText: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "제목과 캡션이 한 줄에 담기지 않을 때 말줄임(...)으로 끊기는지 확인합니다. 본문은 두 줄까지 표시한 뒤 말줄임합니다.",
+      },
+    },
+  },
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: 40 }}>
+      {(["vertical", "horizontal"] as const).map(layout => (
+        <section key={layout} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+          <h3 style={{ margin: 0, fontSize: 14, fontWeight: "bold" }}>layout = {layout}</h3>
+          <div style={sizeFor(layout)}>
+            <Card.Root layout={layout} variant='plate' interactive>
+              <Card.Thumbnail image={{ alt: "플레이트 카드 이미지" }} />
+              <Card.Content>
+                <Card.ContentGroup>
+                  <Card.Title>{LONG_TITLE}</Card.Title>
+                  <Card.Body>
+                    카드 내용은 두 줄을 넘어가면 말줄임으로 끊깁니다. 이 문장은 두 줄을 넘기기 위해
+                    충분히 길게 적어 둔 예시입니다.
+                  </Card.Body>
+                </Card.ContentGroup>
+                <Card.Caption>{LONG_CAPTION}</Card.Caption>
+              </Card.Content>
+              <Card.Overlay as='a' href='#' />
+            </Card.Root>
           </div>
         </section>
       ))}

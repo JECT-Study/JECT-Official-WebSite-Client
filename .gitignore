@@ -13,6 +13,7 @@ node_modules
 # Production builds
 dist
 dist-ssr
+dist-types
 build
 out
 *.local

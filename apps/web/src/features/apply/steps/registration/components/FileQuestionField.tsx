@@ -164,6 +164,9 @@ export function FileQuestionField({
               variant='outlined'
               suffixIcon='upload-2-line'
               onClick={triggerUpload}
+              // TODO: global.css의 disabled 버튼 radius 임시 처리가 6px 기준이므로 덮어쓴다.
+              // jds 최신 버전 적용 후 global.css의 임시 규칙과 함께 삭제한다.
+              className='disabled:rounded-(--semantic-radius-4)!'
               disabled={isMaxSizeReached}
             >
               파일 업로드

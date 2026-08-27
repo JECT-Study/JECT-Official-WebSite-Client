@@ -36,6 +36,8 @@ focus ring과 overlay 외의 시각 효과는 상호작용을 받는 요소 위�
 | checkbox check | 별도 SVG 아이콘                          |
 | dot, badge     | 별도 자식 요소 또는 별도 컴포넌트        |
 
+divider가 레이아웃 박스를 차지하면 안 되는 경우에는 `border` 대신 `inset box-shadow`로 한 면만 그린다. 디자인 치수가 stroke를 제외한 값이어서 `border-box` 안쪽이 그만큼 줄어들면 안 되는 경우가 여기에 해당한다. 같은 이유로 요소의 테두리도 `border` 대신 `outline`으로 그릴 수 있다. `Card`의 `variant='plate'`가 이 방식을 쓴다.
+
 ## 비상호작용 컴포넌트
 
 pseudo-element로 구현하는 편이 가장 깔끔한 비상호작용 케이스가 있다. 툴팁 arrow, 스켈레톤 shimmer, badge dot 등이다. 이들은 focus도 받지 않고 hover에도 반응하지 않으므로 focus ring이나 overlay가 필요 없다.
@@ -140,7 +142,7 @@ style({
 
 - [ ] recipe `base`에 `[overlay(), focusRing(), baseStyles]`를 합성한다.
 - [ ] `baseStyles`에 `position: relative`를 지정한다.
-- [ ] outline은 focusRing이 담당하므로 `baseStyles`에 넣지 않는다.
+- [ ] focus ring의 outline은 focusRing이 담당하므로 `baseStyles`에 넣지 않는다. 테두리를 그리는 `outline`은 별개이며 `variants`에서 지정한다.
 - [ ] `::before`와 `::after`에 inset과 borderRadius를 지정한다. 같은 모양을 권장한다.
 - [ ] root가 그리고 실제 대상은 내부 버튼인 컴포넌트는 root에 `overlay`와 `focusRing`을 `interaction: "delegated"`로 주고, root의 직계 자식인 내부 버튼에 `data-interaction-target`을 부여한다. 내부 버튼은 자기 레이어를 갖지 않는다.
 - [ ] `::before`와 `::after`에 모양 외의 속성을 추가하지 않는다.

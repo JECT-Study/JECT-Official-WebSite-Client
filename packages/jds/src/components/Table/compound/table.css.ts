@@ -2,8 +2,6 @@ import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
 
-import { labelColorVar } from "@/utils/typography.css";
-
 export const tableRoot = style({
   width: "100%",
   tableLayout: "fixed",
@@ -53,15 +51,14 @@ export const tableHeaderItem = recipe({
 
 export const tableHeaderLabel = style({
   display: "block",
+  cursor: "default",
   width: "100%",
   minWidth: 0,
   height: "100%",
   padding: vars.scheme.semantic.spacing["12"],
   boxSizing: "border-box",
   wordBreak: "keep-all",
-  vars: {
-    [labelColorVar]: vars.color.semantic.object.bolder,
-  },
+  color: vars.color.semantic.object.bolder,
 });
 
 export const tableRow = style({});
@@ -106,10 +103,18 @@ export const tableItemTitle = style({
   gap: vars.scheme.semantic.spacing["6"],
 });
 
+export const tableItemLabel = style({
+  display: "flex",
+  alignItems: "center",
+  cursor: "default",
+  color: vars.color.semantic.object.bold,
+});
+
 export const descriptionStyle = style({
-  vars: {
-    [labelColorVar]: vars.color.semantic.object.alternative,
-  },
+  display: "flex",
+  alignItems: "center",
+  cursor: "default",
+  color: vars.color.semantic.object.alternative,
 });
 
 export const codeWrapper = style({

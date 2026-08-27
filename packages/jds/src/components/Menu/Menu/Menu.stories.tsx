@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexRow } from "@storybook-utils/layout";
 import { action } from "storybook/actions";
 import { expect, userEvent, within } from "storybook/test";
+import { vars } from "tokens";
 
 import { Menu } from "./Menu";
 
@@ -40,12 +41,12 @@ export const Default: Story = {
   render: args => (
     <Menu.Root {...args}>
       <Menu.Trigger asChild>
-        <IconButton icon='menu-line' />
+        <IconButton icon='menu' />
       </Menu.Trigger>
       <Menu.Content side='right' align='start' sideOffset={10} style={{ width: "200px" }}>
         <Menu.Category>카테고리</Menu.Category>
         <Menu.Group>
-          <Menu.Button autoFocus fullWidthText suffixIconVisible suffixIcon='arrow-right-s-line'>
+          <Menu.Button autoFocus fullWidthText suffixIconVisible suffixIcon='chevron-right'>
             메뉴 레이블
           </Menu.Button>
           <Menu.Button isSelected>메뉴 레이블 (selected)</Menu.Button>
@@ -69,10 +70,12 @@ export const Default: Story = {
 export const MenuStyles: Story = {
   render: () => (
     <FlexRow>
-      <span className={getLabelClassName()}>solid style</span>
+      <span className={getLabelClassName()} style={{ color: vars.color.semantic.object.bold }}>
+        solid style
+      </span>
       <Menu.Root menuStyle='solid'>
         <Menu.Trigger asChild>
-          <IconButton icon='menu-line' />
+          <IconButton icon='menu' />
         </Menu.Trigger>
         <Menu.Content align='end'>
           <Menu.Category>카테고리</Menu.Category>
@@ -82,10 +85,12 @@ export const MenuStyles: Story = {
           </Menu.Group>
         </Menu.Content>
       </Menu.Root>
-      <span className={getLabelClassName()}>hollow style</span>
+      <span className={getLabelClassName()} style={{ color: vars.color.semantic.object.bold }}>
+        hollow style
+      </span>
       <Menu.Root menuStyle='hollow'>
         <Menu.Trigger asChild>
-          <IconButton icon='menu-line' />
+          <IconButton icon='menu' />
         </Menu.Trigger>
         <Menu.Content align='start' sideOffset={10}>
           <Menu.Category>카테고리</Menu.Category>
@@ -110,7 +115,7 @@ export const Tree: Story = {
   render: args => (
     <Menu.Root {...args}>
       <Menu.Trigger asChild>
-        <IconButton icon='menu-line' />
+        <IconButton icon='menu' />
       </Menu.Trigger>
       <Menu.Content side='right' align='start' sideOffset={10} style={{ width: "220px" }}>
         <Menu.Category>카테고리</Menu.Category>
@@ -158,7 +163,7 @@ export const Tree: Story = {
             withTreeButton={false}
             fullWidthText
             suffixIconVisible
-            suffixIcon='arrow-right-up-line'
+            suffixIcon='arrow-up-right'
             onClick={() => onItemClick("단일 메뉴")}
           />
         </Menu.Group>

@@ -261,14 +261,7 @@ const TeamProjectDetail = () => {
               </BlockButton.Basic>
             </a>
           ) : (
-            <BlockButton.Basic
-              hierarchy='accent'
-              size='lg'
-              variant='solid'
-              // jds@0.0.1에서 BlockButton disabled 시 border-radius가 누락되는 현상이 있어 임시 처리
-              className='rounded-md!'
-              disabled
-            >
+            <BlockButton.Basic hierarchy='accent' size='lg' variant='solid' disabled>
               해당 서비스는 종료되었습니다.
             </BlockButton.Basic>
           )}

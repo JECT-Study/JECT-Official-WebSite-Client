@@ -8,8 +8,8 @@
 
 **추가**
 
-- `getBodyClassName({ size, weight, textAlign })` — 본문 타이포 클래스명 반환
-- 타입 `BodySize`(`"lg" | "md" | "sm" | "xs" | "2xs"`), `BodyWeight`(`"bold" | "normal"`), `BodyTextAlign`, `BodyStyleOptions`
+- `getBodyClassName({ size, weight })` — 본문 타이포 클래스명 반환
+- 타입 `BodySize`(`"lg" | "md" | "sm" | "xs" | "2xs"`), `BodyWeight`(`"bold" | "normal"`), `BodyStyleOptions`
 
 ```tsx
 <p className={getBodyClassName({ size: "md" })}>본문 텍스트</p>

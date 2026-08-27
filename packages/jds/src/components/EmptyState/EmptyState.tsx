@@ -26,7 +26,6 @@ export const EmptyState = forwardRef<HTMLDivElement, EmptyStateProps>(
     const hasPrimary = !!primaryAction;
     const hasSecondary = !!secondaryAction;
     const hasAnyAction = hasPrimary || hasSecondary;
-    const textAlign = layout === "vertical" ? "center" : "left";
 
     const actions = hasAnyAction ? (
       <div className={emptyStateStyles.buttonContainer}>
@@ -55,8 +54,8 @@ export const EmptyState = forwardRef<HTMLDivElement, EmptyStateProps>(
           {header && (
             <span
               className={clsx(
-                getTitleClassName({ size: "xs", textAlign }),
-                emptyStateStyles.header,
+                getTitleClassName({ size: "xs" }),
+                emptyStateStyles.header({ layout }),
               )}
             >
               {header}
@@ -64,8 +63,8 @@ export const EmptyState = forwardRef<HTMLDivElement, EmptyStateProps>(
           )}
           <p
             className={clsx(
-              getBodyClassName({ size: "md", weight: "normal", textAlign }),
-              emptyStateStyles.body,
+              getBodyClassName({ size: "md", weight: "normal" }),
+              emptyStateStyles.body({ layout }),
             )}
           >
             {body}

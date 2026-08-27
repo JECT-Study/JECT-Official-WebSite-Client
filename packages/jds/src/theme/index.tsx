@@ -2,7 +2,6 @@ import type { ReactNode } from "react";
 
 // VE CSS side-effect import
 import "../tokens/globalTokens.css";
-import "../tokens/textStyles.css";
 import "./resetCss.css";
 
 // ChakraProvider / MUI theme provider의 역할을 할 global theme provider
