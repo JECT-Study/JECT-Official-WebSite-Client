@@ -16,14 +16,14 @@ const packDir = mkdtempSync(join(tmpdir(), "jds-pack-"));
 const [{ filename }] = JSON.parse(
   execFileSync("npm", ["pack", "--json", "--pack-destination", packDir], { encoding: "utf8" }),
 );
-const tarball = readFileSync(join(packDir, filename));
+const tarball = new Uint8Array(readFileSync(join(packDir, filename)));
 
 rmSync(packDir, { recursive: true, force: true });
 
 const problems = [];
 const suggestions = [];
 
-const { messages, pkg } = await publint({ pack: { tarball: tarball.buffer } });
+const { messages, pkg } = await publint({ pack: { tarball } });
 
 for (const message of messages) {
   const formatted = formatMessage(message, pkg);
@@ -31,7 +31,7 @@ for (const message of messages) {
   else problems.push(formatted);
 }
 
-const result = await attw.checkPackage(attw.createPackageFromTarballData(new Uint8Array(tarball)));
+const result = await attw.checkPackage(attw.createPackageFromTarballData(tarball));
 
 if (!result.types) problems.push("타입 선언이 포함되지 않았습니다.");
 
