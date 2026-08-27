@@ -23,6 +23,7 @@ import { useSelectFieldContext } from "../SelectField.context";
 import * as styles from "../selectField.css";
 import type { SelectFieldInputProps } from "../selectField.types";
 
+import { mergeRefs } from "@/hooks/mergeRefs";
 import { getActiveDescendantContainerProps } from "@/hooks/useActiveDescendant";
 import { getBodyClassName } from "@/utils/typography";
 
@@ -83,6 +84,7 @@ export const SelectFieldInput = forwardRef<HTMLInputElement, SelectFieldInputPro
       useSelectFieldContext("SelectField.Input");
 
     const contentRef = useRef<HTMLDivElement>(null);
+    const inputRef = useRef<HTMLInputElement>(null);
 
     const isInteractive = !isDisabled && !isReadOnly;
 
@@ -201,6 +203,11 @@ export const SelectFieldInput = forwardRef<HTMLInputElement, SelectFieldInputPro
       togglePopup();
     };
 
+    const handleIndicatorClick = () => {
+      inputRef.current?.focus();
+      onOpenChange(!isOpen);
+    };
+
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
       if (!searchable) return;
 
@@ -268,7 +275,7 @@ export const SelectFieldInput = forwardRef<HTMLInputElement, SelectFieldInputPro
           >
             <input
               {...restProps}
-              ref={ref}
+              ref={mergeRefs(ref, inputRef)}
               id={fieldId}
               type='text'
               role='combobox'
@@ -299,7 +306,17 @@ export const SelectFieldInput = forwardRef<HTMLInputElement, SelectFieldInputPro
               onMouseDown={handleMouseDown}
             />
             {suffix != null && <span className={styles.suffix}>{suffix}</span>}
-            <Icon name='chevron-down' size='md' className={styles.indicator} />
+            <button
+              type='button'
+              tabIndex={-1}
+              aria-label={isOpen ? "목록 닫기" : "목록 열기"}
+              disabled={!isInteractive}
+              className={styles.indicator}
+              onMouseDown={e => e.preventDefault()}
+              onClick={handleIndicatorClick}
+            >
+              <Icon name='chevron-down' size='md' />
+            </button>
             {name != null && (
               <input
                 type='hidden'
