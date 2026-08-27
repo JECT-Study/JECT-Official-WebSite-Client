@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexColumn } from "@storybook-utils/layout";
 import { useState } from "react";
+import { vars } from "tokens";
 
 import { Uploader } from "./Uploader";
 import { AssistiveLabel } from "./uploader.styles";
@@ -65,7 +66,10 @@ const meta = {
     isDisabled: false,
     maxFileSize: 5 * 1024 * 1024,
     helperLabel: (
-      <span className={getLabelClassName({ size: "xs", textAlign: "center", weight: "bold" })}>
+      <span
+        className={getLabelClassName({ size: "xs", weight: "bold" })}
+        style={{ color: vars.color.semantic.object.bold }}
+      >
         업로드에 문제가 있나요?
       </span>
     ),
@@ -74,14 +78,14 @@ const meta = {
         hierarchy='secondary'
         size='sm'
         variant='outlined'
-        suffixIcon='upload-2-line'
+        suffixIcon='upload'
         onClick={triggerUpload}
       >
         파일 업로드
       </BlockButton>
     ),
     cancelButton: (
-      <LabelButton hierarchy='tertiary' size='sm' suffixIcon='arrow-go-back-line'>
+      <LabelButton hierarchy='tertiary' size='sm' suffixIcon='undo-2'>
         업로드 취소
       </LabelButton>
     ),
@@ -112,7 +116,7 @@ export const Default: StoryObj<typeof Uploader.File> = {
         maxFileSize={5 * 1024 * 1024} // 5MB
         helperLabel={
           <AssistiveLabel
-            className={getLabelClassName({ size: "xs", textAlign: "center", weight: "bold" })}
+            className={getLabelClassName({ size: "xs", weight: "bold" })}
             onClick={onIssue}
           >
             업로드에 문제가 있나요?
@@ -123,7 +127,7 @@ export const Default: StoryObj<typeof Uploader.File> = {
             hierarchy='secondary'
             size='sm'
             variant='outlined'
-            suffixIcon='upload-2-line'
+            suffixIcon='upload'
             disabled={args.isDisabled}
             onClick={triggerUpload}
           >
@@ -134,7 +138,7 @@ export const Default: StoryObj<typeof Uploader.File> = {
           <LabelButton
             hierarchy='tertiary'
             size='sm'
-            suffixIcon='arrow-go-back-line'
+            suffixIcon='undo-2'
             onClick={onCancel}
           >
             업로드 취소

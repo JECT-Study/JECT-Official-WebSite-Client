@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexColumn } from "@storybook-utils/layout";
+import { vars } from "tokens";
 
 import { Link } from "./Link";
 
@@ -81,10 +82,16 @@ export const InheritsSurroundingText: Story = {
       <span className={getBodyClassName({ size: "sm" })}>
         body / sm 텍스트 안의 <Link href='#'>링크</Link>
       </span>
-      <span className={getLabelClassName({ size: "lg" })}>
+      <span
+        className={getLabelClassName({ size: "lg" })}
+        style={{ color: vars.color.semantic.object.bold }}
+      >
         label / lg 텍스트 안의 <Link href='#'>링크</Link>
       </span>
-      <span className={getLabelClassName({ size: "sm" })}>
+      <span
+        className={getLabelClassName({ size: "sm" })}
+        style={{ color: vars.color.semantic.object.bold }}
+      >
         label / sm 텍스트 안의 <Link href='#'>링크</Link>
       </span>
     </FlexColumn>

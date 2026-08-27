@@ -5,8 +5,6 @@ import { pxToRem, overlay } from "utils";
 
 import { CHECKBOX_SIZE_OPTIONS, type CheckboxSize } from "./checkbox.types";
 
-import { labelColorVar } from "@/utils/typography.css";
-
 export const checkboxGroupColumnsVar = createVar();
 
 export const checkboxGroupWrapper = recipe({
@@ -226,23 +224,23 @@ export const checkboxItem = recipe({
 // disabled 및 invalid 색상은 조상의 data attribute로 제어한다.
 
 export const checkboxLabel = style({
-  vars: { [labelColorVar]: vars.color.semantic.object.bolder },
+  color: vars.color.semantic.object.bolder,
+  cursor: "inherit",
   selectors: {
-    "&&": { cursor: "inherit" },
-    "[data-disabled] &": { vars: { [labelColorVar]: vars.color.semantic.object.subtle } },
+    "[data-disabled] &": { color: vars.color.semantic.object.subtle },
   },
 });
 
 export const checkboxHelper = style({
-  vars: { [labelColorVar]: vars.color.semantic.object.alternative },
+  display: "flex",
+  alignItems: "center",
+  color: vars.color.semantic.object.alternative,
+  cursor: "inherit",
   selectors: {
-    "&&": { cursor: "inherit" },
-    "[data-disabled] &": { vars: { [labelColorVar]: vars.color.semantic.object.subtle } },
-    "[data-invalid] &": {
-      vars: { [labelColorVar]: vars.color.semantic.feedback.destructive.normal },
-    },
+    "[data-disabled] &": { color: vars.color.semantic.object.subtle },
+    "[data-invalid] &": { color: vars.color.semantic.feedback.destructive.normal },
     "[data-invalid][data-disabled] &": {
-      vars: { [labelColorVar]: vars.color.semantic.feedback.destructive.alpha.assistive },
+      color: vars.color.semantic.feedback.destructive.alpha.assistive,
     },
   },
 });

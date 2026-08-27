@@ -2,7 +2,6 @@ import { style } from "@vanilla-extract/css";
 import { vars } from "tokens";
 import { overlay } from "utils";
 
-import { labelColorVar } from "@/utils/typography.css";
 import { virtualFocusSelector } from "@/utils/virtualFocus";
 
 export const selectContainer = style({
@@ -22,9 +21,10 @@ export const selectContainer = style({
 export const selectLabel = style({
   display: "flex",
   alignItems: "center",
+  cursor: "default",
   alignSelf: "stretch",
   padding: `${vars.scheme.semantic.spacing["6"]} ${vars.scheme.semantic.spacing["12"]} 0`,
-  vars: { [labelColorVar]: vars.color.semantic.object.alternative },
+  color: vars.color.semantic.object.alternative,
 });
 
 export const listbox = style({
@@ -92,40 +92,38 @@ export const optionTrailing = style({
 });
 
 export const optionText = style({
+  display: "block",
+  cursor: "inherit",
   gridColumn: "2",
   gridRow: "1",
   overflow: "hidden",
   textOverflow: "ellipsis",
   whiteSpace: "nowrap",
   minWidth: 0,
-  vars: { [labelColorVar]: vars.color.semantic.object.bold },
+  color: vars.color.semantic.object.bold,
   selectors: {
-    "&&": {
-      display: "block",
-      cursor: "inherit",
-    },
     '[data-variant="label"][data-selected]:not([data-disabled]) &': {
-      vars: { [labelColorVar]: vars.color.semantic.accent.normal },
+      color: vars.color.semantic.accent.normal,
     },
     "[data-disabled] &": {
-      vars: { [labelColorVar]: vars.color.semantic.object.subtle },
+      color: vars.color.semantic.object.subtle,
     },
     '[data-variant="label"][data-selected][data-disabled] &': {
-      vars: { [labelColorVar]: vars.color.semantic.accent.alpha.subtle },
+      color: vars.color.semantic.accent.alpha.subtle,
     },
   },
 });
 
 export const optionCaption = style({
+  display: "flex",
+  alignItems: "center",
+  cursor: "inherit",
   gridColumn: "2 / -1",
   gridRow: "2",
-  vars: { [labelColorVar]: vars.color.semantic.object.assistive },
+  color: vars.color.semantic.object.assistive,
   selectors: {
-    "&&": {
-      cursor: "inherit",
-    },
     "[data-disabled] &": {
-      vars: { [labelColorVar]: vars.color.semantic.object.subtle },
+      color: vars.color.semantic.object.subtle,
     },
   },
 });

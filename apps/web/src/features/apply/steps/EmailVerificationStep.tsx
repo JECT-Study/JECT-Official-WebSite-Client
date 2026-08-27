@@ -45,6 +45,7 @@ export function EmailVerificationStep({ context, dispatch }: EmailVerificationSt
     >
       <AuthCodeForm
         defaultEmail={context.email}
+        recruitId={context.recruitId}
         sendGroupCode='AUTH_CODE'
         onVerified={handleVerified}
         onExistingMember={handleExistingMember}

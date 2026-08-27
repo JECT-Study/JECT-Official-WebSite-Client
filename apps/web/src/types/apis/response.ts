@@ -15,7 +15,12 @@ export type Status =
   | "GLOBAL-13"
   | "GLOBAL-14"
   | "GLOBAL-15"
-  //TODO: 하단 부 동일하게 수정된 에러코드에 맞춰서 반영해야함
+  // NOTE: 지원 플로우에서 실제 분기에 사용하는 코드만 임시로 추가
+  | "APPLY-3"
+  | "APPLY-12"
+  | "APPLICANT-1"
+  | "AUTH-5"
+  // TODO: 하단 부 동일하게 수정된 에러코드에 맞춰서 반영해야 함
   | "INVALID_AUTH_CODE"
   | "NOT_FOUND_AUTH_CODE"
   | "INVALID_EXTENSION"

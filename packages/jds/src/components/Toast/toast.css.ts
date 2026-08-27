@@ -7,7 +7,6 @@ import { TOAST_ANIMATION_DURATION_TOKEN } from "./toast.constants";
 import type { ToastFeedback } from "./toast.types";
 
 import { breakpoints } from "@/tokens/breakpoints";
-import { labelColorVar } from "@/utils/typography.css";
 
 const slideIn = keyframes({
   from: { opacity: 0, transform: "translateY(100%)" },
@@ -90,12 +89,14 @@ export const content = recipe({
 });
 
 export const label = style({
-  vars: {
-    [labelColorVar]: vars.color.semantic.object.boldest,
-  },
+  display: "flex",
+  alignItems: "center",
+  cursor: "default",
+  color: vars.color.semantic.object.boldest,
 });
 
 export const description = style({
+  textAlign: "left",
   color: vars.color.semantic.object.neutral,
 });
 

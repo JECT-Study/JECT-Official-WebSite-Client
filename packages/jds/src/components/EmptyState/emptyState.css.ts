@@ -4,7 +4,6 @@ import { vars } from "tokens";
 import { pxToRem } from "utils";
 
 import { thumbnailVars } from "@/components/Thumbnail/thumbnail.css";
-import { titleColorVar } from "@/utils/typography.css";
 
 const root = recipe({
   base: {
@@ -54,9 +53,18 @@ const content = recipe({
   },
 });
 
-const header = style({
-  vars: {
-    [titleColorVar]: vars.color.semantic.object.neutral,
+const header = recipe({
+  base: {
+    display: "flex",
+    alignItems: "center",
+    color: vars.color.semantic.object.neutral,
+    cursor: "default",
+  },
+  variants: {
+    layout: {
+      vertical: { justifyContent: "center" },
+      horizontal: { justifyContent: "flex-start" },
+    },
   },
 });
 
@@ -67,14 +75,22 @@ const thumbnail = style({
   },
 });
 
-const body = style({
-  display: "-webkit-box",
-  WebkitBoxOrient: "vertical",
-  WebkitLineClamp: 3,
-  margin: vars.scheme.semantic.spacing["0"],
-  overflow: "hidden",
-  color: vars.color.semantic.object.alternative,
-  textOverflow: "ellipsis",
+const body = recipe({
+  base: {
+    display: "-webkit-box",
+    WebkitBoxOrient: "vertical",
+    WebkitLineClamp: 3,
+    margin: vars.scheme.semantic.spacing["0"],
+    overflow: "hidden",
+    color: vars.color.semantic.object.alternative,
+    textOverflow: "ellipsis",
+  },
+  variants: {
+    layout: {
+      vertical: { textAlign: "center" },
+      horizontal: { textAlign: "left" },
+    },
+  },
 });
 
 const buttonContainer = style({

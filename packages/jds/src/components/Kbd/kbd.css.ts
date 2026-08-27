@@ -5,8 +5,6 @@ import { pxToRem } from "utils";
 
 import type { KbdSize, KbdType } from "./kbd.types";
 
-import { labelColorVar } from "@/utils/typography.css";
-
 const sizeVariants = {
   lg: { height: pxToRem(26), minWidth: pxToRem(20) },
   md: { height: pxToRem(24), minWidth: pxToRem(19) },
@@ -25,9 +23,6 @@ export const kbd = recipe({
     borderRadius: vars.scheme.semantic.radius["4"],
     border: `${vars.scheme.semantic.strokeWeight["1"]} solid ${vars.color.semantic.stroke.alpha.subtle}`,
     color: vars.color.semantic.object.neutral,
-    vars: {
-      [labelColorVar]: vars.color.semantic.object.neutral,
-    },
     selectors: {
       "&&": {
         display: "inline-flex",
@@ -43,9 +38,6 @@ export const kbd = recipe({
       true: {
         borderColor: vars.color.semantic.stroke.alpha.subtler,
         color: vars.color.semantic.object.subtle,
-        vars: {
-          [labelColorVar]: vars.color.semantic.object.subtle,
-        },
       },
       false: {},
     },

@@ -3,7 +3,6 @@ import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
 
 import type { FieldStatus } from "./field.types";
-import { labelColorVar } from "../../utils/typography.css";
 
 export const container = recipe({
   base: {
@@ -35,19 +34,22 @@ export const labelMain = style({
 
 export const label = recipe({
   base: {
+    display: "flex",
+    alignItems: "center",
+    cursor: "default",
     selectors: {
       [controlDisabledSelector]: {
-        vars: { [labelColorVar]: vars.color.semantic.object.subtle },
+        color: vars.color.semantic.object.subtle,
       },
     },
   },
   variants: {
     disabled: {
       true: {
-        vars: { [labelColorVar]: vars.color.semantic.object.subtle },
+        color: vars.color.semantic.object.subtle,
       },
       false: {
-        vars: { [labelColorVar]: vars.color.semantic.object.neutral },
+        color: vars.color.semantic.object.neutral,
       },
     },
   },
@@ -55,20 +57,23 @@ export const label = recipe({
 
 export const requiredMark = recipe({
   base: {
+    display: "flex",
+    alignItems: "center",
+    cursor: "default",
     marginTop: -2,
     selectors: {
       [controlDisabledSelector]: {
-        vars: { [labelColorVar]: vars.color.semantic.feedback.notifying.alpha.inverse.assistive },
+        color: vars.color.semantic.feedback.notifying.alpha.inverse.assistive,
       },
     },
   },
   variants: {
     disabled: {
       true: {
-        vars: { [labelColorVar]: vars.color.semantic.feedback.notifying.alpha.inverse.assistive },
+        color: vars.color.semantic.feedback.notifying.alpha.inverse.assistive,
       },
       false: {
-        vars: { [labelColorVar]: vars.color.semantic.feedback.notifying.static.inverse.bold },
+        color: vars.color.semantic.feedback.notifying.static.inverse.bold,
       },
     },
   },
@@ -207,7 +212,7 @@ const disabledSupportTextColor = {
 
 const disabledSupportTextSelector = (status: FieldStatus) => ({
   [controlDisabledSelector]: {
-    vars: { [labelColorVar]: disabledSupportTextColor[status] },
+    color: disabledSupportTextColor[status],
   },
 });
 
@@ -231,18 +236,23 @@ export const footer = style([
 ]);
 
 export const supportText = recipe({
+  base: {
+    display: "flex",
+    alignItems: "center",
+    cursor: "default",
+  },
   variants: {
     status: {
       default: {
-        vars: { [labelColorVar]: vars.color.semantic.object.alternative },
+        color: vars.color.semantic.object.alternative,
         selectors: disabledSupportTextSelector("default"),
       },
       success: {
-        vars: { [labelColorVar]: vars.color.semantic.feedback.positive.normal },
+        color: vars.color.semantic.feedback.positive.normal,
         selectors: disabledSupportTextSelector("success"),
       },
       error: {
-        vars: { [labelColorVar]: vars.color.semantic.feedback.destructive.normal },
+        color: vars.color.semantic.feedback.destructive.normal,
         selectors: disabledSupportTextSelector("error"),
       },
     } satisfies Record<FieldStatus, StyleRule>,
@@ -254,16 +264,16 @@ export const supportText = recipe({
   compoundVariants: [
     {
       variants: { disabled: true, status: "default" },
-      style: { vars: { [labelColorVar]: vars.color.semantic.object.subtle } },
+      style: { color: vars.color.semantic.object.subtle },
     },
     {
       variants: { disabled: true, status: "success" },
-      style: { vars: { [labelColorVar]: vars.color.semantic.feedback.positive.alpha.assistive } },
+      style: { color: vars.color.semantic.feedback.positive.alpha.assistive },
     },
     {
       variants: { disabled: true, status: "error" },
       style: {
-        vars: { [labelColorVar]: vars.color.semantic.feedback.destructive.alpha.assistive },
+        color: vars.color.semantic.feedback.destructive.alpha.assistive,
       },
     },
   ],

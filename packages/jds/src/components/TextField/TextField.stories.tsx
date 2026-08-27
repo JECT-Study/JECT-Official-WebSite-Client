@@ -31,7 +31,7 @@ export const Playground: Story = {
       <TextField.Label
         suffix={
           <Icon
-            name='information-line'
+            name='info'
             size='2xs'
             style={args.disabled ? { color: vars.color.semantic.object.subtle } : undefined}
           />
@@ -100,8 +100,8 @@ export const WithAddon: Story = {
     <TextField style={FIELD_WIDTH}>
       <TextField.Label>레이블</TextField.Label>
       <TextField.Input
-        prefix={<Icon name='account-circle-line' size='sm' />}
-        suffix={<Icon name='close-line' size='sm' />}
+        prefix={<Icon name='circle-user-round' size='sm' />}
+        suffix={<Icon name='x' size='sm' />}
         placeholder='플레이스홀더'
       />
       <TextField.Helper>헬퍼 텍스트</TextField.Helper>

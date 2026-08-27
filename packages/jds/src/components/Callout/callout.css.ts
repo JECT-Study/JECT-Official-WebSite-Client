@@ -3,7 +3,6 @@ import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
 
 import type { CalloutFeedback, CalloutSize } from "./callout.types";
-import { labelColorVar, titleColorVar } from "../../utils/typography.css";
 
 const layerColorVar = createVar();
 const iconColorVar = createVar();
@@ -51,8 +50,6 @@ export const root = recipe({
         borderColor: vars.color.semantic.stroke.alpha.subtler,
         color: vars.color.semantic.object.bold,
         vars: {
-          [titleColorVar]: vars.color.semantic.object.bold,
-          [labelColorVar]: vars.color.semantic.object.bold,
           [layerColorVar]: vars.color.semantic.fill.subtlest,
           [iconColorVar]: vars.color.semantic.object.bold,
         },
@@ -62,8 +59,6 @@ export const root = recipe({
         borderColor: vars.color.semantic.feedback.positive.alpha.subtler,
         color: vars.color.semantic.object.bolder,
         vars: {
-          [titleColorVar]: vars.color.semantic.object.bolder,
-          [labelColorVar]: vars.color.semantic.object.bolder,
           [layerColorVar]: vars.color.semantic.feedback.positive.neutral,
           [iconColorVar]: vars.color.semantic.feedback.positive.bold,
         },
@@ -73,8 +68,6 @@ export const root = recipe({
         borderColor: vars.color.semantic.feedback.destructive.alpha.subtler,
         color: vars.color.semantic.object.bolder,
         vars: {
-          [titleColorVar]: vars.color.semantic.object.bolder,
-          [labelColorVar]: vars.color.semantic.object.bolder,
           [layerColorVar]: vars.color.semantic.feedback.destructive.neutral,
           [iconColorVar]: vars.color.semantic.feedback.destructive.bold,
         },
@@ -84,8 +77,6 @@ export const root = recipe({
         borderColor: vars.color.semantic.feedback.notifying.alpha.subtler,
         color: vars.color.semantic.object.bolder,
         vars: {
-          [titleColorVar]: vars.color.semantic.object.bolder,
-          [labelColorVar]: vars.color.semantic.object.bolder,
           [layerColorVar]: vars.color.semantic.feedback.notifying.static.inverse.bolder,
           [iconColorVar]: vars.color.semantic.feedback.notifying.static.inverse.bold,
         },
@@ -140,12 +131,17 @@ export const icon = style({
 
 export const body = style({
   width: "100%",
+  textAlign: "left",
   margin: 0,
   color: "inherit",
   overflowWrap: "break-word",
 });
 
 export const title = style({
+  display: "flex",
+  alignItems: "center",
+  color: "inherit",
+  cursor: "default",
   margin: 0,
   flex: 1,
   minWidth: 0,
