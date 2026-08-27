@@ -3,6 +3,7 @@ import { forwardRef, type ComponentPropsWithoutRef, type ReactNode } from "react
 
 import { FieldContent } from "../../Field";
 import { useFieldControl } from "../../Field/useFieldControl";
+import { useTextLengthCounter } from "../../Field/useFieldCounter";
 import * as styles from "../textField.css";
 
 import { getBodyClassName } from "@/utils/typography";
@@ -20,11 +21,6 @@ export interface TextFieldInputProps extends Omit<
   suffix?: ReactNode;
 }
 
-/**
- * @description Field 컨텍스트를 소비해 필드 박스와 실제 input을 함께 렌더한다.
- * Helper가 실제로 렌더될 때만 aria-describedby로 연결한다.
- * controlled(value, onChange)와 uncontrolled(defaultValue)를 모두 지원한다.
- */
 export const TextFieldInput = forwardRef<HTMLInputElement, TextFieldInputProps>(
   (
     {
@@ -38,6 +34,10 @@ export const TextFieldInput = forwardRef<HTMLInputElement, TextFieldInputProps>(
       "aria-describedby": describedByFromProps,
       "aria-invalid": invalidFromProps,
       className,
+      value,
+      defaultValue,
+      onChange,
+      maxLength,
       ...restProps
     },
     ref,
@@ -61,6 +61,13 @@ export const TextFieldInput = forwardRef<HTMLInputElement, TextFieldInputProps>(
       ariaInvalid: invalidFromProps,
     });
 
+    const handleChange = useTextLengthCounter<HTMLInputElement>("TextField.Input", {
+      value,
+      defaultValue,
+      maxLength,
+      onChange,
+    });
+
     return (
       <FieldContent>
         {prefix}
@@ -68,6 +75,10 @@ export const TextFieldInput = forwardRef<HTMLInputElement, TextFieldInputProps>(
           {...restProps}
           ref={ref}
           id={fieldId}
+          value={value}
+          defaultValue={defaultValue}
+          onChange={handleChange}
+          maxLength={maxLength}
           aria-label={ariaLabel}
           aria-labelledby={ariaLabelledBy}
           aria-describedby={ariaDescribedBy}
