@@ -1,20 +1,12 @@
-import { forwardRef, useState } from "react";
+import { forwardRef } from "react";
 
-import { TextareaControl } from "./compound/Control";
-import { TextareaCounter } from "./compound/Counter";
-import { TextareaProvider } from "./Textarea.context";
 import { Field, type FieldProps } from "../Field";
+import { TextareaControl } from "./compound/Control";
 
 export type TextareaProps = FieldProps;
 
 const TextareaRoot = forwardRef<HTMLDivElement, TextareaProps>((props, ref) => {
-  const [counter, setCounter] = useState<{ current: number; max: number } | null>(null);
-
-  return (
-    <TextareaProvider counter={counter} onCounterChange={setCounter}>
-      <Field ref={ref} {...props} />
-    </TextareaProvider>
-  );
+  return <Field ref={ref} {...props} />;
 });
 
 TextareaRoot.displayName = "Textarea";
@@ -39,5 +31,5 @@ export const Textarea = Object.assign(TextareaRoot, {
   Control: TextareaControl,
   Footer: Field.Footer,
   Helper: Field.Helper,
-  Counter: TextareaCounter,
+  Counter: Field.Counter,
 });

@@ -7,7 +7,7 @@ import { FieldHelper } from "./compound/Helper";
 import { FieldLabel } from "./compound/Label";
 import { FieldProvider } from "./Field.context";
 import * as styles from "./field.css";
-import type { FieldStatus } from "./field.types";
+import type { FieldCounterState, FieldStatus } from "./field.types";
 
 export interface FieldProps extends ComponentPropsWithoutRef<"div"> {
   status?: FieldStatus;
@@ -39,6 +39,7 @@ const InternalField = forwardRef<HTMLDivElement, FieldProps>(
     const [hasLabel, setHasLabel] = useState(false);
     const [hasHelper, setHasHelper] = useState(false);
     const [hasCounter, setHasCounter] = useState(false);
+    const [counter, setCounter] = useState<FieldCounterState | null>(null);
     const [isControlRequired, setControlRequired] = useState(false);
 
     return (
@@ -51,6 +52,8 @@ const InternalField = forwardRef<HTMLDivElement, FieldProps>(
         hasHelper={hasHelper}
         onHelperMountChange={setHasHelper}
         counterId={counterId}
+        counter={counter}
+        onCounterChange={setCounter}
         hasCounter={hasCounter}
         onCounterMountChange={setHasCounter}
         isControlRequired={isControlRequired}

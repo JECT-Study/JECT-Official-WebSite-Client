@@ -1,7 +1,6 @@
 import { Popover } from "radix-ui";
 import { forwardRef, useState } from "react";
 
-import { MultiSelectFieldCounter } from "./compound/Counter";
 import { MultiSelectFieldInput } from "./compound/Input";
 import { MultiSelectFieldProvider } from "./MultiSelectField.context";
 import type { MultiSelectFieldProps } from "./multiSelectField.types";
@@ -10,7 +9,6 @@ import { Field } from "../Field";
 const MultiSelectFieldRoot = forwardRef<HTMLDivElement, MultiSelectFieldProps>((props, ref) => {
   const [isOpenRequested, setIsOpenRequested] = useState(false);
   const [hasPopupContent, setHasPopupContent] = useState(false);
-  const [counter, setCounter] = useState<{ current: number; max: number } | null>(null);
 
   const isOpen = isOpenRequested && hasPopupContent;
 
@@ -19,8 +17,6 @@ const MultiSelectFieldRoot = forwardRef<HTMLDivElement, MultiSelectFieldProps>((
       isOpen={isOpen}
       onOpenChange={setIsOpenRequested}
       onHasPopupContentChange={setHasPopupContent}
-      counter={counter}
-      onCounterChange={setCounter}
     >
       <Popover.Root open={isOpen} onOpenChange={setIsOpenRequested} modal={false}>
         <Field ref={ref} {...props} />
@@ -36,5 +32,5 @@ export const MultiSelectField = Object.assign(MultiSelectFieldRoot, {
   Input: MultiSelectFieldInput,
   Footer: Field.Footer,
   Helper: Field.Helper,
-  Counter: MultiSelectFieldCounter,
+  Counter: Field.Counter,
 });
