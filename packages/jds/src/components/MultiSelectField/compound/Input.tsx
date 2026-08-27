@@ -18,6 +18,7 @@ import {
 import { ContentBadge } from "../../Badge";
 import { FieldContent } from "../../Field";
 import { useFieldControl } from "../../Field/useFieldControl";
+import { useFieldCounter } from "../../Field/useFieldCounter";
 import { Listbox, useListbox, useMultiSelectState } from "../../Listbox";
 import { SELECTION_KEYS } from "../../Listbox/listbox.constants";
 import { useMultiSelectFieldContext } from "../MultiSelectField.context";
@@ -82,7 +83,7 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       ariaInvalid: invalidFromProps,
     });
 
-    const { isOpen, onOpenChange, onHasPopupContentChange, onCounterChange } =
+    const { isOpen, onOpenChange, onHasPopupContentChange } =
       useMultiSelectFieldContext("MultiSelectField.Input");
 
     const contentRef = useRef<HTMLDivElement>(null);
@@ -143,14 +144,10 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       return () => onHasPopupContentChange(false);
     }, [hasPopupContent, onHasPopupContentChange]);
 
-    const selectedCount = selectedValues.length;
-
-    useLayoutEffect(() => {
-      if (maxValues == null) return;
-
-      onCounterChange({ current: selectedCount, max: maxValues });
-      return () => onCounterChange(null);
-    }, [selectedCount, maxValues, onCounterChange]);
+    useFieldCounter(
+      "MultiSelectField.Input",
+      maxValues == null ? null : { current: selectedValues.length, max: maxValues },
+    );
 
     const activateRef = useRef<() => void>(() => {});
 

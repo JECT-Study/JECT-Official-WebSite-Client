@@ -18,6 +18,7 @@ import {
 import { ContentBadge } from "../../Badge";
 import { FieldContent } from "../../Field";
 import { useFieldControl } from "../../Field/useFieldControl";
+import { useFieldCounter } from "../../Field/useFieldCounter";
 import { Listbox, useListbox, useMultiSelectState } from "../../Listbox";
 import { useSuggestionFieldContext } from "../SuggestionField.context";
 import * as styles from "../suggestionField.css";
@@ -82,7 +83,7 @@ export const SuggestionFieldInput = forwardRef<HTMLInputElement, SuggestionField
       ariaInvalid: invalidFromProps,
     });
 
-    const { isOpen, onOpenChange, onHasPopupContentChange, onCounterChange } =
+    const { isOpen, onOpenChange, onHasPopupContentChange } =
       useSuggestionFieldContext("SuggestionField.Input");
 
     const contentRef = useRef<HTMLDivElement>(null);
@@ -151,14 +152,10 @@ export const SuggestionFieldInput = forwardRef<HTMLInputElement, SuggestionField
       return () => onHasPopupContentChange(false);
     }, [hasPopupContent, onHasPopupContentChange]);
 
-    const selectedCount = selectedValues.length;
-
-    useLayoutEffect(() => {
-      if (maxValues == null) return;
-
-      onCounterChange({ current: selectedCount, max: maxValues });
-      return () => onCounterChange(null);
-    }, [selectedCount, maxValues, onCounterChange]);
+    useFieldCounter(
+      "SuggestionField.Input",
+      maxValues == null ? null : { current: selectedValues.length, max: maxValues },
+    );
 
     const activateRef = useRef<() => void>(() => {});
 
