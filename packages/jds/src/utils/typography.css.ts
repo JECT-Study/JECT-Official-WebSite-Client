@@ -1,4 +1,4 @@
-import { style, type StyleRule } from "@vanilla-extract/css";
+import type { StyleRule } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { textStyles } from "tokens";
 
@@ -9,7 +9,7 @@ import type {
   LabelWeight,
   SyntaxSize,
   TitleSize,
-} from "./typography";
+} from "./typography.types";
 
 export const label = recipe({
   variants: {
@@ -171,8 +171,4 @@ export const syntax = recipe({
   defaultVariants: {
     size: "md",
   },
-});
-
-export const inheritColor = style({
-  color: "inherit",
 });

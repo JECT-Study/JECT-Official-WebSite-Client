@@ -1,44 +1,12 @@
-import type { ElementType } from "react";
-
 import * as typographyStyles from "./typography.css";
+import type {
+  BodyStyleOptions,
+  LabelStyleOptions,
+  SyntaxStyleOptions,
+  TitleStyleOptions,
+} from "./typography.types";
 
-export const TEXT_ALIGN_MAPPING = {
-  center: "center",
-  left: "flex-start",
-  right: "flex-end",
-} as const;
-
-export type LabelSize = "lg" | "md" | "sm" | "xs";
-export type LabelTextAlign = keyof typeof TEXT_ALIGN_MAPPING;
-export type LabelWeight = "bold" | "normal" | "subtle";
-export type LabelCursor = "pointer" | "default";
-export type LabelOwnProps = {
-  as?: ElementType;
-  size?: LabelSize;
-  textAlign?: LabelTextAlign;
-  weight?: LabelWeight;
-  cursor?: LabelCursor;
-  htmlFor?: string;
-};
-
-export type TitleSize = "2xl" | "xl" | "lg" | "md" | "sm" | "xs";
-export interface TitleStyleOptions {
-  size?: TitleSize;
-}
-
-export type BodySize = "lg" | "md" | "sm" | "xs" | "2xs";
-export type BodyWeight = "bold" | "normal";
-export interface BodyStyleOptions {
-  size?: BodySize;
-  weight?: BodyWeight;
-}
-
-export type SyntaxSize = "lg" | "md" | "sm" | "xs";
-export interface SyntaxStyleOptions {
-  size?: SyntaxSize;
-}
-
-export type LabelStyleOptions = Pick<LabelOwnProps, "size" | "weight">;
+export * from "./typography.types";
 
 export const getLabelClassName = ({ size = "md", weight = "normal" }: LabelStyleOptions = {}) =>
   typographyStyles.label({
@@ -59,14 +27,6 @@ export const getBodyClassName = ({ size = "md", weight = "normal" }: BodyStyleOp
 
 export const getSyntaxClassName = ({ size = "md" }: SyntaxStyleOptions = {}) =>
   typographyStyles.syntax({ size });
-
-export const typography = {
-  label: typographyStyles.label,
-  body: typographyStyles.body,
-  title: typographyStyles.title,
-  syntax: typographyStyles.syntax,
-  inheritColor: typographyStyles.inheritColor,
-};
 
 const typographyProps = new Set(["size", "textAlign", "weight", "cursor", "color", "as"]);
 

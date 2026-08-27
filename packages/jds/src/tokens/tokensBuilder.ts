@@ -150,20 +150,30 @@ function toCssLength(value: string | number, unit = "px"): string {
   return typeof value === "number" ? `${value}${unit}` : value;
 }
 
+function percentToEm(value: number): string {
+  return `${Number((value / 100).toFixed(5))}em`;
+}
+
 function toLetterSpacingValue(letterSpacing: ExtractedTextStyle["letterSpacing"]): string {
   if (letterSpacing === undefined) {
     return "0px";
   }
 
   if (typeof letterSpacing === "string") {
-    return letterSpacing;
+    const percent = Number.parseFloat(letterSpacing);
+
+    return letterSpacing.trim().endsWith("%") && !Number.isNaN(percent)
+      ? percentToEm(percent)
+      : letterSpacing;
   }
 
   if (typeof letterSpacing === "number") {
     return `${letterSpacing}px`;
   }
 
-  return letterSpacing.unit === "PERCENT" ? `${letterSpacing.value}%` : `${letterSpacing.value}px`;
+  return letterSpacing.unit === "PERCENT"
+    ? percentToEm(letterSpacing.value)
+    : `${letterSpacing.value}px`;
 }
 
 function normalizeExtractedTextStyles(
