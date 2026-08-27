@@ -22,7 +22,7 @@ Emotion 기반으로 남아 있던 컴포넌트를 패키지에서 제거합니�
 | `Image`의 `fallbackSrc` (`string`)                                                                                                                                                                                                             | `Thumbnail`의 `fallback` (`ReactNode`)   |
 | `Image`의 `isReadonly`, `badgeVisible`, `badgeLabel`                                                                                                                                                                                           | 제거 — 대체 prop 없음                    |
 
-`ratio`와 `orientation`은 받는 값이 같습니다. `Image`는 기본 `button`으로 렌더되는 폴리모픽 컴포넌트였지만 `Thumbnail`은 `div`로 고정이며, `fallback`을 생략하면 `ThumbnailFallback`이 기본값으로 적용됩니다.
+`ratio`와 `orientation`은 받는 값이 같지만, `Thumbnail`은 `ratio`가 `1:1`일 때 `orientation`을 `portrait`으로 제한합니다. `1:1`에 `landscape`를 지정하던 호출부는 `orientation`을 지우면 됩니다. `Image`는 기본 `button`으로 렌더되는 폴리모픽 컴포넌트였지만 `Thumbnail`은 `div`로 고정이며, `fallback`을 생략하면 `ThumbnailFallback`이 기본값으로 적용됩니다.
 
 ```diff
 - <Image
