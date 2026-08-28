@@ -10,7 +10,7 @@
 
 `maxLength`를 지정하고 `Textarea.Counter`를 `Textarea.Footer` 안에 두면 현재 글자 수와 최대 글자 수를 표시합니다. uncontrolled에서는 `onChange`로만 길이를 추적하므로, `<form>` reset이나 ref로 값을 직접 변경하면 카운터가 실제 내용과 어긋납니다.
 
-타입 `TextareaProps`, `TextareaControlProps`, `TextareaLabelProps`, `TextareaHelperProps`, `TextareaFooterProps`를 함께 내보냅니다.
+타입 `TextareaProps`, `TextareaControlProps`, `TextareaLabelProps`, `TextareaHelperProps`, `TextareaFooterProps`, `TextareaCounterProps`를 함께 내보냅니다.
 
 ```tsx
 <Textarea status='error' required>
@@ -30,19 +30,19 @@
 
 **소비처 영향 (코드 수정 필요)**
 
-| AS-IS `Input.InputArea`                                                                         | TO-BE `Textarea`                                                                                            |
-| ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| 단일 컴포넌트 (prop 기반)                                                                       | compound                                                                                                    |
-| `label`                                                                                         | `<Textarea.Label>`                                                                                          |
-| `helperText`                                                                                    | `<Textarea.Helper>`                                                                                         |
-| 루트의 `value` / `onChange` (필수)                                                              | `<Textarea.Control>`의 controlled(`value` + `onChange`) / uncontrolled(`defaultValue`)                      |
-| `maxLength` (내장 카운터)                                                                       | `<Textarea.Control maxLength>`와 `<Textarea.Counter>`                                                       |
-| `labelIcon`                                                                                     | `<Textarea.Label suffix={<Icon … />}>`                                                                      |
-| `style="outlined" \| "empty"`                                                                   | 제거 — `outlined` 표현으로 고정                                                                             |
-| `validation="none" \| "error"`                                                                  | `status="default" \| "success" \| "error"`                                                                  |
-| `interaction="enabled" \| "disabled" \| "readOnly"`                                             | `disabled` / `readonly` (+ `required`) boolean prop                                                         |
-| `height` / `minHeight`                                                                          | `Textarea.Control`에 CSS로 지정                                                                             |
-| `InputAreaProps`, `InputAreaStyle`, `InputAreaLayout`, `InputAreaValidation`, `InputAreaStatus` | `TextareaProps`, `TextareaControlProps`, `TextareaLabelProps`, `TextareaHelperProps`, `TextareaFooterProps` |
+| AS-IS `Input.InputArea`                                                                         | TO-BE `Textarea`                                                                                                                    |
+| ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| 단일 컴포넌트 (prop 기반)                                                                       | compound                                                                                                                            |
+| `label`                                                                                         | `<Textarea.Label>`                                                                                                                  |
+| `helperText`                                                                                    | `<Textarea.Helper>`                                                                                                                 |
+| 루트의 `value` / `onChange` (필수)                                                              | `<Textarea.Control>`의 controlled(`value` + `onChange`) / uncontrolled(`defaultValue`)                                              |
+| `maxLength` (내장 카운터)                                                                       | `<Textarea.Control maxLength>`와 `<Textarea.Counter>`                                                                               |
+| `labelIcon`                                                                                     | `<Textarea.Label suffix={<Icon … />}>`                                                                                              |
+| `style="outlined" \| "empty"`                                                                   | 제거 — `outlined` 표현으로 고정                                                                                                     |
+| `validation="none" \| "error"`                                                                  | `status="default" \| "success" \| "error"`                                                                                          |
+| `interaction="enabled" \| "disabled" \| "readOnly"`                                             | `disabled` / `readonly` (+ `required`) boolean prop                                                                                 |
+| `height` / `minHeight`                                                                          | `Textarea.Control`에 CSS로 지정                                                                                                     |
+| `InputAreaProps`, `InputAreaStyle`, `InputAreaLayout`, `InputAreaValidation`, `InputAreaStatus` | `TextareaProps`, `TextareaControlProps`, `TextareaLabelProps`, `TextareaHelperProps`, `TextareaFooterProps`, `TextareaCounterProps` |
 
 ```diff
 - <Input.InputArea

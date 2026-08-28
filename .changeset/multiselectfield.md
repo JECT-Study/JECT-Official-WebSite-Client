@@ -16,7 +16,7 @@
 
 값을 옵션으로 제한하지 않아야 하는 경우 `SuggestionField`를 사용합니다.
 
-타입 `MultiSelectFieldProps`, `MultiSelectFieldInputProps`, `MultiSelectFieldFooterProps`, `MultiSelectFieldLabelProps`, `MultiSelectFieldHelperProps`를 함께 내보냅니다.
+타입 `MultiSelectFieldProps`, `MultiSelectFieldInputProps`, `MultiSelectFieldFooterProps`, `MultiSelectFieldLabelProps`, `MultiSelectFieldHelperProps`, `MultiSelectFieldCounterProps`를 함께 내보냅니다.
 
 ```tsx
 <MultiSelectField>
