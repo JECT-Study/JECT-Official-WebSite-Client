@@ -4,4 +4,5 @@ export type {
   FieldLabelProps as SuggestionFieldLabelProps,
   FieldHelperProps as SuggestionFieldHelperProps,
   FieldFooterProps as SuggestionFieldFooterProps,
+  FieldCounterProps as SuggestionFieldCounterProps,
 } from "../Field";
