@@ -17,7 +17,7 @@ export interface FieldContextValue {
   counterId: string;
   /** 컨트롤이 보고한 카운터 값. 보고가 없으면 null이고 Field.Counter는 렌더하지 않는다. */
   counter: FieldCounterState | null;
-  /** 컨트롤이 셀 수 있는 값과 최대치를 보고할 때 호출된다. */
+  /** 컨트롤이 현재 개수와 최대 개수를 보고할 때 호출된다. */
   onCounterChange: (counter: FieldCounterState | null) => void;
   /** Field.Counter가 실제로 렌더되고 있는지 여부 */
   hasCounter: boolean;

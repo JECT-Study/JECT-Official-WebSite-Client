@@ -7,7 +7,7 @@ import type { FieldCounterState } from "./field.types";
  * @description 카운터에 표시할 값을 Field에 전달해 `Field.Counter`에서 사용할 수 있도록 한다.
  * `null`을 전달하면 값을 전달하지 않으며, 이 경우 `Field.Counter`를 배치해도 렌더되지 않는다.
  */
-export const useFieldCounter = (consumerName: string, counter: FieldCounterState | null) => {
+const useFieldCounter = (consumerName: string, counter: FieldCounterState | null) => {
   const { onCounterChange } = useFieldContext(consumerName);
 
   const current = counter?.current;
@@ -19,6 +19,19 @@ export const useFieldCounter = (consumerName: string, counter: FieldCounterState
     onCounterChange({ current, max });
     return () => onCounterChange(null);
   }, [current, max, onCounterChange]);
+};
+
+export interface UseItemCounterOptions {
+  count: number;
+  max?: number;
+}
+
+/**
+ * @description 컨트롤이 이미 알고 있는 항목 개수를 최대 개수와 함께 Field에 전달한다.
+ * `max`가 없으면 값을 전달하지 않는다.
+ */
+export const useItemCounter = (consumerName: string, { count, max }: UseItemCounterOptions) => {
+  useFieldCounter(consumerName, max == null ? null : { current: count, max });
 };
 
 type TextValue = string | number | readonly string[];

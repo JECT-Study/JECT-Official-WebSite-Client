@@ -18,7 +18,7 @@ import {
 import { ContentBadge } from "../../Badge";
 import { FieldContent } from "../../Field";
 import { useFieldControl } from "../../Field/useFieldControl";
-import { useFieldCounter } from "../../Field/useFieldCounter";
+import { useItemCounter } from "../../Field/useFieldCounter";
 import { Listbox, useListbox, useMultiSelectState } from "../../Listbox";
 import { SELECTION_KEYS } from "../../Listbox/listbox.constants";
 import { useMultiSelectFieldContext } from "../MultiSelectField.context";
@@ -144,10 +144,7 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       return () => onHasPopupContentChange(false);
     }, [hasPopupContent, onHasPopupContentChange]);
 
-    useFieldCounter(
-      "MultiSelectField.Input",
-      maxValues == null ? null : { current: selectedValues.length, max: maxValues },
-    );
+    useItemCounter("MultiSelectField.Input", { count: selectedValues.length, max: maxValues });
 
     const activateRef = useRef<() => void>(() => {});
 
