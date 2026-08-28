@@ -18,7 +18,7 @@ import {
 import { ContentBadge } from "../../Badge";
 import { FieldContent } from "../../Field";
 import { useFieldControl } from "../../Field/useFieldControl";
-import { useFieldCounter } from "../../Field/useFieldCounter";
+import { useItemCounter } from "../../Field/useFieldCounter";
 import { Listbox, useListbox, useMultiSelectState } from "../../Listbox";
 import { useSuggestionFieldContext } from "../SuggestionField.context";
 import * as styles from "../suggestionField.css";
@@ -152,10 +152,7 @@ export const SuggestionFieldInput = forwardRef<HTMLInputElement, SuggestionField
       return () => onHasPopupContentChange(false);
     }, [hasPopupContent, onHasPopupContentChange]);
 
-    useFieldCounter(
-      "SuggestionField.Input",
-      maxValues == null ? null : { current: selectedValues.length, max: maxValues },
-    );
+    useItemCounter("SuggestionField.Input", { count: selectedValues.length, max: maxValues });
 
     const activateRef = useRef<() => void>(() => {});
 
