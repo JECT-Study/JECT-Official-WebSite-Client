@@ -41,3 +41,5 @@ export const FieldCounterValueProvider = FieldCounterValueContext.Provider;
 
 /** 컨트롤이 전달한 카운터 값을 읽는다. 전달된 값이 없으면 `null`이다. */
 export const useFieldCounterValue = () => useContext(FieldCounterValueContext);
+
+FieldCounterValueContext.displayName = "FieldCounterValueContext";
