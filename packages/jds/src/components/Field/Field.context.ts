@@ -1,3 +1,5 @@
+import { createContext, useContext } from "react";
+
 import type { FieldCounterState, FieldStatus } from "./field.types";
 
 import { createCtxProvider } from "@/hooks/createCtxProvider";
@@ -15,8 +17,6 @@ export interface FieldContextValue {
   /** Field.Helper가 mount/unmount될 때 호출된다. */
   onHelperMountChange: (mounted: boolean) => void;
   counterId: string;
-  /** 컨트롤이 보고한 카운터 값. 보고가 없으면 null이고 Field.Counter는 렌더하지 않는다. */
-  counter: FieldCounterState | null;
   /** 컨트롤이 현재 개수와 최대 개수를 보고할 때 호출된다. */
   onCounterChange: (counter: FieldCounterState | null) => void;
   /** Field.Counter가 실제로 렌더되고 있는지 여부 */
@@ -33,3 +33,11 @@ export interface FieldContextValue {
 }
 
 export const [FieldProvider, useFieldContext] = createCtxProvider<FieldContextValue>("Field");
+
+// 카운터 값은 입력마다 바뀌므로 Field 컨텍스트에서 분리한다.
+const FieldCounterValueContext = createContext<FieldCounterState | null>(null);
+
+export const FieldCounterValueProvider = FieldCounterValueContext.Provider;
+
+/** 컨트롤이 전달한 카운터 값을 읽는다. 전달된 값이 없으면 `null`이다. */
+export const useFieldCounterValue = () => useContext(FieldCounterValueContext);
