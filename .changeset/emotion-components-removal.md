@@ -43,3 +43,7 @@ Emotion 기반으로 남아 있던 컴포넌트를 패키지에서 제거합니�
 +   orientation='landscape'
 + />
 ```
+
+**동작 변경 (코드 수정 불필요)**
+
+- `loading` 기본값이 `Image`는 `eager`였으나 `Thumbnail`은 `lazy` — 이전 동작이 필요하면 `loading='eager'` 명시
