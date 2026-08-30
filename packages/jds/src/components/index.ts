@@ -12,6 +12,7 @@ export * from "./Dialog";
 export * from "./Divider";
 export * from "./EmptyState";
 export * from "./File";
+export * from "./FileField";
 export * from "./Icon";
 export * from "./Thumbnail";
 export * from "./Kbd";
