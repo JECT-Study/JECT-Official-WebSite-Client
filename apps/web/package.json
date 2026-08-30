@@ -10,7 +10,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint --fix --max-warnings 0",
+    "lint": "eslint --max-warnings 0",
+    "lint:fix": "eslint --fix --max-warnings 0",
     "preview": "vite preview",
     "clean": "rm -rf dist node_modules .turbo",
     "storybook": "storybook dev -p 6006",
