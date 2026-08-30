@@ -27,17 +27,19 @@ jobs:
           cache: "npm"
 
       - name: Install Dependencies
+        id: install
         run: npm ci
 
-      # 하나가 실패해도 나머지를 돌려 문제를 한 번에 보여준다.
+      # 검사 하나가 실패해도 나머지를 돌려 문제를 한 번에 보여준다.
+      # 설치가 실패했다면 검사는 건너뛴다. 돌려도 같은 원인으로 실패할 뿐이다.
       - name: Check Formatting
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
         run: npm run format:check
 
       - name: Lint
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
         run: npm run lint
 
       - name: Type Check
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
         run: npm run type-check
