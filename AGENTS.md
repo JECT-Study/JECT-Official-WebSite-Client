@@ -22,7 +22,8 @@ JDS는 vanilla-extract로 스타일링하고 `radix-ui`를 기반으로 동작�
 npm run dev
 npm run build
 npm run type-check
-npm run lint          # --max-warnings 0, 경고도 실패
+npm run lint          # 검사만, --max-warnings 0으로 경고도 실패
+npm run lint:fix      # 검사 후 자동 수정
 
 # 포맷은 turbo를 거치지 않고 루트에서 한 번만 실행한다
 npm run format
