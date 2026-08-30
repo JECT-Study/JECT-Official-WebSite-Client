@@ -186,26 +186,30 @@ export const SelectFieldInput = forwardRef<HTMLInputElement, SelectFieldInputPro
     const togglePopup = () => {
       if (!isInteractive) return;
 
+      onOpenChange(!isOpen);
+    };
+
+    const handleContentPress = () => {
       if (searchable) openIfInteractive();
-      else onOpenChange(!isOpen);
+      else togglePopup();
     };
 
     const handleMouseDown = (e: MouseEvent<HTMLInputElement>) => {
       onMouseDownFromProps?.(e);
       if (e.defaultPrevented) return;
 
-      togglePopup();
+      handleContentPress();
     };
 
     const handleContentMouseDown = (e: MouseEvent<HTMLDivElement>) => {
       if (e.target !== e.currentTarget) return;
 
-      togglePopup();
+      handleContentPress();
     };
 
     const handleIndicatorClick = () => {
       inputRef.current?.focus();
-      onOpenChange(!isOpen);
+      togglePopup();
     };
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {

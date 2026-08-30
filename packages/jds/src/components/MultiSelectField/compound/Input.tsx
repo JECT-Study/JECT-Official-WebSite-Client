@@ -190,7 +190,7 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       if (isInteractive && !isOpen) onOpenChange(true);
     };
 
-    const togglePopup = () => {
+    const handleContentPress = () => {
       if (!isInteractive) return;
 
       if (searchable) openIfInteractive();
@@ -201,13 +201,13 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       onMouseDownFromProps?.(e);
       if (e.defaultPrevented) return;
 
-      togglePopup();
+      handleContentPress();
     };
 
     const handleContentMouseDown = (e: MouseEvent<HTMLDivElement>) => {
       if (e.target !== e.currentTarget) return;
 
-      togglePopup();
+      handleContentPress();
     };
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
