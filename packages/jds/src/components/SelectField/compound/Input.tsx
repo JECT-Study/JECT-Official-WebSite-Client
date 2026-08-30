@@ -309,6 +309,8 @@ export const SelectFieldInput = forwardRef<HTMLInputElement, SelectFieldInputPro
             <button
               type='button'
               tabIndex={-1}
+              aria-expanded={isOpen}
+              aria-controls={isOpen ? listboxId : undefined}
               aria-label={isOpen ? "목록 닫기" : "목록 열기"}
               disabled={!isInteractive}
               className={styles.indicator}
