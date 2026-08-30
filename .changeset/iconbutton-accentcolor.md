@@ -37,4 +37,4 @@
 
 **추가**
 
-- `accentColor` (`{ normal: string; disabled?: string }`) — `hierarchy="accent"`의 색 지정, `disabled`를 생략하면 `normal`이 적용
+- `accentColor` (`{ normal: string; disabled?: string }`) — `hierarchy="accent"`일 때 지정할 수 있는 색상, `disabled`를 생략하면 `normal`이 적용

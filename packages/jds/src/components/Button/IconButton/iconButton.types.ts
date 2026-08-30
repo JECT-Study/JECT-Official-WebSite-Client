@@ -21,12 +21,14 @@ export const ICON_BUTTON_HIERARCHY_OPTIONS = [
 export type IconButtonSize = (typeof ICON_BUTTON_SIZE_OPTIONS)[number];
 export type IconButtonHierarchy = (typeof ICON_BUTTON_HIERARCHY_OPTIONS)[number];
 
+type IconButtonAccentProps =
+  | { hierarchy?: Exclude<IconButtonHierarchy, "accent">; accentColor?: never }
+  | { hierarchy: "accent"; accentColor?: { normal: string; disabled?: string } };
+
 // TODO(a11y): 이후 작업에서 aria-label / aria-labelledby 중 하나를 required로 강제
 export type IconButtonProps = ComponentPropsWithoutRef<"button"> & {
   "data-part"?: never;
   icon: IconName;
   size?: IconButtonSize;
-  hierarchy?: IconButtonHierarchy;
   condensed?: boolean;
-  accentColor?: { normal: string; disabled?: string };
-};
+} & IconButtonAccentProps;
