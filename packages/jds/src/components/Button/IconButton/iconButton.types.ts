@@ -1,5 +1,6 @@
 import type { IconName } from "components";
 import type { ComponentPropsWithoutRef } from "react";
+import type { AriaLabelProps } from "types";
 
 export const ICON_BUTTON_SIZE_OPTIONS = [
   "2xs",
@@ -25,10 +26,14 @@ type IconButtonAccentProps =
   | { hierarchy?: Exclude<IconButtonHierarchy, "accent">; accentColor?: never }
   | { hierarchy: "accent"; accentColor?: { normal: string; disabled?: string } };
 
-// TODO(a11y): 이후 작업에서 aria-label / aria-labelledby 중 하나를 required로 강제
-export type IconButtonProps = ComponentPropsWithoutRef<"button"> & {
-  "data-part"?: never;
-  icon: IconName;
-  size?: IconButtonSize;
-  condensed?: boolean;
-} & IconButtonAccentProps;
+export type IconButtonProps = Omit<
+  ComponentPropsWithoutRef<"button">,
+  "aria-label" | "aria-labelledby"
+> &
+  AriaLabelProps &
+  IconButtonAccentProps & {
+    "data-part"?: never;
+    icon: IconName;
+    size?: IconButtonSize;
+    condensed?: boolean;
+  };
