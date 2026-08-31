@@ -653,7 +653,7 @@ const textStyleEntries = Object.entries(parsedTextStyle.nested).map(([name, prop
 // CSS 속성과 하위 그룹이 섞인다. 지금 토큰에는 그런 쌍이 없고, 생기면 아래에서 즉시 실패한다.
 const createTextStyleGroup = () => Object.create(null) as Record<string, unknown>;
 const hasOwnSegment = (group: Record<string, unknown>, segment: string) =>
-  Object.prototype.hasOwnProperty.call(group, segment);
+  Object.hasOwn(group, segment);
 
 const nestedTextStyles = createTextStyleGroup();
 const leafPaths = new Set<string>();
