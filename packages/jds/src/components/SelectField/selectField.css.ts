@@ -51,6 +51,9 @@ export const indicator = style({
   color: vars.color.semantic.object.assistive,
   transition: `transform ${vars.environment.semantic.duration["100"]} ${vars.environment.semantic.motion.fluent}`,
   selectors: {
+    "&:disabled": {
+      cursor: "default",
+    },
     "[data-disabled] &": {
       color: vars.color.semantic.object.subtler,
     },

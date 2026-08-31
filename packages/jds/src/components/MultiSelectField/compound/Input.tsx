@@ -186,22 +186,28 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       setQuery("");
     };
 
-    const handleContentMouseDown = (e: MouseEvent<HTMLDivElement>) => {
-      if (e.target !== e.currentTarget || !isInteractive) return;
-
-      onOpenChange(true);
-    };
-
     const openIfInteractive = () => {
       if (isInteractive && !isOpen) onOpenChange(true);
+    };
+
+    const handleContentPress = () => {
+      if (!isInteractive) return;
+
+      if (searchable) openIfInteractive();
+      else onOpenChange(!isOpen);
     };
 
     const handleMouseDown = (e: MouseEvent<HTMLInputElement>) => {
       onMouseDownFromProps?.(e);
       if (e.defaultPrevented) return;
 
-      if (searchable) openIfInteractive();
-      else if (isInteractive) onOpenChange(!isOpen);
+      handleContentPress();
+    };
+
+    const handleContentMouseDown = (e: MouseEvent<HTMLDivElement>) => {
+      if (e.target !== e.currentTarget) return;
+
+      handleContentPress();
     };
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {

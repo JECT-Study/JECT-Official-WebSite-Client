@@ -23,6 +23,7 @@ import { useSelectFieldContext } from "../SelectField.context";
 import * as styles from "../selectField.css";
 import type { SelectFieldInputProps } from "../selectField.types";
 
+import { mergeRefs } from "@/hooks/mergeRefs";
 import { getActiveDescendantContainerProps } from "@/hooks/useActiveDescendant";
 import { getBodyClassName } from "@/utils/typography";
 
@@ -83,6 +84,7 @@ export const SelectFieldInput = forwardRef<HTMLInputElement, SelectFieldInputPro
       useSelectFieldContext("SelectField.Input");
 
     const contentRef = useRef<HTMLDivElement>(null);
+    const inputRef = useRef<HTMLInputElement>(null);
 
     const isInteractive = !isDisabled && !isReadOnly;
 
@@ -177,22 +179,37 @@ export const SelectFieldInput = forwardRef<HTMLInputElement, SelectFieldInputPro
       [contextValue, onOpenChange],
     );
 
-    const handleContentMouseDown = (e: MouseEvent<HTMLDivElement>) => {
-      if (e.target !== e.currentTarget || !isInteractive) return;
-
-      onOpenChange(true);
-    };
-
     const openIfInteractive = () => {
       if (isInteractive && !isOpen) onOpenChange(true);
+    };
+
+    const togglePopup = () => {
+      if (!isInteractive) return;
+
+      onOpenChange(!isOpen);
+    };
+
+    const handleContentPress = () => {
+      if (searchable) openIfInteractive();
+      else togglePopup();
     };
 
     const handleMouseDown = (e: MouseEvent<HTMLInputElement>) => {
       onMouseDownFromProps?.(e);
       if (e.defaultPrevented) return;
 
-      if (searchable) openIfInteractive();
-      else if (isInteractive) onOpenChange(!isOpen);
+      handleContentPress();
+    };
+
+    const handleContentMouseDown = (e: MouseEvent<HTMLDivElement>) => {
+      if (e.target !== e.currentTarget) return;
+
+      handleContentPress();
+    };
+
+    const handleIndicatorClick = () => {
+      inputRef.current?.focus();
+      togglePopup();
     };
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -262,7 +279,7 @@ export const SelectFieldInput = forwardRef<HTMLInputElement, SelectFieldInputPro
           >
             <input
               {...restProps}
-              ref={ref}
+              ref={mergeRefs(ref, inputRef)}
               id={fieldId}
               type='text'
               role='combobox'
@@ -293,7 +310,19 @@ export const SelectFieldInput = forwardRef<HTMLInputElement, SelectFieldInputPro
               onMouseDown={handleMouseDown}
             />
             {suffix != null && <span className={styles.suffix}>{suffix}</span>}
-            <Icon name='chevron-down' size='md' className={styles.indicator} />
+            <button
+              type='button'
+              tabIndex={-1}
+              aria-expanded={isOpen}
+              aria-controls={isOpen ? listboxId : undefined}
+              aria-label={isOpen ? "목록 닫기" : "목록 열기"}
+              disabled={!isInteractive}
+              className={styles.indicator}
+              onMouseDown={e => e.preventDefault()}
+              onClick={handleIndicatorClick}
+            >
+              <Icon name='chevron-down' size='md' />
+            </button>
             {name != null && (
               <input
                 type='hidden'
