@@ -1,7 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexColumn, FlexRow } from "@storybook-utils/layout";
-import { assignInlineVars } from "@vanilla-extract/dynamic";
-import { iconButtonAccentColor, iconButtonAccentDisabledColor } from "components";
 import { vars } from "tokens";
 
 import { IconButton } from "./IconButton";
@@ -155,10 +153,7 @@ export const IconButtonAccentOverride: Story = {
           icon='x'
           hierarchy='accent'
           size={size}
-          style={assignInlineVars({
-            [iconButtonAccentColor]: vars.color.semantic.feedback.destructive.normal,
-            [iconButtonAccentDisabledColor]: vars.color.semantic.feedback.destructive.normal,
-          })}
+          accentColor={{ normal: vars.color.semantic.feedback.destructive.normal }}
           aria-label={`accent ${size}`}
         />
       ))}
@@ -167,22 +162,18 @@ export const IconButtonAccentOverride: Story = {
   parameters: {
     docs: {
       description: {
-        story: `디자인 시스템 레벨에서 feedback prop을 제공하지 않는 대신 \`hierarchy='accent'\`에서 색상을
-\`iconButtonAccentColor\` / \`iconButtonAccentDisabledColor\` CSS 변수로 덮어
-사용하는 곳에서 positive / destructive 등의 프리셋을 만들 수 있습니다.
+        story: `디자인 시스템 레벨에서 feedback prop을 제공하지 않는 대신 \`hierarchy='accent'\`에서
+\`accentColor\` prop으로 색상을 지정해 positive / destructive 등의 프리셋을 만들 수 있습니다.
+\`disabled\`를 생략하면 \`normal\`과 동일하게 적용됩니다.
 
 \`\`\`tsx
-import { assignInlineVars } from '@vanilla-extract/dynamic';
-import { IconButton, iconButtonAccentColor, iconButtonAccentDisabledColor, vars } from 'jds';
+import { IconButton, vars } from 'jds';
 
 <IconButton
   icon="x"
   hierarchy="accent"
   aria-label="삭제"
-  style={assignInlineVars({
-    [iconButtonAccentColor]: vars.color.semantic.feedback.destructive.normal,
-    [iconButtonAccentDisabledColor]: vars.color.semantic.feedback.destructive.normal,
-  })}
+  accentColor={{ normal: vars.color.semantic.feedback.destructive.normal }}
 />
 \`\`\``,
       },

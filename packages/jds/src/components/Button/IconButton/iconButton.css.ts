@@ -12,17 +12,8 @@ import {
 const iconButtonIconColor = createVar();
 
 /**
- * `hierarchy="accent"`의 색을 외부에서 덮는 CSS 변수. feedback(positive/destructive)
- * 같은 프리셋은 DS에 두지 않고 도메인 레이어에서 이 변수로 만든다.
- *
- * 둘은 한 쌍이다. `iconButtonAccentColor`만 덮고 `iconButtonAccentDisabledColor`를
- * 빠뜨리면 disabled 색이 기본 accent의 alpha로 남으므로 함께 지정한다.
- *
- * @example
- *   <IconButton hierarchy="accent" style={assignInlineVars({
- *     [iconButtonAccentColor]: vars.color.semantic.feedback.destructive.normal,
- *     [iconButtonAccentDisabledColor]: vars.color.semantic.feedback.destructive.alpha.subtle,
- *   })} />
+ * `hierarchy="accent"`의 색을 덮는 CSS 변수. `IconButton`의 `accentColor` prop과
+ * 클래스를 조합하는 Chip, ContentBadge가 사용한다.
  */
 export const iconButtonAccentColor = createVar();
 export const iconButtonAccentDisabledColor = createVar();
