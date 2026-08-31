@@ -1,9 +1,9 @@
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { clsx } from "clsx";
-import type { IconButtonProps } from "components";
 import { forwardRef } from "react";
 
 import * as styles from "./iconButton.css";
+import type { IconButtonProps } from "./iconButton.types";
 import { Icon } from "../../Icon";
 
 export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(

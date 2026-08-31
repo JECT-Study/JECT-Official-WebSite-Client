@@ -1,5 +1,6 @@
-import type { IconName } from "components";
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
+
+import type { IconName } from "../../Icon";
 
 export const LABEL_BUTTON_SIZE_OPTIONS = ["xs", "sm", "md", "lg"] as const;
 export const LABEL_BUTTON_HIERARCHY_OPTIONS = [
