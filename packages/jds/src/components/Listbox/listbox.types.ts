@@ -5,7 +5,7 @@ export type SelectionMode = "single" | "multiple";
 export type OptionVariant = "control" | "label";
 export type SelectDimension = "full" | (string & {});
 
-export interface ListboxBehaviorContextValue {
+export interface ListboxBehavior {
   listboxId: string;
   disabled: boolean;
   isSelected: (value: string) => boolean;
@@ -45,7 +45,7 @@ export type ListboxCustomValueProps = {
 };
 
 export type ListboxProps = ComponentPropsWithoutRef<"div"> & {
-  context: ListboxBehaviorContextValue;
+  context: ListboxBehavior;
   selectionMode: SelectionMode;
   variant: OptionVariant;
   listboxRef: Ref<HTMLDivElement>;

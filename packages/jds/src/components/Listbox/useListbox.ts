@@ -1,7 +1,7 @@
 import { useCallback, useId, useLayoutEffect, useMemo, useRef, type KeyboardEvent } from "react";
 
 import { SELECTION_KEYS } from "./listbox.constants";
-import type { ListboxBehaviorContextValue } from "./listbox.types";
+import type { ListboxBehavior } from "./listbox.types";
 import { getOptionId, hasSelectedOption, scrollSelectedOptionIntoView } from "./listbox.utils";
 
 import { useActiveDescendant } from "@/hooks/useActiveDescendant";
@@ -111,7 +111,7 @@ export const useListbox = ({
     [getListboxProps, disabled, activeId, onKeyDown, onFocus],
   );
 
-  const contextValue = useMemo<ListboxBehaviorContextValue>(
+  const contextValue = useMemo<ListboxBehavior>(
     () => ({
       listboxId,
       disabled,
