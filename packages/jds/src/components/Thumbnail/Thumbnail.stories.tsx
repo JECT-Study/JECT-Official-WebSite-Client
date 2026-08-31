@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import SAMPLE_SRC from "@storybook-assets/thumbnail.jpg";
 import { FlexColumn, FlexRow, Label } from "@storybook-utils/layout";
 import {
   THUMBNAIL_APPEARANCE_OPTIONS,
@@ -7,8 +8,6 @@ import {
   THUMBNAIL_RATIO_OPTIONS,
   Thumbnail,
 } from "components";
-
-const SAMPLE_SRC = "https://picsum.photos/seed/jds-thumb/600/600";
 
 const meta = {
   title: "Components/Thumbnail",
