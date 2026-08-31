@@ -27,9 +27,3 @@ export const getBodyClassName = ({ size = "md", weight = "normal" }: BodyStyleOp
 
 export const getSyntaxClassName = ({ size = "md" }: SyntaxStyleOptions = {}) =>
   typographyStyles.syntax({ size });
-
-const typographyProps = new Set(["size", "textAlign", "weight", "cursor", "color", "as"]);
-
-export const shouldForwardTypographyProp = (prop: string) => {
-  return !prop.startsWith("$") && !typographyProps.has(prop);
-};
