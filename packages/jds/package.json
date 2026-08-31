@@ -67,7 +67,6 @@
     "format": "prettier --write ."
   },
   "dependencies": {
-    "@react-aria/utils": "^3.34.0",
     "clsx": "^2.1.1",
     "csstype": "^3.2.3",
     "es-hangul": "^2.4.0",
