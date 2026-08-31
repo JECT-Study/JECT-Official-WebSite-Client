@@ -1,3 +1,4 @@
+import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { clsx } from "clsx";
 import type { IconButtonProps } from "components";
 import { forwardRef } from "react";
@@ -13,11 +14,20 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
       hierarchy = "primary",
       condensed = true,
       disabled = false,
+      accentColor,
       className,
+      style,
       ...restProps
     },
     forwardedRef,
   ) => {
+    const accentStyle = accentColor
+      ? assignInlineVars({
+          [styles.iconButtonAccentColor]: accentColor.normal,
+          [styles.iconButtonAccentDisabledColor]: accentColor.disabled ?? accentColor.normal,
+        })
+      : undefined;
+
     return (
       <button
         ref={forwardedRef}
@@ -27,6 +37,7 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
         data-disabled={disabled || undefined}
         data-part='root'
         className={clsx(styles.root({ hierarchy, size, condensed }), className)}
+        style={{ ...accentStyle, ...style }}
       >
         <Icon name={icon} size={size} className={styles.icon} />
       </button>
