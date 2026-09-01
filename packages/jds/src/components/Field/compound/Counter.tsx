@@ -1,7 +1,7 @@
 import { clsx } from "clsx";
 import { forwardRef, useLayoutEffect, type ComponentPropsWithoutRef } from "react";
 
-import { useFieldContext } from "../Field.context";
+import { useFieldContext, useFieldCounterValue } from "../Field.context";
 import * as styles from "../field.css";
 
 import { getLabelClassName } from "@/utils/typography";
@@ -10,17 +10,18 @@ export type FieldCounterProps = Omit<ComponentPropsWithoutRef<"span">, "children
 
 /**
  * @description 컨트롤이 보고한 카운터 값을 렌더한다.
- * 보고가 없으면 아무것도 렌더하지 않으므로, 컨트롤에 최대치를 지정하지 않으면 배치해도 표시되지 않는다.
+ * 컨트롤이 최대 개수를 지정하지 않으면 배치해도 렌더되지 않는다.
  */
 export const FieldCounter = forwardRef<HTMLSpanElement, FieldCounterProps>(
   ({ className, ...restProps }, ref) => {
     const {
       counterId,
-      counter,
       onCounterMountChange,
       status,
       disabled: isDisabled,
     } = useFieldContext("Field.Counter");
+
+    const counter = useFieldCounterValue();
 
     const hasCounter = counter != null;
 

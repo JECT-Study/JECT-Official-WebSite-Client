@@ -5,7 +5,7 @@ import { FieldCounter } from "./compound/Counter";
 import { FieldFooter } from "./compound/Footer";
 import { FieldHelper } from "./compound/Helper";
 import { FieldLabel } from "./compound/Label";
-import { FieldProvider } from "./Field.context";
+import { FieldCounterValueProvider, FieldProvider } from "./Field.context";
 import * as styles from "./field.css";
 import type { FieldCounterState, FieldStatus } from "./field.types";
 
@@ -52,7 +52,6 @@ const InternalField = forwardRef<HTMLDivElement, FieldProps>(
         hasHelper={hasHelper}
         onHelperMountChange={setHasHelper}
         counterId={counterId}
-        counter={counter}
         onCounterChange={setCounter}
         hasCounter={hasCounter}
         onCounterMountChange={setHasCounter}
@@ -63,9 +62,11 @@ const InternalField = forwardRef<HTMLDivElement, FieldProps>(
         disabled={disabled}
         required={required}
       >
-        <div ref={ref} className={clsx(styles.container(), className)} {...restProps}>
-          {children}
-        </div>
+        <FieldCounterValueProvider value={counter}>
+          <div ref={ref} className={clsx(styles.container(), className)} {...restProps}>
+            {children}
+          </div>
+        </FieldCounterValueProvider>
       </FieldProvider>
     );
   },
