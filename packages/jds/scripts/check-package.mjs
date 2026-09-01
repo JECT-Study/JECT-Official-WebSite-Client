@@ -1,9 +1,9 @@
-import { execSync } from "node:child_process";
 import { mkdtempSync, readFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
 import * as attw from "@arethetypeswrong/core";
+import { pack } from "@publint/pack";
 import { publint } from "publint";
 import { formatMessage } from "publint/utils";
 
@@ -16,10 +16,7 @@ const packDir = mkdtempSync(join(tmpdir(), "jds-pack-"));
 
 let tarball;
 try {
-  const [{ filename }] = JSON.parse(
-    execSync(`npm pack --json --pack-destination "${packDir}"`, { encoding: "utf8" }),
-  );
-  tarball = new Uint8Array(readFileSync(join(packDir, filename)));
+  tarball = new Uint8Array(readFileSync(await pack(process.cwd(), { destination: packDir })));
 } finally {
   rmSync(packDir, { recursive: true, force: true });
 }
