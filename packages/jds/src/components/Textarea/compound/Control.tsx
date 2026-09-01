@@ -1,15 +1,9 @@
 import { clsx } from "clsx";
-import {
-  forwardRef,
-  useLayoutEffect,
-  useState,
-  type ChangeEvent,
-  type ComponentPropsWithoutRef,
-} from "react";
+import { forwardRef, type ComponentPropsWithoutRef } from "react";
 
 import { FieldContent } from "../../Field";
 import { useFieldControl } from "../../Field/useFieldControl";
-import { useTextareaContext } from "../Textarea.context";
+import { useTextLengthCounter } from "../../Field/useFieldCounter";
 import * as styles from "../textarea.css";
 
 import { getBodyClassName } from "@/utils/typography";
@@ -22,11 +16,6 @@ export interface TextareaControlProps extends Omit<
   required?: boolean;
 }
 
-/**
- * @description Field 컨텍스트를 소비해 필드 박스와 실제 textarea를 함께 렌더한다.
- * controlled(`value`, `onChange`)와 uncontrolled(`defaultValue`) 방식을 모두 지원한다.
- * uncontrolled 방식에서는 `onChange`를 통해서만 글자 수를 추적한다.
- */
 export const TextareaControl = forwardRef<HTMLTextAreaElement, TextareaControlProps>(
   (
     {
@@ -65,25 +54,12 @@ export const TextareaControl = forwardRef<HTMLTextAreaElement, TextareaControlPr
       ariaInvalid: invalidFromProps,
     });
 
-    const { onCounterChange } = useTextareaContext("Textarea.Control");
-
-    const isControlled = value != null;
-    const [uncontrolledLength, setUncontrolledLength] = useState(() =>
-      defaultValue != null ? String(defaultValue).length : 0,
-    );
-    const valueLength = isControlled ? String(value).length : uncontrolledLength;
-
-    useLayoutEffect(() => {
-      if (maxLength == null) return;
-
-      onCounterChange({ current: valueLength, max: maxLength });
-      return () => onCounterChange(null);
-    }, [valueLength, maxLength, onCounterChange]);
-
-    const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-      if (!isControlled) setUncontrolledLength(event.target.value.length);
-      onChange?.(event);
-    };
+    const handleChange = useTextLengthCounter<HTMLTextAreaElement>("Textarea.Control", {
+      value,
+      defaultValue,
+      maxLength,
+      onChange,
+    });
 
     return (
       <FieldContent>

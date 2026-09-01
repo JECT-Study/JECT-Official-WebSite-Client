@@ -18,6 +18,7 @@ import {
 import { ContentBadge } from "../../Badge";
 import { FieldContent } from "../../Field";
 import { useFieldControl } from "../../Field/useFieldControl";
+import { useItemCounter } from "../../Field/useFieldCounter";
 import { Listbox, useListbox, useMultiSelectState } from "../../Listbox";
 import { SELECTION_KEYS } from "../../Listbox/listbox.constants";
 import { useMultiSelectFieldContext } from "../MultiSelectField.context";
@@ -82,7 +83,7 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       ariaInvalid: invalidFromProps,
     });
 
-    const { isOpen, onOpenChange, onHasPopupContentChange, onCounterChange } =
+    const { isOpen, onOpenChange, onHasPopupContentChange } =
       useMultiSelectFieldContext("MultiSelectField.Input");
 
     const contentRef = useRef<HTMLDivElement>(null);
@@ -143,14 +144,7 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       return () => onHasPopupContentChange(false);
     }, [hasPopupContent, onHasPopupContentChange]);
 
-    const selectedCount = selectedValues.length;
-
-    useLayoutEffect(() => {
-      if (maxValues == null) return;
-
-      onCounterChange({ current: selectedCount, max: maxValues });
-      return () => onCounterChange(null);
-    }, [selectedCount, maxValues, onCounterChange]);
+    useItemCounter("MultiSelectField.Input", { count: selectedValues.length, max: maxValues });
 
     const activateRef = useRef<() => void>(() => {});
 
@@ -186,22 +180,28 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       setQuery("");
     };
 
-    const handleContentMouseDown = (e: MouseEvent<HTMLDivElement>) => {
-      if (e.target !== e.currentTarget || !isInteractive) return;
-
-      onOpenChange(true);
-    };
-
     const openIfInteractive = () => {
       if (isInteractive && !isOpen) onOpenChange(true);
+    };
+
+    const handleContentPress = () => {
+      if (!isInteractive) return;
+
+      if (searchable) openIfInteractive();
+      else onOpenChange(!isOpen);
     };
 
     const handleMouseDown = (e: MouseEvent<HTMLInputElement>) => {
       onMouseDownFromProps?.(e);
       if (e.defaultPrevented) return;
 
-      if (searchable) openIfInteractive();
-      else if (isInteractive) onOpenChange(!isOpen);
+      handleContentPress();
+    };
+
+    const handleContentMouseDown = (e: MouseEvent<HTMLDivElement>) => {
+      if (e.target !== e.currentTarget) return;
+
+      handleContentPress();
     };
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {

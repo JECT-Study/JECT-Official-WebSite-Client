@@ -12,7 +12,7 @@
 | -------------------------------------- | ---------------------------------------------------------- |
 | `typography.label`, `typography.title` | `getLabelClassName`, `getTitleClassName`                   |
 | `typography.inheritColor`              | 제거 — 해당 요소에 `color: inherit` 직접 선언              |
-| `shouldForwardTypographyProp`          | 제거 — 내부 전용                                           |
+| `shouldForwardTypographyProp`          | 제거                                                       |
 | `LabelOwnProps`                        | 제거 — `Menu.Category`의 prop 타입은 `MenuCategoryProps`   |
 | `LabelTextAlign`, `LabelCursor`        | 제거 — `Menu.Category`의 `textAlign`, `cursor` prop도 제거 |
 | `TEXT_ALIGN_MAPPING`                   | 제거                                                       |

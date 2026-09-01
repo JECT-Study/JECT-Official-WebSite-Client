@@ -1,20 +1,19 @@
 import { clsx } from "clsx";
 import { forwardRef, useLayoutEffect, type ComponentPropsWithoutRef } from "react";
 
-import { useFieldContext } from "../Field.context";
+import { useFieldContext, useFieldCounterValue } from "../Field.context";
 import * as styles from "../field.css";
 
 import { getLabelClassName } from "@/utils/typography";
 
-export interface FieldCounterProps extends Omit<ComponentPropsWithoutRef<"span">, "children"> {
-  /** 현재 개수 (글자 수, 선택 개수 등 필드가 세는 값) */
-  current: number;
-  /** 허용 최대 개수 */
-  max: number;
-}
+export type FieldCounterProps = Omit<ComponentPropsWithoutRef<"span">, "children">;
 
+/**
+ * @description 컨트롤이 보고한 카운터 값을 렌더한다.
+ * 컨트롤이 최대 개수를 지정하지 않으면 배치해도 렌더되지 않는다.
+ */
 export const FieldCounter = forwardRef<HTMLSpanElement, FieldCounterProps>(
-  ({ current, max, className, ...restProps }, ref) => {
+  ({ className, ...restProps }, ref) => {
     const {
       counterId,
       onCounterMountChange,
@@ -22,10 +21,18 @@ export const FieldCounter = forwardRef<HTMLSpanElement, FieldCounterProps>(
       disabled: isDisabled,
     } = useFieldContext("Field.Counter");
 
+    const counter = useFieldCounterValue();
+
+    const hasCounter = counter != null;
+
     useLayoutEffect(() => {
+      if (!hasCounter) return;
+
       onCounterMountChange(true);
       return () => onCounterMountChange(false);
-    }, [onCounterMountChange]);
+    }, [hasCounter, onCounterMountChange]);
+
+    if (counter == null) return null;
 
     return (
       <span
@@ -35,10 +42,11 @@ export const FieldCounter = forwardRef<HTMLSpanElement, FieldCounterProps>(
         className={clsx(
           getLabelClassName({ size: "sm" }),
           styles.supportText({ status, disabled: isDisabled }),
+          styles.counter,
           className,
         )}
       >
-        {`${current}/${max}`}
+        {`${counter.current}/${counter.max}`}
       </span>
     );
   },
