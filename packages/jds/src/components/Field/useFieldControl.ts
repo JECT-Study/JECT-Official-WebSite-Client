@@ -82,6 +82,6 @@ export const useFieldControl = (
     ariaLabel: resolvedLabelledBy == null ? ariaLabel : undefined,
     ariaLabelledBy: resolvedLabelledBy,
     ariaDescribedBy: describedByIds.length > 0 ? describedByIds.join(" ") : undefined,
-    ariaInvalid: status === "error" ? true : (ariaInvalid ?? false),
+    ariaInvalid: status === "error" ? true : ariaInvalid,
   };
 };
