@@ -39,9 +39,9 @@ for (const problem of result.problems ?? []) {
   if (IGNORED_RESOLUTIONS.includes(problem.resolutionKind)) continue;
   if (IGNORED_ENTRYPOINTS.includes(problem.entrypoint)) continue;
 
-  const entrypoint = problem.entrypoint ? ` ${problem.entrypoint}` : "";
+  const location = problem.entrypoint ?? problem.typesFileName ?? problem.fileName;
   const resolution = problem.resolutionKind ? ` (${problem.resolutionKind})` : "";
-  problems.push(`${problem.kind}${entrypoint}${resolution}`);
+  problems.push(`${problem.kind}${location ? ` ${location}` : ""}${resolution}`);
 }
 
 if (suggestions.length > 0) {
