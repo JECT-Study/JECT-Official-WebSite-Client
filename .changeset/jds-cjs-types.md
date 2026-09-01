@@ -1,5 +1,5 @@
 ---
-"@jects/jds": minor
+"@jects/jds": patch
 ---
 
 **@jects/jds**
