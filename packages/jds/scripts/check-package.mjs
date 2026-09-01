@@ -13,12 +13,16 @@ const IGNORED_RESOLUTIONS = ["node10"];
 const IGNORED_ENTRYPOINTS = ["./styles"];
 
 const packDir = mkdtempSync(join(tmpdir(), "jds-pack-"));
-const [{ filename }] = JSON.parse(
-  execSync(`npm pack --json --pack-destination "${packDir}"`, { encoding: "utf8" }),
-);
-const tarball = new Uint8Array(readFileSync(join(packDir, filename)));
 
-rmSync(packDir, { recursive: true, force: true });
+let tarball;
+try {
+  const [{ filename }] = JSON.parse(
+    execSync(`npm pack --json --pack-destination "${packDir}"`, { encoding: "utf8" }),
+  );
+  tarball = new Uint8Array(readFileSync(join(packDir, filename)));
+} finally {
+  rmSync(packDir, { recursive: true, force: true });
+}
 
 const problems = [];
 const suggestions = [];
