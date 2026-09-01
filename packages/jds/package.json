@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/JECT-Study/JECT-Official-WebSite-Client.git",
+    "url": "git+https://github.com/JECT-Study/JECT-Official-WebSite-Client.git",
     "directory": "packages/jds"
   },
   "main": "./dist/index.js",
