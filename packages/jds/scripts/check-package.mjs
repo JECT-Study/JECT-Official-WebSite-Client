@@ -1,4 +1,4 @@
-import { execFileSync } from "node:child_process";
+import { execSync } from "node:child_process";
 import { mkdtempSync, readFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
@@ -14,7 +14,7 @@ const IGNORED_ENTRYPOINTS = ["./styles"];
 
 const packDir = mkdtempSync(join(tmpdir(), "jds-pack-"));
 const [{ filename }] = JSON.parse(
-  execFileSync("npm", ["pack", "--json", "--pack-destination", packDir], { encoding: "utf8" }),
+  execSync(`npm pack --json --pack-destination "${packDir}"`, { encoding: "utf8" }),
 );
 const tarball = new Uint8Array(readFileSync(join(packDir, filename)));
 
