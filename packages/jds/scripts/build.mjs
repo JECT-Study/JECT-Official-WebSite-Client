@@ -33,3 +33,4 @@ for (const file of globSync(`${DTS_OUT_DIR}/*.d.{ts,cts}{,.map}`)) {
 await rm(DTS_OUT_DIR, { recursive: true, force: true });
 
 await import("./check-dts.mjs");
+await import("./check-package.mjs");

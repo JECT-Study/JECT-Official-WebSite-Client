@@ -20,14 +20,19 @@ TextFieldRoot.displayName = "TextField";
  * @example
  * ```tsx
  * <TextField status="error" required>
- *   <TextField.Label>이메일</TextField.Label>
- *   <TextField.Input placeholder="이메일을 입력하세요" value={v} onChange={onChange} />
- *   <TextField.Helper>유효한 이메일 주소를 입력해주세요</TextField.Helper>
+ *   <TextField.Label>닉네임</TextField.Label>
+ *   <TextField.Input maxLength={10} placeholder="닉네임을 입력하세요" value={v} onChange={onChange} />
+ *   <TextField.Footer>
+ *     <TextField.Helper>10자 이내로 입력해주세요</TextField.Helper>
+ *     <TextField.Counter />
+ *   </TextField.Footer>
  * </TextField>
  * ```
  */
 export const TextField = Object.assign(TextFieldRoot, {
   Label: Field.Label,
   Input: TextFieldInput,
+  Footer: Field.Footer,
   Helper: Field.Helper,
+  Counter: Field.Counter,
 });

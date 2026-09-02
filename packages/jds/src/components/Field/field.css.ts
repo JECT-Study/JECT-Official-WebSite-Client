@@ -278,3 +278,9 @@ export const supportText = recipe({
     },
   ],
 });
+
+export const counter = style({
+  whiteSpace: "nowrap",
+  flexShrink: 0,
+  marginInlineStart: "auto",
+});
