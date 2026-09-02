@@ -27,6 +27,7 @@ const matchesAccept = (accept: string, file: File) => {
   const mimeType = file.type.toLowerCase();
 
   return patterns.some(pattern => {
+    if (pattern === "*/*") return true;
     if (pattern.startsWith(".")) return fileName.endsWith(pattern);
     if (pattern.endsWith("/*")) return mimeType.startsWith(pattern.slice(0, -1));
 
