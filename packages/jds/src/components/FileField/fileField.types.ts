@@ -51,3 +51,5 @@ type FileFieldInputUncontrolledProps = {
 
 export type FileFieldInputProps = FileFieldInputBaseProps &
   (FileFieldInputControlledProps | FileFieldInputUncontrolledProps);
+
+export type FileFieldSizeProps = Omit<ComponentPropsWithoutRef<"span">, "children">;

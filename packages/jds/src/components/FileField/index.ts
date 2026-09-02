@@ -2,6 +2,7 @@ export { FileField } from "./FileField";
 export type {
   FileFieldProps,
   FileFieldInputProps,
+  FileFieldSizeProps,
   FileFieldValue,
   FileFieldError,
   FileFieldErrorType,
