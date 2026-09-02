@@ -6,6 +6,7 @@ import type { FileProps } from "./file.types";
 import { IconButton } from "../Button/IconButton";
 import { Icon } from "../Icon";
 
+import { formatFileSize } from "@/utils/formatFileSize";
 import { getLabelClassName } from "@/utils/typography";
 
 export const File = forwardRef<HTMLButtonElement, FileProps>(
@@ -13,6 +14,7 @@ export const File = forwardRef<HTMLButtonElement, FileProps>(
     {
       fileName,
       fileSize,
+      sizeFormatter = formatFileSize,
       removable = false,
       readonly = false,
       disabled = false,
@@ -55,7 +57,7 @@ export const File = forwardRef<HTMLButtonElement, FileProps>(
           <span
             className={clsx(getLabelClassName({ size: "sm", weight: "subtle" }), styles.fileSize)}
           >
-            {fileSize}
+            {sizeFormatter(fileSize)}
           </span>
         </button>
 
