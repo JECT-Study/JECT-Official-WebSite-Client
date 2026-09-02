@@ -15,6 +15,7 @@ jobs:
   verify:
     name: Format, Lint, Type Check
     runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     steps:
       - name: Checkout Repository
