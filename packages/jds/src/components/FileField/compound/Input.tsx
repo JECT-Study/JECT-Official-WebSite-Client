@@ -1,5 +1,12 @@
 import { clsx } from "clsx";
-import { forwardRef, useLayoutEffect, useRef, type ChangeEvent, type MouseEvent } from "react";
+import {
+  forwardRef,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  type ChangeEvent,
+  type MouseEvent,
+} from "react";
 
 import { IconButton } from "../../Button/IconButton";
 import { FieldContent } from "../../Field";
@@ -73,6 +80,8 @@ export const FileFieldInput = forwardRef<HTMLInputElement, FileFieldInputProps>(
       next => onChange?.(next instanceof File ? next : null),
     );
 
+    const defaultValueRef = useRef(defaultValue ?? null);
+
     const valueId = `${fieldId}-value`;
     const isInteractive = !isDisabled && !isReadOnly;
     const hasFile = file != null;
@@ -100,6 +109,16 @@ export const FileFieldInput = forwardRef<HTMLInputElement, FileFieldInputProps>(
       syncInputFiles(file);
     });
 
+    useEffect(() => {
+      const form = inputRef.current?.form;
+      if (form == null) return;
+
+      const handleReset = () => setFile(defaultValueRef.current);
+
+      form.addEventListener("reset", handleReset);
+      return () => form.removeEventListener("reset", handleReset);
+    }, [setFile]);
+
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
       if (!isInteractive) {
         syncInputFiles(file);
@@ -107,7 +126,10 @@ export const FileFieldInput = forwardRef<HTMLInputElement, FileFieldInputProps>(
       }
 
       const selected = e.target.files?.[0] ?? null;
-      if (selected == null) return;
+      if (selected == null) {
+        syncInputFiles(file);
+        return;
+      }
 
       const error = validateFile(selected, { accept, maxSize });
       if (error != null) {
