@@ -70,9 +70,3 @@ export const suffix = style({
   alignItems: "center",
   flexShrink: 0,
 });
-
-export const size = style({
-  whiteSpace: "nowrap",
-  flexShrink: 0,
-  marginInlineStart: "auto",
-});

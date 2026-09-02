@@ -4,7 +4,6 @@ import { useLayoutEffect } from "react";
 import { useFieldContext } from "../../Field/Field.context";
 import * as fieldStyles from "../../Field/field.css";
 import { useFileFieldContext } from "../FileField.context";
-import * as styles from "../fileField.css";
 import { formatFileSize } from "../fileField.utils";
 
 import { getLabelClassName } from "@/utils/typography";
@@ -33,7 +32,7 @@ export const FileFieldSize = () => {
       className={clsx(
         getLabelClassName({ size: "sm" }),
         fieldStyles.supportText({ status, disabled: isDisabled }),
-        styles.size,
+        fieldStyles.counter,
       )}
     >
       {formatFileSize(size)}
