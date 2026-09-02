@@ -1,11 +1,18 @@
 import type { ComponentPropsWithoutRef, ReactNode, Ref } from "react";
 import type { AriaLabelProps } from "types";
 
-import type { ListboxBehaviorContextValue } from "./ListboxContext";
-
 export type SelectionMode = "single" | "multiple";
 export type OptionVariant = "control" | "label";
 export type SelectDimension = "full" | (string & {});
+
+export interface ListboxBehavior {
+  listboxId: string;
+  disabled: boolean;
+  isSelected: (value: string) => boolean;
+  activeValue: string | null;
+  select: (value: string) => void;
+  setActive: (value: string | null) => void;
+}
 
 export type SelectOption = {
   value: string;
@@ -38,7 +45,7 @@ export type ListboxCustomValueProps = {
 };
 
 export type ListboxProps = ComponentPropsWithoutRef<"div"> & {
-  context: ListboxBehaviorContextValue;
+  behavior: ListboxBehavior;
   selectionMode: SelectionMode;
   variant: OptionVariant;
   listboxRef: Ref<HTMLDivElement>;

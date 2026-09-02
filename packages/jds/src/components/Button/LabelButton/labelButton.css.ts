@@ -1,6 +1,5 @@
 import { style, type StyleRule } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
-import type { IconSize } from "components";
 import { vars } from "tokens";
 import { pxToRem, focusRing, overlay, overlayColor } from "utils";
 
@@ -9,6 +8,7 @@ import type {
   LabelButtonHierarchy,
   LabelButtonSize,
 } from "./labelButton.types";
+import type { IconSize } from "../../Icon";
 
 export const iconSizeMap: Record<LabelButtonSize, IconSize> = {
   lg: "md",

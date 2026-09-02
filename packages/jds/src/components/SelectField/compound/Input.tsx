@@ -110,7 +110,7 @@ export const SelectFieldInput = forwardRef<HTMLInputElement, SelectFieldInputPro
     const {
       listboxRef,
       listboxId,
-      contextValue,
+      behavior,
       activeId,
       activateSelected,
       activateFirst,
@@ -124,7 +124,7 @@ export const SelectFieldInput = forwardRef<HTMLInputElement, SelectFieldInputPro
       autoScrollToSelected: false,
     });
 
-    const { activeValue } = contextValue;
+    const { activeValue } = behavior;
 
     const hasPopupContent = visibleOptions.length > 0;
 
@@ -167,16 +167,16 @@ export const SelectFieldInput = forwardRef<HTMLInputElement, SelectFieldInputPro
       setQuery(null);
     };
 
-    const popupContextValue = useMemo(
+    const popupBehavior = useMemo(
       () => ({
-        ...contextValue,
+        ...behavior,
         select: (optionValue: string) => {
-          contextValue.select(optionValue);
+          behavior.select(optionValue);
           onOpenChange(false);
           setQuery(null);
         },
       }),
-      [contextValue, onOpenChange],
+      [behavior, onOpenChange],
     );
 
     const openIfInteractive = () => {
@@ -349,7 +349,7 @@ export const SelectFieldInput = forwardRef<HTMLInputElement, SelectFieldInputPro
             <Listbox
               role='presentation'
               className={styles.popup}
-              context={popupContextValue}
+              behavior={popupBehavior}
               selectionMode='single'
               variant={variant}
               listboxRef={listboxRef}

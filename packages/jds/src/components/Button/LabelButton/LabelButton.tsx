@@ -1,10 +1,10 @@
 import { clsx } from "clsx";
-import type { LabelButtonProps } from "components";
-import { Icon } from "components";
 import { forwardRef } from "react";
 import { getLabelClassName } from "utils";
 
 import { basicRoot, feedbackRoot, iconSizeMap } from "./labelButton.css";
+import type { LabelButtonProps } from "./labelButton.types";
+import { Icon } from "../../Icon";
 
 export const LabelButton = forwardRef<HTMLButtonElement, LabelButtonProps>(
   (

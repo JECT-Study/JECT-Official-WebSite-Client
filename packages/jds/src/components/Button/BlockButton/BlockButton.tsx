@@ -1,10 +1,10 @@
 import { clsx } from "clsx";
-import type { BlockButtonProps } from "components";
-import { Icon } from "components";
 import { forwardRef } from "react";
 import { getLabelClassName } from "utils";
 
 import { basicRoot, feedbackRoot, iconSizeMap } from "./blockButton.css";
+import type { BlockButtonProps } from "./blockButton.types";
+import { Icon } from "../../Icon";
 
 export const BlockButton = forwardRef<HTMLButtonElement, BlockButtonProps>(
   (

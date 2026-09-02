@@ -1,6 +1,7 @@
-import type { IconName } from "components";
 import type { ComponentPropsWithoutRef } from "react";
 import type { AriaLabelProps } from "types";
+
+import type { IconName } from "../../Icon";
 
 export const ICON_BUTTON_SIZE_OPTIONS = [
   "2xs",

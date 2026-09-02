@@ -1,7 +1,7 @@
 import type { DropdownMenu } from "radix-ui";
 import type { ComponentPropsWithoutRef, ElementType, ReactNode } from "react";
 
-import type { MenuItemAnchorProps, MenuItemButtonProps } from "../MenuItem";
+import type { MenuItemAnchorProps, MenuItemButtonProps } from "../MenuItem/menuItem.types";
 
 import type { LabelSize, LabelWeight } from "@/utils/typography";
 

@@ -121,7 +121,7 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
     const {
       listboxRef,
       listboxId,
-      contextValue,
+      behavior,
       activeId,
       activateSelected,
       activateFirst,
@@ -135,7 +135,7 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       autoScrollToSelected: false,
     });
 
-    const { activeValue } = contextValue;
+    const { activeValue } = behavior;
 
     const hasPopupContent = visibleOptions.length > 0;
 
@@ -356,7 +356,7 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
             <Listbox
               role='presentation'
               className={styles.popup}
-              context={contextValue}
+              behavior={behavior}
               selectionMode='multiple'
               variant={variant}
               listboxRef={listboxRef}

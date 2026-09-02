@@ -5,7 +5,7 @@ import { menuContainerStyle, menuItemImage, menuItemLabel } from "./menuItem.css
 import type { MenuItemAnchorProps, MenuItemButtonProps } from "./menuItem.types";
 import { Icon } from "../../Icon";
 import { Thumbnail } from "../../Thumbnail";
-import { type MenuSize } from "../Menu";
+import { type MenuSize } from "../Menu/menu.types";
 
 import { NumericBadge, type BadgeSize } from "@/components/Badge";
 import { getLabelClassName } from "@/utils/typography";

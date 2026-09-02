@@ -1,10 +1,10 @@
 import { clsx } from "clsx";
-import { IconButton } from "components";
 import { forwardRef, useId } from "react";
 import { getTitleClassName } from "utils";
 
 import { backButtonSlot, navRoot, navTitle, suffixActionSlot } from "./localNavigation.css";
 import type { LocalNavigationProps } from "./localNavigation.types";
+import { IconButton } from "../Button/IconButton";
 
 export const LocalNavigation = forwardRef<HTMLElement, LocalNavigationProps>(
   (
