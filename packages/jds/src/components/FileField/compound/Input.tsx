@@ -73,6 +73,7 @@ export const FileFieldInput = forwardRef<HTMLInputElement, FileFieldInputProps>(
       next => onChange?.(next instanceof File ? next : null),
     );
 
+    const valueId = `${fieldId}-value`;
     const isInteractive = !isDisabled && !isReadOnly;
     const hasFile = file != null;
 
@@ -137,10 +138,14 @@ export const FileFieldInput = forwardRef<HTMLInputElement, FileFieldInputProps>(
           {hasFile ? (
             <>
               <Icon name='paperclip' size='sm' className={styles.icon} />
-              <span className={styles.fileName}>{file.name}</span>
+              <span id={valueId} className={styles.fileName}>
+                {file.name}
+              </span>
             </>
           ) : (
-            <span className={styles.placeholder}>{placeholder}</span>
+            <span id={valueId} className={styles.placeholder}>
+              {placeholder}
+            </span>
           )}
         </span>
         <input
@@ -151,7 +156,7 @@ export const FileFieldInput = forwardRef<HTMLInputElement, FileFieldInputProps>(
           accept={accept}
           aria-label={ariaLabel}
           aria-labelledby={ariaLabelledBy}
-          aria-describedby={ariaDescribedBy}
+          aria-describedby={[valueId, ariaDescribedBy].filter(Boolean).join(" ")}
           aria-invalid={ariaInvalid}
           // input[type="file"]은 native readonly를 지원하지 않으므로 aria-readonly를 명시한다.
           aria-readonly={isReadOnly || undefined}
