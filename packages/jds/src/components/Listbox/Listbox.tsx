@@ -14,7 +14,7 @@ const resolveDimension = (value: SelectDimension) => (value === "full" ? "100%" 
 const InternalListbox = forwardRef<HTMLDivElement, ListboxProps>(
   (
     {
-      context,
+      behavior,
       selectionMode,
       variant,
       children,
@@ -34,11 +34,11 @@ const InternalListbox = forwardRef<HTMLDivElement, ListboxProps>(
     const { className: listboxClassName, ...restListboxProps } = listboxProps;
 
     const contextValue = useMemo(
-      () => ({ ...context, selectionMode, variant }),
-      [context, selectionMode, variant],
+      () => ({ ...behavior, selectionMode, variant }),
+      [behavior, selectionMode, variant],
     );
 
-    const labelId = `${context.listboxId}-label`;
+    const labelId = `${behavior.listboxId}-label`;
 
     const containerStyle: CSSProperties = { ...style };
     if (width !== undefined) {

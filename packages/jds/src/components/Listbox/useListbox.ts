@@ -111,7 +111,7 @@ export const useListbox = ({
     [getListboxProps, disabled, activeId, onKeyDown, onFocus],
   );
 
-  const contextValue = useMemo<ListboxBehavior>(
+  const behavior = useMemo<ListboxBehavior>(
     () => ({
       listboxId,
       disabled,
@@ -126,7 +126,7 @@ export const useListbox = ({
   return {
     listboxRef,
     listboxId,
-    contextValue,
+    behavior,
     activeId,
     activateSelected,
     activateFirst,

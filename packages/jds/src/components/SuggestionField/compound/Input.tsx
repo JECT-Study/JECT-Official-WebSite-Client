@@ -130,7 +130,7 @@ export const SuggestionFieldInput = forwardRef<HTMLInputElement, SuggestionField
     const {
       listboxRef,
       listboxId,
-      contextValue,
+      behavior,
       activeId,
       activateFirst,
       onKeyDown: onListboxKeyDown,
@@ -142,7 +142,7 @@ export const SuggestionFieldInput = forwardRef<HTMLInputElement, SuggestionField
       autoScrollToSelected: false,
     });
 
-    const { activeValue, setActive } = contextValue;
+    const { activeValue, setActive } = behavior;
 
     const hasPopupContent = visibleSuggestions.length > 0 || isCreatable;
 
@@ -360,7 +360,7 @@ export const SuggestionFieldInput = forwardRef<HTMLInputElement, SuggestionField
             <Listbox
               role='presentation'
               className={styles.popup}
-              context={contextValue}
+              behavior={behavior}
               selectionMode='multiple'
               variant='label'
               listboxRef={listboxRef}

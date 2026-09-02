@@ -45,7 +45,7 @@ export type ListboxCustomValueProps = {
 };
 
 export type ListboxProps = ComponentPropsWithoutRef<"div"> & {
-  context: ListboxBehavior;
+  behavior: ListboxBehavior;
   selectionMode: SelectionMode;
   variant: OptionVariant;
   listboxRef: Ref<HTMLDivElement>;
