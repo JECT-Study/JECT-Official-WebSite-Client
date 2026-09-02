@@ -1,6 +1,8 @@
 import * as Icons from "./generated/index";
 
-export const sizeMap = {
+export type IconSize = "5xl" | "4xl" | "3xl" | "2xl" | "xl" | "lg" | "md" | "sm" | "xs" | "2xs";
+
+export const sizeMap: Record<IconSize, number> = {
   "5xl": 48,
   "4xl": 40,
   "3xl": 32,
