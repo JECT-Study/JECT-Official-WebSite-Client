@@ -1,12 +1,5 @@
-import {
-  SNACKBAR_QUEUE_FALLBACK_TIMEOUT,
-  SNACKBAR_QUEUE_LIMIT,
-} from "./snackbar.constants";
-import type {
-  SnackbarActionProps,
-  SnackbarItem,
-  SnackbarOptions,
-} from "./snackbar.types";
+import { SNACKBAR_QUEUE_FALLBACK_TIMEOUT, SNACKBAR_QUEUE_LIMIT } from "./snackbar.constants";
+import type { SnackbarActionProps, SnackbarItem, SnackbarOptions } from "./snackbar.types";
 
 import { useLimitedQueueProvider } from "@/hooks/useLimitedQueueProvider";
 

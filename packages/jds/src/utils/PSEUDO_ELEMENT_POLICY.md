@@ -100,10 +100,10 @@ style([
 
 `focusRing`의 `interaction`은 어느 요소의 focus에 반응할지 정한다. ring을 그리는 요소와 실제 focus를 받는 요소가 같은지 다른지에 따라 값을 고른다.
 
-| 값          | 반응하는 focus                            | 쓰는 곳                                                            |
-| ----------- | ----------------------------------------- | ------------------------------------------------------------------ |
-| `self`      | 요소 자신의 `:focus-visible`              | 자신이 곧 focus 대상인 요소 (버튼, 링크 등)                        |
-| `within`    | 자신 또는 자손의 `:focus-visible`         | 내부 컨트롤을 감싸 focus 대상이 자손인 요소 (Checkbox 등)          |
+| 값          | 반응하는 focus                              | 쓰는 곳                                                            |
+| ----------- | ------------------------------------------- | ------------------------------------------------------------------ |
+| `self`      | 요소 자신의 `:focus-visible`                | 자신이 곧 focus 대상인 요소 (버튼, 링크 등)                        |
+| `within`    | 자신 또는 자손의 `:focus-visible`           | 내부 컨트롤을 감싸 focus 대상이 자손인 요소 (Checkbox 등)          |
 | `delegated` | `> [data-interaction-target]:focus-visible` | root가 그리고 focus는 지정한 내부 버튼이 받는 요소 (File, Chip 등) |
 
 `self`는 요소 자신만, `within`은 `:has(:focus-visible)`로 자손까지, `delegated`는 직계 자식 중 `[data-interaction-target]` 하나만 본다. 뒤로 갈수록 focus를 읽는 범위가 좁아진다.

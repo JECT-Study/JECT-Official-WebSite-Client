@@ -213,10 +213,7 @@ const CheckboxIndicator = forwardRef<HTMLSpanElement, CheckboxIndicatorProps>(
       >
         {(isChecked || isIndeterminate) && (
           <span className={styles.checkboxIconWrapper}>
-            <Icon
-              name={isIndeterminate ? "minus" : "check"}
-              size={checkboxSizeMap[size].icon}
-            />
+            <Icon name={isIndeterminate ? "minus" : "check"} size={checkboxSizeMap[size].icon} />
           </span>
         )}
       </span>

@@ -72,3 +72,5 @@ build-storybook.log
 chromatic.log
 chromatic-build/
 
+# Lefthook 개인 설정
+lefthook-local.yml

@@ -106,16 +106,35 @@ export const Sizes: Story = {
         <MenuItem.Button {...args} size='sm' />
       </FlexColumn>
       <FlexColumn>
-        <MenuItem.Button {...args} size='lg' variant='thumbnail' imageSrc={SAMPLE_SRC} imageAlt='샘플' />
-        <MenuItem.Button {...args} size='md' variant='thumbnail' imageSrc={SAMPLE_SRC} imageAlt='샘플' />
-        <MenuItem.Button {...args} size='sm' variant='thumbnail' imageSrc={SAMPLE_SRC} imageAlt='샘플' />
+        <MenuItem.Button
+          {...args}
+          size='lg'
+          variant='thumbnail'
+          imageSrc={SAMPLE_SRC}
+          imageAlt='샘플'
+        />
+        <MenuItem.Button
+          {...args}
+          size='md'
+          variant='thumbnail'
+          imageSrc={SAMPLE_SRC}
+          imageAlt='샘플'
+        />
+        <MenuItem.Button
+          {...args}
+          size='sm'
+          variant='thumbnail'
+          imageSrc={SAMPLE_SRC}
+          imageAlt='샘플'
+        />
       </FlexColumn>
     </FlexRow>
   ),
   parameters: {
     docs: {
       description: {
-        story: "왼쪽은 icon variant, 오른쪽은 thumbnail variant입니다. lg / md / sm 크기를 비교해 보세요.",
+        story:
+          "왼쪽은 icon variant, 오른쪽은 thumbnail variant입니다. lg / md / sm 크기를 비교해 보세요.",
       },
     },
   },

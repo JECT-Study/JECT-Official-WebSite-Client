@@ -23,7 +23,10 @@ npm run dev
 npm run build
 npm run type-check
 npm run lint          # --max-warnings 0, 경고도 실패
+
+# 포맷은 turbo를 거치지 않고 루트에서 한 번만 실행한다
 npm run format
+npm run format:check  # 검증만, 수정하지 않음
 
 # 특정 워크스페이스만
 npm run build --workspace=@jects/jds

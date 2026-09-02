@@ -27,10 +27,10 @@ function Navigation({ children }: NavigationProps) {
   };
 
   return (
-    <header className='border-border-assistive-dark bg-surface-standard-dark gap-6xl fixed z-49 flex h-[3.68rem] w-dvw items-center border-b pl-(--gap-5xl)'>
+    <header className='gap-6xl fixed z-49 flex h-[3.68rem] w-dvw items-center border-b border-border-assistive-dark bg-surface-standard-dark pl-(--gap-5xl)'>
       <button
         onClick={handleClick}
-        className='focus-visible:shadow-focus-visible radius-4xs cursor-pointer p-(--gap-5xs) outline-none'
+        className='radius-4xs cursor-pointer p-(--gap-5xs) outline-none focus-visible:shadow-focus-visible'
       >
         <Logo height={24} fillColor='fill-object-hero-dark' />
       </button>

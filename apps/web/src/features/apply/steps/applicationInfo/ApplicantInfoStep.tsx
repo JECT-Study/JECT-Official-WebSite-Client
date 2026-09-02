@@ -226,7 +226,7 @@ export function ApplicantInfoStep({ context, onNext, onBack }: ApplicantInfoStep
                     관심 도메인(최대 {MAX_SELECTABLE_DOMAINS}개)
                     <RequiredMark />
                   </Label>
-                  <div className='tablet:grid-cols-3 grid grid-cols-2 gap-2 self-stretch'>
+                  <div className='grid grid-cols-2 gap-2 self-stretch tablet:grid-cols-3'>
                     {INTERESTED_DOMAIN_OPTIONS.map(option => (
                       <Checkbox.Content
                         key={option.value}

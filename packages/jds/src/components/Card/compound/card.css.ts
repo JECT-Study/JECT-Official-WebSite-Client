@@ -38,10 +38,11 @@ export const root = recipe({
         transform: "translateY(0)",
         transition: "none",
       },
-      [`&[data-interactive]:not([data-disabled]):has([data-part='${CARD_PART_OVERLAY}']:focus-visible)`]: {
-        transform: "translateY(-2px)",
-        boxShadow: vars.environment.semantic.shadow.raised,
-      },
+      [`&[data-interactive]:not([data-disabled]):has([data-part='${CARD_PART_OVERLAY}']:focus-visible)`]:
+        {
+          transform: "translateY(-2px)",
+          boxShadow: vars.environment.semantic.shadow.raised,
+        },
     },
   },
   variants: {
@@ -66,9 +67,10 @@ export const root = recipe({
           "&[data-interactive]:not([data-disabled]):hover": {
             boxShadow: "none",
           },
-          [`&[data-interactive]:not([data-disabled]):has([data-part='${CARD_PART_OVERLAY}']:focus-visible)`]: {
-            boxShadow: "none",
-          },
+          [`&[data-interactive]:not([data-disabled]):has([data-part='${CARD_PART_OVERLAY}']:focus-visible)`]:
+            {
+              boxShadow: "none",
+            },
         },
       },
     },

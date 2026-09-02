@@ -9,8 +9,8 @@ export interface SnackBarProps {
 
 export const SnackBar = ({ message, buttonLabel, onAction }: SnackBarProps) => {
   return (
-    <div className='gap-4xl radius-md shadow-overlay bg-surface-embossed-dark flex w-full flex-row items-center px-(--gap-2xl) py-(--gap-sm)'>
-      <span className='text-object-hero-dark label-bold-lg flex flex-1 shrink-0 basis-0'>
+    <div className='gap-4xl radius-md shadow-overlay flex w-full flex-row items-center bg-surface-embossed-dark px-(--gap-2xl) py-(--gap-sm)'>
+      <span className='label-bold-lg flex flex-1 shrink-0 basis-0 text-object-hero-dark'>
         {message}
       </span>
       <BlockButton

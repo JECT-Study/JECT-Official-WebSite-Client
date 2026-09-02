@@ -34,9 +34,6 @@
     },
     "type-check": {
       "cache": true
-    },
-    "format": {
-      "cache": true
     }
   }
 }

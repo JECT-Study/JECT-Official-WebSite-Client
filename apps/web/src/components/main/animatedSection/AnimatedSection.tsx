@@ -163,13 +163,13 @@ const AnimatedSection = () => {
         ref={contentRef}
         className='gap-2xl relative z-10 flex h-full w-full flex-col items-center justify-center'
       >
-        <div ref={topTextRef} className='gap-md display-04 text-object-hero-dark text-center' />
+        <div ref={topTextRef} className='gap-md display-04 text-center text-object-hero-dark' />
         <div ref={badgeRef} className='hidden'>
           <RoleBadge variant={roleVariant} />
         </div>
         <div
           ref={bottomTextRef}
-          className='gap-md display-04 text-object-hero-dark hidden text-center'
+          className='gap-md display-04 hidden text-center text-object-hero-dark'
         />
       </div>
     </div>
