@@ -88,8 +88,7 @@
     "build:tokens": "npx tsx src/tokens/tokensBuilder.ts",
     "clean": "rimraf dist node_modules .turbo storybook-static",
     "build:icons": "svgr src/assets/icons --out-dir src/components/Icon/generated --typescript --ext tsx",
-    "type-check": "tsc -b --noEmit",
-    "format": "prettier --write ."
+    "type-check": "tsc -b --noEmit"
   },
   "dependencies": {
     "clsx": "^2.1.1",

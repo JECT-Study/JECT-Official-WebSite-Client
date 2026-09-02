@@ -76,10 +76,7 @@ function extractDeviceFlatMap(
   );
 }
 
-function hasTypographyToken(
-  tokens: Record<string, string | number>,
-  tokenName: string,
-): boolean {
+function hasTypographyToken(tokens: Record<string, string | number>, tokenName: string): boolean {
   const normalizedTokenName = tokenName
     .replaceAll("/", "-")
     .replaceAll("lineHeight", "line-height")

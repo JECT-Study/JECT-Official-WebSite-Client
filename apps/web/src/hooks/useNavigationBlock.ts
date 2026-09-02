@@ -55,7 +55,7 @@ export function useNavigationBlock() {
   // 브라우저 새로고침/탭 닫기 시 기본 confirm 표시
   useBeforeUnload(
     useCallback(
-      (e) => {
+      e => {
         if (isBlockRequired) {
           e.preventDefault();
         }

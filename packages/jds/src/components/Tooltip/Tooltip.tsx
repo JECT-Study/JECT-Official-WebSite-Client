@@ -8,11 +8,7 @@ import type { TooltipContentProps, TooltipProps, TooltipTriggerProps } from "./t
 import { getLabelClassName } from "@/utils/typography";
 
 const TooltipRoot = ({ children, ...radixProps }: TooltipProps) => {
-  return (
-    <TooltipPrimitive.Root {...radixProps}>
-      {children}
-    </TooltipPrimitive.Root>
-  );
+  return <TooltipPrimitive.Root {...radixProps}>{children}</TooltipPrimitive.Root>;
 };
 
 TooltipRoot.displayName = "Tooltip.Root";

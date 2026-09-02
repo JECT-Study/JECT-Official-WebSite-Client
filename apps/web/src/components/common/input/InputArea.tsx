@@ -66,7 +66,7 @@ const InputArea = forwardRef<HTMLTextAreaElement, InputAreaProps>(
           isError={textLength > maxLength}
           className='peer'
         />
-        <div className='peer-focus:*:last:text-object-neutral-dark flex justify-between'>
+        <div className='flex justify-between peer-focus:*:last:text-object-neutral-dark'>
           <p
             className={`${disabled ? "text-feedback-trans-negative-dark" : "text-feedback-negative-dark"} body-sm`}
           >

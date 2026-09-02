@@ -94,7 +94,7 @@ const TeamProject = () => {
 
         {!isLoading && (
           <>
-            <div className='desktop:grid-cols-3 tablet:grid-cols-2 grid gap-x-5 gap-y-6'>
+            <div className='grid gap-x-5 gap-y-6 tablet:grid-cols-2 desktop:grid-cols-3'>
               {allProjects.map(project => (
                 <div key={project.id} className='w-full'>
                   <Card.Preset.PlateWithTitle.Link

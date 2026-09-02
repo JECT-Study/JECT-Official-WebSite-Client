@@ -65,12 +65,7 @@ export const Callout = forwardRef<HTMLDivElement, CalloutProps>(
             <div className={styles.titleWrap({ size })}>
               {icon && (
                 <span className={styles.iconContainer}>
-                  <Icon
-                    aria-hidden
-                    className={styles.icon}
-                    name={icon}
-                    size={iconSizeMap[size]}
-                  />
+                  <Icon aria-hidden className={styles.icon} name={icon} size={iconSizeMap[size]} />
                 </span>
               )}
               <p className={clsx(styles.title, getTitleTypographyClass(size))}>{title}</p>

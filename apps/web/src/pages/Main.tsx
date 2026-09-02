@@ -13,23 +13,11 @@ const getForwardTriggers = () => {
   const isTablet = window.matchMedia("(min-width: 768px)").matches;
 
   if (isDesktop) {
-    return [
-      { start: "70% top" },
-      { start: "90% top" },
-      { start: "70% top" },
-    ];
+    return [{ start: "70% top" }, { start: "90% top" }, { start: "70% top" }];
   } else if (isTablet) {
-    return [
-      { start: "70% top" },
-      { start: "85% top" },
-      { start: "70% top" },
-    ];
+    return [{ start: "70% top" }, { start: "85% top" }, { start: "70% top" }];
   } else {
-    return [
-      { start: "60% top" },
-      { start: "80% top" },
-      { start: "60% top" },
-    ];
+    return [{ start: "60% top" }, { start: "80% top" }, { start: "60% top" }];
   }
 };
 

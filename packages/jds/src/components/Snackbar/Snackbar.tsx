@@ -170,12 +170,7 @@ export const Snackbar = ({
           )}
         </div>
         <div className={styles.actions}>
-          <LabelButton
-            hierarchy='primary'
-            size='md'
-            aria-describedby={titleId}
-            onClick={onClick}
-          >
+          <LabelButton hierarchy='primary' size='md' aria-describedby={titleId} onClick={onClick}>
             {label}
           </LabelButton>
           {withCloseButton && (

@@ -42,14 +42,14 @@ export function DefaultErrorFallback({ error, resetErrorBoundary }: FallbackProp
   return (
     <div className='flex flex-col items-center justify-center gap-4 p-8'>
       <div className='text-center'>
-        <h3 className='text-object-hero-dark text-lg font-semibold'>문제가 발생했습니다</h3>
-        <p className='text-object-alternative-dark mt-2 text-sm'>
+        <h3 className='text-lg font-semibold text-object-hero-dark'>문제가 발생했습니다</h3>
+        <p className='mt-2 text-sm text-object-alternative-dark'>
           {error.message || "잠시 후 다시 시도해주세요"}
         </p>
       </div>
       <button
         onClick={resetErrorBoundary}
-        className='bg-accent-hero-dark hover:bg-accent-hero-dark/90 rounded-lg px-4 py-2 text-sm font-medium text-white transition-colors'
+        className='rounded-lg bg-accent-hero-dark px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-accent-hero-dark/90'
       >
         다시 시도
       </button>
@@ -61,7 +61,7 @@ export function DefaultErrorFallback({ error, resetErrorBoundary }: FallbackProp
 export function DefaultLoadingFallback() {
   return (
     <div className='flex items-center justify-center p-8'>
-      <div className='border-t-accent-hero-dark h-8 w-8 animate-spin rounded-full border-4 border-gray-200' />
+      <div className='h-8 w-8 animate-spin rounded-full border-4 border-gray-200 border-t-accent-hero-dark' />
     </div>
   );
 }

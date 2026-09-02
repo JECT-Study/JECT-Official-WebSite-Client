@@ -47,13 +47,9 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const FixedBox = ({
-  children,
-  size = 160,
-}: {
-  children: React.ReactNode;
-  size?: number;
-}) => <div style={{ width: size }}>{children}</div>;
+const FixedBox = ({ children, size = 160 }: { children: React.ReactNode; size?: number }) => (
+  <div style={{ width: size }}>{children}</div>
+);
 
 export const Default: Story = {
   render: args => (
@@ -74,11 +70,7 @@ export const AsChildButton: Story = {
   render: args => (
     <FixedBox>
       <Thumbnail {...args} asChild>
-        <button
-          type='button'
-          onClick={() => alert("클릭")}
-          aria-label='이미지 확대'
-        />
+        <button type='button' onClick={() => alert("클릭")} aria-label='이미지 확대' />
       </Thumbnail>
     </FixedBox>
   ),

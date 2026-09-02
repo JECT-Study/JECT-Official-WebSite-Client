@@ -25,8 +25,6 @@ type NestedProps =
   | { nested?: false; onBackClick?: never }
   | { nested: true; onBackClick: MouseEventHandler<HTMLButtonElement> };
 
-type FloatedProps =
-  | { floated?: false; stretched?: boolean }
-  | { floated: true; stretched?: false };
+type FloatedProps = { floated?: false; stretched?: boolean } | { floated: true; stretched?: false };
 
 export type LocalNavigationProps = LocalNavigationBaseProps & NestedProps & FloatedProps;
