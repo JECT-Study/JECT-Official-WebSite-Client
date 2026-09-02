@@ -100,6 +100,11 @@ export const FileFieldInput = forwardRef<HTMLInputElement, FileFieldInputProps>(
     });
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+      if (!isInteractive) {
+        syncInputFiles(file);
+        return;
+      }
+
       const selected = e.target.files?.[0] ?? null;
       if (selected == null) return;
 
