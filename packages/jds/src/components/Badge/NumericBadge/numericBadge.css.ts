@@ -7,13 +7,16 @@ import { BADGE_SIZE_OPTIONS } from "../badge.types";
 import type { FeedbackVariant, BadgeSize, BasicHierarchy } from "../badge.types";
 import type { NumericBadgeStyle } from "./numericBadge.types";
 
-type BadgeSizeConfig = {
+interface BadgeSizeConfig {
   minWidth: number;
   paddingTopBottom: string;
   paddingLeftRight: string;
-};
+}
 
-type BadgeStyle = { bg: string; color: string };
+interface BadgeStyle {
+  bg: string;
+  color: string;
+}
 
 const badgeTextColor = createVar();
 

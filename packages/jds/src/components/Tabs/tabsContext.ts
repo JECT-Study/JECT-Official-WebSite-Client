@@ -2,10 +2,10 @@ import { createContext, useContext } from "react";
 
 import type { TabsVariant } from "./tabs.types";
 
-type TabsContextValue = {
+interface TabsContextValue {
   variant: TabsVariant;
   isItemStretched: boolean;
-};
+}
 
 export const TabsContext = createContext<TabsContextValue | null>(null);
 

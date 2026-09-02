@@ -21,7 +21,7 @@ export interface FileFieldError {
   file: File;
 }
 
-type FileFieldInputBaseProps = Omit<
+interface FileFieldInputBaseProps extends Omit<
   ComponentPropsWithoutRef<"input">,
   | "id"
   | "type"
@@ -32,7 +32,7 @@ type FileFieldInputBaseProps = Omit<
   | "required"
   | "multiple"
   | "aria-invalid"
-> & {
+> {
   /** 필수 입력 여부. 레이블의 필수 표시와 스크린리더에 전달하는 상태 문구에 반영한다. */
   required?: boolean;
   /** 파일이 없을 때 표시하는 문구 */
@@ -43,19 +43,19 @@ type FileFieldInputBaseProps = Omit<
   onError?: (error: FileFieldError) => void;
   /** 삭제 버튼 오른쪽에 형제로 배치되는 부가 요소 */
   suffix?: ReactNode;
-};
+}
 
-type FileFieldInputControlledProps = {
+interface FileFieldInputControlledProps {
   value: FileFieldValue | null;
   defaultValue?: never;
   onChange: (file: File | null) => void;
-};
+}
 
-type FileFieldInputUncontrolledProps = {
+interface FileFieldInputUncontrolledProps {
   value?: never;
   defaultValue?: FileFieldValue | null;
   onChange?: (file: File | null) => void;
-};
+}
 
 export type FileFieldInputProps = FileFieldInputBaseProps &
   (FileFieldInputControlledProps | FileFieldInputUncontrolledProps);

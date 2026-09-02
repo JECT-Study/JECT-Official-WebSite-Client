@@ -17,7 +17,10 @@ export const iconSizeMap: Record<LabelButtonSize, IconSize> = {
   xs: "2xs",
 };
 
-type LabelButtonPalette = { overlayColor: string; color: string };
+interface LabelButtonPalette {
+  overlayColor: string;
+  color: string;
+}
 
 const colorsByHierarchy = {
   accent: {

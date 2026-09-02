@@ -14,13 +14,13 @@ export interface ListboxBehavior {
   setActive: (value: string | null) => void;
 }
 
-export type SelectOption = {
+export interface SelectOption {
   value: string;
   label: string;
   caption?: string;
   suffix?: ReactNode;
   disabled?: boolean;
-};
+}
 
 export type SelectBaseProps = AriaLabelProps & {
   variant?: OptionVariant;
@@ -31,20 +31,20 @@ export type SelectBaseProps = AriaLabelProps & {
   options: SelectOption[];
 };
 
-export type ListboxOptionProps = {
+export interface ListboxOptionProps {
   value: string;
   disabled?: boolean;
   caption?: string;
   suffix?: ReactNode;
   children?: ReactNode;
-};
+}
 
-export type ListboxCustomValueProps = {
+export interface ListboxCustomValueProps {
   value: string;
   caption?: string;
-};
+}
 
-export type ListboxProps = ComponentPropsWithoutRef<"div"> & {
+export interface ListboxProps extends ComponentPropsWithoutRef<"div"> {
   behavior: ListboxBehavior;
   selectionMode: SelectionMode;
   variant: OptionVariant;
@@ -53,4 +53,4 @@ export type ListboxProps = ComponentPropsWithoutRef<"div"> & {
   label?: string;
   width?: SelectDimension;
   height?: SelectDimension;
-};
+}

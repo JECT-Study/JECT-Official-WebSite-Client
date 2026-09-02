@@ -15,13 +15,13 @@ export type LabelButtonSize = (typeof LABEL_BUTTON_SIZE_OPTIONS)[number];
 export type LabelButtonHierarchy = (typeof LABEL_BUTTON_HIERARCHY_OPTIONS)[number];
 export type LabelButtonFeedback = (typeof LABEL_BUTTON_FEEDBACK_OPTIONS)[number];
 
-export type BaseLabelButtonProps = ComponentPropsWithoutRef<"button"> & {
+export interface BaseLabelButtonProps extends ComponentPropsWithoutRef<"button"> {
   "data-part"?: never;
   children: ReactNode;
   size?: LabelButtonSize;
   prefixIcon?: IconName;
   suffixIcon?: IconName;
-};
+}
 
 export type LabelButtonProps = BaseLabelButtonProps &
   (

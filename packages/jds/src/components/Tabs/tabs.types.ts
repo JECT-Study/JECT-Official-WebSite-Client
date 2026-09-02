@@ -3,15 +3,15 @@ import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 export type TabsVariant = "header" | "content";
 
-export type TabsRootProps = ComponentPropsWithoutRef<typeof TabsPrimitive.Root> & {
+export interface TabsRootProps extends ComponentPropsWithoutRef<typeof TabsPrimitive.Root> {
   variant?: TabsVariant;
   isItemStretched?: boolean;
-};
+}
 
 export type TabsListProps = ComponentPropsWithoutRef<typeof TabsPrimitive.List>;
 
-export type TabsTriggerProps = ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger> & {
+export interface TabsTriggerProps extends ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger> {
   badge?: ReactNode;
-};
+}
 
 export type TabsContentProps = ComponentPropsWithoutRef<typeof TabsPrimitive.Content>;

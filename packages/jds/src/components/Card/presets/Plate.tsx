@@ -4,7 +4,9 @@ import type { PlatePresetBaseProps, PlateLinkProps, PlateButtonProps } from "../
 import { CardThumbnail, CardContent, CardCaption, CardOverlay } from "../compound";
 import { PresetFrame, TitleBody } from "./shared";
 
-type PlateBaseProps = PlatePresetBaseProps & { overlay: ReactNode };
+interface PlateBaseProps extends PlatePresetBaseProps {
+  overlay: ReactNode;
+}
 
 const PlateBase = forwardRef<HTMLDivElement, PlateBaseProps>(
   ({ image, caption, title, body, overlay, ...frameProps }, ref) => {
