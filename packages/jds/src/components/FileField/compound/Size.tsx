@@ -5,8 +5,8 @@ import { useFieldContext } from "../../Field/Field.context";
 import * as fieldStyles from "../../Field/field.css";
 import { useFileFieldContext } from "../FileField.context";
 import type { FileFieldSizeProps } from "../fileField.types";
-import { formatFileSize } from "../fileField.utils";
 
+import { formatFileSize } from "@/utils/formatFileSize";
 import { getLabelClassName } from "@/utils/typography";
 
 /**
