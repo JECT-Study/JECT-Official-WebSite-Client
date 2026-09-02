@@ -1,25 +1,13 @@
 import { clsx } from "clsx";
-import { forwardRef, type ComponentPropsWithoutRef, type ReactNode } from "react";
+import { forwardRef } from "react";
 
 import { FieldContent } from "../../Field";
 import { useFieldControl } from "../../Field/useFieldControl";
 import { useTextLengthCounter } from "../../Field/useFieldCounter";
 import * as styles from "../textField.css";
+import type { TextFieldInputProps } from "../textField.types";
 
 import { getBodyClassName } from "@/utils/typography";
-
-// prefix는 HTMLAttributes의 RDFa 속성과 타입이 충돌하므로 제외하고 ReactNode로 재정의한다.
-export interface TextFieldInputProps extends Omit<
-  ComponentPropsWithoutRef<"input">,
-  "id" | "prefix" | "required"
-> {
-  /** 필수 입력 여부. aria-required로 반영한다. */
-  required?: boolean;
-  /** 입력 왼쪽에 배치되는 부가 요소 */
-  prefix?: ReactNode;
-  /** 입력 오른쪽에 배치되는 부가 요소 */
-  suffix?: ReactNode;
-}
 
 export const TextFieldInput = forwardRef<HTMLInputElement, TextFieldInputProps>(
   (

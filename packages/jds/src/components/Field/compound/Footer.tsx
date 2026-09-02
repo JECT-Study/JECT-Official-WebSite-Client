@@ -1,9 +1,8 @@
 import { clsx } from "clsx";
-import { forwardRef, type ComponentPropsWithoutRef } from "react";
+import { forwardRef } from "react";
 
 import * as styles from "../field.css";
-
-export type FieldFooterProps = ComponentPropsWithoutRef<"div">;
+import type { FieldFooterProps } from "../field.types";
 
 export const FieldFooter = forwardRef<HTMLDivElement, FieldFooterProps>(
   ({ children, className, ...restProps }, ref) => (
