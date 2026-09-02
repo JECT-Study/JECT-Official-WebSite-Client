@@ -1,4 +1,3 @@
-import { chain } from "@react-aria/utils";
 import { clsx } from "clsx";
 import { DropdownMenu } from "radix-ui";
 import { Children, forwardRef, useId, useState } from "react";
@@ -137,7 +136,9 @@ const MenuTree = forwardRef<HTMLButtonElement, MenuTreeProps>(
       setOpen(!isOpen);
     };
 
-    const handleKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
+      onKeyDown?.(event);
+
       if (disabled || !hasChildren) return;
       if (event.key === "ArrowRight" && !isOpen) {
         event.preventDefault();
@@ -172,7 +173,7 @@ const MenuTree = forwardRef<HTMLButtonElement, MenuTreeProps>(
             <MenuItem.Button
               ref={ref}
               size={size}
-              onKeyDown={chain(onKeyDown, handleKeyDown)}
+              onKeyDown={handleKeyDown}
               disabled={disabled}
               {...restProps}
             >
