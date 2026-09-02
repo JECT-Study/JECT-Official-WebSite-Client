@@ -86,7 +86,7 @@ export const FileFieldInput = forwardRef<HTMLInputElement, FileFieldInputProps>(
     // 실제 파일 데이터가 없는 값은 전송할 수 없으므로 목록을 비운다.
     const syncInputFiles = (next: FileFieldValue | null) => {
       const input = inputRef.current;
-      if (input == null || typeof DataTransfer === "undefined") return;
+      if (input == null) return;
 
       const nextFile = next instanceof File ? next : null;
       if ((input.files?.[0] ?? null) === nextFile) return;
