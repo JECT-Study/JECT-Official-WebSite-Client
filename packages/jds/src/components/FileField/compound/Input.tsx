@@ -158,11 +158,11 @@ export const FileFieldInput = forwardRef<HTMLInputElement, FileFieldInputProps>(
           aria-labelledby={ariaLabelledBy}
           aria-describedby={[valueId, ariaDescribedBy].filter(Boolean).join(" ")}
           aria-invalid={ariaInvalid}
-          // input[type="file"]은 native readonly를 지원하지 않으므로 aria-readonly를 명시한다.
-          aria-readonly={isReadOnly || undefined}
           aria-required={isRequired || undefined}
           disabled={isDisabled}
           data-field-control=''
+          // input[type="file"]은 button으로 노출되어 native readonly와 aria-readonly가 적용되지 않는다.
+          // 읽기 전용 상태는 data-readonly로만 표현한다.
           data-readonly={isReadOnly || undefined}
           className={clsx(styles.input, className)}
           onChange={handleChange}
