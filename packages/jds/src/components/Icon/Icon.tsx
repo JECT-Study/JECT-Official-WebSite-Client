@@ -2,7 +2,7 @@ import { clsx } from "clsx";
 import { forwardRef } from "react";
 
 import { iconWrapper } from "./Icon.css";
-import type { IconProps } from "./Icon.types";
+import type { IconProps } from "./icon.types";
 import { iconMap, sizeMap } from "./IconMap";
 
 export const Icon = forwardRef<HTMLSpanElement, IconProps>(

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { Table } from ".";
-import type { TableRowItemProps } from "./Table.types";
+import type { TableRowItemProps } from "./table.types";
 
 const meta: Meta<typeof Table.RowItem> = {
   title: "Components/Table",

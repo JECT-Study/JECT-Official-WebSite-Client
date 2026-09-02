@@ -8,7 +8,7 @@ import type {
   TableRowItemBaseProps,
   TableRowItemBadgeProps,
   TableRowItemOwnKey,
-} from "../Table.types";
+} from "../table.types";
 import {
   badgeWrapper,
   codeWrapper,

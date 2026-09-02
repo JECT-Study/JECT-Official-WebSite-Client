@@ -2,7 +2,7 @@ import { clsx } from "clsx";
 import { forwardRef } from "react";
 
 import { tableHeader } from "./table.css";
-import type { TableHeaderSectionProps } from "../Table.types";
+import type { TableHeaderSectionProps } from "../table.types";
 
 export const TableHeader = forwardRef<HTMLTableSectionElement, TableHeaderSectionProps>(
   ({ children, className, rowProps, ...restProps }, ref) => (

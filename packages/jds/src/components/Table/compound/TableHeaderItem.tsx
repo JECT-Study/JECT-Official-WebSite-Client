@@ -2,7 +2,7 @@ import { clsx } from "clsx";
 import { forwardRef } from "react";
 
 import { tableHeaderItem, tableHeaderLabel } from "./table.css";
-import type { TableHeaderItemProps } from "../Table.types";
+import type { TableHeaderItemProps } from "../table.types";
 
 import { getLabelClassName } from "@/utils/typography";
 

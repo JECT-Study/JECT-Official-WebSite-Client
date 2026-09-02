@@ -3,7 +3,7 @@ import { clsx } from "clsx";
 import { forwardRef } from "react";
 
 import { colorChip, colorChipBackground } from "./colorChip.css";
-import type { ColorChipProps } from "./ColorChip.types";
+import type { ColorChipProps } from "./colorChip.types";
 
 export const ColorChip = forwardRef<HTMLDivElement, ColorChipProps>(
   ({ color, className, style, ...restProps }, ref) => {
