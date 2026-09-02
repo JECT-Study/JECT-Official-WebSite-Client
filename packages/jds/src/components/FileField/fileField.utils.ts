@@ -12,7 +12,7 @@ export const formatFileSize = (bytes: number) => {
     unitIndex += 1;
   }
 
-  return `${Math.round(size * 10) / 10}${SIZE_UNITS[unitIndex]}`;
+  return `${Math.floor(size * 10) / 10}${SIZE_UNITS[unitIndex]}`;
 };
 
 const matchesAccept = (accept: string, file: File) => {
