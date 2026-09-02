@@ -53,6 +53,7 @@ npm run changeset
 - **항상**
   - branch와 PR의 기준은 `dev`
   - 변경을 마치기 전에 `npm run type-check`와 `npm run lint` 통과
+  - 커밋 전 `npm run format` 실행. 훅을 우회했다면 CI의 `format:check`가 방어
   - `packages/jds`에서 배포되는 코드가 바뀌면 체인지셋 추가. 테스트, 스토리, 문서, CI만 바뀌었다면 만들지 않는다.
   - JDS 컴포넌트를 바꾸면 Storybook 스토리도 함께 갱신
   - 공개 API는 배럴(`index.ts`)에 export. 여기 없으면 소비처가 쓸 수 없다
