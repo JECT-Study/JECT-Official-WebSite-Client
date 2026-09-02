@@ -23,9 +23,17 @@ export interface FileFieldError {
 
 type FileFieldInputBaseProps = Omit<
   ComponentPropsWithoutRef<"input">,
-  "id" | "type" | "value" | "defaultValue" | "onChange" | "onError" | "required" | "multiple"
+  | "id"
+  | "type"
+  | "value"
+  | "defaultValue"
+  | "onChange"
+  | "onError"
+  | "required"
+  | "multiple"
+  | "aria-invalid"
 > & {
-  /** 필수 입력 여부. aria-required로 반영한다. */
+  /** 필수 입력 여부. 레이블의 필수 표시와 스크린리더에 전달하는 상태 문구에 반영한다. */
   required?: boolean;
   /** 파일이 없을 때 표시하는 문구 */
   placeholder?: string;

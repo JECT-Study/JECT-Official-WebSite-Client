@@ -16,9 +16,11 @@
 
 `placeholder`로 파일이 없을 때 표시할 문구를, `suffix`로 삭제 버튼 오른쪽에 놓을 부가 요소를 지정할 수 있습니다.
 
-`disabled`와 `readonly`에서는 클릭과 드래그 앤 드롭 모두 값을 바꾸지 않습니다. 입력 요소가 `input[type="file"]`이라 native `readonly`와 `aria-readonly`가 적용되지 않으므로, 읽기 전용 여부는 `data-readonly`로 판단해야 합니다.
+`disabled`와 `readonly`에서는 클릭과 드래그 앤 드롭 모두 값을 바꾸지 않습니다. 읽기 전용 여부는 `data-readonly`로 판단해야 합니다.
 
-폼이 초기화되면 표시 값도 `defaultValue`로 돌아갑니다. 표시 중인 파일명과 `placeholder`는 `aria-describedby`로 입력 요소에 연결됩니다.
+폼이 초기화되면 표시 값도 `defaultValue`로 초기화됩니다.
+
+입력 요소가 `input[type="file"]`이라 `aria-required`, `aria-readonly`, `aria-invalid`가 적용되지 않습니다. 세 속성을 붙이지 않는 대신 필수와 읽기 전용, 오류 상태를 시각적으로는 표시되지 않는 별도 요소로 노출하고 표시 중인 파일명, `placeholder`와 함께 `aria-describedby`로 연결합니다. `aria-invalid`는 prop으로도 받지 않습니다.
 
 타입 `FileFieldProps`, `FileFieldInputProps`, `FileFieldSizeProps`, `FileFieldValue`, `FileFieldError`, `FileFieldErrorType`, `FileFieldLabelProps`, `FileFieldHelperProps`, `FileFieldFooterProps`를 함께 내보냅니다.
 

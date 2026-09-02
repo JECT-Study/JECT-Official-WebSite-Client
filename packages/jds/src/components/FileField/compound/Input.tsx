@@ -7,6 +7,7 @@ import {
   type ChangeEvent,
   type MouseEvent,
 } from "react";
+import { visuallyHidden } from "utils";
 
 import { IconButton } from "../../Button/IconButton";
 import { FieldContent } from "../../Field";
@@ -45,7 +46,6 @@ export const FileFieldInput = forwardRef<HTMLInputElement, FileFieldInputProps>(
       "aria-label": ariaLabelFromProps,
       "aria-labelledby": labelledByFromProps,
       "aria-describedby": describedByFromProps,
-      "aria-invalid": invalidFromProps,
       className,
       ...restProps
     },
@@ -67,7 +67,6 @@ export const FileFieldInput = forwardRef<HTMLInputElement, FileFieldInputProps>(
       ariaLabel: ariaLabelFromProps,
       ariaLabelledBy: labelledByFromProps,
       ariaDescribedBy: describedByFromProps,
-      ariaInvalid: invalidFromProps,
     });
 
     const { onSizeChange } = useFileFieldContext("FileField.Input");
@@ -83,6 +82,14 @@ export const FileFieldInput = forwardRef<HTMLInputElement, FileFieldInputProps>(
     const defaultValueRef = useRef(defaultValue ?? null);
 
     const valueId = `${fieldId}-value`;
+    const stateId = `${fieldId}-state`;
+    const stateText = [
+      isRequired ? "필수" : undefined,
+      isReadOnly ? "읽기 전용" : undefined,
+      ariaInvalid === true ? "오류" : undefined,
+    ]
+      .filter(Boolean)
+      .join(", ");
     const isInteractive = !isDisabled && !isReadOnly;
     const hasFile = file != null;
 
@@ -170,6 +177,13 @@ export const FileFieldInput = forwardRef<HTMLInputElement, FileFieldInputProps>(
             </span>
           )}
         </span>
+        {stateText !== "" && (
+          // input[type="file"]은 접근성 트리에서 role="button"으로 노출되어
+          // aria-required, aria-readonly, aria-invalid가 적용되지 않으므로 상태 정보를 별도로 제공한다.
+          <span id={stateId} className={visuallyHidden}>
+            {stateText}
+          </span>
+        )}
         <input
           {...restProps}
           ref={mergeRefs(ref, inputRef)}
@@ -178,13 +192,11 @@ export const FileFieldInput = forwardRef<HTMLInputElement, FileFieldInputProps>(
           accept={accept}
           aria-label={ariaLabel}
           aria-labelledby={ariaLabelledBy}
-          aria-describedby={[valueId, ariaDescribedBy].filter(Boolean).join(" ")}
-          aria-invalid={ariaInvalid}
-          aria-required={isRequired || undefined}
+          aria-describedby={[valueId, stateText !== "" ? stateId : undefined, ariaDescribedBy]
+            .filter(Boolean)
+            .join(" ")}
           disabled={isDisabled}
           data-field-control=''
-          // input[type="file"]은 button으로 노출되어 native readonly와 aria-readonly가 적용되지 않는다.
-          // 읽기 전용 상태는 data-readonly로만 표현한다.
           data-readonly={isReadOnly || undefined}
           className={clsx(styles.input, className)}
           onChange={handleChange}
