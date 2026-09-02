@@ -55,9 +55,3 @@ export const popup = style({
   maxHeight: "var(--radix-popover-content-available-height)",
   zIndex: vars.environment.semantic.zIndex.floated,
 });
-
-export const counter = style({
-  whiteSpace: "nowrap",
-  flexShrink: 0,
-  marginInlineStart: "auto",
-});

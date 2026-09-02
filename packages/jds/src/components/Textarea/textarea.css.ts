@@ -36,9 +36,3 @@ export const control = style({
     },
   },
 });
-
-export const counter = style({
-  whiteSpace: "nowrap",
-  flexShrink: 0,
-  marginInlineStart: "auto",
-});
