@@ -156,6 +156,7 @@ export const FileFieldInput = forwardRef<HTMLInputElement, FileFieldInputProps>(
         return;
       }
 
+      if (value !== undefined) syncInputFiles(file);
       setFile(selected);
     };
 
