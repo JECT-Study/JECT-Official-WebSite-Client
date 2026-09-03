@@ -92,6 +92,7 @@ export const FileFieldInput = forwardRef<HTMLInputElement, FileFieldInputProps>(
       .join(", ");
     const isInteractive = !isDisabled && !isReadOnly;
     const hasFile = file != null;
+    const isNativeFile = file instanceof File;
 
     useLayoutEffect(() => {
       onSizeChange(file?.size ?? null);
@@ -201,7 +202,11 @@ export const FileFieldInput = forwardRef<HTMLInputElement, FileFieldInputProps>(
           accept={accept}
           aria-label={ariaLabel}
           aria-labelledby={ariaLabelledBy}
-          aria-describedby={[valueId, stateText !== "" ? stateId : undefined, ariaDescribedBy]
+          aria-describedby={[
+            isNativeFile ? undefined : valueId,
+            stateText !== "" ? stateId : undefined,
+            ariaDescribedBy,
+          ]
             .filter(Boolean)
             .join(" ")}
           disabled={isDisabled}
