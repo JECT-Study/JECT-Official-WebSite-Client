@@ -27,7 +27,7 @@ export const ListboxOption = ({
     activeValue,
     select,
     setActive,
-  } = useListboxContext();
+  } = useListboxContext("Listbox.Option");
 
   const id = getOptionId(listboxId, value);
   const isDisabled = disabled || isGroupDisabled;

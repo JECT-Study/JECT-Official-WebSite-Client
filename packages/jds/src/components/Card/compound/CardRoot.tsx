@@ -1,7 +1,7 @@
 import { clsx } from "clsx";
-import { forwardRef, useId, useMemo } from "react";
+import { forwardRef, useId } from "react";
 
-import { CardContext } from "../card.context";
+import { CardProvider } from "../card.context";
 import type { CardRootProps } from "../card.types";
 import * as styles from "./card.css";
 
@@ -20,13 +20,8 @@ export const CardRoot = forwardRef<HTMLDivElement, CardRootProps>(
   ) => {
     const titleId = useId();
 
-    const contextValue = useMemo(
-      () => ({ layout, variant, isDisabled, titleId }),
-      [layout, variant, isDisabled, titleId],
-    );
-
     return (
-      <CardContext.Provider value={contextValue}>
+      <CardProvider value={{ layout, variant, isDisabled, titleId }}>
         <div
           ref={ref}
           data-interactive={interactive || undefined}
@@ -36,7 +31,7 @@ export const CardRoot = forwardRef<HTMLDivElement, CardRootProps>(
         >
           {children}
         </div>
-      </CardContext.Provider>
+      </CardProvider>
     );
   },
 );

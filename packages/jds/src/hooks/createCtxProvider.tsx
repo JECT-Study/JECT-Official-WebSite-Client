@@ -1,15 +1,18 @@
 import { useContext, createContext, useMemo, type ReactNode } from "react";
 
-type ProviderProps<T> = T & { children: ReactNode };
+export interface ProviderProps<T> {
+  value: T;
+  children: ReactNode;
+}
 
-export function createCtxProvider<T extends object>(componentName: string, defaultValue?: T) {
-  const Context = createContext<T | undefined>(defaultValue);
+export function createCtxProvider<T extends object>(
+  componentName: string,
+  rootName = componentName + "Provider",
+) {
+  const Context = createContext<T | undefined>(undefined);
   Context.displayName = componentName + "Context";
 
-  function Provider(props: ProviderProps<T>) {
-    const { children, ...rest } = props;
-    const value = rest as unknown as T;
-
+  function Provider({ value, children }: ProviderProps<T>) {
     const memoized = useMemo(
       () => value,
       // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -25,7 +28,7 @@ export function createCtxProvider<T extends object>(componentName: string, defau
     const value = useContext(Context);
     if (value === undefined) {
       throw new Error(
-        `${consumerName ?? "use" + componentName}는 ${componentName}Provider 내부에서만 사용할 수 있습니다.`,
+        `${consumerName ?? "use" + componentName}는 ${rootName} 내부에서만 사용할 수 있습니다.`,
       );
     }
     return value;
@@ -34,7 +37,7 @@ export function createCtxProvider<T extends object>(componentName: string, defau
   return [Provider, useCtx] as const;
 }
 
-export function createOptionalCtxProvider<T>(componentName: string) {
+export function createOptionalCtxProvider<T extends object>(componentName: string) {
   const Context = createContext<T | null>(null);
   Context.displayName = componentName + "Context";
 

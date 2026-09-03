@@ -1,8 +1,8 @@
 import { clsx } from "clsx";
 import { Tabs as TabsPrimitive } from "radix-ui";
-import { forwardRef, useMemo } from "react";
+import { forwardRef } from "react";
 
-import { TabsContext, useTabsContext } from "./tabs.context";
+import { TabsProvider, useTabsContext } from "./tabs.context";
 import * as styles from "./tabs.css";
 import type {
   TabsContentProps,
@@ -15,14 +15,12 @@ import { getLabelClassName } from "@/utils/typography";
 
 export const TabsRoot = forwardRef<HTMLDivElement, TabsRootProps>(
   ({ children, variant = "header", isItemStretched = false, ...restProps }, ref) => {
-    const contextValue = useMemo(() => ({ variant, isItemStretched }), [variant, isItemStretched]);
-
     return (
-      <TabsContext.Provider value={contextValue}>
+      <TabsProvider value={{ variant, isItemStretched }}>
         <TabsPrimitive.Root ref={ref} {...restProps}>
           {children}
         </TabsPrimitive.Root>
-      </TabsContext.Provider>
+      </TabsProvider>
     );
   },
 );
@@ -31,7 +29,7 @@ TabsRoot.displayName = "Tabs.Root";
 
 export const TabsList = forwardRef<HTMLDivElement, TabsListProps>(
   ({ children, className, ...restProps }, ref) => {
-    const { variant } = useTabsContext();
+    const { variant } = useTabsContext("Tabs.List");
 
     return (
       <TabsPrimitive.List
@@ -49,7 +47,7 @@ TabsList.displayName = "Tabs.List";
 
 export const TabsTrigger = forwardRef<HTMLButtonElement, TabsTriggerProps>(
   ({ children, disabled = false, badge = "", className, ...restProps }, ref) => {
-    const { variant, isItemStretched } = useTabsContext();
+    const { variant, isItemStretched } = useTabsContext("Tabs.Trigger");
 
     return (
       <TabsPrimitive.Trigger

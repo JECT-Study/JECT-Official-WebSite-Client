@@ -36,23 +36,25 @@ const InternalField = forwardRef<HTMLDivElement, FieldProps>(
 
     return (
       <FieldProvider
-        fieldId={fieldId}
-        labelId={labelId}
-        hasLabel={hasLabel}
-        onLabelMountChange={setHasLabel}
-        helperId={helperId}
-        hasHelper={hasHelper}
-        onHelperMountChange={setHasHelper}
-        counterId={counterId}
-        onCounterChange={setCounter}
-        hasCounter={hasCounter}
-        onCounterMountChange={setHasCounter}
-        isControlRequired={isControlRequired}
-        onControlRequiredChange={setControlRequired}
-        status={status}
-        readonly={readonly}
-        disabled={disabled}
-        required={required}
+        value={{
+          fieldId,
+          labelId,
+          hasLabel,
+          onLabelMountChange: setHasLabel,
+          helperId,
+          hasHelper,
+          onHelperMountChange: setHasHelper,
+          counterId,
+          onCounterChange: setCounter,
+          hasCounter,
+          onCounterMountChange: setHasCounter,
+          isControlRequired,
+          onControlRequiredChange: setControlRequired,
+          status,
+          readonly,
+          disabled,
+          required,
+        }}
       >
         <FieldCounterValueProvider value={counter}>
           <div ref={ref} className={clsx(styles.container(), className)} {...restProps}>

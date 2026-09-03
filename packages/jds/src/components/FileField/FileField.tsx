@@ -10,7 +10,7 @@ const FileFieldRoot = forwardRef<HTMLDivElement, FileFieldProps>((props, ref) =>
   const [size, setSize] = useState<number | null>(null);
 
   return (
-    <FileFieldProvider size={size} onSizeChange={setSize}>
+    <FileFieldProvider value={{ size, onSizeChange: setSize }}>
       <Field ref={ref} {...props} />
     </FileFieldProvider>
   );

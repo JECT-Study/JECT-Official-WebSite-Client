@@ -14,9 +14,11 @@ const SuggestionFieldRoot = forwardRef<HTMLDivElement, SuggestionFieldProps>((pr
 
   return (
     <SuggestionFieldProvider
-      isOpen={isOpen}
-      onOpenChange={setIsOpenRequested}
-      onHasPopupContentChange={setHasPopupContent}
+      value={{
+        isOpen,
+        onOpenChange: setIsOpenRequested,
+        onHasPopupContentChange: setHasPopupContent,
+      }}
     >
       <Popover.Root open={isOpen} onOpenChange={setIsOpenRequested} modal={false}>
         <Field ref={ref} {...props} />

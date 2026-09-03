@@ -1,8 +1,8 @@
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
 import { clsx } from "clsx";
-import { forwardRef, useMemo } from "react";
+import { forwardRef } from "react";
 
-import { AccordionContext, useAccordionContext } from "./accordion.context";
+import { AccordionProvider, useAccordionContext } from "./accordion.context";
 import * as styles from "./accordion.css";
 import type {
   AccordionContentProps,
@@ -24,14 +24,12 @@ import { getBodyClassName, getLabelClassName } from "@/utils/typography";
  */
 const AccordionRoot = forwardRef<HTMLDivElement, AccordionRootProps>(
   ({ children, isStretched = true, size = "lg", ...restProps }, ref) => {
-    const contextValue = useMemo(() => ({ isStretched, size }), [isStretched, size]);
-
     return (
-      <AccordionContext.Provider value={contextValue}>
+      <AccordionProvider value={{ isStretched, size }}>
         <AccordionPrimitive.Root ref={ref} {...restProps}>
           <div className={styles.root}>{children}</div>
         </AccordionPrimitive.Root>
-      </AccordionContext.Provider>
+      </AccordionProvider>
     );
   },
 );

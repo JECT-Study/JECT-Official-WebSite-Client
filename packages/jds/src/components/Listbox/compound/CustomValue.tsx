@@ -9,7 +9,13 @@ import { getActiveDescendantItemProps } from "@/hooks/useActiveDescendant";
 import { getLabelClassName } from "@/utils/typography";
 
 export const ListboxCustomValue = ({ value, caption }: ListboxCustomValueProps) => {
-  const { listboxId, disabled: isDisabled, activeValue, select, setActive } = useListboxContext();
+  const {
+    listboxId,
+    disabled: isDisabled,
+    activeValue,
+    select,
+    setActive,
+  } = useListboxContext("Listbox.CustomValue");
 
   const handleClick = () => {
     if (isDisabled) return;
