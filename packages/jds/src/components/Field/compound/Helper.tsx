@@ -1,7 +1,7 @@
 import { clsx } from "clsx";
 import { forwardRef, useLayoutEffect } from "react";
 
-import { useFieldContext } from "../Field.context";
+import { useFieldContext } from "../field.context";
 import * as styles from "../field.css";
 import type { FieldHelperProps } from "../field.types";
 

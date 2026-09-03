@@ -2,7 +2,7 @@ import { Popover } from "radix-ui";
 import { forwardRef, useState } from "react";
 
 import { MultiSelectFieldInput } from "./compound/Input";
-import { MultiSelectFieldProvider } from "./MultiSelectField.context";
+import { MultiSelectFieldProvider } from "./multiSelectField.context";
 import type { MultiSelectFieldProps } from "./multiSelectField.types";
 import { Field } from "../Field";
 

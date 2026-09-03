@@ -13,7 +13,7 @@ import { IconButton } from "../../Button/IconButton";
 import { FieldContent } from "../../Field";
 import { useFieldControl } from "../../Field/useFieldControl";
 import { Icon } from "../../Icon";
-import { useFileFieldContext } from "../FileField.context";
+import { useFileFieldContext } from "../fileField.context";
 import * as styles from "../fileField.css";
 import type { FileFieldInputProps, FileFieldValue } from "../fileField.types";
 import { validateFile } from "../fileField.utils";

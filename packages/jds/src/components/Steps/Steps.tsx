@@ -1,6 +1,7 @@
 import { clsx } from "clsx";
 import { Children, forwardRef, useMemo } from "react";
 
+import { StepsContext, useStepsContext } from "./steps.context";
 import {
   stepsItem,
   stepsLabel,
@@ -10,7 +11,6 @@ import {
   stepsSeparatorLine,
 } from "./steps.css";
 import type { StepsItemProps, StepsRootProps, StepsSize } from "./steps.types";
-import { StepsContext, useStepsContext } from "./stepsContext";
 import type { BadgeSize } from "../Badge";
 import { NumericBadge } from "../Badge";
 import { Divider } from "../Divider";

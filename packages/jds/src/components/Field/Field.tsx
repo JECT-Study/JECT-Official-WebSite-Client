@@ -5,7 +5,7 @@ import { FieldCounter } from "./compound/Counter";
 import { FieldFooter } from "./compound/Footer";
 import { FieldHelper } from "./compound/Helper";
 import { FieldLabel } from "./compound/Label";
-import { FieldCounterValueProvider, FieldProvider } from "./Field.context";
+import { FieldCounterValueProvider, FieldProvider } from "./field.context";
 import * as styles from "./field.css";
 import type { FieldCounterState, FieldProps } from "./field.types";
 

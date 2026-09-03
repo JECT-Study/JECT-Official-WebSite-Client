@@ -1,7 +1,7 @@
 import { clsx } from "clsx";
 import { forwardRef, useLayoutEffect } from "react";
 
-import { useFieldContext, useFieldCounterValue } from "../Field.context";
+import { useFieldContext, useFieldCounterValue } from "../field.context";
 import * as styles from "../field.css";
 import type { FieldCounterProps } from "../field.types";
 

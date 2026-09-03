@@ -2,7 +2,7 @@ import { clsx } from "clsx";
 import { forwardRef, type MouseEvent } from "react";
 import { focusRing, overlay, type FocusRingFeedback } from "utils";
 
-import { useFieldContext } from "../Field.context";
+import { useFieldContext } from "../field.context";
 import * as styles from "../field.css";
 import type { FieldContentProps, FieldStatus } from "../field.types";
 

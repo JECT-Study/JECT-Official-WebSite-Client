@@ -2,6 +2,7 @@ import { clsx } from "clsx";
 import { DropdownMenu } from "radix-ui";
 import { Children, forwardRef, useId, useState } from "react";
 
+import { MenuContext, useMenuContext } from "./menu.context";
 import {
   menuCategory,
   menuCategoryContainer,
@@ -22,7 +23,6 @@ import type {
   MenuSize,
   MenuTreeProps,
 } from "./menu.types";
-import { MenuContext, useMenuContext } from "./menuContext";
 import { MenuItem } from "../MenuItem";
 
 import { IconButton } from "@/components/Button/IconButton";

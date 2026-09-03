@@ -2,6 +2,7 @@ import { clsx } from "clsx";
 import { Tabs as TabsPrimitive } from "radix-ui";
 import { forwardRef, useMemo } from "react";
 
+import { TabsContext, useTabsContext } from "./tabs.context";
 import * as styles from "./tabs.css";
 import type {
   TabsContentProps,
@@ -9,7 +10,6 @@ import type {
   TabsRootProps,
   TabsTriggerProps,
 } from "./tabs.types";
-import { TabsContext, useTabsContext } from "./tabsContext";
 
 import { getLabelClassName } from "@/utils/typography";
 

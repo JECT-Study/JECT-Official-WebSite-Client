@@ -2,7 +2,7 @@ import { forwardRef, useState } from "react";
 
 import { FileFieldInput } from "./compound/Input";
 import { FileFieldSize } from "./compound/Size";
-import { FileFieldProvider } from "./FileField.context";
+import { FileFieldProvider } from "./fileField.context";
 import type { FileFieldProps } from "./fileField.types";
 import { Field } from "../Field";
 

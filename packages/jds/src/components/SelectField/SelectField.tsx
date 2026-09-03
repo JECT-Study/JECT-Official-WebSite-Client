@@ -2,7 +2,7 @@ import { Popover } from "radix-ui";
 import { forwardRef, useState } from "react";
 
 import { SelectFieldInput } from "./compound/Input";
-import { SelectFieldProvider } from "./SelectField.context";
+import { SelectFieldProvider } from "./selectField.context";
 import type { SelectFieldProps } from "./selectField.types";
 import { Field } from "../Field";
 

@@ -3,10 +3,10 @@ import { clsx } from "clsx";
 import { CheckboxPrimitive } from "../../Checkbox/CheckboxPrimitive";
 import { Icon } from "../../Icon";
 import { RadioPrimitive } from "../../Radio/RadioPrimitive";
+import { useListboxContext } from "../listbox.context";
 import * as styles from "../listbox.css";
 import type { ListboxOptionProps } from "../listbox.types";
 import { getOptionId } from "../listbox.utils";
-import { useListboxContext } from "../ListboxContext";
 
 import { getActiveDescendantItemProps } from "@/hooks/useActiveDescendant";
 import { getLabelClassName } from "@/utils/typography";

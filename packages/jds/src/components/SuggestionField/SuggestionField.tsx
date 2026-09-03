@@ -2,7 +2,7 @@ import { Popover } from "radix-ui";
 import { forwardRef, useState } from "react";
 
 import { SuggestionFieldInput } from "./compound/Input";
-import { SuggestionFieldProvider } from "./SuggestionField.context";
+import { SuggestionFieldProvider } from "./suggestionField.context";
 import type { SuggestionFieldProps } from "./suggestionField.types";
 import { Field } from "../Field";
 

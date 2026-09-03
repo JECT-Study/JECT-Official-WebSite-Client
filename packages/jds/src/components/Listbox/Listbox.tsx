@@ -3,9 +3,9 @@ import { type CSSProperties, forwardRef, useMemo } from "react";
 
 import { ListboxCustomValue } from "./compound/CustomValue";
 import { ListboxOption } from "./compound/Option";
+import { ListboxProvider } from "./listbox.context";
 import * as styles from "./listbox.css";
 import type { ListboxProps, SelectDimension } from "./listbox.types";
-import { ListboxProvider } from "./ListboxContext";
 
 import { getLabelClassName } from "@/utils/typography";
 

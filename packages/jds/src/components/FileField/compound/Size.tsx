@@ -1,9 +1,9 @@
 import { clsx } from "clsx";
 import { forwardRef, useLayoutEffect } from "react";
 
-import { useFieldContext } from "../../Field/Field.context";
+import { useFieldContext } from "../../Field/field.context";
 import * as fieldStyles from "../../Field/field.css";
-import { useFileFieldContext } from "../FileField.context";
+import { useFileFieldContext } from "../fileField.context";
 import type { FileFieldSizeProps } from "../fileField.types";
 
 import { formatFileSize } from "@/utils/formatFileSize";

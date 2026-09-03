@@ -2,6 +2,7 @@ import * as AccordionPrimitive from "@radix-ui/react-accordion";
 import { clsx } from "clsx";
 import { forwardRef, useMemo } from "react";
 
+import { AccordionContext, useAccordionContext } from "./accordion.context";
 import * as styles from "./accordion.css";
 import type {
   AccordionContentProps,
@@ -10,7 +11,6 @@ import type {
   AccordionSize,
   AccordionTriggerProps,
 } from "./accordion.types";
-import { AccordionContext, useAccordionContext } from "./accordionContext";
 import { Icon } from "../Icon";
 import type { IconSize } from "../Icon/icon.types";
 
