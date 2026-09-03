@@ -81,7 +81,8 @@
   "scripts": {
     "dev": "tsdown --watch",
     "build": "tsc -b --noEmit && node scripts/build.mjs",
-    "lint": "eslint --fix --max-warnings 0",
+    "lint": "eslint --max-warnings 0",
+    "lint:fix": "eslint --fix --max-warnings 0",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "chromatic": "npx chromatic --project-token=$CHROMATIC_TOKEN",
