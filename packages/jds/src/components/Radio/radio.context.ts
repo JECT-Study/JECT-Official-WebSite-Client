@@ -1,6 +1,6 @@
-import { createContext, useContext } from "react";
-
 import type { RadioSize, RadioVariant } from "./radio.types";
+
+import { createOptionalCtxProvider } from "@/hooks/createCtxProvider";
 
 export interface RadioConfigContextValue {
   size: RadioSize;
@@ -9,11 +9,8 @@ export interface RadioConfigContextValue {
   stretched: boolean;
 }
 
-const RadioConfigContext = createContext<RadioConfigContextValue | null>(null);
-
-export const RadioConfigProvider = RadioConfigContext.Provider;
-
-export const useRadioConfig = () => useContext(RadioConfigContext);
+export const [RadioConfigProvider, useRadioConfig] =
+  createOptionalCtxProvider<RadioConfigContextValue>("RadioConfig");
 
 export interface RadioItemContextValue {
   labelId: string;
@@ -22,8 +19,5 @@ export interface RadioItemContextValue {
   onHelperMountChange: (mounted: boolean) => void;
 }
 
-const RadioItemContext = createContext<RadioItemContextValue | null>(null);
-
-export const RadioItemProvider = RadioItemContext.Provider;
-
-export const useRadioItem = () => useContext(RadioItemContext);
+export const [RadioItemProvider, useRadioItem] =
+  createOptionalCtxProvider<RadioItemContextValue>("RadioItem");

@@ -33,3 +33,12 @@ export function createCtxProvider<T extends object>(componentName: string, defau
 
   return [Provider, useCtx] as const;
 }
+
+export function createOptionalCtxProvider<T>(componentName: string) {
+  const Context = createContext<T | null>(null);
+  Context.displayName = componentName + "Context";
+
+  const useCtx = () => useContext(Context);
+
+  return [Context.Provider, useCtx] as const;
+}

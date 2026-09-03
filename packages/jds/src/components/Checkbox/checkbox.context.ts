@@ -1,6 +1,6 @@
-import { createContext, useContext } from "react";
-
 import type { CheckedState, CheckboxSize, CheckboxVariant } from "./checkbox.types";
+
+import { createOptionalCtxProvider } from "@/hooks/createCtxProvider";
 
 export interface CheckboxGroupState {
   value: string[];
@@ -17,17 +17,11 @@ export interface CheckboxConfigContextValue {
   name?: string;
 }
 
-const CheckboxConfigContext = createContext<CheckboxConfigContextValue | null>(null);
+export const [CheckboxConfigProvider, useCheckboxConfig] =
+  createOptionalCtxProvider<CheckboxConfigContextValue>("CheckboxConfig");
 
-export const CheckboxConfigProvider = CheckboxConfigContext.Provider;
-
-export const useCheckboxConfig = () => useContext(CheckboxConfigContext);
-
-const CheckboxSelectionContext = createContext<CheckboxGroupState | null>(null);
-
-export const CheckboxSelectionProvider = CheckboxSelectionContext.Provider;
-
-export const useCheckboxSelection = () => useContext(CheckboxSelectionContext);
+export const [CheckboxSelectionProvider, useCheckboxSelection] =
+  createOptionalCtxProvider<CheckboxGroupState>("CheckboxSelection");
 
 export interface CheckboxItemContextValue {
   labelId: string;
@@ -37,8 +31,5 @@ export interface CheckboxItemContextValue {
   onChildCheckedChange: (checked: CheckedState) => void;
 }
 
-const CheckboxItemContext = createContext<CheckboxItemContextValue | null>(null);
-
-export const CheckboxItemProvider = CheckboxItemContext.Provider;
-
-export const useCheckboxItem = () => useContext(CheckboxItemContext);
+export const [CheckboxItemProvider, useCheckboxItem] =
+  createOptionalCtxProvider<CheckboxItemContextValue>("CheckboxItem");
