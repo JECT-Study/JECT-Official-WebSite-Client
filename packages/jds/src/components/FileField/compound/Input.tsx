@@ -84,9 +84,9 @@ export const FileFieldInput = forwardRef<HTMLInputElement, FileFieldInputProps>(
     const valueId = `${fieldId}-value`;
     const stateId = `${fieldId}-state`;
     const stateText = [
-      isRequired ? "필수" : undefined,
+      isRequired ? "필수 사항" : undefined,
       isReadOnly ? "읽기 전용" : undefined,
-      ariaInvalid === true ? "오류" : undefined,
+      ariaInvalid === true ? "유효하지 않은 데이터" : undefined,
     ]
       .filter(Boolean)
       .join(", ");
@@ -189,8 +189,9 @@ export const FileFieldInput = forwardRef<HTMLInputElement, FileFieldInputProps>(
           )}
         </span>
         {stateText !== "" && (
-          // input[type="file"]은 접근성 트리에서 role="button"으로 노출되어
-          // aria-required, aria-readonly, aria-invalid가 적용되지 않으므로 상태 정보를 별도로 제공한다.
+          // input[type="file"]에는 대응하는 WAI-ARIA role이 정의되어 있지 않으며,
+          // 플랫폼에 따라 서로 다른 native 접근성 컨트롤로 매핑된다.
+          // 상태 정보를 일관되게 전달하기 위해 별도의 설명으로 제공한다.
           <span id={stateId} className={visuallyHidden}>
             {stateText}
           </span>
