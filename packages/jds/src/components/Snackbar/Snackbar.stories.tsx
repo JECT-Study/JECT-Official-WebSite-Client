@@ -3,8 +3,9 @@ import { FlexColumn } from "@storybook-utils/layout";
 import { LiveRegionDemo, type LiveRegionScenario } from "@storybook-utils/LiveRegionDemo";
 
 import { Snackbar } from "./Snackbar";
+import { useSnackbar } from "./snackbar.context";
 import { snackbarController } from "./snackbarController";
-import { SnackbarProvider, useSnackbar } from "./SnackbarProvider";
+import { SnackbarProvider } from "./SnackbarProvider";
 import { BlockButton } from "../Button/BlockButton";
 
 const meta: Meta<typeof Snackbar> = {
