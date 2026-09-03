@@ -41,7 +41,13 @@ export function createOptionalCtxProvider<T extends object>(componentName: strin
   const Context = createContext<T | null>(null);
   Context.displayName = componentName + "Context";
 
+  function Provider({ value, children }: ProviderProps<T | null>) {
+    return <Context.Provider value={value}>{children}</Context.Provider>;
+  }
+
+  Provider.displayName = componentName + "Provider";
+
   const useCtx = () => useContext(Context);
 
-  return [Context.Provider, useCtx] as const;
+  return [Provider, useCtx] as const;
 }
