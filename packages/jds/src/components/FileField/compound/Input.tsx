@@ -121,10 +121,14 @@ export const FileFieldInput = forwardRef<HTMLInputElement, FileFieldInputProps>(
       if (form == null) return;
 
       // 클릭으로 발생한 reset 기본 동작은 마이크로태스크 이후에 실행되어 input.files를 비운다.
-      // 상태 변경에 따른 동기화보다 늦게 실행되므로, 기본 동작이 끝난 다음 태스크에서 input.files를 다시 동기화한다.
-      const handleReset = () => {
-        setFile(defaultValueRef.current);
-        setTimeout(() => syncInputFiles(defaultValueRef.current), 0);
+      // 기본 동작이 끝난 다음 태스크에서 값을 되돌린다. 소비처의 초기화 취소 여부도 이 시점에 확인할 수 있다.
+      const handleReset = (e: Event) => {
+        setTimeout(() => {
+          if (e.defaultPrevented) return;
+
+          setFile(defaultValueRef.current);
+          syncInputFiles(defaultValueRef.current);
+        }, 0);
       };
 
       form.addEventListener("reset", handleReset);
