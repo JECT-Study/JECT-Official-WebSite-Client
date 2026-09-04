@@ -1,590 +1,320 @@
-/* eslint-disable storybook/story-exports */
-// Emotion 기반으로 작성된 토큰 사용 예시 스토리
-// Emotion 제거에 따라 전체를 주석 처리했다. vanilla-extract 기반으로 재작성할 때 해제한다.
-// 스토리북 로드는 .storybook/main.ts의 stories 글롭에서 제외되어 있다.
-//
-// /** @jsxImportSource @emotion/react */
-// import { useTheme } from "@emotion/react";
-// import { css } from "@emotion/react";
-// import type { Meta, StoryObj } from "@storybook/react-vite";
-//
-// const TokenShowcase = () => {
-//   return <div>Token Showcase</div>;
-// };
-//
-// const meta = {
-//   title: "Design Tokens/Token Usage",
-//   component: TokenShowcase,
-//   parameters: {
-//     layout: "padded",
-//   },
-// } satisfies Meta<typeof TokenShowcase>;
-//
-// export default meta;
-// type Story = StoryObj<typeof meta>;
-//
-// // 토큰 사용 예시
-// export const HowToUseTokens: Story = {
-//   render: () => {
-//     const theme = useTheme();
-//
-//     return (
-//       <div
-//         css={css`
-//           display: flex;
-//           flex-direction: column;
-//           gap: ${theme.scheme.semantic.spacing[6]};
-//           padding: ${theme.scheme.semantic.spacing[6]};
-//         `}
-//       >
-//         {/* 기본 카드 예시 */}
-//         <div
-//           css={css`
-//             padding: ${theme.scheme.semantic.spacing[6]};
-//             background-color: ${theme.color.semantic.surface.shallow};
-//             border-radius: ${theme.scheme.semantic.radius[4]};
-//             border: 1px solid ${theme.color.semantic.object.subtle};
-//           `}
-//         >
-//           <h3
-//             css={css`
-//               ${theme.textStyle["semantic-textStyle-title-2"]}
-//               margin-bottom: ${theme.scheme.semantic.spacing[3]};
-//             `}
-//           >
-//             기본 카드 컴포넌트
-//           </h3>
-//           <p
-//             css={css`
-//               ${theme.textStyle["semantic-textStyle-body-md-normal"]}
-//               color: ${theme.color.semantic.accent.alpha.assistive};
-//               margin-bottom: ${theme.scheme.semantic.spacing[4]};
-//             `}
-//           >
-//             토큰을 사용한 기본적인 카드 레이아웃입니다.
-//           </p>
-//           <button
-//             css={css`
-//               ${theme.textStyle["semantic-textStyle-label-md-bold"]}
-//               padding: ${theme.scheme.semantic.spacing[3]} ${theme.scheme.semantic.spacing[4]};
-//               background-color: ${theme.color.semantic.accent.normal};
-//               color: ${theme.color.semantic.accent.inverse.normal};
-//               border: none;
-//               border-radius: ${theme.scheme.semantic.radius[2]};
-//               cursor: pointer;
-//
-//               &:hover {
-//                 background-color: ${theme.color.semantic.accent.bold};
-//               }
-//             `}
-//           >
-//             액션 버튼
-//           </button>
-//         </div>
-//
-//         {/* 다양한 텍스트 스타일 */}
-//         <div
-//           css={css`
-//             padding: ${theme.scheme.semantic.spacing[6]};
-//             background-color: ${theme.color.semantic.surface.shallow};
-//             border-radius: ${theme.scheme.semantic.radius[4]};
-//           `}
-//         >
-//           <div
-//             css={css`
-//               ${theme.textStyle["semantic-textStyle-title-1"]}
-//               margin-bottom: ${theme.scheme.semantic.spacing[2]};
-//             `}
-//           >
-//             Title 텍스트
-//           </div>
-//           <div
-//             css={css`
-//               ${theme.textStyle["semantic-textStyle-body-lg-normal"]}
-//               margin-bottom: ${theme.scheme.semantic.spacing[2]};
-//             `}
-//           >
-//             Body Large 텍스트
-//           </div>
-//           <div
-//             css={css`
-//               ${theme.textStyle["semantic-textStyle-label-sm-subtle"]}
-//             `}
-//           >
-//             Label Small Subtle 텍스트
-//           </div>
-//         </div>
-//
-//         {/* 색상 조합 예시 */}
-//         <div
-//           css={css`
-//             display: grid;
-//             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-//             gap: ${theme.scheme.semantic.spacing[4]};
-//           `}
-//         >
-//           <div
-//             css={css`
-//               padding: ${theme.scheme.semantic.spacing[4]};
-//               background-color: ${theme.color.semantic.accent.alpha.subtlest};
-//               border-radius: ${theme.scheme.semantic.radius[2]};
-//               text-align: center;
-//             `}
-//           >
-//             <div
-//               css={css`
-//                 ${theme.textStyle["semantic-textStyle-label-md-bold"]}
-//                 color: ${theme.color.semantic.accent.normal};
-//               `}
-//             >
-//               Primary
-//             </div>
-//           </div>
-//           <div
-//             css={css`
-//               padding: ${theme.scheme.semantic.spacing[4]};
-//               background-color: ${theme.color.semantic.surface.deep};
-//               border-radius: ${theme.scheme.semantic.radius[2]};
-//               text-align: center;
-//             `}
-//           >
-//             <div
-//               css={css`
-//                 ${theme.textStyle["semantic-textStyle-label-md-bold"]}
-//                 color: ${theme.color.semantic.accent.normal};
-//               `}
-//             >
-//               Surface Deep
-//             </div>
-//           </div>
-//           <div
-//             css={css`
-//               padding: ${theme.scheme.semantic.spacing[4]};
-//               background-color: ${theme.color.semantic.object.neutral};
-//               border-radius: ${theme.scheme.semantic.radius[2]};
-//               text-align: center;
-//             `}
-//           >
-//             <div
-//               css={css`
-//                 ${theme.textStyle["semantic-textStyle-label-md-bold"]}
-//                 color: ${theme.color.semantic.object.inverse.neutral};
-//               `}
-//             >
-//               Object Neutral
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     );
-//   },
-// };
-//
-// // Color Primitive 예시
-// export const ColorPrimitive: Story = {
-//   render: () => {
-//     const theme = useTheme();
-//
-//     return (
-//       <div>
-//         <h2>Color Primitive Tokens</h2>
-//         <div
-//           css={css`
-//             display: grid;
-//             grid-template-columns: repeat(4, 1fr);
-//             gap: 16px;
-//           `}
-//         >
-//           <div>
-//             <div
-//               css={css`
-//                 width: 100px;
-//                 height: 100px;
-//                 background-color: ${theme.colorPrimitive.primitive.flow[25]};
-//                 border: 1px solid #ccc;
-//               `}
-//             />
-//             <p>Flow 25</p>
-//           </div>
-//           <div>
-//             <div
-//               css={css`
-//                 width: 100px;
-//                 height: 100px;
-//                 background-color: ${theme.colorPrimitive.primitive.flow[50]};
-//                 border: 1px solid #ccc;
-//               `}
-//             />
-//             <p>Flow 50</p>
-//           </div>
-//           <div>
-//             <div
-//               css={css`
-//                 width: 100px;
-//                 height: 100px;
-//                 background-color: ${theme.colorPrimitive.primitive.flow[75]};
-//                 border: 1px solid #ccc;
-//               `}
-//             />
-//             <p>Flow 75</p>
-//           </div>
-//           <div>
-//             <div
-//               css={css`
-//                 width: 100px;
-//                 height: 100px;
-//                 background-color: ${theme.colorPrimitive.primitive.flow[100]};
-//                 border: 1px solid #ccc;
-//               `}
-//             />
-//             <p>Flow 100</p>
-//           </div>
-//         </div>
-//       </div>
-//     );
-//   },
-// };
-//
-// // Color Semantic 예시
-// export const ColorSemantic: Story = {
-//   render: () => {
-//     const theme = useTheme();
-//
-//     return (
-//       <div>
-//         <h2>Color Semantic Tokens</h2>
-//         <div
-//           css={css`
-//             display: flex;
-//             flex-direction: column;
-//             gap: 16px;
-//           `}
-//         >
-//           <div
-//             css={css`
-//               padding: 20px;
-//               background-color: ${theme.color.semantic.surface.standard};
-//               color: ${theme.color.semantic.accent.normal};
-//             `}
-//           >
-//             Surface Standard
-//           </div>
-//           <div
-//             css={css`
-//               padding: 20px;
-//               background-color: ${theme.color.semantic.surface.deep};
-//               color: ${theme.color.semantic.accent.normal};
-//             `}
-//           >
-//             Surface Deep
-//           </div>
-//           <div
-//             css={css`
-//               padding: 20px;
-//               background-color: ${theme.color.semantic.accent.neutral};
-//               color: white;
-//             `}
-//           >
-//             Accent Neutral
-//           </div>
-//         </div>
-//       </div>
-//     );
-//   },
-// };
-//
-// // Typography 예시
-// export const Typography: Story = {
-//   render: () => {
-//     return (
-//       <div>
-//         <h2>Typography Tokens</h2>
-//         <div
-//           css={css`
-//             display: flex;
-//             flex-direction: column;
-//             gap: 16px;
-//           `}
-//         ></div>
-//       </div>
-//     );
-//   },
-// };
-//
-// // Scheme 예시
-// export const Scheme: Story = {
-//   render: () => {
-//     const theme = useTheme();
-//
-//     return (
-//       <div>
-//         <h2>Scheme Tokens</h2>
-//         <div
-//           css={css`
-//             display: flex;
-//             flex-direction: column;
-//             gap: 16px;
-//           `}
-//         >
-//           <div
-//             css={css`
-//               padding: ${theme.scheme.semantic.spacing[4]};
-//               background-color: ${theme.color.semantic.surface.shallow};
-//               border-radius: ${theme.scheme.semantic.radius[2]};
-//             `}
-//           >
-//             Spacing 4, Border Radius 2
-//           </div>
-//           <div
-//             css={css`
-//               padding: ${theme.scheme.semantic.spacing[8]};
-//               background-color: ${theme.color.semantic.surface.shallow};
-//               border-radius: ${theme.scheme.semantic.radius[4]};
-//             `}
-//           >
-//             Spacing 8, Border Radius 4
-//           </div>
-//         </div>
-//       </div>
-//     );
-//   },
-// };
-//
-// // Environment 예시
-// export const Environment: Story = {
-//   render: () => {
-//     const theme = useTheme();
-//
-//     return (
-//       <div>
-//         <h2>Environment Tokens</h2>
-//         <div
-//           css={css`
-//             display: flex;
-//             flex-direction: column;
-//             gap: 16px;
-//           `}
-//         >
-//           <div
-//             css={css`
-//               padding: 16px;
-//               background-color: ${theme.color.semantic.accent.alpha};
-//             `}
-//           ></div>
-//         </div>
-//       </div>
-//     );
-//   },
-// };
-//
-// // TextStyle 예시 (가장 중요!)
-// export const TextStyle: Story = {
-//   render: () => {
-//     const theme = useTheme();
-//
-//     return (
-//       <div>
-//         <h2>TextStyle Tokens - All Text Properties Combined</h2>
-//         <div
-//           css={css`
-//             display: flex;
-//             flex-direction: column;
-//             gap: 24px;
-//           `}
-//         >
-//           <div>
-//             <h3>Title Styles</h3>
-//             <div
-//               css={css`
-//                 ${theme.textStyle["semantic-textStyle-title-4"]}
-//               `}
-//             >
-//               Title 4 - All text properties applied
-//             </div>
-//             <div
-//               css={css`
-//                 ${theme.textStyle["semantic-textStyle-title-3"]}
-//               `}
-//             >
-//               Title 3 - All text properties applied
-//             </div>
-//             <div
-//               css={css`
-//                 ${theme.textStyle["semantic-textStyle-title-2"]}
-//               `}
-//             >
-//               Title 2 - All text properties applied
-//             </div>
-//             <div
-//               css={css`
-//                 ${theme.textStyle["semantic-textStyle-title-1"]}
-//               `}
-//             >
-//               Title 1 - All text properties applied
-//             </div>
-//           </div>
-//
-//           <div>
-//             <h3>Label Styles</h3>
-//             <div
-//               css={css`
-//                 ${theme.textStyle["semantic-textStyle-label-lg-bold"]}
-//               `}
-//             >
-//               Label LG Bold - All text properties applied
-//             </div>
-//             <div
-//               css={css`
-//                 ${theme.textStyle["semantic-textStyle-label-md-normal"]}
-//               `}
-//             >
-//               Label MD Normal - All text properties applied
-//             </div>
-//             <div
-//               css={css`
-//                 ${theme.textStyle["semantic-textStyle-label-sm-normal"]}
-//               `}
-//             >
-//               Label SM Normal - All text properties applied
-//             </div>
-//             <div
-//               css={css`
-//                 ${theme.textStyle["semantic-textStyle-label-xs-normal"]}
-//               `}
-//             >
-//               Label XS Normal - All text properties applied
-//             </div>
-//           </div>
-//
-//           <div>
-//             <h3>Body Styles</h3>
-//             <div
-//               css={css`
-//                 ${theme.textStyle["semantic-textStyle-body-lg-normal"]}
-//               `}
-//             >
-//               Body LG - All text properties applied
-//             </div>
-//             <div
-//               css={css`
-//                 ${theme.textStyle["semantic-textStyle-body-md-normal"]}
-//               `}
-//             >
-//               Body MD - All text properties applied
-//             </div>
-//             <div
-//               css={css`
-//                 ${theme.textStyle["semantic-textStyle-body-sm-normal"]}
-//               `}
-//             >
-//               Body SM - All text properties applied
-//             </div>
-//             <div
-//               css={css`
-//                 ${theme.textStyle["semantic-textStyle-body-xs-normal"]}
-//               `}
-//             >
-//               Body XS - All text properties applied
-//             </div>
-//             <div
-//               css={css`
-//                 ${theme.textStyle["semantic-textStyle-body-2xs-normal"]}
-//               `}
-//             >
-//               Body 2XS - All text properties applied
-//             </div>
-//           </div>
-//
-//           <div>
-//             <h3>Syntax Styles</h3>
-//             <div
-//               css={css`
-//                 ${theme.textStyle["semantic-textStyle-syntax-lg"]}
-//               `}
-//             >
-//               Syntax LG - All text properties applied
-//             </div>
-//             <div
-//               css={css`
-//                 ${theme.textStyle["semantic-textStyle-syntax-md"]}
-//               `}
-//             >
-//               Syntax MD - All text properties applied
-//             </div>
-//             <div
-//               css={css`
-//                 ${theme.textStyle["semantic-textStyle-syntax-sm"]}
-//               `}
-//             >
-//               Syntax SM - All text properties applied
-//             </div>
-//             <div
-//               css={css`
-//                 ${theme.textStyle["semantic-textStyle-syntax-xs"]}
-//               `}
-//             >
-//               Syntax XS - All text properties applied
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     );
-//   },
-// };
-//
-// // 모든 토큰 종합 예시
-// export const AllTokensCombined: Story = {
-//   render: () => {
-//     const theme = useTheme();
-//
-//     return (
-//       <div
-//         css={css`
-//           padding: ${theme.scheme.semantic.spacing[8]};
-//           background-color: ${theme.color.semantic.surface.standard};
-//         `}
-//       >
-//         <div
-//           css={css`
-//             margin-top: ${theme.scheme.semantic.spacing[6]};
-//             padding: ${theme.scheme.semantic.spacing[4]};
-//             background-color: ${theme.color.semantic.surface.shallow};
-//             border-radius: ${theme.scheme.semantic.radius[4]};
-//           `}
-//         >
-//           <h2
-//             css={css`
-//               ${theme.textStyle["semantic-textStyle-title-2"]}
-//             `}
-//           >
-//             Card with Multiple Tokens
-//           </h2>
-//           <p
-//             css={css`
-//               ${theme.textStyle["semantic-textStyle-body-md-normal"]}
-//               margin-top: ${theme.scheme.semantic.spacing[3]};
-//               color: ${theme.color.semantic.accent.alpha.assistive};
-//             `}
-//           >
-//             This card demonstrates the combination of color, spacing, border-radius, and textStyle
-//             tokens all working together.
-//           </p>
-//           <div
-//             css={css`
-//               display: inline-block;
-//               margin-top: ${theme.scheme.semantic.spacing[4]};
-//               padding: ${theme.scheme.semantic.spacing[2]} ${theme.scheme.semantic.spacing[4]};
-//               background-color: ${theme.color.semantic.accent.neutral};
-//               color: white;
-//               border-radius: ${theme.scheme.semantic.radius[2]};
-//               ${theme.textStyle["semantic-textStyle-label-md-normal"]}
-//             `}
-//           >
-//             Button with TextStyle
-//           </div>
-//         </div>
-//       </div>
-//     );
-//   },
-// };
-export default {};
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import type { CSSProperties, ReactNode } from "react";
+import { vars } from "tokens";
+
+import {
+  getBodyClassName,
+  getLabelClassName,
+  getSyntaxClassName,
+  getTitleClassName,
+} from "@/utils/typography";
+
+const stackStyle: CSSProperties = {
+  display: "flex",
+  flexDirection: "column",
+  gap: vars.scheme.semantic.spacing["16"],
+};
+
+const gridStyle: CSSProperties = {
+  display: "grid",
+  gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
+  gap: vars.scheme.semantic.spacing["16"],
+};
+
+const panelStyle: CSSProperties = {
+  padding: vars.scheme.semantic.spacing["20"],
+  border: `${vars.scheme.semantic.strokeWeight["1"]} solid ${vars.color.semantic.stroke.subtle}`,
+  borderRadius: vars.scheme.semantic.radius["8"],
+  backgroundColor: vars.color.semantic.surface.shallow,
+  color: vars.color.semantic.object.bold,
+};
+
+const TokenSection = ({ children, title }: { children: ReactNode; title: string }) => (
+  <section style={stackStyle}>
+    <h2 className={getTitleClassName({ size: "sm" })} style={{ margin: 0 }}>
+      {title}
+    </h2>
+    {children}
+  </section>
+);
+
+const Swatch = ({ color, label }: { color: string; label: string }) => (
+  <div style={{ ...panelStyle, padding: vars.scheme.semantic.spacing["12"] }}>
+    <div
+      aria-label={`${label} 색상`}
+      style={{
+        height: "80px",
+        marginBottom: vars.scheme.semantic.spacing["8"],
+        border: `${vars.scheme.semantic.strokeWeight["1"]} solid ${vars.color.semantic.stroke.subtle}`,
+        borderRadius: vars.scheme.semantic.radius["4"],
+        backgroundColor: color,
+      }}
+    />
+    <code className={getSyntaxClassName({ size: "xs" })}>{label}</code>
+  </div>
+);
+
+const meta = {
+  title: "Design Tokens/Token Usage",
+  parameters: {
+    layout: "padded",
+  },
+} satisfies Meta;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const HowToUseTokens: Story = {
+  render: () => (
+    <article style={{ ...panelStyle, maxWidth: "560px" }}>
+      <h2 className={getTitleClassName({ size: "sm" })} style={{ margin: 0 }}>
+        기본 카드 컴포넌트
+      </h2>
+      <p
+        className={getBodyClassName({ size: "md" })}
+        style={{
+          margin: `${vars.scheme.semantic.spacing["8"]} 0 ${vars.scheme.semantic.spacing["16"]}`,
+          color: vars.color.semantic.object.neutral,
+        }}
+      >
+        토큰을 사용한 기본적인 카드 레이아웃입니다.
+      </p>
+      <button
+        className={getLabelClassName({ size: "md", weight: "bold" })}
+        style={{
+          padding: `${vars.scheme.semantic.spacing["8"]} ${vars.scheme.semantic.spacing["16"]}`,
+          border: 0,
+          borderRadius: vars.scheme.semantic.radius["4"],
+          backgroundColor: vars.color.semantic.accent.normal,
+          color: vars.color.semantic.object.inverse.bold,
+          cursor: "pointer",
+        }}
+        type='button'
+      >
+        액션 버튼
+      </button>
+    </article>
+  ),
+};
+
+export const ColorPrimitive: Story = {
+  render: () => (
+    <TokenSection title='Color Primitive Tokens'>
+      <div style={gridStyle}>
+        <Swatch color={vars.colorPrimitive.primitive.flow["25"]} label='flow.25' />
+        <Swatch color={vars.colorPrimitive.primitive.flow["100"]} label='flow.100' />
+        <Swatch color={vars.colorPrimitive.primitive.flow["300"]} label='flow.300' />
+        <Swatch color={vars.colorPrimitive.primitive.flow["500"]} label='flow.500' />
+        <Swatch color={vars.colorPrimitive.primitive.flow["700"]} label='flow.700' />
+        <Swatch color={vars.colorPrimitive.primitive.flow["900"]} label='flow.900' />
+      </div>
+    </TokenSection>
+  ),
+};
+
+export const ColorSemantic: Story = {
+  render: () => (
+    <TokenSection title='Color Semantic Tokens'>
+      <div style={gridStyle}>
+        <Swatch color={vars.color.semantic.accent.normal} label='accent.normal' />
+        <Swatch color={vars.color.semantic.accent.subtle} label='accent.subtle' />
+        <Swatch color={vars.color.semantic.surface.standard} label='surface.standard' />
+        <Swatch color={vars.color.semantic.surface.deep} label='surface.deep' />
+        <Swatch color={vars.color.semantic.object.neutral} label='object.neutral' />
+        <Swatch color={vars.color.semantic.object.bold} label='object.bold' />
+      </div>
+    </TokenSection>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Storybook 툴바에서 Light/Dark 테마를 전환하면 동일한 semantic 토큰의 값이 변경됩니다.",
+      },
+    },
+  },
+};
+
+export const Typography: Story = {
+  render: () => (
+    <TokenSection title='Typography Tokens'>
+      <div style={stackStyle}>
+        <p
+          className={getBodyClassName({ size: "lg" })}
+          style={{ margin: 0, color: vars.color.semantic.object.bold }}
+        >
+          Body Large · {vars.typo.primitive.fontSize.body.lg}
+        </p>
+        <p
+          className={getBodyClassName({ size: "md" })}
+          style={{ margin: 0, color: vars.color.semantic.object.bold }}
+        >
+          Body Medium · {vars.typo.primitive.fontSize.body.md}
+        </p>
+        <p
+          className={getBodyClassName({ size: "sm" })}
+          style={{ margin: 0, color: vars.color.semantic.object.bold }}
+        >
+          Body Small · {vars.typo.primitive.fontSize.body.sm}
+        </p>
+      </div>
+    </TokenSection>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: "Typography primitive는 TextStyle을 구성하는 개별 CSS 변수입니다.",
+      },
+    },
+  },
+};
+
+export const Scheme: Story = {
+  render: () => (
+    <TokenSection title='Scheme Tokens'>
+      <div style={stackStyle}>
+        {[
+          [
+            "spacing.4 / radius.2",
+            vars.scheme.semantic.spacing["4"],
+            vars.scheme.semantic.radius["2"],
+          ],
+          [
+            "spacing.8 / radius.4",
+            vars.scheme.semantic.spacing["8"],
+            vars.scheme.semantic.radius["4"],
+          ],
+          [
+            "spacing.16 / radius.8",
+            vars.scheme.semantic.spacing["16"],
+            vars.scheme.semantic.radius["8"],
+          ],
+        ].map(([label, padding, borderRadius]) => (
+          <div
+            key={label}
+            style={{
+              padding,
+              borderRadius,
+              backgroundColor: vars.color.semantic.accent.alpha.subtlest,
+              color: vars.color.semantic.object.bold,
+            }}
+          >
+            <code className={getSyntaxClassName({ size: "xs" })}>{label}</code>
+          </div>
+        ))}
+      </div>
+    </TokenSection>
+  ),
+};
+
+export const Environment: Story = {
+  render: () => (
+    <TokenSection title='Environment Tokens'>
+      <div style={gridStyle}>
+        {[
+          ["shadow.raised", vars.environment.semantic.shadow.raised],
+          ["shadow.floated", vars.environment.semantic.shadow.floated],
+          ["shadow.overlay", vars.environment.semantic.shadow.overlay],
+        ].map(([label, boxShadow]) => (
+          <div
+            key={label}
+            style={{
+              ...panelStyle,
+              minHeight: "88px",
+              boxShadow,
+              transition: `transform ${vars.environment.semantic.duration["200"]} ${vars.environment.semantic.motion.fluent}`,
+            }}
+          >
+            <code className={getSyntaxClassName({ size: "xs" })}>{label}</code>
+          </div>
+        ))}
+      </div>
+    </TokenSection>
+  ),
+};
+
+export const TextStyle: Story = {
+  render: () => (
+    <div style={stackStyle}>
+      <TokenSection title='Title Styles'>
+        <div style={stackStyle}>
+          <span className={getTitleClassName({ size: "2xl" })}>Title 2XL</span>
+          <span className={getTitleClassName({ size: "xl" })}>Title XL</span>
+          <span className={getTitleClassName({ size: "lg" })}>Title LG</span>
+          <span className={getTitleClassName({ size: "md" })}>Title MD</span>
+          <span className={getTitleClassName({ size: "sm" })}>Title SM</span>
+          <span className={getTitleClassName({ size: "xs" })}>Title XS</span>
+        </div>
+      </TokenSection>
+
+      <TokenSection title='Label Styles'>
+        <div style={stackStyle}>
+          <span className={getLabelClassName({ size: "lg", weight: "bold" })}>Label LG Bold</span>
+          <span className={getLabelClassName({ size: "md", weight: "normal" })}>
+            Label MD Normal
+          </span>
+          <span className={getLabelClassName({ size: "sm", weight: "subtle" })}>
+            Label SM Subtle
+          </span>
+        </div>
+      </TokenSection>
+
+      <TokenSection title='Body Styles'>
+        <div style={stackStyle}>
+          <span className={getBodyClassName({ size: "lg", weight: "bold" })}>Body LG Bold</span>
+          <span className={getBodyClassName({ size: "md", weight: "normal" })}>Body MD Normal</span>
+          <span className={getBodyClassName({ size: "2xs", weight: "normal" })}>
+            Body 2XS Normal
+          </span>
+        </div>
+      </TokenSection>
+
+      <TokenSection title='Syntax Styles'>
+        <div style={stackStyle}>
+          <code className={getSyntaxClassName({ size: "lg" })}>Syntax LG</code>
+          <code className={getSyntaxClassName({ size: "md" })}>Syntax MD</code>
+          <code className={getSyntaxClassName({ size: "sm" })}>Syntax SM</code>
+          <code className={getSyntaxClassName({ size: "xs" })}>Syntax XS</code>
+        </div>
+      </TokenSection>
+    </div>
+  ),
+};
+
+export const AllTokensCombined: Story = {
+  render: () => (
+    <article
+      style={{
+        ...panelStyle,
+        maxWidth: "640px",
+        boxShadow: vars.environment.semantic.shadow.raised,
+      }}
+    >
+      <h2 className={getTitleClassName({ size: "sm" })} style={{ margin: 0 }}>
+        JDS Design Token
+      </h2>
+      <p
+        className={getBodyClassName({ size: "md" })}
+        style={{
+          margin: `${vars.scheme.semantic.spacing["8"]} 0 0`,
+          color: vars.color.semantic.object.neutral,
+        }}
+      >
+        Semantic color, scheme, typography, environment 토큰을 함께 적용한 예시입니다.
+      </p>
+      <span
+        className={getLabelClassName({ size: "sm", weight: "bold" })}
+        style={{
+          display: "inline-block",
+          marginTop: vars.scheme.semantic.spacing["16"],
+          padding: `${vars.scheme.semantic.spacing["4"]} ${vars.scheme.semantic.spacing["8"]}`,
+          borderRadius: vars.scheme.semantic.radius.max,
+          backgroundColor: vars.color.semantic.accent.alpha.subtlest,
+          color: vars.color.semantic.accent.normal,
+        }}
+      >
+        Token based UI
+      </span>
+    </article>
+  ),
+};
