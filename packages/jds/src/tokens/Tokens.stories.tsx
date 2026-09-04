@@ -21,6 +21,16 @@ const gridStyle: CSSProperties = {
   gap: vars.scheme.semantic.spacing["16"],
 };
 
+const labelSizes = ["lg", "md", "sm", "xs"] as const;
+const labelWeights = ["bold", "normal", "subtle"] as const;
+const titleSizes = ["2xl", "xl", "lg", "md", "sm", "xs"] as const;
+const bodySizes = ["lg", "md", "sm", "xs", "2xs"] as const;
+const bodyWeights = ["bold", "normal"] as const;
+const syntaxSizes = ["lg", "md", "sm", "xs"] as const;
+
+const toWeightLabel = (value: string) =>
+  `${value.charAt(0).toUpperCase()}${value.slice(1).toLowerCase()}`;
+
 const panelStyle: CSSProperties = {
   padding: vars.scheme.semantic.spacing["20"],
   border: `${vars.scheme.semantic.strokeWeight["1"]} solid ${vars.color.semantic.stroke.subtle}`,
@@ -51,6 +61,225 @@ const Swatch = ({ color, label }: { color: string; label: string }) => (
       }}
     />
     <code className={getSyntaxClassName({ size: "xs" })}>{label}</code>
+  </div>
+);
+
+const TypographyToken = ({
+  children,
+  label,
+  sampleStyle,
+}: {
+  children: ReactNode;
+  label: string;
+  sampleStyle: CSSProperties;
+}) => (
+  <div style={{ ...panelStyle, padding: vars.scheme.semantic.spacing["12"] }}>
+    <code className={getSyntaxClassName({ size: "xs" })}>{label}</code>
+    <div style={{ marginTop: vars.scheme.semantic.spacing["12"] }}>
+      <span
+        style={{
+          display: "inline-block",
+          color: vars.color.semantic.object.bold,
+          ...sampleStyle,
+        }}
+      >
+        {children}
+      </span>
+    </div>
+  </div>
+);
+
+const TypographySubsection = ({ children, title }: { children: ReactNode; title: string }) => (
+  <section style={{ ...stackStyle, gap: vars.scheme.semantic.spacing["12"] }}>
+    <h3 className={getTitleClassName({ size: "xs" })} style={{ margin: 0 }}>
+      {title}
+    </h3>
+    {children}
+  </section>
+);
+
+const TypographyScaleGroup = ({
+  items,
+  tokenPath,
+  title,
+}: {
+  items: {
+    fontFamily: string;
+    fontSize: string;
+    label: string;
+    letterSpacing?: string;
+    lineHeight: string;
+  }[];
+  tokenPath: string;
+  title: string;
+}) => (
+  <article
+    style={{
+      ...panelStyle,
+      minWidth: 0,
+      boxSizing: "border-box",
+      padding: vars.scheme.semantic.spacing["16"],
+    }}
+  >
+    <h4 className={getLabelClassName({ size: "md", weight: "bold" })} style={{ margin: 0 }}>
+      {title}
+    </h4>
+    <code
+      className={getSyntaxClassName({ size: "xs" })}
+      style={{
+        display: "block",
+        overflowWrap: "anywhere",
+        color: vars.color.semantic.object.neutral,
+      }}
+    >
+      {tokenPath}
+    </code>
+    <div style={{ marginTop: vars.scheme.semantic.spacing["12"] }}>
+      {items.map(({ fontFamily, fontSize, label, letterSpacing, lineHeight }, index) => (
+        <div
+          key={label}
+          style={{
+            display: "grid",
+            gridTemplateColumns: "32px minmax(0, 1fr)",
+            alignItems: "baseline",
+            gap: vars.scheme.semantic.spacing["8"],
+            padding: `${vars.scheme.semantic.spacing["12"]} 0`,
+            borderTop:
+              index === 0
+                ? undefined
+                : `${vars.scheme.semantic.strokeWeight["1"]} solid ${vars.color.semantic.stroke.subtle}`,
+          }}
+        >
+          <code className={getSyntaxClassName({ size: "xs" })}>{label}</code>
+          <span
+            style={{
+              minWidth: 0,
+              overflowWrap: "anywhere",
+              color: vars.color.semantic.object.bold,
+              fontFamily,
+              fontSize,
+              lineHeight,
+              letterSpacing,
+            }}
+          >
+            JDS Typography
+          </span>
+        </div>
+      ))}
+    </div>
+  </article>
+);
+
+const TypographyWeightGroup = ({
+  fontFamily,
+  items,
+  title,
+}: {
+  fontFamily: string;
+  items: { fontWeight: string; label: string }[];
+  title: string;
+}) => (
+  <article style={{ ...panelStyle, padding: vars.scheme.semantic.spacing["16"] }}>
+    <h4 className={getLabelClassName({ size: "md", weight: "bold" })} style={{ margin: 0 }}>
+      {title}
+    </h4>
+    <code
+      className={getSyntaxClassName({ size: "xs" })}
+      style={{ color: vars.color.semantic.object.neutral }}
+    >
+      fontWeight.{title.toLowerCase()}
+    </code>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: vars.scheme.semantic.spacing["12"],
+        marginTop: vars.scheme.semantic.spacing["16"],
+      }}
+    >
+      {items.map(({ fontWeight, label }) => (
+        <div
+          key={label}
+          style={{
+            display: "grid",
+            gridTemplateColumns: "64px minmax(0, 1fr)",
+            alignItems: "baseline",
+            gap: vars.scheme.semantic.spacing["12"],
+          }}
+        >
+          <code className={getSyntaxClassName({ size: "xs" })}>{label}</code>
+          <span style={{ fontFamily, fontWeight }}>JDS Typography</span>
+        </div>
+      ))}
+    </div>
+  </article>
+);
+
+const TextStylePanel = ({ children }: { children: ReactNode }) => (
+  <article
+    style={{
+      ...panelStyle,
+      minWidth: 0,
+      boxSizing: "border-box",
+      padding: `0 ${vars.scheme.semantic.spacing["16"]}`,
+    }}
+  >
+    {children}
+  </article>
+);
+
+const TextStyleRow = ({
+  children,
+  divided,
+  label,
+}: {
+  children: ReactNode;
+  divided?: boolean;
+  label: string;
+}) => (
+  <div
+    style={{
+      minWidth: 0,
+      padding: `${vars.scheme.semantic.spacing["16"]} 0`,
+      borderTop: divided
+        ? `${vars.scheme.semantic.strokeWeight["1"]} solid ${vars.color.semantic.stroke.subtle}`
+        : undefined,
+    }}
+  >
+    <code className={getSyntaxClassName({ size: "xs" })}>{label}</code>
+    <div
+      style={{
+        minWidth: 0,
+        marginTop: vars.scheme.semantic.spacing["8"],
+        overflowWrap: "anywhere",
+      }}
+    >
+      {children}
+    </div>
+  </div>
+);
+
+const TextStyleVariants = ({ children }: { children: ReactNode }) => (
+  <div
+    style={{
+      display: "grid",
+      gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 200px), 1fr))",
+      gap: vars.scheme.semantic.spacing["16"],
+    }}
+  >
+    {children}
+  </div>
+);
+
+const TextStyleVariant = ({ children, label }: { children: ReactNode; label: string }) => (
+  <div style={{ minWidth: 0 }}>
+    <code
+      className={getSyntaxClassName({ size: "xs" })}
+      style={{ color: vars.color.semantic.object.neutral }}
+    >
+      {label}
+    </code>
+    <div style={{ minWidth: 0, marginTop: vars.scheme.semantic.spacing["4"] }}>{children}</div>
   </div>
 );
 
@@ -137,33 +366,132 @@ export const ColorSemantic: Story = {
 
 export const Typography: Story = {
   render: () => (
-    <TokenSection title='Typography Tokens'>
-      <div style={stackStyle}>
-        <p
-          className={getBodyClassName({ size: "lg" })}
-          style={{ margin: 0, color: vars.color.semantic.object.bold }}
+    <TokenSection title='Typography Primitive Tokens'>
+      <TypographySubsection title='Typeface'>
+        <div style={gridStyle}>
+          <TypographyToken
+            label='typeface.title'
+            sampleStyle={{ fontFamily: vars.typo.primitive.typeface.title }}
+          >
+            Title Typeface
+          </TypographyToken>
+          <TypographyToken
+            label='typeface.label'
+            sampleStyle={{ fontFamily: vars.typo.primitive.typeface.label }}
+          >
+            Label Typeface
+          </TypographyToken>
+          <TypographyToken
+            label='typeface.body'
+            sampleStyle={{ fontFamily: vars.typo.primitive.typeface.body }}
+          >
+            Body Typeface
+          </TypographyToken>
+          <TypographyToken
+            label='typeface.syntax'
+            sampleStyle={{ fontFamily: vars.typo.primitive.typeface.syntax }}
+          >
+            const token = &quot;JDS&quot;;
+          </TypographyToken>
+        </div>
+      </TypographySubsection>
+
+      <TypographySubsection title='Type Scale'>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 280px), 1fr))",
+            gap: vars.scheme.semantic.spacing["16"],
+          }}
         >
-          Body Large · {vars.typo.primitive.fontSize.body.lg}
-        </p>
-        <p
-          className={getBodyClassName({ size: "md" })}
-          style={{ margin: 0, color: vars.color.semantic.object.bold }}
-        >
-          Body Medium · {vars.typo.primitive.fontSize.body.md}
-        </p>
-        <p
-          className={getBodyClassName({ size: "sm" })}
-          style={{ margin: 0, color: vars.color.semantic.object.bold }}
-        >
-          Body Small · {vars.typo.primitive.fontSize.body.sm}
-        </p>
-      </div>
+          <TypographyScaleGroup
+            title='Title'
+            tokenPath='fontSize.title · font.lineHeight.title · font.letterSpacing.title'
+            items={(["6", "5", "4", "3", "2", "1"] as const).map(label => ({
+              label,
+              fontFamily: vars.typo.primitive.typeface.title,
+              fontSize: vars.typo.primitive.fontSize.title[label],
+              lineHeight: vars.typo.primitive.font.lineHeight.title[label],
+              letterSpacing: vars.typo.primitive.font.letterSpacing.title[label],
+            }))}
+          />
+          <TypographyScaleGroup
+            title='Body'
+            tokenPath='fontSize.body · font.lineHeight.body · font.letterSpacing.body'
+            items={(["lg", "md", "sm", "xs", "2xs"] as const).map(label => ({
+              label,
+              fontFamily: vars.typo.primitive.typeface.body,
+              fontSize: vars.typo.primitive.fontSize.body[label],
+              lineHeight: vars.typo.primitive.font.lineHeight.body[label],
+              letterSpacing: vars.typo.primitive.font.letterSpacing.body[label],
+            }))}
+          />
+          <TypographyScaleGroup
+            title='Label'
+            tokenPath='fontSize.label · font.lineHeight.label · font.letterSpacing.label'
+            items={(["lg", "md", "sm", "xs"] as const).map(label => ({
+              label,
+              fontFamily: vars.typo.primitive.typeface.label,
+              fontSize: vars.typo.primitive.fontSize.label[label],
+              lineHeight: vars.typo.primitive.font.lineHeight.label[label],
+              letterSpacing: vars.typo.primitive.font.letterSpacing.label[label],
+            }))}
+          />
+          <TypographyScaleGroup
+            title='Syntax'
+            tokenPath='fontSize.syntax · font.lineHeight.syntax'
+            items={(["lg", "md", "sm", "xs"] as const).map(label => ({
+              label,
+              fontFamily: vars.typo.primitive.typeface.syntax,
+              fontSize: vars.typo.primitive.fontSize.syntax[label],
+              lineHeight: vars.typo.primitive.font.lineHeight.syntax[label],
+            }))}
+          />
+        </div>
+      </TypographySubsection>
+
+      <TypographySubsection title='Font Weight'>
+        <div style={gridStyle}>
+          <TypographyWeightGroup
+            title='Title'
+            fontFamily={vars.typo.primitive.typeface.title}
+            items={[
+              { label: "normal", fontWeight: vars.typo.primitive.fontWeight.title.normal },
+              { label: "bold", fontWeight: vars.typo.primitive.fontWeight.title.bold },
+              { label: "subtle", fontWeight: vars.typo.primitive.fontWeight.title.subtle },
+            ]}
+          />
+          <TypographyWeightGroup
+            title='Label'
+            fontFamily={vars.typo.primitive.typeface.label}
+            items={[
+              { label: "normal", fontWeight: vars.typo.primitive.fontWeight.label.normal },
+              { label: "bold", fontWeight: vars.typo.primitive.fontWeight.label.bold },
+              { label: "subtle", fontWeight: vars.typo.primitive.fontWeight.label.subtle },
+            ]}
+          />
+          <TypographyWeightGroup
+            title='Body'
+            fontFamily={vars.typo.primitive.typeface.body}
+            items={[
+              { label: "normal", fontWeight: vars.typo.primitive.fontWeight.body.normal },
+              { label: "bold", fontWeight: vars.typo.primitive.fontWeight.body.bold },
+            ]}
+          />
+          <TypographyWeightGroup
+            title='Syntax'
+            fontFamily={vars.typo.primitive.typeface.syntax}
+            items={[{ label: "normal", fontWeight: vars.typo.primitive.fontWeight.syntax.normal }]}
+          />
+        </div>
+      </TypographySubsection>
     </TokenSection>
   ),
   parameters: {
     docs: {
       description: {
-        story: "Typography primitive는 TextStyle을 구성하는 개별 CSS 변수입니다.",
+        story:
+          "Typography primitive를 서체, 역할별 크기 체계, 굵기로 나누어 보여줍니다. 조합된 typography는 TextStyle 스토리에서 확인할 수 있습니다.",
       },
     },
   },
@@ -237,45 +565,71 @@ export const TextStyle: Story = {
   render: () => (
     <div style={stackStyle}>
       <TokenSection title='Title Styles'>
-        <div style={stackStyle}>
-          <span className={getTitleClassName({ size: "2xl" })}>Title 2XL</span>
-          <span className={getTitleClassName({ size: "xl" })}>Title XL</span>
-          <span className={getTitleClassName({ size: "lg" })}>Title LG</span>
-          <span className={getTitleClassName({ size: "md" })}>Title MD</span>
-          <span className={getTitleClassName({ size: "sm" })}>Title SM</span>
-          <span className={getTitleClassName({ size: "xs" })}>Title XS</span>
-        </div>
+        <TextStylePanel>
+          {titleSizes.map((size, index) => (
+            <TextStyleRow key={size} divided={index > 0} label={size.toUpperCase()}>
+              <span className={getTitleClassName({ size })}>
+                Title {size.toUpperCase()} - All text properties applied
+              </span>
+            </TextStyleRow>
+          ))}
+        </TextStylePanel>
       </TokenSection>
 
       <TokenSection title='Label Styles'>
-        <div style={stackStyle}>
-          <span className={getLabelClassName({ size: "lg", weight: "bold" })}>Label LG Bold</span>
-          <span className={getLabelClassName({ size: "md", weight: "normal" })}>
-            Label MD Normal
-          </span>
-          <span className={getLabelClassName({ size: "sm", weight: "subtle" })}>
-            Label SM Subtle
-          </span>
-        </div>
+        <TextStylePanel>
+          {labelSizes.map((size, index) => (
+            <TextStyleRow key={size} divided={index > 0} label={size.toUpperCase()}>
+              <TextStyleVariants>
+                {labelWeights.map(weight => {
+                  const weightLabel = toWeightLabel(weight);
+
+                  return (
+                    <TextStyleVariant key={weight} label={weightLabel}>
+                      <span className={getLabelClassName({ size, weight })}>
+                        All text properties applied
+                      </span>
+                    </TextStyleVariant>
+                  );
+                })}
+              </TextStyleVariants>
+            </TextStyleRow>
+          ))}
+        </TextStylePanel>
       </TokenSection>
 
       <TokenSection title='Body Styles'>
-        <div style={stackStyle}>
-          <span className={getBodyClassName({ size: "lg", weight: "bold" })}>Body LG Bold</span>
-          <span className={getBodyClassName({ size: "md", weight: "normal" })}>Body MD Normal</span>
-          <span className={getBodyClassName({ size: "2xs", weight: "normal" })}>
-            Body 2XS Normal
-          </span>
-        </div>
+        <TextStylePanel>
+          {bodySizes.map((size, index) => (
+            <TextStyleRow key={size} divided={index > 0} label={size.toUpperCase()}>
+              <TextStyleVariants>
+                {bodyWeights.map(weight => {
+                  const weightLabel = toWeightLabel(weight);
+
+                  return (
+                    <TextStyleVariant key={weight} label={weightLabel}>
+                      <span className={getBodyClassName({ size, weight })}>
+                        All text properties applied
+                      </span>
+                    </TextStyleVariant>
+                  );
+                })}
+              </TextStyleVariants>
+            </TextStyleRow>
+          ))}
+        </TextStylePanel>
       </TokenSection>
 
       <TokenSection title='Syntax Styles'>
-        <div style={stackStyle}>
-          <code className={getSyntaxClassName({ size: "lg" })}>Syntax LG</code>
-          <code className={getSyntaxClassName({ size: "md" })}>Syntax MD</code>
-          <code className={getSyntaxClassName({ size: "sm" })}>Syntax SM</code>
-          <code className={getSyntaxClassName({ size: "xs" })}>Syntax XS</code>
-        </div>
+        <TextStylePanel>
+          {syntaxSizes.map((size, index) => (
+            <TextStyleRow key={size} divided={index > 0} label={size.toUpperCase()}>
+              <code className={getSyntaxClassName({ size })}>
+                Syntax {size.toUpperCase()} - All text properties applied
+              </code>
+            </TextStyleRow>
+          ))}
+        </TextStylePanel>
       </TokenSection>
     </div>
   ),
