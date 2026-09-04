@@ -27,6 +27,25 @@ const titleSizes = ["2xl", "xl", "lg", "md", "sm", "xs"] as const;
 const bodySizes = ["lg", "md", "sm", "xs", "2xs"] as const;
 const bodyWeights = ["bold", "normal"] as const;
 const syntaxSizes = ["lg", "md", "sm", "xs"] as const;
+const primitiveColorSteps = [
+  "25",
+  "50",
+  "75",
+  "100",
+  "150",
+  "200",
+  "300",
+  "400",
+  "500",
+  "550",
+  "600",
+  "700",
+  "750",
+  "800",
+  "850",
+  "900",
+] as const;
+const primitiveShadeSteps = ["2", "4", "6", "8", "12", "16"] as const;
 
 const toWeightLabel = (value: string) =>
   `${value.charAt(0).toUpperCase()}${value.slice(1).toLowerCase()}`;
@@ -64,6 +83,74 @@ const Swatch = ({ color, label }: { color: string; label: string }) => (
   </div>
 );
 
+const PrimitiveColorScale = ({
+  colors,
+  title,
+  tokenPath,
+}: {
+  colors: { color: string; label: string }[];
+  title: string;
+  tokenPath: string;
+}) => (
+  <article
+    style={{
+      ...panelStyle,
+      minWidth: 0,
+      boxSizing: "border-box",
+      padding: vars.scheme.semantic.spacing["16"],
+    }}
+  >
+    <h4 className={getLabelClassName({ size: "md", weight: "bold" })} style={{ margin: 0 }}>
+      {title}
+    </h4>
+    <code
+      className={getSyntaxClassName({ size: "xs" })}
+      style={{
+        display: "block",
+        overflowWrap: "anywhere",
+        color: vars.color.semantic.object.neutral,
+      }}
+    >
+      {tokenPath}
+    </code>
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 52px), 72px))",
+        gap: vars.scheme.semantic.spacing["8"],
+        marginTop: vars.scheme.semantic.spacing["16"],
+      }}
+    >
+      {colors.map(({ color, label }) => (
+        <div key={label} style={{ minWidth: 0 }}>
+          <div
+            aria-label={`${tokenPath}.${label} 색상`}
+            style={{
+              height: "56px",
+              overflow: "hidden",
+              border: `${vars.scheme.semantic.strokeWeight["1"]} solid ${vars.color.semantic.stroke.subtle}`,
+              borderRadius: vars.scheme.semantic.radius["4"],
+              background: `linear-gradient(90deg, ${vars.colorPrimitive.primitive.base["0"]} 50%, ${vars.colorPrimitive.primitive.base["1000"]} 50%)`,
+            }}
+          >
+            <div style={{ width: "100%", height: "100%", backgroundColor: color }} />
+          </div>
+          <code
+            className={getSyntaxClassName({ size: "xs" })}
+            style={{
+              display: "block",
+              marginTop: vars.scheme.semantic.spacing["4"],
+              textAlign: "center",
+            }}
+          >
+            {label}
+          </code>
+        </div>
+      ))}
+    </div>
+  </article>
+);
+
 const TypographyToken = ({
   children,
   label,
@@ -89,7 +176,7 @@ const TypographyToken = ({
   </div>
 );
 
-const TypographySubsection = ({ children, title }: { children: ReactNode; title: string }) => (
+const TokenSubsection = ({ children, title }: { children: ReactNode; title: string }) => (
   <section style={{ ...stackStyle, gap: vars.scheme.semantic.spacing["12"] }}>
     <h3 className={getTitleClassName({ size: "xs" })} style={{ margin: 0 }}>
       {title}
@@ -329,16 +416,78 @@ export const HowToUseTokens: Story = {
 export const ColorPrimitive: Story = {
   render: () => (
     <TokenSection title='Color Primitive Tokens'>
-      <div style={gridStyle}>
-        <Swatch color={vars.colorPrimitive.primitive.flow["25"]} label='flow.25' />
-        <Swatch color={vars.colorPrimitive.primitive.flow["100"]} label='flow.100' />
-        <Swatch color={vars.colorPrimitive.primitive.flow["300"]} label='flow.300' />
-        <Swatch color={vars.colorPrimitive.primitive.flow["500"]} label='flow.500' />
-        <Swatch color={vars.colorPrimitive.primitive.flow["700"]} label='flow.700' />
-        <Swatch color={vars.colorPrimitive.primitive.flow["900"]} label='flow.900' />
-      </div>
+      <TokenSubsection title='Base & Shade'>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 280px), 1fr))",
+            gap: vars.scheme.semantic.spacing["16"],
+          }}
+        >
+          <PrimitiveColorScale
+            title='Base'
+            tokenPath='colorPrimitive.primitive.base'
+            colors={(["0", "1000"] as const).map(label => ({
+              label,
+              color: vars.colorPrimitive.primitive.base[label],
+            }))}
+          />
+          <PrimitiveColorScale
+            title='Shade'
+            tokenPath='colorPrimitive.primitive.shade'
+            colors={primitiveShadeSteps.map(label => ({
+              label,
+              color: vars.colorPrimitive.primitive.shade[label],
+            }))}
+          />
+        </div>
+      </TokenSubsection>
+
+      <TokenSubsection title='Flow'>
+        <div style={stackStyle}>
+          <PrimitiveColorScale
+            title='Default'
+            tokenPath='colorPrimitive.primitive.flow'
+            colors={primitiveColorSteps.map(label => ({
+              label,
+              color: vars.colorPrimitive.primitive.flow[label],
+            }))}
+          />
+          <PrimitiveColorScale
+            title='Dark'
+            tokenPath='colorPrimitive.primitive.flow.dark'
+            colors={primitiveColorSteps.map(label => ({
+              label,
+              color: vars.colorPrimitive.primitive.flow.dark[label],
+            }))}
+          />
+          <PrimitiveColorScale
+            title='Alpha'
+            tokenPath='colorPrimitive.primitive.flow.alpha'
+            colors={primitiveColorSteps.map(label => ({
+              label,
+              color: vars.colorPrimitive.primitive.flow.alpha[label],
+            }))}
+          />
+          <PrimitiveColorScale
+            title='Dark Alpha'
+            tokenPath='colorPrimitive.primitive.flow.dark.alpha'
+            colors={primitiveColorSteps.map(label => ({
+              label,
+              color: vars.colorPrimitive.primitive.flow.dark.alpha[label],
+            }))}
+          />
+        </div>
+      </TokenSubsection>
     </TokenSection>
   ),
+  parameters: {
+    docs: {
+      description: {
+        story: "Base, shade와 Flow의 기본·다크·투명도 primitive 색상 단계를 모두 보여줍니다.",
+      },
+    },
+  },
 };
 
 export const ColorSemantic: Story = {
@@ -367,7 +516,7 @@ export const ColorSemantic: Story = {
 export const Typography: Story = {
   render: () => (
     <TokenSection title='Typography Primitive Tokens'>
-      <TypographySubsection title='Typeface'>
+      <TokenSubsection title='Typeface'>
         <div style={gridStyle}>
           <TypographyToken
             label='typeface.title'
@@ -394,9 +543,9 @@ export const Typography: Story = {
             const token = &quot;JDS&quot;;
           </TypographyToken>
         </div>
-      </TypographySubsection>
+      </TokenSubsection>
 
-      <TypographySubsection title='Type Scale'>
+      <TokenSubsection title='Type Scale'>
         <div
           style={{
             display: "grid",
@@ -448,9 +597,9 @@ export const Typography: Story = {
             }))}
           />
         </div>
-      </TypographySubsection>
+      </TokenSubsection>
 
-      <TypographySubsection title='Font Weight'>
+      <TokenSubsection title='Font Weight'>
         <div style={gridStyle}>
           <TypographyWeightGroup
             title='Title'
@@ -484,7 +633,7 @@ export const Typography: Story = {
             items={[{ label: "normal", fontWeight: vars.typo.primitive.fontWeight.syntax.normal }]}
           />
         </div>
-      </TypographySubsection>
+      </TokenSubsection>
     </TokenSection>
   ),
   parameters: {
