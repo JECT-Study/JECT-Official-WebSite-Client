@@ -46,6 +46,37 @@ const primitiveColorSteps = [
   "900",
 ] as const;
 const primitiveShadeSteps = ["2", "4", "6", "8", "12", "16"] as const;
+const semanticAccentTones = [
+  "bolder",
+  "bold",
+  "normal",
+  "neutral",
+  "alternative",
+  "assistive",
+  "subtle",
+  "subtler",
+  "subtlest",
+] as const;
+const semanticObjectTones = ["boldest", ...semanticAccentTones] as const;
+const semanticSurfaceTones = [
+  "shallowest",
+  "shallower",
+  "shallow",
+  "standard",
+  "deep",
+  "deeper",
+  "deepest",
+] as const;
+const semanticStrokeTones = [
+  "bold",
+  "normal",
+  "neutral",
+  "alternative",
+  "assistive",
+  "subtle",
+  "subtler",
+  "subtlest",
+] as const;
 
 const toWeightLabel = (value: string) =>
   `${value.charAt(0).toUpperCase()}${value.slice(1).toLowerCase()}`;
@@ -67,28 +98,14 @@ const TokenSection = ({ children, title }: { children: ReactNode; title: string 
   </section>
 );
 
-const Swatch = ({ color, label }: { color: string; label: string }) => (
-  <div style={{ ...panelStyle, padding: vars.scheme.semantic.spacing["12"] }}>
-    <div
-      aria-label={`${label} 색상`}
-      style={{
-        height: "80px",
-        marginBottom: vars.scheme.semantic.spacing["8"],
-        border: `${vars.scheme.semantic.strokeWeight["1"]} solid ${vars.color.semantic.stroke.subtle}`,
-        borderRadius: vars.scheme.semantic.radius["4"],
-        backgroundColor: color,
-      }}
-    />
-    <code className={getSyntaxClassName({ size: "xs" })}>{label}</code>
-  </div>
-);
-
-const PrimitiveColorScale = ({
+const ColorScale = ({
   colors,
+  compact = false,
   title,
   tokenPath,
 }: {
   colors: { color: string; label: string }[];
+  compact?: boolean;
   title: string;
   tokenPath: string;
 }) => (
@@ -116,7 +133,9 @@ const PrimitiveColorScale = ({
     <div
       style={{
         display: "grid",
-        gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 52px), 72px))",
+        gridTemplateColumns: compact
+          ? "repeat(auto-fill, minmax(min(100%, 52px), 72px))"
+          : "repeat(auto-fill, minmax(min(100%, 88px), 112px))",
         gap: vars.scheme.semantic.spacing["8"],
         marginTop: vars.scheme.semantic.spacing["16"],
       }}
@@ -140,6 +159,7 @@ const PrimitiveColorScale = ({
             style={{
               display: "block",
               marginTop: vars.scheme.semantic.spacing["4"],
+              overflowWrap: "anywhere",
               textAlign: "center",
             }}
           >
@@ -424,7 +444,8 @@ export const ColorPrimitive: Story = {
             gap: vars.scheme.semantic.spacing["16"],
           }}
         >
-          <PrimitiveColorScale
+          <ColorScale
+            compact
             title='Base'
             tokenPath='colorPrimitive.primitive.base'
             colors={(["0", "1000"] as const).map(label => ({
@@ -432,7 +453,8 @@ export const ColorPrimitive: Story = {
               color: vars.colorPrimitive.primitive.base[label],
             }))}
           />
-          <PrimitiveColorScale
+          <ColorScale
+            compact
             title='Shade'
             tokenPath='colorPrimitive.primitive.shade'
             colors={primitiveShadeSteps.map(label => ({
@@ -445,7 +467,8 @@ export const ColorPrimitive: Story = {
 
       <TokenSubsection title='Flow'>
         <div style={stackStyle}>
-          <PrimitiveColorScale
+          <ColorScale
+            compact
             title='Default'
             tokenPath='colorPrimitive.primitive.flow'
             colors={primitiveColorSteps.map(label => ({
@@ -453,7 +476,8 @@ export const ColorPrimitive: Story = {
               color: vars.colorPrimitive.primitive.flow[label],
             }))}
           />
-          <PrimitiveColorScale
+          <ColorScale
+            compact
             title='Dark'
             tokenPath='colorPrimitive.primitive.flow.dark'
             colors={primitiveColorSteps.map(label => ({
@@ -461,7 +485,8 @@ export const ColorPrimitive: Story = {
               color: vars.colorPrimitive.primitive.flow.dark[label],
             }))}
           />
-          <PrimitiveColorScale
+          <ColorScale
+            compact
             title='Alpha'
             tokenPath='colorPrimitive.primitive.flow.alpha'
             colors={primitiveColorSteps.map(label => ({
@@ -469,7 +494,8 @@ export const ColorPrimitive: Story = {
               color: vars.colorPrimitive.primitive.flow.alpha[label],
             }))}
           />
-          <PrimitiveColorScale
+          <ColorScale
+            compact
             title='Dark Alpha'
             tokenPath='colorPrimitive.primitive.flow.dark.alpha'
             colors={primitiveColorSteps.map(label => ({
@@ -493,21 +519,120 @@ export const ColorPrimitive: Story = {
 export const ColorSemantic: Story = {
   render: () => (
     <TokenSection title='Color Semantic Tokens'>
-      <div style={gridStyle}>
-        <Swatch color={vars.color.semantic.accent.normal} label='accent.normal' />
-        <Swatch color={vars.color.semantic.accent.subtle} label='accent.subtle' />
-        <Swatch color={vars.color.semantic.surface.standard} label='surface.standard' />
-        <Swatch color={vars.color.semantic.surface.deep} label='surface.deep' />
-        <Swatch color={vars.color.semantic.object.neutral} label='object.neutral' />
-        <Swatch color={vars.color.semantic.object.bold} label='object.bold' />
-      </div>
+      <TokenSubsection title='Emphasis & Content'>
+        <div style={stackStyle}>
+          <ColorScale
+            title='Accent'
+            tokenPath='color.semantic.accent'
+            colors={semanticAccentTones.map(label => ({
+              label,
+              color: vars.color.semantic.accent[label],
+            }))}
+          />
+          <ColorScale
+            title='Object'
+            tokenPath='color.semantic.object'
+            colors={semanticObjectTones.map(label => ({
+              label,
+              color: vars.color.semantic.object[label],
+            }))}
+          />
+        </div>
+      </TokenSubsection>
+
+      <TokenSubsection title='Layers & Boundaries'>
+        <div style={stackStyle}>
+          <ColorScale
+            title='Surface'
+            tokenPath='color.semantic.surface'
+            colors={semanticSurfaceTones.map(label => ({
+              label,
+              color: vars.color.semantic.surface[label],
+            }))}
+          />
+          <ColorScale
+            title='Fill'
+            tokenPath='color.semantic.fill'
+            colors={semanticObjectTones.map(label => ({
+              label,
+              color: vars.color.semantic.fill[label],
+            }))}
+          />
+          <ColorScale
+            title='Stroke'
+            tokenPath='color.semantic.stroke'
+            colors={semanticStrokeTones.map(label => ({
+              label,
+              color: vars.color.semantic.stroke[label],
+            }))}
+          />
+        </div>
+      </TokenSubsection>
+
+      <TokenSubsection title='System & Overlay'>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 280px), 1fr))",
+            gap: vars.scheme.semantic.spacing["16"],
+          }}
+        >
+          <ColorScale
+            title='System'
+            tokenPath='color.semantic.system'
+            colors={(["white", "black"] as const).map(label => ({
+              label,
+              color: vars.color.semantic.system[label],
+            }))}
+          />
+          <ColorScale
+            title='Curtain'
+            tokenPath='color.semantic.curtain'
+            colors={[
+              { label: "standard", color: vars.color.semantic.curtain.standard },
+              { label: "static.bright", color: vars.color.semantic.curtain.static.bright },
+              { label: "static.dim", color: vars.color.semantic.curtain.static.dim },
+              { label: "static.dimmer", color: vars.color.semantic.curtain.static.dimmer },
+            ]}
+          />
+        </div>
+      </TokenSubsection>
+
+      <TokenSubsection title='Feedback'>
+        <div style={stackStyle}>
+          <ColorScale
+            title='Positive'
+            tokenPath='color.semantic.feedback.positive'
+            colors={semanticAccentTones.map(label => ({
+              label,
+              color: vars.color.semantic.feedback.positive[label],
+            }))}
+          />
+          <ColorScale
+            title='Destructive'
+            tokenPath='color.semantic.feedback.destructive'
+            colors={semanticAccentTones.map(label => ({
+              label,
+              color: vars.color.semantic.feedback.destructive[label],
+            }))}
+          />
+          <ColorScale
+            title='Notifying'
+            tokenPath='color.semantic.feedback.notifying'
+            colors={semanticAccentTones.map(label => ({
+              label,
+              color: vars.color.semantic.feedback.notifying[label],
+            }))}
+          />
+        </div>
+      </TokenSubsection>
     </TokenSection>
   ),
   parameters: {
     docs: {
       description: {
         story:
-          "Storybook 툴바에서 Light/Dark 테마를 전환하면 동일한 semantic 토큰의 값이 변경됩니다.",
+          "Semantic 색상의 주요 역할을 용도별로 보여줍니다. Storybook 툴바에서 Light/Dark 테마를 전환하면 동일한 토큰의 값이 변경됩니다.",
       },
     },
   },
