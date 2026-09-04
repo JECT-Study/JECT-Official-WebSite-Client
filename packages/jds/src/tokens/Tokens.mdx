@@ -273,9 +273,10 @@ JDS 토큰의 테마와 반응형 처리는 CSS 변수 값의 교체를 통해 �
 
 ### 전역 토큰 스타일 로드하기
 
-`JDSThemeProvider`는 JDS의 전역 토큰 CSS와 reset CSS를 로드합니다. 테마 상태를 관리하거나 런타임 theme 객체를 제공하지 않습니다.
+JDS의 vanilla-extract 스타일은 빌드 과정에서 하나의 CSS 파일로 추출됩니다. 패키지를 사용하는 애플리케이션은 진입점에서 `@jects/jds/styles`를 한 번 불러와야 합니다.
 
 ```tsx
+import "@jects/jds/styles";
 import { JDSThemeProvider } from "@jects/jds/theme";
 
 export const App = () => (
@@ -284,6 +285,8 @@ export const App = () => (
   </JDSThemeProvider>
 );
 ```
+
+`JDSThemeProvider`는 런타임 theme 객체를 제공하거나 스타일을 주입하지 않으며, 현재는 children을 그대로 렌더링합니다. 따라서 `JDSThemeProvider` 사용 여부와 관계없이 전역 스타일은 별도로 불러와야 합니다.
 
 컴포넌트의 `.css.ts`에서는 `vars`를 직접 참조합니다.
 
@@ -465,7 +468,7 @@ vars.scheme.semantic.spacing["6"]
 
 **전역 스타일**
 
-- `globalTokens.css.ts`: 기본값, Dark 테마, 반응형 CSS 변수 값을 할당하며 `JDSThemeProvider`를 통해 로드됩니다.
+- `globalTokens.css.ts`: 기본값, Dark 테마, 반응형 CSS 변수 값을 할당합니다. 빌드 시 reset 및 컴포넌트 스타일과 함께 `styles.css`로 추출되며 `@jects/jds/styles`를 통해 제공됩니다.
 
 **JDS 내부 생성물**
 
@@ -621,6 +624,7 @@ npm run lint
 
 ## ⚠️ 사용 시 주의사항
 
+- 애플리케이션 진입점에서 `@jects/jds/styles`를 한 번 불러옵니다.
 - 컴포넌트에서는 primitive color보다 semantic color를 우선 사용합니다.
 - 숫자로 시작하는 token key는 `["4"]`처럼 접근합니다.
 - `.css.ts`에서는 `vars`와 `textStyles`를 사용합니다.
