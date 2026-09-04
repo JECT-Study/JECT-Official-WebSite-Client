@@ -20,7 +20,7 @@ JDS 컴포넌트에서는 다음 원칙에 따라 토큰을 사용합니다.
 
 ## 🎯 기본 사용법
 
-JDS 토큰은 vanilla-extract의 `.css.ts` 파일에서 사용합니다.
+JDS 컴포넌트 스타일은 기본적으로 vanilla-extract의 `.css.ts` 파일에서 작성합니다.
 
 토큰으로 스타일을 생성하고, React 컴포넌트에서는 생성된 className을 적용합니다.
 
@@ -265,7 +265,7 @@ Typography className 유틸은 내부적으로 동일한 `textStyles`를 사용�
 
 - React 컴포넌트에서 typography className 적용
 
-`textStyles`의 fontSize, lineHeight, letterSpacing은 typography CSS 변수를 참조합니다. 따라서 같은 TextStyle을 사용하더라도 viewport에 따라 실제 typography 값이 자동으로 변경될 수 있습니다.
+`textStyles`의 각 속성은 대응하는 typography primitive 토큰이 있을 때 해당 CSS 변수를 참조합니다. 따라서 반응형 primitive 토큰에 연결된 fontSize, lineHeight, letterSpacing 등은 같은 TextStyle을 사용하더라도 viewport에 따라 실제 값이 자동으로 변경될 수 있습니다.
 
 ## 💻 테마와 반응형
 
@@ -286,7 +286,7 @@ export const App = () => (
 );
 ```
 
-`JDSThemeProvider`는 런타임 theme 객체를 제공하거나 스타일을 주입하지 않으며, 현재는 children을 그대로 렌더링합니다. 따라서 `JDSThemeProvider` 사용 여부와 관계없이 전역 스타일은 별도로 불러와야 합니다.
+애플리케이션에서는 `@jects/jds/styles`와 `JDSThemeProvider`를 함께 사용합니다. `@jects/jds/styles`는 빌드된 전역 스타일을 불러오고, `JDSThemeProvider`는 JDS를 사용하는 애플리케이션의 공통 루트 Provider로 구성합니다. 현재 Provider는 런타임 theme 객체를 제공하거나 스타일을 주입하지 않고 children을 그대로 렌더링하므로, 실제 스타일은 `@jects/jds/styles`를 통해 적용됩니다.
 
 컴포넌트의 `.css.ts`에서는 `vars`를 직접 참조합니다.
 
