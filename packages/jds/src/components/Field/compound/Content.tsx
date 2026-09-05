@@ -1,14 +1,10 @@
 import { clsx } from "clsx";
-import { forwardRef, type ComponentPropsWithoutRef, type MouseEvent, type ReactNode } from "react";
+import { forwardRef, type MouseEvent } from "react";
 import { focusRing, overlay, type FocusRingFeedback } from "utils";
 
-import { useFieldContext } from "../Field.context";
+import { useFieldContext } from "../field.context";
 import * as styles from "../field.css";
-import type { FieldStatus } from "../field.types";
-
-export interface FieldContentProps extends ComponentPropsWithoutRef<"div"> {
-  children: ReactNode;
-}
+import type { FieldContentProps, FieldStatus } from "../field.types";
 
 export const FieldContent = forwardRef<HTMLDivElement, FieldContentProps>(
   ({ children, className, onMouseDown, ...restProps }, ref) => {

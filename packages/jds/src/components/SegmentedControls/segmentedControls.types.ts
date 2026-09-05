@@ -7,6 +7,6 @@ export interface SegmentedControlsRootProps extends Omit<RadioGroupProps, "asChi
   asChild?: never;
 }
 
-export type SegmentedControlsItemProps = Omit<RadioGroupItemProps, "asChild"> & {
+export interface SegmentedControlsItemProps extends Omit<RadioGroupItemProps, "asChild"> {
   asChild?: never;
-};
+}

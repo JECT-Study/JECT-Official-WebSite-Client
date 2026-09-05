@@ -1,8 +1,8 @@
 import { clsx } from "clsx";
 import { forwardRef } from "react";
 
+import { useCardRootGuard } from "../card.context";
 import { CARD_PART_CAPTION, type CardCaptionProps } from "../card.types";
-import { useCardRootGuard } from "../cardContext";
 import * as styles from "./card.css";
 
 import { getLabelClassName } from "@/utils/typography";

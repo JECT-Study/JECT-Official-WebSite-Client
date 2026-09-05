@@ -1,9 +1,8 @@
 import { forwardRef } from "react";
 
-import { Field, type FieldProps } from "../Field";
+import { Field } from "../Field";
 import { TextFieldInput } from "./compound/Input";
-
-export type TextFieldProps = FieldProps;
+import type { TextFieldProps } from "./textField.types";
 
 /**
  * 루트는 내부 Field primitive를 그대로 감싸 status, readonly, disabled, required를 전달한다.

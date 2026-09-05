@@ -1,20 +1,13 @@
 import { clsx } from "clsx";
-import { forwardRef, type ComponentPropsWithoutRef } from "react";
+import { forwardRef } from "react";
 
 import { FieldContent } from "../../Field";
 import { useFieldControl } from "../../Field/useFieldControl";
 import { useTextLengthCounter } from "../../Field/useFieldCounter";
 import * as styles from "../textarea.css";
+import type { TextareaControlProps } from "../textarea.types";
 
 import { getBodyClassName } from "@/utils/typography";
-
-export interface TextareaControlProps extends Omit<
-  ComponentPropsWithoutRef<"textarea">,
-  "id" | "required"
-> {
-  /** 필수 입력 여부. aria-required로 반영한다. */
-  required?: boolean;
-}
 
 export const TextareaControl = forwardRef<HTMLTextAreaElement, TextareaControlProps>(
   (

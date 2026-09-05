@@ -47,6 +47,7 @@ npm run changeset
 ## References
 
 - [체인지셋 작성 규약](docs/changeset-guide.md) — `.changeset/*.md`를 작성하거나 수정하기 전에 읽는다.
+- [타입 선언 규약](docs/type-convention.md) — `packages/jds`에서 타입을 선언하거나 옮기기 전에 읽는다.
 
 ## Boundaries
 

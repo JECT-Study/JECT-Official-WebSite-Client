@@ -5,10 +5,10 @@ import type { OptionVariant, SelectOption } from "../Listbox";
 
 export type MultiSelectFieldProps = FieldProps;
 
-type MultiSelectFieldInputBaseProps = Omit<
+interface MultiSelectFieldInputBaseProps extends Omit<
   ComponentPropsWithoutRef<"input">,
   "id" | "type" | "value" | "defaultValue" | "onChange" | "required"
-> & {
+> {
   /** 필수 입력 여부. aria-required로 반영한다. */
   required?: boolean;
   options: SelectOption[];
@@ -20,19 +20,19 @@ type MultiSelectFieldInputBaseProps = Omit<
   maxValues?: number;
   /** 입력 오른쪽에 형제로 배치되는 부가 요소 */
   suffix?: ReactNode;
-};
+}
 
-type MultiSelectFieldInputControlledProps = {
+interface MultiSelectFieldInputControlledProps {
   value: string[];
   defaultValue?: never;
   onChange: (value: string[]) => void;
-};
+}
 
-type MultiSelectFieldInputUncontrolledProps = {
+interface MultiSelectFieldInputUncontrolledProps {
   value?: never;
   defaultValue?: string[];
   onChange?: (value: string[]) => void;
-};
+}
 
 export type MultiSelectFieldInputProps = MultiSelectFieldInputBaseProps &
   (MultiSelectFieldInputControlledProps | MultiSelectFieldInputUncontrolledProps);

@@ -9,17 +9,19 @@ import { tokenSchema, textStyleSchema, type NestedObject } from "./schema";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-type ContractShape = { [key: string]: null | ContractShape };
+interface ContractShape {
+  [key: string]: null | ContractShape;
+}
 type DeviceResponsiveCssVariables = Record<string, Record<string, string | number>>;
-type TextStyleProperty = {
+interface TextStyleProperty {
   value: string | number;
   token: {
     name: string;
     value: string | number;
   } | null;
-};
+}
 
-type CanonicalTextStyle = {
+interface CanonicalTextStyle {
   name: string;
   id?: string;
   properties: {
@@ -31,9 +33,9 @@ type CanonicalTextStyle = {
     paragraphSpacing: TextStyleProperty;
     paragraphIndent: TextStyleProperty;
   };
-};
+}
 
-type ExtractedTextStyle = {
+interface ExtractedTextStyle {
   token: string;
   fontFamily: string;
   fontWeight: string;
@@ -46,14 +48,14 @@ type ExtractedTextStyle = {
         unit: string;
         value: number;
       };
-};
+}
 
-type ParsedTextStyleToken = {
+interface ParsedTextStyleToken {
   name: string;
   category: string;
   size: string;
   weight?: string;
-};
+}
 
 function toContractShape(nestedObject: NestedObject): ContractShape {
   const result: ContractShape = {};

@@ -15,8 +15,8 @@ const meta: Meta<typeof File> = {
       description: "파일 이름",
     },
     fileSize: {
-      control: "text",
-      description: "파일 크기",
+      control: "number",
+      description: "파일 크기 (바이트)",
     },
     removable: {
       control: "boolean",
@@ -37,7 +37,7 @@ export default meta;
 
 interface FileStoryArgs {
   fileName: string;
-  fileSize: string;
+  fileSize: number;
   readonly?: boolean;
   disabled?: boolean;
   removable?: boolean;
@@ -69,7 +69,7 @@ const renderFile = (args: FileStoryArgs) => (
 export const Default: Story = {
   args: {
     fileName: "파일명.pdf",
-    fileSize: "2.6MB",
+    fileSize: 2.6 * 1024 * 1024,
     readonly: false,
     disabled: false,
     removable: false,
@@ -88,7 +88,7 @@ export const Removable: Story = {
   },
   args: {
     fileName: "파일명.pdf",
-    fileSize: "2.6MB",
+    fileSize: 2.6 * 1024 * 1024,
     readonly: false,
     disabled: false,
     removable: true,
@@ -107,7 +107,7 @@ export const Readonly: Story = {
   },
   args: {
     fileName: "파일명.pdf",
-    fileSize: "2.6MB",
+    fileSize: 2.6 * 1024 * 1024,
     readonly: true,
     disabled: false,
     removable: false,
@@ -125,7 +125,7 @@ export const Disabled: Story = {
   },
   args: {
     fileName: "파일명.pdf",
-    fileSize: "2.6MB",
+    fileSize: 2.6 * 1024 * 1024,
     readonly: false,
     disabled: true,
     removable: false,
@@ -144,7 +144,7 @@ export const DisabledRemovable: Story = {
   },
   args: {
     fileName: "파일명.pdf",
-    fileSize: "2.6MB",
+    fileSize: 2.6 * 1024 * 1024,
     readonly: false,
     disabled: true,
     removable: true,

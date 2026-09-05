@@ -1,6 +1,6 @@
 import { useLayoutEffect, useRef, type ChangeEvent, type ChangeEventHandler } from "react";
 
-import { useFieldContext } from "./Field.context";
+import { useFieldContext } from "./field.context";
 
 export interface UseItemCounterOptions {
   count: number;

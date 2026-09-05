@@ -1,8 +1,8 @@
 import type { ComponentPropsWithoutRef } from "react";
 
-type LinkBaseProps = ComponentPropsWithoutRef<"a"> & {
+interface LinkBaseProps extends ComponentPropsWithoutRef<"a"> {
   external?: boolean;
-};
+}
 
 /**
  * `asChild`와 `disabled`는 동시에 사용할 수 없다.

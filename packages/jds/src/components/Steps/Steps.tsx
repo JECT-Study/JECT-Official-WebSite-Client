@@ -1,6 +1,7 @@
 import { clsx } from "clsx";
-import { Children, forwardRef, useMemo } from "react";
+import { Children, forwardRef } from "react";
 
+import { StepsProvider, useStepsContext } from "./steps.context";
 import {
   stepsItem,
   stepsLabel,
@@ -10,7 +11,6 @@ import {
   stepsSeparatorLine,
 } from "./steps.css";
 import type { StepsItemProps, StepsRootProps, StepsSize } from "./steps.types";
-import { StepsContext, useStepsContext } from "./stepsContext";
 import type { BadgeSize } from "../Badge";
 import { NumericBadge } from "../Badge";
 import { Divider } from "../Divider";
@@ -66,14 +66,10 @@ const StepsSeparator = () => {
 
 const StepsRoot = forwardRef<HTMLOListElement, StepsRootProps>(
   ({ size = "md", layout = "horizontal", current, children, className, ...restProps }, ref) => {
-    const contextValue = useMemo(
-      () => ({ size, layout, currentStep: current }),
-      [size, layout, current],
-    );
     const childList = Children.toArray(children);
 
     return (
-      <StepsContext.Provider value={contextValue}>
+      <StepsProvider value={{ size, layout, currentStep: current }}>
         <ol
           {...restProps}
           ref={ref}
@@ -87,7 +83,7 @@ const StepsRoot = forwardRef<HTMLOListElement, StepsRootProps>(
             </li>
           ))}
         </ol>
-      </StepsContext.Provider>
+      </StepsProvider>
     );
   },
 );

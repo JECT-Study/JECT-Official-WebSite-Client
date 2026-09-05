@@ -1,15 +1,21 @@
 import { clsx } from "clsx";
 
+import { useListboxContext } from "../listbox.context";
 import * as styles from "../listbox.css";
 import type { ListboxCustomValueProps } from "../listbox.types";
 import { getOptionId } from "../listbox.utils";
-import { useListboxContext } from "../ListboxContext";
 
 import { getActiveDescendantItemProps } from "@/hooks/useActiveDescendant";
 import { getLabelClassName } from "@/utils/typography";
 
 export const ListboxCustomValue = ({ value, caption }: ListboxCustomValueProps) => {
-  const { listboxId, disabled: isDisabled, activeValue, select, setActive } = useListboxContext();
+  const {
+    listboxId,
+    disabled: isDisabled,
+    activeValue,
+    select,
+    setActive,
+  } = useListboxContext("Listbox.CustomValue");
 
   const handleClick = () => {
     if (isDisabled) return;

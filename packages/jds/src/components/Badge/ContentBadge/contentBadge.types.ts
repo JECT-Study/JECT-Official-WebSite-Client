@@ -19,12 +19,12 @@ export const THEME_VARIANT_OPTIONS = [
 ] as const;
 export type ThemeVariant = (typeof THEME_VARIANT_OPTIONS)[number];
 
-type BaseContentBadgeProps = Omit<ComponentPropsWithoutRef<"span">, "children"> & {
+interface BaseContentBadgeProps extends Omit<ComponentPropsWithoutRef<"span">, "children"> {
   size?: BadgeSize;
   badgeStyle?: ContentBadgeStyle;
   isMuted?: boolean;
   children: ReactNode;
-};
+}
 
 type ContentBadgeIconButtonProps =
   | {

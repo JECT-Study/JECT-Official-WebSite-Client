@@ -2,7 +2,7 @@ import { clsx } from "clsx";
 import { forwardRef } from "react";
 
 import { tableRow } from "./table.css";
-import type { TableRowProps } from "../Table.types";
+import type { TableRowProps } from "../table.types";
 
 export const TableRow = forwardRef<HTMLTableRowElement, TableRowProps>(
   ({ children, className, ...restProps }, ref) => {

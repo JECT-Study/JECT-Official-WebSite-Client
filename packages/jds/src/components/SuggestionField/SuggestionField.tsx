@@ -2,7 +2,7 @@ import { Popover } from "radix-ui";
 import { forwardRef, useState } from "react";
 
 import { SuggestionFieldInput } from "./compound/Input";
-import { SuggestionFieldProvider } from "./SuggestionField.context";
+import { SuggestionFieldProvider } from "./suggestionField.context";
 import type { SuggestionFieldProps } from "./suggestionField.types";
 import { Field } from "../Field";
 
@@ -14,9 +14,11 @@ const SuggestionFieldRoot = forwardRef<HTMLDivElement, SuggestionFieldProps>((pr
 
   return (
     <SuggestionFieldProvider
-      isOpen={isOpen}
-      onOpenChange={setIsOpenRequested}
-      onHasPopupContentChange={setHasPopupContent}
+      value={{
+        isOpen,
+        onOpenChange: setIsOpenRequested,
+        onHasPopupContentChange: setHasPopupContent,
+      }}
     >
       <Popover.Root open={isOpen} onOpenChange={setIsOpenRequested} modal={false}>
         <Field ref={ref} {...props} />

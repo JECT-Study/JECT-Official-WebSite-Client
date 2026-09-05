@@ -4,10 +4,10 @@ import type { FieldProps } from "../Field";
 
 export type SuggestionFieldProps = FieldProps;
 
-type SuggestionFieldInputBaseProps = Omit<
+interface SuggestionFieldInputBaseProps extends Omit<
   ComponentPropsWithoutRef<"input">,
   "id" | "type" | "value" | "defaultValue" | "onChange" | "required"
-> & {
+> {
   /** 필수 입력 여부. aria-required로 반영한다. */
   required?: boolean;
   /** 제안 목록. 이미 추가한 값은 목록에서 제거된다. */
@@ -19,19 +19,19 @@ type SuggestionFieldInputBaseProps = Omit<
   acceptValueOnBlur?: boolean;
   /** 입력 오른쪽에 형제로 배치되는 부가 요소 */
   suffix?: ReactNode;
-};
+}
 
-type SuggestionFieldInputControlledProps = {
+interface SuggestionFieldInputControlledProps {
   value: string[];
   defaultValue?: never;
   onChange: (value: string[]) => void;
-};
+}
 
-type SuggestionFieldInputUncontrolledProps = {
+interface SuggestionFieldInputUncontrolledProps {
   value?: never;
   defaultValue?: string[];
   onChange?: (value: string[]) => void;
-};
+}
 
 export type SuggestionFieldInputProps = SuggestionFieldInputBaseProps &
   (SuggestionFieldInputControlledProps | SuggestionFieldInputUncontrolledProps);

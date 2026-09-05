@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 
-import type { TableBodyProps } from "../Table.types";
+import type { TableBodyProps } from "../table.types";
 
 export const TableBody = forwardRef<HTMLTableSectionElement, TableBodyProps>(
   ({ children, className, ...restProps }, ref) => {
