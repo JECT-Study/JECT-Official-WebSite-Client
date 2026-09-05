@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import type { CSSProperties, ReactNode } from "react";
+import { useState } from "react";
 import { vars } from "tokens";
 
 import {
@@ -134,6 +135,22 @@ const schemeOpacitySteps = [
   "91",
   "100",
 ] as const;
+const environmentDurationSteps = [
+  "50",
+  "100",
+  "150",
+  "200",
+  "250",
+  "300",
+  "350",
+  "400",
+  "450",
+  "500",
+] as const;
+const environmentMotionNames = ["bouncy", "fluent", "entrance", "leave"] as const;
+const environmentShadowNames = ["embossed", "raised", "floated", "overlay"] as const;
+const environmentZIndexNames = ["standard", "embossed", "raised", "floated", "overlay"] as const;
+
 const toWeightLabel = (value: string) =>
   `${value.charAt(0).toUpperCase()}${value.slice(1).toLowerCase()}`;
 
@@ -294,6 +311,90 @@ const TokenPanel = ({
     <div style={{ marginTop: vars.scheme.semantic.spacing["16"] }}>{children}</div>
   </article>
 );
+
+const TimingComparison = ({
+  description,
+  tracks,
+}: {
+  description: string;
+  tracks: {
+    duration: string;
+    label: string;
+    motion: string;
+  }[];
+}) => {
+  const [isActive, setIsActive] = useState(false);
+
+  return (
+    <div style={stackStyle}>
+      <p className={getBodyClassName({ size: "sm" })} style={{ margin: 0 }}>
+        {description}
+      </p>
+      <button
+        aria-pressed={isActive}
+        className={getLabelClassName({ size: "sm", weight: "bold" })}
+        onClick={() => setIsActive(current => !current)}
+        style={{
+          alignSelf: "flex-start",
+          padding: `${vars.scheme.semantic.spacing["4"]} ${vars.scheme.semantic.spacing["12"]}`,
+          border: `${vars.scheme.semantic.strokeWeight["1"]} solid ${vars.color.semantic.stroke.subtle}`,
+          borderRadius: vars.scheme.semantic.radius["4"],
+          backgroundColor: vars.color.semantic.surface.shallow,
+          color: vars.color.semantic.object.bold,
+          cursor: "pointer",
+        }}
+        type='button'
+      >
+        비교하기
+      </button>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 220px), 1fr))",
+          gap: vars.scheme.semantic.spacing["12"],
+        }}
+      >
+        {tracks.map(({ duration, label, motion }) => (
+          <div
+            key={label}
+            style={{
+              display: "grid",
+              gridTemplateColumns: "72px minmax(0, 1fr)",
+              alignItems: "center",
+              gap: vars.scheme.semantic.spacing["8"],
+            }}
+          >
+            <code className={getSyntaxClassName({ size: "xs" })}>{label}</code>
+            <div
+              aria-hidden='true'
+              style={{
+                position: "relative",
+                height: "40px",
+                borderRadius: vars.scheme.semantic.radius.max,
+                backgroundColor: vars.color.semantic.surface.deep,
+              }}
+            >
+              <span
+                style={{
+                  position: "absolute",
+                  top: vars.scheme.semantic.spacing["4"],
+                  left: isActive ? "calc(100% - 32px)" : 0,
+                  width: "32px",
+                  height: "32px",
+                  borderRadius: vars.scheme.semantic.radius.max,
+                  backgroundColor: vars.color.semantic.object.bold,
+                  transitionProperty: "left",
+                  transitionDuration: duration,
+                  transitionTimingFunction: motion,
+                }}
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
 
 const LengthScale = ({
   items,
@@ -1059,27 +1160,106 @@ export const Scheme: Story = {
 export const Environment: Story = {
   render: () => (
     <TokenSection title='Environment Tokens'>
-      <div style={gridStyle}>
-        {[
-          ["shadow.raised", vars.environment.semantic.shadow.raised],
-          ["shadow.floated", vars.environment.semantic.shadow.floated],
-          ["shadow.overlay", vars.environment.semantic.shadow.overlay],
-        ].map(([label, boxShadow]) => (
-          <div
-            key={label}
-            style={{
-              ...panelStyle,
-              minHeight: "88px",
-              boxShadow,
-              transition: `transform ${vars.environment.semantic.duration["200"]} ${vars.environment.semantic.motion.fluent}`,
-            }}
-          >
-            <code className={getSyntaxClassName({ size: "xs" })}>{label}</code>
-          </div>
-        ))}
-      </div>
+      <TokenSubsection title='Timing'>
+        <div style={stackStyle}>
+          <TokenPanel title='Duration' tokenPath='environment.semantic.duration'>
+            <TimingComparison
+              description='같은 fluent motion으로 같은 거리를 이동하며 duration 차이를 비교합니다.'
+              tracks={environmentDurationSteps.map(label => ({
+                label: `${label}ms`,
+                duration: vars.environment.semantic.duration[label],
+                motion: vars.environment.semantic.motion.fluent,
+              }))}
+            />
+          </TokenPanel>
+
+          <TokenPanel title='Motion' tokenPath='environment.semantic.motion'>
+            <TimingComparison
+              description='같은 500ms duration으로 같은 거리를 이동하며 motion 차이를 비교합니다.'
+              tracks={environmentMotionNames.map(label => ({
+                label,
+                duration: vars.environment.semantic.duration["500"],
+                motion: vars.environment.semantic.motion[label],
+              }))}
+            />
+          </TokenPanel>
+        </div>
+      </TokenSubsection>
+
+      <TokenSubsection title='Elevation'>
+        <div style={stackStyle}>
+          <TokenPanel title='Shadow' tokenPath='environment.semantic.shadow'>
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 180px), 1fr))",
+                gap: vars.scheme.semantic.spacing["24"],
+                padding: vars.scheme.semantic.spacing["8"],
+              }}
+            >
+              {environmentShadowNames.map(label => (
+                <div
+                  key={label}
+                  style={{
+                    minHeight: "72px",
+                    boxSizing: "border-box",
+                    padding: vars.scheme.semantic.spacing["16"],
+                    borderRadius: vars.scheme.semantic.radius["8"],
+                    backgroundColor: vars.color.semantic.surface.shallow,
+                    boxShadow: vars.environment.semantic.shadow[label],
+                  }}
+                >
+                  <code className={getSyntaxClassName({ size: "xs" })}>{label}</code>
+                </div>
+              ))}
+            </div>
+          </TokenPanel>
+
+          <TokenPanel title='Z-index' tokenPath='environment.semantic.zIndex'>
+            <div
+              style={{
+                position: "relative",
+                width: "100%",
+                maxWidth: "400px",
+                height: "232px",
+              }}
+            >
+              {environmentZIndexNames.map((label, index) => (
+                <div
+                  key={label}
+                  style={{
+                    position: "absolute",
+                    top: `${index * 36}px`,
+                    left: `${index * 24}px`,
+                    zIndex: vars.environment.semantic.zIndex[label],
+                    width: "min(240px, calc(100% - 96px))",
+                    height: "88px",
+                    boxSizing: "border-box",
+                    padding: vars.scheme.semantic.spacing["12"],
+                    border: `${vars.scheme.semantic.strokeWeight["1"]} solid ${vars.color.semantic.stroke.subtle}`,
+                    borderRadius: vars.scheme.semantic.radius["8"],
+                    backgroundColor: vars.color.semantic.surface.shallow,
+                    boxShadow:
+                      label === "standard" ? undefined : vars.environment.semantic.shadow[label],
+                  }}
+                >
+                  <code className={getSyntaxClassName({ size: "xs" })}>{label}</code>
+                </div>
+              ))}
+            </div>
+          </TokenPanel>
+        </div>
+      </TokenSubsection>
     </TokenSection>
   ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Duration, motion, shadow, z-index의 전체 semantic 토큰을 보여줍니다. Timing 패널의 비교하기 버튼을 누르면 시간과 easing 차이를 각각 확인할 수 있습니다.",
+      },
+    },
+  },
 };
 
 export const TextStyle: Story = {
