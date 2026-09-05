@@ -128,6 +128,17 @@ vars.scheme.semantic.position["4"];
 
 Scheme 토큰은 Desktop, Tablet, Mobile에 따라 실제 값이 달라질 수 있습니다.
 
+Opacity 토큰은 CSS의 `opacity` 값이 아니라 0부터 100까지의 단계로 제공됩니다. 따라서 `opacity` 속성에는 100으로 나눈 값을 적용합니다.
+
+```tsx
+import { style } from "@vanilla-extract/css";
+import { vars } from "@jects/jds/tokens";
+
+export const dimmed = style({
+  opacity: `calc(${vars.scheme.semantic.opacity["36"]} / 100)`,
+});
+```
+
 ### vars.typo
 
 fontFamily, fontSize, lineHeight, fontWeight, letterSpacing 같은 개별 typography 값을 제공하는 primitive 토큰입니다.
@@ -271,9 +282,9 @@ Typography className 유틸은 내부적으로 동일한 `textStyles`를 사용�
 
 JDS 토큰의 테마와 반응형 처리는 CSS 변수 값의 교체를 통해 동작합니다. 컴포넌트는 동일한 `vars`와 className을 계속 사용하며, 테마 또는 viewport가 변경되면 브라우저가 새로운 CSS 변수 값을 적용합니다.
 
-### 전역 토큰 스타일 로드하기
+### 전역 스타일과 Provider 구성
 
-JDS의 vanilla-extract 스타일은 빌드 과정에서 하나의 CSS 파일로 추출됩니다. 패키지를 사용하는 애플리케이션은 진입점에서 `@jects/jds/styles`를 한 번 불러와야 합니다.
+JDS를 사용하는 애플리케이션은 진입점에서 전역 스타일을 불러오고, 공통 루트에 `JDSThemeProvider`를 구성합니다.
 
 ```tsx
 import "@jects/jds/styles";
@@ -286,7 +297,7 @@ export const App = () => (
 );
 ```
 
-애플리케이션에서는 `@jects/jds/styles`와 `JDSThemeProvider`를 함께 사용합니다. `@jects/jds/styles`는 빌드된 전역 스타일을 불러오고, `JDSThemeProvider`는 JDS를 사용하는 애플리케이션의 공통 루트 Provider로 구성합니다. 현재 Provider는 런타임 theme 객체를 제공하거나 스타일을 주입하지 않고 children을 그대로 렌더링하므로, 실제 스타일은 `@jects/jds/styles`를 통해 적용됩니다.
+`@jects/jds/styles`는 토큰, reset, 컴포넌트 스타일이 포함된 CSS를 적용하기 위한 필수 import입니다. `JDSThemeProvider`는 JDS 애플리케이션의 공통 루트와 향후 테마 확장 지점을 일관되게 구성하기 위한 팀 규약입니다. 현재는 런타임 theme 객체나 CSS를 제공하지 않으므로 `@jects/jds/styles` import를 대신하지 않습니다.
 
 컴포넌트의 `.css.ts`에서는 `vars`를 직접 참조합니다.
 
@@ -348,32 +359,26 @@ Scheme과 typography 토큰은 viewport에 따라 CSS 변수 값이 자동으로
 
 Desktop 값은 `:root`의 기본값으로 등록되고, Tablet과 Mobile 범위에서는 media query를 통해 해당 CSS 변수 값이 덮어써집니다.
 
-다음 토큰이 반응형으로 동작합니다.
-
-- `vars.scheme`
-- `vars.typo`
-- `textStyles`가 참조하는 typography 속성
+Scheme과 typography는 viewport별 값을 가질 수 있으며, 같은 값이 할당된 토큰은 화면 크기가 바뀌어도 시각적인 차이가 없습니다. 반응형 동작을 확인할 때는 실제 값이 달라지는 토큰을 사용합니다.
 
 ```tsx
 import { style } from "@vanilla-extract/css";
 import { textStyles, vars } from "@jects/jds/tokens";
 
-export const responsiveCard = style([
-  textStyles.body.md.normal,
-  {
-    padding: vars.scheme.semantic.spacing["16"],
-    borderRadius: vars.scheme.semantic.radius["8"],
-  },
-]);
+export const section = style({
+  paddingInline: vars.scheme.semantic.margin.md,
+});
+
+export const title = style(textStyles.title["4"]);
 ```
 
-위 스타일은 별도의 media query 없이도 spacing, radius, fontSize, lineHeight에 연결된 CSS 변수 값을 viewport에 맞게 적용합니다.
+위 예시에서 `margin.md`는 Desktop 24px, Tablet 20px, Mobile 16px로 변경됩니다. `textStyles.title["4"]`가 참조하는 fontSize는 Desktop과 Tablet에서 32px, Mobile에서 28px로 변경됩니다. 컴포넌트는 별도의 media query 없이 동일한 토큰 경로를 사용합니다.
 
 ### 자동으로 바뀌는 범위
 
 토큰의 반응형 처리는 토큰값을 변경하는 기능입니다. 컴포넌트의 레이아웃 구조까지 자동으로 변경하지는 않습니다.
 
-예를 들어 `vars.scheme.semantic.spacing["16"]`의 실제 px 값은 자동으로 변경될 수 있지만, grid column 수나 flex 방향은 자동으로 변경되지 않습니다. 레이아웃 구조 자체를 변경하려면 별도의 media query를 작성해야 합니다.
+예를 들어 `vars.scheme.semantic.margin.md`의 실제 px 값은 자동으로 변경되지만, grid column 수나 flex 방향은 변경되지 않습니다. 레이아웃 구조 자체를 변경하려면 별도의 media query를 작성해야 합니다.
 
 JDS 내부 스타일에서는 생성된 `breakpoints.ts`를 사용할 수 있습니다.
 
@@ -396,32 +401,15 @@ export const layout = style({
 
 `breakpoints`는 현재 `@jects/jds/tokens` 배럴에 export되지 않는 JDS 내부 API입니다.
 
-### 토큰별 변경 여부
+`vars.color.semantic`은 테마에 따라 값이 바뀌고, Scheme과 typography는 viewport별 값을 가질 수 있습니다. `vars.colorPrimitive`와 `vars.environment`는 테마와 viewport에 관계없이 고정됩니다. 컴포넌트에서는 테마나 디바이스별 토큰을 직접 선택하지 않고 값의 선택을 전역 CSS 변수에 맡깁니다.
 
-**Dark 테마 대응**
+## 💡 Figma 매핑과 생성
 
-- `vars.color.semantic` ✅
+JDS 토큰은 Figma에서 추출한 데이터를 기반으로 생성됩니다. Figma 이름과 구조를 가능한 한 유지하되, 코드에서 사용하기 적합한 객체 경로와 속성명으로 정규화합니다.
 
-**반응형 대응**
+### 생성 흐름
 
-- `vars.scheme` ✅
-- `vars.typo` ✅
-- `textStyles`가 참조하는 typography 속성 ✅
-
-**고정 값**
-
-- `vars.colorPrimitive`
-- `vars.environment`
-
-컴포넌트에서는 테마나 디바이스별 토큰을 직접 선택하지 않습니다. 항상 동일한 semantic 토큰을 사용하고 값의 선택은 전역 CSS 변수에 맡깁니다.
-
-## 💡 Figma 매핑과 생성물 관리
-
-JDS 토큰은 Figma에서 추출한 데이터를 입력으로 사용하고 `tokensBuilder.ts`를 통해 TypeScript 및 vanilla-extract 파일로 생성합니다.
-
-### 전체 생성 흐름
-
-```
+```text
 Figma Variables
         ↓
 src/tokens/input/token.json
@@ -441,186 +429,49 @@ textStyles.ts
 breakpoints.ts
 ```
 
-`token.json`은 color, scheme, typography, environment collection을 포함합니다. `textStyles.json`은 JDS에서 사용하는 typography 조합을 별도로 관리합니다.
-
-### 입력 데이터 검증과 구조 변환
-
-`schema.ts`는 입력 데이터의 구조를 검증하고 flat token 이름을 코드에서 사용할 수 있는 중첩 객체로 변환합니다.
-
-```
-semantic-spacing-6
-        ↓
-vars.scheme.semantic.spacing["6"]
-```
-
-숫자값에는 속성의 성격에 따라 필요한 단위가 추가됩니다.
-
-- spacing, radius, fontSize 등의 값에는 `px`
-- duration 값에는 `ms`
-- opacity, fontWeight, zIndex 등은 단위 없이 유지
+`token.json`은 color, scheme, typography, environment collection을 포함하고, `textStyles.json`은 typography 조합을 별도로 관리합니다.
 
 ### 생성 파일과 역할
 
-**공개 API**
+- `vars.css.ts`: 공개 CSS 변수 계약인 `vars`
+- `textStyles.ts`: 공개 typography `StyleRule`인 `textStyles`
+- `globalTokens.css.ts`: 기본값, Dark 테마, 반응형 값을 할당하는 전역 스타일
+- `tokens.ts`, `breakpoints.ts`: 생성 과정과 JDS 내부 스타일에서 사용하는 내부 파일
 
-- `vars.css.ts`: vanilla-extract CSS 변수 계약을 생성하며 `vars`로 공개됩니다.
-- `textStyles.ts`: typography `StyleRule` 객체를 생성하며 `textStyles`로 공개됩니다.
-
-**전역 스타일**
-
-- `globalTokens.css.ts`: 기본값, Dark 테마, 반응형 CSS 변수 값을 할당합니다. 빌드 시 reset 및 컴포넌트 스타일과 함께 `styles.css`로 추출되며 `@jects/jds/styles`를 통해 제공됩니다.
-
-**JDS 내부 생성물**
-
-- `tokens.ts`: 변환된 전체 토큰 구조의 스냅샷이며 현재 배럴에서 export하지 않습니다.
-- `breakpoints.ts`: Desktop, Tablet, Mobile 범위를 제공하며 JDS 내부 스타일에서 사용합니다.
-
-`vars.css.ts`가 생성하는 `vars`의 각 leaf는 CSS 변수 참조값입니다.
-
-```tsx
-vars.color.semantic.accent.normal;
-// var(--color-semantic-accent-normal)
-```
-
-`globalTokens.css.ts`는 이 계약에 실제 값을 할당합니다.
-
-- `:root`: primitive color, light semantic color, Desktop scheme, Desktop typography, environment
-- Tablet/Mobile media query: 해당 viewport의 scheme과 typography
-- `[data-theme="dark"]`: Dark semantic color
+이 파일들은 자동 생성물이므로 직접 수정하지 않습니다.
 
 ### Figma 이름과 코드 경로 매핑
 
 일반 토큰은 Figma의 `/` 구분을 코드의 중첩 객체 경로로 변환합니다. 숫자로 시작하는 key는 문자열 bracket notation으로 접근합니다.
 
-**color-semantic Collection**
-
 - Figma: `semantic/accent/normal` → Code: `vars.color.semantic.accent.normal`
-- Figma: `semantic/surface/standard` → Code: `vars.color.semantic.surface.standard`
-
-**scheme Collection**
-
 - Figma: `semantic/spacing/4` → Code: `vars.scheme.semantic.spacing["4"]`
-- Figma: `semantic/radius/8` → Code: `vars.scheme.semantic.radius["8"]`
-
-**color-primitive Collection**
-
 - Figma: `primitive/flow/500` → Code: `vars.colorPrimitive.primitive.flow["500"]`
-
-**typography Collection**
-
 - Figma: `primitive/font-size/body/md` → Code: `vars.typo.primitive.fontSize.body.md`
-
-**environment Collection**
-
 - Figma: `semantic/duration/100` → Code: `vars.environment.semantic.duration["100"]`
 
-### Semantic color 매핑
-
-Figma의 semantic color에는 Light와 Dark 값이 각각 존재하지만 코드에서는 테마별 객체를 직접 선택하지 않습니다.
-
-```tsx
-vars.color.semantic.accent.normal;
-```
-
-Light와 Dark 모두 동일한 경로를 사용하며 실제 색상값은 `:root`와 `[data-theme="dark"]`에 할당된 CSS 변수에 의해 결정됩니다.
+Semantic color는 Figma에 Light와 Dark 값이 각각 존재하지만 코드에서는 동일한 `vars.color.semantic` 경로를 사용합니다. 실제 색상은 `:root`와 `[data-theme="dark"]`에 할당된 CSS 변수로 결정됩니다.
 
 ### TextStyle 입력 → textStyles 생성
 
-TextStyle은 Figma Variables collection이 아니라 `input/textStyles.json`에서 별도로 관리합니다.
-
-입력 파일에는 JDS에서 사용하는 TextStyle의 token과 typography 속성이 포함됩니다.
-
-```json
-{
-  "textStyles": [
-    {
-      "token": "semantic-textstyle-body-md-normal",
-      "type": "text",
-      "fontFamily": "Pretendard Variable",
-      "fontWeight": "400",
-      "fontSize": "15px",
-      "lineHeight": "24px",
-      "letterSpacing": "0.04500000178813934px"
-    }
-  ]
-}
-```
-
-TextStyle token은 category, size, weight 정보를 이름에 포함합니다.
-
-```
-semantic-textstyle-{category}-{size}-{weight}
-```
-
-- `category`: `title`, `label`, `body`, `syntax`
-- `size`: category에서 지원하는 크기
-- `weight`: Label과 Body에서 사용하는 굵기
-
-Title과 Syntax는 weight 구분이 없으므로 size가 token의 마지막 항목이 됩니다.
-
-빌더는 token을 category, size, weight로 나누고 중첩된 `textStyles` 객체로 변환합니다.
+TextStyle은 Figma Variables collection이 아니라 `input/textStyles.json`에서 별도로 관리합니다. 빌더는 token 이름의 category, size, weight를 기준으로 중첩된 `textStyles` 객체를 생성합니다.
 
 - 입력: `semantic-textstyle-title-6` → 생성: `textStyles.title["6"]`
 - 입력: `semantic-textstyle-label-md-bold` → 생성: `textStyles.label.md.bold`
 - 입력: `semantic-textstyle-body-md-normal` → 생성: `textStyles.body.md.normal`
 - 입력: `semantic-textstyle-syntax-sm` → 생성: `textStyles.syntax.sm`
 
-생성된 `textStyles`의 각 leaf는 다음 typography 속성을 포함하는 vanilla-extract `StyleRule`입니다.
+각 leaf는 fontFamily, fontWeight, fontSize, lineHeight, letterSpacing을 조합한 vanilla-extract `StyleRule`입니다. 대응하는 typography primitive가 있으면 해당 CSS 변수를 참조하고, 없으면 입력값을 CSS에서 사용할 수 있는 형태로 정규화해 포함합니다.
 
-- `fontFamily`
-- `fontWeight`
-- `fontSize`
-- `lineHeight`
-- `letterSpacing`
+### 토큰 재생성
 
-빌더는 TextStyle의 각 속성에 대응하는 typography primitive token이 있는지 확인합니다. 대응하는 primitive token이 있으면 생성된 `StyleRule`은 해당 CSS 변수를 참조합니다.
-
-```tsx
-// textStyles.body.md.normal
-{
-  fontFamily: "var(--typo-primitive-typeface-body)",
-  fontWeight: "var(--typo-primitive-fontWeight-body-normal)",
-  fontSize: "var(--typo-primitive-fontSize-body-md)",
-  lineHeight: "var(--typo-primitive-font-lineHeight-body-md)",
-  letterSpacing: "var(--typo-primitive-font-letterSpacing-body-md)"
-}
-```
-
-대응하는 primitive token이 없는 속성은 `textStyles.json`의 입력값을 CSS에서 사용할 수 있는 형태로 정규화해 생성 결과에 포함합니다.
-
-예를 들어 Syntax 계열은 별도의 letterSpacing primitive token이 없으므로 입력값을 변환한 결과가 `StyleRule`에 직접 포함됩니다.
-
-```tsx
-// textStyles.syntax.md
-{
-  fontFamily: "var(--typo-primitive-typeface-syntax)",
-  fontWeight: "var(--typo-primitive-fontWeight-syntax-normal)",
-  fontSize: "var(--typo-primitive-fontSize-syntax-md)",
-  lineHeight: "var(--typo-primitive-font-lineHeight-syntax-md)",
-  letterSpacing: "0em"
-}
-```
-
-### 생성물 재생성
-
-입력 파일이나 생성 로직을 변경한 후 다음 명령을 실행합니다.
+`input/token.json` 또는 `input/textStyles.json`을 변경한 뒤 다음 명령으로 토큰을 다시 생성합니다.
 
 ```bash
 npm run build:tokens --workspace=@jects/jds
 ```
 
-재생성한 뒤에는 다음 항목을 확인합니다.
-
-1. 예상한 생성 파일만 변경되었는지 확인합니다.
-2. 기존 `vars` 또는 `textStyles` 경로가 의도치 않게 제거되지 않았는지 확인합니다.
-3. category, size, weight 구조와 typography primitive 연결이 올바른지 확인합니다.
-4. 컴포넌트와 Storybook에서 변경된 토큰이 정상적으로 표시되는지 확인합니다.
-5. type-check와 lint를 실행합니다.
-
-```bash
-npm run type-check
-npm run lint
-```
+생성 후에는 예상한 파일만 변경되었는지, 기존 `vars`와 `textStyles` 경로가 유지되는지 확인하고 Storybook, type-check, lint로 결과를 검증합니다. 생성 파일은 직접 수정하지 않습니다.
 
 ## ⚠️ 사용 시 주의사항
 
