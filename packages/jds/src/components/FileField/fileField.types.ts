@@ -60,4 +60,7 @@ type FileFieldInputUncontrolledProps = {
 export type FileFieldInputProps = FileFieldInputBaseProps &
   (FileFieldInputControlledProps | FileFieldInputUncontrolledProps);
 
-export type FileFieldSizeProps = Omit<ComponentPropsWithoutRef<"span">, "children">;
+export interface FileFieldSizeProps extends Omit<ComponentPropsWithoutRef<"span">, "children"> {
+  /** 용량 표기에 사용할 포매터. 기본값은 `formatFileSize` */
+  sizeFormatter?: (bytes: number) => string;
+}

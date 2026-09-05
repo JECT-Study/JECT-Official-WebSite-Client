@@ -1,20 +1,5 @@
 import type { FileFieldErrorType } from "./fileField.types";
 
-const SIZE_UNITS = ["B", "KB", "MB", "GB", "TB"] as const;
-const UNIT_STEP = 1024;
-
-export const formatFileSize = (bytes: number) => {
-  let size = bytes;
-  let unitIndex = 0;
-
-  while (size >= UNIT_STEP && unitIndex < SIZE_UNITS.length - 1) {
-    size /= UNIT_STEP;
-    unitIndex += 1;
-  }
-
-  return `${Math.floor(size * 10) / 10}${SIZE_UNITS[unitIndex]}`;
-};
-
 const matchesAccept = (accept: string, file: File) => {
   const patterns = accept
     .split(",")

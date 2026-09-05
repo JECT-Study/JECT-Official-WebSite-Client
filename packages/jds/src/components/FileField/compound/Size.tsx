@@ -5,8 +5,8 @@ import { useFieldContext } from "../../Field/Field.context";
 import * as fieldStyles from "../../Field/field.css";
 import { useFileFieldContext } from "../FileField.context";
 import type { FileFieldSizeProps } from "../fileField.types";
-import { formatFileSize } from "../fileField.utils";
 
+import { formatFileSize } from "@/utils/formatFileSize";
 import { getLabelClassName } from "@/utils/typography";
 
 /**
@@ -14,7 +14,7 @@ import { getLabelClassName } from "@/utils/typography";
  * 선택된 파일이 없으면 배치해도 렌더되지 않는다.
  */
 export const FileFieldSize = forwardRef<HTMLSpanElement, FileFieldSizeProps>(
-  ({ className, ...restProps }, ref) => {
+  ({ sizeFormatter = formatFileSize, className, ...restProps }, ref) => {
     const { size } = useFileFieldContext("FileField.Size");
     const {
       counterId,
@@ -44,7 +44,7 @@ export const FileFieldSize = forwardRef<HTMLSpanElement, FileFieldSizeProps>(
           className,
         )}
       >
-        {formatFileSize(size)}
+        {sizeFormatter(size)}
       </span>
     );
   },
