@@ -77,7 +77,63 @@ const semanticStrokeTones = [
   "subtler",
   "subtlest",
 ] as const;
-
+const schemeSpacingSteps = [
+  "0",
+  "1",
+  "2",
+  "3",
+  "4",
+  "6",
+  "8",
+  "10",
+  "12",
+  "16",
+  "20",
+  "24",
+  "28",
+  "32",
+  "40",
+  "48",
+  "56",
+  "64",
+  "72",
+  "80",
+  "96",
+  "112",
+  "128",
+  "144",
+] as const;
+const schemeMarginSizes = [
+  "2xs",
+  "xs",
+  "sm",
+  "md",
+  "lg",
+  "xl",
+  "2xl",
+  "3xl",
+  "4xl",
+  "5xl",
+  "6xl",
+] as const;
+const schemeRadiusSteps = ["0", "2", "4", "6", "8", "10", "12", "16", "24", "max"] as const;
+const schemeStrokeSteps = ["1", "2", "3", "4", "5", "6"] as const;
+const schemeOpacitySteps = [
+  "0",
+  "5",
+  "8",
+  "12",
+  "16",
+  "23",
+  "29",
+  "36",
+  "44",
+  "54",
+  "63",
+  "76",
+  "91",
+  "100",
+] as const;
 const toWeightLabel = (value: string) =>
   `${value.charAt(0).toUpperCase()}${value.slice(1).toLowerCase()}`;
 
@@ -203,6 +259,92 @@ const TokenSubsection = ({ children, title }: { children: ReactNode; title: stri
     </h3>
     {children}
   </section>
+);
+
+const TokenPanel = ({
+  children,
+  title,
+  tokenPath,
+}: {
+  children: ReactNode;
+  title: string;
+  tokenPath: string;
+}) => (
+  <article
+    style={{
+      ...panelStyle,
+      minWidth: 0,
+      boxSizing: "border-box",
+      padding: vars.scheme.semantic.spacing["16"],
+    }}
+  >
+    <h4 className={getLabelClassName({ size: "md", weight: "bold" })} style={{ margin: 0 }}>
+      {title}
+    </h4>
+    <code
+      className={getSyntaxClassName({ size: "xs" })}
+      style={{
+        display: "block",
+        overflowWrap: "anywhere",
+        color: vars.color.semantic.object.neutral,
+      }}
+    >
+      {tokenPath}
+    </code>
+    <div style={{ marginTop: vars.scheme.semantic.spacing["16"] }}>{children}</div>
+  </article>
+);
+
+const LengthScale = ({
+  items,
+  title,
+  tokenPath,
+}: {
+  items: { label: string; value: string }[];
+  title: string;
+  tokenPath: string;
+}) => (
+  <TokenPanel title={title} tokenPath={tokenPath}>
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 220px), 1fr))",
+        gap: vars.scheme.semantic.spacing["12"],
+      }}
+    >
+      {items.map(({ label, value }) => (
+        <div
+          key={label}
+          style={{
+            display: "grid",
+            gridTemplateColumns: "40px minmax(0, 1fr)",
+            alignItems: "center",
+            gap: vars.scheme.semantic.spacing["8"],
+            minWidth: 0,
+          }}
+        >
+          <code className={getSyntaxClassName({ size: "xs" })}>{label}</code>
+          <div
+            style={{
+              height: "8px",
+              overflow: "hidden",
+              borderRadius: vars.scheme.semantic.radius.max,
+              backgroundColor: vars.color.semantic.surface.deep,
+            }}
+          >
+            <div
+              style={{
+                width: value,
+                maxWidth: "100%",
+                height: "100%",
+                backgroundColor: vars.color.semantic.object.bold,
+              }}
+            />
+          </div>
+        </div>
+      ))}
+    </div>
+  </TokenPanel>
 );
 
 const TypographyScaleGroup = ({
@@ -774,39 +916,144 @@ export const Typography: Story = {
 export const Scheme: Story = {
   render: () => (
     <TokenSection title='Scheme Tokens'>
-      <div style={stackStyle}>
-        {[
-          [
-            "spacing.4 / radius.2",
-            vars.scheme.semantic.spacing["4"],
-            vars.scheme.semantic.radius["2"],
-          ],
-          [
-            "spacing.8 / radius.4",
-            vars.scheme.semantic.spacing["8"],
-            vars.scheme.semantic.radius["4"],
-          ],
-          [
-            "spacing.16 / radius.8",
-            vars.scheme.semantic.spacing["16"],
-            vars.scheme.semantic.radius["8"],
-          ],
-        ].map(([label, padding, borderRadius]) => (
+      <TokenSubsection title='Layout'>
+        <div style={stackStyle}>
+          <LengthScale
+            title='Spacing'
+            tokenPath='scheme.semantic.spacing'
+            items={schemeSpacingSteps.map(label => ({
+              label,
+              value: vars.scheme.semantic.spacing[label],
+            }))}
+          />
+          <LengthScale
+            title='Margin'
+            tokenPath='scheme.semantic.margin'
+            items={schemeMarginSizes.map(label => ({
+              label,
+              value: vars.scheme.semantic.margin[label],
+            }))}
+          />
+        </div>
+      </TokenSubsection>
+
+      <TokenSubsection title='Shape & Border'>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 320px), 1fr))",
+            gap: vars.scheme.semantic.spacing["16"],
+          }}
+        >
+          <TokenPanel title='Radius' tokenPath='scheme.semantic.radius'>
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 64px), 1fr))",
+                gap: vars.scheme.semantic.spacing["12"],
+              }}
+            >
+              {schemeRadiusSteps.map(label => (
+                <div key={label} style={{ minWidth: 0, textAlign: "center" }}>
+                  <div
+                    aria-label={`radius.${label} 모서리`}
+                    style={{
+                      width: "64px",
+                      maxWidth: "100%",
+                      aspectRatio: "1",
+                      margin: "0 auto",
+                      border: `${vars.scheme.semantic.strokeWeight["2"]} solid ${vars.color.semantic.object.bold}`,
+                      borderRadius: vars.scheme.semantic.radius[label],
+                      backgroundColor: vars.color.semantic.surface.deep,
+                    }}
+                  />
+                  <code
+                    className={getSyntaxClassName({ size: "xs" })}
+                    style={{ display: "block", marginTop: vars.scheme.semantic.spacing["4"] }}
+                  >
+                    {label}
+                  </code>
+                </div>
+              ))}
+            </div>
+          </TokenPanel>
+
+          <TokenPanel title='Stroke Weight' tokenPath='scheme.semantic.strokeWeight'>
+            <div style={{ ...stackStyle, gap: vars.scheme.semantic.spacing["12"] }}>
+              {schemeStrokeSteps.map(label => (
+                <div
+                  key={label}
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "32px minmax(0, 1fr)",
+                    alignItems: "center",
+                    gap: vars.scheme.semantic.spacing["8"],
+                  }}
+                >
+                  <code className={getSyntaxClassName({ size: "xs" })}>{label}</code>
+                  <div
+                    aria-label={`strokeWeight.${label} 선`}
+                    style={{
+                      borderTop: `${vars.scheme.semantic.strokeWeight[label]} solid ${vars.color.semantic.object.bold}`,
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
+          </TokenPanel>
+        </div>
+      </TokenSubsection>
+
+      <TokenSubsection title='Visibility'>
+        <TokenPanel title='Opacity' tokenPath='scheme.semantic.opacity'>
           <div
-            key={label}
             style={{
-              padding,
-              borderRadius,
-              backgroundColor: vars.color.semantic.accent.alpha.subtlest,
-              color: vars.color.semantic.object.bold,
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 64px), 88px))",
+              gap: vars.scheme.semantic.spacing["12"],
             }}
           >
-            <code className={getSyntaxClassName({ size: "xs" })}>{label}</code>
+            {schemeOpacitySteps.map(label => (
+              <div key={label} style={{ minWidth: 0, textAlign: "center" }}>
+                <div
+                  aria-label={`opacity.${label} 투명도`}
+                  style={{
+                    height: "56px",
+                    overflow: "hidden",
+                    borderRadius: vars.scheme.semantic.radius["4"],
+                    backgroundColor: vars.color.semantic.surface.deep,
+                  }}
+                >
+                  <div
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      backgroundColor: vars.color.semantic.object.bold,
+                      opacity: `calc(${vars.scheme.semantic.opacity[label]} / 100)`,
+                    }}
+                  />
+                </div>
+                <code
+                  className={getSyntaxClassName({ size: "xs" })}
+                  style={{ display: "block", marginTop: vars.scheme.semantic.spacing["4"] }}
+                >
+                  {label}
+                </code>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
+        </TokenPanel>
+      </TokenSubsection>
     </TokenSection>
   ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Spacing, margin, radius, stroke weight, opacity의 전체 semantic 단계를 속성에 맞는 형태로 보여줍니다. Margin은 viewport에 따라 실제 값이 변경됩니다.",
+      },
+    },
+  },
 };
 
 export const Environment: Story = {
