@@ -19,7 +19,7 @@ import { useFieldControl } from "../../Field/useFieldControl";
 import { Icon } from "../../Icon";
 import { Listbox, useListbox, useSingleSelectState } from "../../Listbox";
 import { SELECTION_KEYS } from "../../Listbox/listbox.constants";
-import { useSelectFieldContext } from "../SelectField.context";
+import { useSelectFieldContext } from "../selectField.context";
 import * as styles from "../selectField.css";
 import type { SelectFieldInputProps } from "../selectField.types";
 

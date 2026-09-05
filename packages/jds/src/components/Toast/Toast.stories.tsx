@@ -3,8 +3,9 @@ import { FlexColumn, FlexRow } from "@storybook-utils/layout";
 import { LiveRegionDemo, type LiveRegionScenario } from "@storybook-utils/LiveRegionDemo";
 
 import { Toast } from "./Toast";
+import { useToast } from "./toast.context";
 import { toastController } from "./toastController";
-import { ToastProvider, useToast } from "./ToastProvider";
+import { ToastProvider } from "./ToastProvider";
 import { BlockButton } from "../Button/BlockButton";
 
 const meta: Meta<typeof Toast> = {

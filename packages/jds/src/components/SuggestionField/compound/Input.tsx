@@ -20,7 +20,7 @@ import { FieldContent } from "../../Field";
 import { useFieldControl } from "../../Field/useFieldControl";
 import { useItemCounter } from "../../Field/useFieldCounter";
 import { Listbox, useListbox, useMultiSelectState } from "../../Listbox";
-import { useSuggestionFieldContext } from "../SuggestionField.context";
+import { useSuggestionFieldContext } from "../suggestionField.context";
 import * as styles from "../suggestionField.css";
 import type { SuggestionFieldInputProps } from "../suggestionField.types";
 

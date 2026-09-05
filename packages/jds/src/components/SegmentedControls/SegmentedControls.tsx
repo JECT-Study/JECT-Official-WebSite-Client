@@ -1,29 +1,25 @@
 import { clsx } from "clsx";
 import { RadioGroup } from "radix-ui";
-import { createContext, forwardRef, useContext, useMemo } from "react";
+import { forwardRef } from "react";
 
+import {
+  SegmentedControlsProvider,
+  useSegmentedControlsContext,
+} from "./segmentedControls.context";
 import * as styles from "./segmentedControls.css";
 import type {
-  SegmentedControlsSize,
   SegmentedControlsRootProps,
   SegmentedControlsItemProps,
 } from "./segmentedControls.types";
 
-const SegmentedControlsContext = createContext<{ size: SegmentedControlsSize }>({
-  size: "md",
-});
-
-const useSegmentedControlsContext = () => useContext(SegmentedControlsContext);
-
 const SegmentedControlsRoot = forwardRef<HTMLDivElement, SegmentedControlsRootProps>(
   ({ size = "md", children, className, ...props }, ref) => {
-    const contextValue = useMemo(() => ({ size }), [size]);
     return (
-      <SegmentedControlsContext.Provider value={contextValue}>
+      <SegmentedControlsProvider value={{ size }}>
         <RadioGroup.Root ref={ref} {...props} className={clsx(styles.root(), className)}>
           {children}
         </RadioGroup.Root>
-      </SegmentedControlsContext.Provider>
+      </SegmentedControlsProvider>
     );
   },
 );
@@ -32,7 +28,7 @@ SegmentedControlsRoot.displayName = "SegmentedControls.Root";
 
 const SegmentedControlsItem = forwardRef<HTMLButtonElement, SegmentedControlsItemProps>(
   ({ value, disabled = false, children, className, ...props }, ref) => {
-    const { size } = useSegmentedControlsContext();
+    const { size } = useSegmentedControlsContext("SegmentedControls.Item");
     return (
       <RadioGroup.Item
         ref={ref}

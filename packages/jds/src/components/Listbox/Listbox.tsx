@@ -1,11 +1,11 @@
 import { clsx } from "clsx";
-import { type CSSProperties, forwardRef, useMemo } from "react";
+import { type CSSProperties, forwardRef } from "react";
 
 import { ListboxCustomValue } from "./compound/CustomValue";
 import { ListboxOption } from "./compound/Option";
+import { ListboxProvider } from "./listbox.context";
 import * as styles from "./listbox.css";
 import type { ListboxProps, SelectDimension } from "./listbox.types";
-import { ListboxProvider } from "./ListboxContext";
 
 import { getLabelClassName } from "@/utils/typography";
 
@@ -33,11 +33,6 @@ const InternalListbox = forwardRef<HTMLDivElement, ListboxProps>(
   ) => {
     const { className: listboxClassName, ...restListboxProps } = listboxProps;
 
-    const contextValue = useMemo(
-      () => ({ ...behavior, selectionMode, variant }),
-      [behavior, selectionMode, variant],
-    );
-
     const labelId = `${behavior.listboxId}-label`;
 
     const containerStyle: CSSProperties = { ...style };
@@ -49,7 +44,7 @@ const InternalListbox = forwardRef<HTMLDivElement, ListboxProps>(
     }
 
     return (
-      <ListboxProvider value={contextValue}>
+      <ListboxProvider value={{ ...behavior, selectionMode, variant }}>
         <div
           ref={ref}
           className={clsx(styles.selectContainer, className)}

@@ -2,7 +2,7 @@ import { forwardRef, useState } from "react";
 
 import { FileFieldInput } from "./compound/Input";
 import { FileFieldSize } from "./compound/Size";
-import { FileFieldProvider } from "./FileField.context";
+import { FileFieldProvider } from "./fileField.context";
 import type { FileFieldProps } from "./fileField.types";
 import { Field } from "../Field";
 
@@ -10,7 +10,7 @@ const FileFieldRoot = forwardRef<HTMLDivElement, FileFieldProps>((props, ref) =>
   const [size, setSize] = useState<number | null>(null);
 
   return (
-    <FileFieldProvider size={size} onSizeChange={setSize}>
+    <FileFieldProvider value={{ size, onSizeChange: setSize }}>
       <Field ref={ref} {...props} />
     </FileFieldProvider>
   );

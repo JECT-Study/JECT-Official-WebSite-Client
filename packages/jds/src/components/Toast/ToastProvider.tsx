@@ -1,11 +1,11 @@
 import type { ReactNode } from "react";
-import { createContext, useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { visuallyHidden } from "utils";
 
 import { Toast } from "./Toast";
+import { ToastContextProvider } from "./toast.context";
 import { stackContainer } from "./toast.css";
-import type { ToastHandler } from "./toast.types";
 import { toastController } from "./toastController";
 import { useToastProvider } from "./useToastProvider";
 
@@ -15,13 +15,6 @@ interface ToastProviderProps {
   children: ReactNode;
   duration?: number;
 }
-
-interface ToastContextType {
-  toast: ToastHandler;
-  removeToast: (id: string) => void;
-}
-
-const ToastContext = createContext<ToastContextType | null>(null);
 
 export const ToastProvider = ({ children, duration }: ToastProviderProps) => {
   const { toasts, toast: handler, removeToast } = useToastProvider();
@@ -38,7 +31,7 @@ export const ToastProvider = ({ children, duration }: ToastProviderProps) => {
   }, []);
 
   return (
-    <ToastContext.Provider value={{ toast: handler, removeToast }}>
+    <ToastContextProvider value={{ toast: handler, removeToast }}>
       {children}
 
       {/* 스크린리더 전용 live region: alert/status 채널별 최신 토스트를 각 영역에서 낭독 */}
@@ -64,13 +57,6 @@ export const ToastProvider = ({ children, duration }: ToastProviderProps) => {
           </div>,
           document.body,
         )}
-    </ToastContext.Provider>
+    </ToastContextProvider>
   );
-};
-
-export const useToast = () => {
-  const context = useContext(ToastContext);
-  if (!context) throw new Error("useToast must be used within ToastProvider");
-
-  return context;
 };

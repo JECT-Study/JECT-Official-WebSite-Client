@@ -2,7 +2,7 @@ import { Popover } from "radix-ui";
 import { forwardRef, useState } from "react";
 
 import { MultiSelectFieldInput } from "./compound/Input";
-import { MultiSelectFieldProvider } from "./MultiSelectField.context";
+import { MultiSelectFieldProvider } from "./multiSelectField.context";
 import type { MultiSelectFieldProps } from "./multiSelectField.types";
 import { Field } from "../Field";
 
@@ -14,9 +14,11 @@ const MultiSelectFieldRoot = forwardRef<HTMLDivElement, MultiSelectFieldProps>((
 
   return (
     <MultiSelectFieldProvider
-      isOpen={isOpen}
-      onOpenChange={setIsOpenRequested}
-      onHasPopupContentChange={setHasPopupContent}
+      value={{
+        isOpen,
+        onOpenChange: setIsOpenRequested,
+        onHasPopupContentChange: setHasPopupContent,
+      }}
     >
       <Popover.Root open={isOpen} onOpenChange={setIsOpenRequested} modal={false}>
         <Field ref={ref} {...props} />

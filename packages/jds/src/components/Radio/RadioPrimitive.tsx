@@ -5,6 +5,13 @@ import { forwardRef, useId, useLayoutEffect, useMemo, useState } from "react";
 import { focusRing, getLabelClassName } from "utils";
 import type { LabelSize } from "utils";
 
+import {
+  RadioItemProvider,
+  RadioConfigProvider,
+  useRadioConfig,
+  useRadioItem,
+} from "./radio.context";
+import type { RadioConfigContextValue, RadioItemContextValue } from "./radio.context";
 import * as styles from "./radio.css";
 import type {
   RadioSize,
@@ -14,13 +21,6 @@ import type {
   RadioLabelProps,
   RadioRootProps,
 } from "./radio.types";
-import {
-  RadioItemProvider,
-  RadioConfigProvider,
-  useRadioConfig,
-  useRadioItem,
-} from "./RadioContext";
-import type { RadioConfigContextValue, RadioItemContextValue } from "./RadioContext";
 
 const radioTextSizeMap = {
   lg: { label: "lg", helper: "sm" },

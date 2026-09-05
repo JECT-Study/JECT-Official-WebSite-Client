@@ -1,6 +1,6 @@
 import { useLayoutEffect, type AriaAttributes } from "react";
 
-import { useFieldContext } from "./Field.context";
+import { useFieldContext } from "./field.context";
 
 export interface UseFieldControlOptions {
   disabled?: boolean;
