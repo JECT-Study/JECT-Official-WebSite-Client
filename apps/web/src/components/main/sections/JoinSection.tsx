@@ -1,31 +1,39 @@
 import { BlockButton, Hero, Image, Label, Title } from "@jects/jds";
-import type { FunctionComponent, SVGProps } from "react";
 import { useNavigate } from "react-router-dom";
 
 import joinSectionImage from "@/assets/images/join-section.webp";
-import FigmaLogo from "@/assets/svg/figmaLogo.svg?react";
-import SwypLogo from "@/assets/svg/swypLogo.svg?react";
+import altLogo from "@/assets/images/sponsors/alt-logo.png";
+import bdaiLogo from "@/assets/images/sponsors/bdai-logo.png";
+import figmaLogo from "@/assets/images/sponsors/figma-logo.png";
+import my4cutLogo from "@/assets/images/sponsors/my4cut-logo.png";
+import swypLogo from "@/assets/images/sponsors/swyp-logo.png";
 import { PATH } from "@/constants/path";
 import { trackApplyStart } from "@/utils/analytics";
 
-const SponsorCard = ({
-  name,
-  href,
-  logo: Logo,
-}: {
+interface Sponsor {
   name: string;
+  logo: string;
   href: string;
-  logo: FunctionComponent<SVGProps<SVGSVGElement>>;
-}) => {
+}
+
+const SPONSORS: Sponsor[] = [
+  { name: "Figma", logo: figmaLogo, href: "https://www.figma.com/ko-kr" },
+  { name: "스위프", logo: swypLogo, href: "https://swyp.im" },
+  { name: "BDAI", logo: bdaiLogo, href: "https://www.bdai.co.kr" },
+  { name: "Alt", logo: altLogo, href: "https://www.altalt.io/ko" },
+  { name: "나만의 네컷", logo: my4cutLogo, href: "https://my4cut-official.com" },
+];
+
+const SponsorCard = ({ name, logo, href }: Sponsor) => {
   return (
     <a
       href={href}
       target='_blank'
       rel='noopener noreferrer'
       aria-label={`${name} 웹사이트 (새 창 열림)`}
-      className='border-border-trans-alternative-dark bg-surface-deep-dark desktop:w-60 desktop:h-25 tablet:w-[158px] tablet:h-[66px] flex h-33 w-full items-center justify-center rounded-(--semantic-radius-6) border'
+      className='flex aspect-12/5 w-full items-center justify-center rounded-(--semantic-radius-6) border border-border-trans-alternative-dark bg-surface-deep-dark'
     >
-      <Logo className='h-auto w-2/3 max-w-40' aria-hidden />
+      <img src={logo} alt='' className='max-h-1/2 w-1/2 max-w-40 object-contain' />
     </a>
   );
 };
@@ -40,7 +48,7 @@ const JoinSection = () => {
 
   return (
     <section className='flex flex-col items-center bg-(--semantic-surface-static-inverse-standard) px-(--semantic-margin-lg) py-(--semantic-margin-5xl)'>
-      <div className='tablet:flex-row flex w-full max-w-[922px] flex-col items-start gap-(--semantic-spacing-48) pt-(--semantic-margin-xl) pb-(--semantic-margin-3xl)'>
+      <div className='flex w-full max-w-[922px] flex-col items-start gap-(--semantic-spacing-48) pt-(--semantic-margin-xl) pb-(--semantic-margin-3xl) tablet:flex-row'>
         <div className='flex flex-col gap-(--semantic-spacing-48)'>
           <div className='flex flex-col gap-(--semantic-spacing-16) whitespace-pre-line'>
             <Hero size='xs' textAlign='left' color='var(--semantic-system-white)'>
@@ -76,7 +84,7 @@ const JoinSection = () => {
           className='flex-1 overflow-hidden [&_img]:scale-120'
         />
       </div>
-      <div className='tablet:justify-between tablet:flex-row tablet:items-center mb-(--semantic-spacing-80) flex w-full max-w-[922px] flex-col gap-(--semantic-spacing-32) pt-(--semantic-spacing-32) pb-(--semantic-spacing-12)'>
+      <div className='mb-(--semantic-spacing-80) flex w-full max-w-[922px] flex-col gap-(--semantic-spacing-32) pt-(--semantic-spacing-32) pb-(--semantic-spacing-12)'>
         <div className='flex flex-col gap-(--semantic-spacing-16)'>
           <Title size='md' textAlign='left' color='var(--semantic-system-white)'>
             젝트와 함께하는 파트너
@@ -91,9 +99,10 @@ const JoinSection = () => {
             구성원들의 몰입과 성장을 지원하고 있어요.
           </Label>
         </div>
-        <div className='tablet:flex-row flex flex-col gap-(--semantic-spacing-16)'>
-          <SponsorCard name='Figma' href='https://www.figma.com/ko-kr/' logo={FigmaLogo} />
-          <SponsorCard name='스위프' href='https://swyp.im/' logo={SwypLogo} />
+        <div className='grid grid-cols-1 gap-(--semantic-spacing-16) tablet:grid-cols-2 desktop:grid-cols-3'>
+          {SPONSORS.map(sponsor => (
+            <SponsorCard key={sponsor.name} {...sponsor} />
+          ))}
         </div>
       </div>
     </section>
