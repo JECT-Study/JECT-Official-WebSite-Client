@@ -17,8 +17,8 @@ export type AccordionRootProps = AccordionRootBaseProps & AccordionPrimitiveProp
 
 export type AccordionItemProps = AccordionPrimitive.AccordionItemProps;
 
-export type AccordionTriggerProps = AccordionPrimitive.AccordionTriggerProps & {
+export interface AccordionTriggerProps extends AccordionPrimitive.AccordionTriggerProps {
   withPrefixIcon?: IconName;
-};
+}
 
 export type AccordionContentProps = AccordionPrimitive.AccordionContentProps;

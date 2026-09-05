@@ -1,8 +1,6 @@
-import { createContext, useContext } from "react";
-
 import type { FieldCounterState, FieldStatus } from "./field.types";
 
-import { createCtxProvider } from "@/hooks/createCtxProvider";
+import { createCtxProvider, createOptionalCtxProvider } from "@/hooks/createCtxProvider";
 
 export interface FieldContextValue {
   fieldId: string;
@@ -35,11 +33,5 @@ export interface FieldContextValue {
 export const [FieldProvider, useFieldContext] = createCtxProvider<FieldContextValue>("Field");
 
 // 카운터 값은 입력마다 바뀌므로 Field 컨텍스트에서 분리한다.
-const FieldCounterValueContext = createContext<FieldCounterState | null>(null);
-
-export const FieldCounterValueProvider = FieldCounterValueContext.Provider;
-
-/** 컨트롤이 전달한 카운터 값을 읽는다. 전달된 값이 없으면 `null`이다. */
-export const useFieldCounterValue = () => useContext(FieldCounterValueContext);
-
-FieldCounterValueContext.displayName = "FieldCounterValueContext";
+export const [FieldCounterValueProvider, useFieldCounterValue] =
+  createOptionalCtxProvider<FieldCounterState>("FieldCounterValue");

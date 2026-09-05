@@ -1,14 +1,11 @@
 import { clsx } from "clsx";
-import { forwardRef, useLayoutEffect, type ComponentPropsWithoutRef, type ReactNode } from "react";
+import { forwardRef, useLayoutEffect } from "react";
 
-import { useFieldContext } from "../Field.context";
+import { useFieldContext } from "../field.context";
 import * as styles from "../field.css";
+import type { FieldHelperProps } from "../field.types";
 
 import { getLabelClassName } from "@/utils/typography";
-
-export interface FieldHelperProps extends ComponentPropsWithoutRef<"span"> {
-  children?: ReactNode;
-}
 
 export const FieldHelper = forwardRef<HTMLSpanElement, FieldHelperProps>(
   ({ children, className, ...restProps }, ref) => {

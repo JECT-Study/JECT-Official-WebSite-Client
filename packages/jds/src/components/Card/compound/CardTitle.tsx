@@ -1,8 +1,8 @@
 import { clsx } from "clsx";
 import { forwardRef } from "react";
 
+import { useCardContext } from "../card.context";
 import type { CardTitleProps } from "../card.types";
-import { useCardContext } from "../cardContext";
 import * as styles from "./card.css";
 
 import { getTitleClassName } from "@/utils/typography";

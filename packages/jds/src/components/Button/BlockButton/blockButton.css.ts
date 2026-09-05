@@ -19,9 +19,17 @@ export const iconSizeMap: Record<BlockButtonSize, IconSize> = {
   xs: "2xs",
 };
 
-type SolidPalette = { backgroundColor: string; color: string };
-type OutlinedPalette = { borderColor: string; color: string };
-type HollowPalette = { color: string };
+interface SolidPalette {
+  backgroundColor: string;
+  color: string;
+}
+interface OutlinedPalette {
+  borderColor: string;
+  color: string;
+}
+interface HollowPalette {
+  color: string;
+}
 
 const solidDisabled = {
   backgroundColor: vars.color.semantic.fill.subtlest,

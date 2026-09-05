@@ -4,7 +4,9 @@ import type { PostPresetBaseProps, PostLinkProps, PostButtonProps } from "../car
 import { CardThumbnail, CardContent, CardMeta, CardMetaItem, CardOverlay } from "../compound";
 import { PresetFrame, TitleBody } from "./shared";
 
-type PostBaseProps = PostPresetBaseProps & { overlay: ReactNode };
+interface PostBaseProps extends PostPresetBaseProps {
+  overlay: ReactNode;
+}
 
 const PostBase = forwardRef<HTMLDivElement, PostBaseProps>(
   ({ layout = "vertical", image, title, body, author, date, overlay, ...frameProps }, ref) => {

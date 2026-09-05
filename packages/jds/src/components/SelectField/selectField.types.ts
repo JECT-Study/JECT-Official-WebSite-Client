@@ -5,10 +5,10 @@ import type { OptionVariant, SelectOption } from "../Listbox";
 
 export type SelectFieldProps = FieldProps;
 
-type SelectFieldInputBaseProps = Omit<
+interface SelectFieldInputBaseProps extends Omit<
   ComponentPropsWithoutRef<"input">,
   "id" | "type" | "value" | "defaultValue" | "onChange" | "required"
-> & {
+> {
   /** 필수 입력 여부. aria-required로 반영한다. */
   required?: boolean;
   options: SelectOption[];
@@ -18,19 +18,19 @@ type SelectFieldInputBaseProps = Omit<
   variant?: OptionVariant;
   /** 입력 오른쪽에 형제로 배치되는 부가 요소 */
   suffix?: ReactNode;
-};
+}
 
-type SelectFieldInputControlledProps = {
+interface SelectFieldInputControlledProps {
   value: string | null;
   defaultValue?: never;
   onChange: (value: string) => void;
-};
+}
 
-type SelectFieldInputUncontrolledProps = {
+interface SelectFieldInputUncontrolledProps {
   value?: never;
   defaultValue?: string;
   onChange?: (value: string) => void;
-};
+}
 
 export type SelectFieldInputProps = SelectFieldInputBaseProps &
   (SelectFieldInputControlledProps | SelectFieldInputUncontrolledProps);

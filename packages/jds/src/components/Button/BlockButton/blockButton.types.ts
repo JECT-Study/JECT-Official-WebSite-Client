@@ -12,13 +12,13 @@ export type BlockButtonHierarchy = (typeof BLOCK_BUTTON_HIERARCHY_OPTIONS)[numbe
 export type BlockButtonVariant = (typeof BLOCK_BUTTON_VARIANT_OPTIONS)[number];
 export type BlockButtonFeedback = (typeof BLOCK_BUTTON_FEEDBACK_OPTIONS)[number];
 
-export type BaseBlockButtonProps = ComponentPropsWithoutRef<"button"> & {
+export interface BaseBlockButtonProps extends ComponentPropsWithoutRef<"button"> {
   "data-part"?: never;
   children: ReactNode;
   size?: BlockButtonSize;
   prefixIcon?: IconName;
   suffixIcon?: IconName;
-};
+}
 
 export type BlockButtonProps = BaseBlockButtonProps &
   (

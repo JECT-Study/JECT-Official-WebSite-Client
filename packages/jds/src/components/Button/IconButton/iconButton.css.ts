@@ -58,8 +58,14 @@ const sizeVariants = {
   "3xl": { width: "32px", height: "32px" },
 } satisfies Record<IconButtonSize, StyleRule>;
 
-type TapAreaShape = { inset: string; borderRadius: string };
-type PaddingGeometry = { padding: string; borderRadius: string };
+interface TapAreaShape {
+  inset: string;
+  borderRadius: string;
+}
+interface PaddingGeometry {
+  padding: string;
+  borderRadius: string;
+}
 
 const tapAreaInsetBySize = {
   "2xs": { inset: "-1px", borderRadius: vars.scheme.semantic.radius["2"] },

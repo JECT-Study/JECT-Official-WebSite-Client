@@ -1,6 +1,5 @@
 export { Textarea } from "./Textarea";
-export type { TextareaProps } from "./Textarea";
-export type { TextareaControlProps } from "./compound/Control";
+export type { TextareaControlProps, TextareaProps } from "./textarea.types";
 export type {
   FieldLabelProps as TextareaLabelProps,
   FieldHelperProps as TextareaHelperProps,

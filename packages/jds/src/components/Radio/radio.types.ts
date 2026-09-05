@@ -11,72 +11,72 @@ type RadioRootLayoutProps =
   | { layout?: "vertical"; columns?: never }
   | { layout: "grid"; columns: number };
 
-type RadioRootControlledProps = {
+interface RadioRootControlledProps {
   value: string;
   defaultValue?: never;
   onChange: (value: string) => void;
-};
+}
 
-type RadioRootUncontrolledProps = {
+interface RadioRootUncontrolledProps {
   value?: never;
   defaultValue?: string;
   onChange?: (value: string) => void;
-};
+}
 
-type RadioRootBaseProps = {
+interface RadioRootBaseProps {
   size?: RadioSize;
   variant?: RadioVariant;
   disabled?: boolean;
   stretched?: boolean;
   name?: string;
   children: ReactNode;
-};
+}
 
 export type RadioRootProps = RadioRootBaseProps &
   AriaLabelProps &
   RadioRootLayoutProps &
   (RadioRootControlledProps | RadioRootUncontrolledProps);
 
-export type RadioItemProps = Omit<ComponentPropsWithoutRef<"button">, "value"> & {
+export interface RadioItemProps extends Omit<ComponentPropsWithoutRef<"button">, "value"> {
   value: string;
   size?: RadioSize;
   variant?: RadioVariant;
   disabled?: boolean;
   stretched?: boolean;
   children: ReactNode;
-};
+}
 
-export type RadioOption = {
+export interface RadioOption {
   value: string;
   label: RenderableNode;
   helper?: ReactNode;
   disabled?: boolean;
-};
+}
 
-type RadioGroupBaseProps = {
+interface RadioGroupBaseProps {
   size?: RadioSize;
   variant?: RadioVariant;
   disabled?: boolean;
   stretched?: boolean;
   name?: string;
   options: RadioOption[];
-};
+}
 
 export type RadioGroupProps = RadioGroupBaseProps &
   AriaLabelProps &
   RadioRootLayoutProps &
   (RadioRootControlledProps | RadioRootUncontrolledProps);
 
-export type RadioIndicatorProps = Omit<ComponentPropsWithoutRef<"span">, "children"> & {
+export interface RadioIndicatorProps extends Omit<ComponentPropsWithoutRef<"span">, "children"> {
   size?: RadioSize;
   checked?: boolean;
   disabled?: boolean;
-};
+}
 
-export type RadioLabelProps = {
+export interface RadioLabelProps {
   children: ReactNode;
-};
+}
 
-export type RadioHelperProps = {
+export interface RadioHelperProps {
   children: ReactNode;
-};
+}

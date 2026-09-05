@@ -8,5 +8,6 @@ export type {
   SnackbarItem,
   SnackbarHandler,
 } from "./snackbar.types";
-export { useSnackbar, SnackbarProvider } from "./SnackbarProvider";
+export { useSnackbar } from "./snackbar.context";
+export { SnackbarProvider } from "./SnackbarProvider";
 export { snackbarController } from "./snackbarController";

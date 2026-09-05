@@ -3,8 +3,8 @@ import { forwardRef } from "react";
 
 import * as styles from "./card.css";
 import { Thumbnail, type ThumbnailShapeProps } from "../../Thumbnail";
+import { useCardContext } from "../card.context";
 import type { CardThumbnailProps } from "../card.types";
-import { useCardContext } from "../cardContext";
 
 const ratioByVariantLayout = {
   plate: { vertical: "2:3", horizontal: "1:1" },

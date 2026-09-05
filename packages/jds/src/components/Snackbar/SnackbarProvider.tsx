@@ -1,11 +1,12 @@
 import type { ReactNode } from "react";
-import { createContext, useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { visuallyHidden } from "utils";
 
 import { Snackbar } from "./Snackbar";
+import { SnackbarContextProvider } from "./snackbar.context";
 import { stackContainer } from "./snackbar.css";
-import type { SnackbarHandler, SnackbarItem } from "./snackbar.types";
+import type { SnackbarItem } from "./snackbar.types";
 import { snackbarController } from "./snackbarController";
 import { useSnackbarProvider } from "./useSnackbarProvider";
 
@@ -15,13 +16,6 @@ interface SnackbarProviderProps {
   children: ReactNode;
   duration?: number;
 }
-
-interface SnackbarContextType {
-  snackbar: SnackbarHandler;
-  removeSnackbar: (id: string) => void;
-}
-
-const SnackbarContext = createContext<SnackbarContextType | null>(null);
 
 const getSnackbarActionLabel = (snackbar: SnackbarItem) => snackbar.label;
 
@@ -43,7 +37,7 @@ export const SnackbarProvider = ({ children, duration }: SnackbarProviderProps) 
   }, []);
 
   return (
-    <SnackbarContext.Provider value={{ snackbar: handler, removeSnackbar }}>
+    <SnackbarContextProvider value={{ snackbar: handler, removeSnackbar }}>
       {children}
 
       {/* 스크린리더 전용 live region: alert/status 채널별 최신 스낵바를 각 영역에서 낭독 */}
@@ -69,13 +63,6 @@ export const SnackbarProvider = ({ children, duration }: SnackbarProviderProps) 
           </div>,
           document.body,
         )}
-    </SnackbarContext.Provider>
+    </SnackbarContextProvider>
   );
-};
-
-export const useSnackbar = () => {
-  const context = useContext(SnackbarContext);
-  if (!context) throw new Error("useSnackbar must be used within SnackbarProvider");
-
-  return context;
 };

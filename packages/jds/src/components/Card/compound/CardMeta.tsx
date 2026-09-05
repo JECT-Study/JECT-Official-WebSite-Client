@@ -1,8 +1,8 @@
 import { clsx } from "clsx";
 import { forwardRef } from "react";
 
+import { useCardRootGuard } from "../card.context";
 import type { CardMetaProps } from "../card.types";
-import { useCardRootGuard } from "../cardContext";
 import * as styles from "./card.css";
 
 export const CardMeta = forwardRef<HTMLDivElement, CardMetaProps>(

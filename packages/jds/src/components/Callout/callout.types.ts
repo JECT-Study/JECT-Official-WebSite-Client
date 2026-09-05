@@ -5,11 +5,11 @@ import type { IconName } from "../Icon";
 export type CalloutFeedback = "none" | "positive" | "destructive" | "notifying";
 export type CalloutSize = "lg" | "md" | "sm" | "xs";
 
-type CalloutBaseProps = Omit<ComponentPropsWithoutRef<"div">, "title"> & {
+interface CalloutBaseProps extends Omit<ComponentPropsWithoutRef<"div">, "title"> {
   size?: CalloutSize;
   feedback?: CalloutFeedback;
   children: ReactNode;
-};
+}
 
 interface CalloutWithTitle {
   title: string;

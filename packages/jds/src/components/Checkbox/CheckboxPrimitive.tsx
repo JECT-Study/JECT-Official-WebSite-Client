@@ -8,6 +8,19 @@ import type { LabelSize } from "utils";
 
 import type { IconSize } from "../Icon";
 import { Icon } from "../Icon";
+import {
+  CheckboxConfigProvider,
+  CheckboxItemProvider,
+  CheckboxSelectionProvider,
+  useCheckboxConfig,
+  useCheckboxItem,
+  useCheckboxSelection,
+} from "./checkbox.context";
+import type {
+  CheckboxConfigContextValue,
+  CheckboxGroupState,
+  CheckboxItemContextValue,
+} from "./checkbox.context";
 import * as styles from "./checkbox.css";
 import type {
   CheckedState,
@@ -19,19 +32,6 @@ import type {
   CheckboxRootProps,
   CheckboxSize,
 } from "./checkbox.types";
-import {
-  CheckboxConfigProvider,
-  CheckboxItemProvider,
-  CheckboxSelectionProvider,
-  useCheckboxConfig,
-  useCheckboxItem,
-  useCheckboxSelection,
-} from "./CheckboxContext";
-import type {
-  CheckboxConfigContextValue,
-  CheckboxGroupState,
-  CheckboxItemContextValue,
-} from "./CheckboxContext";
 
 import {
   RovingFocusProvider,

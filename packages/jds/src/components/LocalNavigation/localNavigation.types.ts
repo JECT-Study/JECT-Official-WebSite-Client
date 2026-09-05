@@ -12,14 +12,14 @@ export const LOCAL_NAVIGATION_TITLE_AS_OPTIONS = [
 
 export type LocalNavigationTitleAs = (typeof LOCAL_NAVIGATION_TITLE_AS_OPTIONS)[number];
 
-type LocalNavigationBaseProps = Omit<
+interface LocalNavigationBaseProps extends Omit<
   ComponentPropsWithoutRef<"nav">,
   "title" | "children" | "aria-labelledby"
-> & {
+> {
   title: string;
   titleAs?: LocalNavigationTitleAs;
   suffixAction?: ReactNode;
-};
+}
 
 type NestedProps =
   | { nested?: false; onBackClick?: never }

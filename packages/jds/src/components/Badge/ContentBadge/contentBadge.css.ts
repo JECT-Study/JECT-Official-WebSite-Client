@@ -11,18 +11,18 @@ import {
   iconButtonAccentDisabledColor,
 } from "../../Button/IconButton/iconButton.css";
 
-type BadgeSizeConfig = {
+interface BadgeSizeConfig {
   minWidth: number;
   paddingTopBottom: string;
   paddingLeftRight: string;
-};
+}
 
-type BadgeStyle = {
+interface BadgeStyle {
   bg: string;
   color: string;
   border: string;
   iconColor?: string;
-};
+}
 
 const badgeTextColor = createVar();
 const badgeIconColor = createVar();

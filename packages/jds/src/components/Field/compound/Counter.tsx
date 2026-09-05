@@ -1,12 +1,11 @@
 import { clsx } from "clsx";
-import { forwardRef, useLayoutEffect, type ComponentPropsWithoutRef } from "react";
+import { forwardRef, useLayoutEffect } from "react";
 
-import { useFieldContext, useFieldCounterValue } from "../Field.context";
+import { useFieldContext, useFieldCounterValue } from "../field.context";
 import * as styles from "../field.css";
+import type { FieldCounterProps } from "../field.types";
 
 import { getLabelClassName } from "@/utils/typography";
-
-export type FieldCounterProps = Omit<ComponentPropsWithoutRef<"span">, "children">;
 
 /**
  * @description 컨트롤이 보고한 카운터 값을 렌더한다.

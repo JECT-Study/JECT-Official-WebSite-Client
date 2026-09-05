@@ -1,7 +1,5 @@
 import {
-  createContext,
   useCallback,
-  useContext,
   useLayoutEffect,
   useMemo,
   useRef,
@@ -10,6 +8,8 @@ import {
   type KeyboardEvent,
   type Ref,
 } from "react";
+
+import { createOptionalCtxProvider } from "./createCtxProvider";
 
 interface RovingFocusContextValue {
   tabStopId: string | null;
@@ -28,9 +28,10 @@ interface RovingFocusGroup<T extends HTMLElement> {
   contextValue: RovingFocusContextValue;
 }
 
-const RovingFocusContext = createContext<RovingFocusContextValue | null>(null);
+const [RovingFocusProvider, useRovingFocusContext] =
+  createOptionalCtxProvider<RovingFocusContextValue>("RovingFocus");
 
-export const RovingFocusProvider = RovingFocusContext.Provider;
+export { RovingFocusProvider };
 
 const NAVIGATION_KEYS = ["ArrowDown", "ArrowRight", "ArrowUp", "ArrowLeft", "Home", "End"];
 
@@ -154,7 +155,7 @@ interface RovingFocusItemProps {
  * 반환값을 각 항목에 전달하면 `tabIndex`와 조회용 `data-roving-*` 속성이 적용된다.
  */
 export function useRovingFocusItem(id: string | undefined): RovingFocusItemProps | undefined {
-  const context = useContext(RovingFocusContext);
+  const context = useRovingFocusContext();
   const onItemUnmount = context?.onItemUnmount;
 
   useLayoutEffect(() => {

@@ -1,21 +1,13 @@
 import { clsx } from "clsx";
-import { forwardRef, useId, useState, type ComponentPropsWithoutRef, type ReactNode } from "react";
+import { forwardRef, useId, useState } from "react";
 
 import { FieldCounter } from "./compound/Counter";
 import { FieldFooter } from "./compound/Footer";
 import { FieldHelper } from "./compound/Helper";
 import { FieldLabel } from "./compound/Label";
-import { FieldCounterValueProvider, FieldProvider } from "./Field.context";
+import { FieldCounterValueProvider, FieldProvider } from "./field.context";
 import * as styles from "./field.css";
-import type { FieldCounterState, FieldStatus } from "./field.types";
-
-export interface FieldProps extends ComponentPropsWithoutRef<"div"> {
-  status?: FieldStatus;
-  readonly?: boolean;
-  disabled?: boolean;
-  required?: boolean;
-  children: ReactNode;
-}
+import type { FieldCounterState, FieldProps } from "./field.types";
 
 const InternalField = forwardRef<HTMLDivElement, FieldProps>(
   (
@@ -44,23 +36,25 @@ const InternalField = forwardRef<HTMLDivElement, FieldProps>(
 
     return (
       <FieldProvider
-        fieldId={fieldId}
-        labelId={labelId}
-        hasLabel={hasLabel}
-        onLabelMountChange={setHasLabel}
-        helperId={helperId}
-        hasHelper={hasHelper}
-        onHelperMountChange={setHasHelper}
-        counterId={counterId}
-        onCounterChange={setCounter}
-        hasCounter={hasCounter}
-        onCounterMountChange={setHasCounter}
-        isControlRequired={isControlRequired}
-        onControlRequiredChange={setControlRequired}
-        status={status}
-        readonly={readonly}
-        disabled={disabled}
-        required={required}
+        value={{
+          fieldId,
+          labelId,
+          hasLabel,
+          onLabelMountChange: setHasLabel,
+          helperId,
+          hasHelper,
+          onHelperMountChange: setHasHelper,
+          counterId,
+          onCounterChange: setCounter,
+          hasCounter,
+          onCounterMountChange: setHasCounter,
+          isControlRequired,
+          onControlRequiredChange: setControlRequired,
+          status,
+          readonly,
+          disabled,
+          required,
+        }}
       >
         <FieldCounterValueProvider value={counter}>
           <div ref={ref} className={clsx(styles.container(), className)} {...restProps}>

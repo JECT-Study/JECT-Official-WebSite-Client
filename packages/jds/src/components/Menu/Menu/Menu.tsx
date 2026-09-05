@@ -2,6 +2,7 @@ import { clsx } from "clsx";
 import { DropdownMenu } from "radix-ui";
 import { Children, forwardRef, useId, useState } from "react";
 
+import { MenuProvider, useMenuContext } from "./menu.context";
 import {
   menuCategory,
   menuCategoryContainer,
@@ -22,7 +23,6 @@ import type {
   MenuSize,
   MenuTreeProps,
 } from "./menu.types";
-import { MenuContext, useMenuContext } from "./menuContext";
 import { MenuItem } from "../MenuItem";
 
 import { IconButton } from "@/components/Button/IconButton";
@@ -31,9 +31,9 @@ import { getLabelClassName, type LabelSize } from "@/utils/typography";
 
 const MenuRoot = ({ children, menuStyle = "solid", size = "md", ...rest }: MenuRootProps) => {
   return (
-    <MenuContext.Provider value={{ menuStyle, size }}>
+    <MenuProvider value={{ menuStyle, size }}>
       <DropdownMenu.Root {...rest}>{children}</DropdownMenu.Root>
-    </MenuContext.Provider>
+    </MenuProvider>
   );
 };
 
