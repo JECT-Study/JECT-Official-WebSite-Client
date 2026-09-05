@@ -643,39 +643,6 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const HowToUseTokens: Story = {
-  render: () => (
-    <article style={{ ...panelStyle, maxWidth: "560px" }}>
-      <h2 className={getTitleClassName({ size: "sm" })} style={{ margin: 0 }}>
-        기본 카드 컴포넌트
-      </h2>
-      <p
-        className={getBodyClassName({ size: "md" })}
-        style={{
-          margin: `${vars.scheme.semantic.spacing["8"]} 0 ${vars.scheme.semantic.spacing["16"]}`,
-          color: vars.color.semantic.object.neutral,
-        }}
-      >
-        토큰을 사용한 기본적인 카드 레이아웃입니다.
-      </p>
-      <button
-        className={getLabelClassName({ size: "md", weight: "bold" })}
-        style={{
-          padding: `${vars.scheme.semantic.spacing["8"]} ${vars.scheme.semantic.spacing["16"]}`,
-          border: 0,
-          borderRadius: vars.scheme.semantic.radius["4"],
-          backgroundColor: vars.color.semantic.accent.normal,
-          color: vars.color.semantic.object.inverse.bold,
-          cursor: "pointer",
-        }}
-        type='button'
-      >
-        액션 버튼
-      </button>
-    </article>
-  ),
-};
-
 export const ColorPrimitive: Story = {
   render: () => (
     <TokenSection title='Color Primitive Tokens'>
@@ -1014,6 +981,80 @@ export const Typography: Story = {
   },
 };
 
+export const TextStyle: Story = {
+  render: () => (
+    <div style={stackStyle}>
+      <TokenSection title='Title Styles'>
+        <TextStylePanel>
+          {titleSizes.map((size, index) => (
+            <TextStyleRow key={size} divided={index > 0} label={size.toUpperCase()}>
+              <span className={getTitleClassName({ size })}>
+                Title {size.toUpperCase()} - All text properties applied
+              </span>
+            </TextStyleRow>
+          ))}
+        </TextStylePanel>
+      </TokenSection>
+
+      <TokenSection title='Label Styles'>
+        <TextStylePanel>
+          {labelSizes.map((size, index) => (
+            <TextStyleRow key={size} divided={index > 0} label={size.toUpperCase()}>
+              <TextStyleVariants>
+                {labelWeights.map(weight => {
+                  const weightLabel = toWeightLabel(weight);
+
+                  return (
+                    <TextStyleVariant key={weight} label={weightLabel}>
+                      <span className={getLabelClassName({ size, weight })}>
+                        All text properties applied
+                      </span>
+                    </TextStyleVariant>
+                  );
+                })}
+              </TextStyleVariants>
+            </TextStyleRow>
+          ))}
+        </TextStylePanel>
+      </TokenSection>
+
+      <TokenSection title='Body Styles'>
+        <TextStylePanel>
+          {bodySizes.map((size, index) => (
+            <TextStyleRow key={size} divided={index > 0} label={size.toUpperCase()}>
+              <TextStyleVariants>
+                {bodyWeights.map(weight => {
+                  const weightLabel = toWeightLabel(weight);
+
+                  return (
+                    <TextStyleVariant key={weight} label={weightLabel}>
+                      <span className={getBodyClassName({ size, weight })}>
+                        All text properties applied
+                      </span>
+                    </TextStyleVariant>
+                  );
+                })}
+              </TextStyleVariants>
+            </TextStyleRow>
+          ))}
+        </TextStylePanel>
+      </TokenSection>
+
+      <TokenSection title='Syntax Styles'>
+        <TextStylePanel>
+          {syntaxSizes.map((size, index) => (
+            <TextStyleRow key={size} divided={index > 0} label={size.toUpperCase()}>
+              <code className={getSyntaxClassName({ size })}>
+                Syntax {size.toUpperCase()} - All text properties applied
+              </code>
+            </TextStyleRow>
+          ))}
+        </TextStylePanel>
+      </TokenSection>
+    </div>
+  ),
+};
+
 export const Scheme: Story = {
   render: () => (
     <TokenSection title='Scheme Tokens'>
@@ -1260,116 +1301,4 @@ export const Environment: Story = {
       },
     },
   },
-};
-
-export const TextStyle: Story = {
-  render: () => (
-    <div style={stackStyle}>
-      <TokenSection title='Title Styles'>
-        <TextStylePanel>
-          {titleSizes.map((size, index) => (
-            <TextStyleRow key={size} divided={index > 0} label={size.toUpperCase()}>
-              <span className={getTitleClassName({ size })}>
-                Title {size.toUpperCase()} - All text properties applied
-              </span>
-            </TextStyleRow>
-          ))}
-        </TextStylePanel>
-      </TokenSection>
-
-      <TokenSection title='Label Styles'>
-        <TextStylePanel>
-          {labelSizes.map((size, index) => (
-            <TextStyleRow key={size} divided={index > 0} label={size.toUpperCase()}>
-              <TextStyleVariants>
-                {labelWeights.map(weight => {
-                  const weightLabel = toWeightLabel(weight);
-
-                  return (
-                    <TextStyleVariant key={weight} label={weightLabel}>
-                      <span className={getLabelClassName({ size, weight })}>
-                        All text properties applied
-                      </span>
-                    </TextStyleVariant>
-                  );
-                })}
-              </TextStyleVariants>
-            </TextStyleRow>
-          ))}
-        </TextStylePanel>
-      </TokenSection>
-
-      <TokenSection title='Body Styles'>
-        <TextStylePanel>
-          {bodySizes.map((size, index) => (
-            <TextStyleRow key={size} divided={index > 0} label={size.toUpperCase()}>
-              <TextStyleVariants>
-                {bodyWeights.map(weight => {
-                  const weightLabel = toWeightLabel(weight);
-
-                  return (
-                    <TextStyleVariant key={weight} label={weightLabel}>
-                      <span className={getBodyClassName({ size, weight })}>
-                        All text properties applied
-                      </span>
-                    </TextStyleVariant>
-                  );
-                })}
-              </TextStyleVariants>
-            </TextStyleRow>
-          ))}
-        </TextStylePanel>
-      </TokenSection>
-
-      <TokenSection title='Syntax Styles'>
-        <TextStylePanel>
-          {syntaxSizes.map((size, index) => (
-            <TextStyleRow key={size} divided={index > 0} label={size.toUpperCase()}>
-              <code className={getSyntaxClassName({ size })}>
-                Syntax {size.toUpperCase()} - All text properties applied
-              </code>
-            </TextStyleRow>
-          ))}
-        </TextStylePanel>
-      </TokenSection>
-    </div>
-  ),
-};
-
-export const AllTokensCombined: Story = {
-  render: () => (
-    <article
-      style={{
-        ...panelStyle,
-        maxWidth: "640px",
-        boxShadow: vars.environment.semantic.shadow.raised,
-      }}
-    >
-      <h2 className={getTitleClassName({ size: "sm" })} style={{ margin: 0 }}>
-        JDS Design Token
-      </h2>
-      <p
-        className={getBodyClassName({ size: "md" })}
-        style={{
-          margin: `${vars.scheme.semantic.spacing["8"]} 0 0`,
-          color: vars.color.semantic.object.neutral,
-        }}
-      >
-        Semantic color, scheme, typography, environment 토큰을 함께 적용한 예시입니다.
-      </p>
-      <span
-        className={getLabelClassName({ size: "sm", weight: "bold" })}
-        style={{
-          display: "inline-block",
-          marginTop: vars.scheme.semantic.spacing["16"],
-          padding: `${vars.scheme.semantic.spacing["4"]} ${vars.scheme.semantic.spacing["8"]}`,
-          borderRadius: vars.scheme.semantic.radius.max,
-          backgroundColor: vars.color.semantic.accent.alpha.subtlest,
-          color: vars.color.semantic.accent.normal,
-        }}
-      >
-        Token based UI
-      </span>
-    </article>
-  ),
 };
