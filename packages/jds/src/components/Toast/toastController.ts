@@ -1,13 +1,13 @@
 import type { ToastHandler } from "./toast.types";
 
-type ToastController = {
+interface ToastController {
   setHandler: (handler: ToastHandler) => void;
   clearHandler: () => void;
   basic: ToastHandler["basic"];
   positive: ToastHandler["positive"];
   destructive: ToastHandler["destructive"];
   notifying: ToastHandler["notifying"];
-};
+}
 
 let currentHandler: ToastHandler | null = null;
 

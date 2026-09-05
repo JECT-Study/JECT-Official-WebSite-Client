@@ -13,19 +13,19 @@ type CheckboxRootLayoutProps =
 
 export type CheckedState = boolean | "indeterminate";
 
-type CheckboxRootControlledProps = {
+interface CheckboxRootControlledProps {
   value: string[];
   defaultValue?: never;
   onChange: (value: string[]) => void;
-};
+}
 
-type CheckboxRootUncontrolledProps = {
+interface CheckboxRootUncontrolledProps {
   value?: never;
   defaultValue?: string[];
   onChange?: (value: string[]) => void;
-};
+}
 
-type CheckboxRootBaseProps = {
+interface CheckboxRootBaseProps {
   size?: CheckboxSize;
   variant?: CheckboxVariant;
   disabled?: boolean;
@@ -33,71 +33,71 @@ type CheckboxRootBaseProps = {
   stretched?: boolean;
   name?: string;
   children: ReactNode;
-};
+}
 
 export type CheckboxRootProps = CheckboxRootBaseProps &
   AriaLabelProps &
   CheckboxRootLayoutProps &
   (CheckboxRootControlledProps | CheckboxRootUncontrolledProps);
 
-export type CheckboxItemProps = ComponentPropsWithoutRef<"label"> & {
+export interface CheckboxItemProps extends ComponentPropsWithoutRef<"label"> {
   size?: CheckboxSize;
   variant?: CheckboxVariant;
   disabled?: boolean;
   isInvalid?: boolean;
   stretched?: boolean;
   children: ReactNode;
-};
+}
 
-type CheckboxControlControlledProps = {
+interface CheckboxControlControlledProps {
   checked: CheckedState;
   defaultChecked?: never;
   onCheckedChange: (checked: CheckedState) => void;
-};
+}
 
-type CheckboxControlUncontrolledProps = {
+interface CheckboxControlUncontrolledProps {
   checked?: never;
   defaultChecked?: boolean;
   onCheckedChange?: (checked: CheckedState) => void;
-};
+}
 
-type CheckboxControlBaseProps = Omit<
+interface CheckboxControlBaseProps extends Omit<
   ComponentPropsWithoutRef<"button">,
   "size" | "checked" | "defaultChecked" | "onChange" | "value" | "type"
-> & {
+> {
   size?: CheckboxSize;
   value?: string;
   disabled?: boolean;
   isInvalid?: boolean;
-};
+}
 
 export type CheckboxControlProps = CheckboxControlBaseProps &
   (CheckboxControlControlledProps | CheckboxControlUncontrolledProps);
 
-export type CheckboxIndicatorProps = Omit<ComponentPropsWithoutRef<"span">, "children"> & {
+export interface CheckboxIndicatorProps extends Omit<ComponentPropsWithoutRef<"span">, "children"> {
   size?: CheckboxSize;
   state?: CheckedState;
   disabled?: boolean;
   isInvalid?: boolean;
-};
+}
 
-export type CheckboxLabelProps = {
+export interface CheckboxLabelProps {
   children: ReactNode;
-};
+}
 
-export type CheckboxHelperProps = {
+export interface CheckboxHelperProps {
   children: ReactNode;
-};
+}
 
-export type CheckboxOption = {
+export interface CheckboxOption {
   value: string;
   label: RenderableNode;
   helper?: ReactNode;
   disabled?: boolean;
   isInvalid?: boolean;
-};
+}
 
-type CheckboxGroupBaseProps = {
+interface CheckboxGroupBaseProps {
   size?: CheckboxSize;
   variant?: CheckboxVariant;
   disabled?: boolean;
@@ -105,7 +105,7 @@ type CheckboxGroupBaseProps = {
   stretched?: boolean;
   name?: string;
   options: CheckboxOption[];
-};
+}
 
 export type CheckboxGroupProps = CheckboxGroupBaseProps &
   AriaLabelProps &

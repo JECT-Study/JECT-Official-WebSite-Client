@@ -1,5 +1,5 @@
 import { clsx } from "clsx";
-import { forwardRef, useId, useState, type ComponentPropsWithoutRef, type ReactNode } from "react";
+import { forwardRef, useId, useState } from "react";
 
 import { FieldCounter } from "./compound/Counter";
 import { FieldFooter } from "./compound/Footer";
@@ -7,15 +7,7 @@ import { FieldHelper } from "./compound/Helper";
 import { FieldLabel } from "./compound/Label";
 import { FieldCounterValueProvider, FieldProvider } from "./Field.context";
 import * as styles from "./field.css";
-import type { FieldCounterState, FieldStatus } from "./field.types";
-
-export interface FieldProps extends ComponentPropsWithoutRef<"div"> {
-  status?: FieldStatus;
-  readonly?: boolean;
-  disabled?: boolean;
-  required?: boolean;
-  children: ReactNode;
-}
+import type { FieldCounterState, FieldProps } from "./field.types";
 
 const InternalField = forwardRef<HTMLDivElement, FieldProps>(
   (

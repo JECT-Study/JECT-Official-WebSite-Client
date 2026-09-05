@@ -6,10 +6,10 @@ import { pxToRem } from "utils";
 import { BADGE_SIZE_OPTIONS } from "../badge.types";
 import type { BadgeSize, FeedbackVariant } from "../badge.types";
 
-type DotBadgeSizeConfig = {
+interface DotBadgeSizeConfig {
   width: number;
   height: number;
-};
+}
 
 const dotBadgeMutedOpacity = `calc(${vars.scheme.semantic.opacity["36"]} / 100)`;
 

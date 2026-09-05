@@ -1,9 +1,8 @@
 import { forwardRef } from "react";
 
-import { Field, type FieldProps } from "../Field";
+import { Field } from "../Field";
 import { TextareaControl } from "./compound/Control";
-
-export type TextareaProps = FieldProps;
+import type { TextareaProps } from "./textarea.types";
 
 const TextareaRoot = forwardRef<HTMLDivElement, TextareaProps>((props, ref) => {
   return <Field ref={ref} {...props} />;

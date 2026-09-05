@@ -1,13 +1,13 @@
 import type { SnackbarHandler } from "./snackbar.types";
 
-type SnackbarController = {
+interface SnackbarController {
   setHandler: (handler: SnackbarHandler) => void;
   clearHandler: () => void;
   basic: SnackbarHandler["basic"];
   positive: SnackbarHandler["positive"];
   destructive: SnackbarHandler["destructive"];
   notifying: SnackbarHandler["notifying"];
-};
+}
 
 let currentHandler: SnackbarHandler | null = null;
 

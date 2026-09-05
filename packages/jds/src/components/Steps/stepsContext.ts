@@ -2,11 +2,11 @@ import { createContext, useContext } from "react";
 
 import type { StepsLayout, StepsSize } from "./steps.types";
 
-type StepsContextValue = {
+interface StepsContextValue {
   size: StepsSize;
   layout: StepsLayout;
   currentStep?: number;
-};
+}
 
 export const StepsContext = createContext<StepsContextValue | null>(null);
 

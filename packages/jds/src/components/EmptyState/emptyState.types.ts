@@ -5,7 +5,7 @@ import type { ThumbnailProps } from "../Thumbnail";
 
 type BlockButtonActionProps = Pick<BlockButtonProps, "children" | "onClick" | "disabled">;
 
-export type EmptyStateProps = Omit<ComponentPropsWithoutRef<"div">, "children"> & {
+export interface EmptyStateProps extends Omit<ComponentPropsWithoutRef<"div">, "children"> {
   variant?: "hollow" | "dashed" | "alpha";
   layout?: "vertical" | "horizontal";
   header?: string;
@@ -13,4 +13,4 @@ export type EmptyStateProps = Omit<ComponentPropsWithoutRef<"div">, "children"> 
   image?: ThumbnailProps;
   primaryAction?: BlockButtonActionProps;
   secondaryAction?: BlockButtonActionProps;
-};
+}

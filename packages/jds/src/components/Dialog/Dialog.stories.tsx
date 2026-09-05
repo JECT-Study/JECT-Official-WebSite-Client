@@ -187,10 +187,10 @@ const MATRIX_STYLE = `
 .${MATRIX_CELL_CLASS} :where(button, label)::before, .${MATRIX_CELL_CLASS} :where(button, label)::after { box-shadow: none !important; }
 `;
 
-type MatrixCaseProps = {
+interface MatrixCaseProps extends Omit<DialogProps, "open" | "container" | "checkboxAction"> {
   label: string;
   checkbox?: boolean;
-} & Omit<DialogProps, "open" | "container" | "checkboxAction">;
+}
 
 const MatrixCase = ({ label, checkbox, ...props }: MatrixCaseProps) => {
   const [container, setContainer] = useState<HTMLDivElement | null>(null);

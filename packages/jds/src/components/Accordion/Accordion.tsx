@@ -12,7 +12,7 @@ import type {
 } from "./accordion.types";
 import { AccordionContext, useAccordionContext } from "./accordionContext";
 import { Icon } from "../Icon";
-import type { IconSize } from "../Icon/Icon.types";
+import type { IconSize } from "../Icon/icon.types";
 
 import type { BodySize } from "@/utils/typography";
 import { getBodyClassName, getLabelClassName } from "@/utils/typography";
