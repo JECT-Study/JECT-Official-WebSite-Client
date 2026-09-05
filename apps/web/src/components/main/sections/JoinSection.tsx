@@ -31,9 +31,13 @@ const SponsorCard = ({ name, logo, href }: Sponsor) => {
       target='_blank'
       rel='noopener noreferrer'
       aria-label={`${name} 웹사이트 (새 창 열림)`}
-      className='flex aspect-12/5 w-full items-center justify-center rounded-(--semantic-radius-6) border border-border-trans-alternative-dark bg-surface-deep-dark'
+      className='@container flex aspect-12/5 w-full items-center justify-center rounded-(--semantic-radius-6) border border-border-trans-alternative-dark bg-surface-deep-dark not-supports-[container-type:inline-size]:h-36'
     >
-      <img src={logo} alt='' className='max-h-1/2 w-1/2 max-w-40 object-contain' />
+      <img
+        src={logo}
+        alt=''
+        className='max-h-1/2 w-1/2 max-w-40 object-contain supports-[container-type:inline-size]:max-h-[calc(100cqw/4.8)]'
+      />
     </a>
   );
 };
