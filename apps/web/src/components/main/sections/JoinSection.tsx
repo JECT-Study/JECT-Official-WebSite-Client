@@ -35,7 +35,7 @@ const SponsorCard = ({ name, logo, href }: Sponsor) => {
       <img
         src={logo}
         alt={`${name} 웹사이트 (새 창 열림)`}
-        className='max-h-1/2 w-1/2 max-w-40 object-contain supports-[container-type:inline-size]:max-h-[calc(100cqw/4.8)]'
+        className='max-h-[calc(100cqw/4.8)] w-1/2 max-w-40 object-contain not-supports-[container-type:inline-size]:max-h-1/2'
       />
     </a>
   );
