@@ -5,37 +5,27 @@ import type { JobFamily } from "@/apis/apply";
 export const JOB_FAMILY_OPTIONS = [
   {
     value: "PM",
-    short: "PM",
     korean: "프로덕트 매니저",
-    english: "Product Manager",
     recruitmentTitle: "[젝트 5기] 프로덕트 매니저 모집",
   },
   {
     value: "PD",
-    short: "PD",
     korean: "프로덕트 디자이너",
-    english: "Product Designer",
     recruitmentTitle: "[젝트 5기] 프로덕트 디자이너 추가 모집",
   },
   {
     value: "FE",
-    short: "FE",
     korean: "프론트엔드 개발자",
-    english: "Frontend Engineer",
     recruitmentTitle: "[젝트 5기] 프론트엔드 개발자 추가 모집",
   },
   {
     value: "BE",
-    short: "BE",
     korean: "백엔드 개발자",
-    english: "Backend Engineer",
     recruitmentTitle: "[젝트 5기] 백엔드 개발자 모집",
   },
   {
     value: "APP",
-    short: "APP",
     korean: "앱 개발자",
-    english: "App Engineer",
     recruitmentTitle: "[젝트 5기] 앱 개발자 모집",
   },
 ] as const;
