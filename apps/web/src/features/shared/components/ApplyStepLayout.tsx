@@ -27,7 +27,7 @@ type ApplyStepLayoutProps = BaseProps &
 export function ApplyStepLayout(props: ApplyStepLayoutProps) {
   const { children, title, onBack, variant } = props;
   const navigationTitle =
-    variant === "apply" ? findJobFamilyOption(props.jobFamily).navigationTitle : props.headerTitle;
+    variant === "apply" ? findJobFamilyOption(props.jobFamily).recruitmentTitle : props.headerTitle;
 
   return (
     <div className='flex w-full max-w-[656px] flex-col items-start gap-(--semantic-spacing-48) px-(--semantic-margin-lg) pb-(--semantic-spacing-80)'>
