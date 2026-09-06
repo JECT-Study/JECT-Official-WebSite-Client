@@ -141,6 +141,7 @@ function ApplyGuidePage() {
   }
 
   const recruitmentRound = JOB_FAMILY_RECRUITMENT_ROUND[jobFamily];
+  const heroTitleWords = findJobFamilyOption(jobFamily).navigationTitle.split(" ");
 
   const handleTabChange = (value: string) => {
     const newParams = new URLSearchParams(searchParams);
@@ -205,27 +206,30 @@ function ApplyGuidePage() {
       <section className='flex w-full flex-col gap-(--semantic-spacing-32) pt-(--semantic-margin-xl) pb-(--semantic-margin-3xl)'>
         <div className='flex flex-col items-start gap-(--semantic-spacing-16) self-stretch'>
           <div className='flex flex-wrap content-center items-center gap-(--semantic-spacing-8) self-stretch'>
-            {findJobFamilyOption(jobFamily)
-              .navigationTitle.split(" ")
-              .map((word, index) => (
-                <Hero key={index} size='xs' textAlign='left'>
-                  {word}
-                </Hero>
-              ))}
-            <Tooltip.Provider>
-              <Tooltip.Root>
-                <Tooltip.Trigger asChild>
-                  <IconButton.Basic
-                    icon='link-line'
-                    size='2xl'
-                    hierarchy='tertiary'
-                    onClick={handleCopyUrl}
-                    aria-label='URL 복사'
-                  />
-                </Tooltip.Trigger>
-                <Tooltip.Content>URL 복사</Tooltip.Content>
-              </Tooltip.Root>
-            </Tooltip.Provider>
+            {heroTitleWords.slice(0, -1).map((word, index) => (
+              <Hero key={index} size='xs' textAlign='left'>
+                {word}
+              </Hero>
+            ))}
+            <div className='flex items-center gap-(--semantic-spacing-8)'>
+              <Hero size='xs' textAlign='left'>
+                {heroTitleWords[heroTitleWords.length - 1]}
+              </Hero>
+              <Tooltip.Provider>
+                <Tooltip.Root>
+                  <Tooltip.Trigger asChild>
+                    <IconButton.Basic
+                      icon='link-line'
+                      size='2xl'
+                      hierarchy='tertiary'
+                      onClick={handleCopyUrl}
+                      aria-label='URL 복사'
+                    />
+                  </Tooltip.Trigger>
+                  <Tooltip.Content>URL 복사</Tooltip.Content>
+                </Tooltip.Root>
+              </Tooltip.Provider>
+            </div>
           </div>
           <Label as='span' size='lg' weight='bold' textAlign='left'>
             {recruitmentRound.heroPeriod}
