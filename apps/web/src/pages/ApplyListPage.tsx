@@ -3,6 +3,7 @@ import { Fragment, useState } from "react";
 
 import PageHeroContainer from "@/components/layout/PageHeroContainer";
 import PageModule from "@/components/layout/PageModule";
+import { JOB_FAMILY_RECRUITMENT_ROUND } from "@/constants/applyPageData";
 import { PATH } from "@/constants/path";
 
 type FilterValue = "all" | "PM" | "PD" | "FE" | "BE" | "APP";
@@ -20,8 +21,7 @@ const RECRUITMENT_LIST = [
   {
     id: 1,
     jobFamily: "FE" as const,
-    title: "[젝트 5기] 프론트엔드 개발자 모집",
-    period: "2026년 8월 22일 - 9월 6일",
+    title: "[젝트 5기] 프론트엔드 개발자 추가 모집",
     description:
       "더 나은 사용자 경험을 고민하며 완성도 높은 웹 화면을 구축합니다. 백엔드 개발자, 프로덕트 디자이너와 협업하며 사용자 인터페이스와 데이터를 자연스럽게 연결합니다.\n" +
       "웹 표준과 동작 원리, 프론트엔드 기본 기술(HTML, CSS, JavaScript)을 바탕으로 화면을 개발합니다.\n" +
@@ -30,9 +30,20 @@ const RECRUITMENT_LIST = [
   },
   {
     id: 2,
+    jobFamily: "PD" as const,
+    title: "[젝트 5기] 프로덕트 디자이너 추가 모집",
+    description:
+      "프로덕트 사용을 통해 사용자의 불편함이 해소되도록 문제 해결 가설을 수립합니다. 프로덕트 매니저와 함께 구체적인 UX 플로우를 설계하고, Hi-Fi 프로토타입을 제작합니다.\n" +
+      "사용자가 상호작용을 통해 기능을 사용할 수 있도록 UI를 디자인합니다.\n" +
+      "프로덕트 브랜드가 사용자에게 더 매력적으로 다가갈 수 있도록 아이덴티티 그래픽을 제작합니다.\n" +
+      "팀의 디자인 협업 환경을 효율적으로 개선하기 위해 원칙을 수립하며 디자인 시스템을 설계합니다.\n" +
+      "퍼널을 분석하고 UX 가설을 세워 사용자가 겪는 숨겨진 문제를 찾아 시각적, 기능적으로 개선합니다.",
+    isOpen: true,
+  },
+  {
+    id: 3,
     jobFamily: "BE" as const,
     title: "[젝트 5기] 백엔드 개발자 모집",
-    period: "2026년 8월 22일 - 9월 6일",
     description:
       "프로덕트 요구사항을 바탕으로 도메인과 데이터 구조를 정의하고 서버의 비즈니스 로직을 구현합니다. 프론트엔드 및 앱 개발자가 기능을 안정적으로 사용할 수 있도록 API를 설계하고 제공합니다.\n" +
       "데이터의 일관성과 무결성을 고려해 데이터베이스 스키마와 조회 구조를 설계하고 개선합니다.\n" +
@@ -42,10 +53,9 @@ const RECRUITMENT_LIST = [
     isOpen: true,
   },
   {
-    id: 3,
+    id: 4,
     jobFamily: "APP" as const,
     title: "[젝트 5기] 앱 개발자 모집",
-    period: "2026년 8월 22일 - 9월 6일",
     description:
       "기획된 기능 요구사항과 디자인을 바탕으로 사용자가 직접 상호작용하는 모바일 화면과 기능을 구현합니다. 화면 간 이동과 사용자 상태 변화를 고려해 앱의 구조와 상태 관리 방식을 설계합니다.\n" +
       "백엔드 API와 연동해 서버의 데이터를 사용자에게 적절한 형태로 전달하고 입력값을 처리합니다.\n" +
@@ -55,28 +65,14 @@ const RECRUITMENT_LIST = [
     isOpen: true,
   },
   {
-    id: 4,
+    id: 5,
     jobFamily: "PM" as const,
     title: "[젝트 5기] 프로덕트 매니저 모집",
-    period: "2026년 8월 22일 - 9월 6일",
     description:
       "사용자 니즈 분석을 바탕으로 서비스 목표, 기능 우선순위, 비즈니스 모델을 정의합니다. UX 플로우, 기능 정의서, 와이어프레임 등 기획 산출물을 구성합니다.\n" +
       "개발, 디자인 포지션과 긴밀히 협력하며 요구사항 정리와 의사결정 흐름을 정돈합니다.\n" +
       "프로젝트 일정을 관리하며 스프린트, 데일리 스탠드업, 리뷰, 회고 사이클을 운영합니다.\n" +
       "문서화를 통해 팀 내 정보 자산을 체계적으로 관리합니다.",
-    isOpen: true,
-  },
-  {
-    id: 5,
-    jobFamily: "PD" as const,
-    title: "[젝트 5기] 프로덕트 디자이너 모집",
-    period: "2026년 8월 22일 - 9월 6일",
-    description:
-      "프로덕트 사용을 통해 사용자의 불편함이 해소되도록 문제 해결 가설을 수립합니다. 프로덕트 매니저와 함께 구체적인 UX 플로우를 설계하고, Hi-Fi 프로토타입을 제작합니다.\n" +
-      "사용자가 상호작용을 통해 기능을 사용할 수 있도록 UI를 디자인합니다.\n" +
-      "프로덕트 브랜드가 사용자에게 더 매력적으로 다가갈 수 있도록 아이덴티티 그래픽을 제작합니다.\n" +
-      "팀의 디자인 협업 환경을 효율적으로 개선하기 위해 원칙을 수립하며 디자인 시스템을 설계합니다.\n" +
-      "퍼널을 분석하고 UX 가설을 세워 사용자가 겪는 숨겨진 문제를 찾아 시각적, 기능적으로 개선합니다.",
     isOpen: true,
   },
 ];
@@ -142,7 +138,7 @@ function ApplyListPage() {
               title={item.title}
               body={item.description}
               author='동아리원'
-              date={item.period}
+              date={JOB_FAMILY_RECRUITMENT_ROUND[item.jobFamily].cardPeriod}
               isDisabled={!item.isOpen}
             />
             {index < filteredList.length - 1 && <Divider />}
