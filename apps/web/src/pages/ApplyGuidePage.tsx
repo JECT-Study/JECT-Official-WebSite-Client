@@ -205,18 +205,13 @@ function ApplyGuidePage() {
       <section className='flex w-full flex-col gap-(--semantic-spacing-32) pt-(--semantic-margin-xl) pb-(--semantic-margin-3xl)'>
         <div className='flex flex-col items-start gap-(--semantic-spacing-16) self-stretch'>
           <div className='flex flex-wrap content-center items-center gap-(--semantic-spacing-8) self-stretch'>
-            <Hero size='xs' textAlign='left'>
-              [젝트 5기]
-            </Hero>
-            <Hero size='xs' textAlign='left'>
-              {findJobFamilyOption(jobFamily).koreanFirst}
-            </Hero>
-            <Hero size='xs' textAlign='left'>
-              {findJobFamilyOption(jobFamily).koreanSecond}
-            </Hero>
-            <Hero size='xs' textAlign='left'>
-              {recruitmentRound.label}
-            </Hero>
+            {findJobFamilyOption(jobFamily)
+              .navigationTitle.split(" ")
+              .map((word, index) => (
+                <Hero key={index} size='xs' textAlign='left'>
+                  {word}
+                </Hero>
+              ))}
             <Tooltip.Provider>
               <Tooltip.Root>
                 <Tooltip.Trigger asChild>

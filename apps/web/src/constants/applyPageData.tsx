@@ -7,8 +7,6 @@ export const JOB_FAMILY_OPTIONS = [
     value: "PM",
     short: "PM",
     korean: "프로덕트 매니저",
-    koreanFirst: "프로덕트",
-    koreanSecond: "매니저",
     english: "Product Manager",
     navigationTitle: "[젝트 5기] 프로덕트 매니저 모집",
   },
@@ -16,8 +14,6 @@ export const JOB_FAMILY_OPTIONS = [
     value: "PD",
     short: "PD",
     korean: "프로덕트 디자이너",
-    koreanFirst: "프로덕트",
-    koreanSecond: "디자이너",
     english: "Product Designer",
     navigationTitle: "[젝트 5기] 프로덕트 디자이너 추가 모집",
   },
@@ -25,8 +21,6 @@ export const JOB_FAMILY_OPTIONS = [
     value: "FE",
     short: "FE",
     korean: "프론트엔드 개발자",
-    koreanFirst: "프론트엔드",
-    koreanSecond: "개발자",
     english: "Frontend Engineer",
     navigationTitle: "[젝트 5기] 프론트엔드 개발자 추가 모집",
   },
@@ -34,8 +28,6 @@ export const JOB_FAMILY_OPTIONS = [
     value: "BE",
     short: "BE",
     korean: "백엔드 개발자",
-    koreanFirst: "백엔드",
-    koreanSecond: "개발자",
     english: "Backend Engineer",
     navigationTitle: "[젝트 5기] 백엔드 개발자 모집",
   },
@@ -43,8 +35,6 @@ export const JOB_FAMILY_OPTIONS = [
     value: "APP",
     short: "APP",
     korean: "앱 개발자",
-    koreanFirst: "앱",
-    koreanSecond: "개발자",
     english: "App Engineer",
     navigationTitle: "[젝트 5기] 앱 개발자 모집",
   },
@@ -102,7 +92,6 @@ export const RECRUITMENT_SECTION_TITLE = {
 } as const;
 
 interface JobFamilyRecruitmentRound {
-  label: string;
   startAt: string;
   endAt: string;
   heroPeriod: string;
@@ -111,7 +100,6 @@ interface JobFamilyRecruitmentRound {
 }
 
 const REGULAR_RECRUITMENT_ROUND: JobFamilyRecruitmentRound = {
-  label: "모집",
   startAt: "2026-08-22T00:00:00+09:00",
   endAt: "2026-09-07T00:00:00+09:00",
   heroPeriod: "2026년 8월 22일(토) - 9월 6일(일)",
@@ -120,7 +108,6 @@ const REGULAR_RECRUITMENT_ROUND: JobFamilyRecruitmentRound = {
 };
 
 const ADDITIONAL_RECRUITMENT_ROUND: JobFamilyRecruitmentRound = {
-  label: "추가 모집",
   startAt: "2026-09-07T00:00:00+09:00",
   endAt: "2026-09-10T00:00:00+09:00",
   heroPeriod: "2026년 9월 7일(월) - 9월 9일(수)",
