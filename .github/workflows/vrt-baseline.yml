@@ -79,7 +79,7 @@ jobs:
             echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "baseline에 변경 사항이 없습니다."
           else
-            git commit -m "chore(vrt): CI에서 baseline 재생성"
+            git commit --no-verify -m "chore(vrt): CI에서 baseline 재생성"
             # push 시점에만 토큰으로 인증한다.
             git push "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "HEAD:${HEAD_REF}"
             echo "changed=true" >> "$GITHUB_OUTPUT"
