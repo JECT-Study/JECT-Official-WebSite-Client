@@ -141,7 +141,7 @@ function ApplyGuidePage() {
   }
 
   const recruitmentRound = JOB_FAMILY_RECRUITMENT_ROUND[jobFamily];
-  const heroTitleWords = findJobFamilyOption(jobFamily).navigationTitle.split(" ");
+  const heroTitleWords = findJobFamilyOption(jobFamily).recruitmentTitle.split(" ");
 
   const handleTabChange = (value: string) => {
     const newParams = new URLSearchParams(searchParams);
