@@ -1,3 +1,4 @@
+import { ColorChip } from "./ColorChip/ColorChip";
 import {
   TableRoot,
   TableHeader,
@@ -14,4 +15,5 @@ export const Table = {
   Body: TableBody,
   Row: TableRow,
   RowItem: TableRowItem,
+  ColorChip,
 };

@@ -32,11 +32,9 @@ interface SentryWebhookPayload {
 }
 
 // 타입 가드
-const hasIssue = (payload: SentryWebhookPayload): boolean =>
-  payload.data.issue !== undefined;
+const hasIssue = (payload: SentryWebhookPayload): boolean => payload.data.issue !== undefined;
 
-const hasEvent = (payload: SentryWebhookPayload): boolean =>
-  payload.data.event !== undefined;
+const hasEvent = (payload: SentryWebhookPayload): boolean => payload.data.event !== undefined;
 
 // 필터링 - production 환경의 중요한 알림만 허용
 const ALLOWED_ACTIONS = new Set(["created", "regressed", "triggered"]);

@@ -77,7 +77,7 @@ const IntroSection = () => {
             </div>
 
             <div className='flex w-full flex-col gap-(--semantic-spacing-10)'>
-              <div className='tablet:grid-cols-2 desktop:grid-cols-3 grid w-full grid-cols-1 gap-(--semantic-spacing-16)'>
+              <div className='grid w-full grid-cols-1 gap-(--semantic-spacing-16) tablet:grid-cols-2 desktop:grid-cols-3'>
                 {statData.map(({ id, title, description, isFullWidth }) => (
                   <Callout.Basic
                     key={id}
@@ -113,7 +113,7 @@ const IntroSection = () => {
             다양한 포지션들이 젝트와 함께합니다
           </Hero>
 
-          <div className='tablet:grid-cols-2 grid w-full grid-cols-1 gap-(--semantic-spacing-16)'>
+          <div className='grid w-full grid-cols-1 gap-(--semantic-spacing-16) tablet:grid-cols-2'>
             {positionData.map(
               ({ id, title, icon: PositionIcon, description, tags, themeColor }) => (
                 <div
@@ -147,7 +147,7 @@ const IntroSection = () => {
                 </div>
               ),
             )}
-            <div className='tablet:col-span-1 col-span-full [&_p]:whitespace-pre-line [&>div]:h-full [&>div]:w-full [&>div]:max-w-full!'>
+            <div className='col-span-full tablet:col-span-1 [&_p]:whitespace-pre-line [&>div]:h-full [&>div]:w-full [&>div]:max-w-full!'>
               <EmptyState
                 variant='outlined'
                 header='젝트만의 협업 문화'
@@ -163,7 +163,7 @@ const IntroSection = () => {
             구성원들의 성장을 돕는 프로그램들을 운영합니다
           </Hero>
 
-          <div className='tablet:grid-cols-2 grid w-full grid-cols-1 gap-(--semantic-spacing-16)'>
+          <div className='grid w-full grid-cols-1 gap-(--semantic-spacing-16) tablet:grid-cols-2'>
             {programData.map(({ id, title, description }) => (
               <Callout.Basic
                 key={id}

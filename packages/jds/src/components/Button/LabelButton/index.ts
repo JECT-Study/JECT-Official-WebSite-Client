@@ -1,8 +1,7 @@
 export { LabelButton } from "./LabelButton";
 export type {
-  LabelButtonBasicProps,
-  LabelButtonFeedbackProps,
+  LabelButtonProps,
   LabelButtonSize,
   LabelButtonHierarchy,
-  LabelButtonIntent,
+  LabelButtonFeedback,
 } from "./labelButton.types";

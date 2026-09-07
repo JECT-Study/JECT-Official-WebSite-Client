@@ -27,7 +27,7 @@ export function ApplyLoadingFallback() {
   return (
     <div className='flex min-h-screen flex-col items-center justify-center'>
       <DefaultLoadingFallback />
-      <p className='text-body-md-normal text-object-alternative-dark mt-4'>
+      <p className='text-body-md-normal mt-4 text-object-alternative-dark'>
         페이지를 불러오고 있습니다...
       </p>
     </div>
@@ -46,7 +46,7 @@ function ApplyErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
     <div className='flex min-h-screen flex-col items-center justify-center gap-6'>
       <div className='text-center'>
         <h2 className='text-title-lg-bold text-object-hero-dark'>문제가 발생했습니다</h2>
-        <p className='text-body-md-normal text-object-alternative-dark mt-2'>
+        <p className='text-body-md-normal mt-2 text-object-alternative-dark'>
           {error.message || "잠시 후 다시 시도해주세요"}
         </p>
       </div>

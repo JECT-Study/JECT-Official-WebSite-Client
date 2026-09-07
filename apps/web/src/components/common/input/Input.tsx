@@ -19,7 +19,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             "border-feedback-trans-negative-dark": isError && disabled,
             "border-feedback-negative-dark": isError && !disabled,
             "border-border-trans-assistive-dark": !isError && disabled,
-            "border-border-trans-assistive-dark hover:border-border-trans-neutral-dark focus-within:border-border-trans-hero-dark focus-within:hover:border-border-trans-hero-dark":
+            "border-border-trans-assistive-dark focus-within:border-border-trans-hero-dark hover:border-border-trans-neutral-dark focus-within:hover:border-border-trans-hero-dark":
               !isError && !disabled,
           },
           className,
@@ -30,7 +30,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           {...props}
           ref={ref}
           disabled={disabled}
-          className={`body-md disabled:text-object-disabled-dark disabled:placeholder:text-object-disabled-dark placeholder:text-object-assistive-dark caret-object-hero-dark text-object-hero-dark grow outline-none read-only:cursor-default`}
+          className={`body-md grow text-object-hero-dark caret-object-hero-dark outline-none placeholder:text-object-assistive-dark read-only:cursor-default disabled:text-object-disabled-dark disabled:placeholder:text-object-disabled-dark`}
         />
         {children}
       </div>

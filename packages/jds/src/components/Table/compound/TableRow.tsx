@@ -1,8 +1,17 @@
-import { StyledTableRow } from "./Table.styles";
-import type { TableRowProps } from "../Table.types";
+import { clsx } from "clsx";
+import { forwardRef } from "react";
 
-export const TableRow = ({ children, ...restProps }: TableRowProps) => {
-  return <StyledTableRow {...restProps}>{children}</StyledTableRow>;
-};
+import { tableRow } from "./table.css";
+import type { TableRowProps } from "../table.types";
 
-TableRow.displayName = "TableRow";
+export const TableRow = forwardRef<HTMLTableRowElement, TableRowProps>(
+  ({ children, className, ...restProps }, ref) => {
+    return (
+      <tr ref={ref} className={clsx(tableRow, className)} {...restProps}>
+        {children}
+      </tr>
+    );
+  },
+);
+
+TableRow.displayName = "Table.Row";

@@ -1,0 +1,48 @@
+name: Verify
+
+# base 브랜치를 가리지 않는다. 이 저장소는 스택 PR을 쓰므로
+# base를 dev로 제한하면 중간 브랜치를 향한 PR이 검증에서 빠진다.
+on: pull_request
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Format, Lint, Type Check
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+          cache: "npm"
+
+      - name: Install Dependencies
+        id: install
+        run: npm ci
+
+      # 검사 하나가 실패해도 나머지를 돌려 문제를 한 번에 보여준다.
+      # 설치가 실패했다면 검사는 건너뛴다. 돌려도 같은 원인으로 실패할 뿐이다.
+      - name: Check Formatting
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: npm run format:check
+
+      - name: Lint
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: npm run lint
+
+      - name: Type Check
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: npm run type-check

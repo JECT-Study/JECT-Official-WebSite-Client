@@ -1,10 +1,11 @@
 export { Toast } from "./Toast";
 export type {
-  ToastStyle,
+  ToastFeedback,
   ToastBaseProps,
-  ToastFeedbackProps,
+  ToastProps,
   ToastItem,
   ToastHandler,
 } from "./toast.types";
-export { useToast, ToastProvider } from "./ToastProvider";
+export { useToast } from "./toast.context";
+export { ToastProvider } from "./ToastProvider";
 export { toastController } from "./toastController";

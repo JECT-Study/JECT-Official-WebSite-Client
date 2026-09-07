@@ -5,14 +5,12 @@ const SvgFrame = (props: SVGProps<SVGSVGElement>) => (
     width='1em'
     height='1em'
     fill='currentColor'
-    viewBox='0 0 24 25'
+    viewBox='0 0 24 24'
     {...props}
   >
     <path
       fill='currentColor'
-      fillRule='evenodd'
-      d='M9 7.014h6v-3h2v3h3v2h-3v6h3v2h-3v3h-2v-3H9v3H7v-3H4v-2h3v-6H4v-2h3v-3h2zm0 2v6h6v-6z'
-      clipRule='evenodd'
+      d='M17 22v-3H7v3a1 1 0 1 1-2 0v-3H2a1 1 0 1 1 0-2h3V7H2a1 1 0 0 1 0-2h3V2a1 1 0 0 1 2 0v3h10V2a1 1 0 1 1 2 0v3h3a1 1 0 1 1 0 2h-3v10h3a1 1 0 1 1 0 2h-3v3a1 1 0 1 1-2 0M7 17h10V7H7z'
     />
   </svg>
 );

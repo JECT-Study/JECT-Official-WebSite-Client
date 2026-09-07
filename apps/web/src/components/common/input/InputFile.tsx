@@ -38,7 +38,7 @@ function InputFile({
       >
         {labelText}
       </Label>
-      <div className='bg-surface-standard-dark radius-sm border-border-trans-assistive-dark gap-md flex flex-col border px-(--gap-md) py-(--gap-sm)'>
+      <div className='radius-sm gap-md flex flex-col border border-border-trans-assistive-dark bg-surface-standard-dark px-(--gap-md) py-(--gap-sm)'>
         {children && <div className='gap-2xs flex flex-col'>{children}</div>}
         <Uploader
           fileExtensions={fileExtensions}
@@ -47,7 +47,7 @@ function InputFile({
           maxSize={maxSize}
         />
       </div>
-      <div className={`text-object-assistive-dark body-sm cursor-default self-end`}>
+      <div className={`body-sm cursor-default self-end text-object-assistive-dark`}>
         {`${size === "0.0" ? "0" : size}/${maxSize}MB`}
       </div>
     </div>

@@ -96,7 +96,7 @@ const MakersCard = ({ member }: { member: MakersMember }) => {
           </Title>
         </div>
 
-        <p className='desktop:h-[42px] not-desktop:h-[63px] font-(family-name:--primitive-typeface-body) text-(length:--primitive-font-size-body-xs) leading-(--primitive-font-line-height-body-xs) font-(--primitive-font-weight-body-bold) tracking-(--primitive-font-letter-spacing-body-xs) text-(--semantic-object-neutral)'>
+        <p className='font-(family-name:--primitive-typeface-body) text-(length:--primitive-font-size-body-xs) leading-(--primitive-font-line-height-body-xs) font-(--primitive-font-weight-body-bold) tracking-(--primitive-font-letter-spacing-body-xs) text-(--semantic-object-neutral) not-desktop:h-[63px] desktop:h-[42px]'>
           {member.description}
         </p>
       </div>

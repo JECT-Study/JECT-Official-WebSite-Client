@@ -48,10 +48,7 @@ export const applyApi = {
   },
 
   getMe: () =>
-    httpClient.get<MemberMeResponseSchema>(
-      API_ENDPOINT.memberMe,
-      memberMeResponseSchema,
-    ),
+    httpClient.get<MemberMeResponseSchema>(API_ENDPOINT.memberMe, memberMeResponseSchema),
 
   updateProfile: (recruitId: number, data: MemberProfilePayload) => {
     const params = new URLSearchParams({ recruitId: String(recruitId) });

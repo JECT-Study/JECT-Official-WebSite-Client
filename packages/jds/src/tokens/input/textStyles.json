@@ -1,0 +1,292 @@
+{
+  "textStyles": [
+    {
+      "token": "semantic-textstyle-title-6",
+      "type": "text",
+      "fontFamily": "Pretendard Variable",
+      "fontWeight": "600",
+      "fontSize": "48px",
+      "lineHeight": "62px",
+      "letterSpacing": "-1.25px"
+    },
+    {
+      "token": "semantic-textstyle-title-5",
+      "type": "text",
+      "fontFamily": "Pretendard Variable",
+      "fontWeight": "600",
+      "fontSize": "40px",
+      "lineHeight": "52px",
+      "letterSpacing": "-0.9200000166893005px"
+    },
+    {
+      "token": "semantic-textstyle-title-4",
+      "type": "text",
+      "fontFamily": "Pretendard Variable",
+      "fontWeight": "700",
+      "fontSize": "32px",
+      "lineHeight": "42px",
+      "letterSpacing": "-0.6399999856948853px"
+    },
+    {
+      "token": "semantic-textstyle-title-3",
+      "type": "text",
+      "fontFamily": "Pretendard Variable",
+      "fontWeight": "700",
+      "fontSize": "28px",
+      "lineHeight": "36px",
+      "letterSpacing": "-0.47999998927116394px"
+    },
+    {
+      "token": "semantic-textstyle-title-2",
+      "type": "text",
+      "fontFamily": "Pretendard Variable",
+      "fontWeight": "600",
+      "fontSize": "24px",
+      "lineHeight": "32px",
+      "letterSpacing": "-0.3400000035762787px"
+    },
+    {
+      "token": "semantic-textstyle-title-1",
+      "type": "text",
+      "fontFamily": "Pretendard Variable",
+      "fontWeight": "600",
+      "fontSize": "20px",
+      "lineHeight": "26px",
+      "letterSpacing": "-0.2199999988079071px"
+    },
+    {
+      "token": "semantic-textstyle-label-lg-bold",
+      "type": "text",
+      "fontFamily": "Pretendard Variable",
+      "fontWeight": "500",
+      "fontSize": "16px",
+      "lineHeight": "22px",
+      "letterSpacing": "-0.1599999964237213px"
+    },
+    {
+      "token": "semantic-textstyle-label-lg-normal",
+      "type": "text",
+      "fontFamily": "Pretendard Variable",
+      "fontWeight": "500",
+      "fontSize": "16px",
+      "lineHeight": "22px",
+      "letterSpacing": "-0.1599999964237213px"
+    },
+    {
+      "token": "semantic-textstyle-label-lg-subtle",
+      "type": "text",
+      "fontFamily": "Pretendard Variable",
+      "fontWeight": "400",
+      "fontSize": "16px",
+      "lineHeight": "22px",
+      "letterSpacing": "-0.1599999964237213px"
+    },
+    {
+      "token": "semantic-textstyle-label-md-bold",
+      "type": "text",
+      "fontFamily": "Pretendard Variable",
+      "fontWeight": "500",
+      "fontSize": "14px",
+      "lineHeight": "20px",
+      "letterSpacing": "-0.10999999940395355px"
+    },
+    {
+      "token": "semantic-textstyle-label-md-normal",
+      "type": "text",
+      "fontFamily": "Pretendard Variable",
+      "fontWeight": "500",
+      "fontSize": "14px",
+      "lineHeight": "20px",
+      "letterSpacing": "-0.10999999940395355px"
+    },
+    {
+      "token": "semantic-textstyle-label-md-subtle",
+      "type": "text",
+      "fontFamily": "Pretendard Variable",
+      "fontWeight": "400",
+      "fontSize": "14px",
+      "lineHeight": "20px",
+      "letterSpacing": "-0.10999999940395355px"
+    },
+    {
+      "token": "semantic-textstyle-label-sm-bold",
+      "type": "text",
+      "fontFamily": "Pretendard Variable",
+      "fontWeight": "500",
+      "fontSize": "12px",
+      "lineHeight": "18px",
+      "letterSpacing": "-0.07999999821186066px"
+    },
+    {
+      "token": "semantic-textstyle-label-sm-normal",
+      "type": "text",
+      "fontFamily": "Pretendard Variable",
+      "fontWeight": "500",
+      "fontSize": "12px",
+      "lineHeight": "18px",
+      "letterSpacing": "-0.07999999821186066px"
+    },
+    {
+      "token": "semantic-textstyle-label-sm-subtle",
+      "type": "text",
+      "fontFamily": "Pretendard Variable",
+      "fontWeight": "400",
+      "fontSize": "12px",
+      "lineHeight": "18px",
+      "letterSpacing": "-0.07999999821186066px"
+    },
+    {
+      "token": "semantic-textstyle-label-xs-bold",
+      "type": "text",
+      "fontFamily": "Pretendard Variable",
+      "fontWeight": "500",
+      "fontSize": "11px",
+      "lineHeight": "16px",
+      "letterSpacing": "-0.05000000074505806px"
+    },
+    {
+      "token": "semantic-textstyle-label-xs-normal",
+      "type": "text",
+      "fontFamily": "Pretendard Variable",
+      "fontWeight": "500",
+      "fontSize": "11px",
+      "lineHeight": "16px",
+      "letterSpacing": "-0.05000000074505806px"
+    },
+    {
+      "token": "semantic-textstyle-label-xs-subtle",
+      "type": "text",
+      "fontFamily": "Pretendard Variable",
+      "fontWeight": "400",
+      "fontSize": "11px",
+      "lineHeight": "16px",
+      "letterSpacing": "-0.05000000074505806px"
+    },
+    {
+      "token": "semantic-textstyle-body-lg-bold",
+      "type": "text",
+      "fontFamily": "Pretendard Variable",
+      "fontWeight": "400",
+      "fontSize": "16px",
+      "lineHeight": "26px",
+      "letterSpacing": "0.017000000923871994px"
+    },
+    {
+      "token": "semantic-textstyle-body-lg-normal",
+      "type": "text",
+      "fontFamily": "Pretendard Variable",
+      "fontWeight": "400",
+      "fontSize": "16px",
+      "lineHeight": "26px",
+      "letterSpacing": "0.017000000923871994px"
+    },
+    {
+      "token": "semantic-textstyle-body-md-bold",
+      "type": "text",
+      "fontFamily": "Pretendard Variable",
+      "fontWeight": "400",
+      "fontSize": "15px",
+      "lineHeight": "24px",
+      "letterSpacing": "0.04500000178813934px"
+    },
+    {
+      "token": "semantic-textstyle-body-md-normal",
+      "type": "text",
+      "fontFamily": "Pretendard Variable",
+      "fontWeight": "400",
+      "fontSize": "15px",
+      "lineHeight": "24px",
+      "letterSpacing": "0.04500000178813934px"
+    },
+    {
+      "token": "semantic-textstyle-body-sm-bold",
+      "type": "text",
+      "fontFamily": "Pretendard Variable",
+      "fontWeight": "400",
+      "fontSize": "14px",
+      "lineHeight": "22px",
+      "letterSpacing": "0.0560000017285347px"
+    },
+    {
+      "token": "semantic-textstyle-body-sm-normal",
+      "type": "text",
+      "fontFamily": "Pretendard Variable",
+      "fontWeight": "400",
+      "fontSize": "14px",
+      "lineHeight": "22px",
+      "letterSpacing": "0.0560000017285347px"
+    },
+    {
+      "token": "semantic-textstyle-body-xs-bold",
+      "type": "text",
+      "fontFamily": "Pretendard Variable",
+      "fontWeight": "400",
+      "fontSize": "13px",
+      "lineHeight": "21px",
+      "letterSpacing": "0.07000000029802322px"
+    },
+    {
+      "token": "semantic-textstyle-body-xs-normal",
+      "type": "text",
+      "fontFamily": "Pretendard Variable",
+      "fontWeight": "400",
+      "fontSize": "13px",
+      "lineHeight": "21px",
+      "letterSpacing": "0.07000000029802322px"
+    },
+    {
+      "token": "semantic-textstyle-body-2xs-bold",
+      "type": "text",
+      "fontFamily": "Pretendard Variable",
+      "fontWeight": "400",
+      "fontSize": "12px",
+      "lineHeight": "19px",
+      "letterSpacing": "0.07999999821186066px"
+    },
+    {
+      "token": "semantic-textstyle-body-2xs-normal",
+      "type": "text",
+      "fontFamily": "Pretendard Variable",
+      "fontWeight": "400",
+      "fontSize": "12px",
+      "lineHeight": "19px",
+      "letterSpacing": "0.07999999821186066px"
+    },
+    {
+      "token": "semantic-textstyle-syntax-lg",
+      "type": "text",
+      "fontFamily": "D2Coding",
+      "fontWeight": "400",
+      "fontSize": "16px",
+      "lineHeight": "22px",
+      "letterSpacing": "0%"
+    },
+    {
+      "token": "semantic-textstyle-syntax-md",
+      "type": "text",
+      "fontFamily": "D2Coding",
+      "fontWeight": "400",
+      "fontSize": "14px",
+      "lineHeight": "20px",
+      "letterSpacing": "0%"
+    },
+    {
+      "token": "semantic-textstyle-syntax-sm",
+      "type": "text",
+      "fontFamily": "D2Coding",
+      "fontWeight": "400",
+      "fontSize": "13px",
+      "lineHeight": "18px",
+      "letterSpacing": "0%"
+    },
+    {
+      "token": "semantic-textstyle-syntax-xs",
+      "type": "text",
+      "fontFamily": "D2Coding",
+      "fontWeight": "400",
+      "fontSize": "12px",
+      "lineHeight": "16px",
+      "letterSpacing": "0%"
+    }
+  ]
+}

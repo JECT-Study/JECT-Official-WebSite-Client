@@ -1,78 +1,47 @@
-import type { LabelButtonBasicProps, LabelButtonFeedbackProps } from "components";
-import { Icon } from "components";
+import { clsx } from "clsx";
 import { forwardRef } from "react";
+import { getLabelClassName } from "utils";
 
-import { iconSizeMap, StyledLabelButton } from "./labelButton.styles";
+import { basicRoot, feedbackRoot, iconSizeMap } from "./labelButton.css";
+import type { LabelButtonProps } from "./labelButton.types";
+import { Icon } from "../../Icon";
 
-const LabelButtonBasic = forwardRef<HTMLButtonElement, LabelButtonBasicProps>(
+export const LabelButton = forwardRef<HTMLButtonElement, LabelButtonProps>(
   (
     {
       children,
       size = "md",
-      hierarchy = "primary",
+      hierarchy,
+      feedback,
       prefixIcon,
       suffixIcon,
       disabled = false,
+      className,
       ...restProps
     },
-    ref,
+    forwardedRef,
   ) => {
     const iconSize = iconSizeMap[size];
+    const rootClassName = feedback
+      ? feedbackRoot({ feedback, size })
+      : basicRoot({ hierarchy: hierarchy ?? "primary", size });
 
     return (
-      <StyledLabelButton
-        ref={ref}
-        $hierarchy={hierarchy}
-        $size={size}
-        $disabled={disabled}
-        disabled={disabled}
+      <button
+        ref={forwardedRef}
+        type='button'
         {...restProps}
+        disabled={disabled}
+        data-disabled={disabled || undefined}
+        data-part='root'
+        className={clsx(getLabelClassName({ size, weight: "bold" }), rootClassName, className)}
       >
         {prefixIcon && <Icon name={prefixIcon} size={iconSize} />}
         {children}
         {suffixIcon && <Icon name={suffixIcon} size={iconSize} />}
-      </StyledLabelButton>
+      </button>
     );
   },
 );
 
-LabelButtonBasic.displayName = "LabelButton.Basic";
-
-const LabelButtonFeedback = forwardRef<HTMLButtonElement, LabelButtonFeedbackProps>(
-  (
-    {
-      children,
-      size = "md",
-      intent = "destructive",
-      prefixIcon,
-      suffixIcon,
-      disabled = false,
-      ...restProps
-    },
-    ref,
-  ) => {
-    const iconSize = iconSizeMap[size];
-
-    return (
-      <StyledLabelButton
-        ref={ref}
-        $intent={intent}
-        $size={size}
-        $disabled={disabled}
-        disabled={disabled}
-        {...restProps}
-      >
-        {prefixIcon && <Icon name={prefixIcon} size={iconSize} />}
-        {children}
-        {suffixIcon && <Icon name={suffixIcon} size={iconSize} />}
-      </StyledLabelButton>
-    );
-  },
-);
-
-LabelButtonFeedback.displayName = "LabelButton.Feedback";
-
-export const LabelButton = {
-  Basic: LabelButtonBasic,
-  Feedback: LabelButtonFeedback,
-};
+LabelButton.displayName = "LabelButton";

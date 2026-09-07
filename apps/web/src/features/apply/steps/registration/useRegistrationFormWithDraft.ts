@@ -44,8 +44,7 @@ export function useRegistrationFormWithDraft(
 
   // draft의 jobFamily와 현재 선택한 jobFamily가 다르면 클라이언트에서만 초기화
   // (서버 draft는 유지 - DELETE /apply/temp는 프로필까지 삭제하므로 호출하지 않음)
-  const isJobFamilyMismatch =
-    draftData?.jobFamily != null && draftData.jobFamily !== jobFamily;
+  const isJobFamilyMismatch = draftData?.jobFamily != null && draftData.jobFamily !== jobFamily;
 
   const [answers, setAnswers] = useState<AnswersByQuestionId>(() => {
     if (isJobFamilyMismatch) return {};

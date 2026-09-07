@@ -10,26 +10,33 @@
     "dev": "turbo dev",
     "build": "turbo build",
     "lint": "turbo lint",
+    "lint:fix": "turbo lint:fix",
     "preview": "turbo preview",
     "storybook": "turbo storybook",
+    "storybook:jds": "turbo storybook --filter=@jects/jds",
+    "storybook:web": "turbo storybook --filter=ject-official-website-client",
     "build-storybook": "turbo build-storybook",
     "chromatic": "turbo chromatic",
     "clean": "turbo clean && rm -rf node_modules",
-    "format": "turbo format",
+    "changeset": "changeset",
+    "prepare": "lefthook install || true",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "type-check": "turbo type-check"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.29.8",
+    "@changesets/cli": "^3.0.0",
     "@vercel/node": "^5.5.16",
+    "lefthook": "^2.1.12",
     "prettier": "^3.4.2",
     "turbo": "^2.5.5",
     "typescript": "~5.6.2"
   },
   "engines": {
-    "node": ">=18.0.0",
-    "npm": ">=10.0.0"
+    "node": "24.x",
+    "npm": ">=10.9.0"
   },
-  "packageManager": "npm@10.0.0",
+  "packageManager": "npm@11.17.0",
   "optionalDependencies": {
     "@rollup/rollup-darwin-arm64": "^4.53.2"
   }

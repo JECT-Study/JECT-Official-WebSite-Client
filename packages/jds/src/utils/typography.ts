@@ -1,0 +1,29 @@
+import * as typographyStyles from "./typography.css";
+import type {
+  BodyStyleOptions,
+  LabelStyleOptions,
+  SyntaxStyleOptions,
+  TitleStyleOptions,
+} from "./typography.types";
+
+export * from "./typography.types";
+
+export const getLabelClassName = ({ size = "md", weight = "normal" }: LabelStyleOptions = {}) =>
+  typographyStyles.label({
+    size,
+    weight,
+  });
+
+export const getTitleClassName = ({ size = "md" }: TitleStyleOptions = {}) =>
+  typographyStyles.title({
+    size,
+  });
+
+export const getBodyClassName = ({ size = "md", weight = "normal" }: BodyStyleOptions = {}) =>
+  typographyStyles.body({
+    size,
+    weight,
+  });
+
+export const getSyntaxClassName = ({ size = "md" }: SyntaxStyleOptions = {}) =>
+  typographyStyles.syntax({ size });

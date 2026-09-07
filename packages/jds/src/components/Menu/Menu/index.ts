@@ -2,11 +2,12 @@ export type {
   MenuStyle,
   MenuSize,
   MenuRootProps,
-  MenuTrigger,
+  MenuTriggerProps,
   MenuContentProps,
   MenuCategoryProps,
   MenuGroupProps,
   MenuItemProps,
+  MenuTreeProps,
   MenuButtonProps,
   MenuAnchorProps,
 } from "./menu.types";

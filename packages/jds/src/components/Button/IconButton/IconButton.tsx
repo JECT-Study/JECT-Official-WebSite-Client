@@ -1,52 +1,48 @@
-import type { IconButtonBasicProps, IconButtonFeedbackProps } from "components";
+import { assignInlineVars } from "@vanilla-extract/dynamic";
+import { clsx } from "clsx";
 import { forwardRef } from "react";
 
-import { StyledIconButton, getIconSizeForButton } from "./iconButton.styles";
+import * as styles from "./iconButton.css";
+import type { IconButtonProps } from "./iconButton.types";
 import { Icon } from "../../Icon";
 
-const IconButtonBasic = forwardRef<HTMLButtonElement, IconButtonBasicProps>(
-  ({ icon, size = "md", hierarchy = "primary", disabled = false, ...restProps }, ref) => {
-    const iconSize = getIconSizeForButton(size);
+export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
+  (
+    {
+      icon,
+      size = "md",
+      hierarchy = "primary",
+      condensed = true,
+      disabled = false,
+      accentColor,
+      className,
+      style,
+      ...restProps
+    },
+    forwardedRef,
+  ) => {
+    const accentStyle = accentColor
+      ? assignInlineVars({
+          [styles.iconButtonAccentColor]: accentColor.normal,
+          [styles.iconButtonAccentDisabledColor]: accentColor.disabled ?? accentColor.normal,
+        })
+      : undefined;
 
     return (
-      <StyledIconButton
-        ref={ref}
-        $hierarchy={hierarchy}
-        $size={size}
-        $disabled={disabled}
-        disabled={disabled}
+      <button
+        ref={forwardedRef}
+        type='button'
         {...restProps}
+        disabled={disabled}
+        data-disabled={disabled || undefined}
+        data-part='root'
+        className={clsx(styles.root({ hierarchy, size, condensed }), className)}
+        style={{ ...accentStyle, ...style }}
       >
-        <Icon name={icon} size={iconSize} />
-      </StyledIconButton>
+        <Icon name={icon} size={size} className={styles.icon} />
+      </button>
     );
   },
 );
 
-IconButtonBasic.displayName = "IconButton.Basic";
-
-const IconButtonFeedback = forwardRef<HTMLButtonElement, IconButtonFeedbackProps>(
-  ({ icon, size = "md", intent = "destructive", disabled = false, ...restProps }, ref) => {
-    const iconSize = getIconSizeForButton(size);
-
-    return (
-      <StyledIconButton
-        ref={ref}
-        $intent={intent}
-        $size={size}
-        $disabled={disabled}
-        disabled={disabled}
-        {...restProps}
-      >
-        <Icon name={icon} size={iconSize} />
-      </StyledIconButton>
-    );
-  },
-);
-
-IconButtonFeedback.displayName = "IconButton.Feedback";
-
-export const IconButton = {
-  Basic: IconButtonBasic,
-  Feedback: IconButtonFeedback,
-};
+IconButton.displayName = "IconButton";

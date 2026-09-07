@@ -18,7 +18,7 @@ function HeroIndex({
   badgeTextColor = "text-object-normal-dark",
 }: HeroIndexProps) {
   return (
-    <div className='radius-xs border-border-assistive-dark bg-surface-deep-dark gap-4xl flex w-full items-center border px-(--gap-4xl) py-(--gap-xl)'>
+    <div className='radius-xs gap-4xl flex w-full items-center border border-border-assistive-dark bg-surface-deep-dark px-(--gap-4xl) py-(--gap-xl)'>
       <div className='min-w-[33px] text-center'>
         <Title hierarchy='stronger'>{index}</Title>
       </div>
@@ -29,7 +29,7 @@ function HeroIndex({
             {badgeText}
           </Badge>
         </div>
-        <p className='text-object-normal-dark body-lg'>{children}</p>
+        <p className='body-lg text-object-normal-dark'>{children}</p>
       </div>
     </div>
   );

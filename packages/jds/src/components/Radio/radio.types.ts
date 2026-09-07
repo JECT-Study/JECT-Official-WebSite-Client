@@ -1,45 +1,82 @@
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import type { AriaLabelProps, RenderableNode } from "types";
 
-export type RadioSize = "lg" | "md" | "sm" | "xs";
-export type RadioStyle = "empty" | "outline";
-export type RadioAlign = "left" | "right";
+export const RADIO_SIZE_OPTIONS = ["xs", "sm", "md", "lg"] as const;
+export const RADIO_VARIANT_OPTIONS = ["hollow", "outlined"] as const;
 
-export interface RadioRootProps {
-  radioSize?: RadioSize;
-  radioStyle?: RadioStyle;
-  radioAlign?: RadioAlign;
-  disabled?: boolean;
-  value?: string;
+export type RadioSize = (typeof RADIO_SIZE_OPTIONS)[number];
+export type RadioVariant = (typeof RADIO_VARIANT_OPTIONS)[number];
+
+type RadioRootLayoutProps =
+  | { layout?: "vertical"; columns?: never }
+  | { layout: "grid"; columns: number };
+
+interface RadioRootControlledProps {
+  value: string;
+  defaultValue?: never;
+  onChange: (value: string) => void;
+}
+
+interface RadioRootUncontrolledProps {
+  value?: never;
+  defaultValue?: string;
   onChange?: (value: string) => void;
+}
+
+interface RadioRootBaseProps {
+  size?: RadioSize;
+  variant?: RadioVariant;
+  disabled?: boolean;
+  stretched?: boolean;
   name?: string;
   children: ReactNode;
 }
 
-export interface RadioBasicProps extends ComponentPropsWithoutRef<"input"> {
-  radioSize?: RadioSize;
-}
+export type RadioRootProps = RadioRootBaseProps &
+  AriaLabelProps &
+  RadioRootLayoutProps &
+  (RadioRootControlledProps | RadioRootUncontrolledProps);
 
-export interface RadioStyledProps {
-  radioSize: RadioSize;
-}
-
-export interface RadioItemProps extends ComponentPropsWithoutRef<"div"> {
-  radioSize?: RadioSize;
-  radioStyle?: RadioStyle;
-  radioAlign?: RadioAlign;
+export interface RadioItemProps extends Omit<ComponentPropsWithoutRef<"button">, "value"> {
+  value: string;
+  size?: RadioSize;
+  variant?: RadioVariant;
   disabled?: boolean;
+  stretched?: boolean;
   children: ReactNode;
 }
 
-export interface StyledLabelProps {
-  $size: RadioSize;
-  $isDisabled: boolean;
+export interface RadioOption {
+  value: string;
+  label: RenderableNode;
+  helper?: ReactNode;
+  disabled?: boolean;
+}
+
+interface RadioGroupBaseProps {
+  size?: RadioSize;
+  variant?: RadioVariant;
+  disabled?: boolean;
+  stretched?: boolean;
+  name?: string;
+  options: RadioOption[];
+}
+
+export type RadioGroupProps = RadioGroupBaseProps &
+  AriaLabelProps &
+  RadioRootLayoutProps &
+  (RadioRootControlledProps | RadioRootUncontrolledProps);
+
+export interface RadioIndicatorProps extends Omit<ComponentPropsWithoutRef<"span">, "children"> {
+  size?: RadioSize;
+  checked?: boolean;
+  disabled?: boolean;
 }
 
 export interface RadioLabelProps {
   children: ReactNode;
 }
 
-export interface RadioSubLabelProps {
+export interface RadioHelperProps {
   children: ReactNode;
 }

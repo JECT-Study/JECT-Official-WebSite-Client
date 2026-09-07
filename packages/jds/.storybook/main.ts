@@ -1,16 +1,19 @@
-// This file has been automatically migrated to valid ESM format by Storybook.
-import { fileURLToPath } from "node:url";
 import { createRequire } from "node:module";
+import { fileURLToPath } from "node:url";
 import type { StorybookConfig } from "@storybook/react-vite";
-import { resolve, dirname, join } from "path";
+import { dirname, join, resolve } from "path";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+import { vanillaExtractPlugin } from "@vanilla-extract/vite-plugin";
 
+const __dirname = dirname(fileURLToPath(import.meta.url));
 const require = createRequire(import.meta.url);
 
+const getAbsolutePath = (value: string): string =>
+  dirname(require.resolve(join(value, "package.json")));
+
 const config: StorybookConfig = {
-  stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
+  // src/tokens의 Token Usage / Usage Guide는 Emotion 기준으로 작성되어 있어 재작성 전까지 제외한다.
+  stories: ["../src/components/**/*.mdx", "../src/components/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
   addons: [
     getAbsolutePath("@storybook/addon-onboarding"),
     getAbsolutePath("@storybook/addon-docs"),
@@ -29,20 +32,20 @@ const config: StorybookConfig = {
     config.resolve.alias = {
       ...config.resolve.alias,
       components: resolve(__dirname, "../src/components"),
-      style: resolve(__dirname, "../src/style"),
+      hooks: resolve(__dirname, "../src/hooks"),
       theme: resolve(__dirname, "../src/theme"),
       tokens: resolve(__dirname, "../src/tokens"),
       types: resolve(__dirname, "../src/types"),
       utils: resolve(__dirname, "../src/utils"),
       "@": resolve(__dirname, "../src"),
+      "@storybook-assets": resolve(__dirname, "./assets"),
       "@storybook-utils": resolve(__dirname, "./utils"),
     };
+
+    config.plugins = [...(config.plugins ?? []), vanillaExtractPlugin()];
 
     return config;
   },
 };
-export default config;
 
-function getAbsolutePath(value: string): any {
-  return dirname(require.resolve(join(value, "package.json")));
-}
+export default config;

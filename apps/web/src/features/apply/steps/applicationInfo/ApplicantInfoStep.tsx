@@ -193,7 +193,10 @@ export function ApplicantInfoStep({ context, onNext, onBack }: ApplicantInfoStep
                     </span>
                     <Tooltip.Provider>
                       <Tooltip.Root>
-                        <Tooltip.Trigger className='text-(--semantic-object-alternative)'>
+                        <Tooltip.Trigger
+                          className='text-(--semantic-object-alternative)'
+                          aria-label='직무 관련 경험 기간 안내'
+                        >
                           <Icon name='information-fill' size='2xs' color='inherit' />
                         </Tooltip.Trigger>
                         <Tooltip.Content>학습과 경력을 모두 포함한 기간</Tooltip.Content>
@@ -223,7 +226,7 @@ export function ApplicantInfoStep({ context, onNext, onBack }: ApplicantInfoStep
                     관심 도메인(최대 {MAX_SELECTABLE_DOMAINS}개)
                     <RequiredMark />
                   </Label>
-                  <div className='tablet:grid-cols-3 grid grid-cols-2 gap-2 self-stretch'>
+                  <div className='grid grid-cols-2 gap-2 self-stretch tablet:grid-cols-3'>
                     {INTERESTED_DOMAIN_OPTIONS.map(option => (
                       <Checkbox.Content
                         key={option.value}

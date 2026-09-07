@@ -1,41 +1,39 @@
-import { forwardRef, useMemo } from "react";
+import { clsx } from "clsx";
+import { forwardRef, useId } from "react";
 
-import { CardContext } from "../Card.context";
-import type { CardRootOwnProps } from "../Card.types";
-import { StyledCardRoot } from "./compound.styles";
+import { CardProvider } from "../card.context";
+import type { CardRootProps } from "../card.types";
+import * as styles from "./card.css";
 
-export const CardRoot = forwardRef<HTMLDivElement, CardRootOwnProps>(
+export const CardRoot = forwardRef<HTMLDivElement, CardRootProps>(
   (
     {
       layout = "vertical",
       variant = "plate",
-      cardStyle,
       isDisabled = false,
       interactive = false,
       children,
+      className,
       ...restProps
     },
     ref,
   ) => {
-    const contextValue = useMemo(
-      () => ({ layout, variant, cardStyle, isDisabled, interactive }),
-      [layout, variant, cardStyle, isDisabled, interactive],
-    );
+    const titleId = useId();
 
     return (
-      <CardContext.Provider value={contextValue}>
-        <StyledCardRoot
+      <CardProvider value={{ layout, variant, isDisabled, titleId }}>
+        <div
           ref={ref}
-          data-interactive={interactive ? "true" : "false"}
-          $layout={layout}
-          $variant={variant}
-          $cardStyle={cardStyle}
-          $isDisabled={isDisabled}
+          data-interactive={interactive || undefined}
+          data-disabled={isDisabled || undefined}
+          className={clsx(styles.root({ layout, variant, isDisabled }), className)}
           {...restProps}
         >
           {children}
-        </StyledCardRoot>
-      </CardContext.Provider>
+        </div>
+      </CardProvider>
     );
   },
 );
+
+CardRoot.displayName = "Card.Root";

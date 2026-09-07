@@ -1,81 +1,48 @@
-import type { BlockButtonBasicProps, BlockButtonFeedbackProps } from "components";
-import { Icon } from "components";
+import { clsx } from "clsx";
 import { forwardRef } from "react";
+import { getLabelClassName } from "utils";
 
-import { iconSizeMap, StyledBlockButton } from "./blockButton.styles";
+import { basicRoot, feedbackRoot, iconSizeMap } from "./blockButton.css";
+import type { BlockButtonProps } from "./blockButton.types";
+import { Icon } from "../../Icon";
 
-const BlockButtonBasic = forwardRef<HTMLButtonElement, BlockButtonBasicProps>(
+export const BlockButton = forwardRef<HTMLButtonElement, BlockButtonProps>(
   (
     {
       children,
       size = "md",
-      variant = "solid",
-      hierarchy = "primary",
+      hierarchy,
+      variant,
+      feedback,
       prefixIcon,
       suffixIcon,
       disabled = false,
+      className,
       ...restProps
     },
-    ref,
+    forwardedRef,
   ) => {
-    //Todo: 아이콘 사이즈도 전부 스타일의 theme 단위에서 해결하면 좋을듯(Theme 구조 추가 필요)
     const iconSize = iconSizeMap[size];
+    const rootClassName = feedback
+      ? feedbackRoot({ feedback, size })
+      : basicRoot({ hierarchy: hierarchy ?? "primary", variant: variant ?? "solid", size });
 
     return (
-      <StyledBlockButton
-        ref={ref}
-        $hierarchy={hierarchy}
-        $variant={variant}
-        $size={size}
-        $disabled={disabled}
-        disabled={disabled}
+      <button
+        ref={forwardedRef}
+        type='button'
         {...restProps}
+        disabled={disabled}
+        data-disabled={disabled || undefined}
+        data-part='root'
+        className={clsx(getLabelClassName({ size, weight: "bold" }), rootClassName, className)}
       >
         {prefixIcon && <Icon name={prefixIcon} size={iconSize} />}
         {children}
         {suffixIcon && <Icon name={suffixIcon} size={iconSize} />}
-      </StyledBlockButton>
+      </button>
     );
   },
 );
 
-BlockButtonBasic.displayName = "BlockButton.Basic";
-
-const BlockButtonFeedback = forwardRef<HTMLButtonElement, BlockButtonFeedbackProps>(
-  (
-    {
-      children,
-      size = "md",
-      intent = "destructive",
-      prefixIcon,
-      suffixIcon,
-      disabled = false,
-      ...restProps
-    },
-    ref,
-  ) => {
-    const iconSize = iconSizeMap[size];
-
-    return (
-      <StyledBlockButton
-        ref={ref}
-        $intent={intent}
-        $size={size}
-        $disabled={disabled}
-        disabled={disabled}
-        {...restProps}
-      >
-        {prefixIcon && <Icon name={prefixIcon} size={iconSize} />}
-        {children}
-        {suffixIcon && <Icon name={suffixIcon} size={iconSize} />}
-      </StyledBlockButton>
-    );
-  },
-);
-
-BlockButtonFeedback.displayName = "BlockButton.Feedback";
-
-export const BlockButton = {
-  Basic: BlockButtonBasic,
-  Feedback: BlockButtonFeedback,
-};
+BlockButton.displayName = "BlockButton";

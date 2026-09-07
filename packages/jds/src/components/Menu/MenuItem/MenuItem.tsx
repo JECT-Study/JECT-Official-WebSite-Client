@@ -1,8 +1,14 @@
+import { clsx } from "clsx";
 import { forwardRef } from "react";
 
-import { StyledImage, StyledMenuItemAnchor, StyledMenuItemButton, MenuItemLabel } from "./menuItem.styles";
+import { menuContainerStyle, menuItemImage, menuItemLabel } from "./menuItem.css";
 import type { MenuItemAnchorProps, MenuItemButtonProps } from "./menuItem.types";
 import { Icon } from "../../Icon";
+import { Thumbnail } from "../../Thumbnail";
+import { type MenuSize } from "../Menu/menu.types";
+
+import { NumericBadge, type BadgeSize } from "@/components/Badge";
+import { getLabelClassName } from "@/utils/typography";
 
 const MenuItemButton = forwardRef<HTMLButtonElement, MenuItemButtonProps>(
   (
@@ -10,44 +16,52 @@ const MenuItemButton = forwardRef<HTMLButtonElement, MenuItemButtonProps>(
       variant = "icon",
       size = "md",
       isSelected = false,
-      isDestructive = false,
       disabled = false,
-      prefixIcon = "blank",
-      suffixIcon = "blank",
+      prefixIcon = "square-dashed",
+      suffixIcon = "square-dashed",
       prefixIconVisible = false,
       suffixIconVisible = false,
       imageAlt = "",
       imageSrc = "",
+      stretched = false,
+      fullWidthText = false,
+      className,
       children,
-      ...rest
+      ...restProps
     },
     ref,
   ) => {
     return (
-      <StyledMenuItemButton
+      <button
         ref={ref}
         disabled={disabled}
-        $isDisabled={disabled}
-        $isSelected={isSelected}
-        $isDestructive={isDestructive}
-        {...rest}
+        data-disabled={disabled || undefined}
+        className={clsx(menuContainerStyle({ size, isSelected, stretched }), className)}
+        {...restProps}
       >
         {variant === "icon" && prefixIconVisible && <Icon name={prefixIcon} size={size} />}
         {variant === "thumbnail" && (
-          <StyledImage
+          <Thumbnail
             src={imageSrc}
             alt={imageAlt}
             ratio='1:1'
             orientation='portrait'
-            isReadonly
-            $size={size}
+            cornerStyle='angular'
+            className={menuItemImage({ size })}
           />
         )}
-        <MenuItemLabel as='span' size={size} textAlign='left' weight='normal' cursor={disabled ? 'default' : 'pointer'}>
+        <span
+          className={clsx(
+            getLabelClassName({
+              size,
+            }),
+            menuItemLabel({ fullWidthText }),
+          )}
+        >
           {children}
-        </MenuItemLabel>
+        </span>
         {suffixIconVisible && <Icon name={suffixIcon} size={size} />}
-      </StyledMenuItemButton>
+      </button>
     );
   },
 );
@@ -60,46 +74,63 @@ const MenuItemAnchor = forwardRef<HTMLAnchorElement, MenuItemAnchorProps>(
       variant = "icon",
       size = "md",
       isSelected = false,
-      isDestructive = false,
       disabled = false,
-      prefixIcon = "blank",
-      suffixIcon = "blank",
+      prefixIcon = "square-dashed",
       prefixIconVisible = false,
+      suffixIcon = "square-dashed",
+      suffixBadge,
       suffixIconVisible = false,
+      suffixBadgeVisible = false,
+      suffixBadgeMuted = false,
       imageAlt = "",
       imageSrc = "",
+      stretched = false,
+      fullWidthText = false,
+      className,
       children,
       ...rest
     },
     ref,
   ) => {
     return (
-      <StyledMenuItemAnchor
+      <a
         ref={ref}
-        $isDisabled={disabled}
-        $isSelected={isSelected}
-        $isDestructive={isDestructive}
+        aria-disabled={disabled || undefined}
+        data-disabled={disabled || undefined}
+        tabIndex={disabled ? -1 : undefined}
+        className={clsx(menuContainerStyle({ size, isSelected, stretched }), className)}
         {...rest}
       >
         {variant === "icon" && prefixIconVisible && <Icon name={prefixIcon} size={size} />}
         {variant === "thumbnail" && (
-          <StyledImage
+          <Thumbnail
             src={imageSrc}
             alt={imageAlt}
             ratio='1:1'
             orientation='portrait'
-            isReadonly
-            $size={size}
+            cornerStyle='angular'
+            className={menuItemImage({ size })}
           />
         )}
-        <MenuItemLabel as='span' size={size} textAlign='left' weight='normal'>
+        <span className={clsx(getLabelClassName({ size }), menuItemLabel({ fullWidthText }))}>
           {children}
-        </MenuItemLabel>
+        </span>
         {suffixIconVisible && <Icon name={suffixIcon} size={size} />}
-      </StyledMenuItemAnchor>
+        {suffixBadgeVisible && (
+          <NumericBadge size={suffixBadgeSizeByMenuSize[size]} isMuted={suffixBadgeMuted}>
+            {suffixBadge}
+          </NumericBadge>
+        )}
+      </a>
     );
   },
 );
+
+const suffixBadgeSizeByMenuSize: Record<MenuSize, BadgeSize> = {
+  lg: "lg",
+  md: "md",
+  sm: "sm",
+} as const;
 
 MenuItemAnchor.displayName = "MenuItem.Anchor";
 

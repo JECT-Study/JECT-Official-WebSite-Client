@@ -33,7 +33,7 @@ function NonSpecificError() {
               <div className='flex flex-col items-center justify-center gap-(--semantic-spacing-16)'>
                 <div className='flex items-center justify-center gap-(--semantic-spacing-6)'>
                   <Title size='lg' textAlign='center' className='text-center'>
-                    현재 페이지를 불러오는 중 <br className='desktop:hidden tablet:hidden' /> 문제가
+                    현재 페이지를 불러오는 중 <br className='tablet:hidden desktop:hidden' /> 문제가
                     생겼습니다
                   </Title>
                 </div>

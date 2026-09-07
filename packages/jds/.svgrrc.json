@@ -6,7 +6,8 @@
   },
   "icon": true,
   "replaceAttrValues": {
-    "#191B24": "currentColor"
+    "#191B24": "currentColor",
+    "#1B1C21": "currentColor"
   },
   "jsxRuntime": "automatic"
 }

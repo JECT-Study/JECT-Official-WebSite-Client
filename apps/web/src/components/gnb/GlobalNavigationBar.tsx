@@ -52,7 +52,7 @@ const GlobalNavigationBar = () => {
     <div className='pointer-events-none fixed inset-0 z-50'>
       <GlobalNavigation.Root
         variant={variant}
-        className='tablet:w-full! tablet:max-w-[930px]! desktop:max-w-[922px]! pointer-events-auto mx-auto'
+        className='pointer-events-auto mx-auto tablet:w-full! tablet:max-w-[930px]! desktop:max-w-[922px]!'
       >
         <Logo
           role='home'

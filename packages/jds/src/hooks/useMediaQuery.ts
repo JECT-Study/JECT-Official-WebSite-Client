@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 
+import { breakpoints as defaultBreakpoints } from "../tokens/breakpoints";
+
 export type DeviceType = "desktop" | "tablet" | "mobile";
 
 export interface Breakpoints {
@@ -7,12 +9,6 @@ export interface Breakpoints {
   tablet: { min: number; max: number };
   desktop: { min: number; max: number };
 }
-
-const DEFAULT_BREAKPOINTS: Breakpoints = {
-  mobile: { min: 320, max: 767 },
-  tablet: { min: 768, max: 1199 },
-  desktop: { min: 1200, max: 2560 },
-};
 
 /**
  * 현재 윈도우 너비를 기반으로 디바이스 타입을 반환합니다
@@ -39,7 +35,7 @@ const DEFAULT_BREAKPOINTS: Breakpoints = {
  * });
  * ```
  */
-export const useMediaQuery = (breakpoints: Breakpoints = DEFAULT_BREAKPOINTS): DeviceType => {
+export const useMediaQuery = (breakpoints: Breakpoints = defaultBreakpoints): DeviceType => {
   const getDeviceType = useCallback((): DeviceType => {
     if (typeof window === "undefined") return "desktop";
 
@@ -91,7 +87,7 @@ export const useMediaQuery = (breakpoints: Breakpoints = DEFAULT_BREAKPOINTS): D
  * return isMobile ? <MobileNav /> : <DesktopNav />;
  * ```
  */
-export const useMediaQueryFlags = (breakpoints?: Breakpoints) => {
+export const useMediaQueryFlags = (breakpoints: Breakpoints = defaultBreakpoints) => {
   const deviceType = useMediaQuery(breakpoints);
 
   return {

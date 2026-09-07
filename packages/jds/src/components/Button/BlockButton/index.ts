@@ -1,9 +1,8 @@
 export { BlockButton } from "./BlockButton";
 export type {
+  BlockButtonProps,
   BlockButtonSize,
   BlockButtonHierarchy,
-  BlockButtonStyle,
-  FeedbackIntent,
-  BlockButtonBasicProps,
-  BlockButtonFeedbackProps,
+  BlockButtonVariant,
+  BlockButtonFeedback,
 } from "./blockButton.types";

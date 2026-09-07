@@ -1,0 +1,246 @@
+import { createVar, style, type StyleRule } from "@vanilla-extract/css";
+import { recipe } from "@vanilla-extract/recipes";
+import { vars } from "tokens";
+import { pxToRem, overlay } from "utils";
+
+import { CHECKBOX_SIZE_OPTIONS, type CheckboxSize } from "./checkbox.types";
+
+export const checkboxGroupColumnsVar = createVar();
+
+export const checkboxGroupWrapper = recipe({
+  variants: {
+    layout: {
+      vertical: {
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "flex-start",
+        gap: vars.scheme.semantic.spacing["12"],
+      },
+      grid: {
+        display: "grid",
+        width: "100%",
+        gridTemplateColumns: `repeat(${checkboxGroupColumnsVar}, minmax(0, 1fr))`,
+        justifyItems: "start",
+        gap: vars.scheme.semantic.spacing["10"],
+      },
+    },
+  },
+  defaultVariants: { layout: "vertical" },
+});
+
+const checkboxVisualSizeMap = {
+  lg: pxToRem(20),
+  md: pxToRem(18),
+  sm: pxToRem(16),
+  xs: pxToRem(14),
+} satisfies Record<CheckboxSize, string>;
+
+// Checkbox.Indicator
+export const checkboxVisual = recipe({
+  base: {
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexShrink: 0,
+    boxSizing: "border-box",
+    margin: 0,
+    padding: 0,
+    borderRadius: vars.scheme.semantic.radius["4"],
+    border: `${vars.scheme.semantic.strokeWeight["1"]} solid ${vars.color.semantic.stroke.alpha.assistive}`,
+    backgroundColor: vars.color.semantic.surface.shallow,
+    color: "transparent",
+    selectors: {
+      '&[data-state="checked"]:not([data-disabled]), &[data-state="indeterminate"]:not([data-disabled])':
+        {
+          backgroundColor: vars.color.semantic.accent.neutral,
+          border: "none",
+          color: vars.color.semantic.object.static.inverse.boldest,
+        },
+      '&[data-disabled][data-state="unchecked"]': {
+        backgroundColor: vars.color.semantic.surface.standard,
+        borderColor: vars.color.semantic.stroke.alpha.subtle,
+        cursor: "not-allowed",
+      },
+      '&[data-disabled][data-state="checked"], &[data-disabled][data-state="indeterminate"]': {
+        backgroundColor: vars.color.semantic.fill.subtlest,
+        border: "none",
+        color: vars.color.semantic.object.subtle,
+        cursor: "not-allowed",
+      },
+      "&[data-invalid]:not([data-disabled])": {
+        borderColor: vars.color.semantic.feedback.destructive.neutral,
+      },
+      "&[data-invalid][data-disabled]": {
+        borderColor: vars.color.semantic.feedback.destructive.alpha.subtle,
+      },
+    },
+  },
+  variants: {
+    size: {
+      lg: { width: checkboxVisualSizeMap.lg, height: checkboxVisualSizeMap.lg },
+      md: { width: checkboxVisualSizeMap.md, height: checkboxVisualSizeMap.md },
+      sm: { width: checkboxVisualSizeMap.sm, height: checkboxVisualSizeMap.sm },
+      xs: { width: checkboxVisualSizeMap.xs, height: checkboxVisualSizeMap.xs },
+    } satisfies Record<CheckboxSize, StyleRule>,
+  },
+});
+
+// Checkbox.Control
+export const checkboxControl = style({
+  display: "inline-flex",
+  alignItems: "center",
+  justifyContent: "center",
+  flexShrink: 0,
+  margin: 0,
+  padding: 0,
+  border: "none",
+  background: "none",
+  appearance: "none",
+  cursor: "pointer",
+  position: "relative",
+  outline: "none",
+  borderRadius: vars.scheme.semantic.radius["4"],
+  selectors: {
+    "&:disabled": { cursor: "not-allowed" },
+    "&::before, &::after": { inset: 0, borderRadius: "inherit" },
+  },
+});
+
+export const checkboxIconWrapper = style({
+  display: "inline-flex",
+  alignItems: "center",
+  justifyContent: "center",
+});
+
+// Checkbox.Item
+
+const itemInsetBySize: Record<CheckboxSize, string> = {
+  lg: `${pxToRem(-4)} ${pxToRem(-8)}`,
+  md: `${pxToRem(-4)} ${pxToRem(-8)}`,
+  sm: `${pxToRem(-4)} ${pxToRem(-6)}`,
+  xs: `${pxToRem(-3)} ${pxToRem(-6)}`,
+};
+
+const itemOutlinedPaddingBySize: Record<CheckboxSize, string> = {
+  lg: `${vars.scheme.semantic.spacing["10"]} ${vars.scheme.semantic.spacing["12"]}`,
+  md: `${vars.scheme.semantic.spacing["8"]} ${vars.scheme.semantic.spacing["10"]}`,
+  sm: `${vars.scheme.semantic.spacing["6"]} ${vars.scheme.semantic.spacing["8"]}`,
+  xs: `${vars.scheme.semantic.spacing["4"]} ${vars.scheme.semantic.spacing["6"]}`,
+};
+
+const expansionCompoundVariants = CHECKBOX_SIZE_OPTIONS.map(size => ({
+  variants: { size, styleOutlined: "hollow" as const },
+  style: {
+    selectors: {
+      "&::before, &::after": { inset: itemInsetBySize[size] },
+    },
+  },
+}));
+
+const outlinedPaddingCompoundVariants = CHECKBOX_SIZE_OPTIONS.map(size => ({
+  variants: { size, styleOutlined: "outlined" as const },
+  style: { padding: itemOutlinedPaddingBySize[size] },
+}));
+
+const checkboxItemGrid = style({
+  display: "inline-grid",
+  gridTemplateColumns: "auto minmax(0, 1fr)",
+  alignItems: "start",
+  maxWidth: "100%",
+});
+
+export const checkboxControlSlot = style({ gridColumn: "1", gridRow: "1" });
+
+export const checkboxControlInItem = style({ marginTop: pxToRem(1) });
+
+export const checkboxLabelSlot = style({
+  gridColumn: "2",
+  gridRow: "1",
+  display: "flex",
+  alignItems: "center",
+});
+export const checkboxHelperSlot = style({ gridColumn: "2", gridRow: "2" });
+
+export const checkboxItem = recipe({
+  base: [
+    // focus ring은 invalid 상태에서 색이 달라지므로 Checkbox.tsx에서 focusRing({ feedback })으로 부여한다.
+    checkboxItemGrid,
+    overlay(),
+    {
+      position: "relative",
+      cursor: "pointer",
+      selectors: {
+        "&[data-disabled]": { cursor: "not-allowed" },
+        "&::before, &::after": { inset: 0, borderRadius: "inherit" },
+      },
+    },
+  ],
+  variants: {
+    size: {
+      lg: {
+        gap: `${vars.scheme.semantic.spacing["6"]} ${vars.scheme.semantic.spacing["12"]}`,
+        borderRadius: vars.scheme.semantic.radius["6"],
+      },
+      md: {
+        gap: `${vars.scheme.semantic.spacing["6"]} ${vars.scheme.semantic.spacing["10"]}`,
+        borderRadius: vars.scheme.semantic.radius["6"],
+      },
+      sm: {
+        gap: `${vars.scheme.semantic.spacing["6"]} ${vars.scheme.semantic.spacing["8"]}`,
+        borderRadius: vars.scheme.semantic.radius["4"],
+      },
+      xs: {
+        gap: `${vars.scheme.semantic.spacing["6"]} ${vars.scheme.semantic.spacing["8"]}`,
+        borderRadius: vars.scheme.semantic.radius["4"],
+      },
+    } satisfies Record<CheckboxSize, StyleRule>,
+    styleOutlined: {
+      outlined: {
+        border: `${vars.scheme.semantic.strokeWeight["1"]} solid ${vars.color.semantic.stroke.alpha.assistive}`,
+        selectors: {
+          "&[data-disabled]": { borderColor: vars.color.semantic.stroke.alpha.subtler },
+          "&[data-invalid]": {
+            borderColor: vars.color.semantic.feedback.destructive.neutral,
+          },
+          "&[data-invalid][data-disabled]": {
+            borderColor: vars.color.semantic.feedback.destructive.alpha.subtle,
+          },
+          "&::after": { border: "inherit" },
+        },
+      },
+      hollow: { border: "none", padding: 0 },
+    },
+    stretched: {
+      true: {
+        display: "grid",
+        width: "100%",
+      },
+    },
+  },
+  compoundVariants: [...expansionCompoundVariants, ...outlinedPaddingCompoundVariants],
+});
+
+// Checkbox.Label / Checkbox.Helper
+// disabled 및 invalid 색상은 조상의 data attribute로 제어한다.
+
+export const checkboxLabel = style({
+  color: vars.color.semantic.object.bolder,
+  cursor: "inherit",
+  selectors: {
+    "[data-disabled] &": { color: vars.color.semantic.object.subtle },
+  },
+});
+
+export const checkboxHelper = style({
+  display: "flex",
+  alignItems: "center",
+  color: vars.color.semantic.object.alternative,
+  cursor: "inherit",
+  selectors: {
+    "[data-disabled] &": { color: vars.color.semantic.object.subtle },
+    "[data-invalid] &": { color: vars.color.semantic.feedback.destructive.normal },
+    "[data-invalid][data-disabled] &": {
+      color: vars.color.semantic.feedback.destructive.alpha.assistive,
+    },
+  },
+});

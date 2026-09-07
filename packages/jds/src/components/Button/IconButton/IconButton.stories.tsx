@@ -1,229 +1,136 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { FlexRow, FlexColumn, Label } from "@storybook-utils/layout";
-import { IconButton } from "components";
+import { FlexColumn, FlexRow } from "@storybook-utils/layout";
+import { vars } from "tokens";
 
-const meta = {
+import { IconButton } from "./IconButton";
+import {
+  ICON_BUTTON_HIERARCHY_OPTIONS,
+  ICON_BUTTON_SIZE_OPTIONS,
+  type IconButtonSize,
+} from "./iconButton.types";
+
+const MATRIX_SIZE_OPTIONS = ["sm", "md", "xl"] as const satisfies readonly IconButtonSize[];
+
+const meta: Meta<typeof IconButton> = {
   title: "Components/IconButton",
-  component: IconButton.Basic,
+  component: IconButton,
   parameters: {
     layout: "centered",
   },
   argTypes: {
     icon: {
       control: "text",
-      description: "표시할 아이콘 이름입니다. Icon 컴포넌트에서 사용하는 값입니다.",
+      description: "표시할 아이콘 이름 (Icon 컴포넌트에서 사용하는 값)",
     },
     hierarchy: {
       control: "select",
-      options: ["accent", "primary", "secondary", "tertiary"],
-      description: "버튼의 시각적 맥락적 위계 구분",
+      options: ICON_BUTTON_HIERARCHY_OPTIONS,
+      description: "버튼의 시각적 위계",
+      table: { defaultValue: { summary: "primary" } },
     },
     size: {
       control: "select",
-      options: ["2xs", "xs", "sm", "md", "lg", "xl", "2xl", "3xl"],
-      description: "컴포넌트의 크기",
+      options: ICON_BUTTON_SIZE_OPTIONS,
+      description: "버튼 크기",
+      table: { defaultValue: { summary: "md" } },
+    },
+    condensed: {
+      control: "boolean",
+      description:
+        "true이면 버튼이 아이콘 크기에 맞게 렌더링되고, false이면 추가 padding이 적용됩니다.",
+      table: { defaultValue: { summary: "true" } },
     },
     disabled: {
       control: "boolean",
-      description: "비활성화되었는지 여부",
+      description: "비활성화 여부",
+      table: { defaultValue: { summary: "false" } },
     },
     "aria-label": {
       control: "text",
-      description: "접근성을 위한 레이블이며 필요 시 사용하는 값입니다.",
+      description:
+        "아이콘 버튼은 화면에 표시되는 텍스트가 없으므로, 스크린 리더를 위한 레이블을 반드시 지정해야 합니다.",
     },
   },
-} satisfies Meta<typeof IconButton.Basic>;
+} satisfies Meta<typeof IconButton>;
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+
+type Story = StoryObj<typeof IconButton>;
 
 export const Default: Story = {
   args: {
-    icon: "check-line",
+    icon: "check",
     hierarchy: "primary",
     size: "md",
     "aria-label": "체크 버튼",
   },
 };
 
-export const AllSizes: Story = {
-  args: {
-    icon: "check-line",
-  },
+export const IconButtonSizes: Story = {
   render: () => (
     <FlexRow>
-      <IconButton.Basic icon='check-line' size='2xs' aria-label='2XS Check' />
-      <IconButton.Basic icon='check-line' size='xs' aria-label='XS Check' />
-      <IconButton.Basic icon='check-line' size='sm' aria-label='SM Check' />
-      <IconButton.Basic icon='check-line' size='md' aria-label='MD Check' />
-      <IconButton.Basic icon='check-line' size='xl' aria-label='XL Check' />
-      <IconButton.Basic icon='check-line' size='2xl' aria-label='2XL Check' />
-      <IconButton.Basic icon='check-line' size='3xl' aria-label='3XL Check' />
+      {ICON_BUTTON_SIZE_OPTIONS.map(size => (
+        <IconButton key={size} icon='check' size={size} aria-label={`체크 ${size}`} />
+      ))}
     </FlexRow>
   ),
 };
 
-export const AllHierarchies: Story = {
-  args: {
-    icon: "check-line",
-  },
+export const IconButtonHierarchies: Story = {
   render: () => (
     <FlexRow>
-      <IconButton.Basic icon='check-line' hierarchy='accent' aria-label='Accent Check' />
-      <IconButton.Basic icon='check-line' hierarchy='primary' aria-label='Primary Check' />
-      <IconButton.Basic icon='check-line' hierarchy='secondary' aria-label='Secondary Check' />
-      <IconButton.Basic icon='check-line' hierarchy='tertiary' aria-label='Tertiary Check' />
+      {ICON_BUTTON_HIERARCHY_OPTIONS.map(hierarchy => (
+        <IconButton
+          key={hierarchy}
+          icon='check'
+          hierarchy={hierarchy}
+          aria-label={`체크 ${hierarchy}`}
+        />
+      ))}
     </FlexRow>
   ),
 };
 
-export const DifferentIcons: Story = {
-  args: {
-    icon: "check-line",
-  },
+export const IconButtonDisabled: Story = {
   render: () => (
     <FlexRow>
-      <IconButton.Basic icon='add-line' aria-label='Add' />
-      <IconButton.Basic icon='close-line' aria-label='Close' />
-      <IconButton.Basic icon='check-line' aria-label='Check' />
-      <IconButton.Basic icon='arrow-left-line' aria-label='Go Back' />
-      <IconButton.Basic icon='arrow-right-line' aria-label='Go Forward' />
-      <IconButton.Basic icon='search-line' aria-label='Search' />
+      {ICON_BUTTON_HIERARCHY_OPTIONS.map(hierarchy => (
+        <IconButton
+          key={hierarchy}
+          icon='check'
+          hierarchy={hierarchy}
+          disabled
+          aria-label={`체크 ${hierarchy}`}
+        />
+      ))}
     </FlexRow>
   ),
 };
 
-export const InteractionStates: Story = {
-  args: {
-    icon: "check-line",
-  },
-  render: () => (
-    <FlexRow>
-      <IconButton.Basic icon='check-line' aria-label='Hover me' />
-      <IconButton.Basic icon='check-line' aria-label='Click me (Active)' />
-      <IconButton.Basic icon='check-line' aria-label='Tab to focus me' />
-    </FlexRow>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: "rest, hover, active, focus 상태를 직접 테스트해보세요.",
-      },
-    },
-  },
-};
-
-export const HierarchyWithSizes: Story = {
-  args: {
-    icon: "check-line",
-  },
+export const IconButtonCondensed: Story = {
   render: () => (
     <FlexColumn>
       <FlexRow>
-        <Label>Accent:</Label>
-        <IconButton.Basic icon='check-line' size='sm' hierarchy='accent' aria-label='Accent SM' />
-        <IconButton.Basic icon='check-line' size='md' hierarchy='accent' aria-label='Accent MD' />
-        <IconButton.Basic icon='check-line' size='xl' hierarchy='accent' aria-label='Accent XL' />
+        {MATRIX_SIZE_OPTIONS.map(size => (
+          <IconButton
+            key={size}
+            icon='check'
+            size={size}
+            condensed
+            aria-label={`condensed ${size}`}
+          />
+        ))}
       </FlexRow>
       <FlexRow>
-        <Label>Primary:</Label>
-        <IconButton.Basic icon='check-line' size='sm' hierarchy='primary' aria-label='Primary SM' />
-        <IconButton.Basic icon='check-line' size='md' hierarchy='primary' aria-label='Primary MD' />
-        <IconButton.Basic icon='check-line' size='xl' hierarchy='primary' aria-label='Primary XL' />
-      </FlexRow>
-      <FlexRow>
-        <Label>Secondary:</Label>
-        <IconButton.Basic
-          icon='check-line'
-          size='sm'
-          hierarchy='secondary'
-          aria-label='Secondary SM'
-        />
-        <IconButton.Basic
-          icon='check-line'
-          size='md'
-          hierarchy='secondary'
-          aria-label='Secondary MD'
-        />
-        <IconButton.Basic
-          icon='check-line'
-          size='xl'
-          hierarchy='secondary'
-          aria-label='Secondary XL'
-        />
-      </FlexRow>
-      <FlexRow>
-        <Label>Tertiary:</Label>
-        <IconButton.Basic
-          icon='check-line'
-          size='sm'
-          hierarchy='tertiary'
-          aria-label='Tertiary SM'
-        />
-        <IconButton.Basic
-          icon='check-line'
-          size='md'
-          hierarchy='tertiary'
-          aria-label='Tertiary MD'
-        />
-        <IconButton.Basic
-          icon='check-line'
-          size='xl'
-          hierarchy='tertiary'
-          aria-label='Tertiary XL'
-        />
-      </FlexRow>
-    </FlexColumn>
-  ),
-};
-
-export const FeedbackButtons: Story = {
-  args: {
-    icon: "check-line",
-  },
-  render: () => (
-    <FlexColumn>
-      <FlexRow>
-        <Label>Positive:</Label>
-        <IconButton.Feedback
-          icon='check-line'
-          intent='positive'
-          size='sm'
-          aria-label='Positive SM'
-        />
-        <IconButton.Feedback
-          icon='check-line'
-          intent='positive'
-          size='md'
-          aria-label='Positive MD'
-        />
-        <IconButton.Feedback
-          icon='check-line'
-          intent='positive'
-          size='xl'
-          aria-label='Positive XL'
-        />
-      </FlexRow>
-      <FlexRow>
-        <Label>Destructive:</Label>
-        <IconButton.Feedback
-          icon='close-line'
-          intent='destructive'
-          size='sm'
-          aria-label='Destructive SM'
-        />
-        <IconButton.Feedback
-          icon='close-line'
-          intent='destructive'
-          size='md'
-          aria-label='Destructive MD'
-        />
-        <IconButton.Feedback
-          icon='close-line'
-          intent='destructive'
-          size='xl'
-          aria-label='Destructive XL'
-        />
+        {MATRIX_SIZE_OPTIONS.map(size => (
+          <IconButton
+            key={size}
+            icon='check'
+            size={size}
+            condensed={false}
+            aria-label={`spacious ${size}`}
+          />
+        ))}
       </FlexRow>
     </FlexColumn>
   ),
@@ -231,7 +138,81 @@ export const FeedbackButtons: Story = {
     docs: {
       description: {
         story:
-          "피드백 아이콘 버튼은 사용자 행동에 대한 긍정적(positive) 또는 부정적(destructive) 피드백을 제공할 때 사용합니다.",
+          "`condensed` 옵션을 사용하면 버튼이 아이콘 크기에 맞게 렌더링되고, `false`일 때는 사이즈별 추가 padding이 적용됩니다.",
+      },
+    },
+  },
+};
+
+export const IconButtonAccentOverride: Story = {
+  render: () => (
+    <FlexRow>
+      {MATRIX_SIZE_OPTIONS.map(size => (
+        <IconButton
+          key={size}
+          icon='x'
+          hierarchy='accent'
+          size={size}
+          accentColor={{ normal: vars.color.semantic.feedback.destructive.normal }}
+          aria-label={`accent ${size}`}
+        />
+      ))}
+    </FlexRow>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: `디자인 시스템 레벨에서 feedback prop을 제공하지 않는 대신 \`hierarchy='accent'\`에서
+\`accentColor\` prop으로 색상을 지정해 positive / destructive 등의 프리셋을 만들 수 있습니다.
+\`disabled\`를 생략하면 \`normal\`과 동일하게 적용됩니다.
+
+\`\`\`tsx
+import { IconButton, vars } from 'jds';
+
+<IconButton
+  icon="x"
+  hierarchy="accent"
+  aria-label="삭제"
+  accentColor={{ normal: vars.color.semantic.feedback.destructive.normal }}
+/>
+\`\`\``,
+      },
+    },
+  },
+};
+
+export const IconButtonComprehensiveMatrix: Story = {
+  render: () => (
+    <FlexColumn>
+      {ICON_BUTTON_HIERARCHY_OPTIONS.map(hierarchy => (
+        <FlexRow key={hierarchy}>
+          {MATRIX_SIZE_OPTIONS.map(size => (
+            <IconButton
+              key={size}
+              icon='check'
+              hierarchy={hierarchy}
+              size={size}
+              aria-label={`${hierarchy} ${size}`}
+            />
+          ))}
+          {MATRIX_SIZE_OPTIONS.map(size => (
+            <IconButton
+              key={`${size}-disabled`}
+              icon='check'
+              hierarchy={hierarchy}
+              size={size}
+              disabled
+              aria-label={`${hierarchy} ${size} disabled`}
+            />
+          ))}
+        </FlexRow>
+      ))}
+    </FlexColumn>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: "모든 hierarchy 및 대표 size 조합을 enabled / disabled로 한눈에 확인할 수 있습니다.",
       },
     },
   },

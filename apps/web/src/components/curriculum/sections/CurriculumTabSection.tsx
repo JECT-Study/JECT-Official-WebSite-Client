@@ -52,7 +52,7 @@ const CurriculumTabSection = () => {
       </Tab.List>
 
       <Tab.Content value='team-project-schedule'>
-        <div className='tablet:grid-cols-2 grid w-full grid-cols-1 gap-(--semantic-spacing-16) pt-(--semantic-spacing-48)'>
+        <div className='grid w-full grid-cols-1 gap-(--semantic-spacing-16) pt-(--semantic-spacing-48) tablet:grid-cols-2'>
           {teamProjectScheduleData.map(item => (
             <TeamProjectCard key={item.id} item={item} />
           ))}
@@ -60,7 +60,7 @@ const CurriculumTabSection = () => {
       </Tab.Content>
 
       <Tab.Content value='figma-guide-curriculum'>
-        <div className='tablet:grid-cols-2 grid w-full grid-cols-1 gap-(--semantic-spacing-16) pt-(--semantic-spacing-48)'>
+        <div className='grid w-full grid-cols-1 gap-(--semantic-spacing-16) pt-(--semantic-spacing-48) tablet:grid-cols-2'>
           {figmaGuideCurriculumData.map(item => (
             <FigmaGuideCard key={item.id} item={item} />
           ))}

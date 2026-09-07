@@ -1,12 +1,13 @@
 import type { ToastHandler } from "./toast.types";
 
-type ToastController = {
+interface ToastController {
   setHandler: (handler: ToastHandler) => void;
   clearHandler: () => void;
   basic: ToastHandler["basic"];
   positive: ToastHandler["positive"];
   destructive: ToastHandler["destructive"];
-};
+  notifying: ToastHandler["notifying"];
+}
 
 let currentHandler: ToastHandler | null = null;
 
@@ -28,5 +29,9 @@ export const toastController: ToastController = {
   destructive: (...args) => {
     if (!currentHandler) return console.warn("ToastProvider not ready");
     return currentHandler.destructive(...args);
+  },
+  notifying: (...args) => {
+    if (!currentHandler) return console.warn("ToastProvider not ready");
+    return currentHandler.notifying(...args);
   },
 };

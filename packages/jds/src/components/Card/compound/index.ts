@@ -1,9 +1,9 @@
 export { CardRoot } from "./CardRoot";
-export { CardImage } from "./CardImage";
+export { CardThumbnail } from "./CardThumbnail";
 export { CardContent } from "./CardContent";
+export { CardContentGroup } from "./CardContentGroup";
 export { CardCaption } from "./CardCaption";
 export { CardTitle } from "./CardTitle";
-export { CardLabel } from "./CardLabel";
 export { CardBody } from "./CardBody";
 export { CardMeta } from "./CardMeta";
 export { CardMetaItem } from "./CardMetaItem";

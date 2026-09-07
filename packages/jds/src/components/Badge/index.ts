@@ -1,24 +1,24 @@
-export * from "./contentBadge/ContentBadge";
-export * from "./dotBadge/DotBadge";
-export * from "./numericBadge/NumericBadge";
+export * from "./ContentBadge/ContentBadge";
+export * from "./DotBadge/DotBadge";
+export * from "./NumericBadge/NumericBadge";
 
-export type {
-  BadgeStyle,
-  BadgeStyleWithoutBorder,
-  BadgeSize,
-  BasicHierarchy,
-  FeedbackVariant,
-  ThemeVariant,
-  ContentBadgeStyle,
-  NumericBadgeStyle,
+export type { BadgeSize, BasicHierarchy, FeedbackVariant } from "./badge.types";
+export type { ContentBadgeStyle, ThemeVariant } from "./ContentBadge/contentBadge.types";
+export type { NumericBadgeStyle } from "./NumericBadge/numericBadge.types";
+
+export {
+  BADGE_SIZE_OPTIONS,
+  BASIC_HIERARCHY_OPTIONS,
+  FEEDBACK_VARIANT_OPTIONS,
 } from "./badge.types";
+export {
+  CONTENT_BADGE_STYLE_OPTIONS,
+  THEME_VARIANT_OPTIONS,
+} from "./ContentBadge/contentBadge.types";
+export { NUMERIC_BADGE_STYLE_OPTIONS } from "./NumericBadge/numericBadge.types";
 
-export type {
-  ContentBadgeBasicProps,
-  ContentFeedbackBadgeProps,
-  ContentThemeBadgeProps,
-} from "./contentBadge/ContentBadge";
+export type { ContentBadgeProps } from "./ContentBadge/contentBadge.types";
 
-export type { DotBadgeFeedbackProps } from "./dotBadge/DotBadge";
+export type { DotBadgeProps } from "./DotBadge/dotBadge.types";
 
-export type { NumericBadgeBasicProps, NumericBasicBadgeProps } from "./numericBadge/NumericBadge";
+export type { NumericBadgeProps } from "./NumericBadge/numericBadge.types";

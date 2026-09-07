@@ -1,0 +1,30 @@
+# 빌드 산출물
+dist
+build
+storybook-static
+.turbo
+coverage
+
+# 의존성, 잠금 파일
+node_modules
+package-lock.json
+
+# VRT 스냅샷과 리포트 (engine_scripts는 직접 작성한 소스라 제외하지 않는다)
+packages/vrt/backstop_data/bitmaps_reference
+packages/vrt/backstop_data/bitmaps_test
+packages/vrt/backstop_data/html_report
+packages/vrt/backstop_data/ci_report
+packages/vrt/backstop.json
+
+# 생성물 (build:tokens, build:icons 출력)
+packages/jds/src/components/Icon/generated
+packages/jds/src/tokens/tokens.ts
+packages/jds/src/tokens/theme.ts
+packages/jds/src/tokens/globalStyles.ts
+packages/jds/src/tokens/globalTokens.css.ts
+packages/jds/src/tokens/textStyles.ts
+packages/jds/src/tokens/vars.css.ts
+packages/jds/src/tokens/breakpoints.ts
+
+# 디자인 토큰 원본 (Figma 내보내기)
+packages/jds/src/tokens/input

@@ -5,10 +5,10 @@ import Logo from "@/components/common/logo/Logo";
 function TempMobile() {
   return (
     <div className='relative'>
-      <header className='bg-surface-standard-dark border-border-assistive-dark border-b px-(--gap-md) py-(--gap-xs)'>
+      <header className='border-b border-border-assistive-dark bg-surface-standard-dark px-(--gap-md) py-(--gap-xs)'>
         <Logo height={18} fillColor='fill-object-hero-dark' />
       </header>
-      <div className='gap-2xl bg-surface-standard-dark flex min-h-dvh flex-col items-center justify-center'>
+      <div className='gap-2xl flex min-h-dvh flex-col items-center justify-center bg-surface-standard-dark'>
         <img src={coneImage} alt='물음표 이미지' className='w-[6rem]' />
         <div className='gap-3xs flex flex-col text-center'>
           <p className='title-02 text-object-hero-dark'>

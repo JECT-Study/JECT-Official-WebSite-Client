@@ -15,6 +15,10 @@
     "lint": {
       "dependsOn": ["^build"]
     },
+    "lint:fix": {
+      "dependsOn": ["^build"],
+      "cache": false
+    },
     "preview": {
       "cache": false
     },
@@ -33,9 +37,6 @@
       "cache": false
     },
     "type-check": {
-      "cache": true
-    },
-    "format": {
       "cache": true
     }
   }

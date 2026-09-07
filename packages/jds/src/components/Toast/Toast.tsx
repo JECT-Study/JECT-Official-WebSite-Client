@@ -1,92 +1,66 @@
-import { useEffect, useState } from "react";
+import { clsx } from "clsx";
+import { useEffect, useRef, useState } from "react";
 
-import {
-  ToastCaptionP,
-  ToastContentDiv,
-  ToastDiv,
-  ToastFeedbackIcon,
-  ToastLabel,
-  ToastLabelContainerDiv,
-} from "./toast.styles";
-import type { ToastBasicProps, ToastFeedbackProps } from "./toast.types";
-import { IconButton } from "../Button/IconButton";
+import { TOAST_ANIMATION_TIMER, TOAST_DEFAULT_DURATION } from "./toast.constants";
+import * as styles from "./toast.css";
+import type { ToastProps, ToastFeedbackVariant } from "./toast.types";
+import { Icon } from "../Icon";
+import type { IconName } from "../Icon";
 
-const ToastBasic = ({ id, caption, onRemove, title, isClosing }: ToastBasicProps) => {
-  const [phase, setPhase] = useState<"enter" | "static" | "exit">("enter");
+import { getBodyClassName, getLabelClassName } from "@/utils/typography";
 
-  const onAnimationEnd = () => {
-    if (phase === "enter") {
-      setPhase("static");
-      return;
-    }
+type ToastPhase = "enter" | "static" | "exit";
 
-    if (phase === "exit") {
-      onRemove?.();
-    }
-  };
-
-  const onClose = () => setPhase("exit");
-
-  useEffect(() => {
-    if (phase === "static") {
-      const timer = setTimeout(() => setPhase("exit"), 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [phase]);
-
-  useEffect(() => {
-    if (isClosing) setPhase("exit");
-  }, [isClosing]);
-
-  return (
-    <ToastDiv id={id} className={phase} toastStyle='basic' onAnimationEnd={onAnimationEnd}>
-      <ToastContentDiv>
-        <ToastLabelContainerDiv>
-          <ToastLabel as='span' toastStyle='basic' size='md' textAlign='left' weight='normal'>
-            {title}
-          </ToastLabel>
-          <IconButton.Basic
-            icon='close-line'
-            hierarchy='secondary'
-            size='md'
-            aria-label='toast close button'
-            onClick={onClose}
-          />
-        </ToastLabelContainerDiv>
-        {caption && <ToastCaptionP>{caption}</ToastCaptionP>}
-      </ToastContentDiv>
-    </ToastDiv>
-  );
+const phaseClassNameMap: Partial<Record<ToastPhase, string>> = {
+  enter: styles.enter,
+  exit: styles.exit,
 };
 
-ToastBasic.displayName = "Toast.Basic";
+const feedbackIconName: Record<ToastFeedbackVariant, IconName> = {
+  positive: "check",
+  destructive: "octagon-alert",
+  notifying: "triangle-alert",
+};
 
-const ToastFeedback = ({
+export const Toast = ({
   id,
-  variant = "positive",
-  caption,
+  feedback = "none",
+  description,
   onRemove,
   title,
   isClosing,
-}: ToastFeedbackProps) => {
-  const [phase, setPhase] = useState<"enter" | "static" | "exit">("enter");
+  duration = TOAST_DEFAULT_DURATION,
+}: ToastProps) => {
+  const [phase, setPhase] = useState<ToastPhase>("enter");
+  const hasDescription = Boolean(description);
 
-  const onAnimationEnd = () => {
+  // Provider 리렌더로 onRemove가 바뀌어도 exit 타이머가 재시작되지 않도록 최신 콜백만 보관한다.
+  const onRemoveRef = useRef(onRemove);
+
+  useEffect(() => {
     if (phase === "enter") {
-      setPhase("static");
-      return;
+      const timer = setTimeout(() => setPhase("static"), TOAST_ANIMATION_TIMER.ENTER);
+      return () => clearTimeout(timer);
     }
-
-    if (phase === "exit") {
-      onRemove?.();
-    }
-  };
-
-  const onClose = () => setPhase("exit");
+  }, [phase]);
 
   useEffect(() => {
     if (phase === "static") {
-      const timer = setTimeout(() => setPhase("exit"), 3000);
+      if (duration === Infinity) return;
+      const timer = setTimeout(() => setPhase("exit"), duration);
+      return () => clearTimeout(timer);
+    }
+  }, [duration, phase]);
+
+  useEffect(() => {
+    onRemoveRef.current = onRemove;
+  }, [onRemove]);
+
+  useEffect(() => {
+    if (phase === "exit") {
+      const timer = setTimeout(() => {
+        onRemoveRef.current?.();
+      }, TOAST_ANIMATION_TIMER.EXIT);
       return () => clearTimeout(timer);
     }
   }, [phase]);
@@ -95,34 +69,26 @@ const ToastFeedback = ({
     if (isClosing) setPhase("exit");
   }, [isClosing]);
 
+  const phaseClassName = phaseClassNameMap[phase];
+  const iconName = feedback !== "none" && feedbackIconName[feedback];
+
   return (
-    <ToastDiv id={id} className={phase} toastStyle={variant} onAnimationEnd={onAnimationEnd}>
-      <ToastContentDiv>
-        <ToastLabelContainerDiv>
-          <ToastFeedbackIcon
-            variant={variant}
-            name={variant === "positive" ? "check-line" : "error-warning-line"}
-          />
-          <ToastLabel as='span' toastStyle={variant} size='md' textAlign='left' weight='normal'>
-            {title}
-          </ToastLabel>
-          <IconButton.Basic
-            icon='close-line'
-            hierarchy='secondary'
-            size='md'
-            aria-label='toast close button'
-            onClick={onClose}
-          />
-        </ToastLabelContainerDiv>
-        {caption && <ToastCaptionP>{caption}</ToastCaptionP>}
-      </ToastContentDiv>
-    </ToastDiv>
+    <div id={id} className={clsx(styles.root({ feedback }), phaseClassName)}>
+      {iconName && <Icon name={iconName} size='sm' className={styles.icon({ feedback })} />}
+      <div className={styles.content({ withDescription: hasDescription })}>
+        <span className={clsx(styles.label, getLabelClassName({ size: "md", weight: "normal" }))}>
+          {title}
+        </span>
+        {description && (
+          <span
+            className={clsx(styles.description, getBodyClassName({ size: "xs", weight: "normal" }))}
+          >
+            {description}
+          </span>
+        )}
+      </div>
+    </div>
   );
 };
 
-ToastFeedback.displayName = "Toast.Feedback";
-
-export const Toast = {
-  Basic: ToastBasic,
-  Feedback: ToastFeedback,
-};
+Toast.displayName = "Toast";

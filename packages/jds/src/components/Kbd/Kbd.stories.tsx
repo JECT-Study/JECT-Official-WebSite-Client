@@ -11,7 +11,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "키보드 키는 키보드 입력이나 단축키를 시각적으로 표현하기 위한 컴포넌트입니다. 특정 키 또는 키 조합을 명확히 인지할 수 있도록 표시하여, 사용자가 수행해야 할 입력 행동을 보조적으로 안내합니다.",
+          "키보드 키는 키 입력이나 단축키 예시를 시각적으로 보여주는 텍스트 표시 컴포넌트입니다. 사용자는 키 조합을 한눈에 인지하고, 적절한 입력을 빠르게 할 수 있습니다. 문서, 튜토리얼, 도움말, 인앱 가이드 등에서 사용합니다.",
       },
     },
   },
@@ -19,7 +19,7 @@ const meta = {
   argTypes: {
     size: {
       control: "radio",
-      options: ["lg", "md", "sm", "xs"],
+      options: ["lg", "md", "sm"],
       description: "컴포넌트의 시각적 크기입니다.",
       table: {
         defaultValue: { summary: "md" },
@@ -33,7 +33,7 @@ const meta = {
         defaultValue: { summary: "key" },
       },
     },
-    muted: {
+    isMuted: {
       control: "boolean",
       description: "시각적으로 강조도가 낮춰졌는지의 여부입니다.",
       table: {
@@ -55,8 +55,48 @@ export const Default: Story = {
     children: "K",
     size: "md",
     type: "key",
-    muted: false,
+    isMuted: false,
   },
+};
+
+export const AllSizes: Story = {
+  args: {
+    children: "Kbd",
+  },
+  render: () => (
+    <FlexColumn>
+      <FlexRow>
+        <span>sm</span>
+        <Kbd size='sm'>A</Kbd>
+        <Kbd size='sm' type='text'>
+          ctrl
+        </Kbd>
+        <Kbd size='sm' type='function'>
+          ⌘
+        </Kbd>
+      </FlexRow>
+      <FlexRow>
+        <span>md</span>
+        <Kbd size='md'>A</Kbd>
+        <Kbd size='md' type='text'>
+          ctrl
+        </Kbd>
+        <Kbd size='md' type='function'>
+          ⌘
+        </Kbd>
+      </FlexRow>
+      <FlexRow>
+        <span>lg</span>
+        <Kbd size='lg'>A</Kbd>
+        <Kbd size='lg' type='text'>
+          ctrl
+        </Kbd>
+        <Kbd size='lg' type='function'>
+          ⌘
+        </Kbd>
+      </FlexRow>
+    </FlexColumn>
+  ),
 };
 
 export const Types: Story = {
@@ -91,14 +131,60 @@ export const Types: Story = {
   ),
 };
 
-export const isMuted: Story = {
+export const IsMuted: Story = {
   args: {
-    children: "kbd",
+    children: "Kbd",
   },
   render: () => (
     <FlexColumn>
-      <Kbd muted>A</Kbd>
-      <Kbd>/</Kbd>
+      <FlexRow>
+        <span>key</span>
+        <Kbd type='key' isMuted>
+          A
+        </Kbd>
+        <Kbd type='key' isMuted>
+          /
+        </Kbd>
+        <Kbd type='key' isMuted>
+          \
+        </Kbd>
+      </FlexRow>
+      <FlexRow>
+        <span>text</span>
+        <Kbd type='text' isMuted>
+          ctrl
+        </Kbd>
+        <Kbd type='text' isMuted>
+          alt
+        </Kbd>
+        <Kbd type='text' isMuted>
+          tab
+        </Kbd>
+        <Kbd type='text' isMuted>
+          esc
+        </Kbd>
+      </FlexRow>
+      <FlexRow>
+        <span>function</span>
+        <Kbd type='function' isMuted>
+          ⌘
+        </Kbd>
+        <Kbd type='function' isMuted>
+          ⌥
+        </Kbd>
+        <Kbd type='function' isMuted>
+          ⇧
+        </Kbd>
+        <Kbd type='function' isMuted>
+          ⌃
+        </Kbd>
+        <Kbd type='function' isMuted>
+          ⌫
+        </Kbd>
+        <Kbd type='function' isMuted>
+          ⏎
+        </Kbd>
+      </FlexRow>
     </FlexColumn>
   ),
 };

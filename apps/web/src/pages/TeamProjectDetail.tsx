@@ -223,7 +223,7 @@ const TeamProjectDetail = () => {
             </div>
 
             {/* 프로젝트 정보 - 팀원 */}
-            <div className='desktop:grid-cols-4 tablet:grid-cols-3 mobile:grid-cols-1 tablet:*:last:col-span-3 desktop:*:last:col-span-1 grid gap-(--semantic-spacing-12)'>
+            <div className='grid gap-(--semantic-spacing-12) mobile:grid-cols-1 tablet:grid-cols-3 tablet:*:last:col-span-3 desktop:grid-cols-4 desktop:*:last:col-span-1'>
               <TeammateByPosition
                 position={"프론트엔드 개발자"}
                 teammates={project.teamMemberNames.frontendDevelopers}

@@ -1,14 +1,13 @@
 export { Snackbar } from "./Snackbar";
 export type {
-  SnackbarVariant,
-  SnackbarStyle,
-  SnackbarButtonsProps,
-  SnackbarBase,
+  SnackbarFeedback,
+  SnackbarActionProps,
+  SnackbarOptions,
   SnackbarBaseProps,
-  SnackbarBasicProps,
-  SnackbarFeedbackProps,
+  SnackbarProps,
   SnackbarItem,
   SnackbarHandler,
 } from "./snackbar.types";
-export { useSnackbar, SnackbarProvider } from "./SnackbarProvider";
+export { useSnackbar } from "./snackbar.context";
+export { SnackbarProvider } from "./SnackbarProvider";
 export { snackbarController } from "./snackbarController";

@@ -1,8 +1,2 @@
 export { IconButton } from "./IconButton";
-export type {
-  IconButtonBasicProps,
-  IconButtonFeedbackProps,
-  IconButtonSize,
-  IconButtonHierarchy,
-  IconButtonIntent,
-} from "./iconButton.types";
+export type { IconButtonProps, IconButtonSize, IconButtonHierarchy } from "./iconButton.types";

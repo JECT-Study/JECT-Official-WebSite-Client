@@ -1,59 +1,68 @@
 import type { ReactNode } from "react";
-import { createContext, useContext, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+import { visuallyHidden } from "utils";
 
 import { Snackbar } from "./Snackbar";
-import { SnackbarStackContainer } from "./snackbar.styles";
-import type { SnackbarHandler } from "./snackbar.types";
+import { SnackbarContextProvider } from "./snackbar.context";
+import { stackContainer } from "./snackbar.css";
+import type { SnackbarItem } from "./snackbar.types";
 import { snackbarController } from "./snackbarController";
 import { useSnackbarProvider } from "./useSnackbarProvider";
 
-interface SnackbarContextType {
-  snackbar: SnackbarHandler;
-  removeSnackbar: (id: string) => void;
+import { useLiveRegionAnnouncements } from "@/hooks/useLiveRegionAnnouncements";
+
+interface SnackbarProviderProps {
+  children: ReactNode;
+  duration?: number;
 }
 
-const SnackbarContext = createContext<SnackbarContextType | null>(null);
+const getSnackbarActionLabel = (snackbar: SnackbarItem) => snackbar.label;
 
-export const SnackbarProvider = ({ children }: { children: ReactNode }) => {
-  const { snackbars, snackbar: handler, removeSnackbar } = useSnackbarProvider({});
+export const SnackbarProvider = ({ children, duration }: SnackbarProviderProps) => {
+  const { snackbars, snackbar: handler, removeSnackbar } = useSnackbarProvider();
+  const [isMounted, setIsMounted] = useState(false);
+  const { statusAnnouncement, alertAnnouncement } = useLiveRegionAnnouncements(
+    snackbars,
+    getSnackbarActionLabel,
+  );
 
   useEffect(() => {
     snackbarController.setHandler(handler);
     return () => snackbarController.clearHandler();
   }, [handler]);
 
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   return (
-    <SnackbarContext.Provider value={{ snackbar: handler, removeSnackbar }}>
+    <SnackbarContextProvider value={{ snackbar: handler, removeSnackbar }}>
       {children}
-      {createPortal(
-        <SnackbarStackContainer>
-          {snackbars.map(snackbar =>
-            snackbar.type === "basic" ? (
-              <Snackbar.Basic
+
+      {/* 스크린리더 전용 live region: alert/status 채널별 최신 스낵바를 각 영역에서 낭독 */}
+      <div className={visuallyHidden} role='status' aria-live='polite' aria-atomic='true'>
+        {statusAnnouncement}
+      </div>
+      <div className={visuallyHidden} role='alert' aria-live='assertive' aria-atomic='true'>
+        {alertAnnouncement}
+      </div>
+
+      {/* 시각용 스택: 자동 낭독은 live region이 담당하되, 액션과 닫기 버튼에 접근할 수 있도록 접근성 트리에 유지 */}
+      {isMounted &&
+        createPortal(
+          <div className={stackContainer}>
+            {snackbars.map(snackbar => (
+              <Snackbar
                 key={snackbar.id}
                 onRemove={() => removeSnackbar(snackbar.id)}
                 {...snackbar}
+                duration={snackbar.duration ?? duration}
               />
-            ) : (
-              <Snackbar.Feedback
-                key={snackbar.id}
-                variant={snackbar.type}
-                onRemove={() => removeSnackbar(snackbar.id)}
-                {...snackbar}
-              />
-            ),
-          )}
-        </SnackbarStackContainer>,
-        document.body,
-      )}
-    </SnackbarContext.Provider>
+            ))}
+          </div>,
+          document.body,
+        )}
+    </SnackbarContextProvider>
   );
-};
-
-export const useSnackbar = () => {
-  const context = useContext(SnackbarContext);
-  if (!context) throw new Error("useSnackbar must be used within SnackbarProvider");
-
-  return context;
 };

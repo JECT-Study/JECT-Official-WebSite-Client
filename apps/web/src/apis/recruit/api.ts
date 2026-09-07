@@ -1,7 +1,4 @@
-import {
-  activeRecruitmentsResponseSchema,
-  type ActiveRecruitmentsResponseSchema,
-} from "./schemas";
+import { activeRecruitmentsResponseSchema, type ActiveRecruitmentsResponseSchema } from "./schemas";
 
 import { API_ENDPOINT } from "@/constants/apiEndpoint";
 import { httpClient } from "@/utils/httpClient";
