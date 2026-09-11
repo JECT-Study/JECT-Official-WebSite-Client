@@ -2,21 +2,19 @@ import type { PaginationVisiblePageCount } from "./pagination.types";
 
 type PaginationRangeItem = number | "start-ellipsis" | "end-ellipsis";
 
-interface GetPaginationRangeParams {
+interface PaginationValues {
   page: number;
   totalPages: number;
-  visiblePageCount: PaginationVisiblePageCount;
 }
 
-interface NormalizePaginationValuesParams {
-  page: number;
-  totalPages: number;
+interface PaginationRangeOptions extends PaginationValues {
+  visiblePageCount: PaginationVisiblePageCount;
 }
 
 export const normalizePaginationValues = ({
   page,
   totalPages,
-}: NormalizePaginationValuesParams) => {
+}: PaginationValues): PaginationValues => {
   const normalizedTotalPages = Number.isFinite(totalPages)
     ? Math.max(Math.trunc(totalPages), 0)
     : 0;
@@ -32,24 +30,28 @@ export const normalizePaginationValues = ({
   };
 };
 
-const range = (start: number, end: number) =>
+const createPageRange = (start: number, end: number) =>
   Array.from({ length: end - start + 1 }, (_, index) => start + index);
 
 export const getPaginationRange = ({
   page,
   totalPages,
   visiblePageCount,
-}: GetPaginationRangeParams): PaginationRangeItem[] => {
-  if (totalPages <= visiblePageCount) return range(1, totalPages);
+}: PaginationRangeOptions): PaginationRangeItem[] => {
+  if (totalPages <= visiblePageCount) return createPageRange(1, totalPages);
 
-  const edgePageCount = visiblePageCount - 2;
+  const edgeRangePageCount = visiblePageCount - 2;
 
-  if (page < edgePageCount) {
-    return [...range(1, edgePageCount), "end-ellipsis", totalPages];
+  if (page < edgeRangePageCount) {
+    return [...createPageRange(1, edgeRangePageCount), "end-ellipsis", totalPages];
   }
 
-  if (page > totalPages - edgePageCount + 1) {
-    return [1, "start-ellipsis", ...range(totalPages - edgePageCount + 1, totalPages)];
+  if (page > totalPages - edgeRangePageCount + 1) {
+    return [
+      1,
+      "start-ellipsis",
+      ...createPageRange(totalPages - edgeRangePageCount + 1, totalPages),
+    ];
   }
 
   const siblingCount = (visiblePageCount - 5) / 2;
@@ -57,7 +59,7 @@ export const getPaginationRange = ({
   return [
     1,
     "start-ellipsis",
-    ...range(page - siblingCount, page + siblingCount),
+    ...createPageRange(page - siblingCount, page + siblingCount),
     "end-ellipsis",
     totalPages,
   ];
