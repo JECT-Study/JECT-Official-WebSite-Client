@@ -152,7 +152,7 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(
       <nav
         {...restProps}
         ref={ref}
-        aria-label={ariaLabel ?? (ariaLabelledBy ? undefined : "페이지네이션")}
+        aria-label={ariaLabel}
         aria-labelledby={ariaLabelledBy}
         className={className}
       >
