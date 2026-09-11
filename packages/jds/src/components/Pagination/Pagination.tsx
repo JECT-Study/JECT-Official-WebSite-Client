@@ -1,5 +1,5 @@
 import { clsx } from "clsx";
-import { forwardRef } from "react";
+import { forwardRef, useEffect } from "react";
 
 import * as styles from "./pagination.css";
 import type {
@@ -10,6 +10,7 @@ import type {
 import { getPaginationRange, normalizePaginationValues } from "./pagination.utils";
 
 import { Icon } from "@/components/Icon";
+import { useControllableState } from "@/hooks/useControllableState";
 import { getLabelClassName } from "@/utils/typography";
 import { visuallyHidden } from "@/utils/visuallyHidden.css";
 
@@ -111,6 +112,7 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(
   (
     {
       page,
+      defaultPage = 1,
       totalPages,
       visiblePageCount = 7,
       disabled: isDisabled = false,
@@ -123,10 +125,18 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(
     },
     ref,
   ) => {
+    const [resolvedPage, setPage] = useControllableState(page, defaultPage, onPageChange);
     const { page: normalizedPage, totalPages: normalizedTotalPages } = normalizePaginationValues({
-      page,
+      page: resolvedPage,
       totalPages,
     });
+
+    // totalPages 변경 시 비제어 내부 페이지를 유효 범위로 동기화한다.
+    useEffect(() => {
+      if (page === undefined && resolvedPage !== normalizedPage) {
+        setPage(normalizedPage);
+      }
+    }, [normalizedPage, page, resolvedPage, setPage]);
 
     if (normalizedTotalPages < 1) return null;
 
@@ -136,7 +146,7 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(
       visiblePageCount,
     });
 
-    const navigationProps = getPageHref ? { getPageHref } : { onPageChange };
+    const navigationProps = getPageHref ? { getPageHref } : { onPageChange: setPage };
 
     return (
       <nav

@@ -17,16 +17,19 @@ const meta = {
     },
   },
   args: {
-    page: 5,
+    defaultPage: 5,
     totalPages: 10,
     visiblePageCount: 7,
     disabled: false,
-    onPageChange: () => undefined,
   },
   argTypes: {
     page: {
       control: { type: "number", min: 1, step: 1 },
       description: "현재 페이지입니다. 1부터 시작합니다.",
+    },
+    defaultPage: {
+      control: { type: "number", min: 1, step: 1 },
+      description: "비제어 방식에서 사용할 초기 페이지입니다.",
     },
     totalPages: {
       control: { type: "number", min: 1, step: 1 },
@@ -57,17 +60,36 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
+  render: args => <Pagination key={args.defaultPage} {...args} />,
+  parameters: {
+    docs: {
+      description: {
+        story: "defaultPage를 사용해 내부에서 현재 페이지를 관리하는 비제어 방식입니다.",
+      },
+    },
+  },
+};
+
+export const Controlled: Story = {
   render: function Render() {
     const [page, setPage] = useState(5);
 
     return <Pagination page={page} totalPages={10} onPageChange={setPage} />;
   },
+  parameters: {
+    docs: {
+      description: {
+        story: "page와 onPageChange를 사용해 외부에서 현재 페이지를 관리하는 제어 방식입니다.",
+      },
+    },
+  },
 };
 
 export const LinkNavigation: Story = {
   args: {
+    page: 5,
+    defaultPage: undefined,
     getPageHref: page => `?page=${page}`,
-    onPageChange: undefined,
   },
   parameters: {
     docs: {
@@ -83,11 +105,11 @@ export const BoundaryStates: Story = {
     <FlexColumn gap='20px'>
       <FlexColumn gap='8px'>
         <Label>첫 페이지</Label>
-        <Pagination page={1} totalPages={10} onPageChange={() => undefined} />
+        <Pagination defaultPage={1} totalPages={10} />
       </FlexColumn>
       <FlexColumn gap='8px'>
         <Label>마지막 페이지</Label>
-        <Pagination page={10} totalPages={10} onPageChange={() => undefined} />
+        <Pagination defaultPage={10} totalPages={10} />
       </FlexColumn>
     </FlexColumn>
   ),
@@ -99,12 +121,7 @@ export const VisiblePageCounts: Story = {
       {([7, 9, 11] as const).map(visiblePageCount => (
         <FlexColumn gap='8px' key={visiblePageCount}>
           <Label>visiblePageCount: {visiblePageCount}</Label>
-          <Pagination
-            page={10}
-            totalPages={20}
-            visiblePageCount={visiblePageCount}
-            onPageChange={() => undefined}
-          />
+          <Pagination defaultPage={10} totalPages={20} visiblePageCount={visiblePageCount} />
         </FlexColumn>
       ))}
     </FlexColumn>

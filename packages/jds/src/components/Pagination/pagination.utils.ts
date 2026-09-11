@@ -1,4 +1,4 @@
-import type { PaginationBaseProps, PaginationVisiblePageCount } from "./pagination.types";
+import type { PaginationVisiblePageCount } from "./pagination.types";
 
 type PaginationRangeItem = number | "start-ellipsis" | "end-ellipsis";
 
@@ -8,7 +8,10 @@ interface GetPaginationRangeParams {
   visiblePageCount: PaginationVisiblePageCount;
 }
 
-type NormalizePaginationValuesParams = Pick<PaginationBaseProps, "page" | "totalPages">;
+interface NormalizePaginationValuesParams {
+  page: number;
+  totalPages: number;
+}
 
 export const normalizePaginationValues = ({
   page,
