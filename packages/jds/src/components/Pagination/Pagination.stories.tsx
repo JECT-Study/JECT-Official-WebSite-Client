@@ -56,7 +56,7 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const ButtonNavigation: Story = {
+export const Default: Story = {
   render: function Render() {
     const [page, setPage] = useState(5);
 
