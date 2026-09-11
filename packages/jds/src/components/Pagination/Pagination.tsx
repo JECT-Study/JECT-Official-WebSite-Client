@@ -68,11 +68,13 @@ const PaginationArrow = ({
   linkAs,
   onPageChange,
 }: PaginationArrowProps) => {
-  const targetPage = direction === "previous" ? page - 1 : page + 1;
+  const isPrevious = direction === "previous";
 
-  const isDisabled = disabled || (direction === "previous" ? page === 1 : page === totalPages);
-  const label = direction === "previous" ? "이전 페이지" : "다음 페이지";
-  const icon = direction === "previous" ? "chevron-left" : "chevron-right";
+  const targetPage = isPrevious ? page - 1 : page + 1;
+  const isDisabled = disabled || (isPrevious ? page === 1 : page === totalPages);
+
+  const label = isPrevious ? "이전 페이지" : "다음 페이지";
+  const icon = isPrevious ? "chevron-left" : "chevron-right";
   const iconElement = <Icon name={icon} size='xs' aria-hidden />;
 
   if (getPageHref) {
