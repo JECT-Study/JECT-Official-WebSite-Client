@@ -1,8 +1,13 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexColumn, Label } from "@storybook-utils/layout";
+import type { ComponentPropsWithoutRef } from "react";
 import { useState } from "react";
 
 import { Pagination } from "./Pagination";
+
+const CustomLink = (props: ComponentPropsWithoutRef<"a">) => (
+  <a {...props} data-custom-link='true' />
+);
 
 const meta = {
   title: "Components/Pagination",
@@ -47,6 +52,10 @@ const meta = {
     getPageHref: {
       control: false,
       description: "각 페이지의 URL을 반환합니다. 제공하면 링크로 렌더링합니다.",
+    },
+    linkAs: {
+      control: false,
+      description: "링크 모드에서 사용할 라우팅 컴포넌트입니다. 기본값은 a 요소입니다.",
     },
     onPageChange: {
       control: false,
@@ -95,6 +104,22 @@ export const LinkNavigation: Story = {
     docs: {
       description: {
         story: "getPageHref를 제공하면 모든 페이지 이동 요소를 링크로 렌더링합니다.",
+      },
+    },
+  },
+};
+
+export const CustomLinkNavigation: Story = {
+  args: {
+    page: 5,
+    defaultPage: undefined,
+    getPageHref: page => `?page=${page}`,
+    linkAs: CustomLink,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "linkAs를 사용해 생성되는 링크를 커스텀 라우팅 컴포넌트로 교체합니다.",
       },
     },
   },

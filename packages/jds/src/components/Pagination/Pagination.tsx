@@ -19,6 +19,7 @@ const PaginationItem = ({
   isCurrent,
   disabled,
   getPageHref,
+  linkAs,
   onPageChange,
 }: PaginationItemProps) => {
   const className = clsx(
@@ -27,8 +28,10 @@ const PaginationItem = ({
   );
 
   if (getPageHref) {
+    const LinkComponent = disabled ? "a" : (linkAs ?? "a");
+
     return (
-      <a
+      <LinkComponent
         href={disabled ? undefined : getPageHref(itemPage)}
         role={disabled ? "link" : undefined}
         tabIndex={disabled ? -1 : undefined}
@@ -38,7 +41,7 @@ const PaginationItem = ({
         className={className}
       >
         {itemPage}
-      </a>
+      </LinkComponent>
     );
   }
 
@@ -62,6 +65,7 @@ const PaginationArrow = ({
   totalPages,
   disabled,
   getPageHref,
+  linkAs,
   onPageChange,
 }: PaginationArrowProps) => {
   const targetPage = direction === "previous" ? page - 1 : page + 1;
@@ -72,8 +76,10 @@ const PaginationArrow = ({
   const iconElement = <Icon name={icon} size='xs' aria-hidden />;
 
   if (getPageHref) {
+    const LinkComponent = isDisabled ? "a" : (linkAs ?? "a");
+
     return (
-      <a
+      <LinkComponent
         href={isDisabled ? undefined : getPageHref(targetPage)}
         role={isDisabled ? "link" : undefined}
         tabIndex={isDisabled ? -1 : undefined}
@@ -83,7 +89,7 @@ const PaginationArrow = ({
         className={styles.arrow}
       >
         {iconElement}
-      </a>
+      </LinkComponent>
     );
   }
 
@@ -117,6 +123,7 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(
       visiblePageCount = 7,
       disabled: isDisabled = false,
       getPageHref,
+      linkAs,
       onPageChange,
       className,
       "aria-label": ariaLabel,
@@ -146,7 +153,7 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(
       visiblePageCount,
     });
 
-    const navigationProps = getPageHref ? { getPageHref } : { onPageChange: setPage };
+    const navigationProps = getPageHref ? { getPageHref, linkAs } : { onPageChange: setPage };
 
     return (
       <nav

@@ -1,4 +1,4 @@
-import type { ComponentPropsWithoutRef } from "react";
+import type { ComponentPropsWithoutRef, ElementType } from "react";
 import type { AriaLabelProps } from "types";
 
 export type PaginationVisiblePageCount = 7 | 9 | 11;
@@ -17,6 +17,7 @@ interface PaginationButtonControlledProps {
   defaultPage?: never;
   onPageChange: (page: number) => void;
   getPageHref?: never;
+  linkAs?: never;
 }
 
 interface PaginationButtonUncontrolledProps {
@@ -24,12 +25,14 @@ interface PaginationButtonUncontrolledProps {
   defaultPage?: number;
   onPageChange?: (page: number) => void;
   getPageHref?: never;
+  linkAs?: never;
 }
 
 interface PaginationLinkModeProps {
   page: number;
   defaultPage?: never;
   getPageHref: (page: number) => string;
+  linkAs?: ElementType;
   onPageChange?: never;
 }
 
@@ -43,11 +46,13 @@ export type PaginationProps = PaginationButtonProps | PaginationLinkProps;
 
 interface PaginationButtonNavigationProps {
   getPageHref?: never;
+  linkAs?: never;
   onPageChange: (page: number) => void;
 }
 
 interface PaginationLinkNavigationProps {
   getPageHref: (page: number) => string;
+  linkAs?: ElementType;
   onPageChange?: never;
 }
 
