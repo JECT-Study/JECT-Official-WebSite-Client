@@ -22,6 +22,7 @@ export * from "./Menu/MenuItem";
 export * from "./Menu/Menu";
 export * from "./MultiSelect";
 export * from "./MultiSelectField";
+export * from "./Pagination";
 export * from "./Radio";
 export * from "./SegmentedControls";
 export * from "./Select";
