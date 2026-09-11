@@ -22,7 +22,7 @@ const baseStyles = style({
   alignItems: "center",
   justifyContent: "center",
   borderRadius: vars.scheme.semantic.radius["6"],
-  background: "transparent",
+  backgroundColor: "transparent",
   cursor: "pointer",
   userSelect: "none",
   textDecoration: "none",
@@ -60,7 +60,7 @@ export const page = style([
     selectors: {
       "&[aria-current='page']": {
         borderColor: vars.color.semantic.stroke.alpha.subtle,
-        background: vars.color.semantic.fill.subtlest,
+        backgroundColor: vars.color.semantic.fill.subtlest,
         color: vars.color.semantic.object.bolder,
       },
       "&:disabled, &[data-disabled]": {
@@ -68,7 +68,7 @@ export const page = style([
       },
       "&[aria-current='page']:disabled, &[aria-current='page'][data-disabled]": {
         borderColor: vars.color.semantic.stroke.alpha.subtle,
-        background: vars.color.semantic.fill.subtlest,
+        backgroundColor: vars.color.semantic.fill.subtlest,
         color: vars.color.semantic.object.subtle,
       },
     },
