@@ -67,8 +67,6 @@ export const page = style([
         color: vars.color.semantic.object.subtle,
       },
       "&[aria-current='page']:disabled, &[aria-current='page'][data-disabled]": {
-        borderColor: vars.color.semantic.stroke.alpha.subtle,
-        backgroundColor: vars.color.semantic.fill.subtlest,
         color: vars.color.semantic.object.subtle,
       },
     },
