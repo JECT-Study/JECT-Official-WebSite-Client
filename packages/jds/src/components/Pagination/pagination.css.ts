@@ -45,8 +45,8 @@ const interactiveBase = [overlay({ hierarchy: "primary" }), focusRing(), baseSty
 export const page = style([
   ...interactiveBase,
   {
-    width: pxToRem(20),
-    height: pxToRem(20),
+    minWidth: pxToRem(20),
+    minHeight: pxToRem(20),
     padding: vars.scheme.semantic.spacing["4"],
     border: `${vars.scheme.semantic.strokeWeight["1"]} solid transparent`,
     boxSizing: "content-box",
