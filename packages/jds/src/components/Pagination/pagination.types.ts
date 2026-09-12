@@ -3,6 +3,12 @@ import type { AriaLabelProps } from "types";
 
 export type PaginationVisiblePageCount = 7 | 9 | 11;
 
+interface PaginationLinkComponentProps extends Omit<ComponentPropsWithoutRef<"a">, "href"> {
+  href: string;
+}
+
+type PaginationLinkComponent = ElementType<PaginationLinkComponentProps, "a">;
+
 export interface PaginationBaseProps extends Omit<
   ComponentPropsWithoutRef<"nav">,
   "aria-label" | "aria-labelledby" | "children"
@@ -32,7 +38,7 @@ interface PaginationLinkModeProps {
   page: number;
   defaultPage?: never;
   getPageHref: (page: number) => string;
-  linkAs?: ElementType;
+  linkAs?: PaginationLinkComponent;
   onPageChange?: never;
 }
 
@@ -52,7 +58,7 @@ interface PaginationButtonNavigationProps {
 
 interface PaginationLinkNavigationProps {
   getPageHref: (page: number) => string;
-  linkAs?: ElementType;
+  linkAs?: PaginationLinkComponent;
   onPageChange?: never;
 }
 

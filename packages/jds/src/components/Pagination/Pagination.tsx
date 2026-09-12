@@ -1,5 +1,5 @@
 import { clsx } from "clsx";
-import { forwardRef, useEffect } from "react";
+import { forwardRef, type ElementType, useEffect } from "react";
 
 import * as styles from "./pagination.css";
 import type {
@@ -28,7 +28,7 @@ const PaginationItem = ({
   );
 
   if (getPageHref) {
-    const LinkComponent = disabled ? "a" : (linkAs ?? "a");
+    const LinkComponent: ElementType = disabled ? "a" : (linkAs ?? "a");
 
     return (
       <LinkComponent
@@ -78,7 +78,7 @@ const PaginationArrow = ({
   const iconElement = <Icon name={icon} size='xs' aria-hidden />;
 
   if (getPageHref) {
-    const LinkComponent = isDisabled ? "a" : (linkAs ?? "a");
+    const LinkComponent: ElementType = isDisabled ? "a" : (linkAs ?? "a");
 
     return (
       <LinkComponent
