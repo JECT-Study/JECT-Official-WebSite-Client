@@ -6,12 +6,14 @@ import type { IconName } from "../Icon";
 import type { NumericBadgeProps } from "@/components/Badge";
 import type { LabelSize, LabelWeight } from "@/utils/typography";
 
-export type MenuItemVariant = "icon" | "thumbnail";
-export type MenuItemSize = "lg" | "md" | "sm";
+export type MenuStyle = "solid" | "hollow";
+export type MenuSize = "lg" | "md" | "sm";
+export type MenuButtonVariant = "icon" | "thumbnail";
+export type MenuAnchorVariant = "icon" | "thumbnail";
 
-export interface MenuItemButtonProps extends ComponentPropsWithoutRef<"button"> {
-  variant?: MenuItemVariant;
-  size?: MenuItemSize;
+export interface MenuButtonProps extends ComponentPropsWithoutRef<"button"> {
+  variant?: MenuButtonVariant;
+  size?: MenuSize;
   isSelected?: boolean;
   prefixIcon?: IconName;
   suffixIcon?: IconName;
@@ -24,9 +26,9 @@ export interface MenuItemButtonProps extends ComponentPropsWithoutRef<"button"> 
   fullWidthText?: boolean;
 }
 
-export interface MenuItemAnchorProps extends ComponentPropsWithoutRef<"a"> {
-  variant?: MenuItemVariant;
-  size?: MenuItemSize;
+export interface MenuAnchorProps extends ComponentPropsWithoutRef<"a"> {
+  variant?: MenuAnchorVariant;
+  size?: MenuSize;
   disabled?: boolean;
   isSelected?: boolean;
   prefixIcon?: IconName;
@@ -43,16 +45,13 @@ export interface MenuItemAnchorProps extends ComponentPropsWithoutRef<"a"> {
   fullWidthText?: boolean;
 }
 
-export type MenuStyle = "solid" | "hollow";
-export type MenuSize = "lg" | "md" | "sm";
-
-export interface MenuRootProps extends ComponentPropsWithoutRef<typeof DropdownMenu.Root> {
+export interface MenuRootProps {
   size?: MenuSize;
   menuStyle?: MenuStyle;
   children: ReactNode;
 }
 
-export interface MenuContentProps extends ComponentPropsWithoutRef<typeof DropdownMenu.Content> {
+export interface MenuContentProps extends ComponentPropsWithoutRef<"div"> {
   children: ReactNode;
 }
 
@@ -67,13 +66,32 @@ export interface MenuGroupProps extends ComponentPropsWithoutRef<"ul"> {
   children: ReactNode;
 }
 
-export type MenuTriggerProps = DropdownMenu.DropdownMenuTriggerProps;
+export interface DropdownMenuRootProps extends ComponentPropsWithoutRef<typeof DropdownMenu.Root> {
+  size?: MenuSize;
+  menuStyle?: MenuStyle;
+  children: ReactNode;
+}
 
-export type MenuItemProps = ComponentPropsWithoutRef<typeof DropdownMenu.Item>;
+export type DropdownMenuTriggerProps = DropdownMenu.DropdownMenuTriggerProps;
 
-type MenuDropdownItemProps = Pick<MenuItemProps, "onSelect" | "textValue">;
+export interface DropdownMenuContentProps extends ComponentPropsWithoutRef<
+  typeof DropdownMenu.Content
+> {
+  children: ReactNode;
+}
 
-export interface MenuTreeProps extends Omit<MenuItemButtonProps, "children"> {
+type DropdownItemProps = Pick<
+  ComponentPropsWithoutRef<typeof DropdownMenu.Item>,
+  "onSelect" | "textValue"
+>;
+
+export interface DropdownMenuButtonProps
+  extends Omit<MenuButtonProps, "onSelect">, DropdownItemProps {}
+
+export interface DropdownMenuAnchorProps
+  extends Omit<MenuAnchorProps, "onSelect">, DropdownItemProps {}
+
+export interface DropdownMenuTreeProps extends Omit<MenuButtonProps, "children"> {
   label: ReactNode;
   open?: boolean;
   defaultOpen?: boolean;
@@ -83,8 +101,3 @@ export interface MenuTreeProps extends Omit<MenuItemButtonProps, "children"> {
   children?: ReactNode;
   withTreeButton?: boolean;
 }
-
-export interface MenuButtonProps
-  extends Omit<MenuItemButtonProps, "onSelect">, MenuDropdownItemProps {}
-export interface MenuAnchorProps
-  extends Omit<MenuItemAnchorProps, "onSelect">, MenuDropdownItemProps {}
