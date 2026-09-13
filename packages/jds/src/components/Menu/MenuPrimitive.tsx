@@ -1,16 +1,15 @@
 import { clsx } from "clsx";
 import { forwardRef } from "react";
 
-import { menuContainerStyle, menuItemImage, menuItemLabel } from "./menuItem.css";
-import type { MenuItemAnchorProps, MenuItemButtonProps } from "./menuItem.types";
-import { Icon } from "../../Icon";
-import { Thumbnail } from "../../Thumbnail";
-import { type MenuSize } from "../Menu/menu.types";
+import { menuContainerStyle, menuItemImage, menuItemLabel } from "./menu.css";
+import type { MenuItemAnchorProps, MenuItemButtonProps, MenuSize } from "./menu.types";
+import { Icon } from "../Icon";
+import { Thumbnail } from "../Thumbnail";
 
 import { NumericBadge, type BadgeSize } from "@/components/Badge";
 import { getLabelClassName } from "@/utils/typography";
 
-const MenuItemButton = forwardRef<HTMLButtonElement, MenuItemButtonProps>(
+const MenuPrimitiveButton = forwardRef<HTMLButtonElement, MenuItemButtonProps>(
   (
     {
       variant = "icon",
@@ -66,9 +65,9 @@ const MenuItemButton = forwardRef<HTMLButtonElement, MenuItemButtonProps>(
   },
 );
 
-MenuItemButton.displayName = "MenuItem.Button";
+MenuPrimitiveButton.displayName = "MenuPrimitive.Button";
 
-const MenuItemAnchor = forwardRef<HTMLAnchorElement, MenuItemAnchorProps>(
+const MenuPrimitiveAnchor = forwardRef<HTMLAnchorElement, MenuItemAnchorProps>(
   (
     {
       variant = "icon",
@@ -132,9 +131,9 @@ const suffixBadgeSizeByMenuSize: Record<MenuSize, BadgeSize> = {
   sm: "sm",
 } as const;
 
-MenuItemAnchor.displayName = "MenuItem.Anchor";
+MenuPrimitiveAnchor.displayName = "MenuPrimitive.Anchor";
 
-export const MenuItem = {
-  Button: MenuItemButton,
-  Anchor: MenuItemAnchor,
+export const MenuPrimitive = {
+  Button: MenuPrimitiveButton,
+  Anchor: MenuPrimitiveAnchor,
 };

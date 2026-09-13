@@ -23,7 +23,7 @@ import type {
   MenuSize,
   MenuTreeProps,
 } from "./menu.types";
-import { MenuItem } from "../MenuItem";
+import { MenuPrimitive } from "./MenuPrimitive";
 
 import { IconButton } from "@/components/Button/IconButton";
 import type { IconButtonSize } from "@/components/Button/IconButton/iconButton.types";
@@ -170,7 +170,7 @@ const MenuTree = forwardRef<HTMLButtonElement, MenuTreeProps>(
             aria-expanded={hasChildren ? isOpen : undefined}
             aria-controls={hasChildren ? menuTreeId : undefined}
           >
-            <MenuItem.Button
+            <MenuPrimitive.Button
               ref={ref}
               size={size}
               onKeyDown={handleKeyDown}
@@ -178,7 +178,7 @@ const MenuTree = forwardRef<HTMLButtonElement, MenuTreeProps>(
               {...restProps}
             >
               {label}
-            </MenuItem.Button>
+            </MenuPrimitive.Button>
           </DropdownMenu.Item>
         </div>
         {isOpen && hasChildren && (
@@ -206,9 +206,9 @@ const MenuButton = forwardRef<HTMLButtonElement, MenuButtonProps>(
     return (
       <li>
         <DropdownMenu.Item asChild disabled={disabled} onSelect={onSelect} textValue={textValue}>
-          <MenuItem.Button ref={ref} size={size} disabled={disabled} {...restProps}>
+          <MenuPrimitive.Button ref={ref} size={size} disabled={disabled} {...restProps}>
             {children}
-          </MenuItem.Button>
+          </MenuPrimitive.Button>
         </DropdownMenu.Item>
       </li>
     );
@@ -224,9 +224,9 @@ const MenuAnchor = forwardRef<HTMLAnchorElement, MenuAnchorProps>(
     return (
       <li>
         <DropdownMenu.Item asChild disabled={disabled} onSelect={onSelect} textValue={textValue}>
-          <MenuItem.Anchor ref={ref} size={size} disabled={disabled} {...restProps}>
+          <MenuPrimitive.Anchor ref={ref} size={size} disabled={disabled} {...restProps}>
             {children}
-          </MenuItem.Anchor>
+          </MenuPrimitive.Anchor>
         </DropdownMenu.Item>
       </li>
     );

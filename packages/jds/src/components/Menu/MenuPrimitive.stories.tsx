@@ -1,13 +1,13 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexColumn, FlexRow } from "@storybook-utils/layout";
 
-import { MenuItem } from ".";
+import { MenuPrimitive } from "./MenuPrimitive";
 
 const SAMPLE_SRC = "/images/defaultImage.png";
 
-const meta: Meta<typeof MenuItem.Button> = {
+const meta: Meta<typeof MenuPrimitive.Button> = {
   title: "Components/Menu/MenuItem",
-  component: MenuItem.Button,
+  component: MenuPrimitive.Button,
   parameters: {
     layout: "centered",
   },
@@ -86,12 +86,12 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  render: args => <MenuItem.Button {...args} />,
+  render: args => <MenuPrimitive.Button {...args} />,
   parameters: {
     docs: {
       description: {
         story:
-          "MenuItem은 버튼형(MenuItem.Button)과 링크형(MenuItem.Anchor) 두 종류가 있습니다. 이 스토리는 MenuItem.Button이며, 우측 Controls로 각 속성을 바꿔볼 수 있습니다.",
+          "MenuItem은 버튼형(MenuPrimitive.Button)과 링크형(MenuPrimitive.Anchor) 두 종류가 있습니다. 이 스토리는 MenuPrimitive.Button이며, 우측 Controls로 각 속성을 바꿔볼 수 있습니다.",
       },
     },
   },
@@ -101,26 +101,26 @@ export const Sizes: Story = {
   render: args => (
     <FlexRow>
       <FlexColumn>
-        <MenuItem.Button {...args} size='lg' />
-        <MenuItem.Button {...args} size='md' />
-        <MenuItem.Button {...args} size='sm' />
+        <MenuPrimitive.Button {...args} size='lg' />
+        <MenuPrimitive.Button {...args} size='md' />
+        <MenuPrimitive.Button {...args} size='sm' />
       </FlexColumn>
       <FlexColumn>
-        <MenuItem.Button
+        <MenuPrimitive.Button
           {...args}
           size='lg'
           variant='thumbnail'
           imageSrc={SAMPLE_SRC}
           imageAlt='샘플'
         />
-        <MenuItem.Button
+        <MenuPrimitive.Button
           {...args}
           size='md'
           variant='thumbnail'
           imageSrc={SAMPLE_SRC}
           imageAlt='샘플'
         />
-        <MenuItem.Button
+        <MenuPrimitive.Button
           {...args}
           size='sm'
           variant='thumbnail'
@@ -143,13 +143,13 @@ export const Sizes: Story = {
 export const States: Story = {
   render: args => (
     <FlexColumn>
-      <MenuItem.Button {...args}>기본</MenuItem.Button>
-      <MenuItem.Button {...args} isSelected>
+      <MenuPrimitive.Button {...args}>기본</MenuPrimitive.Button>
+      <MenuPrimitive.Button {...args} isSelected>
         선택됨 (isSelected)
-      </MenuItem.Button>
-      <MenuItem.Button {...args} disabled>
+      </MenuPrimitive.Button>
+      <MenuPrimitive.Button {...args} disabled>
         비활성 (disabled)
-      </MenuItem.Button>
+      </MenuPrimitive.Button>
     </FlexColumn>
   ),
   parameters: {
@@ -168,10 +168,10 @@ export const Layout: Story = {
   },
   render: args => (
     <FlexColumn style={{ width: "200px" }}>
-      <MenuItem.Button {...args} fullWidthText>
+      <MenuPrimitive.Button {...args} fullWidthText>
         fullWidthText
-      </MenuItem.Button>
-      <MenuItem.Button {...args}>기본 (label 너비만큼)</MenuItem.Button>
+      </MenuPrimitive.Button>
+      <MenuPrimitive.Button {...args}>기본 (label 너비만큼)</MenuPrimitive.Button>
     </FlexColumn>
   ),
   parameters: {
@@ -184,7 +184,7 @@ export const Layout: Story = {
   },
 };
 
-type AnchorStory = StoryObj<typeof MenuItem.Anchor>;
+type AnchorStory = StoryObj<typeof MenuPrimitive.Anchor>;
 
 export const Anchor: AnchorStory = {
   args: {
@@ -222,14 +222,14 @@ export const Anchor: AnchorStory = {
   },
   render: args => (
     <div style={{ width: "200px" }}>
-      <MenuItem.Anchor {...args} />
+      <MenuPrimitive.Anchor {...args} />
     </div>
   ),
   parameters: {
     docs: {
       description: {
         story:
-          "페이지 이동용 메뉴 아이템은 MenuItem.Anchor를 사용합니다. a 태그로 렌더되어 href로 탭 이동이 가능하며, 후행에 NumericBadge를 노출할 수 있습니다(suffixBadge / suffixBadgeVisible / suffixBadgeMuted).",
+          "페이지 이동용 메뉴 아이템은 MenuPrimitive.Anchor를 사용합니다. a 태그로 렌더되어 href로 탭 이동이 가능하며, 후행에 NumericBadge를 노출할 수 있습니다(suffixBadge / suffixBadgeVisible / suffixBadgeMuted).",
       },
     },
   },

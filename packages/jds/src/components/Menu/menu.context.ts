@@ -9,5 +9,5 @@ export interface MenuContextValue {
 
 export const [MenuProvider, useMenuContext] = createCtxProvider<MenuContextValue>(
   "Menu",
-  "Menu.Root",
+  "Menu.Root 또는 DropdownMenu.Root",
 );
