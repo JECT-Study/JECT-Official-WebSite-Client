@@ -93,7 +93,7 @@ export const States: Story = {
           <Menu.Button>기본</Menu.Button>
           <Menu.Button isSelected>선택됨 (isSelected)</Menu.Button>
           <Menu.Button disabled>비활성 (disabled)</Menu.Button>
-          <Menu.Anchor href='#' aria-disabled>
+          <Menu.Anchor href='#' disabled>
             비활성 링크 (disabled)
           </Menu.Anchor>
         </Menu.Group>
