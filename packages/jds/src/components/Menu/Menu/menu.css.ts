@@ -13,7 +13,8 @@ const menuListGap = {
 
 const menuContentVariants = {
   gap: createVar(),
-  paddingVertical: createVar(),
+  paddingTop: createVar(),
+  paddingBottom: createVar(),
 } as const;
 
 export const menuContent = recipe({
@@ -23,14 +24,14 @@ export const menuContent = recipe({
     gap: menuContentVariants.gap,
     paddingLeft: vars.scheme.semantic.spacing["10"],
     paddingRight: vars.scheme.semantic.spacing["10"],
-    paddingBottom: menuContentVariants.paddingVertical,
+    paddingBottom: menuContentVariants.paddingBottom,
   },
   variants: {
     menuStyle: {
       solid: {
-        paddingTop: menuContentVariants.paddingVertical,
+        paddingTop: menuContentVariants.paddingTop,
         backgroundColor: vars.color.semantic.surface.shallow,
-        border: `1px solid ${vars.color.semantic.stroke.subtler}`,
+        border: `1px solid ${vars.color.semantic.stroke.alpha.subtler}`,
         borderRadius: vars.scheme.semantic.radius["10"],
         boxShadow: vars.environment.semantic.shadow.floated,
       },
@@ -39,19 +40,22 @@ export const menuContent = recipe({
     size: {
       lg: {
         vars: {
-          [menuContentVariants.paddingVertical]: vars.scheme.semantic.spacing["16"],
+          [menuContentVariants.paddingTop]: vars.scheme.semantic.spacing["16"],
+          [menuContentVariants.paddingBottom]: vars.scheme.semantic.spacing["16"],
           [menuContentVariants.gap]: vars.scheme.semantic.spacing["8"],
         },
       },
       md: {
         vars: {
-          [menuContentVariants.paddingVertical]: vars.scheme.semantic.spacing["12"],
+          [menuContentVariants.paddingTop]: vars.scheme.semantic.spacing["12"],
+          [menuContentVariants.paddingBottom]: vars.scheme.semantic.spacing["12"],
           [menuContentVariants.gap]: vars.scheme.semantic.spacing["6"],
         },
       },
       sm: {
         vars: {
-          [menuContentVariants.paddingVertical]: vars.scheme.semantic.spacing["12"],
+          [menuContentVariants.paddingTop]: vars.scheme.semantic.spacing["10"],
+          [menuContentVariants.paddingBottom]: vars.scheme.semantic.spacing["12"],
           [menuContentVariants.gap]: vars.scheme.semantic.spacing["4"],
         },
       },
