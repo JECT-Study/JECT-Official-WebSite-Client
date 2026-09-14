@@ -1,16 +1,29 @@
 import { clsx } from "clsx";
 import { forwardRef } from "react";
 
-import { menuContainerStyle, menuItemImage, menuItemLabel } from "./menuItem.css";
-import type { MenuItemAnchorProps, MenuItemButtonProps } from "./menuItem.types";
-import { Icon } from "../../Icon";
-import { Thumbnail } from "../../Thumbnail";
-import { type MenuSize } from "../Menu/menu.types";
+import { useMenuContext } from "./menu.context";
+import {
+  menuCategory,
+  menuCategoryContainer,
+  menuContainerStyle,
+  menuGroup,
+  menuItemImage,
+  menuItemLabel,
+} from "./menu.css";
+import type {
+  MenuAnchorProps,
+  MenuButtonProps,
+  MenuCategoryProps,
+  MenuGroupProps,
+  MenuSize,
+} from "./menu.types";
+import { Icon } from "../Icon";
+import { Thumbnail } from "../Thumbnail";
 
 import { NumericBadge, type BadgeSize } from "@/components/Badge";
-import { getLabelClassName } from "@/utils/typography";
+import { getLabelClassName, type LabelSize } from "@/utils/typography";
 
-const MenuItemButton = forwardRef<HTMLButtonElement, MenuItemButtonProps>(
+const MenuPrimitiveButton = forwardRef<HTMLButtonElement, MenuButtonProps>(
   (
     {
       variant = "icon",
@@ -66,9 +79,9 @@ const MenuItemButton = forwardRef<HTMLButtonElement, MenuItemButtonProps>(
   },
 );
 
-MenuItemButton.displayName = "MenuItem.Button";
+MenuPrimitiveButton.displayName = "MenuPrimitive.Button";
 
-const MenuItemAnchor = forwardRef<HTMLAnchorElement, MenuItemAnchorProps>(
+const MenuPrimitiveAnchor = forwardRef<HTMLAnchorElement, MenuAnchorProps>(
   (
     {
       variant = "icon",
@@ -132,9 +145,53 @@ const suffixBadgeSizeByMenuSize: Record<MenuSize, BadgeSize> = {
   sm: "sm",
 } as const;
 
-MenuItemAnchor.displayName = "MenuItem.Anchor";
+MenuPrimitiveAnchor.displayName = "MenuPrimitive.Anchor";
 
-export const MenuItem = {
-  Button: MenuItemButton,
-  Anchor: MenuItemAnchor,
+const MenuCategory = forwardRef<HTMLDivElement, MenuCategoryProps>((props, ref) => {
+  const { size: labelSizeFromProps, weight, as, children, ...restProps } = props;
+  const { size: menuSizeFromCtx } = useMenuContext("Menu.Category");
+  const labelSize = labelSizeFromProps ?? labelSizeByMenuSizeMap[menuSizeFromCtx];
+
+  const Component = as ?? "div";
+
+  return (
+    <div className={menuCategoryContainer({ size: menuSizeFromCtx })}>
+      <Component
+        ref={ref}
+        className={clsx(getLabelClassName({ size: labelSize, weight }), menuCategory)}
+        {...restProps}
+      >
+        {children}
+      </Component>
+    </div>
+  );
+});
+
+const labelSizeByMenuSizeMap: Record<MenuSize, LabelSize> = {
+  lg: "md",
+  md: "sm",
+  sm: "xs",
+} as const;
+
+MenuCategory.displayName = "Menu.Category";
+
+const MenuGroup = forwardRef<HTMLUListElement, MenuGroupProps>(
+  ({ children, className, ...restProps }, ref) => {
+    const { size } = useMenuContext("Menu.Group");
+
+    return (
+      <ul role='list' ref={ref} className={clsx(menuGroup({ size }), className)} {...restProps}>
+        {children}
+      </ul>
+    );
+  },
+);
+
+MenuGroup.displayName = "Menu.Group";
+
+export const MenuPrimitive = {
+  Category: MenuCategory,
+  Group: MenuGroup,
+  Button: MenuPrimitiveButton,
+  Anchor: MenuPrimitiveAnchor,
 };
