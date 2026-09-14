@@ -24,11 +24,11 @@ export const menuContainerStyle = recipe({
       display: "flex",
       alignItems: "center",
       justifyContent: "flex-start",
-      gap: vars.scheme.semantic.spacing["6"],
+      gap: vars.scheme.semantic.spacing["8"],
       width: "100%",
       cursor: "pointer",
       borderRadius: menuItemVariants.layerRadius,
-      color: vars.color.semantic.object.bold,
+      color: vars.color.semantic.object.neutral,
       selectors: {
         "&:disabled, &[data-disabled]": {
           cursor: "default",
@@ -48,7 +48,8 @@ export const menuContainerStyle = recipe({
       sm: {
         vars: {
           [menuItemVariants.paddingHorizontal]: vars.scheme.semantic.spacing["8"],
-          [menuItemVariants.paddingVertical]: vars.scheme.semantic.spacing["6"],
+          [menuItemVariants.paddingVertical]: vars.scheme.semantic.spacing["4"],
+          [menuItemVariants.layerRadius]: vars.scheme.semantic.radius["6"],
         },
       },
       md: {
@@ -60,7 +61,7 @@ export const menuContainerStyle = recipe({
       lg: {
         vars: {
           [menuItemVariants.paddingHorizontal]: vars.scheme.semantic.spacing["10"],
-          [menuItemVariants.paddingVertical]: vars.scheme.semantic.spacing["4"],
+          [menuItemVariants.paddingVertical]: vars.scheme.semantic.spacing["6"],
         },
       },
     } satisfies Record<MenuItemSize, StyleRule>,
@@ -85,7 +86,7 @@ export const menuItemLabel = recipe({
     display: "flex",
     alignItems: "center",
     cursor: "inherit",
-    color: fallbackVar(menuItemVariants.labelColor, vars.color.semantic.object.bold),
+    color: fallbackVar(menuItemVariants.labelColor, vars.color.semantic.object.neutral),
   },
   variants: {
     fullWidthText: {
