@@ -127,7 +127,7 @@ export const VisiblePageCounts: Story = {
     <FlexColumn gap='20px'>
       {([7, 9, 11] as const).map(visiblePageCount => (
         <FlexColumn gap='8px' key={visiblePageCount}>
-          <Label>visiblePageCount: {visiblePageCount}</Label>
+          <Label style={{ width: "max-content" }}>visiblePageCount: {visiblePageCount}</Label>
           <Pagination
             aria-label='페이지 이동'
             defaultPage={10}
