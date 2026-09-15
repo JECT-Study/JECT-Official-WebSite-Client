@@ -1,5 +1,5 @@
 import { clsx } from "clsx";
-import { forwardRef, type ElementType, useEffect } from "react";
+import { forwardRef, type ElementType } from "react";
 
 import * as styles from "./pagination.css";
 import type {
@@ -139,13 +139,6 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(
       page: resolvedPage,
       totalPages,
     });
-
-    // totalPages 변경 시 비제어 내부 페이지를 유효 범위로 동기화한다.
-    useEffect(() => {
-      if (page === undefined && resolvedPage !== normalizedPage) {
-        setPage(normalizedPage);
-      }
-    }, [normalizedPage, page, resolvedPage, setPage]);
 
     if (normalizedTotalPages < 1) return null;
 
