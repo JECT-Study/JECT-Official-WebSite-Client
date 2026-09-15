@@ -38,7 +38,7 @@ const meta = {
     },
     visiblePageCount: {
       control: "radio",
-      options: [7, 9, 11],
+      options: [7, 8, 9, 10, 11],
       description: "이전, 다음 버튼을 제외하고 말줄임을 포함해 표시할 최대 항목 수입니다.",
     },
     disabled: {
@@ -125,7 +125,7 @@ export const BoundaryStates: Story = {
 export const VisiblePageCounts: Story = {
   render: () => (
     <FlexColumn gap='20px'>
-      {([7, 9, 11] as const).map(visiblePageCount => (
+      {([7, 8, 9, 10, 11] as const).map(visiblePageCount => (
         <FlexColumn gap='8px' key={visiblePageCount}>
           <Label style={{ width: "max-content" }}>visiblePageCount: {visiblePageCount}</Label>
           <Pagination

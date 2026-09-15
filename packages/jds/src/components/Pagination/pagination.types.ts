@@ -1,7 +1,7 @@
 import type { ComponentPropsWithoutRef, ElementType } from "react";
 import type { AriaLabelProps } from "types";
 
-export type PaginationVisiblePageCount = 7 | 9 | 11;
+export type PaginationVisiblePageCount = 7 | 8 | 9 | 10 | 11;
 
 interface PaginationLinkComponentProps extends Omit<ComponentPropsWithoutRef<"a">, "href"> {
   href: string;
