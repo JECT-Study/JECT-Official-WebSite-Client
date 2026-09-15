@@ -17,6 +17,7 @@ const meta = {
     },
   },
   args: {
+    "aria-label": "페이지 이동",
     defaultPage: 5,
     totalPages: 10,
     visiblePageCount: 7,
@@ -78,7 +79,9 @@ export const Controlled: Story = {
   render: function Render() {
     const [page, setPage] = useState(5);
 
-    return <Pagination page={page} totalPages={10} onPageChange={setPage} />;
+    return (
+      <Pagination aria-label='페이지 이동' page={page} totalPages={10} onPageChange={setPage} />
+    );
   },
   parameters: {
     docs: {
@@ -109,11 +112,11 @@ export const BoundaryStates: Story = {
     <FlexColumn gap='20px'>
       <FlexColumn gap='8px'>
         <Label>첫 페이지</Label>
-        <Pagination defaultPage={1} totalPages={10} />
+        <Pagination aria-label='페이지 이동' defaultPage={1} totalPages={10} />
       </FlexColumn>
       <FlexColumn gap='8px'>
         <Label>마지막 페이지</Label>
-        <Pagination defaultPage={10} totalPages={10} />
+        <Pagination aria-label='페이지 이동' defaultPage={10} totalPages={10} />
       </FlexColumn>
     </FlexColumn>
   ),
@@ -125,7 +128,12 @@ export const VisiblePageCounts: Story = {
       {([7, 9, 11] as const).map(visiblePageCount => (
         <FlexColumn gap='8px' key={visiblePageCount}>
           <Label>visiblePageCount: {visiblePageCount}</Label>
-          <Pagination defaultPage={10} totalPages={20} visiblePageCount={visiblePageCount} />
+          <Pagination
+            aria-label='페이지 이동'
+            defaultPage={10}
+            totalPages={20}
+            visiblePageCount={visiblePageCount}
+          />
         </FlexColumn>
       ))}
     </FlexColumn>
