@@ -77,9 +77,9 @@ export const getPaginationWindow = ({
     : page - Math.floor((middlePageCount - 1) / 2);
   const middleEnd = middleStart + middlePageCount - 1;
 
-  // 기존 홀수 배치는 숫자 하나만 숨기는 말줄임을 만들지 않는다.
-  const minMiddleStart = isOdd ? 4 : 3;
-  const maxMiddleEnd = totalPages - (isOdd ? 3 : 2);
+  // 말줄임은 최소 두 페이지를 숨길 수 있을 때만 표시한다.
+  const minMiddleStart = 4;
+  const maxMiddleEnd = totalPages - 3;
 
   if (middleStart < minMiddleStart) {
     return { start: 1, end: edgeRangePageCount };
