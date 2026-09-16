@@ -2,11 +2,7 @@ import { clsx } from "clsx";
 import { forwardRef, type ElementType } from "react";
 
 import * as styles from "./pagination.css";
-import type {
-  PaginationArrowProps,
-  PaginationItemProps,
-  PaginationProps,
-} from "./pagination.types";
+import type { PaginationLinkProps, PaginationProps } from "./pagination.types";
 import { normalizePaginationValues } from "./pagination.utils";
 import { usePaginationRange } from "./usePaginationRange";
 
@@ -14,6 +10,37 @@ import { Icon } from "@/components/Icon";
 import { useControllableState } from "@/hooks/useControllableState";
 import { getLabelClassName } from "@/utils/typography";
 import { visuallyHidden } from "@/utils/visuallyHidden.css";
+
+interface PaginationButtonNavigationProps {
+  getPageHref?: never;
+  linkAs?: never;
+  onPageChange: (page: number) => void;
+}
+
+interface PaginationLinkNavigationProps {
+  getPageHref: PaginationLinkProps["getPageHref"];
+  linkAs?: PaginationLinkProps["linkAs"];
+  onPageChange?: never;
+}
+
+type PaginationNavigationProps = PaginationButtonNavigationProps | PaginationLinkNavigationProps;
+
+interface PaginationItemBaseProps {
+  itemPage: number;
+  isCurrent: boolean;
+  disabled: boolean;
+}
+
+type PaginationItemProps = PaginationItemBaseProps & PaginationNavigationProps;
+
+interface PaginationArrowBaseProps {
+  direction: "previous" | "next";
+  page: number;
+  totalPages: number;
+  disabled: boolean;
+}
+
+type PaginationArrowProps = PaginationArrowBaseProps & PaginationNavigationProps;
 
 const PaginationItem = ({
   itemPage,

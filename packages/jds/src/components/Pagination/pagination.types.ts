@@ -9,7 +9,7 @@ interface PaginationLinkComponentProps extends Omit<ComponentPropsWithoutRef<"a"
 
 type PaginationLinkComponent = ElementType<PaginationLinkComponentProps, "a">;
 
-export interface PaginationBaseProps extends Omit<
+interface PaginationBaseProps extends Omit<
   ComponentPropsWithoutRef<"nav">,
   "aria-label" | "aria-labelledby" | "children"
 > {
@@ -49,34 +49,3 @@ export type PaginationButtonProps = PaginationBaseProps &
 export type PaginationLinkProps = PaginationBaseProps & AriaLabelProps & PaginationLinkModeProps;
 
 export type PaginationProps = PaginationButtonProps | PaginationLinkProps;
-
-interface PaginationButtonNavigationProps {
-  getPageHref?: never;
-  linkAs?: never;
-  onPageChange: (page: number) => void;
-}
-
-interface PaginationLinkNavigationProps {
-  getPageHref: (page: number) => string;
-  linkAs?: PaginationLinkComponent;
-  onPageChange?: never;
-}
-
-type PaginationNavigationProps = PaginationButtonNavigationProps | PaginationLinkNavigationProps;
-
-interface PaginationItemBaseProps {
-  itemPage: number;
-  isCurrent: boolean;
-  disabled: boolean;
-}
-
-export type PaginationItemProps = PaginationItemBaseProps & PaginationNavigationProps;
-
-interface PaginationArrowBaseProps {
-  direction: "previous" | "next";
-  page: number;
-  totalPages: number;
-  disabled: boolean;
-}
-
-export type PaginationArrowProps = PaginationArrowBaseProps & PaginationNavigationProps;
