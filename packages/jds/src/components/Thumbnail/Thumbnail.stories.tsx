@@ -18,7 +18,7 @@ const meta = {
       description: {
         component: `Thumbnail은 root element가 두 가지 형태로 결정되는 primitive입니다
 
-- **비인터랙티브** (default): root는 \`<div>\` 단순한 이미지 표시 컨텍스트(Banner / Card / MenuItem 등)에 사용합니다
+- **비인터랙티브** (default): root는 \`<div>\` 단순한 이미지 표시 컨텍스트(Banner / Card / Menu 등)에 사용합니다
 - **인터랙티브** (\`asChild\`): caller가 자식으로 제공한 \`<button>\` / \`<a>\` 등이 root가 됩니다 hover / focus-visible / active 시각 상태가 native pseudo-class로 자동 표현됩니다
 
 \`asChild\` 패턴은 Radix Slot을 사용합니다 caller가 root element의 의미·동작·a11y를 결정하고, Thumbnail은 시각만 책임집니다`,
