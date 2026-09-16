@@ -12,11 +12,9 @@ export interface PaginationWindow {
   end: number;
 }
 
-interface PaginationRangeOptions extends PaginationValues {
-  // 화살표를 제외하고, 양끝 페이지와 말줄임까지 포함한 최대 항목 수.
-  visiblePageCount: PaginationVisiblePageCount;
-  // 이미 결정한 숫자 구간.
-  window?: PaginationWindow;
+interface PaginationRangeOptions {
+  totalPages: number;
+  window: PaginationWindow;
 }
 
 interface PaginationWindowOptions extends PaginationValues {
@@ -110,13 +108,12 @@ const getWindowPaginationRange = (
 };
 
 export const getPaginationRange = ({
-  page,
   totalPages,
-  visiblePageCount,
   window,
 }: PaginationRangeOptions): PaginationRangeItem[] => {
-  if (totalPages <= visiblePageCount) return createPageRange(1, totalPages);
+  if (window.start === 1 && window.end === totalPages) {
+    return createPageRange(1, totalPages);
+  }
 
-  const visibleWindow = window ?? getPaginationWindow({ page, totalPages, visiblePageCount });
-  return getWindowPaginationRange(visibleWindow, totalPages);
+  return getWindowPaginationRange(window, totalPages);
 };

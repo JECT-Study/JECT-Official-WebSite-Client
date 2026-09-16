@@ -7,8 +7,8 @@ import type {
   PaginationItemProps,
   PaginationProps,
 } from "./pagination.types";
-import { getPaginationRange, normalizePaginationValues } from "./pagination.utils";
-import { usePaginationWindow } from "./usePaginationWindow";
+import { normalizePaginationValues } from "./pagination.utils";
+import { usePaginationRange } from "./usePaginationRange";
 
 import { Icon } from "@/components/Icon";
 import { useControllableState } from "@/hooks/useControllableState";
@@ -136,27 +136,20 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(
     ref,
   ) => {
     const [resolvedPage, setPage] = useControllableState(page, defaultPage, onPageChange);
+    const navigationProps = getPageHref ? { getPageHref, linkAs } : { onPageChange: setPage };
+
     const { page: normalizedPage, totalPages: normalizedTotalPages } = normalizePaginationValues({
       page: resolvedPage,
       totalPages,
     });
 
-    const paginationValues = {
+    const paginationRange = usePaginationRange({
       page: normalizedPage,
       totalPages: normalizedTotalPages,
       visiblePageCount,
-    };
-
-    const window = usePaginationWindow(paginationValues);
-
-    if (normalizedTotalPages < 1) return null;
-
-    const paginationRange = getPaginationRange({
-      ...paginationValues,
-      window,
     });
 
-    const navigationProps = getPageHref ? { getPageHref, linkAs } : { onPageChange: setPage };
+    if (normalizedTotalPages < 1) return null;
 
     return (
       <nav
