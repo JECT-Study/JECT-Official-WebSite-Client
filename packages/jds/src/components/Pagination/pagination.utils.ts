@@ -19,7 +19,6 @@ interface PaginationRangeOptions {
 
 interface PaginationWindowOptions extends PaginationValues {
   visiblePageCount: PaginationVisiblePageCount;
-  // 이동 전 숫자 구간. 첫 배치나 레이아웃 변경 시에는 없다.
   previousWindow?: PaginationWindow;
 }
 
