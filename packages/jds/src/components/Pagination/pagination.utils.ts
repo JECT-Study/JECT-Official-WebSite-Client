@@ -53,19 +53,10 @@ export const getPaginationWindow = ({
 }: PaginationWindowOptions): PaginationWindow => {
   const edgeRangePageCount = visiblePageCount - 2;
   const middlePageCount = visiblePageCount - 4;
-  const isOdd = visiblePageCount % 2 !== 0;
 
   // 이전 구간의 안쪽 숫자를 선택하면 표시 범위를 유지한다.
   if (previousWindow && page > previousWindow.start && page < previousWindow.end) {
     return previousWindow;
-  }
-
-  // 홀수의 첫 배치는 기존처럼 양끝 근처의 페이지를 연속으로 펼친다.
-  if (!previousWindow && isOdd) {
-    if (page < edgeRangePageCount) return { start: 1, end: edgeRangePageCount };
-    if (page > totalPages - edgeRangePageCount + 1) {
-      return { start: totalPages - edgeRangePageCount + 1, end: totalPages };
-    }
   }
 
   // 가운데 구간 후보는 이전 구간의 양끝이나 밖으로 이동할 때 선택 페이지를 해당 끝에서 두 번째에 둔다.
