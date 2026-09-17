@@ -4,6 +4,7 @@ import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "../../tokens/vars.css";
 
 const thickness = createVar();
+const lineStyle = createVar();
 
 /**
  * Divider 색상을 소비처에서 오버라이드하기 위한 CSS 변수.
@@ -35,11 +36,23 @@ export const divider = recipe({
       horizontal: {
         width: "100%",
         height: thickness,
+        "@media": {
+          "(forced-colors: active)": {
+            height: 0,
+            borderTop: `${thickness} ${lineStyle} currentColor`,
+          },
+        },
       },
       vertical: {
         width: thickness,
         height: "100%",
         alignSelf: "stretch",
+        "@media": {
+          "(forced-colors: active)": {
+            width: 0,
+            borderLeft: `${thickness} ${lineStyle} currentColor`,
+          },
+        },
       },
     },
     thickness: {
@@ -49,8 +62,8 @@ export const divider = recipe({
       boldest: { vars: { [thickness]: "8px" } },
     },
     variant: {
-      solid: { backgroundColor: lineColor },
-      dashed: {},
+      solid: { backgroundColor: lineColor, vars: { [lineStyle]: "solid" } },
+      dashed: { vars: { [lineStyle]: "dashed" } },
     },
   },
   compoundVariants: [
