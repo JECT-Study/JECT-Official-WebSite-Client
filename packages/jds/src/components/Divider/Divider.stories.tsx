@@ -41,6 +41,20 @@ const meta = {
         defaultValue: { summary: "false" },
       },
     },
+    dashLength: {
+      control: "number",
+      description: "점선 한 칸의 길이(px), variant가 dashed일 때만 반영",
+      table: {
+        defaultValue: { summary: "6" },
+      },
+    },
+    dashGap: {
+      control: "number",
+      description: "점선 사이 간격(px), 지정하지 않으면 dashLength를 따라감",
+      table: {
+        defaultValue: { summary: "dashLength" },
+      },
+    },
   },
 } satisfies Meta<typeof Divider>;
 
@@ -116,6 +130,37 @@ export const AllVariants: Story = {
     docs: {
       description: {
         story: "디바이더의 선 스타일을 solid(실선)과 dashed(점선)로 변경할 수 있습니다.",
+      },
+    },
+  },
+};
+
+export const DashSpacing: Story = {
+  render: () => (
+    <FlexColumn gap='24px' style={{ width: "300px" }}>
+      <FlexColumn gap='8px'>
+        <Label>기본값 (6 / 6):</Label>
+        <Divider variant='dashed' />
+      </FlexColumn>
+      <FlexColumn gap='8px'>
+        <Label>dashLength=2 (2 / 2):</Label>
+        <Divider variant='dashed' dashLength={2} />
+      </FlexColumn>
+      <FlexColumn gap='8px'>
+        <Label>dashLength=2, dashGap=6:</Label>
+        <Divider variant='dashed' dashLength={2} dashGap={6} />
+      </FlexColumn>
+      <FlexColumn gap='8px'>
+        <Label>dashLength=12, dashGap=4, thickness=bold:</Label>
+        <Divider variant='dashed' dashLength={12} dashGap={4} thickness='bold' />
+      </FlexColumn>
+    </FlexColumn>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "점선 간격은 기본값이 6px / 6px이고 dashLength와 dashGap으로 조정합니다. dashGap을 생략하면 dashLength를 따라갑니다.",
       },
     },
   },

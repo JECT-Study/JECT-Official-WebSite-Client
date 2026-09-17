@@ -4,7 +4,6 @@ import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "../../tokens/vars.css";
 
 const thickness = createVar();
-const lineStyle = createVar();
 
 /**
  * Divider 색상을 소비처에서 오버라이드하기 위한 CSS 변수.
@@ -12,6 +11,17 @@ const lineStyle = createVar();
  * 값을 주입하지 않으면 Divider의 기본 stroke 색상으로 fallback된다.
  */
 export const dividerColorVar = createVar();
+export const dividerDashLengthVar = createVar();
+export const dividerDashGapVar = createVar();
+
+export const DEFAULT_DASH_LENGTH = 6;
+
+const lineColor = fallbackVar(dividerColorVar, vars.color.semantic.stroke.alpha.assistive);
+const dashLength = fallbackVar(dividerDashLengthVar, `${DEFAULT_DASH_LENGTH}px`);
+const dashGap = fallbackVar(dividerDashGapVar, dashLength);
+
+const dashedLine = (direction: "to right" | "to bottom") =>
+  `repeating-linear-gradient(${direction}, ${lineColor} 0 ${dashLength}, transparent ${dashLength} calc(${dashLength} + ${dashGap}))`;
 
 export const divider = recipe({
   base: {
@@ -23,14 +33,12 @@ export const divider = recipe({
     orientation: {
       horizontal: {
         width: "100%",
-        height: 0,
-        borderTop: `${thickness} ${lineStyle} ${fallbackVar(dividerColorVar, vars.color.semantic.stroke.alpha.assistive)}`,
+        height: thickness,
       },
       vertical: {
-        width: 0,
+        width: thickness,
         height: "100%",
         alignSelf: "stretch",
-        borderLeft: `${thickness} ${lineStyle} ${fallbackVar(dividerColorVar, vars.color.semantic.stroke.alpha.assistive)}`,
       },
     },
     thickness: {
@@ -40,10 +48,20 @@ export const divider = recipe({
       boldest: { vars: { [thickness]: "8px" } },
     },
     variant: {
-      solid: { vars: { [lineStyle]: "solid" } },
-      dashed: { vars: { [lineStyle]: "dashed" } },
+      solid: { backgroundColor: lineColor },
+      dashed: {},
     },
   },
+  compoundVariants: [
+    {
+      variants: { orientation: "horizontal", variant: "dashed" },
+      style: { backgroundImage: dashedLine("to right") },
+    },
+    {
+      variants: { orientation: "vertical", variant: "dashed" },
+      style: { backgroundImage: dashedLine("to bottom") },
+    },
+  ],
   defaultVariants: {
     orientation: "horizontal",
     thickness: "normal",
