@@ -1165,7 +1165,7 @@ export const Environment: Story = {
               description='같은 fluent motion으로 같은 거리를 이동하며 duration 차이를 비교합니다.'
               tracks={tokenItems(vars.environment.semantic.duration).map(
                 ({ label, value: duration }) => ({
-                  label: `${label}ms`,
+                  label,
                   duration,
                   motion: vars.environment.semantic.motion.fluent,
                 }),
@@ -1227,30 +1227,35 @@ export const Environment: Story = {
                 height: "232px",
               }}
             >
-              {tokenItems(vars.environment.semantic.zIndex).map(({ label, value }, index) => (
-                <div
-                  key={label}
-                  style={{
-                    position: "absolute",
-                    top: `${index * 36}px`,
-                    left: `${index * 24}px`,
-                    zIndex: value,
-                    width: "min(240px, calc(100% - 96px))",
-                    height: "88px",
-                    boxSizing: "border-box",
-                    padding: vars.scheme.semantic.spacing["12"],
-                    border: `${vars.scheme.semantic.strokeWeight["1"]} solid ${vars.color.semantic.stroke.subtle}`,
-                    borderRadius: vars.scheme.semantic.radius["8"],
-                    backgroundColor: vars.color.semantic.surface.shallow,
-                    boxShadow:
-                      label === "standard"
-                        ? undefined
-                        : tokenValue(vars.environment.semantic.shadow, label),
-                  }}
-                >
-                  <code className={getSyntaxClassName({ size: "xs" })}>{label}</code>
-                </div>
-              ))}
+              {tokenItems(vars.environment.semantic.zIndex)
+                .reverse()
+                .map(({ label, value }, index) => (
+                  <div
+                    key={label}
+                    style={{
+                      position: "absolute",
+                      top: `${index * 36}px`,
+                      left: `${index * 24}px`,
+                      zIndex: value,
+                      width: "min(240px, calc(100% - 96px))",
+                      height: "88px",
+                      boxSizing: "border-box",
+                      display: "flex",
+                      alignItems: "flex-end",
+                      justifyContent: "flex-end",
+                      padding: vars.scheme.semantic.spacing["12"],
+                      border: `${vars.scheme.semantic.strokeWeight["1"]} solid ${vars.color.semantic.stroke.subtle}`,
+                      borderRadius: vars.scheme.semantic.radius["8"],
+                      backgroundColor: vars.color.semantic.surface.shallow,
+                      boxShadow:
+                        label === "standard"
+                          ? undefined
+                          : tokenValue(vars.environment.semantic.shadow, label),
+                    }}
+                  >
+                    <code className={getSyntaxClassName({ size: "xs" })}>{label}</code>
+                  </div>
+                ))}
             </div>
           </TokenPanel>
         </div>
