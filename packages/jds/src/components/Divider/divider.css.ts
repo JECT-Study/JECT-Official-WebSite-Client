@@ -17,8 +17,9 @@ export const dividerDashGapVar = createVar();
 export const DEFAULT_DASH_LENGTH = 6;
 
 const lineColor = fallbackVar(dividerColorVar, vars.color.semantic.stroke.alpha.assistive);
-const dashLength = fallbackVar(dividerDashLengthVar, `${DEFAULT_DASH_LENGTH}px`);
-const dashGap = fallbackVar(dividerDashGapVar, dashLength);
+const dashLengthInput = fallbackVar(dividerDashLengthVar, `${DEFAULT_DASH_LENGTH}px`);
+const dashLength = `max(1px, ${dashLengthInput})`;
+const dashGap = `max(0px, ${fallbackVar(dividerDashGapVar, dashLengthInput)})`;
 
 const dashedLine = (direction: "to right" | "to bottom") =>
   `repeating-linear-gradient(${direction}, ${lineColor} 0 ${dashLength}, transparent ${dashLength} calc(${dashLength} + ${dashGap}))`;
