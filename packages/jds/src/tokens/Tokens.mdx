@@ -322,14 +322,13 @@ export const card = style({
 document.documentElement.setAttribute("data-theme", "dark");
 ```
 
-Light 테마로 돌아갈 때는 `light`를 설정하거나 속성을 제거할 수 있습니다.
+Light semantic color는 `:root`의 기본값으로 제공됩니다. 애플리케이션 전체를 Dark 테마에서 Light 테마로 되돌릴 때는 `documentElement`의 `data-theme` 속성을 제거합니다.
 
 ```tsx
-document.documentElement.setAttribute("data-theme", "light");
-
-// light가 기본값인 경우
 document.documentElement.removeAttribute("data-theme");
 ```
+
+현재 `[data-theme="light"]`에 CSS 변수를 다시 할당하는 규칙은 없습니다. 따라서 `[data-theme="dark"]`가 적용된 조상 요소 안에서 하위 요소에 `data-theme="light"`를 설정해도 Dark semantic color가 그대로 상속됩니다.
 
 특정 영역에만 Dark 테마를 적용할 수도 있습니다.
 
@@ -429,7 +428,7 @@ textStyles.ts
 breakpoints.ts
 ```
 
-`token.json`은 color, scheme, typography, environment collection을 포함하고, `textStyles.json`은 typography 조합을 별도로 관리합니다.
+`token.json`의 최상위 collection은 `color-primitive`, `color-semantic`, `scheme`, `typography`, `environment`입니다. `textStyles.json`은 typography 조합을 별도로 관리합니다.
 
 ### 생성 파일과 역할
 
@@ -441,6 +440,14 @@ breakpoints.ts
 이 파일들은 자동 생성물이므로 직접 수정하지 않습니다.
 
 ### Figma 이름과 코드 경로 매핑
+
+Collection 이름은 생성 과정에서 다음과 같이 `vars`의 코드 namespace로 정규화됩니다.
+
+- `color-primitive` → `vars.colorPrimitive`
+- `color-semantic` → `vars.color`
+- `scheme` → `vars.scheme`
+- `typography` → `vars.typo`
+- `environment` → `vars.environment`
 
 일반 토큰은 Figma의 `/` 구분을 코드의 중첩 객체 경로로 변환합니다. 숫자로 시작하는 key는 문자열 bracket notation으로 접근합니다.
 
