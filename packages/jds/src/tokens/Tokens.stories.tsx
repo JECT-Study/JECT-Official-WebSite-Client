@@ -47,6 +47,31 @@ const surfaceToneOrder = [
   "deeper",
   "deepest",
 ] as const;
+const primitivePaletteOrder = [
+  "red",
+  "orange",
+  "yellow",
+  "lime",
+  "green",
+  "teal",
+  "sky",
+  "blue",
+  "indigo",
+  "purple",
+  "pink",
+] as const;
+const semanticThemeOrder = [
+  "red",
+  "orange",
+  "yellow",
+  "lime",
+  "green",
+  "teal",
+  "sky",
+  "indigo",
+  "purple",
+  "pink",
+] as const;
 const motionOrder = ["bouncy", "fluent", "entrance", "leave"] as const;
 
 const tokenKeys = <Tokens extends Record<string, string>>(tokens: Tokens) =>
@@ -79,7 +104,7 @@ const semanticColorItems = (tokens: Record<string, unknown>) =>
 const surfaceColorItems = (tokens: Record<string, unknown>) =>
   sortByLabelOrder(colorItems(tokens), surfaceToneOrder);
 
-const toWeightLabel = (value: string) =>
+const toCapitalizedLabel = (value: string) =>
   `${value.charAt(0).toUpperCase()}${value.slice(1).toLowerCase()}`;
 
 const stackStyle: CSSProperties = {
@@ -622,12 +647,41 @@ export const ColorPrimitive: Story = {
           />
         </div>
       </TokenSubsection>
+
+      <TokenSubsection title='Chromatic Palettes'>
+        <div style={stackStyle}>
+          {primitivePaletteOrder.map(palette => (
+            <div
+              key={palette}
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 280px), 1fr))",
+                gap: vars.scheme.semantic.spacing["16"],
+              }}
+            >
+              <ColorScale
+                compact
+                title={toCapitalizedLabel(palette)}
+                tokenPath={`colorPrimitive.primitive.${palette}`}
+                colors={colorItems(vars.colorPrimitive.primitive[palette])}
+              />
+              <ColorScale
+                compact
+                title={`${toCapitalizedLabel(palette)} · Dark`}
+                tokenPath={`colorPrimitive.primitive.${palette}.dark`}
+                colors={colorItems(vars.colorPrimitive.primitive[palette].dark)}
+              />
+            </div>
+          ))}
+        </div>
+      </TokenSubsection>
     </TokenSection>
   ),
   parameters: {
     docs: {
       description: {
-        story: "Base, shade와 Flow의 기본·다크·투명도 primitive 색상 단계를 모두 보여줍니다.",
+        story:
+          "Base, shade, Flow와 chromatic palette의 기본·다크·투명도 primitive 색상 단계를 모두 보여줍니다.",
       },
     },
   },
@@ -716,13 +770,24 @@ export const ColorSemantic: Story = {
           />
         </div>
       </TokenSubsection>
+
+      <TokenSubsection title='Theme Palettes'>
+        <ColorScale
+          title='Theme · Normal'
+          tokenPath='color.semantic.theme.*.normal'
+          colors={semanticThemeOrder.map(label => ({
+            color: vars.color.semantic.theme[label].normal,
+            label,
+          }))}
+        />
+      </TokenSubsection>
     </TokenSection>
   ),
   parameters: {
     docs: {
       description: {
         story:
-          "Semantic 색상의 주요 역할을 용도별로 보여줍니다. Storybook 툴바에서 Light/Dark 테마를 전환하면 동일한 토큰의 값이 변경됩니다.",
+          "Semantic 색상의 주요 역할과 theme 계열의 normal 대표값을 보여줍니다. inverse, alpha, static 같은 중첩 변형의 전체 목록은 반복을 줄이기 위해 펼치지 않으며, Storybook 툴바에서 Light/Dark 테마를 전환하면 동일한 토큰의 값이 변경됩니다.",
       },
     },
   },
@@ -900,7 +965,7 @@ export const TextStyle: Story = {
             <TextStyleRow key={size} divided={index > 0} label={size.toUpperCase()}>
               <TextStyleVariants>
                 {labelWeights.map(weight => {
-                  const weightLabel = toWeightLabel(weight);
+                  const weightLabel = toCapitalizedLabel(weight);
 
                   return (
                     <TextStyleVariant key={weight} label={weightLabel}>
@@ -922,7 +987,7 @@ export const TextStyle: Story = {
             <TextStyleRow key={size} divided={index > 0} label={size.toUpperCase()}>
               <TextStyleVariants>
                 {bodyWeights.map(weight => {
-                  const weightLabel = toWeightLabel(weight);
+                  const weightLabel = toCapitalizedLabel(weight);
 
                   return (
                     <TextStyleVariant key={weight} label={weightLabel}>
