@@ -55,6 +55,12 @@ interface MenuCustomAnchorProps {
   children: ReactElement;
 }
 
+/**
+ * `asChild`와 `disabled`는 동시에 사용할 수 없다.
+ *
+ * asChild로 라우팅 컴포넌트를 전달하면 이동을 자식 요소가 제어하므로,
+ * 비활성 상태는 asChild 없이 `<Menu.Anchor disabled>`로 표현한다.
+ */
 export type MenuAnchorProps = MenuAnchorBaseProps & (MenuNativeAnchorProps | MenuCustomAnchorProps);
 
 export interface MenuRootProps {
@@ -103,6 +109,12 @@ export interface DropdownMenuButtonProps
 interface DropdownMenuAnchorBaseProps
   extends Omit<MenuAnchorBaseProps, "onSelect">, DropdownItemProps {}
 
+/**
+ * `asChild`와 `disabled`는 동시에 사용할 수 없다.
+ *
+ * asChild로 라우팅 컴포넌트를 전달하면 이동을 자식 요소가 제어하므로,
+ * 비활성 상태는 asChild 없이 `<DropdownMenu.Anchor disabled>`로 표현한다.
+ */
 export type DropdownMenuAnchorProps = DropdownMenuAnchorBaseProps &
   (MenuNativeAnchorProps | MenuCustomAnchorProps);
 
