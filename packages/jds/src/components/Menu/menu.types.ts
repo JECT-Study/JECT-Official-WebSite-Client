@@ -1,5 +1,5 @@
 import type { DropdownMenu } from "radix-ui";
-import type { ComponentPropsWithoutRef, ElementType, ReactNode } from "react";
+import type { ComponentPropsWithoutRef, ElementType, ReactElement, ReactNode } from "react";
 
 import type { IconName } from "../Icon";
 
@@ -88,8 +88,23 @@ type DropdownItemProps = Pick<
 export interface DropdownMenuButtonProps
   extends Omit<MenuButtonProps, "onSelect">, DropdownItemProps {}
 
-export interface DropdownMenuAnchorProps
-  extends Omit<MenuAnchorProps, "onSelect">, DropdownItemProps {}
+interface DropdownMenuAnchorBaseProps
+  extends Omit<MenuAnchorProps, "children" | "disabled" | "onSelect">, DropdownItemProps {}
+
+interface DropdownMenuNativeAnchorProps {
+  asChild?: false;
+  disabled?: boolean;
+  children: ReactNode;
+}
+
+interface DropdownMenuCustomAnchorProps {
+  asChild: true;
+  disabled?: never;
+  children: ReactElement;
+}
+
+export type DropdownMenuAnchorProps = DropdownMenuAnchorBaseProps &
+  (DropdownMenuNativeAnchorProps | DropdownMenuCustomAnchorProps);
 
 export interface DropdownMenuTreeProps extends Omit<MenuButtonProps, "children"> {
   label: ReactNode;

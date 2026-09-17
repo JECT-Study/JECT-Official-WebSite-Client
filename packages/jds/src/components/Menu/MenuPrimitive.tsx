@@ -1,5 +1,6 @@
 import { clsx } from "clsx";
-import { forwardRef } from "react";
+import { Slot } from "radix-ui";
+import { forwardRef, type ReactNode } from "react";
 
 import { useMenuContext } from "./menu.context";
 import {
@@ -22,6 +23,10 @@ import { Thumbnail } from "../Thumbnail";
 
 import { NumericBadge, type BadgeSize } from "@/components/Badge";
 import { getLabelClassName, type LabelSize } from "@/utils/typography";
+
+interface MenuPrimitiveAnchorProps extends MenuAnchorProps {
+  asChild?: boolean;
+}
 
 const MenuPrimitiveButton = forwardRef<HTMLButtonElement, MenuButtonProps>(
   (
@@ -81,9 +86,10 @@ const MenuPrimitiveButton = forwardRef<HTMLButtonElement, MenuButtonProps>(
 
 MenuPrimitiveButton.displayName = "MenuPrimitive.Button";
 
-const MenuPrimitiveAnchor = forwardRef<HTMLAnchorElement, MenuAnchorProps>(
+const MenuPrimitiveAnchor = forwardRef<HTMLAnchorElement, MenuPrimitiveAnchorProps>(
   (
     {
+      asChild = false,
       variant = "icon",
       size = "md",
       isSelected = false,
@@ -101,18 +107,35 @@ const MenuPrimitiveAnchor = forwardRef<HTMLAnchorElement, MenuAnchorProps>(
       fullWidthText = false,
       className,
       children,
+      onClick,
       ...rest
     },
     ref,
   ) => {
+    const Component = asChild ? Slot.Root : "a";
+    const disabledNativeProps = disabled && !asChild ? { href: undefined, tabIndex: -1 } : {};
+
+    const renderLabel = (label: ReactNode) => (
+      <span className={clsx(getLabelClassName({ size }), menuItemLabel({ fullWidthText }))}>
+        {label}
+      </span>
+    );
+
     return (
-      <a
+      <Component
         ref={ref}
+        {...rest}
+        {...disabledNativeProps}
         aria-disabled={disabled || undefined}
         data-disabled={disabled || undefined}
-        tabIndex={disabled ? -1 : undefined}
         className={clsx(menuContainerStyle({ size, isSelected, stretched }), className)}
-        {...rest}
+        onClick={event => {
+          if (disabled) {
+            event.preventDefault();
+            return;
+          }
+          onClick?.(event);
+        }}
       >
         {variant === "icon" && prefixIconVisible && <Icon name={prefixIcon} size={size} />}
         {variant === "thumbnail" && (
@@ -125,16 +148,18 @@ const MenuPrimitiveAnchor = forwardRef<HTMLAnchorElement, MenuAnchorProps>(
             className={menuItemImage({ size })}
           />
         )}
-        <span className={clsx(getLabelClassName({ size }), menuItemLabel({ fullWidthText }))}>
-          {children}
-        </span>
+        {asChild ? (
+          <Slot.Slottable child={children}>{renderLabel}</Slot.Slottable>
+        ) : (
+          renderLabel(children)
+        )}
         {suffixIconVisible && <Icon name={suffixIcon} size={size} />}
         {suffixBadgeVisible && (
           <NumericBadge size={suffixBadgeSizeByMenuSize[size]} isMuted={suffixBadgeMuted}>
             {suffixBadge}
           </NumericBadge>
         )}
-      </a>
+      </Component>
     );
   },
 );
