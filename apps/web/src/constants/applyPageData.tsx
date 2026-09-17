@@ -5,48 +5,28 @@ import type { JobFamily } from "@/apis/apply";
 export const JOB_FAMILY_OPTIONS = [
   {
     value: "PM",
-    short: "PM",
     korean: "프로덕트 매니저",
-    koreanFirst: "프로덕트",
-    koreanSecond: "매니저",
-    english: "Product Manager",
-    navigationTitle: "[젝트 5기] 프로덕트 매니저 모집",
+    recruitmentTitle: "[젝트 5기] 프로덕트 매니저 모집",
   },
   {
     value: "PD",
-    short: "PD",
     korean: "프로덕트 디자이너",
-    koreanFirst: "프로덕트",
-    koreanSecond: "디자이너",
-    english: "Product Designer",
-    navigationTitle: "[젝트 5기] 프로덕트 디자이너 모집",
+    recruitmentTitle: "[젝트 5기] 프로덕트 디자이너 추가 모집",
   },
   {
     value: "FE",
-    short: "FE",
     korean: "프론트엔드 개발자",
-    koreanFirst: "프론트엔드",
-    koreanSecond: "개발자",
-    english: "Frontend Engineer",
-    navigationTitle: "[젝트 5기] 프론트엔드 개발자 모집",
+    recruitmentTitle: "[젝트 5기] 프론트엔드 개발자 추가 모집",
   },
   {
     value: "BE",
-    short: "BE",
     korean: "백엔드 개발자",
-    koreanFirst: "백엔드",
-    koreanSecond: "개발자",
-    english: "Backend Engineer",
-    navigationTitle: "[젝트 5기] 백엔드 개발자 모집",
+    recruitmentTitle: "[젝트 5기] 백엔드 개발자 모집",
   },
   {
     value: "APP",
-    short: "APP",
     korean: "앱 개발자",
-    koreanFirst: "앱",
-    koreanSecond: "개발자",
-    english: "App Engineer",
-    navigationTitle: "[젝트 5기] 앱 개발자 모집",
+    recruitmentTitle: "[젝트 5기] 앱 개발자 모집",
   },
 ] as const;
 
@@ -100,6 +80,38 @@ export const RECRUITMENT_SECTION_TITLE = {
   outcomes: "활동 후 얻는 예상 결과",
   qualifications: "이런 분이 젝트와 잘 어울립니다",
 } as const;
+
+interface JobFamilyRecruitmentRound {
+  startAt: string;
+  endAt: string;
+  heroPeriod: string;
+  noticePeriod: string;
+  cardPeriod: string;
+}
+
+const REGULAR_RECRUITMENT_ROUND: JobFamilyRecruitmentRound = {
+  startAt: "2026-08-22T00:00:00+09:00",
+  endAt: "2026-09-07T00:00:00+09:00",
+  heroPeriod: "2026년 8월 22일(토) - 9월 6일(일)",
+  noticePeriod: "2026년 8월 22일(토) 00:00 - 2026년 9월 7일(월) 00:00",
+  cardPeriod: "2026년 8월 22일 - 9월 6일",
+};
+
+const ADDITIONAL_RECRUITMENT_ROUND: JobFamilyRecruitmentRound = {
+  startAt: "2026-09-07T00:00:00+09:00",
+  endAt: "2026-09-10T00:00:00+09:00",
+  heroPeriod: "2026년 9월 7일(월) - 9월 9일(수)",
+  noticePeriod: "2026년 9월 7일(월) 00:00 - 2026년 9월 10일(목) 00:00",
+  cardPeriod: "2026년 9월 7일 - 9월 9일",
+};
+
+export const JOB_FAMILY_RECRUITMENT_ROUND: Record<JobFamily, JobFamilyRecruitmentRound> = {
+  PM: REGULAR_RECRUITMENT_ROUND,
+  PD: ADDITIONAL_RECRUITMENT_ROUND,
+  FE: ADDITIONAL_RECRUITMENT_ROUND,
+  BE: REGULAR_RECRUITMENT_ROUND,
+  APP: REGULAR_RECRUITMENT_ROUND,
+};
 
 export const JOB_FAMILY_RECRUITMENT_INFO: Record<JobFamily, JobFamilyRecruitmentInfo> = {
   FE: {

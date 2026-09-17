@@ -27,7 +27,7 @@ export function CompleteStep({ jobFamily }: CompleteStepProps) {
         <LocalNavigation.Root isStretched={true}>
           <LocalNavigation.BackButton onClick={handleBack} />
           <LocalNavigation.Title>
-            {findJobFamilyOption(jobFamily).navigationTitle}
+            {findJobFamilyOption(jobFamily).recruitmentTitle}
           </LocalNavigation.Title>
         </LocalNavigation.Root>
       </header>

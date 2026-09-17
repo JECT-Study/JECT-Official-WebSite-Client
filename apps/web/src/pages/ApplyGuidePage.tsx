@@ -22,6 +22,7 @@ import {
   findJobFamilyOption,
   JOB_FAMILY_OPTIONS,
   JOB_FAMILY_RECRUITMENT_INFO,
+  JOB_FAMILY_RECRUITMENT_ROUND,
   RECRUITMENT_SECTION_TITLE,
 } from "@/constants/applyPageData";
 import { PATH } from "@/constants/path";
@@ -30,8 +31,6 @@ import { useRecruitId } from "@/hooks/recruit";
 type TabValue = "info" | "notice" | "faq";
 
 const RECRUIT_ALERT_FORM_URL = "https://forms.gle/oarw4xzjDezR6mzQA";
-const RECRUIT_START_AT = new Date("2026-08-22T00:00:00+09:00").getTime();
-const RECRUIT_END_AT = new Date("2026-09-07T00:00:00+09:00").getTime();
 
 const INACTIVE_ACTION_LABEL = {
   pending: "모집 정보를 불러오는 중입니다",
@@ -141,6 +140,9 @@ function ApplyGuidePage() {
     return <Navigate to={PATH.notFoundError} replace />;
   }
 
+  const recruitmentRound = JOB_FAMILY_RECRUITMENT_ROUND[jobFamily];
+  const heroTitleWords = findJobFamilyOption(jobFamily).recruitmentTitle.split(" ");
+
   const handleTabChange = (value: string) => {
     const newParams = new URLSearchParams(searchParams);
     newParams.set("tab", value);
@@ -164,8 +166,8 @@ function ApplyGuidePage() {
     if (isRecruitPending) return "pending" as const;
 
     const now = Date.now();
-    if (now < RECRUIT_START_AT) return "beforeStart" as const;
-    if (now >= RECRUIT_END_AT) return "closed" as const;
+    if (now < new Date(recruitmentRound.startAt).getTime()) return "beforeStart" as const;
+    if (now >= new Date(recruitmentRound.endAt).getTime()) return "closed" as const;
 
     return "error" as const;
   };
@@ -204,35 +206,33 @@ function ApplyGuidePage() {
       <section className='flex w-full flex-col gap-(--semantic-spacing-32) pt-(--semantic-margin-xl) pb-(--semantic-margin-3xl)'>
         <div className='flex flex-col items-start gap-(--semantic-spacing-16) self-stretch'>
           <div className='flex flex-wrap content-center items-center gap-(--semantic-spacing-8) self-stretch'>
-            <Hero size='xs' textAlign='left'>
-              [젝트 5기]
-            </Hero>
-            <Hero size='xs' textAlign='left'>
-              {findJobFamilyOption(jobFamily).koreanFirst}
-            </Hero>
-            <Hero size='xs' textAlign='left'>
-              {findJobFamilyOption(jobFamily).koreanSecond}
-            </Hero>
-            <Hero size='xs' textAlign='left'>
-              모집
-            </Hero>
-            <Tooltip.Provider>
-              <Tooltip.Root>
-                <Tooltip.Trigger asChild>
-                  <IconButton.Basic
-                    icon='link-line'
-                    size='2xl'
-                    hierarchy='tertiary'
-                    onClick={handleCopyUrl}
-                    aria-label='URL 복사'
-                  />
-                </Tooltip.Trigger>
-                <Tooltip.Content>URL 복사</Tooltip.Content>
-              </Tooltip.Root>
-            </Tooltip.Provider>
+            {heroTitleWords.slice(0, -1).map((word, index) => (
+              <Hero key={index} size='xs' textAlign='left'>
+                {word}
+              </Hero>
+            ))}
+            <div className='flex items-center gap-(--semantic-spacing-8)'>
+              <Hero size='xs' textAlign='left'>
+                {heroTitleWords[heroTitleWords.length - 1]}
+              </Hero>
+              <Tooltip.Provider>
+                <Tooltip.Root>
+                  <Tooltip.Trigger asChild>
+                    <IconButton.Basic
+                      icon='link-line'
+                      size='2xl'
+                      hierarchy='tertiary'
+                      onClick={handleCopyUrl}
+                      aria-label='URL 복사'
+                    />
+                  </Tooltip.Trigger>
+                  <Tooltip.Content>URL 복사</Tooltip.Content>
+                </Tooltip.Root>
+              </Tooltip.Provider>
+            </div>
           </div>
           <Label as='span' size='lg' weight='bold' textAlign='left'>
-            2026년 8월 22일(토) - 9월 6일(일)
+            {recruitmentRound.heroPeriod}
           </Label>
         </div>
 
@@ -315,7 +315,7 @@ function ApplyGuidePage() {
                   `,
                 ]}
               >
-                <li>모집 기간: 2026년 8월 22일(토) 00:00 - 2026년 9월 6일(일) 23:59</li>
+                <li>모집 기간: {recruitmentRound.noticePeriod}</li>
                 <li>합격 발표: 2026년 9월 10일(목) 18:00</li>
                 <li>추가 합격 안내: 2026년 9월 11일(금) - 9월 18일(금)</li>
                 <li>결원 발생 시 예비 합격 순번에 따라 안내</li>
