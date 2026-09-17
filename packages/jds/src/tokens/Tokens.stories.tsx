@@ -3,6 +3,7 @@ import type { CSSProperties, ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
 import { vars } from "tokens";
 
+import { type DeviceType, useMediaQuery } from "@/hooks/useMediaQuery";
 import {
   getBodyClassName,
   getLabelClassName,
@@ -392,11 +393,13 @@ const typographyPropertyLabels: Record<TypographyProperty, string> = {
 };
 
 const TypographyPrimitiveRow = ({
+  deviceType,
   divided,
   label,
   properties,
   sampleStyle,
 }: {
+  deviceType: DeviceType;
   divided: boolean;
   label: string;
   properties: TypographyProperty[];
@@ -408,25 +411,18 @@ const TypographyPrimitiveRow = ({
   );
 
   useEffect(() => {
-    const updateComputedValues = () => {
-      if (!sampleRef.current) return;
+    if (!sampleRef.current) return;
 
-      const computedStyle = window.getComputedStyle(sampleRef.current);
+    const computedStyle = window.getComputedStyle(sampleRef.current);
 
-      setComputedValues({
-        fontFamily: computedStyle.fontFamily,
-        fontSize: computedStyle.fontSize,
-        fontWeight: computedStyle.fontWeight,
-        letterSpacing: computedStyle.letterSpacing,
-        lineHeight: computedStyle.lineHeight,
-      });
-    };
-
-    updateComputedValues();
-    window.addEventListener("resize", updateComputedValues);
-
-    return () => window.removeEventListener("resize", updateComputedValues);
-  }, []);
+    setComputedValues({
+      fontFamily: computedStyle.fontFamily,
+      fontSize: computedStyle.fontSize,
+      fontWeight: computedStyle.fontWeight,
+      letterSpacing: computedStyle.letterSpacing,
+      lineHeight: computedStyle.lineHeight,
+    });
+  }, [deviceType]);
 
   return (
     <div
@@ -492,11 +488,13 @@ const TypographyPrimitiveRow = ({
 };
 
 const TypographyPrimitiveGroup = ({
+  deviceType,
   items,
   properties,
   title,
   tokenPath,
 }: {
+  deviceType: DeviceType;
   items: { label: string; sampleStyle: CSSProperties }[];
   properties: TypographyProperty[];
   title: string;
@@ -506,6 +504,7 @@ const TypographyPrimitiveGroup = ({
     {items.map(({ label, sampleStyle }, index) => (
       <TypographyPrimitiveRow
         key={label}
+        deviceType={deviceType}
         divided={index > 0}
         label={label}
         properties={properties}
@@ -793,10 +792,13 @@ export const ColorSemantic: Story = {
   },
 };
 
-export const Typography: Story = {
-  render: () => (
+const TypographyStory = () => {
+  const deviceType = useMediaQuery();
+
+  return (
     <TokenSection title='Typography Primitive Tokens'>
       <TypographyPrimitiveGroup
+        deviceType={deviceType}
         title='Typeface'
         tokenPath='typo.primitive.typeface'
         properties={["fontFamily"]}
@@ -815,6 +817,7 @@ export const Typography: Story = {
           }}
         >
           <TypographyPrimitiveGroup
+            deviceType={deviceType}
             title='Title'
             tokenPath='typo.primitive.fontSize.title · typo.primitive.font.lineHeight.title · typo.primitive.font.letterSpacing.title'
             properties={["fontSize", "lineHeight", "letterSpacing"]}
@@ -831,6 +834,7 @@ export const Typography: Story = {
               }))}
           />
           <TypographyPrimitiveGroup
+            deviceType={deviceType}
             title='Body'
             tokenPath='typo.primitive.fontSize.body · typo.primitive.font.lineHeight.body · typo.primitive.font.letterSpacing.body'
             properties={["fontSize", "lineHeight", "letterSpacing"]}
@@ -845,6 +849,7 @@ export const Typography: Story = {
             }))}
           />
           <TypographyPrimitiveGroup
+            deviceType={deviceType}
             title='Label'
             tokenPath='typo.primitive.fontSize.label · typo.primitive.font.lineHeight.label · typo.primitive.font.letterSpacing.label'
             properties={["fontSize", "lineHeight", "letterSpacing"]}
@@ -859,6 +864,7 @@ export const Typography: Story = {
             }))}
           />
           <TypographyPrimitiveGroup
+            deviceType={deviceType}
             title='Syntax'
             tokenPath='typo.primitive.fontSize.syntax · typo.primitive.font.lineHeight.syntax'
             properties={["fontSize", "lineHeight"]}
@@ -883,6 +889,7 @@ export const Typography: Story = {
           }}
         >
           <TypographyPrimitiveGroup
+            deviceType={deviceType}
             title='Title'
             tokenPath='typo.primitive.fontWeight.title'
             properties={["fontWeight"]}
@@ -895,6 +902,7 @@ export const Typography: Story = {
             }))}
           />
           <TypographyPrimitiveGroup
+            deviceType={deviceType}
             title='Label'
             tokenPath='typo.primitive.fontWeight.label'
             properties={["fontWeight"]}
@@ -907,6 +915,7 @@ export const Typography: Story = {
             }))}
           />
           <TypographyPrimitiveGroup
+            deviceType={deviceType}
             title='Body'
             tokenPath='typo.primitive.fontWeight.body'
             properties={["fontWeight"]}
@@ -919,6 +928,7 @@ export const Typography: Story = {
             }))}
           />
           <TypographyPrimitiveGroup
+            deviceType={deviceType}
             title='Syntax'
             tokenPath='typo.primitive.fontWeight.syntax'
             properties={["fontWeight"]}
@@ -933,7 +943,11 @@ export const Typography: Story = {
         </div>
       </TokenSubsection>
     </TokenSection>
-  ),
+  );
+};
+
+export const Typography: Story = {
+  render: () => <TypographyStory />,
   parameters: {
     docs: {
       description: {
