@@ -150,7 +150,6 @@ const ColorScale = ({
       {colors.map(({ color, label }) => (
         <div key={label} style={{ minWidth: 0 }}>
           <div
-            aria-label={`${tokenPath}.${label} 색상`}
             style={{
               height: "56px",
               overflow: "hidden",
