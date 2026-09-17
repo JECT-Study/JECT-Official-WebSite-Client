@@ -15,7 +15,7 @@ export const dividerColorVar = createVar();
 export const dividerDashLengthVar = createVar();
 export const dividerDashGapVar = createVar();
 
-export const DEFAULT_DASH_LENGTH = 6;
+const DEFAULT_DASH_LENGTH = 6;
 
 const lineColor = fallbackVar(dividerColorVar, vars.color.semantic.stroke.alpha.assistive);
 const dashLengthInput = fallbackVar(dividerDashLengthVar, `${DEFAULT_DASH_LENGTH}px`);
