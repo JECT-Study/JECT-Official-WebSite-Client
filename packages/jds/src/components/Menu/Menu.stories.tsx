@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexColumn, FlexRow } from "@storybook-utils/layout";
+import { forwardRef, type ComponentPropsWithoutRef } from "react";
 
 import { Menu } from "./Menu";
 
@@ -36,6 +37,16 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
+interface RouterLinkProps extends Omit<ComponentPropsWithoutRef<"a">, "href"> {
+  to: string;
+}
+
+const RouterLink = forwardRef<HTMLAnchorElement, RouterLinkProps>(({ to, ...restProps }, ref) => (
+  <a ref={ref} {...restProps} href={to} />
+));
+
+RouterLink.displayName = "RouterLink";
+
 /**
  * 동작은 `Menu.Button`, 이동은 `Menu.Anchor`를 사용합니다.
  */
@@ -50,8 +61,8 @@ export const Default: Story = {
           </Menu.Button>
           <Menu.Button isSelected>메뉴 레이블 (selected)</Menu.Button>
           <Menu.Button disabled>메뉴 레이블 (disabled)</Menu.Button>
-          <Menu.Anchor href='#' fullWidthText suffixBadgeVisible suffixBadge={5}>
-            메뉴 레이블 (badge)
+          <Menu.Anchor asChild fullWidthText suffixBadgeVisible suffixBadge={5}>
+            <RouterLink to='#menu-item'>메뉴 레이블 (badge)</RouterLink>
           </Menu.Anchor>
         </Menu.Group>
       </Menu.Content>

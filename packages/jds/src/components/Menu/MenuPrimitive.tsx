@@ -24,9 +24,11 @@ import { Thumbnail } from "../Thumbnail";
 import { NumericBadge, type BadgeSize } from "@/components/Badge";
 import { getLabelClassName, type LabelSize } from "@/utils/typography";
 
-interface MenuPrimitiveAnchorProps extends MenuAnchorProps {
+type MenuPrimitiveAnchorProps = Omit<MenuAnchorProps, "asChild" | "children" | "disabled"> & {
   asChild?: boolean;
-}
+  disabled?: boolean;
+  children: ReactNode;
+};
 
 const MenuPrimitiveButton = forwardRef<HTMLButtonElement, MenuButtonProps>(
   (

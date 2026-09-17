@@ -48,12 +48,12 @@ const MenuButton = forwardRef<HTMLButtonElement, MenuButtonProps>(
 MenuButton.displayName = "Menu.Button";
 
 const MenuAnchor = forwardRef<HTMLAnchorElement, MenuAnchorProps>(
-  ({ children, ...restProps }, ref) => {
+  ({ children, asChild, ...restProps }, ref) => {
     const { size } = useMenuContext("Menu.Anchor");
 
     return (
       <li>
-        <MenuPrimitive.Anchor ref={ref} size={size} {...restProps}>
+        <MenuPrimitive.Anchor ref={ref} asChild={asChild} size={size} {...restProps}>
           {children}
         </MenuPrimitive.Anchor>
       </li>

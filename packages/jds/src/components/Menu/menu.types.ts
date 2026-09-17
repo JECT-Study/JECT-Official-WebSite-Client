@@ -26,10 +26,9 @@ export interface MenuButtonProps extends ComponentPropsWithoutRef<"button"> {
   fullWidthText?: boolean;
 }
 
-export interface MenuAnchorProps extends ComponentPropsWithoutRef<"a"> {
+interface MenuAnchorBaseProps extends Omit<ComponentPropsWithoutRef<"a">, "children"> {
   variant?: MenuAnchorVariant;
   size?: MenuSize;
-  disabled?: boolean;
   isSelected?: boolean;
   prefixIcon?: IconName;
   suffixIcon?: IconName;
@@ -38,12 +37,25 @@ export interface MenuAnchorProps extends ComponentPropsWithoutRef<"a"> {
   suffixBadge?: NumericBadgeProps["children"];
   suffixBadgeVisible?: boolean;
   suffixBadgeMuted?: boolean;
-  children: ReactNode;
   imageAlt?: string;
   imageSrc?: string;
   stretched?: boolean;
   fullWidthText?: boolean;
 }
+
+interface MenuNativeAnchorProps {
+  asChild?: false;
+  disabled?: boolean;
+  children: ReactNode;
+}
+
+interface MenuCustomAnchorProps {
+  asChild: true;
+  disabled?: never;
+  children: ReactElement;
+}
+
+export type MenuAnchorProps = MenuAnchorBaseProps & (MenuNativeAnchorProps | MenuCustomAnchorProps);
 
 export interface MenuRootProps {
   size?: MenuSize;
@@ -89,22 +101,10 @@ export interface DropdownMenuButtonProps
   extends Omit<MenuButtonProps, "onSelect">, DropdownItemProps {}
 
 interface DropdownMenuAnchorBaseProps
-  extends Omit<MenuAnchorProps, "children" | "disabled" | "onSelect">, DropdownItemProps {}
-
-interface DropdownMenuNativeAnchorProps {
-  asChild?: false;
-  disabled?: boolean;
-  children: ReactNode;
-}
-
-interface DropdownMenuCustomAnchorProps {
-  asChild: true;
-  disabled?: never;
-  children: ReactElement;
-}
+  extends Omit<MenuAnchorBaseProps, "onSelect">, DropdownItemProps {}
 
 export type DropdownMenuAnchorProps = DropdownMenuAnchorBaseProps &
-  (DropdownMenuNativeAnchorProps | DropdownMenuCustomAnchorProps);
+  (MenuNativeAnchorProps | MenuCustomAnchorProps);
 
 export interface DropdownMenuTreeProps extends Omit<MenuButtonProps, "children"> {
   label: ReactNode;
