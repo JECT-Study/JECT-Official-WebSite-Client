@@ -61,8 +61,11 @@ export const Default: Story = {
           </Menu.Button>
           <Menu.Button isSelected>메뉴 레이블 (selected)</Menu.Button>
           <Menu.Button disabled>메뉴 레이블 (disabled)</Menu.Button>
-          <Menu.Anchor asChild fullWidthText suffixBadgeVisible suffixBadge={5}>
-            <RouterLink to='#menu-item'>메뉴 레이블 (badge)</RouterLink>
+          <Menu.Anchor href='#' fullWidthText suffixBadgeVisible suffixBadge={5}>
+            메뉴 레이블 (badge)
+          </Menu.Anchor>
+          <Menu.Anchor asChild fullWidthText suffixIconVisible suffixIcon='arrow-up-right'>
+            <RouterLink to='#'>메뉴 레이블 (asChild)</RouterLink>
           </Menu.Anchor>
         </Menu.Group>
       </Menu.Content>

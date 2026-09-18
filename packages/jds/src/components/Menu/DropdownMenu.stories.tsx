@@ -69,8 +69,11 @@ export const Default: Story = {
           </DropdownMenu.Button>
           <DropdownMenu.Button isSelected>메뉴 레이블 (selected)</DropdownMenu.Button>
           <DropdownMenu.Button disabled>메뉴 레이블 (disabled)</DropdownMenu.Button>
-          <DropdownMenu.Anchor asChild fullWidthText suffixBadgeVisible suffixBadge={5}>
-            <RouterLink to='#menu-item'>메뉴 레이블 (badge)</RouterLink>
+          <DropdownMenu.Anchor href='#' fullWidthText suffixBadgeVisible suffixBadge={5}>
+            메뉴 레이블 (badge)
+          </DropdownMenu.Anchor>
+          <DropdownMenu.Anchor asChild fullWidthText suffixIconVisible suffixIcon='arrow-up-right'>
+            <RouterLink to='#'>메뉴 레이블 (asChild)</RouterLink>
           </DropdownMenu.Anchor>
         </DropdownMenu.Group>
       </DropdownMenu.Content>
