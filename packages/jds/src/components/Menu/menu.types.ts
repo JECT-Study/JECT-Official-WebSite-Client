@@ -1,5 +1,5 @@
 import type { DropdownMenu } from "radix-ui";
-import type { ComponentPropsWithoutRef, ElementType, ReactNode } from "react";
+import type { ComponentPropsWithoutRef, ElementType, ReactElement, ReactNode } from "react";
 
 import type { IconName } from "../Icon";
 
@@ -26,10 +26,9 @@ export interface MenuButtonProps extends ComponentPropsWithoutRef<"button"> {
   fullWidthText?: boolean;
 }
 
-export interface MenuAnchorProps extends ComponentPropsWithoutRef<"a"> {
+interface MenuAnchorBaseProps extends Omit<ComponentPropsWithoutRef<"a">, "children"> {
   variant?: MenuAnchorVariant;
   size?: MenuSize;
-  disabled?: boolean;
   isSelected?: boolean;
   prefixIcon?: IconName;
   suffixIcon?: IconName;
@@ -38,12 +37,31 @@ export interface MenuAnchorProps extends ComponentPropsWithoutRef<"a"> {
   suffixBadge?: NumericBadgeProps["children"];
   suffixBadgeVisible?: boolean;
   suffixBadgeMuted?: boolean;
-  children: ReactNode;
   imageAlt?: string;
   imageSrc?: string;
   stretched?: boolean;
   fullWidthText?: boolean;
 }
+
+interface MenuNativeAnchorProps {
+  asChild?: false;
+  disabled?: boolean;
+  children: ReactNode;
+}
+
+interface MenuCustomAnchorProps {
+  asChild: true;
+  disabled?: never;
+  children: ReactElement;
+}
+
+/**
+ * `asChild`와 `disabled`는 동시에 사용할 수 없다.
+ *
+ * asChild로 라우팅 컴포넌트를 전달하면 이동을 자식 요소가 제어하므로,
+ * 비활성 상태는 asChild 없이 `<Menu.Anchor disabled>`로 표현한다.
+ */
+export type MenuAnchorProps = MenuAnchorBaseProps & (MenuNativeAnchorProps | MenuCustomAnchorProps);
 
 export interface MenuRootProps {
   size?: MenuSize;
@@ -88,8 +106,17 @@ type DropdownItemProps = Pick<
 export interface DropdownMenuButtonProps
   extends Omit<MenuButtonProps, "onSelect">, DropdownItemProps {}
 
-export interface DropdownMenuAnchorProps
-  extends Omit<MenuAnchorProps, "onSelect">, DropdownItemProps {}
+interface DropdownMenuAnchorBaseProps
+  extends Omit<MenuAnchorBaseProps, "onSelect">, DropdownItemProps {}
+
+/**
+ * `asChild`와 `disabled`는 동시에 사용할 수 없다.
+ *
+ * asChild로 라우팅 컴포넌트를 전달하면 이동을 자식 요소가 제어하므로,
+ * 비활성 상태는 asChild 없이 `<DropdownMenu.Anchor disabled>`로 표현한다.
+ */
+export type DropdownMenuAnchorProps = DropdownMenuAnchorBaseProps &
+  (MenuNativeAnchorProps | MenuCustomAnchorProps);
 
 export interface DropdownMenuTreeProps extends Omit<MenuButtonProps, "children"> {
   label: ReactNode;
