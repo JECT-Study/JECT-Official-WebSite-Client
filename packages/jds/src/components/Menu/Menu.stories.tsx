@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexColumn, FlexRow } from "@storybook-utils/layout";
 import { forwardRef, type ComponentPropsWithoutRef } from "react";
+import { expect, within } from "storybook/test";
 
 import { Menu } from "./Menu";
 
@@ -114,6 +115,14 @@ export const States: Story = {
       </Menu.Content>
     </Menu.Root>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const disabledLink = canvas.getByRole("link", { name: "비활성 링크 (disabled)" });
+
+    await expect(disabledLink).not.toHaveAttribute("href");
+    await expect(disabledLink).toHaveAttribute("aria-disabled", "true");
+    await expect(disabledLink).toHaveAttribute("tabindex", "-1");
+  },
 };
 
 /**

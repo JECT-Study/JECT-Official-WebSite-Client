@@ -115,7 +115,8 @@ const MenuPrimitiveAnchor = forwardRef<HTMLAnchorElement, MenuPrimitiveAnchorPro
     ref,
   ) => {
     const Component = asChild ? Slot.Root : "a";
-    const disabledNativeProps = disabled && !asChild ? { href: undefined, tabIndex: -1 } : {};
+    const disabledNativeProps =
+      disabled && !asChild ? { href: undefined, role: "link" as const, tabIndex: -1 } : {};
 
     const renderLabel = (label: ReactNode) => (
       <span className={clsx(getLabelClassName({ size }), menuItemLabel({ fullWidthText }))}>
