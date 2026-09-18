@@ -4,9 +4,17 @@ export type DividerThickness = "normal" | "bold" | "bolder" | "boldest";
 export type DividerOrientation = "horizontal" | "vertical";
 export type DividerVariant = "solid" | "dashed";
 
-export interface DividerProps extends Omit<ComponentPropsWithoutRef<"hr">, "children" | "color"> {
+export interface BaseDividerProps extends Omit<
+  ComponentPropsWithoutRef<"hr">,
+  "children" | "color"
+> {
   thickness?: DividerThickness;
   decorative?: boolean;
   orientation?: DividerOrientation;
-  variant?: DividerVariant;
 }
+
+export type DividerProps = BaseDividerProps &
+  (
+    | { variant?: Exclude<DividerVariant, "dashed">; dashLength?: never; dashGap?: never }
+    | { variant: "dashed"; dashLength?: number; dashGap?: number }
+  );
