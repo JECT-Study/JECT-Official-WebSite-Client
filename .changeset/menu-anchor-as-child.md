@@ -21,4 +21,4 @@ import NextLink from "next/link";
 
 **동작 변경 (코드 수정 불필요)**
 
-- `disabled`인 `Menu.Anchor`, `DropdownMenu.Anchor`의 `href` 제거, `role="link"` 명시, 키보드 포커스와 클릭 핸들러 호출 차단
+- `disabled`인 `Menu.Anchor`, `DropdownMenu.Anchor`의 `href` 제거, 각각 `link`, `menuitem` 역할 유지, 키보드 포커스와 클릭 핸들러 호출 차단

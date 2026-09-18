@@ -110,13 +110,14 @@ const MenuPrimitiveAnchor = forwardRef<HTMLAnchorElement, MenuPrimitiveAnchorPro
       className,
       children,
       onClick,
+      role,
       ...rest
     },
     ref,
   ) => {
     const Component = asChild ? Slot.Root : "a";
-    const disabledNativeProps =
-      disabled && !asChild ? { href: undefined, role: "link" as const, tabIndex: -1 } : {};
+    const disabledNativeProps = disabled && !asChild ? { href: undefined, tabIndex: -1 } : {};
+    const resolvedRole = role ?? (disabled && !asChild ? "link" : undefined);
 
     const renderLabel = (label: ReactNode) => (
       <span className={clsx(getLabelClassName({ size }), menuItemLabel({ fullWidthText }))}>
@@ -129,6 +130,7 @@ const MenuPrimitiveAnchor = forwardRef<HTMLAnchorElement, MenuPrimitiveAnchorPro
         ref={ref}
         {...rest}
         {...disabledNativeProps}
+        role={resolvedRole}
         aria-disabled={disabled || undefined}
         data-disabled={disabled || undefined}
         className={clsx(menuContainerStyle({ size, isSelected, stretched }), className)}
