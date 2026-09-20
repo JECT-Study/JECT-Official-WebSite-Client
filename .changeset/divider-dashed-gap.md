@@ -36,7 +36,7 @@
 **추가**
 
 - `dashLength` — 점선 한 칸의 길이(px), 기본값 `6`, 최솟값 `1`
-- `dashGap` — 점선 사이 간격(px), 지정하지 않으면 `dashLength`를 따라감, 최솟값 `0`
+- `dashGap` — 점선 사이 간격(px), 지정하지 않으면 하한이 적용된 `dashLength`를 따라감, 최솟값 `1`
 
 ```tsx
 <Divider variant='dashed' />                             // 6 / 6
