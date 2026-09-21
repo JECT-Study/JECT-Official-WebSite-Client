@@ -1,5 +1,84 @@
 # @jects/jds
 
+## 0.7.0
+
+### Minor Changes
+
+- 6fc7ae7: **Divider**
+
+  `variant="dashed"`의 대시가 6px 선, 6px 간격으로 그려집니다. 이전에는 브라우저가 대시 길이를 정했습니다. `DividerProps`가 `variant` 값에 따라 갈리는 유니온 타입이 되었고, 선이 `border`가 아닌 `background`로 그려집니다.
+
+  **소비처 영향 (코드 수정 필요)**
+
+  | AS-IS                                      | TO-BE                                      |
+  | ------------------------------------------ | ------------------------------------------ |
+  | `interface X extends DividerProps { ... }` | `type X = DividerProps & { ... }`          |
+  | `border`로 선 두께나 색을 덮어쓰기         | `thickness` prop, `dividerColorVar`로 지정 |
+
+  `DividerProps`를 확장하던 타입은 교차 타입으로 바꿉니다.
+
+  ```diff
+  -interface MyDividerProps extends DividerProps {
+  -  spacing?: number;
+  -}
+  +type MyDividerProps = DividerProps & {
+  +  spacing?: number;
+  +};
+  ```
+
+  `border`로 선을 덮어쓰던 스타일은 제거합니다. 기본 선을 대체하지 않고 겹쳐 그려지며, 요소 높이가 `thickness`만큼 늘어납니다.
+
+  ```diff
+  -<Divider className='border-t-2 border-red-500' />
+  +<Divider thickness='bold' />
+  ```
+
+  `dashLength`와 `dashGap`은 `variant="dashed"`를 함께 지정해야 쓸 수 있습니다.
+
+  **추가**
+  - `dashLength` — 점선 한 칸의 길이(px), 기본값 `6`, 최솟값 `1`
+  - `dashGap` — 점선 사이 간격(px), 지정하지 않으면 하한이 적용된 `dashLength`를 따라감, 최솟값 `1`
+
+  ```tsx
+  <Divider variant='dashed' />                             // 6 / 6
+  <Divider variant='dashed' dashLength={2} />              // 2 / 2
+  <Divider variant='dashed' dashLength={2} dashGap={6} />  // 2 / 6
+  ```
+
+  **동작 변경 (코드 수정 불필요)**
+  - 강제 색상 모드(`forced-colors: active`)에서 `dashLength`와 `dashGap`이 반영되지 않음, 브라우저가 정한 대시가 적용됨
+  - `dividerColorVar`로 색을 덮어쓰는 방식은 그대로 동작
+  - `orientation`, `thickness`, `variant`와 렌더 엘리먼트, `role`은 변경 없음
+
+### Patch Changes
+
+- 1ffb35f: **Listbox**
+
+  내부 프리미티브인 `Listbox`에 표면을 그리지 않는 `surface` 옵션을 추가했습니다. `Listbox`는 배럴에 공개되지 않으므로 소비처에서 직접 사용할 수 없습니다.
+
+  `Select`, `MultiSelect`, `SelectField`, `MultiSelectField`, `SuggestionField`는 기본값을 사용하므로 렌더 결과가 바뀌지 않습니다.
+
+- 60370aa: **Menu (Menu.Anchor / DropdownMenu.Anchor)**
+
+  `Menu.Anchor`와 `DropdownMenu.Anchor`에 `asChild` prop을 추가했습니다. `asChild`를 사용하면 Next.js의 `Link`나 React Router의 `Link` 같은 라우팅 컴포넌트를 메뉴 항목의 루트 요소로 사용할 수 있습니다. `asChild`를 사용하지 않고 `href`를 직접 전달하는 방식도 계속 지원합니다.
+
+  **추가**
+  - `asChild` (`false`) — 자식 라우팅 컴포넌트를 메뉴 앵커의 루트 요소로 합성
+  - `asChild` 사용 시 단일 React 요소를 `children`으로 전달, `disabled`와 동시 사용 불가
+
+  ```tsx
+  import NextLink from "next/link";
+
+  <Menu.Anchor asChild>
+    <NextLink href='/mypage'>마이페이지</NextLink>
+  </Menu.Anchor>;
+  ```
+
+  **동작 변경 (코드 수정 불필요)**
+  - `disabled`인 `Menu.Anchor`, `DropdownMenu.Anchor`의 `href` 제거, 각각 `link`, `menuitem` 역할 유지, 키보드 포커스와 클릭 핸들러 호출 차단
+
+- 09be450: `radix-ui` 의존성을 `1.6.7`로 업데이트했습니다. 기존 JDS 공개 API와 사용 방법은 동일합니다.
+
 ## 0.6.0
 
 ### Minor Changes
