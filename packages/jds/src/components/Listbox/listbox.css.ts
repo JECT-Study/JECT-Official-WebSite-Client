@@ -1,21 +1,31 @@
 import { style } from "@vanilla-extract/css";
+import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
 import { overlay } from "utils";
 
 import { virtualFocusSelector } from "@/utils/virtualFocus";
 
-export const selectContainer = style({
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "stretch",
-  flexShrink: 0,
-  padding: `${vars.scheme.semantic.spacing["10"]} ${vars.scheme.semantic.spacing["4"]}`,
-  gap: vars.scheme.semantic.spacing["4"],
-  borderRadius: vars.scheme.semantic.radius["8"],
-  border: `${vars.scheme.semantic.strokeWeight["1"]} solid ${vars.color.semantic.stroke.subtle}`,
-  backgroundColor: vars.color.semantic.surface.shallow,
-  boxShadow: `0 0 ${vars.scheme.semantic.radius["2"]} 0 ${vars.colorPrimitive.primitive.shade["4"]}, 0 ${vars.scheme.semantic.spacing["3"]} ${vars.scheme.semantic.radius["4"]} 0 ${vars.colorPrimitive.primitive.shade["8"]}, 0 ${vars.scheme.semantic.spacing["4"]} ${vars.scheme.semantic.radius["8"]} 0 ${vars.colorPrimitive.primitive.shade["12"]}`,
-  overflow: "hidden",
+export const selectContainer = recipe({
+  base: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "stretch",
+    flexShrink: 0,
+    gap: vars.scheme.semantic.spacing["4"],
+    overflow: "hidden",
+  },
+  variants: {
+    surface: {
+      true: {
+        padding: `${vars.scheme.semantic.spacing["10"]} ${vars.scheme.semantic.spacing["4"]}`,
+        borderRadius: vars.scheme.semantic.radius["8"],
+        border: `${vars.scheme.semantic.strokeWeight["1"]} solid ${vars.color.semantic.stroke.subtle}`,
+        backgroundColor: vars.color.semantic.surface.shallow,
+        boxShadow: `0 0 ${vars.scheme.semantic.radius["2"]} 0 ${vars.colorPrimitive.primitive.shade["4"]}, 0 ${vars.scheme.semantic.spacing["3"]} ${vars.scheme.semantic.radius["4"]} 0 ${vars.colorPrimitive.primitive.shade["8"]}, 0 ${vars.scheme.semantic.spacing["4"]} ${vars.scheme.semantic.radius["8"]} 0 ${vars.colorPrimitive.primitive.shade["12"]}`,
+      },
+      false: {},
+    },
+  },
 });
 
 export const selectLabel = style({

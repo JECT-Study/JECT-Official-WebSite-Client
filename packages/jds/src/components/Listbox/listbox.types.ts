@@ -53,4 +53,5 @@ export interface ListboxProps extends ComponentPropsWithoutRef<"div"> {
   label?: string;
   width?: SelectDimension;
   height?: SelectDimension;
+  surface?: boolean;
 }
