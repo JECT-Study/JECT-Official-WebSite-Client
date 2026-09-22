@@ -36,3 +36,19 @@ export const getGridDates = (month: Date, weekStartsOn: Weekday) => {
     (_, index) => new Date(month.getFullYear(), month.getMonth(), 1 - leadingDayCount + index),
   );
 };
+
+const MONTHS_IN_YEAR = 12;
+
+const monthFormatter = new Intl.DateTimeFormat("ko-KR", { month: "long" });
+
+export const getMonthOptions = (year: number) =>
+  Array.from({ length: MONTHS_IN_YEAR }, (_, index) => ({
+    value: String(index),
+    label: monthFormatter.format(new Date(year, index, 1)),
+  }));
+
+export const getYearOptions = (minYear: number, maxYear: number) =>
+  Array.from({ length: Math.max(maxYear - minYear + 1, 1) }, (_, index) => ({
+    value: String(minYear + index),
+    label: `${minYear + index}년`,
+  }));
