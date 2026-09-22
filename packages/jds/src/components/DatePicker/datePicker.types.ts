@@ -2,6 +2,12 @@ import type { ComponentPropsWithoutRef } from "react";
 
 import type { Weekday } from "./parts/WeekdayLabel";
 
+export const DATE_PICKER_VIEW_OPTIONS = ["calendar", "month", "year"] as const;
+
+export type DatePickerView = (typeof DATE_PICKER_VIEW_OPTIONS)[number];
+
+export const YEAR_RANGE_RADIUS = 10;
+
 export type DatePickerProps = Omit<
   ComponentPropsWithoutRef<"div">,
   "children" | "onChange" | "defaultValue"
@@ -13,6 +19,6 @@ export type DatePickerProps = Omit<
   defaultMonth?: Date;
   weekStartsOn?: Weekday;
   withActionBar?: boolean;
-  onYearClick?: () => void;
-  onMonthClick?: () => void;
+  minYear?: number;
+  maxYear?: number;
 };

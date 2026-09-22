@@ -16,7 +16,7 @@ const meta: Meta<typeof DatePicker> = {
     docs: {
       description: {
         component:
-          "날짜 하나를 고르는 달력 패널입니다. 선택 값은 value를 넘기면 밖에서 통제하고, 넘기지 않으면 defaultValue를 시작값으로 DatePicker가 기억합니다. 표시 중인 달은 DatePicker가 기억하며 defaultMonth로 시작 달만 정합니다. 그리드 주 수는 달마다 4~6으로 알아서 조정됩니다. 팝오버 연결과 연월 드롭다운, 그리고 role='grid' 같은 접근성 구조는 아직 없습니다.",
+          "날짜 하나를 고르는 달력 패널입니다. 선택 값은 value를 넘기면 밖에서 통제하고, 넘기지 않으면 defaultValue를 시작값으로 DatePicker가 기억합니다. 표시 중인 달은 DatePicker가 기억하며 defaultMonth로 시작 달만 정합니다. 그리드 주 수는 달마다 4~6으로 알아서 조정됩니다. 헤더의 연도와 월 버튼을 누르면 같은 자리에 목록이 펼쳐지고, 고르면 달력으로 돌아옵니다. 팝오버 연결과 role='grid' 같은 접근성 구조는 아직 없습니다.",
       },
     },
   },
@@ -45,8 +45,16 @@ const meta: Meta<typeof DatePicker> = {
         "하단 액션 바 표시 여부. 켜면 셀 클릭이 임시 선택이 되고 적용을 눌러야 확정됩니다.",
       table: { defaultValue: { summary: "false" } },
     },
-    onYearClick: { description: "연도 버튼을 눌렀을 때. 연월 드롭다운은 아직 없습니다." },
-    onMonthClick: { description: "월 버튼을 눌렀을 때. 연월 드롭다운은 아직 없습니다." },
+    minYear: {
+      control: "number",
+      description: "연도 목록의 시작 연도",
+      table: { defaultValue: { summary: "표시 연도 - 10" } },
+    },
+    maxYear: {
+      control: "number",
+      description: "연도 목록의 마지막 연도",
+      table: { defaultValue: { summary: "표시 연도 + 10" } },
+    },
   },
   args: {
     defaultMonth: SAMPLE_MONTH,
@@ -93,6 +101,13 @@ export const Controlled: Story = {
         </FlexRow>
       </FlexColumn>
     );
+  },
+};
+
+export const YearRange: Story = {
+  args: {
+    minYear: 2020,
+    maxYear: 2030,
   },
 };
 

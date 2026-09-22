@@ -1,14 +1,23 @@
 import { clsx } from "clsx";
 import { useControllableState } from "hooks";
-import { forwardRef, useState } from "react";
+import { forwardRef, useRef, useState, type KeyboardEvent } from "react";
 
 import * as styles from "./datePicker.css";
-import type { DatePickerProps } from "./datePicker.types";
-import { addMonths, getGridDates, isSameDay, startOfMonth } from "./datePicker.utils";
+import { YEAR_RANGE_RADIUS, type DatePickerProps, type DatePickerView } from "./datePicker.types";
+import {
+  addMonths,
+  getGridDates,
+  getMonthOptions,
+  getWeekCount,
+  getYearOptions,
+  isSameDay,
+  startOfMonth,
+} from "./datePicker.utils";
 import { ActionBar } from "./parts/ActionBar";
-import { Calendar } from "./parts/Calendar";
+import { Calendar, getCalendarBodyHeight } from "./parts/Calendar";
 import { Cell } from "./parts/Cell";
 import { Header } from "./parts/Header";
+import { OptionList } from "./parts/OptionList";
 import { IconButton } from "../Button/IconButton";
 import { LabelButton } from "../Button/LabelButton";
 import { Divider } from "../Divider";
@@ -22,9 +31,10 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
       defaultMonth,
       weekStartsOn = 1,
       withActionBar = false,
-      onYearClick,
-      onMonthClick,
+      minYear,
+      maxYear,
       className,
+      onKeyDown,
       ...restProps
     },
     forwardedRef,
@@ -35,6 +45,9 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
       onChange,
     );
     const [month, setMonth] = useState(() => startOfMonth(defaultMonth ?? selected ?? new Date()));
+    const [view, setView] = useState<DatePickerView>("calendar");
+    const yearButtonRef = useRef<HTMLButtonElement>(null);
+    const monthButtonRef = useRef<HTMLButtonElement>(null);
 
     const [draft, setDraft] = useState<Date | null>(selected);
     const [syncedSelected, setSyncedSelected] = useState<Date | null>(selected);
@@ -45,6 +58,16 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
     }
 
     const displayed = withActionBar ? draft : selected;
+    const year = month.getFullYear();
+    const bodyHeight = getCalendarBodyHeight(getWeekCount(month, weekStartsOn));
+
+    const toggleView = (next: DatePickerView) =>
+      setView(current => (current === next ? "calendar" : next));
+
+    const closeView = () => {
+      setView("calendar");
+      (view === "year" ? yearButtonRef : monthButtonRef).current?.focus();
+    };
 
     const selectDate = (date: Date) => {
       if (withActionBar) {
@@ -63,19 +86,41 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
       setDraft(today);
     };
 
+    const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+      onKeyDown?.(event);
+
+      if (event.key === "Escape" && view !== "calendar") {
+        event.stopPropagation();
+        closeView();
+      }
+    };
+
     return (
       <div
         ref={forwardedRef}
         {...restProps}
+        onKeyDown={handleKeyDown}
         data-part='root'
         className={clsx(styles.root, className)}
       >
         <Header.Root>
           <Header.Titles>
-            <LabelButton size='lg' suffixIcon='chevron-down' onClick={onYearClick}>
-              {`${month.getFullYear()}년`}
+            <LabelButton
+              ref={yearButtonRef}
+              size='lg'
+              suffixIcon='chevron-down'
+              aria-expanded={view === "year"}
+              onClick={() => toggleView("year")}
+            >
+              {`${year}년`}
             </LabelButton>
-            <LabelButton size='lg' suffixIcon='chevron-down' onClick={onMonthClick}>
+            <LabelButton
+              ref={monthButtonRef}
+              size='lg'
+              suffixIcon='chevron-down'
+              aria-expanded={view === "month"}
+              onClick={() => toggleView("month")}
+            >
               {`${month.getMonth() + 1}월`}
             </LabelButton>
           </Header.Titles>
@@ -85,6 +130,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
               condensed={false}
               icon='chevron-left'
               aria-label='이전 달'
+              disabled={view !== "calendar"}
               onClick={() => setMonth(addMonths(month, -1))}
             />
             <IconButton
@@ -92,31 +138,65 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
               condensed={false}
               icon='chevron-right'
               aria-label='다음 달'
+              disabled={view !== "calendar"}
               onClick={() => setMonth(addMonths(month, 1))}
             />
           </Header.Navigation>
         </Header.Root>
         <Divider variant='dashed' decorative />
-        <Calendar.Root>
-          <Calendar.Weekdays weekStartsOn={weekStartsOn} />
-          <Calendar.Grid>
-            {getGridDates(month, weekStartsOn).map(date => (
-              <Cell
-                key={date.toISOString()}
-                date={date}
-                status={
-                  isSameDay(date, displayed)
-                    ? "selected"
-                    : isSameDay(date, new Date())
-                      ? "current"
-                      : "normal"
-                }
-                outsideMonth={date.getMonth() !== month.getMonth()}
-                onClick={() => selectDate(date)}
-              />
-            ))}
-          </Calendar.Grid>
-        </Calendar.Root>
+        {view === "calendar" && (
+          <Calendar.Root>
+            <Calendar.Weekdays weekStartsOn={weekStartsOn} />
+            <Calendar.Grid>
+              {getGridDates(month, weekStartsOn).map(date => (
+                <Cell
+                  key={date.toISOString()}
+                  date={date}
+                  status={
+                    isSameDay(date, displayed)
+                      ? "selected"
+                      : isSameDay(date, new Date())
+                        ? "current"
+                        : "normal"
+                  }
+                  outsideMonth={date.getMonth() !== month.getMonth()}
+                  onClick={() => selectDate(date)}
+                />
+              ))}
+            </Calendar.Grid>
+          </Calendar.Root>
+        )}
+        {view === "month" && (
+          <div className={styles.optionListArea}>
+            <OptionList
+              aria-label='월 선택'
+              height={bodyHeight}
+              value={String(month.getMonth())}
+              options={getMonthOptions(year)}
+              onSelect={next => {
+                setMonth(new Date(year, Number(next), 1));
+                closeView();
+              }}
+            />
+          </div>
+        )}
+        {view === "year" && (
+          <div className={styles.optionListArea}>
+            <OptionList
+              aria-label='연도 선택'
+              height={bodyHeight}
+              value={String(year)}
+              options={getYearOptions(
+                minYear ?? year - YEAR_RANGE_RADIUS,
+                maxYear ?? year + YEAR_RANGE_RADIUS,
+              )}
+              onSelect={next => {
+                setMonth(new Date(Number(next), month.getMonth(), 1));
+                closeView();
+              }}
+            />
+          </div>
+        )}
         {withActionBar && (
           <ActionBar
             onToday={goToday}
