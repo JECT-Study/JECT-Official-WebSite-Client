@@ -12,6 +12,8 @@ const cellLabelColor = createVar();
 const CELL_SIZE = 32;
 const CELL_LABEL_WIDTH = 20;
 
+export const cellSize = pxToRem(CELL_SIZE);
+
 const baseStyles = style({
   position: "relative",
   boxSizing: "border-box",
@@ -20,8 +22,8 @@ const baseStyles = style({
   alignItems: "center",
   justifyContent: "center",
   flexShrink: 0,
-  width: pxToRem(CELL_SIZE),
-  height: pxToRem(CELL_SIZE),
+  width: cellSize,
+  height: cellSize,
   padding: vars.scheme.semantic.spacing["6"],
   border: "none",
   borderRadius: vars.scheme.semantic.radius["6"],

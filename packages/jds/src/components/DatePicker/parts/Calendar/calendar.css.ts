@@ -1,27 +1,25 @@
 import { style } from "@vanilla-extract/css";
-import { pxToRem } from "utils";
 
+import { calendarCellGap, calendarPadding, calendarWeekdayGap } from "./calendar.constants";
 import { DAYS_IN_WEEK } from "./calendar.types";
-import { vars } from "../../../../tokens/vars.css";
-
-const CALENDAR_COLUMN_SIZE = 32;
+import { cellSize } from "../Cell/cell.css";
 
 export const root = style({
   display: "flex",
   flexDirection: "column",
   alignItems: "flex-start",
-  gap: vars.scheme.semantic.spacing["8"],
-  padding: vars.scheme.semantic.spacing["12"],
+  gap: calendarWeekdayGap,
+  padding: calendarPadding,
 });
 
 export const weekdays = style({
   display: "flex",
   flexDirection: "row",
-  gap: vars.scheme.semantic.spacing["4"],
+  gap: calendarCellGap,
 });
 
 export const grid = style({
   display: "grid",
-  gridTemplateColumns: `repeat(${DAYS_IN_WEEK}, ${pxToRem(CALENDAR_COLUMN_SIZE)})`,
-  gap: vars.scheme.semantic.spacing["4"],
+  gridTemplateColumns: `repeat(${DAYS_IN_WEEK}, ${cellSize})`,
+  gap: calendarCellGap,
 });
