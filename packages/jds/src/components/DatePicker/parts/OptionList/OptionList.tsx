@@ -1,7 +1,7 @@
-import { forwardRef, useEffect } from "react";
+import { forwardRef, useEffect, useMemo } from "react";
 
 import type { OptionListProps } from "./optionList.types";
-import { Listbox, useListbox, useSingleSelectState } from "../../../Listbox";
+import { Listbox, useListbox } from "../../../Listbox";
 
 export const OptionList = forwardRef<HTMLDivElement, OptionListProps>(
   (
@@ -16,11 +16,11 @@ export const OptionList = forwardRef<HTMLDivElement, OptionListProps>(
     },
     forwardedRef,
   ) => {
-    const { selectedValues, select } = useSingleSelectState(value, undefined, onSelect);
+    const selectedValues = useMemo(() => [value], [value]);
     const { listboxRef, behavior, getFocusableListboxProps } = useListbox({
       selectedValues,
       disabled: false,
-      onSelect: select,
+      onSelect,
     });
 
     useEffect(() => {
