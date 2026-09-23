@@ -24,7 +24,7 @@ export const OptionList = forwardRef<HTMLDivElement, OptionListProps>(
     });
 
     useEffect(() => {
-      listboxRef.current?.focus();
+      listboxRef.current?.focus({ preventScroll: true });
     }, [listboxRef]);
 
     return (
