@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexColumn, FlexRow } from "@storybook-utils/layout";
+import { forwardRef, type ComponentPropsWithoutRef } from "react";
+import { expect, within } from "storybook/test";
 
 import { Menu } from "./Menu";
 
@@ -36,6 +38,16 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
+interface RouterLinkProps extends Omit<ComponentPropsWithoutRef<"a">, "href"> {
+  to: string;
+}
+
+const RouterLink = forwardRef<HTMLAnchorElement, RouterLinkProps>(({ to, ...restProps }, ref) => (
+  <a ref={ref} {...restProps} href={to} />
+));
+
+RouterLink.displayName = "RouterLink";
+
 /**
  * 동작은 `Menu.Button`, 이동은 `Menu.Anchor`를 사용합니다.
  */
@@ -52,6 +64,9 @@ export const Default: Story = {
           <Menu.Button disabled>메뉴 레이블 (disabled)</Menu.Button>
           <Menu.Anchor href='#' fullWidthText suffixBadgeVisible suffixBadge={5}>
             메뉴 레이블 (badge)
+          </Menu.Anchor>
+          <Menu.Anchor asChild fullWidthText suffixIconVisible suffixIcon='arrow-up-right'>
+            <RouterLink to='#'>메뉴 레이블 (asChild)</RouterLink>
           </Menu.Anchor>
         </Menu.Group>
       </Menu.Content>
@@ -100,6 +115,14 @@ export const States: Story = {
       </Menu.Content>
     </Menu.Root>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const disabledLink = canvas.getByRole("link", { name: "비활성 링크 (disabled)" });
+
+    await expect(disabledLink).not.toHaveAttribute("href");
+    await expect(disabledLink).toHaveAttribute("aria-disabled", "true");
+    await expect(disabledLink).toHaveAttribute("tabindex", "-1");
+  },
 };
 
 /**

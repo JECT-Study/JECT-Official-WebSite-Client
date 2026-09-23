@@ -80,7 +80,7 @@ const DropdownMenuButton = forwardRef<HTMLButtonElement, DropdownMenuButtonProps
 DropdownMenuButton.displayName = "DropdownMenu.Button";
 
 const DropdownMenuAnchor = forwardRef<HTMLAnchorElement, DropdownMenuAnchorProps>(
-  ({ children, disabled, onSelect, textValue, ...restProps }, ref) => {
+  ({ children, asChild, disabled, onSelect, textValue, ...restProps }, ref) => {
     const { size } = useMenuContext("DropdownMenu.Anchor");
 
     return (
@@ -91,7 +91,13 @@ const DropdownMenuAnchor = forwardRef<HTMLAnchorElement, DropdownMenuAnchorProps
           onSelect={onSelect}
           textValue={textValue}
         >
-          <MenuPrimitive.Anchor ref={ref} size={size} disabled={disabled} {...restProps}>
+          <MenuPrimitive.Anchor
+            ref={ref}
+            asChild={asChild}
+            size={size}
+            disabled={disabled}
+            {...restProps}
+          >
             {children}
           </MenuPrimitive.Anchor>
         </RadixDropdownMenu.Item>

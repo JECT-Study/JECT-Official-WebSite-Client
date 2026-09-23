@@ -95,7 +95,7 @@
     "clsx": "^2.1.1",
     "csstype": "^3.2.3",
     "es-hangul": "^2.4.0",
-    "radix-ui": "^1.4.3"
+    "radix-ui": "^1.6.7"
   },
   "devDependencies": {
     "@arethetypeswrong/core": "^0.18.5",
