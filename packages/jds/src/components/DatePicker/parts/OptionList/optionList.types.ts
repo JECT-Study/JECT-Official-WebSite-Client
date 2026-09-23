@@ -3,14 +3,15 @@ import type { AriaLabelProps } from "types";
 
 import type { SelectDimension, SelectOption } from "../../../Listbox";
 
-export type OptionListProps = Omit<
+interface OptionListBaseProps extends Omit<
   ComponentPropsWithoutRef<"div">,
   "children" | "onSelect" | "aria-label" | "aria-labelledby"
-> &
-  AriaLabelProps & {
-    "data-part"?: never;
-    options: SelectOption[];
-    value: string;
-    height?: SelectDimension;
-    onSelect: (value: string) => void;
-  };
+> {
+  "data-part"?: never;
+  options: SelectOption[];
+  value: string;
+  height?: SelectDimension;
+  onSelect: (value: string) => void;
+}
+
+export type OptionListProps = OptionListBaseProps & AriaLabelProps;
