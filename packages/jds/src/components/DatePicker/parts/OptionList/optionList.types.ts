@@ -8,7 +8,7 @@ interface OptionListBaseProps extends Omit<
   "children" | "onSelect" | "aria-label" | "aria-labelledby"
 > {
   "data-part"?: never;
-  options: SelectOption[];
+  options: Pick<SelectOption, "value" | "label" | "disabled">[];
   value: string;
   height?: SelectDimension;
   onSelect: (value: string) => void;
