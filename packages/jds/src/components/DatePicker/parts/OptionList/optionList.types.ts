@@ -10,7 +10,7 @@ interface OptionListBaseProps extends Omit<
   "data-part"?: never;
   options: Pick<SelectOption, "value" | "label" | "disabled">[];
   value: string;
-  height?: SelectDimension;
+  height: SelectDimension;
   onSelect: (value: string) => void;
 }
 

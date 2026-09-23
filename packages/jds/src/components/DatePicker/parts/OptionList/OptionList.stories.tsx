@@ -55,7 +55,10 @@ const meta: Meta<typeof OptionList> = {
   argTypes: {
     options: { control: false, description: "표시할 옵션 목록" },
     value: { control: false, description: "선택된 옵션의 값" },
-    height: { control: "text", description: "목록 높이. 넘기지 않으면 내용 높이를 따릅니다." },
+    height: {
+      control: "text",
+      description: "목록 높이. 달력 본문 높이를 넘겨 패널 크기를 맞춥니다.",
+    },
     onSelect: { description: "옵션을 골랐을 때" },
   },
   decorators: [
