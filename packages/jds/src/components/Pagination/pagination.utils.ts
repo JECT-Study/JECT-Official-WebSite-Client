@@ -50,8 +50,13 @@ export const getPaginationWindow = ({
   visiblePageCount,
   previousWindow,
 }: PaginationWindowOptions): PaginationWindow => {
-  const edgeRangePageCount = visiblePageCount - 2;
-  const middlePageCount = visiblePageCount - 4;
+  // 한쪽 말줄임 배치는 말줄임과 반대쪽 끝 페이지에 두 항목을 사용한다.
+  const edgeReservedItemCount = 2;
+  // 양쪽 말줄임 배치는 첫, 마지막 페이지와 말줄임에 네 항목을 사용한다.
+  const middleReservedItemCount = 4;
+
+  const edgeRangePageCount = visiblePageCount - edgeReservedItemCount;
+  const middlePageCount = visiblePageCount - middleReservedItemCount;
 
   // 이전 구간의 안쪽 숫자를 선택하면 표시 범위를 유지한다.
   if (previousWindow && page > previousWindow.start && page < previousWindow.end) {
