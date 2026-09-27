@@ -6,4 +6,5 @@ export interface ActionBarProps extends Omit<ComponentPropsWithoutRef<"div">, "c
   onClear: () => void;
   onApply: () => void;
   applyDisabled?: boolean;
+  todayDisabled?: boolean;
 }

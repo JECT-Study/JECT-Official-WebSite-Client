@@ -6,7 +6,18 @@ import type { ActionBarProps } from "./actionBar.types";
 import { LabelButton } from "../../../Button/LabelButton";
 
 export const ActionBar = forwardRef<HTMLDivElement, ActionBarProps>(
-  ({ onToday, onClear, onApply, applyDisabled = false, className, ...restProps }, forwardedRef) => (
+  (
+    {
+      onToday,
+      onClear,
+      onApply,
+      applyDisabled = false,
+      todayDisabled = false,
+      className,
+      ...restProps
+    },
+    forwardedRef,
+  ) => (
     <div
       ref={forwardedRef}
       {...restProps}
@@ -14,7 +25,7 @@ export const ActionBar = forwardRef<HTMLDivElement, ActionBarProps>(
       className={clsx(styles.root, className)}
     >
       <div className={styles.start}>
-        <LabelButton hierarchy='tertiary' onClick={onToday}>
+        <LabelButton hierarchy='tertiary' onClick={onToday} disabled={todayDisabled}>
           오늘
         </LabelButton>
         <LabelButton hierarchy='tertiary' onClick={onClear}>

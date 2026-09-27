@@ -60,7 +60,9 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
       defaultValue,
       onChange,
     );
-    const [month, setMonth] = useState(() => startOfMonth(defaultMonth ?? selected ?? new Date()));
+    const [rawMonth, setMonth] = useState(() =>
+      startOfMonth(defaultMonth ?? selected ?? new Date()),
+    );
     const [view, setView] = useState<DatePickerView>("date");
     const yearButtonRef = useRef<HTMLButtonElement>(null);
     const monthButtonRef = useRef<HTMLButtonElement>(null);
@@ -72,12 +74,13 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
       setSyncedSelected(selected);
       setDraft(selected);
 
-      if (selected !== null && !isSameDay(startOfMonth(selected), month)) {
+      if (selected !== null && !isSameDay(startOfMonth(selected), rawMonth)) {
         setMonth(startOfMonth(selected));
       }
     }
 
     const displayed = withActionBar ? draft : selected;
+    const month = clampMonth(rawMonth, minDate, maxDate);
     const year = month.getFullYear();
     const isFirstMonth = isMonthOutOfRange(addMonths(month, -1), minDate, maxDate);
     const isLastMonth = isMonthOutOfRange(addMonths(month, 1), minDate, maxDate);
@@ -91,6 +94,9 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
       setView("date");
       (view === "year" ? yearButtonRef : monthButtonRef).current?.focus();
     };
+
+    const isUnavailable = (date: Date) =>
+      isDateOutOfRange(date, minDate, maxDate) || isDateDisabled?.(date) === true;
 
     const selectDate = (date: Date) => {
       if (withActionBar) {
@@ -185,9 +191,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
                       : "normal"
                 }
                 outsideMonth={date.getMonth() !== month.getMonth()}
-                disabled={
-                  isDateOutOfRange(date, minDate, maxDate) || isDateDisabled?.(date) === true
-                }
+                disabled={isUnavailable(date)}
                 onClick={() => selectDate(date)}
               />
             ))}
@@ -225,7 +229,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
                 maxDate?.getFullYear() ?? year + YEAR_RANGE_RADIUS,
               )}
               onSelect={next => {
-                setMonth(clampMonth(new Date(Number(next), month.getMonth(), 1), minDate, maxDate));
+                setMonth(new Date(Number(next), month.getMonth(), 1));
                 closeView();
               }}
             />
@@ -236,6 +240,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
             onToday={goToday}
             onClear={() => setDraft(null)}
             onApply={() => setSelected(draft)}
+            todayDisabled={isUnavailable(startOfDay(new Date()))}
             applyDisabled={isSameDay(draft, selected)}
           />
         )}
