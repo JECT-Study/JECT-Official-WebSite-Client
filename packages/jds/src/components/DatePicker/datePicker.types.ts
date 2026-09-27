@@ -8,10 +8,10 @@ export type DatePickerView = (typeof DATE_PICKER_VIEW_OPTIONS)[number];
 
 export const YEAR_RANGE_RADIUS = 10;
 
-export type DatePickerProps = Omit<
+export interface DatePickerProps extends Omit<
   ComponentPropsWithoutRef<"div">,
   "children" | "onChange" | "defaultValue"
-> & {
+> {
   "data-part"?: never;
   value?: Date | null;
   defaultValue?: Date | null;
@@ -21,4 +21,4 @@ export type DatePickerProps = Omit<
   withActionBar?: boolean;
   minYear?: number;
   maxYear?: number;
-};
+}
