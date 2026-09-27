@@ -1,13 +1,7 @@
-import type { ComponentPropsWithoutRef } from "react";
+import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
-export type HeaderRootProps = ComponentPropsWithoutRef<"div"> & {
+export interface HeaderProps extends Omit<ComponentPropsWithoutRef<"div">, "children"> {
   "data-part"?: never;
-};
-
-export type HeaderTitlesProps = ComponentPropsWithoutRef<"div"> & {
-  "data-part"?: never;
-};
-
-export type HeaderNavigationProps = ComponentPropsWithoutRef<"div"> & {
-  "data-part"?: never;
-};
+  titles: ReactNode;
+  navigation: ReactNode;
+}

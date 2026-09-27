@@ -103,46 +103,50 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
         data-part='root'
         className={clsx(styles.root, className)}
       >
-        <Header.Root>
-          <Header.Titles>
-            <LabelButton
-              ref={yearButtonRef}
-              size='lg'
-              suffixIcon='chevron-down'
-              aria-expanded={view === "year"}
-              onClick={() => toggleView("year")}
-            >
-              {`${year}년`}
-            </LabelButton>
-            <LabelButton
-              ref={monthButtonRef}
-              size='lg'
-              suffixIcon='chevron-down'
-              aria-expanded={view === "month"}
-              onClick={() => toggleView("month")}
-            >
-              {`${month.getMonth() + 1}월`}
-            </LabelButton>
-          </Header.Titles>
-          <Header.Navigation>
-            <IconButton
-              size='lg'
-              condensed={false}
-              icon='chevron-left'
-              aria-label='이전 달'
-              disabled={view !== "calendar"}
-              onClick={() => setMonth(addMonths(month, -1))}
-            />
-            <IconButton
-              size='lg'
-              condensed={false}
-              icon='chevron-right'
-              aria-label='다음 달'
-              disabled={view !== "calendar"}
-              onClick={() => setMonth(addMonths(month, 1))}
-            />
-          </Header.Navigation>
-        </Header.Root>
+        <Header
+          titles={
+            <>
+              <LabelButton
+                ref={yearButtonRef}
+                size='lg'
+                suffixIcon='chevron-down'
+                aria-expanded={view === "year"}
+                onClick={() => toggleView("year")}
+              >
+                {`${year}년`}
+              </LabelButton>
+              <LabelButton
+                ref={monthButtonRef}
+                size='lg'
+                suffixIcon='chevron-down'
+                aria-expanded={view === "month"}
+                onClick={() => toggleView("month")}
+              >
+                {`${month.getMonth() + 1}월`}
+              </LabelButton>
+            </>
+          }
+          navigation={
+            <>
+              <IconButton
+                size='lg'
+                condensed={false}
+                icon='chevron-left'
+                aria-label='이전 달'
+                disabled={view !== "calendar"}
+                onClick={() => setMonth(addMonths(month, -1))}
+              />
+              <IconButton
+                size='lg'
+                condensed={false}
+                icon='chevron-right'
+                aria-label='다음 달'
+                disabled={view !== "calendar"}
+                onClick={() => setMonth(addMonths(month, 1))}
+              />
+            </>
+          }
+        />
         <Divider variant='dashed' decorative />
         {view === "calendar" && (
           <Calendar.Root>
