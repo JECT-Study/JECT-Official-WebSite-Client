@@ -44,6 +44,16 @@ export interface DatePickerProps extends Omit<
    * @default false
    */
   fixedWeeks?: boolean;
+  /**
+   * @description 비활성화 여부. 켜면 날짜 선택과 달 이동을 모두 할 수 없습니다.
+   * @default false
+   */
+  disabled?: boolean;
+  /**
+   * @description 읽기 전용 여부. 켜면 달은 이동할 수 있지만 선택은 바꿀 수 없습니다.
+   * @default false
+   */
+  readOnly?: boolean;
   /** 선택할 수 있는 가장 이른 날짜. 이 날짜가 속한 달보다 앞으로는 이동할 수 없습니다. */
   minDate?: Date;
   /** 선택할 수 있는 가장 늦은 날짜. 이 날짜가 속한 달보다 뒤로는 이동할 수 없습니다. */

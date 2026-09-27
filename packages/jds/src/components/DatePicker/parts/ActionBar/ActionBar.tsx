@@ -13,6 +13,7 @@ export const ActionBar = forwardRef<HTMLDivElement, ActionBarProps>(
       onApply,
       applyDisabled = false,
       todayDisabled = false,
+      clearDisabled = false,
       className,
       ...restProps
     },
@@ -28,7 +29,7 @@ export const ActionBar = forwardRef<HTMLDivElement, ActionBarProps>(
         <LabelButton hierarchy='tertiary' onClick={onToday} disabled={todayDisabled}>
           오늘
         </LabelButton>
-        <LabelButton hierarchy='tertiary' onClick={onClear}>
+        <LabelButton hierarchy='tertiary' onClick={onClear} disabled={clearDisabled}>
           지우기
         </LabelButton>
       </div>

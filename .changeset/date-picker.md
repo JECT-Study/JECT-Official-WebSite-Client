@@ -17,6 +17,8 @@
 | `weekStartsOn`   | `1`       | 한 주의 시작 요일, 0은 일요일                                         |
 | `withActionBar`  | `false`   | 오늘, 지우기, 적용 버튼 표시, 켜면 적용 시에만 `onChange` 호출        |
 | `fixedWeeks`     | `false`   | 모든 달을 6주로 표시, 끄면 달에 필요한 주 수만 표시                   |
+| `disabled`       | `false`   | 날짜 선택과 달 이동을 모두 막음                                       |
+| `readOnly`       | `false`   | 달 이동은 가능하고 선택만 막음                                        |
 | `minDate`        | -         | 선택할 수 있는 가장 이른 날짜, 이 날짜가 속한 달보다 앞으로 이동 불가 |
 | `maxDate`        | -         | 선택할 수 있는 가장 늦은 날짜, 이 날짜가 속한 달보다 뒤로 이동 불가   |
 | `isDateDisabled` | -         | `true`를 반환한 날짜는 선택 불가                                      |

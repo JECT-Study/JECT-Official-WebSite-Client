@@ -26,6 +26,11 @@ const meta: Meta<typeof ActionBar> = {
       description: "적용 버튼 비활성화 여부. 선택된 날짜가 없을 때 사용합니다.",
       table: { defaultValue: { summary: "false" } },
     },
+    clearDisabled: {
+      control: "boolean",
+      description: "지우기 버튼 비활성화 여부",
+      table: { defaultValue: { summary: "false" } },
+    },
     todayDisabled: {
       control: "boolean",
       description: "오늘 버튼 비활성화 여부. 오늘이 선택할 수 없는 날짜일 때 사용합니다.",

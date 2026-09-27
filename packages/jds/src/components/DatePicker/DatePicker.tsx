@@ -48,6 +48,8 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
       weekStartsOn = 1,
       withActionBar = false,
       fixedWeeks = false,
+      disabled = false,
+      readOnly = false,
       minDate,
       maxDate,
       isDateDisabled,
@@ -119,6 +121,8 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
       isDateOutOfRange(date, minDate, maxDate) || isDateDisabled?.(date) === true;
 
     const selectDate = (date: Date) => {
+      if (readOnly) return;
+
       if (withActionBar) {
         setDraft(date);
 
@@ -132,7 +136,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
       const today = startOfDay(new Date());
 
       setMonth(today);
-      setDraft(today);
+      if (!readOnly) setDraft(today);
     };
 
     const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
@@ -160,6 +164,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
                 size='lg'
                 suffixIcon='chevron-down'
                 aria-expanded={view === "year"}
+                disabled={disabled}
                 onClick={() => toggleView("year")}
               >
                 {`${year}년`}
@@ -169,6 +174,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
                 size='lg'
                 suffixIcon='chevron-down'
                 aria-expanded={view === "month"}
+                disabled={disabled}
                 onClick={() => toggleView("month")}
               >
                 {`${month.getMonth() + 1}월`}
@@ -182,7 +188,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
                 condensed={false}
                 icon='chevron-left'
                 aria-label='이전 달'
-                disabled={view !== "date" || isFirstMonth}
+                disabled={disabled || view !== "date" || isFirstMonth}
                 onClick={() => setMonth(addMonths(month, -1))}
               />
               <IconButton
@@ -190,7 +196,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
                 condensed={false}
                 icon='chevron-right'
                 aria-label='다음 달'
-                disabled={view !== "date" || isLastMonth}
+                disabled={disabled || view !== "date" || isLastMonth}
                 onClick={() => setMonth(addMonths(month, 1))}
               />
             </>
@@ -211,7 +217,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
                       : "normal"
                 }
                 outsideMonth={date.getMonth() !== month.getMonth()}
-                disabled={isUnavailable(date)}
+                disabled={disabled || isUnavailable(date)}
                 onClick={() => selectDate(date)}
               />
             ))}
@@ -260,8 +266,9 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
             onToday={goToday}
             onClear={() => setDraft(null)}
             onApply={() => setSelected(draft)}
-            todayDisabled={isUnavailable(startOfDay(new Date()))}
-            applyDisabled={isSameDay(draft, selected)}
+            todayDisabled={disabled || isUnavailable(startOfDay(new Date()))}
+            clearDisabled={disabled || readOnly}
+            applyDisabled={disabled || readOnly || isSameDay(draft, selected)}
           />
         )}
       </div>

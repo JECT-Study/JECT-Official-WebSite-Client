@@ -70,6 +70,8 @@ const meta: Meta<typeof DatePicker> = {
     weekStartsOn: { control: "select", options: WEEKDAY_OPTIONS },
     withActionBar: { control: "boolean" },
     fixedWeeks: { control: "boolean" },
+    disabled: { control: "boolean" },
+    readOnly: { control: "boolean" },
     minDate: { control: false },
     maxDate: { control: false },
     isDateDisabled: { control: false },
@@ -342,6 +344,33 @@ export const ControlledMonth: Story = {
       </FlexColumn>
     );
   },
+};
+
+export const DisabledAndReadOnly: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "`disabled`를 켜면 날짜 선택과 달 이동을 모두 할 수 없습니다. `readOnly`를 켜면 달 이동과 연월 목록은 그대로 사용할 수 있지만 선택은 바꿀 수 없고, 액션 바의 지우기와 적용도 비활성화됩니다.",
+      },
+    },
+  },
+  args: {
+    defaultValue: new Date(2026, 2, 12),
+    withActionBar: true,
+  },
+  render: args => (
+    <FlexRow gap='24px' style={{ alignItems: "flex-start" }}>
+      <FlexColumn gap='12px' style={{ alignItems: "center" }}>
+        <PropertyLabel name='disabled' value='true' />
+        <DatePicker {...args} disabled />
+      </FlexColumn>
+      <FlexColumn gap='12px' style={{ alignItems: "center" }}>
+        <PropertyLabel name='readOnly' value='true' />
+        <DatePicker {...args} readOnly />
+      </FlexColumn>
+    </FlexRow>
+  ),
 };
 
 export const DateRange: Story = {
