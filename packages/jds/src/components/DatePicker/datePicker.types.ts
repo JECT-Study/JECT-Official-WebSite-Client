@@ -21,7 +21,7 @@ export interface DatePickerProps extends Omit<
    * @default null
    */
   defaultValue?: Date | null;
-  /** 선택이 확정되면 새 날짜로 호출됩니다. */
+  /** 선택이 확정되면 새 날짜로 호출됩니다. 날짜는 로컬 시간대 자정 기준입니다. */
   onChange?: (date: Date | null) => void;
   /** 처음 표시할 달. 없으면 선택된 날짜의 달을 표시합니다. */
   defaultMonth?: Date;
