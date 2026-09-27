@@ -149,26 +149,23 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
         />
         <Divider variant='dashed' decorative />
         {view === "calendar" && (
-          <Calendar.Root>
-            <Calendar.Weekdays weekStartsOn={weekStartsOn} />
-            <Calendar.Grid>
-              {getGridDates(month, weekStartsOn).map(date => (
-                <Cell
-                  key={date.toISOString()}
-                  date={date}
-                  status={
-                    isSameDay(date, displayed)
-                      ? "selected"
-                      : isSameDay(date, new Date())
-                        ? "current"
-                        : "normal"
-                  }
-                  outsideMonth={date.getMonth() !== month.getMonth()}
-                  onClick={() => selectDate(date)}
-                />
-              ))}
-            </Calendar.Grid>
-          </Calendar.Root>
+          <Calendar weekStartsOn={weekStartsOn}>
+            {getGridDates(month, weekStartsOn).map(date => (
+              <Cell
+                key={date.toISOString()}
+                date={date}
+                status={
+                  isSameDay(date, displayed)
+                    ? "selected"
+                    : isSameDay(date, new Date())
+                      ? "current"
+                      : "normal"
+                }
+                outsideMonth={date.getMonth() !== month.getMonth()}
+                onClick={() => selectDate(date)}
+              />
+            ))}
+          </Calendar>
         )}
         {view === "month" && (
           <div className={styles.optionListArea}>

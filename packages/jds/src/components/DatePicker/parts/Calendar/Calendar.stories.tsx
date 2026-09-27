@@ -34,44 +34,41 @@ interface MonthProps {
 }
 
 const Month = ({ year, month, weekStartsOn = 1, weeks = WEEKS_IN_GRID, selected }: MonthProps) => (
-  <Calendar.Root>
-    <Calendar.Weekdays weekStartsOn={weekStartsOn} />
-    <Calendar.Grid>
-      {buildGridDates(year, month, weekStartsOn, weeks).map(date => (
-        <Cell
-          key={date.toISOString()}
-          date={date}
-          status={
-            selected && isSameDay(date, selected)
-              ? "selected"
-              : isSameDay(date, TODAY)
-                ? "current"
-                : "normal"
-          }
-          outsideMonth={date.getMonth() !== month}
-        />
-      ))}
-    </Calendar.Grid>
-  </Calendar.Root>
+  <Calendar weekStartsOn={weekStartsOn}>
+    {buildGridDates(year, month, weekStartsOn, weeks).map(date => (
+      <Cell
+        key={date.toISOString()}
+        date={date}
+        status={
+          selected && isSameDay(date, selected)
+            ? "selected"
+            : isSameDay(date, TODAY)
+              ? "current"
+              : "normal"
+        }
+        outsideMonth={date.getMonth() !== month}
+      />
+    ))}
+  </Calendar>
 );
 
-const meta: Meta<typeof Calendar.Root> = {
+const meta: Meta<typeof Calendar> = {
   title: "Components/DatePicker/Calendar",
-  component: Calendar.Root,
+  component: Calendar,
   parameters: {
     layout: "centered",
     docs: {
       description: {
         component:
-          "DatePicker 달력 본문의 레이아웃 파츠입니다. 배럴에 공개되지 않으며 DatePicker 내부에서만 사용합니다. Calendar.Root가 패딩과 세로 간격을, Calendar.Weekdays가 요일 헤더 행을, Calendar.Grid가 7열 격자를 담당합니다. 배경과 radius는 이 파츠를 감싸는 상위 파츠가 그립니다. 어떤 날짜를 몇 칸 렌더링할지는 소비처가 정하고, Grid는 행 수를 고정하지 않습니다.",
+          "DatePicker 달력 본문의 레이아웃 파츠입니다. 배럴에 공개되지 않으며 DatePicker 내부에서만 사용합니다. weekStartsOn에 맞춰 요일 헤더 행을 그리고, children으로 받은 날짜 셀을 7열 격자에 배치합니다. 배경과 radius는 이 파츠를 감싸는 상위 파츠가 그립니다. 어떤 날짜를 몇 칸 렌더링할지는 소비처가 정하고, 격자는 행 수를 고정하지 않습니다.",
       },
     },
   },
-} satisfies Meta<typeof Calendar.Root>;
+} satisfies Meta<typeof Calendar>;
 
 export default meta;
 
-type Story = StoryObj<typeof Calendar.Root>;
+type Story = StoryObj<typeof Calendar>;
 
 export const Default: Story = {
   render: () => <Month year={2026} month={8} selected={new Date(2026, 8, 30)} />,
