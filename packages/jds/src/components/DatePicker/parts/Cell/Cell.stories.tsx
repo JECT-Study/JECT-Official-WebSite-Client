@@ -35,7 +35,8 @@ const meta: Meta<typeof Cell> = {
     },
     outsideMonth: {
       control: "boolean",
-      description: "표시 중인 달에 속하지 않는 날짜인지 여부",
+      description:
+        "표시 중인 달에 속하지 않는 날짜인지 여부. true면 모습은 disabled와 다르게 유지하면서 native disabled로 선택을 막습니다.",
       table: { defaultValue: { summary: "false" } },
     },
     disabled: {
