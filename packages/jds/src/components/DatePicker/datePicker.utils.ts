@@ -13,10 +13,13 @@ export const isSameDay = (a: Date | null, b: Date | null) => {
   );
 };
 
-export const startOfDay = (date: Date) =>
-  new Date(date.getFullYear(), date.getMonth(), date.getDate());
+export const startOfDay = (date: Date) => {
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+};
 
-export const startOfMonth = (date: Date) => new Date(date.getFullYear(), date.getMonth(), 1);
+export const startOfMonth = (date: Date) => {
+  return new Date(date.getFullYear(), date.getMonth(), 1);
+};
 
 export const addMonths = (date: Date, amount: number) => {
   return new Date(date.getFullYear(), date.getMonth() + amount, 1);
@@ -36,6 +39,22 @@ export const isMonthOutOfRange = (month: Date, minDate?: Date, maxDate?: Date) =
   );
 };
 
+export const clampDate = (date: Date, minDate?: Date, maxDate?: Date) => {
+  if (minDate !== undefined && date < startOfDay(minDate)) return startOfDay(minDate);
+  if (maxDate !== undefined && date > startOfDay(maxDate)) return startOfDay(maxDate);
+
+  return date;
+};
+
+export const getSearchDirection = (key: string, from: Date, target: Date, bounded: Date) => {
+  if (bounded < target) return -1;
+  if (bounded > target) return 1;
+  if (key === "Home") return 1;
+  if (key === "End") return -1;
+
+  return target > from ? 1 : -1;
+};
+
 export const clampMonth = (month: Date, minDate?: Date, maxDate?: Date) => {
   if (minDate !== undefined && month < startOfMonth(minDate)) return startOfMonth(minDate);
   if (maxDate !== undefined && month > startOfMonth(maxDate)) return startOfMonth(maxDate);
@@ -53,6 +72,73 @@ const getDayCount = (month: Date) => {
 
 export const getWeekCount = (month: Date, weekStartsOn: Weekday) => {
   return Math.ceil((getLeadingDayCount(month, weekStartsOn) + getDayCount(month)) / DAYS_IN_WEEK);
+};
+
+const addDays = (date: Date, amount: number) => {
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate() + amount);
+};
+
+const addMonthsKeepingDay = (date: Date, amount: number) => {
+  const target = addMonths(date, amount);
+
+  return new Date(
+    target.getFullYear(),
+    target.getMonth(),
+    Math.min(date.getDate(), getDayCount(target)),
+  );
+};
+
+export const getKeyboardTarget = (
+  date: Date,
+  key: string,
+  hasShift: boolean,
+  weekStartsOn: Weekday,
+) => {
+  const weekOffset = (date.getDay() - weekStartsOn + DAYS_IN_WEEK) % DAYS_IN_WEEK;
+
+  switch (key) {
+    case "ArrowLeft":
+      return addDays(date, -1);
+    case "ArrowRight":
+      return addDays(date, 1);
+    case "ArrowUp":
+      return addDays(date, -DAYS_IN_WEEK);
+    case "ArrowDown":
+      return addDays(date, DAYS_IN_WEEK);
+    case "Home":
+      return addDays(date, -weekOffset);
+    case "End":
+      return addDays(date, DAYS_IN_WEEK - 1 - weekOffset);
+    case "PageUp":
+      return addMonthsKeepingDay(date, hasShift ? -12 : -1);
+    case "PageDown":
+      return addMonthsKeepingDay(date, hasShift ? 12 : 1);
+    default:
+      return null;
+  }
+};
+
+const MAX_SEARCH_DAYS = 366;
+
+export const findAvailableDate = (
+  start: Date,
+  direction: 1 | -1,
+  isUnavailable: (date: Date) => boolean,
+  minDate?: Date,
+  maxDate?: Date,
+) => {
+  for (let offset = 0; offset <= MAX_SEARCH_DAYS; offset++) {
+    const date = addDays(start, offset * direction);
+
+    if (isDateOutOfRange(date, minDate, maxDate)) return null;
+    if (!isUnavailable(date)) return date;
+  }
+
+  return null;
+};
+
+export const toDateKey = (date: Date) => {
+  return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
 };
 
 export const MAX_WEEKS_IN_GRID = 6;

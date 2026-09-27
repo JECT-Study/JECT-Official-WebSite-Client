@@ -22,13 +22,11 @@ export const Cell = forwardRef<HTMLButtonElement, CellProps>(
       <button
         ref={forwardedRef}
         type='button'
-        aria-label={
-          status === "selected"
-            ? `${dateLabelFormatter.format(date)}, 선택됨`
-            : dateLabelFormatter.format(date)
-        }
+        aria-label={dateLabelFormatter.format(date)}
         {...restProps}
+        role='gridcell'
         disabled={isInactive}
+        aria-selected={status === "selected" || undefined}
         aria-current={status === "current" ? "date" : undefined}
         data-disabled={isInactive || undefined}
         data-part='root'

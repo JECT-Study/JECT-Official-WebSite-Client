@@ -1,13 +1,24 @@
 import { clsx } from "clsx";
 import { useControllableState } from "hooks";
-import { forwardRef, useLayoutEffect, useRef, useState, type KeyboardEvent } from "react";
+import {
+  forwardRef,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type KeyboardEvent,
+} from "react";
 
 import * as styles from "./datePicker.css";
 import { YEAR_RANGE_RADIUS, type DatePickerProps, type DatePickerView } from "./datePicker.types";
 import {
   addMonths,
+  clampDate,
   clampMonth,
+  findAvailableDate,
   getGridDates,
+  getKeyboardTarget,
+  getSearchDirection,
   getMonthOptions,
   getWeekCount,
   getYearOptions,
@@ -17,6 +28,7 @@ import {
   MAX_WEEKS_IN_GRID,
   startOfDay,
   startOfMonth,
+  toDateKey,
 } from "./datePicker.utils";
 import { ActionBar } from "./parts/ActionBar";
 import { Calendar, getCalendarBodyHeight } from "./parts/Calendar";
@@ -132,6 +144,47 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
       setSelected(date);
     };
 
+    const isInMonth = (date: Date) => isSameDay(startOfMonth(date), month);
+
+    const gridDates = getGridDates(month, weekStartsOn, weekCount);
+    const [focusedDate, setFocusedDate] = useState<Date | null>(null);
+    const gridRef = useRef<HTMLDivElement>(null);
+    const shouldMoveFocusRef = useRef(false);
+
+    const tabbableDate =
+      [focusedDate, displayed, startOfDay(new Date())].find(
+        (date): date is Date => date !== null && isInMonth(date) && !isUnavailable(date),
+      ) ??
+      gridDates.find(date => isInMonth(date) && !isUnavailable(date)) ??
+      null;
+
+    useEffect(() => {
+      if (!shouldMoveFocusRef.current || focusedDate === null) return;
+
+      shouldMoveFocusRef.current = false;
+      gridRef.current
+        ?.querySelector<HTMLElement>(`[data-date="${toDateKey(focusedDate)}"]`)
+        ?.focus();
+    });
+
+    const handleGridKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+      if (tabbableDate === null) return;
+
+      const target = getKeyboardTarget(tabbableDate, event.key, event.shiftKey, weekStartsOn);
+      if (target === null) return;
+
+      event.preventDefault();
+
+      const bounded = clampDate(target, minDate, maxDate);
+      const direction = getSearchDirection(event.key, tabbableDate, target, bounded);
+      const next = findAvailableDate(bounded, direction, isUnavailable, minDate, maxDate);
+      if (next === null) return;
+
+      shouldMoveFocusRef.current = true;
+      setFocusedDate(next);
+      if (!isInMonth(next)) setMonth(next);
+    };
+
     const goToday = () => {
       const today = startOfDay(new Date());
 
@@ -204,8 +257,14 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
         />
         <Divider variant='dashed' decorative />
         {view === "date" && (
-          <Calendar weekStartsOn={weekStartsOn}>
-            {getGridDates(month, weekStartsOn, weekCount).map(date => (
+          <Calendar
+            ref={gridRef}
+            weekStartsOn={weekStartsOn}
+            aria-label={`${year}년 ${month.getMonth() + 1}월`}
+            aria-readonly={readOnly || undefined}
+            onKeyDown={handleGridKeyDown}
+          >
+            {gridDates.map(date => (
               <Cell
                 key={date.toISOString()}
                 date={date}
@@ -218,6 +277,9 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
                 }
                 outsideMonth={date.getMonth() !== month.getMonth()}
                 disabled={disabled || isUnavailable(date)}
+                tabIndex={isSameDay(date, tabbableDate) ? 0 : -1}
+                data-date={toDateKey(date)}
+                onFocus={() => setFocusedDate(date)}
                 onClick={() => selectDate(date)}
               />
             ))}

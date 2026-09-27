@@ -23,6 +23,8 @@
 | `maxDate`        | -         | 선택할 수 있는 가장 늦은 날짜, 이 날짜가 속한 달보다 뒤로 이동 불가   |
 | `isDateDisabled` | -         | `true`를 반환한 날짜는 선택 불가                                      |
 
+달력은 `role="grid"`로 노출되고, 방향키, Home, End, PageUp, PageDown으로 날짜를 이동합니다. Tab 정지점은 달력마다 하나입니다.
+
 `weekStartsOn`에 넘기는 값의 타입 `Weekday`도 함께 공개합니다.
 
 ```tsx

@@ -23,3 +23,7 @@ export const grid = style({
   gridTemplateColumns: `repeat(${DAYS_IN_WEEK}, ${cellSize})`,
   gap: calendarCellGap,
 });
+
+export const week = style({
+  display: "contents",
+});

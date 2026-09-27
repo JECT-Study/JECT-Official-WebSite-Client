@@ -30,7 +30,7 @@ const meta: Meta<typeof Cell> = {
       control: "select",
       options: CELL_STATUS_OPTIONS,
       description:
-        "날짜의 의미. current는 오늘, selected는 선택된 날짜입니다. current는 aria-current='date', selected는 접근 가능한 이름 끝에 '선택됨'을 붙입니다.",
+        "날짜의 의미. current는 오늘, selected는 선택된 날짜입니다. current는 aria-current='date', selected는 aria-selected를 함께 부여합니다.",
       table: { defaultValue: { summary: "normal" } },
     },
     outsideMonth: {

@@ -57,7 +57,7 @@ const meta: Meta<typeof DatePicker> = {
         component: [
           "캘린더 보기에서 특정 날짜를 선택해 입력하는 컴포넌트입니다. 원하는 연도와 월을 탐색할 수 있어 사용자의 빠른 날짜 입력을 돕습니다.",
           "DatePicker는 Button(Label button, Icon button)과 DatePicker Cell로 구성됩니다. 헤더의 연도와 월은 Label button, 이전 달과 다음 달은 Icon button이며, 액션 바의 오늘, 지우기, 적용도 Label button입니다.",
-          "선택 값은 `value`를 넘기면 호출부가 소유하고, 넘기지 않으면 `defaultValue`로 시작해 DatePicker가 기억합니다. 표시 중인 달은 DatePicker가 관리하며, 달은 이전 달, 다음 달 버튼과 연월 목록으로만 이동합니다. 팝오버 연결과 `role='grid'` 같은 접근성 구조는 아직 없습니다.",
+          "선택 값은 `value`를 넘기면 호출부가 소유하고, 넘기지 않으면 `defaultValue`로 시작해 DatePicker가 기억합니다. 표시 중인 달은 DatePicker가 관리하며, 달은 이전 달, 다음 달 버튼과 연월 목록으로만 이동합니다. 달력은 `role='grid'`로 노출되며 방향키로 날짜를 이동합니다. 팝오버 연결은 아직 없습니다.",
         ].join("\n\n"),
       },
     },
@@ -88,6 +88,29 @@ export default meta;
 type Story = StoryObj<typeof DatePicker>;
 
 export const Default: Story = {};
+
+export const Keyboard: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: [
+          "달력은 [APG Date Picker Dialog](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/examples/datepicker-dialog/)의 격자 패턴을 따릅니다. 격자 안에서 Tab 정지점은 하나이며, 날짜 사이는 키보드로 이동합니다.",
+          "",
+          "| 키 | 동작 |",
+          "| --- | --- |",
+          "| 방향키 | 하루 또는 한 주 이동 |",
+          "| Home, End | 주의 첫 날, 마지막 날로 이동 |",
+          "| PageUp, PageDown | 이전 달, 다음 달의 같은 날로 이동 |",
+          "| Shift + PageUp, PageDown | 이전 해, 다음 해의 같은 날로 이동 |",
+          "| Enter, Space | 포커스한 날짜 선택 |",
+          "| Escape | 연월 목록을 닫고 날짜 보기로 돌아감 |",
+          "",
+          "선택할 수 없는 날짜는 건너뛰고, `minDate`, `maxDate` 밖으로는 경계 날짜에서 멈춥니다. 달이 바뀌는 이동을 하면 표시 중인 달도 함께 바뀝니다.",
+        ].join("\n"),
+      },
+    },
+  },
+};
 
 export const State: Story = {
   parameters: {
