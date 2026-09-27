@@ -16,7 +16,7 @@ const meta: Meta<typeof Cell> = {
     docs: {
       description: {
         component:
-          "DatePicker의 날짜 한 칸을 그리는 내부 파츠입니다. 배럴에 공개되지 않으며 DatePicker 내부에서만 사용합니다. hover, pressed, focus는 prop이 아니라 CSS 의사클래스로 표현되므로, 스토리에서 직접 마우스를 올리거나 Tab으로 포커스해 확인합니다.",
+          "DatePicker의 날짜 한 칸을 그리는 내부 파츠입니다. 배럴에 공개되지 않으며 DatePicker 내부에서만 사용합니다. hover, active, focus는 prop이 아니라 CSS 의사클래스로 표현되므로, 스토리에서 직접 마우스를 올리거나 Tab으로 포커스해 확인합니다.",
       },
     },
   },
