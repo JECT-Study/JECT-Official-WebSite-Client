@@ -11,6 +11,8 @@ const cellLabelColor = createVar();
 
 const cellOutlineWidth = vars.scheme.semantic.strokeWeight["1"];
 
+const statusTransitionTiming = `${vars.environment.semantic.duration["150"]} ${vars.environment.semantic.motion.fluent}`;
+
 const CELL_SIZE = 32;
 const CELL_LABEL_WIDTH = 20;
 
@@ -31,6 +33,7 @@ const baseStyles = style({
   borderRadius: vars.scheme.semantic.radius["6"],
   cursor: "pointer",
   userSelect: "none",
+  transition: `background-color ${statusTransitionTiming}, outline-color ${statusTransitionTiming}`,
   selectors: {
     "&::before, &::after": { inset: 0, borderRadius: "inherit" },
     "&[data-disabled]": { cursor: "not-allowed" },
@@ -70,4 +73,5 @@ export const label = style({
   width: pxToRem(CELL_LABEL_WIDTH),
   textAlign: "center",
   color: cellLabelColor,
+  transition: `color ${statusTransitionTiming}`,
 });
