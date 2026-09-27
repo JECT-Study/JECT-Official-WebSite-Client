@@ -55,6 +55,10 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
     if (!isSameDay(syncedSelected, selected)) {
       setSyncedSelected(selected);
       setDraft(selected);
+
+      if (selected !== null && !isSameDay(startOfMonth(selected), month)) {
+        setMonth(startOfMonth(selected));
+      }
     }
 
     const displayed = withActionBar ? draft : selected;
