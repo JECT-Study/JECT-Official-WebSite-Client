@@ -45,7 +45,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
       onChange,
     );
     const [month, setMonth] = useState(() => startOfMonth(defaultMonth ?? selected ?? new Date()));
-    const [view, setView] = useState<DatePickerView>("calendar");
+    const [view, setView] = useState<DatePickerView>("date");
     const yearButtonRef = useRef<HTMLButtonElement>(null);
     const monthButtonRef = useRef<HTMLButtonElement>(null);
 
@@ -62,10 +62,10 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
     const bodyHeight = getCalendarBodyHeight(getWeekCount(month, weekStartsOn));
 
     const toggleView = (next: DatePickerView) =>
-      setView(current => (current === next ? "calendar" : next));
+      setView(current => (current === next ? "date" : next));
 
     const closeView = () => {
-      setView("calendar");
+      setView("date");
       (view === "year" ? yearButtonRef : monthButtonRef).current?.focus();
     };
 
@@ -89,7 +89,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
     const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
       onKeyDown?.(event);
 
-      if (event.key === "Escape" && view !== "calendar") {
+      if (event.key === "Escape" && view !== "date") {
         event.stopPropagation();
         closeView();
       }
@@ -133,7 +133,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
                 condensed={false}
                 icon='chevron-left'
                 aria-label='이전 달'
-                disabled={view !== "calendar"}
+                disabled={view !== "date"}
                 onClick={() => setMonth(addMonths(month, -1))}
               />
               <IconButton
@@ -141,14 +141,14 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
                 condensed={false}
                 icon='chevron-right'
                 aria-label='다음 달'
-                disabled={view !== "calendar"}
+                disabled={view !== "date"}
                 onClick={() => setMonth(addMonths(month, 1))}
               />
             </>
           }
         />
         <Divider variant='dashed' decorative />
-        {view === "calendar" && (
+        {view === "date" && (
           <Calendar weekStartsOn={weekStartsOn}>
             {getGridDates(month, weekStartsOn).map(date => (
               <Cell

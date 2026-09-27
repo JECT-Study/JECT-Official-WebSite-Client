@@ -2,7 +2,7 @@ import type { ComponentPropsWithoutRef } from "react";
 
 import type { Weekday } from "./parts/WeekdayLabel";
 
-export const DATE_PICKER_VIEW_OPTIONS = ["calendar", "month", "year"] as const;
+export const DATE_PICKER_VIEW_OPTIONS = ["date", "month", "year"] as const;
 
 export type DatePickerView = (typeof DATE_PICKER_VIEW_OPTIONS)[number];
 
