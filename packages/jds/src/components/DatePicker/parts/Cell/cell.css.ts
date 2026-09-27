@@ -9,6 +9,8 @@ import { overlay, overlayColor } from "../../../../utils/overlay.css";
 
 const cellLabelColor = createVar();
 
+const cellOutlineWidth = vars.scheme.semantic.strokeWeight["1"];
+
 const CELL_SIZE = 32;
 const CELL_LABEL_WIDTH = 20;
 
@@ -43,16 +45,14 @@ const appearanceCompoundVariants = cellAppearances.map(appearance => ({
   },
   style: {
     backgroundColor: appearance.background,
-    outline: appearance.outline
-      ? `${vars.scheme.semantic.strokeWeight["1"]} solid ${appearance.outline}`
-      : "none",
+    outline: appearance.outline ? `${cellOutlineWidth} solid ${appearance.outline}` : "none",
     vars: {
       [cellLabelColor]: appearance.label,
       [overlayColor]: appearance.overlay,
     },
     selectors: {
       "&::before, &::after": {
-        inset: appearance.outline ? pxToRem(-1) : 0,
+        inset: appearance.outline ? `calc(${cellOutlineWidth} * -1)` : 0,
         borderRadius: "inherit",
       },
     },
