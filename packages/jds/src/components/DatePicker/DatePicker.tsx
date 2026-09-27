@@ -12,6 +12,7 @@ import {
   getYearOptions,
   isSameDay,
   MAX_WEEKS_IN_GRID,
+  startOfDay,
   startOfMonth,
 } from "./datePicker.utils";
 import { ActionBar } from "./parts/ActionBar";
@@ -98,7 +99,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
     };
 
     const goToday = () => {
-      const today = new Date();
+      const today = startOfDay(new Date());
 
       setMonth(startOfMonth(today));
       setDraft(today);

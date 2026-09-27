@@ -13,6 +13,9 @@ export const isSameDay = (a: Date | null, b: Date | null) => {
   );
 };
 
+export const startOfDay = (date: Date) =>
+  new Date(date.getFullYear(), date.getMonth(), date.getDate());
+
 export const startOfMonth = (date: Date) => new Date(date.getFullYear(), date.getMonth(), 1);
 
 export const addMonths = (date: Date, amount: number) => {
