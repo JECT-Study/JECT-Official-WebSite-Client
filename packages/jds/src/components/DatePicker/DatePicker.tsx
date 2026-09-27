@@ -6,10 +6,13 @@ import * as styles from "./datePicker.css";
 import { YEAR_RANGE_RADIUS, type DatePickerProps, type DatePickerView } from "./datePicker.types";
 import {
   addMonths,
+  clampMonth,
   getGridDates,
   getMonthOptions,
   getWeekCount,
   getYearOptions,
+  isDateOutOfRange,
+  isMonthOutOfRange,
   isSameDay,
   MAX_WEEKS_IN_GRID,
   startOfDay,
@@ -43,8 +46,9 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
       weekStartsOn = 1,
       withActionBar = false,
       fixedWeeks = false,
-      minYear,
-      maxYear,
+      minDate,
+      maxDate,
+      isDateDisabled,
       className,
       onKeyDown,
       ...restProps
@@ -75,8 +79,8 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
 
     const displayed = withActionBar ? draft : selected;
     const year = month.getFullYear();
-    const isFirstMonth = minYear !== undefined && addMonths(month, -1).getFullYear() < minYear;
-    const isLastMonth = maxYear !== undefined && addMonths(month, 1).getFullYear() > maxYear;
+    const isFirstMonth = isMonthOutOfRange(addMonths(month, -1), minDate, maxDate);
+    const isLastMonth = isMonthOutOfRange(addMonths(month, 1), minDate, maxDate);
     const weekCount = fixedWeeks ? MAX_WEEKS_IN_GRID : getWeekCount(month, weekStartsOn);
     const bodyHeight = getCalendarBodyHeight(weekCount);
 
@@ -181,6 +185,9 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
                       : "normal"
                 }
                 outsideMonth={date.getMonth() !== month.getMonth()}
+                disabled={
+                  isDateOutOfRange(date, minDate, maxDate) || isDateDisabled?.(date) === true
+                }
                 onClick={() => selectDate(date)}
               />
             ))}
@@ -192,7 +199,14 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
               aria-label='월 선택'
               height={bodyHeight}
               value={String(month.getMonth())}
-              options={getMonthOptions(year)}
+              options={getMonthOptions(year).map(option => ({
+                ...option,
+                disabled: isMonthOutOfRange(
+                  new Date(year, Number(option.value), 1),
+                  minDate,
+                  maxDate,
+                ),
+              }))}
               onSelect={next => {
                 setMonth(new Date(year, Number(next), 1));
                 closeView();
@@ -207,11 +221,11 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
               height={bodyHeight}
               value={String(year)}
               options={getYearOptions(
-                minYear ?? year - YEAR_RANGE_RADIUS,
-                maxYear ?? year + YEAR_RANGE_RADIUS,
+                minDate?.getFullYear() ?? year - YEAR_RANGE_RADIUS,
+                maxDate?.getFullYear() ?? year + YEAR_RANGE_RADIUS,
               )}
               onSelect={next => {
-                setMonth(new Date(Number(next), month.getMonth(), 1));
+                setMonth(clampMonth(new Date(Number(next), month.getMonth(), 1), minDate, maxDate));
                 closeView();
               }}
             />

@@ -40,8 +40,10 @@ export interface DatePickerProps extends Omit<
    * @default false
    */
   fixedWeeks?: boolean;
-  /** 연도 목록과 달 이동의 하한 연도 */
-  minYear?: number;
-  /** 연도 목록과 달 이동의 상한 연도 */
-  maxYear?: number;
+  /** 선택할 수 있는 가장 이른 날짜. 이 날짜가 속한 달보다 앞으로는 이동할 수 없습니다. */
+  minDate?: Date;
+  /** 선택할 수 있는 가장 늦은 날짜. 이 날짜가 속한 달보다 뒤로는 이동할 수 없습니다. */
+  maxDate?: Date;
+  /** 날짜마다 호출되며, `true`를 반환한 날짜는 선택할 수 없습니다. */
+  isDateDisabled?: (date: Date) => boolean;
 }

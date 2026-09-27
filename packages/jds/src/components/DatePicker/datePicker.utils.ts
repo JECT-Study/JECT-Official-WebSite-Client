@@ -22,6 +22,27 @@ export const addMonths = (date: Date, amount: number) => {
   return new Date(date.getFullYear(), date.getMonth() + amount, 1);
 };
 
+export const isDateOutOfRange = (date: Date, minDate?: Date, maxDate?: Date) => {
+  return (
+    (minDate !== undefined && date < startOfDay(minDate)) ||
+    (maxDate !== undefined && date > startOfDay(maxDate))
+  );
+};
+
+export const isMonthOutOfRange = (month: Date, minDate?: Date, maxDate?: Date) => {
+  return (
+    (minDate !== undefined && month < startOfMonth(minDate)) ||
+    (maxDate !== undefined && month > startOfMonth(maxDate))
+  );
+};
+
+export const clampMonth = (month: Date, minDate?: Date, maxDate?: Date) => {
+  if (minDate !== undefined && month < startOfMonth(minDate)) return startOfMonth(minDate);
+  if (maxDate !== undefined && month > startOfMonth(maxDate)) return startOfMonth(maxDate);
+
+  return month;
+};
+
 const getLeadingDayCount = (month: Date, weekStartsOn: Weekday) => {
   return (startOfMonth(month).getDay() - weekStartsOn + DAYS_IN_WEEK) % DAYS_IN_WEEK;
 };

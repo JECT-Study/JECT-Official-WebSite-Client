@@ -69,8 +69,9 @@ const meta: Meta<typeof DatePicker> = {
     weekStartsOn: { control: "select", options: WEEKDAY_OPTIONS },
     withActionBar: { control: "boolean" },
     fixedWeeks: { control: "boolean" },
-    minYear: { control: "number" },
-    maxYear: { control: "number" },
+    minDate: { control: false },
+    maxDate: { control: false },
+    isDateDisabled: { control: false },
   },
   args: {
     defaultMonth: SAMPLE_MONTH,
@@ -240,7 +241,7 @@ export const Disabled: Story = {
           "`disabled=true`라면 DatePicker Cell이 비활성화되었으므로 시각적으로 미묘하게 처리해 접근할 수 없음을 암시합니다.",
           "또한 `state=rest`가 아닌 다른 상호작용 상태와 `disabled=true`는 함께 조합될 수 없습니다.",
           "",
-          "`disabled`는 Cell의 속성이며, DatePicker는 아직 날짜별 비활성화를 prop으로 제공하지 않습니다.",
+          "DatePicker에서는 `minDate`, `maxDate` 범위 밖의 날짜와 `isDateDisabled`가 `true`를 반환한 날짜가 `disabled`로 표시됩니다.",
         ].join("\n"),
       },
     },
@@ -315,18 +316,32 @@ export const Controlled: Story = {
   },
 };
 
-export const YearRange: Story = {
+export const DateRange: Story = {
   parameters: {
     docs: {
       description: {
         story:
-          "`minYear`, `maxYear`로 연도 목록과 달 이동 범위를 제한합니다. 범위의 첫 달과 마지막 달에서는 이전 달, 다음 달 버튼이 비활성화됩니다.",
+          "`minDate`, `maxDate`로 선택할 수 있는 날짜 범위를 정합니다. 범위 밖의 날짜는 비활성화되고, 범위의 첫 달과 마지막 달에서는 이전 달, 다음 달 버튼이 비활성화됩니다. 연도 목록은 두 날짜의 연도 사이만 보여 주고, 월 목록에서도 범위 밖의 달은 고를 수 없습니다.",
       },
     },
   },
   args: {
-    minYear: 2020,
-    maxYear: 2030,
+    minDate: new Date(2026, 2, 10),
+    maxDate: new Date(2026, 5, 20),
+  },
+};
+
+export const DisabledDates: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "`isDateDisabled`는 날짜마다 호출되며, `true`를 반환한 날짜는 선택할 수 없습니다. 이 예시는 주말을 비활성화합니다.",
+      },
+    },
+  },
+  args: {
+    isDateDisabled: date => date.getDay() === 0 || date.getDay() === 6,
   },
 };
 
