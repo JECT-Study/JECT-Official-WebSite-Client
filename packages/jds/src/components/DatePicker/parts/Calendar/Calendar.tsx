@@ -6,7 +6,7 @@ import { DAYS_IN_WEEK, type CalendarProps } from "./calendar.types";
 import { WeekdayLabel, type Weekday } from "../WeekdayLabel";
 
 export const Calendar = forwardRef<HTMLDivElement, CalendarProps>(
-  ({ weekStartsOn = 1, children, className, ...restProps }, forwardedRef) => (
+  ({ weekStartsOn, children, className, ...restProps }, forwardedRef) => (
     <div
       ref={forwardedRef}
       {...restProps}

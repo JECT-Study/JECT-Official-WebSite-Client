@@ -6,5 +6,5 @@ export const DAYS_IN_WEEK = 7;
 
 export interface CalendarProps extends ComponentPropsWithoutRef<"div"> {
   "data-part"?: never;
-  weekStartsOn?: Weekday;
+  weekStartsOn: Weekday;
 }
