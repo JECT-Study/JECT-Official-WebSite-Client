@@ -18,6 +18,8 @@
 | `minYear`       | -         | 연도 목록과 달 이동의 하한                                     |
 | `maxYear`       | -         | 연도 목록과 달 이동의 상한                                     |
 
+`weekStartsOn`에 넘기는 값의 타입 `Weekday`도 함께 공개합니다.
+
 ```tsx
 const [date, setDate] = useState<Date | null>(null);
 
