@@ -43,8 +43,8 @@ const meta: Meta<typeof Header> = {
     },
   },
   argTypes: {
-    titles: { control: false, description: "왼쪽에 놓이는 연월 버튼" },
-    navigation: { control: false, description: "오른쪽 끝에 붙는 이전 달, 다음 달 버튼" },
+    titles: { control: false },
+    navigation: { control: false },
   },
   decorators: [
     Story => (
