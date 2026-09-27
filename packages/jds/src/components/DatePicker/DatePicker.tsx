@@ -63,6 +63,8 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
 
     const displayed = withActionBar ? draft : selected;
     const year = month.getFullYear();
+    const isFirstMonth = minYear !== undefined && addMonths(month, -1).getFullYear() < minYear;
+    const isLastMonth = maxYear !== undefined && addMonths(month, 1).getFullYear() > maxYear;
     const bodyHeight = getCalendarBodyHeight(getWeekCount(month, weekStartsOn));
 
     const toggleView = (next: DatePickerView) =>
@@ -137,7 +139,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
                 condensed={false}
                 icon='chevron-left'
                 aria-label='이전 달'
-                disabled={view !== "date"}
+                disabled={view !== "date" || isFirstMonth}
                 onClick={() => setMonth(addMonths(month, -1))}
               />
               <IconButton
@@ -145,7 +147,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
                 condensed={false}
                 icon='chevron-right'
                 aria-label='다음 달'
-                disabled={view !== "date"}
+                disabled={view !== "date" || isLastMonth}
                 onClick={() => setMonth(addMonths(month, 1))}
               />
             </>
