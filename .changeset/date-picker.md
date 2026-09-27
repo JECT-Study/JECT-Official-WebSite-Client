@@ -11,7 +11,9 @@
 | `value`          | -         | 선택된 날짜, 넘기면 제어 모드이고 표시 중인 달이 함께 이동            |
 | `defaultValue`   | `null`    | 비제어 모드의 시작 선택값                                             |
 | `onChange`       | -         | 선택이 확정될 때 로컬 시간대 자정 기준 날짜로 호출                    |
+| `month`          | -         | 표시할 달, 넘기면 표시 중인 달을 호출부가 소유                        |
 | `defaultMonth`   | 선택된 달 | 처음 표시할 달, 선택이 없으면 오늘이 속한 달                          |
+| `onMonthChange`  | -         | 표시 중인 달이 바뀌면 그 달의 1일로 호출                              |
 | `weekStartsOn`   | `1`       | 한 주의 시작 요일, 0은 일요일                                         |
 | `withActionBar`  | `false`   | 오늘, 지우기, 적용 버튼 표시, 켜면 적용 시에만 `onChange` 호출        |
 | `fixedWeeks`     | `false`   | 모든 달을 6주로 표시, 끄면 달에 필요한 주 수만 표시                   |

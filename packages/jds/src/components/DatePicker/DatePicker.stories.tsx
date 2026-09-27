@@ -65,6 +65,7 @@ const meta: Meta<typeof DatePicker> = {
   argTypes: {
     value: { control: false },
     defaultValue: { control: "date" },
+    month: { control: false },
     defaultMonth: { control: "date" },
     weekStartsOn: { control: "select", options: WEEKDAY_OPTIONS },
     withActionBar: { control: "boolean" },
@@ -76,6 +77,7 @@ const meta: Meta<typeof DatePicker> = {
   args: {
     defaultMonth: SAMPLE_MONTH,
     onChange: fn(),
+    onMonthChange: fn(),
   },
 } satisfies Meta<typeof DatePicker>;
 
@@ -309,6 +311,32 @@ export const Controlled: Story = {
             }
           >
             한 달 뒤로
+          </button>
+        </FlexRow>
+      </FlexColumn>
+    );
+  },
+};
+
+export const ControlledMonth: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "`month`와 `onMonthChange`로 표시 중인 달을 호출부가 소유하는 예시입니다. 달이 바뀔 때마다 그 달의 1일로 `onMonthChange`가 호출되므로, 달마다 필요한 데이터를 불러올 때 사용할 수 있습니다.",
+      },
+    },
+  },
+  render: function ControlledMonthStory() {
+    const [month, setMonth] = useState(SAMPLE_MONTH);
+
+    return (
+      <FlexColumn gap='16px' style={{ alignItems: "center" }}>
+        <DatePicker month={month} onMonthChange={setMonth} />
+        <FlexRow gap='8px'>
+          <span>{`표시 중: ${month.getFullYear()}년 ${month.getMonth() + 1}월`}</span>
+          <button type='button' onClick={() => setMonth(SAMPLE_MONTH)}>
+            처음 달로
           </button>
         </FlexRow>
       </FlexColumn>
