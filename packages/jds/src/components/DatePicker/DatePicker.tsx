@@ -22,6 +22,15 @@ import { IconButton } from "../Button/IconButton";
 import { LabelButton } from "../Button/LabelButton";
 import { Divider } from "../Divider";
 
+/**
+ * @description 날짜 하나를 고르는 달력 패널
+ *
+ * @remarks
+ * 표시 중인 달은 DatePicker가 관리합니다. 다른 달의 날짜는 표시만 하고 선택할 수 없으며, 달은 이전 달, 다음 달 버튼과 연월 목록으로만 이동합니다.
+ * @public
+ * @name DatePicker
+ * @tag div
+ */
 export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
   (
     {
