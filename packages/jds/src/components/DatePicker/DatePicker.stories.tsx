@@ -1,12 +1,51 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexColumn, FlexRow } from "@storybook-utils/layout";
-import { useState } from "react";
-import { fn } from "storybook/test";
+import { useState, type ReactNode } from "react";
+import { fn, userEvent, within } from "storybook/test";
 
 import { DatePicker } from "./DatePicker";
+import { Cell, CELL_STATUS_OPTIONS, type CellStatus } from "./parts/Cell";
 import { WEEKDAY_OPTIONS } from "./parts/WeekdayLabel";
 
-const SAMPLE_MONTH = new Date(2026, 8, 1);
+import { Code } from "@/components/Code";
+
+const SAMPLE_MONTH = new Date(2026, 2, 1);
+const SAMPLE_DATE = new Date(2026, 2, 30);
+const SAMPLE_OUTSIDE_DATE = new Date(2026, 1, 28);
+
+const PropertyLabel = ({ name, value }: { name: string; value: string }) => (
+  <FlexRow gap='6px' style={{ alignItems: "center" }}>
+    <span>{name}</span>
+    <Code>{value}</Code>
+  </FlexRow>
+);
+
+const StatusMatrix = ({
+  columns,
+  renderCell,
+}: {
+  columns: string[];
+  renderCell: (status: CellStatus, column: string) => ReactNode;
+}) => (
+  <div
+    style={{
+      display: "grid",
+      gridTemplateColumns: `auto repeat(${columns.length}, minmax(64px, auto))`,
+      alignItems: "center",
+      justifyItems: "center",
+      gap: "16px",
+    }}
+  >
+    <span />
+    {columns.map(column => (
+      <Code key={column}>{column}</Code>
+    ))}
+    {CELL_STATUS_OPTIONS.map(status => [
+      <Code key={status}>{status}</Code>,
+      ...columns.map(column => <div key={`${status}-${column}`}>{renderCell(status, column)}</div>),
+    ])}
+  </div>
+);
 
 const meta: Meta<typeof DatePicker> = {
   title: "Components/DatePicker",
@@ -15,46 +54,22 @@ const meta: Meta<typeof DatePicker> = {
     layout: "centered",
     docs: {
       description: {
-        component:
-          "날짜 하나를 고르는 달력 패널입니다. 선택 값은 value를 넘기면 밖에서 통제하고, 넘기지 않으면 defaultValue를 시작값으로 DatePicker가 기억합니다. 표시 중인 달은 DatePicker가 기억하며 defaultMonth로 시작 달만 정합니다. 그리드 주 수는 달마다 4~6으로 알아서 조정됩니다. 헤더의 연도와 월 버튼을 누르면 같은 자리에 목록이 펼쳐지고, 고르면 달력으로 돌아옵니다. 팝오버 연결과 role='grid' 같은 접근성 구조는 아직 없습니다.",
+        component: [
+          "캘린더 보기에서 특정 날짜를 선택해 입력하는 컴포넌트입니다. 원하는 연도와 월을 탐색할 수 있어 사용자의 빠른 날짜 입력을 돕습니다.",
+          "DatePicker는 Button(Label button, Icon button)과 DatePicker Cell로 구성됩니다. 헤더의 연도와 월은 Label button, 이전 달과 다음 달은 Icon button이며, 액션 바의 오늘, 지우기, 적용도 Label button입니다.",
+          "선택 값은 `value`를 넘기면 호출부가 소유하고, 넘기지 않으면 `defaultValue`로 시작해 DatePicker가 기억합니다. 표시 중인 달은 DatePicker가 관리하며, 달은 이전 달, 다음 달 버튼과 연월 목록으로만 이동합니다. 팝오버 연결과 `role='grid'` 같은 접근성 구조는 아직 없습니다.",
+        ].join("\n\n"),
       },
     },
   },
   argTypes: {
-    value: { control: false, description: "선택된 날짜. 넘기면 밖에서 통제하는 방식이 됩니다." },
-    defaultValue: {
-      control: "date",
-      description: "value를 넘기지 않을 때의 시작 선택값",
-      table: { defaultValue: { summary: "null" } },
-    },
-    onChange: { description: "선택이 확정될 때. 액션 바가 있으면 적용을 눌러야 호출됩니다." },
-    defaultMonth: {
-      control: "date",
-      description: "처음 보여줄 달",
-      table: { defaultValue: { summary: "오늘" } },
-    },
-    weekStartsOn: {
-      control: "select",
-      options: WEEKDAY_OPTIONS,
-      description: "주의 시작 요일. 0이 일요일이고 6이 토요일입니다.",
-      table: { defaultValue: { summary: "1" } },
-    },
-    withActionBar: {
-      control: "boolean",
-      description:
-        "하단 액션 바 표시 여부. 켜면 셀 클릭이 임시 선택이 되고 적용을 눌러야 확정됩니다.",
-      table: { defaultValue: { summary: "false" } },
-    },
-    minYear: {
-      control: "number",
-      description: "연도 목록의 시작 연도",
-      table: { defaultValue: { summary: "표시 연도 - 10" } },
-    },
-    maxYear: {
-      control: "number",
-      description: "연도 목록의 마지막 연도",
-      table: { defaultValue: { summary: "표시 연도 + 10" } },
-    },
+    value: { control: false },
+    defaultValue: { control: "date" },
+    defaultMonth: { control: "date" },
+    weekStartsOn: { control: "select", options: WEEKDAY_OPTIONS },
+    withActionBar: { control: "boolean" },
+    minYear: { control: "number" },
+    maxYear: { control: "number" },
   },
   args: {
     defaultMonth: SAMPLE_MONTH,
@@ -68,35 +83,230 @@ type Story = StoryObj<typeof DatePicker>;
 
 export const Default: Story = {};
 
+export const State: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: [
+          "`state`는 UI 요소의 상호작용 상태를 시각적으로 정의한 속성입니다.",
+          "- `rest`는 상호작용하기 이전의 기본값입니다.",
+          "- `hover`는 해당 요소 위에 포인팅 장치를 올려둔 상태입니다.",
+          "- `active`는 해당 요소에 대해 클릭이나 탭(터치) 등의 조치를 취한 상태입니다. '눌린 상태'로도 해석할 수 있습니다.",
+          "",
+          "`state`는 prop이 아니라 CSS `:hover`, `:active`로 표현됩니다. 아래 표는 rest 모습이며, hover와 active는 셀에 포인터를 올리거나 눌러 확인합니다. rest에서 hover로는 `motion.fluent`, `duration.100`으로 전환되고, hover에서 active로는 모션 없이 즉시 바뀝니다.",
+        ].join("\n"),
+      },
+    },
+  },
+  render: () => (
+    <StatusMatrix
+      columns={["rest"]}
+      renderCell={status => <Cell date={SAMPLE_DATE} status={status} />}
+    />
+  ),
+};
+
+export const Status: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: [
+          "`status`는 DatePicker 캘린더 셀의 선택 상태에 대한 속성입니다.",
+          "- `normal`은 일반적인 날짜 셀입니다.",
+          "- `current`는 시스템 날짜 상의 오늘에 해당하는 셀입니다.",
+          "- `selected`는 사용자 혹은 시스템에 의해 선택된 날짜 셀입니다.",
+          "",
+          "DatePicker가 날짜마다 `status`를 정하며, 값이 바뀔 때 `motion.fluent`, `duration.150`으로 전환됩니다.",
+        ].join("\n"),
+      },
+    },
+  },
+  render: () => (
+    <FlexRow gap='48px'>
+      {CELL_STATUS_OPTIONS.map(status => (
+        <FlexColumn key={status} gap='12px' style={{ alignItems: "center" }}>
+          <PropertyLabel name='status' value={status} />
+          <Cell date={SAMPLE_DATE} status={status} />
+        </FlexColumn>
+      ))}
+    </FlexRow>
+  ),
+};
+
+export const View: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: [
+          "`view`는 DatePicker의 보기 유형을 결정하는 속성입니다.",
+          "- `date`는 기본적으로 사용하는 날짜 보기 유형입니다.",
+          "- `month`는 헤더의 월 Label button을 눌렀을 때 보이는 월 목록 보기 유형입니다.",
+          "- `year`는 헤더의 연도 Label button을 눌렀을 때 보이는 연도 목록 보기 유형입니다.",
+          "",
+          "`view`는 prop이 아니라 DatePicker 내부 상태입니다. 이 예시는 월과 연도 버튼을 눌러 각 보기를 연 상태로 보여 줍니다. 목록에서 항목을 고르거나 Escape를 누르면 날짜 보기로 돌아옵니다.",
+        ].join("\n"),
+      },
+      story: { autoplay: true },
+    },
+  },
+  render: () => (
+    <FlexRow gap='24px' style={{ alignItems: "flex-start" }}>
+      {(["date", "month", "year"] as const).map(view => (
+        <FlexColumn key={view} gap='12px' style={{ alignItems: "center" }} data-view={view}>
+          <PropertyLabel name='view' value={view} />
+          <DatePicker defaultMonth={SAMPLE_MONTH} />
+        </FlexColumn>
+      ))}
+    </FlexRow>
+  ),
+  play: async ({ canvasElement }) => {
+    const monthView = canvasElement.querySelector<HTMLElement>("[data-view='month']");
+    const yearView = canvasElement.querySelector<HTMLElement>("[data-view='year']");
+
+    if (monthView) await userEvent.click(within(monthView).getByRole("button", { name: "3월" }));
+    if (yearView) await userEvent.click(within(yearView).getByRole("button", { name: "2026년" }));
+  },
+};
+
+export const OutsideMonth: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: [
+          "`outsideMonth`는 현재 보고 있는 달의 이전, 다음 달에 해당하는 날짜 셀 여부에 대한 속성입니다.",
+          "- `outsideMonth=false`는 현재 보고 있는 달에 해당하는 날짜인 경우입니다.",
+          "- 이전, 다음 달에 해당하는 날짜라면 `outsideMonth=true`로 주목도를 낮춰 구분합니다.",
+          "",
+          "`outsideMonth=true`인 셀은 표시만 하고 선택할 수 없습니다. 선택된 날짜가 이전이나 다음 달에 걸쳐 보이는 경우에만 `selected` 모습으로 나타납니다.",
+        ].join("\n"),
+      },
+    },
+  },
+  render: () => (
+    <FlexRow gap='64px'>
+      {[false, true].map(outsideMonth => (
+        <FlexColumn key={String(outsideMonth)} gap='12px' style={{ alignItems: "center" }}>
+          <PropertyLabel name='outsideMonth' value={String(outsideMonth)} />
+          <FlexRow gap='16px'>
+            {CELL_STATUS_OPTIONS.map(status => (
+              <Cell
+                key={status}
+                date={outsideMonth ? SAMPLE_OUTSIDE_DATE : SAMPLE_MONTH}
+                status={status}
+                outsideMonth={outsideMonth}
+              />
+            ))}
+          </FlexRow>
+        </FlexColumn>
+      ))}
+    </FlexRow>
+  ),
+};
+
 export const WithActionBar: Story = {
-  args: {
-    withActionBar: true,
+  parameters: {
+    docs: {
+      description: {
+        story: [
+          "`withActionBar`는 DatePicker 하부에 별도 액션 영역 포함 여부에 대한 속성입니다.",
+          "- 기본적으로는 `withActionBar=false`로 액션 영역 없이 사용합니다.",
+          "- 사용자가 오늘 날짜를 빠르게 찾거나, DatePicker를 통해 입력한 날짜를 지울 수 있어야 할 때 `withActionBar=true`로 사용할 수 있습니다.",
+          "- 날짜 선택에 별도 확인(적용) 절차가 필요한 경우에도 `withActionBar=true`를 사용할 수 있습니다.",
+          "",
+          "`withActionBar=true`이면 날짜를 눌러도 바로 확정되지 않고, 적용을 눌러야 `onChange`가 호출됩니다.",
+        ].join("\n"),
+      },
+    },
   },
+  render: args => (
+    <FlexRow gap='24px' style={{ alignItems: "flex-start" }}>
+      {[false, true].map(withActionBar => (
+        <FlexColumn key={String(withActionBar)} gap='12px' style={{ alignItems: "center" }}>
+          <PropertyLabel name='withActionBar' value={String(withActionBar)} />
+          <DatePicker {...args} withActionBar={withActionBar} />
+        </FlexColumn>
+      ))}
+    </FlexRow>
+  ),
 };
 
-export const SundayFirst: Story = {
-  args: {
-    weekStartsOn: 0,
+export const Disabled: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: [
+          "`disabled`는 비활성화 여부에 대한 속성입니다.",
+          "`disabled=true`라면 DatePicker Cell이 비활성화되었으므로 시각적으로 미묘하게 처리해 접근할 수 없음을 암시합니다.",
+          "또한 `state=rest`가 아닌 다른 상호작용 상태와 `disabled=true`는 함께 조합될 수 없습니다.",
+          "",
+          "`disabled`는 Cell의 속성이며, DatePicker는 아직 날짜별 비활성화를 prop으로 제공하지 않습니다.",
+        ].join("\n"),
+      },
+    },
   },
+  render: () => (
+    <StatusMatrix
+      columns={["false", "true"]}
+      renderCell={(status, column) => (
+        <Cell date={SAMPLE_DATE} status={status} disabled={column === "true"} />
+      )}
+    />
+  ),
 };
 
-export const WithDefaultValue: Story = {
-  args: {
-    defaultValue: new Date(2026, 8, 27),
+export const Focused: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: [
+          "`focused`는 키보드 조작이나 음성 명령 등으로 포커스한 상태입니다.",
+          "`disabled=true`와 `focused=true`는 Figma에서 샌드박스적으로 함께 조합할 수 있지만, 실제 개발에서는 사용하지 않습니다.",
+          "다만 스크린리더 사용자에게 '비활성화된 상태와 이유'를 명확히 전달해야 하는 상황이라면 사용에 대해 별도 논의합니다.",
+          "",
+          "`focused`는 prop이 아니라 CSS `:focus-visible`로 표현됩니다. 아래 표는 `focused=false` 모습이며, `focused=true`는 셀에 Tab으로 포커스해 포커스 링을 확인합니다. 비활성화된 셀은 native `disabled`라 포커스를 받지 않습니다.",
+        ].join("\n"),
+      },
+    },
   },
+  render: () => (
+    <StatusMatrix
+      columns={["false"]}
+      renderCell={status => <Cell date={SAMPLE_DATE} status={status} />}
+    />
+  ),
 };
 
 export const Controlled: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "`value`와 `onChange`로 선택 값을 호출부가 소유하는 예시입니다. 밖에서 `value`를 다른 달의 날짜로 바꾸면 표시 중인 달도 그 달로 이동합니다.",
+      },
+    },
+  },
   render: function ControlledStory() {
-    const [date, setDate] = useState<Date | null>(new Date(2026, 8, 27));
+    const [date, setDate] = useState<Date | null>(new Date(2026, 2, 12));
 
     return (
       <FlexColumn gap='16px' style={{ alignItems: "center" }}>
-        <DatePicker value={date} onChange={setDate} defaultMonth={SAMPLE_MONTH} />
+        <DatePicker value={date} onChange={setDate} />
         <FlexRow gap='8px'>
           <span>{date ? date.toLocaleDateString("ko-KR") : "선택 없음"}</span>
           <button type='button' onClick={() => setDate(null)}>
             초기화
+          </button>
+          <button
+            type='button'
+            onClick={() =>
+              setDate(current => {
+                const base = current ?? new Date();
+
+                return new Date(base.getFullYear(), base.getMonth() + 1, base.getDate());
+              })
+            }
+          >
+            한 달 뒤로
           </button>
         </FlexRow>
       </FlexColumn>
@@ -105,18 +315,47 @@ export const Controlled: Story = {
 };
 
 export const YearRange: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "`minYear`, `maxYear`로 연도 목록과 달 이동 범위를 제한합니다. 범위의 첫 달과 마지막 달에서는 이전 달, 다음 달 버튼이 비활성화됩니다.",
+      },
+    },
+  },
   args: {
     minYear: 2020,
     maxYear: 2030,
   },
 };
 
+export const SundayFirst: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: "`weekStartsOn`으로 한 주의 시작 요일을 바꿉니다. DS 기본값은 월요일(1)입니다.",
+      },
+    },
+  },
+  args: {
+    weekStartsOn: 0,
+  },
+};
+
 export const WeekCountByMonth: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "달력의 주 수는 달마다 4~6주로 정해지고, 패널 높이도 그에 맞춰 달라집니다. 연월 목록을 열어도 패널 크기는 그대로 유지됩니다.",
+      },
+    },
+  },
   render: () => (
     <FlexRow gap='16px' style={{ alignItems: "flex-start" }}>
-      <DatePicker defaultMonth={new Date(2026, 1, 1)} />
-      <DatePicker defaultMonth={new Date(2026, 4, 1)} />
-      <DatePicker defaultMonth={new Date(2026, 7, 1)} />
+      <DatePicker defaultMonth={new Date(2027, 1, 1)} />
+      <DatePicker defaultMonth={new Date(2026, 8, 1)} />
+      <DatePicker defaultMonth={SAMPLE_MONTH} />
     </FlexRow>
   ),
 };
