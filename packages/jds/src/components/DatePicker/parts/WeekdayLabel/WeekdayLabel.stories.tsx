@@ -1,15 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { FlexColumn, FlexRow } from "@storybook-utils/layout";
+import { FlexRow } from "@storybook-utils/layout";
 
 import { WeekdayLabel } from "./WeekdayLabel";
 import { WEEKDAY_OPTIONS } from "./weekdayLabel.types";
-import { Cell } from "../Cell";
 
 const MONDAY_FIRST_WEEKDAYS = [1, 2, 3, 4, 5, 6, 0] as const;
-
-const SAMPLE_WEEK_DATES = [27, 28, 29, 30, 1, 2, 3].map((day, index) =>
-  index < 4 ? new Date(2026, 8, day) : new Date(2026, 9, day),
-);
 
 const meta: Meta<typeof WeekdayLabel> = {
   title: "Components/DatePicker/WeekdayLabel",
@@ -60,27 +55,5 @@ export const MondayFirst: Story = {
         <WeekdayLabel key={weekday} weekday={weekday} />
       ))}
     </FlexRow>
-  ),
-};
-
-export const AlignedWithCells: Story = {
-  render: () => (
-    <FlexColumn gap='8px'>
-      <FlexRow gap='4px'>
-        {MONDAY_FIRST_WEEKDAYS.map(weekday => (
-          <WeekdayLabel key={weekday} weekday={weekday} />
-        ))}
-      </FlexRow>
-      <FlexRow gap='4px'>
-        {SAMPLE_WEEK_DATES.map((date, index) => (
-          <Cell
-            key={date.toISOString()}
-            date={date}
-            status={index === 4 ? "current" : "normal"}
-            outsideMonth={index >= 4}
-          />
-        ))}
-      </FlexRow>
-    </FlexColumn>
   ),
 };
