@@ -50,12 +50,9 @@ const appearanceCompoundVariants = cellAppearances.map(appearance => ({
       [cellLabelColor]: appearance.label,
       [overlayColor]: appearance.overlay,
     },
-    selectors: {
-      "&::before, &::after": {
-        inset: appearance.outline ? `calc(${cellOutlineWidth} * -1)` : 0,
-        borderRadius: "inherit",
-      },
-    },
+    ...(appearance.outline
+      ? { selectors: { "&::before, &::after": { inset: `calc(${cellOutlineWidth} * -1)` } } }
+      : {}),
   },
 }));
 
