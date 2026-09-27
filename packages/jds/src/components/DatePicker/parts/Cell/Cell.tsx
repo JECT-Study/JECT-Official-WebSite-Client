@@ -19,11 +19,14 @@ export const Cell = forwardRef<HTMLButtonElement, CellProps>(
     <button
       ref={forwardedRef}
       type='button'
-      aria-label={dateLabelFormatter.format(date)}
+      aria-label={
+        status === "selected"
+          ? `${dateLabelFormatter.format(date)}, 선택됨`
+          : dateLabelFormatter.format(date)
+      }
       {...restProps}
       disabled={disabled}
       aria-current={status === "current" ? "date" : undefined}
-      aria-pressed={status === "selected" || undefined}
       data-disabled={disabled || undefined}
       data-part='root'
       className={clsx(styles.root({ status, outsideMonth, disabled }), className)}
