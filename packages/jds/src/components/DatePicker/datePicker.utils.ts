@@ -15,17 +15,21 @@ export const isSameDay = (a: Date | null, b: Date | null) => {
 
 export const startOfMonth = (date: Date) => new Date(date.getFullYear(), date.getMonth(), 1);
 
-export const addMonths = (date: Date, amount: number) =>
-  new Date(date.getFullYear(), date.getMonth() + amount, 1);
+export const addMonths = (date: Date, amount: number) => {
+  return new Date(date.getFullYear(), date.getMonth() + amount, 1);
+};
 
-const getLeadingDayCount = (month: Date, weekStartsOn: Weekday) =>
-  (startOfMonth(month).getDay() - weekStartsOn + DAYS_IN_WEEK) % DAYS_IN_WEEK;
+const getLeadingDayCount = (month: Date, weekStartsOn: Weekday) => {
+  return (startOfMonth(month).getDay() - weekStartsOn + DAYS_IN_WEEK) % DAYS_IN_WEEK;
+};
 
-const getDayCount = (month: Date) =>
-  new Date(month.getFullYear(), month.getMonth() + 1, 0).getDate();
+const getDayCount = (month: Date) => {
+  return new Date(month.getFullYear(), month.getMonth() + 1, 0).getDate();
+};
 
-export const getWeekCount = (month: Date, weekStartsOn: Weekday) =>
-  Math.ceil((getLeadingDayCount(month, weekStartsOn) + getDayCount(month)) / DAYS_IN_WEEK);
+export const getWeekCount = (month: Date, weekStartsOn: Weekday) => {
+  return Math.ceil((getLeadingDayCount(month, weekStartsOn) + getDayCount(month)) / DAYS_IN_WEEK);
+};
 
 export const getGridDates = (month: Date, weekStartsOn: Weekday) => {
   const leadingDayCount = getLeadingDayCount(month, weekStartsOn);
@@ -41,14 +45,16 @@ const MONTHS_IN_YEAR = 12;
 
 const monthFormatter = new Intl.DateTimeFormat("ko-KR", { month: "long" });
 
-export const getMonthOptions = (year: number) =>
-  Array.from({ length: MONTHS_IN_YEAR }, (_, index) => ({
+export const getMonthOptions = (year: number) => {
+  return Array.from({ length: MONTHS_IN_YEAR }, (_, index) => ({
     value: String(index),
     label: monthFormatter.format(new Date(year, index, 1)),
   }));
+};
 
-export const getYearOptions = (minYear: number, maxYear: number) =>
-  Array.from({ length: Math.max(maxYear - minYear + 1, 1) }, (_, index) => ({
+export const getYearOptions = (minYear: number, maxYear: number) => {
+  return Array.from({ length: Math.max(maxYear - minYear + 1, 1) }, (_, index) => ({
     value: String(minYear + index),
     label: `${minYear + index}년`,
   }));
+};
