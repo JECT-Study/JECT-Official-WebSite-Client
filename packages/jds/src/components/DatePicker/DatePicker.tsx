@@ -11,6 +11,7 @@ import {
   getWeekCount,
   getYearOptions,
   isSameDay,
+  MAX_WEEKS_IN_GRID,
   startOfMonth,
 } from "./datePicker.utils";
 import { ActionBar } from "./parts/ActionBar";
@@ -40,6 +41,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
       defaultMonth,
       weekStartsOn = 1,
       withActionBar = false,
+      fixedWeeks = false,
       minYear,
       maxYear,
       className,
@@ -74,7 +76,8 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
     const year = month.getFullYear();
     const isFirstMonth = minYear !== undefined && addMonths(month, -1).getFullYear() < minYear;
     const isLastMonth = maxYear !== undefined && addMonths(month, 1).getFullYear() > maxYear;
-    const bodyHeight = getCalendarBodyHeight(getWeekCount(month, weekStartsOn));
+    const weekCount = fixedWeeks ? MAX_WEEKS_IN_GRID : getWeekCount(month, weekStartsOn);
+    const bodyHeight = getCalendarBodyHeight(weekCount);
 
     const toggleView = (next: DatePickerView) =>
       setView(current => (current === next ? "date" : next));
@@ -165,7 +168,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
         <Divider variant='dashed' decorative />
         {view === "date" && (
           <Calendar weekStartsOn={weekStartsOn}>
-            {getGridDates(month, weekStartsOn).map(date => (
+            {getGridDates(month, weekStartsOn, weekCount).map(date => (
               <Cell
                 key={date.toISOString()}
                 date={date}

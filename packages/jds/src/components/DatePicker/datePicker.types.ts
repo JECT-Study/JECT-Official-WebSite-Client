@@ -35,6 +35,11 @@ export interface DatePickerProps extends Omit<
    * @default false
    */
   withActionBar?: boolean;
+  /**
+   * @description 모든 달을 6주로 표시할지 여부. 끄면 달에 필요한 주 수만 표시합니다.
+   * @default false
+   */
+  fixedWeeks?: boolean;
   /** 연도 목록과 달 이동의 하한 연도 */
   minYear?: number;
   /** 연도 목록과 달 이동의 상한 연도 */

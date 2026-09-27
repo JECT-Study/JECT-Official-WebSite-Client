@@ -14,6 +14,7 @@
 | `defaultMonth`  | 선택된 달 | 처음 표시할 달, 선택이 없으면 오늘이 속한 달                   |
 | `weekStartsOn`  | `1`       | 한 주의 시작 요일, 0은 일요일                                  |
 | `withActionBar` | `false`   | 오늘, 지우기, 적용 버튼 표시, 켜면 적용 시에만 `onChange` 호출 |
+| `fixedWeeks`    | `false`   | 모든 달을 6주로 표시, 끄면 달에 필요한 주 수만 표시            |
 | `minYear`       | -         | 연도 목록과 달 이동의 하한                                     |
 | `maxYear`       | -         | 연도 목록과 달 이동의 상한                                     |
 

@@ -31,9 +31,15 @@ export const getWeekCount = (month: Date, weekStartsOn: Weekday) => {
   return Math.ceil((getLeadingDayCount(month, weekStartsOn) + getDayCount(month)) / DAYS_IN_WEEK);
 };
 
-export const getGridDates = (month: Date, weekStartsOn: Weekday) => {
+export const MAX_WEEKS_IN_GRID = 6;
+
+export const getGridDates = (
+  month: Date,
+  weekStartsOn: Weekday,
+  weekCount = getWeekCount(month, weekStartsOn),
+) => {
   const leadingDayCount = getLeadingDayCount(month, weekStartsOn);
-  const cellCount = getWeekCount(month, weekStartsOn) * DAYS_IN_WEEK;
+  const cellCount = weekCount * DAYS_IN_WEEK;
 
   return Array.from(
     { length: cellCount },

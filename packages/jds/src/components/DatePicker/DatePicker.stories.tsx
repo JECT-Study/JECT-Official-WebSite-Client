@@ -68,6 +68,7 @@ const meta: Meta<typeof DatePicker> = {
     defaultMonth: { control: "date" },
     weekStartsOn: { control: "select", options: WEEKDAY_OPTIONS },
     withActionBar: { control: "boolean" },
+    fixedWeeks: { control: "boolean" },
     minYear: { control: "number" },
     maxYear: { control: "number" },
   },
@@ -347,15 +348,22 @@ export const WeekCountByMonth: Story = {
     docs: {
       description: {
         story:
-          "달력의 주 수는 달마다 4~6주로 정해지고, 패널 높이도 그에 맞춰 달라집니다. 연월 목록을 열어도 패널 크기는 그대로 유지됩니다.",
+          "기본값에서는 주 수가 달마다 4~6주로 정해지고 패널 높이도 그에 맞춰 달라집니다. `fixedWeeks`를 켜면 모든 달을 6주로 표시해 높이가 고정됩니다. 어느 쪽이든 연월 목록을 열어도 패널 크기는 그대로 유지됩니다.",
       },
     },
   },
   render: () => (
-    <FlexRow gap='16px' style={{ alignItems: "flex-start" }}>
-      <DatePicker defaultMonth={new Date(2027, 1, 1)} />
-      <DatePicker defaultMonth={new Date(2026, 8, 1)} />
-      <DatePicker defaultMonth={SAMPLE_MONTH} />
-    </FlexRow>
+    <FlexColumn gap='24px'>
+      {[false, true].map(fixedWeeks => (
+        <FlexColumn key={String(fixedWeeks)} gap='12px'>
+          <PropertyLabel name='fixedWeeks' value={String(fixedWeeks)} />
+          <FlexRow gap='16px' style={{ alignItems: "flex-start" }}>
+            <DatePicker defaultMonth={new Date(2027, 1, 1)} fixedWeeks={fixedWeeks} />
+            <DatePicker defaultMonth={new Date(2026, 8, 1)} fixedWeeks={fixedWeeks} />
+            <DatePicker defaultMonth={SAMPLE_MONTH} fixedWeeks={fixedWeeks} />
+          </FlexRow>
+        </FlexColumn>
+      ))}
+    </FlexColumn>
   ),
 };
