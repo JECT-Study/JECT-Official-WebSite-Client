@@ -1,5 +1,4 @@
 import { clsx } from "clsx";
-import { useControllableState } from "hooks";
 import { forwardRef, useRef, useState, type KeyboardEvent } from "react";
 
 import * as styles from "./datePicker.css";
@@ -15,7 +14,6 @@ import {
   getWeekCount,
   getYearOptions,
   isDateUnavailable,
-  isSameDay,
   MAX_WEEKS_IN_GRID,
   startOfDay,
 } from "./datePicker.utils";
@@ -25,6 +23,7 @@ import { Cell } from "./parts/Cell";
 import { Header } from "./parts/Header";
 import { OptionList } from "./parts/OptionList";
 import { useCalendarKeyboard } from "./useCalendarKeyboard";
+import { useDateSelection } from "./useDateSelection";
 import { useVisibleMonth } from "./useVisibleMonth";
 import { IconButton } from "../Button/IconButton";
 import { LabelButton } from "../Button/LabelButton";
@@ -63,24 +62,17 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
     forwardedRef,
   ) => {
     const today = startOfDay(new Date());
-    const [selected, setSelected] = useControllableState<Date | null>(
+    const { selected, displayed, select, clear, apply, hasPendingChange } = useDateSelection({
       value,
       defaultValue,
       onChange,
-    );
+      withActionBar,
+      readOnly,
+    });
     const [view, setView] = useState<DatePickerView>("date");
     const yearButtonRef = useRef<HTMLButtonElement>(null);
     const monthButtonRef = useRef<HTMLButtonElement>(null);
 
-    const [draft, setDraft] = useState<Date | null>(selected);
-    const [syncedSelected, setSyncedSelected] = useState<Date | null>(selected);
-
-    if (!isSameDay(syncedSelected, selected)) {
-      setSyncedSelected(selected);
-      setDraft(selected);
-    }
-
-    const displayed = withActionBar ? draft : selected;
     const { month, setMonth, isFirstMonth, isLastMonth } = useVisibleMonth({
       month: monthProp,
       defaultMonth,
@@ -107,18 +99,6 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
       return isDateUnavailable(date, { minDate, maxDate, isDateDisabled });
     };
 
-    const selectDate = (date: Date) => {
-      if (readOnly) return;
-
-      if (withActionBar) {
-        setDraft(date);
-
-        return;
-      }
-
-      setSelected(date);
-    };
-
     const gridDates = getGridDates(month, weekStartsOn, weekCount);
     const { gridRef, onGridKeyDown, getCellProps } = useCalendarKeyboard({
       month,
@@ -133,7 +113,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
 
     const goToday = () => {
       setMonth(today);
-      if (!readOnly) setDraft(today);
+      select(today);
     };
 
     const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
@@ -216,7 +196,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
                 outsideMonth={date.getMonth() !== month.getMonth()}
                 disabled={disabled || isUnavailable(date)}
                 {...getCellProps(date)}
-                onClick={() => selectDate(date)}
+                onClick={() => select(date)}
               />
             ))}
           </Calendar>
@@ -255,11 +235,11 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
         {withActionBar && (
           <ActionBar
             onToday={goToday}
-            onClear={() => setDraft(null)}
-            onApply={() => setSelected(draft)}
+            onClear={clear}
+            onApply={apply}
             todayDisabled={disabled || isUnavailable(today)}
             clearDisabled={disabled || readOnly}
-            applyDisabled={disabled || readOnly || isSameDay(draft, selected)}
+            applyDisabled={disabled || readOnly || !hasPendingChange}
           />
         )}
       </div>
