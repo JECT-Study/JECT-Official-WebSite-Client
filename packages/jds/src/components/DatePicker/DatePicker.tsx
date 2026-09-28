@@ -16,6 +16,9 @@ import {
   clampDate,
   clampMonth,
   findAvailableDate,
+  formatMonthLabel,
+  formatYearLabel,
+  formatYearMonthLabel,
   getGridDates,
   getKeyboardTarget,
   getSearchDirection,
@@ -223,7 +226,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
                 disabled={disabled}
                 onClick={() => toggleView("year")}
               >
-                {`${year}년`}
+                {formatYearLabel(year)}
               </LabelButton>
               <LabelButton
                 ref={monthButtonRef}
@@ -233,7 +236,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
                 disabled={disabled}
                 onClick={() => toggleView("month")}
               >
-                {`${month.getMonth() + 1}월`}
+                {formatMonthLabel(month)}
               </LabelButton>
             </>
           }
@@ -263,7 +266,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
           <Calendar
             ref={gridRef}
             weekStartsOn={weekStartsOn}
-            aria-label={`${year}년 ${month.getMonth() + 1}월`}
+            aria-label={formatYearMonthLabel(month)}
             aria-readonly={readOnly || undefined}
             onKeyDown={handleGridKeyDown}
           >

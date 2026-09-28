@@ -161,16 +161,28 @@ const MONTHS_IN_YEAR = 12;
 
 const monthFormatter = new Intl.DateTimeFormat("ko-KR", { month: "long" });
 
+export const formatYearLabel = (year: number) => {
+  return `${year}년`;
+};
+
+export const formatMonthLabel = (month: Date) => {
+  return monthFormatter.format(month);
+};
+
+export const formatYearMonthLabel = (month: Date) => {
+  return `${formatYearLabel(month.getFullYear())} ${formatMonthLabel(month)}`;
+};
+
 export const getMonthOptions = (year: number) => {
   return Array.from({ length: MONTHS_IN_YEAR }, (_, index) => ({
     value: String(index),
-    label: monthFormatter.format(new Date(year, index, 1)),
+    label: formatMonthLabel(new Date(year, index, 1)),
   }));
 };
 
 export const getYearOptions = (minYear: number, maxYear: number) => {
   return Array.from({ length: Math.max(maxYear - minYear + 1, 1) }, (_, index) => ({
     value: String(minYear + index),
-    label: `${minYear + index}년`,
+    label: formatYearLabel(minYear + index),
   }));
 };
