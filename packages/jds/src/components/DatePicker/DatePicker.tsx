@@ -1,12 +1,11 @@
 import { clsx } from "clsx";
 import { useControllableState } from "hooks";
-import { forwardRef, useLayoutEffect, useRef, useState, type KeyboardEvent } from "react";
+import { forwardRef, useRef, useState, type KeyboardEvent } from "react";
 
 import * as styles from "./datePicker.css";
 import { YEAR_RANGE_RADIUS, type DatePickerProps, type DatePickerView } from "./datePicker.types";
 import {
   addMonths,
-  clampMonth,
   formatMonthLabel,
   formatYearLabel,
   formatYearMonthLabel,
@@ -16,11 +15,9 @@ import {
   getWeekCount,
   getYearOptions,
   isDateUnavailable,
-  isMonthOutOfRange,
   isSameDay,
   MAX_WEEKS_IN_GRID,
   startOfDay,
-  startOfMonth,
 } from "./datePicker.utils";
 import { ActionBar } from "./parts/ActionBar";
 import { Calendar, getCalendarBodyHeight } from "./parts/Calendar";
@@ -28,6 +25,7 @@ import { Cell } from "./parts/Cell";
 import { Header } from "./parts/Header";
 import { OptionList } from "./parts/OptionList";
 import { useCalendarKeyboard } from "./useCalendarKeyboard";
+import { useVisibleMonth } from "./useVisibleMonth";
 import { IconButton } from "../Button/IconButton";
 import { LabelButton } from "../Button/LabelButton";
 import { Divider } from "../Divider";
@@ -70,10 +68,6 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
       defaultValue,
       onChange,
     );
-    const [internalMonth, setInternalMonth] = useState(() =>
-      startOfMonth(defaultMonth ?? selected ?? today),
-    );
-    const isMonthControlled = monthProp !== undefined;
     const [view, setView] = useState<DatePickerView>("date");
     const yearButtonRef = useRef<HTMLButtonElement>(null);
     const monthButtonRef = useRef<HTMLButtonElement>(null);
@@ -87,33 +81,18 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
     }
 
     const displayed = withActionBar ? draft : selected;
-    const month = clampMonth(
-      startOfMonth(isMonthControlled ? monthProp : internalMonth),
+    const { month, setMonth, isFirstMonth, isLastMonth } = useVisibleMonth({
+      month: monthProp,
+      defaultMonth,
+      onMonthChange,
+      selected,
+      today,
       minDate,
       maxDate,
-    );
+    });
     const year = month.getFullYear();
-    const isFirstMonth = isMonthOutOfRange(addMonths(month, -1), minDate, maxDate);
-    const isLastMonth = isMonthOutOfRange(addMonths(month, 1), minDate, maxDate);
     const weekCount = fixedWeeks ? MAX_WEEKS_IN_GRID : getWeekCount(month, weekStartsOn);
     const bodyHeight = getCalendarBodyHeight(weekCount);
-
-    const setMonth = (next: Date) => {
-      const target = clampMonth(startOfMonth(next), minDate, maxDate);
-      if (isSameDay(target, month)) return;
-
-      if (!isMonthControlled) setInternalMonth(target);
-      onMonthChange?.(target);
-    };
-
-    const previousSelectedRef = useRef(selected);
-
-    useLayoutEffect(() => {
-      if (isSameDay(previousSelectedRef.current, selected)) return;
-
-      previousSelectedRef.current = selected;
-      if (selected !== null) setMonth(selected);
-    });
 
     const toggleView = (next: DatePickerView) => {
       setView(current => (current === next ? "date" : next));
