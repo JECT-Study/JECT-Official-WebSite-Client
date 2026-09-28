@@ -32,6 +32,19 @@ export const isDateOutOfRange = (date: Date, minDate?: Date, maxDate?: Date) => 
   );
 };
 
+export interface DateAvailability {
+  minDate?: Date;
+  maxDate?: Date;
+  isDateDisabled?: (date: Date) => boolean;
+}
+
+export const isDateUnavailable = (date: Date, availability: DateAvailability) => {
+  return (
+    isDateOutOfRange(date, availability.minDate, availability.maxDate) ||
+    availability.isDateDisabled?.(date) === true
+  );
+};
+
 export const isMonthOutOfRange = (month: Date, minDate?: Date, maxDate?: Date) => {
   return (
     (minDate !== undefined && month < startOfMonth(minDate)) ||

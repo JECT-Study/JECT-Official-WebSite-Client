@@ -25,7 +25,7 @@ import {
   getMonthOptions,
   getWeekCount,
   getYearOptions,
-  isDateOutOfRange,
+  isDateUnavailable,
   isMonthOutOfRange,
   isSameDay,
   MAX_WEEKS_IN_GRID,
@@ -135,7 +135,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
     };
 
     const isUnavailable = (date: Date) => {
-      return isDateOutOfRange(date, minDate, maxDate) || isDateDisabled?.(date) === true;
+      return isDateUnavailable(date, { minDate, maxDate, isDateDisabled });
     };
 
     const selectDate = (date: Date) => {
