@@ -85,6 +85,11 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
     const year = month.getFullYear();
     const weekCount = fixedWeeks ? MAX_WEEKS_IN_GRID : getWeekCount(month, weekStartsOn);
     const bodyHeight = getCalendarBodyHeight(weekCount);
+    const monthOptions = getMonthOptions(year, minDate, maxDate);
+    const yearOptions = getYearOptions(
+      minDate?.getFullYear() ?? year - YEAR_RANGE_RADIUS,
+      maxDate?.getFullYear() ?? year + YEAR_RANGE_RADIUS,
+    );
 
     const toggleView = (next: DatePickerView) => {
       setView(current => (current === next ? "date" : next));
@@ -227,7 +232,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
               aria-label='월 선택'
               height={bodyHeight}
               value={String(month.getMonth())}
-              options={getMonthOptions(year, minDate, maxDate)}
+              options={monthOptions}
               onSelect={selectMonth}
             />
           </div>
@@ -238,10 +243,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
               aria-label='연도 선택'
               height={bodyHeight}
               value={String(year)}
-              options={getYearOptions(
-                minDate?.getFullYear() ?? year - YEAR_RANGE_RADIUS,
-                maxDate?.getFullYear() ?? year + YEAR_RANGE_RADIUS,
-              )}
+              options={yearOptions}
               onSelect={selectYear}
             />
           </div>
