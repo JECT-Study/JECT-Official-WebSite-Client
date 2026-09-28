@@ -34,7 +34,7 @@ import { Divider } from "../Divider";
  * @description 날짜 하나를 고르는 달력 패널
  *
  * @remarks
- * 표시 중인 달은 DatePicker가 관리합니다. 다른 달의 날짜는 표시만 하고 선택할 수 없으며, 달은 이전 달, 다음 달 버튼과 연월 목록으로만 이동합니다.
+ * 표시 중인 달은 DatePicker가 관리합니다. 다른 달의 날짜를 선택하면 그 달로 이동합니다. `readOnly`이면 날짜를 눌러도 선택과 달 이동 모두 일어나지 않습니다.
  * @public
  * @name DatePicker
  * @tag div
@@ -112,7 +112,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
     };
 
     const gridDates = getGridDates(month, weekStartsOn, weekCount);
-    const { gridRef, onGridKeyDown, getCellProps } = useCalendarKeyboard({
+    const { gridRef, onGridKeyDown, getCellProps, focusDate } = useCalendarKeyboard({
       month,
       gridDates,
       preferredDates: [displayed, today],
@@ -139,6 +139,14 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
     const selectYear = (next: string) => {
       setMonth(new Date(Number(next), month.getMonth(), 1));
       closeView();
+    };
+
+    const selectDate = (date: Date) => {
+      if (readOnly) return;
+
+      setMonth(date);
+      select(date);
+      focusDate(date);
     };
 
     const goToday = () => {
@@ -227,7 +235,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
                 today={isSameDay(date, today)}
                 disabled={disabled || isUnavailable(date)}
                 {...getCellProps(date)}
-                onClick={() => select(date)}
+                onClick={() => selectDate(date)}
               />
             ))}
           </Calendar>

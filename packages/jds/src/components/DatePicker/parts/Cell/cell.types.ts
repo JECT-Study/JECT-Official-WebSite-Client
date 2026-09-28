@@ -17,7 +17,7 @@ export interface CellProps extends Omit<ComponentPropsWithoutRef<"button">, "chi
    */
   status?: CellStatus;
   /**
-   * @description 표시 중인 달 밖의 날짜인지 여부. 모습은 유지하고 native `disabled`로 선택만 막습니다.
+   * @description 표시 중인 달 밖의 날짜인지 여부. 주목도를 낮춘 모습으로 표시하고 선택은 막지 않습니다.
    * @default false
    */
   outsideMonth?: boolean;

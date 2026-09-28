@@ -34,8 +34,6 @@ export const Cell = forwardRef<HTMLButtonElement, CellProps>(
     },
     forwardedRef,
   ) => {
-    const isInactive = disabled || outsideMonth;
-
     return (
       <button
         ref={forwardedRef}
@@ -43,10 +41,10 @@ export const Cell = forwardRef<HTMLButtonElement, CellProps>(
         aria-label={dateLabelFormatter.format(date)}
         {...restProps}
         role='gridcell'
-        disabled={isInactive}
+        disabled={disabled}
         aria-selected={status === "selected" || undefined}
         aria-current={today ? "date" : undefined}
-        data-disabled={isInactive || undefined}
+        data-disabled={disabled || undefined}
         data-part='root'
         className={clsx(styles.root({ status, outsideMonth, disabled }), className)}
       >

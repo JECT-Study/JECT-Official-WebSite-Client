@@ -206,7 +206,7 @@ export const OutsideMonth: Story = {
           "- `outsideMonth=false`는 현재 보고 있는 달에 해당하는 날짜인 경우입니다.",
           "- 이전, 다음 달에 해당하는 날짜라면 `outsideMonth=true`로 주목도를 낮춰 구분합니다.",
           "",
-          "`outsideMonth=true`인 셀은 표시만 하고 선택할 수 없습니다. 선택된 날짜가 이전이나 다음 달에 걸쳐 보이는 경우에만 `selected` 모습으로 나타납니다.",
+          "`outsideMonth=true`인 셀도 선택할 수 있고, 선택하면 그 날짜의 달로 이동합니다. 선택된 날짜가 이전이나 다음 달에 걸쳐 보이면 `selected` 모습으로 나타납니다.",
         ].join("\n"),
       },
     },

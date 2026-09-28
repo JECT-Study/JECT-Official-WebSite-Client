@@ -27,7 +27,7 @@ interface UseCalendarKeyboardParams {
  *
  * @remarks
  * Tab 정지점은 `preferredDates` 중 표시 중인 달에서 선택할 수 있는 첫 날짜이고, 없으면 그 달의 첫 선택 가능한 날짜입니다.
- * @returns 격자에 연결할 `gridRef`, `onGridKeyDown`과 셀마다 펼쳐 넣을 `getCellProps`
+ * @returns 격자에 연결할 `gridRef`, `onGridKeyDown`, 셀마다 펼쳐 넣을 `getCellProps`와 다음 렌더에서 날짜 셀로 포커스를 옮기는 `focusDate`
  */
 export const useCalendarKeyboard = ({
   month,
@@ -65,6 +65,11 @@ export const useCalendarKeyboard = ({
     gridRef.current?.querySelector<HTMLElement>(`[data-date="${toDateKey(focusedDate)}"]`)?.focus();
   });
 
+  const focusDate = (date: Date) => {
+    shouldMoveFocusRef.current = true;
+    setFocusedDate(date);
+  };
+
   const onGridKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     if (tabbableDate === null) return;
 
@@ -78,8 +83,7 @@ export const useCalendarKeyboard = ({
     const next = findAvailableDate(bounded, direction, isUnavailable, minDate, maxDate);
     if (next === null) return;
 
-    shouldMoveFocusRef.current = true;
-    setFocusedDate(next);
+    focusDate(next);
     if (!isInMonth(next)) onMonthChange(next);
   };
 
@@ -93,5 +97,5 @@ export const useCalendarKeyboard = ({
     };
   };
 
-  return { gridRef, onGridKeyDown, getCellProps };
+  return { gridRef, onGridKeyDown, getCellProps, focusDate };
 };
