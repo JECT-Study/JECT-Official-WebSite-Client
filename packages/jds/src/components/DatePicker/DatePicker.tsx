@@ -19,6 +19,7 @@ import {
   formatMonthLabel,
   formatYearLabel,
   formatYearMonthLabel,
+  getCellStatus,
   getGridDates,
   getKeyboardTarget,
   getSearchDirection,
@@ -274,13 +275,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
               <Cell
                 key={date.toISOString()}
                 date={date}
-                status={
-                  isSameDay(date, displayed)
-                    ? "selected"
-                    : isSameDay(date, today)
-                      ? "current"
-                      : "normal"
-                }
+                status={getCellStatus(date, displayed, today)}
                 outsideMonth={date.getMonth() !== month.getMonth()}
                 disabled={disabled || isUnavailable(date)}
                 tabIndex={isSameDay(date, tabbableDate) ? 0 : -1}

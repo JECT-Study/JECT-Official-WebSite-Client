@@ -1,4 +1,5 @@
 import { DAYS_IN_WEEK } from "./parts/Calendar";
+import type { CellStatus } from "./parts/Cell";
 import type { Weekday } from "./parts/WeekdayLabel";
 
 export const isSameDay = (a: Date | null, b: Date | null) => {
@@ -11,6 +12,13 @@ export const isSameDay = (a: Date | null, b: Date | null) => {
     a.getMonth() === b.getMonth() &&
     a.getDate() === b.getDate()
   );
+};
+
+export const getCellStatus = (date: Date, selected: Date | null, today: Date): CellStatus => {
+  if (isSameDay(date, selected)) return "selected";
+  if (isSameDay(date, today)) return "current";
+
+  return "normal";
 };
 
 export const startOfDay = (date: Date) => {
