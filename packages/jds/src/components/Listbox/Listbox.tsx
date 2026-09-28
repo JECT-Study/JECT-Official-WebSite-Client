@@ -23,6 +23,7 @@ const InternalListbox = forwardRef<HTMLDivElement, ListboxProps>(
       label,
       width,
       height,
+      surface = true,
       className,
       style,
       "aria-label": ariaLabel,
@@ -47,7 +48,7 @@ const InternalListbox = forwardRef<HTMLDivElement, ListboxProps>(
       <ListboxProvider value={{ ...behavior, selectionMode, variant }}>
         <div
           ref={ref}
-          className={clsx(styles.selectContainer, className)}
+          className={clsx(styles.selectContainer({ surface }), className)}
           style={containerStyle}
           {...restProps}
         >
