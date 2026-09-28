@@ -1,28 +1,17 @@
 import { clsx } from "clsx";
 import { useControllableState } from "hooks";
-import {
-  forwardRef,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-  type KeyboardEvent,
-} from "react";
+import { forwardRef, useLayoutEffect, useRef, useState, type KeyboardEvent } from "react";
 
 import * as styles from "./datePicker.css";
 import { YEAR_RANGE_RADIUS, type DatePickerProps, type DatePickerView } from "./datePicker.types";
 import {
   addMonths,
-  clampDate,
   clampMonth,
-  findAvailableDate,
   formatMonthLabel,
   formatYearLabel,
   formatYearMonthLabel,
   getCellStatus,
   getGridDates,
-  getKeyboardTarget,
-  getSearchDirection,
   getMonthOptions,
   getWeekCount,
   getYearOptions,
@@ -32,13 +21,13 @@ import {
   MAX_WEEKS_IN_GRID,
   startOfDay,
   startOfMonth,
-  toDateKey,
 } from "./datePicker.utils";
 import { ActionBar } from "./parts/ActionBar";
 import { Calendar, getCalendarBodyHeight } from "./parts/Calendar";
 import { Cell } from "./parts/Cell";
 import { Header } from "./parts/Header";
 import { OptionList } from "./parts/OptionList";
+import { useCalendarKeyboard } from "./useCalendarKeyboard";
 import { IconButton } from "../Button/IconButton";
 import { LabelButton } from "../Button/LabelButton";
 import { Divider } from "../Divider";
@@ -151,48 +140,17 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
       setSelected(date);
     };
 
-    const isInMonth = (date: Date) => {
-      return isSameDay(startOfMonth(date), month);
-    };
-
     const gridDates = getGridDates(month, weekStartsOn, weekCount);
-    const [focusedDate, setFocusedDate] = useState<Date | null>(null);
-    const gridRef = useRef<HTMLDivElement>(null);
-    const shouldMoveFocusRef = useRef(false);
-
-    const tabbableDate =
-      [focusedDate, displayed, today].find(
-        (date): date is Date => date !== null && isInMonth(date) && !isUnavailable(date),
-      ) ??
-      gridDates.find(date => isInMonth(date) && !isUnavailable(date)) ??
-      null;
-
-    useEffect(() => {
-      if (!shouldMoveFocusRef.current || focusedDate === null) return;
-
-      shouldMoveFocusRef.current = false;
-      gridRef.current
-        ?.querySelector<HTMLElement>(`[data-date="${toDateKey(focusedDate)}"]`)
-        ?.focus();
+    const { gridRef, onGridKeyDown, getCellProps } = useCalendarKeyboard({
+      month,
+      gridDates,
+      preferredDates: [displayed, today],
+      weekStartsOn,
+      minDate,
+      maxDate,
+      isUnavailable,
+      onMonthChange: setMonth,
     });
-
-    const handleGridKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
-      if (tabbableDate === null) return;
-
-      const target = getKeyboardTarget(tabbableDate, event.key, event.shiftKey, weekStartsOn);
-      if (target === null) return;
-
-      event.preventDefault();
-
-      const bounded = clampDate(target, minDate, maxDate);
-      const direction = getSearchDirection(event.key, tabbableDate, target, bounded);
-      const next = findAvailableDate(bounded, direction, isUnavailable, minDate, maxDate);
-      if (next === null) return;
-
-      shouldMoveFocusRef.current = true;
-      setFocusedDate(next);
-      if (!isInMonth(next)) setMonth(next);
-    };
 
     const goToday = () => {
       setMonth(today);
@@ -269,7 +227,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
             weekStartsOn={weekStartsOn}
             aria-label={formatYearMonthLabel(month)}
             aria-readonly={readOnly || undefined}
-            onKeyDown={handleGridKeyDown}
+            onKeyDown={onGridKeyDown}
           >
             {gridDates.map(date => (
               <Cell
@@ -278,9 +236,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
                 status={getCellStatus(date, displayed, today)}
                 outsideMonth={date.getMonth() !== month.getMonth()}
                 disabled={disabled || isUnavailable(date)}
-                tabIndex={isSameDay(date, tabbableDate) ? 0 : -1}
-                data-date={toDateKey(date)}
-                onFocus={() => setFocusedDate(date)}
+                {...getCellProps(date)}
                 onClick={() => selectDate(date)}
               />
             ))}
