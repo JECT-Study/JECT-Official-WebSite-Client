@@ -113,6 +113,24 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
       onMonthChange: setMonth,
     });
 
+    const goToPreviousMonth = () => {
+      setMonth(addMonths(month, -1));
+    };
+
+    const goToNextMonth = () => {
+      setMonth(addMonths(month, 1));
+    };
+
+    const selectMonth = (next: string) => {
+      setMonth(new Date(year, Number(next), 1));
+      closeView();
+    };
+
+    const selectYear = (next: string) => {
+      setMonth(new Date(Number(next), month.getMonth(), 1));
+      closeView();
+    };
+
     const goToday = () => {
       setMonth(today);
       select(today);
@@ -168,7 +186,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
                 icon='chevron-left'
                 aria-label='이전 달'
                 disabled={disabled || view !== "date" || isFirstMonth}
-                onClick={() => setMonth(addMonths(month, -1))}
+                onClick={goToPreviousMonth}
               />
               <IconButton
                 size='lg'
@@ -176,7 +194,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
                 icon='chevron-right'
                 aria-label='다음 달'
                 disabled={disabled || view !== "date" || isLastMonth}
-                onClick={() => setMonth(addMonths(month, 1))}
+                onClick={goToNextMonth}
               />
             </>
           }
@@ -210,10 +228,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
               height={bodyHeight}
               value={String(month.getMonth())}
               options={getMonthOptions(year, minDate, maxDate)}
-              onSelect={next => {
-                setMonth(new Date(year, Number(next), 1));
-                closeView();
-              }}
+              onSelect={selectMonth}
             />
           </div>
         )}
@@ -227,10 +242,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
                 minDate?.getFullYear() ?? year - YEAR_RANGE_RADIUS,
                 maxDate?.getFullYear() ?? year + YEAR_RANGE_RADIUS,
               )}
-              onSelect={next => {
-                setMonth(new Date(Number(next), month.getMonth(), 1));
-                closeView();
-              }}
+              onSelect={selectYear}
             />
           </div>
         )}
