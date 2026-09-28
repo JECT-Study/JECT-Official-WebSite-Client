@@ -10,5 +10,6 @@ const weekdayHeight = vars.typo.primitive.font.lineHeight.label.sm;
 
 export const calendarBodyWidth = `calc(${DAYS_IN_WEEK} * ${cellSize} + ${DAYS_IN_WEEK - 1} * ${calendarCellGap})`;
 
-export const getCalendarBodyHeight = (weekCount: number) =>
-  `calc(${weekdayHeight} + ${calendarWeekdayGap} + ${weekCount} * ${cellSize} + ${weekCount - 1} * ${calendarCellGap})`;
+export const getCalendarBodyHeight = (weekCount: number) => {
+  return `calc(${weekdayHeight} + ${calendarWeekdayGap} + ${weekCount} * ${cellSize} + ${weekCount - 1} * ${calendarCellGap})`;
+};
