@@ -44,6 +44,9 @@ export const normalizePaginationValues = ({
 const createPageRange = (start: number, end: number) =>
   Array.from({ length: end - start + 1 }, (_, index) => start + index);
 
+const isPageInsideWindow = (page: number, { start, end }: PaginationWindow) =>
+  page > start && page < end;
+
 const getMiddleStartCandidate = (
   page: number,
   middlePageCount: number,
@@ -78,7 +81,7 @@ export const getPaginationWindow = ({
   const middlePageCount = visiblePageCount - middleReservedItemCount;
 
   // 이전 구간의 안쪽 숫자를 선택하면 표시 범위를 유지한다.
-  if (previousWindow && page > previousWindow.start && page < previousWindow.end) {
+  if (previousWindow && isPageInsideWindow(page, previousWindow)) {
     return previousWindow;
   }
 
