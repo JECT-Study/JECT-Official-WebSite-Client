@@ -2,16 +2,21 @@ import { vars } from "tokens";
 
 import type { CellStatus } from "./cell.types";
 
+/** 셀 상태 조합 하나에 적용할 색 */
 export interface CellAppearance {
   status: CellStatus;
   outsideMonth: boolean;
   disabled: boolean;
   background: string;
+  /** 외곽선 색. `null`이면 외곽선을 그리지 않습니다. */
   outline: string | null;
+  /** 날짜 숫자 색 */
   label: string;
+  /** hover, active 때 `::after` overlay에 적용할 색 */
   overlay: string;
 }
 
+/** `status`, `outsideMonth`, `disabled`의 12가지 조합별 색. 모든 조합을 빠짐없이 정의합니다. */
 export const cellAppearances = [
   {
     status: "normal",

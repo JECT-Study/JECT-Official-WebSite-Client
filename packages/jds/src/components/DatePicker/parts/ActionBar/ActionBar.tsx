@@ -5,6 +5,15 @@ import * as styles from "./actionBar.css";
 import type { ActionBarProps } from "./actionBar.types";
 import { LabelButton } from "../../../Button/LabelButton";
 
+/**
+ * @description DatePicker 하단에서 오늘, 지우기, 적용 버튼을 배치하는 파츠
+ *
+ * @remarks
+ * 버튼을 비활성화할지는 판단하지 않습니다. 호출부가 `todayDisabled`, `clearDisabled`, `applyDisabled`로 넘깁니다.
+ * @internal
+ * @name ActionBar
+ * @tag div
+ */
 export const ActionBar = forwardRef<HTMLDivElement, ActionBarProps>(
   (
     {

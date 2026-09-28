@@ -2,6 +2,7 @@ import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 import type { Weekday } from "../WeekdayLabel";
 
+/** 한 주의 날짜 수. 격자의 열 수입니다. */
 export const DAYS_IN_WEEK = 7;
 
 export interface CalendarProps extends ComponentPropsWithoutRef<"div"> {

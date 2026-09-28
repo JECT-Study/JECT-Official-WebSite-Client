@@ -11,6 +11,16 @@ const dateLabelFormatter = new Intl.DateTimeFormat("ko-KR", {
   day: "numeric",
 });
 
+/**
+ * @description DatePicker 격자의 날짜 한 칸
+ *
+ * @remarks
+ * 오늘이면서 선택된 날짜는 `status="selected"`와 `today`를 함께 넘깁니다. 모습은 선택 상태를 따르고 `aria-current`는 유지됩니다.
+ * @internal
+ * @name Cell
+ * @tag button
+ * @role gridcell
+ */
 export const Cell = forwardRef<HTMLButtonElement, CellProps>(
   (
     {
