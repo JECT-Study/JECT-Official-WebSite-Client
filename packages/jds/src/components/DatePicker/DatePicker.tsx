@@ -71,13 +71,14 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
     },
     forwardedRef,
   ) => {
+    const today = startOfDay(new Date());
     const [selected, setSelected] = useControllableState<Date | null>(
       value,
       defaultValue,
       onChange,
     );
     const [internalMonth, setInternalMonth] = useState(() =>
-      startOfMonth(defaultMonth ?? selected ?? new Date()),
+      startOfMonth(defaultMonth ?? selected ?? today),
     );
     const isMonthControlled = monthProp !== undefined;
     const [view, setView] = useState<DatePickerView>("date");
@@ -156,7 +157,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
     const shouldMoveFocusRef = useRef(false);
 
     const tabbableDate =
-      [focusedDate, displayed, startOfDay(new Date())].find(
+      [focusedDate, displayed, today].find(
         (date): date is Date => date !== null && isInMonth(date) && !isUnavailable(date),
       ) ??
       gridDates.find(date => isInMonth(date) && !isUnavailable(date)) ??
@@ -190,8 +191,6 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
     };
 
     const goToday = () => {
-      const today = startOfDay(new Date());
-
       setMonth(today);
       if (!readOnly) setDraft(today);
     };
@@ -275,7 +274,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
                 status={
                   isSameDay(date, displayed)
                     ? "selected"
-                    : isSameDay(date, new Date())
+                    : isSameDay(date, today)
                       ? "current"
                       : "normal"
                 }
@@ -332,7 +331,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
             onToday={goToday}
             onClear={() => setDraft(null)}
             onApply={() => setSelected(draft)}
-            todayDisabled={disabled || isUnavailable(startOfDay(new Date()))}
+            todayDisabled={disabled || isUnavailable(today)}
             clearDisabled={disabled || readOnly}
             applyDisabled={disabled || readOnly || isSameDay(draft, selected)}
           />
