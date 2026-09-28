@@ -44,6 +44,25 @@ export const normalizePaginationValues = ({
 const createPageRange = (start: number, end: number) =>
   Array.from({ length: end - start + 1 }, (_, index) => start + index);
 
+const getMiddleStartCandidate = (
+  page: number,
+  middlePageCount: number,
+  previousWindow?: PaginationWindow,
+) => {
+  // 첫 배치는 홀수일 때 선택 페이지를 중앙에, 짝수일 때 오른쪽에 숫자를 하나 더 둔다.
+  if (!previousWindow) {
+    return page - Math.floor((middlePageCount - 1) / 2);
+  }
+
+  // 이전 구간의 왼쪽 끝이나 밖으로 이동하면 선택 페이지를 왼쪽에서 두 번째에 둔다.
+  if (page <= previousWindow.start) {
+    return page - 1;
+  }
+
+  // 이전 구간의 오른쪽 끝이나 밖으로 이동하면 선택 페이지를 오른쪽에서 두 번째에 둔다.
+  return page - middlePageCount + 2;
+};
+
 export const getPaginationWindow = ({
   page,
   totalPages,
@@ -63,13 +82,7 @@ export const getPaginationWindow = ({
     return previousWindow;
   }
 
-  // 가운데 구간 후보는 이전 구간의 양끝이나 밖으로 이동할 때 선택 페이지를 해당 끝에서 두 번째에 둔다.
-  // 첫 배치는 홀수일 때 중앙, 짝수일 때 오른쪽에 숫자를 하나 더 둔다.
-  const middleStart = previousWindow
-    ? page <= previousWindow.start
-      ? page - 1
-      : page - middlePageCount + 2
-    : page - Math.floor((middlePageCount - 1) / 2);
+  const middleStart = getMiddleStartCandidate(page, middlePageCount, previousWindow);
   const middleEnd = middleStart + middlePageCount - 1;
 
   // 말줄임은 최소 두 페이지를 숨길 수 있을 때만 표시한다.
