@@ -1,5 +1,6 @@
 import { forwardRef, useEffect, useMemo } from "react";
 
+import * as styles from "./optionList.css";
 import type { OptionListProps } from "./optionList.types";
 import { Listbox, useListbox } from "../../../Listbox";
 
@@ -7,7 +8,7 @@ import { Listbox, useListbox } from "../../../Listbox";
  * @description DatePicker에서 연도나 월을 고르는 목록
  *
  * @remarks
- * 마운트되면 목록으로 포커스를 옮기고 선택된 옵션이 보이도록 스크롤합니다.
+ * 마운트되면 목록으로 포커스를 옮기고 선택된 옵션이 보이도록 스크롤합니다. 목록 끝까지 스크롤해도 바깥 스크롤로 이어지지 않습니다.
  * @internal
  * @name OptionList
  * @tag div
@@ -48,7 +49,7 @@ export const OptionList = forwardRef<HTMLDivElement, OptionListProps>(
         width='full'
         height={height}
         listboxRef={listboxRef}
-        listboxProps={getFocusableListboxProps()}
+        listboxProps={{ ...getFocusableListboxProps(), className: styles.listbox }}
         aria-label={ariaLabel}
         aria-labelledby={ariaLabelledby}
       >
