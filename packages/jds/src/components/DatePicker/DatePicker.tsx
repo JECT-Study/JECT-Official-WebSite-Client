@@ -85,6 +85,8 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
     const year = month.getFullYear();
     const weekCount = fixedWeeks ? MAX_WEEKS_IN_GRID : getWeekCount(month, weekStartsOn);
     const bodyHeight = getCalendarBodyHeight(weekCount);
+    const isNavigationDisabled = disabled || view !== "date";
+    const isEditDisabled = disabled || readOnly;
     const monthOptions = getMonthOptions(year, minDate, maxDate);
     const yearOptions = getYearOptions(
       minDate?.getFullYear() ?? year - YEAR_RANGE_RADIUS,
@@ -190,7 +192,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
                 condensed={false}
                 icon='chevron-left'
                 aria-label='이전 달'
-                disabled={disabled || view !== "date" || isFirstMonth}
+                disabled={isNavigationDisabled || isFirstMonth}
                 onClick={goToPreviousMonth}
               />
               <IconButton
@@ -198,7 +200,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
                 condensed={false}
                 icon='chevron-right'
                 aria-label='다음 달'
-                disabled={disabled || view !== "date" || isLastMonth}
+                disabled={isNavigationDisabled || isLastMonth}
                 onClick={goToNextMonth}
               />
             </>
@@ -254,8 +256,8 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
             onClear={clear}
             onApply={apply}
             todayDisabled={disabled || isUnavailable(today)}
-            clearDisabled={disabled || readOnly}
-            applyDisabled={disabled || readOnly || !hasPendingChange}
+            clearDisabled={isEditDisabled}
+            applyDisabled={isEditDisabled || !hasPendingChange}
           />
         )}
       </div>
