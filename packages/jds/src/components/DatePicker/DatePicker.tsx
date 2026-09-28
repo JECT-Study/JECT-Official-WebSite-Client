@@ -292,14 +292,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
               aria-label='월 선택'
               height={bodyHeight}
               value={String(month.getMonth())}
-              options={getMonthOptions(year).map(option => ({
-                ...option,
-                disabled: isMonthOutOfRange(
-                  new Date(year, Number(option.value), 1),
-                  minDate,
-                  maxDate,
-                ),
-              }))}
+              options={getMonthOptions(year, minDate, maxDate)}
               onSelect={next => {
                 setMonth(new Date(year, Number(next), 1));
                 closeView();

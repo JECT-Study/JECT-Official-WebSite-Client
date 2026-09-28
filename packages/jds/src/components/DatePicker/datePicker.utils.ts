@@ -194,10 +194,11 @@ export const formatYearMonthLabel = (month: Date) => {
   return `${formatYearLabel(month.getFullYear())} ${formatMonthLabel(month)}`;
 };
 
-export const getMonthOptions = (year: number) => {
+export const getMonthOptions = (year: number, minDate?: Date, maxDate?: Date) => {
   return Array.from({ length: MONTHS_IN_YEAR }, (_, index) => ({
     value: String(index),
     label: formatMonthLabel(new Date(year, index, 1)),
+    disabled: isMonthOutOfRange(new Date(year, index, 1), minDate, maxDate),
   }));
 };
 
