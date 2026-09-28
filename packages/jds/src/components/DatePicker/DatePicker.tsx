@@ -69,9 +69,6 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
       withActionBar,
       readOnly,
     });
-    const [view, setView] = useState<DatePickerView>("date");
-    const yearButtonRef = useRef<HTMLButtonElement>(null);
-    const monthButtonRef = useRef<HTMLButtonElement>(null);
 
     const { month, setMonth, isFirstMonth, isLastMonth } = useVisibleMonth({
       month: monthProp,
@@ -85,13 +82,15 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
     const year = month.getFullYear();
     const weekCount = fixedWeeks ? MAX_WEEKS_IN_GRID : getWeekCount(month, weekStartsOn);
     const bodyHeight = getCalendarBodyHeight(weekCount);
-    const isNavigationDisabled = disabled || view !== "date";
-    const isEditDisabled = disabled || readOnly;
     const monthOptions = getMonthOptions(year, minDate, maxDate);
     const yearOptions = getYearOptions(
       minDate?.getFullYear() ?? year - YEAR_RANGE_RADIUS,
       maxDate?.getFullYear() ?? year + YEAR_RANGE_RADIUS,
     );
+
+    const [view, setView] = useState<DatePickerView>("date");
+    const yearButtonRef = useRef<HTMLButtonElement>(null);
+    const monthButtonRef = useRef<HTMLButtonElement>(null);
 
     const toggleView = (next: DatePickerView) => {
       setView(current => (current === next ? "date" : next));
@@ -103,6 +102,9 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
       setView("date");
       triggerRef.current?.focus();
     };
+
+    const isNavigationDisabled = disabled || view !== "date";
+    const isEditDisabled = disabled || readOnly;
 
     const isUnavailable = (date: Date) => {
       return isDateUnavailable(date, { minDate, maxDate, isDateDisabled });
