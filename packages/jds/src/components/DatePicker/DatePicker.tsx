@@ -91,8 +91,10 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
     };
 
     const closeView = () => {
+      const triggerRef = view === "year" ? yearButtonRef : monthButtonRef;
+
       setView("date");
-      (view === "year" ? yearButtonRef : monthButtonRef).current?.focus();
+      triggerRef.current?.focus();
     };
 
     const isUnavailable = (date: Date) => {
