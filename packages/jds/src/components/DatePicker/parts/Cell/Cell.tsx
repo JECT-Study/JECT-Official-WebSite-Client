@@ -13,7 +13,15 @@ const dateLabelFormatter = new Intl.DateTimeFormat("ko-KR", {
 
 export const Cell = forwardRef<HTMLButtonElement, CellProps>(
   (
-    { date, status = "normal", outsideMonth = false, disabled = false, className, ...restProps },
+    {
+      date,
+      status = "normal",
+      outsideMonth = false,
+      today = false,
+      disabled = false,
+      className,
+      ...restProps
+    },
     forwardedRef,
   ) => {
     const isInactive = disabled || outsideMonth;
@@ -27,7 +35,7 @@ export const Cell = forwardRef<HTMLButtonElement, CellProps>(
         role='gridcell'
         disabled={isInactive}
         aria-selected={status === "selected" || undefined}
-        aria-current={status === "current" ? "date" : undefined}
+        aria-current={today ? "date" : undefined}
         data-disabled={isInactive || undefined}
         data-part='root'
         className={clsx(styles.root({ status, outsideMonth, disabled }), className)}

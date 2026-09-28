@@ -30,13 +30,19 @@ const meta: Meta<typeof Cell> = {
       control: "select",
       options: CELL_STATUS_OPTIONS,
       description:
-        "날짜의 의미. current는 오늘, selected는 선택된 날짜입니다. current는 aria-current='date', selected는 aria-selected를 함께 부여합니다.",
+        "날짜의 의미. current는 오늘, selected는 선택된 날짜입니다. selected는 aria-selected를 함께 부여합니다. 오늘이면서 선택된 날짜는 selected로 표시합니다.",
       table: { defaultValue: { summary: "normal" } },
     },
     outsideMonth: {
       control: "boolean",
       description:
         "표시 중인 달에 속하지 않는 날짜인지 여부. true면 모습은 disabled와 다르게 유지하면서 native disabled로 선택을 막습니다.",
+      table: { defaultValue: { summary: "false" } },
+    },
+    today: {
+      control: "boolean",
+      description:
+        "오늘 날짜인지 여부. true면 aria-current='date'를 부여합니다. 모습은 바꾸지 않으므로 status와 함께 current를 지정합니다.",
       table: { defaultValue: { summary: "false" } },
     },
     disabled: {
@@ -56,6 +62,7 @@ export const Default: Story = {
     date: SAMPLE_DATE,
     status: "normal",
     outsideMonth: false,
+    today: false,
     disabled: false,
   },
 };
@@ -66,7 +73,7 @@ export const CellStatuses: Story = {
       {CELL_STATUS_OPTIONS.map(status => (
         <FlexColumn key={status} gap='8px' style={{ alignItems: "center" }}>
           <Code>{status}</Code>
-          <Cell date={SAMPLE_DATE} status={status} />
+          <Cell date={SAMPLE_DATE} status={status} today={status === "current"} />
         </FlexColumn>
       ))}
     </FlexRow>
@@ -79,7 +86,7 @@ export const OutsideMonth: Story = {
       {CELL_STATUS_OPTIONS.map(status => (
         <FlexColumn key={status} gap='8px' style={{ alignItems: "center" }}>
           <Code>{status}</Code>
-          <Cell date={SAMPLE_DATE} status={status} outsideMonth />
+          <Cell date={SAMPLE_DATE} status={status} today={status === "current"} outsideMonth />
         </FlexColumn>
       ))}
     </FlexRow>
@@ -92,8 +99,14 @@ export const Disabled: Story = {
       {CELL_STATUS_OPTIONS.map(status => (
         <FlexColumn key={status} gap='8px' style={{ alignItems: "center" }}>
           <Code>{status}</Code>
-          <Cell date={SAMPLE_DATE} status={status} disabled />
-          <Cell date={SAMPLE_DATE} status={status} outsideMonth disabled />
+          <Cell date={SAMPLE_DATE} status={status} today={status === "current"} disabled />
+          <Cell
+            date={SAMPLE_DATE}
+            status={status}
+            today={status === "current"}
+            outsideMonth
+            disabled
+          />
         </FlexColumn>
       ))}
     </FlexRow>

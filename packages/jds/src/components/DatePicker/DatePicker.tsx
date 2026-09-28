@@ -14,6 +14,7 @@ import {
   getWeekCount,
   getYearOptions,
   isDateUnavailable,
+  isSameDay,
   MAX_WEEKS_IN_GRID,
   startOfDay,
 } from "./datePicker.utils";
@@ -223,6 +224,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
                 date={date}
                 status={getCellStatus(date, displayed, today)}
                 outsideMonth={date.getMonth() !== month.getMonth()}
+                today={isSameDay(date, today)}
                 disabled={disabled || isUnavailable(date)}
                 {...getCellProps(date)}
                 onClick={() => select(date)}

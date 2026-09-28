@@ -9,4 +9,5 @@ export interface CellProps extends Omit<ComponentPropsWithoutRef<"button">, "chi
   date: Date;
   status?: CellStatus;
   outsideMonth?: boolean;
+  today?: boolean;
 }
