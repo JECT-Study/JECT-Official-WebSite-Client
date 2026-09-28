@@ -121,16 +121,18 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
       if (selected !== null) setMonth(selected);
     });
 
-    const toggleView = (next: DatePickerView) =>
+    const toggleView = (next: DatePickerView) => {
       setView(current => (current === next ? "date" : next));
+    };
 
     const closeView = () => {
       setView("date");
       (view === "year" ? yearButtonRef : monthButtonRef).current?.focus();
     };
 
-    const isUnavailable = (date: Date) =>
-      isDateOutOfRange(date, minDate, maxDate) || isDateDisabled?.(date) === true;
+    const isUnavailable = (date: Date) => {
+      return isDateOutOfRange(date, minDate, maxDate) || isDateDisabled?.(date) === true;
+    };
 
     const selectDate = (date: Date) => {
       if (readOnly) return;
@@ -144,7 +146,9 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
       setSelected(date);
     };
 
-    const isInMonth = (date: Date) => isSameDay(startOfMonth(date), month);
+    const isInMonth = (date: Date) => {
+      return isSameDay(startOfMonth(date), month);
+    };
 
     const gridDates = getGridDates(month, weekStartsOn, weekCount);
     const [focusedDate, setFocusedDate] = useState<Date | null>(null);
