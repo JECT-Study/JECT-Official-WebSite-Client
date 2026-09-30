@@ -45,6 +45,7 @@ export const listbox = style({
   columnGap: 0,
   rowGap: vars.scheme.semantic.spacing["4"],
   overflowY: "auto",
+  overscrollBehavior: "contain",
   outline: "none",
 });
 
