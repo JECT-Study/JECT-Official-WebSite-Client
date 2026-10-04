@@ -11,7 +11,7 @@ const DateFieldRoot = forwardRef<HTMLDivElement, DateFieldProps>((props, ref) =>
 DateFieldRoot.displayName = "DateField";
 
 /**
- * @description 특정 날짜를 직접 입력하는 필드.
+ * @description 특정 날짜를 직접 입력하거나 달력에서 선택하는 필드.
  * 연, 월, 일을 세그먼트 단위로 편집하며 값은 "YYYY-MM-DD" 형식의 문자열이다.
  *
  * @example
