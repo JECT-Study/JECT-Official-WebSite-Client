@@ -1,4 +1,10 @@
-import type { SegmentEditState, SegmentedInputRules } from "./useSegmentedInput";
+import type {
+  SegmentEdge,
+  SegmentEditState,
+  SegmentRange,
+  SegmentStep,
+  SegmentedInputRules,
+} from "./useSegmentedInput";
 
 export type DateSegmentKind = "year" | "month" | "day";
 
@@ -17,6 +23,20 @@ export interface PendingDigits {
 
 type DateEditState = SegmentEditState<DateSegmentKind, DateSegments, PendingDigits>;
 
+interface SegmentSpec {
+  min: number;
+  max: number;
+  /** 값이 비어 있을 때의 표기. 길이가 세그먼트의 자릿수다. */
+  emptyText: string;
+}
+
+interface DigitInputResult {
+  segments: DateSegments;
+  pending: PendingDigits | null;
+  /** 세그먼트 입력이 확정되어 다음 세그먼트로 넘어가야 하는지 여부 */
+  isComplete: boolean;
+}
+
 const EMPTY_DATE_SEGMENTS: DateSegments = { year: null, month: null, day: null };
 
 const KINDS = ["year", "month", "day"] as const;
@@ -29,7 +49,7 @@ const SEGMENT_SPEC = {
   year: { min: 1, max: 9999, emptyText: "YYYY" },
   month: { min: 1, max: 12, emptyText: "MM" },
   day: { min: 1, max: 31, emptyText: "DD" },
-} satisfies Record<DateSegmentKind, { min: number; max: number; emptyText: string }>;
+} satisfies Record<DateSegmentKind, SegmentSpec>;
 
 // native input[type=date]의 value 규격
 const DATE_VALUE_PATTERN = /^(\d{4})-(\d{2})-(\d{2})$/;
@@ -45,7 +65,7 @@ const isWithin = (value: number, min: number, max: number) => min <= value && va
 const getLength = (kind: DateSegmentKind) => SEGMENT_SPEC[kind].emptyText.length;
 
 /** 표시 문자열에서 세그먼트가 차지하는 [start, end) 범위 */
-const getRange = (kind: DateSegmentKind): [number, number] => {
+const getRange = (kind: DateSegmentKind): SegmentRange => {
   const start = KINDS.slice(0, KINDS.indexOf(kind)).reduce(
     (offset, previous) => offset + getLength(previous) + SEPARATOR.length,
     0,
@@ -149,7 +169,7 @@ const parseDateText = (text: string) => {
  * 월과 일은 범위 끝에서 반대쪽 끝으로 넘어가고, 빈 세그먼트는 첫 값이나 마지막 값으로 채운다.
  * 연은 범위 끝에서 멈추고, 비어 있으면 올해로 채운다.
  */
-const stepDateSegment = (segments: DateSegments, kind: DateSegmentKind, delta: 1 | -1) => {
+const stepDateSegment = (segments: DateSegments, kind: DateSegmentKind, delta: SegmentStep) => {
   const current = segments[kind];
 
   if (kind === "year") {
@@ -168,11 +188,7 @@ const stepDateSegment = (segments: DateSegments, kind: DateSegmentKind, delta: 1
 };
 
 /** 연은 첫 값과 마지막 값이 의미가 없으므로 바꾸지 않는다. */
-const setDateSegmentToEdge = (
-  segments: DateSegments,
-  kind: DateSegmentKind,
-  edge: "first" | "last",
-) => {
+const setDateSegmentToEdge = (segments: DateSegments, kind: DateSegmentKind, edge: SegmentEdge) => {
   if (kind === "year") return segments;
 
   const value = edge === "first" ? SEGMENT_SPEC[kind].min : getLastValue(segments, kind);
@@ -192,7 +208,7 @@ const inputDigit = (
   kind: DateSegmentKind,
   digit: string,
   pending: PendingDigits | null,
-): { segments: DateSegments; pending: PendingDigits | null; advance: boolean } => {
+): DigitInputResult => {
   const { min, max } = SEGMENT_SPEC[kind];
   const length = getLength(kind);
 
@@ -208,7 +224,7 @@ const inputDigit = (
   return {
     segments: constrainDay(withSegment(segments, kind, value >= min ? value : null)),
     pending: hasRoomForMoreDigits ? { kind, digits } : null,
-    advance: !hasRoomForMoreDigits,
+    isComplete: !hasRoomForMoreDigits,
   };
 };
 
@@ -232,7 +248,7 @@ const applyCharacter = (state: DateEditState, char: string): DateEditState | nul
   return {
     segments: result.segments,
     pending: result.pending,
-    active: result.advance ? nextKind : state.active,
+    active: result.isComplete ? nextKind : state.active,
   };
 };
 

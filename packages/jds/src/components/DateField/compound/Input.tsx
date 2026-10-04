@@ -29,11 +29,11 @@ const PICKER_HINT = "Alt와 아래 방향키를 함께 누르면 달력이 열�
 
 // 소비처 핸들러를 먼저 호출하고, 기본 동작을 막았다면 내부 처리를 건너뛴다.
 const composeHandler =
-  <E extends SyntheticEvent>(
-    external: ((event: E) => void) | undefined,
-    internal: (event: E) => void,
+  <TEvent extends SyntheticEvent>(
+    external: ((event: TEvent) => void) | undefined,
+    internal: (event: TEvent) => void,
   ) =>
-  (event: E) => {
+  (event: TEvent) => {
     external?.(event);
     if (!event.defaultPrevented) internal(event);
   };

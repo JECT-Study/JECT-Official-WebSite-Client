@@ -13,48 +13,58 @@ import {
   type SyntheticEvent,
 } from "react";
 
-export interface SegmentEditState<K extends string, S, P> {
-  segments: S;
-  active: K;
+/** 표시 문자열에서 세그먼트가 차지하는 [start, end) 범위 */
+export type SegmentRange = [start: number, end: number];
+
+/** 위아래 방향키로 값을 올리거나 내리는 방향 */
+export type SegmentStep = 1 | -1;
+
+/** Home, End로 옮겨 갈 세그먼트 값의 끝 */
+export type SegmentEdge = "first" | "last";
+
+type DeleteDirection = "backward" | "forward";
+
+export interface SegmentEditState<TKind extends string, TSegments, TPending> {
+  segments: TSegments;
+  active: TKind;
   /** 아직 확정되지 않은 입력. 세그먼트를 옮기거나 포커스를 잃으면 버린다. */
-  pending: P | null;
+  pending: TPending | null;
 }
 
 /**
- * 세그먼트 종류 `K`, 세그먼트 상태 `S`, 확정 전 입력 `P`로 표기 형식 하나의 편집 규칙을 정의한다.
+ * 세그먼트 종류 `TKind`, 세그먼트 상태 `TSegments`, 확정 전 입력 `TPending`으로 표기 형식 하나의 편집 규칙을 정의한다.
  * 받아들이지 않는 입력은 모두 null로 알린다.
  */
-export interface SegmentedInputRules<K extends string, S, P> {
+export interface SegmentedInputRules<TKind extends string, TSegments, TPending> {
   /** 표시 순서대로 나열한 세그먼트 종류 */
-  kinds: readonly K[];
+  kinds: readonly TKind[];
   /** 모든 세그먼트가 비어 있는 상태 */
-  empty: S;
-  /** 표시 문자열에서 세그먼트가 차지하는 [start, end) 범위 */
-  getRange: (kind: K) => [number, number];
-  format: (segments: S, pending: P | null) => string;
-  hasInput: (segments: S, pending: P | null) => boolean;
+  empty: TSegments;
+  getRange: (kind: TKind) => SegmentRange;
+  format: (segments: TSegments, pending: TPending | null) => string;
+  hasInput: (segments: TSegments, pending: TPending | null) => boolean;
   /** 값을 세그먼트로 바꾼다. 해석할 수 없으면 null이다. */
-  parseValue: (value: string) => S | null;
+  parseValue: (value: string) => TSegments | null;
   /** 세그먼트를 값으로 바꾼다. 입력이 완성되지 않았으면 빈 문자열이다. */
-  toValue: (segments: S) => string;
+  toValue: (segments: TSegments) => string;
   /** 붙여넣은 텍스트를 해석한다. 해석할 수 없으면 null이다. */
-  parseText: (text: string) => S | null;
+  parseText: (text: string) => TSegments | null;
   /** 글자 하나를 편집 상태에 적용한다. 받아들이지 않는 글자면 null이다. */
   applyCharacter: (
-    state: SegmentEditState<K, S, P>,
+    state: SegmentEditState<TKind, TSegments, TPending>,
     char: string,
-  ) => SegmentEditState<K, S, P> | null;
+  ) => SegmentEditState<TKind, TSegments, TPending> | null;
   /** 세그먼트를 비운다. 지울 내용이 없으면 null이다. */
-  clear: (segments: S, kind: K) => S | null;
+  clear: (segments: TSegments, kind: TKind) => TSegments | null;
   /** 위아래 방향키 증감 */
-  step: (segments: S, kind: K, delta: 1 | -1) => S;
+  step: (segments: TSegments, kind: TKind, delta: SegmentStep) => TSegments;
   /** Home, End로 세그먼트를 첫 값이나 마지막 값으로 바꾼다. */
-  setToEdge: (segments: S, kind: K, edge: "first" | "last") => S;
+  setToEdge: (segments: TSegments, kind: TKind, edge: SegmentEdge) => TSegments;
 }
 
-interface UseSegmentedInputOptions<K extends string, S, P> {
+interface UseSegmentedInputOptions<TKind extends string, TSegments, TPending> {
   inputRef: RefObject<HTMLInputElement | null>;
-  rules: SegmentedInputRules<K, S, P>;
+  rules: SegmentedInputRules<TKind, TSegments, TPending>;
   /** 입력이 완성되지 않았으면 빈 문자열이다. */
   value: string;
   onValueChange: (value: string) => void;
@@ -62,28 +72,30 @@ interface UseSegmentedInputOptions<K extends string, S, P> {
   isEditable: boolean;
 }
 
-const parseOrEmpty = <K extends string, S, P>(rules: SegmentedInputRules<K, S, P>, value: string) =>
-  rules.parseValue(value) ?? rules.empty;
+const parseOrEmpty = <TKind extends string, TSegments, TPending>(
+  rules: SegmentedInputRules<TKind, TSegments, TPending>,
+  value: string,
+) => rules.parseValue(value) ?? rules.empty;
 
 /**
  * @description 텍스트 input 하나로 여러 세그먼트를 편집한다.
  * 선택 영역으로 현재 세그먼트를 강조하고, 입력 문자는 모두 가로채 세그먼트 상태로만 반영한다.
  * 모든 세그먼트가 채워졌을 때만 값을 알리고, 부분 입력은 내부 상태로만 유지한다.
  */
-export const useSegmentedInput = <K extends string, S, P>({
+export const useSegmentedInput = <TKind extends string, TSegments, TPending>({
   inputRef,
   rules,
   value,
   onValueChange,
   isEditable,
-}: UseSegmentedInputOptions<K, S, P>) => {
+}: UseSegmentedInputOptions<TKind, TSegments, TPending>) => {
   const { kinds } = rules;
   const firstKind = kinds[0];
   const lastKind = kinds[kinds.length - 1];
 
   const [segments, setSegments] = useState(() => parseOrEmpty(rules, value));
-  const [active, setActive] = useState<K>(firstKind);
-  const [pending, setPending] = useState<P | null>(null);
+  const [active, setActive] = useState<TKind>(firstKind);
+  const [pending, setPending] = useState<TPending | null>(null);
   const [isAllSelected, setIsAllSelected] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const [, requestSelectionSync] = useReducer((key: number) => key + 1, 0);
@@ -121,26 +133,26 @@ export const useSegmentedInput = <K extends string, S, P>({
     }
   });
 
-  const commit = (next: S) => {
+  const commit = (next: TSegments) => {
     segmentsRef.current = next;
     setSegments(next);
     onValueChange(rules.toValue(next));
   };
 
-  const selectSegment = (kind: K) => {
+  const selectSegment = (kind: TKind) => {
     setActive(kind);
     setPending(null);
     setIsAllSelected(false);
   };
 
-  const moveBy = (offset: 1 | -1) => {
+  const moveBy = (offset: SegmentStep) => {
     const index = Math.min(Math.max(kinds.indexOf(active) + offset, 0), kinds.length - 1);
     selectSegment(kinds[index]);
   };
 
   // 값을 바꾸는 동작은 아래 네 함수만 거친다.
   // 편집할 수 없는 상태면 아무것도 하지 않으므로 호출부에서는 따로 확인하지 않는다.
-  const replaceSegments = (next: S) => {
+  const replaceSegments = (next: TSegments) => {
     if (!isEditable) return;
 
     commit(next);
@@ -160,7 +172,7 @@ export const useSegmentedInput = <K extends string, S, P>({
   const inputText = (text: string) => {
     if (!isEditable) return;
 
-    let state: SegmentEditState<K, S, P> = isAllSelected
+    let state: SegmentEditState<TKind, TSegments, TPending> = isAllSelected
       ? { segments: rules.empty, active: firstKind, pending: null }
       : { segments, active, pending };
     let isAccepted = false;
@@ -181,7 +193,7 @@ export const useSegmentedInput = <K extends string, S, P>({
     setIsAllSelected(false);
   };
 
-  const deleteSelection = (direction: "backward" | "forward") => {
+  const deleteSelection = (direction: DeleteDirection) => {
     if (!isEditable) return;
 
     if (isAllSelected) {
