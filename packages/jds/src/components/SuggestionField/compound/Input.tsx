@@ -347,6 +347,8 @@ export const SuggestionFieldInput = forwardRef<HTMLInputElement, SuggestionField
             collisionPadding={8}
             onOpenAutoFocus={e => e.preventDefault()}
             onCloseAutoFocus={e => e.preventDefault()}
+            // Dialog의 스크롤 잠금이 body로 Portal된 목록의 휠 스크롤을 막지 않도록 한다.
+            onWheel={e => e.stopPropagation()}
             onInteractOutside={e => {
               if (contentRef.current?.contains(e.target as Node)) e.preventDefault();
             }}
