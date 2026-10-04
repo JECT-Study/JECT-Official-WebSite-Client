@@ -84,8 +84,8 @@ const isLeapYear = (year: number) => (year % 4 === 0 && year % 100 !== 0) || yea
 
 /** 연이나 월이 비어 있으면 가능한 가장 긴 달로 본다. */
 const getDaysInMonth = (year: number | null, month: number | null) => {
-  if (month == null) return 31;
-  if (month === 2) return year == null || isLeapYear(year) ? 29 : 28;
+  if (month === null) return 31;
+  if (month === 2) return year === null || isLeapYear(year) ? 29 : 28;
   return [4, 6, 9, 11].includes(month) ? 30 : 31;
 };
 
@@ -96,7 +96,7 @@ const getLastValue = (segments: DateSegments, kind: "month" | "day") =>
 /** 일이 그 달의 마지막 날을 넘으면 마지막 날로 맞춘다. 예: 2026.02.30 → 2026.02.28 */
 const constrainDay = (segments: DateSegments): DateSegments => {
   const lastDay = getDaysInMonth(segments.year, segments.month);
-  return segments.day != null && segments.day > lastDay ? { ...segments, day: lastDay } : segments;
+  return segments.day !== null && segments.day > lastDay ? { ...segments, day: lastDay } : segments;
 };
 
 /** 실제로 있는 날짜일 때만 세그먼트를 만든다. */
@@ -115,19 +115,19 @@ const formatDateSegments = (segments: DateSegments, pending: PendingDigits | nul
     if (pending?.kind === kind) return pending.digits.padStart(getLength(kind), "0");
 
     const value = segments[kind];
-    return value == null ? SEGMENT_SPEC[kind].emptyText : pad(value, getLength(kind));
+    return value === null ? SEGMENT_SPEC[kind].emptyText : pad(value, getLength(kind));
   }).join(SEPARATOR);
 
 /** 세그먼트를 "YYYY-MM-DD" 값으로 바꾼다. 비어 있는 세그먼트가 있으면 빈 문자열이다. */
 const toDateValue = ({ year, month, day }: DateSegments): string => {
-  if (year == null || month == null || day == null) return "";
+  if (year === null || month === null || day === null) return "";
 
   return `${pad(year, 4)}-${pad(month, 2)}-${pad(day, 2)}`;
 };
 
 const parseDateValue = (value: string): DateSegments | null => {
   const match = DATE_VALUE_PATTERN.exec(value);
-  if (match == null) return null;
+  if (match === null) return null;
 
   return toDateSegments(Number(match[1]), Number(match[2]), Number(match[3]));
 };
@@ -135,18 +135,21 @@ const parseDateValue = (value: string): DateSegments | null => {
 /** "YYYY-MM-DD" 값을 로컬 자정의 Date로 바꾼다. 값이 비어 있거나 없는 날짜면 null이다. */
 export const valueToDate = (value: string): Date | null => {
   const segments = parseDateValue(value);
-  if (segments?.year == null || segments.month == null || segments.day == null) return null;
+  if (segments === null) return null;
+
+  const { year, month, day } = segments;
+  if (year === null || month === null || day === null) return null;
 
   // new Date(year, month, day)는 0~99년을 1900년대로 해석하므로 연도를 따로 지정한다.
   const date = new Date(0);
-  date.setFullYear(segments.year, segments.month - 1, segments.day);
+  date.setFullYear(year, month - 1, day);
   date.setHours(0, 0, 0, 0);
   return date;
 };
 
 /** 로컬 시간대 기준으로 Date를 "YYYY-MM-DD" 값으로 바꾼다. null이면 빈 문자열이다. */
 export const dateToValue = (date: Date | null): string => {
-  if (date == null) return "";
+  if (date === null) return "";
 
   return toDateValue({
     year: date.getFullYear(),
@@ -159,7 +162,7 @@ export const dateToValue = (date: Date | null): string => {
 const parseDateText = (text: string): DateSegments | null => {
   const trimmed = text.trim();
   const match = DATE_TEXT_PATTERN.exec(trimmed) ?? COMPACT_DATE_TEXT_PATTERN.exec(trimmed);
-  if (match == null) return null;
+  if (match === null) return null;
 
   return toDateSegments(Number(match[1]), Number(match[2]), Number(match[3]));
 };
@@ -179,12 +182,12 @@ const stepDateSegment = (
   if (kind === "year") {
     const { min, max } = SEGMENT_SPEC.year;
     const year =
-      current == null ? new Date().getFullYear() : Math.min(Math.max(current + delta, min), max);
+      current === null ? new Date().getFullYear() : Math.min(Math.max(current + delta, min), max);
     return constrainDay(withSegment(segments, kind, year));
   }
 
   const last = getLastValue(segments, kind);
-  if (current == null) return constrainDay(withSegment(segments, kind, delta > 0 ? 1 : last));
+  if (current === null) return constrainDay(withSegment(segments, kind, delta > 0 ? 1 : last));
 
   // 1부터 last까지를 순환한다.
   const next = ((current - 1 + delta + last) % last) + 1;
@@ -204,7 +207,7 @@ const setDateSegmentToEdge = (
 };
 
 const clearDateSegment = (segments: DateSegments, kind: DateSegmentKind): DateSegments | null =>
-  segments[kind] == null ? null : withSegment(segments, kind, null);
+  segments[kind] === null ? null : withSegment(segments, kind, null);
 
 /**
  * 숫자 입력을 누적한다.
@@ -246,7 +249,7 @@ const applyCharacter = (state: DateEditState, char: string): DateEditState | nul
   const nextKind = KINDS[Math.min(index + 1, KINDS.length - 1)];
 
   if (SEPARATOR_PATTERN.test(char)) {
-    return state.pending == null ? null : { ...state, active: nextKind, pending: null };
+    return state.pending === null ? null : { ...state, active: nextKind, pending: null };
   }
 
   if (!DIGIT_PATTERN.test(char)) return null;
@@ -267,7 +270,10 @@ export const DATE_SEGMENT_RULES: SegmentedInputRules<DateSegmentKind, DateSegmen
     getRange,
     format: formatDateSegments,
     hasInput: (segments, pending) =>
-      segments.year != null || segments.month != null || segments.day != null || pending != null,
+      segments.year !== null ||
+      segments.month !== null ||
+      segments.day !== null ||
+      pending !== null,
     parseValue: parseDateValue,
     toValue: toDateValue,
     parseText: parseDateText,

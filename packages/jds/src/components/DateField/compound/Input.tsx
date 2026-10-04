@@ -50,7 +50,7 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
       value,
       defaultValue,
       onChange,
-      suffix,
+      suffix = null,
       withPicker = true,
       minDate,
       maxDate,
@@ -135,8 +135,8 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
     const defaultValueRef = useRef(defaultValue ?? "");
 
     useEffect(() => {
-      const formElement = inputRef.current?.form;
-      if (formElement == null) return;
+      const formElement = inputRef.current?.form ?? null;
+      if (formElement === null) return;
 
       // reset 기본 동작이 끝난 다음 태스크에서 값을 되돌린다. 소비처의 초기화 취소 여부도 이 시점에 확인할 수 있다.
       const handleReset = (event: Event) => {
@@ -209,8 +209,8 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
                 />
               </Popover.Trigger>
             )}
-            {suffix != null && <span className={styles.suffix}>{suffix}</span>}
-            {name != null && (
+            {suffix !== null && <span className={styles.suffix}>{suffix}</span>}
+            {name !== undefined && (
               <input
                 type='hidden'
                 name={name}

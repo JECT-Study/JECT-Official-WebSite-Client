@@ -39,8 +39,8 @@ export const DateFieldPicker = ({
 
   // 첫 탭 정지점인 헤더의 연도 버튼 대신, 선택된 날짜(없으면 오늘) 셀에서 시작한다.
   const handleOpenAutoFocus = (event: Event) => {
-    const cell = pickerRef.current?.querySelector<HTMLElement>(TABBABLE_DATE_CELL_SELECTOR);
-    if (cell == null) return;
+    const cell = pickerRef.current?.querySelector<HTMLElement>(TABBABLE_DATE_CELL_SELECTOR) ?? null;
+    if (cell === null) return;
 
     event.preventDefault();
     cell.focus();
@@ -49,7 +49,8 @@ export const DateFieldPicker = ({
   // 연, 월 목록이 열려 있으면 Esc는 목록만 닫아야 한다.
   // Radix는 Esc를 document 캡처 단계에서 받아 DatePicker가 전파를 막아도 팝오버를 닫으므로 여기서 막는다.
   const handleEscapeKeyDown = (event: KeyboardEvent) => {
-    const isListView = pickerRef.current?.querySelector(DATE_GRID_SELECTOR) == null;
+    const dateGrid = pickerRef.current?.querySelector(DATE_GRID_SELECTOR) ?? null;
+    const isListView = dateGrid === null;
     if (isListView) event.preventDefault();
   };
 

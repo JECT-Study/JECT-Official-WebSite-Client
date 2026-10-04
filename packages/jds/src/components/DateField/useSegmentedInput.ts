@@ -154,7 +154,7 @@ export const useSegmentedInput = <TKind extends string, TSegments, TPending>({
   // 렌더마다 표시 문자열이 바뀌면 브라우저가 선택 영역을 끝으로 옮기므로 현재 세그먼트를 다시 선택한다.
   useLayoutEffect(() => {
     const input = inputRef.current;
-    if (!isFocused || input == null || isPointerSelectingRef.current) return;
+    if (!isFocused || input === null || isPointerSelectingRef.current) return;
     if (input.ownerDocument.activeElement !== input) return;
 
     const [start, end] = isAllSelected ? [0, input.value.length] : rules.getRange(active);
@@ -209,7 +209,7 @@ export const useSegmentedInput = <TKind extends string, TSegments, TPending>({
 
     for (const char of text) {
       const next = rules.applyCharacter(state, char);
-      if (next == null) continue;
+      if (next === null) continue;
 
       state = next;
       isAccepted = true;
@@ -232,7 +232,7 @@ export const useSegmentedInput = <TKind extends string, TSegments, TPending>({
     }
 
     const cleared = rules.clear(segments, active);
-    const hasContent = cleared != null || pending != null;
+    const hasContent = cleared !== null || pending !== null;
     if (hasContent) {
       commit(cleared ?? segments);
       setPending(null);
@@ -259,7 +259,7 @@ export const useSegmentedInput = <TKind extends string, TSegments, TPending>({
 
       const data = event.data ?? "";
       const parsed = data.length > 1 ? rules.parseText(data) : null;
-      if (parsed != null) {
+      if (parsed !== null) {
         replaceSegments(parsed);
         return;
       }
@@ -270,7 +270,7 @@ export const useSegmentedInput = <TKind extends string, TSegments, TPending>({
 
   useEffect(() => {
     const input = inputRef.current;
-    if (input == null) return;
+    if (input === null) return;
 
     const listener = (event: InputEvent) => handleNativeBeforeInputRef.current(event);
     input.addEventListener("beforeinput", listener);
@@ -371,7 +371,7 @@ export const useSegmentedInput = <TKind extends string, TSegments, TPending>({
     event.preventDefault();
 
     const parsed = rules.parseText(event.clipboardData.getData("text"));
-    if (parsed != null) replaceSegments(parsed);
+    if (parsed !== null) replaceSegments(parsed);
   };
 
   const preventEdit = (event: SyntheticEvent) => event.preventDefault();
