@@ -112,6 +112,29 @@ const parseDateValue = (value: string) => {
   return toDateSegments(Number(match[1]), Number(match[2]), Number(match[3]));
 };
 
+/** "YYYY-MM-DD" 값을 로컬 자정의 Date로 바꾼다. 값이 비어 있거나 없는 날짜면 null이다. */
+export const valueToDate = (value: string) => {
+  const segments = parseDateValue(value);
+  if (segments?.year == null || segments.month == null || segments.day == null) return null;
+
+  // new Date(year, month, day)는 0~99년을 1900년대로 해석하므로 연도를 따로 지정한다.
+  const date = new Date(0);
+  date.setFullYear(segments.year, segments.month - 1, segments.day);
+  date.setHours(0, 0, 0, 0);
+  return date;
+};
+
+/** 로컬 시간대 기준으로 Date를 "YYYY-MM-DD" 값으로 바꾼다. null이면 빈 문자열이다. */
+export const dateToValue = (date: Date | null) => {
+  if (date == null) return "";
+
+  return toDateValue({
+    year: date.getFullYear(),
+    month: date.getMonth() + 1,
+    day: date.getDate(),
+  });
+};
+
 /** 붙여넣은 "2026.07.25", "2026-7-25", "2026년 7월 25일", "20260725" 같은 텍스트를 해석한다. */
 const parseDateText = (text: string) => {
   const trimmed = text.trim();
