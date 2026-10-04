@@ -16,7 +16,7 @@ import { Icon } from "../Icon";
 import { Kbd } from "../Kbd";
 
 const SUGGESTIONS = ["React", "TypeScript", "Next.js", "vanilla-extract"];
-const MANY_SUGGESTIONS = Array.from({ length: 40 }, (_, index) => `추천 항목 ${index + 1}`);
+const FIELD_OPTIONS = Array.from({ length: 40 }, (_, index) => `추천 항목 ${index + 1}`);
 
 /**
  * 입력한 문자열을 값으로 받는 필드입니다. 추가한 값은 제안 목록에서 사라집니다.
@@ -282,7 +282,7 @@ export const DialogWheelScroll: Story = {
           </div>
           <SuggestionField style={{ width: "100%", marginTop: 24 }}>
             <SuggestionField.Label>제안 목록</SuggestionField.Label>
-            <SuggestionField.Input suggestions={MANY_SUGGESTIONS} placeholder='옵션 검색' />
+            <SuggestionField.Input suggestions={FIELD_OPTIONS} placeholder='옵션 검색' />
           </SuggestionField>
         </Dialog.Content>
       </Dialog.Portal>

@@ -16,7 +16,7 @@ import { BlockButton } from "../Button/BlockButton";
 import { Icon } from "../Icon";
 import { Kbd } from "../Kbd";
 
-const MANY_OPTIONS = Array.from({ length: 40 }, (_, index) => ({
+const FIELD_OPTIONS = Array.from({ length: 40 }, (_, index) => ({
   value: String(index + 1),
   label: `옵션 ${index + 1}`,
 }));
@@ -265,7 +265,7 @@ export const DialogWheelScroll: Story = {
           </div>
           <SelectField style={{ width: "100%", marginTop: 24 }}>
             <SelectField.Label>단일 선택</SelectField.Label>
-            <SelectField.Input options={MANY_OPTIONS} placeholder='옵션 선택' />
+            <SelectField.Input options={FIELD_OPTIONS} placeholder='옵션 선택' />
           </SelectField>
         </Dialog.Content>
       </Dialog.Portal>
