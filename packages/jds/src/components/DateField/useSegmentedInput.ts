@@ -5,10 +5,17 @@ import {
   useReducer,
   useRef,
   useState,
+  type ChangeEventHandler,
   type ClipboardEvent,
+  type ClipboardEventHandler,
   type CompositionEvent,
+  type CompositionEventHandler,
+  type DragEventHandler,
+  type FocusEventHandler,
   type KeyboardEvent,
+  type KeyboardEventHandler,
   type MouseEvent,
+  type MouseEventHandler,
   type RefObject,
   type SyntheticEvent,
 } from "react";
@@ -72,10 +79,33 @@ interface UseSegmentedInputOptions<TKind extends string, TSegments, TPending> {
   isEditable: boolean;
 }
 
+/** input에 그대로 연결하는 이벤트 핸들러 */
+interface SegmentedInputHandlers {
+  onFocus: FocusEventHandler<HTMLInputElement>;
+  onBlur: FocusEventHandler<HTMLInputElement>;
+  onMouseDown: MouseEventHandler<HTMLInputElement>;
+  onKeyDown: KeyboardEventHandler<HTMLInputElement>;
+  onCompositionEnd: CompositionEventHandler<HTMLInputElement>;
+  onPaste: ClipboardEventHandler<HTMLInputElement>;
+  onCut: ClipboardEventHandler<HTMLInputElement>;
+  onDrop: DragEventHandler<HTMLInputElement>;
+  onChange: ChangeEventHandler<HTMLInputElement>;
+}
+
+interface UseSegmentedInputResult {
+  /** input에 표시할 문자열. 포커스도 입력도 없으면 빈 문자열이라 placeholder가 보인다. */
+  displayValue: string;
+  /** 채워진 세그먼트가 하나도 없는지 여부 */
+  isEmpty: boolean;
+  /** 폼 초기화처럼 부분 입력까지 버리고 값에서 세그먼트를 다시 만들 때 호출한다. */
+  resetSegments: (value: string) => void;
+  handlers: SegmentedInputHandlers;
+}
+
 const parseOrEmpty = <TKind extends string, TSegments, TPending>(
   rules: SegmentedInputRules<TKind, TSegments, TPending>,
   value: string,
-) => rules.parseValue(value) ?? rules.empty;
+): TSegments => rules.parseValue(value) ?? rules.empty;
 
 /**
  * @description 텍스트 input 하나로 여러 세그먼트를 편집한다.
@@ -88,7 +118,7 @@ export const useSegmentedInput = <TKind extends string, TSegments, TPending>({
   value,
   onValueChange,
   isEditable,
-}: UseSegmentedInputOptions<TKind, TSegments, TPending>) => {
+}: UseSegmentedInputOptions<TKind, TSegments, TPending>): UseSegmentedInputResult => {
   const { kinds } = rules;
   const firstKind = kinds[0];
   const lastKind = kinds[kinds.length - 1];
@@ -242,7 +272,7 @@ export const useSegmentedInput = <TKind extends string, TSegments, TPending>({
     const input = inputRef.current;
     if (input == null) return;
 
-    const listener = (event: Event) => handleNativeBeforeInputRef.current(event as InputEvent);
+    const listener = (event: InputEvent) => handleNativeBeforeInputRef.current(event);
     input.addEventListener("beforeinput", listener);
     return () => input.removeEventListener("beforeinput", listener);
   }, [inputRef]);

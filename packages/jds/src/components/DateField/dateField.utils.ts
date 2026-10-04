@@ -110,7 +110,7 @@ const toDateSegments = (year: number, month: number, day: number): DateSegments 
   return { year, month, day };
 };
 
-const formatDateSegments = (segments: DateSegments, pending: PendingDigits | null) =>
+const formatDateSegments = (segments: DateSegments, pending: PendingDigits | null): string =>
   KINDS.map(kind => {
     if (pending?.kind === kind) return pending.digits.padStart(getLength(kind), "0");
 
@@ -119,13 +119,13 @@ const formatDateSegments = (segments: DateSegments, pending: PendingDigits | nul
   }).join(SEPARATOR);
 
 /** 세그먼트를 "YYYY-MM-DD" 값으로 바꾼다. 비어 있는 세그먼트가 있으면 빈 문자열이다. */
-const toDateValue = ({ year, month, day }: DateSegments) => {
+const toDateValue = ({ year, month, day }: DateSegments): string => {
   if (year == null || month == null || day == null) return "";
 
   return `${pad(year, 4)}-${pad(month, 2)}-${pad(day, 2)}`;
 };
 
-const parseDateValue = (value: string) => {
+const parseDateValue = (value: string): DateSegments | null => {
   const match = DATE_VALUE_PATTERN.exec(value);
   if (match == null) return null;
 
@@ -133,7 +133,7 @@ const parseDateValue = (value: string) => {
 };
 
 /** "YYYY-MM-DD" 값을 로컬 자정의 Date로 바꾼다. 값이 비어 있거나 없는 날짜면 null이다. */
-export const valueToDate = (value: string) => {
+export const valueToDate = (value: string): Date | null => {
   const segments = parseDateValue(value);
   if (segments?.year == null || segments.month == null || segments.day == null) return null;
 
@@ -145,7 +145,7 @@ export const valueToDate = (value: string) => {
 };
 
 /** 로컬 시간대 기준으로 Date를 "YYYY-MM-DD" 값으로 바꾼다. null이면 빈 문자열이다. */
-export const dateToValue = (date: Date | null) => {
+export const dateToValue = (date: Date | null): string => {
   if (date == null) return "";
 
   return toDateValue({
@@ -156,7 +156,7 @@ export const dateToValue = (date: Date | null) => {
 };
 
 /** 붙여넣은 "2026.07.25", "2026-7-25", "2026년 7월 25일", "20260725" 같은 텍스트를 해석한다. */
-const parseDateText = (text: string) => {
+const parseDateText = (text: string): DateSegments | null => {
   const trimmed = text.trim();
   const match = DATE_TEXT_PATTERN.exec(trimmed) ?? COMPACT_DATE_TEXT_PATTERN.exec(trimmed);
   if (match == null) return null;
@@ -169,7 +169,11 @@ const parseDateText = (text: string) => {
  * 월과 일은 범위 끝에서 반대쪽 끝으로 넘어가고, 빈 세그먼트는 첫 값이나 마지막 값으로 채운다.
  * 연은 범위 끝에서 멈추고, 비어 있으면 올해로 채운다.
  */
-const stepDateSegment = (segments: DateSegments, kind: DateSegmentKind, delta: SegmentStep) => {
+const stepDateSegment = (
+  segments: DateSegments,
+  kind: DateSegmentKind,
+  delta: SegmentStep,
+): DateSegments => {
   const current = segments[kind];
 
   if (kind === "year") {
@@ -188,14 +192,18 @@ const stepDateSegment = (segments: DateSegments, kind: DateSegmentKind, delta: S
 };
 
 /** 연은 첫 값과 마지막 값이 의미가 없으므로 바꾸지 않는다. */
-const setDateSegmentToEdge = (segments: DateSegments, kind: DateSegmentKind, edge: SegmentEdge) => {
+const setDateSegmentToEdge = (
+  segments: DateSegments,
+  kind: DateSegmentKind,
+  edge: SegmentEdge,
+): DateSegments => {
   if (kind === "year") return segments;
 
   const value = edge === "first" ? SEGMENT_SPEC[kind].min : getLastValue(segments, kind);
   return constrainDay(withSegment(segments, kind, value));
 };
 
-const clearDateSegment = (segments: DateSegments, kind: DateSegmentKind) =>
+const clearDateSegment = (segments: DateSegments, kind: DateSegmentKind): DateSegments | null =>
   segments[kind] == null ? null : withSegment(segments, kind, null);
 
 /**
