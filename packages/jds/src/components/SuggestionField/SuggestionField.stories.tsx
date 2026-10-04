@@ -6,6 +6,7 @@ import {
   FormResult,
 } from "@storybook-utils/field";
 import { FlexColumn, FlexRow, Label } from "@storybook-utils/layout";
+import { Dialog } from "radix-ui";
 import { useState } from "react";
 import { vars } from "tokens";
 
@@ -15,6 +16,7 @@ import { Icon } from "../Icon";
 import { Kbd } from "../Kbd";
 
 const SUGGESTIONS = ["React", "TypeScript", "Next.js", "vanilla-extract"];
+const MANY_SUGGESTIONS = Array.from({ length: 40 }, (_, index) => `추천 항목 ${index + 1}`);
 
 /**
  * 입력한 문자열을 값으로 받는 필드입니다. 추가한 값은 제안 목록에서 사라집니다.
@@ -233,6 +235,58 @@ export const WithSuffix: Story = {
         <SuggestionField.Helper>헬퍼 텍스트</SuggestionField.Helper>
       </SuggestionField.Footer>
     </SuggestionField>
+  ),
+};
+
+/**
+ * Radix Dialog 기반 드로어에서 body로 Portal된 제안 목록을 휠로 스크롤할 수 있습니다.
+ */
+export const DialogWheelScroll: Story = {
+  tags: ["skip-vrt"],
+  render: () => (
+    <Dialog.Root>
+      <Dialog.Trigger asChild>
+        <BlockButton size='sm'>드로어 열기</BlockButton>
+      </Dialog.Trigger>
+      <Dialog.Portal>
+        <Dialog.Overlay
+          style={{ position: "fixed", inset: 0, zIndex: 1, background: "rgba(0, 0, 0, 0.4)" }}
+        />
+        <Dialog.Content
+          style={{
+            position: "fixed",
+            insetBlock: 0,
+            right: 0,
+            zIndex: 1,
+            boxSizing: "border-box",
+            width: "min(480px, 100%)",
+            overflowY: "auto",
+            padding: 24,
+            background: "white",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              gap: 16,
+            }}
+          >
+            <Dialog.Title style={{ margin: 0 }}>제안 필드 휠 스크롤</Dialog.Title>
+            <Dialog.Close asChild>
+              <BlockButton size='sm' hierarchy='secondary' variant='outlined'>
+                닫기
+              </BlockButton>
+            </Dialog.Close>
+          </div>
+          <SuggestionField style={{ width: "100%", marginTop: 24 }}>
+            <SuggestionField.Label>제안 목록</SuggestionField.Label>
+            <SuggestionField.Input suggestions={MANY_SUGGESTIONS} placeholder='옵션 검색' />
+          </SuggestionField>
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
   ),
 };
 
