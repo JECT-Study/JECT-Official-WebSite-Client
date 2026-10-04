@@ -33,20 +33,24 @@ export const DateFieldPicker = ({
 }: DateFieldPickerProps) => {
   const pickerRef = useRef<HTMLDivElement>(null);
 
+  const handleChange = (date: Date | null) => {
+    onSelect(dateToValue(date));
+  };
+
   // 첫 탭 정지점인 헤더의 연도 버튼 대신, 선택된 날짜(없으면 오늘) 셀에서 시작한다.
-  const focusDateCell = (e: Event) => {
+  const handleOpenAutoFocus = (event: Event) => {
     const cell = pickerRef.current?.querySelector<HTMLElement>(TABBABLE_DATE_CELL_SELECTOR);
     if (cell == null) return;
 
-    e.preventDefault();
+    event.preventDefault();
     cell.focus();
   };
 
   // 연, 월 목록이 열려 있으면 Esc는 목록만 닫아야 한다.
   // Radix는 Esc를 document 캡처 단계에서 받아 DatePicker가 전파를 막아도 팝오버를 닫으므로 여기서 막는다.
-  const keepOpenInListView = (e: KeyboardEvent) => {
+  const handleEscapeKeyDown = (event: KeyboardEvent) => {
     const isListView = pickerRef.current?.querySelector(DATE_GRID_SELECTOR) == null;
-    if (isListView) e.preventDefault();
+    if (isListView) event.preventDefault();
   };
 
   return (
@@ -57,14 +61,14 @@ export const DateFieldPicker = ({
         sideOffset={4}
         collisionPadding={8}
         aria-label='날짜 선택'
-        onOpenAutoFocus={focusDateCell}
-        onEscapeKeyDown={keepOpenInListView}
+        onOpenAutoFocus={handleOpenAutoFocus}
+        onEscapeKeyDown={handleEscapeKeyDown}
       >
         <DatePicker
           ref={pickerRef}
           className={styles.picker}
           value={valueToDate(value)}
-          onChange={date => onSelect(dateToValue(date))}
+          onChange={handleChange}
           minDate={minDate}
           maxDate={maxDate}
           isDateDisabled={isDateDisabled}

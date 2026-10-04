@@ -226,9 +226,9 @@ const FormPreview = () => {
 
   return (
     <form
-      onSubmit={e => {
-        e.preventDefault();
-        const entry = new FormData(e.currentTarget).get("startDate");
+      onSubmit={event => {
+        event.preventDefault();
+        const entry = new FormData(event.currentTarget).get("startDate");
         setSubmitted(typeof entry === "string" ? entry : null);
       }}
       onReset={() => setSubmitted(null)}

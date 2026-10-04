@@ -200,22 +200,22 @@ export const useSegmentedInput = <K extends string, S, P>({
     if (direction === "backward") moveBy(-1);
   };
 
-  const handleNativeBeforeInputRef = useRef<(e: InputEvent) => void>(() => {});
+  const handleNativeBeforeInputRef = useRef<(event: InputEvent) => void>(() => {});
 
   useLayoutEffect(() => {
     // 가상 키보드는 keydown이 "Unidentified"로 들어오므로 실제 입력 내용은 beforeinput에서 받는다.
     // 한글 조합 입력은 취소할 수 없어 compositionend에서 처리한다.
-    handleNativeBeforeInputRef.current = e => {
-      if (e.isComposing || e.inputType.startsWith("insertComposition")) return;
+    handleNativeBeforeInputRef.current = event => {
+      if (event.isComposing || event.inputType.startsWith("insertComposition")) return;
 
-      e.preventDefault();
+      event.preventDefault();
 
-      if (e.inputType.startsWith("delete")) {
-        deleteSelection(e.inputType.includes("Forward") ? "forward" : "backward");
+      if (event.inputType.startsWith("delete")) {
+        deleteSelection(event.inputType.includes("Forward") ? "forward" : "backward");
         return;
       }
 
-      const data = e.data ?? "";
+      const data = event.data ?? "";
       const parsed = data.length > 1 ? rules.parseText(data) : null;
       if (parsed != null) {
         replaceSegments(parsed);
@@ -230,7 +230,7 @@ export const useSegmentedInput = <K extends string, S, P>({
     const input = inputRef.current;
     if (input == null) return;
 
-    const listener = (e: Event) => handleNativeBeforeInputRef.current(e as InputEvent);
+    const listener = (event: Event) => handleNativeBeforeInputRef.current(event as InputEvent);
     input.addEventListener("beforeinput", listener);
     return () => input.removeEventListener("beforeinput", listener);
   }, [inputRef]);
@@ -251,10 +251,10 @@ export const useSegmentedInput = <K extends string, S, P>({
     kinds.find(kind => position <= rules.getRange(kind)[1]) ?? lastKind;
 
   // 포인터로 누른 위치의 세그먼트를 선택한다. 드래그가 input 밖에서 끝날 수 있어 document에서 받는다.
-  const handleMouseDown = (e: MouseEvent<HTMLInputElement>) => {
-    if (e.button !== 0) return;
+  const handleMouseDown = (event: MouseEvent<HTMLInputElement>) => {
+    if (event.button !== 0) return;
 
-    const input = e.currentTarget;
+    const input = event.currentTarget;
     // 비어 있는 필드는 표시 문자열이 없어 누른 위치에 뜻이 없다. 첫 세그먼트부터 입력하게 한다.
     const isPlaceholderShown = !isFocused && !hasInput;
     isPointerSelectingRef.current = true;
@@ -274,22 +274,22 @@ export const useSegmentedInput = <K extends string, S, P>({
     );
   };
 
-  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.nativeEvent.isComposing) return;
+  const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.nativeEvent.isComposing) return;
 
-    const isSelectAllKey = (e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "a";
+    const isSelectAllKey = (event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "a";
     if (isSelectAllKey) {
-      e.preventDefault();
+      event.preventDefault();
       setPending(null);
       setIsAllSelected(true);
       return;
     }
 
-    switch (e.key) {
+    switch (event.key) {
       case "ArrowLeft":
       case "ArrowRight": {
-        e.preventDefault();
-        const isForward = e.key === "ArrowRight";
+        event.preventDefault();
+        const isForward = event.key === "ArrowRight";
         // 전체 선택에서는 선택 영역의 양 끝 세그먼트로 간다.
         if (isAllSelected) selectSegment(isForward ? lastKind : firstKind);
         else moveBy(isForward ? 1 : -1);
@@ -297,41 +297,42 @@ export const useSegmentedInput = <K extends string, S, P>({
       }
       case "ArrowUp":
       case "ArrowDown":
-        e.preventDefault();
-        replaceSegments(rules.step(segments, active, e.key === "ArrowUp" ? 1 : -1));
+        event.preventDefault();
+        replaceSegments(rules.step(segments, active, event.key === "ArrowUp" ? 1 : -1));
         return;
       case "Home":
       case "End":
-        e.preventDefault();
-        replaceSegments(rules.setToEdge(segments, active, e.key === "Home" ? "first" : "last"));
+        event.preventDefault();
+        replaceSegments(rules.setToEdge(segments, active, event.key === "Home" ? "first" : "last"));
         return;
       case "Backspace":
       case "Delete":
-        e.preventDefault();
-        deleteSelection(e.key === "Backspace" ? "backward" : "forward");
+        event.preventDefault();
+        deleteSelection(event.key === "Backspace" ? "backward" : "forward");
         return;
     }
 
-    const isCharacterKey = e.key.length === 1 && !e.metaKey && !e.ctrlKey && !e.altKey;
+    const isCharacterKey =
+      event.key.length === 1 && !event.metaKey && !event.ctrlKey && !event.altKey;
     if (isCharacterKey) {
-      e.preventDefault();
-      inputText(e.key);
+      event.preventDefault();
+      inputText(event.key);
     }
   };
 
-  const handleCompositionEnd = (e: CompositionEvent<HTMLInputElement>) => {
-    inputText(e.data);
+  const handleCompositionEnd = (event: CompositionEvent<HTMLInputElement>) => {
+    inputText(event.data);
     requestSelectionSync();
   };
 
-  const handlePaste = (e: ClipboardEvent<HTMLInputElement>) => {
-    e.preventDefault();
+  const handlePaste = (event: ClipboardEvent<HTMLInputElement>) => {
+    event.preventDefault();
 
-    const parsed = rules.parseText(e.clipboardData.getData("text"));
+    const parsed = rules.parseText(event.clipboardData.getData("text"));
     if (parsed != null) replaceSegments(parsed);
   };
 
-  const preventEdit = (e: SyntheticEvent) => e.preventDefault();
+  const preventEdit = (event: SyntheticEvent) => event.preventDefault();
 
   // 표시 문자열은 세그먼트 상태에서만 만든다. 조합 입력 등으로 DOM 값이 바뀌어도 다음 렌더에서 되돌린다.
   const handleChange = () => requestSelectionSync();

@@ -29,10 +29,13 @@ const PICKER_HINT = "Alt와 아래 방향키를 함께 누르면 달력이 열�
 
 // 소비처 핸들러를 먼저 호출하고, 기본 동작을 막았다면 내부 처리를 건너뛴다.
 const composeHandler =
-  <E extends SyntheticEvent>(external: ((e: E) => void) | undefined, internal: (e: E) => void) =>
-  (e: E) => {
-    external?.(e);
-    if (!e.defaultPrevented) internal(e);
+  <E extends SyntheticEvent>(
+    external: ((event: E) => void) | undefined,
+    internal: (event: E) => void,
+  ) =>
+  (event: E) => {
+    external?.(event);
+    if (!event.defaultPrevented) internal(event);
   };
 
 /**
@@ -113,15 +116,15 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
     });
 
     // ↓는 값을 줄이는 데 쓰므로 달력은 Alt와 함께 눌렀을 때 연다.
-    const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-      const isOpenPickerKey = e.altKey && e.key === "ArrowDown";
+    const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+      const isOpenPickerKey = event.altKey && event.key === "ArrowDown";
       if (isOpenPickerKey && withPicker && isEditable) {
-        e.preventDefault();
+        event.preventDefault();
         setIsPickerOpen(true);
         return;
       }
 
-      handlers.onKeyDown(e);
+      handlers.onKeyDown(event);
     };
 
     const handlePickerSelect = (nextValue: string) => {
@@ -136,9 +139,9 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
       if (formElement == null) return;
 
       // reset 기본 동작이 끝난 다음 태스크에서 값을 되돌린다. 소비처의 초기화 취소 여부도 이 시점에 확인할 수 있다.
-      const handleReset = (e: Event) => {
+      const handleReset = (event: Event) => {
         setTimeout(() => {
-          if (e.defaultPrevented) return;
+          if (event.defaultPrevented) return;
 
           setDateValue(defaultValueRef.current);
           resetSegments(defaultValueRef.current);

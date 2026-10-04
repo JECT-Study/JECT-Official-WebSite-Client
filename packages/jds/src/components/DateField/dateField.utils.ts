@@ -38,7 +38,7 @@ const COMPACT_DATE_TEXT_PATTERN = /^(\d{4})(\d{2})(\d{2})$/;
 const DIGIT_PATTERN = /^\d$/;
 const SEPARATOR_PATTERN = /^[.\-/\s]$/;
 
-const pad = (n: number, length: number) => String(n).padStart(length, "0");
+const pad = (value: number, length: number) => String(value).padStart(length, "0");
 
 const isWithin = (value: number, min: number, max: number) => min <= value && value <= max;
 
