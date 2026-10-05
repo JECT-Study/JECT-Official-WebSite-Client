@@ -1,5 +1,6 @@
 import { clsx } from "clsx";
 import { forwardRef, useRef, useState, type KeyboardEvent } from "react";
+import { visuallyHidden } from "utils";
 
 import * as styles from "./datePicker.css";
 import { YEAR_RANGE_RADIUS, type DatePickerProps, type DatePickerView } from "./datePicker.types";
@@ -177,6 +178,9 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
         data-part='root'
         className={clsx(styles.root, className)}
       >
+        <div className={visuallyHidden} role='status' aria-live='polite' aria-atomic='true'>
+          {formatYearMonthLabel(month)}
+        </div>
         <Header
           titles={
             <>

@@ -23,7 +23,7 @@
 | `maxDate`        | -         | 선택할 수 있는 가장 늦은 날짜, 이 날짜가 속한 달보다 뒤로 이동 불가        |
 | `isDateDisabled` | -         | `true`를 반환한 날짜는 선택 불가                                           |
 
-달력은 `role="grid"`로 노출되고, 방향키, Home, End, PageUp, PageDown으로 날짜를 이동합니다. Shift와 함께 PageUp, PageDown을 누르면 1년씩 이동하고, 선택할 수 없는 날짜는 건너뜁니다. Tab 정지점은 달력마다 하나입니다.
+달력은 `role="grid"`로 노출되고, 방향키, Home, End, PageUp, PageDown으로 날짜를 이동합니다. Shift와 함께 PageUp, PageDown을 누르면 1년씩 이동하고, 선택할 수 없는 날짜는 건너뜁니다. Tab 정지점은 달력마다 하나입니다. 이전 달, 다음 달 버튼이나 연월 목록으로 표시 중인 연월이 바뀌면 스크린 리더에 새 연월을 안내합니다.
 
 연도 목록은 `minDate`, `maxDate`의 연도 범위를 보여 주고, 지정하지 않은 쪽은 표시 중인 연도의 10년 전 또는 10년 후까지 보여 줍니다.
 
