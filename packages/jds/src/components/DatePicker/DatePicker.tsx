@@ -90,6 +90,11 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
     );
 
     const [view, setView] = useState<DatePickerView>("date");
+
+    if (disabled && view !== "date") {
+      setView("date");
+    }
+
     const yearButtonRef = useRef<HTMLButtonElement>(null);
     const monthButtonRef = useRef<HTMLButtonElement>(null);
 
