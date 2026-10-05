@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type KeyboardEvent } from "react";
+import { useEffect, useRef, useState, type FocusEvent, type KeyboardEvent } from "react";
 
 import {
   clampDate,
@@ -24,9 +24,6 @@ interface UseCalendarKeyboardParams {
 
 /**
  * @description 달력 격자의 roving tabindex와 키보드 날짜 이동을 관리합니다.
- *
- * @remarks
- * Tab 정지점은 `preferredDates` 중 표시 중인 달에서 선택할 수 있는 첫 날짜이고, 없으면 그 달의 첫 선택 가능한 날짜입니다.
  * @returns 격자에 연결할 `gridRef`, `onGridKeyDown`, 셀마다 펼쳐 넣을 `getCellProps`와 다음 렌더에서 날짜 셀로 포커스를 옮기는 `focusDate`
  */
 export const useCalendarKeyboard = ({
@@ -51,12 +48,20 @@ export const useCalendarKeyboard = ({
     return isInMonth(date) && !isUnavailable(date);
   };
 
-  const tabbableDate =
-    [focusedDate, ...preferredDates].find(
-      (date): date is Date => date !== null && isFocusable(date),
-    ) ??
-    gridDates.find(isFocusable) ??
-    null;
+  const isFocusedDateInGrid =
+    focusedDate !== null &&
+    gridDates.some(date => isSameDay(date, focusedDate)) &&
+    !isUnavailable(focusedDate);
+
+  const getEntryDate = () => {
+    const preferredDate = preferredDates.find(date => date !== null && isFocusable(date));
+
+    if (preferredDate) return preferredDate;
+
+    return gridDates.find(isFocusable) ?? null;
+  };
+
+  const tabbableDate = isFocusedDateInGrid ? focusedDate : getEntryDate();
 
   useEffect(() => {
     if (!shouldMoveFocusRef.current || focusedDate === null) return;
@@ -93,6 +98,11 @@ export const useCalendarKeyboard = ({
       "data-date": toDateKey(date),
       onFocus: () => {
         setFocusedDate(date);
+      },
+      onBlur: (event: FocusEvent<HTMLElement>) => {
+        if (gridRef.current?.contains(event.relatedTarget)) return;
+
+        setFocusedDate(null);
       },
     };
   };
