@@ -37,6 +37,7 @@ export const useDatePickerView = ({ disabled }: UseDatePickerViewParams) => {
     if (event.key !== "Escape" || view === "date") return;
 
     event.stopPropagation();
+    event.preventDefault();
     closeView();
   };
 
