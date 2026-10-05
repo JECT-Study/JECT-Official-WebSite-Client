@@ -1,5 +1,5 @@
-import { DAYS_IN_WEEK } from "./calendar.types";
 import { vars } from "../../../../tokens/vars.css";
+import { DAYS_IN_WEEK } from "../../datePicker.constants";
 import { cellSize } from "../Cell/cell.css";
 
 /** 날짜 셀 사이 간격. 격자 너비와 높이 계산에도 사용합니다. */

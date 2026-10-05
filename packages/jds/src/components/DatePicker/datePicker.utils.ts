@@ -1,5 +1,5 @@
+import { DAYS_IN_WEEK } from "./datePicker.constants";
 import type { Weekday } from "./datePicker.types";
-import { DAYS_IN_WEEK } from "./parts/Calendar";
 import type { CellStatus } from "./parts/Cell";
 
 /** 시간을 무시하고 같은 날짜인지 비교합니다. 둘 다 `null`이면 같다고 봅니다. */
@@ -196,9 +196,6 @@ export const findAvailableDate = (
 export const toDateKey = (date: Date) => {
   return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
 };
-
-/** 격자의 최대 주 수. `fixedWeeks`이면 항상 이 값을 사용합니다. */
-export const MAX_WEEKS_IN_GRID = 6;
 
 /** 격자에 그릴 날짜 목록. 앞뒤 다른 달의 날짜를 포함해 `weekCount`주를 채웁니다. */
 export const getGridDates = (

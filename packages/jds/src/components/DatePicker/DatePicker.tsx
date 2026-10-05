@@ -2,6 +2,7 @@ import { clsx } from "clsx";
 import { forwardRef, useRef, useState, type KeyboardEvent } from "react";
 import { visuallyHidden } from "utils";
 
+import { MAX_WEEKS_IN_GRID } from "./datePicker.constants";
 import * as styles from "./datePicker.css";
 import type { DatePickerProps, DatePickerView } from "./datePicker.types";
 import {
@@ -16,7 +17,6 @@ import {
   getYearOptions,
   isDateUnavailable,
   isSameDay,
-  MAX_WEEKS_IN_GRID,
   startOfDay,
 } from "./datePicker.utils";
 import { ActionBar } from "./parts/ActionBar";

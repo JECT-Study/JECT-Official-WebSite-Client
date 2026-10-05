@@ -2,9 +2,6 @@ import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 import type { Weekday } from "../../datePicker.types";
 
-/** 한 주의 날짜 수. 격자의 열 수입니다. */
-export const DAYS_IN_WEEK = 7;
-
 export interface CalendarProps extends ComponentPropsWithoutRef<"div"> {
   /** 파츠 식별자는 내부에서 지정하므로 넘길 수 없습니다. */
   "data-part"?: never;

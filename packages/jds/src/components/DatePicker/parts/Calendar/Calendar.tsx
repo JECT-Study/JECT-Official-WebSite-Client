@@ -2,7 +2,8 @@ import { clsx } from "clsx";
 import { Children, forwardRef } from "react";
 
 import * as styles from "./calendar.css";
-import { DAYS_IN_WEEK, type CalendarProps } from "./calendar.types";
+import type { CalendarProps } from "./calendar.types";
+import { DAYS_IN_WEEK } from "../../datePicker.constants";
 import type { Weekday } from "../../datePicker.types";
 import { WeekdayLabel } from "../WeekdayLabel";
 

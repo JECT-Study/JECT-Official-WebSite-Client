@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexRow } from "@storybook-utils/layout";
 
 import { Calendar } from "./Calendar";
-import { DAYS_IN_WEEK } from "./calendar.types";
+import { DAYS_IN_WEEK } from "../../datePicker.constants";
 import { WEEKDAY_OPTIONS, type Weekday } from "../../datePicker.types";
 import { getGridDates, isSameDay } from "../../datePicker.utils";
 import { Cell } from "../Cell";

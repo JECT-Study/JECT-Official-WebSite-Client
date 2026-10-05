@@ -1,7 +1,7 @@
 import { style } from "@vanilla-extract/css";
 
 import { calendarCellGap, calendarPadding, calendarWeekdayGap } from "./calendar.constants";
-import { DAYS_IN_WEEK } from "./calendar.types";
+import { DAYS_IN_WEEK } from "../../datePicker.constants";
 import { cellSize } from "../Cell/cell.css";
 
 export const root = style({
