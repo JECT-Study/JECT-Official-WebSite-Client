@@ -14,7 +14,8 @@ import type { Weekday } from "./parts/WeekdayLabel";
 interface UseCalendarKeyboardParams {
   month: Date;
   gridDates: Date[];
-  preferredDates: (Date | null)[];
+  displayed: Date | null;
+  today: Date;
   weekStartsOn: Weekday;
   minDate?: Date;
   maxDate?: Date;
@@ -29,7 +30,8 @@ interface UseCalendarKeyboardParams {
 export const useCalendarKeyboard = ({
   month,
   gridDates,
-  preferredDates,
+  displayed,
+  today,
   weekStartsOn,
   minDate,
   maxDate,
@@ -54,9 +56,8 @@ export const useCalendarKeyboard = ({
     !isUnavailable(focusedDate);
 
   const getEntryDate = () => {
-    const preferredDate = preferredDates.find(date => date !== null && isFocusable(date));
-
-    if (preferredDate) return preferredDate;
+    if (displayed !== null && isFocusable(displayed)) return displayed;
+    if (isFocusable(today)) return today;
 
     return gridDates.find(isFocusable) ?? null;
   };

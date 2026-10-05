@@ -120,7 +120,8 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
     const { gridRef, onGridKeyDown, getCellProps, focusDate } = useCalendarKeyboard({
       month,
       gridDates,
-      preferredDates: [displayed, today],
+      displayed,
+      today,
       weekStartsOn,
       minDate,
       maxDate,
