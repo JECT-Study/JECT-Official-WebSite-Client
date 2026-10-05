@@ -29,7 +29,7 @@ const meta: Meta<typeof DatePicker> = {
         component: [
           "캘린더 보기에서 특정 날짜를 선택해 입력하는 컴포넌트입니다. 원하는 연도와 월을 탐색할 수 있어 사용자의 빠른 날짜 입력을 돕습니다.",
           "DatePicker는 Button(Label button, Icon button)과 DatePicker Cell로 구성됩니다. 헤더의 연도와 월은 Label button, 이전 달과 다음 달은 Icon button이며, 액션 바의 오늘, 지우기, 적용도 Label button입니다.",
-          "선택 값은 `value`를 넘기면 호출부가 소유하고, 넘기지 않으면 `defaultValue`로 시작해 DatePicker가 기억합니다. 표시 중인 달은 DatePicker가 관리하며, 달은 이전 달, 다음 달 버튼과 연월 목록으로만 이동합니다. 달력은 `role='grid'`로 노출되며 방향키로 날짜를 이동합니다. 팝오버 연결은 아직 없습니다.",
+          "선택 값은 `value`를 넘기면 호출부가 소유하고, 넘기지 않으면 `defaultValue`로 시작해 DatePicker가 기억합니다. 표시 중인 달도 같은 방식으로 `month`를 넘기면 호출부가 소유하고, 넘기지 않으면 DatePicker가 관리합니다. 달은 이전 달, 다음 달 버튼과 연월 목록 외에도 키보드 이동, 다른 달 날짜 선택, 오늘 버튼, 선택 값 변경으로 바뀌며, 바뀔 때마다 `onMonthChange`가 호출됩니다. 달력은 `role='grid'`로 노출되며 방향키로 날짜를 이동합니다. 팝오버 연결은 아직 없습니다.",
         ].join("\n\n"),
       },
     },
