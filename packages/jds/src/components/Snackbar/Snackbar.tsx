@@ -10,6 +10,7 @@ import { LabelButton } from "../Button/LabelButton";
 import { Icon } from "../Icon";
 import type { IconName } from "../Icon";
 
+import { usePreservedCallback } from "@/hooks/usePreservedCallback";
 import { getBodyClassName, getLabelClassName } from "@/utils/typography";
 
 type SnackbarPhase = "enter" | "static" | "exit";
@@ -41,8 +42,8 @@ export const Snackbar = ({
   const [phase, setPhase] = useState<SnackbarPhase>("enter");
   const hasDescription = Boolean(description);
 
-  // Provider 리렌더로 onRemove가 바뀌어도 exit 타이머가 재시작되지 않도록 최신 콜백만 보관한다.
-  const onRemoveRef = useRef(onRemove);
+  // Provider 리렌더로 onRemove가 바뀌어도 exit 타이머가 재시작되지 않도록 참조를 고정한다.
+  const handleRemove = usePreservedCallback(() => onRemove?.());
 
   // hover/focus로 자동 닫힘을 멈춘 뒤, 남은 시간만큼 이어서 재개하기 위한 타이머 상태.
   const exitTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -108,17 +109,11 @@ export const Snackbar = ({
   }, [clearExitTimer, duration, phase, startExitTimer]);
 
   useEffect(() => {
-    onRemoveRef.current = onRemove;
-  }, [onRemove]);
-
-  useEffect(() => {
     if (phase === "exit") {
-      const timer = setTimeout(() => {
-        onRemoveRef.current?.();
-      }, SNACKBAR_ANIMATION_TIMER.EXIT);
+      const timer = setTimeout(handleRemove, SNACKBAR_ANIMATION_TIMER.EXIT);
       return () => clearTimeout(timer);
     }
-  }, [phase]);
+  }, [handleRemove, phase]);
 
   useEffect(() => {
     if (isClosing) setPhase("exit");
