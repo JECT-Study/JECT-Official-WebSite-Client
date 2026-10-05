@@ -3,7 +3,7 @@ import { forwardRef, useRef, useState, type KeyboardEvent } from "react";
 import { visuallyHidden } from "utils";
 
 import * as styles from "./datePicker.css";
-import { YEAR_RANGE_RADIUS, type DatePickerProps, type DatePickerView } from "./datePicker.types";
+import type { DatePickerProps, DatePickerView } from "./datePicker.types";
 import {
   addMonths,
   formatMonthLabel,
@@ -30,6 +30,9 @@ import { useVisibleMonth } from "./useVisibleMonth";
 import { IconButton } from "../Button/IconButton";
 import { LabelButton } from "../Button/LabelButton";
 import { Divider } from "../Divider";
+
+/** `minDate`, `maxDate`를 넘기지 않으면 연도 목록을 표시 중인 연도의 앞뒤로 이만큼까지 보여 줍니다. */
+const DEFAULT_YEAR_OFFSET = 10;
 
 /**
  * @description 날짜 하나를 고르는 달력 패널
@@ -86,8 +89,8 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
     const bodyHeight = getCalendarBodyHeight(weekCount);
     const monthOptions = getMonthOptions(year, minDate, maxDate);
     const yearOptions = getYearOptions(
-      minDate?.getFullYear() ?? year - YEAR_RANGE_RADIUS,
-      maxDate?.getFullYear() ?? year + YEAR_RANGE_RADIUS,
+      minDate?.getFullYear() ?? year - DEFAULT_YEAR_OFFSET,
+      maxDate?.getFullYear() ?? year + DEFAULT_YEAR_OFFSET,
     );
 
     const [view, setView] = useState<DatePickerView>("date");

@@ -4,8 +4,6 @@ export const DATE_PICKER_VIEW_OPTIONS = ["date", "month", "year"] as const;
 
 export type DatePickerView = (typeof DATE_PICKER_VIEW_OPTIONS)[number];
 
-export const YEAR_RANGE_RADIUS = 10;
-
 /** `Weekday`로 지정할 수 있는 값 */
 export const WEEKDAY_OPTIONS = [0, 1, 2, 3, 4, 5, 6] as const;
 
