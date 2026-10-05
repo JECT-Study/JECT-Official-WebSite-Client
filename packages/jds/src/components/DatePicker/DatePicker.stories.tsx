@@ -1,16 +1,15 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexColumn, FlexRow } from "@storybook-utils/layout";
-import { useState, type ReactNode } from "react";
-import { fn, userEvent, within } from "storybook/test";
+import { useState } from "react";
+import { expect, fn, userEvent, within } from "storybook/test";
 
 import { DatePicker } from "./DatePicker";
-import { Cell, CELL_STATUS_OPTIONS, type CellStatus } from "./parts/Cell";
 import { WEEKDAY_OPTIONS } from "./parts/WeekdayLabel";
 
 import { Code } from "@/components/Code";
 
 const SAMPLE_MONTH = new Date(2026, 2, 1);
-const SAMPLE_DATE = new Date(2026, 2, 30);
+const SAMPLE_DATE = new Date(2026, 2, 12);
 const SAMPLE_OUTSIDE_DATE = new Date(2026, 1, 28);
 
 const PropertyLabel = ({ name, value }: { name: string; value: string }) => (
@@ -18,33 +17,6 @@ const PropertyLabel = ({ name, value }: { name: string; value: string }) => (
     <span>{name}</span>
     <Code>{value}</Code>
   </FlexRow>
-);
-
-const StatusMatrix = ({
-  columns,
-  renderCell,
-}: {
-  columns: string[];
-  renderCell: (status: CellStatus, column: string) => ReactNode;
-}) => (
-  <div
-    style={{
-      display: "grid",
-      gridTemplateColumns: `auto repeat(${columns.length}, minmax(64px, auto))`,
-      alignItems: "center",
-      justifyItems: "center",
-      gap: "16px",
-    }}
-  >
-    <span />
-    {columns.map(column => (
-      <Code key={column}>{column}</Code>
-    ))}
-    {CELL_STATUS_OPTIONS.map(status => [
-      <Code key={status}>{status}</Code>,
-      ...columns.map(column => <div key={`${status}-${column}`}>{renderCell(status, column)}</div>),
-    ])}
-  </div>
 );
 
 const meta: Meta<typeof DatePicker> = {
@@ -112,56 +84,6 @@ export const Keyboard: Story = {
   },
 };
 
-export const State: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story: [
-          "`state`는 UI 요소의 상호작용 상태를 시각적으로 정의한 속성입니다.",
-          "- `rest`는 상호작용하기 이전의 기본값입니다.",
-          "- `hover`는 해당 요소 위에 포인팅 장치를 올려둔 상태입니다.",
-          "- `active`는 해당 요소에 대해 클릭이나 탭(터치) 등의 조치를 취한 상태입니다. '눌린 상태'로도 해석할 수 있습니다.",
-          "",
-          "`state`는 prop이 아니라 CSS `:hover`, `:active`로 표현됩니다. 아래 표는 rest 모습이며, hover와 active는 셀에 포인터를 올리거나 눌러 확인합니다. rest에서 hover로는 `motion.fluent`, `duration.100`으로 전환되고, hover에서 active로는 모션 없이 즉시 바뀝니다.",
-        ].join("\n"),
-      },
-    },
-  },
-  render: () => (
-    <StatusMatrix
-      columns={["rest"]}
-      renderCell={status => <Cell date={SAMPLE_DATE} status={status} />}
-    />
-  ),
-};
-
-export const Status: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story: [
-          "`status`는 DatePicker 캘린더 셀의 선택 상태에 대한 속성입니다.",
-          "- `normal`은 일반적인 날짜 셀입니다.",
-          "- `current`는 시스템 날짜 상의 오늘에 해당하는 셀입니다.",
-          "- `selected`는 사용자 혹은 시스템에 의해 선택된 날짜 셀입니다.",
-          "",
-          "DatePicker가 날짜마다 `status`를 정하며, 값이 바뀔 때 `motion.fluent`, `duration.150`으로 전환됩니다.",
-        ].join("\n"),
-      },
-    },
-  },
-  render: () => (
-    <FlexRow gap='48px'>
-      {CELL_STATUS_OPTIONS.map(status => (
-        <FlexColumn key={status} gap='12px' style={{ alignItems: "center" }}>
-          <PropertyLabel name='status' value={status} />
-          <Cell date={SAMPLE_DATE} status={status} />
-        </FlexColumn>
-      ))}
-    </FlexRow>
-  ),
-};
-
 export const View: Story = {
   parameters: {
     docs: {
@@ -202,34 +124,17 @@ export const OutsideMonth: Story = {
     docs: {
       description: {
         story: [
-          "`outsideMonth`는 현재 보고 있는 달의 이전, 다음 달에 해당하는 날짜 셀 여부에 대한 속성입니다.",
-          "- `outsideMonth=false`는 현재 보고 있는 달에 해당하는 날짜인 경우입니다.",
-          "- 이전, 다음 달에 해당하는 날짜라면 `outsideMonth=true`로 주목도를 낮춰 구분합니다.",
+          "표시 중인 달의 앞뒤 주에는 이전, 다음 달 날짜가 주목도를 낮춘 모습으로 함께 보입니다. 이 예시는 3월을 표시하면서 2월 28일이 선택된 상태입니다.",
           "",
-          "`outsideMonth=true`인 셀도 선택할 수 있고, 선택하면 그 날짜의 달로 이동합니다. 선택된 날짜가 이전이나 다음 달에 걸쳐 보이면 `selected` 모습으로 나타납니다.",
+          "이전, 다음 달 날짜도 선택할 수 있고, 선택하면 그 날짜의 달로 이동합니다. `readOnly`이면 눌러도 선택과 달 이동 모두 일어나지 않습니다. 셀 자체의 모습은 DatePicker/Cell 스토리에서 확인합니다.",
         ].join("\n"),
       },
     },
   },
-  render: () => (
-    <FlexRow gap='64px'>
-      {[false, true].map(outsideMonth => (
-        <FlexColumn key={String(outsideMonth)} gap='12px' style={{ alignItems: "center" }}>
-          <PropertyLabel name='outsideMonth' value={String(outsideMonth)} />
-          <FlexRow gap='16px'>
-            {CELL_STATUS_OPTIONS.map(status => (
-              <Cell
-                key={status}
-                date={outsideMonth ? SAMPLE_OUTSIDE_DATE : SAMPLE_MONTH}
-                status={status}
-                outsideMonth={outsideMonth}
-              />
-            ))}
-          </FlexRow>
-        </FlexColumn>
-      ))}
-    </FlexRow>
-  ),
+  args: {
+    defaultValue: SAMPLE_OUTSIDE_DATE,
+    defaultMonth: SAMPLE_MONTH,
+  },
 };
 
 export const WithActionBar: Story = {
@@ -259,50 +164,33 @@ export const WithActionBar: Story = {
   ),
 };
 
-export const Disabled: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story: [
-          "`disabled`는 비활성화 여부에 대한 속성입니다.",
-          "`disabled=true`라면 DatePicker Cell이 비활성화되었으므로 시각적으로 미묘하게 처리해 접근할 수 없음을 암시합니다.",
-          "또한 `state=rest`가 아닌 다른 상호작용 상태와 `disabled=true`는 함께 조합될 수 없습니다.",
-          "",
-          "DatePicker에서는 `minDate`, `maxDate` 범위 밖의 날짜와 `isDateDisabled`가 `true`를 반환한 날짜가 `disabled`로 표시됩니다.",
-        ].join("\n"),
-      },
-    },
-  },
-  render: () => (
-    <StatusMatrix
-      columns={["false", "true"]}
-      renderCell={(status, column) => (
-        <Cell date={SAMPLE_DATE} status={status} disabled={column === "true"} />
-      )}
-    />
-  ),
-};
-
 export const Focused: Story = {
   parameters: {
     docs: {
       description: {
         story: [
-          "`focused`는 키보드 조작이나 음성 명령 등으로 포커스한 상태입니다.",
-          "`disabled=true`와 `focused=true`는 Figma에서 샌드박스적으로 함께 조합할 수 있지만, 실제 개발에서는 사용하지 않습니다.",
-          "다만 스크린리더 사용자에게 '비활성화된 상태와 이유'를 명확히 전달해야 하는 상황이라면 사용에 대해 별도 논의합니다.",
+          "Tab으로 달력에 들어오면 선택된 날짜에 포커스합니다. 선택된 날짜가 표시 중인 달에 없거나 선택할 수 없으면 오늘, 그것도 없으면 그 달의 첫 선택 가능한 날짜에 포커스합니다.",
           "",
-          "`focused`는 prop이 아니라 CSS `:focus-visible`로 표현됩니다. 아래 표는 `focused=false` 모습이며, `focused=true`는 셀에 Tab으로 포커스해 포커스 링을 확인합니다. 비활성화된 셀은 native `disabled`라 포커스를 받지 않습니다.",
+          "이 예시는 3월 12일이 선택된 상태에서 Tab으로 달력에 들어온 뒤, 오른쪽 방향키로 13일로 옮긴 모습입니다. 포커스 링은 CSS `:focus-visible`로 표현되므로 키보드로 포커스했을 때만 보입니다.",
         ].join("\n"),
       },
+      story: { autoplay: true },
     },
   },
-  render: () => (
-    <StatusMatrix
-      columns={["false"]}
-      renderCell={status => <Cell date={SAMPLE_DATE} status={status} />}
-    />
-  ),
+  args: {
+    defaultValue: SAMPLE_DATE,
+  },
+  play: async ({ canvasElement }) => {
+    const selectedCell = within(canvasElement).getByRole("gridcell", { name: "2026년 3월 12일" });
+
+    for (let count = 0; count < 10 && document.activeElement !== selectedCell; count += 1) {
+      await userEvent.tab();
+    }
+
+    await expect(selectedCell).toHaveFocus();
+
+    await userEvent.keyboard("{ArrowRight}");
+  },
 };
 
 export const Controlled: Story = {
