@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type FocusEvent, type KeyboardEvent } from "react";
 
+import type { Weekday } from "./datePicker.types";
 import {
   clampDate,
   findAvailableDate,
@@ -9,7 +10,6 @@ import {
   startOfMonth,
   toDateKey,
 } from "./datePicker.utils";
-import type { Weekday } from "./parts/WeekdayLabel";
 
 interface UseCalendarKeyboardParams {
   month: Date;

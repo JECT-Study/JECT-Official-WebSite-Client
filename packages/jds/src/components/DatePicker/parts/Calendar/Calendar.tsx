@@ -3,7 +3,8 @@ import { Children, forwardRef } from "react";
 
 import * as styles from "./calendar.css";
 import { DAYS_IN_WEEK, type CalendarProps } from "./calendar.types";
-import { WeekdayLabel, type Weekday } from "../WeekdayLabel";
+import type { Weekday } from "../../datePicker.types";
+import { WeekdayLabel } from "../WeekdayLabel";
 
 /**
  * @description DatePicker에서 요일 헤더 행과 날짜 격자를 배치하는 레이아웃 파츠

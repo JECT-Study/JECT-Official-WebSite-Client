@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexRow } from "@storybook-utils/layout";
 
 import { WeekdayLabel } from "./WeekdayLabel";
-import { WEEKDAY_OPTIONS } from "./weekdayLabel.types";
+import { WEEKDAY_OPTIONS } from "../../datePicker.types";
 
 const MONDAY_FIRST_WEEKDAYS = [1, 2, 3, 4, 5, 6, 0] as const;
 

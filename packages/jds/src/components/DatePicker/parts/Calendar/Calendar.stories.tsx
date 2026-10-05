@@ -3,9 +3,9 @@ import { FlexRow } from "@storybook-utils/layout";
 
 import { Calendar } from "./Calendar";
 import { DAYS_IN_WEEK } from "./calendar.types";
+import { WEEKDAY_OPTIONS, type Weekday } from "../../datePicker.types";
 import { getGridDates, isSameDay } from "../../datePicker.utils";
 import { Cell } from "../Cell";
-import { WEEKDAY_OPTIONS, type Weekday } from "../WeekdayLabel";
 
 const TODAY = new Date(2026, 8, 17);
 

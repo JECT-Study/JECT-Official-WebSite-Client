@@ -1,12 +1,16 @@
 import type { ComponentPropsWithoutRef } from "react";
 
-import type { Weekday } from "./parts/WeekdayLabel";
-
 export const DATE_PICKER_VIEW_OPTIONS = ["date", "month", "year"] as const;
 
 export type DatePickerView = (typeof DATE_PICKER_VIEW_OPTIONS)[number];
 
 export const YEAR_RANGE_RADIUS = 10;
+
+/** `Weekday`로 지정할 수 있는 값 */
+export const WEEKDAY_OPTIONS = [0, 1, 2, 3, 4, 5, 6] as const;
+
+/** 요일. `Date.getDay()`와 같이 0은 일요일, 6은 토요일입니다. */
+export type Weekday = (typeof WEEKDAY_OPTIONS)[number];
 
 export interface DatePickerProps extends Omit<
   ComponentPropsWithoutRef<"div">,

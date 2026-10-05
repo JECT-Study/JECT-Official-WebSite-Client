@@ -4,7 +4,7 @@ import { useState } from "react";
 import { expect, fn, userEvent, within } from "storybook/test";
 
 import { DatePicker } from "./DatePicker";
-import { WEEKDAY_OPTIONS } from "./parts/WeekdayLabel";
+import { WEEKDAY_OPTIONS } from "./datePicker.types";
 
 import { Code } from "@/components/Code";
 

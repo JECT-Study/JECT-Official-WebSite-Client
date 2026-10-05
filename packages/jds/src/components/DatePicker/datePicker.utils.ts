@@ -1,6 +1,6 @@
+import type { Weekday } from "./datePicker.types";
 import { DAYS_IN_WEEK } from "./parts/Calendar";
 import type { CellStatus } from "./parts/Cell";
-import type { Weekday } from "./parts/WeekdayLabel";
 
 /** 시간을 무시하고 같은 날짜인지 비교합니다. 둘 다 `null`이면 같다고 봅니다. */
 export const isSameDay = (a: Date | null, b: Date | null) => {
