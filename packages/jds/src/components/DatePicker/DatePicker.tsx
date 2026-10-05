@@ -1,10 +1,10 @@
 import { clsx } from "clsx";
-import { forwardRef, useRef, useState, type KeyboardEvent } from "react";
+import { forwardRef, type KeyboardEvent } from "react";
 import { visuallyHidden } from "utils";
 
 import { MAX_WEEKS_IN_GRID } from "./datePicker.constants";
 import * as styles from "./datePicker.css";
-import type { DatePickerProps, DatePickerView } from "./datePicker.types";
+import type { DatePickerProps } from "./datePicker.types";
 import {
   addMonths,
   formatMonthLabel,
@@ -25,6 +25,7 @@ import { Cell } from "./parts/Cell";
 import { Header } from "./parts/Header";
 import { OptionList } from "./parts/OptionList";
 import { useCalendarKeyboard } from "./useCalendarKeyboard";
+import { useDatePickerView } from "./useDatePickerView";
 import { useDateSelection } from "./useDateSelection";
 import { useVisibleMonth } from "./useVisibleMonth";
 import { IconButton } from "../Button/IconButton";
@@ -93,25 +94,8 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
       maxDate?.getFullYear() ?? year + DEFAULT_YEAR_OFFSET,
     );
 
-    const [view, setView] = useState<DatePickerView>("date");
-
-    if (disabled && view !== "date") {
-      setView("date");
-    }
-
-    const yearButtonRef = useRef<HTMLButtonElement>(null);
-    const monthButtonRef = useRef<HTMLButtonElement>(null);
-
-    const toggleView = (next: DatePickerView) => {
-      setView(current => (current === next ? "date" : next));
-    };
-
-    const closeView = () => {
-      const triggerRef = view === "year" ? yearButtonRef : monthButtonRef;
-
-      setView("date");
-      triggerRef.current?.focus();
-    };
+    const { view, yearButtonRef, monthButtonRef, toggleView, closeView, onViewKeyDown } =
+      useDatePickerView({ disabled });
 
     const isNavigationDisabled = disabled || view !== "date";
     const isEditDisabled = disabled || readOnly;
@@ -166,11 +150,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
 
     const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
       onKeyDown?.(event);
-
-      if (event.key === "Escape" && view !== "date") {
-        event.stopPropagation();
-        closeView();
-      }
+      onViewKeyDown(event);
     };
 
     return (
