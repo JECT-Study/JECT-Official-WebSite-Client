@@ -5,9 +5,12 @@ import {
   toCaptionedOptions,
   toSuffixedOptions,
 } from "@storybook-utils/selectOptions";
+import { Popover } from "radix-ui";
 import { useState } from "react";
 
 import { MultiSelect } from "./MultiSelect";
+
+import { BlockButton } from "@/components";
 
 /**
  * 목록에서 여러 값을 선택하는 컴포넌트입니다. 하나의 값만 선택하려면 `Select`를 사용합니다.
@@ -120,6 +123,38 @@ export const ScrollToSelected: Story = {
         height='240px'
         options={REGIONS}
       />
+    );
+  },
+};
+
+/**
+ * Radix Popover 안에서 `maxHeight`에 `var(--radix-popover-content-available-height)`를 지정하면, Radix가 계산한 뷰포트 상한까지만 목록이 늘어나고 넘치면 내부에서 스크롤됩니다.
+ */
+export const MaxHeightInPopover: Story = {
+  args: { options: REGIONS },
+  parameters: { layout: "fullscreen" },
+  tags: ["skip-vrt"],
+  render: function Render() {
+    const [value, setValue] = useState<string[]>([]);
+    return (
+      <div style={{ display: "flex", justifyContent: "center", padding: "24px 16px" }}>
+        <Popover.Root>
+          <Popover.Trigger asChild>
+            <BlockButton>지역 선택</BlockButton>
+          </Popover.Trigger>
+          <Popover.Portal>
+            <Popover.Content align='start' sideOffset={4} collisionPadding={8}>
+              <MultiSelect
+                value={value}
+                onChange={setValue}
+                aria-label='레이블'
+                maxHeight='var(--radix-popover-content-available-height)'
+                options={REGIONS}
+              />
+            </Popover.Content>
+          </Popover.Portal>
+        </Popover.Root>
+      </div>
     );
   },
 };
