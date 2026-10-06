@@ -210,12 +210,14 @@ const ControlledPreview = () => {
         <DateField.Input value={date} onChange={setDate} />
       </DateField>
       <Label>value: {date === "" ? "빈 문자열" : date}</Label>
+      <BlockButton onClick={() => setDate("")}>값 비우기</BlockButton>
     </FlexColumn>
   );
 };
 
 /**
  * `onChange`는 입력이 완성되면 `"YYYY-MM-DD"`를, 완성된 값의 세그먼트를 지우면 빈 문자열을 전달합니다.
+ * 바깥에서 `value`를 빈 문자열로 바꾸면 입력도 비워집니다.
  */
 export const Controlled: Story = {
   render: () => <ControlledPreview />,
