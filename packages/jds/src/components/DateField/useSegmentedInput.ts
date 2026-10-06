@@ -139,11 +139,11 @@ export const useSegmentedInput = <TKind extends string, TSegments, TPending>({
     segmentsRef.current = segments;
   }, [segments]);
 
-  // 외부에서 값이 바뀌면 세그먼트를 다시 만든다. 부분 입력 중에는 값이 빈 문자열이므로 입력을 유지한다.
+  // 외부에서 값이 바뀌면 세그먼트를 다시 만든다.
+  // 부분 입력 중에는 세그먼트의 값과 외부 값이 모두 빈 문자열이라 입력을 유지한다.
   useLayoutEffect(() => {
     const current = segmentsRef.current;
     if (rules.toValue(current) === value) return;
-    if (value === "" && rules.hasInput(current, null)) return;
 
     const next = parseOrEmpty(rules, value);
     segmentsRef.current = next;
