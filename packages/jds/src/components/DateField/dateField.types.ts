@@ -16,6 +16,9 @@ interface DateFieldInputBaseProps extends Omit<
   | "required"
   | "placeholder"
   | "inputMode"
+  | "autoComplete"
+  | "autoCorrect"
+  | "spellCheck"
 > {
   /** 필수 입력 여부. aria-required로 반영한다. */
   required?: boolean;
