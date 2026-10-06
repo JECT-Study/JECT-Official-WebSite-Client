@@ -135,21 +135,28 @@ export const useSegmentedInput = <TKind extends string, TSegments, TPending>({
 
   const hasInput = rules.hasInput(segments, pending);
 
-  useLayoutEffect(() => {
-    segmentsRef.current = segments;
-  }, [segments]);
+  // 세그먼트는 여기서만 쓴다. ref는 아래 effect가 값이 바뀐 시점의 세그먼트를 읽는 데 쓴다.
+  const writeSegments = useCallback((next: TSegments) => {
+    segmentsRef.current = next;
+    setSegments(next);
+  }, []);
+
+  // 값에서 세그먼트를 다시 만들고 확정 전 입력을 버린다.
+  const loadValue = useCallback(
+    (nextValue: string) => {
+      writeSegments(parseOrEmpty(rules, nextValue));
+      setPending(null);
+    },
+    [rules, writeSegments],
+  );
 
   // 외부에서 값이 바뀌면 세그먼트를 다시 만든다.
   // 부분 입력 중에는 세그먼트의 값과 외부 값이 모두 빈 문자열이라 입력을 유지한다.
   useLayoutEffect(() => {
-    const current = segmentsRef.current;
-    if (rules.toValue(current) === value) return;
+    if (rules.toValue(segmentsRef.current) === value) return;
 
-    const next = parseOrEmpty(rules, value);
-    segmentsRef.current = next;
-    setSegments(next);
-    setPending(null);
-  }, [value, rules]);
+    loadValue(value);
+  }, [value, rules, loadValue]);
 
   // 렌더마다 표시 문자열이 바뀌면 브라우저가 선택 영역을 끝으로 옮기므로 현재 세그먼트를 다시 선택한다.
   useLayoutEffect(() => {
@@ -164,8 +171,7 @@ export const useSegmentedInput = <TKind extends string, TSegments, TPending>({
   });
 
   const commit = (next: TSegments) => {
-    segmentsRef.current = next;
-    setSegments(next);
+    writeSegments(next);
     onValueChange(rules.toValue(next));
   };
 
@@ -381,13 +387,10 @@ export const useSegmentedInput = <TKind extends string, TSegments, TPending>({
 
   const resetSegments = useCallback(
     (nextValue: string) => {
-      const next = parseOrEmpty(rules, nextValue);
-      segmentsRef.current = next;
-      setSegments(next);
-      setPending(null);
+      loadValue(nextValue);
       setIsAllSelected(false);
     },
-    [rules],
+    [loadValue],
   );
 
   return {
