@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { FlexColumn, FlexRow, Label as LayoutLabel } from "@storybook-utils/layout";
 import {
   REGIONS,
   REGION_OPTIONS,
@@ -122,6 +123,52 @@ export const ScrollToSelected: Story = {
         height='240px'
         options={REGIONS}
       />
+    );
+  },
+};
+
+/**
+ * `maxHeight`를 지정하면 그 높이까지만 목록이 늘어나고 넘치면 내부에서 스크롤됩니다. `"full"`은 부모 높이를 상한으로 둡니다.
+ */
+export const MaxHeight: Story = {
+  args: { options: REGIONS },
+  render: function Render() {
+    const [fullValue, setFullValue] = useState<string | null>(null);
+    const [fullFewValue, setFullFewValue] = useState<string | null>(null);
+    const [fixedValue, setFixedValue] = useState<string | null>(null);
+    return (
+      <FlexColumn gap='8px'>
+        <LayoutLabel>부모 300px</LayoutLabel>
+        <FlexRow gap='24px'>
+          <div style={{ height: 300 }}>
+            <Select
+              value={fullValue}
+              onChange={setFullValue}
+              label='full · 옵션 16개'
+              maxHeight='full'
+              options={REGIONS}
+            />
+          </div>
+          <div style={{ height: 300 }}>
+            <Select
+              value={fullFewValue}
+              onChange={setFullFewValue}
+              label='full · 옵션 4개'
+              maxHeight='full'
+              options={REGION_OPTIONS}
+            />
+          </div>
+          <div style={{ height: 300 }}>
+            <Select
+              value={fixedValue}
+              onChange={setFixedValue}
+              label='240px · 옵션 16개'
+              maxHeight='240px'
+              options={REGIONS}
+            />
+          </div>
+        </FlexRow>
+      </FlexColumn>
     );
   },
 };
