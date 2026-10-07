@@ -28,7 +28,7 @@ export type SelectBaseProps = AriaLabelProps & {
   disabled?: boolean;
   width?: SelectDimension;
   height?: SelectDimension;
-  maxHeight?: string;
+  maxHeight?: SelectDimension;
   options: SelectOption[];
 };
 
@@ -54,6 +54,6 @@ export interface ListboxProps extends ComponentPropsWithoutRef<"div"> {
   label?: string;
   width?: SelectDimension;
   height?: SelectDimension;
-  maxHeight?: string;
+  maxHeight?: SelectDimension;
   surface?: boolean;
 }

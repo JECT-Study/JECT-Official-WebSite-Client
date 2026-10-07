@@ -45,7 +45,7 @@ const InternalListbox = forwardRef<HTMLDivElement, ListboxProps>(
       containerStyle.height = resolveDimension(height);
     }
     if (maxHeight !== undefined) {
-      containerStyle.maxHeight = maxHeight;
+      containerStyle.maxHeight = resolveDimension(maxHeight);
     }
 
     return (
