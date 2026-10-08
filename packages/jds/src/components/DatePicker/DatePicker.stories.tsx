@@ -36,9 +36,9 @@ const meta: Meta<typeof DatePicker> = {
   },
   argTypes: {
     value: { control: false },
-    defaultValue: { control: "date" },
+    defaultValue: { control: false },
     month: { control: false },
-    defaultMonth: { control: "date" },
+    defaultMonth: { control: false },
     weekStartsOn: { control: "select", options: WEEKDAY_OPTIONS },
     withActionBar: { control: "boolean" },
     fixedWeeks: { control: "boolean" },
