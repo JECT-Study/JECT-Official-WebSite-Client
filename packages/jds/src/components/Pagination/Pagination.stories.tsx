@@ -1,8 +1,43 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexColumn, Label } from "@storybook-utils/layout";
-import { useState } from "react";
+import {
+  createContext,
+  forwardRef,
+  useContext,
+  useState,
+  type ComponentPropsWithoutRef,
+} from "react";
 
 import { Pagination } from "./Pagination";
+
+const NavigateContext = createContext<(href: string) => void>(() => {});
+
+interface RouterLinkProps extends ComponentPropsWithoutRef<"a"> {
+  href: string;
+}
+
+const RouterLink = forwardRef<HTMLAnchorElement, RouterLinkProps>(
+  ({ href, onClick, ...restProps }, ref) => {
+    const navigate = useContext(NavigateContext);
+
+    return (
+      <a
+        ref={ref}
+        href={href}
+        {...restProps}
+        onClick={event => {
+          onClick?.(event);
+          if (event.defaultPrevented) return;
+
+          event.preventDefault();
+          navigate(href);
+        }}
+      />
+    );
+  },
+);
+
+RouterLink.displayName = "RouterLink";
 
 const meta = {
   title: "Components/Pagination",
@@ -104,6 +139,28 @@ export const LinkNavigation: Story = {
         story: "getPageHref를 제공하면 모든 페이지 이동 요소를 링크로 렌더링합니다.",
       },
     },
+  },
+};
+
+export const LinkAs: Story = {
+  render: function Render() {
+    const [href, setHref] = useState("?page=5");
+    const page = Number(new URLSearchParams(href).get("page"));
+
+    return (
+      <NavigateContext.Provider value={setHref}>
+        <FlexColumn gap='12px'>
+          <Pagination
+            aria-label='페이지 이동'
+            page={page}
+            totalPages={10}
+            getPageHref={targetPage => `?page=${targetPage}`}
+            linkAs={RouterLink}
+          />
+          <Label style={{ width: "max-content" }}>현재 페이지: {page}</Label>
+        </FlexColumn>
+      </NavigateContext.Provider>
+    );
   },
 };
 
