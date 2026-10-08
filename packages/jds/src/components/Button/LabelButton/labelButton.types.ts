@@ -25,6 +25,16 @@ export interface BaseLabelButtonProps extends Omit<
   suffixIcon?: IconName;
 }
 
+interface LabelButtonBasicProps {
+  hierarchy?: LabelButtonHierarchy;
+  feedback?: never;
+}
+
+interface LabelButtonFeedbackProps {
+  feedback?: LabelButtonFeedback;
+  hierarchy?: never;
+}
+
 interface LabelButtonNativeProps {
   asChild?: false;
   disabled?: boolean;
@@ -44,8 +54,5 @@ interface LabelButtonCustomProps {
  * 비활성 상태는 asChild 없이 `<LabelButton disabled>`로 표현한다.
  */
 export type LabelButtonProps = BaseLabelButtonProps &
-  (
-    | { hierarchy?: LabelButtonHierarchy; feedback?: never }
-    | { feedback?: LabelButtonFeedback; hierarchy?: never }
-  ) &
+  (LabelButtonBasicProps | LabelButtonFeedbackProps) &
   (LabelButtonNativeProps | LabelButtonCustomProps);

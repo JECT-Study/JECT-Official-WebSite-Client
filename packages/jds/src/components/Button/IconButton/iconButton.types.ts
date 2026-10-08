@@ -23,9 +23,25 @@ export const ICON_BUTTON_HIERARCHY_OPTIONS = [
 export type IconButtonSize = (typeof ICON_BUTTON_SIZE_OPTIONS)[number];
 export type IconButtonHierarchy = (typeof ICON_BUTTON_HIERARCHY_OPTIONS)[number];
 
-type IconButtonAccentProps =
-  | { hierarchy?: Exclude<IconButtonHierarchy, "accent">; accentColor?: never }
-  | { hierarchy: "accent"; accentColor?: { normal: string; disabled?: string } };
+interface IconButtonBaseProps extends Omit<
+  ComponentPropsWithoutRef<"button">,
+  "aria-label" | "aria-labelledby" | "children" | "disabled"
+> {
+  "data-part"?: never;
+  icon: IconName;
+  size?: IconButtonSize;
+  condensed?: boolean;
+}
+
+interface IconButtonBasicProps {
+  hierarchy?: Exclude<IconButtonHierarchy, "accent">;
+  accentColor?: never;
+}
+
+interface IconButtonAccentProps {
+  hierarchy: "accent";
+  accentColor?: { normal: string; disabled?: string };
+}
 
 interface IconButtonNativeProps {
   asChild?: false;
@@ -53,15 +69,7 @@ interface IconButtonCustomProps {
  *   <Link href='/' />
  * </IconButton>
  */
-export type IconButtonProps = Omit<
-  ComponentPropsWithoutRef<"button">,
-  "aria-label" | "aria-labelledby" | "children" | "disabled"
-> &
+export type IconButtonProps = IconButtonBaseProps &
   AriaLabelProps &
-  IconButtonAccentProps &
-  (IconButtonNativeProps | IconButtonCustomProps) & {
-    "data-part"?: never;
-    icon: IconName;
-    size?: IconButtonSize;
-    condensed?: boolean;
-  };
+  (IconButtonBasicProps | IconButtonAccentProps) &
+  (IconButtonNativeProps | IconButtonCustomProps);

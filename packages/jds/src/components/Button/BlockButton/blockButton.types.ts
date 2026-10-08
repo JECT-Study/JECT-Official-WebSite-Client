@@ -22,6 +22,18 @@ export interface BaseBlockButtonProps extends Omit<
   suffixIcon?: IconName;
 }
 
+interface BlockButtonBasicProps {
+  hierarchy?: BlockButtonHierarchy;
+  variant?: BlockButtonVariant;
+  feedback?: never;
+}
+
+interface BlockButtonFeedbackProps {
+  feedback?: BlockButtonFeedback;
+  hierarchy?: never;
+  variant?: never;
+}
+
 interface BlockButtonNativeProps {
   asChild?: false;
   disabled?: boolean;
@@ -41,8 +53,5 @@ interface BlockButtonCustomProps {
  * 비활성 상태는 asChild 없이 `<BlockButton disabled>`로 표현한다.
  */
 export type BlockButtonProps = BaseBlockButtonProps &
-  (
-    | { hierarchy?: BlockButtonHierarchy; variant?: BlockButtonVariant; feedback?: never }
-    | { feedback?: BlockButtonFeedback; hierarchy?: never; variant?: never }
-  ) &
+  (BlockButtonBasicProps | BlockButtonFeedbackProps) &
   (BlockButtonNativeProps | BlockButtonCustomProps);
