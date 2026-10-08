@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexColumn, FlexRow } from "@storybook-utils/layout";
+import { forwardRef, type ComponentPropsWithoutRef } from "react";
 import { vars } from "tokens";
 
 import { IconButton } from "./IconButton";
@@ -56,6 +57,16 @@ const meta: Meta<typeof IconButton> = {
 export default meta;
 
 type Story = StoryObj<typeof IconButton>;
+
+interface RouterLinkProps extends Omit<ComponentPropsWithoutRef<"a">, "href"> {
+  to: string;
+}
+
+const RouterLink = forwardRef<HTMLAnchorElement, RouterLinkProps>(({ to, ...restProps }, ref) => (
+  <a ref={ref} {...restProps} href={to} />
+));
+
+RouterLink.displayName = "RouterLink";
 
 export const Default: Story = {
   args: {
@@ -159,26 +170,19 @@ export const IconButtonAccentOverride: Story = {
       ))}
     </FlexRow>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: `디자인 시스템 레벨에서 feedback prop을 제공하지 않는 대신 \`hierarchy='accent'\`에서
-\`accentColor\` prop으로 색상을 지정해 positive / destructive 등의 프리셋을 만들 수 있습니다.
-\`disabled\`를 생략하면 \`normal\`과 동일하게 적용됩니다.
+};
 
-\`\`\`tsx
-import { IconButton, vars } from 'jds';
-
-<IconButton
-  icon="x"
-  hierarchy="accent"
-  aria-label="삭제"
-  accentColor={{ normal: vars.color.semantic.feedback.destructive.normal }}
-/>
-\`\`\``,
-      },
-    },
-  },
+export const IconButtonAsChild: Story = {
+  render: () => (
+    <FlexRow>
+      <IconButton asChild icon='arrow-left' aria-label='이전 페이지'>
+        <RouterLink to='#' />
+      </IconButton>
+      <IconButton asChild icon='arrow-up-right' hierarchy='secondary' aria-label='외부 링크'>
+        <RouterLink to='#' />
+      </IconButton>
+    </FlexRow>
+  ),
 };
 
 export const IconButtonComprehensiveMatrix: Story = {
