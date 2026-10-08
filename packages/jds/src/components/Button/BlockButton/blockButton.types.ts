@@ -1,4 +1,4 @@
-import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import type { ComponentPropsWithoutRef, ReactElement, ReactNode } from "react";
 
 import type { IconName } from "../../Icon";
 
@@ -12,16 +12,37 @@ export type BlockButtonHierarchy = (typeof BLOCK_BUTTON_HIERARCHY_OPTIONS)[numbe
 export type BlockButtonVariant = (typeof BLOCK_BUTTON_VARIANT_OPTIONS)[number];
 export type BlockButtonFeedback = (typeof BLOCK_BUTTON_FEEDBACK_OPTIONS)[number];
 
-export interface BaseBlockButtonProps extends ComponentPropsWithoutRef<"button"> {
+export interface BaseBlockButtonProps extends Omit<
+  ComponentPropsWithoutRef<"button">,
+  "children" | "disabled"
+> {
   "data-part"?: never;
-  children: ReactNode;
   size?: BlockButtonSize;
   prefixIcon?: IconName;
   suffixIcon?: IconName;
 }
 
+interface BlockButtonNativeProps {
+  asChild?: false;
+  disabled?: boolean;
+  children: ReactNode;
+}
+
+interface BlockButtonCustomProps {
+  asChild: true;
+  disabled?: never;
+  children: ReactElement;
+}
+
+/**
+ * `asChild`와 `disabled`는 동시에 사용할 수 없다.
+ *
+ * asChild로 라우팅 컴포넌트를 전달하면 이동을 자식 요소가 제어하므로,
+ * 비활성 상태는 asChild 없이 `<BlockButton disabled>`로 표현한다.
+ */
 export type BlockButtonProps = BaseBlockButtonProps &
   (
     | { hierarchy?: BlockButtonHierarchy; variant?: BlockButtonVariant; feedback?: never }
     | { feedback?: BlockButtonFeedback; hierarchy?: never; variant?: never }
-  );
+  ) &
+  (BlockButtonNativeProps | BlockButtonCustomProps);

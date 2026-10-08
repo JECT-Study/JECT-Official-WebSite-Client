@@ -28,6 +28,7 @@ const baseStyles = style({
   background: "transparent",
   cursor: "pointer",
   userSelect: "none",
+  textDecoration: "none",
   flexShrink: 0,
   boxSizing: "content-box",
   selectors: {

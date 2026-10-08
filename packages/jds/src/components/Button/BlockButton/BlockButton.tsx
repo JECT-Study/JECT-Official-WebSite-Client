@@ -1,4 +1,5 @@
 import { clsx } from "clsx";
+import { Slot } from "radix-ui";
 import { forwardRef } from "react";
 import { getLabelClassName } from "utils";
 
@@ -9,6 +10,7 @@ import { Icon } from "../../Icon";
 export const BlockButton = forwardRef<HTMLButtonElement, BlockButtonProps>(
   (
     {
+      asChild = false,
       children,
       size = "md",
       hierarchy,
@@ -27,20 +29,22 @@ export const BlockButton = forwardRef<HTMLButtonElement, BlockButtonProps>(
       ? feedbackRoot({ feedback, size })
       : basicRoot({ hierarchy: hierarchy ?? "primary", variant: variant ?? "solid", size });
 
+    const Component = asChild ? Slot.Root : "button";
+    const nativeButtonProps = asChild ? {} : { type: "button" as const, disabled };
+
     return (
-      <button
+      <Component
         ref={forwardedRef}
-        type='button'
+        {...nativeButtonProps}
         {...restProps}
-        disabled={disabled}
         data-disabled={disabled || undefined}
         data-part='root'
         className={clsx(getLabelClassName({ size, weight: "bold" }), rootClassName, className)}
       >
         {prefixIcon && <Icon name={prefixIcon} size={iconSize} />}
-        {children}
+        <Slot.Slottable>{children}</Slot.Slottable>
         {suffixIcon && <Icon name={suffixIcon} size={iconSize} />}
-      </button>
+      </Component>
     );
   },
 );
