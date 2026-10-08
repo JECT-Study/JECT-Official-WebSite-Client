@@ -34,9 +34,6 @@ const baseStyles = style({
     "&:disabled, &[data-disabled]": {
       cursor: "not-allowed",
     },
-    "&[data-disabled]::before": {
-      boxShadow: "none",
-    },
   },
 });
 

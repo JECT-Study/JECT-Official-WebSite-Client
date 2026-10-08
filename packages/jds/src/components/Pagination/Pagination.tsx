@@ -1,5 +1,5 @@
 import { clsx } from "clsx";
-import { forwardRef, type ElementType } from "react";
+import { forwardRef, type ElementType, type MouseEvent } from "react";
 
 import * as styles from "./pagination.css";
 import type { PaginationLinkProps, PaginationProps } from "./pagination.types";
@@ -99,24 +99,32 @@ const PaginationArrow = ({
   const isPrevious = direction === "previous";
 
   const targetPage = isPrevious ? page - 1 : page + 1;
-  const isDisabled = disabled || (isPrevious ? page === 1 : page === totalPages);
+  const isBoundary = isPrevious ? page === 1 : page === totalPages;
+  const isDisabled = disabled || isBoundary;
 
   const label = isPrevious ? "이전 페이지" : "다음 페이지";
   const icon = isPrevious ? "chevron-left" : "chevron-right";
   const iconElement = <Icon name={icon} size='xs' aria-hidden />;
 
   if (getPageHref) {
-    const LinkComponent: ElementType = isDisabled ? "a" : (linkAs ?? "a");
+    const LinkComponent: ElementType = disabled ? "a" : (linkAs ?? "a");
 
     return (
       <LinkComponent
-        href={isDisabled ? undefined : getPageHref(targetPage)}
-        role={isDisabled ? "link" : undefined}
-        tabIndex={isDisabled ? -1 : undefined}
+        href={disabled ? undefined : getPageHref(isBoundary ? page : targetPage)}
+        role={disabled ? "link" : undefined}
+        tabIndex={disabled ? -1 : undefined}
         aria-label={label}
         aria-disabled={isDisabled || undefined}
         data-disabled={isDisabled || undefined}
         className={styles.arrow}
+        onClick={
+          isBoundary
+            ? (event: MouseEvent) => {
+                event.preventDefault();
+              }
+            : undefined
+        }
       >
         {iconElement}
       </LinkComponent>
@@ -126,11 +134,12 @@ const PaginationArrow = ({
   return (
     <button
       type='button'
-      disabled={isDisabled}
+      disabled={disabled}
       aria-label={label}
+      aria-disabled={(isBoundary && !disabled) || undefined}
       data-disabled={isDisabled || undefined}
       className={styles.arrow}
-      onClick={() => onPageChange(targetPage)}
+      onClick={isDisabled ? undefined : () => onPageChange(targetPage)}
     >
       {iconElement}
     </button>
