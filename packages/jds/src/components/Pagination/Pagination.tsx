@@ -170,7 +170,7 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(
       totalPages,
     });
 
-    const paginationRange = usePaginationRange({
+    const { range: paginationRange, isWindowShifted } = usePaginationRange({
       page: normalizedPage,
       totalPages: normalizedTotalPages,
       visiblePageCount,
@@ -186,7 +186,7 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(
         aria-labelledby={ariaLabelledBy}
         className={className}
       >
-        <ul className={styles.list}>
+        <ul className={styles.list} data-window-shifted={isWindowShifted || undefined}>
           <li className={styles.item}>
             <PaginationArrow
               {...navigationProps}

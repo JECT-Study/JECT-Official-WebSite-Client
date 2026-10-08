@@ -58,6 +58,10 @@ export const page = style([
       `font-weight ${vars.environment.semantic.duration["150"]} ${vars.environment.semantic.motion.fluent}`,
     ].join(", "),
     selectors: {
+      // 페이지 번호가 key라서 구간이 밀리면 이전 선택 노드가 옆 칸으로 옮겨진다. 그 칸에 선택 강조가 남지 않도록 즉시 전환한다.
+      [`${list}[data-window-shifted] &`]: {
+        transition: "none",
+      },
       "&[aria-current='page']": {
         borderColor: vars.color.semantic.stroke.alpha.subtle,
         backgroundColor: vars.color.semantic.fill.subtlest,
