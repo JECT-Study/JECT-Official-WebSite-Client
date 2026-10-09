@@ -7,6 +7,7 @@ import {
 } from "@storybook-utils/field";
 import { FlexColumn, FlexRow, Label } from "@storybook-utils/layout";
 import { REGIONS, REGION_OPTIONS, toExpressiveOptions } from "@storybook-utils/selectOptions";
+import { Dialog } from "radix-ui";
 import { useState } from "react";
 import { vars } from "tokens";
 
@@ -14,6 +15,11 @@ import { MultiSelectField } from "./MultiSelectField";
 import { BlockButton } from "../Button/BlockButton";
 import { Icon } from "../Icon";
 import { Kbd } from "../Kbd";
+
+const FIELD_OPTIONS = Array.from({ length: 40 }, (_, index) => ({
+  value: String(index + 1),
+  label: `옵션 ${index + 1}`,
+}));
 
 /**
  * 목록에서 여러 값을 선택하는 필드입니다. 값을 옵션으로 제한하지 않아야 하면 `SuggestionField`를 사용합니다.
@@ -252,6 +258,58 @@ export const ScrollToSelected: Story = {
         placeholder='플레이스홀더'
       />
     </MultiSelectField>
+  ),
+};
+
+/**
+ * Radix Dialog 기반 드로어에서 body로 Portal된 옵션 목록을 휠로 스크롤할 수 있습니다.
+ */
+export const DialogWheelScroll: Story = {
+  tags: ["skip-vrt"],
+  render: () => (
+    <Dialog.Root>
+      <Dialog.Trigger asChild>
+        <BlockButton size='sm'>드로어 열기</BlockButton>
+      </Dialog.Trigger>
+      <Dialog.Portal>
+        <Dialog.Overlay
+          style={{ position: "fixed", inset: 0, zIndex: 1, background: "rgba(0, 0, 0, 0.4)" }}
+        />
+        <Dialog.Content
+          style={{
+            position: "fixed",
+            insetBlock: 0,
+            right: 0,
+            zIndex: 1,
+            boxSizing: "border-box",
+            width: "min(480px, 100%)",
+            overflowY: "auto",
+            padding: 24,
+            background: "white",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              gap: 16,
+            }}
+          >
+            <Dialog.Title style={{ margin: 0 }}>다중 선택 필드 휠 스크롤</Dialog.Title>
+            <Dialog.Close asChild>
+              <BlockButton size='sm' hierarchy='secondary' variant='outlined'>
+                닫기
+              </BlockButton>
+            </Dialog.Close>
+          </div>
+          <MultiSelectField style={{ width: "100%", marginTop: 24 }}>
+            <MultiSelectField.Label>다중 선택</MultiSelectField.Label>
+            <MultiSelectField.Input options={FIELD_OPTIONS} placeholder='옵션 선택' />
+          </MultiSelectField>
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
   ),
 };
 
