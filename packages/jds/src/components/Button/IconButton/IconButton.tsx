@@ -36,10 +36,7 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
     const hasIgnoredChildContent = childElement?.props.children != null;
 
     useEffect(() => {
-      const isDevelopment =
-        typeof process !== "undefined" && process.env?.NODE_ENV !== "production";
-
-      if (!isDevelopment || !hasIgnoredChildContent) return;
+      if (process.env.NODE_ENV === "production" || !hasIgnoredChildContent) return;
 
       console.warn(
         "IconButton은 아이콘만 렌더링하므로 asChild로 전달한 요소의 children은 무시됩니다. 요소는 비워서 전달하고, 접근 이름은 aria-label로 지정하세요.",
