@@ -1,13 +1,17 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { FlexColumn, FlexRow, Label as LayoutLabel } from "@storybook-utils/layout";
 import {
   REGIONS,
   REGION_OPTIONS,
   toCaptionedOptions,
   toSuffixedOptions,
 } from "@storybook-utils/selectOptions";
+import { Popover } from "radix-ui";
 import { useState } from "react";
 
 import { Select } from "./Select";
+
+import { BlockButton } from "@/components";
 
 /**
  * 목록에서 하나의 값을 선택하는 컴포넌트입니다. 여러 값을 선택하려면 `MultiSelect`를 사용합니다.
@@ -119,6 +123,84 @@ export const ScrollToSelected: Story = {
         height='240px'
         options={REGIONS}
       />
+    );
+  },
+};
+
+/**
+ * `maxHeight`를 지정하면 그 높이까지만 목록이 늘어나고 넘치면 내부에서 스크롤됩니다. `"full"`은 부모 높이를 상한으로 둡니다. `height`와 달리 항목이 적으면 내용 높이로 줄어듭니다.
+ */
+export const MaxHeight: Story = {
+  args: { options: REGIONS },
+  render: function Render() {
+    const [heightValue, setHeightValue] = useState<string | null>(null);
+    const [fewValue, setFewValue] = useState<string | null>(null);
+    const [manyValue, setManyValue] = useState<string | null>(null);
+    return (
+      <FlexColumn gap='8px'>
+        <LayoutLabel>부모 300px</LayoutLabel>
+        <FlexRow gap='24px'>
+          <div style={{ height: 300 }}>
+            <Select
+              value={heightValue}
+              onChange={setHeightValue}
+              label='height="full" · 옵션 4개'
+              height='full'
+              options={REGION_OPTIONS}
+            />
+          </div>
+          <div style={{ height: 300 }}>
+            <Select
+              value={fewValue}
+              onChange={setFewValue}
+              label='maxHeight="full" · 옵션 4개'
+              maxHeight='full'
+              options={REGION_OPTIONS}
+            />
+          </div>
+          <div style={{ height: 300 }}>
+            <Select
+              value={manyValue}
+              onChange={setManyValue}
+              label='maxHeight="full" · 옵션 16개'
+              maxHeight='full'
+              options={REGIONS}
+            />
+          </div>
+        </FlexRow>
+      </FlexColumn>
+    );
+  },
+};
+
+/**
+ * Radix Popover 안에서 `maxHeight`에 `var(--radix-popover-content-available-height)`를 지정하면, Radix가 계산한 뷰포트 상한까지만 목록이 늘어나고 넘치면 내부에서 스크롤됩니다.
+ */
+export const MaxHeightInPopover: Story = {
+  args: { options: REGIONS },
+  parameters: { layout: "fullscreen" },
+  tags: ["skip-vrt"],
+  render: function Render() {
+    const [value, setValue] = useState<string | null>(null);
+    return (
+      <div style={{ display: "flex", justifyContent: "center", padding: "24px 16px" }}>
+        <Popover.Root>
+          <Popover.Trigger asChild>
+            <BlockButton>지역 선택</BlockButton>
+          </Popover.Trigger>
+          <Popover.Portal>
+            <Popover.Content align='start' sideOffset={4} collisionPadding={8}>
+              <Select
+                value={value}
+                onChange={setValue}
+                aria-label='레이블'
+                maxHeight='var(--radix-popover-content-available-height)'
+                options={REGIONS}
+              />
+            </Popover.Content>
+          </Popover.Portal>
+        </Popover.Root>
+      </div>
     );
   },
 };
