@@ -170,6 +170,26 @@ export const IconButtonAccentOverride: Story = {
       ))}
     </FlexRow>
   ),
+  parameters: {
+    docs: {
+      description: {
+        story: `디자인 시스템 레벨에서 feedback prop을 제공하지 않는 대신 \`hierarchy='accent'\`에서
+\`accentColor\` prop으로 색상을 지정해 positive / destructive 등의 프리셋을 만들 수 있습니다.
+\`disabled\`를 생략하면 \`normal\`과 동일하게 적용됩니다.
+
+\`\`\`tsx
+import { IconButton, vars } from 'jds';
+
+<IconButton
+  icon="x"
+  hierarchy="accent"
+  aria-label="삭제"
+  accentColor={{ normal: vars.color.semantic.feedback.destructive.normal }}
+/>
+\`\`\``,
+      },
+    },
+  },
 };
 
 export const IconButtonAsChild: Story = {
@@ -183,6 +203,20 @@ export const IconButtonAsChild: Story = {
       </IconButton>
     </FlexRow>
   ),
+  parameters: {
+    docs: {
+      description: {
+        story: `IconButton은 \`icon\`만 렌더링하므로 전달한 요소의 children은 무시됩니다.
+요소는 비워서 전달하고, 접근 이름은 \`aria-label\`로 지정하세요.
+
+\`\`\`tsx
+<IconButton asChild icon="arrow-left" aria-label="이전 페이지">
+  <Link href="/" />
+</IconButton>
+\`\`\``,
+      },
+    },
+  },
 };
 
 export const IconButtonComprehensiveMatrix: Story = {
