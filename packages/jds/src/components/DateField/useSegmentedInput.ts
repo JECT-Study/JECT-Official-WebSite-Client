@@ -150,13 +150,13 @@ export const useSegmentedInput = <TKind extends string, TSegments, TPending>({
     [rules, writeSegments],
   );
 
-  // 외부에서 값이 바뀌면 세그먼트를 다시 만든다.
+  // 값이나 세그먼트가 바뀌면 서로 맞춘다. 소비처가 변경을 거절하면 기존 값으로 돌아간다.
   // 부분 입력 중에는 세그먼트의 값과 외부 값이 모두 빈 문자열이라 입력을 유지한다.
   useLayoutEffect(() => {
     if (rules.toValue(segmentsRef.current) === value) return;
 
     loadValue(value);
-  }, [value, rules, loadValue]);
+  }, [value, segments, rules, loadValue]);
 
   // 렌더마다 표시 문자열이 바뀌면 브라우저가 선택 영역을 끝으로 옮기므로 현재 세그먼트를 다시 선택한다.
   useLayoutEffect(() => {
