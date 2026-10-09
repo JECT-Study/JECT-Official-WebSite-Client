@@ -34,7 +34,7 @@ interface IconButtonBaseProps extends Omit<
 }
 
 interface IconButtonBasicProps {
-  hierarchy?: Exclude<IconButtonHierarchy, "accent">;
+  hierarchy?: IconButtonHierarchy;
   accentColor?: never;
 }
 
@@ -50,9 +50,9 @@ interface IconButtonNativeProps {
 }
 
 interface IconButtonCustomProps {
-  asChild?: true;
+  asChild: true;
   disabled?: never;
-  children?: ReactElement;
+  children: ReactElement;
 }
 
 /**
