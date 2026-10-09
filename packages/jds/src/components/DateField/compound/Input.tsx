@@ -101,6 +101,10 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
 
     const isEditable = !isDisabled && !isReadOnly;
 
+    useEffect(() => {
+      if (!isEditable || !withPicker) setIsPickerOpen(false);
+    }, [isEditable, withPicker]);
+
     const [dateValue, setDateValue] = useControllableState<string>(
       value,
       defaultValue ?? "",
@@ -128,6 +132,8 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
     };
 
     const handlePickerSelect = (nextValue: string) => {
+      if (!isEditable) return;
+
       setDateValue(nextValue);
       setIsPickerOpen(false);
     };
@@ -155,7 +161,11 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
     const formatHintId = `${fieldId}-format`;
 
     return (
-      <Popover.Root open={isPickerOpen} onOpenChange={setIsPickerOpen} modal>
+      <Popover.Root
+        open={isPickerOpen && isEditable && withPicker}
+        onOpenChange={setIsPickerOpen}
+        modal
+      >
         <Popover.Anchor asChild>
           <FieldContent data-disabled={isDisabled || undefined}>
             <input
@@ -225,6 +235,8 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
           <DateFieldPicker
             value={dateValue}
             onSelect={handlePickerSelect}
+            disabled={isDisabled}
+            readOnly={isReadOnly}
             minDate={minDate}
             maxDate={maxDate}
             isDateDisabled={isDateDisabled}

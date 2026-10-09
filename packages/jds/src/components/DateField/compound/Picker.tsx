@@ -14,6 +14,8 @@ interface DateFieldPickerProps extends Pick<
   value: string;
   /** 달력에서 날짜를 고르면 "YYYY-MM-DD" 값으로 호출된다. */
   onSelect: (value: string) => void;
+  disabled: boolean;
+  readOnly: boolean;
 }
 
 // DatePicker는 날짜 보기일 때만 격자를 렌더한다. 현재 보기를 노출하지 않으므로 격자 유무로 판단한다.
@@ -27,6 +29,8 @@ const TABBABLE_DATE_CELL_SELECTOR = `${DATE_GRID_SELECTOR} [tabindex="0"]`;
 export const DateFieldPicker = ({
   value,
   onSelect,
+  disabled,
+  readOnly,
   minDate,
   maxDate,
   isDateDisabled,
@@ -70,6 +74,8 @@ export const DateFieldPicker = ({
           className={styles.picker}
           value={valueToDate(value)}
           onChange={handleChange}
+          disabled={disabled}
+          readOnly={readOnly}
           minDate={minDate}
           maxDate={maxDate}
           isDateDisabled={isDateDisabled}
