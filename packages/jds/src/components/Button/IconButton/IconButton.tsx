@@ -58,9 +58,11 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
         className={clsx(styles.root({ hierarchy, size, condensed }), className)}
         style={{ ...accentStyle, ...style }}
       >
-        <Slot.Slottable>
-          {childElement ? cloneElement(childElement, { children: undefined }) : children}
-        </Slot.Slottable>
+        {asChild && (
+          <Slot.Slottable>
+            {childElement ? cloneElement(childElement, { children: undefined }) : children}
+          </Slot.Slottable>
+        )}
         <Icon name={icon} size={size} className={styles.icon} />
       </Component>
     );
