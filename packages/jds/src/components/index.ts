@@ -8,6 +8,7 @@ export * from "./Card";
 export * from "./Checkbox";
 export * from "./Chip";
 export * from "./Code";
+export * from "./DatePicker";
 export * from "./Dialog";
 export * from "./Divider";
 export * from "./EmptyState";
