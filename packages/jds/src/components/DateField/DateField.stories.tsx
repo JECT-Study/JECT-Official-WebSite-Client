@@ -6,7 +6,8 @@ import {
   FormResult,
 } from "@storybook-utils/field";
 import { FlexColumn, FlexRow, Label } from "@storybook-utils/layout";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { expect, fn, userEvent, within } from "storybook/test";
 import { vars } from "tokens";
 
 import { DateField } from "./DateField";
@@ -221,6 +222,152 @@ const ControlledPreview = () => {
  */
 export const Controlled: Story = {
   render: () => <ControlledPreview />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole("textbox", { name: "레이블" });
+
+    await userEvent.click(input);
+    await userEvent.keyboard("{ArrowUp}");
+    await expect(input).toHaveValue("2027.07.25");
+
+    await userEvent.click(canvas.getByRole("button", { name: "값 비우기" }));
+    await expect(input).toHaveValue("");
+
+    await userEvent.click(input);
+    await userEvent.keyboard("2026");
+    await expect(input).toHaveValue("2026.MM.DD");
+    await expect(canvas.getByText("value: 빈 문자열")).toBeInTheDocument();
+
+    await userEvent.keyboard("0725");
+    await expect(input).toHaveValue("2026.07.25");
+    await expect(canvas.getByText("value: 2026-07-25")).toBeInTheDocument();
+  },
+};
+
+const rejectedChange = fn<(value: string) => void>();
+
+/**
+ * 소비처가 `onChange`에서 값을 반영하지 않으면 표시된 날짜도 기존 `value`를 유지합니다.
+ */
+export const ControlledRejection: Story = {
+  render: () => (
+    <form>
+      <FlexColumn gap='16px' style={{ alignItems: "flex-start" }}>
+        <DateField style={FIELD_WIDTH}>
+          <DateField.Label>시작일</DateField.Label>
+          <DateField.Input
+            name='startDate'
+            value='2026-07-25'
+            onChange={rejectedChange}
+            withPicker={false}
+          />
+        </DateField>
+        <Label>value: 2026-07-25 (변경 거절)</Label>
+        <DateField style={FIELD_WIDTH}>
+          <DateField.Label>빈 날짜</DateField.Label>
+          <DateField.Input value='' onChange={rejectedChange} withPicker={false} />
+        </DateField>
+      </FlexColumn>
+    </form>
+  ),
+  play: async ({ canvasElement }) => {
+    rejectedChange.mockClear();
+    const input = within(canvasElement).getByRole("textbox", { name: "시작일" });
+
+    await userEvent.click(input);
+    await userEvent.keyboard("{ArrowUp}");
+    await expect(rejectedChange).toHaveBeenCalledWith("2027-07-25");
+    await expect(input).toHaveValue("2026.07.25");
+
+    await userEvent.keyboard("{Control>}a{/Control}{Backspace}");
+    await expect(rejectedChange).toHaveBeenCalledWith("");
+    await expect(input).toHaveValue("2026.07.25");
+    const form = canvasElement.querySelector("form");
+    if (form === null) throw new Error("폼 제출 값을 검증할 form이 없습니다.");
+    await expect(new FormData(form).get("startDate")).toBe("2026-07-25");
+
+    rejectedChange.mockClear();
+    const emptyInput = within(canvasElement).getByRole("textbox", { name: "빈 날짜" });
+    await userEvent.click(emptyInput);
+    await userEvent.keyboard("2026");
+    await expect(emptyInput).toHaveValue("2026.MM.DD");
+    await expect(rejectedChange).not.toHaveBeenCalled();
+
+    await userEvent.paste("2026-07-25");
+    await expect(rejectedChange).toHaveBeenCalledWith("2026-07-25");
+    await expect(emptyInput).toHaveValue("YYYY.MM.DD");
+  },
+};
+
+const PICKER_STATE_MODES = ["disabled", "readonly", "withoutPicker"] as const;
+
+const PickerStateChangesPreview = () => {
+  const [isRestricted, setIsRestricted] = useState(false);
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== "F2") return;
+
+      event.preventDefault();
+      setIsRestricted(current => !current);
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  return (
+    <FlexColumn gap='16px' style={{ alignItems: "flex-start" }}>
+      <Label>달력이 열린 상태에서 F2를 누르면 각 필드의 상태가 바뀝니다.</Label>
+      {PICKER_STATE_MODES.map(mode => (
+        <DateField
+          key={mode}
+          disabled={isRestricted && mode === "disabled"}
+          readonly={isRestricted && mode === "readonly"}
+          style={FIELD_WIDTH}
+        >
+          <DateField.Label>{mode}</DateField.Label>
+          <DateField.Input
+            defaultValue='2026-07-25'
+            withPicker={!isRestricted || mode !== "withoutPicker"}
+          />
+        </DateField>
+      ))}
+      <BlockButton onClick={() => setIsRestricted(current => !current)}>
+        {isRestricted ? "편집 허용" : "편집 제한"}
+      </BlockButton>
+    </FlexColumn>
+  );
+};
+
+/**
+ * `disabled`, `readonly`로 바뀌거나 `withPicker`를 끄면 열린 달력이 닫힙니다.
+ * 편집을 다시 허용해도 달력은 자동으로 열리지 않습니다.
+ */
+export const PickerStateChanges: Story = {
+  render: () => <PickerStateChangesPreview />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const page = within(canvasElement.ownerDocument.body);
+
+    for (const mode of PICKER_STATE_MODES) {
+      const input = canvas.getByRole("textbox", { name: mode });
+      await userEvent.click(input);
+      await userEvent.keyboard("{Alt>}{ArrowDown}{/Alt}");
+      await expect(page.getByRole("dialog", { name: "날짜 선택" })).toBeInTheDocument();
+
+      await userEvent.keyboard("{F2}");
+      await expect(page.queryByRole("dialog", { name: "날짜 선택" })).not.toBeInTheDocument();
+      await expect(input).toHaveValue("2026.07.25");
+      if (mode === "disabled") await expect(input).toBeDisabled();
+      if (mode === "readonly") await expect(input).toHaveAttribute("readonly");
+
+      await userEvent.keyboard("{F2}");
+      await expect(page.queryByRole("dialog", { name: "날짜 선택" })).not.toBeInTheDocument();
+      await expect(input).toBeEnabled();
+      await expect(input).not.toHaveAttribute("readonly");
+    }
+  },
 };
 
 const FormPreview = () => {
