@@ -32,16 +32,18 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
       : undefined;
 
     // IconButton은 아이콘만 렌더링하므로 asChild로 전달한 요소의 children은 비운다.
-    const childElement = isValidElement<{ children?: ReactNode }>(children) ? children : null;
-    const hasIgnoredChildContent = childElement?.props.children != null;
+    const childElement =
+      asChild && isValidElement<{ children?: ReactNode }>(children) ? children : null;
+    // 렌더링될 값과 관계없이 children을 넘기는 코드 자체를 사용 실수로 보고 경고한다.
+    const hasIgnoredChildren = childElement != null && "children" in childElement.props;
 
     useEffect(() => {
-      if (process.env.NODE_ENV === "production" || !hasIgnoredChildContent) return;
+      if (process.env.NODE_ENV === "production" || !hasIgnoredChildren) return;
 
       console.warn(
         "IconButton은 아이콘만 렌더링하므로 asChild로 전달한 요소의 children은 무시됩니다. 요소는 비워서 전달하고, 접근 이름은 aria-label로 지정하세요.",
       );
-    }, [hasIgnoredChildContent]);
+    }, [hasIgnoredChildren]);
 
     const Component = asChild ? Slot.Root : "button";
     const nativeButtonProps = asChild ? {} : { type: "button" as const, disabled };
