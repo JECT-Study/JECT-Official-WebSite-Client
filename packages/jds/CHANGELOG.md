@@ -1,5 +1,173 @@
 # @jects/jds
 
+## 0.8.0
+
+### Minor Changes
+
+- 740e9a9: **DatePicker**
+
+  날짜 하나를 고르는 달력 패널 `DatePicker`를 추가했습니다. 헤더의 연도와 월 버튼으로 연월 목록을 열 수 있고, 표시 중인 달에 속하지 않는 날짜를 선택하면 그 날짜의 달로 이동합니다. props 타입 `DatePickerProps`와 `weekStartsOn`에 넘기는 값의 타입 `Weekday`도 함께 공개합니다.
+
+  | prop             | 기본값    | 용도                                                                                                |
+  | ---------------- | --------- | --------------------------------------------------------------------------------------------------- |
+  | `value`          | -         | 선택된 날짜, 넘기면 제어 모드이고 바뀌면 그 날짜의 달로 이동 — `month` 제어 시 `onMonthChange` 호출 |
+  | `defaultValue`   | `null`    | 비제어 모드의 시작 선택값                                                                           |
+  | `onChange`       | -         | 선택이 확정될 때 로컬 시간대 자정 기준 날짜로 호출, 지우고 적용하면 `null`                          |
+  | `month`          | -         | 표시할 달, 넘기면 표시 중인 달을 호출부가 소유                                                      |
+  | `defaultMonth`   | 선택된 달 | 처음 표시할 달, 선택이 없으면 오늘이 속한 달                                                        |
+  | `onMonthChange`  | -         | 표시 중인 달이 바뀌면 그 달의 1일로 호출                                                            |
+  | `weekStartsOn`   | `1`       | 한 주의 시작 요일, 0은 일요일                                                                       |
+  | `withActionBar`  | `false`   | 오늘, 지우기, 적용 버튼 표시, 켜면 적용 시에만 `onChange` 호출                                      |
+  | `fixedWeeks`     | `false`   | 모든 달을 6주로 표시, 끄면 달에 필요한 주 수만 표시                                                 |
+  | `disabled`       | `false`   | 날짜 선택과 달 이동을 모두 막음                                                                     |
+  | `readOnly`       | `false`   | 달 이동은 가능하고 선택만 막음                                                                      |
+  | `minDate`        | -         | 선택할 수 있는 가장 이른 날짜, 이 달보다 앞으로 이동 불가 — 없으면 연도 목록은 10년 전부터          |
+  | `maxDate`        | -         | 선택할 수 있는 가장 늦은 날짜, 이 달보다 뒤로 이동 불가 — 없으면 연도 목록은 10년 후까지            |
+  | `isDateDisabled` | -         | `true`를 반환한 날짜는 선택 불가                                                                    |
+
+  달력은 `role="grid"`로 노출되고, 방향키, Home, End, PageUp, PageDown으로 날짜를 이동합니다. Shift와 함께 PageUp, PageDown을 누르면 1년씩 이동하고, 선택할 수 없는 날짜는 건너뜁니다. Tab 정지점은 달력마다 하나입니다. 표시 중인 연월이 바뀌면 스크린 리더에 새 연월을 안내합니다.
+
+  ```tsx
+  const [date, setDate] = useState<Date | null>(null);
+
+  <DatePicker
+    value={date}
+    onChange={setDate}
+    withActionBar
+    minDate={new Date(2026, 0, 1)}
+    maxDate={new Date(2026, 11, 31)}
+    isDateDisabled={day => day.getDay() === 0}
+  />;
+  ```
+
+- d31ad83: **IconButton**
+
+  `asChild`를 추가합니다. `asChild` 없이 `children`을 전달하면 타입 에러가 발생합니다. `children`을 넘기던 코드는 제거가 필요합니다.
+
+  **소비처 영향 (코드 수정 필요)**
+
+  | AS-IS                                 | TO-BE                        |
+  | ------------------------------------- | ---------------------------- |
+  | `children` 전달 가능, 렌더링되지 않음 | `children` 전달 시 타입 에러 |
+
+  ```diff
+  - <IconButton icon='x' aria-label='닫기'>닫기</IconButton>
+  + <IconButton icon='x' aria-label='닫기' />
+  ```
+
+  **추가**
+  - `asChild` — 기본값 `false`, `true`면 자식 요소에 스타일과 props를 병합하고 `icon`을 자식 안에 렌더링, `type`, `disabled` 속성은 렌더링하지 않음
+  - `asChild`와 `disabled`는 함께 사용 불가
+  - 자식 요소의 `children`은 렌더링하지 않음 — 개발 환경에서 `children`을 전달하면 경고 출력, 자식은 비워서 전달하고 접근 이름은 `aria-label`로 지정
+
+  ```tsx
+  <IconButton asChild icon='arrow-left' aria-label='이전 페이지'>
+    <Link href='/' />
+  </IconButton>
+  ```
+
+- c5f6b96: **Pagination**
+
+  `nav > ul > li` 구조로 페이지 번호, 말줄임, 이전과 다음 이동 요소를 표시하는 `Pagination` 컴포넌트를 추가합니다. 버튼의 제어, 비제어 방식과 `href` 기반 링크 방식을 지원합니다. `PaginationProps`, `PaginationButtonProps`, `PaginationLinkProps`, `PaginationVisiblePageCount` 타입을 함께 공개합니다.
+
+  | prop                            | 기본값  | 용도                                                                                     |
+  | ------------------------------- | ------- | ---------------------------------------------------------------------------------------- |
+  | `totalPages`                    | 필수    | 전체 페이지 수, `0`이면 렌더링하지 않음                                                  |
+  | `page`                          | 없음    | 제어 버튼 방식 또는 링크 방식의 현재 페이지                                              |
+  | `defaultPage`                   | `1`     | 비제어 버튼 방식의 초기 페이지                                                           |
+  | `onPageChange`                  | 없음    | 버튼 방식의 페이지 이동 콜백, 제어 방식에서는 필수                                       |
+  | `getPageHref`                   | 없음    | 링크 방식에서 페이지별 URL 생성                                                          |
+  | `linkAs`                        | `a`     | 링크 방식에서 사용할 `href`를 받는 라우팅 컴포넌트                                       |
+  | `visiblePageCount`              | `7`     | 이전과 다음을 제외한 최대 항목 수, 숫자와 말줄임 포함, `7`, `8`, `9`, `10`, `11` 중 선택 |
+  | `disabled`                      | `false` | 모든 페이지 이동 요소 비활성화, Tab 순서에서 제외                                        |
+  | `aria-label`, `aria-labelledby` | 없음    | 탐색 영역의 접근 가능한 이름, 함께 사용 불가, 페이지에 `nav`가 여러 개면 지정 권장       |
+
+  전체 페이지 수가 표시 개수보다 크면 연속된 페이지 번호와 말줄임을 표시합니다. 양쪽에 말줄임이 있는 구간을 처음 표시할 때 홀수 표시 개수는 현재 페이지를 중앙에 배치하고, 짝수 표시 개수는 오른쪽에 페이지 번호를 하나 더 배치합니다. 말줄임은 두 페이지 이상이 생략될 때만 표시합니다.
+
+  표시된 구간의 안쪽 페이지를 선택하면 구간을 유지하고, 양끝 페이지를 선택하면 표시 구간을 이동합니다. `page`나 `totalPages` 변경으로 현재 페이지가 표시 가능한 범위로 보정되어도 `onPageChange`를 호출하지 않습니다. `totalPages` 또는 `visiblePageCount`가 바뀌면 현재 페이지에 맞춰 표시 구간을 다시 배치합니다. 링크 방식에서 URL을 현재 페이지의 기준으로 쓰려면 소비처가 URL에서 페이지 값을 읽어 `page`로 전달합니다.
+
+  첫 페이지의 이전 이동 요소와 마지막 페이지의 다음 이동 요소는 포커스를 유지한 채 `aria-disabled`로 비활성 상태를 알리고, 눌러도 이동하지 않습니다.
+
+  ```tsx
+  import { useState } from "react";
+  import { Pagination } from "@jects/jds";
+
+  function ButtonPagination() {
+    const [page, setPage] = useState(1);
+
+    return (
+      <Pagination aria-label='페이지 이동' page={page} totalPages={10} onPageChange={setPage} />
+    );
+  }
+
+  function UncontrolledPagination() {
+    return <Pagination aria-label='페이지 이동' defaultPage={1} totalPages={10} />;
+  }
+
+  function LinkPagination({ page }: { page: number }) {
+    return (
+      <Pagination
+        aria-label='페이지 이동'
+        page={page}
+        totalPages={10}
+        getPageHref={targetPage => `?page=${targetPage}`}
+      />
+    );
+  }
+  ```
+
+### Patch Changes
+
+- d31ad83: **BlockButton**
+
+  `asChild`를 추가합니다. 전달한 자식 요소를 루트로 렌더링하므로 라우터의 `Link`에 BlockButton 스타일을 적용할 수 있습니다. 기존 코드는 수정 없이 동작합니다.
+  - `asChild` — 기본값 `false`, `true`면 자식 요소에 스타일과 props를 병합하고 `prefixIcon`, `suffixIcon`을 자식 안에 렌더링, `type`, `disabled` 속성은 렌더링하지 않음
+  - `asChild`와 `disabled`는 함께 사용 불가, 자식은 요소 하나만 전달
+
+  ```tsx
+  <BlockButton asChild suffixIcon='arrow-right'>
+    <Link href='/apply'>지원하기</Link>
+  </BlockButton>
+  ```
+
+- d31ad83: **LabelButton**
+
+  `asChild`를 추가합니다. 전달한 자식 요소를 루트로 렌더링하므로 라우터의 `Link`에 LabelButton 스타일을 적용할 수 있습니다. 기존 코드는 수정 없이 동작합니다.
+  - `asChild` — 기본값 `false`, `true`면 자식 요소에 스타일과 props를 병합하고 `prefixIcon`, `suffixIcon`을 자식 안에 렌더링, `type`, `disabled` 속성은 렌더링하지 않음
+  - `asChild`와 `disabled`는 함께 사용 불가, 자식은 요소 하나만 전달
+
+  ```tsx
+  <LabelButton asChild suffixIcon='arrow-right'>
+    <Link href='/apply'>지원하기</Link>
+  </LabelButton>
+  ```
+
+- e2a712f: **Listbox**
+
+  목록 끝까지 스크롤한 뒤 휠을 계속 굴려도 페이지 등 바깥 스크롤 영역이 함께 스크롤되지 않습니다. Listbox를 사용하는 Select, MultiSelect, SelectField, MultiSelectField, SuggestionField에 함께 적용되며, 코드 수정은 필요 없습니다.
+
+- 2428dd7: **MultiSelectField**
+
+  Radix `Dialog` 기반 드로어에서 팝업 옵션 목록을 휠과 터치 드래그로 스크롤할 수 있습니다. 호출부 수정은 필요하지 않습니다.
+
+- 807fe21: **MultiSelect**
+
+  목록 컨테이너의 최대 높이를 지정하는 `maxHeight` prop을 추가합니다. 항목이 적으면 내용 높이에 맞춰 줄어들고, 넘치면 상한에서 내부 스크롤이 생깁니다. `"full"`을 넘기면 부모 높이를 상한으로 둡니다.
+  - `maxHeight?: "full" | string` — `"full"` 또는 CSS 길이 값
+
+- 2428dd7: **SelectField**
+
+  Radix `Dialog` 기반 드로어에서 팝업 옵션 목록을 휠과 터치 드래그로 스크롤할 수 있습니다. 호출부 수정은 필요하지 않습니다.
+
+- 807fe21: **Select**
+
+  목록 컨테이너의 최대 높이를 지정하는 `maxHeight` prop을 추가합니다. 항목이 적으면 내용 높이에 맞춰 줄어들고, 넘치면 상한에서 내부 스크롤이 생깁니다. `"full"`을 넘기면 부모 높이를 상한으로 둡니다.
+  - `maxHeight?: "full" | string` — `"full"` 또는 CSS 길이 값
+
+- 2428dd7: **SuggestionField**
+
+  Radix `Dialog` 기반 드로어에서 팝업 제안 목록을 휠과 터치 드래그로 스크롤할 수 있습니다. 호출부 수정은 필요하지 않습니다.
+
 ## 0.7.0
 
 ### Minor Changes
