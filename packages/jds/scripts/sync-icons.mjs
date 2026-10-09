@@ -8,7 +8,7 @@ const PAGE_ID = "23135:316232";
 const SET_PREFIX = "Iconography/";
 // 여러 색을 쓰는 그래픽이라 currentColor 아이콘으로 다루지 않음
 const IGNORED_SETS = ["Iconography/Colored graphic"];
-// .svgrrc.json의 replaceAttrValues와 같아야 currentColor로 치환됨
+// 피그마에서 허용하는 단색. SVG를 저장하기 전에 currentColor로 치환함
 const ICON_COLORS = ["#1B1C21", "#191B24"];
 
 const ICONS_DIR = "src/assets/icons";
@@ -63,7 +63,12 @@ const changed = [];
 const pending = [];
 await Promise.all(
   icons.map(async ({ id, name }) => {
-    const res = await fetch(images[id]);
+    const imageUrl = images[id];
+    if (!imageUrl) {
+      problems.push(`${name}: Figma에서 이미지 URL을 받지 못함`);
+      return;
+    }
+    const res = await fetch(imageUrl);
     if (!res.ok) {
       problems.push(`${name}: SVG를 받지 못함 (${res.status})`);
       return;
@@ -72,12 +77,26 @@ await Promise.all(
     if (!svg.startsWith('<svg width="24" height="24" viewBox="0 0 24 24"')) {
       problems.push(`${name}: 24x24가 아님`);
     }
-    const strayColors = [...new Set(svg.match(/#[0-9A-Fa-f]{6}\b/g))].filter(
-      color => !ICON_COLORS.includes(color.toUpperCase()),
+    const strayColors = new Set(
+      (svg.match(/#[0-9A-Fa-f]{6}\b/g) ?? []).filter(
+        color => !ICON_COLORS.includes(color.toUpperCase()),
+      ),
     );
-    if (strayColors.length > 0)
-      problems.push(`${name}: 아이콘 색이 아닌 값 ${strayColors.join(", ")}`);
-    pending.push({ name, svg });
+    const normalizedSvg = svg.replace(
+      /(\s(?:fill|stroke)\s*=\s*)(["'])(.*?)\2/g,
+      (attribute, prefix, quote, color) => {
+        const value = color.trim();
+        if (value === "none" || value === "currentColor") return attribute;
+        if (!ICON_COLORS.includes(value.toUpperCase())) {
+          strayColors.add(color);
+          return attribute;
+        }
+        return `${prefix}${quote}currentColor${quote}`;
+      },
+    );
+    if (strayColors.size > 0)
+      problems.push(`${name}: 아이콘 색이 아닌 값 ${[...strayColors].join(", ")}`);
+    pending.push({ name, svg: normalizedSvg });
   }),
 );
 
