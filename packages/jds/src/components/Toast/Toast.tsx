@@ -1,5 +1,5 @@
 import { clsx } from "clsx";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { TOAST_ANIMATION_TIMER, TOAST_DEFAULT_DURATION } from "./toast.constants";
 import * as styles from "./toast.css";
@@ -7,6 +7,7 @@ import type { ToastProps, ToastFeedbackVariant } from "./toast.types";
 import { Icon } from "../Icon";
 import type { IconName } from "../Icon";
 
+import { usePreservedCallback } from "@/hooks/usePreservedCallback";
 import { getBodyClassName, getLabelClassName } from "@/utils/typography";
 
 type ToastPhase = "enter" | "static" | "exit";
@@ -34,8 +35,8 @@ export const Toast = ({
   const [phase, setPhase] = useState<ToastPhase>("enter");
   const hasDescription = Boolean(description);
 
-  // Provider 리렌더로 onRemove가 바뀌어도 exit 타이머가 재시작되지 않도록 최신 콜백만 보관한다.
-  const onRemoveRef = useRef(onRemove);
+  // Provider 리렌더로 onRemove가 바뀌어도 exit 타이머가 재시작되지 않도록 참조를 고정한다.
+  const handleRemove = usePreservedCallback(() => onRemove?.());
 
   useEffect(() => {
     if (phase === "enter") {
@@ -53,17 +54,11 @@ export const Toast = ({
   }, [duration, phase]);
 
   useEffect(() => {
-    onRemoveRef.current = onRemove;
-  }, [onRemove]);
-
-  useEffect(() => {
     if (phase === "exit") {
-      const timer = setTimeout(() => {
-        onRemoveRef.current?.();
-      }, TOAST_ANIMATION_TIMER.EXIT);
+      const timer = setTimeout(handleRemove, TOAST_ANIMATION_TIMER.EXIT);
       return () => clearTimeout(timer);
     }
-  }, [phase]);
+  }, [handleRemove, phase]);
 
   useEffect(() => {
     if (isClosing) setPhase("exit");
