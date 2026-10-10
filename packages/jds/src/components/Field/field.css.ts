@@ -93,7 +93,7 @@ export const content = recipe({
     flex: "1 0 0",
     minWidth: 0,
     gap: vars.scheme.semantic.spacing["8"],
-    padding: `${vars.scheme.semantic.spacing["8"]} ${vars.scheme.semantic.spacing["12"]}`,
+    padding: `${vars.scheme.semantic.spacing["6"]} ${vars.scheme.semantic.spacing["10"]}`,
     borderRadius: vars.scheme.semantic.radius["8"],
     borderWidth: vars.scheme.semantic.strokeWeight["1"],
     borderStyle: "solid",
