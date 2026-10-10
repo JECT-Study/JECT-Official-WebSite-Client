@@ -2,7 +2,7 @@ import { createVar, style, type StyleRule } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
 
-import type { FieldStatus } from "./field.types";
+import type { FieldControlType, FieldStatus } from "./field.types";
 
 export const container = recipe({
   base: {
@@ -116,13 +116,15 @@ export const content = recipe({
       "&:focus-within": {
         borderColor: contentVars.borderFocusColor,
       },
-      // 상태는 루트(컨텍스트)뿐 아니라 컨트롤에서도 덮어쓸 수 있으므로, 컨테이너가 실제 컨트롤 상태를 함께 반영하도록 native 상태를 읽는다.
-      [contentDisabledSelector]: {
-        pointerEvents: "none",
-      },
       // native :read-only는 type에 따라 오탐할 수 있어 컨트롤이 내려준 data 속성을 사용한다.
       [contentReadonlySelector]: {
+        cursor: "default",
         vars: { [contentVars.backgroundColor]: vars.color.semantic.fill.subtlest },
+      },
+      // 상태는 루트(컨텍스트)뿐 아니라 컨트롤에서도 덮어쓸 수 있으므로, 컨테이너가 실제 컨트롤 상태를 함께 반영하도록 native 상태를 읽는다.
+      // readonly와 겹치면 disabled 커서가 이기도록 뒤에 선언한다.
+      [contentDisabledSelector]: {
+        cursor: "not-allowed",
       },
     },
   },
@@ -164,15 +166,20 @@ export const content = recipe({
         },
       },
     } satisfies Record<FieldStatus, StyleRule>,
+    controlType: {
+      input: {},
+      button: { cursor: "pointer" },
+    } satisfies Record<FieldControlType, StyleRule>,
     readOnly: {
       true: {
+        cursor: "default",
         vars: { [contentVars.backgroundColor]: vars.color.semantic.fill.subtlest },
       },
       false: {},
     },
     disabled: {
       true: {
-        pointerEvents: "none",
+        cursor: "not-allowed",
       },
       false: {},
     },

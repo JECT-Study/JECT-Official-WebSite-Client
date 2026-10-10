@@ -28,7 +28,7 @@ export const FieldContent = forwardRef<HTMLDivElement, FieldContentProps>(
         ref={ref}
         onMouseDown={handleMouseDown}
         className={clsx(
-          styles.content({ status, disabled: isDisabled, readOnly: isReadonly }),
+          styles.content({ controlType, status, disabled: isDisabled, readOnly: isReadonly }),
           controlType === "button" && overlay({ hierarchy: "tertiary", density: "normal" }),
           focusRing({ interaction: "within", feedback: statusToFeedback[status] }),
           className,

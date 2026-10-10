@@ -29,7 +29,7 @@ export const input = style({
   selectors: {
     // native readonly는 searchable=false를 표현하는 용도로만 사용한다.
     "&:read-only:not(:disabled)": {
-      cursor: "default",
+      cursor: "inherit",
     },
     "&:disabled": {
       cursor: "not-allowed",

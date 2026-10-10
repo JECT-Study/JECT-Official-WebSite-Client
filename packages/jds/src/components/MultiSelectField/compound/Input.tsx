@@ -272,6 +272,7 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
           <FieldContent
             controlType='button'
             ref={contentRef}
+            data-disabled={isDisabled || undefined}
             className={styles.content}
             onMouseDown={handleContentMouseDown}
           >

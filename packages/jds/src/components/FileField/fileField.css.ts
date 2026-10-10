@@ -5,15 +5,7 @@ export const input = style({
   position: "absolute",
   inset: `calc(-1 * ${vars.scheme.semantic.strokeWeight["1"]})`,
   opacity: 0,
-  cursor: "pointer",
-  selectors: {
-    "&:disabled": {
-      cursor: "not-allowed",
-    },
-    "&[data-readonly]": {
-      cursor: "default",
-    },
-  },
+  cursor: "inherit",
 });
 
 export const value = style({
