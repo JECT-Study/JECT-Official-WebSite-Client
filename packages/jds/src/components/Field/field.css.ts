@@ -169,6 +169,7 @@ export const content = recipe({
     controlType: {
       input: {},
       button: { cursor: "pointer" },
+      textarea: { paddingBlock: vars.scheme.semantic.spacing["8"] },
     } satisfies Record<FieldControlType, StyleRule>,
     readOnly: {
       true: {
