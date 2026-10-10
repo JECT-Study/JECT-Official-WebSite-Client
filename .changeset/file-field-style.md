@@ -10,4 +10,5 @@
 
 - `FileField.Input` hover 시 테두리 색 — 상태별 강조 색으로 바뀌지 않도록 변경
 - `FileField.Input` 안쪽 여백 — 상하 8px에서 6px로, 좌우 12px에서 10px로 변경
+- `FileField.Input` 왼쪽 영역(파일명, 아이콘 위치)의 기본 커서 — 화살표로 표시되던 것을 `pointer`로 수정
 - disabled 커서 — 화살표에서 `not-allowed`로 변경

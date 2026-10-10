@@ -6,6 +6,12 @@ export const input = style({
   inset: `calc(-1 * ${vars.scheme.semantic.strokeWeight["1"]})`,
   opacity: 0,
   cursor: "inherit",
+  selectors: {
+    // 브라우저 기본 스타일이 파일 선택 버튼의 커서를 따로 지정하므로, 버튼 영역도 FieldContent의 커서를 따르게 한다.
+    "&::file-selector-button": {
+      cursor: "inherit",
+    },
+  },
 });
 
 export const value = style({
