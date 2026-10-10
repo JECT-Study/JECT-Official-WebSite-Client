@@ -15,6 +15,7 @@ import {
 } from "react";
 
 import { FieldContent } from "../../Field";
+import * as fieldStyles from "../../Field/field.css";
 import { useFieldControl } from "../../Field/useFieldControl";
 import { Icon } from "../../Icon";
 import { Listbox, useListbox, useSingleSelectState } from "../../Listbox";
@@ -310,7 +311,9 @@ export const SelectFieldInput = forwardRef<HTMLInputElement, SelectFieldInputPro
               onKeyDown={handleKeyDown}
               onMouseDown={handleMouseDown}
             />
-            {suffix != null && <span className={styles.suffix}>{suffix}</span>}
+            {suffix != null && (
+              <span className={clsx(fieldStyles.contentSlot, styles.suffix)}>{suffix}</span>
+            )}
             <button
               type='button'
               tabIndex={-1}

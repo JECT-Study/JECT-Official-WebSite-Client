@@ -11,6 +11,7 @@ import { visuallyHidden } from "utils";
 
 import { IconButton } from "../../Button/IconButton";
 import { FieldContent } from "../../Field";
+import * as fieldStyles from "../../Field/field.css";
 import { useFieldControl } from "../../Field/useFieldControl";
 import { Icon } from "../../Icon";
 import { useFileFieldContext } from "../fileField.context";
@@ -229,7 +230,9 @@ export const FileFieldInput = forwardRef<HTMLInputElement, FileFieldInputProps>(
             onClick={handleClear}
           />
         )}
-        {suffix != null && <span className={styles.suffix}>{suffix}</span>}
+        {suffix != null && (
+          <span className={clsx(fieldStyles.contentSlot, styles.suffix)}>{suffix}</span>
+        )}
       </FieldContent>
     );
   },
