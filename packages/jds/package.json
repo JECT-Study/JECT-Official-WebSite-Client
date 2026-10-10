@@ -88,7 +88,8 @@
     "chromatic": "npx chromatic --project-token=$CHROMATIC_TOKEN",
     "build:tokens": "npx tsx src/tokens/tokensBuilder.ts",
     "clean": "rimraf dist node_modules .turbo storybook-static",
-    "build:icons": "svgr src/assets/icons --out-dir src/components/Icon/generated --typescript --ext tsx",
+    "build:icons": "svgr src/assets/icons --out-dir src/components/Icon/generated --typescript --ext tsx --no-prettier && prettier --write --ignore-path ../../.gitignore src/components/Icon/generated",
+    "sync:icons": "node --env-file-if-exists=.env scripts/sync-icons.mjs",
     "type-check": "tsc -b --noEmit"
   },
   "dependencies": {

@@ -1,5 +1,5 @@
 import type { SVGProps } from "react";
-const SvgSquarePlus = (props: SVGProps<SVGSVGElement>) => (
+const SvgSquareText = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns='http://www.w3.org/2000/svg'
     width='1em'
@@ -10,7 +10,7 @@ const SvgSquarePlus = (props: SVGProps<SVGSVGElement>) => (
   >
     <path
       fill='currentColor'
-      d='M12 7a1 1 0 0 1 1 1v3h3a1 1 0 0 1 0 2h-3v3a1 1 0 0 1-2 0v-3H8a1 1 0 1 1 0-2h3V8a1 1 0 0 1 1-1'
+      d='M13 15a1 1 0 1 1 0 2H7a1 1 0 1 1 0-2zM17 11a1 1 0 1 1 0 2H7a1 1 0 1 1 0-2zM15 7a1 1 0 1 1 0 2H7a1 1 0 0 1 0-2z'
     />
     <path
       fill='currentColor'
@@ -20,4 +20,4 @@ const SvgSquarePlus = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 );
-export default SvgSquarePlus;
+export default SvgSquareText;
