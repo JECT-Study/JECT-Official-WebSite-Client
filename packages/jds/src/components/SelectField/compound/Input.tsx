@@ -272,6 +272,7 @@ export const SelectFieldInput = forwardRef<HTMLInputElement, SelectFieldInputPro
       <>
         <Popover.Anchor asChild>
           <FieldContent
+            controlType='button'
             ref={contentRef}
             data-open={isOpen || undefined}
             data-disabled={isDisabled || undefined}

@@ -270,6 +270,7 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       <>
         <Popover.Anchor asChild>
           <FieldContent
+            controlType='button'
             ref={contentRef}
             className={styles.content}
             onMouseDown={handleContentMouseDown}

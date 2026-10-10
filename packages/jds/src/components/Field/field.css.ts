@@ -81,7 +81,6 @@ export const requiredMark = recipe({
 
 const contentVars = {
   borderColor: createVar(),
-  borderHoverColor: createVar(),
   borderFocusColor: createVar(),
   backgroundColor: createVar(),
 } as const;
@@ -114,9 +113,6 @@ export const content = recipe({
         borderRadius: "inherit",
         transition: `box-shadow ${vars.environment.semantic.duration["100"]} ${vars.environment.semantic.motion.fluent}`,
       },
-      "&:hover": {
-        borderColor: contentVars.borderHoverColor,
-      },
       "&:focus-within": {
         borderColor: contentVars.borderFocusColor,
       },
@@ -135,7 +131,6 @@ export const content = recipe({
       default: {
         vars: {
           [contentVars.borderColor]: vars.color.semantic.stroke.alpha.assistive,
-          [contentVars.borderHoverColor]: vars.color.semantic.accent.normal,
           [contentVars.borderFocusColor]: vars.color.semantic.accent.normal,
         },
         selectors: {
@@ -147,7 +142,6 @@ export const content = recipe({
       success: {
         vars: {
           [contentVars.borderColor]: vars.color.semantic.feedback.positive.alpha.alternative,
-          [contentVars.borderHoverColor]: vars.color.semantic.feedback.positive.normal,
           [contentVars.borderFocusColor]: vars.color.semantic.feedback.positive.normal,
         },
         selectors: {
@@ -159,7 +153,6 @@ export const content = recipe({
       error: {
         vars: {
           [contentVars.borderColor]: vars.color.semantic.feedback.destructive.alpha.alternative,
-          [contentVars.borderHoverColor]: vars.color.semantic.feedback.destructive.normal,
           [contentVars.borderFocusColor]: vars.color.semantic.feedback.destructive.normal,
         },
         selectors: {

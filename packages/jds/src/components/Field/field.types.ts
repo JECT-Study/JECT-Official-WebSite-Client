@@ -18,7 +18,11 @@ export interface FieldProps extends ComponentPropsWithoutRef<"div"> {
   children: ReactNode;
 }
 
+/** 박스 안 컨트롤의 계열. `button` 계열만 hover, press 오버레이를 그린다. */
+export type FieldControlType = "input" | "button";
+
 export interface FieldContentProps extends ComponentPropsWithoutRef<"div"> {
+  controlType?: FieldControlType;
   children: ReactNode;
 }
 

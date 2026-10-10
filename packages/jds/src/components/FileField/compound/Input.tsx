@@ -173,7 +173,7 @@ export const FileFieldInput = forwardRef<HTMLInputElement, FileFieldInputProps>(
     };
 
     return (
-      <FieldContent data-disabled={isDisabled || undefined}>
+      <FieldContent controlType='button' data-disabled={isDisabled || undefined}>
         <span className={clsx(getBodyClassName({ size: "md" }), styles.value)} aria-hidden>
           {hasFile ? (
             <>
