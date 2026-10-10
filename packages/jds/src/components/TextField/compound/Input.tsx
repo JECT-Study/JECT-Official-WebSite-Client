@@ -2,6 +2,7 @@ import { clsx } from "clsx";
 import { forwardRef } from "react";
 
 import { FieldContent } from "../../Field";
+import * as fieldStyles from "../../Field/field.css";
 import { useFieldControl } from "../../Field/useFieldControl";
 import { useTextLengthCounter } from "../../Field/useFieldCounter";
 import * as styles from "../textField.css";
@@ -58,7 +59,9 @@ export const TextFieldInput = forwardRef<HTMLInputElement, TextFieldInputProps>(
 
     return (
       <FieldContent>
-        {prefix}
+        {prefix != null && (
+          <span className={clsx(fieldStyles.contentSlot, styles.affix)}>{prefix}</span>
+        )}
         <input
           {...restProps}
           ref={ref}
@@ -79,7 +82,9 @@ export const TextFieldInput = forwardRef<HTMLInputElement, TextFieldInputProps>(
           data-readonly={isReadOnly || undefined}
           className={clsx(getBodyClassName({ size: "md" }), styles.input, className)}
         />
-        {suffix}
+        {suffix != null && (
+          <span className={clsx(fieldStyles.contentSlot, styles.affix)}>{suffix}</span>
+        )}
       </FieldContent>
     );
   },

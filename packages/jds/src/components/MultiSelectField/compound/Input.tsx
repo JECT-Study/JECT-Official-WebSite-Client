@@ -17,6 +17,7 @@ import {
 
 import { ContentBadge } from "../../Badge";
 import { FieldContent } from "../../Field";
+import * as fieldStyles from "../../Field/field.css";
 import { useFieldControl } from "../../Field/useFieldControl";
 import { useItemCounter } from "../../Field/useFieldCounter";
 import { Listbox, useListbox, useMultiSelectState } from "../../Listbox";
@@ -270,7 +271,9 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       <>
         <Popover.Anchor asChild>
           <FieldContent
+            controlType='button'
             ref={contentRef}
+            data-disabled={isDisabled || undefined}
             className={styles.content}
             onMouseDown={handleContentMouseDown}
           >
@@ -327,7 +330,9 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
               onKeyDown={handleKeyDown}
               onMouseDown={handleMouseDown}
             />
-            {suffix != null && <span className={styles.suffix}>{suffix}</span>}
+            {suffix != null && (
+              <span className={clsx(fieldStyles.contentSlot, styles.suffix)}>{suffix}</span>
+            )}
             {name != null &&
               selectedValues.map(selected => (
                 <input

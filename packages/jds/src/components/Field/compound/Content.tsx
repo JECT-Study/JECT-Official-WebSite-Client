@@ -7,7 +7,7 @@ import * as styles from "../field.css";
 import type { FieldContentProps, FieldStatus } from "../field.types";
 
 export const FieldContent = forwardRef<HTMLDivElement, FieldContentProps>(
-  ({ children, className, onMouseDown, ...restProps }, ref) => {
+  ({ controlType = "input", children, className, onMouseDown, ...restProps }, ref) => {
     const { status, disabled: isDisabled, readonly: isReadonly } = useFieldContext("FieldContent");
 
     // 박스의 패딩을 눌러도 컨트롤이 포커스를 받도록 시각 영역과 클릭 타깃을 맞춘다.
@@ -28,8 +28,8 @@ export const FieldContent = forwardRef<HTMLDivElement, FieldContentProps>(
         ref={ref}
         onMouseDown={handleMouseDown}
         className={clsx(
-          styles.content({ status, disabled: isDisabled, readOnly: isReadonly }),
-          overlay({ hierarchy: "tertiary", density: "normal" }),
+          styles.content({ controlType, status, disabled: isDisabled, readOnly: isReadonly }),
+          controlType === "button" && overlay({ hierarchy: "tertiary", density: "normal" }),
           focusRing({ interaction: "within", feedback: statusToFeedback[status] }),
           className,
         )}

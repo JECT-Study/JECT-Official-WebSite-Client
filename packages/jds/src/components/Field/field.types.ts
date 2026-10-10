@@ -18,7 +18,11 @@ export interface FieldProps extends ComponentPropsWithoutRef<"div"> {
   children: ReactNode;
 }
 
+/** 박스 안 컨트롤의 종류. 종류에 따라 hover 오버레이, 커서, 상하 padding이 달라진다. */
+export type FieldControlType = "input" | "button" | "textarea";
+
 export interface FieldContentProps extends ComponentPropsWithoutRef<"div"> {
+  controlType?: FieldControlType;
   children: ReactNode;
 }
 

@@ -31,3 +31,9 @@ export const input = style({
     },
   },
 });
+
+export const affix = style({
+  display: "inline-flex",
+  alignItems: "center",
+  flexShrink: 0,
+});
