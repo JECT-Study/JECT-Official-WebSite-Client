@@ -144,19 +144,27 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
       const formElement = inputRef.current?.form ?? null;
       if (formElement === null) return;
 
+      const resetTimers = new Set<ReturnType<typeof setTimeout>>();
+
       // reset 기본 동작이 끝난 다음 태스크에서 값을 되돌린다. 소비처의 초기화 취소 여부도 이 시점에 확인할 수 있다.
       const handleReset = (event: Event) => {
-        setTimeout(() => {
-          if (event.defaultPrevented) return;
+        const timeoutId = setTimeout(() => {
+          resetTimers.delete(timeoutId);
+          // cleanup 전에 필드가 제거되거나 다른 폼에 연결되어도 이전 초기화를 적용하지 않는다.
+          if (event.defaultPrevented || inputRef.current?.form !== formElement) return;
 
           setDateValue(defaultValueRef.current);
           resetSegments(defaultValueRef.current);
         }, 0);
+        resetTimers.add(timeoutId);
       };
 
       formElement.addEventListener("reset", handleReset);
-      return () => formElement.removeEventListener("reset", handleReset);
-    }, [setDateValue, resetSegments]);
+      return () => {
+        formElement.removeEventListener("reset", handleReset);
+        resetTimers.forEach(timeoutId => clearTimeout(timeoutId));
+      };
+    }, [form, setDateValue, resetSegments]);
 
     const formatHintId = `${fieldId}-format`;
 
