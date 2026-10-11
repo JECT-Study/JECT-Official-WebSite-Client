@@ -40,6 +40,7 @@ const COLLECTION_DIRECTORIES = {
 } as const;
 
 const ALIAS_PATTERN = /^\{(.+)\}$/;
+const HEX_RGB_PATTERN = /^#[0-9a-fA-F]{6}$/;
 
 function isDtcgToken(node: unknown): node is DtcgToken {
   return typeof node === "object" && node !== null && "$type" in node && "$value" in node;
@@ -79,6 +80,7 @@ function resolveAlias(
   if (!target) {
     throw new Error(`참조 대상 토큰을 찾을 수 없습니다: {${targetPath}}`);
   }
+
   if (visited.has(targetPath)) {
     throw new Error(`토큰 참조가 순환합니다: {${targetPath}}`);
   }
@@ -92,8 +94,17 @@ function resolveAlias(
  *
  * @remarks
  * alpha는 내림으로 변환합니다. 이전 Figma 플러그인 export와 같은 규칙이라 기존 CSS 값을 유지합니다.
+ * @throws sRGB가 아니거나 `hex`가 6자리가 아닌 경우
  */
-function toHexColor({ hex, alpha }: DtcgColorValue): string {
+function toHexColor({ colorSpace, hex, alpha }: DtcgColorValue): string {
+  if (colorSpace !== "srgb") {
+    throw new Error(`sRGB가 아닌 색 공간은 지원하지 않습니다: ${colorSpace} (${hex})`);
+  }
+
+  if (!HEX_RGB_PATTERN.test(hex)) {
+    throw new Error(`6자리 hex가 아닙니다: ${hex}`);
+  }
+
   const rgb = hex.toLowerCase();
 
   if (alpha >= 1) return rgb;
@@ -107,7 +118,6 @@ function toHexColor({ hex, alpha }: DtcgColorValue): string {
 
 function toTokenValue(value: DtcgToken["$value"]): TokenValue {
   if (typeof value === "object") return toHexColor(value);
-
   return value;
 }
 
@@ -125,6 +135,11 @@ function toTokenName(path: string): string {
     .join("-");
 }
 
+/**
+ * 모드 파일 하나를 `{ 토큰 이름: 값 }`으로 읽습니다.
+ *
+ * @throws 모드 이름이 없거나, kebab-case 변환 뒤 토큰 이름이 겹치는 경우
+ */
 function readModeFile(filePath: string): { modeName: string; tokens: Record<string, TokenValue> } {
   const modeFile = JSON.parse(fs.readFileSync(filePath, "utf8")) as DtcgModeFile;
   const modeName = modeFile.$extensions?.["com.figma.modeName"];
@@ -136,12 +151,22 @@ function readModeFile(filePath: string): { modeName: string; tokens: Record<stri
   const dtcgTokens = new Map<string, DtcgToken>();
   collectTokens(modeFile, [], dtcgTokens);
 
-  const tokens = Object.fromEntries(
-    [...dtcgTokens].map(([path, token]) => [
-      toTokenName(path),
-      toTokenValue(resolveAlias(token, dtcgTokens)),
-    ]),
-  );
+  const tokens: Record<string, TokenValue> = {};
+  const sourcePaths = new Map<string, string>();
+
+  for (const [path, token] of dtcgTokens) {
+    const tokenName = toTokenName(path);
+    const duplicatedPath = sourcePaths.get(tokenName);
+
+    if (duplicatedPath) {
+      throw new Error(
+        `토큰 이름이 겹칩니다: ${tokenName} (${duplicatedPath}, ${path}) — ${filePath}`,
+      );
+    }
+
+    sourcePaths.set(tokenName, path);
+    tokens[tokenName] = toTokenValue(resolveAlias(token, dtcgTokens));
+  }
 
   return { modeName, tokens };
 }

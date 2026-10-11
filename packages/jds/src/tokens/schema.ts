@@ -319,6 +319,7 @@ const colorPrimitiveSchema = z
   .object({
     value: z.record(z.string(), hexColorSchema),
   })
+  .strict()
   .transform(data => {
     const tokens = data.value;
     // tokens: 원본 flat 데이터 { "primitive-flow-20": "#faf8ff" }
@@ -385,6 +386,7 @@ const colorSemanticSchema = z
     light: z.record(z.string(), z.string()),
     dark: z.record(z.string(), z.string()),
   })
+  .strict()
   .transform(data => {
     // tokens: 테마별 원본 데이터
     // cssVariables: 테마별 CSS 변수 { light: { "--semantic-bg-primary": "#fff" }, dark: {...} }
@@ -407,6 +409,7 @@ const environmentSchema = z
   .object({
     value: z.record(z.string(), tokenValueSchema),
   })
+  .strict()
   .transform(data => {
     // tokens: 원본 flat 데이터 { "env-padding-base": 16 }
     // cssVariables: CSS 변수 형태 { "--env-padding-base": 16 }
