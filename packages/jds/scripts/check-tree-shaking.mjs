@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
-import { join, resolve } from "node:path";
+import { dirname, join, relative, resolve } from "node:path";
 
 import { build } from "tsdown";
 
@@ -10,6 +10,7 @@ const directory = await mkdtemp(join(tmpdir(), "jds-tree-shaking-"));
 const externalPackages = [...Object.keys(pkg.dependencies), ...Object.keys(pkg.peerDependencies)];
 // ESM 소비처의 파일 단위 제거를 검증한다. CJS 실행 호환성은 별도 검사 대상이다.
 const entrypoint = pkg.exports["."].import.default;
+const distDirectory = dirname(resolve(entrypoint));
 
 try {
   const input = join(directory, "consumer.mjs");
@@ -35,10 +36,11 @@ try {
     const modules = chunks.flatMap(chunk =>
       Object.entries(chunk.modules)
         .filter(([, info]) => info.renderedLength > 0)
-        .map(([id]) => id.replaceAll("\\", "/")),
+        .map(([id]) => relative(distDirectory, id).replaceAll("\\", "/")),
     );
-    const unrelatedComponents = modules.filter(
-      id => id.includes("/components/") && !id.includes("/components/Divider/"),
+    const componentModules = modules.filter(id => id.startsWith("components/"));
+    const unrelatedComponents = componentModules.filter(
+      id => !id.startsWith("components/Divider/"),
     );
 
     assert(
@@ -46,6 +48,10 @@ try {
       `${entrypoint}: Divider export 누락`,
     );
     assert(!code.includes("data:image/png"), `${entrypoint}: 미사용 PNG 포함`);
+    assert(
+      componentModules.includes("components/Divider/Divider.js"),
+      `${entrypoint}: Divider 구현 모듈 누락 (모듈 경계를 확인하세요)`,
+    );
     assert.deepEqual(unrelatedComponents, [], `${entrypoint}: 미사용 컴포넌트 포함`);
   } finally {
     for (const bundle of bundles) await bundle[Symbol.asyncDispose]();
