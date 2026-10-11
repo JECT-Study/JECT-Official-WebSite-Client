@@ -151,13 +151,13 @@ function convertResponsiveToNested(
   return result;
 }
 
-// Figma에서 내려오는 반응형 키("1200-", "768-1199" 등)를 내부 디바이스 키로 변환
+// Figma에서 내려오는 반응형 키("1200+", "768-1199" 등)를 내부 디바이스 키로 변환
 function resolveDeviceName(deviceKey: string): DeviceName | null {
   if (deviceNames.includes(deviceKey as DeviceName)) {
     return deviceKey as DeviceName;
   }
 
-  const breakpointRange = /^(\d+)-(\d+)?$/.exec(deviceKey);
+  const breakpointRange = /^(\d+)(\+|-\d+)$/.exec(deviceKey);
   if (!breakpointRange) return null;
 
   const minWidth = Number(breakpointRange[1]);

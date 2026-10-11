@@ -1,9 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/naming-convention */
 import fs from "fs";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 
+import { readFigmaTokens } from "./figmaTokens";
 import { tokenSchema, textStyleSchema, type NestedObject } from "./schema";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -263,38 +263,12 @@ function collectVarsAssignment(
 }
 
 // ===== 메인 실행 로직 =====
-const tokenFilePath = join(__dirname, "input/token.json");
+const inputDir = join(__dirname, "input");
 const outputDir = __dirname;
 const outputFile = join(outputDir, "tokens.ts");
 
-if (!fs.existsSync(tokenFilePath)) {
-  console.error(`❌ 파일을 찾을 수 없습니다: ${tokenFilePath}`);
-  console.log("💡 다음 중 하나를 확인해주세요:");
-  console.log("   1. 파일이 현재 폴더에 있는지 확인");
-  console.log("   2. 파일 경로가 맞는지 확인");
-  console.log("   3. 파일명이 정확한지 확인");
-  process.exit(1);
-}
-
-console.log(`✅ 파일을 찾았습니다: ${tokenFilePath}`);
-
-const rawData = fs.readFileSync(tokenFilePath, "utf8");
-console.log("📖 파일 읽기 완료, 파싱 중...");
-
-let tokens: unknown;
-try {
-  const jsonString = JSON.parse(rawData);
-  console.log("🔄 첫 번째 파싱 완료");
-
-  tokens = JSON.parse(jsonString);
-  console.log("✅ 두 번째 파싱 완료 - 토큰 데이터 로드됨");
-} catch (error) {
-  console.error("❌ JSON 파싱 실패:", error);
-  console.log("💡 파일 형식을 확인해주세요");
-  process.exit(1);
-}
-
-const parsedTokens = tokenSchema.parse(tokens);
+const parsedTokens = tokenSchema.parse(readFigmaTokens(inputDir));
+console.log(`✅ Figma 토큰을 읽었습니다: ${inputDir}`);
 
 // textStyles.json 읽기 및 처리
 const textStyleFilePath = join(__dirname, "input/textStyles.json");
