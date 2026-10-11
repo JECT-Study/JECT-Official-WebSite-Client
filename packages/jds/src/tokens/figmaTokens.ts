@@ -41,6 +41,7 @@ const COLLECTION_DIRECTORIES = {
 
 const ALIAS_PATTERN = /^\{(.+)\}$/;
 const HEX_RGB_PATTERN = /^#[0-9a-fA-F]{6}$/;
+const TOKEN_NAME_PATTERN = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 
 function isDtcgToken(node: unknown): node is DtcgToken {
   return typeof node === "object" && node !== null && "$type" in node && "$value" in node;
@@ -138,7 +139,7 @@ function toTokenName(path: string): string {
 /**
  * 모드 파일 하나를 `{ 토큰 이름: 값 }`으로 읽습니다.
  *
- * @throws 모드 이름이 없거나, kebab-case 변환 뒤 토큰 이름이 겹치는 경우
+ * @throws 모드 이름이 없거나, kebab-case 변환 뒤 토큰 이름이 CSS 변수명 형식이 아니거나 겹치는 경우
  */
 function readModeFile(filePath: string): { modeName: string; tokens: Record<string, TokenValue> } {
   const modeFile = JSON.parse(fs.readFileSync(filePath, "utf8")) as DtcgModeFile;
@@ -156,6 +157,13 @@ function readModeFile(filePath: string): { modeName: string; tokens: Record<stri
 
   for (const [path, token] of dtcgTokens) {
     const tokenName = toTokenName(path);
+
+    if (!TOKEN_NAME_PATTERN.test(tokenName)) {
+      throw new Error(
+        `CSS 변수명으로 사용할 수 없는 토큰 이름입니다: ${tokenName} (${path}) — ${filePath}`,
+      );
+    }
+
     const duplicatedPath = sourcePaths.get(tokenName);
 
     if (duplicatedPath) {
