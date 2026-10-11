@@ -408,3 +408,52 @@ const FormPreview = () => {
 export const WithForm: Story = {
   render: () => <FormPreview />,
 };
+
+const EARLY_YEAR_CASES = [
+  { value: "0001-07-25", cell: "1년 7월 25일", key: "ArrowRight", next: "0001-07-26" },
+  { value: "0099-12-31", cell: "99년 12월 31일", key: "ArrowRight", next: "0100-01-01" },
+  { value: "0100-01-01", cell: "100년 1월 1일", key: "ArrowLeft", next: "0099-12-31" },
+  { value: "0004-02-28", cell: "4년 2월 28일", key: "ArrowRight", next: "0004-02-29" },
+] as const;
+
+/** 0001–0099년 날짜도 달력에서 같은 연도로 표시하고 선택합니다. */
+export const EarlyYears: Story = {
+  render: () => (
+    <form>
+      <FlexColumn gap='16px' style={{ alignItems: "flex-start" }}>
+        {EARLY_YEAR_CASES.map(({ value }) => (
+          <DateField key={value} style={FIELD_WIDTH}>
+            <DateField.Label>{value}</DateField.Label>
+            <DateField.Input
+              name={value}
+              defaultValue={value}
+              minDate={new Date("0001-01-01T00:00:00")}
+              maxDate={new Date("0100-12-31T00:00:00")}
+            />
+          </DateField>
+        ))}
+      </FlexColumn>
+    </form>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const page = within(canvasElement.ownerDocument.body);
+    const form = canvasElement.querySelector("form");
+    if (form === null) throw new Error("폼 제출 값을 검증할 form이 없습니다.");
+
+    for (const { value, cell, key, next } of EARLY_YEAR_CASES) {
+      const input = canvas.getByRole("textbox", { name: value });
+      await userEvent.click(input);
+      await userEvent.keyboard("{Alt>}{ArrowDown}{/Alt}");
+      await expect(page.getByRole("gridcell", { name: cell })).toHaveAttribute(
+        "aria-selected",
+        "true",
+      );
+      await expect(page.getByRole("gridcell", { name: cell })).toHaveFocus();
+      await userEvent.keyboard(`{${key}}{Enter}`);
+      await expect(page.queryByRole("dialog", { name: "날짜 선택" })).not.toBeInTheDocument();
+      await expect(input).toHaveValue(next.replaceAll("-", "."));
+      await expect(new FormData(form).get(value)).toBe(next);
+    }
+  },
+};

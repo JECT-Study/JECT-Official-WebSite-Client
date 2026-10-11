@@ -7,6 +7,7 @@ import * as styles from "./datePicker.css";
 import type { DatePickerProps } from "./datePicker.types";
 import {
   addMonths,
+  createLocalDate,
   formatMonthLabel,
   formatYearLabel,
   formatYearMonthLabel,
@@ -126,12 +127,12 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
     };
 
     const selectMonth = (next: string) => {
-      setMonth(new Date(year, Number(next), 1));
+      setMonth(createLocalDate(year, Number(next)));
       closeView();
     };
 
     const selectYear = (next: string) => {
-      setMonth(new Date(Number(next), month.getMonth(), 1));
+      setMonth(createLocalDate(Number(next), month.getMonth()));
       closeView();
     };
 
