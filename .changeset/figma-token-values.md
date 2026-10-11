@@ -4,7 +4,7 @@
 
 **디자인 토큰**
 
-색상과 letter-spacing 토큰 값이 바뀌고, syntax letter-spacing 토큰 4개가 추가됩니다. 소비처 코드는 수정하지 않아도 됩니다.
+색상, letter-spacing, motion 토큰 값이 바뀌고, syntax letter-spacing 토큰 4개가 추가됩니다. 소비처 코드는 수정하지 않아도 됩니다.
 
 **추가**
 
@@ -15,6 +15,7 @@
 - `vars.colorPrimitive` 값 363개 변경
 - `vars.color.semantic` 값 변경 — light 351개, dark 357개
 - `vars.typo.primitive.font.letterSpacing` 값 변경
+- `vars.environment.semantic.motion.entrance`, `.leave` 값 끝의 탭 문자 제거
 
 | 토큰                                                 | 적용 구간      | 이전 값    | 새 값      |
 | ---------------------------------------------------- | -------------- | ---------- | ---------- |
