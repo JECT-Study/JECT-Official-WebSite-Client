@@ -61,6 +61,39 @@ type Story = StoryObj<typeof DatePicker>;
 
 export const Default: Story = {};
 
+/** 낮은 연도의 날짜에서도 날짜 이동과 연월 목록 선택이 같은 연도를 유지합니다. */
+export const EarlyYears: Story = {
+  args: {
+    defaultMonth: undefined,
+    defaultValue: new Date("0001-07-25T00:00:00"),
+    minDate: new Date("0001-01-01T00:00:00"),
+    maxDate: new Date("0099-12-31T00:00:00"),
+  },
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByRole("gridcell", { name: "1년 7월 25일" })).toHaveAttribute(
+      "aria-selected",
+      "true",
+    );
+    await userEvent.click(canvas.getByRole("gridcell", { name: "1년 7월 25일" }));
+    await userEvent.keyboard("{PageDown}{Enter}");
+    await expect(canvas.getByRole("gridcell", { name: "1년 8월 25일" })).toHaveAttribute(
+      "aria-selected",
+      "true",
+    );
+    await expect(args.onChange).toHaveBeenLastCalledWith(new Date("0001-08-25T00:00:00"));
+
+    await userEvent.click(canvas.getByRole("button", { name: "8월" }));
+    await userEvent.click(canvas.getByRole("option", { name: "2월" }));
+    await expect(canvas.getByRole("grid", { name: "1년 2월" })).toBeInTheDocument();
+    await userEvent.click(canvas.getByRole("button", { name: "1년" }));
+    await userEvent.click(canvas.getByRole("option", { name: "4년" }));
+    await expect(canvas.getByRole("grid", { name: "4년 2월" })).toBeInTheDocument();
+    await userEvent.click(canvas.getByRole("gridcell", { name: "4년 2월 29일" }));
+    await expect(args.onChange).toHaveBeenLastCalledWith(new Date("0004-02-29T00:00:00"));
+  },
+};
+
 export const Keyboard: Story = {
   parameters: {
     docs: {
