@@ -104,7 +104,7 @@ export const requiredMark = recipe({
 const contentVars = {
   borderColor: createVar(),
   borderFocusColor: createVar(),
-  backgroundColor: createVar(),
+  backgroundLayer: createVar(),
 } as const;
 
 export const content = recipe({
@@ -119,10 +119,12 @@ export const content = recipe({
     borderRadius: vars.scheme.semantic.radius["8"],
     // 테두리가 박스 크기를 늘리지 않도록 inset box-shadow로 안쪽에 그린다.
     boxShadow: `inset 0 0 0 ${vars.scheme.semantic.strokeWeight["1"]} ${contentVars.borderColor}`,
-    backgroundColor: contentVars.backgroundColor,
+    // readonly 배경이 반투명해 아래 색이 비치지 않도록 불투명한 surface 위에 레이어를 한 겹 올린다.
+    backgroundColor: vars.color.semantic.surface.standard,
+    backgroundImage: `linear-gradient(${contentVars.backgroundLayer}, ${contentVars.backgroundLayer})`,
     transition: `box-shadow ${vars.environment.semantic.duration["100"]} ${vars.environment.semantic.motion.fluent}`,
     vars: {
-      [contentVars.backgroundColor]: vars.color.semantic.surface.standard,
+      [contentVars.backgroundLayer]: "transparent",
     },
     "@media": {
       // 고대비 모드는 box-shadow를 지우므로 테두리를 border로 되살린다.
@@ -148,7 +150,7 @@ export const content = recipe({
       [contentReadonlySelector]: {
         cursor: "default",
         vars: {
-          [contentVars.backgroundColor]: vars.color.semantic.fill.subtlest,
+          [contentVars.backgroundLayer]: vars.color.semantic.fill.subtlest,
           [contentVars.borderFocusColor]: contentVars.borderColor,
         },
       },
@@ -206,7 +208,7 @@ export const content = recipe({
       true: {
         cursor: "default",
         vars: {
-          [contentVars.backgroundColor]: vars.color.semantic.fill.subtlest,
+          [contentVars.backgroundLayer]: vars.color.semantic.fill.subtlest,
           [contentVars.borderFocusColor]: contentVars.borderColor,
         },
       },
