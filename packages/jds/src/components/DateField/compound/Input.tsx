@@ -143,7 +143,12 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
     };
 
     const handlePickerSelect = (nextValue: string) => {
-      if (!isEditable) return;
+      const input = inputRef.current;
+      // Portal의 달력에는 부모 fieldset의 native 비활성이 전파되지 않는다.
+      if (!isEditable || input === null || input.matches(":disabled")) {
+        setIsPickerOpen(false);
+        return;
+      }
 
       setDateValue(nextValue);
       setIsPickerOpen(false);
@@ -162,7 +167,8 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
         event.preventDefault();
         return;
       }
-      if (!isPickerOpenedFromInputRef.current && trigger !== null && !trigger.disabled) return;
+      if (!isPickerOpenedFromInputRef.current && trigger !== null && !trigger.matches(":disabled"))
+        return;
 
       // readonly에서는 버튼이 비활성화되고 withPicker=false에서는 제거된다.
       event.preventDefault();

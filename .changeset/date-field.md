@@ -27,6 +27,8 @@
 
 `withActionBar`를 켜면 날짜 선택과 지우기는 적용을 누를 때 확정되며 달력이 닫힙니다. 적용하지 않고 닫으면 임시 선택은 버립니다. 오늘 버튼은 오늘이 있는 달로 이동하고 오늘을 임시 선택합니다. 직접 입력한 날짜는 기존 입력 방식대로 확정됩니다.
 
+임시 선택 뒤 `minDate`, `maxDate`, `isDateDisabled`가 바뀌면 적용할 때 최신 제한을 다시 검사합니다. 제한 밖 날짜는 값을 변경하지 않고 달력을 유지합니다. 부모 `fieldset`이 비활성화된 뒤 달력 선택으로 값을 변경할 수 없습니다.
+
 ```tsx
 <DateField required>
   <DateField.Label>시작일</DateField.Label>

@@ -304,7 +304,7 @@ export const useSegmentedInput = <TKind extends string, TSegments, TPending>({
 
   const focusActiveSegment = () => {
     const input = inputRef.current;
-    if (input === null || input.disabled) return;
+    if (input === null || input.matches(":disabled")) return;
 
     isRestoringFocusRef.current = true;
     try {

@@ -100,6 +100,7 @@ export const Statuses: Story = {
 /**
  * `disabled`와 `readonly`에서는 값을 바꿀 수 없습니다.
  * `disabled`는 포커스를 받을 수 없으며, `readonly`는 포커스와 세그먼트 이동이 가능합니다.
+ * 부모 `fieldset`을 비활성화하면 이미 열린 달력에서도 값을 변경할 수 없습니다.
  */
 export const States: Story = {
   render: () => (
@@ -179,6 +180,7 @@ const ActionBarPreview = () => {
  * 날짜를 선택하거나 지워도 입력값은 유지되며, 적용을 눌러야 값이 바뀌고 달력이 닫힙니다.
  * 적용하지 않고 달력을 닫으면 임시 선택은 버립니다. 오늘 버튼은 오늘이 있는 달로 이동하고 오늘을 임시 선택합니다.
  * 직접 입력한 날짜는 적용 버튼과 관계없이 기존 입력 방식대로 확정됩니다.
+ * 임시 선택 뒤 날짜 제한이 바뀌면 적용 시점에 다시 검사하고, 제한 밖 날짜는 확정하지 않습니다.
  */
 export const WithActionBar: Story = {
   render: () => <ActionBarPreview />,

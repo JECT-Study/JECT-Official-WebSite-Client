@@ -2,6 +2,7 @@ import { Popover } from "radix-ui";
 import { useRef } from "react";
 
 import { DatePicker } from "../../DatePicker";
+import { isDateUnavailable } from "../../DatePicker/datePicker.utils";
 import * as styles from "../dateField.css";
 import type { DateFieldInputProps } from "../dateField.types";
 import { dateToValue, valueToDate } from "../dateField.utils";
@@ -38,14 +39,15 @@ export const DateFieldPicker = ({
 }: DateFieldPickerProps) => {
   const pickerRef = useRef<HTMLDivElement>(null);
 
-  const handleChange = (date: Date | null) => {
-    const nextValue = dateToValue(date);
-    if (date !== null && nextValue === "") return;
-    onSelect(nextValue);
-  };
-
   // DateField의 문자열 형식으로 표현할 수 없는 날짜는 달력에서도 고를 수 없다.
-  const isUnavailable = (date: Date) => dateToValue(date) === "" || isDateDisabled?.(date) === true;
+  const isUnavailable = (date: Date) =>
+    dateToValue(date) === "" || isDateUnavailable(date, { minDate, maxDate, isDateDisabled });
+
+  const handleChange = (date: Date | null) => {
+    // 임시 선택 뒤 제한이 바뀌었을 수 있으므로 적용 시점에도 다시 검사한다.
+    if (date !== null && isUnavailable(date)) return;
+    onSelect(dateToValue(date));
+  };
 
   // 첫 탭 정지점인 헤더의 연도 버튼 대신, 선택된 날짜(없으면 오늘) 셀에서 시작한다.
   const handleOpenAutoFocus = (event: Event) => {
