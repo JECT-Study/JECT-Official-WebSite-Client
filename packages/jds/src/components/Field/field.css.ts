@@ -115,7 +115,7 @@ export const content = recipe({
     alignItems: "center",
     flex: "1 0 0",
     minWidth: 0,
-    gap: vars.scheme.semantic.spacing["8"],
+    gap: `${vars.scheme.semantic.spacing["6"]} ${vars.scheme.semantic.spacing["8"]}`,
     padding: `${vars.scheme.semantic.spacing["6"]} ${vars.scheme.semantic.spacing["10"]}`,
     borderRadius: vars.scheme.semantic.radius["8"],
     // 테두리가 박스 크기를 늘리지 않도록 inset box-shadow로 안쪽에 그린다.
