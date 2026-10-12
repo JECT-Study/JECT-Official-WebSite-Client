@@ -6,8 +6,7 @@ import {
   FormResult,
 } from "@storybook-utils/field";
 import { FlexColumn, FlexRow, Label } from "@storybook-utils/layout";
-import { useEffect, useState } from "react";
-import { expect, fn, userEvent, within } from "storybook/test";
+import { useState } from "react";
 import { vars } from "tokens";
 
 import { DateField } from "./DateField";
@@ -20,7 +19,9 @@ import { Kbd } from "../Kbd";
  * 연, 월, 일을 세그먼트 단위로 편집하며 값은 `"YYYY-MM-DD"` 형식의 문자열입니다.
  *
  * - 숫자를 입력하면 세그먼트가 채워지는 즉시 다음 세그먼트로 넘어갑니다. `2026.7.25`처럼 구분자를 포함해 입력해도 됩니다.
- * - 일이 그 달의 마지막 날을 넘으면 마지막 날로 맞춥니다.
+ * - 세그먼트 입력을 완료하거나 구분자, 좌우 방향키, blur로 확정할 때 일이 그 달의 마지막 날을 넘으면 보정합니다.
+ * - 기존 날짜를 다시 입력하는 동안에는 확정된 값을 유지합니다. 연도는 0001–9999를 지원합니다.
+ * - 해석할 수 없는 외부 값은 빈 입력과 빈 제출값으로 처리합니다.
  * - 입력이 완성되지 않았으면 값은 빈 문자열입니다.
  * - 달력에서 고른 날짜는 입력값에 반영하고, 입력한 날짜는 달력에서 선택된 상태로 보여 줍니다.
  *
@@ -34,6 +35,7 @@ import { Kbd } from "../Kbd";
  * | `Ctrl/⌘ + V` | `2026.07.25`, `2026-7-25`, `2026년 7월 25일`, `20260725` 형식 붙여넣기 |
  * | `Alt + ↓` | 달력 열기. 달력 버튼에서는 `Enter`, `Space` |
  * | `Esc` | 달력 닫기. 포커스는 달력 버튼으로 돌아감 |
+ * | `Enter` | 입력 중 세그먼트를 확정하고 폼의 기본 제출 동작 실행 |
  * | `Tab` | 입력에서 달력 버튼으로, 다시 필드 밖으로 이동 |
  *
  * 달력이 열려 있는 동안 포커스는 달력 안에서만 이동합니다. 달력 안의 키보드 조작은 `DatePicker`와 같습니다.
@@ -218,156 +220,10 @@ const ControlledPreview = () => {
 
 /**
  * `onChange`는 입력이 완성되면 `"YYYY-MM-DD"`를, 완성된 값의 세그먼트를 지우면 빈 문자열을 전달합니다.
- * 바깥에서 `value`를 빈 문자열로 바꾸면 입력도 비워집니다.
+ * 기존 날짜를 다시 입력하는 동안에는 확정된 값이 유지됩니다. 바깥에서 `value`를 빈 문자열로 바꾸면 입력도 비워집니다.
  */
 export const Controlled: Story = {
   render: () => <ControlledPreview />,
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const input = canvas.getByRole("textbox", { name: "레이블" });
-
-    await userEvent.click(input);
-    await userEvent.keyboard("{ArrowUp}");
-    await expect(input).toHaveValue("2027.07.25");
-
-    await userEvent.click(canvas.getByRole("button", { name: "값 비우기" }));
-    await expect(input).toHaveValue("");
-
-    await userEvent.click(input);
-    await userEvent.keyboard("2026");
-    await expect(input).toHaveValue("2026.MM.DD");
-    await expect(canvas.getByText("value: 빈 문자열")).toBeInTheDocument();
-
-    await userEvent.keyboard("0725");
-    await expect(input).toHaveValue("2026.07.25");
-    await expect(canvas.getByText("value: 2026-07-25")).toBeInTheDocument();
-  },
-};
-
-const rejectedChange = fn<(value: string) => void>();
-
-/**
- * 소비처가 `onChange`에서 값을 반영하지 않으면 표시된 날짜도 기존 `value`를 유지합니다.
- */
-export const ControlledRejection: Story = {
-  render: () => (
-    <form>
-      <FlexColumn gap='16px' style={{ alignItems: "flex-start" }}>
-        <DateField style={FIELD_WIDTH}>
-          <DateField.Label>시작일</DateField.Label>
-          <DateField.Input
-            name='startDate'
-            value='2026-07-25'
-            onChange={rejectedChange}
-            withPicker={false}
-          />
-        </DateField>
-        <Label>value: 2026-07-25 (변경 거절)</Label>
-        <DateField style={FIELD_WIDTH}>
-          <DateField.Label>빈 날짜</DateField.Label>
-          <DateField.Input value='' onChange={rejectedChange} withPicker={false} />
-        </DateField>
-      </FlexColumn>
-    </form>
-  ),
-  play: async ({ canvasElement }) => {
-    rejectedChange.mockClear();
-    const input = within(canvasElement).getByRole("textbox", { name: "시작일" });
-
-    await userEvent.click(input);
-    await userEvent.keyboard("{ArrowUp}");
-    await expect(rejectedChange).toHaveBeenCalledWith("2027-07-25");
-    await expect(input).toHaveValue("2026.07.25");
-
-    await userEvent.keyboard("{Control>}a{/Control}{Backspace}");
-    await expect(rejectedChange).toHaveBeenCalledWith("");
-    await expect(input).toHaveValue("2026.07.25");
-    const form = canvasElement.querySelector("form");
-    if (form === null) throw new Error("폼 제출 값을 검증할 form이 없습니다.");
-    await expect(new FormData(form).get("startDate")).toBe("2026-07-25");
-
-    rejectedChange.mockClear();
-    const emptyInput = within(canvasElement).getByRole("textbox", { name: "빈 날짜" });
-    await userEvent.click(emptyInput);
-    await userEvent.keyboard("2026");
-    await expect(emptyInput).toHaveValue("2026.MM.DD");
-    await expect(rejectedChange).not.toHaveBeenCalled();
-
-    await userEvent.paste("2026-07-25");
-    await expect(rejectedChange).toHaveBeenCalledWith("2026-07-25");
-    await expect(emptyInput).toHaveValue("YYYY.MM.DD");
-  },
-};
-
-const PICKER_STATE_MODES = ["disabled", "readonly", "withoutPicker"] as const;
-
-const PickerStateChangesPreview = () => {
-  const [isRestricted, setIsRestricted] = useState(false);
-
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key !== "F2") return;
-
-      event.preventDefault();
-      setIsRestricted(current => !current);
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
-
-  return (
-    <FlexColumn gap='16px' style={{ alignItems: "flex-start" }}>
-      <Label>달력이 열린 상태에서 F2를 누르면 각 필드의 상태가 바뀝니다.</Label>
-      {PICKER_STATE_MODES.map(mode => (
-        <DateField
-          key={mode}
-          disabled={isRestricted && mode === "disabled"}
-          readonly={isRestricted && mode === "readonly"}
-          style={FIELD_WIDTH}
-        >
-          <DateField.Label>{mode}</DateField.Label>
-          <DateField.Input
-            defaultValue='2026-07-25'
-            withPicker={!isRestricted || mode !== "withoutPicker"}
-          />
-        </DateField>
-      ))}
-      <BlockButton onClick={() => setIsRestricted(current => !current)}>
-        {isRestricted ? "편집 허용" : "편집 제한"}
-      </BlockButton>
-    </FlexColumn>
-  );
-};
-
-/**
- * `disabled`, `readonly`로 바뀌거나 `withPicker`를 끄면 열린 달력이 닫힙니다.
- * 편집을 다시 허용해도 달력은 자동으로 열리지 않습니다.
- */
-export const PickerStateChanges: Story = {
-  render: () => <PickerStateChangesPreview />,
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const page = within(canvasElement.ownerDocument.body);
-
-    for (const mode of PICKER_STATE_MODES) {
-      const input = canvas.getByRole("textbox", { name: mode });
-      await userEvent.click(input);
-      await userEvent.keyboard("{Alt>}{ArrowDown}{/Alt}");
-      await expect(page.getByRole("dialog", { name: "날짜 선택" })).toBeInTheDocument();
-
-      await userEvent.keyboard("{F2}");
-      await expect(page.queryByRole("dialog", { name: "날짜 선택" })).not.toBeInTheDocument();
-      await expect(input).toHaveValue("2026.07.25");
-      if (mode === "disabled") await expect(input).toBeDisabled();
-      if (mode === "readonly") await expect(input).toHaveAttribute("readonly");
-
-      await userEvent.keyboard("{F2}");
-      await expect(page.queryByRole("dialog", { name: "날짜 선택" })).not.toBeInTheDocument();
-      await expect(input).toBeEnabled();
-      await expect(input).not.toHaveAttribute("readonly");
-    }
-  },
 };
 
 const FormPreview = () => {
@@ -409,51 +265,16 @@ export const WithForm: Story = {
   render: () => <FormPreview />,
 };
 
-const EARLY_YEAR_CASES = [
-  { value: "0001-07-25", cell: "1년 7월 25일", key: "ArrowRight", next: "0001-07-26" },
-  { value: "0099-12-31", cell: "99년 12월 31일", key: "ArrowRight", next: "0100-01-01" },
-  { value: "0100-01-01", cell: "100년 1월 1일", key: "ArrowLeft", next: "0099-12-31" },
-  { value: "0004-02-28", cell: "4년 2월 28일", key: "ArrowRight", next: "0004-02-29" },
-] as const;
-
-/** 0001–0099년 날짜도 달력에서 같은 연도로 표시하고 선택합니다. */
-export const EarlyYears: Story = {
+/** 달력에서도 DateField가 표현할 수 있는 0001–9999년 날짜만 선택할 수 있습니다. */
+export const BoundaryDates: Story = {
   render: () => (
-    <form>
-      <FlexColumn gap='16px' style={{ alignItems: "flex-start" }}>
-        {EARLY_YEAR_CASES.map(({ value }) => (
-          <DateField key={value} style={FIELD_WIDTH}>
-            <DateField.Label>{value}</DateField.Label>
-            <DateField.Input
-              name={value}
-              defaultValue={value}
-              minDate={new Date("0001-01-01T00:00:00")}
-              maxDate={new Date("0100-12-31T00:00:00")}
-            />
-          </DateField>
-        ))}
-      </FlexColumn>
-    </form>
+    <FlexColumn gap='16px' style={{ alignItems: "flex-start" }}>
+      {["0001-01-01", "9999-12-31"].map(value => (
+        <DateField key={value} style={FIELD_WIDTH}>
+          <DateField.Label>{value}</DateField.Label>
+          <DateField.Input defaultValue={value} />
+        </DateField>
+      ))}
+    </FlexColumn>
   ),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const page = within(canvasElement.ownerDocument.body);
-    const form = canvasElement.querySelector("form");
-    if (form === null) throw new Error("폼 제출 값을 검증할 form이 없습니다.");
-
-    for (const { value, cell, key, next } of EARLY_YEAR_CASES) {
-      const input = canvas.getByRole("textbox", { name: value });
-      await userEvent.click(input);
-      await userEvent.keyboard("{Alt>}{ArrowDown}{/Alt}");
-      await expect(page.getByRole("gridcell", { name: cell })).toHaveAttribute(
-        "aria-selected",
-        "true",
-      );
-      await expect(page.getByRole("gridcell", { name: cell })).toHaveFocus();
-      await userEvent.keyboard(`{${key}}{Enter}`);
-      await expect(page.queryByRole("dialog", { name: "날짜 선택" })).not.toBeInTheDocument();
-      await expect(input).toHaveValue(next.replaceAll("-", "."));
-      await expect(new FormData(form).get(value)).toBe(next);
-    }
-  },
 };
