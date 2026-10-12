@@ -92,6 +92,8 @@ export const SuggestionFieldInput = forwardRef<HTMLInputElement, SuggestionField
     const isInteractive = !isDisabled && !isReadOnly;
 
     const { selectedValues, toggle, remove } = useMultiSelectState(value, defaultValue, onChange);
+    // 입력할 수 없는 상태에서는 입력칸이 배지 뒤 자리를 차지해 빈 줄을 만들지 않도록 흐름에서 뺀다.
+    const isInputCollapsed = !isInteractive && selectedValues.length > 0;
 
     const inputRef = useRef<HTMLInputElement>(null);
     const [query, setQuery] = useState("");
@@ -320,6 +322,7 @@ export const SuggestionFieldInput = forwardRef<HTMLInputElement, SuggestionField
               value={query}
               data-field-control=''
               data-readonly={isReadOnly || undefined}
+              data-collapsed={isInputCollapsed || undefined}
               className={clsx(getBodyClassName({ size: "md" }), styles.input, className)}
               onChange={handleChange}
               onBlur={handleBlur}

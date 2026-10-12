@@ -85,6 +85,7 @@ export const Statuses: Story = {
 
 /**
  * `disabled`와 `readonly`에서는 목록을 열 수 없고 태그의 제거 버튼도 사라집니다.
+ * 입력칸도 자리를 차지하지 않아, 태그가 한 줄에 들어가면 상자 높이가 늘어나지 않습니다.
  * `disabled`는 포커스를 받을 수 없으며, `readonly`는 포커스를 받을 수 있습니다.
  */
 export const States: Story = {
