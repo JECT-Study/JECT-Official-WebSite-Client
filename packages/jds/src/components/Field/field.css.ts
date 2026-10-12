@@ -122,9 +122,13 @@ export const content = recipe({
         boxShadow: `inset 0 0 0 ${vars.scheme.semantic.strokeWeight["1"]} ${contentVars.borderFocusColor}`,
       },
       // native :read-only는 type에 따라 오탐할 수 있어 컨트롤이 내려준 data 속성을 사용한다.
+      // readonly는 포커스 링만 그리고 테두리 색은 유지한다.
       [contentReadonlySelector]: {
         cursor: "default",
-        vars: { [contentVars.backgroundColor]: vars.color.semantic.fill.subtlest },
+        vars: {
+          [contentVars.backgroundColor]: vars.color.semantic.fill.subtlest,
+          [contentVars.borderFocusColor]: contentVars.borderColor,
+        },
       },
       // 상태는 루트(컨텍스트)뿐 아니라 컨트롤에서도 덮어쓸 수 있으므로, 컨테이너가 실제 컨트롤 상태를 함께 반영하도록 native 상태를 읽는다.
       // readonly와 겹치면 disabled 커서가 이기도록 뒤에 선언한다.
@@ -179,7 +183,10 @@ export const content = recipe({
     readOnly: {
       true: {
         cursor: "default",
-        vars: { [contentVars.backgroundColor]: vars.color.semantic.fill.subtlest },
+        vars: {
+          [contentVars.backgroundColor]: vars.color.semantic.fill.subtlest,
+          [contentVars.borderFocusColor]: contentVars.borderColor,
+        },
       },
       false: {},
     },
