@@ -33,7 +33,15 @@ const meta = {
   args: {
     children: null,
   },
-  argTypes: fieldArgTypes,
+  argTypes: {
+    ...fieldArgTypes,
+    status: {
+      control: "inline-radio",
+      options: ["default", "error"],
+      description: "유효성/피드백 상태",
+      table: { defaultValue: { summary: "default" } },
+    },
+  },
 } satisfies Meta<typeof MultiSelectField>;
 
 export default meta;
@@ -72,7 +80,7 @@ export const Playground: Story = {
 export const Statuses: Story = {
   render: () => (
     <FlexRow gap='32px' style={{ alignItems: "flex-start" }}>
-      {(["default", "success", "error"] as const).map(status => (
+      {(["default", "error"] as const).map(status => (
         <FlexColumn key={status} gap='16px' style={{ alignItems: "flex-start" }}>
           <Label>{status}</Label>
           <MultiSelectField status={status} style={FIELD_WIDTH}>

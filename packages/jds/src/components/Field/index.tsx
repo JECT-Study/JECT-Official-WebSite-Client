@@ -7,4 +7,5 @@ export type {
   FieldHelperProps,
   FieldLabelProps,
   FieldProps,
+  FieldStatus,
 } from "./field.types";
