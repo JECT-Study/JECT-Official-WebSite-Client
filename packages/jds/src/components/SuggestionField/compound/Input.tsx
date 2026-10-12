@@ -188,8 +188,11 @@ export const SuggestionFieldInput = forwardRef<HTMLInputElement, SuggestionField
       setQuery("");
     };
 
+    // <fieldset disabled>처럼 prop 밖에서 비활성이 된 경우는 컨텍스트로 알 수 없으므로, 목록을 열 때 컨트롤의 native 상태를 함께 확인한다.
+    const canOpen = () => isInteractive && !inputRef.current?.matches(":disabled");
+
     const openIfInteractive = () => {
-      if (isInteractive && !isOpen) onOpenChange(true);
+      if (canOpen() && !isOpen) onOpenChange(true);
     };
 
     const handleMouseDown = (e: MouseEvent<HTMLInputElement>) => {
