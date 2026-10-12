@@ -220,11 +220,14 @@ export const content = recipe({
 // 소비처가 박스 안에 넣는 prefix, suffix를 감싼다.
 // 박스는 disabled 커서를 보이도록 이벤트를 받으므로, 소비처 요소는 여기서 이벤트를 막는다.
 export const contentSlot = style({
+  color: vars.color.semantic.object.alternative,
   selectors: {
     [`${content.classNames.base}:has(${FIELD_CONTROL}:disabled) &`]: {
+      color: vars.color.semantic.object.subtler,
       pointerEvents: "none",
     },
     [`${content.classNames.variants.disabled.true} &`]: {
+      color: vars.color.semantic.object.subtler,
       pointerEvents: "none",
     },
   },
