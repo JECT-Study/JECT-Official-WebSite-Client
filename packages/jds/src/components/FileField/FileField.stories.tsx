@@ -7,7 +7,6 @@ import {
 } from "@storybook-utils/field";
 import { FlexColumn, FlexRow, Label } from "@storybook-utils/layout";
 import { useState } from "react";
-import { vars } from "tokens";
 
 import { FileField } from "./FileField";
 import type { FileFieldError } from "./fileField.types";
@@ -48,17 +47,7 @@ export const Playground: Story = {
   args: FIELD_PLAYGROUND_ARGS,
   render: args => (
     <FileField {...args} style={FIELD_WIDTH}>
-      <FileField.Label
-        suffix={
-          <Icon
-            name='info'
-            size='2xs'
-            style={args.disabled ? { color: vars.color.semantic.object.subtle } : undefined}
-          />
-        }
-      >
-        레이블
-      </FileField.Label>
+      <FileField.Label suffix={<Icon name='info' size='2xs' />}>레이블</FileField.Label>
       <FileField.Input placeholder='플레이스홀더' />
       <FileField.Footer>
         <FileField.Helper>헬퍼 텍스트</FileField.Helper>

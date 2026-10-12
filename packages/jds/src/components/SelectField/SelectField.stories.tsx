@@ -9,7 +9,6 @@ import { FlexColumn, FlexRow, Label } from "@storybook-utils/layout";
 import { REGIONS, REGION_OPTIONS, toExpressiveOptions } from "@storybook-utils/selectOptions";
 import { Dialog } from "radix-ui";
 import { useState } from "react";
-import { vars } from "tokens";
 
 import { SelectField } from "./SelectField";
 import { BlockButton } from "../Button/BlockButton";
@@ -52,17 +51,7 @@ export const Playground: Story = {
   args: FIELD_PLAYGROUND_ARGS,
   render: args => (
     <SelectField {...args} style={FIELD_WIDTH}>
-      <SelectField.Label
-        suffix={
-          <Icon
-            name='info'
-            size='2xs'
-            style={args.disabled ? { color: vars.color.semantic.object.subtle } : undefined}
-          />
-        }
-      >
-        레이블
-      </SelectField.Label>
+      <SelectField.Label suffix={<Icon name='info' size='2xs' />}>레이블</SelectField.Label>
       <SelectField.Input options={REGION_OPTIONS} defaultValue='seoul' placeholder='플레이스홀더' />
       <SelectField.Helper>헬퍼 텍스트</SelectField.Helper>
     </SelectField>
