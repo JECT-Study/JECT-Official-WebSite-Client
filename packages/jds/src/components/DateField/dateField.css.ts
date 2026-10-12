@@ -19,7 +19,7 @@ export const input = style({
   caretColor: "transparent",
   color: fallbackVar(inputTextColor, vars.color.semantic.object.bolder),
   "::placeholder": {
-    color: fallbackVar(placeholderTextColor, vars.color.semantic.object.assistive),
+    color: fallbackVar(placeholderTextColor, vars.color.semantic.object.normal),
   },
   selectors: {
     "&::selection": {
@@ -27,7 +27,7 @@ export const input = style({
     },
     // 포커스 중 연, 월, 일이 모두 비어 있으면 빈 값 형식을 placeholder와 같은 색으로 표시한다.
     "&[data-empty]": {
-      vars: { [inputTextColor]: vars.color.semantic.object.assistive },
+      vars: { [inputTextColor]: vars.color.semantic.object.normal },
     },
     "&[data-readonly]:not(:disabled)": {
       cursor: "default",

@@ -121,6 +121,7 @@ const formatDateSegments = (segments: DateSegments, pending: PendingDigits | nul
 /** 세그먼트를 "YYYY-MM-DD" 값으로 바꾼다. 비어 있는 세그먼트가 있으면 빈 문자열이다. */
 const toDateValue = ({ year, month, day }: DateSegments): string => {
   if (year === null || month === null || day === null) return "";
+  if (toDateSegments(year, month, day) === null) return "";
 
   return `${pad(year, 4)}-${pad(month, 2)}-${pad(day, 2)}`;
 };
@@ -130,6 +131,12 @@ const parseDateValue = (value: string): DateSegments | null => {
   if (match === null) return null;
 
   return toDateSegments(Number(match[1]), Number(match[2]), Number(match[3]));
+};
+
+/** 표시와 제출에서 같은 검증 결과를 사용한다. 해석할 수 없는 값은 빈 문자열이다. */
+export const normalizeDateValue = (value: string): string => {
+  const segments = parseDateValue(value);
+  return segments === null ? "" : toDateValue(segments);
 };
 
 /** "YYYY-MM-DD" 값을 로컬 자정의 Date로 바꾼다. 값이 비어 있거나 없는 날짜면 null이다. */
@@ -233,10 +240,24 @@ const inputDigit = (
   const hasRoomForMoreDigits = digits.length < length && value * 10 <= max;
 
   return {
-    segments: constrainDay(withSegment(segments, kind, value >= min ? value : null)),
+    // 확정 전에는 기존 날짜를 보존한다. 연도의 첫 숫자로 윤일을 잘라내지 않는다.
+    segments: hasRoomForMoreDigits
+      ? segments
+      : constrainDay(withSegment(segments, kind, value >= min ? value : null)),
     pending: hasRoomForMoreDigits ? { kind, digits } : null,
     isComplete: !hasRoomForMoreDigits,
   };
+};
+
+/** 세그먼트 이동이나 blur로 숫자 입력을 끝낼 때 한 번만 날짜를 보정한다. */
+const finalizeDateSegment = (segments: DateSegments, pending: PendingDigits | null) => {
+  if (pending === null) return segments;
+
+  const value = Number(pending.digits);
+  const { min, max } = SEGMENT_SPEC[pending.kind];
+  return constrainDay(
+    withSegment(segments, pending.kind, isWithin(value, min, max) ? value : null),
+  );
 };
 
 /**
@@ -249,7 +270,13 @@ const applyCharacter = (state: DateEditState, char: string): DateEditState | nul
   const nextKind = KINDS[Math.min(index + 1, KINDS.length - 1)];
 
   if (SEPARATOR_PATTERN.test(char)) {
-    return state.pending === null ? null : { ...state, active: nextKind, pending: null };
+    return state.pending === null
+      ? null
+      : {
+          segments: finalizeDateSegment(state.segments, state.pending),
+          active: nextKind,
+          pending: null,
+        };
   }
 
   if (!DIGIT_PATTERN.test(char)) return null;
@@ -278,6 +305,7 @@ export const DATE_SEGMENT_RULES: SegmentedInputRules<DateSegmentKind, DateSegmen
     toValue: toDateValue,
     parseText: parseDateText,
     applyCharacter,
+    finalize: finalizeDateSegment,
     clear: clearDateSegment,
     step: stepDateSegment,
     setToEdge: setDateSegmentToEdge,

@@ -16,11 +16,10 @@ interface DateFieldPickerProps extends Pick<
   onSelect: (value: string) => void;
   disabled: boolean;
   readOnly: boolean;
+  onCloseAutoFocus: (event: Event) => void;
 }
 
-// DatePicker는 날짜 보기일 때만 격자를 렌더한다. 현재 보기를 노출하지 않으므로 격자 유무로 판단한다.
-const DATE_GRID_SELECTOR = '[role="grid"]';
-const TABBABLE_DATE_CELL_SELECTOR = `${DATE_GRID_SELECTOR} [tabindex="0"]`;
+const TABBABLE_DATE_CELL_SELECTOR = '[role="grid"] [tabindex="0"]';
 
 /**
  * @description 필드 박스 아래에 달력을 띄우는 팝오버. `Popover.Root` 안에서 사용한다.
@@ -34,12 +33,18 @@ export const DateFieldPicker = ({
   minDate,
   maxDate,
   isDateDisabled,
+  onCloseAutoFocus,
 }: DateFieldPickerProps) => {
   const pickerRef = useRef<HTMLDivElement>(null);
 
   const handleChange = (date: Date | null) => {
-    onSelect(dateToValue(date));
+    const nextValue = dateToValue(date);
+    if (date !== null && nextValue === "") return;
+    onSelect(nextValue);
   };
+
+  // DateField의 문자열 형식으로 표현할 수 없는 날짜는 달력에서도 고를 수 없다.
+  const isUnavailable = (date: Date) => dateToValue(date) === "" || isDateDisabled?.(date) === true;
 
   // 첫 탭 정지점인 헤더의 연도 버튼 대신, 선택된 날짜(없으면 오늘) 셀에서 시작한다.
   const handleOpenAutoFocus = (event: Event) => {
@@ -53,9 +58,10 @@ export const DateFieldPicker = ({
   // 연, 월 목록이 열려 있으면 Esc는 목록만 닫아야 한다.
   // Radix는 Esc를 document 캡처 단계에서 받아 DatePicker가 전파를 막아도 팝오버를 닫으므로 여기서 막는다.
   const handleEscapeKeyDown = (event: KeyboardEvent) => {
-    const dateGrid = pickerRef.current?.querySelector(DATE_GRID_SELECTOR) ?? null;
-    const isListView = dateGrid === null;
-    if (isListView) event.preventDefault();
+    // 격자의 렌더 여부 대신 연월 버튼이 노출하는 펼침 상태를 확인한다.
+    const expandedListTrigger =
+      pickerRef.current?.querySelector('button[aria-expanded="true"]') ?? null;
+    if (expandedListTrigger !== null) event.preventDefault();
   };
 
   return (
@@ -67,6 +73,7 @@ export const DateFieldPicker = ({
         collisionPadding={8}
         aria-label='날짜 선택'
         onOpenAutoFocus={handleOpenAutoFocus}
+        onCloseAutoFocus={onCloseAutoFocus}
         onEscapeKeyDown={handleEscapeKeyDown}
       >
         <DatePicker
@@ -78,7 +85,7 @@ export const DateFieldPicker = ({
           readOnly={readOnly}
           minDate={minDate}
           maxDate={maxDate}
-          isDateDisabled={isDateDisabled}
+          isDateDisabled={isUnavailable}
         />
       </Popover.Content>
     </Popover.Portal>

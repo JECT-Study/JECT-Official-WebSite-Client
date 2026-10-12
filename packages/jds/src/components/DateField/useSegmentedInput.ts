@@ -34,7 +34,7 @@ type DeleteDirection = "backward" | "forward";
 export interface SegmentEditState<TKind extends string, TSegments, TPending> {
   segments: TSegments;
   active: TKind;
-  /** 아직 확정되지 않은 입력. 세그먼트를 옮기거나 포커스를 잃으면 버린다. */
+  /** 아직 확정되지 않은 입력. 세그먼트를 옮기거나 포커스를 잃으면 확정한다. */
   pending: TPending | null;
 }
 
@@ -61,6 +61,8 @@ export interface SegmentedInputRules<TKind extends string, TSegments, TPending> 
     state: SegmentEditState<TKind, TSegments, TPending>,
     char: string,
   ) => SegmentEditState<TKind, TSegments, TPending> | null;
+  /** 확정 전 입력을 세그먼트에 반영한다. */
+  finalize: (segments: TSegments, pending: TPending | null) => TSegments;
   /** 세그먼트를 비운다. 지울 내용이 없으면 null이다. */
   clear: (segments: TSegments, kind: TKind) => TSegments | null;
   /** 위아래 방향키 증감 */
@@ -175,6 +177,11 @@ export const useSegmentedInput = <TKind extends string, TSegments, TPending>({
     onValueChange(rules.toValue(next));
   };
 
+  const finalizePending = () => {
+    if (pending !== null && isEditable) commit(rules.finalize(segmentsRef.current, pending));
+    setPending(null);
+  };
+
   const selectSegment = (kind: TKind) => {
     setActive(kind);
     setPending(null);
@@ -182,6 +189,7 @@ export const useSegmentedInput = <TKind extends string, TSegments, TPending>({
   };
 
   const moveBy = (offset: SegmentStep) => {
+    finalizePending();
     const index = Math.min(Math.max(kinds.indexOf(active) + offset, 0), kinds.length - 1);
     selectSegment(kinds[index]);
   };
@@ -291,7 +299,7 @@ export const useSegmentedInput = <TKind extends string, TSegments, TPending>({
 
   const handleBlur = () => {
     setIsFocused(false);
-    setPending(null);
+    finalizePending();
     setIsAllSelected(false);
   };
 
@@ -306,6 +314,7 @@ export const useSegmentedInput = <TKind extends string, TSegments, TPending>({
     // 비어 있는 필드는 표시 문자열이 없어 누른 위치에 뜻이 없다. 첫 세그먼트부터 입력하게 한다.
     const isPlaceholderShown = !isFocused && !hasInput;
     isPointerSelectingRef.current = true;
+    finalizePending();
 
     input.ownerDocument.addEventListener(
       "mouseup",
@@ -325,15 +334,24 @@ export const useSegmentedInput = <TKind extends string, TSegments, TPending>({
   const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.nativeEvent.isComposing) return;
 
-    const isSelectAllKey = (event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "a";
+    const isSelectAllKey =
+      (event.metaKey || event.ctrlKey) &&
+      !event.altKey &&
+      !event.shiftKey &&
+      event.key.toLowerCase() === "a";
     if (isSelectAllKey) {
       event.preventDefault();
-      setPending(null);
+      finalizePending();
       setIsAllSelected(true);
       return;
     }
 
+    if (event.metaKey || event.ctrlKey || event.altKey || event.shiftKey) return;
+
     switch (event.key) {
+      case "Enter":
+        finalizePending();
+        return;
       case "ArrowLeft":
       case "ArrowRight": {
         event.preventDefault();
@@ -346,12 +364,20 @@ export const useSegmentedInput = <TKind extends string, TSegments, TPending>({
       case "ArrowUp":
       case "ArrowDown":
         event.preventDefault();
-        replaceSegments(rules.step(segments, active, event.key === "ArrowUp" ? 1 : -1));
+        replaceSegments(
+          rules.step(rules.finalize(segments, pending), active, event.key === "ArrowUp" ? 1 : -1),
+        );
         return;
       case "Home":
       case "End":
         event.preventDefault();
-        replaceSegments(rules.setToEdge(segments, active, event.key === "Home" ? "first" : "last"));
+        replaceSegments(
+          rules.setToEdge(
+            rules.finalize(segments, pending),
+            active,
+            event.key === "Home" ? "first" : "last",
+          ),
+        );
         return;
       case "Backspace":
       case "Delete":

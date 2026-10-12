@@ -16,7 +16,7 @@ import { FieldContent } from "../../Field";
 import { useFieldControl } from "../../Field/useFieldControl";
 import * as styles from "../dateField.css";
 import type { DateFieldInputProps } from "../dateField.types";
-import { DATE_PLACEHOLDER, DATE_SEGMENT_RULES } from "../dateField.utils";
+import { DATE_PLACEHOLDER, DATE_SEGMENT_RULES, normalizeDateValue } from "../dateField.utils";
 import { useSegmentedInput } from "../useSegmentedInput";
 
 import { mergeRefs } from "@/hooks/mergeRefs";
@@ -97,6 +97,7 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
     });
 
     const inputRef = useRef<HTMLInputElement>(null);
+    const pickerTriggerRef = useRef<HTMLButtonElement>(null);
     const [isPickerOpen, setIsPickerOpen] = useState(false);
 
     const isEditable = !isDisabled && !isReadOnly;
@@ -110,6 +111,7 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
       defaultValue ?? "",
       onChange,
     );
+    const normalizedValue = normalizeDateValue(dateValue);
 
     const { displayValue, isEmpty, resetSegments, handlers } = useSegmentedInput({
       inputRef,
@@ -121,7 +123,12 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
 
     // ↓는 값을 줄이는 데 쓰므로 달력은 Alt와 함께 눌렀을 때 연다.
     const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
-      const isOpenPickerKey = event.altKey && event.key === "ArrowDown";
+      const isOpenPickerKey =
+        event.altKey &&
+        !event.ctrlKey &&
+        !event.metaKey &&
+        !event.shiftKey &&
+        event.key === "ArrowDown";
       if (isOpenPickerKey && withPicker && isEditable) {
         event.preventDefault();
         setIsPickerOpen(true);
@@ -136,6 +143,19 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
 
       setDateValue(nextValue);
       setIsPickerOpen(false);
+    };
+
+    const handlePickerCloseAutoFocus = (event: Event) => {
+      const trigger = pickerTriggerRef.current;
+      if (trigger !== null && !trigger.disabled) return;
+
+      // readonly에서는 버튼이 비활성화되고 withPicker=false에서는 제거된다.
+      // 소비처가 이미 포커스를 옮겼다면 그 위치를 유지한다.
+      event.preventDefault();
+      const input = inputRef.current;
+      if (input === null || input.disabled) return;
+      const { activeElement, body } = input.ownerDocument;
+      if (activeElement === body || activeElement === null) input.focus();
     };
 
     const defaultValueRef = useRef(defaultValue ?? "");
@@ -218,6 +238,7 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
             {withPicker && (
               <Popover.Trigger asChild>
                 <IconButton
+                  ref={pickerTriggerRef}
                   hierarchy='tertiary'
                   size='md'
                   icon='calendar-days'
@@ -233,7 +254,7 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
                 type='hidden'
                 name={name}
                 form={form}
-                value={dateValue}
+                value={normalizedValue}
                 disabled={isDisabled}
               />
             )}
@@ -241,8 +262,9 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
         </Popover.Anchor>
         {withPicker && (
           <DateFieldPicker
-            value={dateValue}
+            value={normalizedValue}
             onSelect={handlePickerSelect}
+            onCloseAutoFocus={handlePickerCloseAutoFocus}
             disabled={isDisabled}
             readOnly={isReadOnly}
             minDate={minDate}
