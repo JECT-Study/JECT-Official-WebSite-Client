@@ -3,7 +3,7 @@ import { vars } from "tokens";
 
 export const input = style({
   position: "absolute",
-  inset: `calc(-1 * ${vars.scheme.semantic.strokeWeight["1"]})`,
+  inset: 0,
   opacity: 0,
   cursor: "inherit",
   selectors: {

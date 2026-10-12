@@ -95,13 +95,18 @@ export const content = recipe({
     gap: vars.scheme.semantic.spacing["8"],
     padding: `${vars.scheme.semantic.spacing["6"]} ${vars.scheme.semantic.spacing["10"]}`,
     borderRadius: vars.scheme.semantic.radius["8"],
-    borderWidth: vars.scheme.semantic.strokeWeight["1"],
-    borderStyle: "solid",
-    borderColor: contentVars.borderColor,
+    // 테두리가 박스 크기를 늘리지 않도록 inset box-shadow로 안쪽에 그린다.
+    boxShadow: `inset 0 0 0 ${vars.scheme.semantic.strokeWeight["1"]} ${contentVars.borderColor}`,
     backgroundColor: contentVars.backgroundColor,
-    transition: `border-color ${vars.environment.semantic.duration["100"]} ${vars.environment.semantic.motion.fluent}`,
+    transition: `box-shadow ${vars.environment.semantic.duration["100"]} ${vars.environment.semantic.motion.fluent}`,
     vars: {
       [contentVars.backgroundColor]: vars.color.semantic.surface.standard,
+    },
+    "@media": {
+      // 고대비 모드는 box-shadow를 지우므로 테두리를 border로 되살린다.
+      "(forced-colors: active)": {
+        border: `${vars.scheme.semantic.strokeWeight["1"]} solid currentColor`,
+      },
     },
     selectors: {
       "&::after": {
@@ -109,12 +114,12 @@ export const content = recipe({
         borderRadius: "inherit",
       },
       "&::before": {
-        inset: `calc(-1 * ${vars.scheme.semantic.strokeWeight["1"]})`,
+        inset: 0,
         borderRadius: "inherit",
         transition: `box-shadow ${vars.environment.semantic.duration["100"]} ${vars.environment.semantic.motion.fluent}`,
       },
       "&:focus-within": {
-        borderColor: contentVars.borderFocusColor,
+        boxShadow: `inset 0 0 0 ${vars.scheme.semantic.strokeWeight["1"]} ${contentVars.borderFocusColor}`,
       },
       // native :read-only는 type에 따라 오탐할 수 있어 컨트롤이 내려준 data 속성을 사용한다.
       [contentReadonlySelector]: {
