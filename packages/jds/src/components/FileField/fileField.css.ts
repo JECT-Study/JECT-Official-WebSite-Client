@@ -23,7 +23,7 @@ export const value = style({
   color: vars.color.semantic.object.bolder,
   selectors: {
     "[data-disabled] &": {
-      color: vars.color.semantic.object.assistive,
+      color: vars.color.semantic.object.subtle,
     },
   },
 });

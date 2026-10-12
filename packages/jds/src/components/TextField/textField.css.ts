@@ -25,7 +25,7 @@ export const input = style({
     "&:disabled": {
       cursor: "not-allowed",
       vars: {
-        [inputTextColor]: vars.color.semantic.object.assistive,
+        [inputTextColor]: vars.color.semantic.object.subtle,
         [placeholderTextColor]: vars.color.semantic.object.subtler,
       },
     },
