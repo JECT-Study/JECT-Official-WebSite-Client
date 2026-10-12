@@ -22,8 +22,11 @@ import { Kbd } from "../Kbd";
  * - 세그먼트 입력을 완료하거나 구분자, 좌우 방향키, blur로 확정할 때 일이 그 달의 마지막 날을 넘으면 보정합니다.
  * - 기존 날짜를 다시 입력하는 동안에는 확정된 값을 유지합니다. 연도는 0001–9999를 지원합니다.
  * - 해석할 수 없는 외부 값은 빈 입력과 빈 제출값으로 처리합니다.
- * - 입력이 완성되지 않았으면 값은 빈 문자열입니다.
+ * - 완성된 날짜가 없으면 확정값은 빈 문자열입니다. 화면의 부분 입력과 확정값은 다를 수 있습니다.
  * - 달력에서 고른 날짜는 입력값에 반영하고, 입력한 날짜는 달력에서 선택된 상태로 보여 줍니다.
+ * - `onChange`는 확정값이 바뀔 때 호출됩니다. `minLength`, `maxLength`와 네이티브 `onInput`, `onBeforeInput`, `onChangeCapture` 및 입력 이벤트의 capture props는 받지 않습니다.
+ * - 키보드나 붙여넣기 동작을 취소하려면 `onKeyDown`, `onPaste`에서 `preventDefault()`를 사용합니다. 날짜 검증에는 `onChange`가 전달하는 값을 사용합니다.
+ * - blur에서는 소비처 `onBlur` 실행 후 부분 입력을 확정하고, 확정값이 바뀌면 `onChange`를 호출합니다. `onBlur`에서 읽은 확정값은 이전 값일 수 있습니다.
  *
  * | 키 | 동작 |
  * | --- | --- |
@@ -236,20 +239,32 @@ const ControlledPreview = () => {
   const [date, setDate] = useState("2026-07-25");
 
   return (
-    <FlexColumn gap='16px' style={{ alignItems: "flex-start" }}>
-      <DateField style={FIELD_WIDTH}>
-        <DateField.Label>레이블</DateField.Label>
-        <DateField.Input value={date} onChange={setDate} />
-      </DateField>
-      <Label>value: {date === "" ? "빈 문자열" : date}</Label>
-      <BlockButton onClick={() => setDate("")}>값 비우기</BlockButton>
-    </FlexColumn>
+    <form onSubmit={event => event.preventDefault()}>
+      <FlexColumn gap='16px' style={{ alignItems: "flex-start" }}>
+        <DateField style={FIELD_WIDTH}>
+          <DateField.Label>레이블</DateField.Label>
+          <DateField.Input value={date} onChange={setDate} />
+        </DateField>
+        <Label>확정값: {date === "" ? "빈 문자열" : date}</Label>
+        <FlexRow gap='8px' style={FIELD_WIDTH}>
+          <BlockButton type='button' onClick={() => setDate("")} style={{ flex: 1 }}>
+            확정값 비우기
+          </BlockButton>
+          <BlockButton type='reset' style={{ flex: 1 }}>
+            입력 초기화
+          </BlockButton>
+        </FlexRow>
+      </FlexColumn>
+    </form>
   );
 };
 
 /**
  * `onChange`는 입력이 완성되면 `"YYYY-MM-DD"`를, 완성된 값의 세그먼트를 지우면 빈 문자열을 전달합니다.
- * 기존 날짜를 다시 입력하는 동안에는 확정된 값이 유지됩니다. 바깥에서 `value`를 빈 문자열로 바꾸면 입력도 비워집니다.
+ * 기존 날짜를 다시 입력하는 동안에는 확정된 값이 유지됩니다.
+ * 확정값이 있는 상태에서 빈 문자열로 바꾸면 입력도 비워집니다. 이미 빈 문자열인 상태의 부분 입력은 같은 빈 문자열로 다시 설정해도 유지됩니다.
+ * 확정값을 비운 뒤 연도만 입력해 두 버튼을 비교할 수 있습니다. 입력 초기화는 폼 reset으로 부분 입력까지 지웁니다.
+ * 폼 없이 입력을 모두 비우려면 `value`를 빈 문자열로 설정하고 `DateField.Input`의 `key`를 바꿔 다시 마운트할 수 있습니다.
  */
 export const Controlled: Story = {
   render: () => <ControlledPreview />,
@@ -289,6 +304,8 @@ const FormPreview = () => {
 /**
  * `name`을 지정하면 `"YYYY-MM-DD"` 값이 hidden input으로 렌더되어 폼 제출에 포함됩니다.
  * 폼을 초기화하면 `defaultValue`로 돌아갑니다.
+ * `defaultValue`는 최초 마운트 값을 사용하며 이후 prop 변경으로 reset 기준이 바뀌지는 않습니다.
+ * 제어 모드의 `value`가 빈 문자열이 아니면 `onChange("")`로 초기화를 요청하며 소비처가 반영해야 합니다.
  */
 export const WithForm: Story = {
   render: () => <FormPreview />,

@@ -43,6 +43,8 @@ const composeHandler =
  * 달력에서 고른 날짜는 입력값에 반영하고, 입력한 날짜는 달력에서 선택된 상태로 보여 준다.
  * 보이는 input은 "2026.07.25" 같은 표시 문자열만 갖고, `name`을 지정하면 "YYYY-MM-DD" 값을 hidden input으로 전송한다.
  * controlled(`value`, `onChange`)와 uncontrolled(`defaultValue`) 방식을 지원한다.
+ * `onChange`는 확정값 변경만 알린다. blur에서는 소비처 핸들러 이후 부분 입력을 확정한다.
+ * 부분 입력까지 지우려면 폼을 초기화하거나 Input을 다시 마운트한다.
  */
 export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
   (
