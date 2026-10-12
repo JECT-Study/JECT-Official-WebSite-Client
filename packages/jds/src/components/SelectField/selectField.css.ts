@@ -21,12 +21,12 @@ export const input = style({
   selectors: {
     // native readonly는 searchable=false를 표현하는 용도로만 사용한다.
     "&:read-only:not(:disabled)": {
-      cursor: "default",
+      cursor: "inherit",
     },
     "&:disabled": {
       cursor: "not-allowed",
       vars: {
-        [inputTextColor]: vars.color.semantic.object.assistive,
+        [inputTextColor]: vars.color.semantic.object.subtle,
         [placeholderTextColor]: vars.color.semantic.object.subtler,
       },
     },
@@ -49,11 +49,9 @@ export const indicator = style({
   display: "inline-flex",
   flexShrink: 0,
   color: vars.color.semantic.object.assistive,
+  cursor: "inherit",
   transition: `transform ${vars.environment.semantic.duration["100"]} ${vars.environment.semantic.motion.fluent}`,
   selectors: {
-    "&:disabled": {
-      cursor: "default",
-    },
     "[data-disabled] &": {
       color: vars.color.semantic.object.subtler,
     },

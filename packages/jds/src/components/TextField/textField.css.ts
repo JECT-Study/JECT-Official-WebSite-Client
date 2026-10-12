@@ -25,9 +25,15 @@ export const input = style({
     "&:disabled": {
       cursor: "not-allowed",
       vars: {
-        [inputTextColor]: vars.color.semantic.object.assistive,
+        [inputTextColor]: vars.color.semantic.object.subtle,
         [placeholderTextColor]: vars.color.semantic.object.subtler,
       },
     },
   },
+});
+
+export const affix = style({
+  display: "inline-flex",
+  alignItems: "center",
+  flexShrink: 0,
 });
