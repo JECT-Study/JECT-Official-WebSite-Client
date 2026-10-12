@@ -17,6 +17,8 @@ const controlDisabledSelector = `${container.classNames.base}:has(${FIELD_CONTRO
 const contentDisabledSelector = `&:has(${FIELD_CONTROL}:disabled)`;
 const contentReadonlySelector = `&:has(${FIELD_CONTROL}[data-readonly])`;
 
+const requiredMarkDisabledOpacity = `calc(${vars.scheme.semantic.opacity["44"]} / 100)`;
+
 export const labelContainer = style({
   display: "flex",
   flexDirection: "row",
@@ -83,20 +85,19 @@ export const requiredMark = recipe({
     alignItems: "center",
     cursor: "default",
     marginTop: -2,
+    color: vars.color.semantic.feedback.notifying.static.inverse.bold,
     selectors: {
       [controlDisabledSelector]: {
-        color: vars.color.semantic.feedback.notifying.alpha.inverse.assistive,
+        opacity: requiredMarkDisabledOpacity,
       },
     },
   },
   variants: {
     disabled: {
       true: {
-        color: vars.color.semantic.feedback.notifying.alpha.inverse.assistive,
+        opacity: requiredMarkDisabledOpacity,
       },
-      false: {
-        color: vars.color.semantic.feedback.notifying.static.inverse.bold,
-      },
+      false: { opacity: 1 },
     },
   },
 });
