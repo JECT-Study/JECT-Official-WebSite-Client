@@ -9,6 +9,8 @@ interface DateFieldInputBaseProps extends Omit<
   ComponentPropsWithoutRef<"input">,
   | "id"
   | "type"
+  | "min"
+  | "max"
   | "value"
   | "defaultValue"
   | "onChange"

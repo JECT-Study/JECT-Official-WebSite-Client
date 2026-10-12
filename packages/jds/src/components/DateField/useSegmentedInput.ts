@@ -101,6 +101,8 @@ interface UseSegmentedInputResult {
   isEmpty: boolean;
   /** 폼 초기화처럼 부분 입력까지 버리고 값에서 세그먼트를 다시 만들 때 호출한다. */
   resetSegments: (value: string) => void;
+  /** 달력 등에서 돌아올 때 현재 세그먼트를 유지하며 포커스한다. */
+  focusActiveSegment: () => void;
   handlers: SegmentedInputHandlers;
 }
 
@@ -134,6 +136,7 @@ export const useSegmentedInput = <TKind extends string, TSegments, TPending>({
 
   const segmentsRef = useRef(segments);
   const isPointerSelectingRef = useRef(false);
+  const isRestoringFocusRef = useRef(false);
 
   const hasInput = rules.hasInput(segments, pending);
 
@@ -294,7 +297,22 @@ export const useSegmentedInput = <TKind extends string, TSegments, TPending>({
   // 포인터로 포커스했다면 세그먼트는 mouseup에서 정한다.
   const handleFocus = () => {
     setIsFocused(true);
-    selectSegment(isPointerSelectingRef.current ? active : firstKind);
+    if (!isRestoringFocusRef.current) {
+      selectSegment(isPointerSelectingRef.current ? active : firstKind);
+    }
+  };
+
+  const focusActiveSegment = () => {
+    const input = inputRef.current;
+    if (input === null || input.disabled) return;
+
+    isRestoringFocusRef.current = true;
+    try {
+      input.focus();
+    } finally {
+      isRestoringFocusRef.current = false;
+    }
+    requestSelectionSync();
   };
 
   const handleBlur = () => {
@@ -423,6 +441,7 @@ export const useSegmentedInput = <TKind extends string, TSegments, TPending>({
     displayValue: isFocused || hasInput ? rules.format(segments, pending) : "",
     isEmpty: !hasInput,
     resetSegments,
+    focusActiveSegment,
     handlers: {
       onFocus: handleFocus,
       onBlur: handleBlur,
