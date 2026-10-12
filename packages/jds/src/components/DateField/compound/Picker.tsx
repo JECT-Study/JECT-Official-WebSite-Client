@@ -8,7 +8,7 @@ import { dateToValue, valueToDate } from "../dateField.utils";
 
 interface DateFieldPickerProps extends Pick<
   DateFieldInputProps,
-  "minDate" | "maxDate" | "isDateDisabled"
+  "minDate" | "maxDate" | "isDateDisabled" | "withActionBar"
 > {
   /** "YYYY-MM-DD" 형식의 값. 비어 있으면 선택된 날짜가 없다. */
   value: string;
@@ -30,6 +30,7 @@ export const DateFieldPicker = ({
   onSelect,
   disabled,
   readOnly,
+  withActionBar,
   minDate,
   maxDate,
   isDateDisabled,
@@ -83,6 +84,7 @@ export const DateFieldPicker = ({
           onChange={handleChange}
           disabled={disabled}
           readOnly={readOnly}
+          withActionBar={withActionBar}
           minDate={minDate}
           maxDate={maxDate}
           isDateDisabled={isUnavailable}

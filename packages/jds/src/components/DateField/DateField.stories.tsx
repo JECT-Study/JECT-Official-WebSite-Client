@@ -39,7 +39,7 @@ import { Kbd } from "../Kbd";
  * | `Tab` | 입력에서 달력 버튼으로, 다시 필드 밖으로 이동 |
  *
  * 달력이 열려 있는 동안 포커스는 달력 안에서만 이동합니다. 달력 안의 키보드 조작은 `DatePicker`와 같습니다.
- * 날짜를 선택해 닫을 때도 달력을 연 위치로 포커스가 돌아갑니다.
+ * 날짜를 확정해 닫을 때도 달력을 연 위치로 포커스가 돌아갑니다.
  */
 const meta = {
   title: "Components/DateField",
@@ -157,6 +157,31 @@ export const WithoutPicker: Story = {
       <DateField.Input withPicker={false} />
     </DateField>
   ),
+};
+
+const ActionBarPreview = () => {
+  const [date, setDate] = useState("2026-07-25");
+
+  return (
+    <FlexColumn gap='16px' style={{ alignItems: "flex-start" }}>
+      <DateField style={FIELD_WIDTH}>
+        <DateField.Label>시작일</DateField.Label>
+        <DateField.Input value={date} onChange={setDate} withActionBar />
+        <DateField.Helper>달력에서 선택한 뒤 적용을 눌러주세요</DateField.Helper>
+      </DateField>
+      <Label>value: {date === "" ? "빈 문자열" : date}</Label>
+    </FlexColumn>
+  );
+};
+
+/**
+ * `withActionBar`로 달력 아래에 오늘, 지우기, 적용 버튼을 표시합니다.
+ * 날짜를 선택하거나 지워도 입력값은 유지되며, 적용을 눌러야 값이 바뀌고 달력이 닫힙니다.
+ * 적용하지 않고 달력을 닫으면 임시 선택은 버립니다. 오늘 버튼은 오늘이 있는 달로 이동하고 오늘을 임시 선택합니다.
+ * 직접 입력한 날짜는 적용 버튼과 관계없이 기존 입력 방식대로 확정됩니다.
+ */
+export const WithActionBar: Story = {
+  render: () => <ActionBarPreview />,
 };
 
 const SELECTABLE_RANGE = { min: "2026-01-01", max: "2026-12-31" };

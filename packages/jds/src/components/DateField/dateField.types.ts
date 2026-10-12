@@ -31,6 +31,11 @@ interface DateFieldInputBaseProps extends Omit<
    * @default true
    */
   withPicker?: boolean;
+  /**
+   * @description 달력에 오늘, 지우기, 적용 버튼을 표시한다. 켜면 적용을 눌러야 달력 선택이 확정된다.
+   * @default false
+   */
+  withActionBar?: DatePickerProps["withActionBar"];
   /** 달력에서 선택할 수 있는 가장 이른 날짜. 직접 입력한 값은 제한하지 않는다. */
   minDate?: DatePickerProps["minDate"];
   /** 달력에서 선택할 수 있는 가장 늦은 날짜. 직접 입력한 값은 제한하지 않는다. */

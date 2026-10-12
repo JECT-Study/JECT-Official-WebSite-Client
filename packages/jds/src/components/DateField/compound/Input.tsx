@@ -52,6 +52,7 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
       onChange,
       suffix = null,
       withPicker = true,
+      withActionBar = false,
       minDate,
       maxDate,
       isDateDisabled,
@@ -280,6 +281,7 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
             onCloseAutoFocus={handlePickerCloseAutoFocus}
             disabled={isDisabled}
             readOnly={isReadOnly}
+            withActionBar={withActionBar}
             minDate={minDate}
             maxDate={maxDate}
             isDateDisabled={isDateDisabled}
