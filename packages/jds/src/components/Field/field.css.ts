@@ -55,6 +55,28 @@ export const label = recipe({
   },
 });
 
+export const labelSuffix = recipe({
+  base: {
+    display: "inline-flex",
+    alignItems: "center",
+    selectors: {
+      [controlDisabledSelector]: {
+        color: vars.color.semantic.object.subtle,
+      },
+    },
+  },
+  variants: {
+    disabled: {
+      true: {
+        color: vars.color.semantic.object.subtle,
+      },
+      false: {
+        color: vars.color.semantic.object.alternative,
+      },
+    },
+  },
+});
+
 export const requiredMark = recipe({
   base: {
     display: "flex",
