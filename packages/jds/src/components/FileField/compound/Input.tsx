@@ -219,13 +219,13 @@ export const FileFieldInput = forwardRef<HTMLInputElement, FileFieldInputProps>(
           onChange={handleChange}
           onClick={handleClick}
         />
-        {hasFile && (
+        {/* MultiSelectField 칩, SuggestionField 배지처럼 상호작용할 수 없는 상태에서는 삭제 버튼을 그리지 않는다. */}
+        {hasFile && isInteractive && (
           <IconButton
             hierarchy='tertiary'
             size='md'
             icon='x'
             aria-label={`${file.name} 파일 삭제`}
-            disabled={!isInteractive}
             className={styles.clearButton}
             onClick={handleClear}
           />
