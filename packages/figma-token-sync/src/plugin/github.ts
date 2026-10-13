@@ -53,6 +53,24 @@ export class GitHubRequestError extends Error {
   }
 }
 
+/**
+ * 권한 문제로 실패했을 때 사용자가 고칠 수 있는 방법을 돌려줍니다.
+ *
+ * @remarks
+ * 403은 요청 한도 초과로도 나므로, GitHub가 권한 부족이라고 응답한 경우에만 토큰 권한을 안내합니다.
+ */
+function toPermissionHint(status: number, message: string | undefined): string | null {
+  if (status === 401) {
+    return "토큰이 만료되었거나 올바르지 않습니다. 토큰을 새로 저장해 주세요.";
+  }
+
+  if (status === 403 && message?.includes("not accessible")) {
+    return "토큰의 저장소 접근 범위에 이 저장소가 있는지, Contents와 Pull requests 권한이 Read and write인지 확인해 주세요.";
+  }
+
+  return null;
+}
+
 async function request<T>(
   target: SyncTarget,
   method: string,
@@ -72,11 +90,10 @@ async function request<T>(
 
   if (!response.ok) {
     const { message } = (await response.json().catch(() => ({}))) as { message?: string };
+    const hint = toPermissionHint(response.status, message);
+    const reason = `GitHub 요청이 실패했습니다 (${response.status} ${method} ${path}): ${message ?? response.statusText}`;
 
-    throw new GitHubRequestError(
-      response.status,
-      `GitHub 요청이 실패했습니다 (${response.status} ${method} ${path}): ${message ?? response.statusText}`,
-    );
+    throw new GitHubRequestError(response.status, hint ? `${reason}\n${hint}` : reason);
   }
 
   return (await response.json()) as T;
