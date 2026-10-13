@@ -85,6 +85,12 @@ async function sync(settings: SyncSettings): Promise<void> {
   postToUi({ type: "synced", result });
 }
 
+/**
+ * 저장된 설정과 선택할 수 있는 컬렉션을 UI에 보냅니다.
+ *
+ * @remarks
+ * publish에서 숨긴 컬렉션은 라이브러리 밖으로 나가지 않는 작업용 컬렉션으로 보고 목록에서 뺍니다.
+ */
 async function init(): Promise<void> {
   const [collections, token] = await Promise.all([
     figma.variables.getLocalVariableCollectionsAsync(),
@@ -94,7 +100,9 @@ async function init(): Promise<void> {
   postToUi({
     type: "init",
     settings: loadSettings(),
-    collectionNames: collections.map(({ name }) => name),
+    collectionNames: collections
+      .filter(({ hiddenFromPublishing }) => !hiddenFromPublishing)
+      .map(({ name }) => name),
     hasToken: Boolean(token),
   });
 }
