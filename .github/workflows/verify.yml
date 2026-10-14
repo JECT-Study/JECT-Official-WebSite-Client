@@ -46,3 +46,12 @@ jobs:
       - name: Type Check
         if: ${{ !cancelled() && steps.install.outcome == 'success' }}
         run: npm run type-check
+
+      - name: Check Generated Tokens
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: |
+          npm run build:tokens --workspace=@jects/jds
+          if ! git diff --exit-code --stat -- packages/jds/src/tokens; then
+            echo "::error::토큰 생성물이 입력과 다릅니다. npm run build:tokens --workspace=@jects/jds 실행 후 결과를 커밋해 주세요."
+            exit 1
+          fi
