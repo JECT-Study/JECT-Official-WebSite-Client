@@ -1,0 +1,13 @@
+{
+  "name": "Token Sync for GitHub",
+  "id": "figma-token-sync",
+  "api": "1.0.0",
+  "main": "dist/code.iife.js",
+  "ui": "dist/ui.html",
+  "editorType": ["figma"],
+  "documentAccess": "dynamic-page",
+  "networkAccess": {
+    "allowedDomains": ["https://api.github.com"],
+    "reasoning": "변수를 내보낸 파일을 GitHub 저장소에 커밋하고 Pull Request를 만듭니다."
+  }
+}
