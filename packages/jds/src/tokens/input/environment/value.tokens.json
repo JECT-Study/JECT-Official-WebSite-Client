@@ -3,7 +3,7 @@
     "time": {
       "50": {
         "$type": "number",
-        "$value": 50,
+        "$value": 51,
         "$extensions": {
           "com.figma.variableId": "VariableID:10838:56359",
           "com.figma.codeSyntax": {
