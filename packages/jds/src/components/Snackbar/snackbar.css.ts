@@ -124,7 +124,7 @@ export const icon = recipe({
       none: {},
       positive: { color: vars.color.semantic.feedback.positive.normal },
       destructive: { color: vars.color.semantic.feedback.destructive.normal },
-      notifying: { color: vars.color.semantic.feedback.notifying.inverse.bold },
+      notifying: { color: vars.color.semantic.feedback.notifying.static.inverse.bold },
     } satisfies Record<SnackbarFeedback, StyleRule>,
   },
 });
