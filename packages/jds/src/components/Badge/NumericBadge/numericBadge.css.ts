@@ -83,7 +83,7 @@ const basicStyles = {
       color: vars.color.semantic.object.static.inverse.boldest,
     },
     primary: {
-      bg: vars.color.semantic.fill.boldest,
+      bg: vars.color.semantic.fill.bolder,
       color: vars.color.semantic.object.inverse.boldest,
     },
     secondary: {
@@ -114,8 +114,8 @@ const basicStyles = {
     },
   },
   hollow: {
-    accent: { bg: "none", color: vars.color.semantic.accent.bold },
-    primary: { bg: "none", color: vars.color.semantic.object.bolder },
+    accent: { bg: "none", color: vars.color.semantic.accent.normal },
+    primary: { bg: "none", color: vars.color.semantic.object.bold },
     secondary: { bg: "none", color: vars.color.semantic.object.neutral },
     tertiary: { bg: "none", color: vars.color.semantic.object.alternative },
   },
