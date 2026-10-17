@@ -52,10 +52,18 @@ const contentBadgeSizeMap = {
   },
 } satisfies Record<BadgeSize, BadgeSizeConfig>;
 
-const createBadgeStyle = ({ bg, color, border, iconColor }: BadgeStyle) => ({
+const createBadgeStyle = ({ bg, color, border, iconColor }: BadgeStyle): StyleRule => ({
   backgroundColor: bg === "none" ? "transparent" : bg,
-  borderWidth: border === "none" ? "0" : "1px",
-  borderColor: border === "none" ? "transparent" : border,
+  boxShadow:
+    border === "none" ? "none" : `inset 0 0 0 ${vars.scheme.semantic.strokeWeight["1"]} ${border}`,
+  ...(border !== "none" && {
+    "@media": {
+      // 고대비 모드는 box-shadow를 지우므로 테두리를 border로 되살린다.
+      "(forced-colors: active)": {
+        border: `${vars.scheme.semantic.strokeWeight["1"]} solid currentColor`,
+      },
+    },
+  }),
   vars: {
     [badgeTextColor]: color,
     [badgeIconColor]: iconColor ?? color,
