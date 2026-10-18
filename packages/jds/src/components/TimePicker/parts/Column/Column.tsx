@@ -19,7 +19,7 @@ const EDGE_KEYS: Record<string, "first" | "last"> = {
  *
  * @remarks
  * 포커스는 열에 두고 방향키, Home, End, PageUp, PageDown으로 활성 항목을 옮긴 뒤 Enter, Space로 고릅니다.
- * 처음 그릴 때와 열 밖에서 선택이 바뀔 때 선택 항목을 맨 위로 스크롤합니다.
+ * 선택 항목은 항상 맨 위로 스크롤합니다. 끝 여백을 두어 마지막 항목도 맨 위까지 올라옵니다.
  * @internal
  * @name Column
  * @tag div
@@ -45,12 +45,11 @@ export const Column = forwardRef<HTMLDivElement, ColumnProps>(
       [selectedValue],
     );
     const listRef = useRef<HTMLDivElement>(null);
-    const { skipAlignFor } = useColumnScroll(listRef, selectedValue);
+    useColumnScroll(listRef, selectedValue);
 
     const selectOption = (next: string) => {
       if (readOnly) return;
 
-      skipAlignFor(next);
       onSelect(Number(next));
     };
 
@@ -122,6 +121,7 @@ export const Column = forwardRef<HTMLDivElement, ColumnProps>(
             />
           );
         })}
+        <div aria-hidden className={styles.endSpacer} />
       </div>
     );
   },
