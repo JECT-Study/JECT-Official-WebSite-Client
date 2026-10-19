@@ -10,7 +10,7 @@ export type DateSegmentKind = "year" | "month" | "day";
 
 export interface DateSegments {
   year: number | null;
-  /** 1–12 */
+  /** 편집 중에는 0, 13 같은 유효하지 않은 숫자도 보존한다. */
   month: number | null;
   day: number | null;
 }
@@ -44,7 +44,7 @@ const SEPARATOR = ".";
 
 // 표시 문자열은 세그먼트를 순서대로 구분자로 이은 "YYYY.MM.DD"다.
 // 세그먼트의 자릿수와 선택 범위는 emptyText의 길이에서 계산하므로 여기만 고치면 함께 바뀐다.
-// 일의 max는 입력을 받아들이는 상한이다. 달마다 다른 마지막 날은 constrainDay가 맞춘다.
+// max는 한 자리 입력을 바로 확정할지 판단하는 기준이다. 완성된 숫자의 유효성은 별도로 검사한다.
 const SEGMENT_SPEC = {
   year: { min: 1, max: 9999, emptyText: "YYYY" },
   month: { min: 1, max: 12, emptyText: "MM" },
@@ -92,12 +92,6 @@ const getDaysInMonth = (year: number | null, month: number | null) => {
 /** 월은 12, 일은 그 달의 마지막 날 */
 const getLastValue = (segments: DateSegments, kind: "month" | "day") =>
   kind === "month" ? SEGMENT_SPEC.month.max : getDaysInMonth(segments.year, segments.month);
-
-/** 일이 그 달의 마지막 날을 넘으면 마지막 날로 맞춘다. 예: 2026.02.30 → 2026.02.28 */
-const constrainDay = (segments: DateSegments): DateSegments => {
-  const lastDay = getDaysInMonth(segments.year, segments.month);
-  return segments.day !== null && segments.day > lastDay ? { ...segments, day: lastDay } : segments;
-};
 
 /** 실제로 있는 날짜일 때만 세그먼트를 만든다. */
 const toDateSegments = (year: number, month: number, day: number): DateSegments | null => {
@@ -171,7 +165,7 @@ const parseDateText = (text: string): DateSegments | null => {
   const match = DATE_TEXT_PATTERN.exec(trimmed) ?? COMPACT_DATE_TEXT_PATTERN.exec(trimmed);
   if (match === null) return null;
 
-  return toDateSegments(Number(match[1]), Number(match[2]), Number(match[3]));
+  return { year: Number(match[1]), month: Number(match[2]), day: Number(match[3]) };
 };
 
 /**
@@ -190,15 +184,15 @@ const stepDateSegment = (
     const { min, max } = SEGMENT_SPEC.year;
     const year =
       current === null ? new Date().getFullYear() : Math.min(Math.max(current + delta, min), max);
-    return constrainDay(withSegment(segments, kind, year));
+    return withSegment(segments, kind, year);
   }
 
   const last = getLastValue(segments, kind);
-  if (current === null) return constrainDay(withSegment(segments, kind, delta > 0 ? 1 : last));
+  if (current === null) return withSegment(segments, kind, delta > 0 ? 1 : last);
 
   // 1부터 last까지를 순환한다.
   const next = ((current - 1 + delta + last) % last) + 1;
-  return constrainDay(withSegment(segments, kind, next));
+  return withSegment(segments, kind, next);
 };
 
 /** 연은 첫 값과 마지막 값이 의미가 없으므로 바꾸지 않는다. */
@@ -210,7 +204,7 @@ const setDateSegmentToEdge = (
   if (kind === "year") return segments;
 
   const value = edge === "first" ? SEGMENT_SPEC[kind].min : getLastValue(segments, kind);
-  return constrainDay(withSegment(segments, kind, value));
+  return withSegment(segments, kind, value);
 };
 
 const clearDateSegment = (segments: DateSegments, kind: DateSegmentKind): DateSegments | null =>
@@ -219,7 +213,7 @@ const clearDateSegment = (segments: DateSegments, kind: DateSegmentKind): DateSe
 /**
  * 숫자 입력을 누적한다.
  * 자릿수를 다 채우면 확정하고 다음 세그먼트로 넘어간다. 숫자를 더 붙일 수 없으면(예: 월의 3, 일의 7) 곧바로 넘어간다.
- * 이어 붙인 값이 범위를 벗어나면 마지막 숫자를 새 첫 자리로 본다.
+ * 완성된 숫자는 범위를 벗어나더라도 보존하여 검증에서 오류를 알린다.
  */
 const inputDigit = (
   segments: DateSegments,
@@ -227,37 +221,27 @@ const inputDigit = (
   digit: string,
   pending: PendingDigits | null,
 ): DigitInputResult => {
-  const { min, max } = SEGMENT_SPEC[kind];
+  const { max } = SEGMENT_SPEC[kind];
   const length = getLength(kind);
 
-  const appended = (pending?.kind === kind ? pending.digits : "") + digit;
-  const isOverMax = Number(appended) > max;
-  // 예: 월의 "00"
-  const isFilledBelowMin = appended.length === length && Number(appended) < min;
-  const digits = isOverMax || isFilledBelowMin ? digit : appended;
+  const digits = (pending?.kind === kind ? pending.digits : "") + digit;
 
   const value = Number(digits);
   const hasRoomForMoreDigits = digits.length < length && value * 10 <= max;
 
   return {
     // 확정 전에는 기존 날짜를 보존한다. 연도의 첫 숫자로 윤일을 잘라내지 않는다.
-    segments: hasRoomForMoreDigits
-      ? segments
-      : constrainDay(withSegment(segments, kind, value >= min ? value : null)),
+    segments: hasRoomForMoreDigits ? segments : withSegment(segments, kind, value),
     pending: hasRoomForMoreDigits ? { kind, digits } : null,
     isComplete: !hasRoomForMoreDigits,
   };
 };
 
-/** 세그먼트 이동이나 blur로 숫자 입력을 끝낼 때 한 번만 날짜를 보정한다. */
+/** 세그먼트 이동이나 blur로 숫자 입력을 끝낸다. 입력한 숫자를 보정하지 않는다. */
 const finalizeDateSegment = (segments: DateSegments, pending: PendingDigits | null) => {
   if (pending === null) return segments;
 
-  const value = Number(pending.digits);
-  const { min, max } = SEGMENT_SPEC[pending.kind];
-  return constrainDay(
-    withSegment(segments, pending.kind, isWithin(value, min, max) ? value : null),
-  );
+  return withSegment(segments, pending.kind, Number(pending.digits));
 };
 
 /**
@@ -301,6 +285,8 @@ export const DATE_SEGMENT_RULES: SegmentedInputRules<DateSegmentKind, DateSegmen
       segments.month !== null ||
       segments.day !== null ||
       pending !== null,
+    isComplete: segments =>
+      segments.year !== null && segments.month !== null && segments.day !== null,
     parseValue: parseDateValue,
     toValue: toDateValue,
     parseText: parseDateText,

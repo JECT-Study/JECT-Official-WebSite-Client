@@ -2,7 +2,10 @@ import { clsx } from "clsx";
 import { Popover } from "radix-ui";
 import {
   forwardRef,
+  useCallback,
   useEffect,
+  useLayoutEffect,
+  useMemo,
   useRef,
   useState,
   type KeyboardEvent,
@@ -12,11 +15,22 @@ import { visuallyHidden } from "utils";
 
 import { DateFieldPicker } from "./Picker";
 import { IconButton } from "../../Button/IconButton";
+import { isDateOutOfRange, isDateUnavailable } from "../../DatePicker/datePicker.utils";
 import { FieldContent } from "../../Field";
 import { useFieldControl } from "../../Field/useFieldControl";
+import { getDateFieldErrorMessage, useDateFieldContext } from "../dateField.context";
 import * as styles from "../dateField.css";
-import type { DateFieldInputProps } from "../dateField.types";
-import { DATE_PLACEHOLDER, DATE_SEGMENT_RULES, normalizeDateValue } from "../dateField.utils";
+import type {
+  DateFieldInputError,
+  DateFieldInputProps,
+  DateFieldInputState,
+} from "../dateField.types";
+import {
+  DATE_PLACEHOLDER,
+  DATE_SEGMENT_RULES,
+  normalizeDateValue,
+  valueToDate,
+} from "../dateField.utils";
 import { useSegmentedInput } from "../useSegmentedInput";
 
 import { mergeRefs } from "@/hooks/mergeRefs";
@@ -52,6 +66,7 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
       value,
       defaultValue,
       onChange,
+      onInputStateChange,
       suffix = null,
       withPicker = true,
       withActionBar = false,
@@ -71,6 +86,7 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
       onPaste: onPasteFromProps,
       onCut: onCutFromProps,
       onDrop: onDropFromProps,
+      onInvalid: onInvalidFromProps,
       "aria-label": ariaLabelFromProps,
       "aria-labelledby": labelledByFromProps,
       "aria-describedby": describedByFromProps,
@@ -103,6 +119,11 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
     const pickerTriggerRef = useRef<HTMLButtonElement>(null);
     const isPickerOpenedFromInputRef = useRef(false);
     const [isPickerOpen, setIsPickerOpen] = useState(false);
+    const [hasSubmitAttempt, setHasSubmitAttempt] = useState(false);
+    const closeReasonRef = useRef<"select" | "outside" | null>(null);
+    const { onInputStateChange: reportInputState } = useDateFieldContext("DateField.Input");
+    const onInputStateChangeRef = useRef(onInputStateChange);
+    onInputStateChangeRef.current = onInputStateChange;
 
     const isEditable = !isDisabled && !isReadOnly;
 
@@ -117,14 +138,62 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
     );
     const normalizedValue = normalizeDateValue(dateValue);
 
-    const { displayValue, isEmpty, resetSegments, focusActiveSegment, handlers } =
-      useSegmentedInput({
-        inputRef,
-        rules: DATE_SEGMENT_RULES,
-        value: dateValue,
-        onValueChange: setDateValue,
-        isEditable,
-      });
+    const isValueAllowed = useCallback(
+      (nextValue: string): boolean => {
+        const date = valueToDate(nextValue);
+        return date !== null && !isDateUnavailable(date, { minDate, maxDate, isDateDisabled });
+      },
+      [minDate, maxDate, isDateDisabled],
+    );
+
+    const {
+      displayValue,
+      isEmpty,
+      inputValue,
+      draftValue,
+      inputStatus,
+      hasEdited,
+      resetSegments,
+      focusActiveSegment,
+      handlers,
+    } = useSegmentedInput({
+      inputRef,
+      rules: DATE_SEGMENT_RULES,
+      value: dateValue,
+      onValueChange: setDateValue,
+      isEditable,
+      isValueAllowed,
+    });
+
+    let error: DateFieldInputError | null = null;
+    if (inputStatus === "empty") error = isRequired ? "required" : null;
+    else if (inputStatus === "incomplete") error = "incomplete";
+    else if (inputStatus === "invalid") error = "invalid";
+    else {
+      const date = valueToDate(draftValue);
+      if (date !== null) {
+        if (isDateOutOfRange(date, minDate, maxDate)) error = "outOfRange";
+        else if (isDateDisabled?.(date)) error = "disabledDate";
+      }
+    }
+
+    const isErrorVisible =
+      error !== null && (error !== "required" || hasEdited || hasSubmitAttempt);
+    const currentValue = error === null ? draftValue : "";
+    const inputState = useMemo<DateFieldInputState>(
+      () => ({ inputValue, value: currentValue, error, isErrorVisible }),
+      [inputValue, currentValue, error, isErrorVisible],
+    );
+    const lastValidValueRef = useRef(isValueAllowed(normalizedValue) ? normalizedValue : "");
+
+    useLayoutEffect(() => {
+      inputRef.current?.setCustomValidity(getDateFieldErrorMessage(error));
+      reportInputState(inputState);
+      onInputStateChangeRef.current?.(inputState);
+      if (currentValue !== "") lastValidValueRef.current = currentValue;
+    }, [inputState, error, currentValue, reportInputState]);
+
+    useLayoutEffect(() => () => reportInputState(null), [reportInputState]);
 
     // ↓는 값을 줄이는 데 쓰므로 달력은 Alt와 함께 눌렀을 때 연다.
     const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
@@ -137,6 +206,7 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
       if (isOpenPickerKey && withPicker && isEditable) {
         event.preventDefault();
         isPickerOpenedFromInputRef.current = true;
+        closeReasonRef.current = null;
         setIsPickerOpen(true);
         return;
       }
@@ -152,11 +222,22 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
         return;
       }
 
-      setDateValue(nextValue);
+      resetSegments(nextValue);
+      setHasSubmitAttempt(true);
+      closeReasonRef.current = "select";
       setIsPickerOpen(false);
     };
 
     const handlePickerCloseAutoFocus = (event: Event) => {
+      if (closeReasonRef.current === "outside") {
+        event.preventDefault();
+        return;
+      }
+      if (closeReasonRef.current === "select") {
+        event.preventDefault();
+        focusActiveSegment();
+        return;
+      }
       const input = inputRef.current;
       const trigger = pickerTriggerRef.current;
       const ownerDocument = input?.ownerDocument ?? trigger?.ownerDocument;
@@ -178,6 +259,8 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
     };
 
     const defaultValueRef = useRef(defaultValue ?? "");
+    const resetStateRef = useRef({ resetSegments, isValueAllowed });
+    resetStateRef.current = { resetSegments, isValueAllowed };
 
     useEffect(() => {
       const formElement = inputRef.current?.form ?? null;
@@ -192,8 +275,11 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
           // cleanup 전에 필드가 제거되거나 다른 폼에 연결되어도 이전 초기화를 적용하지 않는다.
           if (event.defaultPrevented || inputRef.current?.form !== formElement) return;
 
-          setDateValue(defaultValueRef.current);
-          resetSegments(defaultValueRef.current);
+          resetStateRef.current.resetSegments(defaultValueRef.current);
+          setHasSubmitAttempt(false);
+          lastValidValueRef.current = resetStateRef.current.isValueAllowed(defaultValueRef.current)
+            ? defaultValueRef.current
+            : "";
         }, 0);
         resetTimers.add(timeoutId);
       };
@@ -203,15 +289,17 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
         formElement.removeEventListener("reset", handleReset);
         resetTimers.forEach(timeoutId => clearTimeout(timeoutId));
       };
-    }, [form, setDateValue, resetSegments]);
+    }, [form]);
 
     const formatHintId = `${fieldId}-format`;
 
     return (
       <Popover.Root
         open={isPickerOpen && isEditable && withPicker}
-        onOpenChange={setIsPickerOpen}
-        modal
+        onOpenChange={open => {
+          if (open) closeReasonRef.current = null;
+          setIsPickerOpen(open);
+        }}
       >
         <Popover.Anchor asChild>
           <FieldContent data-disabled={isDisabled || undefined}>
@@ -230,10 +318,15 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
               aria-label={ariaLabel}
               aria-labelledby={ariaLabelledBy}
               aria-describedby={[ariaDescribedBy, formatHintId].filter(Boolean).join(" ")}
-              aria-invalid={ariaInvalid}
+              aria-invalid={isErrorVisible || ariaInvalid}
               aria-required={isRequired || undefined}
               disabled={isDisabled}
               readOnly={isReadOnly}
+              onInvalid={composeHandler(onInvalidFromProps, event => {
+                event.preventDefault();
+                setHasSubmitAttempt(true);
+                focusActiveSegment();
+              })}
               data-field-control=''
               data-readonly={isReadOnly || undefined}
               data-empty={isEmpty || undefined}
@@ -276,7 +369,7 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
                 type='hidden'
                 name={name}
                 form={form}
-                value={normalizedValue}
+                value={currentValue}
                 disabled={isDisabled}
               />
             )}
@@ -284,9 +377,13 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
         </Popover.Anchor>
         {withPicker && (
           <DateFieldPicker
-            value={normalizedValue}
+            value={currentValue}
+            defaultMonth={valueToDate(lastValidValueRef.current) ?? undefined}
             onSelect={handlePickerSelect}
             onCloseAutoFocus={handlePickerCloseAutoFocus}
+            onInteractOutside={() => {
+              closeReasonRef.current = "outside";
+            }}
             disabled={isDisabled}
             readOnly={isReadOnly}
             withActionBar={withActionBar}

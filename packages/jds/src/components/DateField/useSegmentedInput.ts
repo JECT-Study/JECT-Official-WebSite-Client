@@ -50,6 +50,8 @@ export interface SegmentedInputRules<TKind extends string, TSegments, TPending> 
   getRange: (kind: TKind) => SegmentRange;
   format: (segments: TSegments, pending: TPending | null) => string;
   hasInput: (segments: TSegments, pending: TPending | null) => boolean;
+  /** 숫자의 유효성과 별도로 모든 세그먼트가 채워졌는지 판단한다. */
+  isComplete: (segments: TSegments) => boolean;
   /** 값을 세그먼트로 바꾼다. 해석할 수 없으면 null이다. */
   parseValue: (value: string) => TSegments | null;
   /** 세그먼트를 값으로 바꾼다. 입력이 완성되지 않았으면 빈 문자열이다. */
@@ -74,9 +76,11 @@ export interface SegmentedInputRules<TKind extends string, TSegments, TPending> 
 interface UseSegmentedInputOptions<TKind extends string, TSegments, TPending> {
   inputRef: RefObject<HTMLInputElement | null>;
   rules: SegmentedInputRules<TKind, TSegments, TPending>;
-  /** 입력이 완성되지 않았으면 빈 문자열이다. */
+  /** 외부에서 확정한 값. 부분 입력과 유효하지 않은 draft는 이 값과 별도로 유지한다. */
   value: string;
   onValueChange: (value: string) => void;
+  /** 달력과 같은 날짜 제한. 거절된 날짜도 draft에 유지한다. 빈 값에는 적용하지 않는다. */
+  isValueAllowed?: (value: string) => boolean;
   /** false면 포커스와 세그먼트 이동만 허용하고 값은 바꾸지 않는다. */
   isEditable: boolean;
 }
@@ -97,6 +101,13 @@ interface SegmentedInputHandlers {
 interface UseSegmentedInputResult {
   /** input에 표시할 문자열. 포커스도 입력도 없으면 빈 문자열이라 placeholder가 보인다. */
   displayValue: string;
+  /** 포커스와 무관한 편집 중 표시 문자열. 완전히 비었으면 빈 문자열이다. */
+  inputValue: string;
+  /** 확정 전 입력이 없고 날짜가 유효할 때만 제출 형식의 값이다. */
+  draftValue: string;
+  inputStatus: "empty" | "incomplete" | "invalid" | "valid";
+  /** 사용자가 수정했는지 여부. 외부 값 교체와 초기화 시 false로 돌아간다. */
+  hasEdited: boolean;
   /** 채워진 세그먼트가 하나도 없는지 여부 */
   isEmpty: boolean;
   /** 폼 초기화처럼 부분 입력까지 버리고 값에서 세그먼트를 다시 만들 때 호출한다. */
@@ -121,6 +132,7 @@ export const useSegmentedInput = <TKind extends string, TSegments, TPending>({
   rules,
   value,
   onValueChange,
+  isValueAllowed,
   isEditable,
 }: UseSegmentedInputOptions<TKind, TSegments, TPending>): UseSegmentedInputResult => {
   const { kinds } = rules;
@@ -132,9 +144,12 @@ export const useSegmentedInput = <TKind extends string, TSegments, TPending>({
   const [pending, setPending] = useState<TPending | null>(null);
   const [isAllSelected, setIsAllSelected] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
+  const [hasEdited, setHasEdited] = useState(false);
   const [, requestSelectionSync] = useReducer((key: number) => key + 1, 0);
 
   const segmentsRef = useRef(segments);
+  const externalValueRef = useRef(value);
+  const requestedValueRef = useRef<string | null>(null);
   const isPointerSelectingRef = useRef(false);
   const isRestoringFocusRef = useRef(false);
 
@@ -151,17 +166,27 @@ export const useSegmentedInput = <TKind extends string, TSegments, TPending>({
     (nextValue: string) => {
       writeSegments(parseOrEmpty(rules, nextValue));
       setPending(null);
+      setHasEdited(false);
+      requestedValueRef.current = null;
     },
     [rules, writeSegments],
   );
 
-  // 값이나 세그먼트가 바뀌면 서로 맞춘다. 소비처가 변경을 거절하면 기존 값으로 돌아간다.
-  // 부분 입력 중에는 세그먼트의 값과 외부 값이 모두 빈 문자열이라 입력을 유지한다.
+  // 외부 값 교체와 사용자가 요청한 완성값의 승인을 구분한다.
+  // 부분·오류 입력은 변경을 요청하지 않으므로 마지막 확정값과 달라도 보존한다.
   useLayoutEffect(() => {
-    if (rules.toValue(segmentsRef.current) === value) return;
+    const hasExternalChange = externalValueRef.current !== value;
+    externalValueRef.current = value;
 
-    loadValue(value);
-  }, [value, segments, rules, loadValue]);
+    const requestedValue = requestedValueRef.current;
+    if (requestedValue !== null) {
+      requestedValueRef.current = null;
+      if (requestedValue !== value) loadValue(value);
+      return;
+    }
+
+    if (hasExternalChange) loadValue(value);
+  }, [value, segments, pending, rules, loadValue]);
 
   // 렌더마다 표시 문자열이 바뀌면 브라우저가 선택 영역을 끝으로 옮기므로 현재 세그먼트를 다시 선택한다.
   useLayoutEffect(() => {
@@ -175,9 +200,18 @@ export const useSegmentedInput = <TKind extends string, TSegments, TPending>({
     }
   });
 
-  const commit = (next: TSegments) => {
+  const commit = (next: TSegments, nextPending: TPending | null = null) => {
     writeSegments(next);
-    onValueChange(rules.toValue(next));
+    setHasEdited(true);
+
+    // 부분 입력과 잘못된 날짜는 draft에만 남긴다. 이전 확정값을 빈 값으로 덮지 않는다.
+    if (nextPending !== null) return;
+    const nextValue = rules.toValue(next);
+    if (rules.hasInput(next, null) && nextValue === "") return;
+    if (nextValue !== "" && isValueAllowed?.(nextValue) === false) return;
+
+    if (nextValue !== value) requestedValueRef.current = nextValue;
+    onValueChange(nextValue);
   };
 
   const finalizePending = () => {
@@ -234,7 +268,7 @@ export const useSegmentedInput = <TKind extends string, TSegments, TPending>({
 
     if (!isAccepted) return;
 
-    commit(state.segments);
+    commit(state.segments, state.pending);
     setActive(state.active);
     setPending(state.pending);
     setIsAllSelected(false);
@@ -433,11 +467,28 @@ export const useSegmentedInput = <TKind extends string, TSegments, TPending>({
     (nextValue: string) => {
       loadValue(nextValue);
       setIsAllSelected(false);
+      if (nextValue !== value) {
+        requestedValueRef.current = nextValue;
+        onValueChange(nextValue);
+      }
     },
-    [loadValue],
+    [loadValue, value, onValueChange],
   );
 
+  const draftValue = pending === null ? rules.toValue(segments) : "";
+  const inputStatus = !hasInput
+    ? "empty"
+    : pending !== null || !rules.isComplete(segments)
+      ? "incomplete"
+      : draftValue === ""
+        ? "invalid"
+        : "valid";
+
   return {
+    inputValue: hasInput ? rules.format(segments, pending) : "",
+    draftValue,
+    inputStatus,
+    hasEdited,
     displayValue: isFocused || hasInput ? rules.format(segments, pending) : "",
     isEmpty: !hasInput,
     resetSegments,

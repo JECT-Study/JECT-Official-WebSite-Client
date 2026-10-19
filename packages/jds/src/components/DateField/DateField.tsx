@@ -1,12 +1,31 @@
-import { forwardRef } from "react";
+import { forwardRef, useState } from "react";
 
+import { DateFieldHelper } from "./compound/Helper";
 import { DateFieldInput } from "./compound/Input";
-import type { DateFieldProps } from "./dateField.types";
+import { DateFieldProvider, getDateFieldErrorMessage } from "./dateField.context";
+import type { DateFieldInputState, DateFieldProps } from "./dateField.types";
 import { Field } from "../Field";
 
-const DateFieldRoot = forwardRef<HTMLDivElement, DateFieldProps>((props, ref) => {
-  return <Field ref={ref} {...props} />;
-});
+const DateFieldRoot = forwardRef<HTMLDivElement, DateFieldProps>(
+  ({ children, status, ...props }, ref) => {
+    const [inputState, setInputState] = useState<DateFieldInputState | null>(null);
+    const [hasHelper, setHasHelper] = useState(false);
+    const isErrorVisible = inputState?.isErrorVisible ?? false;
+
+    return (
+      <DateFieldProvider
+        value={{ inputState, onInputStateChange: setInputState, onHelperMountChange: setHasHelper }}
+      >
+        <Field ref={ref} {...props} status={isErrorVisible ? "error" : status}>
+          {children}
+          {isErrorVisible && !hasHelper && (
+            <Field.Helper>{getDateFieldErrorMessage(inputState?.error ?? null)}</Field.Helper>
+          )}
+        </Field>
+      </DateFieldProvider>
+    );
+  },
+);
 
 DateFieldRoot.displayName = "DateField";
 
@@ -26,5 +45,5 @@ DateFieldRoot.displayName = "DateField";
 export const DateField = Object.assign(DateFieldRoot, {
   Label: Field.Label,
   Input: DateFieldInput,
-  Helper: Field.Helper,
+  Helper: DateFieldHelper,
 });

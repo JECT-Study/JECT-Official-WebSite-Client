@@ -5,6 +5,22 @@ import type { FieldProps } from "../Field";
 
 export type DateFieldProps = FieldProps;
 
+export type DateFieldInputError =
+  | "required"
+  | "incomplete"
+  | "invalid"
+  | "outOfRange"
+  | "disabledDate";
+
+/** 현재 편집 내용과 유효성. value는 현재 입력이 유효할 때만 날짜를 갖는다. */
+export interface DateFieldInputState {
+  inputValue: string;
+  value: string;
+  error: DateFieldInputError | null;
+  /** 최초 필수 빈 값은 error가 있어도 오류를 표시하지 않는다. */
+  isErrorVisible: boolean;
+}
+
 interface DateFieldInputBaseProps extends Omit<
   ComponentPropsWithoutRef<"input">,
   | "id"
@@ -30,11 +46,13 @@ interface DateFieldInputBaseProps extends Omit<
   | "autoCorrect"
   | "spellCheck"
 > {
-  /** 필수 입력 여부. aria-required로 반영한다. */
+  /** 필수 입력 여부. 최초 오류는 숨기며 폼 제출 시 검증한다. */
   required?: boolean;
+  /** 부분 입력, 날짜 제한, 필수 빈 값을 포함한 현재 상태를 마운트와 변경 시 알린다. */
+  onInputStateChange?: (state: DateFieldInputState) => void;
   /**
    * 입력이 포커스를 잃을 때 호출한다. 이 콜백 뒤에 부분 입력을 확정하므로 이전 확정값을 읽을 수 있다.
-   * 날짜 검증에는 onChange가 전달하는 확정값을 사용한다.
+   * 현재 입력의 유효성은 onInputStateChange로 확인한다.
    * preventDefault()는 포커스가 이동한 상태에서 내부 blur 처리만 건너뛰게 한다.
    */
   onBlur?: ComponentPropsWithoutRef<"input">["onBlur"];
@@ -50,11 +68,11 @@ interface DateFieldInputBaseProps extends Omit<
    * @default false
    */
   withActionBar?: DatePickerProps["withActionBar"];
-  /** 달력에서 선택할 수 있는 가장 이른 날짜. 직접 입력한 값은 제한하지 않는다. */
+  /** 직접 입력과 달력 선택에 적용되는 가장 이른 날짜. */
   minDate?: DatePickerProps["minDate"];
-  /** 달력에서 선택할 수 있는 가장 늦은 날짜. 직접 입력한 값은 제한하지 않는다. */
+  /** 직접 입력과 달력 선택에 적용되는 가장 늦은 날짜. */
   maxDate?: DatePickerProps["maxDate"];
-  /** 날짜마다 호출되며, true를 반환한 날짜는 달력에서 선택할 수 없다. */
+  /** true를 반환한 날짜는 직접 입력 시 오류이며 달력에서도 선택할 수 없다. */
   isDateDisabled?: DatePickerProps["isDateDisabled"];
 }
 

@@ -13,11 +13,13 @@ interface DateFieldPickerProps extends Pick<
 > {
   /** "YYYY-MM-DD" 형식의 값. 비어 있으면 선택된 날짜가 없다. */
   value: string;
+  defaultMonth?: Date;
   /** 달력에서 날짜를 고르면 "YYYY-MM-DD" 값으로 호출된다. */
   onSelect: (value: string) => void;
   disabled: boolean;
   readOnly: boolean;
   onCloseAutoFocus: (event: Event) => void;
+  onInteractOutside: () => void;
 }
 
 const TABBABLE_DATE_CELL_SELECTOR = '[role="grid"] [tabindex="0"]';
@@ -28,6 +30,7 @@ const TABBABLE_DATE_CELL_SELECTOR = '[role="grid"] [tabindex="0"]';
  */
 export const DateFieldPicker = ({
   value,
+  defaultMonth,
   onSelect,
   disabled,
   readOnly,
@@ -36,6 +39,7 @@ export const DateFieldPicker = ({
   maxDate,
   isDateDisabled,
   onCloseAutoFocus,
+  onInteractOutside,
 }: DateFieldPickerProps) => {
   const pickerRef = useRef<HTMLDivElement>(null);
 
@@ -78,11 +82,13 @@ export const DateFieldPicker = ({
         onOpenAutoFocus={handleOpenAutoFocus}
         onCloseAutoFocus={onCloseAutoFocus}
         onEscapeKeyDown={handleEscapeKeyDown}
+        onInteractOutside={onInteractOutside}
       >
         <DatePicker
           ref={pickerRef}
           className={styles.picker}
           value={valueToDate(value)}
+          defaultMonth={defaultMonth}
           onChange={handleChange}
           disabled={disabled}
           readOnly={readOnly}
