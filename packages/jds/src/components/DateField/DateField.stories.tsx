@@ -10,25 +10,35 @@ import { useState } from "react";
 import { vars } from "tokens";
 
 import { DateField } from "./DateField";
+import type { DateFieldInputState } from "./dateField.types";
 import { BlockButton } from "../Button/BlockButton";
 import { Icon } from "../Icon";
 import { Kbd } from "../Kbd";
+
+const VALUE_LABEL_STYLE = { width: "auto", whiteSpace: "nowrap" } as const;
+
+const DateFieldFormResult = ({ value }: { value: string | null }) => (
+  <div style={{ maxWidth: "100%", overflowX: "auto", whiteSpace: "pre" }}>
+    <FormResult value={value} />
+  </div>
+);
 
 /**
  * 특정 날짜를 직접 입력하거나 달력에서 선택하는 필드입니다.
  * 연, 월, 일을 세그먼트 단위로 편집하며 값은 `"YYYY-MM-DD"` 형식의 문자열입니다.
  *
  * - 숫자를 입력하면 세그먼트가 채워지는 즉시 다음 세그먼트로 넘어갑니다. `2026.7.25`처럼 구분자를 포함해 입력해도 됩니다.
- * - 세그먼트 입력을 완료하거나 구분자, 좌우 방향키, blur로 확정할 때 일이 그 달의 마지막 날을 넘으면 보정합니다.
+ * - 부분 입력과 존재하지 않는 날짜는 입력 중 즉시 오류로 표시하며, 날짜를 자동으로 보정하지 않습니다.
  * - 기존 날짜를 다시 입력하는 동안에는 확정된 값을 유지합니다. 연도는 0001–9999를 지원합니다.
  * - 해석할 수 없는 외부 값은 빈 입력과 빈 제출값으로 처리합니다.
- * - 완성된 날짜가 없으면 확정값은 빈 문자열입니다. 화면의 부분 입력과 확정값은 다를 수 있습니다.
+ * - 부분 입력과 오류 입력 중에는 마지막 확정값을 유지합니다. 화면의 편집 내용과 확정값은 다를 수 있습니다.
  * - 확정값을 빈 문자열로 바꾸면 입력도 비워집니다. 이미 빈 문자열인 상태의 부분 입력은 같은 값을 다시 설정해도 유지됩니다.
  * - 부분 입력까지 초기화하려면 폼을 초기화합니다. 폼 없이 입력을 모두 비우려면 `value`를 빈 문자열로 설정하고 `DateField.Input`의 `key`를 바꿔 다시 마운트합니다.
  * - 폼 초기화는 비제어 모드에서 최초 `defaultValue`로 돌아갑니다. 제어 모드에서는 확정값이 비어 있지 않으면 `onChange("")`로 변경을 요청하며 소비처가 반영해야 합니다.
  * - 달력에서 고른 날짜는 입력값에 반영하고, 입력한 날짜는 달력에서 선택된 상태로 보여 줍니다.
  * - `onChange`는 확정값이 바뀔 때 호출됩니다. `minLength`, `maxLength`와 네이티브 `onInput`, `onBeforeInput`, `onChangeCapture` 및 입력 이벤트의 capture props는 받지 않습니다.
- * - 키보드나 붙여넣기 동작을 취소하려면 `onKeyDown`, `onPaste`에서 `preventDefault()`를 사용합니다. 날짜 검증에는 `onChange`가 전달하는 값을 사용합니다.
+ * - `onInputStateChange`로 편집 내용, 마지막 확정값, 오류 종류와 오류 표시 여부를 확인합니다. 빈 선택 입력과 부분 입력도 구분할 수 있습니다.
+ * - 키보드나 붙여넣기 동작을 취소하려면 `onKeyDown`, `onPaste`에서 `preventDefault()`를 사용합니다.
  * - blur에서는 소비처 `onBlur` 실행 후 부분 입력을 확정하고, 확정값이 바뀌면 `onChange`를 호출합니다. `onBlur`에서 읽은 확정값은 이전 값일 수 있습니다.
  *
  * | 키 | 동작 |
@@ -44,8 +54,9 @@ import { Kbd } from "../Kbd";
  * | `Enter` | 입력 중 세그먼트를 확정하고 폼의 기본 제출 동작 실행 |
  * | `Tab` | 입력에서 달력 버튼으로, 다시 필드 밖으로 이동 |
  *
- * 달력이 열려 있는 동안 포커스는 달력 안에서만 이동합니다. 달력 안의 키보드 조작은 `DatePicker`와 같습니다.
- * 날짜를 확정해 닫을 때도 달력을 연 위치로 포커스가 돌아갑니다.
+ * 달력 안의 키보드 조작은 `DatePicker`와 같습니다. 날짜 선택 완료 후에는 입력창으로 포커스가 돌아갑니다.
+ * 달력 밖의 입력을 클릭하면 달력을 닫고 클릭한 입력으로 포커스를 이동합니다.
+ * 필수 빈 입력은 최초에 오류를 숨기고, 입력 후 삭제하거나 제출하면 오류를 표시합니다.
  */
 const meta = {
   title: "Components/DateField",
@@ -176,7 +187,7 @@ const ActionBarPreview = () => {
         <DateField.Input value={date} onChange={setDate} withActionBar />
         <DateField.Helper>달력에서 선택한 뒤 적용을 눌러주세요</DateField.Helper>
       </DateField>
-      <Label>value: {date === "" ? "빈 문자열" : date}</Label>
+      <Label style={VALUE_LABEL_STYLE}>value: {date === "" ? "빈 문자열" : date}</Label>
     </FlexColumn>
   );
 };
@@ -192,36 +203,33 @@ export const WithActionBar: Story = {
   render: () => <ActionBarPreview />,
 };
 
-const SELECTABLE_RANGE = { min: "2026-01-01", max: "2026-12-31" };
-
 const SelectableDatesPreview = () => {
   const [date, setDate] = useState("2026-07-24");
-
-  // 값이 "YYYY-MM-DD" 형식이라 문자열 비교로 범위를 확인할 수 있습니다.
-  const isInRange = SELECTABLE_RANGE.min <= date && date <= SELECTABLE_RANGE.max;
-  const isInvalid = date !== "" && !isInRange;
+  const [inputState, setInputState] = useState<DateFieldInputState | null>(null);
 
   return (
-    <DateField status={isInvalid ? "error" : "default"} style={FIELD_WIDTH}>
-      <DateField.Label>방문일</DateField.Label>
-      <DateField.Input
-        value={date}
-        onChange={setDate}
-        minDate={new Date(2026, 0, 1)}
-        maxDate={new Date(2026, 11, 31)}
-        isDateDisabled={day => day.getDay() === 0 || day.getDay() === 6}
-      />
-      <DateField.Helper>
-        {isInvalid ? "2026년 안의 날짜를 입력해주세요" : "2026년의 평일만 선택할 수 있어요"}
-      </DateField.Helper>
-    </DateField>
+    <FlexColumn gap='16px' style={{ alignItems: "flex-start" }}>
+      <DateField style={FIELD_WIDTH}>
+        <DateField.Label>방문일</DateField.Label>
+        <DateField.Input
+          value={date}
+          onChange={setDate}
+          onInputStateChange={setInputState}
+          minDate={new Date(2026, 0, 1)}
+          maxDate={new Date(2026, 11, 31)}
+          isDateDisabled={day => day.getDay() === 0 || day.getDay() === 6}
+        />
+        <DateField.Helper>2026년의 평일만 선택할 수 있어요</DateField.Helper>
+      </DateField>
+      <InputStatePreview label='방문일 입력 상태' state={inputState} />
+    </FlexColumn>
   );
 };
 
 /**
- * `minDate`, `maxDate`, `isDateDisabled`로 달력에서 고를 수 있는 날짜를 제한합니다.
+ * `minDate`, `maxDate`, `isDateDisabled`는 달력과 직접 입력에 동일하게 적용됩니다.
  * 텍스트 입력에 적용되지 않는 네이티브 `min`, `max` prop은 받지 않습니다.
- * 직접 입력한 값은 제한하지 않으므로, 범위 밖 값은 `status`와 헬퍼 메시지로 알려 줍니다.
+ * 제한 밖 입력은 화면에 유지하고 내장 오류 메시지로 안내합니다. 마지막 확정값은 변경하지 않습니다.
  */
 export const SelectableDates: Story = {
   render: () => <SelectableDatesPreview />,
@@ -263,7 +271,7 @@ const FormPreview = () => {
             제출
           </BlockButton>
         </FlexRow>
-        <FormResult value={submitted} />
+        <DateFieldFormResult value={submitted} />
       </FlexColumn>
     </form>
   );
@@ -289,4 +297,166 @@ export const BoundaryDates: Story = {
       ))}
     </FlexColumn>
   ),
+};
+
+interface InputStatePreviewProps {
+  label: string;
+  state: DateFieldInputState | null;
+}
+
+const InputStatePreview = ({ label, state }: InputStatePreviewProps) => (
+  <output
+    aria-label={label}
+    style={{
+      display: "block",
+      maxWidth: "100%",
+      overflowX: "auto",
+      whiteSpace: "pre",
+      fontSize: "14px",
+    }}
+  >
+    {label}
+    {"\n"}
+    {JSON.stringify(state, null, 2)}
+  </output>
+);
+
+const ValidationPreview = () => {
+  const [optionalState, setOptionalState] = useState<DateFieldInputState | null>(null);
+  const [requiredState, setRequiredState] = useState<DateFieldInputState | null>(null);
+  const [submitted, setSubmitted] = useState<string | null>(null);
+
+  return (
+    <form
+      onSubmit={event => {
+        event.preventDefault();
+        const data = new FormData(event.currentTarget);
+        setSubmitted(JSON.stringify(Object.fromEntries(data), null, 2));
+      }}
+      onReset={() => setSubmitted(null)}
+    >
+      <FlexColumn gap='16px' style={{ alignItems: "flex-start", maxWidth: "480px" }}>
+        <p style={{ margin: 0 }}>
+          부분 입력, 2026.02.31 붙여넣기, 전체 삭제를 확인해 보세요. 오류가 있으면 제출할 수 없어요.
+        </p>
+        <DateField style={FIELD_WIDTH}>
+          <DateField.Label>선택 입력 날짜</DateField.Label>
+          <DateField.Input name='optionalDate' onInputStateChange={setOptionalState} />
+          <DateField.Helper>날짜가 필요하지 않으면 비워 두세요</DateField.Helper>
+        </DateField>
+        <InputStatePreview label='선택 입력 상태' state={optionalState} />
+        <DateField required style={FIELD_WIDTH}>
+          <DateField.Label>필수 입력 날짜</DateField.Label>
+          <DateField.Input name='requiredDate' onInputStateChange={setRequiredState} />
+        </DateField>
+        <InputStatePreview label='필수 입력 상태' state={requiredState} />
+        <label>
+          다음 입력
+          <input aria-label='다음 입력' style={{ display: "block" }} />
+        </label>
+        <FlexRow gap='8px' style={FIELD_WIDTH}>
+          <BlockButton type='reset' style={{ flex: 1 }}>
+            초기화
+          </BlockButton>
+          <BlockButton type='submit' style={{ flex: 1 }}>
+            제출
+          </BlockButton>
+        </FlexRow>
+        <DateFieldFormResult value={submitted} />
+      </FlexColumn>
+    </form>
+  );
+};
+
+/**
+ * 빈 선택 입력은 유효하고, 부분 입력과 존재하지 않는 날짜는 즉시 오류가 됩니다.
+ * 필수 입력의 최초 빈 값은 오류를 숨기지만 제출을 막으며, 제출 시 오류를 표시합니다.
+ * `onInputStateChange`의 `value`는 현재 입력이 유효할 때만 날짜를 갖습니다. 오류 입력에서는 빈 문자열입니다.
+ * 오류가 있으면 일반 헬퍼 대신 내장 메시지를 표시하며, 헬퍼가 없는 구성에도 오류 메시지가 나타납니다.
+ * 초기화하면 입력과 오류 표시가 최초 상태로 돌아갑니다. 달력을 연 뒤 다음 입력을 클릭해 포커스 이동도 확인할 수 있습니다.
+ */
+export const Validation: Story = {
+  render: () => <ValidationPreview />,
+};
+
+const ControlledRejectionPreview = () => {
+  const [date, setDate] = useState("2026-07-25");
+  const [requested, setRequested] = useState<string | null>(null);
+  const [inputState, setInputState] = useState<DateFieldInputState | null>(null);
+  const [submitted, setSubmitted] = useState<string | null>(null);
+  const [isClearedOnReset, setIsClearedOnReset] = useState(false);
+  const [isResetCancelled, setIsResetCancelled] = useState(false);
+
+  return (
+    <form
+      onSubmit={event => {
+        event.preventDefault();
+        const entry = new FormData(event.currentTarget).get("controlledDate");
+        setSubmitted(typeof entry === "string" ? entry : null);
+      }}
+      onReset={event => {
+        if (isResetCancelled) event.preventDefault();
+        else if (isClearedOnReset) setDate("");
+      }}
+    >
+      <FlexColumn gap='16px' style={{ alignItems: "flex-start", maxWidth: "480px" }}>
+        <p style={{ margin: 0 }}>
+          날짜 변경 요청을 반영하지 않는 예시예요. 직접 입력, 달력 선택, 초기화로 변경을 요청해도
+          외부에서 지정한 값이 유지돼요.
+        </p>
+        <DateField required style={FIELD_WIDTH}>
+          <DateField.Label>제어된 날짜</DateField.Label>
+          <DateField.Input
+            name='controlledDate'
+            value={date}
+            onChange={setRequested}
+            onInputStateChange={setInputState}
+          />
+          <DateField.Helper>부분 입력과 오류 입력은 수정할 수 있어요</DateField.Helper>
+        </DateField>
+        <Label style={VALUE_LABEL_STYLE}>외부 값: {date || "빈 문자열"}</Label>
+        <Label style={VALUE_LABEL_STYLE}>
+          마지막 변경 요청: {requested === null ? "없음" : requested || "빈 문자열"}
+        </Label>
+        <InputStatePreview label='제어 입력 상태' state={inputState} />
+        <label>
+          <input
+            type='checkbox'
+            checked={isClearedOnReset}
+            onChange={event => setIsClearedOnReset(event.target.checked)}
+          />
+          초기화 시 부모 값도 비우기
+        </label>
+        <label>
+          <input
+            type='checkbox'
+            checked={isResetCancelled}
+            onChange={event => setIsResetCancelled(event.target.checked)}
+          />
+          초기화 취소
+        </label>
+        <FlexRow gap='8px' style={{ flexWrap: "wrap" }}>
+          <BlockButton type='button' onClick={() => setDate("2026-08-20")}>
+            외부 값 교체
+          </BlockButton>
+          <BlockButton type='button' onClick={() => setDate("")}>
+            외부 값 비우기
+          </BlockButton>
+          <BlockButton type='reset'>초기화 요청</BlockButton>
+          <BlockButton type='submit'>제출</BlockButton>
+        </FlexRow>
+        <DateFieldFormResult value={submitted} />
+      </FlexColumn>
+    </form>
+  );
+};
+
+/**
+ * `onChange`를 받더라도 소비처가 `value`를 바꾸지 않으면 완성된 날짜 변경 요청은 거절됩니다.
+ * 직접 입력과 달력 선택 모두 외부 값을 따르고, 폼 초기화의 빈 값 변경 요청을 거절해도 외부 값을 유지합니다.
+ * 부분·오류 입력은 마지막 확정값과 별도로 유지하지만, 외부 값 교체와 비우기는 편집 중 내용도 대체합니다.
+ * 외부 값이 이미 빈 문자열이면 같은 빈 문자열을 다시 설정해도 부분 입력을 비우지 않습니다. 이때 폼 초기화를 사용합니다.
+ */
+export const ControlledRejection: Story = {
+  render: () => <ControlledRejectionPreview />,
 };
