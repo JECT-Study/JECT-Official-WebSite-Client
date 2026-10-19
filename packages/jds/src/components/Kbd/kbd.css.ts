@@ -6,15 +6,17 @@ import { pxToRem } from "utils";
 import type { KbdSize, KbdType } from "./kbd.types";
 
 const borderColor = createVar();
+const kbdHeight = createVar();
 
 const sizeVariants = {
-  lg: { height: pxToRem(26), minWidth: pxToRem(20) },
-  md: { height: pxToRem(24), minWidth: pxToRem(19) },
-  sm: { height: pxToRem(22), minWidth: pxToRem(19) },
+  lg: { vars: { [kbdHeight]: pxToRem(26) }, minWidth: pxToRem(20) },
+  md: { vars: { [kbdHeight]: pxToRem(24) }, minWidth: pxToRem(19) },
+  sm: { vars: { [kbdHeight]: pxToRem(22) }, minWidth: pxToRem(19) },
 } satisfies Record<KbdSize, StyleRule>;
 
 const typeVariants = {
-  function: { paddingInline: vars.scheme.semantic.spacing["4"] },
+  // function 키는 너비를 높이와 같게 고정해 정사각형으로 그린다.
+  function: { width: kbdHeight, paddingInline: vars.scheme.semantic.spacing["4"] },
   key: { paddingInline: vars.scheme.semantic.spacing["6"] },
   text: { paddingInline: vars.scheme.semantic.spacing["6"] },
 } satisfies Record<KbdType, StyleRule>;
@@ -22,6 +24,7 @@ const typeVariants = {
 export const kbd = recipe({
   base: {
     alignItems: "center",
+    height: kbdHeight,
     borderRadius: vars.scheme.semantic.radius["4"],
     boxShadow: `inset 0 0 0 ${vars.scheme.semantic.strokeWeight["1"]} ${borderColor}`,
     color: vars.color.semantic.object.neutral,
