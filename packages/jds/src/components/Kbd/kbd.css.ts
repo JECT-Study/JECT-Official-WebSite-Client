@@ -1,9 +1,11 @@
-import type { StyleRule } from "@vanilla-extract/css";
+import { createVar, type StyleRule } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
 import { pxToRem } from "utils";
 
 import type { KbdSize, KbdType } from "./kbd.types";
+
+const borderColor = createVar();
 
 const sizeVariants = {
   lg: { height: pxToRem(26), minWidth: pxToRem(20) },
@@ -21,8 +23,17 @@ export const kbd = recipe({
   base: {
     alignItems: "center",
     borderRadius: vars.scheme.semantic.radius["4"],
-    border: `${vars.scheme.semantic.strokeWeight["1"]} solid ${vars.color.semantic.stroke.alpha.subtle}`,
+    boxShadow: `inset 0 0 0 ${vars.scheme.semantic.strokeWeight["1"]} ${borderColor}`,
     color: vars.color.semantic.object.neutral,
+    vars: {
+      [borderColor]: vars.color.semantic.stroke.alpha.subtle,
+    },
+    "@media": {
+      // 고대비 모드는 box-shadow를 지우므로 테두리를 border로 되살린다.
+      "(forced-colors: active)": {
+        border: `${vars.scheme.semantic.strokeWeight["1"]} solid currentColor`,
+      },
+    },
     selectors: {
       "&&": {
         display: "inline-flex",
@@ -36,8 +47,10 @@ export const kbd = recipe({
     size: sizeVariants,
     isMuted: {
       true: {
-        borderColor: vars.color.semantic.stroke.alpha.subtler,
         color: vars.color.semantic.object.subtle,
+        vars: {
+          [borderColor]: vars.color.semantic.stroke.alpha.subtler,
+        },
       },
       false: {},
     },
