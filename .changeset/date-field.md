@@ -4,82 +4,46 @@
 
 **DateField**
 
-특정 날짜를 직접 입력하거나 달력에서 선택하는 `DateField` 컴포넌트를 추가합니다. 연, 월, 일을 세그먼트 단위로 편집하며 화면에는 `YYYY.MM.DD`로 표시하고 값은 `"YYYY-MM-DD"` 형식의 문자열입니다.
+날짜를 연, 월, 일 단위로 직접 편집하거나 달력에서 선택하는 `DateField`를 추가합니다. 0001–9999년을 지원하며 화면에는 `YYYY.MM.DD`, 확정값은 `YYYY-MM-DD` 문자열로 사용합니다. 기존 컴포넌트 사용 코드는 변경할 필요가 없습니다.
 
-**소비처 영향 (코드 수정 필요)**
+다음 prop은 `DateField.Input`에서 사용합니다.
 
-네이티브 길이 제한과 입력 이벤트 props를 받지 않습니다. 확정값 변경은 `onChange`로 관찰합니다.
+| prop                 | 기본값  | 용도                                                                                                                   |
+| -------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `value`              | -       | 제어 모드의 마지막 확정값, 빈 값은 `""`, 부모가 날짜 변경을 반영하지 않으면 기존 값으로 복원                           |
+| `defaultValue`       | -       | 비제어 모드의 최초 값과 폼 reset 기준, 마운트 이후 변경은 미반영                                                       |
+| `onChange`           | -       | 유효하고 선택 가능한 날짜 완성 또는 전체 삭제로 확정값이 바뀔 때 호출, 부분 입력과 오류 입력 중에는 마지막 확정값 유지 |
+| `onInputStateChange` | -       | 마운트와 변경 시 현재 입력, 유효한 제출값, 오류 종류, 오류 표시 여부 전달                                              |
+| `onBlur`             | -       | 내부 부분 입력 확정 처리 전에 실행되는 blur 콜백                                                                       |
+| `name`               | -       | 현재 유효한 값을 hidden input으로 제출, 오류 입력의 제출값은 `""`로 처리                                               |
+| `form`               | -       | 입력과 제출값을 지정한 폼에 연결                                                                                       |
+| `withPicker`         | `true`  | 달력 버튼 표시, 날짜 선택 즉시 확정 후 닫기                                                                            |
+| `withActionBar`      | `false` | 달력에 오늘, 지우기, 적용 버튼 표시, 선택과 지우기는 적용 시 확정하고 닫으면 미적용 선택 취소                          |
+| `minDate`, `maxDate` | -       | 직접 입력과 달력 선택에 동일하게 적용되는 날짜 범위                                                                    |
+| `isDateDisabled`     | -       | `true`를 반환한 날짜는 직접 입력 시 오류이며 달력에서도 선택 불가                                                      |
+| `suffix`             | -       | 달력 버튼 오른쪽 부가 요소                                                                                             |
 
-| AS-IS                                          | TO-BE                                                             |
-| ---------------------------------------------- | ----------------------------------------------------------------- |
-| `minLength`, `maxLength`                       | 제거, 고정 날짜 형식의 입력 길이 제한 미지원                      |
-| `onInput`, `onInputCapture`, `onChangeCapture` | `onChange`로 확정값 변경 관찰                                     |
-| `onBeforeInput`, `onBeforeInputCapture`        | 제거, 키보드나 붙여넣기 동작 취소에는 `onKeyDown`, `onPaste` 사용 |
+`DateField`는 `status`, `disabled`, `readonly`, `required`를 받으며 `DateField.Label`, `DateField.Helper`를 제공합니다. 부분 입력과 존재하지 않는 날짜는 보정하지 않고 입력 중 즉시 오류로 표시합니다. `20260725`, `2026-07-25`, `2026.07.25` 입력과 붙여넣기를 지원합니다.
 
-```diff
- <DateField.Input
--  minLength={10}
--  maxLength={10}
--  onInput={event => validateDate(event.currentTarget.value)}
-+  onChange={value => validateDate(value)}
- />
-```
+선택 입력의 완전히 빈 값은 유효합니다. 필수 빈 값은 최초 오류를 숨기고, 입력 후 전체 삭제 또는 제출 시 오류를 표시합니다. 내장 오류는 테두리와 도움말에 자동으로 반영하며 네이티브 폼 검증으로 제출을 차단합니다.
 
-키보드의 문자 입력을 취소하는 소비처는 다음과 같이 옮깁니다.
+공개 타입 `DateFieldInputState`는 `inputValue`, `value`, `error`, `isErrorVisible`을 제공합니다. `error`는 `DateFieldInputError` 타입의 `required`, `incomplete`, `invalid`, `outOfRange`, `disabledDate` 또는 `null`입니다. 오류 입력의 `value`는 `""`이며 마지막 확정값과 다를 수 있습니다. `noValidate` 폼이나 외부 폼 라이브러리는 `error === null`을 기준으로 제출을 제어합니다.
 
-```diff
- <DateField.Input
--  onBeforeInput={event => event.preventDefault()}
-+  onKeyDown={event => {
-+    if (event.key.length === 1 && !event.ctrlKey && !event.metaKey && !event.altKey) {
-+      event.preventDefault();
-+    }
-+  }}
- />
-```
-
-**추가**
-
-| prop                 | 기본값  | 용도                                                                |
-| -------------------- | ------- | ------------------------------------------------------------------- |
-| `value`              | -       | `"YYYY-MM-DD"` 형식의 마지막 확정값, 완성된 날짜가 없으면 빈 문자열 |
-| `defaultValue`       | -       | 최초 마운트의 초기값이자 폼 초기화 기준                             |
-| `onChange`           | -       | 확정값이 바뀌면 `"YYYY-MM-DD"` 문자열로 호출                        |
-| `onBlur`             | -       | 부분 입력을 확정하기 전에 실행하는 입력의 blur 콜백                 |
-| `name`               | -       | 값을 hidden input으로 폼에 전송                                     |
-| `withPicker`         | `true`  | 달력 버튼 표시, 끄면 직접 입력만 가능                               |
-| `withActionBar`      | `false` | 달력의 오늘, 지우기, 적용 버튼 표시, 적용 시 선택 확정              |
-| `minDate`, `maxDate` | -       | 달력에서 선택할 수 있는 범위, 직접 입력한 값은 제한하지 않음        |
-| `isDateDisabled`     | -       | `true`를 반환한 날짜는 달력에서 선택 불가                           |
-| `suffix`             | -       | 달력 버튼 오른쪽 부가 요소                                          |
-
-위 prop은 모두 `DateField.Input`이 받습니다. `DateField`는 다른 Field 계열과 같이 `status`, `disabled`, `readonly`, `required`를 받고, `DateField.Label`과 `DateField.Helper`를 함께 제공합니다.
-
-텍스트 입력에 적용되지 않는 네이티브 `min`, `max` prop은 받지 않습니다. 달력의 선택 범위는 `minDate`, `maxDate`로 지정하고, 직접 입력한 값의 범위는 소비처에서 검증합니다.
-
-부분 입력은 내부에서 유지하며 숫자를 입력할 때마다 `onChange`가 호출되지는 않습니다. 기존 날짜 재입력 중에는 이전 확정값을 유지합니다. 확정값이 이미 빈 문자열인 상태에서는 같은 빈 문자열을 다시 설정해도 부분 입력이 남습니다. 부분 입력까지 초기화하려면 폼을 초기화하거나 `DateField.Input`의 `key`를 변경합니다. `key`를 변경하면 현재 `value` 또는 `defaultValue`로 다시 마운트하므로, 입력을 모두 비우려면 값도 빈 문자열로 지정합니다.
-
-비제어 모드의 폼 초기화는 최초 `defaultValue`로 돌아갑니다. 이후 `defaultValue` prop을 바꿔도 초기화 기준은 바뀌지 않습니다. 제어 모드의 `value`가 빈 문자열이 아니면 폼 초기화가 `onChange("")`로 변경을 요청하며 소비처가 반영해야 합니다.
-
-blur에서는 소비처 `onBlur`를 실행한 뒤 부분 입력을 확정합니다. 확정값이 바뀌면 이어서 `onChange`를 호출하므로 날짜 검증에는 `onChange`가 전달한 값을 사용합니다. `pattern`은 표시 문자열인 `YYYY.MM.DD`를 검증합니다.
-
-일이 그 달의 마지막 날을 넘으면 마지막 날로 맞춥니다. `2026.02.30`을 입력하면 `2026.02.28`이 됩니다.
-
-좌우 방향키로 세그먼트를 옮기고 위아래 방향키로 값을 바꿉니다. 전체 선택 후 Backspace를 누르면 값을 모두 지웁니다. 달력은 달력 버튼이나 입력에서 `Alt + ↓`로 열고, 날짜를 고르거나 Esc를 누르면 닫힙니다. 입력에서 열었다면 기존 세그먼트로, 달력 버튼에서 열었다면 버튼으로 포커스가 돌아갑니다.
-
-`withActionBar`를 켜면 날짜 선택과 지우기는 적용을 누를 때 확정되며 달력이 닫힙니다. 적용하지 않고 닫으면 임시 선택은 버립니다. 오늘 버튼은 오늘이 있는 달로 이동하고 오늘을 임시 선택합니다. 직접 입력한 날짜는 기존 입력 방식대로 확정됩니다.
-
-임시 선택 뒤 `minDate`, `maxDate`, `isDateDisabled`가 바뀌면 적용할 때 최신 제한을 다시 검사합니다. 제한 밖 날짜는 값을 변경하지 않고 달력을 유지합니다. 부모 `fieldset`이 비활성화된 뒤 달력 선택으로 값을 변경할 수 없습니다.
+제어 모드에서 같은 `value=""`를 다시 전달해도 부분 입력은 유지합니다. 부분 입력까지 초기화하려면 폼 reset 또는 `DateField.Input` 재마운트를 사용합니다. 제어 모드 reset은 확정값이 비어 있지 않으면 `onChange("")`로 비우기를 요청하며 부모가 반영한 값을 따릅니다.
 
 ```tsx
-<DateField required>
-  <DateField.Label>시작일</DateField.Label>
-  <DateField.Input
-    name='startDate'
-    value={date}
-    onChange={setDate}
-    minDate={new Date(2026, 0, 1)}
-  />
-  <DateField.Helper>2026년 이후 날짜를 입력해주세요</DateField.Helper>
-</DateField>
+import { DateField } from "@jects/jds";
+import { useState } from "react";
+
+function DateFieldExample() {
+  const [date, setDate] = useState("");
+
+  return (
+    <DateField required>
+      <DateField.Label>시작일</DateField.Label>
+      <DateField.Input name='startDate' value={date} onChange={setDate} />
+      <DateField.Helper>날짜를 입력하거나 달력에서 선택해주세요</DateField.Helper>
+    </DateField>
+  );
+}
 ```
