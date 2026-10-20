@@ -1,0 +1,87 @@
+{
+  "note": "호출 조건 평가 입력이다. 목록 존재는 자동 선택률이나 실제 실행 성공의 증거가 아니다.",
+  "should_trigger": [
+    {
+      "prompt": "JDS 선택 컴포넌트 만들어줘. 자세한 요구사항은 잘 모르겠어",
+      "skill": "ject-jds-workflow"
+    },
+    {
+      "prompt": "JDS 새 Dialog의 API와 포커스 동작 설계해줘",
+      "skill": "ject-jds-workflow"
+    },
+    {
+      "prompt": "JDS 구현 명세가 애매해. 필요한 요구사항과 더 나은 방향을 제안하고 질문해줘",
+      "skill": "ject-jds-figma-handoff"
+    },
+    {
+      "prompt": "Button의 Figma state와 React props를 어떻게 연결할지 정리해줘",
+      "skill": "ject-jds-figma-handoff"
+    },
+    {
+      "prompt": "DateField 외부 value를 비우면 화면과 제출값이 같이 바뀌는지 실행 확인해줘",
+      "skill": "ject-jds-browser-check"
+    },
+    {
+      "prompt": "JDS SelectField의 열린 팝업을 키보드와 W3C 기준으로 점검해줘",
+      "skill": "ject-jds-browser-check"
+    },
+    {
+      "prompt": "JDS 공개 타입과 CSS export 변경이 소비처에서 동작하는지 검증해줘",
+      "skill": "ject-jds-package-check"
+    },
+    {
+      "prompt": "JDS 빌드 산출물이 ESM과 CJS에서 올바르게 해석되는지 봐줘",
+      "skill": "ject-jds-package-check"
+    },
+    {
+      "prompt": "이전 JDS 구현 결과에서 디자이너 답변을 반영하고 관련 검증만 다시 해줘",
+      "skill": "ject-jds-workflow"
+    },
+    {
+      "prompt": "JDS 컴포넌트의 PR 설명에 디자인 문서에 없는 실제 합의만 정리해줘",
+      "skill": "ject-jds-workflow"
+    }
+  ],
+  "should_not_trigger_full_workflow": [
+    {
+      "prompt": "DateField 파일 위치만 알려줘",
+      "route": "최소 탐색"
+    },
+    {
+      "prompt": "JDS README 오타 하나만 수정해줘",
+      "route": "문서 수정"
+    },
+    {
+      "prompt": "apps/web 홈 화면 padding만 바꿔줘",
+      "route": "앱 UI 범위"
+    },
+    {
+      "prompt": "JDS 신규 컴포넌트 체인지셋만 작성해줘",
+      "route": "context와 현재 changeset-guide"
+    },
+    {
+      "prompt": "현재 PR 체크 상태만 알려줘",
+      "route": "체크 조회"
+    },
+    {
+      "prompt": "이 Figma 문서 제목을 한국어로 번역해줘",
+      "route": "문구 번역"
+    },
+    {
+      "prompt": "다른 React 저장소의 훅을 FF 기준으로만 봐줘",
+      "route": "해당 저장소의 리뷰 규약, JDS 하네스 제외"
+    },
+    {
+      "prompt": "JDS DateField 버그 한 개만 확인하고 수정하지 마",
+      "route": "ject-jds-review 관련 경로, FF 전수 강제 없음"
+    },
+    {
+      "prompt": "JDS Storybook URL만 열어줘",
+      "route": "화면 열기"
+    },
+    {
+      "prompt": "배포하지 말고 package.json 버전만 알려줘",
+      "route": "manifest 조회"
+    }
+  ]
+}
