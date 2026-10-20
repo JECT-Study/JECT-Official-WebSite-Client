@@ -3,7 +3,7 @@ import fs from "fs";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 
-import { readFigmaTokens } from "./figmaTokens";
+import { normalizeFigmaTokenFiles, readFigmaTokens } from "./figmaTokens";
 import { tokenSchema, textStyleSchema, type NestedObject } from "./schema";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -290,6 +290,10 @@ const inputDir = join(__dirname, "input");
 const generatedAt = new Date().toLocaleString("ko-KR", { timeZone: "Asia/Seoul" });
 const outputDir = __dirname;
 const outputFile = join(outputDir, "tokens.ts");
+
+for (const filePath of normalizeFigmaTokenFiles(inputDir)) {
+  console.log(`✅ 입력 파일을 표준 형식으로 정리했습니다: ${filePath}`);
+}
 
 const parsedTokens = tokenSchema.parse(readFigmaTokens(inputDir));
 console.log(`✅ Figma 토큰을 읽었습니다: ${inputDir}`);
