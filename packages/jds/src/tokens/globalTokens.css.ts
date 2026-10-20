@@ -1,5 +1,5 @@
 // 자동 생성된 VE 전역 토큰 스타일 - 수정 금지
-// 생성 시간: 2026. 10. 12. 오전 12:38:31
+// 생성 시간: 2026. 10. 21. 오전 12:31:19
 import { globalStyle } from "@vanilla-extract/css";
 
 import { vars } from "./vars.css";
@@ -1026,6 +1026,9 @@ globalStyle(":root", {
     [vars.environment.primitive.time["400"]]: "400",
     [vars.environment.primitive.time["450"]]: "450",
     [vars.environment.primitive.time["500"]]: "500",
+    [vars.environment.primitive.time["1000"]]: "1000",
+    [vars.environment.primitive.time["1500"]]: "1500",
+    [vars.environment.primitive.time["2000"]]: "2000",
     [vars.environment.semantic.duration["50"]]: "50ms",
     [vars.environment.semantic.duration["100"]]: "100ms",
     [vars.environment.semantic.duration["150"]]: "150ms",
@@ -1036,6 +1039,9 @@ globalStyle(":root", {
     [vars.environment.semantic.duration["400"]]: "400ms",
     [vars.environment.semantic.duration["450"]]: "450ms",
     [vars.environment.semantic.duration["500"]]: "500ms",
+    [vars.environment.semantic.duration["1000"]]: "1000ms",
+    [vars.environment.semantic.duration["1500"]]: "1500ms",
+    [vars.environment.semantic.duration["2000"]]: "2000ms",
     [vars.environment.semantic.motion.fluent]: "cubic-bezier(0.25, 0.1, 0.25, 1)",
     [vars.environment.semantic.motion.bouncy]: "cubic-bezier(0.25, 1.57, 0.75, 0.9)",
     [vars.environment.semantic.motion.entrance]: "cubic-bezier(0.19, 0.91, 0.38, 1)",

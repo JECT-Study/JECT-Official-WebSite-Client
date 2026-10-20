@@ -1,5 +1,5 @@
 // 자동 생성된 VE 토큰 계약 - 수정 금지
-// 생성 시간: 2026. 10. 12. 오전 12:38:31
+// 생성 시간: 2026. 10. 21. 오전 12:31:19
 import { createGlobalThemeContract } from "@vanilla-extract/css";
 
 export const vars = createGlobalThemeContract(
@@ -1156,7 +1156,10 @@ export const vars = createGlobalThemeContract(
         "350": null,
         "400": null,
         "450": null,
-        "500": null
+        "500": null,
+        "1000": null,
+        "1500": null,
+        "2000": null
       }
     },
     "semantic": {
@@ -1170,7 +1173,10 @@ export const vars = createGlobalThemeContract(
         "350": null,
         "400": null,
         "450": null,
-        "500": null
+        "500": null,
+        "1000": null,
+        "1500": null,
+        "2000": null
       },
       "motion": {
         "fluent": null,
