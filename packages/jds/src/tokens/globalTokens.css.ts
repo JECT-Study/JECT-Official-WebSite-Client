@@ -1,5 +1,5 @@
 // 자동 생성된 VE 전역 토큰 스타일 - 수정 금지
-// 생성 시간: 2026. 10. 12. 오전 12:38:31
+// 생성 시간: 2026. 10. 20. 오후 11:38:20
 import { globalStyle } from "@vanilla-extract/css";
 
 import { vars } from "./vars.css";
@@ -1016,7 +1016,7 @@ globalStyle(":root", {
     [vars.typo.primitive.font.letterSpacing.syntax.md]: "0px",
     [vars.typo.primitive.font.letterSpacing.syntax.sm]: "0px",
     [vars.typo.primitive.font.letterSpacing.syntax.xs]: "0px",
-    [vars.environment.primitive.time["50"]]: "50",
+    [vars.environment.primitive.time["50"]]: "51",
     [vars.environment.primitive.time["100"]]: "100",
     [vars.environment.primitive.time["150"]]: "150",
     [vars.environment.primitive.time["200"]]: "200",
@@ -1026,7 +1026,7 @@ globalStyle(":root", {
     [vars.environment.primitive.time["400"]]: "400",
     [vars.environment.primitive.time["450"]]: "450",
     [vars.environment.primitive.time["500"]]: "500",
-    [vars.environment.semantic.duration["50"]]: "50ms",
+    [vars.environment.semantic.duration["50"]]: "51ms",
     [vars.environment.semantic.duration["100"]]: "100ms",
     [vars.environment.semantic.duration["150"]]: "150ms",
     [vars.environment.semantic.duration["200"]]: "200ms",
