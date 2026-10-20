@@ -3,8 +3,8 @@ import { useLayoutEffect, useRef, type RefObject } from "react";
 const SELECTED_ITEM_SELECTOR = '[aria-selected="true"]';
 const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
 
-const getScrollBehavior = (isFirstAlign: boolean): ScrollBehavior => {
-  if (isFirstAlign || window.matchMedia(REDUCED_MOTION_QUERY).matches) return "instant";
+const getScrollBehavior = (isFirstRender: boolean): ScrollBehavior => {
+  if (isFirstRender || window.matchMedia(REDUCED_MOTION_QUERY).matches) return "instant";
 
   return "smooth";
 };
@@ -19,9 +19,12 @@ const getScrollBehavior = (isFirstAlign: boolean): ScrollBehavior => {
  * @param selectedValue 열에서 선택된 항목 값. 선택이 없으면 `null`
  */
 export const useColumnScroll = (listRef: RefObject<HTMLElement>, selectedValue: string | null) => {
-  const hasAlignedRef = useRef(false);
+  const hasRenderedRef = useRef(false);
 
   useLayoutEffect(() => {
+    const isFirstRender = !hasRenderedRef.current;
+    hasRenderedRef.current = true;
+
     const list = listRef.current;
     if (list == null || selectedValue == null) return;
 
@@ -31,8 +34,7 @@ export const useColumnScroll = (listRef: RefObject<HTMLElement>, selectedValue: 
     const paddingTop = Number.parseFloat(getComputedStyle(list).paddingTop);
     list.scrollTo({
       top: selected.offsetTop - paddingTop,
-      behavior: getScrollBehavior(!hasAlignedRef.current),
+      behavior: getScrollBehavior(isFirstRender),
     });
-    hasAlignedRef.current = true;
   }, [listRef, selectedValue]);
 };
