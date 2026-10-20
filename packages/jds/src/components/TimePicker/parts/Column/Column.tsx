@@ -45,7 +45,7 @@ export const Column = forwardRef<HTMLDivElement, ColumnProps>(
       [selectedValue],
     );
     const listRef = useRef<HTMLDivElement>(null);
-    useColumnScroll(listRef, selectedValue);
+    useColumnScroll(listRef, selectedValue, options.length);
 
     const selectOption = (next: string) => {
       if (readOnly) return;
