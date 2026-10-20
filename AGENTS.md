@@ -49,6 +49,10 @@ npm run changeset
 - [체인지셋 작성 규약](docs/changeset-guide.md) — `.changeset/*.md`를 작성하거나 수정하기 전에 읽는다.
 - [타입 선언 규약](docs/type-convention.md) — `packages/jds`에서 타입을 선언하거나 옮기기 전에 읽는다.
 
+## JDS 개발 하네스
+
+JDS 컴포넌트 설계·구현·종합 리뷰에는 `.claude/skills/ject-jds-workflow/SKILL.md`를 읽는다. 짧은 요청은 요구사항 조사·제안·질문부터 진행하고, 명세 외 실제 합의는 PR 설명에 간략히 남긴다. Codex의 `.agents/skills/ject-jds-*`는 저장소 안의 같은 원본을 가리킨다. 사용법은 [하네스 안내](docs/ai/README.md)에 있다. 단순 탐색·문서 오타·체인지셋만 다루는 요청에는 필요한 최소 절차만 적용한다.
+
 ## Boundaries
 
 - **항상**
