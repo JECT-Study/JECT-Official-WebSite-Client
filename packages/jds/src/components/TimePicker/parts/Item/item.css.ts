@@ -12,6 +12,11 @@ const statusTransitionTiming = `${vars.environment.semantic.duration["150"]} ${v
 
 const ITEM_MIN_WIDTH = 42;
 
+const itemPaddingBlock = vars.scheme.semantic.spacing["6"];
+
+/** 항목 한 칸의 높이. Column 끝 여백 계산에도 사용합니다. */
+export const itemHeight = `calc(${vars.typo.primitive.font.lineHeight.label.md} + 2 * ${itemPaddingBlock})`;
+
 const baseStyles = style({
   position: "relative",
   boxSizing: "border-box",
@@ -20,7 +25,7 @@ const baseStyles = style({
   justifyContent: "center",
   flexShrink: 0,
   minWidth: pxToRem(ITEM_MIN_WIDTH),
-  padding: `${vars.scheme.semantic.spacing["6"]} ${vars.scheme.semantic.spacing["12"]}`,
+  padding: `${itemPaddingBlock} ${vars.scheme.semantic.spacing["12"]}`,
   borderRadius: vars.scheme.semantic.radius["6"],
   color: itemLabelColor,
   cursor: "pointer",

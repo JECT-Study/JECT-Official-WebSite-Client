@@ -1,10 +1,9 @@
 import { style } from "@vanilla-extract/css";
 
 import { vars } from "../../../../tokens/vars.css";
+import { itemHeight } from "../Item/item.css";
 
 const columnGap = vars.scheme.semantic.spacing["4"];
-
-const itemHeight = `calc(${vars.typo.primitive.font.lineHeight.label.md} + 2 * ${vars.scheme.semantic.spacing["6"]})`;
 
 export const root = style({
   position: "relative",
