@@ -1,6 +1,6 @@
 {
-  "name": "Token Sync for GitHub",
-  "id": "figma-token-sync",
+  "name": "Variables to GitHub",
+  "id": "1694406332278523830",
   "api": "1.0.0",
   "main": "dist/code.iife.js",
   "ui": "dist/ui.html",

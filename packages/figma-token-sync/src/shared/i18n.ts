@@ -93,7 +93,7 @@ const MESSAGES: Record<Locale, Messages> = {
         `- 컬렉션: ${collections}`,
         `- 디렉터리: \`${directory}\``,
         "",
-        "Token Sync for GitHub 플러그인이 만든 PR입니다.",
+        "Variables to GitHub 플러그인이 만든 PR입니다.",
       ].join("\n"),
   },
   en: {
@@ -160,7 +160,7 @@ const MESSAGES: Record<Locale, Messages> = {
         `- Collections: ${collections}`,
         `- Directory: \`${directory}\``,
         "",
-        "Opened by the Token Sync for GitHub plugin.",
+        "Opened by the Variables to GitHub plugin.",
       ].join("\n"),
   },
 };
