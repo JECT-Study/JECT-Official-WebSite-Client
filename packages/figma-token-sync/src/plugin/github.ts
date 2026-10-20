@@ -1,5 +1,6 @@
 import type { TokenFile } from "./dtcg";
-import type { SyncResult } from "../shared/messages";
+import { PluginError } from "./errors";
+import type { ProgressStep, SyncResult } from "../shared/messages";
 
 const GITHUB_API = "https://api.github.com";
 
@@ -43,32 +44,26 @@ type TreeEntry =
   | { path: string; mode: "100644"; type: "blob"; sha: null };
 
 /** GitHub API가 실패 응답을 돌려준 경우 */
-export class GitHubRequestError extends Error {
+export class GitHubRequestError extends PluginError {
   constructor(
     readonly status: number,
-    message: string,
+    params: Record<string, string>,
   ) {
-    super(message);
+    super("githubRequestFailed", params);
     this.name = "GitHubRequestError";
   }
 }
 
 /**
- * 권한 문제로 실패했을 때 사용자가 고칠 수 있는 방법을 돌려줍니다.
+ * 권한 문제로 실패했을 때 사용자에게 보여 줄 해결 방법의 종류를 돌려줍니다.
  *
  * @remarks
  * 403은 요청 한도 초과로도 나므로, GitHub가 권한 부족이라고 응답한 경우에만 토큰 권한을 안내합니다.
  */
-function toPermissionHint(status: number, message: string | undefined): string | null {
-  if (status === 401) {
-    return "토큰이 만료되었거나 올바르지 않습니다. 토큰을 새로 저장해 주세요.";
-  }
-
-  if (status === 403 && message?.includes("not accessible")) {
-    return "토큰의 저장소 접근 범위에 이 저장소가 있는지, Contents와 Pull requests 권한이 Read and write인지 확인해 주세요.";
-  }
-
-  return null;
+function toPermissionHint(status: number, message: string | undefined): string {
+  if (status === 401) return "unauthorized";
+  if (status === 403 && message?.includes("not accessible")) return "forbidden";
+  return "";
 }
 
 async function request<T>(
@@ -90,10 +85,13 @@ async function request<T>(
 
   if (!response.ok) {
     const { message } = (await response.json().catch(() => ({}))) as { message?: string };
-    const hint = toPermissionHint(response.status, message);
-    const reason = `GitHub 요청이 실패했습니다 (${response.status} ${method} ${path}): ${message ?? response.statusText}`;
-
-    throw new GitHubRequestError(response.status, hint ? `${reason}\n${hint}` : reason);
+    throw new GitHubRequestError(response.status, {
+      status: String(response.status),
+      method,
+      path,
+      detail: message ?? response.statusText,
+      hint: toPermissionHint(response.status, message),
+    });
   }
 
   return (await response.json()) as T;
@@ -178,20 +176,20 @@ async function findStaleTokenFiles(
  * @remarks
  * 동기화 브랜치에 열린 PR이 있으면 그 브랜치에 커밋을 더합니다. 없으면 브랜치를 base에서 새로 시작하고 PR을 엽니다.
  * 저장소의 내용과 같으면 커밋하지 않고 `unchanged`를 돌려줍니다.
- * @param onProgress 단계가 바뀔 때마다 사용자에게 보여 줄 문구로 호출됩니다.
+ * @param onProgress 단계가 바뀔 때마다 진행 단계로 호출됩니다.
  * @throws GitHub 요청이 실패한 경우 {@link GitHubRequestError}
  */
 export async function syncTokenFiles(
   target: SyncTarget,
   files: TokenFile[],
-  onProgress: (message: string) => void,
+  onProgress: (step: ProgressStep) => void,
 ): Promise<SyncResult> {
-  onProgress("저장소 상태를 확인하고 있습니다.");
+  onProgress("checkingRepository");
 
   const baseSha = await getBranchSha(target, target.baseBranch);
 
   if (!baseSha) {
-    throw new Error(`base 브랜치를 찾을 수 없습니다: ${target.baseBranch}`);
+    throw new PluginError("baseBranchNotFound", { branch: target.baseBranch });
   }
 
   const [syncSha, openPullRequest] = await Promise.all([
@@ -211,7 +209,7 @@ export async function syncTokenFiles(
     filesWithPath.map(({ path }) => path),
   );
 
-  onProgress("변경 사항을 비교하고 있습니다.");
+  onProgress("comparingChanges");
 
   const treeEntries: TreeEntry[] = [
     ...filesWithPath.map(({ path, content }) => ({
@@ -236,7 +234,7 @@ export async function syncTokenFiles(
     return { status: "unchanged", pullRequestUrl: openPullRequest?.html_url };
   }
 
-  onProgress("커밋을 만들고 있습니다.");
+  onProgress("creatingCommit");
 
   const commit = await request<GitCommit>(target, "POST", "/git/commits", {
     message: target.commitMessage,
@@ -260,7 +258,7 @@ export async function syncTokenFiles(
     return { status: "updated", pullRequestUrl: openPullRequest.html_url, fileCount: files.length };
   }
 
-  onProgress("Pull Request를 만들고 있습니다.");
+  onProgress("creatingPullRequest");
 
   const pullRequest = await request<PullRequest>(target, "POST", "/pulls", {
     title: target.commitMessage,

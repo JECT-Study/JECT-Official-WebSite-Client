@@ -1,3 +1,4 @@
+import { PluginError } from "./errors";
 import type { CollectionSnapshot, VariableSnapshot, VariablesSnapshot } from "./snapshot";
 
 /** 저장소에 쓸 파일 하나. `path`는 내보내기 디렉터리 기준 상대 경로입니다. */
@@ -82,7 +83,7 @@ function getVariable(index: SnapshotIndex, variableId: string): VariableSnapshot
   const variable = index.variablesById.get(variableId);
 
   if (!variable) {
-    throw new Error(`로컬 변수가 아닌 참조는 지원하지 않습니다: ${variableId}`);
+    throw new PluginError("nonLocalReference", { id: variableId });
   }
 
   return variable;
@@ -92,7 +93,7 @@ function getCollection(index: SnapshotIndex, collectionId: string): CollectionSn
   const collection = index.collectionsById.get(collectionId);
 
   if (!collection) {
-    throw new Error(`컬렉션을 찾을 수 없습니다: ${collectionId}`);
+    throw new PluginError("collectionNotFound", { name: collectionId });
   }
 
   return collection;
@@ -102,7 +103,7 @@ function toDtcgType(variable: VariableSnapshot): string {
   const dtcgType = DTCG_TYPES[variable.resolvedType];
 
   if (!dtcgType) {
-    throw new Error(`지원하지 않는 변수 타입입니다: ${variable.resolvedType} (${variable.name})`);
+    throw new PluginError("unsupportedType", { type: variable.resolvedType, name: variable.name });
   }
 
   return dtcgType;
@@ -124,7 +125,7 @@ function resolveAlias(
   const target = getVariable(index, alias.id);
 
   if (visitedIds.has(target.id)) {
-    throw new Error(`변수 참조가 순환합니다: ${target.name}`);
+    throw new PluginError("aliasCycle", { name: target.name });
   }
 
   visitedIds.add(target.id);
@@ -159,7 +160,7 @@ function toComposedColor(
   context: ModeContext,
 ): DtcgColor {
   if (typeof value.opacity !== "number") {
-    throw new Error(`불투명도를 변수로 참조하는 합성 색상은 지원하지 않습니다: ${variable.name}`);
+    throw new PluginError("composedOpacityAlias", { name: variable.name });
   }
 
   const color = isAlias(value.color)
@@ -167,9 +168,7 @@ function toComposedColor(
     : value.color;
 
   if (!isColor(color) || ("a" in color && color.a !== 1)) {
-    throw new Error(
-      `불투명한 색상을 참조하지 않는 합성 색상은 지원하지 않습니다: ${variable.name}`,
-    );
+    throw new PluginError("composedNonOpaque", { name: variable.name });
   }
 
   return { ...toDtcgColor(color), alpha: Math.fround(value.opacity / 100) };
@@ -206,7 +205,7 @@ function toDtcgValue(
   if (isColor(value)) return toDtcgColor(value);
 
   if (typeof value === "object") {
-    throw new Error(`지원하지 않는 변수 값입니다: ${variable.name}`);
+    throw new PluginError("unsupportedValue", { name: variable.name });
   }
 
   return value;
@@ -225,14 +224,14 @@ function setToken(root: DtcgGroup, path: string[], token: DtcgToken): void {
     const child = group[segment];
 
     if (child && "$value" in child) {
-      throw new Error(`토큰과 그룹의 경로가 겹칩니다: ${path.join("/")}`);
+      throw new PluginError("pathConflict", { path: path.join("/") });
     }
 
     group = (child as DtcgGroup | undefined) ?? (group[segment] = {});
   }
 
   if (group[tokenKey]) {
-    throw new Error(`토큰과 그룹의 경로가 겹칩니다: ${path.join("/")}`);
+    throw new PluginError("pathConflict", { path: path.join("/") });
   }
 
   group[tokenKey] = token;
@@ -307,7 +306,7 @@ export function toTokenFiles(snapshot: VariablesSnapshot, collectionNames: strin
     const collection = snapshot.collections.find(({ name }) => name === collectionName);
 
     if (!collection) {
-      throw new Error(`컬렉션을 찾을 수 없습니다: ${collectionName}`);
+      throw new PluginError("collectionNotFound", { name: collectionName });
     }
 
     return collection.modes.map(mode => toModeFile(index, collection, mode));
