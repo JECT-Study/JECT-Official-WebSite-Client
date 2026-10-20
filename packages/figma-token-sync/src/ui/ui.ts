@@ -3,7 +3,7 @@ import type { PluginMessage, SyncResult, SyncSettings, UiMessage } from "../shar
 type TextSettingKey = Exclude<keyof SyncSettings, "collections">;
 
 const TEXT_FIELDS: { key: TextSettingKey; label: string; hint?: string }[] = [
-  { key: "owner", label: "저장소 소유자", hint: "예: JECT-Study" },
+  { key: "owner", label: "저장소 소유자", hint: "예: my-org" },
   { key: "repo", label: "저장소 이름" },
   { key: "baseBranch", label: "base 브랜치" },
   { key: "directory", label: "토큰 디렉터리", hint: "저장소 루트 기준 경로" },
