@@ -10,7 +10,7 @@ const DEFAULT_SETTINGS: SyncSettings = {
   baseBranch: "main",
   directory: "tokens",
   syncBranch: "figma-token-sync",
-  commitMessage: "chore(tokens): Figma 변수 동기화",
+  commitMessage: "chore(tokens): sync Figma variables",
   collections: [],
 };
 

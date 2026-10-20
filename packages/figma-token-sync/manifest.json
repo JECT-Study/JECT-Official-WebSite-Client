@@ -8,6 +8,6 @@
   "documentAccess": "dynamic-page",
   "networkAccess": {
     "allowedDomains": ["https://api.github.com"],
-    "reasoning": "변수를 내보낸 파일을 GitHub 저장소에 커밋하고 Pull Request를 만듭니다."
+    "reasoning": "Commits the exported variable files to a GitHub repository and opens a pull request."
   }
 }
