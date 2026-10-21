@@ -239,7 +239,7 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
     const handlePickerSelect = (nextValue: string) => {
       const input = inputRef.current;
       // Portal의 달력에는 부모 fieldset의 native 비활성이 전파되지 않는다.
-      if (!isEditable || input === null || input.matches(":disabled")) {
+      if (input === null || input.matches(":disabled")) {
         setIsPickerOpen(false);
         return;
       }
@@ -405,8 +405,6 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
             onInteractOutside={() => {
               closeReasonRef.current = "outside";
             }}
-            disabled={isDisabled}
-            readOnly={isReadOnly}
             withActionBar={withActionBar}
             minDate={minDate}
             maxDate={maxDate}

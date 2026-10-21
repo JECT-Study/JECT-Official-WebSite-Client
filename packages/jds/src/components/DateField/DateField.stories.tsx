@@ -118,7 +118,8 @@ export const Statuses: Story = {
 /**
  * `disabled`와 `readonly`에서는 값을 바꿀 수 없습니다.
  * `disabled`는 포커스를 받을 수 없으며, `readonly`는 포커스와 세그먼트 이동이 가능합니다.
- * 부모 `fieldset`을 비활성화하면 이미 열린 달력에서도 값을 변경할 수 없습니다.
+ * 입력이 비활성 또는 읽기 전용 상태가 되거나 `withPicker={false}`로 바뀌면 열린 달력을 닫습니다.
+ * 부모 `fieldset`을 비활성화하면 이미 열린 달력에서도 날짜 선택과 지우기를 확정할 수 없습니다.
  */
 export const States: Story = {
   render: () => (

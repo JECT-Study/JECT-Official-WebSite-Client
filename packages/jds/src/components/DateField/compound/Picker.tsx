@@ -16,8 +16,6 @@ interface DateFieldPickerProps extends Pick<
   defaultMonth?: Date;
   /** 달력에서 날짜를 고르면 "YYYY-MM-DD" 값으로 호출된다. */
   onSelect: (value: string) => void;
-  disabled: boolean;
-  readOnly: boolean;
   onCloseAutoFocus: (event: Event) => void;
   onInteractOutside: () => void;
 }
@@ -32,8 +30,6 @@ export const DateFieldPicker = ({
   value,
   defaultMonth,
   onSelect,
-  disabled,
-  readOnly,
   withActionBar,
   minDate,
   maxDate,
@@ -90,8 +86,6 @@ export const DateFieldPicker = ({
           value={valueToDate(value)}
           defaultMonth={defaultMonth}
           onChange={handleChange}
-          disabled={disabled}
-          readOnly={readOnly}
           withActionBar={withActionBar}
           minDate={minDate}
           maxDate={maxDate}
