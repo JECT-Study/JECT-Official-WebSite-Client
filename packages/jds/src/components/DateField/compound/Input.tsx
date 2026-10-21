@@ -15,7 +15,7 @@ import { visuallyHidden } from "utils";
 
 import { DateFieldPicker } from "./Picker";
 import { IconButton } from "../../Button/IconButton";
-import { isDateOutOfRange, isDateUnavailable } from "../../DatePicker/datePicker.utils";
+import { isDateOutOfRange } from "../../DatePicker/datePicker.utils";
 import { FieldContent } from "../../Field";
 import { useFieldControl } from "../../Field/useFieldControl";
 import { getDateFieldErrorMessage, useDateFieldContext } from "../dateField.context";
@@ -115,11 +115,13 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
       ariaInvalid: invalidFromProps,
     });
 
+    const defaultValueRef = useRef(defaultValue ?? "");
+    const warnedExternalValuesRef = useRef(new Set<string>());
     const inputRef = useRef<HTMLInputElement>(null);
     const pickerTriggerRef = useRef<HTMLButtonElement>(null);
     const isPickerOpenedFromInputRef = useRef(false);
     const [isPickerOpen, setIsPickerOpen] = useState(false);
-    const [hasSubmitAttempt, setHasSubmitAttempt] = useState(false);
+    const [isRequiredErrorRequested, setIsRequiredErrorRequested] = useState(false);
     const closeReasonRef = useRef<"select" | "outside" | null>(null);
     const { onInputStateChange: reportInputState } = useDateFieldContext("DateField.Input");
     const onInputStateChangeRef = useRef(onInputStateChange);
@@ -138,12 +140,38 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
     );
     const normalizedValue = normalizeDateValue(dateValue);
 
-    const isValueAllowed = useCallback(
-      (nextValue: string): boolean => {
+    useEffect(() => {
+      if (process.env.NODE_ENV !== "development") return;
+
+      // 내부 draft와 마운트 이후의 defaultValue 변경은 경고 대상이 아니다.
+      const externalValue = value ?? defaultValueRef.current;
+      if (externalValue === "" || normalizeDateValue(externalValue) !== "") return;
+
+      const propName = value !== undefined ? "value" : "defaultValue";
+      const warningKey = `${propName}:${externalValue}`;
+      if (warnedExternalValuesRef.current.has(warningKey)) return;
+      warnedExternalValuesRef.current.add(warningKey);
+
+      console.warn(
+        `DateField.Input의 ${propName}를 해석할 수 없습니다. 유효한 YYYY-MM-DD 형식의 날짜 또는 빈 문자열을 전달해주세요. 해석할 수 없는 값은 빈 입력과 빈 제출값으로 처리합니다.`,
+      );
+    }, [value]);
+
+    // 완성된 날짜의 오류를 한 곳에서 판정하고, 확정 허용 여부도 같은 결과에서 파생한다.
+    const getDateValueError = useCallback(
+      (nextValue: string): DateFieldInputError | null => {
         const date = valueToDate(nextValue);
-        return date !== null && !isDateUnavailable(date, { minDate, maxDate, isDateDisabled });
+        if (date === null) return "invalid";
+        if (isDateOutOfRange(date, minDate, maxDate)) return "outOfRange";
+        if (isDateDisabled?.(date) === true) return "disabledDate";
+        return null;
       },
       [minDate, maxDate, isDateDisabled],
+    );
+
+    const isValueAllowed = useCallback(
+      (nextValue: string): boolean => getDateValueError(nextValue) === null,
+      [getDateValueError],
     );
 
     const {
@@ -169,16 +197,10 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
     if (inputStatus === "empty") error = isRequired ? "required" : null;
     else if (inputStatus === "incomplete") error = "incomplete";
     else if (inputStatus === "invalid") error = "invalid";
-    else {
-      const date = valueToDate(draftValue);
-      if (date !== null) {
-        if (isDateOutOfRange(date, minDate, maxDate)) error = "outOfRange";
-        else if (isDateDisabled?.(date)) error = "disabledDate";
-      }
-    }
+    else error = getDateValueError(draftValue);
 
     const isErrorVisible =
-      error !== null && (error !== "required" || hasEdited || hasSubmitAttempt);
+      error !== null && (error !== "required" || hasEdited || isRequiredErrorRequested);
     const currentValue = error === null ? draftValue : "";
     const inputState = useMemo<DateFieldInputState>(
       () => ({ inputValue, value: currentValue, error, isErrorVisible }),
@@ -223,7 +245,7 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
       }
 
       resetSegments(nextValue);
-      setHasSubmitAttempt(true);
+      setIsRequiredErrorRequested(true);
       closeReasonRef.current = "select";
       setIsPickerOpen(false);
     };
@@ -258,7 +280,6 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
       focusActiveSegment();
     };
 
-    const defaultValueRef = useRef(defaultValue ?? "");
     const resetStateRef = useRef({ resetSegments, isValueAllowed });
     resetStateRef.current = { resetSegments, isValueAllowed };
 
@@ -276,7 +297,7 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
           if (event.defaultPrevented || inputRef.current?.form !== formElement) return;
 
           resetStateRef.current.resetSegments(defaultValueRef.current);
-          setHasSubmitAttempt(false);
+          setIsRequiredErrorRequested(false);
           lastValidValueRef.current = resetStateRef.current.isValueAllowed(defaultValueRef.current)
             ? defaultValueRef.current
             : "";
@@ -324,7 +345,7 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
               readOnly={isReadOnly}
               onInvalid={composeHandler(onInvalidFromProps, event => {
                 event.preventDefault();
-                setHasSubmitAttempt(true);
+                setIsRequiredErrorRequested(true);
                 focusActiveSegment();
               })}
               data-field-control=''

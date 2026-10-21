@@ -25,7 +25,9 @@
 
 `DateField`는 `status`, `disabled`, `readonly`, `required`를 받으며 `DateField.Label`, `DateField.Helper`를 제공합니다. 부분 입력과 존재하지 않는 날짜는 보정하지 않고 입력 중 즉시 오류로 표시합니다. `20260725`, `2026-07-25`, `2026.07.25` 입력과 붙여넣기를 지원합니다.
 
-선택 입력의 완전히 빈 값은 유효합니다. 필수 빈 값은 최초 오류를 숨기고, 입력 후 전체 삭제 또는 제출 시 오류를 표시합니다. 내장 오류는 테두리와 도움말에 자동으로 반영하며 네이티브 폼 검증으로 제출을 차단합니다.
+개발 환경에서는 해석할 수 없는 외부 `value`와 최초 `defaultValue`에 경고를 표시합니다. 같은 입력 인스턴스에서 동일한 prop과 잘못된 값의 조합은 한 번만 경고하며, 사용자 입력과 날짜 제한 오류는 경고하지 않습니다.
+
+선택 입력의 완전히 빈 값은 유효합니다. 필수 빈 값은 최초 오류를 숨깁니다. 입력 후 전체 삭제, 달력의 지우기 확정, 제출 또는 `checkValidity()`, `reportValidity()` 검증 실패 시 필수 오류를 표시합니다. 내장 오류는 테두리와 도움말에 자동으로 반영하며 네이티브 폼 검증으로 제출을 차단합니다.
 
 공개 타입 `DateFieldInputState`는 `inputValue`, `value`, `error`, `isErrorVisible`을 제공합니다. `error`는 `DateFieldInputError` 타입의 `required`, `incomplete`, `invalid`, `outOfRange`, `disabledDate` 또는 `null`입니다. 오류 입력의 `value`는 `""`이며 마지막 확정값과 다를 수 있습니다. `noValidate` 폼이나 외부 폼 라이브러리는 `error === null`을 기준으로 제출을 제어합니다.
 
