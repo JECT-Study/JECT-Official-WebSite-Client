@@ -54,5 +54,10 @@ export const thumb = style({
     [`${root}:has(${input}:checked) &`]: {
       transform: `translateX(${pxToRem(16)})`,
     },
+    // 다크 모드에서 흰색으로 남지 않도록 모드별 면 위에 고정 전경색을 한 겹 겹친다.
+    [`${root}:has(${input}:disabled) &`]: {
+      backgroundColor: vars.color.semantic.fill.inverse.boldest,
+      backgroundImage: `linear-gradient(${vars.color.semantic.object.static.inverse.neutral}, ${vars.color.semantic.object.static.inverse.neutral})`,
+    },
   },
 });
