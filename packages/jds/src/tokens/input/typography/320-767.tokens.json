@@ -3,59 +3,19 @@
     "typeface": {
       "title": {
         "$type": "string",
-        "$value": "Pretendard Variable",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:9292:63789",
-          "com.figma.scopes": [
-            "FONT_FAMILY"
-          ],
-          "com.figma.codeSyntax": {
-            "WEB": "var(--jds-typography-primitive-typeface-title)"
-          },
-          "com.figma.type": "string"
-        }
+        "$value": "Pretendard Variable"
       },
       "label": {
         "$type": "string",
-        "$value": "Pretendard Variable",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:9292:63790",
-          "com.figma.scopes": [
-            "FONT_FAMILY"
-          ],
-          "com.figma.codeSyntax": {
-            "WEB": "var(--jds-typography-primitive-typeface-label)"
-          },
-          "com.figma.type": "string"
-        }
+        "$value": "Pretendard Variable"
       },
       "body": {
         "$type": "string",
-        "$value": "Pretendard Variable",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:9292:63791",
-          "com.figma.scopes": [
-            "FONT_FAMILY"
-          ],
-          "com.figma.codeSyntax": {
-            "WEB": "var(--jds-typography-primitive-typeface-body)"
-          },
-          "com.figma.type": "string"
-        }
+        "$value": "Pretendard Variable"
       },
       "syntax": {
         "$type": "string",
-        "$value": "D2Coding",
-        "$extensions": {
-          "com.figma.variableId": "VariableID:9017:102004",
-          "com.figma.scopes": [
-            "FONT_FAMILY"
-          ],
-          "com.figma.codeSyntax": {
-            "WEB": "var(--jds-typography-primitive-typeface-syntax)"
-          },
-          "com.figma.type": "string"
-        }
+        "$value": "D2Coding"
       }
     },
     "font": {
@@ -63,256 +23,85 @@
         "title": {
           "1": {
             "$type": "number",
-            "$value": 18,
-            "$extensions": {
-              "com.figma.variableId": "VariableID:9057:58962",
-              "com.figma.scopes": [
-                "FONT_SIZE"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-size-title-1)"
-              }
-            }
+            "$value": 18
           },
           "2": {
             "$type": "number",
-            "$value": 20,
-            "$extensions": {
-              "com.figma.variableId": "VariableID:9057:58961",
-              "com.figma.scopes": [
-                "FONT_SIZE"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-size-title-2)"
-              }
-            }
+            "$value": 20
           },
           "3": {
             "$type": "number",
-            "$value": 24,
-            "$extensions": {
-              "com.figma.variableId": "VariableID:9057:58960",
-              "com.figma.scopes": [
-                "FONT_SIZE"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-size-title-3)"
-              }
-            }
+            "$value": 24
           },
           "4": {
             "$type": "number",
-            "$value": 28,
-            "$extensions": {
-              "com.figma.variableId": "VariableID:9057:58963",
-              "com.figma.scopes": [
-                "FONT_SIZE"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-size-title-4)"
-              }
-            }
+            "$value": 28
           },
           "5": {
             "$type": "number",
-            "$value": 32,
-            "$extensions": {
-              "com.figma.variableId": "VariableID:9017:102070",
-              "com.figma.scopes": [
-                "FONT_SIZE"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-size-title-5)"
-              }
-            }
+            "$value": 32
           },
           "6": {
             "$type": "number",
-            "$value": 40,
-            "$extensions": {
-              "com.figma.variableId": "VariableID:9017:102033",
-              "com.figma.scopes": [
-                "FONT_SIZE"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-size-title-6)"
-              }
-            }
+            "$value": 40
           }
         },
         "label": {
           "lg": {
             "$type": "number",
-            "$value": 16,
-            "$extensions": {
-              "com.figma.variableId": "VariableID:9059:59229",
-              "com.figma.scopes": [
-                "FONT_SIZE"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-size-label-lg)"
-              }
-            }
+            "$value": 16
           },
           "md": {
             "$type": "number",
-            "$value": 14,
-            "$extensions": {
-              "com.figma.variableId": "VariableID:9059:59230",
-              "com.figma.scopes": [
-                "FONT_SIZE"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-size-label-md)"
-              }
-            }
+            "$value": 14
           },
           "sm": {
             "$type": "number",
-            "$value": 12,
-            "$extensions": {
-              "com.figma.variableId": "VariableID:9059:59231",
-              "com.figma.scopes": [
-                "FONT_SIZE"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-size-label-sm)"
-              }
-            }
+            "$value": 12
           },
           "xs": {
             "$type": "number",
-            "$value": 11,
-            "$extensions": {
-              "com.figma.variableId": "VariableID:10140:18739",
-              "com.figma.scopes": [
-                "FONT_SIZE"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-size-label-xs)"
-              }
-            }
+            "$value": 11
           }
         },
         "body": {
           "lg": {
             "$type": "number",
-            "$value": 16,
-            "$extensions": {
-              "com.figma.variableId": "VariableID:9059:59033",
-              "com.figma.scopes": [
-                "FONT_SIZE"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-size-body-lg)"
-              }
-            }
+            "$value": 16
           },
           "md": {
             "$type": "number",
-            "$value": 15,
-            "$extensions": {
-              "com.figma.variableId": "VariableID:9059:59034",
-              "com.figma.scopes": [
-                "FONT_SIZE"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-size-body-md)"
-              }
-            }
+            "$value": 15
           },
           "sm": {
             "$type": "number",
-            "$value": 14,
-            "$extensions": {
-              "com.figma.variableId": "VariableID:9059:59035",
-              "com.figma.scopes": [
-                "FONT_SIZE"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-size-body-sm)"
-              }
-            }
+            "$value": 14
           },
           "xs": {
             "$type": "number",
-            "$value": 13,
-            "$extensions": {
-              "com.figma.variableId": "VariableID:9059:59036",
-              "com.figma.scopes": [
-                "FONT_SIZE"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-size-body-xs)"
-              }
-            }
+            "$value": 13
           },
           "2xs": {
             "$type": "number",
-            "$value": 12,
-            "$extensions": {
-              "com.figma.variableId": "VariableID:9059:59137",
-              "com.figma.scopes": [
-                "FONT_SIZE"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-size-body-2xs)"
-              }
-            }
+            "$value": 12
           }
         },
         "syntax": {
           "lg": {
             "$type": "number",
-            "$value": 16,
-            "$extensions": {
-              "com.figma.variableId": "VariableID:9068:116976",
-              "com.figma.scopes": [
-                "FONT_SIZE"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-size-syntax-lg)"
-              }
-            }
+            "$value": 16
           },
           "md": {
             "$type": "number",
-            "$value": 14,
-            "$extensions": {
-              "com.figma.variableId": "VariableID:9068:116977",
-              "com.figma.scopes": [
-                "FONT_SIZE"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-size-syntax-md)"
-              }
-            }
+            "$value": 14
           },
           "sm": {
             "$type": "number",
-            "$value": 13,
-            "$extensions": {
-              "com.figma.variableId": "VariableID:9068:116978",
-              "com.figma.scopes": [
-                "FONT_SIZE"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-size-syntax-sm)"
-              }
-            }
+            "$value": 13
           },
           "xs": {
             "$type": "number",
-            "$value": 12,
-            "$extensions": {
-              "com.figma.variableId": "VariableID:10140:82242",
-              "com.figma.scopes": [
-                "FONT_SIZE"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-size-syntax-xs)"
-              }
-            }
+            "$value": 12
           }
         }
       },
@@ -320,126 +109,45 @@
         "title": {
           "bold": {
             "$type": "number",
-            "$value": 650,
-            "$extensions": {
-              "com.figma.variableId": "VariableID:9068:59519",
-              "com.figma.scopes": [
-                "FONT_STYLE"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-weight-title-bold)"
-              }
-            }
+            "$value": 650
           },
           "normal": {
             "$type": "number",
-            "$value": 620,
-            "$extensions": {
-              "com.figma.variableId": "VariableID:9068:59502",
-              "com.figma.scopes": [
-                "FONT_STYLE"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-weight-title-normal)"
-              }
-            }
+            "$value": 620
           },
           "subtle": {
             "$type": "number",
-            "$value": 590,
-            "$extensions": {
-              "com.figma.variableId": "VariableID:20871:14641",
-              "com.figma.scopes": [
-                "FONT_STYLE"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-weight-title-subtle)"
-              }
-            }
+            "$value": 590
           }
         },
         "label": {
           "bold": {
             "$type": "number",
-            "$value": 520,
-            "$extensions": {
-              "com.figma.variableId": "VariableID:9068:59520",
-              "com.figma.scopes": [
-                "FONT_STYLE"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-weight-label-bold)"
-              }
-            }
+            "$value": 520
           },
           "normal": {
             "$type": "number",
-            "$value": 480,
-            "$extensions": {
-              "com.figma.variableId": "VariableID:9068:59503",
-              "com.figma.scopes": [
-                "FONT_STYLE"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-weight-label-normal)"
-              }
-            }
+            "$value": 480
           },
           "subtle": {
             "$type": "number",
-            "$value": 440,
-            "$extensions": {
-              "com.figma.variableId": "VariableID:9068:59521",
-              "com.figma.scopes": [
-                "FONT_STYLE"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-weight-label-subtle)"
-              }
-            }
+            "$value": 440
           }
         },
         "body": {
           "bold": {
             "$type": "number",
-            "$value": 440,
-            "$extensions": {
-              "com.figma.variableId": "VariableID:9068:59522",
-              "com.figma.scopes": [
-                "FONT_STYLE"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-weight-body-bold)"
-              }
-            }
+            "$value": 440
           },
           "normal": {
             "$type": "number",
-            "$value": 400,
-            "$extensions": {
-              "com.figma.variableId": "VariableID:9068:59504",
-              "com.figma.scopes": [
-                "FONT_STYLE"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-weight-body-normal)"
-              }
-            }
+            "$value": 400
           }
         },
         "syntax": {
           "normal": {
             "$type": "number",
-            "$value": 400,
-            "$extensions": {
-              "com.figma.variableId": "VariableID:9068:116980",
-              "com.figma.scopes": [
-                "FONT_STYLE"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-weight-syntax-normal)"
-              }
-            }
+            "$value": 400
           }
         }
       },
@@ -447,256 +155,85 @@
         "title": {
           "1": {
             "$type": "number",
-            "$value": 24,
-            "$extensions": {
-              "com.figma.variableId": "VariableID:9059:59374",
-              "com.figma.scopes": [
-                "LINE_HEIGHT"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-line-height-title-1)"
-              }
-            }
+            "$value": 24
           },
           "2": {
             "$type": "number",
-            "$value": 26,
-            "$extensions": {
-              "com.figma.variableId": "VariableID:9059:59373",
-              "com.figma.scopes": [
-                "LINE_HEIGHT"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-line-height-title-2)"
-              }
-            }
+            "$value": 26
           },
           "3": {
             "$type": "number",
-            "$value": 32,
-            "$extensions": {
-              "com.figma.variableId": "VariableID:9059:59372",
-              "com.figma.scopes": [
-                "LINE_HEIGHT"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-line-height-title-3)"
-              }
-            }
+            "$value": 32
           },
           "4": {
             "$type": "number",
-            "$value": 36,
-            "$extensions": {
-              "com.figma.variableId": "VariableID:9059:59371",
-              "com.figma.scopes": [
-                "LINE_HEIGHT"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-line-height-title-4)"
-              }
-            }
+            "$value": 36
           },
           "5": {
             "$type": "number",
-            "$value": 42,
-            "$extensions": {
-              "com.figma.variableId": "VariableID:9059:59370",
-              "com.figma.scopes": [
-                "LINE_HEIGHT"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-line-height-title-5)"
-              }
-            }
+            "$value": 42
           },
           "6": {
             "$type": "number",
-            "$value": 52,
-            "$extensions": {
-              "com.figma.variableId": "VariableID:9059:59369",
-              "com.figma.scopes": [
-                "LINE_HEIGHT"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-line-height-title-6)"
-              }
-            }
+            "$value": 52
           }
         },
         "label": {
           "lg": {
             "$type": "number",
-            "$value": 22,
-            "$extensions": {
-              "com.figma.variableId": "VariableID:9059:59375",
-              "com.figma.scopes": [
-                "LINE_HEIGHT"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-line-height-label-lg)"
-              }
-            }
+            "$value": 22
           },
           "md": {
             "$type": "number",
-            "$value": 20,
-            "$extensions": {
-              "com.figma.variableId": "VariableID:9059:59376",
-              "com.figma.scopes": [
-                "LINE_HEIGHT"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-line-height-label-md)"
-              }
-            }
+            "$value": 20
           },
           "sm": {
             "$type": "number",
-            "$value": 18,
-            "$extensions": {
-              "com.figma.variableId": "VariableID:9059:59377",
-              "com.figma.scopes": [
-                "LINE_HEIGHT"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-line-height-label-sm)"
-              }
-            }
+            "$value": 18
           },
           "xs": {
             "$type": "number",
-            "$value": 16,
-            "$extensions": {
-              "com.figma.variableId": "VariableID:10140:18908",
-              "com.figma.scopes": [
-                "LINE_HEIGHT"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-line-height-label-xs)"
-              }
-            }
+            "$value": 16
           }
         },
         "body": {
           "lg": {
             "$type": "number",
-            "$value": 26,
-            "$extensions": {
-              "com.figma.variableId": "VariableID:9059:59378",
-              "com.figma.scopes": [
-                "LINE_HEIGHT"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-line-height-body-lg)"
-              }
-            }
+            "$value": 26
           },
           "md": {
             "$type": "number",
-            "$value": 24,
-            "$extensions": {
-              "com.figma.variableId": "VariableID:9059:59379",
-              "com.figma.scopes": [
-                "LINE_HEIGHT"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-line-height-body-md)"
-              }
-            }
+            "$value": 24
           },
           "sm": {
             "$type": "number",
-            "$value": 22,
-            "$extensions": {
-              "com.figma.variableId": "VariableID:9059:59380",
-              "com.figma.scopes": [
-                "LINE_HEIGHT"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-line-height-body-sm)"
-              }
-            }
+            "$value": 22
           },
           "xs": {
             "$type": "number",
-            "$value": 21,
-            "$extensions": {
-              "com.figma.variableId": "VariableID:9059:59381",
-              "com.figma.scopes": [
-                "LINE_HEIGHT"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-line-height-body-xs)"
-              }
-            }
+            "$value": 21
           },
           "2xs": {
             "$type": "number",
-            "$value": 19,
-            "$extensions": {
-              "com.figma.variableId": "VariableID:9059:59382",
-              "com.figma.scopes": [
-                "LINE_HEIGHT"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-line-height-body-2xs)"
-              }
-            }
+            "$value": 19
           }
         },
         "syntax": {
           "lg": {
             "$type": "number",
-            "$value": 22,
-            "$extensions": {
-              "com.figma.variableId": "VariableID:9068:116981",
-              "com.figma.scopes": [
-                "LINE_HEIGHT"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-line-height-syntax-lg)"
-              }
-            }
+            "$value": 22
           },
           "md": {
             "$type": "number",
-            "$value": 20,
-            "$extensions": {
-              "com.figma.variableId": "VariableID:9068:116982",
-              "com.figma.scopes": [
-                "LINE_HEIGHT"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-line-height-syntax-md)"
-              }
-            }
+            "$value": 20
           },
           "sm": {
             "$type": "number",
-            "$value": 18,
-            "$extensions": {
-              "com.figma.variableId": "VariableID:9068:116983",
-              "com.figma.scopes": [
-                "LINE_HEIGHT"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-line-height-syntax-sm)"
-              }
-            }
+            "$value": 18
           },
           "xs": {
             "$type": "number",
-            "$value": 16,
-            "$extensions": {
-              "com.figma.variableId": "VariableID:10140:82243",
-              "com.figma.scopes": [
-                "LINE_HEIGHT"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-line-height-syntax-xs)"
-              }
-            }
+            "$value": 16
           }
         }
       },
@@ -705,274 +242,103 @@
           "1": {
             "$type": "number",
             "$value": -0.20000000298023224,
-            "$description": "-1.1% 값을 부여, 피그마에서는 px단위로 적용.",
-            "$extensions": {
-              "com.figma.variableId": "VariableID:9059:59406",
-              "com.figma.scopes": [
-                "LETTER_SPACING"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-letter-spacing-title-1)"
-              }
-            }
+            "$description": "-1.1% 값을 부여, 피그마에서는 px단위로 적용."
           },
           "2": {
             "$type": "number",
             "$value": -0.2800000011920929,
-            "$description": "-1.4% 값을 부여, 피그마에서는 px단위로 적용.",
-            "$extensions": {
-              "com.figma.variableId": "VariableID:9059:59405",
-              "com.figma.scopes": [
-                "LETTER_SPACING"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-letter-spacing-title-2)"
-              }
-            }
+            "$description": "-1.4% 값을 부여, 피그마에서는 px단위로 적용."
           },
           "3": {
             "$type": "number",
             "$value": -0.4099999964237213,
-            "$description": "-1.7% 값을 부여, 피그마에서는 px단위로 적용.",
-            "$extensions": {
-              "com.figma.variableId": "VariableID:9059:59404",
-              "com.figma.scopes": [
-                "LETTER_SPACING"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-letter-spacing-title-3)"
-              }
-            }
+            "$description": "-1.7% 값을 부여, 피그마에서는 px단위로 적용."
           },
           "4": {
             "$type": "number",
             "$value": -0.5600000023841858,
-            "$description": "-2% 값을 부여, 피그마에서는 px단위로 적용.",
-            "$extensions": {
-              "com.figma.variableId": "VariableID:9059:59403",
-              "com.figma.scopes": [
-                "LETTER_SPACING"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-letter-spacing-title-4)"
-              }
-            }
+            "$description": "-2% 값을 부여, 피그마에서는 px단위로 적용."
           },
           "5": {
             "$type": "number",
             "$value": -0.7400000095367432,
-            "$description": "-2.3% 값을 부여, 피그마에서는 px단위로 적용.",
-            "$extensions": {
-              "com.figma.variableId": "VariableID:20871:14763",
-              "com.figma.scopes": [
-                "LETTER_SPACING"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-letter-spacing-title-5)"
-              }
-            }
+            "$description": "-2.3% 값을 부여, 피그마에서는 px단위로 적용."
           },
           "6": {
             "$type": "number",
             "$value": -1.0399999618530273,
-            "$description": "-2.6% 값을 부여, 피그마에서는 px단위로 적용.",
-            "$extensions": {
-              "com.figma.variableId": "VariableID:20871:14806",
-              "com.figma.scopes": [
-                "LETTER_SPACING"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-letter-spacing-title-6)"
-              }
-            }
+            "$description": "-2.6% 값을 부여, 피그마에서는 px단위로 적용."
           }
         },
         "label": {
           "lg": {
             "$type": "number",
             "$value": -0.1599999964237213,
-            "$description": "-1% 값을 부여, 피그마에서는 px단위로 적용.",
-            "$extensions": {
-              "com.figma.variableId": "VariableID:9059:59407",
-              "com.figma.scopes": [
-                "LETTER_SPACING"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-letter-spacing-label-lg)"
-              }
-            }
+            "$description": "-1% 값을 부여, 피그마에서는 px단위로 적용."
           },
           "md": {
             "$type": "number",
             "$value": -0.10999999940395355,
-            "$description": "-0.8% 값을 부여, 피그마에서는 px단위로 적용.",
-            "$extensions": {
-              "com.figma.variableId": "VariableID:9059:59408",
-              "com.figma.scopes": [
-                "LETTER_SPACING"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-letter-spacing-label-md)"
-              }
-            }
+            "$description": "-0.8% 값을 부여, 피그마에서는 px단위로 적용."
           },
           "sm": {
             "$type": "number",
             "$value": -0.07199999690055847,
-            "$description": "-0.6% 값을 부여, 피그마에서는 px단위로 적용.",
-            "$extensions": {
-              "com.figma.variableId": "VariableID:9059:59409",
-              "com.figma.scopes": [
-                "LETTER_SPACING"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-letter-spacing-label-sm)"
-              }
-            }
+            "$description": "-0.6% 값을 부여, 피그마에서는 px단위로 적용."
           },
           "xs": {
             "$type": "number",
             "$value": -0.06599999964237213,
-            "$description": "-0.6% 값을 부여, 피그마에서는 px단위로 적용.",
-            "$extensions": {
-              "com.figma.variableId": "VariableID:10140:79684",
-              "com.figma.scopes": [
-                "LETTER_SPACING"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-letter-spacing-label-xs)"
-              }
-            }
+            "$description": "-0.6% 값을 부여, 피그마에서는 px단위로 적용."
           }
         },
         "body": {
           "lg": {
             "$type": "number",
             "$value": 0.017000000923871994,
-            "$description": "0.1% 값을 부여, 피그마에서는 px단위로 적용.",
-            "$extensions": {
-              "com.figma.variableId": "VariableID:9059:59410",
-              "com.figma.scopes": [
-                "LETTER_SPACING"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-letter-spacing-body-lg)"
-              }
-            }
+            "$description": "0.1% 값을 부여, 피그마에서는 px단위로 적용."
           },
           "md": {
             "$type": "number",
             "$value": 0.04500000178813934,
-            "$description": "0.3% 값을 부여, 피그마에서는 px단위로 적용.",
-            "$extensions": {
-              "com.figma.variableId": "VariableID:9059:59411",
-              "com.figma.scopes": [
-                "LETTER_SPACING"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-letter-spacing-body-md)"
-              }
-            }
+            "$description": "0.3% 값을 부여, 피그마에서는 px단위로 적용."
           },
           "sm": {
             "$type": "number",
             "$value": 0.0560000017285347,
-            "$description": "0.4% 값을 부여, 피그마에서는 px단위로 적용.",
-            "$extensions": {
-              "com.figma.variableId": "VariableID:9059:59412",
-              "com.figma.scopes": [
-                "LETTER_SPACING"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-letter-spacing-body-sm)"
-              }
-            }
+            "$description": "0.4% 값을 부여, 피그마에서는 px단위로 적용."
           },
           "xs": {
             "$type": "number",
             "$value": 0.06499999761581421,
-            "$description": "0.5% 값을 부여, 피그마에서는 px단위로 적용.",
-            "$extensions": {
-              "com.figma.variableId": "VariableID:9059:59413",
-              "com.figma.scopes": [
-                "LETTER_SPACING"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-letter-spacing-body-xs)"
-              }
-            }
+            "$description": "0.5% 값을 부여, 피그마에서는 px단위로 적용."
           },
           "2xs": {
             "$type": "number",
             "$value": 0.07199999690055847,
-            "$description": "0.6% 값을 부여, 피그마에서는 px단위로 적용.",
-            "$extensions": {
-              "com.figma.variableId": "VariableID:9059:59414",
-              "com.figma.scopes": [
-                "LETTER_SPACING"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-letter-spacing-body-2xs)"
-              }
-            }
+            "$description": "0.6% 값을 부여, 피그마에서는 px단위로 적용."
           }
         },
         "syntax": {
           "lg": {
             "$type": "number",
             "$value": 0,
-            "$description": "0% 값을 부여, 피그마에서는 px단위로 적용.",
-            "$extensions": {
-              "com.figma.variableId": "VariableID:29760:218323",
-              "com.figma.scopes": [
-                "LETTER_SPACING"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-letter-spacing-syntax-lg)"
-              }
-            }
+            "$description": "0% 값을 부여, 피그마에서는 px단위로 적용."
           },
           "md": {
             "$type": "number",
             "$value": 0,
-            "$description": "0% 값을 부여, 피그마에서는 px단위로 적용.",
-            "$extensions": {
-              "com.figma.variableId": "VariableID:29760:218324",
-              "com.figma.scopes": [
-                "LETTER_SPACING"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-letter-spacing-syntax-md)"
-              }
-            }
+            "$description": "0% 값을 부여, 피그마에서는 px단위로 적용."
           },
           "sm": {
             "$type": "number",
             "$value": 0,
-            "$description": "0% 값을 부여, 피그마에서는 px단위로 적용.",
-            "$extensions": {
-              "com.figma.variableId": "VariableID:29760:218325",
-              "com.figma.scopes": [
-                "LETTER_SPACING"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-letter-spacing-syntax-sm)"
-              }
-            }
+            "$description": "0% 값을 부여, 피그마에서는 px단위로 적용."
           },
           "xs": {
             "$type": "number",
             "$value": 0,
-            "$description": "0% 값을 부여, 피그마에서는 px단위로 적용.",
-            "$extensions": {
-              "com.figma.variableId": "VariableID:29760:218326",
-              "com.figma.scopes": [
-                "LETTER_SPACING"
-              ],
-              "com.figma.codeSyntax": {
-                "WEB": "var(--jds-typography-primitive-font-letter-spacing-syntax-xs)"
-              }
-            }
+            "$description": "0% 값을 부여, 피그마에서는 px단위로 적용."
           }
         }
       }
