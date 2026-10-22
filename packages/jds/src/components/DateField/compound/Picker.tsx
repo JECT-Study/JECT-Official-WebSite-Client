@@ -1,5 +1,5 @@
 import { Popover } from "radix-ui";
-import { useRef } from "react";
+import type { FocusEventHandler, RefObject } from "react";
 
 import { DatePicker } from "../../DatePicker";
 import { isDateUnavailable } from "../../DatePicker/datePicker.utils";
@@ -11,6 +11,8 @@ interface DateFieldPickerProps extends Pick<
   DateFieldInputProps,
   "minDate" | "maxDate" | "isDateDisabled" | "withActionBar"
 > {
+  contentRef: RefObject<HTMLDivElement>;
+  onBlur: FocusEventHandler<HTMLDivElement>;
   /** "YYYY-MM-DD" 형식의 값. 비어 있으면 선택된 날짜가 없다. */
   value: string;
   defaultMonth?: Date;
@@ -27,6 +29,8 @@ const TABBABLE_DATE_CELL_SELECTOR = '[role="grid"] [tabindex="0"]';
  * 입력값과 같은 "YYYY-MM-DD" 값을 주고받고, `DatePicker`가 쓰는 Date와의 변환은 여기서 한다.
  */
 export const DateFieldPicker = ({
+  contentRef,
+  onBlur,
   value,
   defaultMonth,
   onSelect,
@@ -37,8 +41,6 @@ export const DateFieldPicker = ({
   onCloseAutoFocus,
   onInteractOutside,
 }: DateFieldPickerProps) => {
-  const pickerRef = useRef<HTMLDivElement>(null);
-
   // DateField의 문자열 형식으로 표현할 수 없는 날짜는 달력에서도 고를 수 없다.
   const isUnavailable = (date: Date) =>
     dateToValue(date) === "" || isDateUnavailable(date, { minDate, maxDate, isDateDisabled });
@@ -51,7 +53,8 @@ export const DateFieldPicker = ({
 
   // 첫 탭 정지점인 헤더의 연도 버튼 대신, 선택된 날짜(없으면 오늘) 셀에서 시작한다.
   const handleOpenAutoFocus = (event: Event) => {
-    const cell = pickerRef.current?.querySelector<HTMLElement>(TABBABLE_DATE_CELL_SELECTOR) ?? null;
+    const cell =
+      contentRef.current?.querySelector<HTMLElement>(TABBABLE_DATE_CELL_SELECTOR) ?? null;
     if (cell === null) return;
 
     event.preventDefault();
@@ -63,7 +66,7 @@ export const DateFieldPicker = ({
   const handleEscapeKeyDown = (event: KeyboardEvent) => {
     // 격자의 렌더 여부 대신 연월 버튼이 노출하는 펼침 상태를 확인한다.
     const expandedListTrigger =
-      pickerRef.current?.querySelector('button[aria-expanded="true"]') ?? null;
+      contentRef.current?.querySelector('button[aria-expanded="true"]') ?? null;
     if (expandedListTrigger !== null) event.preventDefault();
   };
 
@@ -79,9 +82,10 @@ export const DateFieldPicker = ({
         onCloseAutoFocus={onCloseAutoFocus}
         onEscapeKeyDown={handleEscapeKeyDown}
         onInteractOutside={onInteractOutside}
+        onBlur={onBlur}
       >
         <DatePicker
-          ref={pickerRef}
+          ref={contentRef}
           className={styles.picker}
           value={valueToDate(value)}
           defaultMonth={defaultMonth}

@@ -17,7 +17,7 @@ export interface DateFieldInputState {
   inputValue: string;
   value: string;
   error: DateFieldInputError | null;
-  /** 최초 필수 빈 값은 error가 있어도 오류를 표시하지 않는다. */
+  /** 최초 필드 이탈, 달력 확정, 네이티브 검증 실패 전에는 error가 있어도 표시하지 않는다. */
   isErrorVisible: boolean;
 }
 
@@ -46,7 +46,7 @@ interface DateFieldInputBaseProps extends Omit<
   | "autoCorrect"
   | "spellCheck"
 > {
-  /** 필수 입력 여부. 최초 오류는 숨기며 폼 제출 시 검증한다. */
+  /** 필수 입력 여부. 최초 오류는 숨기며 필드 이탈이나 폼 제출 시 표시한다. */
   required?: boolean;
   /** 부분 입력, 날짜 제한, 필수 빈 값을 포함한 현재 상태를 마운트와 변경 시 알린다. */
   onInputStateChange?: (state: DateFieldInputState) => void;

@@ -8,6 +8,7 @@ import {
   useMemo,
   useRef,
   useState,
+  type FocusEvent,
   type KeyboardEvent,
   type SyntheticEvent,
 } from "react";
@@ -118,10 +119,13 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
     const defaultValueRef = useRef(defaultValue ?? "");
     const warnedExternalValuesRef = useRef(new Set<string>());
     const inputRef = useRef<HTMLInputElement>(null);
+    const fieldContentRef = useRef<HTMLDivElement>(null);
+    const pickerContentRef = useRef<HTMLDivElement>(null);
     const pickerTriggerRef = useRef<HTMLButtonElement>(null);
+    const fieldExitCheckTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const isPickerOpenedFromInputRef = useRef(false);
     const [isPickerOpen, setIsPickerOpen] = useState(false);
-    const [isRequiredErrorRequested, setIsRequiredErrorRequested] = useState(false);
+    const [isErrorDisplayEnabled, setIsErrorDisplayEnabled] = useState(false);
     const closeReasonRef = useRef<"select" | "outside" | null>(null);
     const { onInputStateChange: reportInputState } = useDateFieldContext("DateField.Input");
     const onInputStateChangeRef = useRef(onInputStateChange);
@@ -180,7 +184,6 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
       inputValue,
       draftValue,
       inputStatus,
-      hasEdited,
       resetSegments,
       focusActiveSegment,
       handlers,
@@ -199,8 +202,7 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
     else if (inputStatus === "invalid") error = "invalid";
     else error = getDateValueError(draftValue);
 
-    const isErrorVisible =
-      error !== null && (error !== "required" || hasEdited || isRequiredErrorRequested);
+    const isErrorVisible = error !== null && isErrorDisplayEnabled;
     const currentValue = error === null ? draftValue : "";
     const inputState = useMemo<DateFieldInputState>(
       () => ({ inputValue, value: currentValue, error, isErrorVisible }),
@@ -216,6 +218,32 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
     }, [inputState, error, currentValue, reportInputState]);
 
     useLayoutEffect(() => () => reportInputState(null), [reportInputState]);
+
+    const cancelFieldExitCheck = useCallback(() => {
+      if (fieldExitCheckTimerRef.current === null) return;
+      clearTimeout(fieldExitCheckTimerRef.current);
+      fieldExitCheckTimerRef.current = null;
+    }, []);
+
+    useEffect(() => cancelFieldExitCheck, [cancelFieldExitCheck]);
+
+    const scheduleFieldExitCheck = (ownerDocument: Document) => {
+      cancelFieldExitCheck();
+
+      // 팝업이 닫힌 뒤의 포커스 복원까지 기다려 입력, 버튼, Portal을 하나의 필드로 판단한다.
+      fieldExitCheckTimerRef.current = setTimeout(() => {
+        fieldExitCheckTimerRef.current = null;
+        const focusedElement = ownerDocument.activeElement;
+        const isFocusWithinField =
+          fieldContentRef.current?.contains(focusedElement) === true ||
+          pickerContentRef.current?.contains(focusedElement) === true;
+        if (!isFocusWithinField) setIsErrorDisplayEnabled(true);
+      }, 0);
+    };
+
+    const handleFieldBlur = (event: FocusEvent<HTMLElement>) => {
+      if (!event.defaultPrevented) scheduleFieldExitCheck(event.currentTarget.ownerDocument);
+    };
 
     // ↓는 값을 줄이는 데 쓰므로 달력은 Alt와 함께 눌렀을 때 연다.
     const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
@@ -245,12 +273,18 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
       }
 
       resetSegments(nextValue);
-      setIsRequiredErrorRequested(true);
+      setIsErrorDisplayEnabled(true);
       closeReasonRef.current = "select";
       setIsPickerOpen(false);
     };
 
     const handlePickerCloseAutoFocus = (event: Event) => {
+      const input = inputRef.current;
+      const trigger = pickerTriggerRef.current;
+      const ownerDocument = input?.ownerDocument ?? trigger?.ownerDocument;
+      // 포커스를 가진 팝업이 제거되면 blur가 발생하지 않을 수도 있다.
+      if (ownerDocument !== undefined) scheduleFieldExitCheck(ownerDocument);
+
       if (closeReasonRef.current === "outside") {
         event.preventDefault();
         return;
@@ -260,9 +294,6 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
         focusActiveSegment();
         return;
       }
-      const input = inputRef.current;
-      const trigger = pickerTriggerRef.current;
-      const ownerDocument = input?.ownerDocument ?? trigger?.ownerDocument;
       // 소비처가 이미 포커스를 옮겼다면 그 위치를 유지한다.
       if (
         ownerDocument &&
@@ -296,8 +327,9 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
           // cleanup 전에 필드가 제거되거나 다른 폼에 연결되어도 이전 초기화를 적용하지 않는다.
           if (event.defaultPrevented || inputRef.current?.form !== formElement) return;
 
+          cancelFieldExitCheck();
           resetStateRef.current.resetSegments(defaultValueRef.current);
-          setIsRequiredErrorRequested(false);
+          setIsErrorDisplayEnabled(false);
           lastValidValueRef.current = resetStateRef.current.isValueAllowed(defaultValueRef.current)
             ? defaultValueRef.current
             : "";
@@ -310,7 +342,7 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
         formElement.removeEventListener("reset", handleReset);
         resetTimers.forEach(timeoutId => clearTimeout(timeoutId));
       };
-    }, [form]);
+    }, [form, cancelFieldExitCheck]);
 
     const formatHintId = `${fieldId}-format`;
 
@@ -323,7 +355,11 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
         }}
       >
         <Popover.Anchor asChild>
-          <FieldContent data-disabled={isDisabled || undefined}>
+          <FieldContent
+            ref={fieldContentRef}
+            onBlur={handleFieldBlur}
+            data-disabled={isDisabled || undefined}
+          >
             <input
               {...restProps}
               ref={mergeRefs(ref, inputRef)}
@@ -345,7 +381,7 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
               readOnly={isReadOnly}
               onInvalid={composeHandler(onInvalidFromProps, event => {
                 event.preventDefault();
-                setIsRequiredErrorRequested(true);
+                setIsErrorDisplayEnabled(true);
                 focusActiveSegment();
               })}
               data-field-control=''
@@ -354,7 +390,10 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
               className={clsx(getBodyClassName({ size: "md" }), styles.input, className)}
               onChange={handlers.onChange}
               onFocus={composeHandler(onFocusFromProps, handlers.onFocus)}
-              onBlur={composeHandler(onBlurFromProps, handlers.onBlur)}
+              onBlur={composeHandler(onBlurFromProps, event => {
+                handlers.onBlur(event);
+                handleFieldBlur(event);
+              })}
               onMouseDown={composeHandler(onMouseDownFromProps, handlers.onMouseDown)}
               onKeyDown={composeHandler(onKeyDownFromProps, handleKeyDown)}
               onCompositionEnd={composeHandler(
@@ -398,6 +437,8 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
         </Popover.Anchor>
         {withPicker && (
           <DateFieldPicker
+            contentRef={pickerContentRef}
+            onBlur={handleFieldBlur}
             value={currentValue}
             defaultMonth={valueToDate(lastValidValueRef.current) ?? undefined}
             onSelect={handlePickerSelect}

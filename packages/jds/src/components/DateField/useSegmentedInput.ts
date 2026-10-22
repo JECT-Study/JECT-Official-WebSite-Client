@@ -106,8 +106,6 @@ interface UseSegmentedInputResult {
   /** 확정 전 입력이 없고 날짜가 유효할 때만 제출 형식의 값이다. */
   draftValue: string;
   inputStatus: "empty" | "incomplete" | "invalid" | "valid";
-  /** 사용자가 수정했는지 여부. 외부 값 교체와 초기화 시 false로 돌아간다. */
-  hasEdited: boolean;
   /** 채워진 세그먼트가 하나도 없는지 여부 */
   isEmpty: boolean;
   /** 폼 초기화처럼 부분 입력까지 버리고 값에서 세그먼트를 다시 만들 때 호출한다. */
@@ -144,7 +142,6 @@ export const useSegmentedInput = <TKind extends string, TSegments, TPending>({
   const [pending, setPending] = useState<TPending | null>(null);
   const [isAllSelected, setIsAllSelected] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
-  const [hasEdited, setHasEdited] = useState(false);
   const [, requestSelectionSync] = useReducer((key: number) => key + 1, 0);
 
   const segmentsRef = useRef(segments);
@@ -166,7 +163,6 @@ export const useSegmentedInput = <TKind extends string, TSegments, TPending>({
     (nextValue: string) => {
       writeSegments(parseOrEmpty(rules, nextValue));
       setPending(null);
-      setHasEdited(false);
       requestedValueRef.current = null;
     },
     [rules, writeSegments],
@@ -202,7 +198,6 @@ export const useSegmentedInput = <TKind extends string, TSegments, TPending>({
 
   const commit = (next: TSegments, nextPending: TPending | null = null) => {
     writeSegments(next);
-    setHasEdited(true);
 
     // 부분 입력과 잘못된 날짜는 draft에만 남긴다. 이전 확정값을 빈 값으로 덮지 않는다.
     if (nextPending !== null) return;
@@ -488,7 +483,6 @@ export const useSegmentedInput = <TKind extends string, TSegments, TPending>({
     inputValue: hasInput ? rules.format(segments, pending) : "",
     draftValue,
     inputStatus,
-    hasEdited,
     displayValue: isFocused || hasInput ? rules.format(segments, pending) : "",
     isEmpty: !hasInput,
     resetSegments,

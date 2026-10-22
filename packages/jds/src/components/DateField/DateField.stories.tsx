@@ -28,7 +28,8 @@ const DateFieldFormResult = ({ value }: { value: string | null }) => (
  * 연, 월, 일을 세그먼트 단위로 편집하며 값은 `"YYYY-MM-DD"` 형식의 문자열입니다.
  *
  * - 숫자를 입력하면 세그먼트가 채워지는 즉시 다음 세그먼트로 넘어갑니다. `2026.7.25`처럼 구분자를 포함해 입력해도 됩니다.
- * - 부분 입력과 존재하지 않는 날짜는 입력 중 즉시 오류로 표시하며, 날짜를 자동으로 보정하지 않습니다.
+ * - 부분 입력과 존재하지 않는 날짜는 자동 보정하지 않고 유지합니다. 처음에는 오류를 숨기고 필드 전체를 벗어나거나 제출할 때 표시합니다.
+ * - 입력창, 달력 버튼, 팝업 사이의 포커스 이동은 필드 이탈로 보지 않습니다. 첫 이탈이나 달력 확정, 검증 실패 이후에는 입력에 맞춰 오류를 갱신하며, 유효해지면 즉시 해제합니다.
  * - 기존 날짜를 다시 입력하는 동안에는 확정된 값을 유지합니다. 연도는 0001–9999를 지원합니다.
  * - 해석할 수 없는 외부 값은 빈 입력과 빈 제출값으로 처리합니다.
  * - 개발 환경에서는 잘못된 외부 `value`와 최초 `defaultValue`를 경고합니다. 같은 Input에서 같은 잘못된 값은 한 번만 경고하며, 사용자 입력과 날짜 제한 오류는 경고하지 않습니다.
@@ -57,7 +58,7 @@ const DateFieldFormResult = ({ value }: { value: string | null }) => (
  *
  * 달력 안의 키보드 조작은 `DatePicker`와 같습니다. 날짜 선택 완료 후에는 입력창으로 포커스가 돌아갑니다.
  * 달력 밖의 입력을 클릭하면 달력을 닫고 클릭한 입력으로 포커스를 이동합니다.
- * 필수 빈 입력은 최초에 오류를 숨기고, 입력 후 삭제하거나 제출하면 오류를 표시합니다.
+ * 필수 빈 입력은 최초에 오류를 숨기고, 필드를 벗어나거나 달력 지우기를 확정하거나 제출하면 표시합니다. 폼 초기화 시 오류 표시 이력도 지웁니다.
  */
 const meta = {
   title: "Components/DateField",
@@ -343,13 +344,21 @@ const ValidationPreview = () => {
         </p>
         <DateField style={FIELD_WIDTH}>
           <DateField.Label>선택 입력 날짜</DateField.Label>
-          <DateField.Input name='optionalDate' onInputStateChange={setOptionalState} />
+          <DateField.Input
+            name='optionalDate'
+            withActionBar
+            onInputStateChange={setOptionalState}
+          />
           <DateField.Helper>날짜가 필요하지 않으면 비워 두세요</DateField.Helper>
         </DateField>
         <InputStatePreview label='선택 입력 상태' state={optionalState} />
         <DateField required style={FIELD_WIDTH}>
           <DateField.Label>필수 입력 날짜</DateField.Label>
-          <DateField.Input name='requiredDate' onInputStateChange={setRequiredState} />
+          <DateField.Input
+            name='requiredDate'
+            withActionBar
+            onInputStateChange={setRequiredState}
+          />
         </DateField>
         <InputStatePreview label='필수 입력 상태' state={requiredState} />
         <label>
@@ -371,9 +380,11 @@ const ValidationPreview = () => {
 };
 
 /**
- * 빈 선택 입력은 유효하고, 부분 입력과 존재하지 않는 날짜는 즉시 오류가 됩니다.
- * 필수 입력의 최초 빈 값은 오류를 숨기지만 제출을 막습니다. 제출 또는 `checkValidity()`, `reportValidity()` 검증에 실패하면 오류를 표시합니다.
- * 달력의 지우기를 확정한 경우에도 필수 오류를 표시하며, 폼 초기화 시 최초 노출 상태로 돌아갑니다.
+ * 빈 선택 입력은 유효하고, 부분 입력과 존재하지 않는 날짜는 입력 중부터 error로 알립니다.
+ * 오류 표시는 최초 필드 이탈, 달력의 날짜 선택 또는 지우기 확정, 네이티브 검증 실패 시 시작합니다.
+ * 입력창에서 달력 버튼, 팝업으로 이동하거나 Esc로 돌아오는 동안에는 최초 오류를 표시하지 않습니다.
+ * 한 번 검증한 뒤에는 입력 중에도 오류를 갱신하며, 유효한 날짜가 되면 즉시 해제합니다.
+ * 제출 또는 `checkValidity()`, `reportValidity()` 검증에 실패하면 이탈 여부와 무관하게 오류를 표시합니다.
  * `onInputStateChange`의 `value`는 현재 입력이 유효할 때만 날짜를 갖습니다. 오류 입력에서는 빈 문자열입니다.
  * 오류가 있으면 일반 헬퍼 대신 내장 메시지를 표시하며, 헬퍼가 없는 구성에도 오류 메시지가 나타납니다.
  * 초기화하면 입력과 오류 표시가 최초 상태로 돌아갑니다. 달력을 연 뒤 다음 입력을 클릭해 포커스 이동도 확인할 수 있습니다.
