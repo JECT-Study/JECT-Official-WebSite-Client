@@ -1,5 +1,386 @@
 # @jects/jds
 
+## 0.8.0
+
+### Minor Changes
+
+- 740e9a9: **DatePicker**
+
+  날짜 하나를 고르는 달력 패널 `DatePicker`를 추가했습니다. 헤더의 연도와 월 버튼으로 연월 목록을 열 수 있고, 표시 중인 달에 속하지 않는 날짜를 선택하면 그 날짜의 달로 이동합니다. props 타입 `DatePickerProps`와 `weekStartsOn`에 넘기는 값의 타입 `Weekday`도 함께 공개합니다.
+
+  | prop             | 기본값    | 용도                                                                                                |
+  | ---------------- | --------- | --------------------------------------------------------------------------------------------------- |
+  | `value`          | -         | 선택된 날짜, 넘기면 제어 모드이고 바뀌면 그 날짜의 달로 이동 — `month` 제어 시 `onMonthChange` 호출 |
+  | `defaultValue`   | `null`    | 비제어 모드의 시작 선택값                                                                           |
+  | `onChange`       | -         | 선택이 확정될 때 로컬 시간대 자정 기준 날짜로 호출, 지우고 적용하면 `null`                          |
+  | `month`          | -         | 표시할 달, 넘기면 표시 중인 달을 호출부가 소유                                                      |
+  | `defaultMonth`   | 선택된 달 | 처음 표시할 달, 선택이 없으면 오늘이 속한 달                                                        |
+  | `onMonthChange`  | -         | 표시 중인 달이 바뀌면 그 달의 1일로 호출                                                            |
+  | `weekStartsOn`   | `1`       | 한 주의 시작 요일, 0은 일요일                                                                       |
+  | `withActionBar`  | `false`   | 오늘, 지우기, 적용 버튼 표시, 켜면 적용 시에만 `onChange` 호출                                      |
+  | `fixedWeeks`     | `false`   | 모든 달을 6주로 표시, 끄면 달에 필요한 주 수만 표시                                                 |
+  | `disabled`       | `false`   | 날짜 선택과 달 이동을 모두 막음                                                                     |
+  | `readOnly`       | `false`   | 달 이동은 가능하고 선택만 막음                                                                      |
+  | `minDate`        | -         | 선택할 수 있는 가장 이른 날짜, 이 달보다 앞으로 이동 불가 — 없으면 연도 목록은 10년 전부터          |
+  | `maxDate`        | -         | 선택할 수 있는 가장 늦은 날짜, 이 달보다 뒤로 이동 불가 — 없으면 연도 목록은 10년 후까지            |
+  | `isDateDisabled` | -         | `true`를 반환한 날짜는 선택 불가                                                                    |
+
+  달력은 `role="grid"`로 노출되고, 방향키, Home, End, PageUp, PageDown으로 날짜를 이동합니다. Shift와 함께 PageUp, PageDown을 누르면 1년씩 이동하고, 선택할 수 없는 날짜는 건너뜁니다. Tab 정지점은 달력마다 하나입니다. 표시 중인 연월이 바뀌면 스크린 리더에 새 연월을 안내합니다.
+
+  ```tsx
+  const [date, setDate] = useState<Date | null>(null);
+
+  <DatePicker
+    value={date}
+    onChange={setDate}
+    withActionBar
+    minDate={new Date(2026, 0, 1)}
+    maxDate={new Date(2026, 11, 31)}
+    isDateDisabled={day => day.getDay() === 0}
+  />;
+  ```
+
+- d31ad83: **IconButton**
+
+  `asChild`를 추가합니다. `asChild` 없이 `children`을 전달하면 타입 에러가 발생합니다. `children`을 넘기던 코드는 제거가 필요합니다.
+
+  **소비처 영향 (코드 수정 필요)**
+
+  | AS-IS                                 | TO-BE                        |
+  | ------------------------------------- | ---------------------------- |
+  | `children` 전달 가능, 렌더링되지 않음 | `children` 전달 시 타입 에러 |
+
+  ```diff
+  - <IconButton icon='x' aria-label='닫기'>닫기</IconButton>
+  + <IconButton icon='x' aria-label='닫기' />
+  ```
+
+  **추가**
+  - `asChild` — 기본값 `false`, `true`면 자식 요소에 스타일과 props를 병합하고 `icon`을 자식 안에 렌더링, `type`, `disabled` 속성은 렌더링하지 않음
+  - `asChild`와 `disabled`는 함께 사용 불가
+  - 자식 요소의 `children`은 렌더링하지 않음 — 개발 환경에서 `children`을 전달하면 경고 출력, 자식은 비워서 전달하고 접근 이름은 `aria-label`로 지정
+
+  ```tsx
+  <IconButton asChild icon='arrow-left' aria-label='이전 페이지'>
+    <Link href='/' />
+  </IconButton>
+  ```
+
+- c5f6b96: **Pagination**
+
+  `nav > ul > li` 구조로 페이지 번호, 말줄임, 이전과 다음 이동 요소를 표시하는 `Pagination` 컴포넌트를 추가합니다. 버튼의 제어, 비제어 방식과 `href` 기반 링크 방식을 지원합니다. `PaginationProps`, `PaginationButtonProps`, `PaginationLinkProps`, `PaginationVisiblePageCount` 타입을 함께 공개합니다.
+
+  | prop                            | 기본값  | 용도                                                                                     |
+  | ------------------------------- | ------- | ---------------------------------------------------------------------------------------- |
+  | `totalPages`                    | 필수    | 전체 페이지 수, `0`이면 렌더링하지 않음                                                  |
+  | `page`                          | 없음    | 제어 버튼 방식 또는 링크 방식의 현재 페이지                                              |
+  | `defaultPage`                   | `1`     | 비제어 버튼 방식의 초기 페이지                                                           |
+  | `onPageChange`                  | 없음    | 버튼 방식의 페이지 이동 콜백, 제어 방식에서는 필수                                       |
+  | `getPageHref`                   | 없음    | 링크 방식에서 페이지별 URL 생성                                                          |
+  | `linkAs`                        | `a`     | 링크 방식에서 사용할 `href`를 받는 라우팅 컴포넌트                                       |
+  | `visiblePageCount`              | `7`     | 이전과 다음을 제외한 최대 항목 수, 숫자와 말줄임 포함, `7`, `8`, `9`, `10`, `11` 중 선택 |
+  | `disabled`                      | `false` | 모든 페이지 이동 요소 비활성화, Tab 순서에서 제외                                        |
+  | `aria-label`, `aria-labelledby` | 없음    | 탐색 영역의 접근 가능한 이름, 함께 사용 불가, 페이지에 `nav`가 여러 개면 지정 권장       |
+
+  전체 페이지 수가 표시 개수보다 크면 연속된 페이지 번호와 말줄임을 표시합니다. 양쪽에 말줄임이 있는 구간을 처음 표시할 때 홀수 표시 개수는 현재 페이지를 중앙에 배치하고, 짝수 표시 개수는 오른쪽에 페이지 번호를 하나 더 배치합니다. 말줄임은 두 페이지 이상이 생략될 때만 표시합니다.
+
+  표시된 구간의 안쪽 페이지를 선택하면 구간을 유지하고, 양끝 페이지를 선택하면 표시 구간을 이동합니다. `page`나 `totalPages` 변경으로 현재 페이지가 표시 가능한 범위로 보정되어도 `onPageChange`를 호출하지 않습니다. `totalPages` 또는 `visiblePageCount`가 바뀌면 현재 페이지에 맞춰 표시 구간을 다시 배치합니다. 링크 방식에서 URL을 현재 페이지의 기준으로 쓰려면 소비처가 URL에서 페이지 값을 읽어 `page`로 전달합니다.
+
+  첫 페이지의 이전 이동 요소와 마지막 페이지의 다음 이동 요소는 포커스를 유지한 채 `aria-disabled`로 비활성 상태를 알리고, 눌러도 이동하지 않습니다.
+
+  ```tsx
+  import { useState } from "react";
+  import { Pagination } from "@jects/jds";
+
+  function ButtonPagination() {
+    const [page, setPage] = useState(1);
+
+    return (
+      <Pagination aria-label='페이지 이동' page={page} totalPages={10} onPageChange={setPage} />
+    );
+  }
+
+  function UncontrolledPagination() {
+    return <Pagination aria-label='페이지 이동' defaultPage={1} totalPages={10} />;
+  }
+
+  function LinkPagination({ page }: { page: number }) {
+    return (
+      <Pagination
+        aria-label='페이지 이동'
+        page={page}
+        totalPages={10}
+        getPageHref={targetPage => `?page=${targetPage}`}
+      />
+    );
+  }
+  ```
+
+### Patch Changes
+
+- d31ad83: **BlockButton**
+
+  `asChild`를 추가합니다. 전달한 자식 요소를 루트로 렌더링하므로 라우터의 `Link`에 BlockButton 스타일을 적용할 수 있습니다. 기존 코드는 수정 없이 동작합니다.
+  - `asChild` — 기본값 `false`, `true`면 자식 요소에 스타일과 props를 병합하고 `prefixIcon`, `suffixIcon`을 자식 안에 렌더링, `type`, `disabled` 속성은 렌더링하지 않음
+  - `asChild`와 `disabled`는 함께 사용 불가, 자식은 요소 하나만 전달
+
+  ```tsx
+  <BlockButton asChild suffixIcon='arrow-right'>
+    <Link href='/apply'>지원하기</Link>
+  </BlockButton>
+  ```
+
+- 8971b46: **Icon**
+
+  텍스트 편집, 멀티미디어, 내비게이션 아이콘 16개를 추가합니다. 기존 아이콘 이름과 동작은 그대로이며 소비처 수정은 필요 없습니다.
+
+  **추가**
+  - 텍스트 서식 — `bold`, `italic`, `underline`, `strikethrough`
+  - 제목 — `heading-1`, `heading-2`, `heading-3`, `heading-4`, `heading-5`, `heading-6`
+  - 정렬 — `text-align-justify-start`, `text-align-justify-center`, `text-align-justify-end`
+  - 기타 — `square-text`, `captions`, `map-pin`
+
+  **동작 변경 (코드 수정 불필요)**
+  - 기존 아이콘 일부의 path 좌표를 피그마 원본에 맞춰 0.001px 미만으로 조정, 눈에 보이는 차이 없음
+
+- d31ad83: **LabelButton**
+
+  `asChild`를 추가합니다. 전달한 자식 요소를 루트로 렌더링하므로 라우터의 `Link`에 LabelButton 스타일을 적용할 수 있습니다. 기존 코드는 수정 없이 동작합니다.
+  - `asChild` — 기본값 `false`, `true`면 자식 요소에 스타일과 props를 병합하고 `prefixIcon`, `suffixIcon`을 자식 안에 렌더링, `type`, `disabled` 속성은 렌더링하지 않음
+  - `asChild`와 `disabled`는 함께 사용 불가, 자식은 요소 하나만 전달
+
+  ```tsx
+  <LabelButton asChild suffixIcon='arrow-right'>
+    <Link href='/apply'>지원하기</Link>
+  </LabelButton>
+  ```
+
+- e2a712f: **Listbox**
+
+  목록 끝까지 스크롤한 뒤 휠을 계속 굴려도 페이지 등 바깥 스크롤 영역이 함께 스크롤되지 않습니다. Listbox를 사용하는 Select, MultiSelect, SelectField, MultiSelectField, SuggestionField에 함께 적용되며, 코드 수정은 필요 없습니다.
+
+- 2428dd7: **MultiSelectField**
+
+  Radix `Dialog` 기반 드로어에서 팝업 옵션 목록을 휠과 터치 드래그로 스크롤할 수 있습니다. 호출부 수정은 필요하지 않습니다.
+
+- 807fe21: **MultiSelect**
+
+  목록 컨테이너의 최대 높이를 지정하는 `maxHeight` prop을 추가합니다. 항목이 적으면 내용 높이에 맞춰 줄어들고, 넘치면 상한에서 내부 스크롤이 생깁니다. `"full"`을 넘기면 부모 높이를 상한으로 둡니다.
+  - `maxHeight?: "full" | string` — `"full"` 또는 CSS 길이 값
+
+- 2428dd7: **SelectField**
+
+  Radix `Dialog` 기반 드로어에서 팝업 옵션 목록을 휠과 터치 드래그로 스크롤할 수 있습니다. 호출부 수정은 필요하지 않습니다.
+
+- 807fe21: **Select**
+
+  목록 컨테이너의 최대 높이를 지정하는 `maxHeight` prop을 추가합니다. 항목이 적으면 내용 높이에 맞춰 줄어들고, 넘치면 상한에서 내부 스크롤이 생깁니다. `"full"`을 넘기면 부모 높이를 상한으로 둡니다.
+  - `maxHeight?: "full" | string` — `"full"` 또는 CSS 길이 값
+
+- 2428dd7: **SuggestionField**
+
+  Radix `Dialog` 기반 드로어에서 팝업 제안 목록을 휠과 터치 드래그로 스크롤할 수 있습니다. 호출부 수정은 필요하지 않습니다.
+
+- 6f9268c: `@jects/jds`와 `@jects/jds/hooks` 진입점 산출물 맨 위에 `"use client"` 지시어가 붙습니다. Next.js App Router의 서버 컴포넌트에서 `Button`, `Badge`처럼 이름 하나로 쓰는 컴포넌트를 직접 import해 렌더할 수 있습니다.
+
+  서버 컴포넌트에서 점으로 파트에 접근하는 compound 컴포넌트(`Tabs.Root`, `TextField.Input` 등)와 컴포넌트가 아닌 값(`dividerColorVar`, `formatFileSize`, `toastController`, `snackbarController`)은 쓸 수 없습니다. 이 경우 소비처의 `"use client"` 파일 안에서 사용합니다.
+  - `@jects/jds/tokens`, `@jects/jds/utils`, `@jects/jds/theme`은 지시어 없음, 서버 컴포넌트에서 그대로 사용 가능
+  - `formatFileSize`는 `@jects/jds/utils`에서 import하면 서버 컴포넌트에서 사용 가능
+  - Next.js가 아닌 환경은 지시어를 무시하므로 동작 변경 없음
+
+## 0.7.0
+
+### Minor Changes
+
+- 6fc7ae7: **Divider**
+
+  `variant="dashed"`의 대시가 6px 선, 6px 간격으로 그려집니다. 이전에는 브라우저가 대시 길이를 정했습니다. `DividerProps`가 `variant` 값에 따라 갈리는 유니온 타입이 되었고, 선이 `border`가 아닌 `background`로 그려집니다.
+
+  **소비처 영향 (코드 수정 필요)**
+
+  | AS-IS                                      | TO-BE                                      |
+  | ------------------------------------------ | ------------------------------------------ |
+  | `interface X extends DividerProps { ... }` | `type X = DividerProps & { ... }`          |
+  | `border`로 선 두께나 색을 덮어쓰기         | `thickness` prop, `dividerColorVar`로 지정 |
+
+  `DividerProps`를 확장하던 타입은 교차 타입으로 바꿉니다.
+
+  ```diff
+  -interface MyDividerProps extends DividerProps {
+  -  spacing?: number;
+  -}
+  +type MyDividerProps = DividerProps & {
+  +  spacing?: number;
+  +};
+  ```
+
+  `border`로 선을 덮어쓰던 스타일은 제거합니다. 기본 선을 대체하지 않고 겹쳐 그려지며, 요소 높이가 `thickness`만큼 늘어납니다.
+
+  ```diff
+  -<Divider className='border-t-2 border-red-500' />
+  +<Divider thickness='bold' />
+  ```
+
+  `dashLength`와 `dashGap`은 `variant="dashed"`를 함께 지정해야 쓸 수 있습니다.
+
+  **추가**
+  - `dashLength` — 점선 한 칸의 길이(px), 기본값 `6`, 최솟값 `1`
+  - `dashGap` — 점선 사이 간격(px), 지정하지 않으면 하한이 적용된 `dashLength`를 따라감, 최솟값 `1`
+
+  ```tsx
+  <Divider variant='dashed' />                             // 6 / 6
+  <Divider variant='dashed' dashLength={2} />              // 2 / 2
+  <Divider variant='dashed' dashLength={2} dashGap={6} />  // 2 / 6
+  ```
+
+  **동작 변경 (코드 수정 불필요)**
+  - 강제 색상 모드(`forced-colors: active`)에서 `dashLength`와 `dashGap`이 반영되지 않음, 브라우저가 정한 대시가 적용됨
+  - `dividerColorVar`로 색을 덮어쓰는 방식은 그대로 동작
+  - `orientation`, `thickness`, `variant`와 렌더 엘리먼트, `role`은 변경 없음
+
+- 09df977: `radix-ui`가 `dependencies`에서 `peerDependencies`로 이동했습니다. 소비처의 `package.json`에 `radix-ui`를 `^1.6.7` 범위로 직접 추가해야 합니다.
+
+  ```diff
+    "dependencies": {
+  +   "radix-ui": "^1.6.7"
+    }
+  ```
+
+  JDS 공개 API와 사용 방법은 동일합니다.
+
+### Patch Changes
+
+- 404ef12: **Accordion**
+
+  Radix UI 참조를 `radix-ui` 통합 패키지로 변경합니다. 공개 API, 렌더링 구조와 동작은 변경되지 않습니다.
+
+- 1ffb35f: **Listbox**
+
+  내부 프리미티브인 `Listbox`에 표면을 그리지 않는 `surface` 옵션을 추가했습니다. `Listbox`는 배럴에 공개되지 않으므로 소비처에서 직접 사용할 수 없습니다.
+
+  `Select`, `MultiSelect`, `SelectField`, `MultiSelectField`, `SuggestionField`는 기본값을 사용하므로 렌더 결과가 바뀌지 않습니다.
+
+- 60370aa: **Menu (Menu.Anchor / DropdownMenu.Anchor)**
+
+  `Menu.Anchor`와 `DropdownMenu.Anchor`에 `asChild` prop을 추가했습니다. `asChild`를 사용하면 Next.js의 `Link`나 React Router의 `Link` 같은 라우팅 컴포넌트를 메뉴 항목의 루트 요소로 사용할 수 있습니다. `asChild`를 사용하지 않고 `href`를 직접 전달하는 방식도 계속 지원합니다.
+
+  **추가**
+  - `asChild` (`false`) — 자식 라우팅 컴포넌트를 메뉴 앵커의 루트 요소로 합성
+  - `asChild` 사용 시 단일 React 요소를 `children`으로 전달, `disabled`와 동시 사용 불가
+
+  ```tsx
+  import NextLink from "next/link";
+
+  <Menu.Anchor asChild>
+    <NextLink href='/mypage'>마이페이지</NextLink>
+  </Menu.Anchor>;
+  ```
+
+  **동작 변경 (코드 수정 불필요)**
+  - `disabled`인 `Menu.Anchor`, `DropdownMenu.Anchor`의 `href` 제거, 각각 `link`, `menuitem` 역할 유지, 키보드 포커스와 클릭 핸들러 호출 차단
+
+- 404ef12: **SegmentedControls**
+
+  Radix UI 타입 참조를 `radix-ui` 통합 패키지로 변경합니다. 공개 props 타입과 컴포넌트 동작은 변경되지 않습니다.
+
+- 09be450: `radix-ui` 의존성을 `1.6.7`로 업데이트했습니다. 기존 JDS 공개 API와 사용 방법은 동일합니다.
+
+## 0.6.0
+
+### Minor Changes
+
+- aab91bd: **Menu (Menu / DropdownMenu)**
+
+  여닫는 동작이 있는 메뉴와 펼쳐둔 메뉴를 `DropdownMenu`와 `Menu`로 나눕니다. 기존 `Menu`는 드롭다운 형태이므로 `DropdownMenu`로 이름이 바뀌고, `Menu`는 트리거 없이 펼쳐둔 목록이 됩니다. `MenuItem`이 제거되고 `Menu.Button`과 `Menu.Anchor`로 대체됩니다.
+
+  두 컴포넌트는 렌더 결과가 다릅니다. `DropdownMenu`는 `role="menu"`와 `role="menuitem"`을 붙이고 화살표 이동, typeahead, Escape 닫기를 제공합니다. `Menu`는 `ul role="list"` 안에 링크와 버튼을 렌더하며 탭으로 이동합니다.
+
+  **소비처 영향 (코드 수정 필요)**
+
+  | AS-IS                 | TO-BE                                    |
+  | --------------------- | ---------------------------------------- |
+  | `Menu.Root`           | `DropdownMenu.Root`                      |
+  | `Menu.Trigger`        | `DropdownMenu.Trigger`                   |
+  | `Menu.Content`        | `DropdownMenu.Content`                   |
+  | `Menu.Category`       | `DropdownMenu.Category`                  |
+  | `Menu.Group`          | `DropdownMenu.Group`                     |
+  | `Menu.Button`         | `DropdownMenu.Button`                    |
+  | `Menu.Anchor`         | `DropdownMenu.Anchor`                    |
+  | `Menu.Tree`           | `DropdownMenu.Tree`                      |
+  | `MenuRootProps`       | `DropdownMenuRootProps`                  |
+  | `MenuTriggerProps`    | `DropdownMenuTriggerProps`               |
+  | `MenuContentProps`    | `DropdownMenuContentProps`               |
+  | `MenuButtonProps`     | `DropdownMenuButtonProps`                |
+  | `MenuAnchorProps`     | `DropdownMenuAnchorProps`                |
+  | `MenuTreeProps`       | `DropdownMenuTreeProps`                  |
+  | `MenuItem.Button`     | `Menu.Button`                            |
+  | `MenuItem.Anchor`     | `Menu.Anchor`                            |
+  | `MenuItemButtonProps` | `MenuButtonProps`                        |
+  | `MenuItemAnchorProps` | `MenuAnchorProps`                        |
+  | `MenuItemSize`        | `MenuSize`                               |
+  | `MenuItemVariant`     | `MenuButtonVariant`, `MenuAnchorVariant` |
+  | `MenuItemProps`       | 제거 — `DropdownMenu.Item`의 prop 별칭   |
+
+  `MenuStyle`, `MenuSize`, `MenuCategoryProps`, `MenuGroupProps`는 이름이 그대로입니다.
+
+  기존 드롭다운 메뉴를 사용하던 곳은 이름만 바꾸면 됩니다.
+
+  ```diff
+  -<Menu.Root size='md'>
+  -  <Menu.Trigger asChild>
+  +<DropdownMenu.Root size='md'>
+  +  <DropdownMenu.Trigger asChild>
+       <IconButton icon='menu' aria-label='메뉴' />
+  -  </Menu.Trigger>
+  -  <Menu.Content align='start'>
+  -    <Menu.Group>
+  -      <Menu.Anchor href='#'>메뉴 레이블</Menu.Anchor>
+  -    </Menu.Group>
+  -  </Menu.Content>
+  -</Menu.Root>
+  +  </DropdownMenu.Trigger>
+  +  <DropdownMenu.Content align='start'>
+  +    <DropdownMenu.Group>
+  +      <DropdownMenu.Anchor href='#'>메뉴 레이블</DropdownMenu.Anchor>
+  +    </DropdownMenu.Group>
+  +  </DropdownMenu.Content>
+  +</DropdownMenu.Root>
+  ```
+
+  `MenuItem`을 직접 배치하던 곳은 `Menu`로 감쌉니다. `size`는 항목마다 지정하지 않고 `Menu.Root`에 한 번 지정하며, `Menu.Button`과 `Menu.Anchor`는 `li`를 포함하므로 `Menu.Group` 안에 둡니다.
+
+  ```diff
+  -<MenuItem.Anchor href='#' size='sm'>
+  -  메뉴 레이블
+  -</MenuItem.Anchor>
+  +<Menu.Root size='sm'>
+  +  <Menu.Content>
+  +    <Menu.Group>
+  +      <Menu.Anchor href='#'>메뉴 레이블</Menu.Anchor>
+  +    </Menu.Group>
+  +  </Menu.Content>
+  +</Menu.Root>
+  ```
+
+  **추가**
+  - `Menu` — 트리거 없이 펼쳐둔 메뉴, `Root`, `Content`, `Category`, `Group`, `Button`, `Anchor`로 구성
+
+### Patch Changes
+
+- dd0101a: **Menu**
+
+  디자인 스펙과 어긋나 있던 스타일 값을 맞췄습니다. 호출부 수정은 필요하지 않으며, 렌더 결과만 달라집니다.
+
+  **동작 변경 (코드 수정 불필요)**
+  - 항목 세로 여백 — `sm`은 6px에서 4px로, `lg`는 4px에서 6px로 변경
+  - 항목 모서리 반경 — `sm`만 8px에서 6px로 변경
+  - 항목의 아이콘과 라벨 사이 간격 — 6px에서 8px로 변경
+  - 항목 기본 글자색 — `object.bold`에서 `object.neutral`로 변경
+  - `Menu.Content` 위쪽 여백 — `sm`만 12px에서 10px로 변경
+  - `Menu.Content` 테두리 색상 — `stroke.subtler`에서 `stroke.alpha.subtler`로 변경
+
+  항목은 `Menu.Button`, `Menu.Anchor`, `Menu.Tree`가 해당합니다.
+
 ## 0.5.0
 
 ### Minor Changes

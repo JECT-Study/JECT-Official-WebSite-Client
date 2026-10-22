@@ -1,6 +1,6 @@
 {
   "name": "@jects/jds",
-  "version": "0.5.0",
+  "version": "0.8.0",
   "description": "Ject Design System",
   "author": "Ject Team",
   "license": "MIT",
@@ -88,14 +88,14 @@
     "chromatic": "npx chromatic --project-token=$CHROMATIC_TOKEN",
     "build:tokens": "npx tsx src/tokens/tokensBuilder.ts",
     "clean": "rimraf dist node_modules .turbo storybook-static",
-    "build:icons": "svgr src/assets/icons --out-dir src/components/Icon/generated --typescript --ext tsx",
+    "build:icons": "svgr src/assets/icons --out-dir src/components/Icon/generated --typescript --ext tsx --no-prettier && prettier --write --ignore-path ../../.gitignore src/components/Icon/generated",
+    "sync:icons": "node --env-file-if-exists=.env scripts/sync-icons.mjs",
     "type-check": "tsc -b --noEmit"
   },
   "dependencies": {
     "clsx": "^2.1.1",
     "csstype": "^3.2.3",
-    "es-hangul": "^2.4.0",
-    "radix-ui": "^1.4.3"
+    "es-hangul": "^2.4.0"
   },
   "devDependencies": {
     "@arethetypeswrong/core": "^0.18.5",
@@ -118,6 +118,7 @@
     "chromatic": "^11.25.2",
     "eslint-plugin-storybook": "^10.1.0",
     "publint": "^0.3.24",
+    "radix-ui": "^1.6.7",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "storybook": "~10.1.11",
@@ -126,6 +127,7 @@
     "zod": "^3.25.76"
   },
   "peerDependencies": {
+    "radix-ui": "^1.6.7",
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0"
   },

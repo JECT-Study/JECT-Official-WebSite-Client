@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexColumn, FlexRow } from "@storybook-utils/layout";
+import { forwardRef, type ComponentPropsWithoutRef } from "react";
 import { vars } from "tokens";
 
 import { IconButton } from "./IconButton";
@@ -56,6 +57,16 @@ const meta: Meta<typeof IconButton> = {
 export default meta;
 
 type Story = StoryObj<typeof IconButton>;
+
+interface RouterLinkProps extends Omit<ComponentPropsWithoutRef<"a">, "href"> {
+  to: string;
+}
+
+const RouterLink = forwardRef<HTMLAnchorElement, RouterLinkProps>(({ to, ...restProps }, ref) => (
+  <a ref={ref} {...restProps} href={to} />
+));
+
+RouterLink.displayName = "RouterLink";
 
 export const Default: Story = {
   args: {
@@ -175,6 +186,33 @@ import { IconButton, vars } from 'jds';
   aria-label="삭제"
   accentColor={{ normal: vars.color.semantic.feedback.destructive.normal }}
 />
+\`\`\``,
+      },
+    },
+  },
+};
+
+export const IconButtonAsChild: Story = {
+  render: () => (
+    <FlexRow>
+      <IconButton asChild icon='arrow-left' aria-label='이전 페이지'>
+        <RouterLink to='#' />
+      </IconButton>
+      <IconButton asChild icon='arrow-up-right' hierarchy='secondary' aria-label='외부 링크'>
+        <RouterLink to='#' />
+      </IconButton>
+    </FlexRow>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: `IconButton은 \`icon\`만 렌더링하므로 전달한 요소의 children은 무시됩니다.
+요소는 비워서 전달하고, 접근 이름은 \`aria-label\`로 지정하세요.
+
+\`\`\`tsx
+<IconButton asChild icon="arrow-left" aria-label="이전 페이지">
+  <Link href="/" />
+</IconButton>
 \`\`\``,
       },
     },

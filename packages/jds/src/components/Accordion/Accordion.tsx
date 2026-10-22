@@ -1,5 +1,5 @@
-import * as AccordionPrimitive from "@radix-ui/react-accordion";
 import { clsx } from "clsx";
+import { Accordion as AccordionPrimitive } from "radix-ui";
 import { forwardRef } from "react";
 
 import { AccordionProvider, useAccordionContext } from "./accordion.context";
