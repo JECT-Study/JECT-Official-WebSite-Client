@@ -7,6 +7,7 @@ import type { TabsVariant } from "./tabs.types";
 
 const labelColor = createVar();
 const badgeColorVar = createVar();
+const underlineColor = createVar();
 
 export const label = style({
   display: "flex",
@@ -91,20 +92,34 @@ export const trigger = recipe({
         // header list의 baseline 위에 active underline을 겹치기 위해 같은 strokeWeight 토큰을 재사용
         marginBottom: `calc(${vars.scheme.semantic.strokeWeight["1"]} * -1)`,
         border: "none",
-        borderBottom: `${vars.scheme.semantic.strokeWeight["2"]} solid transparent`,
+        // 밑줄이 박스 크기를 늘리지 않도록 inset box-shadow로 안쪽 아래에 그린다.
+        boxShadow: `inset 0 calc(${vars.scheme.semantic.strokeWeight["2"]} * -1) 0 0 ${underlineColor}`,
         borderRadius: 0,
         backgroundColor: "transparent",
+        vars: {
+          [underlineColor]: "transparent",
+        },
+        "@media": {
+          // 고대비 모드는 box-shadow를 지우므로 선택된 탭의 밑줄만 border로 되살린다.
+          "(forced-colors: active)": {
+            selectors: {
+              "&[data-state='active']": {
+                borderBottom: `${vars.scheme.semantic.strokeWeight["2"]} solid currentColor`,
+              },
+            },
+          },
+        },
         selectors: {
-          "&::after": {
-            // header trigger의 underline 두께와 overlay 위치를 동기화하기 위해 같은 strokeWeight 토큰을 재사용
-            bottom: `calc(${vars.scheme.semantic.strokeWeight["2"]} * -1)`,
+          "&::before": {
+            // focus ring이 밑줄과 겹치도록 ::before를 밑줄 두께만큼 위로 올려 그린다.
+            bottom: vars.scheme.semantic.strokeWeight["2"],
           },
           "&[data-state='active']": {
             vars: {
               [labelColor]: vars.color.semantic.object.bolder,
               [badgeColorVar]: vars.color.semantic.object.bold,
+              [underlineColor]: vars.color.semantic.stroke.bold,
             },
-            borderBottomColor: vars.color.semantic.stroke.bold,
             zIndex: 1,
           },
           "&:disabled, &[data-disabled]": {
@@ -117,8 +132,8 @@ export const trigger = recipe({
             vars: {
               [labelColor]: vars.color.semantic.object.subtle,
               [badgeColorVar]: vars.color.semantic.object.subtle,
+              [underlineColor]: vars.color.semantic.stroke.assistive,
             },
-            borderBottomColor: vars.color.semantic.stroke.assistive,
           },
         },
       },
