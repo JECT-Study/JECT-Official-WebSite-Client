@@ -1,5 +1,5 @@
 // 자동 생성된 textStyles - 수정 금지
-// 생성 시간: 2026. 8. 25. 오후 1:31:26
+// 생성 시간: 2026. 10. 12. 오전 12:38:31
 import type { StyleRule } from "@vanilla-extract/css";
 
 type TextStyleGroup = Record<string, StyleRule | Record<string, StyleRule>>;
@@ -231,28 +231,28 @@ export const textStyles = {
       "lineHeight": "var(--typo-primitive-font-lineHeight-syntax-lg)",
       "fontFamily": "var(--typo-primitive-typeface-syntax)",
       "fontWeight": "var(--typo-primitive-fontWeight-syntax-normal)",
-      "letterSpacing": "0em"
+      "letterSpacing": "var(--typo-primitive-font-letterSpacing-syntax-lg)"
     },
     "md": {
       "fontSize": "var(--typo-primitive-fontSize-syntax-md)",
       "lineHeight": "var(--typo-primitive-font-lineHeight-syntax-md)",
       "fontFamily": "var(--typo-primitive-typeface-syntax)",
       "fontWeight": "var(--typo-primitive-fontWeight-syntax-normal)",
-      "letterSpacing": "0em"
+      "letterSpacing": "var(--typo-primitive-font-letterSpacing-syntax-md)"
     },
     "sm": {
       "fontSize": "var(--typo-primitive-fontSize-syntax-sm)",
       "lineHeight": "var(--typo-primitive-font-lineHeight-syntax-sm)",
       "fontFamily": "var(--typo-primitive-typeface-syntax)",
       "fontWeight": "var(--typo-primitive-fontWeight-syntax-normal)",
-      "letterSpacing": "0em"
+      "letterSpacing": "var(--typo-primitive-font-letterSpacing-syntax-sm)"
     },
     "xs": {
       "fontSize": "var(--typo-primitive-fontSize-syntax-xs)",
       "lineHeight": "var(--typo-primitive-font-lineHeight-syntax-xs)",
       "fontFamily": "var(--typo-primitive-typeface-syntax)",
       "fontWeight": "var(--typo-primitive-fontWeight-syntax-normal)",
-      "letterSpacing": "0em"
+      "letterSpacing": "var(--typo-primitive-font-letterSpacing-syntax-xs)"
     }
   }
 } satisfies Record<
