@@ -56,7 +56,7 @@ export const list = recipe({
 export const trigger = recipe({
   base: [
     focusRing(),
-    overlay({ hierarchy: "secondary", density: "normal" }),
+    overlay({ hierarchy: "secondary", density: "bold" }),
     {
       position: "relative",
       display: "inline-flex",
