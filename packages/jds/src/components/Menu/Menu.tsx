@@ -11,13 +11,13 @@ import type {
 } from "./menu.types";
 import { MenuPrimitive } from "./MenuPrimitive";
 
-const MenuRoot = ({ children, menuStyle = "hollow", size = "md" }: MenuRootProps) => {
+export const MenuRoot = ({ children, menuStyle = "hollow", size = "md" }: MenuRootProps) => {
   return <MenuProvider value={{ menuStyle, size }}>{children}</MenuProvider>;
 };
 
 MenuRoot.displayName = "Menu.Root";
 
-const MenuContent = forwardRef<HTMLDivElement, MenuContentProps>(
+export const MenuContent = forwardRef<HTMLDivElement, MenuContentProps>(
   ({ children, className, ...restProps }, ref) => {
     const { menuStyle, size } = useMenuContext("Menu.Content");
 
@@ -31,7 +31,7 @@ const MenuContent = forwardRef<HTMLDivElement, MenuContentProps>(
 
 MenuContent.displayName = "Menu.Content";
 
-const MenuButton = forwardRef<HTMLButtonElement, MenuButtonProps>(
+export const MenuButton = forwardRef<HTMLButtonElement, MenuButtonProps>(
   ({ children, ...restProps }, ref) => {
     const { size } = useMenuContext("Menu.Button");
 
@@ -47,7 +47,7 @@ const MenuButton = forwardRef<HTMLButtonElement, MenuButtonProps>(
 
 MenuButton.displayName = "Menu.Button";
 
-const MenuAnchor = forwardRef<HTMLAnchorElement, MenuAnchorProps>(
+export const MenuAnchor = forwardRef<HTMLAnchorElement, MenuAnchorProps>(
   ({ children, asChild, ...restProps }, ref) => {
     const { size } = useMenuContext("Menu.Anchor");
 

@@ -1,6 +1,14 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Table } from ".";
+import {
+  TableBody,
+  TableHeader,
+  TableHeaderItem,
+  TableRoot,
+  TableRow,
+  TableRowItem,
+  Table,
+} from ".";
 import type { TableRowItemProps } from "./table.types";
 
 const meta: Meta<typeof Table.RowItem> = {
@@ -57,22 +65,22 @@ export const Basic: StoryObj<TableRowItemProps> = {
     hasDivider: true,
   },
   render: (args: TableRowItemProps) => (
-    <Table.Root>
-      <Table.Header>
-        <Table.HeaderItem hasDivider={args.hasDivider}>레이블 (상태 확인 가능)</Table.HeaderItem>
-        <Table.HeaderItem>레이블</Table.HeaderItem>
-        <Table.HeaderItem>레이블</Table.HeaderItem>
-        <Table.HeaderItem>레이블</Table.HeaderItem>
-      </Table.Header>
-      <Table.Body>
-        <Table.Row>
-          <Table.RowItem {...args}>{args.children}</Table.RowItem>
-          <Table.RowItem variant='label'>레이블</Table.RowItem>
-          <Table.RowItem variant='label'>레이블</Table.RowItem>
-          <Table.RowItem variant='label'>레이블</Table.RowItem>
-        </Table.Row>
-      </Table.Body>
-    </Table.Root>
+    <TableRoot>
+      <TableHeader>
+        <TableHeaderItem hasDivider={args.hasDivider}>레이블 (상태 확인 가능)</TableHeaderItem>
+        <TableHeaderItem>레이블</TableHeaderItem>
+        <TableHeaderItem>레이블</TableHeaderItem>
+        <TableHeaderItem>레이블</TableHeaderItem>
+      </TableHeader>
+      <TableBody>
+        <TableRow>
+          <TableRowItem {...args}>{args.children}</TableRowItem>
+          <TableRowItem variant='label'>레이블</TableRowItem>
+          <TableRowItem variant='label'>레이블</TableRowItem>
+          <TableRowItem variant='label'>레이블</TableRowItem>
+        </TableRow>
+      </TableBody>
+    </TableRoot>
   ),
 };
 

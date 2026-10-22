@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FIELD_PLAYGROUND_ARGS, FIELD_WIDTH, fieldArgTypes } from "@storybook-utils/field";
 import { FlexColumn, FlexRow, Label } from "@storybook-utils/layout";
 
-import { TextField } from "./TextField";
+import { TextFieldHelper, TextFieldInput, TextFieldLabel, TextField } from ".";
 import { Icon } from "../Icon";
 
 /**
@@ -27,9 +27,9 @@ export const Playground: Story = {
   args: FIELD_PLAYGROUND_ARGS,
   render: args => (
     <TextField {...args} style={FIELD_WIDTH}>
-      <TextField.Label suffix={<Icon name='info' size='2xs' />}>레이블</TextField.Label>
-      <TextField.Input placeholder='플레이스홀더' />
-      <TextField.Helper>헬퍼 텍스트</TextField.Helper>
+      <TextFieldLabel suffix={<Icon name='info' size='2xs' />}>레이블</TextFieldLabel>
+      <TextFieldInput placeholder='플레이스홀더' />
+      <TextFieldHelper>헬퍼 텍스트</TextFieldHelper>
     </TextField>
   ),
 };

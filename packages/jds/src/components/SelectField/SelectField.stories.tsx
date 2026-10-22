@@ -10,7 +10,7 @@ import { REGIONS, REGION_OPTIONS, toExpressiveOptions } from "@storybook-utils/s
 import { Dialog } from "radix-ui";
 import { useState } from "react";
 
-import { SelectField } from "./SelectField";
+import { SelectFieldHelper, SelectFieldInput, SelectFieldLabel, SelectField } from ".";
 import { BlockButton } from "../Button/BlockButton";
 import { Icon } from "../Icon";
 import { Kbd } from "../Kbd";
@@ -43,9 +43,9 @@ export const Playground: Story = {
   args: FIELD_PLAYGROUND_ARGS,
   render: args => (
     <SelectField {...args} style={FIELD_WIDTH}>
-      <SelectField.Label suffix={<Icon name='info' size='2xs' />}>레이블</SelectField.Label>
-      <SelectField.Input options={REGION_OPTIONS} defaultValue='seoul' placeholder='플레이스홀더' />
-      <SelectField.Helper>헬퍼 텍스트</SelectField.Helper>
+      <SelectFieldLabel suffix={<Icon name='info' size='2xs' />}>레이블</SelectFieldLabel>
+      <SelectFieldInput options={REGION_OPTIONS} defaultValue='seoul' placeholder='플레이스홀더' />
+      <SelectFieldHelper>헬퍼 텍스트</SelectFieldHelper>
     </SelectField>
   ),
 };

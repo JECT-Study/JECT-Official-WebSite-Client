@@ -23,7 +23,7 @@ import { MenuPrimitive } from "./MenuPrimitive";
 import { IconButton } from "@/components/Button/IconButton";
 import type { IconButtonSize } from "@/components/Button/IconButton/iconButton.types";
 
-const DropdownMenuRoot = ({
+export const DropdownMenuRoot = ({
   children,
   menuStyle = "solid",
   size = "md",
@@ -38,7 +38,7 @@ const DropdownMenuRoot = ({
 
 DropdownMenuRoot.displayName = "DropdownMenu.Root";
 
-const DropdownMenuContent = forwardRef<HTMLDivElement, DropdownMenuContentProps>(
+export const DropdownMenuContent = forwardRef<HTMLDivElement, DropdownMenuContentProps>(
   ({ children, className, ...restProps }, ref) => {
     const { menuStyle, size } = useMenuContext("DropdownMenu.Content");
 
@@ -56,7 +56,7 @@ const DropdownMenuContent = forwardRef<HTMLDivElement, DropdownMenuContentProps>
 
 DropdownMenuContent.displayName = "DropdownMenu.Content";
 
-const DropdownMenuButton = forwardRef<HTMLButtonElement, DropdownMenuButtonProps>(
+export const DropdownMenuButton = forwardRef<HTMLButtonElement, DropdownMenuButtonProps>(
   ({ children, disabled, onSelect, textValue, ...restProps }, ref) => {
     const { size } = useMenuContext("DropdownMenu.Button");
 
@@ -79,7 +79,7 @@ const DropdownMenuButton = forwardRef<HTMLButtonElement, DropdownMenuButtonProps
 
 DropdownMenuButton.displayName = "DropdownMenu.Button";
 
-const DropdownMenuAnchor = forwardRef<HTMLAnchorElement, DropdownMenuAnchorProps>(
+export const DropdownMenuAnchor = forwardRef<HTMLAnchorElement, DropdownMenuAnchorProps>(
   ({ children, asChild, disabled, onSelect, textValue, ...restProps }, ref) => {
     const { size } = useMenuContext("DropdownMenu.Anchor");
 
@@ -108,7 +108,7 @@ const DropdownMenuAnchor = forwardRef<HTMLAnchorElement, DropdownMenuAnchorProps
 
 DropdownMenuAnchor.displayName = "DropdownMenu.Anchor";
 
-const DropdownMenuTree = forwardRef<HTMLButtonElement, DropdownMenuTreeProps>(
+export const DropdownMenuTree = forwardRef<HTMLButtonElement, DropdownMenuTreeProps>(
   (
     {
       label,
@@ -208,9 +208,11 @@ const menuTreeIconSizeByMenuSize: Record<MenuSize, IconButtonSize> = {
 
 DropdownMenuTree.displayName = "DropdownMenu.Tree";
 
+export const DropdownMenuTrigger = RadixDropdownMenu.Trigger;
+
 export const DropdownMenu = {
   Root: DropdownMenuRoot,
-  Trigger: RadixDropdownMenu.Trigger,
+  Trigger: DropdownMenuTrigger,
   Content: DropdownMenuContent,
   Category: MenuPrimitive.Category,
   Group: MenuPrimitive.Group,
