@@ -16,18 +16,18 @@ interface StatItem {
 export const statData: StatItem[] = [
   {
     id: 1,
-    title: "184",
+    title: "241",
     description: "누적 동아리원",
   },
   {
     id: 2,
-    title: "18",
+    title: "25",
     description: "진행한 프로젝트",
   },
   {
     id: 3,
-    title: "53",
-    description: "4기 팀 프로젝트 완주자",
+    title: "57",
+    description: "5기 팀 프로젝트 구성원",
     isFullWidth: true,
   },
 ];
