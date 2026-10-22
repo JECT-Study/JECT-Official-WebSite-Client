@@ -72,6 +72,7 @@ export const root = recipe({
         vars: {
           [chipColorVars.label]: vars.color.semantic.object.subtler,
           [chipColorVars.icon]: vars.color.semantic.object.subtler,
+          [chipColorVars.border]: vars.color.semantic.stroke.alpha.subtler,
           [chipColorVars.background]: "transparent",
         },
       },
@@ -80,24 +81,6 @@ export const root = recipe({
       },
     },
   },
-  compoundVariants: [
-    {
-      variants: { activated: false, disabled: true },
-      style: {
-        vars: {
-          [chipColorVars.border]: vars.color.semantic.stroke.alpha.subtler,
-        },
-      },
-    },
-    {
-      variants: { activated: true, disabled: true },
-      style: {
-        vars: {
-          [chipColorVars.border]: vars.color.semantic.accent.alpha.subtler,
-        },
-      },
-    },
-  ],
 });
 
 export const mainAction = style({
