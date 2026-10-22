@@ -62,7 +62,7 @@ export const trigger = recipe({
       display: "inline-flex",
       alignItems: "center",
       justifyContent: "center",
-      gap: vars.scheme.semantic.spacing["4"],
+      gap: vars.scheme.semantic.spacing["2"],
       minWidth: 0,
       appearance: "none",
       cursor: "pointer",
