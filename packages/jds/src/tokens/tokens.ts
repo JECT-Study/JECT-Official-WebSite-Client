@@ -1,5 +1,5 @@
 // 자동 생성된 디자인 토큰 - 수정 금지
-// 생성 시간: 2026. 8. 25. 오후 1:31:26
+// 생성 시간: 10/23/2026, 5:56:30 PM
 
 export const designTokens = {
   "colorPrimitive": {
@@ -2276,7 +2276,8 @@ export const designTokens = {
         "350": "var(--semantic-duration-350)",
         "400": "var(--semantic-duration-400)",
         "450": "var(--semantic-duration-450)",
-        "500": "var(--semantic-duration-500)"
+        "500": "var(--semantic-duration-500)",
+        "1500": "var(--semantic-duration-1500)"
       },
       "motion": {
         "bouncy": "var(--semantic-motion-bouncy)",
@@ -2296,7 +2297,8 @@ export const designTokens = {
         "350": "var(--primitive-time-350)",
         "400": "var(--primitive-time-400)",
         "450": "var(--primitive-time-450)",
-        "500": "var(--primitive-time-500)"
+        "500": "var(--primitive-time-500)",
+        "1500": "var(--primitive-time-1500)"
       }
     }
   },
