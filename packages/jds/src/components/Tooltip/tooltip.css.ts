@@ -26,7 +26,7 @@ export const content = style({
   overflowWrap: "break-word",
   textAlign: "center",
   zIndex: vars.environment.semantic.zIndex.floated,
-  boxShadow: vars.environment.semantic.shadow.overlay,
+  boxShadow: vars.environment.semantic.shadow.floated,
 
   selectors: {
     '&[data-state="delayed-open"], &[data-state="instant-open"]': {
