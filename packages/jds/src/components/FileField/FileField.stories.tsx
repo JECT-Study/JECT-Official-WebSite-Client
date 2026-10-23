@@ -7,7 +7,6 @@ import {
 } from "@storybook-utils/field";
 import { FlexColumn, FlexRow, Label } from "@storybook-utils/layout";
 import { useState } from "react";
-import { vars } from "tokens";
 
 import { FileField } from "./FileField";
 import type { FileFieldError } from "./fileField.types";
@@ -28,7 +27,15 @@ const meta = {
   args: {
     children: null,
   },
-  argTypes: fieldArgTypes,
+  argTypes: {
+    ...fieldArgTypes,
+    status: {
+      control: "inline-radio",
+      options: ["default", "error"],
+      description: "유효성/피드백 상태",
+      table: { defaultValue: { summary: "default" } },
+    },
+  },
 } satisfies Meta<typeof FileField>;
 
 export default meta;
@@ -40,17 +47,7 @@ export const Playground: Story = {
   args: FIELD_PLAYGROUND_ARGS,
   render: args => (
     <FileField {...args} style={FIELD_WIDTH}>
-      <FileField.Label
-        suffix={
-          <Icon
-            name='info'
-            size='2xs'
-            style={args.disabled ? { color: vars.color.semantic.object.subtle } : undefined}
-          />
-        }
-      >
-        레이블
-      </FileField.Label>
+      <FileField.Label suffix={<Icon name='info' size='2xs' />}>레이블</FileField.Label>
       <FileField.Input placeholder='플레이스홀더' />
       <FileField.Footer>
         <FileField.Helper>헬퍼 텍스트</FileField.Helper>
@@ -65,7 +62,7 @@ export const Playground: Story = {
 export const Statuses: Story = {
   render: () => (
     <FlexRow gap='32px' style={{ alignItems: "flex-start" }}>
-      {(["default", "success", "error"] as const).map(status => (
+      {(["default", "error"] as const).map(status => (
         <FlexColumn key={status} gap='16px' style={{ alignItems: "flex-start" }}>
           <Label>{status}</Label>
           <FileField status={status} style={FIELD_WIDTH}>
