@@ -1,5 +1,202 @@
 # @jects/jds
 
+## 0.9.0
+
+### Minor Changes
+
+- c28c6d3: **FileField**
+
+  `status`에서 `"success"` 값을 제거합니다. `status='success'`를 넘기던 코드는 타입 에러가 발생합니다. `status`를 생략하거나 `'default'`로 바꿔야 합니다.
+
+  **소비처 영향 (코드 수정 필요)**
+
+  | AS-IS              | TO-BE                          |
+  | ------------------ | ------------------------------ |
+  | `status='success'` | 제거 — 디자인 스펙에 없는 상태 |
+
+  ```diff
+  - <FileField status='success'>
+  + <FileField>
+  ```
+
+- c28c6d3: **MultiSelectField**
+
+  `status`에서 `"success"` 값을 제거합니다. `status='success'`를 넘기던 코드는 타입 에러가 발생합니다. `status`를 생략하거나 `'default'`로 바꿔야 합니다.
+
+  **소비처 영향 (코드 수정 필요)**
+
+  | AS-IS              | TO-BE                          |
+  | ------------------ | ------------------------------ |
+  | `status='success'` | 제거 — 디자인 스펙에 없는 상태 |
+
+  ```diff
+  - <MultiSelectField status='success'>
+  + <MultiSelectField>
+  ```
+
+- c28c6d3: **SelectField**
+
+  `status`에서 `"success"` 값을 제거합니다. `status='success'`를 넘기던 코드는 타입 에러가 발생합니다. `status`를 생략하거나 `'default'`로 바꿔야 합니다.
+
+  **소비처 영향 (코드 수정 필요)**
+
+  | AS-IS              | TO-BE                          |
+  | ------------------ | ------------------------------ |
+  | `status='success'` | 제거 — 디자인 스펙에 없는 상태 |
+
+  ```diff
+  - <SelectField status='success'>
+  + <SelectField>
+  ```
+
+- c28c6d3: **SuggestionField**
+
+  `status`에서 `"success"` 값을 제거합니다. `status='success'`를 넘기던 코드는 타입 에러가 발생합니다. `status`를 생략하거나 `'default'`로 바꿔야 합니다.
+
+  **소비처 영향 (코드 수정 필요)**
+
+  | AS-IS              | TO-BE                          |
+  | ------------------ | ------------------------------ |
+  | `status='success'` | 제거 — 디자인 스펙에 없는 상태 |
+
+  ```diff
+  - <SuggestionField status='success'>
+  + <SuggestionField>
+  ```
+
+- c28c6d3: **Textarea**
+
+  `status`에서 `"success"` 값을 제거합니다. `status='success'`를 넘기던 코드는 타입 에러가 발생합니다. `status`를 생략하거나 `'default'`로 바꿔야 합니다.
+
+  **소비처 영향 (코드 수정 필요)**
+
+  | AS-IS              | TO-BE                          |
+  | ------------------ | ------------------------------ |
+  | `status='success'` | 제거 — 디자인 스펙에 없는 상태 |
+
+  ```diff
+  - <Textarea status='success'>
+  + <Textarea>
+  ```
+
+### Patch Changes
+
+- 2b89874: **FileField**
+
+  입력 박스의 크기, 테두리, 상태별 색을 변경했습니다. disabled, readonly에서 삭제 버튼을 렌더링하지 않으므로, 이 버튼을 찾던 테스트나 스타일은 확인이 필요합니다.
+
+  **동작 변경 (코드 수정 불필요)**
+  - `FileField.Input` hover 시 테두리 색 — 상태별 강조 색으로 바뀌지 않도록 변경
+  - `FileField.Input` 안쪽 여백 — 상하 8px에서 6px로, 좌우 12px에서 10px로 변경
+  - `FileField.Input` 테두리 — `border`에서 박스 안쪽 `box-shadow`로 변경, 높이 42px에서 36px로 감소, `border`로 테두리를 덮어쓰던 스타일은 확인 필요
+  - `FileField.Input` 왼쪽 영역(파일명, 아이콘 위치)의 기본 커서 — 화살표로 표시되던 것을 `pointer`로 수정
+  - disabled 커서 — 화살표에서 `not-allowed`로 변경
+  - disabled 파일명 글자 색 — `object.assistive`에서 `object.subtle`로 변경
+  - disabled, readonly에서 삭제 버튼 — 비활성 버튼으로 표시하던 것을 렌더링하지 않음
+  - readonly 포커스 시 테두리 색 — 바뀌지 않고 포커스 링만 표시
+  - readonly 배경 — 부모 배경색이 비치지 않도록 변경
+  - `FileField.Size` 글자 굵기 — `label.sm.normal`(480)에서 `label.sm.subtle`(440)로 변경
+  - `suffix` 색 — `object.alternative`, disabled에서 `object.subtler`로 지정
+  - `FileField.Label`의 `suffix` — `span` 요소로 감싸서 렌더링, 색은 `object.alternative`, disabled에서 `object.subtle`로 지정
+  - disabled 필수 표시(`*`) — `feedback.notifying.alpha.inverse.assistive`에서 `feedback.notifying.static.inverse.bold`에 불투명도 44%로 변경
+
+- 2b89874: **MultiSelectField**
+
+  입력 박스의 크기, 테두리, 상태별 색을 변경했습니다. `suffix`나 `MultiSelectField.Label`의 `suffix`를 직계 자식 셀렉터로 스타일링한 경우가 아니면 호출부 수정은 필요하지 않습니다.
+
+  **동작 변경 (코드 수정 불필요)**
+  - `MultiSelectField.Input` hover 시 테두리 색 — 상태별 강조 색으로 바뀌지 않도록 변경
+  - `MultiSelectField.Input` 안쪽 여백 — 상하 8px에서 6px로, 좌우 12px에서 10px로 변경
+  - `MultiSelectField.Input` 테두리 — `border`에서 박스 안쪽 `box-shadow`로 변경, 한 줄 높이 42px에서 36px로 감소, `border`로 테두리를 덮어쓰던 스타일은 확인 필요
+  - 태그 줄 사이 간격 — 8px에서 6px로 변경
+  - disabled, readonly에서 입력칸 — 선택값이 있으면 자리를 차지하지 않음
+  - 기본 커서 — 화살표에서 `pointer`로 변경, `searchable`일 때 입력 위치는 텍스트 커서 유지
+  - disabled 커서 — 화살표에서 `not-allowed`로 변경
+  - disabled 입력값 글자 색 — `object.assistive`에서 `object.subtle`로 변경
+  - readonly 포커스 시 테두리 색 — 바뀌지 않고 포커스 링만 표시
+  - readonly 배경 — 부모 배경색이 비치지 않도록 변경
+  - `suffix` 색 — `object.alternative`, disabled에서 `object.subtler`로 지정
+  - `MultiSelectField.Label`의 `suffix` — `span` 요소로 감싸서 렌더링, 색은 `object.alternative`, disabled에서 `object.subtle`로 지정
+  - disabled 필수 표시(`*`) — `feedback.notifying.alpha.inverse.assistive`에서 `feedback.notifying.static.inverse.bold`에 불투명도 44%로 변경
+
+- 2b89874: **SelectField**
+
+  입력 박스의 크기, 테두리, 상태별 색을 변경했습니다. `suffix`나 `SelectField.Label`의 `suffix`를 직계 자식 셀렉터로 스타일링한 경우가 아니면 호출부 수정은 필요하지 않습니다.
+
+  **동작 변경 (코드 수정 불필요)**
+  - `SelectField.Input` hover 시 테두리 색 — 상태별 강조 색으로 바뀌지 않도록 변경
+  - `SelectField.Input` 안쪽 여백 — 상하 8px에서 6px로, 좌우 12px에서 10px로 변경
+  - `SelectField.Input` 테두리 — `border`에서 박스 안쪽 `box-shadow`로 변경, 높이 42px에서 36px로 감소, `border`로 테두리를 덮어쓰던 스타일은 확인 필요
+  - 기본 커서 — 화살표에서 `pointer`로 변경, `searchable`일 때 입력 위치는 텍스트 커서 유지
+  - disabled 커서 — 화살표에서 `not-allowed`로 변경
+  - disabled 선택값 글자 색 — `object.assistive`에서 `object.subtle`로 변경
+  - readonly 포커스 시 테두리 색 — 바뀌지 않고 포커스 링만 표시
+  - readonly 배경 — 부모 배경색이 비치지 않도록 변경
+  - `suffix` 색 — `object.alternative`, disabled에서 `object.subtler`로 지정
+  - `SelectField.Label`의 `suffix` — `span` 요소로 감싸서 렌더링, 색은 `object.alternative`, disabled에서 `object.subtle`로 지정
+  - disabled 필수 표시(`*`) — `feedback.notifying.alpha.inverse.assistive`에서 `feedback.notifying.static.inverse.bold`에 불투명도 44%로 변경
+
+- 2ed4319: **Snackbar**
+
+  `onRemove`의 최신 참조를 보관하던 내부 구현을 공용 훅으로 교체했습니다. 공개 props와 동작은 변경되지 않습니다.
+
+- 2b89874: **SuggestionField**
+
+  입력 박스의 크기, 테두리, 상태별 색을 변경했습니다. `suffix`나 `SuggestionField.Label`의 `suffix`를 직계 자식 셀렉터로 스타일링한 경우가 아니면 호출부 수정은 필요하지 않습니다.
+
+  **동작 변경 (코드 수정 불필요)**
+  - `SuggestionField.Input` hover 시 테두리 색 — 상태별 강조 색으로 바뀌지 않도록 변경
+  - `SuggestionField.Input` hover 오버레이 — 제거
+  - `SuggestionField.Input` 안쪽 여백 — 상하 8px에서 6px로, 좌우 12px에서 10px로 변경
+  - `SuggestionField.Input` 테두리 — `border`에서 박스 안쪽 `box-shadow`로 변경, 한 줄 높이 42px에서 36px로 감소, `border`로 테두리를 덮어쓰던 스타일은 확인 필요
+  - 배지 줄 사이 간격 — 8px에서 6px로 변경
+  - disabled, readonly에서 입력칸 — 값이 있으면 자리를 차지하지 않음
+  - disabled 커서 — 화살표에서 `not-allowed`로 변경
+  - disabled 입력값 글자 색 — `object.assistive`에서 `object.subtle`로 변경
+  - readonly 포커스 시 테두리 색 — 바뀌지 않고 포커스 링만 표시
+  - readonly 배경 — 부모 배경색이 비치지 않도록 변경
+  - `suffix` 색 — `object.alternative`, disabled에서 `object.subtler`로 지정
+  - `SuggestionField.Label`의 `suffix` — `span` 요소로 감싸서 렌더링, 색은 `object.alternative`, disabled에서 `object.subtle`로 지정
+  - disabled 필수 표시(`*`) — `feedback.notifying.alpha.inverse.assistive`에서 `feedback.notifying.static.inverse.bold`에 불투명도 44%로 변경
+
+- 2b89874: **TextField**
+
+  입력 박스의 크기, 테두리, 상태별 색을 변경했습니다. `prefix`, `suffix`나 `TextField.Label`의 `suffix`를 직계 자식 셀렉터로 스타일링한 경우가 아니면 호출부 수정은 필요하지 않습니다.
+
+  **동작 변경 (코드 수정 불필요)**
+  - `TextField.Input` hover 시 테두리 색 — 상태별 강조 색으로 바뀌지 않도록 변경
+  - `TextField.Input` hover 오버레이 — 제거
+  - `TextField.Input` 안쪽 여백 — 상하 8px에서 6px로, 좌우 12px에서 10px로 변경
+  - `TextField.Input` 테두리 — `border`에서 박스 안쪽 `box-shadow`로 변경, 높이 42px에서 36px로 감소, `border`로 테두리를 덮어쓰던 스타일은 확인 필요
+  - disabled 커서 — 화살표에서 `not-allowed`로 변경
+  - disabled 입력값 글자 색 — `object.assistive`에서 `object.subtle`로 변경
+  - readonly 포커스 시 테두리 색 — 바뀌지 않고 포커스 링만 표시
+  - readonly 배경 — 부모 배경색이 비치지 않도록 변경
+  - `prefix`, `suffix` — `span` 요소로 감싸서 렌더링, 직계 자식으로 가정한 스타일은 확인 필요
+  - `prefix`, `suffix` 색 — `object.alternative`, disabled에서 `object.subtler`로 지정
+  - `TextField.Label`의 `suffix` — `span` 요소로 감싸서 렌더링, 색은 `object.alternative`, disabled에서 `object.subtle`로 지정
+  - disabled 필수 표시(`*`) — `feedback.notifying.alpha.inverse.assistive`에서 `feedback.notifying.static.inverse.bold`에 불투명도 44%로 변경
+
+- 2b89874: **Textarea**
+
+  입력 박스의 크기, 테두리, 상태별 색을 변경했습니다. `Textarea.Label`의 `suffix`를 직계 자식 셀렉터로 스타일링한 경우가 아니면 호출부 수정은 필요하지 않습니다.
+
+  **동작 변경 (코드 수정 불필요)**
+  - `Textarea.Control` hover 시 테두리 색 — 상태별 강조 색으로 바뀌지 않도록 변경
+  - `Textarea.Control` hover 오버레이 — 제거
+  - `Textarea.Control` 안쪽 여백 — 좌우 12px에서 10px로 변경, 상하 8px 유지
+  - `Textarea.Control` 테두리 — `border`에서 박스 안쪽 `box-shadow`로 변경, 높이 2px 감소, `border`로 테두리를 덮어쓰던 스타일은 확인 필요
+  - disabled 커서 — 화살표에서 `not-allowed`로 변경
+  - disabled 입력값 글자 색 — `object.assistive`에서 `object.subtle`로 변경
+  - readonly 포커스 시 테두리 색 — 바뀌지 않고 포커스 링만 표시
+  - readonly 배경 — 부모 배경색이 비치지 않도록 변경
+  - `Textarea.Label`의 `suffix` — `span` 요소로 감싸서 렌더링, 색은 `object.alternative`, disabled에서 `object.subtle`로 지정
+  - disabled 필수 표시(`*`) — `feedback.notifying.alpha.inverse.assistive`에서 `feedback.notifying.static.inverse.bold`에 불투명도 44%로 변경
+
+- 2ed4319: **Toast**
+
+  `onRemove`의 최신 참조를 보관하던 내부 구현을 공용 훅으로 교체했습니다. 공개 props와 동작은 변경되지 않습니다.
+
 ## 0.8.0
 
 ### Minor Changes
