@@ -1,9 +1,11 @@
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
-import type { FieldProps } from "../Field";
+import type { FieldProps, FieldStatus } from "../Field";
 import type { OptionVariant, SelectOption } from "../Listbox";
 
-export type MultiSelectFieldProps = FieldProps;
+export interface MultiSelectFieldProps extends Omit<FieldProps, "status"> {
+  status?: Exclude<FieldStatus, "success">;
+}
 
 interface MultiSelectFieldInputBaseProps extends Omit<
   ComponentPropsWithoutRef<"input">,
