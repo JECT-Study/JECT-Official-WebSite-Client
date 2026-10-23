@@ -15,17 +15,23 @@ const meta = {
     docs: {
       description: {
         component:
-          "데이터를 기다리는 영역에 배치하는 장식용 placeholder입니다. 크기와 반응형은 소비처 CSS에서 정하고 className으로 전달합니다. width·height는 간단한 크기 지정을 위한 편의 prop이며, 같은 속성을 CSS에서 관리할 때는 생략합니다. 반경은 실제 요소와 같은 JDS 토큰을 선택합니다. Figma 리소스의 권장 사례를 기준으로, 고정된 제목·필터·카드 프레임은 유지하고 데이터에 따라 달라지는 내용만 Skeleton으로 표시합니다.",
+          "데이터를 기다리는 콘텐츠 자리를 표시합니다. 크기와 반응형은 소비처 CSS로 지정하고, `radius`로 반경을 선택합니다. 로딩 상태와 안내는 소비처에서 관리합니다.",
       },
     },
   },
   argTypes: {
-    width: { control: "text", description: "숫자(px) 또는 단위를 포함한 CSS 너비, 기본값 없음" },
-    height: { control: "text", description: "숫자(px) 또는 단위를 포함한 CSS 높이, 기본값 없음" },
+    width: {
+      control: "text",
+      description: "선택적 너비: 숫자(px) 또는 CSS 문자열. CSS로 지정하면 생략",
+    },
+    height: {
+      control: "text",
+      description: "선택적 높이: 숫자(px) 또는 CSS 문자열. CSS로 지정하면 생략",
+    },
     radius: {
       control: "select",
       options: Object.keys(vars.scheme.semantic.radius),
-      description: "실제 콘텐츠와 맞출 JDS radius 토큰 키",
+      description: "JDS radius 토큰 키",
       table: { defaultValue: { summary: "8" } },
     },
   },
@@ -136,8 +142,7 @@ export const ProjectCards: Story = {
     controls: { disable: true },
     docs: {
       description: {
-        story:
-          "Figma 리소스 1의 프로젝트 카드입니다. 카드 배경·외곽선·모서리를 유지하고 이미지, 제목, 본문, 캡션 자리만 대체합니다. 두 열 카드 그리드와 짧은 본문 마지막 줄을 사용합니다.",
+        story: "카드 프레임을 유지하고 이미지와 텍스트만 Skeleton으로 표시합니다.",
       },
     },
   },
@@ -162,7 +167,7 @@ export const BlogPosts: Story = {
     docs: {
       description: {
         story:
-          "Figma 리소스 3의 게시글 목록입니다. 정해진 제목과 분류 필터는 실제 요소로 유지하고, 세 게시글의 제목·본문·작성자·날짜·각진 썸네일만 대체합니다. 분류 선택은 로컬 예시이며 실제 API 요청은 포함하지 않습니다.",
+          "제목과 분류 필터를 유지하고 게시글 내용만 Skeleton으로 표시합니다. 필터는 로컬 선택 예시입니다.",
       },
     },
   },
@@ -174,8 +179,7 @@ export const Members: Story = {
     controls: { disable: true },
     docs: {
       description: {
-        story:
-          "Figma 리소스 5의 운영진 목록입니다. 원형 프로필은 실제 요소와 같은 radius='max'를 사용하고 이름·역할은 기본 반경 8로 표시합니다. 네 열, 두 행의 배치를 작은 화면에서는 재배치합니다.",
+        story: "프로필은 `radius='max'`, 이름과 역할은 기본 반경을 사용합니다.",
       },
     },
   },
