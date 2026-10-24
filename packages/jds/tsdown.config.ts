@@ -9,6 +9,7 @@ const CLIENT_ENTRIES = new Set(["index.js", "index.cjs", "hooks.js", "hooks.cjs"
 
 export default defineConfig({
   entry,
+  unbundle: true,
   format: ["es", "cjs"],
   fixedExtension: false,
   dts: false,
