@@ -95,6 +95,7 @@ export const Column = forwardRef<HTMLDivElement, ColumnProps>(
         ref={mergeRefs(listboxRef, listRef, forwardedRef)}
         {...restProps}
         {...listboxProps}
+        tabIndex={disabled ? undefined : listboxProps.tabIndex}
         aria-readonly={readOnly || undefined}
         onKeyDown={handleKeyDown}
         data-part='root'
