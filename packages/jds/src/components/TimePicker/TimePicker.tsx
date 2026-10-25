@@ -15,6 +15,7 @@ import {
   getColumnKinds,
   getColumnOptions,
   getColumnValue,
+  isSameTime,
   resolveColumnSelection,
   type TimeColumnContext,
 } from "./timePicker.utils";
@@ -81,7 +82,9 @@ export const TimePicker = forwardRef<HTMLDivElement, TimePickerProps>(
 
     const selectColumnValue = (kind: TimeColumnKind, next: number) => {
       const resolved = resolveColumnSelection(kind, next, context);
-      if (resolved != null) select(resolved);
+      if (resolved == null || isSameTime(resolved, displayed)) return;
+
+      select(resolved);
     };
 
     const focusAdjacentColumn = (event: KeyboardEvent<HTMLDivElement>) => {
