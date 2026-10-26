@@ -6,7 +6,7 @@ type TokenValue = string | number;
 interface DtcgColorValue {
   colorSpace: string;
   components: number[];
-  alpha: number;
+  alpha?: number;
   hex: string;
 }
 
@@ -94,16 +94,20 @@ function resolveAlias(
  * DTCG 색상 값을 소문자 hex로 바꿉니다. 불투명하지 않으면 alpha를 8자리 hex 뒤 2자리로 붙입니다.
  *
  * @remarks
- * alpha는 내림으로 변환합니다. 이전 Figma 플러그인 export와 같은 규칙이라 기존 CSS 값을 유지합니다.
- * @throws sRGB가 아니거나 `hex`가 6자리가 아닌 경우
+ * alpha가 없으면 DTCG 규칙대로 불투명으로 봅니다. alpha는 내림으로 변환합니다. 이전 Figma 플러그인 export와 같은 규칙이라 기존 CSS 값을 유지합니다.
+ * @throws sRGB가 아니거나, `hex`가 6자리가 아니거나, alpha가 0 이상 1 이하의 숫자가 아닌 경우
  */
-function toHexColor({ colorSpace, hex, alpha }: DtcgColorValue): string {
+function toHexColor({ colorSpace, hex, alpha = 1 }: DtcgColorValue): string {
   if (colorSpace !== "srgb") {
     throw new Error(`sRGB가 아닌 색 공간은 지원하지 않습니다: ${colorSpace} (${hex})`);
   }
 
   if (!HEX_RGB_PATTERN.test(hex)) {
     throw new Error(`6자리 hex가 아닙니다: ${hex}`);
+  }
+
+  if (!Number.isFinite(alpha) || alpha < 0 || alpha > 1) {
+    throw new Error(`alpha는 0 이상 1 이하의 숫자여야 합니다: ${JSON.stringify(alpha)} (${hex})`);
   }
 
   const rgb = hex.toLowerCase();
