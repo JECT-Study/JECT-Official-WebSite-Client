@@ -9,10 +9,11 @@
 | prop                       | 기본값    | 용도                                                             |
 | -------------------------- | --------- | ---------------------------------------------------------------- |
 | `format`                   | `"hh:mm"` | 열 구성, `hh`, `hh:mm`, `hh:mm:ss`, `HH:mm`, `mm`, `mm:ss`, `ss` |
-| `value`, `defaultValue`    | `null`    | 선택 시각, `value`를 넘기면 제어 모드                            |
+| `value`                    |           | 선택 시각, 넘기면 제어 모드, `null`은 선택 없음                  |
+| `defaultValue`             | `null`    | 비제어 모드의 시작 선택값                                        |
 | `onChange`                 |           | 선택 확정 시 새 시각으로 호출                                    |
 | `minuteStep`, `secondStep` | `5`       | 분, 초 목록 간격, `1`, `5`, `10`, `15`, `30`                     |
-| `minTime`, `maxTime`       |           | 선택 가능 범위, 범위 밖 항목은 비활성                            |
+| `minTime`, `maxTime`       |           | 선택 가능 범위, 범위 밖 항목은 비활성, 자정을 넘는 범위 미지원   |
 | `withActionBar`            | `false`   | 적용 버튼 표시, 켜면 적용을 눌러야 확정                          |
 | `disabled`, `readOnly`     | `false`   | 조작 차단, 읽기 전용                                             |
 
