@@ -29,7 +29,7 @@ type ModeTokens = Record<string, Record<string, TokenValue>>;
  * Figma 컬렉션 폴더명과 `tokenSchema` 키의 대응
  *
  * @remarks
- * 폴더명은 Figma 컬렉션 이름을 따릅니다. 컬렉션이 추가되면 이 표와 `tokenSchema`를 함께 갱신해야 합니다.
+ * 폴더명은 Figma 컬렉션 이름을 따릅니다. `input/`에 이 표에 없는 폴더가 있으면 빌드가 실패하므로, 컬렉션이 추가되거나 이름이 바뀌면 이 표와 `tokenSchema`를 함께 갱신합니다.
  */
 const COLLECTION_DIRECTORIES = {
   "color-primitive": "colorPrimitive",
@@ -216,6 +216,18 @@ function readCollection(collectionDirectory: string): ModeTokens {
 export function readFigmaTokens(
   inputDirectory: string,
 ): Record<keyof typeof COLLECTION_DIRECTORIES, ModeTokens> {
+  const knownDirectories = new Set<string>(Object.values(COLLECTION_DIRECTORIES));
+  const unknownDirectories = fs
+    .readdirSync(inputDirectory, { withFileTypes: true })
+    .filter(entry => entry.isDirectory() && !knownDirectories.has(entry.name))
+    .map(entry => entry.name);
+
+  if (unknownDirectories.length > 0) {
+    throw new Error(
+      `COLLECTION_DIRECTORIES에 없는 컬렉션 폴더입니다: ${unknownDirectories.join(", ")}`,
+    );
+  }
+
   return {
     "color-primitive": readCollection(
       join(inputDirectory, COLLECTION_DIRECTORIES["color-primitive"]),
