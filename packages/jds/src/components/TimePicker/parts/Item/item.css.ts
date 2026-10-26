@@ -3,8 +3,9 @@ import { recipe } from "@vanilla-extract/recipes";
 import { pxToRem } from "utils";
 
 import { vars } from "../../../../tokens/vars.css";
-import { overlay } from "../../../../utils/overlay.css";
+import { overlay, overlayHoverOpacity } from "../../../../utils/overlay.css";
 import { virtualFocusSelector } from "../../../../utils/virtualFocus";
+import { COLUMN_SCROLLING_ATTRIBUTE } from "../../timePicker.constants";
 
 const itemLabelColor = createVar();
 
@@ -47,6 +48,7 @@ const baseStyles = style({
         zIndex: 1,
       },
     "&[data-disabled]": { cursor: "not-allowed" },
+    [`[${COLUMN_SCROLLING_ATTRIBUTE}] &`]: { vars: { [overlayHoverOpacity]: "0" } },
   },
 });
 
