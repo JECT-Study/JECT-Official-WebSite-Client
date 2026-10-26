@@ -25,5 +25,11 @@ export default defineConfig({
     }),
   ],
   deps: { neverBundle: externalPackages },
-  outputOptions: { assetFileNames: "[name][extname]" },
+  outputOptions: (options, format) => ({
+    ...options,
+    assetFileNames: "[name][extname]",
+    // .css.js/.css.cjs는 소비처의 vanilla-extract 플러그인이 스타일 원본으로 재처리한다.
+    entryFileNames: chunk =>
+      `${chunk.name.replace(/\.css$/, ".styles")}.${format === "cjs" ? "cjs" : "js"}`,
+  }),
 });
