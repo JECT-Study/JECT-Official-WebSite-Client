@@ -1,4 +1,3 @@
-import assert from "node:assert/strict";
 import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, join, relative, resolve } from "node:path";
@@ -43,16 +42,34 @@ try {
       id => !id.startsWith("components/Divider/"),
     );
 
-    assert(
-      chunks.some(chunk => chunk.exports.includes("Divider")),
-      `${entrypoint}: Divider export 누락`,
-    );
-    assert(!code.includes("data:image/png"), `${entrypoint}: 미사용 PNG 포함`);
-    assert(
-      componentModules.includes("components/Divider/Divider.js"),
-      `${entrypoint}: Divider 구현 모듈 누락 (모듈 경계를 확인하세요)`,
-    );
-    assert.deepEqual(unrelatedComponents, [], `${entrypoint}: 미사용 컴포넌트 포함`);
+    const problems = [];
+
+    if (!chunks.some(chunk => chunk.exports.includes("Divider"))) {
+      problems.push(`${entrypoint}: Divider export가 없습니다. 공개 진입점의 export를 확인하세요.`);
+    }
+    if (code.includes("data:image/png")) {
+      problems.push(
+        `${entrypoint}: 미사용 PNG가 포함되어 있습니다. 미사용 모듈의 import 경로를 확인하세요.`,
+      );
+    }
+    if (!componentModules.includes("components/Divider/Divider.js")) {
+      problems.push(
+        `${entrypoint}: 분리된 Divider 구현 모듈이 없습니다. JS 빌드의 모듈 분리 설정을 확인하세요.`,
+      );
+    }
+    if (unrelatedComponents.length > 0) {
+      problems.push(
+        `${entrypoint}: 미사용 컴포넌트가 포함되어 있습니다. 모듈 분리와 sideEffects 설정을 확인하세요.`,
+      );
+      for (const module of unrelatedComponents) problems.push(`  ${module}`);
+    }
+
+    if (problems.length > 0) {
+      console.error("ESM 트리 셰이킹 검사에서 문제가 발견되었습니다. 아래 안내를 확인하세요.");
+      for (const problem of problems) console.error(`  ${problem}`);
+      // 즉시 종료하지 않아 아래 finally에서 번들과 임시 디렉터리를 정리할 수 있다.
+      process.exitCode = 1;
+    }
   } finally {
     for (const bundle of bundles) await bundle[Symbol.asyncDispose]();
   }
