@@ -55,12 +55,14 @@ const scrollSelectedToTop = (list: HTMLElement | null, behavior: ScrollBehavior)
  * @param listRef 스크롤되는 열 엘리먼트
  * @param selectedValue 열에서 선택된 항목 값. 선택이 없으면 `null`
  * @param optionCount 열의 항목 개수. 간격이나 형식이 바뀌어 항목 위치가 달라지면 다시 맞추는 기준입니다.
+ * @param isEnabled 끄면 스크롤하지 않고, `alignSelected`도 아무것도 하지 않습니다.
  * @returns 선택 항목을 맨 위로 되돌리는 `alignSelected`
  */
 export const useColumnScroll = (
   listRef: RefObject<HTMLElement>,
   selectedValue: string | null,
   optionCount: number,
+  isEnabled: boolean,
 ) => {
   const hasRenderedRef = useRef(false);
   const unmarkScrollingRef = useRef<(() => void) | null>(null);
@@ -77,10 +79,10 @@ export const useColumnScroll = (
     const isFirstRender = !hasRenderedRef.current;
     hasRenderedRef.current = true;
 
-    if (selectedValue == null) return;
+    if (!isEnabled || selectedValue == null) return;
 
     scrollToSelected(getScrollBehavior(isFirstRender));
-  }, [scrollToSelected, selectedValue, optionCount]);
+  }, [scrollToSelected, selectedValue, optionCount, isEnabled]);
 
   useEffect(() => {
     return () => {
@@ -89,8 +91,10 @@ export const useColumnScroll = (
   }, []);
 
   const alignSelected = useCallback(() => {
+    if (!isEnabled) return;
+
     scrollToSelected(getScrollBehavior(false));
-  }, [scrollToSelected]);
+  }, [scrollToSelected, isEnabled]);
 
   return { alignSelected };
 };
