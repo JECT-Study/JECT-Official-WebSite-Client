@@ -26,12 +26,15 @@ export const useTimeSelection = ({
   withActionBar,
   readOnly,
 }: UseTimeSelectionParams) => {
+  const notifyChange = (next: TimeValue | null) => {
+    if (next == null) return;
+    onChange?.(next);
+  };
+
   const [selected, setSelected] = useControllableState<TimeValue | null>(
     value,
     defaultValue,
-    next => {
-      if (next != null) onChange?.(next);
-    },
+    notifyChange,
   );
   const [draft, setDraft] = useState<TimeValue | null>(selected);
   const [syncedSelected, setSyncedSelected] = useState<TimeValue | null>(selected);
@@ -46,7 +49,6 @@ export const useTimeSelection = ({
 
     if (withActionBar) {
       setDraft(time);
-
       return;
     }
 
