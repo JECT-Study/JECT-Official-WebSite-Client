@@ -51,6 +51,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
       value,
       defaultValue = null,
       onChange,
+      onApply,
       month: monthProp,
       defaultMonth,
       onMonthChange,
@@ -73,6 +74,7 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
       value,
       defaultValue,
       onChange,
+      onApply,
       withActionBar,
       readOnly,
     });

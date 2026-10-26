@@ -149,6 +149,8 @@ export const useSegmentedInput = <TKind extends string, TSegments, TPending>({
   const requestedValueRef = useRef<string | null>(null);
   const isPointerSelectingRef = useRef(false);
   const isRestoringFocusRef = useRef(false);
+  const pendingKindRef = useRef<TKind>(firstKind);
+  const wasEditableRef = useRef(isEditable);
 
   const hasInput = rules.hasInput(segments, pending);
 
@@ -184,6 +186,14 @@ export const useSegmentedInput = <TKind extends string, TSegments, TPending>({
     if (hasExternalChange) loadValue(value);
   }, [value, segments, pending, rules, loadValue]);
 
+  // 잠금 중에는 항목을 둘러볼 수 있지만, 다시 편집할 때는 보존한 숫자를 입력하던 항목으로 돌아간다.
+  useLayoutEffect(() => {
+    if (!wasEditableRef.current && isEditable && pending !== null) {
+      setActive(pendingKindRef.current);
+    }
+    wasEditableRef.current = isEditable;
+  }, [isEditable, pending]);
+
   // 렌더마다 표시 문자열이 바뀌면 브라우저가 선택 영역을 끝으로 옮기므로 현재 세그먼트를 다시 선택한다.
   useLayoutEffect(() => {
     const input = inputRef.current;
@@ -210,13 +220,14 @@ export const useSegmentedInput = <TKind extends string, TSegments, TPending>({
   };
 
   const finalizePending = () => {
-    if (pending !== null && isEditable) commit(rules.finalize(segmentsRef.current, pending));
+    if (!isEditable) return;
+    if (pending !== null) commit(rules.finalize(segmentsRef.current, pending));
     setPending(null);
   };
 
   const selectSegment = (kind: TKind) => {
     setActive(kind);
-    setPending(null);
+    if (isEditable) setPending(null);
     setIsAllSelected(false);
   };
 
@@ -264,6 +275,7 @@ export const useSegmentedInput = <TKind extends string, TSegments, TPending>({
     if (!isAccepted) return;
 
     commit(state.segments, state.pending);
+    if (state.pending !== null) pendingKindRef.current = state.active;
     setActive(state.active);
     setPending(state.pending);
     setIsAllSelected(false);
@@ -327,7 +339,8 @@ export const useSegmentedInput = <TKind extends string, TSegments, TPending>({
   const handleFocus = () => {
     setIsFocused(true);
     if (!isRestoringFocusRef.current) {
-      selectSegment(isPointerSelectingRef.current ? active : firstKind);
+      if (pending !== null) setActive(pendingKindRef.current);
+      else selectSegment(isPointerSelectingRef.current ? active : firstKind);
     }
   };
 

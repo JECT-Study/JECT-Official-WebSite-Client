@@ -379,10 +379,8 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
               aria-required={isRequired || undefined}
               disabled={isDisabled}
               readOnly={isReadOnly}
-              onInvalid={composeHandler(onInvalidFromProps, event => {
-                event.preventDefault();
+              onInvalid={composeHandler(onInvalidFromProps, () => {
                 setIsErrorDisplayEnabled(true);
-                focusActiveSegment();
               })}
               data-field-control=''
               data-readonly={isReadOnly || undefined}
