@@ -17,11 +17,6 @@ export interface ColumnProps extends Omit<
   /** 항목을 누르거나 Enter, Space로 고르면 호출됩니다. 이미 선택된 항목을 다시 골라도 호출됩니다. */
   onSelect: (value: number) => void;
   /**
-   * @description 선택 항목을 열 맨 위로 스크롤할지 여부. 끄면 스크롤과 끝 여백을 두지 않으므로, 모든 항목이 열 높이 안에 들어갈 때만 끕니다.
-   * @default true
-   */
-  alignSelectedToTop?: boolean;
-  /**
    * @description 비활성화 여부. 켜면 열이 포커스를 받지 않고 모든 항목이 비활성 모습이 됩니다.
    * @default false
    */

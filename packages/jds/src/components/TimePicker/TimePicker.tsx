@@ -129,7 +129,6 @@ export const TimePicker = forwardRef<HTMLDivElement, TimePickerProps>(
                 options={getColumnOptions(kind, context)}
                 value={displayed == null ? null : getColumnValue(displayed, kind, format)}
                 onSelect={next => selectColumnValue(kind, next)}
-                alignSelectedToTop={kind !== "meridiem"}
                 disabled={disabled}
                 readOnly={readOnly}
               />
