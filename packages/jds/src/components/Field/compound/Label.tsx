@@ -51,7 +51,9 @@ export const FieldLabel = forwardRef<HTMLLabelElement, FieldLabelProps>(
             </span>
           )}
         </span>
-        {suffix}
+        {suffix != null && (
+          <span className={styles.labelSuffix({ disabled: isDisabled })}>{suffix}</span>
+        )}
       </span>
     );
   },
