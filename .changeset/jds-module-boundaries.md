@@ -2,4 +2,4 @@
 "@jects/jds": patch
 ---
 
-배포 JavaScript를 모듈별 파일로 분리하여 ESM import를 사용하는 앱 빌드에서 사용하지 않는 컴포넌트를 제거할 수 있도록 합니다. 기존 import 경로와 컴포넌트 사용법은 그대로 유지됩니다.
+ESM 배포 JavaScript를 모듈별 파일로 분리했습니다. Rolldown ESM과 Next.js Webpack에서 `Divider`만 가져올 때 미사용 컴포넌트와 PNG가 번들에서 제외됩니다. CJS 배포 방식, 기존 import 경로와 컴포넌트 사용법은 유지됩니다.
