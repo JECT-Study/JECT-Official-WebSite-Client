@@ -11,6 +11,21 @@ const externalPackages = [...Object.keys(pkg.dependencies), ...Object.keys(pkg.p
 const entrypoint = pkg.exports["."].import.default;
 const distDirectory = dirname(resolve(entrypoint));
 
+// Divider의 구현·스타일과 Rolldown 보조 코드만 허용한다.
+// 공유 코드를 새로 사용하면 필요성을 검토한 뒤 해당 모듈을 명시적으로 추가한다.
+const allowedModules = new Set([
+  "components/Divider/Divider.js",
+  "components/Divider/divider.styles.js",
+  "_virtual/_rolldown/runtime.js",
+]);
+// assignInlineVars와 recipe 실행에 필요한 번들 내 라이브러리다.
+// 버전별 내부 파일명 대신 패키지 단위로 허용하며 외부 패키지 전체를 허용하지 않는다.
+const allowedRuntimePackages = [
+  "@vanilla-extract/dynamic",
+  "@vanilla-extract/private",
+  "@vanilla-extract/recipes",
+];
+
 try {
   const input = join(directory, "consumer.mjs");
   await writeFile(input, `export { Divider } from ${JSON.stringify(resolve(entrypoint))};\n`);
@@ -34,13 +49,16 @@ try {
     const code = chunks.map(chunk => chunk.code).join("\n");
     const modules = chunks.flatMap(chunk =>
       Object.entries(chunk.modules)
-        .filter(([, info]) => info.renderedLength > 0)
+        .filter(([id, info]) => id !== input && info.renderedLength > 0)
         .map(([id]) => relative(distDirectory, id).replaceAll("\\", "/")),
     );
-    const componentModules = modules.filter(id => id.startsWith("components/"));
-    const unrelatedComponents = componentModules.filter(
-      id => !id.startsWith("components/Divider/"),
-    );
+    const unexpectedModules = [...new Set(modules)]
+      .filter(
+        id =>
+          !allowedModules.has(id) &&
+          !allowedRuntimePackages.some(name => id.startsWith(`node_modules/${name}/`)),
+      )
+      .sort();
 
     const problems = [];
 
@@ -52,16 +70,16 @@ try {
         `${entrypoint}: 미사용 PNG가 포함되어 있습니다. 미사용 모듈의 import 경로를 확인하세요.`,
       );
     }
-    if (!componentModules.includes("components/Divider/Divider.js")) {
+    if (!modules.includes("components/Divider/Divider.js")) {
       problems.push(
         `${entrypoint}: 분리된 Divider 구현 모듈이 없습니다. JS 빌드의 모듈 분리 설정을 확인하세요.`,
       );
     }
-    if (unrelatedComponents.length > 0) {
+    if (unexpectedModules.length > 0) {
       problems.push(
-        `${entrypoint}: 미사용 컴포넌트가 포함되어 있습니다. 모듈 분리와 sideEffects 설정을 확인하세요.`,
+        `${entrypoint}: 예상하지 못한 모듈이 포함되어 있습니다. 모듈 분리와 sideEffects 설정을 확인하세요. 필요한 의존성이라면 허용 목록을 검토하세요.`,
       );
-      for (const module of unrelatedComponents) problems.push(`  ${module}`);
+      for (const module of unexpectedModules) problems.push(`  ${module}`);
     }
 
     if (problems.length > 0) {
