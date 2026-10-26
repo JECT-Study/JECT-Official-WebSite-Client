@@ -1,9 +1,11 @@
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
-import type { FieldProps } from "../Field";
+import type { FieldProps, FieldStatus } from "../Field";
 import type { OptionVariant, SelectOption } from "../Listbox";
 
-export type SelectFieldProps = FieldProps;
+export interface SelectFieldProps extends Omit<FieldProps, "status"> {
+  status?: Exclude<FieldStatus, "success">;
+}
 
 interface SelectFieldInputBaseProps extends Omit<
   ComponentPropsWithoutRef<"input">,

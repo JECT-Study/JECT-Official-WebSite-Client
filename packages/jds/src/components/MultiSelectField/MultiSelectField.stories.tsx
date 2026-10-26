@@ -9,7 +9,6 @@ import { FlexColumn, FlexRow, Label } from "@storybook-utils/layout";
 import { REGIONS, REGION_OPTIONS, toExpressiveOptions } from "@storybook-utils/selectOptions";
 import { Dialog } from "radix-ui";
 import { useState } from "react";
-import { vars } from "tokens";
 
 import { MultiSelectField } from "./MultiSelectField";
 import { BlockButton } from "../Button/BlockButton";
@@ -33,7 +32,15 @@ const meta = {
   args: {
     children: null,
   },
-  argTypes: fieldArgTypes,
+  argTypes: {
+    ...fieldArgTypes,
+    status: {
+      control: "inline-radio",
+      options: ["default", "error"],
+      description: "유효성/피드백 상태",
+      table: { defaultValue: { summary: "default" } },
+    },
+  },
 } satisfies Meta<typeof MultiSelectField>;
 
 export default meta;
@@ -43,15 +50,7 @@ export const Playground: Story = {
   args: FIELD_PLAYGROUND_ARGS,
   render: args => (
     <MultiSelectField {...args} style={FIELD_WIDTH}>
-      <MultiSelectField.Label
-        suffix={
-          <Icon
-            name='info'
-            size='2xs'
-            style={args.disabled ? { color: vars.color.semantic.object.subtle } : undefined}
-          />
-        }
-      >
+      <MultiSelectField.Label suffix={<Icon name='info' size='2xs' />}>
         레이블
       </MultiSelectField.Label>
       <MultiSelectField.Input
@@ -72,7 +71,7 @@ export const Playground: Story = {
 export const Statuses: Story = {
   render: () => (
     <FlexRow gap='32px' style={{ alignItems: "flex-start" }}>
-      {(["default", "success", "error"] as const).map(status => (
+      {(["default", "error"] as const).map(status => (
         <FlexColumn key={status} gap='16px' style={{ alignItems: "flex-start" }}>
           <Label>{status}</Label>
           <MultiSelectField status={status} style={FIELD_WIDTH}>
@@ -94,6 +93,7 @@ export const Statuses: Story = {
 
 /**
  * `disabled`와 `readonly`에서는 목록을 열 수 없고 태그의 제거 버튼도 사라집니다.
+ * 입력칸도 자리를 차지하지 않아, 태그가 한 줄에 들어가면 상자 높이가 늘어나지 않습니다.
  * `disabled`는 포커스를 받을 수 없으며, `readonly`는 포커스를 받을 수 있습니다.
  */
 export const States: Story = {
