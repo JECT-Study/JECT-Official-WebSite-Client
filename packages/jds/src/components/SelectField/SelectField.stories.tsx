@@ -9,7 +9,6 @@ import { FlexColumn, FlexRow, Label } from "@storybook-utils/layout";
 import { REGIONS, REGION_OPTIONS, toExpressiveOptions } from "@storybook-utils/selectOptions";
 import { Dialog } from "radix-ui";
 import { useState } from "react";
-import { vars } from "tokens";
 
 import { SelectField } from "./SelectField";
 import { BlockButton } from "../Button/BlockButton";
@@ -34,7 +33,15 @@ const meta = {
   args: {
     children: null,
   },
-  argTypes: fieldArgTypes,
+  argTypes: {
+    ...fieldArgTypes,
+    status: {
+      control: "inline-radio",
+      options: ["default", "error"],
+      description: "유효성/피드백 상태",
+      table: { defaultValue: { summary: "default" } },
+    },
+  },
 } satisfies Meta<typeof SelectField>;
 
 export default meta;
@@ -44,17 +51,7 @@ export const Playground: Story = {
   args: FIELD_PLAYGROUND_ARGS,
   render: args => (
     <SelectField {...args} style={FIELD_WIDTH}>
-      <SelectField.Label
-        suffix={
-          <Icon
-            name='info'
-            size='2xs'
-            style={args.disabled ? { color: vars.color.semantic.object.subtle } : undefined}
-          />
-        }
-      >
-        레이블
-      </SelectField.Label>
+      <SelectField.Label suffix={<Icon name='info' size='2xs' />}>레이블</SelectField.Label>
       <SelectField.Input options={REGION_OPTIONS} defaultValue='seoul' placeholder='플레이스홀더' />
       <SelectField.Helper>헬퍼 텍스트</SelectField.Helper>
     </SelectField>
@@ -67,7 +64,7 @@ export const Playground: Story = {
 export const Statuses: Story = {
   render: () => (
     <FlexRow gap='32px' style={{ alignItems: "flex-start" }}>
-      {(["default", "success", "error"] as const).map(status => (
+      {(["default", "error"] as const).map(status => (
         <FlexColumn key={status} gap='16px' style={{ alignItems: "flex-start" }}>
           <Label>{status}</Label>
           <SelectField status={status} style={FIELD_WIDTH}>

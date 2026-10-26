@@ -1,8 +1,10 @@
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
-import type { FieldProps } from "../Field";
+import type { FieldProps, FieldStatus } from "../Field";
 
-export type SuggestionFieldProps = FieldProps;
+export interface SuggestionFieldProps extends Omit<FieldProps, "status"> {
+  status?: Exclude<FieldStatus, "success">;
+}
 
 interface SuggestionFieldInputBaseProps extends Omit<
   ComponentPropsWithoutRef<"input">,
