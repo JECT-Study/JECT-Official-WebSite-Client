@@ -39,7 +39,7 @@ const DateFieldFormResult = ({ value }: { value: string | null }) => (
  * - 폼 초기화는 비제어 모드에서 최초 `defaultValue`로 돌아갑니다. 제어 모드에서는 확정값이 비어 있지 않으면 `onChange("")`로 변경을 요청하며 소비처가 반영해야 합니다.
  * - 달력에서 고른 날짜는 입력값에 반영하고, 입력한 날짜는 달력에서 선택된 상태로 보여 줍니다.
  * - `onChange`는 확정값이 바뀔 때 호출됩니다. `minLength`, `maxLength`와 네이티브 `onInput`, `onBeforeInput`, `onChangeCapture` 및 입력 이벤트의 capture props는 받지 않습니다.
- * - `onInputStateChange`로 편집 내용, 마지막 확정값, 오류 종류와 오류 표시 여부를 확인합니다. 빈 선택 입력과 부분 입력도 구분할 수 있습니다.
+ * - `onInputStateChange`로 편집 내용, 현재 유효한 제출값, 오류 종류와 오류 표시 여부를 확인합니다. 빈 선택 입력과 부분 입력도 구분할 수 있습니다.
  * - 키보드나 붙여넣기 동작을 취소하려면 `onKeyDown`, `onPaste`에서 `preventDefault()`를 사용합니다.
  * - blur에서는 소비처 `onBlur` 실행 후 부분 입력을 확정하고, 확정값이 바뀌면 `onChange`를 호출합니다. `onBlur`에서 읽은 확정값은 이전 값일 수 있습니다.
  *
@@ -149,7 +149,7 @@ export const States: Story = {
 
 /**
  * `suffix`로 달력 버튼 오른쪽에 `Kbd`를 배치합니다.
- * 특정 키나 키 조합 입력이 필드와 직접 연관이 있을 때만 사용합니다.
+ * 실제 달력 열기 단축키인 Alt + ↓를 표시합니다. suffix는 단축키를 등록하지 않습니다.
  */
 export const WithKbd: Story = {
   render: () => (
@@ -157,8 +157,8 @@ export const WithKbd: Story = {
       <DateField.Label>레이블</DateField.Label>
       <DateField.Input
         suffix={
-          <Kbd size='sm' type='function'>
-            ⌘
+          <Kbd size='sm' type='text'>
+            Alt + ↓
           </Kbd>
         }
       />
@@ -201,6 +201,7 @@ const ActionBarPreview = () => {
  * 적용하지 않고 달력을 닫으면 임시 선택은 버립니다. 오늘 버튼은 오늘이 있는 달로 이동하고 오늘을 임시 선택합니다.
  * 직접 입력한 날짜는 적용 버튼과 관계없이 기존 입력 방식대로 확정됩니다.
  * 임시 선택 뒤 날짜 제한이 바뀌면 적용 시점에 다시 검사하고, 제한 밖 날짜는 확정하지 않습니다.
+ * 부분 입력과 잘못된 날짜도 지우기 후 적용하면 비워집니다. 적용 전에 닫으면 기존 입력을 유지합니다.
  */
 export const WithActionBar: Story = {
   render: () => <ActionBarPreview />,
