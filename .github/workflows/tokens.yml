@@ -41,12 +41,12 @@ jobs:
       - name: Detect changes
         id: changes
         run: |
-          if git diff --quiet -- packages/jds/src/tokens; then
+          if [ -z "$(git status --porcelain -- packages/jds/src/tokens)" ]; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "토큰 생성물에 변경 사항이 없습니다."
           else
             echo "changed=true" >> "$GITHUB_OUTPUT"
-            git diff --stat -- packages/jds/src/tokens
+            git status --short -- packages/jds/src/tokens
           fi
 
       - name: Create App token
