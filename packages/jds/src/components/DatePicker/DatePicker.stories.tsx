@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexColumn, FlexRow } from "@storybook-utils/layout";
 import { useState } from "react";
-import { fn } from "storybook/test";
+import { expect, fn, userEvent, within } from "storybook/test";
 
 import { DatePicker } from "./DatePicker";
 import { WEEKDAY_OPTIONS } from "./datePicker.types";
@@ -61,16 +61,6 @@ type Story = StoryObj<typeof DatePicker>;
 
 export const Default: Story = {};
 
-/** 낮은 연도의 날짜에서도 날짜 이동과 연월 목록 선택이 같은 연도를 유지합니다. */
-export const EarlyYears: Story = {
-  args: {
-    defaultMonth: undefined,
-    defaultValue: new Date("0001-07-25T00:00:00"),
-    minDate: new Date("0001-01-01T00:00:00"),
-    maxDate: new Date("0099-12-31T00:00:00"),
-  },
-};
-
 export const Keyboard: Story = {
   parameters: {
     docs: {
@@ -99,15 +89,33 @@ export const View: Story = {
     docs: {
       description: {
         story: [
-          "DatePicker는 날짜 보기와 연월 목록 보기를 제공합니다.",
+          "`view`는 DatePicker의 보기 유형을 결정하는 속성입니다.",
           "- `date`는 기본적으로 사용하는 날짜 보기 유형입니다.",
           "- `month`는 헤더의 월 Label button을 눌렀을 때 보이는 월 목록 보기 유형입니다.",
           "- `year`는 헤더의 연도 Label button을 눌렀을 때 보이는 연도 목록 보기 유형입니다.",
           "",
-          "`view`는 prop이 아니라 DatePicker 내부 상태입니다. 아래 달력의 월과 연도 버튼을 직접 눌러 각 보기를 확인할 수 있습니다. 목록에서 항목을 고르거나 Escape를 누르면 날짜 보기로 돌아옵니다.",
+          "`view`는 prop이 아니라 DatePicker 내부 상태입니다. 이 예시는 월과 연도 버튼을 눌러 각 보기를 연 상태로 보여 줍니다. 목록에서 항목을 고르거나 Escape를 누르면 날짜 보기로 돌아옵니다.",
         ].join("\n"),
       },
+      story: { autoplay: true },
     },
+  },
+  render: () => (
+    <FlexRow gap='24px' style={{ alignItems: "flex-start" }}>
+      {(["date", "month", "year"] as const).map(view => (
+        <FlexColumn key={view} gap='12px' style={{ alignItems: "center" }} data-view={view}>
+          <PropertyLabel name='view' value={view} />
+          <DatePicker defaultMonth={SAMPLE_MONTH} />
+        </FlexColumn>
+      ))}
+    </FlexRow>
+  ),
+  play: async ({ canvasElement }) => {
+    const monthView = canvasElement.querySelector<HTMLElement>("[data-view='month']");
+    const yearView = canvasElement.querySelector<HTMLElement>("[data-view='year']");
+
+    if (monthView) await userEvent.click(within(monthView).getByRole("button", { name: "3월" }));
+    if (yearView) await userEvent.click(within(yearView).getByRole("button", { name: "2026년" }));
   },
 };
 
@@ -140,7 +148,6 @@ export const WithActionBar: Story = {
           "- 날짜 선택에 별도 확인(적용) 절차가 필요한 경우에도 `withActionBar=true`를 사용할 수 있습니다.",
           "",
           "`withActionBar=true`이면 날짜를 눌러도 바로 확정되지 않고, 적용을 눌러야 `onChange`가 호출됩니다.",
-          "`onApply`는 적용 버튼으로 확정한 동작을 별도로 알립니다. 지정하면 선택값이 이미 비어 있어도 지우기 후 적용할 수 있습니다.",
         ].join("\n"),
       },
     },
@@ -157,39 +164,6 @@ export const WithActionBar: Story = {
   ),
 };
 
-/** onChange는 값 변경, onApply는 적용 버튼으로 확정한 동작을 알립니다. */
-export const ApplyEvent: Story = {
-  args: {
-    withActionBar: true,
-  },
-  render: function ApplyEventStory(args) {
-    const [date, setDate] = useState<Date | null>(null);
-    const [lastApplied, setLastApplied] = useState("적용 전");
-    const [changeCount, setChangeCount] = useState(0);
-    const [applyCount, setApplyCount] = useState(0);
-
-    return (
-      <FlexColumn gap='16px' style={{ alignItems: "center" }}>
-        <DatePicker
-          {...args}
-          value={date}
-          onChange={next => {
-            setDate(next);
-            setChangeCount(count => count + 1);
-          }}
-          onApply={next => {
-            setLastApplied(next === null ? "선택 없음" : next.toLocaleDateString("ko-KR"));
-            setApplyCount(count => count + 1);
-          }}
-        />
-        <PropertyLabel name='onChange 호출 횟수' value={String(changeCount)} />
-        <PropertyLabel name='onApply 호출 횟수' value={String(applyCount)} />
-        <output aria-label='마지막 적용값'>{lastApplied}</output>
-      </FlexColumn>
-    );
-  },
-};
-
 export const Focused: Story = {
   parameters: {
     docs: {
@@ -197,13 +171,25 @@ export const Focused: Story = {
         story: [
           "Tab으로 달력에 들어오면 선택된 날짜에 포커스합니다. 선택된 날짜가 표시 중인 달에 없거나 선택할 수 없으면 오늘, 그것도 없으면 그 달의 첫 선택 가능한 날짜에 포커스합니다.",
           "",
-          "아래 달력에는 3월 12일이 선택되어 있습니다. Tab으로 달력에 진입한 뒤 방향키로 날짜를 옮겨 포커스 링을 확인할 수 있습니다. 포커스 링은 CSS `:focus-visible`로 표현되므로 키보드로 포커스했을 때만 보입니다.",
+          "이 예시는 3월 12일이 선택된 상태에서 Tab으로 달력에 들어온 뒤, 오른쪽 방향키로 13일로 옮긴 모습입니다. 포커스 링은 CSS `:focus-visible`로 표현되므로 키보드로 포커스했을 때만 보입니다.",
         ].join("\n"),
       },
+      story: { autoplay: true },
     },
   },
   args: {
     defaultValue: SAMPLE_DATE,
+  },
+  play: async ({ canvasElement }) => {
+    const selectedCell = within(canvasElement).getByRole("gridcell", { name: "2026년 3월 12일" });
+
+    for (let count = 0; count < 10 && document.activeElement !== selectedCell; count += 1) {
+      await userEvent.tab();
+    }
+
+    await expect(selectedCell).toHaveFocus();
+
+    await userEvent.keyboard("{ArrowRight}");
   },
 };
 

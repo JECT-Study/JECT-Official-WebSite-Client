@@ -2,14 +2,6 @@ import { DAYS_IN_WEEK } from "./datePicker.constants";
 import type { Weekday } from "./datePicker.types";
 import type { CellStatus } from "./parts/Cell";
 
-/** 로컬 자정의 날짜. 생성자에서 0–99년을 1900년대로 바꾸지 않도록 연도를 따로 지정합니다. */
-export const createLocalDate = (year: number, monthIndex: number, day = 1) => {
-  const date = new Date(0);
-  date.setFullYear(year, monthIndex, day);
-  date.setHours(0, 0, 0, 0);
-  return date;
-};
-
 /** 시간을 무시하고 같은 날짜인지 비교합니다. 둘 다 `null`이면 같다고 봅니다. */
 export const isSameDay = (a: Date | null, b: Date | null) => {
   if (a === null || b === null) {
@@ -33,17 +25,17 @@ export const getCellStatus = (date: Date, selected: Date | null, today: Date): C
 
 /** 같은 날짜의 로컬 자정 */
 export const startOfDay = (date: Date) => {
-  return createLocalDate(date.getFullYear(), date.getMonth(), date.getDate());
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate());
 };
 
 /** 같은 달 1일의 로컬 자정 */
 export const startOfMonth = (date: Date) => {
-  return createLocalDate(date.getFullYear(), date.getMonth());
+  return new Date(date.getFullYear(), date.getMonth(), 1);
 };
 
 /** `amount`달 뒤 달의 1일. 일은 유지하지 않습니다. */
 export const addMonths = (date: Date, amount: number) => {
-  return createLocalDate(date.getFullYear(), date.getMonth() + amount);
+  return new Date(date.getFullYear(), date.getMonth() + amount, 1);
 };
 
 /** `minDate`, `maxDate` 범위 밖인지 날짜 단위로 판정합니다. 경계 날짜는 범위 안입니다. */
@@ -117,7 +109,7 @@ const getLeadingDayCount = (month: Date, weekStartsOn: Weekday) => {
 };
 
 const getDayCount = (month: Date) => {
-  return createLocalDate(month.getFullYear(), month.getMonth() + 1, 0).getDate();
+  return new Date(month.getFullYear(), month.getMonth() + 1, 0).getDate();
 };
 
 /** 그 달의 날짜를 모두 담는 데 필요한 주 수 */
@@ -126,13 +118,13 @@ export const getWeekCount = (month: Date, weekStartsOn: Weekday) => {
 };
 
 const addDays = (date: Date, amount: number) => {
-  return createLocalDate(date.getFullYear(), date.getMonth(), date.getDate() + amount);
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate() + amount);
 };
 
 const addMonthsKeepingDay = (date: Date, amount: number) => {
   const target = addMonths(date, amount);
 
-  return createLocalDate(
+  return new Date(
     target.getFullYear(),
     target.getMonth(),
     Math.min(date.getDate(), getDayCount(target)),
@@ -214,8 +206,9 @@ export const getGridDates = (
   const leadingDayCount = getLeadingDayCount(month, weekStartsOn);
   const cellCount = weekCount * DAYS_IN_WEEK;
 
-  return Array.from({ length: cellCount }, (_, index) =>
-    createLocalDate(month.getFullYear(), month.getMonth(), 1 - leadingDayCount + index),
+  return Array.from(
+    { length: cellCount },
+    (_, index) => new Date(month.getFullYear(), month.getMonth(), 1 - leadingDayCount + index),
   );
 };
 
@@ -242,8 +235,8 @@ export const formatYearMonthLabel = (month: Date) => {
 export const getMonthOptions = (year: number, minDate?: Date, maxDate?: Date) => {
   return Array.from({ length: MONTHS_IN_YEAR }, (_, index) => ({
     value: String(index),
-    label: formatMonthLabel(createLocalDate(year, index)),
-    disabled: isMonthOutOfRange(createLocalDate(year, index), minDate, maxDate),
+    label: formatMonthLabel(new Date(year, index, 1)),
+    disabled: isMonthOutOfRange(new Date(year, index, 1), minDate, maxDate),
   }));
 };
 

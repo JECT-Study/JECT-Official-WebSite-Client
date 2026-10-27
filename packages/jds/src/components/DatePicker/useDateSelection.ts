@@ -7,7 +7,6 @@ interface UseDateSelectionParams {
   value?: Date | null;
   defaultValue: Date | null;
   onChange?: (date: Date | null) => void;
-  onApply?: (date: Date | null) => void;
   withActionBar: boolean;
   readOnly: boolean;
 }
@@ -23,19 +22,16 @@ export const useDateSelection = ({
   value,
   defaultValue,
   onChange,
-  onApply,
   withActionBar,
   readOnly,
 }: UseDateSelectionParams) => {
   const [selected, setSelected] = useControllableState<Date | null>(value, defaultValue, onChange);
   const [draft, setDraft] = useState<Date | null>(selected);
   const [syncedSelected, setSyncedSelected] = useState<Date | null>(selected);
-  const [hasClearRequest, setHasClearRequest] = useState(false);
 
   if (!isSameDay(syncedSelected, selected)) {
     setSyncedSelected(selected);
     setDraft(selected);
-    setHasClearRequest(false);
   }
 
   const select = (date: Date) => {
@@ -43,7 +39,6 @@ export const useDateSelection = ({
 
     if (withActionBar) {
       setDraft(date);
-      setHasClearRequest(false);
 
       return;
     }
@@ -52,16 +47,11 @@ export const useDateSelection = ({
   };
 
   const clear = () => {
-    if (readOnly) return;
     setDraft(null);
-    setHasClearRequest(true);
   };
 
   const apply = () => {
-    if (readOnly) return;
-    setHasClearRequest(false);
     setSelected(draft);
-    onApply?.(draft);
   };
 
   return {
@@ -70,7 +60,6 @@ export const useDateSelection = ({
     select,
     clear,
     apply,
-    // onApply를 사용하는 연결에서는 빈 선택값과 별개로 외부 입력의 지우기를 확정할 수 있다.
-    hasPendingChange: !isSameDay(draft, selected) || (onApply !== undefined && hasClearRequest),
+    hasPendingChange: !isSameDay(draft, selected),
   };
 };

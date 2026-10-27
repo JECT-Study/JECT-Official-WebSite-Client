@@ -25,12 +25,6 @@ export interface DatePickerProps extends Omit<
   defaultValue?: Date | null;
   /** 선택이 확정되면 새 날짜로 호출됩니다. 날짜는 로컬 시간대 자정 기준입니다. */
   onChange?: (date: Date | null) => void;
-  /**
-   * 적용 버튼으로 확정할 때 호출됩니다. withActionBar에서만 사용합니다.
-   * 값이 같아도 명시적인 지우기 후에는 적용할 수 있으며, 지운 값은 null입니다.
-   * onChange와 함께 지정하면 값 변경 알림 뒤에 호출됩니다.
-   */
-  onApply?: (date: Date | null) => void;
   /** 표시할 달. 넘기면 표시 중인 달을 호출부가 소유합니다. */
   month?: Date;
   /** 비제어 모드에서 처음 표시할 달. 없으면 선택된 날짜의 달을 표시합니다. */
