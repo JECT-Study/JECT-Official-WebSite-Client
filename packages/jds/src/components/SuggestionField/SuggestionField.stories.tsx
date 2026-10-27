@@ -12,7 +12,6 @@ import { useState } from "react";
 import { SuggestionField } from "./SuggestionField";
 import { BlockButton } from "../Button/BlockButton";
 import { Icon } from "../Icon";
-import { Kbd } from "../Kbd";
 
 const SUGGESTIONS = ["React", "TypeScript", "Next.js", "vanilla-extract"];
 const FIELD_OPTIONS = Array.from({ length: 40 }, (_, index) => `추천 항목 ${index + 1}`);
@@ -213,9 +212,9 @@ export const WithoutSuggestions: Story = {
 };
 
 /**
- * `suffix`는 입력 오른쪽에 형제로 배치되므로 배지나 단축키 표시 같은 읽기 전용 요소만 사용합니다.
+ * `kbd`로 단축키를 표시합니다. 최대 4개까지 지정할 수 있습니다.
  */
-export const WithSuffix: Story = {
+export const WithKbd: Story = {
   render: () => (
     <SuggestionField style={FIELD_WIDTH}>
       <SuggestionField.Label>레이블</SuggestionField.Label>
@@ -223,11 +222,7 @@ export const WithSuffix: Story = {
         suggestions={SUGGESTIONS}
         defaultValue={["React"]}
         placeholder='플레이스홀더'
-        suffix={
-          <Kbd type='function' size='sm'>
-            ⏎
-          </Kbd>
-        }
+        kbd={["⌘", "K"]}
       />
       <SuggestionField.Footer>
         <SuggestionField.Helper>헬퍼 텍스트</SuggestionField.Helper>
