@@ -44,6 +44,8 @@ export type PluginErrorCode =
   | "unsupportedValue"
   | "pathConflict"
   | "baseBranchNotFound"
+  | "syncBranchSameAsBase"
+  | "syncBranchNotOwned"
   | "githubRequestFailed"
   | "unexpected";
 

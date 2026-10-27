@@ -124,15 +124,13 @@ async function getBranchSha(target: SyncTarget, branch: string): Promise<string 
   return ref?.object.sha ?? null;
 }
 
-async function findOpenPullRequest(target: SyncTarget): Promise<PullRequest | null> {
+async function findPullRequests(
+  target: SyncTarget,
+  state: "open" | "closed",
+): Promise<PullRequest[]> {
   const head = encodeURIComponent(`${target.owner}:${target.syncBranch}`);
-  const pullRequests = await request<PullRequest[]>(
-    target,
-    "GET",
-    `/pulls?state=open&head=${head}`,
-  );
 
-  return pullRequests[0] ?? null;
+  return request<PullRequest[]>(target, "GET", `/pulls?state=${state}&head=${head}&per_page=1`);
 }
 
 /**
@@ -175,9 +173,11 @@ async function findStaleTokenFiles(
  *
  * @remarks
  * 동기화 브랜치에 열린 PR이 있으면 그 브랜치에 커밋을 더합니다. 없으면 브랜치를 base에서 새로 시작하고 PR을 엽니다.
+ * 열린 PR 없이 브랜치만 남아 있으면, 그 브랜치에서 PR을 연 적이 있을 때만 base에서 새로 시작합니다. 머지 후 남은 동기화 브랜치는 다시 사용하고, 같은 이름의 다른 작업 브랜치는 덮어쓰지 않기 위해서입니다.
  * 저장소의 내용과 같으면 커밋하지 않고 `unchanged`를 돌려줍니다.
  * @param onProgress 단계가 바뀔 때마다 진행 단계로 호출됩니다.
  * @throws GitHub 요청이 실패한 경우 {@link GitHubRequestError}
+ * @throws 동기화 PR을 연 적이 없는 브랜치가 이미 있는 경우 `syncBranchNotOwned` {@link PluginError}
  */
 export async function syncTokenFiles(
   target: SyncTarget,
@@ -192,10 +192,18 @@ export async function syncTokenFiles(
     throw new PluginError("baseBranchNotFound", { branch: target.baseBranch });
   }
 
-  const [syncSha, openPullRequest] = await Promise.all([
+  const [syncSha, [openPullRequest = null]] = await Promise.all([
     getBranchSha(target, target.syncBranch),
-    findOpenPullRequest(target),
+    findPullRequests(target, "open"),
   ]);
+
+  if (syncSha && !openPullRequest) {
+    const closedPullRequests = await findPullRequests(target, "closed");
+    if (closedPullRequests.length === 0) {
+      throw new PluginError("syncBranchNotOwned", { branch: target.syncBranch });
+    }
+  }
+
   const parentSha = openPullRequest && syncSha ? syncSha : baseSha;
   const parentCommit = await request<GitCommit>(target, "GET", `/git/commits/${parentSha}`);
 

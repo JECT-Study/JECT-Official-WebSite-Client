@@ -63,6 +63,10 @@ function validateSettings(settings: SyncSettings): void {
   if (settings.collections.length === 0) {
     throw new PluginError("noCollections");
   }
+
+  if (settings.syncBranch.trim() === settings.baseBranch.trim()) {
+    throw new PluginError("syncBranchSameAsBase");
+  }
 }
 
 function toPullRequestBody(settings: SyncSettings, locale: Locale): string {

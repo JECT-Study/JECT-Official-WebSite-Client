@@ -76,6 +76,9 @@ const MESSAGES: Record<Locale, Messages> = {
       unsupportedValue: ({ name }) => `지원하지 않는 변수 값입니다: ${name}`,
       pathConflict: ({ path }) => `토큰과 그룹의 경로가 겹칩니다: ${path}`,
       baseBranchNotFound: ({ branch }) => `base 브랜치를 찾을 수 없습니다: ${branch}`,
+      syncBranchSameAsBase: () => "동기화 브랜치는 base 브랜치와 다른 이름이어야 합니다.",
+      syncBranchNotOwned: ({ branch }) =>
+        `동기화 PR을 연 적이 없는 브랜치라 덮어쓰지 않았습니다: ${branch}. 동기화 브랜치 이름을 바꾸거나 기존 브랜치를 지워 주세요.`,
       githubRequestFailed: ({ status, method, path, detail }) =>
         `GitHub 요청이 실패했습니다 (${status} ${method} ${path}): ${detail}`,
       unexpected: ({ message }) => message,
@@ -143,6 +146,9 @@ const MESSAGES: Record<Locale, Messages> = {
       unsupportedValue: ({ name }) => `Unsupported variable value: ${name}`,
       pathConflict: ({ path }) => `A token and a group share the same path: ${path}`,
       baseBranchNotFound: ({ branch }) => `Base branch not found: ${branch}`,
+      syncBranchSameAsBase: () => "The sync branch must differ from the base branch.",
+      syncBranchNotOwned: ({ branch }) =>
+        `The branch was not overwritten because no sync pull request was ever opened from it: ${branch}. Rename the sync branch or delete the existing branch.`,
       githubRequestFailed: ({ status, method, path, detail }) =>
         `GitHub request failed (${status} ${method} ${path}): ${detail}`,
       unexpected: ({ message }) => message,
