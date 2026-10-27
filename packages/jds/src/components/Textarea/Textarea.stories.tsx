@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FIELD_PLAYGROUND_ARGS, FIELD_WIDTH, fieldArgTypes } from "@storybook-utils/field";
 import { FlexColumn, FlexRow, Label } from "@storybook-utils/layout";
-import { vars } from "tokens";
 
 import { Textarea } from "./Textarea";
 import { Icon } from "../Icon";
@@ -18,7 +17,15 @@ const meta = {
   args: {
     children: null,
   },
-  argTypes: fieldArgTypes,
+  argTypes: {
+    ...fieldArgTypes,
+    status: {
+      control: "inline-radio",
+      options: ["default", "error"],
+      description: "유효성/피드백 상태",
+      table: { defaultValue: { summary: "default" } },
+    },
+  },
 } satisfies Meta<typeof Textarea>;
 
 export default meta;
@@ -28,17 +35,7 @@ export const Playground: Story = {
   args: FIELD_PLAYGROUND_ARGS,
   render: args => (
     <Textarea {...args} style={FIELD_WIDTH}>
-      <Textarea.Label
-        suffix={
-          <Icon
-            name='info'
-            size='2xs'
-            style={args.disabled ? { color: vars.color.semantic.object.subtle } : undefined}
-          />
-        }
-      >
-        레이블
-      </Textarea.Label>
+      <Textarea.Label suffix={<Icon name='info' size='2xs' />}>레이블</Textarea.Label>
       <Textarea.Control placeholder='플레이스홀더' />
       <Textarea.Footer>
         <Textarea.Helper>헬퍼 텍스트</Textarea.Helper>
@@ -53,7 +50,7 @@ export const Playground: Story = {
 export const Statuses: Story = {
   render: () => (
     <FlexRow gap='32px' style={{ alignItems: "flex-start" }}>
-      {(["default", "success", "error"] as const).map(status => (
+      {(["default", "error"] as const).map(status => (
         <FlexColumn key={status} gap='16px' style={{ alignItems: "flex-start" }}>
           <Label>{status}</Label>
           <Textarea status={status} style={FIELD_WIDTH}>
