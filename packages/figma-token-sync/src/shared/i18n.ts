@@ -75,6 +75,8 @@ const MESSAGES: Record<Locale, Messages> = {
         `불투명한 색상을 참조하지 않는 합성 색상은 지원하지 않습니다: ${name}`,
       unsupportedValue: ({ name }) => `지원하지 않는 변수 값입니다: ${name}`,
       pathConflict: ({ path }) => `토큰과 그룹의 경로가 겹칩니다: ${path}`,
+      repositoryNotFound: ({ repository }) =>
+        `저장소를 찾을 수 없습니다: ${repository}. 저장소 소유자와 이름, 토큰의 저장소 접근 범위를 확인해 주세요.`,
       baseBranchNotFound: ({ branch }) => `base 브랜치를 찾을 수 없습니다: ${branch}`,
       syncBranchSameAsBase: () => "동기화 브랜치는 base 브랜치와 다른 이름이어야 합니다.",
       syncBranchNotOwned: ({ branch }) =>
@@ -145,6 +147,8 @@ const MESSAGES: Record<Locale, Messages> = {
       composedNonOpaque: ({ name }) => `Composed colors must reference an opaque color: ${name}`,
       unsupportedValue: ({ name }) => `Unsupported variable value: ${name}`,
       pathConflict: ({ path }) => `A token and a group share the same path: ${path}`,
+      repositoryNotFound: ({ repository }) =>
+        `Repository not found: ${repository}. Check the repository owner and name, and that the token can access this repository.`,
       baseBranchNotFound: ({ branch }) => `Base branch not found: ${branch}`,
       syncBranchSameAsBase: () => "The sync branch must differ from the base branch.",
       syncBranchNotOwned: ({ branch }) =>

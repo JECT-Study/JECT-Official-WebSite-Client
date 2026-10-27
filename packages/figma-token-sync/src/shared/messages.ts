@@ -43,6 +43,7 @@ export type PluginErrorCode =
   | "composedNonOpaque"
   | "unsupportedValue"
   | "pathConflict"
+  | "repositoryNotFound"
   | "baseBranchNotFound"
   | "syncBranchSameAsBase"
   | "syncBranchNotOwned"
