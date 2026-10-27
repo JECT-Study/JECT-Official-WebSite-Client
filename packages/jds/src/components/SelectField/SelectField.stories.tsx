@@ -13,7 +13,6 @@ import { useState } from "react";
 import { SelectField } from "./SelectField";
 import { BlockButton } from "../Button/BlockButton";
 import { Icon } from "../Icon";
-import { Kbd } from "../Kbd";
 
 const FIELD_OPTIONS = Array.from({ length: 40 }, (_, index) => ({
   value: String(index + 1),
@@ -167,9 +166,9 @@ export const Searchable: Story = {
 };
 
 /**
- * `suffix`는 입력 오른쪽에 형제로 배치되므로 배지나 단축키 표시 같은 읽기 전용 요소만 사용합니다.
+ * `kbd`로 단축키를 표시합니다. 최대 4개까지 지정할 수 있습니다.
  */
-export const WithSuffix: Story = {
+export const WithKbd: Story = {
   render: () => (
     <SelectField style={FIELD_WIDTH}>
       <SelectField.Label>레이블</SelectField.Label>
@@ -177,11 +176,7 @@ export const WithSuffix: Story = {
         options={REGION_OPTIONS}
         defaultValue='seoul'
         placeholder='플레이스홀더'
-        suffix={
-          <Kbd type='function' size='sm'>
-            ⌘
-          </Kbd>
-        }
+        kbd={["⌘", "K"]}
       />
       <SelectField.Helper>헬퍼 텍스트</SelectField.Helper>
     </SelectField>
