@@ -32,6 +32,7 @@ interface GitTree {
 
 interface PullRequest {
   html_url: string;
+  head: { sha: string };
 }
 
 interface ContentEntry {
@@ -173,13 +174,14 @@ async function findStaleTokenFiles(
  *
  * @remarks
  * 동기화 브랜치에 열린 PR이 있으면 그 브랜치에 커밋을 더합니다. 없으면 브랜치를 base에서 새로 시작하고 PR을 엽니다.
- * 열린 PR 없이 브랜치만 남아 있으면, 그 브랜치에서 PR을 연 적이 있을 때만 base에서 새로 시작합니다. 머지 후 남은 동기화 브랜치는 다시 사용하고, 같은 이름의 다른 작업 브랜치는 덮어쓰지 않기 위해서입니다.
+ * 열린 PR 없이 브랜치만 남아 있으면, 마지막으로 닫힌 PR의 head가 지금 브랜치 head와 같을 때만 base에서 새로 시작합니다. 머지 후 남은 동기화 브랜치는 다시 사용하고, 같은 이름의 다른 작업 브랜치나 PR이 닫힌 뒤 추가된 커밋은 덮어쓰지 않기 위해서입니다. 닫힌 PR의 head는 닫힌 시점에 고정됩니다.
  * GitHub는 토큰이 접근할 수 없는 private 저장소에도 404를 돌려주므로, 저장소를 먼저 확인해 권한 문제를 base 브랜치가 없는 것으로 알리지 않습니다.
  * 저장소의 내용과 같으면 커밋하지 않고 `unchanged`를 돌려줍니다.
  * @param onProgress 단계가 바뀔 때마다 진행 단계로 호출됩니다.
  * @throws GitHub 요청이 실패한 경우 {@link GitHubRequestError}
  * @throws 저장소를 찾을 수 없거나 토큰이 접근할 수 없는 경우 `repositoryNotFound` {@link PluginError}
  * @throws 동기화 PR을 연 적이 없는 브랜치가 이미 있는 경우 `syncBranchNotOwned` {@link PluginError}
+ * @throws 마지막 동기화 PR이 닫힌 뒤 브랜치에 커밋이 추가된 경우 `syncBranchChanged` {@link PluginError}
  */
 export async function syncTokenFiles(
   target: SyncTarget,
@@ -207,9 +209,12 @@ export async function syncTokenFiles(
   ]);
 
   if (syncSha && !openPullRequest) {
-    const closedPullRequests = await findPullRequests(target, "closed");
-    if (closedPullRequests.length === 0) {
+    const [lastClosedPullRequest] = await findPullRequests(target, "closed");
+    if (!lastClosedPullRequest) {
       throw new PluginError("syncBranchNotOwned", { branch: target.syncBranch });
+    }
+    if (lastClosedPullRequest.head.sha !== syncSha) {
+      throw new PluginError("syncBranchChanged", { branch: target.syncBranch });
     }
   }
 

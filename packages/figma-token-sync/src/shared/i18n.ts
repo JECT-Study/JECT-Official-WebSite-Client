@@ -81,6 +81,8 @@ const MESSAGES: Record<Locale, Messages> = {
       syncBranchSameAsBase: () => "동기화 브랜치는 base 브랜치와 다른 이름이어야 합니다.",
       syncBranchNotOwned: ({ branch }) =>
         `동기화 PR을 연 적이 없는 브랜치라 덮어쓰지 않았습니다: ${branch}. 동기화 브랜치 이름을 바꾸거나 기존 브랜치를 지워 주세요.`,
+      syncBranchChanged: ({ branch }) =>
+        `마지막 동기화 PR이 닫힌 뒤 커밋이 추가된 브랜치라 덮어쓰지 않았습니다: ${branch}. 추가된 커밋을 확인한 뒤 브랜치를 지우거나 동기화 브랜치 이름을 바꿔 주세요.`,
       githubRequestFailed: ({ status, method, path, detail }) =>
         `GitHub 요청이 실패했습니다 (${status} ${method} ${path}): ${detail}`,
       unexpected: ({ message }) => message,
@@ -153,6 +155,8 @@ const MESSAGES: Record<Locale, Messages> = {
       syncBranchSameAsBase: () => "The sync branch must differ from the base branch.",
       syncBranchNotOwned: ({ branch }) =>
         `The branch was not overwritten because no sync pull request was ever opened from it: ${branch}. Rename the sync branch or delete the existing branch.`,
+      syncBranchChanged: ({ branch }) =>
+        `The branch was not overwritten because commits were added after the last sync pull request was closed: ${branch}. Review those commits, then delete the branch or rename the sync branch.`,
       githubRequestFailed: ({ status, method, path, detail }) =>
         `GitHub request failed (${status} ${method} ${path}): ${detail}`,
       unexpected: ({ message }) => message,
