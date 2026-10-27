@@ -183,11 +183,76 @@ function readModeFile(filePath: string): { modeName: string; tokens: Record<stri
   return { modeName, tokens };
 }
 
-function readCollection(collectionDirectory: string): ModeTokens {
-  const modeFiles = fs
+function listModeFiles(collectionDirectory: string): string[] {
+  return fs
     .readdirSync(collectionDirectory)
     .filter(fileName => fileName.endsWith(".tokens.json"))
     .sort();
+}
+
+function stripExtensions(group: DtcgGroup): DtcgGroup {
+  const result: DtcgGroup = {};
+
+  for (const [key, node] of Object.entries(group)) {
+    if (key === "$extensions") continue;
+
+    if (isDtcgToken(node)) {
+      result[key] = Object.fromEntries(
+        Object.entries(node).filter(([field]) => field !== "$extensions"),
+      );
+    } else if (typeof node === "object" && node !== null) {
+      result[key] = stripExtensions(node as DtcgGroup);
+    } else {
+      result[key] = node;
+    }
+  }
+
+  return result;
+}
+
+/**
+ * @description 입력 파일을 저장소 표준 형식으로 정리하고, 바뀐 파일 경로를 돌려줍니다.
+ *
+ * @remarks
+ * 표준 형식은 Figma 기본 export에서 토큰별 `$extensions`를 뺀 형식으로, 토큰 동기화 플러그인의 출력과 같습니다.
+ * 기본 export를 그대로 넣어도 이 형식으로 바뀌므로, 입력 경로와 관계없이 저장소에는 같은 파일이 남습니다.
+ * @param inputDirectory 컬렉션 폴더들이 있는 디렉터리
+ * @throws 모드 이름(`com.figma.modeName`)이 없는 경우
+ */
+export function normalizeFigmaTokenFiles(inputDirectory: string): string[] {
+  const changedPaths: string[] = [];
+
+  for (const collectionName of Object.values(COLLECTION_DIRECTORIES)) {
+    const collectionDirectory = join(inputDirectory, collectionName);
+
+    for (const fileName of listModeFiles(collectionDirectory)) {
+      const filePath = join(collectionDirectory, fileName);
+      const previousContent = fs.readFileSync(filePath, "utf8");
+      const modeFile = JSON.parse(previousContent) as DtcgModeFile;
+      const modeName = modeFile.$extensions?.["com.figma.modeName"];
+
+      if (!modeName) {
+        throw new Error(`모드 이름(com.figma.modeName)이 없습니다: ${filePath}`);
+      }
+
+      const content = `${JSON.stringify(
+        { ...stripExtensions(modeFile), $extensions: { "com.figma.modeName": modeName } },
+        null,
+        2,
+      )}\n`;
+
+      if (content !== previousContent) {
+        fs.writeFileSync(filePath, content);
+        changedPaths.push(filePath);
+      }
+    }
+  }
+
+  return changedPaths;
+}
+
+function readCollection(collectionDirectory: string): ModeTokens {
+  const modeFiles = listModeFiles(collectionDirectory);
 
   if (modeFiles.length === 0) {
     throw new Error(`모드 파일(*.tokens.json)이 없습니다: ${collectionDirectory}`);
@@ -213,7 +278,7 @@ function readCollection(collectionDirectory: string): ModeTokens {
  *
  * @remarks
  * 컬렉션마다 폴더 하나, 모드마다 `*.tokens.json` 하나를 둡니다. 모드는 파일명이 아니라 파일 안의 `com.figma.modeName`으로 구분합니다.
- * 다른 라이브러리를 참조하는 alias는 Figma가 export할 때 값으로 풀어 주므로, 같은 파일 안의 참조만 해석합니다.
+ * 다른 컬렉션을 참조하는 alias는 Figma가 export할 때 값으로 풀어 주므로, 같은 파일 안의 참조만 해석합니다.
  * @param inputDirectory 컬렉션 폴더들이 있는 디렉터리
  * @returns 컬렉션 키별 `{ 모드 이름: { 토큰 이름: 값 } }`
  */
