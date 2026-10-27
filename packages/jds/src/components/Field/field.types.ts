@@ -26,6 +26,18 @@ export interface FieldContentProps extends ComponentPropsWithoutRef<"div"> {
   children: ReactNode;
 }
 
+/** 박스 안에 표시하는 단축키 목록. 최대 4개까지 지정할 수 있다. */
+export type FieldKbdKeys =
+  | readonly [string]
+  | readonly [string, string]
+  | readonly [string, string, string]
+  | readonly [string, string, string, string];
+
+export interface FieldKbdProps {
+  keys: FieldKbdKeys;
+  disabled?: boolean;
+}
+
 // prefix는 HTMLAttributes의 RDFa 속성과 타입이 충돌하므로 제외하고 ReactNode로 재정의한다.
 export interface FieldLabelProps extends Omit<
   ComponentPropsWithoutRef<"label">,

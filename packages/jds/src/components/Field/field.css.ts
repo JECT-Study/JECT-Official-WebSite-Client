@@ -258,6 +258,21 @@ export const contentSlot = style({
   },
 });
 
+// 박스 오른쪽의 기능 버튼, 단축키, 화살표를 묶어 줄바꿈되는 박스에서도 한 덩어리로 배치한다.
+export const contentTrailing = style({
+  display: "inline-flex",
+  alignItems: "center",
+  flexShrink: 0,
+  gap: vars.scheme.semantic.spacing["8"],
+});
+
+export const kbdGroup = style({
+  display: "inline-flex",
+  alignItems: "center",
+  flexShrink: 0,
+  gap: vars.scheme.semantic.spacing["2"],
+});
+
 const disabledSupportTextColor = {
   default: vars.color.semantic.object.subtle,
   success: vars.color.semantic.feedback.positive.alpha.assistive,
