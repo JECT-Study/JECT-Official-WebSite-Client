@@ -28,7 +28,6 @@ export {
 } from "./compound";
 export { ColorChip as TableColorChip } from "./ColorChip/ColorChip";
 export type {
-  TableProps,
   TableProps as TableRootProps,
   TableHeaderSectionProps as TableHeaderProps,
   TableHeaderItemProps,

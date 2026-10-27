@@ -17,7 +17,6 @@
 | `TableRow`               | `Table.Row`의 별칭                        |
 | `TableRowItem`           | `Table.RowItem`의 별칭                    |
 | `TableColorChip`         | `Table.ColorChip`의 별칭                  |
-| `TableProps`             | `TableRoot`의 props 타입                  |
 | `TableRootProps`         | `TableRoot`의 props 타입                  |
 | `TableHeaderProps`       | `TableHeader`의 props 타입                |
 | `TableHeaderItemProps`   | `TableHeaderItem`의 props 타입            |
