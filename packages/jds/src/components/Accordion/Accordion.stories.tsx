@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Accordion } from "./Accordion";
+import { AccordionContent, AccordionItem, AccordionRoot, AccordionTrigger, Accordion } from ".";
 import type { AccordionRootProps } from "./accordion.types";
 import type { IconName } from "../Icon";
 
@@ -79,33 +79,33 @@ type Story = StoryObj<AccordionStoryArgs>;
 export const Default: Story = {
   render: (args: AccordionStoryArgs) => (
     <div style={{ width: "500px" }}>
-      <Accordion.Root
+      <AccordionRoot
         type={args.type}
         isStretched={args.isStretched}
         size={args.size}
         collapsible={args.collapsible}
       >
-        <Accordion.Item value='item-1'>
-          <Accordion.Trigger withPrefixIcon={args.withPrefixIcon}>타이틀</Accordion.Trigger>
-          <Accordion.Content>
+        <AccordionItem value='item-1'>
+          <AccordionTrigger withPrefixIcon={args.withPrefixIcon}>타이틀</AccordionTrigger>
+          <AccordionContent>
             아코디언 콘텐츠 내용은 타이틀에 대한 상세 내용 및 설명을 포함합니다.
-          </Accordion.Content>
-        </Accordion.Item>
+          </AccordionContent>
+        </AccordionItem>
 
-        <Accordion.Item value='item-2'>
-          <Accordion.Trigger withPrefixIcon={args.withPrefixIcon}>타이틀</Accordion.Trigger>
-          <Accordion.Content>
+        <AccordionItem value='item-2'>
+          <AccordionTrigger withPrefixIcon={args.withPrefixIcon}>타이틀</AccordionTrigger>
+          <AccordionContent>
             아코디언 콘텐츠 내용은 타이틀에 대한 상세 내용 및 설명을 포함합니다.
-          </Accordion.Content>
-        </Accordion.Item>
+          </AccordionContent>
+        </AccordionItem>
 
-        <Accordion.Item value='item-3'>
-          <Accordion.Trigger withPrefixIcon={args.withPrefixIcon}>타이틀</Accordion.Trigger>
-          <Accordion.Content>
+        <AccordionItem value='item-3'>
+          <AccordionTrigger withPrefixIcon={args.withPrefixIcon}>타이틀</AccordionTrigger>
+          <AccordionContent>
             아코디언 콘텐츠 내용은 타이틀에 대한 상세 내용 및 설명을 포함합니다.
-          </Accordion.Content>
-        </Accordion.Item>
-      </Accordion.Root>
+          </AccordionContent>
+        </AccordionItem>
+      </AccordionRoot>
     </div>
   ),
 };

@@ -9,7 +9,13 @@ import { FlexColumn, FlexRow, Label } from "@storybook-utils/layout";
 import { Dialog } from "radix-ui";
 import { useState } from "react";
 
-import { SuggestionField } from "./SuggestionField";
+import {
+  SuggestionFieldFooter,
+  SuggestionFieldHelper,
+  SuggestionFieldInput,
+  SuggestionFieldLabel,
+  SuggestionField,
+} from ".";
 import { BlockButton } from "../Button/BlockButton";
 import { Icon } from "../Icon";
 import { Kbd } from "../Kbd";
@@ -48,15 +54,15 @@ export const Playground: Story = {
   args: FIELD_PLAYGROUND_ARGS,
   render: args => (
     <SuggestionField {...args} style={FIELD_WIDTH}>
-      <SuggestionField.Label suffix={<Icon name='info' size='2xs' />}>레이블</SuggestionField.Label>
-      <SuggestionField.Input
+      <SuggestionFieldLabel suffix={<Icon name='info' size='2xs' />}>레이블</SuggestionFieldLabel>
+      <SuggestionFieldInput
         suggestions={SUGGESTIONS}
         defaultValue={["React"]}
         placeholder='플레이스홀더'
       />
-      <SuggestionField.Footer>
-        <SuggestionField.Helper>헬퍼 텍스트</SuggestionField.Helper>
-      </SuggestionField.Footer>
+      <SuggestionFieldFooter>
+        <SuggestionFieldHelper>헬퍼 텍스트</SuggestionFieldHelper>
+      </SuggestionFieldFooter>
     </SuggestionField>
   ),
 };

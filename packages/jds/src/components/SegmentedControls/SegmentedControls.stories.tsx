@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexColumn, FlexRow, Label } from "@storybook-utils/layout";
 import { useState } from "react";
 
-import { SegmentedControls } from "./SegmentedControls";
+import { SegmentedControlsItem, SegmentedControlsRoot, SegmentedControls } from ".";
 import type { SegmentedControlsSize } from "./segmentedControls.types";
 
 const sizes = ["lg", "md", "sm", "xs"] as const satisfies readonly SegmentedControlsSize[];
@@ -24,9 +24,9 @@ const renderItems = (
   }[] = options,
 ) =>
   items.map(({ value, label, disabled }) => (
-    <SegmentedControls.Item key={value} value={value} disabled={disabled}>
+    <SegmentedControlsItem key={value} value={value} disabled={disabled}>
       {label}
-    </SegmentedControls.Item>
+    </SegmentedControlsItem>
   ));
 
 const ControlledExample = () => {
@@ -34,13 +34,13 @@ const ControlledExample = () => {
 
   return (
     <FlexColumn gap='0.75rem' style={{ width: storyWidth }}>
-      <SegmentedControls.Root value={value} onValueChange={setValue}>
+      <SegmentedControlsRoot value={value} onValueChange={setValue}>
         {renderItems([
           { value: "option1", label: "목록" },
           { value: "option2", label: "카드" },
           { value: "option3", label: "표" },
         ])}
-      </SegmentedControls.Root>
+      </SegmentedControlsRoot>
       <Label>Selected: {value}</Label>
     </FlexColumn>
   );
@@ -93,9 +93,9 @@ export const Default: Story = {
     disabled: false,
   },
   render: args => (
-    <SegmentedControls.Root key={`${args.size}-${args.defaultValue}-${args.disabled}`} {...args}>
+    <SegmentedControlsRoot key={`${args.size}-${args.defaultValue}-${args.disabled}`} {...args}>
       {renderItems()}
-    </SegmentedControls.Root>
+    </SegmentedControlsRoot>
   ),
   parameters: {
     docs: {
