@@ -17,7 +17,7 @@
 | 합성           | 단일/compound/slot/편의 API의 필요성과 소비처 책임. Context 도입 이유                       |
 | 호환성         | 기존 props·타입·export·DOM/role·사용처 동작 중 바뀌는 것                                    |
 
-타입을 선언·이동하기 전 현재 `docs/type-convention.md` 전체를 읽는다. 불가능한 조합은 적절한 유니온으로 제한하되 일반적인 사용을 복잡하게 만들지 않는다. 공개 타입과 API는 배럴에서 사용할 수 있어야 한다.
+코드를 쓰기 전 [JDS 작업 지침](../../../../packages/jds/AGENTS.md)을 읽는다. 파일 이름·compound 조립·배럴 순서·스타일·스토리 유틸은 그 규칙을 따른다. 타입을 선언·이동하기 전 현재 `docs/type-convention.md` 전체를 읽는다. 불가능한 조합은 적절한 유니온으로 제한하되 일반적인 사용을 복잡하게 만들지 않는다. 공개 타입과 API는 배럴에서 사용할 수 있어야 한다.
 
 ## 2. 상태와 사건의 순서
 
@@ -45,7 +45,7 @@
 
 ## 4. 토큰과 레이아웃
 
-[토큰 스킬](../../ject-jds-tokens/SKILL.md)로 현재 입력 → 생성기 → vanilla-extract 소비 경로와 의미를 확인한다. 동일한 raw 값만 보고 토큰을 대체하지 않는다. semantic intent, light/dark, state와 조합을 확인한다. 현재 JDS의 컴포넌트 토큰 미사용 결정을 임의로 바꾸지 않는다.
+[토큰 스킬](../../ject-jds-tokens/SKILL.md)로 현재 입력 → 생성기 → vanilla-extract 소비 경로와 의미를 확인한다. 동일한 raw 값만 보고 토큰을 대체하지 않는다. semantic intent, light/dark, state와 조합을 확인한다. 현재 JDS의 컴포넌트 토큰 미사용 결정을 임의로 바꾸지 않는다. `vars`·`recipe`·`createVar`·타이포 유틸과 pseudo-element 할당은 [JDS 작업 지침](../../../../packages/jds/AGENTS.md#스타일-vanilla-extract)을 따른다.
 
 Figma 레이어 구조는 디자인 관리 구조다. HTML 의미·키보드 동작·레이아웃 요구에 맞게 DOM을 구성한다. hover/active/focus-visible은 실제 상호작용과 연결한다. 장식 레이어가 포인터 입력과 접근성 트리를 방해하지 않는지, focus ring이 잘리지 않는지 확인한다.
 
@@ -59,7 +59,7 @@ Figma 레이어 구조는 디자인 관리 구조다. HTML 의미·키보드 동
 
 ## 6. 스토리와 검증
 
-스토리는 API 사용 문서와 실행 가능한 시나리오다. 기본 사용에 더해 관련된 controlled/폼/레이블 없는 사용/상태 전환/경계값/Portal 조합을 만든다. 모든 Cartesian 조합 대신 핵심 상태와 충돌 위험 조합을 선택하고 선택 근거를 남긴다. 로직의 결과를 확인하는 assertion을 사용하고 내부 구현을 그대로 따라 쓰는 검사는 피한다.
+스토리는 API 사용 문서와 실행 가능한 시나리오다. 기본 사용에 더해 관련된 controlled/폼/레이블 없는 사용/상태 전환/경계값/Portal 조합을 만든다. 모든 Cartesian 조합 대신 핵심 상태와 충돌 위험 조합을 선택하고 선택 근거를 남긴다. 로직의 결과를 확인하는 assertion을 사용하고 내부 구현을 그대로 따라 쓰는 검사는 피한다. 레이아웃은 `@storybook-utils`를 쓰고, VRT 베이스라인은 로컬에서 만들지 않는다([JDS 작업 지침](../../../../packages/jds/AGENTS.md#스토리)).
 
 기존 Storybook 테스트·브라우저 도구로 먼저 실행한다. play 코드 존재·스토리 빌드·VRT 캡처·play assertion 실행은 서로 다른 결과다. 실제 실행이 불가능하면 새 패키지를 임의로 설치하지 않고 해당 미검증과 필요한 도구를 기록한다.
 

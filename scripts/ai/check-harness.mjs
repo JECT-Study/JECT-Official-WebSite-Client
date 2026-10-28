@@ -6,7 +6,12 @@ import { fileURLToPath } from "node:url";
 // File wiring only. This does not execute skills or judge component quality.
 const root = await realpath(path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../.."));
 const manifest = JSON.parse(await readFile(path.join(root, "scripts/ai/manifest.json"), "utf8"));
-const files = new Set(["AGENTS.md", "CLAUDE.md"]);
+const files = new Set([
+  "AGENTS.md",
+  "CLAUDE.md",
+  "packages/jds/AGENTS.md",
+  "packages/jds/CLAUDE.md",
+]);
 const roleContract = ".claude/skills/ject-jds-workflow/references/roles.md";
 
 async function insideRoot(target) {

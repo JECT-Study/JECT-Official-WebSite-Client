@@ -5,6 +5,7 @@
 | 경로                      | 확인할 책임                                            |
 | ------------------------- | ------------------------------------------------------ |
 | `packages/jds`            | `@jects/jds`, 공개 API·타입·CSS·컴포넌트·훅·토큰       |
+| `packages/jds/AGENTS.md`  | JDS 파일 구조·compound·배럴·스타일·아이콘·스토리 규칙  |
 | `packages/vrt`            | Storybook 빌드, Docker 기반 시각 회귀와 캡처 조건      |
 | `apps/web`                | 실제 웹사이트 소비처. 이 앱의 테스트 설정은 JDS와 별개 |
 | `config/eslint`           | 공통 lint 규칙                                         |
