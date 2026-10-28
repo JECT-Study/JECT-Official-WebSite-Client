@@ -15,4 +15,6 @@ export interface TextFieldInputProps extends Omit<
   prefix?: ReactNode;
   /** 입력 오른쪽에 배치되는 부가 요소 */
   suffix?: ReactNode;
+  /** 입력한 텍스트를 모두 지우는 버튼 표시 여부. 값이 없거나 readonly, disabled 상태에서는 표시하지 않는다. */
+  withClearButton?: boolean;
 }

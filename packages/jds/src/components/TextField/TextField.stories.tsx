@@ -82,7 +82,7 @@ export const States: Story = {
 };
 
 /**
- * `prefix`와 `suffix`로 입력 좌우에 부가 요소를 배치합니다.
+ * `prefix`에 부가 요소를 배치합니다.
  */
 export const WithAddon: Story = {
   render: () => (
@@ -90,11 +90,37 @@ export const WithAddon: Story = {
       <TextField.Label>레이블</TextField.Label>
       <TextField.Input
         prefix={<Icon name='circle-user-round' size='sm' />}
-        suffix={<Icon name='x' size='sm' />}
         placeholder='플레이스홀더'
       />
       <TextField.Helper>헬퍼 텍스트</TextField.Helper>
     </TextField>
+  ),
+};
+
+/**
+ * `withClearButton`을 지정하면 입력한 텍스트를 모두 지우는 버튼을 표시합니다.
+ * 값이 없거나 `disabled`, `readonly` 상태에서는 버튼을 표시하지 않습니다.
+ */
+export const WithClearButton: Story = {
+  render: () => (
+    <FlexRow gap='32px' style={{ alignItems: "flex-start" }}>
+      {(
+        [
+          ["default", {}],
+          ["disabled", { disabled: true }],
+          ["readonly", { readonly: true }],
+        ] as const
+      ).map(([name, props]) => (
+        <FlexColumn key={name} gap='16px' style={{ alignItems: "flex-start" }}>
+          <Label>{name}</Label>
+          <TextField {...props} style={FIELD_WIDTH}>
+            <TextField.Label>레이블</TextField.Label>
+            <TextField.Input withClearButton defaultValue='입력 값' placeholder='플레이스홀더' />
+            <TextField.Helper>헬퍼 텍스트</TextField.Helper>
+          </TextField>
+        </FlexColumn>
+      ))}
+    </FlexRow>
   ),
 };
 
