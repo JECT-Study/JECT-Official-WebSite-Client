@@ -36,4 +36,4 @@ description: JDS 배포 코드·공개 API·타입·CSS·빌드 변경을 실제
 - 경계: 스토리 설명만 수정 → 문서 검증, 새 체인지셋·배포 없음.
 - 오류: 소스 typecheck 통과·tarball export 해석 실패 → 패키지 검증 실패로 보고하고 공개 진입점 원인 조사.
 
-검사 적용 여부는 [검증 선택](../ject-jds-workflow/references/quality-gates.md)을 따른다. 미검증과 적용 제외를 구분하며 필요한 검사에 도구가 없으면 통과로 보고하지 않는다.
+검사 적용 여부와 결과 판정은 [검증 선택과 판정](../ject-jds-workflow/references/quality-gates.md)을 따른다.

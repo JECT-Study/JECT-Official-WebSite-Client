@@ -34,9 +34,11 @@ description: JDS 컴포넌트의 요구사항 조사·역제안·질문·설계�
 
 ## 3. 변경에 맞는 검증
 
-[검증 선택과 판정](references/quality-gates.md)으로 필요한 검사와 제외 이유를 정한다. 구현의 코드 품질은 [FF 검토](../ject-jds-ff-review/SKILL.md)의 단위별 17개 항목, 접근성은 [접근성 기준](../ject-jds-accessibility/SKILL.md)과 [브라우저 실행](../ject-jds-browser-check/SKILL.md)을 적용한다. 배포 코드·공개 계약 변경은 [패키지 검사](../ject-jds-package-check/SKILL.md)를 연결한다.
+[검증 선택과 판정](references/quality-gates.md)으로 필요한 검사와 제외 이유를 정한다. 접근성은 [접근성 기준](../ject-jds-accessibility/SKILL.md)과 [브라우저 실행](../ject-jds-browser-check/SKILL.md)을 적용한다. 배포 코드·공개 계약 변경은 [패키지 검사](../ject-jds-package-check/SKILL.md)를 연결한다.
 
-기본은 메인의 순차 실행이다. 복합 상태·폼·Portal·포커스 변경에는 도구가 있으면 독립 검토자를 사용한다. [역할과 반환 계약](references/roles.md)에 따라 FF·브라우저 검토만 필요할 때 위임하고 동시 실행은 기본 메인 포함 3명 이내다. 구현자의 결론 대신 원자료·요구사항·대상 코드를 전달한다. 같은 파일을 동시에 편집하지 않는다. 독립 검토가 불가능하면 메인이 확인하고 그 한계를 보고한다.
+코드 품질의 FF 17개 항목 전수 검토는 메인이 직접 하지 않고 `ject-jds-ff` 역할에 맡긴다. 메인은 FF 스킬을 읽지 않고, 반환된 핵심 지적을 반영할지 판단한다. 역할을 쓸 수 없는 도구에서만 메인이 [FF 검토](../ject-jds-ff-review/SKILL.md)를 직접 적용하고 그 사실을 보고한다.
+
+나머지는 메인의 순차 실행이 기본이다. 복합 상태·폼·Portal·포커스 변경에는 도구가 있으면 `ject-jds-browser`도 사용한다. [역할과 반환 계약](references/roles.md)을 따르고 동시 실행은 기본 메인 포함 3명 이내다. 구현자의 결론 대신 원자료·요구사항·대상 코드를 전달한다. 같은 파일을 동시에 편집하지 않는다. 독립 검토가 불가능하면 메인이 확인하고 그 한계를 보고한다.
 
 ## 4. 기록·재개·PR
 

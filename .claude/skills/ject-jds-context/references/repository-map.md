@@ -25,7 +25,7 @@ npm workspaces와 Turborepo를 사용한다. React/React DOM 지원 범위와 �
 
 - 현재 AGENTS의 `npm run type-check`, `npm run lint`, 커밋 전 format 규칙을 따른다.
 - JDS Storybook은 `npm run storybook --workspace=@jects/jds`, 빌드는 `npm run build-storybook --workspace=@jects/jds`에서 확인한다.
-- JDS `.storybook` 설정과 package scripts를 읽는다. play 코드·빌드·실제 assertion 실행·자동 접근성 검사는 각각 별도 근거다. apps/web의 애드온을 JDS 검사로 대신하지 않는다.
-- VRT 명령과 Docker 사용 가능 여부를 확인한다. 태그·viewport·캡처 범위·play 완료 대기 조건은 `packages/vrt`의 현재 소스로 확인한다. baseline 생성은 비교 통과가 아니다.
+- JDS `.storybook` 설정과 package scripts를 읽는다. 결과 판정은 [검증 선택과 판정](../../ject-jds-workflow/references/quality-gates.md#결과와-완료-범위)을 따른다. apps/web의 애드온을 JDS 검사로 대신하지 않는다.
+- VRT 명령과 Docker 사용 가능 여부를 확인한다. 태그·viewport·캡처 범위·play 완료 대기 조건은 `packages/vrt`의 현재 소스로 확인한다.
 - 패키지 빌드의 check-dts/check-package와 실제 export·CSS 산출물은 배포 코드 변경 때 확인한다. 지원을 주장하는 소비 환경은 따로 실행한다.
 - 토큰 생성은 [토큰 파이프라인](../../ject-jds-tokens/references/pipeline.md)을 필요할 때 읽는다. 생성물은 직접 수정하지 않는다.
