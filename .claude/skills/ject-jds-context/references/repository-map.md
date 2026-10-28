@@ -2,15 +2,16 @@
 
 이 지도는 탐색 시작점이다. 버전, 경로와 실행 가능 여부는 현재 checkout의 manifest·설정·소스로 다시 확인한다.
 
-| 경로                      | 확인할 책임                                            |
-| ------------------------- | ------------------------------------------------------ |
-| `packages/jds`            | `@jects/jds`, 공개 API·타입·CSS·컴포넌트·훅·토큰       |
-| `packages/jds/AGENTS.md`  | JDS 파일 구조·compound·배럴·스타일·아이콘·스토리 규칙  |
-| `packages/vrt`            | Storybook 빌드, Docker 기반 시각 회귀와 캡처 조건      |
-| `apps/web`                | 실제 웹사이트 소비처. 이 앱의 테스트 설정은 JDS와 별개 |
-| `config/eslint`           | 공통 lint 규칙                                         |
-| `docs/type-convention.md` | JDS 타입 선언·배치 규약                                |
-| `docs/changeset-guide.md` | 배포 코드 변경의 체인지셋 규약                         |
+| 경로                        | 확인할 책임                                                                   |
+| --------------------------- | ----------------------------------------------------------------------------- |
+| `packages/jds`              | `@jects/jds`, 공개 API·타입·CSS·컴포넌트·훅·토큰                              |
+| `packages/jds/AGENTS.md`    | JDS 파일 구조·compound·배럴·스타일·아이콘·스토리 규칙                         |
+| `packages/vrt`              | Storybook 빌드, Docker 기반 시각 회귀와 캡처 조건                             |
+| `packages/figma-token-sync` | Figma 변수를 DTCG 파일로 내보내 토큰 입력 PR을 만드는 플러그인                |
+| `apps/web`                  | 실제 웹사이트 소비처. 퍼블리시된 `@jects/jds`를 쓰며 테스트 설정은 JDS와 별개 |
+| `config/eslint`             | 공통 lint 규칙                                                                |
+| `docs/type-convention.md`   | JDS 타입 선언·배치 규약                                                       |
+| `docs/changeset-guide.md`   | 배포 코드 변경의 체인지셋 규약                                                |
 
 npm workspaces와 Turborepo를 사용한다. React/React DOM 지원 범위와 설치 버전은 JDS package.json·lockfile에서 확인한다. 최신 React 문서의 예제가 현재 소비처에서 지원되는지 대조한다. JDS는 vanilla-extract와 `radix-ui` 기반이며 별도 스타일 시스템을 도입하지 않는다.
 

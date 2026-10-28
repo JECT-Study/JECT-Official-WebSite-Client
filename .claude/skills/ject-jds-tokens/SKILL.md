@@ -12,7 +12,7 @@ description: JDS의 실제 입력·생성기·vanilla-extract 토큰 소비 경�
 - primitive/semantic/component 층을 무조건 추가하지 않는다. 컴포넌트 내부 CSS 변수는 override나 상태 조합의 로컬 수단일 수 있다.
 - 명도 대비 부족은 `ject-jds-accessibility`로 측정한다. 개별 컴포넌트의 토큰 선택 오류와 전역 palette 변경을 구분하고 소비처 범위가 가장 작은 해결책을 비교한다. 디자이너 명세와 충돌하면 근거와 대안을 제시한다.
 - 생성물은 직접 편집하지 않는다. 입력·generator만 권한 범위에서 변경하고 재생성 diff를 확인한다. 토큰 이름·타입·단위·출력 계약의 호환성을 평가한다.
-- 성능이나 최신 표준을 이유로 스타일 시스템 또는 입력 포맷을 임의로 전환하지 않는다. DTCG는 호환성 기준으로 검토하며 현재 지원을 코드로 입증한다.
+- 성능이나 최신 표준을 이유로 스타일 시스템 또는 입력 포맷을 임의로 전환하지 않는다. 입력은 Figma 변수에서 나온 DTCG 파일이며, 처리하는 `$type`·alias 범위는 `figmaTokens.ts`로 확인한다. Figma 쪽 변경은 `packages/figma-token-sync` 플러그인 PR로 들어온다.
 
 ## 결과
 
