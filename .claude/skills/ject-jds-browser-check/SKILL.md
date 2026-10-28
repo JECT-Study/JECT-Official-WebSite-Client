@@ -41,4 +41,4 @@ description: JDS 컴포넌트를 Storybook과 실제 브라우저에서 조작�
 - 시각: 다크 테마에서 긴 오류 문구 → 의미 있는 메시지·대비·reflow·focus clipping 확인.
 - 오류: VRT만 성공하고 키보드 실행 도구 없음 → 시각 비교 결과와 키보드 미검증을 분리.
 
-검사 적용 여부는 [검증 선택](../ject-jds-workflow/references/quality-gates.md)을 따른다. 미검증과 적용 제외를 구분하며 필요한 검사에 도구가 없으면 통과로 보고하지 않는다.
+검사 적용 여부와 결과 판정은 [검증 선택과 판정](../ject-jds-workflow/references/quality-gates.md)을 따른다.
