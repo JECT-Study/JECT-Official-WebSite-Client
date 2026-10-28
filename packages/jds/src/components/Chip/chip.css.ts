@@ -30,7 +30,7 @@ export const root = recipe({
       gap: vars.scheme.semantic.spacing["4"],
       paddingBlock: vars.scheme.semantic.spacing["4"],
       paddingInline: `${vars.scheme.semantic.spacing["10"]} ${vars.scheme.semantic.spacing["8"]}`,
-      border: `${vars.scheme.semantic.strokeWeight["1"]} solid ${chipColorVars.border}`,
+      boxShadow: `inset 0 0 0 ${vars.scheme.semantic.strokeWeight["1"]} ${chipColorVars.border}`,
       borderRadius: vars.scheme.semantic.radius.max,
       backgroundColor: chipColorVars.background,
       whiteSpace: "nowrap",
@@ -39,6 +39,12 @@ export const root = recipe({
         [chipColorVars.icon]: vars.color.semantic.object.neutral,
         [chipColorVars.border]: vars.color.semantic.stroke.alpha.subtle,
         [chipColorVars.background]: "transparent",
+      },
+      "@media": {
+        // 고대비 모드는 box-shadow를 지우므로 테두리를 border로 되살린다.
+        "(forced-colors: active)": {
+          border: `${vars.scheme.semantic.strokeWeight["1"]} solid currentColor`,
+        },
       },
       selectors: {
         "&::before, &::after": {
@@ -66,6 +72,7 @@ export const root = recipe({
         vars: {
           [chipColorVars.label]: vars.color.semantic.object.subtler,
           [chipColorVars.icon]: vars.color.semantic.object.subtler,
+          [chipColorVars.border]: vars.color.semantic.stroke.alpha.subtler,
           [chipColorVars.background]: "transparent",
         },
       },
@@ -74,24 +81,6 @@ export const root = recipe({
       },
     },
   },
-  compoundVariants: [
-    {
-      variants: { activated: false, disabled: true },
-      style: {
-        vars: {
-          [chipColorVars.border]: vars.color.semantic.stroke.alpha.subtler,
-        },
-      },
-    },
-    {
-      variants: { activated: true, disabled: true },
-      style: {
-        vars: {
-          [chipColorVars.border]: vars.color.semantic.accent.alpha.subtler,
-        },
-      },
-    },
-  ],
 });
 
 export const mainAction = style({

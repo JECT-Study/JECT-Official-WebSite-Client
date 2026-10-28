@@ -7,6 +7,8 @@ import type { TabsVariant } from "./tabs.types";
 
 const labelColor = createVar();
 const badgeColorVar = createVar();
+const underlineColor = createVar();
+const borderColor = createVar();
 
 export const label = style({
   display: "flex",
@@ -55,14 +57,14 @@ export const list = recipe({
 
 export const trigger = recipe({
   base: [
-    focusRing(),
-    overlay({ hierarchy: "secondary", density: "normal" }),
+    focusRing({ border: "inside" }),
+    overlay({ hierarchy: "secondary", density: "bold" }),
     {
       position: "relative",
       display: "inline-flex",
       alignItems: "center",
       justifyContent: "center",
-      gap: vars.scheme.semantic.spacing["4"],
+      gap: vars.scheme.semantic.spacing["2"],
       minWidth: 0,
       appearance: "none",
       cursor: "pointer",
@@ -91,20 +93,30 @@ export const trigger = recipe({
         // header list의 baseline 위에 active underline을 겹치기 위해 같은 strokeWeight 토큰을 재사용
         marginBottom: `calc(${vars.scheme.semantic.strokeWeight["1"]} * -1)`,
         border: "none",
-        borderBottom: `${vars.scheme.semantic.strokeWeight["2"]} solid transparent`,
+        // 밑줄이 박스 크기를 늘리지 않도록 inset box-shadow로 안쪽 아래에 그린다.
+        boxShadow: `inset 0 calc(${vars.scheme.semantic.strokeWeight["2"]} * -1) 0 0 ${underlineColor}`,
         borderRadius: 0,
         backgroundColor: "transparent",
-        selectors: {
-          "&::after": {
-            // header trigger의 underline 두께와 overlay 위치를 동기화하기 위해 같은 strokeWeight 토큰을 재사용
-            bottom: `calc(${vars.scheme.semantic.strokeWeight["2"]} * -1)`,
+        vars: {
+          [underlineColor]: "transparent",
+        },
+        "@media": {
+          // 고대비 모드는 box-shadow를 지우므로 선택된 탭의 밑줄만 border로 되살린다.
+          "(forced-colors: active)": {
+            selectors: {
+              "&[data-state='active']": {
+                borderBottom: `${vars.scheme.semantic.strokeWeight["2"]} solid currentColor`,
+              },
+            },
           },
+        },
+        selectors: {
           "&[data-state='active']": {
             vars: {
               [labelColor]: vars.color.semantic.object.bolder,
               [badgeColorVar]: vars.color.semantic.object.bold,
+              [underlineColor]: vars.color.semantic.stroke.bold,
             },
-            borderBottomColor: vars.color.semantic.stroke.bold,
             zIndex: 1,
           },
           "&:disabled, &[data-disabled]": {
@@ -117,16 +129,27 @@ export const trigger = recipe({
             vars: {
               [labelColor]: vars.color.semantic.object.subtle,
               [badgeColorVar]: vars.color.semantic.object.subtle,
+              [underlineColor]: vars.color.semantic.stroke.assistive,
             },
-            borderBottomColor: vars.color.semantic.stroke.assistive,
           },
         },
       },
       content: {
         padding: `${vars.scheme.semantic.spacing["6"]} ${vars.scheme.semantic.spacing["12"]}`,
-        border: `${vars.scheme.semantic.strokeWeight["1"]} solid ${vars.color.semantic.stroke.alpha.subtle}`,
+        border: "none",
+        // 테두리가 박스 크기를 늘리지 않도록 inset box-shadow로 안쪽에 그린다.
+        boxShadow: `inset 0 0 0 ${vars.scheme.semantic.strokeWeight["1"]} ${borderColor}`,
         borderRadius: vars.scheme.semantic.radius["6"],
         backgroundColor: "transparent",
+        vars: {
+          [borderColor]: vars.color.semantic.stroke.alpha.subtle,
+        },
+        "@media": {
+          // 고대비 모드는 box-shadow를 지우므로 테두리를 border로 되살린다.
+          "(forced-colors: active)": {
+            border: `${vars.scheme.semantic.strokeWeight["1"]} solid currentColor`,
+          },
+        },
         selectors: {
           "&[data-state='active']": {
             vars: {
@@ -139,16 +162,16 @@ export const trigger = recipe({
             vars: {
               [labelColor]: vars.color.semantic.object.subtle,
               [badgeColorVar]: vars.color.semantic.object.subtle,
+              [borderColor]: vars.color.semantic.stroke.alpha.subtler,
             },
-            borderColor: vars.color.semantic.stroke.alpha.subtler,
           },
           "&:disabled[data-state='active'], &[data-disabled][data-state='active']": {
             vars: {
               [labelColor]: vars.color.semantic.object.subtle,
               [badgeColorVar]: vars.color.semantic.object.subtle,
+              [borderColor]: vars.color.semantic.stroke.alpha.subtler,
             },
             backgroundColor: vars.color.semantic.fill.subtlest,
-            borderColor: vars.color.semantic.stroke.alpha.subtler,
           },
         },
       },
