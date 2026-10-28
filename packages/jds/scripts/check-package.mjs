@@ -1,4 +1,4 @@
-import { mkdtempSync, readFileSync, rmSync } from "node:fs";
+import { globSync, mkdtempSync, readFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
@@ -23,6 +23,13 @@ try {
 
 const problems = [];
 const suggestions = [];
+
+// vanilla-extract가 배포 JS를 스타일 원본으로 다시 처리하는 파일명을 차단한다.
+for (const file of globSync("dist/**/*.css.{js,cjs,mjs,jsx,ts,tsx}")) {
+  problems.push(
+    `${file}: vanilla-extract의 스타일 원본 파일명과 겹칩니다. JS 출력 이름을 확인하세요.`,
+  );
+}
 
 const { messages, pkg } = await publint({ pack: { tarball } });
 

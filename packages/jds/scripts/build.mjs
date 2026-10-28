@@ -34,3 +34,4 @@ await rm(DTS_OUT_DIR, { recursive: true, force: true });
 
 await import("./check-dts.mjs");
 await import("./check-package.mjs");
+await import("./check-tree-shaking.mjs");
