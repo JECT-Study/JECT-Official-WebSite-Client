@@ -71,21 +71,21 @@ PR 설명도 AI가 써요. 리뷰어가 PR만 읽고 무엇이 왜 바뀌었는�
 
 ## 하네스를 고칠 때
 
-| 위치                              | 내용                                      |
-| --------------------------------- | ----------------------------------------- |
-| `.claude/skills/ject-jds-*`       | 스킬 원본. AI가 따르는 세부 절차예요      |
-| `.agents/skills/ject-jds-*`       | Codex용 상대 링크. 원본과 같은 파일이에요 |
-| `.claude/agents`, `.codex/agents` | FF 리뷰와 브라우저 검증 역할의 진입점     |
-| `packages/jds/AGENTS.md`          | JDS 코드 작성 규칙                        |
-| `scripts/ai/check-harness.mjs`    | 링크와 메타데이터 연결 검사               |
-| `docs/ai/evals`                   | 가상 요청으로 확인한 평가 사례와 결과     |
+| 위치                              | 내용                                           |
+| --------------------------------- | ---------------------------------------------- |
+| `.claude/skills/ject-jds-*`       | 스킬 원본. AI가 따르는 세부 절차예요           |
+| `.agents/skills/ject-jds-*`       | Codex용 상대 링크. 원본과 같은 파일이에요      |
+| `.claude/agents`, `.codex/agents` | FF 리뷰와 브라우저 검증 역할의 진입점          |
+| `packages/jds/AGENTS.md`          | JDS 코드 작성 규칙                             |
+| `scripts/ai/check-harness.mjs`    | 링크, 문서에 적힌 경로와 명령, 메타데이터 검사 |
+| `docs/ai/evals`                   | 가상 요청으로 확인한 평가 사례와 결과          |
 
 시작점은 [ject-jds-workflow](../../.claude/skills/ject-jds-workflow/SKILL.md)예요. 다른 스킬은 여기서 단계마다 연결돼요. 체인지셋, 타입, PR 템플릿 규칙은 기존 문서를 그대로 쓰고 하네스에 복사하지 않아요.
 
-고친 뒤에는 저장소 루트에서 연결을 검사해요. 이 검사는 링크와 메타데이터만 확인하고, AI가 실제로 스킬을 고르는지는 확인하지 않아요.
+하네스나 JDS 코드를 고친 뒤에는 저장소 루트에서 검사해요. 문서에 적힌 경로나 `npm run` 명령이 사라졌으면 어느 문서에 적힌 무엇인지 알려줘요. AI가 실제로 스킬을 고르는지는 확인하지 않아요.
 
 ```bash
-node scripts/ai/check-harness.mjs
+npm run check:harness
 ```
 
 ### 문체와 개선
