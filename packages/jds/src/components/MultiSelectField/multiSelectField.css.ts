@@ -29,14 +29,23 @@ export const input = style({
   selectors: {
     // native readonly는 searchable=false를 표현하는 용도로만 사용한다.
     "&:read-only:not(:disabled)": {
-      cursor: "default",
+      cursor: "inherit",
     },
     "&:disabled": {
       cursor: "not-allowed",
       vars: {
-        [inputTextColor]: vars.color.semantic.object.assistive,
+        [inputTextColor]: vars.color.semantic.object.subtle,
         [placeholderTextColor]: vars.color.semantic.object.subtler,
       },
+    },
+    // 포커스와 접근성 연결은 유지해야 하므로 요소는 남기고 배치에서만 뺀다.
+    "&[data-collapsed]": {
+      position: "absolute",
+      width: 1,
+      height: 1,
+      minWidth: 0,
+      opacity: 0,
+      pointerEvents: "none",
     },
   },
 });

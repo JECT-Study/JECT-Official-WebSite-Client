@@ -17,6 +17,7 @@ import {
 
 import { ContentBadge } from "../../Badge";
 import { FieldContent } from "../../Field";
+import * as fieldStyles from "../../Field/field.css";
 import { useFieldControl } from "../../Field/useFieldControl";
 import { useItemCounter } from "../../Field/useFieldCounter";
 import { Listbox, useListbox, useMultiSelectState } from "../../Listbox";
@@ -91,6 +92,8 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
     const isInteractive = !isDisabled && !isReadOnly;
 
     const { selectedValues, toggle, remove } = useMultiSelectState(value, defaultValue, onChange);
+    // 입력할 수 없는 상태에서는 입력칸이 칩 뒤 자리를 차지해 빈 줄을 만들지 않도록 흐름에서 뺀다.
+    const isInputCollapsed = !isInteractive && selectedValues.length > 0;
 
     const inputRef = useRef<HTMLInputElement>(null);
     const [query, setQuery] = useState("");
@@ -180,12 +183,15 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       setQuery("");
     };
 
+    // <fieldset disabled>처럼 prop 밖에서 비활성이 된 경우는 컨텍스트로 알 수 없으므로, 목록을 열 때 컨트롤의 native 상태를 함께 확인한다.
+    const canOpen = () => isInteractive && !inputRef.current?.matches(":disabled");
+
     const openIfInteractive = () => {
-      if (isInteractive && !isOpen) onOpenChange(true);
+      if (canOpen() && !isOpen) onOpenChange(true);
     };
 
     const handleContentPress = () => {
-      if (!isInteractive) return;
+      if (!canOpen()) return;
 
       if (searchable) openIfInteractive();
       else onOpenChange(!isOpen);
@@ -270,7 +276,9 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       <>
         <Popover.Anchor asChild>
           <FieldContent
+            controlType='button'
             ref={contentRef}
+            data-disabled={isDisabled || undefined}
             className={styles.content}
             onMouseDown={handleContentMouseDown}
           >
@@ -321,13 +329,16 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
               value={query}
               data-field-control=''
               data-readonly={isReadOnly || undefined}
+              data-collapsed={isInputCollapsed || undefined}
               className={clsx(getBodyClassName({ size: "md" }), styles.input, className)}
               onChange={handleChange}
               onBlur={handleBlur}
               onKeyDown={handleKeyDown}
               onMouseDown={handleMouseDown}
             />
-            {suffix != null && <span className={styles.suffix}>{suffix}</span>}
+            {suffix != null && (
+              <span className={clsx(fieldStyles.contentSlot, styles.suffix)}>{suffix}</span>
+            )}
             {name != null &&
               selectedValues.map(selected => (
                 <input

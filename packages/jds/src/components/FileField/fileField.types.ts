@@ -1,8 +1,10 @@
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
-import type { FieldProps } from "../Field";
+import type { FieldProps, FieldStatus } from "../Field";
 
-export type FileFieldProps = FieldProps;
+export interface FileFieldProps extends Omit<FieldProps, "status"> {
+  status?: Exclude<FieldStatus, "success">;
+}
 
 /**
  * 필드가 표시에 사용하는 값. `File`이 구조적으로 이 타입에 해당하므로 그대로 전달할 수 있고,
