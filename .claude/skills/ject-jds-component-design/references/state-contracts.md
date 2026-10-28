@@ -20,6 +20,7 @@
 - 표시 형식이 달라도 화면·접근성 트리·hidden input·FormData가 같은 날짜·빈값의 의미를 나타내야 한다. 표시 문자열과 제출 문자열을 억지로 동일하게 만들지 않는다. 해석 실패, 빈 값, readOnly, disabled, required, form 재연결, reset 취소를 확인한다.
 - 제한이 달력/목록에만 적용되는지 직접 입력에도 적용되는지 구분한다. 받지만 적용하지 않는 native prop은 타입에서 제외하거나 동작을 명시한다.
 - focus/open/dismiss는 lower primitive의 구현을 읽는다. 열기 출처와 선택 범위, disabled 전환 후 포커스의 대안을 정의한다.
+- Portal은 DOM 경계가 달라 부모 `fieldset`의 disabled가 전달되지 않는다. disabled/readOnly/required/invalid의 표시와 실제 HTML·ARIA 의미가 Portal 안에서도 일치하는지 확인한다.
 - 보이지 않는다고 해서 예약된 callback까지 없어졌다고 단정하지 않는다. 쓰기 가드를 제거할 때는 실제 수명과 이벤트 순서를 확인한다.
 
 ## 합성과 타입
