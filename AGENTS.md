@@ -50,6 +50,7 @@ npm run changeset
 - [체인지셋 작성 규약](docs/changeset-guide.md) — `.changeset/*.md`를 작성하거나 수정하기 전에 읽는다.
 - [타입 선언 규약](docs/type-convention.md) — `packages/jds`에서 타입을 선언하거나 옮기기 전에 읽는다.
 - [JDS 작업 지침](packages/jds/AGENTS.md) — `packages/jds`의 코드·스타일·스토리를 쓰거나 고치기 전에 읽는다. 파일 구조, compound·배럴, vanilla-extract, 아이콘, VRT 베이스라인 규칙이 있다.
+- [PR 작성](.claude/skills/ject-jds-workflow/references/pull-request.md) — PR 설명을 쓰거나 고치기 전에 읽는다. JDS 밖의 PR에도 같은 기준을 쓴다.
 
 ## JDS 개발 하네스
 
