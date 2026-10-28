@@ -2,7 +2,7 @@ import { clsx } from "clsx";
 import { forwardRef, useRef, useState, type ChangeEvent } from "react";
 
 import { IconButton } from "../../Button/IconButton";
-import { FieldContent } from "../../Field";
+import { FieldContent, FieldKbd } from "../../Field";
 import * as fieldStyles from "../../Field/field.css";
 import { useFieldControl } from "../../Field/useFieldControl";
 import { useTextLengthCounter } from "../../Field/useFieldCounter";
@@ -16,7 +16,7 @@ export const TextFieldInput = forwardRef<HTMLInputElement, TextFieldInputProps>(
   (
     {
       prefix,
-      suffix,
+      kbd,
       withClearButton = false,
       readOnly: readOnlyFromProps,
       disabled: disabledFromProps,
@@ -114,17 +114,19 @@ export const TextFieldInput = forwardRef<HTMLInputElement, TextFieldInputProps>(
           data-readonly={isReadOnly || undefined}
           className={clsx(getBodyClassName({ size: "md" }), styles.input, className)}
         />
-        {hasClearButton && (
-          <IconButton
-            hierarchy='tertiary'
-            size='md'
-            icon='x'
-            aria-label='입력 내용 지우기'
-            onClick={handleClear}
-          />
-        )}
-        {suffix != null && (
-          <span className={clsx(fieldStyles.contentSlot, styles.affix)}>{suffix}</span>
+        {(hasClearButton || kbd != null) && (
+          <span className={fieldStyles.contentTrailing}>
+            {hasClearButton && (
+              <IconButton
+                hierarchy='tertiary'
+                size='md'
+                icon='x'
+                aria-label='입력 내용 지우기'
+                onClick={handleClear}
+              />
+            )}
+            {kbd != null && <FieldKbd keys={kbd} disabled={isDisabled} />}
+          </span>
         )}
       </FieldContent>
     );

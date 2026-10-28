@@ -125,6 +125,24 @@ export const WithClearButton: Story = {
 };
 
 /**
+ * `kbd`로 단축키를 표시합니다. 최대 4개까지 지정할 수 있습니다.
+ */
+export const WithKbd: Story = {
+  render: () => (
+    <TextField style={FIELD_WIDTH}>
+      <TextField.Label>레이블</TextField.Label>
+      <TextField.Input
+        withClearButton
+        defaultValue='입력 값'
+        placeholder='플레이스홀더'
+        kbd={["⌘", "K"]}
+      />
+      <TextField.Helper>헬퍼 텍스트</TextField.Helper>
+    </TextField>
+  ),
+};
+
+/**
  * `maxLength`를 지정하면 `TextField.Counter`에 현재 글자 수와 최대 글자 수를 함께 표시합니다.
  */
 export const WithCounter: Story = {
