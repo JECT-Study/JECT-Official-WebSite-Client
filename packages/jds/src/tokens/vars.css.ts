@@ -1,11 +1,15 @@
 // 자동 생성된 VE 토큰 계약 - 수정 금지
-// 생성 시간: 5/24/2026, 8:29:30 PM
+// 생성 시간: 2026. 10. 12. 오전 12:38:31
 import { createGlobalThemeContract } from "@vanilla-extract/css";
 
 export const vars = createGlobalThemeContract(
   {
   "colorPrimitive": {
     "primitive": {
+      "base": {
+        "0": null,
+        "1000": null
+      },
       "flow": {
         "25": null,
         "50": null,
@@ -23,6 +27,24 @@ export const vars = createGlobalThemeContract(
         "800": null,
         "850": null,
         "900": null,
+        "alpha": {
+          "25": null,
+          "50": null,
+          "75": null,
+          "100": null,
+          "150": null,
+          "200": null,
+          "300": null,
+          "400": null,
+          "500": null,
+          "550": null,
+          "600": null,
+          "700": null,
+          "750": null,
+          "800": null,
+          "850": null,
+          "900": null
+        },
         "dark": {
           "25": null,
           "50": null,
@@ -58,24 +80,6 @@ export const vars = createGlobalThemeContract(
             "850": null,
             "900": null
           }
-        },
-        "alpha": {
-          "25": null,
-          "50": null,
-          "75": null,
-          "100": null,
-          "150": null,
-          "200": null,
-          "300": null,
-          "400": null,
-          "500": null,
-          "550": null,
-          "600": null,
-          "700": null,
-          "750": null,
-          "800": null,
-          "850": null,
-          "900": null
         }
       },
       "red": {
@@ -113,18 +117,6 @@ export const vars = createGlobalThemeContract(
           "850": null,
           "900": null
         }
-      },
-      "shade": {
-        "2": null,
-        "4": null,
-        "6": null,
-        "8": null,
-        "12": null,
-        "16": null
-      },
-      "base": {
-        "0": null,
-        "1000": null
       },
       "orange": {
         "25": null,
@@ -270,6 +262,42 @@ export const vars = createGlobalThemeContract(
           "900": null
         }
       },
+      "teal": {
+        "25": null,
+        "50": null,
+        "75": null,
+        "100": null,
+        "150": null,
+        "200": null,
+        "300": null,
+        "400": null,
+        "500": null,
+        "550": null,
+        "600": null,
+        "700": null,
+        "750": null,
+        "800": null,
+        "850": null,
+        "900": null,
+        "dark": {
+          "25": null,
+          "50": null,
+          "75": null,
+          "100": null,
+          "150": null,
+          "200": null,
+          "300": null,
+          "400": null,
+          "500": null,
+          "550": null,
+          "600": null,
+          "700": null,
+          "750": null,
+          "800": null,
+          "850": null,
+          "900": null
+        }
+      },
       "sky": {
         "25": null,
         "50": null,
@@ -307,6 +335,42 @@ export const vars = createGlobalThemeContract(
         }
       },
       "blue": {
+        "25": null,
+        "50": null,
+        "75": null,
+        "100": null,
+        "150": null,
+        "200": null,
+        "300": null,
+        "400": null,
+        "500": null,
+        "550": null,
+        "600": null,
+        "700": null,
+        "750": null,
+        "800": null,
+        "850": null,
+        "900": null,
+        "dark": {
+          "25": null,
+          "50": null,
+          "75": null,
+          "100": null,
+          "150": null,
+          "200": null,
+          "300": null,
+          "400": null,
+          "500": null,
+          "550": null,
+          "600": null,
+          "700": null,
+          "750": null,
+          "800": null,
+          "850": null,
+          "900": null
+        }
+      },
+      "indigo": {
         "25": null,
         "50": null,
         "75": null,
@@ -414,185 +478,121 @@ export const vars = createGlobalThemeContract(
           "900": null
         }
       },
-      "teal": {
-        "25": null,
-        "50": null,
-        "75": null,
-        "100": null,
-        "150": null,
-        "200": null,
-        "300": null,
-        "400": null,
-        "500": null,
-        "550": null,
-        "600": null,
-        "700": null,
-        "750": null,
-        "800": null,
-        "850": null,
-        "900": null,
-        "dark": {
-          "25": null,
-          "50": null,
-          "75": null,
-          "100": null,
-          "150": null,
-          "200": null,
-          "300": null,
-          "400": null,
-          "500": null,
-          "550": null,
-          "600": null,
-          "700": null,
-          "750": null,
-          "800": null,
-          "850": null,
-          "900": null
-        }
-      },
-      "indigo": {
-        "25": null,
-        "50": null,
-        "75": null,
-        "100": null,
-        "150": null,
-        "200": null,
-        "300": null,
-        "400": null,
-        "500": null,
-        "550": null,
-        "600": null,
-        "700": null,
-        "750": null,
-        "800": null,
-        "850": null,
-        "900": null,
-        "dark": {
-          "25": null,
-          "50": null,
-          "75": null,
-          "100": null,
-          "150": null,
-          "200": null,
-          "300": null,
-          "400": null,
-          "500": null,
-          "550": null,
-          "600": null,
-          "700": null,
-          "750": null,
-          "800": null,
-          "850": null,
-          "900": null
-        }
+      "shade": {
+        "2": null,
+        "4": null,
+        "6": null,
+        "8": null,
+        "12": null,
+        "16": null
       }
     }
   },
   "color": {
     "semantic": {
-      "accent": {
-        "alpha": {
-          "assistive": null,
-          "subtle": null,
-          "subtler": null,
-          "inverse": {
-            "subtle": null,
-            "subtler": null,
-            "subtlest": null,
-            "assistive": null,
-            "alternative": null,
-            "neutral": null
-          },
-          "subtlest": null,
-          "alternative": null,
-          "neutral": null
-        },
+      "object": {
+        "boldest": null,
+        "bolder": null,
         "bold": null,
         "normal": null,
-        "neutral": null,
-        "inverse": {
-          "bold": null,
-          "normal": null,
-          "neutral": null,
-          "assistive": null,
-          "subtle": null,
-          "bolder": null,
-          "subtler": null,
-          "subtlest": null,
-          "alternative": null
-        },
-        "assistive": null,
-        "subtle": null,
-        "subtler": null,
-        "bolder": null,
-        "subtlest": null,
-        "alternative": null
-      },
-      "object": {
         "neutral": null,
         "alternative": null,
         "assistive": null,
         "subtle": null,
+        "subtler": null,
+        "subtlest": null,
         "inverse": {
+          "boldest": null,
+          "bolder": null,
+          "bold": null,
+          "normal": null,
           "neutral": null,
           "alternative": null,
           "assistive": null,
           "subtle": null,
-          "boldest": null,
-          "bold": null,
-          "bolder": null,
-          "normal": null,
           "subtler": null,
           "subtlest": null
         },
-        "boldest": null,
-        "bold": null,
         "static": {
           "boldest": null,
+          "bolder": null,
           "bold": null,
+          "normal": null,
           "neutral": null,
           "alternative": null,
           "assistive": null,
           "subtle": null,
+          "subtler": null,
+          "subtlest": null,
           "inverse": {
             "boldest": null,
+            "bolder": null,
             "bold": null,
+            "normal": null,
             "neutral": null,
             "alternative": null,
             "assistive": null,
             "subtle": null,
-            "bolder": null,
-            "normal": null,
             "subtler": null,
             "subtlest": null
-          },
+          }
+        }
+      },
+      "accent": {
+        "bolder": null,
+        "bold": null,
+        "normal": null,
+        "neutral": null,
+        "alternative": null,
+        "assistive": null,
+        "subtle": null,
+        "subtler": null,
+        "subtlest": null,
+        "inverse": {
           "bolder": null,
+          "bold": null,
           "normal": null,
+          "neutral": null,
+          "alternative": null,
+          "assistive": null,
+          "subtle": null,
           "subtler": null,
           "subtlest": null
         },
-        "bolder": null,
-        "normal": null,
-        "subtler": null,
-        "subtlest": null
+        "alpha": {
+          "neutral": null,
+          "alternative": null,
+          "assistive": null,
+          "subtle": null,
+          "subtler": null,
+          "subtlest": null,
+          "inverse": {
+            "neutral": null,
+            "alternative": null,
+            "assistive": null,
+            "subtle": null,
+            "subtler": null,
+            "subtlest": null
+          }
+        }
       },
       "surface": {
+        "shallowest": null,
+        "shallower": null,
+        "shallow": null,
         "standard": null,
         "deep": null,
         "deeper": null,
         "deepest": null,
         "inverse": {
+          "shallowest": null,
+          "shallower": null,
+          "shallow": null,
           "standard": null,
           "deep": null,
           "deeper": null,
-          "deepest": null,
-          "shallow": null,
-          "shallower": null,
-          "shallowest": null
+          "deepest": null
         },
-        "shallow": null,
-        "shallower": null,
-        "shallowest": null,
         "static": {
           "shallowest": null,
           "shallower": null,
@@ -612,12 +612,33 @@ export const vars = createGlobalThemeContract(
           }
         }
       },
+      "curtain": {
+        "standard": null,
+        "static": {
+          "bright": null,
+          "dim": null,
+          "dimmer": null
+        }
+      },
       "stroke": {
+        "bold": null,
+        "normal": null,
         "neutral": null,
         "alternative": null,
         "assistive": null,
-        "normal": null,
-        "bold": null,
+        "subtle": null,
+        "subtler": null,
+        "subtlest": null,
+        "inverse": {
+          "bold": null,
+          "normal": null,
+          "neutral": null,
+          "alternative": null,
+          "assistive": null,
+          "subtle": null,
+          "subtler": null,
+          "subtlest": null
+        },
         "alpha": {
           "bold": null,
           "normal": null,
@@ -625,6 +646,8 @@ export const vars = createGlobalThemeContract(
           "alternative": null,
           "assistive": null,
           "subtle": null,
+          "subtler": null,
+          "subtlest": null,
           "inverse": {
             "bold": null,
             "normal": null,
@@ -634,12 +657,23 @@ export const vars = createGlobalThemeContract(
             "subtle": null,
             "subtler": null,
             "subtlest": null
-          },
-          "subtler": null,
-          "subtlest": null
-        },
+          }
+        }
+      },
+      "fill": {
+        "boldest": null,
+        "bolder": null,
+        "bold": null,
+        "normal": null,
+        "neutral": null,
+        "alternative": null,
+        "assistive": null,
         "subtle": null,
+        "subtler": null,
+        "subtlest": null,
         "inverse": {
+          "boldest": null,
+          "bolder": null,
           "bold": null,
           "normal": null,
           "neutral": null,
@@ -648,59 +682,30 @@ export const vars = createGlobalThemeContract(
           "subtle": null,
           "subtler": null,
           "subtlest": null
-        },
-        "subtler": null,
-        "subtlest": null
+        }
       },
-      "fill": {
-        "boldest": null,
-        "bold": null,
-        "inverse": {
-          "boldest": null,
+      "theme": {
+        "red": {
+          "bolder": null,
           "bold": null,
+          "normal": null,
           "neutral": null,
           "alternative": null,
           "assistive": null,
           "subtle": null,
           "subtler": null,
           "subtlest": null,
-          "bolder": null,
-          "normal": null
-        },
-        "subtle": null,
-        "subtler": null,
-        "subtlest": null,
-        "bolder": null,
-        "normal": null,
-        "neutral": null,
-        "alternative": null,
-        "assistive": null
-      },
-      "system": {
-        "white": null,
-        "black": null
-      },
-      "theme": {
-        "red": {
-          "bold": null,
-          "normal": null,
-          "neutral": null,
-          "alternative": null,
-          "assistive": null,
-          "subtle": null,
-          "subtler": null,
           "alpha": {
+            "neutral": null,
+            "alternative": null,
             "assistive": null,
             "subtle": null,
             "subtler": null,
-            "subtlest": null,
-            "alternative": null,
-            "neutral": null
-          },
-          "bolder": null,
-          "subtlest": null
+            "subtlest": null
+          }
         },
         "orange": {
+          "bolder": null,
           "bold": null,
           "normal": null,
           "neutral": null,
@@ -708,18 +713,18 @@ export const vars = createGlobalThemeContract(
           "assistive": null,
           "subtle": null,
           "subtler": null,
+          "subtlest": null,
           "alpha": {
+            "neutral": null,
+            "alternative": null,
             "assistive": null,
             "subtle": null,
             "subtler": null,
-            "subtlest": null,
-            "alternative": null,
-            "neutral": null
-          },
-          "bolder": null,
-          "subtlest": null
+            "subtlest": null
+          }
         },
         "yellow": {
+          "bolder": null,
           "bold": null,
           "normal": null,
           "neutral": null,
@@ -727,18 +732,18 @@ export const vars = createGlobalThemeContract(
           "assistive": null,
           "subtle": null,
           "subtler": null,
+          "subtlest": null,
           "alpha": {
+            "neutral": null,
+            "alternative": null,
             "assistive": null,
             "subtle": null,
             "subtler": null,
-            "subtlest": null,
-            "alternative": null,
-            "neutral": null
-          },
-          "bolder": null,
-          "subtlest": null
+            "subtlest": null
+          }
         },
         "lime": {
+          "bolder": null,
           "bold": null,
           "normal": null,
           "neutral": null,
@@ -746,18 +751,18 @@ export const vars = createGlobalThemeContract(
           "assistive": null,
           "subtle": null,
           "subtler": null,
+          "subtlest": null,
           "alpha": {
+            "neutral": null,
+            "alternative": null,
             "assistive": null,
             "subtle": null,
             "subtler": null,
-            "subtlest": null,
-            "alternative": null,
-            "neutral": null
-          },
-          "bolder": null,
-          "subtlest": null
+            "subtlest": null
+          }
         },
         "green": {
+          "bolder": null,
           "bold": null,
           "normal": null,
           "neutral": null,
@@ -765,18 +770,18 @@ export const vars = createGlobalThemeContract(
           "assistive": null,
           "subtle": null,
           "subtler": null,
+          "subtlest": null,
           "alpha": {
+            "neutral": null,
+            "alternative": null,
             "assistive": null,
             "subtle": null,
             "subtler": null,
-            "subtlest": null,
-            "alternative": null,
-            "neutral": null
-          },
-          "bolder": null,
-          "subtlest": null
+            "subtlest": null
+          }
         },
         "teal": {
+          "bolder": null,
           "bold": null,
           "normal": null,
           "neutral": null,
@@ -784,18 +789,18 @@ export const vars = createGlobalThemeContract(
           "assistive": null,
           "subtle": null,
           "subtler": null,
+          "subtlest": null,
           "alpha": {
+            "neutral": null,
+            "alternative": null,
             "assistive": null,
             "subtle": null,
             "subtler": null,
-            "subtlest": null,
-            "alternative": null,
-            "neutral": null
-          },
-          "bolder": null,
-          "subtlest": null
+            "subtlest": null
+          }
         },
         "sky": {
+          "bolder": null,
           "bold": null,
           "normal": null,
           "neutral": null,
@@ -803,54 +808,15 @@ export const vars = createGlobalThemeContract(
           "assistive": null,
           "subtle": null,
           "subtler": null,
+          "subtlest": null,
           "alpha": {
+            "neutral": null,
+            "alternative": null,
             "assistive": null,
             "subtle": null,
             "subtler": null,
-            "subtlest": null,
-            "alternative": null,
-            "neutral": null
-          },
-          "bolder": null,
-          "subtlest": null
-        },
-        "purple": {
-          "bold": null,
-          "normal": null,
-          "neutral": null,
-          "alternative": null,
-          "assistive": null,
-          "subtle": null,
-          "subtler": null,
-          "alpha": {
-            "assistive": null,
-            "subtle": null,
-            "subtler": null,
-            "subtlest": null,
-            "alternative": null,
-            "neutral": null
-          },
-          "bolder": null,
-          "subtlest": null
-        },
-        "pink": {
-          "bold": null,
-          "normal": null,
-          "neutral": null,
-          "alternative": null,
-          "assistive": null,
-          "subtle": null,
-          "subtler": null,
-          "alpha": {
-            "assistive": null,
-            "subtle": null,
-            "subtler": null,
-            "subtlest": null,
-            "alternative": null,
-            "neutral": null
-          },
-          "bolder": null,
-          "subtlest": null
+            "subtlest": null
+          }
         },
         "indigo": {
           "bolder": null,
@@ -863,44 +829,66 @@ export const vars = createGlobalThemeContract(
           "subtler": null,
           "subtlest": null,
           "alpha": {
+            "neutral": null,
             "alternative": null,
             "assistive": null,
             "subtle": null,
             "subtler": null,
-            "subtlest": null,
-            "neutral": null
+            "subtlest": null
+          }
+        },
+        "purple": {
+          "bolder": null,
+          "bold": null,
+          "normal": null,
+          "neutral": null,
+          "alternative": null,
+          "assistive": null,
+          "subtle": null,
+          "subtler": null,
+          "subtlest": null,
+          "alpha": {
+            "neutral": null,
+            "alternative": null,
+            "assistive": null,
+            "subtle": null,
+            "subtler": null,
+            "subtlest": null
+          }
+        },
+        "pink": {
+          "bolder": null,
+          "bold": null,
+          "normal": null,
+          "neutral": null,
+          "alternative": null,
+          "assistive": null,
+          "subtle": null,
+          "subtler": null,
+          "subtlest": null,
+          "alpha": {
+            "neutral": null,
+            "alternative": null,
+            "assistive": null,
+            "subtle": null,
+            "subtler": null,
+            "subtlest": null
           }
         }
       },
-      "curtain": {
-        "static": {
-          "bright": null,
-          "dim": null,
-          "dimmer": null
-        },
-        "standard": null
-      },
       "feedback": {
         "positive": {
-          "alpha": {
-            "subtle": null,
-            "assistive": null,
-            "subtler": null,
-            "inverse": {
-              "assistive": null,
-              "subtle": null,
-              "subtler": null,
-              "subtlest": null,
-              "alternative": null,
-              "neutral": null
-            },
-            "subtlest": null,
-            "alternative": null,
-            "neutral": null
-          },
-          "normal": null,
+          "bolder": null,
           "bold": null,
+          "normal": null,
+          "neutral": null,
+          "alternative": null,
+          "assistive": null,
+          "subtle": null,
+          "subtler": null,
+          "subtlest": null,
           "inverse": {
+            "bolder": null,
             "bold": null,
             "normal": null,
             "neutral": null,
@@ -908,20 +896,37 @@ export const vars = createGlobalThemeContract(
             "assistive": null,
             "subtle": null,
             "subtler": null,
-            "bolder": null,
             "subtlest": null
           },
-          "assistive": null,
-          "subtler": null,
-          "neutral": null,
-          "alternative": null,
-          "subtle": null,
-          "bolder": null,
-          "subtlest": null
+          "alpha": {
+            "neutral": null,
+            "alternative": null,
+            "assistive": null,
+            "subtle": null,
+            "subtler": null,
+            "subtlest": null,
+            "inverse": {
+              "neutral": null,
+              "alternative": null,
+              "assistive": null,
+              "subtle": null,
+              "subtler": null,
+              "subtlest": null
+            }
+          }
         },
         "destructive": {
+          "bolder": null,
           "bold": null,
+          "normal": null,
+          "neutral": null,
+          "alternative": null,
+          "assistive": null,
+          "subtle": null,
+          "subtler": null,
+          "subtlest": null,
           "inverse": {
+            "bolder": null,
             "bold": null,
             "normal": null,
             "neutral": null,
@@ -929,35 +934,27 @@ export const vars = createGlobalThemeContract(
             "assistive": null,
             "subtle": null,
             "subtler": null,
-            "bolder": null,
             "subtlest": null
           },
-          "normal": null,
           "alpha": {
+            "neutral": null,
+            "alternative": null,
             "assistive": null,
             "subtle": null,
             "subtler": null,
+            "subtlest": null,
             "inverse": {
+              "neutral": null,
+              "alternative": null,
               "assistive": null,
               "subtle": null,
               "subtler": null,
-              "subtlest": null,
-              "alternative": null,
-              "neutral": null
-            },
-            "subtlest": null,
-            "alternative": null,
-            "neutral": null
-          },
-          "neutral": null,
-          "alternative": null,
-          "assistive": null,
-          "subtle": null,
-          "subtler": null,
-          "bolder": null,
-          "subtlest": null
+              "subtlest": null
+            }
+          }
         },
         "notifying": {
+          "bolder": null,
           "bold": null,
           "normal": null,
           "neutral": null,
@@ -965,7 +962,9 @@ export const vars = createGlobalThemeContract(
           "assistive": null,
           "subtle": null,
           "subtler": null,
+          "subtlest": null,
           "inverse": {
+            "bolder": null,
             "bold": null,
             "normal": null,
             "neutral": null,
@@ -973,27 +972,8 @@ export const vars = createGlobalThemeContract(
             "assistive": null,
             "subtle": null,
             "subtler": null,
-            "bolder": null,
             "subtlest": null
           },
-          "alpha": {
-            "assistive": null,
-            "subtle": null,
-            "subtler": null,
-            "inverse": {
-              "assistive": null,
-              "subtle": null,
-              "subtler": null,
-              "subtlest": null,
-              "alternative": null,
-              "neutral": null
-            },
-            "subtlest": null,
-            "alternative": null,
-            "neutral": null
-          },
-          "bolder": null,
-          "subtlest": null,
           "static": {
             "bolder": null,
             "bold": null,
@@ -1015,12 +995,61 @@ export const vars = createGlobalThemeContract(
               "subtler": null,
               "subtlest": null
             }
+          },
+          "alpha": {
+            "neutral": null,
+            "alternative": null,
+            "assistive": null,
+            "subtle": null,
+            "subtler": null,
+            "subtlest": null,
+            "inverse": {
+              "neutral": null,
+              "alternative": null,
+              "assistive": null,
+              "subtle": null,
+              "subtler": null,
+              "subtlest": null
+            }
           }
         }
+      },
+      "system": {
+        "white": null,
+        "black": null
       }
     }
   },
   "scheme": {
+    "primitive": {
+      "unit": {
+        "0": null,
+        "1": null,
+        "2": null,
+        "3": null,
+        "4": null,
+        "5": null,
+        "6": null,
+        "8": null,
+        "10": null,
+        "12": null,
+        "16": null,
+        "20": null,
+        "24": null,
+        "28": null,
+        "32": null,
+        "40": null,
+        "48": null,
+        "56": null,
+        "64": null,
+        "72": null,
+        "80": null,
+        "96": null,
+        "112": null,
+        "128": null,
+        "144": null
+      }
+    },
     "semantic": {
       "spacing": {
         "0": null,
@@ -1060,6 +1089,19 @@ export const vars = createGlobalThemeContract(
         "24": null,
         "max": null
       },
+      "margin": {
+        "6xl": null,
+        "5xl": null,
+        "4xl": null,
+        "3xl": null,
+        "2xl": null,
+        "xl": null,
+        "lg": null,
+        "md": null,
+        "sm": null,
+        "xs": null,
+        "2xs": null
+      },
       "strokeWeight": {
         "1": null,
         "2": null,
@@ -1084,23 +1126,6 @@ export const vars = createGlobalThemeContract(
         "91": null,
         "100": null
       },
-      "breakpoint": {
-        "min": null,
-        "max": null
-      },
-      "margin": {
-        "lg": null,
-        "md": null,
-        "sm": null,
-        "xl": null,
-        "2xl": null,
-        "3xl": null,
-        "xs": null,
-        "2xs": null,
-        "4xl": null,
-        "5xl": null,
-        "6xl": null
-      },
       "position": {
         "0": null,
         "1": null,
@@ -1112,39 +1137,28 @@ export const vars = createGlobalThemeContract(
         "12": null,
         "16": null,
         "24": null
-      }
-    },
-    "primitive": {
-      "unit": {
-        "0": null,
-        "1": null,
-        "2": null,
-        "3": null,
-        "4": null,
-        "5": null,
-        "6": null,
-        "8": null,
-        "10": null,
-        "12": null,
-        "16": null,
-        "20": null,
-        "24": null,
-        "28": null,
-        "32": null,
-        "40": null,
-        "48": null,
-        "56": null,
-        "64": null,
-        "72": null,
-        "80": null,
-        "96": null,
-        "112": null,
-        "128": null,
-        "144": null
+      },
+      "breakpoint": {
+        "min": null,
+        "max": null
       }
     }
   },
   "environment": {
+    "primitive": {
+      "time": {
+        "50": null,
+        "100": null,
+        "150": null,
+        "200": null,
+        "250": null,
+        "300": null,
+        "350": null,
+        "400": null,
+        "450": null,
+        "500": null
+      }
+    },
     "semantic": {
       "duration": {
         "50": null,
@@ -1159,10 +1173,10 @@ export const vars = createGlobalThemeContract(
         "500": null
       },
       "motion": {
-        "bouncy": null,
         "fluent": null,
-        "leave": null,
-        "entrance": null
+        "bouncy": null,
+        "entrance": null,
+        "leave": null
       },
       "shadow": {
         "embossed": null,
@@ -1177,29 +1191,15 @@ export const vars = createGlobalThemeContract(
         "floated": null,
         "overlay": null
       }
-    },
-    "primitive": {
-      "time": {
-        "50": null,
-        "100": null,
-        "150": null,
-        "200": null,
-        "250": null,
-        "300": null,
-        "350": null,
-        "400": null,
-        "450": null,
-        "500": null
-      }
     }
   },
   "typo": {
     "primitive": {
       "typeface": {
-        "syntax": null,
         "title": null,
         "label": null,
-        "body": null
+        "body": null,
+        "syntax": null
       },
       "fontSize": {
         "title": {
@@ -1210,6 +1210,12 @@ export const vars = createGlobalThemeContract(
           "5": null,
           "6": null
         },
+        "label": {
+          "lg": null,
+          "md": null,
+          "sm": null,
+          "xs": null
+        },
         "body": {
           "lg": null,
           "md": null,
@@ -1217,17 +1223,30 @@ export const vars = createGlobalThemeContract(
           "xs": null,
           "2xs": null
         },
-        "label": {
-          "lg": null,
-          "md": null,
-          "sm": null,
-          "xs": null
-        },
         "syntax": {
           "lg": null,
           "md": null,
           "sm": null,
           "xs": null
+        }
+      },
+      "fontWeight": {
+        "title": {
+          "bold": null,
+          "normal": null,
+          "subtle": null
+        },
+        "label": {
+          "bold": null,
+          "normal": null,
+          "subtle": null
+        },
+        "body": {
+          "bold": null,
+          "normal": null
+        },
+        "syntax": {
+          "normal": null
         }
       },
       "font": {
@@ -1281,26 +1300,13 @@ export const vars = createGlobalThemeContract(
             "sm": null,
             "xs": null,
             "2xs": null
+          },
+          "syntax": {
+            "lg": null,
+            "md": null,
+            "sm": null,
+            "xs": null
           }
-        }
-      },
-      "fontWeight": {
-        "title": {
-          "normal": null,
-          "bold": null,
-          "subtle": null
-        },
-        "label": {
-          "normal": null,
-          "bold": null,
-          "subtle": null
-        },
-        "body": {
-          "normal": null,
-          "bold": null
-        },
-        "syntax": {
-          "normal": null
         }
       }
     }

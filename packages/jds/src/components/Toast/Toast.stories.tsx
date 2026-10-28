@@ -4,9 +4,12 @@ import { LiveRegionDemo, type LiveRegionScenario } from "@storybook-utils/LiveRe
 
 import { Toast } from "./Toast";
 import { useToast } from "./toast.context";
+import type { ToastFeedback } from "./toast.types";
 import { toastController } from "./toastController";
 import { ToastProvider } from "./ToastProvider";
 import { BlockButton } from "../Button/BlockButton";
+
+const TOAST_FEEDBACKS: ToastFeedback[] = ["none", "positive", "destructive", "notifying"];
 
 const meta: Meta<typeof Toast> = {
   title: "Components/Toast",
@@ -15,6 +18,11 @@ const meta: Meta<typeof Toast> = {
     layout: "centered",
   },
   argTypes: {
+    feedback: {
+      description: "토스트 피드백 속성을 지정합니다.",
+      control: "radio",
+      options: ["none", "positive", "destructive", "notifying"],
+    },
     title: {
       description: "토스트 타이틀 텍스트입니다.",
       control: "text",
@@ -44,19 +52,26 @@ export const Basic: StoryObj<typeof Toast> = {
 
 export const Feedback: StoryObj<typeof Toast> = {
   argTypes: {
-    feedback: {
-      description: "토스트 피드백 속성을 지정합니다.",
-      control: "radio",
-      options: ["none", "positive", "destructive", "notifying"],
-    },
+    feedback: { control: false },
+    title: { control: false },
   },
   args: {
-    feedback: "positive",
-    title: "토스트 제목 레이블",
     description: "설명 텍스트",
     duration: Infinity,
   },
-  render: ({ id = "toast-1", ...args }) => <Toast id={id} {...args} />,
+  render: args => (
+    <FlexColumn>
+      {TOAST_FEEDBACKS.map(feedback => (
+        <Toast
+          key={feedback}
+          {...args}
+          id={`toast-${feedback}`}
+          feedback={feedback}
+          title={feedback}
+        />
+      ))}
+    </FlexColumn>
+  ),
 };
 
 export const UseToastProvider: StoryObj<typeof Toast> = {
