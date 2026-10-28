@@ -6,12 +6,13 @@ AI 코딩 에이전트가 이 저장소에서 작업할 때 참고하는 가이�
 
 JECT 공식 웹사이트와 디자인 시스템(JDS)을 담은 npm workspaces + Turborepo 모노레포.
 
-| 경로            | 패키지                         | 역할                 |
-| --------------- | ------------------------------ | -------------------- |
-| `apps/web`      | `ject-official-website-client` | 공식 웹사이트        |
-| `packages/jds`  | `@jects/jds`                   | 디자인 시스템        |
-| `packages/vrt`  | `@jects/vrt`                   | JDS 시각 회귀 테스트 |
-| `config/eslint` | `@ject/eslint-config`          | 공유 ESLint 설정     |
+| 경로                        | 패키지                         | 역할                                           |
+| --------------------------- | ------------------------------ | ---------------------------------------------- |
+| `apps/web`                  | `ject-official-website-client` | 공식 웹사이트                                  |
+| `packages/jds`              | `@jects/jds`                   | 디자인 시스템                                  |
+| `packages/vrt`              | `@jects/vrt`                   | JDS 시각 회귀 테스트                           |
+| `packages/figma-token-sync` | `@jects/figma-token-sync`      | Figma 변수를 JDS 토큰 입력으로 보내는 플러그인 |
+| `config/eslint`             | `@ject/eslint-config`          | 공유 ESLint 설정                               |
 
 JDS는 vanilla-extract로 스타일링하고 `radix-ui`를 기반으로 동작을 만든다. Emotion은 제거 예정이다.
 
