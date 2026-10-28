@@ -2,7 +2,7 @@ import { createVar, style, type StyleRule } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
 
-import type { FieldStatus } from "./field.types";
+import type { FieldControlType, FieldStatus } from "./field.types";
 
 export const container = recipe({
   base: {
@@ -16,6 +16,8 @@ const FIELD_CONTROL = "[data-field-control]";
 const controlDisabledSelector = `${container.classNames.base}:has(${FIELD_CONTROL}:disabled) &`;
 const contentDisabledSelector = `&:has(${FIELD_CONTROL}:disabled)`;
 const contentReadonlySelector = `&:has(${FIELD_CONTROL}[data-readonly])`;
+
+const requiredMarkDisabledOpacity = `calc(${vars.scheme.semantic.opacity["44"]} / 100)`;
 
 export const labelContainer = style({
   display: "flex",
@@ -55,35 +57,55 @@ export const label = recipe({
   },
 });
 
-export const requiredMark = recipe({
+export const labelSuffix = recipe({
   base: {
-    display: "flex",
+    display: "inline-flex",
     alignItems: "center",
-    cursor: "default",
-    marginTop: -2,
     selectors: {
       [controlDisabledSelector]: {
-        color: vars.color.semantic.feedback.notifying.alpha.inverse.assistive,
+        color: vars.color.semantic.object.subtle,
       },
     },
   },
   variants: {
     disabled: {
       true: {
-        color: vars.color.semantic.feedback.notifying.alpha.inverse.assistive,
+        color: vars.color.semantic.object.subtle,
       },
       false: {
-        color: vars.color.semantic.feedback.notifying.static.inverse.bold,
+        color: vars.color.semantic.object.alternative,
       },
+    },
+  },
+});
+
+export const requiredMark = recipe({
+  base: {
+    display: "flex",
+    alignItems: "center",
+    cursor: "default",
+    marginTop: -2,
+    color: vars.color.semantic.feedback.notifying.static.inverse.bold,
+    selectors: {
+      [controlDisabledSelector]: {
+        opacity: requiredMarkDisabledOpacity,
+      },
+    },
+  },
+  variants: {
+    disabled: {
+      true: {
+        opacity: requiredMarkDisabledOpacity,
+      },
+      false: { opacity: 1 },
     },
   },
 });
 
 const contentVars = {
   borderColor: createVar(),
-  borderHoverColor: createVar(),
   borderFocusColor: createVar(),
-  backgroundColor: createVar(),
+  backgroundLayer: createVar(),
 } as const;
 
 export const content = recipe({
@@ -93,16 +115,23 @@ export const content = recipe({
     alignItems: "center",
     flex: "1 0 0",
     minWidth: 0,
-    gap: vars.scheme.semantic.spacing["8"],
-    padding: `${vars.scheme.semantic.spacing["8"]} ${vars.scheme.semantic.spacing["12"]}`,
+    gap: `${vars.scheme.semantic.spacing["6"]} ${vars.scheme.semantic.spacing["8"]}`,
+    padding: `${vars.scheme.semantic.spacing["6"]} ${vars.scheme.semantic.spacing["10"]}`,
     borderRadius: vars.scheme.semantic.radius["8"],
-    borderWidth: vars.scheme.semantic.strokeWeight["1"],
-    borderStyle: "solid",
-    borderColor: contentVars.borderColor,
-    backgroundColor: contentVars.backgroundColor,
-    transition: `border-color ${vars.environment.semantic.duration["100"]} ${vars.environment.semantic.motion.fluent}`,
+    // 테두리가 박스 크기를 늘리지 않도록 inset box-shadow로 안쪽에 그린다.
+    boxShadow: `inset 0 0 0 ${vars.scheme.semantic.strokeWeight["1"]} ${contentVars.borderColor}`,
+    // readonly 배경이 반투명해 아래 색이 비치지 않도록 불투명한 surface 위에 레이어를 한 겹 올린다.
+    backgroundColor: vars.color.semantic.surface.standard,
+    backgroundImage: `linear-gradient(${contentVars.backgroundLayer}, ${contentVars.backgroundLayer})`,
+    transition: `box-shadow ${vars.environment.semantic.duration["100"]} ${vars.environment.semantic.motion.fluent}`,
     vars: {
-      [contentVars.backgroundColor]: vars.color.semantic.surface.standard,
+      [contentVars.backgroundLayer]: "transparent",
+    },
+    "@media": {
+      // 고대비 모드는 box-shadow를 지우므로 테두리를 border로 되살린다.
+      "(forced-colors: active)": {
+        border: `${vars.scheme.semantic.strokeWeight["1"]} solid currentColor`,
+      },
     },
     selectors: {
       "&::after": {
@@ -110,23 +139,26 @@ export const content = recipe({
         borderRadius: "inherit",
       },
       "&::before": {
-        inset: `calc(-1 * ${vars.scheme.semantic.strokeWeight["1"]})`,
+        inset: 0,
         borderRadius: "inherit",
         transition: `box-shadow ${vars.environment.semantic.duration["100"]} ${vars.environment.semantic.motion.fluent}`,
       },
-      "&:hover": {
-        borderColor: contentVars.borderHoverColor,
-      },
       "&:focus-within": {
-        borderColor: contentVars.borderFocusColor,
-      },
-      // 상태는 루트(컨텍스트)뿐 아니라 컨트롤에서도 덮어쓸 수 있으므로, 컨테이너가 실제 컨트롤 상태를 함께 반영하도록 native 상태를 읽는다.
-      [contentDisabledSelector]: {
-        pointerEvents: "none",
+        boxShadow: `inset 0 0 0 ${vars.scheme.semantic.strokeWeight["1"]} ${contentVars.borderFocusColor}`,
       },
       // native :read-only는 type에 따라 오탐할 수 있어 컨트롤이 내려준 data 속성을 사용한다.
+      // readonly는 포커스 링만 그리고 테두리 색은 유지한다.
       [contentReadonlySelector]: {
-        vars: { [contentVars.backgroundColor]: vars.color.semantic.fill.subtlest },
+        cursor: "default",
+        vars: {
+          [contentVars.backgroundLayer]: vars.color.semantic.fill.subtlest,
+          [contentVars.borderFocusColor]: contentVars.borderColor,
+        },
+      },
+      // 상태는 루트(컨텍스트)뿐 아니라 컨트롤에서도 덮어쓸 수 있으므로, 컨테이너가 실제 컨트롤 상태를 함께 반영하도록 native 상태를 읽는다.
+      // readonly와 겹치면 disabled 커서가 이기도록 뒤에 선언한다.
+      [contentDisabledSelector]: {
+        cursor: "not-allowed",
       },
     },
   },
@@ -135,7 +167,6 @@ export const content = recipe({
       default: {
         vars: {
           [contentVars.borderColor]: vars.color.semantic.stroke.alpha.assistive,
-          [contentVars.borderHoverColor]: vars.color.semantic.accent.normal,
           [contentVars.borderFocusColor]: vars.color.semantic.accent.normal,
         },
         selectors: {
@@ -147,7 +178,6 @@ export const content = recipe({
       success: {
         vars: {
           [contentVars.borderColor]: vars.color.semantic.feedback.positive.alpha.alternative,
-          [contentVars.borderHoverColor]: vars.color.semantic.feedback.positive.normal,
           [contentVars.borderFocusColor]: vars.color.semantic.feedback.positive.normal,
         },
         selectors: {
@@ -159,7 +189,6 @@ export const content = recipe({
       error: {
         vars: {
           [contentVars.borderColor]: vars.color.semantic.feedback.destructive.alpha.alternative,
-          [contentVars.borderHoverColor]: vars.color.semantic.feedback.destructive.normal,
           [contentVars.borderFocusColor]: vars.color.semantic.feedback.destructive.normal,
         },
         selectors: {
@@ -171,15 +200,24 @@ export const content = recipe({
         },
       },
     } satisfies Record<FieldStatus, StyleRule>,
+    controlType: {
+      input: {},
+      button: { cursor: "pointer" },
+      textarea: { paddingBlock: vars.scheme.semantic.spacing["8"] },
+    } satisfies Record<FieldControlType, StyleRule>,
     readOnly: {
       true: {
-        vars: { [contentVars.backgroundColor]: vars.color.semantic.fill.subtlest },
+        cursor: "default",
+        vars: {
+          [contentVars.backgroundLayer]: vars.color.semantic.fill.subtlest,
+          [contentVars.borderFocusColor]: contentVars.borderColor,
+        },
       },
       false: {},
     },
     disabled: {
       true: {
-        pointerEvents: "none",
+        cursor: "not-allowed",
       },
       false: {},
     },
@@ -202,6 +240,22 @@ export const content = recipe({
       },
     },
   ],
+});
+
+// 소비처가 박스 안에 넣는 prefix, suffix를 감싼다.
+// 박스는 disabled 커서를 보이도록 이벤트를 받으므로, 소비처 요소는 여기서 이벤트를 막는다.
+export const contentSlot = style({
+  color: vars.color.semantic.object.alternative,
+  selectors: {
+    [`${content.classNames.base}:has(${FIELD_CONTROL}:disabled) &`]: {
+      color: vars.color.semantic.object.subtler,
+      pointerEvents: "none",
+    },
+    [`${content.classNames.variants.disabled.true} &`]: {
+      color: vars.color.semantic.object.subtler,
+      pointerEvents: "none",
+    },
+  },
 });
 
 const disabledSupportTextColor = {

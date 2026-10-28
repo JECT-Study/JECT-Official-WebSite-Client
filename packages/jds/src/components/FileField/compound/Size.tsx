@@ -38,7 +38,7 @@ export const FileFieldSize = forwardRef<HTMLSpanElement, FileFieldSizeProps>(
         ref={ref}
         id={counterId}
         className={clsx(
-          getLabelClassName({ size: "sm" }),
+          getLabelClassName({ size: "sm", weight: "subtle" }),
           fieldStyles.supportText({ status, disabled: isDisabled }),
           fieldStyles.counter,
           className,

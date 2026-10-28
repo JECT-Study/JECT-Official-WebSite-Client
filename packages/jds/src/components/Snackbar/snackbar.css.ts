@@ -53,7 +53,7 @@ export const root = recipe({
     padding: `${vars.scheme.semantic.spacing["12"]} ${vars.scheme.semantic.spacing["16"]}`,
     borderRadius: vars.scheme.semantic.radius["10"],
     backgroundColor: vars.color.semantic.surface.shallow,
-    boxShadow: `inset 0 0 0 ${vars.scheme.semantic.strokeWeight["1"]} ${vars.color.semantic.stroke.subtle}, ${vars.environment.semantic.shadow.overlay}`,
+    boxShadow: `inset 0 0 0 ${vars.scheme.semantic.strokeWeight["1"]} ${vars.color.semantic.stroke.subtle}, ${vars.environment.semantic.shadow.floated}`,
     pointerEvents: "auto",
   },
   variants: {
@@ -124,7 +124,7 @@ export const icon = recipe({
       none: {},
       positive: { color: vars.color.semantic.feedback.positive.normal },
       destructive: { color: vars.color.semantic.feedback.destructive.normal },
-      notifying: { color: vars.color.semantic.feedback.notifying.inverse.bold },
+      notifying: { color: vars.color.semantic.feedback.notifying.static.inverse.bold },
     } satisfies Record<SnackbarFeedback, StyleRule>,
   },
 });
