@@ -56,15 +56,7 @@ export const placeholder = style([
   },
 ]);
 
-export const clearButton = style({
+export const trailing = style({
   position: "relative",
   zIndex: 1,
-});
-
-export const suffix = style({
-  position: "relative",
-  zIndex: 1,
-  display: "inline-flex",
-  alignItems: "center",
-  flexShrink: 0,
 });

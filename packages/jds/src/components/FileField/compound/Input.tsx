@@ -10,7 +10,7 @@ import {
 import { visuallyHidden } from "utils";
 
 import { IconButton } from "../../Button/IconButton";
-import { FieldContent } from "../../Field";
+import { FieldContent, FieldKbd } from "../../Field";
 import * as fieldStyles from "../../Field/field.css";
 import { useFieldControl } from "../../Field/useFieldControl";
 import { Icon } from "../../Icon";
@@ -39,7 +39,7 @@ export const FileFieldInput = forwardRef<HTMLInputElement, FileFieldInputProps>(
       maxSize,
       onError,
       placeholder,
-      suffix,
+      kbd,
       disabled: disabledFromProps,
       readOnly: readOnlyFromProps,
       required: requiredFromProps,
@@ -93,6 +93,7 @@ export const FileFieldInput = forwardRef<HTMLInputElement, FileFieldInputProps>(
       .join(", ");
     const isInteractive = !isDisabled && !isReadOnly;
     const hasFile = file != null;
+    const hasClearButton = hasFile && isInteractive;
     const isNativeFile = file instanceof File;
 
     useLayoutEffect(() => {
@@ -219,19 +220,19 @@ export const FileFieldInput = forwardRef<HTMLInputElement, FileFieldInputProps>(
           onChange={handleChange}
           onClick={handleClick}
         />
-        {/* MultiSelectField 칩, SuggestionField 배지처럼 상호작용할 수 없는 상태에서는 삭제 버튼을 그리지 않는다. */}
-        {hasFile && isInteractive && (
-          <IconButton
-            hierarchy='tertiary'
-            size='md'
-            icon='x'
-            aria-label={`${file.name} 파일 삭제`}
-            className={styles.clearButton}
-            onClick={handleClear}
-          />
-        )}
-        {suffix != null && (
-          <span className={clsx(fieldStyles.contentSlot, styles.suffix)}>{suffix}</span>
+        {(hasClearButton || kbd != null) && (
+          <span className={clsx(fieldStyles.contentTrailing, styles.trailing)}>
+            {hasClearButton && (
+              <IconButton
+                hierarchy='tertiary'
+                size='md'
+                icon='x'
+                aria-label={`${file.name} 파일 삭제`}
+                onClick={handleClear}
+              />
+            )}
+            {kbd != null && <FieldKbd keys={kbd} disabled={isDisabled} />}
+          </span>
         )}
       </FieldContent>
     );
