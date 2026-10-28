@@ -34,7 +34,7 @@ npm run build --workspace=@jects/jds
 
 # 시각 회귀 테스트 (Docker 필요). 단위 테스트 러너는 없다
 npm run vrt --workspace=@jects/vrt
-npm run vrt:baseline --workspace=@jects/vrt
+npm run vrt:baseline --workspace=@jects/vrt  # 로컬 결과는 커밋하지 않는다. PR에 vrt-baseline 레이블을 붙인다
 
 # 생성물 재생성
 npm run build:icons --workspace=@jects/jds    # src/assets/icons → Icon/generated
@@ -48,6 +48,7 @@ npm run changeset
 
 - [체인지셋 작성 규약](docs/changeset-guide.md) — `.changeset/*.md`를 작성하거나 수정하기 전에 읽는다.
 - [타입 선언 규약](docs/type-convention.md) — `packages/jds`에서 타입을 선언하거나 옮기기 전에 읽는다.
+- [JDS 작업 지침](packages/jds/AGENTS.md) — `packages/jds`의 코드·스타일·스토리를 쓰거나 고치기 전에 읽는다. 파일 구조, compound·배럴, vanilla-extract, 아이콘, VRT 베이스라인 규칙이 있다.
 
 ## JDS 개발 하네스
 
