@@ -6,12 +6,15 @@ AI 코딩 에이전트가 이 저장소에서 작업할 때 참고하는 가이�
 
 JECT 공식 웹사이트와 디자인 시스템(JDS)을 담은 npm workspaces + Turborepo 모노레포.
 
-| 경로            | 패키지                         | 역할                 |
-| --------------- | ------------------------------ | -------------------- |
-| `apps/web`      | `ject-official-website-client` | 공식 웹사이트        |
-| `packages/jds`  | `@jects/jds`                   | 디자인 시스템        |
-| `packages/vrt`  | `@jects/vrt`                   | JDS 시각 회귀 테스트 |
-| `config/eslint` | `@ject/eslint-config`          | 공유 ESLint 설정     |
+| 경로                        | 패키지                         | 역할                                           |
+| --------------------------- | ------------------------------ | ---------------------------------------------- |
+| `apps/web`                  | `ject-official-website-client` | 공식 웹사이트. 현재 관리하지 않음              |
+| `packages/jds`              | `@jects/jds`                   | 디자인 시스템                                  |
+| `packages/vrt`              | `@jects/vrt`                   | JDS 시각 회귀 테스트                           |
+| `packages/figma-token-sync` | `@jects/figma-token-sync`      | Figma 변수를 JDS 토큰 입력으로 보내는 플러그인 |
+| `config/eslint`             | `@ject/eslint-config`          | 공유 ESLint 설정                               |
+
+이 저장소에서 실제로 관리하는 것은 JDS다. `apps/web`은 사용하지 않으므로 사용처 조사, 코드 탐색, 검증 대상으로 읽지 않는다. 사용자가 `apps/web`을 직접 지목할 때만 연다.
 
 JDS는 vanilla-extract로 스타일링하고 `radix-ui`를 기반으로 동작을 만든다. Emotion은 제거 예정이다.
 
@@ -34,7 +37,7 @@ npm run build --workspace=@jects/jds
 
 # 시각 회귀 테스트 (Docker 필요). 단위 테스트 러너는 없다
 npm run vrt --workspace=@jects/vrt
-npm run vrt:baseline --workspace=@jects/vrt
+npm run vrt:baseline --workspace=@jects/vrt  # 로컬 결과는 커밋하지 않는다. PR에 vrt-baseline 레이블을 붙인다
 
 # 생성물 재생성
 npm run build:icons --workspace=@jects/jds    # src/assets/icons → Icon/generated
@@ -48,6 +51,12 @@ npm run changeset
 
 - [체인지셋 작성 규약](docs/changeset-guide.md) — `.changeset/*.md`를 작성하거나 수정하기 전에 읽는다.
 - [타입 선언 규약](docs/type-convention.md) — `packages/jds`에서 타입을 선언하거나 옮기기 전에 읽는다.
+- [JDS 작업 지침](packages/jds/AGENTS.md) — `packages/jds`의 코드·스타일·스토리를 쓰거나 고치기 전에 읽는다. 파일 구조, compound·배럴, vanilla-extract, 아이콘, VRT 베이스라인 규칙이 있다.
+- [PR 작성](.claude/skills/ject-jds-workflow/references/pull-request.md) — PR 설명을 쓰거나 고치기 전에 읽는다. JDS 밖의 PR에도 같은 기준을 쓴다.
+
+## JDS 개발 하네스
+
+JDS 컴포넌트 설계·구현·종합 리뷰에는 `.claude/skills/ject-jds-workflow/SKILL.md`를 읽는다. 짧은 요청은 요구사항 조사·제안·질문부터 진행하고, 명세 외 실제 합의는 PR 설명에 간략히 남긴다. Codex의 `.agents/skills/ject-jds-*`는 저장소 안의 같은 원본을 가리킨다. 사용법은 [하네스 안내](docs/ai/README.md)에 있다. 단순 탐색·문서 오타·체인지셋만 다루는 요청에는 필요한 최소 절차만 적용한다.
 
 ## Boundaries
 

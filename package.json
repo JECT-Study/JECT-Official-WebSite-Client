@@ -22,7 +22,8 @@
     "prepare": "lefthook install || true",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "type-check": "turbo type-check"
+    "type-check": "turbo type-check",
+    "check:harness": "node scripts/ai/check-harness.mjs"
   },
   "devDependencies": {
     "@changesets/cli": "^3.0.0",
