@@ -8,11 +8,13 @@ JECT 공식 웹사이트와 디자인 시스템(JDS)을 담은 npm workspaces + 
 
 | 경로                        | 패키지                         | 역할                                           |
 | --------------------------- | ------------------------------ | ---------------------------------------------- |
-| `apps/web`                  | `ject-official-website-client` | 공식 웹사이트                                  |
+| `apps/web`                  | `ject-official-website-client` | 공식 웹사이트. 현재 관리하지 않음              |
 | `packages/jds`              | `@jects/jds`                   | 디자인 시스템                                  |
 | `packages/vrt`              | `@jects/vrt`                   | JDS 시각 회귀 테스트                           |
 | `packages/figma-token-sync` | `@jects/figma-token-sync`      | Figma 변수를 JDS 토큰 입력으로 보내는 플러그인 |
 | `config/eslint`             | `@ject/eslint-config`          | 공유 ESLint 설정                               |
+
+이 저장소에서 실제로 관리하는 것은 JDS다. `apps/web`은 사용하지 않으므로 사용처 조사, 코드 탐색, 검증 대상으로 읽지 않는다. 사용자가 `apps/web`을 직접 지목할 때만 연다.
 
 JDS는 vanilla-extract로 스타일링하고 `radix-ui`를 기반으로 동작을 만든다. Emotion은 제거 예정이다.
 

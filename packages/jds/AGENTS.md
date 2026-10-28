@@ -111,5 +111,6 @@ Field 계열은 `fieldArgTypes` + `FIELD_WIDTH`를 쓰고, 상태 나열은 `Fle
 
 ## 소비처와 정리 중인 것
 
-- `apps/web`은 워크스페이스 소스가 아니라 npm에 퍼블리시된 `@jects/jds@0.0.1`을 쓴다. 그래서 web에는 옛 아이콘 이름이 남아 있고, JDS를 고쳐도 web 타입체크는 깨지지 않는다. web의 JDS 버전을 올릴 때 일괄 마이그레이션이 필요하다.
+- 저장소 안의 `apps/web`은 사용하지 않으므로 JDS의 사용처로 보지 않는다. 저장소 안에서 사용처를 찾을 때는 `packages/jds`의 다른 컴포넌트와 스토리를 본다.
+- 실제 소비처는 저장소 밖에 있고, Next에서 SSR로 쓰는 곳이 있다. `window`나 `document` 접근, `useLayoutEffect`, 하이드레이션 불일치는 SSR 환경을 기준으로 판단한다.
 - Emotion을 제거하는 중이다. 새 코드에 `@emotion/*`을 쓰지 않는다.
