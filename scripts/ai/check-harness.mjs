@@ -82,10 +82,47 @@ for (const name of manifest.roles) {
   files.add(codex);
 }
 
+async function exists(target) {
+  try {
+    await lstat(target);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+// npm scripts by workspace name. `null` is the repository root.
+const rootPackage = JSON.parse(await readFile(path.join(root, "package.json"), "utf8"));
+const scriptsByWorkspace = new Map([[null, rootPackage.scripts]]);
+for (const pattern of rootPackage.workspaces) {
+  assert(pattern.endsWith("/*"), `Unsupported workspace pattern: ${pattern}`);
+  const parent = path.join(root, pattern.slice(0, -2));
+  for (const entry of await readdir(parent, { withFileTypes: true })) {
+    const packageFile = path.join(parent, entry.name, "package.json");
+    if (!entry.isDirectory() || !(await exists(packageFile))) continue;
+    const workspace = JSON.parse(await readFile(packageFile, "utf8"));
+    scriptsByWorkspace.set(workspace.name, workspace.scripts ?? {});
+  }
+}
+
+// Inline code that names a repository path. `src/...` is read relative to the document's package.
+const pathInCode =
+  /`((?:apps|config|docs|packages|scripts|\.agents|\.claude|\.codex|\.github|src)\/[^`\s]*)`/g;
+const placeholder = /[<>*{}$]|(?:^|\/)\.env/;
+const npmRun = /npm run ([\w:-]+)(?: --workspace=([^\s`]+))?/g;
+const stale = [];
+
 for (const relative of files) {
   const file = path.join(root, relative);
   await insideRoot(file);
   const text = await readFile(file, "utf8");
+  const packageRoot = relative.match(/^(?:apps|packages)\/[^/]+\//)?.[0];
+
+  for (const [, script, workspace] of text.matchAll(npmRun)) {
+    const scripts = scriptsByWorkspace.get(workspace ?? null);
+    if (!scripts?.[script])
+      stale.push(`${relative}: npm run ${script}${workspace ? ` --workspace=${workspace}` : ""}`);
+  }
   assert(
     !/(?:\/Users\/|\/home\/|[A-Z]:\\Users\\|~\/\.agents\/|~\/\.codex\/)/.test(text),
     `Personal path: ${relative}`,
@@ -99,11 +136,24 @@ for (const relative of files) {
     assert(!path.isAbsolute(location), `Absolute local link: ${relative}: ${link}`);
     await insideRoot(path.resolve(path.dirname(file), location));
   }
+
+  for (const [, written] of prose.matchAll(pathInCode)) {
+    if (placeholder.test(written)) continue;
+    const base = written.startsWith("src/") ? packageRoot : "";
+    if (base === undefined) continue;
+    if (!(await exists(path.join(root, base, written)))) stale.push(`${relative}: ${written}`);
+  }
+}
+
+if (stale.length) {
+  console.error("Paths or npm scripts that no longer exist:");
+  for (const item of stale) console.error(`  ${item}`);
+  process.exit(1);
 }
 
 console.log(
   `Checked ${manifest.skills.length} shared skills, ${manifest.roles.length} roles in each runtime, and ${files.size} instruction files.`,
 );
 console.log(
-  "Repository-local links and limited metadata checks passed. Runtime discovery, tool permissions and product quality were not tested.",
+  "Repository-local links, written paths, npm scripts and limited metadata checks passed. Runtime discovery, tool permissions and product quality were not tested.",
 );

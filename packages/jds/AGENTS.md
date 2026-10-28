@@ -99,9 +99,9 @@ Field 계열은 `fieldArgTypes` + `FIELD_WIDTH`를 쓰고, 상태 나열은 `Fle
 
 ## VRT 베이스라인은 로컬에서 만들지 않는다
 
-`npm run vrt:baseline`을 로컬에서 돌려 커밋하지 않는다. 로컬 Docker와 CI가 컴포넌트 상태를 다르게 캡처한다. 실제로 `Menu/Default`가 로컬에선 열린 상태, CI에선 닫힌 상태로 찍혀 크기 비교가 실패했다.
+`npm run vrt:baseline --workspace=@jects/vrt`를 로컬에서 돌려 커밋하지 않는다. 로컬 Docker와 CI가 컴포넌트 상태를 다르게 캡처한다. 실제로 `Menu/Default`가 로컬에선 열린 상태, CI에선 닫힌 상태로 찍혀 크기 비교가 실패했다.
 
-베이스라인이 필요하면 PR에 `vrt-baseline` 레이블을 붙인다. `.github/workflows/vrt-baseline.yml`이 CI에서 재생성해 브랜치에 커밋한다. 로컬 `npm run vrt`(비교 실행)는 커밋하지 않으니 괜찮다.
+베이스라인이 필요하면 PR에 `vrt-baseline` 레이블을 붙인다. `.github/workflows/vrt-baseline.yml`이 CI에서 재생성해 브랜치에 커밋한다. 로컬 비교 실행(`npm run vrt --workspace=@jects/vrt`)은 커밋하지 않으니 괜찮다.
 
 ## Field 계열
 
