@@ -197,11 +197,7 @@ export const WithSuffix: Story = {
       <FileField.Input
         defaultValue={SAMPLE_FILE}
         placeholder='플레이스홀더'
-        suffix={
-          <Kbd type='function' size='sm'>
-            ⌘
-          </Kbd>
-        }
+        suffix={<Kbd size='sm'>⌘</Kbd>}
       />
       <FileField.Footer>
         <FileField.Helper>헬퍼 텍스트</FileField.Helper>
