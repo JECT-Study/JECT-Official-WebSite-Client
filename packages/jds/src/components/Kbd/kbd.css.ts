@@ -42,6 +42,8 @@ export const kbd = recipe({
         display: "inline-flex",
         justifyContent: "center",
         cursor: "inherit",
+        // 운영체제의 고정폭 글꼴을 먼저 쓰고, ui-monospace를 지원하지 않는 브라우저는 syntax 글꼴로 대체한다.
+        fontFamily: `ui-monospace, ${vars.typo.primitive.typeface.syntax}, monospace`,
       },
     },
   },
