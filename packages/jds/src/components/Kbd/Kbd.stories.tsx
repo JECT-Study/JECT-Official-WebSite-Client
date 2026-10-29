@@ -25,14 +25,6 @@ const meta = {
         defaultValue: { summary: "md" },
       },
     },
-    type: {
-      control: "radio",
-      options: ["key", "text", "function"],
-      description: "역할이나 유형에 대한 구분입니다.",
-      table: {
-        defaultValue: { summary: "key" },
-      },
-    },
     isMuted: {
       control: "boolean",
       description: "시각적으로 강조도가 낮춰졌는지의 여부입니다.",
@@ -54,7 +46,6 @@ export const Default: Story = {
   args: {
     children: "K",
     size: "md",
-    type: "key",
     isMuted: false,
   },
 };
@@ -68,64 +59,20 @@ export const AllSizes: Story = {
       <FlexRow>
         <span>sm</span>
         <Kbd size='sm'>A</Kbd>
-        <Kbd size='sm' type='text'>
-          ctrl
-        </Kbd>
-        <Kbd size='sm' type='function'>
-          ⌘
-        </Kbd>
+        <Kbd size='sm'>ctrl</Kbd>
+        <Kbd size='sm'>⌘</Kbd>
       </FlexRow>
       <FlexRow>
         <span>md</span>
         <Kbd size='md'>A</Kbd>
-        <Kbd size='md' type='text'>
-          ctrl
-        </Kbd>
-        <Kbd size='md' type='function'>
-          ⌘
-        </Kbd>
+        <Kbd size='md'>ctrl</Kbd>
+        <Kbd size='md'>⌘</Kbd>
       </FlexRow>
       <FlexRow>
         <span>lg</span>
         <Kbd size='lg'>A</Kbd>
-        <Kbd size='lg' type='text'>
-          ctrl
-        </Kbd>
-        <Kbd size='lg' type='function'>
-          ⌘
-        </Kbd>
-      </FlexRow>
-    </FlexColumn>
-  ),
-};
-
-export const Types: Story = {
-  args: {
-    children: "kbd",
-  },
-  render: () => (
-    <FlexColumn>
-      <FlexRow>
-        <span>key</span>
-        <Kbd type='key'>A</Kbd>
-        <Kbd type='key'>/</Kbd>
-        <Kbd type='key'>\</Kbd>
-      </FlexRow>
-      <FlexRow>
-        <span>text</span>
-        <Kbd type='text'>ctrl</Kbd>
-        <Kbd type='text'>alt</Kbd>
-        <Kbd type='text'>tab</Kbd>
-        <Kbd type='text'>esc</Kbd>
-      </FlexRow>
-      <FlexRow>
-        <span>function</span>
-        <Kbd type='function'>⌘</Kbd>
-        <Kbd type='function'>⌥</Kbd>
-        <Kbd type='function'>⇧</Kbd>
-        <Kbd type='function'>⌃</Kbd>
-        <Kbd type='function'>⌫</Kbd>
-        <Kbd type='function'>⏎</Kbd>
+        <Kbd size='lg'>ctrl</Kbd>
+        <Kbd size='lg'>⌘</Kbd>
       </FlexRow>
     </FlexColumn>
   ),
@@ -136,55 +83,10 @@ export const IsMuted: Story = {
     children: "Kbd",
   },
   render: () => (
-    <FlexColumn>
-      <FlexRow>
-        <span>key</span>
-        <Kbd type='key' isMuted>
-          A
-        </Kbd>
-        <Kbd type='key' isMuted>
-          /
-        </Kbd>
-        <Kbd type='key' isMuted>
-          \
-        </Kbd>
-      </FlexRow>
-      <FlexRow>
-        <span>text</span>
-        <Kbd type='text' isMuted>
-          ctrl
-        </Kbd>
-        <Kbd type='text' isMuted>
-          alt
-        </Kbd>
-        <Kbd type='text' isMuted>
-          tab
-        </Kbd>
-        <Kbd type='text' isMuted>
-          esc
-        </Kbd>
-      </FlexRow>
-      <FlexRow>
-        <span>function</span>
-        <Kbd type='function' isMuted>
-          ⌘
-        </Kbd>
-        <Kbd type='function' isMuted>
-          ⌥
-        </Kbd>
-        <Kbd type='function' isMuted>
-          ⇧
-        </Kbd>
-        <Kbd type='function' isMuted>
-          ⌃
-        </Kbd>
-        <Kbd type='function' isMuted>
-          ⌫
-        </Kbd>
-        <Kbd type='function' isMuted>
-          ⏎
-        </Kbd>
-      </FlexRow>
-    </FlexColumn>
+    <FlexRow>
+      <Kbd isMuted>A</Kbd>
+      <Kbd isMuted>ctrl</Kbd>
+      <Kbd isMuted>⌘</Kbd>
+    </FlexRow>
   ),
 };

@@ -7,10 +7,10 @@ import type { KbdProps } from "./kbd.types";
 import { getSyntaxClassName } from "@/utils/typography";
 
 export const Kbd = forwardRef<HTMLElement, KbdProps>(
-  ({ children, size = "md", type = "key", isMuted = false, className, ...restProps }, ref) => (
+  ({ children, size = "md", isMuted = false, className, ...restProps }, ref) => (
     <kbd
       ref={ref}
-      className={clsx(getSyntaxClassName({ size }), kbd({ size, type, isMuted }), className)}
+      className={clsx(getSyntaxClassName({ size }), kbd({ size, isMuted }), className)}
       {...restProps}
     >
       {children}

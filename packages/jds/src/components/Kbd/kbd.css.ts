@@ -3,7 +3,7 @@ import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
 import { pxToRem } from "utils";
 
-import type { KbdSize, KbdType } from "./kbd.types";
+import type { KbdSize } from "./kbd.types";
 
 const borderColor = createVar();
 const kbdHeight = createVar();
@@ -14,17 +14,11 @@ const sizeVariants = {
   sm: { vars: { [kbdHeight]: pxToRem(22) }, minWidth: pxToRem(19) },
 } satisfies Record<KbdSize, StyleRule>;
 
-const typeVariants = {
-  // function 키는 너비를 높이와 같게 고정해 정사각형으로 그린다.
-  function: { width: kbdHeight, paddingInline: vars.scheme.semantic.spacing["4"] },
-  key: { paddingInline: vars.scheme.semantic.spacing["6"] },
-  text: { paddingInline: vars.scheme.semantic.spacing["6"] },
-} satisfies Record<KbdType, StyleRule>;
-
 export const kbd = recipe({
   base: {
     alignItems: "center",
     height: kbdHeight,
+    paddingInline: vars.scheme.semantic.spacing["6"],
     borderRadius: vars.scheme.semantic.radius["4"],
     boxShadow: `inset 0 0 0 ${vars.scheme.semantic.strokeWeight["1"]} ${borderColor}`,
     color: vars.color.semantic.object.neutral,
@@ -48,7 +42,6 @@ export const kbd = recipe({
     },
   },
   variants: {
-    type: typeVariants,
     size: sizeVariants,
     isMuted: {
       true: {
