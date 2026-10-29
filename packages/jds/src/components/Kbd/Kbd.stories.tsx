@@ -10,8 +10,13 @@ const meta = {
     layout: "centered",
     docs: {
       description: {
-        component:
-          "키보드 키는 키 입력이나 단축키 예시를 시각적으로 보여주는 텍스트 표시 컴포넌트입니다. 사용자는 키 조합을 한눈에 인지하고, 적절한 입력을 빠르게 할 수 있습니다. 문서, 튜토리얼, 도움말, 인앱 가이드 등에서 사용합니다.",
+        component: `키보드 키는 키 입력이나 단축키 예시를 시각적으로 보여주는 텍스트 표시 컴포넌트입니다. 사용자는 키 조합을 한눈에 인지하고, 적절한 입력을 빠르게 할 수 있습니다. 문서, 튜토리얼, 도움말, 인앱 가이드 등에서 사용합니다.
+
+### 글꼴
+
+- 일반 키, 키 이름, 특수 키 기호를 모두 syntax 텍스트 스타일로 표시합니다.
+- 글꼴은 \`ui-monospace\`를 먼저 지정해 사용자의 운영체제가 지정한 고정폭 글꼴을 우선 표시합니다. \`ui-monospace\`를 지원하지 않는 브라우저에서는 syntax 텍스트 스타일의 글꼴(D2Coding)로 표시합니다.
+- 모든 환경에서 외형을 맞추는 책임을 시스템이 모두 지지 않고 운영체제 글꼴에 맡기므로, 키 기호의 모양은 운영체제마다 조금씩 다를 수 있습니다.`,
       },
     },
   },
@@ -81,12 +86,19 @@ export const AllSizes: Story = {
 export const IsMuted: Story = {
   args: {
     children: "Kbd",
+    size: "md",
   },
-  render: () => (
+  render: ({ size }) => (
     <FlexRow>
-      <Kbd isMuted>A</Kbd>
-      <Kbd isMuted>ctrl</Kbd>
-      <Kbd isMuted>⌘</Kbd>
+      <Kbd size={size} isMuted>
+        A
+      </Kbd>
+      <Kbd size={size} isMuted>
+        ctrl
+      </Kbd>
+      <Kbd size={size} isMuted>
+        ⌘
+      </Kbd>
     </FlexRow>
   ),
 };
