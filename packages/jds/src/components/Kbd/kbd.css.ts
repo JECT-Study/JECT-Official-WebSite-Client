@@ -9,15 +9,18 @@ const borderColor = createVar();
 const kbdHeight = createVar();
 
 const sizeVariants = {
-  lg: { vars: { [kbdHeight]: pxToRem(26) }, minWidth: pxToRem(20) },
-  md: { vars: { [kbdHeight]: pxToRem(24) }, minWidth: pxToRem(19) },
-  sm: { vars: { [kbdHeight]: pxToRem(22) }, minWidth: pxToRem(19) },
+  lg: { vars: { [kbdHeight]: pxToRem(26) } },
+  md: { vars: { [kbdHeight]: pxToRem(24) } },
+  sm: { vars: { [kbdHeight]: pxToRem(22) } },
 } satisfies Record<KbdSize, StyleRule>;
 
 export const kbd = recipe({
   base: {
     alignItems: "center",
+    // 최소 너비를 높이와 같게 두어 한 글자 키는 정사각형으로 그린다.
     height: kbdHeight,
+    minWidth: kbdHeight,
+    paddingBlock: vars.scheme.semantic.spacing["0"],
     paddingInline: vars.scheme.semantic.spacing["6"],
     borderRadius: vars.scheme.semantic.radius["4"],
     boxShadow: `inset 0 0 0 ${vars.scheme.semantic.strokeWeight["1"]} ${borderColor}`,
