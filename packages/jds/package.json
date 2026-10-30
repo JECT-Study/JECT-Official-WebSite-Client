@@ -86,7 +86,7 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "chromatic": "npx chromatic --project-token=$CHROMATIC_TOKEN",
-    "build:tokens": "npx tsx src/tokens/tokensBuilder.ts",
+    "build:tokens": "tsx src/tokens/tokensBuilder.ts",
     "clean": "rimraf dist node_modules .turbo storybook-static",
     "build:icons": "svgr src/assets/icons --out-dir src/components/Icon/generated --typescript --ext tsx --no-prettier && prettier --write --ignore-path ../../.gitignore src/components/Icon/generated",
     "sync:icons": "node --env-file-if-exists=.env scripts/sync-icons.mjs",
@@ -124,6 +124,7 @@
     "storybook": "~10.1.11",
     "style-dictionary": "^4.3.2",
     "tsdown": "^0.22.14",
+    "tsx": "^4.23.15",
     "zod": "^3.25.76"
   },
   "peerDependencies": {
