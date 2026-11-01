@@ -10,12 +10,10 @@ const COMMENT_MARKER = "<!-- token-contract-diff -->";
 const IDENTIFIER_PATTERN = /^[A-Za-z_$][\w$]*$/;
 const ASSIGNMENT_PATTERN = /^\s+\[vars((?:\.[A-Za-z_$][\w$]*|\["[^"]+"\])+)\]: (.+),$/;
 const PATH_SEGMENT_PATTERN = /\.([A-Za-z_$][\w$]*)|\["([^"]+)"\]/g;
-const SCOPE_LABELS = {
-  ":root": "기본",
-  "screen and (min-width: 768px) and (max-width: 1199px)": "tablet",
-  "screen and (min-width: 320px) and (max-width: 767px)": "mobile",
-  '[data-theme="dark"]': "dark",
-};
+const ROOT_SCOPE_LINE = 'globalStyle(":root", {';
+const DARK_SCOPE_LINE = `globalStyle('[data-theme="dark"]', {`;
+const MEDIA_SCOPE_PATTERN = /^\s+"screen and [^"]+": \{$/;
+const MEDIA_SCOPE_LABELS = ["tablet", "mobile"];
 
 const { values: args } = parseArgs({
   options: {
@@ -93,19 +91,30 @@ function readTextStyleKeys(source) {
   );
 }
 
-/** `globalTokens.css.ts`를 `{ 토큰: { 적용 구간: 값 } }`으로 읽습니다. */
+/**
+ * `globalTokens.css.ts`를 `{ 토큰: { 적용 구간: 값 } }`으로 읽습니다.
+ *
+ * @remarks
+ * media query 구간은 조건 문자열이 아니라 나온 순서로 tablet, mobile을 정합니다.
+ * Figma에서 breakpoint 값이 바뀌어도 같은 구간끼리 비교하기 위해서입니다.
+ *
+ * @throws 알 수 없는 `globalStyle` 블록이나 예상보다 많은 media query 구간이 있으면 던집니다.
+ */
 function readValues(source) {
   const values = new Map();
   let scope = null;
+  let mediaScopeIndex = 0;
 
   for (const line of source.split("\n")) {
-    const scopeKey = Object.keys(SCOPE_LABELS).find(key => line.includes(JSON.stringify(key)));
-    const darkScope = line.startsWith(`globalStyle('[data-theme="dark"]'`);
-
-    if (darkScope) {
-      scope = SCOPE_LABELS['[data-theme="dark"]'];
-    } else if (scopeKey) {
-      scope = SCOPE_LABELS[scopeKey];
+    if (line === ROOT_SCOPE_LINE) {
+      scope = "기본";
+    } else if (line === DARK_SCOPE_LINE) {
+      scope = "dark";
+    } else if (line.startsWith("globalStyle(")) {
+      throw new Error(`알 수 없는 적용 구간입니다: ${line}`);
+    } else if (MEDIA_SCOPE_PATTERN.test(line)) {
+      scope = MEDIA_SCOPE_LABELS[mediaScopeIndex++];
+      if (!scope) throw new Error(`알 수 없는 media query 구간입니다: ${line.trim()}`);
     }
 
     const match = ASSIGNMENT_PATTERN.exec(line);
