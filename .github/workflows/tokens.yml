@@ -62,6 +62,7 @@ jobs:
             --changeset "${CHANGESET}" \
             --comment "${RUNNER_TEMP}/token-contract-diff.md" \
             ${FORCE}
+          if [ -f "${CHANGESET}" ]; then npx prettier --write "${CHANGESET}"; fi
 
       - name: Detect changes
         id: changes
