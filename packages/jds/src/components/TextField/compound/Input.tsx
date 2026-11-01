@@ -122,6 +122,7 @@ export const TextFieldInput = forwardRef<HTMLInputElement, TextFieldInputProps>(
                 size='md'
                 icon='x'
                 aria-label='입력 내용 지우기'
+                className={fieldStyles.contentAction}
                 onClick={handleClear}
               />
             )}

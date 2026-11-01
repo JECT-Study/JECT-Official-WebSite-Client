@@ -323,7 +323,7 @@ export const SelectFieldInput = forwardRef<HTMLInputElement, SelectFieldInputPro
                 aria-controls={isOpen ? listboxId : undefined}
                 aria-label={isOpen ? "목록 닫기" : "목록 열기"}
                 disabled={!isInteractive}
-                className={styles.indicator}
+                className={clsx(fieldStyles.contentAction, styles.indicator)}
                 onMouseDown={e => e.preventDefault()}
                 onClick={handleIndicatorClick}
               >

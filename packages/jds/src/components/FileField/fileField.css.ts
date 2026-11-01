@@ -56,6 +56,8 @@ export const placeholder = style([
   },
 ]);
 
+// 박스 전체를 덮는 file input 위로 올려 삭제 버튼을 누를 수 있게 한다.
+// 단축키는 이벤트를 받지 않으므로 단축키를 누르면 아래의 file input이 클릭을 받는다.
 export const trailing = style({
   position: "relative",
   zIndex: 1,

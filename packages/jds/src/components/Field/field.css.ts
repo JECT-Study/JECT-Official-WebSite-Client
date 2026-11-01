@@ -264,6 +264,11 @@ export const contentTrailing = style({
   alignItems: "center",
   flexShrink: 0,
   gap: vars.scheme.semantic.spacing["8"],
+  pointerEvents: "none",
+});
+
+export const contentAction = style({
+  pointerEvents: "auto",
 });
 
 export const kbdGroup = style({

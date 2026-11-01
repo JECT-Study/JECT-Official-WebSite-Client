@@ -228,6 +228,7 @@ export const FileFieldInput = forwardRef<HTMLInputElement, FileFieldInputProps>(
                 size='md'
                 icon='x'
                 aria-label={`${file.name} 파일 삭제`}
+                className={fieldStyles.contentAction}
                 onClick={handleClear}
               />
             )}
