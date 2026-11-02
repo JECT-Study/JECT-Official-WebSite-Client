@@ -269,6 +269,10 @@ function countChangedKeys(rows) {
   return new Set(rows.map(({ key }) => key)).size;
 }
 
+function readChangesetBump(path) {
+  return /^"@jects\/jds": (\w+)$/m.exec(readFileSync(path, "utf8"))?.[1] ?? null;
+}
+
 function toComment({
   bump,
   changesetPath,
@@ -340,11 +344,12 @@ const added = [...varsAdded, ...textAdded];
 const removed = [...varsRemoved, ...textRemoved];
 const hasChanges = added.length + removed.length + rows.length > 0;
 const bump = hasChanges ? (removed.length > 0 ? "minor" : "patch") : null;
+const existingBump = existsSync(args.changeset) ? readChangesetBump(args.changeset) : null;
 
 if (!hasChanges) {
   if (existsSync(args.changeset)) rmSync(args.changeset);
   console.log("토큰 계약과 값의 변경이 없습니다.");
-} else if (args.force || !existsSync(args.changeset)) {
+} else if (args.force || existingBump !== bump) {
   const summary = toSummary({
     changedKeyCount: countChangedKeys(rows),
     addedCount: added.length,
@@ -354,7 +359,7 @@ if (!hasChanges) {
   writeFileSync(args.changeset, toChangeset({ bump, summary, added, removed, rows, headValues }));
   console.log(`체인지셋을 작성했습니다: ${args.changeset} (${bump})`);
 } else {
-  console.log(`생성물이 바뀌지 않아 기존 체인지셋을 유지합니다: ${args.changeset}`);
+  console.log(`생성물과 bump가 바뀌지 않아 기존 체인지셋을 유지합니다: ${args.changeset}`);
 }
 
 if (args.comment) {
