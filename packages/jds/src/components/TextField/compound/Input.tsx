@@ -1,5 +1,5 @@
 import { clsx } from "clsx";
-import { forwardRef, useRef, useState, type ChangeEvent } from "react";
+import { forwardRef, useEffect, useRef, useState, type ChangeEvent } from "react";
 
 import { IconButton } from "../../Button/IconButton";
 import { FieldContent, FieldKbd } from "../../Field";
@@ -70,6 +70,22 @@ export const TextFieldInput = forwardRef<HTMLInputElement, TextFieldInputProps>(
     const hasValue = isControlled ? String(value) !== "" : hasUncontrolledValue;
     const isInteractive = !isDisabled && !isReadOnly;
     const hasClearButton = withClearButton && hasValue && isInteractive;
+
+    useEffect(() => {
+      const form = inputRef.current?.form;
+      if (isControlled || form == null) return;
+
+      // reset은 input 이벤트를 발생시키지 않으므로, 기본 동작으로 값이 되돌아간 다음 태스크에서 지우기 버튼 표시 여부를 다시 맞춘다.
+      // 초기값을 직접 넣지 않고 실제 값을 읽으므로, 소비처가 초기화를 취소한 경우를 따로 처리하지 않는다.
+      const handleReset = () => {
+        setTimeout(() => {
+          setHasUncontrolledValue((inputRef.current?.value ?? "") !== "");
+        }, 0);
+      };
+
+      form.addEventListener("reset", handleReset);
+      return () => form.removeEventListener("reset", handleReset);
+    }, [isControlled]);
 
     const handleChange = isControlled
       ? handleCountedChange
