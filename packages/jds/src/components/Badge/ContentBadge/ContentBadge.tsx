@@ -38,10 +38,10 @@ export const ContentBadge = forwardRef<HTMLSpanElement, ContentBadgeProps>(
 
     const iconSize = iconSizeMap[size];
     const rootClassName = feedback
-      ? styles.feedbackRoot({ feedback, size, badgeStyle, isMuted, withIconButton })
+      ? styles.feedbackRoot({ feedback, size, badgeStyle, isMuted })
       : variant
         ? styles.themeRoot({ variant, size, badgeStyle, isMuted })
-        : styles.basicRoot({ hierarchy, size, badgeStyle, isMuted, withIconButton });
+        : styles.basicRoot({ hierarchy, size, badgeStyle, isMuted });
 
     return (
       <span ref={ref} className={clsx(rootClassName, className)} {...restProps}>

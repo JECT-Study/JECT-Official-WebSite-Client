@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 16px;
+        font-family: Inter, system-ui, sans-serif;
+        font-size: 12px;
+        color: var(--figma-color-text);
+        background: var(--figma-color-bg);
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      fieldset {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin: 0;
+        padding: 12px;
+        border: 1px solid var(--figma-color-border);
+        border-radius: 6px;
+      }
+
+      legend {
+        padding: 0 4px;
+        font-weight: 600;
+      }
+
+      label {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      label.checkbox {
+        flex-direction: row;
+        align-items: center;
+      }
+
+      input[type="text"],
+      input[type="password"] {
+        padding: 6px 8px;
+        font: inherit;
+        color: inherit;
+        background: var(--figma-color-bg-secondary);
+        border: 1px solid var(--figma-color-border);
+        border-radius: 4px;
+      }
+
+      .row {
+        display: flex;
+        gap: 8px;
+        align-items: flex-end;
+      }
+
+      .row > label {
+        flex: 1;
+      }
+
+      button {
+        padding: 8px 12px;
+        font: inherit;
+        color: var(--figma-color-text-onbrand);
+        background: var(--figma-color-bg-brand);
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+      }
+
+      button:disabled {
+        cursor: default;
+        opacity: 0.5;
+      }
+
+      .hint {
+        color: var(--figma-color-text-secondary);
+      }
+
+      .status {
+        white-space: pre-line;
+      }
+
+      .status[data-state="failed"] {
+        color: var(--figma-color-text-danger);
+      }
+
+      .status[data-state="synced"] {
+        color: var(--figma-color-text-success);
+      }
+    </style>
+  </head>
+  <body>
+    <main id="app"></main>
+    <script>
+      /* UI_SCRIPT */
+    </script>
+  </body>
+</html>
