@@ -81,14 +81,27 @@ function readVarsKeys(source) {
   );
 }
 
-function readTextStyleKeys(source) {
+/**
+ * `textStyles.ts`에서 스타일 키와 속성별 값을 읽습니다.
+ *
+ * @remarks
+ * 값은 `globalTokens.css.ts`와 같은 `{ 토큰: { 적용 구간: 값 } }` 형식으로 맞춰
+ * 어떤 토큰을 참조하는지가 바뀌어도 값 변경으로 비교합니다.
+ */
+function readTextStyles(source) {
   const textStyles = sliceObjectLiteral(source, "export const textStyles", "} satisfies");
+  const paths = collectLeafPaths(textStyles, child => "fontSize" in child);
+  const values = new Map();
 
-  return new Set(
-    collectLeafPaths(textStyles, child => "fontSize" in child).map(path => {
-      return toAccessor("textStyles", path);
-    }),
-  );
+  for (const path of paths) {
+    const style = path.reduce((node, segment) => node[segment], textStyles);
+
+    for (const [property, value] of Object.entries(style)) {
+      values.set(toAccessor("textStyles", [...path, property]), new Map([["기본", value]]));
+    }
+  }
+
+  return { keys: new Set(paths.map(path => toAccessor("textStyles", path))), values };
 }
 
 /**
@@ -252,7 +265,20 @@ function toChangeset({ bump, summary, added, removed, rows, headValues }) {
   return `${sections.join("\n\n")}\n`;
 }
 
-function toComment({ bump, changesetPath, varsAdded, varsRemoved, textAdded, textRemoved, rows }) {
+function countChangedKeys(rows) {
+  return new Set(rows.map(({ key }) => key)).size;
+}
+
+function toComment({
+  bump,
+  changesetPath,
+  varsAdded,
+  varsRemoved,
+  textAdded,
+  textRemoved,
+  varsRows,
+  textRows,
+}) {
   const removed = [...varsRemoved, ...textRemoved];
   const lines = [COMMENT_MARKER, "## 토큰 계약 변경", ""];
 
@@ -272,8 +298,8 @@ function toComment({ bump, changesetPath, varsAdded, varsRemoved, textAdded, tex
   lines.push(
     "| 대상 | 추가 | 제거 | 값 변경 |",
     "| ---- | ---- | ---- | ------- |",
-    `| \`vars\` | ${varsAdded.length} | ${varsRemoved.length} | ${new Set(rows.map(({ key }) => key)).size} |`,
-    `| \`textStyles\` | ${textAdded.length} | ${textRemoved.length} | - |`,
+    `| \`vars\` | ${varsAdded.length} | ${varsRemoved.length} | ${countChangedKeys(varsRows)} |`,
+    `| \`textStyles\` | ${textAdded.length} | ${textRemoved.length} | ${countChangedKeys(textRows)} |`,
     "",
     `체인지셋: \`${changesetPath}\` (\`${bump}\`)`,
   );
@@ -294,16 +320,22 @@ function toComment({ bump, changesetPath, varsAdded, varsRemoved, textAdded, tex
 
 const baseVarsKeys = readVarsKeys(readAtBase(VARS_FILE));
 const headVarsKeys = readVarsKeys(readAtHead(VARS_FILE));
-const baseTextKeys = readTextStyleKeys(readAtBase(TEXT_STYLES_FILE));
-const headTextKeys = readTextStyleKeys(readAtHead(TEXT_STYLES_FILE));
+const baseTextStyles = readTextStyles(readAtBase(TEXT_STYLES_FILE));
+const headTextStyles = readTextStyles(readAtHead(TEXT_STYLES_FILE));
 const baseValues = readValues(readAtBase(GLOBAL_TOKENS_FILE));
 const headValues = readValues(readAtHead(GLOBAL_TOKENS_FILE));
 
 const varsAdded = difference(headVarsKeys, baseVarsKeys);
 const varsRemoved = difference(baseVarsKeys, headVarsKeys);
-const textAdded = difference(headTextKeys, baseTextKeys);
-const textRemoved = difference(baseTextKeys, headTextKeys);
-const rows = diffValues(baseValues, headValues, baseVarsKeys);
+const textAdded = difference(headTextStyles.keys, baseTextStyles.keys);
+const textRemoved = difference(baseTextStyles.keys, headTextStyles.keys);
+const varsRows = diffValues(baseValues, headValues, baseVarsKeys);
+const textRows = diffValues(
+  baseTextStyles.values,
+  headTextStyles.values,
+  new Set(baseTextStyles.values.keys()),
+);
+const rows = [...varsRows, ...textRows];
 const added = [...varsAdded, ...textAdded];
 const removed = [...varsRemoved, ...textRemoved];
 const hasChanges = added.length + removed.length + rows.length > 0;
@@ -314,7 +346,7 @@ if (!hasChanges) {
   console.log("토큰 계약과 값의 변경이 없습니다.");
 } else if (args.force || !existsSync(args.changeset)) {
   const summary = toSummary({
-    changedKeyCount: new Set(rows.map(({ key }) => key)).size,
+    changedKeyCount: countChangedKeys(rows),
     addedCount: added.length,
     removedCount: removed.length,
   });
@@ -335,7 +367,8 @@ if (args.comment) {
       varsRemoved,
       textAdded,
       textRemoved,
-      rows,
+      varsRows,
+      textRows,
     }),
   );
 }
