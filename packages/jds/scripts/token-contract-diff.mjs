@@ -269,8 +269,10 @@ function countChangedKeys(rows) {
   return new Set(rows.map(({ key }) => key)).size;
 }
 
+/** 체인지셋 frontmatter에서 `@jects/jds`의 bump를 읽습니다. 없으면 `null`을 반환합니다. */
 function readChangesetBump(path) {
-  return /^"@jects\/jds": (\w+)$/m.exec(readFileSync(path, "utf8"))?.[1] ?? null;
+  const frontmatter = /^---\n([\s\S]*?)\n---/.exec(readFileSync(path, "utf8"))?.[1] ?? "";
+  return /^"@jects\/jds": (\w+)$/m.exec(frontmatter)?.[1] ?? null;
 }
 
 function toComment({
