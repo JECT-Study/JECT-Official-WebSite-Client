@@ -1,0 +1,15 @@
+{
+  "skills": [
+    "ject-jds-accessibility",
+    "ject-jds-browser-check",
+    "ject-jds-component-design",
+    "ject-jds-context",
+    "ject-jds-ff-review",
+    "ject-jds-figma-handoff",
+    "ject-jds-package-check",
+    "ject-jds-review",
+    "ject-jds-tokens",
+    "ject-jds-workflow"
+  ],
+  "roles": ["ject-jds-ff", "ject-jds-browser"]
+}
