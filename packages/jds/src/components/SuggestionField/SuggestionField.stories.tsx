@@ -223,11 +223,7 @@ export const WithSuffix: Story = {
         suggestions={SUGGESTIONS}
         defaultValue={["React"]}
         placeholder='플레이스홀더'
-        suffix={
-          <Kbd type='function' size='sm'>
-            ⏎
-          </Kbd>
-        }
+        suffix={<Kbd size='sm'>⏎</Kbd>}
       />
       <SuggestionField.Footer>
         <SuggestionField.Helper>헬퍼 텍스트</SuggestionField.Helper>

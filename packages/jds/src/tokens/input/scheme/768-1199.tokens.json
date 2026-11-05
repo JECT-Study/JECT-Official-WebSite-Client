@@ -1,0 +1,435 @@
+{
+  "primitive": {
+    "unit": {
+      "0": {
+        "$type": "number",
+        "$value": 0
+      },
+      "1": {
+        "$type": "number",
+        "$value": 1
+      },
+      "2": {
+        "$type": "number",
+        "$value": 2
+      },
+      "3": {
+        "$type": "number",
+        "$value": 3
+      },
+      "4": {
+        "$type": "number",
+        "$value": 4
+      },
+      "5": {
+        "$type": "number",
+        "$value": 5
+      },
+      "6": {
+        "$type": "number",
+        "$value": 6
+      },
+      "8": {
+        "$type": "number",
+        "$value": 8
+      },
+      "10": {
+        "$type": "number",
+        "$value": 10
+      },
+      "12": {
+        "$type": "number",
+        "$value": 12
+      },
+      "16": {
+        "$type": "number",
+        "$value": 16
+      },
+      "20": {
+        "$type": "number",
+        "$value": 20
+      },
+      "24": {
+        "$type": "number",
+        "$value": 24
+      },
+      "28": {
+        "$type": "number",
+        "$value": 28
+      },
+      "32": {
+        "$type": "number",
+        "$value": 32
+      },
+      "40": {
+        "$type": "number",
+        "$value": 40
+      },
+      "48": {
+        "$type": "number",
+        "$value": 48
+      },
+      "56": {
+        "$type": "number",
+        "$value": 56
+      },
+      "64": {
+        "$type": "number",
+        "$value": 64
+      },
+      "72": {
+        "$type": "number",
+        "$value": 72
+      },
+      "80": {
+        "$type": "number",
+        "$value": 80
+      },
+      "96": {
+        "$type": "number",
+        "$value": 96
+      },
+      "112": {
+        "$type": "number",
+        "$value": 112
+      },
+      "128": {
+        "$type": "number",
+        "$value": 128
+      },
+      "144": {
+        "$type": "number",
+        "$value": 144
+      }
+    }
+  },
+  "semantic": {
+    "spacing": {
+      "0": {
+        "$type": "number",
+        "$value": "{primitive.unit.0}"
+      },
+      "1": {
+        "$type": "number",
+        "$value": "{primitive.unit.1}"
+      },
+      "2": {
+        "$type": "number",
+        "$value": "{primitive.unit.2}"
+      },
+      "3": {
+        "$type": "number",
+        "$value": "{primitive.unit.3}"
+      },
+      "4": {
+        "$type": "number",
+        "$value": "{primitive.unit.4}"
+      },
+      "6": {
+        "$type": "number",
+        "$value": "{primitive.unit.6}"
+      },
+      "8": {
+        "$type": "number",
+        "$value": "{primitive.unit.8}"
+      },
+      "10": {
+        "$type": "number",
+        "$value": "{primitive.unit.10}"
+      },
+      "12": {
+        "$type": "number",
+        "$value": "{primitive.unit.12}"
+      },
+      "16": {
+        "$type": "number",
+        "$value": "{primitive.unit.16}"
+      },
+      "20": {
+        "$type": "number",
+        "$value": "{primitive.unit.20}"
+      },
+      "24": {
+        "$type": "number",
+        "$value": "{primitive.unit.24}"
+      },
+      "28": {
+        "$type": "number",
+        "$value": "{primitive.unit.28}"
+      },
+      "32": {
+        "$type": "number",
+        "$value": "{primitive.unit.32}"
+      },
+      "40": {
+        "$type": "number",
+        "$value": "{primitive.unit.40}"
+      },
+      "48": {
+        "$type": "number",
+        "$value": "{primitive.unit.48}"
+      },
+      "56": {
+        "$type": "number",
+        "$value": "{primitive.unit.56}"
+      },
+      "64": {
+        "$type": "number",
+        "$value": "{primitive.unit.64}"
+      },
+      "72": {
+        "$type": "number",
+        "$value": "{primitive.unit.72}"
+      },
+      "80": {
+        "$type": "number",
+        "$value": "{primitive.unit.80}"
+      },
+      "96": {
+        "$type": "number",
+        "$value": "{primitive.unit.96}"
+      },
+      "112": {
+        "$type": "number",
+        "$value": "{primitive.unit.112}"
+      },
+      "128": {
+        "$type": "number",
+        "$value": "{primitive.unit.128}"
+      },
+      "144": {
+        "$type": "number",
+        "$value": "{primitive.unit.144}"
+      }
+    },
+    "radius": {
+      "0": {
+        "$type": "number",
+        "$value": "{primitive.unit.0}"
+      },
+      "2": {
+        "$type": "number",
+        "$value": "{primitive.unit.2}"
+      },
+      "4": {
+        "$type": "number",
+        "$value": "{primitive.unit.4}"
+      },
+      "6": {
+        "$type": "number",
+        "$value": "{primitive.unit.6}"
+      },
+      "8": {
+        "$type": "number",
+        "$value": "{primitive.unit.8}"
+      },
+      "10": {
+        "$type": "number",
+        "$value": "{primitive.unit.10}"
+      },
+      "12": {
+        "$type": "number",
+        "$value": "{primitive.unit.12}"
+      },
+      "16": {
+        "$type": "number",
+        "$value": "{primitive.unit.16}"
+      },
+      "24": {
+        "$type": "number",
+        "$value": "{primitive.unit.24}"
+      },
+      "max": {
+        "$type": "number",
+        "$value": 9999
+      }
+    },
+    "margin": {
+      "6xl": {
+        "$type": "number",
+        "$value": "{primitive.unit.64}"
+      },
+      "5xl": {
+        "$type": "number",
+        "$value": "{primitive.unit.56}"
+      },
+      "4xl": {
+        "$type": "number",
+        "$value": "{primitive.unit.48}"
+      },
+      "3xl": {
+        "$type": "number",
+        "$value": "{primitive.unit.40}"
+      },
+      "2xl": {
+        "$type": "number",
+        "$value": "{primitive.unit.32}"
+      },
+      "xl": {
+        "$type": "number",
+        "$value": "{primitive.unit.28}"
+      },
+      "lg": {
+        "$type": "number",
+        "$value": "{primitive.unit.24}"
+      },
+      "md": {
+        "$type": "number",
+        "$value": "{primitive.unit.20}"
+      },
+      "sm": {
+        "$type": "number",
+        "$value": "{primitive.unit.16}"
+      },
+      "xs": {
+        "$type": "number",
+        "$value": "{primitive.unit.12}"
+      },
+      "2xs": {
+        "$type": "number",
+        "$value": "{primitive.unit.10}"
+      }
+    },
+    "stroke": {
+      "weight": {
+        "1": {
+          "$type": "number",
+          "$value": "{primitive.unit.1}"
+        },
+        "2": {
+          "$type": "number",
+          "$value": "{primitive.unit.2}"
+        },
+        "3": {
+          "$type": "number",
+          "$value": "{primitive.unit.3}"
+        },
+        "4": {
+          "$type": "number",
+          "$value": "{primitive.unit.4}"
+        },
+        "5": {
+          "$type": "number",
+          "$value": "{primitive.unit.5}"
+        },
+        "6": {
+          "$type": "number",
+          "$value": "{primitive.unit.6}"
+        }
+      }
+    },
+    "opacity": {
+      "0": {
+        "$type": "number",
+        "$value": 0
+      },
+      "5": {
+        "$type": "number",
+        "$value": 5
+      },
+      "8": {
+        "$type": "number",
+        "$value": 8
+      },
+      "12": {
+        "$type": "number",
+        "$value": 12
+      },
+      "16": {
+        "$type": "number",
+        "$value": 16
+      },
+      "23": {
+        "$type": "number",
+        "$value": 23
+      },
+      "29": {
+        "$type": "number",
+        "$value": 29
+      },
+      "36": {
+        "$type": "number",
+        "$value": 36
+      },
+      "44": {
+        "$type": "number",
+        "$value": 44
+      },
+      "54": {
+        "$type": "number",
+        "$value": 54
+      },
+      "63": {
+        "$type": "number",
+        "$value": 63
+      },
+      "76": {
+        "$type": "number",
+        "$value": 76
+      },
+      "91": {
+        "$type": "number",
+        "$value": 91
+      },
+      "100": {
+        "$type": "number",
+        "$value": 100
+      }
+    },
+    "position": {
+      "0": {
+        "$type": "number",
+        "$value": "{primitive.unit.0}"
+      },
+      "1": {
+        "$type": "number",
+        "$value": "{primitive.unit.1}"
+      },
+      "2": {
+        "$type": "number",
+        "$value": "{primitive.unit.2}"
+      },
+      "3": {
+        "$type": "number",
+        "$value": "{primitive.unit.3}"
+      },
+      "4": {
+        "$type": "number",
+        "$value": "{primitive.unit.4}"
+      },
+      "6": {
+        "$type": "number",
+        "$value": "{primitive.unit.6}"
+      },
+      "8": {
+        "$type": "number",
+        "$value": "{primitive.unit.8}"
+      },
+      "12": {
+        "$type": "number",
+        "$value": "{primitive.unit.12}"
+      },
+      "16": {
+        "$type": "number",
+        "$value": "{primitive.unit.16}"
+      },
+      "24": {
+        "$type": "number",
+        "$value": "{primitive.unit.24}"
+      }
+    },
+    "breakpoint": {
+      "min": {
+        "$type": "number",
+        "$value": 768
+      },
+      "max": {
+        "$type": "number",
+        "$value": 1199
+      }
+    }
+  },
+  "$extensions": {
+    "com.figma.modeName": "768-1199"
+  }
+}
