@@ -1,6 +1,16 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Card } from "./index";
+import {
+  CardBody,
+  CardCaption,
+  CardContent,
+  CardContentGroup,
+  CardOverlay,
+  CardRoot,
+  CardThumbnail,
+  CardTitle,
+  Card,
+} from ".";
 
 const sizeFor = (layout: "vertical" | "horizontal") =>
   layout === "horizontal" ? { width: 480 } : { width: 300 };
@@ -57,17 +67,17 @@ export const Playground: Story = {
   },
   render: ({ layout = "vertical", isDisabled }) => (
     <div style={sizeFor(layout)}>
-      <Card.Root layout={layout} variant='plate' isDisabled={isDisabled} interactive>
-        <Card.Thumbnail image={{ alt: "플레이트 카드 이미지" }} />
-        <Card.Content>
-          <Card.ContentGroup>
-            <Card.Title>플레이트 카드 제목</Card.Title>
-            <Card.Body>카드 내용은 두 줄을 넘어가면 말줄임(...) 표시합니다.</Card.Body>
-          </Card.ContentGroup>
-          <Card.Caption>캡션 레이블</Card.Caption>
-        </Card.Content>
-        <Card.Overlay as='a' href='#' />
-      </Card.Root>
+      <CardRoot layout={layout} variant='plate' isDisabled={isDisabled} interactive>
+        <CardThumbnail image={{ alt: "플레이트 카드 이미지" }} />
+        <CardContent>
+          <CardContentGroup>
+            <CardTitle>플레이트 카드 제목</CardTitle>
+            <CardBody>카드 내용은 두 줄을 넘어가면 말줄임(...) 표시합니다.</CardBody>
+          </CardContentGroup>
+          <CardCaption>캡션 레이블</CardCaption>
+        </CardContent>
+        <CardOverlay as='a' href='#' />
+      </CardRoot>
     </div>
   ),
 };

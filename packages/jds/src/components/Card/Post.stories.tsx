@@ -1,6 +1,17 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Card } from "./index";
+import {
+  CardBody,
+  CardContent,
+  CardContentGroup,
+  CardMeta,
+  CardMetaItem,
+  CardOverlay,
+  CardRoot,
+  CardThumbnail,
+  CardTitle,
+  Card,
+} from ".";
 
 const sizeFor = (layout: "vertical" | "horizontal") =>
   layout === "horizontal" ? { width: 480 } : { width: 240 };
@@ -50,21 +61,21 @@ type Story = StoryObj<typeof meta>;
 export const Playground: Story = {
   render: ({ layout = "vertical", isDisabled }) => (
     <div style={sizeFor(layout)}>
-      <Card.Root layout={layout} variant='post' isDisabled={isDisabled} interactive>
-        {layout === "vertical" && <Card.Thumbnail image={{ alt: "포스트 카드 이미지" }} />}
-        <Card.Content>
-          <Card.ContentGroup>
-            <Card.Title>포스트 카드 제목</Card.Title>
-            <Card.Body>카드 내용은 두 줄을 넘어가면 말줄임(...) 표시합니다.</Card.Body>
-          </Card.ContentGroup>
-          <Card.Meta>
-            <Card.MetaItem>김젝트</Card.MetaItem>
-            <Card.MetaItem>2026년 2월 25일(수)</Card.MetaItem>
-          </Card.Meta>
-        </Card.Content>
-        {layout === "horizontal" && <Card.Thumbnail image={{ alt: "포스트 카드 이미지" }} />}
-        <Card.Overlay as='a' href='#' />
-      </Card.Root>
+      <CardRoot layout={layout} variant='post' isDisabled={isDisabled} interactive>
+        {layout === "vertical" && <CardThumbnail image={{ alt: "포스트 카드 이미지" }} />}
+        <CardContent>
+          <CardContentGroup>
+            <CardTitle>포스트 카드 제목</CardTitle>
+            <CardBody>카드 내용은 두 줄을 넘어가면 말줄임(...) 표시합니다.</CardBody>
+          </CardContentGroup>
+          <CardMeta>
+            <CardMetaItem>김젝트</CardMetaItem>
+            <CardMetaItem>2026년 2월 25일(수)</CardMetaItem>
+          </CardMeta>
+        </CardContent>
+        {layout === "horizontal" && <CardThumbnail image={{ alt: "포스트 카드 이미지" }} />}
+        <CardOverlay as='a' href='#' />
+      </CardRoot>
     </div>
   ),
 };

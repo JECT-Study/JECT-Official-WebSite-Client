@@ -1,0 +1,65 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title='Guides/Server Components' />
+
+# 서버 컴포넌트에서 사용하기
+
+JDS의 기본 진입점(`@jects/jds`)과 `@jects/jds/hooks`는 `"use client"` 경계예요. 서버 컴포넌트에서 가져온 값은 클라이언트 참조가 되기 때문에, `TextField.Input`처럼 점으로 파트에 접근할 수 없어요.
+
+## 파트는 개별 이름으로 가져와요
+
+서버 컴포넌트에서는 루트 이름과 파트 이름을 이은 개별 export를 써요. 점 표기와 같은 컴포넌트예요.
+
+- `TextField.Input` → `TextFieldInput`
+- `Accordion.Root` → `AccordionRoot`
+- `DropdownMenu.Category` → `DropdownMenuCategory`
+- `Card.Preset.Plate.Link` → `CardPlateLink`
+
+```tsx
+// app/page.tsx: 서버 컴포넌트
+import { TextField, TextFieldHelper, TextFieldInput, TextFieldLabel } from "@jects/jds";
+
+export default function Page() {
+  return (
+    <TextField required>
+      <TextFieldLabel>이름</TextFieldLabel>
+      <TextFieldInput name='name' defaultValue='' />
+      <TextFieldHelper>다른 사람에게 표시할 이름을 입력해 주세요.</TextFieldHelper>
+    </TextField>
+  );
+}
+```
+
+파트는 루트가 제공하는 Context를 쓰므로 루트 안에 둬야 해요.
+
+서버 컴포넌트에서 점 표기를 쓰면 Next.js 16에서는 다음 에러가 나요.
+
+```text
+Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined.
+```
+
+## 서버 컴포넌트에서 쓸 수 없는 것
+
+- 함수 prop: `onClick`, `onChange`, 렌더 콜백처럼 함수를 넘기는 조합은 소비처의 `"use client"` 파일에서 작성해요. `onClick`이 필수인 `CardPlateButton`, `CardPostButton`도 여기에 해당해요.
+- `toastController`, `snackbarController`: 클라이언트 코드에서 호출해요.
+- `formatFileSize`: 서버에서 호출하려면 `@jects/jds/utils`에서 가져와요. 기본 진입점의 것은 클라이언트 참조라 서버에서 호출할 수 없어요.
+
+클라이언트 파일에서는 기존 점 표기를 그대로 써도 돼요.
+
+```tsx
+"use client";
+
+import { useState } from "react";
+import { TextField } from "@jects/jds";
+
+export function NameField() {
+  const [name, setName] = useState("");
+
+  return (
+    <TextField>
+      <TextField.Label>이름</TextField.Label>
+      <TextField.Input value={name} onChange={event => setName(event.target.value)} />
+    </TextField>
+  );
+}
+```

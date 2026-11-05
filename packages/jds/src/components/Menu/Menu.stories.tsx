@@ -3,7 +3,7 @@ import { FlexColumn, FlexRow } from "@storybook-utils/layout";
 import { forwardRef, type ComponentPropsWithoutRef } from "react";
 import { expect, within } from "storybook/test";
 
-import { Menu } from "./Menu";
+import { MenuAnchor, MenuButton, MenuCategory, MenuContent, MenuGroup, MenuRoot, Menu } from ".";
 
 const SAMPLE_SRC = "/images/defaultImage.png";
 
@@ -53,24 +53,24 @@ RouterLink.displayName = "RouterLink";
  */
 export const Default: Story = {
   render: args => (
-    <Menu.Root {...args}>
-      <Menu.Content style={{ width: "200px" }}>
-        <Menu.Category>카테고리</Menu.Category>
-        <Menu.Group>
-          <Menu.Button fullWidthText suffixIconVisible suffixIcon='chevron-right'>
+    <MenuRoot {...args}>
+      <MenuContent style={{ width: "200px" }}>
+        <MenuCategory>카테고리</MenuCategory>
+        <MenuGroup>
+          <MenuButton fullWidthText suffixIconVisible suffixIcon='chevron-right'>
             메뉴 레이블
-          </Menu.Button>
-          <Menu.Button isSelected>메뉴 레이블 (selected)</Menu.Button>
-          <Menu.Button disabled>메뉴 레이블 (disabled)</Menu.Button>
-          <Menu.Anchor href='#' fullWidthText suffixBadgeVisible suffixBadge={5}>
+          </MenuButton>
+          <MenuButton isSelected>메뉴 레이블 (selected)</MenuButton>
+          <MenuButton disabled>메뉴 레이블 (disabled)</MenuButton>
+          <MenuAnchor href='#' fullWidthText suffixBadgeVisible suffixBadge={5}>
             메뉴 레이블 (badge)
-          </Menu.Anchor>
-          <Menu.Anchor asChild fullWidthText suffixIconVisible suffixIcon='arrow-up-right'>
+          </MenuAnchor>
+          <MenuAnchor asChild fullWidthText suffixIconVisible suffixIcon='arrow-up-right'>
             <RouterLink to='#'>메뉴 레이블 (asChild)</RouterLink>
-          </Menu.Anchor>
-        </Menu.Group>
-      </Menu.Content>
-    </Menu.Root>
+          </MenuAnchor>
+        </MenuGroup>
+      </MenuContent>
+    </MenuRoot>
   ),
 };
 

@@ -8,7 +8,7 @@ import {
 import { FlexColumn, FlexRow, Label } from "@storybook-utils/layout";
 import { useState } from "react";
 
-import { FileField } from "./FileField";
+import { FileFieldFooter, FileFieldHelper, FileFieldInput, FileFieldLabel, FileField } from ".";
 import type { FileFieldError } from "./fileField.types";
 import { BlockButton } from "../Button/BlockButton";
 import { Icon } from "../Icon";
@@ -47,11 +47,11 @@ export const Playground: Story = {
   args: FIELD_PLAYGROUND_ARGS,
   render: args => (
     <FileField {...args} style={FIELD_WIDTH}>
-      <FileField.Label suffix={<Icon name='info' size='2xs' />}>레이블</FileField.Label>
-      <FileField.Input placeholder='플레이스홀더' />
-      <FileField.Footer>
-        <FileField.Helper>헬퍼 텍스트</FileField.Helper>
-      </FileField.Footer>
+      <FileFieldLabel suffix={<Icon name='info' size='2xs' />}>레이블</FileFieldLabel>
+      <FileFieldInput placeholder='플레이스홀더' />
+      <FileFieldFooter>
+        <FileFieldHelper>헬퍼 텍스트</FileFieldHelper>
+      </FileFieldFooter>
     </FileField>
   ),
 };

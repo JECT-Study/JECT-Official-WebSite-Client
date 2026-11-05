@@ -10,7 +10,13 @@ import { REGIONS, REGION_OPTIONS, toExpressiveOptions } from "@storybook-utils/s
 import { Dialog } from "radix-ui";
 import { useState } from "react";
 
-import { MultiSelectField } from "./MultiSelectField";
+import {
+  MultiSelectFieldFooter,
+  MultiSelectFieldHelper,
+  MultiSelectFieldInput,
+  MultiSelectFieldLabel,
+  MultiSelectField,
+} from ".";
 import { BlockButton } from "../Button/BlockButton";
 import { Icon } from "../Icon";
 import { Kbd } from "../Kbd";
@@ -50,17 +56,15 @@ export const Playground: Story = {
   args: FIELD_PLAYGROUND_ARGS,
   render: args => (
     <MultiSelectField {...args} style={FIELD_WIDTH}>
-      <MultiSelectField.Label suffix={<Icon name='info' size='2xs' />}>
-        레이블
-      </MultiSelectField.Label>
-      <MultiSelectField.Input
+      <MultiSelectFieldLabel suffix={<Icon name='info' size='2xs' />}>레이블</MultiSelectFieldLabel>
+      <MultiSelectFieldInput
         options={REGION_OPTIONS}
         defaultValue={["seoul"]}
         placeholder='플레이스홀더'
       />
-      <MultiSelectField.Footer>
-        <MultiSelectField.Helper>헬퍼 텍스트</MultiSelectField.Helper>
-      </MultiSelectField.Footer>
+      <MultiSelectFieldFooter>
+        <MultiSelectFieldHelper>헬퍼 텍스트</MultiSelectFieldHelper>
+      </MultiSelectFieldFooter>
     </MultiSelectField>
   ),
 };
