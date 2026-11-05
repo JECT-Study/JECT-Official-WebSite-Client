@@ -1,6 +1,8 @@
 import { clsx } from "clsx";
 import { forwardRef, useLayoutEffect } from "react";
 
+import { IconButton } from "../../Button/IconButton";
+import { Tooltip } from "../../Tooltip";
 import { useFieldContext } from "../field.context";
 import * as styles from "../field.css";
 import type { FieldLabelProps } from "../field.types";
@@ -8,7 +10,7 @@ import type { FieldLabelProps } from "../field.types";
 import { getLabelClassName } from "@/utils/typography";
 
 export const FieldLabel = forwardRef<HTMLLabelElement, FieldLabelProps>(
-  ({ children, suffix, className, ...restProps }, ref) => {
+  ({ children, tooltip, className, ...restProps }, ref) => {
     const {
       fieldId,
       labelId,
@@ -50,8 +52,21 @@ export const FieldLabel = forwardRef<HTMLLabelElement, FieldLabelProps>(
             </span>
           )}
         </span>
-        {suffix != null && (
-          <span className={styles.labelSuffix({ disabled: isDisabled })}>{suffix}</span>
+        {tooltip != null && (
+          <Tooltip.Provider>
+            <Tooltip.Root>
+              <Tooltip.Trigger asChild>
+                <IconButton
+                  hierarchy='accent'
+                  size='2xs'
+                  icon='info'
+                  aria-label='도움말'
+                  className={styles.labelTooltipTrigger({ disabled: isDisabled })}
+                />
+              </Tooltip.Trigger>
+              <Tooltip.Content>{tooltip}</Tooltip.Content>
+            </Tooltip.Root>
+          </Tooltip.Provider>
         )}
       </span>
     );

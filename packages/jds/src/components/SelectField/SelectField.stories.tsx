@@ -12,7 +12,6 @@ import { useState } from "react";
 
 import { SelectField } from "./SelectField";
 import { BlockButton } from "../Button/BlockButton";
-import { Icon } from "../Icon";
 
 const FIELD_OPTIONS = Array.from({ length: 40 }, (_, index) => ({
   value: String(index + 1),
@@ -50,7 +49,7 @@ export const Playground: Story = {
   args: FIELD_PLAYGROUND_ARGS,
   render: args => (
     <SelectField {...args} style={FIELD_WIDTH}>
-      <SelectField.Label suffix={<Icon name='info' size='2xs' />}>레이블</SelectField.Label>
+      <SelectField.Label tooltip='도움말 문구'>레이블</SelectField.Label>
       <SelectField.Input options={REGION_OPTIONS} defaultValue='seoul' placeholder='플레이스홀더' />
       <SelectField.Helper>헬퍼 텍스트</SelectField.Helper>
     </SelectField>

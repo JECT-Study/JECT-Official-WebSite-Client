@@ -40,8 +40,8 @@ export interface FieldKbdProps {
 
 export interface FieldLabelProps extends Omit<ComponentPropsWithoutRef<"label">, "htmlFor"> {
   children?: ReactNode;
-  /** 레이블 텍스트 뒤에 배치되는 부가 요소 (예: 도움말 아이콘) */
-  suffix?: ReactNode;
+  /** 레이블 텍스트 뒤 도움말 아이콘에 표시하는 툴팁 문구. 지정하면 도움말 아이콘을 렌더링한다. */
+  tooltip?: string;
 }
 
 export interface FieldHelperProps extends ComponentPropsWithoutRef<"span"> {

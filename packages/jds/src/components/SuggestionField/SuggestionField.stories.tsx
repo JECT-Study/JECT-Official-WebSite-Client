@@ -11,7 +11,6 @@ import { useState } from "react";
 
 import { SuggestionField } from "./SuggestionField";
 import { BlockButton } from "../Button/BlockButton";
-import { Icon } from "../Icon";
 
 const SUGGESTIONS = ["React", "TypeScript", "Next.js", "vanilla-extract"];
 const FIELD_OPTIONS = Array.from({ length: 40 }, (_, index) => `추천 항목 ${index + 1}`);
@@ -47,7 +46,7 @@ export const Playground: Story = {
   args: FIELD_PLAYGROUND_ARGS,
   render: args => (
     <SuggestionField {...args} style={FIELD_WIDTH}>
-      <SuggestionField.Label suffix={<Icon name='info' size='2xs' />}>레이블</SuggestionField.Label>
+      <SuggestionField.Label tooltip='도움말 문구'>레이블</SuggestionField.Label>
       <SuggestionField.Input
         suggestions={SUGGESTIONS}
         defaultValue={["React"]}

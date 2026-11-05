@@ -12,7 +12,6 @@ import { useState } from "react";
 
 import { MultiSelectField } from "./MultiSelectField";
 import { BlockButton } from "../Button/BlockButton";
-import { Icon } from "../Icon";
 
 const FIELD_OPTIONS = Array.from({ length: 40 }, (_, index) => ({
   value: String(index + 1),
@@ -49,9 +48,7 @@ export const Playground: Story = {
   args: FIELD_PLAYGROUND_ARGS,
   render: args => (
     <MultiSelectField {...args} style={FIELD_WIDTH}>
-      <MultiSelectField.Label suffix={<Icon name='info' size='2xs' />}>
-        레이블
-      </MultiSelectField.Label>
+      <MultiSelectField.Label tooltip='도움말 문구'>레이블</MultiSelectField.Label>
       <MultiSelectField.Input
         options={REGION_OPTIONS}
         defaultValue={["seoul"]}

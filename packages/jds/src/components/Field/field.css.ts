@@ -3,6 +3,7 @@ import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
 
 import type { FieldControlType, FieldStatus } from "./field.types";
+import { iconButtonAccentColor } from "../Button/IconButton/iconButton.css";
 
 export const container = recipe({
   base: {
@@ -57,24 +58,28 @@ export const label = recipe({
   },
 });
 
-export const labelSuffix = recipe({
+// 필드가 disabled여도 툴팁은 볼 수 있도록 버튼은 비활성화하지 않고 아이콘 색만 낮춘다.
+export const labelTooltipTrigger = recipe({
   base: {
-    display: "inline-flex",
-    alignItems: "center",
+    vars: {
+      [iconButtonAccentColor]: vars.color.semantic.object.alternative,
+    },
     selectors: {
       [controlDisabledSelector]: {
-        color: vars.color.semantic.object.subtle,
+        vars: {
+          [iconButtonAccentColor]: vars.color.semantic.object.subtle,
+        },
       },
     },
   },
   variants: {
     disabled: {
       true: {
-        color: vars.color.semantic.object.subtle,
+        vars: {
+          [iconButtonAccentColor]: vars.color.semantic.object.subtle,
+        },
       },
-      false: {
-        color: vars.color.semantic.object.alternative,
-      },
+      false: {},
     },
   },
 });

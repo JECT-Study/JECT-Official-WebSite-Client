@@ -11,7 +11,6 @@ import { useState } from "react";
 import { FileField } from "./FileField";
 import type { FileFieldError } from "./fileField.types";
 import { BlockButton } from "../Button/BlockButton";
-import { Icon } from "../Icon";
 
 /**
  * 파일 하나를 첨부하는 필드입니다. 박스 전체가 파일 선택창을 여는 트리거로 동작하며,
@@ -46,7 +45,7 @@ export const Playground: Story = {
   args: FIELD_PLAYGROUND_ARGS,
   render: args => (
     <FileField {...args} style={FIELD_WIDTH}>
-      <FileField.Label suffix={<Icon name='info' size='2xs' />}>레이블</FileField.Label>
+      <FileField.Label tooltip='도움말 문구'>레이블</FileField.Label>
       <FileField.Input placeholder='플레이스홀더' />
       <FileField.Footer>
         <FileField.Helper>헬퍼 텍스트</FileField.Helper>

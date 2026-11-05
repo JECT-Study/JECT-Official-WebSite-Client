@@ -27,7 +27,7 @@ export const Playground: Story = {
   args: FIELD_PLAYGROUND_ARGS,
   render: args => (
     <TextField {...args} style={FIELD_WIDTH}>
-      <TextField.Label suffix={<Icon name='info' size='2xs' />}>레이블</TextField.Label>
+      <TextField.Label tooltip='도움말 문구'>레이블</TextField.Label>
       <TextField.Input placeholder='플레이스홀더' />
       <TextField.Helper>헬퍼 텍스트</TextField.Helper>
     </TextField>
