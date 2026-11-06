@@ -52,22 +52,20 @@ export const FieldLabel = forwardRef<HTMLLabelElement, FieldLabelProps>(
             </span>
           )}
         </span>
-        {tooltip != null && (
-          <Tooltip.Provider>
-            <Tooltip.Root>
-              <Tooltip.Trigger asChild>
-                <IconButton
-                  hierarchy='accent'
-                  size='2xs'
-                  icon='info'
-                  aria-label='도움말'
-                  className={styles.labelTooltipTrigger({ disabled: isDisabled })}
-                />
-              </Tooltip.Trigger>
-              <Tooltip.Content>{tooltip}</Tooltip.Content>
-            </Tooltip.Root>
-          </Tooltip.Provider>
-        )}
+        {tooltip != null &&
+          // disabled 폼 컨트롤도 click 계열을 제외한 마우스 이벤트를 받아 버튼을 비활성화해도 hover로 툴팁이 열리므로, 비활성 상태에서는 툴팁 없이 아이콘만 렌더링한다.
+          (isDisabled ? (
+            <IconButton hierarchy='tertiary' size='2xs' icon='info' aria-label='도움말' disabled />
+          ) : (
+            <Tooltip.Provider>
+              <Tooltip.Root>
+                <Tooltip.Trigger asChild>
+                  <IconButton hierarchy='tertiary' size='2xs' icon='info' aria-label='도움말' />
+                </Tooltip.Trigger>
+                <Tooltip.Content>{tooltip}</Tooltip.Content>
+              </Tooltip.Root>
+            </Tooltip.Provider>
+          ))}
       </span>
     );
   },
