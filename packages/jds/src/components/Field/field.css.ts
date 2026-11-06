@@ -34,7 +34,8 @@ export const labelMain = style({
   gap: vars.scheme.semantic.spacing["2"],
 });
 
-// <fieldset disabled>처럼 prop 밖에서 비활성이 되면 Label이 알 수 없으므로, 비활성 버튼은 이벤트를 받지 않게 해 hover로 툴팁이 열리지 않게 한다.
+// disabled 폼 컨트롤도 click 계열을 제외한 마우스 이벤트를 받아 비활성 버튼에서도 hover로 툴팁이 열리므로, 이벤트를 받지 않게 한다.
+// prop과 <fieldset disabled> 모두 :disabled로 잡힌다.
 export const labelTooltipTrigger = style({
   selectors: {
     "&:disabled": {
