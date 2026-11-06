@@ -5,7 +5,7 @@ import type { FieldKbdKeys, FieldProps } from "../Field";
 export type TextFieldProps = FieldProps;
 
 // prefix는 HTMLAttributes의 RDFa 속성과 타입이 충돌하므로 제외하고 ReactNode로 재정의한다.
-export interface TextFieldInputProps extends Omit<
+interface TextFieldInputBaseProps extends Omit<
   ComponentPropsWithoutRef<"input">,
   "id" | "prefix" | "required"
 > {
@@ -13,8 +13,21 @@ export interface TextFieldInputProps extends Omit<
   required?: boolean;
   /** 입력 왼쪽에 배치되는 부가 요소 */
   prefix?: ReactNode;
-  /** 입력한 텍스트를 모두 지우는 버튼 표시 여부. 값이 없거나 readonly, disabled 상태에서는 표시하지 않는다. */
-  withClearButton?: boolean;
-  /** 지우기 버튼 오른쪽에 표시하는 단축키. 최대 4개까지 지정할 수 있다. */
+  /** 지우기 버튼이나 액션 요소 오른쪽에 표시하는 단축키. 최대 4개까지 지정할 수 있다. */
   kbd?: FieldKbdKeys;
 }
+
+interface TextFieldInputClearButtonProps {
+  /** 입력한 텍스트를 모두 지우는 버튼 표시 여부. 값이 없거나 readonly, disabled 상태에서는 표시하지 않는다. */
+  withClearButton?: boolean;
+  action?: never;
+}
+
+interface TextFieldInputActionProps {
+  withClearButton?: never;
+  /** 지우기 버튼 자리에 표시하는 액션 요소. readonly, disabled에서의 표시와 동작은 소비처가 정한다. */
+  action?: ReactNode;
+}
+
+export type TextFieldInputProps = TextFieldInputBaseProps &
+  (TextFieldInputClearButtonProps | TextFieldInputActionProps);

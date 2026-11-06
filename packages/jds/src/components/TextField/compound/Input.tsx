@@ -18,6 +18,7 @@ export const TextFieldInput = forwardRef<HTMLInputElement, TextFieldInputProps>(
       prefix,
       kbd,
       withClearButton = false,
+      action,
       readOnly: readOnlyFromProps,
       disabled: disabledFromProps,
       required: requiredFromProps,
@@ -130,7 +131,7 @@ export const TextFieldInput = forwardRef<HTMLInputElement, TextFieldInputProps>(
           data-readonly={isReadOnly || undefined}
           className={clsx(getBodyClassName({ size: "md" }), styles.input, className)}
         />
-        {(hasClearButton || kbd != null) && (
+        {(hasClearButton || action != null || kbd != null) && (
           <span className={fieldStyles.contentTrailing}>
             {hasClearButton && (
               <IconButton
@@ -141,6 +142,9 @@ export const TextFieldInput = forwardRef<HTMLInputElement, TextFieldInputProps>(
                 className={fieldStyles.contentAction}
                 onClick={handleClear}
               />
+            )}
+            {action != null && (
+              <span className={clsx(fieldStyles.contentAction, styles.affix)}>{action}</span>
             )}
             {kbd != null && <FieldKbd keys={kbd} disabled={isDisabled} />}
           </span>

@@ -1,8 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FIELD_PLAYGROUND_ARGS, FIELD_WIDTH, fieldArgTypes } from "@storybook-utils/field";
 import { FlexColumn, FlexRow, Label } from "@storybook-utils/layout";
+import { useState } from "react";
 
 import { TextField } from "./TextField";
+import { IconButton } from "../Button/IconButton";
 import { Icon } from "../Icon";
 
 /**
@@ -122,6 +124,39 @@ export const WithClearButton: Story = {
       ))}
     </FlexRow>
   ),
+};
+
+const PasswordInput = () => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  return (
+    <TextField style={FIELD_WIDTH}>
+      <TextField.Label>비밀번호</TextField.Label>
+      <TextField.Input
+        type={isVisible ? "text" : "password"}
+        defaultValue='password'
+        placeholder='비밀번호 입력'
+        action={
+          <IconButton
+            hierarchy='tertiary'
+            size='md'
+            icon={isVisible ? "eye-off" : "eye"}
+            aria-label={isVisible ? "비밀번호 숨기기" : "비밀번호 표시"}
+            onClick={() => setIsVisible(visible => !visible)}
+          />
+        }
+      />
+      <TextField.Helper>헬퍼 텍스트</TextField.Helper>
+    </TextField>
+  );
+};
+
+/**
+ * `action`으로 지우기 버튼 자리에 소비처가 만든 액션 요소를 배치합니다. 예시는 비밀번호 표시 토글입니다.
+ * `withClearButton`과 함께 사용할 수 없으며, `readonly`, `disabled`에서의 표시와 동작은 소비처가 정합니다.
+ */
+export const WithAction: Story = {
+  render: () => <PasswordInput />,
 };
 
 /**
