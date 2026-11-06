@@ -10,5 +10,6 @@ export type {
 export type {
   FieldLabelProps as FileFieldLabelProps,
   FieldHelperProps as FileFieldHelperProps,
+  FieldKbdKeys as FileFieldKbdKeys,
   FieldFooterProps as FileFieldFooterProps,
 } from "../Field";
