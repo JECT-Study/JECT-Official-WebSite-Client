@@ -11,7 +11,7 @@
 - `MultiSelectField.Input` hover 시 테두리 색 — 상태별 강조 색으로 바뀌지 않도록 변경
 - `MultiSelectField.Input` 안쪽 여백 — 상하 8px에서 6px로, 좌우 12px에서 10px로 변경
 - `MultiSelectField.Input` 테두리 — `border`에서 박스 안쪽 `box-shadow`로 변경, 한 줄 높이 42px에서 36px로 감소, `border`로 테두리를 덮어쓰던 스타일은 확인 필요
-- 태그 줄 사이 간격 — 8px에서 6px로 변경
+- 배지 줄 사이 간격 — 8px에서 6px로 변경
 - disabled, readonly에서 입력칸 — 선택값이 있으면 자리를 차지하지 않음
 - 기본 커서 — 화살표에서 `pointer`로 변경, `searchable`일 때 입력 위치는 텍스트 커서 유지
 - disabled 커서 — 화살표에서 `not-allowed`로 변경

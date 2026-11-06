@@ -7,8 +7,8 @@ const placeholderTextColor = createVar();
 
 const INPUT_WRAP_THRESHOLD = pxToRem(100);
 
-// 칩과 입력칸만 줄바꿈하고, 단축키는 박스 오른쪽 중앙에 남긴다.
-// 칩 사이 빈 곳을 눌러도 박스를 누른 것으로 처리되도록 래퍼는 이벤트를 받지 않고, 칩과 입력칸만 이벤트를 받는다.
+// 배지와 입력칸만 줄바꿈하고, 단축키는 박스 오른쪽 중앙에 남긴다.
+// 배지 사이 빈 곳을 눌러도 박스를 누른 것으로 처리되도록 래퍼는 이벤트를 받지 않고, 배지와 입력칸만 이벤트를 받는다.
 export const values = style({
   display: "flex",
   flex: "1 1 0",

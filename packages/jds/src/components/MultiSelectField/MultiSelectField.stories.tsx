@@ -88,8 +88,8 @@ export const Statuses: Story = {
 };
 
 /**
- * `disabled`와 `readonly`에서는 목록을 열 수 없고 태그의 제거 버튼도 사라집니다.
- * 입력칸도 자리를 차지하지 않아, 태그가 한 줄에 들어가면 상자 높이가 늘어나지 않습니다.
+ * `disabled`와 `readonly`에서는 목록을 열 수 없고 배지의 제거 버튼도 사라집니다.
+ * 입력칸도 자리를 차지하지 않아, 배지가 한 줄에 들어가면 상자 높이가 늘어나지 않습니다.
  * `disabled`는 포커스를 받을 수 없으며, `readonly`는 포커스를 받을 수 있습니다.
  */
 export const States: Story = {
@@ -123,7 +123,7 @@ export const States: Story = {
 
 /**
  * 값이 없으면 placeholder를 표시합니다.
- * 태그가 늘어나 남은 가로 폭이 100px 미만이 되면 입력이 다음 줄로 내려갑니다.
+ * 배지가 늘어나 남은 가로 폭이 100px 미만이 되면 입력이 다음 줄로 내려갑니다.
  */
 export const Values: Story = {
   render: () => (
