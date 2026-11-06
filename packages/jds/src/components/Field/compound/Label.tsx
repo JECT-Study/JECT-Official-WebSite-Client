@@ -60,7 +60,13 @@ export const FieldLabel = forwardRef<HTMLLabelElement, FieldLabelProps>(
             <Tooltip.Provider>
               <Tooltip.Root>
                 <Tooltip.Trigger asChild>
-                  <IconButton hierarchy='tertiary' size='2xs' icon='info' aria-label='도움말' />
+                  <IconButton
+                    hierarchy='tertiary'
+                    size='2xs'
+                    icon='info'
+                    aria-label='도움말'
+                    className={styles.labelTooltipTrigger}
+                  />
                 </Tooltip.Trigger>
                 <Tooltip.Content>{tooltip}</Tooltip.Content>
               </Tooltip.Root>
