@@ -160,13 +160,7 @@ export const WithKbd: Story = {
   render: () => (
     <TimeField style={FIELD_WIDTH}>
       <TimeField.Label>레이블</TimeField.Label>
-      <TimeField.Input
-        suffix={
-          <Kbd size='sm' type='text'>
-            Alt + ↓
-          </Kbd>
-        }
-      />
+      <TimeField.Input suffix={<Kbd size='sm'>Alt + ↓</Kbd>} />
       <TimeField.Helper>헬퍼 메시지 텍스트</TimeField.Helper>
     </TimeField>
   ),
