@@ -15,3 +15,4 @@
 | `TooltipContent`       | `Tooltip.Content`의 별칭       |
 | `TooltipProvider`      | `Tooltip.Provider`의 별칭      |
 | `TooltipProviderProps` | `TooltipProvider`의 props 타입 |
+| `TooltipRootProps`     | `TooltipProps`의 별칭          |
