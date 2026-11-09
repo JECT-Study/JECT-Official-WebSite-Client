@@ -1,0 +1,20 @@
+{
+  "name": "@jects/figma-token-sync",
+  "version": "0.0.0",
+  "description": "Figma 변수를 DTCG 파일로 내보내 GitHub PR로 동기화하는 Figma 플러그인",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsdown --watch src",
+    "build": "tsc -b --noEmit && rm -rf dist && tsdown",
+    "lint": "eslint --max-warnings 0",
+    "lint:fix": "eslint --fix --max-warnings 0",
+    "type-check": "tsc -b --noEmit",
+    "clean": "rm -rf dist node_modules .turbo"
+  },
+  "devDependencies": {
+    "@figma/plugin-typings": "^1.141.0",
+    "@ject/eslint-config": "*",
+    "tsdown": "^0.22.14"
+  }
+}
