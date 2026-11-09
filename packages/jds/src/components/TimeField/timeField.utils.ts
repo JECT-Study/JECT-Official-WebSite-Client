@@ -12,7 +12,7 @@ export type TimeSegmentKind = "meridiem" | "hour" | "minute";
 type Meridiem = "am" | "pm";
 
 export interface TimeSegments {
-  /** 고르지 않았으면 null이다. 표시와 값 계산에서는 오전으로 본다. */
+  /** 고르지 않았으면 null이고 화면에는 "--"로 표시한다. 시를 입력하면 함께 정해진다. */
   meridiem: Meridiem | null;
   /** 1~12. 편집 중에는 24 같은 유효하지 않은 숫자도 보존한다. */
   hour: number | null;
@@ -40,9 +40,9 @@ const EMPTY_TIME_SEGMENTS: TimeSegments = { meridiem: null, hour: null, minute: 
 const KINDS = ["meridiem", "hour", "minute"] as const;
 
 const MERIDIEM_TEXT = { am: "오전", pm: "오후" } as const satisfies Record<Meridiem, string>;
-const EMPTY_DIGITS_TEXT = "--";
+const EMPTY_SEGMENT_TEXT = "--";
 
-// 표시 문자열은 "오전 09:30"이다. 오전, 오후는 두 글자라 세그먼트 위치가 고정된다.
+// 표시 문자열은 "오전 09:30"이다. 오전, 오후와 빈 값 "--"가 모두 두 글자라 세그먼트 위치가 고정된다.
 const SEGMENT_RANGES = {
   meridiem: [0, 2],
   hour: [3, 5],
@@ -78,18 +78,18 @@ const getLastMinute = (minuteStep: TimeStep) =>
 
 /**
  * 입력한 시를 세그먼트에 반영한다.
- * 0과 13~23은 24시간제로 보고 오전, 오후를 함께 정한다.
- * 1~12는 오전, 오후를 이미 골랐다면 그대로 두고, 고르지 않았다면 24시간제로 보아 12만 오후로 정한다.
- * 24 이상은 보정하지 않고 보존하여 검증에서 오류를 알린다.
+ * - 0과 13~23은 24시간제로 보고 오전, 오후를 함께 정한다.
+ * - 1~12는 오전, 오후를 이미 골랐다면 그대로 둔다. 고르지 않았다면 24시간제로 보아 1~11은 오전, 12는 오후로 정한다.
+ * - 24 이상은 보정하지 않고 보존하여 검증에서 오류를 알린다.
  */
 const withTypedHour = (segments: TimeSegments, hour: number): TimeSegments => {
   if (hour === 0) return { ...segments, meridiem: "am", hour: HOURS_PER_HALF_DAY };
   if (isWithin(hour, 13, 23)) return { ...segments, meridiem: "pm", hour: hour - 12 };
-  if (hour === HOURS_PER_HALF_DAY && segments.meridiem === null) {
-    return { ...segments, meridiem: "pm", hour };
+  if (!isWithin(hour, 1, HOURS_PER_HALF_DAY) || segments.meridiem !== null) {
+    return { ...segments, hour };
   }
 
-  return { ...segments, hour };
+  return { ...segments, meridiem: hour === HOURS_PER_HALF_DAY ? "pm" : "am", hour };
 };
 
 const withTypedValue = (
@@ -106,11 +106,12 @@ const formatDigits = (
 ) => {
   if (pending?.kind === kind) return pending.digits.padStart(DIGIT_LENGTH, "0");
 
-  return value === null ? EMPTY_DIGITS_TEXT : pad(value);
+  return value === null ? EMPTY_SEGMENT_TEXT : pad(value);
 };
 
 const formatTimeSegments = (segments: TimeSegments, pending: PendingDigits | null): string => {
-  const meridiem = MERIDIEM_TEXT[segments.meridiem ?? "am"];
+  const meridiem =
+    segments.meridiem === null ? EMPTY_SEGMENT_TEXT : MERIDIEM_TEXT[segments.meridiem];
   const hour = formatDigits("hour", segments.hour, pending);
   const minute = formatDigits("minute", segments.minute, pending);
 
@@ -119,7 +120,7 @@ const formatTimeSegments = (segments: TimeSegments, pending: PendingDigits | nul
 
 /** 세그먼트를 "HH:mm" 값으로 바꾼다. 비어 있거나 없는 시각이면 빈 문자열이다. */
 const toTimeValue = ({ meridiem, hour, minute }: TimeSegments): string => {
-  if (hour === null || minute === null) return "";
+  if (meridiem === null || hour === null || minute === null) return "";
   if (!isWithin(hour, 1, HOURS_PER_HALF_DAY) || !isWithin(minute, 0, MINUTES_PER_HOUR - 1)) {
     return "";
   }
@@ -332,6 +333,16 @@ const setTimeSegmentToEdge = (
 const clearTimeSegment = (segments: TimeSegments, kind: TimeSegmentKind): TimeSegments | null =>
   segments[kind] === null ? null : { ...segments, [kind]: null };
 
+/**
+ * 오전/오후, 시, 분이 모두 채워졌는지 판단한다.
+ * 시가 이미 범위를 벗어났다면 오전/오후가 비어 있어도 끝까지 입력한 것으로 보고, 덜 입력했다는 안내 대신 잘못된 시각으로 알린다.
+ */
+const isTimeSegmentsComplete = ({ meridiem, hour, minute }: TimeSegments): boolean => {
+  if (hour === null || minute === null) return false;
+
+  return meridiem !== null || !isWithin(hour, 1, HOURS_PER_HALF_DAY);
+};
+
 /** 분 증감 간격에 맞춘 편집 규칙을 만든다. 간격이 바뀔 때만 새로 만든다. */
 export const createTimeSegmentRules = (
   minuteStep: TimeStep,
@@ -345,7 +356,7 @@ export const createTimeSegmentRules = (
     segments.hour !== null ||
     segments.minute !== null ||
     pending !== null,
-  isComplete: segments => segments.hour !== null && segments.minute !== null,
+  isComplete: isTimeSegmentsComplete,
   parseValue: parseTimeValue,
   toValue: toTimeValue,
   parseText: parseTimeText,
@@ -356,4 +367,5 @@ export const createTimeSegmentRules = (
   setToEdge: (segments, kind, edge) => setTimeSegmentToEdge(segments, kind, edge, minuteStep),
 });
 
-export const TIME_PLACEHOLDER = formatTimeSegments(EMPTY_TIME_SEGMENTS, null);
+// 포커스 전 빈 값은 피그마의 빈 값 형식을 따른다. 포커스하면 고르지 않은 오전/오후를 "--"로 보여 준다.
+export const TIME_PLACEHOLDER = "오전 --:--";
