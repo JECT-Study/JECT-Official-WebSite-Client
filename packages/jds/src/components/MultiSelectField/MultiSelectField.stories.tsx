@@ -212,11 +212,7 @@ export const WithSuffix: Story = {
         options={REGION_OPTIONS}
         defaultValue={["seoul"]}
         placeholder='플레이스홀더'
-        suffix={
-          <Kbd type='function' size='sm'>
-            ⌘
-          </Kbd>
-        }
+        suffix={<Kbd size='sm'>⌘</Kbd>}
       />
       <MultiSelectField.Footer>
         <MultiSelectField.Helper>헬퍼 텍스트</MultiSelectField.Helper>
