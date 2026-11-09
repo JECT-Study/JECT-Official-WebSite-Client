@@ -47,8 +47,10 @@ export const pickerButton = style({
   zIndex: 1,
 });
 
+// 시간 선택을 감싸는 팝오버. 표면은 TimePicker가 그리므로 위치와 쌓임 순서만 정한다.
 export const picker = style({
   zIndex: vars.environment.semantic.zIndex.floated,
+  outline: "none",
 });
 
 export const suffix = style({

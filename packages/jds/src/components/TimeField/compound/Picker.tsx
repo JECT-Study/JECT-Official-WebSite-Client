@@ -25,6 +25,7 @@ const FOCUSABLE_COLUMN_SELECTOR = '[role="listbox"][tabindex="0"]';
 /**
  * @description 필드 박스 아래에 시간 선택을 띄우는 팝오버. `Popover.Root` 안에서 사용한다.
  * 입력값과 같은 "HH:mm" 값을 주고받고, `TimePicker`가 쓰는 시각 객체와의 변환은 여기서 한다.
+ * TimePicker는 자기 role을 group으로 정하므로 asChild로 합치지 않고 감싸서, 팝오버가 버튼이 알린 dialog 역할을 유지하게 한다.
  */
 export const TimeFieldPicker = ({
   contentRef,
@@ -55,19 +56,18 @@ export const TimeFieldPicker = ({
   return (
     <Popover.Portal>
       <Popover.Content
-        asChild
+        ref={contentRef}
         align='start'
         sideOffset={4}
         collisionPadding={8}
         aria-label='시간 선택'
+        className={styles.picker}
         onOpenAutoFocus={handleOpenAutoFocus}
         onCloseAutoFocus={onCloseAutoFocus}
         onInteractOutside={onInteractOutside}
         onBlur={onBlur}
       >
         <TimePicker
-          ref={contentRef}
-          className={styles.picker}
           format='hh:mm'
           value={valueToTime(value)}
           onChange={handleChange}
