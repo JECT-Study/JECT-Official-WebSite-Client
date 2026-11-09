@@ -17,9 +17,9 @@ export const FieldCounter = forwardRef<HTMLSpanElement, FieldCounterProps>(
   ({ className, ...restProps }, ref) => {
     const { status, disabled: isDisabled } = useFieldContext("Field.Counter");
     const counter = useFieldCounterValue();
-    const { counterId, isOwner } = useFieldCounterSlot("Field.Counter", counter != null);
+    const { counterId, isSlotAvailable } = useFieldCounterSlot("Field.Counter", counter != null);
 
-    if (counter == null || !isOwner) return null;
+    if (counter == null || !isSlotAvailable) return null;
 
     return (
       <span

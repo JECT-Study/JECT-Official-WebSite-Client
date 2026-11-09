@@ -3,8 +3,9 @@ import { useId, useLayoutEffect, useRef, type ChangeEvent, type ChangeEventHandl
 import { useFieldContext } from "./field.context";
 
 /**
- * @description Counter 자리에 렌더할 요소를 Field에 등록하고, 자리를 차지했는지 여부를 반환한다.
- * Counter 자리에는 하나만 렌더되므로 `isOwner`가 false이면 렌더하지 않는다.
+ * @description Counter 자리에 렌더할 요소를 Field에 등록하고, 자리를 쓸 수 있는지 여부를 반환한다.
+ * Counter 자리에는 하나만 렌더되므로 `isSlotAvailable`이 false이면 렌더하지 않는다.
+ * 등록은 layout effect에서 이뤄지므로, 아직 아무도 자리를 차지하지 않은 서버 렌더와 첫 렌더에서는 렌더를 허용한다.
  *
  * @param enabled - 표시할 값이 있을 때만 등록한다.
  */
@@ -18,7 +19,9 @@ export const useFieldCounterSlot = (consumerName: string, enabled = true) => {
     return onCounterRegister(registrationId);
   }, [enabled, registrationId, onCounterRegister]);
 
-  return { counterId, isOwner: enabled && counterOwnerId === registrationId };
+  const isSlotAvailable = enabled && (counterOwnerId === null || counterOwnerId === registrationId);
+
+  return { counterId, isSlotAvailable };
 };
 
 export interface UseItemCounterOptions {

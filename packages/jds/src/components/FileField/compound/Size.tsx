@@ -18,9 +18,9 @@ export const FileFieldSize = forwardRef<HTMLSpanElement, FileFieldSizeProps>(
   ({ sizeFormatter = formatFileSize, className, ...restProps }, ref) => {
     const { size } = useFileFieldContext("FileField.Size");
     const { status, disabled: isDisabled } = useFieldContext("FileField.Size");
-    const { counterId, isOwner } = useFieldCounterSlot("FileField.Size", size != null);
+    const { counterId, isSlotAvailable } = useFieldCounterSlot("FileField.Size", size != null);
 
-    if (size == null || !isOwner) return null;
+    if (size == null || !isSlotAvailable) return null;
 
     return (
       <span

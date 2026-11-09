@@ -18,9 +18,9 @@ import { getLabelClassName } from "@/utils/typography";
 export const TextFieldTimer = forwardRef<HTMLSpanElement, TextFieldTimerProps>(
   ({ seconds, timeFormatter = formatTimer, className, ...restProps }, ref) => {
     const { status, disabled: isDisabled } = useFieldContext("TextField.Timer");
-    const { counterId, isOwner } = useFieldCounterSlot("TextField.Timer");
+    const { counterId, isSlotAvailable } = useFieldCounterSlot("TextField.Timer");
 
-    if (!isOwner) return null;
+    if (!isSlotAvailable) return null;
 
     return (
       <span
