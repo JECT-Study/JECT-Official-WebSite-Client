@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexColumn, FlexRow, Label } from "@storybook-utils/layout";
 import { useState } from "react";
 
-import { StepsItem, StepsRoot, Steps } from ".";
+import { Steps } from "./Steps";
 import type { StepsLayout, StepsSize } from "./steps.types";
 
 interface StepsStoryArgs {
@@ -130,13 +130,13 @@ const StepsSample = ({
 
   return (
     <div style={{ width }}>
-      <StepsRoot size={size} layout={layout} current={current}>
+      <Steps.Root size={size} layout={layout} current={current}>
         {resolvedLabels.map((label, index) => (
-          <StepsItem key={label} index={index}>
+          <Steps.Item key={label} index={index}>
             {label}
-          </StepsItem>
+          </Steps.Item>
         ))}
-      </StepsRoot>
+      </Steps.Root>
     </div>
   );
 };

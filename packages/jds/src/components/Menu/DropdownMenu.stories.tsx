@@ -5,16 +5,7 @@ import { action } from "storybook/actions";
 import { expect, userEvent, within } from "storybook/test";
 import { vars } from "tokens";
 
-import {
-  DropdownMenuAnchor,
-  DropdownMenuButton,
-  DropdownMenuCategory,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuRoot,
-  DropdownMenuTrigger,
-  DropdownMenu,
-} from ".";
+import { DropdownMenu } from "./DropdownMenu";
 
 import { IconButton } from "@/components/Button/IconButton";
 import { getLabelClassName } from "@/utils/typography";
@@ -66,27 +57,27 @@ RouterLink.displayName = "RouterLink";
  */
 export const Default: Story = {
   render: args => (
-    <DropdownMenuRoot {...args}>
-      <DropdownMenuTrigger asChild>
+    <DropdownMenu.Root {...args}>
+      <DropdownMenu.Trigger asChild>
         <IconButton icon='menu' />
-      </DropdownMenuTrigger>
-      <DropdownMenuContent side='right' align='start' sideOffset={10} style={{ width: "200px" }}>
-        <DropdownMenuCategory>카테고리</DropdownMenuCategory>
-        <DropdownMenuGroup>
-          <DropdownMenuButton autoFocus fullWidthText suffixIconVisible suffixIcon='chevron-right'>
+      </DropdownMenu.Trigger>
+      <DropdownMenu.Content side='right' align='start' sideOffset={10} style={{ width: "200px" }}>
+        <DropdownMenu.Category>카테고리</DropdownMenu.Category>
+        <DropdownMenu.Group>
+          <DropdownMenu.Button autoFocus fullWidthText suffixIconVisible suffixIcon='chevron-right'>
             메뉴 레이블
-          </DropdownMenuButton>
-          <DropdownMenuButton isSelected>메뉴 레이블 (selected)</DropdownMenuButton>
-          <DropdownMenuButton disabled>메뉴 레이블 (disabled)</DropdownMenuButton>
-          <DropdownMenuAnchor href='#' fullWidthText suffixBadgeVisible suffixBadge={5}>
+          </DropdownMenu.Button>
+          <DropdownMenu.Button isSelected>메뉴 레이블 (selected)</DropdownMenu.Button>
+          <DropdownMenu.Button disabled>메뉴 레이블 (disabled)</DropdownMenu.Button>
+          <DropdownMenu.Anchor href='#' fullWidthText suffixBadgeVisible suffixBadge={5}>
             메뉴 레이블 (badge)
-          </DropdownMenuAnchor>
-          <DropdownMenuAnchor asChild fullWidthText suffixIconVisible suffixIcon='arrow-up-right'>
+          </DropdownMenu.Anchor>
+          <DropdownMenu.Anchor asChild fullWidthText suffixIconVisible suffixIcon='arrow-up-right'>
             <RouterLink to='#'>메뉴 레이블 (asChild)</RouterLink>
-          </DropdownMenuAnchor>
-        </DropdownMenuGroup>
-      </DropdownMenuContent>
-    </DropdownMenuRoot>
+          </DropdownMenu.Anchor>
+        </DropdownMenu.Group>
+      </DropdownMenu.Content>
+    </DropdownMenu.Root>
   ),
 };
 

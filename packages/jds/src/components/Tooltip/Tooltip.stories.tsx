@@ -2,16 +2,14 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexColumn, FlexRow, Label } from "@storybook-utils/layout";
 import { Icon, IconButton, TextField, Tooltip, BlockButton } from "components";
 
-import { TooltipContent, TooltipRoot, TooltipTrigger, TooltipProvider } from ".";
-
 const meta = {
   title: "Components/Tooltip",
   component: Tooltip.Content,
   decorators: [
     Story => (
-      <TooltipProvider>
+      <Tooltip.Provider>
         <Story />
-      </TooltipProvider>
+      </Tooltip.Provider>
     ),
   ],
   parameters: {
@@ -48,12 +46,12 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   render: args => (
-    <TooltipRoot>
-      <TooltipTrigger asChild>
+    <Tooltip.Root>
+      <Tooltip.Trigger asChild>
         <IconButton icon='info' aria-label='툴팁 정보' />
-      </TooltipTrigger>
-      <TooltipContent {...args}>툴팁 테스트 레이블</TooltipContent>
-    </TooltipRoot>
+      </Tooltip.Trigger>
+      <Tooltip.Content {...args}>툴팁 테스트 레이블</Tooltip.Content>
+    </Tooltip.Root>
   ),
   args: {
     side: "top",

@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Table, TableColorChip } from "..";
+import { Table } from "..";
 
 const meta = {
   title: "Components/Table/ColorChip",
-  component: TableColorChip,
+  component: Table.ColorChip,
   parameters: {
     layout: "centered",
     docs: {
@@ -36,7 +36,7 @@ const meta = {
       },
     },
   },
-} satisfies Meta<typeof TableColorChip>;
+} satisfies Meta<typeof Table.ColorChip>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
