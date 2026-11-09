@@ -283,7 +283,6 @@ export const TimeFieldInput = forwardRef<HTMLInputElement, TimeFieldInputProps>(
       handlers.onKeyDown(event);
     };
 
-    // 적용 버튼이 없으면 열마다 바로 확정되므로 오전/오후, 시, 분을 이어서 고를 수 있게 열어 둔다.
     const handlePickerSelect = (nextValue: string) => {
       const input = inputRef.current;
       // Portal의 시간 선택에는 부모 fieldset의 native 비활성이 전파되지 않는다.
@@ -293,9 +292,12 @@ export const TimeFieldInput = forwardRef<HTMLInputElement, TimeFieldInputProps>(
       }
 
       resetSegments(nextValue);
-      setIsErrorDisplayEnabled(true);
+      // 적용 버튼이 없으면 열마다 바로 반영되므로 오전/오후, 시, 분을 이어서 고를 수 있게 열어 둔다.
+      // 아직 필드 안에서 편집하는 중이므로 오류 표시는 필드를 벗어날 때 시작한다.
       if (!withActionBar) return;
 
+      // 적용은 사용자가 확정한 것이므로 DateField의 달력 선택처럼 오류 표시를 시작하고 닫는다.
+      setIsErrorDisplayEnabled(true);
       closeReasonRef.current = "select";
       setIsPickerOpen(false);
     };

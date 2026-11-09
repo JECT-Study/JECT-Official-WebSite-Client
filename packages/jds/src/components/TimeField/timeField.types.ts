@@ -23,7 +23,7 @@ export interface TimeFieldInputState {
   inputValue: string;
   value: string;
   error: TimeFieldInputError | null;
-  /** 최초 필드 이탈, 시간 선택, 네이티브 검증 실패 전에는 error가 있어도 표시하지 않는다. */
+  /** 최초 필드 이탈, 적용 버튼 확정, 네이티브 검증 실패 전에는 error가 있어도 표시하지 않는다. */
   isErrorVisible: boolean;
 }
 
