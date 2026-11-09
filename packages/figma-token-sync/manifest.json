@@ -1,0 +1,13 @@
+{
+  "name": "Variables to GitHub",
+  "id": "1694406332278523830",
+  "api": "1.0.0",
+  "main": "dist/code.iife.js",
+  "ui": "dist/ui.html",
+  "editorType": ["figma"],
+  "documentAccess": "dynamic-page",
+  "networkAccess": {
+    "allowedDomains": ["https://api.github.com"],
+    "reasoning": "Commits the exported variable files to a GitHub repository and opens a pull request."
+  }
+}
