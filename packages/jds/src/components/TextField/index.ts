@@ -1,5 +1,5 @@
 export { TextField } from "./TextField";
-export type { TextFieldInputProps, TextFieldProps } from "./textField.types";
+export type { TextFieldInputProps, TextFieldProps, TextFieldTimerProps } from "./textField.types";
 export type {
   FieldLabelProps as TextFieldLabelProps,
   FieldHelperProps as TextFieldHelperProps,
