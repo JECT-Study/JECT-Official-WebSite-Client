@@ -1,5 +1,5 @@
 import { clsx } from "clsx";
-import { forwardRef, useId, useState } from "react";
+import { forwardRef, useCallback, useEffect, useId, useState } from "react";
 
 import { FieldCounter } from "./compound/Counter";
 import { FieldFooter } from "./compound/Footer";
@@ -30,9 +30,24 @@ const InternalField = forwardRef<HTMLDivElement, FieldProps>(
     const counterId = `${fieldId}-counter`;
     const [hasLabel, setHasLabel] = useState(false);
     const [hasHelper, setHasHelper] = useState(false);
-    const [hasCounter, setHasCounter] = useState(false);
+    const [counterRegistrations, setCounterRegistrations] = useState<string[]>([]);
     const [counter, setCounter] = useState<FieldCounterState | null>(null);
     const [isControlRequired, setControlRequired] = useState(false);
+
+    const registerCounter = useCallback((registrationId: string) => {
+      setCounterRegistrations(prev => [...prev, registrationId]);
+      return () => setCounterRegistrations(prev => prev.filter(id => id !== registrationId));
+    }, []);
+
+    const hasCounterConflict = counterRegistrations.length > 1;
+
+    useEffect(() => {
+      if (process.env.NODE_ENV === "production" || !hasCounterConflict) return;
+
+      console.warn(
+        "Counter 자리에 여러 요소가 배치되었습니다. 한 필드에는 하나만 배치하세요. (예: TextField.Counter와 TextField.Timer) 먼저 등록된 요소만 렌더됩니다.",
+      );
+    }, [hasCounterConflict]);
 
     return (
       <FieldProvider
@@ -46,8 +61,9 @@ const InternalField = forwardRef<HTMLDivElement, FieldProps>(
           onHelperMountChange: setHasHelper,
           counterId,
           onCounterChange: setCounter,
-          hasCounter,
-          onCounterMountChange: setHasCounter,
+          hasCounter: counterRegistrations.length > 0,
+          counterOwnerId: counterRegistrations[0] ?? null,
+          onCounterRegister: registerCounter,
           isControlRequired,
           onControlRequiredChange: setControlRequired,
           status,

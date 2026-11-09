@@ -1,8 +1,9 @@
 import { clsx } from "clsx";
-import { forwardRef, useLayoutEffect } from "react";
+import { forwardRef } from "react";
 
 import { useFieldContext } from "../../Field/field.context";
 import * as fieldStyles from "../../Field/field.css";
+import { useFieldCounterSlot } from "../../Field/useFieldCounter";
 import * as styles from "../textField.css";
 import type { TextFieldTimerProps } from "../textField.types";
 
@@ -12,22 +13,14 @@ import { getLabelClassName } from "@/utils/typography";
 /**
  * @description 소비처가 넘긴 남은 시간을 Counter 자리에 렌더한다.
  * 값은 컨트롤이 아니라 소비처가 소유하므로 props로 받고, 카운트다운 진행과 만료 처리도 소비처가 담당한다.
- * Counter와 같은 id를 사용하므로 한 필드에 함께 배치하지 않는다.
+ * Counter 자리를 공유하므로 TextField.Counter와 함께 배치하면 먼저 등록된 요소만 렌더된다.
  */
 export const TextFieldTimer = forwardRef<HTMLSpanElement, TextFieldTimerProps>(
   ({ seconds, timeFormatter = formatTimer, className, ...restProps }, ref) => {
-    const {
-      counterId,
-      onCounterMountChange,
-      status,
-      disabled: isDisabled,
-    } = useFieldContext("TextField.Timer");
+    const { status, disabled: isDisabled } = useFieldContext("TextField.Timer");
+    const { counterId, isOwner } = useFieldCounterSlot("TextField.Timer");
 
-    // 컨트롤의 aria-describedby에 연결되도록 Counter 자리에 마운트되었음을 보고한다.
-    useLayoutEffect(() => {
-      onCounterMountChange(true);
-      return () => onCounterMountChange(false);
-    }, [onCounterMountChange]);
+    if (!isOwner) return null;
 
     return (
       <span

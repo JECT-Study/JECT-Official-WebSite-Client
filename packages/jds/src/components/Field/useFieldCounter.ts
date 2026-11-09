@@ -1,6 +1,25 @@
-import { useLayoutEffect, useRef, type ChangeEvent, type ChangeEventHandler } from "react";
+import { useId, useLayoutEffect, useRef, type ChangeEvent, type ChangeEventHandler } from "react";
 
 import { useFieldContext } from "./field.context";
+
+/**
+ * @description Counter 자리에 렌더할 요소를 Field에 등록하고, 자리를 차지했는지 여부를 반환한다.
+ * Counter 자리에는 하나만 렌더되므로 `isOwner`가 false이면 렌더하지 않는다.
+ *
+ * @param enabled - 표시할 값이 있을 때만 등록한다.
+ */
+export const useFieldCounterSlot = (consumerName: string, enabled = true) => {
+  const { counterId, counterOwnerId, onCounterRegister } = useFieldContext(consumerName);
+  const registrationId = useId();
+
+  useLayoutEffect(() => {
+    if (!enabled) return;
+
+    return onCounterRegister(registrationId);
+  }, [enabled, registrationId, onCounterRegister]);
+
+  return { counterId, isOwner: enabled && counterOwnerId === registrationId };
+};
 
 export interface UseItemCounterOptions {
   count: number;
