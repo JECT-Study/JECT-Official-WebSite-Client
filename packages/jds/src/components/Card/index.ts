@@ -52,3 +52,24 @@ export type {
   PostLinkProps,
   PostButtonProps,
 } from "./card.types";
+
+export {
+  CardRoot,
+  CardThumbnail,
+  CardContent,
+  CardContentGroup,
+  CardCaption,
+  CardTitle,
+  CardBody,
+  CardMeta,
+  CardMetaItem,
+  CardOverlay,
+} from "./compound";
+export { PlateLink as CardPlateLink, PlateButton as CardPlateButton } from "./presets/Plate";
+export { PostLink as CardPostLink, PostButton as CardPostButton } from "./presets/Post";
+export type {
+  PlateLinkProps as CardPlateLinkProps,
+  PlateButtonProps as CardPlateButtonProps,
+  PostLinkProps as CardPostLinkProps,
+  PostButtonProps as CardPostButtonProps,
+} from "./card.types";
