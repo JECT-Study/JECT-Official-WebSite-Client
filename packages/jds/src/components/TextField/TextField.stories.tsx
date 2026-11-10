@@ -128,7 +128,7 @@ export const WithTimer: Story = {
     const [isRunning, setIsRunning] = useState(false);
 
     const isActive = isRunning && seconds > 0;
-    const isExpired = isRunning && seconds === 0;
+    const isExpired = isRunning && seconds <= 0;
 
     useEffect(() => {
       if (!isActive) return;
