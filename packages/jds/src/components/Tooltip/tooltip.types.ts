@@ -10,3 +10,5 @@ export type TooltipTriggerProps = Tooltip.TooltipTriggerProps;
 export interface TooltipContentProps extends Tooltip.TooltipContentProps {
   children?: ReactNode;
 }
+
+export type TooltipProviderProps = Tooltip.TooltipProviderProps;

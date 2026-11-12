@@ -1,4 +1,8 @@
-export { SegmentedControls } from "./SegmentedControls";
+export {
+  SegmentedControls,
+  SegmentedControlsRoot,
+  SegmentedControlsItem,
+} from "./SegmentedControls";
 export type {
   SegmentedControlsSize,
   SegmentedControlsRootProps,

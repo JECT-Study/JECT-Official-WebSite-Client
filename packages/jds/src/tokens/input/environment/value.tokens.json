@@ -1,0 +1,111 @@
+{
+  "primitive": {
+    "time": {
+      "50": {
+        "$type": "number",
+        "$value": 50
+      },
+      "100": {
+        "$type": "number",
+        "$value": 100
+      },
+      "150": {
+        "$type": "number",
+        "$value": 150
+      },
+      "200": {
+        "$type": "number",
+        "$value": 200
+      },
+      "250": {
+        "$type": "number",
+        "$value": 250
+      },
+      "300": {
+        "$type": "number",
+        "$value": 300
+      },
+      "350": {
+        "$type": "number",
+        "$value": 350
+      },
+      "400": {
+        "$type": "number",
+        "$value": 400
+      },
+      "450": {
+        "$type": "number",
+        "$value": 450
+      },
+      "500": {
+        "$type": "number",
+        "$value": 500
+      }
+    }
+  },
+  "semantic": {
+    "duration": {
+      "50": {
+        "$type": "number",
+        "$value": "{primitive.time.50}"
+      },
+      "100": {
+        "$type": "number",
+        "$value": "{primitive.time.100}"
+      },
+      "150": {
+        "$type": "number",
+        "$value": "{primitive.time.150}"
+      },
+      "200": {
+        "$type": "number",
+        "$value": "{primitive.time.200}"
+      },
+      "250": {
+        "$type": "number",
+        "$value": "{primitive.time.250}"
+      },
+      "300": {
+        "$type": "number",
+        "$value": "{primitive.time.300}"
+      },
+      "350": {
+        "$type": "number",
+        "$value": "{primitive.time.350}"
+      },
+      "400": {
+        "$type": "number",
+        "$value": "{primitive.time.400}"
+      },
+      "450": {
+        "$type": "number",
+        "$value": "{primitive.time.450}"
+      },
+      "500": {
+        "$type": "number",
+        "$value": "{primitive.time.500}"
+      }
+    },
+    "motion": {
+      "fluent": {
+        "$type": "string",
+        "$value": "cubic-bezier(0.25, 0.1, 0.25, 1)"
+      },
+      "bouncy": {
+        "$type": "string",
+        "$value": "cubic-bezier(0.25, 1.57, 0.75, 0.9)"
+      },
+      "entrance": {
+        "$type": "string",
+        "$value": "cubic-bezier(0.19, 0.91, 0.38, 1)"
+      },
+      "leave": {
+        "$type": "string",
+        "$value": "cubic-bezier(0.42, 0, 0.1, 1)"
+      }
+    }
+  },
+  "$extensions": {
+    "com.figma.modeName": "value"
+  }
+}
