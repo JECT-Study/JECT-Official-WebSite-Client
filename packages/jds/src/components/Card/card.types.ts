@@ -62,6 +62,7 @@ interface PresetLinkOwnProps {
   href: string;
   target?: string;
   rel?: string;
+  linkAs?: CardLinkComponent;
 }
 
 interface PresetButtonOwnProps {
