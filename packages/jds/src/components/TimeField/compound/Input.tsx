@@ -20,11 +20,6 @@ import { FieldContent } from "../../Field";
 import { useFieldControl } from "../../Field/useFieldControl";
 import type { TimeValue } from "../../TimePicker";
 import { toSeconds } from "../../TimePicker/timePicker.utils";
-import {
-  getTimeFieldErrorMessage,
-  useTimeFieldContext,
-  type TimeFieldInputReport,
-} from "../timeField.context";
 import * as styles from "../timeField.css";
 import type {
   TimeFieldInputError,
@@ -102,7 +97,6 @@ export const TimeFieldInput = forwardRef<HTMLInputElement, TimeFieldInputProps>(
       onPaste: onPasteFromProps,
       onCut: onCutFromProps,
       onDrop: onDropFromProps,
-      onInvalid: onInvalidFromProps,
       "aria-label": ariaLabelFromProps,
       "aria-labelledby": labelledByFromProps,
       "aria-describedby": describedByFromProps,
@@ -142,7 +136,6 @@ export const TimeFieldInput = forwardRef<HTMLInputElement, TimeFieldInputProps>(
     const [isPickerOpen, setIsPickerOpen] = useState(false);
     const [isErrorDisplayEnabled, setIsErrorDisplayEnabled] = useState(false);
     const closeReasonRef = useRef<"select" | "outside" | null>(null);
-    const { onInputReport } = useTimeFieldContext("TimeField.Input");
     const onInputStateChangeRef = useRef(onInputStateChange);
     onInputStateChangeRef.current = onInputStateChange;
 
@@ -220,23 +213,14 @@ export const TimeFieldInput = forwardRef<HTMLInputElement, TimeFieldInputProps>(
 
     const isErrorVisible = error !== null && isErrorDisplayEnabled;
     const currentValue = error === null ? draftValue : "";
-    const errorMessage = getTimeFieldErrorMessage(error, minuteStep);
     const inputState = useMemo<TimeFieldInputState>(
       () => ({ inputValue, value: currentValue, error, isErrorVisible }),
       [inputValue, currentValue, error, isErrorVisible],
     );
-    const inputReport = useMemo<TimeFieldInputReport>(
-      () => ({ state: inputState, errorMessage }),
-      [inputState, errorMessage],
-    );
 
     useLayoutEffect(() => {
-      inputRef.current?.setCustomValidity(inputReport.errorMessage);
-      onInputReport(inputReport);
-      onInputStateChangeRef.current?.(inputReport.state);
-    }, [inputReport, onInputReport]);
-
-    useLayoutEffect(() => () => onInputReport(null), [onInputReport]);
+      onInputStateChangeRef.current?.(inputState);
+    }, [inputState]);
 
     const cancelFieldExitCheck = useCallback(() => {
       if (fieldExitCheckTimerRef.current === null) return;
@@ -396,13 +380,10 @@ export const TimeFieldInput = forwardRef<HTMLInputElement, TimeFieldInputProps>(
               aria-label={ariaLabel}
               aria-labelledby={ariaLabelledBy}
               aria-describedby={[ariaDescribedBy, formatHintId].filter(Boolean).join(" ")}
-              aria-invalid={isErrorVisible || ariaInvalid}
+              aria-invalid={ariaInvalid}
               aria-required={isRequired || undefined}
               disabled={isDisabled}
               readOnly={isReadOnly}
-              onInvalid={composeHandler(onInvalidFromProps, () => {
-                setIsErrorDisplayEnabled(true);
-              })}
               data-field-control=''
               data-readonly={isReadOnly || undefined}
               data-empty={isEmpty || undefined}

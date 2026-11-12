@@ -11,6 +11,9 @@ export interface TimeFieldProps extends Omit<FieldProps, "status"> {
   status?: Exclude<FieldStatus, "success">;
 }
 
+/**
+ * TimeField가 판단하는 오류 종류. 문구와 보여줄 시점은 사용처가 정한다.
+ */
 export type TimeFieldInputError =
   | "required"
   | "incomplete"
@@ -23,7 +26,7 @@ export interface TimeFieldInputState {
   inputValue: string;
   value: string;
   error: TimeFieldInputError | null;
-  /** 최초 필드 이탈, 적용 버튼 확정, 네이티브 검증 실패 전에는 error가 있어도 표시하지 않는다. */
+  /** 최초 필드 이탈이나 적용 버튼 확정 전에는 error가 있어도 표시하지 않는다. */
   isErrorVisible: boolean;
 }
 
@@ -53,7 +56,7 @@ interface TimeFieldInputBaseProps extends Omit<
   | "autoCorrect"
   | "spellCheck"
 > {
-  /** 필수 입력 여부. 최초 오류는 숨기며 필드 이탈이나 폼 제출 시 표시한다. */
+  /** 필수 입력 여부. 비어 있으면 error가 "required"가 된다. */
   required?: boolean;
   /** 부분 입력, 시각 제한, 필수 빈 값을 포함한 현재 상태를 마운트와 변경 시 알린다. */
   onInputStateChange?: (state: TimeFieldInputState) => void;
