@@ -185,7 +185,7 @@ export const radioItem = recipe({
   base: [
     radioItemGrid,
     buttonReset,
-    overlay(),
+    overlay({ hierarchy: "secondary", density: "normal" }),
     {
       position: "relative",
       selectors: {

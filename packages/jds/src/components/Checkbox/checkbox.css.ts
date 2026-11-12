@@ -165,7 +165,7 @@ export const checkboxItem = recipe({
   base: [
     // focus ring은 invalid 상태에서 색이 달라지므로 Checkbox.tsx에서 focusRing({ feedback })으로 부여한다.
     checkboxItemGrid,
-    overlay(),
+    overlay({ hierarchy: "primary", density: "normal" }),
     {
       position: "relative",
       cursor: "pointer",
