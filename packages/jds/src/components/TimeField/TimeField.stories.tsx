@@ -184,6 +184,7 @@ export const Statuses: Story = {
 /**
  * `disabled`와 `readonly`에서는 값을 바꿀 수 없습니다.
  * `disabled`는 포커스를 받을 수 없으며, `readonly`는 포커스와 세그먼트 이동이 가능합니다.
+ * `readonly`에서는 드래그로 텍스트를 선택할 수 있고, 이어서 좌우 방향키를 누르면 다시 세그먼트 단위로 이동합니다.
  * 입력이 비활성 또는 읽기 전용 상태가 되거나 `withPicker={false}`로 바뀌면 열린 시간 선택을 닫습니다.
  */
 export const States: Story = {
