@@ -1,9 +1,11 @@
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 import type { DatePickerProps } from "../DatePicker";
-import type { FieldProps } from "../Field";
+import type { FieldProps, FieldStatus } from "../Field";
 
-export type DateFieldProps = FieldProps;
+export interface DateFieldProps extends Omit<FieldProps, "status"> {
+  status?: Exclude<FieldStatus, "success">;
+}
 
 export type DateFieldInputError =
   | "required"
