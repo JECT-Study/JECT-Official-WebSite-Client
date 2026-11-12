@@ -123,7 +123,7 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
     const fieldExitCheckTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const isPickerOpenedFromInputRef = useRef(false);
     const [isPickerOpen, setIsPickerOpen] = useState(false);
-    const [isErrorDisplayEnabled, setIsErrorDisplayEnabled] = useState(false);
+    const [isTouched, setIsTouched] = useState(false);
     const closeReasonRef = useRef<"select" | "outside" | null>(null);
     const onInputStateChangeRef = useRef(onInputStateChange);
     onInputStateChangeRef.current = onInputStateChange;
@@ -199,11 +199,10 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
     else if (inputStatus === "invalid") error = "invalid";
     else error = getDateValueError(draftValue);
 
-    const isErrorVisible = error !== null && isErrorDisplayEnabled;
     const currentValue = error === null ? draftValue : "";
     const inputState = useMemo<DateFieldInputState>(
-      () => ({ inputValue, value: currentValue, error, isErrorVisible }),
-      [inputValue, currentValue, error, isErrorVisible],
+      () => ({ inputValue, value: currentValue, error, isTouched }),
+      [inputValue, currentValue, error, isTouched],
     );
     const lastValidValueRef = useRef(isValueAllowed(normalizedValue) ? normalizedValue : "");
 
@@ -230,7 +229,7 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
         const isFocusWithinField =
           fieldContentRef.current?.contains(focusedElement) === true ||
           pickerContentRef.current?.contains(focusedElement) === true;
-        if (!isFocusWithinField) setIsErrorDisplayEnabled(true);
+        if (!isFocusWithinField) setIsTouched(true);
       }, 0);
     };
 
@@ -266,7 +265,7 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
       }
 
       resetSegments(nextValue);
-      setIsErrorDisplayEnabled(true);
+      setIsTouched(true);
       closeReasonRef.current = "select";
       setIsPickerOpen(false);
     };
@@ -322,7 +321,7 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
 
           cancelFieldExitCheck();
           resetStateRef.current.resetSegments(defaultValueRef.current);
-          setIsErrorDisplayEnabled(false);
+          setIsTouched(false);
           lastValidValueRef.current = resetStateRef.current.isValueAllowed(defaultValueRef.current)
             ? defaultValueRef.current
             : "";

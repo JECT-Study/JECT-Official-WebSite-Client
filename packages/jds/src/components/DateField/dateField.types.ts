@@ -17,8 +17,12 @@ export interface DateFieldInputState {
   inputValue: string;
   value: string;
   error: DateFieldInputError | null;
-  /** 최초 필드 이탈이나 달력 확정 전에는 error가 있어도 표시하지 않는다. */
-  isErrorVisible: boolean;
+  /**
+   * 입력을 한 번 마쳤는지 여부. 최초 필드 이탈이나 달력 확정 후 true가 되고, 폼 초기화 시 false로 돌아간다.
+   * 입력창, 달력 버튼, 달력 사이의 포커스 이동은 필드 이탈로 보지 않는다.
+   * 오류는 보통 isTouched가 true이고 error가 있을 때 보여 준다.
+   */
+  isTouched: boolean;
 }
 
 interface DateFieldInputBaseProps extends Omit<
