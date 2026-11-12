@@ -7,6 +7,11 @@ export interface DateFieldProps extends Omit<FieldProps, "status"> {
   status?: Exclude<FieldStatus, "success">;
 }
 
+/**
+ * DateField가 판단하는 오류 종류. 문구와 보여줄 시점은 사용처가 정한다.
+ * incomplete와 invalid는 날짜가 만들어지지 않은 입력이라 폼 값만으로는 알 수 없으므로 사용처가 반드시 처리한다.
+ * required, outOfRange, disabledDate는 required, minDate, maxDate, isDateDisabled로 사용처가 정한 규칙의 오류다.
+ */
 export type DateFieldInputError =
   | "required"
   | "incomplete"

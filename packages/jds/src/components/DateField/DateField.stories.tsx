@@ -55,6 +55,7 @@ const getDateErrorMessage = (
  * - 숫자를 입력하면 세그먼트가 채워지는 즉시 다음 세그먼트로 넘어갑니다. `2026.7.25`처럼 구분자를 포함해 입력해도 됩니다.
  * - 부분 입력과 존재하지 않는 날짜는 자동 보정하지 않고 유지합니다.
  * - 오류 문구와 `status`, 오류를 보여줄 시점은 사용처가 정합니다. `onInputStateChange`의 `error`로 오류 종류를 확인합니다.
+ * - `incomplete`(덜 입력한 날짜)와 `invalid`(`2026.02.31` 같은 없는 날짜)는 폼 값만으로는 알 수 없습니다. 사용처가 `error`로 반드시 처리해야 하며, 문구를 `Record<DateFieldInputError, string>`으로 정의하면 빠뜨린 오류를 타입 오류로 알 수 있습니다.
  * - `onBlur`는 입력창, 달력 버튼, 팝업을 하나의 필드로 보고 필드를 벗어날 때 한 번 호출됩니다. 필드 안의 포커스 이동에서는 호출되지 않습니다.
  * - 기존 날짜를 다시 입력하는 동안에는 확정된 값을 유지합니다. 연도는 0001–9999를 지원하지만, 0001–0099년 날짜는 달력에서 올바르게 표시되지 않습니다.
  * - 해석할 수 없는 외부 값은 빈 입력과 빈 제출값으로 처리합니다.
@@ -85,6 +86,37 @@ const getDateErrorMessage = (
  * 달력 안의 키보드 조작은 `DatePicker`와 같습니다. 날짜 선택 완료 후에는 입력창으로 포커스가 돌아갑니다.
  * 달력 밖의 입력을 클릭하면 달력을 닫고 클릭한 입력으로 포커스를 이동합니다.
  * 필수 빈 입력은 `error`가 `"required"`입니다.
+ *
+ * React Hook Form에서는 `field.onBlur`를 그대로 연결하고, 폼 값으로 알 수 없는 DateField의 오류를 함께 보여 줍니다.
+ * 제출 처리에서도 `dateError`가 `null`인지 확인합니다.
+ *
+ * ```tsx
+ * const [dateError, setDateError] = useState<DateFieldInputError | null>(null);
+ *
+ * <Controller
+ *   name='startDate'
+ *   control={control}
+ *   render={({ field, fieldState }) => {
+ *     const errorMessage =
+ *       fieldState.isTouched && dateError !== null
+ *         ? DATE_ERROR_MESSAGES[dateError]
+ *         : fieldState.error?.message;
+ *
+ *     return (
+ *       <DateField status={errorMessage === undefined ? "default" : "error"}>
+ *         <DateField.Label>시작일</DateField.Label>
+ *         <DateField.Input
+ *           value={field.value}
+ *           onChange={field.onChange}
+ *           onBlur={field.onBlur}
+ *           onInputStateChange={state => setDateError(state.error)}
+ *         />
+ *         <DateField.Helper>{errorMessage ?? "오늘 이후 날짜를 입력해 주세요"}</DateField.Helper>
+ *       </DateField>
+ *     );
+ *   }}
+ * />
+ * ```
  */
 const meta = {
   title: "Components/DateField",
