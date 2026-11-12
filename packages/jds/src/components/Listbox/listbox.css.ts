@@ -17,7 +17,7 @@ export const selectContainer = recipe({
   variants: {
     surface: {
       true: {
-        padding: `${vars.scheme.semantic.spacing["10"]} ${vars.scheme.semantic.spacing["4"]}`,
+        padding: vars.scheme.semantic.spacing["10"],
         borderRadius: vars.scheme.semantic.radius["8"],
         border: `${vars.scheme.semantic.strokeWeight["1"]} solid ${vars.color.semantic.stroke.subtle}`,
         backgroundColor: vars.color.semantic.surface.shallow,
@@ -33,7 +33,7 @@ export const selectLabel = style({
   alignItems: "center",
   cursor: "default",
   alignSelf: "stretch",
-  padding: `${vars.scheme.semantic.spacing["6"]} ${vars.scheme.semantic.spacing["12"]} 0`,
+  padding: `${vars.scheme.semantic.spacing["6"]} ${vars.scheme.semantic.spacing["10"]} 0`,
   color: vars.color.semantic.object.alternative,
 });
 
