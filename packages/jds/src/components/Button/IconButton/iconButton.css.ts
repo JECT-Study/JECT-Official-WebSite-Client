@@ -69,48 +69,48 @@ interface PaddingGeometry {
 }
 
 const tapAreaInsetBySize = {
-  "2xs": { inset: "-1px", borderRadius: vars.scheme.semantic.radius["2"] },
-  xs: { inset: "-1px", borderRadius: vars.scheme.semantic.radius["2"] },
-  sm: { inset: "-2px", borderRadius: vars.scheme.semantic.radius["2"] },
-  md: { inset: "-2px", borderRadius: vars.scheme.semantic.radius["2"] },
-  lg: { inset: "-3px", borderRadius: vars.scheme.semantic.radius["4"] },
-  xl: { inset: "-3px", borderRadius: vars.scheme.semantic.radius["4"] },
-  "2xl": { inset: "-4px", borderRadius: vars.scheme.semantic.radius["4"] },
-  "3xl": { inset: "-4px", borderRadius: vars.scheme.semantic.radius["4"] },
+  "2xs": { inset: "-1px", borderRadius: vars.scheme.semantic.radius["4"] },
+  xs: { inset: "-1px", borderRadius: vars.scheme.semantic.radius["4"] },
+  sm: { inset: "-2px", borderRadius: vars.scheme.semantic.radius["4"] },
+  md: { inset: "-2px", borderRadius: vars.scheme.semantic.radius["4"] },
+  lg: { inset: "-3px", borderRadius: vars.scheme.semantic.radius["6"] },
+  xl: { inset: "-3px", borderRadius: vars.scheme.semantic.radius["6"] },
+  "2xl": { inset: "-4px", borderRadius: vars.scheme.semantic.radius["6"] },
+  "3xl": { inset: "-4px", borderRadius: vars.scheme.semantic.radius["6"] },
 } satisfies Record<IconButtonSize, TapAreaShape>;
 
 const paddingGeometryBySize = {
   "2xs": {
     padding: vars.scheme.semantic.spacing["4"],
-    borderRadius: vars.scheme.semantic.radius["4"],
+    borderRadius: vars.scheme.semantic.radius["6"],
   },
   xs: {
     padding: vars.scheme.semantic.spacing["4"],
-    borderRadius: vars.scheme.semantic.radius["4"],
+    borderRadius: vars.scheme.semantic.radius["6"],
   },
   sm: {
     padding: vars.scheme.semantic.spacing["6"],
-    borderRadius: vars.scheme.semantic.radius["4"],
+    borderRadius: vars.scheme.semantic.radius["6"],
   },
   md: {
     padding: vars.scheme.semantic.spacing["6"],
-    borderRadius: vars.scheme.semantic.radius["4"],
+    borderRadius: vars.scheme.semantic.radius["6"],
   },
   lg: {
     padding: vars.scheme.semantic.spacing["6"],
-    borderRadius: vars.scheme.semantic.radius["4"],
+    borderRadius: vars.scheme.semantic.radius["8"],
   },
   xl: {
     padding: vars.scheme.semantic.spacing["6"],
-    borderRadius: vars.scheme.semantic.radius["6"],
+    borderRadius: vars.scheme.semantic.radius["8"],
   },
   "2xl": {
     padding: vars.scheme.semantic.spacing["8"],
-    borderRadius: vars.scheme.semantic.radius["6"],
+    borderRadius: vars.scheme.semantic.radius["8"],
   },
   "3xl": {
     padding: vars.scheme.semantic.spacing["8"],
-    borderRadius: vars.scheme.semantic.radius["6"],
+    borderRadius: vars.scheme.semantic.radius["8"],
   },
 } satisfies Record<IconButtonSize, PaddingGeometry>;
 
