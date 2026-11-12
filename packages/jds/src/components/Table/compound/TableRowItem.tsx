@@ -14,6 +14,7 @@ import {
   codeWrapper,
   descriptionStyle,
   tableItemContent,
+  tableItemIcon,
   tableItemLabel,
   tableItemTitle,
   tableRowItem,
@@ -45,7 +46,9 @@ const CodeContent = ({ children }: Pick<TableRowItemBaseProps, "children">) => (
 
 const LabelContent = ({ children, prefixIcon, color }: Omit<TableRowItemLabelProps, "variant">) => (
   <div className={tableItemTitle}>
-    {prefixIcon && <Icon name={prefixIcon} size='sm' aria-hidden='true' />}
+    {prefixIcon && (
+      <Icon name={prefixIcon} size='sm' className={tableItemIcon} aria-hidden='true' />
+    )}
     {color && <ColorChip color={color} aria-hidden='true' />}
     <span className={clsx(getLabelClassName(), tableItemLabel)}>{children}</span>
   </div>

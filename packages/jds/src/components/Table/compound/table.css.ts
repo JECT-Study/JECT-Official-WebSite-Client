@@ -103,6 +103,11 @@ export const tableItemTitle = style({
   gap: vars.scheme.semantic.spacing["6"],
 });
 
+export const tableItemIcon = style({
+  flexShrink: 0,
+  color: vars.color.semantic.object.boldest,
+});
+
 export const tableItemLabel = style({
   display: "flex",
   alignItems: "center",
