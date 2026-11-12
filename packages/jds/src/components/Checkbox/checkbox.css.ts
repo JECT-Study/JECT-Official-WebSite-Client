@@ -178,19 +178,19 @@ export const checkboxItem = recipe({
   variants: {
     size: {
       lg: {
-        gap: `${vars.scheme.semantic.spacing["6"]} ${vars.scheme.semantic.spacing["12"]}`,
+        gap: `${vars.scheme.semantic.spacing["4"]} ${vars.scheme.semantic.spacing["10"]}`,
         borderRadius: vars.scheme.semantic.radius["6"],
       },
       md: {
-        gap: `${vars.scheme.semantic.spacing["6"]} ${vars.scheme.semantic.spacing["10"]}`,
+        gap: `${vars.scheme.semantic.spacing["4"]} ${vars.scheme.semantic.spacing["10"]}`,
         borderRadius: vars.scheme.semantic.radius["6"],
       },
       sm: {
-        gap: `${vars.scheme.semantic.spacing["6"]} ${vars.scheme.semantic.spacing["8"]}`,
+        gap: `${vars.scheme.semantic.spacing["4"]} ${vars.scheme.semantic.spacing["8"]}`,
         borderRadius: vars.scheme.semantic.radius["4"],
       },
       xs: {
-        gap: `${vars.scheme.semantic.spacing["6"]} ${vars.scheme.semantic.spacing["8"]}`,
+        gap: `${vars.scheme.semantic.spacing["4"]} ${vars.scheme.semantic.spacing["8"]}`,
         borderRadius: vars.scheme.semantic.radius["4"],
       },
     } satisfies Record<CheckboxSize, StyleRule>,
