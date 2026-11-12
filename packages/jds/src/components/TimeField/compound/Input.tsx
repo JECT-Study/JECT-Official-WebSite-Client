@@ -257,6 +257,13 @@ export const TimeFieldInput = forwardRef<HTMLInputElement, TimeFieldInputProps>(
       scheduleFieldExitCheck(event.currentTarget.ownerDocument);
     };
 
+    // 시간 선택이 닫힐 때는 포커스가 잠시 body에 있다가 버튼이나 입력으로 돌아온다.
+    // 이 blur에서 판단하면 돌아오기 전의 body를 보고 필드 이탈로 오인하므로, 닫힌 뒤 handlePickerCloseAutoFocus에서 판단한다.
+    const handlePickerBlur = (event: FocusEvent<HTMLElement>) => {
+      if (event.relatedTarget === null) return;
+      handleFieldBlur(event);
+    };
+
     // ↓는 값을 줄이는 데 쓰므로 시간 선택은 Alt와 함께 눌렀을 때 연다.
     const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
       const isOpenPickerKey =
@@ -443,7 +450,7 @@ export const TimeFieldInput = forwardRef<HTMLInputElement, TimeFieldInputProps>(
         {withPicker && (
           <TimeFieldPicker
             contentRef={pickerContentRef}
-            onBlur={handleFieldBlur}
+            onBlur={handlePickerBlur}
             value={currentValue}
             onSelect={handlePickerSelect}
             onCloseAutoFocus={handlePickerCloseAutoFocus}
