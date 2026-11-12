@@ -17,7 +17,7 @@ import * as styles from "./card.css";
  *
  * 링크 모드에서 `linkAs`로 next/link 같은 라우팅 컴포넌트를 지정할 수 있다.
  * 라우팅 컴포넌트는 `href`를 받아야 하며, 비활성 상태에서는 `href` 없이 기본 `a` 요소로 렌더링한다.
- * ref는 `linkAs` 컴포넌트로 전달되므로, ref를 사용하려면 해당 컴포넌트가 `a` 요소까지 ref를 전달해야 한다.
+ * ref를 전달하는 경우 `linkAs` 컴포넌트가 ref를 `a` 요소까지 전달해야 한다.
  *
  * @remarks
  * `as="button"`일 때 카드 내부에 인터랙티브 요소를 두지 않는다.
