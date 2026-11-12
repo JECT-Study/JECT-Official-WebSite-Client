@@ -47,7 +47,7 @@ export const backButtonSlot = style({
 
 export const navTitle = style({
   display: "block",
-  color: vars.color.semantic.object.bolder,
+  color: vars.color.semantic.object.boldest,
   cursor: "default",
   flex: 1,
   minWidth: 0,
