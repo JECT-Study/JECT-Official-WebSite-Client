@@ -124,6 +124,7 @@ const parseOrEmpty = <TKind extends string, TSegments, TPending>(
  * @description 텍스트 input 하나로 여러 세그먼트를 편집한다.
  * 선택 영역으로 현재 세그먼트를 강조하고, 입력 문자는 모두 가로채 세그먼트 상태로만 반영한다.
  * 모든 세그먼트가 채워졌을 때만 값을 알리고, 부분 입력은 내부 상태로만 유지한다.
+ * 편집할 수 없을 때 포인터로 고른 선택 영역은 브라우저에 맡겨 텍스트를 드래그해 선택할 수 있게 한다.
  */
 export const useSegmentedInput = <TKind extends string, TSegments, TPending>({
   inputRef,
@@ -148,6 +149,8 @@ export const useSegmentedInput = <TKind extends string, TSegments, TPending>({
   const externalValueRef = useRef(value);
   const requestedValueRef = useRef<string | null>(null);
   const isPointerSelectingRef = useRef(false);
+  // 편집할 수 없을 때 포인터로 고른 선택 영역을 브라우저에 맡기는 동안 true다. 좌우 방향키, 전체 선택, blur로 끝난다.
+  const isNativeSelectionRef = useRef(false);
   const isRestoringFocusRef = useRef(false);
   const pendingKindRef = useRef<TKind>(firstKind);
   const wasEditableRef = useRef(isEditable);
@@ -191,13 +194,16 @@ export const useSegmentedInput = <TKind extends string, TSegments, TPending>({
     if (!wasEditableRef.current && isEditable && pending !== null) {
       setActive(pendingKindRef.current);
     }
+    // 다시 편집할 수 있게 되면 입력이 세그먼트를 가리키도록 선택 영역을 되찾는다.
+    if (isEditable) isNativeSelectionRef.current = false;
     wasEditableRef.current = isEditable;
   }, [isEditable, pending]);
 
   // 렌더마다 표시 문자열이 바뀌면 브라우저가 선택 영역을 끝으로 옮기므로 현재 세그먼트를 다시 선택한다.
   useLayoutEffect(() => {
     const input = inputRef.current;
-    if (!isFocused || input === null || isPointerSelectingRef.current) return;
+    if (!isFocused || input === null) return;
+    if (isPointerSelectingRef.current || isNativeSelectionRef.current) return;
     if (input.ownerDocument.activeElement !== input) return;
 
     const [start, end] = isAllSelected ? [0, input.value.length] : rules.getRange(active);
@@ -361,6 +367,7 @@ export const useSegmentedInput = <TKind extends string, TSegments, TPending>({
     setIsFocused(false);
     finalizePending();
     setIsAllSelected(false);
+    isNativeSelectionRef.current = false;
   };
 
   const getKindAt = (position: number) =>
@@ -369,6 +376,12 @@ export const useSegmentedInput = <TKind extends string, TSegments, TPending>({
   // 포인터로 누른 위치의 세그먼트를 선택한다. 드래그가 input 밖에서 끝날 수 있어 document에서 받는다.
   const handleMouseDown = (event: MouseEvent<HTMLInputElement>) => {
     if (event.button !== 0) return;
+
+    // 편집할 수 없으면 드래그로 텍스트를 고를 수 있도록 선택 영역을 브라우저에 맡긴다.
+    if (!isEditable) {
+      isNativeSelectionRef.current = true;
+      return;
+    }
 
     const input = event.currentTarget;
     // 비어 있는 필드는 표시 문자열이 없어 누른 위치에 뜻이 없다. 첫 세그먼트부터 입력하게 한다.
@@ -402,7 +415,9 @@ export const useSegmentedInput = <TKind extends string, TSegments, TPending>({
     if (isSelectAllKey) {
       event.preventDefault();
       finalizePending();
+      isNativeSelectionRef.current = false;
       setIsAllSelected(true);
+      requestSelectionSync();
       return;
     }
 
@@ -416,6 +431,15 @@ export const useSegmentedInput = <TKind extends string, TSegments, TPending>({
       case "ArrowRight": {
         event.preventDefault();
         const isForward = event.key === "ArrowRight";
+        // 브라우저에 맡긴 선택 영역에서는 누른 방향 쪽 끝이 있는 세그먼트를 선택한다.
+        if (isNativeSelectionRef.current) {
+          isNativeSelectionRef.current = false;
+          const input = event.currentTarget;
+          const edge = isForward ? input.selectionEnd : input.selectionStart;
+          selectSegment(getKindAt(edge ?? 0));
+          requestSelectionSync();
+          return;
+        }
         // 전체 선택에서는 선택 영역의 양 끝 세그먼트로 간다.
         if (isAllSelected) selectSegment(isForward ? lastKind : firstKind);
         else moveBy(isForward ? 1 : -1);
