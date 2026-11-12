@@ -4,7 +4,7 @@
 
 **DateField**
 
-날짜를 직접 입력하거나 달력에서 선택하는 `DateField`를 추가합니다. `DateField.Label`, `DateField.Input`, `DateField.Helper`와 관련 공개 타입을 제공합니다. 기존 컴포넌트 사용 코드는 변경할 필요가 없습니다.
+날짜를 직접 입력하거나 달력에서 선택하는 `DateField`를 추가합니다. `DateField.Label`, `DateField.Input`, `DateField.Helper`와 관련 공개 타입을 제공합니다. 서버 컴포넌트에서는 같은 파트를 `DateFieldLabel`, `DateFieldInput`, `DateFieldHelper`로 가져와 조합할 수 있습니다. 기존 컴포넌트 사용 코드는 변경할 필요가 없습니다.
 
 다음 prop은 `DateField.Input`에서 사용합니다.
 
