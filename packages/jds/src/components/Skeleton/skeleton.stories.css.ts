@@ -2,6 +2,8 @@ import { style, styleVariants } from "@vanilla-extract/css";
 import { textStyles, vars } from "tokens";
 import { focusRing, overlay } from "utils";
 
+import { breakpoints } from "@/tokens/breakpoints";
+
 export const preview = style({
   display: "flex",
   flexDirection: "column",
@@ -14,7 +16,7 @@ export const preview = style({
   backgroundColor: vars.color.semantic.surface.standard,
   color: vars.color.semantic.object.bolder,
   "@media": {
-    "screen and (max-width: 599px)": {
+    [`screen and (max-width: ${breakpoints.mobile.max}px)`]: {
       padding: vars.scheme.semantic.spacing["16"],
     },
   },
