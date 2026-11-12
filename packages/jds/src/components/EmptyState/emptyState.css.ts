@@ -31,6 +31,7 @@ const root = recipe({
         paddingInline: vars.scheme.semantic.margin.sm,
       },
       horizontal: {
+        gap: vars.scheme.semantic.spacing["28"],
         paddingInline: vars.scheme.semantic.margin.md,
       },
     },
@@ -57,7 +58,7 @@ const header = recipe({
   base: {
     display: "flex",
     alignItems: "center",
-    color: vars.color.semantic.object.neutral,
+    color: vars.color.semantic.object.normal,
     cursor: "default",
   },
   variants: {
