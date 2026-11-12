@@ -181,6 +181,8 @@ export const radioLabelSlot = style({
 
 export const radioHelperSlot = style({ gridColumn: "2", gridRow: "2" });
 
+const itemBorderColor = createVar();
+
 export const radioItem = recipe({
   base: [
     radioItemGrid,
@@ -196,11 +198,21 @@ export const radioItem = recipe({
   variants: {
     size: itemSizeVariants satisfies Record<RadioSize, StyleRule>,
     styleOutlined: {
+      // 테두리가 박스 크기를 늘리지 않도록 inset box-shadow로 안쪽에 그리고, 상태별로 색 변수만 바꾼다.
       outlined: {
-        border: `${vars.scheme.semantic.strokeWeight["1"]} solid ${vars.color.semantic.stroke.alpha.subtle}`,
+        border: "none",
+        boxShadow: `inset 0 0 0 ${vars.scheme.semantic.strokeWeight["1"]} ${itemBorderColor}`,
+        vars: { [itemBorderColor]: vars.color.semantic.stroke.alpha.subtle },
         selectors: {
-          "&[data-disabled]": { borderColor: vars.color.semantic.stroke.alpha.subtler },
-          "&::after": { border: "inherit" },
+          "&[data-disabled]": {
+            vars: { [itemBorderColor]: vars.color.semantic.stroke.alpha.subtler },
+          },
+        },
+        "@media": {
+          // 고대비 모드는 box-shadow를 지우므로 테두리를 border로 되살린다.
+          "(forced-colors: active)": {
+            border: `${vars.scheme.semantic.strokeWeight["1"]} solid currentColor`,
+          },
         },
       },
       hollow: { border: "none", padding: 0 },

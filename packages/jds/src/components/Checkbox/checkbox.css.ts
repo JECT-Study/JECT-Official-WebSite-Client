@@ -161,6 +161,8 @@ export const checkboxLabelSlot = style({
 });
 export const checkboxHelperSlot = style({ gridColumn: "2", gridRow: "2" });
 
+const itemBorderColor = createVar();
+
 export const checkboxItem = recipe({
   base: [
     // focus ring은 invalid 상태에서 색이 달라지므로 Checkbox.tsx에서 focusRing({ feedback })으로 부여한다.
@@ -195,17 +197,27 @@ export const checkboxItem = recipe({
       },
     } satisfies Record<CheckboxSize, StyleRule>,
     styleOutlined: {
+      // 테두리가 박스 크기를 늘리지 않도록 inset box-shadow로 안쪽에 그리고, 상태별로 색 변수만 바꾼다.
       outlined: {
-        border: `${vars.scheme.semantic.strokeWeight["1"]} solid ${vars.color.semantic.stroke.alpha.assistive}`,
+        border: "none",
+        boxShadow: `inset 0 0 0 ${vars.scheme.semantic.strokeWeight["1"]} ${itemBorderColor}`,
+        vars: { [itemBorderColor]: vars.color.semantic.stroke.alpha.subtle },
         selectors: {
-          "&[data-disabled]": { borderColor: vars.color.semantic.stroke.alpha.subtler },
+          "&[data-disabled]": {
+            vars: { [itemBorderColor]: vars.color.semantic.stroke.alpha.subtler },
+          },
           "&[data-invalid]": {
-            borderColor: vars.color.semantic.feedback.destructive.neutral,
+            vars: { [itemBorderColor]: vars.color.semantic.feedback.destructive.alpha.alternative },
           },
           "&[data-invalid][data-disabled]": {
-            borderColor: vars.color.semantic.feedback.destructive.alpha.subtle,
+            vars: { [itemBorderColor]: vars.color.semantic.feedback.destructive.alpha.subtle },
           },
-          "&::after": { border: "inherit" },
+        },
+        "@media": {
+          // 고대비 모드는 box-shadow를 지우므로 테두리를 border로 되살린다.
+          "(forced-colors: active)": {
+            border: `${vars.scheme.semantic.strokeWeight["1"]} solid currentColor`,
+          },
         },
       },
       hollow: { border: "none", padding: 0 },
