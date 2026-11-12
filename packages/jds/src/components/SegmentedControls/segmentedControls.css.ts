@@ -64,11 +64,13 @@ export const item = recipe({
         },
       },
       "@media": {
-        // 고대비 모드는 box-shadow를 지우므로 선택된 항목의 테두리를 border로 되살린다.
+        // 고대비 모드는 box-shadow를 지우므로 선택된 항목의 테두리를 되살린다.
+        // 선택이 바뀔 때 항목 크기가 달라지지 않도록 border 대신 안쪽으로 당긴 outline을 쓴다.
         "(forced-colors: active)": {
           selectors: {
             '&[data-state="checked"]': {
-              border: `${vars.scheme.semantic.strokeWeight["1"]} solid currentColor`,
+              outline: `${vars.scheme.semantic.strokeWeight["1"]} solid currentColor`,
+              outlineOffset: `calc(${vars.scheme.semantic.strokeWeight["1"]} * -1)`,
             },
           },
         },
