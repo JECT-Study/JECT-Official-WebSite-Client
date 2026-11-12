@@ -39,7 +39,7 @@ const baseStyles = style({
 const neutralHierarchy = (color: string) => ({
   vars: {
     [iconButtonIconColor]: color,
-    [overlayColor]: vars.color.semantic.object.neutral,
+    [overlayColor]: vars.color.semantic.fill.boldest,
   },
   selectors: {
     "&[data-disabled]": {
@@ -140,7 +140,7 @@ const sizeCondensedCompoundVariants = ICON_BUTTON_SIZE_OPTIONS.flatMap(size => [
 
 export const root = recipe({
   // pseudo-element 정책: ::before=focusRing, ::after=overlay (../../../utils/PSEUDO_ELEMENT_POLICY.md)
-  base: [overlay(), focusRing(), baseStyles],
+  base: [overlay({ density: "normal" }), focusRing(), baseStyles],
   variants: {
     hierarchy: {
       accent: {
