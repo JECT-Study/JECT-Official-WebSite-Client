@@ -19,7 +19,6 @@ import { IconButton } from "../../Button/IconButton";
 import { isDateOutOfRange } from "../../DatePicker/datePicker.utils";
 import { FieldContent } from "../../Field";
 import { useFieldControl } from "../../Field/useFieldControl";
-import { useDateFieldContext } from "../dateField.context";
 import * as styles from "../dateField.css";
 import type {
   DateFieldInputError,
@@ -126,7 +125,6 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
     const [isPickerOpen, setIsPickerOpen] = useState(false);
     const [isErrorDisplayEnabled, setIsErrorDisplayEnabled] = useState(false);
     const closeReasonRef = useRef<"select" | "outside" | null>(null);
-    const { onInputStateChange: reportInputState } = useDateFieldContext("DateField.Input");
     const onInputStateChangeRef = useRef(onInputStateChange);
     onInputStateChangeRef.current = onInputStateChange;
 
@@ -210,12 +208,9 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
     const lastValidValueRef = useRef(isValueAllowed(normalizedValue) ? normalizedValue : "");
 
     useLayoutEffect(() => {
-      reportInputState(inputState);
       onInputStateChangeRef.current?.(inputState);
       if (currentValue !== "") lastValidValueRef.current = currentValue;
-    }, [inputState, currentValue, reportInputState]);
-
-    useLayoutEffect(() => () => reportInputState(null), [reportInputState]);
+    }, [inputState, currentValue]);
 
     const cancelFieldExitCheck = useCallback(() => {
       if (fieldExitCheckTimerRef.current === null) return;
@@ -373,7 +368,7 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
               aria-label={ariaLabel}
               aria-labelledby={ariaLabelledBy}
               aria-describedby={[ariaDescribedBy, formatHintId].filter(Boolean).join(" ")}
-              aria-invalid={isErrorVisible || ariaInvalid}
+              aria-invalid={ariaInvalid}
               aria-required={isRequired || undefined}
               disabled={isDisabled}
               readOnly={isReadOnly}

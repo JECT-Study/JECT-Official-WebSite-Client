@@ -11,5 +11,5 @@ export type {
 } from "../Field";
 
 export { DateFieldInput } from "./compound/Input";
-export { DateFieldHelper } from "./compound/Helper";
 export { FieldLabel as DateFieldLabel } from "../Field/compound/Label";
+export { FieldHelper as DateFieldHelper } from "../Field/compound/Helper";
