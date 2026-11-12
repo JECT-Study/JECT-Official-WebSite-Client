@@ -1,4 +1,4 @@
-import type { StyleRule } from "@vanilla-extract/css";
+import { createVar, type StyleRule } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { textStyles, vars } from "tokens";
 
@@ -21,6 +21,8 @@ export const root = recipe({
   },
 });
 
+const itemBorderColor = createVar();
+
 export const item = recipe({
   base: [
     overlay({ density: "normal", hierarchy: "secondary" }),
@@ -33,34 +35,42 @@ export const item = recipe({
       flex: 1,
       minWidth: 0,
       gap: vars.scheme.semantic.spacing["4"],
-      border: `${vars.scheme.semantic.strokeWeight["1"]} solid transparent`,
+      border: "none",
       borderRadius: vars.scheme.semantic.radius["6"],
       background: "transparent",
       color: vars.color.semantic.object.alternative,
       cursor: "pointer",
       fontFamily: "inherit",
       userSelect: "none",
+      vars: { [itemBorderColor]: vars.color.semantic.stroke.alpha.subtle },
       selectors: {
         "&::before, &::after": {
           inset: 0,
           borderRadius: "inherit",
         },
+        // 선택된 항목의 테두리가 박스 크기를 늘리지 않도록 inset box-shadow로 안쪽에 그린다.
         '&[data-state="checked"]': {
-          borderColor: vars.color.semantic.stroke.alpha.subtle,
           background: vars.color.semantic.surface.shallowest,
-          boxShadow: vars.environment.semantic.shadow.embossed,
+          boxShadow: `inset 0 0 0 ${vars.scheme.semantic.strokeWeight["1"]} ${itemBorderColor}, ${vars.environment.semantic.shadow.embossed}`,
           color: vars.color.semantic.object.bolder,
-        },
-        '&[data-state="checked"]::before, &[data-state="checked"]::after': {
-          inset: "-1px",
         },
         "&:disabled, &[data-disabled]": {
           color: vars.color.semantic.object.subtle,
           cursor: "not-allowed",
         },
         '&[data-state="checked"]:disabled, &[data-state="checked"][data-disabled]': {
-          borderColor: vars.color.semantic.stroke.alpha.subtler,
           background: vars.color.semantic.surface.shallower,
+          vars: { [itemBorderColor]: vars.color.semantic.stroke.alpha.subtler },
+        },
+      },
+      "@media": {
+        // 고대비 모드는 box-shadow를 지우므로 선택된 항목의 테두리를 border로 되살린다.
+        "(forced-colors: active)": {
+          selectors: {
+            '&[data-state="checked"]': {
+              border: `${vars.scheme.semantic.strokeWeight["1"]} solid currentColor`,
+            },
+          },
         },
       },
     },
