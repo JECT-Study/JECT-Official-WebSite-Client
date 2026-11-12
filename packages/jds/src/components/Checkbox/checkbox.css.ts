@@ -68,7 +68,7 @@ export const checkboxVisual = recipe({
         cursor: "not-allowed",
       },
       "&[data-invalid]:not([data-disabled])": {
-        borderColor: vars.color.semantic.feedback.destructive.neutral,
+        borderColor: vars.color.semantic.feedback.destructive.alpha.alternative,
       },
       "&[data-invalid][data-disabled]": {
         borderColor: vars.color.semantic.feedback.destructive.alpha.subtle,
