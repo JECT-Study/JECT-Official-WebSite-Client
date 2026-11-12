@@ -2,7 +2,7 @@ import type { StyleRule } from "@vanilla-extract/css";
 import { createVar, fallbackVar, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
-import { focusRing, overlay, overlayColor, pxToRem } from "utils";
+import { focusRing, overlay, pxToRem } from "utils";
 
 import type { MenuSize, MenuStyle } from "./menu.types";
 
@@ -186,7 +186,7 @@ const menuItemVariants = {
 
 export const menuContainerStyle = recipe({
   base: [
-    overlay(),
+    overlay({ hierarchy: "tertiary", density: "normal" }),
     focusRing(),
     {
       position: "relative",
@@ -207,7 +207,6 @@ export const menuContainerStyle = recipe({
         "&::before, &::after": { inset: 0, borderRadius: menuItemVariants.layerRadius },
       },
       vars: {
-        [overlayColor]: vars.color.semantic.object.assistive,
         [menuItemVariants.layerRadius]: vars.scheme.semantic.radius["8"],
       },
     },
