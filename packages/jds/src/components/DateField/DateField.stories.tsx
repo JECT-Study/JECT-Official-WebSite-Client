@@ -155,13 +155,7 @@ export const WithKbd: Story = {
   render: () => (
     <DateField style={FIELD_WIDTH}>
       <DateField.Label>레이블</DateField.Label>
-      <DateField.Input
-        suffix={
-          <Kbd size='sm' type='text'>
-            Alt + ↓
-          </Kbd>
-        }
-      />
+      <DateField.Input suffix={<Kbd size='sm'>Alt + ↓</Kbd>} />
       <DateField.Helper>헬퍼 메시지 텍스트</DateField.Helper>
     </DateField>
   ),
