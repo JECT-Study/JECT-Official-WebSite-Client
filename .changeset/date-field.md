@@ -4,34 +4,26 @@
 
 **DateField**
 
-날짜를 직접 입력하거나 달력에서 선택하는 `DateField`를 추가합니다. `DateField.Label`, `DateField.Input`, `DateField.Helper`와 관련 공개 타입을 제공합니다. 서버 컴포넌트에서는 같은 파트를 `DateFieldLabel`, `DateFieldInput`, `DateFieldHelper`로 가져와 조합할 수 있습니다. 다른 Field처럼 오류 문구와 `status`는 사용처가 정합니다. 기존 컴포넌트 사용 코드는 변경할 필요가 없습니다.
+날짜를 직접 입력하거나 달력에서 선택하는 `DateField`를 추가합니다. `DateField.Label`, `DateField.Input`, `DateField.Helper`로 구성하며, 서버 컴포넌트에서는 같은 파트를 `DateFieldLabel`, `DateFieldInput`, `DateFieldHelper`로 가져와 조합할 수 있습니다. 화면에는 `YYYY.MM.DD`로 표시하고 값과 폼 제출값은 `YYYY-MM-DD` 문자열입니다. 기존 컴포넌트 사용 코드는 변경할 필요가 없습니다.
 
-다음 prop은 `DateField.Input`에서 사용합니다.
+루트 `DateField`는 `status`(`default`, `error`), `disabled`, `readonly`, `required`를 받고, 다음 prop은 `DateField.Input`에서 사용합니다.
 
-| prop                 | 기본값  | 용도                                                                  |
-| -------------------- | ------- | --------------------------------------------------------------------- |
-| `value`              | -       | 제어 모드의 확정값, `YYYY-MM-DD` 문자열 또는 `""`                     |
-| `defaultValue`       | `""`    | 비제어 모드의 최초 값과 폼 초기화 기준                                |
-| `onChange`           | -       | 유효하고 선택 가능한 날짜 완성 또는 전체 삭제로 확정값이 바뀔 때 호출 |
-| `onInputStateChange` | -       | 현재 표시값, 유효한 제출값, 오류 종류, 입력 완료 여부 전달            |
-| `name`, `form`       | -       | 현재 유효한 값을 `YYYY-MM-DD` 형식으로 폼에 제출                      |
-| `withPicker`         | `true`  | 달력 버튼 표시, 날짜 선택 즉시 확정                                   |
-| `withActionBar`      | `false` | 달력에 오늘, 지우기, 적용 버튼 표시, 적용 시 선택과 지우기 확정       |
-| `minDate`, `maxDate` | -       | 직접 입력과 달력 선택에 적용되는 날짜 범위                            |
-| `isDateDisabled`     | -       | `true`를 반환한 날짜는 직접 입력 시 오류, 달력에서 선택 불가          |
-| `suffix`             | -       | 달력 버튼 오른쪽 부가 요소, 단축키 자동 등록 없음                     |
+| prop                 | 기본값  | 용도                                                                                   |
+| -------------------- | ------- | -------------------------------------------------------------------------------------- |
+| `value`              | -       | 제어 모드의 확정값, `YYYY-MM-DD` 또는 `""` — 덜 입력한 날짜를 고치는 동안 이전 값 유지 |
+| `defaultValue`       | `""`    | 비제어 모드의 최초 값과 폼 초기화 기준                                                 |
+| `onChange`           | -       | 유효하고 선택 가능한 날짜를 완성하거나 모두 지웠을 때 호출                             |
+| `onInputStateChange` | -       | 편집 중 표시값, 현재 유효한 값, 오류 종류 `error`, 입력 완료 여부 `isTouched` 전달     |
+| `name`, `form`       | -       | 현재 유효한 값을 폼에 제출, 오류가 있으면 `""`                                         |
+| `withPicker`         | `true`  | 달력 버튼 표시, 날짜 선택 즉시 확정                                                    |
+| `withActionBar`      | `false` | 달력에 오늘, 지우기, 적용 버튼 표시, 적용 시 선택과 지우기 확정                        |
+| `minDate`, `maxDate` | -       | 직접 입력과 달력 선택에 적용되는 날짜 범위                                             |
+| `isDateDisabled`     | -       | `true`를 반환한 날짜는 직접 입력 시 오류, 달력에서 선택 불가                           |
+| `suffix`             | -       | 달력 버튼 오른쪽 부가 요소, 단축키 자동 등록 없음                                      |
 
-- `DateField`에서 `status`(`default`, `error`), `disabled`, `readonly`, `required` 사용 가능
-- 0001–9999년 입력 지원, 화면에는 `YYYY.MM.DD` 표시, 숫자 연속 입력과 날짜 문자열 붙여넣기 지원
-- 0001–0099년 날짜는 달력에서 올바르게 표시되지 않음
-- 부분 입력과 잘못된 날짜는 화면에 유지하고 제출값은 `""`로 처리, 마지막 확정값은 유지
-- 오류 문구를 제공하지 않음, `DateFieldInputState.error`로 오류 종류를, `isTouched`로 첫 필드 이탈이나 달력 확정 여부를 확인해 사용처가 문구와 `status` 지정, 폼 초기화 시 `isTouched`도 초기화
-- 제출을 막지 않음, 부분 입력 중에도 마지막 확정값을 유지하므로 제출 전 `error === null` 확인 필요
-- 읽기 전용 전환 시 편집 중 숫자 보존, 비활성이나 읽기 전용 전환 또는 `withPicker={false}` 설정 시 열린 달력 닫기
-- `withActionBar`에서 적용 전에 닫으면 기존 입력 유지, 부분 입력과 잘못된 날짜는 달력의 지우기로 비울 수 없음
-- 부모가 제어 모드의 변경을 거절하면 표시도 부모 값으로 복원, 같은 `value=""`를 다시 전달해도 부분 입력은 유지
-- 부분 입력까지 초기화하려면 폼 reset 또는 Input 재마운트 필요, 제어 모드 reset은 `onChange("")`로 변경 요청
-- 해석할 수 없는 외부 값은 빈 입력과 빈 제출값으로 처리, 개발 환경에서 경고 표시
+DateField는 오류 문구를 제공하지 않고 제출도 막지 않습니다. 사용처가 `error`와 `isTouched`로 문구와 `status`를 정하고, 제출 전에는 `error`가 `null`인지 확인해야 합니다. `isTouched`는 필드를 처음 벗어나거나 달력에서 확정하면 `true`가 되고, 폼을 초기화하면 `false`로 돌아갑니다.
+
+연, 월, 일을 칸 단위로 편집하며 좌우 방향키로 칸을, 위아래 방향키로 값을 바꾸고, Alt와 아래 방향키로 달력을 엽니다. `20260725`, `2026-07-25`, `2026.07.25` 형식을 붙여넣을 수 있고, 덜 입력한 날짜와 없는 날짜는 고치지 않고 그대로 둡니다. 0001–0099년 날짜는 달력에서 올바르게 표시되지 않습니다. 해석할 수 없는 `value`와 `defaultValue`는 빈 값으로 처리하고 개발 환경에서 경고합니다.
 
 ```tsx
 import { DateField, type DateFieldInputError, type DateFieldInputState } from "@jects/jds";
