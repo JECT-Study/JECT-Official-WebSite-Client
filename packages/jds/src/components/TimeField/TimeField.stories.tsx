@@ -10,7 +10,7 @@ import { useState } from "react";
 import { vars } from "tokens";
 
 import { TimeField } from "./TimeField";
-import type { TimeFieldInputState } from "./timeField.types";
+import type { TimeFieldInputError, TimeFieldInputState } from "./timeField.types";
 import { BlockButton } from "../Button/BlockButton";
 import { Icon } from "../Icon";
 import { Kbd } from "../Kbd";
@@ -23,6 +23,31 @@ const TimeFieldFormResult = ({ value }: { value: string | null }) => (
   </div>
 );
 
+type TimeErrorMessages = Record<TimeFieldInputError, string>;
+
+const TIME_ERROR_MESSAGES: TimeErrorMessages = {
+  required: "시각을 입력해 주세요.",
+  incomplete: "시각을 끝까지 입력해 주세요.",
+  invalid: "있는 시각을 입력해 주세요.",
+  outOfRange: "허용된 범위의 시각을 입력해 주세요.",
+  stepMismatch: "분은 5분 단위로 입력해 주세요.",
+};
+
+interface TimeErrorMessageOptions {
+  /** 오류를 보여줄 시점인지 여부입니다. 이 예시는 필드를 한 번 벗어났거나 제출을 시도했을 때 true로 넘깁니다. */
+  isVisible: boolean;
+  messages?: TimeErrorMessages;
+}
+
+/** 사용처에서 오류 문구를 고르는 예시입니다. 보여줄 오류가 없으면 null입니다. */
+const getTimeErrorMessage = (
+  state: TimeFieldInputState | null,
+  { isVisible, messages = TIME_ERROR_MESSAGES }: TimeErrorMessageOptions,
+): string | null => {
+  if (!isVisible || state === null || state.error === null) return null;
+  return messages[state.error];
+};
+
 /**
  * 하루 안의 특정 시각을 직접 입력하거나 시간 선택에서 고르는 필드입니다.
  * 오전/오후, 시, 분을 세그먼트 단위로 편집하며 값은 `"HH:mm"` 형식의 24시간제 문자열입니다.
@@ -32,11 +57,14 @@ const TimeFieldFormResult = ({ value }: { value: string | null }) => (
  * - 오전/오후가 `--`일 때 시를 입력하면 24시간제로 해석해 오전/오후도 함께 정합니다. `0930`은 오전 09:30, `2130`은 오후 09:30, `1200`은 오후 12:00입니다.
  * - 오전/오후가 이미 정해져 있으면 1–12시는 그대로 두고, 0시와 13–23시만 24시간제로 바꿉니다. `오전`에서 `12`를 입력하면 오전 12시(자정)입니다.
  * - 오전/오후 세그먼트에서는 `a`, `p` 또는 `오전`, `오후`를 입력하거나 `↑` `↓`로 고릅니다. 숫자를 입력하면 시부터 채웁니다.
- * - 부분 입력과 없는 시각은 자동 보정하지 않고 유지합니다. 오류는 입력하는 동안 숨기고, 필드 전체를 벗어나거나 적용 버튼으로 확정하거나 제출할 때 표시합니다.
- * - 분이 `minuteStep` 간격에 맞지 않으면 오류입니다. 기본 간격은 5분입니다.
- * - 입력창, 시간 선택 버튼, 팝업 사이의 포커스 이동은 필드 이탈로 보지 않습니다.
+ * - 부분 입력과 없는 시각은 자동 보정하지 않고 유지합니다.
+ * - 오류 문구와 `status`, 오류를 보여줄 시점은 사용처가 정합니다. `onInputStateChange`의 `error`로 오류 종류를 확인합니다.
+ * - `incomplete`(덜 입력한 시각)와 `invalid`(`오전 13:00` 같은 없는 시각)는 폼 값만으로는 알 수 없습니다. 사용처가 `error`로 반드시 처리해야 하며, 문구를 `Record<TimeFieldInputError, string>`으로 정의하면 빠뜨린 오류를 타입 오류로 알 수 있습니다.
+ * - 분이 `minuteStep` 간격에 맞지 않으면 `error`가 `"stepMismatch"`입니다. 기본 간격은 5분입니다.
+ * - `onBlur`는 입력창, 시간 선택 버튼, 팝업을 하나의 필드로 보고 필드를 벗어날 때 한 번 호출됩니다. 필드 안의 포커스 이동에서는 호출되지 않습니다.
  * - 기존 시각을 다시 입력하는 동안에는 확정된 값을 유지합니다. 해석할 수 없는 외부 값은 빈 입력과 빈 제출값으로 처리합니다.
- * - `onChange`는 확정값이 바뀔 때 호출됩니다. `onInputStateChange`로 편집 내용, 현재 유효한 제출값, 오류 종류와 오류 표시 여부를 확인합니다.
+ * - `onChange`는 확정값이 바뀔 때 호출됩니다. `onInputStateChange`로 편집 내용, 현재 유효한 제출값, 오류 종류를 확인합니다.
+ * - 입력창을 벗어나면 부분 입력을 확정하고, 확정값이 바뀌면 `onChange`를 호출한 뒤 `onBlur`를 호출합니다.
  *
  * | 키 | 동작 |
  * | --- | --- |
@@ -52,7 +80,38 @@ const TimeFieldFormResult = ({ value }: { value: string | null }) => (
  * | `Tab` | 입력에서 시간 선택 버튼으로, 다시 필드 밖으로 이동 |
  *
  * 시간 선택 안의 키보드 조작은 `TimePicker`와 같습니다. 열면 오전/오후 열에 포커스합니다.
- * 적용 버튼이 없으면 열에서 고를 때마다 입력값에 반영하고 시간 선택은 열어 둡니다. 이때는 아직 편집 중이므로 오류 표시를 시작하지 않습니다.
+ * 적용 버튼이 없으면 열에서 고를 때마다 입력값에 반영하고 시간 선택은 열어 둡니다. 이때는 아직 필드 안에 있으므로 `onBlur`를 호출하지 않습니다.
+ *
+ * React Hook Form에서는 `field.onBlur`를 그대로 연결하고, 폼 값으로 알 수 없는 TimeField의 오류를 함께 보여 줍니다.
+ * 제출 처리에서도 `timeError`가 `null`인지 확인합니다.
+ *
+ * ```tsx
+ * const [timeError, setTimeError] = useState<TimeFieldInputError | null>(null);
+ *
+ * <Controller
+ *   name='startTime'
+ *   control={control}
+ *   render={({ field, fieldState }) => {
+ *     const errorMessage =
+ *       fieldState.isTouched && timeError !== null
+ *         ? TIME_ERROR_MESSAGES[timeError]
+ *         : fieldState.error?.message;
+ *
+ *     return (
+ *       <TimeField status={errorMessage === undefined ? "default" : "error"}>
+ *         <TimeField.Label>시작 시각</TimeField.Label>
+ *         <TimeField.Input
+ *           value={field.value}
+ *           onChange={field.onChange}
+ *           onBlur={field.onBlur}
+ *           onInputStateChange={state => setTimeError(state.error)}
+ *         />
+ *         <TimeField.Helper>{errorMessage ?? "5분 단위로 입력해 주세요"}</TimeField.Helper>
+ *       </TimeField>
+ *     );
+ *   }}
+ * />
+ * ```
  */
 const meta = {
   title: "Components/TimeField",
@@ -202,23 +261,37 @@ export const WithActionBar: Story = {
   render: () => <ActionBarPreview />,
 };
 
+const RESERVATION_TIME_ERROR_MESSAGES: TimeErrorMessages = {
+  ...TIME_ERROR_MESSAGES,
+  outOfRange: "오전 9시부터 오후 6시 사이로 입력해 주세요.",
+  stepMismatch: "30분 단위로 입력해 주세요.",
+};
+
 const TimeRangePreview = () => {
   const [time, setTime] = useState("10:00");
   const [inputState, setInputState] = useState<TimeFieldInputState | null>(null);
+  const [isTouched, setIsTouched] = useState(false);
+  const errorMessage = getTimeErrorMessage(inputState, {
+    isVisible: isTouched,
+    messages: RESERVATION_TIME_ERROR_MESSAGES,
+  });
 
   return (
     <FlexColumn gap='16px' style={{ alignItems: "flex-start" }}>
-      <TimeField style={FIELD_WIDTH}>
+      <TimeField status={errorMessage === null ? "default" : "error"} style={FIELD_WIDTH}>
         <TimeField.Label>예약 시각</TimeField.Label>
         <TimeField.Input
           value={time}
           onChange={setTime}
           onInputStateChange={setInputState}
+          onBlur={() => setIsTouched(true)}
           minuteStep={30}
           minTime={{ hour: 9, minute: 0, second: 0 }}
           maxTime={{ hour: 18, minute: 0, second: 0 }}
         />
-        <TimeField.Helper>오전 9시부터 오후 6시까지 30분 단위로 예약할 수 있어요</TimeField.Helper>
+        <TimeField.Helper>
+          {errorMessage ?? "오전 9시부터 오후 6시까지 30분 단위로 예약할 수 있어요"}
+        </TimeField.Helper>
       </TimeField>
       <InputStatePreview label='예약 시각 입력 상태' state={inputState} />
     </FlexColumn>
@@ -227,8 +300,9 @@ const TimeRangePreview = () => {
 
 /**
  * `minTime`, `maxTime`, `minuteStep`은 시간 선택과 직접 입력에 동일하게 적용됩니다.
- * 범위 밖이거나 간격에 맞지 않는 입력은 화면에 유지하고 내장 오류 메시지로 안내합니다. 마지막 확정값은 변경하지 않습니다.
  * 텍스트 입력에 적용되지 않는 네이티브 `min`, `max`, `step` prop은 받지 않습니다.
+ * 범위 밖이거나 간격에 맞지 않는 입력은 화면에 유지하고 `error`로 `"outOfRange"`나 `"stepMismatch"`를 알립니다. 마지막 확정값은 변경하지 않습니다.
+ * 이 예시는 범위와 간격에 맞는 오류 문구를 사용처에서 지정해, 오류가 나도 무엇을 입력해야 하는지 안내합니다.
  */
 export const TimeRange: Story = {
   render: () => <TimeRangePreview />,
@@ -252,8 +326,8 @@ const FormPreview = () => {
     <form
       onSubmit={event => {
         event.preventDefault();
-        const entry = new FormData(event.currentTarget).get("startTime");
-        setSubmitted(typeof entry === "string" ? entry : null);
+        const data = new FormData(event.currentTarget);
+        setSubmitted(JSON.stringify(Object.fromEntries(data)));
       }}
       onReset={() => setSubmitted(null)}
     >
@@ -278,6 +352,7 @@ const FormPreview = () => {
 
 /**
  * 화면에는 `오후 09:30`으로 표시하고, `name`을 지정하면 폼에는 `"21:30"` 값으로 제출됩니다.
+ * 덜 입력한 시각이나 없는 시각은 빈 문자열로 제출됩니다. TimeField는 제출을 막지 않습니다.
  * 초기화를 누르면 최초 `defaultValue`로 돌아가고 제출 결과를 지웁니다.
  */
 export const WithForm: Story = {
@@ -309,31 +384,71 @@ const InputStatePreview = ({ label, state }: InputStatePreviewProps) => (
 const ValidationPreview = () => {
   const [optionalState, setOptionalState] = useState<TimeFieldInputState | null>(null);
   const [requiredState, setRequiredState] = useState<TimeFieldInputState | null>(null);
+  const [isOptionalTouched, setIsOptionalTouched] = useState(false);
+  const [isRequiredTouched, setIsRequiredTouched] = useState(false);
+  const [isSubmitAttempted, setIsSubmitAttempted] = useState(false);
   const [submitted, setSubmitted] = useState<string | null>(null);
+  const optionalErrorMessage = getTimeErrorMessage(optionalState, {
+    isVisible: isOptionalTouched || isSubmitAttempted,
+  });
+  const requiredErrorMessage = getTimeErrorMessage(requiredState, {
+    isVisible: isRequiredTouched || isSubmitAttempted,
+  });
 
   return (
     <form
       onSubmit={event => {
         event.preventDefault();
+        setIsSubmitAttempted(true);
+        // TimeField는 제출을 막지 않으므로 사용처가 error를 확인합니다.
+        const hasTimeError = [optionalState, requiredState].some(
+          state => state !== null && state.error !== null,
+        );
+        if (hasTimeError) {
+          setSubmitted(null);
+          return;
+        }
         const data = new FormData(event.currentTarget);
         setSubmitted(JSON.stringify(Object.fromEntries(data), null, 2));
       }}
-      onReset={() => setSubmitted(null)}
+      onReset={() => {
+        setIsOptionalTouched(false);
+        setIsRequiredTouched(false);
+        setIsSubmitAttempted(false);
+        setSubmitted(null);
+      }}
     >
       <FlexColumn gap='16px' style={{ alignItems: "flex-start", maxWidth: "480px" }}>
         <p style={{ margin: 0 }}>
           부분 입력, 09:07 입력, 오전 13:00 붙여넣기, 전체 삭제를 확인해 보세요. 오류가 있으면
           제출할 수 없어요.
         </p>
-        <TimeField style={FIELD_WIDTH}>
+        <TimeField status={optionalErrorMessage === null ? "default" : "error"} style={FIELD_WIDTH}>
           <TimeField.Label>선택 입력 시각</TimeField.Label>
-          <TimeField.Input name='optionalTime' onInputStateChange={setOptionalState} />
-          <TimeField.Helper>시각이 필요하지 않으면 비워 두세요</TimeField.Helper>
+          <TimeField.Input
+            name='optionalTime'
+            onInputStateChange={setOptionalState}
+            onBlur={() => setIsOptionalTouched(true)}
+          />
+          <TimeField.Helper>
+            {optionalErrorMessage ?? "시각이 필요하지 않으면 비워 두세요"}
+          </TimeField.Helper>
         </TimeField>
         <InputStatePreview label='선택 입력 상태' state={optionalState} />
-        <TimeField required style={FIELD_WIDTH}>
+        <TimeField
+          required
+          status={requiredErrorMessage === null ? "default" : "error"}
+          style={FIELD_WIDTH}
+        >
           <TimeField.Label>필수 입력 시각</TimeField.Label>
-          <TimeField.Input name='requiredTime' onInputStateChange={setRequiredState} />
+          <TimeField.Input
+            name='requiredTime'
+            onInputStateChange={setRequiredState}
+            onBlur={() => setIsRequiredTouched(true)}
+          />
+          {requiredErrorMessage !== null && (
+            <TimeField.Helper>{requiredErrorMessage}</TimeField.Helper>
+          )}
         </TimeField>
         <InputStatePreview label='필수 입력 상태' state={requiredState} />
         <label>
@@ -355,11 +470,12 @@ const ValidationPreview = () => {
 };
 
 /**
- * 빈 선택 입력은 유효하고, 부분 입력과 없는 시각, 간격에 맞지 않는 분은 입력 중부터 error로 알립니다.
- * 오류 표시는 DateField와 같이 최초 필드 이탈, 적용 버튼 확정, 네이티브 검증 실패 시 시작합니다.
- * 입력창, 시간 선택 버튼, 팝업 사이를 오가거나 적용 버튼 없이 열에서 고르는 동안에는 최초 오류를 표시하지 않습니다.
- * 한 번 검증한 뒤에는 입력 중에도 오류를 갱신하며, 유효한 시각이 되면 즉시 해제합니다.
- * 오류가 있으면 일반 헬퍼 대신 내장 메시지를 표시하며, 헬퍼가 없는 구성에도 오류 메시지가 나타납니다.
+ * TimeField는 오류 문구와 보여줄 시점을 정하지 않습니다. `onInputStateChange`로 받은 `error`로 오류 종류를 알고, 문구와 `status`, 시점은 사용처가 정합니다.
+ * 빈 선택 입력은 유효하고, 부분 입력과 없는 시각, 간격에 맞지 않는 분은 입력 중부터 `error`로 알립니다.
+ * `onBlur`는 입력창, 시간 선택 버튼, 시간 선택을 하나의 필드로 보고 필드를 벗어날 때 한 번 호출됩니다. 입력창에서 시간 선택 버튼, 팝업으로 이동하거나 열에서 고르는 동안에는 호출되지 않습니다.
+ * 이 예시는 `onBlur`가 호출되었거나 제출을 시도한 뒤에 오류 문구를 헬퍼에 표시하고, `error`가 있으면 제출하지 않습니다.
+ * `onInputStateChange`의 `value`는 현재 입력이 유효할 때만 시각을 갖습니다. 오류 입력에서는 빈 문자열입니다.
+ * 초기화하면 입력과 오류 표시가 최초 상태로 돌아갑니다.
  */
 export const Validation: Story = {
   render: () => <ValidationPreview />,
