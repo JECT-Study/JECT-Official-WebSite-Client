@@ -68,7 +68,7 @@ const isTimeOutOfRange = (time: TimeValue, minTime?: TimeValue, maxTime?: TimeVa
  * 시간 선택에서 고른 시각은 입력값에 반영하고, 입력한 시각은 시간 선택에서 선택된 상태로 보여 준다.
  * 보이는 input은 "오후 09:30" 같은 표시 문자열만 갖고, `name`을 지정하면 "HH:mm" 값을 hidden input으로 전송한다.
  * controlled(`value`, `onChange`)와 uncontrolled(`defaultValue`) 방식을 지원한다.
- * `onChange`는 확정값 변경만 알린다. blur에서는 소비처 핸들러 이후 부분 입력을 확정한다.
+ * `onChange`는 확정값 변경만 알린다. `onBlur`는 입력칸, 시간 선택 버튼, 시간 선택을 하나의 필드로 보고 필드를 벗어날 때 한 번 부른다.
  * 부분 입력까지 지우려면 폼을 초기화하거나 Input을 다시 마운트한다.
  */
 export const TimeFieldInput = forwardRef<HTMLInputElement, TimeFieldInputProps>(
@@ -134,7 +134,10 @@ export const TimeFieldInput = forwardRef<HTMLInputElement, TimeFieldInputProps>(
     const fieldExitCheckTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const isPickerOpenedFromInputRef = useRef(false);
     const [isPickerOpen, setIsPickerOpen] = useState(false);
-    const [isErrorDisplayEnabled, setIsErrorDisplayEnabled] = useState(false);
+    // 필드 안(입력칸, 시간 선택 버튼, 시간 선택)에 포커스가 있는 동안 true다. 벗어날 때 onBlur를 한 번만 부르는 데 쓴다.
+    const isFocusWithinFieldRef = useRef(false);
+    const onBlurRef = useRef(onBlurFromProps);
+    onBlurRef.current = onBlurFromProps;
     const closeReasonRef = useRef<"select" | "outside" | null>(null);
     const onInputStateChangeRef = useRef(onInputStateChange);
     onInputStateChangeRef.current = onInputStateChange;
@@ -211,11 +214,10 @@ export const TimeFieldInput = forwardRef<HTMLInputElement, TimeFieldInputProps>(
     else if (inputStatus === "invalid") error = "invalid";
     else error = getTimeValueError(draftValue);
 
-    const isErrorVisible = error !== null && isErrorDisplayEnabled;
     const currentValue = error === null ? draftValue : "";
     const inputState = useMemo<TimeFieldInputState>(
-      () => ({ inputValue, value: currentValue, error, isErrorVisible }),
-      [inputValue, currentValue, error, isErrorVisible],
+      () => ({ inputValue, value: currentValue, error }),
+      [inputValue, currentValue, error],
     );
 
     useLayoutEffect(() => {
@@ -240,12 +242,19 @@ export const TimeFieldInput = forwardRef<HTMLInputElement, TimeFieldInputProps>(
         const isFocusWithinField =
           fieldContentRef.current?.contains(focusedElement) === true ||
           pickerContentRef.current?.contains(focusedElement) === true;
-        if (!isFocusWithinField) setIsErrorDisplayEnabled(true);
+        if (isFocusWithinField || !isFocusWithinFieldRef.current) return;
+
+        isFocusWithinFieldRef.current = false;
+        onBlurRef.current?.();
       }, 0);
     };
 
+    const handleFieldFocus = () => {
+      isFocusWithinFieldRef.current = true;
+    };
+
     const handleFieldBlur = (event: FocusEvent<HTMLElement>) => {
-      if (!event.defaultPrevented) scheduleFieldExitCheck(event.currentTarget.ownerDocument);
+      scheduleFieldExitCheck(event.currentTarget.ownerDocument);
     };
 
     // ↓는 값을 줄이는 데 쓰므로 시간 선택은 Alt와 함께 눌렀을 때 연다.
@@ -277,11 +286,8 @@ export const TimeFieldInput = forwardRef<HTMLInputElement, TimeFieldInputProps>(
 
       resetSegments(nextValue);
       // 적용 버튼이 없으면 열마다 바로 반영되므로 오전/오후, 시, 분을 이어서 고를 수 있게 열어 둔다.
-      // 아직 필드 안에서 편집하는 중이므로 오류 표시는 필드를 벗어날 때 시작한다.
       if (!withActionBar) return;
 
-      // 적용은 사용자가 확정한 것이므로 DateField의 달력 선택처럼 오류 표시를 시작하고 닫는다.
-      setIsErrorDisplayEnabled(true);
       closeReasonRef.current = "select";
       setIsPickerOpen(false);
     };
@@ -337,7 +343,6 @@ export const TimeFieldInput = forwardRef<HTMLInputElement, TimeFieldInputProps>(
 
           cancelFieldExitCheck();
           resetStateRef.current.resetSegments(defaultValueRef.current);
-          setIsErrorDisplayEnabled(false);
         }, 0);
         resetTimers.add(timeoutId);
       };
@@ -362,6 +367,7 @@ export const TimeFieldInput = forwardRef<HTMLInputElement, TimeFieldInputProps>(
         <Popover.Anchor asChild>
           <FieldContent
             ref={fieldContentRef}
+            onFocus={handleFieldFocus}
             onBlur={handleFieldBlur}
             data-disabled={isDisabled || undefined}
           >
@@ -390,10 +396,8 @@ export const TimeFieldInput = forwardRef<HTMLInputElement, TimeFieldInputProps>(
               className={clsx(getBodyClassName({ size: "md" }), styles.input, className)}
               onChange={handlers.onChange}
               onFocus={composeHandler(onFocusFromProps, handlers.onFocus)}
-              onBlur={composeHandler(onBlurFromProps, event => {
-                handlers.onBlur(event);
-                handleFieldBlur(event);
-              })}
+              // 필드 이탈 판단은 FieldContent로 버블링되는 blur에서 한다.
+              onBlur={handlers.onBlur}
               onMouseDown={composeHandler(onMouseDownFromProps, handlers.onMouseDown)}
               onKeyDown={composeHandler(onKeyDownFromProps, handleKeyDown)}
               onCompositionEnd={composeHandler(

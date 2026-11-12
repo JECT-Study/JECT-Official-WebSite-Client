@@ -26,8 +26,6 @@ export interface TimeFieldInputState {
   inputValue: string;
   value: string;
   error: TimeFieldInputError | null;
-  /** 최초 필드 이탈이나 적용 버튼 확정 전에는 error가 있어도 표시하지 않는다. */
-  isErrorVisible: boolean;
 }
 
 interface TimeFieldInputBaseProps extends Omit<
@@ -61,11 +59,11 @@ interface TimeFieldInputBaseProps extends Omit<
   /** 부분 입력, 시각 제한, 필수 빈 값을 포함한 현재 상태를 마운트와 변경 시 알린다. */
   onInputStateChange?: (state: TimeFieldInputState) => void;
   /**
-   * 입력이 포커스를 잃을 때 호출한다. 이 콜백 뒤에 부분 입력을 확정하므로 이전 확정값을 읽을 수 있다.
-   * 현재 입력의 유효성은 onInputStateChange로 확인한다.
-   * preventDefault()는 포커스가 이동한 상태에서 내부 blur 처리만 건너뛰게 한다.
+   * 입력칸, 시간 선택 버튼, 시간 선택을 포함한 필드 전체에서 포커스가 벗어날 때 한 번 호출한다.
+   * 필드 안에서 포커스가 옮겨 갈 때는 호출하지 않는다.
+   * 부분 입력을 확정하고 onChange를 부른 뒤에 호출하므로 React Hook Form의 field.onBlur를 그대로 연결할 수 있다.
    */
-  onBlur?: ComponentPropsWithoutRef<"input">["onBlur"];
+  onBlur?: () => void;
   /** 시간 선택 버튼 오른쪽에 배치되는 부가 요소 (예: Kbd) */
   suffix?: ReactNode;
   /**
