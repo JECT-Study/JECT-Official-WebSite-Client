@@ -117,7 +117,7 @@ export const checkboxIconWrapper = style({
 const itemInsetBySize: Record<CheckboxSize, string> = {
   lg: `${pxToRem(-4)} ${pxToRem(-8)}`,
   md: `${pxToRem(-4)} ${pxToRem(-8)}`,
-  sm: `${pxToRem(-4)} ${pxToRem(-6)}`,
+  sm: `${pxToRem(-3)} ${pxToRem(-6)}`,
   xs: `${pxToRem(-3)} ${pxToRem(-6)}`,
 };
 
