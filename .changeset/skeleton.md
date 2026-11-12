@@ -14,7 +14,7 @@
 | `height`    | 없음   | 선택적 높이, 숫자(px) 또는 CSS 문자열 |
 | `radius`    | `"8"`  | JDS radius 토큰 키                    |
 
-1500ms shimmer를 제공합니다. 모션 감소 설정에서는 배경만 표시합니다. 장식 요소이므로 로딩 안내는 소비처에서 제공합니다.
+1500ms 주기로 반복되는 shimmer를 표시합니다. 모션 감소 설정에서는 배경만 표시합니다. 루트 요소는 `aria-hidden="true"`로 렌더링됩니다. 로딩 안내(`aria-busy`, `role="status"`)는 소비처에서 제공합니다.
 
 ```tsx
 <Skeleton className={styles.postTitleSkeleton} />
