@@ -19,7 +19,7 @@ import { IconButton } from "../../Button/IconButton";
 import { isDateOutOfRange } from "../../DatePicker/datePicker.utils";
 import { FieldContent } from "../../Field";
 import { useFieldControl } from "../../Field/useFieldControl";
-import { getDateFieldErrorMessage, useDateFieldContext } from "../dateField.context";
+import { useDateFieldContext } from "../dateField.context";
 import * as styles from "../dateField.css";
 import type {
   DateFieldInputError,
@@ -87,7 +87,6 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
       onPaste: onPasteFromProps,
       onCut: onCutFromProps,
       onDrop: onDropFromProps,
-      onInvalid: onInvalidFromProps,
       "aria-label": ariaLabelFromProps,
       "aria-labelledby": labelledByFromProps,
       "aria-describedby": describedByFromProps,
@@ -211,11 +210,10 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
     const lastValidValueRef = useRef(isValueAllowed(normalizedValue) ? normalizedValue : "");
 
     useLayoutEffect(() => {
-      inputRef.current?.setCustomValidity(getDateFieldErrorMessage(error));
       reportInputState(inputState);
       onInputStateChangeRef.current?.(inputState);
       if (currentValue !== "") lastValidValueRef.current = currentValue;
-    }, [inputState, error, currentValue, reportInputState]);
+    }, [inputState, currentValue, reportInputState]);
 
     useLayoutEffect(() => () => reportInputState(null), [reportInputState]);
 
@@ -379,9 +377,6 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
               aria-required={isRequired || undefined}
               disabled={isDisabled}
               readOnly={isReadOnly}
-              onInvalid={composeHandler(onInvalidFromProps, () => {
-                setIsErrorDisplayEnabled(true);
-              })}
               data-field-control=''
               data-readonly={isReadOnly || undefined}
               data-empty={isEmpty || undefined}
