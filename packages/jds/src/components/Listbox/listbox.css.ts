@@ -56,7 +56,7 @@ export const listbox = style({
 });
 
 export const option = style([
-  overlay(),
+  overlay({ hierarchy: "secondary", density: "normal" }),
   {
     gridColumn: "1 / -1",
     display: "grid",
