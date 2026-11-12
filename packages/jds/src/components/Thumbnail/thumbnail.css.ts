@@ -42,9 +42,14 @@ const cornerStyleVariants = {
   rounded: { borderRadius: vars.scheme.semantic.radius.max },
 } satisfies Record<ThumbnailCornerStyle, unknown>;
 
+// 테두리가 박스 크기를 늘리지 않고 이미지 위에 보이도록 outline을 안쪽으로 당겨 그린다.
 const appearanceVariants = {
   hollow: { border: "none" },
-  outlined: { border: `1px solid ${thumbnailVars.borderColor}` },
+  outlined: {
+    border: "none",
+    outline: `${vars.scheme.semantic.strokeWeight["1"]} solid ${thumbnailVars.borderColor}`,
+    outlineOffset: `calc(${vars.scheme.semantic.strokeWeight["1"]} * -1)`,
+  },
 } satisfies Record<ThumbnailAppearance, unknown>;
 
 const aspectRatioCompoundVariants = THUMBNAIL_RATIO_OPTIONS.flatMap(r => {
