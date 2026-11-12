@@ -294,8 +294,8 @@ const FormPreview = () => {
     <form
       onSubmit={event => {
         event.preventDefault();
-        const entry = new FormData(event.currentTarget).get("startDate");
-        setSubmitted(typeof entry === "string" ? entry : null);
+        const data = new FormData(event.currentTarget);
+        setSubmitted(JSON.stringify(Object.fromEntries(data)));
       }}
       onReset={() => setSubmitted(null)}
     >
@@ -466,8 +466,8 @@ const ControlledRejectionPreview = () => {
     <form
       onSubmit={event => {
         event.preventDefault();
-        const entry = new FormData(event.currentTarget).get("controlledDate");
-        setSubmitted(typeof entry === "string" ? entry : null);
+        const data = new FormData(event.currentTarget);
+        setSubmitted(JSON.stringify(Object.fromEntries(data)));
       }}
       onReset={event => {
         if (isResetCancelled) event.preventDefault();
