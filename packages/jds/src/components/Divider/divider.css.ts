@@ -17,7 +17,7 @@ export const dividerDashGapVar = createVar();
 
 const DEFAULT_DASH_LENGTH = 6;
 
-const lineColor = fallbackVar(dividerColorVar, vars.color.semantic.stroke.alpha.assistive);
+const lineColor = fallbackVar(dividerColorVar, vars.color.semantic.stroke.alpha.subtle);
 const dashLengthInput = fallbackVar(dividerDashLengthVar, `${DEFAULT_DASH_LENGTH}px`);
 const dashLength = `max(1px, ${dashLengthInput})`;
 const dashGap = `max(1px, ${fallbackVar(dividerDashGapVar, dashLength)})`;
@@ -56,10 +56,10 @@ export const divider = recipe({
       },
     },
     thickness: {
-      normal: { vars: { [thickness]: "1px" } },
-      bold: { vars: { [thickness]: "2px" } },
-      bolder: { vars: { [thickness]: "4px" } },
-      boldest: { vars: { [thickness]: "8px" } },
+      normal: { vars: { [thickness]: vars.scheme.semantic.strokeWeight["1"] } },
+      bold: { vars: { [thickness]: vars.scheme.semantic.strokeWeight["2"] } },
+      bolder: { vars: { [thickness]: vars.scheme.semantic.strokeWeight["4"] } },
+      boldest: { vars: { [thickness]: vars.scheme.semantic.strokeWeight["6"] } },
     },
     variant: {
       solid: { backgroundColor: lineColor, vars: { [lineStyle]: "solid" } },
