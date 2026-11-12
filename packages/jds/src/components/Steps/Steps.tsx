@@ -114,7 +114,10 @@ export const StepsItem = forwardRef<HTMLDivElement, StepsItemProps>(
         <span
           className={clsx(
             stepsLabel({ activated: isActivated }),
-            getLabelClassName({ size: stepsLabelTypographySizeMap[size], weight: "bold" }),
+            getLabelClassName({
+              size: stepsLabelTypographySizeMap[size],
+              weight: isActivated ? "bold" : "normal",
+            }),
           )}
         >
           {children}
