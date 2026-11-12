@@ -117,7 +117,7 @@ export const optionText = style({
   textOverflow: "ellipsis",
   whiteSpace: "nowrap",
   minWidth: 0,
-  color: vars.color.semantic.object.bold,
+  color: vars.color.semantic.object.bolder,
   selectors: {
     '[data-variant="label"][data-selected]:not([data-disabled]) &': {
       color: vars.color.semantic.accent.normal,
@@ -137,7 +137,7 @@ export const optionCaption = style({
   cursor: "inherit",
   gridColumn: "2 / -1",
   gridRow: "2",
-  color: vars.color.semantic.object.assistive,
+  color: vars.color.semantic.object.alternative,
   selectors: {
     "[data-disabled] &": {
       color: vars.color.semantic.object.subtle,
