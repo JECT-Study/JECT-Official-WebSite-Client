@@ -29,18 +29,8 @@ export const projectGrid = style({
   gap: vars.scheme.semantic.spacing["16"],
 });
 
-export const projectCard = style({
-  boxSizing: "border-box",
-  overflow: "hidden",
-  border: `${vars.scheme.semantic.strokeWeight["1"]} solid ${vars.color.semantic.stroke.subtle}`,
-  selectors: {
-    "&&": {
-      minWidth: 0,
-      outline: "none",
-      boxShadow: "none",
-    },
-  },
-});
+// 카드의 outline과 shadow는 그대로 두고, 이미지 자리의 각진 모서리만 카드 반경에 맞춰 자른다.
+export const projectCard = style({ overflow: "hidden" });
 
 export const titleSlot = style({
   display: "flex",
