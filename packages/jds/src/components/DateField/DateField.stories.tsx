@@ -10,7 +10,7 @@ import { useState } from "react";
 import { vars } from "tokens";
 
 import { DateField } from "./DateField";
-import type { DateFieldInputState } from "./dateField.types";
+import type { DateFieldInputError, DateFieldInputState } from "./dateField.types";
 import { BlockButton } from "../Button/BlockButton";
 import { Icon } from "../Icon";
 import { Kbd } from "../Kbd";
@@ -23,23 +23,50 @@ const DateFieldFormResult = ({ value }: { value: string | null }) => (
   </div>
 );
 
+type DateErrorMessages = Record<DateFieldInputError, string>;
+
+const DATE_ERROR_MESSAGES: DateErrorMessages = {
+  required: "날짜를 입력해 주세요.",
+  incomplete: "날짜를 끝까지 입력해 주세요.",
+  invalid: "있는 날짜를 입력해 주세요.",
+  outOfRange: "허용된 범위의 날짜를 입력해 주세요.",
+  disabledDate: "선택할 수 없는 날짜예요. 다른 날짜를 입력해 주세요.",
+};
+
+interface DateErrorMessageOptions {
+  messages?: DateErrorMessages;
+  /** 제출을 시도했다면 필드를 벗어나지 않았어도 오류를 보여 줍니다. */
+  isSubmitAttempted?: boolean;
+}
+
+/** 사용처에서 오류 문구를 고르는 예시입니다. 보여줄 오류가 없으면 null입니다. */
+const getDateErrorMessage = (
+  state: DateFieldInputState | null,
+  { messages = DATE_ERROR_MESSAGES, isSubmitAttempted = false }: DateErrorMessageOptions = {},
+): string | null => {
+  if (state === null || state.error === null) return null;
+  if (!state.isTouched && !isSubmitAttempted) return null;
+  return messages[state.error];
+};
+
 /**
  * 특정 날짜를 직접 입력하거나 달력에서 선택하는 필드입니다.
  * 연, 월, 일을 세그먼트 단위로 편집하며 값은 `"YYYY-MM-DD"` 형식의 문자열입니다.
  *
  * - 숫자를 입력하면 세그먼트가 채워지는 즉시 다음 세그먼트로 넘어갑니다. `2026.7.25`처럼 구분자를 포함해 입력해도 됩니다.
- * - 부분 입력과 존재하지 않는 날짜는 자동 보정하지 않고 유지합니다. 처음에는 오류를 숨기고 필드 전체를 벗어나거나 제출할 때 표시합니다.
- * - 입력창, 달력 버튼, 팝업 사이의 포커스 이동은 필드 이탈로 보지 않습니다. 첫 이탈이나 달력 확정, 검증 실패 이후에는 입력에 맞춰 오류를 갱신하며, 유효해지면 즉시 해제합니다.
+ * - 부분 입력과 존재하지 않는 날짜는 자동 보정하지 않고 유지합니다.
+ * - 오류 문구와 `status`는 사용처가 정합니다. `onInputStateChange`의 `error`로 오류 종류를, `isTouched`로 오류를 보여줄 시점인지 판단합니다.
+ * - `isTouched`는 첫 필드 이탈이나 달력 확정 후 `true`가 됩니다. 입력창, 달력 버튼, 팝업 사이의 포커스 이동은 필드 이탈로 보지 않습니다.
  * - 기존 날짜를 다시 입력하는 동안에는 확정된 값을 유지합니다. 연도는 0001–9999를 지원하지만, 0001–0099년 날짜는 달력에서 올바르게 표시되지 않습니다.
  * - 해석할 수 없는 외부 값은 빈 입력과 빈 제출값으로 처리합니다.
  * - 개발 환경에서는 잘못된 외부 `value`와 최초 `defaultValue`를 경고합니다. 같은 Input에서 같은 잘못된 값은 한 번만 경고하며, 사용자 입력과 날짜 제한 오류는 경고하지 않습니다.
- * - 부분 입력과 오류 입력 중에는 마지막 확정값을 유지합니다. 화면의 편집 내용과 확정값은 다를 수 있습니다.
+ * - 부분 입력과 오류 입력 중에는 마지막 확정값을 유지합니다. 화면의 편집 내용과 확정값은 다를 수 있으므로, 제출 전에는 `error`가 `null`인지 확인합니다.
  * - 확정값을 빈 문자열로 바꾸면 입력도 비워집니다. 이미 빈 문자열인 상태의 부분 입력은 같은 값을 다시 설정해도 유지됩니다.
  * - 부분 입력까지 초기화하려면 폼을 초기화합니다. 폼 없이 입력을 모두 비우려면 `value`를 빈 문자열로 설정하고 `DateField.Input`의 `key`를 바꿔 다시 마운트합니다.
  * - 폼 초기화는 비제어 모드에서 최초 `defaultValue`로 돌아갑니다. 제어 모드에서는 확정값이 비어 있지 않으면 `onChange("")`로 변경을 요청하며 소비처가 반영해야 합니다.
  * - 달력에서 고른 날짜는 입력값에 반영하고, 입력한 날짜는 달력에서 선택된 상태로 보여 줍니다.
  * - `onChange`는 확정값이 바뀔 때 호출됩니다. `minLength`, `maxLength`와 네이티브 `onInput`, `onBeforeInput`, `onChangeCapture` 및 입력 이벤트의 capture props는 받지 않습니다.
- * - `onInputStateChange`로 편집 내용, 현재 유효한 제출값, 오류 종류와 오류 표시 여부를 확인합니다. 빈 선택 입력과 부분 입력도 구분할 수 있습니다.
+ * - `onInputStateChange`로 편집 내용, 현재 유효한 제출값, 오류 종류와 입력 완료 여부를 확인합니다. 빈 선택 입력과 부분 입력도 구분할 수 있습니다.
  * - 키보드나 붙여넣기 동작을 취소하려면 `onKeyDown`, `onPaste`에서 `preventDefault()`를 사용합니다.
  * - blur에서는 소비처 `onBlur` 실행 후 부분 입력을 확정하고, 확정값이 바뀌면 `onChange`를 호출합니다. `onBlur`에서 읽은 확정값은 이전 값일 수 있습니다.
  *
@@ -58,7 +85,7 @@ const DateFieldFormResult = ({ value }: { value: string | null }) => (
  *
  * 달력 안의 키보드 조작은 `DatePicker`와 같습니다. 날짜 선택 완료 후에는 입력창으로 포커스가 돌아갑니다.
  * 달력 밖의 입력을 클릭하면 달력을 닫고 클릭한 입력으로 포커스를 이동합니다.
- * 필수 빈 입력은 최초에 오류를 숨기고, 필드를 벗어나거나 달력 지우기를 확정하거나 제출하면 표시합니다. 폼 초기화 시 오류 표시 이력도 지웁니다.
+ * 필수 빈 입력은 `error`가 `"required"`입니다. 폼을 초기화하면 `isTouched`도 `false`로 돌아갑니다.
  */
 const meta = {
   title: "Components/DateField",
@@ -209,13 +236,20 @@ export const WithActionBar: Story = {
   render: () => <ActionBarPreview />,
 };
 
+const VISIT_DATE_ERROR_MESSAGES: DateErrorMessages = {
+  ...DATE_ERROR_MESSAGES,
+  outOfRange: "2026년 날짜를 입력해 주세요.",
+  disabledDate: "주말은 고를 수 없어요. 평일을 입력해 주세요.",
+};
+
 const SelectableDatesPreview = () => {
   const [date, setDate] = useState("2026-07-24");
   const [inputState, setInputState] = useState<DateFieldInputState | null>(null);
+  const errorMessage = getDateErrorMessage(inputState, { messages: VISIT_DATE_ERROR_MESSAGES });
 
   return (
     <FlexColumn gap='16px' style={{ alignItems: "flex-start" }}>
-      <DateField style={FIELD_WIDTH}>
+      <DateField status={errorMessage === null ? "default" : "error"} style={FIELD_WIDTH}>
         <DateField.Label>방문일</DateField.Label>
         <DateField.Input
           value={date}
@@ -225,7 +259,7 @@ const SelectableDatesPreview = () => {
           maxDate={new Date(2026, 11, 31)}
           isDateDisabled={day => day.getDay() === 0 || day.getDay() === 6}
         />
-        <DateField.Helper>2026년의 평일만 선택할 수 있어요</DateField.Helper>
+        <DateField.Helper>{errorMessage ?? "2026년의 평일만 선택할 수 있어요"}</DateField.Helper>
       </DateField>
       <InputStatePreview label='방문일 입력 상태' state={inputState} />
     </FlexColumn>
@@ -235,7 +269,8 @@ const SelectableDatesPreview = () => {
 /**
  * `minDate`, `maxDate`, `isDateDisabled`는 달력과 직접 입력에 동일하게 적용됩니다.
  * 텍스트 입력에 적용되지 않는 네이티브 `min`, `max` prop은 받지 않습니다.
- * 제한 밖 입력은 화면에 유지하고 내장 오류 메시지로 안내합니다. 마지막 확정값은 변경하지 않습니다.
+ * 제한 밖 입력은 화면에 유지하고 `error`로 `"outOfRange"`나 `"disabledDate"`를 알립니다. 마지막 확정값은 변경하지 않습니다.
+ * 이 예시는 범위와 주말 제한에 맞는 오류 문구를 사용처에서 지정해, 오류가 나도 무엇을 입력해야 하는지 안내합니다.
  */
 export const SelectableDates: Story = {
   render: () => <SelectableDatesPreview />,
@@ -285,6 +320,7 @@ const FormPreview = () => {
 
 /**
  * 화면에는 `YYYY.MM.DD`로 표시하고, `name`을 지정하면 폼에는 `"YYYY-MM-DD"` 값으로 제출됩니다.
+ * 덜 입력한 날짜나 없는 날짜는 빈 문자열로 제출됩니다. DateField는 제출을 막지 않습니다.
  * 초기화를 누르면 최초 `defaultValue`로 돌아가고 제출 결과를 지웁니다.
  */
 export const WithForm: Story = {
@@ -330,38 +366,62 @@ const InputStatePreview = ({ label, state }: InputStatePreviewProps) => (
 const ValidationPreview = () => {
   const [optionalState, setOptionalState] = useState<DateFieldInputState | null>(null);
   const [requiredState, setRequiredState] = useState<DateFieldInputState | null>(null);
+  const [isSubmitAttempted, setIsSubmitAttempted] = useState(false);
   const [submitted, setSubmitted] = useState<string | null>(null);
+  const optionalErrorMessage = getDateErrorMessage(optionalState, { isSubmitAttempted });
+  const requiredErrorMessage = getDateErrorMessage(requiredState, { isSubmitAttempted });
 
   return (
     <form
       onSubmit={event => {
         event.preventDefault();
+        setIsSubmitAttempted(true);
+        // DateField는 제출을 막지 않으므로 사용처가 error를 확인합니다.
+        const hasDateError = [optionalState, requiredState].some(
+          state => state !== null && state.error !== null,
+        );
+        if (hasDateError) {
+          setSubmitted(null);
+          return;
+        }
         const data = new FormData(event.currentTarget);
         setSubmitted(JSON.stringify(Object.fromEntries(data), null, 2));
       }}
-      onReset={() => setSubmitted(null)}
+      onReset={() => {
+        setIsSubmitAttempted(false);
+        setSubmitted(null);
+      }}
     >
       <FlexColumn gap='16px' style={{ alignItems: "flex-start", maxWidth: "480px" }}>
         <p style={{ margin: 0 }}>
           부분 입력, 2026.02.31 붙여넣기, 전체 삭제를 확인해 보세요. 오류가 있으면 제출할 수 없어요.
         </p>
-        <DateField style={FIELD_WIDTH}>
+        <DateField status={optionalErrorMessage === null ? "default" : "error"} style={FIELD_WIDTH}>
           <DateField.Label>선택 입력 날짜</DateField.Label>
           <DateField.Input
             name='optionalDate'
             withActionBar
             onInputStateChange={setOptionalState}
           />
-          <DateField.Helper>날짜가 필요하지 않으면 비워 두세요</DateField.Helper>
+          <DateField.Helper>
+            {optionalErrorMessage ?? "날짜가 필요하지 않으면 비워 두세요"}
+          </DateField.Helper>
         </DateField>
         <InputStatePreview label='선택 입력 상태' state={optionalState} />
-        <DateField required style={FIELD_WIDTH}>
+        <DateField
+          required
+          status={requiredErrorMessage === null ? "default" : "error"}
+          style={FIELD_WIDTH}
+        >
           <DateField.Label>필수 입력 날짜</DateField.Label>
           <DateField.Input
             name='requiredDate'
             withActionBar
             onInputStateChange={setRequiredState}
           />
+          {requiredErrorMessage !== null && (
+            <DateField.Helper>{requiredErrorMessage}</DateField.Helper>
+          )}
         </DateField>
         <InputStatePreview label='필수 입력 상태' state={requiredState} />
         <label>
@@ -383,14 +443,12 @@ const ValidationPreview = () => {
 };
 
 /**
- * 빈 선택 입력은 유효하고, 부분 입력과 존재하지 않는 날짜는 입력 중부터 error로 알립니다.
- * 오류 표시는 최초 필드 이탈, 달력의 날짜 선택 또는 지우기 확정, 네이티브 검증 실패 시 시작합니다.
- * 입력창에서 달력 버튼, 팝업으로 이동하거나 Esc로 돌아오는 동안에는 최초 오류를 표시하지 않습니다.
- * 한 번 검증한 뒤에는 입력 중에도 오류를 갱신하며, 유효한 날짜가 되면 즉시 해제합니다.
- * 제출 또는 `checkValidity()`, `reportValidity()` 검증에 실패하면 이탈 여부와 무관하게 오류를 표시합니다.
+ * DateField는 오류 문구를 정하지 않습니다. `onInputStateChange`로 받은 `error`와 `isTouched`로 사용처가 문구와 `status`를 정합니다.
+ * 빈 선택 입력은 유효하고, 부분 입력과 존재하지 않는 날짜는 입력 중부터 `error`로 알립니다.
+ * `isTouched`는 최초 필드 이탈이나 달력의 날짜 선택 또는 지우기 확정 후 `true`가 됩니다. 입력창에서 달력 버튼, 팝업으로 이동하거나 Esc로 돌아오는 동안에는 바뀌지 않습니다.
+ * 이 예시는 `isTouched`가 `true`이거나 제출을 시도했을 때 오류 문구를 헬퍼에 표시하고, `error`가 있으면 제출하지 않습니다.
  * `onInputStateChange`의 `value`는 현재 입력이 유효할 때만 날짜를 갖습니다. 오류 입력에서는 빈 문자열입니다.
- * 오류가 있으면 일반 헬퍼 대신 내장 메시지를 표시하며, 헬퍼가 없는 구성에도 오류 메시지가 나타납니다.
- * 초기화하면 입력과 오류 표시가 최초 상태로 돌아갑니다. 달력을 연 뒤 다음 입력을 클릭해 포커스 이동도 확인할 수 있습니다.
+ * 초기화하면 입력과 `isTouched`가 최초 상태로 돌아갑니다. 달력을 연 뒤 다음 입력을 클릭해 포커스 이동도 확인할 수 있습니다.
  */
 export const Validation: Story = {
   render: () => <ValidationPreview />,
