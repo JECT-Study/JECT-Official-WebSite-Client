@@ -64,7 +64,8 @@ export const CardOverlay = forwardRef<HTMLAnchorElement | HTMLButtonElement, Car
       );
     }
 
-    const { href, onClick, tabIndex, ...anchorProps } = restProps as ComponentPropsWithoutRef<"a">;
+    const { href, onClick, tabIndex, role, ...anchorProps } =
+      restProps as ComponentPropsWithoutRef<"a">;
     const LinkComponent: ElementType = isDisabled ? "a" : (linkAs ?? "a");
 
     return (
@@ -74,6 +75,7 @@ export const CardOverlay = forwardRef<HTMLAnchorElement | HTMLButtonElement, Car
         {...anchorProps}
         onClick={isDisabled ? undefined : onClick}
         tabIndex={isDisabled ? -1 : tabIndex}
+        role={isDisabled ? "link" : role}
         aria-labelledby={ariaLabelledby}
         data-part={CARD_PART_OVERLAY}
         data-disabled={isDisabled || undefined}
