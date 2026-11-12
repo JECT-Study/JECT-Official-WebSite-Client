@@ -34,18 +34,17 @@ const DATE_ERROR_MESSAGES: DateErrorMessages = {
 };
 
 interface DateErrorMessageOptions {
+  /** 오류를 보여줄 시점인지 여부입니다. 이 예시는 필드를 한 번 벗어났거나 제출을 시도했을 때 true로 넘깁니다. */
+  isVisible: boolean;
   messages?: DateErrorMessages;
-  /** 제출을 시도했다면 필드를 벗어나지 않았어도 오류를 보여 줍니다. */
-  isSubmitAttempted?: boolean;
 }
 
 /** 사용처에서 오류 문구를 고르는 예시입니다. 보여줄 오류가 없으면 null입니다. */
 const getDateErrorMessage = (
   state: DateFieldInputState | null,
-  { messages = DATE_ERROR_MESSAGES, isSubmitAttempted = false }: DateErrorMessageOptions = {},
+  { isVisible, messages = DATE_ERROR_MESSAGES }: DateErrorMessageOptions,
 ): string | null => {
-  if (state === null || state.error === null) return null;
-  if (!state.isTouched && !isSubmitAttempted) return null;
+  if (!isVisible || state === null || state.error === null) return null;
   return messages[state.error];
 };
 
@@ -55,8 +54,8 @@ const getDateErrorMessage = (
  *
  * - 숫자를 입력하면 세그먼트가 채워지는 즉시 다음 세그먼트로 넘어갑니다. `2026.7.25`처럼 구분자를 포함해 입력해도 됩니다.
  * - 부분 입력과 존재하지 않는 날짜는 자동 보정하지 않고 유지합니다.
- * - 오류 문구와 `status`는 사용처가 정합니다. `onInputStateChange`의 `error`로 오류 종류를, `isTouched`로 오류를 보여줄 시점인지 판단합니다.
- * - `isTouched`는 첫 필드 이탈이나 달력 확정 후 `true`가 됩니다. 입력창, 달력 버튼, 팝업 사이의 포커스 이동은 필드 이탈로 보지 않습니다.
+ * - 오류 문구와 `status`, 오류를 보여줄 시점은 사용처가 정합니다. `onInputStateChange`의 `error`로 오류 종류를 확인합니다.
+ * - `onBlur`는 입력창, 달력 버튼, 팝업을 하나의 필드로 보고 필드를 벗어날 때 한 번 호출됩니다. 필드 안의 포커스 이동에서는 호출되지 않습니다.
  * - 기존 날짜를 다시 입력하는 동안에는 확정된 값을 유지합니다. 연도는 0001–9999를 지원하지만, 0001–0099년 날짜는 달력에서 올바르게 표시되지 않습니다.
  * - 해석할 수 없는 외부 값은 빈 입력과 빈 제출값으로 처리합니다.
  * - 개발 환경에서는 잘못된 외부 `value`와 최초 `defaultValue`를 경고합니다. 같은 Input에서 같은 잘못된 값은 한 번만 경고하며, 사용자 입력과 날짜 제한 오류는 경고하지 않습니다.
@@ -66,9 +65,9 @@ const getDateErrorMessage = (
  * - 폼 초기화는 비제어 모드에서 최초 `defaultValue`로 돌아갑니다. 제어 모드에서는 확정값이 비어 있지 않으면 `onChange("")`로 변경을 요청하며 소비처가 반영해야 합니다.
  * - 달력에서 고른 날짜는 입력값에 반영하고, 입력한 날짜는 달력에서 선택된 상태로 보여 줍니다.
  * - `onChange`는 확정값이 바뀔 때 호출됩니다. `minLength`, `maxLength`와 네이티브 `onInput`, `onBeforeInput`, `onChangeCapture` 및 입력 이벤트의 capture props는 받지 않습니다.
- * - `onInputStateChange`로 편집 내용, 현재 유효한 제출값, 오류 종류와 입력 완료 여부를 확인합니다. 빈 선택 입력과 부분 입력도 구분할 수 있습니다.
+ * - `onInputStateChange`로 편집 내용, 현재 유효한 제출값, 오류 종류를 확인합니다. 빈 선택 입력과 부분 입력도 구분할 수 있습니다.
  * - 키보드나 붙여넣기 동작을 취소하려면 `onKeyDown`, `onPaste`에서 `preventDefault()`를 사용합니다.
- * - blur에서는 소비처 `onBlur` 실행 후 부분 입력을 확정하고, 확정값이 바뀌면 `onChange`를 호출합니다. `onBlur`에서 읽은 확정값은 이전 값일 수 있습니다.
+ * - 입력창을 벗어나면 부분 입력을 확정하고, 확정값이 바뀌면 `onChange`를 호출한 뒤 `onBlur`를 호출합니다.
  *
  * | 키 | 동작 |
  * | --- | --- |
@@ -85,7 +84,7 @@ const getDateErrorMessage = (
  *
  * 달력 안의 키보드 조작은 `DatePicker`와 같습니다. 날짜 선택 완료 후에는 입력창으로 포커스가 돌아갑니다.
  * 달력 밖의 입력을 클릭하면 달력을 닫고 클릭한 입력으로 포커스를 이동합니다.
- * 필수 빈 입력은 `error`가 `"required"`입니다. 폼을 초기화하면 `isTouched`도 `false`로 돌아갑니다.
+ * 필수 빈 입력은 `error`가 `"required"`입니다.
  */
 const meta = {
   title: "Components/DateField",
@@ -246,7 +245,11 @@ const VISIT_DATE_ERROR_MESSAGES: DateErrorMessages = {
 const SelectableDatesPreview = () => {
   const [date, setDate] = useState("2026-07-24");
   const [inputState, setInputState] = useState<DateFieldInputState | null>(null);
-  const errorMessage = getDateErrorMessage(inputState, { messages: VISIT_DATE_ERROR_MESSAGES });
+  const [isTouched, setIsTouched] = useState(false);
+  const errorMessage = getDateErrorMessage(inputState, {
+    isVisible: isTouched,
+    messages: VISIT_DATE_ERROR_MESSAGES,
+  });
 
   return (
     <FlexColumn gap='16px' style={{ alignItems: "flex-start" }}>
@@ -256,6 +259,7 @@ const SelectableDatesPreview = () => {
           value={date}
           onChange={setDate}
           onInputStateChange={setInputState}
+          onBlur={() => setIsTouched(true)}
           minDate={new Date(2026, 0, 1)}
           maxDate={new Date(2026, 11, 31)}
           isDateDisabled={day => day.getDay() === 0 || day.getDay() === 6}
@@ -367,10 +371,16 @@ const InputStatePreview = ({ label, state }: InputStatePreviewProps) => (
 const ValidationPreview = () => {
   const [optionalState, setOptionalState] = useState<DateFieldInputState | null>(null);
   const [requiredState, setRequiredState] = useState<DateFieldInputState | null>(null);
+  const [isOptionalTouched, setIsOptionalTouched] = useState(false);
+  const [isRequiredTouched, setIsRequiredTouched] = useState(false);
   const [isSubmitAttempted, setIsSubmitAttempted] = useState(false);
   const [submitted, setSubmitted] = useState<string | null>(null);
-  const optionalErrorMessage = getDateErrorMessage(optionalState, { isSubmitAttempted });
-  const requiredErrorMessage = getDateErrorMessage(requiredState, { isSubmitAttempted });
+  const optionalErrorMessage = getDateErrorMessage(optionalState, {
+    isVisible: isOptionalTouched || isSubmitAttempted,
+  });
+  const requiredErrorMessage = getDateErrorMessage(requiredState, {
+    isVisible: isRequiredTouched || isSubmitAttempted,
+  });
 
   return (
     <form
@@ -389,6 +399,8 @@ const ValidationPreview = () => {
         setSubmitted(JSON.stringify(Object.fromEntries(data), null, 2));
       }}
       onReset={() => {
+        setIsOptionalTouched(false);
+        setIsRequiredTouched(false);
         setIsSubmitAttempted(false);
         setSubmitted(null);
       }}
@@ -403,6 +415,7 @@ const ValidationPreview = () => {
             name='optionalDate'
             withActionBar
             onInputStateChange={setOptionalState}
+            onBlur={() => setIsOptionalTouched(true)}
           />
           <DateField.Helper>
             {optionalErrorMessage ?? "날짜가 필요하지 않으면 비워 두세요"}
@@ -419,6 +432,7 @@ const ValidationPreview = () => {
             name='requiredDate'
             withActionBar
             onInputStateChange={setRequiredState}
+            onBlur={() => setIsRequiredTouched(true)}
           />
           {requiredErrorMessage !== null && (
             <DateField.Helper>{requiredErrorMessage}</DateField.Helper>
@@ -444,12 +458,12 @@ const ValidationPreview = () => {
 };
 
 /**
- * DateField는 오류 문구를 정하지 않습니다. `onInputStateChange`로 받은 `error`와 `isTouched`로 사용처가 문구와 `status`를 정합니다.
+ * DateField는 오류 문구와 보여줄 시점을 정하지 않습니다. `onInputStateChange`로 받은 `error`로 오류 종류를 알고, 문구와 `status`, 시점은 사용처가 정합니다.
  * 빈 선택 입력은 유효하고, 부분 입력과 존재하지 않는 날짜는 입력 중부터 `error`로 알립니다.
- * `isTouched`는 최초 필드 이탈이나 달력의 날짜 선택 또는 지우기 확정 후 `true`가 됩니다. 입력창에서 달력 버튼, 팝업으로 이동하거나 Esc로 돌아오는 동안에는 바뀌지 않습니다.
- * 이 예시는 `isTouched`가 `true`이거나 제출을 시도했을 때 오류 문구를 헬퍼에 표시하고, `error`가 있으면 제출하지 않습니다.
+ * `onBlur`는 입력창, 달력 버튼, 달력을 하나의 필드로 보고 필드를 벗어날 때 한 번 호출됩니다. 입력창에서 달력 버튼, 팝업으로 이동하거나 Esc로 돌아올 때는 호출되지 않습니다.
+ * 이 예시는 `onBlur`가 호출되었거나 제출을 시도한 뒤에 오류 문구를 헬퍼에 표시하고, `error`가 있으면 제출하지 않습니다.
  * `onInputStateChange`의 `value`는 현재 입력이 유효할 때만 날짜를 갖습니다. 오류 입력에서는 빈 문자열입니다.
- * 초기화하면 입력과 `isTouched`가 최초 상태로 돌아갑니다. 달력을 연 뒤 다음 입력을 클릭해 포커스 이동도 확인할 수 있습니다.
+ * 초기화하면 입력과 오류 표시가 최초 상태로 돌아갑니다. 달력을 연 뒤 다음 입력을 클릭해 포커스 이동도 확인할 수 있습니다.
  */
 export const Validation: Story = {
   render: () => <ValidationPreview />,

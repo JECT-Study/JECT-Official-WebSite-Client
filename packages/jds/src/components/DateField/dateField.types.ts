@@ -19,12 +19,6 @@ export interface DateFieldInputState {
   inputValue: string;
   value: string;
   error: DateFieldInputError | null;
-  /**
-   * 입력을 한 번 마쳤는지 여부. 최초 필드 이탈이나 달력 확정 후 true가 되고, 폼 초기화 시 false로 돌아간다.
-   * 입력창, 달력 버튼, 달력 사이의 포커스 이동은 필드 이탈로 보지 않는다.
-   * 오류는 보통 isTouched가 true이고 error가 있을 때 보여 준다.
-   */
-  isTouched: boolean;
 }
 
 interface DateFieldInputBaseProps extends Omit<
@@ -52,16 +46,16 @@ interface DateFieldInputBaseProps extends Omit<
   | "autoCorrect"
   | "spellCheck"
 > {
-  /** 필수 입력 여부. 비어 있으면 error가 "required"가 되며, 최초 필드 이탈 전에는 표시하지 않는다. */
+  /** 필수 입력 여부. 비어 있으면 error가 "required"가 된다. */
   required?: boolean;
   /** 부분 입력, 날짜 제한, 필수 빈 값을 포함한 현재 상태를 마운트와 변경 시 알린다. */
   onInputStateChange?: (state: DateFieldInputState) => void;
   /**
-   * 입력이 포커스를 잃을 때 호출한다. 이 콜백 뒤에 부분 입력을 확정하므로 이전 확정값을 읽을 수 있다.
-   * 현재 입력의 유효성은 onInputStateChange로 확인한다.
-   * preventDefault()는 포커스가 이동한 상태에서 내부 blur 처리만 건너뛰게 한다.
+   * 입력칸, 달력 버튼, 달력을 포함한 필드 전체에서 포커스가 벗어날 때 한 번 호출한다.
+   * 필드 안에서 포커스가 옮겨 갈 때는 호출하지 않는다.
+   * 부분 입력을 확정하고 onChange를 부른 뒤에 호출하므로 React Hook Form의 field.onBlur를 그대로 연결할 수 있다.
    */
-  onBlur?: ComponentPropsWithoutRef<"input">["onBlur"];
+  onBlur?: () => void;
   /** 달력 버튼 오른쪽에 배치되는 부가 요소 (예: Kbd) */
   suffix?: ReactNode;
   /**

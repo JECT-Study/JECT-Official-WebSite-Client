@@ -57,7 +57,7 @@ const composeHandler =
  * 달력에서 고른 날짜는 입력값에 반영하고, 입력한 날짜는 달력에서 선택된 상태로 보여 준다.
  * 보이는 input은 "2026.07.25" 같은 표시 문자열만 갖고, `name`을 지정하면 "YYYY-MM-DD" 값을 hidden input으로 전송한다.
  * controlled(`value`, `onChange`)와 uncontrolled(`defaultValue`) 방식을 지원한다.
- * `onChange`는 확정값 변경만 알린다. blur에서는 소비처 핸들러 이후 부분 입력을 확정한다.
+ * `onChange`는 확정값 변경만 알린다. `onBlur`는 입력칸, 달력 버튼, 달력을 하나의 필드로 보고 필드를 벗어날 때 한 번 부른다.
  * 부분 입력까지 지우려면 폼을 초기화하거나 Input을 다시 마운트한다.
  */
 export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
@@ -123,7 +123,10 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
     const fieldExitCheckTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const isPickerOpenedFromInputRef = useRef(false);
     const [isPickerOpen, setIsPickerOpen] = useState(false);
-    const [isTouched, setIsTouched] = useState(false);
+    // 필드 안(입력칸, 달력 버튼, 달력)에 포커스가 있는 동안 true다. 벗어날 때 onBlur를 한 번만 부르는 데 쓴다.
+    const isFocusWithinFieldRef = useRef(false);
+    const onBlurRef = useRef(onBlurFromProps);
+    onBlurRef.current = onBlurFromProps;
     const closeReasonRef = useRef<"select" | "outside" | null>(null);
     const onInputStateChangeRef = useRef(onInputStateChange);
     onInputStateChangeRef.current = onInputStateChange;
@@ -201,8 +204,8 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
 
     const currentValue = error === null ? draftValue : "";
     const inputState = useMemo<DateFieldInputState>(
-      () => ({ inputValue, value: currentValue, error, isTouched }),
-      [inputValue, currentValue, error, isTouched],
+      () => ({ inputValue, value: currentValue, error }),
+      [inputValue, currentValue, error],
     );
     const lastValidValueRef = useRef(isValueAllowed(normalizedValue) ? normalizedValue : "");
 
@@ -229,12 +232,19 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
         const isFocusWithinField =
           fieldContentRef.current?.contains(focusedElement) === true ||
           pickerContentRef.current?.contains(focusedElement) === true;
-        if (!isFocusWithinField) setIsTouched(true);
+        if (isFocusWithinField || !isFocusWithinFieldRef.current) return;
+
+        isFocusWithinFieldRef.current = false;
+        onBlurRef.current?.();
       }, 0);
     };
 
+    const handleFieldFocus = () => {
+      isFocusWithinFieldRef.current = true;
+    };
+
     const handleFieldBlur = (event: FocusEvent<HTMLElement>) => {
-      if (!event.defaultPrevented) scheduleFieldExitCheck(event.currentTarget.ownerDocument);
+      scheduleFieldExitCheck(event.currentTarget.ownerDocument);
     };
 
     // ↓는 값을 줄이는 데 쓰므로 달력은 Alt와 함께 눌렀을 때 연다.
@@ -265,7 +275,6 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
       }
 
       resetSegments(nextValue);
-      setIsTouched(true);
       closeReasonRef.current = "select";
       setIsPickerOpen(false);
     };
@@ -321,7 +330,6 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
 
           cancelFieldExitCheck();
           resetStateRef.current.resetSegments(defaultValueRef.current);
-          setIsTouched(false);
           lastValidValueRef.current = resetStateRef.current.isValueAllowed(defaultValueRef.current)
             ? defaultValueRef.current
             : "";
@@ -349,6 +357,7 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
         <Popover.Anchor asChild>
           <FieldContent
             ref={fieldContentRef}
+            onFocus={handleFieldFocus}
             onBlur={handleFieldBlur}
             data-disabled={isDisabled || undefined}
           >
@@ -377,10 +386,8 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
               className={clsx(getBodyClassName({ size: "md" }), styles.input, className)}
               onChange={handlers.onChange}
               onFocus={composeHandler(onFocusFromProps, handlers.onFocus)}
-              onBlur={composeHandler(onBlurFromProps, event => {
-                handlers.onBlur(event);
-                handleFieldBlur(event);
-              })}
+              // 필드 이탈 판단은 FieldContent로 버블링되는 blur에서 한다.
+              onBlur={handlers.onBlur}
               onMouseDown={composeHandler(onMouseDownFromProps, handlers.onMouseDown)}
               onKeyDown={composeHandler(onKeyDownFromProps, handleKeyDown)}
               onCompositionEnd={composeHandler(
