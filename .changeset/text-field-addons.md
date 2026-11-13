@@ -58,7 +58,7 @@
 - `TextField.Label`의 `tooltip` — 레이블 뒤 도움말 아이콘에 표시하는 툴팁 문구
 - `TextFieldKbdKeys` — 1개부터 4개까지의 키 문자열 튜플 타입
 
-지우기 버튼을 누르면 빈 값으로 `onChange`가 호출되고 입력칸으로 포커스가 이동합니다. uncontrolled에서는 `form.reset()` 후 초기화된 값 기준으로 지우기 버튼 표시 여부가 갱신됩니다. 지우기 버튼과 `action`은 단축키 왼쪽에 표시됩니다. `action`의 readonly, disabled 처리는 소비처가 정해야 합니다.
+지우기 버튼을 누르면 빈 값으로 `onChange`가 호출되고 입력칸으로 포커스가 이동합니다. `withClearButton`을 쓰면서 `placeholder`가 없으면 공백 `placeholder`가 들어갑니다. 지우기 버튼과 `action`은 단축키 왼쪽에 표시됩니다. `action`의 readonly, disabled 처리는 소비처가 정해야 합니다.
 
 도움말 아이콘은 hover와 키보드 포커스로 툴팁을 엽니다. 필드가 disabled이면 아이콘을 흐리게 표시합니다. disabled에서는 툴팁을 열지 않습니다.
 

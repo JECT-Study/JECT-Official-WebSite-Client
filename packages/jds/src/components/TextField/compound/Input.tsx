@@ -1,5 +1,5 @@
 import { clsx } from "clsx";
-import { forwardRef, useEffect, useRef, useState, type ChangeEvent } from "react";
+import { forwardRef, useRef } from "react";
 
 import { IconButton } from "../../Button/IconButton";
 import { FieldContent, FieldKbd } from "../../Field";
@@ -31,6 +31,7 @@ export const TextFieldInput = forwardRef<HTMLInputElement, TextFieldInputProps>(
       defaultValue,
       onChange,
       maxLength,
+      placeholder,
       ...restProps
     },
     ref,
@@ -63,37 +64,12 @@ export const TextFieldInput = forwardRef<HTMLInputElement, TextFieldInputProps>(
       onChange,
     });
 
-    const isControlled = value != null;
-    const [hasUncontrolledValue, setHasUncontrolledValue] = useState(
-      defaultValue != null && String(defaultValue) !== "",
-    );
-
-    const hasValue = isControlled ? String(value) !== "" : hasUncontrolledValue;
     const isInteractive = !isDisabled && !isReadOnly;
-    const hasClearButton = withClearButton && hasValue && isInteractive;
 
-    useEffect(() => {
-      const form = inputRef.current?.form;
-      if (isControlled || form == null) return;
-
-      // reset은 input 이벤트를 발생시키지 않으므로, 기본 동작으로 값이 되돌아간 다음 태스크에서 지우기 버튼 표시 여부를 다시 맞춘다.
-      // 초기값을 직접 넣지 않고 실제 값을 읽으므로, 소비처가 초기화를 취소한 경우를 따로 처리하지 않는다.
-      const handleReset = () => {
-        setTimeout(() => {
-          setHasUncontrolledValue((inputRef.current?.value ?? "") !== "");
-        }, 0);
-      };
-
-      form.addEventListener("reset", handleReset);
-      return () => form.removeEventListener("reset", handleReset);
-    }, [isControlled]);
-
-    const handleChange = isControlled
-      ? handleCountedChange
-      : (e: ChangeEvent<HTMLInputElement>) => {
-          setHasUncontrolledValue(e.target.value !== "");
-          handleCountedChange?.(e);
-        };
+    // 값이 있는지는 렌더 시점에 판단하지 않고 CSS의 :placeholder-shown으로 판단한다.
+    const hasClearButton = withClearButton && isInteractive;
+    const hasTrailing = hasClearButton || action != null || kbd != null;
+    const isClearButtonOnly = hasClearButton && action == null && kbd == null;
 
     const handleClear = () => {
       const input = inputRef.current;
@@ -117,8 +93,10 @@ export const TextFieldInput = forwardRef<HTMLInputElement, TextFieldInputProps>(
           id={fieldId}
           value={value}
           defaultValue={defaultValue}
-          onChange={handleChange}
+          onChange={handleCountedChange}
           maxLength={maxLength}
+          // :placeholder-shown은 placeholder 속성이 있어야 매칭되므로, 지우기 버튼을 쓰면서 placeholder가 없으면 공백을 넣는다.
+          placeholder={hasClearButton && !placeholder ? " " : placeholder}
           aria-label={ariaLabel}
           aria-labelledby={ariaLabelledBy}
           aria-describedby={ariaDescribedBy}
@@ -131,15 +109,20 @@ export const TextFieldInput = forwardRef<HTMLInputElement, TextFieldInputProps>(
           data-readonly={isReadOnly || undefined}
           className={clsx(getBodyClassName({ size: "md" }), styles.input, className)}
         />
-        {(hasClearButton || action != null || kbd != null) && (
-          <span className={fieldStyles.contentTrailing}>
+        {hasTrailing && (
+          <span
+            className={clsx(
+              fieldStyles.contentTrailing,
+              isClearButtonOnly && styles.clearButtonOnlyTrailing,
+            )}
+          >
             {hasClearButton && (
               <IconButton
                 hierarchy='tertiary'
                 size='md'
                 icon='x'
                 aria-label='입력 내용 지우기'
-                className={fieldStyles.contentAction}
+                className={clsx(fieldStyles.contentAction, styles.clearButton)}
                 // 누르는 순간 입력칸에서 포커스가 빠지면 지우기 전 값으로 blur가 먼저 발생하므로, 포커스를 입력칸에 유지한다.
                 onMouseDown={e => e.preventDefault()}
                 onClick={handleClear}
