@@ -2,6 +2,7 @@ import { forwardRef } from "react";
 
 import { Field } from "../Field";
 import { TextFieldInput } from "./compound/Input";
+import { TextFieldTimer } from "./compound/Timer";
 import type { TextFieldProps } from "./textField.types";
 
 /**
@@ -34,4 +35,5 @@ export const TextField = Object.assign(TextFieldRoot, {
   Footer: Field.Footer,
   Helper: Field.Helper,
   Counter: Field.Counter,
+  Timer: TextFieldTimer,
 });

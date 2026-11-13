@@ -16,3 +16,10 @@ export interface TextFieldInputProps extends Omit<
   /** 입력 오른쪽에 배치되는 부가 요소 */
   suffix?: ReactNode;
 }
+
+export interface TextFieldTimerProps extends Omit<ComponentPropsWithoutRef<"span">, "children"> {
+  /** 남은 시간 (초). 카운트다운 진행은 소비처가 담당한다. */
+  seconds: number;
+  /** 시간 표기에 사용할 포매터. 기본값은 `m:ss` 형식의 `formatTimer` */
+  timeFormatter?: (seconds: number) => string;
+}

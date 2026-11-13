@@ -1,5 +1,5 @@
 export { TextField } from "./TextField";
-export type { TextFieldInputProps, TextFieldProps } from "./textField.types";
+export type { TextFieldInputProps, TextFieldProps, TextFieldTimerProps } from "./textField.types";
 export type {
   FieldLabelProps as TextFieldLabelProps,
   FieldHelperProps as TextFieldHelperProps,
@@ -8,6 +8,7 @@ export type {
 } from "../Field";
 
 export { TextFieldInput } from "./compound/Input";
+export { TextFieldTimer } from "./compound/Timer";
 export { FieldLabel as TextFieldLabel } from "../Field/compound/Label";
 export { FieldFooter as TextFieldFooter } from "../Field/compound/Footer";
 export { FieldHelper as TextFieldHelper } from "../Field/compound/Helper";

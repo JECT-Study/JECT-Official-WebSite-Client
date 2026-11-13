@@ -1,8 +1,9 @@
 import { clsx } from "clsx";
-import { forwardRef, useLayoutEffect } from "react";
+import { forwardRef } from "react";
 
 import { useFieldContext } from "../../Field/field.context";
 import * as fieldStyles from "../../Field/field.css";
+import { useFieldCounterSlot } from "../../Field/useFieldCounter";
 import { useFileFieldContext } from "../fileField.context";
 import type { FileFieldSizeProps } from "../fileField.types";
 
@@ -16,21 +17,10 @@ import { getLabelClassName } from "@/utils/typography";
 export const FileFieldSize = forwardRef<HTMLSpanElement, FileFieldSizeProps>(
   ({ sizeFormatter = formatFileSize, className, ...restProps }, ref) => {
     const { size } = useFileFieldContext("FileField.Size");
-    const {
-      counterId,
-      onCounterMountChange,
-      status,
-      disabled: isDisabled,
-    } = useFieldContext("FileField.Size");
+    const { status, disabled: isDisabled } = useFieldContext("FileField.Size");
+    const { counterId, isSlotAvailable } = useFieldCounterSlot("FileField.Size", size != null);
 
-    useLayoutEffect(() => {
-      if (size == null) return;
-
-      onCounterMountChange(true);
-      return () => onCounterMountChange(false);
-    }, [size, onCounterMountChange]);
-
-    if (size == null) return null;
+    if (size == null || !isSlotAvailable) return null;
 
     return (
       <span
