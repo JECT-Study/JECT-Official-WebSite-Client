@@ -20,17 +20,15 @@
 
 `status`는 `"default"`, `"error"`만 받습니다.
 
-TimeField는 오류 문구를 제공하지 않고 제출도 막지 않습니다. 오류 문구와 `status`, 보여줄 시점은 사용처가 정하며, 제출 전에는 `error`가 `null`인지 확인해야 합니다. `incomplete`와 `invalid`는 시각이 만들어지지 않은 입력이라 폼 값만으로는 알 수 없으므로 `error`로 반드시 처리해야 합니다. `onBlur`는 필드 안의 포커스 이동에서는 호출되지 않으므로 React Hook Form의 `field.onBlur`를 그대로 연결할 수 있습니다.
+`incomplete`(덜 입력한 시각)와 `invalid`(`오전 13:00` 같은 없는 시각)는 시각이 만들어지지 않은 입력이라, 필드를 벗어나거나 폼을 제출하면 TimeField가 "유효한 시각을 입력해 주세요."와 error 상태를 보여 줍니다. 이때는 사용처의 `status`와 헬퍼 문구 대신 이 문구를 보여 주고, 시각을 고치면 바로 사라집니다. `required`, `outOfRange`, `stepMismatch`의 문구와 `status`, 보여줄 시점은 사용처가 정합니다. TimeField는 제출을 막지 않고 오류 입력의 제출값은 `""`이므로, 제출 전에는 `error`가 `null`인지 확인해야 합니다. `onBlur`는 필드 안의 포커스 이동에서는 호출되지 않으므로 React Hook Form의 `field.onBlur`를 그대로 연결할 수 있습니다.
 
 ```tsx
 import { TimeField, type TimeFieldInputError } from "@jects/jds";
 import { useState } from "react";
 
-const START_TIME_ERROR_MESSAGES: Record<TimeFieldInputError, string> = {
+// incomplete와 invalid의 문구는 TimeField가 보여 줍니다.
+const START_TIME_ERROR_MESSAGES: Partial<Record<TimeFieldInputError, string>> = {
   required: "시작 시각을 입력해 주세요.",
-  incomplete: "시각을 끝까지 입력해 주세요.",
-  invalid: "있는 시각을 입력해 주세요.",
-  outOfRange: "허용된 범위의 시각을 입력해 주세요.",
   stepMismatch: "분은 5분 단위로 입력해 주세요.",
 };
 
@@ -39,7 +37,7 @@ function TimeFieldExample() {
   const [timeError, setTimeError] = useState<TimeFieldInputError | null>(null);
   const [isTouched, setIsTouched] = useState(false);
   const errorMessage =
-    isTouched && timeError !== null ? START_TIME_ERROR_MESSAGES[timeError] : null;
+    isTouched && timeError !== null ? (START_TIME_ERROR_MESSAGES[timeError] ?? null) : null;
 
   return (
     <TimeField required status={errorMessage === null ? "default" : "error"}>
