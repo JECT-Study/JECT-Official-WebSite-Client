@@ -64,7 +64,7 @@ const StepsSeparator = () => {
   );
 };
 
-const StepsRoot = forwardRef<HTMLOListElement, StepsRootProps>(
+export const StepsRoot = forwardRef<HTMLOListElement, StepsRootProps>(
   ({ size = "md", layout = "horizontal", current, children, className, ...restProps }, ref) => {
     const childList = Children.toArray(children);
 
@@ -90,7 +90,7 @@ const StepsRoot = forwardRef<HTMLOListElement, StepsRootProps>(
 
 StepsRoot.displayName = "Steps.Root";
 
-const StepsItem = forwardRef<HTMLDivElement, StepsItemProps>(
+export const StepsItem = forwardRef<HTMLDivElement, StepsItemProps>(
   ({ index, activated: activatedProp, children, className, ...restProps }, ref) => {
     const { size, layout, currentStep } = useStepsContext("Steps.Item");
 

@@ -13,3 +13,9 @@ export type {
   FieldKbdKeys as FileFieldKbdKeys,
   FieldFooterProps as FileFieldFooterProps,
 } from "../Field";
+
+export { FileFieldInput } from "./compound/Input";
+export { FileFieldSize } from "./compound/Size";
+export { FieldLabel as FileFieldLabel } from "../Field/compound/Label";
+export { FieldFooter as FileFieldFooter } from "../Field/compound/Footer";
+export { FieldHelper as FileFieldHelper } from "../Field/compound/Helper";

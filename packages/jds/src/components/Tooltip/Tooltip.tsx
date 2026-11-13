@@ -7,26 +7,30 @@ import type { TooltipContentProps, TooltipProps, TooltipTriggerProps } from "./t
 
 import { getLabelClassName } from "@/utils/typography";
 
-const TooltipRoot = ({ children, ...radixProps }: TooltipProps) => {
+export const TooltipRoot = ({ children, ...radixProps }: TooltipProps) => {
   return <TooltipPrimitive.Root {...radixProps}>{children}</TooltipPrimitive.Root>;
 };
 
 TooltipRoot.displayName = "Tooltip.Root";
 
 //Todo: avoidCollisions로 제어되고 있는 위치 감지를 디자인 에셋에서 요구하는 감지 플로우로 변경 시 내부 Context 활용 필요 가능성
-const TooltipTrigger = forwardRef<ElementRef<typeof TooltipPrimitive.Trigger>, TooltipTriggerProps>(
-  ({ children, asChild = false, ...restProps }, ref) => {
-    return (
-      <TooltipPrimitive.Trigger ref={ref} asChild={asChild} {...restProps}>
-        {children}
-      </TooltipPrimitive.Trigger>
-    );
-  },
-);
+export const TooltipTrigger = forwardRef<
+  ElementRef<typeof TooltipPrimitive.Trigger>,
+  TooltipTriggerProps
+>(({ children, asChild = false, ...restProps }, ref) => {
+  return (
+    <TooltipPrimitive.Trigger ref={ref} asChild={asChild} {...restProps}>
+      {children}
+    </TooltipPrimitive.Trigger>
+  );
+});
 
 TooltipTrigger.displayName = "Tooltip.Trigger";
 
-const TooltipContent = forwardRef<ElementRef<typeof TooltipPrimitive.Content>, TooltipContentProps>(
+export const TooltipContent = forwardRef<
+  ElementRef<typeof TooltipPrimitive.Content>,
+  TooltipContentProps
+>(
   (
     {
       children,
@@ -61,8 +65,10 @@ const TooltipContent = forwardRef<ElementRef<typeof TooltipPrimitive.Content>, T
 
 TooltipContent.displayName = "Tooltip.Content";
 
+export const TooltipProvider = TooltipPrimitive.Provider;
+
 export const Tooltip = {
-  Provider: TooltipPrimitive.Provider,
+  Provider: TooltipProvider,
   Root: TooltipRoot,
   Trigger: TooltipTrigger,
   Content: TooltipContent,
