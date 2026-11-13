@@ -19,6 +19,7 @@ import { IconButton } from "../../Button/IconButton";
 import { isDateOutOfRange } from "../../DatePicker/datePicker.utils";
 import { FieldContent } from "../../Field";
 import { useFieldControl } from "../../Field/useFieldControl";
+import { useDateFieldContext } from "../dateField.context";
 import * as styles from "../dateField.css";
 import type {
   DateFieldInputError,
@@ -58,6 +59,7 @@ const composeHandler =
  * 보이는 input은 "2026.07.25" 같은 표시 문자열만 갖고, `name`을 지정하면 "YYYY-MM-DD" 값을 hidden input으로 전송한다.
  * controlled(`value`, `onChange`)와 uncontrolled(`defaultValue`) 방식을 지원한다.
  * `onChange`는 확정값 변경만 알린다. `onBlur`는 입력칸, 달력 버튼, 달력을 하나의 필드로 보고 필드를 벗어날 때 한 번 부른다.
+ * 날짜가 만들어지지 않은 입력(incomplete, invalid)은 필드를 벗어나거나 폼을 제출할 때 루트에 알려 DateField가 문구를 보여 준다.
  * 부분 입력까지 지우려면 폼을 초기화하거나 Input을 다시 마운트한다.
  */
 export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
@@ -113,6 +115,7 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
       ariaDescribedBy: describedByFromProps,
       ariaInvalid: invalidFromProps,
     });
+    const { onInputErrorVisibleChange } = useDateFieldContext("DateField.Input");
 
     const defaultValueRef = useRef(defaultValue ?? "");
     const warnedExternalValuesRef = useRef(new Set<string>());
@@ -214,6 +217,24 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
       if (currentValue !== "") lastValidValueRef.current = currentValue;
     }, [inputState, currentValue]);
 
+    // 날짜가 만들어지지 않은 입력은 필드를 벗어나거나 폼을 제출할 때 보여 주고, 고치면 바로 숨긴다.
+    // 숨긴 뒤 다시 틀리면 다시 벗어나거나 제출할 때까지 기다린다.
+    const isInputError = error === "incomplete" || error === "invalid";
+    const isInputErrorRef = useRef(isInputError);
+    isInputErrorRef.current = isInputError;
+    const [isInputErrorRevealed, setIsInputErrorRevealed] = useState(false);
+    const isInputErrorVisible = isInputErrorRevealed && isInputError;
+
+    // useEffect에서 숨기면 그 갱신이 다음 키 입력보다 늦게 처리될 수 있어, 다시 틀린 입력에 문구가 바로 보인다.
+    useLayoutEffect(() => {
+      if (!isInputError) setIsInputErrorRevealed(false);
+    }, [isInputError]);
+
+    useLayoutEffect(() => {
+      onInputErrorVisibleChange(isInputErrorVisible);
+      return () => onInputErrorVisibleChange(false);
+    }, [isInputErrorVisible, onInputErrorVisibleChange]);
+
     const cancelFieldExitCheck = useCallback(() => {
       if (fieldExitCheckTimerRef.current === null) return;
       clearTimeout(fieldExitCheckTimerRef.current);
@@ -235,6 +256,7 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
         if (isFocusWithinField || !isFocusWithinFieldRef.current) return;
 
         isFocusWithinFieldRef.current = false;
+        if (isInputErrorRef.current) setIsInputErrorRevealed(true);
         onBlurRef.current?.();
       }, 0);
     };
@@ -344,9 +366,16 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
         resetTimers.add(timeoutId);
       };
 
+      // 입력칸에서 Enter로 제출하면 필드를 벗어나지 않으므로 제출 시점에도 입력 오류를 보여 준다.
+      const handleSubmit = () => {
+        if (isInputErrorRef.current) setIsInputErrorRevealed(true);
+      };
+
       formElement.addEventListener("reset", handleReset);
+      formElement.addEventListener("submit", handleSubmit);
       return () => {
         formElement.removeEventListener("reset", handleReset);
+        formElement.removeEventListener("submit", handleSubmit);
         resetTimers.forEach(timeoutId => clearTimeout(timeoutId));
       };
     }, [form, cancelFieldExitCheck]);

@@ -12,4 +12,4 @@ export type {
 
 export { DateFieldInput } from "./compound/Input";
 export { FieldLabel as DateFieldLabel } from "../Field/compound/Label";
-export { FieldHelper as DateFieldHelper } from "../Field/compound/Helper";
+export { DateFieldHelper } from "./compound/Helper";
