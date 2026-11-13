@@ -8,12 +8,13 @@
 
 **소비처 영향 (코드 수정 필요)**
 
-| AS-IS                                    | TO-BE                                                                                  |
-| ---------------------------------------- | -------------------------------------------------------------------------------------- |
-| `TextField.Input`의 `suffix`             | `kbd` — 키 문자열 배열, 최대 4개, 단축키 외 요소는 표시 불가                           |
-| `TextField.Label`의 `prefix`             | 제거 — 레이블 앞 부가 요소는 표시 불가                                                 |
-| `TextField.Label`의 `suffix`             | `tooltip` — 툴팁 문구 문자열, 도움말 아이콘은 컴포넌트가 렌더링, 다른 요소는 표시 불가 |
-| `interface`로 `TextFieldInputProps` 확장 | `type` 교차 타입으로 변경 — 유니온 타입이 되어 `interface` 확장 불가                   |
+| AS-IS                                    | TO-BE                                                                                         |
+| ---------------------------------------- | --------------------------------------------------------------------------------------------- |
+| `TextField.Input`의 `suffix`             | `kbd` — 키 문자열 배열, 최대 4개, 단축키 외 요소는 표시 불가                                  |
+| `TextField.Label`의 `prefix`             | 제거 — 레이블 앞 부가 요소는 표시 불가                                                        |
+| `TextField.Label`의 `suffix`             | `tooltip` — 툴팁 문구 문자열, 도움말 아이콘은 컴포넌트가 렌더링, 다른 요소는 표시 불가        |
+| `interface`로 `TextFieldInputProps` 확장 | `type` 교차 타입으로 변경 — 유니온 타입이 되어 `interface` 확장 불가                          |
+| `Omit<TextFieldInputProps, ...>`         | 분배 `Omit`으로 변경 — `Omit`이 유니온을 하나로 합쳐 `TextField.Input`에 spread하면 타입 에러 |
 
 단축키는 키 문자열 배열로 넘깁니다.
 
@@ -40,6 +41,14 @@
 + type CustomInputProps = TextFieldInputProps & {
 +   description?: string;
 + };
+```
+
+`TextFieldInputProps`에서 일부 prop을 뺄 때는 유니온의 각 멤버에 `Omit`을 적용하는 분배 `Omit`을 씁니다.
+
+```diff
+- type ProfileInputProps = Omit<TextFieldInputProps, "prefix">;
++ type DistributiveOmit<T, K extends PropertyKey> = T extends unknown ? Omit<T, K> : never;
++ type ProfileInputProps = DistributiveOmit<TextFieldInputProps, "prefix">;
 ```
 
 **추가**

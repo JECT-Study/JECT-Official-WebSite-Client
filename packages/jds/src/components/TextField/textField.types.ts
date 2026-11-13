@@ -24,7 +24,7 @@ interface TextFieldInputClearButtonProps {
 }
 
 interface TextFieldInputActionProps {
-  withClearButton?: never;
+  withClearButton?: false;
   /** 지우기 버튼 자리에 표시하는 액션 요소. readonly, disabled에서의 표시와 동작은 소비처가 정한다. */
   action?: ReactNode;
 }
