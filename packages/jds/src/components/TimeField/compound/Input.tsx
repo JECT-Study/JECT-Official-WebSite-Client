@@ -20,6 +20,7 @@ import { FieldContent } from "../../Field";
 import { useFieldControl } from "../../Field/useFieldControl";
 import type { TimeValue } from "../../TimePicker";
 import { toSeconds } from "../../TimePicker/timePicker.utils";
+import { useTimeFieldContext } from "../timeField.context";
 import * as styles from "../timeField.css";
 import type {
   TimeFieldInputError,
@@ -69,6 +70,7 @@ const isTimeOutOfRange = (time: TimeValue, minTime?: TimeValue, maxTime?: TimeVa
  * 보이는 input은 "오후 09:30" 같은 표시 문자열만 갖고, `name`을 지정하면 "HH:mm" 값을 hidden input으로 전송한다.
  * controlled(`value`, `onChange`)와 uncontrolled(`defaultValue`) 방식을 지원한다.
  * `onChange`는 확정값 변경만 알린다. `onBlur`는 입력칸, 시간 선택 버튼, 시간 선택을 하나의 필드로 보고 필드를 벗어날 때 한 번 부른다.
+ * 시각이 만들어지지 않은 입력(incomplete, invalid)은 필드를 벗어나거나 폼을 제출할 때 루트에 알려 TimeField가 문구를 보여 준다.
  * 부분 입력까지 지우려면 폼을 초기화하거나 Input을 다시 마운트한다.
  */
 export const TimeFieldInput = forwardRef<HTMLInputElement, TimeFieldInputProps>(
@@ -124,6 +126,7 @@ export const TimeFieldInput = forwardRef<HTMLInputElement, TimeFieldInputProps>(
       ariaDescribedBy: describedByFromProps,
       ariaInvalid: invalidFromProps,
     });
+    const { onInputErrorVisibleChange } = useTimeFieldContext("TimeField.Input");
 
     const defaultValueRef = useRef(defaultValue ?? "");
     const warnedExternalValuesRef = useRef(new Set<string>());
@@ -224,6 +227,24 @@ export const TimeFieldInput = forwardRef<HTMLInputElement, TimeFieldInputProps>(
       onInputStateChangeRef.current?.(inputState);
     }, [inputState]);
 
+    // 시각이 만들어지지 않은 입력은 필드를 벗어나거나 폼을 제출할 때 보여 주고, 고치면 바로 숨긴다.
+    // 숨긴 뒤 다시 틀리면 다시 벗어나거나 제출할 때까지 기다린다.
+    const isInputError = error === "incomplete" || error === "invalid";
+    const isInputErrorRef = useRef(isInputError);
+    isInputErrorRef.current = isInputError;
+    const [isInputErrorRevealed, setIsInputErrorRevealed] = useState(false);
+    const isInputErrorVisible = isInputErrorRevealed && isInputError;
+
+    // useEffect에서 숨기면 그 갱신이 다음 키 입력보다 늦게 처리될 수 있어, 다시 틀린 입력에 문구가 바로 보인다.
+    useLayoutEffect(() => {
+      if (!isInputError) setIsInputErrorRevealed(false);
+    }, [isInputError]);
+
+    useLayoutEffect(() => {
+      onInputErrorVisibleChange(isInputErrorVisible);
+      return () => onInputErrorVisibleChange(false);
+    }, [isInputErrorVisible, onInputErrorVisibleChange]);
+
     const cancelFieldExitCheck = useCallback(() => {
       if (fieldExitCheckTimerRef.current === null) return;
       clearTimeout(fieldExitCheckTimerRef.current);
@@ -245,6 +266,7 @@ export const TimeFieldInput = forwardRef<HTMLInputElement, TimeFieldInputProps>(
         if (isFocusWithinField || !isFocusWithinFieldRef.current) return;
 
         isFocusWithinFieldRef.current = false;
+        if (isInputErrorRef.current) setIsInputErrorRevealed(true);
         onBlurRef.current?.();
       }, 0);
     };
@@ -354,9 +376,16 @@ export const TimeFieldInput = forwardRef<HTMLInputElement, TimeFieldInputProps>(
         resetTimers.add(timeoutId);
       };
 
+      // 입력칸에서 Enter로 제출하면 필드를 벗어나지 않으므로 제출 시점에도 입력 오류를 보여 준다.
+      const handleSubmit = () => {
+        if (isInputErrorRef.current) setIsInputErrorRevealed(true);
+      };
+
       formElement.addEventListener("reset", handleReset);
+      formElement.addEventListener("submit", handleSubmit);
       return () => {
         formElement.removeEventListener("reset", handleReset);
+        formElement.removeEventListener("submit", handleSubmit);
         resetTimers.forEach(timeoutId => clearTimeout(timeoutId));
       };
     }, [form, cancelFieldExitCheck]);

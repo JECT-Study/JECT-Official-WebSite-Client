@@ -12,7 +12,10 @@ export interface TimeFieldProps extends Omit<FieldProps, "status"> {
 }
 
 /**
- * TimeField가 판단하는 오류 종류. 문구와 보여줄 시점은 사용처가 정한다.
+ * TimeField가 판단하는 오류 종류.
+ * incomplete와 invalid는 시각이 만들어지지 않은 입력이다. 필드를 벗어나거나 폼을 제출하면 TimeField가 사용처의 status와 Helper 문구 대신 "유효한 시각을 입력해 주세요."와 error 상태를 보여 준다.
+ * 폼 값은 빈 문자열이 되므로 제출을 막으려면 사용처가 error를 확인해야 한다.
+ * required, outOfRange, stepMismatch는 required, minTime, maxTime, minuteStep으로 사용처가 정한 규칙의 오류다. 문구와 보여줄 시점은 사용처가 정한다.
  */
 export type TimeFieldInputError =
   | "required"
