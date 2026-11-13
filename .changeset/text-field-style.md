@@ -4,7 +4,7 @@
 
 **TextField**
 
-입력 박스의 크기, 테두리, 상태별 색을 변경했습니다. `prefix`, `suffix`나 `TextField.Label`의 `suffix`를 직계 자식 셀렉터로 스타일링한 경우가 아니면 호출부 수정은 필요하지 않습니다.
+입력 박스의 크기, 테두리, 상태별 색을 변경했습니다. `prefix`를 직계 자식 셀렉터로 스타일링한 경우가 아니면 호출부 수정은 필요하지 않습니다.
 
 **동작 변경 (코드 수정 불필요)**
 
@@ -16,7 +16,6 @@
 - disabled 입력값 글자 색 — `object.assistive`에서 `object.subtle`로 변경
 - readonly 포커스 시 테두리 색 — 바뀌지 않고 포커스 링만 표시
 - readonly 배경 — 부모 배경색이 비치지 않도록 변경
-- `prefix`, `suffix` — `span` 요소로 감싸서 렌더링, 직계 자식으로 가정한 스타일은 확인 필요
-- `prefix`, `suffix` 색 — `object.alternative`, disabled에서 `object.subtler`로 지정
-- `TextField.Label`의 `suffix` — `span` 요소로 감싸서 렌더링, 색은 `object.alternative`, disabled에서 `object.subtle`로 지정
+- `prefix` — `span` 요소로 감싸서 렌더링, 직계 자식으로 가정한 스타일은 확인 필요
+- `prefix` 색 — `object.alternative`, disabled에서 `object.subtler`로 지정
 - disabled 필수 표시(`*`) — `feedback.notifying.alpha.inverse.assistive`에서 `feedback.notifying.static.inverse.bold`에 불투명도 44%로 변경

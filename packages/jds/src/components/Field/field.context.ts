@@ -24,6 +24,9 @@ export interface FieldContextValue {
   /** 컨트롤이 해석해 보고한 required. Field.Label이 required mark 렌더에 사용한다. */
   isControlRequired: boolean;
   onControlRequiredChange: (required: boolean) => void;
+  /** 컨트롤이 해석해 보고한 disabled. Field.Label이 도움말 툴팁 비활성화에 사용한다. */
+  isControlDisabled: boolean;
+  onControlDisabledChange: (disabled: boolean) => void;
   status: FieldStatus;
   readonly: boolean;
   disabled: boolean;

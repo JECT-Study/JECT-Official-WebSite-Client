@@ -3,7 +3,6 @@ import { FIELD_PLAYGROUND_ARGS, FIELD_WIDTH, fieldArgTypes } from "@storybook-ut
 import { FlexColumn, FlexRow, Label } from "@storybook-utils/layout";
 
 import { Textarea } from "./Textarea";
-import { Icon } from "../Icon";
 
 /**
  * 여러 줄 텍스트를 입력하는 필드입니다. 오른쪽 아래 손잡이로 세로 방향 크기를 조절할 수 있습니다.
@@ -35,7 +34,7 @@ export const Playground: Story = {
   args: FIELD_PLAYGROUND_ARGS,
   render: args => (
     <Textarea {...args} style={FIELD_WIDTH}>
-      <Textarea.Label suffix={<Icon name='info' size='2xs' />}>레이블</Textarea.Label>
+      <Textarea.Label tooltip='도움말 문구'>레이블</Textarea.Label>
       <Textarea.Control placeholder='플레이스홀더' />
       <Textarea.Footer>
         <Textarea.Helper>헬퍼 텍스트</Textarea.Helper>

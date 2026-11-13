@@ -14,7 +14,7 @@ import {
   type MouseEvent,
 } from "react";
 
-import { FieldContent } from "../../Field";
+import { FieldContent, FieldKbd } from "../../Field";
 import * as fieldStyles from "../../Field/field.css";
 import { useFieldControl } from "../../Field/useFieldControl";
 import { Icon } from "../../Icon";
@@ -46,7 +46,7 @@ export const SelectFieldInput = forwardRef<HTMLInputElement, SelectFieldInputPro
       variant = "label",
       searchable = false,
       placeholder,
-      suffix,
+      kbd,
       disabled: disabledFromProps,
       readOnly: readOnlyFromProps,
       required: requiredFromProps,
@@ -314,22 +314,22 @@ export const SelectFieldInput = forwardRef<HTMLInputElement, SelectFieldInputPro
               onKeyDown={handleKeyDown}
               onMouseDown={handleMouseDown}
             />
-            {suffix != null && (
-              <span className={clsx(fieldStyles.contentSlot, styles.suffix)}>{suffix}</span>
-            )}
-            <button
-              type='button'
-              tabIndex={-1}
-              aria-expanded={isOpen}
-              aria-controls={isOpen ? listboxId : undefined}
-              aria-label={isOpen ? "목록 닫기" : "목록 열기"}
-              disabled={!isInteractive}
-              className={styles.indicator}
-              onMouseDown={e => e.preventDefault()}
-              onClick={handleIndicatorClick}
-            >
-              <Icon name='chevron-down' size='md' />
-            </button>
+            <span className={fieldStyles.contentTrailing}>
+              {kbd != null && <FieldKbd keys={kbd} disabled={isDisabled} />}
+              <button
+                type='button'
+                tabIndex={-1}
+                aria-expanded={isOpen}
+                aria-controls={isOpen ? listboxId : undefined}
+                aria-label={isOpen ? "목록 닫기" : "목록 열기"}
+                disabled={!isInteractive}
+                className={clsx(fieldStyles.contentAction, styles.indicator)}
+                onMouseDown={e => e.preventDefault()}
+                onClick={handleIndicatorClick}
+              >
+                <Icon name='chevron-down' size='md' />
+              </button>
+            </span>
             {name != null && (
               <input
                 type='hidden'

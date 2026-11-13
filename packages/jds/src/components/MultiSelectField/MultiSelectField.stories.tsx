@@ -12,8 +12,6 @@ import { useState } from "react";
 
 import { MultiSelectField } from "./MultiSelectField";
 import { BlockButton } from "../Button/BlockButton";
-import { Icon } from "../Icon";
-import { Kbd } from "../Kbd";
 
 const FIELD_OPTIONS = Array.from({ length: 40 }, (_, index) => ({
   value: String(index + 1),
@@ -50,9 +48,7 @@ export const Playground: Story = {
   args: FIELD_PLAYGROUND_ARGS,
   render: args => (
     <MultiSelectField {...args} style={FIELD_WIDTH}>
-      <MultiSelectField.Label suffix={<Icon name='info' size='2xs' />}>
-        레이블
-      </MultiSelectField.Label>
+      <MultiSelectField.Label tooltip='도움말 문구'>레이블</MultiSelectField.Label>
       <MultiSelectField.Input
         options={REGION_OPTIONS}
         defaultValue={["seoul"]}
@@ -92,8 +88,8 @@ export const Statuses: Story = {
 };
 
 /**
- * `disabled`와 `readonly`에서는 목록을 열 수 없고 태그의 제거 버튼도 사라집니다.
- * 입력칸도 자리를 차지하지 않아, 태그가 한 줄에 들어가면 상자 높이가 늘어나지 않습니다.
+ * `disabled`와 `readonly`에서는 목록을 열 수 없고 배지의 제거 버튼도 사라집니다.
+ * 입력칸도 자리를 차지하지 않아, 배지가 한 줄에 들어가면 상자 높이가 늘어나지 않습니다.
  * `disabled`는 포커스를 받을 수 없으며, `readonly`는 포커스를 받을 수 있습니다.
  */
 export const States: Story = {
@@ -127,7 +123,7 @@ export const States: Story = {
 
 /**
  * 값이 없으면 placeholder를 표시합니다.
- * 태그가 늘어나 남은 가로 폭이 100px 미만이 되면 입력이 다음 줄로 내려갑니다.
+ * 배지가 늘어나 남은 가로 폭이 100px 미만이 되면 입력이 다음 줄로 내려갑니다.
  */
 export const Values: Story = {
   render: () => (
@@ -202,9 +198,9 @@ export const Searchable: Story = {
 };
 
 /**
- * `suffix`는 입력 오른쪽에 형제로 배치되므로 배지나 단축키 표시 같은 읽기 전용 요소만 사용합니다.
+ * `kbd`로 단축키를 표시합니다. 최대 4개까지 지정할 수 있습니다.
  */
-export const WithSuffix: Story = {
+export const WithKbd: Story = {
   render: () => (
     <MultiSelectField style={FIELD_WIDTH}>
       <MultiSelectField.Label>레이블</MultiSelectField.Label>
@@ -212,7 +208,7 @@ export const WithSuffix: Story = {
         options={REGION_OPTIONS}
         defaultValue={["seoul"]}
         placeholder='플레이스홀더'
-        suffix={<Kbd size='sm'>⌘</Kbd>}
+        kbd={["⌘", "K"]}
       />
       <MultiSelectField.Footer>
         <MultiSelectField.Helper>헬퍼 텍스트</MultiSelectField.Helper>
