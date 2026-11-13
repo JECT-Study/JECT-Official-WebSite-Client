@@ -16,8 +16,11 @@ export const FieldLabel = forwardRef<HTMLLabelElement, FieldLabelProps>(
       labelId,
       onLabelMountChange,
       isControlRequired,
+      isControlDisabled,
       disabled: isDisabled,
     } = useFieldContext("Field.Label");
+
+    const isTooltipDisabled = isDisabled || isControlDisabled;
 
     useLayoutEffect(() => {
       onLabelMountChange(true);
@@ -61,7 +64,7 @@ export const FieldLabel = forwardRef<HTMLLabelElement, FieldLabelProps>(
                   size='2xs'
                   icon='info'
                   aria-label='도움말'
-                  disabled={isDisabled}
+                  disabled={isTooltipDisabled}
                   className={styles.labelTooltipTrigger}
                 />
               </Tooltip.Trigger>
