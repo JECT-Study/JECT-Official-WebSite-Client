@@ -480,7 +480,8 @@ export const TimeFieldInput = forwardRef<HTMLInputElement, TimeFieldInputProps>(
           <TimeFieldPicker
             contentRef={pickerContentRef}
             onBlur={handlePickerBlur}
-            value={currentValue}
+            // 범위나 간격에 맞지 않아도 시각은 만들어졌으므로, 시간 선택이 입력한 시각에서 출발하게 한다.
+            value={draftValue}
             onSelect={handlePickerSelect}
             onCloseAutoFocus={handlePickerCloseAutoFocus}
             onInteractOutside={() => {
