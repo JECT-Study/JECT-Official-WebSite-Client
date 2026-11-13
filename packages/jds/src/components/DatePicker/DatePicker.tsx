@@ -7,6 +7,7 @@ import * as styles from "./datePicker.css";
 import type { DatePickerProps } from "./datePicker.types";
 import {
   addMonths,
+  createDate,
   formatMonthLabel,
   formatYearLabel,
   formatYearMonthLabel,
@@ -34,6 +35,10 @@ import { Divider } from "../Divider";
 
 /** `minDate`, `maxDate`를 넘기지 않으면 연도 목록을 표시 중인 연도의 앞뒤로 이만큼까지 보여 줍니다. */
 const DEFAULT_YEAR_OFFSET = 10;
+
+/** `minDate`, `maxDate`를 넘기지 않았을 때 연도 목록에 보여 줄 수 있는 연도 범위 */
+const MIN_YEAR = 1;
+const MAX_YEAR = 9999;
 
 /**
  * @description 날짜 하나를 고르는 달력 패널
@@ -90,8 +95,8 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
     const bodyHeight = getCalendarBodyHeight(weekCount);
     const monthOptions = getMonthOptions(year, minDate, maxDate);
     const yearOptions = getYearOptions(
-      minDate?.getFullYear() ?? year - DEFAULT_YEAR_OFFSET,
-      maxDate?.getFullYear() ?? year + DEFAULT_YEAR_OFFSET,
+      minDate?.getFullYear() ?? Math.max(year - DEFAULT_YEAR_OFFSET, MIN_YEAR),
+      maxDate?.getFullYear() ?? Math.min(year + DEFAULT_YEAR_OFFSET, MAX_YEAR),
     );
 
     const { view, yearButtonRef, monthButtonRef, toggleView, closeView, onViewKeyDown } =
@@ -126,12 +131,12 @@ export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
     };
 
     const selectMonth = (next: string) => {
-      setMonth(new Date(year, Number(next), 1));
+      setMonth(createDate(year, Number(next), 1));
       closeView();
     };
 
     const selectYear = (next: string) => {
-      setMonth(new Date(Number(next), month.getMonth(), 1));
+      setMonth(createDate(Number(next), month.getMonth(), 1));
       closeView();
     };
 
