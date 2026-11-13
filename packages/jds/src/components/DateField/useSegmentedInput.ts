@@ -313,6 +313,8 @@ export const useSegmentedInput = <TKind extends string, TSegments, TPending>({
     // 한글 조합 입력은 취소할 수 없어 compositionend에서 처리한다.
     handleNativeBeforeInputRef.current = event => {
       if (event.isComposing || event.inputType.startsWith("insertComposition")) return;
+      // Enter는 한 줄 입력의 값을 바꾸지 않는다. 막으면 브라우저의 Enter 폼 제출까지 취소되므로 그대로 둔다.
+      if (event.inputType === "insertLineBreak") return;
 
       event.preventDefault();
 
