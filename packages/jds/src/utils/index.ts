@@ -2,7 +2,7 @@ export * from "./color";
 export * from "./cssUnit";
 export * from "./focusRing.css";
 export * from "./formatFileSize";
-export * from "./formatTimer";
+export { formatTimer } from "./formatTimer";
 export * from "./forwardRef";
 export {
   getBodyClassName,
