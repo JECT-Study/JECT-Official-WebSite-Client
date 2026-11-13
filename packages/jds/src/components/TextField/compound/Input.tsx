@@ -140,6 +140,8 @@ export const TextFieldInput = forwardRef<HTMLInputElement, TextFieldInputProps>(
                 icon='x'
                 aria-label='입력 내용 지우기'
                 className={fieldStyles.contentAction}
+                // 누르는 순간 입력칸에서 포커스가 빠지면 지우기 전 값으로 blur가 먼저 발생하므로, 포커스를 입력칸에 유지한다.
+                onMouseDown={e => e.preventDefault()}
                 onClick={handleClear}
               />
             )}
