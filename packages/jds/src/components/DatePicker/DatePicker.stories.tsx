@@ -5,12 +5,17 @@ import { expect, fn, userEvent, within } from "storybook/test";
 
 import { DatePicker } from "./DatePicker";
 import { WEEKDAY_OPTIONS } from "./datePicker.types";
+import { createDate } from "./datePicker.utils";
 
 import { Code } from "@/components/Code";
 
 const SAMPLE_MONTH = new Date(2026, 2, 1);
 const SAMPLE_DATE = new Date(2026, 2, 12);
 const SAMPLE_OUTSIDE_DATE = new Date(2026, 1, 28);
+const BOUNDARY_DATES = [
+  { label: "0001-01-01", date: createDate(1, 0, 1) },
+  { label: "9999-12-31", date: createDate(9999, 11, 31) },
+];
 
 const PropertyLabel = ({ name, value }: { name: string; value: string }) => (
   <FlexRow gap='6px' style={{ alignItems: "center" }}>
@@ -298,6 +303,30 @@ export const DateRange: Story = {
     maxDate: new Date(2026, 5, 20),
     withActionBar: true,
   },
+};
+
+export const BoundaryYears: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: [
+          "0001년 1월 1일과 9999년 12월 31일을 선택한 상태입니다. `new Date(year, month, day)`는 0–99년을 1900–1999년으로 해석하므로, 0001–0099년 날짜는 `setFullYear`로 연도를 지정해 넘깁니다.",
+          "",
+          "`minDate`, `maxDate`가 없으면 연도 목록은 표시 중인 연도의 앞뒤 10년을 보여 주되, 1년보다 앞이나 9999년보다 뒤는 보여 주지 않습니다.",
+        ].join("\n"),
+      },
+    },
+  },
+  render: () => (
+    <FlexRow gap='24px' style={{ alignItems: "flex-start" }}>
+      {BOUNDARY_DATES.map(({ label, date }) => (
+        <FlexColumn key={label} gap='12px' style={{ alignItems: "center" }}>
+          <PropertyLabel name='defaultValue' value={label} />
+          <DatePicker defaultValue={date} />
+        </FlexColumn>
+      ))}
+    </FlexRow>
+  ),
 };
 
 export const DisabledDates: Story = {
