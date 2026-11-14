@@ -5,8 +5,6 @@ interface TimeFieldContextValue {
   inputErrorMessage: string | null;
   /** Input이 입력 오류를 보여 줄 시점인지 알린다. */
   onInputErrorVisibleChange: (isVisible: boolean) => void;
-  /** TimeField.Helper가 mount/unmount될 때 호출된다. */
-  onHelperMountChange: (isMounted: boolean) => void;
 }
 
 export const [TimeFieldProvider, useTimeFieldContext] = createCtxProvider<TimeFieldContextValue>(

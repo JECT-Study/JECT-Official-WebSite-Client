@@ -13,11 +13,15 @@ const INPUT_ERROR_MESSAGE = "유효한 시각을 입력해 주세요.";
  * 시각이 만들어지지 않은 입력(incomplete, invalid)이 보일 때는 사용처의 status와 Helper 문구 대신 TimeField의 문구와 error 상태를 보여 준다.
  * 이때 폼 값은 빈 문자열이라 폼 라이브러리는 필수 오류로 판단하는데, 실제 문제는 잘못 입력한 시각이기 때문이다.
  * 그 밖의 오류 문구와 status는 사용처가 정한다.
+ *
+ * 입력 오류 문구는 루트에서만 그리고, 그동안 TimeField.Helper는 그리지 않는다.
+ * 두 Helper가 같은 inputErrorMessage로 함께 바뀌어야 한 커밋 안에서 교대되어 Field의 Helper 등록이 남는다.
+ * 사용처 Helper의 마운트를 보고 루트 Helper를 숨기면 교대가 두 커밋에 나뉘고,
+ * 나중에 언마운트되는 루트 Helper가 등록을 지워 aria-describedby에서 helper id가 빠진다.
  */
 const TimeFieldRoot = forwardRef<HTMLDivElement, TimeFieldProps>(
   ({ children, status = "default", ...props }, ref) => {
     const [isInputErrorVisible, setIsInputErrorVisible] = useState(false);
-    const [hasHelper, setHasHelper] = useState(false);
     const inputErrorMessage = isInputErrorVisible ? INPUT_ERROR_MESSAGE : null;
 
     return (
@@ -25,14 +29,11 @@ const TimeFieldRoot = forwardRef<HTMLDivElement, TimeFieldProps>(
         value={{
           inputErrorMessage,
           onInputErrorVisibleChange: setIsInputErrorVisible,
-          onHelperMountChange: setHasHelper,
         }}
       >
         <Field ref={ref} {...props} status={inputErrorMessage === null ? status : "error"}>
           {children}
-          {inputErrorMessage !== null && !hasHelper && (
-            <Field.Helper>{inputErrorMessage}</Field.Helper>
-          )}
+          {inputErrorMessage !== null && <Field.Helper>{inputErrorMessage}</Field.Helper>}
         </Field>
       </TimeFieldProvider>
     );

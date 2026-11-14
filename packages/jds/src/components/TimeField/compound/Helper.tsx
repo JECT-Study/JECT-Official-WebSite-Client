@@ -1,27 +1,17 @@
-import { forwardRef, useLayoutEffect } from "react";
+import { forwardRef } from "react";
 
 import { Field, type FieldHelperProps } from "../../Field";
 import { useTimeFieldContext } from "../timeField.context";
 
 /**
- * @description Field.Helper를 감싸 입력 오류가 보일 때 TimeField의 문구를 대신 보여 준다.
- * 그 밖에는 children을 그대로 보여 준다.
+ * @description Field.Helper를 감싼다.
+ * 입력 오류가 보이는 동안에는 루트가 TimeField의 문구를 그리므로 아무것도 그리지 않는다.
  */
-export const TimeFieldHelper = forwardRef<HTMLSpanElement, FieldHelperProps>(
-  ({ children, ...props }, ref) => {
-    const { inputErrorMessage, onHelperMountChange } = useTimeFieldContext("TimeField.Helper");
+export const TimeFieldHelper = forwardRef<HTMLSpanElement, FieldHelperProps>((props, ref) => {
+  const { inputErrorMessage } = useTimeFieldContext("TimeField.Helper");
+  if (inputErrorMessage !== null) return null;
 
-    useLayoutEffect(() => {
-      onHelperMountChange(true);
-      return () => onHelperMountChange(false);
-    }, [onHelperMountChange]);
-
-    return (
-      <Field.Helper ref={ref} {...props}>
-        {inputErrorMessage ?? children}
-      </Field.Helper>
-    );
-  },
-);
+  return <Field.Helper ref={ref} {...props} />;
+});
 
 TimeFieldHelper.displayName = "TimeField.Helper";
