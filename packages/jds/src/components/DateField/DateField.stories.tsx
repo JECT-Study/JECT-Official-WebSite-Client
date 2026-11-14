@@ -7,12 +7,10 @@ import {
 } from "@storybook-utils/field";
 import { FlexColumn, FlexRow, Label } from "@storybook-utils/layout";
 import { useState } from "react";
-import { vars } from "tokens";
 
 import { DateField } from "./DateField";
 import type { DateFieldInputError, DateFieldInputState } from "./dateField.types";
 import { BlockButton } from "../Button/BlockButton";
-import { Icon } from "../Icon";
 import { Kbd } from "../Kbd";
 
 const VALUE_LABEL_STYLE = { width: "auto", whiteSpace: "nowrap" } as const;
@@ -140,17 +138,7 @@ export const Playground: Story = {
   args: FIELD_PLAYGROUND_ARGS,
   render: args => (
     <DateField {...args} style={FIELD_WIDTH}>
-      <DateField.Label
-        suffix={
-          <Icon
-            name='info'
-            size='2xs'
-            style={args.disabled ? { color: vars.color.semantic.object.subtle } : undefined}
-          />
-        }
-      >
-        레이블
-      </DateField.Label>
+      <DateField.Label tooltip='도움말 문구'>레이블</DateField.Label>
       <DateField.Input />
       <DateField.Helper>헬퍼 메시지 텍스트</DateField.Helper>
     </DateField>
