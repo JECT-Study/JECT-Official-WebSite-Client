@@ -33,6 +33,7 @@ const InternalField = forwardRef<HTMLDivElement, FieldProps>(
     const [hasCounter, setHasCounter] = useState(false);
     const [counter, setCounter] = useState<FieldCounterState | null>(null);
     const [isControlRequired, setControlRequired] = useState(false);
+    const [isControlDisabled, setControlDisabled] = useState(false);
 
     return (
       <FieldProvider
@@ -50,6 +51,8 @@ const InternalField = forwardRef<HTMLDivElement, FieldProps>(
           onCounterMountChange: setHasCounter,
           isControlRequired,
           onControlRequiredChange: setControlRequired,
+          isControlDisabled,
+          onControlDisabledChange: setControlDisabled,
           status,
           readonly,
           disabled,
