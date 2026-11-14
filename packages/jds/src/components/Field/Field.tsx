@@ -33,6 +33,7 @@ const InternalField = forwardRef<HTMLDivElement, FieldProps>(
     const [counterRegistrations, setCounterRegistrations] = useState<string[]>([]);
     const [counter, setCounter] = useState<FieldCounterState | null>(null);
     const [isControlRequired, setControlRequired] = useState(false);
+    const [isControlDisabled, setControlDisabled] = useState(false);
 
     const registerCounter = useCallback((registrationId: string) => {
       setCounterRegistrations(prev => [...prev, registrationId]);
@@ -66,6 +67,8 @@ const InternalField = forwardRef<HTMLDivElement, FieldProps>(
           onCounterRegister: registerCounter,
           isControlRequired,
           onControlRequiredChange: setControlRequired,
+          isControlDisabled,
+          onControlDisabledChange: setControlDisabled,
           status,
           readonly,
           disabled,

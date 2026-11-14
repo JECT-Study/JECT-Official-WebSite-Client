@@ -3,6 +3,7 @@ export type { SuggestionFieldProps, SuggestionFieldInputProps } from "./suggesti
 export type {
   FieldLabelProps as SuggestionFieldLabelProps,
   FieldHelperProps as SuggestionFieldHelperProps,
+  FieldKbdKeys as SuggestionFieldKbdKeys,
   FieldFooterProps as SuggestionFieldFooterProps,
   FieldCounterProps as SuggestionFieldCounterProps,
 } from "../Field";

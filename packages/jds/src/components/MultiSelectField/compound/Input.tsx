@@ -16,7 +16,7 @@ import {
 } from "react";
 
 import { ContentBadge } from "../../Badge";
-import { FieldContent } from "../../Field";
+import { FieldContent, FieldKbd } from "../../Field";
 import * as fieldStyles from "../../Field/field.css";
 import { useFieldControl } from "../../Field/useFieldControl";
 import { useItemCounter } from "../../Field/useFieldCounter";
@@ -49,7 +49,7 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
       variant = "control",
       searchable = false,
       placeholder,
-      suffix,
+      kbd,
       disabled: disabledFromProps,
       readOnly: readOnlyFromProps,
       required: requiredFromProps,
@@ -92,7 +92,7 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
     const isInteractive = !isDisabled && !isReadOnly;
 
     const { selectedValues, toggle, remove } = useMultiSelectState(value, defaultValue, onChange);
-    // 입력할 수 없는 상태에서는 입력칸이 칩 뒤 자리를 차지해 빈 줄을 만들지 않도록 흐름에서 뺀다.
+    // 입력할 수 없는 상태에서는 입력칸이 배지 뒤 자리를 차지해 빈 줄을 만들지 않도록 흐름에서 뺀다.
     const isInputCollapsed = !isInteractive && selectedValues.length > 0;
 
     const inputRef = useRef<HTMLInputElement>(null);
@@ -279,65 +279,68 @@ export const MultiSelectFieldInput = forwardRef<HTMLInputElement, MultiSelectFie
             controlType='button'
             ref={contentRef}
             data-disabled={isDisabled || undefined}
-            className={styles.content}
             onMouseDown={handleContentMouseDown}
           >
-            {selectedValues.map(selected => (
-              <ContentBadge
-                key={selected}
-                size='sm'
-                hierarchy='primary'
-                badgeStyle='outlined'
-                isMuted={isDisabled}
-                className={styles.tag}
-                {...(isInteractive
-                  ? {
-                      withIconButton: true,
-                      onIconClick: () => {
-                        remove(selected);
-                        inputRef.current?.focus();
-                      },
-                    }
-                  : { withIconButton: false })}
-              >
-                {labelByValue.get(selected) ?? selected}
-              </ContentBadge>
-            ))}
-            <input
-              {...restProps}
-              ref={mergeRefs(ref, inputRef)}
-              id={fieldId}
-              type='text'
-              role='combobox'
-              aria-haspopup='listbox'
-              aria-expanded={isOpen}
-              aria-controls={isOpen ? listboxId : undefined}
-              aria-activedescendant={isOpen ? activeId : undefined}
-              aria-autocomplete={searchable ? "list" : undefined}
-              aria-label={ariaLabel}
-              aria-labelledby={ariaLabelledBy}
-              aria-describedby={ariaDescribedBy}
-              aria-invalid={ariaInvalid}
-              // searchable=false가 타이핑을 막기 위해 native readonly를 사용하므로,
-              // 스크린 리더에 읽기 전용으로 전달되지 않도록 항상 aria-readonly를 명시한다.
-              aria-readonly={isReadOnly}
-              aria-required={isRequired || undefined}
-              autoComplete='off'
-              disabled={isDisabled}
-              readOnly={isReadOnly || !searchable}
-              placeholder={selectedValues.length === 0 ? placeholder : undefined}
-              value={query}
-              data-field-control=''
-              data-readonly={isReadOnly || undefined}
-              data-collapsed={isInputCollapsed || undefined}
-              className={clsx(getBodyClassName({ size: "md" }), styles.input, className)}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              onKeyDown={handleKeyDown}
-              onMouseDown={handleMouseDown}
-            />
-            {suffix != null && (
-              <span className={clsx(fieldStyles.contentSlot, styles.suffix)}>{suffix}</span>
+            <div className={styles.values}>
+              {selectedValues.map(selected => (
+                <ContentBadge
+                  key={selected}
+                  size='sm'
+                  hierarchy='primary'
+                  badgeStyle='outlined'
+                  isMuted={isDisabled}
+                  className={styles.tag}
+                  {...(isInteractive
+                    ? {
+                        withIconButton: true,
+                        onIconClick: () => {
+                          remove(selected);
+                          inputRef.current?.focus();
+                        },
+                      }
+                    : { withIconButton: false })}
+                >
+                  {labelByValue.get(selected) ?? selected}
+                </ContentBadge>
+              ))}
+              <input
+                {...restProps}
+                ref={mergeRefs(ref, inputRef)}
+                id={fieldId}
+                type='text'
+                role='combobox'
+                aria-haspopup='listbox'
+                aria-expanded={isOpen}
+                aria-controls={isOpen ? listboxId : undefined}
+                aria-activedescendant={isOpen ? activeId : undefined}
+                aria-autocomplete={searchable ? "list" : undefined}
+                aria-label={ariaLabel}
+                aria-labelledby={ariaLabelledBy}
+                aria-describedby={ariaDescribedBy}
+                aria-invalid={ariaInvalid}
+                // searchable=false가 타이핑을 막기 위해 native readonly를 사용하므로,
+                // 스크린 리더에 읽기 전용으로 전달되지 않도록 항상 aria-readonly를 명시한다.
+                aria-readonly={isReadOnly}
+                aria-required={isRequired || undefined}
+                autoComplete='off'
+                disabled={isDisabled}
+                readOnly={isReadOnly || !searchable}
+                placeholder={selectedValues.length === 0 ? placeholder : undefined}
+                value={query}
+                data-field-control=''
+                data-readonly={isReadOnly || undefined}
+                data-collapsed={isInputCollapsed || undefined}
+                className={clsx(getBodyClassName({ size: "md" }), styles.input, className)}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                onKeyDown={handleKeyDown}
+                onMouseDown={handleMouseDown}
+              />
+            </div>
+            {kbd != null && (
+              <span className={fieldStyles.contentTrailing}>
+                <FieldKbd keys={kbd} disabled={isDisabled} />
+              </span>
             )}
             {name != null &&
               selectedValues.map(selected => (

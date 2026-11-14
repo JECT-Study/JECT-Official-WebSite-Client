@@ -1,6 +1,6 @@
-import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import type { ComponentPropsWithoutRef } from "react";
 
-import type { FieldProps, FieldStatus } from "../Field";
+import type { FieldKbdKeys, FieldProps, FieldStatus } from "../Field";
 
 export interface SuggestionFieldProps extends Omit<FieldProps, "status"> {
   status?: Exclude<FieldStatus, "success">;
@@ -19,8 +19,8 @@ interface SuggestionFieldInputBaseProps extends Omit<
   maxValues?: number;
   /** 포커스가 제거될 때 입력 중인 값을 확정할지 여부 */
   acceptValueOnBlur?: boolean;
-  /** 입력 오른쪽에 형제로 배치되는 부가 요소 */
-  suffix?: ReactNode;
+  /** 입력 오른쪽에 표시하는 단축키. 최대 4개까지 지정할 수 있다. */
+  kbd?: FieldKbdKeys;
 }
 
 interface SuggestionFieldInputControlledProps {
