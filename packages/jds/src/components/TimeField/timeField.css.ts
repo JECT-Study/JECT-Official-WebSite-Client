@@ -19,7 +19,7 @@ export const input = style({
   caretColor: "transparent",
   color: fallbackVar(inputTextColor, vars.color.semantic.object.bolder),
   "::placeholder": {
-    color: fallbackVar(placeholderTextColor, vars.color.semantic.object.normal),
+    color: fallbackVar(placeholderTextColor, vars.color.semantic.object.assistive),
   },
   selectors: {
     "&::selection": {
@@ -27,7 +27,7 @@ export const input = style({
     },
     // 포커스 중 오전/오후, 시, 분이 모두 비어 있으면 빈 값 형식을 placeholder와 같은 색으로 표시한다.
     "&[data-empty]": {
-      vars: { [inputTextColor]: vars.color.semantic.object.normal },
+      vars: { [inputTextColor]: vars.color.semantic.object.assistive },
     },
     "&[data-readonly]:not(:disabled)": {
       cursor: "default",
@@ -35,7 +35,7 @@ export const input = style({
     "&:disabled": {
       cursor: "not-allowed",
       vars: {
-        [inputTextColor]: vars.color.semantic.object.assistive,
+        [inputTextColor]: vars.color.semantic.object.subtle,
         [placeholderTextColor]: vars.color.semantic.object.subtler,
       },
     },
