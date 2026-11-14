@@ -50,11 +50,3 @@ export const pickerButton = style({
 export const picker = style({
   zIndex: vars.environment.semantic.zIndex.floated,
 });
-
-export const suffix = style({
-  position: "relative",
-  zIndex: 1,
-  display: "inline-flex",
-  alignItems: "center",
-  flexShrink: 0,
-});

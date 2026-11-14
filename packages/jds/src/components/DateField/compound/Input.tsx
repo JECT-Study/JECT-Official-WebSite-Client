@@ -17,7 +17,8 @@ import { visuallyHidden } from "utils";
 import { DateFieldPicker } from "./Picker";
 import { IconButton } from "../../Button/IconButton";
 import { isDateOutOfRange } from "../../DatePicker/datePicker.utils";
-import { FieldContent } from "../../Field";
+import { FieldContent, FieldKbd } from "../../Field";
+import * as fieldStyles from "../../Field/field.css";
 import { useFieldControl } from "../../Field/useFieldControl";
 import { useDateFieldContext } from "../dateField.context";
 import * as styles from "../dateField.css";
@@ -69,7 +70,7 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
       defaultValue,
       onChange,
       onInputStateChange,
-      suffix = null,
+      kbd,
       withPicker = true,
       withActionBar = false,
       minDate,
@@ -381,6 +382,7 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
     }, [form, cancelFieldExitCheck]);
 
     const formatHintId = `${fieldId}-format`;
+    const hasTrailing = withPicker || kbd != null;
 
     return (
       <Popover.Root
@@ -437,23 +439,27 @@ export const DateFieldInput = forwardRef<HTMLInputElement, DateFieldInputProps>(
             <span id={formatHintId} className={visuallyHidden}>
               {withPicker ? `${FORMAT_HINT} ${PICKER_HINT}` : FORMAT_HINT}
             </span>
-            {withPicker && (
-              <Popover.Trigger asChild>
-                <IconButton
-                  ref={pickerTriggerRef}
-                  onClick={() => {
-                    if (!isPickerOpen) isPickerOpenedFromInputRef.current = false;
-                  }}
-                  hierarchy='tertiary'
-                  size='md'
-                  icon='calendar-days'
-                  aria-label='날짜 선택'
-                  disabled={!isEditable}
-                  className={styles.pickerButton}
-                />
-              </Popover.Trigger>
+            {hasTrailing && (
+              <span className={fieldStyles.contentTrailing}>
+                {withPicker && (
+                  <Popover.Trigger asChild>
+                    <IconButton
+                      ref={pickerTriggerRef}
+                      onClick={() => {
+                        if (!isPickerOpen) isPickerOpenedFromInputRef.current = false;
+                      }}
+                      hierarchy='tertiary'
+                      size='md'
+                      icon='calendar-days'
+                      aria-label='날짜 선택'
+                      disabled={!isEditable}
+                      className={clsx(fieldStyles.contentAction, styles.pickerButton)}
+                    />
+                  </Popover.Trigger>
+                )}
+                {kbd != null && <FieldKbd keys={kbd} disabled={isDisabled} />}
+              </span>
             )}
-            {suffix !== null && <span className={styles.suffix}>{suffix}</span>}
             {name !== undefined && (
               <input
                 type='hidden'
