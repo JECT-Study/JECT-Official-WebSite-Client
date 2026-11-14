@@ -9,7 +9,7 @@
 | prop                    | 기본값  | 용도                                                                  |
 | ----------------------- | ------- | --------------------------------------------------------------------- |
 | `value`, `defaultValue` | `""`    | 확정된 `"HH:mm"` 값, `value`를 넘기면 제어 모드                       |
-| `onChange`              |         | 확정값이 바뀔 때 호출                                                 |
+| `onChange`              |         | 확정값이 바뀔 때 호출, 시각이 되지 못한 입력이면 `""`로 호출          |
 | `onInputStateChange`    |         | 편집 중 표시값, 현재 유효한 값, 오류 종류 `error` 전달                |
 | `onBlur`                |         | 입력칸, 시간 선택 버튼, 시간 선택을 포함한 필드 전체를 벗어날 때 호출 |
 | `minuteStep`            | `5`     | 분 목록과 방향키 증감 간격, 맞지 않는 분은 오류                       |
@@ -20,7 +20,7 @@
 
 `status`는 `"default"`, `"error"`만 받습니다.
 
-`incomplete`(덜 입력한 시각)와 `invalid`(`오전 13:00` 같은 없는 시각)는 시각이 만들어지지 않은 입력이라, 필드를 벗어나거나 폼을 제출하면 TimeField가 "유효한 시각을 입력해 주세요."와 error 상태를 보여 줍니다. 이때는 사용처의 `status`와 헬퍼 문구 대신 이 문구를 보여 주고, 시각을 고치면 바로 사라집니다. `required`, `outOfRange`, `stepMismatch`의 문구와 `status`, 보여줄 시점은 사용처가 정합니다. TimeField는 제출을 막지 않고 오류 입력의 제출값은 `""`이므로, 제출 전에는 `error`가 `null`인지 확인해야 합니다. `onBlur`는 필드 안의 포커스 이동에서는 호출되지 않으므로 React Hook Form의 `field.onBlur`를 그대로 연결할 수 있습니다.
+`incomplete`(덜 입력한 시각)와 `invalid`(`오전 13:00` 같은 없는 시각)는 시각이 만들어지지 않은 입력이라, 필드를 벗어나거나 폼을 제출하면 TimeField가 "유효한 시각을 입력해 주세요."와 error 상태를 보여 줍니다. 이때는 사용처의 `status`와 헬퍼 문구 대신 이 문구를 보여 주고, 시각을 고치면 바로 사라집니다. `required`, `outOfRange`, `stepMismatch`의 문구와 `status`, 보여줄 시점은 사용처가 정합니다. TimeField는 제출을 막지 않고 오류 입력의 `onChange` 값과 제출값은 `""`이므로, 제출 전에는 `error`가 `null`인지 확인해야 합니다. `onBlur`는 필드 안의 포커스 이동에서는 호출되지 않으므로 React Hook Form의 `field.onBlur`를 그대로 연결할 수 있습니다. React Hook Form에서 값이 바뀔 때마다 검증하면 기존 시각을 다시 입력하는 도중에도 필수 오류가 보이므로, `mode: "onBlur"`와 `reValidateMode: "onBlur"`로 검증합니다.
 
 ```tsx
 import { TimeField, type TimeFieldInputError } from "@jects/jds";

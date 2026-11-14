@@ -69,7 +69,7 @@ const isTimeOutOfRange = (time: TimeValue, minTime?: TimeValue, maxTime?: TimeVa
  * 시간 선택에서 고른 시각은 입력값에 반영하고, 입력한 시각은 시간 선택에서 선택된 상태로 보여 준다.
  * 보이는 input은 "오후 09:30" 같은 표시 문자열만 갖고, `name`을 지정하면 "HH:mm" 값을 hidden input으로 전송한다.
  * controlled(`value`, `onChange`)와 uncontrolled(`defaultValue`) 방식을 지원한다.
- * `onChange`는 확정값 변경만 알린다. `onBlur`는 입력칸, 시간 선택 버튼, 시간 선택을 하나의 필드로 보고 필드를 벗어날 때 한 번 부른다.
+ * `onChange`는 확정값 변경을 알리고, 시각이 되지 못한 입력은 폼 제출값과 같게 빈 문자열로 알린다. `onBlur`는 입력칸, 시간 선택 버튼, 시간 선택을 하나의 필드로 보고 필드를 벗어날 때 한 번 부른다.
  * 시각이 만들어지지 않은 입력(incomplete, invalid)은 필드를 벗어나거나 폼을 제출할 때 루트에 알려 TimeField가 문구를 보여 준다.
  * 부분 입력까지 지우려면 폼을 초기화하거나 Input을 다시 마운트한다.
  */

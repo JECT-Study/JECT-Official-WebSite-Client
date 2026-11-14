@@ -81,10 +81,16 @@ interface UseSegmentedInputOptions<TKind extends string, TSegments, TPending> {
   /** 외부에서 확정한 값. 부분 입력과 유효하지 않은 draft는 이 값과 별도로 유지한다. */
   value: string;
   onValueChange: (value: string) => void;
-  /** 달력과 같은 날짜 제한. 거절된 날짜도 draft에 유지한다. 빈 값에는 적용하지 않는다. */
+  /** 날짜 범위 같은 값 제한. 허용되지 않은 값은 빈 값으로 알리고 draft에는 유지한다. 빈 값에는 적용하지 않는다. */
   isValueAllowed?: (value: string) => boolean;
   /** false면 포커스와 세그먼트 이동만 허용하고 값은 바꾸지 않는다. */
   isEditable: boolean;
+}
+
+/** 사용자 입력으로 요청한 값. keepsDraft면 소비처가 거절해도 편집 중 내용을 되돌리지 않는다. */
+interface ValueRequest {
+  value: string;
+  keepsDraft: boolean;
 }
 
 /** input에 그대로 연결하는 이벤트 핸들러 */
@@ -125,7 +131,7 @@ const parseOrEmpty = <TKind extends string, TSegments, TPending>(
 /**
  * @description 텍스트 input 하나로 여러 세그먼트를 편집한다.
  * 선택 영역으로 현재 세그먼트를 강조하고, 입력 문자는 모두 가로채 세그먼트 상태로만 반영한다.
- * 모든 세그먼트가 채워졌을 때만 값을 알리고, 부분 입력은 내부 상태로만 유지한다.
+ * 세그먼트가 모두 채워진 허용된 값은 그대로, 값이 되지 못한 입력은 빈 값으로 알리고 편집 중 내용은 내부 상태로 유지한다.
  * 편집할 수 없을 때 포인터로 고른 선택 영역은 브라우저에 맡겨 텍스트를 드래그해 선택할 수 있게 한다.
  */
 export const useSegmentedInput = <TKind extends string, TSegments, TPending>({
@@ -149,7 +155,7 @@ export const useSegmentedInput = <TKind extends string, TSegments, TPending>({
 
   const segmentsRef = useRef(segments);
   const externalValueRef = useRef(value);
-  const requestedValueRef = useRef<string | null>(null);
+  const requestRef = useRef<ValueRequest | null>(null);
   const isPointerSelectingRef = useRef(false);
   // 편집할 수 없을 때 포인터로 고른 선택 영역을 브라우저에 맡기는 동안 true다. 좌우 방향키, 전체 선택, blur로 끝난다.
   const isNativeSelectionRef = useRef(false);
@@ -170,21 +176,23 @@ export const useSegmentedInput = <TKind extends string, TSegments, TPending>({
     (nextValue: string) => {
       writeSegments(parseOrEmpty(rules, nextValue));
       setPending(null);
-      requestedValueRef.current = null;
+      requestRef.current = null;
     },
     [rules, writeSegments],
   );
 
-  // 외부 값 교체와 사용자가 요청한 완성값의 승인을 구분한다.
-  // 부분·오류 입력은 변경을 요청하지 않으므로 마지막 확정값과 달라도 보존한다.
+  // 외부 값 교체와 사용자가 요청한 값의 승인, 거절을 구분한다.
+  // 값이 되지 못한 입력이 요청한 빈 값은 거절돼도 편집 중 내용을 되돌리지 않는다.
   useLayoutEffect(() => {
     const hasExternalChange = externalValueRef.current !== value;
     externalValueRef.current = value;
 
-    const requestedValue = requestedValueRef.current;
-    if (requestedValue !== null) {
-      requestedValueRef.current = null;
-      if (requestedValue !== value) loadValue(value);
+    const request = requestRef.current;
+    if (request !== null) {
+      requestRef.current = null;
+      if (request.value === value) return;
+      if (request.keepsDraft && !hasExternalChange) return;
+      loadValue(value);
       return;
     }
 
@@ -214,17 +222,29 @@ export const useSegmentedInput = <TKind extends string, TSegments, TPending>({
     }
   });
 
+  const requestValue = (nextValue: string, keepsDraft = false) => {
+    if (nextValue !== value) requestRef.current = { value: nextValue, keepsDraft };
+    onValueChange(nextValue);
+  };
+
   const commit = (next: TSegments, nextPending: TPending | null = null) => {
     writeSegments(next);
 
-    // 부분 입력과 잘못된 날짜는 draft에만 남긴다. 이전 확정값을 빈 값으로 덮지 않는다.
+    // 세그먼트를 채우는 중에는 값을 알리지 않는다.
     if (nextPending !== null) return;
-    const nextValue = rules.toValue(next);
-    if (rules.hasInput(next, null) && nextValue === "") return;
-    if (nextValue !== "" && isValueAllowed?.(nextValue) === false) return;
 
-    if (nextValue !== value) requestedValueRef.current = nextValue;
-    onValueChange(nextValue);
+    const nextValue = rules.toValue(next);
+    const isDraftOnly =
+      (rules.hasInput(next, null) && nextValue === "") ||
+      (nextValue !== "" && isValueAllowed?.(nextValue) === false);
+
+    // 값이 되지 못한 입력과 허용되지 않은 값은 폼 제출값과 같게 빈 값으로 알리고, 편집 중 내용은 draft에 남긴다.
+    if (isDraftOnly) {
+      if (value !== "") requestValue("", true);
+      return;
+    }
+
+    requestValue(nextValue);
   };
 
   const finalizePending = () => {
@@ -504,7 +524,7 @@ export const useSegmentedInput = <TKind extends string, TSegments, TPending>({
       loadValue(nextValue);
       setIsAllSelected(false);
       if (nextValue !== value) {
-        requestedValueRef.current = nextValue;
+        requestRef.current = { value: nextValue, keepsDraft: false };
         onValueChange(nextValue);
       }
     },

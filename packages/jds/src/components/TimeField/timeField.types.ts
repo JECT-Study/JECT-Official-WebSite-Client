@@ -14,7 +14,7 @@ export interface TimeFieldProps extends Omit<FieldProps, "status"> {
 /**
  * TimeField가 판단하는 오류 종류.
  * incomplete와 invalid는 시각이 만들어지지 않은 입력이다. 필드를 벗어나거나 폼을 제출하면 TimeField가 사용처의 status와 Helper 문구 대신 "유효한 시각을 입력해 주세요."와 error 상태를 보여 준다.
- * 폼 값은 빈 문자열이 되므로 제출을 막으려면 사용처가 error를 확인해야 한다.
+ * 폼 값과 onChange 값은 빈 문자열이 되므로 제출을 막으려면 사용처가 error를 확인해야 한다.
  * required, outOfRange, stepMismatch는 required, minTime, maxTime, minuteStep으로 사용처가 정한 규칙의 오류다. 문구와 보여줄 시점은 사용처가 정한다.
  */
 export type TimeFieldInputError =
@@ -92,13 +92,13 @@ interface TimeFieldInputBaseProps extends Omit<
 
 interface TimeFieldInputControlledProps {
   /**
-   * 마지막으로 확정된 "HH:mm" 값. 완성된 시각이 없으면 빈 문자열이다.
+   * 마지막으로 확정된 "HH:mm" 값. 입력이 시각이 되지 못했으면 빈 문자열이다.
    * 부분 입력은 내부에서 유지하므로 같은 빈 문자열을 다시 넘겨도 지워지지 않는다.
    * 부분 입력까지 초기화하려면 form.reset() 또는 Input의 key 변경을 사용한다.
    */
   value: string;
   defaultValue?: never;
-  /** 확정값이 바뀔 때 호출한다. 숫자마다 호출되지 않으며, 기존 시각 재입력 중에는 이전 확정값을 유지한다. */
+  /** 확정값이 바뀔 때 호출한다. 숫자마다 호출되지 않으며, 입력이 시각이 되지 못하면 빈 문자열로 호출한다. */
   onChange: (value: string) => void;
 }
 
@@ -106,7 +106,7 @@ interface TimeFieldInputUncontrolledProps {
   value?: never;
   /** 최초 마운트의 "HH:mm" 초기값이자 폼 reset 기준. 이후 prop 변경은 반영하지 않는다. */
   defaultValue?: string;
-  /** 확정값이 바뀔 때 호출한다. 숫자마다 호출되지 않으며, 기존 시각 재입력 중에는 이전 확정값을 유지한다. */
+  /** 확정값이 바뀔 때 호출한다. 숫자마다 호출되지 않으며, 입력이 시각이 되지 못하면 빈 문자열로 호출한다. */
   onChange?: (value: string) => void;
 }
 
