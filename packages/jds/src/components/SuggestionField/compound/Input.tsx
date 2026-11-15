@@ -16,7 +16,7 @@ import {
 } from "react";
 
 import { ContentBadge } from "../../Badge";
-import { FieldContent } from "../../Field";
+import { FieldContent, FieldKbd } from "../../Field";
 import * as fieldStyles from "../../Field/field.css";
 import { useFieldControl } from "../../Field/useFieldControl";
 import { useItemCounter } from "../../Field/useFieldCounter";
@@ -49,7 +49,7 @@ export const SuggestionFieldInput = forwardRef<HTMLInputElement, SuggestionField
       form,
       placeholder,
       acceptValueOnBlur = true,
-      suffix,
+      kbd,
       disabled: disabledFromProps,
       readOnly: readOnlyFromProps,
       required: requiredFromProps,
@@ -275,65 +275,65 @@ export const SuggestionFieldInput = forwardRef<HTMLInputElement, SuggestionField
     return (
       <>
         <Popover.Anchor asChild>
-          <FieldContent
-            ref={contentRef}
-            className={styles.content}
-            onMouseDown={handleContentMouseDown}
-          >
-            {selectedValues.map(selected => (
-              <ContentBadge
-                key={selected}
-                size='sm'
-                hierarchy='primary'
-                badgeStyle='outlined'
-                isMuted={isDisabled}
-                className={styles.tag}
-                {...(isInteractive
-                  ? {
-                      withIconButton: true,
-                      onIconClick: () => {
-                        remove(selected);
-                        inputRef.current?.focus();
-                      },
-                    }
-                  : { withIconButton: false })}
-              >
-                {selected}
-              </ContentBadge>
-            ))}
-            <input
-              {...restProps}
-              ref={mergeRefs(ref, inputRef)}
-              id={fieldId}
-              type='text'
-              role='combobox'
-              aria-haspopup='listbox'
-              aria-expanded={isOpen}
-              aria-controls={isOpen ? listboxId : undefined}
-              aria-activedescendant={isOpen ? activeId : undefined}
-              aria-autocomplete='list'
-              aria-label={ariaLabel}
-              aria-labelledby={ariaLabelledBy}
-              aria-describedby={ariaDescribedBy}
-              aria-invalid={ariaInvalid}
-              aria-readonly={isReadOnly || undefined}
-              aria-required={isRequired || undefined}
-              autoComplete='off'
-              disabled={isDisabled}
-              readOnly={isReadOnly}
-              placeholder={selectedValues.length === 0 ? placeholder : undefined}
-              value={query}
-              data-field-control=''
-              data-readonly={isReadOnly || undefined}
-              data-collapsed={isInputCollapsed || undefined}
-              className={clsx(getBodyClassName({ size: "md" }), styles.input, className)}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              onKeyDown={handleKeyDown}
-              onMouseDown={handleMouseDown}
-            />
-            {suffix != null && (
-              <span className={clsx(fieldStyles.contentSlot, styles.suffix)}>{suffix}</span>
+          <FieldContent ref={contentRef} onMouseDown={handleContentMouseDown}>
+            <div className={styles.values}>
+              {selectedValues.map(selected => (
+                <ContentBadge
+                  key={selected}
+                  size='sm'
+                  hierarchy='primary'
+                  badgeStyle='outlined'
+                  isMuted={isDisabled}
+                  className={styles.tag}
+                  {...(isInteractive
+                    ? {
+                        withIconButton: true,
+                        onIconClick: () => {
+                          remove(selected);
+                          inputRef.current?.focus();
+                        },
+                      }
+                    : { withIconButton: false })}
+                >
+                  {selected}
+                </ContentBadge>
+              ))}
+              <input
+                {...restProps}
+                ref={mergeRefs(ref, inputRef)}
+                id={fieldId}
+                type='text'
+                role='combobox'
+                aria-haspopup='listbox'
+                aria-expanded={isOpen}
+                aria-controls={isOpen ? listboxId : undefined}
+                aria-activedescendant={isOpen ? activeId : undefined}
+                aria-autocomplete='list'
+                aria-label={ariaLabel}
+                aria-labelledby={ariaLabelledBy}
+                aria-describedby={ariaDescribedBy}
+                aria-invalid={ariaInvalid}
+                aria-readonly={isReadOnly || undefined}
+                aria-required={isRequired || undefined}
+                autoComplete='off'
+                disabled={isDisabled}
+                readOnly={isReadOnly}
+                placeholder={selectedValues.length === 0 ? placeholder : undefined}
+                value={query}
+                data-field-control=''
+                data-readonly={isReadOnly || undefined}
+                data-collapsed={isInputCollapsed || undefined}
+                className={clsx(getBodyClassName({ size: "md" }), styles.input, className)}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                onKeyDown={handleKeyDown}
+                onMouseDown={handleMouseDown}
+              />
+            </div>
+            {kbd != null && (
+              <span className={fieldStyles.contentTrailing}>
+                <FieldKbd keys={kbd} disabled={isDisabled} />
+              </span>
             )}
             {name != null &&
               selectedValues.map(selected => (

@@ -11,8 +11,6 @@ import { useState } from "react";
 import { FileField } from "./FileField";
 import type { FileFieldError } from "./fileField.types";
 import { BlockButton } from "../Button/BlockButton";
-import { Icon } from "../Icon";
-import { Kbd } from "../Kbd";
 
 /**
  * 파일 하나를 첨부하는 필드입니다. 박스 전체가 파일 선택창을 여는 트리거로 동작하며,
@@ -47,7 +45,7 @@ export const Playground: Story = {
   args: FIELD_PLAYGROUND_ARGS,
   render: args => (
     <FileField {...args} style={FIELD_WIDTH}>
-      <FileField.Label suffix={<Icon name='info' size='2xs' />}>레이블</FileField.Label>
+      <FileField.Label tooltip='도움말 문구'>레이블</FileField.Label>
       <FileField.Input placeholder='플레이스홀더' />
       <FileField.Footer>
         <FileField.Helper>헬퍼 텍스트</FileField.Helper>
@@ -188,17 +186,13 @@ export const WithValidation: Story = {
 };
 
 /**
- * `suffix`는 삭제 버튼 오른쪽에 형제로 배치되므로 배지나 단축키 표시 같은 읽기 전용 요소만 사용합니다.
+ * `kbd`로 단축키를 표시합니다. 최대 4개까지 지정할 수 있습니다.
  */
-export const WithSuffix: Story = {
+export const WithKbd: Story = {
   render: () => (
     <FileField style={FIELD_WIDTH}>
       <FileField.Label>레이블</FileField.Label>
-      <FileField.Input
-        defaultValue={SAMPLE_FILE}
-        placeholder='플레이스홀더'
-        suffix={<Kbd size='sm'>⌘</Kbd>}
-      />
+      <FileField.Input defaultValue={SAMPLE_FILE} placeholder='플레이스홀더' kbd={["⌘", "K"]} />
       <FileField.Footer>
         <FileField.Helper>헬퍼 텍스트</FileField.Helper>
       </FileField.Footer>
