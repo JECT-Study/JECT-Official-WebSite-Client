@@ -32,6 +32,12 @@ export const input = style({
   },
 });
 
+// 매초 숫자가 바뀌어도 글리프 폭이 달라 텍스트가 흔들리지 않도록 고정폭 숫자를 사용한다.
+export const timer = style({
+  position: "relative",
+  fontVariantNumeric: "tabular-nums",
+});
+
 export const affix = style({
   display: "inline-flex",
   alignItems: "center",
