@@ -27,6 +27,7 @@ export * from "./Radio";
 export * from "./SegmentedControls";
 export * from "./Select";
 export * from "./SelectField";
+export * from "./Skeleton";
 export * from "./Snackbar";
 export * from "./Steps";
 export * from "./SuggestionField";

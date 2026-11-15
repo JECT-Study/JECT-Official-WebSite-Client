@@ -40,6 +40,10 @@
       "500": {
         "$type": "number",
         "$value": 500
+      },
+      "1500": {
+        "$type": "number",
+        "$value": 1500
       }
     }
   },
@@ -84,6 +88,10 @@
       "500": {
         "$type": "number",
         "$value": "{primitive.time.500}"
+      },
+      "1500": {
+        "$type": "number",
+        "$value": "{primitive.time.1500}"
       }
     },
     "motion": {
