@@ -48,7 +48,9 @@ const baseStyles = style({
         zIndex: 1,
       },
     "&[data-disabled]": { cursor: "not-allowed" },
-    [`[${COLUMN_SCROLLING_ATTRIBUTE}] &`]: { vars: { [overlayHoverOpacity]: "0" } },
+    [`[role="listbox"][${COLUMN_SCROLLING_ATTRIBUTE}] > &`]: {
+      vars: { [overlayHoverOpacity]: "0" },
+    },
   },
 });
 
