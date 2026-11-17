@@ -31,10 +31,10 @@ const PostBase = forwardRef<HTMLDivElement, PostBaseProps>(
 PostBase.displayName = "Card.Preset.Post.Base";
 
 export const PostLink = forwardRef<HTMLDivElement, PostLinkProps>(
-  ({ href, target, rel, ...rest }, ref) => (
+  ({ href, target, rel, linkAs, ...rest }, ref) => (
     <PostBase
       ref={ref}
-      overlay={<CardOverlay as='a' href={href} target={target} rel={rel} />}
+      overlay={<CardOverlay as='a' href={href} target={target} rel={rel} linkAs={linkAs} />}
       {...rest}
     />
   ),

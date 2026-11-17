@@ -1,6 +1,43 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { FlexColumn, Label } from "@storybook-utils/layout";
+import {
+  createContext,
+  forwardRef,
+  useContext,
+  useState,
+  type ComponentPropsWithoutRef,
+} from "react";
 
 import { Card } from "./index";
+
+const NavigateContext = createContext<(href: string) => void>(() => {});
+
+interface RouterLinkProps extends ComponentPropsWithoutRef<"a"> {
+  href: string;
+}
+
+const RouterLink = forwardRef<HTMLAnchorElement, RouterLinkProps>(
+  ({ href, onClick, ...restProps }, ref) => {
+    const navigate = useContext(NavigateContext);
+
+    return (
+      <a
+        ref={ref}
+        href={href}
+        {...restProps}
+        onClick={event => {
+          onClick?.(event);
+          if (event.defaultPrevented) return;
+
+          event.preventDefault();
+          navigate(href);
+        }}
+      />
+    );
+  },
+);
+
+RouterLink.displayName = "RouterLink";
 
 const sizeFor = (layout: "vertical" | "horizontal") =>
   layout === "horizontal" ? { width: 480 } : { width: 300 };
@@ -171,4 +208,38 @@ export const LongText: Story = {
       ))}
     </div>
   ),
+};
+
+export const LinkAs: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "`linkAs`로 next/link 같은 라우팅 컴포넌트를 지정합니다. 컴포넌트는 `href`를 받아야 하며, 비활성 상태에서는 기본 `a` 요소로 렌더링합니다.",
+      },
+    },
+  },
+  render: function Render({ layout = "vertical", isDisabled }) {
+    const [pathname, setPathname] = useState("/");
+
+    return (
+      <NavigateContext.Provider value={setPathname}>
+        <FlexColumn gap='12px'>
+          <div style={sizeFor(layout)}>
+            <Card.Preset.Plate.Link
+              layout={layout}
+              isDisabled={isDisabled}
+              image={{ alt: "플레이트 카드 이미지" }}
+              title='플레이트 카드 제목'
+              body='카드 내용은 두 줄을 넘어가면 말줄임(...) 표시합니다.'
+              caption='캡션 레이블'
+              href='/plate/1'
+              linkAs={RouterLink}
+            />
+          </div>
+          <Label style={{ width: "max-content" }}>현재 경로: {pathname}</Label>
+        </FlexColumn>
+      </NavigateContext.Provider>
+    );
+  },
 };
