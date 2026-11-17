@@ -40,6 +40,18 @@
       "500": {
         "$type": "number",
         "$value": 500
+      },
+      "1000": {
+        "$type": "number",
+        "$value": 1000
+      },
+      "1500": {
+        "$type": "number",
+        "$value": 1500
+      },
+      "2000": {
+        "$type": "number",
+        "$value": 2000
       }
     }
   },
@@ -84,6 +96,18 @@
       "500": {
         "$type": "number",
         "$value": "{primitive.time.500}"
+      },
+      "1000": {
+        "$type": "number",
+        "$value": "{primitive.time.1000}"
+      },
+      "1500": {
+        "$type": "number",
+        "$value": "{primitive.time.1500}"
+      },
+      "2000": {
+        "$type": "number",
+        "$value": "{primitive.time.2000}"
       }
     },
     "motion": {
