@@ -1,8 +1,6 @@
 import { clsx } from "clsx";
 import {
   forwardRef,
-  useCallback,
-  useLayoutEffect,
   useMemo,
   useRef,
   type FocusEvent,
@@ -57,7 +55,6 @@ export const Column = forwardRef<HTMLDivElement, ColumnProps>(
     );
     const isColumnDisabled = disabled || options.every(option => option.disabled);
     const listRef = useRef<HTMLDivElement>(null);
-    const shouldRevealActiveRef = useRef(false);
     const { alignSelected } = useColumnScroll(listRef, selectedValue, options.length);
 
     const selectOption = (next: string) => {
@@ -74,20 +71,20 @@ export const Column = forwardRef<HTMLDivElement, ColumnProps>(
       autoScrollToSelected: false,
     });
 
-    const {
-      onKeyDown: onListboxKeyDown,
-      onFocus: onListboxFocus,
-      ...listboxProps
-    } = getFocusableListboxProps();
+    const { onKeyDown: onListboxKeyDown, ...listboxProps } = getFocusableListboxProps();
 
-    const revealOption = useCallback(
-      (optionValue: string) => {
-        document
-          .getElementById(getOptionId(listboxId, optionValue))
-          ?.scrollIntoView({ block: "nearest" });
-      },
-      [listboxId],
-    );
+    const revealOption = (optionValue: string) => {
+      listRef.current
+        ?.querySelector(`#${CSS.escape(getOptionId(listboxId, optionValue))}`)
+        ?.scrollIntoView({ block: "nearest" });
+    };
+
+    const getInitialActiveValue = () => {
+      const enabled = options.filter(option => !option.disabled);
+      const target = enabled.find(option => String(option.value) === selectedValue) ?? enabled[0];
+
+      return target == null ? null : String(target.value);
+    };
 
     const activateEdge = (edge: "first" | "last") => {
       const enabled = options.filter(option => !option.disabled);
@@ -100,22 +97,12 @@ export const Column = forwardRef<HTMLDivElement, ColumnProps>(
     };
 
     const handleFocus = (event: FocusEvent<HTMLDivElement>) => {
-      onListboxFocus();
-      if (!event.currentTarget.matches(":focus-visible")) return;
+      const target = behavior.activeValue ?? getInitialActiveValue();
+      if (target == null) return;
 
-      if (behavior.activeValue == null) {
-        shouldRevealActiveRef.current = true;
-        return;
-      }
-      revealOption(behavior.activeValue);
+      behavior.setActive(target);
+      if (event.currentTarget.matches(":focus-visible")) revealOption(target);
     };
-
-    useLayoutEffect(() => {
-      if (!shouldRevealActiveRef.current || behavior.activeValue == null) return;
-
-      shouldRevealActiveRef.current = false;
-      revealOption(behavior.activeValue);
-    }, [behavior.activeValue, revealOption]);
 
     const handleMouseDown = (event: MouseEvent<HTMLDivElement>) => {
       onMouseDown?.(event);
