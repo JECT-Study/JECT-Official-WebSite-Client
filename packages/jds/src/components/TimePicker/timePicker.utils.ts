@@ -163,10 +163,6 @@ const findNearestValidTime = (
   return nearest;
 };
 
-const hasTimeRange = ({ minTime, maxTime }: TimeColumnContext) => {
-  return minTime != null || maxTime != null;
-};
-
 /**
  * @description 열 항목을 골랐을 때 확정할 시각을 계산합니다.
  *
@@ -179,7 +175,7 @@ export const resolveColumnSelection = (
   context: TimeColumnContext,
 ) => {
   const resolved = applyColumnValue(context.base, kind, value, context.format);
-  if (!hasTimeRange(context)) return resolved;
+  if (isTimeInRange(toSeconds(resolved), context.minTime, context.maxTime)) return resolved;
 
   return findNearestValidTime(
     resolved,
