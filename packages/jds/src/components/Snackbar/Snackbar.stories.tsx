@@ -4,9 +4,12 @@ import { LiveRegionDemo, type LiveRegionScenario } from "@storybook-utils/LiveRe
 
 import { Snackbar } from "./Snackbar";
 import { useSnackbar } from "./snackbar.context";
+import type { SnackbarFeedback } from "./snackbar.types";
 import { snackbarController } from "./snackbarController";
 import { SnackbarProvider } from "./SnackbarProvider";
 import { BlockButton } from "../Button/BlockButton";
+
+const SNACKBAR_FEEDBACKS: SnackbarFeedback[] = ["none", "positive", "destructive", "notifying"];
 
 const meta: Meta<typeof Snackbar> = {
   title: "Components/Snackbar",
@@ -63,17 +66,30 @@ export const Basic: StoryObj<typeof Snackbar> = {
 };
 
 export const Feedback: StoryObj<typeof Snackbar> = {
+  argTypes: {
+    feedback: { control: false },
+    title: { control: false },
+  },
   args: {
-    id: "snackbar-1",
-    feedback: "positive",
-    title: "스낵바 레이블",
     description: "설명 텍스트",
     duration: Infinity,
     withCloseButton: false,
     label: "레이블",
     onClick: () => alert("클릭되었습니다."),
   },
-  render: args => <Snackbar {...args} />,
+  render: args => (
+    <FlexColumn>
+      {SNACKBAR_FEEDBACKS.map(feedback => (
+        <Snackbar
+          key={feedback}
+          {...args}
+          id={`snackbar-${feedback}`}
+          feedback={feedback}
+          title={feedback}
+        />
+      ))}
+    </FlexColumn>
+  ),
 };
 
 export const UseSnackbarProvider: StoryObj<typeof Snackbar> = {

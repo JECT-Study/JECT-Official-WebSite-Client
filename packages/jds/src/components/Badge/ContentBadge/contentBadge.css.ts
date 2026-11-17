@@ -15,6 +15,7 @@ interface BadgeSizeConfig {
   minWidth: number;
   paddingTopBottom: string;
   paddingLeftRight: string;
+  iconButtonGap: string;
 }
 
 interface BadgeStyle {
@@ -31,31 +32,43 @@ const contentBadgeMutedOpacity = `calc(${vars.scheme.semantic.opacity["36"]} / 1
 
 const contentBadgeSizeMap = {
   lg: {
-    minWidth: 28,
+    minWidth: 26,
     paddingTopBottom: vars.scheme.semantic.spacing["2"],
     paddingLeftRight: vars.scheme.semantic.spacing["6"],
+    iconButtonGap: vars.scheme.semantic.spacing["4"],
   },
   md: {
-    minWidth: 27,
-    paddingTopBottom: vars.scheme.semantic.spacing["2"],
-    paddingLeftRight: vars.scheme.semantic.spacing["6"],
-  },
-  sm: {
     minWidth: 24,
     paddingTopBottom: vars.scheme.semantic.spacing["2"],
     paddingLeftRight: vars.scheme.semantic.spacing["6"],
+    iconButtonGap: vars.scheme.semantic.spacing["4"],
+  },
+  sm: {
+    minWidth: 22,
+    paddingTopBottom: vars.scheme.semantic.spacing["2"],
+    paddingLeftRight: vars.scheme.semantic.spacing["6"],
+    iconButtonGap: vars.scheme.semantic.spacing["2"],
   },
   xs: {
-    minWidth: 20,
+    minWidth: 18,
     paddingTopBottom: vars.scheme.semantic.spacing["1"],
     paddingLeftRight: vars.scheme.semantic.spacing["4"],
+    iconButtonGap: vars.scheme.semantic.spacing["2"],
   },
 } satisfies Record<BadgeSize, BadgeSizeConfig>;
 
-const createBadgeStyle = ({ bg, color, border, iconColor }: BadgeStyle) => ({
+const createBadgeStyle = ({ bg, color, border, iconColor }: BadgeStyle): StyleRule => ({
   backgroundColor: bg === "none" ? "transparent" : bg,
-  borderWidth: border === "none" ? "0" : "1px",
-  borderColor: border === "none" ? "transparent" : border,
+  boxShadow:
+    border === "none" ? "none" : `inset 0 0 0 ${vars.scheme.semantic.strokeWeight["1"]} ${border}`,
+  ...(border !== "none" && {
+    "@media": {
+      // 고대비 모드는 box-shadow를 지우므로 테두리를 border로 되살린다.
+      "(forced-colors: active)": {
+        border: `${vars.scheme.semantic.strokeWeight["1"]} solid currentColor`,
+      },
+    },
+  }),
   vars: {
     [badgeTextColor]: color,
     [badgeIconColor]: iconColor ?? color,
@@ -68,6 +81,7 @@ const sizeVariants = Object.fromEntries(
     {
       minWidth: pxToRem(contentBadgeSizeMap[size].minWidth),
       padding: `${contentBadgeSizeMap[size].paddingTopBottom} ${contentBadgeSizeMap[size].paddingLeftRight}`,
+      gap: contentBadgeSizeMap[size].iconButtonGap,
     },
   ]),
 ) as Record<BadgeSize, StyleRule>;
@@ -76,7 +90,6 @@ const root = style({
   display: "inline-flex",
   justifyContent: "center",
   alignItems: "center",
-  gap: vars.scheme.semantic.spacing["0"],
   backgroundColor: "transparent",
   borderStyle: "solid",
   borderWidth: "0",
@@ -390,9 +403,6 @@ export const basicRoot = recipe({
       true: { opacity: contentBadgeMutedOpacity },
       false: { opacity: 1 },
     },
-    withIconButton: {
-      true: { gap: vars.scheme.semantic.spacing["4"] },
-    },
   },
   compoundVariants: [
     {
@@ -470,9 +480,6 @@ export const feedbackRoot = recipe({
     isMuted: {
       true: { opacity: contentBadgeMutedOpacity },
       false: { opacity: 1 },
-    },
-    withIconButton: {
-      true: { gap: vars.scheme.semantic.spacing["4"] },
     },
   },
   compoundVariants: [

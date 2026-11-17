@@ -34,6 +34,16 @@ export const labelMain = style({
   gap: vars.scheme.semantic.spacing["2"],
 });
 
+// disabled 폼 컨트롤도 click 계열을 제외한 마우스 이벤트를 받아 비활성 버튼에서도 hover로 툴팁이 열리므로, 이벤트를 받지 않게 한다.
+// prop과 <fieldset disabled> 모두 :disabled로 잡힌다.
+export const labelTooltipTrigger = style({
+  selectors: {
+    "&:disabled": {
+      pointerEvents: "none",
+    },
+  },
+});
+
 export const label = recipe({
   base: {
     display: "flex",
@@ -52,28 +62,6 @@ export const label = recipe({
       },
       false: {
         color: vars.color.semantic.object.neutral,
-      },
-    },
-  },
-});
-
-export const labelSuffix = recipe({
-  base: {
-    display: "inline-flex",
-    alignItems: "center",
-    selectors: {
-      [controlDisabledSelector]: {
-        color: vars.color.semantic.object.subtle,
-      },
-    },
-  },
-  variants: {
-    disabled: {
-      true: {
-        color: vars.color.semantic.object.subtle,
-      },
-      false: {
-        color: vars.color.semantic.object.alternative,
       },
     },
   },
@@ -256,6 +244,26 @@ export const contentSlot = style({
       pointerEvents: "none",
     },
   },
+});
+
+// 박스 오른쪽의 기능 버튼, 단축키, 화살표를 묶어 줄바꿈되는 박스에서도 한 덩어리로 배치한다.
+export const contentTrailing = style({
+  display: "inline-flex",
+  alignItems: "center",
+  flexShrink: 0,
+  gap: vars.scheme.semantic.spacing["8"],
+  pointerEvents: "none",
+});
+
+export const contentAction = style({
+  pointerEvents: "auto",
+});
+
+export const kbdGroup = style({
+  display: "inline-flex",
+  alignItems: "center",
+  flexShrink: 0,
+  gap: vars.scheme.semantic.spacing["2"],
 });
 
 const disabledSupportTextColor = {

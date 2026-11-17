@@ -1,9 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/naming-convention */
 import fs from "fs";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 
+import { normalizeFigmaTokenFiles, readFigmaTokens } from "./figmaTokens";
 import { tokenSchema, textStyleSchema, type NestedObject } from "./schema";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -262,39 +262,41 @@ function collectVarsAssignment(
   }
 }
 
+const GENERATED_AT_LINE = /^\/\/ 생성 시간: .*$/m;
+
+/**
+ * @description 생성 시간 줄을 제외한 내용이 기존 파일과 다를 때만 파일을 씁니다.
+ *
+ * @remarks
+ * 내용이 같으면 기존 생성 시간을 유지하므로, 생성 시간은 파일 내용이 마지막으로 바뀐 시점을 나타냅니다.
+ */
+function writeGeneratedFile(filePath: string, content: string): void {
+  const previousContent = fs.existsSync(filePath) ? fs.readFileSync(filePath, "utf8") : null;
+  const isUnchanged =
+    previousContent !== null &&
+    previousContent.replace(GENERATED_AT_LINE, "") === content.replace(GENERATED_AT_LINE, "");
+
+  if (isUnchanged) {
+    console.log(`➖ 변경 사항이 없어 건너뜁니다: ${filePath}`);
+    return;
+  }
+
+  fs.writeFileSync(filePath, content);
+  console.log(`✅ 파일을 갱신했습니다: ${filePath}`);
+}
+
 // ===== 메인 실행 로직 =====
-const tokenFilePath = join(__dirname, "input/token.json");
+const inputDir = join(__dirname, "input");
+const generatedAt = new Date().toLocaleString("ko-KR", { timeZone: "Asia/Seoul" });
 const outputDir = __dirname;
 const outputFile = join(outputDir, "tokens.ts");
 
-if (!fs.existsSync(tokenFilePath)) {
-  console.error(`❌ 파일을 찾을 수 없습니다: ${tokenFilePath}`);
-  console.log("💡 다음 중 하나를 확인해주세요:");
-  console.log("   1. 파일이 현재 폴더에 있는지 확인");
-  console.log("   2. 파일 경로가 맞는지 확인");
-  console.log("   3. 파일명이 정확한지 확인");
-  process.exit(1);
+for (const filePath of normalizeFigmaTokenFiles(inputDir)) {
+  console.log(`✅ 입력 파일을 표준 형식으로 정리했습니다: ${filePath}`);
 }
 
-console.log(`✅ 파일을 찾았습니다: ${tokenFilePath}`);
-
-const rawData = fs.readFileSync(tokenFilePath, "utf8");
-console.log("📖 파일 읽기 완료, 파싱 중...");
-
-let tokens: unknown;
-try {
-  const jsonString = JSON.parse(rawData);
-  console.log("🔄 첫 번째 파싱 완료");
-
-  tokens = JSON.parse(jsonString);
-  console.log("✅ 두 번째 파싱 완료 - 토큰 데이터 로드됨");
-} catch (error) {
-  console.error("❌ JSON 파싱 실패:", error);
-  console.log("💡 파일 형식을 확인해주세요");
-  process.exit(1);
-}
-
-const parsedTokens = tokenSchema.parse(tokens);
+const parsedTokens = tokenSchema.parse(readFigmaTokens(inputDir));
+console.log(`✅ Figma 토큰을 읽었습니다: ${inputDir}`);
 
 // textStyles.json 읽기 및 처리
 const textStyleFilePath = join(__dirname, "input/textStyles.json");
@@ -324,7 +326,7 @@ const processedTokens = {
 };
 
 const tsContent = `// 자동 생성된 디자인 토큰 - 수정 금지
-// 생성 시간: ${new Date().toLocaleString()}
+// 생성 시간: ${generatedAt}
 
 export const designTokens = ${JSON.stringify(processedTokens, null, 2)} as const;
 `;
@@ -333,8 +335,7 @@ if (!fs.existsSync(outputDir)) {
   fs.mkdirSync(outputDir, { recursive: true });
 }
 
-fs.writeFileSync(outputFile, tsContent);
-console.log(`\n✅ tokens 파일이 생성되었습니다: ${outputFile}`);
+writeGeneratedFile(outputFile, tsContent);
 
 // ===== 합성 environment 토큰 (shadow, zIndex) 주입 =====
 const radiusVar = (step: number): string => `var(--scheme-semantic-radius-${step})`;
@@ -381,7 +382,7 @@ const contractShape: ContractShape = {
 };
 
 const varsCssFileContent = `// 자동 생성된 VE 토큰 계약 - 수정 금지
-// 생성 시간: ${new Date().toLocaleString()}
+// 생성 시간: ${generatedAt}
 import { createGlobalThemeContract } from "@vanilla-extract/css";
 
 export const vars = createGlobalThemeContract(
@@ -391,8 +392,7 @@ export const vars = createGlobalThemeContract(
 `;
 
 const varsCssFilePath = join(outputDir, "vars.css.ts");
-fs.writeFileSync(varsCssFilePath, varsCssFileContent);
-console.log(`✅ vars.css.ts 파일이 생성되었습니다: ${varsCssFilePath}`);
+writeGeneratedFile(varsCssFilePath, varsCssFileContent);
 
 // ===== VE globalTokens.css.ts 생성 =====
 
@@ -516,7 +516,7 @@ const mobileMinBreakpoint = Number(parsedTokens.scheme.tokens["mobile"]["semanti
 const mobileMaxBreakpoint = Number(parsedTokens.scheme.tokens["mobile"]["semantic-breakpoint-max"]);
 
 const globalTokensCssFileContent = `// 자동 생성된 VE 전역 토큰 스타일 - 수정 금지
-// 생성 시간: ${new Date().toLocaleString()}
+// 생성 시간: ${generatedAt}
 import { globalStyle } from "@vanilla-extract/css";
 
 import { vars } from "./vars.css";
@@ -547,8 +547,7 @@ ${darkAssignmentLines.join("\n")}
 `;
 
 const globalTokensCssFilePath = join(outputDir, "globalTokens.css.ts");
-fs.writeFileSync(globalTokensCssFilePath, globalTokensCssFileContent);
-console.log(`✅ globalTokens.css.ts 파일이 생성되었습니다: ${globalTokensCssFilePath}`);
+writeGeneratedFile(globalTokensCssFilePath, globalTokensCssFileContent);
 
 // ===== textStyles.ts 생성 =====
 
@@ -597,7 +596,7 @@ for (const [name, cssProps] of textStyleEntries) {
 }
 
 const textStylesFileContent = `// 자동 생성된 textStyles - 수정 금지
-// 생성 시간: ${new Date().toLocaleString()}
+// 생성 시간: ${generatedAt}
 import type { StyleRule } from "@vanilla-extract/css";
 
 type TextStyleGroup = Record<string, StyleRule | Record<string, StyleRule>>;
@@ -609,13 +608,12 @@ export const textStyles = ${JSON.stringify(nestedTextStyles, null, 2)} satisfies
 `;
 
 const textStylesFilePath = join(outputDir, "textStyles.ts");
-fs.writeFileSync(textStylesFilePath, textStylesFileContent);
-console.log(`✅ textStyles.ts 파일이 생성되었습니다: ${textStylesFilePath}`);
+writeGeneratedFile(textStylesFilePath, textStylesFileContent);
 
 // ===== breakpoints.ts 생성 =====
 
 const breakpointsFileContent = `// 자동 생성된 브레이크포인트 - 수정 금지
-// 생성 시간: ${new Date().toLocaleString()}
+// 생성 시간: ${generatedAt}
 
 export const breakpoints = {
   desktop: { min: ${desktopMinBreakpoint}, max: ${desktopMaxBreakpoint} },
@@ -625,7 +623,6 @@ export const breakpoints = {
 `;
 
 const breakpointsFilePath = join(outputDir, "breakpoints.ts");
-fs.writeFileSync(breakpointsFilePath, breakpointsFileContent);
-console.log(`✅ breakpoints.ts 파일이 생성되었습니다: ${breakpointsFilePath}`);
+writeGeneratedFile(breakpointsFilePath, breakpointsFileContent);
 
 console.log("\n🚀 토큰 변환 완료!");
