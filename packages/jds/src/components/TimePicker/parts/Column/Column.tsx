@@ -1,5 +1,14 @@
 import { clsx } from "clsx";
-import { forwardRef, useMemo, useRef, type KeyboardEvent } from "react";
+import {
+  forwardRef,
+  useCallback,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  type FocusEvent,
+  type KeyboardEvent,
+  type MouseEvent,
+} from "react";
 
 import * as styles from "./column.css";
 import type { ColumnProps } from "./column.types";
@@ -20,6 +29,7 @@ const EDGE_KEYS: Record<string, "first" | "last"> = {
  * @remarks
  * 포커스는 열에 두고 방향키, Home, End, PageUp, PageDown으로 활성 항목을 옮긴 뒤 Enter, Space로 고릅니다.
  * 선택 항목은 항상 맨 위로 스크롤하고, 이미 선택된 항목을 다시 골라도 맨 위로 되돌립니다. 끝 여백을 두어 마지막 항목도 맨 위까지 올라옵니다.
+ * 고를 수 있는 항목이 없으면 `disabled`처럼 포커스를 받지 않습니다. 키보드로 포커스하면 활성 항목이 보이도록 스크롤합니다.
  * @internal
  * @name Column
  * @tag div
@@ -35,6 +45,7 @@ export const Column = forwardRef<HTMLDivElement, ColumnProps>(
       readOnly = false,
       className,
       onKeyDown,
+      onMouseDown,
       ...restProps
     },
     forwardedRef,
@@ -44,7 +55,9 @@ export const Column = forwardRef<HTMLDivElement, ColumnProps>(
       () => (selectedValue == null ? [] : [selectedValue]),
       [selectedValue],
     );
+    const isColumnDisabled = disabled || options.every(option => option.disabled);
     const listRef = useRef<HTMLDivElement>(null);
+    const shouldRevealActiveRef = useRef(false);
     const { alignSelected } = useColumnScroll(listRef, selectedValue, options.length);
 
     const selectOption = (next: string) => {
@@ -56,12 +69,25 @@ export const Column = forwardRef<HTMLDivElement, ColumnProps>(
 
     const { listboxRef, listboxId, behavior, getFocusableListboxProps } = useListbox({
       selectedValues,
-      disabled,
+      disabled: isColumnDisabled,
       onSelect: selectOption,
       autoScrollToSelected: false,
     });
 
-    const { onKeyDown: onListboxKeyDown, ...listboxProps } = getFocusableListboxProps();
+    const {
+      onKeyDown: onListboxKeyDown,
+      onFocus: onListboxFocus,
+      ...listboxProps
+    } = getFocusableListboxProps();
+
+    const revealOption = useCallback(
+      (optionValue: string) => {
+        document
+          .getElementById(getOptionId(listboxId, optionValue))
+          ?.scrollIntoView({ block: "nearest" });
+      },
+      [listboxId],
+    );
 
     const activateEdge = (edge: "first" | "last") => {
       const enabled = options.filter(option => !option.disabled);
@@ -70,14 +96,35 @@ export const Column = forwardRef<HTMLDivElement, ColumnProps>(
 
       const targetValue = String(target.value);
       behavior.setActive(targetValue);
-      document
-        .getElementById(getOptionId(listboxId, targetValue))
-        ?.scrollIntoView({ block: "nearest" });
+      revealOption(targetValue);
+    };
+
+    const handleFocus = (event: FocusEvent<HTMLDivElement>) => {
+      onListboxFocus();
+      if (!event.currentTarget.matches(":focus-visible")) return;
+
+      if (behavior.activeValue == null) {
+        shouldRevealActiveRef.current = true;
+        return;
+      }
+      revealOption(behavior.activeValue);
+    };
+
+    useLayoutEffect(() => {
+      if (!shouldRevealActiveRef.current || behavior.activeValue == null) return;
+
+      shouldRevealActiveRef.current = false;
+      revealOption(behavior.activeValue);
+    }, [behavior.activeValue, revealOption]);
+
+    const handleMouseDown = (event: MouseEvent<HTMLDivElement>) => {
+      onMouseDown?.(event);
+      if (isColumnDisabled) event.preventDefault();
     };
 
     const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
       onKeyDown?.(event);
-      if (event.defaultPrevented || disabled) return;
+      if (event.defaultPrevented || isColumnDisabled) return;
 
       const edge = EDGE_KEYS[event.key];
       if (edge == null) {
@@ -95,9 +142,10 @@ export const Column = forwardRef<HTMLDivElement, ColumnProps>(
         ref={mergeRefs(listboxRef, listRef, forwardedRef)}
         {...restProps}
         {...listboxProps}
-        tabIndex={disabled ? undefined : listboxProps.tabIndex}
         aria-readonly={readOnly || undefined}
         onKeyDown={handleKeyDown}
+        onFocus={handleFocus}
+        onMouseDown={handleMouseDown}
         data-part='root'
         className={clsx(styles.root, className)}
       >
