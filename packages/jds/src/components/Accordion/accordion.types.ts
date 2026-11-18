@@ -1,4 +1,4 @@
-import type * as AccordionPrimitive from "@radix-ui/react-accordion";
+import type { Accordion as AccordionPrimitive } from "radix-ui";
 
 import type { IconName } from "../Icon";
 

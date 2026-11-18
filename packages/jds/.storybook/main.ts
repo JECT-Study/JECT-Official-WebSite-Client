@@ -15,6 +15,7 @@ const config: StorybookConfig = {
   stories: [
     "../src/tokens/**/*.mdx",
     "../src/tokens/**/*.stories.@(js|jsx|mjs|ts|tsx)",
+    "../src/guides/**/*.mdx",
     "../src/components/**/*.mdx",
     "../src/components/**/*.stories.@(js|jsx|mjs|ts|tsx)",
   ],

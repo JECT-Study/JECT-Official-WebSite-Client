@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexColumn, FlexRow } from "@storybook-utils/layout";
+import { forwardRef, type ComponentPropsWithoutRef } from "react";
 
 import { BlockButton } from "./BlockButton";
 import {
@@ -57,6 +58,16 @@ const meta: Meta<typeof BlockButton> = {
 export default meta;
 
 type Story = StoryObj<typeof BlockButton>;
+
+interface RouterLinkProps extends Omit<ComponentPropsWithoutRef<"a">, "href"> {
+  to: string;
+}
+
+const RouterLink = forwardRef<HTMLAnchorElement, RouterLinkProps>(({ to, ...restProps }, ref) => (
+  <a ref={ref} {...restProps} href={to} />
+));
+
+RouterLink.displayName = "RouterLink";
 
 export const Default: Story = {
   args: {
@@ -122,6 +133,19 @@ export const BlockButtonWithIcons: Story = {
       <BlockButton suffixIcon='arrow-right'>레이블</BlockButton>
       <BlockButton prefixIcon='arrow-left' suffixIcon='arrow-right'>
         레이블
+      </BlockButton>
+    </FlexRow>
+  ),
+};
+
+export const BlockButtonAsChild: Story = {
+  render: () => (
+    <FlexRow>
+      <BlockButton asChild>
+        <RouterLink to='#'>레이블</RouterLink>
+      </BlockButton>
+      <BlockButton asChild suffixIcon='arrow-right'>
+        <RouterLink to='#'>레이블</RouterLink>
       </BlockButton>
     </FlexRow>
   ),

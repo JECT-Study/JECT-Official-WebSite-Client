@@ -6,15 +6,14 @@ import {
   FormResult,
 } from "@storybook-utils/field";
 import { FlexColumn, FlexRow, Label } from "@storybook-utils/layout";
+import { Dialog } from "radix-ui";
 import { useState } from "react";
-import { vars } from "tokens";
 
 import { SuggestionField } from "./SuggestionField";
 import { BlockButton } from "../Button/BlockButton";
-import { Icon } from "../Icon";
-import { Kbd } from "../Kbd";
 
 const SUGGESTIONS = ["React", "TypeScript", "Next.js", "vanilla-extract"];
+const FIELD_OPTIONS = Array.from({ length: 40 }, (_, index) => `추천 항목 ${index + 1}`);
 
 /**
  * 입력한 문자열을 값으로 받는 필드입니다. 추가한 값은 제안 목록에서 사라집니다.
@@ -29,7 +28,15 @@ const meta = {
   args: {
     children: null,
   },
-  argTypes: fieldArgTypes,
+  argTypes: {
+    ...fieldArgTypes,
+    status: {
+      control: "inline-radio",
+      options: ["default", "error"],
+      description: "유효성/피드백 상태",
+      table: { defaultValue: { summary: "default" } },
+    },
+  },
 } satisfies Meta<typeof SuggestionField>;
 
 export default meta;
@@ -39,17 +46,7 @@ export const Playground: Story = {
   args: FIELD_PLAYGROUND_ARGS,
   render: args => (
     <SuggestionField {...args} style={FIELD_WIDTH}>
-      <SuggestionField.Label
-        suffix={
-          <Icon
-            name='info'
-            size='2xs'
-            style={args.disabled ? { color: vars.color.semantic.object.subtle } : undefined}
-          />
-        }
-      >
-        레이블
-      </SuggestionField.Label>
+      <SuggestionField.Label tooltip='도움말 문구'>레이블</SuggestionField.Label>
       <SuggestionField.Input
         suggestions={SUGGESTIONS}
         defaultValue={["React"]}
@@ -68,7 +65,7 @@ export const Playground: Story = {
 export const Statuses: Story = {
   render: () => (
     <FlexRow gap='32px' style={{ alignItems: "flex-start" }}>
-      {(["default", "success", "error"] as const).map(status => (
+      {(["default", "error"] as const).map(status => (
         <FlexColumn key={status} gap='16px' style={{ alignItems: "flex-start" }}>
           <Label>{status}</Label>
           <SuggestionField status={status} style={FIELD_WIDTH}>
@@ -89,7 +86,8 @@ export const Statuses: Story = {
 };
 
 /**
- * `disabled`와 `readonly`에서는 목록을 열 수 없고 태그의 제거 버튼도 사라집니다.
+ * `disabled`와 `readonly`에서는 목록을 열 수 없고 배지의 제거 버튼도 사라집니다.
+ * 입력칸도 자리를 차지하지 않아, 배지가 한 줄에 들어가면 상자 높이가 늘어나지 않습니다.
  * `disabled`는 포커스를 받을 수 없으며, `readonly`는 포커스를 받을 수 있습니다.
  */
 export const States: Story = {
@@ -123,7 +121,7 @@ export const States: Story = {
 
 /**
  * 값이 없으면 placeholder를 표시합니다.
- * 태그가 늘어나 남은 가로 폭이 100px 미만이 되면 입력이 다음 줄로 내려갑니다.
+ * 배지가 늘어나 남은 가로 폭이 100px 미만이 되면 입력이 다음 줄로 내려갑니다.
  */
 export const Values: Story = {
   render: () => (
@@ -213,9 +211,9 @@ export const WithoutSuggestions: Story = {
 };
 
 /**
- * `suffix`는 입력 오른쪽에 형제로 배치되므로 배지나 단축키 표시 같은 읽기 전용 요소만 사용합니다.
+ * `kbd`로 단축키를 표시합니다. 최대 4개까지 지정할 수 있습니다.
  */
-export const WithSuffix: Story = {
+export const WithKbd: Story = {
   render: () => (
     <SuggestionField style={FIELD_WIDTH}>
       <SuggestionField.Label>레이블</SuggestionField.Label>
@@ -223,16 +221,64 @@ export const WithSuffix: Story = {
         suggestions={SUGGESTIONS}
         defaultValue={["React"]}
         placeholder='플레이스홀더'
-        suffix={
-          <Kbd type='function' size='sm'>
-            ⏎
-          </Kbd>
-        }
+        kbd={["⌘", "K"]}
       />
       <SuggestionField.Footer>
         <SuggestionField.Helper>헬퍼 텍스트</SuggestionField.Helper>
       </SuggestionField.Footer>
     </SuggestionField>
+  ),
+};
+
+/**
+ * Radix Dialog 기반 드로어에서 body로 Portal된 제안 목록을 휠로 스크롤할 수 있습니다.
+ */
+export const DialogWheelScroll: Story = {
+  tags: ["skip-vrt"],
+  render: () => (
+    <Dialog.Root>
+      <Dialog.Trigger asChild>
+        <BlockButton size='sm'>드로어 열기</BlockButton>
+      </Dialog.Trigger>
+      <Dialog.Portal>
+        <Dialog.Overlay
+          style={{ position: "fixed", inset: 0, zIndex: 1, background: "rgba(0, 0, 0, 0.4)" }}
+        />
+        <Dialog.Content
+          style={{
+            position: "fixed",
+            insetBlock: 0,
+            right: 0,
+            zIndex: 1,
+            boxSizing: "border-box",
+            width: "min(480px, 100%)",
+            overflowY: "auto",
+            padding: 24,
+            background: "white",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              gap: 16,
+            }}
+          >
+            <Dialog.Title style={{ margin: 0 }}>제안 필드 휠 스크롤</Dialog.Title>
+            <Dialog.Close asChild>
+              <BlockButton size='sm' hierarchy='secondary' variant='outlined'>
+                닫기
+              </BlockButton>
+            </Dialog.Close>
+          </div>
+          <SuggestionField style={{ width: "100%", marginTop: 24 }}>
+            <SuggestionField.Label>제안 목록</SuggestionField.Label>
+            <SuggestionField.Input suggestions={FIELD_OPTIONS} placeholder='옵션 검색' />
+          </SuggestionField>
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
   ),
 };
 

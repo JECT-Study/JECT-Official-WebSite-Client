@@ -3,15 +3,13 @@ import { vars } from "tokens";
 
 export const input = style({
   position: "absolute",
-  inset: `calc(-1 * ${vars.scheme.semantic.strokeWeight["1"]})`,
+  inset: 0,
   opacity: 0,
-  cursor: "pointer",
+  cursor: "inherit",
   selectors: {
-    "&:disabled": {
-      cursor: "not-allowed",
-    },
-    "&[data-readonly]": {
-      cursor: "default",
+    // 브라우저 기본 스타일이 파일 선택 버튼의 커서를 따로 지정하므로, 버튼 영역도 FieldContent의 커서를 따르게 한다.
+    "&::file-selector-button": {
+      cursor: "inherit",
     },
   },
 });
@@ -25,7 +23,7 @@ export const value = style({
   color: vars.color.semantic.object.bolder,
   selectors: {
     "[data-disabled] &": {
-      color: vars.color.semantic.object.assistive,
+      color: vars.color.semantic.object.subtle,
     },
   },
 });
@@ -58,15 +56,9 @@ export const placeholder = style([
   },
 ]);
 
-export const clearButton = style({
+// 박스 전체를 덮는 file input 위로 올려 삭제 버튼을 누를 수 있게 한다.
+// 단축키는 이벤트를 받지 않으므로 단축키를 누르면 아래의 file input이 클릭을 받는다.
+export const trailing = style({
   position: "relative",
   zIndex: 1,
-});
-
-export const suffix = style({
-  position: "relative",
-  zIndex: 1,
-  display: "inline-flex",
-  alignItems: "center",
-  flexShrink: 0,
 });

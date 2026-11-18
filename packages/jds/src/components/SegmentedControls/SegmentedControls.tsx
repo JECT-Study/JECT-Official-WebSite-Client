@@ -12,7 +12,7 @@ import type {
   SegmentedControlsItemProps,
 } from "./segmentedControls.types";
 
-const SegmentedControlsRoot = forwardRef<HTMLDivElement, SegmentedControlsRootProps>(
+export const SegmentedControlsRoot = forwardRef<HTMLDivElement, SegmentedControlsRootProps>(
   ({ size = "md", children, className, ...props }, ref) => {
     return (
       <SegmentedControlsProvider value={{ size }}>
@@ -26,7 +26,7 @@ const SegmentedControlsRoot = forwardRef<HTMLDivElement, SegmentedControlsRootPr
 
 SegmentedControlsRoot.displayName = "SegmentedControls.Root";
 
-const SegmentedControlsItem = forwardRef<HTMLButtonElement, SegmentedControlsItemProps>(
+export const SegmentedControlsItem = forwardRef<HTMLButtonElement, SegmentedControlsItemProps>(
   ({ value, disabled = false, children, className, ...props }, ref) => {
     const { size } = useSegmentedControlsContext("SegmentedControls.Item");
     return (

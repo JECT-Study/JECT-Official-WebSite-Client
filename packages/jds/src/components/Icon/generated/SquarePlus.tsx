@@ -10,7 +10,7 @@ const SvgSquarePlus = (props: SVGProps<SVGSVGElement>) => (
   >
     <path
       fill='currentColor'
-      d='M12 7a1 1 0 0 1 1 1v3h3a1 1 0 1 1 0 2h-3v3a1 1 0 1 1-2 0v-3H8a1 1 0 1 1 0-2h3V8a1 1 0 0 1 1-1'
+      d='M12 7a1 1 0 0 1 1 1v3h3a1 1 0 0 1 0 2h-3v3a1 1 0 0 1-2 0v-3H8a1 1 0 1 1 0-2h3V8a1 1 0 0 1 1-1'
     />
     <path
       fill='currentColor'

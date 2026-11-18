@@ -14,6 +14,7 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
       disabled = false,
       width,
       height,
+      maxHeight,
       options,
       "aria-label": ariaLabel,
       "aria-labelledby": ariaLabelledby,
@@ -37,6 +38,7 @@ export const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
         label={label}
         width={width}
         height={height}
+        maxHeight={maxHeight}
         listboxRef={listboxRef}
         listboxProps={getFocusableListboxProps()}
         aria-label={ariaLabel}

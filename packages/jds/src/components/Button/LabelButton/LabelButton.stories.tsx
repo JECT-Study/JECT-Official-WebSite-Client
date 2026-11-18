@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FlexColumn, FlexRow } from "@storybook-utils/layout";
+import { forwardRef, type ComponentPropsWithoutRef } from "react";
 
 import { LabelButton } from "./LabelButton";
 import {
@@ -50,6 +51,16 @@ const meta: Meta<typeof LabelButton> = {
 export default meta;
 
 type Story = StoryObj<typeof LabelButton>;
+
+interface RouterLinkProps extends Omit<ComponentPropsWithoutRef<"a">, "href"> {
+  to: string;
+}
+
+const RouterLink = forwardRef<HTMLAnchorElement, RouterLinkProps>(({ to, ...restProps }, ref) => (
+  <a ref={ref} {...restProps} href={to} />
+));
+
+RouterLink.displayName = "RouterLink";
 
 export const Default: Story = {
   args: {
@@ -102,6 +113,19 @@ export const LabelButtonWithIcons: Story = {
       <LabelButton suffixIcon='arrow-right'>레이블</LabelButton>
       <LabelButton prefixIcon='arrow-left' suffixIcon='arrow-right'>
         레이블
+      </LabelButton>
+    </FlexRow>
+  ),
+};
+
+export const LabelButtonAsChild: Story = {
+  render: () => (
+    <FlexRow>
+      <LabelButton asChild>
+        <RouterLink to='#'>레이블</RouterLink>
+      </LabelButton>
+      <LabelButton asChild suffixIcon='arrow-right'>
+        <RouterLink to='#'>레이블</RouterLink>
       </LabelButton>
     </FlexRow>
   ),

@@ -1,8 +1,10 @@
-import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import type { ComponentPropsWithoutRef } from "react";
 
-import type { FieldProps } from "../Field";
+import type { FieldKbdKeys, FieldProps, FieldStatus } from "../Field";
 
-export type FileFieldProps = FieldProps;
+export interface FileFieldProps extends Omit<FieldProps, "status"> {
+  status?: Exclude<FieldStatus, "success">;
+}
 
 /**
  * 필드가 표시에 사용하는 값. `File`이 구조적으로 이 타입에 해당하므로 그대로 전달할 수 있고,
@@ -41,8 +43,8 @@ interface FileFieldInputBaseProps extends Omit<
   maxSize?: number;
   /** accept나 maxSize를 만족하지 않는 파일이 선택되면 호출된다. */
   onError?: (error: FileFieldError) => void;
-  /** 삭제 버튼 오른쪽에 형제로 배치되는 부가 요소 */
-  suffix?: ReactNode;
+  /** 삭제 버튼 오른쪽에 표시하는 단축키. 최대 4개까지 지정할 수 있다. */
+  kbd?: FieldKbdKeys;
 }
 
 interface FileFieldInputControlledProps {

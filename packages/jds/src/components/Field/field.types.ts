@@ -18,20 +18,30 @@ export interface FieldProps extends ComponentPropsWithoutRef<"div"> {
   children: ReactNode;
 }
 
+/** 박스 안 컨트롤의 종류. 종류에 따라 hover 오버레이, 커서, 상하 padding이 달라진다. */
+export type FieldControlType = "input" | "button" | "textarea";
+
 export interface FieldContentProps extends ComponentPropsWithoutRef<"div"> {
+  controlType?: FieldControlType;
   children: ReactNode;
 }
 
-// prefix는 HTMLAttributes의 RDFa 속성과 타입이 충돌하므로 제외하고 ReactNode로 재정의한다.
-export interface FieldLabelProps extends Omit<
-  ComponentPropsWithoutRef<"label">,
-  "htmlFor" | "prefix"
-> {
+/** 박스 안에 표시하는 단축키 목록. 최대 4개까지 지정할 수 있다. */
+export type FieldKbdKeys =
+  | readonly [string]
+  | readonly [string, string]
+  | readonly [string, string, string]
+  | readonly [string, string, string, string];
+
+export interface FieldKbdProps {
+  keys: FieldKbdKeys;
+  disabled?: boolean;
+}
+
+export interface FieldLabelProps extends Omit<ComponentPropsWithoutRef<"label">, "htmlFor"> {
   children?: ReactNode;
-  /** 레이블 텍스트 앞에 배치되는 부가 요소 (예: 아이콘) */
-  prefix?: ReactNode;
-  /** 레이블 텍스트 뒤에 배치되는 부가 요소 (예: 도움말 아이콘) */
-  suffix?: ReactNode;
+  /** 레이블 텍스트 뒤 도움말 아이콘에 표시하는 툴팁 문구. 지정하면 도움말 아이콘을 렌더링한다. */
+  tooltip?: string;
 }
 
 export interface FieldHelperProps extends ComponentPropsWithoutRef<"span"> {

@@ -1,5 +1,1182 @@
 # @jects/jds
 
+## 0.9.0
+
+### Minor Changes
+
+- 7ddc2f2: **DateField**
+
+  날짜를 직접 입력하거나 달력에서 선택하는 `DateField`를 추가합니다. `DateField.Label`, `DateField.Input`, `DateField.Helper`로 구성하며, 서버 컴포넌트에서는 같은 파트를 `DateFieldLabel`, `DateFieldInput`, `DateFieldHelper`로 가져와 조합할 수 있습니다. 화면에는 `YYYY.MM.DD`로 표시하고 값과 폼 제출값은 `YYYY-MM-DD` 문자열입니다. 기존 컴포넌트 사용 코드는 변경할 필요가 없습니다.
+
+  루트 `DateField`는 `status`(`default`, `error`), `disabled`, `readonly`, `required`를 받고, 다음 prop은 `DateField.Input`에서 사용합니다.
+
+  | prop                 | 기본값  | 용도                                                                                              |
+  | -------------------- | ------- | ------------------------------------------------------------------------------------------------- |
+  | `value`              | -       | 제어 모드의 확정값, `YYYY-MM-DD` 또는 `""` — 날짜가 되지 못한 입력이면 `""`                       |
+  | `defaultValue`       | `""`    | 비제어 모드의 최초 값과 폼 초기화 기준                                                            |
+  | `onChange`           | -       | 유효하고 선택 가능한 날짜를 완성하거나 모두 지웠을 때 호출, 날짜가 되지 못한 입력이면 `""`로 호출 |
+  | `onInputStateChange` | -       | 편집 중 표시값, 현재 유효한 값, 오류 종류 `error` 전달                                            |
+  | `onBlur`             | -       | 입력칸, 달력 버튼, 달력을 포함한 필드 전체를 벗어날 때 한 번 호출                                 |
+  | `name`, `form`       | -       | 현재 유효한 값을 폼에 제출, 오류가 있으면 `""`                                                    |
+  | `withPicker`         | `true`  | 달력 버튼 표시, 날짜 선택 즉시 확정                                                               |
+  | `withActionBar`      | `false` | 달력에 오늘, 지우기, 적용 버튼 표시, 적용 시 선택과 지우기 확정                                   |
+  | `minDate`, `maxDate` | -       | 직접 입력과 달력 선택에 적용되는 날짜 범위                                                        |
+  | `isDateDisabled`     | -       | `true`를 반환한 날짜는 직접 입력 시 오류, 달력에서 선택 불가                                      |
+  | `kbd`                | -       | 달력 버튼 오른쪽에 표시하는 단축키, 최대 4개, 단축키 자동 등록 없음                               |
+
+  `incomplete`(덜 입력한 날짜)와 `invalid`(`2026.02.31` 같은 없는 날짜)는 날짜가 만들어지지 않은 입력이라, 필드를 벗어나거나 폼을 제출하면 DateField가 "유효한 날짜를 입력해 주세요."와 error 상태를 보여 줍니다. 이때는 사용처의 `status`와 헬퍼 문구 대신 이 문구를 보여 주고, 날짜를 고치면 바로 사라집니다. `required`, `outOfRange`, `disabledDate`의 문구와 `status`, 보여줄 시점은 사용처가 정합니다. DateField는 제출을 막지 않고 오류 입력의 `onChange` 값과 제출값은 `""`이므로, 제출 전에는 `error`가 `null`인지 확인해야 합니다. `onBlur`는 필드 안의 포커스 이동에서는 호출되지 않으므로 React Hook Form의 `field.onBlur`를 그대로 연결할 수 있습니다. React Hook Form에서 값이 바뀔 때마다 검증하면 기존 날짜를 다시 입력하는 도중에도 필수 오류가 보이므로, `mode: "onBlur"`와 `reValidateMode: "onBlur"`로 검증합니다.
+
+  연, 월, 일을 칸 단위로 편집하며 좌우 방향키로 칸을, 위아래 방향키로 값을 바꾸고, Alt와 아래 방향키로 달력을 엽니다. `20260725`, `2026-07-25`, `2026.07.25` 형식을 붙여넣을 수 있고, 덜 입력한 날짜와 없는 날짜는 고치지 않고 그대로 둡니다. 0001–0099년 날짜는 달력에서 올바르게 표시되지 않습니다. 해석할 수 없는 `value`와 `defaultValue`는 빈 값으로 처리하고 개발 환경에서 경고합니다.
+
+  ```tsx
+  import { DateField, type DateFieldInputError } from "@jects/jds";
+  import { useState } from "react";
+
+  // incomplete와 invalid의 문구는 DateField가 보여 줍니다.
+  const START_DATE_ERROR_MESSAGES: Partial<Record<DateFieldInputError, string>> = {
+    required: "시작일을 입력해 주세요.",
+    outOfRange: "오늘 이후 날짜를 입력해 주세요.",
+  };
+
+  function DateFieldExample() {
+    const [date, setDate] = useState("");
+    const [dateError, setDateError] = useState<DateFieldInputError | null>(null);
+    const [isTouched, setIsTouched] = useState(false);
+    const errorMessage =
+      isTouched && dateError !== null ? (START_DATE_ERROR_MESSAGES[dateError] ?? null) : null;
+
+    return (
+      <DateField required status={errorMessage === null ? "default" : "error"}>
+        <DateField.Label>시작일</DateField.Label>
+        <DateField.Input
+          name='startDate'
+          value={date}
+          onChange={setDate}
+          onInputStateChange={state => setDateError(state.error)}
+          onBlur={() => setIsTouched(true)}
+          minDate={new Date()}
+        />
+        <DateField.Helper>
+          {errorMessage ?? "날짜를 입력하거나 달력에서 선택해주세요"}
+        </DateField.Helper>
+      </DateField>
+    );
+  }
+  ```
+
+- 3d85279: **FileField**
+
+  `FileField.Input`의 `suffix`를 제거하고 단축키를 표시하는 `kbd`를 추가합니다. `FileField.Label`의 `prefix`, `suffix`를 제거하고 도움말 툴팁 문구를 받는 `tooltip`을 추가합니다. 제거된 prop을 넘기던 코드는 타입 에러가 발생합니다.
+
+  **소비처 영향 (코드 수정 필요)**
+
+  | AS-IS                        | TO-BE                                                                                  |
+  | ---------------------------- | -------------------------------------------------------------------------------------- |
+  | `FileField.Input`의 `suffix` | `kbd` — 키 문자열 배열, 최대 4개, 단축키 외 요소는 표시 불가                           |
+  | `FileField.Label`의 `prefix` | 제거 — 레이블 앞 부가 요소는 표시 불가                                                 |
+  | `FileField.Label`의 `suffix` | `tooltip` — 툴팁 문구 문자열, 도움말 아이콘은 컴포넌트가 렌더링, 다른 요소는 표시 불가 |
+
+  단축키는 키 문자열 배열로 넘깁니다.
+
+  ```diff
+  - <FileField.Input suffix={<Kbd size='sm'>⌘</Kbd>} />
+  + <FileField.Input kbd={["⌘", "K"]} />
+  ```
+
+  배열을 변수에 담아 넘기면 `string[]`로 추론되므로 `as const`를 붙이거나 `FileFieldKbdKeys` 타입을 지정해야 합니다.
+
+  레이블 도움말은 아이콘과 툴팁을 직접 구성하지 않고 문구만 넘깁니다.
+
+  ```diff
+  - <FileField.Label suffix={<Icon name='info' size='2xs' />}>레이블</FileField.Label>
+  + <FileField.Label tooltip='도움말 문구'>레이블</FileField.Label>
+  ```
+
+  **추가**
+  - `FileField.Label`의 `tooltip` — 레이블 뒤 도움말 아이콘에 표시하는 툴팁 문구
+  - `FileFieldKbdKeys` — 1개부터 4개까지의 키 문자열 튜플 타입
+
+  도움말 아이콘은 hover와 키보드 포커스로 툴팁을 엽니다. 필드가 disabled이면 아이콘을 흐리게 표시합니다. disabled에서는 툴팁을 열지 않습니다.
+
+  **동작 변경 (코드 수정 불필요)**
+  - 단축키 — 삭제 버튼 오른쪽에 `sm` 크기 `Kbd`로 표시, 키 사이 간격 2px, disabled에서 흐리게 표시
+  - 단축키를 눌렀을 때 — 박스를 누른 것과 같이 파일 선택창 열기
+  - 삭제 버튼 — 단축키와 함께 `span` 요소로 감싸서 렌더링, `FieldContent`의 직계 자식으로 가정한 스타일은 확인 필요
+
+- c28c6d3: **FileField**
+
+  `status`에서 `"success"` 값을 제거합니다. `status='success'`를 넘기던 코드는 타입 에러가 발생합니다. `status`를 생략하거나 `'default'`로 바꿔야 합니다.
+
+  **소비처 영향 (코드 수정 필요)**
+
+  | AS-IS              | TO-BE                          |
+  | ------------------ | ------------------------------ |
+  | `status='success'` | 제거 — 디자인 스펙에 없는 상태 |
+
+  ```diff
+  - <FileField status='success'>
+  + <FileField>
+  ```
+
+- 9fa2fa6: **Icon**
+
+  포지션 컬러 아이콘의 이름을 `position-*`로 바꿉니다. 기존 이름을 넘기던 코드는 타입 에러가 발생합니다. 새 아이콘은 40×40 3D 비트맵 대신 둥근 사각형 배경의 24×24 벡터로 그려지고, 아이콘 하나의 크기가 약 300KB에서 3KB 이하로 줄어듭니다.
+
+  **소비처 영향 (코드 수정 필요)**
+
+  | AS-IS             | TO-BE                |
+  | ----------------- | -------------------- |
+  | `name='frontend'` | `name='position-fe'` |
+  | `name='backend'`  | `name='position-be'` |
+  | `name='product'`  | `name='position-pm'` |
+  | `name='design'`   | `name='position-pd'` |
+
+  ```diff
+  - <Icon name='frontend' />
+  + <Icon name='position-fe' />
+  ```
+
+  **추가**
+  - `position-app` — 앱 포지션 아이콘
+
+- 886f571: **Kbd**
+
+  `type` prop과 `KbdType` 타입을 제거합니다. 모든 키를 같은 텍스트 스타일과 크기 규칙으로 표시합니다. `type`을 넘기던 코드는 타입 에러가 발생하므로 `type`을 지워야 합니다.
+
+  **소비처 영향 (코드 수정 필요)**
+
+  | AS-IS                                          | TO-BE                               |
+  | ---------------------------------------------- | ----------------------------------- |
+  | `type='key'`, `type='text'`, `type='function'` | 제거 — 모든 키를 같은 스타일로 표시 |
+  | `KbdType`                                      | 제거                                |
+
+  ```diff
+  - <Kbd type='function' size='sm'>⌘</Kbd>
+  + <Kbd size='sm'>⌘</Kbd>
+  ```
+
+  **동작 변경 (코드 수정 불필요)**
+  - 텍스트 스타일 — `type='function'`에 쓰던 label 대신 모든 키에 syntax 적용
+  - 글꼴 — `ui-monospace`, syntax 글꼴(D2Coding), `monospace` 순서로 변경, `ui-monospace`를 지원하는 브라우저에서는 운영체제의 고정폭 글꼴로 표시되어 키 기호 모양이 운영체제마다 다를 수 있음
+  - 최소 너비 — 높이와 같은 값으로 변경, `lg` 20px에서 26px, `md` 19px에서 24px, `sm` 19px에서 22px
+  - 기존 `type='function'` 키의 너비 — 높이와 같은 값 고정에서 내용에 따라 늘어나는 방식으로 변경, 좌우 여백 4px에서 6px
+
+- 3d85279: **MultiSelectField**
+
+  `MultiSelectField.Input`의 `suffix`를 제거하고 단축키를 표시하는 `kbd`를 추가합니다. `MultiSelectField.Label`의 `prefix`, `suffix`를 제거하고 도움말 툴팁 문구를 받는 `tooltip`을 추가합니다. 제거된 prop을 넘기던 코드는 타입 에러가 발생합니다.
+
+  **소비처 영향 (코드 수정 필요)**
+
+  | AS-IS                               | TO-BE                                                                                  |
+  | ----------------------------------- | -------------------------------------------------------------------------------------- |
+  | `MultiSelectField.Input`의 `suffix` | `kbd` — 키 문자열 배열, 최대 4개, 단축키 외 요소는 표시 불가                           |
+  | `MultiSelectField.Label`의 `prefix` | 제거 — 레이블 앞 부가 요소는 표시 불가                                                 |
+  | `MultiSelectField.Label`의 `suffix` | `tooltip` — 툴팁 문구 문자열, 도움말 아이콘은 컴포넌트가 렌더링, 다른 요소는 표시 불가 |
+
+  단축키는 키 문자열 배열로 넘깁니다.
+
+  ```diff
+  - <MultiSelectField.Input options={options} suffix={<Kbd size='sm'>⌘</Kbd>} />
+  + <MultiSelectField.Input options={options} kbd={["⌘", "K"]} />
+  ```
+
+  배열을 변수에 담아 넘기면 `string[]`로 추론되므로 `as const`를 붙이거나 `MultiSelectFieldKbdKeys` 타입을 지정해야 합니다.
+
+  레이블 도움말은 아이콘과 툴팁을 직접 구성하지 않고 문구만 넘깁니다.
+
+  ```diff
+  - <MultiSelectField.Label suffix={<Icon name='info' size='2xs' />}>레이블</MultiSelectField.Label>
+  + <MultiSelectField.Label tooltip='도움말 문구'>레이블</MultiSelectField.Label>
+  ```
+
+  **추가**
+  - `MultiSelectField.Label`의 `tooltip` — 레이블 뒤 도움말 아이콘에 표시하는 툴팁 문구
+  - `MultiSelectFieldKbdKeys` — 1개부터 4개까지의 키 문자열 튜플 타입
+
+  도움말 아이콘은 hover와 키보드 포커스로 툴팁을 엽니다. 필드가 disabled이면 아이콘을 흐리게 표시합니다. disabled에서는 툴팁을 열지 않습니다.
+
+  **동작 변경 (코드 수정 불필요)**
+  - 단축키 — `sm` 크기 `Kbd`로 표시, 키 사이 간격 2px, disabled에서 흐리게 표시
+  - 단축키 위치 — 배지가 여러 줄이어도 박스 오른쪽 세로 중앙에 고정
+  - 단축키를 눌렀을 때 — 박스를 누른 것과 같이 목록 열기, 닫기
+  - 배지와 입력칸 — `div` 요소로 감싸서 렌더링, 단축키 왼쪽 영역 안에서 줄바꿈, `FieldContent`의 직계 자식으로 가정한 스타일은 확인 필요
+
+- c28c6d3: **MultiSelectField**
+
+  `status`에서 `"success"` 값을 제거합니다. `status='success'`를 넘기던 코드는 타입 에러가 발생합니다. `status`를 생략하거나 `'default'`로 바꿔야 합니다.
+
+  **소비처 영향 (코드 수정 필요)**
+
+  | AS-IS              | TO-BE                          |
+  | ------------------ | ------------------------------ |
+  | `status='success'` | 제거 — 디자인 스펙에 없는 상태 |
+
+  ```diff
+  - <MultiSelectField status='success'>
+  + <MultiSelectField>
+  ```
+
+- 3d85279: **SelectField**
+
+  `SelectField.Input`의 `suffix`를 제거하고 단축키를 표시하는 `kbd`를 추가합니다. `SelectField.Label`의 `prefix`, `suffix`를 제거하고 도움말 툴팁 문구를 받는 `tooltip`을 추가합니다. 제거된 prop을 넘기던 코드는 타입 에러가 발생합니다.
+
+  **소비처 영향 (코드 수정 필요)**
+
+  | AS-IS                          | TO-BE                                                                                  |
+  | ------------------------------ | -------------------------------------------------------------------------------------- |
+  | `SelectField.Input`의 `suffix` | `kbd` — 키 문자열 배열, 최대 4개, 단축키 외 요소는 표시 불가                           |
+  | `SelectField.Label`의 `prefix` | 제거 — 레이블 앞 부가 요소는 표시 불가                                                 |
+  | `SelectField.Label`의 `suffix` | `tooltip` — 툴팁 문구 문자열, 도움말 아이콘은 컴포넌트가 렌더링, 다른 요소는 표시 불가 |
+
+  단축키는 키 문자열 배열로 넘깁니다.
+
+  ```diff
+  - <SelectField.Input options={options} suffix={<Kbd size='sm'>⌘</Kbd>} />
+  + <SelectField.Input options={options} kbd={["⌘", "K"]} />
+  ```
+
+  배열을 변수에 담아 넘기면 `string[]`로 추론되므로 `as const`를 붙이거나 `SelectFieldKbdKeys` 타입을 지정해야 합니다.
+
+  레이블 도움말은 아이콘과 툴팁을 직접 구성하지 않고 문구만 넘깁니다.
+
+  ```diff
+  - <SelectField.Label suffix={<Icon name='info' size='2xs' />}>레이블</SelectField.Label>
+  + <SelectField.Label tooltip='도움말 문구'>레이블</SelectField.Label>
+  ```
+
+  **추가**
+  - `SelectField.Label`의 `tooltip` — 레이블 뒤 도움말 아이콘에 표시하는 툴팁 문구
+  - `SelectFieldKbdKeys` — 1개부터 4개까지의 키 문자열 튜플 타입
+
+  도움말 아이콘은 hover와 키보드 포커스로 툴팁을 엽니다. 필드가 disabled이면 아이콘을 흐리게 표시합니다. disabled에서는 툴팁을 열지 않습니다.
+
+  **동작 변경 (코드 수정 불필요)**
+  - 단축키 — 입력칸과 화살표 사이에 `sm` 크기 `Kbd`로 표시, 키 사이 간격 2px, disabled에서 흐리게 표시
+  - 단축키를 눌렀을 때 — 박스를 누른 것과 같이 목록 열기, 닫기
+  - 화살표 버튼 — 단축키와 함께 `span` 요소로 감싸서 렌더링, `FieldContent`의 직계 자식으로 가정한 스타일은 확인 필요
+
+- c28c6d3: **SelectField**
+
+  `status`에서 `"success"` 값을 제거합니다. `status='success'`를 넘기던 코드는 타입 에러가 발생합니다. `status`를 생략하거나 `'default'`로 바꿔야 합니다.
+
+  **소비처 영향 (코드 수정 필요)**
+
+  | AS-IS              | TO-BE                          |
+  | ------------------ | ------------------------------ |
+  | `status='success'` | 제거 — 디자인 스펙에 없는 상태 |
+
+  ```diff
+  - <SelectField status='success'>
+  + <SelectField>
+  ```
+
+- 3d85279: **SuggestionField**
+
+  `SuggestionField.Input`의 `suffix`를 제거하고 단축키를 표시하는 `kbd`를 추가합니다. `SuggestionField.Label`의 `prefix`, `suffix`를 제거하고 도움말 툴팁 문구를 받는 `tooltip`을 추가합니다. 제거된 prop을 넘기던 코드는 타입 에러가 발생합니다.
+
+  **소비처 영향 (코드 수정 필요)**
+
+  | AS-IS                              | TO-BE                                                                                  |
+  | ---------------------------------- | -------------------------------------------------------------------------------------- |
+  | `SuggestionField.Input`의 `suffix` | `kbd` — 키 문자열 배열, 최대 4개, 단축키 외 요소는 표시 불가                           |
+  | `SuggestionField.Label`의 `prefix` | 제거 — 레이블 앞 부가 요소는 표시 불가                                                 |
+  | `SuggestionField.Label`의 `suffix` | `tooltip` — 툴팁 문구 문자열, 도움말 아이콘은 컴포넌트가 렌더링, 다른 요소는 표시 불가 |
+
+  단축키는 키 문자열 배열로 넘깁니다.
+
+  ```diff
+  - <SuggestionField.Input suggestions={suggestions} suffix={<Kbd size='sm'>⏎</Kbd>} />
+  + <SuggestionField.Input suggestions={suggestions} kbd={["⏎"]} />
+  ```
+
+  배열을 변수에 담아 넘기면 `string[]`로 추론되므로 `as const`를 붙이거나 `SuggestionFieldKbdKeys` 타입을 지정해야 합니다.
+
+  레이블 도움말은 아이콘과 툴팁을 직접 구성하지 않고 문구만 넘깁니다.
+
+  ```diff
+  - <SuggestionField.Label suffix={<Icon name='info' size='2xs' />}>레이블</SuggestionField.Label>
+  + <SuggestionField.Label tooltip='도움말 문구'>레이블</SuggestionField.Label>
+  ```
+
+  **추가**
+  - `SuggestionField.Label`의 `tooltip` — 레이블 뒤 도움말 아이콘에 표시하는 툴팁 문구
+  - `SuggestionFieldKbdKeys` — 1개부터 4개까지의 키 문자열 튜플 타입
+
+  도움말 아이콘은 hover와 키보드 포커스로 툴팁을 엽니다. 필드가 disabled이면 아이콘을 흐리게 표시합니다. disabled에서는 툴팁을 열지 않습니다.
+
+  **동작 변경 (코드 수정 불필요)**
+  - 단축키 — `sm` 크기 `Kbd`로 표시, 키 사이 간격 2px, disabled에서 흐리게 표시
+  - 단축키 위치 — 배지가 여러 줄이어도 박스 오른쪽 세로 중앙에 고정
+  - 단축키를 눌렀을 때 — 박스를 누른 것과 같이 입력칸 포커스와 제안 목록 열기
+  - 배지와 입력칸 — `div` 요소로 감싸서 렌더링, 단축키 왼쪽 영역 안에서 줄바꿈, `FieldContent`의 직계 자식으로 가정한 스타일은 확인 필요
+
+- c28c6d3: **SuggestionField**
+
+  `status`에서 `"success"` 값을 제거합니다. `status='success'`를 넘기던 코드는 타입 에러가 발생합니다. `status`를 생략하거나 `'default'`로 바꿔야 합니다.
+
+  **소비처 영향 (코드 수정 필요)**
+
+  | AS-IS              | TO-BE                          |
+  | ------------------ | ------------------------------ |
+  | `status='success'` | 제거 — 디자인 스펙에 없는 상태 |
+
+  ```diff
+  - <SuggestionField status='success'>
+  + <SuggestionField>
+  ```
+
+- 3d85279: **TextField**
+
+  `TextField.Input`의 `suffix`를 제거하고 단축키를 표시하는 `kbd`, 지우기 버튼을 표시하는 `withClearButton`, 액션 요소를 배치하는 `action`을 추가합니다. `TextField.Label`의 `prefix`, `suffix`를 제거하고 도움말 툴팁 문구를 받는 `tooltip`을 추가합니다. 제거된 prop을 넘기던 코드는 타입 에러가 발생합니다.
+
+  **소비처 영향 (코드 수정 필요)**
+
+  | AS-IS                                    | TO-BE                                                                                         |
+  | ---------------------------------------- | --------------------------------------------------------------------------------------------- |
+  | `TextField.Input`의 `suffix`             | `kbd` — 키 문자열 배열, 최대 4개, 단축키 외 요소는 표시 불가                                  |
+  | `TextField.Label`의 `prefix`             | 제거 — 레이블 앞 부가 요소는 표시 불가                                                        |
+  | `TextField.Label`의 `suffix`             | `tooltip` — 툴팁 문구 문자열, 도움말 아이콘은 컴포넌트가 렌더링, 다른 요소는 표시 불가        |
+  | `interface`로 `TextFieldInputProps` 확장 | `type` 교차 타입으로 변경 — 유니온 타입이 되어 `interface` 확장 불가                          |
+  | `Omit<TextFieldInputProps, ...>`         | 분배 `Omit`으로 변경 — `Omit`이 유니온을 하나로 합쳐 `TextField.Input`에 spread하면 타입 에러 |
+
+  단축키는 키 문자열 배열로 넘깁니다.
+
+  ```diff
+  - <TextField.Input suffix={<Kbd size='sm'>⌘</Kbd>} />
+  + <TextField.Input kbd={["⌘", "K"]} />
+  ```
+
+  배열을 변수에 담아 넘기면 `string[]`로 추론되므로 `as const`를 붙이거나 `TextFieldKbdKeys` 타입을 지정해야 합니다.
+
+  레이블 도움말은 아이콘과 툴팁을 직접 구성하지 않고 문구만 넘깁니다.
+
+  ```diff
+  - <TextField.Label suffix={<Icon name='info' size='2xs' />}>레이블</TextField.Label>
+  + <TextField.Label tooltip='도움말 문구'>레이블</TextField.Label>
+  ```
+
+  `TextFieldInputProps`를 확장할 때는 교차 타입을 씁니다.
+
+  ```diff
+  - interface CustomInputProps extends TextFieldInputProps {
+  -   description?: string;
+  - }
+  + type CustomInputProps = TextFieldInputProps & {
+  +   description?: string;
+  + };
+  ```
+
+  `TextFieldInputProps`에서 일부 prop을 뺄 때는 유니온의 각 멤버에 `Omit`을 적용하는 분배 `Omit`을 씁니다.
+
+  ```diff
+  - type ProfileInputProps = Omit<TextFieldInputProps, "prefix">;
+  + type DistributiveOmit<T, K extends PropertyKey> = T extends unknown ? Omit<T, K> : never;
+  + type ProfileInputProps = DistributiveOmit<TextFieldInputProps, "prefix">;
+  ```
+
+  **추가**
+  - `withClearButton` — 기본값 `false`, 입력한 텍스트를 모두 지우는 버튼 표시, 값이 없거나 disabled, readonly에서는 표시하지 않음
+  - `action` — 지우기 버튼 자리에 배치하는 액션 요소(`ReactNode`), `withClearButton`과 함께 사용 불가
+  - `TextField.Label`의 `tooltip` — 레이블 뒤 도움말 아이콘에 표시하는 툴팁 문구
+  - `TextFieldKbdKeys` — 1개부터 4개까지의 키 문자열 튜플 타입
+
+  지우기 버튼을 누르면 빈 값으로 `onChange`가 호출되고 입력칸으로 포커스가 이동합니다. `withClearButton`을 쓰면서 `placeholder`가 없으면 공백 `placeholder`가 들어갑니다. 지우기 버튼과 `action`은 단축키 왼쪽에 표시됩니다. `action`의 readonly, disabled 처리는 소비처가 정해야 합니다.
+
+  도움말 아이콘은 hover와 키보드 포커스로 툴팁을 엽니다. 필드가 disabled이면 아이콘을 흐리게 표시합니다. disabled에서는 툴팁을 열지 않습니다.
+
+  **동작 변경 (코드 수정 불필요)**
+  - 단축키 — `sm` 크기 `Kbd`로 표시, 키 사이 간격 2px, disabled에서 흐리게 표시
+  - 단축키를 눌렀을 때 — 입력칸으로 포커스 이동
+
+- dbe340e: **TextField**
+
+  남은 시간을 표시하는 `TextField.Timer`를 추가합니다. `Footer`의 카운터 자리에 `seconds`로 받은 남은 시간을 `m:ss` 형식으로 표시합니다. 10분 이상은 `10:00`처럼 분 자릿수가 늘어납니다. 카운트다운 진행과 만료 처리는 소비처가 담당합니다.
+
+  `TextField.Counter`와 같은 자리를 사용하므로 한 필드에는 둘 중 하나만 배치합니다.
+
+  스크린 리더에는 `남은 시간 2분 30초`처럼 분과 초 단위로 읽힙니다. 읽는 문구는 `timeFormatter`와 관계없이 `seconds`로 만듭니다. 시간이 바뀔 때마다 다시 읽어주지는 않습니다.
+  - `seconds` — 필수, 남은 시간(초)
+  - `timeFormatter` — 기본값 `formatTimer`, 초를 표시 문자열로 변환
+
+  초를 `m:ss` 문자열로 변환하는 `formatTimer`를 함께 추가합니다. 소수는 올림하고, 음수와 유한하지 않은 값은 `0:00`으로 표시합니다. `@jects/jds/utils`에서 import하면 서버 컴포넌트에서 사용할 수 있습니다.
+
+  서버 컴포넌트용 개별 export `TextFieldTimer`와 타입 `TextFieldTimerProps`를 함께 내보냅니다.
+
+  ```tsx
+  <TextField status={isExpired ? "error" : "default"}>
+    <TextField.Label>인증번호</TextField.Label>
+    <TextField.Input placeholder='인증번호 6자리를 입력해주세요' />
+    <TextField.Footer>
+      <TextField.Helper>인증번호를 입력해주세요</TextField.Helper>
+      <TextField.Timer seconds={remainingSeconds} />
+    </TextField.Footer>
+  </TextField>
+  ```
+
+- 3d85279: **Textarea**
+
+  `Textarea.Label`의 `prefix`, `suffix`를 제거하고 도움말 툴팁 문구를 받는 `tooltip`을 추가합니다. `prefix`, `suffix`를 넘기던 코드는 타입 에러가 발생합니다. 레이블 도움말은 `tooltip`에 문구만 넘겨야 합니다.
+
+  **소비처 영향 (코드 수정 필요)**
+
+  | AS-IS                       | TO-BE                                                                                  |
+  | --------------------------- | -------------------------------------------------------------------------------------- |
+  | `Textarea.Label`의 `prefix` | 제거 — 레이블 앞 부가 요소는 표시 불가                                                 |
+  | `Textarea.Label`의 `suffix` | `tooltip` — 툴팁 문구 문자열, 도움말 아이콘은 컴포넌트가 렌더링, 다른 요소는 표시 불가 |
+
+  ```diff
+  - <Textarea.Label suffix={<Icon name='info' size='2xs' />}>레이블</Textarea.Label>
+  + <Textarea.Label tooltip='도움말 문구'>레이블</Textarea.Label>
+  ```
+
+  **추가**
+  - `Textarea.Label`의 `tooltip` — 레이블 뒤 도움말 아이콘에 표시하는 툴팁 문구
+
+  도움말 아이콘은 hover와 키보드 포커스로 툴팁을 엽니다. 필드가 disabled이면 아이콘을 흐리게 표시합니다. disabled에서는 툴팁을 열지 않습니다.
+
+- c28c6d3: **Textarea**
+
+  `status`에서 `"success"` 값을 제거합니다. `status='success'`를 넘기던 코드는 타입 에러가 발생합니다. `status`를 생략하거나 `'default'`로 바꿔야 합니다.
+
+  **소비처 영향 (코드 수정 필요)**
+
+  | AS-IS              | TO-BE                          |
+  | ------------------ | ------------------------------ |
+  | `status='success'` | 제거 — 디자인 스펙에 없는 상태 |
+
+  ```diff
+  - <Textarea status='success'>
+  + <Textarea>
+  ```
+
+### Patch Changes
+
+- 1f45511: **Accordion**
+
+  `AccordionRoot` 등 기존 파트의 개별 export를 추가합니다. 서버 컴포넌트에서 직렬화 가능한 props로 개별 파트를 조합할 수 있습니다. 기존 점 표기 API를 사용하는 코드는 수정할 필요가 없습니다.
+
+  **추가**
+  - `AccordionRoot` — `Accordion.Root`의 별칭
+  - `AccordionItem` — `Accordion.Item`의 별칭
+  - `AccordionTrigger` — `Accordion.Trigger`의 별칭
+  - `AccordionContent` — `Accordion.Content`의 별칭
+
+- 75296f8: **Card (Overlay / Preset.Post.Link / Preset.Plate.Link)**
+
+  링크로 렌더링할 컴포넌트를 지정하는 `linkAs`를 추가합니다. next/link 같은 라우팅 컴포넌트를 넘기면 해당 컴포넌트로 렌더링합니다. 기존 코드는 수정할 필요가 없습니다.
+  - `linkAs` — 기본값 `a` 요소, `href`를 받는 컴포넌트
+
+  ```tsx
+  import Link from "next/link";
+
+  <Card.Preset.Post.Link href='/posts/1' linkAs={Link} {...postProps} />;
+  ```
+
+  react-router의 `Link`처럼 `to`를 받는 컴포넌트는 `href`를 `to`로 넘기는 래퍼로 감싸서 전달합니다. 비활성 상태에서는 `linkAs`와 관계없이 기본 `a` 요소로 렌더링합니다. `Card.Overlay`에 ref를 전달하는 경우 `linkAs` 컴포넌트가 ref를 `a` 요소까지 전달해야 합니다.
+
+- 1f45511: **Card**
+
+  `CardRoot` 등 기존 파트의 개별 export를 추가합니다. 서버 컴포넌트에서 직렬화 가능한 props로 개별 파트를 조합할 수 있습니다. 기존 점 표기 API를 사용하는 코드는 수정할 필요가 없습니다.
+
+  **추가**
+
+  | 추가 API               | 대상                              |
+  | ---------------------- | --------------------------------- |
+  | `CardRoot`             | `Card.Root`의 별칭                |
+  | `CardThumbnail`        | `Card.Thumbnail`의 별칭           |
+  | `CardContent`          | `Card.Content`의 별칭             |
+  | `CardContentGroup`     | `Card.ContentGroup`의 별칭        |
+  | `CardCaption`          | `Card.Caption`의 별칭             |
+  | `CardTitle`            | `Card.Title`의 별칭               |
+  | `CardBody`             | `Card.Body`의 별칭                |
+  | `CardMeta`             | `Card.Meta`의 별칭                |
+  | `CardMetaItem`         | `Card.MetaItem`의 별칭            |
+  | `CardOverlay`          | `Card.Overlay`의 별칭             |
+  | `CardPlateLink`        | `Card.Preset.Plate.Link`의 별칭   |
+  | `CardPlateButton`      | `Card.Preset.Plate.Button`의 별칭 |
+  | `CardPostLink`         | `Card.Preset.Post.Link`의 별칭    |
+  | `CardPostButton`       | `Card.Preset.Post.Button`의 별칭  |
+  | `CardPlateLinkProps`   | `CardPlateLink`의 props 타입      |
+  | `CardPlateButtonProps` | `CardPlateButton`의 props 타입    |
+  | `CardPostLinkProps`    | `CardPostLink`의 props 타입       |
+  | `CardPostButtonProps`  | `CardPostButton`의 props 타입     |
+
+  `CardPlateButton`과 `CardPostButton`의 일반 `onClick` 콜백은 클라이언트 컴포넌트에서 전달합니다.
+
+- 75296f8: **Card (Overlay)**
+
+  비활성 상태의 링크 `Card.Overlay`에 `role="link"`를 추가합니다. `href`가 없어도 보조 기술이 비활성 링크로 인식합니다. `Card.Preset.Post.Link`와 `Card.Preset.Plate.Link`에도 적용됩니다.
+
+- ddb4bfc: **Chip**
+
+  테두리 처리와 선택된 비활성 Chip의 테두리 색을 변경했습니다. `border`로 테두리를 덮어쓰던 스타일이 아니면 호출부 수정은 필요하지 않습니다.
+  - 테두리 — `border`에서 박스 안쪽 `box-shadow`로 변경, 높이 30px에서 28px로 감소하고 너비도 2px 감소, `border`나 `border-color`로 테두리를 덮어쓰던 스타일은 확인 필요
+  - `valueLabel`이 있는 `disabled` Chip의 테두리 색 — `accent.alpha.subtler`에서 `stroke.alpha.subtler`로 변경, `valueLabel`이 없는 `disabled` Chip과 같은 색
+
+- b68e0b9: **Code**
+
+  테두리를 `border`에서 박스 안쪽 `box-shadow`로 변경했습니다. 높이와 너비가 2px 줄어듭니다. `border`로 테두리를 덮어쓰던 스타일이 아니면 호출부 수정은 필요하지 않습니다.
+
+- 5badd21: **ContentBadge**
+
+  `outlined` 테두리 처리와 크기별 최소 너비, 삭제 버튼 간격을 변경했습니다. `border`로 테두리를 덮어쓰던 스타일이 아니면 호출부 수정은 필요하지 않습니다.
+
+  **동작 변경 (코드 수정 불필요)**
+  - `badgeStyle='outlined'` 테두리 — `border`에서 박스 안쪽 `box-shadow`로 변경, 높이와 너비가 2px 감소해 `solid`, `alpha`와 같은 크기, `border`로 테두리를 덮어쓰던 스타일은 확인 필요
+  - 최소 너비 — `lg` 28px에서 26px, `md` 27px에서 24px, `sm` 24px에서 22px, `xs` 20px에서 18px로 변경
+  - `withIconButton` 레이블과 삭제 버튼 사이 간격 — `sm`, `xs`에서 4px에서 2px로 변경, `lg`, `md`는 4px 유지
+
+- 3432a69: **DatePicker**
+
+  0001–0099년 날짜가 1901–1999년으로 바뀌던 문제를 수정합니다. 0001–0099년 날짜를 넘기면 그 연도의 달력이 열립니다. 날짜, 연도, 월을 골라도 연도가 유지됩니다. 소비처 코드는 수정할 필요가 없습니다.
+  - `minDate`, `maxDate`의 기본값 — 없음에서 0001년 1월 1일, 9999년 12월 31일로 변경, 0001년 1월 이전과 9999년 12월 이후로 이동 불가
+  - `minDate`, `maxDate`가 없을 때 연도 목록 범위를 1–9999년 안으로 제한 — 0005년을 표시하면 -5–15년 대신 1–15년
+
+- 1f45511: **DropdownMenu**
+
+  `DropdownMenuRoot` 등 기존 파트의 개별 export를 추가합니다. 서버 컴포넌트에서 직렬화 가능한 props로 개별 파트를 조합할 수 있습니다. 기존 점 표기 API를 사용하는 코드는 수정할 필요가 없습니다.
+
+  **추가**
+
+  | 추가 API                    | 대상                                |
+  | --------------------------- | ----------------------------------- |
+  | `DropdownMenuRoot`          | `DropdownMenu.Root`의 별칭          |
+  | `DropdownMenuContent`       | `DropdownMenu.Content`의 별칭       |
+  | `DropdownMenuButton`        | `DropdownMenu.Button`의 별칭        |
+  | `DropdownMenuAnchor`        | `DropdownMenu.Anchor`의 별칭        |
+  | `DropdownMenuTree`          | `DropdownMenu.Tree`의 별칭          |
+  | `DropdownMenuCategory`      | `DropdownMenu.Category`의 별칭      |
+  | `DropdownMenuGroup`         | `DropdownMenu.Group`의 별칭         |
+  | `DropdownMenuTrigger`       | `DropdownMenu.Trigger`의 별칭       |
+  | `DropdownMenuCategoryProps` | `DropdownMenuCategory`의 props 타입 |
+  | `DropdownMenuGroupProps`    | `DropdownMenuGroup`의 props 타입    |
+
+- dbe340e: **Field (internal)**
+
+  한 필드의 카운터 자리에는 요소 하나만 렌더합니다. `TextField.Counter`와 `TextField.Timer`처럼 카운터 자리를 쓰는 요소를 함께 배치하면 그중 하나만 렌더하고, 개발 환경에서 경고를 출력합니다. 카운터 자리에 요소를 하나만 배치한 필드는 코드 수정이 필요하지 않습니다.
+  - 카운터 자리 요소를 여러 개 배치하면 하나만 렌더, 이전에는 모두 같은 `id`로 렌더됨
+  - 렌더 중인 요소가 사라지면 남은 요소가 이어서 렌더되고 컨트롤의 `aria-describedby`에 연결됨, 이전에는 연결이 해제됨
+
+- ad3c388: **디자인 토큰**
+
+  토큰 6개가 추가됩니다. 소비처 코드는 수정하지 않아도 됩니다.
+
+  **추가**
+  - `vars.environment.primitive.time["1000"]` — 값 `1000`
+  - `vars.environment.primitive.time["1500"]` — 값 `1500`
+  - `vars.environment.primitive.time["2000"]` — 값 `2000`
+  - `vars.environment.semantic.duration["1000"]` — 값 `1000ms`
+  - `vars.environment.semantic.duration["1500"]` — 값 `1500ms`
+  - `vars.environment.semantic.duration["2000"]` — 값 `2000ms`
+
+- 511e4e1: **디자인 토큰**
+
+  색상, letter-spacing, motion 토큰 값이 바뀌고, syntax letter-spacing 토큰 4개가 추가됩니다. 소비처 코드는 수정하지 않아도 됩니다.
+
+  **추가**
+  - `vars.typo.primitive.font.letterSpacing.syntax.lg`, `.md`, `.sm`, `.xs` — 값은 모두 `0px`
+
+  **동작 변경 (코드 수정 불필요)**
+  - `vars.colorPrimitive` 값 363개 변경
+  - `vars.color.semantic` 값 변경 — light 351개, dark 357개
+  - `vars.typo.primitive.font.letterSpacing` 값 변경
+  - `vars.environment.semantic.motion.entrance`, `.leave` 값 끝의 탭 문자 제거
+
+  | 토큰                                                 | 적용 구간      | 이전 값    | 새 값      |
+  | ---------------------------------------------------- | -------------- | ---------- | ---------- |
+  | `vars.typo.primitive.font.letterSpacing.label.sm`    | 전체           | `-0.080px` | `-0.072px` |
+  | `vars.typo.primitive.font.letterSpacing.label.xs`    | 전체           | `-0.050px` | `-0.066px` |
+  | `vars.typo.primitive.font.letterSpacing.body.sm`     | tablet, mobile | `0.060px`  | `0.056px`  |
+  | `vars.typo.primitive.font.letterSpacing.body.xs`     | 전체           | `0.070px`  | `0.065px`  |
+  | `vars.typo.primitive.font.letterSpacing.body["2xs"]` | 전체           | `0.080px`  | `0.072px`  |
+
+- 1f45511: **FileField**
+
+  `FileFieldInput` 등 기존 파트의 개별 export를 추가합니다. 서버 컴포넌트에서 직렬화 가능한 props로 개별 파트를 조합할 수 있습니다. 기존 점 표기 API를 사용하는 코드는 수정할 필요가 없습니다.
+
+  **추가**
+
+  | 추가 API          | 대상                      |
+  | ----------------- | ------------------------- |
+  | `FileFieldInput`  | `FileField.Input`의 별칭  |
+  | `FileFieldSize`   | `FileField.Size`의 별칭   |
+  | `FileFieldLabel`  | `FileField.Label`의 별칭  |
+  | `FileFieldFooter` | `FileField.Footer`의 별칭 |
+  | `FileFieldHelper` | `FileField.Helper`의 별칭 |
+
+- 2b89874: **FileField**
+
+  입력 박스의 크기, 테두리, 상태별 색을 변경했습니다. disabled, readonly에서 삭제 버튼을 렌더링하지 않으므로, 이 버튼을 찾던 테스트나 스타일은 확인이 필요합니다.
+
+  **동작 변경 (코드 수정 불필요)**
+  - `FileField.Input` hover 시 테두리 색 — 상태별 강조 색으로 바뀌지 않도록 변경
+  - `FileField.Input` 안쪽 여백 — 상하 8px에서 6px로, 좌우 12px에서 10px로 변경
+  - `FileField.Input` 테두리 — `border`에서 박스 안쪽 `box-shadow`로 변경, 높이 42px에서 36px로 감소, `border`로 테두리를 덮어쓰던 스타일은 확인 필요
+  - `FileField.Input` 왼쪽 영역(파일명, 아이콘 위치)의 기본 커서 — 화살표로 표시되던 것을 `pointer`로 수정
+  - disabled 커서 — 화살표에서 `not-allowed`로 변경
+  - disabled 파일명 글자 색 — `object.assistive`에서 `object.subtle`로 변경
+  - disabled, readonly에서 삭제 버튼 — 비활성 버튼으로 표시하던 것을 렌더링하지 않음
+  - readonly 포커스 시 테두리 색 — 바뀌지 않고 포커스 링만 표시
+  - readonly 배경 — 부모 배경색이 비치지 않도록 변경
+  - `FileField.Size` 글자 굵기 — `label.sm.normal`(480)에서 `label.sm.subtle`(440)로 변경
+  - disabled 필수 표시(`*`) — `feedback.notifying.alpha.inverse.assistive`에서 `feedback.notifying.static.inverse.bold`에 불투명도 44%로 변경
+
+- f029710: ESM 배포 JavaScript를 모듈별 파일로 분리했습니다. Rolldown ESM과 Next.js Webpack에서 `Divider`만 가져올 때 미사용 컴포넌트와 PNG가 번들에서 제외됩니다. CJS 배포 방식, 기존 import 경로와 컴포넌트 사용법은 유지됩니다.
+  - 스타일 JavaScript 파일명 — `*.styles.js`로 출력, vanilla-extract Vite 플러그인의 스타일 원본 재처리 대상에서 제외
+
+- b68e0b9: **Kbd**
+
+  테두리를 `border`에서 박스 안쪽 `box-shadow`로 변경했습니다. 너비가 2px 줄어듭니다. `border`나 `border-color`로 테두리를 덮어쓰던 스타일이 아니면 호출부 수정은 필요하지 않습니다.
+
+- 1f45511: **Menu**
+
+  `MenuRoot` 등 기존 파트의 개별 export를 추가합니다. 서버 컴포넌트에서 직렬화 가능한 props로 개별 파트를 조합할 수 있습니다. 기존 점 표기 API를 사용하는 코드는 수정할 필요가 없습니다.
+
+  **추가**
+
+  | 추가 API       | 대상                   |
+  | -------------- | ---------------------- |
+  | `MenuRoot`     | `Menu.Root`의 별칭     |
+  | `MenuContent`  | `Menu.Content`의 별칭  |
+  | `MenuButton`   | `Menu.Button`의 별칭   |
+  | `MenuAnchor`   | `Menu.Anchor`의 별칭   |
+  | `MenuCategory` | `Menu.Category`의 별칭 |
+  | `MenuGroup`    | `Menu.Group`의 별칭    |
+
+- 1f45511: **MultiSelectField**
+
+  `MultiSelectFieldInput` 등 기존 파트의 개별 export를 추가합니다. 서버 컴포넌트에서 직렬화 가능한 props로 개별 파트를 조합할 수 있습니다. 기존 점 표기 API를 사용하는 코드는 수정할 필요가 없습니다.
+
+  **추가**
+
+  | 추가 API                  | 대상                              |
+  | ------------------------- | --------------------------------- |
+  | `MultiSelectFieldInput`   | `MultiSelectField.Input`의 별칭   |
+  | `MultiSelectFieldLabel`   | `MultiSelectField.Label`의 별칭   |
+  | `MultiSelectFieldFooter`  | `MultiSelectField.Footer`의 별칭  |
+  | `MultiSelectFieldHelper`  | `MultiSelectField.Helper`의 별칭  |
+  | `MultiSelectFieldCounter` | `MultiSelectField.Counter`의 별칭 |
+
+- 2b89874: **MultiSelectField**
+
+  입력 박스의 크기, 테두리, 상태별 색을 변경했습니다. 호출부 수정은 필요하지 않습니다.
+
+  **동작 변경 (코드 수정 불필요)**
+  - `MultiSelectField.Input` hover 시 테두리 색 — 상태별 강조 색으로 바뀌지 않도록 변경
+  - `MultiSelectField.Input` 안쪽 여백 — 상하 8px에서 6px로, 좌우 12px에서 10px로 변경
+  - `MultiSelectField.Input` 테두리 — `border`에서 박스 안쪽 `box-shadow`로 변경, 한 줄 높이 42px에서 36px로 감소, `border`로 테두리를 덮어쓰던 스타일은 확인 필요
+  - 배지 줄 사이 간격 — 8px에서 6px로 변경
+  - disabled, readonly에서 입력칸 — 선택값이 있으면 자리를 차지하지 않음
+  - 기본 커서 — 화살표에서 `pointer`로 변경, `searchable`일 때 입력 위치는 텍스트 커서 유지
+  - disabled 커서 — 화살표에서 `not-allowed`로 변경
+  - disabled 입력값 글자 색 — `object.assistive`에서 `object.subtle`로 변경
+  - readonly 포커스 시 테두리 색 — 바뀌지 않고 포커스 링만 표시
+  - readonly 배경 — 부모 배경색이 비치지 않도록 변경
+  - disabled 필수 표시(`*`) — `feedback.notifying.alpha.inverse.assistive`에서 `feedback.notifying.static.inverse.bold`에 불투명도 44%로 변경
+
+- 5badd21: **NumericBadge**
+
+  일부 색과 크기별 최소 너비를 변경했습니다. 호출부 수정은 필요하지 않으며, 렌더 결과만 달라집니다.
+
+  **동작 변경 (코드 수정 불필요)**
+  - `hierarchy='primary'` `badgeStyle='solid'` 배경 — `fill.boldest`에서 `fill.bolder`로 변경
+  - `badgeStyle='hollow'` 숫자 색 — `accent`는 `accent.bold`에서 `accent.normal`로, `primary`는 `object.bolder`에서 `object.bold`로 변경
+  - `solid`, `alpha` 최소 너비 — `md`만 23px에서 22px로 변경
+  - `hollow` 최소 너비 — `lg` 22px, `md` 20px, `sm` 18px, `xs` 16px로 변경, 이전에는 `solid`와 같은 값
+
+- 1f45511: **SegmentedControls**
+
+  `SegmentedControlsRoot` 등 기존 파트의 개별 export를 추가합니다. 서버 컴포넌트에서 직렬화 가능한 props로 개별 파트를 조합할 수 있습니다. 기존 점 표기 API를 사용하는 코드는 수정할 필요가 없습니다.
+  - `SegmentedControlsRoot` — `SegmentedControls.Root`의 별칭
+  - `SegmentedControlsItem` — `SegmentedControls.Item`의 별칭
+
+- 1f45511: **SelectField**
+
+  `SelectFieldInput` 등 기존 파트의 개별 export를 추가합니다. 서버 컴포넌트에서 직렬화 가능한 props로 개별 파트를 조합할 수 있습니다. 기존 점 표기 API를 사용하는 코드는 수정할 필요가 없습니다.
+
+  **추가**
+  - `SelectFieldInput` — `SelectField.Input`의 별칭
+  - `SelectFieldLabel` — `SelectField.Label`의 별칭
+  - `SelectFieldHelper` — `SelectField.Helper`의 별칭
+
+- 2b89874: **SelectField**
+
+  입력 박스의 크기, 테두리, 상태별 색을 변경했습니다. 호출부 수정은 필요하지 않습니다.
+
+  **동작 변경 (코드 수정 불필요)**
+  - `SelectField.Input` hover 시 테두리 색 — 상태별 강조 색으로 바뀌지 않도록 변경
+  - `SelectField.Input` 안쪽 여백 — 상하 8px에서 6px로, 좌우 12px에서 10px로 변경
+  - `SelectField.Input` 테두리 — `border`에서 박스 안쪽 `box-shadow`로 변경, 높이 42px에서 36px로 감소, `border`로 테두리를 덮어쓰던 스타일은 확인 필요
+  - 기본 커서 — 화살표에서 `pointer`로 변경, `searchable`일 때 입력 위치는 텍스트 커서 유지
+  - disabled 커서 — 화살표에서 `not-allowed`로 변경
+  - disabled 선택값 글자 색 — `object.assistive`에서 `object.subtle`로 변경
+  - readonly 포커스 시 테두리 색 — 바뀌지 않고 포커스 링만 표시
+  - readonly 배경 — 부모 배경색이 비치지 않도록 변경
+  - disabled 필수 표시(`*`) — `feedback.notifying.alpha.inverse.assistive`에서 `feedback.notifying.static.inverse.bold`에 불투명도 44%로 변경
+
+- 2ed4319: **Snackbar**
+
+  `onRemove`의 최신 참조를 보관하던 내부 구현을 공용 훅으로 교체했습니다. 공개 props와 동작은 변경되지 않습니다.
+
+- 538bb5e: **Snackbar**
+
+  `notifying` 피드백의 아이콘 색과 그림자를 변경했습니다. 호출부 수정은 필요하지 않으며, 렌더 결과만 달라집니다.
+  - `notifying` 피드백 아이콘 색 — `feedback.notifying.inverse.bold`에서 `feedback.notifying.static.inverse.bold`로 변경, 다크 모드에서도 라이트 모드와 같은 노란색으로 표시
+  - 그림자 — `shadow.overlay`에서 `shadow.floated`로 변경
+
+- 1f45511: **Steps**
+
+  `StepsRoot` 등 기존 파트의 개별 export를 추가합니다. 서버 컴포넌트에서 직렬화 가능한 props로 개별 파트를 조합할 수 있습니다. 기존 점 표기 API를 사용하는 코드는 수정할 필요가 없습니다.
+  - `StepsRoot` — `Steps.Root`의 별칭
+  - `StepsItem` — `Steps.Item`의 별칭
+
+- 1f45511: **SuggestionField**
+
+  `SuggestionFieldInput` 등 기존 파트의 개별 export를 추가합니다. 서버 컴포넌트에서 직렬화 가능한 props로 개별 파트를 조합할 수 있습니다. 기존 점 표기 API를 사용하는 코드는 수정할 필요가 없습니다.
+
+  **추가**
+
+  | 추가 API                 | 대상                             |
+  | ------------------------ | -------------------------------- |
+  | `SuggestionFieldInput`   | `SuggestionField.Input`의 별칭   |
+  | `SuggestionFieldLabel`   | `SuggestionField.Label`의 별칭   |
+  | `SuggestionFieldFooter`  | `SuggestionField.Footer`의 별칭  |
+  | `SuggestionFieldHelper`  | `SuggestionField.Helper`의 별칭  |
+  | `SuggestionFieldCounter` | `SuggestionField.Counter`의 별칭 |
+
+- 2b89874: **SuggestionField**
+
+  입력 박스의 크기, 테두리, 상태별 색을 변경했습니다. 호출부 수정은 필요하지 않습니다.
+
+  **동작 변경 (코드 수정 불필요)**
+  - `SuggestionField.Input` hover 시 테두리 색 — 상태별 강조 색으로 바뀌지 않도록 변경
+  - `SuggestionField.Input` hover 오버레이 — 제거
+  - `SuggestionField.Input` 안쪽 여백 — 상하 8px에서 6px로, 좌우 12px에서 10px로 변경
+  - `SuggestionField.Input` 테두리 — `border`에서 박스 안쪽 `box-shadow`로 변경, 한 줄 높이 42px에서 36px로 감소, `border`로 테두리를 덮어쓰던 스타일은 확인 필요
+  - 배지 줄 사이 간격 — 8px에서 6px로 변경
+  - disabled, readonly에서 입력칸 — 값이 있으면 자리를 차지하지 않음
+  - disabled 커서 — 화살표에서 `not-allowed`로 변경
+  - disabled 입력값 글자 색 — `object.assistive`에서 `object.subtle`로 변경
+  - readonly 포커스 시 테두리 색 — 바뀌지 않고 포커스 링만 표시
+  - readonly 배경 — 부모 배경색이 비치지 않도록 변경
+  - disabled 필수 표시(`*`) — `feedback.notifying.alpha.inverse.assistive`에서 `feedback.notifying.static.inverse.bold`에 불투명도 44%로 변경
+
+- 1f45511: **Table**
+
+  `TableRoot` 등 기존 파트의 개별 export를 추가합니다. 서버 컴포넌트에서 직렬화 가능한 props로 개별 파트를 조합할 수 있습니다. 기존 점 표기 API를 사용하는 코드는 수정할 필요가 없습니다.
+
+  **추가**
+
+  | 추가 API                 | 대상                                      |
+  | ------------------------ | ----------------------------------------- |
+  | `TableRoot`              | `Table.Root`의 별칭                       |
+  | `TableHeader`            | `Table.Header`의 별칭                     |
+  | `TableHeaderItem`        | `Table.HeaderItem`의 별칭                 |
+  | `TableBody`              | `Table.Body`의 별칭                       |
+  | `TableRow`               | `Table.Row`의 별칭                        |
+  | `TableRowItem`           | `Table.RowItem`의 별칭                    |
+  | `TableColorChip`         | `Table.ColorChip`의 별칭                  |
+  | `TableRootProps`         | `TableRoot`의 props 타입                  |
+  | `TableHeaderProps`       | `TableHeader`의 props 타입                |
+  | `TableHeaderItemProps`   | `TableHeaderItem`의 props 타입            |
+  | `TableBodyProps`         | `TableBody`의 props 타입                  |
+  | `TableRowProps`          | `TableRow`의 props 타입                   |
+  | `TableRowItemProps`      | `TableRowItem`의 props 타입               |
+  | `TableRowItemVariant`    | `TableRowItem`의 variant 타입             |
+  | `TableRowItemLabelProps` | label variant의 `TableRowItem` props 타입 |
+  | `TableRowItemCodeProps`  | code variant의 `TableRowItem` props 타입  |
+  | `TableRowItemBadgeProps` | badge variant의 `TableRowItem` props 타입 |
+  | `TableColorChipProps`    | `TableColorChip`의 props 타입             |
+
+- ddb4bfc: **Tabs**
+
+  `Tabs.Trigger`의 크기, 테두리, focus ring, 상호작용 오버레이를 변경했습니다. `Tabs.Trigger`의 `border`나 `border-bottom`을 덮어쓰던 스타일이 아니면 호출부 수정은 필요하지 않습니다.
+
+  **동작 변경 (코드 수정 불필요)**
+  - `variant='header'` 선택 밑줄 — `border-bottom`에서 박스 안쪽 `box-shadow`로 변경, 높이 38px에서 36px로 감소, `border-bottom`으로 밑줄을 덮어쓰던 스타일은 확인 필요
+  - `variant='content'` 테두리 — `border`에서 박스 안쪽 `box-shadow`로 변경, 높이 34px에서 32px로 감소하고 너비도 2px 감소, `border`나 `border-color`로 테두리를 덮어쓰던 스타일은 확인 필요
+  - focus ring — 바깥쪽에서 안쪽으로 변경, `header`에서는 ring 아래쪽이 선택 밑줄과 겹침
+  - hover, pressed 오버레이 불투명도 — hover 5%에서 8%로, pressed 8%에서 12%로 변경
+  - 레이블과 `badge` 사이 간격 — 4px에서 2px로 변경
+
+- 1f45511: **TextField**
+
+  `TextFieldInput` 등 기존 파트의 개별 export를 추가합니다. 서버 컴포넌트에서 직렬화 가능한 props로 개별 파트를 조합할 수 있습니다. 기존 점 표기 API를 사용하는 코드는 수정할 필요가 없습니다.
+
+  **추가**
+
+  | 추가 API           | 대상                       |
+  | ------------------ | -------------------------- |
+  | `TextFieldInput`   | `TextField.Input`의 별칭   |
+  | `TextFieldLabel`   | `TextField.Label`의 별칭   |
+  | `TextFieldFooter`  | `TextField.Footer`의 별칭  |
+  | `TextFieldHelper`  | `TextField.Helper`의 별칭  |
+  | `TextFieldCounter` | `TextField.Counter`의 별칭 |
+
+- 2b89874: **TextField**
+
+  입력 박스의 크기, 테두리, 상태별 색을 변경했습니다. `prefix`를 직계 자식 셀렉터로 스타일링한 경우가 아니면 호출부 수정은 필요하지 않습니다.
+
+  **동작 변경 (코드 수정 불필요)**
+  - `TextField.Input` hover 시 테두리 색 — 상태별 강조 색으로 바뀌지 않도록 변경
+  - `TextField.Input` hover 오버레이 — 제거
+  - `TextField.Input` 안쪽 여백 — 상하 8px에서 6px로, 좌우 12px에서 10px로 변경
+  - `TextField.Input` 테두리 — `border`에서 박스 안쪽 `box-shadow`로 변경, 높이 42px에서 36px로 감소, `border`로 테두리를 덮어쓰던 스타일은 확인 필요
+  - disabled 커서 — 화살표에서 `not-allowed`로 변경
+  - disabled 입력값 글자 색 — `object.assistive`에서 `object.subtle`로 변경
+  - readonly 포커스 시 테두리 색 — 바뀌지 않고 포커스 링만 표시
+  - readonly 배경 — 부모 배경색이 비치지 않도록 변경
+  - `prefix` — `span` 요소로 감싸서 렌더링, 직계 자식으로 가정한 스타일은 확인 필요
+  - `prefix` 색 — `object.alternative`, disabled에서 `object.subtler`로 지정
+  - disabled 필수 표시(`*`) — `feedback.notifying.alpha.inverse.assistive`에서 `feedback.notifying.static.inverse.bold`에 불투명도 44%로 변경
+
+- 1f45511: **Textarea**
+
+  `TextareaControl` 등 기존 파트의 개별 export를 추가합니다. 서버 컴포넌트에서 직렬화 가능한 props로 개별 파트를 조합할 수 있습니다. 기존 점 표기 API를 사용하는 코드는 수정할 필요가 없습니다.
+
+  **추가**
+
+  | 추가 API          | 대상                      |
+  | ----------------- | ------------------------- |
+  | `TextareaControl` | `Textarea.Control`의 별칭 |
+  | `TextareaLabel`   | `Textarea.Label`의 별칭   |
+  | `TextareaFooter`  | `Textarea.Footer`의 별칭  |
+  | `TextareaHelper`  | `Textarea.Helper`의 별칭  |
+  | `TextareaCounter` | `Textarea.Counter`의 별칭 |
+
+- 2b89874: **Textarea**
+
+  입력 박스의 크기, 테두리, 상태별 색을 변경했습니다. 호출부 수정은 필요하지 않습니다.
+
+  **동작 변경 (코드 수정 불필요)**
+  - `Textarea.Control` hover 시 테두리 색 — 상태별 강조 색으로 바뀌지 않도록 변경
+  - `Textarea.Control` hover 오버레이 — 제거
+  - `Textarea.Control` 안쪽 여백 — 좌우 12px에서 10px로 변경, 상하 8px 유지
+  - `Textarea.Control` 테두리 — `border`에서 박스 안쪽 `box-shadow`로 변경, 높이 2px 감소, `border`로 테두리를 덮어쓰던 스타일은 확인 필요
+  - disabled 커서 — 화살표에서 `not-allowed`로 변경
+  - disabled 입력값 글자 색 — `object.assistive`에서 `object.subtle`로 변경
+  - readonly 포커스 시 테두리 색 — 바뀌지 않고 포커스 링만 표시
+  - readonly 배경 — 부모 배경색이 비치지 않도록 변경
+  - disabled 필수 표시(`*`) — `feedback.notifying.alpha.inverse.assistive`에서 `feedback.notifying.static.inverse.bold`에 불투명도 44%로 변경
+
+- 2ed4319: **Toast**
+
+  `onRemove`의 최신 참조를 보관하던 내부 구현을 공용 훅으로 교체했습니다. 공개 props와 동작은 변경되지 않습니다.
+
+- 538bb5e: **Toast**
+
+  `notifying` 피드백의 아이콘 색과 그림자를 변경했습니다. 호출부 수정은 필요하지 않으며, 렌더 결과만 달라집니다.
+  - `notifying` 피드백 아이콘 색 — `feedback.notifying.inverse.bold`에서 `feedback.notifying.static.inverse.bold`로 변경, 다크 모드에서도 라이트 모드와 같은 노란색으로 표시
+  - 그림자 — `shadow.overlay`에서 `shadow.floated`로 변경
+
+- ddb4bfc: **Toggle**
+
+  `disabled` 핸들 색을 `surface.static.standard`에서 `fill.inverse.boldest` 위에 `object.static.inverse.neutral`을 겹친 색으로 변경했습니다. 라이트 모드에서는 흰색 그대로이고, 다크 모드에서는 흰색 대신 회색으로 표시됩니다. 호출부 수정은 필요하지 않습니다.
+
+- 1f45511: **Tooltip**
+
+  `TooltipRoot` 등 기존 파트의 개별 export를 추가합니다. 서버 컴포넌트에서 직렬화 가능한 props로 개별 파트를 조합할 수 있습니다. 기존 점 표기 API를 사용하는 코드는 수정할 필요가 없습니다.
+
+  **추가**
+
+  | 추가 API               | 대상                           |
+  | ---------------------- | ------------------------------ |
+  | `TooltipRoot`          | `Tooltip.Root`의 별칭          |
+  | `TooltipTrigger`       | `Tooltip.Trigger`의 별칭       |
+  | `TooltipContent`       | `Tooltip.Content`의 별칭       |
+  | `TooltipProvider`      | `Tooltip.Provider`의 별칭      |
+  | `TooltipProviderProps` | `TooltipProvider`의 props 타입 |
+  | `TooltipRootProps`     | `TooltipProps`의 별칭          |
+
+- 538bb5e: **Tooltip**
+
+  그림자를 `shadow.overlay`에서 `shadow.floated`로 변경했습니다. 호출부 수정은 필요하지 않으며, 렌더 결과만 달라집니다.
+
+## 0.8.0
+
+### Minor Changes
+
+- 740e9a9: **DatePicker**
+
+  날짜 하나를 고르는 달력 패널 `DatePicker`를 추가했습니다. 헤더의 연도와 월 버튼으로 연월 목록을 열 수 있고, 표시 중인 달에 속하지 않는 날짜를 선택하면 그 날짜의 달로 이동합니다. props 타입 `DatePickerProps`와 `weekStartsOn`에 넘기는 값의 타입 `Weekday`도 함께 공개합니다.
+
+  | prop             | 기본값    | 용도                                                                                                |
+  | ---------------- | --------- | --------------------------------------------------------------------------------------------------- |
+  | `value`          | -         | 선택된 날짜, 넘기면 제어 모드이고 바뀌면 그 날짜의 달로 이동 — `month` 제어 시 `onMonthChange` 호출 |
+  | `defaultValue`   | `null`    | 비제어 모드의 시작 선택값                                                                           |
+  | `onChange`       | -         | 선택이 확정될 때 로컬 시간대 자정 기준 날짜로 호출, 지우고 적용하면 `null`                          |
+  | `month`          | -         | 표시할 달, 넘기면 표시 중인 달을 호출부가 소유                                                      |
+  | `defaultMonth`   | 선택된 달 | 처음 표시할 달, 선택이 없으면 오늘이 속한 달                                                        |
+  | `onMonthChange`  | -         | 표시 중인 달이 바뀌면 그 달의 1일로 호출                                                            |
+  | `weekStartsOn`   | `1`       | 한 주의 시작 요일, 0은 일요일                                                                       |
+  | `withActionBar`  | `false`   | 오늘, 지우기, 적용 버튼 표시, 켜면 적용 시에만 `onChange` 호출                                      |
+  | `fixedWeeks`     | `false`   | 모든 달을 6주로 표시, 끄면 달에 필요한 주 수만 표시                                                 |
+  | `disabled`       | `false`   | 날짜 선택과 달 이동을 모두 막음                                                                     |
+  | `readOnly`       | `false`   | 달 이동은 가능하고 선택만 막음                                                                      |
+  | `minDate`        | -         | 선택할 수 있는 가장 이른 날짜, 이 달보다 앞으로 이동 불가 — 없으면 연도 목록은 10년 전부터          |
+  | `maxDate`        | -         | 선택할 수 있는 가장 늦은 날짜, 이 달보다 뒤로 이동 불가 — 없으면 연도 목록은 10년 후까지            |
+  | `isDateDisabled` | -         | `true`를 반환한 날짜는 선택 불가                                                                    |
+
+  달력은 `role="grid"`로 노출되고, 방향키, Home, End, PageUp, PageDown으로 날짜를 이동합니다. Shift와 함께 PageUp, PageDown을 누르면 1년씩 이동하고, 선택할 수 없는 날짜는 건너뜁니다. Tab 정지점은 달력마다 하나입니다. 표시 중인 연월이 바뀌면 스크린 리더에 새 연월을 안내합니다.
+
+  ```tsx
+  const [date, setDate] = useState<Date | null>(null);
+
+  <DatePicker
+    value={date}
+    onChange={setDate}
+    withActionBar
+    minDate={new Date(2026, 0, 1)}
+    maxDate={new Date(2026, 11, 31)}
+    isDateDisabled={day => day.getDay() === 0}
+  />;
+  ```
+
+- d31ad83: **IconButton**
+
+  `asChild`를 추가합니다. `asChild` 없이 `children`을 전달하면 타입 에러가 발생합니다. `children`을 넘기던 코드는 제거가 필요합니다.
+
+  **소비처 영향 (코드 수정 필요)**
+
+  | AS-IS                                 | TO-BE                        |
+  | ------------------------------------- | ---------------------------- |
+  | `children` 전달 가능, 렌더링되지 않음 | `children` 전달 시 타입 에러 |
+
+  ```diff
+  - <IconButton icon='x' aria-label='닫기'>닫기</IconButton>
+  + <IconButton icon='x' aria-label='닫기' />
+  ```
+
+  **추가**
+  - `asChild` — 기본값 `false`, `true`면 자식 요소에 스타일과 props를 병합하고 `icon`을 자식 안에 렌더링, `type`, `disabled` 속성은 렌더링하지 않음
+  - `asChild`와 `disabled`는 함께 사용 불가
+  - 자식 요소의 `children`은 렌더링하지 않음 — 개발 환경에서 `children`을 전달하면 경고 출력, 자식은 비워서 전달하고 접근 이름은 `aria-label`로 지정
+
+  ```tsx
+  <IconButton asChild icon='arrow-left' aria-label='이전 페이지'>
+    <Link href='/' />
+  </IconButton>
+  ```
+
+- c5f6b96: **Pagination**
+
+  `nav > ul > li` 구조로 페이지 번호, 말줄임, 이전과 다음 이동 요소를 표시하는 `Pagination` 컴포넌트를 추가합니다. 버튼의 제어, 비제어 방식과 `href` 기반 링크 방식을 지원합니다. `PaginationProps`, `PaginationButtonProps`, `PaginationLinkProps`, `PaginationVisiblePageCount` 타입을 함께 공개합니다.
+
+  | prop                            | 기본값  | 용도                                                                                     |
+  | ------------------------------- | ------- | ---------------------------------------------------------------------------------------- |
+  | `totalPages`                    | 필수    | 전체 페이지 수, `0`이면 렌더링하지 않음                                                  |
+  | `page`                          | 없음    | 제어 버튼 방식 또는 링크 방식의 현재 페이지                                              |
+  | `defaultPage`                   | `1`     | 비제어 버튼 방식의 초기 페이지                                                           |
+  | `onPageChange`                  | 없음    | 버튼 방식의 페이지 이동 콜백, 제어 방식에서는 필수                                       |
+  | `getPageHref`                   | 없음    | 링크 방식에서 페이지별 URL 생성                                                          |
+  | `linkAs`                        | `a`     | 링크 방식에서 사용할 `href`를 받는 라우팅 컴포넌트                                       |
+  | `visiblePageCount`              | `7`     | 이전과 다음을 제외한 최대 항목 수, 숫자와 말줄임 포함, `7`, `8`, `9`, `10`, `11` 중 선택 |
+  | `disabled`                      | `false` | 모든 페이지 이동 요소 비활성화, Tab 순서에서 제외                                        |
+  | `aria-label`, `aria-labelledby` | 없음    | 탐색 영역의 접근 가능한 이름, 함께 사용 불가, 페이지에 `nav`가 여러 개면 지정 권장       |
+
+  전체 페이지 수가 표시 개수보다 크면 연속된 페이지 번호와 말줄임을 표시합니다. 양쪽에 말줄임이 있는 구간을 처음 표시할 때 홀수 표시 개수는 현재 페이지를 중앙에 배치하고, 짝수 표시 개수는 오른쪽에 페이지 번호를 하나 더 배치합니다. 말줄임은 두 페이지 이상이 생략될 때만 표시합니다.
+
+  표시된 구간의 안쪽 페이지를 선택하면 구간을 유지하고, 양끝 페이지를 선택하면 표시 구간을 이동합니다. `page`나 `totalPages` 변경으로 현재 페이지가 표시 가능한 범위로 보정되어도 `onPageChange`를 호출하지 않습니다. `totalPages` 또는 `visiblePageCount`가 바뀌면 현재 페이지에 맞춰 표시 구간을 다시 배치합니다. 링크 방식에서 URL을 현재 페이지의 기준으로 쓰려면 소비처가 URL에서 페이지 값을 읽어 `page`로 전달합니다.
+
+  첫 페이지의 이전 이동 요소와 마지막 페이지의 다음 이동 요소는 포커스를 유지한 채 `aria-disabled`로 비활성 상태를 알리고, 눌러도 이동하지 않습니다.
+
+  ```tsx
+  import { useState } from "react";
+  import { Pagination } from "@jects/jds";
+
+  function ButtonPagination() {
+    const [page, setPage] = useState(1);
+
+    return (
+      <Pagination aria-label='페이지 이동' page={page} totalPages={10} onPageChange={setPage} />
+    );
+  }
+
+  function UncontrolledPagination() {
+    return <Pagination aria-label='페이지 이동' defaultPage={1} totalPages={10} />;
+  }
+
+  function LinkPagination({ page }: { page: number }) {
+    return (
+      <Pagination
+        aria-label='페이지 이동'
+        page={page}
+        totalPages={10}
+        getPageHref={targetPage => `?page=${targetPage}`}
+      />
+    );
+  }
+  ```
+
+### Patch Changes
+
+- d31ad83: **BlockButton**
+
+  `asChild`를 추가합니다. 전달한 자식 요소를 루트로 렌더링하므로 라우터의 `Link`에 BlockButton 스타일을 적용할 수 있습니다. 기존 코드는 수정 없이 동작합니다.
+  - `asChild` — 기본값 `false`, `true`면 자식 요소에 스타일과 props를 병합하고 `prefixIcon`, `suffixIcon`을 자식 안에 렌더링, `type`, `disabled` 속성은 렌더링하지 않음
+  - `asChild`와 `disabled`는 함께 사용 불가, 자식은 요소 하나만 전달
+
+  ```tsx
+  <BlockButton asChild suffixIcon='arrow-right'>
+    <Link href='/apply'>지원하기</Link>
+  </BlockButton>
+  ```
+
+- 8971b46: **Icon**
+
+  텍스트 편집, 멀티미디어, 내비게이션 아이콘 16개를 추가합니다. 기존 아이콘 이름과 동작은 그대로이며 소비처 수정은 필요 없습니다.
+
+  **추가**
+  - 텍스트 서식 — `bold`, `italic`, `underline`, `strikethrough`
+  - 제목 — `heading-1`, `heading-2`, `heading-3`, `heading-4`, `heading-5`, `heading-6`
+  - 정렬 — `text-align-justify-start`, `text-align-justify-center`, `text-align-justify-end`
+  - 기타 — `square-text`, `captions`, `map-pin`
+
+  **동작 변경 (코드 수정 불필요)**
+  - 기존 아이콘 일부의 path 좌표를 피그마 원본에 맞춰 0.001px 미만으로 조정, 눈에 보이는 차이 없음
+
+- d31ad83: **LabelButton**
+
+  `asChild`를 추가합니다. 전달한 자식 요소를 루트로 렌더링하므로 라우터의 `Link`에 LabelButton 스타일을 적용할 수 있습니다. 기존 코드는 수정 없이 동작합니다.
+  - `asChild` — 기본값 `false`, `true`면 자식 요소에 스타일과 props를 병합하고 `prefixIcon`, `suffixIcon`을 자식 안에 렌더링, `type`, `disabled` 속성은 렌더링하지 않음
+  - `asChild`와 `disabled`는 함께 사용 불가, 자식은 요소 하나만 전달
+
+  ```tsx
+  <LabelButton asChild suffixIcon='arrow-right'>
+    <Link href='/apply'>지원하기</Link>
+  </LabelButton>
+  ```
+
+- e2a712f: **Listbox**
+
+  목록 끝까지 스크롤한 뒤 휠을 계속 굴려도 페이지 등 바깥 스크롤 영역이 함께 스크롤되지 않습니다. Listbox를 사용하는 Select, MultiSelect, SelectField, MultiSelectField, SuggestionField에 함께 적용되며, 코드 수정은 필요 없습니다.
+
+- 2428dd7: **MultiSelectField**
+
+  Radix `Dialog` 기반 드로어에서 팝업 옵션 목록을 휠과 터치 드래그로 스크롤할 수 있습니다. 호출부 수정은 필요하지 않습니다.
+
+- 807fe21: **MultiSelect**
+
+  목록 컨테이너의 최대 높이를 지정하는 `maxHeight` prop을 추가합니다. 항목이 적으면 내용 높이에 맞춰 줄어들고, 넘치면 상한에서 내부 스크롤이 생깁니다. `"full"`을 넘기면 부모 높이를 상한으로 둡니다.
+  - `maxHeight?: "full" | string` — `"full"` 또는 CSS 길이 값
+
+- 2428dd7: **SelectField**
+
+  Radix `Dialog` 기반 드로어에서 팝업 옵션 목록을 휠과 터치 드래그로 스크롤할 수 있습니다. 호출부 수정은 필요하지 않습니다.
+
+- 807fe21: **Select**
+
+  목록 컨테이너의 최대 높이를 지정하는 `maxHeight` prop을 추가합니다. 항목이 적으면 내용 높이에 맞춰 줄어들고, 넘치면 상한에서 내부 스크롤이 생깁니다. `"full"`을 넘기면 부모 높이를 상한으로 둡니다.
+  - `maxHeight?: "full" | string` — `"full"` 또는 CSS 길이 값
+
+- 2428dd7: **SuggestionField**
+
+  Radix `Dialog` 기반 드로어에서 팝업 제안 목록을 휠과 터치 드래그로 스크롤할 수 있습니다. 호출부 수정은 필요하지 않습니다.
+
+- 6f9268c: `@jects/jds`와 `@jects/jds/hooks` 진입점 산출물 맨 위에 `"use client"` 지시어가 붙습니다. Next.js App Router의 서버 컴포넌트에서 `Button`, `Badge`처럼 이름 하나로 쓰는 컴포넌트를 직접 import해 렌더할 수 있습니다.
+
+  서버 컴포넌트에서 점으로 파트에 접근하는 compound 컴포넌트(`Tabs.Root`, `TextField.Input` 등)와 컴포넌트가 아닌 값(`dividerColorVar`, `formatFileSize`, `toastController`, `snackbarController`)은 쓸 수 없습니다. 이 경우 소비처의 `"use client"` 파일 안에서 사용합니다.
+  - `@jects/jds/tokens`, `@jects/jds/utils`, `@jects/jds/theme`은 지시어 없음, 서버 컴포넌트에서 그대로 사용 가능
+  - `formatFileSize`는 `@jects/jds/utils`에서 import하면 서버 컴포넌트에서 사용 가능
+  - Next.js가 아닌 환경은 지시어를 무시하므로 동작 변경 없음
+
+## 0.7.0
+
+### Minor Changes
+
+- 6fc7ae7: **Divider**
+
+  `variant="dashed"`의 대시가 6px 선, 6px 간격으로 그려집니다. 이전에는 브라우저가 대시 길이를 정했습니다. `DividerProps`가 `variant` 값에 따라 갈리는 유니온 타입이 되었고, 선이 `border`가 아닌 `background`로 그려집니다.
+
+  **소비처 영향 (코드 수정 필요)**
+
+  | AS-IS                                      | TO-BE                                      |
+  | ------------------------------------------ | ------------------------------------------ |
+  | `interface X extends DividerProps { ... }` | `type X = DividerProps & { ... }`          |
+  | `border`로 선 두께나 색을 덮어쓰기         | `thickness` prop, `dividerColorVar`로 지정 |
+
+  `DividerProps`를 확장하던 타입은 교차 타입으로 바꿉니다.
+
+  ```diff
+  -interface MyDividerProps extends DividerProps {
+  -  spacing?: number;
+  -}
+  +type MyDividerProps = DividerProps & {
+  +  spacing?: number;
+  +};
+  ```
+
+  `border`로 선을 덮어쓰던 스타일은 제거합니다. 기본 선을 대체하지 않고 겹쳐 그려지며, 요소 높이가 `thickness`만큼 늘어납니다.
+
+  ```diff
+  -<Divider className='border-t-2 border-red-500' />
+  +<Divider thickness='bold' />
+  ```
+
+  `dashLength`와 `dashGap`은 `variant="dashed"`를 함께 지정해야 쓸 수 있습니다.
+
+  **추가**
+  - `dashLength` — 점선 한 칸의 길이(px), 기본값 `6`, 최솟값 `1`
+  - `dashGap` — 점선 사이 간격(px), 지정하지 않으면 하한이 적용된 `dashLength`를 따라감, 최솟값 `1`
+
+  ```tsx
+  <Divider variant='dashed' />                             // 6 / 6
+  <Divider variant='dashed' dashLength={2} />              // 2 / 2
+  <Divider variant='dashed' dashLength={2} dashGap={6} />  // 2 / 6
+  ```
+
+  **동작 변경 (코드 수정 불필요)**
+  - 강제 색상 모드(`forced-colors: active`)에서 `dashLength`와 `dashGap`이 반영되지 않음, 브라우저가 정한 대시가 적용됨
+  - `dividerColorVar`로 색을 덮어쓰는 방식은 그대로 동작
+  - `orientation`, `thickness`, `variant`와 렌더 엘리먼트, `role`은 변경 없음
+
+- 09df977: `radix-ui`가 `dependencies`에서 `peerDependencies`로 이동했습니다. 소비처의 `package.json`에 `radix-ui`를 `^1.6.7` 범위로 직접 추가해야 합니다.
+
+  ```diff
+    "dependencies": {
+  +   "radix-ui": "^1.6.7"
+    }
+  ```
+
+  JDS 공개 API와 사용 방법은 동일합니다.
+
+### Patch Changes
+
+- 404ef12: **Accordion**
+
+  Radix UI 참조를 `radix-ui` 통합 패키지로 변경합니다. 공개 API, 렌더링 구조와 동작은 변경되지 않습니다.
+
+- 1ffb35f: **Listbox**
+
+  내부 프리미티브인 `Listbox`에 표면을 그리지 않는 `surface` 옵션을 추가했습니다. `Listbox`는 배럴에 공개되지 않으므로 소비처에서 직접 사용할 수 없습니다.
+
+  `Select`, `MultiSelect`, `SelectField`, `MultiSelectField`, `SuggestionField`는 기본값을 사용하므로 렌더 결과가 바뀌지 않습니다.
+
+- 60370aa: **Menu (Menu.Anchor / DropdownMenu.Anchor)**
+
+  `Menu.Anchor`와 `DropdownMenu.Anchor`에 `asChild` prop을 추가했습니다. `asChild`를 사용하면 Next.js의 `Link`나 React Router의 `Link` 같은 라우팅 컴포넌트를 메뉴 항목의 루트 요소로 사용할 수 있습니다. `asChild`를 사용하지 않고 `href`를 직접 전달하는 방식도 계속 지원합니다.
+
+  **추가**
+  - `asChild` (`false`) — 자식 라우팅 컴포넌트를 메뉴 앵커의 루트 요소로 합성
+  - `asChild` 사용 시 단일 React 요소를 `children`으로 전달, `disabled`와 동시 사용 불가
+
+  ```tsx
+  import NextLink from "next/link";
+
+  <Menu.Anchor asChild>
+    <NextLink href='/mypage'>마이페이지</NextLink>
+  </Menu.Anchor>;
+  ```
+
+  **동작 변경 (코드 수정 불필요)**
+  - `disabled`인 `Menu.Anchor`, `DropdownMenu.Anchor`의 `href` 제거, 각각 `link`, `menuitem` 역할 유지, 키보드 포커스와 클릭 핸들러 호출 차단
+
+- 404ef12: **SegmentedControls**
+
+  Radix UI 타입 참조를 `radix-ui` 통합 패키지로 변경합니다. 공개 props 타입과 컴포넌트 동작은 변경되지 않습니다.
+
+- 09be450: `radix-ui` 의존성을 `1.6.7`로 업데이트했습니다. 기존 JDS 공개 API와 사용 방법은 동일합니다.
+
 ## 0.6.0
 
 ### Minor Changes
