@@ -1,5 +1,7 @@
 # JECT-Official-WebSite-Client
 
+JECT 디자인 시스템(JDS)을 개발하고 배포하는 npm workspaces + Turborepo 모노레포다. 디자인 시스템 패키지는 `packages/jds`에 있으며 npm에 `@jects/jds`로 배포된다.
+
 ## 코드 스타일
 
 포맷은 Prettier, 린트는 ESLint가 담당한다. Prettier는 저장소 루트에서 한 번만 실행되며 대상 제외는 루트 `.prettierignore`가 관리한다.
