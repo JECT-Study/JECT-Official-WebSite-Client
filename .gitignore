@@ -41,10 +41,6 @@ storybook-static/
 .env.test.local
 .env.production.local
 
-# Sentry Config File
-.env.sentry-build-plugin
-.sentryclirc
-
 # Turborepo
 .turbo/
 turbo-*.log
@@ -54,10 +50,6 @@ turbo-*.log
 tsconfig.tsbuildinfo
 
 # Workspace specific builds
-apps/*/dist
-apps/*/build
-apps/*/.turbo
-apps/*/.next
 packages/*/dist
 packages/*/build
 packages/*/.turbo
