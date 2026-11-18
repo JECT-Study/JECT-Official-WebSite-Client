@@ -29,7 +29,7 @@
 ```bash
 nvm use
 npm install
-npm run storybook:jds
+npm run storybook
 ```
 
 Storybook은 6006번 포트를 사용합니다. `pnpm`, `yarn`, `bun`은 사용하지 않습니다.
@@ -38,18 +38,18 @@ Storybook은 6006번 포트를 사용합니다. `pnpm`, `yarn`, `bun`은 사용�
 
 루트에서 실행하면 Turborepo가 각 워크스페이스로 전달합니다.
 
-| 명령                    | 설명                              |
-| ----------------------- | --------------------------------- |
-| `npm run dev`           | 감시 모드 빌드                    |
-| `npm run build`         | 프로덕션 빌드                     |
-| `npm run storybook:jds` | JDS Storybook 실행                |
-| `npm run lint`          | ESLint 검사 (경고도 실패)         |
-| `npm run lint:fix`      | ESLint 자동 수정                  |
-| `npm run type-check`    | 타입 검사                         |
-| `npm run format`        | Prettier 적용                     |
-| `npm run format:check`  | Prettier 검사 (수정 없음)         |
-| `npm run changeset`     | 체인지셋 추가                     |
-| `npm run clean`         | 빌드 산출물과 `node_modules` 제거 |
+| 명령                   | 설명                              |
+| ---------------------- | --------------------------------- |
+| `npm run dev`          | 감시 모드 빌드                    |
+| `npm run build`        | 프로덕션 빌드                     |
+| `npm run storybook`    | Storybook 실행                    |
+| `npm run lint`         | ESLint 검사 (경고도 실패)         |
+| `npm run lint:fix`     | ESLint 자동 수정                  |
+| `npm run type-check`   | 타입 검사                         |
+| `npm run format`       | Prettier 적용                     |
+| `npm run format:check` | Prettier 검사 (수정 없음)         |
+| `npm run changeset`    | 체인지셋 추가                     |
+| `npm run clean`        | 빌드 산출물과 `node_modules` 제거 |
 
 시각 회귀 테스트를 로컬에서 실행하려면 Docker가 필요합니다. 자세한 내용은 [packages/vrt/README.md](./packages/vrt/README.md)를 참고합니다.
 
