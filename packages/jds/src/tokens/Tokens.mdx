@@ -6,7 +6,7 @@ import { Meta } from "@storybook/addon-docs/blocks";
 
 ## 토큰 개요
 
-JDS 디자인 토큰은 Figma 디자인 변수를 기반으로 생성됩니다.
+JDS 디자인 토큰은 Figma의 Variables와 Text Styles를 기반으로 생성됩니다.
 
 색상, 간격, 크기, typography 등의 값은 CSS 변수로 제공되며, vanilla-extract 스타일에서 `vars`와 `textStyles`를 통해 타입 안전하게 사용할 수 있습니다. Figma의 이름과 구조를 가능한 한 유지하지만, 코드에서 사용하기 적합하도록 객체 경로와 속성명이 정규화됩니다. TextStyle은 별도의 생성 과정을 거쳐 vanilla-extract의 `StyleRule` 객체로 제공됩니다.
 
@@ -436,7 +436,7 @@ Collection 폴더는 Figma collection 이름을 그대로 따르며, 각 collect
 - `colorSemantic`: `light`, `dark`
 - `scheme`, `typography`: `1200+`, `768-1199`, `320-767` → 각각 Desktop, Tablet, Mobile 값으로 사용
 
-Typography 조합은 Figma Variables가 아닌 Text Styles에서 가져옵니다. 토큰 동기화 플러그인은 Variables만 내보내므로 `textStyles.json`은 별도로 관리합니다.
+Typography 조합은 Figma Variables가 아닌 Text Styles에서 가져오며, `textStyles.json`으로 관리합니다.
 
 `figmaTokens.ts`는 Variables 입력 파일을 읽어 `{group.token}` 형태의 참조를 실제 값으로 풀고, `schema.ts`가 검증할 수 있는 형태로 정리합니다. 빌드하면 입력 파일도 다시 저장되며, 이때 파일 최상위의 mode 이름을 제외한 `$extensions`는 모두 제거됩니다.
 
