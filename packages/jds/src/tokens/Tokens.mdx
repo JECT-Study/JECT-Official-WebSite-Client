@@ -428,17 +428,17 @@ textStyles.ts
 breakpoints.ts
 ```
 
-Figma Variables 입력은 DTCG 형식의 JSON입니다. collection마다 폴더 하나, mode마다 `*.tokens.json` 파일 하나를 둡니다. mode는 파일명이 아니라 파일 안의 `$extensions["com.figma.modeName"]` 값으로 구분합니다.
+Figma Variables 입력은 DTCG 형식의 JSON입니다. Collection마다 폴더 하나, mode마다 `*.tokens.json` 파일 하나를 둡니다. Mode는 파일명이 아니라 파일 안의 `$extensions["com.figma.modeName"]` 값으로 구분합니다.
 
-`figmaTokens.ts`는 이 파일들을 읽어 `{group.token}` 형태의 참조를 실제 값으로 풀고, `schema.ts`가 검증할 수 있는 형태로 정리합니다. 빌드할 때 입력 파일은 파일 최상위의 mode 이름을 제외한 `$extensions`가 모두 제거된 형태로 다시 저장됩니다.
-
-collection 폴더는 Figma collection 이름을 그대로 따르며, `colorPrimitive`, `colorSemantic`, `scheme`, `typography`, `environment` 다섯 개입니다. 각 collection의 mode는 다음과 같습니다.
+Collection 폴더는 Figma collection 이름을 그대로 따르며, 각 collection의 mode는 다음과 같습니다.
 
 - `colorPrimitive`, `environment`: `value`
 - `colorSemantic`: `light`, `dark`
 - `scheme`, `typography`: `1200+`, `768-1199`, `320-767` → 각각 Desktop, Tablet, Mobile 값으로 사용
 
-`textStyles.json`은 typography 조합을 별도로 관리합니다.
+Typography 조합은 Figma Variables가 아닌 Text Styles에서 가져오므로 `textStyles.json`에서 별도로 관리합니다.
+
+`figmaTokens.ts`는 Variables 입력 파일을 읽어 `{group.token}` 형태의 참조를 실제 값으로 풀고, `schema.ts`가 검증할 수 있는 형태로 정리합니다. 빌드하면 입력 파일도 다시 저장되며, 이때 파일 최상위의 mode 이름을 제외한 `$extensions`는 모두 제거됩니다.
 
 ### 생성 파일과 역할
 
@@ -464,8 +464,16 @@ Collection 이름은 생성 과정에서 다음과 같이 `vars`의 코드 names
 - Figma: `semantic/accent/normal` → Code: `vars.color.semantic.accent.normal`
 - Figma: `semantic/spacing/4` → Code: `vars.scheme.semantic.spacing["4"]`
 - Figma: `primitive/flow/500` → Code: `vars.colorPrimitive.primitive.flow["500"]`
-- Figma: `primitive/font-size/body/md` → Code: `vars.typo.primitive.fontSize.body.md`
+- Figma: `primitive/typeface/body` → Code: `vars.typo.primitive.typeface.body`
 - Figma: `semantic/duration/100` → Code: `vars.environment.semantic.duration["100"]`
+
+다음 이름은 이 규칙과 다르게 변환됩니다.
+
+- `font/size`, `font/weight`, `stroke/weight`는 한 단계로 합쳐져 `fontSize`, `fontWeight`, `strokeWeight`가 됩니다.
+  - Figma: `primitive/font/size/body/md` → Code: `vars.typo.primitive.fontSize.body.md`
+- camelCase 이름은 단어마다 나뉘어 중첩 경로가 됩니다. 단, `lineHeight`와 `letterSpacing`은 이름을 그대로 유지합니다.
+  - Figma: `semantic/object/staticInverse/bold` → Code: `vars.color.semantic.object.static.inverse.bold`
+  - Figma: `primitive/font/lineHeight/body/md` → Code: `vars.typo.primitive.font.lineHeight.body.md`
 
 Semantic color는 Figma에 Light와 Dark 값이 각각 존재하지만 코드에서는 동일한 `vars.color.semantic` 경로를 사용합니다. 실제 색상은 `:root`와 `[data-theme="dark"]`에 할당된 CSS 변수로 결정됩니다.
 
