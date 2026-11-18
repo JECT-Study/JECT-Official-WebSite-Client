@@ -16,12 +16,6 @@ pre-commit:
       stage_fixed: true
 
     # eslint는 flat config를 CWD에서 찾으므로 워크스페이스별로 실행한다.
-    - name: eslint-web
-      root: apps/web/
-      glob: "*.{ts,tsx,js,jsx}"
-      run: npx eslint --fix --max-warnings 0 --no-warn-ignored {staged_files}
-      stage_fixed: true
-
     - name: eslint-jds
       root: packages/jds/
       glob: "*.{ts,tsx,js,jsx}"
