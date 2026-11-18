@@ -410,11 +410,11 @@ JDS 토큰은 Figma에서 추출한 데이터를 기반으로 생성됩니다. F
 
 ```text
 Figma Variables
-        ↓
+        ↓ 토큰 동기화 플러그인
 src/tokens/input/{collection}/{mode}.tokens.json
 
 Figma Text Styles
-        ↓
+        ↓ 별도 추출
 src/tokens/input/textStyles.json
 
 입력 파일
@@ -436,7 +436,7 @@ Collection 폴더는 Figma collection 이름을 그대로 따르며, 각 collect
 - `colorSemantic`: `light`, `dark`
 - `scheme`, `typography`: `1200+`, `768-1199`, `320-767` → 각각 Desktop, Tablet, Mobile 값으로 사용
 
-Typography 조합은 Figma Variables가 아닌 Text Styles에서 가져오므로 `textStyles.json`에서 별도로 관리합니다.
+Typography 조합은 Figma Variables가 아닌 Text Styles에서 가져옵니다. 토큰 동기화 플러그인은 Variables만 내보내므로 `textStyles.json`은 별도로 관리합니다.
 
 `figmaTokens.ts`는 Variables 입력 파일을 읽어 `{group.token}` 형태의 참조를 실제 값으로 풀고, `schema.ts`가 검증할 수 있는 형태로 정리합니다. 빌드하면 입력 파일도 다시 저장되며, 이때 파일 최상위의 mode 이름을 제외한 `$extensions`는 모두 제거됩니다.
 
@@ -479,7 +479,9 @@ Semantic color는 Figma에 Light와 Dark 값이 각각 존재하지만 코드에
 
 ### TextStyle 입력 → textStyles 생성
 
-TextStyle은 Figma Variables collection이 아니라 `input/textStyles.json`에서 별도로 관리합니다. 빌더는 token 이름의 category, size, weight를 기준으로 중첩된 `textStyles` 객체를 생성합니다.
+TextStyle은 Figma Variables collection이 아니라 `input/textStyles.json`에서 별도로 관리합니다. 토큰 동기화 플러그인은 이 파일을 내보내지 않으므로, Figma Text Styles가 바뀌면 Figma에서 다시 추출해 `textStyles.json`을 교체한 뒤 아래 토큰 재생성 방법으로 생성물을 갱신합니다.
+
+빌더는 token 이름의 category, size, weight를 기준으로 중첩된 `textStyles` 객체를 생성합니다.
 
 - 입력: `semantic-textstyle-title-6` → 생성: `textStyles.title["6"]`
 - 입력: `semantic-textstyle-label-md-bold` → 생성: `textStyles.label.md.bold`
