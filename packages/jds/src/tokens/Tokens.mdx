@@ -490,13 +490,19 @@ TextStyle은 Figma Variables collection이 아니라 `input/textStyles.json`에�
 
 ### 토큰 재생성
 
-`input/token.json` 또는 `input/textStyles.json`을 변경한 뒤 다음 명령으로 토큰을 다시 생성합니다.
+Figma Variables의 변경은 다음 순서로 코드에 반영됩니다.
+
+1. Figma에서 토큰 동기화 플러그인(`packages/figma-token-sync`)을 실행해 선택한 collection을 DTCG 파일로 내보냅니다. 플러그인은 파일을 동기화 브랜치에 커밋 하나로 올리고, base 브랜치를 향한 PR을 만들거나 이미 열린 PR을 갱신합니다.
+2. PR에서 `src/tokens/input/` 아래 파일이 바뀌면 Token Build 워크플로가 `build:tokens`를 실행하고, 생성물과 체인지셋(`.changeset/figma-token-sync-{PR 번호}.md`)을 PR 브랜치에 커밋합니다. 체인지셋은 제거된 토큰이 있으면 `minor`, 없으면 `patch`로 작성됩니다.
+3. 같은 워크플로가 `vars`와 `textStyles`의 추가, 제거, 값 변경 개수를 정리한 토큰 계약 변경 코멘트를 PR에 남깁니다.
+
+입력 파일을 직접 수정했거나 로컬에서 결과를 미리 확인하려면 다음 명령으로 토큰을 생성합니다.
 
 ```bash
 npm run build:tokens --workspace=@jects/jds
 ```
 
-생성 후에는 예상한 파일만 변경되었는지, 기존 `vars`와 `textStyles` 경로가 유지되는지 확인하고 Storybook, type-check, lint로 결과를 검증합니다. 생성 파일은 직접 수정하지 않습니다.
+생성물이 바뀌면 예상한 파일만 변경되었는지, 기존 `vars`와 `textStyles` 경로가 유지되는지 확인하고 Storybook, type-check, lint로 결과를 검증합니다. 제거된 토큰이 있으면 소비처 코드가 깨질 수 있으므로 의도한 변경인지 확인합니다. 생성 파일은 직접 수정하지 않습니다.
 
 ## ⚠️ 사용 시 주의사항
 
