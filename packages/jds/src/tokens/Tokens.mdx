@@ -432,7 +432,13 @@ Figma Variables 입력은 DTCG 형식의 JSON입니다. collection마다 폴더 
 
 `figmaTokens.ts`는 이 파일들을 읽어 `{group.token}` 형태의 참조를 실제 값으로 풀고, `schema.ts`가 검증할 수 있는 형태로 정리합니다. 빌드할 때 입력 파일은 파일 최상위의 mode 이름을 제외한 `$extensions`가 모두 제거된 형태로 다시 저장됩니다.
 
-최상위 collection은 `color-primitive`, `color-semantic`, `scheme`, `typography`, `environment`입니다. `textStyles.json`은 typography 조합을 별도로 관리합니다.
+collection 폴더는 Figma collection 이름을 그대로 따르며, `colorPrimitive`, `colorSemantic`, `scheme`, `typography`, `environment` 다섯 개입니다. 각 collection의 mode는 다음과 같습니다.
+
+- `colorPrimitive`, `environment`: `value`
+- `colorSemantic`: `light`, `dark`
+- `scheme`, `typography`: `1200+`, `768-1199`, `320-767` → 각각 Desktop, Tablet, Mobile 값으로 사용
+
+`textStyles.json`은 typography 조합을 별도로 관리합니다.
 
 ### 생성 파일과 역할
 
@@ -447,8 +453,8 @@ Figma Variables 입력은 DTCG 형식의 JSON입니다. collection마다 폴더 
 
 Collection 이름은 생성 과정에서 다음과 같이 `vars`의 코드 namespace로 정규화됩니다.
 
-- `color-primitive` → `vars.colorPrimitive`
-- `color-semantic` → `vars.color`
+- `colorPrimitive` → `vars.colorPrimitive`
+- `colorSemantic` → `vars.color`
 - `scheme` → `vars.scheme`
 - `typography` → `vars.typo`
 - `environment` → `vars.environment`
