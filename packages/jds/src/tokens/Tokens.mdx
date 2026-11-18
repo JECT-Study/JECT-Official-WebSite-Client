@@ -477,6 +477,8 @@ Collection 이름은 생성 과정에서 다음과 같이 `vars`의 코드 names
 
 Semantic color는 Figma에 Light와 Dark 값이 각각 존재하지만 코드에서는 동일한 `vars.color.semantic` 경로를 사용합니다. 실제 색상은 `:root`와 `[data-theme="dark"]`에 할당된 CSS 변수로 결정됩니다.
 
+`vars.environment.semantic.shadow`와 `vars.environment.semantic.zIndex`는 Figma Variables에 없는 토큰으로, `tokensBuilder.ts`가 빌드할 때 직접 추가합니다. Shadow는 `vars.scheme.semantic.radius`와 `vars.colorPrimitive.primitive.shade` 토큰을 조합한 값입니다. Shadow와 zIndex의 값을 바꾸려면 Figma가 아니라 `tokensBuilder.ts`를 수정한 뒤 로컬에서 토큰을 다시 생성합니다. Token Build 워크플로는 `src/tokens/input/` 아래 파일이 바뀔 때만 실행됩니다.
+
 ### TextStyle 입력 → textStyles 생성
 
 TextStyle은 Figma Variables collection이 아니라 `input/textStyles.json`에서 별도로 관리합니다. 토큰 동기화 플러그인은 이 파일을 내보내지 않으므로, Figma Text Styles가 바뀌면 Figma에서 다시 추출해 `textStyles.json`을 교체한 뒤 아래 토큰 재생성 방법으로 생성물을 갱신합니다.
