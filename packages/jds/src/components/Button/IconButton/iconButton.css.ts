@@ -32,7 +32,7 @@ const baseStyles = style({
   flexShrink: 0,
   boxSizing: "content-box",
   selectors: {
-    "&[data-disabled]": { cursor: "not-allowed" },
+    "&:disabled, &[data-disabled]": { cursor: "not-allowed" },
   },
 });
 
@@ -42,7 +42,7 @@ const neutralHierarchy = (color: string) => ({
     [overlayColor]: vars.color.semantic.object.neutral,
   },
   selectors: {
-    "&[data-disabled]": {
+    "&:disabled, &[data-disabled]": {
       vars: { [iconButtonIconColor]: vars.color.semantic.object.subtle },
     },
   },
@@ -152,7 +152,7 @@ export const root = recipe({
           [overlayColor]: fallbackVar(iconButtonAccentColor, vars.color.semantic.accent.normal),
         },
         selectors: {
-          "&[data-disabled]": {
+          "&:disabled, &[data-disabled]": {
             vars: {
               [iconButtonIconColor]: fallbackVar(
                 iconButtonAccentDisabledColor,

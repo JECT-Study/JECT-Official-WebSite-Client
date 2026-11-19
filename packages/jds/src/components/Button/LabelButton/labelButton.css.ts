@@ -92,7 +92,7 @@ const baseStyles = style({
   textDecoration: "none",
   whiteSpace: "nowrap",
   selectors: {
-    "&[data-disabled]": { cursor: "not-allowed" },
+    "&:disabled, &[data-disabled]": { cursor: "not-allowed" },
   },
 });
 
@@ -100,7 +100,7 @@ const colorVariant = ({ overlayColor: oc, color }: LabelButtonPalette): StyleRul
   color,
   vars: { [overlayColor]: oc },
   selectors: {
-    "&[data-disabled]": { color: vars.color.semantic.object.subtler },
+    "&:disabled, &[data-disabled]": { color: vars.color.semantic.object.subtler },
   },
 });
 
