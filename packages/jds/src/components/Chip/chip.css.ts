@@ -1,7 +1,14 @@
-import { createVar, style } from "@vanilla-extract/css";
+import { createVar, style, type StyleRule } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
-import { focusRing, overlay, overlayColor, overlayColorMap, pxToRem } from "utils";
+import {
+  DELEGATED_TARGET_DISABLED,
+  focusRing,
+  overlay,
+  overlayColor,
+  overlayColorMap,
+  pxToRem,
+} from "utils";
 
 import {
   iconButtonAccentColor,
@@ -14,6 +21,16 @@ const chipColorVars = {
   border: createVar(),
   background: createVar(),
 } as const;
+
+const disabledStyle = {
+  cursor: "not-allowed",
+  vars: {
+    [chipColorVars.label]: vars.color.semantic.object.subtler,
+    [chipColorVars.icon]: vars.color.semantic.object.subtler,
+    [chipColorVars.border]: vars.color.semantic.stroke.alpha.subtler,
+    [chipColorVars.background]: "transparent",
+  },
+} satisfies StyleRule;
 
 export const root = recipe({
   base: [
@@ -51,6 +68,8 @@ export const root = recipe({
           inset: 0,
           borderRadius: "inherit",
         },
+        // prop 없이 <fieldset disabled>로 비활성이 된 경우. activated보다 우선한다.
+        [`&${DELEGATED_TARGET_DISABLED}`]: disabledStyle,
       },
     },
   ],
@@ -67,15 +86,7 @@ export const root = recipe({
       },
     },
     disabled: {
-      true: {
-        cursor: "not-allowed",
-        vars: {
-          [chipColorVars.label]: vars.color.semantic.object.subtler,
-          [chipColorVars.icon]: vars.color.semantic.object.subtler,
-          [chipColorVars.border]: vars.color.semantic.stroke.alpha.subtler,
-          [chipColorVars.background]: "transparent",
-        },
-      },
+      true: disabledStyle,
       false: {
         cursor: "pointer",
       },

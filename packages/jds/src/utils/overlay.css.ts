@@ -25,6 +25,12 @@ export const overlayOpacityMap = {
   },
 } satisfies Record<OverlayDensity, { hover: string; pressed: string }>;
 
+/**
+ * `delegated` 구조의 root가 내부 버튼의 비활성 상태를 읽는 선택자.
+ * `<fieldset disabled>`처럼 prop 밖에서 비활성이 되면 root에는 `data-disabled`가 붙지 않으므로 함께 확인한다.
+ */
+export const DELEGATED_TARGET_DISABLED = ":has(> [data-interaction-target]:disabled)";
+
 /** overlay의 color. hierarchy에 따라 정해지고, 필요하면 직접 덮어쓴다. */
 export const overlayColor = createVar();
 
@@ -38,6 +44,7 @@ export const overlayPressedOpacity = createVar();
  * hover는 언제나 요소 자신의 `:hover`를 쓰고, press는 `interaction`으로 어느 요소에서 읽을지 정한다.
  * `self`는 자신의 `:active`를, `delegated`는 직계 자식 `[data-interaction-target]`의 `:active`를 읽는다.
  * 요소의 `position: relative`와 `::after`의 inset, borderRadius는 호출부가 지정한다. disabled 상태는 `data-disabled`로 표시한다.
+ * `delegated`는 내부 버튼이 `:disabled`일 때도 hover를 막는다.
  *
  * @see ./PSEUDO_ELEMENT_POLICY.md
  * @example overlay({ hierarchy: "secondary", interaction: "delegated" })
@@ -109,9 +116,10 @@ export const overlay = recipe({
         "@media": {
           "(hover: hover) and (pointer: fine)": {
             selectors: {
-              "&:hover:not(:disabled):not([data-disabled])::after": {
-                opacity: fallbackVar(overlayHoverOpacity, overlayOpacityMap.bold.hover),
-              },
+              [`&:hover:not(:disabled):not([data-disabled]):not(${DELEGATED_TARGET_DISABLED})::after`]:
+                {
+                  opacity: fallbackVar(overlayHoverOpacity, overlayOpacityMap.bold.hover),
+                },
               "&:not([data-disabled]):has(> [data-interaction-target]:active)::after": {
                 opacity: fallbackVar(overlayPressedOpacity, overlayOpacityMap.bold.pressed),
                 transition: "none",
