@@ -12,8 +12,9 @@ const getAbsolutePath = (value: string): string =>
   dirname(require.resolve(join(value, "package.json")));
 
 const config: StorybookConfig = {
-  // src/tokens의 Token Usage / Usage Guide는 Emotion 기준으로 작성되어 있어 재작성 전까지 제외한다.
   stories: [
+    "../src/tokens/**/*.mdx",
+    "../src/tokens/**/*.stories.@(js|jsx|mjs|ts|tsx)",
     "../src/guides/**/*.mdx",
     "../src/components/**/*.mdx",
     "../src/components/**/*.stories.@(js|jsx|mjs|ts|tsx)",
