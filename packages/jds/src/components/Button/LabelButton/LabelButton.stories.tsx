@@ -106,6 +106,27 @@ export const LabelButtonDisabled: Story = {
   ),
 };
 
+export const LabelButtonFieldsetDisabled: Story = {
+  render: () => (
+    <fieldset disabled style={{ margin: 0, padding: 0, border: 0, minWidth: 0 }}>
+      <FlexRow>
+        {LABEL_BUTTON_HIERARCHY_OPTIONS.map(hierarchy => (
+          <LabelButton key={hierarchy} hierarchy={hierarchy}>
+            레이블
+          </LabelButton>
+        ))}
+      </FlexRow>
+    </fieldset>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: "`<fieldset disabled>` 안에 두면 `disabled`를 지정하지 않아도 비활성 상태가 됩니다.",
+      },
+    },
+  },
+};
+
 export const LabelButtonWithIcons: Story = {
   render: () => (
     <FlexRow>

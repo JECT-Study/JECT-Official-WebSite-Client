@@ -126,6 +126,27 @@ export const BlockButtonDisabled: Story = {
   ),
 };
 
+export const BlockButtonFieldsetDisabled: Story = {
+  render: () => (
+    <fieldset disabled style={{ margin: 0, padding: 0, border: 0, minWidth: 0 }}>
+      <FlexRow>
+        {BLOCK_BUTTON_VARIANT_OPTIONS.map(variant => (
+          <BlockButton key={variant} variant={variant}>
+            레이블
+          </BlockButton>
+        ))}
+      </FlexRow>
+    </fieldset>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: "`<fieldset disabled>` 안에 두면 `disabled`를 지정하지 않아도 비활성 상태가 됩니다.",
+      },
+    },
+  },
+};
+
 export const BlockButtonWithIcons: Story = {
   render: () => (
     <FlexRow>
