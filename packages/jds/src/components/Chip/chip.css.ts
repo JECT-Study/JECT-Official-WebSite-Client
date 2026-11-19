@@ -1,19 +1,14 @@
 import { createVar, style, type StyleRule } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
-import {
-  DELEGATED_TARGET_DISABLED,
-  focusRing,
-  overlay,
-  overlayColor,
-  overlayColorMap,
-  pxToRem,
-} from "utils";
+import { focusRing, overlay, overlayColor, overlayColorMap, pxToRem } from "utils";
 
 import {
   iconButtonAccentColor,
   iconButtonAccentDisabledColor,
 } from "../Button/IconButton/iconButton.css";
+
+import { interactionTargetDisabledSelector } from "@/utils/interactionTarget";
 
 const chipColorVars = {
   label: createVar(),
@@ -69,7 +64,7 @@ export const root = recipe({
           borderRadius: "inherit",
         },
         // prop 없이 <fieldset disabled>로 비활성이 된 경우. activated보다 우선한다.
-        [`&${DELEGATED_TARGET_DISABLED}`]: disabledStyle,
+        [`&${interactionTargetDisabledSelector}`]: disabledStyle,
       },
     },
   ],

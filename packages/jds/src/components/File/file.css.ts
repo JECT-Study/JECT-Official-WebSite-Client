@@ -3,12 +3,8 @@ import { vars } from "tokens";
 import { pxToRem } from "utils";
 
 import { focusRing } from "@/utils/focusRing.css";
-import {
-  DELEGATED_TARGET_DISABLED,
-  overlay,
-  overlayHoverOpacity,
-  overlayPressedOpacity,
-} from "@/utils/overlay.css";
+import { interactionTargetDisabledSelector } from "@/utils/interactionTarget";
+import { overlay, overlayHoverOpacity, overlayPressedOpacity } from "@/utils/overlay.css";
 
 const LAYER_INSET = `${pxToRem(-6)} ${pxToRem(-8)}`;
 const LAYER_RADIUS = vars.scheme.semantic.radius["6"];
@@ -35,7 +31,7 @@ export const root = style([
         },
       },
       // prop 없이 <fieldset disabled>로 비활성이 되면 interactive 클래스가 붙어 있으므로 커서를 덮어쓴다.
-      [`&${DELEGATED_TARGET_DISABLED}`]: {
+      [`&${interactionTargetDisabledSelector}`]: {
         cursor: "not-allowed",
       },
     },
@@ -43,7 +39,7 @@ export const root = style([
 ]);
 
 // disabled prop과 <fieldset disabled>로 비활성이 된 경우를 모두 잡는다.
-const disabledRootDescendant = `${root}[data-disabled] &, ${root}${DELEGATED_TARGET_DISABLED} &`;
+const disabledRootDescendant = `${root}[data-disabled] &, ${root}${interactionTargetDisabledSelector} &`;
 
 export const mainAction = style({
   display: "flex",
@@ -115,7 +111,7 @@ export const fileName = style({
   "@media": {
     "(hover: hover) and (pointer: fine)": {
       selectors: {
-        [`${root}:hover:not([data-readonly]):not([data-disabled]):not(${DELEGATED_TARGET_DISABLED}) &`]:
+        [`${root}:hover:not([data-readonly]):not([data-disabled]):not(${interactionTargetDisabledSelector}) &`]:
           {
             textDecorationColor: "currentColor",
           },

@@ -1,6 +1,7 @@
 import { createVar, fallbackVar, type StyleRule } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
+import { interactionTargetDisabledSelector, interactionTargetSelector } from "./interactionTarget";
 import { vars } from "../tokens/vars.css";
 
 export type OverlayDensity = "normal" | "bold";
@@ -24,12 +25,6 @@ export const overlayOpacityMap = {
     pressed: `calc(${vars.scheme.semantic.opacity["12"]} / 100)`,
   },
 } satisfies Record<OverlayDensity, { hover: string; pressed: string }>;
-
-/**
- * `delegated` 구조의 root가 내부 버튼의 비활성 상태를 읽는 선택자.
- * `<fieldset disabled>`처럼 prop 밖에서 비활성이 되면 root에는 `data-disabled`가 붙지 않으므로 함께 확인한다.
- */
-export const DELEGATED_TARGET_DISABLED = ":has(> [data-interaction-target]:disabled)";
 
 /** overlay의 color. hierarchy에 따라 정해지고, 필요하면 직접 덮어쓴다. */
 export const overlayColor = createVar();
@@ -108,7 +103,7 @@ export const overlay = recipe({
       },
       delegated: {
         selectors: {
-          "&:not([data-disabled]):has(> [data-interaction-target]:active)::after": {
+          [`&:not([data-disabled]):has(> ${interactionTargetSelector}:active)::after`]: {
             opacity: fallbackVar(overlayPressedOpacity, overlayOpacityMap.bold.pressed),
             transition: "none",
           },
@@ -116,11 +111,11 @@ export const overlay = recipe({
         "@media": {
           "(hover: hover) and (pointer: fine)": {
             selectors: {
-              [`&:hover:not(:disabled):not([data-disabled]):not(${DELEGATED_TARGET_DISABLED})::after`]:
+              [`&:hover:not(:disabled):not([data-disabled]):not(${interactionTargetDisabledSelector})::after`]:
                 {
                   opacity: fallbackVar(overlayHoverOpacity, overlayOpacityMap.bold.hover),
                 },
-              "&:not([data-disabled]):has(> [data-interaction-target]:active)::after": {
+              [`&:not([data-disabled]):has(> ${interactionTargetSelector}:active)::after`]: {
                 opacity: fallbackVar(overlayPressedOpacity, overlayOpacityMap.bold.pressed),
                 transition: "none",
               },

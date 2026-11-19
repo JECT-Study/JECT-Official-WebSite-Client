@@ -93,7 +93,7 @@ style([
 
 - `data-interaction-target`은 root의 직계 자식 한 요소에만 부여한다. 그 요소는 자기 overlay와 focusRing을 갖지 않는다. root가 이미 그리므로 레이어가 두 번 겹치기 때문이다. `delegated` 선택자가 `:has(> ...)`로 직계 자식만 보므로 더 깊은 곳에 같은 속성이 있어도 root는 반응하지 않는다. body가 `ReactNode`인 Dialog처럼 children이 열린 컴포넌트에서 소비처가 넣은 File, Chip이 root 정책을 깨는 것을 막는다.
 - 내부 버튼에 native `disabled`와 `pointer-events: none`이 걸리면 `:has()`가 매치되지 않아 press와 focus가 자동으로 꺼진다. root의 `data-disabled`는 이 경우를 대비한 방어 장치다.
-- hover는 root 자신의 상태라 내부 버튼이 비활성이어도 저절로 꺼지지 않는다. `<fieldset disabled>`는 폼 컨트롤만 비활성화하므로 root `<div>`에는 `:disabled`도 `data-disabled`도 걸리지 않는다. 그래서 `delegated`의 hover는 `DELEGATED_TARGET_DISABLED`(`:has(> [data-interaction-target]:disabled)`)로 내부 버튼의 비활성도 확인한다. 컴포넌트의 비활성 색과 커서도 `[data-disabled]`와 이 선택자를 함께 쓴다.
+- hover는 root 자신의 상태라 내부 버튼이 비활성이어도 저절로 꺼지지 않는다. `<fieldset disabled>`는 폼 컨트롤만 비활성화하므로 root `<div>`에는 `:disabled`도 `data-disabled`도 걸리지 않는다. 그래서 `delegated`의 hover는 `interactionTarget.ts`의 `interactionTargetDisabledSelector`(`:has(> [data-interaction-target]:disabled)`)로 내부 버튼의 비활성도 확인한다. 컴포넌트의 비활성 색과 커서도 `[data-disabled]`와 이 선택자를 함께 쓴다.
 
 `::before`는 focusRing, `::after`는 overlay라는 매핑은 그대로 유지된다. pseudo가 자기 상태 대신 다른 요소의 상태를 반영할 뿐이다.
 
