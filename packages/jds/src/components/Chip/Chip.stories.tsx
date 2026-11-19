@@ -85,3 +85,26 @@ export const Disabled: Story = {
     </FlexRow>
   ),
 };
+
+export const FieldsetDisabled: Story = {
+  args: {
+    label: "레이블",
+    onClick: () => alert("chip clicked"),
+    onRemove: () => alert("icon clicked"),
+  },
+  render: args => (
+    <fieldset disabled style={{ margin: 0, padding: 0, border: 0, minWidth: 0 }}>
+      <FlexRow>
+        <Chip {...args} />
+        <Chip {...args} valueLabel={["값 레이블"]} />
+      </FlexRow>
+    </fieldset>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: "`<fieldset disabled>` 안에 두면 `disabled`를 지정하지 않아도 비활성 상태가 됩니다.",
+      },
+    },
+  },
+};

@@ -151,3 +151,26 @@ export const DisabledRemovable: Story = {
   },
   render: renderFile,
 };
+
+export const FieldsetDisabled: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "`<fieldset disabled>` 안에 두면 `disabled`를 지정하지 않아도 비활성 상태가 됩니다. 삭제 버튼도 함께 비활성화됩니다.",
+      },
+    },
+  },
+  args: {
+    fileName: "파일명.pdf",
+    fileSize: 2.6 * 1024 * 1024,
+    readonly: false,
+    disabled: false,
+    removable: true,
+  },
+  render: args => (
+    <fieldset disabled style={{ margin: 0, padding: 0, border: 0, minWidth: 0 }}>
+      {renderFile(args)}
+    </fieldset>
+  ),
+};
