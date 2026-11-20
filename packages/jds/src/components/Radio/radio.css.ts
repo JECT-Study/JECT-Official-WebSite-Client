@@ -102,19 +102,19 @@ export const radioVisual = recipe({
 // Radio.Item
 const itemSizeVariants = {
   lg: {
-    gap: `${vars.scheme.semantic.spacing["6"]} ${vars.scheme.semantic.spacing["12"]}`,
+    gap: `${vars.scheme.semantic.spacing["4"]} ${vars.scheme.semantic.spacing["10"]}`,
     borderRadius: vars.scheme.semantic.radius["6"],
   },
   md: {
-    gap: `${vars.scheme.semantic.spacing["6"]} ${vars.scheme.semantic.spacing["10"]}`,
+    gap: `${vars.scheme.semantic.spacing["4"]} ${vars.scheme.semantic.spacing["10"]}`,
     borderRadius: vars.scheme.semantic.radius["6"],
   },
   sm: {
-    gap: `${vars.scheme.semantic.spacing["6"]} ${vars.scheme.semantic.spacing["8"]}`,
+    gap: `${vars.scheme.semantic.spacing["4"]} ${vars.scheme.semantic.spacing["8"]}`,
     borderRadius: vars.scheme.semantic.radius["4"],
   },
   xs: {
-    gap: `${vars.scheme.semantic.spacing["6"]} ${vars.scheme.semantic.spacing["8"]}`,
+    gap: `${vars.scheme.semantic.spacing["4"]} ${vars.scheme.semantic.spacing["8"]}`,
     borderRadius: vars.scheme.semantic.radius["4"],
   },
 } satisfies Record<RadioSize, StyleRule>;
@@ -122,7 +122,7 @@ const itemSizeVariants = {
 const itemInsetBySize: Record<RadioSize, string> = {
   lg: `${pxToRem(-4)} ${pxToRem(-8)}`,
   md: `${pxToRem(-4)} ${pxToRem(-8)}`,
-  sm: `${pxToRem(-4)} ${pxToRem(-6)}`,
+  sm: `${pxToRem(-3)} ${pxToRem(-6)}`,
   xs: `${pxToRem(-3)} ${pxToRem(-6)}`,
 };
 
@@ -181,11 +181,13 @@ export const radioLabelSlot = style({
 
 export const radioHelperSlot = style({ gridColumn: "2", gridRow: "2" });
 
+const itemBorderColor = createVar();
+
 export const radioItem = recipe({
   base: [
     radioItemGrid,
     buttonReset,
-    overlay(),
+    overlay({ hierarchy: "secondary", density: "normal" }),
     {
       position: "relative",
       selectors: {
@@ -196,11 +198,21 @@ export const radioItem = recipe({
   variants: {
     size: itemSizeVariants satisfies Record<RadioSize, StyleRule>,
     styleOutlined: {
+      // 테두리가 박스 크기를 늘리지 않도록 inset box-shadow로 안쪽에 그리고, 상태별로 색 변수만 바꾼다.
       outlined: {
-        border: `${vars.scheme.semantic.strokeWeight["1"]} solid ${vars.color.semantic.stroke.alpha.subtle}`,
+        border: "none",
+        boxShadow: `inset 0 0 0 ${vars.scheme.semantic.strokeWeight["1"]} ${itemBorderColor}`,
+        vars: { [itemBorderColor]: vars.color.semantic.stroke.alpha.subtle },
         selectors: {
-          "&[data-disabled]": { borderColor: vars.color.semantic.stroke.alpha.subtler },
-          "&::after": { border: "inherit" },
+          "&[data-disabled]": {
+            vars: { [itemBorderColor]: vars.color.semantic.stroke.alpha.subtler },
+          },
+        },
+        "@media": {
+          // 고대비 모드는 box-shadow를 지우므로 테두리를 border로 되살린다.
+          "(forced-colors: active)": {
+            border: `${vars.scheme.semantic.strokeWeight["1"]} solid currentColor`,
+          },
         },
       },
       hollow: { border: "none", padding: 0 },
