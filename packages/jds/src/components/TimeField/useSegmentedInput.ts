@@ -1,5 +1,5 @@
-// DateField(#721)의 useSegmentedInput을 그대로 옮긴 파일이다. 내용을 고치지 않는다.
-// 두 컴포넌트가 모두 머지되면 hooks로 옮겨 하나로 합친다.
+// DateField의 useSegmentedInput을 옮긴 파일이다. resetSegments의 validate 옵션만 더했다.
+// TimeField가 머지되면 hooks로 옮겨 DateField와 하나로 합친다.
 import {
   useCallback,
   useEffect,
@@ -87,6 +87,11 @@ interface UseSegmentedInputOptions<TKind extends string, TSegments, TPending> {
   isEditable: boolean;
 }
 
+interface ResetSegmentsOptions {
+  /** 직접 입력과 같은 isValueAllowed 검증을 거친다. 시간 선택처럼 사용자가 고른 값에 쓴다. */
+  validate?: boolean;
+}
+
 /** 사용자 입력으로 요청한 값. keepsDraft면 소비처가 거절해도 편집 중 내용을 되돌리지 않는다. */
 interface ValueRequest {
   value: string;
@@ -116,8 +121,11 @@ interface UseSegmentedInputResult {
   inputStatus: "empty" | "incomplete" | "invalid" | "valid";
   /** 채워진 세그먼트가 하나도 없는지 여부 */
   isEmpty: boolean;
-  /** 폼 초기화처럼 부분 입력까지 버리고 값에서 세그먼트를 다시 만들 때 호출한다. */
-  resetSegments: (value: string) => void;
+  /**
+   * 폼 초기화처럼 부분 입력까지 버리고 값에서 세그먼트를 다시 만들 때 호출한다.
+   * validate를 켜면 직접 입력과 같이 허용되지 않는 값은 빈 값으로 알리고 세그먼트는 draft로 남긴다.
+   */
+  resetSegments: (value: string, options?: ResetSegmentsOptions) => void;
   /** 달력 등에서 돌아올 때 현재 세그먼트를 유지하며 포커스한다. */
   focusActiveSegment: () => void;
   handlers: SegmentedInputHandlers;
@@ -520,15 +528,19 @@ export const useSegmentedInput = <TKind extends string, TSegments, TPending>({
   const handleChange = () => requestSelectionSync();
 
   const resetSegments = useCallback(
-    (nextValue: string) => {
+    (nextValue: string, { validate = false }: ResetSegmentsOptions = {}) => {
       loadValue(nextValue);
       setIsAllSelected(false);
-      if (nextValue !== value) {
-        requestRef.current = { value: nextValue, keepsDraft: false };
-        onValueChange(nextValue);
+
+      // commit과 같이 허용되지 않는 값은 빈 값으로 알리고, 세그먼트는 draft로 남긴다.
+      const isDraftOnly = validate && nextValue !== "" && isValueAllowed?.(nextValue) === false;
+      const reportedValue = isDraftOnly ? "" : nextValue;
+      if (reportedValue !== value) {
+        requestRef.current = { value: reportedValue, keepsDraft: isDraftOnly };
+        onValueChange(reportedValue);
       }
     },
-    [loadValue, value, onValueChange],
+    [loadValue, value, onValueChange, isValueAllowed],
   );
 
   const draftValue = pending === null ? rules.toValue(segments) : "";

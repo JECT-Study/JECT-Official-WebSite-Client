@@ -313,7 +313,8 @@ export const TimeFieldInput = forwardRef<HTMLInputElement, TimeFieldInputProps>(
         return;
       }
 
-      resetSegments(nextValue);
+      // 간격에 맞지 않는 분처럼 이전 입력이 남긴 값은 시간 선택을 거쳐도 허용되지 않으므로 직접 입력과 같이 검증한다.
+      resetSegments(nextValue, { validate: true });
       // 적용 버튼이 없으면 열마다 바로 반영되므로 오전/오후, 시, 분을 이어서 고를 수 있게 열어 둔다.
       if (!withActionBar) return;
 
