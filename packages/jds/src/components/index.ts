@@ -35,6 +35,7 @@ export * from "./Tabs";
 export * from "./Table";
 export * from "./TextField";
 export * from "./Textarea";
+export * from "./TimeField";
 export * from "./TimePicker";
 export * from "./Toast";
 export * from "./Toggle";
