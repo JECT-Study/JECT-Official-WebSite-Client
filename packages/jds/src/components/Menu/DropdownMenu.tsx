@@ -166,6 +166,7 @@ export const DropdownMenuTree = forwardRef<HTMLButtonElement, DropdownMenuTreePr
           <IconButton
             className={menuTreeIconButton({ hasTreeButton })}
             icon={isOpen ? "chevron-down" : "chevron-right"}
+            hierarchy='secondary'
             size={menuTreeIconSizeByMenuSize[size]}
             disabled={disabled}
             condensed

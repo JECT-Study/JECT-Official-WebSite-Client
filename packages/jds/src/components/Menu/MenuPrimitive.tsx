@@ -160,7 +160,12 @@ const MenuPrimitiveAnchor = forwardRef<HTMLAnchorElement, MenuPrimitiveAnchorPro
         )}
         {suffixIconVisible && <Icon name={suffixIcon} size={size} />}
         {suffixBadgeVisible && (
-          <NumericBadge size={suffixBadgeSizeByMenuSize[size]} isMuted={suffixBadgeMuted}>
+          <NumericBadge
+            size={suffixBadgeSizeByMenuSize[size]}
+            hierarchy='tertiary'
+            badgeStyle='hollow'
+            isMuted={suffixBadgeMuted}
+          >
             {suffixBadge}
           </NumericBadge>
         )}
@@ -170,9 +175,9 @@ const MenuPrimitiveAnchor = forwardRef<HTMLAnchorElement, MenuPrimitiveAnchorPro
 );
 
 const suffixBadgeSizeByMenuSize: Record<MenuSize, BadgeSize> = {
-  lg: "lg",
-  md: "md",
-  sm: "sm",
+  lg: "md",
+  md: "sm",
+  sm: "xs",
 } as const;
 
 MenuPrimitiveAnchor.displayName = "MenuPrimitive.Anchor";
