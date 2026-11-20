@@ -9,6 +9,7 @@ import type { NumericBadgeStyle } from "./numericBadge.types";
 
 interface BadgeSizeConfig {
   minWidth: number;
+  hollowMinWidth: number;
   paddingTopBottom: string;
   paddingLeftRight: string;
 }
@@ -25,21 +26,25 @@ const numericBadgeMutedOpacity = `calc(${vars.scheme.semantic.opacity["36"]} / 1
 const numericBadgeSizeMap = {
   lg: {
     minWidth: 24,
+    hollowMinWidth: 22,
     paddingTopBottom: vars.scheme.semantic.spacing["1"],
     paddingLeftRight: vars.scheme.semantic.spacing["4"],
   },
   md: {
-    minWidth: 23,
+    minWidth: 22,
+    hollowMinWidth: 20,
     paddingTopBottom: vars.scheme.semantic.spacing["1"],
     paddingLeftRight: vars.scheme.semantic.spacing["4"],
   },
   sm: {
     minWidth: 20,
+    hollowMinWidth: 18,
     paddingTopBottom: vars.scheme.semantic.spacing["1"],
     paddingLeftRight: vars.scheme.semantic.spacing["4"],
   },
   xs: {
     minWidth: 18,
+    hollowMinWidth: 16,
     paddingTopBottom: vars.scheme.semantic.spacing["1"],
     paddingLeftRight: vars.scheme.semantic.spacing["4"],
   },
@@ -62,6 +67,11 @@ const sizeVariants = Object.fromEntries(
   ]),
 ) as Record<BadgeSize, StyleRule>;
 
+const hollowSizeCompoundVariants = BADGE_SIZE_OPTIONS.map(size => ({
+  variants: { size, badgeStyle: "hollow" as const },
+  style: { minWidth: pxToRem(numericBadgeSizeMap[size].hollowMinWidth) },
+}));
+
 const root = style({
   display: "inline-flex",
   justifyContent: "center",
@@ -83,7 +93,7 @@ const basicStyles = {
       color: vars.color.semantic.object.static.inverse.boldest,
     },
     primary: {
-      bg: vars.color.semantic.fill.boldest,
+      bg: vars.color.semantic.fill.bolder,
       color: vars.color.semantic.object.inverse.boldest,
     },
     secondary: {
@@ -114,8 +124,8 @@ const basicStyles = {
     },
   },
   hollow: {
-    accent: { bg: "none", color: vars.color.semantic.accent.bold },
-    primary: { bg: "none", color: vars.color.semantic.object.bolder },
+    accent: { bg: "none", color: vars.color.semantic.accent.normal },
+    primary: { bg: "none", color: vars.color.semantic.object.bold },
     secondary: { bg: "none", color: vars.color.semantic.object.neutral },
     tertiary: { bg: "none", color: vars.color.semantic.object.alternative },
   },
@@ -165,6 +175,7 @@ export const basicRoot = recipe({
     },
   },
   compoundVariants: [
+    ...hollowSizeCompoundVariants,
     {
       variants: { badgeStyle: "solid", hierarchy: "accent" },
       style: createBadgeStyle(basicStyles.solid.accent),
@@ -243,6 +254,7 @@ export const feedbackRoot = recipe({
     },
   },
   compoundVariants: [
+    ...hollowSizeCompoundVariants,
     {
       variants: { badgeStyle: "solid", feedback: "positive" },
       style: createBadgeStyle(feedbackStyles.solid.positive),

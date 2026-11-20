@@ -23,7 +23,7 @@ import { useTimeSelection } from "./useTimeSelection";
 import { mergeRefs } from "../../hooks/mergeRefs";
 import { Divider } from "../Divider";
 
-const COLUMN_SELECTOR = '[role="listbox"]';
+const COLUMN_SELECTOR = '[role="listbox"]:not([aria-disabled="true"])';
 
 const COLUMN_OFFSET_BY_KEY: Record<string, number> = {
   ArrowLeft: -1,
@@ -35,6 +35,7 @@ const COLUMN_OFFSET_BY_KEY: Record<string, number> = {
  *
  * @remarks
  * 트리거와 팝오버는 포함하지 않습니다. 열마다 Tab 정지점이 있고, 열 안에서는 방향키로 이동하며 좌우 방향키로 옆 열에 포커스합니다.
+ * 고를 수 있는 항목이 없는 열은 Tab과 좌우 방향키 모두 건너뜁니다.
  * @public
  * @name TimePicker
  * @tag div

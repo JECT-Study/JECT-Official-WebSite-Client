@@ -32,8 +32,32 @@ export const input = style({
   },
 });
 
+// 매초 숫자가 바뀌어도 글리프 폭이 달라 텍스트가 흔들리지 않도록 고정폭 숫자를 사용한다.
+export const timer = style({
+  position: "relative",
+  fontVariantNumeric: "tabular-nums",
+});
+
 export const affix = style({
   display: "inline-flex",
   alignItems: "center",
   flexShrink: 0,
+});
+
+// 값이 비면 지우기 버튼을 숨긴다. :placeholder-shown은 이벤트 없이 바뀐 값에도 브라우저가 바로 반영한다.
+export const clearButton = style({
+  selectors: {
+    [`${input}:placeholder-shown ~ * &`]: {
+      display: "none",
+    },
+  },
+});
+
+// 지우기 버튼만 있는 영역은 영역째 숨겨, 빈 영역이 간격을 차지하지 않게 한다.
+export const clearButtonOnlyTrailing = style({
+  selectors: {
+    [`${input}:placeholder-shown ~ &`]: {
+      display: "none",
+    },
+  },
 });

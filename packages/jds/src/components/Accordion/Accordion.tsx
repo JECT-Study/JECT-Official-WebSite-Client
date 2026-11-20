@@ -22,7 +22,7 @@ import { getBodyClassName, getLabelClassName } from "@/utils/typography";
  * - Radix UI Accordion의 루트 컨테이너입니다.
  * - Context를 통해 내부 컴포넌트들에게 size와 isStretched 상태를 공유합니다.
  */
-const AccordionRoot = forwardRef<HTMLDivElement, AccordionRootProps>(
+export const AccordionRoot = forwardRef<HTMLDivElement, AccordionRootProps>(
   ({ children, isStretched = true, size = "lg", ...restProps }, ref) => {
     return (
       <AccordionProvider value={{ isStretched, size }}>
@@ -40,7 +40,7 @@ AccordionRoot.displayName = "Accordion.Root";
  * Accordion.Item
  * - 개별 아코디언 항목을 감싸는 래퍼입니다.
  */
-const AccordionItem = forwardRef<HTMLDivElement, AccordionItemProps>(
+export const AccordionItem = forwardRef<HTMLDivElement, AccordionItemProps>(
   ({ children, ...restProps }, ref) => (
     <AccordionPrimitive.Item ref={ref} {...restProps}>
       {children}
@@ -55,7 +55,7 @@ AccordionItem.displayName = "Accordion.Item";
  * - 아코디언을 열고 닫는 헤더/버튼 영역입니다.
  * - Context에서 주입된 size에 따라 스타일(아이콘 크기, 폰트 크기)이 결정됩니다.
  */
-const AccordionTrigger = forwardRef<HTMLButtonElement, AccordionTriggerProps>(
+export const AccordionTrigger = forwardRef<HTMLButtonElement, AccordionTriggerProps>(
   ({ children, withPrefixIcon, className, ...restProps }, ref) => {
     const { isStretched, size } = useAccordionContext("Accordion.Trigger");
 
@@ -94,7 +94,7 @@ AccordionTrigger.displayName = "Accordion.Trigger";
  * Accordion.Content
  * - 아코디언이 열렸을 때 보여지는 상세 내용 영역입니다.
  */
-const AccordionContent = forwardRef<HTMLDivElement, AccordionContentProps>(
+export const AccordionContent = forwardRef<HTMLDivElement, AccordionContentProps>(
   ({ children, className, ...restProps }, ref) => {
     const { isStretched, size } = useAccordionContext("Accordion.Content");
     const bodySize = bodySizeByAccordionSizeMap[size];

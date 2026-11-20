@@ -27,10 +27,10 @@ const PlateBase = forwardRef<HTMLDivElement, PlateBaseProps>(
 PlateBase.displayName = "Card.Preset.Plate.Base";
 
 export const PlateLink = forwardRef<HTMLDivElement, PlateLinkProps>(
-  ({ href, target, rel, ...rest }, ref) => (
+  ({ href, target, rel, linkAs, ...rest }, ref) => (
     <PlateBase
       ref={ref}
-      overlay={<CardOverlay as='a' href={href} target={target} rel={rel} />}
+      overlay={<CardOverlay as='a' href={href} target={target} rel={rel} linkAs={linkAs} />}
       {...rest}
     />
   ),

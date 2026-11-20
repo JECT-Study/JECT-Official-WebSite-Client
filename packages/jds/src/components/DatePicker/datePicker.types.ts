@@ -56,9 +56,9 @@ export interface DatePickerProps extends Omit<
    * @default false
    */
   readOnly?: boolean;
-  /** 선택할 수 있는 가장 이른 날짜. 이 날짜가 속한 달보다 앞으로는 이동할 수 없습니다. */
+  /** 선택할 수 있는 가장 이른 날짜. 이 날짜가 속한 달보다 앞으로는 이동할 수 없습니다. 넘기지 않으면 0001년 1월 1일입니다. */
   minDate?: Date;
-  /** 선택할 수 있는 가장 늦은 날짜. 이 날짜가 속한 달보다 뒤로는 이동할 수 없습니다. */
+  /** 선택할 수 있는 가장 늦은 날짜. 이 날짜가 속한 달보다 뒤로는 이동할 수 없습니다. 넘기지 않으면 9999년 12월 31일입니다. */
   maxDate?: Date;
   /** 날짜마다 호출되며, `true`를 반환한 날짜는 선택할 수 없습니다. */
   isDateDisabled?: (date: Date) => boolean;
