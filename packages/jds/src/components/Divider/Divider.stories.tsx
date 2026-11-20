@@ -99,7 +99,7 @@ export const AllThicknesses: Story = {
         <Divider thickness='bolder' />
       </FlexColumn>
       <FlexColumn gap='8px'>
-        <Label>Boldest (8px):</Label>
+        <Label>Boldest (6px):</Label>
         <Divider thickness='boldest' />
       </FlexColumn>
     </FlexColumn>
