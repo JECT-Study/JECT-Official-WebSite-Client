@@ -4,8 +4,8 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**", ".next/**", "build/**"],
-      "env": ["NODE_ENV", "VITE_*", "SENTRY_*"]
+      "outputs": ["dist/**"],
+      "env": ["NODE_ENV"]
     },
     "dev": {
       "cache": false,
@@ -17,9 +17,6 @@
     },
     "lint:fix": {
       "dependsOn": ["^build"],
-      "cache": false
-    },
-    "preview": {
       "cache": false
     },
     "storybook": {
