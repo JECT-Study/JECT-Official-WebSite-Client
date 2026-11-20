@@ -2,6 +2,8 @@ name: Token Build
 
 on:
   pull_request:
+    branches-ignore:
+      - main
     paths:
       - "packages/jds/src/tokens/input/**"
 
