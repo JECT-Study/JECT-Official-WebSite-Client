@@ -17,11 +17,17 @@ export const selectContainer = recipe({
   variants: {
     surface: {
       true: {
-        padding: `${vars.scheme.semantic.spacing["10"]} ${vars.scheme.semantic.spacing["4"]}`,
+        padding: vars.scheme.semantic.spacing["10"],
         borderRadius: vars.scheme.semantic.radius["8"],
-        border: `${vars.scheme.semantic.strokeWeight["1"]} solid ${vars.color.semantic.stroke.subtle}`,
         backgroundColor: vars.color.semantic.surface.shallow,
-        boxShadow: `0 0 ${vars.scheme.semantic.radius["2"]} 0 ${vars.colorPrimitive.primitive.shade["4"]}, 0 ${vars.scheme.semantic.spacing["3"]} ${vars.scheme.semantic.radius["4"]} 0 ${vars.colorPrimitive.primitive.shade["8"]}, 0 ${vars.scheme.semantic.spacing["4"]} ${vars.scheme.semantic.radius["8"]} 0 ${vars.colorPrimitive.primitive.shade["12"]}`,
+        // 테두리가 박스 크기를 늘리지 않도록 inset box-shadow로 안쪽에 그린다.
+        boxShadow: `inset 0 0 0 ${vars.scheme.semantic.strokeWeight["1"]} ${vars.color.semantic.stroke.subtle}, ${vars.environment.semantic.shadow.floated}`,
+        "@media": {
+          // 고대비 모드는 box-shadow를 지우므로 테두리를 border로 되살린다.
+          "(forced-colors: active)": {
+            border: `${vars.scheme.semantic.strokeWeight["1"]} solid currentColor`,
+          },
+        },
       },
       false: {},
     },
@@ -33,7 +39,7 @@ export const selectLabel = style({
   alignItems: "center",
   cursor: "default",
   alignSelf: "stretch",
-  padding: `${vars.scheme.semantic.spacing["6"]} ${vars.scheme.semantic.spacing["12"]} 0`,
+  padding: `${vars.scheme.semantic.spacing["6"]} ${vars.scheme.semantic.spacing["10"]} 0`,
   color: vars.color.semantic.object.alternative,
 });
 
@@ -50,14 +56,14 @@ export const listbox = style({
 });
 
 export const option = style([
-  overlay(),
+  overlay({ hierarchy: "secondary", density: "normal" }),
   {
     gridColumn: "1 / -1",
     display: "grid",
     gridTemplateColumns: "subgrid",
     alignItems: "center",
-    rowGap: vars.scheme.semantic.spacing["2"],
-    padding: `${vars.scheme.semantic.spacing["8"]} ${vars.scheme.semantic.spacing["12"]}`,
+    rowGap: vars.scheme.semantic.spacing["4"],
+    padding: `${vars.scheme.semantic.spacing["8"]} ${vars.scheme.semantic.spacing["10"]}`,
     borderRadius: vars.scheme.semantic.radius["6"],
     position: "relative",
     cursor: "pointer",
@@ -111,7 +117,7 @@ export const optionText = style({
   textOverflow: "ellipsis",
   whiteSpace: "nowrap",
   minWidth: 0,
-  color: vars.color.semantic.object.bold,
+  color: vars.color.semantic.object.bolder,
   selectors: {
     '[data-variant="label"][data-selected]:not([data-disabled]) &': {
       color: vars.color.semantic.accent.normal,
@@ -131,7 +137,7 @@ export const optionCaption = style({
   cursor: "inherit",
   gridColumn: "2 / -1",
   gridRow: "2",
-  color: vars.color.semantic.object.assistive,
+  color: vars.color.semantic.object.alternative,
   selectors: {
     "[data-disabled] &": {
       color: vars.color.semantic.object.subtle,
