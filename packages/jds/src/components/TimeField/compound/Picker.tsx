@@ -22,6 +22,11 @@ interface TimeFieldPickerProps extends Pick<
 
 const FOCUSABLE_COLUMN_SELECTOR = '[role="listbox"][tabindex="0"]';
 
+// 입력은 분까지만 다루고 범위의 초를 무시한다. TimePicker도 같은 경계를 쓰도록 초를 버리고 넘긴다.
+// 그대로 넘기면 minTime이 09:30:45일 때 09:30을 직접 입력할 수는 있지만 시간 선택에서는 고를 수 없다.
+const toMinuteBoundary = (time: TimeValue | undefined): TimeValue | undefined =>
+  time === undefined ? undefined : { ...time, second: 0 };
+
 /**
  * @description 필드 박스 아래에 시간 선택을 띄우는 팝오버. `Popover.Root` 안에서 사용한다.
  * 입력값과 같은 "HH:mm" 값을 주고받고, `TimePicker`가 쓰는 시각 객체와의 변환은 여기서 한다.
@@ -73,8 +78,8 @@ export const TimeFieldPicker = ({
           onChange={handleChange}
           withActionBar={withActionBar}
           minuteStep={minuteStep}
-          minTime={minTime}
-          maxTime={maxTime}
+          minTime={toMinuteBoundary(minTime)}
+          maxTime={toMinuteBoundary(maxTime)}
         />
       </Popover.Content>
     </Popover.Portal>
