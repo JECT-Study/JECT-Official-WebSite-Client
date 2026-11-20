@@ -29,10 +29,8 @@ export const EmptyState = forwardRef<HTMLDivElement, EmptyStateProps>(
 
     const actions = hasAnyAction ? (
       <div className={emptyStateStyles.buttonContainer}>
-        {hasSecondary && (
-          <BlockButton variant='outlined' hierarchy='secondary' size='sm' {...secondaryAction} />
-        )}
-        {hasPrimary && <BlockButton size='sm' {...primaryAction} />}
+        {hasSecondary && <BlockButton hierarchy='secondary' size='md' {...secondaryAction} />}
+        {hasPrimary && <BlockButton size='md' {...primaryAction} />}
       </div>
     ) : null;
 
