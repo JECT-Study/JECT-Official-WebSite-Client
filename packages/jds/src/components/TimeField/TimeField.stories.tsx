@@ -7,12 +7,10 @@ import {
 } from "@storybook-utils/field";
 import { FlexColumn, FlexRow, Label } from "@storybook-utils/layout";
 import { useState } from "react";
-import { vars } from "tokens";
 
 import { TimeField } from "./TimeField";
 import type { TimeFieldInputError, TimeFieldInputState } from "./timeField.types";
 import { BlockButton } from "../Button/BlockButton";
-import { Icon } from "../Icon";
 import { Kbd } from "../Kbd";
 
 const VALUE_LABEL_STYLE = { width: "auto", whiteSpace: "nowrap" } as const;
@@ -137,17 +135,7 @@ export const Playground: Story = {
   args: FIELD_PLAYGROUND_ARGS,
   render: args => (
     <TimeField {...args} style={FIELD_WIDTH}>
-      <TimeField.Label
-        suffix={
-          <Icon
-            name='info'
-            size='2xs'
-            style={args.disabled ? { color: vars.color.semantic.object.subtle } : undefined}
-          />
-        }
-      >
-        레이블
-      </TimeField.Label>
+      <TimeField.Label tooltip='도움말 문구'>레이블</TimeField.Label>
       <TimeField.Input />
       <TimeField.Helper>헬퍼 메시지 텍스트</TimeField.Helper>
     </TimeField>
