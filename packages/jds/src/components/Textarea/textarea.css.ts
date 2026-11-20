@@ -30,7 +30,7 @@ export const control = style({
       resize: "none",
       cursor: "not-allowed",
       vars: {
-        [textColor]: vars.color.semantic.object.assistive,
+        [textColor]: vars.color.semantic.object.subtle,
         [placeholderTextColor]: vars.color.semantic.object.subtler,
       },
     },

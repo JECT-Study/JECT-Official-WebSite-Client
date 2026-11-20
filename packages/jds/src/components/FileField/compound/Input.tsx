@@ -10,7 +10,8 @@ import {
 import { visuallyHidden } from "utils";
 
 import { IconButton } from "../../Button/IconButton";
-import { FieldContent } from "../../Field";
+import { FieldContent, FieldKbd } from "../../Field";
+import * as fieldStyles from "../../Field/field.css";
 import { useFieldControl } from "../../Field/useFieldControl";
 import { Icon } from "../../Icon";
 import { useFileFieldContext } from "../fileField.context";
@@ -38,7 +39,7 @@ export const FileFieldInput = forwardRef<HTMLInputElement, FileFieldInputProps>(
       maxSize,
       onError,
       placeholder,
-      suffix,
+      kbd,
       disabled: disabledFromProps,
       readOnly: readOnlyFromProps,
       required: requiredFromProps,
@@ -92,6 +93,7 @@ export const FileFieldInput = forwardRef<HTMLInputElement, FileFieldInputProps>(
       .join(", ");
     const isInteractive = !isDisabled && !isReadOnly;
     const hasFile = file != null;
+    const hasClearButton = hasFile && isInteractive;
     const isNativeFile = file instanceof File;
 
     useLayoutEffect(() => {
@@ -173,7 +175,7 @@ export const FileFieldInput = forwardRef<HTMLInputElement, FileFieldInputProps>(
     };
 
     return (
-      <FieldContent data-disabled={isDisabled || undefined}>
+      <FieldContent controlType='button' data-disabled={isDisabled || undefined}>
         <span className={clsx(getBodyClassName({ size: "md" }), styles.value)} aria-hidden>
           {hasFile ? (
             <>
@@ -218,18 +220,23 @@ export const FileFieldInput = forwardRef<HTMLInputElement, FileFieldInputProps>(
           onChange={handleChange}
           onClick={handleClick}
         />
-        {hasFile && (
-          <IconButton
-            hierarchy='tertiary'
-            size='md'
-            icon='x'
-            aria-label={`${file.name} 파일 삭제`}
-            disabled={!isInteractive}
-            className={styles.clearButton}
-            onClick={handleClear}
-          />
+        {(hasClearButton || kbd != null) && (
+          <span className={clsx(fieldStyles.contentTrailing, styles.trailing)}>
+            {hasClearButton && (
+              <IconButton
+                hierarchy='tertiary'
+                size='md'
+                icon='x'
+                aria-label={`${file.name} 파일 삭제`}
+                className={fieldStyles.contentAction}
+                // 누르는 순간 입력칸에서 포커스가 빠지면 삭제 전 값으로 blur가 먼저 발생하므로, 포커스를 입력칸에 유지한다.
+                onMouseDown={e => e.preventDefault()}
+                onClick={handleClear}
+              />
+            )}
+            {kbd != null && <FieldKbd keys={kbd} disabled={isDisabled} />}
+          </span>
         )}
-        {suffix != null && <span className={styles.suffix}>{suffix}</span>}
       </FieldContent>
     );
   },

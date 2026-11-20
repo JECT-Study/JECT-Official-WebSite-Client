@@ -1,8 +1,10 @@
 import type { ComponentPropsWithoutRef } from "react";
 
-import type { FieldProps } from "../Field";
+import type { FieldProps, FieldStatus } from "../Field";
 
-export type TextareaProps = FieldProps;
+export interface TextareaProps extends Omit<FieldProps, "status"> {
+  status?: Exclude<FieldStatus, "success">;
+}
 
 export interface TextareaControlProps extends Omit<
   ComponentPropsWithoutRef<"textarea">,

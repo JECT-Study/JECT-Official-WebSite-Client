@@ -9,7 +9,10 @@ const CLIENT_ENTRIES = new Set(["index.js", "index.cjs", "hooks.js", "hooks.cjs"
 
 export default defineConfig({
   entry,
-  format: ["es", "cjs"],
+  format: {
+    esm: { unbundle: true },
+    cjs: { unbundle: false },
+  },
   fixedExtension: false,
   dts: false,
   target: "es2022",
@@ -24,5 +27,11 @@ export default defineConfig({
     }),
   ],
   deps: { neverBundle: externalPackages },
-  outputOptions: { assetFileNames: "[name][extname]" },
+  outputOptions: (options, format) => ({
+    ...options,
+    assetFileNames: "[name][extname]",
+    // .css.js/.css.cjs는 소비처의 vanilla-extract 플러그인이 스타일 원본으로 재처리한다.
+    entryFileNames: chunk =>
+      `${chunk.name.replace(/\.css$/, ".styles")}.${format === "cjs" ? "cjs" : "js"}`,
+  }),
 });

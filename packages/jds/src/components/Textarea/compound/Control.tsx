@@ -55,7 +55,7 @@ export const TextareaControl = forwardRef<HTMLTextAreaElement, TextareaControlPr
     });
 
     return (
-      <FieldContent>
+      <FieldContent controlType='textarea'>
         <textarea
           {...restProps}
           ref={ref}

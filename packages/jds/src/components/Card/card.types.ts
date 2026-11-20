@@ -24,13 +24,21 @@ export type CardBodyProps = CardSlotProps<"p">;
 export type CardMetaProps = CardSlotProps<"div">;
 export type CardMetaItemProps = CardSlotProps<"span">;
 
+interface CardLinkComponentProps extends Omit<ComponentPropsWithoutRef<"a">, "href"> {
+  href: string;
+}
+
+type CardLinkComponent = ElementType<CardLinkComponentProps, "a">;
+
 interface CardOverlayLinkProps extends ComponentPropsWithoutRef<"a"> {
   as?: "a";
   href: string;
+  linkAs?: CardLinkComponent;
 }
 
 interface CardOverlayButtonProps extends Omit<ComponentPropsWithoutRef<"button">, "disabled"> {
   as: "button";
+  linkAs?: never;
 }
 
 export type CardOverlayProps = CardOverlayLinkProps | CardOverlayButtonProps;
@@ -54,6 +62,7 @@ interface PresetLinkOwnProps {
   href: string;
   target?: string;
   rel?: string;
+  linkAs?: CardLinkComponent;
 }
 
 interface PresetButtonOwnProps {

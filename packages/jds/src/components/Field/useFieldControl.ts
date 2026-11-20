@@ -25,7 +25,7 @@ export interface FieldControl {
 
 /**
  * @description 필드 컨텍스트와 컨트롤에 직접 전달된 값을 합쳐 컨트롤이 사용할 상태와 접근성 값을 해석한다.
- * 해석한 `required`는 Field에 전달해 `Field.Label`의 required mark에도 반영한다.
+ * 해석한 `required`와 `disabled`는 Field에 전달해 `Field.Label`의 required mark와 도움말 툴팁에도 반영한다.
  *
  * 해석한 값만 반환하고 DOM 속성으로 적용하는 것은 컨트롤이 담당한다.
  * 동일한 상태라도 input은 native `readonly`를, combobox는 `aria-readonly`를 사용하는 등
@@ -52,6 +52,7 @@ export const useFieldControl = (
     counterId,
     hasCounter,
     onControlRequiredChange,
+    onControlDisabledChange,
     status,
     disabled: isDisabledFromCtx,
     readonly: isReadOnlyFromCtx,
@@ -66,6 +67,11 @@ export const useFieldControl = (
     onControlRequiredChange(isRequired);
     return () => onControlRequiredChange(false);
   }, [isRequired, onControlRequiredChange]);
+
+  useLayoutEffect(() => {
+    onControlDisabledChange(isDisabled);
+    return () => onControlDisabledChange(false);
+  }, [isDisabled, onControlDisabledChange]);
 
   const resolvedLabelledBy = hasLabel ? labelId : ariaLabelledBy;
   const describedByIds = [

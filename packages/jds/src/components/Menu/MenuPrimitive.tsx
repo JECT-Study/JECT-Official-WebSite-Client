@@ -177,7 +177,7 @@ const suffixBadgeSizeByMenuSize: Record<MenuSize, BadgeSize> = {
 
 MenuPrimitiveAnchor.displayName = "MenuPrimitive.Anchor";
 
-const MenuCategory = forwardRef<HTMLDivElement, MenuCategoryProps>((props, ref) => {
+export const MenuCategory = forwardRef<HTMLDivElement, MenuCategoryProps>((props, ref) => {
   const { size: labelSizeFromProps, weight, as, children, ...restProps } = props;
   const { size: menuSizeFromCtx } = useMenuContext("Menu.Category");
   const labelSize = labelSizeFromProps ?? labelSizeByMenuSizeMap[menuSizeFromCtx];
@@ -205,7 +205,7 @@ const labelSizeByMenuSizeMap: Record<MenuSize, LabelSize> = {
 
 MenuCategory.displayName = "Menu.Category";
 
-const MenuGroup = forwardRef<HTMLUListElement, MenuGroupProps>(
+export const MenuGroup = forwardRef<HTMLUListElement, MenuGroupProps>(
   ({ children, className, ...restProps }, ref) => {
     const { size } = useMenuContext("Menu.Group");
 
