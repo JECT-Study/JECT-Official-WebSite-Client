@@ -1,7 +1,14 @@
-import { style, type StyleRule } from "@vanilla-extract/css";
+import { createVar, style, type StyleRule } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "tokens";
-import { focusRing, overlay, overlayColor } from "utils";
+import {
+  focusRing,
+  overlay,
+  overlayColor,
+  overlayHoverOpacity,
+  overlayOpacityMap,
+  overlayPressedOpacity,
+} from "utils";
 
 import { BLOCK_BUTTON_HIERARCHY_OPTIONS } from "./blockButton.types";
 import type {
@@ -135,6 +142,26 @@ const colorVars = <T extends { color: string }>(
   },
 });
 
+const outlinedBorderColor = createVar();
+
+// outlined 테두리 색은 inset box-shadow가 읽는 변수로 넘긴다.
+const outlinedColorVars = (
+  { borderColor, color }: OutlinedPalette,
+  overlay?: string,
+): StyleRule => ({
+  color,
+  vars: {
+    [outlinedBorderColor]: borderColor,
+    ...(overlay && { [overlayColor]: overlay }),
+  },
+});
+
+// accent, primary solid만 bold 밀도를 쓰고 나머지는 normal 밀도를 쓴다.
+const normalOverlayDensity = {
+  [overlayHoverOpacity]: overlayOpacityMap.normal.hover,
+  [overlayPressedOpacity]: overlayOpacityMap.normal.pressed,
+};
+
 const baseStyles = style({
   position: "relative",
   display: "inline-flex",
@@ -165,8 +192,8 @@ const solidCompoundVariants = BLOCK_BUTTON_HIERARCHY_OPTIONS.map(hierarchy => ({
 const outlinedCompoundVariants = BLOCK_BUTTON_HIERARCHY_OPTIONS.map(hierarchy => ({
   variants: { hierarchy, variant: "outlined" as const },
   style: {
-    ...colorVars(outlinedEnabledByHierarchy[hierarchy], overlayColorByHierarchy[hierarchy]),
-    selectors: { "&[data-disabled]": colorVars(outlinedDisabled) },
+    ...outlinedColorVars(outlinedEnabledByHierarchy[hierarchy], overlayColorByHierarchy[hierarchy]),
+    selectors: { "&[data-disabled]": outlinedColorVars(outlinedDisabled) },
   } satisfies StyleRule,
 }));
 
@@ -193,15 +220,26 @@ export const basicRoot = recipe({
       solid: {},
       outlined: {
         backgroundColor: "transparent",
-        borderWidth: vars.scheme.semantic.strokeWeight["1"],
-        borderStyle: "solid",
+        // 테두리가 박스 크기를 늘리지 않도록 inset box-shadow로 안쪽에 그린다.
+        boxShadow: `inset 0 0 0 ${vars.scheme.semantic.strokeWeight["1"]} ${outlinedBorderColor}`,
+        vars: normalOverlayDensity,
+        "@media": {
+          // 고대비 모드는 box-shadow를 지우므로 테두리를 border로 되살린다.
+          "(forced-colors: active)": {
+            border: `${vars.scheme.semantic.strokeWeight["1"]} solid currentColor`,
+          },
+        },
       },
-      hollow: { backgroundColor: "transparent" },
+      hollow: { backgroundColor: "transparent", vars: normalOverlayDensity },
     } satisfies Record<BlockButtonVariant, StyleRule>,
     size: sizeVariants satisfies Record<BlockButtonSize, StyleRule>,
   },
   compoundVariants: [
     ...solidCompoundVariants,
+    {
+      variants: { hierarchy: "secondary", variant: "solid" },
+      style: { vars: normalOverlayDensity },
+    },
     ...outlinedCompoundVariants,
     ...hollowCompoundVariants,
   ],

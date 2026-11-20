@@ -32,11 +32,11 @@ const colorsByHierarchy = {
     color: vars.color.semantic.object.boldest,
   },
   secondary: {
-    overlayColor: vars.color.semantic.object.boldest,
+    overlayColor: vars.color.semantic.fill.boldest,
     color: vars.color.semantic.object.neutral,
   },
   tertiary: {
-    overlayColor: vars.color.semantic.object.boldest,
+    overlayColor: vars.color.semantic.fill.boldest,
     color: vars.color.semantic.object.alternative,
   },
 } satisfies Record<LabelButtonHierarchy, LabelButtonPalette>;
@@ -119,7 +119,7 @@ const feedbackVariants = {
 const rootBase = [overlay(), focusRing(), baseStyles];
 
 export const basicRoot = recipe({
-  base: rootBase,
+  base: [overlay({ density: "normal" }), focusRing(), baseStyles],
   variants: {
     hierarchy: hierarchyVariants satisfies Record<LabelButtonHierarchy, StyleRule>,
     size: sizeVariants satisfies Record<LabelButtonSize, StyleRule>,
