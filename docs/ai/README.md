@@ -78,7 +78,6 @@ PR 설명도 AI가 써요. 리뷰어가 PR만 읽고 무엇이 왜 바뀌었는�
 | `.claude/agents`, `.codex/agents` | FF 리뷰와 브라우저 검증 역할의 진입점          |
 | `packages/jds/AGENTS.md`          | JDS 코드 작성 규칙                             |
 | `scripts/ai/check-harness.mjs`    | 링크, 문서에 적힌 경로와 명령, 메타데이터 검사 |
-| `docs/ai/evals`                   | 가상 요청으로 확인한 평가 사례와 결과          |
 
 시작점은 [ject-jds-workflow](../../.claude/skills/ject-jds-workflow/SKILL.md)예요. 다른 스킬은 여기서 단계마다 연결돼요. 체인지셋, 타입, PR 템플릿 규칙은 기존 문서를 그대로 쓰고 하네스에 복사하지 않아요.
 
@@ -94,7 +93,7 @@ npm run check:harness
 - AI가 따르는 스킬 지침은 조건과 행동이 분명한 지시형으로 써요.
 - 제품 문구는 Figma의 JDS Voice and tone 원칙을 따르고, 체인지셋은 [체인지셋 작성 규약](../changeset-guide.md)을 따라요.
 
-같은 문제가 반복되면 기존 규칙을 고쳐요. 사례마다 새 규칙이나 역할을 늘리지 않아요. 지금까지 확인한 범위는 [평가 결과](evals/evaluation-report.md)에 있어요.
+같은 문제가 반복되면 기존 규칙을 고쳐요. 사례마다 새 규칙이나 역할을 늘리지 않아요.
 
 참고한 공식 문서:
 
