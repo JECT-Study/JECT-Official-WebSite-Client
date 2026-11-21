@@ -18,34 +18,16 @@ index.ts              배럴
 
 React 컴포넌트와 스토리 파일은 PascalCase, `.css.ts`·`.types.ts`·`.context.ts`는 컴포넌트 이름을 camelCase로 쓴다. 타입을 어느 파일에 둘지는 [타입 선언 규약](../../docs/type-convention.md)을 따른다.
 
-## compound 컴포넌트
+## compound 컴포넌트와 배럴
 
-루트를 `forwardRef`로 만들고 `Object.assign`으로 파트를 붙인다. 파트를 개별 export 하지 않는다.
+구조는 `src/components/TextField/`의 `TextField.tsx`와 `index.ts`를 기준으로 맞춘다. 비슷해 보이는 다른 컴포넌트를 기준으로 삼지 않는다. 컴포넌트마다 정리된 시점이 달라 구조가 섞여 있다.
 
-```tsx
-const TextFieldRoot = forwardRef<HTMLDivElement, TextFieldProps>((props, ref) => (
-  <Field ref={ref} {...props} />
-));
-TextFieldRoot.displayName = "TextField";
+코드만 봐서는 알 수 없는 규칙은 두 가지다.
 
-export const TextField = Object.assign(TextFieldRoot, {
-  Label: Field.Label,
-  Input: TextFieldInput,
-  Helper: Field.Helper,
-});
-```
+- 공개 compound 컴포넌트는 점 표기(`TextField.Input`)와 함께 루트 이름을 붙인 개별 export(`TextFieldInput`)도 배럴에 둔다. 서버 컴포넌트에서는 `"use client"` 경계 때문에 점 표기로 파트에 접근할 수 없다. 두 export는 같은 값이어야 한다. 사용법은 Storybook `Guides/Server Components`에 있다.
+- 공개 배럴(`src/components/index.ts`)에 없는 내부 컴포넌트는 파트를 개별 export하지 않는다. `Listbox`가 그 예다.
 
-`as` prop을 받는 다형 컴포넌트는 `src/utils/forwardRef.ts`의 `PolymorphicForwardRef`를 쓴다. 컨텍스트는 `src/hooks/createCtxProvider.tsx`로 만든다. Provider 밖에서 쓰면 에러를 던진다.
-
-## 배럴
-
-`components/<Name>/index.ts` → `components/index.ts` → `src/index.ts` 순으로 올린다. 여기 없으면 소비처가 쓸 수 없다. 값과 타입을 나눠 쓰고, 타입은 `*.types.ts`에서 다시 export한다. 공유 파트의 props 타입은 루트 이름을 접두어로 재export 한다.
-
-```ts
-export { TextField } from "./TextField";
-export type { TextFieldInputProps, TextFieldProps } from "./textField.types";
-export type { FieldLabelProps as TextFieldLabelProps } from "../Field";
-```
+배럴은 `components/<Name>/index.ts` → `components/index.ts` → `src/index.ts` 순으로 올린다. 여기 없으면 소비처가 쓸 수 없다. `as` prop을 받는 다형 컴포넌트는 `src/utils/forwardRef.ts`의 `PolymorphicForwardRef`를, 컨텍스트는 `src/hooks/createCtxProvider.tsx`를 쓴다.
 
 ## 스타일 (vanilla-extract)
 
