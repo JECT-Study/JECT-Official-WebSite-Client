@@ -34,7 +34,7 @@ npm run build --workspace=@jects/jds
 
 # 시각 회귀 테스트 (Docker 필요). 단위 테스트 러너는 없다
 npm run vrt --workspace=@jects/vrt
-npm run vrt:baseline --workspace=@jects/vrt
+npm run vrt:baseline --workspace=@jects/vrt  # 로컬 결과는 커밋하지 않는다. PR에 vrt-baseline 레이블을 붙인다
 
 # 생성물 재생성
 npm run build:icons --workspace=@jects/jds    # src/assets/icons → Icon/generated
@@ -48,6 +48,12 @@ npm run changeset
 
 - [체인지셋 작성 규약](docs/changeset-guide.md) — `.changeset/*.md`를 작성하거나 수정하기 전에 읽는다.
 - [타입 선언 규약](docs/type-convention.md) — `packages/jds`에서 타입을 선언하거나 옮기기 전에 읽는다.
+- [JDS 작업 지침](packages/jds/AGENTS.md) — `packages/jds`의 코드·스타일·스토리를 쓰거나 고치기 전에 읽는다. 파일 구조, compound·배럴, vanilla-extract, 아이콘, VRT 베이스라인 규칙이 있다.
+- [PR 작성](.claude/skills/ject-jds-workflow/references/pull-request.md) — PR 설명을 쓰거나 고치기 전에 읽는다. JDS 밖의 PR에도 같은 기준을 쓴다.
+
+## JDS 개발 하네스
+
+JDS 컴포넌트 설계·구현·종합 리뷰에는 `.claude/skills/ject-jds-workflow/SKILL.md`를 읽는다. 짧은 요청은 요구사항 조사·제안·질문부터 진행하고, 명세 외 실제 합의는 PR 설명에 간략히 남긴다. Codex의 `.agents/skills/ject-jds-*`는 저장소 안의 같은 원본을 가리킨다. 사용법은 [하네스 안내](docs/ai/README.md)에 있다. 단순 탐색·문서 오타·체인지셋만 다루는 요청에는 필요한 최소 절차만 적용한다.
 
 ## Boundaries
 
@@ -58,6 +64,7 @@ npm run changeset
   - `packages/jds`에서 배포되는 코드가 바뀌면 체인지셋 추가. 테스트, 스토리, 문서, CI만 바뀌었다면 만들지 않는다.
   - JDS 컴포넌트를 바꾸면 Storybook 스토리도 함께 갱신
   - 공개 API는 배럴(`index.ts`)에 export. 여기 없으면 소비처가 쓸 수 없다
+  - `docs/`에는 계속 지켜야 할 규약만 둔다. 측정이나 검증처럼 특정 시점의 결과는 PR 본문에 남긴다
 
 - **먼저 묻기**
   - 새 패키지 추가, 외부 의존성 추가
@@ -72,3 +79,4 @@ npm run changeset
   - `.env`, API 키, 시크릿 커밋
   - `dist/`, `node_modules/` 수정
   - `pnpm`, `yarn`, `bun` 사용
+  - 기능 PR에 팀 규약 문서나 컴포넌트 README 추가. 규약은 별도 PR로 논의한다
