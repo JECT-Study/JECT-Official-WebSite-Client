@@ -2,7 +2,7 @@
 
 ## 지금 사용할 수 있는 경로
 
-현재 JDS는 Storybook 10.1 계열의 `storybook/test` play를 사용하고 a11y/Vitest 애드온은 설정되어 있지 않다. apps/web 설정을 JDS 검사 완료로 대신하지 않는다. 설치된 의존성·설정·실행 스크립트를 다시 확인한다.
+현재 JDS는 Storybook 10.1 계열의 `storybook/test` play를 사용하고 a11y/Vitest 애드온은 설정되어 있지 않다. 설치된 의존성·설정·실행 스크립트를 다시 확인한다.
 
 - 정적 추적: 레이블/설명 ID, 실제 HTML과 prop 전달, public API, 필수·오류·disabled/readOnly 의미.
 - 브라우저: 렌더된 DOM/접근성 트리, computed style, focus와 selection, 상태 변경과 실제 FormData. 도구가 지원하는 API를 사용하고 성공한 조작과 실패한 시도를 구분한다.
