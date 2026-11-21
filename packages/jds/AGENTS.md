@@ -87,9 +87,9 @@ Field 계열은 `fieldArgTypes` + `FIELD_WIDTH`를 쓰고, 상태 나열은 `Fle
 
 ## Field 계열
 
-`src/components/Field/`가 내부 primitive다. `TextField`, `Textarea`, `SelectField`, `MultiSelectField`, `SuggestionField`가 이 위에 얹힌다. `Field.Label`·`Field.Helper` 등은 공유하고 `compound/Input.tsx`만 각자 만든다.
+`src/components/Field/`가 내부 primitive다. 입력 필드 컴포넌트들이 이 위에 얹혀 `Field.Label`, `Field.Helper` 등을 공유하고 `compound/Input.tsx`만 각자 만든다.
 
-공통 동작을 바꿀 땐 `Field/useFieldControl.ts`와 `Field/field.context.ts`를 먼저 본다. 한 필드만 고치고 나머지에 반영을 빠뜨리기 쉽다.
+공통 동작을 바꿀 땐 `Field/useFieldControl.ts`와 `Field/field.context.ts`를 먼저 보고, `Field`를 가져다 쓰는 컴포넌트를 검색해 영향 범위를 모두 확인한다. 한 필드만 고치고 나머지에 반영을 빠뜨리기 쉽다. 필드 컴포넌트는 계속 늘어나므로 목록을 외워 두지 않는다.
 
 ## 소비처
 
