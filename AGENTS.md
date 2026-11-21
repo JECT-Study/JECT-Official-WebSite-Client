@@ -64,6 +64,7 @@ JDS 컴포넌트 설계·구현·종합 리뷰에는 `.claude/skills/ject-jds-wo
   - `packages/jds`에서 배포되는 코드가 바뀌면 체인지셋 추가. 테스트, 스토리, 문서, CI만 바뀌었다면 만들지 않는다.
   - JDS 컴포넌트를 바꾸면 Storybook 스토리도 함께 갱신
   - 공개 API는 배럴(`index.ts`)에 export. 여기 없으면 소비처가 쓸 수 없다
+  - `docs/`에는 계속 지켜야 할 규약만 둔다. 측정이나 검증처럼 특정 시점의 결과는 PR 본문에 남긴다
 
 - **먼저 묻기**
   - 새 패키지 추가, 외부 의존성 추가
@@ -78,3 +79,4 @@ JDS 컴포넌트 설계·구현·종합 리뷰에는 `.claude/skills/ject-jds-wo
   - `.env`, API 키, 시크릿 커밋
   - `dist/`, `node_modules/` 수정
   - `pnpm`, `yarn`, `bun` 사용
+  - 기능 PR에 팀 규약 문서나 컴포넌트 README 추가. 규약은 별도 PR로 논의한다
