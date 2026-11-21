@@ -1,6 +1,6 @@
 # JDS 토큰 파이프라인
 
-2026-10-28 `dev` 코드 확인 기준(#743 DTCG 입력 전환, #744 동기화 플러그인 이후). 경로와 입력 구조는 변경 전 다시 읽는다.
+2026-11-21 `dev` 코드 확인 기준(#743 DTCG 입력 전환, #744 동기화 플러그인, #756과 #757 토큰 CI 이후). 경로와 입력 구조는 변경 전 다시 읽는다.
 
 ## 입력과 생성
 
@@ -11,6 +11,15 @@
 - `schema.ts`: Zod 스키마(`tokenSchema`, `textStyleSchema`)와 값·단위/반응형·theme 변환. 값 형식을 바꾸기 전 실제 validation과 unit 변환을 읽는다.
 - `tokensBuilder.ts`: 위 입력 → `tokens.ts`, `vars.css.ts`, `globalTokens.css.ts`, `textStyles.ts`, `breakpoints.ts`. 생성물 이름은 builder의 현재 `writeGeneratedFile` 호출로 확인한다.
 - 실행: `npm run build:tokens --workspace=@jects/jds`. 권한 있는 source 변경에서만 실행하고 입력·생성물 diff를 모두 검토한다.
+
+## PR에서 CI가 하는 일
+
+토큰 입력(`packages/jds/src/tokens/input/`)이 바뀐 PR에서는 `.github/workflows/tokens.yml`이 다음을 PR 브랜치에 커밋한다.
+
+- `build:tokens`로 생성물을 다시 만든다.
+- `packages/jds/scripts/token-contract-diff.mjs`로 공개 토큰의 변화를 비교해 `.changeset/figma-token-sync-<PR번호>.md`를 쓰고, 같은 내용을 PR 댓글로 남긴다.
+
+그래서 토큰 값만 바뀐 체인지셋은 직접 쓰지 않는다. 직접 쓰면 CI가 만든 체인지셋과 겹친다. 토큰 변경 때문에 컴포넌트의 동작이나 공개 prop이 바뀌었다면 그 부분만 해당 컴포넌트의 체인지셋으로 따로 쓴다. 로컬에서 `build:tokens`를 돌린 생성물은 커밋해도 되며, 이때 CI는 바뀐 것이 없으면 커밋하지 않는다. 다른 저장소에서 연 PR에서는 이 CI가 돌지 않으므로 생성물과 체인지셋을 직접 준비한다.
 
 ## Figma에서 들어오는 경로
 
@@ -30,4 +39,4 @@ DTCG는 입력 형식으로 쓰지만 사양 전체를 지원한다는 뜻은 �
 - 기본값·placeholder·readonly·disabled·error·focus와 실제 소비처를 대표 사례로 비교한다.
 - 디자인 자료의 위치/버전과 code source를 기록하고 일치하지 않는 값을 임의 보정하지 않는다.
 - 같은 source를 재생성했을 때 출력이 안정적인지 확인한다. builder는 생성 시간 줄을 뺀 내용이 같으면 파일을 다시 쓰지 않으므로, 입력이 그대로인데 생성물 diff가 생기면 원인부터 확인한다. 생성물만의 수정이나 의도하지 않은 대규모 diff를 시간 차이로 넘기지 않는다.
-- 토큰 변경이 컴포넌트의 상태 DOM·공개 prop·행동도 바꾸는지 확인하고 current changeset 규약으로 분류한다.
+- 토큰 변경이 컴포넌트의 상태 DOM·공개 prop·행동도 바꾸는지 확인한다. 바뀌면 그 컴포넌트의 체인지셋을 현재 규약으로 쓰고, 토큰 자체의 체인지셋은 위의 CI에 맡긴다.

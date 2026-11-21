@@ -53,7 +53,7 @@ React 컴포넌트와 스토리 파일은 PascalCase, `.css.ts`·`.types.ts`·`.
 | `src/components/Icon/generated/`                                                                      | `npm run build:icons --workspace=@jects/jds` (입력: `src/assets/icons/`)     |
 | `src/assets/icons/*.svg`, `IconMap.ts`의 `iconMap` 블록                                               | `npm run sync:icons --workspace=@jects/jds` (입력: Figma Iconography 페이지) |
 
-토큰 입력 형식과 생성 경로는 [토큰 파이프라인](../../.claude/skills/ject-jds-tokens/references/pipeline.md)에 있다.
+토큰 입력이 바뀐 PR에서는 CI가 토큰 생성물과 체인지셋(`figma-token-sync-<PR번호>.md`)을 브랜치에 커밋한다. 토큰 체인지셋은 직접 쓰지 않는다. 입력 형식과 CI 동작은 [토큰 파이프라인](../../.claude/skills/ject-jds-tokens/references/pipeline.md)에 있다.
 
 ## 아이콘
 
