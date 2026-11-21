@@ -13,7 +13,7 @@ description: JDS 코드·PR·게시된 리뷰를 실제 대상 head에서 검토
 2. PR이 대상일 때 설명, 변경 파일, 현재 checks, review 본문·inline 댓글·답글 및 해결 상태를 읽는다. 파일 경로가 대상이면 요청한 파일 전체와 필요한 사용처를 검토하고 관련 없는 PR 전체 조회로 확대하지 않는다. 브랜치/diff 리뷰는 요청한 비교 범위를 따른다. 리뷰 작성자의 판단을 그대로 사실로 취급하지 않는다.
 3. 로컬과 PR head가 다르면 read-only remote source/diff 또는 안전한 별도 작업 공간에서 실제 head를 읽는다. 로컬 재현이 PR에도 적용되는지 source를 비교한다.
 4. [검토 축](references/review-checks.md) 중 변경에 해당하는 계약을 전체 경로로 추적한다. 접근성은 `ject-jds-accessibility`, 토큰은 `ject-jds-tokens`, 설계 대안은 `ject-jds-component-design`의 해당 부분만 사용한다.
-5. 유지보수성·설계 품질 또는 FF 기준을 요청했다면 [ject-jds-ff-review](../ject-jds-ff-review/SKILL.md)와 criteria 전체를 적용한다. 실제 PR/경로를 대상으로 사용하고 FF 판단과 기능 결함을 분리한다. 버그만 요청한 검토에는 FF 전수 평가를 강제하지 않는다.
+5. 유지보수성·설계 품질 또는 FF 기준을 요청했다면 FF 전수 검토는 `ject-jds-ff` 역할에 맡기고 돌아온 결과를 리뷰에 합친다([역할과 반환 계약](../ject-jds-workflow/references/roles.md)). `ject-jds-ff` 역할 자신이거나 역할을 쓸 수 없는 도구라면 [ject-jds-ff-review](../ject-jds-ff-review/SKILL.md)와 criteria 전체를 직접 적용한다. 실제 PR/경로를 대상으로 사용하고 FF 판단과 기능 결함을 분리한다. 버그만 요청한 검토에는 FF 전수 평가를 강제하지 않는다.
 6. 기존 assertion과 primitive가 문제를 막는지 확인하고 필요한 동작을 재현한다. PR 리뷰에서도 동적 prop 변경과 폼 제출을 확인한다. 미실행 검사는 성공으로 기록하지 않는다.
 
 ## 결과
