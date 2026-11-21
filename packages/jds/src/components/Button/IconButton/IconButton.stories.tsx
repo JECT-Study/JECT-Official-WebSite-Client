@@ -118,6 +118,30 @@ export const IconButtonDisabled: Story = {
   ),
 };
 
+export const IconButtonFieldsetDisabled: Story = {
+  render: () => (
+    <fieldset disabled style={{ margin: 0, padding: 0, border: 0, minWidth: 0 }}>
+      <FlexRow>
+        {ICON_BUTTON_HIERARCHY_OPTIONS.map(hierarchy => (
+          <IconButton
+            key={hierarchy}
+            icon='check'
+            hierarchy={hierarchy}
+            aria-label={`체크 ${hierarchy}`}
+          />
+        ))}
+      </FlexRow>
+    </fieldset>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: "`<fieldset disabled>` 안에 두면 `disabled`를 지정하지 않아도 비활성 상태가 됩니다.",
+      },
+    },
+  },
+};
+
 export const IconButtonCondensed: Story = {
   render: () => (
     <FlexColumn>

@@ -148,7 +148,7 @@ const baseStyles = style({
   whiteSpace: "nowrap",
   gap: vars.scheme.semantic.spacing["4"],
   selectors: {
-    "&[data-disabled]": { cursor: "not-allowed" },
+    "&:disabled, &[data-disabled]": { cursor: "not-allowed" },
     "&::before": { inset: 0, borderRadius: "inherit" },
     "&::after": { inset: 0, borderRadius: "inherit" },
   },
@@ -158,7 +158,7 @@ const solidCompoundVariants = BLOCK_BUTTON_HIERARCHY_OPTIONS.map(hierarchy => ({
   variants: { hierarchy, variant: "solid" as const },
   style: {
     ...colorVars(solidEnabledByHierarchy[hierarchy], solidOverlayColorByHierarchy[hierarchy]),
-    selectors: { "&[data-disabled]": colorVars(solidDisabled) },
+    selectors: { "&:disabled, &[data-disabled]": colorVars(solidDisabled) },
   } satisfies StyleRule,
 }));
 
@@ -166,7 +166,7 @@ const outlinedCompoundVariants = BLOCK_BUTTON_HIERARCHY_OPTIONS.map(hierarchy =>
   variants: { hierarchy, variant: "outlined" as const },
   style: {
     ...colorVars(outlinedEnabledByHierarchy[hierarchy], overlayColorByHierarchy[hierarchy]),
-    selectors: { "&[data-disabled]": colorVars(outlinedDisabled) },
+    selectors: { "&:disabled, &[data-disabled]": colorVars(outlinedDisabled) },
   } satisfies StyleRule,
 }));
 
@@ -174,7 +174,7 @@ const hollowCompoundVariants = BLOCK_BUTTON_HIERARCHY_OPTIONS.map(hierarchy => (
   variants: { hierarchy, variant: "hollow" as const },
   style: {
     ...colorVars(hollowEnabledByHierarchy[hierarchy], overlayColorByHierarchy[hierarchy]),
-    selectors: { "&[data-disabled]": colorVars(hollowDisabled) },
+    selectors: { "&:disabled, &[data-disabled]": colorVars(hollowDisabled) },
   } satisfies StyleRule,
 }));
 
@@ -209,7 +209,7 @@ export const basicRoot = recipe({
 
 const feedbackVariant = (enabled: SolidPalette): StyleRule => ({
   ...colorVars(enabled, solidOverlayColorByHierarchy.accent),
-  selectors: { "&[data-disabled]": colorVars(solidDisabled) },
+  selectors: { "&:disabled, &[data-disabled]": colorVars(solidDisabled) },
 });
 
 const feedbackVariants = {
