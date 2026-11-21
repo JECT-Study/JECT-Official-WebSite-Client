@@ -1,6 +1,7 @@
 import { createVar, fallbackVar, type StyleRule } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
+import { interactionTargetDisabledSelector, interactionTargetSelector } from "./interactionTarget";
 import { vars } from "../tokens/vars.css";
 
 export type OverlayDensity = "normal" | "bold";
@@ -38,6 +39,7 @@ export const overlayPressedOpacity = createVar();
  * hover는 언제나 요소 자신의 `:hover`를 쓰고, press는 `interaction`으로 어느 요소에서 읽을지 정한다.
  * `self`는 자신의 `:active`를, `delegated`는 직계 자식 `[data-interaction-target]`의 `:active`를 읽는다.
  * 요소의 `position: relative`와 `::after`의 inset, borderRadius는 호출부가 지정한다. disabled 상태는 `data-disabled`로 표시한다.
+ * `delegated`는 내부 버튼이 `:disabled`일 때도 hover를 막는다.
  *
  * @see ./PSEUDO_ELEMENT_POLICY.md
  * @example overlay({ hierarchy: "secondary", interaction: "delegated" })
@@ -101,7 +103,7 @@ export const overlay = recipe({
       },
       delegated: {
         selectors: {
-          "&:not([data-disabled]):has(> [data-interaction-target]:active)::after": {
+          [`&:not([data-disabled]):has(> ${interactionTargetSelector}:active)::after`]: {
             opacity: fallbackVar(overlayPressedOpacity, overlayOpacityMap.bold.pressed),
             transition: "none",
           },
@@ -109,10 +111,11 @@ export const overlay = recipe({
         "@media": {
           "(hover: hover) and (pointer: fine)": {
             selectors: {
-              "&:hover:not(:disabled):not([data-disabled])::after": {
-                opacity: fallbackVar(overlayHoverOpacity, overlayOpacityMap.bold.hover),
-              },
-              "&:not([data-disabled]):has(> [data-interaction-target]:active)::after": {
+              [`&:hover:not(:disabled):not([data-disabled]):not(${interactionTargetDisabledSelector})::after`]:
+                {
+                  opacity: fallbackVar(overlayHoverOpacity, overlayOpacityMap.bold.hover),
+                },
+              [`&:not([data-disabled]):has(> ${interactionTargetSelector}:active)::after`]: {
                 opacity: fallbackVar(overlayPressedOpacity, overlayOpacityMap.bold.pressed),
                 transition: "none",
               },

@@ -1,6 +1,7 @@
 import { createVar, type StyleRule } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
+import { interactionTargetSelector } from "./interactionTarget";
 import { vars } from "../tokens/vars.css";
 
 export type FocusRingBorder = "outside" | "inside";
@@ -70,7 +71,7 @@ export const focusRing = recipe({
       },
       delegated: {
         selectors: {
-          "&:has(> [data-interaction-target]:focus-visible)::before": {
+          [`&:has(> ${interactionTargetSelector}:focus-visible)::before`]: {
             boxShadow: focusRingShadow,
             zIndex: 1,
           },

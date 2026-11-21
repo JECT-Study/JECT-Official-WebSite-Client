@@ -3,6 +3,7 @@ import { vars } from "tokens";
 import { pxToRem } from "utils";
 
 import { focusRing } from "@/utils/focusRing.css";
+import { interactionTargetDisabledSelector } from "@/utils/interactionTarget";
 import { overlay, overlayHoverOpacity, overlayPressedOpacity } from "@/utils/overlay.css";
 
 const LAYER_INSET = `${pxToRem(-6)} ${pxToRem(-8)}`;
@@ -29,9 +30,16 @@ export const root = style([
           [overlayPressedOpacity]: "0",
         },
       },
+      // prop 없이 <fieldset disabled>로 비활성이 되면 interactive 클래스가 붙어 있으므로 커서를 덮어쓴다.
+      [`&${interactionTargetDisabledSelector}`]: {
+        cursor: "not-allowed",
+      },
     },
   },
 ]);
+
+// disabled prop과 <fieldset disabled>로 비활성이 된 경우를 모두 잡는다.
+const disabledRootDescendant = `${root}[data-disabled] &, ${root}${interactionTargetDisabledSelector} &`;
 
 export const mainAction = style({
   display: "flex",
@@ -73,7 +81,7 @@ export const icon = style({
   flexShrink: 0,
   color: vars.color.semantic.object.alternative,
   selectors: {
-    [`${root}[data-disabled] &`]: {
+    [disabledRootDescendant]: {
       color: vars.color.semantic.object.subtler,
     },
   },
@@ -103,18 +111,19 @@ export const fileName = style({
   "@media": {
     "(hover: hover) and (pointer: fine)": {
       selectors: {
-        [`${root}:hover:not([data-readonly]):not([data-disabled]) &`]: {
-          textDecorationColor: "currentColor",
-        },
+        [`${root}:hover:not([data-readonly]):not([data-disabled]):not(${interactionTargetDisabledSelector}) &`]:
+          {
+            textDecorationColor: "currentColor",
+          },
       },
     },
   },
   selectors: {
     // readonly/disabled 상태에서는 선택 중에도 밑줄이 드러나지 않도록 제거한다.
-    [`${root}[data-readonly] &, ${root}[data-disabled] &`]: {
+    [`${root}[data-readonly] &, ${disabledRootDescendant}`]: {
       textDecorationLine: "none",
     },
-    [`${root}[data-disabled] &`]: {
+    [disabledRootDescendant]: {
       color: vars.color.semantic.object.subtle,
     },
   },
@@ -136,7 +145,7 @@ export const fileSize = style({
   color: vars.color.semantic.object.alternative,
   cursor: "inherit",
   selectors: {
-    [`${root}[data-disabled] &`]: {
+    [disabledRootDescendant]: {
       color: vars.color.semantic.object.subtle,
     },
   },
